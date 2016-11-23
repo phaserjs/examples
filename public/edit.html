@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Phaser 3 Examples</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+    </head>
+    <body>
+
+    <div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+
+    <script src="./js/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': './js/vs' }});
+        require(['vs/editor/editor.main'], function() {
+            var editor = monaco.editor.create(document.getElementById('container'), {
+                value: [
+                    'function x() {',
+                    '\tconsole.log("Hello world!");',
+                    '}'
+                ].join('\n'),
+                language: 'javascript'
+            });
+        });
+    </script>
+
+    </body>
+</html>

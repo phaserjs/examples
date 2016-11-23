@@ -1,26 +1,43 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Phaser 3 Examples</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <script src="./js/loadJSON.js"></script>
+        <script src="./js/getQueryString.js"></script>
     </head>
     <body>
 
     <h1>Phaser 3 Examples</h1>
 
-    <ul id="examplesList"></ul>
+    <div id="examplesList" class="list-group"></div>
 
     <script type="text/javascript">
 
     loadJSON('examples.json', function (json) {
 
-        // var list = document.getElementById('examplesList');
+        var list = document.getElementById('examplesList');
 
         json.files.forEach(function(filename) {
 
-            console.log(filename);
+            var link = document.createElement('a');
+
+            link.href = 'index.html?src=' + filename;
+
+            if (getQueryString('src') === filename)
+            {
+                link.className = 'list-group-item active';
+            }
+            else
+            {
+                link.className = 'list-group-item list-group-item-action';
+            }
+
+            link.innerText = filename;
+
+            list.appendChild(link);
 
         });
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Phaser Sandbox Frame</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background-color: white;
+        }
+    </style>
+    <script src="./js/phaser.js"></script>
+</head>
+
+<body>
+
+    <div id="game"></div>
+
+    <script type="text/javascript">
+
+    var _isAlive = false;
+
+    window.onload = function ()
+    {
+        console.clear();
+
+        _isAlive = true;
+
+        //  The iFrame is now alive, so let's ping the editor to get the source code to run
+
+        var i = window.top;
+
+        i.postMessage('getCode', '*');
+    }
+
+    window.addEventListener('message', function (event) {
+
+        // console.log('iframe received message');
+        // console.log(event);
+
+        var mainWindow = event.source;
+
+        if (event.data === 'ping')
+        {
+            mainWindow.postMessage(_isAlive, event.origin);
+        }
+        else if (event.data === 'reload')
+        {
+            //  Otherwise it fires a shutdown event when the page reloads
+            window.onbeforeunload = function() {};
+            window.location.reload();
+        }
+        else
+        {
+            try {
+                eval(event.data);
+            }
+            catch (e)
+            {
+                console.warn(e);
+            }
+        }
+
+    });
+
+    </script>
+
+</body>
+</html>

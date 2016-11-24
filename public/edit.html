@@ -5,24 +5,95 @@
         <title>Phaser 3 Examples</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <script src="./js/phaser.js"></script>
+        <script src="./js/vs/loader.js"></script>
+        <style>
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                background-color: #535353;
+                margin: 16px 0 0 0;
+                padding: 0;
+            }
+
+            #editor, #sandboxed {
+                margin-top: 16px;
+                width: 100%;
+                height: 90vh;
+                border: 1px solid black;
+            }
+        </style>
     </head>
     <body>
 
-    <div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-dark bg-inverse">
+                    <a class="navbar-brand" href="#">Phaser 3 Sandbox</a>
+                    <button class="btn btn-primary" type="submit" id="run">Run Code</button>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="editor"></div>
+            </div>
+            <div class="col-md-6">
+                <iframe sandbox="allow-scripts" id="sandboxed" src="frame.html"></iframe>
+            </div>
+        </div>
+    </div>
 
-    <script src="./js/vs/loader.js"></script>
-    <script>
-        require.config({ paths: { 'vs': './js/vs' }});
-        require(['vs/editor/editor.main'], function() {
-            var editor = monaco.editor.create(document.getElementById('container'), {
-                value: [
-                    'function x() {',
-                    '\tconsole.log("Hello world!");',
-                    '}'
-                ].join('\n'),
-                language: 'javascript'
-            });
+    <script type="text/javascript">
+
+    var editorDiv = document.getElementById('editor');
+
+    var editor;
+
+    require.config({ paths: { 'vs': './js/vs' }});
+    require(['vs/editor/editor.main'], function() {
+        editor = monaco.editor.create(editorDiv, {
+            value: [
+                '// var config = { width: 800, height: 600 };',
+                '// var game = new Phaser.Game(config);',
+            ].join('\n'),
+            language: 'javascript'
         });
+
+        window.onresize = function () {
+            editor.layout();
+        };
+
+        var frame = document.getElementById('sandboxed');
+
+        var run = document.getElementById('run');
+
+        run.onclick = function ()
+        {
+            frame.contentWindow.postMessage('reload', '*');
+        };
+
+        window.addEventListener('message', function (event) {
+
+            // console.log('editor received message');
+            // console.log(event);
+
+            var mainWindow = event.source;
+
+            if (event.data === 'getCode')
+            {
+                var src = editor.model.getLinesContent();
+
+                frame.contentWindow.postMessage(src.join('\n'), '*');
+            }
+
+        });
+
+    });
+
     </script>
 
     </body>

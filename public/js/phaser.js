@@ -92,17 +92,34 @@ module.exports = g;
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+var CONST = {
+
+    VERSION: '3.0.0',
+
+    AUTO: 0,
+    CANVAS: 1,
+    WEBGL: 2
+
+};
+
+module.exports = CONST;
+
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = {
 
-    Game: __webpack_require__(5)
+    Game: __webpack_require__(6)
 
 };
 
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(7);
@@ -116,31 +133,6 @@ __webpack_require__(11);
 
 
 /***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-/**
-* @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2016 Photon Storm Ltd.
-* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
-*/
-
-// var CONST = require('../const');
-
-function Config (config)
-{
-    if (config === undefined) { config = {}; }
-
-    this.renderType = config.renderType || 0;
-    this.gameTitle = config.game || 'bomberman';
-}
-
-Config.prototype.constructor = Config;
-
-module.exports = Config;
-
-
-/***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -150,25 +142,151 @@ module.exports = Config;
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-var CONST = __webpack_require__(6);
+var CONST = __webpack_require__(1);
 
-var DebugHeader = function (config)
+var defaultBannerColor = [
+    '#ff0000',
+    '#ffff00',
+    '#00ff00',
+    '#00ffff',
+    '#000000'
+];
+
+var defaultBannerTextColor = '#ffffff';
+
+function getValue (obj, key, def)
 {
-    var c = (config.renderType === CONST.CANVAS) ? 'Canvas' : 'WebGL';
+    if (obj.hasOwnProperty(key))
+    {
+        return obj[key];
+    }
+    else
+    {
+        return def;
+    }
+}
+
+function Config (config)
+{
+    if (config === undefined) { config = {}; }
+
+    this.width = getValue(config, 'width', 1024);
+    this.height = getValue(config, 'height', 768);
+
+    this.resolution = getValue(config, 'resolution', 1);
+
+    this.renderType = getValue(config, 'type', CONST.AUTO);
+
+    this.parent = getValue(config, 'parent', null);
+
+    this.stateConfig = getValue(config, 'state', null);
+
+    this.rngSeed = getValue(config, 'seed', (Date.now() * Math.random()).toString());
+
+    this.gameTitle = getValue(config, 'title', '');
+    this.gameURL = getValue(config, 'url', 'http://phaser.io');
+    this.gameVersion = getValue(config, 'version', '');
+
+    //  If you do: { banner: false } it won't display any banner at all
+    var banner = getValue(config, 'banner', null);
+
+    this.hideBanner = (banner === false);
+
+    if (!banner)
+    {
+        //  Use the default banner set-up
+        banner = {};
+    }
+
+    this.hidePhaser = getValue(banner, 'hidePhaser', false);
+    this.bannerTextColor = getValue(banner, 'text', defaultBannerTextColor);
+    this.bannerBackgroundColor = getValue(banner, 'background', defaultBannerColor);
+}
+
+Config.prototype.constructor = Config;
+
+module.exports = Config;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2016 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*/
+
+var CONST = __webpack_require__(1);
+
+var DebugHeader = function (game)
+{
+    var config = game.config;
+
+    if (config.hideBanner)
+    {
+        return;
+    }
+
+    var renderType = (config.renderType === CONST.CANVAS) ? 'Canvas' : 'WebGL';
 
     var ie = false;
 
     if (!ie)
     {
-        var args = [
-            '%c %c %c %c %c ' + config.gameTitle + ' / Phaser v' + CONST.VERSION + ' / ' + c + '  %c http://phaser.io',
-            'background: #ff0000',
-            'background: #ffff00',
-            'background: #00ff00',
-            'background: #00ffff',
-            'color: #ffffff; background: #000;',
-            'background: #fff'
-        ];
+        var c = '';
+        var args = [c];
+
+        if (Array.isArray(config.bannerBackgroundColor))
+        {
+            var lastColor;
+
+            config.bannerBackgroundColor.forEach(function(color) {
+
+                c = c.concat('%c ');
+
+                args.push('background: ' + color);
+
+                lastColor = color;
+
+            });
+
+            //  inject the text color
+            args[args.length - 1] = 'color: ' + config.bannerTextColor + '; background: ' + lastColor;
+        }
+        else
+        {
+            args.push('color: ' + config.bannerTextColor + '; background: ' + config.bannerBackgroundColor);
+        }
+
+        //  URL link background color (always white)
+        args.push('background: #fff');
+
+        if (config.gameTitle)
+        {
+            c = c.concat(config.gameTitle);
+
+            if (config.gameVersion)
+            {
+                c = c.concat(' v' + config.gameVersion);
+            }
+
+            if (!config.hidePhaser)
+            {
+                c = c.concat(' / ');
+            }
+        }
+
+        if (!config.hidePhaser)
+        {
+            c = c.concat('Phaser v' + CONST.VERSION + ' (' + renderType + ')');
+        }
+
+        c = c.concat(' %c ' + config.gameURL);
+
+        //  Inject the new string back into the args array
+        args[0] = c;
 
         console.log.apply(console, args);
     }
@@ -183,7 +301,7 @@ module.exports = DebugHeader;
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 /**
@@ -192,34 +310,17 @@ module.exports = DebugHeader;
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-var Config = __webpack_require__(3);
-var DebugHeader = __webpack_require__(4);
+var Config = __webpack_require__(4);
+var DebugHeader = __webpack_require__(5);
 
 var Game = function (config)
 {
     this.config = new Config(config);
 
-    DebugHeader(this.config);
+    DebugHeader(this);
 };
 
 module.exports = Game;
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-var CONST = {
-
-    VERSION: '3.0.0',
-
-    AUTO: 0,
-    CANVAS: 1,
-    WEBGL: 2
-
-};
-
-module.exports = CONST;
 
 
 /***/ },
@@ -688,9 +789,9 @@ if (!global.cancelAnimationFrame) {
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {__webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(global) {__webpack_require__(3);
 
-var boot = __webpack_require__(1);
+var boot = __webpack_require__(2);
 
 module.exports = boot;
 

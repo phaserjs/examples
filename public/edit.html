@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <script src="./js/phaser.js"></script>
+        <script src="./js/fileSaver.js"></script>
         <script src="./js/vs/loader.js"></script>
         <style>
             html, body {
@@ -34,6 +35,10 @@
                 <nav class="navbar navbar-dark bg-inverse">
                     <a class="navbar-brand" href="#">Phaser 3 Sandbox</a>
                     <button class="btn btn-primary" type="submit" id="run">Run Code</button>
+                    <form class="form-inline float-xs-right">
+                        <input class="form-control" type="text" placeholder="example.js" id="filename">
+                        <button class="btn" type="submit" id="save">Save</button>
+                    </form>
                 </nav>
             </div>
         </div>
@@ -74,6 +79,19 @@
         run.onclick = function ()
         {
             frame.contentWindow.postMessage('reload', '*');
+        };
+
+        var save = document.getElementById('save');
+
+        save.onclick = function ()
+        {
+            var name = document.getElementById('filename');
+
+            var src = editor.model.getLinesContent().join('\n');
+
+            var blob = new Blob([src], { type: 'text/plain;charset=utf-8' });
+
+            saveAs(blob, name.value);
         };
 
         window.addEventListener('message', function (event) {

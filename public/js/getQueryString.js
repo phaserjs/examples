@@ -8,7 +8,7 @@
 */
 function decodeURI (value)
 {
-    return decodeURIComponent(value.replace(/\+/g, " "));
+    return decodeURIComponent(value.replace(/\+/g, ' '));
 }
 
 /**
@@ -23,7 +23,7 @@ function getQueryString (parameter)
 {
     if (parameter === undefined) { parameter = ''; }
 
-    var output = {};
+    var output = null;
     var keyValues = location.search.substring(1).split('&');
 
     for (var i in keyValues)
@@ -38,6 +38,11 @@ function getQueryString (parameter)
             }
             else
             {
+                if (!output)
+                {
+                    output = {};
+                }
+
                 output[decodeURI(key[0])] = decodeURI(key[1]);
             }
         }

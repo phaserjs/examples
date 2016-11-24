@@ -22,8 +22,6 @@
 
     window.onload = function ()
     {
-        console.clear();
-
         _isAlive = true;
 
         //  The iFrame is now alive, so let's ping the editor to get the source code to run
@@ -52,6 +50,8 @@
         }
         else
         {
+            console.clear();
+
             try {
                 eval(event.data);
             }

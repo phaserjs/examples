@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <script src="./js/phaser.js"></script>
         <script src="./js/fileSaver.js"></script>
+        <script src="./js/loadSource.js"></script>
+        <script src="./js/getQueryString.js"></script>
         <script src="./js/vs/loader.js"></script>
         <style>
             html, body {
@@ -33,10 +35,11 @@
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar navbar-dark bg-inverse">
+                    <a class="navbar-brand" href="index.html">[ Home ]</a>
                     <a class="navbar-brand" href="#">Phaser 3 Sandbox</a>
                     <button class="btn btn-primary" type="submit" id="run">Run Code</button>
                     <form class="form-inline float-xs-right">
-                        <input class="form-control" type="text" placeholder="example.js" id="filename">
+                        <input class="form-control" type="text" id="filename">
                         <button class="btn" type="submit" id="save">Save</button>
                     </form>
                 </nav>
@@ -54,63 +57,84 @@
 
     <script type="text/javascript">
 
-    var editorDiv = document.getElementById('editor');
+    function loadEditor (source, filename)
+    {
+        var editor;
 
-    var editor;
+        require.config({ paths: { 'vs': './js/vs' }});
 
-    require.config({ paths: { 'vs': './js/vs' }});
-    require(['vs/editor/editor.main'], function() {
-        editor = monaco.editor.create(editorDiv, {
-            value: [
-                '// var config = { width: 800, height: 600 };',
-                '// var game = new Phaser.Game(config);',
-            ].join('\n'),
-            language: 'javascript'
-        });
+        require(['vs/editor/editor.main'], function() {
 
-        window.onresize = function () {
-            editor.layout();
-        };
+            editor = monaco.editor.create(document.getElementById('editor'), {
+                value: source,
+                language: 'javascript'
+            });
 
-        var frame = document.getElementById('sandboxed');
+            window.onresize = function () {
+                editor.layout();
+            };
 
-        var run = document.getElementById('run');
+            var run = document.getElementById('run');
+            var save = document.getElementById('save');
+            var frame = document.getElementById('sandboxed');
 
-        run.onclick = function ()
-        {
-            frame.contentWindow.postMessage('reload', '*');
-        };
-
-        var save = document.getElementById('save');
-
-        save.onclick = function ()
-        {
-            var name = document.getElementById('filename');
-
-            var src = editor.model.getLinesContent().join('\n');
-
-            var blob = new Blob([src], { type: 'text/plain;charset=utf-8' });
-
-            saveAs(blob, name.value);
-        };
-
-        window.addEventListener('message', function (event) {
-
-            // console.log('editor received message');
-            // console.log(event);
-
-            var mainWindow = event.source;
-
-            if (event.data === 'getCode')
+            if (filename)
             {
-                var src = editor.model.getLinesContent();
-
-                frame.contentWindow.postMessage(src.join('\n'), '*');
+                document.getElementById('filename').value = filename;
             }
 
-        });
+            run.onclick = function ()
+            {
+                frame.contentWindow.postMessage('reload', '*');
+            };
 
-    });
+            save.onclick = function ()
+            {
+                var name = document.getElementById('filename');
+
+                var src = editor.model.getLinesContent().join('\n');
+
+                var blob = new Blob([src], { type: 'text/plain;charset=utf-8' });
+
+                saveAs(blob, name.value);
+            };
+
+            window.addEventListener('message', function (event) {
+
+                // console.log('editor received message');
+                // console.log(event);
+
+                var mainWindow = event.source;
+
+                if (event.data === 'getCode')
+                {
+                    var src = editor.model.getLinesContent();
+
+                    frame.contentWindow.postMessage(src.join('\n'), '*');
+                }
+
+            });
+
+        });
+    }
+
+    if (getQueryString('src'))
+    {
+        loadSource('src/' + getQueryString('src'), function (source) {
+
+            loadEditor(source, getQueryString('src'));
+
+        });
+    }
+    else
+    {
+        var source = [
+            'var config = { width: 800, height: 600 };',
+            'var game = new Phaser.Game(config);'
+        ].join('\n');
+
+        loadEditor(source, 'example.js');
+    }
 
     </script>
 

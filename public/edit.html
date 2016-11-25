@@ -5,7 +5,7 @@
         <title>Phaser 3 Examples</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <script src="./js/phaser.js"></script>
+        <script src="./js/pouchdb-6.0.7.min.js"></script>
         <script src="./js/fileSaver.js"></script>
         <script src="./js/loadSource.js"></script>
         <script src="./js/getQueryString.js"></script>
@@ -38,9 +38,10 @@
                     <a class="navbar-brand" href="index.html">[ Home ]</a>
                     <a class="navbar-brand" href="#">Phaser 3 Sandbox</a>
                     <button class="btn btn-primary" type="submit" id="run">Run Code</button>
+                    <button class="btn btn-primary" type="submit" id="save">Save</button>
                     <form class="form-inline float-xs-right">
                         <input class="form-control" type="text" id="filename">
-                        <button class="btn" type="submit" id="save">Save</button>
+                        <button class="btn" type="submit" id="download">Download</button>
                     </form>
                 </nav>
             </div>
@@ -59,8 +60,6 @@
 
     function loadEditor (source, filename)
     {
-        var editor;
-
         require.config({ paths: { 'vs': './js/vs' }});
 
         require(['vs/editor/editor.main'], function() {
@@ -77,6 +76,7 @@
             var run = document.getElementById('run');
             var save = document.getElementById('save');
             var frame = document.getElementById('sandboxed');
+            var download = document.getElementById('download');
 
             if (filename)
             {
@@ -88,7 +88,7 @@
                 frame.contentWindow.postMessage('reload', '*');
             };
 
-            save.onclick = function ()
+            download.onclick = function ()
             {
                 var name = document.getElementById('filename');
 
@@ -97,6 +97,39 @@
                 var blob = new Blob([src], { type: 'text/plain;charset=utf-8' });
 
                 saveAs(blob, name.value);
+            };
+
+            save.onclick = function ()
+            {
+                var example = {
+                    _id: filename,
+                    code: editor.model.getLinesContent(),
+                    version: version++
+                };
+
+                if (entry)
+                {
+                    //  update instead of insert
+                    example._rev = entry._rev;
+                }
+
+                db.put(example, function callback(err, result) {
+                    
+                    if (!err)
+                    {
+                        console.log(filename, 'saved to db - version', example.version);
+
+                        console.log(result.rev);
+
+                        entry._rev = result.rev;
+                    }
+                    else
+                    {
+                        console.log(filename, 'failed to save:', err);
+                    }
+
+                });
+
             };
 
             window.addEventListener('message', function (event) {
@@ -118,23 +151,55 @@
         });
     }
 
-    if (getQueryString('src'))
+    var db;
+    var editor;
+    var entry;
+    var version = 1;
+
+    window.onload = function ()
     {
-        loadSource('src/' + getQueryString('src'), function (source) {
+        db = new PouchDB('phaser3-examples');
 
-            loadEditor(source, getQueryString('src'));
+        if (getQueryString('src'))
+        {
+            var filename = getQueryString('src');
 
-        });
-    }
-    else
-    {
-        var source = [
-            'var config = { width: 800, height: 600 };',
-            'var game = new Phaser.Game(config);'
-        ].join('\n');
+            db.get(filename, function(err, doc) {
 
-        loadEditor(source, 'example.js');
-    }
+                if (err)
+                {
+                    console.log(filename, 'loaded from filesystem');
+
+                    loadSource('src/' + filename, function (source) {
+
+                        loadEditor(source, filename);
+
+                    });
+                }
+                else
+                {
+                    console.log(filename, 'loaded from db - version', doc.version);
+
+                    entry = doc;
+                    version = doc.version;
+
+                    loadEditor(doc.code.join('\n'), filename);
+                }
+
+            });
+        }
+        else
+        {
+            var source = [
+                'var config = { width: 800, height: 600 };',
+                'var game = new Phaser.Game(config);'
+            ].join('\n');
+
+            loadEditor(source, 'example.js');
+        }
+
+    };
+
 
     </script>
 

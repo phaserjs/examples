@@ -62,7 +62,7 @@ var Phaser =
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -122,14 +122,14 @@ module.exports = {
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-__webpack_require__(7);
-__webpack_require__(8);
-__webpack_require__(12);
 __webpack_require__(9);
 __webpack_require__(10);
-__webpack_require__(13);
 __webpack_require__(14);
 __webpack_require__(11);
+__webpack_require__(12);
+__webpack_require__(15);
+__webpack_require__(16);
+__webpack_require__(13);
 
 
 /***/ },
@@ -201,6 +201,9 @@ function Config (config)
     this.hidePhaser = getValue(banner, 'hidePhaser', false);
     this.bannerTextColor = getValue(banner, 'text', defaultBannerTextColor);
     this.bannerBackgroundColor = getValue(banner, 'background', defaultBannerColor);
+    
+    this.forceSetTimeOut = getValue(config, 'forceSetTimeOut', false);
+
 }
 
 Config.prototype.constructor = Config;
@@ -312,14 +315,86 @@ module.exports = DebugHeader;
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+var CHECKSUM = __webpack_require__(7);
+
 var Config = __webpack_require__(4);
 var DebugHeader = __webpack_require__(5);
+var RequestAnimationFrame = __webpack_require__(8);
 
 var Game = function (config)
 {
     this.config = new Config(config);
 
+    //  Decide which of the following should be Game properties, or placed elsewhere ...
+
+    this.renderer = null;
+    this.canvas = null;
+    this.context = null;
+
+    /**
+    * @property {string|HTMLElement} parent - The Games DOM parent.
+    * @default
+    */
+    this.parent = parent;
+
+    this.isBooted = false;
+    this.isRunning = false;
+
+    /**
+    * @property {Phaser.RequestAnimationFrame} raf - Automatically handles the core game loop via requestAnimationFrame or setTimeout
+    * @protected
+    */
+    this.raf = new RequestAnimationFrame(this);
+
+    /**
+    * @property {Phaser.TextureManager} textures - Reference to the Phaser Texture Manager.
+    */
+    this.textures = null;
+
+    /**
+    * @property {Phaser.UpdateManager} updates - Reference to the Phaser Update Manager.
+    */
+    this.updates = null;
+
+    /**
+    * @property {Phaser.Cache} cache - Reference to the assets cache.
+    */
+    this.cache = null;
+
+    /**
+    * @property {Phaser.Input} input - Reference to the input manager
+    */
+    this.input = null;
+
+    /**
+    * @property {Phaser.StateManager} state - The StateManager.
+    */
+    // this.state = new Phaser.StateManager(this, stateConfig);
+
+    /**
+    * @property {Phaser.Device} device - Contains device information and capabilities.
+    */
+    // this.device = Phaser.Device;
+
+    // this.rnd = new Phaser.RandomDataGenerator([ (Date.now() * Math.random()).toString() ]);
+
+    // this.device.whenReady(this.boot, this);
+
     DebugHeader(this);
+
+    console.log(CHECKSUM.build);
+
+};
+
+Game.prototype.constructor = Game;
+
+Game.prototype = {
+
+    update: function (timestamp)
+    {
+        // console.log(timestamp);
+    }
+
 };
 
 module.exports = Game;
@@ -327,6 +402,146 @@ module.exports = Game;
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+var CHECKSUM = {
+build: '9d525b60-b2af-11e6-8aab-1f6b9d8fd351'
+};
+module.exports = CHECKSUM;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2016 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*/
+
+/**
+* Abstracts away the use of RAF or setTimeOut for the core game update loop.
+*
+* @class Phaser.RequestAnimationFrame
+* @constructor
+* @param {Phaser.Game} game - A reference to the currently running game.
+* @param {boolean} [forceSetTimeOut=false] - Tell Phaser to use setTimeOut even if raf is available.
+*/
+function RequestAnimationFrame (game)
+{
+    /**
+    * @property {Phaser.Game} game - The currently running game.
+    */
+    this.game = game;
+
+    /**
+    * @property {boolean} isRunning - true if RequestAnimationFrame is running, otherwise false.
+    * @default
+    */
+    this.isRunning = false;
+
+    this.tick = 0;
+
+    var vendors = [
+        'ms',
+        'moz',
+        'webkit',
+        'o'
+    ];
+
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; x++)
+    {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'];
+    }
+
+    /**
+    * @property {boolean} isSetTimeOut  - True if the browser is using setTimeout instead of rAf.
+    */
+    this.isSetTimeOut = false;
+
+    /**
+    * @property {number} timeOutID - The callback setTimeout or rAf callback ID used when calling cancel.
+    */
+    this.timeOutID = null;
+
+    var _this = this;
+
+    //  timestamp = DOMHighResTimeStamp
+    var step = function (timestamp)
+    {
+        _this.tick = timestamp;
+
+        _this.timeOutID = window.requestAnimationFrame(step);
+
+        _this.game.update(timestamp);
+    };
+
+    var stepTimeout = function ()
+    {
+        _this.tick = Date.now();
+
+        // _this.game.update(_this.tick);
+
+        // _this.timeOutID = window.setTimeout(stepTimeout, _this.game.time.timeToCall);
+    };
+
+    /**
+    * Starts the requestAnimationFrame running or setTimeout if unavailable in browser
+    * @method Phaser.RequestAnimationFrame#start
+    */
+    this.start = function ()
+    {
+        this.isRunning = true;
+
+        if (this.game.config.forceSetTimeOut)
+        {
+            this.isSetTimeOut = true;
+
+            this.timeOutID = window.setTimeout(stepTimeout, 0);
+        }
+        else
+        {
+            this.isSetTimeOut = false;
+
+            this.timeOutID = window.requestAnimationFrame(step);
+        }
+    };
+
+    /**
+    * Stops the requestAnimationFrame from running.
+    * @method Phaser.RequestAnimationFrame#stop
+    */
+    this.stop = function ()
+    {
+        this.isRunning = false;
+
+        if (this.isSetTimeOut)
+        {
+            clearTimeout(this.timeOutID);
+        }
+        else
+        {
+            window.cancelAnimationFrame(this.timeOutID);
+        }
+    };
+
+    this.destroy = function ()
+    {
+        this.stop();
+
+        this.game = undefined;
+    };
+
+}
+
+RequestAnimationFrame.prototype.constructor = RequestAnimationFrame;
+
+module.exports = RequestAnimationFrame;
+
+
+/***/ },
+/* 9 */
 /***/ function(module, exports) {
 
 /**
@@ -371,7 +586,7 @@ if (!Array.prototype.forEach)
 
 
 /***/ },
-/* 8 */
+/* 10 */
 /***/ function(module, exports) {
 
 /**
@@ -392,7 +607,7 @@ if (!Array.isArray)
 
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
 /**
@@ -582,7 +797,7 @@ if (!window.console)
 
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports) {
 
 /**
@@ -599,7 +814,7 @@ if (!Math.trunc) {
 
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports) {
 
 /**
@@ -657,7 +872,7 @@ if (typeof window.Uint32Array !== "function" && typeof window.Uint32Array !== "o
 
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports) {
 
 /**
@@ -677,7 +892,7 @@ if (!window.console)
 
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports) {
 
 /**
@@ -715,7 +930,7 @@ if (!window.console)
 
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// References:
@@ -788,7 +1003,7 @@ if (!global.cancelAnimationFrame) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {__webpack_require__(3);

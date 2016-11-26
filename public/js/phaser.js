@@ -62,1071 +62,11 @@ var Phaser =
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 29);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() { return this; })();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-var CONST = {
-
-    VERSION: '3.0.0',
-
-    AUTO: 0,
-    CANVAS: 1,
-    WEBGL: 2
-
-};
-
-module.exports = CONST;
-
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = {
-
-    //  Doing this makes it available under Phaser.Game
-    Game: __webpack_require__(6)
-
-};
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-__webpack_require__(19);
-__webpack_require__(20);
-__webpack_require__(24);
-__webpack_require__(21);
-__webpack_require__(22);
-__webpack_require__(25);
-__webpack_require__(26);
-__webpack_require__(23);
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-/**
-* @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2016 Photon Storm Ltd.
-* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
-*/
-
-var CONST = __webpack_require__(1);
-
-var defaultBannerColor = [
-    '#ff0000',
-    '#ffff00',
-    '#00ff00',
-    '#00ffff',
-    '#000000'
-];
-
-var defaultBannerTextColor = '#ffffff';
-
-function getValue (obj, key, def)
-{
-    if (obj.hasOwnProperty(key))
-    {
-        return obj[key];
-    }
-    else
-    {
-        return def;
-    }
-}
-
-function Config (config)
-{
-    if (config === undefined) { config = {}; }
-
-    this.width = getValue(config, 'width', 1024);
-    this.height = getValue(config, 'height', 768);
-
-    this.resolution = getValue(config, 'resolution', 1);
-
-    this.renderType = getValue(config, 'type', CONST.AUTO);
-
-    this.parent = getValue(config, 'parent', null);
-
-    this.stateConfig = getValue(config, 'state', null);
-
-    this.seed = getValue(config, 'seed', [ (Date.now() * Math.random()).toString() ]);
-
-    this.gameTitle = getValue(config, 'title', '');
-    this.gameURL = getValue(config, 'url', 'http://phaser.io');
-    this.gameVersion = getValue(config, 'version', '');
-
-    //  If you do: { banner: false } it won't display any banner at all
-    var banner = getValue(config, 'banner', null);
-
-    this.hideBanner = (banner === false);
-
-    if (!banner)
-    {
-        //  Use the default banner set-up
-        banner = {};
-    }
-
-    this.hidePhaser = getValue(banner, 'hidePhaser', false);
-    this.bannerTextColor = getValue(banner, 'text', defaultBannerTextColor);
-    this.bannerBackgroundColor = getValue(banner, 'background', defaultBannerColor);
-    
-    this.forceSetTimeOut = getValue(config, 'forceSetTimeOut', false);
-
-    this.transparent = getValue(config, 'transparent', false);
-
-    this.pixelArt = getValue(config, 'pixelArt', false);
-
-}
-
-Config.prototype.constructor = Config;
-
-module.exports = Config;
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-/**
-* @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2016 Photon Storm Ltd.
-* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
-*/
-
-var CONST = __webpack_require__(1);
-
-var DebugHeader = function (game)
-{
-    var config = game.config;
-
-    if (config.hideBanner)
-    {
-        return;
-    }
-
-    var renderType = (config.renderType === CONST.CANVAS) ? 'Canvas' : 'WebGL';
-
-    var ie = false;
-
-    if (!ie)
-    {
-        var c = '';
-        var args = [c];
-
-        if (Array.isArray(config.bannerBackgroundColor))
-        {
-            var lastColor;
-
-            config.bannerBackgroundColor.forEach(function(color) {
-
-                c = c.concat('%c ');
-
-                args.push('background: ' + color);
-
-                lastColor = color;
-
-            });
-
-            //  inject the text color
-            args[args.length - 1] = 'color: ' + config.bannerTextColor + '; background: ' + lastColor;
-        }
-        else
-        {
-            c = c.concat('%c ');
-
-            args.push('color: ' + config.bannerTextColor + '; background: ' + config.bannerBackgroundColor);
-        }
-
-        //  URL link background color (always white)
-        args.push('background: #fff');
-
-        if (config.gameTitle)
-        {
-            c = c.concat(config.gameTitle);
-
-            if (config.gameVersion)
-            {
-                c = c.concat(' v' + config.gameVersion);
-            }
-
-            if (!config.hidePhaser)
-            {
-                c = c.concat(' / ');
-            }
-        }
-
-        if (!config.hidePhaser)
-        {
-            c = c.concat('Phaser v' + CONST.VERSION + ' (' + renderType + ')');
-        }
-
-        c = c.concat(' %c ' + config.gameURL);
-
-        //  Inject the new string back into the args array
-        args[0] = c;
-
-        console.log.apply(console, args);
-    }
-    else if (window['console'])
-    {
-        console.log('Phaser v' + CONST.VERSION + ' / http://phaser.io');
-    }
-
-};
-
-module.exports = DebugHeader;
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-/**
-* @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2016 Photon Storm Ltd.
-* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
-*/
-
-var CHECKSUM = __webpack_require__(7);
-
-var Device = __webpack_require__(15);
-var Config = __webpack_require__(4);
-var DebugHeader = __webpack_require__(5);
-var RequestAnimationFrame = __webpack_require__(17);
-var DOMContentLoaded = __webpack_require__(16);
-var RandomDataGenerator = __webpack_require__(18);
-
-var Game = function (config)
-{
-    this.config = new Config(config);
-
-    //  Decide which of the following should be Game properties, or placed elsewhere ...
-
-    this.renderer = null;
-    this.canvas = null;
-    this.context = null;
-
-    /**
-    * @property {string|HTMLElement} parent - The Games DOM parent.
-    * @default
-    */
-    this.parent = parent;
-
-    this.isBooted = false;
-    this.isRunning = false;
-
-    /**
-    * @property {Phaser.RequestAnimationFrame} raf - Automatically handles the core game loop via requestAnimationFrame or setTimeout
-    * @protected
-    */
-    this.raf = new RequestAnimationFrame(this);
-
-    /**
-    * @property {Phaser.TextureManager} textures - Reference to the Phaser Texture Manager.
-    */
-    this.textures = null;
-
-    /**
-    * @property {Phaser.UpdateManager} updates - Reference to the Phaser Update Manager.
-    */
-    this.updates = null;
-
-    /**
-    * @property {Phaser.Cache} cache - Reference to the assets cache.
-    */
-    this.cache = null;
-
-    /**
-    * @property {Phaser.Input} input - Reference to the input manager
-    */
-    this.input = null;
-
-    /**
-    * @property {Phaser.StateManager} state - The StateManager.
-    */
-    // this.state = new Phaser.StateManager(this, stateConfig);
-
-    /**
-    * @property {Phaser.Device} device - Contains device information and capabilities.
-    */
-    this.device = Device;
-
-    this.rnd;
-
-    DOMContentLoaded(this.boot.bind(this), Device.OS);
-
-};
-
-Game.prototype.constructor = Game;
-
-Game.prototype = {
-
-    boot: function ()
-    {
-        this.rnd = new RandomDataGenerator(this.config.seed);
-
-        DebugHeader(this);
-
-        console.log(CHECKSUM.build);
-
-        //  Add in ability to specify pre-init and post-init callbacks in the config
-
-        this.raf.start();
-    },
-
-    update: function (timestamp)
-    {
-        // console.log(timestamp);
-    }
-
-};
-
-module.exports = Game;
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-var CHECKSUM = {
-build: '7c3f6cb0-b2cd-11e6-b14c-d53f539998e7'
-};
-module.exports = CHECKSUM;
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-var Audio = {
-
-    /**
-    * @property {boolean} audioData - Are Audio tags available?
-    * @default
-    */
-    audioData: false,
-
-    /**
-    * @property {boolean} webAudio - Is the WebAudio API available?
-    * @default
-    */
-    webAudio: false,
-
-    /**
-    * @property {boolean} ogg - Can this device play ogg files?
-    * @default
-    */
-    ogg: false,
-
-    /**
-    * @property {boolean} opus - Can this device play opus files?
-    * @default
-    */
-    opus: false,
-
-    /**
-    * @property {boolean} mp3 - Can this device play mp3 files?
-    * @default
-    */
-    mp3: false,
-
-    /**
-    * @property {boolean} wav - Can this device play wav files?
-    * @default
-    */
-    wav: false,
-
-    /**
-    * Can this device play m4a files?
-    * @property {boolean} m4a - True if this device can play m4a files.
-    * @default
-    */
-    m4a: false,
-
-    /**
-    * @property {boolean} webm - Can this device play webm files?
-    * @default
-    */
-    webm: false,
-
-    /**
-    * @property {boolean} dolby - Can this device play EC-3 Dolby Digital Plus files?
-    * @default
-    */
-    dolby: false
-
-};
-
-function init (OS, Browser)
-{
-    Audio.audioData = !!(window['Audio']);
-    Audio.webAudio = !!(window['AudioContext'] || window['webkitAudioContext']);
-
-    var audioElement = document.createElement('audio');
-
-    var result = !!audioElement.canPlayType;
-
-    try
-    {
-        if (result)
-        {
-            if (audioElement.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ''))
-            {
-                Audio.ogg = true;
-            }
-
-            if (audioElement.canPlayType('audio/ogg; codecs="opus"').replace(/^no$/, '') || audioElement.canPlayType('audio/opus;').replace(/^no$/, ''))
-            {
-                Audio.opus = true;
-            }
-
-            if (audioElement.canPlayType('audio/mpeg;').replace(/^no$/, ''))
-            {
-                Audio.mp3 = true;
-            }
-
-            //  Mimetypes accepted:
-            //  developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
-            //  bit.ly/iphoneoscodecs
-            if (audioElement.canPlayType('audio/wav; codecs="1"').replace(/^no$/, ''))
-            {
-                Audio.wav = true;
-            }
-
-            if (audioElement.canPlayType('audio/x-m4a;') || audioElement.canPlayType('audio/aac;').replace(/^no$/, ''))
-            {
-                Audio.m4a = true;
-            }
-
-            if (audioElement.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, ''))
-            {
-                Audio.webm = true;
-            }
-
-            if (audioElement.canPlayType('audio/mp4;codecs="ec-3"') !== '')
-            {
-                if (Browser.edge)
-                {
-                    Audio.dolby = true;
-                }
-                else if (Browser.safari && Browser.safariVersion >= 9)
-                {
-                    if ((/Mac OS X (\d+)_(\d+)/).test(navigator.userAgent))
-                    {
-                        var major = parseInt(RegExp.$1, 10);
-                        var minor = parseInt(RegExp.$2, 10);
-
-                        if ((major === 10 && minor >= 11) || major > 10)
-                        {
-                            Audio.dolby = true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    catch (e)
-    {
-        //  Nothing to do here
-    }
-
-    return Audio;
-}
-
-module.exports = init;
-
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-var Browser = {
-
-    /**
-    * @property {boolean} arora - Set to true if running in Arora.
-    * @default
-    */
-    arora: false,
-
-    /**
-    * @property {boolean} chrome - Set to true if running in Chrome.
-    * @default
-    */
-    chrome: false,
-
-    /**
-    * @property {number} chromeVersion - If running in Chrome this will contain the major version number.
-    * @default
-    */
-    chromeVersion: 0,
-
-    /**
-    * @property {boolean} epiphany - Set to true if running in Epiphany.
-    * @default
-    */
-    epiphany: false,
-
-    /**
-    * @property {boolean} firefox - Set to true if running in Firefox.
-    * @default
-    */
-    firefox: false,
-
-    /**
-    * @property {number} firefoxVersion - If running in Firefox this will contain the major version number.
-    * @default
-    */
-    firefoxVersion: 0,
-
-    /**
-    * @property {boolean} mobileSafari - Set to true if running in Mobile Safari.
-    * @default
-    */
-    mobileSafari: false,
-
-    /**
-    * @property {boolean} ie - Set to true if running in Internet Explorer.
-    * @default
-    */
-    ie: false,
-
-    /**
-    * @property {number} ieVersion - If running in Internet Explorer this will contain the major version number. Beyond IE10 you should use Device.trident and Device.tridentVersion.
-    * @default
-    */
-    ieVersion: 0,
-
-    /**
-    * @property {boolean} midori - Set to true if running in Midori.
-    * @default
-    */
-    midori: false,
-
-    /**
-    * @property {boolean} opera - Set to true if running in Opera.
-    * @default
-    */
-    opera: false,
-
-    /**
-    * @property {boolean} safari - Set to true if running in Safari.
-    * @default
-    */
-    safari: false,
-
-    /**
-    * @property {number} safariVersion - If running in Safari this will contain the major version number.
-    * @default
-    */
-    safariVersion: 0,
-
-    /**
-    * @property {boolean} trident - Set to true if running a Trident version of Internet Explorer (IE11+)
-    * @default
-    */
-    trident: false,
-
-    /**
-    * @property {number} tridentVersion - If running in Internet Explorer 11 this will contain the major version number. See {@link http://msdn.microsoft.com/en-us/library/ie/ms537503(v=vs.85).aspx}
-    * @default
-    */
-    tridentVersion: 0,
-
-    /**
-    * @property {boolean} edge - Set to true if running in Microsoft Edge browser.
-    * @default
-    */
-    edge: false,
-
-    /**
-    * @property {boolean} silk - Set to true if running in the Silk browser (as used on the Amazon Kindle)
-    * @default
-    */
-    silk: false
-
-};
-
-function init (OS)
-{
-    var ua = navigator.userAgent;
-
-    if ((/Arora/).test(ua))
-    {
-        Browser.arora = true;
-    }
-    else if (/Edge\/\d+/.test(ua))
-    {
-        Browser.edge = true;
-    }
-    else if ((/Chrome\/(\d+)/).test(ua) && !OS.windowsPhone)
-    {
-        Browser.chrome = true;
-        Browser.chromeVersion = parseInt(RegExp.$1, 10);
-    }
-    else if ((/Epiphany/).test(ua))
-    {
-        Browser.epiphany = true;
-    }
-    else if ((/Firefox\D+(\d+)/).test(ua))
-    {
-        Browser.firefox = true;
-        Browser.firefoxVersion = parseInt(RegExp.$1, 10);
-    }
-    else if ((/AppleWebKit/).test(ua) && OS.iOS)
-    {
-        Browser.mobileSafari = true;
-    }
-    else if ((/MSIE (\d+\.\d+);/).test(ua))
-    {
-        Browser.ie = true;
-        Browser.ieVersion = parseInt(RegExp.$1, 10);
-    }
-    else if ((/Midori/).test(ua))
-    {
-        Browser.midori = true;
-    }
-    else if ((/Opera/).test(ua))
-    {
-        Browser.opera = true;
-    }
-    else if ((/Safari/).test(ua) && !OS.windowsPhone)
-    {
-        Browser.safari = true;
-    }
-    else if ((/Trident\/(\d+\.\d+)(.*)rv:(\d+\.\d+)/).test(ua))
-    {
-        Browser.ie = true;
-        Browser.trident = true;
-        Browser.tridentVersion = parseInt(RegExp.$1, 10);
-        Browser.ieVersion = parseInt(RegExp.$3, 10);
-    }
-
-    //  Silk gets its own if clause because its ua also contains 'Safari'
-    if ((/Silk/).test(ua))
-    {
-        Browser.silk = true;
-    }
-
-    return Browser;
-}
-
-module.exports = init;
-
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-var Features = {
-
-    /**
-    * @property {boolean} canvas - Is canvas available?
-    * @default
-    */
-    canvas: false,
-
-    /**
-    * @property {?boolean} canvasBitBltShift - True if canvas supports a 'copy' bitblt onto itself when the source and destination regions overlap.
-    * @default
-    */
-    canvasBitBltShift: null,
-
-    /**
-    * @property {boolean} webGL - Is webGL available?
-    * @default
-    */
-    webGL: false,
-
-    /**
-    * @property {boolean} file - Is file available?
-    * @default
-    */
-    file: false,
-
-    /**
-    * @property {boolean} fileSystem - Is fileSystem available?
-    * @default
-    */
-    fileSystem: false,
-
-    /**
-    * @property {boolean} localStorage - Is localStorage available?
-    * @default
-    */
-    localStorage: false,
-
-    /**
-    * @property {boolean} worker - Is worker available?
-    * @default
-    */
-    worker: false,
-
-    /**
-    * @property {boolean} pointerLock - Is Pointer Lock available?
-    * @default
-    */
-    pointerLock: false,
-
-    /**
-    * @property {boolean} vibration - Does the device support the Vibration API?
-    * @default
-    */
-    vibration: false,
-
-    /**
-    * @property {boolean} getUserMedia - Does the device support the getUserMedia API?
-    * @default
-    */
-    getUserMedia: true,
-
-    /**
-    * @property {boolean} littleEndian - Is the device big or little endian? (only detected if the browser supports TypedArrays)
-    * @default
-    */
-    littleEndian: false,
-
-    /**
-    * @property {boolean} support32bit - Does the device context support 32bit pixel manipulation using array buffer views?
-    * @default
-    */
-    support32bit: false
-
-};
-
-/**
-* Check Little or Big Endian system.
-*
-* @author Matt DesLauriers (@mattdesl)
-*/
-function checkIsLittleEndian ()
-{
-    var a = new ArrayBuffer(4);
-    var b = new Uint8Array(a);
-    var c = new Uint32Array(a);
-
-    b[0] = 0xa1;
-    b[1] = 0xb2;
-    b[2] = 0xc3;
-    b[3] = 0xd4;
-
-    if (c[0] === 0xd4c3b2a1)
-    {
-        return true;
-    }
-
-    if (c[0] === 0xa1b2c3d4)
-    {
-        return false;
-    }
-    else
-    {
-        //  Could not determine endianness
-        return null;
-    }
-}
-
-function init (OS, Browser)
-{
-    Features.canvas = !!window['CanvasRenderingContext2D'] || OS.cocoonJS;
-
-    try
-    {
-        Features.localStorage = !!localStorage.getItem;
-    }
-    catch (error)
-    {
-        Features.localStorage = false;
-    }
-
-    Features.file = !!window['File'] && !!window['FileReader'] && !!window['FileList'] && !!window['Blob'];
-    Features.fileSystem = !!window['requestFileSystem'];
-
-    var isUint8 = false;
-
-    var testWebGL = function ()
-    {
-        if (window['WebGLRenderingContext'])
-        {
-            try
-            {
-                var canvas = document.createElement('canvas');
-
-                //  cocoon ...
-                canvas.screencanvas = false;
-
-                var ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-
-                var image = ctx.createImageData(1, 1);
-
-                /**
-                * Test to see if ImageData uses CanvasPixelArray or Uint8ClampedArray.
-                *
-                * @author Matt DesLauriers (@mattdesl)
-                */
-                isUint8 = image.data instanceof Uint8ClampedArray;
-
-                return (ctx !== null);
-            }
-            catch (e)
-            {
-                return false;
-            }
-        }
-        
-        return false;
-    };
-
-    Features.webGL = testWebGL();
-
-    Features.worker = !!window['Worker'];
-
-    Features.pointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
-
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-
-    window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
-
-    Features.getUserMedia = Features.getUserMedia && !!navigator.getUserMedia && !!window.URL;
-
-    // Older versions of firefox (< 21) apparently claim support but user media does not actually work
-    if (Browser.firefox && Browser.firefoxVersion < 21)
-    {
-        Features.getUserMedia = false;
-    }
-
-    // Excludes iOS versions as they generally wrap UIWebView (eg. Safari WebKit) and it
-    // is safer to not try and use the fast copy-over method.
-    if (!OS.iOS && (Browser.ie || Browser.firefox || Browser.chrome))
-    {
-        Features.canvasBitBltShift = true;
-    }
-
-    // Known not to work
-    if (Browser.safari || Browser.mobileSafari)
-    {
-        Features.canvasBitBltShift = false;
-    }
-
-    navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-
-    if (navigator.vibrate)
-    {
-        Features.vibration = true;
-    }
-
-    if (typeof ArrayBuffer !== 'undefined' && typeof Uint8Array !== 'undefined' && typeof Uint32Array !== 'undefined')
-    {
-        Features.littleEndian = checkIsLittleEndian();
-    }
-
-    Features.support32bit = (
-        typeof ArrayBuffer !== 'undefined' &&
-        typeof Uint8ClampedArray !== 'undefined' &&
-        typeof Int32Array !== 'undefined' &&
-        Features.littleEndian !== null &&
-        isUint8
-    );
-
-    return Features;
-}
-
-module.exports = init;
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-var Fullscreen = {
-
-    /**
-    * @property {boolean} available - Does the browser support the Full Screen API?
-    * @default
-    */
-    available: false,
-
-    /**
-    * @property {string} request - If the browser supports the Full Screen API this holds the call you need to use to activate it.
-    * @default
-    */
-    request: '',
-
-    /**
-    * @property {string} cancel - If the browser supports the Full Screen API this holds the call you need to use to cancel it.
-    * @default
-    */
-    cancel: '',
-
-    /**
-    * @property {boolean} keyboard - Does the browser support access to the Keyboard during Full Screen mode?
-    * @default
-    */
-    keyboard: false
-
-};
-
-/**
-* Checks for support of the Full Screen API.
-*/
-function init ()
-{
-    var fs = [
-        'requestFullscreen',
-        'requestFullScreen',
-        'webkitRequestFullscreen',
-        'webkitRequestFullScreen',
-        'msRequestFullscreen',
-        'msRequestFullScreen',
-        'mozRequestFullScreen',
-        'mozRequestFullscreen'
-    ];
-
-    var element = document.createElement('div');
-
-    for (var i = 0; i < fs.length; i++)
-    {
-        if (element[fs[i]])
-        {
-            Fullscreen.available = true;
-            Fullscreen.request = fs[i];
-            break;
-        }
-    }
-
-    var cfs = [
-        'cancelFullScreen',
-        'exitFullscreen',
-        'webkitCancelFullScreen',
-        'webkitExitFullscreen',
-        'msCancelFullScreen',
-        'msExitFullscreen',
-        'mozCancelFullScreen',
-        'mozExitFullscreen'
-    ];
-
-    if (Fullscreen.available)
-    {
-        for (var i = 0; i < cfs.length; i++)
-        {
-            if (document[cfs[i]])
-            {
-                Fullscreen.cancel = cfs[i];
-                break;
-            }
-        }
-    }
-
-    //  Keyboard Input?
-    if (window['Element'] && Element['ALLOW_KEYBOARD_INPUT'])
-    {
-        Fullscreen.keyboard = true;
-    }
-
-    return Fullscreen;
-}
-
-module.exports = init;
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-var Input = {
-
-    /**
-    * @property {boolean} touch - Is touch available?
-    * @default
-    */
-    touch: false,
-
-    /**
-    * @property {boolean} mspointer - Is mspointer available?
-    * @default
-    */
-    mspointer: false,
-
-    /**
-    * @property {?string} wheelType - The newest type of Wheel/Scroll event supported: 'wheel', 'mousewheel', 'DOMMouseScroll'
-    * @default
-    * @protected
-    */
-    wheelEvent: null
-    
-};
-
-function init (OS, Browser)
-{
-    if ('ontouchstart' in document.documentElement || (window.navigator.maxTouchPoints && window.navigator.maxTouchPoints >= 1))
-    {
-        Input.touch = true;
-    }
-
-    if (window.navigator.msPointerEnabled || window.navigator.pointerEnabled)
-    {
-        Input.mspointer = true;
-    }
-
-    if (!OS.cocoonJS)
-    {
-        // See https://developer.mozilla.org/en-US/docs/Web/Events/wheel
-        if ('onwheel' in window || (Browser.ie && 'WheelEvent' in window))
-        {
-            // DOM3 Wheel Event: FF 17+, IE 9+, Chrome 31+, Safari 7+
-            Input.wheelEvent = 'wheel';
-        }
-        else if ('onmousewheel' in window)
-        {
-            // Non-FF legacy: IE 6-9, Chrome 1-31, Safari 5-7.
-            Input.wheelEvent = 'mousewheel';
-        }
-        else if (Browser.firefox && 'MouseScrollEvent' in window)
-        {
-            // FF prior to 17. This should probably be scrubbed.
-            Input.wheelEvent = 'DOMMouseScroll';
-        }
-    }
-
-    return Input;
-}
-
-module.exports = init;
-
-
-/***/ },
-/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var OS = {
@@ -1273,6 +213,8 @@ module.exports = init;
 
 function init ()
 {
+    console.log('OS.init');
+
     var ua = navigator.userAgent;
 
     if (/Windows/.test(ua))
@@ -1390,13 +332,1310 @@ function init ()
     return OS;
 }
 
-module.exports = init;
+module.exports = init();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(28)))
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+var OS = __webpack_require__(0);
+
+var Browser = {
+
+    /**
+    * @property {boolean} arora - Set to true if running in Arora.
+    * @default
+    */
+    arora: false,
+
+    /**
+    * @property {boolean} chrome - Set to true if running in Chrome.
+    * @default
+    */
+    chrome: false,
+
+    /**
+    * @property {number} chromeVersion - If running in Chrome this will contain the major version number.
+    * @default
+    */
+    chromeVersion: 0,
+
+    /**
+    * @property {boolean} epiphany - Set to true if running in Epiphany.
+    * @default
+    */
+    epiphany: false,
+
+    /**
+    * @property {boolean} firefox - Set to true if running in Firefox.
+    * @default
+    */
+    firefox: false,
+
+    /**
+    * @property {number} firefoxVersion - If running in Firefox this will contain the major version number.
+    * @default
+    */
+    firefoxVersion: 0,
+
+    /**
+    * @property {boolean} mobileSafari - Set to true if running in Mobile Safari.
+    * @default
+    */
+    mobileSafari: false,
+
+    /**
+    * @property {boolean} ie - Set to true if running in Internet Explorer.
+    * @default
+    */
+    ie: false,
+
+    /**
+    * @property {number} ieVersion - If running in Internet Explorer this will contain the major version number. Beyond IE10 you should use Device.trident and Device.tridentVersion.
+    * @default
+    */
+    ieVersion: 0,
+
+    /**
+    * @property {boolean} midori - Set to true if running in Midori.
+    * @default
+    */
+    midori: false,
+
+    /**
+    * @property {boolean} opera - Set to true if running in Opera.
+    * @default
+    */
+    opera: false,
+
+    /**
+    * @property {boolean} safari - Set to true if running in Safari.
+    * @default
+    */
+    safari: false,
+
+    /**
+    * @property {number} safariVersion - If running in Safari this will contain the major version number.
+    * @default
+    */
+    safariVersion: 0,
+
+    /**
+    * @property {boolean} trident - Set to true if running a Trident version of Internet Explorer (IE11+)
+    * @default
+    */
+    trident: false,
+
+    /**
+    * @property {number} tridentVersion - If running in Internet Explorer 11 this will contain the major version number. See {@link http://msdn.microsoft.com/en-us/library/ie/ms537503(v=vs.85).aspx}
+    * @default
+    */
+    tridentVersion: 0,
+
+    /**
+    * @property {boolean} edge - Set to true if running in Microsoft Edge browser.
+    * @default
+    */
+    edge: false,
+
+    /**
+    * @property {boolean} silk - Set to true if running in the Silk browser (as used on the Amazon Kindle)
+    * @default
+    */
+    silk: false
+
+};
+
+function init ()
+{
+    console.log('Browser.init');
+
+    var ua = navigator.userAgent;
+
+    if ((/Arora/).test(ua))
+    {
+        Browser.arora = true;
+    }
+    else if (/Edge\/\d+/.test(ua))
+    {
+        Browser.edge = true;
+    }
+    else if ((/Chrome\/(\d+)/).test(ua) && !OS.windowsPhone)
+    {
+        Browser.chrome = true;
+        Browser.chromeVersion = parseInt(RegExp.$1, 10);
+    }
+    else if ((/Epiphany/).test(ua))
+    {
+        Browser.epiphany = true;
+    }
+    else if ((/Firefox\D+(\d+)/).test(ua))
+    {
+        Browser.firefox = true;
+        Browser.firefoxVersion = parseInt(RegExp.$1, 10);
+    }
+    else if ((/AppleWebKit/).test(ua) && OS.iOS)
+    {
+        Browser.mobileSafari = true;
+    }
+    else if ((/MSIE (\d+\.\d+);/).test(ua))
+    {
+        Browser.ie = true;
+        Browser.ieVersion = parseInt(RegExp.$1, 10);
+    }
+    else if ((/Midori/).test(ua))
+    {
+        Browser.midori = true;
+    }
+    else if ((/Opera/).test(ua))
+    {
+        Browser.opera = true;
+    }
+    else if ((/Safari/).test(ua) && !OS.windowsPhone)
+    {
+        Browser.safari = true;
+    }
+    else if ((/Trident\/(\d+\.\d+)(.*)rv:(\d+\.\d+)/).test(ua))
+    {
+        Browser.ie = true;
+        Browser.trident = true;
+        Browser.tridentVersion = parseInt(RegExp.$1, 10);
+        Browser.ieVersion = parseInt(RegExp.$3, 10);
+    }
+
+    //  Silk gets its own if clause because its ua also contains 'Safari'
+    if ((/Silk/).test(ua))
+    {
+        Browser.silk = true;
+    }
+
+    return Browser;
+}
+
+module.exports = init();
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() { return this; })();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+var CONST = {
+
+    VERSION: '3.0.0',
+
+    AUTO: 0,
+    CANVAS: 1,
+    WEBGL: 2
+
+};
+
+module.exports = CONST;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2016 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*/
+
+/**
+ * The pool into which the canvas elements are placed.
+ *
+ * @property pool
+ * @type Array
+ */
+var pool = [];
+
+/**
+* The CanvasPool is a global static object, that allows Phaser to recycle and pool Canvas DOM elements.
+*
+* @class Phaser.CanvasPool
+* @static
+*/
+var CanvasPool = function ()
+{
+    console.log('CanvasPool');
+
+    /**
+    * Creates a new Canvas DOM element, or pulls one from the pool if free.
+    * 
+    * @method Phaser.CanvasPool.create
+    * @static
+    * @param {any} parent - The parent of the canvas element.
+    * @param {number} width - The width of the canvas element.
+    * @param {number} height - The height of the canvas element.
+    * @return {HTMLCanvasElement} The canvas element.
+    */
+    var create = function (parent, width, height)
+    {
+        var idx = first();
+        var canvas;
+
+        console.log('CanvasPool.create', idx);
+
+        if (idx === -1)
+        {
+            var container = {
+                parent: parent,
+                canvas: document.createElement('canvas')
+            };
+
+            pool.push(container);
+
+            canvas = container.canvas;
+        }
+        else
+        {
+            pool[idx].parent = parent;
+
+            canvas = pool[idx].canvas;
+        }
+
+        if (width !== undefined)
+        {
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        return canvas;
+    };
+
+    /**
+    * Gets the first free canvas index from the pool.
+    * 
+    * @static
+    * @method Phaser.CanvasPool.getFirst
+    * @return {number}
+    */
+    var first = function ()
+    {
+        for (var i = 0; i < pool.length; i++)
+        {
+            if (!pool[i].parent)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    };
+
+    /**
+    * Looks up a canvas based on its parent, and if found puts it back in the pool, freeing it up for re-use.
+    * The canvas has its width and height set to 1, and its parent attribute nulled.
+    * 
+    * @static
+    * @method Phaser.CanvasPool.remove
+    * @param {any} parent - The parent of the canvas element.
+    */
+    var remove = function (parent)
+    {
+        //  Check to see if the parent is a canvas object, then do removeByCanvas stuff instead
+        //  CanvasRenderingContext2D
+
+        for (var i = 0; i < pool.length; i++)
+        {
+            if (pool[i].parent === parent)
+            {
+                pool[i].parent = null;
+                pool[i].canvas.width = 1;
+                pool[i].canvas.height = 1;
+            }
+        }
+
+    };
+
+    /**
+    * Looks up a canvas based on its type, and if found puts it back in the pool, freeing it up for re-use.
+    * The canvas has its width and height set to 1, and its parent attribute nulled.
+    * 
+    * @static
+    * @method Phaser.CanvasPool.removeByCanvas
+    * @param {HTMLCanvasElement} canvas - The canvas element to remove.
+    */
+    var removeByCanvas = function (canvas)
+    {
+        console.log('removeByCanvas');
+
+        for (var i = 0; i < pool.length; i++)
+        {
+            if (pool[i].canvas === canvas)
+            {
+                console.log('found and removed');
+
+                pool[i].parent = null;
+                pool[i].canvas.width = 1;
+                pool[i].canvas.height = 1;
+            }
+        }
+
+    };
+
+    /**
+    * Gets the total number of used canvas elements in the pool.
+    * 
+    * @static
+    * @method Phaser.CanvasPool.getTotal
+    * @return {number} The number of in-use (parented) canvas elements in the pool.
+    */
+    var getTotal = function ()
+    {
+        var c = 0;
+
+        for (var i = 0; i < pool.length; i++)
+        {
+            if (pool[i].parent)
+            {
+                c++;
+            }
+        }
+
+        return c;
+    };
+
+    /**
+    * Gets the total number of free canvas elements in the pool.
+    * 
+    * @static
+    * @method Phaser.CanvasPool.getFree
+    * @return {number} The number of free (un-parented) canvas elements in the pool.
+    */
+    var getFree = function ()
+    {
+        var c = 0;
+
+        for (var i = 0; i < pool.length; i++)
+        {
+            if (!pool[i].parent)
+            {
+                c++;
+            }
+        }
+
+        return c;
+    };
+
+    return {
+        create: create,
+        first: first,
+        remove: remove,
+        removeByCanvas: removeByCanvas,
+        getTotal: getTotal,
+        getFree: getFree,
+        pool: pool
+    };
+};
+
+//  If we export the called function here, it'll only be invoked once (not every time it's required).
+//  This function must return something though
+module.exports = CanvasPool();
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = {
+
+    //  Doing this makes it available under Phaser.Game
+    Game: __webpack_require__(9)
+
+};
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+__webpack_require__(20);
+__webpack_require__(21);
+__webpack_require__(25);
+__webpack_require__(22);
+__webpack_require__(23);
+__webpack_require__(26);
+__webpack_require__(27);
+__webpack_require__(24);
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2016 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*/
+
+var CONST = __webpack_require__(3);
+
+var defaultBannerColor = [
+    '#ff0000',
+    '#ffff00',
+    '#00ff00',
+    '#00ffff',
+    '#000000'
+];
+
+var defaultBannerTextColor = '#ffffff';
+
+function getValue (obj, key, def)
+{
+    if (obj.hasOwnProperty(key))
+    {
+        return obj[key];
+    }
+    else
+    {
+        return def;
+    }
+}
+
+function Config (config)
+{
+    if (config === undefined) { config = {}; }
+
+    this.width = getValue(config, 'width', 1024);
+    this.height = getValue(config, 'height', 768);
+
+    this.resolution = getValue(config, 'resolution', 1);
+
+    this.renderType = getValue(config, 'type', CONST.AUTO);
+
+    this.parent = getValue(config, 'parent', null);
+
+    this.stateConfig = getValue(config, 'state', null);
+
+    this.seed = getValue(config, 'seed', [ (Date.now() * Math.random()).toString() ]);
+
+    this.gameTitle = getValue(config, 'title', '');
+    this.gameURL = getValue(config, 'url', 'http://phaser.io');
+    this.gameVersion = getValue(config, 'version', '');
+
+    //  If you do: { banner: false } it won't display any banner at all
+    var banner = getValue(config, 'banner', null);
+
+    this.hideBanner = (banner === false);
+
+    if (!banner)
+    {
+        //  Use the default banner set-up
+        banner = {};
+    }
+
+    this.hidePhaser = getValue(banner, 'hidePhaser', false);
+    this.bannerTextColor = getValue(banner, 'text', defaultBannerTextColor);
+    this.bannerBackgroundColor = getValue(banner, 'background', defaultBannerColor);
+    
+    this.forceSetTimeOut = getValue(config, 'forceSetTimeOut', false);
+
+    this.transparent = getValue(config, 'transparent', false);
+
+    this.pixelArt = getValue(config, 'pixelArt', false);
+
+}
+
+Config.prototype.constructor = Config;
+
+module.exports = Config;
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2016 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*/
+
+var CONST = __webpack_require__(3);
+
+var DebugHeader = function (game)
+{
+    var config = game.config;
+
+    if (config.hideBanner)
+    {
+        return;
+    }
+
+    var renderType = (config.renderType === CONST.CANVAS) ? 'Canvas' : 'WebGL';
+
+    var ie = false;
+
+    if (!ie)
+    {
+        var c = '';
+        var args = [c];
+
+        if (Array.isArray(config.bannerBackgroundColor))
+        {
+            var lastColor;
+
+            config.bannerBackgroundColor.forEach(function(color) {
+
+                c = c.concat('%c ');
+
+                args.push('background: ' + color);
+
+                lastColor = color;
+
+            });
+
+            //  inject the text color
+            args[args.length - 1] = 'color: ' + config.bannerTextColor + '; background: ' + lastColor;
+        }
+        else
+        {
+            c = c.concat('%c ');
+
+            args.push('color: ' + config.bannerTextColor + '; background: ' + config.bannerBackgroundColor);
+        }
+
+        //  URL link background color (always white)
+        args.push('background: #fff');
+
+        if (config.gameTitle)
+        {
+            c = c.concat(config.gameTitle);
+
+            if (config.gameVersion)
+            {
+                c = c.concat(' v' + config.gameVersion);
+            }
+
+            if (!config.hidePhaser)
+            {
+                c = c.concat(' / ');
+            }
+        }
+
+        if (!config.hidePhaser)
+        {
+            c = c.concat('Phaser v' + CONST.VERSION + ' (' + renderType + ')');
+        }
+
+        c = c.concat(' %c ' + config.gameURL);
+
+        //  Inject the new string back into the args array
+        args[0] = c;
+
+        console.log.apply(console, args);
+    }
+    else if (window['console'])
+    {
+        console.log('Phaser v' + CONST.VERSION + ' / http://phaser.io');
+    }
+
+};
+
+module.exports = DebugHeader;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2016 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*/
+
+var CHECKSUM = __webpack_require__(10);
+
+var Device = __webpack_require__(16);
+var Config = __webpack_require__(7);
+var DebugHeader = __webpack_require__(8);
+var RequestAnimationFrame = __webpack_require__(18);
+var DOMContentLoaded = __webpack_require__(17);
+var RandomDataGenerator = __webpack_require__(19);
+var CanvasPool = __webpack_require__(4);
+
+var Game = function (config)
+{
+    this.config = new Config(config);
+
+    //  Decide which of the following should be Game properties, or placed elsewhere ...
+
+    this.renderer = null;
+    this.canvas = null;
+    this.context = null;
+
+    /**
+    * @property {string|HTMLElement} parent - The Games DOM parent.
+    * @default
+    */
+    this.parent = parent;
+
+    this.isBooted = false;
+    this.isRunning = false;
+
+    /**
+    * @property {Phaser.RequestAnimationFrame} raf - Automatically handles the core game loop via requestAnimationFrame or setTimeout
+    * @protected
+    */
+    this.raf = new RequestAnimationFrame(this);
+
+    /**
+    * @property {Phaser.TextureManager} textures - Reference to the Phaser Texture Manager.
+    */
+    this.textures = null;
+
+    /**
+    * @property {Phaser.UpdateManager} updates - Reference to the Phaser Update Manager.
+    */
+    this.updates = null;
+
+    /**
+    * @property {Phaser.Cache} cache - Reference to the assets cache.
+    */
+    this.cache = null;
+
+    /**
+    * @property {Phaser.Input} input - Reference to the input manager
+    */
+    this.input = null;
+
+    /**
+    * @property {Phaser.StateManager} state - The StateManager.
+    */
+    // this.state = new Phaser.StateManager(this, stateConfig);
+
+    /**
+    * @property {Phaser.Device} device - Contains device information and capabilities.
+    */
+    this.device = Device;
+
+    this.rnd;
+
+    DOMContentLoaded(this.boot.bind(this), Device.OS);
+
+};
+
+Game.prototype.constructor = Game;
+
+Game.prototype = {
+
+    boot: function ()
+    {
+        this.rnd = new RandomDataGenerator(this.config.seed);
+
+        DebugHeader(this);
+
+        console.log(CHECKSUM.build);
+
+        console.log('pool', CanvasPool.getTotal());
+        console.log('free', CanvasPool.getFree());
+
+        //  Add in ability to specify pre-init and post-init callbacks in the config
+
+        this.raf.start();
+    },
+
+    update: function (timestamp)
+    {
+        // console.log(timestamp);
+    }
+
+};
+
+module.exports = Game;
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+var CHECKSUM = {
+build: '0a915bb0-b376-11e6-8e00-5b1f6d1d763b'
+};
+module.exports = CHECKSUM;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+var OS = __webpack_require__(0);
+var Browser = __webpack_require__(1);
+
+var Audio = {
+
+    /**
+    * @property {boolean} audioData - Are Audio tags available?
+    * @default
+    */
+    audioData: false,
+
+    /**
+    * @property {boolean} webAudio - Is the WebAudio API available?
+    * @default
+    */
+    webAudio: false,
+
+    /**
+    * @property {boolean} ogg - Can this device play ogg files?
+    * @default
+    */
+    ogg: false,
+
+    /**
+    * @property {boolean} opus - Can this device play opus files?
+    * @default
+    */
+    opus: false,
+
+    /**
+    * @property {boolean} mp3 - Can this device play mp3 files?
+    * @default
+    */
+    mp3: false,
+
+    /**
+    * @property {boolean} wav - Can this device play wav files?
+    * @default
+    */
+    wav: false,
+
+    /**
+    * Can this device play m4a files?
+    * @property {boolean} m4a - True if this device can play m4a files.
+    * @default
+    */
+    m4a: false,
+
+    /**
+    * @property {boolean} webm - Can this device play webm files?
+    * @default
+    */
+    webm: false,
+
+    /**
+    * @property {boolean} dolby - Can this device play EC-3 Dolby Digital Plus files?
+    * @default
+    */
+    dolby: false
+
+};
+
+function init ()
+{
+    console.log('Audio.init');
+
+    Audio.audioData = !!(window['Audio']);
+    Audio.webAudio = !!(window['AudioContext'] || window['webkitAudioContext']);
+
+    var audioElement = document.createElement('audio');
+
+    var result = !!audioElement.canPlayType;
+
+    try
+    {
+        if (result)
+        {
+            if (audioElement.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ''))
+            {
+                Audio.ogg = true;
+            }
+
+            if (audioElement.canPlayType('audio/ogg; codecs="opus"').replace(/^no$/, '') || audioElement.canPlayType('audio/opus;').replace(/^no$/, ''))
+            {
+                Audio.opus = true;
+            }
+
+            if (audioElement.canPlayType('audio/mpeg;').replace(/^no$/, ''))
+            {
+                Audio.mp3 = true;
+            }
+
+            //  Mimetypes accepted:
+            //  developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
+            //  bit.ly/iphoneoscodecs
+            if (audioElement.canPlayType('audio/wav; codecs="1"').replace(/^no$/, ''))
+            {
+                Audio.wav = true;
+            }
+
+            if (audioElement.canPlayType('audio/x-m4a;') || audioElement.canPlayType('audio/aac;').replace(/^no$/, ''))
+            {
+                Audio.m4a = true;
+            }
+
+            if (audioElement.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, ''))
+            {
+                Audio.webm = true;
+            }
+
+            if (audioElement.canPlayType('audio/mp4;codecs="ec-3"') !== '')
+            {
+                if (Browser.edge)
+                {
+                    Audio.dolby = true;
+                }
+                else if (Browser.safari && Browser.safariVersion >= 9)
+                {
+                    if ((/Mac OS X (\d+)_(\d+)/).test(navigator.userAgent))
+                    {
+                        var major = parseInt(RegExp.$1, 10);
+                        var minor = parseInt(RegExp.$2, 10);
+
+                        if ((major === 10 && minor >= 11) || major > 10)
+                        {
+                            Audio.dolby = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    catch (e)
+    {
+        //  Nothing to do here
+    }
+
+    return Audio;
+}
+
+module.exports = init();
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+var OS = __webpack_require__(0);
+var Browser = __webpack_require__(1);
+var CanvasPool = __webpack_require__(4);
+
+var Features = {
+
+    /**
+    * @property {boolean} canvas - Is canvas available?
+    * @default
+    */
+    canvas: false,
+
+    /**
+    * @property {?boolean} canvasBitBltShift - True if canvas supports a 'copy' bitblt onto itself when the source and destination regions overlap.
+    * @default
+    */
+    canvasBitBltShift: null,
+
+    /**
+    * @property {boolean} webGL - Is webGL available?
+    * @default
+    */
+    webGL: false,
+
+    /**
+    * @property {boolean} file - Is file available?
+    * @default
+    */
+    file: false,
+
+    /**
+    * @property {boolean} fileSystem - Is fileSystem available?
+    * @default
+    */
+    fileSystem: false,
+
+    /**
+    * @property {boolean} localStorage - Is localStorage available?
+    * @default
+    */
+    localStorage: false,
+
+    /**
+    * @property {boolean} worker - Is worker available?
+    * @default
+    */
+    worker: false,
+
+    /**
+    * @property {boolean} pointerLock - Is Pointer Lock available?
+    * @default
+    */
+    pointerLock: false,
+
+    /**
+    * @property {boolean} vibration - Does the device support the Vibration API?
+    * @default
+    */
+    vibration: false,
+
+    /**
+    * @property {boolean} getUserMedia - Does the device support the getUserMedia API?
+    * @default
+    */
+    getUserMedia: true,
+
+    /**
+    * @property {boolean} littleEndian - Is the device big or little endian? (only detected if the browser supports TypedArrays)
+    * @default
+    */
+    littleEndian: false,
+
+    /**
+    * @property {boolean} support32bit - Does the device context support 32bit pixel manipulation using array buffer views?
+    * @default
+    */
+    support32bit: false
+
+};
+
+/**
+* Check Little or Big Endian system.
+*
+* @author Matt DesLauriers (@mattdesl)
+*/
+function checkIsLittleEndian ()
+{
+    var a = new ArrayBuffer(4);
+    var b = new Uint8Array(a);
+    var c = new Uint32Array(a);
+
+    b[0] = 0xa1;
+    b[1] = 0xb2;
+    b[2] = 0xc3;
+    b[3] = 0xd4;
+
+    if (c[0] === 0xd4c3b2a1)
+    {
+        return true;
+    }
+
+    if (c[0] === 0xa1b2c3d4)
+    {
+        return false;
+    }
+    else
+    {
+        //  Could not determine endianness
+        return null;
+    }
+}
+
+function init ()
+{
+    console.log('Features.init');
+
+    Features.canvas = !!window['CanvasRenderingContext2D'] || OS.cocoonJS;
+
+    try
+    {
+        Features.localStorage = !!localStorage.getItem;
+    }
+    catch (error)
+    {
+        Features.localStorage = false;
+    }
+
+    Features.file = !!window['File'] && !!window['FileReader'] && !!window['FileList'] && !!window['Blob'];
+    Features.fileSystem = !!window['requestFileSystem'];
+
+    var isUint8 = false;
+
+    var testWebGL = function ()
+    {
+        if (window['WebGLRenderingContext'])
+        {
+            try
+            {
+                var canvas = CanvasPool.create(this, 1, 1);
+
+                //  cocoon ...
+                canvas.screencanvas = false;
+
+                var ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+                var image = ctx.createImageData(1, 1);
+
+                /**
+                * Test to see if ImageData uses CanvasPixelArray or Uint8ClampedArray.
+                *
+                * @author Matt DesLauriers (@mattdesl)
+                */
+                isUint8 = image.data instanceof Uint8ClampedArray;
+
+                CanvasPool.removeByCanvas(canvas);
+
+                return (ctx !== null);
+            }
+            catch (e)
+            {
+                return false;
+            }
+        }
+        
+        return false;
+    };
+
+    Features.webGL = testWebGL();
+
+    Features.worker = !!window['Worker'];
+
+    Features.pointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+    window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+
+    Features.getUserMedia = Features.getUserMedia && !!navigator.getUserMedia && !!window.URL;
+
+    // Older versions of firefox (< 21) apparently claim support but user media does not actually work
+    if (Browser.firefox && Browser.firefoxVersion < 21)
+    {
+        Features.getUserMedia = false;
+    }
+
+    // Excludes iOS versions as they generally wrap UIWebView (eg. Safari WebKit) and it
+    // is safer to not try and use the fast copy-over method.
+    if (!OS.iOS && (Browser.ie || Browser.firefox || Browser.chrome))
+    {
+        Features.canvasBitBltShift = true;
+    }
+
+    // Known not to work
+    if (Browser.safari || Browser.mobileSafari)
+    {
+        Features.canvasBitBltShift = false;
+    }
+
+    navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+    if (navigator.vibrate)
+    {
+        Features.vibration = true;
+    }
+
+    if (typeof ArrayBuffer !== 'undefined' && typeof Uint8Array !== 'undefined' && typeof Uint32Array !== 'undefined')
+    {
+        Features.littleEndian = checkIsLittleEndian();
+    }
+
+    Features.support32bit = (
+        typeof ArrayBuffer !== 'undefined' &&
+        typeof Uint8ClampedArray !== 'undefined' &&
+        typeof Int32Array !== 'undefined' &&
+        Features.littleEndian !== null &&
+        isUint8
+    );
+
+    return Features;
+}
+
+module.exports = init();
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+var OS = __webpack_require__(0);
+var Browser = __webpack_require__(1);
+
+var Fullscreen = {
+
+    /**
+    * @property {boolean} available - Does the browser support the Full Screen API?
+    * @default
+    */
+    available: false,
+
+    /**
+    * @property {string} request - If the browser supports the Full Screen API this holds the call you need to use to activate it.
+    * @default
+    */
+    request: '',
+
+    /**
+    * @property {string} cancel - If the browser supports the Full Screen API this holds the call you need to use to cancel it.
+    * @default
+    */
+    cancel: '',
+
+    /**
+    * @property {boolean} keyboard - Does the browser support access to the Keyboard during Full Screen mode?
+    * @default
+    */
+    keyboard: false
+
+};
+
+/**
+* Checks for support of the Full Screen API.
+*/
+function init ()
+{
+    console.log('Fullscreen.init');
+
+    var fs = [
+        'requestFullscreen',
+        'requestFullScreen',
+        'webkitRequestFullscreen',
+        'webkitRequestFullScreen',
+        'msRequestFullscreen',
+        'msRequestFullScreen',
+        'mozRequestFullScreen',
+        'mozRequestFullscreen'
+    ];
+
+    var element = document.createElement('div');
+
+    for (var i = 0; i < fs.length; i++)
+    {
+        if (element[fs[i]])
+        {
+            Fullscreen.available = true;
+            Fullscreen.request = fs[i];
+            break;
+        }
+    }
+
+    var cfs = [
+        'cancelFullScreen',
+        'exitFullscreen',
+        'webkitCancelFullScreen',
+        'webkitExitFullscreen',
+        'msCancelFullScreen',
+        'msExitFullscreen',
+        'mozCancelFullScreen',
+        'mozExitFullscreen'
+    ];
+
+    if (Fullscreen.available)
+    {
+        for (var i = 0; i < cfs.length; i++)
+        {
+            if (document[cfs[i]])
+            {
+                Fullscreen.cancel = cfs[i];
+                break;
+            }
+        }
+    }
+
+    //  Keyboard Input?
+    if (window['Element'] && Element['ALLOW_KEYBOARD_INPUT'])
+    {
+        Fullscreen.keyboard = true;
+    }
+
+    return Fullscreen;
+}
+
+module.exports = init();
+
 
 /***/ },
 /* 14 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+var OS = __webpack_require__(0);
+var Browser = __webpack_require__(1);
+
+var Input = {
+
+    /**
+    * @property {boolean} touch - Is touch available?
+    * @default
+    */
+    touch: false,
+
+    /**
+    * @property {boolean} mspointer - Is mspointer available?
+    * @default
+    */
+    mspointer: false,
+
+    /**
+    * @property {?string} wheelType - The newest type of Wheel/Scroll event supported: 'wheel', 'mousewheel', 'DOMMouseScroll'
+    * @default
+    * @protected
+    */
+    wheelEvent: null
+    
+};
+
+function init ()
+{
+    console.log('Input.init');
+
+    if ('ontouchstart' in document.documentElement || (window.navigator.maxTouchPoints && window.navigator.maxTouchPoints >= 1))
+    {
+        Input.touch = true;
+    }
+
+    if (window.navigator.msPointerEnabled || window.navigator.pointerEnabled)
+    {
+        Input.mspointer = true;
+    }
+
+    if (!OS.cocoonJS)
+    {
+        // See https://developer.mozilla.org/en-US/docs/Web/Events/wheel
+        if ('onwheel' in window || (Browser.ie && 'WheelEvent' in window))
+        {
+            // DOM3 Wheel Event: FF 17+, IE 9+, Chrome 31+, Safari 7+
+            Input.wheelEvent = 'wheel';
+        }
+        else if ('onmousewheel' in window)
+        {
+            // Non-FF legacy: IE 6-9, Chrome 1-31, Safari 5-7.
+            Input.wheelEvent = 'mousewheel';
+        }
+        else if (Browser.firefox && 'MouseScrollEvent' in window)
+        {
+            // FF prior to 17. This should probably be scrubbed.
+            Input.wheelEvent = 'DOMMouseScroll';
+        }
+    }
+
+    return Input;
+}
+
+module.exports = init();
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+var OS = __webpack_require__(0);
+var Browser = __webpack_require__(1);
 
 var Video = {
 
@@ -1438,8 +1677,10 @@ var Video = {
 
 };
 
-function init (OS, Browser)
+function init ()
 {
+    console.log('Video.init');
+
     var videoElement = document.createElement('video');
     var result = !!videoElement.canPlayType;
 
@@ -1483,40 +1724,42 @@ function init (OS, Browser)
     return Video;
 }
 
-module.exports = init;
+module.exports = init();
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-var OS = __webpack_require__(13);
-var Browser = __webpack_require__(9);
-var Features = __webpack_require__(10);
-var Input = __webpack_require__(12);
-var Audio = __webpack_require__(8);
-var Video = __webpack_require__(14);
-var Fullscreen = __webpack_require__(11);
+console.log('Device Class');
 
-var os = OS();
-var browser = Browser(os);
+var OS = __webpack_require__(0);
+var Browser = __webpack_require__(1);
+var Features = __webpack_require__(12);
+var Input = __webpack_require__(14);
+var Audio = __webpack_require__(11);
+var Video = __webpack_require__(15);
+var Fullscreen = __webpack_require__(13);
+
+// var os = OS();
+// var browser = Browser(os);
 
 module.exports = {
 
     //  Doing this makes it available under Device.OS
-    OS: os,
-    Browser: browser,
-    Features: Features(os, browser),
-    Input: Input(os, browser),
-    Audio: Audio(os, browser),
-    Video: Video(os, browser),
-    Fullscreen: Fullscreen()
+    OS: OS,
+    Browser: Browser,
+    Features: Features,
+    Input: Input,
+    Audio: Audio,
+    Video: Video,
+    Fullscreen: Fullscreen
 
 };
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 /**
@@ -1574,7 +1817,7 @@ module.exports = DOMContentLoaded;
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 /**
@@ -1705,7 +1948,7 @@ module.exports = RequestAnimationFrame;
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 /**
@@ -2051,7 +2294,7 @@ module.exports = RandomDataGenerator;
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 /**
@@ -2096,7 +2339,7 @@ if (!Array.prototype.forEach)
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 /**
@@ -2117,7 +2360,7 @@ if (!Array.isArray)
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 /**
@@ -2307,7 +2550,7 @@ if (!window.console)
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 /**
@@ -2324,7 +2567,7 @@ if (!Math.trunc) {
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 /**
@@ -2382,7 +2625,7 @@ if (typeof window.Uint32Array !== "function" && typeof window.Uint32Array !== "o
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 /**
@@ -2402,7 +2645,7 @@ if (!window.console)
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 /**
@@ -2440,7 +2683,7 @@ if (!window.console)
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// References:
@@ -2510,10 +2753,10 @@ if (!global.cancelAnimationFrame) {
     };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 // shim for using process in browser
@@ -2699,18 +2942,18 @@ process.umask = function() { return 0; };
 
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {__webpack_require__(3);
+/* WEBPACK VAR INJECTION */(function(global) {__webpack_require__(6);
 
-var boot = __webpack_require__(2);
+var boot = __webpack_require__(5);
 
 module.exports = boot;
 
 global.Phaser = boot;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }
 /******/ ]);

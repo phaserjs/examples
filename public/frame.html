@@ -47,11 +47,11 @@
             //  Otherwise it fires a shutdown event when the page reloads
             window.onbeforeunload = function() {};
             window.location.reload();
+            console.clear();
+            console.log.apply(console, ['%c                                        >>>', 'background: #ff0000; color: #ffffff']);
         }
         else
         {
-            console.clear();
-
             try {
                 eval(event.data);
             }

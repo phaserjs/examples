@@ -213,8 +213,6 @@ var Phaser =
 
 function init ()
 {
-    console.log('OS.init');
-
     var ua = navigator.userAgent;
 
     if (/Windows/.test(ua))
@@ -450,8 +448,6 @@ var Browser = {
 
 function init ()
 {
-    console.log('Browser.init');
-
     var ua = navigator.userAgent;
 
     if ((/Arora/).test(ua))
@@ -521,6 +517,23 @@ module.exports = init();
 /* 2 */
 /***/ function(module, exports) {
 
+var CONST = {
+
+    VERSION: '3.0.0',
+
+    AUTO: 0,
+    CANVAS: 1,
+    WEBGL: 2
+
+};
+
+module.exports = CONST;
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
 var g;
 
 // This works in non-strict mode
@@ -543,31 +556,16 @@ module.exports = g;
 
 
 /***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-var CONST = {
-
-    VERSION: '3.0.0',
-
-    AUTO: 0,
-    CANVAS: 1,
-    WEBGL: 2
-
-};
-
-module.exports = CONST;
-
-
-/***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 /**
 * @author       Richard Davey <rich@photonstorm.com>
 * @copyright    2016 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
+
+var CONST = __webpack_require__(2);
 
 /**
  * The pool into which the canvas elements are placed.
@@ -577,6 +575,11 @@ module.exports = CONST;
  */
 var pool = [];
 
+//  This singleton is instantiated as soon as Phaser loads,
+//  before a Phaser.Game instance has even been created.
+//  Which means all instances of Phaser Games on the same page
+//  can share the one single pool
+
 /**
 * The CanvasPool is a global static object, that allows Phaser to recycle and pool Canvas DOM elements.
 *
@@ -585,8 +588,6 @@ var pool = [];
 */
 var CanvasPool = function ()
 {
-    console.log('CanvasPool');
-
     /**
     * Creates a new Canvas DOM element, or pulls one from the pool if free.
     * 
@@ -597,18 +598,23 @@ var CanvasPool = function ()
     * @param {number} height - The height of the canvas element.
     * @return {HTMLCanvasElement} The canvas element.
     */
-    var create = function (parent, width, height)
+    var create = function (parent, width, height, type)
     {
-        var idx = first();
+        if (width === undefined) { width = 1; }
+        if (height === undefined) { height = 1; }
+        if (type === undefined) { type = CONST.CANVAS; }
+
         var canvas;
+        var container = first(type);
 
-        console.log('CanvasPool.create', idx);
-
-        if (idx === -1)
+        if (container === null)
         {
-            var container = {
+            console.log('CanvasPool.create new');
+
+            container = {
                 parent: parent,
-                canvas: document.createElement('canvas')
+                canvas: document.createElement('canvas'),
+                type: type
             };
 
             pool.push(container);
@@ -617,9 +623,11 @@ var CanvasPool = function ()
         }
         else
         {
-            pool[idx].parent = parent;
+            console.log('CanvasPool.create existing');
 
-            canvas = pool[idx].canvas;
+            container.parent = parent;
+
+            canvas = container.canvas;
         }
 
         if (width !== undefined)
@@ -631,6 +639,16 @@ var CanvasPool = function ()
         return canvas;
     };
 
+    var create2D = function (parent, width, height)
+    {
+        return create(parent, width, height, CONST.CANVAS);
+    };
+
+    var createWebGL = function (parent, width, height)
+    {
+        return create(parent, width, height, CONST.WEBGL);
+    };
+
     /**
     * Gets the first free canvas index from the pool.
     * 
@@ -638,17 +656,19 @@ var CanvasPool = function ()
     * @method Phaser.CanvasPool.getFirst
     * @return {number}
     */
-    var first = function ()
+    var first = function (type)
     {
-        for (var i = 0; i < pool.length; i++)
-        {
-            if (!pool[i].parent)
-            {
-                return i;
-            }
-        }
+        if (type === undefined) { type = CONST.CANVAS; }
 
-        return -1;
+        pool.forEach(function (container)
+        {
+            if (!container.parent && container.type === type)
+            {
+                return container;
+            }
+        });
+
+        return null;
     };
 
     /**
@@ -657,49 +677,23 @@ var CanvasPool = function ()
     * 
     * @static
     * @method Phaser.CanvasPool.remove
-    * @param {any} parent - The parent of the canvas element.
+    * @param {any|HTMLCanvasElement} parent - The parent of the canvas element.
     */
     var remove = function (parent)
     {
-        //  Check to see if the parent is a canvas object, then do removeByCanvas stuff instead
-        //  CanvasRenderingContext2D
+        //  Check to see if the parent is a canvas object
+        var isCanvas = parent instanceof HTMLCanvasElement;
 
-        for (var i = 0; i < pool.length; i++)
+        pool.forEach(function (container)
         {
-            if (pool[i].parent === parent)
+            if ((isCanvas && container.canvas === parent) || (!isCanvas && container.parent === parent))
             {
-                pool[i].parent = null;
-                pool[i].canvas.width = 1;
-                pool[i].canvas.height = 1;
+                console.log('CanvasPool.remove found and removed');
+                container.parent = null;
+                container.canvas.width = 1;
+                container.canvas.height = 1;
             }
-        }
-
-    };
-
-    /**
-    * Looks up a canvas based on its type, and if found puts it back in the pool, freeing it up for re-use.
-    * The canvas has its width and height set to 1, and its parent attribute nulled.
-    * 
-    * @static
-    * @method Phaser.CanvasPool.removeByCanvas
-    * @param {HTMLCanvasElement} canvas - The canvas element to remove.
-    */
-    var removeByCanvas = function (canvas)
-    {
-        console.log('removeByCanvas');
-
-        for (var i = 0; i < pool.length; i++)
-        {
-            if (pool[i].canvas === canvas)
-            {
-                console.log('found and removed');
-
-                pool[i].parent = null;
-                pool[i].canvas.width = 1;
-                pool[i].canvas.height = 1;
-            }
-        }
-
+        });
     };
 
     /**
@@ -709,17 +703,17 @@ var CanvasPool = function ()
     * @method Phaser.CanvasPool.getTotal
     * @return {number} The number of in-use (parented) canvas elements in the pool.
     */
-    var getTotal = function ()
+    var total = function ()
     {
         var c = 0;
 
-        for (var i = 0; i < pool.length; i++)
+        pool.forEach(function (container)
         {
-            if (pool[i].parent)
+            if (container.parent)
             {
                 c++;
             }
-        }
+        });
 
         return c;
     };
@@ -731,34 +725,24 @@ var CanvasPool = function ()
     * @method Phaser.CanvasPool.getFree
     * @return {number} The number of free (un-parented) canvas elements in the pool.
     */
-    var getFree = function ()
+    var free = function ()
     {
-        var c = 0;
-
-        for (var i = 0; i < pool.length; i++)
-        {
-            if (!pool[i].parent)
-            {
-                c++;
-            }
-        }
-
-        return c;
+        return pool.length - total();
     };
 
     return {
         create: create,
+        create2D: create2D,
+        createWebGL: createWebGL,
         first: first,
         remove: remove,
-        removeByCanvas: removeByCanvas,
-        getTotal: getTotal,
-        getFree: getFree,
+        total: total,
+        free: free,
         pool: pool
     };
 };
 
 //  If we export the called function here, it'll only be invoked once (not every time it's required).
-//  This function must return something though
 module.exports = CanvasPool();
 
 
@@ -798,7 +782,7 @@ __webpack_require__(24);
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-var CONST = __webpack_require__(3);
+var CONST = __webpack_require__(2);
 
 var defaultBannerColor = [
     '#ff0000',
@@ -881,7 +865,7 @@ module.exports = Config;
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-var CONST = __webpack_require__(3);
+var CONST = __webpack_require__(2);
 
 var DebugHeader = function (game)
 {
@@ -1058,8 +1042,8 @@ Game.prototype = {
 
         console.log(CHECKSUM.build);
 
-        console.log('pool', CanvasPool.getTotal());
-        console.log('free', CanvasPool.getFree());
+        console.log('pool', CanvasPool.total());
+        console.log('free', CanvasPool.free());
 
         //  Add in ability to specify pre-init and post-init callbacks in the config
 
@@ -1081,7 +1065,7 @@ module.exports = Game;
 /***/ function(module, exports) {
 
 var CHECKSUM = {
-build: '0a915bb0-b376-11e6-8e00-5b1f6d1d763b'
+build: '1e855860-b380-11e6-ae1d-777159c5bd92'
 };
 module.exports = CHECKSUM;
 
@@ -1153,8 +1137,6 @@ var Audio = {
 
 function init ()
 {
-    console.log('Audio.init');
-
     Audio.audioData = !!(window['Audio']);
     Audio.webAudio = !!(window['AudioContext'] || window['webkitAudioContext']);
 
@@ -1370,18 +1352,33 @@ function init ()
 
     var testWebGL = function ()
     {
+        console.log('testWebGL');
+
         if (window['WebGLRenderingContext'])
         {
+            console.log('testWebGL trying ...');
+
             try
             {
-                var canvas = CanvasPool.create(this, 1, 1);
+                var canvas = CanvasPool.createWebGL(this);
 
-                //  cocoon ...
-                canvas.screencanvas = false;
+                if (OS.cocoonJS)
+                {
+                    canvas.screencanvas = false;
+                }
 
                 var ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
 
-                var image = ctx.createImageData(1, 1);
+                console.log('getContext');
+
+                var canvas2D = CanvasPool.create2D(this);
+
+                var ctx2D = canvas2D.getContext('2d');
+
+                //  Can't be done on a webgl context
+                var image = ctx2D.createImageData(1, 1);
+    
+                console.log('createImageData');
 
                 /**
                 * Test to see if ImageData uses CanvasPixelArray or Uint8ClampedArray.
@@ -1390,7 +1387,8 @@ function init ()
                 */
                 isUint8 = image.data instanceof Uint8ClampedArray;
 
-                CanvasPool.removeByCanvas(canvas);
+                CanvasPool.remove(canvas);
+                CanvasPool.remove(canvas2D);
 
                 return (ctx !== null);
             }
@@ -1500,8 +1498,6 @@ var Fullscreen = {
 */
 function init ()
 {
-    console.log('Fullscreen.init');
-
     var fs = [
         'requestFullscreen',
         'requestFullScreen',
@@ -1592,8 +1588,6 @@ var Input = {
 
 function init ()
 {
-    console.log('Input.init');
-
     if ('ontouchstart' in document.documentElement || (window.navigator.maxTouchPoints && window.navigator.maxTouchPoints >= 1))
     {
         Input.touch = true;
@@ -1679,8 +1673,6 @@ var Video = {
 
 function init ()
 {
-    console.log('Video.init');
-
     var videoElement = document.createElement('video');
     var result = !!videoElement.canPlayType;
 
@@ -1731,7 +1723,10 @@ module.exports = init();
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-console.log('Device Class');
+//  This singleton is instantiated as soon as Phaser loads,
+//  before a Phaser.Game instance has even been created.
+//  Which means all instances of Phaser Games can share it,
+//  without having to re-poll the device all over again
 
 var OS = __webpack_require__(0);
 var Browser = __webpack_require__(1);
@@ -1741,12 +1736,8 @@ var Audio = __webpack_require__(11);
 var Video = __webpack_require__(15);
 var Fullscreen = __webpack_require__(13);
 
-// var os = OS();
-// var browser = Browser(os);
-
 module.exports = {
 
-    //  Doing this makes it available under Device.OS
     OS: OS,
     Browser: Browser,
     Features: Features,
@@ -2753,7 +2744,7 @@ if (!global.cancelAnimationFrame) {
     };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
 /* 28 */
@@ -2953,7 +2944,7 @@ module.exports = boot;
 
 global.Phaser = boot;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }
 /******/ ]);

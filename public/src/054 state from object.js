@@ -1,5 +1,13 @@
 
-var game = new Phaser.Game(800, 600, Phaser.WEBGL, 'phaser-example', { preload: preload, create: create });
+var config = {
+    width: 800,
+    height: 600,
+    renderType: Phaser.CANVAS,
+    parent: 'phaser-example',
+    state: { preload: preload, create: create }
+};
+
+var game = new Phaser.Game(config);
 
 function preload() {
 
@@ -10,6 +18,9 @@ function preload() {
 var image;
 
 function create() {
+
+    console.log('State create called');
+    console.log(this);
 
     image = this.add.image(0, 0, 'einstein');
 

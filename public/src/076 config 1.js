@@ -18,7 +18,8 @@ var game = new Phaser.Game(config);
 
 function preload() {
 
-    this.load.image('logo', 'assets/sprites/phaser.png');
+    // this.load.image('logo', 'assets/atlas/megasetHD-0.png');
+    this.load.image('logo', 'http://examples.phaser.io/assets/atlas/megasetSD-0.png');
 
 }
 

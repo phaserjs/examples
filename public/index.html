@@ -23,6 +23,8 @@
 
         var list = document.getElementById('examplesList');
 
+        json.files.reverse();
+
         json.files.forEach(function(filename) {
 
             var link = document.createElement('a');

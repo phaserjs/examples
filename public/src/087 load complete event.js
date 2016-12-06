@@ -1,0 +1,23 @@
+var config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    state: {
+        preload: preload,
+        create: create
+    }
+};
+
+var game = new Phaser.Game(config);
+
+function preload() {
+
+    // this.load.image('logo', 'assets/atlas/megasetHD-0.png');
+    this.load.image('logo', 'http://examples.phaser.io/assets/atlas/megasetSD-0.png');
+
+}
+
+function create() {
+
+    console.log('create');
+
+}

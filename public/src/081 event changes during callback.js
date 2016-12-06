@@ -35,7 +35,7 @@ function handler(event) {
     //   And now we're going to add a new event to the same dispatcher
     //   but it won't process it until 'dispatch' is called again
 
-    event.dispatcher.on('shoot', handler2);
+    event.target.on('shoot', handler2);
 
 }
 

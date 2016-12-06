@@ -52,11 +52,11 @@ function handler2(event) {
     //  (gets inserted at the top of the array, so is skipped by this point)
 
     //  A PID lower than handler2, but higher than handler3
-    // event.dispatcher.on('shoot', handler6, 85);
-    event.dispatcher.on('shoot', handler6, 95);
+    // event.target.on('shoot', handler6, 85);
+    event.target.on('shoot', handler6, 95);
 
     //  Remove handler5
-    event.dispatcher.off('shoot', handler2);
+    event.target.off('shoot', handler2);
 
 }
 

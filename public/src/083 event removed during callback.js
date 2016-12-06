@@ -50,7 +50,7 @@ function handler2(event) {
     console.log('Event Received by Handler Two:', event);
 
     //  Remove handler5 from the event dispatcher
-    event.dispatcher.off('shoot', handler5);
+    event.target.off('shoot', handler5);
 
 }
 

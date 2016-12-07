@@ -1,21 +1,24 @@
+var config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    state: {
+        preload: preload,
+        create: create
+    }
+};
 
-// var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
-var game = new Phaser.Game(800, 600, Phaser.WEBGL, 'phaser-example', { preload: preload, create: create });
+var game = new Phaser.Game(config);
 
 function preload() {
 
-    game.load.atlas('atlas', 'assets/sprites/phaser3-test1.png', 'assets/sprites/phaser3-test1.json');
+    this.load.atlas('atlas', 'assets/atlas/megasetHD-0.png', 'assets/atlas/megasetHD-0.json');
 
 }
 
-var img1;
-var img2;
-var img3;
-
 function create() {
 
-    img1 = game.add.image(0, 0, 'atlas', 'hello', game.stage);
-    img2 = game.add.image(510, 240, 'atlas', 'contra3', game.stage);
-    img3 = game.add.image(80, 40, 'atlas', 'titan_mech', game.stage);
+    this.add.image(0, 0, 'atlas', 'aya_touhou_teng_soldier');
+    this.add.image(260, 60, 'atlas', 'exocet_spaceman');
+    this.add.image(120, 300, 'atlas', 'hotdog');
 
 }

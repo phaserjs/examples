@@ -1,11 +1,26 @@
+var config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    state: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
 
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(config);
 
 function preload() {
 
-    game.load.path = 'assets/atlas/';
+    this.load.path = 'assets/atlas/';
 
-    game.load.multiatlas('megasetHD', 3);
+    //  The megasetHD is a multi-part texture atlas, split over 4 PNGs and 4 JSON files
+    //  called megasetHD-0.png to megasetHD-3.png, and megasetHD-0.json to megasetHD-3.json
+    //  
+    //  The following will automatically load those, based on the key given.
+    //  The number means load 0,1,2 and 3 files.
+
+    this.load.multiatlas('megasetHD', 3);
 
 }
 
@@ -20,11 +35,11 @@ function create() {
     //  'explosion' is the name of the frame within the texture atlas
     //  The rest of the values are the sprite sheet frame sizes and offsets
 
-    game.textures.addSpriteSheetFromAtlas('boom', 'megasetHD', 'explosion', 64, 64, 0, 22);
+    this.textures.addSpriteSheetFromAtlas('boom', 'megasetHD', 'explosion', 64, 64, 0, 22);
 
     //  There is a new texture available called 'boom', which we can assign to game objects:
 
-    monster = game.add.image(0, 0, 'boom', 0);
+    monster = this.add.image(0, 0, 'boom', 0);
 
 }
 

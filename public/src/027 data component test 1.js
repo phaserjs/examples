@@ -1,9 +1,17 @@
+var config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    state: {
+        preload: preload,
+        create: create
+    }
+};
 
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
+var game = new Phaser.Game(config);
 
 function preload() {
 
-    game.load.image('gem', 'assets/sprites/gem.png');
+    this.load.image('gem', 'assets/sprites/gem.png');
 
 }
 
@@ -11,7 +19,7 @@ var image;
 
 function create() {
 
-    image = game.add.image(0, 0, 'gem');
+    image = this.add.image(0, 0, 'gem');
 
     image.data.set('name', 'Red GemStone');
     image.data.set('level', 2);

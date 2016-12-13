@@ -3,7 +3,8 @@ var config = {
     parent: 'phaser-example',
     state: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
@@ -17,11 +18,6 @@ function preload() {
 
 }
 
-function between (min, max)
-{
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 var container;
 var image;
 var logo;
@@ -29,19 +25,20 @@ var sprites = [];
 
 function create() {
 
-    container = game.add.container(game.stage, 400, 300, 'bob');
+    container = this.add.container(this, 400, 300);
     container.pivotX = 400;
     container.pivotY = 300;
 
-    image = game.add.image(0, 0, 'bg', 0, container, 'drumstick');
+    image = this.add.image(0, 0, 'bg', 0, container);
+    image.alpha = 0.5;
 
     //  Create the sprites
     for (var i = 0; i < 500; i++)
     {
-        var x = between(-64, 800);
-        var y = between(-64, 600);
+        var x = Phaser.Math.Between(-64, 800);
+        var y = Phaser.Math.Between(-64, 600);
 
-        var image = game.add.image(x, y, 'particle', 0, container);
+        image = this.add.image(x, y, 'particle', 0, container);
 
         // image.blendMode = Phaser.blendModes.ADD;
         // image.blendMode = Phaser.blendModes.MULTIPLY;
@@ -49,11 +46,14 @@ function create() {
         sprites.push({ s: image, r: 2 + Math.random() * 6 });
     }
 
-    logo = game.add.image(400, 300, 'logo', 0, container, 'logo');
+    container.alpha = 0.5;
+
+    // logo = this.add.image(400, 300, 'logo', 0, container);
+    logo = this.add.image(400, 300, 'logo');
     logo.anchor = 0.5;
     logo.scale = 0.5;
 
-    game.add.tween(logo).to( { scaleX: 2, scaleY: 2 }, 3000, "Sine.easeInOut", true, 0, -1, true);
+    // game.add.tween(logo).to( { scaleX: 2, scaleY: 2 }, 3000, "Sine.easeInOut", true, 0, -1, true);
 
 }
 

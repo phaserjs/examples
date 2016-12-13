@@ -1,12 +1,19 @@
+var config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    state: {
+        preload: preload,
+        create: create
+    }
+};
 
-var game = new Phaser.Game(800, 600, Phaser.WEBGL, 'phaser-example', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(config);
 
 function preload() {
 
-    game.load.image('bg', 'assets/skies/sky1.png');
-    game.load.image('particle', 'assets/sprites/aqua_ball.png');
-    // game.load.image('logo', 'assets/pics/agent-t-buggin-acf_logo.png');
-    game.load.image('logo', 'assets/sprites/phaser2.png');
+    this.load.image('bg', 'assets/skies/sky1.png');
+    this.load.image('particle', 'assets/sprites/aqua_ball.png');
+    this.load.image('logo', 'assets/sprites/phaser2.png');
 
 }
 

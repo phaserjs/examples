@@ -19,33 +19,55 @@
 
     <script type="text/javascript">
 
+    function createHeader (element, name)
+    {
+        var header = document.createElement('h2');
+
+        header.innerText = name;
+
+        element.appendChild(header);
+    }
+
+    function createLink (element, filename, filepath)
+    {
+        var link = document.createElement('a');
+
+        filepath = filepath.replace('public/', '');
+
+        link.href = 'edit.html?src=' + filepath;
+
+        if (getQueryString('src') === filepath)
+        {
+            link.className = 'list-group-item active';
+        }
+        else
+        {
+            link.className = 'list-group-item list-group-item-action';
+        }
+
+        link.innerText = filename;
+
+        element.appendChild(link);
+    }
+
     loadJSON('examples.json', function (json) {
 
-        var list = document.getElementById('examplesList');
+        var div = document.getElementById('examplesList');
 
-        json.files.reverse();
+        for (var i = 0; i < json.children.length; i++)
+        {
+            var folder = json.children[i];
 
-        json.files.forEach(function(filename) {
+            createHeader(div, folder.name);
 
-            var link = document.createElement('a');
-
-            // link.href = 'index.html?src=' + filename;
-            link.href = 'edit.html?src=' + filename;
-
-            if (getQueryString('src') === filename)
+            if (folder.hasOwnProperty('children'))
             {
-                link.className = 'list-group-item active';
+                for (var c = 0; c < folder.children.length; c++)
+                {
+                    createLink(div, folder.children[c].name, folder.children[c].path);
+                }
             }
-            else
-            {
-                link.className = 'list-group-item list-group-item-action';
-            }
-
-            link.innerText = filename;
-
-            list.appendChild(link);
-
-        });
+        }
 
     });
         

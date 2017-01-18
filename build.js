@@ -1,28 +1,22 @@
 var fs = require('fs');
+var dirTree = require('directory-tree');
 
-var output = { files: [] };
+var rootDir = './public/src/';
+var examplesJSON = './public/examples.json';
 
-var examples = fs.readdir('./public/src', function (err, files) {
+var filteredTree = dirTree(rootDir, ['.js']);
 
-    files.forEach(function(filename) {
+//  Save the JSON
 
-        output.files.push(filename);
+fs.writeFile(examplesJSON, JSON.stringify(filteredTree), function (error) {
 
-    });
-
-    //  Save the JSON
-
-    fs.writeFile('./public/examples.json', JSON.stringify(output), function (error) {
-
-        if (error)
-        {
-            throw error;
-        }
-        else
-        {
-            console.log('examples.json saved');
-        }
-
-    });
+    if (error)
+    {
+        throw error;
+    }
+    else
+    {
+        console.log('examples.json saved');
+    }
 
 });

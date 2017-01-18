@@ -37,6 +37,7 @@
                 <nav class="navbar navbar-dark bg-inverse">
                     <a class="navbar-brand" href="index.html">[ Home ]</a>
                     <a class="navbar-brand" href="#">Phaser 3 Sandbox</a>
+                    <button class="btn btn-primary" type="submit" id="launch">Launch</button>
                     <button class="btn btn-primary" type="submit" id="run">Run Code</button>
                     <button class="btn btn-primary" type="submit" id="save">Save</button>
                     <form class="form-inline float-xs-right">
@@ -73,6 +74,8 @@
                 editor.layout();
             };
 
+            var windowObjectReference;
+
             var run = document.getElementById('run');
             var save = document.getElementById('save');
             var frame = document.getElementById('sandboxed');
@@ -82,6 +85,15 @@
             {
                 document.getElementById('filename').value = filename;
             }
+
+            launch.onclick = function ()
+            {
+                var filename = getQueryString('src');
+
+                var strWindowFeatures = 'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes';
+
+                windowObjectReference = window.open('view.html?src=' + filename, 'Phaser3Viewer', strWindowFeatures);
+            };
 
             run.onclick = function ()
             {

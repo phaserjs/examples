@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Phaser 3 Runner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="./js/getQueryString.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+    <script src="./js/phaser.js"></script>
+</head>
+
+<body>
+
+    <div id="phaser-example"></div>
+
+    <script type="text/javascript">
+
+    window.onload = function ()
+    {
+        var filename = getQueryString('src');
+
+        var s = document.createElement('script');
+
+        s.type = 'text/javascript';
+        s.src = 'src/' + filename;
+
+        document.body.appendChild(s);
+    };
+
+    </script>
+
+</body>
+</html>

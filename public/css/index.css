@@ -27,7 +27,7 @@ body {
   margin-bottom: .75rem;
 }
 
-.card > img:hover {
+.card img:hover {
   cursor: pointer;
   transform: rotate(-5deg);
 }

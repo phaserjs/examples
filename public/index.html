@@ -5,69 +5,179 @@
         <title>Phaser 3 Examples</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/index.css">
+        <script src="./js/jquery-3.1.1.min.js"></script>
         <script src="./js/phaser.js"></script>
-        <script src="./js/loadJSON.js"></script>
         <script src="./js/getQueryString.js"></script>
     </head>
     <body>
 
-    <h1>Phaser 3 Examples</h1>
+    <nav class="breadcrumb" id="breadcrumb">
+        <a class="breadcrumb-item" href="index.html">Home</a>
+    </nav>
 
-    <p><a href="edit.html">Sandbox</a></p>
+    <div class="album">
+        <div class="container">
+            <div class="row" id="folderList"></div>
+        </div>
+    </div>
 
-    <div id="examplesList" class="list-group"></div>
+    <ul class="list-group" id="fileList">
+      <li class="list-group-item">TEST 1</li>
+    </ul>
 
     <script type="text/javascript">
 
-    function createHeader (element, name)
+    var data = {};
+    var folder = [];
+    var trail = [];
+
+    function openFolder ()
     {
-        var header = document.createElement('h2');
+        // console.log('openFolder');
 
-        header.innerText = name;
+        $('#fileList').empty();
+        $('#folderList').empty();
 
-        element.appendChild(header);
+        createBackFolder();
+
+        for (var i = 0; i < folder.length; i++)
+        {
+            var child = folder[i];
+
+            if (child.hasOwnProperty('children'))
+            {
+                createFolder(i, child.name, child.path);
+            }
+            else
+            {
+                var li = $('<li></li>').addClass('list-group-item');
+                var a = $('<a></a>', { href: 'edit.html?src=' + child.path }).text(child.name);
+
+                li.append(a);
+
+                $('#fileList').append(li);
+            }
+        }
     }
 
-    function createLink (element, filename, filepath)
+    function addBreadcrumb (filename)
     {
-        var link = document.createElement('a');
+        var nav = $('<a></a>', { class: 'breadcrumb-item', href: '#' }).text(filename);
 
-        filepath = filepath.replace('public/', '');
+        $('#breadcrumb').append(nav);
+    }
 
-        link.href = 'edit.html?src=' + filepath;
+    function removeBreadcrumb ()
+    {
+        $('#breadcrumb > a').last().remove();
+    }
 
-        if (getQueryString('src') === filepath)
+    function downLevel (index, filename)
+    {
+        if (!folder[index].hasOwnProperty('children'))
         {
-            link.className = 'list-group-item active';
+            console.log('No children, aborting');
+            return;
+        }
+
+        //  Record the trail
+        trail.push(folder);
+
+        // console.dir(trail);
+
+        folder = folder[index].children;
+
+        addBreadcrumb(filename);
+
+        openFolder();
+    }
+
+    function upLevel ()
+    {
+        removeBreadcrumb();
+
+        if (trail.length === 1)
+        {
+            createTopLevelFolders();
         }
         else
         {
-            link.className = 'list-group-item list-group-item-action';
+            folder = trail[trail.length - 1];
+
+            trail.pop();
+
+            // console.dir(trail);
+
+            openFolder();
         }
-
-        link.innerText = filename;
-
-        element.appendChild(link);
     }
 
-    loadJSON('examples.json', function (json) {
+    function createBackFolder ()
+    {
+        var div = $('<div></div>').addClass('card');
 
-        var div = document.getElementById('examplesList');
+        var img = $('<img />', { src: 'images/back.png', width: 128, height: 128 });
 
-        for (var i = 0; i < json.children.length; i++)
+        img.click(function (event) {
+
+            console.log('<- Back');
+
+            upLevel();
+        });
+
+        var p = $('<p></p>').addClass('card-text').text('Back');
+
+        div.append(img).append(p);
+
+        $('#folderList').append(div);
+    }
+
+    function createFolder (index, filename, filepath)
+    {
+        var div = $('<div></div>').addClass('card');
+
+        var img = $('<img />', { src: 'images/phaser-folder.png', width: 128, height: 128 });
+
+        img.click(function (event) {
+
+            console.log('-> ' + filename);
+
+            downLevel(index, filename);
+
+        });
+
+        var p = $('<p></p>').addClass('card-text');
+        p.append($('<a></a>', { href: 'edit.html?src=' + filepath }).text(filename));
+
+        div.append(img).append(p);
+
+        $('#folderList').append(div);
+    }
+
+    function createTopLevelFolders ()
+    {
+        $('#fileList').empty();
+        $('#folderList').empty();
+
+        trail = [];
+        folder = data.children;
+
+        for (var i = 0; i < folder.length; i++)
         {
-            var folder = json.children[i];
-
-            createHeader(div, folder.name);
-
-            if (folder.hasOwnProperty('children'))
-            {
-                for (var c = 0; c < folder.children.length; c++)
-                {
-                    createLink(div, folder.children[c].name, folder.children[c].path);
-                }
-            }
+            createFolder(i, folder[i].name, folder[i].path);
         }
+    }
+
+    $(document).ready(function () {
+
+        $.getJSON('examples.json', function (json) {
+
+            data = json;
+
+            createTopLevelFolders();
+
+        });
 
     });
         

@@ -6,9 +6,13 @@ var examplesJSON = './public/examples.json';
 
 var filteredTree = dirTree(rootDir, ['.js']);
 
+filteredTree = JSON.stringify(filteredTree);
+
+filteredTree = filteredTree.replace(/public\//g, '');
+
 //  Save the JSON
 
-fs.writeFile(examplesJSON, JSON.stringify(filteredTree), function (error) {
+fs.writeFile(examplesJSON, filteredTree, function (error) {
 
     if (error)
     {

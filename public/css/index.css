@@ -1,0 +1,49 @@
+body {
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#folderList, #fileList {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.album {
+  padding-top: 3rem;
+}
+
+.card {
+  float: left;
+  width: 25%;
+  padding: .75rem;
+  margin-bottom: 1rem;
+  border: 0;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.card > img {
+  margin-bottom: .75rem;
+}
+
+.card > img:hover {
+  cursor: pointer;
+  transform: rotate(-5deg);
+}
+
+.card-text {
+  font-size: 85%;
+  text-transform: capitalize;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+}
+
+.card-text a {
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+}
+
+#breadcrumb a {
+  text-transform: capitalize;
+}

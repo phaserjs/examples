@@ -11,23 +11,26 @@ var config = {
 var game = new Phaser.Game(config);
 
 var bunny;
+var atari;
 
 function preload() {
 
     this.load.image('bunny', 'assets/sprites/bunny.png');
+    this.load.image('atari', 'assets/sprites/atari130xe.png');
 
 }
 
 function create() {
 
-    this.game.renderer.createTexture2D(this.textures.getFrame('bunny').source);
-
     bunny = this.add.image(0, 0, 'bunny');
+    atari = this.add.image(0, 100, 'atari');
 
 }
 
 function update() {
 
     bunny.x++;
+
+    atari.x += 2;
 
 }

@@ -9,6 +9,7 @@ var filteredTree = dirTree(rootDir, ['.js']);
 filteredTree = JSON.stringify(filteredTree);
 
 filteredTree = filteredTree.replace(/public\//g, '');
+filteredTree = filteredTree.replace(/public\\\\/g, '');
 
 //  Save the JSON
 

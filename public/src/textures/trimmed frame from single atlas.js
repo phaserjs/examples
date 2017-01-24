@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -17,6 +17,8 @@ function preload() {
 
 function create() {
 
-    this.add.image(0, 0, 'atlas', 'hello');
+    var i = this.add.image(0, 0, 'atlas', 'hello');
+
+    console.log(i.frame);
 
 }

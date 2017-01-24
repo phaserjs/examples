@@ -29,12 +29,13 @@ function create() {
     this.add.image(0, 0, 'megaset', 'snake');
 
     //  This frame is in the 2nd atlas file (set1/data1)
-    this.add.image(180, 0, 'megaset', 'nanoha-taiken-pink');
+    this.add.image(0, 100, 'megaset', 'nanoha-taiken-pink');
 
     //  This frame is in the 3rd atlas file (set2/data2)
-    this.add.image(240, 0, 'megaset', 'hello');
+    // this.add.image(0, 0, 'megaset', 'hello'); // trimmed
+    this.add.image(300, 130, 'megaset', 'bunny'); // un-trimmed
 
     //  This frame is in the 4th atlas file (set3/data3)
-    this.add.image(340, 0, 'megaset', 'contra3');
+    this.add.image(64, 300, 'megaset', 'contra3');
 
 }

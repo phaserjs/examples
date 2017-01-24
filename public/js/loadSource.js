@@ -1,5 +1,7 @@
 function loadSource (file, callback)
 {
+    file = file.replace(/\\/g, '/');
+
     var xhr = new XMLHttpRequest();
 
     xhr.overrideMimeType('text/plain');
@@ -9,6 +11,7 @@ function loadSource (file, callback)
     {
         if (xhr.readyState === 4 && xhr.status >= 400 && xhr.status <= 599)
         {
+            console.log(xhr);
             throw Error('Failed to load ' + file);
         }
         else

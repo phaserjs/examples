@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -20,8 +20,8 @@ function create() {
     var blitter = this.add.blitter(0, 0, 'atari');
 
     blitter.create(0, 0);
-    blitter.create(200, 0);
-    blitter.create(400, 0);
-    blitter.create(600, 0);
+    blitter.create(200, 50);
+    blitter.create(400, 100);
+    blitter.create(600, 150);
 
 }

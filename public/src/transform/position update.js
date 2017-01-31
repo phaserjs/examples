@@ -3,7 +3,8 @@ var config = {
     parent: 'phaser-example',
     state: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
@@ -22,9 +23,26 @@ function preload() {
 function create() {
 
     atlasFrame = this.add.image(0, 0, 'atlas', 'dragonwiz');
-    singleImage = this.add.image(300, 0, 'atari');
+    singleImage = this.add.image(200, 0, 'atari');
 
-    atlasFrame.scale = 2;
-    singleImage.scale = 2;
+}
+
+function update() {
+
+    singleImage.x += 4;
+
+    if (singleImage.x > this.game.config.width)
+    {
+        singleImage.x = 0;
+        singleImage.y += 64;
+    }
+
+    atlasFrame.x += 4;
+
+    if (atlasFrame.x > this.game.config.width)
+    {
+        atlasFrame.x = 0;
+        atlasFrame.y += 64;
+    }
 
 }

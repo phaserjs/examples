@@ -22,9 +22,9 @@ function preload() {
 function create() {
 
     atlasFrame = this.add.image(0, 0, 'atlas', 'dragonwiz');
-    singleImage = this.add.image(300, 0, 'atari');
+    singleImage = this.add.image(0, 0, 'atari');
 
-    atlasFrame.scale = 2;
-    singleImage.scale = 2;
+    atlasFrame.y = 100;
+    singleImage.y = 300;
 
 }

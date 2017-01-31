@@ -18,7 +18,7 @@ function preload() {
     this.load.image('markerV', 'assets/sprites/longarrow-down.png');
 
     this.load.image('atari', 'assets/sprites/atari130xe.png');
-    this.load.atlas('atlas', 'assets/atlas/megasetHD-0.png', 'assets/atlas/megasetHD-0.json');
+    this.load.atlas('atlas', 'assets/atlas/megaset-1.png', 'assets/atlas/megaset-1.json');
 
 }
 
@@ -33,7 +33,7 @@ function create() {
 
     //  Sprites are centered on the lines
 
-    atlasFrame.anchor = 0.5;
-    singleImage.anchor = 0.5;
+    atlasFrame.anchor.set(0.5);
+    singleImage.anchor.set(0.5);
 
 }

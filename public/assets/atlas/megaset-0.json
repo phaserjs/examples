@@ -433,7 +433,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "p2.jpeg",
+	"filename": "p2",
 	"frame": {"x":36,"y":454,"w":256,"h":256},
 	"rotated": false,
 	"trimmed": false,
@@ -826,6 +826,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:89abe1eee9dcbed490ee58391c07117a:87d98cec6fa616080f731b87726d6a1e:b55588eba103b49b35a0a59665ed84fd$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5e8f90752cfd57d3adfb39bcd3eef1b6:87d98cec6fa616080f731b87726d6a1e:b55588eba103b49b35a0a59665ed84fd$"
 }
 }

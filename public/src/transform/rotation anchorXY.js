@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -16,17 +16,17 @@ var singleImage;
 function preload() {
 
     this.load.image('atari', 'assets/sprites/atari130xe.png');
-    this.load.atlas('atlas', 'assets/atlas/megasetHD-0.png', 'assets/atlas/megasetHD-0.json');
+    this.load.atlas('atlas', 'assets/atlas/megaset-1.png', 'assets/atlas/megaset-1.json');
 
 }
 
 function create() {
 
-    atlasFrame = this.add.image(100, 100, 'atlas', 'atari800');
-    singleImage = this.add.image(100, 300, 'atari');
+    atlasFrame = this.add.image(300, 100, 'atlas', 'atari800xl');
+    singleImage = this.add.image(300, 300, 'atari');
 
-    atlasFrame.anchor = 0.5;
-    singleImage.anchor = 0.5;
+    atlasFrame.anchor.set(0.5);
+    singleImage.anchor.set(0.5);
 
 }
 

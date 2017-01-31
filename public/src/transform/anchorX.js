@@ -18,7 +18,7 @@ function preload() {
     this.load.image('marker', 'assets/sprites/longarrow-down.png');
 
     this.load.image('atari', 'assets/sprites/atari130xe.png');
-    this.load.atlas('atlas', 'assets/atlas/megasetHD-0.png', 'assets/atlas/megasetHD-0.json');
+    this.load.atlas('atlas', 'assets/atlas/megaset-1.png', 'assets/atlas/megaset-1.json');
 
 }
 

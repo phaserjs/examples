@@ -1492,7 +1492,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../sprites/p2.jpeg</key>
+            <key type="filename">../sprites/p2.jpg</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -2206,7 +2206,6 @@
             <filename>../sprites/orb-green.png</filename>
             <filename>../sprites/orb-red.png</filename>
             <filename>../sprites/oz_pov_melting_disk.png</filename>
-            <filename>../sprites/p2.jpeg</filename>
             <filename>../sprites/pacman_by_oz_28x28.png</filename>
             <filename>../sprites/pangball.png</filename>
             <filename>../sprites/parsec.png</filename>
@@ -2300,6 +2299,7 @@
             <filename>../fonts/bitmap/desyrel.png</filename>
             <filename>../fonts/retro/knight3.png</filename>
             <filename>../fonts/retro/steelpp-font.png</filename>
+            <filename>../sprites/p2.jpg</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

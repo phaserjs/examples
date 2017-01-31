@@ -11,7 +11,7 @@ var game = new Phaser.Game(config);
 
 function preload() {
 
-    this.load.image('einstein', 'assets/pics/ra_einstein.png');
+    this.load.image('einstein', 'assets/pics/ra-einstein.png');
 
 }
 

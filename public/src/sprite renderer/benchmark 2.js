@@ -18,19 +18,34 @@ var addUfo = false;
 var random = Math.random;
 
 function preload() {
+
     this.load.image('ufo', 'assets/sprites/ufo.png');
+
 }
 
 function create() {
+
     state = this;
+
+    for (var i = 0; i < 50; ++i)
+    {
+        state.add.image(random() * state.game.config.width, random() * state.game.config.height, 'ufo');
+    }
+
 }
 
 function update() {
+
+    this.transform.positionX++;
+
     if (addUfo)
     {
-        for (var i = 0; i < 250; ++i)
+        for (var i = 0; i < 50; ++i)
+        {
             state.add.image(random() * state.game.config.width, random() * state.game.config.height, 'ufo');
+        }
     }
+
 }
 
 window.onmousedown = function ()

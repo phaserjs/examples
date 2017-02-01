@@ -11,7 +11,7 @@ var game = new Phaser.Game(config);
 
 function preload() {
 
-    this.load.atlas('atlas', 'assets/atlas/megasetHD-0.png', 'assets/atlas/megasetHD-0.json');
+    this.load.atlas('atlas', 'assets/atlas/megaset-2.png', 'assets/atlas/megaset-2.json');
 
 }
 

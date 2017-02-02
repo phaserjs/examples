@@ -95,10 +95,9 @@ function update() {
         updateDigits();
     }
 
-    for (var i = 0; i < bobs.length; i++)
+    for (var index = 0, length = bobs.length; index < length; ++index)
     {
-        var bob = bobs[i];
-
+        var bob = bobs[index];
         bob.data.vy += gravity;
 
         bob.y += bob.data.vy;
@@ -120,8 +119,7 @@ function update() {
             bob.y = 690;
             bob.data.vy *= -bob.data.bounce;
         }
-
-    });
+    }
 
 }
 

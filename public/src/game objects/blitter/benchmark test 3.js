@@ -66,16 +66,6 @@ function create() {
     numbers.push(this.add.image(5 * 48, 720, 'atlas', '0'));
     numbers.push(this.add.image(6 * 48, 720, 'atlas', '0'));
 
-    // digits = this.add.blitter(0, 0, 'atlas');
-
-    // numbers.push(digits.create(0 * 48, 720, '0'));
-    // numbers.push(digits.create(1 * 48, 720, '0'));
-    // numbers.push(digits.create(2 * 48, 720, '0'));
-    // numbers.push(digits.create(3 * 48, 720, '0'));
-    // numbers.push(digits.create(4 * 48, 720, '0'));
-    // numbers.push(digits.create(5 * 48, 720, '0'));
-    // numbers.push(digits.create(6 * 48, 720, '0'));
-
     blitter = this.add.blitter(0, 0, 'atlas');
 
     for (var i = 0; i < 100; ++i)
@@ -98,7 +88,6 @@ function update() {
             if (blitter.children.length === 10000)
             {
                 //  Create a new blitter object, as they can only hold 10k bobs each
-                console.log('Created new Blitter');
                 blitter = this.add.blitter(0, 0, 'atlas');
             }
         }
@@ -106,7 +95,9 @@ function update() {
         updateDigits();
     }
 
-    bobs.forEach(function(bob) {
+    for (var i = 0; i < bobs.length; i++)
+    {
+        var bob = bobs[i];
 
         bob.data.vy += gravity;
 

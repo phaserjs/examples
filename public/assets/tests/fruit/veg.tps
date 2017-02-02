@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.3.3</string>
         <key>fileName</key>
-        <string>/Users/rich/Documents/phaser3-examples/public/assets/tests/fruit/veg.tps</string>
+        <string>D:/wamp/www/phaser3-examples/public/assets/tests/fruit/veg.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -28,7 +28,7 @@
             </struct>
         </array>
         <key>allowRotation</key>
-        <true/>
+        <false/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
@@ -72,7 +72,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>1</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -86,7 +86,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>0</uint>
+        <uint>1</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -179,7 +179,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -197,6 +197,40 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">0.png</key>
+            <key type="filename">2.png</key>
+            <key type="filename">3.png</key>
+            <key type="filename">4.png</key>
+            <key type="filename">5.png</key>
+            <key type="filename">6.png</key>
+            <key type="filename">7.png</key>
+            <key type="filename">8.png</key>
+            <key type="filename">9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>12,12,23,24</rect>
+                <key>scale9Paddings</key>
+                <rect>12,12,23,24</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,12,15,24</rect>
+                <key>scale9Paddings</key>
+                <rect>8,12,15,24</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg01.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -634,6 +668,16 @@
             <filename>veg35.png</filename>
             <filename>veg36.png</filename>
             <filename>veg37.png</filename>
+            <filename>0.png</filename>
+            <filename>1.png</filename>
+            <filename>2.png</filename>
+            <filename>3.png</filename>
+            <filename>4.png</filename>
+            <filename>5.png</filename>
+            <filename>6.png</filename>
+            <filename>7.png</filename>
+            <filename>8.png</filename>
+            <filename>9.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -17,6 +17,8 @@ var bobs = [];
 var gravity = 0.5;
 var idx = 1;
 var frame = 'veg01';
+var digits;
+var numbers = [];
 
 function preload() {
 
@@ -56,12 +58,32 @@ function create() {
 
     state = this;
 
+    numbers.push(this.add.image(0 * 48, 720, 'atlas', '0'));
+    numbers.push(this.add.image(1 * 48, 720, 'atlas', '0'));
+    numbers.push(this.add.image(2 * 48, 720, 'atlas', '0'));
+    numbers.push(this.add.image(3 * 48, 720, 'atlas', '0'));
+    numbers.push(this.add.image(4 * 48, 720, 'atlas', '0'));
+    numbers.push(this.add.image(5 * 48, 720, 'atlas', '0'));
+    numbers.push(this.add.image(6 * 48, 720, 'atlas', '0'));
+
+    // digits = this.add.blitter(0, 0, 'atlas');
+
+    // numbers.push(digits.create(0 * 48, 720, '0'));
+    // numbers.push(digits.create(1 * 48, 720, '0'));
+    // numbers.push(digits.create(2 * 48, 720, '0'));
+    // numbers.push(digits.create(3 * 48, 720, '0'));
+    // numbers.push(digits.create(4 * 48, 720, '0'));
+    // numbers.push(digits.create(5 * 48, 720, '0'));
+    // numbers.push(digits.create(6 * 48, 720, '0'));
+
     blitter = this.add.blitter(0, 0, 'atlas');
 
-    for (var i = 0; i < 50; ++i)
+    for (var i = 0; i < 100; ++i)
     {
         launch();
     }
+    
+    updateDigits();
 
 }
 
@@ -80,6 +102,8 @@ function update() {
                 blitter = this.add.blitter(0, 0, 'atlas');
             }
         }
+
+        updateDigits();
     }
 
     bobs.forEach(function(bob) {
@@ -100,14 +124,27 @@ function update() {
             bob.data.vx *= -bob.data.bounce;
         }
 
-        if (bob.y > 768)
+        if (bob.y > 690)
         {
-            bob.y = 768;
+            bob.y = 690;
             bob.data.vy *= -bob.data.bounce;
         }
 
     });
 
+}
+
+function updateDigits ()
+{
+    var len = Phaser.Utils.String.Pad(bobs.length.toString(), 7, '0', 1);
+
+    numbers[0].frame = state.textures.getFrame('atlas', len[0]);
+    numbers[1].frame = state.textures.getFrame('atlas', len[1]);
+    numbers[2].frame = state.textures.getFrame('atlas', len[2]);
+    numbers[3].frame = state.textures.getFrame('atlas', len[3]);
+    numbers[4].frame = state.textures.getFrame('atlas', len[4]);
+    numbers[5].frame = state.textures.getFrame('atlas', len[5]);
+    numbers[6].frame = state.textures.getFrame('atlas', len[6]);
 }
 
 window.onmousedown = function ()
@@ -118,24 +155,4 @@ window.onmousedown = function ()
 window.onmouseup = function ()
 {
     add = false;
-
-    /*
-    idx++;
-
-    if (idx === 38)
-    {
-        idx = 1;
-    }
-
-    if (idx < 10)
-    {
-        frame = 'veg0' + idx.toString();
-    }
-    else
-    {
-        frame = 'veg' + idx.toString();
-    }
-    */
-
-    console.log(bobs.length);
 };

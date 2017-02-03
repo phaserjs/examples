@@ -85,7 +85,7 @@ function update() {
         {
             launch();
 
-            if (blitter.children.length === 10000)
+            if (blitter.children.length === 2000)
             {
                 //  Create a new blitter object, as they can only hold 10k bobs each
                 blitter = this.add.blitter(0, 0, 'atlas');

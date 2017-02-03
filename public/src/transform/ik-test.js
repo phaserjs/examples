@@ -47,7 +47,7 @@ function update()
     for (var i = 0, l = images.length; i < l; ++i)
     {
         images[i].transform.rotation += 0.01;
-        images[i].transform.scaleX = 0.2 + Math.abs(Math.sin(factor * 0.1));
+        images[i].transform.scaleX = Math.min(0.2 + Math.abs(Math.sin(factor * 0.1)), 1);
         images[i].transform.scaleY = images[i].transform.scaleX;
     }
     factor += 0.01;

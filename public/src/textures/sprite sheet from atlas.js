@@ -25,11 +25,11 @@ function create() {
 
     //  create a sprite sheet from a frame embedded in a texture atlas
     //  'boom' is the unique local name we'll give the sprite sheet
-    //  'megasetHD' is the key of the texture atlas that contains the sprite sheet
+    //  'megaset' is the key of the texture atlas that contains the sprite sheet
     //  'explosion' is the name of the frame within the texture atlas
     //  The rest of the values are the sprite sheet frame sizes and offsets
 
-    this.textures.addSpriteSheetFromAtlas('boom', 'megaset', 'explosion', 64, 64, 0, 22);
+    this.textures.addSpriteSheetFromAtlas('boom', 'megaset', 'explosion', { frameWidth: 64, frameHeight: 64, endFrame: 22 });
 
     //  There is a new texture available called 'boom', which we can assign to game objects:
 

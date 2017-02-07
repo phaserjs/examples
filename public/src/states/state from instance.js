@@ -12,4 +12,12 @@ demo.create = function () {
 
 }
 
-var game = new Phaser.Game(800, 600, Phaser.WEBGL, 'phaser-example', demo);
+var config = {
+    type: Phaser.CANVAS,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    state: demo
+};
+
+var game = new Phaser.Game(config);

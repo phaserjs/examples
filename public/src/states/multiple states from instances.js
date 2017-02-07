@@ -20,7 +20,7 @@ var test = new Phaser.State('Test');
 
 test.preload = function () {
 
-    this.load.image('barbarian', 'assets/pics/barbarian_loading.png');
+    this.load.image('barbarian', 'assets/pics/barbarian-loading.png');
 
 };
 
@@ -34,4 +34,12 @@ test.create = function () {
 
 }
 
-var game = new Phaser.Game(800, 600, Phaser.WEBGL, 'phaser-example', [ demo, test ]);
+var config = {
+    type: Phaser.CANVAS,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    state: [ demo, test ]
+};
+
+var game = new Phaser.Game(config);

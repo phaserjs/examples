@@ -27,15 +27,14 @@ var gameConfig = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    state: [ backgroundStateConfig, modalStateConfig ],
-    _state: backgroundStateConfig
+    state: [ backgroundStateConfig, modalStateConfig ]
 };
 
 var game = new Phaser.Game(gameConfig);
 
 function createBackground ()
 {
-    this.add.image(0, 0, 'face');
+    this.add.image(0, 100, 'face');
 }
 
 function createModal ()

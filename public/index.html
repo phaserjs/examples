@@ -63,13 +63,22 @@
         history.pushState(stateObj, '', 'index.html?dir=' + getURLWell());
     }
 
-    function getURLWell ()
+    function getURLWell (skipLast, add)
     {
-        var output = '';
+        if (skipLast === undefined) { skipLast = false; }
 
-        well.forEach(function(entry) {
-            output = output.concat(encodeURI(entry)) + '/';
-        });
+        var output = '';
+        var len = (skipLast) ? well.length - 1 : well.length;
+
+        for (var i = 0; i < len; i++)
+        {
+            output = output.concat(encodeURI(well[i])) + '/';
+        }
+
+        if (add !== undefined)
+        {
+            output = output.concat(encodeURI(add)) + '/';
+        }
 
         return output;
     }
@@ -135,6 +144,8 @@
     {
         var div = $('<div></div>').addClass('card');
 
+        var a = $('<a></a>', { href: 'index.html?dir=' + getURLWell(true) });
+
         var img = $('<img />', { src: 'images/back.png', width: 128, height: 128 });
 
         img.click(function (event) {
@@ -144,9 +155,12 @@
             upLevel();
         });
 
-        var p = $('<p></p>').addClass('card-text').text('Back');
+        a.append(img);
 
-        div.append(img).append(p);
+        var p = $('<p></p>').addClass('card-text');
+        p.append($('<a></a>', { href: 'index.html?dir=' + getURLWell(true) }).text('Back'));
+
+        div.append(a).append(p);
 
         $('#folderList').append(div);
     }
@@ -173,6 +187,8 @@
     {
         var div = $('<div></div>').addClass('card');
 
+        var a = $('<a></a>', { href: 'index.html?dir=' + getURLWell(false, filename) });
+
         var img = $('<img />', { src: 'images/phaser-folder.png', width: 128, height: 128 });
 
         img.click(function (event) {
@@ -183,10 +199,12 @@
 
         });
 
-        var p = $('<p></p>').addClass('card-text');
-        p.append($('<a></a>', { href: 'edit.html?src=' + filepath }).text(filename));
+        a.append(img);
 
-        div.append(img).append(p);
+        var p = $('<p></p>').addClass('card-text');
+        p.append($('<a></a>', { href: 'index.html?dir=' + getURLWell(false, filename) }).text(filename));
+
+        div.append(a).append(p);
 
         $('#folderList').append(div);
     }

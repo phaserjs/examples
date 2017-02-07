@@ -12,11 +12,13 @@ var backgroundStateConfig = {
 var modalStateConfig = {
     key: 'modal',
     active: true,
+    renderToTexture: true,
     x: 64,
     y: 64,
     width: 320,
     height: 200,
     create: createModal,
+    render: renderModal,
     files: [
         { type: 'image', key: 'logo', url: 'assets/pics/agent-t-buggin-acf-logo.png' }
     ]
@@ -34,7 +36,7 @@ var game = new Phaser.Game(gameConfig);
 
 function createBackground ()
 {
-    this.add.image(0, 100, 'face');
+    this.add.image(0, 0, 'face');
 }
 
 function createModal ()
@@ -47,6 +49,19 @@ var r = 0;
 function renderBackground (ctx)
 {
     ctx.fillStyle = 'rgb(' + r + ', 0, 0)';
+    ctx.fillRect(0, 0, 32, 32);
+
+    r += 2;
+
+    if (r >= 256)
+    {
+        r = 0;
+    }
+}
+
+function renderModal (ctx)
+{
+    ctx.fillStyle = 'rgb(0, ' + r + ', 0)';
     ctx.fillRect(0, 0, 32, 32);
 
     r += 2;

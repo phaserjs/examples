@@ -31,6 +31,7 @@
     var data = {};
     var folder = [];
     var trail = [];
+    var well = [];
 
     function openFolder ()
     {
@@ -52,20 +53,30 @@
             else
             {
                 createFile(i, child.name, child.path);
-
-                // var li = $('<li></li>').addClass('list-group-item');
-                // var a = $('<a></a>', { href: 'edit.html?src=' + child.path }).text(child.name);
-
-                // li.append(a);
-
-                // $('#fileList').append(li);
             }
         }
+
+        //  Update browser history
+
+        var stateObj = { well: well };
+
+        history.pushState(stateObj, '', 'index.html?dir=' + getURLWell());
+    }
+
+    function getURLWell ()
+    {
+        var output = '';
+
+        well.forEach(function(entry) {
+            output = output.concat(encodeURI(entry)) + '/';
+        });
+
+        return output;
     }
 
     function addBreadcrumb (filename)
     {
-        var nav = $('<a></a>', { class: 'breadcrumb-item', href: '#' }).text(filename);
+        var nav = $('<a></a>', { class: 'breadcrumb-item', href: 'index.html?dir=' + getURLWell() }).text(filename);
 
         $('#breadcrumb').append(nav);
     }
@@ -75,8 +86,10 @@
         $('#breadcrumb > a').last().remove();
     }
 
-    function downLevel (index, filename)
+    function downLevel (index, filename, skipOpen)
     {
+        if (skipOpen === undefined) { skipOpen = false; }
+
         if (!folder[index].hasOwnProperty('children'))
         {
             console.log('No children, aborting');
@@ -86,13 +99,16 @@
         //  Record the trail
         trail.push(folder);
 
-        // console.dir(trail);
-
         folder = folder[index].children;
+
+        well.push(filename);
 
         addBreadcrumb(filename);
 
-        openFolder();
+        if (!skipOpen)
+        {
+            openFolder();
+        }
     }
 
     function upLevel ()
@@ -109,7 +125,7 @@
 
             trail.pop();
 
-            // console.dir(trail);
+            well.pop();
 
             openFolder();
         }
@@ -181,6 +197,7 @@
         $('#folderList').empty();
 
         trail = [];
+        well = [];
         folder = data.children;
 
         for (var i = 0; i < folder.length; i++)
@@ -189,13 +206,63 @@
         }
     }
 
+    function loadFolders (param)
+    {
+        trail = [];
+        well = [];
+        folder = data.children;
+
+        var dirs = [];
+        var raw = param.split('/');
+
+        for (var i = 0; i < raw.length; i++)
+        {
+            raw[i] = decodeURI(raw[i]);
+
+            if (raw[i] !== '')
+            {
+                dirs.push(raw[i]);
+            }
+        }
+
+        var current = data.children;
+
+        dirs.forEach(function(level) {
+
+            for (i = 0; i < current.length; i++)
+            {
+                if (current[i].name === level)
+                {
+                    downLevel(i, current[i].name, true);
+
+                    current = current[i].children;
+
+                    break;
+                }
+            }
+
+        });
+
+        openFolder();
+
+    }
+
     $(document).ready(function () {
 
         $.getJSON('examples.json', function (json) {
 
             data = json;
 
-            createTopLevelFolders();
+            var dir = getQueryString('dir');
+
+            if (dir)
+            {
+                loadFolders(dir);
+            }
+            else
+            {
+                createTopLevelFolders();
+            }
 
         });
 

@@ -20,9 +20,6 @@ function preload() {
 
 function create() {
 
-    console.log('State create called');
-    console.log(this);
-
     this.add.image(0, 0, 'face');
 
 }

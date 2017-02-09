@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -19,18 +19,23 @@ var circularCamera;
 
 function preload() {
 
-    this.load.image('einstein', 'assets/tests/camera/CherilPerils.png');
+    this.load.image('CherilPerils', 'assets/tests/camera/CherilPerils.png');
+    this.load.image('clown', 'assets/sprites/clown.png');
 
 }
 
 function create() {
 
-    image = this.add.image(0, 0, 'einstein');
+    image = this.add.image(0, 0, 'CherilPerils');
     this.sys.mainCamera.width = 400;
     this.sys.mainCamera.height = 300;
     horizontalCamera = this.sys.addCamera(400, 0, 400, 300);
     verticalCamera = this.sys.addCamera(0, 300, 400, 300);
     circularCamera = this.sys.addCamera(400, 300, 400, 300);
+    for (var i = 0; i < 1000; ++i)
+    {
+        this.add.image(Math.random() * 1000, Math.random() * 1240, 'clown');
+    }
 }
 function update()
 {

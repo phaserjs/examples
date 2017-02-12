@@ -23,11 +23,10 @@ function preload() {
 function create() {
 
     image = this.add.image(0, 0, 'einstein');
-    this.sys.mainCamera.x = 200;
-    this.sys.mainCamera.y = 150;
-    this.sys.mainCamera.width = 400;
-    this.sys.mainCamera.height = 300;
+
+    this.cameras.main.setViewport(200, 150, 400, 300);
 }
+
 function update()
 {
     image.transform.positionX = Math.sin(iter) * 200;

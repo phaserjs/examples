@@ -1,14 +1,17 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
-    backgroundColor: '#ff0000',
+    backgroundColor: '#ff00ff',
     state: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
 var game = new Phaser.Game(config);
+
+var logo;
 
 function preload() {
 
@@ -21,6 +24,12 @@ function preload() {
 
 function create() {
 
-    var image = this.add.image(0, 0, 'logo');
+    this.logo = this.add.image(0, 0, 'logo');
+
+}
+
+function update() {
+
+    this.logo.x++;
 
 }

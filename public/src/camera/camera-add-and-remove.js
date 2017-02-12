@@ -27,20 +27,24 @@ function preload() {
 function create() {
 
     var image = this.add.image(0, 0, 'CherilPerils');
-    this.sys.mainCamera.width = 400;
-    this.sys.mainCamera.height = 300;
-    fadeCamera = this.sys.addCamera(400, 0, 400, 300);
-    flashCamera = this.sys.addCamera(0, 300, 400, 300);
-    shakeCamera = this.sys.addCamera(400, 300, 400, 300);
+
+    this.cameras.main.setSize(400, 300);
+
+    fadeCamera = this.cameras.add(400, 0, 400, 300);
+    flashCamera = this.cameras.add(0, 300, 400, 300);
+    shakeCamera = this.cameras.add(400, 300, 400, 300);
+
     fadeCamera.fade(1000);
     camerasAdded.push(fadeCamera, shakeCamera, flashCamera);
     state = this;
     addAndRemove();
 }
+
 function update()
 {
     flashCamera.flash(1000);
     shakeCamera.shake(1000);
+
     if (fadeCamera._fadeAlpha >= 1.0)
     {
         fadeCamera._fadeAlpha = 0.0;
@@ -56,7 +60,7 @@ function addAndRemove()
         {
             var addingCamera = camerasRemoved.pop();
             camerasAdded.push(addingCamera);
-            state.sys.addCameraReference(addingCamera);
+            state.cameras.addReference(addingCamera);
         }
         else
         {
@@ -69,13 +73,13 @@ function addAndRemove()
         {
             var removingCamera = camerasAdded.pop();
             camerasRemoved.push(removingCamera);
-            state.sys.removeCamera(removingCamera);
+            state.cameras.remove(removingCamera);
         }
         else
         {
             adding = true;
         }
     }
+
     setTimeout(addAndRemove, 500);
 }
-

@@ -24,8 +24,10 @@ function preload() {
 function create() {
 
     image = this.add.image(0, 0, 'einstein');
-    smallCamera = this.sys.addCamera(580, 20, 200, 150);
+
+    smallCamera = this.cameras.add(580, 20, 200, 150);
 }
+
 function update()
 {
     var halfWidth = image.texture.source[0].width / 2;

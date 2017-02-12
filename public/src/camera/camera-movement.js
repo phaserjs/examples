@@ -27,16 +27,19 @@ function preload() {
 function create() {
 
     image = this.add.image(0, 0, 'CherilPerils');
-    this.sys.mainCamera.width = 400;
-    this.sys.mainCamera.height = 300;
-    horizontalCamera = this.sys.addCamera(400, 0, 400, 300);
-    verticalCamera = this.sys.addCamera(0, 300, 400, 300);
-    circularCamera = this.sys.addCamera(400, 300, 400, 300);
+
+    this.cameras.main.setSize(400, 300);
+
+    horizontalCamera = this.cameras.add(400, 0, 400, 300);
+    verticalCamera = this.cameras.add(0, 300, 400, 300);
+    circularCamera = this.cameras.add(400, 300, 400, 300);
+
     for (var i = 0; i < 1000; ++i)
     {
         this.add.image(Math.random() * 1000, Math.random() * 1240, 'clown');
     }
 }
+
 function update()
 {
     var halfWidth = image.texture.source[0].width / 2;
@@ -48,5 +51,6 @@ function update()
     verticalCamera.scrollY = (halfHeight - quarterHeight + (Math.sin(iter) * quarterHeight))|0;
     circularCamera.scrollX = (halfWidth - quarterWidth + (Math.cos(iter) * quarterWidth))|0;
     circularCamera.scrollY = (halfHeight - quarterHeight + (Math.sin(iter) * quarterHeight))|0;
+
     iter += 0.02;
 }

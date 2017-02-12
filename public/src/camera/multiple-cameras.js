@@ -23,12 +23,14 @@ function preload() {
 function create() {
 
     image = this.add.image(0, 0, 'einstein');
-    this.sys.mainCamera.width = 400;
-    this.sys.mainCamera.height = 300;
-    this.sys.addCamera(400, 0, 400, 300);
-    this.sys.addCamera(0, 300, 400, 300);
-    this.sys.addCamera(400, 300, 400, 300);
+
+    this.cameras.main.setSize(400, 300);
+
+    this.cameras.add(400, 0, 400, 300);
+    this.cameras.add(0, 300, 400, 300);
+    this.cameras.add(400, 300, 400, 300);
 }
+
 function update()
 {
     image.transform.positionX = Math.sin(iter) * 200;

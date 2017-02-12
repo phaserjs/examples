@@ -24,21 +24,24 @@ function preload() {
 function create() {
 
     var image = this.add.image(0, 0, 'CherilPerils');
-    this.sys.mainCamera.width = 400;
-    this.sys.mainCamera.height = 300;
-    fadeCamera = this.sys.addCamera(400, 0, 400, 300);
-    flashCamera = this.sys.addCamera(0, 300, 400, 300);
-    shakeCamera = this.sys.addCamera(400, 300, 400, 300);
+
+    this.cameras.main.setSize(400, 300);
+
+    fadeCamera = this.cameras.add(400, 0, 400, 300);
+    flashCamera = this.cameras.add(0, 300, 400, 300);
+    shakeCamera = this.cameras.add(400, 300, 400, 300);
+
     fadeCamera.fade(1000);
 }
+
 function update()
 {
     flashCamera.flash(1000);
     shakeCamera.shake(1000);
+
     if (fadeCamera._fadeAlpha >= 1.0)
     {
         fadeCamera._fadeAlpha = 0.0;
         fadeCamera.fade(1000);
     }
 }
-

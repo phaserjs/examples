@@ -44,13 +44,6 @@ function update() {
         {
             blitter.create(random() * state.game.config.width, random() * state.game.config.height);
             total++;
-
-            if (blitter.children.length === 2000)
-            {
-                //  Create a new blitter object, as they can only hold 10k bobs each
-                console.log('Created new Blitter');
-                blitter = this.add.blitter(0, 0, 'atlas', 'chunk');
-            }
         }
     }
 

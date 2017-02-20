@@ -25,11 +25,11 @@ function create() {
 
     var image = this.add.image(0, 0, 'CherilPerils');
 
-    this.cameras.main.setSize(400, 300);
+    this.cameras.main.setViewport(5, 5, 390, 290);
 
-    fadeCamera = this.cameras.add(400, 0, 400, 300);
-    flashCamera = this.cameras.add(0, 300, 400, 300);
-    shakeCamera = this.cameras.add(400, 300, 400, 300);
+    fadeCamera = this.cameras.add(405, 5, 390, 290);
+    flashCamera = this.cameras.add(5, 305, 390, 290);
+    shakeCamera = this.cameras.add(405, 305, 390, 290);
 
     fadeCamera.fade(1000);
 }

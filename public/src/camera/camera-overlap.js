@@ -37,7 +37,5 @@ function update()
 
     smallCamera.scrollX = (halfWidth - quarterWidth + (Math.cos(iter) * quarterWidth))|0;
     smallCamera.scrollY = halfHeight;
-    smallCamera.rotation += 0.01;
-    smallCamera.zoom = 1 + Math.abs(Math.sin(iter) * 2);
     iter += 0.02;
 }

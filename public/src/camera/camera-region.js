@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,

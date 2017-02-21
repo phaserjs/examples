@@ -33,7 +33,7 @@ function create() {
 
 function update()
 {
-    image.transform.positionX = Math.sin(iter) * 200;
-    image.transform.positionY = Math.cos(iter) * 200;
+    image.x = Math.sin(iter) * 200;
+    image.y = Math.cos(iter) * 200;
     iter += 0.04;
 }

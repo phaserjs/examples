@@ -19,6 +19,7 @@ var idx = 1;
 var frame = 'veg01';
 var digits;
 var numbers = [];
+var iter = 0;
 
 function preload() {
 
@@ -120,7 +121,8 @@ function update() {
             bob.data.vy *= -bob.data.bounce;
         }
     }
-
+    this.cameras.main.scrollX = Math.sin(iter) * 200;
+    iter += 0.01;
 }
 
 function updateDigits ()

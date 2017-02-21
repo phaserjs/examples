@@ -23,7 +23,7 @@ function preload() {
 function create() {
 
     bunny = this.add.image(0, 0, 'bunny');
-    atari = this.add.image(0, 100, 'atari');
+    atari = this.add.image(100, 100, 'atari');
 
 }
 

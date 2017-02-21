@@ -36,8 +36,11 @@ function create() {
 
 function update() {
 
-    this.transform.positionX++;
-
+    this.cameras.main.scrollX += 2;
+    if (this.cameras.main.scrollX > 800)
+    {
+        this.cameras.main.scrollX = -800;
+    }
     if (addUfo)
     {
         for (var i = 0; i < 50; ++i)

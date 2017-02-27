@@ -32,6 +32,8 @@ function create() {
     image2 = this.add.image(180, 150, 'tetris');
     image3 = this.add.image(400, 300, 'bunny');
 
+    image3.setScale(0.5);
+
     bounds1 = image1.getBounds();
     bounds2 = image2.getBounds();
     bounds3 = image3.getBounds();

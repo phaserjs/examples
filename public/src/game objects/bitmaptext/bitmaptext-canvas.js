@@ -26,10 +26,10 @@ function preload()
 
 function create() 
 {
-    this.add.bitmapText(0, 0, 'desyrel', 'Lorem ipsum\ndolor sit amet');
-    this.add.bitmapText(0, 200, 'desyrel-pink', 'Excepteur sint occaecat\ncupidatat non proident');
-    this.add.bitmapText(0, 400, 'shortStack', 'Phaser BitmapText');
-    dynamic = this.add.bitmapText(0, 500, 'desyrel');
+    this.add.bitmapText(0, 0, 'Lorem ipsum\ndolor sit amet', 'desyrel');
+    this.add.bitmapText(0, 200, 'Excepteur sint occaecat\ncupidatat non proident', 'desyrel-pink');
+    this.add.bitmapText(0, 400, 'Phaser BitmapText', 'shortStack');
+    dynamic = this.add.bitmapText(0, 500, '', 'desyrel');
 }
 
 function update()

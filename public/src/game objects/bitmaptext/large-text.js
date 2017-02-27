@@ -26,7 +26,7 @@ function preload()
 
 function create() 
 {
-    largeText = this.add.bitmapText(0, 0, 'desyrel', game.cache.text.get('loremipsum'));
+    largeText = this.add.bitmapText(0, 0, game.cache.text.get('loremipsum'), 'desyrel');
     bunny = this.add.sprite(0, 0, 'bunny');
 }
 

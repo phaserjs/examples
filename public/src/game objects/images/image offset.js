@@ -23,13 +23,8 @@ function preload() {
 
 function create() {
 
-    image1 = this.add.image(800, 200, 'eye');
-    // image2 = this.add.image(180, 150, 'tetris');
-    // image3 = this.add.image(400, 300, 'bunny');
-
-    console.log(image1);
-    console.log(image1.bounds);
-    console.log(image1.bounds.offsetX);
-    console.log(image1.bounds.offsetY);
+    image1 = this.add.image(500, 200, 'eye');
+    image2 = this.add.image(180, 150, 'tetris');
+    image3 = this.add.image(400, 300, 'bunny');
 
 }

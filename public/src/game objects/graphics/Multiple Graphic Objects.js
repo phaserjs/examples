@@ -22,7 +22,7 @@ function create() {
         0xFFFF00,
         0x00FFFF
     ];
-    for (var i = 0; i < 1000; ++i)
+    for (var i = 0; i < 500; ++i)
     {
         starGraphics = this.add.graphics(Math.random() * 800, Math.random() * 600);
         drawStar(starGraphics, 0, 0,  5, 100, 50, colorsTable[Math.floor(Math.random() * 6)], 0xFF0000);

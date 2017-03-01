@@ -17,25 +17,19 @@ function preload()
 
 function create() 
 {
-    dynamic1 = this.add.bitmapText(60, 200, 'desyrel', 'HELLO WORLD!', 64);
+    var text = this.add.bitmapText(60, 200, 'desyrel', 'It\'s cold outside,\nthere\'s no kind of atmosphere', 64);
 
-    dynamic1.setPositionCallback(textCallback);
-
-    TweenMax.to(dynamic1, 2, {
-        delay: 2,
-        scaleX: 2,
-        scaleY: 2,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
-    });
+    text.setDisplayCallback(textCallback);
 }
 
 //  data = { index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY }
 function textCallback (data)
 {
-    data.x = Phaser.Math.Between(data.x - 2, data.x + 2);
-    data.y = Phaser.Math.Between(data.y - 4, data.y + 4);
+    if (data.index >= 5 && data.index <= 8)
+    {
+        data.x = Phaser.Math.Between(data.x - 2, data.x + 2);
+        data.y = Phaser.Math.Between(data.y - 4, data.y + 4);
+    }
 
     return data;
 }

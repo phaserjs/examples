@@ -9,31 +9,43 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-var dynamic = null;
+
+var dynamic1 = null;
+var dynamic2 = null;
 var value = 0;
 
 function preload() 
 {
-    this.load.xml('desyrel', 'assets/fonts/bitmap/desyrel.xml');
-    this.load.image('desyrel', 'assets/fonts/bitmap/desyrel.png');
-
-    this.load.xml('desyrel-pink', 'assets/fonts/bitmap/desyrel-pink.xml');
-    this.load.image('desyrel-pink', 'assets/fonts/bitmap/desyrel-pink.png');
-
-    this.load.xml('shortStack', 'assets/fonts/bitmap/shortStack.xml');
-    this.load.image('shortStack', 'assets/fonts/bitmap/shortStack.png');
+    this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
+    this.load.bitmapFont('desyrelPink', 'assets/fonts/bitmap/desyrel-pink.png', 'assets/fonts/bitmap/desyrel-pink.xml');
 }
 
 function create() 
 {
-    this.add.bitmapText(0, 0, 'Lorem ipsum\ndolor sit amet', 'desyrel');
-    this.add.bitmapText(0, 200, 'Excepteur sint occaecat\ncupidatat non proident', 'desyrel-pink');
-    this.add.bitmapText(0, 400, 'Phaser BitmapText', 'shortStack');
-    dynamic = this.add.bitmapText(0, 500, '', 'desyrel');
+    dynamic1 = this.add.bitmapText(0, 0, 'desyrel', 'hello world', 8);
+
+    TweenMax.to(dynamic1, 2, {
+        fontSize: 128,
+        ease: Sine.easeInOut,
+        repeat: -1,
+        yoyo: true
+    });
+
+    dynamic2 = this.add.bitmapText(0, 200, 'desyrelPink', 'hello world', 32);
+
+    TweenMax.to(dynamic2, 2, {
+        scaleX: 6,
+        scaleY: 4,
+        ease: Sine.easeInOut,
+        repeat: -1,
+        yoyo: true
+    });
 }
 
 function update()
 {
-    dynamic.text = 'value: ' + value.toFixed(2);
+    dynamic1.text = 'Value: ' + value.toFixed(2);
+    dynamic2.text = 'Value: ' + value.toFixed(2);
+
     value += 0.01;
 }

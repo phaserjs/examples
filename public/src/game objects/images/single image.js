@@ -1,5 +1,8 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
+    width: 800,
+    height: 600,
+    backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -17,6 +20,6 @@ function preload() {
 
 function create() {
 
-    var image = this.add.image(0, 0, 'einstein');
+    var image = this.add.image(400, 300, 'einstein');
 
 }

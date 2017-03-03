@@ -26,17 +26,18 @@ function preload()
 
 function create() 
 {
-    text1 = this.add.bitmapText(0, 0, 'atari', 'Welcome!', 70);
-    text2 = this.add.bitmapText(0, 160, 'gothic', 'Welcome!', 40);
+    // text1 = this.add.bitmapText(0, 0, 'atari', 'Welcome!', 70);
+    // text2 = this.add.bitmapText(0, 160, 'gothic', 'Welcome!', 40);
     // text3 = this.add.bitmapText(100, 300, 'hyper', 'Terminator 2', 128);
-    text3 = this.add.bitmapText(0, 300, 'hyper', 'Terminator 2', 128);
+
+    text3 = this.add.bitmapText(32, 100, 'hyper', 'Arkanoid\nRevenge of Doh', 128);
 
 
 
     // text1.setScale(2);
 
-    bounds1 = text1.getTextBounds();
-    bounds2 = text2.getTextBounds();
+    // bounds1 = text1.getTextBounds();
+    // bounds2 = text2.getTextBounds();
     bounds3 = text3.getTextBounds();
 
     console.log(text3.x, text3.y);
@@ -47,11 +48,11 @@ function render()
 {
     var ctx = this.sys.context;
 
-    ctx.strokeStyle = 'rgba(255,0,0,1)';
-    ctx.strokeRect(bounds1.x, bounds1.y, bounds1.width, bounds1.height);
+    // ctx.strokeStyle = 'rgba(255,0,0,1)';
+    // ctx.strokeRect(bounds1.x, bounds1.y, bounds1.width, bounds1.height);
 
-    ctx.strokeStyle = 'rgba(255,255,0,1)';
-    ctx.strokeRect(bounds2.x, bounds2.y, bounds2.width, bounds2.height);
+    // ctx.strokeStyle = 'rgba(255,255,0,1)';
+    // ctx.strokeRect(bounds2.x, bounds2.y, bounds2.width, bounds2.height);
 
     ctx.strokeStyle = 'rgba(0,225,0,1)';
     ctx.strokeRect(bounds3.x, bounds3.y, bounds3.width, bounds3.height);

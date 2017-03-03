@@ -53,5 +53,5 @@ function render()
     var ctx = this.sys.context;
 
     ctx.strokeStyle = 'rgba(0,225,0,1)';
-    ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
+    ctx.strokeRect(bounds.global.x, bounds.global.y, bounds.global.width, bounds.global.height);
 }

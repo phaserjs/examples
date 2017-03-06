@@ -6,10 +6,12 @@ var config = {
     parent: 'phaser-example',
     state: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
+var image;
 var game = new Phaser.Game(config);
 
 function preload() {
@@ -20,6 +22,10 @@ function preload() {
 
 function create() {
 
-    var image = this.add.image(400, 300, 'einstein');
+    image = this.add.image(400, 300, 'einstein');
+}
 
+function update() {
+    image.rotation += 0.01;
+    this.cameras.main.x += 1;
 }

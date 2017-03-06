@@ -22,7 +22,7 @@ function preload() {
 
 function create() {
 
-    image = this.add.image(0, 0, 'einstein');
+    image = this.add.image(200, 150, 'einstein');
 
     this.cameras.main.setSize(400, 300);
 
@@ -33,7 +33,5 @@ function create() {
 
 function update()
 {
-    image.x = Math.sin(iter) * 200;
-    image.y = Math.cos(iter) * 200;
-    iter += 0.04;
+    image.rotation += 0.01;
 }

@@ -21,15 +21,15 @@ function create() {
 
     image = this.add.image(0, 0, 'gem');
 
-    image.data.set('name', 'Red GemStone');
-    image.data.set('value_armor', true);
-    image.data.set('armor_head', 50);
-    image.data.set('armor_body', 250);
-    image.data.set('armor_feet', 15);
+    image.state.data.set('name', 'Red GemStone');
+    image.state.data.set('value_armor', true);
+    image.state.data.set('armor_head', 50);
+    image.state.data.set('armor_body', 250);
+    image.state.data.set('armor_feet', 15);
 
     //  Query lets you run a regular expression against the keys,
     //  and get an object back with them all in.
     //  Here we're checking for keys matching 'armor' at the start
-    console.log(image.data.query(/^armor/));
+    console.log(image.state.data.query(/^armor/));
 
 }

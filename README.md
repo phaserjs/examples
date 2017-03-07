@@ -8,5 +8,7 @@ To show the example browser:
 
 To build a new `examples.json` file if you add a new example:
 
+`npm i`
+
 `node build.js`
 

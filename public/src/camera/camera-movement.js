@@ -27,7 +27,8 @@ function preload() {
 function create() {
 
     image = this.add.image(0, 0, 'CherilPerils');
-
+    image.originX = 0;
+    image.originY = 0;
     this.cameras.main.setSize(400, 300);
 
     horizontalCamera = this.cameras.add(400, 0, 400, 300);

@@ -123,14 +123,11 @@ function draw ()
         var v1 = model.verts[face[1] - 1];
         var v2 = model.verts[face[2] - 1];
 
-        if (v0 && v1 && v2)
+        if (v0 && v1 && v2 && isCcw(v0, v1, v2))
         {
-            if (isCcw(v0, v1, v2))
-            {
-                drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
-                drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
-                drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
-            }
+            drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
+            drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
+            drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
         }
     }
 

@@ -14,8 +14,8 @@ var graphics;
 
 var t = {
     x: -0.03490658503988659,
-    y: 0.03490658503988659,
-    z: -0.03490658503988659
+    y: 0.05235987755982989,
+    z: -0.05235987755982989
 };
 
 var game = new Phaser.Game(config);
@@ -26,38 +26,20 @@ var i = 0;
 
 function preload ()
 {
-    this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
-    this.load.text('chaosphere', 'assets/text/chaosphere.obj');
-    this.load.text('computer', 'assets/text/computer.obj');
-    this.load.text('geosphere', 'assets/text/geosphere.obj');
-    this.load.text('implodedcube', 'assets/text/implodedcube.obj');
-    this.load.text('monobird', 'assets/text/monobird.obj');
-    this.load.text('spike', 'assets/text/spike.obj');
     this.load.text('teapot', 'assets/text/teapot.obj');
-    this.load.text('torus', 'assets/text/torus.obj');
 }
 
 function create ()
 {
     graphics = this.add.graphics(0, 0);
 
-    models.push(parseObj(this.cache.text.get('bevelledcube')));
-    models.push(parseObj(this.cache.text.get('chaosphere')));
-    models.push(parseObj(this.cache.text.get('computer')));
-    models.push(parseObj(this.cache.text.get('geosphere')));
-    models.push(parseObj(this.cache.text.get('implodedcube')));
-    models.push(parseObj(this.cache.text.get('monobird')));
-    models.push(parseObj(this.cache.text.get('spike')));
     models.push(parseObj(this.cache.text.get('teapot')));
-    models.push(parseObj(this.cache.text.get('torus')));
 
     model = models[0];
 
-    // console.log(model);
-
-    // rotateZ3D(0.5235987755982988);
-    // rotateY3D(0.5235987755982988);
-    // rotateX3D(0.5235987755982988);
+    rotateZ3D(0.5235987755982988);
+    rotateY3D(0.5235987755982988);
+    rotateX3D(0.5235987755982988);
 
     TweenMax.to(t, 20, {
         x: 0.03490658503988659,
@@ -67,30 +49,17 @@ function create ()
     });
 
     TweenMax.to(t, 30, {
-        y: -0.03490658503988659,
+        y: -0.05235987755982989,
         ease: Sine.easeInOut,
         repeat: -1,
         yoyo: true
     });
 
     TweenMax.to(t, 15, {
-        z: 0.03490658503988659,
+        z: 0.05235987755982989,
         ease: Sine.easeInOut,
         repeat: -1,
         yoyo: true
-    });
-
-    this.input.keyboard.events.on('KEY_DOWN_SPACE', function () {
-
-        i++;
-
-        if (i === models.length)
-        {
-            i = 0;
-        }
-
-        model = models[i];
-
     });
 }
 
@@ -123,8 +92,7 @@ function draw ()
         var v1 = model.verts[face[1] - 1];
         var v2 = model.verts[face[2] - 1];
 
-        // if (v0 && v1 && v2 && isCcw(v0, v1, v2))
-        if (v0 && v1 && v2)
+        if (v0 && v1 && v2 && isCcw(v0, v1, v2))
         {
             drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
             drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);

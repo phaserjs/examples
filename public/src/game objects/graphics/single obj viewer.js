@@ -14,8 +14,8 @@ var graphics;
 
 var t = {
     x: -0.03490658503988659,
-    y: 0.03490658503988659,
-    z: -0.03490658503988659
+    y: 0.05235987755982989,
+    z: -0.05235987755982989
 };
 
 var game = new Phaser.Game(config);
@@ -41,23 +41,23 @@ function create ()
 {
     graphics = this.add.graphics(0, 0);
 
-    models.push(parseObj(this.cache.text.get('bevelledcube')));
-    models.push(parseObj(this.cache.text.get('chaosphere')));
-    models.push(parseObj(this.cache.text.get('computer')));
-    models.push(parseObj(this.cache.text.get('geosphere')));
+    // models.push(parseObj(this.cache.text.get('bevelledcube')));
+    // models.push(parseObj(this.cache.text.get('chaosphere')));
+    // models.push(parseObj(this.cache.text.get('computer')));
+    // models.push(parseObj(this.cache.text.get('geosphere')));
     models.push(parseObj(this.cache.text.get('implodedcube')));
-    models.push(parseObj(this.cache.text.get('monobird')));
-    models.push(parseObj(this.cache.text.get('spike')));
-    models.push(parseObj(this.cache.text.get('teapot')));
-    models.push(parseObj(this.cache.text.get('torus')));
+    // models.push(parseObj(this.cache.text.get('monobird')));
+    // models.push(parseObj(this.cache.text.get('spike')));
+    // models.push(parseObj(this.cache.text.get('teapot')));
+    // models.push(parseObj(this.cache.text.get('torus')));
 
     model = models[0];
 
     // console.log(model);
 
-    // rotateZ3D(0.5235987755982988);
-    // rotateY3D(0.5235987755982988);
-    // rotateX3D(0.5235987755982988);
+    rotateX3D(0.5235987755982988);
+    rotateY3D(0.5235987755982988);
+    rotateZ3D(0.5235987755982988);
 
     TweenMax.to(t, 20, {
         x: 0.03490658503988659,
@@ -67,14 +67,14 @@ function create ()
     });
 
     TweenMax.to(t, 30, {
-        y: -0.03490658503988659,
+        y: -0.05235987755982989,
         ease: Sine.easeInOut,
         repeat: -1,
         yoyo: true
     });
 
     TweenMax.to(t, 15, {
-        z: 0.03490658503988659,
+        z: 0.05235987755982989,
         ease: Sine.easeInOut,
         repeat: -1,
         yoyo: true
@@ -123,8 +123,7 @@ function draw ()
         var v1 = model.verts[face[1] - 1];
         var v2 = model.verts[face[2] - 1];
 
-        // if (v0 && v1 && v2 && isCcw(v0, v1, v2))
-        if (v0 && v1 && v2)
+        if (v0 && v1 && v2 && isCcw(v0, v1, v2))
         {
             drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
             drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
@@ -142,6 +141,7 @@ function drawLine (x0, y0, x1, y1)
     graphics.lineTo(x1, y1);
 }
 
+// returns true if vertices are in counterclockwise order
 function isCcw (v0, v1, v2)
 {
     return (v1.x - v0.x) * (v2.y - v0.y) - (v1.y - v0.y) * (v2.x - v0.x) >= 0;
@@ -195,6 +195,7 @@ function rotateZ3D (theta)
     }
 }
 
+// parses an obj file from a text string
 function parseObj (text)
 {
     var verts = [];

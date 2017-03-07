@@ -84,4 +84,5 @@ function drawStar (graphics, cx, cy, spikes, outerRadius, innerRadius, color, li
     graphics.lineTo(cx, cy - outerRadius);
     graphics.closePath();
     graphics.fillPath();
+    graphics.strokePath();
 }

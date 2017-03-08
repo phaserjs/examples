@@ -19,9 +19,11 @@ var Mesh = new Phaser.Class({
         this.vertices = data.verts;
         this.faces = data.faces;
 
-        this.position = new BABYLON.Vector3(x, y, z);
+        this.visible = true;
 
+        this.position = new BABYLON.Vector3(x, y, z);
         this.rotation = BABYLON.Vector3.Zero();
+        this.scale = new BABYLON.Vector3(1, 1, 1);
 
         this.thickness = 2;
         this.color = 0x00ff00;
@@ -33,9 +35,37 @@ var Mesh = new Phaser.Class({
         this._pD = BABYLON.Vector2.Zero();
     },
 
+    fadeOut: function (duration)
+    {
+        if (duration === undefined) { duration = 1; }
+
+        TweenMax.to(this, duration, {
+            alpha: 0,
+            ease: Linear.easeNone,
+        });
+    },
+
+    fadeIn: function (duration)
+    {
+        if (duration === undefined) { duration = 1; }
+
+        this.alpha = 0;
+        this.visible = true;
+
+        TweenMax.to(this, duration, {
+            alpha: 1,
+            ease: Linear.easeNone,
+        });
+    },
+
     render: function (graphics, viewMatrix, projectionMatrix)
     {
-        var worldMatrix = BABYLON.Matrix.RotationYawPitchRoll(this.rotation.y, this.rotation.x, this.rotation.z).multiply(BABYLON.Matrix.Translation(this.position.x, this.position.y, this.position.z));
+        if (!this.visible || this.alpha === 0)
+        {
+            return;
+        }
+
+        var worldMatrix = BABYLON.Matrix.RotationYawPitchRoll(this.rotation.y, this.rotation.x, this.rotation.z).multiply(BABYLON.Matrix.Translation(this.position.x, this.position.y, this.position.z)).multiply(BABYLON.Matrix.Scaling(this.scale.x, this.scale.y, this.scale.z));
 
         var transformMatrix = worldMatrix.multiply(viewMatrix).multiply(projectionMatrix);
 
@@ -78,6 +108,81 @@ var Mesh = new Phaser.Class({
 
 });
 
+var Cube = new Phaser.Class({
+
+    Extends: Mesh,
+
+    initialize:
+
+    function Cube (data)
+    {
+        var x = Phaser.Math.Between(8.2, 24);
+
+        if (Math.random() > 0.5)
+        {
+            x = -x;
+        }
+
+        Mesh.call(this, data, x, 0, 64);
+
+        this.color = 0xffffff;
+
+        this.visible = false;
+
+        this.speed = Phaser.Math.Between(4, 10);
+
+        this.jump = new TimelineMax({ delay: Math.random() * 4, repeat: -1, repeatDelay: 2 });
+
+        this.jump.add(TweenMax.to(this.position, 2, { y: 6, ease: Bounce.easeIn }));
+        this.jump.add(TweenMax.to(this.position, 2, { y: 0, ease: Bounce.easeOut }));
+        this.jump.pause();
+
+        TweenMax.delayedCall(Math.random() * 8, this.begin, [], this);
+    },
+
+    begin: function ()
+    {
+        this.jump.restart();
+
+        this.visible = true;
+
+        this.alpha = 0;
+
+        this.fadeIn();
+
+        TweenMax.to(this.rotation, 2, {
+            x: -6,
+            ease: Linear.easeNone,
+            repeat: -1
+        });
+
+        TweenMax.to(this.position, this.speed, {
+            z: -8,
+            ease: Linear.easeNone,
+            onComplete: this.reset,
+            onCompleteScope: this
+        });
+    },
+
+    reset: function ()
+    {
+        this.position.y = 0;
+        this.position.z = 64;
+
+        this.alpha = 0;
+
+        this.fadeIn();
+
+        TweenMax.to(this.position, this.speed, {
+            z: -8,
+            ease: Linear.easeNone,
+            onComplete: this.reset,
+            onCompleteScope: this
+        });
+    }
+
+});
+
 var WireframeScene = {};
 
 WireframeScene.Start = function ()
@@ -86,7 +191,18 @@ WireframeScene.Start = function ()
 
     this.meshes = [];
 
+    this.current;
+
+    this.logo;
+    this.sphere;
+    this.torus;
+    this.spike;
+
+    this.computer;
     this.camera;
+
+    this.sequence1 = false;
+    this.sequence2 = false;
 
     this.modelData = {};
 };
@@ -102,6 +218,8 @@ WireframeScene.Start.prototype = {
         this.load.text('geosphere', 'assets/text/geosphere.obj');
         this.load.text('spike', 'assets/text/spike.obj');
         this.load.text('torus', 'assets/text/torus.obj');
+        this.load.text('grid', 'assets/text/grid.obj');
+        this.load.text('logo', 'assets/text/phaser-logo-3d.obj');
     },
 
     create: function ()
@@ -111,42 +229,135 @@ WireframeScene.Start.prototype = {
         this.parseObj('geosphere');
         this.parseObj('spike');
         this.parseObj('torus');
+        this.parseObj('grid');
+        this.parseObj('logo');
 
         this.graphics = this.add.graphics(0, 0);
 
-        this.randomScene();
+        this.newScene();
 
         this.camera = new Camera();
 
-        this.camera.position = new BABYLON.Vector3(0, -20, -40);
-        this.camera.target = new BABYLON.Vector3(0, 0, 0);
+        this.camera.position = new BABYLON.Vector3(0, 6, -32);
+        this.camera.target = new BABYLON.Vector3(0, 0, 50);
+
+        TweenMax.to(this.camera.position, 4, {
+            delay: 24,
+            z: -12,
+            ease: Sine.easeInOut,
+            repeat: -1,
+            yoyo: true
+        });
+
+        TweenMax.to(this.camera.position, 2, {
+            delay: 24,
+            y: 8,
+            ease: Sine.easeInOut,
+            repeat: -1,
+            yoyo: true
+        });
+
+        TweenMax.delayedCall(6, function () { this.sequence2 = true; }, [], this);
+        TweenMax.delayedCall(17, function () { this.sequence1 = true; }, [], this);
+        TweenMax.delayedCall(20, this.changeShape, [], this);
     },
 
-    randomScene: function ()
+    changeShape: function ()
     {
-        for (var i = 0; i < 20; i++)
+        if (this.current === this.logo)
         {
-            var x = Phaser.Math.Between(-2, 2);
-            var z = Phaser.Math.Between(0, 20);
-
-            var mesh = new Mesh(this.getMeshData('bevelledcube'), x, 0, z);
-
-            this.meshes.push(mesh);
+            this.logo.fadeOut(3);
+            this.sphere.fadeIn();
+            this.current = this.sphere;
         }
+        else if (this.current === this.sphere)
+        {
+            this.sphere.fadeOut(3);
+            this.torus.fadeIn();
+            this.current = this.torus;
+        }
+        else if (this.current === this.torus)
+        {
+            this.torus.fadeOut(3);
+            this.spike.fadeIn();
+            this.current = this.spike;
+            
+        }
+        else if (this.current === this.spike)
+        {
+            this.spike.fadeOut(3);
+            this.logo.fadeIn();
+            this.current = this.logo;
+        }
+
+        TweenMax.delayedCall(8, this.changeShape, [], this);
     },
 
-    basicScene: function ()
+    newScene: function ()
     {
-        var meshA = new Mesh(this.getMeshData('geosphere'), 5, 0, -20);
-        var meshB = new Mesh(this.getMeshData('bevelledcube'), 0, 0, -20);
-        var meshC = new Mesh(this.getMeshData('computer'), -5, 0, -20);
+        var grid = new Mesh(this.getMeshData('grid'), 0, 0, 7);
 
-        meshB.color = 0xff00ff;
-        meshC.color = 0xffff00;
+        grid.color = 0xff00ff;
+        grid.scale.x = 4;
+        grid.scale.y = 4;
+        grid.scale.z = 4;
 
-        this.meshes.push(meshA);
-        this.meshes.push(meshB);
-        this.meshes.push(meshC);
+        this.meshes.push(grid);
+
+        for (var c = 0; c < 16; c++)
+        {
+            this.meshes.push(new Cube(this.getMeshData('bevelledcube')))
+        }
+
+        this.computer = new Mesh(this.getMeshData('computer'), 0, 1.4, 1);
+
+        this.computer.color = 0xffff00;
+        this.computer.scale.x = 4;
+        this.computer.scale.y = 4;
+        this.computer.scale.z = 4;
+
+        this.logo = new Mesh(this.getMeshData('logo'), 0, 18, 2);
+
+        this.logo.scale.x = 0.3;
+        this.logo.scale.y = 0.3;
+        this.logo.scale.z = 0.3;
+
+        this.logo.visible = true;
+
+        this.sphere = new Mesh(this.getMeshData('geosphere'), 0, 3.5, 0);
+
+        this.sphere.color = 0xff0000;
+        this.sphere.scale.x = 1.5;
+        this.sphere.scale.y = 1.5;
+        this.sphere.scale.z = 1.5;
+
+        this.sphere.visible = false;
+
+        this.torus = new Mesh(this.getMeshData('torus'), 0, 3.5, 0);
+
+        this.torus.color = 0x0000ff;
+        this.torus.scale.x = 1.8;
+        this.torus.scale.y = 1.8;
+        this.torus.scale.z = 1.8;
+
+        this.torus.visible = false;
+
+        this.spike = new Mesh(this.getMeshData('spike'), 0, 6.8, 0);
+
+        this.spike.color = 0x00ffff;
+        this.spike.scale.x = 0.8;
+        this.spike.scale.y = 0.8;
+        this.spike.scale.z = 0.8;
+
+        this.spike.visible = false;
+
+        this.current = this.logo;
+
+        this.meshes.push(this.computer);
+        this.meshes.push(this.logo);
+        this.meshes.push(this.sphere);
+        this.meshes.push(this.torus);
+        this.meshes.push(this.spike);
     },
 
     getMeshData: function (key)
@@ -158,12 +369,28 @@ WireframeScene.Start.prototype = {
 
     update: function ()
     {
-        // this.camera.position.z += 0.1;
+        if (this.sequence1)
+        {
+            this.logo.rotation.x -= 0.05;
+            this.sphere.rotation.x -= 0.05;
+            this.torus.rotation.x -= 0.05;
+            this.spike.rotation.x -= 0.05;
+        }
+
+        if (this.sequence2)
+        {
+            this.logo.rotation.y -= 0.01;
+            this.sphere.rotation.y -= 0.01;
+            this.torus.rotation.y -= 0.01;
+            this.spike.rotation.y -= 0.01;
+
+            this.computer.rotation.y -= 0.01;
+        }
 
         this.graphics.clear();
 
         var viewMatrix = BABYLON.Matrix.LookAtLH(this.camera.position, this.camera.target, BABYLON.Vector3.Up());
-        var projectionMatrix = BABYLON.Matrix.PerspectiveFovLH(0.78, 800 / 600, 0.01, 1.0);
+        var projectionMatrix = BABYLON.Matrix.PerspectiveFovLH(0.8, 800 / 600, 0.01, 1.0);
 
         for (var i = 0; i < this.meshes.length; i++)
         {
@@ -303,6 +530,8 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
+//  Everything below here is just an export of the Babylon.js Math class
 
 var BABYLON;
 (function (BABYLON) {

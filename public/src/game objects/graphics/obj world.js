@@ -14,9 +14,10 @@ var Mesh = new Phaser.Class({
 
     initialize:
 
-    function Mesh (verticesCount)
+    function Mesh (verticesCount, facesCount)
     {
         this.vertices = new Array(verticesCount);
+        this.faces = new Array(facesCount);
         this.rotation = BABYLON.Vector3.Zero();
         this.position = BABYLON.Vector3.Zero();
     },
@@ -93,21 +94,24 @@ WireframeScene.Start.prototype = {
 
     create: function ()
     {
-        // this.parseObj('bevelledcube');
-        // this.parseObj('computer');
-        // this.parseObj('geosphere');
-        // this.parseObj('spike');
+        this.parseObj('bevelledcube');
+        this.parseObj('computer');
+        this.parseObj('geosphere');
+        this.parseObj('spike');
         this.parseObj('torus');
 
         this.graphics = this.add.graphics(0, 0);
 
-        var data = this.modelData.torus;
+        var data = this.modelData.geosphere;
 
-        this.mesh = new Mesh(data.verts.length);
+        this.mesh = new Mesh(data.verts.length, data.faces.length);
 
         this.mesh.vertices = data.verts;
+        this.mesh.faces = data.faces;
 
         this.meshes.push(this.mesh);
+
+        this.mesh.position.z = -20;
 
         this.camera = new Camera();
 
@@ -125,10 +129,12 @@ WireframeScene.Start.prototype = {
     update: function ()
     {
         this.graphics.clear();
-        this.graphics.fillStyle(0x00ff00, 1.0);
+        this.graphics.fillStyle(0xffff00, 1.0);
 
-        this.mesh.rotation.x += 0.01;
-        this.mesh.rotation.y += 0.01;
+        this.mesh.position.z += 0.04;
+
+        // this.mesh.rotation.x -= 0.01;
+        // this.mesh.rotation.y += 0.01;
 
         this.renderMeshes(this.camera, this.meshes);
     },
@@ -139,24 +145,60 @@ WireframeScene.Start.prototype = {
 
         var projectionMatrix = BABYLON.Matrix.PerspectiveFovLH(0.78, 800 / 600, 0.01, 1.0);
 
-        for (var index = 0; index < meshes.length; index++)
+        for (var i = 0; i < meshes.length; i++)
         {
-            var cMesh = meshes[index];
+            var mesh = meshes[i];
 
-            var worldMatrix = BABYLON.Matrix.RotationYawPitchRoll(cMesh.rotation.y, cMesh.rotation.x, cMesh.rotation.z).multiply(BABYLON.Matrix.Translation(cMesh.position.x, cMesh.position.y, cMesh.position.z));
+            var worldMatrix = BABYLON.Matrix.RotationYawPitchRoll(mesh.rotation.y, mesh.rotation.x, mesh.rotation.z).multiply(BABYLON.Matrix.Translation(mesh.position.x, mesh.position.y, mesh.position.z));
 
             var transformMatrix = worldMatrix.multiply(viewMatrix).multiply(projectionMatrix);
 
-            for (var indexVertices = 0; indexVertices < cMesh.vertices.length; indexVertices++)
-            {
-                var projectedPoint = this.project(cMesh.vertices[indexVertices], transformMatrix);
+            this.graphics.lineStyle(2, 0x00ff00, 1);
+            this.graphics.beginPath();
 
-                this.graphics.fillRect(projectedPoint.x, projectedPoint.y, 4, 4);
+            for (var f = 0; f < mesh.faces.length; f++)
+            {
+                var face = mesh.faces[f];
+
+                var v0 = mesh.vertices[face.A];
+                var v1 = mesh.vertices[face.B];
+                var v2 = mesh.vertices[face.C];
+                var v3 = mesh.vertices[face.D];
+
+                // if (v0 === undefined || v1 === undefined || v2 === undefined)
+                // {
+                //     console.log('shite');
+                //     console.log(f);
+                //     console.log(face);
+                //     console.log(v0);
+                //     console.log(v1);
+                //     console.log(v2);
+                //     debugger;
+                // }
+
+                var pA = this.project(v0, transformMatrix);
+                var pB = this.project(v1, transformMatrix);
+                var pC = this.project(v2, transformMatrix);
+                var pD = this.project(v3, transformMatrix);
+
+                this.drawLine(pA, pB);
+                this.drawLine(pB, pC);
+                this.drawLine(pC, pD);
+                this.drawLine(pD, pA);
             }
+
+            this.graphics.closePath();
+            this.graphics.strokePath();
         }
     },
 
-    project: function (coord, transMat)
+    drawLine: function (pointA, pointB)
+    {
+        this.graphics.moveTo(pointA.x, pointA.y);
+        this.graphics.lineTo(pointB.x, pointB.y);
+    },
+
+    project: function (coord, transMat, face)
     {
         var point = BABYLON.Vector3.TransformCoordinates(coord, transMat);
 
@@ -199,50 +241,60 @@ WireframeScene.Start.prototype = {
                     parseFloat(tokens[2]),
                     parseFloat(tokens[3])
                 ));
-
-                // verts.push({
-                //     x: parseFloat(tokens[1]),
-                //     y: parseFloat(tokens[2]),
-                //     z: parseFloat(tokens[3])
-                // });
             }
             else if (line[0] === 'f')
             {
                 // lines that start with 'f' are faces
                 var tokens = line.split(' ');
 
-                var face = [
-                    parseInt(tokens[1], 10),
-                    parseInt(tokens[2], 10),
-                    parseInt(tokens[3], 10),
-                    parseInt(tokens[4], 10)
-                ];
+                var face = {
+                    A: parseInt(tokens[1], 10),
+                    B: parseInt(tokens[2], 10),
+                    C: parseInt(tokens[3], 10),
+                    D: parseInt(tokens[4], 10)
+                };
             
+                if (face.A < 0)
+                {
+                    face.A = verts.length + face.A;
+                }
+                else
+                {
+                    face.A--;
+                }
+
+                if (face.B < 0)
+                {
+                    face.B = verts.length + face.B;
+                }
+                else
+                {
+                    face.B--;
+                }
+
+                if (face.C < 0)
+                {
+                    face.C = verts.length + face.C;
+                }
+                else
+                {
+                    face.C--;
+                }
+
+                if (!face.D)
+                {
+                    face.D = face.C;
+                }
+                else if (face.D < 0)
+                {
+                    face.D = verts.length + face.D;
+                }
+                else
+                {
+                    face.D--;
+                }
+
                 faces.push(face);
-
-                if (face[0] < 0)
-                {
-                    face[0] = verts.length + face[0];
-                }
-
-                if (face[1] < 0)
-                {
-                    face[1] = verts.length + face[1];
-                }
-
-                if (face[2] < 0)
-                {
-                    face[2] = verts.length + face[2];
-                }
-
-                if (!face[3])
-                {
-                    face[3] = face[2];
-                }
-                else if (face[3] < 0)
-                {
-                    face[3] = verts.length + face[3];
-                }
             }
         }
 

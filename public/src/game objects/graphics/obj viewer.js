@@ -26,6 +26,7 @@ var i = 0;
 
 function preload ()
 {
+    this.load.text('logo', 'assets/text/phaser-logo-extrude.obj');
     this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
     this.load.text('chaosphere', 'assets/text/chaosphere.obj');
     this.load.text('computer', 'assets/text/computer.obj');
@@ -40,6 +41,7 @@ function create ()
 {
     graphics = this.add.graphics(0, 0);
 
+    models.push(parseObj(this.cache.text.get('logo')));
     models.push(parseObj(this.cache.text.get('bevelledcube')));
     models.push(parseObj(this.cache.text.get('chaosphere')));
     models.push(parseObj(this.cache.text.get('computer')));

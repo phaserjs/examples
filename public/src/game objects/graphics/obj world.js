@@ -14,54 +14,67 @@ var Mesh = new Phaser.Class({
 
     initialize:
 
-    function Mesh (verticesCount, facesCount)
+    function Mesh (data, x, y, z)
     {
-        this.vertices = new Array(verticesCount);
-        this.faces = new Array(facesCount);
+        this.vertices = data.verts;
+        this.faces = data.faces;
+
+        this.position = new BABYLON.Vector3(x, y, z);
+
         this.rotation = BABYLON.Vector3.Zero();
-        this.position = BABYLON.Vector3.Zero();
+
+        this.thickness = 2;
+        this.color = 0x00ff00;
+        this.alpha = 1;
+
+        this._pA = BABYLON.Vector2.Zero();
+        this._pB = BABYLON.Vector2.Zero();
+        this._pC = BABYLON.Vector2.Zero();
+        this._pD = BABYLON.Vector2.Zero();
     },
 
-    render: function (graphics)
+    render: function (graphics, viewMatrix, projectionMatrix)
     {
-        var model = this.model;
+        var worldMatrix = BABYLON.Matrix.RotationYawPitchRoll(this.rotation.y, this.rotation.x, this.rotation.z).multiply(BABYLON.Matrix.Translation(this.position.x, this.position.y, this.position.z));
 
-        var x = this.camera.x + this.x;
-        var y = this.camera.y + this.y;
-        var z = this.z;
-        var scale = this.scale;
+        var transformMatrix = worldMatrix.multiply(viewMatrix).multiply(projectionMatrix);
 
         graphics.lineStyle(this.thickness, this.color, this.alpha);
-
         graphics.beginPath();
 
-        for (var i = 0; i < model.faces.length; i++)
+        for (var f = 0; f < this.faces.length; f++)
         {
-            var face = model.faces[i];
+            var face = this.faces[f];
+            var verts = this.vertices;
 
-            var v0 = model.verts[face[0] - 1];
-            var v1 = model.verts[face[1] - 1];
-            var v2 = model.verts[face[2] - 1];
-            var v3 = model.verts[face[3] - 1];
+            this.project(this._pA, verts[face.A].pos, transformMatrix);
+            this.project(this._pB, verts[face.B].pos, transformMatrix);
+            this.project(this._pC, verts[face.C].pos, transformMatrix);
+            this.project(this._pD, verts[face.D].pos, transformMatrix);
 
-            // if (v0 && v1 && v2 && v3)
-            // {
-                this.drawLine(graphics, x + v0.x * scale, y - v0.y * scale, x + v1.x * scale, y - v1.y * scale);
-                this.drawLine(graphics, x + v1.x * scale, y - v1.y * scale, x + v2.x * scale, y - v2.y * scale);
-                this.drawLine(graphics, x + v2.x * scale, y - v2.y * scale, x + v3.x * scale, y - v3.y * scale);
-                this.drawLine(graphics, x + v3.x * scale, y - v3.y * scale, x + v0.x * scale, y - v0.y * scale);
-            // }
+            this.drawLine(graphics, this._pA, this._pB);
+            this.drawLine(graphics, this._pB, this._pC);
+            this.drawLine(graphics, this._pC, this._pD);
+            this.drawLine(graphics, this._pD, this._pA);
         }
 
         graphics.closePath();
         graphics.strokePath();
     },
 
-    drawLine: function (graphics, x0, y0, x1, y1)
+    drawLine: function (graphics, pointA, pointB)
     {
-        graphics.moveTo(x0, y0);
-        graphics.lineTo(x1, y1);
-    }
+        graphics.moveTo(pointA.x, pointA.y);
+        graphics.lineTo(pointB.x, pointB.y);
+    },
+
+    project: function (local, coord, transMat)
+    {
+        var point = BABYLON.Vector3.TransformCoordinates(coord, transMat);
+
+        local.x = point.x * 800 + 800 / 2.0 >> 0;
+        local.y = -point.y * 600 + 600 / 2.0 >> 0;
+    },
 
 });
 
@@ -71,7 +84,6 @@ WireframeScene.Start = function ()
 {
     this.graphics;
 
-    this.mesh;
     this.meshes = [];
 
     this.camera;
@@ -102,16 +114,16 @@ WireframeScene.Start.prototype = {
 
         this.graphics = this.add.graphics(0, 0);
 
-        var data = this.modelData.geosphere;
+        var meshA = new Mesh(this.getMeshData('geosphere'), 5, 0, -20);
+        var meshB = new Mesh(this.getMeshData('bevelledcube'), 0, 0, -20);
+        var meshC = new Mesh(this.getMeshData('spike'), -5, 0, -20);
 
-        this.mesh = new Mesh(data.verts.length, data.faces.length);
+        meshB.color = 0xff00ff;
+        meshC.color = 0xffff00;
 
-        this.mesh.vertices = data.verts;
-        this.mesh.faces = data.faces;
-
-        this.meshes.push(this.mesh);
-
-        this.mesh.position.z = -20;
+        this.meshes.push(meshA);
+        this.meshes.push(meshB);
+        this.meshes.push(meshC);
 
         this.camera = new Camera();
 
@@ -129,83 +141,16 @@ WireframeScene.Start.prototype = {
     update: function ()
     {
         this.graphics.clear();
-        this.graphics.fillStyle(0xffff00, 1.0);
 
-        this.mesh.position.z += 0.04;
-
-        // this.mesh.rotation.x -= 0.01;
-        // this.mesh.rotation.y += 0.01;
-
-        this.renderMeshes(this.camera, this.meshes);
-    },
-
-    renderMeshes: function (camera, meshes)
-    {
-        var viewMatrix = BABYLON.Matrix.LookAtLH(camera.position, camera.target, BABYLON.Vector3.Up());
-
+        var viewMatrix = BABYLON.Matrix.LookAtLH(this.camera.position, this.camera.target, BABYLON.Vector3.Up());
         var projectionMatrix = BABYLON.Matrix.PerspectiveFovLH(0.78, 800 / 600, 0.01, 1.0);
 
-        for (var i = 0; i < meshes.length; i++)
+        for (var i = 0; i < this.meshes.length; i++)
         {
-            var mesh = meshes[i];
+            var mesh = this.meshes[i];
 
-            var worldMatrix = BABYLON.Matrix.RotationYawPitchRoll(mesh.rotation.y, mesh.rotation.x, mesh.rotation.z).multiply(BABYLON.Matrix.Translation(mesh.position.x, mesh.position.y, mesh.position.z));
-
-            var transformMatrix = worldMatrix.multiply(viewMatrix).multiply(projectionMatrix);
-
-            this.graphics.lineStyle(2, 0x00ff00, 1);
-            this.graphics.beginPath();
-
-            for (var f = 0; f < mesh.faces.length; f++)
-            {
-                var face = mesh.faces[f];
-
-                var v0 = mesh.vertices[face.A];
-                var v1 = mesh.vertices[face.B];
-                var v2 = mesh.vertices[face.C];
-                var v3 = mesh.vertices[face.D];
-
-                // if (v0 === undefined || v1 === undefined || v2 === undefined)
-                // {
-                //     console.log('shite');
-                //     console.log(f);
-                //     console.log(face);
-                //     console.log(v0);
-                //     console.log(v1);
-                //     console.log(v2);
-                //     debugger;
-                // }
-
-                var pA = this.project(v0, transformMatrix);
-                var pB = this.project(v1, transformMatrix);
-                var pC = this.project(v2, transformMatrix);
-                var pD = this.project(v3, transformMatrix);
-
-                this.drawLine(pA, pB);
-                this.drawLine(pB, pC);
-                this.drawLine(pC, pD);
-                this.drawLine(pD, pA);
-            }
-
-            this.graphics.closePath();
-            this.graphics.strokePath();
+            mesh.render(this.graphics, viewMatrix, projectionMatrix);
         }
-    },
-
-    drawLine: function (pointA, pointB)
-    {
-        this.graphics.moveTo(pointA.x, pointA.y);
-        this.graphics.lineTo(pointB.x, pointB.y);
-    },
-
-    project: function (coord, transMat, face)
-    {
-        var point = BABYLON.Vector3.TransformCoordinates(coord, transMat);
-
-        var x = point.x * 800 + 800 / 2.0 >> 0;
-        var y = -point.y * 600 + 600 / 2.0 >> 0;
-
-        return (new BABYLON.Vector2(x, y));
     },
 
     getModel: function (key)
@@ -236,11 +181,20 @@ WireframeScene.Start.prototype = {
                 // lines that start with 'v' are vertices
                 var tokens = line.split(' ');
 
-                verts.push(new BABYLON.Vector3(
-                    parseFloat(tokens[1]),
-                    parseFloat(tokens[2]),
-                    parseFloat(tokens[3])
-                ));
+                var pos = new BABYLON.Vector3(parseFloat(tokens[1]), parseFloat(tokens[2]), parseFloat(tokens[3]));
+                var normal = new BABYLON.Vector3();
+
+                if (tokens.length > 3)
+                {
+                    normal.x = parseFloat(tokens[4]);
+                    normal.y = parseFloat(tokens[5]);
+                    normal.z = parseFloat(tokens[6]);
+                }
+
+                verts.push({
+                    pos: pos,
+                    normal: normal
+                });
             }
             else if (line[0] === 'f')
             {
@@ -296,6 +250,19 @@ WireframeScene.Start.prototype = {
 
                 faces.push(face);
             }
+        }
+
+        //  Compute normals
+        for (var i = 0; i < faces.length; i++)
+        {
+            var face = faces[i];
+
+            var vertA = verts[face.A];
+            var vertB = verts[face.B];
+            var vertC = verts[face.C];
+
+            face.normal = (vertA.normal.add(vertB.normal.add(vertC.normal))).scale(1 / 3);
+            face.normal.normalize();
         }
 
         this.modelData[key] = {

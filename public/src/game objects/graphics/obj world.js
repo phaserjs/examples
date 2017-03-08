@@ -213,6 +213,7 @@ WireframeScene.Start.prototype = {
 
     preload: function ()
     {
+        this.load.image('sky', 'assets/demoscene/sky.png');
         this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
         this.load.text('computer', 'assets/text/computer.obj');
         this.load.text('geosphere', 'assets/text/geosphere.obj');
@@ -231,6 +232,8 @@ WireframeScene.Start.prototype = {
         this.parseObj('torus');
         this.parseObj('grid');
         this.parseObj('logo');
+
+        this.add.image(400, 42, 'sky');
 
         this.graphics = this.add.graphics(0, 0);
 
@@ -260,6 +263,10 @@ WireframeScene.Start.prototype = {
         TweenMax.delayedCall(6, function () { this.sequence2 = true; }, [], this);
         TweenMax.delayedCall(17, function () { this.sequence1 = true; }, [], this);
         TweenMax.delayedCall(20, this.changeShape, [], this);
+
+        // var miniCam = this.cameras.add(400, 0, 400, 300);
+        // miniCam.zoom = 0.5;
+        // miniCam.rotation += 1.2;
     },
 
     changeShape: function ()
@@ -335,10 +342,10 @@ WireframeScene.Start.prototype = {
 
         this.torus = new Mesh(this.getMeshData('torus'), 0, 3.5, 0);
 
-        this.torus.color = 0x0000ff;
-        this.torus.scale.x = 1.8;
-        this.torus.scale.y = 1.8;
-        this.torus.scale.z = 1.8;
+        this.torus.color = 0xf69679;
+        this.torus.scale.x = 1.6;
+        this.torus.scale.y = 1.6;
+        this.torus.scale.z = 1.6;
 
         this.torus.visible = false;
 

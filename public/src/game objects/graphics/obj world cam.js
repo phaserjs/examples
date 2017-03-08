@@ -239,12 +239,12 @@ WireframeScene.Start.prototype = {
 
         this.newScene();
 
-        this.camera = new Camera();
+        this.camera3D = new Camera();
 
-        this.camera.position = new BABYLON.Vector3(0, 6, -32);
-        this.camera.target = new BABYLON.Vector3(0, 0, 50);
+        this.camera3D.position = new BABYLON.Vector3(0, 6, -32);
+        this.camera3D.target = new BABYLON.Vector3(0, 0, 50);
 
-        TweenMax.to(this.camera.position, 4, {
+        TweenMax.to(this.camera3D.position, 4, {
             delay: 24,
             z: -12,
             ease: Sine.easeInOut,
@@ -252,7 +252,7 @@ WireframeScene.Start.prototype = {
             yoyo: true
         });
 
-        TweenMax.to(this.camera.position, 2, {
+        TweenMax.to(this.camera3D.position, 2, {
             delay: 24,
             y: 8,
             ease: Sine.easeInOut,
@@ -396,7 +396,7 @@ WireframeScene.Start.prototype = {
 
         this.graphics.clear();
 
-        var viewMatrix = BABYLON.Matrix.LookAtLH(this.camera.position, this.camera.target, BABYLON.Vector3.Up());
+        var viewMatrix = BABYLON.Matrix.LookAtLH(this.camera3D.position, this.camera3D.target, BABYLON.Vector3.Up());
         var projectionMatrix = BABYLON.Matrix.PerspectiveFovLH(0.8, 800 / 600, 0.01, 1.0);
 
         for (var i = 0; i < this.meshes.length; i++)

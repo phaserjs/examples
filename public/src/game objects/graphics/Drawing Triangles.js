@@ -103,12 +103,6 @@ function draw ()
     }
 }
 
-function drawLine (x0, y0, x1, y1)
-{
-    graphics.moveTo(x0, y0);
-    graphics.lineTo(x1, y1);
-}
-
 function isCcw (v0, v1, v2)
 {
     return (v1.x - v0.x) * (v2.y - v0.y) - (v1.y - v0.y) * (v2.x - v0.x) >= 0;

@@ -114,9 +114,32 @@ WireframeScene.Start.prototype = {
 
         this.graphics = this.add.graphics(0, 0);
 
+        this.randomScene();
+
+        this.camera = new Camera();
+
+        this.camera.position = new BABYLON.Vector3(0, -20, -40);
+        this.camera.target = new BABYLON.Vector3(0, 0, 0);
+    },
+
+    randomScene: function ()
+    {
+        for (var i = 0; i < 20; i++)
+        {
+            var x = Phaser.Math.Between(-2, 2);
+            var z = Phaser.Math.Between(0, 20);
+
+            var mesh = new Mesh(this.getMeshData('bevelledcube'), x, 0, z);
+
+            this.meshes.push(mesh);
+        }
+    },
+
+    basicScene: function ()
+    {
         var meshA = new Mesh(this.getMeshData('geosphere'), 5, 0, -20);
         var meshB = new Mesh(this.getMeshData('bevelledcube'), 0, 0, -20);
-        var meshC = new Mesh(this.getMeshData('spike'), -5, 0, -20);
+        var meshC = new Mesh(this.getMeshData('computer'), -5, 0, -20);
 
         meshB.color = 0xff00ff;
         meshC.color = 0xffff00;
@@ -124,11 +147,6 @@ WireframeScene.Start.prototype = {
         this.meshes.push(meshA);
         this.meshes.push(meshB);
         this.meshes.push(meshC);
-
-        this.camera = new Camera();
-
-        this.camera.position = new BABYLON.Vector3(0, 0, 10);
-        this.camera.target = new BABYLON.Vector3(0, 0, 0);
     },
 
     getMeshData: function (key)
@@ -140,6 +158,8 @@ WireframeScene.Start.prototype = {
 
     update: function ()
     {
+        // this.camera.position.z += 0.1;
+
         this.graphics.clear();
 
         var viewMatrix = BABYLON.Matrix.LookAtLH(this.camera.position, this.camera.target, BABYLON.Vector3.Up());

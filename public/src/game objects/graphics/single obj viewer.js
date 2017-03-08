@@ -38,6 +38,8 @@ function preload ()
     this.load.text('spike', 'assets/text/spike.obj');
     this.load.text('teapot', 'assets/text/teapot.obj');
     this.load.text('torus', 'assets/text/torus.obj');
+    this.load.text('2f', 'assets/text/2faces.obj');
+    this.load.text('2f2', 'assets/text/2facesTriangulated.obj');
 }
 
 function create ()
@@ -49,6 +51,7 @@ function create ()
     models.push(parseObj(this.cache.text.get('computer')));
     // models.push(parseObj(this.cache.text.get('geosphere')));
     // models.push(parseObj(this.cache.text.get('implodedcube')));
+    // models.push(parseObj(this.cache.text.get('2f')));
     // models.push(parseObj(this.cache.text.get('monobird')));
     // models.push(parseObj(this.cache.text.get('spike')));
     // models.push(parseObj(this.cache.text.get('teapot')));
@@ -129,12 +132,14 @@ function draw ()
         var v0 = model.verts[face[0] - 1];
         var v1 = model.verts[face[1] - 1];
         var v2 = model.verts[face[2] - 1];
+        var v3 = model.verts[face[3] - 1];
 
         // if (v0 && v1 && v2 && isCcw(v0, v1, v2))
         // {
             drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
             drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
-            drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
+            drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v3.x * scale, centerY - v3.y * scale);
+            drawLine(centerX + v3.x * scale, centerY - v3.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
         // }
     }
 
@@ -211,7 +216,7 @@ function parseObj (text)
     // split the text into lines
     var lines = text.replace('\r', '').split('\n');
     var count = lines.length;
-  
+
     for (var i = 0; i < count; i++)
     {
         var line = lines[i];
@@ -234,7 +239,8 @@ function parseObj (text)
             var face = [
                 parseInt(tokens[1], 10),
                 parseInt(tokens[2], 10),
-                parseInt(tokens[3], 10)
+                parseInt(tokens[3], 10),
+                parseInt(tokens[4], 10)
             ];
         
             faces.push(face);
@@ -252,6 +258,11 @@ function parseObj (text)
             if (face[2] < 0)
             {
                 face[2] = verts.length + face[2];
+            }
+
+            if (face[3] < 0)
+            {
+                face[3] = verts.length + face[3];
             }
         }
     }

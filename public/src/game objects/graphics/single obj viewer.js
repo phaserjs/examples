@@ -24,6 +24,9 @@ var models = [];
 var model;
 var i = 0;
 
+//  0 = X, 1 = Y, 2 = Z
+var direction = 0;
+
 function preload ()
 {
     this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
@@ -43,9 +46,9 @@ function create ()
 
     // models.push(parseObj(this.cache.text.get('bevelledcube')));
     // models.push(parseObj(this.cache.text.get('chaosphere')));
-    // models.push(parseObj(this.cache.text.get('computer')));
+    models.push(parseObj(this.cache.text.get('computer')));
     // models.push(parseObj(this.cache.text.get('geosphere')));
-    models.push(parseObj(this.cache.text.get('implodedcube')));
+    // models.push(parseObj(this.cache.text.get('implodedcube')));
     // models.push(parseObj(this.cache.text.get('monobird')));
     // models.push(parseObj(this.cache.text.get('spike')));
     // models.push(parseObj(this.cache.text.get('teapot')));
@@ -53,53 +56,57 @@ function create ()
 
     model = models[0];
 
-    // console.log(model);
+    console.log(model);
 
-    rotateX3D(0.5235987755982988);
-    rotateY3D(0.5235987755982988);
-    rotateZ3D(0.5235987755982988);
-
-    TweenMax.to(t, 20, {
-        x: 0.03490658503988659,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
+    this.input.keyboard.events.on('KEY_UP_X', function () {
+        direction = 0;
     });
 
-    TweenMax.to(t, 30, {
-        y: -0.05235987755982989,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
+    this.input.keyboard.events.on('KEY_UP_Y', function () {
+        direction = 1;
     });
 
-    TweenMax.to(t, 15, {
-        z: 0.05235987755982989,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
+    this.input.keyboard.events.on('KEY_UP_Z', function () {
+        direction = 2;
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_SPACE', function () {
+    this.input.keyboard.events.on('KEY_DOWN_LEFT', function () {
+        rotateX3D(-0.03490658503988659);
+    });
 
-        i++;
+    this.input.keyboard.events.on('KEY_DOWN_RIGHT', function () {
+        rotateX3D(0.03490658503988659);
+    });
 
-        if (i === models.length)
+    this.input.keyboard.events.on('KEY_DOWN_UP', function () {
+
+        if (direction === 0)
         {
-            i = 0;
+            rotateY3D(-0.03490658503988659);
+        }
+        else
+        {
+            rotateZ3D(-0.03490658503988659);
         }
 
-        model = models[i];
+    });
+
+    this.input.keyboard.events.on('KEY_DOWN_DOWN', function () {
+
+        if (direction === 0)
+        {
+            rotateY3D(0.03490658503988659);
+        }
+        else
+        {
+            rotateZ3D(0.03490658503988659);
+        }
 
     });
 }
 
 function update ()
 {
-    rotateX3D(t.x);
-    rotateY3D(t.y);
-    rotateZ3D(t.z);
-
     draw();
 }
 
@@ -123,12 +130,12 @@ function draw ()
         var v1 = model.verts[face[1] - 1];
         var v2 = model.verts[face[2] - 1];
 
-        if (v0 && v1 && v2 && isCcw(v0, v1, v2))
-        {
+        // if (v0 && v1 && v2 && isCcw(v0, v1, v2))
+        // {
             drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
             drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
             drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
-        }
+        // }
     }
 
     graphics.closePath();

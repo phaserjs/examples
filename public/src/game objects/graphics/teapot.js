@@ -37,6 +37,8 @@ function create ()
 
     model = models[0];
 
+    console.dir(model);
+
     rotateZ3D(0.5235987755982988);
     rotateY3D(0.5235987755982988);
     rotateX3D(0.5235987755982988);

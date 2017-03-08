@@ -55,10 +55,6 @@ function create ()
 
     // console.log(model);
 
-    // rotateZ3D(0.5235987755982988);
-    // rotateY3D(0.5235987755982988);
-    // rotateX3D(0.5235987755982988);
-
     TweenMax.to(t, 20, {
         x: 0.03490658503988659,
         ease: Sine.easeInOut,
@@ -124,12 +120,12 @@ function draw ()
         var v2 = model.verts[face[2] - 1];
 
         // if (v0 && v1 && v2 && isCcw(v0, v1, v2))
-        if (v0 && v1 && v2)
-        {
+        // if (v0 && v1 && v2)
+        // {
             drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
             drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
             drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
-        }
+        // }
     }
 
     graphics.closePath();

@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -23,13 +23,13 @@ function create()
 {
     // var text = this.add.bitmapText(60, 200, 'hyper', 'Hello World!', 128);
     // var text = this.add.bitmapText(60, 200, 'atari', 'Hello\nWorld!', 128);
-    var text = this.add.bitmapText(60, 60, 'gothic', 'Hello\nWorld!', 128);
+    var text = this.add.dynamicBitmapText(60, 60, 'gothic', 'Hello\nWorld!', 128);
     text.setDisplayCallback(textCallback);
 
-    var text2 = this.add.bitmapText(560, 60, 'ice', 'Hello\nWorld!', 128);
+    var text2 = this.add.dynamicBitmapText(560, 60, 'ice', 'Hello\nWorld!', 128);
     text2.setDisplayCallback(textCallback);
 
-    var text3 = this.add.bitmapText(100, 460, 'hyper', 'Terminator', 200);
+    var text3 = this.add.dynamicBitmapText(100, 460, 'hyper', 'Terminator', 200);
     text3.setDisplayCallback(textCallback);
 
     TweenMax.to(scale, 2, {

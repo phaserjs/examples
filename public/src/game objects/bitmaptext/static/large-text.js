@@ -18,16 +18,17 @@ var vy = 4;
 
 function preload() 
 {
-    this.load.xml('desyrel', 'assets/fonts/bitmap/desyrel.xml');
-    this.load.image('desyrel', 'assets/fonts/bitmap/desyrel.png');
+    this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
     this.load.text('loremipsum', 'assets/text/loremipsum.txt');
     this.load.image('bunny', 'assets/sprites/bunny.png');
 }
 
 function create() 
 {
-    largeText = this.add.bitmapText(0, 0, game.cache.text.get('loremipsum'), 'desyrel');
+    largeText = this.add.bitmapText(0, 0, 'desyrel', game.cache.text.get('loremipsum'));
     bunny = this.add.sprite(0, 0, 'bunny');
+    bunny.originX = 0;
+    bunny.originY = 0;
 }
 
 function update()

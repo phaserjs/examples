@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -9,23 +9,24 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+var scale = { i: -64, x: 16, y: -16 };
 
-function preload() 
+function preload()
 {
     this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
 }
 
 function create() 
 {
-    var text = this.add.bitmapText(60, 200, 'desyrel', 'HELLO WORLD!', 64);
+    var text = this.add.dynamicBitmapText(60, 200, 'desyrel', 'Hello World!', 64);
 
     text.setDisplayCallback(textCallback);
 
-    TweenMax.to(text, 2, {
-        delay: 2,
-        scaleX: 2,
-        scaleY: 2,
-        ease: Sine.easeInOut,
+    TweenMax.to(scale, 1, {
+        i: 64,
+        x: -16,
+        y: 16,
+        ease: Linear.none,
         repeat: -1,
         yoyo: true
     });
@@ -34,8 +35,16 @@ function create()
 //  data = { index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY }
 function textCallback (data)
 {
-    data.x = Phaser.Math.Between(data.x - 2, data.x + 2);
-    data.y = Phaser.Math.Between(data.y - 4, data.y + 4);
+    data.y += scale.y * data.index;
+
+    // if (data.index % 2)
+    // {
+    //     data.y += scale.x;
+    // }
+    // else
+    // {
+    //     data.y += scale.y;
+    // }
 
     return data;
 }

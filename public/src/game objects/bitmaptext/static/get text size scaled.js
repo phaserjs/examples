@@ -1,11 +1,10 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,
         create: create,
-        update: update,
-        render: render
+        update: update
     }
 };
 
@@ -13,6 +12,7 @@ var game = new Phaser.Game(config);
 
 var text;
 var bounds;
+var graphics;
 var string = 'Phaser 3\nBitmapText\nScaling\nwith bounds';
 
 function preload() 
@@ -25,7 +25,7 @@ function preload()
 function create() 
 {
     text = this.add.bitmapText(0, 0, 'atari', string);
-
+    graphics = this.add.graphics(0, 0);
     TweenMax.to(text, 4, {
         scaleX: 3,
         ease: Power1.easeInOut,
@@ -44,14 +44,10 @@ function create()
 function update()
 {
     text.setText(string + '\nScale X: ' + text.scaleX.toFixed(4));
-}
-
-function render()
-{
     bounds = text.getTextBounds();
 
-    var ctx = this.sys.context;
-
-    ctx.strokeStyle = 'rgba(0,225,0,1)';
-    ctx.strokeRect(bounds.global.x, bounds.global.y, bounds.global.width, bounds.global.height);
+    graphics.clear();
+    graphics.lineStyle(1, 0x00FF00, 1.0);
+    graphics.strokeRect(bounds.global.x, bounds.global.y, bounds.global.width, bounds.global.height);
 }
+

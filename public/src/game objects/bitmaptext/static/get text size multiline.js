@@ -3,15 +3,15 @@ var config = {
     parent: 'phaser-example',
     state: {
         preload: preload,
-        create: create,
-        render: render
+        create: create
     }
 };
 
-var game = new Phaser.Game(config);
 
 var text;
 var bounds;
+var graphics;
+var game = new Phaser.Game(config);
 
 function preload() 
 {
@@ -23,14 +23,8 @@ function preload()
 function create() 
 {
     text = this.add.bitmapText(32, 100, 'hyper', 'Arkanoid\nRevenge of Doh', 96);
-
+    graphics = this.add.graphics(0, 0);
     bounds = text.getTextBounds();
-}
-
-function render()
-{
-    var ctx = this.sys.context;
-
-    ctx.strokeStyle = 'rgba(0,225,0,1)';
-    ctx.strokeRect(bounds.global.x, bounds.global.y, bounds.global.width, bounds.global.height);
+    graphics.lineStyle(1, 0x00FF00, 1.0);
+    graphics.strokeRect(bounds.global.x, bounds.global.y, bounds.global.width, bounds.global.height);
 }

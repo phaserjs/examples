@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -17,19 +17,25 @@ function preload()
 
 function create() 
 {
-    var text = this.add.bitmapText(60, 200, 'desyrel', 'It\'s cold outside,\nthere\'s no kind of atmosphere', 64);
+    var text = this.add.dynamicBitmapText(60, 200, 'desyrel', 'HELLO WORLD!', 64);
 
     text.setDisplayCallback(textCallback);
+
+    TweenMax.to(text, 2, {
+        delay: 2,
+        scaleX: 2,
+        scaleY: 2,
+        ease: Sine.easeInOut,
+        repeat: -1,
+        yoyo: true
+    });
 }
 
 //  data = { index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY }
 function textCallback (data)
 {
-    if (data.index >= 5 && data.index <= 8)
-    {
-        data.x = Phaser.Math.Between(data.x - 2, data.x + 2);
-        data.y = Phaser.Math.Between(data.y - 4, data.y + 4);
-    }
+    data.x = Phaser.Math.Between(data.x - 2, data.x + 2);
+    data.y = Phaser.Math.Between(data.y - 4, data.y + 4);
 
     return data;
 }

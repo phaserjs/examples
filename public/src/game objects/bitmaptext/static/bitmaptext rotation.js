@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -16,18 +16,11 @@ function preload()
 
 function create() 
 {
-    var text = this.add.bitmapText(100, 100, 'ice', 'Terminator', 32);
+    var text = this.add.bitmapText(300, 300, 'ice', 'Terminator', 128);
 
-    TweenMax.to(text, 4, {
-        scaleX: 4,
+    TweenMax.to(text, 2, {
+        angle: 360,
         ease: Power1.easeInOut,
-        repeat: -1,
-        yoyo: true
-    });
-
-    TweenMax.to(text, 3, {
-        scaleY: 8,
-        ease: Power2.easeInOut,
         repeat: -1,
         yoyo: true
     });

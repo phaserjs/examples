@@ -52,8 +52,6 @@ function create ()
 
     // run the engine
     Engine.run(engine);
-
-    console.log(boxA);
 }
 
 function update ()

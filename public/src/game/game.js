@@ -1,9 +1,109 @@
+
+var normalizeValue = function (value, min, max) {
+    return (value - min) / (max - min);
+};
+
+var linearInterpolation = function (norm, min, max) {
+    return (max - min) * norm + min;
+};
+
+var TrailPoint = Phaser.Class({
+
+    initialize:
+
+    function TrailPoint (x, y)
+    {
+        this.x = x;
+        this.y = y;
+        this.timer = 0;
+    },
+
+    set: function (x, y, timer)
+    {
+        this.x = x;
+        this.y = y;
+        this.timer = timer;
+
+        return this;
+    }
+
+});
+
+var Trail = Phaser.Class({
+    
+    initialize:
+
+    function Trail (graphics, target, maxSegments, startWidth, endWidth)
+    {
+        this.graphics = graphics;
+        this.target = target;
+        this.segmentPool = [];
+        this.segments = [];
+        this.startWidth = startWidth;
+        this.endWidth = endWidth;
+        this.maxSegments = maxSegments;
+
+        for (var index = 0; index < maxSegments; index += 2) 
+        {
+            this.segmentPool.push(new TrailPoint(target.x, target.y));
+        }
+
+    },
+
+    update: function ()
+    {
+        var target = this.target;
+        var graphics = this.graphics;
+        var segments = this.segments;
+        var segmentCount = this.segments.length;
+        var startWidth = this.startWidth;
+        var endWidth = this.endWidth;
+        var segmentPool = this.segmentPool;
+
+        /* setup drawing commands for trail */
+        if (segmentCount > 1)
+        {
+            graphics.clear();
+            graphics.lineStyle(1, 0xFF0000, 1.0);
+            graphics.beginPath();
+            graphics.moveWidthTo(segments[0].x, segments[0].y, endWidth);
+    
+            for (var index = 1; index < segmentCount; ++index)
+            {
+                var segment = segments[index];
+                graphics.lineWidthTo(segment.x, segment.y, linearInterpolation(index / segmentCount, endWidth, startWidth));
+            }
+    
+            graphics.strokePath();
+            graphics.closePath();
+        }
+
+        /* update trail */
+        for (var index = 0; index < segments.length; ++index)
+        {
+            var segment = segments[index];
+            segment.timer -= 0.1;
+            if (segment.timer <= 0.0)
+            {
+                segmentPool.push(segment);
+                segments.splice(index, 1);
+                index -= 1;
+            }
+        }
+
+        if (segmentPool.length > 0)
+        {
+            segments.push(segmentPool.pop().set(target.x, target.y, 4.0));
+        }
+    }
+});
+
 var SpaceShipMaxAccelerations = 100 * 2;
 var SpaceShip = Phaser.Class({
     
     initialize:
     
-    function SpaceShip(sprite, x, y) {
+    function SpaceShip (sprite, x, y) {
         this.sprite = sprite;
         this.sprite.x = x;
         this.sprite.y = y;
@@ -18,6 +118,7 @@ var SpaceShip = Phaser.Class({
         this.accelerationVectorsHead = 0;
         this.lastAccelerationIndex = 0;
         this.isMoving = false;
+
     },
 
     addAccelerationVector: function ()
@@ -120,7 +221,7 @@ var Player = Phaser.Class({
 
     initialize: 
 
-    function Player(sprite, x, y, state) {
+    function Player (sprite, x, y, state) {
         SpaceShip.call(this, sprite, x, y);
         this.accelerateForward = false;
         this.rotateLeft = false;
@@ -129,11 +230,9 @@ var Player = Phaser.Class({
         state.input.keyboard.events.on('KEY_DOWN_LEFT', this.onKeyLeftPressed.bind(this));
         state.input.keyboard.events.on('KEY_DOWN_RIGHT', this.onKeyRightPressed.bind(this));
         state.input.keyboard.events.on('KEY_DOWN_UP', this.onKeyUpPressed.bind(this));
-        state.input.keyboard.events.on('KEY_DOWN_DOWN', this.onKeyDownPressed.bind(this));
         state.input.keyboard.events.on('KEY_UP_LEFT', this.onKeyLeftReleased.bind(this));
         state.input.keyboard.events.on('KEY_UP_RIGHT', this.onKeyRightReleased.bind(this));
         state.input.keyboard.events.on('KEY_UP_UP', this.onKeyUpReleased.bind(this));
-        state.input.keyboard.events.on('KEY_UP_DOWN', this.onKeyDownReleased.bind(this));
     },
     update: function () 
     {
@@ -198,10 +297,15 @@ var PlayState = {
 
     },
     create: function () {
-        this.add.image(0, 0, 'CherilPerils');
+        //this.add.image(0, 0, 'CherilPerils');
+        var playerTrailGraphics = this.add.graphics(0, 0);
         player = new Player(this.add.image(0, 0, 'thrust_ship'), 400, 300, this);
+        var playerTrail = new Trail(playerTrailGraphics, player.sprite, 100, 20, 1);
+        
         PlayStateChildren.push(player);
-        this.cameras.main.startFollow(player.sprite);
+        PlayStateChildren.push(playerTrail);
+
+        //this.cameras.main.startFollow(player.sprite);
     },
     update: function () {
         for (var i = 0, l = PlayStateChildren.length; i < l; ++i)
@@ -212,7 +316,7 @@ var PlayState = {
 };
 
 var game = new Phaser.Game({
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     state: PlayState,
     width: 800,

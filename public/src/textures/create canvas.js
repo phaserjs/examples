@@ -7,12 +7,9 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-var state;
 
 function create ()
 {
-    state = this;
-
     var canvasTexture = this.textures.createCanvas('filledCube', 16, 256);
 
     //  We can access the underlying Canvas itself like this:
@@ -31,9 +28,10 @@ function create ()
     context.fillRect(0, 0, 16, 256);
 
     //  Add a bunch of images that all use the same texture
+
     for (var i = 0; i < 64; i++)
     {
-        launch(i);
+        launch.bind(this, i)();
     }
 
     TweenMax.delayedCall(4, updateTexture, [], this);
@@ -41,7 +39,7 @@ function create ()
 
 function launch (i)
 {
-    var image = state.add.image(8 + i * 16, 0, 'filledCube');
+    var image = this.add.image(8 + i * 16, 0, 'filledCube');
 
     var tween = TweenMax.to(image, 2, {
         y: 650,

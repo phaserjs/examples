@@ -33,7 +33,7 @@ var Trail = Phaser.Class({
     
     initialize:
 
-    function Trail (graphics, target, maxSegments, startWidth, endWidth)
+    function Trail (graphics, target, maxSegments, startWidth, endWidth, timeDamping, offsetX, offsetY)
     {
         this.graphics = graphics;
         this.target = target;
@@ -42,6 +42,9 @@ var Trail = Phaser.Class({
         this.startWidth = startWidth;
         this.endWidth = endWidth;
         this.maxSegments = maxSegments;
+        this.timeDamping = timeDamping || 0.2;
+        this.offsetX = offsetX || 0.0;
+        this.offsetY = offsetY || 0.0;
 
         for (var index = 0; index < maxSegments; index += 2) 
         {
@@ -59,6 +62,10 @@ var Trail = Phaser.Class({
         var startWidth = this.startWidth;
         var endWidth = this.endWidth;
         var segmentPool = this.segmentPool;
+        var timeDamping = this.timeDamping;
+        var rotation = target.rotation;
+        var offsetX = Math.cos(rotation) * this.offsetX;
+        var offsetY = Math.sin(rotation) * this.offsetY;
 
         /* setup drawing commands for trail */
         if (segmentCount > 1)
@@ -66,12 +73,16 @@ var Trail = Phaser.Class({
             graphics.clear();
             graphics.lineStyle(1, 0xFF0000, 1.0);
             graphics.beginPath();
-            graphics.moveWidthTo(segments[0].x, segments[0].y, endWidth);
+            graphics.moveFxTo(segments[0].x, segments[0].y, endWidth);
     
             for (var index = 1; index < segmentCount; ++index)
             {
                 var segment = segments[index];
-                graphics.lineWidthTo(segment.x, segment.y, linearInterpolation(index / segmentCount, endWidth, startWidth));
+                graphics.lineFxTo(
+                    segment.x, segment.y, 
+                    linearInterpolation(index / segmentCount, endWidth, startWidth),
+                    ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / segmentCount, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff)
+                );
             }
     
             graphics.strokePath();
@@ -82,7 +93,7 @@ var Trail = Phaser.Class({
         for (var index = 0; index < segments.length; ++index)
         {
             var segment = segments[index];
-            segment.timer -= 0.1;
+            segment.timer -= timeDamping;
             if (segment.timer <= 0.0)
             {
                 segmentPool.push(segment);
@@ -93,7 +104,7 @@ var Trail = Phaser.Class({
 
         if (segmentPool.length > 0)
         {
-            segments.push(segmentPool.pop().set(target.x, target.y, 2.0));
+            segments.push(segmentPool.pop().set(target.x + offsetX + Math.random() * 5, target.y + offsetY + Math.random() * 5, 4.0));
         }
     }
 });
@@ -296,9 +307,20 @@ var PlayState = {
 
     },
     create: function () {
+        var stars = this.add.graphics(0, 0);
+
+        for (var i = 0; i < 1000; ++i)
+        {
+            stars.fillStyle(0xFFFFFF, Math.random());
+            stars.fillRect(
+                -2000 + Math.random() * 4000,
+                -2000 + Math.random() * 4000,
+                2, 2);
+        }
+
         var playerTrailGraphics = this.add.graphics(0, 0);
         player = new Player(this.add.image(0, 0, 'thrust_ship'), 400, 300, this);
-        var playerTrail = new Trail(playerTrailGraphics, player.sprite, 100, 20, 1);
+        var playerTrail = new Trail(playerTrailGraphics, player.sprite, 100, 10, 1, 0.2, 0);
         
         PlayStateChildren.push(player);
         PlayStateChildren.push(playerTrail);
@@ -314,7 +336,7 @@ var PlayState = {
 };
 
 var game = new Phaser.Game({
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: PlayState,
     width: 800,

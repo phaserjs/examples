@@ -31,29 +31,43 @@ function create() {
 }
 
 function update() {
-    if (points.length > 1) {
-        trail.clear();
-        trail.lineStyle(1, 0xFF0000, 1.0);
+    trail.clear();
+    if (points.length > 4) {
+        trail.lineStyle(1, 0xFFFF00, 1.0);
         trail.beginPath();
-        trail.moveWidthTo(points[0].x, points[0].y, 0);
-        for (var index = 1; index < points.length; ++index)
+        trail.moveFxTo(points[0].x, points[0].y, 0, 0xFFFF00, 0);
+        for (var index = 1; index < points.length - 4; ++index)
         {
             var point = points[index];
-            trail.lineWidthTo(point.x, point.y, linearInterpolation(index / points.length, 0, 20));
+            trail.lineFxTo(
+                point.x, point.y, 
+                linearInterpolation(index / (points.length - 4), 0, 20),
+                ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / points.length, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff)
+                
+            );
+        }
+        var count = 0;
+        for (var index = points.length - 4; index < points.length; ++index)
+        {
+            var point = points[index];
+            trail.lineFxTo(
+                point.x, point.y, 
+                linearInterpolation(count++ / 4, 20, 0),
+                ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / points.length, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff)
+            );
         }
         trail.strokePath();
         trail.closePath();
-    
-        for (var index = 0; index < points.length; ++index)
+    }
+    for (var index = 0; index < points.length; ++index)
+    {
+        var point = points[index];
+       
+        point.time -= 0.2;
+        if (point.time <= 0)
         {
-            var point = points[index];
-           
-            point.time -= 0.5;
-            if (point.time <= 0)
-            {
-                points.splice(index, 1);
-                index -= 1;
-            }
+            points.splice(index, 1);
+            index -= 1;
         }
     }
 }

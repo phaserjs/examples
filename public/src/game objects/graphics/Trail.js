@@ -63,7 +63,7 @@ function update() {
     {
         var point = points[index];
        
-        point.time -= 0.2;
+        point.time -= 0.5;
         if (point.time <= 0)
         {
             points.splice(index, 1);

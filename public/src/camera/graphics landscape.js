@@ -70,9 +70,10 @@ function create ()
 
     landscape.lineTo(worldWidth, maxY);
 
+    landscape.strokePath();
+    // landscape.fillPath();
+
     landscape.closePath();
-    // landscape.strokePath();
-    landscape.fillPath();
 }
 
 function update()

@@ -14,18 +14,17 @@ var config = {
 var image;
 var game = new Phaser.Game(config);
 
-function preload() {
-
+function preload ()
+{
     this.load.image('einstein', 'assets/pics/ra-einstein.png');
-
 }
 
-function create() {
-
+function create ()
+{
     image = this.add.image(400, 300, 'einstein');
 }
 
-function update() {
+function update ()
+{
     image.rotation += 0.01;
-    this.cameras.main.x += 1;
 }

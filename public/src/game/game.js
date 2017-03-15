@@ -93,7 +93,7 @@ var Trail = Phaser.Class({
 
         if (segmentPool.length > 0)
         {
-            segments.push(segmentPool.pop().set(target.x, target.y, 4.0));
+            segments.push(segmentPool.pop().set(target.x, target.y, 2.0));
         }
     }
 });
@@ -293,11 +293,9 @@ var PlayState = {
 
     preload: function () {
         this.load.image('thrust_ship', 'assets/sprites/thrust_ship.png');
-        this.load.image('CherilPerils', 'assets/tests/camera/CherilPerils.png');
 
     },
     create: function () {
-        //this.add.image(0, 0, 'CherilPerils');
         var playerTrailGraphics = this.add.graphics(0, 0);
         player = new Player(this.add.image(0, 0, 'thrust_ship'), 400, 300, this);
         var playerTrail = new Trail(playerTrailGraphics, player.sprite, 100, 20, 1);
@@ -305,7 +303,7 @@ var PlayState = {
         PlayStateChildren.push(player);
         PlayStateChildren.push(playerTrail);
 
-        //this.cameras.main.startFollow(player.sprite);
+        this.cameras.main.startFollow(player.sprite);
     },
     update: function () {
         for (var i = 0, l = PlayStateChildren.length; i < l; ++i)
@@ -316,7 +314,7 @@ var PlayState = {
 };
 
 var game = new Phaser.Game({
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
     state: PlayState,
     width: 800,

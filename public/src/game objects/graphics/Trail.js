@@ -4,9 +4,7 @@ var config = {
     state: {
         create: create
         ,update: update
-    },
-    width: 800,
-    height: 600
+    }
 };
 var Point = function (x, y, time) {
     this.x = x;
@@ -78,3 +76,14 @@ game.canvas.onmousemove = function (evt) {
 
     points.push(new Point(head.x, head.y, 4.0));
 };
+
+game.canvas.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+    if (event.targetTouches.length == 1) {
+        var touch = event.targetTouches[0];
+        head.x = touch.pageX;
+        head.y = touch.pageY;
+
+        points.push(new Point(head.x, head.y, 4.0));
+    }
+}, false);

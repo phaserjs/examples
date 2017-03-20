@@ -20,6 +20,8 @@ function create()
 
     text = this.add.text(400, 300, 'Phaser 3 - 0', { font: '64px Arial', fill: '#ffff00' });
 
+    text.setOrigin(0.5);
+
     //  Draw grid lines
 
     graphics.lineStyle(2, 0x00ff00, 0.5);

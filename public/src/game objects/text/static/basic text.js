@@ -1,5 +1,7 @@
 var config = {
     type: Phaser.CANVAS,
+    width: 800,
+    height: 600,
     parent: 'phaser-example',
     state: {
         create: create,
@@ -10,9 +12,12 @@ var game = new Phaser.Game(config);
 
 function create() 
 {
-    var text = this.add.text(0, 0, 'Phaser');
+    //  Default text with no style settings set
+    var text = this.add.text(100, 100, 'Phaser');
 
-    var text2 = this.add.text(0, 64, 'Phaser', { font: '64px Arial', fill: '#00ff00' });
+    //  Pass in a styles with the constructor
+    var text2 = this.add.text(100, 200, 'Phaser', { font: '64px Arial', fill: '#00ff00' });
 
-    var text3 = this.add.text(0, 128, 'Phaser', { font: 'bold 64px Arial', fill: false, stroke: '#00ff00', strokeThickness: 2 });
+    //  Or chain it like this:
+    var text3 = this.add.text(100, 300, 'Phaser').setFont('64px Arial').setFill('#ffff00');
 }

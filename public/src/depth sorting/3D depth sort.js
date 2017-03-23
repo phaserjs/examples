@@ -13,96 +13,89 @@ var config = {
 var graphics;
 
 var t = {
-    x: -0.03490658503988659,
-    y: 0.05235987755982989,
-    z: -0.05235987755982989
+    x: -0.003490658503988659,
+    y: 0.003490658503988659,
+    z: -0.003490658503988659
 };
 
 var game = new Phaser.Game(config);
 
 var models = [];
 var model;
-var i = 0;
-
-//  0 = X, 1 = Y, 2 = Z
-var direction = 0;
+var m = 0;
+var maxVerts = 0;
+var balls = [];
 
 function preload ()
 {
+    this.load.image('ball', 'assets/sprites/shinyball.png');
+
     this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
-    this.load.text('chaosphere', 'assets/text/chaosphere.obj');
-    this.load.text('computer', 'assets/text/computer.obj');
     this.load.text('geosphere', 'assets/text/geosphere.obj');
     this.load.text('implodedcube', 'assets/text/implodedcube.obj');
-    this.load.text('monobird', 'assets/text/monobird.obj');
     this.load.text('spike', 'assets/text/spike.obj');
-    this.load.text('teapot', 'assets/text/teapot.obj');
     this.load.text('torus', 'assets/text/torus.obj');
-    this.load.text('2f', 'assets/text/2faces.obj');
-    this.load.text('2f2', 'assets/text/2facesTriangulated.obj');
 }
 
 function create ()
 {
     graphics = this.add.graphics(0, 0);
 
-    // models.push(parseObj(this.cache.text.get('bevelledcube')));
-    // models.push(parseObj(this.cache.text.get('chaosphere')));
-    // models.push(parseObj(this.cache.text.get('computer')));
     models.push(parseObj(this.cache.text.get('geosphere')));
-    // models.push(parseObj(this.cache.text.get('implodedcube')));
-    // models.push(parseObj(this.cache.text.get('2f')));
-    // models.push(parseObj(this.cache.text.get('monobird')));
-    // models.push(parseObj(this.cache.text.get('spike')));
-    // models.push(parseObj(this.cache.text.get('teapot')));
-    // models.push(parseObj(this.cache.text.get('torus')));
+    models.push(parseObj(this.cache.text.get('bevelledcube')));
+    models.push(parseObj(this.cache.text.get('spike')));
+    models.push(parseObj(this.cache.text.get('implodedcube')));
+    models.push(parseObj(this.cache.text.get('torus')));
 
     model = models[0];
 
-    console.log(model);
+    //  Create sprites for each vert
 
-    this.input.keyboard.events.on('KEY_UP_X', function () {
-        direction = 0;
+    for (var i = 0; i < maxVerts; i++)
+    {
+        var ball = this.add.image(0, 0, 'ball');
+
+        ball.visible = (i < model.verts.length);
+
+        balls.push(ball);
+    }
+
+    TweenMax.to(t, 20, {
+        x: 0.003490658503988659,
+        ease: Sine.easeInOut,
+        repeat: -1,
+        yoyo: true
     });
 
-    this.input.keyboard.events.on('KEY_UP_Y', function () {
-        direction = 1;
+    TweenMax.to(t, 30, {
+        y: -0.003490658503988659,
+        ease: Sine.easeInOut,
+        repeat: -1,
+        yoyo: true
     });
 
-    this.input.keyboard.events.on('KEY_UP_Z', function () {
-        direction = 2;
+    TweenMax.to(t, 15, {
+        z: 0.003490658503988659,
+        ease: Sine.easeInOut,
+        repeat: -1,
+        yoyo: true
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_LEFT', function () {
-        rotateX3D(-0.03490658503988659);
-    });
+    this.input.keyboard.events.on('KEY_DOWN_SPACE', function () {
 
-    this.input.keyboard.events.on('KEY_DOWN_RIGHT', function () {
-        rotateX3D(0.03490658503988659);
-    });
+        m++;
 
-    this.input.keyboard.events.on('KEY_DOWN_UP', function () {
-
-        if (direction === 0)
+        if (m === models.length)
         {
-            rotateY3D(-0.03490658503988659);
+            m = 0;
         }
-        else
-        {
-            rotateZ3D(-0.03490658503988659);
-        }
 
-    });
+        model = models[m];
 
-    this.input.keyboard.events.on('KEY_DOWN_DOWN', function () {
-
-        if (direction === 0)
+        //  Update the balls
+        for (var i = 0; i < balls.length; i++)
         {
-            rotateY3D(0.03490658503988659);
-        }
-        else
-        {
-            rotateZ3D(0.03490658503988659);
+            balls[i].visible = (i < model.verts.length);
         }
 
     });
@@ -110,6 +103,10 @@ function create ()
 
 function update ()
 {
+    rotateX3D(t.x);
+    rotateY3D(t.y);
+    rotateZ3D(t.z);
+
     draw();
 }
 
@@ -117,11 +114,11 @@ function draw ()
 {
     var centerX = 400;
     var centerY = 300;
-    var scale = 90;
+    var scale = 200;
 
     graphics.clear();
 
-    graphics.lineStyle(2, 0x00ff00, 1.0);
+    graphics.lineStyle(1, 0x00ff00, 0.4);
 
     graphics.beginPath();
 
@@ -134,17 +131,24 @@ function draw ()
         var v2 = model.verts[face[2] - 1];
         var v3 = model.verts[face[3] - 1];
 
-        // if (v0 && v1 && v2 && isCcw(v0, v1, v2))
-        // {
+        if (v0 && v1 && v2 && v3)
+        {
             drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
             drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
             drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v3.x * scale, centerY - v3.y * scale);
             drawLine(centerX + v3.x * scale, centerY - v3.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
-        // }
+        }
     }
 
     graphics.closePath();
     graphics.strokePath();
+
+    for (var i = 0; i < model.verts.length; i++)
+    {
+        balls[i].x = centerX + model.verts[i].x * scale;
+        balls[i].y = centerY - model.verts[i].y * scale;
+        balls[i].z = model.verts[i].z;
+    }
 }
 
 function drawLine (x0, y0, x1, y1)
@@ -153,7 +157,6 @@ function drawLine (x0, y0, x1, y1)
     graphics.lineTo(x1, y1);
 }
 
-// returns true if vertices are in counterclockwise order
 function isCcw (v0, v1, v2)
 {
     return (v1.x - v0.x) * (v2.y - v0.y) - (v1.y - v0.y) * (v2.x - v0.x) >= 0;
@@ -207,7 +210,7 @@ function rotateZ3D (theta)
     }
 }
 
-// parses an obj file from a text string
+//  Parses out tris and quads from the obj file
 function parseObj (text)
 {
     var verts = [];
@@ -225,6 +228,7 @@ function parseObj (text)
         {
             // lines that start with 'v' are vertices
             var tokens = line.split(' ');
+
             verts.push({
                 x: parseFloat(tokens[1]),
                 y: parseFloat(tokens[2]),
@@ -260,11 +264,20 @@ function parseObj (text)
                 face[2] = verts.length + face[2];
             }
 
-            if (face[3] < 0)
+            if (!face[3])
+            {
+                face[3] = face[2];
+            }
+            else if (face[3] < 0)
             {
                 face[3] = verts.length + face[3];
             }
         }
+    }
+
+    if (verts.length > maxVerts)
+    {
+        maxVerts = verts.length;
     }
   
     return {

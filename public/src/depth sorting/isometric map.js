@@ -179,7 +179,7 @@ function create ()
     placeHouses();
 
     skeletons.push(this.add.existing(new Skeleton(this, 240, 290, 'walk', 'southEast', 100)));
-    skeletons.push(this.add.existing(new Skeleton(this, 100, 370, 'walk', 'southEast', 230)));
+    skeletons.push(this.add.existing(new Skeleton(this, 100, 380, 'walk', 'southEast', 230)));
     skeletons.push(this.add.existing(new Skeleton(this, 620, 140, 'walk', 'south', 380)));
     skeletons.push(this.add.existing(new Skeleton(this, 460, 180, 'idle', 'south', 0)));
 

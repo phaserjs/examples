@@ -24,7 +24,7 @@ function create() {
     var block = this.add.image(0, 0, 'block');
 
     //  Center the picture in the game
-    Phaser.Utils.Align.InCenter(pic, { x: 0, y: 0, width: 800, height: 600, anchorX: 0, anchorY: 0 });
+    Phaser.Utils.Align.InCenter(pic, this.add.zone(0, 0, 800, 600));
 
     //  Center the sprite to the picture
     Phaser.Utils.Align.InLeftCenter(block, pic);

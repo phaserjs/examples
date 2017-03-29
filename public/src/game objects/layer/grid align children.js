@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -21,9 +21,19 @@ function create ()
 {
     layer = this.add.layer();
 
-    //  Create some Sprites via the Layer.
-    //  They are all created at 0x0
-    layer.createMultiple(50, 'diamonds', 0, { x: 32, y: 32, stepX: 14 });
+    layer.createMultiple({
+        key: 'diamonds',
+        frame: [ 0, 1, 2, 3, 4 ],
+        frameQuantity: 20
+    });
 
-    layer.setAlpha(0, 1 / 50);
+    layer.gridAlign({
+        width: 10,
+        height: 10,
+        cellWidth: 32,
+        cellHeight: 32,
+        x: 100,
+        y: 100
+    });
+
 }

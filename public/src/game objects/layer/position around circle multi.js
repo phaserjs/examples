@@ -14,11 +14,11 @@ var config = {
 var game = new Phaser.Game(config);
 
 var layer;
-var d = { v: 260 };
+var d = { v: 220 };
 
 function preload ()
 {
-    this.load.image('ball', 'assets/sprites/shinyball.png');
+    this.load.spritesheet('balls', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
 }
 
 function create ()
@@ -27,12 +27,12 @@ function create ()
 
     layer = this.add.layer();
 
-    layer.createMultiple('ball', null, { quantity: 32 });
+    layer.createMultiple('balls', [ 0, 1, 5 ], { repeat: 10 });
 
     layer.positionAroundCircle(circle);
 
     TweenMax.to(d, 3, {
-        v: 0,
+        v: 100,
         delay: 2,
         ease: Sine.easeInOut,
         repeat: -1,

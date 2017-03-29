@@ -1,8 +1,7 @@
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -21,13 +20,7 @@ function create ()
 {
     layer = this.add.layer();
 
-    //  Add the images to this layer
-    for (var i = 0; i < 100; i++)
-    {
-        var image = this.add.image(0, 0, 'diamonds', 1);
+    layer.createMultiple(50, 'diamonds', 3, { x: 32, y: 32, stepX: 14 });
 
-        layer.add(image);
-    }
-
-    layer.gridAlign(10, 10, 32, 32);
+    layer.spread('alpha', 0, 1);
 }

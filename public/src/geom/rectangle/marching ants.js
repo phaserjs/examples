@@ -11,11 +11,6 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var graphics;
-var rect;
-var point;
-var a = 0;
-
 function preload ()
 {
     this.load.image('chunk', 'assets/sprites/chunk.png');
@@ -23,17 +18,16 @@ function preload ()
 
 function create ()
 {
-    // graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
+    var rect = new Phaser.Geom.Rectangle(100, 100, 300, 180);
 
-    rect = new Phaser.Geom.Rectangle(100, 100, 200, 200);
+    //  Each point is 10px apart
+    // var points = Phaser.Geom.Rectangle.MarchingAnts(rect, 10);
 
-    var points = Phaser.Geom.Rectangle.MarchingAnts(rect, 64);
-
-    // console.table(points);
+    //  In this version we get the points based on passing in a quantity of 64 points only
+    var points = Phaser.Geom.Rectangle.MarchingAnts(rect, false, 64);
 
     for (var i = 0; i < points.length; i++)
     {
         this.add.image(points[i].x, points[i].y, 'chunk');
     }
 }
-

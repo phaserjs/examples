@@ -21,6 +21,4 @@ function create()
 
     //  Or chain it like this:
     var text3 = this.add.text(100, 300, 'Phaser').setFont('64px Arial').setFill('#ffff00');
-
-    text.flipX = true;
 }

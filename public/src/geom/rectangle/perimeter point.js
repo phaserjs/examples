@@ -32,7 +32,7 @@ function update ()
 
     graphics.clear();
 
-    graphics.strokeRect(rect.x, rect.y, rect.width, rect.height);
+    graphics.strokeRectShape(rect);
 
     graphics.fillRect(point.x - 4, point.y - 4, point.width, point.height);
 

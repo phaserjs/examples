@@ -24,7 +24,7 @@ function create ()
 {
     layer = this.add.layer();
 
-    layer.createMultiple('bar', null, { quantity: 32, setXY: { x: 400, y: 300 }, setScale: { x: 2, y: 6 } });
+    layer.createMultiple({ key: 'bar', frameQuantity: 32, setXY: { x: 400, y: 300 }, setScale: { x: 2, y: 6 } });
 }
 
 function update ()

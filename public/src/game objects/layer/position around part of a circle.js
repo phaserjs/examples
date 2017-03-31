@@ -38,10 +38,10 @@ function create ()
         layer4.add(this.add.image(0, 0, 'ball'));
     }
 
-    layer1.positionAroundCircle({ x: 400, y: 300, radius: 200 });
-    layer2.positionAroundCircle({ x: 400, y: 300, radius: 160 });
-    layer3.positionAroundCircle({ x: 400, y: 300, radius: 120 });
-    layer4.positionAroundCircle({ x: 400, y: 300, radius: 80 });
+    layer1.placeOnCircle({ x: 400, y: 300, radius: 200 });
+    layer2.placeOnCircle({ x: 400, y: 300, radius: 160 });
+    layer3.placeOnCircle({ x: 400, y: 300, radius: 120 });
+    layer4.placeOnCircle({ x: 400, y: 300, radius: 80 });
 }
 
 function update ()

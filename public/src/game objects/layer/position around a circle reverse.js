@@ -35,20 +35,20 @@ function create ()
     layer3 = this.add.layer();
     layer4 = this.add.layer();
 
-    layer1.createMultiple(36, 'ball');
-    layer2.createMultiple(32, 'ball');
-    layer3.createMultiple(26, 'ball');
-    layer4.createMultiple(16, 'ball');
+    layer1.createMultiple({ key: 'ball', frameQuantity: 36 });
+    layer2.createMultiple({ key: 'ball', frameQuantity: 32 });
+    layer3.createMultiple({ key: 'ball', frameQuantity: 26 });
+    layer4.createMultiple({ key: 'ball', frameQuantity: 16 });
 
     circle1 = new Phaser.Geom.Circle(400, 300, 200);
     circle2 = new Phaser.Geom.Circle(400, 300, 160);
     circle3 = new Phaser.Geom.Circle(400, 300, 120);
     circle4 = new Phaser.Geom.Circle(400, 300, 80);
 
-    layer1.positionAroundCircle(circle1);
-    layer2.positionAroundCircle(circle2);
-    layer3.positionAroundCircle(circle3);
-    layer4.positionAroundCircle(circle4);
+    layer1.placeOnCircle(circle1);
+    layer2.placeOnCircle(circle2);
+    layer3.placeOnCircle(circle3);
+    layer4.placeOnCircle(circle4);
 }
 
 function update ()

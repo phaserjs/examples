@@ -27,7 +27,7 @@ function create ()
 
     layer = this.add.layer();
 
-    layer.createMultiple('balls', [ 0, 1, 5 ], { repeat: 10 });
+    layer.createMultiple({ key: 'balls', frame: [0,1,5], repeat: 10 });
 
     layer.positionAroundCircle(circle);
 

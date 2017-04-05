@@ -235,7 +235,7 @@ WireframeScene.Start.prototype = {
 
         this.add.image(400, 42, 'sky');
 
-        this.graphics = this.add.graphics(0, 0);
+        this.graphics = this.add.graphics();
 
         this.newScene();
 

@@ -24,7 +24,7 @@ function create() {
     var maxWidth = (400 / radius2)|0;
     for (var i = 0; i < 80; ++i)
     {
-        var graphics = this.add.graphics(radius + (i % maxWidth) * radius2, radius + ((i / maxWidth)|0) * radius2);
+        var graphics = this.add.graphics({x: radius + (i % maxWidth) * radius2, y: radius + ((i / maxWidth)|0) * radius2});
         drawStar(graphics, 0, 0, 5, radius, radius / 2, 0xff0000, 0xFFFF00);
         graphics.fillStyle(0xFFFF00 + (i % 0xFF), 1.0);
         stars.push(graphics);

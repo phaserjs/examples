@@ -14,7 +14,7 @@ var starGraphics;
 
 
 function create() {
-    starGraphics = this.add.graphics(400, 300);
+    starGraphics = this.add.graphics({x: 400, y: 300});
     drawStar(starGraphics, 0, 0,  5, 100, 50, 0xFFFF00, 0xFF0000);
 }
 

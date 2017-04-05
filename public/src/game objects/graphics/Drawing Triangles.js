@@ -31,7 +31,7 @@ function preload ()
 
 function create ()
 {
-    graphics = this.add.graphics(0, 0);
+    graphics = this.add.graphics({x: 0, y: 0});
 
     models.push(parseObj(this.cache.text.get('teapot')));
 

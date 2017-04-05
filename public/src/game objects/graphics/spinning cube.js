@@ -45,7 +45,7 @@ var game = new Phaser.Game(config);
 
 function create ()
 {
-    graphics = this.add.graphics(400, 300);
+    graphics = this.add.graphics({x: 400, y: 300});
 
     rotateZ3D(0.5235987755982988);
     rotateY3D(0.5235987755982988);

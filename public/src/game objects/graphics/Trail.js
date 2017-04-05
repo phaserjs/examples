@@ -25,7 +25,7 @@ var head = {x: 0, y: 0};
 var game = new Phaser.Game(config);
 
 function create() {
-    trail = this.add.graphics(0, 0);
+    trail = this.add.graphics();
 }
 
 function update() {

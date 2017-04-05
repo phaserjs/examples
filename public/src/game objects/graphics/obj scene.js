@@ -150,7 +150,7 @@ WireframeScene.Start.prototype = {
         this.parseObj('spike');
         this.parseObj('torus');
 
-        this.graphics = this.add.graphics(0, 0);
+        this.graphics = this.add.graphics();
 
         this.camera = {
             x: 400,

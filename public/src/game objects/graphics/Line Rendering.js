@@ -15,10 +15,10 @@ var game = new Phaser.Game(config);
 
 
 function create() {
-    starGraphics = this.add.graphics(400, 300);
+    starGraphics = this.add.graphics({x: 400, y: 300});
     drawStar(starGraphics, 0, 0, 5, 200, 100, 0xFFFF00, 0xFF0000);
     starGraphics.rotation = Math.random();
-    lineRectangle = this.add.graphics(400, 300);
+    lineRectangle = this.add.graphics({x: 400, y: 300});
     lineRectangle.lineStyle(5, 0x0000FF, 1.0);
     lineRectangle.fillStyle(0x0000FF, 1.0);
     lineRectangle.strokeRect(-100, -100, 200, 200);

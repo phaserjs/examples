@@ -24,7 +24,7 @@ function create() {
     ];
     for (var i = 0; i < 500; ++i)
     {
-        starGraphics = this.add.graphics(Math.random() * 800, Math.random() * 600);
+        starGraphics = this.add.graphics({x: Math.random() * 800, y:Math.random() * 600});
         drawStar(starGraphics, 0, 0,  5, 100, 50, colorsTable[Math.floor(Math.random() * 6)], 0xFF0000);
         starGraphics.fillRect(100, 100, 100, 100);
         starGraphics.rotation = Math.random();

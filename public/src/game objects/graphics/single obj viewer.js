@@ -44,7 +44,7 @@ function preload ()
 
 function create ()
 {
-    graphics = this.add.graphics(0, 0);
+    graphics = this.add.graphics();
 
     // models.push(parseObj(this.cache.text.get('bevelledcube')));
     // models.push(parseObj(this.cache.text.get('chaosphere')));

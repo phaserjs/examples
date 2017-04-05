@@ -17,7 +17,7 @@ var graphics2;
 
 function create ()
 {
-    graphics2 = this.add.graphics(-16, 0).lineStyle(28, 0x00ffff, 0.8);
+    graphics2 = this.add.graphics({x: -16, y: 0}).lineStyle(28, 0x00ffff, 0.8);
     graphics1 = this.add.graphics().lineStyle(28, 0x0000ff, 0.8);
 
     //  Create the circles

@@ -36,7 +36,7 @@ function create ()
         frames: this.anims.generateFrameNumbers('mummy'),
         framerate: 6,
         yoyo: true,
-        repeat: 4
+        repeat: -1
     };
 
     anim = this.anims.create('walk', config);
@@ -50,9 +50,28 @@ function create ()
 
     progress = this.add.text(100, 500, 'Progress: 0%', { fill: '#00ff00' });
 
-    document.addEventListener('mouseup', function () {
+    this.input.keyboard.events.on('KEY_DOWN_SPACE', function (event) {
 
         sprite.anims.play('walk');
+
+    });
+
+    this.input.keyboard.events.on('KEY_DOWN_P', function (event) {
+
+        if (sprite.anims.paused())
+        {
+            sprite.anims.resume();
+        }
+        else
+        {
+            sprite.anims.pause();
+        }
+
+    });
+
+    this.input.keyboard.events.on('KEY_DOWN_R', function (event) {
+
+        sprite.anims.restart();
 
     });
 

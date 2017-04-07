@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -19,7 +19,7 @@ function preload ()
 function create ()
 {
     var config = {
-        frames: this.anims.generateFrameNumbers('boom', 0, 23, 23),
+        frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 23, first: 23 }),
         framerate: 30,
         repeat: -1,
         repeatDelay: 2
@@ -27,7 +27,7 @@ function create ()
 
     this.anims.create('explode', config);
 
-    for (var i = 0; i < 64; i++)
+    for (var i = 0; i < 128; i++)
     {
         var x = Phaser.Math.Between(0, 790);
         var y = Phaser.Math.Between(0, 590);

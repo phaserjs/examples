@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -13,27 +13,25 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.spritesheet('boom', 'assets/sprites/explosion.png', { frameWidth: 64, frameHeight: 64, endFrame: 23 });
+    this.load.spritesheet('diamonds', 'assets/sprites/diamonds32x24x5.png', { frameWidth: 32, frameHeight: 24 });
 }
 
 function create ()
 {
     var config = {
-        frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 23, first: 23 }),
-        framerate: 20
+        frames: this.anims.generateFrameNumbers('diamonds', { start: 0, end: 4 }),
+        framerate: 6,
+        yoyo: true,
+        repeat: -1
     };
 
-    // this.anims.create('explode', config);
+    this.anims.create('flash', config);
 
     layer = this.add.layer();
 
-    layer.createMultiple({ key: 'boom', frame: 10, repeat: 32 });
+    layer.createMultiple({ key: 'diamonds', frame: 0, repeat: 279 });
 
-    layer.setXY(32, 100, 32);
+    layer.gridAlign({ width: 20, height: 20, cellWidth: 38, x: 22, y: 32 });
 
-    // layer.gridAlign(10, 10, 64, 64);
-
-    // var boom = this.add.sprite(400, 300, 'boom');
-
-    // boom.anims.play('explode');
+    this.anims.staggerPlay('flash', layer.getChildren(), 0.025);
 }

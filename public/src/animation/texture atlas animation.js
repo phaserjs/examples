@@ -30,13 +30,12 @@ function create ()
     //  In the texture atlas the jellyfish uses the frame names blueJellyfish0000 to blueJellyfish0032
     //  So we can use the handy generateFrameNames function to create this for us (and so on)
 
-    var gen = this.anims.generateFrameNames;
 
-    this.anims.create('jellyfish', { frames: gen('sea', 'blueJellyfish', 0, 32, '', 4), repeat: -1 });
-    this.anims.create('crab', { frames: gen('sea', 'crab1', 0, 25, '', 4), repeat: -1 });
-    this.anims.create('octopus', { frames: gen('sea', 'octopus', 0, 24, '', 4), repeat: -1 });
-    this.anims.create('purpleFish', { frames: gen('sea', 'purpleFish', 0, 20, '', 4), repeat: -1 });
-    this.anims.create('stingray', { frames: gen('sea', 'stingray', 0, 23, '', 4), repeat: -1 });
+    this.anims.create('jellyfish', { frames: this.anims.generateFrameNames('sea', { prefix: 'blueJellyfish', end: 32, zeroPad: 4 }), repeat: -1 });
+    this.anims.create('crab', { frames: this.anims.generateFrameNames('sea', { prefix: 'crab1', end: 25, zeroPad: 4 }), repeat: -1 });
+    this.anims.create('octopus', { frames: this.anims.generateFrameNames('sea', { prefix: 'octopus', end: 24, zeroPad: 4 }), repeat: -1 });
+    this.anims.create('purpleFish', { frames: this.anims.generateFrameNames('sea', { prefix: 'purpleFish', end: 20, zeroPad: 4 }), repeat: -1 });
+    this.anims.create('stingray', { frames: this.anims.generateFrameNames('sea', { prefix: 'stingray', end: 23, zeroPad: 4 }), repeat: -1 });
 
     var jellyfish = this.add.sprite(400, 300, 'seacreatures').play('jellyfish');
     var bigCrab = this.add.sprite(550, 480, 'seacreatures').setOrigin(0).play('crab');

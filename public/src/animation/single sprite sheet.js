@@ -19,7 +19,7 @@ function preload ()
 function create ()
 {
     var config = {
-        frames: this.anims.generateFrameNumbers('boom', 0, 23, 23),
+        frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 23, first: 23 }),
         framerate: 20
     };
 

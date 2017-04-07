@@ -1,5 +1,4 @@
 
-try {
 var config = {
     type: Phaser.WEBGL,
     width: 800,
@@ -46,7 +45,4 @@ function create ()
 function update ()
 {
     image.rotation += 0.01;
-}
-} catch(e) {
-    alert(e.message);
 }

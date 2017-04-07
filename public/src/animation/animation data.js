@@ -44,6 +44,9 @@ function create ()
     console.log(anim);
 
     sprite = this.add.sprite(400, 300, 'mummy').setScale(4);
+
+    console.log(sprite);
+
     sprite.anims.load('walk');
 
     //  Debug text

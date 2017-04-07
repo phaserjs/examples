@@ -19,6 +19,8 @@ function preload ()
 
 function create ()
 {
+    this.add.image(0, 0, 'phaser');
+
     var layer = this.add.layer();
 
     //  Create a Sprite via the Layer.

@@ -13,6 +13,13 @@ var config = {
 };
 
 var image;
+var phasers = [];
+var phasersV = [
+    {x: -10 + Math.random() * 20, y: -10 + Math.random() * 20},
+    {x: -10 + Math.random() * 20, y: -10 + Math.random() * 20},
+    {x: -10 + Math.random() * 20, y: -10 + Math.random() * 20},
+    {x: -10 + Math.random() * 20, y: -10 + Math.random() * 20}
+];
 var game = new Phaser.Game(config);
 var layerShader = [
     'precision mediump float;',
@@ -33,16 +40,53 @@ var layerShader = [
 function preload ()
 {
     this.load.image('einstein', 'assets/pics/ra-einstein.png');
+    this.load.image('phaser1', 'assets/sprites/phaser1.png');
 }
 
 function create ()
 {
+    var fxLayer;
+    phasers.push(this.add.image(400, 300, 'phaser1'));
+    phasers.push(this.add.image(400, 300, 'phaser1'));
+    fxLayer = this.add.effectLayer(0, 0, 800, 600, 'layerShader', layerShader);
+    phasers.push(this.add.image(400, 300, 'phaser1'));
+    phasers.push(this.add.image(400, 300, 'phaser1'));
+
     image = this.add.image(400, 300, 'einstein');
-    var fxLayer = this.add.effectLayer(0, 0, 800, 600, 'layerShader', layerShader);
     fxLayer.add(image);
 }
 
 function update ()
 {
     image.rotation += 0.01;
+
+    for (var i = 0; i < phasersV.length; ++i) 
+    {
+        var phaser = phasers[i];
+        var vel = phasersV[i];
+        phaser.x += vel.x;
+        phaser.y += vel.y;
+
+        if (phaser.x > 800)
+        {
+            vel.x *= -1;
+            phaser.x = 800;
+        }
+        else if (phaser.x < 0)
+        {
+            vel.x *= -1;
+            phaser.x = 0;
+        }
+        if (phaser.y > 600)
+        {
+            vel.y *= -1;
+            phaser.y = 600;
+        }
+        else if (phaser.y < 0)
+        {
+            vel.y *= -1;
+            phaser.y = 0;
+        }
+    }
+
 }

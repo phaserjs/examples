@@ -24,10 +24,10 @@ function create ()
 {
     layer = this.add.layer();
 
-    layer.createMultiple('bar', null, { quantity: 32, setXY: { x: 400, y: 300 }, setRotation: { value: 0, step: 0.06 }, setScale: { x: 2 } });
+    layer.createMultiple({ key: 'bar', repeat: 32, setXY: { x: 400, y: 300 }, setRotation: { value: 0, step: 0.06 }, setScale: { x: 6 } });
 }
 
 function update ()
 {
-    // layer.rotate(0.01, 0.001);
+    layer.rotate(0.001, 0.0001);
 }

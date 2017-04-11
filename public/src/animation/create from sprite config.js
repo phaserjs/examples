@@ -19,13 +19,23 @@ function preload ()
 
 function create ()
 {
-    this.anims.create('diamond', { frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
-    this.anims.create('prism', { frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: -1 });
+    //  Define the animations first
     this.anims.create('ruby', { frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create('square', { frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
 
-    this.add.sprite(400, 100, 'gems').play('diamond');
-    this.add.sprite(400, 200, 'gems').play('prism');
-    this.add.sprite(400, 300, 'gems').play('ruby');
-    this.add.sprite(400, 400, 'gems').play('square');
+    //  The Sprite config
+
+    var config = {
+        key: 'gems',
+        x: { randInt: [ 0, 800 ] },
+        y: { randInt: [ 0, 600 ] },
+        scale: { randFloat: [ 0.5, 2 ] },
+        anims: [ 'ruby', 'square' ]
+    };
+
+    //  Make 32 sprites using the config above
+    for (var i = 0; i < 32; i++)
+    {
+        this.make.sprite(config);
+    }
 }

@@ -28,14 +28,38 @@ function create ()
     var config = {
         key: 'gems',
         x: { randInt: [ 0, 800 ] },
-        y: { randInt: [ 0, 600 ] },
-        scale: { randFloat: [ 0.5, 2 ] },
-        anims: [ 'ruby', 'square' ]
+        y: { randInt: [ 0, 300 ] },
+        scale: { randFloat: [ 0.5, 1.5 ] },
+        anims: 'ruby'
     };
 
-    //  Make 32 sprites using the config above
-    for (var i = 0; i < 32; i++)
+    //  Make 16 sprites using the config above
+    for (var i = 0; i < 16; i++)
     {
         this.make.sprite(config);
+    }
+
+    //  A more complex animation config object.
+    //  This time with a call to delayedPlay that's a function.
+    var config2 = {
+        key: 'gems',
+        x: { randInt: [ 0, 800 ] },
+        y: { randInt: [ 300, 600 ] },
+        scale: { randFloat: [ 0.5, 1.5 ] },
+        anims: {
+            key: 'square',
+            repeat: -1,
+            repeatDelay: { randInt: [ 1, 4 ] },
+            delayedPlay: function ()
+            {
+                return Math.random() * 6;
+            }
+        }
+    };
+
+    //  Make 16 sprites using the config above
+    for (var i = 0; i < 16; i++)
+    {
+        this.make.sprite(config2);
     }
 }

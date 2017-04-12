@@ -21,13 +21,14 @@ function create ()
     var marker = this.add.sprite(400, 400, 'gems', 'ruby_0000');
 
     var animConfig = {
+        key: 'diamond',
         frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
         repeat: 6,
         onRepeat: animRepeatCallback,
         onRepeatParams: [ marker ]
     };
 
-    this.anims.create('diamond', animConfig);
+    this.anims.create(animConfig);
 
     //  Play the animation.
     //  Each time it repeats it calls on the onRepeat callback,

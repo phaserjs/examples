@@ -32,7 +32,7 @@ function preload ()
 
 function create ()
 {
-    this.anims.create('swish', { frames: this.anims.generateFrameNames('sao', { start: 0, end: 50 }), repeat: -1 });
+    this.anims.create({ key: 'swish', frames: this.anims.generateFrameNames('sao', { start: 0, end: 50 }), repeat: -1 });
 
     layer = this.add.layer();
 

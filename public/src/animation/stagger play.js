@@ -19,13 +19,14 @@ function preload ()
 function create ()
 {
     var config = {
+        key: 'flash',
         frames: this.anims.generateFrameNumbers('diamonds', { start: 0, end: 4 }),
         framerate: 6,
         yoyo: true,
         repeat: -1
     };
 
-    this.anims.create('flash', config);
+    this.anims.create(config);
 
     layer = this.add.layer();
 

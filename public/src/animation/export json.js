@@ -1,7 +1,6 @@
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    pixelArt: true,
     width: 800,
     height: 600,
     state: {
@@ -28,4 +27,21 @@ function create ()
     this.add.sprite(400, 200, 'gems').play('prism');
     this.add.sprite(400, 300, 'gems').play('ruby');
     this.add.sprite(400, 400, 'gems').play('square');
+
+    //  Get a JSON representation of a single animation, or all animations:
+
+    //  You can extract the animation:
+    var ruby = this.anims.get('ruby');
+
+    //  Then pass it to JSON.stringify
+    console.log(JSON.stringify(ruby));
+
+    //  Or call toJSON directly (this returns an Object)
+    console.log(ruby.toJSON());
+
+    //  You can also call 'this.anims.toJSON' and pass it the key of the animation you want:
+    console.log(JSON.stringify(this.anims.toJSON('ruby')));
+
+    //  Or dump out ALL animations in the Animation Manager:
+    console.log(JSON.stringify(this.anims));
 }

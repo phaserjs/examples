@@ -19,11 +19,12 @@ function preload ()
 function create ()
 {
     var config = {
+        key: 'explode',
         frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 23, first: 23 }),
         framerate: 20
     };
 
-    this.anims.create('explode', config);
+    this.anims.create(config);
 
     var boom = this.add.sprite(400, 300, 'boom');
 

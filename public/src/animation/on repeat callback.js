@@ -21,12 +21,13 @@ function preload ()
 function create ()
 {
     var animConfig = {
+        key: 'diamond',
         frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
         repeat: 6,
         onRepeat: animRepeatCallback
     };
 
-    this.anims.create('diamond', animConfig);
+    this.anims.create(animConfig);
 
     marker = this.add.sprite(400, 400, 'gems', 'ruby_0000');
 

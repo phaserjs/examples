@@ -19,12 +19,13 @@ function preload ()
 function create ()
 {
     var animConfig = {
+        key: 'diamond',
         frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
         repeat: -1,
         showOnStart: true
     };
 
-    this.anims.create('diamond', animConfig);
+    this.anims.create(animConfig);
 
     var gem = this.add.sprite(400, 300, 'gems');
 

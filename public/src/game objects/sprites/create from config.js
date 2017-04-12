@@ -20,12 +20,14 @@ function preload ()
 
 function create ()
 {
+    //  Implicit values
     var config1 = {
         key: 'bunny',
         x: 400,
         y: 300
     };
 
+    //  Implicit values
     var config2 = {
         key: 'bunny',
         x: 400,
@@ -34,18 +36,21 @@ function create ()
         flipY: true
     };
 
+    //  An array means 'pick one element at random'
     var config3 = {
         key: [ 'bunny', 'atari', 'logo' ],
         x: 400,
         y: 300
     };
 
+    //  randInt means pick a random integer between the min and max values given
     var config4 = {
         key: 'atari',
         x: { randInt: [ 0, 800 ] },
         y: 300
     };
 
+    //  randFloat means pick a random float between the min and max values given
     var config5 = {
         key: 'logo',
         x: 400,
@@ -53,6 +58,7 @@ function create ()
         alpha: { randFloat: [ 0.1, 1 ] }
     };
 
+    //  If the property is a function it will invoke it and use the result as the value
     var config6 = {
         key: 'atari',
         x: 400,
@@ -61,6 +67,7 @@ function create ()
         }
     };
 
+    //  An example using randFloat to set the scale of a Sprite
     var config7 = {
         key: 'logo',
         x: 400,
@@ -68,6 +75,7 @@ function create ()
         scale: { randFloat: [ 0.2, 2 ] }
     };
 
+    //  An example using randFloat to set independent x and y scale values
     var config8 = {
         key: 'logo',
         x: 400,

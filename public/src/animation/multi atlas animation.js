@@ -21,7 +21,7 @@ function preload ()
 
 function create ()
 {
-    this.anims.create('fly', { frames: this.anims.generateFrameNames('cybercity', { start: 0, end: 98 }), repeat: -1 });
+    this.anims.create({ key: 'fly', frames: this.anims.generateFrameNames('cybercity', { start: 0, end: 98 }), repeat: -1 });
 
     this.add.sprite().setScale(2.7).play('fly');
 }

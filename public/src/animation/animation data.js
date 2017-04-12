@@ -33,13 +33,14 @@ function create ()
     this.add.image(32, 32, 'mummy', '__BASE').setOrigin(0);
 
     var config = {
+        key: 'walk',
         frames: this.anims.generateFrameNumbers('mummy'),
         framerate: 6,
         yoyo: true,
         repeat: -1
     };
 
-    anim = this.anims.create('walk', config);
+    anim = this.anims.create(config);
 
     console.log(anim);
 

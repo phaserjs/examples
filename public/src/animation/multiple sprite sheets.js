@@ -19,13 +19,14 @@ function preload ()
 function create ()
 {
     var config = {
+        key: 'explode',
         frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 23, first: 23 }),
         framerate: 30,
         repeat: -1,
         repeatDelay: 2
     };
 
-    this.anims.create('explode', config);
+    this.anims.create(config);
 
     for (var i = 0; i < 128; i++)
     {

@@ -1,10 +1,12 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
+    width: 800,
+    height: 600,
     state: {
         preload: preload,
         create: create,
-        render: render
+        update: update
     }
 };
 
@@ -12,14 +14,17 @@ var game = new Phaser.Game(config);
 
 var image;
 
-function preload() {
-
+function preload ()
+{
     this.load.image('scroll', 'assets/pics/backscroll.png');
-
 }
 
-function create() {
+function create ()
+{
+    image = this.add.image(400, 300, 'scroll');
+}
 
-    image = this.add.image(0, 0, 'scroll');
+function update ()
+{
 
 }

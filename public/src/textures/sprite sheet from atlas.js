@@ -13,7 +13,6 @@ function preload ()
 {
     this.load.path = 'assets/atlas/';
 
-    // this.load.multiatlas('megaset', 3, '-');
     this.load.atlas('megaset', 'megaset-3.png', 'megaset-3.json');
 }
 
@@ -31,12 +30,12 @@ function create ()
 
     //  There is a new texture available called 'boom', which we can assign to game objects:
 
-    var config = {
-        frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 23, first: 23 }),
-        framerate: 20
-    };
+    // var config = {
+    //     frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 23, first: 23 }),
+    //     framerate: 20
+    // };
 
-    this.anims.create('explode', config);
+    // this.anims.create('explode', config);
 
-    this.add.sprite(400, 300).play('explode');
+    // this.add.sprite(400, 300).play('explode');
 }

@@ -83,7 +83,7 @@ function create ()
     
     renderPassLigths.setFloat4('u_light_color', 1.0, 0.5, 0.3, 1.0);
     renderPassLigths.setFloat4('u_ambient_color', 0.2, 0.2, 0.2, 1.0);
-    renderPassLigths.setFloat4('u_falloff', 0.2, 3.0, 20.0, 1.0);
+    renderPassLigths.setFloat4('u_falloff', 0.2, 3.0, 1.0, 1.0);
 
     renderPassLigths.setRenderTextureAt(renderPassNormal.passRenderTexture, 'u_normal_tex', 1);
 
@@ -93,8 +93,9 @@ function create ()
     };
 
     game.canvas.onmousedown = function (e) {
-        console.log('down');
         renderPassLigths.setFloat4('u_light_color', Math.random(), Math.random(), Math.random(), 1.0);
+        lightPosition.z = Math.random() * 0.1;
+        renderPassLigths.setFloat4('u_falloff', Math.random(), 2.0 + Math.random() * 3.0, 1.0, 1.0);
     };
 
 }

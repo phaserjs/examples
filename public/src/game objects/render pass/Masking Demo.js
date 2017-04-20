@@ -73,7 +73,7 @@ function update ()
     image0.x = 400;
     image0.y = 300;
     renderPassMaskGenerator.render(image0, this.cameras.main);
-    renderPassMaskApply.setRenderTextureAt(renderPassMaskGenerator.passRenderTexture, 'mask', 1);
+    renderPassMaskApply.setRenderTextureAt(renderPassMaskGenerator.renderTexture, 'mask', 1);
     renderPassMaskApply.clearColorBuffer(0, 0, 0, 0);
     renderPassMaskApply.render(image1, this.cameras.main);
 

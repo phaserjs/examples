@@ -85,7 +85,7 @@ function create ()
     renderPassLigths.setFloat4('u_ambient_color', 0.2, 0.2, 0.2, 1.0);
     renderPassLigths.setFloat4('u_falloff', 0.2, 3.0, 1.0, 1.0);
 
-    renderPassLigths.setRenderTextureAt(renderPassNormal.passRenderTexture, 'u_normal_tex', 1);
+    renderPassLigths.setRenderTextureAt(renderPassNormal.renderTexture, 'u_normal_tex', 1);
 
     game.canvas.onmousemove = function (e) {
         lightPosition.x = e.clientX - game.canvas.offsetLeft;

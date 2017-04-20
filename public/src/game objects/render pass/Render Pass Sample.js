@@ -12,7 +12,10 @@ var config = {
 };
 
 var image;
+var renderPass;
+var time = 0;
 var game = new Phaser.Game(config);
+
 var customPass = [
     'precision mediump float;',
     'uniform sampler2D sampler;',
@@ -21,7 +24,7 @@ var customPass = [
     'varying float v_alpha;',
     'void main(void) {',
     '   vec4 color = texture2D(sampler, v_tex_coord);',
-    '   gl_FragColor = vec4(color.r, 0.0, 0.0, 1.0);',
+    '   gl_FragColor = vec4(color.r, abs(sin(gl_FragCoord.y) * 0.5), 0.0, 1.0);',
     '}'
 ].join('\n');
 
@@ -32,9 +35,9 @@ function preload ()
 
 function create ()
 {
-    //var renderPass = this.make.renderPass(0, 0, 800, 600, 'test', customPass);
-    image = this.make.image(400, 300, 'einstein');
-    //renderPass.render(image, this.cameras.main);
+    renderPass = this.add.renderPass(0, 0, 800, 600, 'test', customPass);
+    image = this.make.image({x: 400, y: 300, key: 'einstein', add: false});
+    renderPass.render(image, this.cameras.main);
 }
 
 function update ()

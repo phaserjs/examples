@@ -8,13 +8,14 @@ var width = 0;
 var height = 0;
 
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
     backgroundColor: '#3d3d89',
     state: {
-        create: create
+        create: create,
+        update: update
     }
 };
 
@@ -26,6 +27,11 @@ function create ()
 
     generate();
     draw();
+}
+
+function update ()
+{
+    // draw();
 }
 
 function get (x, y)
@@ -118,6 +124,8 @@ function diamond (x, y, size, offset)
 
 function draw ()
 {
+    graphics.clear();
+
     var waterVal = size * 0.3;
 
     for (var y = 0; y < size; y++)
@@ -166,14 +174,14 @@ function brightness (x, y, slope)
 
 function iso (x, y)
 {
-    return {
-        x: x,
-        y: y
-    };
     // return {
-    //     x: 0.5 * (size + x - y),
-    //     y: 0.5 * (x + y)
+    //     x: x,
+    //     y: y
     // };
+    return {
+        x: 0.5 * (size + x - y),
+        y: 0.5 * (x + y)
+    };
 }
 
 function project (flatX, flatY, flatZ)
@@ -187,7 +195,7 @@ function project (flatX, flatY, flatZ)
     // var x = (point.x - size * 0.5) * 6;
     // var y = (size - point.y) * 0.005 + 1;
 
-    var z = size * 0.5 - flatZ + point.y * 1.25;
+    var z = size * 0.5 - flatZ + point.y * 0.75;
     var x = (point.x - size * 0.5) * 6;
     var y = (size - point.y) * 0.005 + 1;
 

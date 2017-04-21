@@ -49,7 +49,7 @@ var maskApply = [
     '   vec2 uv = vec2(gl_FragCoord.x / 800.0, gl_FragCoord.y / 600.0);',
     '   vec4 color = texture2D(sampler, v_tex_coord);',
     '   vec4 maskColor = texture2D(mask, uv);',
-    '   gl_FragColor = color * maskColor;',
+    '   gl_FragColor = color * maskColor.r;',
     '}'
 ].join('\n');
 
@@ -64,6 +64,7 @@ var time = 0;
 function create ()
 {
     effect = this.add.effectLayer(0, 0, 800, 600, 'maskEFfect', maskGenerator);
+    effect.renderOffScreen();
 
     renderPassMaskApply = this.add.renderPass(0, 0, 800, 600, 'maskApply', maskApply);
 
@@ -75,7 +76,7 @@ function update ()
     effect.setFloat('time', time);
     time += 0.005;
 
-    renderPassMaskApply.setRenderTextureAt(effect.dstRenderTexture, 'maskEFfect', 1);
+    renderPassMaskApply.setRenderTextureAt(effect.renderTexture, 'mask', 1);
     renderPassMaskApply.clearColorBuffer(0, 0, 0, 0);
     renderPassMaskApply.render(image1, this.cameras.main);
 }

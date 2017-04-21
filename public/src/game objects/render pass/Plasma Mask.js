@@ -42,9 +42,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    // this.load.glsl('plasma', 'assets/shaders/plasma-mask.frag');
-    this.load.glsl('plasma', 'assets/shaders/distance-field-morph.frag');
-    this.load.image('einstein', 'assets/pics/cougar-dragonsun.png');
+    this.load.glsl('plasma', 'assets/shaders/plasma-mask.frag');
+    this.load.image('dragon', 'assets/pics/cougar-dragonsun.png');
     this.load.image('hotshot', 'assets/pics/hotshot-chaos-in-tokyo.png');
 }
 
@@ -55,7 +54,7 @@ function create ()
 
     renderPassMaskApply = this.add.renderPass(0, 0, 800, 600, 'maskApply', maskApply);
 
-    image1 = this.make.image({x: 400, y: 300, key: 'einstein', add: false});
+    image1 = this.make.image({x: 400, y: 300, key: 'dragon', add: false});
 
     var pic2 = this.textures.get('hotshot');
 

@@ -16,27 +16,6 @@ var time = 0;
 var tex;
 var renderPassMaskApply;
 
-var maskGenerator = [
-    'precision mediump float;',
-    'uniform float time;',
-    'const float PI = 3.1415926535897932384626433832795;',
-    'mat2 rotate2d(float angle){',
-    '    return mat2(cos(angle+time),0.,',
-    '                sin(angle+time),0.);',
-    '}',
-    'float stripes(vec2 st){',
-    '    st = rotate2d( PI*-0.202 ) * st*5.;',
-    '    return step(0.5, 1.0 - smoothstep(0.3, 1.0, abs(sin(st.x * PI))));',
-    '}',
-    'void main(){',
-    '    vec2 resolution = vec2(800.0, 600.0);',
-    '    vec2 st = gl_FragCoord.xy/resolution.xy * sin(time/2.)*sin(time/2.);',
-    '    st.x *= resolution.x/resolution.y;',
-    '    vec3 color = vec3(stripes(st));',
-    '    gl_FragColor = vec4(color, 1.0);',
-    '}'
-].join('\n');
-
 var maskApply = [
     'precision mediump float;',
     'uniform sampler2D sampler;',
@@ -62,13 +41,14 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.glsl('floor', 'assets/shaders/checkfloor.frag');
     this.load.image('einstein', 'assets/pics/cougar-dragonsun.png');
     this.load.image('hotshot', 'assets/pics/hotshot-chaos-in-tokyo.png');
 }
 
 function create ()
 {
-    effect = this.add.effectLayer(0, 0, 800, 600, 'maskEFfect', maskGenerator);
+    effect = this.add.effectLayer(0, 0, 800, 600, 'maskEFfect', this.cache.shader.get('floor'));
     effect.renderOffScreen();
 
     renderPassMaskApply = this.add.renderPass(0, 0, 800, 600, 'maskApply', maskApply);

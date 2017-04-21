@@ -2,7 +2,7 @@ var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#000',
     parent: 'phaser-example',
     state: {
         preload: preload,
@@ -30,7 +30,7 @@ var maskGenerator = [
     '    return step(0.5, 1.0 - smoothstep(0.3, 1.0, abs(sin(st.x * PI))));',
     '}',
     'void main(){',
-    '    vec2 resolution = vec2(300.0, 100.0);',
+    '    vec2 resolution = vec2(800.0, 600.0);',
     '    vec2 st = gl_FragCoord.xy/resolution.xy * sin(time/2.)*sin(time/2.);',
     '    st.x *= resolution.x/resolution.y;',
     '    vec3 color = vec3(stripes(st));',
@@ -49,13 +49,15 @@ var maskApply = [
     '   vec2 uv = vec2(gl_FragCoord.x / 800.0, gl_FragCoord.y / 600.0);',
     '   vec4 color = texture2D(sampler, v_tex_coord);',
     '   vec4 maskColor = texture2D(mask, uv);',
-    '   gl_FragColor = color * maskColor.r;',
+    '   if (maskColor.r == 0.0) {',
+    '     gl_FragColor = color;',
+    '   }',
     '}'
 ].join('\n');
 
 function preload ()
 {
-    this.load.image('einstein', 'assets/pics/ra-einstein.png');
+    this.load.image('einstein', 'assets/pics/cougar-dragonsun.png');
 }
 
 var effect;

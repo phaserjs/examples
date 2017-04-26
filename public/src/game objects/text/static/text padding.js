@@ -12,20 +12,31 @@ var game = new Phaser.Game(config);
 
 function create() 
 {
-    //  Implicit values
     var config1 = {
-        x: 100,
+        x: 64,
         y: 100,
-        padding: 0,
-        _text: '|MÉq',
-        text: 'ZHASeg',
+        padding: { x: 16, y: 32 },
+        text: 'Phaser III',
         style: {
-            font: '48px Zapfino',
+            font: '48px Arial',
             fill: '#ffffff',
-            align: 'center',
             backgroundColor: '#ff00ff'
         }
     };
 
     this.make.text(config1);
+
+    var config2 = {
+        x: 400,
+        y: 100,
+        padding: { x: 64, y: 8 },
+        text: 'Phaser III',
+        style: {
+            font: '48px Arial',
+            fill: '#ffffff',
+            backgroundColor: '#ff00ff'
+        }
+    };
+
+    this.make.text(config2);
 }

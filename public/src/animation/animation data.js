@@ -91,5 +91,11 @@ function update ()
 {
     updateFrameView();
 
-    progress.setText('Progress: ' + sprite.anims.progress() + '%');
+    var debug = [
+        'Progress: ' + sprite.anims.progress() + '%',
+        'Accumulator: ' + sprite.anims.accumulator,
+        'NextTick: ' + sprite.anims.nextTick
+    ];
+
+    progress.setText(debug);
 }

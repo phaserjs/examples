@@ -50,6 +50,7 @@ var lightShader = [
     '   vec4 color = texture2D(sampler, v_tex_coord);',
     '   vec4 normal_map = texture2D(u_normal_tex, uv);',
     '   vec3 light_dir = vec3(u_light_pos.xy - (gl_FragCoord.xy / vec2(800.0, 600.0)), u_light_pos.z);',
+    '   light_dir.y = 1.0 - light_dir.y;',
     '   float D = length(light_dir);',
     '   vec3 N = normalize(vec3(normal_map.rgb * 2.0 - 1.0));',
     '   vec3 L = normalize(light_dir);',

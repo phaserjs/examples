@@ -15,11 +15,9 @@ var graphics;
 var s;
 var r;
 var colors;
-var go = false;
-var temp = { t: 0 };
+var go;
+var props;
 var logos;
-var thickness;
-var alpha;
 
 function create ()
 {
@@ -34,13 +32,16 @@ function create ()
         colors.push(hsv[i].color);
     }
 
-    // colors = [ 0x650a05, 0xa00d05, 0xcd1106, 0xf53719, 0xf25520, 0xf26f21, 0xf49214, 0xf6a90a, 0xfad400, 0xfef700, 0xffff45, 0xffffc4, 0xffffff ];
-
     r = 0;
     s = [];
+    go = false;
     logos = 13;
-    thickness = 10;
-    alpha = 1;
+
+    props = {
+        a: 0,
+        thickness: 10,
+        alpha: 1
+    };
 
     for (var i = 0; i < logos; i++)
     {
@@ -56,9 +57,9 @@ function create ()
 
     TweenMax.delayedCall(14, function () {
 
-        TweenMax.to(temp, 0.1, {
+        TweenMax.to(props, 0.05, {
 
-            t: 1,
+            a: 1,
 
             repeat: -1,
 
@@ -69,25 +70,46 @@ function create ()
         });
 
     });
+
+    TweenMax.delayedCall(30, function () {
+
+        TweenMax.to(props, 3, {
+
+            alpha: 0.1,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1,
+            repeatDelay: 4
+
+        });
+
+    });
+
+    TweenMax.delayedCall(22, function () {
+
+        TweenMax.to(props, 6, {
+
+            thickness: 2,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1,
+            repeatDelay: 16
+
+        });
+
+    });
 }
 
 function update ()
 {
     graphics.clear();
 
-    r += 0.01;
+    r += 0.015;
 
     var scale = 0.9 - (logos * 0.01);
 
     for (var i = 0; i < logos; i++)
     {
-        //  3D slant :)
-        // drawLogo(colors[i], -380 + (i * 2), -100 + (i * 2), scale, s[i]);
-
-        // drawLogo(colors[i], -380, -100, scale, s[i]);
-
-        // drawLogo(colors[i], -380, -100 + ((i * 2) * Math.sin(r * 2)), scale, s[i]);
-
         drawLogo(colors[i], -380 + ((i * 2) * Math.sin(r * 2)), -100 + ((i * 2) * Math.cos(r * 2)), scale, s[i]);
 
         if (go)
@@ -95,26 +117,13 @@ function update ()
             s[i] = Math.sin(r / 2);
         }
 
-        // s[i] = Math.sin(r * i) / 16;
-
-        // s[i] = Math.sin(i) * r / 8;
-
-        // s[i] = r + (i * 0.01);
-
-        // s[i] += (Math.sin(r) * Math.sin(i)) / 128;
-        // s[i] += (Math.sin(13 - i) / 1024);
-        // s[i] += (0.002 * (0.25 * (i + 1) + 0.75 * (13 - i)));
-
         scale += 0.01;
     }
 }
 
 function drawLogo (color, x, y, scale, rot)
 {
-    // var thickness = 10;
-    // var alpha = 1;
-
-    graphics.lineStyle(thickness, color, alpha);
+    graphics.lineStyle(Math.round(props.thickness), color, props.alpha);
 
     var w = 100;
     var h = 200;

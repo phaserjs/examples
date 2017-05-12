@@ -4,6 +4,7 @@ var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     state: {
+        preload: preload,
         create: create,
         update: update
     }
@@ -18,9 +19,26 @@ var colors;
 var go;
 var props;
 var logos;
+var renderPass;
+var image;
+
+function preload ()
+{
+    // this.load.glsl('hills', 'assets/shaders/cosmic-ripples.frag');
+    this.load.glsl('hills', 'assets/shaders/hue-tunnel.frag');
+    this.load.image('einstein', 'assets/pics/ra-einstein.png');
+}
 
 function create ()
 {
+    renderPass = this.add.renderPass(0, 0, 800, 600, 'test', this.cache.shader.get('hills'));
+
+    image = this.make.image({ x: 400, y: 300, key: 'einstein', add: false });
+
+    renderPass.render(image, this.cameras.main);
+
+    //  Wireframe logo
+
     graphics = this.add.graphics();
 
     var hsv = Phaser.Graphics.Color.HSVColorWheel();
@@ -100,8 +118,12 @@ function create ()
     });
 }
 
-function update ()
+function update (timestamp)
 {
+    renderPass.setFloat('iGlobalTime', timestamp / 64);
+    renderPass.clearColorBuffer(0, 0, 0, 0);
+    renderPass.render(image, this.cameras.main);
+
     graphics.clear();
 
     r += 0.015;

@@ -1,15 +1,32 @@
 var config = {
     width: 800,
     height: 600,
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
+        preload: preload,
         create: create,
         update: update
     }
 };
 
 var game = new Phaser.Game(config);
+
+var fragSource = [
+    'precision mediump float;',
+    'varying vec2 v_tex_coord;',
+    'uniform sampler2D u_sampler;',
+    'uniform float time;',
+
+    'void main(void) {',
+    '   vec3 color = texture2D(u_sampler, v_tex_coord).rgb;',
+    '   float mag = length(color);',
+    '   vec3 sph = asin(color * 2.0 - 1.0);',
+    '   sph += time * vec3(16288817, 1715821, 12686939) / 10000000.0;',
+    '   color = sin(sph) * 0.5 + 0.5;',
+    '   gl_FragColor = vec4(color * mag, 1.0);',
+    '}'
+].join('\n');
 
 var graphics;
 var s;
@@ -19,8 +36,49 @@ var go;
 var props;
 var logos;
 
+var effectLayer;
+var layer;
+var distance = 300;
+var speed = 4;
+var stars;
+
+var max = 1500;
+var xx = [];
+var yy = [];
+var zz = [];
+
+function preload ()
+{
+    this.load.image('star1', 'assets/demoscene/star3.png');
+    this.load.image('star2', 'assets/sprites/ghost.png');
+    this.load.image('star3', 'assets/particles/white.png');
+}
+
 function create ()
 {
+    //  Starfield
+
+    layer = this.add.effectLayer(0, 0, 800, 600, 'starfield', fragSource);
+
+    stars = [];
+
+    for (var i = 0; i < max; i++)
+    {
+        xx[i] = Math.floor(Math.random() * 800) - 400;
+        yy[i] = Math.floor(Math.random() * 600) - 300;
+        zz[i] = Math.floor(Math.random() * 1700) - 100;
+
+        var star = this.add.image(xx[i], yy[i], 'star' + Phaser.Math.Between(1, 3));
+
+        layer.add(star);
+
+        stars.push(star);
+    }
+
+    layer.visible = false;
+
+    //  Wireframe logo
+
     graphics = this.add.graphics();
 
     var hsv = Phaser.Graphics.Color.HSVColorWheel();
@@ -55,7 +113,7 @@ function create ()
 
     });
 
-    TweenMax.delayedCall(14, function () {
+    TweenMax.delayedCall(15, function () {
 
         TweenMax.to(props, 0.05, {
 
@@ -71,7 +129,27 @@ function create ()
 
     });
 
-    TweenMax.delayedCall(30, function () {
+    TweenMax.delayedCall(20, function () {
+
+        layer.visible = true;
+
+    });
+
+    TweenMax.delayedCall(25, function () {
+
+        TweenMax.to(props, 6, {
+
+            thickness: 2,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1,
+            repeatDelay: 16
+
+        });
+
+    });
+
+    TweenMax.delayedCall(35, function () {
 
         TweenMax.to(props, 3, {
 
@@ -85,23 +163,14 @@ function create ()
 
     });
 
-    TweenMax.delayedCall(22, function () {
-
-        TweenMax.to(props, 6, {
-
-            thickness: 2,
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            repeat: -1,
-            repeatDelay: 16
-
-        });
-
-    });
 }
 
-function update ()
+function update (timestamp)
 {
+    layer.setFloat('time', timestamp / 256);
+
+    drawStars();
+
     graphics.clear();
 
     r += 0.015;
@@ -118,6 +187,27 @@ function update ()
         }
 
         scale += 0.01;
+    }
+}
+
+function drawStars ()
+{
+    for (var i = 0; i < max; i++)
+    {
+        stars[i].perspective = distance / (distance - zz[i]);
+        stars[i].x = 400 + xx[i] * stars[i].perspective;
+        stars[i].y = 300 + yy[i] * stars[i].perspective;
+
+        zz[i] += speed;
+
+        if (zz[i] > 290)
+        {
+            zz[i] -= 600;
+        }
+
+        stars[i].alpha = Math.min(stars[i].perspective / 2, 1);
+        stars[i].setScale(stars[i].perspective / 4);
+        stars[i].rotation += 0.005;
     }
 }
 

@@ -5,6 +5,7 @@ var config = {
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     state: {
+        preload: preload,
         create: create,
         update: update
     }
@@ -13,7 +14,8 @@ var config = {
 var div = document.createElement('div');
 div.innerHTML = 'PRESS SPACE TO TAKE SNAPSHOT<br>';
 document.body.appendChild(div);
-
+var effect0;
+var time = 0;
 var snapHistory = [];
 var graphics;
 var graphicsPath = [];
@@ -21,48 +23,38 @@ var isMouseDown = false;
 var isKeyDown = false;
 var game = new Phaser.Game(config);
 
-function beginPath(x, y) 
-{
-    isMouseDown = true;
-    graphics.clear();
-    graphicsPath.length = 0;
-}
-
-function addPath(x, y)
-{
-    if (isMouseDown)
-    {
-        graphicsPath.push({x: x, y: y});
-    }
-}
-
-function endPath(x, y)
-{
-    if (isMouseDown)
-    {
-        isMouseDown = false;
-    }
+function preload () {
+    this.load.image('myImage', 'assets/sprites/phaser1.png');
+    this.load.glsl('shader0', 'assets/shaders/shader0.frag');
 }
 
 function create ()
 {
-    var canvas = this.game.canvas;
+    effect0 = this.add.effectLayer(0, 0, 800, 600, 'effect0', this.cache.shader.get('shader0'));
+    effect0.setFloat2('resolution', 800, 600);
+    effect0.visible = true;
+
+
+    for (var i = 0; i < 5; ++i)
+    {
+        var image = this.add.image(Math.random() * 800, Math.random() * 600, 'myImage');
+    }
+    
     graphics = this.add.graphics({x: 0, y: 0});
 
     this.game.canvas.onmousedown = function (e) {
-        var mouseX = e.clientX - canvas.offsetLeft;
-        var mouseY = e.clientY - canvas.offsetTop;
-        beginPath(mouseX, mouseY);
+        isMouseDown = true;
+        graphics.clear();
+        graphicsPath.length = 0;
     };
     this.game.canvas.onmouseup = function (e) {
-        var mouseX = e.clientX - canvas.offsetLeft;
-        var mouseY = e.clientY - canvas.offsetTop;
-        endPath(mouseX, mouseY);
+        isMouseDown = false;
     };
     this.game.canvas.onmousemove = function (e) {
-        var mouseX = e.clientX - canvas.offsetLeft;
-        var mouseY = e.clientY - canvas.offsetTop;
-        addPath(mouseX, mouseY);
+        var mouseX = e.clientX - game.canvas.offsetLeft;
+        var mouseY = e.clientY - game.canvas.offsetTop;
+        if (isMouseDown)
+            graphicsPath.push({x: mouseX, y: mouseY});
     };
     window.onkeydown = function (e)
     {
@@ -93,7 +85,7 @@ function update ()
     var length = graphicsPath.length;
 
     graphics.clear();
-    graphics.lineStyle(2.0, 0xFFFF00, 1.0);
+    graphics.lineStyle(10.0, 0xFFFF00, 1.0);
     graphics.beginPath();
     for (var i = 0; i < length; ++i)
     {
@@ -111,5 +103,9 @@ function update ()
     graphics.strokePath();
     graphics.closePath();
 
-    
+    if (effect0) {
+        effect0.setFloat('time', time);
+    }
+
+    time += 0.01;
 }

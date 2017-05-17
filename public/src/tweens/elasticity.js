@@ -19,17 +19,15 @@ function preload ()
 
 function create ()
 {
-    var image = this.add.image(100, 100, 'block');
+    var marker = this.add.image(100, 300, 'block').setAlpha(0.3);
+    var image = this.add.image(100, 300, 'block');
 
-    var tween = this.tweens.add({
+    this.tweens.add({
         targets: image,
-        props: {
-            x: { value: 600, duration: 3000, ease: 'Power2' },
-            y: { value: 400, duration: 1500, ease: 'Bounce.easeOut' }
-        },
+        x: 600,
+        duration: 3000,
+        ease: 'Elastic',
+        elasticity: 0.1,
         delay: 1000
     });
-
-    console.log(tween);
-
 }

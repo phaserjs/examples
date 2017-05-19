@@ -19,17 +19,16 @@ function preload ()
 
 function create ()
 {
-    var marker = this.add.image(100, 300, 'block').setAlpha(0.3);
-    var image = this.add.image(100, 300, 'block');
+    var marker = this.add.image(100, 100, 'block').setAlpha(0.3);
+    var image = this.add.image(100, 100, 'block');
+
+    //  Creates a chained tween.
 
     var tween = this.tweens.add({
         targets: image,
-        x: 700,
-        duration: 3000,
-        ease: 'Power3',
-        repeat: 2,
-        repeatDelay: 1000
+        x: [ '+=200', { value: '+=200', delay: 1000, duration: 500 }, { value: '-=400', delay: 500, duration: 3500, ease: 'Power4' } ],
     });
 
     console.log(tween);
+
 }

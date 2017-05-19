@@ -25,10 +25,11 @@ function create ()
     var tween = this.tweens.add({
         targets: image,
         x: 700,
-        duration: 3000,
-        ease: 'Power3',
+        duration: 2000,
+        ease: 'Power4',
         repeat: 2,
-        repeatDelay: 1000
+        repeatDelay: 1000,
+        hold: 2000
     });
 
     console.log(tween);

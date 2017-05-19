@@ -26,9 +26,8 @@ function create ()
         targets: image,
         x: 700,
         duration: 3000,
-        ease: 'Power1',
+        ease: 'Power2',
         yoyo: true,
-        repeat: 2,
-        delay: 1000
+        repeat: 2
     });
 }

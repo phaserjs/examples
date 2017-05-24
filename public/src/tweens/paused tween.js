@@ -26,12 +26,8 @@ function create ()
 
     var tween = this.tweens.add({
         targets: image,
-        x: [
-            { value: '+=600', hold: 1000 },
-            { value: '-=600' }
-        ],
+        x: '+=600',
         ease: 'Power2',
-        loop: true,
         paused: true
     });
 

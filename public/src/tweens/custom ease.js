@@ -24,10 +24,11 @@ function create ()
 
     this.tweens.add({
         targets: image,
-        x: 700,
+        x: 600,
         duration: 3000,
-        ease: 'Power2',
-        yoyo: true,
-        hold: 2000
+        ease: function (t) {
+            return Math.pow(Math.sin(t * 3), 3);
+        },
+        delay: 1000
     });
 }

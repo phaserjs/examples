@@ -19,17 +19,16 @@ function preload ()
 
 function create ()
 {
-    var image1 = this.add.image(100, 100, 'block');
-    var image2 = this.add.image(100, 200, 'block');
-    var image3 = this.add.image(100, 300, 'block');
+    var image1 = this.add.image(50, 100, 'block');
+    var image2 = this.add.image(60, 200, 'block');
+    var image3 = this.add.image(70, 300, 'block');
 
     var tween = this.tweens.add({
         targets: [ image1, image2, image3 ],
-        x: 700,
-        y: 200,
-        duration: 2000,
-        ease: 'Power3',
-        delay: 1000
+        x: '+=600',
+        y: '+=200',
+        duration: 4000,
+        ease: 'Power3'
     });
 
     console.log(tween);

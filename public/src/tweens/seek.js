@@ -11,7 +11,8 @@ var config = {
     }
 };
 
-var text;
+var text1;
+var text2;
 var tween;
 var progressBar;
 
@@ -24,25 +25,29 @@ function preload ()
 
 function create ()
 {
-    var marker = this.add.image(100, 200, 'block').setAlpha(0.3);
-    var image = this.add.image(100, 200, 'block');
+    var marker = this.add.image(100, 250, 'block').setAlpha(0.3);
+    var image = this.add.image(100, 250, 'block');
 
-    text = this.add.text(100, 100, '0', { font: '32px Arial', fill: '#00ff00' });
+    text1 = this.add.text(30, 20, '0', { font: '16px Courier', fill: '#00ff00' });
+    text2 = this.add.text(400, 20, '0', { font: '16px Courier', fill: '#00ff00' });
+
+    // tween = this.tweens.add({
+    //     targets: image,
+    //     props: {
+    //         x: { value: 700, duration: 4000, ease: 'Power2' },
+    //         y: { value: 500, duration: 1500, ease: 'Bounce.easeOut' }
+    //     },
+    //     loop: 2,
+    //     loopDelay: 1000
+    // });
 
     tween = this.tweens.add({
         targets: image,
         props: {
             x: { value: 700, duration: 4000, ease: 'Power2' },
-            y: { value: 400, duration: 1500, ease: 'Bounce.easeOut' }
+            y: { value: 500, duration: 1500, ease: 'Bounce.easeOut' }
         }
     });
-
-    // tween = this.tweens.add({
-    //     targets: image,
-    //     x: 700,
-    //     duration: 3000,
-    //     ease: 'Power2'
-    // });
 
     console.log(tween);
 
@@ -51,7 +56,7 @@ function create ()
     progressBar.min = '0';
     progressBar.max = '100';
     progressBar.step = '.001';
-    progressBar.value = '0';
+    progressBar.value = '50';
     document.body.appendChild(progressBar);
 
     progressBar.addEventListener('input', function (e) {
@@ -63,5 +68,21 @@ function create ()
 
 function update ()
 {
-    text.setText(tween.data[0].progress);
+    //  Tween
+    text1.setText([
+        'Progress: ' + tween.progress,
+        'Elapsed: ' + tween.elapsed,
+        'Duration: ' + tween.duration,
+        ' ',
+        'Loops: ' + tween.loopCounter,
+        'TProgress: ' + tween.totalProgress,
+        'TElapsed: ' + tween.totalElapsed,
+        'TDuration: ' + tween.totalDuration
+    ]);
+
+    //  TweenData
+    text2.setText([
+        'Progress A: ' + tween.data[0].progress,
+        'Progress B: ' + tween.data[1].progress
+    ]);
 }

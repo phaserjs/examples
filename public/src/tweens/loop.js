@@ -27,6 +27,6 @@ function create ()
         x: 700,
         duration: 3000,
         ease: 'Power2',
-        loop: true
+        loop: 2
     });
 }

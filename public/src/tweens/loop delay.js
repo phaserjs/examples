@@ -27,7 +27,7 @@ function create ()
         x: 700,
         duration: 2000,
         ease: 'Sine.easeInOut',
-        loop: true,
+        loop: 2,
         loopDelay: 2000
     });
 }

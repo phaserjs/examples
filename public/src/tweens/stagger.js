@@ -36,6 +36,4 @@ function create ()
             return i * 100;
         }
     });
-
-    console.log(tween);
 }

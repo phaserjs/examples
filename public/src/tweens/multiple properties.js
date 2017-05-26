@@ -21,16 +21,10 @@ function create ()
 {
     var image = this.add.image(100, 100, 'block');
 
-    var tween = this.tweens.add({
+    this.tweens.add({
         targets: image,
-        props: {
-            x: { value: 700, duration: 4000, ease: 'Power2' },
-            y: { value: 400, duration: 1500, ease: 'Bounce.easeOut' }
-        },
-        delay: 1000,
-        loop: true
+        x: { value: 700, duration: 4000, ease: 'Power2' },
+        y: { value: 400, duration: 1500, ease: 'Bounce.easeOut' }
     });
-
-    console.log(tween);
 
 }

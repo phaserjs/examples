@@ -25,14 +25,16 @@ function create ()
     var image4 = this.add.image(100, 400, 'block');
     var image5 = this.add.image(100, 500, 'block');
 
-    var tween = this.tweens.add({
+    this.tweens.add({
         targets: [ image1, image2, image3, image4, image5 ],
         x: 700,
+        yoyo: true,
         duration: 2000,
         ease: 'Sine.easeInOut',
-        yoyo: true,
-        delay: function (i, total, target) { return i * 100; },
-        loop: true
+        repeat: -1,
+        delay: function (i, total, target) {
+            return i * 100;
+        }
     });
 
     console.log(tween);

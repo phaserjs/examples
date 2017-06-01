@@ -15,10 +15,20 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('image', 'assets/sprites/balls.png');
 }
 
 function create ()
 {
+    var tilemap = this.add.staticTilemap([
+            1, 1, 1, 1, 1, 1, 1,
+            1, 0, 0, 0, 0, 0, 1,
+            1, 0, 0, 0, 1, 0, 1,
+            1, 0, 1, 0, 1, 0, 1,
+            1, 0, 1, 0, 0, 0, 1,
+            1, 0, 0, 0, 0, 0, 1,
+            1, 1, 1, 1, 1, 1, 1
+        ], 0, 0, 17, 17, 7, 7, 'image');
 }
 
 function update ()

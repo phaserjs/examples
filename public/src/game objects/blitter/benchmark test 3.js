@@ -59,13 +59,13 @@ function create() {
 
     state = this;
 
-    numbers.push(this.add.image(0 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(1 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(2 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(3 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(4 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(5 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(6 * 48, 720, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 0 * 48, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 1 * 48, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 2 * 48, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 3 * 48, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 4 * 48, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 5 * 48, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 6 * 48, 742, 'atlas', '0'));
 
     blitter = this.add.blitter(0, 0, 'atlas');
 
@@ -115,14 +115,15 @@ function update() {
             bob.data.vx *= -bob.data.bounce;
         }
 
-        if (bob.y > 690)
+        if (bob.y > 684)
         {
-            bob.y = 690;
+            bob.y = 684;
             bob.data.vy *= -bob.data.bounce;
         }
     }
-    this.cameras.main.scrollX = Math.sin(iter) * 200;
-    iter += 0.01;
+
+    // this.cameras.main.scrollX = Math.sin(iter) * 200;
+    // iter += 0.01;
 }
 
 function updateDigits ()

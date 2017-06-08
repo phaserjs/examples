@@ -1,9 +1,9 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     pixelArt: true,
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 800,
     state: {
         preload: preload,
         create: create,
@@ -19,13 +19,13 @@ var game = new Phaser.Game(config);
 function preload() 
 {
     this.load.image('knighthawks', 'assets/fonts/retro/knight3.png');
-    this.load.image('1984', 'assets/pics/1984-nocooper-space.png');
+    this.load.image('rain', 'assets/pics/thalion-rain.png');
     this.load.image('contra', 'assets/pics/contra1.png');
 }
 
 function create() 
 {
-    this.add.image(0, 0, '1984').setOrigin(0).setScale(2);
+    this.add.image(0, 0, 'rain').setOrigin(0).setScale(4);
 
     var config = {
         image: 'knighthawks',
@@ -41,16 +41,16 @@ function create()
     dynamic = this.add.dynamicBitmapText(0, 0, 'knighthawks', '               PHASER 3 IS IN THE HOUSE');
 
     dynamic.setSize(320, 25);
-    dynamic.setScale(2);
+    dynamic.setScale(4);
 
     TweenMax.to(dynamic, 4, {
-        y: 175*2,
+        y: 175*4,
         ease: Sine.easeInOut,
         repeat: -1,
         yoyo: true
     });
 
-    this.add.image(640, 400, 'contra').setOrigin(1).setScale(2);
+    this.add.image(1280, 800, 'contra').setOrigin(1).setScale(4);
 }
 
 function update (time, delta)

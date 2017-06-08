@@ -2,8 +2,8 @@ var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     pixelArt: true,
-    width: 640,
-    height: 400,
+    width: 640 * 2,
+    height: 400 * 2,
     state: {
         preload: preload,
         create: create,
@@ -19,8 +19,8 @@ var game = new Phaser.Game(config);
 function preload() 
 {
     this.load.image('171', 'assets/fonts/retro/171.png');
-    this.load.image('rain', 'assets/pics/thalion-rain.png');
-    this.load.image('contra', 'assets/pics/contra1.png');
+    this.load.image('rain', 'assets/pics/shadow-of-the-beast2-karamoon.png');
+    this.load.image('contra', 'assets/pics/contra2.png');
 }
 
 function create() 
@@ -40,12 +40,16 @@ function create()
 
     scrollers = this.add.layer();
 
-    // for (var i = 0; i < )
+    for (var i = 0; i < 20; i++)
+    {
+        var t = this.add.dynamicBitmapText(0, i * 40, '171', '                                 PHASER 3 IS IN THE HOUSE ... WELCOME TO THIS BITMAP TEXT SCROLLER DEMO, SHOWING OFF A NICE NEW FEATURE!!! AND WRAPP........'); 
 
-    dynamic = this.add.dynamicBitmapText(100, 100, '171', '               PHASER 3 IS IN THE HOUSE');
+        t.setSize(640, 18);
 
-    dynamic.setSize(200, 18);
-    // dynamic.setScale(4);
+        t.setScale(2);
+
+        scrollers.add(t);
+    }
 
     // TweenMax.to(dynamic, 4, {
     //     y: 175*4,
@@ -54,16 +58,19 @@ function create()
     //     yoyo: true
     // });
 
-    this.add.image(640, 400, 'contra').setOrigin(1).setScale(2);
+    this.add.image(640, 800, 'contra').setOrigin(0.5, 1).setScale(2);
 }
 
 function update (time, delta)
 {
-    dynamic.scrollX += 0.15 * delta;
+    scrollers.children.iterate(function (child, index) {
 
-    if (dynamic.scrollX > 1300)
-    {
-        dynamic.scrollX = 0;
-    }
+        child.scrollX += 1.5 + Math.sin((0.01 * index) * delta);
 
+        if (child.scrollX > 2800)
+        {
+            child.scrollX = -200;
+        }
+
+    });
 }

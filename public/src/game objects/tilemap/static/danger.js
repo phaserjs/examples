@@ -35,17 +35,6 @@ function create ()
 
     var cursors = this.input.keyboard.createCursorKeys();
 
-    // var controlConfig = {
-    //     camera: this.cameras.main,
-    //     left: cursors.left,
-    //     right: cursors.right,
-    //     up: cursors.up,
-    //     down: cursors.down,
-    //     speed: 0.5
-    // };
-
-    // controls = this.cameras.addKeyControl(controlConfig);
-
     var controlConfig = {
         camera: this.cameras.main,
         left: cursors.left,
@@ -60,7 +49,6 @@ function create ()
     controls = this.cameras.addSmoothedKeyControl(controlConfig);
 
     this.cameras.main.setBounds(0, 0, 2272, 1864);
-
 }
 
 function update (time, delta)

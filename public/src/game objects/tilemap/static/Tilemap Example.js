@@ -4,6 +4,7 @@ var config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
+    pixelArt: true,
     state: {
         preload: preload,
         create: create,

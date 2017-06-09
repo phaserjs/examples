@@ -23,7 +23,7 @@ function preload ()
     this.load.image('tiles3', 'assets/tilemaps/tiles/super-mario-3.png');
 }
 
-thatfunction create ()
+function create ()
 {
     var mapData1 = this.cache.json.get('map1').layers[0].data;
 

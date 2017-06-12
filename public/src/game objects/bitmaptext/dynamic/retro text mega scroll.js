@@ -65,7 +65,7 @@ function update (time, delta)
 {
     scrollers.children.iterate(function (child, index) {
 
-        child.scrollX += 1.5 + Math.sin((0.01 * index) * delta);
+        child.scrollX += 2.5 + Math.sin((0.01 * index) * delta);
 
         if (child.scrollX > 2800)
         {

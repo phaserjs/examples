@@ -21,7 +21,7 @@ function create() {
 
     //  Receives every single key down event, regardless of type
 
-    this.input.mouse.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
 
         console.dir(event);
 

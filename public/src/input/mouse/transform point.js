@@ -50,6 +50,9 @@ function update () {
 
     var p = this.input.getTransformedPoint(logo, x, y);
 
+    // chunk.x = logo.x + p.x;
+    // chunk.y = logo.y + p.y;
+
     chunk.x = p.x;
     chunk.y = p.y;
 

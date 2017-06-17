@@ -20,6 +20,7 @@ var cursors;
 var heading = 3;
 var direction = 3;
 var moveTime = 0;
+var camera;
 var ctx = new AudioContext();
 
 //  Direction consts
@@ -48,8 +49,6 @@ var deathEffect = {
     dissonance: 50
 };
 
-var debug;
-
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -70,8 +69,6 @@ function create ()
     body = this.add.layer();
 
     //  Everything is positioned at 16x16 offsets
-    // head = this.add.image(headPosition.x * 16, headPosition.y * 16, 'body').setOrigin(0);
-
     head = body.create(headPosition.x * 16, headPosition.y * 16, 'body');
 
     head.setOrigin(0);
@@ -84,7 +81,7 @@ function create ()
 
     //  We'll use the real time clock to work out when to next move the snake
 
-    debug = this.add.text(32, 32);
+    camera = this.cameras.main;
 }
 
 function update (time, delta)
@@ -92,6 +89,12 @@ function update (time, delta)
     if (heading === -1)
     {
         //  Because the game is over
+
+        if (moveTime > time)
+        {
+            camera.shake(1000);
+        }
+
         return;
     }
 
@@ -120,7 +123,7 @@ function update (time, delta)
         heading = DOWN;
     }
 
-    debug.setText('x: ' + headPosition.x + ' y: ' + headPosition.y + ' l: ' + body.getLength());
+    // debug.setText('x: ' + headPosition.x + ' y: ' + headPosition.y + ' l: ' + body.getLength());
 
     //  Is it time to move the snake?
     if (time >= moveTime)
@@ -166,8 +169,10 @@ function moveSnake (time)
     if (bodyCollideCheck())
     {
         //  Game Over
-        // this.sound.play('death');
-        // this.camera.shake();
+        new Phaser.Sound.Dynamic.FX(ctx, deathEffect);
+
+        moveTime = time + 2000;
+
         heading = -1;
     }
     else
@@ -209,7 +214,7 @@ function foodCollideCheck ()
         newPart.setOrigin(0);
 
         //  Play the food fx
-        new Phaser.Sound.Dynamic.FX(ctx, jumpEffect);
+        new Phaser.Sound.Dynamic.FX(ctx, foodEffect);
 
         //  Place down a new food item to collect
         if (repositionFood())

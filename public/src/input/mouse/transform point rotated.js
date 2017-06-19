@@ -29,7 +29,7 @@ function create () {
 
     // logo = this.add.image(500, 300, 'logo').setOrigin(0);
     logo = this.add.image(500, 300, 'logo');
-    // logo.angle = 25;
+    logo.angle = 25;
 
     chunk = this.add.image(0, 0, 'chunk');
 

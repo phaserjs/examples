@@ -11,16 +11,6 @@ var config = {
     }
 };
 
-var snake;
-var food;
-var cursors;
-
-//  Direction consts
-var UP = 0;
-var DOWN = 1;
-var LEFT = 2;
-var RIGHT = 3;
-
 var game = new Phaser.Game(config);
 
 function preload ()

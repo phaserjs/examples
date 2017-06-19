@@ -21,6 +21,7 @@ var heading = 3;
 var direction = 3;
 var moveTime = 0;
 var camera;
+var testGrid;
 var ctx = new AudioContext();
 
 //  Direction consts
@@ -78,6 +79,18 @@ function create ()
 
     //  Create our keyboard controls
     cursors = this.input.keyboard.createCursorKeys();
+
+    testGrid = [];
+
+    for (var y = 0; y < 30; y++)
+    {
+        testGrid[y] = [];
+
+        for (var x = 0; x < 40; x++)
+        {
+            testGrid[y][x] = true;
+        }
+    }
 
     //  We'll use the real time clock to work out when to next move the snake
 
@@ -246,17 +259,8 @@ function repositionFood ()
 {
     //  First create an array that assumes all positions
     //  are valid for the new piece of food
-    var testLocations = [];
 
-    for (var y = 0; y < 30; y++)
-    {
-        testLocations[y] = [];
-
-        for (var x = 0; x < 40; x++)
-        {
-            testLocations[y][x] = true;
-        }
-    }
+    var testLocations = testGrid.slice(0);
 
     //  Remove head location from valid positions list
     testLocations[head.y / 16][head.x / 16] = false;

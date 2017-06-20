@@ -27,8 +27,9 @@ function create () {
 
     this.add.image(0, 0, 'logo').setOrigin(0).setAlpha(0.25);
 
-    // logo = this.add.image(500, 300, 'logo').setOrigin(0);
-    logo = this.add.image(500, 300, 'logo');
+    logo = this.add.image(500, 300, 'logo').setOrigin(0);
+    // logo = this.add.image(500, 300, 'logo');
+    logo.setScale(0.6, 1.4);
     logo.angle = 25;
 
     chunk = this.add.image(0, 0, 'chunk');
@@ -48,7 +49,7 @@ function create () {
 
 function update () {
 
-    // logo.rotation += 0.005;
+    logo.rotation += 0.005;
 
     var p = this.input.getTransformedPoint(logo, x, y);
 

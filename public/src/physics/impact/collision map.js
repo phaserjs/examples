@@ -1,6 +1,6 @@
 var config = {
     type: Phaser.WEBGL,
-    width: 800,
+    width: 864,
     height: 600,
     parent: 'phaser-example',
     state: {

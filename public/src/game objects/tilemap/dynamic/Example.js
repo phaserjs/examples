@@ -11,6 +11,8 @@ var config = {
     }
 };
 
+var culled = 0;
+var tilemap;
 var game = new Phaser.Game(config);
 var time = 0;
 
@@ -18,6 +20,7 @@ function preload ()
 {
     this.load.image('image', 'assets/tilemaps/tiles/catastrophi_tiles_16.png');
     this.load.text('map', 'assets/tilemaps/csv/catastrophi_level3.csv');
+    this.load.bitmapFont('nokia16', 'assets/fonts/bitmap/nokia16.png', 'assets/fonts/bitmap/nokia16.xml');
 }
 
 function create ()
@@ -28,6 +31,7 @@ function create ()
     var tileSize = 16;
     var mapData = [];
 
+
     for (var i = 0; i < mapHeight; ++i)
     {
         var row = rows[i].split(',').map(function (a) { return parseInt(a);});
@@ -37,13 +41,19 @@ function create ()
             mapData.push(id);
         }
     }
-    var tilemap = this.add.tilemap(mapData, 0, 0, tileSize, tileSize, mapWidth, mapHeight, 'image');
+    tilemap = this.add.tilemap(mapData, 0, 0, tileSize, tileSize, mapWidth, mapHeight, 'image');
+    culled = this.add.bitmapText(0, 0, 'nokia16', '');
+    tilemap.scrollFactorX = 0.5;
+    culled.scrollFactorX = 0.0;
+    culled.scrollFactorY = 0.0;
 }
 
 function update ()
 {
     this.cameras.main.scrollX = (200 + Math.cos(time) * 200)|0;
     this.cameras.main.scrollY = (500 + Math.sin(time) * 500)|0;
+
+    culled.setText('Total Tiles: ' + tilemap.getTotalTileCount(this.cameras.main) + '\nVisible Tiles: ' + tilemap.getVisibleTileCount(this.cameras.main));
 
     time += 0.01;
 }

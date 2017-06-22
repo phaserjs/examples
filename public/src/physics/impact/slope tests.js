@@ -1,6 +1,6 @@
 var config = {
     type: Phaser.WEBGL,
-    width: 864,
+    width: 800,
     height: 600,
     parent: 'phaser-example',
     state: {
@@ -11,15 +11,8 @@ var config = {
 };
 
 var world;
-
 var bodyA;
-var bodyB;
-var bodyC;
-
 var imageA;
-var imageB;
-var imageC;
-
 var cursors;
 var graphics;
 
@@ -27,45 +20,59 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('clown', 'assets/sprites/clown.png');
-    // this.load.image('clown', 'assets/sprites/default.png');
-    this.load.json('map', 'assets/tilemaps/maps/impact2.json');
-    this.load.image('tiles', 'assets/tilemaps/tiles/slopes32.png');
+    this.load.json('map', 'assets/tilemaps/maps/slopes.json');
+    this.load.image('tiles', 'assets/tilemaps/tiles/slopes32mud.png');
 }
 
 function create ()
 {
     cursors = this.input.keyboard.createCursorKeys();
 
-    var impactData = this.cache.json.get('map').layer[0];
-    var mapData = [];
+    var jsonData = this.cache.json.get('map').layers[0];
 
-    //  Build a single array from the data
+    var colMapData = [];
+    var renderData = [];
 
-    impactData.data.forEach(function (row, index, array) {
+    //  Build a CollisionMap compatible array from the data
 
-        row.forEach(function (tile) {
+    var mapWidth = jsonData.width;
+    var mapHeight = jsonData.height;
+    var x = 0;
+    var y = 0;
 
-            if (tile === 0)
-            {
-                tile = 47;
-            }
+    jsonData.data.forEach(function (tile, index, array) {
 
-            mapData.push(tile - 1);
+        if (x === 0)
+        {
+            colMapData[y] = [];
+        }
 
-        });
+        if (tile === 0)
+        {
+            tile = 49;
+        }
+
+        colMapData[y][x] = tile;
+        renderData.push(tile - 1);
+
+        x++;
+
+        if (x === mapWidth)
+        {
+            x = 0;
+            y++;
+        }
 
     });
 
-    this.add.staticTilemap(mapData, 0, 0, impactData.tilesize, impactData.tilesize, impactData.width, impactData.height, 'tiles');
+    this.add.staticTilemap(renderData, 0, 0, 32, 32, mapWidth, mapHeight, 'tiles');
 
     // imageA = this.add.image(64, 300, 'clown').setOrigin(0);
 
     world = new Phaser.Physics.Impact.World(800);
 
-    world.collisionMap = new Phaser.Physics.Impact.CollisionMap(impactData.tilesize, impactData.data);
+    world.collisionMap = new Phaser.Physics.Impact.CollisionMap(32, colMapData);
 
-    // bodyA = world.create(32, 32, imageA.width, imageA.height);
     bodyA = world.create(32, 32, 40, 40);
     bodyA.setMaxVelocity(400, 800);
     bodyA.friction.x = 800;
@@ -75,6 +82,8 @@ function create ()
     bodyA.accelAir = 600;
     bodyA.jumpSpeed = 500;
 
+    this.cameras.main.startFollow(bodyA.pos);
+    this.cameras.main.setBounds(0, 0, mapWidth * 32, mapHeight * 32);
 
     graphics = this.add.graphics();
 }

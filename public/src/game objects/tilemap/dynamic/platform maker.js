@@ -124,7 +124,7 @@ function create ()
     body.jumpSpeed = 500;
 
     //  Cameras
-    this.cameras.main.startFollow(body.pos);
+    this.cameras.main.startFollow(body.pos, true);
     this.cameras.main.setBounds(0, 0, mapWidth * 32, mapHeight * 32);
 
     //  Input Events

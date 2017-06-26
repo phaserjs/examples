@@ -61,7 +61,7 @@ function create ()
 
 function update (time, delta)
 {
-    //  Any speed as long as it's a multiple of 16
+    //  Any speed as long as 16 evenly divides by it
     sx += 4;
 
     distance += sx;

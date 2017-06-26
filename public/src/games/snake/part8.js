@@ -81,7 +81,7 @@ function create ()
         {
             this.headPosition = new Phaser.Geom.Point(x, y);
 
-            this.body = state.add.layer();
+            this.body = state.add.group();
 
             this.head = this.body.create(x * 16, y * 16, 'body');
             this.head.setOrigin(0);
@@ -148,7 +148,7 @@ function create ()
         move: function (time)
         {
             /**
-            * Based on the heading property (which is the direction the player pressed)
+            * Based on the heading property (which is the direction the pgroup pressed)
             * we update the headPosition value accordingly.
             * 
             * The Math.wrap call allow the snake to wrap around the screen, so when

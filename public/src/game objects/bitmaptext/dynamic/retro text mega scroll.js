@@ -38,7 +38,7 @@ function create()
 
     this.cache.bitmapFont.add('171', Phaser.GameObjects.BitmapText.ParseRetroFont(this, config));
 
-    scrollers = this.add.layer();
+    scrollers = this.add.group();
 
     for (var i = 0; i < 20; i++)
     {

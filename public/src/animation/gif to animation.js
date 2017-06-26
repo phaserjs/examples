@@ -13,7 +13,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var layer;
+var group;
 
 var data = {
     r: -0.05,
@@ -34,11 +34,11 @@ function create ()
 {
     this.anims.create({ key: 'swish', frames: this.anims.generateFrameNames('sao', { start: 0, end: 50 }), repeat: -1 });
 
-    layer = this.add.layer();
+    group = this.add.group();
 
-    layer.createMultiple({ key: 'sao', repeat: 10, setXY: { x: 400, y: 300 }, setAlpha: { value: 0, step: 0.05 } });
+    group.createMultiple({ key: 'sao', repeat: 10, setXY: { x: 400, y: 300 }, setAlpha: { value: 0, step: 0.05 } });
 
-    layer.playAnimation('swish');
+    group.playAnimation('swish');
 
     TweenMax.to(data, 3, {
         r: 0.05,
@@ -60,7 +60,7 @@ function create ()
 
 function update ()
 {
-    layer.rotate(data.r, data.s);
-    layer.setScale(data.sx, data.sx, data.s, data.s);
-    layer.setXY(data.x, data.y, data.s, data.s);
+    group.rotate(data.r, data.s);
+    group.setScale(data.sx, data.sx, data.s, data.s);
+    group.setXY(data.x, data.y, data.s, data.s);
 }

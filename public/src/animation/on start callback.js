@@ -27,14 +27,14 @@ function create ()
 
     this.anims.create(animConfig);
 
-    layer = this.add.layer();
+    group = this.add.group();
 
     //  Create 32 sprites
-    layer.createMultiple({ key: 'gems', frame: 'diamond_0000', repeat: 32 });
+    group.createMultiple({ key: 'gems', frame: 'diamond_0000', repeat: 32 });
 
     //  Play the same animation on them all
     //  The animStartCallback will be invoked for each of them
-    layer.playAnimation('diamond');
+    group.playAnimation('diamond');
 }
 
 function animStartCallback (sprite, animation)

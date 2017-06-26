@@ -73,8 +73,9 @@ function create ()
 
     world.collisionMap = new Phaser.Physics.Impact.CollisionMap(32, colMapData);
 
-    // bodyA = world.create(287, 198, 40, 40);
-    bodyA = world.create(287, 198, 16, 32);
+    bodyA = world.create(287, 198, 16, 32); // tile A
+    // bodyA = world.create(736, 198, 16, 32); // tile B (works fine!)
+
     bodyA.setMaxVelocity(400, 250);
     bodyA.friction.x = 800;
     bodyA.friction.y = 0;
@@ -83,7 +84,7 @@ function create ()
     bodyA.accelAir = 600;
     bodyA.jumpSpeed = 500;
 
-    // this.cameras.main.startFollow(bodyA.pos);
+    this.cameras.main.startFollow(bodyA.pos);
     this.cameras.main.setBounds(0, 0, mapWidth * 32, mapHeight * 32);
 
     graphics = this.add.graphics();

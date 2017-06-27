@@ -303,9 +303,9 @@ var PacmanGame = new Phaser.Class({
 
         this.dots = new Dots(this);
 
-        this.points = new Points(this);
-
         this.parseMapData();
+
+        this.points = new Points(this);
 
         this.ghosts = new Ghosts(this);
 

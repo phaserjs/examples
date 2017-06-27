@@ -9,22 +9,23 @@ var PacmanGame = new Phaser.Class({
         Phaser.State.call(this);
 
         this.world;
-
         this.dots;
         this.pacman;
-
-        this.debug;
     },
+
+    //  Global Events
+    POWER_UP: 'powerUp',
+    LEVEL_COMPLETE: 'levelComplete',
 
     preload: function ()
     {
         this.load.image('map', 'assets/games/pacman/map.png');
         this.load.json('mapData', 'assets/games/pacman/map.json');
-        this.load.spritesheet('sprites', 'assets/games/pacman/sprites.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('dots', 'assets/games/pacman/dots.png', { frameWidth: 16, frameHeight: 16 });
+        this.load.spritesheet('sprites', 'assets/games/pacman/sprites.png', { frameWidth: 32, frameHeight: 32 });
     },
 
-    create: function ()
+    createAnimations: function ()
     {
         //  Create the powerDot animation
         this.anims.create({
@@ -34,6 +35,47 @@ var PacmanGame = new Phaser.Class({
             repeat: -1
         });
 
+        //  Pacman Animations
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 14, end: 15 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 0, end: 1 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'up',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 28, end: 29 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'down',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 42, end: 43 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'die',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 2, end: 13 }),
+            framerate: 4,
+            repeat: -1
+        });
+    },
+
+    create: function ()
+    {
+        this.createAnimations();
+
         this.world = new Phaser.Physics.Impact.World();
 
         this.add.image(0, 0, 'map').setOrigin(0);
@@ -42,14 +84,26 @@ var PacmanGame = new Phaser.Class({
 
         this.parseMapData();
 
-        this.debug = this.add.graphics();
-
         this.pacman = new Pacman(this);
+
+        this.events.on('LEVEL_COMPLETE', this.levelComplete.bind(this));
+
+        console.log('Dots left', this.dots.left);
     },
 
     parseMapData: function ()
     {
-        var mapData = this.cache.json.get('mapData').layers[1].data;
+        var mapData = [];
+
+        //  Search for our collision map data in the JSON
+        this.cache.json.get('mapData').layers.forEach(function (current) {
+
+            if (current.name === 'Tile Layer 1')
+            {
+                mapData = current.data;
+            }
+
+        });
 
         var colMapData = [];
 
@@ -71,6 +125,10 @@ var PacmanGame = new Phaser.Class({
             {
                 colMapData[y][x] = 1;
             }
+            else if (current === 4)
+            {
+                colMapData[y][x] = 12;
+            }
             else if (current === 2)
             {
                 _this.dots.addDot(x * 16, y * 16);
@@ -83,6 +141,19 @@ var PacmanGame = new Phaser.Class({
         });
 
         this.world.collisionMap = new Phaser.Physics.Impact.CollisionMap(16, colMapData);
+    },
+
+    levelComplete: function ()
+    {
+        console.log('well done!!!');
+
+        //  After a level complete fanfare:
+
+        //  Reset all the dots
+        this.dots.reset();
+
+        //  Reset Pacman
+        this.pacman.reset();
     },
 
     update: function (time, delta)
@@ -106,7 +177,7 @@ var Dots = new Phaser.Class({
 
         this.classType = Dot;
 
-        this.left = 0;
+        this._left = 0;
     },
 
     addDot: function (x, y)
@@ -125,6 +196,36 @@ var Dots = new Phaser.Class({
         dot.setOrigin(0);
 
         this.left++;
+    },
+
+    reset: function ()
+    {
+        this.children.iterate(function (child) {
+
+            child.reset();
+
+        });
+
+        this.left = 244;
+    },
+
+    left: {
+
+        get: function ()
+        {
+            return this._left;
+        },
+
+        set: function (value)
+        {
+            this._left = value;
+
+            if (this._left === 0)
+            // if (this._left === 230)
+            {
+                this.state.events.dispatch(new Phaser.Event('LEVEL_COMPLETE'));
+            }
+        }
     }
 
 });
@@ -140,6 +241,10 @@ var Dot = new Phaser.Class({
         Phaser.GameObjects.Sprite.call(this, state, x, y, key, frame);
 
         this.isPowerDot = (frame === 1);
+
+        this.gridPos = { x: x, y: y, gx: x / 16, gy: y / 16 };
+
+        // this.name = (x / 16).toString() + '-' + (y / 16).toString();
 
         this.body = state.world.create(x, y, 16, 16);
 
@@ -165,7 +270,22 @@ var Dot = new Phaser.Class({
 
         this.parent.state.dots.left--;
 
+        if (this.parent.isPowerDot)
+        {
+            this.parent.state.events.dispatch(new Phaser.Event('POWER_UP'))
+        }
+
         //  play sound
+    },
+
+    reset: function ()
+    {
+        this.body.pos.x = this.gridPos.x;
+        this.body.pos.y = this.gridPos.y;
+
+        this.body.enabled = true;
+
+        this.visible = true;
     }
 
 });
@@ -178,6 +298,7 @@ var Pacman = new Phaser.Class({
 
     function Pacman (state)
     {
+        // Phaser.GameObjects.Sprite.call(this, state, 13 * 16, 15 * 16, 'sprites', 14);
         Phaser.GameObjects.Sprite.call(this, state, 13 * 16, 23 * 16, 'sprites', 14);
 
         state.children.add(this);
@@ -193,40 +314,9 @@ var Pacman = new Phaser.Class({
         this.canMove[Phaser.UP] = false;
         this.canMove[Phaser.DOWN] = false;
 
-        this.state.anims.create({
-            key: 'left',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 14, end: 15 }),
-            framerate: 16,
-            repeat: -1
-        });
+        this.canEatGhosts = false;
 
-        this.state.anims.create({
-            key: 'right',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 0, end: 1 }),
-            framerate: 16,
-            repeat: -1
-        });
-
-        this.state.anims.create({
-            key: 'up',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 28, end: 29 }),
-            framerate: 16,
-            repeat: -1
-        });
-
-        this.state.anims.create({
-            key: 'down',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 42, end: 43 }),
-            framerate: 16,
-            repeat: -1
-        });
-
-        this.state.anims.create({
-            key: 'die',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 2, end: 13 }),
-            framerate: 4,
-            repeat: -1
-        });
+        this.state.events.on('POWER_UP', this.activatePowerUp);
 
         //  Physics Body
 
@@ -237,6 +327,34 @@ var Pacman = new Phaser.Class({
         this.body.collideWith = this.collideWith;
 
         this.cursors = this.state.input.keyboard.createCursorKeys();
+    },
+
+    reset: function ()
+    {
+        this.body.pos.x = 13 * 16;
+        this.body.pos.y = 23 * 16;
+
+        this.x = this.body.pos.x + 8;
+        this.y = this.body.pos.y + 8;
+
+        this.speed = 2;
+        this.heading = Phaser.NONE;
+        this.direction = Phaser.LEFT;
+
+        this.canMove[Phaser.LEFT] = true;
+        this.canMove[Phaser.RIGHT] = true;
+        this.canMove[Phaser.UP] = false;
+        this.canMove[Phaser.DOWN] = false;
+
+        this.canEatGhosts = false;
+    },
+
+    activatePowerUp: function ()
+    {
+        console.log('munch munch');
+
+        //  Start a timer going
+        this.canEatGhosts = true;
     },
 
     collideWith: function (dot, axis)
@@ -330,12 +448,26 @@ var Pacman = new Phaser.Class({
 
         this.canMove[Phaser.LEFT] = (map[y][x - 1] === 0);
         this.canMove[Phaser.RIGHT] = (map[y][x + 1] === 0);
-        this.canMove[Phaser.UP] = (map[y - 1][x] === 0);
+        this.canMove[Phaser.UP] = (map[y - 1][x] === 0 || map[y - 1][x] === 12);
         this.canMove[Phaser.DOWN] = (map[y + 1][x] === 0);
 
         //  At a grid junction
         if (this.body.pos.x % 16 === 0 && this.body.pos.y % 16 === 0)
         {
+            //  First check if they're wrapping around the edge of the map
+            if (x === 0 && y === 14)
+            {
+                //  From left edge to right
+                this.body.pos.x = 27 * 16;
+                return;
+            }
+            else if (x === 27 && y === 14)
+            {
+                //  From right edge to left
+                this.body.pos.x = 0;
+                return;
+            }
+
             //  Stop their movement?
             if (this.canMove[this.direction] === false)
             {
@@ -364,27 +496,6 @@ var Pacman = new Phaser.Class({
                 }
             }
         }
-
-        /*
-        var g = this.state.debug;
-        var p = this.body.pos;
-        var w = this.body.size.x;
-        var h = this.body.size.y;
-
-        g.clear();
-
-        g.fillStyle((this.canMove.LEFT) ? 0x00ff00 : 0xff0000, 0.5);
-        g.fillRect((x - 1) * 16, y * 16, w, h);
-
-        g.fillStyle((this.canMove.RIGHT) ? 0x00ff00 : 0xff0000, 0.5);
-        g.fillRect((x + 1) * 16, y * 16, w, h);
-
-        g.fillStyle((this.canMove.UP) ? 0x00ff00 : 0xff0000, 0.5);
-        g.fillRect(x * 16, (y - 1) * 16, w, h);
-
-        g.fillStyle((this.canMove.DOWN) ? 0x00ff00 : 0xff0000, 0.5);
-        g.fillRect(x * 16, (y + 1) * 16, w, h);
-        */
     }
 
 });

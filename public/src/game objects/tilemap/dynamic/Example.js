@@ -41,7 +41,7 @@ function create ()
             mapData.push(id);
         }
     }
-    tilemap = this.add.tilemap(mapData, 0, 0, tileSize, tileSize, mapWidth, mapHeight, 'image');
+    tilemap = this.add.tilemap(mapData, 0, 0, tileSize, tileSize, mapWidth, mapHeight, 0, 'image');
     culled = this.add.bitmapText(0, 0, 'nokia16', '');
     tilemap.scrollFactorX = 0.5;
     culled.scrollFactorX = 0.0;

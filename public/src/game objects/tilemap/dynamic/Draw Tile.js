@@ -38,10 +38,10 @@ function preload ()
 
 function create ()
 {
-    tilemaps[0] = this.add.tilemap(null, 0, 0, tileWidth, tileHeight, 100, 100, 'image');
-    tilemaps[1] = this.add.tilemap(null, 0, 0, tileWidth, tileHeight, 100, 100, 'image');
-    tilemaps[2] = this.add.tilemap(null, 0, 0, tileWidth, tileHeight, 100, 100, 'image');
-    currentTile = this.add.tilemap([0], 0, 0, tileWidth, tileHeight, 1, 1, 'image');
+    tilemaps[0] = this.add.tilemap(null, 0, 0, tileWidth, tileHeight, 100, 100, 0, 'image');
+    tilemaps[1] = this.add.tilemap(null, 0, 0, tileWidth, tileHeight, 100, 100, 0, 'image');
+    tilemaps[2] = this.add.tilemap(null, 0, 0, tileWidth, tileHeight, 100, 100, 0, 'image');
+    currentTile = this.add.tilemap([0], 0, 0, tileWidth, tileHeight, 1, 1, 0, 'image');
 
     tilemaps[0].scrollFactorX = 0.2;
     tilemaps[0].scrollFactorY = 0.2;

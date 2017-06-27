@@ -32,7 +32,7 @@ function create ()
         mapData[index] = current - 1;
     });
 
-    this.add.staticTilemap(mapData, 0, 0, 16, 16, 192, 154, 'tiles');
+    this.add.staticTilemap(mapData, 0, 0, 16, 16, 192, 154, 0, 'tiles');
 
     var cursors = this.input.keyboard.createCursorKeys();
 

@@ -25,7 +25,7 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('sky', 'assets/skies/lightblue.png');
-    this.load.image('tiles', 'assets/tilemaps/tiles/drawtiles.png');
+    this.load.image('tiles', 'assets/tilemaps/tiles/drawtiles1.png');
     this.load.image('cursor', 'assets/sprites/drawcursor.png');
 
     this.load.spritesheet('dude', 'assets/sprites/dude.png', { frameWidth: 32, frameHeight: 48 });
@@ -73,7 +73,8 @@ function create ()
         tile: {
             width: 32,
             height: 32,
-            texture: 'tiles'
+            texture: 'tiles',
+            border: 1
         }
     };
 
@@ -179,7 +180,7 @@ function update (time, delta)
         else
         {
             //  Add tile
-            currentTile.setId(6);
+            currentTile.setId(2);
             world.collisionMap.data[ty][tx] = 1;
         }
     }

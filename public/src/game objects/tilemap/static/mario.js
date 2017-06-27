@@ -41,8 +41,8 @@ function create ()
         mapData3[index] = current - 1;
     });
 
-    var tilemap = this.add.staticTilemap(mapData1, 0, 0, 16, 16, 212, 15, 'tiles1');
-    var tilemap2 = this.add.staticTilemap(mapData3, 900, 300, 8, 8, 352, 30, 'tiles3');
+    var tilemap = this.add.staticTilemap(mapData1, 0, 0, 16, 16, 212, 15, 0, 'tiles1');
+    var tilemap2 = this.add.staticTilemap(mapData3, 900, 300, 8, 8, 352, 30, 0, 'tiles3');
 
     var cursors = this.input.keyboard.createCursorKeys();
 

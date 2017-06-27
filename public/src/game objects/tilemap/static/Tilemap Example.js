@@ -38,13 +38,13 @@ function create ()
             mapData.push(id);
         }
     }
-    var tilemap = this.add.staticTilemap(mapData, 0, 0, tileSize, tileSize, mapWidth, mapHeight, 'image');
+    var tilemap = this.add.staticTilemap(mapData, 0, 0, tileSize, tileSize, mapWidth, mapHeight, 0, 'image');
 }
 
 function update ()
 {
-    this.cameras.main.scrollX = (200 + Math.cos(time) * 200)|0;
-    this.cameras.main.scrollY = (500 + Math.sin(time) * 500)|0;
+    this.cameras.main.scrollX = (200 + Math.cos(time) * 200);
+    this.cameras.main.scrollY = (500 + Math.sin(time) * 500);
 
     time += 0.01;
 }

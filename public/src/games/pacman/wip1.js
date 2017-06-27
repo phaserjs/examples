@@ -1,3 +1,5 @@
+// http://gameinternals.com/post/2072558330/understanding-pac-man-ghost-behavior
+
 var PacmanGame = new Phaser.Class({
 
     Extends: Phaser.State,
@@ -12,6 +14,8 @@ var PacmanGame = new Phaser.Class({
         this.dots;
         this.ghosts;
         this.pacman;
+
+        this.intersections;
     },
 
     //  Global Events
@@ -181,6 +185,42 @@ var PacmanGame = new Phaser.Class({
         });
 
         this.world.collisionMap = new Phaser.Physics.Impact.CollisionMap(16, colMapData);
+
+        //  Our intersection data for the ghosts
+
+        var intersections = this.intersections
+
+        intersections = [];
+
+        this.cache.json.get('mapData').layers.forEach(function (current) {
+
+            if (current.name === 'Tile Layer 2')
+            {
+                current.data.forEach(function (current, index, array) {
+
+                    var x = index % 28;
+                    var y = Math.floor(index / 28);
+
+                    if (x === 0)
+                    {
+                        intersections[y] = [];
+                    }
+
+                    intersections[y][x] = 0;
+
+                    if (current === 5)
+                    {
+                        intersections[y][x] = 1;
+                    }
+                    else if (current === 6)
+                    {
+                        intersections[y][x] = 2;
+                    }
+
+                });
+            }
+
+        });
     },
 
     levelComplete: function ()
@@ -389,6 +429,9 @@ var Ghost = new Phaser.Class({
         this.canMove[Phaser.DOWN] = false;
 
         this.edible = false;
+
+        //  Valid modes are Chase, Scatter and Frightened (edible)
+        this.mode = 'chase';
 
         this.state.events.on('POWER_UP', this.canBeEaten);
 

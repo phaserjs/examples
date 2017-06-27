@@ -81,20 +81,24 @@ var PacmanGame = new Phaser.Class({
         //  Ghosts
 
         //  Red = Blinky (Shadow)
-        //  Pink = Pinky (Speedy)
-        //  Blue = Inky (Bashful)
-        //  Yellow = Clyde (Pokey)
 
         this.anims.create({
-            key: 'blinkyLeft',
-            frames: this.anims.generateFrameNumbers('sprites', { start: 26, end: 27 }),
+            key: 'blinkyRight',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 22, end: 23 }),
             framerate: 16,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'blinkyRight',
-            frames: this.anims.generateFrameNumbers('sprites', { start: 22, end: 23 }),
+            key: 'blinkyDown',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 24, end: 25 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'blinkyLeft',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 26, end: 27 }),
             framerate: 16,
             repeat: -1
         });
@@ -106,12 +110,96 @@ var PacmanGame = new Phaser.Class({
             repeat: -1
         });
 
+        //  Pink = Pinky (Speedy)
+
         this.anims.create({
-            key: 'blinkyDown',
-            frames: this.anims.generateFrameNumbers('sprites', { start: 24, end: 25 }),
+            key: 'pinkyRight',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 33, end: 34 }),
             framerate: 16,
             repeat: -1
         });
+
+        this.anims.create({
+            key: 'pinkyDown',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 35, end: 36 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'pinkyLeft',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 37, end: 38 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'pinkyUp',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 39, end: 40 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        //  Blue = Inky (Bashful)
+
+        this.anims.create({
+            key: 'inkyRight',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 44, end: 45 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'inkyDown',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 46, end: 47 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'inkyLeft',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 48, end: 49 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'inkyUp',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 50, end: 51 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        //  Yellow = Clyde (Pokey)
+
+        this.anims.create({
+            key: 'clydeRight',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 55, end: 56 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'clydeDown',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 57, end: 58 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'clydeLeft',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 59, end: 60 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'clydeUp',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 61, end: 62 }),
+            framerate: 16,
+            repeat: -1
+        });
+
     },
 
     create: function ()
@@ -188,9 +276,9 @@ var PacmanGame = new Phaser.Class({
 
         //  Our intersection data for the ghosts
 
-        var intersections = this.intersections
+        this.intersections = [];
 
-        intersections = [];
+        var _this = this;
 
         this.cache.json.get('mapData').layers.forEach(function (current) {
 
@@ -203,24 +291,26 @@ var PacmanGame = new Phaser.Class({
 
                     if (x === 0)
                     {
-                        intersections[y] = [];
+                        _this.intersections[y] = [];
                     }
 
-                    intersections[y][x] = 0;
+                    _this.intersections[y][x] = 0;
 
                     if (current === 5)
                     {
-                        intersections[y][x] = 1;
+                        _this.intersections[y][x] = 1;
                     }
                     else if (current === 6)
                     {
-                        intersections[y][x] = 2;
+                        _this.intersections[y][x] = 2;
                     }
 
                 });
             }
 
         });
+
+        console.log(this.intersections);
     },
 
     levelComplete: function ()
@@ -384,7 +474,10 @@ var Ghosts = new Phaser.Class({
 
         this.classType = Ghost;
 
-        this.addGhost(12, 11, 'blinky');
+        this.addGhost(16, 11, 'blinky');
+        this.addGhost(12, 11, 'pinky');
+        this.addGhost(14, 9, 'inky');
+        this.addGhost(12, 6, 'clyde');
     },
 
     addGhost: function (x, y, type)
@@ -537,42 +630,39 @@ var Ghost = new Phaser.Class({
                 return;
             }
 
+            var wasHeading = this.direction;
+
             //  Stop their movement?
-            if (this.canMove[this.direction] === false)
+            if (this.canMove[this.direction] === false || this.state.intersections[y][x] !== 0)
             {
                 this.direction = Phaser.NONE;
-                this.anims.stop();
             }
 
-            //  Set a new direction (for now it'll just be random)
-            //  Give it a 5% chance of changing direction
-
-            if (Math.random() < 0.05 || this.direction === Phaser.NONE)
+            if (this.direction === Phaser.NONE)
             {
                 var options = [];
 
-                if (this.canMove[Phaser.LEFT])
+                if (this.canMove[Phaser.LEFT] && wasHeading !== Phaser.RIGHT)
                 {
                     options.push(Phaser.LEFT);
                 }
 
-                if (this.canMove[Phaser.RIGHT])
+                if (this.canMove[Phaser.RIGHT] && wasHeading !== Phaser.LEFT)
                 {
                     options.push(Phaser.RIGHT);
                 }
 
-                if (this.canMove[Phaser.UP])
+                if (this.canMove[Phaser.UP] && wasHeading !== Phaser.DOWN)
                 {
                     options.push(Phaser.UP);
                 }
 
-                if (this.canMove[Phaser.DOWN])
+                if (this.canMove[Phaser.DOWN] && wasHeading !== Phaser.UP)
                 {
                     options.push(Phaser.DOWN);
                 }
 
                 this.direction = Phaser.Math.RND.pick(options);
-
             }
         }
     }

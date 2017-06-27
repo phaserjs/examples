@@ -12,6 +12,8 @@ var PacmanGame = new Phaser.Class({
 
         this.dots;
         this.pacman;
+
+        this.debug;
     },
 
     preload: function ()
@@ -30,6 +32,8 @@ var PacmanGame = new Phaser.Class({
         this.dots = new Dots(this);
 
         this.parseMapData();
+
+        this.debug = this.add.graphics();
 
         this.pacman = new Pacman(this);
     },
@@ -145,9 +149,16 @@ var Pacman = new Phaser.Class({
 
         this.setOrigin(0);
 
-        this.direction = Phaser.RIGHT;
+        this.speed = 2;
         this.heading = Phaser.NONE;
-        this.canMove = { LEFT: true, RIGHT: true, UP: false, DOWN: false };
+        this.direction = Phaser.RIGHT;
+
+        this.canMove = {};
+
+        this.canMove[Phaser.LEFT] = true;
+        this.canMove[Phaser.RIGHT] = true;
+        this.canMove[Phaser.UP] = false;
+        this.canMove[Phaser.DOWN] = false;
 
         this.state.anims.create({
             key: 'left',
@@ -192,7 +203,6 @@ var Pacman = new Phaser.Class({
         this.body.setTypeA().setCheckAgainstB().setActive();
 
         this.body.collideWith = this.collideWith;
-        this.body.handleMovementTrace = this.handleMovementTrace.bind(this);
 
         this.cursors = this.state.input.keyboard.createCursorKeys();
     },
@@ -208,18 +218,38 @@ var Pacman = new Phaser.Class({
         if (this.cursors.left.isDown)
         {
             this.heading = Phaser.LEFT;
+
+            if (this.direction === Phaser.RIGHT)
+            {
+                this.direction = Phaser.LEFT;
+            }
         }
         else if (this.cursors.right.isDown)
         {
             this.heading = Phaser.RIGHT;
+
+            if (this.direction === Phaser.LEFT)
+            {
+                this.direction = Phaser.RIGHT;
+            }
         }
         else if (this.cursors.up.isDown)
         {
             this.heading = Phaser.UP;
+
+            if (this.direction === Phaser.DOWN)
+            {
+                this.direction = Phaser.UP;
+            }
         }
         else if (this.cursors.down.isDown)
         {
             this.heading = Phaser.DOWN;
+
+            if (this.direction === Phaser.UP)
+            {
+                this.direction = Phaser.DOWN;
+            }
         }
         else
         {
@@ -231,63 +261,98 @@ var Pacman = new Phaser.Class({
     {
         this.checkCursors();
 
-        //  Simple direction change
-        if (this.heading === Phaser.LEFT && this.canMove.LEFT)
+        switch (this.direction)
         {
-            this.body.setVelocity(-200, 0);
-            this.play('left', true);
-            this.direction = Phaser.LEFT;
-            this.canMove.LEFT = false;
-            this.canMove.RIGHT = true;
+            case Phaser.LEFT:
+                this.body.pos.x -= this.speed;
+                this.play('left', true);
+                break;
+
+            case Phaser.RIGHT:
+                this.body.pos.x += this.speed;
+                this.play('right', true);
+                break;
+
+            case Phaser.UP:
+                this.body.pos.y -= this.speed;
+                this.play('up', true);
+                break;
+
+            case Phaser.DOWN:
+                this.body.pos.y += this.speed;
+                this.play('down', true);
+                break;
         }
-        else if (this.heading === Phaser.RIGHT && this.canMove.RIGHT)
-        {
-            this.body.setVelocity(200, 0);
-            this.play('right', true);
-            this.direction = Phaser.RIGHT;
-            this.canMove.LEFT = true;
-            this.canMove.RIGHT = false;
-        }
-        else if (this.heading === Phaser.UP && this.canMove.UP)
-        {
-            this.body.setVelocity(0, -200);
-            this.play('up', true);
-            this.direction = Phaser.UP;
-            this.canMove.UP = false;
-            this.canMove.DOWN = true;
-        }
-        else if (this.heading === Phaser.DOWN && this.canMove.DOWN)
-        {
-            this.body.setVelocity(0, 200);
-            this.play('down', true);
-            this.direction = Phaser.DOWN;
-            this.canMove.UP = true;
-            this.canMove.DOWN = false;
-        }
+            
+        this.updateDirection();
 
         this.x = this.body.pos.x;
         this.y = this.body.pos.y;
     },
 
-    handleMovementTrace: function (res)
+    updateDirection: function ()
     {
-        if (res.collision.x || res.collision.y)
+        var x = Math.floor(this.body.pos.x / 16);
+        var y = Math.floor(this.body.pos.y / 16);
+        var map = this.state.world.collisionMap.data;
+
+        this.canMove[Phaser.LEFT] = (map[y][x - 1] === 0);
+        this.canMove[Phaser.RIGHT] = (map[y][x + 1] === 0);
+        this.canMove[Phaser.UP] = (map[y - 1][x] === 0);
+        this.canMove[Phaser.DOWN] = (map[y + 1][x] === 0);
+
+        //  At a grid junction
+        if (this.body.pos.x % 16 === 0 && this.body.pos.y % 16 === 0)
         {
-            //  We hit a tile, now work out where we can move
-            var x = res.pos.x / 16;
-            var y = res.pos.y / 16;
-            var map = this.state.world.collisionMap.data;
+            //  Stop their movement?
+            if (this.canMove[this.direction] === false)
+            {
+                this.direction = Phaser.NONE;
+            }
 
-            this.canMove.LEFT = (map[y][x - 1] === 0);
-            this.canMove.RIGHT = (map[y][x + 1] === 0);
-            this.canMove.UP = (map[y - 1][x] === 0);
-            this.canMove.DOWN = (map[y + 1][x] === 0);
-
-            console.log(this.canMove);
+            //  Set a new direction
+            if (this.heading !== this.direction)
+            {
+                if (this.heading === Phaser.LEFT && this.canMove[this.heading])
+                {
+                    this.direction = Phaser.LEFT;
+                }
+                else if (this.heading === Phaser.RIGHT && this.canMove[this.heading])
+                {
+                    this.direction = Phaser.RIGHT;
+                }
+                else if (this.heading === Phaser.UP && this.canMove[this.heading])
+                {
+                    this.direction = Phaser.UP;
+                }
+                else if (this.heading === Phaser.DOWN && this.canMove[this.heading])
+                {
+                    this.direction = Phaser.DOWN;
+                }
+            }
         }
 
-        return true;
-    },
+        /*
+        var g = this.state.debug;
+        var p = this.body.pos;
+        var w = this.body.size.x;
+        var h = this.body.size.y;
+
+        g.clear();
+
+        g.fillStyle((this.canMove.LEFT) ? 0x00ff00 : 0xff0000, 0.5);
+        g.fillRect((x - 1) * 16, y * 16, w, h);
+
+        g.fillStyle((this.canMove.RIGHT) ? 0x00ff00 : 0xff0000, 0.5);
+        g.fillRect((x + 1) * 16, y * 16, w, h);
+
+        g.fillStyle((this.canMove.UP) ? 0x00ff00 : 0xff0000, 0.5);
+        g.fillRect(x * 16, (y - 1) * 16, w, h);
+
+        g.fillStyle((this.canMove.DOWN) ? 0x00ff00 : 0xff0000, 0.5);
+        g.fillRect(x * 16, (y + 1) * 16, w, h);
+        */
+    }
 
 });
 

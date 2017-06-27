@@ -15,6 +15,8 @@ var PacmanGame = new Phaser.Class({
         this.ghosts;
         this.pacman;
 
+        this.offset = new Phaser.Geom.Point(375, 64);
+
         this.intersections;
     },
 
@@ -25,6 +27,7 @@ var PacmanGame = new Phaser.Class({
     preload: function ()
     {
         this.load.image('map', 'assets/games/pacman/map.png');
+        this.load.image('bezel', 'assets/games/pacman/bezel600.png');
         this.load.json('mapData', 'assets/games/pacman/map.json');
         this.load.spritesheet('dots', 'assets/games/pacman/dots.png', { frameWidth: 16, frameHeight: 16 });
         this.load.spritesheet('sprites', 'assets/games/pacman/sprites32.png', { frameWidth: 32, frameHeight: 32 });
@@ -74,8 +77,9 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'die',
             frames: this.anims.generateFrameNumbers('sprites', { start: 11, end: 21 }),
-            framerate: 4,
-            repeat: -1
+            framerate: 8,
+            onComplete: this.playDeathOver,
+            callbackScope: this
         });
 
         //  Ghosts
@@ -200,6 +204,20 @@ var PacmanGame = new Phaser.Class({
             repeat: -1
         });
 
+        this.anims.create({
+            key: 'frightened',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 77, end: 78 }),
+            framerate: 16,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'frightenedOut',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 77, end: 80 }),
+            framerate: 16,
+            repeat: -1
+        });
+
     },
 
     create: function ()
@@ -208,7 +226,7 @@ var PacmanGame = new Phaser.Class({
 
         this.world = new Phaser.Physics.Impact.World();
 
-        this.add.image(0, 0, 'map').setOrigin(0);
+        this.add.image(this.offset.x, this.offset.y, 'map').setOrigin(0);
 
         this.dots = new Dots(this);
 
@@ -220,7 +238,15 @@ var PacmanGame = new Phaser.Class({
 
         this.events.on('LEVEL_COMPLETE', this.levelComplete.bind(this));
 
+        this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'bezel');
+
         console.log('Dots left', this.dots.left);
+    },
+
+    playDeathOver: function ()
+    {
+        this.ghosts.reset();
+        this.pacman.reset();
     },
 
     parseMapData: function ()
@@ -243,6 +269,7 @@ var PacmanGame = new Phaser.Class({
 
         mapData.forEach(function (current, index, array) {
 
+            //  28 = map width (in tiles)
             var x = index % 28;
             var y = Math.floor(index / 28);
 
@@ -309,8 +336,6 @@ var PacmanGame = new Phaser.Class({
             }
 
         });
-
-        console.log(this.intersections);
     },
 
     levelComplete: function ()
@@ -412,9 +437,12 @@ var Dot = new Phaser.Class({
     {
         Phaser.GameObjects.Sprite.call(this, state, x, y, key, frame);
 
+        this.x += state.offset.x;
+        this.y += state.offset.y;
+
         this.isPowerDot = (frame === 1);
 
-        this.gridPos = { x: x, y: y, gx: x / 16, gy: y / 16 };
+        this.spawnPos = { x: x, y: y, gx: x / 16, gy: y / 16 };
 
         this.name = 'dot';
 
@@ -452,8 +480,8 @@ var Dot = new Phaser.Class({
 
     reset: function ()
     {
-        this.body.pos.x = this.gridPos.x;
-        this.body.pos.y = this.gridPos.y;
+        this.body.pos.x = this.spawnPos.x;
+        this.body.pos.y = this.spawnPos.y;
 
         this.body.enabled = true;
 
@@ -474,24 +502,26 @@ var Ghosts = new Phaser.Class({
 
         this.classType = Ghost;
 
-        this.addGhost(16, 11, 'blinky');
-        this.addGhost(12, 11, 'pinky');
-        this.addGhost(14, 9, 'inky');
-        this.addGhost(12, 6, 'clyde');
+        this.blinky = this.create(16, 14, 'blinky');
+        this.pinky = this.create(12, 14, 'pinky');
+        this.inky = this.create(14, 12, 'inky');
+        this.clyde = this.create(12, 9, 'clyde');
     },
 
-    addGhost: function (x, y, type)
+    hide: function ()
     {
-        var ghost = this.create(x, y, type);
+        this.blinky.hide();
+        this.pinky.hide();
+        this.inky.hide();
+        this.clyde.hide();
     },
 
     reset: function ()
     {
-        this.children.iterate(function (child) {
-
-            child.reset();
-
-        });
+        this.blinky.reset();
+        this.pinky.reset();
+        this.inky.reset();
+        this.clyde.reset();
     }
 
 });
@@ -507,6 +537,8 @@ var Ghost = new Phaser.Class({
         Phaser.GameObjects.Sprite.call(this, state, x * 16, y * 16, 'sprites', 26);
 
         state.children.add(this);
+
+        this.spawnPos = { x: x * 16, y: y * 16, gx: x, gy: y };
 
         this.name = type;
 
@@ -526,7 +558,7 @@ var Ghost = new Phaser.Class({
         //  Valid modes are Chase, Scatter and Frightened (edible)
         this.mode = 'chase';
 
-        this.state.events.on('POWER_UP', this.canBeEaten);
+        this.state.events.on('POWER_UP', this.canBeEaten.bind(this));
 
         //  Physics Body
 
@@ -535,22 +567,23 @@ var Ghost = new Phaser.Class({
         this.body.parent = this;
 
         this.body.setTypeB().setCheckAgainstA().setLite();
-
-        this.body.collideWith = this.collideWith;
     },
 
-    collideWith: function (body, axis)
+    hide: function ()
     {
+        this.body.enabled = false;
 
+        this.visible = false;
     },
 
     reset: function ()
     {
-        // this.body.pos.x = 13 * 16;
-        // this.body.pos.y = 23 * 16;
+        this.body.enabled = true;
+        this.body.pos.x = this.spawnPos.x;
+        this.body.pos.y = this.spawnPos.y;
 
-        // this.x = this.body.pos.x + 8;
-        // this.y = this.body.pos.y + 8;
+        this.x = this.state.offset.x + this.body.pos.x + 8;
+        this.y = this.state.offset.y + this.body.pos.y + 8;
 
         this.speed = 2;
         this.heading = Phaser.NONE;
@@ -562,44 +595,88 @@ var Ghost = new Phaser.Class({
         this.canMove[Phaser.DOWN] = false;
 
         this.edible = false;
+        this.visible = true;
     },
 
     canBeEaten: function ()
     {
         this.edible = true;
 
+        this.speed = 1;
+
+        this.play('frightened');
+
         //  Start timer, etc
+    },
+
+    wasEaten: function ()
+    {
+        //  Drop score sprite
+
+        //  Eyes mode
+
+        this.reset();
     },
 
     update: function (time, delta)
     {
+        if (!this.visible)
+        {
+            return;
+        }
+
         switch (this.direction)
         {
             case Phaser.LEFT:
+
                 this.body.pos.x -= this.speed;
-                this.play(this.name + 'Left', true);
+
+                if (!this.edible)
+                {
+                    this.play(this.name + 'Left', true);
+                }
+
                 break;
 
             case Phaser.RIGHT:
+
                 this.body.pos.x += this.speed;
-                this.play(this.name + 'Right', true);
+
+
+                if (!this.edible)
+                {
+                    this.play(this.name + 'Right', true);
+                }
+
                 break;
 
             case Phaser.UP:
+
                 this.body.pos.y -= this.speed;
-                this.play(this.name + 'Up', true);
+
+                if (!this.edible)
+                {
+                    this.play(this.name + 'Up', true);
+                }
+
                 break;
 
             case Phaser.DOWN:
+
                 this.body.pos.y += this.speed;
-                this.play(this.name + 'Down', true);
+
+                if (!this.edible)
+                {
+                    this.play(this.name + 'Down', true);
+                }
+
                 break;
         }
             
         this.updateDirection();
 
-        this.x = this.body.pos.x + 8;
-        this.y = this.body.pos.y + 8;
+        this.x = this.state.offset.x + this.body.pos.x + 8;
+        this.y = this.state.offset.y + this.body.pos.y + 8;
     },
 
     updateDirection: function ()
@@ -617,13 +694,13 @@ var Ghost = new Phaser.Class({
         if (this.body.pos.x % 16 === 0 && this.body.pos.y % 16 === 0)
         {
             //  First check if they're wrapping around the edge of the map
-            if (x === 0 && y === 14)
+            if (x === 0 && y === 17)
             {
                 //  From left edge to right
                 this.body.pos.x = 27 * 16;
                 return;
             }
-            else if (x === 27 && y === 14)
+            else if (x === 27 && y === 17)
             {
                 //  From right edge to left
                 this.body.pos.x = 0;
@@ -633,7 +710,7 @@ var Ghost = new Phaser.Class({
             var wasHeading = this.direction;
 
             //  Stop their movement?
-            if (this.canMove[this.direction] === false || this.state.intersections[y][x] !== 0)
+            if (this.canMove[this.direction] === false || this.state.intersections[y][x] !== 0 || this.edible)
             {
                 this.direction = Phaser.NONE;
             }
@@ -669,7 +746,6 @@ var Ghost = new Phaser.Class({
 
 });
 
-
 var Pacman = new Phaser.Class({
 
     Extends: Phaser.GameObjects.Sprite,
@@ -678,8 +754,7 @@ var Pacman = new Phaser.Class({
 
     function Pacman (state)
     {
-        // Phaser.GameObjects.Sprite.call(this, state, 13 * 16, 15 * 16, 'sprites', 14);
-        Phaser.GameObjects.Sprite.call(this, state, 13 * 16, 23 * 16, 'sprites', 14);
+        Phaser.GameObjects.Sprite.call(this, state, 13 * 16, 26 * 16, 'sprites', 14);
 
         state.children.add(this);
 
@@ -694,13 +769,13 @@ var Pacman = new Phaser.Class({
         this.canMove[Phaser.UP] = false;
         this.canMove[Phaser.DOWN] = false;
 
-        this.canEatGhosts = false;
-
-        this.state.events.on('POWER_UP', this.activatePowerUp);
+        this.alive = true;
 
         //  Physics Body
 
         this.body = this.state.world.create(this.x, this.y, 16, 16);
+
+        this.body.parent = this;
 
         this.body.setTypeA().setCheckAgainstB().setActive();
 
@@ -711,11 +786,14 @@ var Pacman = new Phaser.Class({
 
     reset: function ()
     {
+        this.alive = true;
+
         this.body.pos.x = 13 * 16;
         this.body.pos.y = 23 * 16;
+        this.body.enabled = true;
 
-        this.x = this.body.pos.x + 8;
-        this.y = this.body.pos.y + 8;
+        this.x = this.state.offset.x + this.body.pos.x + 8;
+        this.y = this.state.offset.y + this.body.pos.y + 8;
 
         this.speed = 2;
         this.heading = Phaser.NONE;
@@ -725,16 +803,6 @@ var Pacman = new Phaser.Class({
         this.canMove[Phaser.RIGHT] = true;
         this.canMove[Phaser.UP] = false;
         this.canMove[Phaser.DOWN] = false;
-
-        this.canEatGhosts = false;
-    },
-
-    activatePowerUp: function ()
-    {
-        console.log('munch munch');
-
-        //  Start a timer going
-        this.canEatGhosts = true;
     },
 
     collideWith: function (body, axis)
@@ -747,8 +815,23 @@ var Pacman = new Phaser.Class({
         else
         {
             //  Ghost!
-        }
 
+            if (body.parent.edible)
+            {
+                body.parent.wasEaten();
+            }
+            else
+            {
+                //  RIP
+                this.parent.state.ghosts.hide();
+
+                this.enabled = false;
+
+                this.parent.alive = false;
+
+                this.parent.play('die');
+            }
+        }
     },
 
     checkCursors: function ()
@@ -797,6 +880,11 @@ var Pacman = new Phaser.Class({
 
     update: function (time, delta)
     {
+        if (!this.alive)
+        {
+            return;
+        }
+
         this.checkCursors();
 
         switch (this.direction)
@@ -824,8 +912,8 @@ var Pacman = new Phaser.Class({
             
         this.updateDirection();
 
-        this.x = this.body.pos.x + 8;
-        this.y = this.body.pos.y + 8;
+        this.x = this.state.offset.x + this.body.pos.x + 8;
+        this.y = this.state.offset.y + this.body.pos.y + 8;
     },
 
     updateDirection: function ()
@@ -843,13 +931,13 @@ var Pacman = new Phaser.Class({
         if (this.body.pos.x % 16 === 0 && this.body.pos.y % 16 === 0)
         {
             //  First check if they're wrapping around the edge of the map
-            if (x === 0 && y === 14)
+            if (x === 0 && y === 17)
             {
                 //  From left edge to right
                 this.body.pos.x = 27 * 16;
                 return;
             }
-            else if (x === 27 && y === 14)
+            else if (x === 27 && y === 17)
             {
                 //  From right edge to left
                 this.body.pos.x = 0;
@@ -890,8 +978,8 @@ var Pacman = new Phaser.Class({
 
 var config = {
     type: Phaser.WEBGL,
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 680,
     backgroundColor: '#000000',
     parent: 'phaser-example',
     state: PacmanGame

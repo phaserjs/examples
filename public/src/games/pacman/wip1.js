@@ -204,20 +204,36 @@ var PacmanGame = new Phaser.Class({
             repeat: -1
         });
 
+        //  Ghost death
+
         this.anims.create({
             key: 'frightened',
             frames: this.anims.generateFrameNumbers('sprites', { start: 77, end: 78 }),
             framerate: 16,
-            repeat: -1
+            repeat: 50,
+            onComplete: this.setFrightenedOut,
+            callbackScope: this
         });
 
         this.anims.create({
             key: 'frightenedOut',
             frames: this.anims.generateFrameNumbers('sprites', { start: 77, end: 80 }),
             framerate: 16,
-            repeat: -1
+            repeat: 10,
+            onComplete: this.setFrightenedOver,
+            callbackScope: this
         });
 
+    },
+
+    setFrightenedOut: function (sprite)
+    {
+        sprite.play('frightenedOut');
+    },
+
+    setFrightenedOver: function (sprite)
+    {
+        sprite.removeEdible();
     },
 
     create: function ()
@@ -616,6 +632,13 @@ var Ghost = new Phaser.Class({
         //  Eyes mode
 
         this.reset();
+    },
+
+    removeEdible: function ()
+    {
+        this.edible = false;
+
+        this.speed = 2;
     },
 
     update: function (time, delta)

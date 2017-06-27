@@ -26,6 +26,14 @@ var PacmanGame = new Phaser.Class({
 
     create: function ()
     {
+        //  Create the powerDot animation
+        this.anims.create({
+            key: 'powerDot',
+            frames: this.anims.generateFrameNumbers('dots', { start: 1, end: 2 }),
+            framerate: 5,
+            repeat: -1
+        });
+
         this.world = new Phaser.Physics.Impact.World();
 
         this.add.image(0, 0, 'map').setOrigin(0);
@@ -97,6 +105,8 @@ var Dots = new Phaser.Class({
         Phaser.GameObjects.Group.call(this, state);
 
         this.classType = Dot;
+
+        this.left = 0;
     },
 
     addDot: function (x, y)
@@ -104,6 +114,8 @@ var Dots = new Phaser.Class({
         var dot = this.create(x, y, 'dots', 0);
 
         dot.setOrigin(0);
+
+        this.left++;
     },
 
     addPowerDot: function (x, y)
@@ -111,6 +123,8 @@ var Dots = new Phaser.Class({
         var dot = this.create(x, y, 'dots', 1);
 
         dot.setOrigin(0);
+
+        this.left++;
     }
 
 });
@@ -129,21 +143,29 @@ var Dot = new Phaser.Class({
 
         this.body = state.world.create(x, y, 16, 16);
 
+        this.body.setTypeB().setCheckAgainstA().setLite();
+
         this.body.parent = this;
 
-        this.body.setTypeB().setCheckAgainstA().setLite();
+        this.body.collideWith = this.collideWith;
 
         if (this.isPowerDot)
         {
-            this.state.anims.create({
-                key: 'powerDot',
-                frames: this.state.anims.generateFrameNumbers('dots', { start: 1, end: 2 }),
-                framerate: 5,
-                repeat: -1
-            });
-
             this.play('powerDot');
         }
+    },
+
+    collideWith: function (pacman, axis)
+    {
+        //  The scope within this callback is the Body
+
+        this.enabled = false;
+
+        this.parent.visible = false;
+
+        this.parent.state.dots.left--;
+
+        //  play sound
     }
 
 });
@@ -318,6 +340,7 @@ var Pacman = new Phaser.Class({
             if (this.canMove[this.direction] === false)
             {
                 this.direction = Phaser.NONE;
+                this.anims.stop();
             }
 
             //  Set a new direction

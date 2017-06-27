@@ -11,9 +11,11 @@ var PacmanGame = new Phaser.Class({
         Phaser.State.call(this);
 
         this.world;
+
         this.dots;
         this.ghosts;
         this.pacman;
+        this.points;
 
         this.offset = new Phaser.Geom.Point(375, 64);
 
@@ -224,16 +226,54 @@ var PacmanGame = new Phaser.Class({
             callbackScope: this
         });
 
-    },
+        //  88 = Apple
+        //  89 = Orange
+        //  90 = Strawberry
+        //  91 = Cherries
+        //  92 = Melon
+        //  93 = Galaga
+        //  94 = Bell
+        //  95 = Key
 
-    setFrightenedOut: function (sprite)
-    {
-        sprite.play('frightenedOut');
-    },
+        //  Points
 
-    setFrightenedOver: function (sprite)
-    {
-        sprite.removeEdible();
+        //  110 = 200 points
+        //  111 = 400 points
+        //  112 = 800 points
+        //  113 = 1600 points
+
+        this.anims.create({
+            key: 'points200',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 110, end: 110 }),
+            framerate: 1,
+            onComplete: this.removePoints,
+            callbackScope: this
+        });
+
+        this.anims.create({
+            key: 'points400',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 111, end: 111 }),
+            framerate: 1,
+            onComplete: this.removePoints,
+            callbackScope: this
+        });
+
+        this.anims.create({
+            key: 'points800',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 112, end: 112 }),
+            framerate: 1,
+            onComplete: this.removePoints,
+            callbackScope: this
+        });
+
+        this.anims.create({
+            key: 'points1600',
+            frames: this.anims.generateFrameNumbers('sprites', { start: 113, end: 113 }),
+            framerate: 1,
+            onComplete: this.removePoints,
+            callbackScope: this
+        });
+
     },
 
     create: function ()
@@ -245,6 +285,8 @@ var PacmanGame = new Phaser.Class({
         this.add.image(this.offset.x, this.offset.y, 'map').setOrigin(0);
 
         this.dots = new Dots(this);
+
+        this.points = new Points(this);
 
         this.parseMapData();
 
@@ -263,6 +305,23 @@ var PacmanGame = new Phaser.Class({
     {
         this.ghosts.reset();
         this.pacman.reset();
+    },
+
+    setFrightenedOut: function (sprite)
+    {
+        sprite.play('frightenedOut');
+    },
+
+    setFrightenedOver: function (sprite)
+    {
+        sprite.removeEdible();
+
+        this.points.current = 0;
+    },
+
+    removePoints: function (sprite)
+    {
+        sprite.visible = false;
     },
 
     parseMapData: function ()
@@ -572,7 +631,7 @@ var Ghost = new Phaser.Class({
         this.edible = false;
 
         //  Valid modes are Chase, Scatter and Frightened (edible)
-        this.mode = 'chase';
+        // this.mode = 'chase';
 
         this.state.events.on('POWER_UP', this.canBeEaten.bind(this));
 
@@ -629,6 +688,8 @@ var Ghost = new Phaser.Class({
     {
         //  Drop score sprite
 
+        this.state.points.show(this.x, this.y);
+
         //  Eyes mode
 
         this.reset();
@@ -639,6 +700,16 @@ var Ghost = new Phaser.Class({
         this.edible = false;
 
         this.speed = 2;
+
+        if (!Phaser.Math.IsEven(this.body.pos.x))
+        {
+            this.body.pos.x++;
+        }
+
+        if (!Phaser.Math.IsEven(this.body.pos.y))
+        {
+            this.body.pos.y++;
+        }
     },
 
     update: function (time, delta)
@@ -664,7 +735,6 @@ var Ghost = new Phaser.Class({
             case Phaser.RIGHT:
 
                 this.body.pos.x += this.speed;
-
 
                 if (!this.edible)
                 {
@@ -708,10 +778,17 @@ var Ghost = new Phaser.Class({
         var y = Math.floor(this.body.pos.y / 16);
         var map = this.state.world.collisionMap.data;
 
-        this.canMove[Phaser.LEFT] = (map[y][x - 1] === 0);
-        this.canMove[Phaser.RIGHT] = (map[y][x + 1] === 0);
-        this.canMove[Phaser.UP] = (map[y - 1][x] === 0 || map[y - 1][x] === 12);
-        this.canMove[Phaser.DOWN] = (map[y + 1][x] === 0);
+        try {
+            this.canMove[Phaser.LEFT] = (map[y][x - 1] === 0);
+            this.canMove[Phaser.RIGHT] = (map[y][x + 1] === 0);
+            this.canMove[Phaser.UP] = (map[y - 1][x] === 0 || map[y - 1][x] === 12);
+            this.canMove[Phaser.DOWN] = (map[y + 1][x] === 0);
+        }
+        catch (e)
+        {
+            console.log('Uh oh!', e);
+            console.log(this);
+        }
 
         //  At a grid junction
         if (this.body.pos.x % 16 === 0 && this.body.pos.y % 16 === 0)
@@ -769,6 +846,62 @@ var Ghost = new Phaser.Class({
 
 });
 
+var Points = new Phaser.Class({
+
+    Extends: Phaser.GameObjects.Group,
+
+    initialize:
+
+    function Points (state)
+    {
+        Phaser.GameObjects.Group.call(this, state);
+
+        this.current = 0;
+
+        this.points200 = this.create(0, 0, 'sprites', 110);
+        this.points400 = this.create(0, 0, 'sprites', 111);
+        this.points800 = this.create(0, 0, 'sprites', 112);
+        this.points1600 = this.create(0, 0, 'sprites', 113);
+
+        this.setVisible(false);
+    },
+
+    show: function (x, y)
+    {
+        if (this.current === 0)
+        {
+            this.points200.setPosition(x, y).setVisible(true).play('points200');
+        }
+        else if (this.current === 1)
+        {
+            this.points400.setPosition(x, y).setVisible(true).play('points400');
+        }
+        else if (this.current === 2)
+        {
+            this.points800.setPosition(x, y).setVisible(true).play('points800');
+        }
+        else if (this.current === 3)
+        {
+            this.points1600.setPosition(x, y).setVisible(true).play('points1600');
+        }
+
+        this.current++;
+
+        if (this.current === 4)
+        {
+            this.current = 0;
+        }
+    },
+
+    reset: function ()
+    {
+        this.current = 0;
+
+        this.setVisible(false);
+    }
+
+});
+
 var Pacman = new Phaser.Class({
 
     Extends: Phaser.GameObjects.Sprite,
@@ -812,7 +945,7 @@ var Pacman = new Phaser.Class({
         this.alive = true;
 
         this.body.pos.x = 13 * 16;
-        this.body.pos.y = 23 * 16;
+        this.body.pos.y = 26 * 16;
         this.body.enabled = true;
 
         this.x = this.state.offset.x + this.body.pos.x + 8;

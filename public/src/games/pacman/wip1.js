@@ -20,7 +20,8 @@ var PacmanGame = new Phaser.Class({
     {
         this.load.image('map', 'assets/games/pacman/map.png');
         this.load.json('mapData', 'assets/games/pacman/map.json');
-        this.load.spritesheet('sprites', 'assets/games/pacman/sprites.png', { frameWidth: 16, frameHeight: 16 });
+        this.load.spritesheet('sprites', 'assets/games/pacman/sprites.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('dots', 'assets/games/pacman/dots.png', { frameWidth: 16, frameHeight: 16 });
     },
 
     create: function ()
@@ -100,14 +101,14 @@ var Dots = new Phaser.Class({
 
     addDot: function (x, y)
     {
-        var dot = this.create(x, y, 'sprites', 0);
+        var dot = this.create(x, y, 'dots', 0);
 
         dot.setOrigin(0);
     },
 
     addPowerDot: function (x, y)
     {
-        var dot = this.create(x, y, 'sprites', 1);
+        var dot = this.create(x, y, 'dots', 1);
 
         dot.setOrigin(0);
     }
@@ -116,13 +117,13 @@ var Dots = new Phaser.Class({
 
 var Dot = new Phaser.Class({
 
-    Extends: Phaser.GameObjects.Image,
+    Extends: Phaser.GameObjects.Sprite,
 
     initialize:
 
     function Dot (state, x, y, key, frame)
     {
-        Phaser.GameObjects.Image.call(this, state, x, y, key, frame);
+        Phaser.GameObjects.Sprite.call(this, state, x, y, key, frame);
 
         this.isPowerDot = (frame === 1);
 
@@ -131,6 +132,18 @@ var Dot = new Phaser.Class({
         this.body.parent = this;
 
         this.body.setTypeB().setCheckAgainstA().setLite();
+
+        if (this.isPowerDot)
+        {
+            this.state.anims.create({
+                key: 'powerDot',
+                frames: this.state.anims.generateFrameNumbers('dots', { start: 1, end: 2 }),
+                framerate: 5,
+                repeat: -1
+            });
+
+            this.play('powerDot');
+        }
     }
 
 });
@@ -147,11 +160,9 @@ var Pacman = new Phaser.Class({
 
         state.children.add(this);
 
-        this.setOrigin(0);
-
         this.speed = 2;
         this.heading = Phaser.NONE;
-        this.direction = Phaser.RIGHT;
+        this.direction = Phaser.LEFT;
 
         this.canMove = {};
 
@@ -162,36 +173,36 @@ var Pacman = new Phaser.Class({
 
         this.state.anims.create({
             key: 'left',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 28, end: 29 }),
-            framerate: 10,
+            frames: this.state.anims.generateFrameNumbers('sprites', { start: 14, end: 15 }),
+            framerate: 16,
             repeat: -1
         });
 
         this.state.anims.create({
             key: 'right',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 14, end: 15 }),
-            framerate: 10,
+            frames: this.state.anims.generateFrameNumbers('sprites', { start: 0, end: 1 }),
+            framerate: 16,
             repeat: -1
         });
 
         this.state.anims.create({
             key: 'up',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 42, end: 43 }),
-            framerate: 10,
+            frames: this.state.anims.generateFrameNumbers('sprites', { start: 28, end: 29 }),
+            framerate: 16,
             repeat: -1
         });
 
         this.state.anims.create({
             key: 'down',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 56, end: 57 }),
-            framerate: 10,
+            frames: this.state.anims.generateFrameNumbers('sprites', { start: 42, end: 43 }),
+            framerate: 16,
             repeat: -1
         });
 
         this.state.anims.create({
             key: 'die',
-            frames: this.state.anims.generateFrameNumbers('sprites', { start: 16, end: 27 }),
-            framerate: 10,
+            frames: this.state.anims.generateFrameNumbers('sprites', { start: 2, end: 13 }),
+            framerate: 4,
             repeat: -1
         });
 
@@ -199,7 +210,6 @@ var Pacman = new Phaser.Class({
 
         this.body = this.state.world.create(this.x, this.y, 16, 16);
 
-        this.body.setMaxVelocity(200, 200);
         this.body.setTypeA().setCheckAgainstB().setActive();
 
         this.body.collideWith = this.collideWith;
@@ -286,8 +296,8 @@ var Pacman = new Phaser.Class({
             
         this.updateDirection();
 
-        this.x = this.body.pos.x;
-        this.y = this.body.pos.y;
+        this.x = this.body.pos.x + 8;
+        this.y = this.body.pos.y + 8;
     },
 
     updateDirection: function ()

@@ -1,4 +1,5 @@
 // http://gameinternals.com/post/2072558330/understanding-pac-man-ghost-behavior
+//  28th June 2017
 
 var PacmanGame = new Phaser.Class({
 

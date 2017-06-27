@@ -17,6 +17,8 @@ var PacmanGame = new Phaser.Class({
         this.pacman;
         this.points;
 
+
+
         this.offset = new Phaser.Geom.Point(375, 64);
 
         this.intersections;
@@ -29,6 +31,8 @@ var PacmanGame = new Phaser.Class({
     preload: function ()
     {
         this.load.image('map', 'assets/games/pacman/map.png');
+        this.load.image('ready', 'assets/games/pacman/ready.png');
+        this.load.image('namcoFont', 'assets/games/pacman/font.png');
         this.load.image('bezel', 'assets/games/pacman/bezel600.png');
         this.load.json('mapData', 'assets/games/pacman/map.json');
         this.load.spritesheet('dots', 'assets/games/pacman/dots.png', { frameWidth: 16, frameHeight: 16 });
@@ -276,9 +280,22 @@ var PacmanGame = new Phaser.Class({
 
     },
 
+    createFont: function ()
+    {
+        var config = {
+            image: 'namcoFont',
+            width: 16,
+            height: 16,
+            chars: Phaser.GameObjects.BitmapText.ParseRetroFont.TEXT_SET2
+        };
+
+        this.cache.bitmapFont.add('namcoFont', Phaser.GameObjects.BitmapText.ParseRetroFont(this, config));
+    },
+
     create: function ()
     {
         this.createAnimations();
+        this.createFont();
 
         this.world = new Phaser.Physics.Impact.World();
 
@@ -294,9 +311,24 @@ var PacmanGame = new Phaser.Class({
 
         this.pacman = new Pacman(this);
 
-        this.events.on('LEVEL_COMPLETE', this.levelComplete.bind(this));
+        //  Ready
+        this.paused = true;
+
+        var ready = this.add.image(this.offset.x + 9 * 16, this.offset.y + 14 * 16, 'ready').setOrigin(0);
+
+        this.add.bitmapText(this.offset.x + 9 * 16, this.offset.y + 8, 'namcoFont', 'HIGH SCORE\n    1570');
 
         this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'bezel');
+
+        this.events.on('LEVEL_COMPLETE', this.levelComplete.bind(this));
+
+        TweenMax.delayedCall(3, function () {
+
+            this.paused = false;
+
+            ready.visible = false;
+
+        }, [], this);
 
         console.log('Dots left', this.dots.left);
     },
@@ -428,11 +460,14 @@ var PacmanGame = new Phaser.Class({
 
     update: function (time, delta)
     {
-        this.world.update(time, delta);
+        if (!this.paused)
+        {
+            this.world.update(time, delta);
 
-        this.ghosts.update(time, delta);
+            this.ghosts.update(time, delta);
 
-        this.pacman.update(time, delta);
+            this.pacman.update(time, delta);
+        }
     }
 
 });

@@ -4,7 +4,7 @@ var dirTree = require('directory-tree');
 var rootDir = './public/src/';
 var examplesJSON = './public/examples.json';
 
-var filteredTree = dirTree(rootDir, ['.js']);
+var filteredTree = dirTree(rootDir, ['.js', '.json']);
 
 filteredTree = JSON.stringify(filteredTree);
 

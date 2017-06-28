@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Phaser 3 Game Runner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="./js/TweenMax.min.js"></script>
+    <script src="./js/getQueryString.js"></script>
+    <script src="./js/jquery-3.1.1.min.js"></script>
+    <script src="./js/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="phaser-example"></div>
+
+    <script type="text/javascript">
+
+    window.onload = function ()
+    {
+        var filename = getQueryString('src');
+        var folder = filename.substr(0, filename.lastIndexOf('\\') + 1);
+        var queue = [];
+
+        $.getJSON(filename, function (json) {
+
+            queue = json.files;
+
+            var loadScript = function ()
+            {
+                var src = queue.shift();
+
+                // console.log(folder, src);
+
+                //  Load the JS files defined in the json sequentially and in order
+
+                $.getScript(folder + src, function(data, textStatus, jqxhr) {
+
+                    // console.log(textStatus); // Success
+                    // console.log(jqxhr.status); // 200
+
+                    if (queue.length)
+                    {
+                        loadScript();
+                    }
+
+                });
+
+            };
+
+            loadScript();
+
+        });
+    };
+
+    </script>
+
+</body>
+</html>

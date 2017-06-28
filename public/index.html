@@ -42,17 +42,38 @@
 
         createBackFolder();
 
+        var isBootable = false;
+
         for (var i = 0; i < folder.length; i++)
         {
             var child = folder[i];
 
-            if (child.hasOwnProperty('children'))
+            if (child.name === 'boot.json')
             {
-                createFolder(i, child.name, child.path);
+                isBootable = true;
+
+                break;
             }
-            else
+        }
+
+        if (isBootable)
+        {
+            createBootFile(i, child.name, child.path);
+        }
+        else
+        {
+            for (var i = 0; i < folder.length; i++)
             {
-                createFile(i, child.name, child.path);
+                var child = folder[i];
+
+                if (child.hasOwnProperty('children'))
+                {
+                    createFolder(i, child.name, child.path);
+                }
+                else
+                {
+                    createFile(i, child.name, child.path);
+                }
             }
         }
 
@@ -159,6 +180,24 @@
 
         var p = $('<p></p>').addClass('card-text');
         p.append($('<a></a>', { href: 'index.html?dir=' + getURLWell(true) }).text('Back'));
+
+        div.append(a).append(p);
+
+        $('#folderList').append(div);
+    }
+
+    function createBootFile (index, filename, filepath)
+    {
+        var div = $('<div></div>').addClass('card');
+
+        var a = $('<a></a>', { href: 'boot.html?src=' + filepath });
+
+        var img = $('<img />', { src: 'images/joystick.png', width: 128, height: 128 });
+
+        a.append(img);
+
+        var p = $('<p></p>').addClass('card-text').text('Play Game');
+        // p.append($('<a></a>', { href: 'edit.html?src=' + filepath }).text(filename.replace('.js', '')));
 
         div.append(a).append(p);
 

@@ -24,12 +24,16 @@
     {
         var filename = getQueryString('src');
 
-        var s = document.createElement('script');
+        if (filename.substr(-3) === '.js')
+        {
+            var s = document.createElement('script');
 
-        s.type = 'text/javascript';
-        s.src = filename;
+            s.type = 'text/javascript';
+            s.src = filename;
 
-        document.body.appendChild(s);
+            document.body.appendChild(s);
+        }
+
     };
 
     </script>

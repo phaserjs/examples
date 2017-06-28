@@ -12,7 +12,7 @@ var backgroundStateConfig = {
 var modalStateConfig = {
     key: 'modal',
     active: true,
-    renderToTexture: true,
+    renderToTexture: false,
     x: 64,
     y: 64,
     width: 320,
@@ -36,12 +36,16 @@ var game = new Phaser.Game(gameConfig);
 
 function createBackground ()
 {
-    this.add.image(0, 0, 'face');
+    this.add.image(400, 300, 'face');
 }
 
 function createModal ()
 {
-    this.add.image(0, 0, 'logo');
+    this.cameras.main.setBackgroundColor('rgba(255,0,0,0.4)');
+
+    console.log(this.cameras.main.backgroundColor);
+
+    this.add.image(0, 0, 'logo').setOrigin(0);
 }
 
 var r = 0;

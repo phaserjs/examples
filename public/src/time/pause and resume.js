@@ -34,11 +34,11 @@ function create ()
 
         if (timedEvent.paused)
         {
-            timedEvent.resume();
+            timedEvent.paused = false;
         }
         else
         {
-            timedEvent.pause();
+            timedEvent.paused = true;
         }
 
     });

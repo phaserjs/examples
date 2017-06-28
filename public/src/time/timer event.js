@@ -15,6 +15,8 @@ var image;
 var text;
 var timedEvent;
 
+var s;
+
 var game = new Phaser.Game(config);
 
 function preload ()

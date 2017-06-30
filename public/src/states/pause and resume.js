@@ -4,7 +4,7 @@ var StateA = new Phaser.Class({
 
     initialize:
 
-    function StateB ()
+    function StateA ()
     {
         Phaser.State.call(this, { key: 'stateA' });
 

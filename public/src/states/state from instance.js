@@ -1,15 +1,13 @@
 var demo = new Phaser.State('Demo');
 
-demo.preload = function () {
-
+demo.preload = function ()
+{
     this.load.image('face', 'assets/pics/bw-face.png');
-
 }
 
-demo.create = function () {
-
-    this.add.image(0, 0, 'face');
-
+demo.create = function ()
+{
+    this.add.image(400, 300, 'face');
 }
 
 var config = {

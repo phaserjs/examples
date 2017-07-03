@@ -6,7 +6,7 @@ var StateA = new Phaser.Class({
 
     function StateB ()
     {
-        Phaser.State.call(this, { key: 'stateA' });
+        Phaser.State.call(this, 'stateA');
 
         this.pic;
     },
@@ -55,7 +55,7 @@ var StateB = new Phaser.Class({
 
     function StateB ()
     {
-        Phaser.State.call(this, { key: 'stateB' });
+        Phaser.State.call(this, 'stateB');
 
         this.graphics;
         this.timerEvent;

@@ -1,6 +1,8 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
+    width: 800,
+    height: 600,
     state: {
         preload: preload,
         create: create
@@ -9,16 +11,14 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload() {
-
+function preload ()
+{
     this.load.image('face', 'assets/pics/bw-face.png');
-
 }
 
-function create() {
+function create ()
+{
+    var image = this.add.image(400, 300, 'face');
 
-    var image = this.add.image(0, 0, 'face');
-
-    image.color.setTint(0xff00ff);
-
+    image.setTint(0xff00ff);
 }

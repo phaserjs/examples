@@ -19,8 +19,8 @@ function preload() {
 
 function create() {
 
-    this.add.sprite(0, 0, 'beball');
-    this.add.sprite(100, 0, 'atari');
-    this.add.sprite(400, 0, 'bikkuriman');
+    this.add.sprite(200, 300, 'beball');
+    this.add.sprite(500, 300, 'atari');
+    this.add.sprite(800, 300, 'bikkuriman');
 
 }

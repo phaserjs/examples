@@ -19,6 +19,6 @@ function preload() {
 
 function create() {
 
-    bunny = this.add.sprite(0, 0, 'bunny');
+    bunny = this.add.sprite(400, 300, 'bunny');
 
 }

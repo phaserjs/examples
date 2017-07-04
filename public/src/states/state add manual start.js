@@ -16,7 +16,7 @@ MyGame.Boot.prototype = {
 
     create: function ()
     {
-        this.face = this.add.image(0, 0, 'face');
+        this.face = this.add.image(400, 300, 'face');
     }
 
 };

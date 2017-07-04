@@ -38,14 +38,16 @@ function create ()
     var cam = this.cameras.main;
 
     //  Test 1 - Change the x/y and keep w/h the same and the scene is cropped properly. The x/y appear to offset from the top left.
-    // cam.setViewport(100, -100, 800, 600);
+    // cam.setViewport(0, 0, 800, 600);
 
     //  Test 2 - Combine Test 1 with 'zoom' and the scene is no longer cropped and the viewport size is scaled wrong
     // cam.zoom = 0.5;
 
     //  Test 3 - Try half zoom and a half viewport size together - appears broken, image still pops out of the top, placement seems wrong
-    // cam.setViewport(0, 0, 400, 300);
-    // cam.zoom = 0.5;
+    cam.setViewport(300, 100, 400, 300);
+    cam.zoom = 0.5;
+    cam.scrollX = 200;
+    cam.scrollY = 150;
 
     //  Test 4 - Change position as if zoom is applied to the camera center, but keep original w/h
     //  Seems to place the camera in the correct position, but scaled items appear outside of the viewport (because scissor width = 800x600)

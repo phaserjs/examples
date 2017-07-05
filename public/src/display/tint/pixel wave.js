@@ -39,25 +39,20 @@ function create ()
 
         if (a > 0)
         {
+            // var startX = 1024/2;
+            // var startY = 800;
+
+            var startX = Phaser.Math.Between(0, 1024);
+            var startY = Phaser.Math.Between(0, 768);
+
             var dx = 200 + x * 16;
             var dy = 64 + y * 16;
 
-            var image = this.add.image(Phaser.Math.Between(0, 1024), Phaser.Math.Between(0, 768), 'pixel').setScale(0);
+            var image = this.add.image(startX, startY, 'pixel').setScale(0);
 
             color.setTo(r, g, b, a);
 
             image.setTint(color.color);
-
-            // TweenMax.to(image, 0.5, {
-
-            //     scaleX: 1,
-            //     scaleY: 1,
-            //     yoyo: true,
-            //     repeat: -1,
-            //     delay: i / 2500,
-            //     repeatDelay: 2
-
-            // });
 
             TweenMax.to(image, 2, {
 

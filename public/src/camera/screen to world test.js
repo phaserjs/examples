@@ -10,7 +10,6 @@ var config = {
     height: 600
 };
 
-var text;
 var mouse = {x: 0, y: 0};
 var selection = null;
 var cameraScroll = {x: 0, y: 0, dampX: 0, dampY: 0};
@@ -23,57 +22,21 @@ function preload ()
     this.load.image('image', 'assets/sprites/phaser1.png');
 }
 
-var IntersectGameObject = function (point, gameObjectArray, camera)
-{
-    var output = [];
-    var length = gameObjectArray.length;
-    var tpoint = camera.transformPoint(point);
-    var culled = camera.cull(gameObjectArray);
-    var culledLength = culled.length;
-    var scrollX = camera.scrollX;
-    var scrollY = camera.scrollY;
-    var cameraW = camera.width;
-    var cameraH = camera.height;
-
-    text.setText('Visible: ' + culledLength + ' / ' + length);
-
-    // Testing Culling
-    for (var i = 0; i < length; ++i)
-    {
-        var object = gameObjectArray[i];
-        object.visible = false;
-    }
-
-
-    for (var i = 0; i < culledLength; ++i)
-    {
-        var object = culled[i];
-        
-        // Just testing culling
-        object.visible = true;
-
-        var objectW = object.width;
-        var objectH = object.height;
-        var objectX = (object.x - (scrollX * object.scrollFactorX)) - (objectW * object.originX);
-        var objectY = (object.y - (scrollY * object.scrollFactorY)) - (objectH * object.originY);
-
-        if (point.x >= objectX && point.y >= objectY &&
-            point.x <= objectX + objectW && point.y <= objectY + objectH)
-        {
-            output.push(object);    
-        }
-    }
-
-    return output;
-};
-
 function create ()
 {
     for (var i = 0; i < 10000; ++i)
     {
-        gameObjects.push(this.add.image(-10000 + Math.random() * 20000, -10000 + Math.random() * 20000, 'image'));
+        var intensity = 255;
+        var obj = this.add.image(-10000 + Math.random() * 20000, -10000 + Math.random() * 20000, 'image');
+        obj.scaleX = obj.scaleY = 0.2 + Math.random() * 0.8;
+        obj.rotation = Math.random() * 360;
+        obj.scrollFactorX = obj.scrollFactorY = obj.scaleX;
+        obj.z = obj.scrollFactorX;
+        intensity *= obj.scrollFactorX;
+        obj.tint = ((intensity & 0x0ff) << 16) | ((intensity & 0x0ff) << 8) | (intensity & 0x0ff);
+        gameObjects.push(obj);
     }
-    
+
 
     this.add.graphics(0, 0).
             fillStyle(0xFF0000, 1.0).
@@ -86,28 +49,28 @@ function create ()
     });
 
     selection = this.add.graphics(0, 0);
+    selection.scrollFactorX = 0;
+    selection.scrollFactorY = 0;
+    selection.z = 10000;
 
-    text = this.add.bitmapText(0, 0, 'nokia16', "Visible: 0/0");
-    text.scrollFactorX = 0;
-    text.scrollFactorY = 0;
     this.input.events.on('KEY_DOWN_EVENT', function (event) {
-        if (event.data.code === 'ArrowUp')
+        if (event.data.code === 'ArrowUp' || event.data.code === 'KeyW')
         {
             cameraScroll.y = -500;
             cameraScroll.dampY = 1;
         }
-        else if (event.data.code === 'ArrowDown')
+        else if (event.data.code === 'ArrowDown' || event.data.code === 'KeyS')
         {
             cameraScroll.y = 500;
             cameraScroll.dampY = 1;
         }
 
-        if (event.data.code === 'ArrowLeft')
+        if (event.data.code === 'ArrowLeft' || event.data.code === 'KeyA')
         {
             cameraScroll.x = -500;
             cameraScroll.dampX = 1;
         }
-        else if (event.data.code === 'ArrowRight')
+        else if (event.data.code === 'ArrowRight' || event.data.code === 'KeyD')
         {
             cameraScroll.x = 500;
             cameraScroll.dampX = 1;
@@ -115,12 +78,12 @@ function create ()
     });   
 
     this.input.events.on('KEY_UP_EVENT', function (event) {
-        if (event.data.code === 'ArrowUp' || event.data.code === 'ArrowDown')
+        if (event.data.code === 'ArrowUp' || event.data.code === 'ArrowDown' || event.data.code === 'KeyW' || event.data.code === 'KeyS')
         {
             cameraScroll.dampY = 0.9;
         }
 
-        if (event.data.code === 'ArrowLeft' || event.data.code === 'ArrowRight')
+        if (event.data.code === 'ArrowLeft' || event.data.code === 'ArrowRight' || event.data.code === 'KeyA' || event.data.code === 'KeyD')
         {
             cameraScroll.dampX = 0.9;
         }
@@ -137,7 +100,7 @@ function update (time, delta)
     cameraScroll.x *= cameraScroll.dampX;
     cameraScroll.y *= cameraScroll.dampY;
 
-    var objects = IntersectGameObject(mouse, gameObjects, this.cameras.main);
+    var objects = this.input.pointScreenToWorldHitTest(gameObjects, mouse.x, mouse.y, this.cameras.main);
 
     if (objects.length > 0)
     {
@@ -147,7 +110,12 @@ function update (time, delta)
         for (var i = 0; i < length; ++i)
         {
             var object = objects[i];
-            selection.strokeRect(object.x - (object.width * object.originX), object.y - (object.height * object.originY), object.width, object.height);
+            selection.save();
+            selection.translate(object.x - (this.cameras.main.scrollX * object.scrollFactorX), object.y - (this.cameras.main.scrollY * object.scrollFactorY));
+            selection.rotate(object.rotation);
+            selection.scale(object.scaleX, object.scaleY);
+            selection.strokeRect(-object.displayOriginX,-object.displayOriginY, object.width, object.height);
+            selection.restore();
         }
     }
 }

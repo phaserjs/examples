@@ -23,7 +23,7 @@ function create() {
 
         function EnemyRobot (state, x, y)
         {
-            Phaser.GameObjects.Image.call(this, state)
+            Phaser.GameObjects.Image.call(this, state);
 
             this.setTexture('contra');
             this.setPosition(x, y);

@@ -22,10 +22,18 @@ function preload ()
 
 function create ()
 {
-    cans = this.pool.create();
+    //  Our pool. Contains Sprite objects, a maximum of 10 of them.
+    cans = this.pool.createSpritePool(10, 10, 'cokecan');
 
+    console.log(cans);
+    console.log(cans.isFull());
 
+    cans.get(300, 200);
+    cans.get(400, 200);
+    cans.get(500, 200);
 
+    console.log(cans.getTotalUsed());
+    console.log(cans.getTotalFree());
 }
 
 function update ()

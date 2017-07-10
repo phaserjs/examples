@@ -18,15 +18,21 @@ function preload ()
 
 function create ()
 {
+    var hsv = Phaser.Graphics.Color.HSVColorWheel();
+
     var image = this.add.image(400, 300, 'face');
 
-    //  Set the tint like this (topLeft, topRight, bottomLeft, bottomRight)
     image.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
 
-    //  Or like this:
+    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
 
-    // image.tintTopLeft = 0xff00ff;
-    // image.tintTopRight = 0xffff00;
-    // image.tintBottomLeft = 0x0000ff;
-    // image.tintBottomRight = 0xff0000;
+        var a = Phaser.Math.Between(0, 359);
+        var b = Phaser.Math.Between(0, 359);
+        var c = Phaser.Math.Between(0, 359);
+        var d = Phaser.Math.Between(0, 359);
+
+        image.setTint(hsv[a].color, hsv[b].color, hsv[c].color, hsv[d].color);
+
+    });
+
 }

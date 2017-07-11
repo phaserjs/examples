@@ -21,7 +21,7 @@ var cameras = [];
 function preload ()
 {
     this.load.bitmapFont('nokia16', 'assets/fonts/bitmap/nokia16.png', 'assets/fonts/bitmap/nokia16.xml');
-    this.load.image('image', 'assets/sprites/phaser1.png');
+    this.load.image('image', 'assets/sprites/block.png');
 }
 
 function create ()
@@ -121,6 +121,7 @@ function update (time, delta)
     for (var i = 0; i < gameObjects.length; ++i)
     {
         gameObjects[i].scaleX = gameObjects[i].scaleY = gameObjects[i].z;
+        gameObjects[i].clearTint();
     }
 
     for (var i = 0; i < cameras.length; ++i)
@@ -136,8 +137,9 @@ function update (time, delta)
             for (var j = 0; j < length; ++j)
             {
                 var object = objects[j];
-                object.scaleX = 1.2;
-                object.scaleY = 1.2;
+                object.setTint(0xff0000);
+                // object.scaleX = 1.2;
+                // object.scaleY = 1.2;
             }
         }
 

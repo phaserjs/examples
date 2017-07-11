@@ -6,6 +6,7 @@ var config = {
         create: create,
         update: update
     },
+    backgroundColor: '#fafafa',
     width: 800,
     height: 600
 };
@@ -15,6 +16,7 @@ var selection = null;
 var cameraScroll = {x: 0, y: 0, dampX: 0, dampY: 0};
 var gameObjects = [];
 var game = new Phaser.Game(config);
+var cameras = [];
 
 function preload ()
 {
@@ -24,10 +26,10 @@ function preload ()
 
 function create ()
 {
-    for (var i = 0; i < 10000; ++i)
+    for (var i = 0; i < 5000; ++i)
     {
         var intensity = 255;
-        var obj = this.add.image(-10000 + Math.random() * 20000, -10000 + Math.random() * 20000, 'image');
+        var obj = this.add.image(-5000 + Math.random() * 10000, -5000 + Math.random() * 10000, 'image');
         obj.scaleX = obj.scaleY = 0.2 + Math.random() * 0.8;
         obj.rotation = Math.random() * 360;
         obj.scrollFactorX = obj.scrollFactorY = obj.scaleX;
@@ -38,11 +40,6 @@ function create ()
     }
 
 
-    this.add.graphics(0, 0).
-            fillStyle(0xFF0000, 1.0).
-            fillRect(-2.5 + 400, -2.5 + 300, 5, 5).
-            setScrollFactor(0, 0);
-
     this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
         mouse.x = event.x;
         mouse.y = event.y;
@@ -51,7 +48,7 @@ function create ()
     selection = this.add.graphics(0, 0);
     selection.scrollFactorX = 0;
     selection.scrollFactorY = 0;
-    selection.z = 10000;
+    selection.z = 1000;
 
     this.input.events.on('KEY_DOWN_EVENT', function (event) {
         if (event.data.code === 'ArrowUp' || event.data.code === 'KeyW')
@@ -89,33 +86,68 @@ function create ()
         }
     });   
 
+    this.cameras.main.zoom = 0.5;
+    this.cameras.main.x = 1;
+    this.cameras.main.y = 1;
+    this.cameras.main.setSize(398, 298);
+
+    cameras.push(this.cameras.main);
+    this.cameras.main.setBackgroundColor('#1a1e1a')
+    {
+        let camera = this.cameras.add(401, 1, 398, 298);
+        camera.setBackgroundColor('#1a1a1e');
+        cameras.push(camera);
+    }
+
+    {
+        let camera = this.cameras.add(1, 301, 398, 298);
+        camera.setBackgroundColor('#1e1a1a');
+        camera.zoom = 2;
+        cameras.push(camera);
+    }
+
+    {
+        let camera = this.cameras.add(401, 301, 398, 298);
+        camera.setBackgroundColor('#1e1e1a');
+        camera.rotation = 45 * Math.PI / 180;
+        camera.zoom = 0.5;
+        cameras.push(camera);
+    }
+
 }
 
 function update (time, delta)
 {
-    selection.clear();
-    this.cameras.main.scrollX += cameraScroll.x * (delta / 1000);
-    this.cameras.main.scrollY += cameraScroll.y * (delta / 1000);
+    for (var i = 0; i < gameObjects.length; ++i)
+    {
+        gameObjects[i].scaleX = gameObjects[i].scaleY = gameObjects[i].z;
+    }
+
+    for (var i = 0; i < cameras.length; ++i)
+    {
+        cameras[i].scrollX += cameraScroll.x * (delta / 1000);
+        cameras[i].scrollY += cameraScroll.y * (delta / 1000);
+
+        var objects = this.input.pointScreenToWorldHitTest(gameObjects, mouse.x, mouse.y, cameras[i]);
+
+        if (objects.length > 0)
+        {
+            var length = objects.length;
+            for (var j = 0; j < length; ++j)
+            {
+                var object = objects[j];
+                object.scaleX = 1.2;
+                object.scaleY = 1.2;
+            }
+        }
+
+        if (i == 3)
+        {
+            cameras[i].rotation += 0.01;
+        }
+    }
     
     cameraScroll.x *= cameraScroll.dampX;
     cameraScroll.y *= cameraScroll.dampY;
 
-    var objects = this.input.pointScreenToWorldHitTest(gameObjects, mouse.x, mouse.y, this.cameras.main);
-
-    if (objects.length > 0)
-    {
-        selection.lineStyle(5.0, 0xFF0000, 1.0);
-
-        var length = objects.length;
-        for (var i = 0; i < length; ++i)
-        {
-            var object = objects[i];
-            selection.save();
-            selection.translate(object.x - (this.cameras.main.scrollX * object.scrollFactorX), object.y - (this.cameras.main.scrollY * object.scrollFactorY));
-            selection.rotate(object.rotation);
-            selection.scale(object.scaleX, object.scaleY);
-            selection.strokeRect(-object.displayOriginX,-object.displayOriginY, object.width, object.height);
-            selection.restore();
-        }
-    }
 }

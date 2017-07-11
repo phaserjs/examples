@@ -131,7 +131,7 @@ function update (time, delta)
 
         var objects = this.input.pointScreenToWorldHitTest(gameObjects, mouse.x, mouse.y, cameras[i]);
 
-        if (objects.length > 0)
+        if (objects && objects.length > 0)
         {
             var length = objects.length;
             for (var j = 0; j < length; ++j)

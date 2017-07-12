@@ -58,7 +58,7 @@ function update ()
 {
     var objects = this.input.pointScreenToWorldHitTest(group.children.entries, mouse.x, mouse.y, this.cameras.main);
 
-    if (objects && objects.length > 0)
+    if (objects.length > 0)
     {
         var x = objects[0].x;
         var y = objects[0].y;

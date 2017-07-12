@@ -33,8 +33,9 @@ function create ()
 
     highlighted = this.add.image(16, 16, 'block');
 
-    //  Create 400 sprites aligned in a grid
+    //  Create 10,000 Image Game Objects aligned in a grid
     group = this.make.group({
+        classType: Phaser.GameObjects.Image,
         key: 'bobs',
         frame: Phaser.Utils.Array.NumberArray(0, 399),
         randomFrame: true,

@@ -34,6 +34,7 @@ function create ()
 
     //  Create 400 sprites aligned in a grid
     group = this.make.group({
+        classType: Phaser.GameObjects.Image,
         key: 'bobs',
         frame: Phaser.Utils.Array.NumberArray(0, 399),
         randomFrame: true,

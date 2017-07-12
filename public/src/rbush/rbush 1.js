@@ -50,7 +50,7 @@ function create() {
 
     // var data2 = genData.convert(data);
 
-    var tree = Phaser.RBush();
+    var tree = Phaser.Structs.RTree();
 
     for (var i = 0; i < N; i++)
     {

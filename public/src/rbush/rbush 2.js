@@ -24,7 +24,7 @@ var boxY = 0;
 
 function create() {
 
-    var tree = Phaser.RBush();
+    var tree = Phaser.Structs.RTree();
 
     var w = this.sys.textures.getFrame('phaser').width;
     var h = this.sys.textures.getFrame('phaser').height;
@@ -34,7 +34,7 @@ function create() {
         var x = Phaser.Math.Between(0, 2000);
         var y = Phaser.Math.Between(0, 2000);
 
-        var sprite = this.add.image(x, y, 'phaser');
+        var sprite = this.add.image(x, y, 'phaser').setOrigin(0);
 
         tree.insert({
             minX: x,

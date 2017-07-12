@@ -34,6 +34,7 @@ function create ()
         obj.rotation = Math.random() * 360;
         obj.scrollFactorX = obj.scrollFactorY = obj.scaleX;
         obj.z = obj.scrollFactorX;
+        obj.setOrigin(-2 + Math.random() * 4, -2 + Math.random() * 4);
         intensity *= obj.scrollFactorX;
         obj.tint = ((intensity & 0x0ff) << 16) | ((intensity & 0x0ff) << 8) | (intensity & 0x0ff);
         gameObjects.push(obj);
@@ -122,6 +123,8 @@ function update (time, delta)
     {
         gameObjects[i].scaleX = gameObjects[i].scaleY = gameObjects[i].z;
         gameObjects[i].clearTint();
+        gameObjects[i].rotation += 0.01;
+        gameObjects[i].flipX = false;
     }
 
     for (var i = 0; i < cameras.length; ++i)
@@ -138,6 +141,7 @@ function update (time, delta)
             {
                 var object = objects[j];
                 object.setTint(0xff0000);
+                object.flipX = true;
                 // object.scaleX = 1.2;
                 // object.scaleY = 1.2;
             }

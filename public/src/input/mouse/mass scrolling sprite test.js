@@ -10,7 +10,8 @@ var config = {
     }
 };
 
-var mouse = {x: 0, y: 0};
+var mouse = { x: 0, y: 0 };
+var prev = { x: 0, y: 0 };
 var highlighted;
 var group;
 var controls;
@@ -73,11 +74,18 @@ function create ()
         mouse.y = event.y;
 
     });
+
+    window.skipTest = false;
 }
 
 function update (time, delta)
 {
     controls.update(delta);
+
+    if (window.skipTest)
+    {
+        return;
+    }
 
     var objects = this.input.pointScreenToWorldHitTest(group.children.entries, mouse.x, mouse.y, this.cameras.main);
 

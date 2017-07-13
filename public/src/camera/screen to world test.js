@@ -29,12 +29,16 @@ function create ()
     for (var i = 0; i < 5000; ++i)
     {
         var intensity = 255;
+
         var obj = this.add.image(-5000 + Math.random() * 10000, -5000 + Math.random() * 10000, 'image');
-        obj.scaleX = obj.scaleY = 0.2 + Math.random() * 0.8;
-        obj.rotation = Math.random() * 360;
-        obj.scrollFactorX = obj.scrollFactorY = obj.scaleX;
-        obj.z = obj.scrollFactorX;
+
+        obj.setScale(0.2 + Math.random() * 0.8);
+        obj.setRotation(Math.random() * 360);
+        obj.setScrollFactor(obj.scaleX);
+        obj.setZ(obj.scrollFactorX);
         obj.setOrigin(-2 + Math.random() * 4, -2 + Math.random() * 4);
+        obj.setHitArea(new Phaser.Geom.Rectangle(0 - (95 * obj.originX), 0 - (95 * obj.originY), 95, 95), Phaser.Geom.Rectangle.Contains);
+
         intensity *= obj.scrollFactorX;
         obj.tint = ((intensity & 0x0ff) << 16) | ((intensity & 0x0ff) << 8) | (intensity & 0x0ff);
         gameObjects.push(obj);
@@ -142,8 +146,6 @@ function update (time, delta)
                 var object = objects[j];
                 object.setTint(0xff0000);
                 object.flipX = true;
-                // object.scaleX = 1.2;
-                // object.scaleY = 1.2;
             }
         }
 

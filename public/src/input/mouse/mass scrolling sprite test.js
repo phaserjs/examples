@@ -10,8 +10,7 @@ var config = {
     }
 };
 
-var mouse = { x: 0, y: 0 };
-var prev = { x: 0, y: 0 };
+var mouse = { x: 0, y: 0, hasMoved: false };
 var highlighted;
 var group;
 var controls;
@@ -34,6 +33,10 @@ function create ()
 
     highlighted = this.add.image(16, 16, 'block');
 
+    //  All the Images can share the same Shape, no need for a unique instance per one, a reference is fine
+    var hitArea = new Phaser.Geom.Rectangle(-16, -16, 32, 32);
+    var hitAreaCallback = Phaser.Geom.Rectangle.Contains;
+
     //  Create 10,000 Image Game Objects aligned in a grid
     group = this.make.group({
         classType: Phaser.GameObjects.Image,
@@ -42,14 +45,14 @@ function create ()
         randomFrame: true,
         repeat: 24,
         max: 10000,
+        hitArea: hitArea,
+        hitAreaCallback: hitAreaCallback,
         gridAlign: {
             width: 100,
             cellWidth: 32,
             cellHeight: 32
         }
     });
-
-    console.log(group.children.size);
 
     //  Camera controls
     var cursors = this.input.keyboard.createCursorKeys();
@@ -72,17 +75,16 @@ function create ()
 
         mouse.x = event.x;
         mouse.y = event.y;
+        mouse.hasMoved = true;
 
     });
-
-    window.skipTest = false;
 }
 
 function update (time, delta)
 {
     controls.update(delta);
 
-    if (window.skipTest)
+    if (!mouse.hasMoved)
     {
         return;
     }
@@ -96,4 +98,6 @@ function update (time, delta)
 
         highlighted.setPosition(x, y);
     }
+
+    mouse.hasMoved = false;
 }

@@ -62,6 +62,12 @@ function create ()
 
 function update ()
 {
+    // sprites.forEach(function (sprite) {
+
+    //     sprite.rotation += 0.001;
+
+    // });
+
     if (!mouse.hasMoved)
     {
         return;

@@ -10,7 +10,7 @@ var config = {
     }
 };
 
-var mouse = {x: 0, y: 0};
+var mouse = { x: 0, y: 0, hasMoved: false };
 var highlighted;
 var group;
 
@@ -32,12 +32,17 @@ function create ()
 
     highlighted = this.add.image(16, 16, 'block');
 
+    var hitArea = new Phaser.Geom.Rectangle(-16, -16, 32, 32);
+    var hitAreaCallback = Phaser.Geom.Rectangle.Contains;
+
     //  Create 400 sprites aligned in a grid
     group = this.make.group({
         classType: Phaser.GameObjects.Image,
         key: 'bobs',
         frame: Phaser.Utils.Array.NumberArray(0, 399),
         randomFrame: true,
+        hitArea: hitArea,
+        hitAreaCallback: hitAreaCallback,
         gridAlign: {
             width: 25,
             height: 25,
@@ -51,12 +56,18 @@ function create ()
 
         mouse.x = event.x;
         mouse.y = event.y;
+        mouse.hasMoved = true;
 
     });
 }
 
 function update ()
 {
+    if (!mouse.hasMoved)
+    {
+        return;
+    }
+
     var objects = this.input.pointScreenToWorldHitTest(group.children.entries, mouse.x, mouse.y, this.cameras.main);
 
     if (objects.length > 0)
@@ -66,4 +77,6 @@ function update ()
 
         highlighted.setPosition(x, y);
     }
+
+    mouse.hasMoved = false;
 }

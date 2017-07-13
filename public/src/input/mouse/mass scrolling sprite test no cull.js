@@ -33,6 +33,10 @@ function create ()
 
     highlighted = this.add.image(16, 16, 'block');
 
+    //  All the Images can share the same Shape, no need for a unique instance per one, a reference is fine
+    var hitArea = new Phaser.Geom.Rectangle(-16, -16, 32, 32);
+    var hitAreaCallback = Phaser.Geom.Rectangle.Contains;
+
     //  Create 10,000 Image Game Objects aligned in a grid
     group = this.make.group({
         classType: Phaser.GameObjects.Image,
@@ -41,6 +45,8 @@ function create ()
         randomFrame: true,
         repeat: 24,
         max: 10000,
+        hitArea: hitArea,
+        hitAreaCallback: hitAreaCallback,
         gridAlign: {
             width: 100,
             cellWidth: 32,
@@ -62,9 +68,9 @@ function create ()
         maxSpeed: 0.7
     };
 
-    controls = this.cameras.addSmoothedKeyControl(controlConfig);
-
     this.cameras.main.disableCull = true;
+
+    controls = this.cameras.addSmoothedKeyControl(controlConfig);
 
     //  Track movement
     this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
@@ -87,7 +93,7 @@ function update (time, delta)
 
     var objects = this.input.pointScreenToWorldHitTest(group.children.entries, mouse.x, mouse.y, this.cameras.main);
 
-    if (objects.length > 0)
+    if (objects && objects.length > 0)
     {
         var x = objects[0].x;
         var y = objects[0].y;

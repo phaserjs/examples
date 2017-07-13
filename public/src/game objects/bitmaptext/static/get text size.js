@@ -1,21 +1,20 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     state: {
         preload: preload,
         create: create,
-        render: render
+        update: update
     }
 };
 
-var game = new Phaser.Game(config);
-
-var text1;
-var text2;
-var text3;
 var bounds1;
 var bounds2;
 var bounds3;
+
+var graphics;
+
+var game = new Phaser.Game(config);
 
 function preload() 
 {
@@ -26,33 +25,22 @@ function preload()
 
 function create() 
 {
-    text1 = this.add.bitmapText(0, 0, 'atari', 'Welcome!', 70);
-    text2 = this.add.bitmapText(0, 160, 'gothic', 'Welcome!', 40);
-    // text3 = this.add.bitmapText(100, 300, 'hyper', 'Terminator 2', 128);
-    text3 = this.add.bitmapText(0, 300, 'hyper', 'Terminator 2', 128);
+    graphics = this.add.graphics({ x: 0, y: 0, fillStyle: { color: 0xff00ff, alpha: 1 } });
 
+    var text1 = this.add.bitmapText(0, 0, 'atari', 'Welcome!', 70);
+    var text2 = this.add.bitmapText(0, 160, 'gothic', 'Welcome!', 40);
+    var text3 = this.add.bitmapText(0, 300, 'hyper', 'Terminator 2', 128);
 
-
-    // text1.setScale(2);
-
-    bounds1 = text1.getTextBounds();
-    bounds2 = text2.getTextBounds();
-    bounds3 = text3.getTextBounds();
-
-    console.log(text3.x, text3.y);
-    console.log(bounds3);
+    bounds1 = text1.getTextBounds(true);
+    bounds2 = text2.getTextBounds(true);
+    bounds3 = text3.getTextBounds(true);
 }
 
-function render()
+function update()
 {
-    var ctx = this.sys.context;
+    graphics.clear();
 
-    ctx.strokeStyle = 'rgba(255,0,0,1)';
-    ctx.strokeRect(bounds1.x, bounds1.y, bounds1.width, bounds1.height);
-
-    ctx.strokeStyle = 'rgba(255,255,0,1)';
-    ctx.strokeRect(bounds2.x, bounds2.y, bounds2.width, bounds2.height);
-
-    ctx.strokeStyle = 'rgba(0,225,0,1)';
-    ctx.strokeRect(bounds3.x, bounds3.y, bounds3.width, bounds3.height);
+    graphics.fillRect(bounds1.global.x, bounds1.global.y, bounds1.global.width, bounds1.global.height);
+    graphics.fillRect(bounds2.global.x, bounds2.global.y, bounds2.global.width, bounds2.global.height);
+    graphics.fillRect(bounds3.global.x, bounds3.global.y, bounds3.global.width, bounds3.global.height);
 }

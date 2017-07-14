@@ -22,13 +22,19 @@ function create ()
 
     sprite.setHitArea(shape, Phaser.Geom.Rectangle.Contains);
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
 
         event.gameObject.setTint(0xff0000);
 
     });
 
     this.input.events.on('POINTER_OUT_EVENT', function (event) {
+
+        event.gameObject.clearTint();
+
+    });
+
+    this.input.events.on('POINTER_UP_EVENT', function (event) {
 
         event.gameObject.clearTint();
 

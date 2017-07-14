@@ -1,12 +1,12 @@
 var DemoC = new Phaser.Class({
 
-    Extends: Phaser.State,
+    Extends: Phaser.Scene,
 
     initialize:
 
     function DemoC ()
     {
-        Phaser.State.call(this, { key: 'DemoC', active: true });
+        Phaser.Scene.call(this, { key: 'DemoC', active: true });
 
         this.tilesprites = [];
     },

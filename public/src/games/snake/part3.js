@@ -4,7 +4,7 @@ var config = {
     height: 480,
     backgroundColor: '#bfcc00',
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -37,9 +37,9 @@ function create ()
 
         initialize:
 
-        function Food (state, x, y)
+        function Food (scene, x, y)
         {
-            Phaser.GameObjects.Image.call(this, state)
+            Phaser.GameObjects.Image.call(this, scene)
 
             this.setTexture('food');
             this.setPosition(x * 16, y * 16);
@@ -47,7 +47,7 @@ function create ()
 
             this.total = 0;
 
-            state.children.add(this);
+            scene.children.add(this);
         }
 
     });
@@ -56,11 +56,11 @@ function create ()
 
         initialize:
 
-        function Snake (state, x, y)
+        function Snake (scene, x, y)
         {
             this.headPosition = new Phaser.Geom.Point(x, y);
 
-            this.body = state.add.group();
+            this.body = scene.add.group();
 
             this.head = this.body.create(x * 16, y * 16, 'body');
             this.head.setOrigin(0);

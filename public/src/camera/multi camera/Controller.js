@@ -1,12 +1,12 @@
 var Controller = new Phaser.Class({
 
-    Extends: Phaser.State,
+    Extends: Phaser.Scene,
 
     initialize:
 
     function Controller ()
     {
-        Phaser.State.call(this, { key: 'Controller', active: true });
+        Phaser.Scene.call(this, { key: 'Controller', active: true });
 
         this.camera1;
         this.camera2;
@@ -16,10 +16,10 @@ var Controller = new Phaser.Class({
 
     create: function ()
     {
-        this.camera1 = this.state.get('DemoA').cameras.main;
-        this.camera2 = this.state.get('DemoB').cameras.main;
-        this.camera3 = this.state.get('DemoC').cameras.main;
-        this.camera4 = this.state.get('DemoD').cameras.main;
+        this.camera1 = this.scene.get('DemoA').cameras.main;
+        this.camera2 = this.scene.get('DemoB').cameras.main;
+        this.camera3 = this.scene.get('DemoC').cameras.main;
+        this.camera4 = this.scene.get('DemoD').cameras.main;
 
         this.run();
     },

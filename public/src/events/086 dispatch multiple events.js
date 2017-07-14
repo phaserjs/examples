@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: {
+    scene: {
         create: create
     }
 };
@@ -10,7 +10,7 @@ var game = new Phaser.Game(config);
 
 function create() {
 
-    //  We'll use the States own EventDispatch to listen for, and dispatch the events
+    //  We'll use the Scenes own EventDispatch to listen for, and dispatch the events
 
     //  Let's make some events ...
 

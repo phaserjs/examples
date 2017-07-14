@@ -5,7 +5,7 @@ var config = {
     parent: 'phaser-example',
     backgroundColor: '#2d2d2d',
     useTicker: true,
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update

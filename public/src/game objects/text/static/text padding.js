@@ -3,7 +3,7 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    state: {
+    scene: {
         create: create,
     }
 };

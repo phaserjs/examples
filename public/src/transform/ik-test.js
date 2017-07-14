@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -21,13 +21,13 @@ function preload() {
 var images = [];
 var factor = 0;
 
-function addIKDemo(parent, state)
+function addIKDemo(parent, scene)
 {
     var lastImage = parent;
     images.push(lastImage);
     for (var i = 0; i < 10; ++i)
     {
-        var newImage = state.add.image(64, 0, 'saw');
+        var newImage = scene.add.image(64, 0, 'saw');
         lastImage.transform.add(newImage.transform);
         lastImage = newImage;
         images.push(lastImage);

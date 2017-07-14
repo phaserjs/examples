@@ -4,7 +4,7 @@ var config = {
     pixelArt: true,
     width: 800,
     height: 600,
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update

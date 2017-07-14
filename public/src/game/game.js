@@ -232,18 +232,18 @@ var Player = Phaser.Class({
 
     initialize: 
 
-    function Player (sprite, x, y, state) {
+    function Player (sprite, x, y, scene) {
         SpaceShip.call(this, sprite, x, y);
         this.accelerateForward = false;
         this.rotateLeft = false;
         this.rotateRight = false;
 
-        state.input.keyboard.events.on('KEY_DOWN_LEFT', this.onKeyLeftPressed.bind(this));
-        state.input.keyboard.events.on('KEY_DOWN_RIGHT', this.onKeyRightPressed.bind(this));
-        state.input.keyboard.events.on('KEY_DOWN_UP', this.onKeyUpPressed.bind(this));
-        state.input.keyboard.events.on('KEY_UP_LEFT', this.onKeyLeftReleased.bind(this));
-        state.input.keyboard.events.on('KEY_UP_RIGHT', this.onKeyRightReleased.bind(this));
-        state.input.keyboard.events.on('KEY_UP_UP', this.onKeyUpReleased.bind(this));
+        scene.input.keyboard.events.on('KEY_DOWN_LEFT', this.onKeyLeftPressed.bind(this));
+        scene.input.keyboard.events.on('KEY_DOWN_RIGHT', this.onKeyRightPressed.bind(this));
+        scene.input.keyboard.events.on('KEY_DOWN_UP', this.onKeyUpPressed.bind(this));
+        scene.input.keyboard.events.on('KEY_UP_LEFT', this.onKeyLeftReleased.bind(this));
+        scene.input.keyboard.events.on('KEY_UP_RIGHT', this.onKeyRightReleased.bind(this));
+        scene.input.keyboard.events.on('KEY_UP_UP', this.onKeyUpReleased.bind(this));
     },
     update: function () 
     {
@@ -299,8 +299,8 @@ var Player = Phaser.Class({
     }    
 });
 var player;
-var PlayStateChildren = [];
-var PlayState = {
+var PlaySceneChildren = [];
+var PlayScene = {
 
     preload: function () {
         this.load.image('thrust_ship', 'assets/sprites/thrust_ship.png');
@@ -322,15 +322,15 @@ var PlayState = {
         player = new Player(this.add.image(0, 0, 'thrust_ship'), 400, 300, this);
         var playerTrail = new Trail(playerTrailGraphics, player.sprite, 100, 10, 1, 0.2, 0);
         
-        PlayStateChildren.push(player);
-        PlayStateChildren.push(playerTrail);
+        PlaySceneChildren.push(player);
+        PlaySceneChildren.push(playerTrail);
 
         this.cameras.main.startFollow(player.sprite);
     },
     update: function () {
-        for (var i = 0, l = PlayStateChildren.length; i < l; ++i)
+        for (var i = 0, l = PlaySceneChildren.length; i < l; ++i)
         {
-            PlayStateChildren[i].update();
+            PlaySceneChildren[i].update();
         }
     }
 };
@@ -338,7 +338,7 @@ var PlayState = {
 var game = new Phaser.Game({
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: PlayState,
+    scene: PlayScene,
     width: 800,
     height: 600
 });

@@ -5,7 +5,7 @@ var config = {
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     pixelArt: true,
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update

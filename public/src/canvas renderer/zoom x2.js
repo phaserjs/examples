@@ -5,7 +5,7 @@ var config = {
     zoom: 4,
     pixelArt: true,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create
     }

@@ -1,12 +1,12 @@
 var DemoA = new Phaser.Class({
 
-    Extends: Phaser.State,
+    Extends: Phaser.Scene,
 
     initialize:
 
     function DemoA ()
     {
-        Phaser.State.call(this, { key: 'DemoA', active: true });
+        Phaser.Scene.call(this, { key: 'DemoA', active: true });
 
         this.move = 0;
         this.mushroom0;

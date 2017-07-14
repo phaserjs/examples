@@ -1,4 +1,4 @@
-var stateConfig = {
+var sceneConfig = {
     create: create,
     files: [
         { type: 'image', key: 'contra', url: 'assets/pics/contra3.png' }
@@ -8,7 +8,7 @@ var stateConfig = {
 var config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
-    state: stateConfig
+    scene: sceneConfig
 };
 
 var game = new Phaser.Game(config);
@@ -21,9 +21,9 @@ function create() {
 
         initialize:
 
-        function EnemyRobot (state, x, y)
+        function EnemyRobot (scene, x, y)
         {
-            Phaser.GameObjects.Image.call(this, state);
+            Phaser.GameObjects.Image.call(this, scene);
 
             this.setTexture('contra');
             this.setPosition(x, y);

@@ -3,7 +3,7 @@ var config = {
     height: 600,
     type: Phaser.CANVAS,
     parent: 'phaser-example',
-    state: {
+    scene: {
         create: create,
         update: update
     }

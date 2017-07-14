@@ -4,7 +4,7 @@ var config = {
     height: 600,
     backgroundColor: '#efefef',
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create
     }

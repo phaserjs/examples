@@ -4,7 +4,7 @@ var config = {
     height: 600,
     backgroundColor: '#ababab',
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -59,7 +59,7 @@ var tileHeightHalf;
 
 var d = 0;
 
-var state;
+var scene;
 
 function preload ()
 {
@@ -71,7 +71,7 @@ function preload ()
 
 function create ()
 {
-    state = this;
+    scene = this;
 
     //  Our Skeleton class    
 
@@ -81,7 +81,7 @@ function create ()
 
         initialize:
 
-        function Skeleton (state, x, y, motion, direction, distance)
+        function Skeleton (scene, x, y, motion, direction, distance)
         {
             this.startX = x;
             this.startY = y;
@@ -93,7 +93,7 @@ function create ()
             this.speed = 0.15;
             this.f = this.anim.startFrame;
 
-            Phaser.GameObjects.Image.call(this, state, x, y, 'skeleton', this.direction.offset + this.f);
+            Phaser.GameObjects.Image.call(this, scene, x, y, 'skeleton', this.direction.offset + this.f);
 
             this.z = y + 64;
 
@@ -206,7 +206,7 @@ function create ()
 function buildMap ()
 {
     //  Parse the data out of the map
-    var data = state.cache.json.get('map');
+    var data = scene.cache.json.get('map');
 
     var tilewidth = data.tilewidth;
     var tileheight = data.tileheight;
@@ -233,7 +233,7 @@ function buildMap ()
             var tx = (x - y) * tileWidthHalf;
             var ty = (x + y) * tileHeightHalf;
 
-            var tile = state.add.image(centerX + tx, centerY + ty, 'tiles', id);
+            var tile = scene.add.image(centerX + tx, centerY + ty, 'tiles', id);
 
             tile.z = centerY + ty;
 
@@ -244,11 +244,11 @@ function buildMap ()
 
 function placeHouses ()
 {
-    var house = state.add.image(240, 370, 'house');
+    var house = scene.add.image(240, 370, 'house');
 
     house.z = house.y + 86;
 
-    house = state.add.image(1300, 290, 'house');
+    house = scene.add.image(1300, 290, 'house');
 
     house.z = house.y + 86;
 }

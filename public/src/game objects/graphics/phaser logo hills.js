@@ -3,7 +3,7 @@ var config = {
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update

@@ -1,4 +1,4 @@
-var stateConfig = {
+var sceneConfig = {
     preload: preload,
     create: create,
     update: update,
@@ -37,7 +37,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    state: stateConfig
+    scene: sceneConfig
 };
 
 var image;

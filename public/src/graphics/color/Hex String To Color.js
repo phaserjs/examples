@@ -2,7 +2,7 @@
 var config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
-    state: {
+    scene: {
         create: create
     }
 };

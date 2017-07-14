@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -10,7 +10,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var state = null;
+var scene = null;
 var add = false;
 var blitter;
 var bobs = [];
@@ -53,7 +53,7 @@ function create() {
     drawStar(starGraphics, 25, 25,  5, 25, 12, 0xFFFF00, 0xFF0000);
     starGraphics.generateTexture('starGraphics', 50, 50);
 
-    state = this;
+    scene = this;
 
     numbers.push(this.add.image(30 + 0 * 48, 720, 'atlas', '0'));
     numbers.push(this.add.image(30 + 1 * 48, 720, 'atlas', '0'));
@@ -123,13 +123,13 @@ function updateDigits ()
 {
     var len = Phaser.Utils.String.Pad(bobs.length.toString(), 7, '0', 1);
 
-    numbers[0].frame = state.textures.getFrame('atlas', len[0]);
-    numbers[1].frame = state.textures.getFrame('atlas', len[1]);
-    numbers[2].frame = state.textures.getFrame('atlas', len[2]);
-    numbers[3].frame = state.textures.getFrame('atlas', len[3]);
-    numbers[4].frame = state.textures.getFrame('atlas', len[4]);
-    numbers[5].frame = state.textures.getFrame('atlas', len[5]);
-    numbers[6].frame = state.textures.getFrame('atlas', len[6]);
+    numbers[0].frame = scene.textures.getFrame('atlas', len[0]);
+    numbers[1].frame = scene.textures.getFrame('atlas', len[1]);
+    numbers[2].frame = scene.textures.getFrame('atlas', len[2]);
+    numbers[3].frame = scene.textures.getFrame('atlas', len[3]);
+    numbers[4].frame = scene.textures.getFrame('atlas', len[4]);
+    numbers[5].frame = scene.textures.getFrame('atlas', len[5]);
+    numbers[6].frame = scene.textures.getFrame('atlas', len[6]);
 }
 
 window.onmousedown = function ()

@@ -4,7 +4,7 @@ var config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -34,9 +34,9 @@ function create ()
 
         initialize:
 
-        function Bullet (state)
+        function Bullet (scene)
         {
-            Phaser.GameObjects.Image.call(this, state, 0, 0, 'bullet');
+            Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
 
             this.speed = Phaser.Math.GetSpeed(400, 1);
         },

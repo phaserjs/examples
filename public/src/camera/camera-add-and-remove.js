@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -17,7 +17,7 @@ var shakeCamera;
 var camerasAdded = [];
 var camerasRemoved = [];
 var adding = false;
-var state;
+var scene;
 
 function preload() {
 
@@ -36,7 +36,7 @@ function create() {
 
     fadeCamera.fade(1000);
     camerasAdded.push(fadeCamera, shakeCamera, flashCamera);
-    state = this;
+    scene = this;
     addAndRemove();
 }
 
@@ -60,7 +60,7 @@ function addAndRemove()
         {
             var addingCamera = camerasRemoved.pop();
             camerasAdded.push(addingCamera);
-            state.cameras.addReference(addingCamera);
+            scene.cameras.addReference(addingCamera);
         }
         else
         {
@@ -73,7 +73,7 @@ function addAndRemove()
         {
             var removingCamera = camerasAdded.pop();
             camerasRemoved.push(removingCamera);
-            state.cameras.remove(removingCamera);
+            scene.cameras.remove(removingCamera);
         }
         else
         {

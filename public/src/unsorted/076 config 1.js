@@ -4,7 +4,7 @@ var config = {
     resolution: 1,
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create
     },

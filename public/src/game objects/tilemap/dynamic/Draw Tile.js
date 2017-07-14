@@ -4,7 +4,7 @@ var config = {
     height: 480,
     backgroundColor: '#000',
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -56,7 +56,7 @@ function create ()
     culled = this.add.bitmapText(0, 480 - 90, 'nokia16', "Visible Tiles: 0");
     square = this.add.graphics(0, 0);
     selected = this.add.graphics(0, 0);
-    var state = this;
+    var scene = this;
 
     topText.scrollFactorX = 0;
     topText.scrollFactorY = 0;

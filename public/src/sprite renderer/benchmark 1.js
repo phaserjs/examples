@@ -3,7 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -13,7 +13,7 @@ var config = {
 var game = new Phaser.Game(config);
 
 var ufo;
-var state = null;
+var scene = null;
 var addUfo = false;
 var random = Math.random;
 
@@ -22,14 +22,14 @@ function preload() {
 }
 
 function create() {
-    state = this;
+    scene = this;
 }
 
 function update() {
     if (addUfo)
     {
         for (var i = 0; i < 250; ++i)
-            state.add.image(random() * state.game.config.width, random() * state.game.config.height, 'ufo');
+            scene.add.image(random() * scene.game.config.width, random() * scene.game.config.height, 'ufo');
     }
 }
 
@@ -41,5 +41,5 @@ window.onmousedown = function ()
 window.onmouseup = function ()
 {
     addUfo = false;
-    console.log(state.sys.children.length);
+    console.log(scene.sys.children.length);
 };

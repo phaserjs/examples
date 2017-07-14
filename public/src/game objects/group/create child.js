@@ -4,7 +4,7 @@ var config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create
     }
@@ -23,7 +23,7 @@ function create ()
 
     //  Create a Sprite via the group.
 
-    //  The Sprite is added to the State display list, and to the group, at the same time.
+    //  The Sprite is added to the Scene display list, and to the group, at the same time.
 
     group.create(400, 300, 'phaser');
 

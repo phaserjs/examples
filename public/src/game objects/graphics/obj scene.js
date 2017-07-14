@@ -294,7 +294,7 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    state: WireframeScene.Start
+    scene: WireframeScene.Start
 };
 
 var game = new Phaser.Game(config);

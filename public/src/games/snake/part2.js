@@ -4,7 +4,7 @@ var config = {
     height: 480,
     backgroundColor: '#bfcc00',
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -34,11 +34,11 @@ function create ()
 
         initialize:
 
-        function Snake (state, x, y)
+        function Snake (scene, x, y)
         {
             this.headPosition = new Phaser.Geom.Point(x, y);
 
-            this.body = state.add.group();
+            this.body = scene.add.group();
 
             this.head = this.body.create(x * 16, y * 16, 'body');
             this.head.setOrigin(0);

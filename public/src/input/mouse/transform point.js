@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update

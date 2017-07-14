@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: {
+    scene: {
         create: create
     }
 };
@@ -23,7 +23,7 @@ function create() {
     this.events.on('shoot', handler2, 5);
     this.events.on('shoot', handler3, 2);
 
-    //  We'll use the States own EventDispatch to listen for, and dispatch the events
+    //  We'll use the Scenes own EventDispatch to listen for, and dispatch the events
     //  Dispatch the event
     this.events.dispatch(playerEvent);
 

@@ -74,7 +74,7 @@ Demo.Backdrop.prototype = {
         this.demosWindow.input.start(0, true);
         this.demosWindow.input.enableDrag();
 
-        // this.state.add('Plasma', Demo.Plasma, true);
+        // this.scene.add('Plasma', Demo.Plasma, true);
 
     },
 
@@ -93,14 +93,14 @@ Demo.Backdrop.prototype = {
         win.input.enableDrag();
         win.input.onDragUpdate.add(this.onDragUpdate, this);
 
-        this.state.add(winName, func, true);
+        this.scene.add(winName, func, true);
     },
 
     onDragUpdate: function (win)
     {
-        var state = this.state.getState(win.data.get('handle'));
+        var scene = this.scene.getScene(win.data.get('handle'));
 
-        state.sys.fbo.setPosition(win.x, win.y);
+        scene.sys.fbo.setPosition(win.x, win.y);
     }
 
 };
@@ -196,7 +196,7 @@ Demo.Eyes.prototype = {
         this.leftBase = new Phaser.Ellipse(this.left.x, this.left.y, 24, 40);
         this.rightBase = new Phaser.Ellipse(this.right.x, this.right.y, 24, 40);
 
-        var main = this.state.getState('Main');
+        var main = this.scene.getScene('Main');
         var handle = main.windows[this.settings.key];
 
         this.sys.fbo.setPosition(handle.x, handle.y);
@@ -262,7 +262,7 @@ Demo.Juggler.prototype = {
 
         this.juggler = this.add.image(100, 22, 'juggler', 0);
 
-        var main = this.state.getState('Main');
+        var main = this.scene.getScene('Main');
         var handle = main.windows[this.settings.key];
 
         this.sys.fbo.setPosition(handle.x, handle.y);
@@ -360,7 +360,7 @@ Demo.SineWave.prototype = {
             this.slices.push(star);
         }
 
-        var main = this.state.getState('Main');
+        var main = this.scene.getScene('Main');
         var handle = main.windows[this.settings.key];
 
         this.sys.fbo.setPosition(handle.x, handle.y);
@@ -425,7 +425,7 @@ Demo.Stars.prototype = {
             this.p.add(x, y, 255, 255, 255, a);
         }
 
-        var main = this.state.getState('Main');
+        var main = this.scene.getScene('Main');
         var handle = main.windows[this.settings.key];
 
         this.sys.fbo.setPosition(handle.x, handle.y);
@@ -458,7 +458,7 @@ window.onload = function() {
 
     var game = new Phaser.Game(1280, 720, Phaser.WEBGL, 'phaser-example');
 
-    game.state.add('Main', Demo.Backdrop, true);
+    game.scene.add('Main', Demo.Backdrop, true);
 
     window.game = game;
 

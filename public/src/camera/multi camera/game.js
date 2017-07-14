@@ -4,7 +4,7 @@ var config = {
     height: 600,
     backgroundColor: '#000000',
     parent: 'phaser-example',
-    state: [ DemoA, DemoB, DemoC, DemoD, Controller ]
+    scene: [ DemoA, DemoB, DemoC, DemoD, Controller ]
 };
 
 var game = new Phaser.Game(config);

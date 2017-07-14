@@ -163,10 +163,10 @@ window.onload = function() {
 
     var game = new Phaser.Game(800, 600, Phaser.WEBGL, 'phaser-example');
 
-    game.state.add('Backdrop', Demo.Backdrop, true);
-    game.state.add('Particles', Demo.Particles, true);
-    game.state.add('Stars', Demo.Stars, true);
-    game.state.add('Logo', Demo.Logo, true);
+    game.scene.add('Backdrop', Demo.Backdrop, true);
+    game.scene.add('Particles', Demo.Particles, true);
+    game.scene.add('Stars', Demo.Stars, true);
+    game.scene.add('Logo', Demo.Logo, true);
 
     window.game = game;
 

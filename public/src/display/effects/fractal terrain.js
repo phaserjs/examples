@@ -13,7 +13,7 @@ var config = {
     width: 800,
     height: 600,
     backgroundColor: '#3d3d89',
-    state: {
+    scene: {
         create: create,
         update: update
     }

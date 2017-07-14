@@ -3,13 +3,13 @@
 
 var PacmanGame = new Phaser.Class({
 
-    Extends: Phaser.State,
+    Extends: Phaser.Scene,
 
     initialize:
 
     function PacmanGame ()
     {
-        Phaser.State.call(this);
+        Phaser.Scene.call(this);
 
         this.world;
 
@@ -479,9 +479,9 @@ var Dots = new Phaser.Class({
 
     initialize:
 
-    function Dots (state)
+    function Dots (scene)
     {
-        Phaser.GameObjects.Group.call(this, state);
+        Phaser.GameObjects.Group.call(this, scene);
 
         this.classType = Dot;
 
@@ -531,7 +531,7 @@ var Dots = new Phaser.Class({
             if (this._left === 0)
             // if (this._left === 230)
             {
-                this.state.events.dispatch(new Phaser.Event('LEVEL_COMPLETE'));
+                this.scene.events.dispatch(new Phaser.Event('LEVEL_COMPLETE'));
             }
         }
     }
@@ -544,12 +544,12 @@ var Dot = new Phaser.Class({
 
     initialize:
 
-    function Dot (state, x, y, key, frame)
+    function Dot (scene, x, y, key, frame)
     {
-        Phaser.GameObjects.Sprite.call(this, state, x, y, key, frame);
+        Phaser.GameObjects.Sprite.call(this, scene, x, y, key, frame);
 
-        this.x += state.offset.x;
-        this.y += state.offset.y;
+        this.x += scene.offset.x;
+        this.y += scene.offset.y;
 
         this.isPowerDot = (frame === 1);
 
@@ -557,7 +557,7 @@ var Dot = new Phaser.Class({
 
         this.name = 'dot';
 
-        this.body = state.world.create(x, y, 16, 16);
+        this.body = scene.world.create(x, y, 16, 16);
 
         this.body.setTypeB().setCheckAgainstA().setLite();
 
@@ -579,11 +579,11 @@ var Dot = new Phaser.Class({
 
         this.parent.visible = false;
 
-        this.parent.state.dots.left--;
+        this.parent.scene.dots.left--;
 
         if (this.parent.isPowerDot)
         {
-            this.parent.state.events.dispatch(new Phaser.Event('POWER_UP'))
+            this.parent.scene.events.dispatch(new Phaser.Event('POWER_UP'))
         }
 
         //  play sound
@@ -607,9 +607,9 @@ var Ghosts = new Phaser.Class({
 
     initialize:
 
-    function Ghosts (state)
+    function Ghosts (scene)
     {
-        Phaser.GameObjects.Group.call(this, state);
+        Phaser.GameObjects.Group.call(this, scene);
 
         this.classType = Ghost;
 
@@ -643,11 +643,11 @@ var Ghost = new Phaser.Class({
 
     initialize:
 
-    function Ghost (state, x, y, type)
+    function Ghost (scene, x, y, type)
     {
-        Phaser.GameObjects.Sprite.call(this, state, x * 16, y * 16, 'sprites', 26);
+        Phaser.GameObjects.Sprite.call(this, scene, x * 16, y * 16, 'sprites', 26);
 
-        state.children.add(this);
+        scene.children.add(this);
 
         this.spawnPos = { x: x * 16, y: y * 16, gx: x, gy: y };
 
@@ -669,11 +669,11 @@ var Ghost = new Phaser.Class({
         //  Valid modes are Chase, Scatter and Frightened (edible)
         // this.mode = 'chase';
 
-        this.state.events.on('POWER_UP', this.canBeEaten.bind(this));
+        this.scene.events.on('POWER_UP', this.canBeEaten.bind(this));
 
         //  Physics Body
 
-        this.body = this.state.world.create(this.x, this.y, 16, 16);
+        this.body = this.scene.world.create(this.x, this.y, 16, 16);
 
         this.body.parent = this;
 
@@ -693,8 +693,8 @@ var Ghost = new Phaser.Class({
         this.body.pos.x = this.spawnPos.x;
         this.body.pos.y = this.spawnPos.y;
 
-        this.x = this.state.offset.x + this.body.pos.x + 8;
-        this.y = this.state.offset.y + this.body.pos.y + 8;
+        this.x = this.scene.offset.x + this.body.pos.x + 8;
+        this.y = this.scene.offset.y + this.body.pos.y + 8;
 
         this.speed = 2;
         this.heading = Phaser.NONE;
@@ -724,7 +724,7 @@ var Ghost = new Phaser.Class({
     {
         //  Drop score sprite
 
-        this.state.points.show(this.x, this.y);
+        this.scene.points.show(this.x, this.y);
 
         //  Eyes mode
 
@@ -804,15 +804,15 @@ var Ghost = new Phaser.Class({
             
         this.updateDirection();
 
-        this.x = this.state.offset.x + this.body.pos.x + 8;
-        this.y = this.state.offset.y + this.body.pos.y + 8;
+        this.x = this.scene.offset.x + this.body.pos.x + 8;
+        this.y = this.scene.offset.y + this.body.pos.y + 8;
     },
 
     updateDirection: function ()
     {
         var x = Math.floor(this.body.pos.x / 16);
         var y = Math.floor(this.body.pos.y / 16);
-        var map = this.state.world.collisionMap.data;
+        var map = this.scene.world.collisionMap.data;
 
         try {
             this.canMove[Phaser.LEFT] = (map[y][x - 1] === 0);
@@ -846,7 +846,7 @@ var Ghost = new Phaser.Class({
             var wasHeading = this.direction;
 
             //  Stop their movement?
-            if (this.canMove[this.direction] === false || this.state.intersections[y][x] !== 0 || this.edible)
+            if (this.canMove[this.direction] === false || this.scene.intersections[y][x] !== 0 || this.edible)
             {
                 this.direction = Phaser.NONE;
             }
@@ -888,9 +888,9 @@ var Points = new Phaser.Class({
 
     initialize:
 
-    function Points (state)
+    function Points (scene)
     {
-        Phaser.GameObjects.Group.call(this, state);
+        Phaser.GameObjects.Group.call(this, scene);
 
         this.current = 0;
 
@@ -944,11 +944,11 @@ var Pacman = new Phaser.Class({
 
     initialize:
 
-    function Pacman (state)
+    function Pacman (scene)
     {
-        Phaser.GameObjects.Sprite.call(this, state, 13 * 16, 26 * 16, 'sprites', 14);
+        Phaser.GameObjects.Sprite.call(this, scene, 13 * 16, 26 * 16, 'sprites', 14);
 
-        state.children.add(this);
+        scene.children.add(this);
 
         this.speed = 2;
         this.heading = Phaser.NONE;
@@ -965,7 +965,7 @@ var Pacman = new Phaser.Class({
 
         //  Physics Body
 
-        this.body = this.state.world.create(this.x, this.y, 16, 16);
+        this.body = this.scene.world.create(this.x, this.y, 16, 16);
 
         this.body.parent = this;
 
@@ -973,7 +973,7 @@ var Pacman = new Phaser.Class({
 
         this.body.collideWith = this.collideWith;
 
-        this.cursors = this.state.input.keyboard.createCursorKeys();
+        this.cursors = this.scene.input.keyboard.createCursorKeys();
     },
 
     reset: function ()
@@ -984,8 +984,8 @@ var Pacman = new Phaser.Class({
         this.body.pos.y = 26 * 16;
         this.body.enabled = true;
 
-        this.x = this.state.offset.x + this.body.pos.x + 8;
-        this.y = this.state.offset.y + this.body.pos.y + 8;
+        this.x = this.scene.offset.x + this.body.pos.x + 8;
+        this.y = this.scene.offset.y + this.body.pos.y + 8;
 
         this.speed = 2;
         this.heading = Phaser.NONE;
@@ -1015,7 +1015,7 @@ var Pacman = new Phaser.Class({
             else
             {
                 //  RIP
-                this.parent.state.ghosts.hide();
+                this.parent.scene.ghosts.hide();
 
                 this.enabled = false;
 
@@ -1104,15 +1104,15 @@ var Pacman = new Phaser.Class({
             
         this.updateDirection();
 
-        this.x = this.state.offset.x + this.body.pos.x + 8;
-        this.y = this.state.offset.y + this.body.pos.y + 8;
+        this.x = this.scene.offset.x + this.body.pos.x + 8;
+        this.y = this.scene.offset.y + this.body.pos.y + 8;
     },
 
     updateDirection: function ()
     {
         var x = Math.floor(this.body.pos.x / 16);
         var y = Math.floor(this.body.pos.y / 16);
-        var map = this.state.world.collisionMap.data;
+        var map = this.scene.world.collisionMap.data;
 
         this.canMove[Phaser.LEFT] = (map[y][x - 1] === 0);
         this.canMove[Phaser.RIGHT] = (map[y][x + 1] === 0);
@@ -1174,7 +1174,7 @@ var config = {
     height: 680,
     backgroundColor: '#000000',
     parent: 'phaser-example',
-    state: PacmanGame
+    scene: PacmanGame
 };
 
 var game = new Phaser.Game(config);

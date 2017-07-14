@@ -4,7 +4,7 @@ var config = {
     width: 800,
     height: 600,
     backgroundColor: '#7d7d7d',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update

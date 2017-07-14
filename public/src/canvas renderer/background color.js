@@ -2,7 +2,7 @@ var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     backgroundColor: '#ff00ff',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update

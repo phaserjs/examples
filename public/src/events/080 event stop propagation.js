@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: {
+    scene: {
         create: create
     }
 };
@@ -17,7 +17,7 @@ function create() {
     //  And here are 2 listeners.
     //  The second listener has a higher priority than the first, so will be called first.
 
-    //  We'll use the States own EventDispatch to listen for, and dispatch the events
+    //  We'll use the Scenes own EventDispatch to listen for, and dispatch the events
     this.events.on('shoot', handler1, 5);
     this.events.on('shoot', handler2, 10);
 

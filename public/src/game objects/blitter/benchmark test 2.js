@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -10,7 +10,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var state = null;
+var scene = null;
 var add = false;
 var sub = 0;
 var total = 0;
@@ -25,12 +25,12 @@ function preload() {
 
 function create() {
 
-    state = this;
+    scene = this;
     blitter = this.add.blitter(0, 0, 'atlas', 'chunk');
 
     for (var i = 0; i < 250; ++i)
     {
-        blitter.create(random() * state.game.config.width, random() * state.game.config.height);
+        blitter.create(random() * scene.game.config.width, random() * scene.game.config.height);
         total++;
     }
 
@@ -42,7 +42,7 @@ function update() {
     {
         for (var i = 0; i < 250; ++i)
         {
-            blitter.create(random() * state.game.config.width, random() * state.game.config.height);
+            blitter.create(random() * scene.game.config.width, random() * scene.game.config.height);
             total++;
 
             if (blitter.children.length === 2000)

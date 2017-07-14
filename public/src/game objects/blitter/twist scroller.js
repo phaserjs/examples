@@ -3,7 +3,7 @@ var config = {
     width: 821,
     height: 552,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -12,7 +12,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var state;
+var scene;
 
 var fNoop =  0, // No effect
     fSin1 =  1, // Sine 1
@@ -162,7 +162,7 @@ blitter   = null;
 
 function preload() {
 
-    state = this;
+    scene = this;
 
     this.load.image('font', 'assets/tests/twist/bob-font.png');
     this.load.atlas('bobs', 'assets/tests/twist/bobs.png', 'assets/tests/twist/bobs.json');
@@ -175,17 +175,17 @@ function create() {
 
     blitter = this.add.blitter(0, 0, 'bobs');
 
-    frame = state.textures.getFrame('bobs', 'bob1');
+    frame = scene.textures.getFrame('bobs', 'bob1');
 
 }
 
 function scanFont () {
 
-    var font_canvas = Phaser.DOM.CanvasPool.create(state.game, 120, 102);
+    var font_canvas = Phaser.DOM.CanvasPool.create(scene.game, 120, 102);
 
     var ctx = font_canvas.getContext('2d');
 
-    ctx.drawImage(state.textures.get('font').source[0].image, 0, 0);
+    ctx.drawImage(scene.textures.get('font').source[0].image, 0, 0);
 
     var imageData = ctx.getImageData(0, 0, font_canvas.width, font_canvas.height);
 
@@ -308,7 +308,7 @@ function update() {
         counter   = (structure.length - 26) * 4 - 1;
         iteration = 0;
 
-        frame = state.textures.getFrame('bobs', 'bob' + (tile + 1).toString());
+        frame = scene.textures.getFrame('bobs', 'bob' + (tile + 1).toString());
     }
 
     // Draw 4-bit scroller

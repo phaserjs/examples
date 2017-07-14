@@ -5,7 +5,7 @@ var config = {
     zoom: 4,
     pixelArt: true,
     parent: 'phaser-example',
-    state: {
+    scene: {
         preload: preload,
         create: create,
         update: update
@@ -20,7 +20,7 @@ function preload () {
 
 }
 
-var state;
+var scene;
 
 var bg1;
 var bg2;
@@ -36,7 +36,7 @@ var fireRate = 100;
 
 function create () {
 
-    state = this;
+    scene = this;
 
     bg1 = this.add.image(0, 0, 'nemesis', 'background');
     bg2 = this.add.image(256, 0, 'nemesis', 'background');

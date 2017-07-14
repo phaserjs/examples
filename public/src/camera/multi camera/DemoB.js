@@ -1,12 +1,12 @@
 var DemoB = new Phaser.Class({
 
-    Extends: Phaser.State,
+    Extends: Phaser.Scene,
 
     initialize:
 
     function DemoB ()
     {
-        Phaser.State.call(this, { key: 'DemoB', active: true });
+        Phaser.Scene.call(this, { key: 'DemoB', active: true });
     },
 
     preload: function ()

@@ -4,7 +4,7 @@ var config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    state: {
+    scene: {
         create: create,
         update: update
     }

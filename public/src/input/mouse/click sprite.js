@@ -39,4 +39,7 @@ function create ()
         event.gameObject.clearTint();
 
     });
+
+    window.scene = this;
+
 }

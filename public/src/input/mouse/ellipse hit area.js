@@ -1,15 +1,14 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
+    pixelArt: true,
+    width: 800,
+    height: 600,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var sprite;
-var mouse = { x: 0, y: 0, hasMoved: false };
 
 var game = new Phaser.Game(config);
 
@@ -20,38 +19,23 @@ function preload ()
 
 function create ()
 {
-    sprite = this.add.sprite(400, 300, 'chick').setScale(1);
+    var sprite = this.add.sprite(400, 300, 'chick').setScale(3);
 
     var shape = new Phaser.Geom.Ellipse(-33, -66, 66, 133);
 
     sprite.setHitArea(shape, Phaser.Geom.Ellipse.Contains);
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    //  Input Event listeners
 
-        mouse.x = event.x;
-        mouse.y = event.y;
-        mouse.hasMoved = true;
+    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+
+        event.gameObject.setTint(0x7878ff);
 
     });
-}
 
-function update ()
-{
-    if (!mouse.hasMoved)
-    {
-        return;
-    }
+    this.input.events.on('POINTER_OUT_EVENT', function (event) {
 
-    var objects = this.input.pointScreenToWorldHitTest(sprite, mouse.x, mouse.y, this.cameras.main);
+        event.gameObject.clearTint();
 
-    if (objects.length > 0)
-    {
-        sprite.setTint(0x7878ff);
-    }
-    else
-    {
-        sprite.clearTint();
-    }
-
-    mouse.hasMoved = false;
+    });
 }

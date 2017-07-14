@@ -4,13 +4,9 @@ var config = {
     pixelArt: true,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var sprite;
-var mouse = { x: 0, y: 0, hasMoved: false };
 
 var game = new Phaser.Game(config);
 
@@ -21,38 +17,32 @@ function preload ()
 
 function create ()
 {
-    sprite = this.add.sprite(400, 300, 'ship').setScale(8);
+    var sprite = this.add.sprite(400, 300, 'ship').setScale(8);
 
     var shape = new Phaser.Geom.Triangle.BuildEquilateral(0, -18, 30);
 
     sprite.setHitArea(shape, Phaser.Geom.Triangle.Contains);
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    //  Input Event listeners
 
-        mouse.x = event.x;
-        mouse.y = event.y;
-        mouse.hasMoved = true;
+    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+
+        event.gameObject.setTint(0x7878ff);
 
     });
-}
 
-function update ()
-{
-    if (!mouse.hasMoved)
-    {
-        return;
-    }
+    this.input.events.on('POINTER_OUT_EVENT', function (event) {
 
-    var objects = this.input.pointScreenToWorldHitTest(sprite, mouse.x, mouse.y, this.cameras.main);
+        event.gameObject.clearTint();
 
-    if (objects.length > 0)
-    {
-        sprite.setTint(0x7878ff);
-    }
-    else
-    {
-        sprite.clearTint();
-    }
+    });
 
-    mouse.hasMoved = false;
+    //  Draw the shape
+    var graphics = this.add.graphics({ x: sprite.x / 8, y: sprite.y / 8 });
+
+    graphics.lineStyle(1/8, 0x00aa00);
+
+    graphics.scale(8, 8);
+
+    graphics.strokeTriangleShape(shape);
 }

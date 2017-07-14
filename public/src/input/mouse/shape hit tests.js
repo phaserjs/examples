@@ -4,13 +4,9 @@ var config = {
     pixelArt: true,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var sprites = [];
-var mouse = { x: 0, y: 0, hasMoved: false };
 
 var game = new Phaser.Game(config);
 
@@ -45,46 +41,17 @@ function create ()
 
     sprite5.setHitArea(new Phaser.Geom.Triangle.BuildEquilateral(0, -18, 30), Phaser.Geom.Triangle.Contains);
 
-    sprites.push(sprite1);
-    sprites.push(sprite2);
-    sprites.push(sprite3);
-    sprites.push(sprite4);
-    sprites.push(sprite5);
+    //  Input Event listeners
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.events.on('POINTER_OVER_EVENT', function (event) {
 
-        mouse.x = event.x;
-        mouse.y = event.y;
-        mouse.hasMoved = true;
-
-    });
-}
-
-function update ()
-{
-    // sprites.forEach(function (sprite) {
-
-    //     sprite.rotation += 0.001;
-
-    // });
-
-    if (!mouse.hasMoved)
-    {
-        return;
-    }
-
-    sprites.forEach(function (sprite) {
-
-        sprite.clearTint();
+        event.gameObject.setTint(0x7878ff);
 
     });
 
-    var objects = this.input.pointScreenToWorldHitTest(sprites, mouse.x, mouse.y, this.cameras.main);
+    this.input.events.on('POINTER_OUT_EVENT', function (event) {
 
-    for (var i = 0; i < objects.length; i++)
-    {
-        objects[i].setTint(0x7878ff);
-    }
+        event.gameObject.clearTint();
 
-    mouse.hasMoved = false;
+    });
 }

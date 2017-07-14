@@ -4,13 +4,9 @@ var config = {
     pixelArt: true,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var sprite;
-var mouse = { x: 0, y: 0, hasMoved: false };
 
 var game = new Phaser.Game(config);
 
@@ -21,7 +17,7 @@ function preload ()
 
 function create ()
 {
-    sprite = this.add.sprite(200, 300, 'car').setOrigin(0);
+    var sprite = this.add.sprite(200, 300, 'car').setOrigin(0);
 
     var shape = new Phaser.Geom.Polygon([
         0, 143,
@@ -39,32 +35,34 @@ function create ()
 
     sprite.setHitArea(shape, Phaser.Geom.Polygon.Contains);
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    //  Input Event listeners
 
-        mouse.x = event.x;
-        mouse.y = event.y;
-        mouse.hasMoved = true;
+    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+
+        event.gameObject.setTint(0x7878ff);
 
     });
-}
 
-function update ()
-{
-    if (!mouse.hasMoved)
+    this.input.events.on('POINTER_OUT_EVENT', function (event) {
+
+        event.gameObject.clearTint();
+
+    });
+
+    //  Draw the polygon
+    var graphics = this.add.graphics({ x: sprite.x, y: sprite.y });
+
+    graphics.lineStyle(2, 0x00aa00);
+
+    graphics.beginPath();
+
+    graphics.moveTo(shape.points[0].x, shape.points[0].y);
+
+    for (var i = 1; i < shape.points.length; i++)
     {
-        return;
+        graphics.lineTo(shape.points[i].x, shape.points[i].y);
     }
 
-    var objects = this.input.pointScreenToWorldHitTest(sprite, mouse.x, mouse.y, this.cameras.main);
-
-    if (objects.length > 0)
-    {
-        sprite.setTint(0x7878ff);
-    }
-    else
-    {
-        sprite.clearTint();
-    }
-
-    mouse.hasMoved = false;
+    graphics.closePath();
+    graphics.strokePath();
 }

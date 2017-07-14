@@ -10,9 +10,6 @@ var config = {
     }
 };
 
-var mouse = { x: 0, y: 0, hasMoved: false };
-var highlighted;
-var group;
 var controls;
 
 var game = new Phaser.Game(config);
@@ -31,13 +28,14 @@ function create ()
 
     graphics.generateTexture('block', 32, 32);
 
-    highlighted = this.add.image(16, 16, 'block');
+    var highlighted = this.add.image(16, 16, 'block');
 
     //  All the Images can share the same Shape, no need for a unique instance per one, a reference is fine
     var hitArea = new Phaser.Geom.Rectangle(-16, -16, 32, 32);
     var hitAreaCallback = Phaser.Geom.Rectangle.Contains;
 
     //  Create 10,000 Image Game Objects aligned in a grid
+    //  Change this to 2000 on MS Edge as it can't seem to cope with 10k at the moment
     group = this.make.group({
         classType: Phaser.GameObjects.Image,
         key: 'bobs',
@@ -72,12 +70,9 @@ function create ()
 
     controls = this.cameras.addSmoothedKeyControl(controlConfig);
 
-    //  Track movement
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.events.on('POINTER_OVER_EVENT', function (event) {
 
-        mouse.x = event.x;
-        mouse.y = event.y;
-        mouse.hasMoved = true;
+        highlighted.setPosition(event.gameObject.x, event.gameObject.y);
 
     });
 }
@@ -85,21 +80,4 @@ function create ()
 function update (time, delta)
 {
     controls.update(delta);
-
-    if (!mouse.hasMoved)
-    {
-        return;
-    }
-
-    var objects = this.input.pointScreenToWorldHitTest(group.children.entries, mouse.x, mouse.y, this.cameras.main);
-
-    if (objects && objects.length > 0)
-    {
-        var x = objects[0].x;
-        var y = objects[0].y;
-
-        highlighted.setPosition(x, y);
-    }
-
-    mouse.hasMoved = false;
 }

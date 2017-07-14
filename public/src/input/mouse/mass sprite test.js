@@ -5,14 +5,9 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var mouse = { x: 0, y: 0, hasMoved: false };
-var highlighted;
-var group;
 
 var game = new Phaser.Game(config);
 
@@ -30,7 +25,7 @@ function create ()
 
     graphics.generateTexture('block', 32, 32);
 
-    highlighted = this.add.image(16, 16, 'block');
+    var highlighted = this.add.image(16, 16, 'block');
 
     var hitArea = new Phaser.Geom.Rectangle(-16, -16, 32, 32);
     var hitAreaCallback = Phaser.Geom.Rectangle.Contains;
@@ -51,32 +46,9 @@ function create ()
         }
     });
 
-    //  Track movement
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.events.on('POINTER_OVER_EVENT', function (event) {
 
-        mouse.x = event.x;
-        mouse.y = event.y;
-        mouse.hasMoved = true;
+        highlighted.setPosition(event.gameObject.x, event.gameObject.y);
 
     });
-}
-
-function update ()
-{
-    if (!mouse.hasMoved)
-    {
-        return;
-    }
-
-    var objects = this.input.pointScreenToWorldHitTest(group.children.entries, mouse.x, mouse.y, this.cameras.main);
-
-    if (objects.length > 0)
-    {
-        var x = objects[0].x;
-        var y = objects[0].y;
-
-        highlighted.setPosition(x, y);
-    }
-
-    mouse.hasMoved = false;
 }

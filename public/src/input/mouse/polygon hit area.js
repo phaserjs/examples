@@ -1,7 +1,8 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    pixelArt: true,
+    width: 800,
+    height: 600,
     scene: {
         preload: preload,
         create: create

@@ -18,7 +18,7 @@ function preload ()
 
 function create ()
 {
-    var sprite = this.add.sprite(200, 300, 'car').setOrigin(0);
+    var sprite = this.add.sprite(100, 300, 'car').setOrigin(0);
 
     var shape = new Phaser.Geom.Polygon([
         0, 143,

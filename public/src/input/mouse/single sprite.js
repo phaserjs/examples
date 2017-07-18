@@ -1,27 +1,29 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
+    width: 800,
+    height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
+
+var sprite;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
     this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
-    this.load.image('b', 'assets/sprites/block.png');
 }
 
 function create ()
 {
-    var sprite = this.add.sprite(400, 300, 'eye');
+    sprite = this.add.sprite(400, 300, 'eye');
 
-    var shape = new Phaser.Geom.Rectangle(-64, -64, 128, 128);
-
-    sprite.setHitArea(shape, Phaser.Geom.Rectangle.Contains);
+    sprite.setInteractive();
 
     this.input.events.on('POINTER_OVER_EVENT', function (event) {
 
@@ -34,4 +36,9 @@ function create ()
         event.gameObject.clearTint();
 
     });
+}
+
+function update ()
+{
+    sprite.rotation += 0.01;
 }

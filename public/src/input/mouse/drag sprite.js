@@ -18,28 +18,42 @@ function preload ()
 
 function create ()
 {
-    var sprite1 = this.add.sprite(400, 300, 'eye');
+    var sprite = this.add.sprite(400, 300, 'eye').setInteractive();
 
-    this.input.setHitArea(sprite1);
+    this.input.setDraggable(sprite);
 
-    //  GO, horizontal, vertical, callback (if callback returns false then drag is stopped?)
-    this.input.enableDrag(sprite1, true, true);
+    this.input.events.on('DRAG_START_EVENT', function (event) {
 
-    this.input.events.on('POINTER_DRAG_EVENT', function (event) {
+        console.log('DRAG_START_EVENT', event.input.dragX, event.input.dragY);
 
-        event.gameObject.setTint(0xff0000);
+    });
+
+    this.input.events.on('DRAG_EVENT', function (event) {
+
+        event.gameObject.x = event.pointer.x - event.input.dragX;
+        event.gameObject.y = event.pointer.y - event.input.dragY;
+
+    });
+
+    this.input.events.on('DRAG_END_EVENT', function (event) {
+
+        console.log('DRAG_END_EVENT');
 
     });
 
     this.input.events.on('POINTER_OVER_EVENT', function (event) {
 
+        console.log('POINTER_OVER_EVENT');
         event.gameObject.setTint(0xff0000);
 
     });
 
     this.input.events.on('POINTER_OUT_EVENT', function (event) {
 
-        event.gameObject.clearTint();
+        if (!event.gameObject.input.isDragged)
+        {
+            event.gameObject.clearTint();
+        }
 
     });
 }

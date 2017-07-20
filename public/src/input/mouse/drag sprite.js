@@ -22,6 +22,9 @@ function create ()
 
     this.input.setDraggable(sprite);
 
+    window.scene = this;
+
+    /*
     this.input.events.on('DRAG_START_EVENT', function (event) {
 
         console.log('DRAG_START_EVENT', event.input.dragX, event.input.dragY);
@@ -40,15 +43,19 @@ function create ()
         console.log('DRAG_END_EVENT');
 
     });
+    */
 
     this.input.events.on('POINTER_OVER_EVENT', function (event) {
 
         console.log('POINTER_OVER_EVENT');
+
         event.gameObject.setTint(0xff0000);
 
     });
 
     this.input.events.on('POINTER_OUT_EVENT', function (event) {
+
+        console.log('POINTER_OUT_EVENT');
 
         if (!event.gameObject.input.isDragged)
         {

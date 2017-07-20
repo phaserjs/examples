@@ -16,11 +16,7 @@ function preload ()
 
 function create ()
 {
-    var sprite = this.add.sprite(400, 300, 'eye');
-
-    var shape = new Phaser.Geom.Rectangle(-64, -64, 128, 128);
-
-    sprite.setHitArea(shape, Phaser.Geom.Rectangle.Contains);
+    var sprite = this.add.sprite(400, 300, 'eye').setInteractive();
 
     this.input.events.on('POINTER_DOWN_EVENT', function (event) {
 
@@ -39,7 +35,4 @@ function create ()
         event.gameObject.clearTint();
 
     });
-
-    window.scene = this;
-
 }

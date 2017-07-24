@@ -2,8 +2,8 @@ var config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     pixelArt: true,
-    width: 800,
-    height: 600,
+    width: 640,
+    height: 480,
     scene: {
         preload: preload,
         create: create,

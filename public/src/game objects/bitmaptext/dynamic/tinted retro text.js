@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    backgroundColor: '#2d2d2d',
+    pixelArt: true,
     scene: {
         preload: preload,
         create: create
@@ -14,16 +14,28 @@ var game = new Phaser.Game(config);
 
 function preload()
 {
-    this.load.bitmapFont('ice', 'assets/fonts/bitmap/iceicebaby.png', 'assets/fonts/bitmap/iceicebaby.xml');
+    this.load.image('knighthawks', 'assets/fonts/retro/knight3.png');
 }
 
 function create() 
 {
     hsv = Phaser.Graphics.Color.HSVColorWheel();
 
-    var tintedText = this.add.dynamicBitmapText(32, 64, 'ice', '- Phaser III -', 128);
+    var config = {
+        image: 'knighthawks',
+        width: 31,
+        height: 25,
+        chars: Phaser.GameObjects.BitmapText.ParseRetroFont.TEXT_SET6,
+        charsPerRow: 10,
+        spacing: { x: 1, y: 1 }
+    };
 
-    tintedText.setDisplayCallback(textCallback);
+    this.cache.bitmapFont.add('knighthawks', Phaser.GameObjects.BitmapText.ParseRetroFont(this, config));
+
+    var text = this.add.dynamicBitmapText(0, 300, 'knighthawks', 'PHASER 3').setScale(4);
+
+    text.setDisplayCallback(textCallback);
+
 }
 
 function textCallback (data)
@@ -33,7 +45,7 @@ function textCallback (data)
     data.tint.bottomLeft = hsv[359 - Math.floor(i)].color;
     data.tint.bottomRight = hsv[Math.floor(i)].color;
 
-    i += 0.05;
+    i += 0.1;
 
     if (i >= hsv.length)
     {

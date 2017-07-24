@@ -39,6 +39,6 @@ function create()
 
 function update()
 {
-    dynamic.text = 'VER ' + value.toFixed(2);
+    dynamic.text = 'PHASER 3\nVER ' + value.toFixed(2);
     value += 0.01;
 }

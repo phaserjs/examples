@@ -22,7 +22,7 @@ function create ()
     var config = {
         key: 'run',
         frames: 'muybridge',
-        framerate: 15,
+        frameRate: 15,
         repeat: -1
     };
 

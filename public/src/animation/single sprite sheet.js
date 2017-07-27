@@ -21,7 +21,7 @@ function create ()
     var config = {
         key: 'explode',
         frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 23, first: 23 }),
-        framerate: 20
+        frameRate: 20
     };
 
     this.anims.create(config);

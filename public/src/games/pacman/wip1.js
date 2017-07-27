@@ -47,7 +47,7 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'powerDot',
             frames: this.anims.generateFrameNumbers('dots', { start: 1, end: 2 }),
-            framerate: 5,
+            frameRate: 5,
             repeat: -1
         });
 
@@ -56,35 +56,35 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('sprites', { start: 3, end: 4 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers('sprites', { start: 0, end: 1 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'up',
             frames: this.anims.generateFrameNumbers('sprites', { start: 5, end: 6 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'down',
             frames: this.anims.generateFrameNumbers('sprites', { start: 7, end: 8 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'die',
             frames: this.anims.generateFrameNumbers('sprites', { start: 11, end: 21 }),
-            framerate: 8,
+            frameRate: 8,
             onComplete: this.playDeathOver,
             callbackScope: this
         });
@@ -96,28 +96,28 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'blinkyRight',
             frames: this.anims.generateFrameNumbers('sprites', { start: 22, end: 23 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'blinkyDown',
             frames: this.anims.generateFrameNumbers('sprites', { start: 24, end: 25 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'blinkyLeft',
             frames: this.anims.generateFrameNumbers('sprites', { start: 26, end: 27 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'blinkyUp',
             frames: this.anims.generateFrameNumbers('sprites', { start: 28, end: 29 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
@@ -126,28 +126,28 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'pinkyRight',
             frames: this.anims.generateFrameNumbers('sprites', { start: 33, end: 34 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'pinkyDown',
             frames: this.anims.generateFrameNumbers('sprites', { start: 35, end: 36 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'pinkyLeft',
             frames: this.anims.generateFrameNumbers('sprites', { start: 37, end: 38 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'pinkyUp',
             frames: this.anims.generateFrameNumbers('sprites', { start: 39, end: 40 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
@@ -156,28 +156,28 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'inkyRight',
             frames: this.anims.generateFrameNumbers('sprites', { start: 44, end: 45 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'inkyDown',
             frames: this.anims.generateFrameNumbers('sprites', { start: 46, end: 47 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'inkyLeft',
             frames: this.anims.generateFrameNumbers('sprites', { start: 48, end: 49 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'inkyUp',
             frames: this.anims.generateFrameNumbers('sprites', { start: 50, end: 51 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
@@ -186,28 +186,28 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'clydeRight',
             frames: this.anims.generateFrameNumbers('sprites', { start: 55, end: 56 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'clydeDown',
             frames: this.anims.generateFrameNumbers('sprites', { start: 57, end: 58 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'clydeLeft',
             frames: this.anims.generateFrameNumbers('sprites', { start: 59, end: 60 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
         this.anims.create({
             key: 'clydeUp',
             frames: this.anims.generateFrameNumbers('sprites', { start: 61, end: 62 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: -1
         });
 
@@ -216,7 +216,7 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'frightened',
             frames: this.anims.generateFrameNumbers('sprites', { start: 77, end: 78 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: 50,
             onComplete: this.setFrightenedOut,
             callbackScope: this
@@ -225,7 +225,7 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'frightenedOut',
             frames: this.anims.generateFrameNumbers('sprites', { start: 77, end: 80 }),
-            framerate: 16,
+            frameRate: 16,
             repeat: 10,
             onComplete: this.setFrightenedOver,
             callbackScope: this
@@ -250,7 +250,7 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'points200',
             frames: this.anims.generateFrameNumbers('sprites', { start: 110, end: 110 }),
-            framerate: 1,
+            frameRate: 1,
             onComplete: this.removePoints,
             callbackScope: this
         });
@@ -258,7 +258,7 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'points400',
             frames: this.anims.generateFrameNumbers('sprites', { start: 111, end: 111 }),
-            framerate: 1,
+            frameRate: 1,
             onComplete: this.removePoints,
             callbackScope: this
         });
@@ -266,7 +266,7 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'points800',
             frames: this.anims.generateFrameNumbers('sprites', { start: 112, end: 112 }),
-            framerate: 1,
+            frameRate: 1,
             onComplete: this.removePoints,
             callbackScope: this
         });
@@ -274,7 +274,7 @@ var PacmanGame = new Phaser.Class({
         this.anims.create({
             key: 'points1600',
             frames: this.anims.generateFrameNumbers('sprites', { start: 113, end: 113 }),
-            framerate: 1,
+            frameRate: 1,
             onComplete: this.removePoints,
             callbackScope: this
         });

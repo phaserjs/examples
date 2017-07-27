@@ -21,7 +21,7 @@ function create ()
     var config = {
         key: 'flash',
         frames: this.anims.generateFrameNumbers('diamonds', { start: 0, end: 4 }),
-        framerate: 6,
+        frameRate: 6,
         yoyo: true,
         repeat: -1
     };

@@ -35,7 +35,7 @@ function create ()
     var config = {
         key: 'walk',
         frames: this.anims.generateFrameNumbers('mummy'),
-        framerate: 6,
+        frameRate: 6,
         yoyo: true,
         repeat: -1
     };

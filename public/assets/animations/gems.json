@@ -101,7 +101,7 @@
                     "visible": false
                 }
             ],
-            "framerate": 24,
+            "frameRate": 24,
             "duration": 1.5,
             "skipMissedFrames": true,
             "delay": 0,
@@ -158,7 +158,7 @@
                     "visible": false
                 }
             ],
-            "framerate": 24,
+            "frameRate": 24,
             "duration": 3.4285714285714284,
             "skipMissedFrames": true,
             "delay": 0,
@@ -215,7 +215,7 @@
                     "visible": false
                 }
             ],
-            "framerate": 24,
+            "frameRate": 24,
             "duration": 3.4285714285714284,
             "skipMissedFrames": true,
             "delay": 0,
@@ -320,7 +320,7 @@
                     "visible": false
                 }
             ],
-            "framerate": 24,
+            "frameRate": 24,
             "duration": 1.6,
             "skipMissedFrames": true,
             "delay": 0,

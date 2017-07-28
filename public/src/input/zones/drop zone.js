@@ -35,12 +35,12 @@ function create ()
     }
 
     //  A drop zone
-    var zone = this.add.zone(345, 100, 310, 300).setDropZone();
+    var zone = this.add.zone(500, 300, 300, 300).setDropZone();
 
     //  Just a visual display of the drop zone
     var graphics = this.add.graphics();
     graphics.lineStyle(2, 0xffff00);
-    graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
+    graphics.strokeRect(zone.x + zone.input.hitArea.x, zone.y + zone.input.hitArea.y, zone.input.hitArea.width, zone.input.hitArea.height);
 
     var _this = this;
 
@@ -61,7 +61,7 @@ function create ()
 
         graphics.clear();
         graphics.lineStyle(2, 0x00ffff);
-        graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
+        graphics.strokeRect(zone.x + zone.input.hitArea.x, zone.y + zone.input.hitArea.y, zone.input.hitArea.width, zone.input.hitArea.height);
 
     });
 
@@ -69,14 +69,14 @@ function create ()
 
         graphics.clear();
         graphics.lineStyle(2, 0xffff00);
-        graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
+        graphics.strokeRect(zone.x + zone.input.hitArea.x, zone.y + zone.input.hitArea.y, zone.input.hitArea.width, zone.input.hitArea.height);
 
     });
 
     this.input.events.on('DROP_EVENT', function (event) {
 
-        event.gameObject.x = event.dropZone.x + event.dropZone.width / 2;
-        event.gameObject.y = event.dropZone.y + event.dropZone.height / 2;
+        event.gameObject.x = event.dropZone.x;
+        event.gameObject.y = event.dropZone.y;
 
         event.gameObject.input.enabled = false;
 
@@ -92,7 +92,7 @@ function create ()
 
         graphics.clear();
         graphics.lineStyle(2, 0xffff00);
-        graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
+        graphics.strokeRect(zone.x + zone.input.hitArea.x, zone.y + zone.input.hitArea.y, zone.input.hitArea.width, zone.input.hitArea.height);
 
     });
 

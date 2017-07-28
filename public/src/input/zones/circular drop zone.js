@@ -34,13 +34,13 @@ function create ()
         y += 6;
     }
 
-    //  A drop zone
-    var zone = this.add.zone(345, 100, 310, 300).setDropZone();
+    //  A drop zone positioned at 600x300 with a circular drop zone 128px in radius
+    var zone = this.add.zone(600, 300).setCircleDropZone(128);
 
     //  Just a visual display of the drop zone
     var graphics = this.add.graphics();
     graphics.lineStyle(2, 0xffff00);
-    graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
+    graphics.strokeCircle(zone.x, zone.y, zone.input.hitArea.radius);
 
     var _this = this;
 
@@ -57,26 +57,26 @@ function create ()
 
     });
 
-    this.input.events.on('DRAG_ENTER_EVENT', function (event) {
+    // this.input.events.on('DRAG_ENTER_EVENT', function (event) {
 
-        graphics.clear();
-        graphics.lineStyle(2, 0x00ffff);
-        graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
+    //     graphics.clear();
+    //     graphics.lineStyle(2, 0x00ffff);
+    //     graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
 
-    });
+    // });
 
-    this.input.events.on('DRAG_LEAVE_EVENT', function (event) {
+    // this.input.events.on('DRAG_LEAVE_EVENT', function (event) {
 
-        graphics.clear();
-        graphics.lineStyle(2, 0xffff00);
-        graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
+    //     graphics.clear();
+    //     graphics.lineStyle(2, 0xffff00);
+    //     graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
 
-    });
+    // });
 
     this.input.events.on('DROP_EVENT', function (event) {
 
-        event.gameObject.x = event.dropZone.x + event.dropZone.width / 2;
-        event.gameObject.y = event.dropZone.y + event.dropZone.height / 2;
+        event.gameObject.x = event.dropZone.x;
+        event.gameObject.y = event.dropZone.y;
 
         event.gameObject.input.enabled = false;
 
@@ -90,9 +90,9 @@ function create ()
             event.gameObject.y = event.gameObject.input.dragStartY;
         }
 
-        graphics.clear();
-        graphics.lineStyle(2, 0xffff00);
-        graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
+        // graphics.clear();
+        // graphics.lineStyle(2, 0xffff00);
+        // graphics.strokeRect(zone.x, zone.y, zone.width, zone.height);
 
     });
 

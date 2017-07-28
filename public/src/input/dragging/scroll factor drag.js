@@ -20,7 +20,7 @@ function create ()
     var image2 = this.add.sprite(400, 300, 'eye').setInteractive();
     var image3 = this.add.sprite(600, 300, 'eye').setInteractive();
 
-    this.input.setDraggable([ image1, image2, image3 ]);
+    // this.input.setDraggable([ image1, image2, image3 ]);
 
     image1.setScrollFactor(1);
     image2.setScrollFactor(0.7);

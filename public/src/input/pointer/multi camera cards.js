@@ -40,7 +40,7 @@ function create ()
     //  3 more cams
     this.cameras.add(513, 0, 511, 299).setZoom(0.5).setBackgroundColor('#0000aa');
     this.cameras.add(0, 301, 511, 299).setZoom(0.5).setBackgroundColor('#00aa00');
-    this.cameras.add(513, 301, 511, 299).setZoom(0.5).setBackgroundColor('#aa0000');
+    this.cameras.add(513, 301, 511, 299).setZoom(0.5).setBackgroundColor('#aa0000').setRotation(0.8);
 
     var _this = this;
 

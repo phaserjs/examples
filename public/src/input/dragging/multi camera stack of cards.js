@@ -3,6 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 1024,
     height: 600,
+    backgroundColor: '#fafafa',
     scene: {
         preload: preload,
         create: create

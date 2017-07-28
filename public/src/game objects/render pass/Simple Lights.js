@@ -17,7 +17,7 @@ var image2;
 var image3;
 var images = [];
 var renderPassNormal;
-var renderPassLigths;
+var renderPassLights;
 var iter = 0;
 var lightPosition = {x: 0, y: 0, z: 0.08};
 var game = new Phaser.Game(config);
@@ -50,6 +50,7 @@ var lightShader = [
     '   vec4 color = texture2D(sampler, v_tex_coord);',
     '   vec4 normal_map = texture2D(u_normal_tex, uv);',
     '   vec3 light_dir = vec3(u_light_pos.xy - (gl_FragCoord.xy / vec2(800.0, 600.0)), u_light_pos.z);',
+    '   light_dir.y *= -1.0;',
     '   float D = length(light_dir);',
     '   vec3 N = normalize(vec3(normal_map.rgb * 2.0 - 1.0));',
     '   vec3 L = normalize(light_dir);',
@@ -73,7 +74,7 @@ function create ()
 {
     var keys = ['mushroom', 'phaser'];
     renderPassNormal = this.make.renderPass(0, 0, 800, 600, 'normalGenerator', normalGenerator);
-    renderPassLigths = this.add.renderPass(0, 0, 800, 600, 'lights', lightShader);
+    renderPassLights = this.add.renderPass(0, 0, 800, 600, 'lights', lightShader);
 
     for (var i = 0; i < 100; i++)
     {
@@ -81,11 +82,11 @@ function create ()
         images.push(image);
     }
     
-    renderPassLigths.setFloat4('u_light_color', 1.0, 0.5, 0.3, 1.0);
-    renderPassLigths.setFloat4('u_ambient_color', 0.2, 0.2, 0.2, 1.0);
-    renderPassLigths.setFloat4('u_falloff', 0.2, 3.0, 1.0, 1.0);
+    renderPassLights.setFloat4('u_light_color', 1.0, 0.5, 0.3, 1.0);
+    renderPassLights.setFloat4('u_ambient_color', 0.2, 0.2, 0.2, 1.0);
+    renderPassLights.setFloat4('u_falloff', 0.2, 3.0, 1.0, 1.0);
 
-    renderPassLigths.setRenderTextureAt(renderPassNormal.renderTexture, 'u_normal_tex', 1);
+    renderPassLights.setRenderTextureAt(renderPassNormal.renderTexture, 'u_normal_tex', 1);
 
     game.canvas.onmousemove = function (e) {
         lightPosition.x = e.clientX - game.canvas.offsetLeft;
@@ -93,9 +94,9 @@ function create ()
     };
 
     game.canvas.onmousedown = function (e) {
-        renderPassLigths.setFloat4('u_light_color', Math.random(), Math.random(), Math.random(), 1.0);
+        renderPassLights.setFloat4('u_light_color', Math.random(), Math.random(), Math.random(), 1.0);
         lightPosition.z = Math.random() * 0.1;
-        renderPassLigths.setFloat4('u_falloff', Math.random(), 2.0 + Math.random() * 3.0, 1.0, 1.0);
+        renderPassLights.setFloat4('u_falloff', Math.random(), 2.0 + Math.random() * 3.0, 1.0, 1.0);
     };
 
 }
@@ -115,18 +116,18 @@ function update ()
 
     iter += 0.1;
 
-    /* Render */ 
+    /* Render */
     renderPassNormal.clearColorBuffer(0, 0, 0, 0);
-    for (var i = 0; i < imageCount; ++i)
+    for (i = 0; i < imageCount; ++i)
     {
         renderPassNormal.render(images[i], this.cameras.main);
     }
 
-    renderPassLigths.clearColorBuffer(0, 0, 0, 0);
-    renderPassLigths.setFloat3('u_light_pos', lightPosition.x / 800, -lightPosition.y / 600 + 1, lightPosition.z);
+    renderPassLights.clearColorBuffer(0, 0, 0, 0);
+    renderPassLights.setFloat3('u_light_pos', lightPosition.x / 800, -lightPosition.y / 600 + 1, lightPosition.z);
     for (var i = 0; i < imageCount; ++i)
     {
-        renderPassLigths.render(images[i], this.cameras.main);
+        renderPassLights.render(images[i], this.cameras.main);
     }
 
 }

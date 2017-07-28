@@ -5,9 +5,12 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
+
+var cards;
 
 var game = new Phaser.Game(config);
 
@@ -19,6 +22,7 @@ function preload ()
 function create ()
 {
     //  Create a stack of random cards
+    cards = this.add.group();
 
     var frames = this.textures.get('cards').getFrameNames();
 
@@ -36,6 +40,8 @@ function create ()
         image.setAngle(Phaser.Math.Between(0, 359));
 
         this.input.setDraggable(image);
+
+        cards.add(image);
     }
 
     var _this = this;
@@ -56,4 +62,9 @@ function create ()
 
     });
 
+}
+
+function update ()
+{
+    cards.rotate(0.01);
 }

@@ -37,7 +37,8 @@ function create ()
         obj.setScrollFactor(obj.scaleX);
         obj.setZ(obj.scrollFactorX);
         obj.setOrigin(-2 + Math.random() * 4, -2 + Math.random() * 4);
-        obj.setHitArea(new Phaser.Geom.Rectangle(0 - (95 * obj.originX), 0 - (95 * obj.originY), 95, 95), Phaser.Geom.Rectangle.Contains);
+        obj.setInteractive();
+        // obj.setHitArea(new Phaser.Geom.Rectangle(0 - (95 * obj.originX), 0 - (95 * obj.originY), 95, 95), Phaser.Geom.Rectangle.Contains);
 
         intensity *= obj.scrollFactorX;
         obj.tint = ((intensity & 0x0ff) << 16) | ((intensity & 0x0ff) << 8) | (intensity & 0x0ff);
@@ -141,6 +142,9 @@ function update (time, delta)
         if (objects && objects.length > 0)
         {
             var length = objects.length;
+
+            console.log(length);
+
             for (var j = 0; j < length; ++j)
             {
                 var object = objects[j];

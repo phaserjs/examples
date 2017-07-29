@@ -23,8 +23,8 @@ function create ()
 
     var frames = this.textures.get('cards').getFrameNames();
 
-    var x = 0;
-    var y = 0;
+    var x = 100;
+    var y = 100;
 
     for (var i = 0; i < 64; i++)
     {
@@ -36,26 +36,36 @@ function create ()
         y += 4;
     }
 
-    //  Shrink the main camera
-    this.cameras.main.setSize(511, 299).setZoom(0.5).setBackgroundColor('#000000');
+    //  Set the cameras
+    var cam1 = this.cameras.main.setSize(512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#000000').setName('Black');
 
-    //  3 more cams
-    this.cameras.add(513, 0, 511, 299).setZoom(0.5).setBackgroundColor('#0000aa');
-    this.cameras.add(0, 301, 511, 299).setZoom(0.5).setBackgroundColor('#00aa00');
-    this.cameras.add(513, 301, 511, 299).setZoom(0.5).setBackgroundColor('#aa0000');
+    //  Swap cam2 for a 25% zoom one and it fails, I think only because it's not centered properly? or the viewport size / position is wrong for the zoom?
+    //  Same at zoom 200%, for the same reason - I think the viewport is incorrectly centered?
+    var cam2 = this.cameras.add(512, 0, 512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#0000aa').setName('Blue');
+    // var cam2 = this.cameras.add(512, 0, 512, 300).setZoom(0.25).centerToSize().setBackgroundColor('#0000aa').setName('Blue');
 
-    var _this = this;
+    var cam3 = this.cameras.add(0, 300, 512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#00aa00').setName('Green');
+    var cam4 = this.cameras.add(512, 300, 512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#aa0000').setName('Red');
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    //  Add some rotation to camera 4
+    cam4.setRotation(0.4);
 
-        _this.children.bringToTop(event.gameObject);
-
-    });
+    var matrix = new Phaser.GameObjects.Components.TransformMatrix();
 
     this.input.events.on('DRAG_EVENT', function (event) {
 
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        var camera = event.camera;
+
+        //  Convert pointer x/y into camera space
+        matrix.applyITRS(camera.x, camera.y, -camera.rotation, camera.zoom, camera.zoom);
+        matrix.invert();
+        var p = matrix.transformPoint(event.x, event.y);
+
+        //  Works perfectly as long as the camera isn't rotated.
+        //  If rotated it's technically doing the right thing, but it needs to 'break' the rules and translate
+        //  back into screen space again I think?
+        event.gameObject.x = p.x;
+        event.gameObject.y = p.y;
 
     });
 

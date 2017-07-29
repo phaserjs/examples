@@ -35,9 +35,9 @@ function create ()
 
         image.setInteractive();
 
-        image.setScale(Phaser.Math.FloatBetween(0.25, 0.75));
+        image.setScale(Phaser.Math.FloatBetween(0.25, 1.0));
 
-        // image.setScrollFactor(image.scaleX);
+        image.setScrollFactor(image.scaleX);
 
         image.setZ(image.scrollFactorX);
 
@@ -49,12 +49,6 @@ function create ()
     }
 
     var _this = this;
-
-    this.input.events.on('DRAG_START_EVENT', function (event) {
-
-        _this.children.bringToTop(event.gameObject);
-
-    });
 
     this.input.events.on('DRAG_EVENT', function (event) {
 

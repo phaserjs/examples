@@ -30,6 +30,10 @@ function create ()
     {
         var image = this.add.image(x, y, 'cards', Phaser.Math.RND.pick(frames)).setInteractive();
 
+        // image.setScrollFactor(0.25);
+        image.setScrollFactor(0.5);
+        // image.setScrollFactor(2);
+
         this.input.setDraggable(image);
 
         x += 4;
@@ -59,11 +63,16 @@ function create ()
         matrix.invert();
         var p = matrix.transformPoint(event.x, event.y);
 
-        //  Works perfectly as long as the camera isn't rotated.
-        //  If rotated it's technically doing the right thing, but it needs to 'break' the rules and translate
-        //  back into screen space again so it works as you'd expect with a pointer
+        //  Works as long as the camera isn't rotated and/or the GO doesn't have scrollFactor set.
+
         event.gameObject.x = p.x;
         event.gameObject.y = p.y;
+
+        //  This works if scrollFactor = 0.5, but not at any other scrollFactor.
+        //  I assume because camera zoom is 0.5?
+
+        // event.gameObject.x = p.x - camera.scrollX * event.gameObject.scrollFactorX;
+        // event.gameObject.y = p.y - camera.scrollY * event.gameObject.scrollFactorY;
 
     });
 

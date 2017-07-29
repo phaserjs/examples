@@ -39,10 +39,8 @@ function create ()
     //  Set the cameras
     var cam1 = this.cameras.main.setSize(512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#000000').setName('Black');
 
-    //  Swap cam2 for a 25% zoom one and it fails, I think only because it's not centered properly? or the viewport size / position is wrong for the zoom?
-    //  Same at zoom 200%, for the same reason - I think the viewport is incorrectly centered?
-    var cam2 = this.cameras.add(512, 0, 512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#0000aa').setName('Blue');
-    // var cam2 = this.cameras.add(512, 0, 512, 300).setZoom(0.25).centerToSize().setBackgroundColor('#0000aa').setName('Blue');
+    //  Tricky to work out the right scroll to use, maybe centerToSize should do it for us?
+    var cam2 = this.cameras.add(512, 0, 512, 300).setZoom(0.25).setScroll(1024-256, 600-150).setBackgroundColor('#0000aa').setName('Blue');
 
     var cam3 = this.cameras.add(0, 300, 512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#00aa00').setName('Green');
     var cam4 = this.cameras.add(512, 300, 512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#aa0000').setName('Red');
@@ -63,7 +61,7 @@ function create ()
 
         //  Works perfectly as long as the camera isn't rotated.
         //  If rotated it's technically doing the right thing, but it needs to 'break' the rules and translate
-        //  back into screen space again I think?
+        //  back into screen space again so it works as you'd expect with a pointer
         event.gameObject.x = p.x;
         event.gameObject.y = p.y;
 

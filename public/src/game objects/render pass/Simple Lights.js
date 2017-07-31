@@ -72,7 +72,7 @@ function preload ()
 function create ()
 {
     var keys = ['mushroom', 'phaser'];
-    renderPassNormal = this.make.renderPass(0, 0, 800, 600, 'normalGenerator', normalGenerator);
+    renderPassNormal = this.make.renderPass({add: false, x: 0, y: 0, width: 800, height: 600, shaderName: 'normalGenerator', fragmentShader: normalGenerator});
     renderPassLigths = this.add.renderPass(0, 0, 800, 600, 'lights', lightShader);
 
     for (var i = 0; i < 100; i++)

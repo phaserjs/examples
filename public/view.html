@@ -102,6 +102,7 @@
             $('#editlink').attr('href', 'edit.html?src=' + filename);
             $('#backlink').attr('href', 'index.html?dir=' + backURL);
 
+            /*
             $('#save').on('click', function (e) {
 
                 var data = {
@@ -122,6 +123,7 @@
                 });
 
             });
+            */
 
             //  Load Phaser
 
@@ -140,7 +142,7 @@
 
                 $('#loading').hide();
                 $('#nav').show();
-                $('#feedback').show();
+                // $('#feedback').show();
             }
 
             phaserScript.src = './build/' + phaserVersion;

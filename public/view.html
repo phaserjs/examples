@@ -2,40 +2,145 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Phaser 3 Runner</title>
+    <title>Phaser 3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="./js/TweenMax.min.js"></script>
     <script src="./js/getQueryString.js"></script>
+    <script src="./js/jquery-3.1.1.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
         }
+
+        #feedback {
+            width: 600px;
+            margin: 0px 0px 0px 32px;
+            font: 14px Arial;
+            padding: 20px;
+            background-color: #efefef;
+            box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        #feedback textarea {
+            font: Courier;
+            width: 500px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        #nav {
+            width: 800px;
+            height: 60px;
+            margin: 32px 0px 0px 32px;
+        }
+
+        #nav a {
+            background: linear-gradient(135deg, #e570e7 0%,#79f1fc 100%);
+            text-align: center;
+            font-family: Helvetica, Arial;
+            letter-spacing: 1px;
+            text-decoration: none;
+            box-shadow: 0 5px 3px rgba(0, 0, 0, 0.7);
+            outline: none;
+            margin-right: 64px;
+            padding: 10px 20px;
+            color: #2d2d2d;
+            width: 200px;
+        }
+
+        #nav a:Hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+
     </style>
-    <script src="./js/phaser.js"></script>
 </head>
 
 <body>
 
     <div id="phaser-example"></div>
 
-    <script type="text/javascript">
+    <div id="nav">
 
-    window.onload = function ()
-    {
+        <a id="backlink">&lt; Back</a>
+        <a id="editlink">Edit Example</a>
+
+    </div>
+
+    <div id="feedback">
+
+        <img src="assets/sprites/phaser.png">
+
+        <p>Example broken? Help us fix it by leaving feedback below.</p>
+
+        <textarea name="bug" id="bug"></textarea><br />
+
+        <input type="submit" id="save" value="Send Feedback"> <em>No personal data is sent</em>
+
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
         var filename = getQueryString('src');
+        var phaserVersion = getQueryString('v', 'dev.js');
 
         if (filename.substr(-3) === '.js')
         {
-            var s = document.createElement('script');
+            //  Prepare the links and Feedback form before we run the example
+            var parts = filename.split('\\');
+            parts.pop();
+            parts.shift();
+            backURL = parts.join('/') + '/';
 
-            s.type = 'text/javascript';
-            s.src = filename;
+            document.title = document.title.concat(' :: ' + filename);
 
-            document.body.appendChild(s);
+            $('#editlink').attr('href', 'edit.html?src=' + filename);
+            $('#backlink').attr('href', 'index.html?dir=' + backURL);
+
+            $('#save').on('click', function (e) {
+
+                var data = {
+                    example: filename,
+                    bug: $('#bug').val()
+                };
+
+                $.post('http://phaser.io/phaser3/issues/save', data, function (result) {
+
+                    if (result && result.result == '1')
+                    {
+                        $('#bug').hide();
+                        $('#save').hide();
+                        $('#feedback em').hide();
+                        $('#feedback p').text("Thank you!");
+                    }
+
+                });
+
+            });
+
+            //  Load Phaser
+
+            var phaserScript = document.createElement('script');
+
+            phaserScript.type = 'text/javascript';
+            phaserScript.async = true;
+
+            phaserScript.onload = function ()
+            {
+                //  Inject the example source
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.src = filename;
+                document.body.appendChild(s);
+            }
+
+            phaserScript.src = './build/' + phaserVersion;
+
+            document.body.appendChild(phaserScript);
         }
 
-    };
-
+    });
     </script>
 
 </body>

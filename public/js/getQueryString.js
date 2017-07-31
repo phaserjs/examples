@@ -19,11 +19,13 @@ function decodeURI (value)
 * @param {string} [parameter=''] - If specified this will return just the value for that key.
 * @return {string|object} An object containing the key value pairs found in the query string or just the value if a parameter was given.
 */
-function getQueryString (parameter)
+function getQueryString (parameter, defaultValue)
 {
     if (parameter === undefined) { parameter = ''; }
+    if (defaultValue === undefined) { defaultValue = ''; }
 
     var output = null;
+    var result = null;
     var keyValues = location.search.substring(1).split('&');
 
     for (var i in keyValues)
@@ -34,7 +36,8 @@ function getQueryString (parameter)
         {
             if (parameter && parameter === decodeURI(key[0]))
             {
-                return decodeURI(key[1]);
+                result = decodeURI(key[1]);
+                break;
             }
             else
             {
@@ -48,6 +51,6 @@ function getQueryString (parameter)
         }
     }
 
-    return output;
+    return (result) ? result : defaultValue;
 
 };

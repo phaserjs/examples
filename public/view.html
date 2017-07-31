@@ -13,6 +13,7 @@
         }
 
         #feedback {
+            display: none;
             width: 600px;
             margin: 0px 0px 0px 32px;
             font: 14px Arial;
@@ -29,6 +30,7 @@
         }
 
         #nav {
+            display: none;
             width: 800px;
             height: 60px;
             margin: 32px 0px 0px 32px;
@@ -59,6 +61,8 @@
 <body>
 
     <div id="phaser-example"></div>
+
+    <p id="loading">Please wait, loading Phaser build ...</p>
 
     <div id="nav">
 
@@ -133,6 +137,10 @@
                 s.type = 'text/javascript';
                 s.src = filename;
                 document.body.appendChild(s);
+
+                $('#loading').hide();
+                $('#nav').show();
+                $('#feedback').show();
             }
 
             phaserScript.src = './build/' + phaserVersion;

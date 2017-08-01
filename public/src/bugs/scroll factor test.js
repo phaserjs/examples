@@ -10,6 +10,7 @@ var config = {
     }
 };
 
+var cam;
 var card1;
 var card2;
 var card3;
@@ -23,25 +24,24 @@ function preload ()
 
 function create ()
 {
-    //  Create a stack of random cards
-
-    var frames = this.textures.get('cards').getFrameNames();
-
-    card1 = this.add.image(200, 100, 'cards', Phaser.Math.RND.pick(frames));
-    card2 = this.add.image(400, 100, 'cards', Phaser.Math.RND.pick(frames));
-    card3 = this.add.image(600, 100, 'cards', Phaser.Math.RND.pick(frames));
+    card1 = this.add.image(200, 100, 'cards', 'heartsAce');
+    card2 = this.add.image(400, 100, 'cards', 'hearts2');
+    card3 = this.add.image(600, 100, 'cards', 'hearts3');
 
     card1.setScrollFactor(1);
-    card2.setScrollFactor(0.5);
-    card3.setScrollFactor(0.25);
+    card2.setScrollFactor(0.6);
+    card3.setScrollFactor(0.3);
 
-    //  Toggle these two lines - why does the centerToSize() have an impact on the scrollFactor working???
-    // var cam1 = this.cameras.main.setSize(512, 300).setZoom(0.5);
-    var cam1 = this.cameras.main.setSize(512, 300).setZoom(0.5).centerToSize();
+    cam = this.cameras.main;
+
+    // cam.centerToSize();
 }
 
 function update ()
 {
+    cam.scrollX += 1;
+    // cam.scrollY -= 0.5;
+
     card1.y += 0.5;
     card2.y += 0.5;
     card3.y += 0.5;

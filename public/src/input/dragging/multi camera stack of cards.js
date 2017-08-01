@@ -40,12 +40,10 @@ function create ()
         y += 4;
     }
 
-    //  Set the cameras
-    var cam1 = this.cameras.main.setSize(512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#000000').setName('Black');
-
     //  Tricky to work out the right scroll to use, maybe centerToSize should do it for us?
-    var cam2 = this.cameras.add(512, 0, 512, 300).setZoom(0.25).setScroll(1024-256, 600-150).setBackgroundColor('#0000aa').setName('Blue');
 
+    var cam1 = this.cameras.main.setSize(512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#000000').setName('Black');
+    var cam2 = this.cameras.add(512, 0, 512, 300).setZoom(0.25).setScroll(1024-256, 600-150).setBackgroundColor('#0000aa').setName('Blue');
     var cam3 = this.cameras.add(0, 300, 512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#00aa00').setName('Green');
     var cam4 = this.cameras.add(512, 300, 512, 300).setZoom(0.5).centerToSize().setBackgroundColor('#aa0000').setName('Red');
 
@@ -60,19 +58,22 @@ function create ()
 
         //  Convert pointer x/y into camera space
         matrix.applyITRS(camera.x, camera.y, -camera.rotation, camera.zoom, camera.zoom);
+
         matrix.invert();
+
         var p = matrix.transformPoint(event.x, event.y);
 
-        //  Works as long as the camera isn't rotated and/or the GO doesn't have scrollFactor set.
-
-        event.gameObject.x = p.x;
-        event.gameObject.y = p.y;
+        event.gameObject.x = p.x * event.gameObject.scrollFactorX;
+        event.gameObject.y = p.y * event.gameObject.scrollFactorY;
 
         //  This works if scrollFactor = 0.5, but not at any other scrollFactor.
         //  I assume because camera zoom is 0.5?
 
-        // event.gameObject.x = p.x - camera.scrollX * event.gameObject.scrollFactorX;
-        // event.gameObject.y = p.y - camera.scrollY * event.gameObject.scrollFactorY;
+        // event.gameObject.x = p.x - (camera.scrollX * camera.zoom * event.gameObject.scrollFactorX);
+        // event.gameObject.y = p.y - (camera.scrollY * camera.zoom * event.gameObject.scrollFactorY);
+
+        // event.gameObject.x = (p.x * event.gameObject.scrollFactorX) + camera.scrollX;
+        // event.gameObject.y = (p.y * event.gameObject.scrollFactorY) + camera.scrollY;
 
     });
 

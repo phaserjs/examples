@@ -23,7 +23,7 @@ function preload ()
 function create ()
 {
     objects.color = 0;
-    objects.storePass = this.make.renderPass(0, 0, 800, 600, 'storePass', `
+    objects.storePass = this.make.renderPass({add: false, x: 0, y: 0, width: 800, height: 600, shaderName: 'storePass', fragmentShader: `
         precision mediump float;
         
         uniform float freq;
@@ -39,9 +39,9 @@ function create ()
             if (color.a > 0.0)
                 gl_FragColor = tint;
         }
-    `);
+    `});
 
-    objects.fadePass = this.make.renderPass(0, 0, 800, 600, 'fadePass', `
+    objects.fadePass = this.make.renderPass({add: false, x: 0, y: 0, width: 800, height: 600, shaderName: 'fadePass', fragmentShader: `
         precision mediump float;
 
         uniform sampler2D storePass;
@@ -53,7 +53,7 @@ function create ()
             vec4 mixedColor = mix(vec4(0.0, 0.0, 0.0, 0.2), copyColor, 0.5);
             gl_FragColor = mixedColor;
         }
-    `);
+    `});
     objects.blurPass = this.add.renderPass(0, 0, 800, 600, 'blurPass', `
         precision mediump float;
         

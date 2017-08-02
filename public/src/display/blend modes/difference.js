@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     width: 800,
     height: 600,
     parent: 'phaser-example',
@@ -56,12 +56,13 @@ function create ()
         // COLOR
         // LUMINOSITY
 
+        // image.setBlendMode(Phaser.BlendModes.OVERLAY);
         image.setBlendMode(Phaser.BlendModes.ADD);
 
         sprites.push({ s: image, r: 2 + Math.random() * 6 });
     }
 
-    this.add.image(400, 300, 'logo').setBlendMode(Phaser.BlendModes.SCREEN);
+    this.add.image(400, 300, 'logo').setBlendMode(Phaser.BlendModes.DIFFERENCE);
 }
 
 function update ()

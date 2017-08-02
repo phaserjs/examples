@@ -11,10 +11,10 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
-
 var group;
-var d = { v: 260 };
+var ellipse;
+
+var game = new Phaser.Game(config);
 
 function preload ()
 {
@@ -23,17 +23,18 @@ function preload ()
 
 function create ()
 {
-    var circle = new Phaser.Geom.Circle(400, 300, d.v);
+    ellipse = new Phaser.Geom.Ellipse(400, 300, 200, 500);
 
     group = this.add.group();
 
-    group.createMultiple({ key: 'ball', frameQuantity: 32 });
+    group.createMultiple({ key: 'ball', frameQuantity: 48 });
 
-    group.placeOnCircle(circle);
+    group.placeOnEllipse(ellipse);
 
-    TweenMax.to(d, 3, {
-        v: 0,
-        delay: 2,
+    TweenMax.to(ellipse, 3, {
+        width: 700,
+        height: 100,
+        delay: 1,
         ease: Sine.easeInOut,
         repeat: -1,
         yoyo: true
@@ -42,5 +43,5 @@ function create ()
 
 function update ()
 {
-    group.rotateAroundDistance({ x: 400, y: 300 }, 0.02, d.v);
+    group.placeOnEllipse(ellipse);
 }

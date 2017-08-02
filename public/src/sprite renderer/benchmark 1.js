@@ -41,5 +41,5 @@ window.onmousedown = function ()
 window.onmouseup = function ()
 {
     addUfo = false;
-    console.log(scene.sys.children.length);
+    console.log(scene.sys.displayList.length);
 };

@@ -22,10 +22,10 @@ function create() {
 
     for (var a = 0; a <= 360; a += 45)
     {
-        var frame = this.add.image(a * 2, 200, 'atlas', 'arrow');
+        var frame = this.add.image(100 + a * 2, 200, 'atlas', 'arrow');
         frame.angle = a;
 
-        var image = this.add.image(a * 2, 500, 'arrow');
+        var image = this.add.image(100 + a * 2, 500, 'arrow');
         image.angle = a;
     }
 

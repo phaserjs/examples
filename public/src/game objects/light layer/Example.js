@@ -32,7 +32,7 @@ function create ()
 {
     var lights = this.add.lightLayer();
 
-    for (var i = 0; i < 1000; ++i)
+    for (var i = 0; i < 200; ++i)
     {
         var logo = this.add.image(Math.random() * 800, Math.random() * 600, 'mainImg');
         logo.setScale(Math.random());

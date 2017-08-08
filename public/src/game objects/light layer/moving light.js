@@ -20,6 +20,8 @@ function preload ()
 
 function create ()
 {
+    window.scene = this;
+
     var lights = this.add.lightLayer();
 
     var pic = this.add.image(400, 300, 'brick');
@@ -31,6 +33,8 @@ function create ()
     light = lights.addLight(100, 100, 0.1, 1, 1, 1, 1.0);
 
     var ls = this.add.image(100, 100, 'light');
+
+    this.sys.displayList.bringToTop(ls);
 
     this.tweens.add({
         targets: [ light, ls ],

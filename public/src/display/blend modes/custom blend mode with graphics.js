@@ -15,9 +15,6 @@ function preload ()
 {
     this.load.image('turkey', 'assets/pics/turkey-1985086.jpg');
     this.load.image('face', 'assets/pics/bw-face.png');
-    this.load.image('src', 'assets/tests/blendmode/src.png');
-    this.load.image('dst', 'assets/tests/blendmode/dst.png');
-    this.load.image('logo', 'assets/sprites/phaser-large.png');
 }
 
 function create ()
@@ -81,10 +78,23 @@ function create ()
 
     var modeIndex = renderer.addBlendMode(newMode, equation);
 
-    this.add.image(400, 300, 'face');
+    // this.add.image(400, 300, 'face');
     // this.add.image(400, 300, 'dst');
     // this.add.image(400, 300, 'src').setBlendMode(modeIndex);
-    this.add.image(400, 300, 'logo').setBlendMode(modeIndex);
+    // this.add.image(400, 300, 'logo').setBlendMode(modeIndex);
+
+    this.add.image(400, 300, 'turkey');
+
+    var graphics = this.add.graphics();
+
+    var color = 0x00ffff;
+    var alpha = 1;
+
+    graphics.fillStyle(color, alpha);
+
+    graphics.fillCircle(400, 300, 256);
+
+    graphics.setBlendMode(modeIndex);
 
     //  zero, one, one, zero, add
 

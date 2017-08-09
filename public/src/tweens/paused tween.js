@@ -31,9 +31,7 @@ function create ()
         paused: true
     });
 
-    document.addEventListener('mousedown', function () {
-
-        console.log('start');
+    this.input.events.once('POINTER_DOWN_EVENT', function () {
 
         tween.play();
 

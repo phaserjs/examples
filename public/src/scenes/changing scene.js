@@ -16,7 +16,7 @@ var SceneA = new Phaser.Class({
 
     create: function ()
     {
-        this.add.image(400, 300, 'face').setAlpha(0.2);
+        this.add.sprite(400, 300, 'face').setAlpha(0.2);
 
         var _this = this;
 
@@ -49,7 +49,7 @@ var SceneB = new Phaser.Class({
 
     create: function ()
     {
-        this.arrow = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
+        this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
 
         var _this = this;
 
@@ -87,7 +87,7 @@ var SceneC = new Phaser.Class({
 
     create: function ()
     {
-        this.add.image(Phaser.Math.Between(0, 800), 300, 'mech');
+        this.add.sprite(Phaser.Math.Between(0, 800), 300, 'mech');
 
         var _this = this;
 

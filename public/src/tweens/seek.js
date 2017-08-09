@@ -61,7 +61,11 @@ function create ()
 
     progressBar.addEventListener('input', function (e) {
 
+        tween.pause();
+
         tween.seek(e.target.value / 100);
+
+        // tween.resume();
 
     });
 }
@@ -85,4 +89,10 @@ function update ()
         'Progress A: ' + tween.data[0].progress,
         'Progress B: ' + tween.data[1].progress
     ]);
+
+    if (tween.isPlaying())
+    {
+        progressBar.value = Math.floor(tween.progress * 100);
+    }
+
 }

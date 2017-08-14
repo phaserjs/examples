@@ -72,13 +72,15 @@ function create ()
 
     space *= 3;
 
-    for (var i = 0; i < ((lights.getMaxLights() / 2)|0) - 1; ++i)
+    for (var i = 0; i < ((10 / 2)|0) - 1; ++i)
     {
         addLight(-(space / 2) + Math.random() * space, -(space / 2) + Math.random() * space);
     }
 
     lights.setAmbientLightColor(0.0, 0.0, 0.1);
+
     addLight(400, 300);
+
     this.input.events.on('POINTER_MOVE_EVENT', function (event) {
         if (light !== null)
         {
@@ -86,12 +88,15 @@ function create ()
             light.y = event.y;
         }
     });
+
     this.input.events.on('POINTER_DOWN_EVENT', function (event) {
         addLight(event.x, event.y);
     });
 
     this.input.events.on('KEY_DOWN_EVENT', function (event) {
+
         var speed = 5;
+
         if (event.data.code === 'KeyA')
         {
             moveX = -speed;
@@ -116,7 +121,9 @@ function create ()
     });
 
     this.input.events.on('KEY_UP_EVENT', function (event) {
+
         var speed = 5;
+
         if (event.data.code === 'KeyA' || event.data.code === 'KeyD')
         {
             hmove = false;
@@ -127,7 +134,9 @@ function create ()
             vmove = false;
         }
     });
+
     var text0;
+
     if (lights.isDeferred())
     {
         text0 = this.add.text(0, 0, 'Use WASD to scroll camera and mouse button to add lights\nDeferred Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
@@ -136,17 +145,17 @@ function create ()
     {
         text0 = this.add.text(0, 0, 'Use WASD to scroll camera and mouse button to add lights\nForward Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
     }
+
     text0.scrollFactorX = 0;
     text0.scrollFactorY = 0;
-    text =  this.add.text(0, 50, 'Current Active Light Count: ' + lights.getLightCount(), { font: '14px Courier', fill: '#ffff00' });
+
+    text = this.add.text(0, 50, 'Current Active Light Count: ' + lights.getLightCount(), { font: '14px Courier', fill: '#ffff00' });
     text.scrollFactorX = 0;
     text.scrollFactorY = 0;
-
 }
 
 function update()
 {
-
     camera.scrollX += moveX;
     camera.scrollY += moveY;
 
@@ -155,5 +164,4 @@ function update()
     
     if (!vmove)
         moveY *= 0.9;
-
 }

@@ -33,11 +33,13 @@ function preload ()
 var camera;
 var hmove = false;
 var vmove = false;
+var zmove = false;
 var moveX = 0.0;
 var moveY = 0.0;
+var moveZ = 0.0;
 var uiPos = Math.pow(2, 30);
 var text;
-function addLight(x, y)
+function addLight(x, y, radius)
 {
     var color = colors[colorIdx];
     colorIdx = (colorIdx + 1) % colors.length;
@@ -49,7 +51,7 @@ function addLight(x, y)
         light.y += camera.scrollY;
     }
 
-    light = lights.addLight(x, y, 0.1, 100, color[0], color[1], color[2], 1.0);
+    light = lights.addLight(x, y, 0.1, radius, color[0], color[1], color[2], 1.0);
     if (light != null)
     {
         light.scrollFactorX = 0;
@@ -64,25 +66,24 @@ function create ()
     var uiCam = this.cameras.add(0, 0, 800, 600);
     camera = this.cameras.main;
     lights = this.add.lightLayer();
-    //camera.zoom = 0.1;
 
     uiCam.scrollX = uiPos;
     uiCam.scrollY = uiPos;
 
-    for (var i = 0; i < 2000; ++i)
+    for (var i = 0; i < 4000; ++i)
     {
         var logo = this.add.image(-(space / 2) + Math.random() * space, -(space / 2) + Math.random() * space, 'mainImg');
         logo.setScale(Math.random());
         lights.addSprite(logo, this.textures.get('normImg'));
     }
 
-    //for (var i = 0; i < ((lights.getMaxLights() / 2)|0) - 1; ++i)
-    //{
-    //    addLight(-(space / 2) + Math.random() * space, -(space / 2) + Math.random() * space);
-    //}
+    for (var i = 0; i < ((lights.getMaxLights())|0); ++i)
+    {
+        addLight(-(space / 2) + Math.random() * space, -(space / 2) + Math.random() * space, 100 + Math.random() * 400);
+    }
 
     lights.setAmbientLightColor(0.0, 0.0, 0.1);
-    addLight(400, 300);
+
     this.input.events.on('POINTER_MOVE_EVENT', function (event) {
         if (light !== null)
         {
@@ -99,11 +100,13 @@ function create ()
 
         if (event.data.code === 'KeyQ')
         {
-            camera.zoom -= 0.1;
+            moveZ = -0.01;
+            zmove = true;
         }
         else if (event.data.code === 'KeyE')
         {
-            camera.zoom += 0.1;
+            moveZ = 0.01;
+            zmove = true;
         }
 
         if (event.data.code === 'KeyZ')
@@ -142,6 +145,12 @@ function create ()
 
     this.input.events.on('KEY_UP_EVENT', function (event) {
         var speed = 5;
+
+        if (event.data.code === 'KeyQ' || event.data.code === 'KeyE')
+        {
+            zmove = false;
+        }
+
         if (event.data.code === 'KeyA' || event.data.code === 'KeyD')
         {
             hmove = false;
@@ -168,17 +177,26 @@ function create ()
     //text.scrollFactorY = 0;
 
 }
-
+var t = 0.0;
 function update()
 {
-
+    var i = 0;
+    lights.forEachLight(function (light) {
+        light.x += Math.cos(t + i) * 10;
+        light.y -= Math.sin(t + i) * 10;
+        t += 0.0001;
+        i += 1;
+    });
     camera.scrollX += moveX;
     camera.scrollY += moveY;
+    camera.zoom += moveZ;
 
     if (!hmove)
         moveX *= 0.9;
     
     if (!vmove)
         moveY *= 0.9;
-
+    
+    if (!zmove)
+        moveZ *= 0.9;
 }

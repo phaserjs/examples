@@ -35,6 +35,7 @@ var hmove = false;
 var vmove = false;
 var moveX = 0.0;
 var moveY = 0.0;
+var uiPos = Math.pow(2, 30);
 var text;
 function addLight(x, y)
 {
@@ -48,7 +49,7 @@ function addLight(x, y)
         light.y += camera.scrollY;
     }
 
-    light = lights.addLight(x, y, 0.1, color[0], color[1], color[2], 1.0, 1);
+    light = lights.addLight(x, y, 0.1, 100, color[0], color[1], color[2], 1.0);
     if (light != null)
     {
         light.scrollFactorX = 0;
@@ -60,22 +61,25 @@ function addLight(x, y)
 function create ()
 {
     var space = 4096;
+    var uiCam = this.cameras.add(0, 0, 800, 600);
     camera = this.cameras.main;
     lights = this.add.lightLayer();
+    //camera.zoom = 0.1;
 
-    for (var i = 0; i < 1000; ++i)
+    uiCam.scrollX = uiPos;
+    uiCam.scrollY = uiPos;
+
+    for (var i = 0; i < 2000; ++i)
     {
         var logo = this.add.image(-(space / 2) + Math.random() * space, -(space / 2) + Math.random() * space, 'mainImg');
         logo.setScale(Math.random());
         lights.addSprite(logo, this.textures.get('normImg'));
     }
 
-    space *= 3;
-
-    for (var i = 0; i < ((lights.getMaxLights() / 2)|0) - 1; ++i)
-    {
-        addLight(-(space / 2) + Math.random() * space, -(space / 2) + Math.random() * space);
-    }
+    //for (var i = 0; i < ((lights.getMaxLights() / 2)|0) - 1; ++i)
+    //{
+    //    addLight(-(space / 2) + Math.random() * space, -(space / 2) + Math.random() * space);
+    //}
 
     lights.setAmbientLightColor(0.0, 0.0, 0.1);
     addLight(400, 300);
@@ -92,6 +96,27 @@ function create ()
 
     this.input.events.on('KEY_DOWN_EVENT', function (event) {
         var speed = 5;
+
+        if (event.data.code === 'KeyQ')
+        {
+            camera.zoom -= 0.1;
+        }
+        else if (event.data.code === 'KeyE')
+        {
+            camera.zoom += 0.1;
+        }
+
+        if (event.data.code === 'KeyZ')
+        {
+            if (light)
+                light.radius += 10;
+        }
+        else if (event.data.code === 'KeyX')
+        {
+            if (light)
+                light.radius -= 10;
+        }
+
         if (event.data.code === 'KeyA')
         {
             moveX = -speed;
@@ -130,17 +155,17 @@ function create ()
     var text0;
     if (lights.isDeferred())
     {
-        text0 = this.add.text(0, 0, 'Use WASD to scroll camera and mouse button to add lights\nDeferred Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
+        text0 = this.add.text(uiPos, uiPos, 'Use WASD to scroll camera and mouse button to add lights\nDeferred Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
     }
     else
     {
-        text0 = this.add.text(0, 0, 'Use WASD to scroll camera and mouse button to add lights\nForward Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
+        text0 = this.add.text(uiPos, uiPos, 'Use WASD to scroll camera and mouse button to add lights\nForward Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
     }
-    text0.scrollFactorX = 0;
-    text0.scrollFactorY = 0;
-    text =  this.add.text(0, 50, 'Current Active Light Count: ' + lights.getLightCount(), { font: '14px Courier', fill: '#ffff00' });
-    text.scrollFactorX = 0;
-    text.scrollFactorY = 0;
+    //text0.scrollFactorX = 0;
+    //text0.scrollFactorY = 0;
+    text =  this.add.text(uiPos, uiPos + 50, 'Current Active Light Count: ' + lights.getLightCount(), { font: '14px Courier', fill: '#ffff00' });
+    //text.scrollFactorX = 0;
+    //text.scrollFactorY = 0;
 
 }
 

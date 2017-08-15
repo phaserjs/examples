@@ -30,7 +30,7 @@ function create ()
 
     // addLight: function (x, y, z, r, g, b, attenuation)
 
-    light = lights.addLight(100, 100, 0.1, 1, 1, 1, 1.0);
+    light = lights.addLight(100, 100, 0.1, 200, 1, 1, 1, 1.0);
 
     var ls = this.add.image(100, 100, 'light');
 

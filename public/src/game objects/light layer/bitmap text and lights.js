@@ -23,7 +23,7 @@ function create()
 
     lights.addSprite(text, this.textures.get('iceMap'));
 
-    light = lights.addLight(100, 100, 0.1, 1, 1, 1, 1.0);
+    light = lights.addLight(100, 100, 0.1, 200, 1, 1, 1, 1.0);
 
     this.tweens.add({
         targets: light,

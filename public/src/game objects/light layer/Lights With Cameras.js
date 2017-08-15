@@ -34,7 +34,7 @@ function create ()
     }
 
     lights.setAmbientLightColor(0.0, 0.0, 0.1);
-    light = lights.addLight(200, 150, 0.1, 1, 1.1, 1, 1.0, 0);
+    light = lights.addLight(200, 150, 0.1, 200, 1, 1.1, 1, 1.0, 0);
 
     cameras[0] = this.cameras.main;
     cameras[1] = this.cameras.add(400, 0, 400, 300);

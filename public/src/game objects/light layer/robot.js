@@ -35,7 +35,7 @@ function create ()
 
     lights.addSprite(pic, this.textures.get('normImg'));
 
-    lights.addLight(217, 100, 0.1, 1, 0, 0, 1.0, 0);
+    lights.addLight(217, 100, 0.1, 200, 1, 0, 0, 1.0, 0);
 
     this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
@@ -53,7 +53,7 @@ function create ()
 
         colorIdx = (colorIdx + 1) % colors.length;
 
-        light = lights.addLight(event.x, event.y, 0.1, color[0], color[1], color[2], 1.0, 0);
+        light = lights.addLight(event.x, event.y, 0.1, 200, color[0], color[1], color[2], 1.0, 0);
 
     });
 }

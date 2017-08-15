@@ -61,13 +61,13 @@ function create ()
 
     var dummy = this.add.image(900, 400, 'light').setVisible(false);
 
-    var light1 = lights.addLight(280, 400, 0.07, 1, 1, 1, 0.1);
+    var light1 = lights.addLight(280, 400, 0.07, 200, 1, 1, 1, 0.1);
     var ellipse1 = new Phaser.Geom.Ellipse(light1.x, light1.y, 70, 100);
 
-    var light2 = lights.addLight(650, 386, 0.02, 1, 1, 1, 0.1);
+    var light2 = lights.addLight(650, 386, 0.02, 200, 1, 1, 1, 0.1);
     var ellipse2 = new Phaser.Geom.Ellipse(light2.x, light2.y, 30, 40);
 
-    var light3 = lights.addLight(900, 400, 0.05, 1, 1, 1, 0.1);
+    var light3 = lights.addLight(900, 400, 0.05, 200, 1, 1, 1, 0.1);
 
     this.time.addEvent({
         delay: 100,

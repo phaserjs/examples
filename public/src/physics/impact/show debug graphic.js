@@ -23,12 +23,16 @@ function preload ()
 
 function create ()
 {
+    this.add.image(100, 60, 'block').setTint(0xff0000);
+    this.add.image(400, 160, 'block').setTint(0xff0000);
+    this.add.image(700, 260, 'block').setTint(0xff0000);
+
     var bodyA = this.physics.add.image(100, 60, 'block');
     var bodyB = this.physics.add.image(400, 160, 'block');
     var bodyC = this.physics.add.image(700, 260, 'block');
 
     //  Create a floor. We don't need to render it, so just make a Body
-    var floor = this.physics.add.body(0, 500, 800, 64).setFixed().setGravity(0);
+    this.physics.add.body(0, 500, 800, 64).setFixed().setGravity(0);
 
     this.physics.world.setAvsB([ bodyA, bodyB, bodyC ]);
     this.physics.world.setActive([ bodyA, bodyB, bodyC ]);

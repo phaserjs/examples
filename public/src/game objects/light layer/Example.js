@@ -84,17 +84,6 @@ function create ()
 
     lights.setAmbientLightColor(0.0, 0.0, 0.1);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
-        if (light !== null)
-        {
-            light.x = event.x;
-            light.y = event.y;
-        }
-    });
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
-        addLight(event.x, event.y);
-    });
-
     this.input.events.on('KEY_DOWN_EVENT', function (event) {
         var speed = 5;
 
@@ -164,18 +153,20 @@ function create ()
     var text0;
     if (lights.isDeferred())
     {
-        text0 = this.add.text(uiPos, uiPos, 'Use WASD to scroll camera and mouse button to add lights\nDeferred Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
+        text0 = this.add.text(uiPos, uiPos, 'Use WASD to scroll camera. Q/E to zoom in and out\nDeferred Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
     }
     else
     {
-        text0 = this.add.text(uiPos, uiPos, 'Use WASD to scroll camera and mouse button to add lights\nForward Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
+        text0 = this.add.text(uiPos, uiPos, 'Use WASD to scroll camera. Q/E to zoom in and out\nForward Renderer enabled\nMax light count is ' + lights.getMaxLights(), { font: '14px Courier', fill: '#00ff00' });
     }
     //text0.scrollFactorX = 0;
     //text0.scrollFactorY = 0;
     text =  this.add.text(uiPos, uiPos + 50, 'Current Active Light Count: ' + lights.getLightCount(), { font: '14px Courier', fill: '#ffff00' });
     //text.scrollFactorX = 0;
     //text.scrollFactorY = 0;
-
+    uiCam.ignore(lights);
+    camera.ignore(text0);
+    camera.ignore(text);
 }
 var t = 0.0;
 function update()
@@ -190,6 +181,8 @@ function update()
     camera.scrollX += moveX;
     camera.scrollY += moveY;
     camera.zoom += moveZ;
+    if (camera.zoom < 0.1)
+        camera.zoom = 0.1;
 
     if (!hmove)
         moveX *= 0.9;

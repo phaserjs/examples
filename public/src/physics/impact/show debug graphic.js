@@ -5,7 +5,8 @@ var config = {
     parent: 'phaser-example',
     physics: {
         system: 'impact',
-        gravity: 200
+        gravity: 200,
+        debug: true
     },
     scene: {
         preload: preload,

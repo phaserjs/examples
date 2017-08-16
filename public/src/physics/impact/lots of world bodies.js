@@ -86,8 +86,8 @@ function create ()
         down: cursors.down,
         zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
         zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
-        acceleration: 0.06,
-        drag: 0.0005,
+        acceleration: 0.2,
+        drag: 0.002,
         maxSpeed: 10.0
     };
 

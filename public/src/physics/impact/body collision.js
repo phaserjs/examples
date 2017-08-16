@@ -3,22 +3,14 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
+    physics: {
+        system: 'impact'
+    },
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var world;
-
-var bodyA;
-var bodyB;
-var bodyC;
-
-var imageA;
-var imageB;
-var imageC;
 
 var game = new Phaser.Game(config);
 
@@ -29,32 +21,13 @@ function preload ()
 
 function create ()
 {
-    imageA = this.add.image(300, 300, 'block');
-    imageB = this.add.image(60, 300, 'block');
-    imageC = this.add.image(730, 300, 'block');
+    var blockA = this.physics.add.image(300, 300, 'block');
+    var blockB = this.physics.add.image(60, 300, 'block');
+    var blockC = this.physics.add.image(730, 300, 'block');
 
-    world = new Phaser.Physics.Impact.World();
+    blockA.setTypeA().setCheckAgainstB().setActive().setMaxVelocity(300);
+    blockB.setTypeB().setCheckAgainstA().setFixed();
+    blockC.setTypeB().setCheckAgainstA().setFixed();
 
-    bodyA = world.create(imageA.x, imageA.y, 95, 95);
-    bodyA.setTypeA().setCheckAgainstB().setActive();
-    bodyA.setMaxVelocity(300);
-
-    bodyB = world.create(imageB.x, imageB.y, 95, 95);
-    bodyB.setTypeB().setCheckAgainstA().setFixed();
-
-    bodyC = world.create(imageC.x, imageC.y, 95, 95);
-    bodyC.setTypeB().setCheckAgainstA().setFixed();
-
-    bodyA.vel.x = 300;
-    bodyA.bounciness = 1;
+    blockA.setBounce(1).setVelocityX(300);
 }
-
-function update (time, delta)
-{
-    world.update(time, delta);
-
-    imageA.setPosition(bodyA.pos.x, bodyA.pos.y);
-    imageB.setPosition(bodyB.pos.x, bodyB.pos.y);
-    imageC.setPosition(bodyC.pos.x, bodyC.pos.y);
-}
-

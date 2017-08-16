@@ -3,22 +3,15 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
+    physics: {
+        system: 'impact',
+        gravity: 100
+    },
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var world;
-
-var bodyA;
-var bodyB;
-var bodyC;
-
-var imageA;
-var imageB;
-var imageC;
 
 var game = new Phaser.Game(config);
 
@@ -29,39 +22,19 @@ function preload ()
 
 function create ()
 {
-    imageA = this.add.image(100, 60, 'block');
-    imageB = this.add.image(400, 60, 'block');
-    imageC = this.add.image(700, 60, 'block');
-
-    //  150 = gravity
-    world = new Phaser.Physics.Impact.World(150);
+    var bodyA = this.physics.add.image(100, 60, 'block');
+    var bodyB = this.physics.add.image(400, 160, 'block');
+    var bodyC = this.physics.add.image(700, 260, 'block');
 
     //  Create a floor. We don't need to render it, so just make a Body
 
-    var floor = world.create(0, 632, 800, 64);
-    floor.setTypeB().setCheckAgainstA().setFixed();
-    floor.gravityFactor = 0;
+    var floor = this.physics.add.body(0, 632, 800, 64).setFixed().setGravity(0);
 
-    bodyA = world.create(imageA.x, imageA.y, 95, 95);
-    bodyA.setTypeA().setCheckAgainstB().setActive();
+    this.physics.world.setAvsB([ bodyA, bodyB, bodyC ]);
+    this.physics.world.setBvsA([ floor ]);
+    this.physics.world.setActive([ bodyA, bodyB, bodyC ]);
 
-    bodyB = world.create(imageB.x, imageB.y, 95, 95);
-    bodyB.setTypeA().setCheckAgainstB().setActive();
-
-    bodyC = world.create(imageC.x, imageC.y, 95, 95);
-    bodyC.setTypeA().setCheckAgainstB().setActive();
-
-    bodyA.setMaxVelocity(300).setBounce(1);
-    bodyB.setMaxVelocity(300).setBounce(1);
-    bodyC.setMaxVelocity(300).setBounce(1);
+    // bodyA.setMaxVelocity(600).setBounce(0.7);
+    // bodyB.setMaxVelocity(600).setBounce(0.6);
+    // bodyC.setMaxVelocity(600).setBounce(0.5);
 }
-
-function update (time, delta)
-{
-    world.update(time, delta);
-
-    imageA.setPosition(bodyA.pos.x, bodyA.pos.y);
-    imageB.setPosition(bodyB.pos.x, bodyB.pos.y);
-    imageC.setPosition(bodyC.pos.x, bodyC.pos.y);
-}
-

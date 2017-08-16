@@ -7,6 +7,7 @@ var config = {
     physics: {
         system: 'impact',
         gravity: 50,
+        cellSize: 256,
         maxVelocityX: 800,
         maxVelocityY: 800,
         debug: true

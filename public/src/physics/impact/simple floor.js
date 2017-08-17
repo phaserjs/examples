@@ -26,8 +26,9 @@ function create ()
     var bodyB = this.physics.add.image(400, 160, 'block');
     var bodyC = this.physics.add.image(700, 260, 'block');
 
-    //  Create a floor. We don't need to render it, so just make a Body
-    var floor = this.physics.add.body(0, 500, 800, 64).setFixed().setGravity(0);
+    //  Create a floor using setBounds
+    //  x, y, width, height, left, right, top, bottom (true = our floor)
+    this.physics.world.setBounds(0, 0, 800, 600, false, false, false, true);
 
     this.physics.world.setAvsB([ bodyA, bodyB, bodyC ]);
     this.physics.world.setActive([ bodyA, bodyB, bodyC ]);

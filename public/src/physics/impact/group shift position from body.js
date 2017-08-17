@@ -38,8 +38,8 @@ function create ()
     //  If you don't set the body as active it won't collide with the world bounds
     var balls = this.physics.add.body(200, 100).setActive().setVelocity(300, 200).setBounce(0.95);
 
-    //  Set a body size of 100x100
-    balls.setSize(1, 1);
+    //  Set a body size of 1x1
+    balls.setBodySize(1, 1);
 
     balls.body.updateCallback = function (body)
     {

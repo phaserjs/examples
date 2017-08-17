@@ -29,7 +29,7 @@ function create ()
     var star = this.physics.add.body(200, 200).setActive().setVelocity(300, 150).setBounce(1);
 
     //  Set a body size of 100x100
-    star.setSize(100, 100);
+    star.setBodySize(100, 100);
 
     star.body.updateCallback = function (body)
     {

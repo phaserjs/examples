@@ -1,25 +1,29 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: 'phaser-example',
     physics: {
         system: 'impact',
-        gravity: 100,
+        gravity: 0,
         maxVelocityX: 500,
         maxVelocityY: 500
     },
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
+
+var iter = { x: 0, y: 0 };
+var tilesprite;
 
 var game = new Phaser.Game(config);
 
 function preload() 
 {
-    this.load.bitmapFont('hyper', 'assets/fonts/bitmap/hyperdrive.png', 'assets/fonts/bitmap/hyperdrive.xml');
+    this.load.image('mushroom', 'assets/sprites/mushroom2.png');
 }
 
 function create ()
@@ -27,10 +31,40 @@ function create ()
     //  Calling this with no arguments will set the bounds to match the game config width/height
     this.physics.world.setBounds();
 
-    //  Create a Bitmap Text object
-    var text = this.add.bitmapText(0, 0, 'hyper', 'Phaser 3', 96);
+    //  Create a Tile Sprite object
+    tilesprite = this.add.tileSprite(400, 300, 128, 128, 'mushroom');
 
     //  If you don't set the body as active it won't collide with the world bounds
     //  Set the Game Object we just created as being bound to this physics body
-    this.physics.add.body(100, 200).setGameObject(text).setActive().setVelocity(300, 200).setBounce(1);
+    var body = this.physics.add.body(200, 100).setGameObject(tilesprite).setActive().setVelocity(300, 150).setBounce(1);
+
+    body.setCollideCallback(collide, this);
+}
+
+function collide (body, wall, axis)
+{
+    switch (wall.name)
+    {
+        case 'left':
+            iter.x = -2;
+            break;
+
+        case 'right':
+            iter.x = 2;
+            break;
+
+        case 'top':
+            iter.y = -2;
+            break;
+
+        case 'bottom':
+            iter.y = 2;
+            break;
+    }
+}
+
+function update ()
+{
+    tilesprite.tilePositionX += iter.x;
+    tilesprite.tilePositionY += iter.y;
 }

@@ -65,15 +65,7 @@ function create ()
         block.play(Phaser.Math.RND.pick(anims));
     }
 
-    //  ceiling
-    this.physics.add.body(0, 0, worldBounds.width, wallThickness).setFixed().setGravity(0);
-
-    //  floor
-    this.physics.add.body(0, worldBounds.height - wallThickness, worldBounds.width, wallThickness).setFixed().setGravity(0);
-
-    //  walls
-    this.physics.add.body(0, wallThickness, wallThickness, worldBounds.height - (wallThickness * 2)).setFixed().setGravity(0);
-    this.physics.add.body(worldBounds.right - wallThickness, wallThickness, wallThickness, worldBounds.height - (wallThickness * 2)).setFixed().setGravity(0);
+    this.physics.world.setBounds(0, 0, worldBounds.width, worldBounds.height, wallThickness);
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -91,8 +83,6 @@ function create ()
     };
 
     controls = this.cameras.addSmoothedKeyControl(controlConfig);
-
-    this.cameras.main.setBounds(0, 0, worldBounds.width, worldBounds.height);
 
     this.add.text(0, 0, 'Use Cursors to scroll camera.\nQ / E to zoom in and out', { font: '18px Courier', fill: '#00ff00' });
 }

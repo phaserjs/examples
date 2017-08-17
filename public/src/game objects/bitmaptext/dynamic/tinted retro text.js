@@ -35,7 +35,6 @@ function create()
     var text = this.add.dynamicBitmapText(0, 300, 'knighthawks', 'PHASER 3').setScale(4);
 
     text.setDisplayCallback(textCallback);
-
 }
 
 function textCallback (data)

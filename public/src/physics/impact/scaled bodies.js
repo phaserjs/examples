@@ -4,11 +4,11 @@ var config = {
     height: 600,
     parent: 'phaser-example',
     physics: {
-        system: 'impact',
-        gravity: 0,
-        maxVelocityX: 300,
-        maxVelocityY: 300,
-        debug: true
+        default: 'impact',
+        impact: {
+            maxVelocity: 300,
+            debug: true
+        }
     },
     scene: {
         preload: preload,

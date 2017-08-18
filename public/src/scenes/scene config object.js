@@ -22,15 +22,13 @@ var gameConfig = {
 
 var game = new Phaser.Game(gameConfig);
 
-function preload() {
-
+function preload ()
+{
     this.load.image('face', 'assets/pics/bw-face.png');
-
 }
 
-function create() {
-
+function create ()
+{
     this.add.image(0, 0, 'face');
     this.add.image(0, 0, 'sonic');
-
 }

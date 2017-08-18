@@ -4,7 +4,7 @@ var config = {
     height: 600,
     parent: 'phaser-example',
     physics: {
-        system: 'impact'
+        default: 'impact'
     },
     scene: {
         preload: preload,

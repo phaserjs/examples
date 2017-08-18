@@ -7,6 +7,7 @@ var config = {
         default: 'impact',
         impact: {
             gravity: 100,
+            setBounds: true,
             maxVelocity: 500
         }
     },
@@ -25,8 +26,8 @@ function preload ()
 
 function create ()
 {
-    //  Calling this with no arguments will set the bounds to match the game config width/height
-    this.physics.world.setBounds();
+    //  The world bounds have been set in the config.
+    //  setBounds: true is the same as calling physics.world.setBounds() with no arguments
 
     //  If you don't set the body as active it won't collide with the world bounds
     this.physics.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);

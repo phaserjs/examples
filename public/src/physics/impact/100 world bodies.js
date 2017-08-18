@@ -5,11 +5,12 @@ var config = {
     parent: 'phaser-example',
     pixelArt: true,
     physics: {
-        system: 'impact',
-        gravity: 50,
-        maxVelocityX: 800,
-        maxVelocityY: 800,
-        debug: true
+        default: 'impact',
+        impact: {
+            gravity: 50,
+            maxVelocity: 800,
+            debug: true
+        }
     },
     scene: {
         preload: preload,

@@ -6,12 +6,11 @@ var config = {
     backgroundColor: '#124184',
     pixelArt: true,
     physics: {
-        system: 'impact',
-        gravity: 0,
-        cellSize: 256,
-        maxVelocityX: 300,
-        maxVelocityY: 300,
-        debug: true
+        default: 'impact',
+        impact: {
+            maxVelocity: 300,
+            debug: true
+        }
     },
     scene: {
         preload: preload,

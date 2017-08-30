@@ -12,6 +12,7 @@
     <body>
 
     <nav class="breadcrumb" id="breadcrumb">
+        <a href="index.html"><img src="images/logo.png" width="144" height="31" /></a>
         <a class="breadcrumb-item" href="index.html">Home</a>
     </nav>
 
@@ -20,10 +21,6 @@
             <div class="row" id="folderList"></div>
         </div>
     </div>
-
-    <ul class="list-group" id="fileList">
-      <li class="list-group-item">TEST 1</li>
-    </ul>
 
     <script type="text/javascript">
 
@@ -34,9 +31,6 @@
 
     function openFolder ()
     {
-        // console.log('openFolder');
-
-        $('#fileList').empty();
         $('#folderList').empty();
 
         createBackFolder();
@@ -249,7 +243,6 @@
 
     function createTopLevelFolders ()
     {
-        $('#fileList').empty();
         $('#folderList').empty();
 
         trail = [];

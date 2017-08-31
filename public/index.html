@@ -217,6 +217,11 @@
 
     function createFolder (index, filename, filepath)
     {
+        if (filename === 'archived')
+        {
+            return;
+        }
+
         var div = $('<div></div>').addClass('card');
 
         var a = $('<a></a>', { href: 'index.html?dir=' + getURLWell(false, filename) });

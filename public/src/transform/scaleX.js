@@ -1,6 +1,8 @@
 var config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
+    width: 800,
+    height: 600,
     scene: {
         preload: preload,
         create: create
@@ -9,22 +11,20 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var atlasFrame;
-var singleImage;
-
-function preload() {
-
+function preload ()
+{
     this.load.image('atari', 'assets/sprites/atari130xe.png');
-    this.load.atlas('atlas', 'assets/atlas/megaset-0.png', 'assets/atlas/megaset-0.json');
-
 }
 
-function create() {
+function create ()
+{
+    //  setScale sets the x and y scale values (1 = no scale)
+    this.add.image(400, 100, 'atari').setScale(0.5, 1);
 
-    atlasFrame = this.add.image(0, 0, 'atlas', 'dragonwiz');
-    singleImage = this.add.image(0, 200, 'atari');
+    this.add.image(400, 300, 'atari').setScale(2, 1);
+    
+    var image2 = this.add.image(400, 500, 'atari');
 
-    atlasFrame.scaleX = 2;
-    singleImage.scaleX = 2;
-
+    //  You can also set the scale via the scaleX property:
+    image2.scaleX = 2.5;
 }

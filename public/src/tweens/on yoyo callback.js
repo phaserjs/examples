@@ -34,9 +34,9 @@ function create ()
     });
 }
 
-//  The callback is always sent a reference to the Tween as the first argument,
+//  The callback is always sent a reference to the Tween as the first argument and the targets as the second,
 //  then whatever you provided in the onStartParams array as the rest
-function onYoyoHandler (gameObject, tween)
+function onYoyoHandler (tween, target)
 {
-    gameObject.toggleFlipX();
+    target.toggleFlipX().setAlpha(0.2 + Math.random());
 }

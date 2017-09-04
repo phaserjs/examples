@@ -39,9 +39,9 @@ function create ()
     });
 }
 
-//  The callback is always sent a reference to the Tween as the first argument,
-//  then whatever you provided in the onStartParams array as the rest
-function onStartHandler (tween, gameObject)
+//  The callback is always sent a reference to the Tween as the first argument and the targets as the second,
+//  then whatever you provided in the onStartParams array follows
+function onStartHandler (tween, targets, gameObject)
 {
     gameObject.setAlpha(1);
 }

@@ -19,8 +19,8 @@ function preload ()
 
 function create ()
 {
-    var marker = this.add.image(100, 100, 'block').setAlpha(0.3);
-    var image = this.add.image(100, 100, 'block');
+    var marker = this.add.image(100, 300, 'block').setAlpha(0.3);
+    var image = this.add.image(100, 300, 'block');
 
     this.tweens.add({
         targets: image,
@@ -32,11 +32,11 @@ function create ()
     });
 }
 
-//  The callback is always sent a reference to the Tween as the first argument,
-//  then whatever you provided in the onCompleteParams array as the rest
-function onCompleteHandler (tween, gameObject)
+//  The callback is always sent a reference to the Tween as the first argument and the targets as the second.
+//  Whatever you provided in the onCompleteParams array follows.
+function onCompleteHandler (tween, targets, myImage)
 {
     console.log('onCompleteHandler');
 
-    gameObject.setScale(2);
+    myImage.setScale(2);
 }

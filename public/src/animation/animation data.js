@@ -54,13 +54,13 @@ function create ()
 
     progress = this.add.text(100, 500, 'Progress: 0%', { fill: '#00ff00' });
 
-    this.input.keyboard.events.on('KEY_DOWN_SPACE', function (event) {
+    this.input.events.on('KEY_DOWN_SPACE', function (event) {
 
         sprite.anims.play('walk');
 
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_P', function (event) {
+    this.input.events.on('KEY_DOWN_P', function (event) {
 
         if (sprite.anims.paused())
         {
@@ -73,7 +73,7 @@ function create ()
 
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_R', function (event) {
+    this.input.events.on('KEY_DOWN_R', function (event) {
 
         sprite.anims.restart();
 

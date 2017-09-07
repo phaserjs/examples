@@ -43,5 +43,7 @@ function create ()
 //  then whatever you provided in the onStartParams array follows
 function onStartHandler (tween, targets, gameObject)
 {
+    console.log(arguments);
+
     gameObject.setAlpha(1);
 }

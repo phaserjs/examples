@@ -10,8 +10,6 @@ var config = {
     }
 };
 
-var data;
-
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -21,57 +19,105 @@ function preload ()
 
 function create ()
 {
-    data = [];
+    var balls = this.add.group({ key: 'ball', repeat: 59 });
 
-    var balls = this.add.group({ key: 'ball', repeat: 30 });
-
-    var circle = new Phaser.Geom.Circle(400, 300, 100);
+    var circle = new Phaser.Geom.Circle(400, 300, 160);
     var triangle = new Phaser.Geom.Triangle.BuildRight(200, 400, 300, 200);
+    var rect = new Phaser.Geom.Rectangle(200, 150, 400, 300);
+    var ellipse = new Phaser.Geom.Ellipse(400, 300, 200, 500);
+    var triangle2 = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 300);
+
+    //  Store the position data for each shape:
 
     balls.placeOnCircle(circle);
 
     balls.children.iterate(function (child) {
 
-        data.set(child, [{ x: child.x, y: child.y }, { x: child.x, y: child.y }]);
-
-        // data.circle.push({ x: child.x, y: child.y });
+        child.data.set('circle', { x: child.x, y: child.y });
 
     });
 
-    // balls.placeOnTriangle(triangle);
+    balls.placeOnTriangle(triangle);
 
-    // balls.children.iterate(function (child) {
+    balls.children.iterate(function (child) {
 
-    //     var childData = data.get(child);
+        child.data.set('triangle', { x: child.x, y: child.y });
 
-    //     childData[1].x = child.x;
-    //     childData[1].y = child.y;
+    });
 
-    // });
+    balls.placeOnRectangle(rect);
 
-    console.log(data);
+    balls.children.iterate(function (child) {
 
-    // balls.placeOnCircle(circle);
+        child.data.set('rect', { x: child.x, y: child.y });
 
-    /*
+    });
+
+    balls.placeOnEllipse(ellipse);
+
+    balls.children.iterate(function (child) {
+
+        child.data.set('ellipse', { x: child.x, y: child.y });
+
+    });
+
+    balls.placeOnTriangle(triangle2);
+
+    balls.children.iterate(function (child) {
+
+        child.data.set('triangle2', { x: child.x, y: child.y });
+
+    });
+
+    //  Start off on the Circle
+    balls.placeOnCircle(circle);
+
+    var shapes = [ 'circle', 'triangle', 'rect', 'ellipse', 'triangle2' ];
+    var shape1 = 0;
+    var shape2 = 1;
+
     this.tweens.add({
 
         targets: balls.getChildren(),
         ease: 'Quintic.easeInOut',
         duration: 3000,
+        delay: 1000,
+        hold: 1000,
+        loop: -1,
 
         x: {
 
             getEnd: function (target, key, value)
             {
+                return target.data.get(shapes[shape2]).x;
             },
 
             getStart: function (target, key, value)
             {
+                return target.data.get(shapes[shape1]).x;
             }
 
+        },
+
+        y: {
+
+            getEnd: function (target, key, value)
+            {
+                return target.data.get(shapes[shape2]).y;
+            },
+
+            getStart: function (target, key, value)
+            {
+                return target.data.get(shapes[shape1]).y;
+            }
+
+        },
+
+        onLoop: function ()
+        {
+            shape1 = Phaser.Math.Wrap(shape1 + 1, 0, 5);
+            shape2 = Phaser.Math.Wrap(shape2 + 1, 0, 5);
         }
 
     });
-    */
 }

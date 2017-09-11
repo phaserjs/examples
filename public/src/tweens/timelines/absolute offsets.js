@@ -25,32 +25,24 @@ function create ()
     var timeline = this.tweens.timeline({
 
         targets: image,
+        ease: 'Linear',
+        duration: 3000,
 
         tweens: [{
-            x: 600,
-            ease: 'Linear',
-            duration: 3000
+            x: 600
         },
         {
             y: 500,
-            ease: 'Linear',
-            duration: 3000,
             offset: 2000
         },
         {
             x: 100,
-            ease: 'Linear',
-            duration: 3000,
             offset: 4000
         },
         {
             y: 100,
-            ease: 'Linear',
-            duration: 3000,
             offset: 6000
         }]
 
     });
-
-    console.log(timeline);
 }

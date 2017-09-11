@@ -35,6 +35,7 @@ function create ()
         child.y = 100;
         child.z = 64 - i;
         child.scaleX = 0.6;
+        // child.setBlendMode(Phaser.BlendModes.ADD);
 
         child.setTint(hsv[i * 4].color);
 

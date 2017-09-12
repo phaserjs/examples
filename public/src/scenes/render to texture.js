@@ -30,14 +30,14 @@ var gameConfig = {
 
 var game = new Phaser.Game(gameConfig);
 
-function createBackground {
-
+function createBackground () 
+{
     this.add.image(0, 0, 'face');
 
 }
 
-function createModal {
-
+function createModal () 
+{
     this.add.image(0, 0, 'sonic');
 
 }

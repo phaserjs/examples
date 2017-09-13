@@ -4,6 +4,9 @@
   "description": "Phaser 3 Examples",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm start",
+    "start": "./node_modules/.bin/http-server -s -o",
+    "update": "node ./build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,9 +21,7 @@
   "homepage": "https://github.com/photonstorm/phaser3-examples#readme",
   "devDependencies": {
     "http-server": "^0.9.0",
-    "monaco-editor": "^0.8.0"
-  },
-  "dependencies": {
+    "monaco-editor": "^0.8.0",
     "directory-tree": "^1.2.0"
   }
 }

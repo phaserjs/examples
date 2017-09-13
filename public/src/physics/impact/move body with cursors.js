@@ -51,7 +51,7 @@ function create ()
 
     this.physics.world.setBounds();
 
-    //  A couple of platforms
+    //  A few platforms
     this.physics.add.image(200, 300, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
     this.physics.add.image(550, 190, 'platform').setFixed().setGravity(0).setBodyScale(0.4);
     this.physics.add.image(900, 300, 'platform').setFixed().setGravity(0).setBodyScale(0.5);

@@ -3,6 +3,12 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
+    physics: {
+        default: 'impact',
+        impact: {
+            gravity: 800
+        }
+    },
     scene: {
         preload: preload,
         create: create,
@@ -39,30 +45,38 @@ function create ()
 
     //  We will fill the data so there is a floor and walls already in place, but nothing more.
 
-    var collisionMap = [];
-    var mapData = [];
     var mapWidth = 75;
     var mapHeight = 38;
+
+    //  This array is used to populate the Collision Map
+    var colData = [];
+
+    //  This array is used to populate the Tilemap Renderer
+    var mapData = [];
 
     for (var y = 0; y < mapHeight; y++)
     {
         //  Build a CollisionMap compatible array from the data
-        collisionMap[y] = [];
+        colData[y] = [];
 
         for (var x = 0; x < mapWidth; x++)
         {
             if (x === 0 || x === mapWidth - 1 || y === 0 || y === mapHeight - 1 || y === mapHeight - 2)
             {
                 mapData.push(1);
-                collisionMap[y][x] = 1;
+                colData[y][x] = 1;
             }
             else
             {
                 mapData.push(0);
-                collisionMap[y][x] = 0;
+                colData[y][x] = 0;
             }
         }
     }
+
+    this.physics.world.setCollisionMap(32, colData);
+
+    collisionMap = this.physics.world.collisionMap;
 
     var mapConfig = {
         map: {
@@ -85,7 +99,13 @@ function create ()
     map = this.make.tilemap(mapConfig);
 
     //  Our sprite
-    player = this.add.sprite(0, 0, 'dude', 4).setOrigin(0, 0.15);
+    player = this.physics.add.sprite(300, 800, 'dude', 4).setOrigin(0, 0.15);
+
+    player.setMaxVelocity(500).setFriction(1000, 100);
+
+    player.body.accelGround = 1200;
+    player.body.accelAir = 600;
+    player.body.jumpSpeed = 500;
 
     this.anims.create({
         key: 'left',
@@ -110,22 +130,8 @@ function create ()
     //  Add the cursor
     marker = this.add.image(0, 0, 'cursor').setOrigin(0);
 
-    //  The Physics World
-    world = new Phaser.Physics.Impact.World(800);
-
-    world.collisionMap = new Phaser.Physics.Impact.CollisionMap(32, collisionMap);
-
-    body = world.create(300, 800, 32, 40);
-    body.setMaxVelocity(400, 500);
-    body.friction.x = 400;
-    body.friction.y = 0;
-
-    body.accelGround = 1200;
-    body.accelAir = 400;
-    body.jumpSpeed = 500;
-
     //  Cameras
-    this.cameras.main.startFollow(body.pos, true);
+    this.cameras.main.startFollow(player, true);
     this.cameras.main.setBounds(0, 0, mapWidth * 32, mapHeight * 32);
 
     //  Input Events
@@ -153,8 +159,6 @@ function create ()
 
     var text = this.add.bitmapText(64, 64, 'nokia16', "Left Click: Draw\n+ Shift: Erase\nCursors: Run\nUp: Jump");
     text.setScrollFactor(0);
-
-    // graphics = this.add.graphics();
 }
 
 function update (time, delta)
@@ -175,52 +179,43 @@ function update (time, delta)
         {
             //  Remove tile
             currentTile.setId(0);
-            world.collisionMap.data[ty][tx] = 0;
+            collisionMap.data[ty][tx] = 0;
         }
         else
         {
             //  Add tile
             currentTile.setId(2);
-            world.collisionMap.data[ty][tx] = 1;
+            collisionMap.data[ty][tx] = 1;
         }
     }
 
     //  Physics update
-    var accel = body.standing ? body.accelGround : body.accelAir;
+    var accel = player.body.standing ? player.body.accelGround : player.body.accelAir;
 
     if (cursors.left.isDown)
     {
-        body.setAccelerationX(-accel);
+        player.setAccelerationX(-accel);
 
         player.anims.play('left', true);
     }
     else if (cursors.right.isDown)
     {
-        body.setAccelerationX(accel);
+        player.setAccelerationX(accel);
 
         player.anims.play('right', true);
     }
     else
     {
-        body.setAccelerationX(0);
+        player.setAccelerationX(0);
     }
 
-    if (body.vel.x === 0)
+    if (player.vel.x === 0)
     {
         player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && body.standing)
+    if (cursors.up.isDown && player.body.standing)
     {
-        body.setVelocityY(-body.jumpSpeed);
+        player.setVelocityY(-player.body.jumpSpeed);
     }
-
-    world.update(time, delta);
-
-    player.x = body.pos.x;
-    player.y = body.pos.y;
-
-    // graphics.clear();
-    // graphics.lineStyle(1, 0xffff00, 1);
-    // graphics.strokeRect(body.pos.x, body.pos.y, body.size.x, body.size.y);
 }

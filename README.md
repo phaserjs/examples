@@ -1,12 +1,16 @@
 # Phaser 3 Examples
 
-To show the example browser:
+### Requirements
 
-`npm install -g http-server`
+We need [Node.js](https://nodejs.org) to install and run scripts.
 
-`http-server -s -o`
 
-To build a new `examples.json` file if you add a new example:
+### Install and run
 
-`node build.js`
+To show the example browser run next commands in your terminal:
 
+| Command | Description |
+|---------|-------------|
+| `npm install` | Install dependencies and lunch browser with examples.|
+| `npm start` | Lunch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
+| `npm run update` | To build a new `examples.json` file if you add a new example. |

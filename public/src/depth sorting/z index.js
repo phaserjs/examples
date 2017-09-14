@@ -21,11 +21,7 @@ function create ()
 {
     //  The first created appears at the back
 
-    // this.add.image(200, 300, 'block');
-    // this.add.image(250, 300, 'block');
-    // this.add.image(300, 300, 'block');
-
-    this.add.image(200, 300, 'block').setZ(1);
+    this.add.image(200, 300, 'block').setDepth(1);
     this.add.image(250, 300, 'block');
     this.add.image(300, 300, 'block');
 }

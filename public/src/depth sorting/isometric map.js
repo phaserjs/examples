@@ -95,7 +95,7 @@ function create ()
 
             Phaser.GameObjects.Image.call(this, scene, x, y, 'skeleton', this.direction.offset + this.f);
 
-            this.z = y + 64;
+            this.depth = y + 64;
 
             TweenMax.delayedCall(this.anim.speed, this.changeFrame, [], this);
         },
@@ -158,7 +158,7 @@ function create ()
                 if (this.direction.y !== 0)
                 {
                     this.y += this.direction.y * this.speed;
-                    this.z = this.y + 64;
+                    this.depth = this.y + 64;
                 }
 
                 //  Walked far enough?
@@ -235,7 +235,7 @@ function buildMap ()
 
             var tile = scene.add.image(centerX + tx, centerY + ty, 'tiles', id);
 
-            tile.z = centerY + ty;
+            tile.depth = centerY + ty;
 
             i++;
         }
@@ -246,11 +246,11 @@ function placeHouses ()
 {
     var house = scene.add.image(240, 370, 'house');
 
-    house.z = house.y + 86;
+    house.depth = house.y + 86;
 
     house = scene.add.image(1300, 290, 'house');
 
-    house.z = house.y + 86;
+    house.depth = house.y + 86;
 }
 
 function update ()

@@ -81,7 +81,7 @@ function create ()
         yoyo: true
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_SPACE', function () {
+    this.input.events.on('KEY_DOWN_SPACE', function () {
 
         m++;
 
@@ -147,7 +147,7 @@ function draw ()
     {
         balls[i].x = centerX + model.verts[i].x * scale;
         balls[i].y = centerY - model.verts[i].y * scale;
-        balls[i].z = model.verts[i].z;
+        balls[i].depth = model.verts[i].z;
     }
 }
 

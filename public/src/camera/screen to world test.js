@@ -35,7 +35,7 @@ function create ()
         obj.setScale(0.2 + Math.random() * 0.8);
         obj.setRotation(Math.random() * 360);
         obj.setScrollFactor(obj.scaleX);
-        obj.setZ(obj.scrollFactorX);
+        obj.setDepth(obj.scrollFactorX);
         obj.setOrigin(-2 + Math.random() * 4, -2 + Math.random() * 4);
         obj.setInteractive();
         // obj.setHitArea(new Phaser.Geom.Rectangle(0 - (95 * obj.originX), 0 - (95 * obj.originY), 95, 95), Phaser.Geom.Rectangle.Contains);
@@ -54,7 +54,7 @@ function create ()
     selection = this.add.graphics(0, 0);
     selection.scrollFactorX = 0;
     selection.scrollFactorY = 0;
-    selection.z = 1000;
+    selection.depth = 1000;
 
     this.input.events.on('KEY_DOWN_EVENT', function (event) {
         if (event.data.code === 'ArrowUp' || event.data.code === 'KeyW')

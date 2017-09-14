@@ -62,7 +62,7 @@ function create ()
     //  Limited to just 10 objects in the pool, not allowed to grow beyond it
     bullets = this.pool.createObjectPool(Bullet, 10);
 
-    ship = this.add.sprite(400, 500, 'ship').setZ(1);
+    ship = this.add.sprite(400, 500, 'ship').setDepth(1);
 
     cursors = this.input.keyboard.createCursorKeys();
 

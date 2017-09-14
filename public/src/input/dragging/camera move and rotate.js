@@ -39,7 +39,7 @@ function create ()
 
         image.setScrollFactor(image.scaleX);
 
-        image.setZ(image.scrollFactorX);
+        image.setDepth(image.scrollFactorX);
 
         image.setAngle(Phaser.Math.Between(0, 359));
 

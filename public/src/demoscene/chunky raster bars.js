@@ -31,7 +31,7 @@ function create ()
 
         child.x = 100;
         child.y = 300;
-        child.z = 9 - ci;
+        child.depth = 9 - ci;
 
         child.tint = colors[ci];
 

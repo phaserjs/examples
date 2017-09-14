@@ -65,7 +65,7 @@ function create ()
     //  Create the objects in advance, so they're ready and waiting in the pool
     bullets.create(20);
 
-    ship = this.add.sprite(400, 500, 'ship').setZ(1);
+    ship = this.add.sprite(400, 500, 'ship').setDepth(1);
 
     cursors = this.input.keyboard.createCursorKeys();
 

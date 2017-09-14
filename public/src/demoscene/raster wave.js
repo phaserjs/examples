@@ -32,7 +32,7 @@ function create ()
 
         child.x = 400;
         child.y = 100;
-        child.z = 64 - i;
+        child.depth = 64 - i;
 
         child.setTint(hsv[i * 4].color);
 

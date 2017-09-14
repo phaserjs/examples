@@ -33,7 +33,7 @@ function create ()
 
         child.x = 500;
         child.y = 100;
-        child.z = 64 - i;
+        child.depth = 64 - i;
         child.scaleX = 0.6;
         // child.setBlendMode(Phaser.BlendModes.ADD);
 

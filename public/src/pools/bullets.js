@@ -61,7 +61,7 @@ function create ()
 
     bullets = this.pool.createObjectPool(Bullet);
 
-    ship = this.add.sprite(400, 500, 'ship').setZ(1);
+    ship = this.add.sprite(400, 500, 'ship').setDepth(1);
 
     cursors = this.input.keyboard.createCursorKeys();
 

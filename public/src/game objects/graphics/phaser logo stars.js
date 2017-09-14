@@ -73,7 +73,7 @@ function create ()
 
         var star = this.add.image(xx[i], yy[i], 'star');
 
-        star.z = zz[i];
+        star.depth = zz[i];
 
         layer.add(star);
 
@@ -84,7 +84,7 @@ function create ()
 
     graphics = this.add.graphics();
 
-    graphics.z = 10000;
+    graphics.depth = 10000;
 
     var hsv = Phaser.Graphics.Color.HSVColorWheel();
 
@@ -201,7 +201,7 @@ function drawStars ()
             zz[i] -= 600;
         }
 
-        stars[i].z = zz[i];
+        stars[i].depth = zz[i];
 
         stars[i].alpha = Math.min(stars[i].perspective / 2, 1);
         stars[i].setScale(stars[i].perspective / 2);

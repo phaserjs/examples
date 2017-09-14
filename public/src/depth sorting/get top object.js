@@ -20,7 +20,7 @@ function preload ()
 function create ()
 {
     //  Create a bunch of images and store some of them in a local array
-    //  Works even with setZ() added
+    //  Works even with setDepth() added
     var image1 = this.add.image(100, 300, 'atlas', 'contra2');
     var image2 = this.add.image(200, 300, 'atlas', 'contra3');
     var image3 = this.add.image(300, 300, 'atlas', 'exocet_spaceman');

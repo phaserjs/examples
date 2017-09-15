@@ -10,10 +10,9 @@ var config = {
     }
 };
 
-var graphics;
 var camera;
 var points;
-var balls;
+var balls = [];
 var tmp;
 var transform;
 
@@ -26,31 +25,26 @@ function preload ()
 
 function create ()
 {
-    graphics = this.add.graphics();
-
-    //setup a camera with 85 degree FOV
     camera = new Phaser.Cameras3D.PerspectiveCamera(90 * Math.PI / 180, 800, 600);
 
-    //move the camera back and update its matrices
-    // camera.position.x = 100;
-    // camera.position.y = 0;
     camera.position.z = 200;
     camera.update();
 
-    //random spherical particles
-    createRandomParticles.call(this, 100, 400);
+    for (var y = 0; y < 6; y++)
+    {
+        for (var x = 0; x < 6; x++)
+        {
+            balls.push(this.add.image(200 + (x * 64), 100 + (y * 64), 'ball').setZ(0));
+        }
+    }
 
-    //a vector which we will re-use
-    tmp = new Phaser.VecMath.Vector4();
-
-    //creates a new identity matrix
-    transform = new Phaser.VecMath.Matrix4();
+    tmp = new Phaser.Math.Vector4();
+    transform = new Phaser.Math.Matrix4();
 }
 
 function update ()
 {
-    // graphics.clear();
-    // graphics.fillStyle(0xffffff, 1);
+    return;
 
     for (var i = 0; i < points.length; i++)
     {
@@ -86,25 +80,5 @@ function update ()
         // balls[i].setScale(Phaser.Math.Percent(tmp.z, -100, 100));
 
         // graphics.fillRect(tmp.x-size/2, tmp.y-size/2, size, size);
-    }
-}
-
-//a utility to create particles randomly in a spherical area
-// r - radius
-// n - number of points
-function createRandomParticles (r, n)
-{
-    balls = [];
-    points = [];
-
-    for (var i = 0; i < n; i++)
-    {
-        var v = new Phaser.VecMath.Vector3().random(r);
-
-        points.push(v);
-
-        var image = this.add.image(v.x, v.y, 'ball').setZ(v.z);
-
-        balls.push(image);
     }
 }

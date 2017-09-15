@@ -28,13 +28,13 @@ function create ()
     image = this.add.image(400, 300, 'block');
 
     //  the image position in 3d space
-    position = new Phaser.VecMath.Vector4();
+    position = new Phaser.Math.Vector4();
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
     camera = new Phaser.Cameras3D.OrthographicCamera(800, 600);
 
-    var tmp = new Phaser.VecMath.Vector3();
+    var tmp = new Phaser.Math.Vector3();
 
     camera.translate(tmp.set(0, 0, -100));
     camera.lookAt(tmp.set(0, 0, 0));

@@ -29,17 +29,17 @@ function create ()
 
     sprite3D.push({
         image: this.add.image(400, 300, 'block'),
-        position: new Phaser.VecMath.Vector4(0, 300, 0)
+        position: new Phaser.Math.Vector4(0, 300, 0)
     });
    
     sprite3D.push({
         image: this.add.image(100, 300, 'block'),
-        position: new Phaser.VecMath.Vector4(-300, 300, 100)
+        position: new Phaser.Math.Vector4(-300, 300, 100)
     });
 
     sprite3D.push({
         image: this.add.image(700, 300, 'block'),
-        position: new Phaser.VecMath.Vector4(300, 300, 200)
+        position: new Phaser.Math.Vector4(300, 300, 200)
     });
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
@@ -47,7 +47,7 @@ function create ()
     camera = new Phaser.Cameras3D.OrthographicCamera(800, 600);
     camera.setToOrtho(true, 800, 600);
 
-    // center = new Phaser.VecMath.Vector3();
+    // center = new Phaser.Math.Vector3();
 
     // camera.translate(center);
     // camera.update();

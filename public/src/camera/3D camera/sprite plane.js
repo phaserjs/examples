@@ -20,7 +20,7 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('block', 'assets/sprites/128x128-v2.png');
-    this.load.image('ball', 'assets/sprites/aqua_ball.png');
+    this.load.image('ball', 'assets/sprites/shinyball.png');
 }
 
 function create ()
@@ -40,7 +40,7 @@ function create ()
                 sprite3D.push({
                     image: this.add.image(bx, by, 'ball').setZ(bz),
                     position: new Phaser.Math.Vector4(bx, by, bz),
-                    size: new Phaser.Math.Vector2(2, 2)
+                    size: new Phaser.Math.Vector2(1, 1)
                 });
             }
         }
@@ -66,6 +66,8 @@ function projectCamera ()
         var scale = camera.getPointSize(sprite.position, sprite.size);
 
         sprite.image.setScale(scale.x, scale.y).setDepth(sprite.image.z);
+
+        sprite.image.setVisible((sprite.position.z > camera.z));
     }
 }
 

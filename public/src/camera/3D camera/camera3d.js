@@ -29,13 +29,13 @@ function create ()
     graphics = this.add.graphics();
 
     //setup a camera with 85 degree FOV
-    camera = new Phaser.Cameras3D.PerspectiveCamera(90 * Math.PI / 180, 800, 600);
+    camera = new Phaser.Cameras.PerspectiveCamera(80 * Math.PI / 180, 800, 600);
 
     //move the camera back and update its matrices
     // camera.position.x = 100;
     // camera.position.y = 0;
-    camera.position.z = 200;
-    camera.update();
+    camera.z = 600;
+    // camera.update();
 
     //random spherical particles
     createRandomParticles.call(this, 100, 400);

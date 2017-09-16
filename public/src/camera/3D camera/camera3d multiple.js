@@ -44,7 +44,7 @@ function create ()
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-    camera = new Phaser.Cameras3D.OrthographicCamera(800, 600);
+    camera = new Phaser.Cameras.OrthographicCamera(800, 600);
     camera.setToOrtho(true, 800, 600);
 
     // center = new Phaser.Math.Vector3();

@@ -14,7 +14,7 @@ var r = 0;
 var cursors;
 var camera;
 var text;
-var sprite3D;
+// var sprite3D;
 var middle;
 var axis;
 
@@ -28,23 +28,20 @@ function preload ()
 
 function create ()
 {
-    sprite3D = [];
+    camera = this.cameras.add3D(80, 800, 600).setPosition(0, 0, 0);
 
-    for (var z = 0; z < 6; z++)
+    //  Center this dot cube on 0x0x0
+    for (var z = -3; z < 3; z++)
     {
-        for (var y = 0; y < 6; y++)
+        for (var y = -3; y < 3; y++)
         {
-            for (var x = 0; x < 6; x++)
+            for (var x = -3; x < 3; x++)
             {
-                var bx = 200 + (x * 64);
-                var by = 100 + (y * 64);
-                var bz = 100 + (z * 64);
+                var bx = (x * 64);
+                var by = (y * 64);
+                var bz = (z * 64);
 
-                sprite3D.push({
-                    image: this.add.image(bx, by, 'ball').setZ(bz),
-                    position: new Phaser.Math.Vector4(bx, by, bz),
-                    size: new Phaser.Math.Vector2(1, 1)
-                });
+                camera.create(bx, by, bz, 'ball');
             }
         }
     }
@@ -52,29 +49,9 @@ function create ()
     middle = new Phaser.Math.Vector3(0, 0, 0);
     axis = new Phaser.Math.Vector3(0, 0, 1);
 
-    camera = new Phaser.Cameras.PerspectiveCamera(80, 800, 600).setPosition(300, 250, -350);
-
-    projectCamera();
-
     cursors = this.input.keyboard.createCursorKeys();
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
-}
-
-function projectCamera ()
-{
-    for (var i = 0; i < sprite3D.length; i++)
-    {
-        var sprite = sprite3D[i];
-
-        camera.project(sprite.position, sprite.image);
-
-        var scale = camera.getPointSize(sprite.position, sprite.size);
-
-        sprite.image.setScale(scale.x, scale.y).setDepth(sprite.image.z);
-
-        sprite.image.setVisible((sprite.position.z > camera.z));
-    }
 }
 
 function update ()
@@ -111,10 +88,7 @@ function update ()
         }
     }
 
-    camera.rotateAround(middle, 0.01, axis);
-    camera.update();
-
-    projectCamera();
+    camera.rotateAround(middle, 0.001, axis);
 
     text.setText([
         'camera.x: ' + camera.x,

@@ -10,101 +10,140 @@ var config = {
     }
 };
 
-var graphics;
+var text;
 var camera;
-var points;
-var balls;
-var tmp;
+var cursors;
 var transform;
+var xAxis;
+var yAxis;
+var zAxis;
+var isPosition = true;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
     this.load.image('ball', 'assets/sprites/aqua_ball.png');
+    this.load.image('ball2', 'assets/sprites/yellow_ball.png');
 }
 
 function create ()
 {
     graphics = this.add.graphics();
 
-    //setup a camera with 85 degree FOV
-    camera = new Phaser.Cameras.PerspectiveCamera(80 * Math.PI / 180, 800, 600);
+    //  Setup a camera with 85 degree FOV
+    camera = this.cameras.add3D(85).setZ(-500).setPixelScale(16);
 
-    //move the camera back and update its matrices
-    // camera.position.x = 100;
-    // camera.position.y = 0;
-    camera.z = 600;
-    // camera.update();
+    var sprites = camera.createMultiple(200, 'ball');
 
-    //random spherical particles
-    createRandomParticles.call(this, 100, 400);
+    camera.randomSphere(200, sprites);
+    camera.translateChildren(new Phaser.Math.Vector3(100, 0, 0), sprites);
 
-    //a vector which we will re-use
-    tmp = new Phaser.Math.Vector4();
+    sprites = camera.createMultiple(200, 'ball2');
 
-    //creates a new identity matrix
+    camera.randomSphere(200, sprites);
+    camera.translateChildren(new Phaser.Math.Vector3(-100, 0, 0), sprites);
+
+    //  Our rotation matrix
     transform = new Phaser.Math.Matrix4();
+    transform.rotateX(0.01);
+    transform.rotateY(0.02);
+
+    cursors = this.input.keyboard.createCursorKeys();
+
+    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+
+    xAxis = new Phaser.Math.Vector3(1, 0, 0);
+    yAxis = new Phaser.Math.Vector3(0, 1, 0);
+    zAxis = new Phaser.Math.Vector3(0, 0, 1);
 }
 
 function update ()
 {
-    // graphics.clear();
-    // graphics.fillStyle(0xffffff, 1);
+    camera.transformChildren(transform);
 
-    for (var i = 0; i < points.length; i++)
-    {
-        var p = points[i];
-
-        //rotate the transformation matrix around the Y axis a little..
-        transform.rotateX(-0.00001);
-        transform.rotateY(-0.00001);
-
-        //now let's transform the 3D position by our transformation matrix
-        //this will give us a new position that has been slightly rotated by
-        //our matrix.
-
-        // tmp.x = p.x;
-        // tmp.y = p.y;
-        // tmp.z = p.z;
-
-        // tmp.transformMat4(transform);
-
-        tmp.set(p).transformMat4(transform);
-
-        //project the 3D point into 2D space
-        camera.project(tmp, tmp);
-
-        //draw the particle with a fixed size
-        var size = 16;
-
-        balls[i].x = tmp.x - size / 2;
-        balls[i].y = tmp.y - size / 2;
-        balls[i].depth = tmp.z;
-
-        //  Let's assume the distance range is -100 to 100
-        // balls[i].setScale(Phaser.Math.Percent(tmp.z, -100, 100));
-
-        // graphics.fillRect(tmp.x-size/2, tmp.y-size/2, size, size);
-    }
+    updateCamControls();
 }
 
-//a utility to create particles randomly in a spherical area
-// r - radius
-// n - number of points
-function createRandomParticles (r, n)
+function updateCamControls ()
 {
-    balls = [];
-    points = [];
-
-    for (var i = 0; i < n; i++)
+    if (cursors.left.isDown)
     {
-        var v = new Phaser.Math.Vector3().random(r);
-
-        points.push(v);
-
-        var image = this.add.image(v.x, v.y, 'ball').setZ(v.z);
-
-        balls.push(image);
+        if (isPosition)
+        {
+            camera.x -= 4;
+        }
+        else
+        {
+            camera.rotate(0.01, xAxis);
+        }
     }
+    else if (cursors.right.isDown)
+    {
+        if (isPosition)
+        {
+            camera.x += 4;
+        }
+        else
+        {
+            camera.rotate(-0.01, xAxis);
+        }
+    }
+
+    if (cursors.up.isDown)
+    {
+        if (cursors.shift.isDown)
+        {
+            if (isPosition)
+            {
+                camera.z += 4;
+            }
+            else
+            {
+                camera.rotate(0.01, zAxis);
+            }
+        }
+        else
+        {
+            if (isPosition)
+            {
+                camera.y += 4;
+            }
+            else
+            {
+                camera.rotate(0.01, yAxis);
+            }
+        }
+    }
+    else if (cursors.down.isDown)
+    {
+        if (cursors.shift.isDown)
+        {
+            if (isPosition)
+            {
+                camera.z -= 4;
+            }
+            else
+            {
+                camera.rotate(-0.01, zAxis);
+            }
+        }
+        else
+        {
+            if (isPosition)
+            {
+                camera.y -= 4;
+            }
+            else
+            {
+                camera.rotate(-0.01, yAxis);
+            }
+        }
+    }
+
+    text.setText([
+        'camera.x: ' + camera.x,
+        'camera.y: ' + camera.y,
+        'camera.z: ' + camera.z
+    ]);
 }

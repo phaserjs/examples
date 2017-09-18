@@ -60,7 +60,7 @@ function addAndRemove()
         {
             var addingCamera = camerasRemoved.pop();
             camerasAdded.push(addingCamera);
-            scene.cameras.addReference(addingCamera);
+            scene.cameras.addExisting(addingCamera);
         }
         else
         {

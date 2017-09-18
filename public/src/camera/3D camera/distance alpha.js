@@ -12,6 +12,7 @@ var config = {
 
 var cursors;
 var camera;
+var sprite;
 var text;
 
 var game = new Phaser.Game(config);
@@ -26,18 +27,9 @@ function create ()
 {
     this.add.image(400, 300, 'bg');
 
-    camera = this.cameras.add3D(20, 800, 600).setPosition(1500, 200, -1400);
+    camera = this.cameras.add3D(80, 800, 600).setPosition(0, 0, -400);
 
-    for (var z = 0; z < 32; z++)
-    {
-        for (var x = 0; x < 32; x++)
-        {
-            var bx = x * 100;
-            var bz = z * 300;
-
-            camera.create(bx, 0, bz, 'tree');
-        }
-    }
+    sprite = camera.create(0, 0, 0, 'tree');
 
     cursors = this.input.keyboard.createCursorKeys();
 

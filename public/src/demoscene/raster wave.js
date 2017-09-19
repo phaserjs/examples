@@ -42,7 +42,7 @@ function create ()
             targets: child,
             props: {
                 y: { value: 500, duration: 1500 },
-                scaleX: { value: child.z / 64, duration: 6000, hold: 2000, delay: 2000 }
+                scaleX: { value: child.depth / 64, duration: 6000, hold: 2000, delay: 2000 }
             },
             yoyo: true,
             repeat: -1,

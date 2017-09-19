@@ -10,25 +10,21 @@ var config = {
     }
 };
 
-var cursors;
-var image;
 var camera;
-var text;
+var cursors;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('block', 'assets/sprites/128x128-v2.png');
+    this.load.image('ball', 'assets/sprites/aqua_ball.png');
 }
 
 function create ()
 {
-    //  Camera at 0x0x200 and looking at 0x0x0
-    camera = this.cameras.add3D(85).setPosition(0, 0, 200);
+    camera = this.cameras.add3D(55).setPosition(0, -50, 200).setPixelScale(32);
 
-    //  Image at 0x0x0
-    image = camera.create(0, 0, 0, 'block');
+    camera.createRect({ x: 8, y: 1, z: 8 }, 32, 'ball');
 
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -37,8 +33,7 @@ function create ()
 
 function update ()
 {
-    // var obj = camera;
-    var obj = image;
+    var obj = camera;
 
     if (cursors.left.isDown)
     {
@@ -77,10 +72,6 @@ function update ()
     text.setText([
         'camera.x: ' + camera.x,
         'camera.y: ' + camera.y,
-        'camera.z: ' + camera.z,
-        '',
-        'image.x: ' + image.position.x,
-        'image.y: ' + image.position.y,
-        'image.z: ' + image.position.z
+        'camera.z: ' + camera.z
     ]);
 }

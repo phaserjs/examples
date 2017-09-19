@@ -46,7 +46,7 @@ function create ()
             props: {
                 x: { value: 300, duration: 700 },
                 y: { value: 500, duration: 2500 },
-                scaleX: { value: Math.min(0.1, child.z / 64), duration: 4000, hold: 2000, delay: 2000 }
+                scaleX: { value: Math.min(0.1, child.depth / 64), duration: 4000, hold: 2000, delay: 2000 }
             },
             yoyo: true,
             repeat: -1,

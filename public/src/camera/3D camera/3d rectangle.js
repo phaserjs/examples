@@ -30,7 +30,7 @@ function create ()
 {
     graphics = this.add.graphics();
 
-    camera = this.cameras.add3D(85).setZ(-500).setPixelScale(1024);
+    camera = this.cameras.add3D(85).setZ(500).setPixelScale(1024);
 
     var sprites = camera.createRect({ x: 4, y: 4, z: 16 }, { x: 48, y: 48, z: 32 }, 'particle');
 

@@ -43,7 +43,7 @@ function create ()
     }
 
     //  Our rotation matrix
-    transform = new Phaser.Math.Matrix4().rotateX(-0.02).rotateZ(0.01);
+    transform = new Phaser.Math.Matrix4().rotateX(-0.02).rotateY(-0.02).rotateZ(0.01);
 
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -92,22 +92,22 @@ function updateCamControls ()
         {
             if (isPosition)
             {
-                camera.z += 4;
+                camera.y += 4;
             }
             else
             {
-                camera.rotate(0.01, zAxis);
+                camera.rotate(0.01, yAxis);
             }
         }
         else
         {
             if (isPosition)
             {
-                camera.y += 4;
+                camera.z += 4;
             }
             else
             {
-                camera.rotate(0.01, yAxis);
+                camera.rotate(0.01, zAxis);
             }
         }
     }
@@ -117,22 +117,22 @@ function updateCamControls ()
         {
             if (isPosition)
             {
-                camera.z -= 4;
+                camera.y -= 4;
             }
             else
             {
-                camera.rotate(-0.01, zAxis);
+                camera.rotate(-0.01, yAxis);
             }
         }
         else
         {
             if (isPosition)
             {
-                camera.y -= 4;
+                camera.z -= 4;
             }
             else
             {
-                camera.rotate(-0.01, yAxis);
+                camera.rotate(-0.01, zAxis);
             }
         }
     }

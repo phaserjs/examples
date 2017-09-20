@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#efefef',
@@ -32,7 +32,13 @@ var game = new Phaser.Game(config);
 
 function create ()
 {
+    //  Create a Canvas based texture to draw on
+    this.textures.createCanvas('curve', 800, 600);
+
+    this.add.image(0, 0, 'curve').setOrigin(0);
+
     drawGraphics = this.add.graphics();
+
     graphics = this.add.graphics();
 
     path = { t: 0, vec: new Phaser.Math.Vector2() };
@@ -40,7 +46,7 @@ function create ()
     p0 = new Phaser.Math.Vector2(100, 500);
     p1 = new Phaser.Math.Vector2(50, 100);
     p2 = new Phaser.Math.Vector2(600, 100);
-    p3 = new Phaser.Math.Vector2(700, 500);
+    p3 = new Phaser.Math.Vector2(700, 550);
 
     curve = new Phaser.Curves.CubicBezier(p0, p1, p2, p3);
 
@@ -111,6 +117,10 @@ function update ()
     graphics.fillStyle(0xff0000, 1);
     graphics.fillCircle(path.vec.x, path.vec.y, 8);
 
+    drawGraphics.clear();
+
     drawGraphics.fillStyle(0xff0000, 0.1);
     drawGraphics.fillCircle(path.vec.x, path.vec.y, 4);
+
+    drawGraphics.generateTexture('curve', 800, 600);
 }

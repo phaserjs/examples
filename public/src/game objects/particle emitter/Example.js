@@ -11,69 +11,104 @@ var config = {
     }
 };
 
-var emitter0 = null;
-var emitter1 = null;
-var emitter2 = null;
+var darkSmoke = null;
+var fire = null;
+var whiteSmoke = null;
+var spark0 = null;
+var spark1 = null;
 var move = false;
 var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('image0', 'assets/particles/cloud.png');
-    this.load.image('image1', 'assets/particles/bubble.png');
-    this.load.image('image2', 'assets/particles/stone.png');
+    this.load.image('dark-smoke', 'assets/particles/smoke-puff.png');
+    this.load.image('white-smoke', 'assets/particles/smoke0.png');
+    this.load.image('fire', 'assets/particles/muzzleflash3.png');
+    this.load.image('spark0', 'assets/particles/blue.png');
+    this.load.image('spark1', 'assets/particles/red.png');
 }
 
 function create ()
 {
-    emitter0 = this.add.emitter(400, 300, 'image0');
-    emitter0.reserve(1000);
-    emitter0.setSpeed(20, 100);
-    emitter0.setAngle(-140, -40);
-    emitter0.life = 4;
 
-    emitter1 = this.add.emitter(400, 300, 'image2');
-    emitter1.reserve(1000);
-    emitter1.setSpeed(100, 200);
-    emitter1.setAngle(-180, -00);
-    emitter1.gravityY = 300;
-    emitter1.life = 2;
+    spark0 = this.add.emitter(400, 300, 'spark0');
+    spark0.reserve(1000);
+    spark0.setSpeed(-500, 500);
+    spark0.setEmitAngle(-120, -60);
+    spark0.setScale(0.05, 0);
+    spark0.setAlpha(1, 0);
+    spark0.gravityY = 500;
+    spark0.life = 1;
 
-    emitter2 = this.add.emitter(400, 300, 'image1');
-    emitter2.reserve(1000);
-    emitter2.setSpeed(20, 100);
-    emitter2.setAngle(-100, -80);
-    emitter2.life = 2;
+    spark1 = this.add.emitter(400, 300, 'spark1');
+    spark1.reserve(1000);
+    spark1.setSpeed(-100, 100);
+    spark1.setEmitAngle(-120, -60);
+    spark1.setScale(0, 0.4);
+    spark1.setAlpha(1, 0);
+    spark1.gravityY = 500;
+    spark1.life = 1;
+
+    fire = this.add.emitter(400, 300, 'fire');
+    fire.reserve(1000);
+    fire.setSpeed(100, 200);
+    fire.setAngle(0, 360);
+    fire.setEmitAngle(-85, -95);
+    fire.setScale(0, 1);
+    fire.setAlpha(1, 0);
+    fire.life = 1;
+
+    whiteSmoke = this.add.emitter(400, 300, 'white-smoke');
+    whiteSmoke.reserve(1000);
+    whiteSmoke.setSpeed(20, 100);
+    whiteSmoke.setEmitAngle(-140, -40);
+    whiteSmoke.setScale(1, 0);
+    whiteSmoke.setAlpha(0, 0.5);
+    whiteSmoke.setAngle(0, 360);
+    whiteSmoke.life = 2;
+
+    darkSmoke = this.add.emitter(400, 300, 'dark-smoke');
+    darkSmoke.reserve(1000);
+    darkSmoke.setSpeed(20, 100);
+    darkSmoke.setEmitAngle(-140, -40);
+    darkSmoke.setScale(1, 0);
+    darkSmoke.setAlpha(0, 0.5);
+    darkSmoke.setAngle(0, 360);
+    darkSmoke.life = 4;
+
+    fire.onParticleDeath(function (particle) {
+        darkSmoke.x = particle.x;
+        darkSmoke.y = particle.y;
+        whiteSmoke.x = particle.x;
+        whiteSmoke.y = particle.y;
+        darkSmoke.emitParticle();
+        whiteSmoke.emitParticle();
+    });
 
     this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
-        if (!move) return;
-        emitter0.x = event.x;
-        emitter0.y = event.y;
-        emitter1.x = event.x;
-        emitter1.y = event.y;
-        emitter2.x = event.x;
-        emitter2.y = event.y;
+        darkSmoke.x = event.x;
+        darkSmoke.y = event.y;
+        fire.x = event.x;
+        fire.y = event.y;
     });
 
     this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
-        move = true;
-        emitter0.x = event.x;
-        emitter0.y = event.y;
-        emitter1.x = event.x;
-        emitter1.y = event.y;
-        emitter2.x = event.x;
-        emitter2.y = event.y;
-    });
+        darkSmoke.x = event.x;
+        darkSmoke.y = event.y;
+        fire.x = event.x;
+        fire.y = event.y;
 
-    this.input.events.on('MOUSE_UP_EVENT', function (event) {
-        move = false;
     });
 
 }
 
 function update ()
 {
-    emitter0.emitParticle();
-    emitter1.emitParticle();
-    emitter2.emitParticle();
+    spark0.x = fire.x;
+    spark0.y = fire.y;
+    spark1.x = fire.x;
+    spark1.y = fire.y;
+    spark0.emitParticle();
+    spark1.emitParticle();
+    fire.emitParticle();
 }

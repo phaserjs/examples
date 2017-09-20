@@ -11,7 +11,7 @@ var config = {
 };
 
 var path;
-var line;
+var curve;
 var graphics;
 
 var game = new Phaser.Game(config);
@@ -22,7 +22,12 @@ function create ()
 
     path = { t: 0, vec: new Phaser.Math.Vector2() };
 
-    line = new Phaser.Curves.Line(new Phaser.Math.Vector2(100, 100), new Phaser.Math.Vector2(600, 400));
+    var startPoint = new Phaser.Math.Vector2(100, 500);
+    var controlPoint1 = new Phaser.Math.Vector2(50, 100);
+    var controlPoint2 = new Phaser.Math.Vector2(600, 100);
+    var endPoint = new Phaser.Math.Vector2(700, 500);
+
+    curve = new Phaser.Curves.CubicBezier(startPoint, controlPoint1, controlPoint2, endPoint);
 
     this.tweens.add({
         targets: path,
@@ -37,10 +42,10 @@ function create ()
 function update ()
 {
     graphics.clear();
-    graphics.lineStyle(2, 0xffffff, 1);
-    graphics.lineBetween(line.v1.x, line.v1.y, line.v2.x, line.v2.y);
+    // graphics.lineStyle(2, 0xffffff, 1);
+    // graphics.lineBetween(line.v1.x, line.v1.y, line.v2.x, line.v2.y);
 
-    line.getPoint(path.t, path.vec);
+    curve.getPoint(path.t, path.vec);
 
     graphics.fillStyle(0xff0000, 1);
     graphics.fillRect(path.vec.x - 8, path.vec.y - 8, 16, 16);

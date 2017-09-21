@@ -11,7 +11,7 @@ var config = {
     }
 };
 
-var emitter = null;
+var emitters = [];
 var curve = null;
 var time = 0;
 var game = new Phaser.Game(config);
@@ -61,14 +61,18 @@ function create ()
 
         graphics.lineStyle(1, 0xff00ff, 1);
         graphics.lineBetween(p.x, p.y, tempVec.x, tempVec.y);
+        
+        var emitter = this.add.emitter(p.x, p.y, i % 2 == 0 ? 'spark0' : 'spark1');
+        emitter.setSpeed(-200, 200);
+        emitter.setScale(0.1, 0.0);
+        emitter.setBlendMode(Phaser.BlendModes.SCREEN);
+        emitters.push(emitter);
     }
 }
 
 function update()
 {
-    var p = curve.getPoint(Math.abs(Math.sin(time)));
-    emitter.x = p.x;
-    emitter.y = p.y;
-    emitter.emitParticle();
-    time += 0.01;
+    emitters.forEach(function (emitter) {
+        emitter.emitParticle();
+    });
 }

@@ -17,7 +17,9 @@ var whiteSmoke = null;
 var spark0 = null;
 var spark1 = null;
 var move = false;
+var t = 0;
 var game = new Phaser.Game(config);
+
 
 function preload ()
 {
@@ -46,6 +48,8 @@ function create ()
     spark1.setEmitAngle(-120, -60);
     spark1.setScale(0, 0.4);
     spark1.setAlpha(1, 0);
+    spark1.setAlphaEase('Expo.easeIn');
+    spark1.setBlendMode(Phaser.BlendModes.SCREEN);
     spark1.gravityY = 500;
     spark1.life = 1;
 
@@ -56,6 +60,9 @@ function create ()
     fire.setEmitAngle(-85, -95);
     fire.setScale(0, 1);
     fire.setAlpha(1, 0);
+    fire.setScaleEase('Back.easeOut');
+    fire.setRotationEase('Quart.easeOut');
+    fire.setBlendMode(Phaser.BlendModes.SCREEN);
     fire.life = 1;
 
     whiteSmoke = this.add.emitter(400, 300, 'white-smoke');
@@ -72,9 +79,10 @@ function create ()
     darkSmoke.setSpeed(20, 100);
     darkSmoke.setEmitAngle(-140, -40);
     darkSmoke.setScale(1, 0);
-    darkSmoke.setAlpha(0, 0.5);
+    darkSmoke.setAlpha(0, 0.1);
     darkSmoke.setAngle(0, 360);
-    darkSmoke.life = 4;
+    whiteSmoke.setBlendMode(Phaser.BlendModes.ADD);
+    darkSmoke.life = 2;
 
     fire.onParticleDeath(function (particle) {
         darkSmoke.x = particle.x;
@@ -97,13 +105,13 @@ function create ()
         darkSmoke.y = event.y;
         fire.x = event.x;
         fire.y = event.y;
-
     });
 
 }
 
 function update ()
 {
+
     spark0.x = fire.x;
     spark0.y = fire.y;
     spark1.x = fire.x;

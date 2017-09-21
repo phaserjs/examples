@@ -42,11 +42,9 @@ function create ()
 function update ()
 {
     graphics.clear();
-    // graphics.lineStyle(2, 0xffffff, 1);
-    // graphics.lineBetween(line.v1.x, line.v1.y, line.v2.x, line.v2.y);
 
     curve.getPoint(path.t, path.vec);
 
     graphics.fillStyle(0xff0000, 1);
-    graphics.fillRect(path.vec.x - 8, path.vec.y - 8, 16, 16);
+    graphics.fillCircle(path.vec.x, path.vec.y, 16);
 }

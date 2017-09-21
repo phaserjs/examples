@@ -5,14 +5,30 @@ var config = {
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     scene: {
-        create: create
+        preload: preload,
+        create: create,
+        update: update
     }
 };
 
+var emitter = null;
+var curve = null;
+var time = 0;
 var game = new Phaser.Game(config);
+
+function preload()
+{
+    this.load.image('spark0', 'assets/particles/blue.png');
+    this.load.image('spark1', 'assets/particles/red.png');
+}
 
 function create ()
 {
+    emitter = this.add.emitter(400, 300, 'spark0');
+    emitter.setSpeed(-200, 200);
+    emitter.setScale(0.1, 0.0);
+    emitter.setBlendMode(Phaser.BlendModes.SCREEN);
+
     graphics = this.add.graphics();
 
     var p0 = new Phaser.Math.Vector2(200, 500);
@@ -20,7 +36,7 @@ function create ()
     var p2 = new Phaser.Math.Vector2(600, 200);
     var p3 = new Phaser.Math.Vector2(600, 500);
 
-    var curve = new Phaser.Curves.CubicBezier(p0, p1, p2, p3);
+    curve = new Phaser.Curves.CubicBezier(p0, p1, p2, p3);
 
     var max = 28;
     var points = [];
@@ -46,4 +62,13 @@ function create ()
         graphics.lineStyle(1, 0xff00ff, 1);
         graphics.lineBetween(p.x, p.y, tempVec.x, tempVec.y);
     }
+}
+
+function update()
+{
+    var p = curve.getPoint(Math.abs(Math.sin(time)));
+    emitter.x = p.x;
+    emitter.y = p.y;
+    emitter.emitParticle();
+    time += 0.01;
 }

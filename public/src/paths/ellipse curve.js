@@ -55,6 +55,12 @@ function update ()
 {
     graphics.clear();
 
+    graphics.lineStyle(2, 0xffffff, 1);
+
+    graphics.arc();
+
+    // arc: function (x, y, radius, startAngle, endAngle, anticlockwise)
+
     curve.getPoint(path.t, path.vec);
 
     graphics.fillStyle(0xff0000, 1);

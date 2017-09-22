@@ -90,6 +90,8 @@ function create ()
         emitter.setRotationEase(value);
     });;
     gui.add(emitter, 'killAll');
+    gui.add(emitter, 'pause');
+    gui.add(emitter, 'resume');
 
     this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
         if (move)

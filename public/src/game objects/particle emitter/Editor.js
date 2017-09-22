@@ -113,7 +113,6 @@ function create ()
 
 function update ()
 {
-    emitter.emitParticle();
     countText.setText('Alive Particles: ' + emitter.getAliveParticleCount());
 }
 

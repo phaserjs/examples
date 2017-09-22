@@ -73,6 +73,7 @@ function create ()
     whiteSmoke.setAlpha(0, 0.5);
     whiteSmoke.setAngle(0, 360);
     whiteSmoke.life = 2;
+    whiteSmoke.enabled = false;
 
     darkSmoke = this.add.emitter(400, 300, 'dark-smoke');
     darkSmoke.reserve(1000);
@@ -81,8 +82,9 @@ function create ()
     darkSmoke.setScale(1, 0);
     darkSmoke.setAlpha(0, 0.1);
     darkSmoke.setAngle(0, 360);
-    whiteSmoke.setBlendMode(Phaser.BlendModes.ADD);
+    darkSmoke.setBlendMode(Phaser.BlendModes.ADD);
     darkSmoke.life = 2;
+    darkSmoke.enabled = false;
 
     fire.onParticleDeath(function (particle) {
         darkSmoke.x = particle.x;
@@ -116,7 +118,4 @@ function update ()
     spark0.y = fire.y;
     spark1.x = fire.x;
     spark1.y = fire.y;
-    spark0.emitParticle();
-    spark1.emitParticle();
-    fire.emitParticle();
 }

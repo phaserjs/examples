@@ -11,7 +11,6 @@ var config = {
     }
 };
 
-var emitters = [];
 var curve = null;
 var time = 0;
 var game = new Phaser.Game(config);
@@ -24,11 +23,6 @@ function preload()
 
 function create ()
 {
-    emitter = this.add.emitter(400, 300, 'spark0');
-    emitter.setSpeed(-200, 200);
-    emitter.setScale(0.1, 0.0);
-    emitter.setBlendMode(Phaser.BlendModes.SCREEN);
-
     graphics = this.add.graphics();
 
     var p0 = new Phaser.Math.Vector2(200, 500);
@@ -70,13 +64,9 @@ function create ()
         emitter.setScale(0.1, 0.0);
         emitter.life = 0.5;
         emitter.setBlendMode(Phaser.BlendModes.SCREEN);
-        emitters.push(emitter);
     }
 }
 
 function update()
 {
-    emitters.forEach(function (emitter) {
-        emitter.emitParticle();
-    });
 }

@@ -63,8 +63,12 @@ function create ()
         graphics.lineBetween(p.x, p.y, tempVec.x, tempVec.y);
         
         var emitter = this.add.emitter(tempVec.x, tempVec.y, i % 2 == 0 ? 'spark0' : 'spark1');
-        emitter.setSpeed(-200, 200);
+        var angle = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(p, tempVec));
+        emitter.setEmitAngle(angle, angle);
+        emitter.setSpeed(-100, 500);
+        emitter.gravityY = 200;
         emitter.setScale(0.1, 0.0);
+        emitter.life = 0.5;
         emitter.setBlendMode(Phaser.BlendModes.SCREEN);
         emitters.push(emitter);
     }

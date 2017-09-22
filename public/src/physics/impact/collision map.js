@@ -6,9 +6,7 @@ var config = {
     physics: {
         default: 'impact',
         impact: {
-            gravity: 800,
-            setMaxVelocityX: 400,
-            setMaxVelocityY: 800
+            gravity: 700
         }
     },
     scene: {
@@ -54,13 +52,13 @@ function create ()
 
     });
 
-    this.add.staticTilemap(mapData, 0, 0, impactData.tilesize, impactData.tilesize, impactData.width, impactData.height, 'tiles');
+    this.add.staticTilemap(mapData, 0, 0, impactData.tilesize, impactData.tilesize, impactData.width, impactData.height, 0, 'tiles');
 
     this.physics.world.setCollisionMap(impactData.tilesize, impactData.data);
 
     player = this.physics.add.image(64, 300, 'clown');
 
-    player.setFriction(800, 0);
+    player.setMaxVelocity(500).setFriction(1000, 100);
 
     player.body.accelGround = 1200;
     player.body.accelAir = 600;

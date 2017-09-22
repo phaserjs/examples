@@ -65,7 +65,7 @@ function create ()
 
     });
 
-    this.add.staticTilemap(renderData, 0, 0, 32, 32, mapWidth, mapHeight, 'tiles');
+    this.add.staticTilemap(renderData, 0, 0, 32, 32, mapWidth, mapHeight, 0, 'tiles');
 
     // imageA = this.add.image(64, 300, 'clown').setOrigin(0);
 

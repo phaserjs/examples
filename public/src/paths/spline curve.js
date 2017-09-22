@@ -47,6 +47,10 @@ function update ()
 {
     graphics.clear();
 
+    graphics.lineStyle(1, 0xffffff, 1);
+
+    curve.draw(graphics, 64);
+
     graphics.fillStyle(0x00ff00, 1);
 
     for (var i = 0; i < points.length; i++)

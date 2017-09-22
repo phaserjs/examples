@@ -17,6 +17,10 @@ function create ()
 
     var curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(100, 100), new Phaser.Math.Vector2(600, 400));
 
+    graphics.lineStyle(1, 0xffffff, 1);
+
+    curve.draw(graphics);
+
     //  Get 32 points from the curve
     var points = curve.getPoints(32);
 

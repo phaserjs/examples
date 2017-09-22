@@ -22,14 +22,18 @@ function create ()
 
     var curve = new Phaser.Curves.CubicBezier(p0, p1, p2, p3);
 
+    graphics.lineStyle(1, 0xffffff, 1);
+
+    curve.draw(graphics, 64);
+
     //  Get 32 points from the curve
     var points = curve.getPoints(32);
 
     //  Draw the points
-    graphics.fillStyle(0xff0000, 1);
+    graphics.fillStyle(0x00ff00, 1);
 
     for (var i = 0; i < points.length; i++)
     {
-        graphics.fillCircle(points[i].x, points[i].y, 4);
+        graphics.fillCircle(points[i].x, points[i].y, 6);
     }
 }

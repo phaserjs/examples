@@ -43,6 +43,10 @@ function update ()
 {
     graphics.clear();
 
+    graphics.lineStyle(1, 0x00ff00, 1);
+
+    curve.draw(graphics);
+
     curve.getPoint(path.t, path.vec);
 
     graphics.fillStyle(0xff0000, 1);

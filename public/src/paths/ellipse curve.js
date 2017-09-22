@@ -22,8 +22,8 @@ function create ()
 
     path = { t: 0, vec: new Phaser.Math.Vector2() };
 
-    // aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation
-    // curve = new Phaser.Curves.Ellipse(400, 300, 260, 260, 0, 180, false, 90);
+    // x, y, xRadius, yRadius, startAngle, endAngle, clockwise, rotation
+    // curve = new Phaser.Curves.Ellipse(400, 300, 100, 260, 0, 180, false);
 
     //  With minimal arguments it creates a circle of radius 260 centered on 400x300:
     curve = new Phaser.Curves.Ellipse(400, 300, 260);
@@ -38,17 +38,15 @@ function create ()
 
     //  By adjusting the radius you can create a spiral effect
 
-    /*
     this.tweens.add({
         targets: curve,
         xRadius: 50,
-        yRadius: 50,
+        yRadius: 200,
         ease: 'Sine.easeInOut',
         duration: 16000,
         yoyo: true,
         repeat: -1
     });
-    */
 }
 
 function update ()
@@ -57,9 +55,7 @@ function update ()
 
     graphics.lineStyle(2, 0xffffff, 1);
 
-    graphics.arc();
-
-    // arc: function (x, y, radius, startAngle, endAngle, anticlockwise)
+    curve.draw(graphics, 64);
 
     curve.getPoint(path.t, path.vec);
 

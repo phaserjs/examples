@@ -46,11 +46,7 @@ function update ()
     graphics.clear();
     graphics.lineStyle(2, 0xffffff, 1);
 
-    var line = path.curves[0];
-    graphics.lineBetween(line.v1.x, line.v1.y, line.v2.x, line.v2.y);
-
-    var line = path.curves[1];
-    graphics.lineBetween(line.v1.x, line.v1.y, line.v2.x, line.v2.y);
+    path.draw(graphics);
 
     path.getPoint(follower.t, follower.vec);
 

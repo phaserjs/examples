@@ -19,7 +19,8 @@ function create ()
 
     graphics.clear();
     graphics.lineStyle(2, 0xffffff, 1);
-    graphics.lineBetween(curve.v1.x, curve.v1.y, curve.v2.x, curve.v2.y);
+
+    curve.draw(graphics);
 
     //  Get the t value for 200 pixels along the curve
     var t = curve.getTFromDistance(200);

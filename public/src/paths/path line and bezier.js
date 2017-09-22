@@ -23,11 +23,12 @@ function create ()
     follower = { t: 0, vec: new Phaser.Math.Vector2() };
 
     //  Path starts at 100x100
-    path = new Phaser.Paths.Path(100, 100);
+    path = new Phaser.Paths.Path(50, 500);
 
-    path.lineTo(500, 200);
-    path.lineTo(200, 300);
-    path.lineTo(400, 500);
+    path.lineTo(150, 200);
+
+    // cubicBezierTo: function (x, y, control1X, control1Y, control2X, control2Y)
+    path.cubicBezierTo(400, 500, 200, 100, 400, 100);
 
     this.tweens.add({
         targets: follower,
@@ -42,7 +43,6 @@ function create ()
 function update ()
 {
     graphics.clear();
-
     graphics.lineStyle(2, 0xffffff, 1);
 
     path.draw(graphics);

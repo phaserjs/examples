@@ -103,10 +103,7 @@ function update ()
     //  Draw the curve through the points
     graphics.lineStyle(1, 0xff00ff, 1);
 
-    for (var i = 0; i < points.length - 1; i++)
-    {
-        graphics.lineBetween(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
-    }
+    curve.draw(graphics);
 
     //  Draw t
     curve.getPoint(path.t, path.vec);

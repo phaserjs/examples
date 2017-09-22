@@ -97,11 +97,11 @@ function update ()
     graphics.lineStyle(2, 0x0000ff, 1);
     graphics.fillStyle(0x0000ff, 1);
 
-    line4.v1.copy(t1);
-    line4.v2.copy(t2);
+    line4.p0.copy(t1);
+    line4.p1.copy(t2);
 
-    line5.v1.copy(t2);
-    line5.v2.copy(t3);
+    line5.p0.copy(t2);
+    line5.p1.copy(t3);
 
     var t4 = line4.getPoint(path.t);
     var t5 = line5.getPoint(path.t);

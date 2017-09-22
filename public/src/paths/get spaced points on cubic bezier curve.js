@@ -22,8 +22,12 @@ function create ()
 
     var curve = new Phaser.Curves.CubicBezier(p0, p1, p2, p3);
 
-    //  Get 32 points equally spaced out along the curve
-    var points = curve.getSpacedPoints(32);
+    graphics.lineStyle(1, 0xffffff, 1);
+
+    curve.draw(graphics, 64);
+
+    //  Get 20 points equally spaced out along the curve
+    var points = curve.getSpacedPoints(20);
 
     //  Draw the points
     graphics.fillStyle(0xff0000, 1);

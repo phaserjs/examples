@@ -3,6 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    backgroundColor: '#72dea3',
     scene: {
         preload: preload,
         create: create,
@@ -19,21 +20,18 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('bg', 'assets/tests/camera3d/bg.png');
     this.load.image('tree', 'assets/tests/camera3d/tree.png');
 }
 
 function create ()
 {
-    this.add.image(400, 300, 'bg');
-
-    camera = this.cameras.add3D(80, 800, 600).setPosition(0, 0, -400);
+    camera = this.cameras.add3D(80, 800, 600).setPosition(0, 0, 400);
 
     sprite = camera.create(0, 0, 0, 'tree');
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#000000' });
 }
 
 function update ()
@@ -70,9 +68,12 @@ function update ()
         }
     }
 
+    //  1000 to 600 = alpha 0 to 1
+
+    sprite.gameObject.alpha = 1 - Phaser.Math.Percent(camera.z, 600, 1000);
+
     text.setText([
-        'camera.x: ' + camera.x,
-        'camera.y: ' + camera.y,
+        'a: ' + sprite.gameObject.alpha,
         'camera.z: ' + camera.z
     ]);
 }

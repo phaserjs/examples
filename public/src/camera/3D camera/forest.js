@@ -3,6 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    backgroundColor: '#72dea3',
     scene: {
         preload: preload,
         create: create,
@@ -13,27 +14,34 @@ var config = {
 var cursors;
 var camera;
 var text;
+var sky;
+var horizon;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
     this.load.image('bg', 'assets/tests/camera3d/bg.png');
+    this.load.image('horizon', 'assets/tests/camera3d/horizon-wide.png');
     this.load.image('tree', 'assets/tests/camera3d/tree.png');
 }
 
 function create ()
 {
-    this.add.image(400, 300, 'bg');
+    sky = this.add.image(400, 250, 'bg').setDepth(-5000);
+    horizon = this.add.image(400, 300, 'horizon').setDepth(-4000);
 
-    camera = this.cameras.add3D(20, 800, 600).setPosition(1500, 200, -1400);
+    camera = this.cameras.add3D(20, 800, 600).setPosition(1500, -70, 10000);
 
     for (var z = 0; z < 32; z++)
     {
         for (var x = 0; x < 32; x++)
         {
-            var bx = x * 100;
-            var bz = z * 300;
+            var xDiff = Phaser.Math.Between(-40, 40);
+            var zDiff = Phaser.Math.Between(-60, 60);
+
+            var bx = (x * 100) + xDiff;
+            var bz = (z * 300) + zDiff;
 
             camera.create(bx, 0, bz, 'tree');
         }
@@ -59,22 +67,22 @@ function update ()
     {
         if (cursors.shift.isDown)
         {
-            camera.y -= 4;
+            camera.y = Phaser.Math.Clamp(camera.y - 4, -200, 30);
         }
         else
         {
-            camera.z += 16;
+            camera.z -= 16;
         }
     }
     else if (cursors.down.isDown)
     {
         if (cursors.shift.isDown)
         {
-            camera.y += 4;
+            camera.y = Phaser.Math.Clamp(camera.y + 4, -200, 30);
         }
         else
         {
-            camera.z -= 16;
+            camera.z += 16;
         }
     }
 

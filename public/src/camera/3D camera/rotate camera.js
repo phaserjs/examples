@@ -27,7 +27,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(85).setPosition(0, 0, -200);
+    camera = this.cameras.add3D(85).setPosition(0, 0, 200);
 
     image = camera.create(0, 0, 0, 'block');
 

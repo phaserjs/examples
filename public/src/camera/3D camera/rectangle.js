@@ -23,14 +23,14 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('particle', 'assets/particles/bubble256.png');
+    this.load.image('particle', 'assets/sprites/mushroom2.png');
 }
 
 function create ()
 {
     graphics = this.add.graphics();
 
-    camera = this.cameras.add3D(85).setZ(500).setPixelScale(1024);
+    camera = this.cameras.add3D(85).setZ(300).setPixelScale(128);
 
     var sprites = camera.createRect({ x: 4, y: 4, z: 16 }, { x: 48, y: 48, z: 32 }, 'particle');
 

@@ -30,7 +30,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(90).setPosition(0, 0, -200);
+    camera = this.cameras.add3D(90).setPosition(0, 0, 200);
 
     sprite3D = camera.create(0, 0, 0, 'block');
 

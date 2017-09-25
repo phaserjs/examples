@@ -29,7 +29,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(90).setPosition(0, 0, -500);
+    camera = this.cameras.add3D(90).setPosition(0, 0, 500);
 
     createDotCube(camera, 6, 64, 'block');
 

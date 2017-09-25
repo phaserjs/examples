@@ -31,7 +31,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(100).setPosition(0, -40, 300).setPixelScale(200);
+    camera = this.cameras.add3D(80).setPosition(0, -40, 300).setPixelScale(200);
 
     background = camera.createRect({ x: 1, y: 1, z: 32 }, 24, 'bgStrip', 0);
 

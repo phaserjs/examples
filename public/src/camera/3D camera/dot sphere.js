@@ -31,18 +31,14 @@ function create ()
 {
     graphics = this.add.graphics();
 
-    //  Setup a camera with 85 degree FOV
-    camera = this.cameras.add3D(85).setZ(-500).setPixelScale(16);
+    camera = this.cameras.add3D(85).setZ(350).setPixelScale(16);
 
-    var sprites = camera.createMultiple(200, 'ball');
+    var sprites = camera.createMultiple(400, 'ball');
 
     camera.randomSphere(200, sprites);
-    camera.translateChildren(new Phaser.Math.Vector3(100, 0, 0), sprites);
 
     sprites = camera.createMultiple(200, 'ball2');
-
-    camera.randomSphere(200, sprites);
-    camera.translateChildren(new Phaser.Math.Vector3(-100, 0, 0), sprites);
+    camera.randomSphere(80, sprites);
 
     //  Our rotation matrix
     transform = new Phaser.Math.Matrix4();
@@ -71,7 +67,7 @@ function updateCamControls ()
     {
         if (isPosition)
         {
-            camera.x -= 4;
+            camera.x += 4;
         }
         else
         {
@@ -82,7 +78,7 @@ function updateCamControls ()
     {
         if (isPosition)
         {
-            camera.x += 4;
+            camera.x -= 4;
         }
         else
         {
@@ -96,7 +92,7 @@ function updateCamControls ()
         {
             if (isPosition)
             {
-                camera.z += 4;
+                camera.y -= 4;
             }
             else
             {
@@ -107,7 +103,7 @@ function updateCamControls ()
         {
             if (isPosition)
             {
-                camera.y += 4;
+                camera.z -= 4;
             }
             else
             {
@@ -121,7 +117,7 @@ function updateCamControls ()
         {
             if (isPosition)
             {
-                camera.z -= 4;
+                camera.y += 4;
             }
             else
             {
@@ -132,7 +128,7 @@ function updateCamControls ()
         {
             if (isPosition)
             {
-                camera.y -= 4;
+                camera.z += 4;
             }
             else
             {

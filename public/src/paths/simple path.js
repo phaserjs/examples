@@ -26,7 +26,9 @@ function create ()
     var line1 = new Phaser.Curves.Line([ 100, 100, 500, 200 ]);
     var line2 = new Phaser.Curves.Line([ 200, 300, 600, 500 ]);
 
-    path = new Phaser.Paths.Path();
+    path = this.add.path();
+
+    // path = new Phaser.Paths.Path();
 
     path.add(line1);
     path.add(line2);

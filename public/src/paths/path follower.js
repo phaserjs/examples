@@ -39,7 +39,7 @@ function create ()
 
     curve = new Phaser.Curves.Spline(points);
 
-    this.tweens.add({
+    this.add.tween({
         targets: path,
         t: 1,
         ease: 'Linear',
@@ -48,11 +48,20 @@ function create ()
         repeat: -1
     });
 
-    var ball = this.add.follower(curve, 50, 300, 'ball').start(4000);
-    var ball2 = this.add.follower(curve, 50, 250, 'ball').start(4000);
-    var ball3 = this.add.follower(curve, 50, 200, 'ball').start(4000);
+    var ball = this.add.follower(curve, 50, 200, 'ball');
+    // var ball2 = this.add.follower(curve, 50, 250, 'ball');
+    // var ball3 = this.add.follower(curve, 50, 200, 'ball');
 
-    // ball.start(4000);
+    /*
+    ball.start({
+        duration: 2000,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+    });
+    */
+
+    ball.start(4000);
 }
 
 function update ()

@@ -14,7 +14,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('ball', 'assets/sprites/shinyball.png');
+    // this.load.image('ball', 'assets/sprites/shinyball.png');
+    this.load.image('ball', 'assets/sprites/lemming.png');
 }
 
 function create ()
@@ -48,9 +49,9 @@ function create ()
 
     //  Providing just a number is giving a duration for following the path
 
-    ball1.start(1000);
-    ball2.start(2000);
-    ball3.start(3000);
+    ball1.start(3000).setAutoRotate(true);
+    ball2.start(4000);
+    ball3.start(5000).setAutoRotate(true);
 
     /*
     ball.start({

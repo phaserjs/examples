@@ -42,22 +42,11 @@ function create ()
         graphics.fillCircle(points[i].x, points[i].y, 4);
     }
 
-    var ball1 = this.add.follower(curve, 50, 400, 'ball');
-    var ball2 = this.add.follower(curve, 50, 350, 'ball');
-    var ball3 = this.add.follower(curve, 50, 300, 'ball');
+    var ball = this.add.follower(curve, 50, 400, 'ball');
 
-    //  Providing just a number is giving a duration for following the path
-
-    ball1.start(1000);
-    ball2.start(2000);
-    ball3.start(3000);
-
-    /*
     ball.start({
-        duration: 2000,
+        duration: 3000,
         yoyo: true,
-        repeat: -1,
         ease: 'Sine.easeInOut'
     });
-    */
 }

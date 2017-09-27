@@ -19,13 +19,7 @@ function preload ()
 
 function create ()
 {
-    var points = [];
-
-    points.push(new Phaser.Math.Vector2(50, 400));
-    points.push(new Phaser.Math.Vector2(200, 200));
-    points.push(new Phaser.Math.Vector2(350, 300));
-    points.push(new Phaser.Math.Vector2(500, 500));
-    points.push(new Phaser.Math.Vector2(700, 400));
+    var points = [ 50, 400, 200, 200, 350, 300, 500, 500, 700, 400 ];
 
     var curve = new Phaser.Curves.Spline(points);
 

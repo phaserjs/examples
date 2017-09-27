@@ -19,15 +19,12 @@ function preload ()
 
 function create ()
 {
-    var points = [];
+    var startPoint = new Phaser.Math.Vector2(50, 260);
+    var controlPoint1 = new Phaser.Math.Vector2(610, 25);
+    var controlPoint2 = new Phaser.Math.Vector2(320, 370);
+    var endPoint = new Phaser.Math.Vector2(735, 550);
 
-    points.push(new Phaser.Math.Vector2(50, 400));
-    points.push(new Phaser.Math.Vector2(200, 200));
-    points.push(new Phaser.Math.Vector2(350, 300));
-    points.push(new Phaser.Math.Vector2(500, 500));
-    points.push(new Phaser.Math.Vector2(700, 400));
-
-    var curve = new Phaser.Curves.Spline(points);
+    var curve = new Phaser.Curves.CubicBezier(startPoint, controlPoint1, controlPoint2, endPoint);
 
     var graphics = this.add.graphics();
 
@@ -35,14 +32,7 @@ function create ()
 
     curve.draw(graphics, 64);
 
-    graphics.fillStyle(0x00ff00, 1);
-
-    for (var i = 0; i < points.length; i++)
-    {
-        graphics.fillCircle(points[i].x, points[i].y, 4);
-    }
-
-    var ball = this.add.follower(curve, 50, 400, 'ball');
+    var ball = this.add.follower(curve, 50, 260, 'ball');
 
     ball.start({
         duration: 3000,

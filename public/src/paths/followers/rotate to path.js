@@ -45,12 +45,10 @@ function create ()
     var lemming = this.add.follower(curve, 50, 300, 'lemming');
 
     lemming.start({
-        duration: 20000,
+        duration: 10000,
         yoyo: true,
         repeat: -1,
-        rotateToPath: true
+        rotateToPath: true,
+        verticalAdjust: true
     });
-
-    //  Or you could use this short-cut method (this will not set repeat though)
-    // lemming.start(20000).setRotateToPath(true);
 }

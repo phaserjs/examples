@@ -50,7 +50,7 @@ function update () {
 
     // logo.rotation += 0.005;
 
-    var p = this.input.getTransformedPoint(logo, x, y);
+    var p = this.input.manager.getTransformedPoint(logo, x, y);
 
     // chunk.x = logo.x + p.x;
     // chunk.y = logo.y + p.y;
@@ -58,7 +58,7 @@ function update () {
     chunk.x = p.x + (logo.displayWidth / 2);
     chunk.y = p.y + (logo.displayHeight / 2);
 
-    var within = this.input.pointWithinGameObject(logo, p.x, p.y);
+    var within = this.input.manager.pointWithinGameObject(logo, p.x, p.y);
 
     if (within)
     {

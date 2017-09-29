@@ -60,10 +60,10 @@ function create ()
 
     this.input.events.on('DRAG_EVENT', function (event) {
 
-        image.getBounds(spriteBounds);
-
         event.gameObject.x = event.dragX;
         event.gameObject.y = event.dragY;
+
+        image.getBounds(spriteBounds);
 
         intersects = false;
 

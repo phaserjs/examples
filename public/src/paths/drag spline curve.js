@@ -27,15 +27,15 @@ function create ()
 {
     path = { t: 0, vec: new Phaser.Math.Vector2() };
 
-    points = [];
+    curve = new Phaser.Curves.Spline([
+        20, 550,
+        260, 450,
+        300, 250,
+        550, 145,
+        745, 256
+    ]);
 
-    points.push(new Phaser.Math.Vector2(20, 550));
-    points.push(new Phaser.Math.Vector2(260, 450));
-    points.push(new Phaser.Math.Vector2(300, 250));
-    points.push(new Phaser.Math.Vector2(550, 145));
-    points.push(new Phaser.Math.Vector2(745, 256));
-
-    curve = new Phaser.Curves.Spline(points);
+    points = curve.points;
 
     //  Create drag-handles for each point
 

@@ -14,7 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('ball', 'assets/tests/sparkle 01.png');
+    this.load.image('ball', 'assets/particles/sparkle1.png');
 }
 
 function create ()

@@ -30,13 +30,11 @@ function create ()
         y: 60
     });
 
-    var _this = this;
-
     var i = 0;
 
     blocks.children.iterate(function (child) {
 
-        _this.tweens.add({
+        this.tweens.add({
             targets: child,
             scaleX: 1,
             scaleY: 1,
@@ -54,6 +52,6 @@ function create ()
             i = 0;
         }
 
-    });
+    }, this);
 
 }

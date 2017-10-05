@@ -6,7 +6,11 @@ var config = {
     scene: {
         preload: preload,
         create: create
-    }
+    },
+    //  Open the Dev Tools and notice how there is no banner printed
+    //  when the game loads. Change this value to 'true' to see the
+    //  default banner.
+    banner: false
 };
 
 var game = new Phaser.Game(config);

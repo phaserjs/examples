@@ -26,10 +26,10 @@ function create ()
         var x = Phaser.Math.Between(-100, 700);
         var y = Phaser.Math.Between(0, 550);
         var str = Phaser.Math.RND.pick(adjectives) + ' ' + Phaser.Math.RND.pick(nouns);
-        var font = { font: '32px Arial' };
+        var font = { font: '24px Arial' };
         var text = group.create(x, y, str, font);
 
-        text.setHitArea(new Phaser.Geom.Rectangle(0, 0, text.width, text.height), Phaser.Geom.Rectangle.Contains);
+        text.setInteractive(new Phaser.Geom.Rectangle(0, 0, text.width, text.height), Phaser.Geom.Rectangle.Contains);
     }
 
     //  Input Event listeners

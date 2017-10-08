@@ -23,23 +23,23 @@ function create ()
 {
     var sprite1 = this.add.sprite(200, 550, 'car').setOrigin(0);
 
-    sprite1.setHitArea(new Phaser.Geom.Polygon([ 0, 143, 0, 92, 110, 40, 244, 4, 330, 0, 458, 12, 574, 18, 600, 79, 594, 153, 332, 152, 107, 157 ]), Phaser.Geom.Polygon.Contains);
+    sprite1.setInteractive(new Phaser.Geom.Polygon([ 0, 143, 0, 92, 110, 40, 244, 4, 330, 0, 458, 12, 574, 18, 600, 79, 594, 153, 332, 152, 107, 157 ]), Phaser.Geom.Polygon.Contains);
 
     var sprite2 = this.add.sprite(150, 150, 'ball').setScale(2);
 
-    sprite2.setHitArea(new Phaser.Geom.Circle(0, 0, 45), Phaser.Geom.Circle.Contains);
+    sprite2.setInteractive(new Phaser.Geom.Circle(45, 46, 45), Phaser.Geom.Circle.Contains);
 
     var sprite3 = this.add.sprite(600, 200, 'chick').setScale(2);
 
-    sprite3.setHitArea(new Phaser.Geom.Ellipse(-33, -66, 66, 133), Phaser.Geom.Ellipse.Contains);
+    sprite3.setInteractive(new Phaser.Geom.Ellipse(0, 0, 66, 133), Phaser.Geom.Ellipse.Contains);
 
     var sprite4 = this.add.sprite(350, 300, 'eye');
 
-    sprite4.setHitArea(new Phaser.Geom.Rectangle(-64, -64, 128, 128), Phaser.Geom.Rectangle.Contains);
+    sprite4.setInteractive(new Phaser.Geom.Rectangle(0, 0, 128, 128), Phaser.Geom.Rectangle.Contains);
 
     var sprite5 = this.add.sprite(850, 350, 'ship').setScale(8);
 
-    sprite5.setHitArea(new Phaser.Geom.Triangle.BuildEquilateral(0, -18, 30), Phaser.Geom.Triangle.Contains);
+    sprite5.setInteractive(new Phaser.Geom.Triangle.BuildEquilateral(16, 0, 30), Phaser.Geom.Triangle.Contains);
 
     //  Input Event listeners
 

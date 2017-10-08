@@ -21,9 +21,9 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'chick').setScale(3);
 
-    var shape = new Phaser.Geom.Ellipse(-33, -66, 66, 133);
+    var shape = new Phaser.Geom.Ellipse(0, 0, 66, 133);
 
-    sprite.setHitArea(shape, Phaser.Geom.Ellipse.Contains);
+    sprite.setInteractive(shape, Phaser.Geom.Ellipse.Contains);
 
     //  Input Event listeners
 

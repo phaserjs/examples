@@ -34,7 +34,7 @@ function create ()
         107, 157
     ]);
 
-    sprite.setHitArea(shape, Phaser.Geom.Polygon.Contains);
+    sprite.setInteractive(shape, Phaser.Geom.Polygon.Contains);
 
     //  Input Event listeners
 

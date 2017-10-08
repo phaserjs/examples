@@ -21,9 +21,9 @@ function create ()
 
     var sprite = this.add.sprite(100, 300, 'eye');
 
-    var shape = new Phaser.Geom.Rectangle(-64, -64, 128, 128);
+    var shape = new Phaser.Geom.Rectangle(0, 0, 128, 128);
 
-    sprite.setHitArea(shape, Phaser.Geom.Rectangle.Contains);
+    sprite.setInteractive(shape, Phaser.Geom.Rectangle.Contains);
 
     //  Enable pointer polling only when you move the mouse
 

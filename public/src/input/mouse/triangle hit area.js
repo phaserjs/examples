@@ -19,9 +19,9 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'ship').setScale(8);
 
-    var shape = new Phaser.Geom.Triangle.BuildEquilateral(0, -18, 30);
+    var shape = new Phaser.Geom.Triangle.BuildEquilateral(16, 0, 30);
 
-    sprite.setHitArea(shape, Phaser.Geom.Triangle.Contains);
+    sprite.setInteractive(shape, Phaser.Geom.Triangle.Contains);
 
     //  Input Event listeners
 
@@ -38,11 +38,11 @@ function create ()
     });
 
     //  Draw the shape
-    var graphics = this.add.graphics({ x: sprite.x / 8, y: sprite.y / 8 });
+    // var graphics = this.add.graphics({ x: sprite.x / 8, y: sprite.y / 8 });
 
-    graphics.lineStyle(1/8, 0x00aa00);
+    // graphics.lineStyle(1/8, 0x00aa00);
 
-    graphics.scale(8, 8);
+    // graphics.scale(8, 8);
 
-    graphics.strokeTriangleShape(shape);
+    // graphics.strokeTriangleShape(shape);
 }

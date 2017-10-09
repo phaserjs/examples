@@ -26,6 +26,6 @@ function create ()
 
     var rect = new Phaser.Geom.Rectangle(300, 300, 300, 100);
 
-    //  Randomly position the sprites within the circle
+    //  Randomly position the sprites within the shape
     group.randomRectangle(rect);
 }

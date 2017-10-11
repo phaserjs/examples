@@ -27,7 +27,7 @@ var DemoB = new Phaser.Class({
 
         var x = 0;
         var y = 0;
-        var color = new Phaser.Graphics.Color();
+        var color = new Phaser.Display.Color();
 
         for (var i = 0; i < imageData.data.length; i += 4)
         {

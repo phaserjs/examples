@@ -18,7 +18,7 @@ function preload ()
 
 function create ()
 {
-    var hsv = Phaser.Graphics.Color.HSVColorWheel();
+    var hsv = Phaser.Display.Color.HSVColorWheel();
 
     var image = this.add.image(400, 300, 'face');
 

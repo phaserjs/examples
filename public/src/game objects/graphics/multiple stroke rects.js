@@ -37,7 +37,7 @@ function create ()
     var right = new Phaser.Geom.Point(700, 300);
     var bottom = new Phaser.Geom.Point(400, 500);
 
-    hsv = Phaser.Graphics.Color.HSVColorWheel();
+    hsv = Phaser.Display.Color.HSVColorWheel();
 
     var timeline = new TimelineMax({ repeat: -1 });
 

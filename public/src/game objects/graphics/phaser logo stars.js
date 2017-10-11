@@ -86,7 +86,7 @@ function create ()
 
     graphics.depth = 10000;
 
-    var hsv = Phaser.Graphics.Color.HSVColorWheel();
+    var hsv = Phaser.Display.Color.HSVColorWheel();
 
     colors = [];
 

@@ -19,7 +19,7 @@ function preload()
 
 function create() 
 {
-    hsv = Phaser.Graphics.Color.HSVColorWheel();
+    hsv = Phaser.Display.Color.HSVColorWheel();
 
     var config = {
         image: 'knighthawks',

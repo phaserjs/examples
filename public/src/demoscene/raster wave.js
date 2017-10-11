@@ -22,7 +22,7 @@ function create ()
 
     group.createMultiple({ key: 'raster', repeat: 64 });
 
-    var hsv = Phaser.Graphics.Color.HSVColorWheel();
+    var hsv = Phaser.Display.Color.HSVColorWheel();
 
     var i = 0;
 

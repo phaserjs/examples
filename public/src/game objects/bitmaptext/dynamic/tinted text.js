@@ -19,7 +19,7 @@ function preload()
 
 function create() 
 {
-    hsv = Phaser.Graphics.Color.HSVColorWheel();
+    hsv = Phaser.Display.Color.HSVColorWheel();
 
     var tintedText = this.add.dynamicBitmapText(32, 64, 'ice', '- Phaser III -', 128);
 

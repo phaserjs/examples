@@ -152,7 +152,7 @@ function rect (a, b, style)
         return;
     }
 
-    var rgb = Phaser.Graphics.Color.RGBStringToColor(style);
+    var rgb = Phaser.Display.Color.RGBStringToColor(style);
 
     graphics.fillStyle(rgb.color, rgb.alphaGL);
     // graphics.fillRect(a.x * 2, a.y * 2, (b.x - a.x) * 2, (b.y - a.y) * 2);

@@ -26,7 +26,7 @@ function create ()
         timerEvents.push(this.time.addEvent({ delay: Phaser.Math.Between(1000, 8000), loop: true }));
     }
 
-    hsv = Phaser.Graphics.Color.HSVColorWheel();
+    hsv = Phaser.Display.Color.HSVColorWheel();
 
     graphics = this.add.graphics({ x: 240, y: 36 });
 }

@@ -19,7 +19,7 @@ var game = new Phaser.Game(config);
 
 function create ()
 {
-    hsv = Phaser.Graphics.Color.HSVColorWheel();
+    hsv = Phaser.Display.Color.HSVColorWheel();
 
     //  Rainbow Text
     text1 = this.add.text(50, 100, 'Rainbow Text', { font: "74px Arial Black", fill: "#fff" });

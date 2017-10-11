@@ -20,6 +20,8 @@ function create ()
 {
     var text = this.add.text(350, 250, '', { font: '16px Courier', fill: '#00ff00' });
 
+    console.log(text);
+
     var gem = this.add.image(300, 300, 'gem');
 
     //  Store some data about this Gem:

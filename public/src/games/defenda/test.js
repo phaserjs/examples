@@ -23,9 +23,11 @@ var config = {
             minimap: null,
             player: null,
             cursors: null,
+            thrust: null,
             createStarfield: createStarfield,
             createLandscape: createLandscape,
-            createAliens: createAliens
+            createAliens: createAliens,
+            createThrustEmitter: createThrustEmitter
         }
     }
 };
@@ -37,6 +39,8 @@ function preload ()
     this.load.image('star', 'assets/demoscene/star2.png');
     this.load.image('bigStar', 'assets/demoscene/star3.png');
     this.load.image('ship', 'assets/sprites/shmup-ship2.png');
+    // this.load.image('jets', 'assets/sprites/jets.png');
+    this.load.image('jets', 'assets/particles/blue.png');
     this.load.spritesheet('face', 'assets/sprites/metalface78x92.png', { frameWidth: 78, frameHeight: 92 });
 }
 
@@ -54,17 +58,21 @@ function create ()
     this.createStarfield();
     this.createLandscape();
     this.createAliens();
+    this.createThrustEmitter();
 
     //  Add a player ship
 
     this.player = this.physics.add.sprite(1600, 200, 'ship');
-    this.player.setMaxVelocity(1000).setFriction(400, 200).setPassive();
+    this.player.setMaxVelocity(1000).setFriction(800, 200).setPassive();
 
     this.cursors = this.input.keyboard.createCursorKeys();
 }
 
-function update()
+function update ()
 {
+    this.thrust.x = this.player.x;
+    this.thrust.y = this.player.y;
+
     if (this.cursors.left.isDown)
     {
         this.player.setAccelerationX(-800);
@@ -93,6 +101,19 @@ function update()
         this.player.setAccelerationY(0);
     }
 
+    if (this.player.vel.x < 0)
+    {
+        this.thrust.x += (this.player.flipX) ? 16 : -16;
+        this.thrust.setSpeed(this.player.vel.x / 2);
+        this.thrust.emitParticle(16);
+    }
+    else if (this.player.vel.x > 0)
+    {
+        this.thrust.x += (this.player.flipX) ? 16 : -16;
+        this.thrust.setSpeed(this.player.vel.x / 2);
+        this.thrust.emitParticle(16);
+    }
+
     //  Position the center of the camera on the player
     //  We -400 because the camera width is 800px and
     //  we want the center of the camera on the player, not the left-hand side of it
@@ -100,6 +121,18 @@ function update()
 
     //  And this camera is 400px wide, so -200
     this.minimap.scrollX = Phaser.Math.Clamp(this.player.x - 200, 800, 2000);
+}
+
+function createThrustEmitter ()
+{
+    this.thrust = this.add.emitter(1600, 200, 'jets');
+
+    this.thrust.setEmitAngle(160, 200);
+    this.thrust.life = 0.6;
+    this.thrust.enabled = false;
+    // this.thrust.setScale(1, 0);
+    this.thrust.setScale(0.2, 0);
+    this.thrust.setBlendMode(Phaser.BlendModes.ADD);
 }
 
 function createStarfield ()

@@ -24,6 +24,11 @@ var config = {
             player: null,
             cursors: null,
             thrust: null,
+            flares: null,
+            bullets: null,
+            lastFired: 0,
+            text: null,
+            createBulletEmitter: createBulletEmitter,
             createStarfield: createStarfield,
             createLandscape: createLandscape,
             createAliens: createAliens,
@@ -39,36 +44,91 @@ function preload ()
     this.load.image('star', 'assets/demoscene/star2.png');
     this.load.image('bigStar', 'assets/demoscene/star3.png');
     this.load.image('ship', 'assets/sprites/shmup-ship2.png');
-    // this.load.image('jets', 'assets/sprites/jets.png');
+    this.load.image('bullet', 'assets/sprites/bullets/bullet6.png');
     this.load.image('jets', 'assets/particles/blue.png');
+    this.load.image('flares', 'assets/particles/yellow.png');
     this.load.spritesheet('face', 'assets/sprites/metalface78x92.png', { frameWidth: 78, frameHeight: 92 });
 }
 
 function create ()
 {
+    var Bullet = new Phaser.Class({
+
+        Extends: Phaser.GameObjects.Image,
+
+        initialize:
+
+        function Bullet (scene)
+        {
+            Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
+
+            this.speed = 0;
+            this.born = 0;
+        },
+
+        fire: function (player)
+        {
+            this.setPosition(player.x, player.y);
+
+            if (player.flipX)
+            {
+                //  Facing left
+                this.speed = Phaser.Math.GetSpeed(-1000 + player.vel.x, 1);
+            }
+            else
+            {
+                //  Facing right
+                this.speed = Phaser.Math.GetSpeed(1000 + player.vel.x, 1);
+            }
+
+            this.born = 0;
+        },
+
+        update: function (time, delta)
+        {
+            this.x += this.speed * delta;
+
+            this.born += delta;
+
+            if (this.born > 1000)
+            {
+                this.setActive(false);
+                this.setVisible(false);
+            }
+        }
+
+    });
+
     //  The world is 3200 x 600 in size
     this.cameras.main.setBounds(0, 0, 3200, 600);
 
     //  The miniCam is 400px wide, so can display the whole world at a zoom of 0.2
-    this.minimap = this.cameras.add(200, 10, 400, 100).setZoom(0.2);
-    this.minimap.setBackgroundColor(0x002244);
-    this.minimap.scrollX = 1600;
-    this.minimap.scrollY = 300;
+    // this.minimap = this.cameras.add(200, 10, 400, 100).setZoom(0.2);
+    // this.minimap.setBackgroundColor(0x002244);
+    // this.minimap.scrollX = 1600;
+    // this.minimap.scrollY = 300;
 
     this.createStarfield();
     this.createLandscape();
     this.createAliens();
     this.createThrustEmitter();
+    this.createBulletEmitter();
+
+    //  Bullets
+
+    this.bullets = this.pool.createObjectPool(Bullet);
 
     //  Add a player ship
 
-    this.player = this.physics.add.sprite(1600, 200, 'ship');
-    this.player.setMaxVelocity(1000).setFriction(800, 200).setPassive();
+    this.player = this.physics.add.sprite(1600, 200, 'ship').setDepth(1);
+    this.player.setMaxVelocity(1000).setFriction(800, 600).setPassive();
 
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    this.text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' }).setDepth(1).setScrollFactor(0);
 }
 
-function update ()
+function update (time, delta)
 {
     this.thrust.x = this.player.x;
     this.thrust.y = this.player.y;
@@ -114,13 +174,53 @@ function update ()
         this.thrust.emitParticle(16);
     }
 
+    if (this.cursors.space.isDown && time > this.lastFired)
+    {
+        var bullet = this.bullets.get();
+
+        if (bullet)
+        {
+            bullet.fire(this.player);
+
+            this.lastFired = time + 100;
+        }
+    }
+
+    //  Emitters to bullets
+
+    for (var i = 0; i < this.bullets._list.length; i++)
+    {
+        var b = this.bullets._list[i];
+
+        if (b.active)
+        {
+            this.flares.x = b.x;
+            this.flares.y = b.y;
+            this.flares.setSpeed(b.speed + 500 * -1);
+            this.flares.emitParticle(1);
+        }
+    }
+
+    this.text.setText(this.player.vel.x);
+
     //  Position the center of the camera on the player
     //  We -400 because the camera width is 800px and
     //  we want the center of the camera on the player, not the left-hand side of it
     this.cameras.main.scrollX = this.player.x - 400;
 
     //  And this camera is 400px wide, so -200
-    this.minimap.scrollX = Phaser.Math.Clamp(this.player.x - 200, 800, 2000);
+    // this.minimap.scrollX = Phaser.Math.Clamp(this.player.x - 200, 800, 2000);
+}
+
+function createBulletEmitter ()
+{
+    this.flares = this.add.emitter(1600, 200, 'flares');
+
+    this.flares.setEmitAngle(170, 190);
+    this.flares.life = 0.5;
+    this.flares.enabled = false;
+    this.flares.setScale(0.4, 0.2);
+    this.flares.setBlendMode(Phaser.BlendModes.ADD);
 }
 
 function createThrustEmitter ()
@@ -160,7 +260,7 @@ function createStarfield ()
 
         child.setScrollFactor(sf);
 
-        this.minimap.ignore(child);
+        // this.minimap.ignore(child);
 
     }, this);
 }

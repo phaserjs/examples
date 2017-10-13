@@ -28,7 +28,7 @@ function create ()
 
     path = this.add.path();
 
-    // path = new Phaser.Paths.Path();
+    // path = new Phaser.Curves.Path();
 
     path.add(line1);
     path.add(line2);

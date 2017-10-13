@@ -20,7 +20,7 @@ function preload ()
 
 function create ()
 {
-    var path = new Phaser.Paths.Path(this.cache.json.get('waves'));
+    var path = new Phaser.Curves.Path(this.cache.json.get('waves'));
 
     var graphics = this.add.graphics().lineStyle(1, 0x2d2d2d, 1);
 

@@ -19,9 +19,9 @@ function preload ()
 
 function create ()
 {
-    var path1 = new Phaser.Paths.Path(50, 100).splineTo([ 164, 46, 274, 142, 412, 57, 522, 141, 664, 64 ]);
-    var path2 = new Phaser.Paths.Path(100, 200).lineTo(500, 300);
-    var path3 = new Phaser.Paths.Path(400, 400).circleTo(100);
+    var path1 = new Phaser.Curves.Path(50, 100).splineTo([ 164, 46, 274, 142, 412, 57, 522, 141, 664, 64 ]);
+    var path2 = new Phaser.Curves.Path(100, 200).lineTo(500, 300);
+    var path3 = new Phaser.Curves.Path(400, 400).circleTo(100);
 
     var graphics = this.add.graphics();
 

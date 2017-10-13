@@ -23,7 +23,7 @@ function create ()
 
     follower = { t: 0, vec: new Phaser.Math.Vector2() };
 
-    path = new Phaser.Paths.Path(50, 500);
+    path = new Phaser.Curves.Path(50, 500);
 
     path.splineTo([ 164, 446, 274, 542, 412, 457, 522, 541, 664, 464 ]);
 

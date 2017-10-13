@@ -19,7 +19,7 @@ function preload ()
 
 function create ()
 {
-    var path = new Phaser.Paths.Path(50, 500);
+    var path = new Phaser.Curves.Path(50, 500);
 
     path.splineTo([ 164, 446, 274, 542, 412, 457, 522, 541, 664, 464 ]);
     path.lineTo(700, 300);

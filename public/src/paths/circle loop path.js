@@ -22,7 +22,7 @@ function create ()
 
     follower = { t: 0, vec: new Phaser.Math.Vector2() };
 
-    path = new Phaser.Paths.Path(400, 300);
+    path = new Phaser.Curves.Path(400, 300);
 
     path.circleTo(100);
 

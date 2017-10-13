@@ -22,7 +22,7 @@ function create ()
 {
     var graphics = this.add.graphics();
 
-    var path = new Phaser.Paths.Path(0, 300);
+    var path = new Phaser.Curves.Path(0, 300);
 
     for (var i = 0; i < 8; i++)
     {

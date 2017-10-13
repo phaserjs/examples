@@ -28,7 +28,7 @@ function create ()
 
     //  Create the zig-zag path
 
-    path = new Phaser.Paths.Path(100, -50);
+    path = new Phaser.Curves.Path(100, -50);
 
     path.lineTo(100, 50);
 

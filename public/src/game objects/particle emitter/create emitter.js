@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('spark', 'assets/particles/blue.png');
     this.load.spritesheet('veg', 'assets/sprites/fruitnveg64wh37.png', { frameWidth: 64, frameHeight: 64 });
 }
 
@@ -25,15 +26,24 @@ function create ()
     //  Create an emitter
     var emitter = particles.createEmitter();
 
-    emitter.setFrame(0).setPosition(200, 100).setEmitterDelay(100).setSpeed(-400, 400).setGravity(0, 400);
+    //  This is why it was a speed value, because the emitter sets the velocity, not the particle >:(
 
-    var emitter2 = particles.createEmitter();
+    emitter.setPosition(400, 300);
+    emitter.setAngle(135);
+    emitter.setVelocity(100, 400, 0, 0);
+    // emitter.setLifespan(2000, 4000);
 
-    emitter2.setFrame(1).setPosition(400, 100).setEmitterDelay(100).setSpeed(-400, 400).setGravity(0, 400);
+    console.log(emitter);
 
-    var emitter3 = particles.createEmitter();
+    // emitter.setFrame(0).setPosition(200, 100).setEmitterDelay(100).setSpeed(-400, 400).setGravity(0, 400);
 
-    emitter3.setFrame(4).setPosition(600, 100).setEmitterDelay(100).setSpeed(-400, 400).setGravity(0, 400);
+    // var emitter2 = particles.createEmitter();
+
+    // emitter2.setFrame(1).setPosition(400, 100).setEmitterDelay(100).setSpeed(-400, 400).setGravity(0, 400);
+
+    // var emitter3 = particles.createEmitter();
+
+    // emitter3.setFrame(4).setPosition(600, 100).setEmitterDelay(100).setSpeed(-400, 400).setGravity(0, 400);
 
     /*
     emitter.createSet('vegFlow', {

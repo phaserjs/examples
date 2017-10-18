@@ -16,24 +16,70 @@ function preload ()
 {
     this.load.image('spark', 'assets/particles/blue.png');
     this.load.spritesheet('veg', 'assets/sprites/fruitnveg64wh37.png', { frameWidth: 64, frameHeight: 64 });
+
+    this.load.path = 'assets/atlas/';
+
+    //  The megaset is a multi-part texture atlas, split over 4 PNGs and 4 JSON files
+    //  called megaset-0.png to megaset-3.png, and megaset-0.json to megaset-3.json
+    //  
+    //  The following will automatically load those, based on the key given.
+    //  The number means load 0,1,2 and 3 files.
+
+    this.load.multiatlas('megaset', 3, '-');
 }
 
 function create ()
 {
+    //  This frame is in the 1st atlas file (set0/data0)
+    var t1 = this.add.image(0, 0, 'megaset', 'snake');
+
+    //  This frame is in the 2nd atlas file (set1/data1)
+    var t2 = this.add.image(0, 100, 'megaset', 'nanoha-taiken-pink');
+
+    //  This frame is in the 3rd atlas file (set2/data2)
+    // this.add.image(0, 0, 'megaset', 'hello'); // trimmed
+    var t3 = this.add.image(300, 130, 'megaset', 'bunny'); // un-trimmed
+
+    //  This frame is in the 4th atlas file (set3/data3)
+    var t4 = this.add.image(64, 300, 'megaset', 'contra3');
+
+
     //  The key of the texture all emitters bound to this Particle Manager can use
-    var particles = this.add.particles('veg');
+    //  Need to specify a frame in case this is a multi-atlas texture
+    // var particles = this.add.particles('veg');
 
-    //  Create an emitter
-    var emitter = particles.createEmitter();
+    // console.log(particles.texture);
 
-    //  This is why it was a speed value, because the emitter sets the velocity, not the particle >:(
+    // var t = particles.texture;
 
-    emitter.setPosition(400, 300);
-    emitter.setAngle(135);
-    emitter.setVelocity(100, 400, 0, 0);
+    // console.log(t.getFrameNames());
+
+    console.log(t1.texture.getFramesFromTextureSource(t4.frame.sourceIndex));
+
+    // console.log(t1.texture.getFramesFromTextureSource(0));
+    // console.log(t1.texture.getFramesFromTextureSource(1));
+
+
+
+
+    // var emitter = particles.createEmitter();
+    // emitter.setPosition(400, 300);
+    // emitter.setSpeed(200);
+
+
+
+    // var emitter = particles.createEmitter();
+    // emitter.setPosition(400, 300);
+    // emitter.setRadial(false);
+    // emitter.setSpeed(-200, 200, -200, -200);
+
+
+    // emitter.setAngle(270);
+
+    // emitter.setGravity(0, 400);
     // emitter.setLifespan(2000, 4000);
 
-    console.log(emitter);
+    // console.log(emitter);
 
     // emitter.setFrame(0).setPosition(200, 100).setEmitterDelay(100).setSpeed(-400, 400).setGravity(0, 400);
 

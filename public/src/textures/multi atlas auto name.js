@@ -19,7 +19,7 @@ function preload() {
     //  The following will automatically load those, based on the key given.
     //  The number means load 0,1,2 and 3 files.
 
-    this.load.multiatlas('megaset', 3);
+    this.load.multiatlas('megaset', 3, '-');
 
 }
 

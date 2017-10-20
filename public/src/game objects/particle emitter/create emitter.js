@@ -31,22 +31,63 @@ function preload ()
 function create ()
 {
     //  This frame is in the 1st atlas file (set0/data0)
-    var t1 = this.add.image(0, 0, 'megaset', 'snake');
+    // var t1 = this.add.image(0, 0, 'megaset', 'snake');
 
     //  This frame is in the 2nd atlas file (set1/data1)
-    var t2 = this.add.image(0, 100, 'megaset', 'nanoha-taiken-pink');
+    // var t2 = this.add.image(0, 100, 'megaset', 'nanoha-taiken-pink');
 
     //  This frame is in the 3rd atlas file (set2/data2)
     // this.add.image(0, 0, 'megaset', 'hello'); // trimmed
-    var t3 = this.add.image(300, 130, 'megaset', 'bunny'); // un-trimmed
+    // var t3 = this.add.image(300, 130, 'megaset', 'bunny'); // un-trimmed
 
     //  This frame is in the 4th atlas file (set3/data3)
-    var t4 = this.add.image(64, 300, 'megaset', 'contra3');
+    // var t4 = this.add.image(64, 300, 'megaset', 'contra3');
 
 
     //  The key of the texture all emitters bound to this Particle Manager can use
     //  Need to specify a frame in case this is a multi-atlas texture
-    // var particles = this.add.particles('veg');
+
+    // var particles = this.add.particles('spark');
+    // var emitter = particles.createEmitter();
+    // emitter.setPosition(400, 300);
+    // emitter.setSpeed(200);
+
+
+    // var particles = this.add.particles('veg', 8);
+    // var emitter = particles.createEmitter();
+    // emitter.setFrame([10,11,12,13,14,19]);
+    // emitter.setPosition(400, 300);
+    // emitter.setSpeed(200);
+    // emitter.setFrequency(100);
+
+
+    // emitter.setFrame(['blue_ball', 'chunk', 'aqua_ball', 'gem']);
+
+    var particles = this.add.particles('megaset');
+    var emitter = particles.createEmitter();
+    // emitter.setFrame('blue_ball');
+    emitter.setFrame('gem');
+    emitter.setPosition(400, 300);
+    emitter.setSpeed(200);
+    emitter.setFrequency(10);
+    emitter.setParticleAngle(0, 360);
+    // emitter.setAlpha(1, 0);
+    emitter.setLifespan(3000);
+    emitter.setRotationEase('Back.easeInOut');
+    emitter.setScale(0.5, 1);
+    // emitter.setAlphaEase('Back.easeInOut');
+
+    // var emitter2 = particles.createEmitter();
+    // emitter2.setFrame('gem');
+    // emitter2.setPosition(400, 300);
+    // emitter2.setSpeed(200);
+    // emitter2.setFrequency(300);
+
+    // var emitter3 = particles.createEmitter();
+    // emitter3.setFrame('blue_ball');
+    // emitter3.setPosition(400, 300);
+    // emitter3.setSpeed(300);
+
 
     // console.log(particles.texture);
 
@@ -54,7 +95,7 @@ function create ()
 
     // console.log(t.getFrameNames());
 
-    console.log(t1.texture.getFramesFromTextureSource(t4.frame.sourceIndex));
+    // console.log(t1.texture.getFramesFromTextureSource(t4.frame.sourceIndex));
 
     // console.log(t1.texture.getFramesFromTextureSource(0));
     // console.log(t1.texture.getFramesFromTextureSource(1));
@@ -62,9 +103,6 @@ function create ()
 
 
 
-    // var emitter = particles.createEmitter();
-    // emitter.setPosition(400, 300);
-    // emitter.setSpeed(200);
 
 
 

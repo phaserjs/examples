@@ -20,16 +20,38 @@ function preload ()
 
 function create ()
 {
-    this.add.image(400, 300, 'bg');
+    // this.add.image(400, 300, 'bg');
 
     var particles = this.add.particles('fish');
 
+/*
     var emitter = particles.createEmitter({
         frame: 0,
         x: { start: 100, end: 400, randomStart: true },
         y: 300,
         gravityY: [ 10, 20, 30, 40, 50 ],
         active: false
+    });
+
+    var emitter = particles.createEmitter({
+        frame: [ 0, 1, 2 ],
+        x: 300,
+        y: 400,
+        lifespan: 2000,
+        scale: { start: 4, end: 1, random: true },
+        alpha: { start: 1, end: 0 },
+        particleAngle: { start: 0, end: 360 },
+        active: true
+    });
+*/
+
+    var emitter = particles.createEmitter({
+        frame: [ 0, 1, 2 ],
+        radial: false,
+        x: 0,
+        y: { start: 100, end: 500, steps: 10 },
+        lifespan: 2000,
+        speedX: 200
     });
 
     window.emitter = emitter;

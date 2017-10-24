@@ -21,16 +21,13 @@ function create ()
 {
     var particles = this.add.particles('flares');
 
-    //  Remember to set 'radial: false', otherwise the emitter will emit in all directions
-
     particles.createEmitter({
         frame: 'blue',
-        radial: false,
         x: 64,
-        y: [ 100, 500 ],
+        y: { min: 100, max: 500 },
         lifespan: 2000,
-        speedX: [ 200, 400 ],
-        scale: [ 0.4, 0 ],
+        speedX: { min: 200, max: 400 },
+        scale: { start: 0.4, end: 0 },
         quantity: 4,
         blendMode: 'ADD'
     });

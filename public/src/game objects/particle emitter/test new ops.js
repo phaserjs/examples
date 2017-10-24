@@ -32,6 +32,7 @@ function create ()
         gravityY: [ 10, 20, 30, 40, 50 ],
         active: false
     });
+*/
 
     var emitter = particles.createEmitter({
         frame: [ 0, 1, 2 ],
@@ -43,18 +44,41 @@ function create ()
         particleAngle: { start: 0, end: 360 },
         active: true
     });
-*/
 
+
+/*
     var emitter = particles.createEmitter({
-        frame: [ 0, 1, 2 ],
-        radial: false,
+        frame: 0,
         x: 0,
         y: { start: 100, end: 500, steps: 10 },
         lifespan: 2000,
         speedX: 200
     });
 
-    window.emitter = emitter;
+    var emitter2 = particles.createEmitter({
+        frame: 1,
+        x: 300,
+        y: { start: 100, end: 500, steps: 10 },
+        lifespan: 2000,
+        speedX: 200
+    });
+*/
 
+/*
+    var emitter = particles.createEmitter({
+        frame: 0,
+        radial: false,
+        x: 200,
+        y: 200,
+        lifespan: 1000,
+        speedY: 200
+    });
+*/
     console.log(emitter);
+
+    this.input.events.once('POINTER_DOWN_EVENT', function (event) {
+
+        emitter.setPosition(400, 200);
+
+    });
 }

@@ -21,45 +21,48 @@ function create ()
 {
     var particles = this.add.particles('explosion');
 
+    //  Setting { min: x, max: y } will pick a random value between min and max
+    //  Setting { start: x, end: y } will ease between start and end
+
     particles.createEmitter({
         frame: [ 'smoke-puff', 'cloud', 'smoke-puff' ],
-        emitterAngle: { min: 240, max: 300 },
+        angle: { min: 240, max: 300 },
         speed: { min: 200, max: 300 },
         quantity: 6,
         lifespan: 2000,
-        alpha: [ 1, 0 ],
-        scale: [ 1.5, 0.5 ],
+        alpha: { start: 1, end: 0 },
+        scale: { start: 1.5, end: 0.5 },
         on: false
     });
 
     particles.createEmitter({
         frame: 'red',
+        angle: { min: 0, max: 360, steps: 32 },
         lifespan: 1000,
         speed: 400,
         quantity: 32,
-        scale: { min: 0.3, max: 0 },
+        scale: { start: 0.3, end: 0 },
         on: false
     });
 
     particles.createEmitter({
         frame: 'stone',
-        emitterAngle: { min: 240, max: 300 },
+        angle: { min: 240, max: 300 },
         speed: { min: 400, max: 600 },
-        quantity: 16,
+        quantity: { min: 2, max: 10 },
         lifespan: 4000,
-        alpha: { min: 1, max: 0 },
-        randomScale: [ 0.05, 0.4 ],
-        angle: { min: 0, max: 360 },
-        rotationEase: 'Back.easeOut',
-        gravity: { x: 0, y: 800 },
+        alpha: { start: 1, end: 0 },
+        scale: { min: 0.05, max: 0.4 },
+        rotate: { start: 0, end: 360, ease: 'Back.easeOut' },
+        gravityY: 800,
         on: false
     });
 
     particles.createEmitter({
         frame: 'muzzleflash2',
-        lifespan: 100,
-        scale: { min: 2, max: 0 },
-        angle: { min: 0, max: 180 },
+        lifespan: 200,
+        scale: { start: 2, end: 0 },
+        rotate: { start: 0, end: 180 },
         on: false
     });
 

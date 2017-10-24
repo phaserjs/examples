@@ -26,12 +26,10 @@ function create ()
 
     particles.createEmitter({
         frame: [ 0, 1, 2 ],
-        radial: false,
         x: -70,
         y: { min: 100, max: 500, steps: 8 },
         lifespan: 5000,
         speedX: 200,
-        _quantity: 8,
         frequency: 500
     });
 }

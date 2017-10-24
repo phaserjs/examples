@@ -17,21 +17,32 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    // this.load.image('spark', 'assets/particles/sparkle1.png');
-    this.load.image('spark', 'assets/particles/green-orb.png');
+    this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
 }
 
 function create ()
 {
     line = new Phaser.Geom.Line(-200, -200, 200, 200);
 
-    var emitter = this.add.emitter(400, 300, 'spark');
+    var particles = this.add.particles('flares');
 
-    emitter.setBlendMode(Phaser.BlendModes.SCREEN);
-    emitter.setScale(0.1, 0);
-    emitter.setSpeed(-20, 20);
-    emitter.emitCount = 32;
-    emitter.setShape(line);
+    particles.createEmitter({
+        frame: [ 'red', 'green', 'yellow', 'blue' ],
+        x: 400, y: 300,
+        scale: { start: 0.1, end: 0 },
+        speed: { min: -20, max: 20 },
+        quantity: 32,
+        zone: line,
+        blendMode: 'SCREEN'
+    });
+
+    // var emitter = this.add.emitter(400, 300, 'spark');
+
+    // emitter.setBlendMode(Phaser.BlendModes.SCREEN);
+    // emitter.setScale(0.1, 0);
+    // emitter.setSpeed(-20, 20);
+    // emitter.emitCount = 32;
+    // emitter.setShape(line);
 }
 
 function update ()

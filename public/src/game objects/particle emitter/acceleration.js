@@ -26,7 +26,8 @@ function create ()
         x: 0,
         y: 300,
         lifespan: 4000,
-        speedX: { start: 0, end: 600 },
-        scale: 0.4
+        accelerationX: 100,
+        scale: 0.4,
+        frequency: 4000
     });
 }

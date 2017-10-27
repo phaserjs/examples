@@ -27,15 +27,15 @@ function create ()
     var particles = this.add.particles('flares');
 
     particles.createEmitter({
-        _frame: [ 'red', 'yellow', 'green', 'blue' ],
         frame: 'green',
         x: 400, y: 300,
         speed: 0,
         lifespan: 2000,
+        delay: 2000,
         quantity: 48,
         frequency: 2000,
         delay: 500,
-        scale: { start: 0.4, end: 0 },
+        scale: { start: 0.4, end: 0.1 },
         blendMode: 'ADD',
         zone: { type: 'edge', source: tree, quantity: 48 }
     });
@@ -45,6 +45,7 @@ function create ()
         x: 360, y: 420,
         speed: 0,
         lifespan: 500,
+        delay: 500,
         frequency: 0,
         quantity: 1,
         scale: 0.2,
@@ -64,22 +65,22 @@ function create ()
     });
 
     particles.createEmitter({
-        frame: [ 'red', 'yellow', 'blue' ],
+        frame: { frames: [ 'red', 'yellow', 'blue' ], cycle: true },
         x: 340, y: 200,
         lifespan: 200,
-        quantity: 10,
-        frequency: 350,
+        quantity: 1,
+        frequency: 50,
         scale: 0.4,
         blendMode: 'ADD',
         zone: { type: 'edge', source: baubles, quantity: 10 }
     });
 
     particles.createEmitter({
-        frame: [ 'red', 'yellow', 'blue' ],
+        frame: { frames: [ 'red', 'yellow', 'blue' ], cycle: true },
         x: 280, y: 300,
         lifespan: 200,
-        quantity: 16,
-        frequency: 350,
+        quantity: 1,
+        frequency: 50,
         scale: 0.4,
         blendMode: 'ADD',
         zone: { type: 'edge', source: baubles2, quantity: 16 }

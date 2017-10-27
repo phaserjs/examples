@@ -21,18 +21,24 @@ function create ()
 {
     var particles = this.add.particles('flares');
 
-    var emitter = particles.createEmitter({
-        frame: 'green',
-        x: 400,
-        y: 300,
+    var rect = new Phaser.Geom.Rectangle(100, 100, 600, 400);
+
+    particles.createEmitter({
+        frame: [ 'red', 'yellow', 'green' ],
+        x: 400, y: 300,
         lifespan: 4000,
-        speed: { min: 100, max: 300 },
+        speed: { min: 100, max: 250 },
         scale: { start: 0.4, end: 0 },
-        gravityY: 100,
+        gravityY: 150,
         bounce: 0.8,
-        bounds: { x: 100, y: 100, w: 600, h: 400 },
+        bounds: rect,
         blendMode: 'ADD'
     });
 
-    console.log(emitter);
+    particles.createEmitter({
+        frame: 'blue',
+        lifespan: 1000,
+        scale: { start: 0.4, end: 0 },
+        zone: { type: 'edge', source: rect, quantity: 60 }
+    });
 }

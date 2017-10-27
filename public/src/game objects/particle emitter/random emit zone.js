@@ -19,25 +19,30 @@ function preload ()
 
 function create ()
 {
-    var shapes = [];
-
-    shapes.push(new Phaser.Geom.Circle(0, 0, 100));
-    shapes.push(new Phaser.Geom.Ellipse(0, 0, 400, 100));
-    shapes.push(new Phaser.Geom.Rectangle(-150, -150, 300, 300));
-    shapes.push(new Phaser.Geom.Line(-150, -150, 150, 150));
-    shapes.push(new Phaser.Geom.Triangle(0, -200, 200, 200, -200, 200));
+    var shape1 = new Phaser.Geom.Circle(0, 0, 180);
+    var shape2 = new Phaser.Geom.Circle(0, 0, 200);
 
     var particles = this.add.particles('flares');
 
     particles.createEmitter({
         frame: 'red',
         x: 400, y: 300,
+        lifespan: 2000,
+        quantity: 4,
+        scale: 0.2,
+        alpha: { start: 1, end: 0 },
+        blendMode: 'ADD',
+        zone: { type: 'random', source: shape1 }
+    });
+
+    particles.createEmitter({
+        frame: 'yellow',
+        x: 400, y: 300,
         speed: 0,
         lifespan: 1000,
         quantity: 1,
         scale: { start: 0.4, end: 0 },
         blendMode: 'ADD',
-        _zone: { source: shapes[0], random: true },
-        zone: { source: shapes[0], edge: true, quantity: 64 }
+        zone: { type: 'edge', source: shape2, quantity: 48, yoyo: false }
     });
 }

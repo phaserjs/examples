@@ -14,7 +14,7 @@ function create ()
 {
     var graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
 
-    var circle = new Phaser.Geom.Circle(400, 300, 200);
+    var circle = new Phaser.Geom.Circle(400, 300, 170);
 
     var points = circle.getPoints(32);
 

@@ -22,12 +22,12 @@ function create ()
     var particles = this.add.particles('flares');
 
     particles.createEmitter({
-        frame: 'green',
-        x: 0,
-        y: 300,
+        frame: { frames: [ 'red', 'blue', 'green', 'yellow' ], cycle: true },
+        x: 64,
+        y: { min: 500, max: 100, steps: 16 },
         lifespan: 4000,
-        accelerationX: 100,
+        accelerationX: 200,
         scale: 0.4,
-        frequency: 4000
+        frequency: 100
     });
 }

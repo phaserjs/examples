@@ -34,7 +34,7 @@ function create ()
         scale: { start: 0.8, end: 0.2 },
         delay: 1000,
         blendMode: 'ADD',
-        zone: { source: circle, type: 'edge', quantity: 32 }
+        emitZone: { source: circle, type: 'edge', quantity: 32 }
     });
 
     console.log(emitter);

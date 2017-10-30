@@ -25,8 +25,7 @@ function create ()
     var particles = this.add.particles('fish');
 
     particles.createEmitter({
-        frame: [ 0, 1, 2 ],
-        radial: false,
+        frame: { frames: [ 0, 1, 2 ], cycle: true, quantity: 4 },
         x: -70,
         y: { min: 100, max: 500, steps: 8 },
         lifespan: 5000,

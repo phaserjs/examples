@@ -21,8 +21,6 @@ function create ()
 {
     var particles = this.add.particles('flares');
 
-
-
     var emitter = particles.createEmitter({
         frame: [ 'red', 'green' ],
         x: 400,
@@ -38,6 +36,4 @@ function create ()
         collideBottom: false,
         blendMode: 'ADD'
     });
-
-    console.log(emitter);
 }

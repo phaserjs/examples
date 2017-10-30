@@ -37,6 +37,6 @@ function create ()
         delay: 1000,
         scale: { start: 0.4, end: 0 },
         blendMode: 'ADD',
-        zone: { type: 'edge', source: shape5, quantity: 48 }
+        emitZone: { type: 'edge', source: shape5, quantity: 48 }
     });
 }

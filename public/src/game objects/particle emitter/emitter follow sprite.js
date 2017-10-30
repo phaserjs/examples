@@ -27,16 +27,17 @@ function preload ()
 
 function create ()
 {
-    var sprite = this.physics.add.image(300, 300, 'megaset', 'gem').setActive().setVelocity(300, 200).setBounce(1);
-    var sprite2 = this.physics.add.image(200, 200, 'megaset', 'ilkke').setPassive().setVelocity(-300, -200).setBounce(1);
-
     var particles = this.add.particles('megaset');
+
+    var sprite = this.physics.add.image(300, 300, 'megaset', 'gem').setActive().setVelocity(300, 200).setBounce(1);
+
+    var sprite2 = this.physics.add.image(200, 200, 'megaset', 'ilkke').setPassive().setVelocity(-300, -200).setBounce(1);
 
     particles.createEmitter({
         frame: 'yellow_ball',
         speed: 100,
         gravity: { x: 0, y: 200 },
-        scale: { min: 0.1, max: 1 },
+        scale: { start: 0.1, end: 1 },
         follow: sprite
     });
 
@@ -46,8 +47,10 @@ function create ()
         frame: 'red_ball',
         speed: 100,
         gravity: { x: 0, y: 200 },
-        scale: { min: 0.1, max: 1 },
+        scale: { start: 0.1, end: 1 },
     });
 
     emitter.startFollow(sprite2);
+
+
 }

@@ -34,7 +34,7 @@ function create ()
         quantity: 4,
         _frequency: 20,
         blendMode: 'ADD',
-        zone: { source: rect }
+        emitZone: { source: rect }
     });
 
     console.log(emitter);

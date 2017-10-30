@@ -23,14 +23,12 @@ function create ()
 
     particles.createEmitter({
         frame: 'green',
-        x: 200,
+        x: 100,
         y: 300,
         lifespan: 2000,
-        radial: false,
-        // speedX: { min: 100, max: 300, step: 100 },
-        // angle: 40,
-        quantity: 1,
-        scale: 0.4,
+        speedX: { min: 100, max: 400, steps: 12 },
+        speedY: { min: -20, max: 20 },
+        scale: { start: 0.7, end:  0.2 },
         blendMode: 'ADD'
     });
 }

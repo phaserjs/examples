@@ -28,7 +28,7 @@ function create ()
         x: 400,
         y: 300,
         speed: 100,
-        frequency: 50,
+        frequency: 150,
         lifespan: 2000
     });
 
@@ -37,7 +37,7 @@ function create ()
         x: 400,
         y: 300,
         speed: 100,
-        frequency: 50,
+        frequency: 150,
         lifespan: 2000
     });
 
@@ -46,7 +46,7 @@ function create ()
         x: 400,
         y: 300,
         speed: 100,
-        frequency: 50,
+        frequency: 150,
         lifespan: 2000
     });
 

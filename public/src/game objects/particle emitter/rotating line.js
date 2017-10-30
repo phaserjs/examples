@@ -29,20 +29,13 @@ function create ()
     particles.createEmitter({
         frame: [ 'red', 'green', 'yellow', 'blue' ],
         x: 400, y: 300,
-        scale: { start: 0.1, end: 0 },
+        scale: { start: 0.2, end: 0 },
+        alpha: { start: 1, end: 0, ease: 'Quartic.easeOut' },
         speed: { min: -20, max: 20 },
         quantity: 32,
-        zone: line,
+        emitZone: { source: line },
         blendMode: 'SCREEN'
     });
-
-    // var emitter = this.add.emitter(400, 300, 'spark');
-
-    // emitter.setBlendMode(Phaser.BlendModes.SCREEN);
-    // emitter.setScale(0.1, 0);
-    // emitter.setSpeed(-20, 20);
-    // emitter.emitCount = 32;
-    // emitter.setShape(line);
 }
 
 function update ()

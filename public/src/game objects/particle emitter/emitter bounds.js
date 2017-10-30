@@ -39,6 +39,6 @@ function create ()
         frame: 'blue',
         lifespan: 1000,
         scale: { start: 0.4, end: 0 },
-        zone: { type: 'edge', source: rect, quantity: 60 }
+        emitZone: { type: 'edge', source: rect, quantity: 60 }
     });
 }

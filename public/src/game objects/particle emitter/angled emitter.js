@@ -26,10 +26,10 @@ function create ()
         x: 200,
         y: 300,
         lifespan: 2000,
-        speed: [ 400, 600 ],
+        speed: { min: 400, max: 600 },
         angle: 330,
-        gravity: { x: 0, y: 300 },
-        scale: [ 0.4, 0 ],
+        gravityY: 300,
+        scale: { start: 0.4, end: 0 },
         quantity: 2,
         blendMode: 'ADD'
     });

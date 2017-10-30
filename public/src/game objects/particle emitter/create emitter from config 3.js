@@ -26,12 +26,10 @@ function create ()
         y: 300,
         angle: { min: 180, max: 360 },
         speed: 400,
-        gravity: { x: 0, y: 350 },
+        gravityY: 350,
         lifespan: 4000,
         quantity: 6,
-        scale: { min: 0.1, max: 1 },
-        blendMode: Phaser.BlendModes.ADD
+        scale: { start: 0.1, end: 1 },
+        blendMode: 'ADD'
     });
-
-    console.log(emitter);
 }

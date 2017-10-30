@@ -37,7 +37,7 @@ function create ()
         delay: 500,
         scale: { start: 0.4, end: 0.1 },
         blendMode: 'ADD',
-        zone: { type: 'edge', source: tree, quantity: 48 }
+        emitZone: { type: 'edge', source: tree, quantity: 48 }
     });
 
     particles.createEmitter({
@@ -50,7 +50,7 @@ function create ()
         quantity: 1,
         scale: 0.2,
         blendMode: 'ADD',
-        zone: { type: 'edge', source: trunk, quantity: 48 }
+        emitZone: { type: 'edge', source: trunk, quantity: 48 }
     });
 
     particles.createEmitter({
@@ -61,7 +61,7 @@ function create ()
         frequency: 200,
         scale: 0.6,
         blendMode: 'ADD',
-        zone: { type: 'edge', source: tree, quantity: 12 }
+        emitZone: { type: 'edge', source: tree, quantity: 12 }
     });
 
     particles.createEmitter({
@@ -72,7 +72,7 @@ function create ()
         frequency: 50,
         scale: 0.4,
         blendMode: 'ADD',
-        zone: { type: 'edge', source: baubles, quantity: 10 }
+        emitZone: { type: 'edge', source: baubles, quantity: 10 }
     });
 
     particles.createEmitter({
@@ -83,6 +83,6 @@ function create ()
         frequency: 50,
         scale: 0.4,
         blendMode: 'ADD',
-        zone: { type: 'edge', source: baubles2, quantity: 16 }
+        emitZone: { type: 'edge', source: baubles2, quantity: 16 }
     });
 }

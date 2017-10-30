@@ -23,34 +23,34 @@ function create ()
         {
             frame: 'red_ball',
             x: 400,
-            y: 300,
+            y: 590,
             angle: { min: 180, max: 360 },
             speed: 200,
-            gravity: { x: 0, y: 350 },
+            gravityY: -350,
             lifespan: 3000,
-            quantity: 6,
+            quantity: 4,
             scale: { min: 0.1, max: 1 }
         },
         {
             frame: 'yellow_ball',
             x: 400,
-            y: 300,
+            y: 590,
             angle: { min: 180, max: 360 },
             speed: 300,
-            gravity: { x: 0, y: 350 },
+            gravityY: -350,
             lifespan: 3000,
-            quantity: 6,
+            quantity: 4,
             scale: { min: 0.1, max: 1 }
         },
         {
             frame: 'blue_ball',
             x: 400,
-            y: 300,
+            y: 590,
             angle: { min: 180, max: 360 },
             speed: 400,
-            gravity: { x: 0, y: 350 },
+            gravityY: -350,
             lifespan: 3000,
-            quantity: 6,
+            quantity: 4,
             scale: { min: 0.1, max: 1 }
         }
     ]);

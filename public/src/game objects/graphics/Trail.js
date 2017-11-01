@@ -25,10 +25,21 @@ var head = {x: 0, y: 0};
 var game = new Phaser.Game(config);
 
 function create() {
+
     trail = this.add.graphics();
+
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+
+        head.x = event.x;
+        head.y = event.y;
+
+        points.push(new Point(head.x, head.y, 4.0));
+
+    });
 }
 
 function update() {
+
     trail.clear();
     if (points.length > 4) {
         trail.lineStyle(1, 0xFFFF00, 1.0);
@@ -69,13 +80,6 @@ function update() {
         }
     }
 }
-
-game.canvas.onmousemove = function (evt) {
-    head.x = evt.clientX;
-    head.y = evt.clientY;
-
-    points.push(new Point(head.x, head.y, 4.0));
-};
 
 game.canvas.addEventListener('touchmove', function(event) {
     event.preventDefault();

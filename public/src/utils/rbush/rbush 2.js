@@ -54,12 +54,12 @@ function create() {
         maxY: 256
     });
 
-    window.addEventListener('mousemove', function (event) {
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-        if (event.clientX < 800 && event.clientY < 600)
+        if (event.x < 800 && event.y < 600)
         {
-            boxX = event.clientX;
-            boxY = event.clientY;
+            boxX = event.x;
+            boxY = event.y;
 
             result = tree.search({
                 minX: boxX,
@@ -69,8 +69,7 @@ function create() {
             });
         }
 
-    }, true);
-
+    });
 }
 
 function render() {

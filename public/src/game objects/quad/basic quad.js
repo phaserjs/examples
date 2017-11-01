@@ -42,83 +42,82 @@ function create ()
 
     updateGraphics();
 
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mousedown', onDown);
-    document.addEventListener('mouseup', onUp);
-}
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-function onMove (event)
-{
-    var x = Math.floor(event.clientX);
-    var y = Math.floor(event.clientY);
+        var x = Math.floor(event.x);
+        var y = Math.floor(event.y);
 
-    switch (inside)
-    {
-        case 1:
-            tl.setPosition(x, y);
-            quad.setTopLeft(x, y);
-            break;
+        switch (inside)
+        {
+            case 1:
+                tl.setPosition(x, y);
+                quad.setTopLeft(x, y);
+                break;
 
-        case 2:
-            tr.setPosition(x, y);
-            quad.setTopRight(x, y);
-            break;
+            case 2:
+                tr.setPosition(x, y);
+                quad.setTopRight(x, y);
+                break;
 
-        case 3:
-            bl.setPosition(x, y);
-            quad.setBottomLeft(x, y);
-            break;
+            case 3:
+                bl.setPosition(x, y);
+                quad.setBottomLeft(x, y);
+                break;
 
-        case 4:
-            br.setPosition(x, y);
-            quad.setBottomRight(x, y);
-            break;
+            case 4:
+                br.setPosition(x, y);
+                quad.setBottomRight(x, y);
+                break;
 
-        case 5:
-            c.setPosition(x, y);
-            quad.setPosition(x, y);
-            tl.setPosition(quad.topLeftX, quad.topLeftY);
-            tr.setPosition(quad.topRightX, quad.topRightY);
-            bl.setPosition(quad.bottomLeftX, quad.bottomLeftY);
-            br.setPosition(quad.bottomRightX, quad.bottomRightY);
-            break;
-    }
+            case 5:
+                c.setPosition(x, y);
+                quad.setPosition(x, y);
+                tl.setPosition(quad.topLeftX, quad.topLeftY);
+                tr.setPosition(quad.topRightX, quad.topRightY);
+                bl.setPosition(quad.bottomLeftX, quad.bottomLeftY);
+                br.setPosition(quad.bottomRightX, quad.bottomRightY);
+                break;
+        }
 
-    updateGraphics();
-}
+        updateGraphics();
 
-function onDown (event)
-{
-    var x = Math.floor(event.clientX);
-    var y = Math.floor(event.clientY);
+    });
 
-    inside = 0;
+    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
 
-    if (Phaser.Geom.Circle.Contains(tl, x, y))
-    {
-        inside = 1;
-    }
-    else if (Phaser.Geom.Circle.Contains(tr, x, y))
-    {
-        inside = 2;
-    }
-    else if (Phaser.Geom.Circle.Contains(bl, x, y))
-    {
-        inside = 3;
-    }
-    else if (Phaser.Geom.Circle.Contains(br, x, y))
-    {
-        inside = 4;
-    }
-    else if (Phaser.Geom.Circle.Contains(c, x, y))
-    {
-        inside = 5;
-    }
-}
+        var x = Math.floor(event.x);
+        var y = Math.floor(event.y);
 
-function onUp (event)
-{
-    inside = 0;
+        inside = 0;
+
+        if (Phaser.Geom.Circle.Contains(tl, x, y))
+        {
+            inside = 1;
+        }
+        else if (Phaser.Geom.Circle.Contains(tr, x, y))
+        {
+            inside = 2;
+        }
+        else if (Phaser.Geom.Circle.Contains(bl, x, y))
+        {
+            inside = 3;
+        }
+        else if (Phaser.Geom.Circle.Contains(br, x, y))
+        {
+            inside = 4;
+        }
+        else if (Phaser.Geom.Circle.Contains(c, x, y))
+        {
+            inside = 5;
+        }
+
+    });
+
+    this.input.events.on('POINTER_UP_EVENT', function (event) {
+
+        inside = 0;
+
+    });
 }
 
 function updateGraphics ()

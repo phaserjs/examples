@@ -60,8 +60,12 @@ function create ()
         artsyEffect.add(image);
     }
 
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-    game.canvas.onmousemove = onMouseMove;
+        mouse.x = event.x;
+        mouse.y = event.y;
+
+    });
 }
 
 function update()
@@ -70,9 +74,4 @@ function update()
     artsyEffect.setFloat2('u_mouse', mouse.x, 600 - mouse.y);
 
     time += 0.1;
-}
-
-function onMouseMove(evt) {
-    mouse.x = evt.clientX;
-    mouse.y = evt.clientY;
 }

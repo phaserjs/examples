@@ -34,8 +34,10 @@ function create ()
 
     p = new Phaser.Geom.Point(400, 300);
 
-    window.addEventListener('mousemove', function (event) {
-        p.setTo(event.clientX, event.clientY);
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+
+        p.setTo(event.x, event.y);
+
     });
 }
 

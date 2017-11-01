@@ -22,10 +22,10 @@ function create ()
     graphics.fillStyle(0x00ff00);
     graphics.fillTriangleShape(triangle);
 
-    document.addEventListener('mousemove', function (event) {
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-        var x = event.clientX;
-        var y = event.clientY;
+        var x = event.x;
+        var y = event.y;
 
         graphics.clear();
 
@@ -41,5 +41,4 @@ function create ()
         graphics.fillTriangleShape(triangle);
 
     });
-
 }

@@ -87,17 +87,22 @@ function create ()
 
     renderPassLigths.setRenderTextureAt(renderPassNormal.renderTexture, 'u_normal_tex', 1);
 
-    game.canvas.onmousemove = function (e) {
-        lightPosition.x = e.clientX - game.canvas.offsetLeft;
-        lightPosition.y = e.clientY - game.canvas.offsetTop;
-    };
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-    game.canvas.onmousedown = function (e) {
+        lightPosition.x = event.x;
+        lightPosition.y = event.y;
+
+    });
+
+   this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+
         renderPassLigths.setFloat4('u_light_color', Math.random(), Math.random(), Math.random(), 1.0);
-        lightPosition.z = Math.random() * 0.1;
-        renderPassLigths.setFloat4('u_falloff', Math.random(), 2.0 + Math.random() * 3.0, 1.0, 1.0);
-    };
 
+        lightPosition.z = Math.random() * 0.1;
+
+        renderPassLigths.setFloat4('u_falloff', Math.random(), 2.0 + Math.random() * 3.0, 1.0, 1.0);
+
+    });
 }
 
 function update ()
@@ -117,6 +122,7 @@ function update ()
 
     /* Render */ 
     renderPassNormal.clearColorBuffer(0, 0, 0, 0);
+
     for (var i = 0; i < imageCount; ++i)
     {
         renderPassNormal.render(images[i], this.cameras.main);
@@ -124,9 +130,9 @@ function update ()
 
     renderPassLigths.clearColorBuffer(0, 0, 0, 0);
     renderPassLigths.setFloat3('u_light_pos', lightPosition.x / 800, -lightPosition.y / 600 + 1, lightPosition.z);
+
     for (var i = 0; i < imageCount; ++i)
     {
         renderPassLigths.render(images[i], this.cameras.main);
     }
-
 }

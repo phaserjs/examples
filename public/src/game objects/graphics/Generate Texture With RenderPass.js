@@ -79,10 +79,12 @@ function create ()
 
     renderPassLigths.setRenderTextureAt(renderPassNormal.renderTexture, 'u_normal_tex', 1);
 
-    this.game.canvas.onmousemove = function (e) {
-        lightPosition.x = e.clientX - game.canvas.offsetLeft;
-        lightPosition.y = e.clientY - game.canvas.offsetTop;
-    };
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+
+        lightPosition.x = event.x;
+        lightPosition.y = event.y;
+
+    });
 
     this.game.canvas.onmousedown = function (e) {
         renderPassLigths.setFloat4('u_light_color', Math.random(), Math.random(), Math.random(), 1.0);

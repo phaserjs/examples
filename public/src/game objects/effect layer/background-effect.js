@@ -48,7 +48,6 @@ function create ()
         var image = this.add.image(Math.random() * 800, Math.random() * 600, 'myImage');
     }
 
-
     effect0.visible = true;
     effect1.visible = false;
     effect2.visible = false;
@@ -59,8 +58,25 @@ function create ()
     effect2.setFloat2('resolution', 800, 600);
     effect3.setFloat2('resolution', 800, 600);
 
-    game.canvas.onmousemove = onMouseMove;
-    game.canvas.onmousedown = onMouseDown;
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+
+        mouse.x = 800 / event.x;
+        mouse.y = 600 / event.y;
+
+    });
+
+    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+
+        if (currentEffect)
+        {
+            currentEffect.visible = false;
+        }
+        
+        effectIndex = (effectIndex + 1) % effects.length;
+        currentEffect = effects[effectIndex];
+        currentEffect.visible = true;
+
+    });
 
     currentEffect = effect0;
 
@@ -69,25 +85,11 @@ function create ()
 
 function update()
 {
-    if (currentEffect) {
+    if (currentEffect)
+    {
         currentEffect.setFloat('time', time);
         currentEffect.setFloat2('mouse', mouse.x, mouse.y);
     }
 
     time += 0.01;
-}
-
-function onMouseDown(evt) {
-    if (currentEffect)
-        currentEffect.visible = false;
-    
-    effectIndex = (effectIndex + 1) % effects.length;
-    currentEffect = effects[effectIndex];
-    currentEffect.visible = true;
-    console.log('current shader', currentEffect.dstShader.name);
-}
-
-function onMouseMove(evt) {
-    mouse.x = 800 / evt.clientX;
-    mouse.y = 600 / evt.clientY;
 }

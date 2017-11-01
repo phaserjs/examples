@@ -28,10 +28,10 @@ function create ()
     graphics.lineStyle(2, 0xffff00);
     graphics.strokeCircleShape(circle);
 
-    document.addEventListener('mousemove', function (event) {
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-        circle.x = event.clientX;
-        circle.y = event.clientY;
+        circle.x = event.x;
+        circle.y = event.y;
 
     });
 }

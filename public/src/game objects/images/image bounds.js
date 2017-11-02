@@ -1,47 +1,65 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
         preload: preload,
         create: create,
-        update: update,
-        render: render
+        update: update
     }
 };
-
-var game = new Phaser.Game(config);
 
 var image1;
 var image2;
 var image3;
+
 var bounds1;
 var bounds2;
 var bounds3;
 
-function preload() {
+var graphics;
 
+var game = new Phaser.Game(config);
+
+function preload ()
+{
     this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
-    this.load.image('bunny', 'assets/sprites/bunny.png');
+    this.load.image('disk', 'assets/sprites/copy-that-floppy.png');
     this.load.image('tetris', 'assets/sprites/tetrisblock1.png');
-
 }
 
-function create() {
+function create ()
+{
+    image1 = this.add.image(700, 200, 'eye');
+    image2 = this.add.image(180, 180, 'tetris');
+    image3 = this.add.image(400, 500, 'disk');
 
-    image1 = this.add.image(800, 200, 'eye');
-    image2 = this.add.image(180, 150, 'tetris');
-    image3 = this.add.image(400, 300, 'bunny');
+    image1.setOrigin(1);
+    image2.setOrigin(0);
+    image3.setOrigin(0.5);
 
     image3.setScale(0.5);
+
+    graphics = this.add.graphics();
 
     bounds1 = image1.getBounds();
     bounds2 = image2.getBounds();
     bounds3 = image3.getBounds();
 
+    this.tweens.add({
+
+        targets: image3,
+        duration: 2000,
+        scaleX: 2,
+        scaleY: 2,
+        ease: 'Sine.easeInOut',
+        repeat: -1,
+        yoyo: true
+
+    });
 }
 
-function update() {
-
+function update ()
+{
     image1.rotation += 0.013;
     image2.rotation += 0.015;
     image3.rotation -= 0.010;
@@ -49,19 +67,15 @@ function update() {
     bounds1 = image1.getBounds();
     bounds2 = image2.getBounds();
     bounds3 = image3.getBounds();
-}
 
-function render() {
+    graphics.clear();
 
-    var ctx = this.sys.context;
+    graphics.lineStyle(1, 0xff0000);
+    graphics.strokeRectShape(bounds1);
 
-    ctx.strokeStyle = 'rgba(255,0,0,1)';
-    ctx.strokeRect(bounds1.x, bounds1.y, bounds1.width, bounds1.height);
+    graphics.lineStyle(1, 0xffff00);
+    graphics.strokeRectShape(bounds2);
 
-    ctx.strokeStyle = 'rgba(255,255,0,1)';
-    ctx.strokeRect(bounds2.x, bounds2.y, bounds2.width, bounds2.height);
-
-    ctx.strokeStyle = 'rgba(0,225,0,1)';
-    ctx.strokeRect(bounds3.x, bounds3.y, bounds3.width, bounds3.height);
-
+    graphics.lineStyle(1, 0x00ff00);
+    graphics.strokeRectShape(bounds3);
 }

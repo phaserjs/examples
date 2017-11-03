@@ -1,8 +1,8 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#2d2d88',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -23,6 +23,9 @@ function preload ()
 
 function create ()
 {
+    //  Because, pixel art
+    this.textures.get('tiles').setFilter(1);
+
     var mapData = this.cache.json.get('map').layers[0].data;
 
     //  Offset by 1 (because Tiled for some reason exports starting from 1 not zero)
@@ -31,7 +34,11 @@ function create ()
         mapData[index] = current - 1;
     });
 
-    this.add.staticTilemap(mapData, 0, 0, 16, 16, 192, 154, 0, 'tiles');
+    // var map = this.add.staticTilemap(mapData, 0, 0, 16, 16, 192, 154, 0, 'tiles');
+
+    var map = this.add.tilemap(mapData, 0, 0, 16, 16, 192, 154, 0, 'tiles');
+
+    // map.skipIndexZero = false;
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -48,7 +55,7 @@ function create ()
 
     controls = this.cameras.addSmoothedKeyControl(controlConfig);
 
-    this.cameras.main.setBounds(0, 0, 2272, 1864);
+    // this.cameras.main.setBounds(0, 0, 2272, 1864);
 }
 
 function update (time, delta)

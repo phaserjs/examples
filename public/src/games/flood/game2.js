@@ -27,6 +27,7 @@ var Flood = new Phaser.Class({
         this.instructions;
         this.text1;
         this.text2;
+        this.text3;
 
         this.currentColor = '';
 
@@ -100,6 +101,7 @@ var Flood = new Phaser.Class({
 
         this.text1 = this.add.bitmapText(684, 30, 'atari', 'Moves', 20).setAlpha(0);
         this.text2 = this.add.bitmapText(694, 60, 'atari', '00', 40).setAlpha(0);
+        this.text3 = this.add.bitmapText(180, 200, 'atari', 'So close!\n\nClick to\ntry again', 48).setAlpha(0);
 
         this.instructions = this.add.image(400, 300, 'flood', 'instructions').setAlpha(0);
 
@@ -261,9 +263,9 @@ var Flood = new Phaser.Class({
 
     startInputEvents: function ()
     {
-        this.input.events.on('GAME_OBJECT_OVER_EVENT', this.onIconOver.bind(this));
-        this.input.events.on('GAME_OBJECT_OUT_EVENT', this.onIconOut.bind(this));
-        this.input.events.on('GAME_OBJECT_DOWN_EVENT', this.onIconDown.bind(this));
+        this.input.events.on('GAME_OBJECT_OVER_EVENT', this.onIconOver, 0, this);
+        this.input.events.on('GAME_OBJECT_OUT_EVENT', this.onIconOut, 0, this);
+        this.input.events.on('GAME_OBJECT_DOWN_EVENT', this.onIconDown, 0, this);
 
         var _this = this;
 
@@ -420,7 +422,7 @@ var Flood = new Phaser.Class({
         //  Swap the sprites
 
         var t = 0;
-        var inc = (this.matched.length > 98) ? 5 : 10;
+        var inc = (this.matched.length > 98) ? 6 : 10;
 
         this.allowClick = false;
 
@@ -535,6 +537,92 @@ var Flood = new Phaser.Class({
 
         var i = this.clearGrid();
 
+        this.text3.setAlpha(0);
+
+        this.tweens.add({
+            targets: this.text3,
+            alpha: 1,
+            duration: 1000,
+            delay: i
+        });
+
+        this.input.events.once('POINTER_DOWN_EVENT', this.resetGame.bind(this));
+    },
+
+    resetGame: function ()
+    {
+        this.text1.setText("Moves");
+        this.text2.setText("00");
+        this.text3.setVisible(false);
+
+        //  Hide everything :)
+
+        this.tweens.add({
+            targets: [
+                this.icon1.monster, this.icon1.shadow,
+                this.icon2.monster, this.icon2.shadow,
+                this.icon3.monster, this.icon3.shadow,
+                this.icon4.monster, this.icon4.shadow,
+                this.icon5.monster, this.icon5.shadow,
+                this.icon6.monster, this.icon6.shadow,
+                this.arrow,
+                this.cursor
+            ],
+            alpha: 1,
+            duration: 500,
+            delay: 500
+        });
+
+        var i = 500;
+
+        for (var y = 13; y >= 0; y--)
+        {
+            for (var x = 0; x < 14; x++)
+            {
+                var block = this.grid[x][y];
+
+                //  Set a new color
+                var color = Phaser.Math.Between(0, 5);
+
+                block.setFrame(this.frames[color]);
+
+                block.setData('oldColor', color);
+                block.setData('color', color);
+
+                this.tweens.add({
+
+                    targets: block,
+
+                    scaleX: 1,
+                    scaleY: 1,
+
+                    ease: 'Power3',
+                    duration: 800,
+                    delay: i
+
+                });
+
+                i += 10;
+            }
+        }
+
+        this.currentColor = this.grid[0][0].getData('color');
+
+        var movesTween = this.tweens.addCounter({
+            from: 0,
+            to: 25,
+            ease: 'Power1',
+            onUpdate: function (tween, targets, text)
+            {
+                text.setText(Phaser.Utils.String.Pad(tween.getValue().toFixed(), 2, '0', 1));
+            },
+            onUpdateParams: [ this.text2 ],
+            delay: i
+        });
+
+        this.moves = 25;
+
+        this.time.delayedCall(i, this.startInputEvents.bind(this));
     },
 
     gameWon: function ()

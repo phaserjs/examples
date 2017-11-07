@@ -84,8 +84,16 @@ var Flood = new Phaser.Class({
 
                 this.grid[x][y] = block;
             }
+        }
 
-            window.scene = this;
+        //  Do a few floods just to make it a little easier starting off
+        this.helpFlood();
+
+        for (var i = 0; i < this.matched.length; i++)
+        {
+            var block = this.matched[i];
+
+            block.setFrame(this.frames[block.getData('color')]);
         }
 
         this.currentColor = this.grid[0][0].getData('color');
@@ -106,6 +114,25 @@ var Flood = new Phaser.Class({
         this.instructions = this.add.image(400, 300, 'flood', 'instructions').setAlpha(0);
 
         this.revealGrid();
+    },
+
+    helpFlood: function ()
+    {
+        for (var i = 0; i < 8; i++)
+        {
+            var x = Phaser.Math.Between(0, 13);
+            var y = Phaser.Math.Between(0, 13);
+
+            var oldColor = this.grid[x][y].getData('color');
+            var newColor = oldColor + 1;
+
+            if (newColor === 6)
+            {
+                newColor = 0;
+            }
+
+            this.floodFill(oldColor, newColor, x, y)
+        }
     },
 
     createArrow: function ()
@@ -258,7 +285,7 @@ var Flood = new Phaser.Class({
             delay: i
         });
 
-        this.time.delayedCall(i, this.startInputEvents.bind(this));
+        this.time.delayedCall(i, this.startInputEvents, [], this);
     },
 
     startInputEvents: function ()
@@ -422,7 +449,7 @@ var Flood = new Phaser.Class({
         //  Swap the sprites
 
         var t = 0;
-        var inc = (this.matched.length > 98) ? 6 : 10;
+        var inc = (this.matched.length > 98) ? 6 : 12;
 
         this.allowClick = false;
 
@@ -439,7 +466,7 @@ var Flood = new Phaser.Class({
 
                 block.setFrame(blockColor);
 
-                emitter.explode(4, block.x, block.y);
+                emitter.explode(6, block.x, block.y);
                 
             }, [ block, blockColor, emitter ]);
 
@@ -538,6 +565,7 @@ var Flood = new Phaser.Class({
         var i = this.clearGrid();
 
         this.text3.setAlpha(0);
+        this.text3.setVisible(true);
 
         this.tweens.add({
             targets: this.text3,
@@ -546,7 +574,7 @@ var Flood = new Phaser.Class({
             delay: i
         });
 
-        this.input.events.once('POINTER_DOWN_EVENT', this.resetGame.bind(this));
+        this.input.events.once('POINTER_DOWN_EVENT', this.resetGame, 0, this);
     },
 
     resetGame: function ()
@@ -555,7 +583,9 @@ var Flood = new Phaser.Class({
         this.text2.setText("00");
         this.text3.setVisible(false);
 
-        //  Hide everything :)
+        //  Show everything :)
+
+        this.arrow.setFrame('arrow-white');
 
         this.tweens.add({
             targets: [
@@ -606,6 +636,16 @@ var Flood = new Phaser.Class({
             }
         }
 
+        //  Do a few floods just to make it a little easier starting off
+        this.helpFlood();
+
+        for (var i = 0; i < this.matched.length; i++)
+        {
+            var block = this.matched[i];
+
+            block.setFrame(this.frames[block.getData('color')]);
+        }
+
         this.currentColor = this.grid[0][0].getData('color');
 
         var movesTween = this.tweens.addCounter({
@@ -622,7 +662,7 @@ var Flood = new Phaser.Class({
 
         this.moves = 25;
 
-        this.time.delayedCall(i, this.startInputEvents.bind(this));
+        this.time.delayedCall(i, this.startInputEvents, [], this);
     },
 
     gameWon: function ()

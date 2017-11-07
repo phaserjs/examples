@@ -24,13 +24,13 @@ function create ()
     particles.createEmitter({
         frame: 'yellow',
         radial: false,
-        x: 200,
-        y: { min: 100, max: 500, steps: 128 },
+        x: 100,
+        y: { min: 0, max: 560, steps: 256 },
         lifespan: 2000,
         speedX: { min: 200, max: 400 },
         quantity: 4,
-        scale: [ 0.6, 0 ],
-        scaleEase: 'Power3',
+        gravityY: -50,
+        scale: { start: 0.6, end: 0, ease: 'Power3' },
         blendMode: 'ADD'
     });
 }

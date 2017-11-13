@@ -1,17 +1,14 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var cans;
 
 var game = new Phaser.Game(config);
 
@@ -22,21 +19,30 @@ function preload ()
 
 function create ()
 {
-    //  Our pool. Contains Sprite objects, a maximum of 10 of them.
-    cans = this.pool.createSpritePool(10, 10, 'cokecan');
+    var info = this.add.text(0, 0, 'Click to add objects', { fill: '#00ff00' });
 
-    console.log(cans);
-    console.log(cans.isFull());
+    //  Our pool - essentially a Group that takes advantage of maxSize
 
-    cans.get(300, 200);
-    cans.get(400, 200);
-    cans.get(500, 200);
+    //  Setting the maxSize property limits the amount of objects allowed in this pool
 
-    console.log(cans.getTotalUsed());
-    console.log(cans.getTotalFree());
-}
+    var cans = this.add.group({
+        defaultKey: 'cokecan',
+        maxSize: 10
+    });
 
-function update ()
-{
-    // image.rotation += 0.01;
+    var x = 60;
+
+    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+
+        //  Pluck an entry from the pool. If it doesn't already exist, create it.
+        cans.get(x, 300);
+
+        x += 74;
+
+        info.setText([
+            'Used: ' + cans.getTotalUsed(),
+            'Free: ' + cans.getTotalFree()
+        ]);
+
+    });
 }

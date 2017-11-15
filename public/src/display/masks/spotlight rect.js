@@ -14,7 +14,7 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('pic', 'assets/pics/taikodrummaster.jpg');
-    this.load.image('mask', 'assets/sprites/mask1.png');
+    this.load.image('mask', 'assets/sprites/mask2.png');
     this.load.image('logo', 'assets/sprites/phaser.png');
 }
 

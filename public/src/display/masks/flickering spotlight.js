@@ -20,9 +20,9 @@ function preload ()
 
 function create ()
 {
-    this.add.image(100, 60, 'logo');
-
     var pic = this.add.image(400, 300, 'pic');
+
+    this.add.image(100, 60, 'logo');
 
     var spotlight = this.make.sprite({
         x: 400,
@@ -38,5 +38,14 @@ function create ()
         spotlight.x = event.x;
         spotlight.y = event.y;
 
+    });
+
+    this.tweens.add({
+        targets: spotlight,
+        alpha: 0,
+        duration: 2000,
+        ease: 'Sine.easeInOut',
+        loop: -1,
+        yoyo: true
     });
 }

@@ -153,12 +153,12 @@ function create ()
             this.direction = this.heading;
 
             //  Update the body segments and place the last coordinate into this.tail
-            this.body.shiftPosition(this.headPosition.x * 16, this.headPosition.y * 16, 1, this.tail);
+            Phaser.Actions.ShiftPosition(this.body.children.entries, this.headPosition.x * 16, this.headPosition.y * 16, 1, this.tail);
 
             //  Check to see if any of the body pieces have the same x/y as the head
             //  If they do, the head ran into the body
 
-            var hitBody = this.body.getFirst({ x: this.head.x, y: this.head.y }, 1);
+            var hitBody = Phaser.Actions.GetFirst(this.body.children.entries, { x: this.head.x, y: this.head.y }, 1);
 
             if (hitBody)
             {

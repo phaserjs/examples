@@ -124,7 +124,7 @@ function create ()
             this.direction = this.heading;
 
             //  Update the body segments
-            this.body.shiftPosition(this.headPosition.x * 16, this.headPosition.y * 16, 1);
+            Phaser.Actions.ShiftPosition(this.body.children.entries, this.headPosition.x * 16, this.headPosition.y * 16, 1);
 
             //  Update the timer ready for the next movement
             this.moveTime = time + this.speed;

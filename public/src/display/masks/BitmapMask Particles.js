@@ -31,7 +31,7 @@ function create() {
     var particles = this.add.particles('flares');
 
     var emitter = particles.createEmitter({
-        frame: 'blue',
+        frame: 'yellow',
         x: 300,
         y: 400,
         lifespan: 2000,

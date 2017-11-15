@@ -1,0 +1,47 @@
+var config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    scene: {
+        preload: preload,
+        create: create
+    }
+};
+
+var game = new Phaser.Game(config);
+
+function preload ()
+{
+    this.load.image('pic', 'assets/pics/sword-art-online.jpg');
+    this.load.image('magnify-out', 'assets/sprites/magnify-glass-outside.png');
+    this.load.image('magnify-in', 'assets/sprites/magnify-glass-inside.png');
+}
+
+function create ()
+{
+    var bgpic = this.add.image(400, 300, 'pic');
+
+    var pic = this.add.image(400, 300, 'pic').setScale(1.1);
+
+    var lense = this.make.sprite({
+        x: 400,
+        y: 300,
+        key: 'magnify-in',
+        add: false
+    });
+
+    pic.mask = new Phaser.Display.Masks.BitmapMask(this, lense);
+
+    var magnify = this.add.image(400, 300, 'magnify-out');
+
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+
+        lense.x = event.x;
+        lense.y = event.y;
+
+        magnify.x = event.x;
+        magnify.y = event.y;
+
+    });
+}

@@ -20,9 +20,10 @@ function preload ()
 
 function create ()
 {
-    var bgpic = this.add.image(400, 300, 'pic');
+    this.add.image(400, 300, 'pic').setTint(0x2d2d2d);
 
-    var pic = this.add.image(400, 300, 'pic').setScale(1.1);
+    //  The scale creates a slight magnification effect
+    var pic = this.add.image(400, 300, 'pic').setScale(1.02);
 
     var lense = this.make.sprite({
         x: 400,

@@ -40,7 +40,7 @@ function create ()
         {
             Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
 
-            this.speed = Phaser.Math.GetSpeed(400, 1);
+            this.speed = Phaser.Math.GetSpeed(500, 1);
         },
 
         fire: function (x, y)

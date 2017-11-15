@@ -44,7 +44,7 @@ function create ()
 
     graphics = this.add.graphics();
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
         deathZone.x = event.x;
         deathZone.y = event.y;

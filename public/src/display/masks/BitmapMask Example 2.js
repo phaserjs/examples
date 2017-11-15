@@ -26,7 +26,6 @@ function create() {
 
 
     loadBar = this.add.graphics();
-    text = this.add.dynamicBitmapText(game.config.width / 2 - 20, game.config.height / 2 - 15, 'gothic', '0%', 32);
 
 	var checker = this.make.image({
 		x: game.config.width / 2,
@@ -47,6 +46,7 @@ function create() {
     loadBar.y = game.config.height / 2;
 
     swirl.mask = new Phaser.Display.Masks.BitmapMask(this, loadBar);
+    text = this.add.dynamicBitmapText(game.config.width / 2 - 20, game.config.height / 2 - 15, 'gothic', '0%', 32);
 
 }
 

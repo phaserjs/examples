@@ -21,6 +21,5 @@ function preload ()
 
 function create ()
 {
-    // TODO play the actual sound
-    console.log(this.game.cache.audio.get('boden'));
+    this.game.sound.add('boden').play();
 }

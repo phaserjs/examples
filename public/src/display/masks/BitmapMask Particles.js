@@ -50,6 +50,7 @@ function create() {
         add: true
     });
 
+    particles.visible = false;
     bunny.mask = new Phaser.Display.Masks.BitmapMask(this, particles);
 
     this.input.events.on('POINTER_MOVE_EVENT', function (event) {

@@ -302,7 +302,6 @@
                 <false/>
             </struct>
             <key type="filename">galaxy.png</key>
-            <key type="filename">nebula.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -498,7 +497,6 @@
             <filename>moon7.png</filename>
             <filename>muzzleflash6.png</filename>
             <filename>muzzleflash7.png</filename>
-            <filename>nebula.png</filename>
             <filename>purple-planet.png</filename>
             <filename>red.png</filename>
             <filename>ship.png</filename>

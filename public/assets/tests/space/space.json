@@ -2,7 +2,7 @@
 
 {
 	"filename": "asteroid1",
-	"frame": {"x":4103,"y":930,"w":472,"h":476},
+	"frame": {"x":3213,"y":1,"w":472,"h":476},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":3,"w":472,"h":476},
@@ -11,7 +11,7 @@
 },
 {
 	"filename": "asteroid2",
-	"frame": {"x":4103,"y":1410,"w":469,"h":477},
+	"frame": {"x":3213,"y":481,"w":469,"h":477},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":6,"y":0,"w":469,"h":477},
@@ -20,7 +20,7 @@
 },
 {
 	"filename": "asteroid3",
-	"frame": {"x":4103,"y":1,"w":479,"h":474},
+	"frame": {"x":2714,"y":1183,"w":479,"h":474},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":3,"w":479,"h":474},
@@ -29,7 +29,7 @@
 },
 {
 	"filename": "asteroid4",
-	"frame": {"x":869,"y":3364,"w":508,"h":189},
+	"frame": {"x":2051,"y":1832,"w":508,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":0,"w":508,"h":189},
@@ -38,16 +38,16 @@
 },
 {
 	"filename": "blaster",
-	"frame": {"x":869,"y":3557,"w":128,"h":128},
+	"frame": {"x":2771,"y":1922,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
-	"sourceSize": {"w":128,"h":128},
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64},
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "blastwave1",
-	"frame": {"x":1,"y":3364,"w":256,"h":256},
+	"frame": {"x":3242,"y":1634,"w":256,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
@@ -56,7 +56,7 @@
 },
 {
 	"filename": "blue-planet",
-	"frame": {"x":2581,"y":2051,"w":1158,"h":1178},
+	"frame": {"x":2051,"y":1,"w":1158,"h":1178},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1158,"h":1178},
@@ -65,7 +65,7 @@
 },
 {
 	"filename": "blue",
-	"frame": {"x":1001,"y":3557,"w":128,"h":128},
+	"frame": {"x":2714,"y":1661,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -74,7 +74,7 @@
 },
 {
 	"filename": "brown-planet",
-	"frame": {"x":1312,"y":2053,"w":1265,"h":1299},
+	"frame": {"x":1312,"y":2051,"w":1265,"h":1299},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1265,"h":1299},
@@ -83,7 +83,7 @@
 },
 {
 	"filename": "eyes",
-	"frame": {"x":4103,"y":479,"w":478,"h":447},
+	"frame": {"x":3197,"y":1183,"w":478,"h":447},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":478,"h":447},
@@ -92,7 +92,7 @@
 },
 {
 	"filename": "galaxy",
-	"frame": {"x":2053,"y":1,"w":2046,"h":2046},
+	"frame": {"x":1,"y":1,"w":2046,"h":2046},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":2046,"h":2046},
@@ -101,7 +101,7 @@
 },
 {
 	"filename": "gas-giant",
-	"frame": {"x":1,"y":2053,"w":1307,"h":1307},
+	"frame": {"x":1,"y":2051,"w":1307,"h":1307},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1307,"h":1307},
@@ -110,7 +110,7 @@
 },
 {
 	"filename": "green-orb",
-	"frame": {"x":521,"y":3364,"w":254,"h":256},
+	"frame": {"x":2841,"y":3039,"w":254,"h":256},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":254,"h":256},
@@ -119,7 +119,7 @@
 },
 {
 	"filename": "green",
-	"frame": {"x":1133,"y":3557,"w":128,"h":128},
+	"frame": {"x":2846,"y":1661,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -128,7 +128,7 @@
 },
 {
 	"filename": "mine",
-	"frame": {"x":261,"y":3364,"w":256,"h":256},
+	"frame": {"x":2581,"y":3039,"w":256,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
@@ -137,7 +137,7 @@
 },
 {
 	"filename": "moon1",
-	"frame": {"x":132,"y":3624,"w":58,"h":58},
+	"frame": {"x":2902,"y":1921,"w":58,"h":58},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":58},
@@ -146,7 +146,7 @@
 },
 {
 	"filename": "moon2",
-	"frame": {"x":194,"y":3624,"w":57,"h":57},
+	"frame": {"x":2823,"y":1861,"w":57,"h":57},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":57,"h":57},
@@ -155,7 +155,7 @@
 },
 {
 	"filename": "moon3",
-	"frame": {"x":316,"y":3624,"w":45,"h":44},
+	"frame": {"x":2771,"y":1990,"w":45,"h":44},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":44},
@@ -164,7 +164,7 @@
 },
 {
 	"filename": "moon4",
-	"frame": {"x":365,"y":3624,"w":35,"h":36},
+	"frame": {"x":2820,"y":1990,"w":35,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":36},
@@ -173,7 +173,7 @@
 },
 {
 	"filename": "moon5",
-	"frame": {"x":69,"y":3624,"w":59,"h":58},
+	"frame": {"x":2839,"y":1922,"w":59,"h":58},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":59,"h":58},
@@ -182,7 +182,7 @@
 },
 {
 	"filename": "moon6",
-	"frame": {"x":255,"y":3624,"w":57,"h":56},
+	"frame": {"x":2884,"y":1861,"w":57,"h":56},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":57,"h":56},
@@ -191,7 +191,7 @@
 },
 {
 	"filename": "moon7",
-	"frame": {"x":1529,"y":3609,"w":81,"h":81},
+	"frame": {"x":2686,"y":1922,"w":81,"h":81},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":81},
@@ -200,16 +200,16 @@
 },
 {
 	"filename": "muzzleflash6",
-	"frame": {"x":779,"y":3364,"w":86,"h":256},
+	"frame": {"x":2563,"y":1832,"w":256,"h":86},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":19,"y":0,"w":86,"h":256},
-	"sourceSize": {"w":128,"h":256},
+	"spriteSourceSize": {"x":0,"y":19,"w":256,"h":86},
+	"sourceSize": {"w":256,"h":128},
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "muzzleflash7",
-	"frame": {"x":1529,"y":3488,"w":119,"h":117},
+	"frame": {"x":2563,"y":1922,"w":119,"h":117},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":5,"w":119,"h":117},
@@ -217,17 +217,8 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "nebula",
-	"frame": {"x":1,"y":1,"w":2048,"h":2048},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":2048,"h":2048},
-	"sourceSize": {"w":2048,"h":2048},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
 	"filename": "purple-planet",
-	"frame": {"x":3743,"y":2051,"w":1012,"h":992},
+	"frame": {"x":2581,"y":2043,"w":1012,"h":992},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1012,"h":992},
@@ -236,7 +227,7 @@
 },
 {
 	"filename": "red",
-	"frame": {"x":1265,"y":3557,"w":128,"h":128},
+	"frame": {"x":2964,"y":1793,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -245,7 +236,7 @@
 },
 {
 	"filename": "ship",
-	"frame": {"x":1,"y":3624,"w":64,"h":64},
+	"frame": {"x":2823,"y":1793,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -254,7 +245,7 @@
 },
 {
 	"filename": "smoke",
-	"frame": {"x":1381,"y":3356,"w":128,"h":128},
+	"frame": {"x":2978,"y":1661,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -263,7 +254,7 @@
 },
 {
 	"filename": "sun",
-	"frame": {"x":3743,"y":3047,"w":659,"h":645},
+	"frame": {"x":2051,"y":1183,"w":659,"h":645},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":659,"h":645},
@@ -272,7 +263,7 @@
 },
 {
 	"filename": "white",
-	"frame": {"x":1397,"y":3488,"w":128,"h":128},
+	"frame": {"x":3096,"y":1793,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -281,7 +272,7 @@
 },
 {
 	"filename": "yellow",
-	"frame": {"x":1513,"y":3356,"w":128,"h":128},
+	"frame": {"x":3110,"y":1661,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -293,8 +284,8 @@
 	"version": "1.0",
 	"image": "space.png",
 	"format": "RGBA8888",
-	"size": {"w":4756,"h":3693},
+	"size": {"w":3686,"h":3359},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:8fe34fa35dc718a255a4523467259460:505e1d9b023cff5d9b0f40c43e2d78b2:5c66d13d521b19a155e36d6dbcb34ba3$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e5e1f316670db66805280e1b76011465:38ec3a29e486f0ffe7feef94bc9aa75e:5c66d13d521b19a155e36d6dbcb34ba3$"
 }
 }

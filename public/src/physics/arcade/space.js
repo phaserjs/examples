@@ -46,19 +46,47 @@ function create ()
             Phaser.Physics.Arcade.Image.call(this, scene, 0, 0, 'space', 'blaster');
 
             this.setBlendMode(1);
+            this.setDepth(1);
 
-            this.speed = 400;
-            this.lifespan = 2000;
+            this.speed = 1000;
+            this.lifespan = 1000;
+
+            this._temp = new Phaser.Math.Vector2();
         },
 
         fire: function (ship)
         {
-            this.lifespan = 2000;
+            this.lifespan = 1000;
 
+            this.setActive(true);
+            this.setVisible(true);
+            // this.setRotation(ship.rotation);
+            this.setAngle(ship.body.rotation);
             this.setPosition(ship.x, ship.y);
-            this.setRotation(ship.rotation);
+            this.body.reset(ship.x, ship.y);
 
-            this.world.velocityFromRotation(this.rotation, 600, this.body.acceleration);
+            // ship.body.advancePosition(10, this._temp);
+
+            // this.setPosition(this._temp.x, this._temp.y);
+            // this.body.reset(this._temp.x, this._temp.y);
+
+            //  if ship is rotating we need to add it here
+            // var a = ship.body.angularVelocity;
+
+            // if (ship.body.speed !== 0)
+            // {
+            //     var angle = Math.atan2(ship.body.velocity.y, ship.body.velocity.x);
+            // }
+            // else
+            // {
+                var angle = Phaser.Math.DegToRad(ship.body.rotation);
+            // }
+
+            // this.body.world.velocityFromRotation(angle, this.speed + ship.body.speed, this.body.velocity);
+            this.body.world.velocityFromRotation(angle, this.speed, this.body.velocity);
+
+            this.body.velocity.x *= 2;
+            this.body.velocity.y *= 2;
         },
 
         update: function (time, delta)
@@ -69,6 +97,7 @@ function create ()
             {
                 this.setActive(false);
                 this.setVisible(false);
+                this.body.stop();
             }
         }
 
@@ -97,9 +126,9 @@ function create ()
     this.add.image(512, 680, 'space', 'blue-planet').setOrigin(0).setScrollFactor(0.6);
     this.add.image(2833, 1246, 'space', 'brown-planet').setOrigin(0).setScrollFactor(0.6);
     this.add.image(3875, 531, 'space', 'sun').setOrigin(0).setScrollFactor(0.6);
-    this.add.image(5345, 327, 'space', 'galaxy').setOrigin(0).setBlendMode(1).setScrollFactor(0.6);
+    var galaxy = this.add.image(5345 + 1024, 327 + 1024, 'space', 'galaxy').setBlendMode(1).setScrollFactor(0.6);
     this.add.image(908, 3922, 'space', 'gas-giant').setOrigin(0).setScrollFactor(0.6);
-    this.add.image(3140, 2974, 'space', 'nebula').setOrigin(0).setScrollFactor(0.6).setBlendMode(1);
+    this.add.image(3140, 2974, 'space', 'brown-planet').setOrigin(0).setScrollFactor(0.6).setScale(0.8).setTint(0x882d2d);
     this.add.image(6052, 4280, 'space', 'purple-planet').setOrigin(0).setScrollFactor(0.6);
 
     for (var i = 0; i < 8; i++)
@@ -138,10 +167,12 @@ function create ()
     });
 
     bullets = this.physics.add.group({
-        classType: Bullet
+        classType: Bullet,
+        maxSize: 30,
+        runChildUpdate: true
     });
 
-    ship = this.physics.add.image(4000, 3000, 'space', 'ship');
+    ship = this.physics.add.image(4000, 3000, 'space', 'ship').setDepth(2);
 
     ship.setDrag(300);
     ship.setAngularDrag(400);
@@ -155,6 +186,14 @@ function create ()
     fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     this.add.sprite(4500, 3000).play('asteroid4-anim');
+
+    this.tweens.add({
+        targets: galaxy,
+        angle: 360,
+        duration: 100000,
+        ease: 'Linear',
+        loop: -1
+    });
 }
 
 function update (time, delta)
@@ -189,7 +228,7 @@ function update (time, delta)
         {
             bullet.fire(ship);
 
-            lastFired = time + 50;
+            lastFired = time + 100;
         }
     }
 

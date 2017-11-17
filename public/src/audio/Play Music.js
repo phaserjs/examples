@@ -21,5 +21,24 @@ function preload ()
 
 function create ()
 {
-    this.game.sound.add('boden').play();
+    this.game.sound.add('boden', {
+        mute: false,
+        volume: 0.5,
+        rate: 2,
+        detune: -100
+    }).play();
+
+    var boden = this.game.sound.add('boden');
+    boden.mute = true;
+    boden.volume = 1;
+    boden.play({
+        rate: 1.5,
+        detune: 0
+    });
+
+    this.game.sound.mute = false;
+    this.game.sound.volume = 0.8;
+    this.game.sound.rate = 0.5;
+    this.game.sound.detune = 200;
+
 }

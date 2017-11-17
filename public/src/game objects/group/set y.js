@@ -19,16 +19,18 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
+    //  Create 5 sprites in our group (one per frame)
 
-    //  Create some Sprites via the group.
-    //  They are all created at 0x0
-    group.createMultiple({ key: 'diamonds', frame: [0,1,2,3,4] });
+    //  Use the setXY object to set the positions on them all to be 100 x 100 + 64px Y spacing (the stepY value)
 
-    //  Now set the X position on them all to be 100 + 64px spacing
-
-    group.setY(100, 64);
-
-    //  And the X position (so we can see them in this example)
-    group.setX(100);
+    var group = this.add.group({
+        key: 'diamonds',
+        frame: [0, 1, 2, 3, 4],
+        setXY:
+        {
+            x: 100,
+            y: 100,
+            stepY: 64
+        }
+    });
 }

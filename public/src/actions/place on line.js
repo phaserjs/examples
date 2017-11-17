@@ -19,11 +19,9 @@ function preload ()
 
 function create ()
 {
-    var rect = new Phaser.Geom.Rectangle(100, 100, 256, 256);
+    var line = new Phaser.Geom.Line(100, 200, 600, 400);
 
-    var group = this.add.group();
+    var group = this.add.group({ key: 'ball', frameQuantity: 32 });
 
-    group.createMultiple({ key: 'ball', frameQuantity: 32 });
-
-    group.placeOnRectangle(rect);
+    Phaser.Actions.PlaceOnLine(group.getChildren(), line);
 }

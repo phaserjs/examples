@@ -12,7 +12,7 @@ var config = {
 };
 
 var group;
-var ellipse;
+var tween;
 
 var game = new Phaser.Game(config);
 
@@ -23,19 +23,18 @@ function preload ()
 
 function create ()
 {
-    ellipse = new Phaser.Geom.Ellipse(400, 300, 200, 500);
+    var circle = new Phaser.Geom.Circle(400, 300, 260);
 
-    group = this.add.group();
+    group = this.add.group({ key: 'ball', frameQuantity: 32 });
 
-    group.createMultiple({ key: 'ball', frameQuantity: 48 });
+    Phaser.Actions.PlaceOnCircle(group.getChildren(), circle);
 
-    group.placeOnEllipse(ellipse);
-
-    TweenMax.to(ellipse, 3, {
-        width: 700,
-        height: 100,
-        delay: 1,
-        ease: Sine.easeInOut,
+    tween = this.tweens.addCounter({
+        from: 260,
+        to: 0,
+        duration: 3000,
+        delay: 2000,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });
@@ -43,5 +42,5 @@ function create ()
 
 function update ()
 {
-    group.placeOnEllipse(ellipse);
+    Phaser.Actions.RotateAroundDistance(group.getChildren(), { x: 400, y: 300 }, 0.02, tween.getValue());
 }

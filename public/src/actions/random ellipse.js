@@ -19,13 +19,11 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
-
     //  Create 300 sprites (they all start life at 0x0)
-    group.createMultiple({ key: 'orb', frameQuantity: 300 });
+    var group = this.add.group({ key: 'orb', frameQuantity: 300 });
 
-    var circle = new Phaser.Geom.Circle(400, 300, 130);
+    var ellipse = new Phaser.Geom.Ellipse(400, 300, 100, 200);
 
-    //  Randomly position the sprites within the circle
-    group.randomCircle(circle);
+    //  Randomly position the sprites within the ellipse
+    Phaser.Actions.RandomEllipse(group.getChildren(), ellipse);
 }

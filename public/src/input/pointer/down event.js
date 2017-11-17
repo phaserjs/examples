@@ -18,13 +18,9 @@ function preload ()
 
 function create ()
 {
-    //  Events
-
-    var _this = this;
-
     this.input.events.on('POINTER_DOWN_EVENT', function (event) {
 
-        _this.add.image(event.x, event.y, 'balls', Phaser.Math.Between(0, 5));
+        this.add.image(event.x, event.y, 'balls', Phaser.Math.Between(0, 5));
 
-    });
+    }, 0, this);
 }

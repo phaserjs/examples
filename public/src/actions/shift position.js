@@ -27,11 +27,9 @@ function create ()
 {
     this.add.image(0, 0, 'sky').setOrigin(0);
 
-    group = this.add.group();
+    group = this.add.group({ key: 'ball', frameQuantity: 128 });
 
-    group.createMultiple({ key: 'ball', frameQuantity: 128 });
-
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
         x = event.x;
         y = event.y;
@@ -45,7 +43,7 @@ function update (time, delta)
 
     if (move > 6)
     {
-        group.shiftPosition(x, y);
+        Phaser.Actions.ShiftPosition(group.getChildren(), x, y);
         move = 0;
     }
 }

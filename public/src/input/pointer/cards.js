@@ -33,20 +33,18 @@ function create ()
         y += 4;
     }
 
-    var _this = this;
-
     this.input.events.on('POINTER_DOWN_EVENT', function (event) {
 
         //  Will contain the top-most Game Object (in the display list)
         if (event.gameObject)
         {
-            _this.tweens.add({
+            this.tweens.add({
                 targets: event.gameObject,
                 x: { value: 1100, duration: 1500, ease: 'Power2' },
                 y: { value: 500, duration: 500, ease: 'Bounce.easeOut', delay: 150 }
             });
         }
 
-    });
+    }, 0, this);
 
 }

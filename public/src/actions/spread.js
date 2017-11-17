@@ -1,8 +1,7 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -19,9 +18,8 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
+    group = this.add.group({ key: 'diamonds', frame: 3, frameQuantity: 50, setXY: { x: 32, y: 32, stepX: 14 }});
 
-    group.createMultiple({ key: 'diamonds', frame: 0, frameQuantity: 50, setXY: { x: 32, y: 32, stepX: 14 }});
-
-    group.setAlpha(0, 1 / 50);
+    //  Spread out the children between the 2 given values, using the string-based property
+    Phaser.Actions.Spread(group.getChildren(), 'alpha', 0, 1);
 }

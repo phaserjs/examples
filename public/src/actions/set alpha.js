@@ -1,7 +1,8 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     width: 800,
     height: 600,
+    backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -18,9 +19,7 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
+    var group = this.add.group({ key: 'diamonds', frame: 0, frameQuantity: 50, setXY: { x: 32, y: 32, stepX: 14 }});
 
-    group.createMultiple({ key: 'diamonds', frame: 3, frameQuantity: 50, setXY: { x: 32, y: 32, stepX: 14 }});
-
-    group.spread('alpha', 0, 1);
+    Phaser.Actions.SetAlpha(group.getChildren(), 0, 1 / 50);
 }

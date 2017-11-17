@@ -6,14 +6,11 @@ var config = {
     parent: 'phaser-example',
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
 
 var game = new Phaser.Game(config);
-
-var group;
 
 function preload ()
 {
@@ -22,17 +19,9 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
+    var rect = new Phaser.Geom.Rectangle(100, 100, 256, 256);
 
-    for (var i = 0; i < 32; i++)
-    {
-        var image = this.add.image(i * 32, i * 2, 'ball');
+    var group = this.add.group({ key: 'ball', frameQuantity: 32 });
 
-        group.add(image);
-    }
-}
-
-function update ()
-{
-    group.rotateAroundDistance({ x: 400, y: 300 }, 0.02, 200);
+    Phaser.Actions.PlaceOnRectangle(group.getChildren(), rect);
 }

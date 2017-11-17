@@ -14,7 +14,6 @@ var config = {
 var game = new Phaser.Game(config);
 
 var group;
-var d = { v: 260 };
 
 function preload ()
 {
@@ -23,24 +22,15 @@ function preload ()
 
 function create ()
 {
-    var circle = new Phaser.Geom.Circle(400, 300, d.v);
-
     group = this.add.group();
 
-    group.createMultiple({ key: 'ball', frameQuantity: 32 });
-
-    group.placeOnCircle(circle);
-
-    TweenMax.to(d, 3, {
-        v: 0,
-        delay: 2,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
-    });
+    for (var i = 0; i < 32; i++)
+    {
+        group.create(i * 32, i * 2, 'ball');
+    }
 }
 
 function update ()
 {
-    group.rotateAroundDistance({ x: 400, y: 300 }, 0.02, d.v);
+    Phaser.Actions.RotateAroundDistance(group.getChildren(), { x: 400, y: 300 }, 0.02, 200);
 }

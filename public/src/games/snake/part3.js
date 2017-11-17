@@ -148,7 +148,7 @@ function create ()
             this.direction = this.heading;
 
             //  Update the body segments and place the last coordinate into this.tail
-            this.body.shiftPosition(this.headPosition.x * 16, this.headPosition.y * 16, 1, this.tail);
+            Phaser.Actions.ShiftPosition(this.body.getChildren(), this.headPosition.x * 16, this.headPosition.y * 16, 1, this.tail);
 
             //  Update the timer ready for the next movement
             this.moveTime = time + this.speed;

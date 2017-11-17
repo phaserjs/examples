@@ -19,15 +19,13 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
-
-    group.createMultiple({
+    var group = this.add.group({
         key: 'diamonds',
         frame: [ 0, 1, 2, 3, 4 ],
         frameQuantity: 20
     });
 
-    group.gridAlign({
+    Phaser.Actions.GridAlign(group.getChildren(), {
         width: 10,
         height: 10,
         cellWidth: 32,
@@ -35,5 +33,4 @@ function create ()
         x: 100,
         y: 100
     });
-
 }

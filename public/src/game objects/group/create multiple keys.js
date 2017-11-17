@@ -34,5 +34,5 @@ function create ()
     // group.createMultiple({ key: ['diamonds', 'veg'], frame: [0,1,2], frameQuantity: 2, yoyo: true });
     // group.createMultiple({ key: ['diamonds', 'veg'], frame: [0,1,2,3], repeat: 4, max: 15 });
 
-    group.setXY(32, 100, 32);
+    Phaser.Actions.SetXY(group.getChildren(), 32, 100, 32);
 }

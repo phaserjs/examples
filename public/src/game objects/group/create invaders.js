@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#000000',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -11,10 +11,6 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-
-var invader1;
-var invader2;
-var invader3;
 
 function preload ()
 {
@@ -25,15 +21,23 @@ function preload ()
 
 function create ()
 {
-    invader1 = this.add.group();
-    invader2 = this.add.group();
-    invader3 = this.add.group();
+    var invader1 = this.add.group({ key: 'invader1', frame: 0, repeat: 13, setXY: { x: 32, y: 100, stepX: 40 } });
 
-    invader1.createMultiple({ key: 'invader1', frame: 0, repeat: 13, setXY: { x: 32, y: 100, stepX: 40 } });
+    var invader2 = this.add.group([
+        { key: 'invader2', frame: 0, repeat: 10, setXY: { x: 32, y: 148, stepX: 52 } },
+        { key: 'invader2', frame: 0, repeat: 10, setXY: { x: 32, y: 148 + 48, stepX: 52 } }
+    ]);
 
-    invader2.createMultiple({ key: 'invader2', frame: 0, repeat: 10, setXY: { x: 32, y: 148, stepX: 52 } });
-    invader2.createMultiple({ key: 'invader2', frame: 0, repeat: 10, setXY: { x: 32, y: 148 + 48, stepX: 52 } });
+    var invader3 = this.add.group([
+        { key: 'invader3', frame: 0, repeat: 9, setXY: { x: 32, y: 148+96, stepX: 58 } },
+        { key: 'invader3', frame: 0, repeat: 9, setXY: { x: 32, y: 148+96+48, stepX: 58 } }
+    ]);
 
-    invader3.createMultiple({ key: 'invader3', frame: 0, repeat: 9, setXY: { x: 32, y: 148+96, stepX: 58 } });
-    invader3.createMultiple({ key: 'invader3', frame: 0, repeat: 9, setXY: { x: 32, y: 148+96+48, stepX: 58 } });
+    Phaser.Actions.IncX(invader1.getChildren(), 100);
+    Phaser.Actions.IncX(invader2.getChildren(), 100);
+    Phaser.Actions.IncX(invader3.getChildren(), 100);
+
+    Phaser.Actions.SetTint(invader1.getChildren(), 0xff0000);
+    Phaser.Actions.SetTint(invader2.getChildren(), 0x00ff00);
+    Phaser.Actions.SetTint(invader3.getChildren(), 0x00ffff);
 }

@@ -19,13 +19,10 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
+    var group = this.add.group({ key: 'orb', frameQuantity: 300 });
 
-    //  Create 300 sprites (they all start life at 0x0)
-    group.createMultiple({ key: 'orb', frameQuantity: 300 });
+    var line = new Phaser.Geom.Line(200, 200, 500, 400);
 
-    var rect = new Phaser.Geom.Rectangle(300, 300, 300, 100);
-
-    //  Randomly position the sprites within the shape
-    group.randomRectangle(rect);
+    //  Randomly position the sprites on the line
+    Phaser.Actions.RandomLine(group.getChildren(), line);
 }

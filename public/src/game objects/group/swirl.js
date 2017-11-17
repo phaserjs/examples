@@ -22,12 +22,10 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
-
-    group.createMultiple({ key: 'bar', frameQuantity: 32, setXY: { x: 400, y: 300 }, setScale: { x: 2, y: 6 } });
+    group = this.add.group({ key: 'bar', frameQuantity: 32, setXY: { x: 400, y: 300 }, setScale: { x: 2, y: 6 } });
 }
 
 function update ()
 {
-    group.rotate(0.005, 0.0005);
+    Phaser.Actions.Rotate(group.getChildren(), 0.005, 0.0005);
 }

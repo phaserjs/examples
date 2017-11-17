@@ -33,8 +33,6 @@ function create ()
         y += 6;
     }
 
-    var _this = this;
-
     this.input.events.on('POINTER_DOWN_EVENT', function (event) {
 
         //  event.list contains a list of ALL GameObjects that were under the pointer
@@ -42,7 +40,7 @@ function create ()
 
         if (event.list.length > 0)
         {
-            _this.tweens.add({
+            this.tweens.add({
                 targets: event.list,
                 x: { value: 1100, duration: 1500, ease: 'Power2' },
                 delay: function (i, total, target) {
@@ -51,6 +49,6 @@ function create ()
             });
         }
 
-    });
+    }, 0, this);
 
 }

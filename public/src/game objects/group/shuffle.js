@@ -31,22 +31,19 @@ function create ()
     group.create(540, 200, 'block');
     group.create(600, 200, 'can');
 
-    var sys = this.sys;
+    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
 
-    document.addEventListener('mousedown', function () {
+        //  Shuffle the children
+        Phaser.Actions.Shuffle(group.getChildren());
 
-        console.log('--- shuffle ------------------------');
+        //  Assign their new depth based on their position within the Group
 
-        Phaser.Utils.Array.Shuffle(group.children.entries);
+        var children = group.getChildren();
 
-        // group.create(Phaser.Math.Between(0, 800), 500, 'phaser');
+        for (var i = 0; i < children.length; i++)
+        {
+            children[i].setDepth(i);
+        }
 
-        sys.sortChildrenFlag = true;
-
-        // group.children.entries.forEach(function(s) {
-            // console.log(s.texture.key);
-        // });
-
-    });
-
+    }, 0, this);
 }

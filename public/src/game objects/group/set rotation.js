@@ -6,14 +6,11 @@ var config = {
     parent: 'phaser-example',
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
 
 var game = new Phaser.Game(config);
-
-var group;
 
 function preload ()
 {
@@ -22,12 +19,11 @@ function preload ()
 
 function create ()
 {
-    group = this.add.group();
-
-    group.createMultiple({ key: 'bar', repeat: 32, setXY: { x: 400, y: 300 }, setRotation: { value: 0, step: 0.06 }, setScale: { x: 6 } });
-}
-
-function update ()
-{
-    group.rotate(0.001, 0.0001);
+    var group = this.add.group({
+        key: 'bar',
+        repeat: 32,
+        setXY: { x: 400, y: 300 },
+        setRotation: { value: 0, step: 0.06 },
+        setScale: { x: 6 }
+    });
 }

@@ -30,5 +30,5 @@ function create ()
     //  Any action done to the group is now reflected by the Image
     //  For example this will set the position of the image to 400 x 300
 
-    group.setXY(400, 300);
+    Phaser.Actions.SetXY(group.getChildren(), 400, 300);
 }

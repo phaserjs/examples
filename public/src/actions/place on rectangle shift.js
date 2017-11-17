@@ -14,7 +14,6 @@ var game = new Phaser.Game(config);
 
 var group;
 var rect;
-var total = 0;
 var i = 0;
 
 function preload ()
@@ -26,20 +25,19 @@ function create ()
 {
     rect = new Phaser.Geom.Rectangle(64, 32, 100, 512);
 
-    group = this.add.group();
+    group = this.add.group({ key: 'balls', frame: [0,1,2,3,4,5], frameQuantity: 10 });
 
-    group.createMultiple({ key: 'balls', frame: [0,1,2,3,4,5], frameQuantity: 10 });
-
-    total = group.children.size;
     i = 0;
 
-    TweenMax.to(rect, 3, {
+    this.tweens.add({
+        targets: rect,
         x: 200,
         y: 200,
         width: 512,
         height: 100,
-        delay: 2,
-        ease: Sine.easeInOut,
+        delay: 2000,
+        duration: 3000,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });
@@ -47,11 +45,11 @@ function create ()
 
 function update ()
 {
-    group.placeOnRectangle(rect, i);
+    Phaser.Actions.PlaceOnRectangle(group.getChildren(), rect, i);
 
     i++;
 
-    if (i === total)
+    if (i === group.length)
     {
         i = 0;
     }

@@ -46,7 +46,7 @@ function create ()
 
     this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-        if (draw && event.buttons === 1)
+        if (draw)
         {
             graphics.clear();
             graphics.lineStyle(thickness, color, alpha);

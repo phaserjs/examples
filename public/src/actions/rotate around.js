@@ -14,7 +14,6 @@ var config = {
 var game = new Phaser.Game(config);
 
 var group;
-var p;
 
 function preload ()
 {
@@ -27,21 +26,11 @@ function create ()
 
     for (var i = 0; i < 256; i++)
     {
-        var image = this.add.image(Phaser.Math.Between(200, 600), Phaser.Math.Between(100, 500), 'diamonds', Phaser.Math.Between(0, 4));
-
-        group.add(image);
+        group.create(Phaser.Math.Between(200, 600), Phaser.Math.Between(100, 500), 'diamonds', Phaser.Math.Between(0, 4));
     }
-
-    p = new Phaser.Geom.Point(400, 300);
-
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
-
-        p.setTo(event.x, event.y);
-
-    });
 }
 
 function update ()
 {
-    group.rotateAroundDistance(p, 0.1, 100);
+    Phaser.Actions.RotateAround(group.getChildren(), { x: 400, y: 300 }, 0.01);
 }

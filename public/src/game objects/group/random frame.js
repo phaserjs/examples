@@ -27,6 +27,8 @@ function create ()
         frame: Phaser.Utils.Array.NumberArray(0, 399),
         randomFrame: true,
         gridAlign: {
+            x: 16,
+            y: 16,
             width: 25,
             height: 25,
             cellWidth: 32,

@@ -25,16 +25,13 @@ function create ()
         repeat: -1
     });
 
-    var group = this.add.group();
+    var group = this.add.group({ key: 'cube', frame: 'frame1', repeat: 107, setScale: { x: 0.55, y: 0.55 } });
 
-    group.createMultiple({ key: 'cube', frame: 'frame1', repeat: 107, setScale: { x: 0.55, y: 0.55 } });
-
-    group.gridAlign({ width: 12, cellWidth: 70, cellHeight: 70, x: -20, y: 0 });
+    Phaser.Actions.GridAlign(group.getChildren(), { width: 12, cellWidth: 70, cellHeight: 70, x: -20, y: 0 });
 
     var i = 1;
     var ci = 0;
     var colors = [ 0xef658c, 0xff9a52, 0xffdf00, 0x31ef8c, 0x21dfff, 0x31aade, 0x5275de, 0x9c55ad, 0xbd208c ];
-
 
     group.children.iterate(function (child) {
 

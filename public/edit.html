@@ -92,7 +92,7 @@
 
                 var strWindowFeatures = 'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes';
 
-                windowObjectReference = window.open('view.html?src=' + filename, 'Phaser3Viewer', strWindowFeatures);
+                windowObjectReference = window.open('view.html?src=' + filename + '&v=' + phaserVersion, 'Phaser3Viewer', strWindowFeatures);
             };
 
             run.onclick = function ()
@@ -167,9 +167,12 @@
     var editor;
     var entry;
     var version = 1;
+    var phaserVersion;
 
     window.onload = function ()
     {
+        phaserVersion = getQueryString('v', 'dev');
+
         db = new PouchDB('phaser3-examples');
 
         if (getQueryString('src'))

@@ -14,7 +14,7 @@ var map;
 var text;
 var sx = 0;
 var mapWidth = 51;
-var mapHeight = 37
+var mapHeight = 37;
 var distance = 0;
 var tiles = [ 7, 7, 7, 6, 6, 6, 0, 0, 0, 1, 1, 2, 3, 4, 5 ];
 
@@ -32,27 +32,20 @@ function create ()
 
     for (var y = 0; y < mapHeight; y++)
     {
+        var row = [];
         for (var x = 0; x < mapWidth; x++)
         {
             //  Scatter the tiles so we get more mud and less stones
-            mapData.push(Phaser.Math.RND.weightedPick(tiles));
+            var tileIndex = Phaser.Math.RND.weightedPick(tiles);
+            row.push(tileIndex);
         }
+        mapData.push(row);
     }
 
-    var mapConfig = {
-        map: {
-            data: mapData,
-            width: mapWidth,
-            height: mapHeight,
-        },
-        tile: {
-            width: 16,
-            height: 16,
-            texture: 'tiles'
-        }
-    };
 
-    map = this.make.tilemap(mapConfig);
+    map = this.make.tilemap({ data: mapData, tileWidth: 16, tileHeight: 16 });
+    var tileset = map.addTilesetImage('tiles');
+    var layer = map.createDynamicLayer(0, tileset, 0, 0);
 
     this.cameras.main.setBounds(0, 0, mapWidth * 32, mapHeight * 32);
 
@@ -82,11 +75,11 @@ function update (time, delta)
                 tile = map.getTileAt(x, y);
                 prev = map.getTileAt(x - 1, y);
 
-                prev.setId(tile.id);
+                prev.index = tile.index;
 
                 if (x === mapWidth - 1)
                 {
-                    tile.setId(Phaser.Math.RND.weightedPick(tiles));
+                    tile.index = Phaser.Math.RND.weightedPick(tiles);
                 }
             }
         }

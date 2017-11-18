@@ -1,9 +1,10 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d88',
     parent: 'phaser-example',
+    pixelArt: true,
     scene: {
         preload: preload,
         create: create,
@@ -18,27 +19,18 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('tiles', 'assets/tilemaps/tiles/dangerous-kiss-x2.png');
-    this.load.json('map', 'assets/tilemaps/maps/dangerous-kiss.json');
+    this.load.tilemapJSON('map', 'assets/tilemaps/maps/dangerous-kiss.json');
 }
 
 function create ()
 {
-    //  Because, pixel art
-    this.textures.get('tiles').setFilter(1);
+    var map = this.make.tilemap({ key: 'map' });
 
-    var mapData = this.cache.json.get('map').layers[0].data;
+    // The map was created with 8x8 tiles, but we want to load it with a 2x high resolution tileset
+    map.setTileSize(16, 16);
 
-    //  Offset by 1 (because Tiled for some reason exports starting from 1 not zero)
-
-    mapData.forEach(function (current, index, array) {
-        mapData[index] = current - 1;
-    });
-
-    // var map = this.add.staticTilemap(mapData, 0, 0, 16, 16, 192, 154, 0, 'tiles');
-
-    var map = this.add.tilemap(mapData, 0, 0, 16, 16, 192, 154, 0, 'tiles');
-
-    // map.skipIndexZero = false;
+    var tileset = map.addTilesetImage('DangerousKiss_bank.png', 'tiles');
+    var layer = map.createStaticLayer('ShoeBox Tile Grab', tileset, 0, 0);
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -55,7 +47,7 @@ function create ()
 
     controls = this.cameras.addSmoothedKeyControl(controlConfig);
 
-    // this.cameras.main.setBounds(0, 0, 2272, 1864);
+    this.cameras.main.setBounds(0, 0, layer.width, layer.height);
 }
 
 function update (time, delta)

@@ -1,4 +1,4 @@
-let config = {
+var config = {
     width: 800,
     height: 600,
     resolution: 1,
@@ -15,10 +15,10 @@ let config = {
     }
 };
 
-let t = 0;
-let game = new Phaser.Game(config);
-let width = 40;
-let height = 38;
+var t = 0;
+var game = new Phaser.Game(config);
+var width = 40;
+var height = 38;
 
 function preload ()
 {
@@ -28,11 +28,13 @@ function preload ()
 function create ()
 {
     // Build a random level as a 2D array
-    const level = [];
-    for (let y = 0; y < height; y++) {
-        const row = [];
-        for (let x = 0; x < width; x++) {
-            const tileIndex = Phaser.Math.RND.integerInRange(0, 6);
+    var level = [];
+    for (var y = 0; y < height; y++)
+    {
+        var row = [];
+        for (var x = 0; x < width; x++)
+        {
+            var tileIndex = Phaser.Math.RND.integerInRange(0, 6);
             row.push(tileIndex);
         }
         level.push(row);

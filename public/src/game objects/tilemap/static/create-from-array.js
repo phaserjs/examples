@@ -1,4 +1,4 @@
-let config = {
+var config = {
     type: Phaser.AUTO,
     width: 11 * 16, // Number of tiles * size of the tile
     height: 10 * 16,
@@ -11,7 +11,7 @@ let config = {
     }
 };
 
-const game = new Phaser.Game(config);
+var game = new Phaser.Game(config);
 
 function preload ()
 {
@@ -21,7 +21,7 @@ function preload ()
 function create ()
 {
     // Load a map from a 2D array of tile indices
-    const level = [
+    var level = [
       [  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 ],
       [  0,  1,  2,  3,  0,  0,  0,  1,  2,  3,  0 ],
       [  0,  5,  6,  7,  0,  0,  0,  5,  6,  7,  0 ],
@@ -36,7 +36,7 @@ function create ()
     ]
 
     // When loading from an array, make sure to specify the tileWidth and tileHeight
-    const map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
-    const tiles = map.addTilesetImage('mario-tiles');
-    const layer = map.createStaticLayer(0, tiles, 0, 0);
+    var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
+    var tiles = map.addTilesetImage('mario-tiles');
+    var layer = map.createStaticLayer(0, tiles, 0, 0);
 }

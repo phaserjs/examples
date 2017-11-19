@@ -36,9 +36,9 @@ function create ()
     var cursors = this.input.keyboard.createCursorKeys();
 
     smallCamera = this.cameras.add(800 - 320, 20, 300, 300);
-
     smallCamera.rotation = 0.2;
     smallCamera.zoom = 0.5;
+    smallCamera.setBackgroundColor('rgba(0, 0, 0, 1)');
 
     var controlConfig = {
         camera: smallCamera,

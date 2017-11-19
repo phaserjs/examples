@@ -10,7 +10,7 @@
         }
     </style>
     <script src="./js/TweenMax.min.js"></script>
-    <script src="./build/dev.js"></script>
+    <script src="./js/getQueryString.js"></script>
 </head>
 
 <body>
@@ -25,11 +25,18 @@
     {
         _isAlive = true;
 
-        //  The iFrame is now alive, so let's ping the editor to get the source code to run
-
         var i = window.top;
+        var phaserVersion = getQueryString('v', 'dev', i.location);
+        var phaserScript = document.createElement('script');
 
-        i.postMessage('getCode', '*');
+        phaserScript.onload = function () {
+            i.postMessage('getCode', '*');
+        };
+
+        phaserScript.type = 'text/javascript';
+        phaserScript.src = './build/' + phaserVersion + '.js';
+
+        document.head.appendChild(phaserScript);
     }
 
     window.addEventListener('message', function (event) {

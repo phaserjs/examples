@@ -1,14 +1,16 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 640,
     height: 480,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
+var checker;
 var game = new Phaser.Game(config);
 
 function drawStar (graphics, cx, cy, spikes, outerRadius, innerRadius, color, lineColor)
@@ -18,6 +20,7 @@ function drawStar (graphics, cx, cy, spikes, outerRadius, innerRadius, color, li
     var y = cy;
     var step = Math.PI / spikes;
 
+    graphics.save();
     graphics.lineStyle(4, lineColor, 1);
     graphics.fillStyle(color, 1);
     graphics.beginPath();
@@ -40,6 +43,7 @@ function drawStar (graphics, cx, cy, spikes, outerRadius, innerRadius, color, li
     graphics.closePath();
     graphics.fillPath();
     graphics.strokePath();
+    graphics.restore();
 }
 
 
@@ -51,9 +55,9 @@ function preload() {
 
 function create() {
 
-    var shape = this.add.graphics();
+    var shape = this.make.graphics();
 
-    var checker = this.make.image({
+    checker = this.make.image({
         x: game.config.width / 2,
         y: game.config.height / 2,
         key: 'checker',
@@ -82,4 +86,11 @@ function create() {
 
     });
 
+}
+
+var t = 0.0;
+function update()
+{
+    checker.x += Math.sin(t) * 1;
+    t += 0.01;
 }

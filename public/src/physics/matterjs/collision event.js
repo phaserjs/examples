@@ -32,8 +32,6 @@ function create ()
 
     var blockB = this.physics.add.image(600, 300, 'block').setStatic(true);
 
-    console.log(blockA.body);
-
     blockA.setVelocityX(10);
 
     this.physics.world.events.on('COLLISION_START_EVENT', function (event) {

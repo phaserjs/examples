@@ -5,13 +5,7 @@ var config = {
     backgroundColor: '#1b1464',
     parent: 'phaser-example',
     physics: {
-        default: 'matter',
-        matter: {
-            gravity: {
-                x: 0,
-                y: 1
-            }
-        }
+        default: 'matter'
     },
     scene: {
         preload: preload,
@@ -36,20 +30,13 @@ function create ()
     block = this.physics.add.image(400, 50, 'block', null, { ignoreGravity: true });
     block.setFixedRotation();
     block.setMass(500);
-    block.setCollisionCategory(this.physics.world.nextCategory());
-
-    //  Create a chain 100px between each segment
 
     var y = 150;
     var prev = block;
-    var cat = this.physics.world.nextCategory();
 
     for (var i = 0; i < 14; i++)
     {
-        var ball = this.physics.add.image(400, y, 'ball', null, { isCircle: true });
-
-        ball.setCollisionCategory(cat);
-        ball.setMass(0.1);
+        var ball = this.physics.add.image(400, y, 'ball', null, { isCircle: true, mass: 0.1 });
 
         this.physics.add.joint(prev, ball, (i === 0) ? 90 : 40, 0.4);
 

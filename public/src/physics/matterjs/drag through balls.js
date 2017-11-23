@@ -31,7 +31,7 @@ function create ()
 
     for (var i = 0; i < 256; i++)
     {
-        var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(200, 400), 'blue', null, { isCircle: true, radius: 16, ignorePointer: true });
+        var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(200, 400), 'blue', null, { isCircle: true, radius: 16, ignorePointer: false });
 
         ball.setScale(0.7);
         ball.setBlendMode('ADD');

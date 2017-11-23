@@ -45,6 +45,8 @@ function create ()
         y += 18;
     }
 
+    this.physics.add.mouseSpring();
+
     cursors = this.input.keyboard.createCursorKeys();
 }
 

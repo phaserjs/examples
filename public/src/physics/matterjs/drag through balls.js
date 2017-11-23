@@ -7,11 +7,7 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            enableSleeping: true,
-            gravity: {
-                x: 0,
-                y: 1
-            }
+            enableSleeping: true
         }
     },
     scene: {
@@ -35,16 +31,16 @@ function create ()
 
     for (var i = 0; i < 256; i++)
     {
-        var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(0, 100), 'blue', null, { isCircle: true, radius: 16, ignorePointer: true });
+        var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(200, 400), 'blue', null, { isCircle: true, radius: 16, ignorePointer: true });
 
-        ball.setScale(0.5);
+        ball.setScale(0.7);
         ball.setBlendMode('ADD');
         ball.setFriction(0.005);
         ball.setBounce(0.8);
-        ball.setMass(3);
+        ball.setMass(1);
     }
 
-    this.physics.add.image(400, 100, 'block', null, { chamfer: 16 }).setBounce(0.8);
+    this.physics.add.image(400, 0, 'block').setBounce(0.8).setMass(60);
 
     this.physics.add.mouseSpring();
 }

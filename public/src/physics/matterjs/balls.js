@@ -22,7 +22,6 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('ball', 'assets/sprites/pangball.png');
-    this.load.image('platform', 'assets/sprites/platform.png');
 }
 
 function create ()

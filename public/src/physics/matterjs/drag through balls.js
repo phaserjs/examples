@@ -7,7 +7,7 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            enableSleeping: true
+            enableSleeping: false
         }
     },
     scene: {
@@ -29,7 +29,7 @@ function create ()
 {
     this.physics.world.setBounds(0, 0, 800, 550);
 
-    for (var i = 0; i < 256; i++)
+    for (var i = 0; i < 512; i++)
     {
         var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(200, 400), 'blue', null, { isCircle: true, radius: 16, ignorePointer: false });
 

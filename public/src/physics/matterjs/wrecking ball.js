@@ -25,7 +25,11 @@ function create ()
 {
     this.physics.world.setBounds();
 
-    var stack = this.physics.add.imageStack('crate32', null, 300, 50, 5, 18, 30, 0, { mass: 0.1 });
+    //  Increase the solver steps from the default to aid with the stack
+    this.physics.world.engine.positionIterations = 30;
+    this.physics.world.engine.velocityIterations = 30;
+
+    var stack = this.physics.add.imageStack('crate32', null, 300, 50, 5, 18, 30, 0, { mass: 0.5 });
 
     this.physics.add.mouseSpring();
 }

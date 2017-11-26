@@ -26,51 +26,17 @@ function preload ()
     ]);
 }
 
-var markers = [{
-    name: 'alien death',
-    start: 1,
-    duration: 1.0,
-    config: {}
-}, {
-    name: 'boss hit',
-    start: 3,
-    duration: 0.5,
-    config: {}
-}, {
-    name: 'escape',
-    start: 4,
-    duration: 3.2,
-    config: {}
-}, {
-    name: 'meow',
-    start: 8,
-    duration: 0.5,
-    config: {}
-}, {
-    name: 'numkey',
-    start: 9,
-    duration: 0.1,
-    config: {}
-}, {
-    name: 'ping',
-    start: 10,
-    duration: 1.0,
-    config: {}
-}, {
-    name: 'death',
-    start: 12,
-    duration: 4.2,
-    config: {}
-}, {
-    name: 'shot',
-    start: 17,
-    duration: 1.0,
-    config: {}
-}, {
-    name: 'squit',
-    start: 19,
-    duration: 0.3
-}];
+var markers = [
+    { name: 'alien death', start: 1, duration: 1.0, config: {} },
+    { name: 'boss hit', start: 3, duration: 0.5, config: {} },
+    { name: 'escape', start: 4, duration: 3.2, config: {} },
+    { name: 'meow', start: 8, duration: 0.5, config: {} },
+    { name: 'numkey', start: 9, duration: 0.1, config: {} },
+    { name: 'ping', start: 10, duration: 1.0, config: {} },
+    { name: 'death', start: 12, duration: 4.2, config: {} },
+    { name: 'shot', start: 17, duration: 1.0, config: {} },
+    { name: 'squit', start: 19, duration: 0.3, config: {} }
+];
 
 function create ()
 {
@@ -101,11 +67,12 @@ function create ()
     });
     this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event)
     {
-        var markerName = event.gameObject.name;
+        var button = event.gameObject;
+        var markerName = button.name;
 
         sounds[markerName].play(markerName);
 
-        setButtonFrame(event.gameObject, 2);
+        setButtonFrame(button, 2);
     });
     this.input.events.on('GAME_OBJECT_UP_EVENT', function (event)
     {
@@ -115,10 +82,9 @@ function create ()
 
 function makeButton(name, x, y)
 {
-    var button = this.add.image(x, y, 'button', 0).setInteractive();
+    var button = this.add.image(x, y, 'button', 1).setInteractive();
     button.name = name;
-    button.scaleX = 2;
-    button.scaleY = 1.5;
+    button.setScale(2, 1.5);
 
     var text = this.add.bitmapText(x - 40, y - 8, 'nokia', name, 16);
     text.x += (button.width - text.width) / 2;

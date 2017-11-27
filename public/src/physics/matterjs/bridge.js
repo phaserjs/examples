@@ -10,7 +10,8 @@ var config = {
             gravity: {
                 y: 0.8
             },
-            debug: true
+            debug: true,
+            debugBodyColor: 0xffffff
         }
     },
     scene: {

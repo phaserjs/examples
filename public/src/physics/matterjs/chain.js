@@ -34,11 +34,11 @@ function create ()
     var y = 150;
     var prev = block;
 
-    for (var i = 0; i < 14; i++)
+    for (var i = 0; i < 12; i++)
     {
-        var ball = this.physics.add.image(400, y, 'ball', null, { isCircle: true, mass: 0.1 });
+        var ball = this.physics.add.image(400, y, 'ball', null, { shape: 'circle', mass: 0.1 });
 
-        this.physics.add.joint(prev, ball, (i === 0) ? 90 : 40, 0.4);
+        this.physics.add.joint(prev, ball, (i === 0) ? 90 : 35, 0.4);
 
         prev = ball;
 

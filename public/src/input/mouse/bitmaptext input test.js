@@ -44,7 +44,7 @@ function create ()
     }
 
     //  Track movement
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
         mouse.x = event.x;
         mouse.y = event.y;

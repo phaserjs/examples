@@ -26,8 +26,8 @@ function create ()
 
     //  Our two bodies which will be connected by a constraint (aka a Joint or a Spring)
 
-    var ballA = this.physics.add.image(420, 100, 'ball', null, { isCircle: true, friction: 0.005, restitution: 0.6 });
-    var ballB = this.physics.add.image(400, 200, 'ball', null, { isCircle: true, friction: 0.005, restitution: 0.6 });
+    var ballA = this.physics.add.image(420, 100, 'ball', null, { shape: 'circle', friction: 0.005, restitution: 0.6 });
+    var ballB = this.physics.add.image(400, 200, 'ball', null, { shape: 'circle', friction: 0.005, restitution: 0.6 });
 
     //  You can create a constraint between the two bodies using a Factory function.
     //  The value 100 is the resting length and 0.2 is the stiffness of the constraint.
@@ -52,4 +52,6 @@ function create ()
     //  Which you then have to add to the world yourself:
 
     // this.physics.world.add(constraint);
+
+    this.physics.add.mouseSpring();
 }

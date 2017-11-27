@@ -5,9 +5,7 @@ var config = {
     backgroundColor: '#1b1464',
     parent: 'phaser-example',
     physics: {
-        default: 'matter',
-        matter: {
-        }
+        default: 'matter'
     },
     scene: {
         preload: preload,
@@ -28,15 +26,17 @@ function preload ()
 
 function create ()
 {
-    ball = this.physics.add.image(50, 0, 'ball', null, { isCircle: true });
+    ball = this.physics.add.image(50, 0, 'ball');
 
+    ball.setCircle();
     ball.setFriction(0.005);
     ball.setBounce(0.6);
     ball.setVelocityX(1);
     ball.setAngularVelocity(0.15);
 
-    var ground = this.physics.add.image(400, 400, 'platform', null, { isStatic: true });
+    var ground = this.physics.add.image(400, 400, 'platform');
 
+    ground.setStatic(true);
     ground.setScale(2, 0.5);
     ground.setAngle(10);
     ground.setFriction(0.005);

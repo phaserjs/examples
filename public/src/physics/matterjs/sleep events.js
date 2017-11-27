@@ -31,7 +31,8 @@ function create ()
         delay: 500,
         callback: function ()
         {
-            var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball', null, { isCircle: true });
+            var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball');
+            ball.setCircle();
             ball.setFriction(0.005).setBounce(1);
             ball.setSleepEvents(true, true);
         },

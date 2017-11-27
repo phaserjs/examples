@@ -36,17 +36,16 @@ function create ()
 
     this.physics.world.setBounds();
 
-    this.physics.world.engine.positionIterations = 30;
-    this.physics.world.engine.velocityIterations = 30;
-
     this.physics.add.imageStack('alien', null, 0, 500, 50, 2, 0, 0, {
         mass: 0.5,
         ignorePointer: true
     });
 
     var sun = this.physics.add.image(400, 200, 'sun', null, {
-        isCircle: true,
-        radius: 64,
+        shape: {
+            type: 'circle',
+            radius: 64
+        },
         plugin: {
             attractors: [
                 function (bodyA, bodyB) {

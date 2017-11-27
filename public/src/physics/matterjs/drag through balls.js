@@ -2,13 +2,10 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#1d1d1d',
+    backgroundColor: '#000000',
     parent: 'phaser-example',
     physics: {
-        default: 'matter',
-        matter: {
-            enableSleeping: false
-        }
+        default: 'matter'
     },
     scene: {
         preload: preload,
@@ -21,7 +18,6 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('block', 'assets/sprites/block.png');
-    this.load.image('ball', 'assets/sprites/pangball.png');
     this.load.image('blue', 'assets/particles/blue.png');
 }
 
@@ -29,15 +25,20 @@ function create ()
 {
     this.physics.world.setBounds(0, 0, 800, 550);
 
-    for (var i = 0; i < 512; i++)
+    for (var i = 0; i < 256; i++)
     {
-        var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(200, 400), 'blue', null, { isCircle: true, radius: 16, ignorePointer: false });
+        var particle = this.physics.add.image(
+            Phaser.Math.Between(0, 800),
+            Phaser.Math.Between(0, 400),
+            'blue', null,
+            { shape: { type: 'polygon', radius: 18 }, ignorePointer: true }
+        );
 
-        ball.setScale(0.7);
-        ball.setBlendMode('ADD');
-        ball.setFriction(0.005);
-        ball.setBounce(0.8);
-        ball.setMass(1);
+        particle.setScale(0.8);
+        particle.setBlendMode('ADD');
+        particle.setFriction(0.005);
+        particle.setBounce(0.8);
+        particle.setMass(1);
     }
 
     this.physics.add.image(400, 0, 'block').setBounce(0.8).setMass(60);

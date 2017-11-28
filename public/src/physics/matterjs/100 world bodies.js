@@ -52,7 +52,7 @@ function create ()
         }
     }
 
-    // this.physics.add.mouseSpring();
+    this.physics.add.mouseSpring();
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -70,6 +70,9 @@ function create ()
     };
 
     controls = this.cameras.addSmoothedKeyControl(controlConfig);
+
+    // this.cameras.main.setZoom(0.8);
+    // this.cameras.main.setRotation(Phaser.Math.DegToRad(10));
 
     this.add.text(0, 0, 'Use Cursors to scroll camera.\nQ / E to zoom in and out', { font: '18px Courier', fill: '#00ff00' });
 }

@@ -71,10 +71,45 @@ function create ()
 
     controls = this.cameras.addSmoothedKeyControl(controlConfig);
 
-    // this.cameras.main.setZoom(0.8);
-    this.cameras.main.setRotation(Phaser.Math.DegToRad(10));
+    this.input.keyboard.events.on('KEY_DOWN_Z', function (event) {
 
-    this.add.text(0, 0, 'Use Cursors to scroll camera.\nQ / E to zoom in and out', { font: '18px Courier', fill: '#00ff00' });
+        this.cameras.main.rotation += 0.01;
+
+    }, 0, this);
+
+    this.input.keyboard.events.on('KEY_DOWN_X', function (event) {
+
+        this.cameras.main.rotation -= 0.01;
+
+    }, 0, this);
+
+    var cam = this.cameras.main;
+
+    gui = new dat.GUI();
+
+    var p1 = gui.addFolder('Pointer');
+    p1.add(this.input, 'x').listen();
+    p1.add(this.input, 'y').listen();
+    p1.open();
+
+    var help = {
+        line1: 'Cursors to move',
+        line2: 'Q & E to zoom',
+        line3: 'Z & X to rotate',
+    }
+
+    var f1 = gui.addFolder('Camera');
+    f1.add(cam, 'x').listen();
+    f1.add(cam, 'y').listen();
+    f1.add(cam, 'scrollX').listen();
+    f1.add(cam, 'scrollY').listen();
+    f1.add(cam, 'rotation').min(0).step(0.01).listen();
+    f1.add(cam, 'zoom', 0.1, 2).step(0.1).listen();
+    f1.add(help, 'line1');
+    f1.add(help, 'line2');
+    f1.add(help, 'line3');
+    f1.open();
+
 }
 
 function update (time, delta)

@@ -24,7 +24,7 @@ function create ()
 
     var blocks = this.add.group({ key: 'block', repeat: 191 });
 
-    blocks.gridAlign({
+    Phaser.Actions.GridAlign(blocks.getChildren(), {
         width: 16,
         cellWidth: 50,
         cellHeight: 50,

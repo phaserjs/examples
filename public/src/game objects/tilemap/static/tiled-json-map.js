@@ -46,8 +46,9 @@ function create ()
     };
     controls = this.cameras.addKeyControl(controlConfig);
 
-    var help = this.add.text(16, 16, ' Arrow keys to scroll ', {
-        font: '20px Arial',
+    var help = this.add.text(16, 16, 'Arrow keys to scroll', {
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
         backgroundColor: '#000000',
         fill: '#ffffff'
     });

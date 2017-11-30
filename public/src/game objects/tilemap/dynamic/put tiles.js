@@ -56,15 +56,13 @@ function create ()
     marker.lineStyle(2, 0x000000, 1);
     marker.strokeRect(0, 0, map.tileWidth * layer.scaleX, map.tileHeight * layer.scaleY);
 
-    var textBg = this.add.graphics();
     var helpText = this.add.text(16, 16, getHelpMessage(), {
-        font: '20px Arial',
-        fill: '#ffffff'
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
+        fill: '#ffffff',
+        backgroundColor: '#000000'
     });
     helpText.setScrollFactor(0);
-    textBg.fillStyle(0x000000, 0.92)
-        .fillRect(0, 0, helpText.width + 40, helpText.height + 40)
-        .setScrollFactor(0);
 }
 
 function update (time, delta)

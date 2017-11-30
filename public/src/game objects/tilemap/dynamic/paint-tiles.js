@@ -59,8 +59,9 @@ function create ()
 
     shiftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
-    var help = this.add.text(16, 16, ' Left-click to paint. Shift + Left-click to select tile. Arrows to scroll. ', {
-        font: '20px Arial',
+    var help = this.add.text(16, 16, 'Left-click to paint.\nShift + Left-click to select tile.\nArrows to scroll.', {
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
         backgroundColor: '#000000',
         fill: '#ffffff'
     });

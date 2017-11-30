@@ -51,8 +51,9 @@ function create ()
         debugGraphics.visible = !debugGraphics.visible;
     });
 
-    var help = this.add.text(16, 16, ' Click to toggle rendering collision information. ', {
-        font: '20px Arial',
+    var help = this.add.text(16, 16, 'Click to toggle rendering collision information.', {
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
         backgroundColor: '#000000',
         fill: '#ffffff'
     });

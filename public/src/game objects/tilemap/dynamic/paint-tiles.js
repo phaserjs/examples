@@ -36,7 +36,7 @@ function create ()
     // You can load a layer from the map using the layer name from Tiled ('Ground' in this case), or
     // by using the layer index. Since we are going to be manipulating the map, this needs to be a
     // dynamic tilemap layer, not a static one.
-    map.createDynamicLayer('Ground', tiles, 0, 0);
+    var layer = map.createDynamicLayer('Ground', tiles, 0, 0);
 
     selectedTile = map.getTileAt(2, 3);
 
@@ -71,11 +71,15 @@ function update (time, delta)
 {
     controls.update(delta);
 
-    var pointerTileX = map.worldToTileX(this.input.x);
-    var pointerTileY = map.worldToTileY(this.input.y);
+    var worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
 
-    marker.x = pointerTileX * map.tileWidth;
-    marker.y = pointerTileY * map.tileHeight;
+    // Rounds down to nearest tile
+    var pointerTileX = map.worldToTileX(worldPoint.x);
+    var pointerTileY = map.worldToTileY(worldPoint.y);
+
+    // Snap to tile coordinates, but in world space
+    marker.x = map.tileToWorldX(pointerTileX);
+    marker.y = map.tileToWorldY(pointerTileY);
 
     if (this.input.manager.activePointer.isDown)
     {

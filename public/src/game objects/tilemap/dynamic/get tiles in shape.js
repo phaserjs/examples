@@ -33,6 +33,8 @@ function create ()
     var tiles = map.addTilesetImage('cybernoid');
     var layer = map.createDynamicLayer(0, tiles);
 
+    layer.setScale(1.25, 1.25);
+
     graphics = this.add.graphics({
         lineStyle: { width: 2, color: 0xa8fff2 },
         fillStyle: { color: 0xa8fff2 }
@@ -41,19 +43,19 @@ function create ()
     map.setCollisionByExclusion(7);
 
     this.input.keyboard.events.on('KEY_DOWN_ONE', function (event) {
-        selectedShape = "rectangle";
+        selectedShape = 'rectangle';
     });
 
     this.input.keyboard.events.on('KEY_DOWN_TWO', function (event) {
-        selectedShape = "line";
+        selectedShape = 'line';
     });
 
     this.input.keyboard.events.on('KEY_DOWN_THREE', function (event) {
-        selectedShape = "circle";
+        selectedShape = 'circle';
     });
 
     this.input.keyboard.events.on('KEY_DOWN_FOUR', function (event) {
-        selectedShape = "triangle";
+        selectedShape = 'triangle';
     });
 
     this.input.keyboard.events.on('KEY_DOWN_C', function (event) {

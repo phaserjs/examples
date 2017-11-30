@@ -27,7 +27,7 @@ function create ()
 
     // The first parameter is the name of the tileset in Tiled and the second parameter is the key
     // of the tileset image used when loading the file in preload.
-    var tiles = map.addTilesetImage('CybernoidMap3BG_bank.png', 'tiles');
+    var tiles = map.addTilesetImage('cybernoid', 'tiles');
 
     // You can load a layer from the map using the layer name from Tiled, or by using the layer
     // index (0 in this case).

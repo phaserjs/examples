@@ -29,8 +29,8 @@ function create() {
         add: true
     });
 
-    var phaser2 = this.add.text(100, 300, 'PHASER').setFont('128px Arial').setFill('#ffff00').setAlign('center');
-    var text = this.add.text(100, 300, 'PHASER').setFont('128px Impact').setFill('#ff0000').setAlign('center');
+    var phaser2 = this.add.text(100, 300, 'PHASER').setFont('128px Arial').setColor('#ffff00').setAlign('center');
+    var text = this.add.text(100, 300, 'PHASER').setFont('128px Impact').setColor('#ff0000').setAlign('center');
     phaser2.setOrigin(0.5);
 
     text.mask = new Phaser.Display.Masks.BitmapMask(this, phaser2);

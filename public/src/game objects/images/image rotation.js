@@ -21,7 +21,7 @@ function preload() {
 function create() {
 
     image = this.add.image(300, 300, 'eye');
-
+    image.setScale(4.0);
     console.log(image.angle, image.rotation);
 
     this.input.keyboard.addKeyCapture(32);

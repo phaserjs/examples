@@ -58,7 +58,7 @@ function update (time, delta)
         var worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
         var tile = map.getTileAtWorldXY(worldPoint.x, worldPoint.y);
 
-        // This will replace all instances of the selected tile with a plant.
+        // This will replace all instances of the selected tile with a plant (tile id = 38).
         map.replaceByIndex(tile.index, 38);
 
         // You can also replace within a specific region (tileX, tileY, width, height):

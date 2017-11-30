@@ -17,10 +17,11 @@ function create()
     var config1 = {
         x: 100,
         y: 100,
-        text: 'Phaser 3\nCreate from config',
+        text: 'Text\nGame Object\nCreated from config',
         style: {
-            font: '64px Arial',
-            fill: '#ffffff',
+            fontSize: '64px',
+            fontFamily: 'Arial',
+            color: '#ffffff',
             align: 'center',
             backgroundColor: '#ff00ff'
         }

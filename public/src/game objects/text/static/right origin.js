@@ -17,8 +17,8 @@ function create()
     graphics.lineStyle(1, 0xffffff, 1);
     graphics.lineBetween(400, 0, 400, 600);
 
-    this.add.text(400, 200, 'His ugliness was the stuff of legend.', { font: '16px Courier', fill: '#00ff00' });
+    this.add.text(400, 200, 'His ugliness was the stuff of legend.', { color: '#00ff00' });
 
-    //  To right-align a single line of text, use the origin:
-    this.add.text(400, 400, 'His ugliness was the stuff of legend.', { font: '16px Courier', fill: '#00ff00' }).setOrigin(1, 0);
+    //  To right-align a _single_ line of text, use the origin:
+    this.add.text(400, 400, 'His ugliness was the stuff of legend.', { color: '#00ff00' }).setOrigin(1, 0);
 }

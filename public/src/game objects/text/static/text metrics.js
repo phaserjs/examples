@@ -21,8 +21,9 @@ function create()
         y: 100,
         text: 'Phaser III',
         style: {
-            font: '48px Arial',
-            fill: '#ffffff',
+            fontSize: '48px',
+            fontFamily: 'Arial',
+            color: '#ffffff',
             metrics: {
                 ascent: 45,
                 descent: 10,

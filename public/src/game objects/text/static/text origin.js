@@ -18,7 +18,7 @@ function create()
 {
     var graphics = this.add.graphics();
 
-    text = this.add.text(400, 300, 'Phaser 3 - 0', { font: '64px Arial', fill: '#ffff00' });
+    text = this.add.text(400, 300, 'Phaser 3 - 0', { fontFamily: 'Arial', fontSize: 64, color: '#ffff00' });
 
     text.setOrigin(0.5);
 

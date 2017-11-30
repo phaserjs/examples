@@ -35,5 +35,5 @@ function create()
         "From Neuromancer by William Gibson"
     ];
 
-    this.add.text(100, 100, content, { font: '16px Arial', fill: '#00ff00', align: 'right' });
+    this.add.text(100, 100, content, { fontFamily: 'Arial', color: '#00ff00', align: 'right' });
 }

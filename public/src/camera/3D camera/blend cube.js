@@ -47,7 +47,7 @@ function create ()
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+    text = this.add.text(10, 10, '', { font: '16px Courier', color: '#00ff00' });
 
     xAxis = new Phaser.Math.Vector3(1, 0, 0);
     yAxis = new Phaser.Math.Vector3(0, 1, 0);

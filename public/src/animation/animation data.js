@@ -52,7 +52,7 @@ function create ()
 
     //  Debug text
 
-    progress = this.add.text(100, 500, 'Progress: 0%', { fill: '#00ff00' });
+    progress = this.add.text(100, 500, 'Progress: 0%', { color: '#00ff00' });
 
     this.input.events.on('KEY_DOWN_SPACE', function (event) {
 

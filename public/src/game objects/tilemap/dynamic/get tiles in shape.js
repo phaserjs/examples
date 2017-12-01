@@ -18,7 +18,7 @@ var p2 = null;
 var map;
 var controls;
 var graphics;
-var selectedShape = 'triangle';
+var selectedShape = 'rectangle';
 var onlyColliding = false;
 
 function preload ()
@@ -33,6 +33,8 @@ function create ()
     var tiles = map.addTilesetImage('cybernoid');
     var layer = map.createDynamicLayer(0, tiles);
 
+    layer.setScale(1.25, 1.25);
+
     graphics = this.add.graphics({
         lineStyle: { width: 2, color: 0xa8fff2 },
         fillStyle: { color: 0xa8fff2 }
@@ -41,19 +43,19 @@ function create ()
     map.setCollisionByExclusion(7);
 
     this.input.keyboard.events.on('KEY_DOWN_ONE', function (event) {
-        selectedShape = "rectangle";
+        selectedShape = 'rectangle';
     });
 
     this.input.keyboard.events.on('KEY_DOWN_TWO', function (event) {
-        selectedShape = "line";
+        selectedShape = 'line';
     });
 
     this.input.keyboard.events.on('KEY_DOWN_THREE', function (event) {
-        selectedShape = "circle";
+        selectedShape = 'circle';
     });
 
     this.input.keyboard.events.on('KEY_DOWN_FOUR', function (event) {
-        selectedShape = "triangle";
+        selectedShape = 'triangle';
     });
 
     this.input.keyboard.events.on('KEY_DOWN_C', function (event) {
@@ -74,15 +76,13 @@ function create ()
     };
     controls = this.cameras.addKeyControl(controlConfig);
 
-    var textBg = this.add.graphics();
     var helpText = this.add.text(16, 16, getHelpMessage(), {
-        font: '20px Arial',
-        fill: '#ffffff'
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
+        fill: '#ffffff',
+        backgroundColor: '#000000'
     });
     helpText.setScrollFactor(0);
-    textBg.fillStyle(0x000000, 0.92)
-        .fillRect(0, 0, helpText.width + 40, helpText.height + 40)
-        .setScrollFactor(0);
 }
 
 function update (time, delta)

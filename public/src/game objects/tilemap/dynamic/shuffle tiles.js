@@ -46,7 +46,9 @@ function create ()
     };
     controls = this.cameras.addKeyControl(controlConfig);
 
-    var help = this.add.text(16, 16, ' Left-click to shuffle tiles. ', {
+    var help = this.add.text(16, 16, 'Left-click to shuffle tiles.', {
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
         font: '20px Arial',
         backgroundColor: '#000000',
         fill: '#ffffff'

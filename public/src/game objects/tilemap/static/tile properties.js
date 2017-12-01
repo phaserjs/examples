@@ -40,7 +40,7 @@ function create ()
     help.setScrollFactor(0);
 
     propertiesText = this.add.text(16, 540, 'Properties: ', {
-        font: '20px Arial',
+        fontSize: '18px',
         fill: '#ffffff'
     });
 }

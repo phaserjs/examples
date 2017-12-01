@@ -41,8 +41,9 @@ function create ()
     };
     controls = this.cameras.addKeyControl(controlConfig);
 
-    var help = this.add.text(16, 16, ' Click a tile to swap all instances of it with a sign. ', {
-        font: '20px Arial',
+    var help = this.add.text(16, 16, 'Click a tile to swap all instances of it with a sign.', {
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
         backgroundColor: '#000000',
         fill: '#ffffff'
     });

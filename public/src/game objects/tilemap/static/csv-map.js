@@ -42,7 +42,7 @@ function create ()
     controls = this.cameras.addKeyControl(controlConfig);
 
     var help = this.add.text(16, 16, 'Arrow keys to scroll', {
-        font: '20px Arial',
+        fontSize: '18px',
         fill: '#ffffff'
     });
     help.setScrollFactor(0);

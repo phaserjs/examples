@@ -65,14 +65,13 @@ function create ()
 
     controls = this.cameras.addKeyControl(controlConfig);
 
-    var textBg = this.add.graphics();
-
-    helpText = this.add.bitmapText(16, 16, 'gothic', getHelpMessage(), 20);
+    helpText = this.add.text(16, 16, getHelpMessage(), {
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
+        backgroundColor: '#000000',
+        fill: '#ffffff'
+    });
     helpText.setScrollFactor(0);
-
-    textBg.fillStyle(0x000000, 0.8)
-        .fillRect(0, 0, helpText.width + 40, helpText.height + 40)
-        .setScrollFactor(0);
 
     drawDebug();
 }

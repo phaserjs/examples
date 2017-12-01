@@ -694,6 +694,35 @@ function testGettingTiles ()
     assert('forEachTile with all options should match getTilesWithin with all options',
         are1DArrayEqual(forEachArray, allOptions)
     );
+
+    // --- FINDING TILES ---
+
+    var level = [
+        [ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+        [ 9, 10, 11, 12],
+        [13, 14, 15, 16]
+    ]
+    var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
+    var tiles = map.addTilesetImage('mario-tiles');
+    var layer = map.createDynamicLayer(0, tiles, 600, 275);
+
+    layer.getTileAt(3, 3).alpha = 0.25;
+    layer.getTileAt(2, 2).alpha = 0.25;
+    layer.getTileAt(3, 3).setCollision(true);
+
+    assert('findTile for alpha 0.25 should return first tile with alpha 0.25 (ID 11)',
+        map.findTile(t => t.alpha === 0.25).index === 11
+    );
+
+    assert('findTile for non-existent ID should return null',
+        map.findTile(t => t.index === 3000) === null
+    );
+
+    var foundTile = map.findTile(t => t.alpha === 0.25, null, 0, 0, map.width, map.height, {
+        isColliding: true
+    });
+    assert('findTile for colliding, alpha 0.25 should return ID 16', foundTile.index === 16);
 }
 
 function testMakeAndAdd ()

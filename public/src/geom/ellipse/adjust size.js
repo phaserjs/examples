@@ -27,5 +27,5 @@ function create ()
         graphics.clear();
         graphics.strokeEllipseShape(ellipse, 64);
     
-    }, 0, this);
+    });
 }

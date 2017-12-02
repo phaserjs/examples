@@ -8,14 +8,11 @@ var Breakout = new Phaser.Class({
     {
         Phaser.Scene.call(this, { key: 'breakout' });
 
-        // this.brickCat = this.physics.world.nextCategory();
-        // this.ballCat = this.physics.world.nextCategory();
-
-        this.bricks = [];
-        this.bat;
+        this.bricks;
+        this.paddle;
         this.ball;
 
-        this.hitBrick = null;
+        this.ballOnPaddle = true;
     },
 
     preload: function ()
@@ -25,92 +22,77 @@ var Breakout = new Phaser.Class({
 
     create: function ()
     {
-        this.physics.world.setBounds();
+        this.physics.world.setBoundsCollision(true, true, true, false);
 
-        var brickFrames = [ 'blue1', 'red1', 'green1', 'yellow1', 'silver1', 'purple1' ];
-
-        //  Create the bricks
-
-        var bx = 112;
-        var by = 100;
-
-        for (var y = 0; y < 6; y++)
-        {
-            for (var x = 0; x < 10; x++)
-            {
-                var brick = this.physics.add.image(bx, by, 'assets', brickFrames[y], { isStatic: true });
-
-                brick.setName('brick');
-
-                // brick.setCollisionCategory(this.brickCat);
-
-                bx += 64;
-
-                this.bricks.push(brick);
-            }
-
-            bx = 112;
-            by += 32;
-        }
+        //  Create the bricks in a 10x6 grid
+        this.bricks = this.physics.add.staticGroup({
+            key: 'assets', frame: [ 'blue1', 'red1', 'green1', 'yellow1', 'silver1', 'purple1' ],
+            frameQuantity: 10,
+            gridAlign: { width: 10, height: 6, cellWidth: 64, cellHeight: 32, x: 112, y: 100 }
+        });
 
         //  Create a ball
-        this.ball = this.physics.add.image(400, 550, 'assets', 'ball1', { shape: 'circle' });
-        this.ball.name = 'ball';
-        this.ball.setFixedRotation();
-        this.ball.setBounce(1);
-        this.ball.setFriction(0);
-        this.ball.setFrictionStatic(0);
-        this.ball.setFrictionAir(0);
+        this.ball = this.physics.add.image(400, 500, 'assets', 'ball1').setCollideWorldBounds(true).setBounce(1);
 
-        // this.ball.setCollidesWith([ this.brickCat ]);
+        //  Create the paddle
+        this.paddle = this.physics.add.image(400, 550, 'assets', 'paddle1').setImmovable();
 
-        this.ball.setVelocity(3, -3);
+        //  Our colliders
+        this.physics.add.collider(this.ball, this.bricks, this.hitBrick);
+        this.physics.add.collider(this.ball, this.paddle, this.hitPaddle);
 
-        // this.physics.add.rectangle(200, 200, 100, 100, { 
-        //     chamfer: { radius: 20 }
-        // }),
+        //  Input events
+        this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+        
+            //  Keep the paddle within the game
+            this.paddle.x = Phaser.Math.Clamp(event.x, 52, 748);
 
-        this.physics.world.events.on('COLLISION_END_EVENT', function (event) {
-
-            var ball;
-            var brick;
-
-            console.log(event.bodyA);
-            console.log(event.bodyB);
-
-            if (event.bodyA.gameObject && event.bodyA.gameObject.name === 'ball')
+            if (this.ballOnPaddle)
             {
-                ball = event.bodyA.gameObject;
-
-                if (event.bodyB.gameObject && event.bodyB.gameObject.name === 'brick')
-                {
-                    brick = event.bodyB.gameObject;
-                }
+                this.ball.x = this.paddle.x;
             }
-            else if (event.bodyB.gameObject && event.bodyB.gameObject.name === 'ball')
+        
+        }, 0, this);
+
+        this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+        
+            if (this.ballOnPaddle)
             {
-                ball = event.bodyB.gameObject;
-
-                if (event.bodyA.gameObject && event.bodyA.gameObject.name === 'brick')
-                {
-                    brick = event.bodyA.gameObject;
-                }
+                this.ball.setVelocity(-75, -300);
+                this.ballOnPaddle = false;
             }
-
-            if (ball && brick && !this.hitBrick)
-            {
-                this.hitBrick = brick;
-            }
-
-        });
+        
+        }, 0, this);
     },
 
-    update: function ()
+    hitBrick: function (ball, brick)
     {
-        if (this.hitBrick)
+        brick.body.enable = false;
+        brick.active = false;
+        brick.visible = false;
+    },
+
+    hitPaddle: function (ball, paddle)
+    {
+        var diff = 0;
+
+        if (ball.x < paddle.x)
         {
-            this.hitBrick.destroy();
-            this.hitBrick = null;
+            //  Ball is on the left-hand side of the paddle
+            diff = paddle.x - ball.x;
+            ball.setVelocityX(-10 * diff);
+        }
+        else if (ball.x > paddle.x)
+        {
+            //  Ball is on the right-hand side of the paddle
+            diff = ball.x -paddle.x;
+            ball.setVelocityX(10 * diff);
+        }
+        else
+        {
+            //  Ball is perfectly in the middle
+            //  Add a little random X to stop it bouncing straight up!
+            ball.setVelocityX(2 + Math.random() * 8);
         }
     }
 
@@ -123,13 +105,7 @@ var config = {
     parent: 'phaser-example',
     scene: [ Breakout ],
     physics: {
-        default: 'matter',
-        matter: {
-            gravity: {
-                x: 0,
-                y: 0
-            }
-        }
+        default: 'arcade'
     }
 };
 

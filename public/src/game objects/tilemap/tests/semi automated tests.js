@@ -989,12 +989,12 @@ function testSelectingWithMultipleLayers ()
     var map = this.make.tilemap({ key: 'multiple-layers-map' });
     var tiles = map.addTilesetImage('kenny_platformer_64x64');
 
-    var layer1 = map.createStaticLayer('Tile Layer 1', tiles, 0, 0);
+    var layer1 = map.createStaticLayer(0, tiles, 0, 0);
     assert('layer1 should be selected after being created',
         map.layer === layer1.layer
     );
 
-    var layer2 = map.createStaticLayer('Tile Layer 2', tiles, 0, 0);
+    var layer2 = map.createStaticLayer(1, tiles, 0, 0);
     assert('layer1 should NOT be selected after layer 2 is created',
         map.layer !== layer1.layer
     );
@@ -1002,10 +1002,10 @@ function testSelectingWithMultipleLayers ()
         map.layer === layer2.layer
     );
 
-    var layer3 = map.createStaticLayer('Tile Layer 3', tiles, 0, 0);
-    var layer4 = map.createStaticLayer('Tile Layer 4', tiles, 0, 0);
+    var layer3 = map.createStaticLayer(2, tiles, 0, 0);
+    var layer4 = map.createStaticLayer(3, tiles, 0, 0);
 
-    map.setLayer('Tile Layer 1');
+    map.setLayer('Rock Layer');
     assert('Set layer should work with string',
         map.layer === layer1.layer
     );
@@ -1020,19 +1020,19 @@ function testSelectingWithMultipleLayers ()
         map.layer === layer3.layer
     );
 
-    map.layer = 'Tile Layer 4';
+    map.layer = 'Stuff Layer';
     assert('Layer getter should work with string',
         map.layer === layer4.layer
     );
 
     assert('(0, 0) from layer 1 should have tile id 10',
-        map.setLayer('Tile Layer 1').getTileAt(0, 0).index === 10
+        map.setLayer(0).getTileAt(0, 0).index === 10
     );
-    assert('(0, 0) from layer 1 should have tile id 10',
-        map.setLayer('Tile Layer 2').getTileAt(0, 0, false, layer1).index === 10
+    assert('(0, 0) from layer 2 should have tile id 10',
+        map.setLayer(1).getTileAt(0, 0, false, layer1).index === 10
     );
     assert('(1, 1) from layer 1 should be null',
-        map.setLayer('Tile Layer 1').getTileAt(1, 1) === null
+        map.setLayer(0).getTileAt(1, 1) === null
     );
     assert('(1, 24) from layer 2 should be tile id 7',
         map.setLayer(layer2).getTileAt(1, 24).index === 7

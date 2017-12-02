@@ -30,9 +30,9 @@ function create ()
     layer1.setScale(3);
 
     // Add a simple scene with some random element
-    layer1.fill(58, 0, 10, 25, 1); // Surface of the water
-    layer1.fill(77, 0, 11, 25, 2); // Body of the water
-    layer1.randomize(0, 0, 25, 10, [ 44, 45, 46, 47, 48 ]); // Wall above the water
+    layer1.fill(58, 0, 10, map.width, 1); // Surface of the water
+    layer1.fill(77, 0, 11, map.width, 2); // Body of the water
+    layer1.randomize(0, 0, map.width, 10, [ 44, 45, 46, 47, 48 ]); // Wall above the water
 
     // Place some random platforms
     layer1.putTilesAt([ 104, 105, 106, 107 ], integerInRange(0, 13), 1);

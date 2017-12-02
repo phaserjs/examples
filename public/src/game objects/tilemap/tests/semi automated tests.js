@@ -31,7 +31,7 @@ function preload()
     this.load.image('mario-tiles', 'assets/tilemaps/tiles/super-mario.png');
     this.load.image('tomato', 'assets/sprites/tomato.png');
     this.load.tilemapJSON('multiple-layers-map', 'assets/tilemaps/maps/multiple-layers.json');
-    this.load.image('kenny_platformer', 'assets/tilemaps/tiles/kenny_platformer.png');
+    this.load.image('kenny_platformer_64x64', 'assets/tilemaps/tiles/kenny_platformer_64x64.png');
     this.load.image('catastrophi-tiles', 'assets/tilemaps/tiles/catastrophi_tiles_16.png');
     this.load.tilemapCSV('catastrophi-level3', 'assets/tilemaps/csv/catastrophi_level3.csv');
     this.load.tilemapJSON('features-test-map', 'assets/tilemaps/maps/features-test.json');
@@ -987,7 +987,7 @@ function testManipulatingTiles()
 function testSelectingWithMultipleLayers ()
 {
     var map = this.make.tilemap({ key: 'multiple-layers-map' });
-    var tiles = map.addTilesetImage('kenny_platformer');
+    var tiles = map.addTilesetImage('kenny_platformer_64x64');
 
     var layer1 = map.createStaticLayer('Tile Layer 1', tiles, 0, 0);
     assert('layer1 should be selected after being created',

@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: 'phaser-example',
@@ -13,63 +13,27 @@ var game = new Phaser.Game(config);
 function create() 
 {
     var style = {
-        fontSize: '48px',
+        fontSize: '32px',
         fontFamily: 'Arial',
         color: '#ffffff',
         backgroundColor: '#ff00ff'
     };
 
-    //  16px padding around the whole Text object
-    var config1 = {
-        x: 100,
-        y: 50,
-        padding: 16,
-        text: 'Padding A',
-        style: style
-    };
+    //  16px padding around all sides
+    this.add.text(100, 10, 'Phaser', style).setPadding(16);
 
-    this.make.text(config1);
+    //  64px horizontal padding and 16px vertical padding
+    this.add.text(100, 110, 'Phaser', style).setPadding(64, 16);
 
-    //  32px padding on the left/right, 0 on the top/bottom
-    var config2 = {
-        x: 100,
-        y: 200,
-        padding: {
-            x: 32
-        },
-        text: 'Padding B',
-        style: style
-    };
+    //  The same again but specified in an object
+    this.add.text(100, 210, 'Phaser', style).setPadding({ x: 64, y: 16 });
 
-    this.make.text(config2);
+    //  16px vertical padding, 48px on the left and 128px on the right
+    this.add.text(100, 310, 'Phaser', style).setPadding({ y: 16, left: 48, right: 128 });
 
-    //  32px padding on the left/right, 16 on the top/bottom
-    var config3 = {
-        x: 100,
-        y: 300,
-        padding: {
-            x: 32,
-            y: 16
-        },
-        text: 'Padding C',
-        style: style
-    };
+    //  32px horizontal padding, 4px on the top and 16px on the bottom
+    this.add.text(100, 410, 'Phaser', style).setPadding({ x: 32, top: 4, bottom: 16 });
 
-    this.make.text(config3);
-
-    //  Variable padding around all edges
-    var config4 = {
-        x: 100,
-        y: 450,
-        padding: {
-            left: 64,
-            right: 16,
-            top: 20,
-            bottom: 40
-        },
-        text: 'Padding D',
-        style: style
-    };
-
-    this.make.text(config4);
+    //  Different values for each side
+    this.add.text(100, 510, 'Phaser', style).setPadding({ left: 8, right: 128, top: 0, bottom: 32 });
 }

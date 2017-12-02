@@ -31,7 +31,7 @@ function create ()
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#000000' });
+    text = this.add.text(10, 10, '', { font: '16px Courier', color: '#000000' });
 }
 
 function update ()

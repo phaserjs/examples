@@ -85,12 +85,19 @@ function create ()
 
 function update (time, delta)
 {
-    controls.update(delta);2234
+    controls.update(delta);
 
-    var worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
+    var cam = this.cameras.main;
+    var worldPoint = this.input.activePointer.positionToCamera(cam);
 
     var mapHasTile = map.hasTileAtWorldXY(worldPoint.x, worldPoint.y);
     var platformLayerHasTile = platformLayer.hasTileAtWorldXY(worldPoint.x, worldPoint.y);
+
+    // If you want to use the map and be specific, the last parameter is a layer id. All of the
+    // following are valid ways to get something from the rock layer:
+    //  map.hasTileAtWorldXY(worldPoint.x, worldPoint.y, cam, rockLayer)
+    //  map.hasTileAtWorldXY(worldPoint.x, worldPoint.y, cam, 'Rock Layer')
+    //  map.hasTileAtWorldXY(worldPoint.x, worldPoint.y, cam, 0)
 
     tileInfoText.setText(
         'Press 1/2/3/4 to change the map\'s selected layer' +

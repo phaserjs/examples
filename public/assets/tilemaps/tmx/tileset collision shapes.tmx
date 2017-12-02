@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="kenny_platformer_64x64" tilewidth="64" tileheight="64" tilecount="80" columns="5">
+  <image source="../tiles/kenny_platformer_64x64.png" width="320" height="1024"/>
+  <tile id="4">
+   <objectgroup draworder="index">
+    <object id="3" x="0" y="0" width="63" height="23"/>
+   </objectgroup>
+  </tile>
+  <tile id="7">
+   <objectgroup draworder="index">
+    <object id="6" x="18" y="64">
+     <polyline points="0,0 0,-26 -14,-26 -14,-56 0,-56 0,-61 3,-64 8,-64 11,-61 11,-56 20,-56 20,-64 24,-64 40,-45 40,-37 24,-19 20,-19 20,-26 11,-26 11,0 0,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="33">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="16" width="64" height="48"/>
+   </objectgroup>
+  </tile>
+  <tile id="50">
+   <objectgroup draworder="index">
+    <object id="1" x="6" y="13" width="52" height="50">
+     <ellipse/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="53">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="63">
+     <polygon points="0,1 1,-18 9,-31 20,-36 44,-36 55,-30 63,-18 64,1"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="58">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+  <tile id="63">
+   <objectgroup draworder="index">
+    <object id="3" x="22" y="32" width="20" height="33">
+     <ellipse/>
+    </object>
+    <object id="4" x="22" y="0" width="20" height="33">
+     <ellipse/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="66">
+   <objectgroup draworder="index">
+    <object id="1" x="14" y="64">
+     <polygon points="0,0 0,-27 -14,-27 -14,-46 50,-46 50,-27 38,-27 38,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="67">
+   <objectgroup draworder="index">
+    <properties>
+     <property name="isInteractive" type="bool" value="true"/>
+    </properties>
+    <object id="1" x="4" y="46" width="56" height="18"/>
+    <object id="2" x="22" y="45">
+     <polygon points="0,1 33,-28 41,-19 20,1"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="81" name="CB-Temple-C" tilewidth="8" tileheight="8" tilecount="1120" columns="32">
+  <image source="../tiles/CB-Temple-C.png" width="256" height="280"/>
+  <tile id="513">
+   <animation>
+    <frame tileid="513" duration="300"/>
+    <frame tileid="515" duration="300"/>
+   </animation>
+  </tile>
+  <tile id="545">
+   <animation>
+    <frame tileid="545" duration="300"/>
+    <frame tileid="547" duration="300"/>
+   </animation>
+  </tile>
+  <tile id="803">
+   <animation>
+    <frame tileid="803" duration="300"/>
+    <frame tileid="811" duration="300"/>
+   </animation>
+  </tile>
+  <tile id="804">
+   <animation>
+    <frame tileid="804" duration="300"/>
+    <frame tileid="812" duration="300"/>
+   </animation>
+  </tile>
+  <tile id="835">
+   <animation>
+    <frame tileid="835" duration="300"/>
+    <frame tileid="843" duration="300"/>
+   </animation>
+  </tile>
+  <tile id="836">
+   <animation>
+    <frame tileid="836" duration="300"/>
+    <frame tileid="844" duration="300"/>
+   </animation>
+  </tile>
+  <tile id="837">
+   <animation>
+    <frame tileid="837" duration="300"/>
+    <frame tileid="845" duration="300"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="15" height="15">
+  <data encoding="csv">
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
+10,0,0,0,0,0,0,17,0,0,0,0,0,0,10,
+10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
+10,0,0,17,0,10,10,10,10,10,0,17,0,0,10,
+10,0,0,0,0,0,0,64,0,0,0,0,0,0,10,
+10,0,0,0,0,0,0,64,0,0,0,54,0,0,10,
+10,0,0,51,8,0,5,5,5,0,68,59,0,0,10,
+10,0,10,10,10,10,0,0,0,10,10,10,10,0,10,
+10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
+9,9,9,9,4,4,4,4,4,4,4,9,9,9,9,
+14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,
+14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,
+14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,
+14,14,14,14,14,14,14,14,14,14,14,14,14,14,14
+</data>
+ </layer>
+</map>

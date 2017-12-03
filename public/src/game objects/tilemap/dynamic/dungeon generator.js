@@ -204,8 +204,8 @@ function create ()
     var help = this.add.text(16, 16, 'Arrows keys to move.', {
         fontSize: '18px',
         padding: { x: 10, y: 5 },
-        backgroundColor: '#000000',
-        fill: '#ffffff'
+        backgroundColor: '#ffffff',
+        fill: '#000000'
     });
     help.setScrollFactor(0);
 }

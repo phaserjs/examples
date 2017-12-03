@@ -31,6 +31,8 @@ var Breakout = new Phaser.Class({
             gridAlign: { width: 10, height: 6, cellWidth: 64, cellHeight: 32, x: 112, y: 100 }
         });
 
+        window.bricks = this.bricks;
+
         //  Create a ball
         this.ball = this.physics.add.image(400, 500, 'assets', 'ball1').setCollideWorldBounds(true).setBounce(1);
 
@@ -54,7 +56,7 @@ var Breakout = new Phaser.Class({
         
         }, 0, this);
 
-        this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+        this.input.events.on('POINTER_UP_EVENT', function (event) {
         
             if (this.ballOnPaddle)
             {
@@ -67,9 +69,11 @@ var Breakout = new Phaser.Class({
 
     hitBrick: function (ball, brick)
     {
-        brick.body.enable = false;
-        brick.active = false;
-        brick.visible = false;
+        brick.disableBody();
+        brick.setActive(false);
+        brick.setVisible(false);
+
+        //  Last brick?
     },
 
     hitPaddle: function (ball, paddle)
@@ -93,6 +97,17 @@ var Breakout = new Phaser.Class({
             //  Ball is perfectly in the middle
             //  Add a little random X to stop it bouncing straight up!
             ball.setVelocityX(2 + Math.random() * 8);
+        }
+    },
+
+    update: function ()
+    {
+        if (this.ball.y > 600)
+        {
+            //  Ball out
+            this.ball.setVelocity(0);
+            this.ball.setPosition(this.paddle.x, 500);
+            this.ballOnPaddle = true;
         }
     }
 

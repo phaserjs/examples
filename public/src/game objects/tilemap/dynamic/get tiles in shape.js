@@ -36,7 +36,7 @@ function create ()
     layer.setScale(1.25, 1.25);
 
     graphics = this.add.graphics({
-        lineStyle: { width: 2, color: 0xa8fff2 },
+        lineStyle: { width: 4, color: 0xa8fff2 },
         fillStyle: { color: 0xa8fff2 }
     });
 
@@ -44,18 +44,22 @@ function create ()
 
     this.input.keyboard.events.on('KEY_DOWN_ONE', function (event) {
         selectedShape = 'rectangle';
+        helpText.setText(getHelpMessage());
     });
 
     this.input.keyboard.events.on('KEY_DOWN_TWO', function (event) {
         selectedShape = 'line';
+        helpText.setText(getHelpMessage());
     });
 
     this.input.keyboard.events.on('KEY_DOWN_THREE', function (event) {
         selectedShape = 'circle';
+        helpText.setText(getHelpMessage());
     });
 
     this.input.keyboard.events.on('KEY_DOWN_FOUR', function (event) {
         selectedShape = 'triangle';
+        helpText.setText(getHelpMessage());
     });
 
     this.input.keyboard.events.on('KEY_DOWN_C', function (event) {
@@ -161,7 +165,8 @@ function update (time, delta)
 
 function getHelpMessage ()
 {
-    return 'Press 1/2/3/4 to change shapes.' +
+    return 'Click to draw. Press 1/2/3/4 to change shapes.' +
+        '\nSelected shape: ' + selectedShape +
         '\nPress C to only select colliding tiles: ' + (onlyColliding ? 'on' : 'off') +
         '\nArrows to scroll.';
 }

@@ -91,8 +91,8 @@ function update (time, delta)
             case 'tiki':
                 // You can also place a 2D array of tiles at a location
                 map.putTilesAt([
-                    [49, 50],
-                    [51, 52]
+                    [ 49, 50 ],
+                    [ 51, 52 ]
                 ], pointerTileX, pointerTileY);
                 break;
             default:

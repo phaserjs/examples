@@ -934,6 +934,38 @@ function testManipulatingTiles()
         incorrectIndexes.length === 0
     );
 
+    // --- WEIGHTED RANDOMIZE ---
+
+    var level = [
+        [ 0,  0,  0,  0],
+        [ 0,  0,  0,  0],
+        [ 0,  0,  0,  0],
+        [ 0,  0,  0,  0]
+    ]
+    var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
+    var tiles = map.addTilesetImage('mario-tiles');
+    var layer = map.createDynamicLayer(0, tiles, 0, 200);
+
+    map.weightedRandomize();
+    var incorrectIndexes = map.filterTiles(t => t.index !== 0);
+    assert('weightedRandomize without weights should not change the map',
+        incorrectIndexes.length === 0
+    );
+
+    map.weightedRandomize(0, 0, 4, 4, [ { index: 1, weight: 0 } ]);
+    var incorrectIndexes = map.filterTiles(t => t.index !== 0);
+    assert('weightedRandomize with zero total for the weights should not change the map',
+        incorrectIndexes.length === 0
+    );
+
+    map.weightedRandomize(0, 0, 4, 4, [
+        { index: 1, weight: 1 }, { index: 2, weight: 2 }, { index: 3, weight: 1 } ]
+    );
+    var incorrectIndexes = map.filterTiles(t => t.index < 1 && t.index > 3);
+    assert('weightedRandomize weighted inputs should fill the region with only IDs specified',
+        incorrectIndexes.length === 0
+    );
+
     // --- REPLACE & SWAP ---
 
     var level = [

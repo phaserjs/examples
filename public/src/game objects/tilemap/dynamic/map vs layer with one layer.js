@@ -30,7 +30,7 @@ function create ()
     layer.setScale(3);
 
     // Add a simple scene with some random element. Since there is only one layer, we can use map or
-    // layer interchangably to access tile manipulation methods.
+    // layer interchangeably to access tile manipulation methods.
     map.fill(58, 0, 10, map.width, 1); // Surface of the water
     layer.fill(77, 0, 11, map.width, 2); // Body of the water
     map.randomize(0, 0, 8, 10, [ 44, 45, 46, 47, 48 ]); // Left chunk of random wall tiles

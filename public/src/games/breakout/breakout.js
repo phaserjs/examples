@@ -11,8 +11,6 @@ var Breakout = new Phaser.Class({
         this.bricks;
         this.paddle;
         this.ball;
-
-        this.ballOnPaddle = true;
     },
 
     preload: function ()
@@ -22,6 +20,7 @@ var Breakout = new Phaser.Class({
 
     create: function ()
     {
+        //  Enable world bounds, but disable the floor
         this.physics.world.setBoundsCollision(true, true, true, false);
 
         //  Create the bricks in a 10x6 grid
@@ -31,17 +30,14 @@ var Breakout = new Phaser.Class({
             gridAlign: { width: 10, height: 6, cellWidth: 64, cellHeight: 32, x: 112, y: 100 }
         });
 
-        window.bricks = this.bricks;
-
-        //  Create a ball
         this.ball = this.physics.add.image(400, 500, 'assets', 'ball1').setCollideWorldBounds(true).setBounce(1);
+        this.ball.setData('onPaddle', true);
 
-        //  Create the paddle
         this.paddle = this.physics.add.image(400, 550, 'assets', 'paddle1').setImmovable();
 
         //  Our colliders
-        this.physics.add.collider(this.ball, this.bricks, this.hitBrick);
-        this.physics.add.collider(this.ball, this.paddle, this.hitPaddle);
+        this.physics.add.collider(this.ball, this.bricks, this.hitBrick, null, this);
+        this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
 
         //  Input events
         this.input.events.on('POINTER_MOVE_EVENT', function (event) {
@@ -49,7 +45,7 @@ var Breakout = new Phaser.Class({
             //  Keep the paddle within the game
             this.paddle.x = Phaser.Math.Clamp(event.x, 52, 748);
 
-            if (this.ballOnPaddle)
+            if (this.ball.getData('onPaddle'))
             {
                 this.ball.x = this.paddle.x;
             }
@@ -58,10 +54,10 @@ var Breakout = new Phaser.Class({
 
         this.input.events.on('POINTER_UP_EVENT', function (event) {
         
-            if (this.ballOnPaddle)
+            if (this.ball.getData('onPaddle'))
             {
                 this.ball.setVelocity(-75, -300);
-                this.ballOnPaddle = false;
+                this.ball.setData('onPaddle', false);
             }
         
         }, 0, this);
@@ -69,11 +65,30 @@ var Breakout = new Phaser.Class({
 
     hitBrick: function (ball, brick)
     {
-        brick.disableBody();
-        brick.setActive(false);
-        brick.setVisible(false);
+        brick.disableBody(true, true);
 
-        //  Last brick?
+        if (this.bricks.countActive() === 0)
+        {
+            this.resetLevel();
+        }
+    },
+
+    resetBall: function ()
+    {
+        this.ball.setVelocity(0);
+        this.ball.setPosition(this.paddle.x, 500);
+        this.ball.setData('onPaddle', true);
+    },
+
+    resetLevel: function ()
+    {
+        this.resetBall();
+
+        this.bricks.children.each(function (brick) {
+
+            brick.enableBody(false, 0, 0, true, true);
+
+        });
     },
 
     hitPaddle: function (ball, paddle)
@@ -104,10 +119,7 @@ var Breakout = new Phaser.Class({
     {
         if (this.ball.y > 600)
         {
-            //  Ball out
-            this.ball.setVelocity(0);
-            this.ball.setPosition(this.paddle.x, 500);
-            this.ballOnPaddle = true;
+            this.resetBall();
         }
     }
 

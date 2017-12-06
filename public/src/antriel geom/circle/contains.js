@@ -12,9 +12,11 @@ var game = new Phaser.Game(config);
 
 function create ()
 {
-    graphics = this.add.graphics();
+    var graphics = this.add.graphics({ fillStyle: { color: 0xff0000 } });
 
-    circle = new Phaser.Geom.Circle(400, 300, 200);
+    var circle = new Phaser.Geom.Circle(400, 300, 200);
+
+    graphics.fillCircleShape(circle);
 
     this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 

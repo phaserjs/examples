@@ -122,6 +122,10 @@ var Bullet = new Phaser.Class({
 
         this.color = 0xffffff;
 
+        // this.scale.x = 1;
+        // this.scale.y = 1;
+        // this.scale.z = 1;
+
         this.visible = false;
 
         this.alive = false;
@@ -161,6 +165,61 @@ var Bullet = new Phaser.Class({
 
 });
 
+var Invader = new Phaser.Class({
+
+    Extends: Mesh,
+
+    initialize:
+
+    function Invader (data)
+    {
+        Mesh.call(this, data, 0, 0, 0);
+
+        this.color = 0x00ff00;
+
+        // this.scale.x = 1;
+        // this.scale.y = 1;
+        // this.scale.z = 1;
+
+        this.visible = false;
+
+        this.alive = false;
+
+        this.speed = 0.2;
+    },
+
+    launch: function (x, y, z)
+    {
+        this.position.x = x;
+        this.position.y = y;
+        this.position.z = z;
+
+        this.visible = true;
+        this.alive = true;
+
+        // this.alpha = 0;
+        // this.fadeIn();
+    },
+
+    update: function ()
+    {
+        this.position.z -= this.speed;
+
+        //  Check distance and kill off
+        if (this.position.z <= -30)
+        {
+            this.kill();
+        }
+    },
+
+    kill: function ()
+    {
+        this.visible = false;
+        this.alive = false;
+    }
+
+});
+
 var Cannon = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -178,6 +237,7 @@ var Cannon = new Phaser.Class({
         this.cursors;
         this.lastFired = 0;
 
+        this.invaders = [];
         this.bullets = [];
         this.meshes = [];
         this.modelData = {};
@@ -186,7 +246,7 @@ var Cannon = new Phaser.Class({
     preload: function ()
     {
         this.load.text('bullet', 'assets/text/bullet.obj');
-        this.load.text('tank', 'assets/text/tank.obj');
+        this.load.text('tank', 'assets/text/ship.obj');
         this.load.text('invader', 'assets/text/invader.obj');
         this.load.text('grid', 'assets/text/grid.obj');
     },
@@ -212,9 +272,6 @@ var Cannon = new Phaser.Class({
         this.player.color = 0xffff00;
         this.player.rotation.x = Phaser.Math.DegToRad(180);
         this.player.rotation.z = Phaser.Math.DegToRad(180);
-        this.player.scale.x = 1;
-        this.player.scale.y = 1;
-        this.player.scale.z = 1;
 
         this.meshes.push(this.player);
 
@@ -224,14 +281,20 @@ var Cannon = new Phaser.Class({
         {
             var bullet = new Bullet(this.getMeshData('bullet'));
 
-            bullet.color = 0xffff00;
-            bullet.scale.x = 1;
-            bullet.scale.y = 1;
-            bullet.scale.z = 1;
-
             this.meshes.push(bullet);
 
             this.bullets.push(bullet);
+        }
+
+        //  invaders
+
+        for (var i = 0; i < 6; i++)
+        {
+            var invader = new Invader(this.getMeshData('invader'));
+
+            this.meshes.push(invader);
+
+            this.invaders.push(invader);
         }
 
         this.graphics = this.add.graphics();
@@ -242,6 +305,13 @@ var Cannon = new Phaser.Class({
         this.camera3D.target = new BABYLON.Vector3(0, 0, 50);
 
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.invaders[0].launch(-8, 1, 60);
+        this.invaders[1].launch(-4, 1, 90);
+        this.invaders[2].launch(0, 1, 260);
+        this.invaders[3].launch(4, 1, 160);
+        this.invaders[4].launch(8, 1, 200);
+
     },
 
     getMeshData: function (key)
@@ -262,6 +332,16 @@ var Cannon = new Phaser.Class({
             if (this.bullets[i].alive)
             {
                 this.bullets[i].update(delta);
+            }
+        }
+
+        //  update invaders
+
+        for (var i = 0; i < this.invaders.length; i++)
+        {
+            if (this.invaders[i].alive)
+            {
+                this.invaders[i].update(delta);
             }
         }
 

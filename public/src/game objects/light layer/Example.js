@@ -84,7 +84,7 @@ function create ()
 
     lights.setAmbientLightColor(0.0, 0.0, 0.1);
 
-    this.input.events.on('KEY_DOWN_EVENT', function (event) {
+    this.input.keyboard.events.on('KEY_DOWN_EVENT', function (event) {
         var speed = 5;
 
         if (event.data.code === 'KeyQ')

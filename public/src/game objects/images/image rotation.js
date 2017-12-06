@@ -14,7 +14,7 @@ var image;
 
 function preload() {
 
-    this.load.image('eye', 'assets/sprites/arrow.png');
+    this.load.image('eye', 'assets/sprites/spikedball.png');
 
 }
 

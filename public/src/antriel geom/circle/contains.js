@@ -4,49 +4,32 @@ var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
-        create: create,
-        update: update
+        create: create
     }
 };
 
 var game = new Phaser.Game(config);
 
-var circle;
-var point;
-var graphics;
-var a = 0;
-
 function create ()
 {
-    graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
+    graphics = this.add.graphics();
 
     circle = new Phaser.Geom.Circle(400, 300, 200);
-    point = new Phaser.Geom.Rectangle(0, 0, 16, 16);
-}
 
-function update ()
-{
-    a += 0.01;
+    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-    if (a > Math.PI * 2)
-    {
-        a -= Math.PI * 2;
-    }
+        graphics.clear();
 
-    point.x = 400 - Math.cos(a) * 400;
-    point.y = 300 - Math.sin(a * 2) * 300;
+        if(circle.contains(event.x, event.y))
+        {
+            graphics.fillStyle(0x00ff00);
+        }
+        else
+        {
+            graphics.fillStyle(0xff0000);
+        }
 
-    graphics.clear();
-    graphics.strokeCircleShape(circle);
+        graphics.fillCircleShape(circle);
 
-    if(circle.contains(point.x, point.y))
-    {
-        graphics.fillStyle(0xff0000);
-    }
-    else
-    {
-        graphics.fillStyle(0x0000ff);
-    }
-
-    graphics.fillRect(point.x - 8, point.y - 8, point.width, point.height);
+    });
 }

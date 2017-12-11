@@ -48,14 +48,14 @@ function create () {
     sm.open();
 
     catAstroPhi.play({
-        seek: 3.000
+        seek: 2.550
     });
 
     // play() method call above has same effect as
     // two lines below but it is done in only one command
 
     // catAstroPhi.play();
-    // catAstroPhi.seek = 3.000;
+    // catAstroPhi.seek = 2.550;
 
     var bg = this.add.image(400, 300, 'bg');
 
@@ -71,8 +71,17 @@ function create () {
         repeat: -1
     });
 
-    cat = this.add.sprite(0, 300, 'cat');
+    cat = this.add.sprite(0, 300, 'cat').setInteractive();
     cat.play('cat');
+
+    this.input.setDraggable(cat);
+
+    this.input.events.on('DRAG_EVENT', function (event) {
+
+        event.gameObject.x = Math.min(Math.max(cat.width/2, event.dragX), 800 - cat.width/2);
+
+        catAstroPhi.seek = (event.gameObject.x - cat.width/2)/(800 - cat.width) * catAstroPhi.duration;
+    });
 }
 
 function update ()

@@ -19,7 +19,7 @@ function preload ()
 
     this.load.image('rainbow', 'assets/animations/nyan/rainbow.png');
 
-    this.load.spritesheet('cat', 'assets/animations/nyan/cat/cat.png', { frameWidth: 97, frameHeight: 59 });
+    this.load.spritesheet('cat', 'assets/animations/nyan/cat.png', { frameWidth: 97, frameHeight: 59 });
 
     this.load.audio('CatAstroPhi', [
         'assets/audio/CatAstroPhi_shmup_normal.ogg',

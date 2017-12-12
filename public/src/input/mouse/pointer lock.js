@@ -15,12 +15,12 @@ var lockText;
 
 function preload ()
 {
-    this.load.image('ball', 'assets/sprites/shinyball.png');
+    this.load.image('ship', 'assets/sprites/ship.png');
 }
 
 function create ()
 {
-    sprite = this.add.sprite(400, 300, 'ball');
+    sprite = this.add.sprite(400, 300, 'ship');
 
     // Pointer lock will only work after an 'engagement gesture', e.g. mousedown, keypress, etc.
     game.canvas.addEventListener('mousedown', function requestLock () {
@@ -40,6 +40,10 @@ function create ()
             else if (sprite.x > game.renderer.width) { sprite.x -= game.renderer.width; }
             if (sprite.y < 0) { sprite.y += game.renderer.height; }
             else if (sprite.y > game.renderer.height) { sprite.y -= game.renderer.height; }
+
+            if (event.pointer.movementX > 0) { sprite.setRotation(0.1); }
+            else if (event.pointer.movementX < 0) { sprite.setRotation(-0.1); }
+            else { sprite.setRotation(0); }
 
             updateLockText(true);
         }

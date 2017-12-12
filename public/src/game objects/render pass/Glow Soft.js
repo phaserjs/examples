@@ -2,7 +2,7 @@ var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#000',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -13,6 +13,8 @@ var config = {
 
 var gfx;
 var blurPassH;
+var blurPassV;
+var blobPass;
 var basePass;
 var image;
 var time = 0;
@@ -20,10 +22,14 @@ var game = new Phaser.Game(config);
 
 function renderScene(camera)
 {
+    blobPass.setFloat('time', time);
+    blobPass.clearColorBuffer(0, 0, 0, 0);
+    blobPass.render(image, camera);
+
     gfx.clear();
-    drawStar(gfx, 100, 300, 4, 50, 50 / 2, 0x00ff00, 0xff0000, time * 0.5, 10);
-    drawStar(gfx, 400, 300, 5, 100, 100 / 2, 0xffff00, 0xff0000, time, 10);
-    drawStar(gfx, 700, 300, 6, 50, 50 / 2, 0x00ff00, 0xff0000, time * 0.5, 10);
+    drawStar(gfx, 100, 300, 4, 150, 150 / 2, 0x00ff00, 0xff0000, time * 0.5, 10);
+    drawStar(gfx, 400, 300, 5, 200, 200 / 2, 0xffff00, 0xff0000, time, 10);
+    drawStar(gfx, 700, 300, 6, 150, 150 / 2, 0x00ff00, 0xff0000, time * 0.5, 10);
 
     basePass.clearColorBuffer(0, 0, 0, 0);
     basePass.render(gfx, camera);
@@ -35,9 +41,9 @@ function renderScene(camera)
     blurPassV.renderRect(0, 0, 800, 600, camera);
 
     gfx.clear();
-    drawStar(gfx, 100, 300, 4, 50, 50 / 2, 0x00ff00, 0xff0000, time * 0.5, 2);
-    drawStar(gfx, 400, 300, 5, 100, 100 / 2, 0xffff00, 0xff0000, time, 2);
-    drawStar(gfx, 700, 300, 6, 50, 50 / 2, 0x00ff00, 0xff0000, time * 0.5, 2);
+    drawStar(gfx, 100, 300, 4, 150, 150 / 2, 0x00ff00, 0xff0000, time * 0.5, 4);
+    drawStar(gfx, 400, 300, 5, 200, 200 / 2, 0xffff00, 0xff0000, time, 4);
+    drawStar(gfx, 700, 300, 6, 150, 150 / 2, 0x00ff00, 0xff0000, time * 0.5, 4);
 }
 
 function preload ()
@@ -47,8 +53,27 @@ function preload ()
 
 function create ()
 {
-    var img = this.add.image(400, 300, 'einstein');
-    img.setScale(1.5);
+    image = this.make.image({
+        x:400, 
+        y:300, 
+        key:'einstein',
+        add: false
+    });
+
+    image.setScale(1.5);
+
+
+    blobPass = this.make.renderPass({
+        x: 0, 
+        y: 0, 
+        width: 800, 
+        height: 600, 
+        shaderName: 'blobShader', 
+        fragmentShader: blobShader, 
+        untextured: false,
+        add: true
+    });
+
     gfx = this.add.graphics();
 
     basePass = this.make.renderPass({
@@ -87,9 +112,7 @@ function create ()
     blurPassH.setRenderTextureAt(basePass.renderTexture, 'sampler', 0);
     blurPassV.setRenderTextureAt(blurPassH.renderTexture, 'sampler', 0);
 
-    blurPassH.blendMode = 'ADD';
     blurPassV.blendMode = 'ADD';
-    basePass.blendMode = 'ADD';
     gfx.blendMode = 'ADD';
 
     // Play with this values to get different results
@@ -223,6 +246,40 @@ void main(void)
 {
     vec4 color = blur();
     gl_FragColor = color;
+}
+
+`;
+
+var blobShader = `
+// Blob Pass
+
+precision mediump float;
+uniform sampler2D sampler;
+uniform float time;
+
+varying vec2 v_tex_coord;
+varying vec3 v_color;
+varying float v_alpha;
+
+bool circle(vec2 position, vec2 origin, float radius)
+{
+    return length(position - origin) < radius;
+}
+
+void main (void) 
+{
+    const vec2 resolution = vec2(800.0, 600.0);
+    vec2 texcoord = gl_FragCoord.xy / resolution;
+    vec2 offset = vec2(sin(time + sin(texcoord.y * 4.0 + time) * 4.0) * 0.2, 0.0);
+
+    if (circle(texcoord + offset, vec2(0.5), 0.2 + 0.3 * abs(sin(time * abs(sin(texcoord.x))))))
+    {
+        gl_FragColor = texture2D(sampler, texcoord + offset);
+    }
+    else
+    {
+        discard;
+    }
 }
 
 `;

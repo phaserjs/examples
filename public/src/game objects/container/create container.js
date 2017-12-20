@@ -19,15 +19,15 @@ function preload ()
 
 function create ()
 {
-    var balls = this.add.container(400, 300);
+    var container = this.add.container(400, 300);
 
-    var ball1 = this.add.image(0, 0, 'ball');
+    // var ball1 = this.add.image(0, 0, 'ball');
 
-    balls.add(ball1);
+    // balls.add(ball1);
 
-    balls.x += 100;
-    balls.y += 100;
+    // balls.x += 100;
+    // balls.y += 100;
 
-    console.log(ball1);
-    console.log(balls);
+    // console.log(ball1);
+    // console.log(balls);
 }

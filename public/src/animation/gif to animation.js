@@ -55,12 +55,13 @@ function create ()
         repeat: -1,
         yoyo: true
     });
-
 }
 
 function update ()
 {
-    group.rotate(data.r, data.s);
-    group.setScale(data.sx, data.sx, data.s, data.s);
-    group.setXY(data.x, data.y, data.s, data.s);
+    var children = group.getChildren();
+
+    Phaser.Actions.Rotate(children, data.r, data.s);
+    Phaser.Actions.SetScale(children, data.sx, data.sx, data.s, data.s);
+    Phaser.Actions.SetXY(children, data.x, data.y, data.s, data.s);
 }

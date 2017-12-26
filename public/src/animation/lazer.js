@@ -23,9 +23,16 @@ function create ()
 
     var group = this.add.group();
 
-    group.createMultiple({ key: 'lazer', frame: 'lazer_22', repeat: 51, setScale: { x: 0.25, y: 0.25 } });
+    group.createMultiple({ key: 'lazer', frame: 'lazer_22', repeat: 39, setScale: { x: 0.25, y: 0.25 } });
 
-    group.gridAlign({ width: 26, height: 2, cellWidth: 32, cellHeight: 280, x: -180, y: -380 });
+    Phaser.Actions.GridAlign(group.getChildren(), {
+        width: 20,
+        height: 2,
+        cellWidth: 32,
+        cellHeight: 280,
+        x: -50,
+        y: -220
+    });
 
     this.anims.staggerPlay('blast', group.getChildren(), 0.3);
 }

@@ -81,6 +81,8 @@ function create ()
         }
     };
 
+    startStem.bind(this)(bass, 'Bass', bottomSpeaker);
+
     bass.addMarker(loopMarker);
 
     // Delay option can only be passed in config
@@ -92,8 +94,6 @@ function create ()
 
     // sound.delay = delay;
     // sound.play('loop');
-
-    startStem.bind(this)(bass, 'Bass', bottomSpeaker);
 
     bass.events.once('SOUND_LOOP', function (event) {
         startStem.bind(this)(drums, 'Drums', middleSpeaker);

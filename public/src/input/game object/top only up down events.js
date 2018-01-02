@@ -24,7 +24,7 @@ function create ()
 
     //  If you disable topOnly it will fire events for all objects the pointer is over
     //  regardless of their place on the display list
-    this.input.topOnly = false;
+    this.input.topOnly = true;
 
     //  Events
 

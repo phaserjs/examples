@@ -18,13 +18,14 @@ function preload ()
 
 function create ()
 {
-    this.add.sprite(350, 250, 'eye').setInteractive();
-    this.add.sprite(400, 300, 'eye').setInteractive();
-    this.add.sprite(450, 350, 'eye').setInteractive();
+    for (var i = 0; i < 8; i++)
+    {
+        this.add.sprite(100 + i * 50, 100 + i * 50, 'eye').setInteractive().setName('eye' + i);
+    }
 
     //  If you disable topOnly it will fire events for all objects the pointer is over
     //  regardless of their place on the display list
-    // this.input.topOnly = true;
+    this.input.topOnly = true;
 
     //  Events
 

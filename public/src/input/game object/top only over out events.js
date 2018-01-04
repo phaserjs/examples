@@ -18,14 +18,14 @@ function preload ()
 
 function create ()
 {
-    for (var i = 0; i < 8; i++)
+    for (var i = 0; i < 14; i++)
     {
-        this.add.sprite(100 + i * 50, 100 + i * 50, 'eye').setInteractive().setName('eye' + i);
+        this.add.sprite(100 + i * 30, 100 + i * 30, 'eye').setInteractive();
     }
 
     //  If you disable topOnly it will fire events for all objects the pointer is over
     //  regardless of their place on the display list
-    this.input.topOnly = true;
+    this.input.setTopOnly(true);
 
     //  Events
 
@@ -40,4 +40,22 @@ function create ()
         event.gameObject.clearTint();
 
     });
+
+    var text = this.add.text(10, 10, 'Input.topOnly: true', { font: '16px Courier', fill: '#00ff00' });
+
+    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    
+        if (this.input.topOnly)
+        {
+            this.input.setTopOnly(false);
+            text.setText('Input.topOnly: false');
+        }
+        else
+        {
+            this.input.setTopOnly(true);
+            text.setText('Input.topOnly: true');
+        }
+
+    
+    }, 0, this);
 }

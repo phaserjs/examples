@@ -51,7 +51,7 @@ function create ()
 
     // this.add.sprite(0, 0, 'eye').setAlpha(0.5).setOrigin(0).setAngle(23);
 
-    sprite = this.add.sprite(200, 200, 'eye').setAlpha(1).setOrigin(0).setScrollFactor(2, 0.5).setScale(2.1, 4.56).setAngle(22);
+    sprite = this.add.sprite(200, 200, 'eye').setAlpha(1).setOrigin(0).setScrollFactor(2, 0.5).setScale(2.1, 4.56).setAngle(22).setInteractive();
 
     matrix = new Phaser.GameObjects.Components.TransformMatrix();
 
@@ -155,6 +155,8 @@ function update (time, delta)
 
     var camera = this.cameras.main;
 
+    // camera.setPosition(200);
+
     var p = camera.getWorldPoint(this.input.x, this.input.y);
 
     conv.cx = p.x;
@@ -164,7 +166,7 @@ function update (time, delta)
     p.x += (camera.scrollX * sprite.scrollFactorX) - camera.scrollX;
     p.y += (camera.scrollY * sprite.scrollFactorY) - camera.scrollY;
 
-    var point = matrix.transformPointWorld(p.x, p.y, sprite.x, sprite.y, sprite.rotation, sprite.scaleX, sprite.scaleY);
+    var point = Phaser.Math.TransformXY(p.x, p.y, sprite.x, sprite.y, sprite.rotation, sprite.scaleX, sprite.scaleY);
 
     conv.px = point.x;
     conv.py = point.y;

@@ -22,6 +22,7 @@ var triangle1;
 var px;
 var py;
 var hitShape = null;
+var sprites = [];
 
 var game = new Phaser.Game(config);
 
@@ -48,7 +49,7 @@ function create ()
         var x = Phaser.Math.Between(bounds.left, bounds.right);
         var y = Phaser.Math.Between(bounds.top, bounds.bottom);
 
-        this.add.sprite(x, y, 'eye').setInteractive();
+        sprites.push(this.add.sprite(x, y, 'eye').setInteractive());
     }
 
     this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event) {
@@ -65,7 +66,7 @@ function create ()
 
     this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-        var p = this.cameras.main.getWorldPoint(event);
+        var p = this.cameras.main.getWorldPoint(event.x, event.y);
 
         px = p.x;
         py = p.y;
@@ -157,6 +158,13 @@ function create ()
 function update (time, delta)
 {
     controls.update(delta);
+
+    sprites.forEach(function(sprite, i) {
+    
+        sprite.rotation += (i % 2) ? 0.005 : -0.005;
+
+    });
+
 }
 
 function drawScene ()

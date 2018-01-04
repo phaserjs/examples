@@ -20,7 +20,7 @@ var SceneA = new Phaser.Class({
 
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.events.once('POINTER_DOWN_EVENT', function (event) {
 
             console.log('From SceneA to SceneB');
 
@@ -53,7 +53,7 @@ var SceneB = new Phaser.Class({
 
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.events.once('POINTER_DOWN_EVENT', function (event) {
 
             console.log('From SceneB to SceneC');
 
@@ -91,7 +91,7 @@ var SceneC = new Phaser.Class({
 
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.events.once('POINTER_DOWN_EVENT', function (event) {
 
             console.log('From SceneC to SceneA');
 

@@ -28,7 +28,7 @@ function create ()
         var x = Phaser.Math.Between(0, 2000);
         var y = Phaser.Math.Between(0, 2000);
 
-        this.add.sprite(x, y, 'eye').setInteractive().setAlpha(0.1);
+        this.add.sprite(x, y, 'eye').setInteractive();
     }
 
     this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event) {

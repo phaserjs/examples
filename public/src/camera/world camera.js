@@ -5,6 +5,7 @@ var config = {
     height: 600,
     backgroundColor: '#000000',
     scene: {
+        preload: preload,
         create: create,
         update: update
     }
@@ -24,6 +25,11 @@ var hitShape = null;
 
 var game = new Phaser.Game(config);
 
+function preload ()
+{
+    this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
+}
+
 function create ()
 {
     graphics = this.add.graphics();
@@ -37,10 +43,33 @@ function create ()
 
     drawScene();
 
+    for (var i = 0; i < 32; i++)
+    {
+        var x = Phaser.Math.Between(bounds.left, bounds.right);
+        var y = Phaser.Math.Between(bounds.top, bounds.bottom);
+
+        this.add.sprite(x, y, 'eye').setInteractive();
+    }
+
+    this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event) {
+
+        event.gameObject.setTint(0xff0000);
+
+    });
+
+    this.input.events.on('GAME_OBJECT_OUT_EVENT', function (event) {
+
+        event.gameObject.clearTint();
+
+    });
+
     this.input.events.on('POINTER_MOVE_EVENT', function (event) {
 
-        px = event.x;
-        py = event.y;
+        var p = this.cameras.main.getWorldPoint(event);
+
+        px = p.x;
+        py = p.y;
+
         hitShape = null;
 
         if (rect1.contains(px, py))
@@ -66,7 +95,7 @@ function create ()
 
         drawScene();
 
-    });
+    }, 0, this);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

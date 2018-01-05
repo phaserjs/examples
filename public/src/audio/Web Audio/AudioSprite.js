@@ -1,3 +1,7 @@
+/**
+ * @author    Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
+ */
+
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',

@@ -1,3 +1,7 @@
+/**
+ * @author    Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
+ */
+
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
@@ -42,19 +46,9 @@ function create ()
 {
     this.add.image(400, 300, 'title');
 
-    var sounds = {};
-
     for (var i=0; i < markers.length; i++)
     {
-        var marker = markers[i];
-
-        var sound = this.game.sound.add('sfx');
-
-        sound.addMarker(marker);
-
-        sounds[marker.name] = sound;
-
-        makeButton.bind(this)(marker.name, 680, 115 + i*40);
+        makeButton.bind(this)(markers[i].name, i);
     }
 
     this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event)
@@ -68,25 +62,26 @@ function create ()
     this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event)
     {
         var button = event.gameObject;
-        var markerName = button.name;
+        var index = button.getData('index');
 
-        sounds[markerName].play(markerName);
+        this.game.sound.play('sfx', markers[index]);
 
         setButtonFrame(button, 2);
-    });
+
+    }.bind(this));
     this.input.events.on('GAME_OBJECT_UP_EVENT', function (event)
     {
         setButtonFrame(event.gameObject, 0);
     });
 }
 
-function makeButton(name, x, y)
+function makeButton(name, index)
 {
-    var button = this.add.image(x, y, 'button', 1).setInteractive();
-    button.name = name;
+    var button = this.add.image(680, 115 + index*40, 'button', 1).setInteractive();
+    button.setData('index', index);
     button.setScale(2, 1.5);
 
-    var text = this.add.bitmapText(x - 40, y - 8, 'nokia', name, 16);
+    var text = this.add.bitmapText(button.x - 40, button.y - 8, 'nokia', name, 16);
     text.x += (button.width - text.width) / 2;
 }
 

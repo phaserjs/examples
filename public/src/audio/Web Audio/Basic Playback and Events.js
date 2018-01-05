@@ -398,7 +398,37 @@ var tests = [
 
     function(fn)
     {
-        second.events.once('SOUND_STOP', function ()
+        this.game.sound.events.once('SOUND_PAUSE', function ()
+        {
+            text.setText('PAUSE ALL');
+            this.time.addEvent({
+                delay: 1500,
+                callback: fn,
+                callbackScope: this
+            });
+        }.bind(this));
+
+        this.game.sound.pauseAll();
+    },
+
+    function(fn)
+    {
+        this.game.sound.events.once('SOUND_RESUME', function ()
+        {
+            text.setText('RESUME ALL');
+            this.time.addEvent({
+                delay: 2000,
+                callback: fn,
+                callbackScope: this
+            });
+        }.bind(this));
+
+        this.game.sound.resumeAll();
+    },
+
+    function(fn)
+    {
+        this.game.sound.events.once('SOUND_STOP', function ()
         {
             text.setText('STOP ALL');
             this.time.addEvent({

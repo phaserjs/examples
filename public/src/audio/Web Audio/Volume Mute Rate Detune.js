@@ -1,4 +1,6 @@
 /**
+ * @author    Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
+ *
  * Images by Walter Newton (http://walternewton.tumblr.com/post/58684376490/like-a-train-in-the-night)
  * Music by Classical 8 Bit (http://classical8bit.tumblr.com/) / CC BY
  */

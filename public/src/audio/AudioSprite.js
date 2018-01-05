@@ -26,23 +26,22 @@ function preload ()
     ], 'assets/audio/SoundEffects/fx_mixdown.json');
 }
 
-var audioSprite;
-
 function create ()
 {
     this.add.image(400, 300, 'title');
 
-    audioSprite = this.game.sound.addAudioSprite('sfx');
+    var spritemap = this.game.cache.json.get('sfx').spritemap;
 
     var i = 0;
-    for (var spriteName in audioSprite.spritemap)
+    for (var spriteName in spritemap)
     {
-        if (!audioSprite.spritemap.hasOwnProperty(spriteName))
+        if (!spritemap.hasOwnProperty(spriteName))
         {
             continue;
         }
 
         makeButton.bind(this)(spriteName, 680, 115 + i*40);
+
         i++;
     }
 
@@ -58,10 +57,11 @@ function create ()
     {
         var button = event.gameObject;
 
-        audioSprite.play(button.name);
+        this.game.sound.playAudioSprite('sfx', button.name);
 
         setButtonFrame(button, 2);
-    });
+
+    }.bind(this));
     this.input.events.on('GAME_OBJECT_UP_EVENT', function (event)
     {
         setButtonFrame(event.gameObject, 0);

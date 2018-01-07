@@ -39,27 +39,30 @@ function create () {
 
     catAstroPhi = this.game.sound.add('CatAstroPhi');
 
+    catAstroPhi.play({
+        seek: 2.550
+    });
+
+    // play() method call above has the same effect as the
+    // two lines below but it is done in only one command
+    // and it is a bit more efficient
+
+    // catAstroPhi.play();
+    // catAstroPhi.seek = 2.550;
+
+
     var gui = new dat.GUI();
 
     var sm = gui.addFolder('CatAstroPhi Sound');
     sm.add(catAstroPhi, 'seek', 0, catAstroPhi.duration).step(0.01).listen();
     sm.add(catAstroPhi, 'rate', 0.5, 2).listen();
     sm.add(catAstroPhi, 'detune', -1200, 1200).step(50).listen();
+    sm.add(catAstroPhi, 'loop').listen();
     sm.add(catAstroPhi, 'play');
     sm.add(catAstroPhi, 'pause');
     sm.add(catAstroPhi, 'resume');
     sm.add(catAstroPhi, 'stop');
     sm.open();
-
-    catAstroPhi.play({
-        seek: 2.550
-    });
-
-    // play() method call above has same effect as
-    // two lines below but it is done in only one command
-
-    // catAstroPhi.play();
-    // catAstroPhi.seek = 2.550;
 
     var bg = this.add.image(400, 300, 'bg');
 

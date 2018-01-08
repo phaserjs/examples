@@ -404,7 +404,11 @@ var Flood = new Phaser.Class({
 
             this.matched = [];
 
-            this.monsterTween.stop(0);
+            if (this.monsterTween)
+            {
+                this.monsterTween.stop(0);
+            }
+
             this.cursor.setVisible(false);
             this.instructions.setVisible(false);
 

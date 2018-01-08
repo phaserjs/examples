@@ -23,11 +23,9 @@ function create ()
 {
     this.add.image(400, 300, 'pic');
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
 
-        console.log('shake');
-
-        shakeTime = 1000;
+        shakeTime = 500;
 
     });
 
@@ -39,6 +37,6 @@ function update (time, delta)
     {
         shakeTime -= delta;
 
-        this.cameras.main.shake(1000);
+        this.cameras.main.shake(500);
     }
 }

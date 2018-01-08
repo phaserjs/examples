@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -26,16 +26,15 @@ function preload() {
 
 function create() {
 
-    image = this.add.image(0, 0, 'CherilPerils');
-    image.originX = 0;
-    image.originY = 0;
+    image = this.add.image(0, 0, 'CherilPerils').setOrigin(0);
+
     this.cameras.main.setSize(400, 300);
 
     horizontalCamera = this.cameras.add(400, 0, 400, 300);
     verticalCamera = this.cameras.add(0, 300, 400, 300);
     circularCamera = this.cameras.add(400, 300, 400, 300);
 
-    for (var i = 0; i < 1000; ++i)
+    for (var i = 0; i < 1000; i++)
     {
         this.add.image(Math.random() * 1000, Math.random() * 1240, 'clown');
     }

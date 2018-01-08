@@ -114,7 +114,7 @@ function createStarfield ()
 
     var rect = new Phaser.Geom.Rectangle(0, 0, 3200, 550);
 
-    group.randomRectangle(rect);
+    Phaser.Actions.RandomRectangle(group.getChildren(), rect);
 
     group.children.iterate(function (child, index) {
 

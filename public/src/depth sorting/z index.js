@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -14,14 +14,27 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('block', 'assets/sprites/block.png');
+    this.load.image('ayu', 'assets/pics/ayu2.png');
 }
 
 function create ()
 {
-    //  The first created appears at the back
+    //  When creating images they are added in display order.
+    //  The first one created appears at the back of the display list, and so on.
+    //  By default that have a depth value of 0 which means "unsorted"
+    //  Click to change the depth of image3 to 1, raising it higher than the others.
 
-    this.add.image(200, 300, 'block').setDepth(1);
-    this.add.image(250, 300, 'block');
-    this.add.image(300, 300, 'block');
+    var image1 = this.add.image(100, 300, 'ayu');
+    var image2 = this.add.image(200, 300, 'ayu');
+    var image3 = this.add.image(300, 300, 'ayu');
+    var image4 = this.add.image(400, 300, 'ayu');
+    var image5 = this.add.image(500, 300, 'ayu');
+    var image6 = this.add.image(600, 300, 'ayu');
+    var image7 = this.add.image(700, 300, 'ayu');
+
+    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    
+        image3.setDepth(1);
+    
+    }, 0, this);
 }

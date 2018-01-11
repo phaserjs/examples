@@ -674,14 +674,6 @@
                 {
                     "key": "birdy",
                     "frame": "front"
-                },
-                {
-                    "key": "birdy",
-                    "frame": "sing3"
-                },
-                {
-                    "key": "birdy",
-                    "frame": "front"
                 }
             ],
             "frameRate": 6.5,

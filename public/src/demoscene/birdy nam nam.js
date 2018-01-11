@@ -53,7 +53,9 @@ function preload ()
 
 function create ()
 {
-    track = this.game.sound.add('jungle');
+    this.sound.pauseOnBlur = false;
+
+    track = this.sound.add('jungle');
 
     this.add.image(0, 0, 'bg1').setOrigin(0);
 

@@ -32,14 +32,11 @@ var game = new Phaser.Game(config);
 
 function bootLoader ()
 {
-    console.log('bootLoader');
     this.load.image('loader', 'assets/demoscene/birdy-nam-nam-loader.png');
 }
 
 function bootCreate ()
 {
-    console.log('bootCreate');
-
     this.add.image(0, 0, 'loader').setOrigin(0);
 
     this.scene.launch('demo');
@@ -47,7 +44,6 @@ function bootCreate ()
 
 function preload ()
 {
-    console.log('preload');
     this.load.audio('jungle', [ 'assets/audio/jungle.ogg', 'assets/audio/jungle.mp3' ]);
     this.load.animation('birdyAnims', 'assets/demoscene/birdy.json');
     this.load.image('bg1', 'assets/demoscene/birdy-nam-nam-bg1.png');
@@ -158,4 +154,3 @@ function checkDisOut ()
     chick2.anims.play('checkDisOut');
     chick3.anims.play('lookLeft');
 }
-

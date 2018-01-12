@@ -31,12 +31,9 @@ function create ()
         this.add.image(x, y, 'cards', Phaser.Math.RND.pick(frames)).setScale(s).setInteractive();
     }
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
 
-        if (event.gameObject)
-        {
-            event.gameObject.destroy();
-        }
+        gameObject.destroy();
 
     });
 }

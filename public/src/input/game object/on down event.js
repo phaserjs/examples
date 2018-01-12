@@ -18,9 +18,9 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'eye').setInteractive();
 
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    sprite.on('pointerdown', function () {
 
-        event.gameObject.setTint(Math.random() * 16000000);
+        sprite.setTint(Math.random() * 16000000);
 
-    });
+    })
 }

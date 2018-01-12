@@ -3,25 +3,21 @@
         {
             "key": "hatch",
             "type": "frame",
+            "defaultTextureKey": "birdy",
             "frames": [
                 {
-                    "key": "birdy",
                     "frame": "hatch1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "hatch2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "hatch3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "hatch4"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 }
             ],
@@ -37,94 +33,77 @@
         {
             "key": "lookLeft",
             "type": "frame",
+            "defaultTextureKey": "birdy",
             "frames": [
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 1000
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 6500
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 1500
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "left",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 }
@@ -141,94 +120,77 @@
         {
             "key": "lookRight",
             "type": "frame",
+            "defaultTextureKey": "birdy",
             "frames": [
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 1000
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 6500
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 500
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 1500
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "right",
                     "duration": 900
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 900
                 }
@@ -245,434 +207,325 @@
         {
             "key": "checkDisOut",
             "type": "frame",
+            "defaultTextureKey": "birdy",
             "frames": [
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing1"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front",
                     "duration": 5000
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing3"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
-                    "frame": "front"
-                },
-                {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 },
                 {
-                    "key": "birdy",
                     "frame": "sing2"
                 },
                 {
-                    "key": "birdy",
                     "frame": "front"
                 }
             ],

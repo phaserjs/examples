@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -23,14 +23,19 @@ function create ()
 {
     this.createCards();
 
-    this.input.on('gameobjectdown', function (pointer, gameObject) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        gameObject.destroy();
+        gameObject.setTint(0xff0000);
+
+    });
+
+    this.input.on('gameobjectout', function (pointer, gameObject) {
+
+        gameObject.clearTint();
 
     });
 }
 
-//  Creates 64 random card sprites on the screen and sets them all to be interactive
 function createCards ()
 {
     var frames = this.textures.get('cards').getFrameNames();
@@ -39,7 +44,7 @@ function createCards ()
     {
         var x = Phaser.Math.Between(0, 800);
         var y = Phaser.Math.Between(0, 600);
-        var s = Phaser.Math.FloatBetween(0.5, 1);
+        var s = Phaser.Math.FloatBetween(0.4, 0.6);
 
         this.add.image(x, y, 'cards', Phaser.Math.RND.pick(frames)).setScale(s).setInteractive();
     }

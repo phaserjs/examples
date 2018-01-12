@@ -78,29 +78,6 @@ function create ()
     track.play();
 }
 
-function part1 ()
-{
-    this.add.image(0, 0, 'bg1').setOrigin(0);
-
-    this.anims.create({
-        key: 'lay',
-        frames: this.anims.generateFrameNames('birdy', { prefix: 'lay', start: 0, end: 19 }),
-        frameRate: 28,
-        delay: 1,
-        onComplete: dropEgg,
-        callbackScope: this
-    });
-
-    bird = this.add.sprite(328, 152, 'birdy', 'lay0').setOrigin(0).setDepth(10);
-
-    track.events.once('SOUND_PLAY', function ()
-    {
-        bird.anims.delayedPlay(1.5, 'lay');
-    });
-
-    track.play();
-}
-
 function dropEgg ()
 {
     var smallEgg = this.add.image(bird.x + 116, 228, 'birdy', 'egg-small').setOrigin(0);

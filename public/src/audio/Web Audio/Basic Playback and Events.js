@@ -315,7 +315,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.once('mute', function (soundManager, value)
+        this.sound.once('mute', function (soundManager, value)
         {
             text.setText('MUTE GLOBAL');
             this.time.addEvent({
@@ -325,12 +325,12 @@ var tests = [
             });
         }, this);
 
-        this.game.sound.mute = true;
+        this.sound.mute = true;
     },
 
     function(fn)
     {
-        this.game.sound.once('mute', function (soundManager, value)
+        this.sound.once('mute', function (soundManager, value)
         {
             text.setText('UNMUTE GLOBAL');
             this.time.addEvent({
@@ -340,12 +340,12 @@ var tests = [
             });
         }, this);
 
-        this.game.sound.mute = false;
+        this.sound.mute = false;
     },
 
     function(fn)
     {
-        this.game.sound.once('volume', function (soundManager, value)
+        this.sound.once('volume', function (soundManager, value)
         {
             text.setText('HALF VOLUME\nGLOBAL');
             this.time.addEvent({
@@ -355,7 +355,7 @@ var tests = [
             });
         }, this);
 
-        this.game.sound.volume = 0.5;
+        this.sound.volume = 0.5;
     },
 
     function(fn)
@@ -367,7 +367,7 @@ var tests = [
                 text.setText('FADE OUT\nGLOBAL');
             },
 
-            targets: this.game.sound,
+            targets: this.sound,
             volume: 0,
 
             ease: 'Linear',
@@ -386,7 +386,7 @@ var tests = [
                 text.setText('FADE IN\nGLOBAL');
             },
 
-            targets: this.game.sound,
+            targets: this.sound,
             volume: 1,
 
             ease: 'Linear',
@@ -398,7 +398,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.once('pauseall', function (soundManager)
+        this.sound.once('pauseall', function (soundManager)
         {
             text.setText('PAUSE ALL');
             this.time.addEvent({
@@ -408,12 +408,12 @@ var tests = [
             });
         }, this);
 
-        this.game.sound.pauseAll();
+        this.sound.pauseAll();
     },
 
     function(fn)
     {
-        this.game.sound.once('resumeall', function (soundManager)
+        this.sound.once('resumeall', function (soundManager)
         {
             text.setText('RESUME ALL');
             this.time.addEvent({
@@ -423,12 +423,12 @@ var tests = [
             });
         }, this);
 
-        this.game.sound.resumeAll();
+        this.sound.resumeAll();
     },
 
     function(fn)
     {
-        this.game.sound.once('stopall', function (soundManager)
+        this.sound.once('stopall', function (soundManager)
         {
             text.setText('STOP ALL');
             this.time.addEvent({
@@ -438,7 +438,7 @@ var tests = [
             });
         }, this);
 
-        this.game.sound.stopAll();
+        this.sound.stopAll();
     },
 
     function(fn)
@@ -555,9 +555,9 @@ var tests = [
 
 function create ()
 {
-    first = this.game.sound.add('CatAstroPhi', { loop: true });
-    second = this.game.sound.add('CatAstroPhi', { loop: true });
-    audioSprite = this.game.sound.addAudioSprite('sfx');
+    first = this.sound.add('CatAstroPhi', { loop: true });
+    second = this.sound.add('CatAstroPhi', { loop: true });
+    audioSprite = this.sound.addAudioSprite('sfx');
 
     enableInput.bind(this)();
 }

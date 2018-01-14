@@ -59,18 +59,18 @@ function create ()
     bottomSpeaker = this.add.image(443, 504, 'speakers', 'bottom');
     bottomSpeaker.setOrigin(0.5, 1);
 
-    bass = this.game.sound.add('bass');
-    var drums = this.game.sound.add('drums');
-    var percussion = this.game.sound.add('percussion');
-    var synth1 = this.game.sound.add('synth1');
-    var synth2 = this.game.sound.add('synth2');
-    var top1 = this.game.sound.add('top1');
-    var top2 = this.game.sound.add('top2');
+    bass = this.sound.add('bass');
+    var drums = this.sound.add('drums');
+    var percussion = this.sound.add('percussion');
+    var synth1 = this.sound.add('synth1');
+    var synth2 = this.sound.add('synth2');
+    var top1 = this.sound.add('top1');
+    var top2 = this.sound.add('top2');
 
     gui = new dat.GUI();
     var sm = gui.addFolder('Sound Manager');
-    sm.add(this.game.sound, 'rate', 0.5, 2).listen();
-    sm.add(this.game.sound, 'detune', -1200, 1200).step(50).listen();
+    sm.add(this.sound, 'rate', 0.5, 2).listen();
+    sm.add(this.sound, 'detune', -1200, 1200).step(50).listen();
 
     var loopMarker = {
         name: 'loop',

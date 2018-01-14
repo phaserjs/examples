@@ -46,7 +46,7 @@ function create ()
     var bg = this.add.image(400, 300, 'bg');
     bg.setScale(800/bg.width, 600/bg.height);
 
-    fx = this.game.sound.add('sfx');
+    fx = this.sound.add('sfx');
 
     for (var i=0; i < markers.length; i++)
     {

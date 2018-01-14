@@ -59,7 +59,7 @@ function create ()
     });
     this.input.on('gameobjectdown', function (pointer, button)
     {
-        this.game.sound.playAudioSprite('sfx', button.name);
+        this.sound.playAudioSprite('sfx', button.name);
 
         setButtonFrame(button, 2);
 

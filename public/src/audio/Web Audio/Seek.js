@@ -37,7 +37,7 @@ var rainbowMask;
 
 function create () {
 
-    catAstroPhi = this.game.sound.add('CatAstroPhi');
+    catAstroPhi = this.sound.add('CatAstroPhi');
 
     catAstroPhi.play({
         seek: 2.550

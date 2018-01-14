@@ -63,7 +63,7 @@ function create ()
     {
         var index = button.getData('index');
 
-        this.game.sound.play('sfx', markers[index]);
+        this.sound.play('sfx', markers[index]);
 
         setButtonFrame(button, 2);
 

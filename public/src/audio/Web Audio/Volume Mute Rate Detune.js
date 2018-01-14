@@ -70,12 +70,12 @@ function create ()
     horseRight.setScale(400/480);
     horseRight.play('horse');
 
-    soundLeft = this.game.sound.add('left');
+    soundLeft = this.sound.add('left');
     soundLeft.play({
         loop: true
     });
 
-    soundRight = this.game.sound.add('right');
+    soundRight = this.sound.add('right');
     soundRight.play({
         loop: true
     });
@@ -84,10 +84,10 @@ function create ()
     var gui = new dat.GUI();
 
     var sm = gui.addFolder('Sound Manager');
-    sm.add(this.game.sound, 'mute').listen();
-    sm.add(this.game.sound, 'volume', 0, 1).listen();
-    sm.add(this.game.sound, 'rate', 0.5, 2).listen();
-    sm.add(this.game.sound, 'detune', -1200, 1200).step(50).listen();
+    sm.add(this.sound, 'mute').listen();
+    sm.add(this.sound, 'volume', 0, 1).listen();
+    sm.add(this.sound, 'rate', 0.5, 2).listen();
+    sm.add(this.sound, 'detune', -1200, 1200).step(50).listen();
     sm.open();
 
     var sl = gui.addFolder('Left');
@@ -110,9 +110,9 @@ function update ()
     horseLeft.anims.timeScale(soundLeft.totalRate);
     horseRight.anims.timeScale(soundRight.totalRate);
 
-    horseLeft.setAlpha(this.game.sound.volume * soundLeft.volume);
-    horseRight.setAlpha(this.game.sound.volume * soundRight.volume);
+    horseLeft.setAlpha(this.sound.volume * soundLeft.volume);
+    horseRight.setAlpha(this.sound.volume * soundRight.volume);
 
-    horseLeft.visible = !this.game.sound.mute && !soundLeft.mute;
-    horseRight.visible = !this.game.sound.mute && !soundRight.mute;
+    horseLeft.visible = !this.sound.mute && !soundLeft.mute;
+    horseRight.visible = !this.sound.mute && !soundRight.mute;
 }

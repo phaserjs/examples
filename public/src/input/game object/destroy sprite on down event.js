@@ -5,7 +5,10 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        extend: {
+            createCards: createCards
+        }
     }
 };
 
@@ -18,8 +21,18 @@ function preload ()
 
 function create ()
 {
-    //  Create some random cards
+    this.createCards();
 
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
+
+        gameObject.destroy();
+
+    });
+}
+
+//  Creates 64 random card sprites on the screen and sets them all to be interactive
+function createCards ()
+{
     var frames = this.textures.get('cards').getFrameNames();
 
     for (var i = 0; i < 64; i++)
@@ -30,13 +43,4 @@ function create ()
 
         this.add.image(x, y, 'cards', Phaser.Math.RND.pick(frames)).setScale(s).setInteractive();
     }
-
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
-
-        if (event.gameObject)
-        {
-            event.gameObject.destroy();
-        }
-
-    });
 }

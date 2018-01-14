@@ -70,7 +70,7 @@ function create ()
 
     bird = this.add.sprite(328, 152, 'birdy', 'lay0').setOrigin(0).setDepth(10);
 
-    track.events.once('SOUND_PLAY', function ()
+    track.once('play', function ()
     {
         bird.anims.delayedPlay(1.5, 'lay');
     });

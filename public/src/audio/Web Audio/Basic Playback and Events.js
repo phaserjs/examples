@@ -52,7 +52,7 @@ var tests = [
 
     function (fn)
     {
-        first.once('play', function ()
+        first.once('play', function (sound)
         {
             text.setText('PLAYING');
             this.time.addEvent({
@@ -67,7 +67,7 @@ var tests = [
 
     function (fn)
     {
-        first.once('pause', function ()
+        first.once('pause', function (sound)
         {
             text.setText('PAUSED');
             this.time.addEvent({
@@ -82,7 +82,7 @@ var tests = [
 
     function(fn)
     {
-        first.once('resume', function ()
+        first.once('resume', function (sound)
         {
             text.setText('RESUMING');
             this.time.addEvent({
@@ -97,7 +97,7 @@ var tests = [
 
     function(fn)
     {
-        first.once('stop', function ()
+        first.once('stop', function (sound)
         {
             text.setText('STOPPED');
             this.time.addEvent({
@@ -112,7 +112,7 @@ var tests = [
 
     function(fn)
     {
-        first.once('play', function ()
+        first.once('play', function (sound)
         {
             text.setText('PLAY FROM\nSTART');
             this.time.addEvent({
@@ -127,7 +127,7 @@ var tests = [
 
     function(fn)
     {
-        first.once('rate', function ()
+        first.once('rate', function (sound, value)
         {
             text.setText('SPEED UP\nRATE');
             this.time.addEvent({
@@ -142,7 +142,7 @@ var tests = [
 
     function(fn)
     {
-        first.once('detune', function ()
+        first.once('detune', function (sound, value)
         {
             text.setText('SPEED UP\nDETUNE');
             this.time.addEvent({
@@ -157,7 +157,7 @@ var tests = [
 
     function(fn)
     {
-        first.once('rate', function ()
+        first.once('rate', function (sound, value)
         {
             text.setText('SLOW DOWN\nRATE');
             this.time.addEvent({
@@ -172,7 +172,7 @@ var tests = [
 
     function(fn)
     {
-        first.once('detune', function ()
+        first.once('detune', function (sound, value)
         {
             text.setText('SLOW DOWN\nDETUNE');
             this.time.addEvent({
@@ -315,7 +315,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.once('mute', function ()
+        this.game.sound.once('mute', function (soundManager, value)
         {
             text.setText('MUTE GLOBAL');
             this.time.addEvent({
@@ -330,7 +330,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.once('mute', function ()
+        this.game.sound.once('mute', function (soundManager, value)
         {
             text.setText('UNMUTE GLOBAL');
             this.time.addEvent({
@@ -345,7 +345,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.once('volume', function ()
+        this.game.sound.once('volume', function (soundManager, value)
         {
             text.setText('HALF VOLUME\nGLOBAL');
             this.time.addEvent({
@@ -398,7 +398,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.once('pauseall', function ()
+        this.game.sound.once('pauseall', function (soundManager)
         {
             text.setText('PAUSE ALL');
             this.time.addEvent({
@@ -413,7 +413,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.once('resumeall', function ()
+        this.game.sound.once('resumeall', function (soundManager)
         {
             text.setText('RESUME ALL');
             this.time.addEvent({
@@ -428,7 +428,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.once('stopall', function ()
+        this.game.sound.once('stopall', function (soundManager)
         {
             text.setText('STOP ALL');
             this.time.addEvent({
@@ -443,7 +443,7 @@ var tests = [
 
     function(fn)
     {
-        audioSprite.once('play', function ()
+        audioSprite.once('play', function (sound)
         {
             text.setText('PLAY SPRITE');
             this.time.addEvent({
@@ -458,7 +458,7 @@ var tests = [
 
     function(fn)
     {
-        audioSprite.once('pause', function ()
+        audioSprite.once('pause', function (sound)
         {
             text.setText('PAUSE SPRITE');
             this.time.addEvent({
@@ -473,7 +473,7 @@ var tests = [
 
     function(fn)
     {
-        audioSprite.once('resume', function ()
+        audioSprite.once('resume', function (sound)
         {
             text.setText('RESUME SPRITE');
             this.time.addEvent({
@@ -488,7 +488,7 @@ var tests = [
 
     function(fn)
     {
-        audioSprite.once('play', function ()
+        audioSprite.once('play', function (sound)
         {
             text.setText('MULTIPLE\nSPRITES');
             this.time.addEvent({
@@ -512,7 +512,7 @@ var tests = [
 
     function(fn)
     {
-        audioSprite.once('play', function ()
+        audioSprite.once('play', function (sound)
         {
             text.setText('LOOP SPRITE');
             this.time.addEvent({
@@ -587,7 +587,7 @@ function enableInput()
 {
     text.setText('CLICK TO START');
 
-    this.input.once('pointerdown', function ()
+    this.input.once('pointerdown', function (pointer)
     {
         tests[0].bind(this)(chain.bind(this)(1));
     }, this);

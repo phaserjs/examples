@@ -94,7 +94,6 @@ function create ()
     helpText.setScrollFactor(0);
 }
 
-
 function update (time, delta)
 {
     player.body.setVelocity(0);

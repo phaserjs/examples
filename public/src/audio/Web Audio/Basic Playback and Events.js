@@ -52,7 +52,7 @@ var tests = [
 
     function (fn)
     {
-        first.events.once('SOUND_PLAY', function ()
+        first.once('play', function ()
         {
             text.setText('PLAYING');
             this.time.addEvent({
@@ -60,14 +60,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.play();
     },
 
     function (fn)
     {
-        first.events.once('SOUND_PAUSE', function ()
+        first.once('pause', function ()
         {
             text.setText('PAUSED');
             this.time.addEvent({
@@ -75,14 +75,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.pause();
     },
 
     function(fn)
     {
-        first.events.once('SOUND_RESUME', function ()
+        first.once('resume', function ()
         {
             text.setText('RESUMING');
             this.time.addEvent({
@@ -90,14 +90,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.resume();
     },
 
     function(fn)
     {
-        first.events.once('SOUND_STOP', function ()
+        first.once('stop', function ()
         {
             text.setText('STOPPED');
             this.time.addEvent({
@@ -105,14 +105,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.stop();
     },
 
     function(fn)
     {
-        first.events.once('SOUND_PLAY', function ()
+        first.once('play', function ()
         {
             text.setText('PLAY FROM\nSTART');
             this.time.addEvent({
@@ -120,14 +120,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.play();
     },
 
     function(fn)
     {
-        first.events.once('SOUND_RATE', function ()
+        first.once('rate', function ()
         {
             text.setText('SPEED UP\nRATE');
             this.time.addEvent({
@@ -135,14 +135,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.rate = 1.5;
     },
 
     function(fn)
     {
-        first.events.once('SOUND_DETUNE', function ()
+        first.once('detune', function ()
         {
             text.setText('SPEED UP\nDETUNE');
             this.time.addEvent({
@@ -150,14 +150,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.detune = 600;
     },
 
     function(fn)
     {
-        first.events.once('SOUND_RATE', function ()
+        first.once('rate', function ()
         {
             text.setText('SLOW DOWN\nRATE');
             this.time.addEvent({
@@ -165,14 +165,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.rate = 1;
     },
 
     function(fn)
     {
-        first.events.once('SOUND_DETUNE', function ()
+        first.once('detune', function ()
         {
             text.setText('SLOW DOWN\nDETUNE');
             this.time.addEvent({
@@ -180,7 +180,7 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.detune = 0;
     },
@@ -225,7 +225,7 @@ var tests = [
 
     function(fn)
     {
-        first.events.once('SOUND_MUTE', function()
+        first.once('mute', function()
         {
             text.setText('MUTE');
             this.time.addEvent({
@@ -233,14 +233,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.mute = true;
     },
 
     function(fn)
     {
-        first.events.once('SOUND_MUTE', function()
+        first.once('mute', function()
         {
             text.setText('UNMUTE');
             this.time.addEvent({
@@ -248,14 +248,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.mute = false;
     },
 
     function(fn)
     {
-        first.events.once('SOUND_VOLUME', function()
+        first.once('volume', function()
         {
             text.setText('HALF VOLUME');
             this.time.addEvent({
@@ -263,14 +263,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.volume = 0.5;
     },
 
     function(fn)
     {
-        first.events.once('SOUND_VOLUME', function()
+        first.once('volume', function()
         {
             text.setText('FULL VOLUME');
             this.time.addEvent({
@@ -278,14 +278,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.volume = 1;
     },
 
     function(fn)
     {
-        first.events.once('SOUND_SEEK', function()
+        first.once('seek', function()
         {
             text.setText('SEEK TO START');
             this.time.addEvent({
@@ -293,14 +293,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         first.seek = 0;
     },
 
     function(fn)
     {
-        second.events.once('SOUND_PLAY', function()
+        second.once('play', function()
         {
             text.setText('PLAY 2ND');
             this.time.addEvent({
@@ -308,14 +308,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         second.play();
     },
 
     function(fn)
     {
-        this.game.sound.events.once('SOUND_MUTE', function ()
+        this.game.sound.once('mute', function ()
         {
             text.setText('MUTE GLOBAL');
             this.time.addEvent({
@@ -323,14 +323,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         this.game.sound.mute = true;
     },
 
     function(fn)
     {
-        this.game.sound.events.once('SOUND_MUTE', function ()
+        this.game.sound.once('mute', function ()
         {
             text.setText('UNMUTE GLOBAL');
             this.time.addEvent({
@@ -338,14 +338,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         this.game.sound.mute = false;
     },
 
     function(fn)
     {
-        this.game.sound.events.once('SOUND_VOLUME', function ()
+        this.game.sound.once('volume', function ()
         {
             text.setText('HALF VOLUME\nGLOBAL');
             this.time.addEvent({
@@ -353,7 +353,7 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         this.game.sound.volume = 0.5;
     },
@@ -398,7 +398,7 @@ var tests = [
 
     function(fn)
     {
-        this.game.sound.events.once('SOUND_PAUSE', function ()
+        this.game.sound.once('pauseall', function ()
         {
             text.setText('PAUSE ALL');
             this.time.addEvent({
@@ -406,14 +406,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         this.game.sound.pauseAll();
     },
 
     function(fn)
     {
-        this.game.sound.events.once('SOUND_RESUME', function ()
+        this.game.sound.once('resumeall', function ()
         {
             text.setText('RESUME ALL');
             this.time.addEvent({
@@ -421,14 +421,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         this.game.sound.resumeAll();
     },
 
     function(fn)
     {
-        this.game.sound.events.once('SOUND_STOP', function ()
+        this.game.sound.once('stopall', function ()
         {
             text.setText('STOP ALL');
             this.time.addEvent({
@@ -436,14 +436,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         this.game.sound.stopAll();
     },
 
     function(fn)
     {
-        audioSprite.events.once('SOUND_PLAY', function ()
+        audioSprite.once('play', function ()
         {
             text.setText('PLAY SPRITE');
             this.time.addEvent({
@@ -451,14 +451,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         audioSprite.play('death');
     },
 
     function(fn)
     {
-        audioSprite.events.once('SOUND_PAUSE', function ()
+        audioSprite.once('pause', function ()
         {
             text.setText('PAUSE SPRITE');
             this.time.addEvent({
@@ -466,14 +466,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         audioSprite.pause();
     },
 
     function(fn)
     {
-        audioSprite.events.once('SOUND_RESUME', function ()
+        audioSprite.once('resume', function ()
         {
             text.setText('RESUME SPRITE');
             this.time.addEvent({
@@ -481,14 +481,14 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         audioSprite.resume();
     },
 
     function(fn)
     {
-        audioSprite.events.once('SOUND_PLAY', function ()
+        audioSprite.once('play', function ()
         {
             text.setText('MULTIPLE\nSPRITES');
             this.time.addEvent({
@@ -496,7 +496,7 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         var sounds = ['boss hit', 'meow', 'numkey', 'squit', 'alien death'];
 
@@ -512,7 +512,7 @@ var tests = [
 
     function(fn)
     {
-        audioSprite.events.once('SOUND_PLAY', function ()
+        audioSprite.once('play', function ()
         {
             text.setText('LOOP SPRITE');
             this.time.addEvent({
@@ -520,7 +520,7 @@ var tests = [
                 callback: fn,
                 callbackScope: this
             });
-        }.bind(this));
+        }, this);
 
         audioSprite.play('ping', {
             loop: true
@@ -587,8 +587,8 @@ function enableInput()
 {
     text.setText('CLICK TO START');
 
-    this.input.events.once('POINTER_DOWN_EVENT', function ()
+    this.input.once('pointerdown', function ()
     {
         tests[0].bind(this)(chain.bind(this)(1));
-    }.bind(this));
+    }, this);
 }

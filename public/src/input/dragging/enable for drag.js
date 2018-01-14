@@ -20,22 +20,22 @@ function create ()
 
     this.input.setDraggable(image);
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0xff0000);
-
-    });
-
-    this.input.events.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-        event.gameObject.clearTint();
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+
+    });
+
+    this.input.on('dragend', function (pointer, gameObject) {
+
+        gameObject.clearTint();
 
     });
 }

@@ -83,11 +83,11 @@ function create () {
 
     this.input.setDraggable(cat);
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('drag', function (pointer, cat) {
 
-        event.gameObject.x = Math.min(Math.max(cat.width/2, event.dragX), 800 - cat.width/2);
+        cat.x = Math.min(Math.max(cat.width/2, event.dragX), 800 - cat.width/2);
 
-        catAstroPhi.seek = (event.gameObject.x - cat.width/2)/(800 - cat.width) * catAstroPhi.duration;
+        catAstroPhi.seek = (cat.x - cat.width/2)/(800 - cat.width) * catAstroPhi.duration;
     });
 }
 

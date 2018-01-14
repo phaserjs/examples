@@ -51,27 +51,26 @@ function create ()
         makeButton.bind(this)(markers[i].name, i);
     }
 
-    this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event)
+    this.input.on('gameobjectover', function (pointer, button)
     {
-        setButtonFrame(event.gameObject, 0);
+        setButtonFrame(button, 0);
     });
-    this.input.events.on('GAME_OBJECT_OUT_EVENT', function (event)
+    this.input.on('gameobjectout', function (pointer, button)
     {
-        setButtonFrame(event.gameObject, 1);
+        setButtonFrame(button, 1);
     });
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event)
+    this.input.on('gameobjectdown', function (pointer, button)
     {
-        var button = event.gameObject;
         var index = button.getData('index');
 
         this.game.sound.play('sfx', markers[index]);
 
         setButtonFrame(button, 2);
 
-    }.bind(this));
-    this.input.events.on('GAME_OBJECT_UP_EVENT', function (event)
+    }, this);
+    this.input.on('gameobjectup', function (pointer, button)
     {
-        setButtonFrame(event.gameObject, 0);
+        setButtonFrame(button, 0);
     });
 }
 

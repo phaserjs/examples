@@ -95,50 +95,50 @@ function create ()
     // sound.delay = delay;
     // sound.play('loop');
 
-    bass.events.once('SOUND_LOOP', function (event) {
+    bass.once('looped', function (sound) {
         startStem.bind(this)(drums, 'Drums', middleSpeaker);
-    }.bind(this));
+    }, this);
 
     drums.addMarker(loopMarker);
     drums.play('loop', {
         delay: loopMarker.duration
     });
-    drums.events.once('SOUND_LOOP', function (event) {
+    drums.once('looped', function (sound) {
         startStem.bind(this)(percussion, 'Percussion', middleSpeaker);
-    }.bind(this));
+    }, this);
 
     percussion.addMarker(loopMarker);
     percussion.play('loop', {
         delay: loopMarker.duration * 2
     });
-    percussion.events.once('SOUND_LOOP', function (event) {
+    percussion.once('looped', function (sound) {
         startStem.bind(this)(synth1, 'Synth 1', topRightSpeaker);
-    }.bind(this));
+    }, this);
 
     synth1.addMarker(loopMarker);
     synth1.play('loop', {
         delay: loopMarker.duration * 3
     });
-    synth1.events.once('SOUND_LOOP', function (event) {
+    synth1.once('looped', function (sound) {
         startStem.bind(this)(synth2, 'Synth 2', topRightSpeaker);
-    }.bind(this));
+    }, this);
 
     synth2.addMarker(loopMarker);
     synth2.play('loop', {
         delay: loopMarker.duration * 4
     });
-    synth2.events.once('SOUND_LOOP', function (event) {
+    synth2.once('looped', function (sound) {
         startStem.bind(this)(top1, 'Top 1', topLeftSpeaker);
-    }.bind(this));
+    }, this);
 
     top1.addMarker(loopMarker);
     top1.play('loop', {
         delay: loopMarker.duration * 5
     });
-    top1.events.once('SOUND_LOOP', function (event) {
+    top1.once('looped', function (sound) {
         startStem.bind(this)(top2, 'Top 2', topLeftSpeaker);
         sm.open();
-    }.bind(this));
+    }, this);
 
     top2.addMarker(loopMarker);
     top2.play('loop', {

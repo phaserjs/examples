@@ -70,8 +70,15 @@ function create ()
     horseRight.setScale(400/480);
     horseRight.play('horse');
 
-    soundLeft = this.game.sound.add('left').play({ loop: true });
-    soundRight = this.game.sound.add('right').play({ loop: true });
+    soundLeft = this.game.sound.add('left');
+    soundLeft.play({
+        loop: true
+    });
+
+    soundRight = this.game.sound.add('right');
+    soundLeft.play({
+        loop: true
+    });
 
 
     var gui = new dat.GUI();

@@ -76,7 +76,7 @@ function create ()
     });
 
     soundRight = this.game.sound.add('right');
-    soundLeft.play({
+    soundRight.play({
         loop: true
     });
 

@@ -27,9 +27,9 @@ function create ()
 
     var bigCircle = new Phaser.Geom.Circle(400, 300, 250);
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
-        var x = Math.floor(event.x / 100);
-        var y = Math.floor(event.y / 100);
+    this.input.on('pointerdown', function (pointer) {
+        var x = Math.floor(pointer.x / 100);
+        var y = Math.floor(pointer.y / 100);
 
         Phaser.Geom.Circle.CopyFrom(bigCircle, circles[x][y]);
 

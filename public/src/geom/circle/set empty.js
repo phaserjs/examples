@@ -25,9 +25,9 @@ function create ()
         }
     }
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
-        var x = Math.floor(event.x / 100);
-        var y = Math.floor(event.y / 100);
+    this.input.on('pointerdown', function (pointer) {
+        var x = Math.floor(pointer.x / 100);
+        var y = Math.floor(pointer.y / 100);
 
         circles[x][y].setEmpty();
 

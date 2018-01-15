@@ -27,11 +27,11 @@ function create ()
 
     var mouseCircle = new Phaser.Geom.Circle(-50, -50, 50);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
         // round position to 25 pixels
-        var x = Math.round(event.x / 25) * 25;
-        var y = Math.round(event.y / 25) * 25;
+        var x = Math.round(pointer.x / 25) * 25;
+        var y = Math.round(pointer.y / 25) * 25;
 
         mouseCircle.setPosition(x, y);
 

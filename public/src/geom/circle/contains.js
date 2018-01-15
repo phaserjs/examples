@@ -18,11 +18,11 @@ function create ()
 
     graphics.fillCircleShape(circle);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
         graphics.clear();
 
-        if(circle.contains(event.x, event.y))
+        if(circle.contains(pointer.x, pointer.y))
         {
             graphics.fillStyle(0x00ff00);
         }

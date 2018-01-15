@@ -86,9 +86,9 @@ function create () {
 
     this.input.setDraggable(cat);
 
-    this.input.on('drag', function (pointer, cat) {
+    this.input.on('drag', function (pointer, cat, dragX, dragY) {
 
-        cat.x = Math.min(Math.max(cat.width/2, event.dragX), 800 - cat.width/2);
+        cat.x = Math.min(Math.max(cat.width/2, dragX), 800 - cat.width/2);
 
         catAstroPhi.seek = (cat.x - cat.width/2)/(800 - cat.width) * catAstroPhi.duration;
     });

@@ -25,9 +25,9 @@ function create ()
         }
     }
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
-        var x = Math.floor(event.x / 80);
-        var y = Math.floor(event.y / 60);
+    this.input.on('pointerdown', function (pointer) {
+        var x = Math.floor(pointer.x / 80);
+        var y = Math.floor(pointer.y / 60);
 
         rectangles[x][y].setEmpty();
 

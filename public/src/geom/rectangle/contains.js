@@ -18,11 +18,11 @@ function create ()
 
     graphics.fillRectShape(rect);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
         graphics.clear();
 
-        if(rect.contains(event.x, event.y))
+        if(rect.contains(pointer.x, pointer.y))
         {
             graphics.fillStyle(0x0000aa);
         }

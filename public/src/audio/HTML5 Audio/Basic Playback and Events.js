@@ -1,5 +1,8 @@
 /**
  * @author    Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
+ *
+ * Prometheus Brings Fire To Mankind - Painting by Heinrich Füger, 1817, Public Domain
+ * The Creatures of Prometheus, Op. 43, Overture - Music by Ludwig van Beethoven, 1801, Public Domain
  */
 
 var config = {
@@ -7,7 +10,6 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#a2998c',
     scene: {
         preload: preload,
         create: create
@@ -23,30 +25,25 @@ var text;
 
 function preload ()
 {
-    var graphics = this.add.graphics();
-    graphics.fillStyle(0xe0dad2);
-    graphics.fillRect(30, 30, 740, 540);
+    var head  = document.getElementsByTagName('head')[0];
+    var link  = document.createElement('link');
+    link.rel  = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy';
+    head.appendChild(link);
 
-    text = this.add.text(400, 300, 'LOADING...', {
-        fontFamily: '\'Lucida Grande\', Arial',
-        fontSize: 80,
-        color: '#a2998c',
-        fontStyle: 'bold',
-        align: 'center'
-    });
-    text.setOrigin(0.5);
+    this.load.image('prometheus', 'assets/pics/Prometheus Brings Fire To Mankind.jpg');
 
-    this.load.audio('CatAstroPhi', [
-        'assets/audio/CatAstroPhi_shmup_normal.ogg',
-        'assets/audio/CatAstroPhi_shmup_normal.mp3'
+    this.load.audio('overture', [
+        'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/Overture.ogg',
+        'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/Overture.mp3'
     ],{
         instances: 2
     });
 
-    this.load.audioSprite('sfx', [
-        'assets/audio/SoundEffects/fx_mixdown.ogg',
-        'assets/audio/SoundEffects/fx_mixdown.mp3'
-    ], 'assets/audio/SoundEffects/fx_mixdown.json');
+    this.load.audioSprite('creatures', [
+        'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.ogg',
+        'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.mp3'
+    ], 'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.json');
 }
 
 var first;
@@ -59,7 +56,7 @@ var tests = [
     {
         first.once('play', function (sound)
         {
-            text.setText('PLAYING');
+            text.setText('Playing');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -74,7 +71,7 @@ var tests = [
     {
         first.once('pause', function (sound)
         {
-            text.setText('PAUSED');
+            text.setText('Paused');
             this.time.addEvent({
                 delay: 1500,
                 callback: fn,
@@ -89,7 +86,7 @@ var tests = [
     {
         first.once('resume', function (sound)
         {
-            text.setText('RESUMING');
+            text.setText('Resuming');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -104,7 +101,7 @@ var tests = [
     {
         first.once('stop', function (sound)
         {
-            text.setText('STOPPED');
+            text.setText('Stopped');
             this.time.addEvent({
                 delay: 1500,
                 callback: fn,
@@ -119,7 +116,7 @@ var tests = [
     {
         first.once('play', function (sound)
         {
-            text.setText('PLAY FROM\nSTART');
+            text.setText('Play from start');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -134,7 +131,7 @@ var tests = [
     {
         first.once('rate', function (sound, value)
         {
-            text.setText('SPEED UP\nRATE');
+            text.setText('Speed up rate');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -149,7 +146,7 @@ var tests = [
     {
         first.once('detune', function (sound, value)
         {
-            text.setText('SPEED UP\nDETUNE');
+            text.setText('Speed up detune');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -164,7 +161,7 @@ var tests = [
     {
         first.once('rate', function (sound, value)
         {
-            text.setText('SLOW DOWN\nRATE');
+            text.setText('Slow down rate');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -179,7 +176,7 @@ var tests = [
     {
         first.once('detune', function (sound, value)
         {
-            text.setText('SLOW DOWN\nDETUNE');
+            text.setText('Slow down detune');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -196,7 +193,7 @@ var tests = [
 
             onStart: function ()
             {
-                text.setText('FADE OUT');
+                text.setText('Fade out');
             },
 
             targets: first,
@@ -215,7 +212,7 @@ var tests = [
 
             onStart: function ()
             {
-                text.setText('FADE IN');
+                text.setText('Fade in');
             },
 
             targets: first,
@@ -232,7 +229,7 @@ var tests = [
     {
         first.once('mute', function()
         {
-            text.setText('MUTE');
+            text.setText('Mute');
             this.time.addEvent({
                 delay: 1500,
                 callback: fn,
@@ -247,7 +244,7 @@ var tests = [
     {
         first.once('mute', function()
         {
-            text.setText('UNMUTE');
+            text.setText('Unmute');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -262,7 +259,7 @@ var tests = [
     {
         first.once('volume', function()
         {
-            text.setText('HALF VOLUME');
+            text.setText('Half volume');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -277,7 +274,7 @@ var tests = [
     {
         first.once('volume', function()
         {
-            text.setText('FULL VOLUME');
+            text.setText('Full volume');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -292,7 +289,7 @@ var tests = [
     {
         first.once('seek', function()
         {
-            text.setText('SEEK TO START');
+            text.setText('Seek to start');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -307,7 +304,7 @@ var tests = [
     {
         second.once('play', function()
         {
-            text.setText('PLAY 2ND');
+            text.setText('Play 2nd');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -322,7 +319,7 @@ var tests = [
     {
         this.sound.once('mute', function (soundManager, value)
         {
-            text.setText('MUTE GLOBAL');
+            text.setText('Mute global');
             this.time.addEvent({
                 delay: 1500,
                 callback: fn,
@@ -337,7 +334,7 @@ var tests = [
     {
         this.sound.once('mute', function (soundManager, value)
         {
-            text.setText('UNMUTE GLOBAL');
+            text.setText('Unmute global');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -352,7 +349,7 @@ var tests = [
     {
         this.sound.once('volume', function (soundManager, value)
         {
-            text.setText('HALF VOLUME\nGLOBAL');
+            text.setText('Half volume global');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -369,7 +366,7 @@ var tests = [
 
             onStart: function ()
             {
-                text.setText('FADE OUT\nGLOBAL');
+                text.setText('Fade out global');
             },
 
             targets: this.sound,
@@ -388,7 +385,7 @@ var tests = [
 
             onStart: function ()
             {
-                text.setText('FADE IN\nGLOBAL');
+                text.setText('Fade in global');
             },
 
             targets: this.sound,
@@ -405,7 +402,7 @@ var tests = [
     {
         this.sound.once('pauseall', function (soundManager)
         {
-            text.setText('PAUSE ALL');
+            text.setText('Pause all');
             this.time.addEvent({
                 delay: 1500,
                 callback: fn,
@@ -420,7 +417,7 @@ var tests = [
     {
         this.sound.once('resumeall', function (soundManager)
         {
-            text.setText('RESUME ALL');
+            text.setText('Resume all');
             this.time.addEvent({
                 delay: 2000,
                 callback: fn,
@@ -435,7 +432,7 @@ var tests = [
     {
         this.sound.once('stopall', function (soundManager)
         {
-            text.setText('STOP ALL');
+            text.setText('Stop all');
             this.time.addEvent({
                 delay: 1500,
                 callback: fn,
@@ -450,7 +447,7 @@ var tests = [
     {
         audioSprite.once('play', function (sound)
         {
-            text.setText('PLAY SPRITE');
+            text.setText('Play sprite');
             this.time.addEvent({
                 delay: 1500,
                 callback: fn,
@@ -458,14 +455,14 @@ var tests = [
             });
         }, this);
 
-        audioSprite.play('death');
+        audioSprite.play('07');
     },
 
     function(fn)
     {
         audioSprite.once('pause', function (sound)
         {
-            text.setText('PAUSE SPRITE');
+            text.setText('Pause sprite');
             this.time.addEvent({
                 delay: 1000,
                 callback: fn,
@@ -480,7 +477,7 @@ var tests = [
     {
         audioSprite.once('resume', function (sound)
         {
-            text.setText('RESUME SPRITE');
+            text.setText('Resume sprite');
             this.time.addEvent({
                 delay: 1500,
                 callback: fn,
@@ -495,20 +492,20 @@ var tests = [
     {
         audioSprite.once('play', function (sound)
         {
-            text.setText('MULTIPLE\nSPRITES');
+            text.setText('Multiple sprites');
             this.time.addEvent({
-                delay: 3000,
+                delay: 10000,
                 callback: fn,
                 callbackScope: this
             });
         }, this);
 
-        var sounds = ['boss hit', 'meow', 'numkey', 'squit', 'alien death'];
+        var sounds = ['01', '02', '03', '03', '05'];
 
         for (var i=0; i<sounds.length; i++)
         {
             this.time.addEvent({
-                delay: i * 500,
+                delay: i * 2000,
                 callback: audioSprite.play.bind(audioSprite, sounds[i]),
                 callbackScope: audioSprite
             });
@@ -519,15 +516,15 @@ var tests = [
     {
         audioSprite.once('play', function (sound)
         {
-            text.setText('LOOP SPRITE');
+            text.setText('Loop sprite');
             this.time.addEvent({
-                delay: 3000,
+                delay: 4000,
                 callback: fn,
                 callbackScope: this
             });
         }, this);
 
-        audioSprite.play('ping', {
+        audioSprite.play('06', {
             loop: true
         });
     },
@@ -538,14 +535,14 @@ var tests = [
 
             onStart: function ()
             {
-                text.setText('FADE OUT SPRITE');
+                text.setText('Fade out sprite');
             },
 
             targets: audioSprite,
             volume: 0,
 
             ease: 'Linear',
-            duration: 2000,
+            duration: 4000,
 
             onComplete: function()
             {
@@ -560,9 +557,23 @@ var tests = [
 
 function create ()
 {
-    first = this.sound.add('CatAstroPhi', { loop: true });
-    second = this.sound.add('CatAstroPhi', { loop: true });
-    audioSprite = this.sound.addAudioSprite('sfx');
+    this.sound.pauseOnBlur = false;
+
+    var prometheus = this.add.image(400, 300, 'prometheus');
+    prometheus.setScale(600/prometheus.height);
+
+    text = this.add.text(400, 300, 'Loading...', {
+        fontFamily: '\'Sorts Mill Goudy\', serif',
+        fontSize: 80,
+        color: '#fff',
+        align: 'center'
+    });
+    text.setOrigin(0.5);
+    text.setShadow(0, 1, "#888", 2);
+
+    first = this.sound.add('overture', { loop: true });
+    second = this.sound.add('overture', { loop: true });
+    audioSprite = this.sound.addAudioSprite('creatures');
 
     enableInput.bind(this)();
 }
@@ -577,7 +588,7 @@ function chain(i)
         }
         else
         {
-            text.setText('COMPLETE!');
+            text.setText('Complete!');
 
             this.time.addEvent({
                 delay: 5000,
@@ -590,7 +601,7 @@ function chain(i)
 
 function enableInput()
 {
-    text.setText('CLICK TO START');
+    text.setText('Click to start');
 
     this.input.once('pointerdown', function (pointer)
     {

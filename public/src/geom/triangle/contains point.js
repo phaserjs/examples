@@ -22,10 +22,10 @@ function create ()
     graphics.fillStyle(0x00ff00);
     graphics.fillTriangleShape(triangle);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        var x = event.x;
-        var y = event.y;
+        var x = pointer.x;
+        var y = pointer.y;
 
         graphics.clear();
 

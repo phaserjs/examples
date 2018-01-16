@@ -14,7 +14,7 @@ function create ()
 {
     var graphics = this.add.graphics({ fillStyle: { color: 0xaaaa00 } });
 
-    var triangle = Phaser.Geom.Triangle.BuildEquilateral(400, 300, 150, 100);
+    var triangle = Phaser.Geom.Triangle.BuildEquilateral(400, 300, 150);
 
     this.input.on('pointermove', function (pointer) {
 

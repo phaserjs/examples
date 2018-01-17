@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -18,9 +18,9 @@ function preload ()
 
 function create ()
 {
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
-        this.add.image(event.x, event.y, 'balls', Phaser.Math.Between(0, 5));
+        this.add.image(pointer.x, pointer.y, 'balls', Phaser.Math.Between(0, 5));
 
-    }, 0, this);
+    }, this);
 }

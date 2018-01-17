@@ -29,21 +29,21 @@ function create ()
 
     //  Events
 
-    this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0xff0000);
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('GAME_OBJECT_OUT_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        event.gameObject.clearTint();
+        gameObject.clearTint();
 
     });
 
     var text = this.add.text(10, 10, 'Input.topOnly: true', { font: '16px Courier', fill: '#00ff00' });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (event) {
     
         if (this.input.topOnly)
         {
@@ -57,5 +57,5 @@ function create ()
         }
 
     
-    }, 0, this);
+    }, this);
 }

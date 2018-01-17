@@ -35,10 +35,10 @@ function create() {
 
     text.mask = new Phaser.Display.Masks.BitmapMask(this, phaser2);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        phaser2.x = event.x;
-        phaser2.y = event.y;
+        phaser2.x = pointer.x;
+        phaser2.y = pointer.y;
 
         phaser2.setText('PHASER\nX: ' + phaser2.x + '\nY: ' + phaser2.y);
         text.setText('PHASER\nX: ' + phaser2.x + '\nY: ' + phaser2.y);

@@ -23,21 +23,19 @@ function create ()
     var sprite3 = this.add.sprite(500, 400, 'eye').setInteractive();
 
     //  If you disable topOnly it will fire events for all objects the pointer is over, regardless of place on the display list
-    this.input.topOnly = false;
+    this.input.setTopOnly(false);
 
     //  Events
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
 
-        console.log('down', event.gameObject.x);
-        event.gameObject.setTint(0xff0000);
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('POINTER_UP_EVENT', function (event) {
+    this.input.on('gameobjectup', function (pointer, gameObject) {
 
-        console.log('up', event.gameObject.x);
-        event.gameObject.clearTint();
+        gameObject.clearTint();
 
     });
 }

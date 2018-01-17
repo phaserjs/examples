@@ -39,7 +39,7 @@ function create ()
         emitZone: { type: 'edge', source: shape1, quantity: 48, yoyo: false }
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
         i++;
 

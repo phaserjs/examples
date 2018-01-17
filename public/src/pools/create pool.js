@@ -32,7 +32,7 @@ function create ()
 
     var x = 60;
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function () {
 
         //  Pluck an entry from the pool. If it doesn't already exist, create it.
         cans.get(x, 300);

@@ -37,7 +37,7 @@ function create ()
         paused: true
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function () {
+    this.input.on('pointerdown', function () {
 
         tween.play();
 

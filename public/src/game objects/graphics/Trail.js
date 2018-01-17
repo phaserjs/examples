@@ -28,10 +28,10 @@ function create() {
 
     trail = this.add.graphics();
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        head.x = event.x;
-        head.y = event.y;
+        head.x = pointer.x;
+        head.y = pointer.y;
 
         points.push(new Point(head.x, head.y, 4.0));
 

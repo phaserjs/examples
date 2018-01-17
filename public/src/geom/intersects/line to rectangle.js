@@ -22,9 +22,9 @@ function create ()
     line = new Phaser.Geom.Line(260, 200, 550, 400);
     rect = new Phaser.Geom.Rectangle(32, 32, 128, 96);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        Phaser.Geom.Rectangle.CenterOn(rect, event.x, event.y);
+        Phaser.Geom.Rectangle.CenterOn(rect, pointer.x, pointer.y);
 
     });
 }

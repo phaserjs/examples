@@ -47,19 +47,19 @@ function create ()
 
     // When locked, you will have to use the movementX and movementY properties of the pointer
     // (since a locked cursor's xy position does not update)
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
         if (this.input.mouse.locked)
         {
-            mesh.rotation.x += event.pointer.movementY * 0.01;
-            mesh.rotation.y += event.pointer.movementX * 0.01;
+            mesh.rotation.x += pointer.movementY * 0.01;
+            mesh.rotation.y += pointer.movementX * 0.01;
 
             graphics.clear();
             graphics.fillMesh(mesh);
             graphics.strokeMesh(mesh);
             updateLockText();
 
-            cursor.x += event.pointer.movementX;
-            cursor.y += event.pointer.movementY;
+            cursor.x += pointer.movementX;
+            cursor.y += pointer.movementY;
 
             // Force the cursor to stay on screen by wrapping around at the edges
             cursor.x = Phaser.Math.Wrap(cursor.x, 0, game.renderer.width);
@@ -67,7 +67,7 @@ function create ()
 
             updateLockText(true);
         }
-    }, 0, this);
+    }, this);
 
     game.input.events.on('POINTER_LOCK_CHANGE_EVENT', function (event) {
         updateLockText(event.isPointerLocked);

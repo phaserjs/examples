@@ -42,10 +42,10 @@ function create ()
 
     updateGraphics();
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        var x = Math.floor(event.x);
-        var y = Math.floor(event.y);
+        var x = Math.floor(pointer.x);
+        var y = Math.floor(pointer.y);
 
         switch (inside)
         {
@@ -83,10 +83,10 @@ function create ()
 
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
-        var x = Math.floor(event.x);
-        var y = Math.floor(event.y);
+        var x = Math.floor(pointer.x);
+        var y = Math.floor(pointer.y);
 
         inside = 0;
 
@@ -113,7 +113,7 @@ function create ()
 
     });
 
-    this.input.events.on('POINTER_UP_EVENT', function (event) {
+    this.input.on('pointerup', function (pointer) {
 
         inside = 0;
 

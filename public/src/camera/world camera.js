@@ -64,9 +64,9 @@ function create ()
 
     });
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        var p = this.cameras.main.getWorldPoint(event.x, event.y);
+        var p = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
 
         px = p.x;
         py = p.y;

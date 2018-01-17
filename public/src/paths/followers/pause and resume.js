@@ -51,7 +51,7 @@ function create ()
         rotateToPath: true
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function () {
 
         if (lemming.isFollowing())
         {

@@ -29,23 +29,25 @@ function create ()
 
     // When locked, you will have to use the movementX and movementY properties of the pointer
     // (since a locked cursor's xy position does not update)
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
+
         if (this.input.mouse.locked)
         {
-            sprite.x += event.pointer.movementX;
-            sprite.y += event.pointer.movementY;
+            sprite.x += pointer.movementX;
+            sprite.y += pointer.movementY;
 
             // Force the sprite to stay on screen
             sprite.x = Phaser.Math.Wrap(sprite.x, 0, game.renderer.width);
             sprite.y = Phaser.Math.Wrap(sprite.y, 0, game.renderer.height);
 
-            if (event.pointer.movementX > 0) { sprite.setRotation(0.1); }
-            else if (event.pointer.movementX < 0) { sprite.setRotation(-0.1); }
+            if (pointer.movementX > 0) { sprite.setRotation(0.1); }
+            else if (pointer.movementX < 0) { sprite.setRotation(-0.1); }
             else { sprite.setRotation(0); }
 
             updateLockText(true);
         }
-    }, 0, this);
+
+    }, this);
 
     // Exit pointer lock when Q is pressed. Browsers will also exit pointer lock when escape is
     // pressed.

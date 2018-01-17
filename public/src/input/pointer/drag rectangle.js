@@ -1,20 +1,14 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
     scene: {
-        preload: preload,
         create: create
     }
 };
 
 var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.spritesheet('balls', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
-}
 
 function create ()
 {
@@ -26,31 +20,27 @@ function create ()
 
     //  Events
 
-    var sx = 0;
-    var sy = 0;
     var draw = false;
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
-        sx = event.x;
-        sy = event.y;
         draw = true;
 
     });
 
-    this.input.events.on('POINTER_UP_EVENT', function (event) {
+    this.input.on('pointerup', function () {
 
         draw = false;
 
     });
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
         if (draw)
         {
             graphics.clear();
             graphics.lineStyle(thickness, color, alpha);
-            graphics.strokeRect(sx, sy, event.x - sx, event.y - sy);
+            graphics.strokeRect(pointer.downX, pointer.downY, pointer.x - pointer.downX, pointer.y - pointer.downY);
         }
 
     });

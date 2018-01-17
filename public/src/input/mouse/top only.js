@@ -47,7 +47,7 @@ function create ()
 
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (event) {
 
         if (event.gameObject)
         {
@@ -58,7 +58,7 @@ function create ()
 
     });
 
-    this.input.events.on('POINTER_UP_EVENT', function (event) {
+    this.input.on('pointerup', function () {
 
         if (sprite1.input.isOver)
         {

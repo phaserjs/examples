@@ -7,15 +7,11 @@ var scene1Config = {
     },
     create: function ()
     {
-        var _this = this;
+        this.input.on('pointerdown', function (pointer) {
 
-        this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+            this.add.image(pointer.x, pointer.y, 'balls', Phaser.Math.Between(0, 5));
 
-            console.log('down');
-
-            _this.add.image(event.x, event.y, 'balls', Phaser.Math.Between(0, 5));
-
-        });
+        }, this);
     }
 };
 

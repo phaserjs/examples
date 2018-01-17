@@ -97,17 +97,17 @@ function create ()
 
     renderPassLigths.mask = new Phaser.Display.Masks.BitmapMask(this, phaser2);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        lightPosition.x = event.x;
-        lightPosition.y = event.y;
+        lightPosition.x = pointer.x;
+        lightPosition.y = pointer.y;
 
-        phaser2.x = event.x;
-        phaser2.y = event.y;
+        phaser2.x = pointer.x;
+        phaser2.y = pointer.y;
 
     });
 
-   this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+   this.input.on('pointerdown', function (pointer) {
 
         renderPassLigths.setFloat4('u_light_color', Math.random(), Math.random(), Math.random(), 1.0);
 

@@ -47,7 +47,7 @@ function create ()
     groundLayer.putTileAt(22, 0, map.height - 1);
 
     randomizeRoom(); // Initial randomization
-    this.input.events.on('POINTER_DOWN_EVENT', randomizeRoom);
+    this.input.on('pointerdown', randomizeRoom);
 
     var help = this.add.text(16, 16, 'Click to re-randomize.', {
         fontSize: '18px',

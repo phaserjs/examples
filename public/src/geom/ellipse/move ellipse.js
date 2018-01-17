@@ -16,10 +16,10 @@ function create ()
 
     var graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 } }).strokeEllipseShape(ellipse, 64);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
     
-        ellipse.x = event.x;
-        ellipse.y = event.y;
+        ellipse.x = pointer.x;
+        ellipse.y = pointer.y;
 
         //  Redraw it
         graphics.clear();

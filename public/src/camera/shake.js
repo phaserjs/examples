@@ -23,7 +23,7 @@ function create ()
 {
     this.add.image(400, 300, 'pic');
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
         shakeTime = 500;
 

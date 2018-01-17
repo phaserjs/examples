@@ -29,7 +29,7 @@ function create ()
 
     var image2 = this.add.image(650, 464, 'pic');
 
-    this.input.events.on('POINTER_DOWN_EVENT', function () {
+    this.input.on('pointerdown', function () {
 
         //  Flipped via a call to toggleFlipX
         image2.toggleFlipY();

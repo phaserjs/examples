@@ -54,9 +54,9 @@ function create() {
     //particles.visible = false;
     particles.mask = new Phaser.Display.Masks.BitmapMask(this, bunny);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        emitter.setPosition(event.x, event.y);
+        emitter.setPosition(pointer.x, pointer.y);
 
     });
 

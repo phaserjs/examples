@@ -27,6 +27,7 @@ function preload ()
     this.load.image('mainImg', 'assets/pics/equality-by-ragnarok.png');
     this.load.image('normImg', 'assets/normal-maps/equality-by-ragnarok_n.png');
 }
+
 function create ()
 {
     var lights = this.add.lightLayer();
@@ -37,23 +38,23 @@ function create ()
 
     lights.addLight(217, 100, 0.1, 200, 1, 0, 0, 1.0, 0);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
         if (light !== null)
         {
-            light.x = event.x;
-            light.y = event.y;
+            light.x = pointer.x;
+            light.y = pointer.y;
         }
 
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
         var color = colors[colorIdx];
 
         colorIdx = (colorIdx + 1) % colors.length;
 
-        light = lights.addLight(event.x, event.y, 0.1, 200, color[0], color[1], color[2], 1.0, 0);
+        light = lights.addLight(pointer.x, pointer.y, 0.1, 200, color[0], color[1], color[2], 1.0, 0);
 
     });
 }

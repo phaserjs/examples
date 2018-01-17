@@ -48,7 +48,7 @@ function create ()
     };
 
     //  Click to give the balls a boost :)
-    this.input.events.on('POINTER_DOWN_EVENT', function () {
+    this.input.on('pointerdown', function () {
 
         balls.setVelocityY(-300);
 

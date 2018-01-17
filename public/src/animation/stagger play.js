@@ -32,7 +32,7 @@ function create ()
 
     group.createMultiple({ key: 'diamonds', frame: 0, repeat: 279 });
 
-    group.gridAlign({ width: 20, height: 20, cellWidth: 38, x: 22, y: 32 });
+    Phaser.Actions.GridAlign(group.getChildren(), { width: 20, height: 20, cellWidth: 38, x: 22, y: 32 });
 
     this.anims.staggerPlay('flash', group.getChildren(), 0.025);
 }

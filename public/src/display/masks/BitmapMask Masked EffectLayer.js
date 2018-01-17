@@ -29,12 +29,10 @@ function preload ()
 
 function create ()
 {
-
     var graphics = this.make.graphics();
     var mask = new Phaser.Display.Masks.BitmapMask(this, graphics);
 
     graphics.fillCircle(0, 0, 100);
-
 
     for (var i = 0; i < 5; ++i)
     {
@@ -46,7 +44,6 @@ function create ()
     var effect1 = this.add.effectLayer(0, 0, 800, 600, 'effect1', this.cache.shader.get('shader1'));
     var effect2 = this.add.effectLayer(0, 0, 800, 600, 'effect2', this.cache.shader.get('shader2'));
     var effect3 = this.add.effectLayer(0, 0, 800, 600, 'effect3', this.cache.shader.get('shader3'));
-    
 
     for (var i = 0; i < 5; ++i)
     {
@@ -69,17 +66,17 @@ function create ()
     effect2.setFloat2('resolution', 800, 600);
     effect3.setFloat2('resolution', 800, 600);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        mouse.x = 800 / event.x;
-        mouse.y = 600 / event.y;
+        mouse.x = 800 / pointer.x;
+        mouse.y = 600 / pointer.y;
 
-        graphics.x = event.x;
-        graphics.y = event.y;
+        graphics.x = pointer.x;
+        graphics.y = pointer.y;
 
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
         if (currentEffect)
         {

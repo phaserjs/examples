@@ -27,10 +27,10 @@ function create ()
     graphics.lineStyle(2, 0xffff00);
     graphics.strokeLineShape(line);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        line.x2 = event.x;
-        line.y2 = event.y;
+        line.x2 = pointer.x;
+        line.y2 = pointer.y;
 
     });
 }

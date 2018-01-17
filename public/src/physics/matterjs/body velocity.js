@@ -33,13 +33,13 @@ function create ()
 
     var ground = this.physics.add.image(400, 550, 'platform', null, { restitution: 0.4, isStatic: true });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
-        if (event.y > 300)
+        if (pointer.y > 300)
         {
             block.setVelocity(0, -10);
         }
-        else if (event.x < 400)
+        else if (pointer.x < 400)
         {
             block.setVelocityX(-8);
         }

@@ -67,13 +67,13 @@ function create ()
    
     updateDigits();
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function () {
 
         add = true;
 
     });
 
-    this.input.events.on('POINTER_UP_EVENT', function (event) {
+    this.input.events.on('pointerup', function () {
 
         add = false;
 

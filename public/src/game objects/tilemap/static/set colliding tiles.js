@@ -47,7 +47,7 @@ function create ()
     debugGraphics.setScale(2);
     map.renderDebug(debugGraphics);
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function () {
         debugGraphics.visible = !debugGraphics.visible;
     });
 

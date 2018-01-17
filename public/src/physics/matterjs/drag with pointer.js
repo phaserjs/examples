@@ -22,13 +22,13 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds();
+    this.matter.world.setBounds();
 
-    this.physics.add.image(400, 100, 'block', null, { chamfer: 16 }).setBounce(0.9);
+    this.matter.add.image(400, 100, 'block', null, { chamfer: 16 }).setBounce(0.9);
 
     //  These both do the same thing:
 
-    // this.physics.add.pointerConstraint({ length: 1, stiffness: 0.6 });
+    // this.matter.add.pointerConstraint({ length: 1, stiffness: 0.6 });
 
-    this.physics.add.mouseSpring({ length: 1, stiffness: 0.6 });
+    this.matter.add.mouseSpring({ length: 1, stiffness: 0.6 });
 }

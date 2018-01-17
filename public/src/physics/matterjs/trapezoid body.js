@@ -25,9 +25,9 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds().disableGravity();
+    this.matter.world.setBounds().disableGravity();
 
-    var poly = this.physics.add.image(200, 50, 'orange');
+    var poly = this.matter.add.image(200, 50, 'orange');
 
     poly.setBody({
         type: 'trapezoid',

@@ -25,13 +25,13 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
+    this.matter.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
 
     this.time.addEvent({
         delay: 500,
         callback: function ()
         {
-            var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball');
+            var ball = this.matter.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball');
             ball.setCircle();
             ball.setFriction(0.005).setBounce(1);
             ball.setSleepEvents(true, true);
@@ -40,13 +40,13 @@ function create ()
         repeat: 64
     });
 
-    this.physics.world.events.on('SLEEP_START_EVENT', function (event) {
+    this.matter.world.events.on('SLEEP_START_EVENT', function (event) {
 
         event.body.gameObject.setTint(0xff0000);
 
     });
 
-    this.physics.world.events.on('SLEEP_END_EVENT', function (event) {
+    this.matter.world.events.on('SLEEP_END_EVENT', function (event) {
 
         event.body.gameObject.setTint(0xffffff);
 

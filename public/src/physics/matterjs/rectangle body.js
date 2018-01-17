@@ -25,10 +25,10 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds().disableGravity();
+    this.matter.world.setBounds().disableGravity();
 
     //  By default it will create a rectangular body the size of the texture
-    var rect = this.physics.add.image(200, 50, 'blue');
+    var rect = this.matter.add.image(200, 50, 'blue');
 
     //  However, you can tell it to create any size rectangle you like, such as this one:
     rect.setBody({

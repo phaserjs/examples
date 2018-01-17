@@ -29,5 +29,5 @@ function preload ()
 
 function create ()
 {
-    this.physics.add.image(400, 300, 'block');
+    this.matter.add.image(400, 300, 'block');
 }

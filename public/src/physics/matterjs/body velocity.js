@@ -25,13 +25,13 @@ function preload ()
 
 function create ()
 {
-    var block = this.physics.add.image(400, 100, 'block');
+    var block = this.matter.add.image(400, 100, 'block');
 
     block.setFriction(0.05);
     block.setFrictionAir(0.0005);
     block.setBounce(0.9);
 
-    var ground = this.physics.add.image(400, 550, 'platform', null, { restitution: 0.4, isStatic: true });
+    var ground = this.matter.add.image(400, 550, 'platform', null, { restitution: 0.4, isStatic: true });
 
     this.input.on('pointerdown', function (pointer) {
 

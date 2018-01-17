@@ -23,11 +23,11 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds(0, 0, 800, 550);
+    this.matter.world.setBounds(0, 0, 800, 550);
 
     for (var i = 0; i < 256; i++)
     {
-        var particle = this.physics.add.image(
+        var particle = this.matter.add.image(
             Phaser.Math.Between(0, 800),
             Phaser.Math.Between(0, 400),
             'blue', null,
@@ -41,7 +41,7 @@ function create ()
         particle.setMass(1);
     }
 
-    this.physics.add.image(400, 0, 'block').setBounce(0.8).setMass(60);
+    this.matter.add.image(400, 0, 'block').setBounce(0.8).setMass(60);
 
-    this.physics.add.mouseSpring();
+    this.matter.add.mouseSpring();
 }

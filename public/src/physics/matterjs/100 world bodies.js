@@ -28,7 +28,7 @@ function create ()
     var worldWidth = 1600;
     var worldHeight = 1200;
 
-    this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
+    this.matter.world.setBounds(0, 0, worldWidth, worldHeight);
 
     //  Create loads of random bodies
     for (var i = 0; i < 100; i++)
@@ -41,18 +41,18 @@ function create ()
             var sides = Phaser.Math.Between(3, 14);
             var radius = Phaser.Math.Between(8, 50);
 
-            this.physics.add.polygon(x, y, sides, radius, { restitution: 0.9 });
+            this.matter.add.polygon(x, y, sides, radius, { restitution: 0.9 });
         }
         else
         {
             var width = Phaser.Math.Between(16, 128);
             var height = Phaser.Math.Between(8, 64);
 
-            this.physics.add.rectangle(x, y, width, height, { restitution: 0.9 });
+            this.matter.add.rectangle(x, y, width, height, { restitution: 0.9 });
         }
     }
 
-    this.physics.add.mouseSpring();
+    this.matter.add.mouseSpring();
 
     var cursors = this.input.keyboard.createCursorKeys();
 

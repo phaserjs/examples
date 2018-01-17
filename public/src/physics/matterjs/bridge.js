@@ -23,13 +23,13 @@ var game = new Phaser.Game(config);
 
 function create ()
 {
-    this.physics.world.setBounds();
+    this.matter.world.setBounds();
 
-    this.physics.add.mouseSpring();
+    this.matter.add.mouseSpring();
 
-    var group = this.physics.world.nextGroup(true);
+    var group = this.matter.world.nextGroup(true);
 
-    var bridge = this.physics.add.stack(160, 290, 15, 1, 0, 0, function(x, y) {
+    var bridge = this.matter.add.stack(160, 290, 15, 1, 0, 0, function(x, y) {
         return Phaser.Physics.Matter.Bodies.rectangle(x - 20, y, 53, 20, { 
             collisionFilter: { group: group },
             chamfer: 5,
@@ -38,7 +38,7 @@ function create ()
         });
     });
     
-    this.physics.add.chain(bridge, 0.3, 0, -0.3, 0, {
+    this.matter.add.chain(bridge, 0.3, 0, -0.3, 0, {
         stiffness: 1,
         length: 0,
         render: {
@@ -46,26 +46,26 @@ function create ()
         }
     });
     
-    var stack = this.physics.add.stack(250, 50, 6, 3, 0, 0, function(x, y) {
+    var stack = this.matter.add.stack(250, 50, 6, 3, 0, 0, function(x, y) {
         return Phaser.Physics.Matter.Bodies.rectangle(x, y, 50, 50, Phaser.Math.Between(20, 40));
     });
 
-    this.physics.add.rectangle(30, 490, 220, 380, {
+    this.matter.add.rectangle(30, 490, 220, 380, {
         isStatic: true, 
         chamfer: { radius: 20 }
     }),
 
-    this.physics.add.rectangle(770, 490, 220, 380, {
+    this.matter.add.rectangle(770, 490, 220, 380, {
         isStatic: true, 
         chamfer: { radius: 20 }
     }),
 
-    this.physics.add.worldConstraint(bridge.bodies[0], 2, 0.9, {
+    this.matter.add.worldConstraint(bridge.bodies[0], 2, 0.9, {
         pointA: { x: 140, y: 300 }, 
         pointB: { x: -25, y: 0 }
     });
 
-    this.physics.add.worldConstraint(bridge.bodies[bridge.bodies.length - 1], 2, 0.9, {
+    this.matter.add.worldConstraint(bridge.bodies[bridge.bodies.length - 1], 2, 0.9, {
         pointA: { x: 660, y: 300 }, 
         pointB: { x: 25, y: 0 }
     });

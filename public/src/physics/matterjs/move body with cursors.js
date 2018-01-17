@@ -32,12 +32,12 @@ function preload ()
 
 function create ()
 {
-    image = this.physics.add.image(400, 300, 'block');
+    image = this.matter.add.image(400, 300, 'block');
 
-    this.physics.add.image(700, 200, 'block').setBounce(0.6);
-    this.physics.add.image(100, 500, 'block').setBounce(0.6);
+    this.matter.add.image(700, 200, 'block').setBounce(0.6);
+    this.matter.add.image(100, 500, 'block').setBounce(0.6);
 
-    this.physics.world.setBounds(0, 0, 800, 600);
+    this.matter.world.setBounds(0, 0, 800, 600);
 
     cursors = this.input.keyboard.createCursorKeys();
 }

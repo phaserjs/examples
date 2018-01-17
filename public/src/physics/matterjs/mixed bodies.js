@@ -23,7 +23,7 @@ var game = new Phaser.Game(config);
 
 function create ()
 {
-    this.physics.world.setBounds();
+    this.matter.world.setBounds();
 
     //  Let's create a bunch of random shaped objects and add them to the world
 
@@ -37,16 +37,16 @@ function create ()
             var sides = Phaser.Math.Between(3, 14);
             var radius = Phaser.Math.Between(8, 50);
 
-            this.physics.add.polygon(x, y, sides, radius, { restitution: 0.9 });
+            this.matter.add.polygon(x, y, sides, radius, { restitution: 0.9 });
         }
         else
         {
             var width = Phaser.Math.Between(16, 128);
             var height = Phaser.Math.Between(8, 64);
 
-            this.physics.add.rectangle(x, y, width, height, { restitution: 0.9 });
+            this.matter.add.rectangle(x, y, width, height, { restitution: 0.9 });
         }
     }
 
-    this.physics.add.mouseSpring();
+    this.matter.add.mouseSpring();
 }

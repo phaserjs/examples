@@ -28,13 +28,13 @@ function preload ()
 
 function create ()
 {
-    var blockA = this.physics.add.image(0, 300, 'block').setBounce(1).setFriction(0);
+    var blockA = this.matter.add.image(0, 300, 'block').setBounce(1).setFriction(0);
 
-    var blockB = this.physics.add.image(600, 300, 'block').setStatic(true);
+    var blockB = this.matter.add.image(600, 300, 'block').setStatic(true);
 
     blockA.setVelocityX(10);
 
-    this.physics.world.on('collisionstart', function (event, bodyA, bodyB) {
+    this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
 
         bodyA.gameObject.setTint(0xff0000);
         bodyB.gameObject.setTint(0x00ff00);

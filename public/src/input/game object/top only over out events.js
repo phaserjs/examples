@@ -43,7 +43,7 @@ function create ()
 
     var text = this.add.text(10, 10, 'Input.topOnly: true', { font: '16px Courier', fill: '#00ff00' });
 
-    this.input.on('pointerdown', function (event) {
+    this.input.on('pointerdown', function (pointer) {
     
         if (this.input.topOnly)
         {

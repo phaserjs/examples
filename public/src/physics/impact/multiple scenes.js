@@ -32,7 +32,7 @@ var SceneA = new Phaser.Class({
         {
             var pos = Phaser.Geom.Rectangle.Random(spriteBounds);
 
-            var block = this.physics.add.sprite(pos.x, pos.y, 'gems');
+            var block = this.impact.add.sprite(pos.x, pos.y, 'gems');
 
             block.setActive().setAvsB().setBounce(1);
 
@@ -50,7 +50,7 @@ var SceneA = new Phaser.Class({
             block.play(Phaser.Math.RND.pick(anims));
         }
 
-        this.physics.world.setBounds(0, 0, worldBounds.width, worldBounds.height, wallThickness);
+        this.impact.world.setBounds(0, 0, worldBounds.width, worldBounds.height, wallThickness);
     }
 
 });
@@ -80,9 +80,9 @@ var SceneB = new Phaser.Class({
 
     create: function ()
     {
-        var blockA = this.physics.add.image(300, 300, 'block');
-        var blockB = this.physics.add.image(60, 300, 'block');
-        var blockC = this.physics.add.image(730, 300, 'block');
+        var blockA = this.impact.add.image(300, 300, 'block');
+        var blockB = this.impact.add.image(60, 300, 'block');
+        var blockC = this.impact.add.image(730, 300, 'block');
 
         blockA.setTypeA().setCheckAgainstB().setActive().setMaxVelocity(300);
         blockB.setTypeB().setCheckAgainstA().setFixed();
@@ -121,7 +121,7 @@ var SceneC = new Phaser.Class({
 
     create: function ()
     {
-        this.ship = this.physics.add.image(320, 450, 'ship').setActive().setVelocity(200, -200).setBounce(1);
+        this.ship = this.impact.add.image(320, 450, 'ship').setActive().setVelocity(200, -200).setBounce(1);
 
         this.add.text(0, 0, 'Press 1 to 3 to pause the scenes');
 

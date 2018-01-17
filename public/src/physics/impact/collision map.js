@@ -54,9 +54,9 @@ function create ()
 
     this.add.staticTilemap(mapData, 0, 0, impactData.tilesize, impactData.tilesize, impactData.width, impactData.height, 0, 'tiles');
 
-    this.physics.world.setCollisionMap(impactData.tilesize, impactData.data);
+    this.impact.world.setCollisionMap(impactData.tilesize, impactData.data);
 
-    player = this.physics.add.image(64, 300, 'clown');
+    player = this.impact.add.image(64, 300, 'clown');
 
     player.setMaxVelocity(500).setFriction(1000, 100);
 

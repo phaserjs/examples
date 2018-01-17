@@ -18,9 +18,9 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'eye').setInteractive();
 
-    this.input.events.on('GAME_OBJECT_MOVE_EVENT', function (event) {
+    sprite.on('pointermove', function (pointer) {
 
-        event.gameObject.setTint(Math.random() * 16000000);
+        this.setTint(Math.random() * 16000000);
 
     });
 }

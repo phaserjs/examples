@@ -34,7 +34,7 @@ function preload()
 function create ()
 {
     //  Calling this with no arguments will set the bounds to match the game config width/height
-    this.physics.world.setBounds();
+    this.impact.world.setBounds();
 
     //  Create a Bitmap Text object
     var text1 = this.add.dynamicBitmapText(0, 0, 'desyrel', 'It\'s cold\noutside', 64);
@@ -45,8 +45,8 @@ function create ()
 
     //  If you don't set the body as active it won't collide with the world bounds
     //  Set the Game Object we just created as being bound to this physics body
-    this.physics.add.body(200, 100).setGameObject(text1).setLite().setVelocity(-300, 200).setBounce(1);
-    this.physics.add.body(100, 300).setGameObject(text2).setLite().setVelocity(300, 200).setBounce(1);
+    this.impact.add.body(200, 100).setGameObject(text1).setLite().setVelocity(-300, 200).setBounce(1);
+    this.impact.add.body(100, 300).setGameObject(text2).setLite().setVelocity(300, 200).setBounce(1);
 }
 
 function update()

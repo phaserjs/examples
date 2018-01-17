@@ -20,7 +20,7 @@ function create ()
 
     sprite.on('pointerdown', function () {
 
-        sprite.setTint(Math.random() * 16000000);
+        this.setTint(Math.random() * 16000000);
 
     })
 }

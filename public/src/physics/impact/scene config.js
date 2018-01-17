@@ -7,6 +7,28 @@
 //  A Scene can only ever have 1 active physics system, but the 'system' key must match the game config
 //  in order for the two configs to merge properly
 
+var sceneConfigMulti = {
+    key: 'sceneA',
+    preload: preload,
+    create: create,
+    physics: {
+        arcade: {
+            gravity: 500
+        },
+        impact: {
+            gravity: 100,
+            debugBodyColor: 0xffff00,
+            setBounds: {
+                x: 100,
+                y: 100,
+                width: 600,
+                height: 300,
+                thickness: 32
+            }
+        }
+    }
+};
+
 var sceneConfig = {
     key: 'sceneA',
     preload: preload,
@@ -50,5 +72,5 @@ function preload ()
 
 function create ()
 {
-    this.physics.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);
+    this.impact.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);
 }

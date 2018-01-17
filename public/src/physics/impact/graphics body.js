@@ -21,7 +21,7 @@ var game = new Phaser.Game(config);
 function create ()
 {
     //  Calling this with no arguments will set the bounds to match the game config width/height
-    this.physics.world.setBounds();
+    this.impact.world.setBounds();
 
     //  Create a Graphics object
     var graphics = this.add.graphics();
@@ -30,7 +30,7 @@ function create ()
     drawStar(graphics, 0, 0, 5, 64, 64 / 2, 0xffff00, 0xff0000);
 
     //  If you don't set the body as active it won't collide with the world bounds
-    var body = this.physics.add.body(200, 200).setActive().setVelocity(300, 150).setBounce(1);
+    var body = this.impact.add.body(200, 200).setActive().setVelocity(300, 150).setBounce(1);
 
     //  Assign the graphics object to the body. 'false' tells it not to use the Graphics size.
     body.setGameObject(graphics, false);

@@ -35,7 +35,7 @@ function create ()
         frameQuantity: 30
     });
 
-    group.placeOnRectangle(new Phaser.Geom.Rectangle(84, 84, 616, 416));
+    Phaser.Actions.PlaceOnRectangle(group.getChildren(), new Phaser.Geom.Rectangle(84, 84, 616, 416));
 
     //  We need to call this because placeOnRectangle has changed the coordinates of all the children
     //  If we don't call it, the static physics bodies won't be updated to reflect them

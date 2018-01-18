@@ -44,7 +44,7 @@ function create ()
             continue;
         }
 
-        makeButton.bind(this)(spriteName, 680, 115 + i*40);
+        makeButton.call(this, spriteName, 680, 115 + i*40);
 
         i++;
     }

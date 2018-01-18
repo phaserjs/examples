@@ -54,10 +54,10 @@ function create ()
 
         fx.addMarker(marker);
 
-        makeButton.bind(this)(marker.name, 680, 115 + i*40);
+        makeButton.call(this, marker.name, 680, 115 + i*40);
     }
 
-    makePauseResumeButton.bind(this)();
+    makePauseResumeButton.call(this);
 
 
     this.input.on('gameobjectover', function (pointer, button)

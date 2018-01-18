@@ -31,6 +31,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.bitmapFont('atari-classic', 'assets/fonts/bitmap/atari-classic.png', 'assets/fonts/bitmap/atari-classic.xml');
+
     // Loading horse animation
     for(var i=0; i<horseFrames.length; i++)
     {
@@ -62,13 +64,11 @@ function create ()
         repeat: -1
     });
 
-    horseLeft = this.add.sprite(200, 300, 'horse00');
+    horseLeft = this.add.sprite(200, 300, 'horse09');
     horseLeft.setScale(400/480);
-    horseLeft.play('horse');
 
-    horseRight = this.add.sprite(600, 300, 'horse00');
+    horseRight = this.add.sprite(600, 300, 'horse10');
     horseRight.setScale(400/480);
-    horseRight.play('horse');
 
     soundLeft = this.sound.add('left');
     soundLeft.play({
@@ -80,6 +80,30 @@ function create ()
         loop: true
     });
 
+    if(this.sound.locked)
+    {
+        var text = this.add.bitmapText(400, 50, 'atari-classic', 'Tap to start', 40);
+        text.x -= Math.round(text.width/2);
+        text.y -= Math.round(text.height/2);
+
+        this.sound.once('unlocked', function (soundManager)
+        {
+            text.visible = false;
+
+            start.call(this);
+
+        }, this);
+    }
+    else
+    {
+        start.call(this);
+    }
+}
+
+function start ()
+{
+    horseLeft.play('horse');
+    horseRight.play('horse');
 
     var gui = new dat.GUI();
 

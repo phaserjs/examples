@@ -97,7 +97,7 @@ function create ()
         }
     };
 
-    startStem.bind(this)(bass, 'Bass', bottomSpeaker);
+    startStem.call(this, bass, 'Bass', bottomSpeaker);
 
     bass.addMarker(loopMarker);
 
@@ -112,7 +112,7 @@ function create ()
     // sound.play('loop');
 
     bass.once('looped', function (sound) {
-        startStem.bind(this)(drums, 'Drums', middleSpeaker);
+        startStem.call(this, drums, 'Drums', middleSpeaker);
     }, this);
 
     drums.addMarker(loopMarker);
@@ -120,7 +120,7 @@ function create ()
         delay: loopMarker.duration
     });
     drums.once('looped', function (sound) {
-        startStem.bind(this)(percussion, 'Percussion', middleSpeaker);
+        startStem.call(this, percussion, 'Percussion', middleSpeaker);
     }, this);
 
     percussion.addMarker(loopMarker);
@@ -128,7 +128,7 @@ function create ()
         delay: loopMarker.duration * 2
     });
     percussion.once('looped', function (sound) {
-        startStem.bind(this)(synth1, 'Synth 1', topRightSpeaker);
+        startStem.call(this, synth1, 'Synth 1', topRightSpeaker);
     }, this);
 
     synth1.addMarker(loopMarker);
@@ -136,7 +136,7 @@ function create ()
         delay: loopMarker.duration * 3
     });
     synth1.once('looped', function (sound) {
-        startStem.bind(this)(synth2, 'Synth 2', topRightSpeaker);
+        startStem.call(this, synth2, 'Synth 2', topRightSpeaker);
     }, this);
 
     synth2.addMarker(loopMarker);
@@ -144,7 +144,7 @@ function create ()
         delay: loopMarker.duration * 4
     });
     synth2.once('looped', function (sound) {
-        startStem.bind(this)(top1, 'Top 1', topLeftSpeaker);
+        startStem.call(this, top1, 'Top 1', topLeftSpeaker);
     }, this);
 
     top1.addMarker(loopMarker);
@@ -152,7 +152,7 @@ function create ()
         delay: loopMarker.duration * 5
     });
     top1.once('looped', function (sound) {
-        startStem.bind(this)(top2, 'Top 2', topLeftSpeaker);
+        startStem.call(this, top2, 'Top 2', topLeftSpeaker);
         sm.open();
     }, this);
 

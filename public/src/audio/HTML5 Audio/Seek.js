@@ -22,6 +22,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.bitmapFont('atari-classic', 'assets/fonts/bitmap/atari-classic.png', 'assets/fonts/bitmap/atari-classic.xml');
+
     this.load.image('bg', 'assets/animations/nyan/bg.png');
 
     this.load.image('rainbow', 'assets/animations/nyan/rainbow.png');
@@ -53,7 +55,30 @@ function create () {
     // catAstroPhi.play();
     // catAstroPhi.seek = 2.550;
 
+    this.add.image(400, 300, 'bg');
 
+    if(this.sound.locked)
+    {
+        var text = this.add.bitmapText(400, 300, 'atari-classic', 'Tap to start', 40);
+        text.x -= Math.round(text.width/2);
+        text.y -= Math.round(text.height/2);
+
+        this.sound.once('unlocked', function (soundManager)
+        {
+            text.visible = false;
+
+            setup.call(this);
+
+        }, this);
+    }
+    else
+    {
+        setup.call(this);
+    }
+}
+
+function setup ()
+{
     var gui = new dat.GUI();
 
     var sm = gui.addFolder('CatAstroPhi Sound');
@@ -66,8 +91,6 @@ function create () {
     sm.add(catAstroPhi, 'resume');
     sm.add(catAstroPhi, 'stop');
     sm.open();
-
-    var bg = this.add.image(400, 300, 'bg');
 
     rainbowMask = this.make.graphics();
 
@@ -96,19 +119,22 @@ function create () {
 
 function update ()
 {
-    cat.x = cat.width/2 + (catAstroPhi.seek / catAstroPhi.duration) * (800 - cat.width);
-
-    rainbowMask.clear();
-    rainbowMask.fillRect(0, 0, cat.x - 15, 600);
-
-    if(!catAstroPhi.isPlaying && cat.anims.isPlaying)
+    if(cat)
     {
-        cat.anims.pause();
-    }
-    else if (catAstroPhi.isPlaying && !cat.anims.isPlaying)
-    {
-        cat.anims.resume();
-    }
+        cat.x = cat.width/2 + (catAstroPhi.seek / catAstroPhi.duration) * (800 - cat.width);
 
-    cat.anims.timeScale(catAstroPhi.totalRate);
+        rainbowMask.clear();
+        rainbowMask.fillRect(0, 0, cat.x - 15, 600);
+
+        if(!catAstroPhi.isPlaying && cat.anims.isPlaying)
+        {
+            cat.anims.pause();
+        }
+        else if (catAstroPhi.isPlaying && !cat.anims.isPlaying)
+        {
+            cat.anims.resume();
+        }
+
+        cat.anims.timeScale(catAstroPhi.totalRate);
+    }
 }

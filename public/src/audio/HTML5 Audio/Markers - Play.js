@@ -53,7 +53,7 @@ function create ()
 
     for (var i=0; i < markers.length; i++)
     {
-        makeButton.bind(this)(markers[i].name, i);
+        makeButton.call(this, markers[i].name, i);
     }
 
     this.input.on('gameobjectover', function (pointer, button)

@@ -16,19 +16,17 @@ function create ()
 
     var ellipse = new Phaser.Geom.Ellipse(400, 300, 250, 150);
 
-    console.log(Phaser.Geom.Ellipse.Circumference(ellipse));
-
     var text = this.add.text(400, 50, '');
 
     this.input.on('pointermove', function (pointer) {
 
         ellipse.setSize(pointer.x, pointer.y);
 
-        // redraw();
+        redraw();
 
     });
 
-    // redraw();
+    redraw();
 
     function redraw()
     {
@@ -53,6 +51,5 @@ function create ()
         graphics.strokeEllipseShape(ellipse);
 
         text.setText("Ellipse Circumference: " + circumference);
-
     }
 }

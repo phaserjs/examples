@@ -39,7 +39,7 @@ function create ()
         maxSpeed: 1.0
     };
 
-    controls = this.cameras.addSmoothedKeyControl(controlConfig);
+    controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
 }
 
 function update (time, delta)

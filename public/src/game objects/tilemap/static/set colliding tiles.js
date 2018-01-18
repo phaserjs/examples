@@ -67,7 +67,7 @@ function create ()
         speed: 0.5
     };
 
-    controls = this.cameras.addKeyControl(controlConfig);
+    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
 }
 
 function update (time, delta)

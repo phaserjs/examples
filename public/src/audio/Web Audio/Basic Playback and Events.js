@@ -570,7 +570,7 @@ function create ()
     second = this.sound.add('overture', { loop: true });
     audioSprite = this.sound.addAudioSprite('creatures');
 
-    enableInput.bind(this)();
+    enableInput.call(this);
 }
 
 function chain(i)
@@ -579,7 +579,7 @@ function chain(i)
     {
         if (tests[i])
         {
-            tests[i].bind(this)(chain.bind(this)(++i));
+            tests[i].call(this, chain.call(this, ++i));
         }
         else
         {
@@ -600,6 +600,6 @@ function enableInput()
 
     this.input.once('pointerdown', function (pointer)
     {
-        tests[0].bind(this)(chain.bind(this)(1));
+        tests[0].call(this, chain.call(this, 1));
     }, this);
 }

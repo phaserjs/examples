@@ -24,9 +24,9 @@ function create ()
     var marker = this.add.image(400, 300, 'cursor').setAlpha(0.6);
     var image = this.add.image(400, 300, 'ball');
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
-        marker.setPosition(event.x, event.y);
+        marker.setPosition(pointer.x, pointer.y);
 
     });
 

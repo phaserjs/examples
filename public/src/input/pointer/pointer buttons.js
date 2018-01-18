@@ -35,40 +35,40 @@ function create ()
     //  You can also set this in the game config
     this.input.mouse.disableContextMenu();
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
-        sx = event.x;
-        sy = event.y;
+        sx = pointer.x;
+        sy = pointer.y;
         draw = true;
 
-        if (event.pointer.leftButtonDown() && event.pointer.rightButtonDown())
+        if (pointer.leftButtonDown() && pointer.rightButtonDown())
         {
             color = 0x00ffff;
         }
-        else if (event.pointer.leftButtonDown())
+        else if (pointer.leftButtonDown())
         {
             color = 0xffff00;
         }
-        else if (event.pointer.rightButtonDown())
+        else if (pointer.rightButtonDown())
         {
             color = 0x00ff00;
         }
 
     });
 
-    this.input.events.on('POINTER_UP_EVENT', function (event) {
+    this.input.events.on('pointerup', function () {
 
         draw = false;
 
     });
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        if (draw && event.pointer.noButtonDown() === false)
+        if (draw && pointer.noButtonDown() === false)
         {
             graphics.clear();
             graphics.lineStyle(thickness, color, alpha);
-            graphics.strokeRect(sx, sy, event.x - sx, event.y - sy);
+            graphics.strokeRect(sx, sy, pointer.x - sx, pointer.y - sy);
         }
 
     });

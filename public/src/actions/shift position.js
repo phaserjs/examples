@@ -29,10 +29,10 @@ function create ()
 
     group = this.add.group({ key: 'ball', frameQuantity: 128 });
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        x = event.x;
-        y = event.y;
+        x = pointer.x;
+        y = pointer.y;
 
     });
 }

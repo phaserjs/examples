@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: 'phaser-example',
@@ -21,5 +21,5 @@ function preload ()
 
 function create ()
 {
-    this.physics.add.image(0, 300, 'block').setVelocityX(100);
+    this.impact.add.image(0, 300, 'block').setVelocityX(100);
 }

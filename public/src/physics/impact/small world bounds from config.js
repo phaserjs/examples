@@ -36,7 +36,7 @@ function create ()
     //  The world bounds have been set in the config.
 
     //  If you don't set the body as active it won't collide with the world bounds
-    this.physics.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);
+    this.impact.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);
 
     //  It is your responsibility to ensure that new bodies are spawned within the world bounds.
 }

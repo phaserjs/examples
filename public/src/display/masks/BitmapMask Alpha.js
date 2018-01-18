@@ -44,10 +44,10 @@ function create() {
 
     bunny.mask = new Phaser.Display.Masks.BitmapMask(this, mask);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        mask.x = event.x;
-        mask.y = event.y;
+        mask.x = pointer.x;
+        mask.y = pointer.y;
 
     });
 

@@ -37,7 +37,7 @@ function create ()
 
     var i = 5;
 
-    this.input.events.on('POINTER_DOWN_EVENT', function ClickNuke (event) {
+    this.input.on('pointerdown', function ClickNuke () {
     
         i--;
 
@@ -47,12 +47,12 @@ function create ()
         {
             block.destroy();
 
-            this.input.events.off('POINTER_DOWN_EVENT', ClickNuke);
+            this.input.off('pointerdown', ClickNuke);
         }
         else
         {
             block.setVelocity(Phaser.Math.Between(-300, 300), -600);
         }
     
-    }, 0, this);
+    }, this);
 }

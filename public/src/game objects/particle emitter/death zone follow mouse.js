@@ -44,10 +44,10 @@ function create ()
 
     graphics = this.add.graphics();
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        deathZone.x = event.x;
-        deathZone.y = event.y;
+        deathZone.x = pointer.x;
+        deathZone.y = pointer.y;
 
     });
 }

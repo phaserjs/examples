@@ -10,20 +10,19 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
-
-function preload() {
-
-    this.load.image('phaser', 'assets/sprites/diamond.png');
-
-}
-
 var result;
 var boxX = 0;
 var boxY = 0;
 
-function create() {
+var game = new Phaser.Game(config);
 
+function preload ()
+{
+    this.load.image('phaser', 'assets/sprites/diamond.png');
+}
+
+function create ()
+{
     var tree = Phaser.Structs.RTree();
 
     var w = this.sys.textures.getFrame('phaser').width;
@@ -54,12 +53,12 @@ function create() {
         maxY: 256
     });
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        if (event.x < 800 && event.y < 600)
+        if (pointer.x < 800 && pointer.y < 600)
         {
-            boxX = event.x;
-            boxY = event.y;
+            boxX = pointer.x;
+            boxY = pointer.y;
 
             result = tree.search({
                 minX: boxX,
@@ -72,8 +71,8 @@ function create() {
     });
 }
 
-function render() {
-
+function render ()
+{
     var ctx = this.sys.game.context;
 
     ctx.strokeStyle = 'rgba(255,255,255,1)';
@@ -87,5 +86,4 @@ function render() {
         ctx.fillRect(s.minX, s.minY, s.w, s.h);
 
     });
-
 }

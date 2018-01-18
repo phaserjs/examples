@@ -32,13 +32,13 @@ function preload ()
 
 function create ()
 {
-    ship = this.physics.add.image(400, 300, 'ship');
+    ship = this.matter.add.image(400, 300, 'ship');
 
     ship.setFrictionAir(0.15);
     ship.setMass(30);
     ship.setFixedRotation();
 
-    this.physics.world.setBounds(0, 0, 800, 600);
+    this.matter.world.setBounds(0, 0, 800, 600);
 
     cursors = this.input.keyboard.createCursorKeys();
 }

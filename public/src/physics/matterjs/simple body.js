@@ -25,9 +25,9 @@ function preload ()
 
 function create ()
 {
-    this.physics.add.image(325, -100, 'block');
-    this.physics.add.image(400, 300, 'block');
-    this.physics.add.image(450, 50, 'block');
+    this.matter.add.image(325, -100, 'block');
+    this.matter.add.image(400, 300, 'block');
+    this.matter.add.image(450, 50, 'block');
 
-    this.physics.add.image(400, 550, 'platform', null, { isStatic: true });
+    this.matter.add.image(400, 550, 'platform', null, { isStatic: true });
 }

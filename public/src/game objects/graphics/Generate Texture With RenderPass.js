@@ -11,7 +11,7 @@ var config = {
 
 var images = [];
 var renderPassNormal;
-var renderPassLigths;
+var renderPassLights;
 var iter = 0;
 var lightPosition = {x: 0, y: 0, z: 0.08};
 var starGraphics;
@@ -65,7 +65,7 @@ function create ()
     starGraphics.generateTexture('starGraphics', 210, 210);
 
     renderPassNormal = this.make.renderPass(0, 0, 800, 600, 'normalGenerator', normalGenerator);
-    renderPassLigths = this.add.renderPass(0, 0, 800, 600, 'lights', lightShader);
+    renderPassLights = this.add.renderPass(0, 0, 800, 600, 'lights', lightShader);
 
     for (var i = 0; i < 100; i++)
     {
@@ -73,25 +73,26 @@ function create ()
         images.push(image);
     }
     
-    renderPassLigths.setFloat4('u_light_color', 1.0, 0.5, 0.3, 1.0);
-    renderPassLigths.setFloat4('u_ambient_color', 0.2, 0.2, 0.2, 1.0);
-    renderPassLigths.setFloat4('u_falloff', 0.2, 3.0, 1.0, 1.0);
+    renderPassLights.setFloat4('u_light_color', 1.0, 0.5, 0.3, 1.0);
+    renderPassLights.setFloat4('u_ambient_color', 0.2, 0.2, 0.2, 1.0);
+    renderPassLights.setFloat4('u_falloff', 0.2, 3.0, 1.0, 1.0);
 
-    renderPassLigths.setRenderTextureAt(renderPassNormal.renderTexture, 'u_normal_tex', 1);
+    renderPassLights.setRenderTextureAt(renderPassNormal.renderTexture, 'u_normal_tex', 1);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        lightPosition.x = event.x;
-        lightPosition.y = event.y;
+        lightPosition.x = pointer.x;
+        lightPosition.y = pointer.y;
 
     });
 
-    this.game.canvas.onmousedown = function (e) {
-        renderPassLigths.setFloat4('u_light_color', Math.random(), Math.random(), Math.random(), 1.0);
-        lightPosition.z = Math.random() * 0.1;
-        renderPassLigths.setFloat4('u_falloff', Math.random(), 2.0 + Math.random() * 3.0, 1.0, 1.0);
-    };
+    this.input.on('pointerdown', function (pointer) {
 
+        renderPassLights.setFloat4('u_light_color', Math.random(), Math.random(), Math.random(), 1.0);
+        lightPosition.z = Math.random() * 0.1;
+        renderPassLights.setFloat4('u_falloff', Math.random(), 2.0 + Math.random() * 3.0, 1.0, 1.0);
+
+    });
 }
 
 function update ()
@@ -116,13 +117,13 @@ function update ()
         renderPassNormal.render(images[i], this.cameras.main);
     }
 
-    renderPassLigths.clearColorBuffer(0, 0, 0, 0);
-    renderPassLigths.setFloat3('u_light_pos', lightPosition.x / 800, -lightPosition.y / 600 + 1, lightPosition.z);
+    renderPassLights.clearColorBuffer(0, 0, 0, 0);
+    renderPassLights.setFloat3('u_light_pos', lightPosition.x / 800, -lightPosition.y / 600 + 1, lightPosition.z);
+
     for (var i = 0; i < imageCount; ++i)
     {
-        renderPassLigths.render(images[i], this.cameras.main);
+        renderPassLights.render(images[i], this.cameras.main);
     }
-
 }
 
 function drawStar (graphics, cx, cy, spikes, outerRadius, innerRadius, color, lineColor) {

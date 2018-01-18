@@ -37,7 +37,7 @@ function create ()
         immovable: true
     });
 
-    group.placeOnRectangle(new Phaser.Geom.Rectangle(84, 84, 616, 416));
+    Phaser.Actions.PlaceOnRectangle(group.getChildren(), new Phaser.Geom.Rectangle(84, 84, 616, 416));
 
     sprite.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true).setGravityY(200);
 }

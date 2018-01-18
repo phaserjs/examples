@@ -29,9 +29,9 @@ function create ()
     graphics.lineStyle(2, 0xffff00);
     graphics.strokeTriangleShape(triangle);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        Phaser.Geom.Triangle.CenterOn(triangle, event.x, event.y);
+        Phaser.Geom.Triangle.CenterOn(triangle, pointer.x, pointer.y);
 
     });
 }

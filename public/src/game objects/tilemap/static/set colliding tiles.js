@@ -47,7 +47,7 @@ function create ()
     debugGraphics.setScale(2);
     map.renderDebug(debugGraphics);
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function () {
         debugGraphics.visible = !debugGraphics.visible;
     });
 
@@ -67,7 +67,7 @@ function create ()
         speed: 0.5
     };
 
-    controls = this.cameras.addKeyControl(controlConfig);
+    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
 }
 
 function update (time, delta)

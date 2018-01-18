@@ -55,7 +55,7 @@ function create ()
 
     //  Change the 'value' property when the mouse is clicked
 
-    this.input.events.on('POINTER_DOWN_EVENT', function () {
+    this.input.on('pointerdown', function () {
 
         var gold = gem.data.get('gold');
 

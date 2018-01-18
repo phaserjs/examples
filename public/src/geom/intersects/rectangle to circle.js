@@ -38,10 +38,10 @@ function create ()
 
     });
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        moveShape.x = event.x;
-        moveShape.y = event.y;
+        moveShape.x = pointer.x;
+        moveShape.y = pointer.y;
 
     });
 }

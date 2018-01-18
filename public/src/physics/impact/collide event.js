@@ -21,15 +21,15 @@ function preload ()
 
 function create ()
 {
-    var blockA = this.physics.add.image(60, 300, 'block');
-    var blockB = this.physics.add.image(730, 300, 'block');
+    var blockA = this.impact.add.image(60, 300, 'block');
+    var blockB = this.impact.add.image(730, 300, 'block');
 
     blockA.setTypeA().setCheckAgainstB().setActive().setMaxVelocity(300);
     blockB.setTypeB().setCheckAgainstA().setFixed();
 
     blockA.setVelocityX(300);
 
-    this.physics.world.events.on('COLLIDE_EVENT', collide);
+    this.impact.world.events.on('COLLIDE_EVENT', collide);
 }
 
 function collide (event)

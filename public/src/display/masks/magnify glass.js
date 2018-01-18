@@ -36,13 +36,13 @@ function create ()
 
     var magnify = this.add.image(400, 300, 'magnify-out');
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        lense.x = event.x;
-        lense.y = event.y;
+        lense.x = pointer.x;
+        lense.y = pointer.y;
 
-        magnify.x = event.x;
-        magnify.y = event.y;
+        magnify.x = pointer.x;
+        magnify.y = pointer.y;
 
     });
 }

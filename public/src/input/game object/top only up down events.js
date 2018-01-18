@@ -18,25 +18,32 @@ function preload ()
 
 function create ()
 {
-    this.add.sprite(350, 250, 'eye').setInteractive();
-    this.add.sprite(400, 300, 'eye').setInteractive();
-    this.add.sprite(450, 350, 'eye').setInteractive();
+    for (var i = 0; i < 14; i++)
+    {
+        this.add.sprite(100 + i * 30, 100 + i * 30, 'eye').setInteractive();
+    }
 
     //  If you disable topOnly it will fire events for all objects the pointer is over
     //  regardless of their place on the display list
-    this.input.topOnly = true;
+    this.input.setTopOnly(false);
 
     //  Events
 
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0x00ff00);
+        gameObject.setTint(0x00ff00);
 
     });
 
-    this.input.events.on('GAME_OBJECT_UP_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        event.gameObject.clearTint();
+        gameObject.clearTint();
+
+    });
+
+    this.input.on('gameobjectup', function (pointer, gameObject) {
+
+        gameObject.clearTint();
 
     });
 }

@@ -43,18 +43,15 @@ function create ()
 
     // });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
 
-        // console.log('POINTER_OVER_EVENT');
-        event.gameObject.setTint(0xff0000);
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('POINTER_UP_EVENT', function (event) {
+    this.input.on('gameobjectup', function (pointer, gameObject) {
 
-        console.log('POINTER_UP_EVENT');
-
-        event.gameObject.clearTint();
+        gameObject.clearTint();
 
     });
 }

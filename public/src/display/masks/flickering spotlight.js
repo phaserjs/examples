@@ -33,10 +33,10 @@ function create ()
 
     pic.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        spotlight.x = event.x;
-        spotlight.y = event.y;
+        spotlight.x = pointer.x;
+        spotlight.y = pointer.y;
 
     });
 

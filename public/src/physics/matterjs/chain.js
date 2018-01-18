@@ -27,7 +27,7 @@ function preload ()
 
 function create ()
 {
-    block = this.physics.add.image(400, 50, 'block', null, { ignoreGravity: true });
+    block = this.matter.add.image(400, 50, 'block', null, { ignoreGravity: true });
     block.setFixedRotation();
     block.setMass(500);
 
@@ -36,16 +36,16 @@ function create ()
 
     for (var i = 0; i < 12; i++)
     {
-        var ball = this.physics.add.image(400, y, 'ball', null, { shape: 'circle', mass: 0.1 });
+        var ball = this.matter.add.image(400, y, 'ball', null, { shape: 'circle', mass: 0.1 });
 
-        this.physics.add.joint(prev, ball, (i === 0) ? 90 : 35, 0.4);
+        this.matter.add.joint(prev, ball, (i === 0) ? 90 : 35, 0.4);
 
         prev = ball;
 
         y += 18;
     }
 
-    this.physics.add.mouseSpring();
+    this.matter.add.mouseSpring();
 
     cursors = this.input.keyboard.createCursorKeys();
 }

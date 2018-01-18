@@ -32,9 +32,9 @@ function create ()
     var image6 = this.add.image(600, 300, 'ayu');
     var image7 = this.add.image(700, 300, 'ayu');
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
     
         image3.setDepth(1);
     
-    }, 0, this);
+    }, this);
 }

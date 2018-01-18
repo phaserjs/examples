@@ -66,9 +66,9 @@ function create ()
         on: false
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
-        particles.emitAt(event.x, event.y);
+        particles.emitParticleAt(pointer.x, pointer.y);
 
     });
 }

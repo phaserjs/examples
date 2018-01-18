@@ -50,7 +50,7 @@ function create ()
         lifespan: 2000
     });
 
-    this.input.events.once('POINTER_DOWN_EVENT', function (event) {
+    this.input.once('pointerdown', function (pointer) {
 
         //  Move the cherries to the top of the display list
         particles.emitters.bringToTop(cherries);

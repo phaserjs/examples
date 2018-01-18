@@ -40,17 +40,17 @@ var Breakout = new Phaser.Class({
         this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
 
         //  Input events
-        this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+        this.input.on('pointermove', function (pointer) {
         
             //  Keep the paddle within the game
-            this.paddle.x = Phaser.Math.Clamp(event.x, 52, 748);
+            this.paddle.x = Phaser.Math.Clamp(pointer.x, 52, 748);
 
             if (this.ball.getData('onPaddle'))
             {
                 this.ball.x = this.paddle.x;
             }
         
-        }, 0, this);
+        }, this);
 
         this.input.events.on('POINTER_UP_EVENT', function (event) {
         
@@ -60,7 +60,7 @@ var Breakout = new Phaser.Class({
                 this.ball.setData('onPaddle', false);
             }
         
-        }, 0, this);
+        }, this);
     },
 
     hitBrick: function (ball, brick)

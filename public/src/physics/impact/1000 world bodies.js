@@ -49,7 +49,7 @@ function create ()
     {
         var pos = Phaser.Geom.Rectangle.Random(spriteBounds);
 
-        var block = this.physics.add.sprite(pos.x, pos.y, 'gems');
+        var block = this.impact.add.sprite(pos.x, pos.y, 'gems');
 
         block.setActive().setAvsB().setBounce(1);
 
@@ -67,7 +67,7 @@ function create ()
         block.play(Phaser.Math.RND.pick(anims));
     }
 
-    this.physics.world.setBounds(0, 0, worldBounds.width, worldBounds.height, wallThickness);
+    this.impact.world.setBounds(0, 0, worldBounds.width, worldBounds.height, wallThickness);
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -84,7 +84,7 @@ function create ()
         maxSpeed: 10.0
     };
 
-    controls = this.cameras.addSmoothedKeyControl(controlConfig);
+    controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
 
     this.add.text(0, 0, 'Use Cursors to scroll camera.\nQ / E to zoom in and out', { font: '18px Courier', fill: '#00ff00' });
 }

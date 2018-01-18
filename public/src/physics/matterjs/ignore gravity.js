@@ -23,12 +23,12 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds();
+    this.matter.world.setBounds();
 
     //  This body isn't effected by Gravity
-    this.physics.add.image(100, 100, 'block').setIgnoreGravity(true);
+    this.matter.add.image(100, 100, 'block').setIgnoreGravity(true);
 
-    this.physics.add.image(300, 100, 'block', null, { restitution: 0.6, frictionAir: 0, mass: 0.1 });
-    this.physics.add.image(500, 100, 'block', null, { restitution: 0.8, frictionAir: 0, mass: 0.1 });
-    this.physics.add.image(700, 100, 'block', null, { restitution: 1, frictionAir: 0, mass: 0.1 });
+    this.matter.add.image(300, 100, 'block', null, { restitution: 0.6, frictionAir: 0, mass: 0.1 });
+    this.matter.add.image(500, 100, 'block', null, { restitution: 0.8, frictionAir: 0, mass: 0.1 });
+    this.matter.add.image(700, 100, 'block', null, { restitution: 1, frictionAir: 0, mass: 0.1 });
 }

@@ -1,12 +1,16 @@
-
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        plugins: [ 'Loader' ],
+        map: {
+            'load': 'load',
+            'add': 'add'
+        }
     }
 };
 
@@ -19,5 +23,7 @@ function preload ()
 
 function create ()
 {
-    this.test.fire('face');
+    console.log(this);
+
+    this.add.image(400, 300, 'face');
 }

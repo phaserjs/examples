@@ -38,6 +38,8 @@ function preload ()
 
 function create ()
 {
+    console.log(this);
+
     var config = {
         key: 'explodeAnimation',
         frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 23, first: 23 }),

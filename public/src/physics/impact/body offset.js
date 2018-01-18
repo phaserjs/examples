@@ -25,7 +25,7 @@ function preload ()
 
 function create ()
 {
-    var block = this.physics.add.image(400, 100, 'block');
+    var block = this.impact.add.image(400, 100, 'block');
 
     block.setActive().setAvsB().setMaxVelocity(600).setBounce(0.8);
 
@@ -33,5 +33,5 @@ function create ()
     block.setOffset(16, 16, 64, 64);
 
     //  Create a floor. We don't need to render it, so just make a Fixed Body
-    this.physics.add.body(0, 500, 800, 64).setFixed().setGravity(0);
+    this.impact.add.body(0, 500, 800, 64).setFixed().setGravity(0);
 }

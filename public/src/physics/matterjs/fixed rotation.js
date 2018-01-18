@@ -27,12 +27,12 @@ function preload ()
 
 function create ()
 {
-    block = this.physics.add.image(50, 0, 'block');
+    block = this.matter.add.image(50, 0, 'block');
 
     block.setFrictionAir(0.001);
     block.setBounce(0.6);
 
-    var ground = this.physics.add.image(400, 400, 'platform', null, { isStatic: true });
+    var ground = this.matter.add.image(400, 400, 'platform', null, { isStatic: true });
 
     ground.setScale(2, 0.5);
     ground.setAngle(10);

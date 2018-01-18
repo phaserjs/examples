@@ -28,7 +28,7 @@ function preload()
 function create ()
 {
     //  Calling this with no arguments will set the bounds to match the game config width/height
-    this.physics.world.setBounds();
+    this.impact.world.setBounds();
 
     this.add.image(0, 0, 'sky').setOrigin(0);
 
@@ -37,7 +37,7 @@ function create ()
     group.createMultiple({ key: 'ball', frameQuantity: 64 });
 
     //  If you don't set the body as active it won't collide with the world bounds
-    var balls = this.physics.add.body(200, 100).setActive().setVelocity(300, 200).setBounce(0.95);
+    var balls = this.impact.add.body(200, 100).setActive().setVelocity(300, 200).setBounce(0.95);
 
     //  Set a body size of 1x1
     balls.setBodySize(1, 1);
@@ -48,7 +48,7 @@ function create ()
     };
 
     //  Click to give the balls a boost :)
-    this.input.events.on('POINTER_DOWN_EVENT', function () {
+    this.input.on('pointerdown', function () {
 
         balls.setVelocityY(-300);
 

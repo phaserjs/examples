@@ -36,7 +36,7 @@ function create ()
         duration: 3000
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function () {
+    this.input.on('pointerdown', function () {
 
         tween.restart();
 

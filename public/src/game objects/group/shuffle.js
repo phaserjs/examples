@@ -31,7 +31,7 @@ function create ()
     group.create(540, 200, 'block');
     group.create(600, 200, 'can');
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
         //  Shuffle the children
         Phaser.Actions.Shuffle(group.getChildren());
@@ -45,5 +45,5 @@ function create ()
             children[i].setDepth(i);
         }
 
-    }, 0, this);
+    }, this);
 }

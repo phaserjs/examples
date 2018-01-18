@@ -81,7 +81,7 @@ function create() {
         down: cursors.down,
         speed: 0.5
     };
-    controls = this.cameras.addKeyControl(controlConfig);
+    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
 
     var help = this.add.text(16, 16, ' Press 1/2/3/4 to select layers ', {
         font: '20px Arial',

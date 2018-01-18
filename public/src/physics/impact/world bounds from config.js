@@ -30,5 +30,5 @@ function create ()
     //  setBounds: true is the same as calling physics.world.setBounds() with no arguments
 
     //  If you don't set the body as active it won't collide with the world bounds
-    this.physics.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);
+    this.impact.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);
 }

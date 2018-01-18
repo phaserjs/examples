@@ -19,10 +19,10 @@ function create ()
 
     graphics.strokeEllipseShape(ellipse, 64);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
     
-        ellipse.width = Math.abs(event.x - ellipse.x) * 2;
-        ellipse.height = Math.abs(event.y - ellipse.y) * 2;
+        ellipse.width = Math.abs(pointer.x - ellipse.x) * 2;
+        ellipse.height = Math.abs(pointer.y - ellipse.y) * 2;
 
         graphics.clear();
         graphics.strokeEllipseShape(ellipse, 64);

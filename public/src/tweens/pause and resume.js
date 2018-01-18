@@ -38,7 +38,7 @@ function create ()
         repeat: -1
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function () {
+    this.input.on('pointerdown', function () {
 
         if (tween.isPlaying())
         {

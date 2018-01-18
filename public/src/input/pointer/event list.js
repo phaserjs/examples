@@ -33,15 +33,17 @@ function create ()
         y += 6;
     }
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.setTopOnly(false);
 
-        //  event.list contains a list of ALL GameObjects that were under the pointer
+    this.input.on('pointerdown', function (pointer, gameObjects) {
+
+        //  gameObjects is an array of ALL GameObjects that were under the pointer
         //  So let's tween them all :)
 
-        if (event.list.length > 0)
+        if (gameObjects.length > 0)
         {
             this.tweens.add({
-                targets: event.list,
+                targets: gameObjects,
                 x: { value: 1100, duration: 1500, ease: 'Power2' },
                 delay: function (i, total, target) {
                     return i * 100;
@@ -49,6 +51,6 @@ function create ()
             });
         }
 
-    }, 0, this);
+    }, this);
 
 }

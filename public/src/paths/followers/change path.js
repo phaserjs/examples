@@ -44,7 +44,7 @@ function create ()
         verticalAdjust: true
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function () {
 
         current++;
 

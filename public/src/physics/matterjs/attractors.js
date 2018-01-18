@@ -32,16 +32,16 @@ function preload ()
 function create ()
 {
     //  You can enable the Attractors plugin either via the game config (see above), or explicitly in code:
-    // this.physics.system.enableAttractorPlugin();
+    // this.matter.system.enableAttractorPlugin();
 
-    this.physics.world.setBounds();
+    this.matter.world.setBounds();
 
-    this.physics.add.imageStack('alien', null, 0, 500, 50, 2, 0, 0, {
+    this.matter.add.imageStack('alien', null, 0, 500, 50, 2, 0, 0, {
         mass: 0.5,
         ignorePointer: true
     });
 
-    var sun = this.physics.add.image(400, 200, 'sun', null, {
+    var sun = this.matter.add.image(400, 200, 'sun', null, {
         shape: {
             type: 'circle',
             radius: 64
@@ -58,5 +58,5 @@ function create ()
         }
     });
 
-    this.physics.add.mouseSpring();
+    this.matter.add.mouseSpring();
 }

@@ -58,14 +58,14 @@ function create ()
     effect2.setFloat2('resolution', 800, 600);
     effect3.setFloat2('resolution', 800, 600);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        mouse.x = 800 / event.x;
-        mouse.y = 600 / event.y;
+        mouse.x = 800 / pointer.x;
+        mouse.y = 600 / pointer.y;
 
     });
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
         if (currentEffect)
         {

@@ -41,7 +41,7 @@ function create ()
     //  The config has set the top wall to be missing.
 
     //  If you don't set the body as active it won't collide with the world bounds
-    this.physics.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(0.95);
+    this.impact.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(0.95);
 
     //  It is your responsibility to ensure that new bodies are spawned within the world bounds.
 }

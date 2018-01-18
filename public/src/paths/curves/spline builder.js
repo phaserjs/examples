@@ -56,15 +56,15 @@ function create ()
 
     createPointHandle(curve.points[0]);
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer, gameObjects) {
 
         //  Check we didn't click an existing handle
-        if (event.gameObject)
+        if (gameObjects.length > 0)
         {
             return;
         }
 
-        var vec = curve.addPoint(event.x, event.y);
+        var vec = curve.addPoint(pointer.x, pointer.y);
 
         createPointHandle(vec);
 

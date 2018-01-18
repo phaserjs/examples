@@ -49,17 +49,17 @@ function create ()
         repeat: -1
     });
 
-    this.physics.world.setBounds();
+    this.impact.world.setBounds();
 
     //  A few platforms
-    this.physics.add.image(200, 300, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
-    this.physics.add.image(550, 190, 'platform').setFixed().setGravity(0).setBodyScale(0.4);
-    this.physics.add.image(900, 300, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
-    this.physics.add.image(800, 400, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
-    this.physics.add.image(700, 500, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
+    this.impact.add.image(200, 300, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
+    this.impact.add.image(550, 190, 'platform').setFixed().setGravity(0).setBodyScale(0.4);
+    this.impact.add.image(900, 300, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
+    this.impact.add.image(800, 400, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
+    this.impact.add.image(700, 500, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
 
     //  Our sprite
-    player = this.physics.add.sprite(200, 200, 'dude', 4).setOrigin(0, 0.15);
+    player = this.impact.add.sprite(200, 200, 'dude', 4).setOrigin(0, 0.15);
 
     player.setActive();
     player.setMaxVelocity(500);

@@ -32,9 +32,9 @@ function create ()
 
     p = new Phaser.Geom.Point(400, 300);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        p.setTo(event.x, event.y);
+        p.setTo(pointer.x, pointer.y);
 
     });
 }

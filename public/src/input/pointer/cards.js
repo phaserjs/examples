@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 1024,
     height: 600,
@@ -33,18 +33,14 @@ function create ()
         y += 4;
     }
 
-    this.input.events.on('POINTER_DOWN_EVENT', function (event) {
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
 
         //  Will contain the top-most Game Object (in the display list)
-        if (event.gameObject)
-        {
-            this.tweens.add({
-                targets: event.gameObject,
-                x: { value: 1100, duration: 1500, ease: 'Power2' },
-                y: { value: 500, duration: 500, ease: 'Bounce.easeOut', delay: 150 }
-            });
-        }
+        this.tweens.add({
+            targets: gameObject,
+            x: { value: 1100, duration: 1500, ease: 'Power2' },
+            y: { value: 500, duration: 500, ease: 'Bounce.easeOut', delay: 150 }
+        });
 
-    }, 0, this);
-
+    }, this);
 }

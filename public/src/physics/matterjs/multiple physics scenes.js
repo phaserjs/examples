@@ -16,11 +16,11 @@ var SceneA = new Phaser.Class({
 
     create: function ()
     {
-        this.physics.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
+        this.matter.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
 
         for (var i = 0; i < 64; i++)
         {
-            var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball1');
+            var ball = this.matter.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball1');
             ball.setCircle();
             ball.setFriction(0.005);
             ball.setBounce(1);
@@ -53,11 +53,11 @@ var SceneB = new Phaser.Class({
 
     create: function ()
     {
-        this.physics.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
+        this.matter.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
 
         for (var i = 0; i < 64; i++)
         {
-            var ball = this.physics.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball2');
+            var ball = this.matter.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball2');
             ball.setCircle();
             ball.setFriction(0.005);
             ball.setBounce(1);

@@ -44,10 +44,10 @@ function create ()
     }
 
     //  Track movement
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        mouse.x = event.x;
-        mouse.y = event.y;
+        mouse.x = pointer.x;
+        mouse.y = pointer.y;
         mouse.hasMoved = true;
 
     });

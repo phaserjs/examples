@@ -43,17 +43,17 @@ var MassAttack = new Phaser.Class({
             this.balance.push(group);
         }
 
-        this.input.events.on('POINTER_DOWN_EVENT', this.placeBall.bind(this));
-        this.input.events.on('POINTER_UP_EVENT', this.dropBall.bind(this));
+        this.input.on('pointerdown', this.placeBall, this);
+        this.input.on('pointerup', this.dropBall, this);
     },
 
-    placeBall: function (event)
+    placeBall: function (pointer)
     {
         if (!this.growBall && this.canPlay)
         {
-            var side = Math.floor(event.x / (this.game.config.width / 2));
+            var side = Math.floor(pointer.x / (this.game.config.width / 2));
 
-            this.ball = this.balance[side].create(event.x, 30, 'ball');
+            this.ball = this.balance[side].create(pointer.x, 30, 'ball');
             this.ball.setScale(0.1);
             this.ball.balance = side;
 

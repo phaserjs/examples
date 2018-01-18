@@ -23,13 +23,13 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds();
+    this.matter.world.setBounds();
 
     //  Increase the solver steps from the default to aid with the stack
-    this.physics.world.engine.positionIterations = 30;
-    this.physics.world.engine.velocityIterations = 30;
+    this.matter.world.engine.positionIterations = 30;
+    this.matter.world.engine.velocityIterations = 30;
 
-    var stack = this.physics.add.imageStack('crate32', null, 300, 50, 5, 18, 30, 0, { mass: 0.5 });
+    var stack = this.matter.add.imageStack('crate32', null, 300, 50, 5, 18, 30, 0, { mass: 0.5 });
 
-    this.physics.add.mouseSpring();
+    this.matter.add.mouseSpring();
 }

@@ -25,9 +25,9 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds().disableGravity();
+    this.matter.world.setBounds().disableGravity();
 
-    var circ = this.physics.add.image(200, 50, 'red');
+    var circ = this.matter.add.image(200, 50, 'red');
 
     //  Change the body to a Circle with a radius of 48px
     circ.setBody({

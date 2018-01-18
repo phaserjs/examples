@@ -46,7 +46,6 @@ function drawStar (graphics, cx, cy, spikes, outerRadius, innerRadius, color, li
     graphics.restore();
 }
 
-
 function preload() {
 
     this.load.image('swirl', 'assets/pics/color-wheel-swirl.png');
@@ -79,10 +78,10 @@ function create() {
 
     swirl.mask = new Phaser.Display.Masks.GeometryMask(this, shape);
 
-    this.input.events.on('POINTER_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        shape.x = event.x;
-        shape.y = event.y;
+        shape.x = pointer.x;
+        shape.y = pointer.y;
 
     });
 

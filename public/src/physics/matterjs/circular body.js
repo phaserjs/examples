@@ -26,7 +26,7 @@ function preload ()
 
 function create ()
 {
-    ball = this.physics.add.image(50, 0, 'ball');
+    ball = this.matter.add.image(50, 0, 'ball');
 
     ball.setCircle();
     ball.setFriction(0.005);
@@ -34,7 +34,7 @@ function create ()
     ball.setVelocityX(1);
     ball.setAngularVelocity(0.15);
 
-    var ground = this.physics.add.image(400, 400, 'platform');
+    var ground = this.matter.add.image(400, 400, 'platform');
 
     ground.setStatic(true);
     ground.setScale(2, 0.5);

@@ -68,7 +68,7 @@ function create ()
 
     this.cameras.main.disableCull = true;
 
-    controls = this.cameras.addSmoothedKeyControl(controlConfig);
+    controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
 
     this.input.events.on('POINTER_OVER_EVENT', function (event) {
 

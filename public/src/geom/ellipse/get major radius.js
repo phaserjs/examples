@@ -18,7 +18,7 @@ function create ()
 
     this.input.on('pointermove', function (pointer) {
 
-        ellipse.setSize((pointer.x - 400) * 2, (pointer.y - 300) * 2);
+        ellipse.setSize(pointer.x, pointer.y);
 
         redraw();
     });

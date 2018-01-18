@@ -25,6 +25,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.bitmapFont('atari-classic', 'assets/fonts/bitmap/atari-classic.png', 'assets/fonts/bitmap/atari-classic.xml');
+
     this.load.image('streets', 'assets/sprites/cyberpunk-street.png');
 
     this.load.atlas('speakers', 'assets/sprites/speakers/speakers.png', 'assets/sprites/speakers/speakers.json');
@@ -97,7 +99,24 @@ function create ()
         }
     };
 
-    startStem.call(this, bass, 'Bass', bottomSpeaker);
+    if(this.sound.locked)
+    {
+        var text = this.add.bitmapText(400, 70, 'atari-classic', 'Tap to start', 40);
+        text.x -= Math.round(text.width/2);
+        text.y -= Math.round(text.height/2);
+
+        this.sound.once('unlocked', function (soundManager)
+        {
+            text.visible = false;
+
+            startStem.call(this, bass, 'Bass', bottomSpeaker);
+
+        }, this);
+    }
+    else
+    {
+        startStem.call(this, bass, 'Bass', bottomSpeaker);
+    }
 
     bass.addMarker(loopMarker);
 

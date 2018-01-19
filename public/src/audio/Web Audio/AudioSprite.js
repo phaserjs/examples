@@ -34,7 +34,7 @@ function create ()
 {
     this.add.image(400, 300, 'title');
 
-    var spritemap = this.game.cache.json.get('sfx').spritemap;
+    var spritemap = this.cache.json.get('sfx').spritemap;
 
     var i = 0;
     for (var spriteName in spritemap)

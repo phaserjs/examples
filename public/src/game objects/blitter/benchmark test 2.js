@@ -8,61 +8,43 @@ var config = {
     }
 };
 
+var total;
+var blitter;
+var text;
+var frames = [];
+
 var game = new Phaser.Game(config);
 
-var scene = null;
-var add = false;
-var sub = 0;
-var total = 0;
-var random = Math.random;
-var blitter;
-
-function preload() {
-
-    this.load.atlas('atlas', 'assets/atlas/megaset-0.png', 'assets/atlas/megaset-0.json');
-
+function preload ()
+{
+    this.load.atlas('blocks', 'assets/atlas/isoblocks.png', 'assets/atlas/isoblocks.json');
 }
 
-function create() {
+function create ()
+{
+    frames = this.textures.get('blocks').getFrameNames();
 
-    scene = this;
-    blitter = this.add.blitter(0, 0, 'atlas', 'chunk');
+    total = 230;
+    blitter = this.add.blitter(0, 0, 'blocks', 'block-000');
+    text = this.add.text(10, 0, 'Total: 230', { font: '16px Courier', fill: '#00ff00' });
 
-    for (var i = 0; i < 250; ++i)
+    for (var i = 0; i < 230; i++)
     {
-        blitter.create(random() * scene.game.config.width, random() * scene.game.config.height);
-        total++;
+        blitter.create(Phaser.Math.Between(0, 1020), Phaser.Math.Between(16, 760), frames[i]);
     }
-
 }
 
-function update() {
-
-    if (add)
+function update ()
+{
+    if (this.input.activePointer.isDown)
     {
-        for (var i = 0; i < 250; ++i)
+        for (var i = 0; i < 230; i++)
         {
-            blitter.create(random() * scene.game.config.width, random() * scene.game.config.height);
-            total++;
-
-            if (blitter.children.length === 2000)
-            {
-                //  Create a new blitter object, as they can only hold 10k bobs each
-                console.log('Created new Blitter');
-                blitter = this.add.blitter(0, 0, 'atlas', 'chunk');
-            }
+            blitter.create(Phaser.Math.Between(0, 1020), Phaser.Math.Between(16, 760), frames[i]);
         }
+
+        total += 230;
+
+        text.setText('Total: ' + total);
     }
-
 }
-
-window.onmousedown = function ()
-{
-    add = true;
-};
-
-window.onmouseup = function ()
-{
-    add = false;
-    console.log(total);
-};

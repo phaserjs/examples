@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -9,32 +9,20 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload() {
-
+function preload ()
+{
     this.load.image('atari', 'assets/sprites/atari130xe.png');
-
 }
 
-function create() {
-
+function create ()
+{
     var blitter = this.add.blitter(0, 0, 'atari');
 
-    // blitter.alpha = 0.5;
+    blitter.create(0, 0).setAlpha(1);
 
-    var bob1 = blitter.create(0, 0);
+    blitter.create(200, 50).setAlpha(0.8);
 
-    bob1.alpha = 1;
+    blitter.create(400, 100).setAlpha(0.5);
 
-    var bob2 = blitter.create(200, 50);
-
-    bob2.alpha = 0.8;
-
-    var bob3 = blitter.create(400, 100);
-
-    bob3.alpha = 0.5;
-
-    var bob4 = blitter.create(600, 150);
-
-    bob4.alpha = 0.2;
-
+    blitter.create(600, 150).setAlpha(0.2);
 }

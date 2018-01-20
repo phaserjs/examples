@@ -8,54 +8,40 @@ var config = {
     }
 };
 
+var total;
+var blitter;
+var text;
+
 var game = new Phaser.Game(config);
 
-var scene = null;
-var add = false;
-var sub = 0;
-var total = 0;
-var random = Math.random;
-var blitter;
-
-function preload() {
-
+function preload ()
+{
     this.load.atlas('atlas', 'assets/atlas/megaset-0.png', 'assets/atlas/megaset-0.json');
-
 }
 
-function create() {
-
-    scene = this;
+function create ()
+{
+    total = 250;
     blitter = this.add.blitter(0, 0, 'atlas', 'chunk');
+    text = this.add.text(10, 10, 'Total: 250', { font: '64px Courier', fill: '#00ff00' });
 
     for (var i = 0; i < 250; ++i)
     {
-        blitter.create(random() * scene.game.config.width, random() * scene.game.config.height);
-        total++;
+        blitter.create(Phaser.Math.Between(0, 1020), Phaser.Math.Between(0, 764));
     }
-
 }
 
-function update() {
-
-    if (add)
+function update ()
+{
+    if (this.input.activePointer.isDown)
     {
         for (var i = 0; i < 250; ++i)
         {
-            blitter.create(random() * scene.game.config.width, random() * scene.game.config.height);
-            total++;
+            blitter.create(Phaser.Math.Between(0, 1020), Phaser.Math.Between(0, 764));
         }
+
+        total += 250;
+
+        text.setText('Total: ' + total);
     }
-
 }
-
-window.onmousedown = function ()
-{
-    add = true;
-};
-
-window.onmouseup = function ()
-{
-    add = false;
-    console.log(total);
-};

@@ -24,7 +24,7 @@ function create ()
     //  Note that the x/y coordinates are relative to the blitter position.
 
     blitter.create(0, 0, 'atari400');
-    blitter.create(100, 0, 'bunny').flipX = true;
+    blitter.create(100, 0, 'bunny').setFlipX();
     blitter.create(200, 0, 'cokecan');
     blitter.create(300, 0, 'copy-that-floppy');
     blitter.create(400, 0, 'hotdog');

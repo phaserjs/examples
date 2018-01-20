@@ -1,18 +1,18 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 821,
     height: 552,
     parent: 'phaser-example',
     scene: {
         preload: preload,
         create: create,
-        update: update
+        update: update,
+        extend:
+        {
+            scanFont: scanFont
+        }
     }
 };
-
-var game = new Phaser.Game(config);
-
-var scene;
 
 var fNoop =  0, // No effect
     fSin1 =  1, // Sine 1
@@ -160,32 +160,30 @@ iteration = null,
 skip      = false,
 blitter   = null;
 
-function preload() {
+var game = new Phaser.Game(config);
 
-    scene = this;
-
+function preload ()
+{
     this.load.image('font', 'assets/tests/twist/bob-font.png');
     this.load.atlas('bobs', 'assets/tests/twist/bobs.png', 'assets/tests/twist/bobs.json');
-
 }
 
-function create() {
-
-    scanFont();
+function create ()
+{
+    this.scanFont();
 
     blitter = this.add.blitter(0, 0, 'bobs');
 
-    frame = scene.textures.getFrame('bobs', 'bob1');
-
+    frame = this.textures.getFrame('bobs', 'bob2');
 }
 
-function scanFont () {
-
-    var font_canvas = Phaser.DOM.CanvasPool.create(scene.game, 120, 102);
+function scanFont ()
+{
+    var font_canvas = Phaser.Display.Canvas.Pool.create(this, 120, 102);
 
     var ctx = font_canvas.getContext('2d');
 
-    ctx.drawImage(scene.textures.get('font').source[0].image, 0, 0);
+    ctx.drawImage(this.textures.get('font').source[0].image, 0, 0);
 
     var imageData = ctx.getImageData(0, 0, font_canvas.width, font_canvas.height);
 
@@ -214,8 +212,8 @@ function scanFont () {
     }
 }
 
-function generateStructure (text) {
-
+function generateStructure (text)
+{
     var letter, c = 0;
     structure = []
 
@@ -242,8 +240,8 @@ function generateStructure (text) {
     }
 }
 
-function drawFont (position, increment, callback, tile) {
-
+function drawFont (position, increment, callback, tile)
+{
     blitter.clear();
 
     var mid = 140;
@@ -289,8 +287,8 @@ function drawFont (position, increment, callback, tile) {
     }
 }
 
-function update() {
-
+function update ()
+{
     // Load next scroller
     if (text_num < 0 || counter < 0)
     {
@@ -308,7 +306,7 @@ function update() {
         counter   = (structure.length - 26) * 4 - 1;
         iteration = 0;
 
-        frame = scene.textures.getFrame('bobs', 'bob' + (tile + 1).toString());
+        frame = this.textures.getFrame('bobs', 'bob' + (tile + 1).toString());
     }
 
     // Draw 4-bit scroller

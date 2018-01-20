@@ -8,26 +8,22 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
-
-var scene = null;
-var add = false;
 var blitter;
-var bobs = [];
 var gravity = 0.5;
 var idx = 1;
 var frame = 'veg01';
-var digits;
 var numbers = [];
+var iter = 0;
 
-function preload() {
+var game = new Phaser.Game(config);
 
+function preload ()
+{
     this.load.atlas('atlas', 'assets/tests/fruit/veg.png', 'assets/tests/fruit/veg.json');
-
 }
 
-function launch() {
-
+function launch ()
+{
     idx++;
 
     if (idx === 38)
@@ -49,55 +45,44 @@ function launch() {
     bob.data.vx = Math.random() * 10;
     bob.data.vy = Math.random() * 10;
     bob.data.bounce = 0.8 + (Math.random() * 0.3);
-
-    bobs.push(bob);
-
 }
 
-function create() {
-
-    scene = this;
-
-    numbers.push(this.add.image(0 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(1 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(2 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(3 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(4 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(5 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(6 * 48, 720, 'atlas', '0'));
+function create ()
+{
+    numbers.push(this.add.image(32 + 0 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 1 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 2 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 3 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 4 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 5 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 6 * 50, 742, 'atlas', '0'));
 
     blitter = this.add.blitter(0, 0, 'atlas');
 
-    for (var i = 0; i < 10; ++i)
+    for (var i = 0; i < 50; ++i)
     {
         launch();
     }
     
     updateDigits();
-
 }
 
-function update() {
-
-    if (add)
+function update ()
+{
+    if (this.input.activePointer.isDown)
     {
-        for (var i = 0; i < 10; ++i)
+        for (var i = 0; i < 50; ++i)
         {
             launch();
-
-            if (blitter.children.length === 2000)
-            {
-                //  Create a new blitter object, as they can only hold 10k bobs each
-                blitter = this.add.blitter(0, 0, 'atlas');
-            }
         }
 
         updateDigits();
     }
 
-    for (var index = 0, length = bobs.length; index < length; ++index)
+    for (var index = 0, length = blitter.children.list.length; index < length; ++index)
     {
-        var bob = bobs[index];
+        var bob = blitter.children.list[index];
+
         bob.data.vy += gravity;
 
         bob.y += bob.data.vy;
@@ -114,34 +99,26 @@ function update() {
             bob.data.vx *= -bob.data.bounce;
         }
 
-        if (bob.y > 690)
+        if (bob.y > 684)
         {
-            bob.y = 690;
+            bob.y = 684;
             bob.data.vy *= -bob.data.bounce;
         }
     }
 
+    // this.cameras.main.scrollX = Math.sin(iter) * 200;
+    // iter += 0.01;
 }
 
 function updateDigits ()
 {
-    var len = Phaser.Utils.String.Pad(bobs.length.toString(), 7, '0', 1);
+    var len = Phaser.Utils.String.Pad(blitter.children.list.length.toString(), 7, '0', 1);
 
-    numbers[0].frame = scene.textures.getFrame('atlas', len[0]);
-    numbers[1].frame = scene.textures.getFrame('atlas', len[1]);
-    numbers[2].frame = scene.textures.getFrame('atlas', len[2]);
-    numbers[3].frame = scene.textures.getFrame('atlas', len[3]);
-    numbers[4].frame = scene.textures.getFrame('atlas', len[4]);
-    numbers[5].frame = scene.textures.getFrame('atlas', len[5]);
-    numbers[6].frame = scene.textures.getFrame('atlas', len[6]);
+    numbers[0].setFrame(len[0]);
+    numbers[1].setFrame(len[1]);
+    numbers[2].setFrame(len[2]);
+    numbers[3].setFrame(len[3]);
+    numbers[4].setFrame(len[4]);
+    numbers[5].setFrame(len[5]);
+    numbers[6].setFrame(len[6]);
 }
-
-window.onmousedown = function ()
-{
-    add = true;
-};
-
-window.onmouseup = function ()
-{
-    add = false;
-};

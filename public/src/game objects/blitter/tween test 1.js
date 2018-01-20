@@ -4,31 +4,27 @@ var config = {
     scene: {
         preload: preload,
         create: create,
-        update: update
+        update: update,
+        extend: {
+            launch: launch
+        }
     }
 };
 
-var game = new Phaser.Game(config);
-
-var scene = null;
-var add = false;
 var blitter;
-var bobs = [];
-var gravity = 0.5;
 var idx = 1;
 var frame = 'veg01';
-var digits;
 var numbers = [];
-var tweens = [];
 
-function preload() {
+var game = new Phaser.Game(config);
 
+function preload ()
+{
     this.load.atlas('atlas', 'assets/tests/fruit/veg.png', 'assets/tests/fruit/veg.json');
-
 }
 
-function launch(i) {
-
+function launch (i)
+{
     idx++;
 
     if (idx === 38)
@@ -47,78 +43,57 @@ function launch(i) {
 
     var bob = blitter.create(i * 32, 0, frame);
 
-    var tween = TweenMax.to(bob, 2, {
+    this.tweens.add({
+        targets: bob,
+        duration: 2000,
         y: 650,
         delay: Math.random() * 2,
-        ease: Sine.easeInOut,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });
-
-    bobs.push(bob);
-
 }
 
-function create() {
-
-    scene = this;
-
-    numbers.push(this.add.image(0 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(1 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(2 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(3 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(4 * 48, 720, 'atlas', '0'));
-    numbers.push(this.add.image(5 * 48, 720, 'atlas', '0'));
+function create ()
+{
+    numbers.push(this.add.image(32 + 0 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 1 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 2 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 3 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 4 * 50, 742, 'atlas', '0'));
+    numbers.push(this.add.image(32 + 5 * 50, 742, 'atlas', '0'));
 
     blitter = this.add.blitter(0, 0, 'atlas');
 
-    for (var i = 0; i < 32; ++i)
+    for (var i = 0; i < 32; i++)
     {
-        launch(i);
+        this.launch(i);
     }
     
     updateDigits();
-
 }
 
-function update() {
-
-    if (add)
+function update ()
+{
+    if (this.input.activePointer.isDown)
     {
-        for (var i = 0; i < 32; ++i)
+        for (var i = 0; i < 32; i++)
         {
-            launch(i);
-
-            if (blitter.children.length === 2000)
-            {
-                //  Create a new blitter object, as they can only hold 10k bobs each
-                blitter = this.add.blitter(0, 0, 'atlas');
-            }
+            this.launch(i);
         }
 
         updateDigits();
     }
-
 }
 
 function updateDigits ()
 {
-    var len = Phaser.Utils.String.Pad(bobs.length.toString(), 6, '0', 1);
+    var len = Phaser.Utils.String.Pad(blitter.children.list.length.toString(), 6, '0', 1);
 
-    numbers[0].frame = scene.textures.getFrame('atlas', len[0]);
-    numbers[1].frame = scene.textures.getFrame('atlas', len[1]);
-    numbers[2].frame = scene.textures.getFrame('atlas', len[2]);
-    numbers[3].frame = scene.textures.getFrame('atlas', len[3]);
-    numbers[4].frame = scene.textures.getFrame('atlas', len[4]);
-    numbers[5].frame = scene.textures.getFrame('atlas', len[5]);
+    numbers[0].setFrame(len[0]);
+    numbers[1].setFrame(len[1]);
+    numbers[2].setFrame(len[2]);
+    numbers[3].setFrame(len[3]);
+    numbers[4].setFrame(len[4]);
+    numbers[5].setFrame(len[5]);
 }
-
-window.onmousedown = function ()
-{
-    add = true;
-};
-
-window.onmouseup = function ()
-{
-    add = false;
-};

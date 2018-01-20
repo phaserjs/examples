@@ -8,11 +8,11 @@ demo.preload = function () {
 
 demo.create = function () {
 
-    console.log(this.settings.key, 'is alive');
+    console.log(this.sys.settings.key, 'is alive');
 
-    this.add.image(0, 0, 'face');
+    this.add.image(400, 300, 'face');
 
-    this.game.scene.start('Test');
+    this.scene.launch('Test');
 
 };
 
@@ -26,12 +26,9 @@ test.preload = function () {
 
 test.create = function () {
 
-    console.log(this.settings.key, 'is alive');
+    console.log(this.sys.settings.key, 'is alive');
 
-    var bob = this.add.image(0, 0, 'barbarian');
-
-    bob.scale = 0.5;
-
+    this.add.image(400, 300, 'barbarian').setScale(0.5);
 }
 
 var config = {

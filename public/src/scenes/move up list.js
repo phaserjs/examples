@@ -18,13 +18,11 @@ var DemoA = new Phaser.Class({
     {
         this.add.image(400, 300, 'picA');
 
-        var _this = this;
+        this.input.on('pointerup', function () {
 
-        this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+            this.scene.moveUp();
 
-            _this.scene.moveUp();
-
-        });
+        }, this);
     }
 
 });

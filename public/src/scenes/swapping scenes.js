@@ -1,15 +1,15 @@
 
-var backgroundSceneConfig = {
-    key: 'background',
-    create: createBackground,
+var sceneConfigA = {
+    key: 'sceneA',
+    create: createA,
     files: [
         { type: 'image', key: 'face', url: 'assets/pics/bw-face.png' }
     ]
 };
 
-var modalSceneConfig = {
-    key: 'modal',
-    create: createModal,
+var sceneConfigB = {
+    key: 'sceneB',
+    create: createB,
     files: [
         { type: 'image', key: 'logo', url: 'assets/pics/monika-krawinkel-amberstar-title.png' }
     ]
@@ -20,28 +20,31 @@ var gameConfig = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [ backgroundSceneConfig, modalSceneConfig ]
+    scene: [ sceneConfigA, sceneConfigB ]
 };
 
 var game = new Phaser.Game(gameConfig);
 
-function createBackground ()
+function createA ()
 {
-    this.add.image(0, 0, 'face');
+    this.add.image(400, 300, 'face');
 
-    var scene = this.scene;
-
-    window.addEventListener('click', function handler() {
-
-        this.removeEventListener('click', handler);
-
-        scene.swap('modal');
-
-    })
+    this.input.on('pointerdown', function () {
+    
+        this.input.stopPropagation();
+        this.scene.switch('sceneB');
+    
+    }, this);
 }
 
-function createModal ()
+function createB ()
 {
-    this.add.image(0, 0, 'logo');
-}
+    this.add.image(400, 300, 'logo');
 
+    this.input.on('pointerdown', function () {
+    
+        this.input.stopPropagation();
+        this.scene.switch('sceneA');
+    
+    }, this);
+}

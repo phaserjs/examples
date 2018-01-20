@@ -1,10 +1,5 @@
 
 var sceneConfig = {
-    renderToTexture: true,
-    x: 64,
-    y: 64,
-    _width: 320,
-    _height: 240,
     preload: preload,
     create: create,
     files: [
@@ -29,6 +24,6 @@ function preload ()
 
 function create ()
 {
-    this.add.image(0, 0, 'face');
-    this.add.image(0, 0, 'sonic');
+    this.add.image(400, 300, 'face');
+    this.add.image(400, 300, 'sonic');
 }

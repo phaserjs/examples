@@ -31,7 +31,7 @@ function preload ()
 {
     this.load.image('ground_1x1', 'assets/tilemaps/tiles/ground_1x1.png');
     this.load.spritesheet('coin', 'assets/sprites/coin.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.tilemapJSON('map', 'assets/tilemaps/maps/tile-collision-test.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tile-collision-test.json');
     this.load.image('player', 'assets/sprites/phaser-dude.png');
 }
 

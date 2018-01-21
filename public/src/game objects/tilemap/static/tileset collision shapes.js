@@ -17,7 +17,7 @@ var controls;
 
 function preload ()
 {
-    this.load.tilemapJSON('map', 'assets/tilemaps/maps/tileset-collision-shapes.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-shapes.json');
     this.load.image('kenny_platformer_64x64', 'assets/tilemaps/tiles/kenny_platformer_64x64.png');
 }
 

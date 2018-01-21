@@ -24,7 +24,7 @@ var tileInfoText;
 function preload ()
 {
     this.load.image('kenny_platformer_64x64', 'assets/tilemaps/tiles/kenny_platformer_64x64.png');
-    this.load.tilemapJSON('multiple-layers-map', 'assets/tilemaps/maps/multiple-layers.json');
+    this.load.tilemapTiledJSON('multiple-layers-map', 'assets/tilemaps/maps/multiple-layers.json');
 }
 
 function create ()

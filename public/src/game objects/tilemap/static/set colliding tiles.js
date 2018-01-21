@@ -18,7 +18,7 @@ var map;
 
 function preload ()
 {
-    this.load.tilemapJSON('map', 'assets/tilemaps/maps/super-mario.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/super-mario.json');
     this.load.image('SuperMarioBros-World1-1', 'assets/tilemaps/tiles/super-mario.png');
     this.load.bitmapFont('gothic', 'assets/fonts/bitmap/gothic.png', 'assets/fonts/bitmap/gothic.xml');
 }

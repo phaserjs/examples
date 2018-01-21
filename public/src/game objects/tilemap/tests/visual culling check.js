@@ -23,13 +23,13 @@ var assert = (message, condition) => {
 var game = new Phaser.Game(config);
 
 function preload() {
-    this.load.tilemapJSON('desert', 'assets/tilemaps/maps/desert.json');
+    this.load.tilemapTiledJSON('desert', 'assets/tilemaps/maps/desert.json');
     this.load.image('desert-tiles', 'assets/tilemaps/tiles/tmw_desert_spacing.png');
 
-    this.load.tilemapJSON('mario', 'assets/tilemaps/maps/super-mario.json');
+    this.load.tilemapTiledJSON('mario', 'assets/tilemaps/maps/super-mario.json');
     this.load.image('SuperMarioBros-World1-1', 'assets/tilemaps/tiles/super-mario.png');
 
-    this.load.tilemapJSON('features-test', 'assets/tilemaps/maps/features-test.json');
+    this.load.tilemapTiledJSON('features-test', 'assets/tilemaps/maps/features-test.json');
     this.load.image('ground_1x1', 'assets/tilemaps/tiles/ground_1x1.png');
     this.load.image('dangerous-kiss', 'assets/tilemaps/tiles/dangerous-kiss.png');
     this.load.image('walls_1x2', 'assets/tilemaps/tiles/walls_1x2.png');

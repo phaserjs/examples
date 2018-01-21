@@ -19,7 +19,7 @@ var propertiesText;
 
 function preload ()
 {
-    this.load.tilemapJSON('map', 'assets/tilemaps/maps/tile_properties.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tile_properties.json');
     this.load.image('tiles', 'assets/tilemaps/tiles/gridtiles.png');
 }
 

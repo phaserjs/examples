@@ -23,7 +23,7 @@ var onlyColliding = false;
 
 function preload ()
 {
-    this.load.tilemapJSON('map', 'assets/tilemaps/maps/cybernoid.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/cybernoid.json');
     this.load.image('cybernoid', 'assets/tilemaps/tiles/cybernoid.png');
 }
 

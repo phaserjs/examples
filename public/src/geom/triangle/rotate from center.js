@@ -4,33 +4,30 @@ var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
-        create: create
+        create: create,
+        update: update
     }
 };
 
 var game = new Phaser.Game(config);
+var graphics;
+var triangle;
+var t = 0;
 
 function create ()
 {
-    var graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 } });
+    graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaaaa00 } });
 
-    var triangle = new Phaser.Geom.Triangle.BuildRight(300, 360, 300, 300);
+    triangle = new Phaser.Geom.Triangle.BuildRight(300, 360, 300, 300);
+}
 
-    var angle = { value: 0 };
+function update ()
+{
+    graphics.clear();
+
+    t += 0.01;
+
+    Phaser.Geom.Triangle.Rotate(triangle, Math.sin(t) * 0.04);
 
     graphics.strokeTriangleShape(triangle);
-
-    TweenMax.to(angle, 10, {
-        value: 0.04,
-        ease: Linear.easeNone,
-        repeat: -1,
-        yoyo: true,
-        onUpdate: function () {
-            Phaser.Geom.Triangle.Rotate(triangle, angle.value);
-            graphics.clear();
-            graphics.strokeTriangleShape(triangle);
-        },
-        onUpdateScope: this
-    });
-
 }

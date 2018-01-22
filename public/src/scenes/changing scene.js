@@ -18,15 +18,13 @@ var SceneA = new Phaser.Class({
     {
         this.add.sprite(400, 300, 'face').setAlpha(0.2);
 
-        var _this = this;
-
-        this.input.events.once('POINTER_DOWN_EVENT', function (event) {
+        this.input.once('pointerdown', function () {
 
             console.log('From SceneA to SceneB');
 
-            _this.scene.start('sceneB');
+            this.scene.start('sceneB');
 
-        });
+        }, this);
     }
 
 });
@@ -51,15 +49,13 @@ var SceneB = new Phaser.Class({
     {
         this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        var _this = this;
-
-        this.input.events.once('POINTER_DOWN_EVENT', function (event) {
+        this.input.once('pointerdown', function (event) {
 
             console.log('From SceneB to SceneC');
 
-            _this.scene.start('sceneC');
+            this.scene.start('sceneC');
 
-        });
+        }, this);
     },
 
     update: function (time, delta)
@@ -89,21 +85,19 @@ var SceneC = new Phaser.Class({
     {
         this.add.sprite(Phaser.Math.Between(0, 800), 300, 'mech');
 
-        var _this = this;
-
-        this.input.events.once('POINTER_DOWN_EVENT', function (event) {
+        this.input.once('pointerdown', function (event) {
 
             console.log('From SceneC to SceneA');
 
-            _this.scene.start('sceneA');
+            this.scene.start('sceneA');
 
-        });
+        }, this);
     }
 
 });
 
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000000',

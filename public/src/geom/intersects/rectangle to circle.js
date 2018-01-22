@@ -25,7 +25,7 @@ function create ()
 
     moveShape = circle;
 
-    this.input.events.on('POINTER_UP_EVENT', function (event) {
+    this.input.on('pointerup', function (event) {
 
         if (moveShape === circle)
         {

@@ -27,14 +27,14 @@ var game = new Phaser.Game(config);
 
 function preload()
 {
-    this.load.tilemapJSON('mario', 'assets/tilemaps/maps/super-mario.json');
+    this.load.tilemapTiledJSON('mario', 'assets/tilemaps/maps/super-mario.json');
     this.load.image('mario-tiles', 'assets/tilemaps/tiles/super-mario.png');
     this.load.image('tomato', 'assets/sprites/tomato.png');
-    this.load.tilemapJSON('multiple-layers-map', 'assets/tilemaps/maps/multiple-layers.json');
+    this.load.tilemapTiledJSON('multiple-layers-map', 'assets/tilemaps/maps/multiple-layers.json');
     this.load.image('kenny_platformer_64x64', 'assets/tilemaps/tiles/kenny_platformer_64x64.png');
     this.load.image('catastrophi-tiles', 'assets/tilemaps/tiles/catastrophi_tiles_16.png');
     this.load.tilemapCSV('catastrophi-level3', 'assets/tilemaps/csv/catastrophi_level3.csv');
-    this.load.tilemapJSON('features-test-map', 'assets/tilemaps/maps/features-test.json');
+    this.load.tilemapTiledJSON('features-test-map', 'assets/tilemaps/maps/features-test.json');
     this.load.spritesheet('coin', 'assets/sprites/coin.png', { frameWidth: 32, frameHeight: 32 });
     this.load.image('ground_1x1', 'assets/tilemaps/tiles/ground_1x1.png');
     this.load.image('walls_1x2', 'assets/tilemaps/tiles/walls_1x2.png');

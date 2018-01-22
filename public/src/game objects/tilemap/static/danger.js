@@ -19,7 +19,7 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('tiles', 'assets/tilemaps/tiles/dangerous-kiss-x2.png');
-    this.load.tilemapJSON('map', 'assets/tilemaps/maps/dangerous-kiss.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/dangerous-kiss.json');
 }
 
 function create ()

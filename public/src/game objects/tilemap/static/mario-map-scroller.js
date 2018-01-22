@@ -17,10 +17,10 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.tilemapJSON('map1', 'assets/tilemaps/maps/super-mario.json');
+    this.load.tilemapTiledJSON('map1', 'assets/tilemaps/maps/super-mario.json');
     this.load.image('tiles1', 'assets/tilemaps/tiles/super-mario.png');
 
-    this.load.tilemapJSON('map3', 'assets/tilemaps/maps/super-mario-3.json');
+    this.load.tilemapTiledJSON('map3', 'assets/tilemaps/maps/super-mario-3.json');
     this.load.image('tiles3', 'assets/tilemaps/tiles/super-mario-3.png');
 }
 

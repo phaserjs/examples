@@ -18,7 +18,7 @@ var controls;
 function preload ()
 {
     this.load.image('tiles', 'assets/tilemaps/tiles/cybernoid.png');
-    this.load.tilemapJSON('map', 'assets/tilemaps/maps/cybernoid.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/cybernoid.json');
 }
 
 function create ()

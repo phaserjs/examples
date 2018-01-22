@@ -40,6 +40,7 @@ function create ()
     map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
     var tileset = map.addTilesetImage('tiles_red');
     var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    layer.setScale(2);
 
     //  This isn't totally accurate, but it'll do for now
     map.setCollisionBetween(54, 83);
@@ -91,7 +92,9 @@ function create ()
         repeat: -1
     });
 
-    player = this.physics.add.sprite(50, 100, 'player', 1);
+    player = this.physics.add.sprite(100, 100, 'player', 1)
+        .setScale(2);
+    player.setSize(10, 10, false);
 
     // Set up the player to collide with the tilemap layer. Alternatively, you can manually run
     // collisions in update via: this.physics.world.collide(player, layer).
@@ -111,7 +114,7 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
 
     helpText = this.add.text(16, 16, '', {
-        fontSize: '18px',
+        fontSize: '20px',
         fill: '#ffffff'
     });
     helpText.setScrollFactor(0);
@@ -125,21 +128,21 @@ function update (time, delta)
     // Horizontal movement
     if (cursors.left.isDown)
     {
-        player.body.setVelocityX(-100);
+        player.body.setVelocityX(-200);
     }
     else if (cursors.right.isDown)
     {
-        player.body.setVelocityX(100);
+        player.body.setVelocityX(200);
     }
 
     // Vertical movement
     if (cursors.up.isDown)
     {
-        player.body.setVelocityY(-100);
+        player.body.setVelocityY(-200);
     }
     else if (cursors.down.isDown)
     {
-        player.body.setVelocityY(100);
+        player.body.setVelocityY(200);
     }
 
     // Update the animation last and give left/right animations precedence over up/down animations

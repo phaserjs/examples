@@ -20,7 +20,7 @@ var map;
 function preload ()
 {
     this.load.image('tiles', 'assets/tilemaps/tiles/tmw_desert_spacing.png');
-    this.load.tilemapJSON('map', 'assets/tilemaps/maps/desert.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/desert.json');
 }
 
 function create ()

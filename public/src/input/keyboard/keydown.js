@@ -15,11 +15,9 @@ function create() {
 
     //  Global event listener, catches all keys
 
-    var _this = this;
-
     //  Receives every single key down event, regardless of type
 
-    this.input.keyboard.events.on('KEY_DOWN_EVENT', function (event) {
+    this.input.keyboard.on('keydown', function (event) {
 
         console.dir(event);
 
@@ -27,7 +25,7 @@ function create() {
 
     //  Hook to a specific key without creating a new Key object (in this case the A key)
 
-    this.input.keyboard.events.on('KEY_DOWN_A', function (event) {
+    this.input.keyboard.on('keydown_A', function (event) {
 
         console.log('Hello from the A Key!');
 
@@ -35,13 +33,13 @@ function create() {
 
     //  Fire only once on a specific key up event (in this case the S key)
 
-    this.input.keyboard.events.on('KEY_UP_S', function (event) {
+    this.input.keyboard.on('keyup_S', function (event) {
 
         console.log('Keyboard Events Stopped');
 
-        _this.input.keyboard.stopListeners();
+        this.input.keyboard.stopListeners();
 
-    });
+    }, this);
 
     //  Create a Key object we can poll directly in a tight loop
 

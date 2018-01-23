@@ -17,7 +17,7 @@ function create() {
 
     var combo = this.input.keyboard.createCombo([ 38, 38, 38, 40, 40, 40, 37, 37, 37, 39, 39, 39 ], { resetOnMatch: true });
 
-    this.input.keyboard.events.on('KEY_COMBO_MATCH_EVENT', function (event) {
+    this.input.keyboard.on('keycombomatch', function (event) {
 
         console.log('Konami Code entered!');
 

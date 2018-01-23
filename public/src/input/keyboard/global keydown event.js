@@ -12,7 +12,7 @@ function create() {
 
     //  Receives every single key down event, regardless of origin or key
 
-    this.input.keyboard.events.on('KEY_DOWN_EVENT', function (event) {
+    this.input.keyboard.on('keydown', function (event) {
 
         console.dir(event);
 

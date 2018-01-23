@@ -17,7 +17,7 @@ function create() {
 
     var combo = this.input.keyboard.createCombo('ABC', { resetOnMatch: true });
 
-    this.input.keyboard.events.on('KEY_COMBO_MATCH_EVENT', function (event) {
+    this.input.keyboard.on('keycombomatch', function (event) {
 
         console.log('Key Combo matched!');
 

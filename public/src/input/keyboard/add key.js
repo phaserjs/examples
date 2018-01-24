@@ -1,7 +1,9 @@
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
+    backgroundColor: '#0072bc',
     scene: {
+        preload: preload,
         create: create,
         update: update,
         extend: {
@@ -15,10 +17,12 @@ var game = new Phaser.Game(config);
 var keyA;
 var key5;
 var keySpace;
+var highlight1;
 
 function preload ()
 {
-    this.load.atlas('keyboard', 'assets/input/keyboard.png', 'assets/input/keyboard.json');
+    this.load.image('keyboard', 'assets/input/keyboard-opreem.png');
+    this.load.image('highlight', 'assets/input/key1.png');
 }
 
 function create ()
@@ -39,6 +43,11 @@ function create ()
 
 function drawKeyboard ()
 {
+    this.add.image(0, 0, 'keyboard').setOrigin(0);
+
+    highlight1 = this.add.image(108, 112, 'highlight').setOrigin(0);
+
+    /*
     var row = [1,2,3,4,5,6,7,8,9,0,'Minus','Plus','Backspace_Alt'];
 
     x = 100;
@@ -53,6 +62,7 @@ function drawKeyboard ()
 
         x += spacing;
     }
+    */
 
 }
 

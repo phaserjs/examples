@@ -30,8 +30,8 @@ function create() {
     });
 
     var bunny = this.make.sprite({
-        x: game.config.width / 2, 
-        y: game.config.height / 2, 
+        x: game.config.width / 2,
+        y: game.config.height / 2,
         key: 'bunny',
         add: true
     });
@@ -40,11 +40,13 @@ function create() {
 
     phaser2.setDisplayCallback(textCallback);
 
-    TweenMax.to(phaser2, 2, {
-        delay: 2,
+    this.tweens.add({
+        targets: phaser2,
+        duration: 2000,
+        delay: 2000,
         scaleX: 2,
         scaleY: 2,
-        ease: Sine.easeInOut,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });

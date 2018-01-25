@@ -1,7 +1,7 @@
 { "height":15,
  "layers":[
         {
-         "data":[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 22, 0, 10, 10, 10, 10, 10, 0, 22, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 54, 0, 0, 10, 10, 0, 0, 51, 8, 0, 5, 5, 5, 0, 68, 59, 0, 0, 10, 10, 0, 10, 10, 10, 10, 0, 0, 0, 10, 10, 10, 10, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14],
+         "data":[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 38, 6, 11, 6, 43, 0, 0, 0, 0, 10, 10, 0, 0, 22, 0, 10, 10, 10, 10, 10, 0, 22, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0, 10, 10, 0, 0, 66, 63, 0, 0, 0, 0, 0, 68, 59, 0, 0, 10, 10, 0, 10, 10, 10, 0, 0, 12, 0, 0, 10, 10, 10, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 10, 2, 2, 2, 2, 2, 2, 2, 10, 9, 9, 9, 9, 9, 9, 9, 7, 7, 7, 7, 7, 7, 7, 10, 14, 14, 14, 14, 14, 14, 14, 7, 7, 7, 7, 7, 7, 7, 10, 14, 14, 14, 14, 14, 14, 14, 7, 7, 7, 7, 7, 7, 7, 10, 14, 14, 14, 14, 14, 14, 14, 7, 7, 7, 7, 7, 7, 7, 10, 14, 14, 14, 14, 14, 14, 14],
          "height":15,
          "name":"Tile Layer 1",
          "opacity":1,
@@ -26,8 +26,143 @@
          "margin":0,
          "name":"kenny_platformer_64x64",
          "spacing":0,
+         "terrains":[
+                {
+                 "name":"New Terrain",
+                 "tile":67
+                }],
          "tilecount":80,
          "tileheight":64,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "collides":true
+                },
+             "1":
+                {
+                 "type":"water"
+                },
+             "10":
+                {
+                 "collides":true
+                },
+             "11":
+                {
+                 "collides":false
+                },
+             "13":
+                {
+                 "type":"lava"
+                },
+             "16":
+                {
+                 "collides":false
+                },
+             "21":
+                {
+                 "collides":false
+                },
+             "3":
+                {
+                 "type":"lava"
+                },
+             "37":
+                {
+                 "type":"mushroom"
+                },
+             "42":
+                {
+                 "type":"mushroom"
+                },
+             "5":
+                {
+                 "collides":true
+                },
+             "6":
+                {
+                 "type":"water"
+                },
+             "67":
+                {
+                 "collides":true,
+                 "switchType":"lever"
+                },
+             "8":
+                {
+                 "type":"lava"
+                },
+             "9":
+                {
+                 "collides":true,
+                 "color":"#ff000000"
+                }
+            },
+         "tilepropertytypes":
+            {
+             "0":
+                {
+                 "collides":"bool"
+                },
+             "1":
+                {
+                 "type":"string"
+                },
+             "10":
+                {
+                 "collides":"bool"
+                },
+             "11":
+                {
+                 "collides":"bool"
+                },
+             "13":
+                {
+                 "type":"string"
+                },
+             "16":
+                {
+                 "collides":"bool"
+                },
+             "21":
+                {
+                 "collides":"bool"
+                },
+             "3":
+                {
+                 "type":"string"
+                },
+             "37":
+                {
+                 "type":"string"
+                },
+             "42":
+                {
+                 "type":"string"
+                },
+             "5":
+                {
+                 "collides":"bool"
+                },
+             "6":
+                {
+                 "type":"string"
+                },
+             "67":
+                {
+                 "collides":"bool",
+                 "switchType":"string"
+                },
+             "8":
+                {
+                 "type":"string"
+                },
+             "9":
+                {
+                 "collides":"bool",
+                 "color":"color"
+                }
+            },
          "tiles":
             {
              "11":
@@ -36,44 +171,16 @@
                     {
                      "draworder":"index",
                      "name":"",
-                     "objects":[
-                            {
-                             "height":34,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":23,
-                             "x":20,
-                             "y":24
-                            }],
+                     "objects":[],
                      "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    }
-                },
-             "13":
-                {
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":64,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":64,
-                             "x":0,
-                             "y":0
-                            }],
-                     "opacity":1,
+                     "properties":
+                        {
+                         "collides":true
+                        },
+                     "propertytypes":
+                        {
+                         "collides":"bool"
+                        },
                      "type":"objectgroup",
                      "visible":true,
                      "x":0,
@@ -194,67 +301,6 @@
                      "y":0
                     }
                 },
-             "37":
-                {
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":0,
-                             "id":1,
-                             "name":"",
-                             "polygon":[
-                                    {
-                                     "x":0,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":5,
-                                     "y":-10
-                                    }, 
-                                    {
-                                     "x":18,
-                                     "y":-14
-                                    }, 
-                                    {
-                                     "x":33,
-                                     "y":-8
-                                    }, 
-                                    {
-                                     "x":35,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":18,
-                                     "y":3
-                                    }],
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":0,
-                             "x":14,
-                             "y":50
-                            }, 
-                            {
-                             "height":13,
-                             "id":2,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":12,
-                             "x":26,
-                             "y":51
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    }
-                },
              "4":
                 {
                  "objectgroup":
@@ -273,6 +319,20 @@
                              "x":0,
                              "y":0
                             }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    }
+                },
+             "47":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "name":"",
+                     "objects":[],
                      "opacity":1,
                      "type":"objectgroup",
                      "visible":true,
@@ -385,6 +445,28 @@
                      "y":0
                     }
                 },
+             "62":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "name":"",
+                     "objects":[],
+                     "opacity":1,
+                     "properties":
+                        {
+                         "collideIndex":2
+                        },
+                     "propertytypes":
+                        {
+                         "collideIndex":"int"
+                        },
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    }
+                },
              "63":
                 {
                  "objectgroup":
@@ -441,6 +523,28 @@
                              "y":11
                             }],
                      "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    }
+                },
+             "65":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "name":"",
+                     "objects":[],
+                     "opacity":1,
+                     "properties":
+                        {
+                         "collisionType":"solid"
+                        },
+                     "propertytypes":
+                        {
+                         "collisionType":"string"
+                        },
                      "type":"objectgroup",
                      "visible":true,
                      "x":0,
@@ -564,7 +668,8 @@
                      "visible":true,
                      "x":0,
                      "y":0
-                    }
+                    },
+                 "terrain":[0, 0, 0, -1]
                 },
              "7":
                 {
@@ -727,7 +832,7 @@
                      "name":"",
                      "objects":[
                             {
-                             "height":61,
+                             "height":62,
                              "id":1,
                              "name":"",
                              "rotation":0,

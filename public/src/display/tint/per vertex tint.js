@@ -24,7 +24,7 @@ function create ()
 
     image.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
         var a = Phaser.Math.Between(0, 359);
         var b = Phaser.Math.Between(0, 359);

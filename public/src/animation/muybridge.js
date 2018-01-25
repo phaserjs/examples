@@ -34,7 +34,12 @@ function create ()
 
     group.createMultiple({ key: 'muybridge', frame: 0, repeat: 8 });
 
-    group.gridAlign({ width: 9, height: 1, cellWidth: 119, y: 170 });
+    Phaser.Actions.GridAlign(group.getChildren(), {
+        width: 9,
+        height: 1,
+        cellWidth: 119,
+        y: 170
+    });
 
     this.anims.staggerPlay('run', group.getChildren(), -0.1);
 }

@@ -30,9 +30,19 @@
     </object>
    </objectgroup>
   </tile>
+  <tile id="9">
+   <objectgroup draworder="index">
+    <object id="1" x="1" y="1" width="62" height="61"/>
+   </objectgroup>
+  </tile>
   <tile id="11">
    <objectgroup draworder="index">
     <object id="1" x="20" y="24" width="23" height="34"/>
+   </objectgroup>
+  </tile>
+  <tile id="13">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0" width="64" height="64"/>
    </objectgroup>
   </tile>
   <tile id="16">
@@ -50,6 +60,14 @@
   <tile id="33">
    <objectgroup draworder="index">
     <object id="1" x="0" y="16" width="64" height="48"/>
+   </objectgroup>
+  </tile>
+  <tile id="37">
+   <objectgroup draworder="index">
+    <object id="1" x="14" y="50">
+     <polygon points="0,0 5,-10 18,-14 33,-8 35,0 18,3"/>
+    </object>
+    <object id="2" x="26" y="51" width="12" height="13"/>
    </objectgroup>
   </tile>
   <tile id="50">
@@ -104,51 +122,6 @@
      <polygon points="0,1 33,-28 41,-19 20,1"/>
     </object>
    </objectgroup>
-  </tile>
- </tileset>
- <tileset firstgid="81" name="CB-Temple-C" tilewidth="8" tileheight="8" tilecount="1120" columns="32">
-  <image source="../tiles/CB-Temple-C.png" width="256" height="280"/>
-  <tile id="513">
-   <animation>
-    <frame tileid="513" duration="300"/>
-    <frame tileid="515" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="545">
-   <animation>
-    <frame tileid="545" duration="300"/>
-    <frame tileid="547" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="803">
-   <animation>
-    <frame tileid="803" duration="300"/>
-    <frame tileid="811" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="804">
-   <animation>
-    <frame tileid="804" duration="300"/>
-    <frame tileid="812" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="835">
-   <animation>
-    <frame tileid="835" duration="300"/>
-    <frame tileid="843" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="836">
-   <animation>
-    <frame tileid="836" duration="300"/>
-    <frame tileid="844" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="837">
-   <animation>
-    <frame tileid="837" duration="300"/>
-    <frame tileid="845" duration="300"/>
-   </animation>
   </tile>
  </tileset>
  <layer name="Tile Layer 1" width="15" height="15">

@@ -40,6 +40,7 @@ function preload()
     this.load.image('walls_1x2', 'assets/tilemaps/tiles/walls_1x2.png');
     this.load.image('tiles2', 'assets/tilemaps/tiles/tiles2.png');
     this.load.image('dangerous-kiss', 'assets/tilemaps/tiles/dangerous-kiss.png');
+    this.load.tilemapTiledJSON('tileset-collision-shapes-automated-test', 'assets/tilemaps/maps/tileset-collision-shapes-automated-test.json');
 }
 
 function create()
@@ -294,6 +295,30 @@ function testCollision ()
         )
     );
     map.setCollisionByProperty({ type: [ 'rock' ], solid: true, slope: 1 }, false);
+    assert('No tiles should collide',
+        map.filterTiles(tile => tile.collides).length === 0
+    );
+
+
+    // -- SET COLLIDE BY COLLISION DATA ---
+
+    var map = this.make.tilemap({ key: 'tileset-collision-shapes-automated-test' });
+    var tiles = map.addTilesetImage('kenny_platformer_64x64');
+    var layer = map.createDynamicLayer(0, tiles);
+
+    // 5 x 6 map
+    // First 4 rows - different colliding shapes are set
+    // Row 5 - colliding shapes created and then deleted (this leaves an empty collision group)
+    // Row 6 - no collision shapes ever defined
+    map.setCollisionFromCollisionGroup(true);
+
+    assert('Rows one - four should collide',
+        map.filterTiles(tile => tile.collides, null, 0, 0, 5, 4).length === 5 * 4
+    );
+    assert('Rows five - six should NOT collide',
+        map.filterTiles(tile => tile.collides, null, 0, 4, 5, 2).length === 0
+    );
+    map.setCollisionFromCollisionGroup(false);
     assert('No tiles should collide',
         map.filterTiles(tile => tile.collides).length === 0
     );

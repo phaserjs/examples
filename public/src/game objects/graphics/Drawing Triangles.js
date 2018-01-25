@@ -43,26 +43,27 @@ function create ()
     rotateY3D(0.5235987755982988);
     rotateX3D(0.5235987755982988);
 
-    TweenMax.to(t, 20, {
-        x: 0.03490658503988659,
-        ease: Sine.easeInOut,
+    this.tweens.add({
+        targets: t,
+        ease: 'Sine.easeInOut',
         repeat: -1,
-        yoyo: true
+        yoyo: true,
+        params: {
+            x: {
+                duration: 20000,
+                value: 0.03490658503988659
+            },
+            y: {
+                duration: 30000,
+                value: -0.05235987755982989
+            },
+            z: {
+                duration: 15000,
+                value: 0.05235987755982989
+            }
+        }
     });
 
-    TweenMax.to(t, 30, {
-        y: -0.05235987755982989,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
-    });
-
-    TweenMax.to(t, 15, {
-        z: 0.05235987755982989,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
-    });
 }
 
 function update ()
@@ -95,7 +96,7 @@ function draw ()
         if (v0 && v1 && v2 && isCcw(v0, v1, v2))
         {
             graphics.strokeTriangle(
-                centerX + v0.x * scale, centerY - v0.y * scale, 
+                centerX + v0.x * scale, centerY - v0.y * scale,
                 centerX + v1.x * scale, centerY - v1.y * scale,
                 centerX + v2.x * scale, centerY - v2.y * scale
             );
@@ -112,7 +113,7 @@ function rotateX3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -128,7 +129,7 @@ function rotateY3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -144,7 +145,7 @@ function rotateZ3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -164,7 +165,7 @@ function parseObj (text)
     // split the text into lines
     var lines = text.replace('\r', '').split('\n');
     var count = lines.length;
-  
+
     for (var i = 0; i < count; i++)
     {
         var line = lines[i];
@@ -189,7 +190,7 @@ function parseObj (text)
                 parseInt(tokens[2], 10),
                 parseInt(tokens[3], 10)
             ];
-        
+
             faces.push(face);
 
             if (face[0] < 0)
@@ -208,7 +209,7 @@ function parseObj (text)
             }
         }
     }
-  
+
     return {
         verts: verts,
         faces: faces

@@ -69,15 +69,15 @@ function create ()
 
         // var p = this.cameras.main.getWorldPoint(event);
 
-    this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0xff0000);
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('GAME_OBJECT_OUT_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        event.gameObject.clearTint();
+        gameObject.clearTint();
 
     });
 
@@ -98,17 +98,17 @@ function create ()
 
     controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
 
-    this.input.keyboard.events.on('KEY_DOWN_Z', function (event) {
+    this.input.keyboard.on('keydown_Z', function (event) {
 
         this.cameras.main.rotation += 0.01;
 
-    }, 0, this);
+    }, this);
 
-    this.input.keyboard.events.on('KEY_DOWN_X', function (event) {
+    this.input.keyboard.on('keydown_X', function (event) {
 
         this.cameras.main.rotation -= 0.01;
 
-    }, 0, this);
+    }, this);
 
     var cam = this.cameras.main;
 

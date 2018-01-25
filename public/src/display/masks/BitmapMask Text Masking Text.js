@@ -49,11 +49,13 @@ function create() {
 
     bmtext.setDisplayCallback(textCallback);
 
-    TweenMax.to(bmtext, 2, {
-        delay: 2,
+    this.tweens.add({
+        targets: bmtext,
+        duration: 2000,
+        delay: 2000,
         scaleX: 2,
         scaleY: 2,
-        ease: Sine.easeInOut,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });

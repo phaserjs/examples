@@ -9,25 +9,29 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload() 
+function preload()
 {
     this.load.bitmapFont('ice', 'assets/fonts/bitmap/iceicebaby.png', 'assets/fonts/bitmap/iceicebaby.xml');
 }
 
-function create() 
+function create()
 {
     var text = this.add.bitmapText(100, 100, 'ice', 'Terminator', 32);
 
-    TweenMax.to(text, 4, {
+    this.tweens.add({
+        targets: text,
+        duration: 4000,
         scaleX: 4,
-        ease: Power1.easeInOut,
+        ease: 'Quad.easeInOut',
         repeat: -1,
         yoyo: true
     });
 
-    TweenMax.to(text, 3, {
+    this.tweens.add({
+        targets: text,
+        duration: 3000,
         scaleY: 8,
-        ease: Power2.easeInOut,
+        ease: 'Cubic.easeInOut',
         repeat: -1,
         yoyo: true
     });

@@ -19,7 +19,7 @@ function preload()
     this.load.bitmapFont('hyper', 'assets/fonts/bitmap/hyperdrive.png', 'assets/fonts/bitmap/hyperdrive.xml');
 }
 
-function create() 
+function create()
 {
     // var text = this.add.bitmapText(60, 200, 'hyper', 'Hello World!', 128);
     // var text = this.add.bitmapText(60, 200, 'atari', 'Hello\nWorld!', 128);
@@ -32,11 +32,12 @@ function create()
     var text3 = this.add.dynamicBitmapText(100, 460, 'hyper', 'Terminator', 200);
     text3.setDisplayCallback(textCallback);
 
-    TweenMax.to(scale, 2, {
+    this.tweens.add({
+        targets: scale,
+        duration: 2000,
         r: Math.PI,
-        ease: Linear.easeNone,
-        repeat: -1,
-        _yoyo: true
+        ease: 'Linear',
+        repeat: -1
     });
 }
 

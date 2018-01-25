@@ -16,17 +16,19 @@ function preload()
     this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
 }
 
-function create() 
+function create()
 {
     var text = this.add.dynamicBitmapText(60, 200, 'desyrel', 'Hello World!', 64);
 
     text.setDisplayCallback(textCallback);
 
-    TweenMax.to(scale, 1, {
+    this.tweens.add({
+        targets: scale,
+        duration: 1000,
         i: 64,
         x: -16,
         y: 16,
-        ease: Linear.none,
+        ease: 'Linear',
         repeat: -1,
         yoyo: true
     });

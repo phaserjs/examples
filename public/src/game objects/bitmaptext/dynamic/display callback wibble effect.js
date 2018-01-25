@@ -10,22 +10,24 @@ var config = {
 var game = new Phaser.Game(config);
 
 
-function preload() 
+function preload()
 {
     this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
 }
 
-function create() 
+function create()
 {
     var text = this.add.dynamicBitmapText(60, 200, 'desyrel', 'HELLO WORLD!', 64);
 
     text.setDisplayCallback(textCallback);
 
-    TweenMax.to(text, 2, {
-        delay: 2,
+    this.tweens.add({
+        targets: text,
+        duration: 2000,
+        delay: 2000,
         scaleX: 2,
         scaleY: 2,
-        ease: Sine.easeInOut,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });

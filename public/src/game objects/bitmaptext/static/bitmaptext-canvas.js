@@ -14,29 +14,33 @@ var dynamic1 = null;
 var dynamic2 = null;
 var value = 0;
 
-function preload() 
+function preload()
 {
     this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
     this.load.bitmapFont('desyrelPink', 'assets/fonts/bitmap/desyrel-pink.png', 'assets/fonts/bitmap/desyrel-pink.xml');
 }
 
-function create() 
+function create()
 {
     dynamic1 = this.add.bitmapText(0, 0, 'desyrel', 'hello world', 8);
 
-    TweenMax.to(dynamic1, 2, {
+    this.tweens.add({
+        targets: dynamic1,
+        duration: 2000,
         fontSize: 128,
-        ease: Sine.easeInOut,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });
 
     dynamic2 = this.add.bitmapText(0, 200, 'desyrelPink', 'hello world', 32);
 
-    TweenMax.to(dynamic2, 2, {
+    this.tweens.add({
+        targets: dynamic2,
+        duration: 2000,
         scaleX: 6,
         scaleY: 4,
-        ease: Sine.easeInOut,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });

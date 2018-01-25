@@ -25,16 +25,20 @@ function create ()
 
     graphics = this.add.graphics({ x: 0, y: 0, lineStyle: { thickness: 1, color: 0xffff00, alpha: 1 } });
 
-    TweenMax.to(text, 4, {
+    this.tweens.add({
+        targets: text,
+        duration: 4000,
         scaleX: 2,
-        ease: Power1.easeInOut,
+        ease: 'Quad.easeInOut',
         repeat: -1,
         yoyo: true
     });
 
-    TweenMax.to(text, 2, {
+    this.tweens.add({
+        targets: text,
+        duration: 2000,
         scaleY: 4,
-        ease: Power1.easeInOut,
+        ease: 'Quad.easeInOut',
         repeat: -1,
         yoyo: true
     });

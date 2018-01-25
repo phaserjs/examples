@@ -23,18 +23,16 @@ function create ()
 
     var group = this.make.group({ key: 'block', frameQuantity: 12 });
 
-    group.setXY(48, 500, 64, 0);
+    Phaser.Actions.SetXY(group.getChildren(), 48, 500, 64, 0);
 
-    var _this = this;
+    this.input.on('pointerdown', function (pointer) {
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
-
-        var child = _this.children.getAt(0);
+        var child = this.children.getAt(0);
 
         child.y -= 32;
 
-        _this.children.bringToTop(child);
+        this.children.bringToTop(child);
 
-    });
+    }, this);
 
 }

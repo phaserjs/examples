@@ -22,7 +22,7 @@ function create ()
         key: 'diamond',
         frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
         repeat: 3,
-        onComplete: animCompleteCallback
+        onComplete: animCompleteCallback.bind(this)
     };
 
     this.anims.create(animConfig);
@@ -36,7 +36,9 @@ function create ()
 function animCompleteCallback (sprite, animation)
 {
     //  Animation is over, let's fade the sprite out
-    TweenMax.to(sprite, 3, {
+    this.tweens.add({
+        targets: sprite,
+        duration: 3000,
         alpha: 0
     });
 }

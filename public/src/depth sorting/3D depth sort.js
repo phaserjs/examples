@@ -60,28 +60,28 @@ function create ()
         balls.push(ball);
     }
 
-    TweenMax.to(t, 20, {
-        x: 0.003490658503988659,
-        ease: Sine.easeInOut,
+    this.tweens.add({
+        targets: t,
         repeat: -1,
-        yoyo: true
+        yoyo: true,
+        ease: 'Sine.easeInOut',
+        props: {
+            x: {
+                value: 0.003490658503988659,
+                duration: 20000
+            },
+            y: {
+                value: -0.003490658503988659,
+                duration: 30000
+            },
+            z: {
+                value: 0.003490658503988659,
+                duration: 15000
+            },
+        }
     });
 
-    TweenMax.to(t, 30, {
-        y: -0.003490658503988659,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
-    });
-
-    TweenMax.to(t, 15, {
-        z: 0.003490658503988659,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
-    });
-
-    this.input.events.on('KEY_DOWN_SPACE', function () {
+    this.input.keyboard.on('keydown_SPACE', function () {
 
         m++;
 
@@ -166,7 +166,7 @@ function rotateX3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -182,7 +182,7 @@ function rotateY3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -198,7 +198,7 @@ function rotateZ3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -246,7 +246,7 @@ function parseObj (text)
                 parseInt(tokens[3], 10),
                 parseInt(tokens[4], 10)
             ];
-        
+
             faces.push(face);
 
             if (face[0] < 0)
@@ -279,7 +279,7 @@ function parseObj (text)
     {
         maxVerts = verts.length;
     }
-  
+
     return {
         verts: verts,
         faces: faces

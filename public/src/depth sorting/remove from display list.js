@@ -27,12 +27,13 @@ function create ()
         max: 108
     });
 
-    group.gridAlign({
+    Phaser.Actions.GridAlign(group.getChildren(), {
         width: 12,
         height: 9,
         cellWidth: 64,
         cellHeight: 64,
-        x: 16
+        x: 48,
+        y: 32
     });
 
     //  Remove one child from the display list every half a second

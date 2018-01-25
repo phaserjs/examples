@@ -61,15 +61,15 @@ function create ()
         s.setScale(0.5 + Math.random());
     }
 
-    this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0xff0000);
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('GAME_OBJECT_OUT_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        event.gameObject.clearTint();
+        gameObject.clearTint();
 
     });
 
@@ -88,7 +88,7 @@ function create ()
         maxSpeed: 1.0
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_SPACE', function (event) {
+    this.input.keyboard.on('keydown_SPACE', function (event) {
 
         if (current === cam1)
         {
@@ -119,19 +119,19 @@ function create ()
             current.setBackgroundColor('rgba(0,0,200,0.5)');
         }
 
-    }, 0, this);
+    }, this);
 
-    this.input.keyboard.events.on('KEY_DOWN_Z', function (event) {
+    this.input.keyboard.on('keydown_Z', function (event) {
 
         controls.camera.rotation += 0.01;
 
-    }, 0, this);
+    }, this);
 
-    this.input.keyboard.events.on('KEY_DOWN_X', function (event) {
+    this.input.keyboard.on('keydown_X', function (event) {
 
         controls.camera.rotation -= 0.01;
 
-    }, 0, this);
+    }, this);
 
     gui = new dat.GUI();
 

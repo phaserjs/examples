@@ -57,8 +57,8 @@ function create ()
         y: 300,
         speed: { min: -100, max: 100 },
         angle: { min: -120, max: -60},
-        scale: { min: 0, max: 0.4},
-        alpha: { min: 1, max: 0},
+        scale: { start: 0, end: 0.4},
+        alpha: { start: 1, end: 0},
         blendMode: 'SCREEN',
         gravityY: 500,
         lifespan: 1000
@@ -70,8 +70,8 @@ function create ()
         y: 300,
         speed: { min: 100, max: 200 },
         angle: { min: -85, max: -95},
-        scale: { min: 0, max: 1},
-        alpha: { min: 1, max: 0},
+        scale: { start: 0, end: 1},
+        alpha: { start: 1, end: 0},
         blendMode: 'SCREEN',
         lifespan: 1000
     });
@@ -82,8 +82,8 @@ function create ()
         y: 300,
         speed: { min: 20, max: 100 },
         angle: { min: 0, max: 360},
-        scale: { min: 1, max: 0},
-        alpha: { min: 0, max: 0.5},
+        scale: { start: 1, end: 0},
+        alpha: { start: 0, end: 0.5},
         lifespan: 2000,
         //active: false
     });
@@ -94,8 +94,8 @@ function create ()
         y: 300,
         speed: { min: 20, max: 100 },
         angle: { min: 0, max: 360},
-        scale: { min: 1, max: 0},
-        alpha: { min: 0, max: 0.1},
+        scale: { start: 1, end: 0},
+        alpha: { start: 0, end: 0.1},
         blendMode: 'SCREEN',
         lifespan: 2000,
         //active: false

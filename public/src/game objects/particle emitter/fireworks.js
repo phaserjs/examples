@@ -26,7 +26,7 @@ function create ()
     var p2 = new Phaser.Math.Vector2(600, 200);
     var p3 = new Phaser.Math.Vector2(600, 500);
 
-    curve = new Phaser.Curves.CubicBezier(p0, p1, p2, p3);
+    var curve = new Phaser.Curves.CubicBezier(p0, p1, p2, p3);
 
     var max = 28;
     var points = [];
@@ -42,22 +42,29 @@ function create ()
 
     var tempVec = new Phaser.Math.Vector2();
 
+    var spark0 = this.add.particles('spark0');
+    var spark1 = this.add.particles('spark1');
+
     for (var i = 0; i < points.length; i++)
     {
         var p = points[i];
 
         tempVec.copy(tangents[i]).normalizeRightHand().scale(-32).add(p);
-       
-        var emitter = this.add.emitter(tempVec.x, tempVec.y, i % 2 == 0 ? 'spark0' : 'spark1');
 
         var angle = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(p, tempVec));
 
-        emitter.setEmitAngle(angle, angle);
-        emitter.setSpeed(-100, 500);
-        emitter.gravityY = 200;
-        emitter.setScale(0.4, 0.0);
-        emitter.life = 0.8;
-        emitter.setBlendMode(Phaser.BlendModes.SCREEN);
+        var particles = (i % 2 === 0) ? spark0 : spark1;
+
+        particles.createEmitter({
+            x: tempVec.x,
+            y: tempVec.y,
+            angle: angle,
+            speed: { min: -100, max: 500 },
+            gravityY: 200,
+            scale: { start: 0.4, end: 0.1 },
+            lifespan: 800,
+            blendMode: 'SCREEN'
+        });
     }
 
     this.add.image(400, 400, 'logo');

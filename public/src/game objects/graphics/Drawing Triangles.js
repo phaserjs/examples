@@ -48,7 +48,7 @@ function create ()
         ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true,
-        params: {
+        props: {
             x: {
                 duration: 20000,
                 value: 0.03490658503988659

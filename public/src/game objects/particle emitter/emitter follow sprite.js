@@ -29,9 +29,9 @@ function create ()
 {
     var particles = this.add.particles('megaset');
 
-    var sprite = this.physics.add.image(300, 300, 'megaset', 'gem').setActive().setVelocity(300, 200).setBounce(1);
+    var sprite = this.impact.add.image(300, 300, 'megaset', 'gem').setActive().setVelocity(300, 200).setBounce(1);
 
-    var sprite2 = this.physics.add.image(200, 200, 'megaset', 'ilkke').setPassive().setVelocity(-300, -200).setBounce(1);
+    var sprite2 = this.impact.add.image(200, 200, 'megaset', 'ilkke').setPassive().setVelocity(-300, -200).setBounce(1);
 
     particles.createEmitter({
         frame: 'yellow_ball',

@@ -26,7 +26,7 @@ function create() {
 
     this.input.keyboard.addKeyCapture(32);
 
-    this.input.keyboard.events.on('KEY_UP_SPACE', function () {
+    this.input.keyboard.on('keyup_SPACE', function () {
 
         // image.angle += 45;
         // image.angle -= 45;

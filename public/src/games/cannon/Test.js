@@ -25,7 +25,7 @@ var Cannon = new Phaser.Class({
         this.bob = this.graphics.createMesh('invader', 0, 5, -10);
 
         this.bob2 = this.graphics.createMesh('invader', 5, 5, -10);
-        this.bob2.setColor(0xff0000);
+        this.bob2.setStrokeColor(0xff0000);
 
         this.graphics.setViewport(800, 600);
         this.graphics.setCameraPosition(0, 6, -32);

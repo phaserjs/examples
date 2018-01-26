@@ -26,8 +26,8 @@ playGame.prototype = {
     preload: function (){
         var camera = _this.cameras.add(0, 0, game.width, game.height);
         camera.setBackgroundColor("0x222222");
-        _this.load.image("ball", "ball.png");
-        _this.load.image("balance", "balance.png");
+        _this.load.image("ball", "src/games/mass%20attack/ball.png");
+        _this.load.image("balance", "src/games/mass%20attack/balance.png");
     },
     create: function (){
         _this.growBall = false;
@@ -41,13 +41,13 @@ playGame.prototype = {
             balanceSprite.setOrigin(0, 0.5);
             _this.balance[i].add(balanceSprite);
         }
-        _this.input.events.on("POINTER_DOWN_EVENT", _this.placeBall);
-        _this.input.events.on("POINTER_UP_EVENT", _this.dropBall);
+        _this.input.on("pointerdown", _this.placeBall);
+        _this.input.on("pointerup", _this.dropBall);
     },
-    placeBall: function(e){
+    placeBall: function(pointer){
         if(!_this.growBall && _this.canPlay){
-            var side = Math.floor(e.x / (config.width / 2));
-            _this.ball = _this.add.sprite(e.x, 30, "ball");
+            var side = Math.floor(pointer.x / (config.width / 2));
+            _this.ball = _this.add.sprite(pointer.x, 30, "ball");
             _this.ball.balance = side;
             _this.ball.scaleX = 0.1;
             _this.ball.scaleY = 0.1;

@@ -84,68 +84,68 @@ function create ()
 
     lights.setAmbientLightColor(0.0, 0.0, 0.1);
 
-    this.input.keyboard.events.on('KEY_DOWN_EVENT', function (event) {
+    this.input.keyboard.on('keydown', function (event) {
         var speed = 5;
 
-        if (event.data.code === 'KeyQ')
+        if (event.code === 'KeyQ')
         {
             moveZ = -0.01;
             zmove = true;
         }
-        else if (event.data.code === 'KeyE')
+        else if (event.code === 'KeyE')
         {
             moveZ = 0.01;
             zmove = true;
         }
 
-        if (event.data.code === 'KeyZ')
+        if (event.code === 'KeyZ')
         {
             if (light)
                 light.radius += 10;
         }
-        else if (event.data.code === 'KeyX')
+        else if (event.code === 'KeyX')
         {
             if (light)
                 light.radius -= 10;
         }
 
-        if (event.data.code === 'KeyA')
+        if (event.code === 'KeyA')
         {
             moveX = -speed;
             hmove = true;
         }
-        else if (event.data.code === 'KeyD')
+        else if (event.code === 'KeyD')
         {
             moveX = speed;
             hmove = true;
         }
 
-        if (event.data.code === 'KeyW')
+        if (event.code === 'KeyW')
         {
             moveY = -speed;
             vmove = true;
         }
-        else if (event.data.code === 'KeyS')
+        else if (event.code === 'KeyS')
         {
            moveY = speed;
            vmove = true;
         }
     });
 
-    this.input.events.on('KEY_UP_EVENT', function (event) {
+    this.input.keyboard.on('keyup', function (event) {
         var speed = 5;
 
-        if (event.data.code === 'KeyQ' || event.data.code === 'KeyE')
+        if (event.code === 'KeyQ' || event.code === 'KeyE')
         {
             zmove = false;
         }
 
-        if (event.data.code === 'KeyA' || event.data.code === 'KeyD')
+        if (event.code === 'KeyA' || event.code === 'KeyD')
         {
             hmove = false;
         }
 
-        if (event.data.code === 'KeyW' || event.data.code === 'KeyS')
+        if (event.code === 'KeyW' || event.code === 'KeyS')
         {
             vmove = false;
         }
@@ -186,10 +186,10 @@ function update()
 
     if (!hmove)
         moveX *= 0.9;
-    
+
     if (!vmove)
         moveY *= 0.9;
-    
+
     if (!zmove)
         moveZ *= 0.9;
 }

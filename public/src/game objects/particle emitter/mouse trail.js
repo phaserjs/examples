@@ -33,80 +33,78 @@ function preload ()
 function create ()
 {
 
-    spark0 = this.add.emitter(400, 300, 'spark0');
+    spark0 = this.add.particles('spark0').createEmitter({
+        x: 400,
+        y: 300,
+        speed: { min: -500, max: 500 },
+        angle: { min: -120, max: -60 },
+        scale: { min: 0.05, max: 0 },
+        alpha: { min: 1, max: 0 },
+        gravityY: 500,
+        lifespan: 1
+    });
     spark0.reserve(1000);
-    spark0.setSpeed(-500, 500);
-    spark0.setEmitAngle(-120, -60);
-    spark0.setScale(0.05, 0);
-    spark0.setAlpha(1, 0);
-    spark0.gravityY = 500;
-    spark0.life = 1;
 
-    spark1 = this.add.emitter(400, 300, 'spark1');
+    spark1 = this.add.particles('spark1').createEmitter({
+        x: 400,
+        y: 300,
+        speed: { min: -100, max: 100 },
+        angle: { min: -120, max: -60 },
+        scale: { start: 0, end: 0.4 },
+        alpha: { start: 1, end: 0, ease: 'Expo.easeIn' },
+        blendMode: 'SCREEN',
+        gravityY: 500,
+        lifespan: 1000
+    });
     spark1.reserve(1000);
-    spark1.setSpeed(-100, 100);
-    spark1.setEmitAngle(-120, -60);
-    spark1.setScale(0, 0.4);
-    spark1.setAlpha(1, 0);
-    spark1.setAlphaEase('Expo.easeIn');
-    spark1.setBlendMode(Phaser.BlendModes.SCREEN);
-    spark1.gravityY = 500;
-    spark1.life = 1;
 
-    fire = this.add.emitter(400, 300, 'fire');
+    fire = this.add.particles('fire').createEmitter({
+        x: 400,
+        y: 300,
+        speed: { min: 100, max: 200 },
+        angle: { min: -85, max: -95 },
+        scale: { start: 0, end: 1, ease: 'Back.easeOut' },
+        alpha: { start: 1, end: 0, ease: 'Quart.easeOut' },
+        blendMode: 'SCREEN',
+        lifespan: 1000
+    });
     fire.reserve(1000);
-    fire.setSpeed(100, 200);
-    fire.setAngle(0, 360);
-    fire.setEmitAngle(-85, -95);
-    fire.setScale(0, 1);
-    fire.setAlpha(1, 0);
-    fire.setScaleEase('Back.easeOut');
-    fire.setRotationEase('Quart.easeOut');
-    fire.setBlendMode(Phaser.BlendModes.SCREEN);
-    fire.life = 1;
 
-    whiteSmoke = this.add.emitter(400, 300, 'white-smoke');
+    whiteSmoke = this.add.particles('white-smoke').createEmitter({
+        x: 400,
+        y: 300,
+        speed: { min: 20, max: 100 },
+        angle: { min: 0, max: 360},
+        scale: { start: 1, end: 0},
+        alpha: { start: 0, end: 0.5},
+        lifespan: 2000,
+        //active: false
+    });
     whiteSmoke.reserve(1000);
-    whiteSmoke.setSpeed(20, 100);
-    whiteSmoke.setEmitAngle(-140, -40);
-    whiteSmoke.setScale(1, 0);
-    whiteSmoke.setAlpha(0, 0.5);
-    whiteSmoke.setAngle(0, 360);
-    whiteSmoke.life = 2;
-    whiteSmoke.enabled = false;
 
-    darkSmoke = this.add.emitter(400, 300, 'dark-smoke');
+    darkSmoke = this.add.particles('dark-smoke').createEmitter({
+        x: 400,
+        y: 300,
+        speed: { min: 20, max: 100 },
+        angle: { min: 0, max: 360},
+        scale: { start: 1, end: 0},
+        alpha: { start: 0, end: 0.1},
+        blendMode: 'ADD',
+        lifespan: 2000,
+        //active: false
+    });
     darkSmoke.reserve(1000);
-    darkSmoke.setSpeed(20, 100);
-    darkSmoke.setEmitAngle(-140, -40);
-    darkSmoke.setScale(1, 0);
-    darkSmoke.setAlpha(0, 0.1);
-    darkSmoke.setAngle(0, 360);
-    darkSmoke.setBlendMode(Phaser.BlendModes.ADD);
-    darkSmoke.life = 2;
-    darkSmoke.enabled = false;
 
     fire.onParticleDeath(function (particle) {
-        darkSmoke.x = particle.x;
-        darkSmoke.y = particle.y;
-        whiteSmoke.x = particle.x;
-        whiteSmoke.y = particle.y;
+        darkSmoke.setPosition(particle.x, particle.y);
+        whiteSmoke.setPosition(particle.x, particle.y);
         darkSmoke.emitParticle();
         whiteSmoke.emitParticle();
     });
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
-        darkSmoke.x = event.x;
-        darkSmoke.y = event.y;
-        fire.x = event.x;
-        fire.y = event.y;
-    });
-
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
-        darkSmoke.x = event.x;
-        darkSmoke.y = event.y;
-        fire.x = event.x;
-        fire.y = event.y;
+    this.input.on('pointermove', function (pointer) {
+        darkSmoke.setPosition(pointer.x, pointer.y);
+        fire.setPosition(pointer.x, pointer.y);
     });
 
 }

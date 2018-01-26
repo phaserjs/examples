@@ -36,7 +36,7 @@ var MassAttack = new Phaser.Class({
             group.weight = 0;
             group.saveYPosition = 0;
 
-            var sprite = group.create(this.game.config.width / 2 * i, 240, 'balance');
+            var sprite = group.create(this.cache.game.config.width / 2 * i, 240, 'balance');
 
             sprite.setOrigin(0, 0.5);
 
@@ -51,7 +51,7 @@ var MassAttack = new Phaser.Class({
     {
         if (!this.growBall && this.canPlay)
         {
-            var side = Math.floor(pointer.x / (this.game.config.width / 2));
+            var side = Math.floor(pointer.x / (this.cache.game.config.width / 2));
 
             this.ball = this.balance[side].create(pointer.x, 30, 'ball');
             this.ball.setScale(0.1);
@@ -70,7 +70,7 @@ var MassAttack = new Phaser.Class({
 
             var group = this.balance[this.ball.balance];
 
-            var ballDestination = this.game.config.height / 2 + group.saveYPosition - group.children.entries[0].height / 2 - this.ball.height * this.ball.scaleY / 2;
+            var ballDestination = this.cache.game.config.height / 2 + group.saveYPosition - group.children.entries[0].height / 2 - this.ball.height * this.ball.scaleY / 2;
 
             this.balance[this.ball.balance].weight += (4 / 3) * Math.PI * Math.pow((this.ball.width * this.ball.scaleX / 2), 3);
 
@@ -88,7 +88,7 @@ var MassAttack = new Phaser.Class({
     adjustBalances: function ()
     {
         var weightDifference = (this.balance[0].weight - this.balance[1].weight) / this.gameOptions.balanceFriction;
-        var maxDifference = this.game.config.height / 3;
+        var maxDifference = this.cache.game.config.height / 3;
 
         if (weightDifference > maxDifference)
         {

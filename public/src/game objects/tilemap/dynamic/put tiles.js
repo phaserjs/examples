@@ -37,17 +37,17 @@ function create ()
     layer.fill(77, 0, 14, 25, 5); // Body of the water
     layer.randomize(0, 0, 25, 13, [ 44, 45, 46, 47, 48 ]); // Wall above the water
 
-    this.input.keyboard.events.on('KEY_DOWN_ONE', function (event) {
+    this.input.keyboard.on('keydown_ONE', function (event) {
         objectToPlace = 'platform';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_TWO', function (event) {
+    this.input.keyboard.on('keydown_TWO', function (event) {
         objectToPlace = 'flower';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_THREE', function (event) {
+    this.input.keyboard.on('keydown_THREE', function (event) {
         objectToPlace = 'tiki';
         helpText.setText(getHelpMessage());
     });

@@ -40,17 +40,17 @@ function create ()
     debugGraphics = this.add.graphics();
     debugGraphics.setScale(2);
 
-    this.input.keyboard.events.on('KEY_DOWN_ONE', function (event) {
+    this.input.keyboard.on('keydown_ONE', function (event) {
         showTiles = !showTiles;
         drawDebug();
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_TWO', function (event) {
+    this.input.keyboard.on('keydown_TWO', function (event) {
         showCollidingTiles = !showCollidingTiles;
         drawDebug();
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_THREE', function (event) {
+    this.input.keyboard.on('keydown_THREE', function (event) {
         showFaces = !showFaces;
         drawDebug();
     });

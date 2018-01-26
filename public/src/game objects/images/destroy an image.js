@@ -24,7 +24,7 @@ function create ()
 {
     image = this.add.image(400, 300, 'einstein');
 
-    this.input.events.once('POINTER_DOWN_EVENT', function () {
+    this.input.once('pointerdown', function () {
 
         console.log('nuked');
 

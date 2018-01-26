@@ -18,7 +18,8 @@ function create ()
 
     this.input.on('pointermove', function(pointer) {
 
-        Phaser.Geom.Point.CopyFrom(pointer, point);
+        point.x = pointer.x - 400;
+        point.y = pointer.y - 300;
 
         redraw();
     });
@@ -32,7 +33,7 @@ function create ()
         // draw as if 400/300 was the center
         graphics.fillPoint(400 + point.x, 300 + point.y, 15);
 
-        Phaser.Geom.Point.Negative(point);
+        Phaser.Geom.Point.Negative(point, point);
 
         graphics.fillStyle(0x00aa00);
         graphics.fillPoint(400 + point.x, 300 + point.y, 15);

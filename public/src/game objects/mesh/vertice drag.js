@@ -67,12 +67,12 @@ function update ()
     var factorX = 20 * 0.1;
     var factorY = 5 * 0.1;
 
-    // mesh.vertices[2] += Math.cos(time) * factorX;
-    // mesh.vertices[3] += Math.sin(time) * factorY;
-    // mesh.vertices[4] += Math.cos(time) * factorX;
-    // mesh.vertices[5] += Math.sin(time) * factorY;
-    // mesh.vertices[8] += Math.cos(time) * factorX;
-    // mesh.vertices[9] += Math.sin(time) * factorY;
+    mesh.vertices[2] += Math.cos(time) * factorX;
+    mesh.vertices[3] += Math.sin(time) * factorY;
+    mesh.vertices[4] += Math.cos(time) * factorX;
+    mesh.vertices[5] += Math.sin(time) * factorY;
+    mesh.vertices[8] += Math.cos(time) * factorX;
+    mesh.vertices[9] += Math.sin(time) * factorY;
 
     time += 0.01;
 }

@@ -31,6 +31,8 @@ function create ()
             0, 0,
             0, 600,
             800, 600,
+            0, 0,
+            800, 600,
             800, 0
         ],
         uv: [
@@ -39,24 +41,32 @@ function create ()
             0,      0,
             0,      1,
             1,      1,
+            0,      0,
+            1,      1,
             1,      0
         ],
-        indices: [0, 1, 2, 0, 2, 3],
-        colors: [0x000000, 0xFFFFFF, 0xFFFFFF, 0x000000]
+        colors: [0x000000, 0xFFFFFF, 0xFFFFFF, 0x000000, 0xFFFFFF, 0x000000]
     });
 }
 
 function update ()
 {   
-    var factorX = 0.01;
+    var factorX = 0.001;
     var factorY = 0.01;
 
+    // top left V
     mesh0.uv[1] += Math.sin(time) * factorX;
     mesh0.uv[7] += Math.sin(time) * factorX;
-    mesh0.uv[2] += Math.cos(time) * factorX;
-    mesh0.uv[3] += Math.sin(time) * factorY;
-    mesh0.uv[4] += Math.cos(time) * factorX;
-    mesh0.uv[5] += Math.sin(time) * factorY;
+
+    // bottom left U
+    mesh0.uv[2] += Math.cos(time) * factorY;
+
+    // bottom right U
+    mesh0.uv[4] += Math.cos(time) * factorY;
+    mesh0.uv[8] += Math.cos(time) * factorY;
+    
+    // top right V
+    mesh0.uv[11] += Math.sin(time) * factorX;
 
     time += 0.01;
 }

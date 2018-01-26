@@ -34,26 +34,32 @@ function create ()
 
     curve = new Phaser.Curves.CubicBezier(startPoint, controlPoint1, controlPoint2, endPoint);
 
+    var spark0 = this.add.particles('spark0');
+    var spark1 = this.add.particles('spark1');
+
     for (var c = 0; c <= max; c++)
     {
         var t = curve.getUtoTmapping(c / max);
         var p = curve.getPoint(t);
         var tangent = curve.getTangent(t);
 
-        var emitter = this.add.emitter(p.x, p.y, (c % 2 === 0) ? 'spark0' : 'spark1');
-
         // tempVec.copy(tangent).normalizeRightHand().scale(-32).add(p);
         tempVec.copy(tangent).scale(-32).add(p);
-       
+
         var angle = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(p, tempVec));
 
-        emitter.setEmitAngle(angle, angle);
-        emitter.setSpeed(100, -500);
-        emitter.gravityY = 200;
-        emitter.setScale(0.2, 0.0);
-        emitter.life = 1;
-        emitter.setBlendMode(Phaser.BlendModes.ADD);
-        emitters.push(emitter);
+        var particles = (c % 2 === 0) ? spark0 : spark1;
+
+        emitters.push(particles.createEmitter({
+            x: p.x,
+            y: p.y,
+            angle: angle,
+            speed: { min: 100, max: -500 },
+            gravityY: 200,
+            scale: { start: 0.2, end: 0.0 },
+            lifespan: 1000,
+            blendMode: 'ADD'
+        }));
     }
 
     var point0 = this.add.image(startPoint.x, startPoint.y, 'dragcircle', 1).setInteractive();
@@ -73,18 +79,18 @@ function create ()
 
     this.input.setDraggable([ point0, point1, point2, point3 ]);
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        event.gameObject.setFrame(1);
+        gameObject.setFrame(1);
 
     });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
-        event.gameObject.data.get('vector').set(event.dragX, event.dragY);
+        gameObject.data.get('vector').set(dragX, dragY);
 
         for (var c = 0; c <= max; c++)
         {
@@ -92,28 +98,27 @@ function create ()
             var p = curve.getPoint(t);
             var tangent = curve.getTangent(t);
 
-            emitters[c].x = p.x;
-            emitters[c].y = p.y;
+            emitters[c].setPosition(p.x, p.y);
 
             tempVec.copy(tangent).scale(-32).add(p);
             // tempVec.copy(tangent).normalizeRightHand().scale(-32).add(p);
-           
+
             var angle = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(p, tempVec));
 
-            emitters[c].setEmitAngle(angle, angle);
+            emitters[c].setAngle(angle, angle);
         }
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('dragend', function (pointer, gameObject) {
 
-        if (event.gameObject.data.get('isControl'))
+        if (gameObject.data.get('isControl'))
         {
-            event.gameObject.setFrame(2);
+            gameObject.setFrame(2);
         }
         else
         {
-            event.gameObject.setFrame(1);
+            gameObject.setFrame(1);
         }
 
     });

@@ -1059,7 +1059,7 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="20" height="20">
+ <layer name="Tile Layer" width="20" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

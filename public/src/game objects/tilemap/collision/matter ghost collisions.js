@@ -35,17 +35,17 @@ function create ()
     var tileset = map.addTilesetImage('kenney_redux_64x64');
     var layer = map.createDynamicLayer(0, tileset, 0, 0);
 
-    // "Ghost vertices" happen in physics engines when two colliding bodies are next to one another
-    // (e.g. a player trying to walk over neighboring tiles). The order in which the collisions are
-    // resolved by the engine can cause collisions to be resolved in an "unrealistic" way (e.g. the
-    // player being stopping dead in their tracks by flat ground). See
-    // http://www.iforce2d.net/b2dtut/ghost-vertices for more info. With tilemaps in matter, there
-    // are a couple options:
-    //  - Add a chamfer to bodies, i.e. round the edges, or use circular bodies to reduce the impact
-    //    of the ghost vertices.
-    //  - Map out your collision shapes as convex hulls instead of giving each tile a separate
-    //    body. You can still use Tiled for this. Just create an object layer and fill it with
-    //    shapes that match your level's hitboxes.
+    // "Ghost collisions" can happen in physics engines when two colliding bodies are next to one
+    // another, e.g. a player trying to walk over two neighboring ground tiles. The order in which
+    // the collisions are resolved by the engine can cause "unrealistic" effects, e.g. the player
+    // being stopping dead in their tracks on flat ground). See
+    // http://www.iforce2d.net/b2dtut/ghost-vertices for more info. When working with tilemaps and
+    // Matter, there are a couple ways to mitigate this issue:
+    //  - Add chamfer to bodies, i.e. round the edges, or use circular bodies to reduce the impact
+    //    of the ghost collisions.
+    //  - Map out your level's hitboxes as as a few convex hulls instead of giving each tile a
+    //    separate body. You can still use Tiled for this. Create an object layer, and fill it
+    //    with shapes, convert those shapes to Matter bodies in Phaser (see below).
     //  - Use a library like hull.js (https://github.com/AndriiHeonia/hull) to automatically figure
     //    out convex hulls from your tiles.
 

@@ -81,7 +81,7 @@ function create ()
     this.matter.world.drawDebug = false;
 
     cursors = this.input.keyboard.createCursorKeys();
-    smoothedControls = new SmoothedHorionztalControl(0.0002);
+    smoothedControls = new SmoothedHorionztalControl(0.0005);
 
     // The player is a collection of bodies and sensors
     playerController = {
@@ -130,7 +130,8 @@ function create ()
             playerBody, playerController.sensors.bottom, playerController.sensors.left,
             playerController.sensors.right
         ],
-        friction: 0.01
+        friction: 0.01,
+        restitution: 0.05 // Prevent body from sticking against a wall
     });
 
     playerController.matterSprite

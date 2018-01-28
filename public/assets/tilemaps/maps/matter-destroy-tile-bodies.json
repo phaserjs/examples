@@ -978,6 +978,23 @@
                  "collides":"bool"
                 }
             },
+         "tiles":
+            {
+             "49":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "name":"",
+                     "objects":[],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    }
+                }
+            },
          "tilewidth":16
         }],
  "tilewidth":16,

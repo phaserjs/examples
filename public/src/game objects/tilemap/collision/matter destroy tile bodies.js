@@ -91,7 +91,7 @@ function create ()
         // In Tiled, the platform tiles have been given a "fallOnContact" property
         if (tile.properties.fallOnContact)
         {
-            tile.physics.matterBody.body.label = 'fallingPlatform';
+            tile.physics.matterBody.body.label = 'disappearingPlatform';
         }
     });
 
@@ -129,12 +129,8 @@ function create ()
     var w = playerController.matterSprite.width;
     var h = playerController.matterSprite.height;
 
-    // The player's body is going to be a compound body. Apply a label of "player" to the body to
-    // make it easier to find collisions.
-    var playerBody = M.Bodies.rectangle(0, 0, w * 0.75, h, {
-        chamfer: { radius: 10 },
-        label: 'player'
-    });
+    // The player's body is going to be a compound body.
+    var playerBody = M.Bodies.rectangle(0, 0, w * 0.75, h, { chamfer: { radius: 10 } });
     playerController.sensors.bottom = M.Bodies.rectangle(0, h * 0.5, w * 0.5, 5, { isSensor: true });
     playerController.sensors.left = M.Bodies.rectangle(-w * 0.45, 0, 5, h * 0.25, { isSensor: true });
     playerController.sensors.right = M.Bodies.rectangle(w * 0.45, 0, 5, h * 0.25, { isSensor: true });
@@ -184,10 +180,11 @@ function create ()
         {
             var bodyA = event.pairs[i].bodyA;
             var bodyB = event.pairs[i].bodyB;
-            if ((bodyA.label === 'player' && bodyB.label === 'fallingPlatform') ||
-                (bodyB.label === 'player' && bodyA.label === 'fallingPlatform'))
+
+            if ((bodyA === playerBody && bodyB.label === 'disappearingPlatform') ||
+                (bodyB === playerBody && bodyA.label === 'disappearingPlatform'))
             {
-                var tileBody = bodyA.label === 'fallingPlatform' ? bodyA : bodyB;
+                var tileBody = bodyA.label === 'disappearingPlatform' ? bodyA : bodyB;
 
                 // Matter Body instances have a reference to their associated game object. Here,
                 // that's the Phaser.Physics.Matter.TileBody, which has a reference to the
@@ -210,6 +207,10 @@ function create ()
                     onComplete: destroyTile.bind(this, tile)
                 });
             }
+
+            // Note: the tile bodies in this level are all simple rectangle bodies, so checking the
+            // label is easy. See matter detect collision with tile for how to handle when the tile
+            // bodies are compound shapes or concave polygons.
         }
     }, this);
 

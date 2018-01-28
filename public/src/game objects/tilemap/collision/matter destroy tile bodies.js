@@ -378,12 +378,13 @@ function smoothMoveCameraTowards (target, smoothFactor)
 function restart ()
 {
     cam.fade(500, 0, 0, 0);
+    cam.shake(250, 0.01);
 
     this.time.addEvent({
         delay: 500,
         callback: function ()
         {
-            cam._fadeAlpha = 0; // Camera effects API is still in progress
+            cam.resetFX();
             this.scene.stop();
             game.scene.start('main');
         },

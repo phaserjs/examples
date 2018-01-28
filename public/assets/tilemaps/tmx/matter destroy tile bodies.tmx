@@ -253,6 +253,7 @@
     <property name="collides" type="bool" value="true"/>
     <property name="fallOnContact" type="bool" value="true"/>
    </properties>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="50">
    <properties>

@@ -136,8 +136,8 @@ function drawCollisionShapes (graphics)
                 {
                     var point = originalPoints[j];
                     points.push({
-                        x: objectX + point[0],
-                        y: objectY + point[1]
+                        x: objectX + point.x,
+                        y: objectY + point.y
                     });
                 }
                 graphics.strokePoints(points);

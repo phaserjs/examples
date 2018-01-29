@@ -89,7 +89,7 @@ function create ()
     this.matter.world.setBounds(map.widthInPixels, map.heightInPixels);
     this.matter.world.createDebugGraphic();
 
-    text = this.add.text(16, 16, 'Ghost Vertices Demo\nGrass: Individual Tile Bodies\nStone: A Single Convex Body', {
+    text = this.add.text(16, 16, 'Ghost Collisions Demo\nGrass: Individual Tile Bodies\nStone: A Single Convex Body', {
         fontSize: '20px',
         padding: { x: 20, y: 10 },
         backgroundColor: '#ffffff',

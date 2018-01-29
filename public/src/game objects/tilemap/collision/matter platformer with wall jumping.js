@@ -224,8 +224,10 @@ function create ()
     }, this);
 
     text = this.add.text(16, 16, '', {
-        fontSize: '18px',
-        fill: '#ffffff'
+        fontSize: '20px',
+        padding: { x: 20, y: 10 },
+        backgroundColor: '#ffffff',
+        fill: '#000000'
     });
     text.setScrollFactor(0);
     updateText();
@@ -308,13 +310,13 @@ function update (time, delta)
 function updateText ()
 {
     text.setText([
-        'Arrow keys to move. Space to jump.',
+        'Arrow keys to move. Press "Up" to jump.',
         'You can wall jump!',
-        'Click to toggle rendering Matter debug.',
-        'Debug:',
-        '\tBottom blocked: ' + playerController.blocked.bottom,
-        '\tLeft blocked: ' + playerController.blocked.left,
-        '\tRight blocked: ' + playerController.blocked.right
+        'Click to toggle rendering Matter debug.'
+        // 'Debug:',
+        // '\tBottom blocked: ' + playerController.blocked.bottom,
+        // '\tLeft blocked: ' + playerController.blocked.left,
+        // '\tRight blocked: ' + playerController.blocked.right
     ]);
 }
 

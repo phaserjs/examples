@@ -51,8 +51,8 @@ function create ()
 
     // Method 2. If we don't have slopes defined in Tiled, we can manually map tile index to slope
     // ID using an object:
-    var slopeMap = { 32: 1, 77: 1, 82: 1, 95: 24, 137: 2, 140: 24, 36: 2 };
-    this.impact.world.setCollisionMapFromTilemapLayer(layer, { slopeMap: slopeMap });
+    // var slopeMap = { 32: 1, 77: 1, 82: 1, 95: 24, 137: 2, 140: 24, 36: 2 };
+    // this.impact.world.setCollisionMapFromTilemapLayer(layer, { slopeMap: slopeMap });
 
     // Note: the collision map is static! If you remove/change the colliding tiles, it will not be
     // updated.
@@ -68,7 +68,7 @@ function create ()
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    var help = this.add.text(16, 16, 'Arrow keys to move. Space to jump.', {
+    var help = this.add.text(16, 16, 'Arrow keys to move. Press "up" to jump.', {
         fontSize: '18px',
         fill: '#ffffff'
     });

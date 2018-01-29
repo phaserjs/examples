@@ -273,7 +273,7 @@ function create ()
     }, this);
 
     var lines = [
-        'Arrow keys to move. Space to jump.',
+        'Arrow keys to move. Press "Up" to jump.',
         'Press the button!',
         'Click to toggle rendering Matter debug.'
     ];

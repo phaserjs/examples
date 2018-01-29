@@ -274,14 +274,19 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
     smoothedControls = new SmoothedHorionztalControl(0.001);
 
-    text = this.add.text(16, 16, '', {
+    var lines = [
+        'Arrow keys to move.',
+        'Press "Up" to jump.',
+        'Don\'t look back :)',
+        'Click to toggle rendering Matter debug.'
+    ];
+    text = this.add.text(16, 16, lines, {
         fontSize: '20px',
         padding: { x: 20, y: 10 },
         backgroundColor: '#000000',
         fill: '#ffffff'
     });
     text.setScrollFactor(0);
-    updateText();
 }
 
 function destroyTile (tile)
@@ -356,17 +361,6 @@ function update (time, delta)
     }
 
     smoothMoveCameraTowards(matterSprite, 0.9);
-    updateText();
-}
-
-function updateText ()
-{
-    text.setText([
-        'Arrow keys to move.',
-        'Space to jump.',
-        'Don\'t look back :)',
-        'Click to toggle rendering Matter debug.'
-    ]);
 }
 
 function smoothMoveCameraTowards (target, smoothFactor)

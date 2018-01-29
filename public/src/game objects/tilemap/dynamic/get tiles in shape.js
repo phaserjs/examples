@@ -42,27 +42,27 @@ function create ()
 
     map.setCollisionByExclusion(7);
 
-    this.input.keyboard.events.on('KEY_DOWN_ONE', function (event) {
+    this.input.keyboard.on('keydown_ONE', function (event) {
         selectedShape = 'rectangle';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_TWO', function (event) {
+    this.input.keyboard.on('keydown_TWO', function (event) {
         selectedShape = 'line';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_THREE', function (event) {
+    this.input.keyboard.on('keydown_THREE', function (event) {
         selectedShape = 'circle';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_FOUR', function (event) {
+    this.input.keyboard.on('keydown_FOUR', function (event) {
         selectedShape = 'triangle';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_C', function (event) {
+    this.input.keyboard.on('keydown_C', function (event) {
         onlyColliding = !onlyColliding;
         helpText.setText(getHelpMessage());
     });
@@ -94,7 +94,7 @@ function update (time, delta)
     controls.update(delta);
 
     // Update p1 & p2 based on where user clicks
-    if (this.game.input.activePointer.justDown)
+    if (this.input.activePointer.justDown)
     {
         var worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
         if (!p1)

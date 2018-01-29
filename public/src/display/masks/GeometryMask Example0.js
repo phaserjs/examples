@@ -51,40 +51,23 @@ function create ()
 
     img.mask = new Phaser.Display.Masks.GeometryMask(this, mesh);
 
-    tweenQuad();
-}
+    this.tweens.add({
+        targets: quad,
+        duration: 1500,
+        repeat: -1,
+        ease: 'Elastic.easeOut',
 
-function tweenQuad ()
-{
-    //  Randomise the coords a little
+        topLeftX: function() { return -200 + Phaser.Math.Between(-90, 90); },
+        topLeftY: function() { return -200 + Phaser.Math.Between(-90, 90); },
 
-    var tlX = -200 + Phaser.Math.Between(-90, 90);
-    var tlY = -200 + Phaser.Math.Between(-90, 90);
+        topRightX: function() { return 200 + Phaser.Math.Between(-90, 90); },
+        topRightY: function() { return -200 + Phaser.Math.Between(-90, 90); },
 
-    var trX = 200 + Phaser.Math.Between(-90, 90);
-    var trY = -200 + Phaser.Math.Between(-90, 90);
+        bottomLeftX: function() { return -200 + Phaser.Math.Between(-90, 90); },
+        bottomLeftY: function() { return 200 + Phaser.Math.Between(-90, 90); },
 
-    var blX = -200 + Phaser.Math.Between(-90, 90);
-    var blY = 200 + Phaser.Math.Between(-90, 90);
-
-    var brX = 200 + Phaser.Math.Between(-90, 90);
-    var brY = 200 + Phaser.Math.Between(-90, 90);
-
-    TweenMax.to(quad, 1.5, {
-
-        topLeftX: tlX,
-        topLeftY: tlY,
-
-        topRightX: trX,
-        topRightY: trY,
-
-        bottomLeftX: blX,
-        bottomLeftY: blY,
-
-        bottomRightX: brX,
-        bottomRightY: brY,
-
-        ease: Elastic.easeOut,
+        bottomRightX: function() { return 200 + Phaser.Math.Between(-90, 90); },
+        bottomRightY: function() { return 200 + Phaser.Math.Between(-90, 90); },
 
         onUpdate: function ()
         {
@@ -105,9 +88,7 @@ function tweenQuad ()
             verts[5] = quad.bottomRightY;
             verts[8] = quad.bottomRightX;
             verts[9] = quad.bottomRightY;
-        },
-
-        onComplete: tweenQuad
+        }
 
     });
 }

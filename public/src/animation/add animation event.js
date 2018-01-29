@@ -23,12 +23,12 @@ function preload ()
 function create ()
 {
     //  Each time a new animation is added to the Animation Manager we'll call this function
-    this.anims.events.on('ADD_ANIMATION_EVENT', addAnimation.bind(this));
+    this.anims.on('add', addAnimation.bind(this));
 
     var _anims = this.anims;
 
     //  Click to add an animation
-    document.addEventListener('mouseup', function () {
+    this.input.on('pointerup', function () {
 
         switch (i)
         {
@@ -54,9 +54,9 @@ function create ()
     });
 }
 
-function addAnimation (event)
+function addAnimation (key)
 {
-    this.add.sprite(400, y, 'gems').play(event.key);
+    this.add.sprite(400, y, 'gems').play(key);
 
     y += 100;
 }

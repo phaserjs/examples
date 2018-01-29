@@ -15,10 +15,17 @@ var gui = null;
 var emitter = null;
 var move = false;
 var countText = null;
-var easing = {
-    alphaEasing: 'Linear',
-    scaleEasing: 'Linear',
-    rotationEasing: 'Linear'
+var angleConfig = {
+    min: 0, max: 360
+};
+var speedConfig = {
+    min: -200, max: 200
+};
+var scaleConfig = {
+    start: 1, end: 0, ease: 'Linear'
+};
+var alphaConfig = {
+    start: 1, end: 0, ease: 'Linear'
 };
 var eases = [
     'Linear',
@@ -61,52 +68,46 @@ function preload ()
 function create ()
 {
     gui = new dat.GUI();
-    emitter = this.add.emitter(400, 300, 'spark1');
-    emitter.gravityY = 300;
-    emitter.setSpeed(-200, 200);
-    emitter.setEmitAngle(0, 360);
-    emitter.setBlendMode(Phaser.BlendModes.SCREEN);
-
-    gui.add(emitter, 'life');
-    gui.add(emitter, 'minEmitAngle');
-    gui.add(emitter, 'maxEmitAngle');
-    gui.add(emitter, 'gravityX');
-    gui.add(emitter, 'gravityY');
-    gui.add(emitter, 'minSpeed');
-    gui.add(emitter, 'maxSpeed');
-    gui.add(emitter, 'startScale');
-    gui.add(emitter, 'endScale');
-    gui.add(emitter, 'startAngle');
-    gui.add(emitter, 'endAngle');
-    gui.add(emitter, 'startAlpha');
-    gui.add(emitter, 'endAlpha');
-    gui.add(easing, 'alphaEasing', eases).onChange(function (value) {
-        emitter.setAlphaEase(value);
+    emitter = this.add.particles('spark1').createEmitter({
+        x: 400,
+        y: 300,
+        gravityY: 300,
+        speed: speedConfig,
+        angle: angleConfig,
+        scale: scaleConfig,
+        alpha: alphaConfig,
+        blendMode: 'SCREEN'
     });
-    gui.add(easing, 'scaleEasing', eases).onChange(function (value) {
-        emitter.setScaleEase(value);
-    });;
-    gui.add(easing, 'rotationEasing', eases).onChange(function (value) {
-        emitter.setRotationEase(value);
-    });;
+
+    gui.add(angleConfig, 'min').name('angle min').onChange(function() { emitter.setAngle(angleConfig); });
+    gui.add(angleConfig, 'max').name('angle max').onChange(function() { emitter.setAngle(angleConfig); });
+    gui.add({ life: 1000 }, 'life').onChange(function(value) { emitter.setLifespan(value); });
+    gui.add({ gravityX: 0 }, 'gravityX').onChange(function(value) { emitter.setGravityX(value); });
+    gui.add({ gravityY: 300 }, 'gravityY').onChange(function(value) { emitter.setGravityY(value); });
+    gui.add(speedConfig, 'min').name('speed min').onChange(function() { emitter.setSpeed(speedConfig); });
+    gui.add(speedConfig, 'max').name('speed max').onChange(function() { emitter.setSpeed(speedConfig); });
+    gui.add(scaleConfig, 'start').name('scale start').onChange(function() { emitter.setScale(scaleConfig); });
+    gui.add(scaleConfig, 'end').name('scale end').onChange(function() { emitter.setScale(scaleConfig); });
+    gui.add(scaleConfig, 'ease', eases).name('scale ease').onChange(function() { emitter.setScale(scaleConfig); });
+    gui.add(alphaConfig, 'start').name('alpha start').onChange(function() { emitter.setAlpha(alphaConfig); });
+    gui.add(alphaConfig, 'end').name('alpha end').onChange(function() { emitter.setAlpha(alphaConfig); });
+    gui.add(alphaConfig, 'ease', eases).name('alpha ease').onChange(function() { emitter.setAlpha(alphaConfig); });
     gui.add(emitter, 'killAll');
     gui.add(emitter, 'pause');
     gui.add(emitter, 'resume');
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
         if (move)
         {
-            emitter.x = event.x;
-            emitter.y = event.y;
+            emitter.setPosition(pointer.x, pointer.y);
         }
     });
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
-        emitter.x = event.x;
-        emitter.y = event.y;
+    this.input.on('pointerdown', function (pointer) {
+        emitter.setPosition(pointer.x, pointer.y);
         move = true;
     });
-    this.input.events.on('MOUSE_UP_EVENT', function (event) {
+    this.input.on('pointerup', function (pointer) {
         move = false;
     });
 

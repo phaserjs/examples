@@ -14,7 +14,6 @@ var config = {
 var div = document.createElement('div');
 div.innerHTML = 'PRESS SPACE TO TAKE SNAPSHOT<br>';
 document.body.appendChild(div);
-var effect0;
 var time = 0;
 var snapHistory = [];
 var graphics;
@@ -30,10 +29,6 @@ function preload () {
 
 function create ()
 {
-    effect0 = this.add.effectLayer(0, 0, 800, 600, 'effect0', this.cache.shader.get('shader0'));
-    effect0.setFloat2('resolution', 800, 600);
-    effect0.visible = true;
-
 
     for (var i = 0; i < 5; ++i)
     {
@@ -42,15 +37,15 @@ function create ()
     
     graphics = this.add.graphics({x: 0, y: 0});
 
-    this.game.canvas.onmousedown = function (e) {
+    game.canvas.onmousedown = function (e) {
         isMouseDown = true;
         graphics.clear();
         graphicsPath.length = 0;
     };
-    this.game.canvas.onmouseup = function (e) {
+    game.canvas.onmouseup = function (e) {
         isMouseDown = false;
     };
-    this.game.canvas.onmousemove = function (e) {
+    game.canvas.onmousemove = function (e) {
         var mouseX = e.clientX - game.canvas.offsetLeft;
         var mouseY = e.clientY - game.canvas.offsetTop;
         if (isMouseDown)
@@ -102,10 +97,6 @@ function update ()
     }
     graphics.strokePath();
     graphics.closePath();
-
-    if (effect0) {
-        effect0.setFloat('time', time);
-    }
 
     time += 0.01;
 }

@@ -42,7 +42,9 @@ function create ()
     layer1.putTilesAt([ 104, 105, 105, 106, 106, 107 ], integerInRange(0, 11), 9);
 
     // The level is ready, so convert it to a static map. This optimizes performance, but means that
-    // we can no longer manipulate tiles.
+    // we can no longer manipulate tiles. The convertLayerToStatic method returns a new
+    // StaticTilemapLayer (and the old layer is destroyed), so don't forget to store the returned
+    // value if you want to manipulate the new layer.
     layer1 = map.convertLayerToStatic(layer1);
 
     // Note: only the tile properties are copied into the new static layer, so if we want to keep

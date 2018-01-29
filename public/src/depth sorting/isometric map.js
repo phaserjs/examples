@@ -73,7 +73,7 @@ function create ()
 {
     scene = this;
 
-    //  Our Skeleton class    
+    //  Our Skeleton class
 
     var Skeleton = new Phaser.Class({
 
@@ -97,7 +97,7 @@ function create ()
 
             this.depth = y + 64;
 
-            TweenMax.delayedCall(this.anim.speed, this.changeFrame, [], this);
+            scene.time.delayedCall(this.anim.speed * 1000, this.changeFrame, [], this);
         },
 
         changeFrame: function ()
@@ -113,22 +113,22 @@ function create ()
                     case 'walk':
                         this.f = this.anim.startFrame;
                         this.frame = this.texture.get(this.direction.offset + this.f);
-                        TweenMax.delayedCall(delay, this.changeFrame, [], this);
+                        scene.time.delayedCall(delay * 1000, this.changeFrame, [], this);
                         break;
 
                     case 'attack':
                         delay = Math.random() * 2;
-                        TweenMax.delayedCall(delay, this.resetAnimation, [], this);
+                        scene.time.delayedCall(delay * 1000, this.resetAnimation, [], this);
                         break;
 
                     case 'idle':
                         delay = 0.5 + Math.random();
-                        TweenMax.delayedCall(delay, this.resetAnimation, [], this);
+                        scene.time.delayedCall(delay * 1000, this.resetAnimation, [], this);
                         break;
 
                     case 'die':
                         delay = 6 + Math.random() * 6;
-                        TweenMax.delayedCall(delay, this.resetAnimation, [], this);
+                        scene.time.delayedCall(delay * 1000, this.resetAnimation, [], this);
                         break;
                 }
             }
@@ -136,7 +136,7 @@ function create ()
             {
                 this.frame = this.texture.get(this.direction.offset + this.f);
 
-                TweenMax.delayedCall(delay, this.changeFrame, [], this);
+                scene.time.delayedCall(delay * 1000, this.changeFrame, [], this);
             }
         },
 
@@ -146,7 +146,7 @@ function create ()
 
             this.frame = this.texture.get(this.direction.offset + this.f);
 
-            TweenMax.delayedCall(this.anim.speed, this.changeFrame, [], this);
+            scene.time.delayedCall(this.anim.speed * 1000, this.changeFrame, [], this);
         },
 
         update: function ()

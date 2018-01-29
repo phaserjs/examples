@@ -19,33 +19,54 @@ function preload ()
 
 function create ()
 {
-    var emitter = this.add.emitter(400, 300, 'spark');
-
-    emitter.setBlendMode(Phaser.BlendModes.SCREEN);
-    emitter.setScale(0.2, 0);
-    emitter.setSpeed(-100, 100);
-    emitter.emitCount = 50;
-
-    var shapes = [];
-
-    shapes.push(new Phaser.Geom.Circle(0, 0, 100));
-    shapes.push(new Phaser.Geom.Ellipse(0, 0, 400, 100));
-    shapes.push(new Phaser.Geom.Rectangle(-150, -150, 300, 300));
-    shapes.push(new Phaser.Geom.Line(-150, -150, 150, 150));
-    shapes.push(new Phaser.Geom.Triangle(0, -200, 200, 200, -200, 200));
-
-    var shapeIndex = 0;
-
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
-        emitter.x = event.x;
-        emitter.y = event.y;
+    var emitter = this.add.particles('spark').createEmitter({
+        x: 400,
+        y: 300,
+        blendMode: 'SCREEN',
+        scale: { start: 0.2, end: 0 },
+        speed: { min: -100, max: 100 },
+        quantity: 50
     });
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
-        shapeIndex = (shapeIndex + 1) % shapes.length;
-        emitter.setShape(shapes[shapeIndex]);
+    var emitZones = [];
+
+    emitZones.push({
+        source: new Phaser.Geom.Circle(0, 0, 100),
+        type: 'edge',
+        quantity: 50
+    });
+    emitZones.push({
+        source: new Phaser.Geom.Ellipse(0, 0, 400, 100),
+        type: 'edge',
+        quantity: 50
+    });
+    emitZones.push({
+        source: new Phaser.Geom.Rectangle(-150, -150, 300, 300),
+        type: 'edge',
+        quantity: 50
+    });
+    emitZones.push({
+        source: new Phaser.Geom.Line(-150, -150, 150, 150),
+        type: 'edge',
+        quantity: 50
+    });
+    emitZones.push({
+        source: new Phaser.Geom.Triangle(0, -200, 200, 200, -200, 200),
+        type: 'edge',
+        quantity: 50
+    });
+
+    var emitZoneIndex = 0;
+
+    this.input.on('pointermove', function (pointer) {
+        emitter.setPosition(pointer.x, pointer.y)
+    });
+
+    this.input.on('pointerdown', function (pointer) {
+        emitZoneIndex = (emitZoneIndex + 1) % emitZones.length;
+        emitter.setEmitZone(emitZones[emitZoneIndex]);
         emitter.explode();
     });
 
-    emitter.setShape(shapes[shapeIndex]);
+    emitter.setEmitZone(emitZones[emitZoneIndex]);
 }

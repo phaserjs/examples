@@ -8,3 +8,6 @@ Thumbs.db
 
 # Vendors
 node_modules/
+
+# Tester screenshots
+/tester/screens

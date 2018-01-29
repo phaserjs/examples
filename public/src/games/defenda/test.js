@@ -116,11 +116,11 @@ function create ()
 
     //  Bullets
 
-    this.bullets = this.pool.createObjectPool(Bullet);
+    this.bullets = this.add.group({ classType: Bullet, runChildUpdate: true });
 
     //  Add a player ship
 
-    this.player = this.physics.add.sprite(1600, 200, 'ship').setDepth(1);
+    this.player = this.impact.add.sprite(1600, 200, 'ship').setDepth(1);
     this.player.setMaxVelocity(1000).setFriction(800, 600).setPassive();
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -130,8 +130,7 @@ function create ()
 
 function update (time, delta)
 {
-    this.thrust.x = this.player.x;
-    this.thrust.y = this.player.y;
+    this.thrust.setPosition(this.player.x, this.player.y);
 
     if (this.cursors.left.isDown)
     {
@@ -163,13 +162,13 @@ function update (time, delta)
 
     if (this.player.vel.x < 0)
     {
-        this.thrust.x += (this.player.flipX) ? 16 : -16;
+        this.thrust.setPosition(this.thrust.x.propertyValue += (this.player.flipX) ? 16 : -16, this.thrust.y.propertyValue);
         this.thrust.setSpeed(this.player.vel.x / 2);
         this.thrust.emitParticle(16);
     }
     else if (this.player.vel.x > 0)
     {
-        this.thrust.x += (this.player.flipX) ? 16 : -16;
+        this.thrust.setPosition(this.thrust.x.propertyValue += (this.player.flipX) ? 16 : -16, this.thrust.y.propertyValue);
         this.thrust.setSpeed(this.player.vel.x / 2);
         this.thrust.emitParticle(16);
     }
@@ -177,6 +176,8 @@ function update (time, delta)
     if (this.cursors.space.isDown && time > this.lastFired)
     {
         var bullet = this.bullets.get();
+        bullet.setActive(true);
+        bullet.setVisible(true);
 
         if (bullet)
         {
@@ -188,18 +189,14 @@ function update (time, delta)
 
     //  Emitters to bullets
 
-    for (var i = 0; i < this.bullets._list.length; i++)
-    {
-        var b = this.bullets._list[i];
-
+    this.bullets.children.each(function(b) {
         if (b.active)
         {
-            this.flares.x = b.x;
-            this.flares.y = b.y;
+            this.flares.setPosition(b.x, b.y);
             this.flares.setSpeed(b.speed + 500 * -1);
             this.flares.emitParticle(1);
         }
-    }
+    }, this);
 
     this.text.setText(this.player.vel.x);
 
@@ -214,25 +211,28 @@ function update (time, delta)
 
 function createBulletEmitter ()
 {
-    this.flares = this.add.emitter(1600, 200, 'flares');
-
-    this.flares.setEmitAngle(170, 190);
-    this.flares.life = 0.5;
-    this.flares.enabled = false;
-    this.flares.setScale(0.4, 0.2);
-    this.flares.setBlendMode(Phaser.BlendModes.ADD);
+    this.flares = this.add.particles('flares').createEmitter({
+        x: 1600,
+        y: 200,
+        angle: { min: 170, max: 190 },
+        scale: { start: 0.4, end: 0.2 },
+        blendMode: 'ADD',
+        lifespan: 500,
+        on: false
+    });
 }
 
 function createThrustEmitter ()
 {
-    this.thrust = this.add.emitter(1600, 200, 'jets');
-
-    this.thrust.setEmitAngle(160, 200);
-    this.thrust.life = 0.6;
-    this.thrust.enabled = false;
-    // this.thrust.setScale(1, 0);
-    this.thrust.setScale(0.2, 0);
-    this.thrust.setBlendMode(Phaser.BlendModes.ADD);
+    this.thrust = this.add.particles('jets').createEmitter({
+        x: 1600,
+        y: 200,
+        angle: { min: 160, max: 200 },
+        scale: { start: 0.2, end: 0 },
+        blendMode: 'ADD',
+        lifespan: 600,
+        on: false
+    });
 }
 
 function createStarfield ()
@@ -247,7 +247,7 @@ function createStarfield ()
 
     var rect = new Phaser.Geom.Rectangle(0, 0, 3200, 550);
 
-    group.randomRectangle(rect);
+    Phaser.Actions.RandomRectangle(group.getChildren(), rect);
 
     group.children.iterate(function (child, index) {
 
@@ -336,7 +336,7 @@ function createAliens ()
         var x = Phaser.Math.Between(100, 3100);
         var y = Phaser.Math.Between(100, 300);
 
-        var face = this.physics.add.sprite(x, y, 'face').play('metaleyes');
+        var face = this.impact.add.sprite(x, y, 'face').play('metaleyes');
 
         face.setLite().setBounce(1).setBodyScale(0.5);
         face.setVelocity(Phaser.Math.Between(20, 60), Phaser.Math.Between(20, 60));

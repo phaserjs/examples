@@ -39,12 +39,20 @@ function create ()
 
     hsv = Phaser.Display.Color.HSVColorWheel();
 
-    var timeline = new TimelineMax({ repeat: -1 });
+    this.tweens.timeline({
 
-    timeline.add(TweenMax.to(start, 2, { x: left.x, y: left.y, ease: Sine.easeOut }));
-    timeline.add(TweenMax.to(start, 2, { x: bottom.x, y: bottom.y, ease: Sine.easeInOut }));
-    timeline.add(TweenMax.to(start, 2, { x: right.x, y: right.y, ease: Sine.easeInOut }));
-    timeline.add(TweenMax.to(start, 2, { x: top.x, y: top.y, ease: Sine.easeIn }));
+        targets: start,
+        loop: -1,
+        duration: 2000,
+
+        tweens: [
+            { x: left.x, y: left.y, ease: 'Sine.easeOut' },
+            { x: bottom.x, y: bottom.y, ease: 'Sine.easeInOut' },
+            { x: right.x, y: right.y, ease: 'Sine.easeInOut' },
+            { x: top.x, y: top.y, ease: 'Sine.easeIn' }
+        ]
+
+    });
 
     //  Fill the history array
     for (var i = 0; i < size; i++)

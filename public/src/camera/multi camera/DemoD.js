@@ -57,16 +57,20 @@ var DemoD = new Phaser.Class({
         var c = this.addObject('computer', 200, 100, 0);
         c.color = 0xffff00;
 
-        TweenMax.to(t, 2, {
+        this.tweens.add({
+            targets: t,
+            duration: 2000,
             scale: 10,
-            ease: Sine.easeInOut,
+            ease: 'Sine.easeInOut',
             repeat: -1,
             yoyo: true
         });
 
-        TweenMax.to(c, 4, {
+        this.tweens.add({
+            targets: c,
+            duration: 4000,
             scale: 10,
-            ease: Sine.easeInOut,
+            ease: 'Sine.easeInOut',
             repeat: -1,
             yoyo: true
         });
@@ -143,7 +147,7 @@ var DemoD = new Phaser.Class({
                     parseInt(tokens[3], 10),
                     parseInt(tokens[4], 10)
                 ];
-            
+
                 faces.push(face);
 
                 if (face[0] < 0)
@@ -176,7 +180,7 @@ var DemoD = new Phaser.Class({
             verts: verts,
             faces: faces
         };
-      
+
         return this.modelData[key];
     }
 

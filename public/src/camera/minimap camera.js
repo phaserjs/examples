@@ -57,7 +57,7 @@ function create ()
 
     //  Add a player ship
 
-    this.player = this.physics.add.sprite(1600, 200, 'ship');
+    this.player = this.impact.add.sprite(1600, 200, 'ship');
     this.player.setMaxVelocity(1000).setFriction(400, 200).setPassive();
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -203,7 +203,7 @@ function createAliens ()
         var x = Phaser.Math.Between(100, 3100);
         var y = Phaser.Math.Between(100, 300);
 
-        var face = this.physics.add.sprite(x, y, 'face').play('metaleyes');
+        var face = this.impact.add.sprite(x, y, 'face').play('metaleyes');
 
         face.setLite().setBounce(1).setBodyScale(0.5);
         face.setVelocity(Phaser.Math.Between(20, 60), Phaser.Math.Between(20, 60));

@@ -37,16 +37,16 @@ function create ()
         obj.setScrollFactor(obj.scaleX);
         obj.setDepth(obj.scrollFactorX);
         obj.setOrigin(-2 + Math.random() * 4, -2 + Math.random() * 4);
-        obj.setHitArea(new Phaser.Geom.Rectangle(0 - (95 * obj.originX), 0 - (95 * obj.originY), 95, 95), Phaser.Geom.Rectangle.Contains);
+        this.input.setHitArea(obj, new Phaser.Geom.Rectangle(0 - (95 * obj.originX), 0 - (95 * obj.originY), 95, 95), Phaser.Geom.Rectangle.Contains);
 
         intensity *= obj.scrollFactorX;
         obj.tint = ((intensity & 0x0ff) << 16) | ((intensity & 0x0ff) << 8) | (intensity & 0x0ff);
         gameObjects.push(obj);
     }
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
-        mouse.x = event.x;
-        mouse.y = event.y;
+    this.input.on('pointermove', function (pointer) {
+        mouse.x = pointer.x;
+        mouse.y = pointer.y;
     });
 
     selection = this.add.graphics(0, 0);
@@ -54,41 +54,41 @@ function create ()
     selection.scrollFactorY = 0;
     selection.depth = 1000;
 
-    this.input.events.on('KEY_DOWN_EVENT', function (event) {
-        if (event.data.code === 'ArrowUp' || event.data.code === 'KeyW')
+    this.input.keyboard.on('keydown', function (event) {
+        if (event.code === 'ArrowUp' || event.code === 'KeyW')
         {
             cameraScroll.y = -500;
             cameraScroll.dampY = 1;
         }
-        else if (event.data.code === 'ArrowDown' || event.data.code === 'KeyS')
+        else if (event.code === 'ArrowDown' || event.code === 'KeyS')
         {
             cameraScroll.y = 500;
             cameraScroll.dampY = 1;
         }
 
-        if (event.data.code === 'ArrowLeft' || event.data.code === 'KeyA')
+        if (event.code === 'ArrowLeft' || event.code === 'KeyA')
         {
             cameraScroll.x = -500;
             cameraScroll.dampX = 1;
         }
-        else if (event.data.code === 'ArrowRight' || event.data.code === 'KeyD')
+        else if (event.code === 'ArrowRight' || event.code === 'KeyD')
         {
             cameraScroll.x = 500;
             cameraScroll.dampX = 1;
         }
-    });   
+    });
 
-    this.input.events.on('KEY_UP_EVENT', function (event) {
-        if (event.data.code === 'ArrowUp' || event.data.code === 'ArrowDown' || event.data.code === 'KeyW' || event.data.code === 'KeyS')
+    this.input.keyboard.on('keyup', function (event) {
+        if (event.code === 'ArrowUp' || event.code === 'ArrowDown' || event.code === 'KeyW' || event.code === 'KeyS')
         {
             cameraScroll.dampY = 0.9;
         }
 
-        if (event.data.code === 'ArrowLeft' || event.data.code === 'ArrowRight' || event.data.code === 'KeyA' || event.data.code === 'KeyD')
+        if (event.code === 'ArrowLeft' || event.code === 'ArrowRight' || event.code === 'KeyA' || event.code === 'KeyD')
         {
             cameraScroll.dampX = 0.9;
         }
-    });   
+    });
 
     this.cameras.main.zoom = 0.5;
     this.cameras.main.x = 1;
@@ -124,7 +124,7 @@ function update (time, delta)
 {
     for (var i = 0; i < gameObjects.length; ++i)
     {
-        gameObjects[i].scaleX = gameObjects[i].scaleY = gameObjects[i].z;
+        gameObjects[i].scaleX = gameObjects[i].scaleY = gameObjects[i].depth;
         gameObjects[i].clearTint();
         gameObjects[i].rotation += 0.01;
         gameObjects[i].flipX = false;
@@ -135,7 +135,7 @@ function update (time, delta)
         cameras[i].scrollX += cameraScroll.x * (delta / 1000);
         cameras[i].scrollY += cameraScroll.y * (delta / 1000);
 
-        var objects = this.input.pointScreenToWorldHitTest(gameObjects, mouse.x, mouse.y, cameras[i]);
+        var objects = this.input.manager.hitTest(mouse.x, mouse.y, gameObjects, cameras[i]);
 
         if (objects && objects.length > 0)
         {
@@ -153,7 +153,7 @@ function update (time, delta)
             cameras[i].rotation += 0.01;
         }
     }
-    
+
     cameraScroll.x *= cameraScroll.dampX;
     cameraScroll.y *= cameraScroll.dampY;
 

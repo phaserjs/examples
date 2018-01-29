@@ -41,7 +41,7 @@ var Breakout = new Phaser.Class({
 
         //  Input events
         this.input.on('pointermove', function (pointer) {
-        
+
             //  Keep the paddle within the game
             this.paddle.x = Phaser.Math.Clamp(pointer.x, 52, 748);
 
@@ -49,17 +49,17 @@ var Breakout = new Phaser.Class({
             {
                 this.ball.x = this.paddle.x;
             }
-        
+
         }, this);
 
-        this.input.events.on('POINTER_UP_EVENT', function (event) {
-        
+        this.input.on('pointerup', function (pointer) {
+
             if (this.ball.getData('onPaddle'))
             {
                 this.ball.setVelocity(-75, -300);
                 this.ball.setData('onPaddle', false);
             }
-        
+
         }, this);
     },
 

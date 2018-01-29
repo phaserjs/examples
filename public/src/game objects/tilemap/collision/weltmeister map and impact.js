@@ -57,7 +57,7 @@ function create ()
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    var help = this.add.text(16, 16, 'Arrow keys to move. Space to jump.', {
+    var help = this.add.text(16, 16, 'Arrow keys to move. Press "up" to jump.', {
         fontSize: '18px',
         fill: '#ffffff'
     });

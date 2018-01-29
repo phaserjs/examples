@@ -62,33 +62,33 @@ function create ()
 
     var matrix = new Phaser.GameObjects.Components.TransformMatrix();
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject) {
 
-        var camera = event.camera;
+        var camera = pointer.camera;
 
         //  Convert pointer x/y into camera space
 
         matrix.applyITRS(camera.x, camera.y, -camera.rotation, camera.zoom, camera.zoom);
         matrix.invert();
-        var p = matrix.transformPoint(event.x, event.y);
+        var p = matrix.transformPoint(pointer.x, pointer.y);
 
-        event.gameObject.x = p.x + camera.x * camera.zoom;
-        event.gameObject.y = p.y + camera.y * camera.zoom;
+        gameObject.x = p.x + camera.x * camera.zoom;
+        gameObject.y = p.y + camera.y * camera.zoom;
 
-        // event.gameObject.x = p.x - camera.scrollX * camera.zoom;
-        // event.gameObject.y = p.y - camera.scrollY * camera.zoom;
+        // gameObject.x = p.x - camera.scrollX * camera.zoom;
+        // gameObject.y = p.y - camera.scrollY * camera.zoom;
 
-        // event.gameObject.x = p.x * event.gameObject.scrollFactorX;
-        // event.gameObject.y = p.y * event.gameObject.scrollFactorY;
+        // gameObject.x = p.x * gameObject.scrollFactorX;
+        // gameObject.y = p.y * gameObject.scrollFactorY;
 
         //  This works if scrollFactor = 0.5, but not at any other scrollFactor.
         //  I assume because camera zoom is 0.5?
 
-        // event.gameObject.x = p.x + camera.scrollX;
-        // event.gameObject.y = p.y + camera.scrollY;
+        // gameObject.x = p.x + camera.scrollX;
+        // gameObject.y = p.y + camera.scrollY;
 
-        // event.gameObject.x = (p.x * event.gameObject.scrollFactorX) + camera.scrollX;
-        // event.gameObject.y = (p.y * event.gameObject.scrollFactorY) + camera.scrollY;
+        // gameObject.x = (p.x * gameObject.scrollFactorX) + camera.scrollX;
+        // gameObject.y = (p.y * gameObject.scrollFactorY) + camera.scrollY;
 
     });
 

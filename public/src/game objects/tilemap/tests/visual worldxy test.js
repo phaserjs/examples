@@ -50,19 +50,19 @@ function create() {
 
     selectLayer(tileLayer);
 
-    this.input.keyboard.events.on('KEY_DOWN_ONE', function (event) {
+    this.input.keyboard.on('keydown_ONE', function (event) {
         selectLayer(tileLayer);
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_TWO', function (event) {
+    this.input.keyboard.on('keydown_TWO', function (event) {
         selectLayer(offsetTileLayer);
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_THREE', function (event) {
+    this.input.keyboard.on('keydown_THREE', function (event) {
         selectLayer(tileLayer2);
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_FOUR', function (event) {
+    this.input.keyboard.on('keydown_FOUR', function (event) {
         selectLayer(smallTileLayer);
     });
 
@@ -83,8 +83,8 @@ function create() {
     };
     controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
 
-    var help = this.add.text(16, 16, ' Press 1/2/3/4 to select layers ', {
-        font: '20px Arial',
+    var help = this.add.text(16, 16, '', {
+ keydownont: '20px Arial',
         backgroundColor: '#000000',
         fill: '#ffffff'
     });

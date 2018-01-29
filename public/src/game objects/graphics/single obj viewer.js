@@ -38,8 +38,8 @@ function preload ()
     this.load.text('spike', 'assets/text/spike.obj');
     this.load.text('teapot', 'assets/text/teapot.obj');
     this.load.text('torus', 'assets/text/torus.obj');
-    this.load.text('2f', 'assets/text/2faces.obj');
-    this.load.text('2f2', 'assets/text/2facesTriangulated.obj');
+    // this.load.text('2f', 'assets/text/2faces.obj');
+    // this.load.text('2f2', 'assets/text/2facesTriangulated.obj');
 }
 
 function create ()
@@ -61,27 +61,27 @@ function create ()
 
     console.log(model);
 
-    this.input.keyboard.events.on('KEY_UP_X', function () {
+    this.input.keyboard.on('keyup_X', function () {
         direction = 0;
     });
 
-    this.input.keyboard.events.on('KEY_UP_Y', function () {
+    this.input.keyboard.on('keyup_Y', function () {
         direction = 1;
     });
 
-    this.input.keyboard.events.on('KEY_UP_Z', function () {
+    this.input.keyboard.on('keyup_Z', function () {
         direction = 2;
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_LEFT', function () {
+    this.input.keyboard.on('keydown_LEFT', function () {
         rotateX3D(-0.03490658503988659);
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_RIGHT', function () {
+    this.input.keyboard.on('keydown_RIGHT', function () {
         rotateX3D(0.03490658503988659);
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_UP', function () {
+    this.input.keyboard.on('keydown_UP', function () {
 
         if (direction === 0)
         {
@@ -94,7 +94,7 @@ function create ()
 
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_DOWN', function () {
+    this.input.keyboard.on('keydown_DOWN', function () {
 
         if (direction === 0)
         {
@@ -163,7 +163,7 @@ function rotateX3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -179,7 +179,7 @@ function rotateY3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -195,7 +195,7 @@ function rotateZ3D (theta)
 {
     var ts = Math.sin(theta);
     var tc = Math.cos(theta);
-    
+
     for (var n = 0; n < model.verts.length; n++)
     {
         var vert = model.verts[n];
@@ -242,7 +242,7 @@ function parseObj (text)
                 parseInt(tokens[3], 10),
                 parseInt(tokens[4], 10)
             ];
-        
+
             faces.push(face);
 
             if (face[0] < 0)
@@ -260,13 +260,17 @@ function parseObj (text)
                 face[2] = verts.length + face[2];
             }
 
-            if (face[3] < 0)
+            if (!face[3])
+            {
+                face[3] = face[2];
+            }
+            else if (face[3] < 0)
             {
                 face[3] = verts.length + face[3];
             }
         }
     }
-  
+
     return {
         verts: verts,
         faces: faces

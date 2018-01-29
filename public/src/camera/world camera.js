@@ -52,15 +52,15 @@ function create ()
         sprites.push(this.add.sprite(x, y, 'eye').setInteractive());
     }
 
-    this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0xff0000);
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('GAME_OBJECT_OUT_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        event.gameObject.clearTint();
+        gameObject.clearTint();
 
     });
 
@@ -96,7 +96,7 @@ function create ()
 
         drawScene();
 
-    }, 0, this);
+    }, this);
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -115,17 +115,17 @@ function create ()
 
     controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
 
-    this.input.keyboard.events.on('KEY_DOWN_Z', function (event) {
+    this.input.keyboard.on('keydown_Z', function (event) {
 
         this.cameras.main.rotation += 0.01;
 
-    }, 0, this);
+    }, this);
 
-    this.input.keyboard.events.on('KEY_DOWN_X', function (event) {
+    this.input.keyboard.on('keydown_X', function (event) {
 
         this.cameras.main.rotation -= 0.01;
 
-    }, 0, this);
+    }, this);
 
     var cam = this.cameras.main;
 
@@ -160,7 +160,7 @@ function update (time, delta)
     controls.update(delta);
 
     sprites.forEach(function(sprite, i) {
-    
+
         sprite.rotation += (i % 2) ? 0.005 : -0.005;
 
     });

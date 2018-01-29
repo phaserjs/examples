@@ -31,6 +31,8 @@ function create ()
             -150, -150,
             -300, 150,
             300, 150,
+            -150, -150,
+            300, 150,
             150, -150
         ],
         uv: [
@@ -39,10 +41,11 @@ function create ()
             0,      0,
             0,      1,
             1,      1,
+            0,      0,
+            1,      1,
             1,      0
         ],
-        indices: [0, 1, 2, 0, 2, 3],
-        colors: [0x000000, 0xFFFFFF, 0xFFFFFF, 0x000000]
+        colors: [0x000000, 0xFFFFFF, 0xFFFFFF, 0x000000, 0xFFFFFF, 0x000000]
     });
 }
 
@@ -51,10 +54,18 @@ function update ()
     var factorX = 20 * 0.1;
     var factorY = 5 * 0.1;
 
+    // bottom left X
     mesh0.vertices[2] += Math.cos(time) * factorX;
+    // bottom left Y
     mesh0.vertices[3] += Math.sin(time) * factorY;
+
+    // bottom right X
     mesh0.vertices[4] += Math.cos(time) * factorX;
+    mesh0.vertices[8] += Math.cos(time) * factorX;
+
+    // bottom right Y
     mesh0.vertices[5] += Math.sin(time) * factorY;
+    mesh0.vertices[9] += Math.sin(time) * factorY;
 
     time += 0.01;
 }

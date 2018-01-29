@@ -76,7 +76,7 @@ function create ()
 */
     console.log(emitter);
 
-    this.input.events.once('POINTER_DOWN_EVENT', function (event) {
+    this.input.once('pointerdown', function (event) {
 
         emitter.setPosition(400, 200);
 

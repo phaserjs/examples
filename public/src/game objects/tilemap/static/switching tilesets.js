@@ -45,21 +45,21 @@ function create ()
     //  This isn't totally accurate, but it'll do for now
     map.setCollisionBetween(54, 83);
 
-    this.input.keyboard.on('down_49', function (event) {
+    this.input.keyboard.on('keydown_ONE', function (event) {
         var texture = this.sys.textures.get('tiles_red');
         currentTileset = 1;
         tileset.setImage(texture);
         updateHelpText();
     }, this);
 
-    this.input.keyboard.on('down_50', function (event) {
+    this.input.keyboard.on('keydown_TWO', function (event) {
         var texture = this.sys.textures.get('tiles_blue');
         currentTileset = 2;
         tileset.setImage(texture);
         updateHelpText();
     }, this);
 
-    this.input.keyboard.on('down_51', function (event) {
+    this.input.keyboard.on('keydown_THREE', function (event) {
         var texture = this.sys.textures.get('tiles');
         currentTileset = 3;
         tileset.setImage(texture);

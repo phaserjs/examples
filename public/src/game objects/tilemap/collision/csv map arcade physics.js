@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -79,8 +79,7 @@ function create ()
 
     debugGraphics = this.add.graphics();
 
-    this.input.keyboard.on('down_67', function (event)
-    {
+    this.input.keyboard.on('keydown_C', function (event) {
         showDebug = !showDebug;
         drawDebug();
     });

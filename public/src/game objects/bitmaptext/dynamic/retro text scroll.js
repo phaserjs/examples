@@ -16,14 +16,14 @@ var value = 0;
 
 var game = new Phaser.Game(config);
 
-function preload() 
+function preload()
 {
     this.load.image('knighthawks', 'assets/fonts/retro/knight3.png');
     this.load.image('rain', 'assets/pics/thalion-rain.png');
     this.load.image('contra', 'assets/pics/contra1.png');
 }
 
-function create() 
+function create()
 {
     this.add.image(0, 0, 'rain').setOrigin(0).setScale(4);
 
@@ -43,9 +43,11 @@ function create()
     dynamic.setSize(320, 25);
     dynamic.setScale(4);
 
-    TweenMax.to(dynamic, 4, {
+    this.tweens.add({
+        targets: dynamic,
+        duration: 4000,
         y: 175*4,
-        ease: Sine.easeInOut,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });

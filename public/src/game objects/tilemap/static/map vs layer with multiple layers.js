@@ -45,19 +45,19 @@ function create ()
 
     this.cameras.main.setScroll(0, 1000);
 
-    this.input.keyboard.events.on('KEY_DOWN_ONE', function (event) {
+    this.input.keyboard.on('keydown_ONE', function (event) {
         selectLayer(rockLayer);
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_TWO', function (event) {
+    this.input.keyboard.on('keydown_TWO', function (event) {
         selectLayer(waterLayer);
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_THREE', function (event) {
+    this.input.keyboard.on('keydown_THREE', function (event) {
         selectLayer(platformLayer);
     });
 
-    this.input.keyboard.events.on('KEY_DOWN_FOUR', function (event) {
+    this.input.keyboard.on('keydown_FOUR', function (event) {
         selectLayer(stuffLayer);
     });
 

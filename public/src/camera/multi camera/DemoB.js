@@ -47,8 +47,9 @@ var DemoB = new Phaser.Class({
 
                 image.setTint(color.color);
 
-                TweenMax.to(image, 2, {
-
+                this.tweens.add({
+                    targets: image,
+                    duration: 2000,
                     x: dx,
                     y: dy,
                     scaleX: 1,

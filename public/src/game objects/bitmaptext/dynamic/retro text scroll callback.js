@@ -19,14 +19,14 @@ var s = {
 
 var game = new Phaser.Game(config);
 
-function preload() 
+function preload()
 {
     this.load.image('knighthawks', 'assets/fonts/retro/knight3.png');
     this.load.image('1984', 'assets/pics/1984-nocooper-space.png');
     this.load.image('contra', 'assets/pics/contra1.png');
 }
 
-function create() 
+function create()
 {
     this.add.image(0, 0, '1984').setOrigin(0).setScale(2);
 
@@ -47,9 +47,11 @@ function create()
     dynamic.setScale(2);
     dynamic.setDisplayCallback(textCallback);
 
-    TweenMax.to(s, 0.5, {
+    this.tweens.add({
+        targets: s,
+        duration: 500,
         y: 32,
-        ease: Sine.easeInOut,
+        ease: 'Sine.easeInOut',
         repeat: -1,
         yoyo: true
     });

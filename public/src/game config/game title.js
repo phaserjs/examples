@@ -23,5 +23,5 @@ function create ()
 {
     this.add.image(400, 300, 'pic');
 
-    this.add.text(80, 560, 'Game Title: ' + this.game.config.gameTitle, { font: '16px Courier', fill: '#ffffff' });
+    this.add.text(80, 560, 'Game Title: ' + game.config.gameTitle, { font: '16px Courier', fill: '#ffffff' });
 }

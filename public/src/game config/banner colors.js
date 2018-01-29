@@ -38,6 +38,6 @@ function create ()
     var text = this.add.text(80, 550, '', { font: '16px Courier', fill: '#ffffff' });
 
     text.setText([
-        'Game Title: ' + this.game.config.gameTitle
+        'Game Title: ' + game.config.gameTitle
     ]);
 }

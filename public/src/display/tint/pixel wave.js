@@ -54,17 +54,20 @@ function create ()
 
             image.setTint(color.color);
 
-            TweenMax.to(image, 2, {
+            this.tweens.add({
 
+                targets: image,
+                duration: 2000,
                 x: dx,
                 y: dy,
                 scaleX: 1,
                 scaleY: 1,
                 angle: 360,
-                delay: i / 1500,
+                delay: i / 1.5,
                 yoyo: true,
                 repeat: -1,
-                repeatDelay: 6
+                repeatDelay: 6000,
+                hold: 6000
 
             });
         }

@@ -40,20 +40,27 @@ function create ()
 
     group.playAnimation('swish');
 
-    TweenMax.to(data, 3, {
-        r: 0.05,
-        s: 0.0012,
-        sx: 2.5,
-        ease: Sine.easeInOut,
+    this.tweens.add({
+        targets: data,
+        duration: 3000,
+        ease: 'Sine.easeInOut',
+        yoyo: true,
         repeat: -1,
-        yoyo: true
-    });
-
-    TweenMax.to(data, 4, {
-        y: 400,
-        ease: Sine.easeInOut,
-        repeat: -1,
-        yoyo: true
+        props: {
+            r: {
+                value: 0.05
+            },
+            s: {
+                value: 0.0012
+            },
+            sx: {
+                value: 2.5
+            },
+            y: {
+                value: 400,
+                duration: 4000
+            }
+        }
     });
 }
 

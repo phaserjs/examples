@@ -40,6 +40,7 @@ function preload()
     this.load.image('walls_1x2', 'assets/tilemaps/tiles/walls_1x2.png');
     this.load.image('tiles2', 'assets/tilemaps/tiles/tiles2.png');
     this.load.image('dangerous-kiss', 'assets/tilemaps/tiles/dangerous-kiss.png');
+    this.load.tilemapTiledJSON('tileset-collision-shapes-automated-test', 'assets/tilemaps/maps/tileset-collision-shapes-automated-test.json');
 }
 
 function create()
@@ -238,6 +239,88 @@ function testCollision ()
     map.removeTileAt(0, 0);
     assert('Removing a colliding tile should NOT collide',
         !map.getTileAt(0, 0, true).collides
+    );
+
+
+    // -- COLLIDE BY PROPERTY ---
+
+    var level = [
+        [ 1,  1,  1,  1],
+        [ 2,  2,  2,  2],
+        [ 3,  3,  3,  3],
+        [ 4,  4,  4,  4]
+    ];
+    var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
+    var tiles = map.addTilesetImage('mario-tiles');
+    var layer = map.createDynamicLayer(0, tiles);
+
+    // 4 sand tiles, 4 rock tiles, 4 solid tiles, 4 slope=1 tiles
+    map.forEachTile(t => {
+        if (t.index === 1) t.properties.type = 'sand';
+        else if (t.index === 2) t.properties.type = 'rock';
+        else if (t.index === 3) t.properties.solid = true;
+        else if (t.index === 4) t.properties.slope = 1;
+    });
+
+    map.setCollisionByProperty({ type: 'sand' }, true);
+    var collidingTiles = map.filterTiles(tile => tile.collides);
+    assert('Only the 4 sand tiles should collide',
+        collidingTiles.length === 4 &&
+        collidingTiles.every(tile => tile.properties.type === 'sand')
+    );
+    map.setCollisionByProperty({ type: 'sand' }, false);
+    assert('No tiles should collide',
+        map.filterTiles(tile => tile.collides).length === 0
+    );
+
+    map.setCollisionByProperty({ type: [ 'sand', 'rock' ] }, true);
+    var collidingTiles = map.filterTiles(tile => tile.collides);
+    assert('Only the 8 sand & rock tiles should collide',
+        collidingTiles.length === 8 &&
+        collidingTiles.every(tile => [ 'sand', 'rock' ].includes(tile.properties.type))
+    );
+    map.setCollisionByProperty({ type: [ 'sand', 'rock' ] }, false);
+    assert('No tiles should collide',
+        map.filterTiles(tile => tile.collides).length === 0
+    );
+
+    map.setCollisionByProperty({ type: [ 'rock' ], solid: true, slope: 1 }, true);
+    var collidingTiles = map.filterTiles(tile => tile.collides);
+    assert('Only the 12 rock, solid and slope=1 tiles should collide',
+        collidingTiles.length === 12 &&
+        collidingTiles.every(
+            tile => tile.properties.type === 'rock' ||
+                tile.properties.solid ||
+                tile.properties.slope === 1
+        )
+    );
+    map.setCollisionByProperty({ type: [ 'rock' ], solid: true, slope: 1 }, false);
+    assert('No tiles should collide',
+        map.filterTiles(tile => tile.collides).length === 0
+    );
+
+
+    // -- SET COLLIDE BY COLLISION DATA ---
+
+    var map = this.make.tilemap({ key: 'tileset-collision-shapes-automated-test' });
+    var tiles = map.addTilesetImage('kenny_platformer_64x64');
+    var layer = map.createDynamicLayer(0, tiles);
+
+    // 5 x 6 map
+    // First 4 rows - different colliding shapes are set
+    // Row 5 - colliding shapes created and then deleted (this leaves an empty collision group)
+    // Row 6 - no collision shapes ever defined
+    map.setCollisionFromCollisionGroup(true);
+
+    assert('Rows one - four should collide',
+        map.filterTiles(tile => tile.collides, null, 0, 0, 5, 4).length === 5 * 4
+    );
+    assert('Rows five - six should NOT collide',
+        map.filterTiles(tile => tile.collides, null, 0, 4, 5, 2).length === 0
+    );
+    map.setCollisionFromCollisionGroup(false);
+    assert('No tiles should collide',
+        map.filterTiles(tile => tile.collides).length === 0
     );
 }
 

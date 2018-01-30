@@ -81,18 +81,26 @@ function create ()
 
     var text = this.add.text(180, 0, 'Global timeScale: 1').setFont('32px Arial Black').setFill('#ffffff').setShadow(2, 2, "#333333", 2);
 
-    var downButton = this.add.image(70, 530, 'down').setInteractive();
-    var upButton = this.add.image(730, 530, 'up').setInteractive();
-
     var tweens = this.tweens;
 
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    var downButton = this.add.image(70, 530, 'down').setInteractive();
 
-        if (event.gameObject === downButton && tweens.timeScale > 0)
+    downButton.on('pointerdown', function (event) {
+
+        if (tweens.timeScale > 0)
         {
             tweens.timeScale -= 0.1;
         }
-        else if (event.gameObject === upButton && tweens.timeScale < 9.9)
+
+        text.setText('Global timeScale: ' + tweens.timeScale.toFixed(2));
+
+    });
+
+    var upButton = this.add.image(730, 530, 'up').setInteractive();
+
+    upButton.on('pointerdown', function (event) {
+
+        if (tweens.timeScale < 9.9)
         {
             tweens.timeScale += 0.1;
         }
@@ -100,4 +108,5 @@ function create ()
         text.setText('Global timeScale: ' + tweens.timeScale.toFixed(2));
 
     });
+
 }

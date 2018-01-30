@@ -1277,16 +1277,16 @@ function testTiledObjectLayerAndImport ()
 
     // -- OBJECT LAYER ---
 
-    var objectLayer = map.objects['Object Layer 1'];
+    var objectLayer = map.getObjectLayer('Object Layer 1');
 
     assert('Should have an object layer',
         objectLayer
     );
     assert('Should have 13 objects',
-        objectLayer.length === 13
+        objectLayer.objects.length === 13
     );
 
-    var coin = objectLayer.find((obj) => obj.id === 3);
+    var coin = map.findObject('Object Layer 1', obj => obj.id === 3);
     assert('Should contain object at id 3',
         coin
     );
@@ -1306,9 +1306,9 @@ function testTiledObjectLayerAndImport ()
         })
     );
 
-    var exit = objectLayer.find((obj) => obj.id === 1);
+    var exit = map.findObject('Object Layer 1', obj => obj.id === 1);
     assert('Should contain object at id 1',
-        coin
+        exit
     );
     assert('Should have exit (id = 1) data matching tiled export',
         doesObjectContain(exit, {
@@ -1326,9 +1326,9 @@ function testTiledObjectLayerAndImport ()
         })
     );
 
-    var sun = objectLayer.find((obj) => obj.id === 2);
+    var sun = map.findObject('Object Layer 1', obj => obj.id === 2);
     assert('Should contain object at id 2',
-        coin
+        sun
     );
     assert('Should have exit (id = 2) data matching tiled export',
         doesObjectContain(sun, {
@@ -1345,7 +1345,7 @@ function testTiledObjectLayerAndImport ()
         })
     );
 
-    var ramp = objectLayer.find((obj) => obj.id === 11);
+    var ramp = map.findObject('Object Layer 1', obj => obj.id === 11);
     assert('Should contain object at id 11',
         ramp
     );
@@ -1363,11 +1363,11 @@ function testTiledObjectLayerAndImport ()
     assert('Should have ramp (id = 11) with 7 polyline points',
         ramp.polyline.length === 7
     );
-    assert('Should have ramp (id = 11) with polyline points in array format',
-        ramp.polyline[0].length === 2
+    assert('Should have ramp (id = 11) with polyline points in object format',
+        ramp.polyline[0].x !== undefined && ramp.polyline[0].y !== undefined
     );
 
-    var poly = objectLayer.find((obj) => obj.id === 19);
+    var poly = map.findObject('Object Layer 1', obj => obj.id === 19);
     assert('Should contain object at id 19',
         poly
     );
@@ -1386,10 +1386,10 @@ function testTiledObjectLayerAndImport ()
         poly.polygon.length === 4
     );
     assert('Should have poly (id = 19) with polygon points in array format',
-        poly.polygon[0].length === 2
+        poly.polygon[0].x !== undefined && poly.polygon[0].y !== undefined
     );
 
-    var text = objectLayer.find((obj) => obj.id === 20);
+    var text = map.findObject('Object Layer 1', obj => obj.id === 20);
     assert('Should contain object at id 20',
         text
     );
@@ -1499,8 +1499,8 @@ function testTiledObjectLayerAndImport ()
         map.getLayer('Tile Layer 2').y === 0
     );
     assert('Offset Object Layer should have a circle at (606, 412) via offset',
-        map.objects['Offset Object Layer'][0].x === 606 &&
-        map.objects['Offset Object Layer'][0].y === 412
+        map.getObjectLayer('Offset Object Layer').objects[0].x === 606 &&
+        map.getObjectLayer('Offset Object Layer').objects[0].y === 412
     );
 
     // -- IMAGE LAYER ---

@@ -409,6 +409,34 @@ function testInterestingFaces ()
     assert('Recalculate faces - center tiles (id: 6) should no longer be interesting',
         map.filterTiles(tile => tile.hasInterestingFace).length === 4
     );
+
+
+    // -- INTERESTING FACE RECALCULATION VIA TILE.COLLIDES ---
+
+    var level = [
+        [ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+        [ 9, 10, 11, 12],
+        [13, 14, 15, 16]
+    ]
+    var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16, insertNull: true});
+    var tiles = map.addTilesetImage('mario-tiles');
+    var layer = map.createDynamicLayer(0, tiles);
+
+    map.setCollision([ 2, 5, 6, 7, 10 ]);
+    assert('Index 2 should NOT have an interesting face bottom',
+        !map.getTileAt(1, 0).faceBottom
+    );
+
+    map.getTileAt(1, 1).resetCollision(true);
+    assert('Index 2 should have an interesting face bottom',
+        map.getTileAt(1, 0).faceBottom
+    );
+
+    map.getTileAt(1, 1).setCollision(true, true, true, true, true);
+    assert('Index 2 should NOT have an interesting face bottom',
+        !map.getTileAt(1, 0).faceBottom
+    );
 }
 
 function testCallbacks ()

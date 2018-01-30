@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -21,6 +21,8 @@ function create ()
     var gem = this.add.image(300, 300, 'gem');
 
     //  Store some data about this Gem:
+
+    gem.setDataEnabled();
 
     gem.data.set('name', 'Red Gem Stone');
     gem.data.set('level', 2);

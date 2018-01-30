@@ -21,6 +21,8 @@ function create() {
 
     image = this.add.image(0, 0, 'gem');
 
+    image.setDataEnabled();
+
     image.data.set('name', 'Red GemStone');
     image.data.set('value_armor', true);
     image.data.set('armor_head', 50);

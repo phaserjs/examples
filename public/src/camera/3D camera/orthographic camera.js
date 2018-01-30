@@ -30,7 +30,7 @@ function create ()
     //  the position of the image in 3D space
     position = new Phaser.Math.Vector4();
 
-    camera = this.cameras.addOrthographicCamera(800, 600).setPosition(0, 0, 200);
+    camera = this.cameras3d.addOrthographicCamera(800, 600).setPosition(0, 0, 200);
 
     cursors = this.input.keyboard.createCursorKeys();
 

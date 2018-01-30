@@ -31,7 +31,7 @@ function create ()
 {
     var sky = this.add.image(300, -100, 'sky').setOrigin(0.5, 0).setDepth(-1000);
 
-    camera = this.cameras.add3D(40).setPosition(200, -190, 1500).setPixelScale(384);
+    camera = this.cameras3d.add(40).setPosition(200, -190, 1500).setPixelScale(384);
 
     var width = 20;
     var depth = 60;

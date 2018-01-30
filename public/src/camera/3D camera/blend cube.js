@@ -33,7 +33,7 @@ function create ()
     graphics = this.add.graphics();
 
     //  Setup a camera with 85 degree FOV
-    camera = this.cameras.add3D(85).setZ(500).setPixelScale(128);
+    camera = this.cameras3d.add(85).setZ(500).setPixelScale(128);
 
     var sprites = camera.createRect(6, 64, 'block');
 

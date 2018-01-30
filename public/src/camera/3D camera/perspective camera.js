@@ -25,7 +25,7 @@ function preload ()
 function create ()
 {
     //  Camera at 0x0x200 and looking at 0x0x0
-    camera = this.cameras.add3D(85).setPosition(0, 0, 200);
+    camera = this.cameras3d.add(85).setPosition(0, 0, 200);
 
     //  Create a few images to check the perspective with
     image = camera.create(0, 0, 0, 'block');

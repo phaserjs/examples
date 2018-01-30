@@ -26,7 +26,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(80).setPosition(0, -40, 300).setPixelScale(48);
+    camera = this.cameras3d.add(80).setPosition(0, -40, 300).setPixelScale(48);
 
     road = camera.createRect({ x: 1, y: 1, z: 32 }, 24, 'strip', 0);
 

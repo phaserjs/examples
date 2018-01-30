@@ -31,7 +31,7 @@ function create ()
 {
     graphics = this.add.graphics();
 
-    camera = this.cameras.add3D(85).setZ(350).setPixelScale(16);
+    camera = this.cameras3d.add(85).setZ(350).setPixelScale(16);
 
     var sprites = camera.createMultiple(400, 'ball');
 

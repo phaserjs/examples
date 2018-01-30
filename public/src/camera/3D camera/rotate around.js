@@ -28,7 +28,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(80, 800, 600).setPosition(0, 0, 0);
+    camera = this.cameras3d.add(80, 800, 600).setPosition(0, 0, 0);
 
     //  Center this dot cube on 0x0x0
     for (var z = -3; z < 3; z++)

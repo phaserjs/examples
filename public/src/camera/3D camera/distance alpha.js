@@ -25,7 +25,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(80, 800, 600).setPosition(0, 0, 400);
+    camera = this.cameras3d.add(80, 800, 600).setPosition(0, 0, 400);
 
     sprite = camera.create(0, 0, 0, 'tree');
 

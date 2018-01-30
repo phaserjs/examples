@@ -31,7 +31,7 @@ function create ()
     sky = this.add.image(400, 250, 'bg').setDepth(-5000);
     horizon = this.add.image(400, 300, 'horizon').setDepth(-4000);
 
-    camera = this.cameras.add3D(20, 800, 600).setPosition(1500, -70, 10000);
+    camera = this.cameras3d.add(20, 800, 600).setPosition(1500, -70, 10000);
 
     for (var z = 0; z < 32; z++)
     {

@@ -22,7 +22,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(55).setPosition(0, -50, 200).setPixelScale(32);
+    camera = this.cameras3d.add(55).setPosition(0, -50, 200).setPixelScale(32);
 
     camera.createRect({ x: 8, y: 1, z: 8 }, 32, 'ball');
 

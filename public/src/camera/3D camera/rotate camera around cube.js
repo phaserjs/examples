@@ -29,7 +29,7 @@ function preload ()
 
 function create ()
 {
-    camera = this.cameras.add3D(90).setPosition(0, 0, 500);
+    camera = this.cameras3d.add(90).setPosition(0, 0, 500);
 
     createDotCube(camera, 6, 64, 'block');
 
@@ -38,16 +38,16 @@ function create ()
     var pButton = this.add.image(10, 10, 'positionButton', 0).setOrigin(0).setDepth(1000000).setName('position').setInteractive();
     var rButton = this.add.image(100, 10, 'rotationButton', 1).setOrigin(0).setDepth(1000000).setName('rotation').setInteractive();
 
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
 
-        if (event.gameObject.name === 'position' && !isPosition)
+        if (gameObject.name === 'position' && !isPosition)
         {
             //  Enable position
             pButton.setFrame(0);
             rButton.setFrame(1);
             isPosition = true;
         }
-        else if (event.gameObject.name === 'rotation' && isPosition)
+        else if (gameObject.name === 'rotation' && isPosition)
         {
             //  Enable rotation
             pButton.setFrame(1);

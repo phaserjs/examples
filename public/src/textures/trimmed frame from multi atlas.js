@@ -1,6 +1,8 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
+    width: 800,
+    height: 600,
     scene: {
         preload: preload,
         create: create
@@ -22,6 +24,6 @@ function preload() {
 
 function create() {
 
-    this.add.image(0, 0, 'megaset', 'hello');
+    this.add.image(400, 300, 'megaset', 'hello');
 
 }

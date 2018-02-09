@@ -20,6 +20,7 @@ function preload ()
 
 function create ()
 {
+    //  Include .png until 'Trim filenames' works
     this.add.image(150, 100, 'sprites', 'atari130xe.png');
     this.add.image(200, 300, 'sprites', 'elephant.png');
     this.add.image(500, 200, 'sprites', 'exocet_spaceman.png');

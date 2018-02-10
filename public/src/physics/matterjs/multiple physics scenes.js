@@ -26,7 +26,7 @@ var SceneA = new Phaser.Class({
             ball.setBounce(1);
         }
 
-        this.input.events.once('POINTER_DOWN_EVENT', function (event) {
+        this.input.once('POINTER_DOWN_EVENT', function (event) {
 
             this.scene.start('sceneB');
 

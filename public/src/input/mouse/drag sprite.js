@@ -24,42 +24,41 @@ function create ()
 
     window.scene = this;
 
-    /*
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    
+    this.input.on('dragstart', function () {
 
-        console.log('DRAG_START_EVENT', event.input.dragX, event.input.dragY);
-
-    });
-
-    this.input.events.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.pointer.x - event.input.dragX;
-        event.gameObject.y = event.pointer.y - event.input.dragY;
+        console.log('Drag Start Event');
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject,dragX,dragY) {
 
-        console.log('DRAG_END_EVENT');
-
-    });
-    */
-
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
-
-        console.log('POINTER_OVER_EVENT');
-
-        event.gameObject.setTint(0xff0000);
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
     });
 
-    this.input.events.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('dragend', function () {
 
-        console.log('POINTER_OUT_EVENT');
+        console.log('Drag End Event');
 
-        if (!event.gameObject.input.isDragged)
-        {
-            event.gameObject.clearTint();
+    });
+    
+
+    this.input.on('pointerover', function (pointer,gameObject) {
+
+        console.log('Pointer Over Event');
+
+        Phaser.Actions.SetTint(gameObject,0xff0000);
+
+    });
+
+    this.input.on('pointerout', function (pointer,gameObject) {
+
+        console.log('Pointer Out Event');
+
+        if (!gameObject.isDragged){
+            Phaser.Actions.SetTint(gameObject,0xffffff);
         }
 
     });

@@ -238,12 +238,12 @@ var Player = Phaser.Class({
         this.rotateLeft = false;
         this.rotateRight = false;
 
-        scene.input.keyboard.events.on('KEY_DOWN_LEFT', this.onKeyLeftPressed.bind(this));
-        scene.input.keyboard.events.on('KEY_DOWN_RIGHT', this.onKeyRightPressed.bind(this));
-        scene.input.keyboard.events.on('KEY_DOWN_UP', this.onKeyUpPressed.bind(this));
-        scene.input.keyboard.events.on('KEY_UP_LEFT', this.onKeyLeftReleased.bind(this));
-        scene.input.keyboard.events.on('KEY_UP_RIGHT', this.onKeyRightReleased.bind(this));
-        scene.input.keyboard.events.on('KEY_UP_UP', this.onKeyUpReleased.bind(this));
+        scene.input.keyboard.on('KEY_DOWN_LEFT', this.onKeyLeftPressed.bind(this));
+        scene.input.keyboard.on('KEY_DOWN_RIGHT', this.onKeyRightPressed.bind(this));
+        scene.input.keyboard.on('KEY_DOWN_UP', this.onKeyUpPressed.bind(this));
+        scene.input.keyboard.on('KEY_UP_LEFT', this.onKeyLeftReleased.bind(this));
+        scene.input.keyboard.on('KEY_UP_RIGHT', this.onKeyRightReleased.bind(this));
+        scene.input.keyboard.on('KEY_UP_UP', this.onKeyUpReleased.bind(this));
     },
     update: function () 
     {

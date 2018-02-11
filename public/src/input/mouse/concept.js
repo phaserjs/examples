@@ -36,7 +36,7 @@ function create () {
 
     var _this = this;
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('MOUSE_MOVE_EVENT', function (event) {
 
         x = event.x;
         y = event.y;

@@ -14,7 +14,7 @@ function create() {
 
     var _this = this;
 
-    this.events.on('SHOOT', function (event) {
+    this.on('SHOOT', function (event) {
 
         _this.events.delete('SHOOT');
 

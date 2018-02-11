@@ -19,7 +19,7 @@ function create() {
 
     var _this = this;
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.on('MOUSE_DOWN_EVENT', function (event) {
 
         console.dir(event);
 

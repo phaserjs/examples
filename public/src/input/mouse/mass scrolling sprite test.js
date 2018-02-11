@@ -68,7 +68,7 @@ function create ()
 
     controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('POINTER_OVER_EVENT', function (event) {
 
         highlighted.setPosition(event.gameObject.x, event.gameObject.y);
 

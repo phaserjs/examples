@@ -19,9 +19,9 @@ function create() {
     //  The numbers are the priority IDs. The higher, the earlier they receive the event.
     //  Given the following values the handlers will be called in the order: 2, 3 and then 1.
 
-    this.events.on('shoot', handler1, 0);
-    this.events.on('shoot', handler2, 5);
-    this.events.on('shoot', handler3, 2);
+    this.on('shoot', handler1, 0);
+    this.on('shoot', handler2, 5);
+    this.on('shoot', handler3, 2);
 
     //  We'll use the Scenes own EventDispatch to listen for, and dispatch the events
     //  Dispatch the event

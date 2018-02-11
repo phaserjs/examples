@@ -25,27 +25,27 @@ function create ()
     window.scene = this;
 
     /*
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('DRAG_START_EVENT', function (event) {
 
         console.log('DRAG_START_EVENT', event.input.dragX, event.input.dragY);
 
     });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('DRAG_EVENT', function (event) {
 
         event.gameObject.x = event.pointer.x - event.input.dragX;
         event.gameObject.y = event.pointer.y - event.input.dragY;
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('DRAG_END_EVENT', function (event) {
 
         console.log('DRAG_END_EVENT');
 
     });
     */
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('POINTER_OVER_EVENT', function (event) {
 
         console.log('POINTER_OVER_EVENT');
 
@@ -53,7 +53,7 @@ function create ()
 
     });
 
-    this.input.events.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('POINTER_OUT_EVENT', function (event) {
 
         console.log('POINTER_OUT_EVENT');
 

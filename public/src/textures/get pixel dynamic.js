@@ -25,7 +25,7 @@ function create ()
 
     var _this = this;
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('MOUSE_MOVE_EVENT', function (event) {
 
         var color = _this.textures.getPixel(event.x - 111, event.y - 25, 'wheel');
 

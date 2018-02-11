@@ -76,13 +76,11 @@ function create ()
     selected.clear();
     selected.lineStyle(1, 0x00FFFF, 1.0);
     selected.strokeRect(0, 0, 16, 16);
-    tilemaps[0].forEach(function (tile) { tile.visible = false; });
-    tilemaps[1].forEach(function (tile) { tile.visible = false; });
-    tilemaps[2].forEach(function (tile) { tile.visible = false; });
+    tilemaps.forEach(function (tile) { tile.visible = false; });
     tilemaps[1].alpha = 0.5;
     tilemaps[2].alpha = 0.5;
     selected.visible = 0;
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('MOUSE_MOVE_EVENT', function (event) {
         if (!tileView.visible)
         {
             tx = Math.floor(event.x / tileWidth);
@@ -103,7 +101,7 @@ function create ()
 
         }
     }); 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.on('MOUSE_DOWN_EVENT', function (event) {
         mouseDown = true;
         if (tileView.visible)
         {
@@ -112,10 +110,10 @@ function create ()
         }
 
     });
-    this.input.events.on('MOUSE_UP_EVENT', function (event) {
+    this.input.on('MOUSE_UP_EVENT', function (event) {
         mouseDown = false;
     });
-    this.input.events.on('KEY_DOWN_EVENT', function (event) {
+    this.input.on('KEY_DOWN_EVENT', function (event) {
         if (event.data.code === 'KeyZ')
         {
             selected.visible = true;
@@ -158,7 +156,7 @@ function create ()
             topText.setText('Layer: 3');
         }
     });
-    this.input.events.on('KEY_UP_EVENT', function (event) {
+    this.input.on('KEY_UP_EVENT', function (event) {
 
         if (event.data.code === 'KeyZ')
         {

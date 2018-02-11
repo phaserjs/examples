@@ -137,21 +137,21 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('MOUSE_MOVE_EVENT', function (event) {
 
         mouseX = event.x;
         mouseY = event.y;
 
     }); 
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.on('MOUSE_DOWN_EVENT', function (event) {
 
         mouseDown = true;
         shiftKey = event.data.shiftKey;
 
     });
 
-    this.input.events.on('MOUSE_UP_EVENT', function (event) {
+    this.input.on('MOUSE_UP_EVENT', function (event) {
 
         mouseDown = false;
 

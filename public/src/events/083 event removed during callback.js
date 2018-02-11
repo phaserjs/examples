@@ -16,12 +16,12 @@ function create() {
 
     var playerEvent = new Phaser.Event('shoot');
 
-    this.events.on('shoot', handler1);
-    this.events.once('shoot', handler2);
-    this.events.on('shoot', handler3);
-    this.events.on('shoot', handler4);
-    this.events.on('shoot', handler5);
-    this.events.once('shoot', handler6);
+    this.on('shoot', handler1);
+    this.once('shoot', handler2);
+    this.on('shoot', handler3);
+    this.on('shoot', handler4);
+    this.on('shoot', handler5);
+    this.once('shoot', handler6);
 
     console.log('There are', this.events.total('shoot'), 'shoot event listeners');
 

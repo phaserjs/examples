@@ -30,7 +30,7 @@ function create ()
 
     timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, repeat: 9 });
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.on('MOUSE_DOWN_EVENT', function (event) {
 
         if (timedEvent.paused)
         {

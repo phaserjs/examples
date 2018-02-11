@@ -30,7 +30,7 @@ function create ()
 
     config = Phaser.Input.Gamepad.Configs.SNES_USB;
 
-    this.input.events.on('GAMEPAD_DOWN_EVENT', function (event) {
+    this.input.on('GAMEPAD_DOWN_EVENT', function (event) {
 
         if (!gamepad)
         {

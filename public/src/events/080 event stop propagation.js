@@ -18,8 +18,8 @@ function create() {
     //  The second listener has a higher priority than the first, so will be called first.
 
     //  We'll use the Scenes own EventDispatch to listen for, and dispatch the events
-    this.events.on('shoot', handler1, 5);
-    this.events.on('shoot', handler2, 10);
+    this.on('shoot', handler1, 5);
+    this.on('shoot', handler2, 10);
 
     //  Dispatch the event
     this.events.dispatch(playerEvent);

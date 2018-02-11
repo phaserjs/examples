@@ -22,7 +22,7 @@ var SceneA = new Phaser.Class({
 
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.once('MOUSE_DOWN_EVENT', function (event) {
 
             _this.scene.pause();
             _this.scene.launch('sceneB');
@@ -59,7 +59,7 @@ var SceneB = new Phaser.Class({
 
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.once('MOUSE_DOWN_EVENT', function (event) {
 
             _this.scene.resume('sceneA');
 

@@ -22,7 +22,7 @@ var SceneA = new Phaser.Class({
 
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.once('MOUSE_DOWN_EVENT', function (event) {
 
             _this.scene.swap('sceneB');
 
@@ -33,7 +33,7 @@ var SceneA = new Phaser.Class({
     {
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.once('MOUSE_DOWN_EVENT', function (event) {
 
             _this.scene.swap('sceneB');
 
@@ -77,7 +77,7 @@ var SceneB = new Phaser.Class({
 
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.once('MOUSE_DOWN_EVENT', function (event) {
 
             _this.scene.swap('sceneA');
 
@@ -88,7 +88,7 @@ var SceneB = new Phaser.Class({
     {
         var _this = this;
 
-        this.input.events.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.once('MOUSE_DOWN_EVENT', function (event) {
 
             _this.scene.swap('sceneA');
 

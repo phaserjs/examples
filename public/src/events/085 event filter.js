@@ -26,11 +26,11 @@ function create() {
     var event4 = new Phaser.Event('Spectrum');
     var event5 = new Phaser.Event('Oric');
 
-    this.events.on('Atari', handler1);
-    this.events.on('Amiga', handler2);
-    this.events.on('C64', handler3);
-    this.events.on('Oric', handler4);
-    this.events.on('Spectrum', handler5);
+    this.on('Atari', handler1);
+    this.on('Amiga', handler2);
+    this.on('C64', handler3);
+    this.on('Oric', handler4);
+    this.on('Spectrum', handler5);
 
     this.events.dispatch(event1);
     this.events.dispatch(event2);

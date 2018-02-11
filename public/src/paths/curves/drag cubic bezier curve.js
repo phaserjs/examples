@@ -55,13 +55,13 @@ function create ()
 
     this.input.setDraggable([ point0, point1, point2, point3 ]);
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('DRAG_START_EVENT', function (event) {
 
         event.gameObject.setFrame(1);
 
     });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('DRAG_EVENT', function (event) {
 
         event.gameObject.x = event.dragX;
         event.gameObject.y = event.dragY;
@@ -73,7 +73,7 @@ function create ()
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('DRAG_END_EVENT', function (event) {
 
         if (event.gameObject.data.get('isControl'))
         {

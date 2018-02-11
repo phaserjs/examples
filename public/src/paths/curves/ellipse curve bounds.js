@@ -122,13 +122,13 @@ function create ()
     centerPoint.setData('control', 'center').setData('vector', curve.p0);
     this.input.setDraggable(centerPoint);
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('DRAG_START_EVENT', function (event) {
 
         event.gameObject.setFrame(1);
 
     });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('DRAG_EVENT', function (event) {
 
         var gameObject = event.gameObject;
 
@@ -142,7 +142,7 @@ function create ()
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('DRAG_END_EVENT', function (event) {
 
         event.gameObject.setFrame(0);
 

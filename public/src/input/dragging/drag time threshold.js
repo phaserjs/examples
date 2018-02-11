@@ -23,20 +23,20 @@ function create ()
     //  The pointer has to be held down for 500ms before it's considered a drag
     this.input.dragTimeThreshold = 500;
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('DRAG_START_EVENT', function (event) {
 
         event.gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('DRAG_EVENT', function (event) {
 
         event.gameObject.x = event.dragX;
         event.gameObject.y = event.dragY;
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('DRAG_END_EVENT', function (event) {
 
         event.gameObject.clearTint();
 

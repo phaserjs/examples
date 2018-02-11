@@ -290,22 +290,22 @@ var Flood = new Phaser.Class({
 
     startInputEvents: function ()
     {
-        this.input.events.on('GAME_OBJECT_OVER_EVENT', this.onIconOver, 0, this);
-        this.input.events.on('GAME_OBJECT_OUT_EVENT', this.onIconOut, 0, this);
-        this.input.events.on('GAME_OBJECT_DOWN_EVENT', this.onIconDown, 0, this);
+        this.input.on('GAME_OBJECT_OVER_EVENT', this.onIconOver, 0, this);
+        this.input.on('GAME_OBJECT_OUT_EVENT', this.onIconOut, 0, this);
+        this.input.on('GAME_OBJECT_DOWN_EVENT', this.onIconDown, 0, this);
 
         var _this = this;
 
         //  Cheat mode :)
 
-        this.input.keyboard.events.on('KEY_DOWN_M', function (event) {
+        this.input.keyboard.on('KEY_DOWN_M', function (event) {
 
             _this.moves++;
             _this.text2.setText(Phaser.Utils.String.Pad(_this.moves, 2, '0', 1));
 
         });
 
-        this.input.keyboard.events.on('KEY_DOWN_X', function (event) {
+        this.input.keyboard.on('KEY_DOWN_X', function (event) {
 
             _this.moves--;
             _this.text2.setText(Phaser.Utils.String.Pad(_this.moves, 2, '0', 1));
@@ -578,7 +578,7 @@ var Flood = new Phaser.Class({
             delay: i
         });
 
-        this.input.events.once('POINTER_DOWN_EVENT', this.resetGame, 0, this);
+        this.input.once('POINTER_DOWN_EVENT', this.resetGame, 0, this);
     },
 
     resetGame: function ()

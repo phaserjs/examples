@@ -21,7 +21,7 @@ function create ()
 {
     this.add.image(0, 0, 'sky').setOrigin(0);
 
-    this.input.events.on('GAMEPAD_DOWN_EVENT', function (event) {
+    this.input.on('GAMEPAD_DOWN_EVENT', function (event) {
 
         if (!gamepad)
         {

@@ -50,7 +50,7 @@ function create ()
     var downButton = this.add.image(70, 530, 'down').setInteractive();
     var upButton = this.add.image(730, 530, 'up').setInteractive();
 
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    this.input.on('GAME_OBJECT_DOWN_EVENT', function (event) {
 
         if (event.gameObject === downButton && tween.timeScale > 0)
         {

@@ -28,14 +28,14 @@ function create ()
 
     this.input.setHitAreaFromTexture(sprite1);
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('POINTER_OVER_EVENT', function (event) {
 
         event.gameObject.alpha = 0.5;
         // event.gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('POINTER_OUT_EVENT', function (event) {
 
         event.gameObject.alpha = 1;
         // event.gameObject.clearTint();

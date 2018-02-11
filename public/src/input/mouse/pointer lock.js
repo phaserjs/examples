@@ -51,7 +51,7 @@ function create ()
 
     // Exit pointer lock when Q is pressed. Browsers will also exit pointer lock when escape is
     // pressed.
-    this.input.keyboard.events.on('KEY_DOWN_Q', function (event) {
+    this.input.keyboard.on('KEY_DOWN_Q', function (event) {
         if (this.input.mouse.locked)
         {
             game.input.mouse.releasePointerLock();
@@ -61,7 +61,7 @@ function create ()
     // Optionally, you can subscribe to the game's pointer lock change event to know when the player
     // enters/exits pointer lock. This is useful if you need to update the UI, change to a custom
     // mouse cursor, etc.
-    game.input.events.on('POINTER_LOCK_CHANGE_EVENT', function (event) {
+    game.input.on('POINTER_LOCK_CHANGE_EVENT', function (event) {
         updateLockText(event.isPointerLocked, sprite.x, sprite.y);
     }, 0, this);
 

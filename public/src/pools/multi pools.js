@@ -81,7 +81,7 @@ function create ()
 
     bullets = this.pool.createObjectPool(Bullet, 50);
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.on('MOUSE_DOWN_EVENT', function (event) {
 
         isDown = true;
         mouseX = event.x;
@@ -89,14 +89,14 @@ function create ()
 
     });
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('MOUSE_MOVE_EVENT', function (event) {
 
         mouseX = event.x;
         mouseY = event.y;
 
     });
 
-    this.input.events.on('MOUSE_UP_EVENT', function (event) {
+    this.input.on('MOUSE_UP_EVENT', function (event) {
 
         isDown = false;
 

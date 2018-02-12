@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -18,26 +18,33 @@ var game = new Phaser.Game(config);
 
 function create ()
 {
-    // text = this.add.text(32, 32);
-
-    // for (var i = 0; i < 32; i++)
-    // {
-        timerEvents.push(this.time.addEvent({ delay: 2000, loop: true }));
-    // }
+    //  4 x 3
+    for (var i = 0; i < 12; i++)
+    {
+        timerEvents.push(this.time.addEvent({ delay: 200 + (i * 400), loop: true }));
+    }
 
     graphics = this.add.graphics({ x: 0, y: 0 });
 }
 
 function update ()
 {
-    // var output = [];
-
     graphics.clear();
+
+    var x = clockSize;
+    var y = clockSize;
 
     for (var i = 0; i < timerEvents.length; i++)
     {
-        x = 
         drawClock(x, y, timerEvents[i].getProgress());
+
+        x += (clockSize * 2);
+
+        if (x >= 800)
+        {
+            x = clockSize;
+            y += (clockSize * 2);
+        }
     }
 }
 
@@ -47,12 +54,12 @@ function drawClock (x, y, progress)
 
     var angle = (360 * progress) - 90;
 
-    graphics.lineStyle(6, 0xffffff, 1);
-    graphics.strokeCircle(x, y, clockSize);
+    graphics.lineStyle(4, 0xffffff, 1);
+    graphics.strokeCircle(x, y, clockSize * 0.95);
 
     graphics.lineStyle(2, 0xffff00, 1);
 
-    var dest = Phaser.Math.RotateAroundDistance({ x: x, y: y }, x, y, Phaser.Math.DegToRad(angle), clockSize);
+    var dest = Phaser.Math.RotateAroundDistance({ x: x, y: y }, x, y, Phaser.Math.DegToRad(angle), clockSize * 0.95);
 
     graphics.beginPath();
 

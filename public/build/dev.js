@@ -37060,8 +37060,6 @@ var Tween = new Class({
 
         this.state = TWEEN_CONST.PAUSED;
 
-        this.emit('pause', this);
-
         return this;
     },
 
@@ -37082,7 +37080,7 @@ var Tween = new Class({
         else if (this.state === TWEEN_CONST.PENDING_REMOVE || this.state === TWEEN_CONST.REMOVED)
         {
             this.init();
-            this.parent.manager.makeActive(this);
+            this.parent.makeActive(this);
             resetFromTimeline = true;
         }
 
@@ -37190,8 +37188,6 @@ var Tween = new Class({
 
             this.state = this._pausedState;
         }
-
-        this.emit('resume', this);
 
         return this;
     },
@@ -48158,8 +48154,8 @@ var ModelViewProjection = {
     projPersp: function (fovy, aspectRatio, near, far)
     {
         var projectionMatrix = this.projectionMatrix;
-        let fov = 1.0 / Math.tan(fovy / 2.0);
-        let nearFar = 1.0 / (near - far);
+        var fov = 1.0 / Math.tan(fovy / 2.0);
+        var nearFar = 1.0 / (near - far);
         
         projectionMatrix[0] = fov / aspectRatio;
         projectionMatrix[1] = 0.0;

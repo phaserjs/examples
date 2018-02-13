@@ -2,12 +2,11 @@
 
 ### Requirements
 
-We need [Node.js](https://nodejs.org) to install and run scripts.
-
+You need [Node.js](https://nodejs.org) to install and run scripts.
 
 ### Install and run
 
-To show the example browser run next commands in your terminal:
+To show the example browser run these commands in your terminal:
 
 | Command | Description |
 |---------|-------------|

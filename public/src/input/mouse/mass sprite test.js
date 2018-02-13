@@ -46,9 +46,9 @@ function create ()
         }
     });
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        highlighted.setPosition(event.gameObject.x, event.gameObject.y);
+        highlighted.setPosition(gameObject.x, gameObject.y);
 
     });
 }

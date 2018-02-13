@@ -1512,7 +1512,7 @@ module.exports = FileTypesManager;
 var Class = __webpack_require__(0);
 var Contains = __webpack_require__(35);
 var GetPoint = __webpack_require__(113);
-var GetPoints = __webpack_require__(196);
+var GetPoints = __webpack_require__(197);
 var Random = __webpack_require__(114);
 
 /**
@@ -2821,7 +2821,7 @@ module.exports = MATH_CONST;
 module.exports = {
 
     Alpha: __webpack_require__(407),
-    Animation: __webpack_require__(195),
+    Animation: __webpack_require__(196),
     BlendMode: __webpack_require__(408),
     ComputedSize: __webpack_require__(409),
     Depth: __webpack_require__(410),
@@ -2836,7 +2836,7 @@ module.exports = {
     Tint: __webpack_require__(418),
     ToJSON: __webpack_require__(419),
     Transform: __webpack_require__(420),
-    TransformMatrix: __webpack_require__(198),
+    TransformMatrix: __webpack_require__(199),
     Visible: __webpack_require__(421)
 
 };
@@ -3803,8 +3803,8 @@ module.exports = FILE_CONST;
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(18);
 var GetFastValue = __webpack_require__(1);
-var GetURL = __webpack_require__(156);
-var MergeXHRSettings = __webpack_require__(157);
+var GetURL = __webpack_require__(157);
+var MergeXHRSettings = __webpack_require__(158);
 var XHRLoader = __webpack_require__(328);
 var XHRSettings = __webpack_require__(101);
 
@@ -4259,7 +4259,7 @@ var Vector = __webpack_require__(39);
 var Sleeping = __webpack_require__(84);
 var Common = __webpack_require__(16);
 var Bounds = __webpack_require__(40);
-var Axes = __webpack_require__(159);
+var Axes = __webpack_require__(160);
 
 (function() {
 
@@ -5510,7 +5510,7 @@ module.exports = {
  */
 
 var CONST = __webpack_require__(24);
-var Smoothing = __webpack_require__(129);
+var Smoothing = __webpack_require__(130);
 
 // The pool into which the canvas elements are placed.
 var pool = [];
@@ -6008,7 +6008,7 @@ module.exports = CONST;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var IsPlainObject = __webpack_require__(178);
+var IsPlainObject = __webpack_require__(179);
 
 // @param {boolean} deep - Perform a deep copy?
 // @param {object} target - The target object to copy to.
@@ -7840,7 +7840,7 @@ module.exports = DegToRad;
  */
 
 var Class = __webpack_require__(0);
-var GetColor = __webpack_require__(125);
+var GetColor = __webpack_require__(126);
 var GetColor32 = __webpack_require__(213);
 
 /**
@@ -12867,7 +12867,7 @@ var Vertices = __webpack_require__(38);
 var Vector = __webpack_require__(39);
 var Sleeping = __webpack_require__(84);
 var Bounds = __webpack_require__(40);
-var Axes = __webpack_require__(159);
+var Axes = __webpack_require__(160);
 var Common = __webpack_require__(16);
 
 (function() {
@@ -13361,8 +13361,8 @@ module.exports = {
 
 var Class = __webpack_require__(0);
 var Contains = __webpack_require__(34);
-var GetPoint = __webpack_require__(192);
-var GetPoints = __webpack_require__(193);
+var GetPoint = __webpack_require__(193);
+var GetPoints = __webpack_require__(194);
 var Random = __webpack_require__(112);
 
 /**
@@ -13779,7 +13779,7 @@ module.exports = Length;
  */
 
 var Class = __webpack_require__(0);
-var FromPoints = __webpack_require__(130);
+var FromPoints = __webpack_require__(131);
 var Rectangle = __webpack_require__(8);
 var Vector2 = __webpack_require__(6);
 
@@ -14572,7 +14572,7 @@ module.exports = Contains;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Actions = __webpack_require__(179);
+var Actions = __webpack_require__(180);
 var Class = __webpack_require__(0);
 var GetFastValue = __webpack_require__(1);
 var GetValue = __webpack_require__(4);
@@ -17064,7 +17064,7 @@ var Class = __webpack_require__(0);
 var GameObject = __webpack_require__(2);
 var Sprite = __webpack_require__(36);
 var Vector2 = __webpack_require__(6);
-var Vector4 = __webpack_require__(128);
+var Vector4 = __webpack_require__(129);
 
 /**
  * @classdesc
@@ -19855,7 +19855,7 @@ module.exports = Pair;
 
 module.exports = {
 
-    CalculateFacesAt: __webpack_require__(167),
+    CalculateFacesAt: __webpack_require__(168),
     CalculateFacesWithin: __webpack_require__(41),
     Copy: __webpack_require__(923),
     CreateFromTiles: __webpack_require__(924),
@@ -19873,7 +19873,7 @@ module.exports = {
     HasTileAt: __webpack_require__(371),
     HasTileAtWorldXY: __webpack_require__(934),
     IsInLayerBounds: __webpack_require__(85),
-    PutTileAt: __webpack_require__(168),
+    PutTileAt: __webpack_require__(169),
     PutTileAtWorldXY: __webpack_require__(935),
     PutTilesAt: __webpack_require__(936),
     Randomize: __webpack_require__(937),
@@ -20510,17 +20510,17 @@ module.exports = GetNewValue;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Defaults = __webpack_require__(174);
+var Defaults = __webpack_require__(175);
 var GetAdvancedValue = __webpack_require__(11);
 var GetBoolean = __webpack_require__(80);
 var GetEaseFunction = __webpack_require__(79);
 var GetNewValue = __webpack_require__(109);
 var GetProps = __webpack_require__(385);
-var GetTargets = __webpack_require__(172);
+var GetTargets = __webpack_require__(173);
 var GetValue = __webpack_require__(4);
-var GetValueOp = __webpack_require__(173);
-var Tween = __webpack_require__(175);
-var TweenData = __webpack_require__(176);
+var GetValueOp = __webpack_require__(174);
+var Tween = __webpack_require__(176);
+var TweenData = __webpack_require__(177);
 
 /**
  * [description]
@@ -21568,6 +21568,1358 @@ module.exports = Map;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Class = __webpack_require__(0);
+var DegToRad = __webpack_require__(42);
+var Rectangle = __webpack_require__(8);
+var TransformMatrix = __webpack_require__(199);
+var ValueToColor = __webpack_require__(125);
+var Vector2 = __webpack_require__(6);
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class Camera
+ * @memberOf Phaser.Cameras.Scene2D
+ * @constructor
+ * @since 3.0.0
+ *
+ * @param {number} x - The x position of the Camera, relative to the top-left of the game canvas.
+ * @param {number} y - The y position of the Camera, relative to the top-left of the game canvas.
+ * @param {number} width - The width of the Camera, in pixels.
+ * @param {number} height - The height of the Camera, in pixels.
+ */
+var Camera = new Class({
+
+    initialize:
+
+    function Camera (x, y, width, height)
+    {
+        /**
+         * A reference to the Scene this camera belongs to.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#scene
+         * @type {Phaser.Scene}
+         * @since 3.0.0
+         */
+        this.scene;
+
+        /**
+         * The name of the Camera. This is left empty for your own use.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#name
+         * @type {string}
+         * @default ''
+         * @since 3.0.0
+         */
+        this.name = '';
+
+        /**
+         * The x position of the Camera, relative to the top-left of the game canvas.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#x
+         * @type {number}
+         * @since 3.0.0
+         */
+        this.x = x;
+
+        /**
+         * The y position of the Camera, relative to the top-left of the game canvas.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#y
+         * @type {number}
+         * @since 3.0.0
+         */
+        this.y = y;
+
+        /**
+         * The width of the Camera, in pixels.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#width
+         * @type {number}
+         * @since 3.0.0
+         */
+        this.width = width;
+
+        /**
+         * The height of the Camera, in pixels.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#height
+         * @type {number}
+         * @since 3.0.0
+         */
+        this.height = height;
+
+        /**
+         * Should this camera round its pixel values to integers?
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#roundPixels
+         * @type {boolean}
+         * @default false
+         * @since 3.0.0
+         */
+        this.roundPixels = false;
+
+        /**
+         * Is this Camera using a bounds to restrict scrolling movement?
+         * Set this property along with the bounds via `Camera.setBounds`.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#useBounds
+         * @type {boolean}
+         * @default false
+         * @since 3.0.0
+         */
+        this.useBounds = false;
+
+        /**
+         * The bounds the camera is restrained to during scrolling.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_bounds
+         * @type {Phaser.Geom.Rectangle}
+         * @private
+         * @since 3.0.0
+         */
+        this._bounds = new Rectangle();
+
+        /**
+         * Does this Camera allow the Game Objects it renders to receive input events?
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#inputEnabled
+         * @type {boolean}
+         * @default true
+         * @since 3.0.0
+         */
+        this.inputEnabled = true;
+
+        /**
+         * The horizontal scroll position of this camera.
+         * Optionally restricted via the Camera bounds.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#scrollX
+         * @type {number}
+         * @default 0
+         * @since 3.0.0
+         */
+        this.scrollX = 0;
+
+        /**
+         * The vertical scroll position of this camera.
+         * Optionally restricted via the Camera bounds.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#scrollY
+         * @type {number}
+         * @default 0
+         * @since 3.0.0
+         */
+        this.scrollY = 0;
+
+        /**
+         * The Camera zoom value. Change this value to zoom in, or out of, a Scene.
+         * Set to 1 to return to the default zoom level.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#zoom
+         * @type {float}
+         * @default 1
+         * @since 3.0.0
+         */
+        this.zoom = 1;
+
+        /**
+         * The rotation of the Camera. This influences the rendering of all Game Objects visible by this camera.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#rotation
+         * @type {number}
+         * @default 0
+         * @since 3.0.0
+         */
+        this.rotation = 0;
+
+        /**
+         * A local transform matrix used for internal calculations.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#matrix
+         * @type {TransformMatrix}
+         * @since 3.0.0
+         */
+        this.matrix = new TransformMatrix(1, 0, 0, 1, 0, 0);
+
+        /**
+         * Does this Camera have a transparent background?
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#transparent
+         * @type {boolean}
+         * @default true
+         * @since 3.0.0
+         */
+        this.transparent = true;
+
+        /**
+         * TODO
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#clearBeforeRender
+         * @type {boolean}
+         * @default true
+         * @since 3.0.0
+         */
+        this.clearBeforeRender = true;
+
+        /**
+         * The background color of this Camera. Only used if `transparent` is `false`.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#backgroundColor
+         * @type {Phaser.Display.Color}
+         * @since 3.0.0
+         */
+        this.backgroundColor = ValueToColor('rgba(0,0,0,0)');
+
+        /**
+         * Should the camera cull Game Objects before rendering?
+         * In some special cases it may be beneficial to disable this.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#disableCull
+         * @type {boolean}
+         * @default false
+         * @since 3.0.0
+         */
+        this.disableCull = false;
+
+        /**
+         * A temporary array of culled objects.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#culledObjects
+         * @type {array}
+         * @default []
+         * @since 3.0.0
+         */
+        this.culledObjects = [];
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_shakeDuration
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._shakeDuration = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_shakeIntensity
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._shakeIntensity = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_shakeOffsetX
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._shakeOffsetX = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_shakeOffsetY
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._shakeOffsetY = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_fadeDuration
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._fadeDuration = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_fadeRed
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._fadeRed = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_fadeGreen
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._fadeGreen = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_fadeBlue
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._fadeBlue = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_fadeAlpha
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._fadeAlpha = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_flashDuration
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._flashDuration = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_flashRed
+         * @type {number}
+         * @private
+         * @default 1
+         * @since 3.0.0
+         */
+        this._flashRed = 1;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_flashGreen
+         * @type {number}
+         * @private
+         * @default 1
+         * @since 3.0.0
+         */
+        this._flashGreen = 1;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_flashBlue
+         * @type {number}
+         * @private
+         * @default 1
+         * @since 3.0.0
+         */
+        this._flashBlue = 1;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_flashAlpha
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._flashAlpha = 0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_follow
+         * @type {?any}
+         * @private
+         * @default null
+         * @since 3.0.0
+         */
+        this._follow = null;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_id
+         * @type {integer}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._id = 0;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#centerToBounds
+     * @since 3.0.0
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    centerToBounds: function ()
+    {
+        this.scrollX = (this._bounds.width * 0.5) - (this.width * 0.5);
+        this.scrollY = (this._bounds.height * 0.5) - (this.height * 0.5);
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#centerToSize
+     * @since 3.0.0
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    centerToSize: function ()
+    {
+        this.scrollX = this.width * 0.5;
+        this.scrollY = this.height * 0.5;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#cull
+     * @since 3.0.0
+     *
+     * @param {array} renderableObjects - [description]
+     *
+     * @return {array} [description]
+     */
+    cull: function (renderableObjects)
+    {
+        if (this.disableCull)
+        {
+            return renderableObjects;
+        }
+
+        var cameraMatrix = this.matrix.matrix;
+
+        var mva = cameraMatrix[0];
+        var mvb = cameraMatrix[1];
+        var mvc = cameraMatrix[2];
+        var mvd = cameraMatrix[3];
+
+        /* First Invert Matrix */
+        var determinant = (mva * mvd) - (mvb * mvc);
+
+        if (!determinant)
+        {
+            return renderableObjects;
+        }
+
+        var mve = cameraMatrix[4];
+        var mvf = cameraMatrix[5];
+
+        var scrollX = this.scrollX;
+        var scrollY = this.scrollY;
+        var cameraW = this.width;
+        var cameraH = this.height;
+        var culledObjects = this.culledObjects;
+        var length = renderableObjects.length;
+
+        determinant = 1 / determinant;
+
+        culledObjects.length = 0;
+
+        for (var index = 0; index < length; ++index)
+        {
+            var object = renderableObjects[index];
+
+            if (!object.hasOwnProperty('width'))
+            {
+                culledObjects.push(object);
+                continue;
+            }
+
+            var objectW = object.width;
+            var objectH = object.height;
+            var objectX = (object.x - (scrollX * object.scrollFactorX)) - (objectW * object.originX);
+            var objectY = (object.y - (scrollY * object.scrollFactorY)) - (objectH * object.originY);
+            var tx = (objectX * mva + objectY * mvc + mve);
+            var ty = (objectX * mvb + objectY * mvd + mvf);
+            var tw = ((objectX + objectW) * mva + (objectY + objectH) * mvc + mve);
+            var th = ((objectX + objectW) * mvb + (objectY + objectH) * mvd + mvf);
+            var cullW = cameraW + objectW;
+            var cullH = cameraH + objectH;
+
+            if (tx > -objectW || ty > -objectH || tx < cullW || ty < cullH ||
+                tw > -objectW || th > -objectH || tw < cullW || th < cullH)
+            {
+                culledObjects.push(object);
+            }
+        }
+
+        return culledObjects;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#cullHitTest
+     * @since 3.0.0
+     *
+     * @param {array} interactiveObjects - [description]
+     *
+     * @return {array} [description]
+     */
+    cullHitTest: function (interactiveObjects)
+    {
+        if (this.disableCull)
+        {
+            return interactiveObjects;
+        }
+
+        var cameraMatrix = this.matrix.matrix;
+
+        var mva = cameraMatrix[0];
+        var mvb = cameraMatrix[1];
+        var mvc = cameraMatrix[2];
+        var mvd = cameraMatrix[3];
+
+        /* First Invert Matrix */
+        var determinant = (mva * mvd) - (mvb * mvc);
+
+        if (!determinant)
+        {
+            return interactiveObjects;
+        }
+
+        var mve = cameraMatrix[4];
+        var mvf = cameraMatrix[5];
+
+        var scrollX = this.scrollX;
+        var scrollY = this.scrollY;
+        var cameraW = this.width;
+        var cameraH = this.height;
+        var length = interactiveObjects.length;
+
+        determinant = 1 / determinant;
+
+        var culledObjects = [];
+
+        for (var index = 0; index < length; ++index)
+        {
+            var object = interactiveObjects[index].gameObject;
+
+            if (!object.hasOwnProperty('width'))
+            {
+                culledObjects.push(interactiveObjects[index]);
+                continue;
+            }
+
+            var objectW = object.width;
+            var objectH = object.height;
+            var objectX = (object.x - (scrollX * object.scrollFactorX)) - (objectW * object.originX);
+            var objectY = (object.y - (scrollY * object.scrollFactorY)) - (objectH * object.originY);
+            var tx = (objectX * mva + objectY * mvc + mve);
+            var ty = (objectX * mvb + objectY * mvd + mvf);
+            var tw = ((objectX + objectW) * mva + (objectY + objectH) * mvc + mve);
+            var th = ((objectX + objectW) * mvb + (objectY + objectH) * mvd + mvf);
+            var cullW = cameraW + objectW;
+            var cullH = cameraH + objectH;
+
+            if (tx > -objectW || ty > -objectH || tx < cullW || ty < cullH ||
+                tw > -objectW || th > -objectH || tw < cullW || th < cullH)
+            {
+                culledObjects.push(interactiveObjects[index]);
+            }
+        }
+
+        return culledObjects;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#cullTilemap
+     * @since 3.0.0
+     *
+     * @param {array} tilemap - [description]
+     *
+     * @return {array} [description]
+     */
+    cullTilemap: function (tilemap)
+    {
+        var cameraMatrix = this.matrix.matrix;
+
+        var mva = cameraMatrix[0];
+        var mvb = cameraMatrix[1];
+        var mvc = cameraMatrix[2];
+        var mvd = cameraMatrix[3];
+
+        /* First Invert Matrix */
+        var determinant = (mva * mvd) - (mvb * mvc);
+
+        if (!determinant)
+        {
+            return tiles;
+        }
+
+        var mve = cameraMatrix[4];
+        var mvf = cameraMatrix[5];
+        var tiles = tilemap.tiles;
+        var scrollX = this.scrollX;
+        var scrollY = this.scrollY;
+        var cameraW = this.width;
+        var cameraH = this.height;
+        var culledObjects = this.culledObjects;
+        var length = tiles.length;
+        var tileW = tilemap.tileWidth;
+        var tileH = tilemap.tileHeight;
+        var cullW = cameraW + tileW;
+        var cullH = cameraH + tileH;
+        var scrollFactorX = tilemap.scrollFactorX;
+        var scrollFactorY = tilemap.scrollFactorY;
+
+        determinant = 1 / determinant;
+
+        culledObjects.length = 0;
+
+        for (var index = 0; index < length; ++index)
+        {
+            var tile = tiles[index];
+            var tileX = (tile.x - (scrollX * scrollFactorX));
+            var tileY = (tile.y - (scrollY * scrollFactorY));
+            var tx = (tileX * mva + tileY * mvc + mve);
+            var ty = (tileX * mvb + tileY * mvd + mvf);
+            var tw = ((tileX + tileW) * mva + (tileY + tileH) * mvc + mve);
+            var th = ((tileX + tileW) * mvb + (tileY + tileH) * mvd + mvf);
+
+            if (tx > -tileW && ty > -tileH && tw < cullW && th < cullH)
+            {
+                culledObjects.push(tile);
+            }
+        }
+
+        return culledObjects;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#fade
+     * @since 3.0.0
+     *
+     * @param {number} duration - [description]
+     * @param {number} red - [description]
+     * @param {number} green - [description]
+     * @param {number} blue - [description]
+     * @param {number} force - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    fade: function (duration, red, green, blue, force)
+    {
+        if (red === undefined) { red = 0; }
+        if (green === undefined) { green = 0; }
+        if (blue === undefined) { blue = 0; }
+
+        if (!force && this._fadeAlpha > 0)
+        {
+            return this;
+        }
+
+        this._fadeRed = red;
+        this._fadeGreen = green;
+        this._fadeBlue = blue;
+
+        if (duration <= 0)
+        {
+            duration = Number.MIN_VALUE;
+        }
+
+        this._fadeDuration = duration;
+        this._fadeAlpha = Number.MIN_VALUE;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#flash
+     * @since 3.0.0
+     *
+     * @param {number} duration - [description]
+     * @param {number} red - [description]
+     * @param {number} green - [description]
+     * @param {number} blue - [description]
+     * @param {number} force - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    flash: function (duration, red, green, blue, force)
+    {
+        if (!force && this._flashAlpha > 0.0)
+        {
+            return this;
+        }
+
+        if (red === undefined) { red = 1.0; }
+        if (green === undefined) { green = 1.0; }
+        if (blue === undefined) { blue = 1.0; }
+
+        this._flashRed = red;
+        this._flashGreen = green;
+        this._flashBlue = blue;
+
+        if (duration <= 0)
+        {
+            duration = Number.MIN_VALUE;
+        }
+
+        this._flashDuration = duration;
+        this._flashAlpha = 1.0;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#getWorldPoint
+     * @since 3.0.0
+     *
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     * @param {object|Phaser.Math.Vector2} output - [description]
+     *
+     * @return {Phaser.Math.Vector2} [description]
+     */
+    getWorldPoint: function (x, y, output)
+    {
+        if (output === undefined) { output = new Vector2(); }
+
+        var cameraMatrix = this.matrix.matrix;
+
+        var mva = cameraMatrix[0];
+        var mvb = cameraMatrix[1];
+        var mvc = cameraMatrix[2];
+        var mvd = cameraMatrix[3];
+        var mve = cameraMatrix[4];
+        var mvf = cameraMatrix[5];
+
+        /* First Invert Matrix */
+        var determinant = (mva * mvd) - (mvb * mvc);
+
+        if (!determinant)
+        {
+            output.x = x;
+            output.y = y;
+
+            return output;
+        }
+
+        determinant = 1 / determinant;
+
+        var ima = mvd * determinant;
+        var imb = -mvb * determinant;
+        var imc = -mvc * determinant;
+        var imd = mva * determinant;
+        var ime = (mvc * mvf - mvd * mve) * determinant;
+        var imf = (mvb * mve - mva * mvf) * determinant;
+
+        var c = Math.cos(this.rotation);
+        var s = Math.sin(this.rotation);
+
+        var zoom = this.zoom;
+
+        var scrollX = this.scrollX;
+        var scrollY = this.scrollY;
+
+        var sx = x + ((scrollX * c - scrollY * s) * zoom);
+        var sy = y + ((scrollX * s + scrollY * c) * zoom);
+
+        /* Apply transform to point */
+        output.x = (sx * ima + sy * imc + ime);
+        output.y = (sx * imb + sy * imd + imf);
+
+        return output;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#ignore
+     * @since 3.0.0
+     *
+     * @param {Phaser.GameObjects.GameObject|Phaser.GameObjects.GameObject[]} gameObjectOrArray - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    ignore: function (gameObjectOrArray)
+    {
+        if (gameObjectOrArray instanceof Array)
+        {
+            for (var index = 0; index < gameObjectOrArray.length; ++index)
+            {
+                gameObjectOrArray[index].cameraFilter |= this._id;
+            }
+        }
+        else
+        {
+            gameObjectOrArray.cameraFilter |= this._id;
+        }
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#preRender
+     * @since 3.0.0
+     *
+     * @param {number} baseScale - [description]
+     * @param {number} resolution - [description]
+     *
+     */
+    preRender: function (baseScale, resolution)
+    {
+        var width = this.width;
+        var height = this.height;
+        var zoom = this.zoom * baseScale;
+        var matrix = this.matrix;
+        var originX = width / 2;
+        var originY = height / 2;
+        var follow = this._follow;
+
+        if (follow !== null)
+        {
+            originX = follow.x;
+            originY = follow.y;
+
+            this.scrollX = originX - width * 0.5;
+            this.scrollY = originY - height * 0.5;
+        }
+
+        if (this.useBounds)
+        {
+            var bounds = this._bounds;
+
+            var bw = Math.max(0, bounds.right - width);
+            var bh = Math.max(0, bounds.bottom - height);
+
+            if (this.scrollX < bounds.x)
+            {
+                this.scrollX = bounds.x;
+            }
+            else if (this.scrollX > bw)
+            {
+                this.scrollX = bw;
+            }
+
+            if (this.scrollY < bounds.y)
+            {
+                this.scrollY = bounds.y;
+            }
+            else if (this.scrollY > bh)
+            {
+                this.scrollY = bh;
+            }
+        }
+
+        if (this.roundPixels)
+        {
+            this.scrollX = Math.round(this.scrollX);
+            this.scrollY = Math.round(this.scrollY);
+        }
+
+        matrix.loadIdentity();
+        matrix.scale(resolution, resolution);
+        matrix.translate(this.x + originX, this.y + originY);
+        matrix.rotate(this.rotation);
+        matrix.scale(zoom, zoom);
+        matrix.translate(-originX, -originY);
+        matrix.translate(this._shakeOffsetX, this._shakeOffsetY);
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#removeBounds
+     * @since 3.0.0
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    removeBounds: function ()
+    {
+        this.useBounds = false;
+
+        this._bounds.setEmpty();
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setAngle
+     * @since 3.0.0
+     *
+     * @param {number} value - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setAngle: function (value)
+    {
+        if (value === undefined) { value = 0; }
+
+        this.rotation = DegToRad(value);
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setBackgroundColor
+     * @since 3.0.0
+     *
+     * @param {integer} color - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setBackgroundColor: function (color)
+    {
+        if (color === undefined) { color = 'rgba(0,0,0,0)'; }
+
+        this.backgroundColor = ValueToColor(color);
+
+        this.transparent = (this.backgroundColor.alpha === 0);
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setBounds
+     * @since 3.0.0
+     *
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     * @param {number} width - [description]
+     * @param {number} height - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setBounds: function (x, y, width, height)
+    {
+        this._bounds.setTo(x, y, width, height);
+
+        this.useBounds = true;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setName
+     * @since 3.0.0
+     *
+     * @param {string} value - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setName: function (value)
+    {
+        if (value === undefined) { value = ''; }
+
+        this.name = value;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setPosition
+     * @since 3.0.0
+     *
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setPosition: function (x, y)
+    {
+        if (y === undefined) { y = x; }
+
+        this.x = x;
+        this.y = y;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setRotation
+     * @since 3.0.0
+     *
+     * @param {number} value - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setRotation: function (value)
+    {
+        if (value === undefined) { value = 0; }
+
+        this.rotation = value;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setRoundPixels
+     * @since 3.0.0
+     *
+     * @param {boolean} value - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setRoundPixels: function (value)
+    {
+        this.roundPixels = value;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setScene
+     * @since 3.0.0
+     *
+     * @param {Phaser.Scene} scene - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setScene: function (scene)
+    {
+        this.scene = scene;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setScroll
+     * @since 3.0.0
+     *
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setScroll: function (x, y)
+    {
+        if (y === undefined) { y = x; }
+
+        this.scrollX = x;
+        this.scrollY = y;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setSize
+     * @since 3.0.0
+     *
+     * @param {number} width - [description]
+     * @param {number} height - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setSize: function (width, height)
+    {
+        if (height === undefined) { height = width; }
+
+        this.width = width;
+        this.height = height;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setViewport
+     * @since 3.0.0
+     *
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     * @param {number} width - [description]
+     * @param {number} height - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setViewport: function (x, y, width, height)
+    {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setZoom
+     * @since 3.0.0
+     *
+     * @param {float} value - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setZoom: function (value)
+    {
+        if (value === undefined) { value = 1; }
+
+        this.zoom = value;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#shake
+     * @since 3.0.0
+     *
+     * @param {number} duration - [description]
+     * @param {number} intensity - [description]
+     * @param {number} force - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    shake: function (duration, intensity, force)
+    {
+        if (intensity === undefined) { intensity = 0.05; }
+
+        if (!force && (this._shakeOffsetX !== 0 || this._shakeOffsetY !== 0))
+        {
+            return this;
+        }
+
+        this._shakeDuration = duration;
+        this._shakeIntensity = intensity;
+        this._shakeOffsetX = 0;
+        this._shakeOffsetY = 0;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#startFollow
+     * @since 3.0.0
+     *
+     * @param {Phaser.GameObjects.GameObject|object} gameObjectOrPoint - [description]
+     * @param {boolean} roundPx - [description]
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    startFollow: function (gameObjectOrPoint, roundPx)
+    {
+        this._follow = gameObjectOrPoint;
+
+        if (roundPx !== undefined)
+        {
+            this.roundPixels = roundPx;
+        }
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#stopFollow
+     * @since 3.0.0
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    stopFollow: function ()
+    {
+        this._follow = null;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#toJSON
+     * @since 3.0.0
+     *
+     * @return {object} [description]
+     */
+    toJSON: function ()
+    {
+        var output = {
+            name: this.name,
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height,
+            zoom: this.zoom,
+            rotation: this.rotation,
+            roundPixels: this.roundPixels,
+            scrollX: this.scrollX,
+            scrollY: this.scrollY,
+            backgroundColor: this.backgroundColor.rgba
+        };
+
+        if (this.useBounds)
+        {
+            output['bounds'] = {
+                x: this._bounds.x,
+                y: this._bounds.y,
+                width: this._bounds.width,
+                height: this._bounds.height
+            };
+        }
+
+        return output;
+    },
+
+    /**
+     * Resets any active FX, such as a fade, flash or shake. Useful to call after a fade in order to
+     * remove the fade.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#resetFX
+     * @since 3.0.0
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    resetFX: function ()
+    {
+        this._flashAlpha = 0;
+        this._fadeAlpha = 0;
+        this._shakeOffsetX = 0.0;
+        this._shakeOffsetY = 0.0;
+        this._shakeDuration = 0;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#update
+     * @since 3.0.0
+     *
+     * @param {[type]} timestep - [description]
+     * @param {[type]} delta - [description]
+     */
+    update: function (timestep, delta)
+    {
+        if (this._flashAlpha > 0.0)
+        {
+            this._flashAlpha -= delta / this._flashDuration;
+
+            if (this._flashAlpha < 0.0)
+            {
+                this._flashAlpha = 0.0;
+            }
+        }
+
+        if (this._fadeAlpha > 0.0 && this._fadeAlpha < 1.0)
+        {
+            this._fadeAlpha += delta / this._fadeDuration;
+
+            if (this._fadeAlpha >= 1.0)
+            {
+                this._fadeAlpha = 1.0;
+            }
+        }
+
+        if (this._shakeDuration > 0.0)
+        {
+            var intensity = this._shakeIntensity;
+
+            this._shakeDuration -= delta;
+
+            if (this._shakeDuration <= 0.0)
+            {
+                this._shakeOffsetX = 0.0;
+                this._shakeOffsetY = 0.0;
+            }
+            else
+            {
+                this._shakeOffsetX = (Math.random() * intensity * this.width * 2 - intensity * this.width) * this.zoom;
+                this._shakeOffsetY = (Math.random() * intensity * this.height * 2 - intensity * this.height) * this.zoom;
+            }
+        }
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#destroy
+     * @since 3.0.0
+     */
+    destroy: function ()
+    {
+        this._bounds = undefined;
+        this.matrix = undefined;
+        this.culledObjects = [];
+        this.scene = undefined;
+    }
+
+});
+
+module.exports = Camera;
+
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
 var HexStringToColor = __webpack_require__(212);
 var IntegerToColor = __webpack_require__(214);
 var ObjectToColor = __webpack_require__(216);
@@ -21615,7 +22967,7 @@ module.exports = ValueToColor;
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports) {
 
 /**
@@ -21645,7 +22997,7 @@ module.exports = GetColor;
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21655,7 +23007,7 @@ module.exports = GetColor;
  */
 
 var Class = __webpack_require__(0);
-var Matrix4 = __webpack_require__(127);
+var Matrix4 = __webpack_require__(128);
 var RandomXYZ = __webpack_require__(218);
 var RandomXYZW = __webpack_require__(219);
 var RotateVec3 = __webpack_require__(220);
@@ -21663,7 +23015,7 @@ var Set = __webpack_require__(59);
 var Sprite3D = __webpack_require__(92);
 var Vector2 = __webpack_require__(6);
 var Vector3 = __webpack_require__(58);
-var Vector4 = __webpack_require__(128);
+var Vector4 = __webpack_require__(129);
 
 //  Local cache vars
 var tmpVec3 = new Vector3();
@@ -22713,7 +24065,7 @@ module.exports = Camera;
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -24154,7 +25506,7 @@ module.exports = Matrix4;
 
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -24682,7 +26034,7 @@ module.exports = Vector4;
 
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports) {
 
 /**
@@ -24814,7 +26166,7 @@ module.exports = Smoothing();
 
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -24897,7 +26249,7 @@ module.exports = FromPoints;
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports) {
 
 /**
@@ -24934,7 +26286,7 @@ module.exports = CatmullRom;
 
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports) {
 
 /**
@@ -24996,7 +26348,7 @@ module.exports = AddToDOM;
 
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -25197,7 +26549,7 @@ module.exports = init();
 
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports) {
 
 /**
@@ -25227,7 +26579,7 @@ module.exports = IsSizePowerOfTwo;
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports) {
 
 /**
@@ -25266,7 +26618,7 @@ module.exports = {
 
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports) {
 
 /**
@@ -25841,7 +27193,7 @@ module.exports = {
 
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -26393,7 +27745,7 @@ module.exports = Systems;
 
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -26978,7 +28330,7 @@ module.exports = Frame;
 
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -27893,7 +29245,7 @@ module.exports = List;
 
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28162,7 +29514,7 @@ module.exports = BitmapText;
 
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28176,7 +29528,7 @@ var Bob = __webpack_require__(578);
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var DisplayList = __webpack_require__(278);
-var Frame = __webpack_require__(138);
+var Frame = __webpack_require__(139);
 var GameObject = __webpack_require__(2);
 
 /**
@@ -28420,7 +29772,7 @@ module.exports = Blitter;
 
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28801,7 +30153,7 @@ module.exports = DynamicBitmapText;
 
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28810,8 +30162,9 @@ module.exports = DynamicBitmapText;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Camera = __webpack_require__(124);
 var Class = __webpack_require__(0);
-var Commands = __webpack_require__(135);
+var Commands = __webpack_require__(136);
 var Components = __webpack_require__(14);
 var Ellipse = __webpack_require__(282);
 var GameObject = __webpack_require__(2);
@@ -29920,11 +31273,13 @@ var Graphics = new Class({
 
 });
 
+Graphics.TargetCamera = new Camera(0, 0, 0, 0);
+
 module.exports = Graphics;
 
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -30288,7 +31643,7 @@ module.exports = Ellipse;
 
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -30328,7 +31683,7 @@ module.exports = CircumferencePoint;
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -30341,7 +31696,7 @@ var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var GameObject = __webpack_require__(2);
 var GravityWell = __webpack_require__(596);
-var List = __webpack_require__(139);
+var List = __webpack_require__(140);
 var ParticleEmitter = __webpack_require__(597);
 var Render = __webpack_require__(636);
 
@@ -30751,7 +32106,7 @@ module.exports = ParticleEmitterManager;
 
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports) {
 
 /**
@@ -30786,7 +32141,7 @@ module.exports = GetRandomElement;
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -30795,7 +32150,7 @@ module.exports = GetRandomElement;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var AddToDOM = __webpack_require__(132);
+var AddToDOM = __webpack_require__(133);
 var CanvasPool = __webpack_require__(22);
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
@@ -31887,7 +33242,7 @@ module.exports = Text;
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -32138,7 +33493,7 @@ module.exports = TileSprite;
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -32737,7 +34092,7 @@ module.exports = Quad;
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports) {
 
 /**
@@ -32823,7 +34178,7 @@ module.exports = ContainsArray;
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports) {
 
 /**
@@ -32869,7 +34224,7 @@ module.exports = RotateAroundXY;
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports) {
 
 /**
@@ -32918,7 +34273,7 @@ module.exports = Contains;
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports) {
 
 /**
@@ -32946,7 +34301,7 @@ module.exports = GetAspectRatio;
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports) {
 
 /**
@@ -32998,7 +34353,7 @@ module.exports = RotateAroundXY;
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports) {
 
 /**
@@ -33039,7 +34394,7 @@ module.exports = GetURL;
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -33087,7 +34442,7 @@ module.exports = MergeXHRSettings;
 
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -33117,7 +34472,7 @@ module.exports = {
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -33187,7 +34542,7 @@ var Common = __webpack_require__(16);
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -33217,7 +34572,7 @@ module.exports = {
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -33229,7 +34584,7 @@ module.exports = {
 var Bodies = __webpack_require__(37);
 var Body = __webpack_require__(20);
 var Class = __webpack_require__(0);
-var Components = __webpack_require__(160);
+var Components = __webpack_require__(161);
 var GetFastValue = __webpack_require__(1);
 var HasValue = __webpack_require__(62);
 var Vertices = __webpack_require__(38);
@@ -33544,7 +34899,7 @@ module.exports = MatterTileBody;
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -33559,7 +34914,7 @@ var Detector = {};
 
 module.exports = Detector;
 
-var SAT = __webpack_require__(163);
+var SAT = __webpack_require__(164);
 var Pair = __webpack_require__(103);
 var Bounds = __webpack_require__(40);
 
@@ -33657,7 +35012,7 @@ var Bounds = __webpack_require__(40);
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -33933,7 +35288,7 @@ var Vector = __webpack_require__(39);
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -33946,15 +35301,15 @@ var Matter = __webpack_require__(364);
 
 Matter.Body = __webpack_require__(20);
 Matter.Composite = __webpack_require__(49);
-Matter.World = __webpack_require__(166);
+Matter.World = __webpack_require__(167);
 
-Matter.Detector = __webpack_require__(162);
+Matter.Detector = __webpack_require__(163);
 Matter.Grid = __webpack_require__(365);
 Matter.Pairs = __webpack_require__(366);
 Matter.Pair = __webpack_require__(103);
 Matter.Query = __webpack_require__(910);
 Matter.Resolver = __webpack_require__(367);
-Matter.SAT = __webpack_require__(163);
+Matter.SAT = __webpack_require__(164);
 
 Matter.Constraint = __webpack_require__(70);
 
@@ -33962,12 +35317,12 @@ Matter.Common = __webpack_require__(16);
 Matter.Engine = __webpack_require__(368);
 Matter.Events = __webpack_require__(69);
 Matter.Sleeping = __webpack_require__(84);
-Matter.Plugin = __webpack_require__(165);
+Matter.Plugin = __webpack_require__(166);
 
 Matter.Bodies = __webpack_require__(37);
 Matter.Composites = __webpack_require__(361);
 
-Matter.Axes = __webpack_require__(159);
+Matter.Axes = __webpack_require__(160);
 Matter.Bounds = __webpack_require__(40);
 Matter.Svg = __webpack_require__(912);
 Matter.Vector = __webpack_require__(39);
@@ -33986,7 +35341,7 @@ module.exports = Matter;
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -34336,7 +35691,7 @@ var Common = __webpack_require__(16);
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -34472,7 +35827,7 @@ var Common = __webpack_require__(16);
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -34547,7 +35902,7 @@ module.exports = CalculateFacesAt;
 
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -34558,7 +35913,7 @@ module.exports = CalculateFacesAt;
 
 var Tile = __webpack_require__(51);
 var IsInLayerBounds = __webpack_require__(85);
-var CalculateFacesAt = __webpack_require__(167);
+var CalculateFacesAt = __webpack_require__(168);
 var SetTileCollision = __webpack_require__(50);
 
 /**
@@ -34626,7 +35981,7 @@ module.exports = PutTileAt;
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports) {
 
 /**
@@ -34664,7 +36019,7 @@ module.exports = SetLayerCollisionIndex;
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -34756,7 +36111,7 @@ module.exports = Parse2DArray;
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -34842,7 +36197,7 @@ module.exports = ParseToTilemap;
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -34889,7 +36244,7 @@ module.exports = GetTargets;
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports) {
 
 /**
@@ -35062,7 +36417,7 @@ module.exports = GetValueOp;
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports) {
 
 /**
@@ -35104,7 +36459,7 @@ module.exports = TWEEN_DEFAULTS;
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -36424,7 +37779,7 @@ module.exports = Tween;
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports) {
 
 /**
@@ -36538,7 +37893,7 @@ module.exports = TweenData;
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports) {
 
 var g;
@@ -36565,7 +37920,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports) {
 
 /**
@@ -36621,7 +37976,7 @@ module.exports = IsPlainObject;
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -36686,7 +38041,7 @@ module.exports = {
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -36695,19 +38050,19 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var ALIGN_CONST = __webpack_require__(181);
+var ALIGN_CONST = __webpack_require__(182);
 
 var AlignInMap = [];
 
-AlignInMap[ALIGN_CONST.BOTTOM_CENTER] = __webpack_require__(182);
-AlignInMap[ALIGN_CONST.BOTTOM_LEFT] = __webpack_require__(183);
-AlignInMap[ALIGN_CONST.BOTTOM_RIGHT] = __webpack_require__(184);
-AlignInMap[ALIGN_CONST.CENTER] = __webpack_require__(185);
-AlignInMap[ALIGN_CONST.LEFT_CENTER] = __webpack_require__(187);
-AlignInMap[ALIGN_CONST.RIGHT_CENTER] = __webpack_require__(188);
-AlignInMap[ALIGN_CONST.TOP_CENTER] = __webpack_require__(189);
-AlignInMap[ALIGN_CONST.TOP_LEFT] = __webpack_require__(190);
-AlignInMap[ALIGN_CONST.TOP_RIGHT] = __webpack_require__(191);
+AlignInMap[ALIGN_CONST.BOTTOM_CENTER] = __webpack_require__(183);
+AlignInMap[ALIGN_CONST.BOTTOM_LEFT] = __webpack_require__(184);
+AlignInMap[ALIGN_CONST.BOTTOM_RIGHT] = __webpack_require__(185);
+AlignInMap[ALIGN_CONST.CENTER] = __webpack_require__(186);
+AlignInMap[ALIGN_CONST.LEFT_CENTER] = __webpack_require__(188);
+AlignInMap[ALIGN_CONST.RIGHT_CENTER] = __webpack_require__(189);
+AlignInMap[ALIGN_CONST.TOP_CENTER] = __webpack_require__(190);
+AlignInMap[ALIGN_CONST.TOP_LEFT] = __webpack_require__(191);
+AlignInMap[ALIGN_CONST.TOP_RIGHT] = __webpack_require__(192);
 
 /**
  * Takes given Game Object and aligns it so that it is positioned relative to the other.
@@ -36733,7 +38088,7 @@ module.exports = QuickSet;
 
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports) {
 
 /**
@@ -36867,7 +38222,7 @@ module.exports = ALIGN_CONST;
 
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -36909,7 +38264,7 @@ module.exports = BottomCenter;
 
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -36951,7 +38306,7 @@ module.exports = BottomLeft;
 
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -36993,7 +38348,7 @@ module.exports = BottomRight;
 
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37002,7 +38357,7 @@ module.exports = BottomRight;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var CenterOn = __webpack_require__(186);
+var CenterOn = __webpack_require__(187);
 var GetCenterX = __webpack_require__(53);
 var GetCenterY = __webpack_require__(56);
 
@@ -37033,7 +38388,7 @@ module.exports = Center;
 
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37068,7 +38423,7 @@ module.exports = CenterOn;
 
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37110,7 +38465,7 @@ module.exports = LeftCenter;
 
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37152,7 +38507,7 @@ module.exports = RightCenter;
 
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37194,7 +38549,7 @@ module.exports = TopCenter;
 
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37236,7 +38591,7 @@ module.exports = TopLeft;
 
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37278,7 +38633,7 @@ module.exports = TopRight;
 
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37319,7 +38674,7 @@ module.exports = GetPoint;
 
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -37328,7 +38683,7 @@ module.exports = GetPoint;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Circumference = __webpack_require__(194);
+var Circumference = __webpack_require__(195);
 var CircumferencePoint = __webpack_require__(111);
 var FromPercent = __webpack_require__(73);
 var MATH_CONST = __webpack_require__(13);
@@ -37371,7 +38726,7 @@ module.exports = GetPoints;
 
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports) {
 
 /**
@@ -37399,7 +38754,7 @@ module.exports = Circumference;
 
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -38219,7 +39574,7 @@ module.exports = Animation;
 
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -38271,7 +39626,7 @@ module.exports = GetPoints;
 
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports) {
 
 /**
@@ -38311,7 +39666,7 @@ module.exports = RotateAround;
 
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -38704,7 +40059,7 @@ module.exports = TransformMatrix;
 
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -38821,7 +40176,7 @@ module.exports = MarchingAnts;
 
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports) {
 
 /**
@@ -38861,7 +40216,7 @@ module.exports = RotateLeft;
 
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports) {
 
 /**
@@ -38901,7 +40256,7 @@ module.exports = RotateRight;
 
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports) {
 
 /**
@@ -38974,7 +40329,7 @@ module.exports = BresenhamPoints;
 
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports) {
 
 /**
@@ -39006,7 +40361,7 @@ module.exports = SmootherStep;
 
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports) {
 
 /**
@@ -39038,7 +40393,7 @@ module.exports = SmoothStep;
 
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -39048,7 +40403,7 @@ module.exports = SmoothStep;
  */
 
 var Class = __webpack_require__(0);
-var Frame = __webpack_require__(206);
+var Frame = __webpack_require__(207);
 var GetValue = __webpack_require__(4);
 
 /**
@@ -39940,7 +41295,7 @@ module.exports = Animation;
 
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -40126,7 +41481,7 @@ module.exports = AnimationFrame;
 
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -40135,12 +41490,12 @@ module.exports = AnimationFrame;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Animation = __webpack_require__(205);
+var Animation = __webpack_require__(206);
 var Class = __webpack_require__(0);
 var CustomMap = __webpack_require__(123);
 var EventEmitter = __webpack_require__(12);
 var GetValue = __webpack_require__(4);
-var Pad = __webpack_require__(208);
+var Pad = __webpack_require__(209);
 
 /**
  * @classdesc
@@ -40723,7 +42078,7 @@ module.exports = AnimationManager;
 
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports) {
 
 /**
@@ -40799,7 +42154,7 @@ module.exports = Pad;
 
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -40976,7 +42331,7 @@ module.exports = BaseCache;
 
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -40985,7 +42340,7 @@ module.exports = BaseCache;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var BaseCache = __webpack_require__(209);
+var BaseCache = __webpack_require__(210);
 var Class = __webpack_require__(0);
 
 /**
@@ -41197,1358 +42552,6 @@ var CacheManager = new Class({
 });
 
 module.exports = CacheManager;
-
-
-/***/ }),
-/* 211 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Class = __webpack_require__(0);
-var DegToRad = __webpack_require__(42);
-var Rectangle = __webpack_require__(8);
-var TransformMatrix = __webpack_require__(198);
-var ValueToColor = __webpack_require__(124);
-var Vector2 = __webpack_require__(6);
-
-/**
- * @classdesc
- * [description]
- *
- * @class Camera
- * @memberOf Phaser.Cameras.Scene2D
- * @constructor
- * @since 3.0.0
- *
- * @param {number} x - The x position of the Camera, relative to the top-left of the game canvas.
- * @param {number} y - The y position of the Camera, relative to the top-left of the game canvas.
- * @param {number} width - The width of the Camera, in pixels.
- * @param {number} height - The height of the Camera, in pixels.
- */
-var Camera = new Class({
-
-    initialize:
-
-    function Camera (x, y, width, height)
-    {
-        /**
-         * A reference to the Scene this camera belongs to.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#scene
-         * @type {Phaser.Scene}
-         * @since 3.0.0
-         */
-        this.scene;
-
-        /**
-         * The name of the Camera. This is left empty for your own use.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#name
-         * @type {string}
-         * @default ''
-         * @since 3.0.0
-         */
-        this.name = '';
-
-        /**
-         * The x position of the Camera, relative to the top-left of the game canvas.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#x
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.x = x;
-
-        /**
-         * The y position of the Camera, relative to the top-left of the game canvas.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#y
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.y = y;
-
-        /**
-         * The width of the Camera, in pixels.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#width
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.width = width;
-
-        /**
-         * The height of the Camera, in pixels.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#height
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.height = height;
-
-        /**
-         * Should this camera round its pixel values to integers?
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#roundPixels
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
-        this.roundPixels = false;
-
-        /**
-         * Is this Camera using a bounds to restrict scrolling movement?
-         * Set this property along with the bounds via `Camera.setBounds`.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#useBounds
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
-        this.useBounds = false;
-
-        /**
-         * The bounds the camera is restrained to during scrolling.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_bounds
-         * @type {Phaser.Geom.Rectangle}
-         * @private
-         * @since 3.0.0
-         */
-        this._bounds = new Rectangle();
-
-        /**
-         * Does this Camera allow the Game Objects it renders to receive input events?
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#inputEnabled
-         * @type {boolean}
-         * @default true
-         * @since 3.0.0
-         */
-        this.inputEnabled = true;
-
-        /**
-         * The horizontal scroll position of this camera.
-         * Optionally restricted via the Camera bounds.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#scrollX
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
-        this.scrollX = 0;
-
-        /**
-         * The vertical scroll position of this camera.
-         * Optionally restricted via the Camera bounds.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#scrollY
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
-        this.scrollY = 0;
-
-        /**
-         * The Camera zoom value. Change this value to zoom in, or out of, a Scene.
-         * Set to 1 to return to the default zoom level.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#zoom
-         * @type {float}
-         * @default 1
-         * @since 3.0.0
-         */
-        this.zoom = 1;
-
-        /**
-         * The rotation of the Camera. This influences the rendering of all Game Objects visible by this camera.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#rotation
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
-        this.rotation = 0;
-
-        /**
-         * A local transform matrix used for internal calculations.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#matrix
-         * @type {TransformMatrix}
-         * @since 3.0.0
-         */
-        this.matrix = new TransformMatrix(1, 0, 0, 1, 0, 0);
-
-        /**
-         * Does this Camera have a transparent background?
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#transparent
-         * @type {boolean}
-         * @default true
-         * @since 3.0.0
-         */
-        this.transparent = true;
-
-        /**
-         * TODO
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#clearBeforeRender
-         * @type {boolean}
-         * @default true
-         * @since 3.0.0
-         */
-        this.clearBeforeRender = true;
-
-        /**
-         * The background color of this Camera. Only used if `transparent` is `false`.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#backgroundColor
-         * @type {Phaser.Display.Color}
-         * @since 3.0.0
-         */
-        this.backgroundColor = ValueToColor('rgba(0,0,0,0)');
-
-        /**
-         * Should the camera cull Game Objects before rendering?
-         * In some special cases it may be beneficial to disable this.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#disableCull
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
-        this.disableCull = false;
-
-        /**
-         * A temporary array of culled objects.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#culledObjects
-         * @type {array}
-         * @default []
-         * @since 3.0.0
-         */
-        this.culledObjects = [];
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeDuration
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._shakeDuration = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeIntensity
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._shakeIntensity = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeOffsetX
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._shakeOffsetX = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeOffsetY
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._shakeOffsetY = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeDuration
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeDuration = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeRed
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeRed = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeGreen
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeGreen = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeBlue
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeBlue = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeAlpha
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeAlpha = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashDuration
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._flashDuration = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashRed
-         * @type {number}
-         * @private
-         * @default 1
-         * @since 3.0.0
-         */
-        this._flashRed = 1;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashGreen
-         * @type {number}
-         * @private
-         * @default 1
-         * @since 3.0.0
-         */
-        this._flashGreen = 1;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashBlue
-         * @type {number}
-         * @private
-         * @default 1
-         * @since 3.0.0
-         */
-        this._flashBlue = 1;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashAlpha
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._flashAlpha = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_follow
-         * @type {?any}
-         * @private
-         * @default null
-         * @since 3.0.0
-         */
-        this._follow = null;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_id
-         * @type {integer}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._id = 0;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#centerToBounds
-     * @since 3.0.0
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    centerToBounds: function ()
-    {
-        this.scrollX = (this._bounds.width * 0.5) - (this.width * 0.5);
-        this.scrollY = (this._bounds.height * 0.5) - (this.height * 0.5);
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#centerToSize
-     * @since 3.0.0
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    centerToSize: function ()
-    {
-        this.scrollX = this.width * 0.5;
-        this.scrollY = this.height * 0.5;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#cull
-     * @since 3.0.0
-     *
-     * @param {array} renderableObjects - [description]
-     *
-     * @return {array} [description]
-     */
-    cull: function (renderableObjects)
-    {
-        if (this.disableCull)
-        {
-            return renderableObjects;
-        }
-
-        var cameraMatrix = this.matrix.matrix;
-
-        var mva = cameraMatrix[0];
-        var mvb = cameraMatrix[1];
-        var mvc = cameraMatrix[2];
-        var mvd = cameraMatrix[3];
-
-        /* First Invert Matrix */
-        var determinant = (mva * mvd) - (mvb * mvc);
-
-        if (!determinant)
-        {
-            return renderableObjects;
-        }
-
-        var mve = cameraMatrix[4];
-        var mvf = cameraMatrix[5];
-
-        var scrollX = this.scrollX;
-        var scrollY = this.scrollY;
-        var cameraW = this.width;
-        var cameraH = this.height;
-        var culledObjects = this.culledObjects;
-        var length = renderableObjects.length;
-
-        determinant = 1 / determinant;
-
-        culledObjects.length = 0;
-
-        for (var index = 0; index < length; ++index)
-        {
-            var object = renderableObjects[index];
-
-            if (!object.hasOwnProperty('width'))
-            {
-                culledObjects.push(object);
-                continue;
-            }
-
-            var objectW = object.width;
-            var objectH = object.height;
-            var objectX = (object.x - (scrollX * object.scrollFactorX)) - (objectW * object.originX);
-            var objectY = (object.y - (scrollY * object.scrollFactorY)) - (objectH * object.originY);
-            var tx = (objectX * mva + objectY * mvc + mve);
-            var ty = (objectX * mvb + objectY * mvd + mvf);
-            var tw = ((objectX + objectW) * mva + (objectY + objectH) * mvc + mve);
-            var th = ((objectX + objectW) * mvb + (objectY + objectH) * mvd + mvf);
-            var cullW = cameraW + objectW;
-            var cullH = cameraH + objectH;
-
-            if (tx > -objectW || ty > -objectH || tx < cullW || ty < cullH ||
-                tw > -objectW || th > -objectH || tw < cullW || th < cullH)
-            {
-                culledObjects.push(object);
-            }
-        }
-
-        return culledObjects;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#cullHitTest
-     * @since 3.0.0
-     *
-     * @param {array} interactiveObjects - [description]
-     *
-     * @return {array} [description]
-     */
-    cullHitTest: function (interactiveObjects)
-    {
-        if (this.disableCull)
-        {
-            return interactiveObjects;
-        }
-
-        var cameraMatrix = this.matrix.matrix;
-
-        var mva = cameraMatrix[0];
-        var mvb = cameraMatrix[1];
-        var mvc = cameraMatrix[2];
-        var mvd = cameraMatrix[3];
-
-        /* First Invert Matrix */
-        var determinant = (mva * mvd) - (mvb * mvc);
-
-        if (!determinant)
-        {
-            return interactiveObjects;
-        }
-
-        var mve = cameraMatrix[4];
-        var mvf = cameraMatrix[5];
-
-        var scrollX = this.scrollX;
-        var scrollY = this.scrollY;
-        var cameraW = this.width;
-        var cameraH = this.height;
-        var length = interactiveObjects.length;
-
-        determinant = 1 / determinant;
-
-        var culledObjects = [];
-
-        for (var index = 0; index < length; ++index)
-        {
-            var object = interactiveObjects[index].gameObject;
-
-            if (!object.hasOwnProperty('width'))
-            {
-                culledObjects.push(interactiveObjects[index]);
-                continue;
-            }
-
-            var objectW = object.width;
-            var objectH = object.height;
-            var objectX = (object.x - (scrollX * object.scrollFactorX)) - (objectW * object.originX);
-            var objectY = (object.y - (scrollY * object.scrollFactorY)) - (objectH * object.originY);
-            var tx = (objectX * mva + objectY * mvc + mve);
-            var ty = (objectX * mvb + objectY * mvd + mvf);
-            var tw = ((objectX + objectW) * mva + (objectY + objectH) * mvc + mve);
-            var th = ((objectX + objectW) * mvb + (objectY + objectH) * mvd + mvf);
-            var cullW = cameraW + objectW;
-            var cullH = cameraH + objectH;
-
-            if (tx > -objectW || ty > -objectH || tx < cullW || ty < cullH ||
-                tw > -objectW || th > -objectH || tw < cullW || th < cullH)
-            {
-                culledObjects.push(interactiveObjects[index]);
-            }
-        }
-
-        return culledObjects;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#cullTilemap
-     * @since 3.0.0
-     *
-     * @param {array} tilemap - [description]
-     *
-     * @return {array} [description]
-     */
-    cullTilemap: function (tilemap)
-    {
-        var cameraMatrix = this.matrix.matrix;
-
-        var mva = cameraMatrix[0];
-        var mvb = cameraMatrix[1];
-        var mvc = cameraMatrix[2];
-        var mvd = cameraMatrix[3];
-
-        /* First Invert Matrix */
-        var determinant = (mva * mvd) - (mvb * mvc);
-
-        if (!determinant)
-        {
-            return tiles;
-        }
-
-        var mve = cameraMatrix[4];
-        var mvf = cameraMatrix[5];
-        var tiles = tilemap.tiles;
-        var scrollX = this.scrollX;
-        var scrollY = this.scrollY;
-        var cameraW = this.width;
-        var cameraH = this.height;
-        var culledObjects = this.culledObjects;
-        var length = tiles.length;
-        var tileW = tilemap.tileWidth;
-        var tileH = tilemap.tileHeight;
-        var cullW = cameraW + tileW;
-        var cullH = cameraH + tileH;
-        var scrollFactorX = tilemap.scrollFactorX;
-        var scrollFactorY = tilemap.scrollFactorY;
-
-        determinant = 1 / determinant;
-
-        culledObjects.length = 0;
-
-        for (var index = 0; index < length; ++index)
-        {
-            var tile = tiles[index];
-            var tileX = (tile.x - (scrollX * scrollFactorX));
-            var tileY = (tile.y - (scrollY * scrollFactorY));
-            var tx = (tileX * mva + tileY * mvc + mve);
-            var ty = (tileX * mvb + tileY * mvd + mvf);
-            var tw = ((tileX + tileW) * mva + (tileY + tileH) * mvc + mve);
-            var th = ((tileX + tileW) * mvb + (tileY + tileH) * mvd + mvf);
-
-            if (tx > -tileW && ty > -tileH && tw < cullW && th < cullH)
-            {
-                culledObjects.push(tile);
-            }
-        }
-
-        return culledObjects;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#fade
-     * @since 3.0.0
-     *
-     * @param {number} duration - [description]
-     * @param {number} red - [description]
-     * @param {number} green - [description]
-     * @param {number} blue - [description]
-     * @param {number} force - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    fade: function (duration, red, green, blue, force)
-    {
-        if (red === undefined) { red = 0; }
-        if (green === undefined) { green = 0; }
-        if (blue === undefined) { blue = 0; }
-
-        if (!force && this._fadeAlpha > 0)
-        {
-            return this;
-        }
-
-        this._fadeRed = red;
-        this._fadeGreen = green;
-        this._fadeBlue = blue;
-
-        if (duration <= 0)
-        {
-            duration = Number.MIN_VALUE;
-        }
-
-        this._fadeDuration = duration;
-        this._fadeAlpha = Number.MIN_VALUE;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#flash
-     * @since 3.0.0
-     *
-     * @param {number} duration - [description]
-     * @param {number} red - [description]
-     * @param {number} green - [description]
-     * @param {number} blue - [description]
-     * @param {number} force - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    flash: function (duration, red, green, blue, force)
-    {
-        if (!force && this._flashAlpha > 0.0)
-        {
-            return this;
-        }
-
-        if (red === undefined) { red = 1.0; }
-        if (green === undefined) { green = 1.0; }
-        if (blue === undefined) { blue = 1.0; }
-
-        this._flashRed = red;
-        this._flashGreen = green;
-        this._flashBlue = blue;
-
-        if (duration <= 0)
-        {
-            duration = Number.MIN_VALUE;
-        }
-
-        this._flashDuration = duration;
-        this._flashAlpha = 1.0;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#getWorldPoint
-     * @since 3.0.0
-     *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {object|Phaser.Math.Vector2} output - [description]
-     *
-     * @return {Phaser.Math.Vector2} [description]
-     */
-    getWorldPoint: function (x, y, output)
-    {
-        if (output === undefined) { output = new Vector2(); }
-
-        var cameraMatrix = this.matrix.matrix;
-
-        var mva = cameraMatrix[0];
-        var mvb = cameraMatrix[1];
-        var mvc = cameraMatrix[2];
-        var mvd = cameraMatrix[3];
-        var mve = cameraMatrix[4];
-        var mvf = cameraMatrix[5];
-
-        /* First Invert Matrix */
-        var determinant = (mva * mvd) - (mvb * mvc);
-
-        if (!determinant)
-        {
-            output.x = x;
-            output.y = y;
-
-            return output;
-        }
-
-        determinant = 1 / determinant;
-
-        var ima = mvd * determinant;
-        var imb = -mvb * determinant;
-        var imc = -mvc * determinant;
-        var imd = mva * determinant;
-        var ime = (mvc * mvf - mvd * mve) * determinant;
-        var imf = (mvb * mve - mva * mvf) * determinant;
-
-        var c = Math.cos(this.rotation);
-        var s = Math.sin(this.rotation);
-
-        var zoom = this.zoom;
-
-        var scrollX = this.scrollX;
-        var scrollY = this.scrollY;
-
-        var sx = x + ((scrollX * c - scrollY * s) * zoom);
-        var sy = y + ((scrollX * s + scrollY * c) * zoom);
-
-        /* Apply transform to point */
-        output.x = (sx * ima + sy * imc + ime);
-        output.y = (sx * imb + sy * imd + imf);
-
-        return output;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#ignore
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.GameObject|Phaser.GameObjects.GameObject[]} gameObjectOrArray - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    ignore: function (gameObjectOrArray)
-    {
-        if (gameObjectOrArray instanceof Array)
-        {
-            for (var index = 0; index < gameObjectOrArray.length; ++index)
-            {
-                gameObjectOrArray[index].cameraFilter |= this._id;
-            }
-        }
-        else
-        {
-            gameObjectOrArray.cameraFilter |= this._id;
-        }
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#preRender
-     * @since 3.0.0
-     *
-     * @param {number} baseScale - [description]
-     * @param {number} resolution - [description]
-     *
-     */
-    preRender: function (baseScale, resolution)
-    {
-        var width = this.width;
-        var height = this.height;
-        var zoom = this.zoom * baseScale;
-        var matrix = this.matrix;
-        var originX = width / 2;
-        var originY = height / 2;
-        var follow = this._follow;
-
-        if (follow !== null)
-        {
-            originX = follow.x;
-            originY = follow.y;
-
-            this.scrollX = originX - width * 0.5;
-            this.scrollY = originY - height * 0.5;
-        }
-
-        if (this.useBounds)
-        {
-            var bounds = this._bounds;
-
-            var bw = Math.max(0, bounds.right - width);
-            var bh = Math.max(0, bounds.bottom - height);
-
-            if (this.scrollX < bounds.x)
-            {
-                this.scrollX = bounds.x;
-            }
-            else if (this.scrollX > bw)
-            {
-                this.scrollX = bw;
-            }
-
-            if (this.scrollY < bounds.y)
-            {
-                this.scrollY = bounds.y;
-            }
-            else if (this.scrollY > bh)
-            {
-                this.scrollY = bh;
-            }
-        }
-
-        if (this.roundPixels)
-        {
-            this.scrollX = Math.round(this.scrollX);
-            this.scrollY = Math.round(this.scrollY);
-        }
-
-        matrix.loadIdentity();
-        matrix.scale(resolution, resolution);
-        matrix.translate(this.x + originX, this.y + originY);
-        matrix.rotate(this.rotation);
-        matrix.scale(zoom, zoom);
-        matrix.translate(-originX, -originY);
-        matrix.translate(this._shakeOffsetX, this._shakeOffsetY);
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#removeBounds
-     * @since 3.0.0
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    removeBounds: function ()
-    {
-        this.useBounds = false;
-
-        this._bounds.setEmpty();
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setAngle
-     * @since 3.0.0
-     *
-     * @param {number} value - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setAngle: function (value)
-    {
-        if (value === undefined) { value = 0; }
-
-        this.rotation = DegToRad(value);
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setBackgroundColor
-     * @since 3.0.0
-     *
-     * @param {integer} color - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setBackgroundColor: function (color)
-    {
-        if (color === undefined) { color = 'rgba(0,0,0,0)'; }
-
-        this.backgroundColor = ValueToColor(color);
-
-        this.transparent = (this.backgroundColor.alpha === 0);
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setBounds
-     * @since 3.0.0
-     *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} width - [description]
-     * @param {number} height - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setBounds: function (x, y, width, height)
-    {
-        this._bounds.setTo(x, y, width, height);
-
-        this.useBounds = true;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setName
-     * @since 3.0.0
-     *
-     * @param {string} value - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setName: function (value)
-    {
-        if (value === undefined) { value = ''; }
-
-        this.name = value;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setPosition
-     * @since 3.0.0
-     *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setPosition: function (x, y)
-    {
-        if (y === undefined) { y = x; }
-
-        this.x = x;
-        this.y = y;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setRotation
-     * @since 3.0.0
-     *
-     * @param {number} value - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setRotation: function (value)
-    {
-        if (value === undefined) { value = 0; }
-
-        this.rotation = value;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setRoundPixels
-     * @since 3.0.0
-     *
-     * @param {boolean} value - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setRoundPixels: function (value)
-    {
-        this.roundPixels = value;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setScene
-     * @since 3.0.0
-     *
-     * @param {Phaser.Scene} scene - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setScene: function (scene)
-    {
-        this.scene = scene;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setScroll
-     * @since 3.0.0
-     *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setScroll: function (x, y)
-    {
-        if (y === undefined) { y = x; }
-
-        this.scrollX = x;
-        this.scrollY = y;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setSize
-     * @since 3.0.0
-     *
-     * @param {number} width - [description]
-     * @param {number} height - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setSize: function (width, height)
-    {
-        if (height === undefined) { height = width; }
-
-        this.width = width;
-        this.height = height;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setViewport
-     * @since 3.0.0
-     *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} width - [description]
-     * @param {number} height - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setViewport: function (x, y, width, height)
-    {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#setZoom
-     * @since 3.0.0
-     *
-     * @param {float} value - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    setZoom: function (value)
-    {
-        if (value === undefined) { value = 1; }
-
-        this.zoom = value;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#shake
-     * @since 3.0.0
-     *
-     * @param {number} duration - [description]
-     * @param {number} intensity - [description]
-     * @param {number} force - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    shake: function (duration, intensity, force)
-    {
-        if (intensity === undefined) { intensity = 0.05; }
-
-        if (!force && (this._shakeOffsetX !== 0 || this._shakeOffsetY !== 0))
-        {
-            return this;
-        }
-
-        this._shakeDuration = duration;
-        this._shakeIntensity = intensity;
-        this._shakeOffsetX = 0;
-        this._shakeOffsetY = 0;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#startFollow
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.GameObject|object} gameObjectOrPoint - [description]
-     * @param {boolean} roundPx - [description]
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    startFollow: function (gameObjectOrPoint, roundPx)
-    {
-        this._follow = gameObjectOrPoint;
-
-        if (roundPx !== undefined)
-        {
-            this.roundPixels = roundPx;
-        }
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#stopFollow
-     * @since 3.0.0
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    stopFollow: function ()
-    {
-        this._follow = null;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#toJSON
-     * @since 3.0.0
-     *
-     * @return {object} [description]
-     */
-    toJSON: function ()
-    {
-        var output = {
-            name: this.name,
-            x: this.x,
-            y: this.y,
-            width: this.width,
-            height: this.height,
-            zoom: this.zoom,
-            rotation: this.rotation,
-            roundPixels: this.roundPixels,
-            scrollX: this.scrollX,
-            scrollY: this.scrollY,
-            backgroundColor: this.backgroundColor.rgba
-        };
-
-        if (this.useBounds)
-        {
-            output['bounds'] = {
-                x: this._bounds.x,
-                y: this._bounds.y,
-                width: this._bounds.width,
-                height: this._bounds.height
-            };
-        }
-
-        return output;
-    },
-
-    /**
-     * Resets any active FX, such as a fade, flash or shake. Useful to call after a fade in order to
-     * remove the fade.
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#resetFX
-     * @since 3.0.0
-     *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
-     */
-    resetFX: function ()
-    {
-        this._flashAlpha = 0;
-        this._fadeAlpha = 0;
-        this._shakeOffsetX = 0.0;
-        this._shakeOffsetY = 0.0;
-        this._shakeDuration = 0;
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#update
-     * @since 3.0.0
-     *
-     * @param {[type]} timestep - [description]
-     * @param {[type]} delta - [description]
-     */
-    update: function (timestep, delta)
-    {
-        if (this._flashAlpha > 0.0)
-        {
-            this._flashAlpha -= delta / this._flashDuration;
-
-            if (this._flashAlpha < 0.0)
-            {
-                this._flashAlpha = 0.0;
-            }
-        }
-
-        if (this._fadeAlpha > 0.0 && this._fadeAlpha < 1.0)
-        {
-            this._fadeAlpha += delta / this._fadeDuration;
-
-            if (this._fadeAlpha >= 1.0)
-            {
-                this._fadeAlpha = 1.0;
-            }
-        }
-
-        if (this._shakeDuration > 0.0)
-        {
-            var intensity = this._shakeIntensity;
-
-            this._shakeDuration -= delta;
-
-            if (this._shakeDuration <= 0.0)
-            {
-                this._shakeOffsetX = 0.0;
-                this._shakeOffsetY = 0.0;
-            }
-            else
-            {
-                this._shakeOffsetX = (Math.random() * intensity * this.width * 2 - intensity * this.width) * this.zoom;
-                this._shakeOffsetY = (Math.random() * intensity * this.height * 2 - intensity * this.height) * this.zoom;
-            }
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Cameras.Scene2D.Camera#destroy
-     * @since 3.0.0
-     */
-    destroy: function ()
-    {
-        this._bounds = undefined;
-        this.matrix = undefined;
-        this.culledObjects = [];
-        this.scene = undefined;
-    }
-
-});
-
-module.exports = Camera;
 
 
 /***/ }),
@@ -42880,7 +42883,7 @@ module.exports = RandomXYZW;
  */
 
 var Vector3 = __webpack_require__(58);
-var Matrix4 = __webpack_require__(127);
+var Matrix4 = __webpack_require__(128);
 var Quaternion = __webpack_require__(221);
 
 var tmpMat4 = new Matrix4();
@@ -44285,7 +44288,7 @@ module.exports = Matrix3;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Camera = __webpack_require__(126);
+var Camera = __webpack_require__(127);
 var Class = __webpack_require__(0);
 var Vector3 = __webpack_require__(58);
 
@@ -44472,7 +44475,7 @@ module.exports = OrthographicCamera;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Camera = __webpack_require__(126);
+var Camera = __webpack_require__(127);
 var Class = __webpack_require__(0);
 var Vector3 = __webpack_require__(58);
 
@@ -45655,7 +45658,7 @@ module.exports = RadToDeg;
 
 var Class = __webpack_require__(0);
 var Curve = __webpack_require__(75);
-var FromPoints = __webpack_require__(130);
+var FromPoints = __webpack_require__(131);
 var Rectangle = __webpack_require__(8);
 var Vector2 = __webpack_require__(6);
 
@@ -45879,7 +45882,7 @@ module.exports = LineCurve;
 
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
-var CatmullRom = __webpack_require__(131);
+var CatmullRom = __webpack_require__(132);
 var Class = __webpack_require__(0);
 var Curve = __webpack_require__(75);
 var Vector2 = __webpack_require__(6);
@@ -46159,7 +46162,7 @@ var Color = __webpack_require__(43);
 
 Color.ColorToRGBA = __webpack_require__(509);
 Color.ComponentToHex = __webpack_require__(235);
-Color.GetColor = __webpack_require__(125);
+Color.GetColor = __webpack_require__(126);
 Color.GetColor32 = __webpack_require__(213);
 Color.HexStringToColor = __webpack_require__(212);
 Color.HSLToColor = __webpack_require__(510);
@@ -46174,7 +46177,7 @@ Color.RandomRGB = __webpack_require__(514);
 Color.RGBStringToColor = __webpack_require__(217);
 Color.RGBToHSV = __webpack_require__(515);
 Color.RGBToString = __webpack_require__(516);
-Color.ValueToColor = __webpack_require__(124);
+Color.ValueToColor = __webpack_require__(125);
 
 module.exports = Color;
 
@@ -46276,7 +46279,7 @@ module.export = HueToComponent;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetColor = __webpack_require__(125);
+var GetColor = __webpack_require__(126);
 
 /**
  * Converts an HSV (hue, saturation and value) color value to RGB.
@@ -51446,7 +51449,7 @@ module.exports = Button;
 var Class = __webpack_require__(0);
 var EventEmitter = __webpack_require__(12);
 var Key = __webpack_require__(257);
-var KeyCodes = __webpack_require__(136);
+var KeyCodes = __webpack_require__(137);
 var KeyCombo = __webpack_require__(258);
 var KeyMap = __webpack_require__(551);
 var ProcessKeyDown = __webpack_require__(552);
@@ -52344,7 +52347,7 @@ module.exports = KeyCombo;
  */
 
 var Class = __webpack_require__(0);
-var Features = __webpack_require__(133);
+var Features = __webpack_require__(134);
 
 //  https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
 //  https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
@@ -53556,7 +53559,7 @@ var CONST = __webpack_require__(95);
 var GetValue = __webpack_require__(4);
 var NOOP = __webpack_require__(3);
 var Scene = __webpack_require__(264);
-var Systems = __webpack_require__(137);
+var Systems = __webpack_require__(138);
 
 /**
  * @classdesc
@@ -54711,7 +54714,7 @@ module.exports = SceneManager;
  */
 
 var Class = __webpack_require__(0);
-var Systems = __webpack_require__(137);
+var Systems = __webpack_require__(138);
 
 /**
  * @classdesc
@@ -58494,7 +58497,7 @@ module.exports = {
  */
 
 var Class = __webpack_require__(0);
-var Frame = __webpack_require__(138);
+var Frame = __webpack_require__(139);
 var TextureSource = __webpack_require__(277);
 
 /**
@@ -58928,7 +58931,7 @@ module.exports = Texture;
 
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(24);
-var IsSizePowerOfTwo = __webpack_require__(134);
+var IsSizePowerOfTwo = __webpack_require__(135);
 var ScaleModes = __webpack_require__(71);
 
 /**
@@ -59127,7 +59130,7 @@ module.exports = TextureSource;
  */
 
 var Class = __webpack_require__(0);
-var List = __webpack_require__(139);
+var List = __webpack_require__(140);
 var PluginManager = __webpack_require__(9);
 var StableSort = __webpack_require__(279);
 
@@ -59692,11 +59695,11 @@ module.exports = ParseXMLBitmapFont;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Ellipse = __webpack_require__(144);
+var Ellipse = __webpack_require__(145);
 
 Ellipse.Area = __webpack_require__(582);
 Ellipse.Circumference = __webpack_require__(285);
-Ellipse.CircumferencePoint = __webpack_require__(145);
+Ellipse.CircumferencePoint = __webpack_require__(146);
 Ellipse.Clone = __webpack_require__(583);
 Ellipse.Contains = __webpack_require__(77);
 Ellipse.ContainsPoint = __webpack_require__(584);
@@ -59723,7 +59726,7 @@ module.exports = Ellipse;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var CircumferencePoint = __webpack_require__(145);
+var CircumferencePoint = __webpack_require__(146);
 var FromPercent = __webpack_require__(73);
 var MATH_CONST = __webpack_require__(13);
 var Point = __webpack_require__(5);
@@ -59765,7 +59768,7 @@ module.exports = GetPoint;
  */
 
 var Circumference = __webpack_require__(285);
-var CircumferencePoint = __webpack_require__(145);
+var CircumferencePoint = __webpack_require__(146);
 var FromPercent = __webpack_require__(73);
 var MATH_CONST = __webpack_require__(13);
 
@@ -59848,7 +59851,7 @@ module.exports = Circumference;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Commands = __webpack_require__(135);
+var Commands = __webpack_require__(136);
 var GameObject = __webpack_require__(2);
 
 /**
@@ -62395,7 +62398,7 @@ module.exports = GetMagnitudeSq;
  */
 
 var Class = __webpack_require__(0);
-var Contains = __webpack_require__(153);
+var Contains = __webpack_require__(154);
 
 /**
  * @classdesc
@@ -62596,14 +62599,14 @@ Rectangle.FitInside = __webpack_require__(746);
 Rectangle.FitOutside = __webpack_require__(747);
 Rectangle.Floor = __webpack_require__(748);
 Rectangle.FloorAll = __webpack_require__(749);
-Rectangle.FromPoints = __webpack_require__(130);
-Rectangle.GetAspectRatio = __webpack_require__(154);
+Rectangle.FromPoints = __webpack_require__(131);
+Rectangle.GetAspectRatio = __webpack_require__(155);
 Rectangle.GetCenter = __webpack_require__(750);
 Rectangle.GetPoint = __webpack_require__(113);
-Rectangle.GetPoints = __webpack_require__(196);
+Rectangle.GetPoints = __webpack_require__(197);
 Rectangle.GetSize = __webpack_require__(751);
 Rectangle.Inflate = __webpack_require__(752);
-Rectangle.MarchingAnts = __webpack_require__(199);
+Rectangle.MarchingAnts = __webpack_require__(200);
 Rectangle.MergePoints = __webpack_require__(753);
 Rectangle.MergeRect = __webpack_require__(754);
 Rectangle.MergeXY = __webpack_require__(755);
@@ -63032,7 +63035,7 @@ module.exports = InteractiveObject;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var MergeXHRSettings = __webpack_require__(157);
+var MergeXHRSettings = __webpack_require__(158);
 
 /**
  * Creates a new XMLHttpRequest (xhr) object based on the given File and XHRSettings
@@ -63337,7 +63340,7 @@ module.exports = AudioFile;
 var Class = __webpack_require__(0);
 var File = __webpack_require__(19);
 var GetFastValue = __webpack_require__(1);
-var GetURL = __webpack_require__(156);
+var GetURL = __webpack_require__(157);
 
 /**
  * @classdesc
@@ -71260,7 +71263,7 @@ module.exports = Factory;
  */
 
 var Class = __webpack_require__(0);
-var Components = __webpack_require__(158);
+var Components = __webpack_require__(159);
 
 /**
  * @classdesc
@@ -71393,7 +71396,7 @@ module.exports = ImpactBody;
  */
 
 var Class = __webpack_require__(0);
-var Components = __webpack_require__(158);
+var Components = __webpack_require__(159);
 var Image = __webpack_require__(61);
 
 /**
@@ -71552,7 +71555,7 @@ module.exports = ImpactImage;
  */
 
 var Class = __webpack_require__(0);
-var Components = __webpack_require__(158);
+var Components = __webpack_require__(159);
 var Sprite = __webpack_require__(36);
 
 /**
@@ -72711,7 +72714,7 @@ var Composites = __webpack_require__(361);
 var Constraint = __webpack_require__(70);
 var MatterImage = __webpack_require__(362);
 var MatterSprite = __webpack_require__(363);
-var MatterTileBody = __webpack_require__(161);
+var MatterTileBody = __webpack_require__(162);
 var PointerConstraint = __webpack_require__(909);
 
 /**
@@ -74244,7 +74247,7 @@ var Bodies = __webpack_require__(37);
 
 var Bodies = __webpack_require__(37);
 var Class = __webpack_require__(0);
-var Components = __webpack_require__(160);
+var Components = __webpack_require__(161);
 var GameObject = __webpack_require__(2);
 var GetFastValue = __webpack_require__(1);
 var Image = __webpack_require__(61);
@@ -74372,10 +74375,10 @@ module.exports = MatterImage;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var AnimationComponent = __webpack_require__(195);
+var AnimationComponent = __webpack_require__(196);
 var Bodies = __webpack_require__(37);
 var Class = __webpack_require__(0);
-var Components = __webpack_require__(160);
+var Components = __webpack_require__(161);
 var GameObject = __webpack_require__(2);
 var GetFastValue = __webpack_require__(1);
 var Pipeline = __webpack_require__(115);
@@ -74513,7 +74516,7 @@ var Matter = {};
 
 module.exports = Matter;
 
-var Plugin = __webpack_require__(165);
+var Plugin = __webpack_require__(166);
 var Common = __webpack_require__(16);
 
 (function() {
@@ -74606,7 +74609,7 @@ var Grid = {};
 module.exports = Grid;
 
 var Pair = __webpack_require__(103);
-var Detector = __webpack_require__(162);
+var Detector = __webpack_require__(163);
 var Common = __webpack_require__(16);
 
 (function() {
@@ -75458,7 +75461,7 @@ var Engine = {};
 
 module.exports = Engine;
 
-var World = __webpack_require__(166);
+var World = __webpack_require__(167);
 var Sleeping = __webpack_require__(84);
 var Resolver = __webpack_require__(367);
 var Pairs = __webpack_require__(366);
@@ -75976,8 +75979,8 @@ var GetFastValue = __webpack_require__(1);
 var GetValue = __webpack_require__(4);
 var MatterBody = __webpack_require__(20);
 var MatterEvents = __webpack_require__(69);
-var MatterWorld = __webpack_require__(166);
-var MatterTileBody = __webpack_require__(161);
+var MatterWorld = __webpack_require__(167);
+var MatterTileBody = __webpack_require__(162);
 
 /**
  * @classdesc
@@ -76758,7 +76761,7 @@ module.exports = HasTileAt;
 
 var Tile = __webpack_require__(51);
 var IsInLayerBounds = __webpack_require__(85);
-var CalculateFacesAt = __webpack_require__(167);
+var CalculateFacesAt = __webpack_require__(168);
 
 /**
  * Removes the tile at the given tile coordinates in the specified layer and updates the layer's
@@ -76818,7 +76821,7 @@ module.exports = RemoveTileAt;
  */
 
 var Formats = __webpack_require__(21);
-var Parse2DArray = __webpack_require__(170);
+var Parse2DArray = __webpack_require__(171);
 var ParseCSV = __webpack_require__(374);
 var ParseJSONTiled = __webpack_require__(375);
 var ParseWeltmeister = __webpack_require__(380);
@@ -76888,7 +76891,7 @@ module.exports = Parse;
  */
 
 var Formats = __webpack_require__(21);
-var Parse2DArray = __webpack_require__(170);
+var Parse2DArray = __webpack_require__(171);
 
 /**
  * Parses a CSV string of tile indexes into a new MapData object with a single layer.
@@ -82348,15 +82351,15 @@ module.exports = GetTweens;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Defaults = __webpack_require__(174);
+var Defaults = __webpack_require__(175);
 var GetAdvancedValue = __webpack_require__(11);
 var GetBoolean = __webpack_require__(80);
 var GetEaseFunction = __webpack_require__(79);
 var GetNewValue = __webpack_require__(109);
 var GetValue = __webpack_require__(4);
-var GetValueOp = __webpack_require__(173);
-var Tween = __webpack_require__(175);
-var TweenData = __webpack_require__(176);
+var GetValueOp = __webpack_require__(174);
+var Tween = __webpack_require__(176);
+var TweenData = __webpack_require__(177);
 
 /**
  * [description]
@@ -82477,12 +82480,12 @@ module.exports = NumberTweenBuilder;
  */
 
 var Clone = __webpack_require__(60);
-var Defaults = __webpack_require__(174);
+var Defaults = __webpack_require__(175);
 var GetAdvancedValue = __webpack_require__(11);
 var GetBoolean = __webpack_require__(80);
 var GetEaseFunction = __webpack_require__(79);
 var GetNewValue = __webpack_require__(109);
-var GetTargets = __webpack_require__(172);
+var GetTargets = __webpack_require__(173);
 var GetTweens = __webpack_require__(386);
 var GetValue = __webpack_require__(4);
 var Timeline = __webpack_require__(389);
@@ -83540,7 +83543,7 @@ var Extend = __webpack_require__(25);
 
 var Phaser = {
 
-    Actions: __webpack_require__(179),
+    Actions: __webpack_require__(180),
     Animation: __webpack_require__(463),
     Cache: __webpack_require__(464),
     Cameras: __webpack_require__(465),
@@ -83586,7 +83589,7 @@ global.Phaser = Phaser;
  *  -- Dick Brandon
  */
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(177)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178)))
 
 /***/ }),
 /* 392 */
@@ -84030,7 +84033,7 @@ if (!global.cancelAnimationFrame) {
     };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(177)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178)))
 
 /***/ }),
 /* 401 */
@@ -84221,8 +84224,8 @@ module.exports = GetFirst;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var AlignIn = __webpack_require__(180);
-var CONST = __webpack_require__(181);
+var AlignIn = __webpack_require__(181);
+var CONST = __webpack_require__(182);
 var GetValue = __webpack_require__(4);
 var NOOP = __webpack_require__(3);
 var Zone = __webpack_require__(88);
@@ -85458,7 +85461,7 @@ module.exports = Flip;
  */
 
 var Rectangle = __webpack_require__(8);
-var RotateAround = __webpack_require__(197);
+var RotateAround = __webpack_require__(198);
 var Vector2 = __webpack_require__(6);
 
 /**
@@ -87205,9 +87208,9 @@ module.exports = PlaceOnLine;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var MarchingAnts = __webpack_require__(199);
-var RotateLeft = __webpack_require__(200);
-var RotateRight = __webpack_require__(201);
+var MarchingAnts = __webpack_require__(200);
+var RotateLeft = __webpack_require__(201);
+var RotateRight = __webpack_require__(202);
 
 //  Place the items in the array around the perimeter of the given rectangle.
 
@@ -87265,7 +87268,7 @@ module.exports = PlaceOnRectangle;
  */
 
 // var GetPointsOnLine = require('../geom/line/GetPointsOnLine');
-var BresenhamPoints = __webpack_require__(202);
+var BresenhamPoints = __webpack_require__(203);
 
 /**
  * [description]
@@ -87892,7 +87895,7 @@ var SetHitArea = function (items, hitArea, hitAreaCallback)
 {
     for (var i = 0; i < items.length; i++)
     {
-        items[i].setHitArea(hitArea, hitAreaCallback);
+        items[i].setInteractive(hitArea, hitAreaCallback);
     }
 
     return items;
@@ -88443,7 +88446,7 @@ module.exports = Shuffle;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var MathSmootherStep = __webpack_require__(203);
+var MathSmootherStep = __webpack_require__(204);
 
 /**
  * [description]
@@ -88497,7 +88500,7 @@ module.exports = SmootherStep;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var MathSmoothStep = __webpack_require__(204);
+var MathSmoothStep = __webpack_require__(205);
 
 /**
  * [description]
@@ -88642,9 +88645,9 @@ module.exports = ToggleVisible;
 
 module.exports = {
 
-    Animation: __webpack_require__(205),
-    AnimationFrame: __webpack_require__(206),
-    AnimationManager: __webpack_require__(207)
+    Animation: __webpack_require__(206),
+    AnimationFrame: __webpack_require__(207),
+    AnimationManager: __webpack_require__(208)
 
 };
 
@@ -88665,8 +88668,8 @@ module.exports = {
 
 module.exports = {
 
-    BaseCache: __webpack_require__(209),
-    CacheManager: __webpack_require__(210)
+    BaseCache: __webpack_require__(210),
+    CacheManager: __webpack_require__(211)
 
 };
 
@@ -89490,7 +89493,7 @@ module.exports = SmoothedKeyControl;
 
 module.exports = {
 
-    Camera: __webpack_require__(211),
+    Camera: __webpack_require__(124),
     CameraManager: __webpack_require__(470)
 
 };
@@ -89506,7 +89509,7 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Camera = __webpack_require__(211);
+var Camera = __webpack_require__(124);
 var Class = __webpack_require__(0);
 var GetFastValue = __webpack_require__(1);
 var PluginManager = __webpack_require__(9);
@@ -89992,7 +89995,7 @@ module.exports = CameraManager;
 
 module.exports = {
 
-    Camera: __webpack_require__(126),
+    Camera: __webpack_require__(127),
     CameraManager: __webpack_require__(475),
     OrthographicCamera: __webpack_require__(223),
     PerspectiveCamera: __webpack_require__(224)
@@ -91748,16 +91751,16 @@ module.exports = {
 
 module.exports = {
 
-    BottomCenter: __webpack_require__(182),
-    BottomLeft: __webpack_require__(183),
-    BottomRight: __webpack_require__(184),
-    Center: __webpack_require__(185),
-    LeftCenter: __webpack_require__(187),
-    QuickSet: __webpack_require__(180),
-    RightCenter: __webpack_require__(188),
-    TopCenter: __webpack_require__(189),
-    TopLeft: __webpack_require__(190),
-    TopRight: __webpack_require__(191)
+    BottomCenter: __webpack_require__(183),
+    BottomLeft: __webpack_require__(184),
+    BottomRight: __webpack_require__(185),
+    Center: __webpack_require__(186),
+    LeftCenter: __webpack_require__(188),
+    QuickSet: __webpack_require__(181),
+    RightCenter: __webpack_require__(189),
+    TopCenter: __webpack_require__(190),
+    TopLeft: __webpack_require__(191),
+    TopRight: __webpack_require__(192)
 
 };
 
@@ -92314,7 +92317,7 @@ module.exports = TopRight;
 
 module.exports = {
 
-    CenterOn: __webpack_require__(186),
+    CenterOn: __webpack_require__(187),
     GetBottom: __webpack_require__(26),
     GetCenterX: __webpack_require__(53),
     GetCenterY: __webpack_require__(56),
@@ -92411,7 +92414,7 @@ module.exports = {
 
     Interpolation: __webpack_require__(233),
     Pool: __webpack_require__(22),
-    Smoothing: __webpack_require__(129),
+    Smoothing: __webpack_require__(130),
     TouchAction: __webpack_require__(507),
     UserSelect: __webpack_require__(508)
     
@@ -93311,7 +93314,7 @@ module.exports = GeometryMask;
 
 module.exports = {
 
-    AddToDOM: __webpack_require__(132),
+    AddToDOM: __webpack_require__(133),
     DOMContentLoaded: __webpack_require__(241),
     ParseXML: __webpack_require__(242),
     RemoveFromDOM: __webpack_require__(243),
@@ -93702,9 +93705,9 @@ module.exports = EventEmitter;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var AddToDOM = __webpack_require__(132);
-var AnimationManager = __webpack_require__(207);
-var CacheManager = __webpack_require__(210);
+var AddToDOM = __webpack_require__(133);
+var AnimationManager = __webpack_require__(208);
+var CacheManager = __webpack_require__(211);
 var CanvasPool = __webpack_require__(22);
 var Class = __webpack_require__(0);
 var Config = __webpack_require__(524);
@@ -94189,7 +94192,7 @@ var GetValue = __webpack_require__(4);
 var MATH = __webpack_require__(13);
 var NOOP = __webpack_require__(3);
 var Plugins = __webpack_require__(245);
-var ValueToColor = __webpack_require__(124);
+var ValueToColor = __webpack_require__(125);
 
 /**
  * This callback type is completely empty, a no-operation.
@@ -94417,7 +94420,7 @@ module.exports = Config;
 var CanvasInterpolation = __webpack_require__(233);
 var CanvasPool = __webpack_require__(22);
 var CONST = __webpack_require__(24);
-var Features = __webpack_require__(133);
+var Features = __webpack_require__(134);
 
 /**
  * Called automatically by Phaser.Game and responsible for creating the renderer it will use.
@@ -94550,7 +94553,7 @@ var CONST = __webpack_require__(24);
 var DrawImage = __webpack_require__(529);
 var GetBlendModes = __webpack_require__(530);
 var ScaleModes = __webpack_require__(71);
-var Smoothing = __webpack_require__(129);
+var Smoothing = __webpack_require__(130);
 
 /**
  * @classdesc
@@ -95298,7 +95301,7 @@ module.exports = GetBlendModes;
 
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(24);
-var IsSizePowerOfTwo = __webpack_require__(134);
+var IsSizePowerOfTwo = __webpack_require__(135);
 var Utils = __webpack_require__(44);
 var WebGLSnapshot = __webpack_require__(532);
 
@@ -97345,7 +97348,7 @@ module.exports = "#define SHADER_NAME PHASER_BITMAP_MASK_VS\r\n\r\nprecision med
  */
 
 var Class = __webpack_require__(0);
-var Commands = __webpack_require__(135);
+var Commands = __webpack_require__(136);
 var Earcut = __webpack_require__(247);
 var ModelViewProjection = __webpack_require__(248);
 var ShaderSourceFS = __webpack_require__(537); 
@@ -98764,7 +98767,7 @@ module.exports = {
 
     os: __webpack_require__(76),
     browser: __webpack_require__(93),
-    features: __webpack_require__(133),
+    features: __webpack_require__(134),
     input: __webpack_require__(544),
     audio: __webpack_require__(545),
     video: __webpack_require__(546),
@@ -99330,7 +99333,7 @@ module.exports = ResetKeyCombo;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var KeyCodes = __webpack_require__(136);
+var KeyCodes = __webpack_require__(137);
 
 var KeyMap = {};
 
@@ -101245,18 +101248,18 @@ var GameObjects = {
 
     Components: __webpack_require__(14),
 
-    BitmapText: __webpack_require__(140),
-    Blitter: __webpack_require__(141),
-    DynamicBitmapText: __webpack_require__(142),
-    Graphics: __webpack_require__(143),
+    BitmapText: __webpack_require__(141),
+    Blitter: __webpack_require__(142),
+    DynamicBitmapText: __webpack_require__(143),
+    Graphics: __webpack_require__(144),
     Group: __webpack_require__(78),
     Image: __webpack_require__(61),
-    Particles: __webpack_require__(146),
+    Particles: __webpack_require__(147),
     PathFollower: __webpack_require__(302),
     Sprite3D: __webpack_require__(92),
     Sprite: __webpack_require__(36),
-    Text: __webpack_require__(148),
-    TileSprite: __webpack_require__(149),
+    Text: __webpack_require__(149),
+    TileSprite: __webpack_require__(150),
     Zone: __webpack_require__(88),
 
     //  Game Object Factories
@@ -101298,7 +101301,7 @@ if (true)
 {
     //  WebGL only Game Objects
     GameObjects.Mesh = __webpack_require__(99);
-    GameObjects.Quad = __webpack_require__(150);
+    GameObjects.Quad = __webpack_require__(151);
 
     GameObjects.Factories.Mesh = __webpack_require__(676);
     GameObjects.Factories.Quad = __webpack_require__(677);
@@ -102859,7 +102862,7 @@ module.exports = Area;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Ellipse = __webpack_require__(144);
+var Ellipse = __webpack_require__(145);
 
 /**
  * Creates a new Ellipse instance based on the values contained in the given source.
@@ -103528,7 +103531,7 @@ var DeathZone = __webpack_require__(598);
 var EdgeZone = __webpack_require__(599);
 var EmitterOp = __webpack_require__(600);
 var GetFastValue = __webpack_require__(1);
-var GetRandomElement = __webpack_require__(147);
+var GetRandomElement = __webpack_require__(148);
 var GetValue = __webpack_require__(4);
 var HasAny = __webpack_require__(301);
 var HasValue = __webpack_require__(62);
@@ -109880,7 +109883,7 @@ module.exports = TileSpriteCanvasRenderer;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Blitter = __webpack_require__(141);
+var Blitter = __webpack_require__(142);
 var GameObjectFactory = __webpack_require__(10);
 
 /**
@@ -109922,7 +109925,7 @@ GameObjectFactory.register('blitter', function (x, y, key, frame)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var DynamicBitmapText = __webpack_require__(142);
+var DynamicBitmapText = __webpack_require__(143);
 var GameObjectFactory = __webpack_require__(10);
 
 /**
@@ -109965,7 +109968,7 @@ GameObjectFactory.register('dynamicBitmapText', function (x, y, font, text, size
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Graphics = __webpack_require__(143);
+var Graphics = __webpack_require__(144);
 var GameObjectFactory = __webpack_require__(10);
 
 /**
@@ -110093,7 +110096,7 @@ GameObjectFactory.register('image', function (x, y, key, frame)
  */
 
 var GameObjectFactory = __webpack_require__(10);
-var ParticleEmitterManager = __webpack_require__(146);
+var ParticleEmitterManager = __webpack_require__(147);
 
 /**
  * Creates a new Particle Emitter Manager Game Object and adds it to the Scene.
@@ -110281,7 +110284,7 @@ GameObjectFactory.register('sprite', function (x, y, key, frame)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var BitmapText = __webpack_require__(140);
+var BitmapText = __webpack_require__(141);
 var GameObjectFactory = __webpack_require__(10);
 
 /**
@@ -110324,7 +110327,7 @@ GameObjectFactory.register('bitmapText', function (x, y, font, text, size)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Text = __webpack_require__(148);
+var Text = __webpack_require__(149);
 var GameObjectFactory = __webpack_require__(10);
 
 /**
@@ -110366,7 +110369,7 @@ GameObjectFactory.register('text', function (x, y, text, style)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var TileSprite = __webpack_require__(149);
+var TileSprite = __webpack_require__(150);
 var GameObjectFactory = __webpack_require__(10);
 
 /**
@@ -110452,7 +110455,7 @@ GameObjectFactory.register('zone', function (x, y, width, height)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Blitter = __webpack_require__(141);
+var Blitter = __webpack_require__(142);
 var BuildGameObject = __webpack_require__(23);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
@@ -110494,7 +110497,7 @@ GameObjectCreator.register('blitter', function (config)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var BitmapText = __webpack_require__(142);
+var BitmapText = __webpack_require__(143);
 var BuildGameObject = __webpack_require__(23);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
@@ -110539,7 +110542,7 @@ GameObjectCreator.register('dynamicBitmapText', function (config)
  */
 
 var GameObjectCreator = __webpack_require__(15);
-var Graphics = __webpack_require__(143);
+var Graphics = __webpack_require__(144);
 
 /**
  * Creates a new Graphics Game Object and returns it.
@@ -110649,7 +110652,7 @@ GameObjectCreator.register('image', function (config)
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
 var GetFastValue = __webpack_require__(1);
-var ParticleEmitterManager = __webpack_require__(146);
+var ParticleEmitterManager = __webpack_require__(147);
 
 /**
  * Creates a new Particle Emitter Manager Game Object and returns it.
@@ -110801,7 +110804,7 @@ GameObjectCreator.register('sprite', function (config)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var BitmapText = __webpack_require__(140);
+var BitmapText = __webpack_require__(141);
 var BuildGameObject = __webpack_require__(23);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
@@ -110849,7 +110852,7 @@ GameObjectCreator.register('bitmapText', function (config)
 var BuildGameObject = __webpack_require__(23);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
-var Text = __webpack_require__(148);
+var Text = __webpack_require__(149);
 
 /**
  * Creates a new Text Game Object and returns it.
@@ -110928,7 +110931,7 @@ GameObjectCreator.register('text', function (config)
 var BuildGameObject = __webpack_require__(23);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
-var TileSprite = __webpack_require__(149);
+var TileSprite = __webpack_require__(150);
 
 /**
  * Creates a new TileSprite Game Object and returns it.
@@ -111159,7 +111162,7 @@ if (true)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Quad = __webpack_require__(150);
+var Quad = __webpack_require__(151);
 var GameObjectFactory = __webpack_require__(10);
 
 /**
@@ -111255,7 +111258,7 @@ GameObjectCreator.register('mesh', function (config)
 var BuildGameObject = __webpack_require__(23);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
-var Quad = __webpack_require__(150);
+var Quad = __webpack_require__(151);
 
 /**
  * Creates a new Quad Game Object and returns it.
@@ -111394,7 +111397,7 @@ module.exports = LightsPlugin;
 var Circle = __webpack_require__(72);
 
 Circle.Area = __webpack_require__(682);
-Circle.Circumference = __webpack_require__(194);
+Circle.Circumference = __webpack_require__(195);
 Circle.CircumferencePoint = __webpack_require__(111);
 Circle.Clone = __webpack_require__(683);
 Circle.Contains = __webpack_require__(34);
@@ -111403,8 +111406,8 @@ Circle.ContainsRect = __webpack_require__(685);
 Circle.CopyFrom = __webpack_require__(686);
 Circle.Equals = __webpack_require__(687);
 Circle.GetBounds = __webpack_require__(688);
-Circle.GetPoint = __webpack_require__(192);
-Circle.GetPoints = __webpack_require__(193);
+Circle.GetPoint = __webpack_require__(193);
+Circle.GetPoints = __webpack_require__(194);
 Circle.Offset = __webpack_require__(689);
 Circle.OffsetPoint = __webpack_require__(690);
 Circle.Random = __webpack_require__(112);
@@ -111986,7 +111989,7 @@ module.exports = PointToLineSegment;
 
 var LineToLine = __webpack_require__(100);
 var Contains = __webpack_require__(35);
-var ContainsArray = __webpack_require__(151);
+var ContainsArray = __webpack_require__(152);
 var Decompose = __webpack_require__(312);
 
 /**
@@ -112234,7 +112237,7 @@ module.exports = TriangleToLine;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var ContainsArray = __webpack_require__(151);
+var ContainsArray = __webpack_require__(152);
 var Decompose = __webpack_require__(313);
 var LineToLine = __webpack_require__(100);
 
@@ -112325,7 +112328,7 @@ module.exports = TriangleToTriangle;
 var Line = __webpack_require__(314);
 
 Line.Angle = __webpack_require__(64);
-Line.BresenhamPoints = __webpack_require__(202);
+Line.BresenhamPoints = __webpack_require__(203);
 Line.CenterOn = __webpack_require__(702);
 Line.Clone = __webpack_require__(703);
 Line.CopyFrom = __webpack_require__(704);
@@ -112345,7 +112348,7 @@ Line.Random = __webpack_require__(120);
 Line.ReflectAngle = __webpack_require__(713);
 Line.Rotate = __webpack_require__(714);
 Line.RotateAroundPoint = __webpack_require__(715);
-Line.RotateAroundXY = __webpack_require__(152);
+Line.RotateAroundXY = __webpack_require__(153);
 Line.SetToAngle = __webpack_require__(716);
 Line.Slope = __webpack_require__(717);
 Line.Width = __webpack_require__(718);
@@ -112762,7 +112765,7 @@ module.exports = ReflectAngle;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var RotateAroundXY = __webpack_require__(152);
+var RotateAroundXY = __webpack_require__(153);
 
 /**
  * [description]
@@ -112796,7 +112799,7 @@ module.exports = Rotate;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var RotateAroundXY = __webpack_require__(152);
+var RotateAroundXY = __webpack_require__(153);
 
 /**
  * [description]
@@ -113457,7 +113460,7 @@ module.exports = SetMagnitude;
 var Polygon = __webpack_require__(319);
 
 Polygon.Clone = __webpack_require__(734);
-Polygon.Contains = __webpack_require__(153);
+Polygon.Contains = __webpack_require__(154);
 Polygon.ContainsPoint = __webpack_require__(735);
 Polygon.GetAABB = __webpack_require__(736);
 Polygon.GetNumberArray = __webpack_require__(737);
@@ -113505,7 +113508,7 @@ module.exports = Clone;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Contains = __webpack_require__(153);
+var Contains = __webpack_require__(154);
 
 /**
  * [description]
@@ -113887,7 +113890,7 @@ module.exports = Equals;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetAspectRatio = __webpack_require__(154);
+var GetAspectRatio = __webpack_require__(155);
 
 //  Fits the target rectangle into the source rectangle.
 //  Preserves aspect ratio.
@@ -113938,7 +113941,7 @@ module.exports = FitInside;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetAspectRatio = __webpack_require__(154);
+var GetAspectRatio = __webpack_require__(155);
 
 //  Fits the target rectangle around the source rectangle.
 //  Preserves aspect ration.
@@ -114552,7 +114555,7 @@ Triangle.CircumCenter = __webpack_require__(768);
 Triangle.CircumCircle = __webpack_require__(769);
 Triangle.Clone = __webpack_require__(770);
 Triangle.Contains = __webpack_require__(63);
-Triangle.ContainsArray = __webpack_require__(151);
+Triangle.ContainsArray = __webpack_require__(152);
 Triangle.ContainsPoint = __webpack_require__(771);
 Triangle.CopyFrom = __webpack_require__(772);
 Triangle.Decompose = __webpack_require__(313);
@@ -114565,7 +114568,7 @@ Triangle.Offset = __webpack_require__(325);
 Triangle.Random = __webpack_require__(121);
 Triangle.Rotate = __webpack_require__(775);
 Triangle.RotateAroundPoint = __webpack_require__(776);
-Triangle.RotateAroundXY = __webpack_require__(155);
+Triangle.RotateAroundXY = __webpack_require__(156);
 
 module.exports = Triangle;
 
@@ -115145,7 +115148,7 @@ module.exports = Perimeter;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var RotateAroundXY = __webpack_require__(155);
+var RotateAroundXY = __webpack_require__(156);
 var InCenter = __webpack_require__(326);
 
 /**
@@ -115179,7 +115182,7 @@ module.exports = Rotate;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var RotateAroundXY = __webpack_require__(155);
+var RotateAroundXY = __webpack_require__(156);
 
 /**
  * [description]
@@ -115433,7 +115436,7 @@ var Circle = __webpack_require__(72);
 var CircleContains = __webpack_require__(34);
 var Class = __webpack_require__(0);
 var DistanceBetween = __webpack_require__(48);
-var Ellipse = __webpack_require__(144);
+var Ellipse = __webpack_require__(145);
 var EllipseContains = __webpack_require__(77);
 var EventEmitter = __webpack_require__(12);
 var InteractiveObject = __webpack_require__(327);
@@ -117020,7 +117023,7 @@ module.exports = {
     KeyboardManager: __webpack_require__(256),
 
     Key: __webpack_require__(257),
-    KeyCodes: __webpack_require__(136),
+    KeyCodes: __webpack_require__(137),
 
     KeyCombo: __webpack_require__(258),
 
@@ -117236,9 +117239,9 @@ module.exports = {
 
     File: __webpack_require__(19),
     FileTypesManager: __webpack_require__(7),
-    GetURL: __webpack_require__(156),
+    GetURL: __webpack_require__(157),
     LoaderPlugin: __webpack_require__(808),
-    MergeXHRSettings: __webpack_require__(157),
+    MergeXHRSettings: __webpack_require__(158),
     XHRLoader: __webpack_require__(328),
     XHRSettings: __webpack_require__(101)
 
@@ -119861,7 +119864,7 @@ var PhaserMath = {
     Average: __webpack_require__(837),
     Bernstein: __webpack_require__(335),
     Between: __webpack_require__(240),
-    CatmullRom: __webpack_require__(131),
+    CatmullRom: __webpack_require__(132),
     CeilTo: __webpack_require__(838),
     Clamp: __webpack_require__(57),
     DegToRad: __webpack_require__(42),
@@ -119882,13 +119885,13 @@ var PhaserMath = {
     RandomXYZ: __webpack_require__(218),
     RandomXYZW: __webpack_require__(219),
     Rotate: __webpack_require__(337),
-    RotateAround: __webpack_require__(197),
+    RotateAround: __webpack_require__(198),
     RotateAroundDistance: __webpack_require__(122),
     RoundAwayFromZero: __webpack_require__(338),
     RoundTo: __webpack_require__(848),
     SinCosTableGenerator: __webpack_require__(849),
-    SmootherStep: __webpack_require__(203),
-    SmoothStep: __webpack_require__(204),
+    SmootherStep: __webpack_require__(204),
+    SmoothStep: __webpack_require__(205),
     TransformXY: __webpack_require__(262),
     Within: __webpack_require__(850),
     Wrap: __webpack_require__(47),
@@ -119896,9 +119899,9 @@ var PhaserMath = {
     //  Vector classes
     Vector2: __webpack_require__(6),
     Vector3: __webpack_require__(58),
-    Vector4: __webpack_require__(128),
+    Vector4: __webpack_require__(129),
     Matrix3: __webpack_require__(222),
-    Matrix4: __webpack_require__(127),
+    Matrix4: __webpack_require__(128),
     Quaternion: __webpack_require__(221),
     RotateVec3: __webpack_require__(220)
 
@@ -120586,7 +120589,7 @@ module.exports = BezierInterpolation;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var CatmullRom = __webpack_require__(131);
+var CatmullRom = __webpack_require__(132);
 
 /**
  * [description]
@@ -120650,7 +120653,7 @@ module.exports = CatmullRomInterpolation;
 module.exports = {
 
     GetNext: __webpack_require__(303),
-    IsSize: __webpack_require__(134),
+    IsSize: __webpack_require__(135),
     IsValue: __webpack_require__(832)
 
 };
@@ -125248,11 +125251,11 @@ module.exports = {
 
     Factory: __webpack_require__(359),
     Image: __webpack_require__(362),
-    Matter: __webpack_require__(164),
+    Matter: __webpack_require__(165),
     MatterPhysics: __webpack_require__(913),
     PolyDecomp: __webpack_require__(360),
     Sprite: __webpack_require__(363),
-    TileBody: __webpack_require__(161),
+    TileBody: __webpack_require__(162),
     World: __webpack_require__(369)
 
 };
@@ -126562,7 +126565,7 @@ var Bounds = __webpack_require__(40);
 var Class = __webpack_require__(0);
 var Composite = __webpack_require__(49);
 var Constraint = __webpack_require__(70);
-var Detector = __webpack_require__(162);
+var Detector = __webpack_require__(163);
 var GetFastValue = __webpack_require__(1);
 var Merge = __webpack_require__(81);
 var Sleeping = __webpack_require__(84);
@@ -126856,7 +126859,7 @@ var Query = {};
 module.exports = Query;
 
 var Vector = __webpack_require__(39);
-var SAT = __webpack_require__(163);
+var SAT = __webpack_require__(164);
 var Bounds = __webpack_require__(40);
 var Bodies = __webpack_require__(37);
 var Vertices = __webpack_require__(38);
@@ -127299,7 +127302,7 @@ var MatterAttractors = __webpack_require__(914);
 var MatterLib = __webpack_require__(364);
 var MatterWrap = __webpack_require__(915);
 var Merge = __webpack_require__(81);
-var Plugin = __webpack_require__(165);
+var Plugin = __webpack_require__(166);
 var PluginManager = __webpack_require__(9);
 var World = __webpack_require__(369);
 
@@ -127514,7 +127517,7 @@ module.exports = MatterPhysics;
 /* 914 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Matter = __webpack_require__(164);
+var Matter = __webpack_require__(165);
 
 /**
  * An attractors plugin for matter.js.
@@ -127655,7 +127658,7 @@ module.exports = MatterAttractors;
 /* 915 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Matter = __webpack_require__(164);
+var Matter = __webpack_require__(165);
 
 /**
  * A coordinate wrapping plugin for matter.js.
@@ -127852,7 +127855,7 @@ module.exports = {
     SceneManager: __webpack_require__(263),
     ScenePlugin: __webpack_require__(917),
     Settings: __webpack_require__(266),
-    Systems: __webpack_require__(137)
+    Systems: __webpack_require__(138)
 
 };
 
@@ -128438,7 +128441,7 @@ module.exports = {
 
 module.exports = {
 
-    List: __webpack_require__(139),
+    List: __webpack_require__(140),
     Map: __webpack_require__(123),
     ProcessQueue: __webpack_require__(347),
     RTree: __webpack_require__(348),
@@ -128466,7 +128469,7 @@ module.exports = {
     Parsers: __webpack_require__(275),
 
     FilterMode: __webpack_require__(921),
-    Frame: __webpack_require__(138),
+    Frame: __webpack_require__(139),
     Texture: __webpack_require__(276),
     TextureManager: __webpack_require__(274),
     TextureSource: __webpack_require__(277)
@@ -128534,7 +128537,7 @@ module.exports = {
 
     Formats: __webpack_require__(21),
     ImageCollection: __webpack_require__(377),
-    ParseToTilemap: __webpack_require__(171),
+    ParseToTilemap: __webpack_require__(172),
     Tile: __webpack_require__(51),
     Tilemap: __webpack_require__(381),
     TilemapCreator: __webpack_require__(969),
@@ -129293,7 +129296,7 @@ module.exports = HasTileAtWorldXY;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var PutTileAt = __webpack_require__(168);
+var PutTileAt = __webpack_require__(169);
 var WorldToTileX = __webpack_require__(45);
 var WorldToTileY = __webpack_require__(46);
 
@@ -129336,7 +129339,7 @@ module.exports = PutTileAtWorldXY;
  */
 
 var CalculateFacesWithin = __webpack_require__(41);
-var PutTileAt = __webpack_require__(168);
+var PutTileAt = __webpack_require__(169);
 
 /**
  * Puts an array of tiles or a 2D array of tiles at the given tile coordinates in the specified
@@ -129400,7 +129403,7 @@ module.exports = PutTilesAt;
  */
 
 var GetTilesWithin = __webpack_require__(17);
-var GetRandomElement = __webpack_require__(147);
+var GetRandomElement = __webpack_require__(148);
 
 /**
  * Randomizes the indexes of a rectangular region of tiles (in tile coordinates) within the
@@ -129585,7 +129588,7 @@ module.exports = RenderDebug;
 
 var SetTileCollision = __webpack_require__(50);
 var CalculateFacesWithin = __webpack_require__(41);
-var SetLayerCollisionIndex = __webpack_require__(169);
+var SetLayerCollisionIndex = __webpack_require__(170);
 
 /**
  * Sets collision on the given tile or tiles within a layer by index. You can pass in either a
@@ -129646,7 +129649,7 @@ module.exports = SetCollision;
 
 var SetTileCollision = __webpack_require__(50);
 var CalculateFacesWithin = __webpack_require__(41);
-var SetLayerCollisionIndex = __webpack_require__(169);
+var SetLayerCollisionIndex = __webpack_require__(170);
 
 /**
  * Sets collision on a range of tiles in a layer whose index is between the specified `start` and
@@ -129712,7 +129715,7 @@ module.exports = SetCollisionBetween;
 
 var SetTileCollision = __webpack_require__(50);
 var CalculateFacesWithin = __webpack_require__(41);
-var SetLayerCollisionIndex = __webpack_require__(169);
+var SetLayerCollisionIndex = __webpack_require__(170);
 
 /**
  * Sets collision on all tiles in the given layer, except for tiles that have an index specified in
@@ -130254,7 +130257,7 @@ module.exports = WorldToTileXY;
 module.exports = {
 
     Parse: __webpack_require__(373),
-    Parse2DArray: __webpack_require__(170),
+    Parse2DArray: __webpack_require__(171),
     ParseCSV: __webpack_require__(374),
 
     Impact: __webpack_require__(380),
@@ -131292,7 +131295,7 @@ module.exports = StaticTilemapLayerCanvasRenderer;
  */
 
 var GameObjectCreator = __webpack_require__(15);
-var ParseToTilemap = __webpack_require__(171);
+var ParseToTilemap = __webpack_require__(172);
 
 /**
  * Creates a Tilemap from the given key or data, or creates a blank Tilemap if no key/data provided.
@@ -131352,7 +131355,7 @@ GameObjectCreator.register('tilemap', function (config)
  */
 
 var GameObjectFactory = __webpack_require__(10);
-var ParseToTilemap = __webpack_require__(171);
+var ParseToTilemap = __webpack_require__(172);
 
 /**
  * Creates a Tilemap from the given key or data, or creates a blank Tilemap if no key/data provided.
@@ -131816,8 +131819,8 @@ module.exports = {
     Builders: __webpack_require__(974),
 
     TweenManager: __webpack_require__(976),
-    Tween: __webpack_require__(175),
-    TweenData: __webpack_require__(176),
+    Tween: __webpack_require__(176),
+    TweenData: __webpack_require__(177),
     Timeline: __webpack_require__(389)
 
 };
@@ -131843,9 +131846,9 @@ module.exports = {
     GetEaseFunction: __webpack_require__(79),
     GetNewValue: __webpack_require__(109),
     GetProps: __webpack_require__(385),
-    GetTargets: __webpack_require__(172),
+    GetTargets: __webpack_require__(173),
     GetTweens: __webpack_require__(386),
-    GetValueOp: __webpack_require__(173),
+    GetValueOp: __webpack_require__(174),
     NumberTweenBuilder: __webpack_require__(387),
     TimelineBuilder: __webpack_require__(388),
     TweenBuilder: __webpack_require__(110),
@@ -132619,14 +132622,14 @@ module.exports = {
 module.exports = {
 
     FindClosestInSorted: __webpack_require__(979),
-    GetRandomElement: __webpack_require__(147),
+    GetRandomElement: __webpack_require__(148),
     NumberArray: __webpack_require__(332),
     NumberArrayStep: __webpack_require__(980),
     QuickSelect: __webpack_require__(349),
     Range: __webpack_require__(287),
     RemoveRandomElement: __webpack_require__(981),
-    RotateLeft: __webpack_require__(200),
-    RotateRight: __webpack_require__(201),
+    RotateLeft: __webpack_require__(201),
+    RotateRight: __webpack_require__(202),
     Shuffle: __webpack_require__(91),
     SpliceOne: __webpack_require__(390)
 
@@ -132821,7 +132824,7 @@ module.exports = {
     HasAll: __webpack_require__(984),
     HasAny: __webpack_require__(301),
     HasValue: __webpack_require__(62),
-    IsPlainObject: __webpack_require__(178),
+    IsPlainObject: __webpack_require__(179),
     Merge: __webpack_require__(81),
     MergeRight: __webpack_require__(985)
 
@@ -132964,7 +132967,7 @@ module.exports = MergeRight;
 module.exports = {
 
     Format: __webpack_require__(987),
-    Pad: __webpack_require__(208),
+    Pad: __webpack_require__(209),
     Reverse: __webpack_require__(988),
     UppercaseFirst: __webpack_require__(265)
 

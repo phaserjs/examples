@@ -13,38 +13,34 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    //  --------------
-    //  Image Examples
-    //  --------------
+    //  Load via an object
+    // this.load.image({ key: 'bunny', file: 'assets/sprites/bunny.png' });
 
-    //  Original image loader signature:
-    //  this.load.image(key, url, xhrSettings)
-
-    this.load.image('bunny', 'assets/sprites/bunny.png');
-
-    //  Object based
-    this.load.image({ key: 'bunny', texture: 'assets/sprites/bunny.png' });
-
-    //  Allows for arrays of objects
+    //  Load via an array of objects
+    /*
     this.load.image([
-        { key: 'bunny', texture: 'assets/sprites/bunny.png' },
-        { key: 'atari', texture: 'assets/sprites/atari400.png' },
-        { key: 'logo', texture: 'assets/sprites/phaser2.png' }
+        { key: 'bunny', file: 'assets/sprites/bunny.png' },
+        { key: 'atari', file: 'assets/sprites/atari400.png' },
+        { key: 'logo', file: 'assets/sprites/phaser2.png' }
     ]);
+    */
 
     //  Object based including XHR Settings
     this.load.image({
         key: 'bunny',
-        texture: 'assets/sprites/bunny.png',
-        xhr: {
-            user: 'root',
-            password: 'th3G1bs0n',
-            timeout: 30,
-            header: 'Content-Type',
-            headerValue: 'text/xml'
+        file: 'assets/sprites/bunny.png',
+        __xhr: {
+        },
+        _xhr: {
+            _user: 'root',
+            _password: 'th3G1bs0n',
+            _timeout: 10,
+            _header: 'Content-Type',
+            _headerValue: 'image/png'
         }
     });
 
+    /*
     //  Auto-filename based on key:
 
     //  Will load bunny.png from the defined path, because '.png' is the default extension.
@@ -64,11 +60,10 @@ function preload ()
 
     //  Object based
     this.load.atlas({ key: 'level1', texture: 'assets/level1/items.png', data: 'assets/level1/items.json' });
-
-
-
+    */
 }
 
 function create ()
 {
+    this.add.image(400, 300, 'bunny');
 }

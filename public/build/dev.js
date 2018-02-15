@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 391);
+/******/ 	return __webpack_require__(__webpack_require__.s = 390);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -706,11 +706,9 @@ var GameObject = new Class({
             this.data = undefined;
         }
 
-        //  TODO Keep a reference to the manager in Body, so body can remove itself, not via System
         if (this.body)
         {
-            // sys.physicsManager.remove(this);
-
+            this.body.destroy();
             this.body = undefined;
         }
 
@@ -1002,7 +1000,7 @@ var Vector2 = new Class({
      * @method Phaser.Math.Vector2#copy
      * @since 3.0.0
      *
-     * @param {[type]} src - [description]
+     * @param {Phaser.Math.Vector2|object} src - [description]
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -1457,6 +1455,14 @@ var Vector2 = new Class({
 
 });
 
+/**
+ * A static zero Vector2 for use by reference.
+ *
+ * @method Phaser.Math.Vector2.ZERO
+ * @since 3.0.1
+ */
+Vector2.ZERO = new Vector2();
+
 module.exports = Vector2;
 
 
@@ -1511,9 +1517,9 @@ module.exports = FileTypesManager;
 
 var Class = __webpack_require__(0);
 var Contains = __webpack_require__(35);
-var GetPoint = __webpack_require__(113);
+var GetPoint = __webpack_require__(114);
 var GetPoints = __webpack_require__(197);
-var Random = __webpack_require__(114);
+var Random = __webpack_require__(115);
 
 /**
  * @classdesc
@@ -2741,7 +2747,7 @@ if (true) {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var RND = __webpack_require__(406);
+var RND = __webpack_require__(405);
 
 var MATH_CONST = {
 
@@ -2820,24 +2826,24 @@ module.exports = MATH_CONST;
 
 module.exports = {
 
-    Alpha: __webpack_require__(407),
+    Alpha: __webpack_require__(406),
     Animation: __webpack_require__(196),
-    BlendMode: __webpack_require__(408),
-    ComputedSize: __webpack_require__(409),
-    Depth: __webpack_require__(410),
-    Flip: __webpack_require__(411),
-    GetBounds: __webpack_require__(412),
-    Origin: __webpack_require__(413),
-    Pipeline: __webpack_require__(115),
-    ScaleMode: __webpack_require__(414),
-    ScrollFactor: __webpack_require__(415),
-    Size: __webpack_require__(416),
-    Texture: __webpack_require__(417),
-    Tint: __webpack_require__(418),
-    ToJSON: __webpack_require__(419),
-    Transform: __webpack_require__(420),
+    BlendMode: __webpack_require__(407),
+    ComputedSize: __webpack_require__(408),
+    Depth: __webpack_require__(409),
+    Flip: __webpack_require__(410),
+    GetBounds: __webpack_require__(411),
+    Origin: __webpack_require__(412),
+    Pipeline: __webpack_require__(116),
+    ScaleMode: __webpack_require__(413),
+    ScrollFactor: __webpack_require__(414),
+    Size: __webpack_require__(415),
+    Texture: __webpack_require__(416),
+    Tint: __webpack_require__(417),
+    ToJSON: __webpack_require__(418),
+    Transform: __webpack_require__(419),
     TransformMatrix: __webpack_require__(199),
-    Visible: __webpack_require__(421)
+    Visible: __webpack_require__(420)
 
 };
 
@@ -3805,8 +3811,8 @@ var CONST = __webpack_require__(18);
 var GetFastValue = __webpack_require__(1);
 var GetURL = __webpack_require__(157);
 var MergeXHRSettings = __webpack_require__(158);
-var XHRLoader = __webpack_require__(328);
-var XHRSettings = __webpack_require__(101);
+var XHRLoader = __webpack_require__(327);
+var XHRSettings = __webpack_require__(102);
 
 /**
  * @classdesc
@@ -5510,7 +5516,7 @@ module.exports = {
  */
 
 var CONST = __webpack_require__(24);
-var Smoothing = __webpack_require__(130);
+var Smoothing = __webpack_require__(131);
 
 // The pool into which the canvas elements are placed.
 var pool = [];
@@ -6422,7 +6428,7 @@ module.exports = Contains;
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var GameObject = __webpack_require__(2);
-var SpriteRender = __webpack_require__(472);
+var SpriteRender = __webpack_require__(471);
 
 /**
  * @classdesc
@@ -6587,7 +6593,7 @@ var Common = __webpack_require__(16);
 var Body = __webpack_require__(20);
 var Bounds = __webpack_require__(40);
 var Vector = __webpack_require__(39);
-var decomp = __webpack_require__(360);
+var decomp = __webpack_require__(359);
 
 (function() {
 
@@ -7744,7 +7750,7 @@ module.exports = Bounds;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetTileAt = __webpack_require__(105);
+var GetTileAt = __webpack_require__(106);
 var GetTilesWithin = __webpack_require__(17);
 
 /**
@@ -7840,7 +7846,7 @@ module.exports = DegToRad;
  */
 
 var Class = __webpack_require__(0);
-var GetColor = __webpack_require__(126);
+var GetColor = __webpack_require__(127);
 var GetColor32 = __webpack_require__(213);
 
 /**
@@ -9378,7 +9384,7 @@ module.exports = SetTileCollision;
 
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
-var Rectangle = __webpack_require__(320);
+var Rectangle = __webpack_require__(319);
 
 /**
  * @classdesc
@@ -11953,9 +11959,9 @@ module.exports = Angle;
 
 var Class = __webpack_require__(0);
 var Contains = __webpack_require__(63);
-var GetPoint = __webpack_require__(322);
-var GetPoints = __webpack_require__(323);
-var Random = __webpack_require__(121);
+var GetPoint = __webpack_require__(321);
+var GetPoints = __webpack_require__(322);
+var Random = __webpack_require__(122);
 
 /**
  * @classdesc
@@ -13363,7 +13369,7 @@ var Class = __webpack_require__(0);
 var Contains = __webpack_require__(34);
 var GetPoint = __webpack_require__(193);
 var GetPoints = __webpack_require__(194);
-var Random = __webpack_require__(112);
+var Random = __webpack_require__(113);
 
 /**
  * @classdesc
@@ -13779,7 +13785,7 @@ module.exports = Length;
  */
 
 var Class = __webpack_require__(0);
-var FromPoints = __webpack_require__(131);
+var FromPoints = __webpack_require__(132);
 var Rectangle = __webpack_require__(8);
 var Vector2 = __webpack_require__(6);
 
@@ -14518,7 +14524,7 @@ function init ()
 
 module.exports = init();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(521)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(520)))
 
 /***/ }),
 /* 77 */
@@ -14576,7 +14582,7 @@ var Actions = __webpack_require__(180);
 var Class = __webpack_require__(0);
 var GetFastValue = __webpack_require__(1);
 var GetValue = __webpack_require__(4);
-var Range = __webpack_require__(287);
+var Range = __webpack_require__(286);
 var Set = __webpack_require__(59);
 var Sprite = __webpack_require__(36);
 
@@ -16305,6 +16311,7 @@ var RectangleContains = __webpack_require__(35);
  * @constructor
  * @since 3.0.0
  *
+ * @extends Phaser.GameObjects.Components.Depth
  * @extends Phaser.GameObjects.Components.GetBounds
  * @extends Phaser.GameObjects.Components.Origin
  * @extends Phaser.GameObjects.Components.ScaleMode
@@ -16323,6 +16330,7 @@ var Zone = new Class({
     Extends: GameObject,
 
     Mixins: [
+        Components.Depth,
         Components.GetBounds,
         Components.Origin,
         Components.ScaleMode,
@@ -17064,7 +17072,7 @@ var Class = __webpack_require__(0);
 var GameObject = __webpack_require__(2);
 var Sprite = __webpack_require__(36);
 var Vector2 = __webpack_require__(6);
-var Vector4 = __webpack_require__(129);
+var Vector4 = __webpack_require__(130);
 
 /**
  * @classdesc
@@ -19133,6 +19141,921 @@ module.exports = BaseSound;
 
 /***/ }),
 /* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(0);
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class List
+ * @memberOf Phaser.Structs
+ * @constructor
+ * @since 3.0.0
+ *
+ * @param {any} parent - [description]
+ */
+var List = new Class({
+
+    initialize:
+
+    function List (parent)
+    {
+        /**
+         * The parent of this list.
+         *
+         * @name Phaser.Structs.List#parent
+         * @type {any}
+         * @since 3.0.0
+         */
+        this.parent = parent;
+
+        /**
+         * The objects that belong to this collection.
+         *
+         * @name Phaser.Structs.List#list
+         * @type {array}
+         * @default []
+         * @since 3.0.0
+         */
+        this.list = [];
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Structs.List#position
+         * @type {integer}
+         * @default 0
+         * @since 3.0.0
+         */
+        this.position = 0;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#add
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     *
+     * @return {object} [description]
+     */
+    add: function (child)
+    {
+        //  Is child already in this display list?
+
+        if (this.getIndex(child) === -1)
+        {
+            this.list.push(child);
+        }
+
+        return child;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#addAt
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     * @param {integer} index - [description]
+     *
+     * @return {object} [description]
+     */
+    addAt: function (child, index)
+    {
+        if (index === undefined) { index = 0; }
+
+        if (this.list.length === 0)
+        {
+            return this.add(child);
+        }
+
+        if (index >= 0 && index <= this.list.length)
+        {
+            if (this.getIndex(child) === -1)
+            {
+                this.list.splice(index, 0, child);
+            }
+        }
+
+        return child;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#addMultiple
+     * @since 3.0.0
+     *
+     * @param {array} children - [description]
+     *
+     * @return {array} [description]
+     */
+    addMultiple: function (children)
+    {
+        if (Array.isArray(children))
+        {
+            for (var i = 0; i < children.length; i++)
+            {
+                this.add(children[i]);
+            }
+        }
+
+        return children;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#getAt
+     * @since 3.0.0
+     *
+     * @param {integer} index - [description]
+     *
+     * @return {object} [description]
+     */
+    getAt: function (index)
+    {
+        return this.list[index];
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#getIndex
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     *
+     * @return {integer} [description]
+     */
+    getIndex: function (child)
+    {
+        //  Return -1 if given child isn't a child of this display list
+        return this.list.indexOf(child);
+    },
+
+    /**
+     * Given an array of objects, sort the array and return it,
+     * so that the objects are in index order with the lowest at the bottom.
+     *
+     * @method Phaser.Structs.List#sort
+     * @since 3.0.0
+     *
+     * @param {array} children - [description]
+     *
+     * @return {array} [description]
+     */
+    sort: function (children)
+    {
+        if (children === undefined) { children = this.list; }
+
+        return children.sort(this.sortIndexHandler.bind(this));
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#sortIndexHandler
+     * @since 3.0.0
+     *
+     * @param {object} childA - [description]
+     * @param {object} childB - [description]
+     *
+     * @return {integer} [description]
+     */
+    sortIndexHandler: function (childA, childB)
+    {
+        //  The lower the index, the lower down the display list they are
+        var indexA = this.getIndex(childA);
+        var indexB = this.getIndex(childB);
+
+        if (indexA < indexB)
+        {
+            return -1;
+        }
+        else if (indexA > indexB)
+        {
+            return 1;
+        }
+
+        //  Technically this shouldn't happen, but if the GO wasn't part of this display list then it'll
+        //  have an index of -1, so in some cases it can
+        return 0;
+    },
+
+    /**
+     * Gets the first item from the set based on the property strictly equaling the value given.
+     * Returns null if not found.
+     *
+     * @method Phaser.Structs.List#getByKey
+     * @since 3.0.0
+     *
+     * @param {string} property - The property to check against the value.
+     * @param {any} value - The value to check if the property strictly equals.
+     *
+     * @return {any} The item that was found, or null if nothing matched.
+     */
+    getByKey: function (property, value)
+    {
+        for (var i = 0; i < this.list.length; i++)
+        {
+            if (this.list[i][property] === value)
+            {
+                return this.list[i];
+            }
+        }
+
+        return null;
+    },
+
+    /**
+     * Searches the Group for the first instance of a child with the `name`
+     * property matching the given argument. Should more than one child have
+     * the same name only the first instance is returned.
+     *
+     * @method Phaser.Structs.List#getByName
+     * @since 3.0.0
+     *
+     * @param {string} name - The name to search for.
+     *
+     * @return {any} The first child with a matching name, or null if none were found.
+     */
+    getByName: function (name)
+    {
+        return this.getByKey('name', name);
+    },
+
+    /**
+     * Returns a random child from the group.
+     *
+     * @method Phaser.Structs.List#getRandom
+     * @since 3.0.0
+     *
+     * @param {integer} [startIndex=0] - Offset from the front of the group (lowest child).
+     * @param {integer} [length=(to top)] - Restriction on the number of values you want to randomly select from.
+     *
+     * @return {any} A random child of this Group.
+     */
+    getRandom: function (startIndex, length)
+    {
+        if (startIndex === undefined) { startIndex = 0; }
+        if (length === undefined) { length = this.list.length; }
+
+        if (length === 0 || length > this.list.length)
+        {
+            return null;
+        }
+
+        var randomIndex = startIndex + Math.floor(Math.random() * length);
+
+        return this.list[randomIndex];
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#getFirst
+     * @since 3.0.0
+     *
+     * @param {[type]} property - [description]
+     * @param {[type]} value - [description]
+     * @param {[type]} startIndex - [description]
+     * @param {[type]} endIndex - [description]
+     *
+     * @return {[type]} [description]
+     */
+    getFirst: function (property, value, startIndex, endIndex)
+    {
+        if (startIndex === undefined) { startIndex = 0; }
+        if (endIndex === undefined) { endIndex = this.list.length; }
+
+        for (var i = startIndex; i < endIndex; i++)
+        {
+            var child = this.list[i];
+
+            if (child[property] === value)
+            {
+                return child;
+            }
+        }
+
+        return null;
+    },
+
+    /**
+     * Returns all children in this List.
+     *
+     * You can optionally specify a matching criteria using the `property` and `value` arguments.
+     *
+     * For example: `getAll('visible', true)` would return only children that have their visible property set.
+     *
+     * Optionally you can specify a start and end index. For example if this List had 100 children,
+     * and you set `startIndex` to 0 and `endIndex` to 50, it would return matches from only
+     * the first 50 children in the List.
+     *
+     * @method Phaser.Structs.List#getAll
+     * @since 3.0.0
+     *
+     * @param {string} [property] - An optional property to test against the value argument.
+     * @param {any} [value] - If property is set then Child.property must strictly equal this value to be included in the results.
+     * @param {integer} [startIndex=0] - The first child index to start the search from.
+     * @param {integer} [endIndex] - The last child index to search up until.
+     *
+     * @return {array} [description]
+     */
+    getAll: function (property, value, startIndex, endIndex)
+    {
+        if (startIndex === undefined) { startIndex = 0; }
+        if (endIndex === undefined) { endIndex = this.list.length; }
+
+        var output = [];
+
+        for (var i = startIndex; i < endIndex; i++)
+        {
+            var child = this.list[i];
+
+            if (property)
+            {
+                if (child[property] === value)
+                {
+                    output.push(child);
+                }
+            }
+            else
+            {
+                output.push(child);
+            }
+        }
+
+        return output;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#count
+     * @since 3.0.0
+     *
+     * @param {string} property - [description]
+     * @param {any} value - [description]
+     *
+     * @return {integer} [description]
+     */
+    count: function (property, value)
+    {
+        var total = 0;
+
+        for (var i = 0; i < this.list.length; i++)
+        {
+            var child = this.list[i];
+
+            if (child[property] === value)
+            {
+                total++;
+            }
+        }
+
+        return total;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#swap
+     * @since 3.0.0
+     *
+     * @param {object} child1 - [description]
+     * @param {object} child2 - [description]
+     */
+    swap: function (child1, child2)
+    {
+        if (child1 === child2)
+        {
+            return;
+        }
+
+        var index1 = this.getIndex(child1);
+        var index2 = this.getIndex(child2);
+
+        if (index1 < 0 || index2 < 0)
+        {
+            throw new Error('List.swap: Supplied objects must be children of the same list');
+        }
+
+        this.list[index1] = child2;
+        this.list[index2] = child1;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#moveTo
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     * @param {integer} index - [description]
+     *
+     * @return {object} [description]
+     */
+    moveTo: function (child, index)
+    {
+        var currentIndex = this.getIndex(child);
+
+        if (currentIndex === -1 || index < 0 || index >= this.list.length)
+        {
+            throw new Error('List.moveTo: The supplied index is out of bounds');
+        }
+
+        //  Remove
+        this.list.splice(currentIndex, 1);
+
+        //  Add in new location
+        this.list.splice(index, 0, child);
+
+        return child;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#remove
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     *
+     * @return {object} [description]
+     */
+    remove: function (child)
+    {
+        var index = this.list.indexOf(child);
+
+        if (index !== -1)
+        {
+            this.list.splice(index, 1);
+        }
+        
+        return child;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#removeAt
+     * @since 3.0.0
+     *
+     * @param {integer} index - [description]
+     *
+     * @return {object} [description]
+     */
+    removeAt: function (index)
+    {
+        var child = this.list[index];
+
+        if (child)
+        {
+            this.children.splice(index, 1);
+        }
+
+        return child;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#removeBetween
+     * @since 3.0.0
+     *
+     * @param {integer} beginIndex - [description]
+     * @param {integer} endIndex - [description]
+     *
+     * @return {array} [description]
+     */
+    removeBetween: function (beginIndex, endIndex)
+    {
+        if (beginIndex === undefined) { beginIndex = 0; }
+        if (endIndex === undefined) { endIndex = this.list.length; }
+
+        var range = endIndex - beginIndex;
+
+        if (range > 0 && range <= endIndex)
+        {
+            var removed = this.list.splice(beginIndex, range);
+
+            return removed;
+        }
+        else if (range === 0 && this.list.length === 0)
+        {
+            return [];
+        }
+        else
+        {
+            throw new Error('List.removeBetween: Range Error, numeric values are outside the acceptable range');
+        }
+    },
+
+    /**
+     * Removes all the items.
+     *
+     * @method Phaser.Structs.List#removeAll
+     * @since 3.0.0
+     *
+     * @return {Phaser.Structs.List} This List object.
+     */
+    removeAll: function ()
+    {
+        var i = this.list.length;
+
+        while (i--)
+        {
+            this.remove(this.list[i]);
+        }
+
+        return this;
+    },
+
+    /**
+     * Brings the given child to the top of this List.
+     *
+     * @method Phaser.Structs.List#bringToTop
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     *
+     * @return {object} [description]
+     */
+    bringToTop: function (child)
+    {
+        if (this.getIndex(child) < this.list.length)
+        {
+            this.remove(child);
+            this.add(child);
+        }
+
+        return child;
+    },
+
+    /**
+     * Sends the given child to the bottom of this List.
+     *
+     * @method Phaser.Structs.List#sendToBack
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     *
+     * @return {object} [description]
+     */
+    sendToBack: function (child)
+    {
+        if (this.getIndex(child) > 0)
+        {
+            this.remove(child);
+            this.addAt(child, 0);
+        }
+
+        return child;
+    },
+
+    /**
+     * Moves the given child up one place in this group unless it's already at the top.
+     *
+     * @method Phaser.Structs.List#moveUp
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     *
+     * @return {object} [description]
+     */
+    moveUp: function (child)
+    {
+        var a = this.getIndex(child);
+
+        if (a !== -1 && a < this.list.length - 1)
+        {
+            var b = this.getAt(a + 1);
+
+            if (b)
+            {
+                this.swap(child, b);
+            }
+        }
+
+        return child;
+    },
+
+    /**
+     * Moves the given child down one place in this group unless it's already at the bottom.
+     *
+     * @method Phaser.Structs.List#moveDown
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     *
+     * @return {object} [description]
+     */
+    moveDown: function (child)
+    {
+        var a = this.getIndex(child);
+
+        if (a > 0)
+        {
+            var b = this.getAt(a - 1);
+
+            if (b)
+            {
+                this.swap(child, b);
+            }
+        }
+
+        return child;
+    },
+
+    /**
+     * Reverses the order of all children in this List.
+     *
+     * @method Phaser.Structs.List#reverse
+     * @since 3.0.0
+     *
+     * @return {Phaser.Structs.List} This List object.
+     */
+    reverse: function ()
+    {
+        this.list.reverse();
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#shuffle
+     * @since 3.0.0
+     *
+     * @return {Phaser.Structs.List} This List object.
+     */
+    shuffle: function ()
+    {
+        for (var i = this.list.length - 1; i > 0; i--)
+        {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = this.list[i];
+            this.list[i] = this.list[j];
+            this.list[j] = temp;
+        }
+
+        return this;
+    },
+
+    /**
+     * Replaces a child of this List with the given newChild. The newChild cannot be a member of this List.
+     *
+     * @method Phaser.Structs.List#replace
+     * @since 3.0.0
+     *
+     * @param {object} oldChild - The child in this List that will be replaced.
+     * @param {object} newChild - The child to be inserted into this List.
+     *
+     * @return {object} Returns the oldChild that was replaced within this group.
+     */
+    replace: function (oldChild, newChild)
+    {
+        var index = this.getIndex(oldChild);
+
+        if (index !== -1)
+        {
+            this.remove(oldChild);
+
+            this.addAt(newChild, index);
+
+            return oldChild;
+        }
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#exists
+     * @since 3.0.0
+     *
+     * @param {object} child - [description]
+     *
+     * @return {boolean} True if the item is found in the list, otherwise false.
+     */
+    exists: function (child)
+    {
+        return (this.list.indexOf(child) > -1);
+    },
+
+    /**
+     * Sets the property `key` to the given value on all members of this List.
+     *
+     * @method Phaser.Structs.List#setAll
+     * @since 3.0.0
+     *
+     * @param {string} key - [description]
+     * @param {any} value - [description]
+     */
+    setAll: function (key, value)
+    {
+        for (var i = 0; i < this.list.length; i++)
+        {
+            if (this.list[i])
+            {
+                this.list[i][key] = value;
+            }
+        }
+    },
+
+    /**
+     * Passes all children to the given callback.
+     *
+     * @method Phaser.Structs.List#each
+     * @since 3.0.0
+     *
+     * @param {function} callback - The function to call.
+     * @param {object} [thisArg] - Value to use as `this` when executing callback.
+     * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the child.
+     */
+    each: function (callback, thisArg)
+    {
+        var args = [ null ];
+
+        for (var i = 1; i < arguments.length; i++)
+        {
+            args.push(arguments[i]);
+        }
+
+        for (i = 0; i < this.list.length; i++)
+        {
+            args[0] = this.list[i];
+            callback.apply(thisArg, args);
+        }
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#shutdown
+     * @since 3.0.0
+     */
+    shutdown: function ()
+    {
+        this.removeAll();
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Structs.List#destroy
+     * @since 3.0.0
+     */
+    destroy: function ()
+    {
+        this.removeAll();
+
+        this.list = [];
+
+        this.parent = null;
+    },
+
+    /**
+     * [description]
+     *
+     * @name Phaser.Structs.List#length
+     * @type {integer}
+     * @readOnly
+     * @since 3.0.0
+     */
+    length: {
+
+        get: function ()
+        {
+            return this.list.length;
+        }
+
+    },
+
+    /**
+     * [description]
+     *
+     * @name Phaser.Structs.List#first
+     * @type {integer}
+     * @readOnly
+     * @since 3.0.0
+     */
+    first: {
+
+        get: function ()
+        {
+            this.position = 0;
+
+            if (this.list.length > 0)
+            {
+                return this.list[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+    },
+
+    /**
+     * [description]
+     *
+     * @name Phaser.Structs.List#last
+     * @type {integer}
+     * @readOnly
+     * @since 3.0.0
+     */
+    last: {
+
+        get: function ()
+        {
+            if (this.list.length > 0)
+            {
+                this.position = this.list.length - 1;
+
+                return this.list[this.position];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+    },
+
+    /**
+     * [description]
+     *
+     * @name Phaser.Structs.List#next
+     * @type {integer}
+     * @readOnly
+     * @since 3.0.0
+     */
+    next: {
+
+        get: function ()
+        {
+            if (this.position < this.list.length)
+            {
+                this.position++;
+
+                return this.list[this.position];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+    },
+
+    /**
+     * [description]
+     *
+     * @name Phaser.Structs.List#previous
+     * @type {integer}
+     * @readOnly
+     * @since 3.0.0
+     */
+    previous: {
+
+        get: function ()
+        {
+            if (this.position > 0)
+            {
+                this.position--;
+
+                return this.list[this.position];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+    }
+
+});
+
+module.exports = List;
+
+
+/***/ }),
+/* 99 */
 /***/ (function(module, exports) {
 
 /**
@@ -19304,7 +20227,7 @@ module.exports = TWEEN_CONST;
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -19464,7 +20387,7 @@ module.exports = Mesh;
 
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -19540,7 +20463,7 @@ module.exports = LineToLine;
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports) {
 
 /**
@@ -19603,7 +20526,7 @@ module.exports = XHRSettings;
 
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -19613,7 +20536,7 @@ module.exports = XHRSettings;
  */
 
 var Class = __webpack_require__(0);
-var Components = __webpack_require__(341);
+var Components = __webpack_require__(340);
 var Sprite = __webpack_require__(36);
 
 /**
@@ -19700,7 +20623,7 @@ module.exports = ArcadeSprite;
 
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports) {
 
 /**
@@ -19840,7 +20763,7 @@ module.exports = Pair;
 
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -19865,22 +20788,22 @@ module.exports = {
     FindByIndex: __webpack_require__(928),
     FindTile: __webpack_require__(929),
     ForEachTile: __webpack_require__(930),
-    GetTileAt: __webpack_require__(105),
+    GetTileAt: __webpack_require__(106),
     GetTileAtWorldXY: __webpack_require__(931),
     GetTilesWithin: __webpack_require__(17),
     GetTilesWithinShape: __webpack_require__(932),
     GetTilesWithinWorldXY: __webpack_require__(933),
-    HasTileAt: __webpack_require__(371),
+    HasTileAt: __webpack_require__(370),
     HasTileAtWorldXY: __webpack_require__(934),
     IsInLayerBounds: __webpack_require__(85),
     PutTileAt: __webpack_require__(169),
     PutTileAtWorldXY: __webpack_require__(935),
     PutTilesAt: __webpack_require__(936),
     Randomize: __webpack_require__(937),
-    RemoveTileAt: __webpack_require__(372),
+    RemoveTileAt: __webpack_require__(371),
     RemoveTileAtWorldXY: __webpack_require__(938),
     RenderDebug: __webpack_require__(939),
-    ReplaceByIndex: __webpack_require__(370),
+    ReplaceByIndex: __webpack_require__(369),
     SetCollision: __webpack_require__(940),
     SetCollisionBetween: __webpack_require__(941),
     SetCollisionByExclusion: __webpack_require__(942),
@@ -19890,9 +20813,9 @@ module.exports = {
     SetTileLocationCallback: __webpack_require__(946),
     Shuffle: __webpack_require__(947),
     SwapByIndex: __webpack_require__(948),
-    TileToWorldX: __webpack_require__(106),
+    TileToWorldX: __webpack_require__(107),
     TileToWorldXY: __webpack_require__(949),
-    TileToWorldY: __webpack_require__(107),
+    TileToWorldY: __webpack_require__(108),
     WeightedRandomize: __webpack_require__(950),
     WorldToTileX: __webpack_require__(45),
     WorldToTileXY: __webpack_require__(951),
@@ -19902,7 +20825,7 @@ module.exports = {
 
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -19958,7 +20881,7 @@ module.exports = GetTileAt;
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports) {
 
 /**
@@ -20002,7 +20925,7 @@ module.exports = TileToWorldX;
 
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports) {
 
 /**
@@ -20046,7 +20969,7 @@ module.exports = TileToWorldY;
 
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -20438,7 +21361,7 @@ module.exports = Tileset;
 
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports) {
 
 /**
@@ -20501,7 +21424,7 @@ module.exports = GetNewValue;
 
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -20514,8 +21437,8 @@ var Defaults = __webpack_require__(175);
 var GetAdvancedValue = __webpack_require__(11);
 var GetBoolean = __webpack_require__(80);
 var GetEaseFunction = __webpack_require__(79);
-var GetNewValue = __webpack_require__(109);
-var GetProps = __webpack_require__(385);
+var GetNewValue = __webpack_require__(110);
+var GetProps = __webpack_require__(384);
 var GetTargets = __webpack_require__(173);
 var GetValue = __webpack_require__(4);
 var GetValueOp = __webpack_require__(174);
@@ -20632,7 +21555,7 @@ module.exports = TweenBuilder;
 
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -20669,7 +21592,7 @@ module.exports = CircumferencePoint;
 
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -20711,7 +21634,7 @@ module.exports = Random;
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -20786,7 +21709,7 @@ module.exports = GetPoint;
 
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -20822,7 +21745,7 @@ module.exports = Random;
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports) {
 
 /**
@@ -20948,7 +21871,7 @@ module.exports = Pipeline;
 
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -20978,7 +21901,7 @@ module.exports = Wrap;
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21008,7 +21931,7 @@ module.exports = WrapDegrees;
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21066,7 +21989,7 @@ module.exports = GetPoints;
 
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21105,7 +22028,7 @@ module.exports = Random;
 
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21143,7 +22066,7 @@ module.exports = Random;
 
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21197,7 +22120,7 @@ module.exports = Random;
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports) {
 
 /**
@@ -21234,7 +22157,7 @@ module.exports = RotateAroundDistance;
 
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21559,7 +22482,7 @@ module.exports = Map;
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21572,7 +22495,7 @@ var Class = __webpack_require__(0);
 var DegToRad = __webpack_require__(42);
 var Rectangle = __webpack_require__(8);
 var TransformMatrix = __webpack_require__(199);
-var ValueToColor = __webpack_require__(125);
+var ValueToColor = __webpack_require__(126);
 var Vector2 = __webpack_require__(6);
 
 /**
@@ -22911,7 +23834,7 @@ module.exports = Camera;
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -22967,7 +23890,7 @@ module.exports = ValueToColor;
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports) {
 
 /**
@@ -22997,7 +23920,7 @@ module.exports = GetColor;
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -23007,7 +23930,7 @@ module.exports = GetColor;
  */
 
 var Class = __webpack_require__(0);
-var Matrix4 = __webpack_require__(128);
+var Matrix4 = __webpack_require__(129);
 var RandomXYZ = __webpack_require__(218);
 var RandomXYZW = __webpack_require__(219);
 var RotateVec3 = __webpack_require__(220);
@@ -23015,7 +23938,7 @@ var Set = __webpack_require__(59);
 var Sprite3D = __webpack_require__(92);
 var Vector2 = __webpack_require__(6);
 var Vector3 = __webpack_require__(58);
-var Vector4 = __webpack_require__(129);
+var Vector4 = __webpack_require__(130);
 
 //  Local cache vars
 var tmpVec3 = new Vector3();
@@ -24065,7 +24988,7 @@ module.exports = Camera;
 
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -25506,7 +26429,7 @@ module.exports = Matrix4;
 
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -26034,7 +26957,7 @@ module.exports = Vector4;
 
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports) {
 
 /**
@@ -26166,7 +27089,7 @@ module.exports = Smoothing();
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -26249,7 +27172,7 @@ module.exports = FromPoints;
 
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports) {
 
 /**
@@ -26286,7 +27209,7 @@ module.exports = CatmullRom;
 
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports) {
 
 /**
@@ -26348,7 +27271,7 @@ module.exports = AddToDOM;
 
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -26549,7 +27472,7 @@ module.exports = init();
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports) {
 
 /**
@@ -26579,7 +27502,7 @@ module.exports = IsSizePowerOfTwo;
 
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports) {
 
 /**
@@ -26618,7 +27541,7 @@ module.exports = {
 
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports) {
 
 /**
@@ -27193,7 +28116,7 @@ module.exports = {
 
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -27204,8 +28127,8 @@ module.exports = {
 
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(95);
-var GetPhysicsPlugins = __webpack_require__(554);
-var GetScenePlugins = __webpack_require__(555);
+var GetPhysicsPlugins = __webpack_require__(553);
+var GetScenePlugins = __webpack_require__(554);
 var Plugins = __webpack_require__(245);
 var Settings = __webpack_require__(266);
 
@@ -27745,7 +28668,7 @@ module.exports = Systems;
 
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28330,921 +29253,6 @@ module.exports = Frame;
 
 
 /***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Class = __webpack_require__(0);
-
-/**
- * @classdesc
- * [description]
- *
- * @class List
- * @memberOf Phaser.Structs
- * @constructor
- * @since 3.0.0
- *
- * @param {any} parent - [description]
- */
-var List = new Class({
-
-    initialize:
-
-    function List (parent)
-    {
-        /**
-         * The parent of this list.
-         *
-         * @name Phaser.Structs.List#parent
-         * @type {any}
-         * @since 3.0.0
-         */
-        this.parent = parent;
-
-        /**
-         * The objects that belong to this collection.
-         *
-         * @name Phaser.Structs.List#list
-         * @type {array}
-         * @default []
-         * @since 3.0.0
-         */
-        this.list = [];
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Structs.List#position
-         * @type {integer}
-         * @default 0
-         * @since 3.0.0
-         */
-        this.position = 0;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#add
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     *
-     * @return {object} [description]
-     */
-    add: function (child)
-    {
-        //  Is child already in this display list?
-
-        if (this.getIndex(child) === -1)
-        {
-            this.list.push(child);
-        }
-
-        return child;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#addAt
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     * @param {integer} index - [description]
-     *
-     * @return {object} [description]
-     */
-    addAt: function (child, index)
-    {
-        if (index === undefined) { index = 0; }
-
-        if (this.list.length === 0)
-        {
-            return this.add(child);
-        }
-
-        if (index >= 0 && index <= this.list.length)
-        {
-            if (this.getIndex(child) === -1)
-            {
-                this.list.splice(index, 0, child);
-            }
-        }
-
-        return child;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#addMultiple
-     * @since 3.0.0
-     *
-     * @param {array} children - [description]
-     *
-     * @return {array} [description]
-     */
-    addMultiple: function (children)
-    {
-        if (Array.isArray(children))
-        {
-            for (var i = 0; i < children.length; i++)
-            {
-                this.add(children[i]);
-            }
-        }
-
-        return children;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#getAt
-     * @since 3.0.0
-     *
-     * @param {integer} index - [description]
-     *
-     * @return {object} [description]
-     */
-    getAt: function (index)
-    {
-        return this.list[index];
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#getIndex
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     *
-     * @return {integer} [description]
-     */
-    getIndex: function (child)
-    {
-        //  Return -1 if given child isn't a child of this display list
-        return this.list.indexOf(child);
-    },
-
-    /**
-     * Given an array of objects, sort the array and return it,
-     * so that the objects are in index order with the lowest at the bottom.
-     *
-     * @method Phaser.Structs.List#sort
-     * @since 3.0.0
-     *
-     * @param {array} children - [description]
-     *
-     * @return {array} [description]
-     */
-    sort: function (children)
-    {
-        if (children === undefined) { children = this.list; }
-
-        return children.sort(this.sortIndexHandler.bind(this));
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#sortIndexHandler
-     * @since 3.0.0
-     *
-     * @param {object} childA - [description]
-     * @param {object} childB - [description]
-     *
-     * @return {integer} [description]
-     */
-    sortIndexHandler: function (childA, childB)
-    {
-        //  The lower the index, the lower down the display list they are
-        var indexA = this.getIndex(childA);
-        var indexB = this.getIndex(childB);
-
-        if (indexA < indexB)
-        {
-            return -1;
-        }
-        else if (indexA > indexB)
-        {
-            return 1;
-        }
-
-        //  Technically this shouldn't happen, but if the GO wasn't part of this display list then it'll
-        //  have an index of -1, so in some cases it can
-        return 0;
-    },
-
-    /**
-     * Gets the first item from the set based on the property strictly equaling the value given.
-     * Returns null if not found.
-     *
-     * @method Phaser.Structs.List#getByKey
-     * @since 3.0.0
-     *
-     * @param {string} property - The property to check against the value.
-     * @param {any} value - The value to check if the property strictly equals.
-     *
-     * @return {any} The item that was found, or null if nothing matched.
-     */
-    getByKey: function (property, value)
-    {
-        for (var i = 0; i < this.list.length; i++)
-        {
-            if (this.list[i][property] === value)
-            {
-                return this.list[i];
-            }
-        }
-
-        return null;
-    },
-
-    /**
-     * Searches the Group for the first instance of a child with the `name`
-     * property matching the given argument. Should more than one child have
-     * the same name only the first instance is returned.
-     *
-     * @method Phaser.Structs.List#getByName
-     * @since 3.0.0
-     *
-     * @param {string} name - The name to search for.
-     *
-     * @return {any} The first child with a matching name, or null if none were found.
-     */
-    getByName: function (name)
-    {
-        return this.getByKey('name', name);
-    },
-
-    /**
-     * Returns a random child from the group.
-     *
-     * @method Phaser.Structs.List#getRandom
-     * @since 3.0.0
-     *
-     * @param {integer} [startIndex=0] - Offset from the front of the group (lowest child).
-     * @param {integer} [length=(to top)] - Restriction on the number of values you want to randomly select from.
-     *
-     * @return {any} A random child of this Group.
-     */
-    getRandom: function (startIndex, length)
-    {
-        if (startIndex === undefined) { startIndex = 0; }
-        if (length === undefined) { length = this.list.length; }
-
-        if (length === 0 || length > this.list.length)
-        {
-            return null;
-        }
-
-        var randomIndex = startIndex + Math.floor(Math.random() * length);
-
-        return this.list[randomIndex];
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#getFirst
-     * @since 3.0.0
-     *
-     * @param {[type]} property - [description]
-     * @param {[type]} value - [description]
-     * @param {[type]} startIndex - [description]
-     * @param {[type]} endIndex - [description]
-     *
-     * @return {[type]} [description]
-     */
-    getFirst: function (property, value, startIndex, endIndex)
-    {
-        if (startIndex === undefined) { startIndex = 0; }
-        if (endIndex === undefined) { endIndex = this.list.length; }
-
-        for (var i = startIndex; i < endIndex; i++)
-        {
-            var child = this.list[i];
-
-            if (child[property] === value)
-            {
-                return child;
-            }
-        }
-
-        return null;
-    },
-
-    /**
-     * Returns all children in this List.
-     *
-     * You can optionally specify a matching criteria using the `property` and `value` arguments.
-     *
-     * For example: `getAll('visible', true)` would return only children that have their visible property set.
-     *
-     * Optionally you can specify a start and end index. For example if this List had 100 children,
-     * and you set `startIndex` to 0 and `endIndex` to 50, it would return matches from only
-     * the first 50 children in the List.
-     *
-     * @method Phaser.Structs.List#getAll
-     * @since 3.0.0
-     *
-     * @param {string} [property] - An optional property to test against the value argument.
-     * @param {any} [value] - If property is set then Child.property must strictly equal this value to be included in the results.
-     * @param {integer} [startIndex=0] - The first child index to start the search from.
-     * @param {integer} [endIndex] - The last child index to search up until.
-     *
-     * @return {array} [description]
-     */
-    getAll: function (property, value, startIndex, endIndex)
-    {
-        if (startIndex === undefined) { startIndex = 0; }
-        if (endIndex === undefined) { endIndex = this.list.length; }
-
-        var output = [];
-
-        for (var i = startIndex; i < endIndex; i++)
-        {
-            var child = this.list[i];
-
-            if (property)
-            {
-                if (child[property] === value)
-                {
-                    output.push(child);
-                }
-            }
-            else
-            {
-                output.push(child);
-            }
-        }
-
-        return output;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#count
-     * @since 3.0.0
-     *
-     * @param {string} property - [description]
-     * @param {any} value - [description]
-     *
-     * @return {integer} [description]
-     */
-    count: function (property, value)
-    {
-        var total = 0;
-
-        for (var i = 0; i < this.list.length; i++)
-        {
-            var child = this.list[i];
-
-            if (child[property] === value)
-            {
-                total++;
-            }
-        }
-
-        return total;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#swap
-     * @since 3.0.0
-     *
-     * @param {object} child1 - [description]
-     * @param {object} child2 - [description]
-     */
-    swap: function (child1, child2)
-    {
-        if (child1 === child2)
-        {
-            return;
-        }
-
-        var index1 = this.getIndex(child1);
-        var index2 = this.getIndex(child2);
-
-        if (index1 < 0 || index2 < 0)
-        {
-            throw new Error('List.swap: Supplied objects must be children of the same list');
-        }
-
-        this.list[index1] = child2;
-        this.list[index2] = child1;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#moveTo
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     * @param {integer} index - [description]
-     *
-     * @return {object} [description]
-     */
-    moveTo: function (child, index)
-    {
-        var currentIndex = this.getIndex(child);
-
-        if (currentIndex === -1 || index < 0 || index >= this.list.length)
-        {
-            throw new Error('List.moveTo: The supplied index is out of bounds');
-        }
-
-        //  Remove
-        this.list.splice(currentIndex, 1);
-
-        //  Add in new location
-        this.list.splice(index, 0, child);
-
-        return child;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#remove
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     *
-     * @return {object} [description]
-     */
-    remove: function (child)
-    {
-        var index = this.list.indexOf(child);
-
-        if (index !== -1)
-        {
-            this.list.splice(index, 1);
-        }
-        
-        return child;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#removeAt
-     * @since 3.0.0
-     *
-     * @param {integer} index - [description]
-     *
-     * @return {object} [description]
-     */
-    removeAt: function (index)
-    {
-        var child = this.list[index];
-
-        if (child)
-        {
-            this.children.splice(index, 1);
-        }
-
-        return child;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#removeBetween
-     * @since 3.0.0
-     *
-     * @param {integer} beginIndex - [description]
-     * @param {integer} endIndex - [description]
-     *
-     * @return {array} [description]
-     */
-    removeBetween: function (beginIndex, endIndex)
-    {
-        if (beginIndex === undefined) { beginIndex = 0; }
-        if (endIndex === undefined) { endIndex = this.list.length; }
-
-        var range = endIndex - beginIndex;
-
-        if (range > 0 && range <= endIndex)
-        {
-            var removed = this.list.splice(beginIndex, range);
-
-            return removed;
-        }
-        else if (range === 0 && this.list.length === 0)
-        {
-            return [];
-        }
-        else
-        {
-            throw new Error('List.removeBetween: Range Error, numeric values are outside the acceptable range');
-        }
-    },
-
-    /**
-     * Removes all the items.
-     *
-     * @method Phaser.Structs.List#removeAll
-     * @since 3.0.0
-     *
-     * @return {Phaser.Structs.List} This List object.
-     */
-    removeAll: function ()
-    {
-        var i = this.list.length;
-
-        while (i--)
-        {
-            this.remove(this.list[i]);
-        }
-
-        return this;
-    },
-
-    /**
-     * Brings the given child to the top of this List.
-     *
-     * @method Phaser.Structs.List#bringToTop
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     *
-     * @return {object} [description]
-     */
-    bringToTop: function (child)
-    {
-        if (this.getIndex(child) < this.list.length)
-        {
-            this.remove(child);
-            this.add(child);
-        }
-
-        return child;
-    },
-
-    /**
-     * Sends the given child to the bottom of this List.
-     *
-     * @method Phaser.Structs.List#sendToBack
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     *
-     * @return {object} [description]
-     */
-    sendToBack: function (child)
-    {
-        if (this.getIndex(child) > 0)
-        {
-            this.remove(child);
-            this.addAt(child, 0);
-        }
-
-        return child;
-    },
-
-    /**
-     * Moves the given child up one place in this group unless it's already at the top.
-     *
-     * @method Phaser.Structs.List#moveUp
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     *
-     * @return {object} [description]
-     */
-    moveUp: function (child)
-    {
-        var a = this.getIndex(child);
-
-        if (a !== -1 && a < this.list.length - 1)
-        {
-            var b = this.getAt(a + 1);
-
-            if (b)
-            {
-                this.swap(child, b);
-            }
-        }
-
-        return child;
-    },
-
-    /**
-     * Moves the given child down one place in this group unless it's already at the bottom.
-     *
-     * @method Phaser.Structs.List#moveDown
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     *
-     * @return {object} [description]
-     */
-    moveDown: function (child)
-    {
-        var a = this.getIndex(child);
-
-        if (a > 0)
-        {
-            var b = this.getAt(a - 1);
-
-            if (b)
-            {
-                this.swap(child, b);
-            }
-        }
-
-        return child;
-    },
-
-    /**
-     * Reverses the order of all children in this List.
-     *
-     * @method Phaser.Structs.List#reverse
-     * @since 3.0.0
-     *
-     * @return {Phaser.Structs.List} This List object.
-     */
-    reverse: function ()
-    {
-        this.list.reverse();
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#shuffle
-     * @since 3.0.0
-     *
-     * @return {Phaser.Structs.List} This List object.
-     */
-    shuffle: function ()
-    {
-        for (var i = this.list.length - 1; i > 0; i--)
-        {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = this.list[i];
-            this.list[i] = this.list[j];
-            this.list[j] = temp;
-        }
-
-        return this;
-    },
-
-    /**
-     * Replaces a child of this List with the given newChild. The newChild cannot be a member of this List.
-     *
-     * @method Phaser.Structs.List#replace
-     * @since 3.0.0
-     *
-     * @param {object} oldChild - The child in this List that will be replaced.
-     * @param {object} newChild - The child to be inserted into this List.
-     *
-     * @return {object} Returns the oldChild that was replaced within this group.
-     */
-    replace: function (oldChild, newChild)
-    {
-        var index = this.getIndex(oldChild);
-
-        if (index !== -1)
-        {
-            this.remove(oldChild);
-
-            this.addAt(newChild, index);
-
-            return oldChild;
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#exists
-     * @since 3.0.0
-     *
-     * @param {object} child - [description]
-     *
-     * @return {boolean} True if the item is found in the list, otherwise false.
-     */
-    exists: function (child)
-    {
-        return (this.list.indexOf(child) > -1);
-    },
-
-    /**
-     * Sets the property `key` to the given value on all members of this List.
-     *
-     * @method Phaser.Structs.List#setAll
-     * @since 3.0.0
-     *
-     * @param {string} key - [description]
-     * @param {any} value - [description]
-     */
-    setAll: function (key, value)
-    {
-        for (var i = 0; i < this.list.length; i++)
-        {
-            if (this.list[i])
-            {
-                this.list[i][key] = value;
-            }
-        }
-    },
-
-    /**
-     * Passes all children to the given callback.
-     *
-     * @method Phaser.Structs.List#each
-     * @since 3.0.0
-     *
-     * @param {function} callback - The function to call.
-     * @param {object} [thisArg] - Value to use as `this` when executing callback.
-     * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the child.
-     */
-    each: function (callback, thisArg)
-    {
-        var args = [ null ];
-
-        for (var i = 1; i < arguments.length; i++)
-        {
-            args.push(arguments[i]);
-        }
-
-        for (i = 0; i < this.list.length; i++)
-        {
-            args[0] = this.list[i];
-            callback.apply(thisArg, args);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#shutdown
-     * @since 3.0.0
-     */
-    shutdown: function ()
-    {
-        this.removeAll();
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Structs.List#destroy
-     * @since 3.0.0
-     */
-    destroy: function ()
-    {
-        this.removeAll();
-
-        this.list = [];
-
-        this.parent = null;
-    },
-
-    /**
-     * [description]
-     *
-     * @name Phaser.Structs.List#length
-     * @type {integer}
-     * @readOnly
-     * @since 3.0.0
-     */
-    length: {
-
-        get: function ()
-        {
-            return this.list.length;
-        }
-
-    },
-
-    /**
-     * [description]
-     *
-     * @name Phaser.Structs.List#first
-     * @type {integer}
-     * @readOnly
-     * @since 3.0.0
-     */
-    first: {
-
-        get: function ()
-        {
-            this.position = 0;
-
-            if (this.list.length > 0)
-            {
-                return this.list[0];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-    },
-
-    /**
-     * [description]
-     *
-     * @name Phaser.Structs.List#last
-     * @type {integer}
-     * @readOnly
-     * @since 3.0.0
-     */
-    last: {
-
-        get: function ()
-        {
-            if (this.list.length > 0)
-            {
-                this.position = this.list.length - 1;
-
-                return this.list[this.position];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-    },
-
-    /**
-     * [description]
-     *
-     * @name Phaser.Structs.List#next
-     * @type {integer}
-     * @readOnly
-     * @since 3.0.0
-     */
-    next: {
-
-        get: function ()
-        {
-            if (this.position < this.list.length)
-            {
-                this.position++;
-
-                return this.list[this.position];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-    },
-
-    /**
-     * [description]
-     *
-     * @name Phaser.Structs.List#previous
-     * @type {integer}
-     * @readOnly
-     * @since 3.0.0
-     */
-    previous: {
-
-        get: function ()
-        {
-            if (this.position > 0)
-            {
-                this.position--;
-
-                return this.list[this.position];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-    }
-
-});
-
-module.exports = List;
-
-
-/***/ }),
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29257,7 +29265,7 @@ module.exports = List;
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var GameObject = __webpack_require__(2);
-var GetBitmapTextSize = __webpack_require__(280);
+var GetBitmapTextSize = __webpack_require__(279);
 var ParseFromAtlas = __webpack_require__(570);
 var ParseRetroFont = __webpack_require__(571);
 var Render = __webpack_require__(572);
@@ -29527,9 +29535,9 @@ var BlitterRender = __webpack_require__(575);
 var Bob = __webpack_require__(578);
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
-var DisplayList = __webpack_require__(278);
-var Frame = __webpack_require__(139);
+var Frame = __webpack_require__(140);
 var GameObject = __webpack_require__(2);
+var List = __webpack_require__(98);
 
 /**
  * @classdesc
@@ -29602,10 +29610,10 @@ var Blitter = new Class({
          * [description]
          *
          * @name Phaser.GameObjects.Blitter#children
-         * @type {Phaser.GameObjects.DisplayList}
+         * @type {Phaser.Structs.List}
          * @since 3.0.0
          */
-        this.children = new DisplayList();
+        this.children = new List();
 
         /**
          * [description]
@@ -29741,7 +29749,7 @@ var Blitter = new Class({
      * @method Phaser.GameObjects.Blitter#getRenderList
      * @since 3.0.0
      *
-     * @return {[type]} [description]
+     * @return {Phaser.GameObjects.Blitter.Bob[]} An array of Bob objects that will be rendered this frame.
      */
     getRenderList: function ()
     {
@@ -29784,7 +29792,7 @@ module.exports = Blitter;
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var GameObject = __webpack_require__(2);
-var GetBitmapTextSize = __webpack_require__(280);
+var GetBitmapTextSize = __webpack_require__(279);
 var Render = __webpack_require__(579);
 
 /**
@@ -30162,11 +30170,11 @@ module.exports = DynamicBitmapText;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Camera = __webpack_require__(124);
+var Camera = __webpack_require__(125);
 var Class = __webpack_require__(0);
-var Commands = __webpack_require__(136);
+var Commands = __webpack_require__(137);
 var Components = __webpack_require__(14);
-var Ellipse = __webpack_require__(282);
+var Ellipse = __webpack_require__(281);
 var GameObject = __webpack_require__(2);
 var GetValue = __webpack_require__(4);
 var MATH_CONST = __webpack_require__(13);
@@ -31290,9 +31298,9 @@ module.exports = Graphics;
 
 var Class = __webpack_require__(0);
 var Contains = __webpack_require__(77);
-var GetPoint = __webpack_require__(283);
-var GetPoints = __webpack_require__(284);
-var Random = __webpack_require__(119);
+var GetPoint = __webpack_require__(282);
+var GetPoints = __webpack_require__(283);
+var Random = __webpack_require__(120);
 
 /**
  * @classdesc
@@ -31696,7 +31704,7 @@ var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var GameObject = __webpack_require__(2);
 var GravityWell = __webpack_require__(596);
-var List = __webpack_require__(140);
+var List = __webpack_require__(98);
 var ParticleEmitter = __webpack_require__(597);
 var Render = __webpack_require__(636);
 
@@ -32150,7 +32158,7 @@ module.exports = GetRandomElement;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var AddToDOM = __webpack_require__(133);
+var AddToDOM = __webpack_require__(134);
 var CanvasPool = __webpack_require__(22);
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
@@ -33255,7 +33263,7 @@ var CanvasPool = __webpack_require__(22);
 var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var GameObject = __webpack_require__(2);
-var GetPowerOfTwo = __webpack_require__(303);
+var GetPowerOfTwo = __webpack_require__(302);
 var TileSpriteRender = __webpack_require__(645);
 
 /**
@@ -33503,7 +33511,7 @@ module.exports = TileSprite;
  */
 
 var Class = __webpack_require__(0);
-var Mesh = __webpack_require__(99);
+var Mesh = __webpack_require__(100);
 
 /**
  * @classdesc
@@ -34404,7 +34412,7 @@ module.exports = GetURL;
  */
 
 var Extend = __webpack_require__(25);
-var XHRSettings = __webpack_require__(101);
+var XHRSettings = __webpack_require__(102);
 
 /**
  * Takes two XHRSettings Objects and creates a new XHRSettings object from them.
@@ -34915,7 +34923,7 @@ var Detector = {};
 module.exports = Detector;
 
 var SAT = __webpack_require__(164);
-var Pair = __webpack_require__(103);
+var Pair = __webpack_require__(104);
 var Bounds = __webpack_require__(40);
 
 (function() {
@@ -35297,30 +35305,30 @@ var Vector = __webpack_require__(39);
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Matter = __webpack_require__(364);
+var Matter = __webpack_require__(363);
 
 Matter.Body = __webpack_require__(20);
 Matter.Composite = __webpack_require__(49);
 Matter.World = __webpack_require__(167);
 
 Matter.Detector = __webpack_require__(163);
-Matter.Grid = __webpack_require__(365);
-Matter.Pairs = __webpack_require__(366);
-Matter.Pair = __webpack_require__(103);
+Matter.Grid = __webpack_require__(364);
+Matter.Pairs = __webpack_require__(365);
+Matter.Pair = __webpack_require__(104);
 Matter.Query = __webpack_require__(910);
-Matter.Resolver = __webpack_require__(367);
+Matter.Resolver = __webpack_require__(366);
 Matter.SAT = __webpack_require__(164);
 
 Matter.Constraint = __webpack_require__(70);
 
 Matter.Common = __webpack_require__(16);
-Matter.Engine = __webpack_require__(368);
+Matter.Engine = __webpack_require__(367);
 Matter.Events = __webpack_require__(69);
 Matter.Sleeping = __webpack_require__(84);
 Matter.Plugin = __webpack_require__(166);
 
 Matter.Bodies = __webpack_require__(37);
-Matter.Composites = __webpack_require__(361);
+Matter.Composites = __webpack_require__(360);
 
 Matter.Axes = __webpack_require__(160);
 Matter.Bounds = __webpack_require__(40);
@@ -35836,7 +35844,7 @@ var Common = __webpack_require__(16);
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetTileAt = __webpack_require__(105);
+var GetTileAt = __webpack_require__(106);
 
 /**
  * Calculates interesting faces at the given tile coordinates of the specified layer. Interesting
@@ -36122,8 +36130,8 @@ module.exports = Parse2DArray;
 
 var Formats = __webpack_require__(21);
 var MapData = __webpack_require__(87);
-var Parse = __webpack_require__(373);
-var Tilemap = __webpack_require__(381);
+var Parse = __webpack_require__(372);
+var Tilemap = __webpack_require__(380);
 
 /**
  * Create a Tilemap from the given key or data. If neither is given, make a blank Tilemap. When
@@ -36471,7 +36479,7 @@ module.exports = TWEEN_DEFAULTS;
 var Class = __webpack_require__(0);
 var GameObjectCreator = __webpack_require__(15);
 var GameObjectFactory = __webpack_require__(10);
-var TWEEN_CONST = __webpack_require__(98);
+var TWEEN_CONST = __webpack_require__(99);
 
 /**
  * @classdesc
@@ -37987,51 +37995,51 @@ module.exports = IsPlainObject;
 
 module.exports = {
 
-    Angle: __webpack_require__(402),
-    Call: __webpack_require__(403),
-    GetFirst: __webpack_require__(404),
-    GridAlign: __webpack_require__(405),
-    IncAlpha: __webpack_require__(422),
-    IncX: __webpack_require__(423),
-    IncXY: __webpack_require__(424),
-    IncY: __webpack_require__(425),
-    PlaceOnCircle: __webpack_require__(426),
-    PlaceOnEllipse: __webpack_require__(427),
-    PlaceOnLine: __webpack_require__(428),
-    PlaceOnRectangle: __webpack_require__(429),
-    PlaceOnTriangle: __webpack_require__(430),
-    PlayAnimation: __webpack_require__(431),
-    RandomCircle: __webpack_require__(432),
-    RandomEllipse: __webpack_require__(433),
-    RandomLine: __webpack_require__(434),
-    RandomRectangle: __webpack_require__(435),
-    RandomTriangle: __webpack_require__(436),
-    Rotate: __webpack_require__(437),
-    RotateAround: __webpack_require__(438),
-    RotateAroundDistance: __webpack_require__(439),
-    ScaleX: __webpack_require__(440),
-    ScaleXY: __webpack_require__(441),
-    ScaleY: __webpack_require__(442),
-    SetAlpha: __webpack_require__(443),
-    SetBlendMode: __webpack_require__(444),
-    SetDepth: __webpack_require__(445),
-    SetHitArea: __webpack_require__(446),
-    SetOrigin: __webpack_require__(447),
-    SetRotation: __webpack_require__(448),
-    SetScale: __webpack_require__(449),
-    SetScaleX: __webpack_require__(450),
-    SetScaleY: __webpack_require__(451),
-    SetTint: __webpack_require__(452),
-    SetVisible: __webpack_require__(453),
-    SetX: __webpack_require__(454),
-    SetXY: __webpack_require__(455),
-    SetY: __webpack_require__(456),
-    ShiftPosition: __webpack_require__(457),
-    Shuffle: __webpack_require__(458),
-    SmootherStep: __webpack_require__(459),
-    SmoothStep: __webpack_require__(460),
-    Spread: __webpack_require__(461),
-    ToggleVisible: __webpack_require__(462)
+    Angle: __webpack_require__(401),
+    Call: __webpack_require__(402),
+    GetFirst: __webpack_require__(403),
+    GridAlign: __webpack_require__(404),
+    IncAlpha: __webpack_require__(421),
+    IncX: __webpack_require__(422),
+    IncXY: __webpack_require__(423),
+    IncY: __webpack_require__(424),
+    PlaceOnCircle: __webpack_require__(425),
+    PlaceOnEllipse: __webpack_require__(426),
+    PlaceOnLine: __webpack_require__(427),
+    PlaceOnRectangle: __webpack_require__(428),
+    PlaceOnTriangle: __webpack_require__(429),
+    PlayAnimation: __webpack_require__(430),
+    RandomCircle: __webpack_require__(431),
+    RandomEllipse: __webpack_require__(432),
+    RandomLine: __webpack_require__(433),
+    RandomRectangle: __webpack_require__(434),
+    RandomTriangle: __webpack_require__(435),
+    Rotate: __webpack_require__(436),
+    RotateAround: __webpack_require__(437),
+    RotateAroundDistance: __webpack_require__(438),
+    ScaleX: __webpack_require__(439),
+    ScaleXY: __webpack_require__(440),
+    ScaleY: __webpack_require__(441),
+    SetAlpha: __webpack_require__(442),
+    SetBlendMode: __webpack_require__(443),
+    SetDepth: __webpack_require__(444),
+    SetHitArea: __webpack_require__(445),
+    SetOrigin: __webpack_require__(446),
+    SetRotation: __webpack_require__(447),
+    SetScale: __webpack_require__(448),
+    SetScaleX: __webpack_require__(449),
+    SetScaleY: __webpack_require__(450),
+    SetTint: __webpack_require__(451),
+    SetVisible: __webpack_require__(452),
+    SetX: __webpack_require__(453),
+    SetXY: __webpack_require__(454),
+    SetY: __webpack_require__(455),
+    ShiftPosition: __webpack_require__(456),
+    Shuffle: __webpack_require__(457),
+    SmootherStep: __webpack_require__(458),
+    SmoothStep: __webpack_require__(459),
+    Spread: __webpack_require__(460),
+    ToggleVisible: __webpack_require__(461)
 
 };
 
@@ -38638,7 +38646,7 @@ module.exports = TopRight;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var CircumferencePoint = __webpack_require__(111);
+var CircumferencePoint = __webpack_require__(112);
 var FromPercent = __webpack_require__(73);
 var MATH_CONST = __webpack_require__(13);
 var Point = __webpack_require__(5);
@@ -38680,7 +38688,7 @@ module.exports = GetPoint;
  */
 
 var Circumference = __webpack_require__(195);
-var CircumferencePoint = __webpack_require__(111);
+var CircumferencePoint = __webpack_require__(112);
 var FromPercent = __webpack_require__(73);
 var MATH_CONST = __webpack_require__(13);
 
@@ -39579,7 +39587,7 @@ module.exports = Animation;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetPoint = __webpack_require__(113);
+var GetPoint = __webpack_require__(114);
 var Perimeter = __webpack_require__(89);
 
 //  Return an array of points from the perimeter of the rectangle
@@ -41488,7 +41496,7 @@ module.exports = AnimationFrame;
 
 var Animation = __webpack_require__(206);
 var Class = __webpack_require__(0);
-var CustomMap = __webpack_require__(123);
+var CustomMap = __webpack_require__(124);
 var EventEmitter = __webpack_require__(12);
 var GetValue = __webpack_require__(4);
 var Pad = __webpack_require__(209);
@@ -42160,7 +42168,7 @@ module.exports = Pad;
  */
 
 var Class = __webpack_require__(0);
-var CustomMap = __webpack_require__(123);
+var CustomMap = __webpack_require__(124);
 var EventEmitter = __webpack_require__(12);
 
 /**
@@ -42879,7 +42887,7 @@ module.exports = RandomXYZW;
  */
 
 var Vector3 = __webpack_require__(58);
-var Matrix4 = __webpack_require__(128);
+var Matrix4 = __webpack_require__(129);
 var Quaternion = __webpack_require__(221);
 
 var tmpMat4 = new Matrix4();
@@ -44284,7 +44292,7 @@ module.exports = Matrix3;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Camera = __webpack_require__(127);
+var Camera = __webpack_require__(128);
 var Class = __webpack_require__(0);
 var Vector3 = __webpack_require__(58);
 
@@ -44471,7 +44479,7 @@ module.exports = OrthographicCamera;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Camera = __webpack_require__(127);
+var Camera = __webpack_require__(128);
 var Class = __webpack_require__(0);
 var Vector3 = __webpack_require__(58);
 
@@ -45654,7 +45662,7 @@ module.exports = RadToDeg;
 
 var Class = __webpack_require__(0);
 var Curve = __webpack_require__(75);
-var FromPoints = __webpack_require__(131);
+var FromPoints = __webpack_require__(132);
 var Rectangle = __webpack_require__(8);
 var Vector2 = __webpack_require__(6);
 
@@ -45878,7 +45886,7 @@ module.exports = LineCurve;
 
 //  Based on the three.js Curve classes created by [zz85](http://www.lab4games.net/zz85/blog)
 
-var CatmullRom = __webpack_require__(132);
+var CatmullRom = __webpack_require__(133);
 var Class = __webpack_require__(0);
 var Curve = __webpack_require__(75);
 var Vector2 = __webpack_require__(6);
@@ -46156,24 +46164,24 @@ module.exports = CanvasInterpolation;
 
 var Color = __webpack_require__(43);
 
-Color.ColorToRGBA = __webpack_require__(509);
+Color.ColorToRGBA = __webpack_require__(508);
 Color.ComponentToHex = __webpack_require__(235);
-Color.GetColor = __webpack_require__(126);
+Color.GetColor = __webpack_require__(127);
 Color.GetColor32 = __webpack_require__(213);
 Color.HexStringToColor = __webpack_require__(212);
-Color.HSLToColor = __webpack_require__(510);
-Color.HSVColorWheel = __webpack_require__(512);
+Color.HSLToColor = __webpack_require__(509);
+Color.HSVColorWheel = __webpack_require__(511);
 Color.HSVToRGB = __webpack_require__(237);
 Color.HueToComponent = __webpack_require__(236);
 Color.IntegerToColor = __webpack_require__(214);
 Color.IntegerToRGB = __webpack_require__(215);
-Color.Interpolate = __webpack_require__(513);
+Color.Interpolate = __webpack_require__(512);
 Color.ObjectToColor = __webpack_require__(216);
-Color.RandomRGB = __webpack_require__(514);
+Color.RandomRGB = __webpack_require__(513);
 Color.RGBStringToColor = __webpack_require__(217);
-Color.RGBToHSV = __webpack_require__(515);
-Color.RGBToString = __webpack_require__(516);
-Color.ValueToColor = __webpack_require__(125);
+Color.RGBToHSV = __webpack_require__(514);
+Color.RGBToString = __webpack_require__(515);
+Color.ValueToColor = __webpack_require__(126);
 
 module.exports = Color;
 
@@ -46263,7 +46271,7 @@ var HueToComponent = function (p, q, t)
 
 module.export = HueToComponent;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(511)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(510)(module)))
 
 /***/ }),
 /* 237 */
@@ -46275,7 +46283,7 @@ module.export = HueToComponent;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetColor = __webpack_require__(126);
+var GetColor = __webpack_require__(127);
 
 /**
  * Converts an HSV (hue, saturation and value) color value to RGB.
@@ -48193,7 +48201,7 @@ module.exports = ModelViewProjection;
  */
 
 var Class = __webpack_require__(0);
-var ShaderSourceFS = __webpack_require__(539);
+var ShaderSourceFS = __webpack_require__(538);
 var TextureTintPipeline = __webpack_require__(250);
 var Utils = __webpack_require__(44);
 var WebGLPipeline = __webpack_require__(94);
@@ -48574,8 +48582,8 @@ module.exports = ForwardDiffuseLightPipeline;
 
 var Class = __webpack_require__(0);
 var ModelViewProjection = __webpack_require__(248);
-var ShaderSourceFS = __webpack_require__(540);
-var ShaderSourceVS = __webpack_require__(541); 
+var ShaderSourceFS = __webpack_require__(539);
+var ShaderSourceVS = __webpack_require__(540); 
 var Utils = __webpack_require__(44);
 var WebGLPipeline = __webpack_require__(94);
 
@@ -51445,11 +51453,11 @@ module.exports = Button;
 var Class = __webpack_require__(0);
 var EventEmitter = __webpack_require__(12);
 var Key = __webpack_require__(257);
-var KeyCodes = __webpack_require__(137);
+var KeyCodes = __webpack_require__(138);
 var KeyCombo = __webpack_require__(258);
-var KeyMap = __webpack_require__(551);
-var ProcessKeyDown = __webpack_require__(552);
-var ProcessKeyUp = __webpack_require__(553);
+var KeyMap = __webpack_require__(550);
+var ProcessKeyDown = __webpack_require__(551);
+var ProcessKeyUp = __webpack_require__(552);
 
 /**
  * @classdesc
@@ -52074,8 +52082,8 @@ module.exports = Key;
 
 var Class = __webpack_require__(0);
 var GetFastValue = __webpack_require__(1);
-var ProcessKeyCombo = __webpack_require__(548);
-var ResetKeyCombo = __webpack_require__(550);
+var ProcessKeyCombo = __webpack_require__(547);
+var ResetKeyCombo = __webpack_require__(549);
 
 /**
  * @classdesc
@@ -52343,7 +52351,7 @@ module.exports = KeyCombo;
  */
 
 var Class = __webpack_require__(0);
-var Features = __webpack_require__(134);
+var Features = __webpack_require__(135);
 
 //  https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
 //  https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
@@ -53555,7 +53563,7 @@ var CONST = __webpack_require__(95);
 var GetValue = __webpack_require__(4);
 var NOOP = __webpack_require__(3);
 var Scene = __webpack_require__(264);
-var Systems = __webpack_require__(138);
+var Systems = __webpack_require__(139);
 
 /**
  * @classdesc
@@ -54710,7 +54718,7 @@ module.exports = SceneManager;
  */
 
 var Class = __webpack_require__(0);
-var Systems = __webpack_require__(138);
+var Systems = __webpack_require__(139);
 
 /**
  * @classdesc
@@ -54795,7 +54803,7 @@ module.exports = UppercaseFirst;
 
 var CONST = __webpack_require__(95);
 var GetValue = __webpack_require__(4);
-var InjectionMap = __webpack_require__(556);
+var InjectionMap = __webpack_require__(555);
 
 /**
  * Takes a Scene configuration object and returns a fully formed Systems object.
@@ -58469,15 +58477,15 @@ module.exports = TextureManager;
 
 module.exports = {
 
-    Canvas: __webpack_require__(557),
-    Image: __webpack_require__(558),
-    JSONArray: __webpack_require__(559),
-    JSONHash: __webpack_require__(560),
-    Pyxel: __webpack_require__(561),
-    SpriteSheet: __webpack_require__(562),
-    SpriteSheetFromAtlas: __webpack_require__(563),
-    StarlingXML: __webpack_require__(564),
-    UnityYAML: __webpack_require__(565)
+    Canvas: __webpack_require__(556),
+    Image: __webpack_require__(557),
+    JSONArray: __webpack_require__(558),
+    JSONHash: __webpack_require__(559),
+    Pyxel: __webpack_require__(560),
+    SpriteSheet: __webpack_require__(561),
+    SpriteSheetFromAtlas: __webpack_require__(562),
+    StarlingXML: __webpack_require__(563),
+    UnityYAML: __webpack_require__(564)
 
 };
 
@@ -58493,7 +58501,7 @@ module.exports = {
  */
 
 var Class = __webpack_require__(0);
-var Frame = __webpack_require__(139);
+var Frame = __webpack_require__(140);
 var TextureSource = __webpack_require__(277);
 
 /**
@@ -58927,7 +58935,7 @@ module.exports = Texture;
 
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(24);
-var IsSizePowerOfTwo = __webpack_require__(135);
+var IsSizePowerOfTwo = __webpack_require__(136);
 var ScaleModes = __webpack_require__(71);
 
 /**
@@ -59125,178 +59133,6 @@ module.exports = TextureSource;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Class = __webpack_require__(0);
-var List = __webpack_require__(140);
-var PluginManager = __webpack_require__(9);
-var StableSort = __webpack_require__(279);
-
-/**
- * @classdesc
- * [description]
- *
- * @class DisplayList
- * @extends Phaser.Structs.List
- * @memberOf Phaser.GameObjects
- * @constructor
- * @since 3.0.0
- *
- * @param {Phaser.Scene} scene - [description]
- */
-var DisplayList = new Class({
-
-    Extends: List,
-
-    initialize:
-
-    function DisplayList (scene)
-    {
-        List.call(this, scene);
-
-        /**
-         * [description]
-         *
-         * @name Phaser.GameObjects.DisplayList#sortChildrenFlag
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
-        this.sortChildrenFlag = false;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.GameObjects.DisplayList#scene
-         * @type {Phaser.Scene}
-         * @since 3.0.0
-         */
-        this.scene = scene;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.GameObjects.DisplayList#systems
-         * @type {Phaser.Scenes.Systems}
-         * @since 3.0.0
-         */
-        this.systems = scene.sys;
-
-        if (!scene.sys.settings.isBooted)
-        {
-            scene.sys.events.once('boot', this.boot, this);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.GameObjects.DisplayList#boot
-     * @since 3.0.0
-     */
-    boot: function ()
-    {
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.on('shutdown', this.shutdown, this);
-        eventEmitter.on('destroy', this.destroy, this);
-    },
-
-    /**
-     * Force a sort of the display list on the next call to depthSort.
-     *
-     * @method Phaser.GameObjects.DisplayList#queueDepthSort
-     * @since 3.0.0
-     */
-    queueDepthSort: function ()
-    {
-        this.sortChildrenFlag = true;
-    },
-
-    /**
-     * Immediately sorts the display list if the flag is set.
-     *
-     * @method Phaser.GameObjects.DisplayList#depthSort
-     * @since 3.0.0
-     */
-    depthSort: function ()
-    {
-        if (this.sortChildrenFlag)
-        {
-            StableSort.inplace(this.list, this.sortByDepth);
-
-            this.sortChildrenFlag = false;
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.GameObjects.DisplayList#sortByDepth
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.GameObject} childA - [description]
-     * @param {Phaser.GameObjects.GameObject} childB - [description]
-     *
-     * @return {integer} [description]
-     */
-    sortByDepth: function (childA, childB)
-    {
-        return childA._depth - childB._depth;
-    },
-
-    /**
-     * Given an array of Game Objects, sort the array and return it,
-     * so that the objects are in index order with the lowest at the bottom.
-     *
-     * @method Phaser.GameObjects.DisplayList#sortGameObjects
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.GameObject[]} gameObjects - [description]
-     *
-     * @return {array} [description]
-     */
-    sortGameObjects: function (gameObjects)
-    {
-        if (gameObjects === undefined) { gameObjects = this.list; }
-
-        this.scene.sys.depthSort();
-
-        return gameObjects.sort(this.sortIndexHandler.bind(this));
-    },
-
-    /**
-     * Note that the given array is sorted in place, even though it isn't returned directly it will still be updated.
-     *
-     * @method Phaser.GameObjects.DisplayList#getTopGameObject
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.GameObject[]} gameObjects - [description]
-     *
-     * @return {Phaser.GameObjects.GameObject} The top-most Game Object on the Display List.
-     */
-    getTopGameObject: function (gameObjects)
-    {
-        this.sortGameObjects(gameObjects);
-
-        return gameObjects[gameObjects.length - 1];
-    }
-
-});
-
-PluginManager.register('DisplayList', DisplayList, 'displayList');
-
-module.exports = DisplayList;
-
-
-/***/ }),
-/* 279 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
 //! stable.js 0.1.6, https://github.com/Two-Screen/stable
 //! © 2017 Angry Bytes and contributors. MIT licensed.
 
@@ -59410,7 +59246,7 @@ else {
 })();
 
 /***/ }),
-/* 280 */
+/* 279 */
 /***/ (function(module, exports) {
 
 /**
@@ -59549,7 +59385,7 @@ module.exports = GetBitmapTextSize;
 
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, exports) {
 
 /**
@@ -59682,7 +59518,7 @@ module.exports = ParseXMLBitmapFont;
 
 
 /***/ }),
-/* 282 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -59694,7 +59530,7 @@ module.exports = ParseXMLBitmapFont;
 var Ellipse = __webpack_require__(145);
 
 Ellipse.Area = __webpack_require__(582);
-Ellipse.Circumference = __webpack_require__(285);
+Ellipse.Circumference = __webpack_require__(284);
 Ellipse.CircumferencePoint = __webpack_require__(146);
 Ellipse.Clone = __webpack_require__(583);
 Ellipse.Contains = __webpack_require__(77);
@@ -59703,17 +59539,17 @@ Ellipse.ContainsRect = __webpack_require__(585);
 Ellipse.CopyFrom = __webpack_require__(586);
 Ellipse.Equals = __webpack_require__(587);
 Ellipse.GetBounds = __webpack_require__(588);
-Ellipse.GetPoint = __webpack_require__(283);
-Ellipse.GetPoints = __webpack_require__(284);
+Ellipse.GetPoint = __webpack_require__(282);
+Ellipse.GetPoints = __webpack_require__(283);
 Ellipse.Offset = __webpack_require__(589);
 Ellipse.OffsetPoint = __webpack_require__(590);
-Ellipse.Random = __webpack_require__(119);
+Ellipse.Random = __webpack_require__(120);
 
 module.exports = Ellipse;
 
 
 /***/ }),
-/* 283 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -59754,7 +59590,7 @@ module.exports = GetPoint;
 
 
 /***/ }),
-/* 284 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -59763,7 +59599,7 @@ module.exports = GetPoint;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Circumference = __webpack_require__(285);
+var Circumference = __webpack_require__(284);
 var CircumferencePoint = __webpack_require__(146);
 var FromPercent = __webpack_require__(73);
 var MATH_CONST = __webpack_require__(13);
@@ -59806,7 +59642,7 @@ module.exports = GetPoints;
 
 
 /***/ }),
-/* 285 */
+/* 284 */
 /***/ (function(module, exports) {
 
 /**
@@ -59838,7 +59674,7 @@ module.exports = Circumference;
 
 
 /***/ }),
-/* 286 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -59847,7 +59683,7 @@ module.exports = Circumference;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Commands = __webpack_require__(136);
+var Commands = __webpack_require__(137);
 var GameObject = __webpack_require__(2);
 
 /**
@@ -60104,7 +59940,7 @@ module.exports = GraphicsCanvasRenderer;
 
 
 /***/ }),
-/* 287 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60244,7 +60080,7 @@ module.exports = Range;
 
 
 /***/ }),
-/* 288 */
+/* 287 */
 /***/ (function(module, exports) {
 
 /**
@@ -60273,7 +60109,7 @@ module.exports = FloatBetween;
 
 
 /***/ }),
-/* 289 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60294,7 +60130,7 @@ module.exports = {
 
 
 /***/ }),
-/* 290 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60315,7 +60151,7 @@ module.exports = {
 
 
 /***/ }),
-/* 291 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60336,7 +60172,7 @@ module.exports = {
 
 
 /***/ }),
-/* 292 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60357,7 +60193,7 @@ module.exports = {
 
 
 /***/ }),
-/* 293 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60378,7 +60214,7 @@ module.exports = {
 
 
 /***/ }),
-/* 294 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60399,7 +60235,7 @@ module.exports = {
 
 
 /***/ }),
-/* 295 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60414,7 +60250,7 @@ module.exports = __webpack_require__(620);
 
 
 /***/ }),
-/* 296 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60435,7 +60271,7 @@ module.exports = {
 
 
 /***/ }),
-/* 297 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60456,7 +60292,7 @@ module.exports = {
 
 
 /***/ }),
-/* 298 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60477,7 +60313,7 @@ module.exports = {
 
 
 /***/ }),
-/* 299 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60498,7 +60334,7 @@ module.exports = {
 
 
 /***/ }),
-/* 300 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60513,7 +60349,7 @@ module.exports = __webpack_require__(633);
 
 
 /***/ }),
-/* 301 */
+/* 300 */
 /***/ (function(module, exports) {
 
 /**
@@ -60550,7 +60386,7 @@ module.exports = HasAny;
 
 
 /***/ }),
-/* 302 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -60564,7 +60400,7 @@ var DegToRad = __webpack_require__(42);
 var GetBoolean = __webpack_require__(80);
 var GetValue = __webpack_require__(4);
 var Sprite = __webpack_require__(36);
-var TWEEN_CONST = __webpack_require__(98);
+var TWEEN_CONST = __webpack_require__(99);
 var Vector2 = __webpack_require__(6);
 
 /**
@@ -60972,7 +60808,7 @@ module.exports = PathFollower;
 
 
 /***/ }),
-/* 303 */
+/* 302 */
 /***/ (function(module, exports) {
 
 /**
@@ -61003,7 +60839,7 @@ module.exports = GetPowerOfTwo;
 
 
 /***/ }),
-/* 304 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -61092,7 +60928,7 @@ module.exports = BuildGameObjectAnimation;
 
 
 /***/ }),
-/* 305 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -61346,7 +61182,7 @@ module.exports = Light;
 
 
 /***/ }),
-/* 306 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -61356,7 +61192,7 @@ module.exports = Light;
  */
 
 var Class = __webpack_require__(0);
-var Light = __webpack_require__(305);
+var Light = __webpack_require__(304);
 var LightPipeline = __webpack_require__(249);
 var Utils = __webpack_require__(44);
 
@@ -61676,7 +61512,7 @@ module.exports = LightsManager;
 
 
 /***/ }),
-/* 307 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -61692,19 +61528,19 @@ module.exports = LightsManager;
 module.exports = {
     
     Circle: __webpack_require__(681),
-    Ellipse: __webpack_require__(282),
-    Intersects: __webpack_require__(308),
+    Ellipse: __webpack_require__(281),
+    Intersects: __webpack_require__(307),
     Line: __webpack_require__(701),
     Point: __webpack_require__(719),
     Polygon: __webpack_require__(733),
-    Rectangle: __webpack_require__(320),
+    Rectangle: __webpack_require__(319),
     Triangle: __webpack_require__(762)
 
 };
 
 
 /***/ }),
-/* 308 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -61722,12 +61558,12 @@ module.exports = {
     CircleToCircle: __webpack_require__(691),
     CircleToRectangle: __webpack_require__(692),
     GetRectangleIntersection: __webpack_require__(693),
-    LineToCircle: __webpack_require__(310),
-    LineToLine: __webpack_require__(100),
+    LineToCircle: __webpack_require__(309),
+    LineToLine: __webpack_require__(101),
     LineToRectangle: __webpack_require__(694),
-    PointToLine: __webpack_require__(311),
+    PointToLine: __webpack_require__(310),
     PointToLineSegment: __webpack_require__(695),
-    RectangleToRectangle: __webpack_require__(309),
+    RectangleToRectangle: __webpack_require__(308),
     RectangleToTriangle: __webpack_require__(696),
     RectangleToValues: __webpack_require__(697),
     TriangleToCircle: __webpack_require__(698),
@@ -61738,7 +61574,7 @@ module.exports = {
 
 
 /***/ }),
-/* 309 */
+/* 308 */
 /***/ (function(module, exports) {
 
 /**
@@ -61772,7 +61608,7 @@ module.exports = RectangleToRectangle;
 
 
 /***/ }),
-/* 310 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -61857,7 +61693,7 @@ module.exports = LineToCircle;
 
 
 /***/ }),
-/* 311 */
+/* 310 */
 /***/ (function(module, exports) {
 
 /**
@@ -61886,7 +61722,7 @@ module.exports = PointToLine;
 
 
 /***/ }),
-/* 312 */
+/* 311 */
 /***/ (function(module, exports) {
 
 /**
@@ -61922,7 +61758,7 @@ module.exports = Decompose;
 
 
 /***/ }),
-/* 313 */
+/* 312 */
 /***/ (function(module, exports) {
 
 /**
@@ -61957,7 +61793,7 @@ module.exports = Decompose;
 
 
 /***/ }),
-/* 314 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -61967,9 +61803,9 @@ module.exports = Decompose;
  */
 
 var Class = __webpack_require__(0);
-var GetPoint = __webpack_require__(315);
-var GetPoints = __webpack_require__(118);
-var Random = __webpack_require__(120);
+var GetPoint = __webpack_require__(314);
+var GetPoints = __webpack_require__(119);
+var Random = __webpack_require__(121);
 
 /**
  * @classdesc
@@ -62254,7 +62090,7 @@ module.exports = Line;
 
 
 /***/ }),
-/* 315 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -62294,7 +62130,7 @@ module.exports = GetPoint;
 
 
 /***/ }),
-/* 316 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -62328,7 +62164,7 @@ module.exports = NormalAngle;
 
 
 /***/ }),
-/* 317 */
+/* 316 */
 /***/ (function(module, exports) {
 
 /**
@@ -62356,7 +62192,7 @@ module.exports = GetMagnitude;
 
 
 /***/ }),
-/* 318 */
+/* 317 */
 /***/ (function(module, exports) {
 
 /**
@@ -62384,7 +62220,7 @@ module.exports = GetMagnitudeSq;
 
 
 /***/ }),
-/* 319 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -62569,7 +62405,7 @@ module.exports = Polygon;
 
 
 /***/ }),
-/* 320 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -62583,22 +62419,22 @@ var Rectangle = __webpack_require__(8);
 Rectangle.Area = __webpack_require__(738);
 Rectangle.Ceil = __webpack_require__(739);
 Rectangle.CeilAll = __webpack_require__(740);
-Rectangle.CenterOn = __webpack_require__(321);
+Rectangle.CenterOn = __webpack_require__(320);
 Rectangle.Clone = __webpack_require__(741);
 Rectangle.Contains = __webpack_require__(35);
 Rectangle.ContainsPoint = __webpack_require__(742);
 Rectangle.ContainsRect = __webpack_require__(743);
 Rectangle.CopyFrom = __webpack_require__(744);
-Rectangle.Decompose = __webpack_require__(312);
+Rectangle.Decompose = __webpack_require__(311);
 Rectangle.Equals = __webpack_require__(745);
 Rectangle.FitInside = __webpack_require__(746);
 Rectangle.FitOutside = __webpack_require__(747);
 Rectangle.Floor = __webpack_require__(748);
 Rectangle.FloorAll = __webpack_require__(749);
-Rectangle.FromPoints = __webpack_require__(131);
+Rectangle.FromPoints = __webpack_require__(132);
 Rectangle.GetAspectRatio = __webpack_require__(155);
 Rectangle.GetCenter = __webpack_require__(750);
-Rectangle.GetPoint = __webpack_require__(113);
+Rectangle.GetPoint = __webpack_require__(114);
 Rectangle.GetPoints = __webpack_require__(197);
 Rectangle.GetSize = __webpack_require__(751);
 Rectangle.Inflate = __webpack_require__(752);
@@ -62611,7 +62447,7 @@ Rectangle.OffsetPoint = __webpack_require__(757);
 Rectangle.Overlaps = __webpack_require__(758);
 Rectangle.Perimeter = __webpack_require__(89);
 Rectangle.PerimeterPoint = __webpack_require__(759);
-Rectangle.Random = __webpack_require__(114);
+Rectangle.Random = __webpack_require__(115);
 Rectangle.Scale = __webpack_require__(760);
 Rectangle.Union = __webpack_require__(761);
 
@@ -62619,7 +62455,7 @@ module.exports = Rectangle;
 
 
 /***/ }),
-/* 321 */
+/* 320 */
 /***/ (function(module, exports) {
 
 /**
@@ -62654,7 +62490,7 @@ module.exports = CenterOn;
 
 
 /***/ }),
-/* 322 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -62740,7 +62576,7 @@ module.exports = GetPoint;
 
 
 /***/ }),
-/* 323 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -62831,7 +62667,7 @@ module.exports = GetPoints;
 
 
 /***/ }),
-/* 324 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -62871,7 +62707,7 @@ module.exports = Centroid;
 
 
 /***/ }),
-/* 325 */
+/* 324 */
 /***/ (function(module, exports) {
 
 /**
@@ -62910,7 +62746,7 @@ module.exports = Offset;
 
 
 /***/ }),
-/* 326 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -62973,7 +62809,7 @@ module.exports = InCenter;
 
 
 /***/ }),
-/* 327 */
+/* 326 */
 /***/ (function(module, exports) {
 
 /**
@@ -63022,7 +62858,7 @@ module.exports = InteractiveObject;
 
 
 /***/ }),
-/* 328 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -63085,7 +62921,7 @@ module.exports = XHRLoader;
 
 
 /***/ }),
-/* 329 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -63099,7 +62935,7 @@ var CONST = __webpack_require__(24);
 var File = __webpack_require__(19);
 var FileTypesManager = __webpack_require__(7);
 var GetFastValue = __webpack_require__(1);
-var HTML5AudioFile = __webpack_require__(330);
+var HTML5AudioFile = __webpack_require__(329);
 
 /**
  * @classdesc
@@ -63324,7 +63160,7 @@ module.exports = AudioFile;
 
 
 /***/ }),
-/* 330 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -63472,7 +63308,7 @@ module.exports = HTML5AudioFile;
 
 
 /***/ }),
-/* 331 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -63584,7 +63420,7 @@ module.exports = XMLFile;
 
 
 /***/ }),
-/* 332 */
+/* 331 */
 /***/ (function(module, exports) {
 
 /**
@@ -63648,7 +63484,7 @@ module.exports = NumberArray;
 
 
 /***/ }),
-/* 333 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -63751,7 +63587,7 @@ module.exports = TextFile;
 
 
 /***/ }),
-/* 334 */
+/* 333 */
 /***/ (function(module, exports) {
 
 /**
@@ -63788,7 +63624,7 @@ module.exports = Normalize;
 
 
 /***/ }),
-/* 335 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -63797,7 +63633,7 @@ module.exports = Normalize;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Factorial = __webpack_require__(336);
+var Factorial = __webpack_require__(335);
 
 /**
  * [description]
@@ -63819,7 +63655,7 @@ module.exports = Bernstein;
 
 
 /***/ }),
-/* 336 */
+/* 335 */
 /***/ (function(module, exports) {
 
 /**
@@ -63859,7 +63695,7 @@ module.exports = Factorial;
 
 
 /***/ }),
-/* 337 */
+/* 336 */
 /***/ (function(module, exports) {
 
 /**
@@ -63894,7 +63730,7 @@ module.exports = Rotate;
 
 
 /***/ }),
-/* 338 */
+/* 337 */
 /***/ (function(module, exports) {
 
 /**
@@ -63923,7 +63759,7 @@ module.exports = RoundAwayFromZero;
 
 
 /***/ }),
-/* 339 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -63932,12 +63768,12 @@ module.exports = RoundAwayFromZero;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var ArcadeImage = __webpack_require__(340);
-var ArcadeSprite = __webpack_require__(102);
+var ArcadeImage = __webpack_require__(339);
+var ArcadeSprite = __webpack_require__(103);
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(68);
-var PhysicsGroup = __webpack_require__(342);
-var StaticPhysicsGroup = __webpack_require__(343);
+var PhysicsGroup = __webpack_require__(341);
+var StaticPhysicsGroup = __webpack_require__(342);
 
 /**
  * @classdesc
@@ -64181,7 +64017,7 @@ module.exports = Factory;
 
 
 /***/ }),
-/* 340 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -64191,7 +64027,7 @@ module.exports = Factory;
  */
 
 var Class = __webpack_require__(0);
-var Components = __webpack_require__(341);
+var Components = __webpack_require__(340);
 var Image = __webpack_require__(61);
 
 /**
@@ -64274,7 +64110,7 @@ module.exports = ArcadeImage;
 
 
 /***/ }),
-/* 341 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -64304,7 +64140,7 @@ module.exports = {
 
 
 /***/ }),
-/* 342 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -64313,7 +64149,7 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var ArcadeSprite = __webpack_require__(102);
+var ArcadeSprite = __webpack_require__(103);
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(68);
 var GetFastValue = __webpack_require__(1);
@@ -64529,7 +64365,7 @@ module.exports = PhysicsGroup;
 
 
 /***/ }),
-/* 343 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -64540,7 +64376,7 @@ module.exports = PhysicsGroup;
 
 //  Phaser.Physics.Arcade.StaticGroup
 
-var ArcadeSprite = __webpack_require__(102);
+var ArcadeSprite = __webpack_require__(103);
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(68);
 var Group = __webpack_require__(78);
@@ -64676,7 +64512,7 @@ module.exports = StaticPhysicsGroup;
 
 
 /***/ }),
-/* 344 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -64685,24 +64521,24 @@ module.exports = StaticPhysicsGroup;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Body = __webpack_require__(345);
+var Body = __webpack_require__(344);
 var Clamp = __webpack_require__(57);
 var Class = __webpack_require__(0);
-var Collider = __webpack_require__(346);
+var Collider = __webpack_require__(345);
 var CONST = __webpack_require__(68);
 var DistanceBetween = __webpack_require__(48);
 var EventEmitter = __webpack_require__(12);
 var GetValue = __webpack_require__(4);
-var ProcessQueue = __webpack_require__(347);
+var ProcessQueue = __webpack_require__(346);
 var ProcessTileCallbacks = __webpack_require__(866);
 var Rectangle = __webpack_require__(8);
-var RTree = __webpack_require__(348);
+var RTree = __webpack_require__(347);
 var SeparateTile = __webpack_require__(867);
 var SeparateX = __webpack_require__(872);
 var SeparateY = __webpack_require__(874);
 var Set = __webpack_require__(59);
-var StaticBody = __webpack_require__(351);
-var TileIntersectsBody = __webpack_require__(350);
+var StaticBody = __webpack_require__(350);
+var TileIntersectsBody = __webpack_require__(349);
 var Vector2 = __webpack_require__(6);
 
 /**
@@ -64754,6 +64590,15 @@ var World = new Class({
          * @since 3.0.0
          */
         this.staticBodies = new Set();
+
+        /**
+         * Static Bodies
+         *
+         * @name Phaser.Physics.Arcade.World#pendingDestroy
+         * @type {Phaser.Structs.Set}
+         * @since 3.0.1
+         */
+        this.pendingDestroy = new Set();
 
         /**
          * [description]
@@ -65045,7 +64890,7 @@ var World = new Class({
                 }
                 else
                 {
-                    this.disableBody(object[i]);
+                    this.disableGameObjectBody(object[i]);
                 }
             }
         }
@@ -65056,21 +64901,21 @@ var World = new Class({
         }
         else
         {
-            this.disableBody(object);
+            this.disableGameObjectBody(object);
         }
     },
 
     /**
      * [description]
      *
-     * @method Phaser.Physics.Arcade.World#disableBody
-     * @since 3.0.0
+     * @method Phaser.Physics.Arcade.World#disableGameObjectBody
+     * @since 3.0.1
      *
      * @param {Phaser.GameObjects.GameObject} object - [description]
      *
      * @return {Phaser.GameObjects.GameObject} [description]
      */
-    disableBody: function (object)
+    disableGameObjectBody: function (object)
     {
         if (object.body)
         {
@@ -65084,11 +64929,34 @@ var World = new Class({
                 this.staticTree.remove(object.body);
             }
 
-            object.body.destroy();
-            object.body = null;
+            object.body.enable = false;
         }
 
         return object;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Physics.Arcade.World#disableBody
+     * @since 3.0.0
+     *
+     * @param {Phaser.Physics.Arcade.Body} body - [description]
+     */
+    disableBody: function (body)
+    {
+        if (body.physicsType === CONST.DYNAMIC_BODY)
+        {
+            this.tree.remove(body);
+            this.bodies.delete(body);
+        }
+        else if (body.physicsType === CONST.STATIC_BODY)
+        {
+            this.staticBodies.delete(body);
+            this.staticTree.remove(body);
+        }
+
+        body.enable = false;
     },
 
     /**
@@ -65340,7 +65208,12 @@ var World = new Class({
     {
         var i;
         var body;
-        var bodies = this.bodies.entries;
+
+        var dynamic = this.bodies;
+        var static = this.staticBodies;
+        var pending = this.pendingDestroy;
+
+        var bodies = dynamic.entries;
         var len = bodies.length;
 
         for (i = 0; i < len; i++)
@@ -65369,7 +65242,7 @@ var World = new Class({
                 }
             }
 
-            bodies = this.staticBodies.entries;
+            bodies = static.entries;
             len = bodies.length;
 
             for (i = 0; i < len; i++)
@@ -65381,6 +65254,36 @@ var World = new Class({
                     body.drawDebug(graphics);
                 }
             }
+        }
+
+        if (pending.size > 0)
+        {
+            var dynamicTree = this.tree;
+            var staticTree = this.staticTree;
+
+            bodies = pending.entries;
+            len = bodies.length;
+
+            for (i = 0; i < len; i++)
+            {
+                body = bodies[i];
+
+                if (body.physicsType === CONST.DYNAMIC_BODY)
+                {
+                    dynamicTree.remove(body);
+                    dynamic.delete(body);
+                }
+                else if (body.physicsType === CONST.STATIC_BODY)
+                {
+                    staticTree.remove(body);
+                    static.delete(body);
+                }
+
+                body.world = undefined;
+                body.gameObject = undefined;
+            }
+
+            pending.clear();
         }
     },
 
@@ -66084,12 +65987,12 @@ var World = new Class({
      */
     collideSpriteVsGroup: function (sprite, group, collideCallback, processCallback, callbackContext, overlapOnly)
     {
-        if (group.length === 0)
+        var bodyA = sprite.body;
+
+        if (group.length === 0 || !bodyA)
         {
             return;
         }
-
-        var bodyA = sprite.body;
 
         //  Does sprite collide with anything?
 
@@ -66289,6 +66192,13 @@ var World = new Class({
         {
             return;
         }
+
+        var children = group1.getChildren();
+
+        for (var i = 0; i < children.length; i++)
+        {
+            this.collideSpriteVsGroup(children[i], group2, collideCallback, processCallback, callbackContext, overlapOnly);
+        }
     },
 
     /**
@@ -66310,6 +66220,12 @@ var World = new Class({
      */
     destroy: function ()
     {
+        this.tree.clear();
+        this.staticTree.clear();
+        this.bodies.clear();
+        this.staticBodies.clear();
+        this.colliders.destroy();
+
         this.removeAllListeners();
     }
 
@@ -66319,7 +66235,7 @@ module.exports = World;
 
 
 /***/ }),
-/* 345 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -67397,28 +67313,32 @@ var Body = new Class({
     },
 
     /**
-     * [description]
+     * Resets this Body to the given coordinates. Also positions its parent Game Object to the same coordinates.
+     * If the body had any velocity or acceleration it is lost as a result of calling this.
      *
      * @method Phaser.Physics.Arcade.Body#reset
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {number} x - The horizontal position to place the Game Object and Body.
+     * @param {number} y - The vertical position to place the Game Object and Body.
      */
     reset: function (x, y)
     {
         this.stop();
 
-        var sprite = this.gameObject;
+        var gameObject = this.gameObject;
 
-        this.position.x = x - sprite.displayOriginX + (sprite.scaleX * this.offset.x);
-        this.position.y = y - sprite.displayOriginY + (sprite.scaleY * this.offset.y);
+        // x -= gameObject.displayOriginX + (gameObject.scaleX * this.offset.x);
+        // y -= gameObject.displayOriginY + (gameObject.scaleY * this.offset.y);
 
-        this.prev.x = this.position.x;
-        this.prev.y = this.position.y;
+        gameObject.setPosition(x, y);
 
-        this.rotation = this.gameObject.angle;
-        this.preRotation = this.rotation;
+        gameObject.getTopLeft(this.position);
+
+        this.prev.copy(this.position);
+
+        this.rotation = gameObject.angle;
+        this.preRotation = gameObject.angle;
 
         this.updateBounds();
         this.updateCenter();
@@ -67591,8 +67511,9 @@ var Body = new Class({
      */
     destroy: function ()
     {
-        this.gameObject.body = null;
-        this.gameObject = null;
+        this.enable = false;
+
+        this.world.pendingDestroy.set(this);
     },
 
     /**
@@ -68173,7 +68094,7 @@ module.exports = Body;
 
 
 /***/ }),
-/* 346 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -68215,6 +68136,15 @@ var Collider = new Class({
          * @since 3.0.0
          */
         this.world = world;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Physics.Arcade.Collider#name
+         * @type {string}
+         * @since 3.0.1
+         */
+        this.name = '';
 
         /**
          * [description]
@@ -68284,6 +68214,23 @@ var Collider = new Class({
     /**
      * [description]
      *
+     * @method Phaser.Physics.Arcade.Collider#setName
+     * @since 3.0.1
+     *
+     * @param {string} name - [description]
+     *
+     * @return {Phaser.Physics.Arcade.Collider} [description]
+     */
+    setName: function (name)
+    {
+        this.name = name;
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
      * @method Phaser.Physics.Arcade.Collider#update
      * @since 3.0.0
      */
@@ -68327,7 +68274,7 @@ module.exports = Collider;
 
 
 /***/ }),
-/* 347 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -68525,7 +68472,7 @@ module.exports = ProcessQueue;
 
 
 /***/ }),
-/* 348 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -68534,7 +68481,7 @@ module.exports = ProcessQueue;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var quickselect = __webpack_require__(349);
+var quickselect = __webpack_require__(348);
 
 /**
  * @classdesc
@@ -69134,7 +69081,7 @@ module.exports = rbush;
 
 
 /***/ }),
-/* 349 */
+/* 348 */
 /***/ (function(module, exports) {
 
 /**
@@ -69252,7 +69199,7 @@ module.exports = QuickSelect;
 
 
 /***/ }),
-/* 350 */
+/* 349 */
 /***/ (function(module, exports) {
 
 /**
@@ -69289,7 +69236,7 @@ module.exports = TileIntersectsBody;
 
 
 /***/ }),
-/* 351 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -69414,7 +69361,7 @@ var StaticBody = new Class({
          * @type {number}
          * @since 3.0.0
          */
-        this.width = gameObject.width;
+        this.width = gameObject.displayWidth;
 
         /**
          * [description]
@@ -69423,31 +69370,7 @@ var StaticBody = new Class({
          * @type {number}
          * @since 3.0.0
          */
-        this.height = gameObject.height;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Physics.Arcade.StaticBody#sourceWidth
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.sourceWidth = gameObject.width;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Physics.Arcade.StaticBody#sourceHeight
-         * @type {number}
-         * @since 3.0.0
-         */
-        this.sourceHeight = gameObject.height;
-
-        if (gameObject.frame)
-        {
-            this.sourceWidth = gameObject.frame.realWidth;
-            this.sourceHeight = gameObject.frame.realHeight;
-        }
+        this.height = gameObject.displayHeight;
 
         /**
          * [description]
@@ -69456,7 +69379,7 @@ var StaticBody = new Class({
          * @type {number}
          * @since 3.0.0
          */
-        this.halfWidth = Math.abs(gameObject.width / 2);
+        this.halfWidth = Math.abs(this.width / 2);
 
         /**
          * [description]
@@ -69465,7 +69388,7 @@ var StaticBody = new Class({
          * @type {number}
          * @since 3.0.0
          */
-        this.halfHeight = Math.abs(gameObject.height / 2);
+        this.halfHeight = Math.abs(this.height / 2);
 
         /**
          * [description]
@@ -69483,7 +69406,7 @@ var StaticBody = new Class({
          * @type {Phaser.Math.Vector2}
          * @since 3.0.0
          */
-        this.velocity = new Vector2();
+        this.velocity = Vector2.ZERO;
 
         /**
          * [description]
@@ -69502,7 +69425,7 @@ var StaticBody = new Class({
          * @type {Phaser.Math.Vector2}
          * @since 3.0.0
          */
-        this.gravity = new Vector2();
+        this.gravity = Vector2.ZERO;
 
         /**
          * [description]
@@ -69511,7 +69434,7 @@ var StaticBody = new Class({
          * @type {Phaser.Math.Vector2}
          * @since 3.0.0
          */
-        this.bounce = new Vector2();
+        this.bounce = Vector2.ZERO;
 
         //  If true this Body will dispatch events
 
@@ -69564,16 +69487,6 @@ var StaticBody = new Class({
          * @since 3.0.0
          */
         this.immovable = true;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Physics.Arcade.StaticBody#moves
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
-        this.moves = false;
 
         /**
          * [description]
@@ -69689,36 +69602,70 @@ var StaticBody = new Class({
          * @since 3.0.0
          */
         this.physicsType = CONST.STATIC_BODY;
+    },
 
-        /**
-         * [description]
-         *
-         * @name Phaser.Physics.Arcade.StaticBody#_sx
-         * @type {number}
-         * @private
-         * @since 3.0.0
-         */
-        this._sx = gameObject.scaleX;
+    /**
+     * Changes the Game Object this Body is bound to.
+     * First it removes its reference from the old Game Object, then sets the new one.
+     * You can optionally update the position and dimensions of this Body to reflect that of the new Game Object.
+     *
+     * @method Phaser.Physics.Arcade.StaticBody#setGameObject
+     * @since 3.0.1
+     *
+     * @param {Phaser.GameObjects.GameObject} gameObject - The new Game Object that will own this Body.
+     * @param {boolean} [update=true] - Reposition and resize this Body to match the new Game Object?
+     *
+     * @return {Phaser.Physics.Arcade.StaticBody} This Static Body object.
+     */
+    setGameObject: function (gameObject, update)
+    {
+        if (gameObject && gameObject !== this.gameObject)
+        {
+            //  Remove this body from the old game object
+            this.gameObject.body = null;
 
-        /**
-         * [description]
-         *
-         * @name Phaser.Physics.Arcade.StaticBody#_sy
-         * @type {number}
-         * @private
-         * @since 3.0.0
-         */
-        this._sy = gameObject.scaleY;
+            gameObject.body = this;
 
-        /**
-         * [description]
-         *
-         * @name Phaser.Physics.Arcade.StaticBody#_bounds
-         * @type {Phaser.Geom.Rectangle}
-         * @private
-         * @since 3.0.0
-         */
-        this._bounds = new Rectangle();
+            //  Update our reference
+            this.gameObject = gameObject;
+        }
+
+        if (update)
+        {
+            this.updateFromGameObject();
+        }
+
+        return this;
+    },
+
+    /**
+     * Updates this Static Body so that its position and dimensions are updated
+     * based on the current Game Object it is bound to.
+     *
+     * @method Phaser.Physics.Arcade.StaticBody#updateFromGameObject
+     * @since 3.0.1
+     *
+     * @return {Phaser.Physics.Arcade.StaticBody} This Static Body object.
+     */
+    updateFromGameObject: function ()
+    {
+        this.world.staticTree.remove(this);
+
+        var gameObject = this.gameObject;
+
+        gameObject.getTopLeft(this.position);
+
+        this.width = gameObject.displayWidth;
+        this.height = gameObject.displayHeight;
+
+        this.halfWidth = Math.abs(this.width / 2);
+        this.halfHeight = Math.abs(this.height / 2);
+
+        this.center.set(this.position.x + this.halfWidth, this.position.y + this.halfHeight);
+
+        this.world.staticTree.insert(this);
+
+        return this;
     },
 
     /**
@@ -69741,12 +69688,12 @@ var StaticBody = new Class({
 
         this.world.staticTree.remove(this);
 
-        this.sourceWidth = width;
-        this.sourceHeight = height;
-        this.width = this.sourceWidth * this._sx;
-        this.height = this.sourceHeight * this._sy;
-        this.halfWidth = Math.floor(this.width / 2);
-        this.halfHeight = Math.floor(this.height / 2);
+        this.width = width;
+        this.height = height;
+
+        this.halfWidth = Math.floor(width / 2);
+        this.halfHeight = Math.floor(height / 2);
+
         this.offset.set(offsetX, offsetY);
 
         this.updateCenter();
@@ -69781,13 +69728,11 @@ var StaticBody = new Class({
             this.world.staticTree.remove(this);
 
             this.isCircle = true;
+
             this.radius = radius;
 
-            this.sourceWidth = radius * 2;
-            this.sourceHeight = radius * 2;
-
-            this.width = this.sourceWidth * this._sx;
-            this.height = this.sourceHeight * this._sy;
+            this.width = radius * 2;
+            this.height = radius * 2;
 
             this.halfWidth = Math.floor(this.width / 2);
             this.halfHeight = Math.floor(this.height / 2);
@@ -69828,17 +69773,14 @@ var StaticBody = new Class({
      */
     reset: function (x, y)
     {
-        var sprite = this.gameObject;
+        var gameObject = this.gameObject;
 
-        if (x === undefined) { x = sprite.x; }
-        if (y === undefined) { y = sprite.y; }
+        if (x === undefined) { x = gameObject.x; }
+        if (y === undefined) { y = gameObject.y; }
 
         this.world.staticTree.remove(this);
 
-        this.position.x = x - sprite.displayOriginX + (sprite.scaleX * this.offset.x);
-        this.position.y = y - sprite.displayOriginY + (sprite.scaleY * this.offset.y);
-
-        this.rotation = this.gameObject.angle;
+        gameObject.getTopLeft(this.position);
 
         this.updateCenter();
 
@@ -69967,8 +69909,9 @@ var StaticBody = new Class({
      */
     destroy: function ()
     {
-        this.gameObject.body = null;
-        this.gameObject = null;
+        this.enable = false;
+
+        this.world.pendingDestroy.set(this);
     },
 
     /**
@@ -70042,9 +69985,10 @@ var StaticBody = new Class({
 
         set: function (value)
         {
+            this.world.staticTree.remove(this);
+
             this.position.x = value;
 
-            this.world.staticTree.remove(this);
             this.world.staticTree.insert(this);
         }
 
@@ -70066,9 +70010,10 @@ var StaticBody = new Class({
 
         set: function (value)
         {
+            this.world.staticTree.remove(this);
+
             this.position.y = value;
 
-            this.world.staticTree.remove(this);
             this.world.staticTree.insert(this);
         }
 
@@ -70148,7 +70093,7 @@ module.exports = StaticBody;
 
 
 /***/ }),
-/* 352 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -70725,6 +70670,8 @@ var Body = new Class({
      */
     destroy: function ()
     {
+        this.world.remove(this);
+
         this.enabled = false;
 
         this.world = null;
@@ -70740,7 +70687,7 @@ module.exports = Body;
 
 
 /***/ }),
-/* 353 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -71104,7 +71051,7 @@ module.exports = CollisionMap;
 
 
 /***/ }),
-/* 354 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -71114,9 +71061,9 @@ module.exports = CollisionMap;
  */
 
 var Class = __webpack_require__(0);
-var ImpactBody = __webpack_require__(355);
-var ImpactImage = __webpack_require__(356);
-var ImpactSprite = __webpack_require__(357);
+var ImpactBody = __webpack_require__(354);
+var ImpactImage = __webpack_require__(355);
+var ImpactSprite = __webpack_require__(356);
 
 /**
  * @classdesc
@@ -71249,7 +71196,7 @@ module.exports = Factory;
 
 
 /***/ }),
-/* 355 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -71382,7 +71329,7 @@ module.exports = ImpactBody;
 
 
 /***/ }),
-/* 356 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -71541,7 +71488,7 @@ module.exports = ImpactImage;
 
 
 /***/ }),
-/* 357 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -71704,7 +71651,7 @@ module.exports = ImpactSprite;
 
 
 /***/ }),
-/* 358 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -71713,10 +71660,10 @@ module.exports = ImpactSprite;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Body = __webpack_require__(352);
+var Body = __webpack_require__(351);
 var Class = __webpack_require__(0);
 var COLLIDES = __webpack_require__(82);
-var CollisionMap = __webpack_require__(353);
+var CollisionMap = __webpack_require__(352);
 var EventEmitter = __webpack_require__(12);
 var GetFastValue = __webpack_require__(1);
 var HasValue = __webpack_require__(62);
@@ -72695,7 +72642,7 @@ module.exports = World;
 
 
 /***/ }),
-/* 359 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -72706,10 +72653,10 @@ module.exports = World;
 
 var Bodies = __webpack_require__(37);
 var Class = __webpack_require__(0);
-var Composites = __webpack_require__(361);
+var Composites = __webpack_require__(360);
 var Constraint = __webpack_require__(70);
-var MatterImage = __webpack_require__(362);
-var MatterSprite = __webpack_require__(363);
+var MatterImage = __webpack_require__(361);
+var MatterSprite = __webpack_require__(362);
 var MatterTileBody = __webpack_require__(162);
 var PointerConstraint = __webpack_require__(909);
 
@@ -73288,7 +73235,7 @@ module.exports = Factory;
 
 
 /***/ }),
-/* 360 */
+/* 359 */
 /***/ (function(module, exports) {
 
 /**
@@ -73899,7 +73846,7 @@ function scalar_eq(a,b,precision){
 
 
 /***/ }),
-/* 361 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -74232,7 +74179,7 @@ var Bodies = __webpack_require__(37);
 
 
 /***/ }),
-/* 362 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -74247,7 +74194,7 @@ var Components = __webpack_require__(161);
 var GameObject = __webpack_require__(2);
 var GetFastValue = __webpack_require__(1);
 var Image = __webpack_require__(61);
-var Pipeline = __webpack_require__(115);
+var Pipeline = __webpack_require__(116);
 var Vector2 = __webpack_require__(6);
 
 /**
@@ -74362,7 +74309,7 @@ module.exports = MatterImage;
 
 
 /***/ }),
-/* 363 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -74377,7 +74324,7 @@ var Class = __webpack_require__(0);
 var Components = __webpack_require__(161);
 var GameObject = __webpack_require__(2);
 var GetFastValue = __webpack_require__(1);
-var Pipeline = __webpack_require__(115);
+var Pipeline = __webpack_require__(116);
 var Sprite = __webpack_require__(36);
 var Vector2 = __webpack_require__(6);
 
@@ -74499,7 +74446,7 @@ module.exports = MatterSprite;
 
 
 /***/ }),
-/* 364 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -74591,7 +74538,7 @@ var Common = __webpack_require__(16);
 
 
 /***/ }),
-/* 365 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -74604,7 +74551,7 @@ var Grid = {};
 
 module.exports = Grid;
 
-var Pair = __webpack_require__(103);
+var Pair = __webpack_require__(104);
 var Detector = __webpack_require__(163);
 var Common = __webpack_require__(16);
 
@@ -74918,7 +74865,7 @@ var Common = __webpack_require__(16);
 
 
 /***/ }),
-/* 366 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -74931,7 +74878,7 @@ var Pairs = {};
 
 module.exports = Pairs;
 
-var Pair = __webpack_require__(103);
+var Pair = __webpack_require__(104);
 var Common = __webpack_require__(16);
 
 (function() {
@@ -75083,7 +75030,7 @@ var Common = __webpack_require__(16);
 
 
 /***/ }),
-/* 367 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -75440,7 +75387,7 @@ var Bounds = __webpack_require__(40);
 
 
 /***/ }),
-/* 368 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -75459,10 +75406,10 @@ module.exports = Engine;
 
 var World = __webpack_require__(167);
 var Sleeping = __webpack_require__(84);
-var Resolver = __webpack_require__(367);
-var Pairs = __webpack_require__(366);
+var Resolver = __webpack_require__(366);
+var Pairs = __webpack_require__(365);
 var Metrics = __webpack_require__(911);
-var Grid = __webpack_require__(365);
+var Grid = __webpack_require__(364);
 var Events = __webpack_require__(69);
 var Composite = __webpack_require__(49);
 var Constraint = __webpack_require__(70);
@@ -75955,7 +75902,7 @@ var Body = __webpack_require__(20);
 
 
 /***/ }),
-/* 369 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -75969,7 +75916,7 @@ var Body = __webpack_require__(20);
 var Bodies = __webpack_require__(37);
 var Class = __webpack_require__(0);
 var Composite = __webpack_require__(49);
-var Engine = __webpack_require__(368);
+var Engine = __webpack_require__(367);
 var EventEmitter = __webpack_require__(12);
 var GetFastValue = __webpack_require__(1);
 var GetValue = __webpack_require__(4);
@@ -76661,7 +76608,7 @@ module.exports = World;
 
 
 /***/ }),
-/* 370 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -76704,7 +76651,7 @@ module.exports = ReplaceByIndex;
 
 
 /***/ }),
-/* 371 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -76746,7 +76693,7 @@ module.exports = HasTileAt;
 
 
 /***/ }),
-/* 372 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -76807,7 +76754,7 @@ module.exports = RemoveTileAt;
 
 
 /***/ }),
-/* 373 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -76818,9 +76765,9 @@ module.exports = RemoveTileAt;
 
 var Formats = __webpack_require__(21);
 var Parse2DArray = __webpack_require__(171);
-var ParseCSV = __webpack_require__(374);
-var ParseJSONTiled = __webpack_require__(375);
-var ParseWeltmeister = __webpack_require__(380);
+var ParseCSV = __webpack_require__(373);
+var ParseJSONTiled = __webpack_require__(374);
+var ParseWeltmeister = __webpack_require__(379);
 
 /**
  * Parses raw data of a given Tilemap format into a new MapData object. If no recognized data format
@@ -76877,7 +76824,7 @@ module.exports = Parse;
 
 
 /***/ }),
-/* 374 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -76925,7 +76872,7 @@ module.exports = ParseCSV;
 
 
 /***/ }),
-/* 375 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -77001,7 +76948,7 @@ module.exports = ParseJSONTiled;
 
 
 /***/ }),
-/* 376 */
+/* 375 */
 /***/ (function(module, exports) {
 
 /**
@@ -77091,7 +77038,7 @@ module.exports = ParseGID;
 
 
 /***/ }),
-/* 377 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -77263,7 +77210,7 @@ module.exports = ImageCollection;
 
 
 /***/ }),
-/* 378 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -77273,7 +77220,7 @@ module.exports = ImageCollection;
  */
 
 var Pick = __webpack_require__(957);
-var ParseGID = __webpack_require__(376);
+var ParseGID = __webpack_require__(375);
 
 var copyPoints = function (p) { return { x: p.x, y: p.y }; };
 
@@ -77345,7 +77292,7 @@ module.exports = ParseObject;
 
 
 /***/ }),
-/* 379 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -77451,7 +77398,7 @@ module.exports = ObjectLayer;
 
 
 /***/ }),
-/* 380 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -77518,7 +77465,7 @@ module.exports = ParseWeltmeister;
 
 
 /***/ }),
-/* 381 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -77529,15 +77476,15 @@ module.exports = ParseWeltmeister;
 
 var Class = __webpack_require__(0);
 var DegToRad = __webpack_require__(42);
-var DynamicTilemapLayer = __webpack_require__(382);
+var DynamicTilemapLayer = __webpack_require__(381);
 var Extend = __webpack_require__(25);
 var Formats = __webpack_require__(21);
 var LayerData = __webpack_require__(86);
-var Rotate = __webpack_require__(337);
-var StaticTilemapLayer = __webpack_require__(383);
+var Rotate = __webpack_require__(336);
+var StaticTilemapLayer = __webpack_require__(382);
 var Tile = __webpack_require__(51);
-var TilemapComponents = __webpack_require__(104);
-var Tileset = __webpack_require__(108);
+var TilemapComponents = __webpack_require__(105);
+var Tileset = __webpack_require__(109);
 
 /**
  * @classdesc
@@ -79777,7 +79724,7 @@ module.exports = Tilemap;
 
 
 /***/ }),
-/* 382 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -79790,7 +79737,7 @@ var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var DynamicTilemapLayerRender = __webpack_require__(963);
 var GameObject = __webpack_require__(2);
-var TilemapComponents = __webpack_require__(104);
+var TilemapComponents = __webpack_require__(105);
 
 /**
  * @classdesc
@@ -80896,7 +80843,7 @@ module.exports = DynamicTilemapLayer;
 
 
 /***/ }),
-/* 383 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -80909,7 +80856,7 @@ var Class = __webpack_require__(0);
 var Components = __webpack_require__(14);
 var GameObject = __webpack_require__(2);
 var StaticTilemapLayerRender = __webpack_require__(966);
-var TilemapComponents = __webpack_require__(104);
+var TilemapComponents = __webpack_require__(105);
 
 /**
  * @classdesc
@@ -81931,7 +81878,7 @@ module.exports = StaticTilemapLayer;
 
 
 /***/ }),
-/* 384 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -82234,7 +82181,7 @@ module.exports = TimerEvent;
 
 
 /***/ }),
-/* 385 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -82292,7 +82239,7 @@ module.exports = GetProps;
 
 
 /***/ }),
-/* 386 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -82338,7 +82285,7 @@ module.exports = GetTweens;
 
 
 /***/ }),
-/* 387 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -82351,7 +82298,7 @@ var Defaults = __webpack_require__(175);
 var GetAdvancedValue = __webpack_require__(11);
 var GetBoolean = __webpack_require__(80);
 var GetEaseFunction = __webpack_require__(79);
-var GetNewValue = __webpack_require__(109);
+var GetNewValue = __webpack_require__(110);
 var GetValue = __webpack_require__(4);
 var GetValueOp = __webpack_require__(174);
 var Tween = __webpack_require__(176);
@@ -82466,7 +82413,7 @@ module.exports = NumberTweenBuilder;
 
 
 /***/ }),
-/* 388 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -82480,12 +82427,12 @@ var Defaults = __webpack_require__(175);
 var GetAdvancedValue = __webpack_require__(11);
 var GetBoolean = __webpack_require__(80);
 var GetEaseFunction = __webpack_require__(79);
-var GetNewValue = __webpack_require__(109);
+var GetNewValue = __webpack_require__(110);
 var GetTargets = __webpack_require__(173);
-var GetTweens = __webpack_require__(386);
+var GetTweens = __webpack_require__(385);
 var GetValue = __webpack_require__(4);
-var Timeline = __webpack_require__(389);
-var TweenBuilder = __webpack_require__(110);
+var Timeline = __webpack_require__(388);
+var TweenBuilder = __webpack_require__(111);
 
 /**
  * [description]
@@ -82618,7 +82565,7 @@ module.exports = TimelineBuilder;
 
 
 /***/ }),
-/* 389 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -82629,8 +82576,8 @@ module.exports = TimelineBuilder;
 
 var Class = __webpack_require__(0);
 var EventEmitter = __webpack_require__(12);
-var TweenBuilder = __webpack_require__(110);
-var TWEEN_CONST = __webpack_require__(98);
+var TweenBuilder = __webpack_require__(111);
+var TWEEN_CONST = __webpack_require__(99);
 
 /**
  * @classdesc
@@ -83472,7 +83419,7 @@ module.exports = Timeline;
 
 
 /***/ }),
-/* 390 */
+/* 389 */
 /***/ (function(module, exports) {
 
 /**
@@ -83519,7 +83466,7 @@ module.exports = SpliceOne;
 
 
 /***/ }),
-/* 391 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -83528,7 +83475,7 @@ module.exports = SpliceOne;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-__webpack_require__(392);
+__webpack_require__(391);
 
 var CONST = __webpack_require__(24);
 var Extend = __webpack_require__(25);
@@ -83540,19 +83487,19 @@ var Extend = __webpack_require__(25);
 var Phaser = {
 
     Actions: __webpack_require__(180),
-    Animation: __webpack_require__(463),
-    Cache: __webpack_require__(464),
-    Cameras: __webpack_require__(465),
+    Animation: __webpack_require__(462),
+    Cache: __webpack_require__(463),
+    Cameras: __webpack_require__(464),
     Class: __webpack_require__(0),
-    Create: __webpack_require__(476),
-    Curves: __webpack_require__(482),
-    Data: __webpack_require__(485),
-    Display: __webpack_require__(487),
-    DOM: __webpack_require__(520),
-    EventEmitter: __webpack_require__(522),
-    Game: __webpack_require__(523),
-    GameObjects: __webpack_require__(568),
-    Geom: __webpack_require__(307),
+    Create: __webpack_require__(475),
+    Curves: __webpack_require__(481),
+    Data: __webpack_require__(484),
+    Display: __webpack_require__(486),
+    DOM: __webpack_require__(519),
+    EventEmitter: __webpack_require__(521),
+    Game: __webpack_require__(522),
+    GameObjects: __webpack_require__(567),
+    Geom: __webpack_require__(306),
     Input: __webpack_require__(777),
     Loader: __webpack_require__(791),
     Math: __webpack_require__(809),
@@ -83588,9 +83535,10 @@ global.Phaser = Phaser;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178)))
 
 /***/ }),
-/* 392 */
+/* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(392);
 __webpack_require__(393);
 __webpack_require__(394);
 __webpack_require__(395);
@@ -83599,11 +83547,10 @@ __webpack_require__(397);
 __webpack_require__(398);
 __webpack_require__(399);
 __webpack_require__(400);
-__webpack_require__(401);
 
 
 /***/ }),
-/* 393 */
+/* 392 */
 /***/ (function(module, exports) {
 
 /**
@@ -83643,7 +83590,7 @@ if (!Array.prototype.forEach)
 
 
 /***/ }),
-/* 394 */
+/* 393 */
 /***/ (function(module, exports) {
 
 /**
@@ -83659,7 +83606,7 @@ if (!Array.isArray)
 
 
 /***/ }),
-/* 395 */
+/* 394 */
 /***/ (function(module, exports) {
 
 /* Copyright 2013 Chris Wilson
@@ -83847,7 +83794,7 @@ BiquadFilterNode.type and OscillatorNode.type.
 
 
 /***/ }),
-/* 396 */
+/* 395 */
 /***/ (function(module, exports) {
 
 /**
@@ -83862,7 +83809,7 @@ if (!window.console)
 
 
 /***/ }),
-/* 397 */
+/* 396 */
 /***/ (function(module, exports) {
 
 /**
@@ -83910,7 +83857,7 @@ if (!Function.prototype.bind) {
 
 
 /***/ }),
-/* 398 */
+/* 397 */
 /***/ (function(module, exports) {
 
 // ES6 Math.trunc - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
@@ -83922,7 +83869,7 @@ if (!Math.trunc) {
 
 
 /***/ }),
-/* 399 */
+/* 398 */
 /***/ (function(module, exports) {
 
 /**
@@ -83959,7 +83906,7 @@ if (!Math.trunc) {
 
 
 /***/ }),
-/* 400 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// References:
@@ -84032,7 +83979,7 @@ if (!global.cancelAnimationFrame) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178)))
 
 /***/ }),
-/* 401 */
+/* 400 */
 /***/ (function(module, exports) {
 
 /**
@@ -84084,7 +84031,7 @@ if (typeof window.Uint32Array !== "function" && typeof window.Uint32Array !== "o
 
 
 /***/ }),
-/* 402 */
+/* 401 */
 /***/ (function(module, exports) {
 
 /**
@@ -84118,7 +84065,7 @@ module.exports = Angle;
 
 
 /***/ }),
-/* 403 */
+/* 402 */
 /***/ (function(module, exports) {
 
 /**
@@ -84155,7 +84102,7 @@ module.exports = Call;
 
 
 /***/ }),
-/* 404 */
+/* 403 */
 /***/ (function(module, exports) {
 
 /**
@@ -84211,7 +84158,7 @@ module.exports = GetFirst;
 
 
 /***/ }),
-/* 405 */
+/* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -84324,7 +84271,7 @@ module.exports = GridAlign;
 
 
 /***/ }),
-/* 406 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -84771,7 +84718,7 @@ module.exports = RandomDataGenerator;
 
 
 /***/ }),
-/* 407 */
+/* 406 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -85017,7 +84964,7 @@ module.exports = Alpha;
 
 
 /***/ }),
-/* 408 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -85128,7 +85075,7 @@ module.exports = BlendMode;
 
 
 /***/ }),
-/* 409 */
+/* 408 */
 /***/ (function(module, exports) {
 
 /**
@@ -85215,7 +85162,7 @@ module.exports = ComputedSize;
 
 
 /***/ }),
-/* 410 */
+/* 409 */
 /***/ (function(module, exports) {
 
 /**
@@ -85299,7 +85246,7 @@ module.exports = Depth;
 
 
 /***/ }),
-/* 411 */
+/* 410 */
 /***/ (function(module, exports) {
 
 /**
@@ -85447,7 +85394,7 @@ module.exports = Flip;
 
 
 /***/ }),
-/* 412 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -85641,7 +85588,7 @@ module.exports = GetBounds;
 
 
 /***/ }),
-/* 413 */
+/* 412 */
 /***/ (function(module, exports) {
 
 /**
@@ -85833,7 +85780,7 @@ module.exports = Origin;
 
 
 /***/ }),
-/* 414 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -85904,7 +85851,7 @@ module.exports = ScaleMode;
 
 
 /***/ }),
-/* 415 */
+/* 414 */
 /***/ (function(module, exports) {
 
 /**
@@ -85996,7 +85943,7 @@ module.exports = ScrollFactor;
 
 
 /***/ }),
-/* 416 */
+/* 415 */
 /***/ (function(module, exports) {
 
 /**
@@ -86141,7 +86088,7 @@ module.exports = Size;
 
 
 /***/ }),
-/* 417 */
+/* 416 */
 /***/ (function(module, exports) {
 
 /**
@@ -86241,7 +86188,7 @@ module.exports = Texture;
 
 
 /***/ }),
-/* 418 */
+/* 417 */
 /***/ (function(module, exports) {
 
 /**
@@ -86436,7 +86383,7 @@ module.exports = Tint;
 
 
 /***/ }),
-/* 419 */
+/* 418 */
 /***/ (function(module, exports) {
 
 /**
@@ -86489,7 +86436,7 @@ module.exports = ToJSON;
 
 
 /***/ }),
-/* 420 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -86499,8 +86446,8 @@ module.exports = ToJSON;
  */
 
 var MATH_CONST = __webpack_require__(13);
-var WrapAngle = __webpack_require__(116);
-var WrapAngleDegrees = __webpack_require__(117);
+var WrapAngle = __webpack_require__(117);
+var WrapAngleDegrees = __webpack_require__(118);
 
 //  global bitmask flag for GameObject.renderMask (used by Scale)
 var _FLAG = 4; // 0100
@@ -86842,7 +86789,7 @@ module.exports = Transform;
 
 
 /***/ }),
-/* 421 */
+/* 420 */
 /***/ (function(module, exports) {
 
 /**
@@ -86922,7 +86869,7 @@ module.exports = Visible;
 
 
 /***/ }),
-/* 422 */
+/* 421 */
 /***/ (function(module, exports) {
 
 /**
@@ -86956,7 +86903,7 @@ module.exports = IncAlpha;
 
 
 /***/ }),
-/* 423 */
+/* 422 */
 /***/ (function(module, exports) {
 
 /**
@@ -86990,7 +86937,7 @@ module.exports = IncX;
 
 
 /***/ }),
-/* 424 */
+/* 423 */
 /***/ (function(module, exports) {
 
 /**
@@ -87026,7 +86973,7 @@ module.exports = IncXY;
 
 
 /***/ }),
-/* 425 */
+/* 424 */
 /***/ (function(module, exports) {
 
 /**
@@ -87060,7 +87007,7 @@ module.exports = IncY;
 
 
 /***/ }),
-/* 426 */
+/* 425 */
 /***/ (function(module, exports) {
 
 /**
@@ -87105,7 +87052,7 @@ module.exports = PlaceOnCircle;
 
 
 /***/ }),
-/* 427 */
+/* 426 */
 /***/ (function(module, exports) {
 
 /**
@@ -87153,7 +87100,7 @@ module.exports = PlaceOnEllipse;
 
 
 /***/ }),
-/* 428 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87162,7 +87109,7 @@ module.exports = PlaceOnEllipse;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetPoints = __webpack_require__(118);
+var GetPoints = __webpack_require__(119);
 
 /**
  * [description]
@@ -87195,7 +87142,7 @@ module.exports = PlaceOnLine;
 
 
 /***/ }),
-/* 429 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87254,7 +87201,7 @@ module.exports = PlaceOnRectangle;
 
 
 /***/ }),
-/* 430 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87312,7 +87259,7 @@ module.exports = PlaceOnTriangle;
 
 
 /***/ }),
-/* 431 */
+/* 430 */
 /***/ (function(module, exports) {
 
 /**
@@ -87347,7 +87294,7 @@ module.exports = PlayAnimation;
 
 
 /***/ }),
-/* 432 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87356,7 +87303,7 @@ module.exports = PlayAnimation;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Random = __webpack_require__(112);
+var Random = __webpack_require__(113);
 
 /**
  * [description]
@@ -87383,7 +87330,7 @@ module.exports = RandomCircle;
 
 
 /***/ }),
-/* 433 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87392,7 +87339,7 @@ module.exports = RandomCircle;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Random = __webpack_require__(119);
+var Random = __webpack_require__(120);
 
 /**
  * [description]
@@ -87419,7 +87366,7 @@ module.exports = RandomEllipse;
 
 
 /***/ }),
-/* 434 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87428,7 +87375,7 @@ module.exports = RandomEllipse;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Random = __webpack_require__(120);
+var Random = __webpack_require__(121);
 
 /**
  * [description]
@@ -87455,7 +87402,7 @@ module.exports = RandomLine;
 
 
 /***/ }),
-/* 435 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87464,7 +87411,7 @@ module.exports = RandomLine;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Random = __webpack_require__(114);
+var Random = __webpack_require__(115);
 
 /**
  * [description]
@@ -87491,7 +87438,7 @@ module.exports = RandomRectangle;
 
 
 /***/ }),
-/* 436 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87500,7 +87447,7 @@ module.exports = RandomRectangle;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Random = __webpack_require__(121);
+var Random = __webpack_require__(122);
 
 /**
  * [description]
@@ -87527,7 +87474,7 @@ module.exports = RandomTriangle;
 
 
 /***/ }),
-/* 437 */
+/* 436 */
 /***/ (function(module, exports) {
 
 /**
@@ -87564,7 +87511,7 @@ module.exports = Rotate;
 
 
 /***/ }),
-/* 438 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87573,7 +87520,7 @@ module.exports = Rotate;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var RotateAroundDistance = __webpack_require__(122);
+var RotateAroundDistance = __webpack_require__(123);
 var DistanceBetween = __webpack_require__(48);
 
 /**
@@ -87607,7 +87554,7 @@ module.exports = RotateAround;
 
 
 /***/ }),
-/* 439 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -87616,7 +87563,7 @@ module.exports = RotateAround;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var MathRotateAroundDistance = __webpack_require__(122);
+var MathRotateAroundDistance = __webpack_require__(123);
 
 /**
  * [description]
@@ -87654,7 +87601,7 @@ module.exports = RotateAroundDistance;
 
 
 /***/ }),
-/* 440 */
+/* 439 */
 /***/ (function(module, exports) {
 
 /**
@@ -87688,7 +87635,7 @@ module.exports = ScaleX;
 
 
 /***/ }),
-/* 441 */
+/* 440 */
 /***/ (function(module, exports) {
 
 /**
@@ -87724,7 +87671,7 @@ module.exports = ScaleXY;
 
 
 /***/ }),
-/* 442 */
+/* 441 */
 /***/ (function(module, exports) {
 
 /**
@@ -87758,7 +87705,7 @@ module.exports = ScaleY;
 
 
 /***/ }),
-/* 443 */
+/* 442 */
 /***/ (function(module, exports) {
 
 /**
@@ -87795,7 +87742,7 @@ module.exports = SetAlpha;
 
 
 /***/ }),
-/* 444 */
+/* 443 */
 /***/ (function(module, exports) {
 
 /**
@@ -87829,7 +87776,7 @@ module.exports = SetBlendMode;
 
 
 /***/ }),
-/* 445 */
+/* 444 */
 /***/ (function(module, exports) {
 
 /**
@@ -87866,7 +87813,7 @@ module.exports = SetDepth;
 
 
 /***/ }),
-/* 446 */
+/* 445 */
 /***/ (function(module, exports) {
 
 /**
@@ -87901,7 +87848,7 @@ module.exports = SetHitArea;
 
 
 /***/ }),
-/* 447 */
+/* 446 */
 /***/ (function(module, exports) {
 
 /**
@@ -87936,7 +87883,7 @@ module.exports = SetOrigin;
 
 
 /***/ }),
-/* 448 */
+/* 447 */
 /***/ (function(module, exports) {
 
 /**
@@ -87973,7 +87920,7 @@ module.exports = SetRotation;
 
 
 /***/ }),
-/* 449 */
+/* 448 */
 /***/ (function(module, exports) {
 
 /**
@@ -88016,7 +87963,7 @@ module.exports = SetScale;
 
 
 /***/ }),
-/* 450 */
+/* 449 */
 /***/ (function(module, exports) {
 
 /**
@@ -88053,7 +88000,7 @@ module.exports = SetScaleX;
 
 
 /***/ }),
-/* 451 */
+/* 450 */
 /***/ (function(module, exports) {
 
 /**
@@ -88090,7 +88037,7 @@ module.exports = SetScaleY;
 
 
 /***/ }),
-/* 452 */
+/* 451 */
 /***/ (function(module, exports) {
 
 /**
@@ -88127,7 +88074,7 @@ module.exports = SetTint;
 
 
 /***/ }),
-/* 453 */
+/* 452 */
 /***/ (function(module, exports) {
 
 /**
@@ -88161,7 +88108,7 @@ module.exports = SetVisible;
 
 
 /***/ }),
-/* 454 */
+/* 453 */
 /***/ (function(module, exports) {
 
 /**
@@ -88198,7 +88145,7 @@ module.exports = SetX;
 
 
 /***/ }),
-/* 455 */
+/* 454 */
 /***/ (function(module, exports) {
 
 /**
@@ -88239,7 +88186,7 @@ module.exports = SetXY;
 
 
 /***/ }),
-/* 456 */
+/* 455 */
 /***/ (function(module, exports) {
 
 /**
@@ -88276,7 +88223,7 @@ module.exports = SetY;
 
 
 /***/ }),
-/* 457 */
+/* 456 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -88403,7 +88350,7 @@ module.exports = ShiftPosition;
 
 
 /***/ }),
-/* 458 */
+/* 457 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -88433,7 +88380,7 @@ module.exports = Shuffle;
 
 
 /***/ }),
-/* 459 */
+/* 458 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -88487,7 +88434,7 @@ module.exports = SmootherStep;
 
 
 /***/ }),
-/* 460 */
+/* 459 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -88541,7 +88488,7 @@ module.exports = SmoothStep;
 
 
 /***/ }),
-/* 461 */
+/* 460 */
 /***/ (function(module, exports) {
 
 /**
@@ -88593,7 +88540,7 @@ module.exports = Spread;
 
 
 /***/ }),
-/* 462 */
+/* 461 */
 /***/ (function(module, exports) {
 
 /**
@@ -88626,7 +88573,7 @@ module.exports = ToggleVisible;
 
 
 /***/ }),
-/* 463 */
+/* 462 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -88649,7 +88596,7 @@ module.exports = {
 
 
 /***/ }),
-/* 464 */
+/* 463 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -88671,7 +88618,7 @@ module.exports = {
 
 
 /***/ }),
-/* 465 */
+/* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -88686,15 +88633,15 @@ module.exports = {
 
 module.exports = {
 
-    Controls: __webpack_require__(466),
-    Scene2D: __webpack_require__(469),
-    Sprite3D: __webpack_require__(471)
+    Controls: __webpack_require__(465),
+    Scene2D: __webpack_require__(468),
+    Sprite3D: __webpack_require__(470)
 
 };
 
 
 /***/ }),
-/* 466 */
+/* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -88709,14 +88656,14 @@ module.exports = {
 
 module.exports = {
 
-    Fixed: __webpack_require__(467),
-    Smoothed: __webpack_require__(468)
+    Fixed: __webpack_require__(466),
+    Smoothed: __webpack_require__(467)
 
 };
 
 
 /***/ }),
-/* 467 */
+/* 466 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -89009,7 +88956,7 @@ module.exports = FixedKeyControl;
 
 
 /***/ }),
-/* 468 */
+/* 467 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -89474,7 +89421,7 @@ module.exports = SmoothedKeyControl;
 
 
 /***/ }),
-/* 469 */
+/* 468 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -89489,14 +89436,14 @@ module.exports = SmoothedKeyControl;
 
 module.exports = {
 
-    Camera: __webpack_require__(124),
-    CameraManager: __webpack_require__(470)
+    Camera: __webpack_require__(125),
+    CameraManager: __webpack_require__(469)
 
 };
 
 
 /***/ }),
-/* 470 */
+/* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -89505,7 +89452,7 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Camera = __webpack_require__(124);
+var Camera = __webpack_require__(125);
 var Class = __webpack_require__(0);
 var GetFastValue = __webpack_require__(1);
 var PluginManager = __webpack_require__(9);
@@ -89976,7 +89923,7 @@ module.exports = CameraManager;
 
 
 /***/ }),
-/* 471 */
+/* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -89991,8 +89938,8 @@ module.exports = CameraManager;
 
 module.exports = {
 
-    Camera: __webpack_require__(127),
-    CameraManager: __webpack_require__(475),
+    Camera: __webpack_require__(128),
+    CameraManager: __webpack_require__(474),
     OrthographicCamera: __webpack_require__(223),
     PerspectiveCamera: __webpack_require__(224)
 
@@ -90000,7 +89947,7 @@ module.exports = {
 
 
 /***/ }),
-/* 472 */
+/* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -90014,12 +89961,12 @@ var renderCanvas = __webpack_require__(3);
 
 if (true)
 {
-    renderWebGL = __webpack_require__(473);
+    renderWebGL = __webpack_require__(472);
 }
 
 if (true)
 {
-    renderCanvas = __webpack_require__(474);
+    renderCanvas = __webpack_require__(473);
 }
 
 module.exports = {
@@ -90031,7 +89978,7 @@ module.exports = {
 
 
 /***/ }),
-/* 473 */
+/* 472 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -90070,7 +90017,7 @@ module.exports = SpriteWebGLRenderer;
 
 
 /***/ }),
-/* 474 */
+/* 473 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -90109,7 +90056,7 @@ module.exports = SpriteCanvasRenderer;
 
 
 /***/ }),
-/* 475 */
+/* 474 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -90364,7 +90311,7 @@ module.exports = CameraManager;
 
 
 /***/ }),
-/* 476 */
+/* 475 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -90380,13 +90327,13 @@ module.exports = CameraManager;
 module.exports = {
   
     GenerateTexture: __webpack_require__(225),
-    Palettes: __webpack_require__(477)
+    Palettes: __webpack_require__(476)
 
 };
 
 
 /***/ }),
-/* 477 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -90402,16 +90349,16 @@ module.exports = {
 module.exports = {
 
     ARNE16: __webpack_require__(226),
-    C64: __webpack_require__(478),
-    CGA: __webpack_require__(479),
-    JMP: __webpack_require__(480),
-    MSX: __webpack_require__(481)
+    C64: __webpack_require__(477),
+    CGA: __webpack_require__(478),
+    JMP: __webpack_require__(479),
+    MSX: __webpack_require__(480)
     
 };
 
 
 /***/ }),
-/* 478 */
+/* 477 */
 /***/ (function(module, exports) {
 
 /**
@@ -90465,7 +90412,7 @@ module.exports = {
 
 
 /***/ }),
-/* 479 */
+/* 478 */
 /***/ (function(module, exports) {
 
 /**
@@ -90519,7 +90466,7 @@ module.exports = {
 
 
 /***/ }),
-/* 480 */
+/* 479 */
 /***/ (function(module, exports) {
 
 /**
@@ -90573,7 +90520,7 @@ module.exports = {
 
 
 /***/ }),
-/* 481 */
+/* 480 */
 /***/ (function(module, exports) {
 
 /**
@@ -90627,7 +90574,7 @@ module.exports = {
 
 
 /***/ }),
-/* 482 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -90642,7 +90589,7 @@ module.exports = {
 
 module.exports = {
 
-    Path: __webpack_require__(483),
+    Path: __webpack_require__(482),
 
     CubicBezier: __webpack_require__(227),
     Curve: __webpack_require__(75),
@@ -90654,7 +90601,7 @@ module.exports = {
 
 
 /***/ }),
-/* 483 */
+/* 482 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -90670,7 +90617,7 @@ var CubicBezierCurve = __webpack_require__(227);
 var EllipseCurve = __webpack_require__(229);
 var GameObjectFactory = __webpack_require__(10);
 var LineCurve = __webpack_require__(231);
-var MovePathTo = __webpack_require__(484);
+var MovePathTo = __webpack_require__(483);
 var Rectangle = __webpack_require__(8);
 var SplineCurve = __webpack_require__(232);
 var Vector2 = __webpack_require__(6);
@@ -91419,7 +91366,7 @@ module.exports = Path;
 
 
 /***/ }),
-/* 484 */
+/* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91555,7 +91502,7 @@ module.exports = MoveTo;
 
 
 /***/ }),
-/* 485 */
+/* 484 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91571,13 +91518,13 @@ module.exports = MoveTo;
 module.exports = {
 
     DataManager: __webpack_require__(90),
-    DataManagerPlugin: __webpack_require__(486)
+    DataManagerPlugin: __webpack_require__(485)
 
 };
 
 
 /***/ }),
-/* 486 */
+/* 485 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91685,7 +91632,7 @@ module.exports = DataManagerPlugin;
 
 
 /***/ }),
-/* 487 */
+/* 486 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91700,17 +91647,17 @@ module.exports = DataManagerPlugin;
 
 module.exports = {
 
-    Align: __webpack_require__(488),
-    Bounds: __webpack_require__(503),
-    Canvas: __webpack_require__(506),
+    Align: __webpack_require__(487),
+    Bounds: __webpack_require__(502),
+    Canvas: __webpack_require__(505),
     Color: __webpack_require__(234),
-    Masks: __webpack_require__(517)
+    Masks: __webpack_require__(516)
   
 };
 
 
 /***/ }),
-/* 488 */
+/* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91725,14 +91672,14 @@ module.exports = {
 
 module.exports = {
 
-    In: __webpack_require__(489),
-    To: __webpack_require__(490)
+    In: __webpack_require__(488),
+    To: __webpack_require__(489)
 
 };
 
 
 /***/ }),
-/* 489 */
+/* 488 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91762,7 +91709,7 @@ module.exports = {
 
 
 /***/ }),
-/* 490 */
+/* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91777,24 +91724,24 @@ module.exports = {
 
 module.exports = {
 
-    BottomCenter: __webpack_require__(491),
-    BottomLeft: __webpack_require__(492),
-    BottomRight: __webpack_require__(493),
-    LeftBottom: __webpack_require__(494),
-    LeftCenter: __webpack_require__(495),
-    LeftTop: __webpack_require__(496),
-    RightBottom: __webpack_require__(497),
-    RightCenter: __webpack_require__(498),
-    RightTop: __webpack_require__(499),
-    TopCenter: __webpack_require__(500),
-    TopLeft: __webpack_require__(501),
-    TopRight: __webpack_require__(502)
+    BottomCenter: __webpack_require__(490),
+    BottomLeft: __webpack_require__(491),
+    BottomRight: __webpack_require__(492),
+    LeftBottom: __webpack_require__(493),
+    LeftCenter: __webpack_require__(494),
+    LeftTop: __webpack_require__(495),
+    RightBottom: __webpack_require__(496),
+    RightCenter: __webpack_require__(497),
+    RightTop: __webpack_require__(498),
+    TopCenter: __webpack_require__(499),
+    TopLeft: __webpack_require__(500),
+    TopRight: __webpack_require__(501)
 
 };
 
 
 /***/ }),
-/* 491 */
+/* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91836,7 +91783,7 @@ module.exports = BottomCenter;
 
 
 /***/ }),
-/* 492 */
+/* 491 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91878,7 +91825,7 @@ module.exports = BottomLeft;
 
 
 /***/ }),
-/* 493 */
+/* 492 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91920,7 +91867,7 @@ module.exports = BottomRight;
 
 
 /***/ }),
-/* 494 */
+/* 493 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -91962,7 +91909,7 @@ module.exports = LeftBottom;
 
 
 /***/ }),
-/* 495 */
+/* 494 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92004,7 +91951,7 @@ module.exports = LeftCenter;
 
 
 /***/ }),
-/* 496 */
+/* 495 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92046,7 +91993,7 @@ module.exports = LeftTop;
 
 
 /***/ }),
-/* 497 */
+/* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92088,7 +92035,7 @@ module.exports = RightBottom;
 
 
 /***/ }),
-/* 498 */
+/* 497 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92130,7 +92077,7 @@ module.exports = RightCenter;
 
 
 /***/ }),
-/* 499 */
+/* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92172,7 +92119,7 @@ module.exports = RightTop;
 
 
 /***/ }),
-/* 500 */
+/* 499 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92214,7 +92161,7 @@ module.exports = TopCenter;
 
 
 /***/ }),
-/* 501 */
+/* 500 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92256,7 +92203,7 @@ module.exports = TopLeft;
 
 
 /***/ }),
-/* 502 */
+/* 501 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92298,7 +92245,7 @@ module.exports = TopRight;
 
 
 /***/ }),
-/* 503 */
+/* 502 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92318,8 +92265,8 @@ module.exports = {
     GetCenterX: __webpack_require__(53),
     GetCenterY: __webpack_require__(56),
     GetLeft: __webpack_require__(28),
-    GetOffsetX: __webpack_require__(504),
-    GetOffsetY: __webpack_require__(505),
+    GetOffsetX: __webpack_require__(503),
+    GetOffsetY: __webpack_require__(504),
     GetRight: __webpack_require__(30),
     GetTop: __webpack_require__(32),
     SetBottom: __webpack_require__(27),
@@ -92333,7 +92280,7 @@ module.exports = {
 
 
 /***/ }),
-/* 504 */
+/* 503 */
 /***/ (function(module, exports) {
 
 /**
@@ -92363,7 +92310,7 @@ module.exports = GetOffsetX;
 
 
 /***/ }),
-/* 505 */
+/* 504 */
 /***/ (function(module, exports) {
 
 /**
@@ -92393,7 +92340,7 @@ module.exports = GetOffsetY;
 
 
 /***/ }),
-/* 506 */
+/* 505 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92410,15 +92357,15 @@ module.exports = {
 
     Interpolation: __webpack_require__(233),
     Pool: __webpack_require__(22),
-    Smoothing: __webpack_require__(130),
-    TouchAction: __webpack_require__(507),
-    UserSelect: __webpack_require__(508)
+    Smoothing: __webpack_require__(131),
+    TouchAction: __webpack_require__(506),
+    UserSelect: __webpack_require__(507)
     
 };
 
 
 /***/ }),
-/* 507 */
+/* 506 */
 /***/ (function(module, exports) {
 
 /**
@@ -92453,7 +92400,7 @@ module.exports = TouchAction;
 
 
 /***/ }),
-/* 508 */
+/* 507 */
 /***/ (function(module, exports) {
 
 /**
@@ -92500,7 +92447,7 @@ module.exports = UserSelect;
 
 
 /***/ }),
-/* 509 */
+/* 508 */
 /***/ (function(module, exports) {
 
 /**
@@ -92548,7 +92495,7 @@ module.exports = ColorToRGBA;
 
 
 /***/ }),
-/* 510 */
+/* 509 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92598,7 +92545,7 @@ module.exports = HSLToColor;
 
 
 /***/ }),
-/* 511 */
+/* 510 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -92626,7 +92573,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 512 */
+/* 511 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92667,7 +92614,7 @@ module.exports = HSVColorWheel;
 
 
 /***/ }),
-/* 513 */
+/* 512 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92770,7 +92717,7 @@ module.exports = {
 
 
 /***/ }),
-/* 514 */
+/* 513 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92806,7 +92753,7 @@ module.exports = RandomRGB;
 
 
 /***/ }),
-/* 515 */
+/* 514 */
 /***/ (function(module, exports) {
 
 /**
@@ -92870,7 +92817,7 @@ module.exports = RGBToHSV;
 
 
 /***/ }),
-/* 516 */
+/* 515 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92914,7 +92861,7 @@ module.exports = RGBToString;
 
 
 /***/ }),
-/* 517 */
+/* 516 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -92929,14 +92876,14 @@ module.exports = RGBToString;
 
 module.exports = {
 
-	BitmapMask: __webpack_require__(518),
-	GeometryMask: __webpack_require__(519)
+	BitmapMask: __webpack_require__(517),
+	GeometryMask: __webpack_require__(518)
 
 };
 
 
 /***/ }),
-/* 518 */
+/* 517 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -93151,7 +93098,7 @@ module.exports = BitmapMask;
 
 
 /***/ }),
-/* 519 */
+/* 518 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -93295,7 +93242,7 @@ module.exports = GeometryMask;
 
 
 /***/ }),
-/* 520 */
+/* 519 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -93310,7 +93257,7 @@ module.exports = GeometryMask;
 
 module.exports = {
 
-    AddToDOM: __webpack_require__(133),
+    AddToDOM: __webpack_require__(134),
     DOMContentLoaded: __webpack_require__(241),
     ParseXML: __webpack_require__(242),
     RemoveFromDOM: __webpack_require__(243),
@@ -93320,7 +93267,7 @@ module.exports = {
 
 
 /***/ }),
-/* 521 */
+/* 520 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -93510,7 +93457,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 522 */
+/* 521 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -93692,7 +93639,7 @@ module.exports = EventEmitter;
 
 
 /***/ }),
-/* 523 */
+/* 522 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -93701,16 +93648,16 @@ module.exports = EventEmitter;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var AddToDOM = __webpack_require__(133);
+var AddToDOM = __webpack_require__(134);
 var AnimationManager = __webpack_require__(208);
 var CacheManager = __webpack_require__(211);
 var CanvasPool = __webpack_require__(22);
 var Class = __webpack_require__(0);
-var Config = __webpack_require__(524);
-var CreateRenderer = __webpack_require__(525);
+var Config = __webpack_require__(523);
+var CreateRenderer = __webpack_require__(524);
 var DataManager = __webpack_require__(90);
-var DebugHeader = __webpack_require__(542);
-var Device = __webpack_require__(543);
+var DebugHeader = __webpack_require__(541);
+var Device = __webpack_require__(542);
 var DOMContentLoaded = __webpack_require__(241);
 var EventEmitter = __webpack_require__(12);
 var InputManager = __webpack_require__(251);
@@ -93719,8 +93666,8 @@ var PluginManager = __webpack_require__(9);
 var SceneManager = __webpack_require__(263);
 var SoundManagerCreator = __webpack_require__(267);
 var TextureManager = __webpack_require__(274);
-var TimeStep = __webpack_require__(566);
-var VisibilityHandler = __webpack_require__(567);
+var TimeStep = __webpack_require__(565);
+var VisibilityHandler = __webpack_require__(566);
 
 /**
  * @classdesc
@@ -94173,7 +94120,7 @@ module.exports = Game;
 
 
 /***/ }),
-/* 524 */
+/* 523 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -94188,7 +94135,7 @@ var GetValue = __webpack_require__(4);
 var MATH = __webpack_require__(13);
 var NOOP = __webpack_require__(3);
 var Plugins = __webpack_require__(245);
-var ValueToColor = __webpack_require__(125);
+var ValueToColor = __webpack_require__(126);
 
 /**
  * This callback type is completely empty, a no-operation.
@@ -94404,7 +94351,7 @@ module.exports = Config;
 
 
 /***/ }),
-/* 525 */
+/* 524 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -94416,7 +94363,7 @@ module.exports = Config;
 var CanvasInterpolation = __webpack_require__(233);
 var CanvasPool = __webpack_require__(22);
 var CONST = __webpack_require__(24);
-var Features = __webpack_require__(134);
+var Features = __webpack_require__(135);
 
 /**
  * Called automatically by Phaser.Game and responsible for creating the renderer it will use.
@@ -94492,8 +94439,8 @@ var CreateRenderer = function (game)
 
     if (true)
     {
-        CanvasRenderer = __webpack_require__(526);
-        WebGLRenderer = __webpack_require__(531);
+        CanvasRenderer = __webpack_require__(525);
+        WebGLRenderer = __webpack_require__(530);
 
         //  Let the config pick the renderer type, both are included
         if (config.renderType === CONST.WEBGL)
@@ -94533,7 +94480,7 @@ module.exports = CreateRenderer;
 
 
 /***/ }),
-/* 526 */
+/* 525 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -94542,14 +94489,14 @@ module.exports = CreateRenderer;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var BlitImage = __webpack_require__(527);
-var CanvasSnapshot = __webpack_require__(528);
+var BlitImage = __webpack_require__(526);
+var CanvasSnapshot = __webpack_require__(527);
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(24);
-var DrawImage = __webpack_require__(529);
-var GetBlendModes = __webpack_require__(530);
+var DrawImage = __webpack_require__(528);
+var GetBlendModes = __webpack_require__(529);
 var ScaleModes = __webpack_require__(71);
-var Smoothing = __webpack_require__(130);
+var Smoothing = __webpack_require__(131);
 
 /**
  * @classdesc
@@ -95062,7 +95009,7 @@ module.exports = CanvasRenderer;
 
 
 /***/ }),
-/* 527 */
+/* 526 */
 /***/ (function(module, exports) {
 
 /**
@@ -95103,7 +95050,7 @@ module.exports = BlitImage;
 
 
 /***/ }),
-/* 528 */
+/* 527 */
 /***/ (function(module, exports) {
 
 /**
@@ -95142,7 +95089,7 @@ module.exports = CanvasSnapshot;
 
 
 /***/ }),
-/* 529 */
+/* 528 */
 /***/ (function(module, exports) {
 
 /**
@@ -95236,7 +95183,7 @@ module.exports = DrawImage;
 
 
 /***/ }),
-/* 530 */
+/* 529 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -95286,7 +95233,7 @@ module.exports = GetBlendModes;
 
 
 /***/ }),
-/* 531 */
+/* 530 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -95297,13 +95244,13 @@ module.exports = GetBlendModes;
 
 var Class = __webpack_require__(0);
 var CONST = __webpack_require__(24);
-var IsSizePowerOfTwo = __webpack_require__(135);
+var IsSizePowerOfTwo = __webpack_require__(136);
 var Utils = __webpack_require__(44);
-var WebGLSnapshot = __webpack_require__(532);
+var WebGLSnapshot = __webpack_require__(531);
 
 // Default Pipelines
-var BitmapMaskPipeline = __webpack_require__(533);
-var FlatTintPipeline = __webpack_require__(536);
+var BitmapMaskPipeline = __webpack_require__(532);
+var FlatTintPipeline = __webpack_require__(535);
 var ForwardDiffuseLightPipeline = __webpack_require__(249);
 var TextureTintPipeline = __webpack_require__(250);
 
@@ -97042,7 +96989,7 @@ module.exports = WebGLRenderer;
 
 
 /***/ }),
-/* 532 */
+/* 531 */
 /***/ (function(module, exports) {
 
 /**
@@ -97111,7 +97058,7 @@ module.exports = WebGLSnapshot;
 
 
 /***/ }),
-/* 533 */
+/* 532 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -97121,8 +97068,8 @@ module.exports = WebGLSnapshot;
  */
 
 var Class = __webpack_require__(0);
-var ShaderSourceFS = __webpack_require__(534);
-var ShaderSourceVS = __webpack_require__(535); 
+var ShaderSourceFS = __webpack_require__(533);
+var ShaderSourceVS = __webpack_require__(534); 
 var Utils = __webpack_require__(44);
 var WebGLPipeline = __webpack_require__(94);
 
@@ -97322,19 +97269,19 @@ module.exports = BitmapMaskPipeline;
 
 
 /***/ }),
-/* 534 */
+/* 533 */
 /***/ (function(module, exports) {
 
 module.exports = "#define SHADER_NAME PHASER_BITMAP_MASK_FS\r\n\r\nprecision mediump float;\r\n\r\nuniform vec2 uResolution;\r\nuniform sampler2D uMainSampler;\r\nuniform sampler2D uMaskSampler;\r\n\r\nvoid main()\r\n{\r\n    vec2 uv = gl_FragCoord.xy / uResolution;\r\n    vec4 mainColor = texture2D(uMainSampler, uv);\r\n    vec4 maskColor = texture2D(uMaskSampler, uv);\r\n    float alpha = maskColor.a * mainColor.a;\r\n    gl_FragColor = vec4(mainColor.rgb * alpha, alpha);\r\n}\r\n"
 
 /***/ }),
-/* 535 */
+/* 534 */
 /***/ (function(module, exports) {
 
 module.exports = "#define SHADER_NAME PHASER_BITMAP_MASK_VS\r\n\r\nprecision mediump float;\r\n\r\nattribute vec2 inPosition;\r\n\r\nvoid main()\r\n{\r\n    gl_Position = vec4(inPosition, 0.0, 1.0);\r\n}\r\n"
 
 /***/ }),
-/* 536 */
+/* 535 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -97344,11 +97291,11 @@ module.exports = "#define SHADER_NAME PHASER_BITMAP_MASK_VS\r\n\r\nprecision med
  */
 
 var Class = __webpack_require__(0);
-var Commands = __webpack_require__(136);
+var Commands = __webpack_require__(137);
 var Earcut = __webpack_require__(247);
 var ModelViewProjection = __webpack_require__(248);
-var ShaderSourceFS = __webpack_require__(537); 
-var ShaderSourceVS = __webpack_require__(538); 
+var ShaderSourceFS = __webpack_require__(536); 
+var ShaderSourceVS = __webpack_require__(537); 
 var Utils = __webpack_require__(44);
 var WebGLPipeline = __webpack_require__(94);
 
@@ -98592,37 +98539,37 @@ module.exports = FlatTintPipeline;
 
 
 /***/ }),
-/* 537 */
+/* 536 */
 /***/ (function(module, exports) {
 
 module.exports = "#define SHADER_NAME PHASER_FLAT_TINT_FS\r\n\r\nprecision mediump float;\r\n\r\nvarying vec4 outTint;\r\n\r\nvoid main() {\r\n    gl_FragColor = vec4(outTint.rgb * outTint.a, outTint.a);\r\n}\r\n"
 
 /***/ }),
-/* 538 */
+/* 537 */
 /***/ (function(module, exports) {
 
 module.exports = "#define SHADER_NAME PHASER_FLAT_TINT_VS\r\n\r\nprecision mediump float;\r\n\r\nuniform mat4 uProjectionMatrix;\r\nuniform mat4 uViewMatrix;\r\nuniform mat4 uModelMatrix;\r\n\r\nattribute vec2 inPosition;\r\nattribute vec4 inTint;\r\n\r\nvarying vec4 outTint;\r\n\r\nvoid main () {\r\n    gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(inPosition, 1.0, 1.0);\r\n    outTint = inTint;\r\n}\r\n"
 
 /***/ }),
-/* 539 */
+/* 538 */
 /***/ (function(module, exports) {
 
 module.exports = "#define SHADER_NAME PHASER_FORWARD_DIFFUSE_FS\r\n\r\nprecision mediump float;\r\n\r\nstruct Light\r\n{\r\n    vec2 position;\r\n    vec3 color;\r\n    float intensity;\r\n    float radius;\r\n};\r\n\r\nconst int kMaxLights = %LIGHT_COUNT%;\r\n\r\nuniform vec4 uCamera; /* x, y, rotation, zoom */\r\nuniform vec2 uResolution;\r\nuniform sampler2D uMainSampler;\r\nuniform sampler2D uNormSampler;\r\nuniform vec3 uAmbientLightColor;\r\nuniform Light uLights[kMaxLights];\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main()\r\n{\r\n    vec3 finalColor = vec3(0.0, 0.0, 0.0);\r\n    vec4 color = texture2D(uMainSampler, outTexCoord) * vec4(outTint.rgb * outTint.a, outTint.a);\r\n    vec3 normalMap = texture2D(uNormSampler, outTexCoord).rgb;\r\n    vec3 normal = normalize(vec3(normalMap * 2.0 - 1.0));\r\n    vec2 res = vec2(min(uResolution.x, uResolution.y)) * uCamera.w;\r\n\r\n    for (int index = 0; index < kMaxLights; ++index)\r\n    {\r\n        Light light = uLights[index];\r\n        vec3 lightDir = vec3((light.position.xy / res) - (gl_FragCoord.xy / res), 0.1);\r\n        vec3 lightNormal = normalize(lightDir);\r\n        float distToSurf = length(lightDir) * uCamera.w;\r\n        float diffuseFactor = max(dot(normal, lightNormal), 0.0);\r\n        float radius = (light.radius / res.x * uCamera.w) * uCamera.w;\r\n        float attenuation = clamp(1.0 - distToSurf * distToSurf / (radius * radius), 0.0, 1.0);\r\n        vec3 diffuse = light.color * diffuseFactor;\r\n        finalColor += (attenuation * diffuse) * light.intensity;\r\n    }\r\n\r\n    vec4 colorOutput = vec4(uAmbientLightColor + finalColor, 1.0);\r\n    gl_FragColor = color * vec4(colorOutput.rgb * colorOutput.a, colorOutput.a);\r\n\r\n}\r\n"
 
 /***/ }),
-/* 540 */
+/* 539 */
 /***/ (function(module, exports) {
 
 module.exports = "#define SHADER_NAME PHASER_TEXTURE_TINT_FS\r\n\r\nprecision mediump float;\r\n\r\nuniform sampler2D uMainSampler;\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main() \r\n{\r\n    vec4 texel = texture2D(uMainSampler, outTexCoord);\r\n    texel *= vec4(outTint.rgb * outTint.a, outTint.a);\r\n    gl_FragColor = texel;\r\n}\r\n"
 
 /***/ }),
-/* 541 */
+/* 540 */
 /***/ (function(module, exports) {
 
 module.exports = "#define SHADER_NAME PHASER_TEXTURE_TINT_VS\r\n\r\nprecision mediump float;\r\n\r\nuniform mat4 uProjectionMatrix;\r\nuniform mat4 uViewMatrix;\r\nuniform mat4 uModelMatrix;\r\n\r\nattribute vec2 inPosition;\r\nattribute vec2 inTexCoord;\r\nattribute vec4 inTint;\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main () \r\n{\r\n    gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(inPosition, 1.0, 1.0);\r\n    outTexCoord = inTexCoord;\r\n    outTint = inTint;\r\n}\r\n\r\n"
 
 /***/ }),
-/* 542 */
+/* 541 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -98741,7 +98688,7 @@ module.exports = DebugHeader;
 
 
 /***/ }),
-/* 543 */
+/* 542 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -98763,18 +98710,18 @@ module.exports = {
 
     os: __webpack_require__(76),
     browser: __webpack_require__(93),
-    features: __webpack_require__(134),
-    input: __webpack_require__(544),
-    audio: __webpack_require__(545),
-    video: __webpack_require__(546),
-    fullscreen: __webpack_require__(547),
+    features: __webpack_require__(135),
+    input: __webpack_require__(543),
+    audio: __webpack_require__(544),
+    video: __webpack_require__(545),
+    fullscreen: __webpack_require__(546),
     canvasFeatures: __webpack_require__(246)
 
 };
 
 
 /***/ }),
-/* 544 */
+/* 543 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -98854,7 +98801,7 @@ module.exports = init();
 
 
 /***/ }),
-/* 545 */
+/* 544 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -98980,7 +98927,7 @@ module.exports = init();
 
 
 /***/ }),
-/* 546 */
+/* 545 */
 /***/ (function(module, exports) {
 
 /**
@@ -99066,7 +99013,7 @@ module.exports = init();
 
 
 /***/ }),
-/* 547 */
+/* 546 */
 /***/ (function(module, exports) {
 
 /**
@@ -99165,7 +99112,7 @@ module.exports = init();
 
 
 /***/ }),
-/* 548 */
+/* 547 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -99174,7 +99121,7 @@ module.exports = init();
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var AdvanceKeyCombo = __webpack_require__(549);
+var AdvanceKeyCombo = __webpack_require__(548);
 
 /**
  * Used internally by the KeyCombo class.
@@ -99245,7 +99192,7 @@ module.exports = ProcessKeyCombo;
 
 
 /***/ }),
-/* 549 */
+/* 548 */
 /***/ (function(module, exports) {
 
 /**
@@ -99286,7 +99233,7 @@ module.exports = AdvanceKeyCombo;
 
 
 /***/ }),
-/* 550 */
+/* 549 */
 /***/ (function(module, exports) {
 
 /**
@@ -99320,7 +99267,7 @@ module.exports = ResetKeyCombo;
 
 
 /***/ }),
-/* 551 */
+/* 550 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -99329,7 +99276,7 @@ module.exports = ResetKeyCombo;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var KeyCodes = __webpack_require__(137);
+var KeyCodes = __webpack_require__(138);
 
 var KeyMap = {};
 
@@ -99342,7 +99289,7 @@ module.exports = KeyMap;
 
 
 /***/ }),
-/* 552 */
+/* 551 */
 /***/ (function(module, exports) {
 
 /**
@@ -99397,7 +99344,7 @@ module.exports = ProcessKeyDown;
 
 
 /***/ }),
-/* 553 */
+/* 552 */
 /***/ (function(module, exports) {
 
 /**
@@ -99447,7 +99394,7 @@ module.exports = ProcessKeyUp;
 
 
 /***/ }),
-/* 554 */
+/* 553 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -99509,7 +99456,7 @@ module.exports = GetPhysicsPlugins;
 
 
 /***/ }),
-/* 555 */
+/* 554 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -99555,7 +99502,7 @@ module.exports = GetScenePlugins;
 
 
 /***/ }),
-/* 556 */
+/* 555 */
 /***/ (function(module, exports) {
 
 /**
@@ -99603,7 +99550,7 @@ module.exports = InjectionMap;
 
 
 /***/ }),
-/* 557 */
+/* 556 */
 /***/ (function(module, exports) {
 
 /**
@@ -99636,7 +99583,7 @@ module.exports = Canvas;
 
 
 /***/ }),
-/* 558 */
+/* 557 */
 /***/ (function(module, exports) {
 
 /**
@@ -99669,7 +99616,7 @@ module.exports = Image;
 
 
 /***/ }),
-/* 559 */
+/* 558 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -99774,7 +99721,7 @@ module.exports = JSONArray;
 
 
 /***/ }),
-/* 560 */
+/* 559 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -99871,7 +99818,7 @@ module.exports = JSONHash;
 
 
 /***/ }),
-/* 561 */
+/* 560 */
 /***/ (function(module, exports) {
 
 /**
@@ -99944,7 +99891,7 @@ module.exports = Pyxel;
 
 
 /***/ }),
-/* 562 */
+/* 561 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -100056,7 +100003,7 @@ module.exports = SpriteSheet;
 
 
 /***/ }),
-/* 563 */
+/* 562 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -100239,7 +100186,7 @@ module.exports = SpriteSheetFromAtlas;
 
 
 /***/ }),
-/* 564 */
+/* 563 */
 /***/ (function(module, exports) {
 
 /**
@@ -100322,7 +100269,7 @@ module.exports = StarlingXML;
 
 
 /***/ }),
-/* 565 */
+/* 564 */
 /***/ (function(module, exports) {
 
 /**
@@ -100486,7 +100433,7 @@ TextureImporter:
 
 
 /***/ }),
-/* 566 */
+/* 565 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -101108,7 +101055,7 @@ module.exports = TimeStep;
 
 
 /***/ }),
-/* 567 */
+/* 566 */
 /***/ (function(module, exports) {
 
 /**
@@ -101222,7 +101169,7 @@ module.exports = VisibilityHandler;
 
 
 /***/ }),
-/* 568 */
+/* 567 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -101237,7 +101184,7 @@ module.exports = VisibilityHandler;
 
 var GameObjects = {
 
-    DisplayList: __webpack_require__(278),
+    DisplayList: __webpack_require__(568),
     GameObjectCreator: __webpack_require__(15),
     GameObjectFactory: __webpack_require__(10),
     UpdateList: __webpack_require__(569),
@@ -101251,7 +101198,7 @@ var GameObjects = {
     Group: __webpack_require__(78),
     Image: __webpack_require__(61),
     Particles: __webpack_require__(147),
-    PathFollower: __webpack_require__(302),
+    PathFollower: __webpack_require__(301),
     Sprite3D: __webpack_require__(92),
     Sprite: __webpack_require__(36),
     Text: __webpack_require__(149),
@@ -101296,7 +101243,7 @@ var GameObjects = {
 if (true)
 {
     //  WebGL only Game Objects
-    GameObjects.Mesh = __webpack_require__(99);
+    GameObjects.Mesh = __webpack_require__(100);
     GameObjects.Quad = __webpack_require__(151);
 
     GameObjects.Factories.Mesh = __webpack_require__(676);
@@ -101305,13 +101252,185 @@ if (true)
     GameObjects.Creators.Mesh = __webpack_require__(678);
     GameObjects.Creators.Quad = __webpack_require__(679);
 
-    GameObjects.Light = __webpack_require__(305);
+    GameObjects.Light = __webpack_require__(304);
 
-    __webpack_require__(306);
+    __webpack_require__(305);
     __webpack_require__(680);
 }
 
 module.exports = GameObjects;
+
+
+/***/ }),
+/* 568 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(0);
+var List = __webpack_require__(98);
+var PluginManager = __webpack_require__(9);
+var StableSort = __webpack_require__(278);
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class DisplayList
+ * @extends Phaser.Structs.List
+ * @memberOf Phaser.GameObjects
+ * @constructor
+ * @since 3.0.0
+ *
+ * @param {Phaser.Scene} scene - [description]
+ */
+var DisplayList = new Class({
+
+    Extends: List,
+
+    initialize:
+
+    function DisplayList (scene)
+    {
+        List.call(this, scene);
+
+        /**
+         * [description]
+         *
+         * @name Phaser.GameObjects.DisplayList#sortChildrenFlag
+         * @type {boolean}
+         * @default false
+         * @since 3.0.0
+         */
+        this.sortChildrenFlag = false;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.GameObjects.DisplayList#scene
+         * @type {Phaser.Scene}
+         * @since 3.0.0
+         */
+        this.scene = scene;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.GameObjects.DisplayList#systems
+         * @type {Phaser.Scenes.Systems}
+         * @since 3.0.0
+         */
+        this.systems = scene.sys;
+
+        if (!scene.sys.settings.isBooted)
+        {
+            scene.sys.events.once('boot', this.boot, this);
+        }
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.GameObjects.DisplayList#boot
+     * @since 3.0.0
+     */
+    boot: function ()
+    {
+        var eventEmitter = this.systems.events;
+
+        eventEmitter.on('shutdown', this.shutdown, this);
+        eventEmitter.on('destroy', this.destroy, this);
+    },
+
+    /**
+     * Force a sort of the display list on the next call to depthSort.
+     *
+     * @method Phaser.GameObjects.DisplayList#queueDepthSort
+     * @since 3.0.0
+     */
+    queueDepthSort: function ()
+    {
+        this.sortChildrenFlag = true;
+    },
+
+    /**
+     * Immediately sorts the display list if the flag is set.
+     *
+     * @method Phaser.GameObjects.DisplayList#depthSort
+     * @since 3.0.0
+     */
+    depthSort: function ()
+    {
+        if (this.sortChildrenFlag)
+        {
+            StableSort.inplace(this.list, this.sortByDepth);
+
+            this.sortChildrenFlag = false;
+        }
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.GameObjects.DisplayList#sortByDepth
+     * @since 3.0.0
+     *
+     * @param {Phaser.GameObjects.GameObject} childA - [description]
+     * @param {Phaser.GameObjects.GameObject} childB - [description]
+     *
+     * @return {integer} [description]
+     */
+    sortByDepth: function (childA, childB)
+    {
+        return childA._depth - childB._depth;
+    },
+
+    /**
+     * Given an array of Game Objects, sort the array and return it,
+     * so that the objects are in index order with the lowest at the bottom.
+     *
+     * @method Phaser.GameObjects.DisplayList#sortGameObjects
+     * @since 3.0.0
+     *
+     * @param {Phaser.GameObjects.GameObject[]} gameObjects - [description]
+     *
+     * @return {array} [description]
+     */
+    sortGameObjects: function (gameObjects)
+    {
+        if (gameObjects === undefined) { gameObjects = this.list; }
+
+        this.scene.sys.depthSort();
+
+        return gameObjects.sort(this.sortIndexHandler.bind(this));
+    },
+
+    /**
+     * Note that the given array is sorted in place, even though it isn't returned directly it will still be updated.
+     *
+     * @method Phaser.GameObjects.DisplayList#getTopGameObject
+     * @since 3.0.0
+     *
+     * @param {Phaser.GameObjects.GameObject[]} gameObjects - [description]
+     *
+     * @return {Phaser.GameObjects.GameObject} The top-most Game Object on the Display List.
+     */
+    getTopGameObject: function (gameObjects)
+    {
+        this.sortGameObjects(gameObjects);
+
+        return gameObjects[gameObjects.length - 1];
+    }
+
+});
+
+PluginManager.register('DisplayList', DisplayList, 'displayList');
+
+module.exports = DisplayList;
 
 
 /***/ }),
@@ -101597,7 +101716,7 @@ module.exports = UpdateList;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var ParseXMLBitmapFont = __webpack_require__(281);
+var ParseXMLBitmapFont = __webpack_require__(280);
 
 var ParseFromAtlas = function (scene, fontName, textureKey, frameKey, xmlKey, xSpacing, ySpacing)
 {
@@ -103131,12 +103250,12 @@ if (true)
     renderWebGL = __webpack_require__(592);
 
     //  Needed for Graphics.generateTexture
-    renderCanvas = __webpack_require__(286);
+    renderCanvas = __webpack_require__(285);
 }
 
 if (true)
 {
-    renderCanvas = __webpack_require__(286);
+    renderCanvas = __webpack_require__(285);
 }
 
 module.exports = {
@@ -103529,12 +103648,12 @@ var EmitterOp = __webpack_require__(600);
 var GetFastValue = __webpack_require__(1);
 var GetRandomElement = __webpack_require__(148);
 var GetValue = __webpack_require__(4);
-var HasAny = __webpack_require__(301);
+var HasAny = __webpack_require__(300);
 var HasValue = __webpack_require__(62);
 var Particle = __webpack_require__(634);
 var RandomZone = __webpack_require__(635);
 var Rectangle = __webpack_require__(8);
-var StableSort = __webpack_require__(279);
+var StableSort = __webpack_require__(278);
 var Vector2 = __webpack_require__(6);
 var Wrap = __webpack_require__(47);
 
@@ -105820,7 +105939,7 @@ module.exports = EdgeZone;
  */
 
 var Class = __webpack_require__(0);
-var FloatBetween = __webpack_require__(288);
+var FloatBetween = __webpack_require__(287);
 var GetEaseFunction = __webpack_require__(79);
 var GetFastValue = __webpack_require__(1);
 var Wrap = __webpack_require__(47);
@@ -106379,18 +106498,18 @@ module.exports = EmitterOp;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Back = __webpack_require__(289);
-var Bounce = __webpack_require__(290);
-var Circular = __webpack_require__(291);
-var Cubic = __webpack_require__(292);
-var Elastic = __webpack_require__(293);
-var Expo = __webpack_require__(294);
-var Linear = __webpack_require__(295);
-var Quadratic = __webpack_require__(296);
-var Quartic = __webpack_require__(297);
-var Quintic = __webpack_require__(298);
-var Sine = __webpack_require__(299);
-var Stepped = __webpack_require__(300);
+var Back = __webpack_require__(288);
+var Bounce = __webpack_require__(289);
+var Circular = __webpack_require__(290);
+var Cubic = __webpack_require__(291);
+var Elastic = __webpack_require__(292);
+var Expo = __webpack_require__(293);
+var Linear = __webpack_require__(294);
+var Quadratic = __webpack_require__(295);
+var Quartic = __webpack_require__(296);
+var Quintic = __webpack_require__(297);
+var Sine = __webpack_require__(298);
+var Stepped = __webpack_require__(299);
 
 //  EaseMap
 module.exports = {
@@ -110138,7 +110257,7 @@ GameObjectFactory.register('particles', function (key, frame, emitters)
  */
 
 var GameObjectFactory = __webpack_require__(10);
-var PathFollower = __webpack_require__(302);
+var PathFollower = __webpack_require__(301);
 
 /**
  * Creates a new PathFollower Game Object and adds it to the Scene.
@@ -110703,7 +110822,7 @@ GameObjectCreator.register('particles', function (config)
  */
 
 var BuildGameObject = __webpack_require__(23);
-var BuildGameObjectAnimation = __webpack_require__(304);
+var BuildGameObjectAnimation = __webpack_require__(303);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
 var Sprite3D = __webpack_require__(92);
@@ -110752,7 +110871,7 @@ GameObjectCreator.register('sprite3D', function (config)
  */
 
 var BuildGameObject = __webpack_require__(23);
-var BuildGameObjectAnimation = __webpack_require__(304);
+var BuildGameObjectAnimation = __webpack_require__(303);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
 var Sprite = __webpack_require__(36);
@@ -111108,7 +111227,7 @@ module.exports = MeshCanvasRenderer;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Mesh = __webpack_require__(99);
+var Mesh = __webpack_require__(100);
 var GameObjectFactory = __webpack_require__(10);
 
 /**
@@ -111208,7 +111327,7 @@ var BuildGameObject = __webpack_require__(23);
 var GameObjectCreator = __webpack_require__(15);
 var GetAdvancedValue = __webpack_require__(11);
 var GetValue = __webpack_require__(4);
-var Mesh = __webpack_require__(99);
+var Mesh = __webpack_require__(100);
 
 /**
  * Creates a new Mesh Game Object and returns it.
@@ -111296,7 +111415,7 @@ GameObjectCreator.register('quad', function (config)
  */
 
 var Class = __webpack_require__(0);
-var LightsManager = __webpack_require__(306);
+var LightsManager = __webpack_require__(305);
 var PluginManager = __webpack_require__(9);
 
 /**
@@ -111394,7 +111513,7 @@ var Circle = __webpack_require__(72);
 
 Circle.Area = __webpack_require__(682);
 Circle.Circumference = __webpack_require__(195);
-Circle.CircumferencePoint = __webpack_require__(111);
+Circle.CircumferencePoint = __webpack_require__(112);
 Circle.Clone = __webpack_require__(683);
 Circle.Contains = __webpack_require__(34);
 Circle.ContainsPoint = __webpack_require__(684);
@@ -111406,7 +111525,7 @@ Circle.GetPoint = __webpack_require__(193);
 Circle.GetPoints = __webpack_require__(194);
 Circle.Offset = __webpack_require__(689);
 Circle.OffsetPoint = __webpack_require__(690);
-Circle.Random = __webpack_require__(112);
+Circle.Random = __webpack_require__(113);
 
 module.exports = Circle;
 
@@ -111799,7 +111918,7 @@ module.exports = CircleToRectangle;
  */
 
 var Rectangle = __webpack_require__(8);
-var RectangleToRectangle = __webpack_require__(309);
+var RectangleToRectangle = __webpack_require__(308);
 
 /**
  * [description]
@@ -111942,7 +112061,7 @@ module.exports = LineToRectangle;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var PointToLine = __webpack_require__(311);
+var PointToLine = __webpack_require__(310);
 
 /**
  * [description]
@@ -111983,10 +112102,10 @@ module.exports = PointToLineSegment;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var LineToLine = __webpack_require__(100);
+var LineToLine = __webpack_require__(101);
 var Contains = __webpack_require__(35);
 var ContainsArray = __webpack_require__(152);
-var Decompose = __webpack_require__(312);
+var Decompose = __webpack_require__(311);
 
 /**
  * [description]
@@ -112116,7 +112235,7 @@ module.exports = RectangleToValues;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var LineToCircle = __webpack_require__(310);
+var LineToCircle = __webpack_require__(309);
 var Contains = __webpack_require__(63);
 
 /**
@@ -112180,7 +112299,7 @@ module.exports = TriangleToCircle;
  */
 
 var Contains = __webpack_require__(63);
-var LineToLine = __webpack_require__(100);
+var LineToLine = __webpack_require__(101);
 
 /**
  * [description]
@@ -112234,8 +112353,8 @@ module.exports = TriangleToLine;
  */
 
 var ContainsArray = __webpack_require__(152);
-var Decompose = __webpack_require__(313);
-var LineToLine = __webpack_require__(100);
+var Decompose = __webpack_require__(312);
+var LineToLine = __webpack_require__(101);
 
 /**
  * [description]
@@ -112321,7 +112440,7 @@ module.exports = TriangleToTriangle;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Line = __webpack_require__(314);
+var Line = __webpack_require__(313);
 
 Line.Angle = __webpack_require__(64);
 Line.BresenhamPoints = __webpack_require__(203);
@@ -112331,16 +112450,16 @@ Line.CopyFrom = __webpack_require__(704);
 Line.Equals = __webpack_require__(705);
 Line.GetMidPoint = __webpack_require__(706);
 Line.GetNormal = __webpack_require__(707);
-Line.GetPoint = __webpack_require__(315);
-Line.GetPoints = __webpack_require__(118);
+Line.GetPoint = __webpack_require__(314);
+Line.GetPoints = __webpack_require__(119);
 Line.Height = __webpack_require__(708);
 Line.Length = __webpack_require__(74);
-Line.NormalAngle = __webpack_require__(316);
+Line.NormalAngle = __webpack_require__(315);
 Line.NormalX = __webpack_require__(709);
 Line.NormalY = __webpack_require__(710);
 Line.Offset = __webpack_require__(711);
 Line.PerpSlope = __webpack_require__(712);
-Line.Random = __webpack_require__(120);
+Line.Random = __webpack_require__(121);
 Line.ReflectAngle = __webpack_require__(713);
 Line.Rotate = __webpack_require__(714);
 Line.RotateAroundPoint = __webpack_require__(715);
@@ -112402,7 +112521,7 @@ module.exports = CenterOn;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Line = __webpack_require__(314);
+var Line = __webpack_require__(313);
 
 /**
  * [description]
@@ -112726,7 +112845,7 @@ module.exports = PerpSlope;
  */
 
 var Angle = __webpack_require__(64);
-var NormalAngle = __webpack_require__(316);
+var NormalAngle = __webpack_require__(315);
 
 /**
 * Returns the reflected angle between two lines.
@@ -112929,8 +113048,8 @@ Point.CopyFrom = __webpack_require__(722);
 Point.Equals = __webpack_require__(723);
 Point.Floor = __webpack_require__(724);
 Point.GetCentroid = __webpack_require__(725);
-Point.GetMagnitude = __webpack_require__(317);
-Point.GetMagnitudeSq = __webpack_require__(318);
+Point.GetMagnitude = __webpack_require__(316);
+Point.GetMagnitudeSq = __webpack_require__(317);
 Point.GetRectangleFromPoints = __webpack_require__(726);
 Point.Interpolate = __webpack_require__(727);
 Point.Invert = __webpack_require__(728);
@@ -113326,7 +113445,7 @@ module.exports = Negative;
  */
 
 var Point = __webpack_require__(5);
-var GetMagnitudeSq = __webpack_require__(318);
+var GetMagnitudeSq = __webpack_require__(317);
 
 /**
  * [description]
@@ -113411,7 +113530,7 @@ module.exports = ProjectUnit;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetMagnitude = __webpack_require__(317);
+var GetMagnitude = __webpack_require__(316);
 
 /**
  * [description]
@@ -113453,7 +113572,7 @@ module.exports = SetMagnitude;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Polygon = __webpack_require__(319);
+var Polygon = __webpack_require__(318);
 
 Polygon.Clone = __webpack_require__(734);
 Polygon.Contains = __webpack_require__(154);
@@ -113474,7 +113593,7 @@ module.exports = Polygon;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Polygon = __webpack_require__(319);
+var Polygon = __webpack_require__(318);
 
 /**
  * [description]
@@ -114129,7 +114248,7 @@ module.exports = GetSize;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var CenterOn = __webpack_require__(321);
+var CenterOn = __webpack_require__(320);
 
 //  Increases the size of the Rectangle object by the specified amounts.
 //  The center point of the Rectangle object stays the same, and its size increases 
@@ -114546,7 +114665,7 @@ Triangle.BuildEquilateral = __webpack_require__(764);
 Triangle.BuildFromPolygon = __webpack_require__(765);
 Triangle.BuildRight = __webpack_require__(766);
 Triangle.CenterOn = __webpack_require__(767);
-Triangle.Centroid = __webpack_require__(324);
+Triangle.Centroid = __webpack_require__(323);
 Triangle.CircumCenter = __webpack_require__(768);
 Triangle.CircumCircle = __webpack_require__(769);
 Triangle.Clone = __webpack_require__(770);
@@ -114554,14 +114673,14 @@ Triangle.Contains = __webpack_require__(63);
 Triangle.ContainsArray = __webpack_require__(152);
 Triangle.ContainsPoint = __webpack_require__(771);
 Triangle.CopyFrom = __webpack_require__(772);
-Triangle.Decompose = __webpack_require__(313);
+Triangle.Decompose = __webpack_require__(312);
 Triangle.Equals = __webpack_require__(773);
-Triangle.GetPoint = __webpack_require__(322);
-Triangle.GetPoints = __webpack_require__(323);
-Triangle.InCenter = __webpack_require__(326);
+Triangle.GetPoint = __webpack_require__(321);
+Triangle.GetPoints = __webpack_require__(322);
+Triangle.InCenter = __webpack_require__(325);
 Triangle.Perimeter = __webpack_require__(774);
-Triangle.Offset = __webpack_require__(325);
-Triangle.Random = __webpack_require__(121);
+Triangle.Offset = __webpack_require__(324);
+Triangle.Random = __webpack_require__(122);
 Triangle.Rotate = __webpack_require__(775);
 Triangle.RotateAroundPoint = __webpack_require__(776);
 Triangle.RotateAroundXY = __webpack_require__(156);
@@ -114790,8 +114909,8 @@ module.exports = BuildRight;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Centroid = __webpack_require__(324);
-var Offset = __webpack_require__(325);
+var Centroid = __webpack_require__(323);
+var Offset = __webpack_require__(324);
 
 /**
  * [description]
@@ -115145,7 +115264,7 @@ module.exports = Perimeter;
  */
 
 var RotateAroundXY = __webpack_require__(156);
-var InCenter = __webpack_require__(326);
+var InCenter = __webpack_require__(325);
 
 /**
  * [description]
@@ -115219,7 +115338,7 @@ module.exports = {
     Gamepad: __webpack_require__(778),
     InputManager: __webpack_require__(251),
     InputPlugin: __webpack_require__(783),
-    InteractiveObject: __webpack_require__(327),
+    InteractiveObject: __webpack_require__(326),
     Keyboard: __webpack_require__(784),
     Mouse: __webpack_require__(789),
     Pointer: __webpack_require__(260),
@@ -115435,7 +115554,7 @@ var DistanceBetween = __webpack_require__(48);
 var Ellipse = __webpack_require__(145);
 var EllipseContains = __webpack_require__(77);
 var EventEmitter = __webpack_require__(12);
-var InteractiveObject = __webpack_require__(327);
+var InteractiveObject = __webpack_require__(326);
 var PluginManager = __webpack_require__(9);
 var Rectangle = __webpack_require__(8);
 var RectangleContains = __webpack_require__(35);
@@ -117019,7 +117138,7 @@ module.exports = {
     KeyboardManager: __webpack_require__(256),
 
     Key: __webpack_require__(257),
-    KeyCodes: __webpack_require__(137),
+    KeyCodes: __webpack_require__(138),
 
     KeyCombo: __webpack_require__(258),
 
@@ -117238,8 +117357,8 @@ module.exports = {
     GetURL: __webpack_require__(157),
     LoaderPlugin: __webpack_require__(808),
     MergeXHRSettings: __webpack_require__(158),
-    XHRLoader: __webpack_require__(328),
-    XHRSettings: __webpack_require__(101)
+    XHRLoader: __webpack_require__(327),
+    XHRSettings: __webpack_require__(102)
 
 };
 
@@ -117285,12 +117404,12 @@ module.exports = {
 
     AnimationJSONFile: __webpack_require__(793),
     AtlasJSONFile: __webpack_require__(794),
-    AudioFile: __webpack_require__(329),
+    AudioFile: __webpack_require__(328),
     AudioSprite: __webpack_require__(795),
     BinaryFile: __webpack_require__(796),
     BitmapFontFile: __webpack_require__(797),
     GLSLFile: __webpack_require__(798),
-    HTML5AudioFile: __webpack_require__(330),
+    HTML5AudioFile: __webpack_require__(329),
     HTMLFile: __webpack_require__(799),
     ImageFile: __webpack_require__(67),
     JSONFile: __webpack_require__(66),
@@ -117299,11 +117418,11 @@ module.exports = {
     ScriptFile: __webpack_require__(802),
     SpriteSheetFile: __webpack_require__(803),
     SVGFile: __webpack_require__(804),
-    TextFile: __webpack_require__(333),
+    TextFile: __webpack_require__(332),
     TilemapCSVFile: __webpack_require__(805),
     TilemapJSONFile: __webpack_require__(806),
     UnityAtlasFile: __webpack_require__(807),
-    XMLFile: __webpack_require__(331)
+    XMLFile: __webpack_require__(330)
 
 };
 
@@ -117478,7 +117597,7 @@ module.exports = AtlasJSONFile;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var AudioFile = __webpack_require__(329);
+var AudioFile = __webpack_require__(328);
 var CONST = __webpack_require__(18);
 var FileTypesManager = __webpack_require__(7);
 var JSONFile = __webpack_require__(66);
@@ -117660,7 +117779,7 @@ module.exports = BinaryFile;
 
 var FileTypesManager = __webpack_require__(7);
 var ImageFile = __webpack_require__(67);
-var XMLFile = __webpack_require__(331);
+var XMLFile = __webpack_require__(330);
 
 /**
  * An Bitmap Font File.
@@ -118009,7 +118128,7 @@ module.exports = HTMLFile;
 var FileTypesManager = __webpack_require__(7);
 var ImageFile = __webpack_require__(67);
 var JSONFile = __webpack_require__(66);
-var NumberArray = __webpack_require__(332);
+var NumberArray = __webpack_require__(331);
 
 /**
  * Adds a Multi File Texture Atlas to the current load queue.
@@ -118779,7 +118898,7 @@ module.exports = TilemapJSONFile;
 
 var FileTypesManager = __webpack_require__(7);
 var ImageFile = __webpack_require__(67);
-var TextFile = __webpack_require__(333);
+var TextFile = __webpack_require__(332);
 
 /**
  * An Atlas JSON File.
@@ -118862,9 +118981,9 @@ var CustomSet = __webpack_require__(59);
 var EventEmitter = __webpack_require__(12);
 var FileTypesManager = __webpack_require__(7);
 var GetFastValue = __webpack_require__(1);
-var ParseXMLBitmapFont = __webpack_require__(281);
+var ParseXMLBitmapFont = __webpack_require__(280);
 var PluginManager = __webpack_require__(9);
-var XHRSettings = __webpack_require__(101);
+var XHRSettings = __webpack_require__(102);
 
 /**
  * @classdesc
@@ -119858,15 +119977,15 @@ var PhaserMath = {
 
     //  Single functions
     Average: __webpack_require__(837),
-    Bernstein: __webpack_require__(335),
+    Bernstein: __webpack_require__(334),
     Between: __webpack_require__(240),
-    CatmullRom: __webpack_require__(132),
+    CatmullRom: __webpack_require__(133),
     CeilTo: __webpack_require__(838),
     Clamp: __webpack_require__(57),
     DegToRad: __webpack_require__(42),
     Difference: __webpack_require__(839),
-    Factorial: __webpack_require__(336),
-    FloatBetween: __webpack_require__(288),
+    Factorial: __webpack_require__(335),
+    FloatBetween: __webpack_require__(287),
     FloorTo: __webpack_require__(840),
     FromPercent: __webpack_require__(73),
     GetSpeed: __webpack_require__(841),
@@ -119880,10 +119999,10 @@ var PhaserMath = {
     RandomXY: __webpack_require__(847),
     RandomXYZ: __webpack_require__(218),
     RandomXYZW: __webpack_require__(219),
-    Rotate: __webpack_require__(337),
+    Rotate: __webpack_require__(336),
     RotateAround: __webpack_require__(198),
-    RotateAroundDistance: __webpack_require__(122),
-    RoundAwayFromZero: __webpack_require__(338),
+    RotateAroundDistance: __webpack_require__(123),
+    RoundAwayFromZero: __webpack_require__(337),
     RoundTo: __webpack_require__(848),
     SinCosTableGenerator: __webpack_require__(849),
     SmootherStep: __webpack_require__(204),
@@ -119895,9 +120014,9 @@ var PhaserMath = {
     //  Vector classes
     Vector2: __webpack_require__(6),
     Vector3: __webpack_require__(58),
-    Vector4: __webpack_require__(129),
+    Vector4: __webpack_require__(130),
     Matrix3: __webpack_require__(222),
-    Matrix4: __webpack_require__(128),
+    Matrix4: __webpack_require__(129),
     Quaternion: __webpack_require__(221),
     RotateVec3: __webpack_require__(220)
 
@@ -119935,9 +120054,9 @@ module.exports = {
     Reverse: __webpack_require__(815),
     RotateTo: __webpack_require__(816),
     ShortestBetween: __webpack_require__(817),
-    Normalize: __webpack_require__(334),
-    Wrap: __webpack_require__(116),
-    WrapDegrees: __webpack_require__(117)
+    Normalize: __webpack_require__(333),
+    Wrap: __webpack_require__(117),
+    WrapDegrees: __webpack_require__(118)
 
 };
 
@@ -120072,7 +120191,7 @@ module.exports = BetweenPointsY;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Normalize = __webpack_require__(334);
+var Normalize = __webpack_require__(333);
 
 /**
  * [description]
@@ -120312,18 +120431,18 @@ module.exports = DistanceSquared;
 
 module.exports = {
 
-    Back: __webpack_require__(289),
-    Bounce: __webpack_require__(290),
-    Circular: __webpack_require__(291),
-    Cubic: __webpack_require__(292),
-    Elastic: __webpack_require__(293),
-    Expo: __webpack_require__(294),
-    Linear: __webpack_require__(295),
-    Quadratic: __webpack_require__(296),
-    Quartic: __webpack_require__(297),
-    Quintic: __webpack_require__(298),
-    Sine: __webpack_require__(299),
-    Stepped: __webpack_require__(300)
+    Back: __webpack_require__(288),
+    Bounce: __webpack_require__(289),
+    Circular: __webpack_require__(290),
+    Cubic: __webpack_require__(291),
+    Elastic: __webpack_require__(292),
+    Expo: __webpack_require__(293),
+    Linear: __webpack_require__(294),
+    Quadratic: __webpack_require__(295),
+    Quartic: __webpack_require__(296),
+    Quintic: __webpack_require__(297),
+    Sine: __webpack_require__(298),
+    Stepped: __webpack_require__(299)
 
 };
 
@@ -120546,7 +120665,7 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Bernstein = __webpack_require__(335);
+var Bernstein = __webpack_require__(334);
 
 /**
  * [description]
@@ -120585,7 +120704,7 @@ module.exports = BezierInterpolation;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var CatmullRom = __webpack_require__(132);
+var CatmullRom = __webpack_require__(133);
 
 /**
  * [description]
@@ -120648,8 +120767,8 @@ module.exports = CatmullRomInterpolation;
 
 module.exports = {
 
-    GetNext: __webpack_require__(303),
-    IsSize: __webpack_require__(135),
+    GetNext: __webpack_require__(302),
+    IsSize: __webpack_require__(136),
     IsValue: __webpack_require__(832)
 
 };
@@ -121361,15 +121480,15 @@ module.exports = {
 module.exports = {
 
     ArcadePhysics: __webpack_require__(853),
-    Body: __webpack_require__(345),
-    Collider: __webpack_require__(346),
-    Factory: __webpack_require__(339),
-    Group: __webpack_require__(342),
-    Image: __webpack_require__(340),
-    Sprite: __webpack_require__(102),
-    StaticBody: __webpack_require__(351),
-    StaticGroup: __webpack_require__(343),
-    World: __webpack_require__(344)
+    Body: __webpack_require__(344),
+    Collider: __webpack_require__(345),
+    Factory: __webpack_require__(338),
+    Group: __webpack_require__(341),
+    Image: __webpack_require__(339),
+    Sprite: __webpack_require__(103),
+    StaticBody: __webpack_require__(350),
+    StaticGroup: __webpack_require__(342),
+    World: __webpack_require__(343)
   
 };
 
@@ -121385,11 +121504,11 @@ module.exports = {
  */
 
 var Class = __webpack_require__(0);
-var Factory = __webpack_require__(339);
+var Factory = __webpack_require__(338);
 var GetFastValue = __webpack_require__(1);
 var Merge = __webpack_require__(81);
 var PluginManager = __webpack_require__(9);
-var World = __webpack_require__(344);
+var World = __webpack_require__(343);
 var DistanceBetween = __webpack_require__(48);
 var DegToRad = __webpack_require__(42);
 
@@ -122309,18 +122428,16 @@ var Enable = {
      * @method Phaser.Physics.Arcade.Components.Enable#enableBody
      * @since 3.0.0
      *
-     * @param {[type]} reset - [description]
-     * @param {[type]} x - [description]
-     * @param {[type]} y - [description]
-     * @param {[type]} enableGameObject - [description]
-     * @param {[type]} showGameObject - [description]
+     * @param {boolean} reset - [description]
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     * @param {boolean} enableGameObject - [description]
+     * @param {boolean} showGameObject - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.GameObjects.GameObject} This Game Object.
      */
     enableBody: function (reset, x, y, enableGameObject, showGameObject)
     {
-        this.body.enable = true;
-
         if (reset)
         {
             this.body.reset(x, y);
@@ -122336,6 +122453,8 @@ var Enable = {
             this.body.gameObject.visible = true;
         }
 
+        this.body.enable = true;
+
         return this;
     },
 
@@ -122345,10 +122464,10 @@ var Enable = {
      * @method Phaser.Physics.Arcade.Components.Enable#disableBody
      * @since 3.0.0
      *
-     * @param {[type]} disableGameObject - [description]
-     * @param {[type]} hideGameObject - [description]
+     * @param {boolean} [disableGameObject=false] - [description]
+     * @param {boolean} [hideGameObject=false] - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.GameObjects.GameObject} This Game Object.
      */
     disableBody: function (disableGameObject, hideGameObject)
     {
@@ -122368,6 +122487,24 @@ var Enable = {
         {
             this.body.gameObject.visible = false;
         }
+
+        return this;
+    },
+
+    /**
+     * Syncs the Bodies position and size with its parent Game Object.
+     * You don't need to call this for Dynamic Bodies, as it happens automatically.
+     * But for Static bodies it's a useful way of modifying the position of a Static Body
+     * in the Physics World, based on its Game Object.
+     *
+     * @method Phaser.Physics.Arcade.Components.Enable#refreshBody
+     * @since 3.0.1
+     *
+     * @return {Phaser.GameObjects.GameObject} This Game Object.
+     */
+    refreshBody: function ()
+    {
+        this.body.updateFromGameObject();
 
         return this;
     }
@@ -122836,7 +122973,7 @@ module.exports = ProcessTileCallbacks;
 
 var TileCheckX = __webpack_require__(868);
 var TileCheckY = __webpack_require__(870);
-var TileIntersectsBody = __webpack_require__(350);
+var TileIntersectsBody = __webpack_require__(349);
 
 /**
  * The core separation function to separate a physics body and a tile.
@@ -123537,16 +123674,16 @@ module.exports = GetOverlapY;
 
 module.exports = {
 
-    Body: __webpack_require__(352),
+    Body: __webpack_require__(351),
     COLLIDES: __webpack_require__(82),
-    CollisionMap: __webpack_require__(353),
-    Factory: __webpack_require__(354),
-    Image: __webpack_require__(356),
-    ImpactBody: __webpack_require__(355),
+    CollisionMap: __webpack_require__(352),
+    Factory: __webpack_require__(353),
+    Image: __webpack_require__(355),
+    ImpactBody: __webpack_require__(354),
     ImpactPhysics: __webpack_require__(892),
-    Sprite: __webpack_require__(357),
+    Sprite: __webpack_require__(356),
     TYPE: __webpack_require__(83),
-    World: __webpack_require__(358)
+    World: __webpack_require__(357)
   
 };
 
@@ -124846,11 +124983,11 @@ module.exports = Velocity;
  */
 
 var Class = __webpack_require__(0);
-var Factory = __webpack_require__(354);
+var Factory = __webpack_require__(353);
 var GetFastValue = __webpack_require__(1);
 var Merge = __webpack_require__(81);
 var PluginManager = __webpack_require__(9);
-var World = __webpack_require__(358);
+var World = __webpack_require__(357);
 
 /**
  * @classdesc
@@ -125245,14 +125382,14 @@ module.exports = SeperateY;
 
 module.exports = {
 
-    Factory: __webpack_require__(359),
-    Image: __webpack_require__(362),
+    Factory: __webpack_require__(358),
+    Image: __webpack_require__(361),
     Matter: __webpack_require__(165),
     MatterPhysics: __webpack_require__(913),
-    PolyDecomp: __webpack_require__(360),
-    Sprite: __webpack_require__(363),
+    PolyDecomp: __webpack_require__(359),
+    Sprite: __webpack_require__(362),
     TileBody: __webpack_require__(162),
-    World: __webpack_require__(369)
+    World: __webpack_require__(368)
 
 };
 
@@ -125943,6 +126080,14 @@ var SetBody = {
         this.body = body;
         this.body.gameObject = this;
 
+        var _this = this;
+
+        this.body.destroy = function ()
+        {
+            _this.world.remove(_this.body);
+            _this.body.gameObject = null;
+        };
+
         if (addToWorld)
         {
             this.world.add(this.body);
@@ -126167,8 +126312,8 @@ module.exports = Sleep;
 
 var Body = __webpack_require__(20);
 var MATH_CONST = __webpack_require__(13);
-var WrapAngle = __webpack_require__(116);
-var WrapAngleDegrees = __webpack_require__(117);
+var WrapAngle = __webpack_require__(117);
+var WrapAngleDegrees = __webpack_require__(118);
 
 //  global bitmask flag for GameObject.renderMask (used by Scale)
 var _FLAG = 4; // 0100
@@ -127291,16 +127436,16 @@ var Bounds = __webpack_require__(40);
  */
 
 var Class = __webpack_require__(0);
-var Factory = __webpack_require__(359);
+var Factory = __webpack_require__(358);
 var GetFastValue = __webpack_require__(1);
 var GetValue = __webpack_require__(4);
 var MatterAttractors = __webpack_require__(914);
-var MatterLib = __webpack_require__(364);
+var MatterLib = __webpack_require__(363);
 var MatterWrap = __webpack_require__(915);
 var Merge = __webpack_require__(81);
 var Plugin = __webpack_require__(166);
 var PluginManager = __webpack_require__(9);
-var World = __webpack_require__(369);
+var World = __webpack_require__(368);
 
 /**
  * @classdesc
@@ -127851,7 +127996,7 @@ module.exports = {
     SceneManager: __webpack_require__(263),
     ScenePlugin: __webpack_require__(917),
     Settings: __webpack_require__(266),
-    Systems: __webpack_require__(138)
+    Systems: __webpack_require__(139)
 
 };
 
@@ -128437,10 +128582,10 @@ module.exports = {
 
 module.exports = {
 
-    List: __webpack_require__(140),
-    Map: __webpack_require__(123),
-    ProcessQueue: __webpack_require__(347),
-    RTree: __webpack_require__(348),
+    List: __webpack_require__(98),
+    Map: __webpack_require__(124),
+    ProcessQueue: __webpack_require__(346),
+    RTree: __webpack_require__(347),
     Set: __webpack_require__(59)
 
 };
@@ -128465,7 +128610,7 @@ module.exports = {
     Parsers: __webpack_require__(275),
 
     FilterMode: __webpack_require__(921),
-    Frame: __webpack_require__(139),
+    Frame: __webpack_require__(140),
     Texture: __webpack_require__(276),
     TextureManager: __webpack_require__(274),
     TextureSource: __webpack_require__(277)
@@ -128528,24 +128673,24 @@ module.exports = CONST;
 
 module.exports = {
 
-    Components: __webpack_require__(104),
+    Components: __webpack_require__(105),
     Parsers: __webpack_require__(952),
 
     Formats: __webpack_require__(21),
-    ImageCollection: __webpack_require__(377),
+    ImageCollection: __webpack_require__(376),
     ParseToTilemap: __webpack_require__(172),
     Tile: __webpack_require__(51),
-    Tilemap: __webpack_require__(381),
+    Tilemap: __webpack_require__(380),
     TilemapCreator: __webpack_require__(969),
     TilemapFactory: __webpack_require__(970),
-    Tileset: __webpack_require__(108),
+    Tileset: __webpack_require__(109),
 
     LayerData: __webpack_require__(86),
     MapData: __webpack_require__(87),
-    ObjectLayer: __webpack_require__(379),
+    ObjectLayer: __webpack_require__(378),
 
-    DynamicTilemapLayer: __webpack_require__(382),
-    StaticTilemapLayer: __webpack_require__(383)
+    DynamicTilemapLayer: __webpack_require__(381),
+    StaticTilemapLayer: __webpack_require__(382)
 
 };
 
@@ -128625,10 +128770,10 @@ module.exports = Copy;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var TileToWorldX = __webpack_require__(106);
-var TileToWorldY = __webpack_require__(107);
+var TileToWorldX = __webpack_require__(107);
+var TileToWorldY = __webpack_require__(108);
 var GetTilesWithin = __webpack_require__(17);
-var ReplaceByIndex = __webpack_require__(370);
+var ReplaceByIndex = __webpack_require__(369);
 
 /**
  * Creates a Sprite for every object matching the given tile indexes in the layer. You can
@@ -129061,7 +129206,7 @@ module.exports = ForEachTile;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetTileAt = __webpack_require__(105);
+var GetTileAt = __webpack_require__(106);
 var WorldToTileX = __webpack_require__(45);
 var WorldToTileY = __webpack_require__(46);
 
@@ -129102,12 +129247,12 @@ module.exports = GetTileAtWorldXY;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Geom = __webpack_require__(307);
+var Geom = __webpack_require__(306);
 var GetTilesWithin = __webpack_require__(17);
-var Intersects = __webpack_require__(308);
+var Intersects = __webpack_require__(307);
 var NOOP = __webpack_require__(3);
-var TileToWorldX = __webpack_require__(106);
-var TileToWorldY = __webpack_require__(107);
+var TileToWorldX = __webpack_require__(107);
+var TileToWorldY = __webpack_require__(108);
 var WorldToTileX = __webpack_require__(45);
 var WorldToTileY = __webpack_require__(46);
 
@@ -129253,7 +129398,7 @@ module.exports = GetTilesWithinWorldXY;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var HasTileAt = __webpack_require__(371);
+var HasTileAt = __webpack_require__(370);
 var WorldToTileX = __webpack_require__(45);
 var WorldToTileY = __webpack_require__(46);
 
@@ -129455,7 +129600,7 @@ module.exports = Randomize;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var RemoveTileAt = __webpack_require__(372);
+var RemoveTileAt = __webpack_require__(371);
 var WorldToTileX = __webpack_require__(45);
 var WorldToTileY = __webpack_require__(46);
 
@@ -130079,8 +130224,8 @@ module.exports = SwapByIndex;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var TileToWorldX = __webpack_require__(106);
-var TileToWorldY = __webpack_require__(107);
+var TileToWorldX = __webpack_require__(107);
+var TileToWorldY = __webpack_require__(108);
 var Vector2 = __webpack_require__(6);
 
 /**
@@ -130252,12 +130397,12 @@ module.exports = WorldToTileXY;
 
 module.exports = {
 
-    Parse: __webpack_require__(373),
+    Parse: __webpack_require__(372),
     Parse2DArray: __webpack_require__(171),
-    ParseCSV: __webpack_require__(374),
+    ParseCSV: __webpack_require__(373),
 
-    Impact: __webpack_require__(380),
-    Tiled: __webpack_require__(375)
+    Impact: __webpack_require__(379),
+    Tiled: __webpack_require__(374)
 
 };
 
@@ -130275,7 +130420,7 @@ module.exports = {
 var Base64Decode = __webpack_require__(954);
 var GetFastValue = __webpack_require__(1);
 var LayerData = __webpack_require__(86);
-var ParseGID = __webpack_require__(376);
+var ParseGID = __webpack_require__(375);
 var Tile = __webpack_require__(51);
 
 /**
@@ -130493,9 +130638,9 @@ module.exports = ParseImageLayers;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Tileset = __webpack_require__(108);
-var ImageCollection = __webpack_require__(377);
-var ParseObject = __webpack_require__(378);
+var Tileset = __webpack_require__(109);
+var ImageCollection = __webpack_require__(376);
+var ParseObject = __webpack_require__(377);
 
 /**
  * Tilesets & Image Collections
@@ -130642,8 +130787,8 @@ module.exports = Pick;
  */
 
 var GetFastValue = __webpack_require__(1);
-var ParseObject = __webpack_require__(378);
-var ObjectLayer = __webpack_require__(379);
+var ParseObject = __webpack_require__(377);
+var ObjectLayer = __webpack_require__(378);
 
 /**
  * [description]
@@ -130930,7 +131075,7 @@ module.exports = ParseTileLayers;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Tileset = __webpack_require__(108);
+var Tileset = __webpack_require__(109);
 
 /**
  * [description]
@@ -131423,7 +131568,7 @@ GameObjectFactory.register('tilemap', function (key, tileWidth, tileHeight, widt
 module.exports = {
 
     Clock: __webpack_require__(972),
-    TimerEvent: __webpack_require__(384)
+    TimerEvent: __webpack_require__(383)
 
 };
 
@@ -131440,7 +131585,7 @@ module.exports = {
 
 var Class = __webpack_require__(0);
 var PluginManager = __webpack_require__(9);
-var TimerEvent = __webpack_require__(384);
+var TimerEvent = __webpack_require__(383);
 
 /**
  * @classdesc
@@ -131817,7 +131962,7 @@ module.exports = {
     TweenManager: __webpack_require__(976),
     Tween: __webpack_require__(176),
     TweenData: __webpack_require__(177),
-    Timeline: __webpack_require__(389)
+    Timeline: __webpack_require__(388)
 
 };
 
@@ -131840,14 +131985,14 @@ module.exports = {
 
     GetBoolean: __webpack_require__(80),
     GetEaseFunction: __webpack_require__(79),
-    GetNewValue: __webpack_require__(109),
-    GetProps: __webpack_require__(385),
+    GetNewValue: __webpack_require__(110),
+    GetProps: __webpack_require__(384),
     GetTargets: __webpack_require__(173),
-    GetTweens: __webpack_require__(386),
+    GetTweens: __webpack_require__(385),
     GetValueOp: __webpack_require__(174),
-    NumberTweenBuilder: __webpack_require__(387),
-    TimelineBuilder: __webpack_require__(388),
-    TweenBuilder: __webpack_require__(110),
+    NumberTweenBuilder: __webpack_require__(386),
+    TimelineBuilder: __webpack_require__(387),
+    TweenBuilder: __webpack_require__(111),
 
 };
 
@@ -131935,11 +132080,11 @@ module.exports = [
  */
 
 var Class = __webpack_require__(0);
-var NumberTweenBuilder = __webpack_require__(387);
+var NumberTweenBuilder = __webpack_require__(386);
 var PluginManager = __webpack_require__(9);
-var TimelineBuilder = __webpack_require__(388);
-var TWEEN_CONST = __webpack_require__(98);
-var TweenBuilder = __webpack_require__(110);
+var TimelineBuilder = __webpack_require__(387);
+var TWEEN_CONST = __webpack_require__(99);
+var TweenBuilder = __webpack_require__(111);
 
 //  Phaser.Tweens.TweenManager
 
@@ -132619,15 +132764,15 @@ module.exports = {
 
     FindClosestInSorted: __webpack_require__(979),
     GetRandomElement: __webpack_require__(148),
-    NumberArray: __webpack_require__(332),
+    NumberArray: __webpack_require__(331),
     NumberArrayStep: __webpack_require__(980),
-    QuickSelect: __webpack_require__(349),
-    Range: __webpack_require__(287),
+    QuickSelect: __webpack_require__(348),
+    Range: __webpack_require__(286),
     RemoveRandomElement: __webpack_require__(981),
     RotateLeft: __webpack_require__(201),
     RotateRight: __webpack_require__(202),
     Shuffle: __webpack_require__(91),
-    SpliceOne: __webpack_require__(390)
+    SpliceOne: __webpack_require__(389)
 
 };
 
@@ -132690,7 +132835,7 @@ module.exports = FindClosestInSorted;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var RoundAwayFromZero = __webpack_require__(338);
+var RoundAwayFromZero = __webpack_require__(337);
 
 /**
  * Create an array of numbers (positive and/or negative) progressing from `start`
@@ -132767,7 +132912,7 @@ module.exports = NumberArrayStep;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var SpliceOne = __webpack_require__(390);
+var SpliceOne = __webpack_require__(389);
 
 /**
  * Removes a random object from the given array and returns it.
@@ -132818,7 +132963,7 @@ module.exports = {
     GetMinMaxValue: __webpack_require__(983),
     GetValue: __webpack_require__(4),
     HasAll: __webpack_require__(984),
-    HasAny: __webpack_require__(301),
+    HasAny: __webpack_require__(300),
     HasValue: __webpack_require__(62),
     IsPlainObject: __webpack_require__(179),
     Merge: __webpack_require__(81),

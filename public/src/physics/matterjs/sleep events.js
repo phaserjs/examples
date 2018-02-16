@@ -40,13 +40,13 @@ function create ()
         repeat: 64
     });
 
-    this.matter.world.events.on('SLEEP_START_EVENT', function (event) {
+    this.matter.world.on('SLEEP_START_EVENT', function (event) {
 
         event.body.gameObject.setTint(0xff0000);
 
     });
 
-    this.matter.world.events.on('SLEEP_END_EVENT', function (event) {
+    this.matter.world.on('SLEEP_END_EVENT', function (event) {
 
         event.body.gameObject.setTint(0xffffff);
 

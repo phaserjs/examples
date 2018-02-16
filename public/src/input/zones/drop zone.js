@@ -44,20 +44,20 @@ function create ()
 
     var _this = this;
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('DRAG_START_EVENT', function (event) {
 
         _this.children.bringToTop(event.gameObject);
 
     });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('DRAG_EVENT', function (event) {
 
         event.gameObject.x = event.dragX;
         event.gameObject.y = event.dragY;
 
     });
 
-    this.input.events.on('DRAG_ENTER_EVENT', function (event) {
+    this.input.on('DRAG_ENTER_EVENT', function (event) {
 
         graphics.clear();
         graphics.lineStyle(2, 0x00ffff);
@@ -65,7 +65,7 @@ function create ()
 
     });
 
-    this.input.events.on('DRAG_LEAVE_EVENT', function (event) {
+    this.input.on('DRAG_LEAVE_EVENT', function (event) {
 
         graphics.clear();
         graphics.lineStyle(2, 0xffff00);
@@ -73,7 +73,7 @@ function create ()
 
     });
 
-    this.input.events.on('DROP_EVENT', function (event) {
+    this.input.on('DROP_EVENT', function (event) {
 
         event.gameObject.x = event.dropZone.x;
         event.gameObject.y = event.dropZone.y;
@@ -82,7 +82,7 @@ function create ()
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('DRAG_END_EVENT', function (event) {
 
         if (!event.dropped)
         {

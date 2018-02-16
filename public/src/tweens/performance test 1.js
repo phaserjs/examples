@@ -73,7 +73,7 @@ function create ()
 
     });
 
-    this.input.events.on('pointerup', function () {
+    this.input.on('pointerup', function () {
 
         add = false;
 

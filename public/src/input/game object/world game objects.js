@@ -31,13 +31,13 @@ function create ()
         this.add.sprite(x, y, 'eye').setInteractive();
     }
 
-    this.input.events.on('GAME_OBJECT_OVER_EVENT', function (event) {
+    this.input.on('GAME_OBJECT_OVER_EVENT', function (event) {
 
         event.gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('GAME_OBJECT_OUT_EVENT', function (event) {
+    this.input.on('GAME_OBJECT_OUT_EVENT', function (event) {
 
         event.gameObject.clearTint();
 
@@ -67,13 +67,13 @@ function create ()
     text = this.add.text(100, 200, 'x: 0 y: 0', { font: '18px Courier', fill: '#00ff00' }).setScrollFactor(0);
     text2 = this.add.text(100, 400, '', { font: '18px Courier', fill: '#00ff00' }).setScrollFactor(0);
 
-    this.input.keyboard.events.on('KEY_DOWN_Z', function (event) {
+    this.input.keyboard.on('KEY_DOWN_Z', function (event) {
 
         this.cameras.main.setRotation(this.cameras.main.rotation + 0.01);
 
     }, 0, this);
 
-    this.input.keyboard.events.on('KEY_DOWN_X', function (event) {
+    this.input.keyboard.on('KEY_DOWN_X', function (event) {
 
         this.cameras.main.setRotation(this.cameras.main.rotation - 0.01);
 

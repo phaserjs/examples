@@ -321,7 +321,7 @@ var PacmanGame = new Phaser.Class({
 
         this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'bezel');
 
-        this.events.on('LEVEL_COMPLETE', this.levelComplete.bind(this));
+        this.on('LEVEL_COMPLETE', this.levelComplete.bind(this));
 
         TweenMax.delayedCall(3, function () {
 
@@ -669,7 +669,7 @@ var Ghost = new Phaser.Class({
         //  Valid modes are Chase, Scatter and Frightened (edible)
         // this.mode = 'chase';
 
-        this.scene.events.on('POWER_UP', this.canBeEaten.bind(this));
+        this.scene.on('POWER_UP', this.canBeEaten.bind(this));
 
         //  Physics Body
 

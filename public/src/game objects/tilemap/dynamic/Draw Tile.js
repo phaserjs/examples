@@ -82,20 +82,20 @@ function create ()
     tilemaps[1].alpha = 0.5;
     tilemaps[2].alpha = 0.5;
     selected.visible = 0;
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
         if (!tileView.visible)
         {
-            tx = Math.floor(event.x / tileWidth);
-            ty = Math.floor(event.y / tileHeight);
-            square.x = Math.floor(event.x / tileWidth) * tileWidth;
-            square.y = Math.floor(event.y / tileHeight) * tileHeight;
+            tx = Math.floor(pointer.x / tileWidth);
+            ty = Math.floor(pointer.y / tileHeight);
+            square.x = Math.floor(pointer.x / tileWidth) * tileWidth;
+            square.y = Math.floor(pointer.y / tileHeight) * tileHeight;
             currentTile.x = square.x;
             currentTile.y = square.y;
         }
         else
         {
-            var ex = Math.min(event.x, tileView.width - tileWidth);
-            var ey = Math.min(event.y, tileView.height - tileHeight);
+            var ex = Math.min(pointer.x, tileView.width - tileWidth);
+            var ey = Math.min(pointer.y, tileView.height - tileHeight);
             tx = Math.floor(ex / tileWidth);
             ty = Math.floor(ey / tileHeight);
             square.x = Math.floor(ex / tileWidth) * tileWidth;
@@ -103,7 +103,7 @@ function create ()
 
         }
     }); 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function () {
         mouseDown = true;
         if (tileView.visible)
         {
@@ -112,10 +112,10 @@ function create ()
         }
 
     });
-    this.input.events.on('MOUSE_UP_EVENT', function (event) {
+    this.input.on('pointerup', function () {
         mouseDown = false;
     });
-    this.input.events.on('KEY_DOWN_EVENT', function (event) {
+    this.input.keyboard.on('keydown', function (event) {
         if (event.data.code === 'KeyZ')
         {
             selected.visible = true;
@@ -158,7 +158,7 @@ function create ()
             topText.setText('Layer: 3');
         }
     });
-    this.input.events.on('KEY_UP_EVENT', function (event) {
+    this.input.keyboard.on('keyup', function (event) {
 
         if (event.data.code === 'KeyZ')
         {

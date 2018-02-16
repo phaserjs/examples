@@ -290,39 +290,37 @@ var Flood = new Phaser.Class({
 
     startInputEvents: function ()
     {
-        this.input.events.on('GAME_OBJECT_OVER_EVENT', this.onIconOver, 0, this);
-        this.input.events.on('GAME_OBJECT_OUT_EVENT', this.onIconOut, 0, this);
-        this.input.events.on('GAME_OBJECT_DOWN_EVENT', this.onIconDown, 0, this);
-
-        var _this = this;
+        this.input.on('gameobjectover', this.onIconOver, this);
+        this.input.on('gameobjectout', this.onIconOut, this);
+        this.input.on('gameobjectdown', this.onIconDown, this);
 
         //  Cheat mode :)
 
-        this.input.keyboard.events.on('KEY_DOWN_M', function (event) {
+        this.input.keyboard.on('keydown_M', function () {
 
-            _this.moves++;
-            _this.text2.setText(Phaser.Utils.String.Pad(_this.moves, 2, '0', 1));
+            this.moves++;
+            this.text2.setText(Phaser.Utils.String.Pad(this.moves, 2, '0', 1));
 
-        });
+        }, this);
 
-        this.input.keyboard.events.on('KEY_DOWN_X', function (event) {
+        this.input.keyboard.on('keydown_X', function () {
 
-            _this.moves--;
-            _this.text2.setText(Phaser.Utils.String.Pad(_this.moves, 2, '0', 1));
+            this.moves--;
+            this.text2.setText(Phaser.Utils.String.Pad(this.moves, 2, '0', 1));
 
-        });
+        }, this);
     },
 
     stopInputEvents: function ()
     {
-        this.input.events.off('GAME_OBJECT_OVER_EVENT', this.onIconOver);
-        this.input.events.off('GAME_OBJECT_OUT_EVENT', this.onIconOut);
-        this.input.events.off('GAME_OBJECT_DOWN_EVENT', this.onIconDown);
+        this.input.off('gameobjectover', this.onIconOver);
+        this.input.off('gameobjectout', this.onIconOut);
+        this.input.off('gameobjectdown', this.onIconDown);
     },
 
-    onIconOver: function (event)
+    onIconOver: function (pointer, gameObject)
     {
-        var icon = event.gameObject;
+        var icon = gameObject;
 
         var newColor = icon.getData('color');
 
@@ -364,9 +362,13 @@ var Flood = new Phaser.Class({
         });
     },
 
-    onIconOut: function (event)
+    onIconOut: function (pointer, gameObject)
     {
+        // console.log(this.monsterTween.targets[0].y);
+
         this.monsterTween.stop(0);
+
+        // console.log(this.monsterTween.targets[0].y);
 
         this.cursorTween = this.tweens.add({
             targets: this.cursor,
@@ -377,14 +379,14 @@ var Flood = new Phaser.Class({
         this.arrow.setFrame('arrow-white');
     },
 
-    onIconDown: function (event)
+    onIconDown: function (pointer, gameObject)
     {
         if (!this.allowClick)
         {
             return;
         }
 
-        var icon = event.gameObject;
+        var icon = gameObject;
 
         var newColor = icon.getData('color');
 
@@ -578,7 +580,7 @@ var Flood = new Phaser.Class({
             delay: i
         });
 
-        this.input.events.once('POINTER_DOWN_EVENT', this.resetGame, 0, this);
+        this.input.once('pointerdown', this.resetGame, this);
     },
 
     resetGame: function ()

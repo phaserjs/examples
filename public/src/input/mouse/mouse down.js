@@ -17,14 +17,10 @@ function preload () {
 
 function create() {
 
-    var _this = this;
+    this.input.on('pointerdown', function (pointer) {
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+        this.add.image(pointer.x, pointer.y, 'logo');
 
-        console.dir(event);
-
-        _this.add.image(event.x, event.y, 'logo');
-
-    });
+    }, this);
 
 }

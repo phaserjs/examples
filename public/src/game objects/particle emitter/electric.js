@@ -67,15 +67,15 @@ function create ()
     var point2 = this.add.image(controlPoint1.x, controlPoint1.y, 'dragcircle', 2).setInteractive();
     var point3 = this.add.image(controlPoint2.x, controlPoint2.y, 'dragcircle', 2).setInteractive();
 
-    point0.data.set('vector', startPoint);
-    point1.data.set('vector', endPoint);
-    point2.data.set('vector', controlPoint1);
-    point3.data.set('vector', controlPoint2);
+    point0.setData('vector', startPoint);
+    point1.setData('vector', endPoint);
+    point2.setData('vector', controlPoint1);
+    point3.setData('vector', controlPoint2);
 
-    point0.data.set('isControl', false);
-    point1.data.set('isControl', false);
-    point2.data.set('isControl', true);
-    point3.data.set('isControl', true);
+    point0.setData('isControl', false);
+    point1.setData('isControl', false);
+    point2.setData('isControl', true);
+    point3.setData('isControl', true);
 
     this.input.setDraggable([ point0, point1, point2, point3 ]);
 
@@ -90,7 +90,7 @@ function create ()
         gameObject.x = dragX;
         gameObject.y = dragY;
 
-        gameObject.data.get('vector').set(dragX, dragY);
+        gameObject.getData('vector').set(dragX, dragY);
 
         for (var c = 0; c <= max; c++)
         {
@@ -112,7 +112,7 @@ function create ()
 
     this.input.on('dragend', function (pointer, gameObject) {
 
-        if (gameObject.data.get('isControl'))
+        if (gameObject.getData('isControl'))
         {
             gameObject.setFrame(2);
         }

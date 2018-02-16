@@ -29,15 +29,15 @@ function create ()
 
     //  Input Event listeners
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    sprite.on('pointerover', function () {
 
-        event.gameObject.setTint(0x7878ff);
+        sprite.setTint(0x7878ff);
 
     });
 
-    this.input.events.on('POINTER_OUT_EVENT', function (event) {
+    sprite.on('pointerout', function () {
 
-        event.gameObject.clearTint();
+        sprite.clearTint();
 
     });
 }

@@ -59,8 +59,12 @@ function create ()
 
     });
 
-    //  Limited to just 10 objects in the pool, not allowed to grow beyond it
-    bullets = this.pool.createObjectPool(Bullet, 10);
+    //  Limited to just 4 objects in the pool, not allowed to grow beyond it
+    bullets = this.add.group({
+        classType: Bullet,
+        maxSize: 4,
+        runChildUpdate: true
+    });
 
     ship = this.add.sprite(400, 500, 'ship').setDepth(1);
 

@@ -2,7 +2,13 @@ var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
+    backgroundColor: '#000000',
     parent: 'phaser-example',
+    pixelArt: true,
+    physics: {
+        default: 'impact',
+        impact: { gravity: 200 }
+    },
     scene: {
         preload: preload,
         create: create,
@@ -10,118 +16,73 @@ var config = {
     }
 };
 
-var world;
-var bodyA;
-var imageA;
-var cursors;
-var graphics;
-
 var game = new Phaser.Game(config);
+var player;
+var cursors;
 
 function preload ()
 {
-    this.load.json('map', 'assets/tilemaps/maps/slopes.json');
-    this.load.image('tiles', 'assets/tilemaps/tiles/slopes32mud2.png');
+    this.load.image('tiles', 'assets/tilemaps/tiles/slopes32mud.png');
+    this.load.image('player', 'assets/sprites/phaser-dude.png');
+
+    // A standard Weltmeister map with two layers: "map" & "collision"
+    this.load.tilemapWeltmeister('map', 'assets/tilemaps/maps/impact3.json');
 }
 
 function create ()
 {
+    var map = this.make.tilemap({ key: 'map' });
+
+    // Name of tileset from Weltmeister map, name of image in Phaser cache
+    var tileset = map.addTilesetImage('media/tiles.png', 'tiles');
+
+    map.createBlankDynamicLayer('background', tileset)
+        .fill(0)
+        .setAlpha(0.3);
+
+    // Name of layer from Weltmeister, tileset, x, y
+    var layer = map.createStaticLayer('map', tileset, 0, 0);
+
+    // This will pull in the "collision" layer from the associated map
+    this.impact.world.setCollisionMap('map');
+
+    player = this.impact.add.image(64, 300, 'player');
+    player.setMaxVelocity(500, 400).setFriction(800, 0);
+    player.body.accelGround = 1200;
+    player.body.accelAir = 600;
+    player.body.jumpSpeed = 1000;
+
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.startFollow(player);
+
     cursors = this.input.keyboard.createCursorKeys();
 
-    var jsonData = this.cache.json.get('map').layers[0];
-
-    var colMapData = [];
-    var renderData = [];
-
-    //  Build a CollisionMap compatible array from the data
-
-    var mapWidth = jsonData.width;
-    var mapHeight = jsonData.height;
-    var x = 0;
-    var y = 0;
-
-    jsonData.data.forEach(function (tile, index, array) {
-
-        if (x === 0)
-        {
-            colMapData[y] = [];
-        }
-
-        if (tile === 0)
-        {
-            tile = 49;
-        }
-
-        colMapData[y][x] = tile;
-        renderData.push(tile - 1);
-
-        x++;
-
-        if (x === mapWidth)
-        {
-            x = 0;
-            y++;
-        }
-
+    var help = this.add.text(16, 16, 'Arrow keys to move. Press "up" to jump.', {
+        fontSize: '18px',
+        fill: '#ffffff'
     });
-
-    this.add.staticTilemap(renderData, 0, 0, 32, 32, mapWidth, mapHeight, 0, 'tiles');
-
-    // imageA = this.add.image(64, 300, 'clown').setOrigin(0);
-
-    world = new Phaser.Physics.Impact.World(800);
-
-    world.collisionMap = new Phaser.Physics.Impact.CollisionMap(32, colMapData);
-
-    bodyA = world.create(287, 198, 16, 32); // tile A
-    // bodyA = world.create(736, 198, 16, 32); // tile B (works fine!)
-
-    bodyA.setMaxVelocity(400, 250);
-    bodyA.friction.x = 800;
-    bodyA.friction.y = 0;
-
-    bodyA.accelGround = 1200;
-    bodyA.accelAir = 600;
-    bodyA.jumpSpeed = 500;
-
-    this.cameras.main.startFollow(bodyA.pos);
-    this.cameras.main.setBounds(0, 0, mapWidth * 32, mapHeight * 32);
-
-    graphics = this.add.graphics();
-
-    window.dumpit = false;
-    TweenMax.delayedCall(0.75, function () { window.dumpit = true; }, [], this);
-    TweenMax.delayedCall(1.35, function () { window.dumpit = false; }, [], this);
+    help.setScrollFactor(0);
 }
 
 function update (time, delta)
 {
-    var accel = bodyA.standing ? bodyA.accelGround : bodyA.accelAir;
+    var accel = player.body.standing ? player.body.accelGround : player.body.accelAir;
 
     if (cursors.left.isDown)
     {
-        bodyA.setAccelerationX(-accel);
+        player.setAccelerationX(-accel);
     }
     else if (cursors.right.isDown)
     {
-        bodyA.setAccelerationX(accel);
+        player.setAccelerationX(accel);
     }
     else
     {
-        bodyA.setAccelerationX(0);
+        player.setAccelerationX(0);
     }
 
-    if (cursors.up.isDown && bodyA.standing)
+    if (cursors.up.isDown && player.body.standing)
     {
-        bodyA.setVelocityY(-bodyA.jumpSpeed);
+        player.setVelocityY(-player.body.jumpSpeed);
     }
-
-    world.update(time, delta);
-
-    graphics.clear();
-    graphics.lineStyle(1, 0xffff00, 1);
-    graphics.strokeRect(bodyA.pos.x, bodyA.pos.y, bodyA.size.x, bodyA.size.y);
-
-    // imageA.setPosition(bodyA.pos.x, bodyA.pos.y);
-
 }

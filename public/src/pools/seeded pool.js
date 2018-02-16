@@ -44,6 +44,9 @@ function create ()
         fire: function (x, y)
         {
             this.setPosition(x, y - 50);
+
+            this.setActive(true);
+            this.setVisible(true);
         },
 
         update: function (time, delta)
@@ -60,7 +63,13 @@ function create ()
     });
 
     //  Limited to 20 objects in the pool, not allowed to grow beyond it
-    bullets = this.pool.createObjectPool(Bullet, 20);
+    // bullets = this.pool.createObjectPool(Bullet, 20);
+
+    bullets = this.add.group({
+        classType: Bullet,
+        maxSize: 20,
+        runChildUpdate: true
+    });
 
     //  Create the objects in advance, so they're ready and waiting in the pool
     bullets.create(20);

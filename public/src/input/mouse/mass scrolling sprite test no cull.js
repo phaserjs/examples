@@ -70,9 +70,15 @@ function create ()
 
     controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('pointerover', function (pointer, gameObjects) {
 
-        highlighted.setPosition(event.gameObject.x, event.gameObject.y);
+        highlighted.setPosition(gameObjects[0].x, gameObjects[0].y);
+
+    });
+
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
+
+        gameObject.visible = false;
 
     });
 }

@@ -50,6 +50,9 @@ function create ()
 
         fire: function (x, y)
         {
+            this.setActive(true);
+            this.setVisible(true);
+
             //  Bullets fire from the middle of the screen to the given x/y
             this.setPosition(400, 300);
 
@@ -79,24 +82,28 @@ function create ()
 
     });
 
-    bullets = this.pool.createObjectPool(Bullet, 50);
+    bullets = this.add.group({
+        classType: Bullet,
+        maxSize: 50,
+        runChildUpdate: true
+    });
 
-    this.input.events.on('MOUSE_DOWN_EVENT', function (event) {
+    this.input.on('pointerdown', function (pointer) {
 
         isDown = true;
-        mouseX = event.x;
-        mouseY = event.y;
+        mouseX = pointer.x;
+        mouseY = pointer.y;
 
     });
 
-    this.input.events.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        mouseX = event.x;
-        mouseY = event.y;
+        mouseX = pointer.x;
+        mouseY = pointer.y;
 
     });
 
-    this.input.events.on('MOUSE_UP_EVENT', function (event) {
+    this.input.on('pointerup', function (pointer) {
 
         isDown = false;
 

@@ -27,12 +27,9 @@ function create ()
 
     //  Events
 
-    this.input.on('pointermove', function (pointer) {
+    this.input.on('gameobjectmove', function (pointer, gameObject) {
 
-        if (pointer.gameObject)
-        {
-            pointer.gameObject.setTint(Math.random() * 16000000);
-        }
+        gameObject.setTint(Math.random() * 16000000);
 
     });
 }

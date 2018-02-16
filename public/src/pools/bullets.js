@@ -44,6 +44,9 @@ function create ()
         fire: function (x, y)
         {
             this.setPosition(x, y - 50);
+
+            this.setActive(true);
+            this.setVisible(true);
         },
 
         update: function (time, delta)
@@ -59,7 +62,11 @@ function create ()
 
     });
 
-    bullets = this.pool.createObjectPool(Bullet);
+    bullets = this.add.group({
+        classType: Bullet,
+        maxSize: 10,
+        runChildUpdate: true
+    });
 
     ship = this.add.sprite(400, 500, 'ship').setDepth(1);
 

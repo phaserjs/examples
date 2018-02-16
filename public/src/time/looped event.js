@@ -24,6 +24,8 @@ function preload ()
 
 function create ()
 {
+    console.log('create');
+
     image = this.add.image(400, 300, 'einstein');
 
     text = this.add.text(32, 32);

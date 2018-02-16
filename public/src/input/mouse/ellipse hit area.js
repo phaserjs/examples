@@ -21,21 +21,21 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'chick').setScale(3);
 
-    var shape = new Phaser.Geom.Ellipse(0, 0, 66, 133);
+    var shape = new Phaser.Geom.Ellipse(33, 67, 66, 133);
 
     sprite.setInteractive(shape, Phaser.Geom.Ellipse.Contains);
 
     //  Input Event listeners
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    sprite.on('pointerover', function () {
 
-        event.gameObject.setTint(0x7878ff);
+        sprite.setTint(0x7878ff);
 
     });
 
-    this.input.events.on('POINTER_OUT_EVENT', function (event) {
+    sprite.on('pointerout', function () {
 
-        event.gameObject.clearTint();
+        sprite.clearTint();
 
     });
 }

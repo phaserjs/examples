@@ -41,7 +41,7 @@ function create ()
 
     //  And some events
 
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    this.input.on('GAME_OBJECT_DOWN_EVENT', function (event) {
 
         fork.x = event.pointer.x;
         fork.y = event.pointer.y;

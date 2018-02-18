@@ -26,7 +26,7 @@ function create ()
 
     var on = true;
 
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    this.input.on('GAME_OBJECT_DOWN_EVENT', function (event) {
 
         if (on)
         {

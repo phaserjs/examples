@@ -24,7 +24,7 @@ function create ()
 
     this.input.topOnly = true;
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('POINTER_OVER_EVENT', function (event) {
 
         console.log('OVER', event.gameObject.name);
 
@@ -32,7 +32,7 @@ function create ()
 
     });
 
-    this.input.events.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('POINTER_OUT_EVENT', function (event) {
 
         console.log('OUT', event.gameObject.name);
 

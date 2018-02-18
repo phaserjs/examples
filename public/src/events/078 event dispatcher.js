@@ -18,7 +18,7 @@ function create() {
 
     //  And here is listener
 
-    this.events.on('shoot', handler);
+    this.on('shoot', handler);
 
     //  Dispatch the event
     this.events.dispatch(playerEvent);

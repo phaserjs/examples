@@ -127,19 +127,19 @@ var SceneC = new Phaser.Class({
 
         var _this = this;
 
-        this.input.events.on('KEY_DOWN_ONE', function (event) {
+        this.input.on('KEY_DOWN_ONE', function (event) {
 
             (_this.scene.isActive('sceneA')) ? _this.scene.pause('sceneA') : _this.scene.resume('sceneA');
 
         });
 
-        this.input.events.on('KEY_DOWN_TWO', function (event) {
+        this.input.on('KEY_DOWN_TWO', function (event) {
 
             (_this.scene.isActive('sceneB')) ? _this.scene.pause('sceneB') : _this.scene.resume('sceneB');
 
         });
 
-        this.input.events.on('KEY_DOWN_THREE', function (event) {
+        this.input.on('KEY_DOWN_THREE', function (event) {
 
             (_this.scene.isActive('sceneC')) ? _this.scene.pause('sceneC') : _this.scene.resume('sceneC');
 

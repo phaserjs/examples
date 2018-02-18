@@ -23,20 +23,20 @@ function create ()
     //  The pointer has to move 16 pixels before it's considered as a drag
     this.input.dragDistanceThreshold = 16;
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('DRAG_START_EVENT', function (event) {
 
         event.gameObject.setTint(0xff0000);
 
     });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('DRAG_EVENT', function (event) {
 
         event.gameObject.x = event.dragX;
         event.gameObject.y = event.dragY;
 
     });
 
-    this.input.events.on('DRAG_END_EVENT', function (event) {
+    this.input.on('DRAG_END_EVENT', function (event) {
 
         event.gameObject.clearTint();
 

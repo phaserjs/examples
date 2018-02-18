@@ -29,7 +29,7 @@ function create ()
 
     blockA.setVelocityX(300);
 
-    this.impact.world.events.on('COLLIDE_EVENT', collide);
+    this.impact.world.on('COLLIDE_EVENT', collide);
 }
 
 function collide (event)

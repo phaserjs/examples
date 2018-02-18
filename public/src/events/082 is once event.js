@@ -16,7 +16,7 @@ function create() {
 
     var playerEvent = new Phaser.Event('shoot');
 
-    this.events.once('shoot', handler);
+    this.once('shoot', handler);
 
     console.log('There are', this.events.total('shoot'), 'shoot event listeners');
 

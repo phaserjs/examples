@@ -46,7 +46,7 @@ function create ()
 
     var _this = this;
 
-    this.input.events.on('DRAG_START_EVENT', function (event) {
+    this.input.on('DRAG_START_EVENT', function (event) {
 
         console.log('drag x/y', event.dragX, event.dragY);
         console.log('local x/y', event.gameObject.input.localX, event.gameObject.input.localY);
@@ -55,7 +55,7 @@ function create ()
 
     });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('DRAG_EVENT', function (event) {
 
         event.gameObject.x = event.dragX;
         event.gameObject.y = event.dragY;

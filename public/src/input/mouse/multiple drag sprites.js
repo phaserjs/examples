@@ -24,20 +24,20 @@ function create ()
 
     this.input.setDraggable([ sprite1, sprite2, sprite3 ]);
 
-    // this.input.events.on('DRAG_START_EVENT', function (event) {
+    // this.input.on('DRAG_START_EVENT', function (event) {
 
     //     console.log('DRAG_START_EVENT', event.input.dragX, event.input.dragY);
 
     // });
 
-    this.input.events.on('DRAG_EVENT', function (event) {
+    this.input.on('DRAG_EVENT', function (event) {
 
         event.gameObject.x = event.pointer.x - event.input.dragX;
         event.gameObject.y = event.pointer.y - event.input.dragY;
 
     });
 
-    // this.input.events.on('DRAG_END_EVENT', function (event) {
+    // this.input.on('DRAG_END_EVENT', function (event) {
 
     //     console.log('DRAG_END_EVENT');
 

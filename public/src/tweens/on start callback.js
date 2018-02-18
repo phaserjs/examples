@@ -32,7 +32,7 @@ function create ()
         onStartParams: [ image ]
     });
 
-    this.input.events.once('POINTER_DOWN_EVENT', function () {
+    this.input.once('POINTER_DOWN_EVENT', function () {
 
         tween.play();
 

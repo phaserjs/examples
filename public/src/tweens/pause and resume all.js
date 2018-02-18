@@ -86,7 +86,7 @@ function create ()
 
     var tweens = this.tweens;
 
-    this.input.events.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    this.input.on('GAME_OBJECT_DOWN_EVENT', function (event) {
 
         if (event.gameObject === downButton && tweens.timeScale > 0)
         {

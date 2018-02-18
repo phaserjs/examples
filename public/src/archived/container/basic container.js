@@ -37,7 +37,7 @@ function create() {
         // container.children.add(this.make.image(x, y, 'lemming'));
     }
 
-    this.input.keyboard.events.on('KEY_DOWN_SPACE', function () {
+    this.input.keyboard.on('KEY_DOWN_SPACE', function () {
 
         container.visible = false;
 

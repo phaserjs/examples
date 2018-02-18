@@ -69,7 +69,7 @@ function create ()
         }
     }, this);
 
-    game.input.events.on('POINTER_LOCK_CHANGE_EVENT', function (event) {
+    game.input.on('POINTER_LOCK_CHANGE_EVENT', function (event) {
         updateLockText(event.isPointerLocked);
     }, 0, this);
 

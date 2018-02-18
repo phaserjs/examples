@@ -34,13 +34,13 @@ function create ()
 
     //  Input Event listeners
 
-    this.input.events.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('POINTER_OVER_EVENT', function (event) {
 
         event.gameObject.setTint(0xff0000, 0xff0000, 0xffff00, 0xff00ff);
 
     });
 
-    this.input.events.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('POINTER_OUT_EVENT', function (event) {
 
         event.gameObject.clearTint();
 

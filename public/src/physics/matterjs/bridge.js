@@ -30,7 +30,7 @@ function create ()
     var group = this.matter.world.nextGroup(true);
 
     var bridge = this.matter.add.stack(160, 290, 15, 1, 0, 0, function(x, y) {
-        return Phaser.Physics.Matter.Bodies.rectangle(x - 20, y, 53, 20, { 
+        return Phaser.Physics.Matter.Matter.Bodies.rectangle(x - 20, y, 53, 20, { 
             collisionFilter: { group: group },
             chamfer: 5,
             density: 0.005,
@@ -47,7 +47,7 @@ function create ()
     });
     
     var stack = this.matter.add.stack(250, 50, 6, 3, 0, 0, function(x, y) {
-        return Phaser.Physics.Matter.Bodies.rectangle(x, y, 50, 50, Phaser.Math.Between(20, 40));
+        return Phaser.Physics.Matter.Matter.Bodies.rectangle(x, y, 50, 50, Phaser.Math.Between(20, 40));
     });
 
     this.matter.add.rectangle(30, 490, 220, 380, {

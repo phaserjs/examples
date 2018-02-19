@@ -1,10 +1,3 @@
-var audioContext;
-try {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-} catch (e) {
-    console.error(e);
-}
-
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -13,9 +6,6 @@ var config = {
     scene: {
         preload: preload,
         create: create
-    },
-    audio: {
-        context: audioContext
     }
 };
 

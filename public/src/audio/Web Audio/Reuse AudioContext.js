@@ -45,14 +45,10 @@ function create ()
     });
 
     var bomb = this.add.sprite(400, 300, 'bomb');
-    bomb.setScale(6);
+    bomb.setScale(6, -6);
     bomb.anims.play('rotate');
 
     this.input.once('pointerdown', function () {
-
-        this.sys.game.destroy(true);
-
-        return;
 
         bomb.visible = false;
 
@@ -66,13 +62,19 @@ function create ()
 
         explosion.on('ended', function (sound) {
 
-            this.sys.game.destroy(true);
+            setTimeout(function () {
 
-            document.addEventListener('mousedown', function newGame () {
+                this.sys.game.destroy(true);
 
-                document.removeEventListener('mousedown', newGame);
+                document.addEventListener('mousedown', function newGame () {
 
-            });
+                    game = new Phaser.Game(config);
+
+                    document.removeEventListener('mousedown', newGame);
+
+                });
+
+            }.bind(this));
 
         }, this);
 

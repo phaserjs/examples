@@ -18,10 +18,9 @@ var config = {
 
 var player;
 var stars;
-var spikes;
+var bombs;
 var platforms;
 var cursors;
-var left = 0;
 var score = 0;
 var gameOver = false;
 var scoreText;
@@ -33,7 +32,7 @@ function preload ()
     this.load.image('sky', 'src/games/firstgame/assets/sky.png');
     this.load.image('ground', 'src/games/firstgame/assets/platform.png');
     this.load.image('star', 'src/games/firstgame/assets/star.png');
-    this.load.image('spikes', 'src/games/firstgame/assets/spikes.png');
+    this.load.image('bomb', 'src/games/firstgame/assets/bomb.png');
     this.load.spritesheet('dude', 'src/games/firstgame/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
@@ -45,7 +44,7 @@ function create ()
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
 
-    // Here we create the ground.
+    //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
     platforms.create(400, 600-32, 'ground').setScale(2).refreshBody();
 
@@ -61,7 +60,7 @@ function create ()
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
 
-    //  Our two animations, walking left and right.
+    //  Our player animations, turning, walking left and walking right.
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -85,22 +84,17 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-    //  Finally some stars to collect
-    stars = this.physics.add.group();
+    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
+    stars = this.physics.add.group({ key: 'star', repeat: 11, setXY: { x: 12, y: 0, stepX: 70 } });
 
-    //  Here we'll create 12 of them evenly spaced apart
-    left = 12;
+    stars.children.iterate(function (child) {
 
-    for (var i = 0; i < 12; i++)
-    {
-        //  Create a star inside of the 'stars' group
-        var x = 12 + (i * 70);
-        var bounce = 0.4 + Math.random() * 0.2;
+        //  Give each star a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
-        stars.create(x, 0, 'star').setBounceY(bounce);
-    }
+    });
 
-    spikes = this.physics.add.group();
+    bombs = this.physics.add.group();
 
     //  The score
     scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
@@ -108,12 +102,12 @@ function create ()
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
-    this.physics.add.collider(spikes, platforms);
+    this.physics.add.collider(bombs, platforms);
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     this.physics.add.overlap(player, stars, collectStar, null, this);
 
-    this.physics.add.collider(player, spikes, hitSpike, null, this);
+    this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 
 function update ()
@@ -159,9 +153,7 @@ function collectStar (player, star)
     score += 10;
     scoreText.setText('Score: ' + score);
 
-    left--;
-
-    if (left === 0)
+    if (stars.countActive(true) === 0)
     {
         //  A new batch of stars to collect
         stars.children.iterate(function (child) {
@@ -170,28 +162,23 @@ function collectStar (player, star)
 
         });
 
-        left = 12;
+        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
-        //  And some spikes to avoid!
-        //  1 per platform
+        var bomb = bombs.create(x, 16, 'bomb');
+        bomb.setBounce(1);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        bomb.allowGravity = false;
 
-        platforms.children.iterate(function (platform) {
-
-            var bounds = platform.getBounds();
-            var x = Phaser.Math.Between(bounds.left, bounds.right);
-
-            // console.log('spike at', x, y);
-
-            spikes.create(x, bounds.top - 16, 'spikes');
-
-        });
     }
 }
 
-function hitSpike (player, spike)
+function hitBomb (player, bomb)
 {
+    this.physics.pause();
+
     player.setTint(0xff0000);
-    player.disableBody();
+
     player.anims.play('turn');
 
     gameOver = true;

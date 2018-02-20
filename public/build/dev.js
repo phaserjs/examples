@@ -5902,7 +5902,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.1.0',
+    VERSION: '3.1.1',
 
     BlendModes: __webpack_require__(51),
 
@@ -8588,10 +8588,11 @@ module.exports = {
      * @since 3.0.0
      * 
      * @param {number} attributes - [description]
+     * @param {WebGLRenderingContext} glContext - [description]
      * 
      * @return {number} [description]
      */
-    getComponentCount: function (attributes)
+    getComponentCount: function (attributes, glContext)
     {
         var count = 0;
 
@@ -8599,7 +8600,7 @@ module.exports = {
         {
             var element = attributes[index];
             
-            if (element.type === WebGLRenderingContext.FLOAT)
+            if (element.type === glContext.FLOAT)
             {
                 count += element.size;
             }
@@ -11617,14 +11618,14 @@ var Set = new Class({
     {
         var newSet = new Set();
 
-        set.values.forEach(function (value)
+        set.entries.forEach(function (value)
         {
-            newSet.add(value);
+            newSet.set(value);
         });
 
         this.entries.forEach(function (value)
         {
-            newSet.add(value);
+            newSet.set(value);
         });
 
         return newSet;
@@ -11648,7 +11649,7 @@ var Set = new Class({
         {
             if (set.contains(value))
             {
-                newSet.add(value);
+                newSet.set(value);
             }
         });
 
@@ -11673,7 +11674,7 @@ var Set = new Class({
         {
             if (!set.contains(value))
             {
-                newSet.add(value);
+                newSet.set(value);
             }
         });
 
@@ -23327,6 +23328,12 @@ var Camera = new Class({
             {
                 this._shakeOffsetX = (Math.random() * intensity * this.width * 2 - intensity * this.width) * this.zoom;
                 this._shakeOffsetY = (Math.random() * intensity * this.height * 2 - intensity * this.height) * this.zoom;
+                
+                if (this.roundPixels)
+                {
+                    this._shakeOffsetX |= 0;
+                    this._shakeOffsetY |= 0;
+                }
             }
         }
     },
@@ -27209,7 +27216,7 @@ var WebGLPipeline = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.vertexComponentCount = Utils.getComponentCount(config.attributes);
+        this.vertexComponentCount = Utils.getComponentCount(config.attributes, this.gl);
 
         /**
          * Indicates if the current pipeline is flushing the contents to the GPU.
@@ -48899,8 +48906,7 @@ var TextureTintPipeline = new Class({
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var renderer = this.renderer;
-        var roundPixels = camera.roundPixels;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var maxQuads = this.maxQuads;
         var cameraScrollX = camera.scrollX;
         var cameraScrollY = camera.scrollY;
@@ -48986,18 +48992,6 @@ var TextureTintPipeline = new Class({
                     var ty3 = xw * mvb + y * mvd + mvf;
                     var vertexOffset = this.vertexCount * vertexComponentCount;
 
-                    if (roundPixels)
-                    {
-                        tx0 = ((tx0 * resolution)|0) / resolution;
-                        ty0 = ((ty0 * resolution)|0) / resolution;
-                        tx1 = ((tx1 * resolution)|0) / resolution;
-                        ty1 = ((ty1 * resolution)|0) / resolution;
-                        tx2 = ((tx2 * resolution)|0) / resolution;
-                        ty2 = ((ty2 * resolution)|0) / resolution;
-                        tx3 = ((tx3 * resolution)|0) / resolution;
-                        ty3 = ((ty3 * resolution)|0) / resolution;
-                    }
-
                     vertexViewF32[vertexOffset + 0] = tx0;
                     vertexViewF32[vertexOffset + 1] = ty0;
                     vertexViewF32[vertexOffset + 2] = uvs.x0;
@@ -49061,8 +49055,7 @@ var TextureTintPipeline = new Class({
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var renderer = this.renderer;
-        var roundPixels = camera.roundPixels;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var list = blitter.getRenderList();
         var length = list.length;
         var cameraMatrix = camera.matrix.matrix;
@@ -49102,14 +49095,6 @@ var TextureTintPipeline = new Class({
                 var ty0 = x * b + y * d + f;
                 var tx1 = xw * a + yh * c + e;
                 var ty1 = xw * b + yh * d + f;
-
-                if (roundPixels)
-                {
-                    tx0 = ((tx0 * resolution)|0) / resolution;
-                    ty0 = ((ty0 * resolution)|0) / resolution;
-                    tx1 = ((tx1 * resolution)|0) / resolution;
-                    ty1 = ((ty1 * resolution)|0) / resolution;
-                }
             
                 // Bind Texture if texture wasn't bound.
                 // This needs to be here because of multiple
@@ -49189,8 +49174,7 @@ var TextureTintPipeline = new Class({
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var renderer = this.renderer;
-        var roundPixels = camera.roundPixels;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var cameraMatrix = camera.matrix.matrix;
         var frame = sprite.frame;
         var texture = frame.texture.source[frame.sourceIndex].glTexture;
@@ -49245,58 +49229,46 @@ var TextureTintPipeline = new Class({
         var ty2 = xw * mvb + yh * mvd + mvf;
         var tx3 = xw * mva + y * mvc + mve;
         var ty3 = xw * mvb + y * mvd + mvf;
-        var tint0 = getTint(tintTL, alphaTL);
-        var tint1 = getTint(tintTR, alphaTR);
-        var tint2 = getTint(tintBL, alphaBL);
-        var tint3 = getTint(tintBR, alphaBR);
+        var vTintTL = getTint(tintTL, alphaTL);
+        var vTintTR = getTint(tintTR, alphaTR);
+        var vTintBL = getTint(tintBL, alphaBL);
+        var vTintBR = getTint(tintBR, alphaBR);
         var vertexOffset = 0;
 
         this.setTexture2D(texture, 0);
 
         vertexOffset = this.vertexCount * this.vertexComponentCount;
 
-        if (roundPixels)
-        {
-            tx0 = ((tx0 * resolution)|0) / resolution;
-            ty0 = ((ty0 * resolution)|0) / resolution;
-            tx1 = ((tx1 * resolution)|0) / resolution;
-            ty1 = ((ty1 * resolution)|0) / resolution;
-            tx2 = ((tx2 * resolution)|0) / resolution;
-            ty2 = ((ty2 * resolution)|0) / resolution;
-            tx3 = ((tx3 * resolution)|0) / resolution;
-            ty3 = ((ty3 * resolution)|0) / resolution;
-        }
-
         vertexViewF32[vertexOffset + 0] = tx0;
         vertexViewF32[vertexOffset + 1] = ty0;
         vertexViewF32[vertexOffset + 2] = uvs.x0;
         vertexViewF32[vertexOffset + 3] = uvs.y0;
-        vertexViewU32[vertexOffset + 4] = tint0;
+        vertexViewU32[vertexOffset + 4] = vTintTL;
         vertexViewF32[vertexOffset + 5] = tx1;
         vertexViewF32[vertexOffset + 6] = ty1;
         vertexViewF32[vertexOffset + 7] = uvs.x1;
         vertexViewF32[vertexOffset + 8] = uvs.y1;
-        vertexViewU32[vertexOffset + 9] = tint1;
+        vertexViewU32[vertexOffset + 9] = vTintBL;
         vertexViewF32[vertexOffset + 10] = tx2;
         vertexViewF32[vertexOffset + 11] = ty2;
         vertexViewF32[vertexOffset + 12] = uvs.x2;
         vertexViewF32[vertexOffset + 13] = uvs.y2;
-        vertexViewU32[vertexOffset + 14] = tint2;
+        vertexViewU32[vertexOffset + 14] = vTintBR;
         vertexViewF32[vertexOffset + 15] = tx0;
         vertexViewF32[vertexOffset + 16] = ty0;
         vertexViewF32[vertexOffset + 17] = uvs.x0;
         vertexViewF32[vertexOffset + 18] = uvs.y0;
-        vertexViewU32[vertexOffset + 19] = tint0;
+        vertexViewU32[vertexOffset + 19] = vTintTL;
         vertexViewF32[vertexOffset + 20] = tx2;
         vertexViewF32[vertexOffset + 21] = ty2;
         vertexViewF32[vertexOffset + 22] = uvs.x2;
         vertexViewF32[vertexOffset + 23] = uvs.y2;
-        vertexViewU32[vertexOffset + 24] = tint2;
+        vertexViewU32[vertexOffset + 24] = vTintBR;
         vertexViewF32[vertexOffset + 25] = tx3;
         vertexViewF32[vertexOffset + 26] = ty3;
         vertexViewF32[vertexOffset + 27] = uvs.x3;
         vertexViewF32[vertexOffset + 28] = uvs.y3;
-        vertexViewU32[vertexOffset + 29] = tint3;
+        vertexViewU32[vertexOffset + 29] = vTintTR;
 
         this.vertexCount += 6;
     },
@@ -49330,8 +49302,7 @@ var TextureTintPipeline = new Class({
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var renderer = this.renderer;
-        var roundPixels = camera.roundPixels;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var cameraMatrix = camera.matrix.matrix;
         var frame = mesh.frame;
         var texture = mesh.texture.source[frame.sourceIndex].glTexture;
@@ -49373,12 +49344,6 @@ var TextureTintPipeline = new Class({
             var tx = x * mva + y * mvc + mve;
             var ty = x * mvb + y * mvd + mvf;
 
-            if (roundPixels)
-            {
-                tx = ((tx * resolution)|0) / resolution;
-                tx = ((tx * resolution)|0) / resolution;
-            }
-
             vertexViewF32[vertexOffset + 0] = tx;
             vertexViewF32[vertexOffset + 1] = ty;
             vertexViewF32[vertexOffset + 2] = uvs[index + 0];
@@ -49416,8 +49381,7 @@ var TextureTintPipeline = new Class({
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var renderer = this.renderer;
-        var roundPixels = camera.roundPixels;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var cameraMatrix = camera.matrix.matrix;
         var cameraWidth = camera.width + 50;
         var cameraHeight = camera.height + 50;
@@ -49432,10 +49396,10 @@ var TextureTintPipeline = new Class({
         var scale = (bitmapText.fontSize / fontData.size);
         var chars = fontData.chars;
         var alpha = bitmapText.alpha;
-        var tint0 = getTint(bitmapText._tintTL, alpha);
-        var tint1 = getTint(bitmapText._tintTR, alpha);
-        var tint2 = getTint(bitmapText._tintBL, alpha);
-        var tint3 = getTint(bitmapText._tintBR, alpha);
+        var vTintTL = getTint(bitmapText._tintTL, alpha);
+        var vTintTR = getTint(bitmapText._tintTR, alpha);
+        var vTintBL = getTint(bitmapText._tintBL, alpha);
+        var vTintBR = getTint(bitmapText._tintBR, alpha);
         var srcX = bitmapText.x;
         var srcY = bitmapText.y;
         var textureX = frame.cutX;
@@ -49547,6 +49511,9 @@ var TextureTintPipeline = new Class({
                 continue;
             }
 
+            x -= bitmapText.displayOriginX;
+            y -= bitmapText.displayOriginY;
+
             xw = x + glyphW * scale;
             yh = y + glyphH * scale;
             tx0 = x * mva + y * mvc + mve;
@@ -49578,48 +49545,36 @@ var TextureTintPipeline = new Class({
             
             vertexOffset = this.vertexCount * this.vertexComponentCount;
 
-            if (roundPixels)
-            {
-                tx0 = ((tx0 * resolution)|0) / resolution;
-                ty0 = ((ty0 * resolution)|0) / resolution;
-                tx1 = ((tx1 * resolution)|0) / resolution;
-                ty1 = ((ty1 * resolution)|0) / resolution;
-                tx2 = ((tx2 * resolution)|0) / resolution;
-                ty2 = ((ty2 * resolution)|0) / resolution;
-                tx3 = ((tx3 * resolution)|0) / resolution;
-                ty3 = ((ty3 * resolution)|0) / resolution;
-            }
-
             vertexViewF32[vertexOffset + 0] = tx0;
             vertexViewF32[vertexOffset + 1] = ty0;
             vertexViewF32[vertexOffset + 2] = umin;
             vertexViewF32[vertexOffset + 3] = vmin;
-            vertexViewU32[vertexOffset + 4] = tint0;
+            vertexViewU32[vertexOffset + 4] = vTintTL;
             vertexViewF32[vertexOffset + 5] = tx1;
             vertexViewF32[vertexOffset + 6] = ty1;
             vertexViewF32[vertexOffset + 7] = umin;
             vertexViewF32[vertexOffset + 8] = vmax;
-            vertexViewU32[vertexOffset + 9] = tint1;
+            vertexViewU32[vertexOffset + 9] = vTintBL;
             vertexViewF32[vertexOffset + 10] = tx2;
             vertexViewF32[vertexOffset + 11] = ty2;
             vertexViewF32[vertexOffset + 12] = umax;
             vertexViewF32[vertexOffset + 13] = vmax;
-            vertexViewU32[vertexOffset + 14] = tint2;
+            vertexViewU32[vertexOffset + 14] = vTintBR;
             vertexViewF32[vertexOffset + 15] = tx0;
             vertexViewF32[vertexOffset + 16] = ty0;
             vertexViewF32[vertexOffset + 17] = umin;
             vertexViewF32[vertexOffset + 18] = vmin;
-            vertexViewU32[vertexOffset + 19] = tint0;
+            vertexViewU32[vertexOffset + 19] = vTintTL;
             vertexViewF32[vertexOffset + 20] = tx2;
             vertexViewF32[vertexOffset + 21] = ty2;
             vertexViewF32[vertexOffset + 22] = umax;
             vertexViewF32[vertexOffset + 23] = vmax;
-            vertexViewU32[vertexOffset + 24] = tint2;
+            vertexViewU32[vertexOffset + 24] = vTintBR;
             vertexViewF32[vertexOffset + 25] = tx3;
             vertexViewF32[vertexOffset + 26] = ty3;
             vertexViewF32[vertexOffset + 27] = umax;
             vertexViewF32[vertexOffset + 28] = vmin;
-            vertexViewU32[vertexOffset + 29] = tint3;
+            vertexViewU32[vertexOffset + 29] = vTintTR;
         
             this.vertexCount += 6;
         }
@@ -49650,8 +49605,7 @@ var TextureTintPipeline = new Class({
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var renderer = this.renderer;
-        var roundPixels = camera.roundPixels;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var cameraMatrix = camera.matrix.matrix;
         var frame = bitmapText.frame;
         var textureSource = bitmapText.texture.source[frame.sourceIndex];
@@ -49664,10 +49618,10 @@ var TextureTintPipeline = new Class({
         var scale = (bitmapText.fontSize / fontData.size);
         var chars = fontData.chars;
         var alpha = bitmapText.alpha;
-        var tint0 = getTint(bitmapText._tintTL, alpha);
-        var tint1 = getTint(bitmapText._tintTR, alpha);
-        var tint2 = getTint(bitmapText._tintBL, alpha);
-        var tint3 = getTint(bitmapText._tintBR, alpha);
+        var vTintTL = getTint(bitmapText._tintTL, alpha);
+        var vTintTR = getTint(bitmapText._tintTR, alpha);
+        var vTintBL = getTint(bitmapText._tintBL, alpha);
+        var vTintBR = getTint(bitmapText._tintBR, alpha);
         var srcX = bitmapText.x;
         var srcY = bitmapText.y;
         var textureX = frame.cutX;
@@ -49797,10 +49751,10 @@ var TextureTintPipeline = new Class({
                 var output = displayCallback({
                     color: 0,
                     tint: {
-                        topLeft: tint0,
-                        topRight: tint1,
-                        bottomLeft: tint2,
-                        bottomRight: tint3
+                        topLeft: vTintTL,
+                        topRight: vTintTR,
+                        bottomLeft: vTintBL,
+                        bottomRight: vTintBR
                     },
                     index: index,
                     charCode: charCode,
@@ -49818,25 +49772,27 @@ var TextureTintPipeline = new Class({
 
                 if (output.color)
                 {
-                    tint0 = output.color;
-                    tint1 = output.color;
-                    tint2 = output.color;
-                    tint3 = output.color;
+                    vTintTL = output.color;
+                    vTintTR = output.color;
+                    vTintBL = output.color;
+                    vTintBR = output.color;
                 }
                 else
                 {
-                    tint0 = output.tint.topLeft;
-                    tint1 = output.tint.topRight;
-                    tint2 = output.tint.bottomLeft;
-                    tint3 = output.tint.bottomRight;
+                    vTintTL = output.tint.topLeft;
+                    vTintTR = output.tint.topRight;
+                    vTintBL = output.tint.bottomLeft;
+                    vTintBR = output.tint.bottomRight;
                 }
 
-                tint0 = getTint(tint0, alpha);
-                tint1 = getTint(tint1, alpha);
-                tint2 = getTint(tint2, alpha);
-                tint3 = getTint(tint3, alpha);
+                vTintTL = getTint(vTintTL, alpha);
+                vTintTR = getTint(vTintTR, alpha);
+                vTintBL = getTint(vTintBL, alpha);
+                vTintBR = getTint(vTintBR, alpha);
             }
 
+            x -= bitmapText.displayOriginX;
+            y -= bitmapText.displayOriginY;
             x *= scale;
             y *= scale;
             x -= cameraScrollX;
@@ -49881,48 +49837,36 @@ var TextureTintPipeline = new Class({
             
             vertexOffset = this.vertexCount * this.vertexComponentCount;
 
-            if (roundPixels)
-            {
-                tx0 = ((tx0 * resolution)|0) / resolution;
-                ty0 = ((ty0 * resolution)|0) / resolution;
-                tx1 = ((tx1 * resolution)|0) / resolution;
-                ty1 = ((ty1 * resolution)|0) / resolution;
-                tx2 = ((tx2 * resolution)|0) / resolution;
-                ty2 = ((ty2 * resolution)|0) / resolution;
-                tx3 = ((tx3 * resolution)|0) / resolution;
-                ty3 = ((ty3 * resolution)|0) / resolution;
-            }
-
             vertexViewF32[vertexOffset + 0] = tx0;
             vertexViewF32[vertexOffset + 1] = ty0;
             vertexViewF32[vertexOffset + 2] = umin;
             vertexViewF32[vertexOffset + 3] = vmin;
-            vertexViewU32[vertexOffset + 4] = tint0;
+            vertexViewU32[vertexOffset + 4] = vTintTL;
             vertexViewF32[vertexOffset + 5] = tx1;
             vertexViewF32[vertexOffset + 6] = ty1;
             vertexViewF32[vertexOffset + 7] = umin;
             vertexViewF32[vertexOffset + 8] = vmax;
-            vertexViewU32[vertexOffset + 9] = tint1;
+            vertexViewU32[vertexOffset + 9] = vTintBL;
             vertexViewF32[vertexOffset + 10] = tx2;
             vertexViewF32[vertexOffset + 11] = ty2;
             vertexViewF32[vertexOffset + 12] = umax;
             vertexViewF32[vertexOffset + 13] = vmax;
-            vertexViewU32[vertexOffset + 14] = tint2;
+            vertexViewU32[vertexOffset + 14] = vTintBR;
             vertexViewF32[vertexOffset + 15] = tx0;
             vertexViewF32[vertexOffset + 16] = ty0;
             vertexViewF32[vertexOffset + 17] = umin;
             vertexViewF32[vertexOffset + 18] = vmin;
-            vertexViewU32[vertexOffset + 19] = tint0;
+            vertexViewU32[vertexOffset + 19] = vTintTL;
             vertexViewF32[vertexOffset + 20] = tx2;
             vertexViewF32[vertexOffset + 21] = ty2;
             vertexViewF32[vertexOffset + 22] = umax;
             vertexViewF32[vertexOffset + 23] = vmax;
-            vertexViewU32[vertexOffset + 24] = tint2;
+            vertexViewU32[vertexOffset + 24] = vTintBR;
             vertexViewF32[vertexOffset + 25] = tx3;
             vertexViewF32[vertexOffset + 26] = ty3;
             vertexViewF32[vertexOffset + 27] = umax;
             vertexViewF32[vertexOffset + 28] = vmin;
-            vertexViewU32[vertexOffset + 29] = tint3;
+            vertexViewU32[vertexOffset + 29] = vTintTR;
         
             this.vertexCount += 6;
         }
@@ -50122,8 +50066,7 @@ var TextureTintPipeline = new Class({
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var renderer = this.renderer;
-        var roundPixels = camera.roundPixels;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var cameraMatrix = camera.matrix.matrix;
         var width = srcWidth * (flipX ? -1.0 : 1.0);
         var height = srcHeight * (flipY ? -1.0 : 1.0);
@@ -50170,18 +50113,6 @@ var TextureTintPipeline = new Class({
         this.setTexture2D(texture, 0);
 
         vertexOffset = this.vertexCount * this.vertexComponentCount;
-
-        if (roundPixels)
-        {
-            tx0 = ((tx0 * resolution)|0) / resolution;
-            ty0 = ((ty0 * resolution)|0) / resolution;
-            tx1 = ((tx1 * resolution)|0) / resolution;
-            ty1 = ((ty1 * resolution)|0) / resolution;
-            tx2 = ((tx2 * resolution)|0) / resolution;
-            ty2 = ((ty2 * resolution)|0) / resolution;
-            tx3 = ((tx3 * resolution)|0) / resolution;
-            ty3 = ((ty3 * resolution)|0) / resolution;
-        }
 
         vertexViewF32[vertexOffset + 0] = tx0;
         vertexViewF32[vertexOffset + 1] = ty0;
@@ -64715,7 +64646,7 @@ var World = new Class({
         var body;
 
         var dynamic = this.bodies;
-        var static = this.staticBodies;
+        var staticBodies = this.staticBodies;
         var pending = this.pendingDestroy;
 
         var bodies = dynamic.entries;
@@ -64747,7 +64678,7 @@ var World = new Class({
                 }
             }
 
-            bodies = static.entries;
+            bodies = staticBodies.entries;
             len = bodies.length;
 
             for (i = 0; i < len; i++)
@@ -64781,7 +64712,7 @@ var World = new Class({
                 else if (body.physicsType === CONST.STATIC_BODY)
                 {
                     staticTree.remove(body);
-                    static.delete(body);
+                    staticBodies.delete(body);
                 }
 
                 body.world = undefined;
@@ -95089,15 +95020,6 @@ var WebGLRenderer = new Class({
             encoder: null
         };
 
-        for (var i = 0; i <= 16; i++)
-        {
-            this.blendModes.push({ func: [ WebGLRenderingContext.ONE, WebGLRenderingContext.ONE_MINUS_SRC_ALPHA ], equation: WebGLRenderingContext.FUNC_ADD });
-        }
-
-        this.blendModes[1].func = [ WebGLRenderingContext.ONE, WebGLRenderingContext.DST_ALPHA ];
-        this.blendModes[2].func = [ WebGLRenderingContext.DST_COLOR, WebGLRenderingContext.ONE_MINUS_SRC_ALPHA ];
-        this.blendModes[3].func = [ WebGLRenderingContext.ONE, WebGLRenderingContext.ONE_MINUS_SRC_COLOR ];
-
         // Internal Renderer State (Textures, Framebuffers, Pipelines, Buffers, etc)
 
         /**
@@ -95298,6 +95220,15 @@ var WebGLRenderer = new Class({
         }
 
         this.gl = gl;
+
+        for (var i = 0; i <= 16; i++)
+        {
+            this.blendModes.push({ func: [ gl.ONE, gl.ONE_MINUS_SRC_ALPHA ], equation: gl.FUNC_ADD });
+        }
+
+        this.blendModes[1].func = [ gl.ONE, gl.DST_ALPHA ];
+        this.blendModes[2].func = [ gl.DST_COLOR, gl.ONE_MINUS_SRC_ALPHA ];
+        this.blendModes[3].func = [ gl.ONE, gl.ONE_MINUS_SRC_COLOR ];
 
         // Load supported extensions
         this.supportedExtensions = gl.getSupportedExtensions();
@@ -97199,9 +97130,8 @@ var FlatTintPipeline = new Class({
      * @param {float} e1 - [description]
      * @param {float} f1 - [description]
      * @param {Float32Array} currentMatrix - [description]
-     * @param {boolean} roundPixels - [description]
      */
-    batchFillRect: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x, y, width, height, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix, roundPixels)
+    batchFillRect: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x, y, width, height, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
     {
         this.renderer.setPipeline(this);
 
@@ -97211,7 +97141,7 @@ var FlatTintPipeline = new Class({
         }
         
         var renderer = this.renderer;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var vertexOffset = this.vertexCount * this.vertexComponentCount;
@@ -97238,18 +97168,6 @@ var FlatTintPipeline = new Class({
         var tx3 = xw * a + y * c + e;
         var ty3 = xw * b + y * d + f;
         var tint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha);
-
-        if (roundPixels)
-        {
-            tx0 = ((tx0 * resolution)|0) / resolution;
-            ty0 = ((ty0 * resolution)|0) / resolution;
-            tx1 = ((tx1 * resolution)|0) / resolution;
-            ty1 = ((ty1 * resolution)|0) / resolution;
-            tx2 = ((tx2 * resolution)|0) / resolution;
-            ty2 = ((ty2 * resolution)|0) / resolution;
-            tx3 = ((tx3 * resolution)|0) / resolution;
-            ty3 = ((ty3 * resolution)|0) / resolution;
-        }
 
         vertexViewF32[vertexOffset + 0] = tx0;
         vertexViewF32[vertexOffset + 1] = ty0;
@@ -97299,9 +97217,8 @@ var FlatTintPipeline = new Class({
      * @param {float} e1 - [description]
      * @param {float} f1 - [description]
      * @param {Float32Array} currentMatrix - [description]
-     * @param {boolean} roundPixels - [description]
      */
-    batchFillTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix, roundPixels)
+    batchFillTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
     {
         this.renderer.setPipeline(this);
 
@@ -97311,7 +97228,7 @@ var FlatTintPipeline = new Class({
         }
 
         var renderer = this.renderer;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var vertexViewF32 = this.vertexViewF32;
         var vertexViewU32 = this.vertexViewU32;
         var vertexOffset = this.vertexCount * this.vertexComponentCount;
@@ -97334,16 +97251,6 @@ var FlatTintPipeline = new Class({
         var tx2 = x2 * a + y2 * c + e;
         var ty2 = x2 * b + y2 * d + f;
         var tint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha);
-
-        if (roundPixels)
-        {
-            tx0 = ((tx0 * resolution)|0) / resolution;
-            ty0 = ((ty0 * resolution)|0) / resolution;
-            tx1 = ((tx1 * resolution)|0) / resolution;
-            ty1 = ((ty1 * resolution)|0) / resolution;
-            tx2 = ((tx2 * resolution)|0) / resolution;
-            ty2 = ((ty2 * resolution)|0) / resolution;
-        }
 
         vertexViewF32[vertexOffset + 0] = tx0;
         vertexViewF32[vertexOffset + 1] = ty0;
@@ -97385,9 +97292,8 @@ var FlatTintPipeline = new Class({
      * @param {float} e - [description]
      * @param {float} f - [description]
      * @param {Float32Array} currentMatrix - [description]
-     * @param {boolean} roundPixels - [description]
      */
-    batchStrokeTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, currentMatrix, roundPixels)
+    batchStrokeTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, currentMatrix)
     {
         var tempTriangle = this.tempTriangle;
 
@@ -97417,8 +97323,7 @@ var FlatTintPipeline = new Class({
             tempTriangle, lineWidth, lineColor, lineAlpha,
             a, b, c, d, e, f,
             false,
-            currentMatrix,
-            roundPixels
+            currentMatrix
         );
     },
 
@@ -97443,14 +97348,13 @@ var FlatTintPipeline = new Class({
      * @param {float} e1 - [description]
      * @param {float} f1 - [description]
      * @param {Float32Array} currentMatrix - [description]
-     * @param {boolean} roundPixels - [description]
      */
-    batchFillPath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix, roundPixels)
+    batchFillPath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
     {
         this.renderer.setPipeline(this);
 
         var renderer = this.renderer;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var length = path.length;
         var polygonCache = this.polygonCache;
         var polygonIndexArray;
@@ -97511,16 +97415,6 @@ var FlatTintPipeline = new Class({
             tx2 = x2 * a + y2 * c + e;
             ty2 = x2 * b + y2 * d + f;
 
-            if (roundPixels)
-            {
-                tx0 = ((tx0 * resolution)|0) / resolution;
-                ty0 = ((ty0 * resolution)|0) / resolution;
-                tx1 = ((tx1 * resolution)|0) / resolution;
-                ty1 = ((ty1 * resolution)|0) / resolution;
-                tx2 = ((tx2 * resolution)|0) / resolution;
-                ty2 = ((ty2 * resolution)|0) / resolution;
-            }
-
             vertexViewF32[vertexOffset + 0] = tx0;
             vertexViewF32[vertexOffset + 1] = ty0;
             vertexViewU32[vertexOffset + 2] = tint;
@@ -97560,9 +97454,8 @@ var FlatTintPipeline = new Class({
      * @param {float} f - [description]
      * @param {boolean} isLastPath - [description]
      * @param {Float32Array} currentMatrix - [description]
-     * @param {boolean} roundPixels - [description]
      */
-    batchStrokePath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, isLastPath, currentMatrix, roundPixels)
+    batchStrokePath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, isLastPath, currentMatrix)
     {
         this.renderer.setPipeline(this);
 
@@ -97588,8 +97481,7 @@ var FlatTintPipeline = new Class({
                 point0.width / 2, point1.width / 2,
                 point0.rgb, point1.rgb, lineAlpha,
                 a, b, c, d, e, f,
-                currentMatrix,
-                roundPixels
+                currentMatrix
             );
 
             polylines.push(line);
@@ -97659,9 +97551,8 @@ var FlatTintPipeline = new Class({
      * @param {float} e1 - [description]
      * @param {float} f1 - [description]
      * @param {Float32Array} currentMatrix - [description]
-     * @param {boolean} roundPixels - [description]
      */
-    batchLine: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, ax, ay, bx, by, aLineWidth, bLineWidth, aLineColor, bLineColor, lineAlpha, a1, b1, c1, d1, e1, f1, currentMatrix, roundPixels)
+    batchLine: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, ax, ay, bx, by, aLineWidth, bLineWidth, aLineColor, bLineColor, lineAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
     {
         this.renderer.setPipeline(this);
 
@@ -97671,7 +97562,7 @@ var FlatTintPipeline = new Class({
         }
         
         var renderer = this.renderer;
-        var resolution = renderer.config.resolution;
+        var resolution = renderer.config.resolution; // eslint-disable-line no-unused-vars
         var a0 = currentMatrix[0];
         var b0 = currentMatrix[1];
         var c0 = currentMatrix[2];
@@ -97713,18 +97604,6 @@ var FlatTintPipeline = new Class({
         var aTint = getTint(aLineColor, lineAlpha);
         var bTint = getTint(bLineColor, lineAlpha);
         var vertexOffset = this.vertexCount * this.vertexComponentCount;
-
-        if (roundPixels)
-        {
-            x0 = ((x0 * resolution)|0) / resolution;
-            y0 = ((y0 * resolution)|0) / resolution;
-            x1 = ((x1 * resolution)|0) / resolution;
-            y1 = ((y1 * resolution)|0) / resolution;
-            x2 = ((x2 * resolution)|0) / resolution;
-            y2 = ((y2 * resolution)|0) / resolution;
-            x3 = ((x3 * resolution)|0) / resolution;
-            y3 = ((y3 * resolution)|0) / resolution;
-        }
 
         vertexViewF32[vertexOffset + 0] = x0;
         vertexViewF32[vertexOffset + 1] = y0;
@@ -97819,7 +97698,6 @@ var FlatTintPipeline = new Class({
         var mvd = src * cmb + srd * cmd;
         var mve = sre * cma + srf * cmc + cme;
         var mvf = sre * cmb + srf * cmd + cmf;
-        var roundPixels = camera.roundPixels;
 
         var pathArrayIndex;
         var pathArrayLength;
@@ -97914,8 +97792,7 @@ var FlatTintPipeline = new Class({
 
                             /* Transform */
                             mva, mvb, mvc, mvd, mve, mvf,
-                            currentMatrix,
-                            roundPixels
+                            currentMatrix
                         );
                     }
                     break;
@@ -97940,8 +97817,7 @@ var FlatTintPipeline = new Class({
                             /* Transform */
                             mva, mvb, mvc, mvd, mve, mvf,
                             path === this._lastPath,
-                            currentMatrix,
-                            roundPixels
+                            currentMatrix
                         );
                     }
                     break;
@@ -97962,8 +97838,7 @@ var FlatTintPipeline = new Class({
 
                         /* Transform */
                         mva, mvb, mvc, mvd, mve, mvf,
-                        currentMatrix,
-                        roundPixels
+                        currentMatrix
                     );
                  
                     cmdIndex += 4;
@@ -97987,8 +97862,7 @@ var FlatTintPipeline = new Class({
 
                         /* Transform */
                         mva, mvb, mvc, mvd, mve, mvf,
-                        currentMatrix,
-                        roundPixels
+                        currentMatrix
                     );
                     
                     cmdIndex += 6;
@@ -98013,8 +97887,7 @@ var FlatTintPipeline = new Class({
 
                         /* Transform */
                         mva, mvb, mvc, mvd, mve, mvf,
-                        currentMatrix,
-                        roundPixels
+                        currentMatrix
                     );
                     
                     cmdIndex += 6;
@@ -101837,6 +101710,7 @@ var BitmapTextCanvasRenderer = function (renderer, src, interpolationPercentage,
     ctx.save();
     ctx.translate((src.x - cameraScrollX) + src.frame.x, (src.y - cameraScrollY) + src.frame.y);
     ctx.rotate(src.rotation);
+    ctx.translate(-src.displayOriginX, -src.displayOriginY);
     ctx.scale(src.scaleX, src.scaleY);
 
     // ctx.fillStyle = 'rgba(255,0,255,0.5)';
@@ -102572,6 +102446,7 @@ var DynamicBitmapTextCanvasRenderer = function (renderer, src, interpolationPerc
     ctx.save();
     ctx.translate(src.x, src.y);
     ctx.rotate(src.rotation);
+    ctx.translate(-src.displayOriginX, -src.displayOriginY);
     ctx.scale(src.scaleX, src.scaleY);
 
     if (src.cropWidth > 0 && src.cropHeight > 0)
@@ -127667,16 +127542,6 @@ var ScenePlugin = new Class({
          * @since 3.0.0
          */
         this.manager = scene.sys.game.scene;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Scenes.ScenePlugin#_queue
-         * @type {array}
-         * @private
-         * @since 3.0.0
-         */
-        this._queue = [];
     },
 
     /**

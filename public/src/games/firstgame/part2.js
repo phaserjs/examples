@@ -1,19 +1,3 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
-    <meta charset="UTF-8" />
-    <title>Phaser - Making your first game, part 1</title>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"></script>
-    <style type="text/css">
-        body {
-            margin: 0;
-        }
-    </style>
-</head>
-<body>
-
-<script type="text/javascript">
-
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -43,8 +27,3 @@ function create ()
 function update ()
 {
 }
-
-</script>
-
-</body>
-</html>

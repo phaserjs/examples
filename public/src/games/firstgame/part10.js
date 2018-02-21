@@ -53,8 +53,6 @@ function create ()
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
 
-    return;
-
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -87,7 +85,11 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
 
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
-    stars = this.physics.add.group({ key: 'star', repeat: 11, setXY: { x: 12, y: 0, stepX: 70 } });
+    stars = this.physics.add.group({
+        key: 'star',
+        repeat: 11,
+        setXY: { x: 12, y: 0, stepX: 70 }
+    });
 
     stars.children.iterate(function (child) {
 
@@ -114,8 +116,6 @@ function create ()
 
 function update ()
 {
-    return;
-
     if (gameOver)
     {
         return;
@@ -136,10 +136,7 @@ function update ()
     else
     {
         player.setVelocityX(0);
-    }
 
-    if (player.body.velocity.x === 0)
-    {
         player.anims.play('turn');
     }
 

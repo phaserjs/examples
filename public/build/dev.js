@@ -2127,7 +2127,7 @@ var PluginManager = new Class({
  * Plugin is the object to instantiate to create the plugin
  * Mapping is what the plugin is injected into the Scene.Systems as (i.e. input)
  *
- * @name PluginManager.register
+ * @method PluginManager.register
  * @since 3.0.0
  * 
  * @param {string} key - [description]
@@ -5902,7 +5902,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.1.1',
+    VERSION: '3.1.2',
 
     BlendModes: __webpack_require__(51),
 
@@ -9398,7 +9398,7 @@ var Tile = new Class({
         /**
          * The LayerData in the Tilemap data that this tile belongs to.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#layer
+         * @name Phaser.Tilemaps.Tile#layer
          * @type {Phaser.Tilemaps.LayerData}
          * @since 3.0.0
          */
@@ -9408,7 +9408,7 @@ var Tile = new Class({
          * The index of this tile within the map data corresponding to the tileset, or -1 if this
          * represents a blank tile.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#index
+         * @name Phaser.Tilemaps.Tile#index
          * @type {integer}
          * @since 3.0.0
          */
@@ -9417,7 +9417,7 @@ var Tile = new Class({
         /**
          * The x map coordinate of this tile in tile units.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#x
+         * @name Phaser.Tilemaps.Tile#x
          * @type {integer}
          * @since 3.0.0
          */
@@ -9426,7 +9426,7 @@ var Tile = new Class({
         /**
          * The y map coordinate of this tile in tile units.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#y
+         * @name Phaser.Tilemaps.Tile#y
          * @type {integer}
          * @since 3.0.0
          */
@@ -9435,7 +9435,7 @@ var Tile = new Class({
         /**
          * The width of the tile in pixels.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#width
+         * @name Phaser.Tilemaps.Tile#width
          * @type {integer}
          * @since 3.0.0
          */
@@ -9444,7 +9444,7 @@ var Tile = new Class({
         /**
          * The height of the tile in pixels.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#height
+         * @name Phaser.Tilemaps.Tile#height
          * @type {integer}
          * @since 3.0.0
          */
@@ -9454,7 +9454,7 @@ var Tile = new Class({
          * The map's base width of a tile in pixels. Tiled maps support multiple tileset sizes
          * within one map, but they are still placed at intervals of the base tile size.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#baseWidth
+         * @name Phaser.Tilemaps.Tile#baseWidth
          * @type {integer}
          * @since 3.0.0
          */
@@ -9464,7 +9464,7 @@ var Tile = new Class({
          * The map's base height of a tile in pixels. Tiled maps support multiple tileset sizes
          * within one map, but they are still placed at intervals of the base tile size.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#baseHeight
+         * @name Phaser.Tilemaps.Tile#baseHeight
          * @type {integer}
          * @since 3.0.0
          */
@@ -9475,7 +9475,7 @@ var Tile = new Class({
          * of the layer this tile is being rendered within. This property does NOT factor in camera
          * scroll, layer scale or layer position.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#pixelX
+         * @name Phaser.Tilemaps.Tile#pixelX
          * @type {number}
          * @since 3.0.0
          */
@@ -9486,7 +9486,7 @@ var Tile = new Class({
          * of the layer this tile is being rendered within. This property does NOT factor in camera
          * scroll, layer scale or layer position.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#pixelY
+         * @name Phaser.Tilemaps.Tile#pixelY
          * @type {number}
          * @since 3.0.0
          */
@@ -9497,7 +9497,7 @@ var Tile = new Class({
         /**
          * Tile specific properties. These usually come from Tiled.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#properties
+         * @name Phaser.Tilemaps.Tile#properties
          * @type {object}
          * @since 3.0.0
          */
@@ -9506,7 +9506,7 @@ var Tile = new Class({
         /**
          * The rotation angle of this tile.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#rotation
+         * @name Phaser.Tilemaps.Tile#rotation
          * @type {number}
          * @since 3.0.0
          */
@@ -9515,7 +9515,7 @@ var Tile = new Class({
         /**
          * Whether the tile should collide with any object on the left side.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#collideLeft
+         * @name Phaser.Tilemaps.Tile#collideLeft
          * @type {boolean}
          * @since 3.0.0
          */
@@ -9524,7 +9524,7 @@ var Tile = new Class({
         /**
          * Whether the tile should collide with any object on the right side.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#collideRight
+         * @name Phaser.Tilemaps.Tile#collideRight
          * @type {boolean}
          * @since 3.0.0
          */
@@ -9533,7 +9533,7 @@ var Tile = new Class({
         /**
          * Whether the tile should collide with any object on the top side.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#collideUp
+         * @name Phaser.Tilemaps.Tile#collideUp
          * @type {boolean}
          * @since 3.0.0
          */
@@ -9542,7 +9542,7 @@ var Tile = new Class({
         /**
          * Whether the tile should collide with any object on the bottom side.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#collideDown
+         * @name Phaser.Tilemaps.Tile#collideDown
          * @type {boolean}
          * @since 3.0.0
          */
@@ -9551,7 +9551,7 @@ var Tile = new Class({
         /**
          * Whether the tile's left edge is interesting for collisions.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#faceLeft
+         * @name Phaser.Tilemaps.Tile#faceLeft
          * @type {boolean}
          * @since 3.0.0
          */
@@ -9560,7 +9560,7 @@ var Tile = new Class({
         /**
          * Whether the tile's right edge is interesting for collisions.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#faceRight
+         * @name Phaser.Tilemaps.Tile#faceRight
          * @type {boolean}
          * @since 3.0.0
          */
@@ -9569,7 +9569,7 @@ var Tile = new Class({
         /**
          * Whether the tile's top edge is interesting for collisions.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#faceTop
+         * @name Phaser.Tilemaps.Tile#faceTop
          * @type {boolean}
          * @since 3.0.0
          */
@@ -9578,7 +9578,7 @@ var Tile = new Class({
         /**
          * Whether the tile's bottom edge is interesting for collisions.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#faceBottom
+         * @name Phaser.Tilemaps.Tile#faceBottom
          * @type {boolean}
          * @since 3.0.0
          */
@@ -9587,7 +9587,7 @@ var Tile = new Class({
         /**
          * Tile collision callback.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#collisionCallback
+         * @name Phaser.Tilemaps.Tile#collisionCallback
          * @type {function}
          * @since 3.0.0
          */
@@ -9596,7 +9596,7 @@ var Tile = new Class({
         /**
          * The context in which the collision callback will be called.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#collisionCallbackContext
+         * @name Phaser.Tilemaps.Tile#collisionCallbackContext
          * @type {object}
          * @since 3.0.0
          */
@@ -9606,7 +9606,7 @@ var Tile = new Class({
          * The tint to apply to this tile. Note: tint is currently a single color value instead of
          * the 4 corner tint component on other GameObjects.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#tint
+         * @name Phaser.Tilemaps.Tile#tint
          * @type {number}
          * @default
          * @since 3.0.0
@@ -9616,7 +9616,7 @@ var Tile = new Class({
         /**
          * An empty object where physics-engine specific information (e.g. bodies) may be stored.
          * 
-         * @name Phaser.Tilemaps.ImageCollection#physics
+         * @name Phaser.Tilemaps.Tile#physics
          * @type {object}
          * @since 3.0.0
          */
@@ -10272,7 +10272,7 @@ module.exports = {
     /**
      * Hard Light blend mode.
      * 
-     * @name Phaser.BlendModes.SOFT_LIGHT
+     * @name Phaser.BlendModes.HARD_LIGHT
      * @type {integer}
      * @since 3.0.0
      */
@@ -17621,29 +17621,6 @@ var BaseSoundManager = new Class({
         this.volume = 1;
 
         /**
-         * Global playback rate at which all the sounds will be played.
-         * Value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
-         * and 2.0 doubles the audio's playback speed.
-         *
-         * @name Phaser.Sound.BaseSoundManager#rate
-         * @type {number}
-         * @default 1
-         * @since 3.0.0
-         */
-        this.rate = 1;
-
-        /**
-         * Global detuning of all sounds in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
-         * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
-         *
-         * @name Phaser.Sound.BaseSoundManager#detune
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
-        this.detune = 0;
-
-        /**
          * Flag indicating if sounds should be paused when game looses focus,
          * for instance when user switches to another tab/program/app.
          *
@@ -17653,6 +17630,7 @@ var BaseSoundManager = new Class({
          * @since 3.0.0
          */
         this.pauseOnBlur = true;
+
         game.events.on('blur', function ()
         {
             if (this.pauseOnBlur)
@@ -17660,6 +17638,7 @@ var BaseSoundManager = new Class({
                 this.onBlur();
             }
         }, this);
+
         game.events.on('focus', function ()
         {
             if (this.pauseOnBlur)
@@ -17667,6 +17646,7 @@ var BaseSoundManager = new Class({
                 this.onFocus();
             }
         }, this);
+
         game.events.once('destroy', this.destroy, this);
 
         /**
@@ -17714,6 +17694,7 @@ var BaseSoundManager = new Class({
          * @since 3.0.0
          */
         this.unlocked = false;
+
         if (this.locked)
         {
             this.unlock();
@@ -18035,7 +18016,7 @@ var BaseSoundManager = new Class({
      * @since 3.0.0
      *
      * @param {function} callbackfn - Callback function. (sound: ISound, index: number, array: ISound[]) => void
-     * @param [scope] - Callback context.
+     * @param {object} scope - Callback context.
      */
     forEachActiveSound: function (callbackfn, scope)
     {
@@ -18047,50 +18028,81 @@ var BaseSoundManager = new Class({
                 callbackfn.call(scope || _this, sound, index, _this.sounds);
             }
         });
-    }
-});
-Object.defineProperty(BaseSoundManager.prototype, 'rate', {
-    get: function ()
-    {
-        return this._rate;
     },
-    set: function (value)
-    {
-        this._rate = value;
-        this.forEachActiveSound(function (sound)
-        {
-            sound.setRate();
-        });
 
-        /**
-         * @event Phaser.Sound.BaseSoundManager#rate
-         * @param {Phaser.Sound.BaseSoundManager} soundManager - Reference to the sound manager that emitted event.
-         * @param {number} value - An updated value of Phaser.Sound.BaseSoundManager#rate property.
-         */
-        this.emit('rate', this, value);
-    }
-});
-Object.defineProperty(BaseSoundManager.prototype, 'detune', {
-    get: function ()
-    {
-        return this._detune;
+    /**
+     * Global playback rate at which all the sounds will be played.
+     * Value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
+     * and 2.0 doubles the audio's playback speed.
+     *
+     * @name Phaser.Sound.BaseSoundManager#rate
+     * @type {number}
+     * @default 1
+     * @since 3.0.0
+     */
+    rate: {
+
+        get: function ()
+        {
+            return this._rate;
+        },
+
+        set: function (value)
+        {
+            this._rate = value;
+
+            this.forEachActiveSound(function (sound)
+            {
+                sound.setRate();
+            });
+
+            /**
+             * @event Phaser.Sound.BaseSoundManager#rate
+             * @param {Phaser.Sound.BaseSoundManager} soundManager - Reference to the sound manager that emitted event.
+             * @param {number} value - An updated value of Phaser.Sound.BaseSoundManager#rate property.
+             */
+            this.emit('rate', this, value);
+        }
+
     },
-    set: function (value)
-    {
-        this._detune = value;
-        this.forEachActiveSound(function (sound)
-        {
-            sound.setRate();
-        });
 
-        /**
-         * @event Phaser.Sound.BaseSoundManager#detune
-         * @param {Phaser.Sound.BaseSoundManager} soundManager - Reference to the sound manager that emitted event.
-         * @param {number} value - An updated value of Phaser.Sound.BaseSoundManager#detune property.
-         */
-        this.emit('detune', this, value);
+    /**
+     * Global detuning of all sounds in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
+     * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
+     *
+     * @name Phaser.Sound.BaseSoundManager#detune
+     * @type {number}
+     * @default 0
+     * @since 3.0.0
+     */
+    detune: {
+
+        get: function ()
+        {
+            return this._detune;
+        },
+
+        set: function (value)
+        {
+            this._detune = value;
+
+            this.forEachActiveSound(function (sound)
+            {
+                sound.setRate();
+            });
+
+            /**
+             * @event Phaser.Sound.BaseSoundManager#detune
+             * @param {Phaser.Sound.BaseSoundManager} soundManager - Reference to the sound manager that emitted event.
+             * @param {number} value - An updated value of Phaser.Sound.BaseSoundManager#detune property.
+             */
+            this.emit('detune', this, value);
+        }
+
     }
+
 });
+
 module.exports = BaseSoundManager;
 
 
@@ -19603,7 +19615,7 @@ var TWEEN_CONST = {
     /**
      * TweenData state.
      * 
-     * @name Phaser.Tweens.OFFSET_DELAY
+     * @name Phaser.Tweens.DELAY
      * @type {integer}
      * @since 3.0.0
      */
@@ -19621,7 +19633,7 @@ var TWEEN_CONST = {
     /**
      * TweenData state.
      * 
-     * @name Phaser.Tweens.PLAYING_FORWARD
+     * @name Phaser.Tweens.PENDING_RENDER
      * @type {integer}
      * @since 3.0.0
      */
@@ -19686,7 +19698,7 @@ var TWEEN_CONST = {
     /**
      * Tween state.
      * 
-     * @name Phaser.Tweens.LOOP_DELAY
+     * @name Phaser.Tweens.PAUSED
      * @type {integer}
      * @since 3.0.0
      */
@@ -23503,7 +23515,7 @@ var Camera = new Class({
          * [description]
          *
          * @name Phaser.Cameras.Sprite3D#displayList
-         * @type {[type]}
+         * @type {Phaser.GameObjects.DisplayList}
          * @since 3.0.0
          */
         this.displayList = scene.sys.displayList;
@@ -23512,7 +23524,7 @@ var Camera = new Class({
          * [description]
          *
          * @name Phaser.Cameras.Sprite3D#updateList
-         * @type {[type]}
+         * @type {Phaser.GameObjects.UpdateList}
          * @since 3.0.0
          */
         this.updateList = scene.sys.updateList;
@@ -25990,7 +26002,7 @@ var Vector4 = new Class({
         /**
          * The x component of this Vector.
          *
-         * @name Phaser.Math.Vector3#x
+         * @name Phaser.Math.Vector4#x
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -25999,7 +26011,7 @@ var Vector4 = new Class({
         /**
          * The y component of this Vector.
          *
-         * @name Phaser.Math.Vector3#y
+         * @name Phaser.Math.Vector4#y
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -26008,7 +26020,7 @@ var Vector4 = new Class({
         /**
          * The z component of this Vector.
          *
-         * @name Phaser.Math.Vector3#z
+         * @name Phaser.Math.Vector4#z
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -26017,7 +26029,7 @@ var Vector4 = new Class({
         /**
          * The w component of this Vector.
          *
-         * @name Phaser.Math.Vector3#w
+         * @name Phaser.Math.Vector4#w
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -26045,7 +26057,7 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#clone
      * @since 3.0.0
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} [description]
      */
     clone: function ()
     {
@@ -26058,9 +26070,9 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#copy
      * @since 3.0.0
      *
-     * @param {[type]} src - [description]
+     * @param {Phaser.Math.Vector4} src - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     copy: function (src)
     {
@@ -26078,9 +26090,9 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#equals
      * @since 3.0.0
      *
-     * @param {[type]} v - [description]
+     * @param {Phaser.Math.Vector4} v - [description]
      *
-     * @return {[type]} [description]
+     * @return {boolean} [description]
      */
     equals: function (v)
     {
@@ -26093,12 +26105,12 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#set
      * @since 3.0.0
      *
-     * @param {[type]} x - [description]
-     * @param {[type]} y - [description]
-     * @param {[type]} z - [description]
-     * @param {[type]} w - [description]
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     * @param {number} z - [description]
+     * @param {number} w - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     set: function (x, y, z, w)
     {
@@ -26126,9 +26138,9 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#add
      * @since 3.0.0
      *
-     * @param {[type]} v - [description]
+     * @param {Phaser.Math.Vector2|Phaser.Math.Vector3|Phaser.Math.Vector4} v - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     add: function (v)
     {
@@ -26146,9 +26158,9 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#subtract
      * @since 3.0.0
      *
-     * @param {[type]} v - [description]
+     * @param {Phaser.Math.Vector2|Phaser.Math.Vector3|Phaser.Math.Vector4} v - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     subtract: function (v)
     {
@@ -26166,9 +26178,9 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#scale
      * @since 3.0.0
      *
-     * @param {[type]} scale - [description]
+     * @param {number} scale - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     scale: function (scale)
     {
@@ -26186,7 +26198,7 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#length
      * @since 3.0.0
      *
-     * @return {[type]} [description]
+     * @return {number} [description]
      */
     length: function ()
     {
@@ -26204,7 +26216,7 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#lengthSq
      * @since 3.0.0
      *
-     * @return {[type]} [description]
+     * @return {number} [description]
      */
     lengthSq: function ()
     {
@@ -26222,7 +26234,7 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#normalize
      * @since 3.0.0
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     normalize: function ()
     {
@@ -26253,7 +26265,7 @@ var Vector4 = new Class({
      *
      * @param {[type]} v - [description]
      *
-     * @return {[type]} [description]
+     * @return {number} [description]
      */
     dot: function (v)
     {
@@ -26269,7 +26281,7 @@ var Vector4 = new Class({
      * @param {[type]} v - [description]
      * @param {[type]} t - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     lerp: function (v, t)
     {
@@ -26296,7 +26308,7 @@ var Vector4 = new Class({
      *
      * @param {[type]} v - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     multiply: function (v)
     {
@@ -26316,7 +26328,7 @@ var Vector4 = new Class({
      *
      * @param {[type]} v - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     divide: function (v)
     {
@@ -26336,7 +26348,7 @@ var Vector4 = new Class({
      *
      * @param {[type]} v - [description]
      *
-     * @return {[type]} [description]
+     * @return {number} [description]
      */
     distance: function (v)
     {
@@ -26356,7 +26368,7 @@ var Vector4 = new Class({
      *
      * @param {[type]} v - [description]
      *
-     * @return {[type]} [description]
+     * @return {number} [description]
      */
     distanceSq: function (v)
     {
@@ -26374,7 +26386,7 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#negate
      * @since 3.0.0
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     negate: function ()
     {
@@ -26394,7 +26406,7 @@ var Vector4 = new Class({
      *
      * @param {[type]} mat - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     transformMat4: function (mat)
     {
@@ -26422,7 +26434,7 @@ var Vector4 = new Class({
      *
      * @param {[type]} q - [description]
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     transformQuat: function (q)
     {
@@ -26455,7 +26467,7 @@ var Vector4 = new Class({
      * @method Phaser.Math.Vector4#reset
      * @since 3.0.0
      *
-     * @return {[type]} [description]
+     * @return {Phaser.Math.Vector4} This Vector4 object.
      */
     reset: function ()
     {
@@ -26469,6 +26481,7 @@ var Vector4 = new Class({
 
 });
 
+//  TODO: Check if these are required internally, if not, remove.
 Vector4.prototype.sub = Vector4.prototype.subtract;
 Vector4.prototype.mul = Vector4.prototype.multiply;
 Vector4.prototype.div = Vector4.prototype.divide;
@@ -26917,11 +26930,8 @@ function init ()
                 //  Can't be done on a webgl context
                 var image = ctx2D.createImageData(1, 1);
 
-                /**
-                * Test to see if ImageData uses CanvasPixelArray or Uint8ClampedArray.
-                *
-                * @author Matt DesLauriers (@mattdesl)
-                */
+                //  Test to see if ImageData uses CanvasPixelArray or Uint8ClampedArray.
+                //  @author Matt DesLauriers (@mattdesl)
                 isUint8 = image.data instanceof Uint8ClampedArray;
 
                 CanvasPool.remove(canvas);
@@ -27990,11 +28000,11 @@ module.exports = {
     PERIOD: 190,
 
     /**
-     * @name Phaser.Input.Keyboard.KeyCodes.FORWAD_SLASH
+     * @name Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH
      * @type {integer}
      * @since 3.0.0
      */
-    FORWAD_SLASH: 191,
+    FORWARD_SLASH: 191,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.BACK_SLASH
@@ -37537,6 +37547,12 @@ var Tween = new Class({
             case TWEEN_CONST.PLAYING_FORWARD:
             case TWEEN_CONST.PLAYING_BACKWARD:
 
+                if (!tweenData.target)
+                {
+                    tweenData.state = TWEEN_CONST.COMPLETE;
+                    break;
+                }
+
                 var elapsed = tweenData.elapsed;
                 var duration = tweenData.duration;
                 var diff = 0;
@@ -37641,15 +37657,22 @@ var Tween = new Class({
 
             case TWEEN_CONST.PENDING_RENDER:
 
-                tweenData.start = tweenData.getStartValue(tweenData.target, tweenData.key, tweenData.target[tweenData.key]);
+                if (tweenData.target)
+                {
+                    tweenData.start = tweenData.getStartValue(tweenData.target, tweenData.key, tweenData.target[tweenData.key]);
 
-                tweenData.end = tweenData.getEndValue(tweenData.target, tweenData.key, tweenData.start);
+                    tweenData.end = tweenData.getEndValue(tweenData.target, tweenData.key, tweenData.start);
 
-                tweenData.current = tweenData.start;
+                    tweenData.current = tweenData.start;
 
-                tweenData.target[tweenData.key] = tweenData.start;
+                    tweenData.target[tweenData.key] = tweenData.start;
 
-                tweenData.state = TWEEN_CONST.PLAYING_FORWARD;
+                    tweenData.state = TWEEN_CONST.PLAYING_FORWARD;
+                }
+                else
+                {
+                    tweenData.state = TWEEN_CONST.COMPLETE;
+                }
 
                 break;
         }
@@ -40391,7 +40414,7 @@ var Animation = new Class({
         /**
          * A frame based animation (as opposed to a bone based animation)
          *
-         * @name Phaser.Animations.Animation#key
+         * @name Phaser.Animations.Animation#type
          * @type {string}
          * @default frame
          * @since 3.0.0
@@ -48875,12 +48898,9 @@ var TextureTintPipeline = new Class({
             }
 
             this.vertexBuffer = tilemap.vertexBuffer;
-            
-            renderer.setTexture2D(frame.source.glTexture, 0);
             renderer.setPipeline(this);
-
+            renderer.setTexture2D(frame.source.glTexture, 0);
             gl.drawArrays(this.topology, 0, tilemap.vertexCount);
-    
             this.vertexBuffer = pipelineVertexBuffer;
         }
 
@@ -80736,7 +80756,7 @@ var StaticTilemapLayer = new Class({
                         var ty2 = tyh;
                         var tx3 = txw;
                         var ty3 = ty;
-                        var tint = Utils.getTintAppendFloatAlpha(0xffffff, tile.alpha);
+                        var tint = Utils.getTintAppendFloatAlpha(0xffffff, this.alpha * tile.alpha);
 
                         vertexViewF32[voffset + 0] = tx0;
                         vertexViewF32[voffset + 1] = ty0;
@@ -80776,10 +80796,10 @@ var StaticTilemapLayer = new Class({
 
                 this.vertexCount = vertexCount;
                 this.dirty = false;
-
                 if (vertexBuffer === null)
                 {
                     vertexBuffer = renderer.createVertexBuffer(bufferData, gl.STATIC_DRAW);
+                    this.vertexBuffer = vertexBuffer;
                 }
                 else
                 {
@@ -80790,6 +80810,7 @@ var StaticTilemapLayer = new Class({
 
             pipeline.modelIdentity();
             pipeline.modelTranslate(this.x - (camera.scrollX * this.scrollFactorX), this.y - (camera.scrollY * this.scrollFactorY), 0.0);
+            pipeline.modelScale(this.scaleX, this.scaleY, 1.0);
             pipeline.viewLoad2D(camera.matrix.matrix);
         }
 
@@ -89692,7 +89713,7 @@ var CameraManager = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Cameras.Sprite3D#scene
+         * @name Phaser.Cameras.Sprite3D.CameraManager#scene
          * @type {Phaser.Scene}
          * @since 3.0.0
          */
@@ -89701,7 +89722,7 @@ var CameraManager = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Cameras.Sprite3D#systems
+         * @name Phaser.Cameras.Sprite3D.CameraManager#systems
          * @type {Phaser.Scenes.Systems}
          * @since 3.0.0
          */
@@ -89710,7 +89731,7 @@ var CameraManager = new Class({
         /**
          * An Array of the Camera objects being managed by this Camera Manager.
          *
-         * @name Phaser.Cameras.Sprite3D#cameras
+         * @name Phaser.Cameras.Sprite3D.CameraManager#cameras
          * @type {array}
          * @since 3.0.0
          */
@@ -89760,8 +89781,8 @@ var CameraManager = new Class({
      * @method Phaser.Cameras.Sprite3D.CameraManager#addOrthographicCamera
      * @since 3.0.0
      *
-     * @param {[type]} width - [description]
-     * @param {[type]} height - [description]
+     * @param {number} width - [description]
+     * @param {number} height - [description]
      *
      * @return {[type]} [description]
      */
@@ -89785,9 +89806,9 @@ var CameraManager = new Class({
      * @method Phaser.Cameras.Sprite3D.CameraManager#addPerspectiveCamera
      * @since 3.0.0
      *
-     * @param {[type]} fieldOfView - [description]
-     * @param {[type]} width - [description]
-     * @param {[type]} height - [description]
+     * @param {number} [fieldOfView=80] - [description]
+     * @param {number} [width] - [description]
+     * @param {number} [height] - [description]
      *
      * @return {[type]} [description]
      */
@@ -89812,7 +89833,7 @@ var CameraManager = new Class({
      * @method Phaser.Cameras.Sprite3D.CameraManager#getCamera
      * @since 3.0.0
      *
-     * @param {[type]} name - [description]
+     * @param {string} name - [description]
      *
      * @return {[type]} [description]
      */
@@ -89873,8 +89894,8 @@ var CameraManager = new Class({
      * @method Phaser.Cameras.Sprite3D.CameraManager#update
      * @since 3.0.0
      *
-     * @param {[type]} timestep - [description]
-     * @param {[type]} delta - [description]
+     * @param {number} timestep - [description]
+     * @param {number} delta - [description]
      */
     update: function (timestep, delta)
     {
@@ -108704,9 +108725,9 @@ var TextStyle = new Class({
      * @since 3.0.0
      *
      * @param {[type]} style - [description]
-     * @param {[type]} updateText - [description]
+     * @param {boolean} [updateText=true] - [description]
      *
-     * @return {Phaser.GameObjects.Components.TextStyle This TextStyle component.
+     * @return {Phaser.GameObjects.Components.TextStyle} This TextStyle component.
      */
     setStyle: function (style, updateText)
     {
@@ -108979,7 +109000,7 @@ var TextStyle = new Class({
      * @method Phaser.GameObjects.Components.TextStyle#setBackgroundColor
      * @since 3.0.0
      *
-     * @param {string color - [description]
+     * @param {string} color - [description]
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -118093,7 +118114,7 @@ var SpriteSheetFile = function (key, url, config, path, xhrSettings)
  * The file is **not** loaded immediately after calling this method.
  * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
  *
- * @method Phaser.Loader.LoaderPlugin#image
+ * @method Phaser.Loader.LoaderPlugin#spritesheet
  * @since 3.0.0
  *
  * @param {string} key - [description]

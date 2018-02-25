@@ -39,10 +39,10 @@ function create ()
 
     this.input.topOnly = false;
 
-    this.input.on('DRAG_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
     });
 

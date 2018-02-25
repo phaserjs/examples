@@ -26,34 +26,34 @@ function create ()
     image2.setScrollFactor(0.7);
     image3.setScrollFactor(0.5);
 
-    this.input.on('GAME_OBJECT_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0x00ff00);
-
-    });
-
-    this.input.on('GAME_OBJECT_OUT_EVENT', function (event) {
-
-        event.gameObject.clearTint();
+        gameObject.setTint(0x00ff00);
 
     });
 
-    this.input.on('DRAG_START_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0xff0000);
-
-    });
-
-    this.input.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.clearTint();
 
     });
 
-    this.input.on('DRAG_END_EVENT', function (event) {
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        event.gameObject.clearTint();
+        gameObject.setTint(0xff0000);
+
+    });
+
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+
+    });
+
+    this.input.on('dragend', function (pointer, gameObject) {
+
+        gameObject.clearTint();
 
     });
 }

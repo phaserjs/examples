@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 1024,
     height: 600,
@@ -35,18 +35,16 @@ function create ()
         y += 4;
     }
 
-    var _this = this;
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-    this.input.on('DRAG_START_EVENT', function (event) {
+        this.children.bringToTop(gameObject);
 
-        _this.children.bringToTop(event.gameObject);
+    }, this);
 
-    });
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-    this.input.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
     });
 

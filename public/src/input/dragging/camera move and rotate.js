@@ -48,12 +48,10 @@ function create ()
         cards.add(image);
     }
 
-    var _this = this;
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-    this.input.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
     });
 
@@ -79,5 +77,5 @@ function update (time, delta)
 {
     controls.update(delta);
 
-    cards.rotate(0.01);
+    Phaser.Actions.Rotate(cards.getChildren(), 0.01);
 }

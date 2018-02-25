@@ -46,25 +46,21 @@ function create ()
 
     var _this = this;
 
-    this.input.on('DRAG_START_EVENT', function (event) {
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        console.log('drag x/y', event.dragX, event.dragY);
-        console.log('local x/y', event.gameObject.input.localX, event.gameObject.input.localY);
+        this.children.bringToTop(gameObject);
 
-        _this.children.bringToTop(event.gameObject);
+    }, this);
 
-    });
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-    this.input.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
     });
-
 }
 
 function update ()
 {
-    cards.rotate(0.01);
+    Phaser.Actions.Rotate(cards.getChildren(), 0.01);
 }

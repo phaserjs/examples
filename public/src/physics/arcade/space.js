@@ -83,7 +83,7 @@ function create ()
             // }
 
             // this.body.world.velocityFromRotation(angle, this.speed + ship.body.speed, this.body.velocity);
-            this.body.world.velocityFromRotation(angle, this.speed, this.body.velocity);
+            this.scene.physics.velocityFromRotation(angle, this.speed, this.body.velocity);
 
             this.body.velocity.x *= 2;
             this.body.velocity.y *= 2;
@@ -213,7 +213,7 @@ function update (time, delta)
 
     if (cursors.up.isDown)
     {
-        this.physics.world.velocityFromRotation(ship.rotation, 600, ship.body.acceleration);
+        this.physics.velocityFromRotation(ship.rotation, 600, ship.body.acceleration);
     }
     else
     {

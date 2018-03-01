@@ -27,10 +27,10 @@ function create ()
     this.anims.create({
         key: 'snooze',
         frames: [
-            { key: 'cat1', frame: null },
-            { key: 'cat2', frame: null },
-            { key: 'cat3', frame: null },
-            { key: 'cat4', frame: null, duration: 50 }
+            { key: 'cat1' },
+            { key: 'cat2' },
+            { key: 'cat3' },
+            { key: 'cat4', duration: 50 }
         ],
         frameRate: 8,
         repeat: -1

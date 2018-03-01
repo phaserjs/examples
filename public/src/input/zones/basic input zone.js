@@ -41,14 +41,14 @@ function create ()
 
     //  And some events
 
-    this.input.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
 
-        fork.x = event.pointer.x;
-        fork.y = event.pointer.y;
+        fork.x = pointer.x;
+        fork.y = pointer.y;
 
-        label.setText(event.gameObject.name);
-        label.x = event.gameObject.x;
-        label.y = event.gameObject.y;
+        label.setText(gameObject.name);
+        label.x = gameObject.x;
+        label.y = gameObject.y;
 
     });
 }

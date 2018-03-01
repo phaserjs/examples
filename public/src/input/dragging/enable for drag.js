@@ -18,6 +18,10 @@ function create ()
 {
     var image = this.add.sprite(200, 300, 'eye').setInteractive();
 
+    image.on('pointerout', function () { console.log('out'); } );
+    image.on('pointerup', function () { console.log('up'); } );
+    image.on('pointerdown', function () { console.log('down'); } );
+
     this.input.setDraggable(image);
 
     this.input.on('dragstart', function (pointer, gameObject) {

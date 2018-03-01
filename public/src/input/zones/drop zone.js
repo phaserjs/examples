@@ -42,22 +42,20 @@ function create ()
     graphics.lineStyle(2, 0xffff00);
     graphics.strokeRect(zone.x + zone.input.hitArea.x, zone.y + zone.input.hitArea.y, zone.input.hitArea.width, zone.input.hitArea.height);
 
-    var _this = this;
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-    this.input.on('DRAG_START_EVENT', function (event) {
+        this.children.bringToTop(gameObject);
 
-        _this.children.bringToTop(event.gameObject);
+    }, this);
 
-    });
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-    this.input.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
     });
 
-    this.input.on('DRAG_ENTER_EVENT', function (event) {
+    this.input.on('dragenter', function (pointer, gameObject, dropZone) {
 
         graphics.clear();
         graphics.lineStyle(2, 0x00ffff);
@@ -65,7 +63,7 @@ function create ()
 
     });
 
-    this.input.on('DRAG_LEAVE_EVENT', function (event) {
+    this.input.on('dragleave', function (pointer, gameObject, dropZone) {
 
         graphics.clear();
         graphics.lineStyle(2, 0xffff00);
@@ -73,21 +71,21 @@ function create ()
 
     });
 
-    this.input.on('DROP_EVENT', function (event) {
+    this.input.on('drop', function (pointer, gameObject, dropZone) {
 
-        event.gameObject.x = event.dropZone.x;
-        event.gameObject.y = event.dropZone.y;
+        gameObject.x = dropZone.x;
+        gameObject.y = dropZone.y;
 
-        event.gameObject.input.enabled = false;
+        gameObject.input.enabled = false;
 
     });
 
-    this.input.on('DRAG_END_EVENT', function (event) {
+    this.input.on('dragend', function (pointer, gameObject, dropped) {
 
-        if (!event.dropped)
+        if (!dropped)
         {
-            event.gameObject.x = event.gameObject.input.dragStartX;
-            event.gameObject.y = event.gameObject.input.dragStartY;
+            gameObject.x = gameObject.input.dragStartX;
+            gameObject.y = gameObject.input.dragStartY;
         }
 
         graphics.clear();

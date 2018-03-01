@@ -4,39 +4,54 @@ var config = {
     width: 800,
     height: 600,
     scene: {
-        preload: preload,
         create: create
     }
 };
 
 var game = new Phaser.Game(config);
 
-function preload ()
-{
-    this.load.image('makoto', 'assets/pics/makoto.png');
-}
-
 function create ()
 {
-    var zone = this.add.zone(0, 0, 32, 32).setInteractive();
+    var zone = this.add.zone(100, 100, 32, 32).setDropZone();
 
-    zone.setSize(400, 300, true);
+    //  Just a visual display of the drop zone
+    var graphics = this.add.graphics();
 
-    var image = this.add.image(400, 300, 'makoto');
+    var color = 0xffff00;
 
-    var on = true;
+    graphics.lineStyle(2, color);
+    graphics.strokeRect(zone.x + zone.input.hitArea.x, zone.y + zone.input.hitArea.y, zone.input.hitArea.width, zone.input.hitArea.height);
 
-    this.input.on('GAME_OBJECT_DOWN_EVENT', function (event) {
+    this.input.setPollAlways();
 
-        if (on)
+    // this.input.on('dragenter', function (pointer, gameObject, dropZone) {
+    this.input.on('gameobjectover', function (pointer, gameObject, dropZone) {
+
+        color = 0x00ffff;
+
+    });
+
+    // this.input.on('dragleave', function (pointer, gameObject, dropZone) {
+    this.input.on('gameobjectout', function (pointer, gameObject, dropZone) {
+
+        color = 0xffff00;
+
+    });
+
+    this.tweens.add({
+        targets: zone,
+        width: 400,
+        height: 200,
+        duration: 3000,
+        ease: 'Sine.easeInOut',
+        yoyo: true,
+        repeat: -1,
+        onUpdate: function ()
         {
-            on = false;
-            image.tint = 0xff0000;
-        }
-        else
-        {
-            on = true;
-            image.tint = 0xffffff;
+            zone.setSize(zone.width, zone.height, true);
+            graphics.clear();
+            graphics.lineStyle(2, color);
+            graphics.strokeRect(zone.x + zone.input.hitArea.x, zone.y + zone.input.hitArea.y, zone.input.hitArea.width, zone.input.hitArea.height);
         }
 
     });

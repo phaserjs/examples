@@ -15,7 +15,6 @@
         }
 
         #feedback {
-            display: none;
             width: 600px;
             margin: 0px 0px 0px 32px;
             font: 14px Arial;
@@ -70,21 +69,17 @@
 
         <a id="backlink">&lt; Back</a>
         <a id="editlink">Edit Example</a>
-        <a href="https://github.com/photonstorm/phaser/issues">Open GitHub Issue</a>
+        <a href="https://github.com/photonstorm/phaser3-examples/issues">Open GitHub Issue</a>
 
     </div>
 
-    <div id="feedback">
-
-        <img src="assets/sprites/phaser.png">
-
-        <p>Example broken? Help us fix it by leaving feedback below.</p>
-
-        <textarea name="bug" id="bug"></textarea><br />
-
-        <input type="submit" id="save" value="Send Feedback"> <em>No personal data is sent</em>
-
-    </div>
+    <p id="feedback">
+        Phaser 3 is still very new (not even 1 month old) and there are lots of Examples
+        which may not work due to changes in the API during development. If this is 
+        such an example then we're really sorry! Please help us by clicking the 'Open Issue'
+        button above and pasting in the URL of the example, and we'll fix it (or remove it)
+        as soon as we can.
+    </p>
 
     <script type="text/javascript">
     $(document).ready(function () {
@@ -105,29 +100,6 @@
             $('#editlink').attr('href', 'edit.html?src=' + filename);
             $('#backlink').attr('href', 'index.html?dir=' + backURL);
 
-            /*
-            $('#save').on('click', function (e) {
-
-                var data = {
-                    example: filename,
-                    bug: $('#bug').val()
-                };
-
-                $.post('http://phaser.io/phaser3/issues/save', data, function (result) {
-
-                    if (result && result.result == '1')
-                    {
-                        $('#bug').hide();
-                        $('#save').hide();
-                        $('#feedback em').hide();
-                        $('#feedback p').text("Thank you!");
-                    }
-
-                });
-
-            });
-            */
-
             //  Load Phaser
 
             var phaserScript = document.createElement('script');
@@ -145,7 +117,6 @@
 
                 $('#loading').hide();
                 $('#nav').show();
-                // $('#feedback').show();
             };
 
             phaserScript.src = './build/' + phaserVersion;

@@ -43,45 +43,45 @@ function create ()
     var point2 = this.add.image(controlPoint1.x, controlPoint1.y, 'dragcircle', 2).setInteractive();
     var point3 = this.add.image(controlPoint2.x, controlPoint2.y, 'dragcircle', 2).setInteractive();
 
-    point0.data.set('vector', startPoint);
-    point1.data.set('vector', endPoint);
-    point2.data.set('vector', controlPoint1);
-    point3.data.set('vector', controlPoint2);
+    point0.setData('vector', startPoint);
+    point1.setData('vector', endPoint);
+    point2.setData('vector', controlPoint1);
+    point3.setData('vector', controlPoint2);
 
-    point0.data.set('isControl', false);
-    point1.data.set('isControl', false);
-    point2.data.set('isControl', true);
-    point3.data.set('isControl', true);
+    point0.setData('isControl', false);
+    point1.setData('isControl', false);
+    point2.setData('isControl', true);
+    point3.setData('isControl', true);
 
     this.input.setDraggable([ point0, point1, point2, point3 ]);
 
-    this.input.on('DRAG_START_EVENT', function (event) {
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        event.gameObject.setFrame(1);
+        gameObject.setFrame(1);
 
     });
 
-    this.input.on('DRAG_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
-        event.gameObject.data.get('vector').set(event.dragX, event.dragY);
+        gameObject.data.get('vector').set(dragX, dragY);
 
         //  Get 32 points equally spaced out along the curve
         points = curve.getSpacedPoints(32);
 
     });
 
-    this.input.on('DRAG_END_EVENT', function (event) {
+    this.input.on('dragend', function (pointer, gameObject) {
 
-        if (event.gameObject.data.get('isControl'))
+        if (gameObject.data.get('isControl'))
         {
-            event.gameObject.setFrame(2);
+            gameObject.setFrame(2);
         }
         else
         {
-            event.gameObject.setFrame(0);
+            gameObject.setFrame(0);
         }
 
     });

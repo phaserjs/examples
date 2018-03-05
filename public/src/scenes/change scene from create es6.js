@@ -2,7 +2,7 @@ class SceneA extends Phaser.Scene {
 
     constructor ()
     {
-        super('boot');
+        super('sceneA');
     }
 
     preload ()
@@ -13,7 +13,7 @@ class SceneA extends Phaser.Scene {
 
     create ()
     {
-        this.scene.start('preloader');
+        this.scene.start('sceneB');
     }
 
 }
@@ -22,7 +22,35 @@ class SceneB extends Phaser.Scene {
 
     constructor ()
     {
-        super('preloader');
+        super('sceneB');
+    }
+
+    create ()
+    {
+        this.scene.start('sceneC');
+    }
+
+}
+
+class SceneC extends Phaser.Scene {
+
+    constructor ()
+    {
+        super('sceneC');
+    }
+
+    create ()
+    {
+        this.scene.start('sceneD');
+    }
+
+}
+
+class SceneD extends Phaser.Scene {
+
+    constructor ()
+    {
+        super('sceneD');
     }
 
     create ()
@@ -43,7 +71,7 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: [ SceneA, SceneB ]
+    scene: [ SceneA, SceneB, SceneC, SceneD ]
 };
 
 var game = new Phaser.Game(config);

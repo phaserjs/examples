@@ -43,7 +43,7 @@ var Demo = new Phaser.Class({
 
         var _this = this;
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.once('pointerdown', function (event) {
 
             _this.scene.swapPosition('background');
 

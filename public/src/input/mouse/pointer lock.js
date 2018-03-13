@@ -45,10 +45,7 @@ function create ()
             else { sprite.setRotation(0); }
 
             updateLockText(true);
-        }else {
-            updateLockText(false);
         }
-
     }, this);
 
     // Exit pointer lock when Q is pressed. Browsers will also exit pointer lock when escape is
@@ -63,7 +60,7 @@ function create ()
     // Optionally, you can subscribe to the game's pointer lock change event to know when the player
     // enters/exits pointer lock. This is useful if you need to update the UI, change to a custom
     // mouse cursor, etc.
-    this.input.on('POINTER_LOCK_CHANGE_EVENT', function (event) {
+    this.input.on('pointerlockchange', function (event) {
         updateLockText(event.isPointerLocked, sprite.x, sprite.y);
     }, 0, this);
 

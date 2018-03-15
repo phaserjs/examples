@@ -50878,11 +50878,11 @@ var WebGLRenderer = new Class({
         var contextCreationConfig = {
             alpha: game.config.transparent,
             depth: false, // enable when 3D is added in the future
-            antialias: game.config.antialias,
+            antialias: game.config.pixelArt,
             premultipliedAlpha: game.config.transparent,
             stencil: true,
             preserveDrawingBuffer: game.config.preserveDrawingBuffer,
-            failIfMajorPerformanceCaveat: false,
+            failIfMajorPerformanceCaveat: game.config.failIfMajorPerformanceCaveat,
             powerPreference: game.config.powerPreference
         };
 
@@ -51292,8 +51292,8 @@ var WebGLRenderer = new Class({
         var pipelines = this.pipelines;
         var resolution = this.config.resolution;
 
-        this.width = width * resolution;
-        this.height = height * resolution;
+        this.width = Math.floor(width * resolution);
+        this.height = Math.floor(height * resolution);
         
         this.canvas.width = this.width;
         this.canvas.height = this.height;
@@ -51347,6 +51347,7 @@ var WebGLRenderer = new Class({
     onContextLost: function (callback, target)
     {
         this.lostContextCallbacks.push([ callback, target ]);
+
         return this;
     },
 
@@ -51446,6 +51447,7 @@ var WebGLRenderer = new Class({
     removePipeline: function (pipelineName)
     {
         delete this.pipelines[pipelineName];
+
         return this;
     },
 
@@ -51462,10 +51464,17 @@ var WebGLRenderer = new Class({
      */
     addPipeline: function (pipelineName, pipelineInstance)
     {
-        if (!this.hasPipeline(pipelineName)) { this.pipelines[pipelineName] = pipelineInstance; }
-        else { console.warn('Pipeline', pipelineName, ' already exists.'); }
+        if (!this.hasPipeline(pipelineName))
+        {
+            this.pipelines[pipelineName] = pipelineInstance;
+        }
+        else
+        {
+            console.warn('Pipeline', pipelineName, ' already exists.');
+        }
 
         pipelineInstance.name = pipelineName;
+
         this.pipelines[pipelineName].resize(this.width, this.height, this.config.resolution);
 
         return pipelineInstance;
@@ -51508,7 +51517,8 @@ var WebGLRenderer = new Class({
         if (enabled)
         {
             gl.disable(gl.SCISSOR_TEST);
-            return;
+
+            return this;
         }
 
         gl.enable(gl.SCISSOR_TEST);
@@ -51635,6 +51645,17 @@ var WebGLRenderer = new Class({
         return this;
     },
 
+    /**
+     * [description]
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#addBlendMode
+     * @since 3.0.0
+     *
+     * @param {function} func - [description]
+     * @param {function} equation - [description]
+     *
+     * @return {integer} [description]
+     */
     addBlendMode: function (func, equation)
     {
         var index = this.blendModes.push({ func: func, equation: equation });
@@ -51642,6 +51663,18 @@ var WebGLRenderer = new Class({
         return index - 1;
     },
 
+    /**
+     * [description]
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#updateBlendMode
+     * @since 3.0.0
+     *
+     * @param {integer} index - [description]
+     * @param {function} func - [description]
+     * @param {function} equation - [description]
+     *
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
+     */
     updateBlendMode: function (index, func, equation)
     {
         if (this.blendModes[index])
@@ -51657,6 +51690,16 @@ var WebGLRenderer = new Class({
         return this;
     },
 
+    /**
+     * [description]
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#removeBlendMode
+     * @since 3.0.0
+     *
+     * @param {integer} index - [description]
+     *
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
+     */
     removeBlendMode: function (index)
     {
         if (index > 16 && this.blendModes[index])
@@ -51676,7 +51719,7 @@ var WebGLRenderer = new Class({
      * @param {WebGLTexture} texture - [description]
      * @param {integer} textureUnit - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     setTexture2D: function (texture, textureUnit)
     {
@@ -51689,8 +51732,10 @@ var WebGLRenderer = new Class({
             if (this.currentActiveTextureUnit !== textureUnit)
             {
                 gl.activeTexture(gl.TEXTURE0 + textureUnit);
+
                 this.currentActiveTextureUnit = textureUnit;
             }
+
             gl.bindTexture(gl.TEXTURE_2D, texture);
 
             this.currentTextures[textureUnit] = texture;
@@ -51707,7 +51752,7 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLFramebuffer} framebuffer - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     setFramebuffer: function (framebuffer)
     {
@@ -51718,6 +51763,7 @@ var WebGLRenderer = new Class({
             this.flush();
 
             gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+
             this.currentFramebuffer = framebuffer;
         }
 
@@ -51732,7 +51778,7 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLProgram} program - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     setProgram: function (program)
     {
@@ -51743,6 +51789,7 @@ var WebGLRenderer = new Class({
             this.flush();
 
             gl.useProgram(program);
+
             this.currentProgram = program;
         }
 
@@ -51757,7 +51804,7 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLBuffer} vertexBuffer - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     setVertexBuffer: function (vertexBuffer)
     {
@@ -51768,6 +51815,7 @@ var WebGLRenderer = new Class({
             this.flush();
 
             gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
             this.currentVertexBuffer = vertexBuffer;
         }
 
@@ -51782,7 +51830,7 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLBuffer} indexBuffer - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     setIndexBuffer: function (indexBuffer)
     {
@@ -51793,6 +51841,7 @@ var WebGLRenderer = new Class({
             this.flush();
             
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+
             this.currentIndexBuffer = indexBuffer;
         }
 
@@ -51800,6 +51849,7 @@ var WebGLRenderer = new Class({
     },
 
     /* Renderer Resource Creation Functions */
+
     /**
      * [description]
      *
@@ -51950,6 +52000,7 @@ var WebGLRenderer = new Class({
                 36057: 'Incomplete Dimensions',
                 36061: 'Framebuffer Unsupported'
             };
+
             throw new Error('Framebuffer incomplete. Framebuffer status: ' + errors[complete]);
         }
 
@@ -52021,7 +52072,9 @@ var WebGLRenderer = new Class({
         var vertexBuffer = gl.createBuffer();
 
         this.setVertexBuffer(vertexBuffer);
+
         gl.bufferData(gl.ARRAY_BUFFER, initialDataOrSize, bufferUsage);
+
         this.setVertexBuffer(null);
 
         return vertexBuffer;
@@ -52044,7 +52097,9 @@ var WebGLRenderer = new Class({
         var indexBuffer = gl.createBuffer();
 
         this.setIndexBuffer(indexBuffer);
+
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, initialDataOrSize, bufferUsage);
+
         this.setIndexBuffer(null);
 
         return indexBuffer;
@@ -52058,11 +52113,12 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLTexture} texture - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     deleteTexture: function (texture)
     {
         this.gl.deleteTexture(texture);
+
         return this;
     },
 
@@ -52074,11 +52130,12 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLFramebuffer} framebuffer - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     deleteFramebuffer: function (framebuffer)
     {
         this.gl.deleteFramebuffer(framebuffer);
+
         return this;
     },
 
@@ -52090,11 +52147,12 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLProgram} program - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     deleteProgram: function (program)
     {
         this.gl.deleteProgram(program);
+
         return this;
     },
 
@@ -52106,11 +52164,12 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLBuffer} vertexBuffer - [description]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
     deleteBuffer: function (buffer)
     {
         this.gl.deleteBuffer(buffer);
+
         return this;
     },
 
@@ -52128,7 +52187,12 @@ var WebGLRenderer = new Class({
     {
         var resolution = this.config.resolution;
 
-        this.pushScissor(camera.x * resolution, camera.y * resolution, camera.width * resolution, camera.height * resolution);
+        var cx = Math.floor(camera.x * resolution);
+        var cy = Math.floor(camera.x * resolution);
+        var cw = Math.floor(camera.width * resolution);
+        var ch = Math.floor(camera.height * resolution);
+
+        this.pushScissor(cx, cy, cw, ch);
         
         if (camera.backgroundColor.alphaGL > 0)
         {
@@ -52206,7 +52270,9 @@ var WebGLRenderer = new Class({
         gl.clearColor(color.redGL, color.greenGL, color.blueGL, color.alphaGL);
 
         if (this.config.clearBeforeRender)
-        { gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT); }
+        {
+            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
+        }
 
         for (var key in pipelines)
         {
@@ -52315,6 +52381,7 @@ var WebGLRenderer = new Class({
         this.snapshotState.callback = callback;
         this.snapshotState.type = type;
         this.snapshotState.encoder = encoderOptions;
+
         return this;
     },
 
@@ -52408,7 +52475,9 @@ var WebGLRenderer = new Class({
     setFloat1: function (program, name, x)
     {
         this.setProgram(program);
+
         this.gl.uniform1f(this.gl.getUniformLocation(program, name), x);
+
         return this;
     },
 
@@ -52428,7 +52497,9 @@ var WebGLRenderer = new Class({
     setFloat2: function (program, name, x, y)
     {
         this.setProgram(program);
+
         this.gl.uniform2f(this.gl.getUniformLocation(program, name), x, y);
+
         return this;
     },
 
@@ -52449,7 +52520,9 @@ var WebGLRenderer = new Class({
     setFloat3: function (program, name, x, y, z)
     {
         this.setProgram(program);
+
         this.gl.uniform3f(this.gl.getUniformLocation(program, name), x, y, z);
+
         return this;
     },
 
@@ -52471,7 +52544,9 @@ var WebGLRenderer = new Class({
     setFloat4: function (program, name, x, y, z, w)
     {
         this.setProgram(program);
+
         this.gl.uniform4f(this.gl.getUniformLocation(program, name), x, y, z, w);
+
         return this;
     },
 
@@ -52490,7 +52565,9 @@ var WebGLRenderer = new Class({
     setInt1: function (program, name, x)
     {
         this.setProgram(program);
+
         this.gl.uniform1i(this.gl.getUniformLocation(program, name), x);
+
         return this;
     },
 
@@ -52510,7 +52587,9 @@ var WebGLRenderer = new Class({
     setInt2: function (program, name, x, y)
     {
         this.setProgram(program);
+
         this.gl.uniform2i(this.gl.getUniformLocation(program, name), x, y);
+
         return this;
     },
 
@@ -52531,7 +52610,9 @@ var WebGLRenderer = new Class({
     setInt3: function (program, name, x, y, z)
     {
         this.setProgram(program);
+
         this.gl.uniform3i(this.gl.getUniformLocation(program, name), x, y, z);
+
         return this;
     },
 
@@ -52553,7 +52634,9 @@ var WebGLRenderer = new Class({
     setInt4: function (program, name, x, y, z, w)
     {
         this.setProgram(program);
+
         this.gl.uniform4i(this.gl.getUniformLocation(program, name), x, y, z, w);
+
         return this;
     },
 
@@ -52573,7 +52656,9 @@ var WebGLRenderer = new Class({
     setMatrix2: function (program, name, transpose, matrix)
     {
         this.setProgram(program);
+
         this.gl.uniformMatrix2fv(this.gl.getUniformLocation(program, name), transpose, matrix);
+
         return this;
     },
 
@@ -52593,7 +52678,9 @@ var WebGLRenderer = new Class({
     setMatrix3: function (program, name, transpose, matrix)
     {
         this.setProgram(program);
+
         this.gl.uniformMatrix3fv(this.gl.getUniformLocation(program, name), transpose, matrix);
+
         return this;
     },
 
@@ -52613,7 +52700,9 @@ var WebGLRenderer = new Class({
     setMatrix4: function (program, name, transpose, matrix)
     {
         this.setProgram(program);
+
         this.gl.uniformMatrix4fv(this.gl.getUniformLocation(program, name), transpose, matrix);
+
         return this;
     },
 
@@ -99888,11 +99977,17 @@ var Config = new Class({
 
         this.fps = GetValue(config, 'fps', null);
 
+        //  Renderer Settings
         this.pixelArt = GetValue(config, 'pixelArt', false);
         this.autoResize = GetValue(config, 'autoResize', false);
         this.roundPixels = GetValue(config, 'roundPixels', false);
         this.transparent = GetValue(config, 'transparent', false);
         this.clearBeforeRender = GetValue(config, 'clearBeforeRender', true);
+        this.preserveDrawingBuffer = GetValue(config, 'preserveDrawingBuffer', false);
+        this.failIfMajorPerformanceCaveat = GetValue(config, 'failIfMajorPerformanceCaveat', false);
+
+        // "high-performance", "low-power" or "default". 
+        this.powerPreference = GetValue(config, 'powerPreference', 'default');
 
         var bgc = GetValue(config, 'backgroundColor', 0);
 

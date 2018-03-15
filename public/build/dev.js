@@ -4272,7 +4272,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.3.0-a1',
+    VERSION: '3.3.0-a2',
 
     BlendModes: __webpack_require__(51),
 
@@ -100118,7 +100118,7 @@ module.exports = "#define SHADER_NAME PHASER_FORWARD_DIFFUSE_FS\r\n\r\nprecision
 /* 544 */
 /***/ (function(module, exports) {
 
-module.exports = "#define SHADER_NAME PHASER_TEXTURE_TINT_FS\r\n\r\nprecision mediump float;\r\n\r\nuniform sampler2D uMainSampler;\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main() \r\n{\r\n    vec4 texel = texture2D(uMainSampler, outTexCoord);\r\n    texel *= vec4(outTint.rgb * outTint.a, outTint.a);\r\n    gl_FragColor = texel;\r\n}\r\n"
+module.exports = "#define SHADER_NAME PHASER_TEXTURE_TINT_FS\r\n\r\nprecision mediump float;\r\n\r\nuniform sampler2D uMainSampler;\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main() \r\n{\r\n    vec4 texel = texture2D(uMainSampler, outTexCoord);\r\n    // texel *= vec4(outTint.rgb * outTint.a, outTint.a);\r\n    gl_FragColor = texel;\r\n}\r\n"
 
 /***/ }),
 /* 545 */

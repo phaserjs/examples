@@ -4272,7 +4272,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.3.0-a2',
+    VERSION: '3.3.0',
 
     BlendModes: __webpack_require__(51),
 
@@ -8412,9 +8412,8 @@ module.exports = {
      */
     getTintAppendFloatAlpha: function (rgb, a)
     {
-        // var ua = ((a * 255.0)|0) & 0xFF;
-        // return ((ua << 24) | rgb) >>> 0;
-        return 0xffffffff;
+        var ua = ((a * 255.0)|0) & 0xFF;
+        return ((ua << 24) | rgb) >>> 0;
     },
 
     /**
@@ -38665,7 +38664,7 @@ var CalculateFacesAt = function (tileX, tileY, layer)
     // Assume the changed tile has all interesting edges
     if (tileCollides)
     {
-        tile.faceBottom = true;
+        tile.faceTop = true;
         tile.faceBottom = true;
         tile.faceLeft = true;
         tile.faceRight = true;
@@ -50879,7 +50878,7 @@ var WebGLRenderer = new Class({
         var contextCreationConfig = {
             alpha: game.config.transparent,
             depth: false, // enable when 3D is added in the future
-            antialias: game.config.pixelArt,
+            antialias: game.config.antialias,
             premultipliedAlpha: game.config.transparent,
             stencil: true,
             preserveDrawingBuffer: game.config.preserveDrawingBuffer,
@@ -100118,7 +100117,7 @@ module.exports = "#define SHADER_NAME PHASER_FORWARD_DIFFUSE_FS\r\n\r\nprecision
 /* 544 */
 /***/ (function(module, exports) {
 
-module.exports = "#define SHADER_NAME PHASER_TEXTURE_TINT_FS\r\n\r\nprecision mediump float;\r\n\r\nuniform sampler2D uMainSampler;\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main() \r\n{\r\n    vec4 texel = texture2D(uMainSampler, outTexCoord);\r\n    // texel *= vec4(outTint.rgb * outTint.a, outTint.a);\r\n    gl_FragColor = texel;\r\n}\r\n"
+module.exports = "#define SHADER_NAME PHASER_TEXTURE_TINT_FS\r\n\r\nprecision mediump float;\r\n\r\nuniform sampler2D uMainSampler;\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main() \r\n{\r\n    vec4 texel = texture2D(uMainSampler, outTexCoord);\r\n    texel *= vec4(outTint.rgb * outTint.a, outTint.a);\r\n    gl_FragColor = texel;\r\n}\r\n"
 
 /***/ }),
 /* 545 */

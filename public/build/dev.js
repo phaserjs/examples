@@ -4272,7 +4272,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.3.0',
+    VERSION: '3.3.0-a1',
 
     BlendModes: __webpack_require__(51),
 
@@ -8412,8 +8412,9 @@ module.exports = {
      */
     getTintAppendFloatAlpha: function (rgb, a)
     {
-        var ua = ((a * 255.0)|0) & 0xFF;
-        return ((ua << 24) | rgb) >>> 0;
+        // var ua = ((a * 255.0)|0) & 0xFF;
+        // return ((ua << 24) | rgb) >>> 0;
+        return 0xffffffff;
     },
 
     /**

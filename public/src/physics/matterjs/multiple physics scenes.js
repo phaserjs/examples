@@ -26,11 +26,11 @@ var SceneA = new Phaser.Class({
             ball.setBounce(1);
         }
 
-        this.input.once('POINTER_DOWN_EVENT', function (event) {
+        this.input.once('pointerdown', function (event) {
 
             this.scene.start('sceneB');
 
-        }, 0, this);
+        }, this);
     }
 
 });
@@ -63,11 +63,11 @@ var SceneB = new Phaser.Class({
             ball.setBounce(1);
         }
 
-        this.input.once('POINTER_DOWN_EVENT', function (event) {
+        this.input.once('pointerdown', function (event) {
 
             this.scene.start('sceneA');
 
-        }, 0, this);
+        }, this);
     }
 
 });

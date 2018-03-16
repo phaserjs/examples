@@ -265,7 +265,10 @@ WireframeScene.Start.prototype = {
         TweenMax.delayedCall(20, this.changeShape, [], this);
 
         this.cameras.main.setSize(800, 600);
+
         var miniCam = this.cameras.add(400, 0, 400, 300);
+
+        miniCam.setBackgroundColor('#000000');
         miniCam.zoom = 0.5;
         miniCam.scrollX = 200;
         miniCam.scrollY = 150;

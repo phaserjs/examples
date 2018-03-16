@@ -1,27 +1,26 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
+    width: 800,
+    height: 600,
     scene: {
-        preload: preload,
         create: create,
         update: update
     },
-    width: 800,
-    height: 600
 };
 
 var stars = [];
 var cameraRotation = 0;
-var game = new Phaser.Game(config);
 var camera0, camera1, camera2, camera3;
 
-function preload() {
-}
+var game = new Phaser.Game(config);
 
 function create() {
+
     var radius = 20;
     var radius2 = radius * 2;
     var maxWidth = (400 / radius2)|0;
+
     for (var i = 0; i < 80; ++i)
     {
         var graphics = this.add.graphics({x: radius + (i % maxWidth) * radius2, y: radius + ((i / maxWidth)|0) * radius2});
@@ -32,6 +31,7 @@ function create() {
     }
 
     this.cameras.main.setSize(400, 300);
+
     camera0 = this.cameras.main;
     camera1 = this.cameras.add(400, 0, 400, 300);
     camera2 = this.cameras.add(0, 300, 400, 300);

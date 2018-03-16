@@ -26,17 +26,16 @@ function preload ()
     */
 
     //  Object based including XHR Settings
+
     this.load.image({
         key: 'bunny',
         file: 'assets/sprites/bunny.png',
-        __xhr: {
-        },
-        _xhr: {
-            _user: 'root',
-            _password: 'th3G1bs0n',
-            _timeout: 10,
-            _header: 'Content-Type',
-            _headerValue: 'image/png'
+        xhr: {
+            user: 'root',
+            password: 'th3G1bs0n',
+            timeout: 10,
+            header: 'Content-Type',
+            headerValue: 'image/png'
         }
     });
 

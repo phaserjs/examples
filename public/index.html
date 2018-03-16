@@ -116,7 +116,7 @@
 
         if (!folder[index].hasOwnProperty('children'))
         {
-            console.log('No children, aborting');
+            // console.log('No children, aborting');
             return;
         }
 
@@ -165,7 +165,7 @@
 
         img.click(function (event) {
 
-            console.log('<- Back');
+            // console.log('<- Back');
 
             upLevel();
         });
@@ -200,6 +200,11 @@
 
     function createFile (index, filename, filepath)
     {
+        if (filename.substr(0, 1) === '_')
+        {
+            return;
+        }
+
         var div = $('<div></div>').addClass('card');
 
         var a = $('<a></a>', { href: 'view.html?src=' + filepath });
@@ -218,7 +223,7 @@
 
     function createFolder (index, filename, filepath)
     {
-        if (filename === 'archived')
+        if (filename === 'archived' || filename.substr(0, 1) === '_')
         {
             return;
         }
@@ -231,7 +236,7 @@
 
         img.click(function (event) {
 
-            console.log('-> ' + filename);
+            // console.log('-> ' + filename);
 
             downLevel(index, filename);
 

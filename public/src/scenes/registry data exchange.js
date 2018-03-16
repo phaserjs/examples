@@ -47,7 +47,7 @@ var SceneB = new Phaser.Class({
         this.text = this.add.text(100, 100, 'Monitoring Registry');
 
         //  Check the Registry and hit our callback every time the 'score' value is updated
-        this.registry.after('score', this.updateScore, this);
+        this.registry.events.on('changedata', this.updateScore, this);
     },
 
     updateScore: function (parent, key, data)

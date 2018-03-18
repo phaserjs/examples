@@ -9,7 +9,9 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+// This example demonstrates the creation of random tint tweens on each segment.
+// of an image.
+new Phaser.Game(config);
 var tween;
 var image;
 var fromColors;
@@ -22,6 +24,8 @@ function preload ()
 
 function getRandomVertexColors ()
 {
+    // Create a random color for each vertex.
+    // RandomRGB returns a Phaser.Display.Color object with random RGB values.
     var RandomRGB = Phaser.Display.Color.RandomRGB;
     return {
         topLeft: RandomRGB(),
@@ -33,12 +37,19 @@ function getRandomVertexColors ()
 
 function getTintColor (vertex)
 {
+
+    // Interpolate between the fromColor and toColor of the current vertex,
+    // using the current tween value.
     var tint = Phaser.Display.Color.Interpolate.ColorWithColor(
         fromColors[vertex],
         toColors[vertex],
         100,
         tween.getValue()
     );
+
+    // Interpolate.ColorWithColor returns a Javascript object with
+    // interpolated RGB values. We convert it to a Phaser.Display.Color object
+    // in order to get the integer value of the tint color.
     return Phaser.Display.Color.ObjectToColor(tint).color;
 }
 
@@ -85,6 +96,7 @@ function create ()
         fromColors.bottomRight.color
     );
 
+    // Bind the scope to tintTween so we can use this.tweens inside it.
     tintTween = tintTween.bind(this);
 
     initTweens();

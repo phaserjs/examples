@@ -6,7 +6,7 @@ var examplesJSON = './public/examples.json';
 
 var filteredTree = dirTree(rootDir, ['.js', '.json']);
 
-filteredTree = JSON.stringify(filteredTree);
+filteredTree = JSON.stringify(filteredTree, null, 2);
 
 filteredTree = filteredTree.replace(/public\//g, '');
 filteredTree = filteredTree.replace(/public\\\\/g, '');

@@ -24,15 +24,15 @@ function create ()
 
     //  Events
 
-    this.input.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('pointerover', function (event, objects) {
 
-        event.gameObject.setTint(0xff0000);
+        objects[0].setTint(0xff0000);
 
     });
 
-    this.input.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('pointerout', function (event, objects) {
 
-        event.gameObject.clearTint();
+        objects[0].clearTint();
 
     });
 }

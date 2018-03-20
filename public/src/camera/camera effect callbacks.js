@@ -15,12 +15,14 @@ var camera;
 function flashComplete ()
 {
     console.log('Flash completed. Starting shake effect.');
+
     camera.shake(1000, 0.05, false, shakeComplete);
 }
 
 function shakeComplete ()
 {
     console.log('Shake completed. Starting fade effect.');
+
     camera.fade(1000, 0, 0, 0, false, fadeComplete);
 }
 
@@ -39,6 +41,7 @@ function create()
     var image = this.add.image(0, 0, 'CherilPerils')
 
     this.cameras.main.setViewport(5, 5, 390, 290);
+
     camera = this.cameras.add(5, 5, 390, 290);
 
     camera.flash(1000, 1.0, 1.0, 1.0, false, flashComplete);

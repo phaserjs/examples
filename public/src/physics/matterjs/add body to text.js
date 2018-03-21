@@ -7,7 +7,10 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            debug: true
+            debug: true,
+            gravity: {
+                y: 0.3
+            },
         }
     },
     scene: {
@@ -25,9 +28,11 @@ function preload ()
 
 function create ()
 {
-    var text = this.add.text(200, 10, 'Phaser 3', { font: '32px Arial', fill: '#00ff00' });
+    var text = this.add.text(100, 0, 'Phaser 3', { font: '32px Arial', fill: '#00ff00' });
+    var text2 = this.add.text(100, -100, 'Phaser 3', { font: '32px Arial', fill: '#ffff00' });
 
-    var matterText = this.matter.add.gameObject(text);
+    var matterText = this.matter.add.gameObject(text, { shape: { type: 'polygon', sides: 8, radius: 64 } }).setFrictionAir(0.001).setBounce(0.9);
+    var matterText2 = this.matter.add.gameObject(text2).setFrictionAir(0.001).setBounce(0.9);
 
-    this.matter.add.image(400, 550, 'platform', null, { isStatic: true });
+    this.matter.add.image(350, 450, 'platform', null, { isStatic: true }).setScale(2, 0.5).setAngle(10);
 }

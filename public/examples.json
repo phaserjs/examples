@@ -2661,7 +2661,7 @@
             {
               "path": "src\\game objects\\group\\destroy child.js",
               "name": "destroy child.js",
-              "size": 1048,
+              "size": 1687,
               "extension": ".js"
             },
             {
@@ -2719,7 +2719,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13908
+          "size": 14547
         },
         {
           "path": "src\\game objects\\images",
@@ -3379,6 +3379,12 @@
                   "size": 3464
                 },
                 {
+                  "path": "src\\game objects\\text\\static\\text bounds.js",
+                  "name": "text bounds.js",
+                  "size": 2977,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\text\\static\\text metrics.js",
                   "name": "text metrics.js",
                   "size": 968,
@@ -3415,10 +3421,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 22812
+              "size": 25789
             }
           ],
-          "size": 22812
+          "size": 25789
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -3841,7 +3847,7 @@
           "size": 259098
         }
       ],
-      "size": 646889
+      "size": 650505
     },
     {
       "path": "src\\games",
@@ -6663,9 +6669,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\add body to bitmap text.js",
+              "name": "add body to bitmap text.js",
+              "size": 951,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\add body to text.js",
               "name": "add body to text.js",
-              "size": 712,
+              "size": 1088,
               "extension": ".js"
             },
             {
@@ -6849,7 +6861,7 @@
               "extension": ".js"
             }
           ],
-          "size": 39678
+          "size": 41005
         },
         {
           "path": "src\\physics\\multi",
@@ -6871,7 +6883,7 @@
           "size": 2741
         }
       ],
-      "size": 120685
+      "size": 122012
     },
     {
       "path": "src\\pools",
@@ -7987,5 +7999,5 @@
       "size": 4792
     }
   ],
-  "size": 2095142
+  "size": 2100085
 }

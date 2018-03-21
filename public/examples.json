@@ -2405,8 +2405,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2417,8 +2417,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2429,8 +2429,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2537,8 +2537,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -6671,13 +6671,19 @@
             {
               "path": "src\\physics\\matterjs\\add body to bitmap text.js",
               "name": "add body to bitmap text.js",
-              "size": 951,
+              "size": 979,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\matterjs\\add body to text.js",
               "name": "add body to text.js",
               "size": 1088,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\matterjs\\add body to tilesprite.js",
+              "name": "add body to tilesprite.js",
+              "size": 901,
               "extension": ".js"
             },
             {
@@ -6861,7 +6867,7 @@
               "extension": ".js"
             }
           ],
-          "size": 41005
+          "size": 41934
         },
         {
           "path": "src\\physics\\multi",
@@ -6883,7 +6889,7 @@
           "size": 2741
         }
       ],
-      "size": 122012
+      "size": 122941
     },
     {
       "path": "src\\pools",
@@ -7999,5 +8005,5 @@
       "size": 4792
     }
   ],
-  "size": 2100085
+  "size": 2101014
 }

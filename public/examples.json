@@ -3204,6 +3204,12 @@
           "name": "render texture",
           "children": [
             {
+              "path": "src\\game objects\\render texture\\draw text to render texture.js",
+              "name": "draw text to render texture.js",
+              "size": 659,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\draw to render texture.js",
               "name": "draw to render texture.js",
               "size": 513,
@@ -3234,7 +3240,7 @@
               "extension": ".js"
             }
           ],
-          "size": 6052
+          "size": 6711
         },
         {
           "path": "src\\game objects\\sprites",
@@ -3847,7 +3853,7 @@
           "size": 259098
         }
       ],
-      "size": 650505
+      "size": 651164
     },
     {
       "path": "src\\games",
@@ -6683,7 +6689,7 @@
             {
               "path": "src\\physics\\matterjs\\add body to tilesprite.js",
               "name": "add body to tilesprite.js",
-              "size": 901,
+              "size": 1399,
               "extension": ".js"
             },
             {
@@ -6749,7 +6755,7 @@
             {
               "path": "src\\physics\\matterjs\\cloth.js",
               "name": "cloth.js",
-              "size": 1240,
+              "size": 2122,
               "extension": ".js"
             },
             {
@@ -6813,6 +6819,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\offset body.js",
+              "name": "offset body.js",
+              "size": 1061,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\polygon body.js",
               "name": "polygon body.js",
               "size": 870,
@@ -6867,7 +6879,7 @@
               "extension": ".js"
             }
           ],
-          "size": 41934
+          "size": 44375
         },
         {
           "path": "src\\physics\\multi",
@@ -6889,7 +6901,7 @@
           "size": 2741
         }
       ],
-      "size": 122941
+      "size": 125382
     },
     {
       "path": "src\\pools",
@@ -8005,5 +8017,5 @@
       "size": 4792
     }
   ],
-  "size": 2101014
+  "size": 2104114
 }

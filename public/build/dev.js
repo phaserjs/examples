@@ -9058,6 +9058,27 @@ var PluginManager = __webpack_require__(/*! ../../boot/PluginManager */ "./boot/
 var RectangleContains = __webpack_require__(/*! ../../geom/rectangle/Contains */ "./geom/rectangle/Contains.js");
 
 /**
+ * @typedef {object} InputJSONCameraObject
+ *
+ * @property {string} [name=''] - [description]
+ * @property {integer} [x=0] - [description]
+ * @property {integer} [y=0] - [description]
+ * @property {integer} [width] - [description]
+ * @property {integer} [height] - [description]
+ * @property {float} [zoom=1] - [description]
+ * @property {float} [rotation=0] - [description]
+ * @property {boolean} [roundPixels=false] - [description]
+ * @property {float} [scrollX=0] - [description]
+ * @property {float} [scrollY=0] - [description]
+ * @property {(false|string)} [backgroundColor=false] - [description]
+ * @property {?object} [bounds] - [description]
+ * @property {number} [bounds.x=0] - [description]
+ * @property {number} [bounds.y=0] - [description]
+ * @property {number} [bounds.width] - [description]
+ * @property {number} [bounds.height] - [description]
+ */
+
+/**
  * @classdesc
  * [description]
  *
@@ -9251,39 +9272,13 @@ var CameraManager = new Class({
         return null;
     },
 
-    /*
-    {
-        cameras: [
-            {
-                name: string
-                x: int
-                y: int
-                width: int
-                height: int
-                zoom: float
-                rotation: float
-                roundPixels: bool
-                scrollX: float
-                scrollY: float
-                backgroundColor: string
-                bounds: {
-                    x: int
-                    y: int
-                    width: int
-                    height: int
-                }
-            }
-        ]
-    }
-    */
-
     /**
      * [description]
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#fromJSON
      * @since 3.0.0
      *
-     * @param {(object|object[])} config - [description]
+     * @param {(InputJSONCameraObject|InputJSONCameraObject[])} config - [description]
      *
      * @return {Phaser.Cameras.Scene2D.CameraManager} [description]
      */
@@ -19968,7 +19963,7 @@ var Color = new Class({
          * An array containing the calculated color values for WebGL use.
          *
          * @name Phaser.Display.Color#gl
-         * @type {[number,number,number,number]}
+         * @type {number[]}
          * @since 3.0.0
          */
         this.gl = [ 0, 0, 0, 1 ];
@@ -63112,6 +63107,28 @@ var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/Plu
 var XHRSettings = __webpack_require__(/*! ./XHRSettings */ "./loader/XHRSettings.js");
 
 /**
+ * @typedef {object} LoaderFileObject
+ *
+ * @property {string} key - [description]
+ * @property {string} type - [description]
+ * @property {string} [url] - [description]
+ * @property {string[]} [urls] - [description]
+ * @property {string} [textureURL] - [description]
+ * @property {string} [atlasURL] - [description]
+ * @property {string} [xmlURL] - [description]
+ * @property {string[]} [textureURLs] - [description]
+ * @property {string[]} [atlasURLs] - [description]
+ * @property {object} [config] - [description]
+ * @property {object} [json] - [description]
+ * @property {XHRSettingsObject} [xhrSettings] - [description]
+ * @property {XHRSettingsObject} [textureXhrSettings] - [description]
+ * @property {XHRSettingsObject} [atlasXhrSettings] - [description]
+ * @property {XHRSettingsObject} [xmlXhrSettings] - [description]
+ * @property {XHRSettingsObject} [audioXhrSettings] - [description]
+ * @property {XHRSettingsObject} [jsonXhrSettings] - [description]
+ */
+
+/**
  * @classdesc
  * [description]
  *
@@ -63979,7 +63996,7 @@ var LoaderPlugin = new Class({
      * @method Phaser.Loader.LoaderPlugin#loadArray
      * @since 3.0.0
      *
-     * @param {array} files - [description]
+     * @param {LoaderFileObject[]} files - [description]
      *
      * @return {boolean} [description]
      */
@@ -64002,7 +64019,7 @@ var LoaderPlugin = new Class({
      * @method Phaser.Loader.LoaderPlugin#file
      * @since 3.0.0
      *
-     * @param {object} file - [description]
+     * @param {LoaderFileObject} file - [description]
      *
      * @return {Phaser.Loader.File} [description]
      */
@@ -76381,7 +76398,7 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {array} [seeds] - [description]
+ * @param {string[]} [seeds] - [description]
  */
 var RandomDataGenerator = new Class({
 
@@ -76448,7 +76465,7 @@ var RandomDataGenerator = new Class({
          * [description]
          *
          * @name Phaser.Math.RandomDataGenerator#sign
-         * @type {array}
+         * @type {number[]}
          * @since 3.0.0
          */
         this.signs = [ -1, 1 ];
@@ -76521,7 +76538,7 @@ var RandomDataGenerator = new Class({
      * @method Phaser.Math.RandomDataGenerator#init
      * @since 3.0.0
      *
-     * @param {(string|array)} seeds - [description]
+     * @param {(string|string[])} seeds - [description]
      */
     init: function (seeds)
     {
@@ -76543,7 +76560,7 @@ var RandomDataGenerator = new Class({
      * @method Phaser.Math.RandomDataGenerator#sow
      * @since 3.0.0
      *
-     * @param {*[]} seeds - The array of seeds: the `toString()` of each value is used.
+     * @param {string[]} seeds - The array of seeds: the `toString()` of each value is used.
      */
     sow: function (seeds)
     {
@@ -82119,7 +82136,7 @@ var World = new Class({
      * @method Phaser.Physics.Arcade.World#remove
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} object - [description]
+     * @param {Phaser.Physics.Arcade.Body} object - [description]
      */
     remove: function (object)
     {
@@ -83506,7 +83523,7 @@ var World = new Class({
     * @method Phaser.Physics.Arcade.World#wrapArray
     * @since 3.3.0
     *
-    * @param {*[]} arr
+    * @param {Array.<*>} arr
     * @param {number} [padding=0] - An amount added to the boundary.
     */
     wrapArray: function (arr, padding)
@@ -92565,6 +92582,7 @@ var World = new Class({
                 graphics.strokePath();
             }
         }
+
         graphics.closePath();
     },
 
@@ -111876,12 +111894,6 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var Systems = __webpack_require__(/*! ./Systems */ "./scene/Systems.js");
 
 /**
- * @typedef {object} SceneConfig
- *
- * @property
- */
-
-/**
  * @classdesc
  * [description]
  *
@@ -113947,18 +113959,20 @@ var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
 var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/object/GetValue.js");
 var InjectionMap = __webpack_require__(/*! ./InjectionMap */ "./scene/InjectionMap.js");
 
+// TODO 22/03/2018 Fix "plugins" type
+
 /**
  * @typedef {object} SettingsConfig
  *
  * @property {string} [key] - [description]
  * @property {boolean} [active=false] - [description]
  * @property {boolean} [visible=true] - [description]
- * @property {(false|[type])} [files=false] - [description]
- * @property {?[type]} [cameras=null] - [description]
+ * @property {(false|LoaderFileObject[])} [files=false] - [description]
+ * @property {?(InputJSONCameraObject|InputJSONCameraObject[])} [cameras=null] - [description]
  * @property {Object.<string, string>} [map] - [description]
  * @property {object} [physics={}] - [description]
  * @property {object} [loader={}] - [description]
- * @property {(false|[type])} [plugins=false] - [description]
+ * @property {(false|*)} [plugins=false] - [description]
  */
 
 /**
@@ -113970,12 +113984,12 @@ var InjectionMap = __webpack_require__(/*! ./InjectionMap */ "./scene/InjectionM
  * @property {boolean} visible - [description]
  * @property {boolean} isBooted - [description]
  * @property {object} data - [description]
- * @property {(false|[type])} files - [description]
- * @property {?[type]} cameras - [description]
+ * @property {(false|LoaderFileObject[])} files - [description]
+ * @property {?(InputJSONCameraObject|InputJSONCameraObject[])} cameras - [description]
  * @property {Object.<string, string>} map - [description]
  * @property {object} physics - [description]
  * @property {object} loader - [description]
- * @property {(false|[type])} plugins - [description]
+ * @property {(false|*)} plugins - [description]
  */
 
 var Settings = {
@@ -135559,7 +135573,7 @@ var Clock = new Class({
      *
      * @param {number} delay - [description]
      * @param {function} callback - [description]
-     * @param {*[]} args - [description]
+     * @param {Array.<*>} args - [description]
      * @param {*} callbackScope - [description]
      *
      * @return {Phaser.Time.TimerEvent} [description]
@@ -135790,7 +135804,7 @@ var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./ut
  * @property {boolean} [loop=false] - [description]
  * @property {function} [callback] - [description]
  * @property {*} [callbackScope] - [description]
- * @property {*[]} [args] - [description]
+ * @property {Array.<*>} [args] - [description]
  * @property {number} [timeScale=1] - [description]
  * @property {number} [startAt=1] - [description]
  * @property {boolean} [paused=false] - [description]

@@ -17,17 +17,15 @@ var player;
 
 function preload() 
 {
-    this.load.baseURL = '//examples.phaser.io/';
-    this.load.crossOrigin = 'anonymous';
     this.load.image('dude', 'assets/sprites/phaser-dude.png');
 }
 
 function create() 
 {
-    rt = this.make.renderTexture({x: 0, y: 0, width: 800, height: 600}).setOrigin(0,0);
-        
-    player= this.add.image(256,256,'dude');
-    player.setOrigin(0.5,0.5);
+    rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 }).setOrigin(0, 0);
+
+    player = this.add.image(256, 256, 'dude');
+    player.setOrigin(0.5, 0.5);
 }
 
 function update()
@@ -38,11 +36,10 @@ function update()
     draw();
 }
 
-function draw() {
-
+function draw() 
+{
     rt.save();
-    rt.translate(player.x,player.y);
-    rt.draw(player.texture, player.frame,-player.width/2,-player.height/2); 
-    rt.restore();    
-
+    rt.translate(player.x, player.y);
+    rt.draw(player.texture, player.frame, -player.width / 2, -player.height / 2);
+    rt.restore();
 }

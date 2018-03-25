@@ -34,7 +34,7 @@ function create ()
 
     var ball = this.add.follower(curve, 50, 260, 'ball');
 
-    ball.start({
+    ball.startFollow({
         duration: 3000,
         yoyo: true,
         ease: 'Sine.easeInOut'

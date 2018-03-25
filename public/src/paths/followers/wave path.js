@@ -54,7 +54,7 @@ function create ()
             follower.setScale(0.5);
         }
 
-        follower.start({
+        follower.startFollow({
             duration: 4000,
             positionOnPath: true,
             repeat: -1,

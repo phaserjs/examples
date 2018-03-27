@@ -27,8 +27,7 @@ function create ()
 
         point = Phaser.Geom.Point.Clone(point);
 
-        point.x += Math.cos(angle) * length;
-        point.y += Math.sin(angle) * length;
+        Phaser.Geom.Point.Add(point, Math.cos(angle) * length, Math.sin(angle) * length);
 
         points.push(point);
     }

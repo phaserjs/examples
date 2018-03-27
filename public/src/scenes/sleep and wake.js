@@ -20,24 +20,20 @@ var SceneA = new Phaser.Class({
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        var _this = this;
+        this.input.once('pointerdown', function () {
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+            this.scene.switch('sceneB');
 
-            _this.scene.swap('sceneB');
-
-        });
+        }, this);
     },
 
     wake: function ()
     {
-        var _this = this;
+        this.input.once('pointerdown', function () {
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+            this.scene.switch('sceneB');
 
-            _this.scene.swap('sceneB');
-
-        });
+        }, this);
     },
 
     update: function (time, delta)
@@ -75,24 +71,20 @@ var SceneB = new Phaser.Class({
 
         this.graphics = this.add.graphics({ x: 0, y: 0 });
 
-        var _this = this;
+        this.input.once('pointedown', function (event) {
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+            this.scene.switch('sceneA');
 
-            _this.scene.swap('sceneA');
-
-        });
+        }, this);
     },
 
     wake: function ()
     {
-        var _this = this;
+        this.input.once('pointedown', function (event) {
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+            this.scene.switch('sceneA');
 
-            _this.scene.swap('sceneA');
-
-        });
+        }, this);
     },
 
     update: function ()
@@ -180,7 +172,7 @@ var SceneB = new Phaser.Class({
 });
 
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000000',

@@ -20,14 +20,12 @@ var SceneA = new Phaser.Class({
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        var _this = this;
+        this.input.once('pointerdown', function () {
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+            this.scene.pause();
+            this.scene.launch('sceneB');
 
-            _this.scene.pause();
-            _this.scene.launch('sceneB');
-
-        });
+        }, this);
     },
 
     update: function (time, delta)
@@ -57,19 +55,17 @@ var SceneB = new Phaser.Class({
     {
         this.add.image(400, 300, 'face').setAlpha(0.5);
 
-        var _this = this;
+        this.input.once('pointerdown', function () {
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+            this.scene.resume('sceneA');
 
-            _this.scene.resume('sceneA');
-
-        });
+        }, this);
     }
 
 });
 
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000000',

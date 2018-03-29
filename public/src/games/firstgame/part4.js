@@ -29,8 +29,6 @@ function preload ()
     this.load.spritesheet('dude', 'src/games/firstgame/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
-var platforms;
-
 function create ()
 {
     this.add.image(400, 300, 'sky');

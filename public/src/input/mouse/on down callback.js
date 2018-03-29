@@ -20,11 +20,11 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'eye').setInteractive();
 
-    this.input.setOnDownCallback(sprite, onDown, this);
+	this.input.on('gameobjectdown', onDown);
 }
 
-function onDown (gameObject, pointer, x, y)
+function onDown (pointer, object)
 {
-    gameObject.x = Phaser.Math.Between(0, 800);
-    gameObject.y = Phaser.Math.Between(0, 600);
+    object.x = Phaser.Math.Between(0, 800);
+    object.y = Phaser.Math.Between(0, 600);
 }

@@ -12275,12 +12275,19 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+/**
+ * Global consts.
+ * 
+ * @ignore
+ */
+
 var CONST = {
 
     /**
      * Phaser Release Version
      * 
      * @name Phaser.VERSION
+     * @readOnly
      * @type {string}
      * @since 3.0.0
      */
@@ -12294,6 +12301,7 @@ var CONST = {
      * AUTO Detect Renderer.
      * 
      * @name Phaser.AUTO
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12303,6 +12311,7 @@ var CONST = {
      * Canvas Renderer.
      * 
      * @name Phaser.CANVAS
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12312,6 +12321,7 @@ var CONST = {
      * WebGL Renderer.
      * 
      * @name Phaser.WEBGL
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12321,6 +12331,7 @@ var CONST = {
      * Headless Renderer.
      * 
      * @name Phaser.HEADLESS
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12331,6 +12342,7 @@ var CONST = {
      * to help you remember what the value is doing in your code.
      * 
      * @name Phaser.FOREVER
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12340,6 +12352,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.NONE
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12349,6 +12362,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.UP
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12358,6 +12372,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.DOWN
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12367,6 +12382,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.LEFT
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12376,6 +12392,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.RIGHT
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -23023,7 +23040,7 @@ var StableSort = __webpack_require__(/*! ../utils/array/StableSort */ "./utils/a
  * [description]
  *
  * @class DisplayList
- * @extends Phaser.Structs.List
+ * @extends Phaser.Structs.List.<Phaser.GameObjects.GameObject>
  * @memberOf Phaser.GameObjects
  * @constructor
  * @since 3.0.0
@@ -30230,7 +30247,6 @@ module.exports = Tint;
 
 /**
  * @typedef {object} JSONGameObject
- * @generic {object} DATA - [data]
  *
  * @property {string} name - The name of this Game Object.
  * @property {string} type - A textual representation of this Game Object, i.e. `sprite`.
@@ -61960,569 +61976,421 @@ module.exports = Key;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-module.exports = {
+/**
+ * Keyboard Codes.
+ * 
+ * @name Phaser.Input.Keyboard.KeyCodes
+ * @enum {integer}
+ * @memberOf Phaser.Input.Keyboard
+ * @readOnly
+ * @since 3.0.0
+ */
+
+var KeyCodes = {
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.BACKSPACE
-     * @type {integer}
-     * @since 3.0.0
      */
     BACKSPACE: 8,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.TAB
-     * @type {integer}
-     * @since 3.0.0
      */
     TAB: 9,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ENTER
-     * @type {integer}
-     * @since 3.0.0
      */
     ENTER: 13,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SHIFT
-     * @type {integer}
-     * @since 3.0.0
      */
     SHIFT: 16,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.CTRL
-     * @type {integer}
-     * @since 3.0.0
      */
     CTRL: 17,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ALT
-     * @type {integer}
-     * @since 3.0.0
      */
     ALT: 18,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PAUSE
-     * @type {integer}
-     * @since 3.0.0
      */
     PAUSE: 19,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.CAPS_LOCK
-     * @type {integer}
-     * @since 3.0.0
      */
     CAPS_LOCK: 20,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ESC
-     * @type {integer}
-     * @since 3.0.0
      */
     ESC: 27,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SPACE
-     * @type {integer}
-     * @since 3.0.0
      */
     SPACE: 32,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PAGE_UP
-     * @type {integer}
-     * @since 3.0.0
      */
     PAGE_UP: 33,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PAGE_DOWN
-     * @type {integer}
-     * @since 3.0.0
      */
     PAGE_DOWN: 34,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.END
-     * @type {integer}
-     * @since 3.0.0
      */
     END: 35,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.HOME
-     * @type {integer}
-     * @since 3.0.0
      */
     HOME: 36,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.LEFT
-     * @type {integer}
-     * @since 3.0.0
      */
     LEFT: 37,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.UP
-     * @type {integer}
-     * @since 3.0.0
      */
     UP: 38,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.RIGHT
-     * @type {integer}
-     * @since 3.0.0
      */
     RIGHT: 39,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.DOWN
-     * @type {integer}
-     * @since 3.0.0
      */
     DOWN: 40,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PRINT_SCREEN
-     * @type {integer}
-     * @since 3.0.0
      */
     PRINT_SCREEN: 42,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.INSERT
-     * @type {integer}
-     * @since 3.0.0
      */
     INSERT: 45,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.DELETE
-     * @type {integer}
-     * @since 3.0.0
      */
     DELETE: 46,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ZERO
-     * @type {integer}
-     * @since 3.0.0
      */
     ZERO: 48,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ONE
-     * @type {integer}
-     * @since 3.0.0
      */
     ONE: 49,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.TWO
-     * @type {integer}
-     * @since 3.0.0
      */
     TWO: 50,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.THREE
-     * @type {integer}
-     * @since 3.0.0
      */
     THREE: 51,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.FOUR
-     * @type {integer}
-     * @since 3.0.0
      */
     FOUR: 52,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.FIVE
-     * @type {integer}
-     * @since 3.0.0
      */
     FIVE: 53,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SIX
-     * @type {integer}
-     * @since 3.0.0
      */
     SIX: 54,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SEVEN
-     * @type {integer}
-     * @since 3.0.0
      */
     SEVEN: 55,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.EIGHT
-     * @type {integer}
-     * @since 3.0.0
      */
     EIGHT: 56,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.NINE
-     * @type {integer}
-     * @since 3.0.0
      */
     NINE: 57,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.A
-     * @type {integer}
-     * @since 3.0.0
      */
     A: 65,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.B
-     * @type {integer}
-     * @since 3.0.0
      */
     B: 66,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.C
-     * @type {integer}
-     * @since 3.0.0
      */
     C: 67,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.D
-     * @type {integer}
-     * @since 3.0.0
      */
     D: 68,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.E
-     * @type {integer}
-     * @since 3.0.0
      */
     E: 69,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F
-     * @type {integer}
-     * @since 3.0.0
      */
     F: 70,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.G
-     * @type {integer}
-     * @since 3.0.0
      */
     G: 71,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.H
-     * @type {integer}
-     * @since 3.0.0
      */
     H: 72,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.I
-     * @type {integer}
-     * @since 3.0.0
      */
     I: 73,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.J
-     * @type {integer}
-     * @since 3.0.0
      */
     J: 74,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.K
-     * @type {integer}
-     * @since 3.0.0
      */
     K: 75,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.L
-     * @type {integer}
-     * @since 3.0.0
      */
     L: 76,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.M
-     * @type {integer}
-     * @since 3.0.0
      */
     M: 77,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.N
-     * @type {integer}
-     * @since 3.0.0
      */
     N: 78,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.O
-     * @type {integer}
-     * @since 3.0.0
      */
     O: 79,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.P
-     * @type {integer}
-     * @since 3.0.0
      */
     P: 80,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.Q
-     * @type {integer}
-     * @since 3.0.0
      */
     Q: 81,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.R
-     * @type {integer}
-     * @since 3.0.0
      */
     R: 82,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.S
-     * @type {integer}
-     * @since 3.0.0
      */
     S: 83,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.T
-     * @type {integer}
-     * @since 3.0.0
      */
     T: 84,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.U
-     * @type {integer}
-     * @since 3.0.0
      */
     U: 85,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.V
-     * @type {integer}
-     * @since 3.0.0
      */
     V: 86,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.W
-     * @type {integer}
-     * @since 3.0.0
      */
     W: 87,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.X
-     * @type {integer}
-     * @since 3.0.0
      */
     X: 88,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.Y
-     * @type {integer}
-     * @since 3.0.0
      */
     Y: 89,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.Z
-     * @type {integer}
-     * @since 3.0.0
      */
     Z: 90,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F1
-     * @type {integer}
-     * @since 3.0.0
      */
     F1: 112,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F2
-     * @type {integer}
-     * @since 3.0.0
      */
     F2: 113,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F3
-     * @type {integer}
-     * @since 3.0.0
      */
     F3: 114,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F4
-     * @type {integer}
-     * @since 3.0.0
      */
     F4: 115,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F5
-     * @type {integer}
-     * @since 3.0.0
      */
     F5: 116,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F6
-     * @type {integer}
-     * @since 3.0.0
      */
     F6: 117,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F7
-     * @type {integer}
-     * @since 3.0.0
      */
     F7: 118,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F8
-     * @type {integer}
-     * @since 3.0.0
      */
     F8: 119,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F9
-     * @type {integer}
-     * @since 3.0.0
      */
     F9: 120,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F10
-     * @type {integer}
-     * @since 3.0.0
      */
     F10: 121,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F11
-     * @type {integer}
-     * @since 3.0.0
      */
     F11: 122,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F12
-     * @type {integer}
-     * @since 3.0.0
      */
     F12: 123,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SEMICOLON
-     * @type {integer}
-     * @since 3.0.0
      */
     SEMICOLON: 186,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PLUS
-     * @type {integer}
-     * @since 3.0.0
      */
     PLUS: 187,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.COMMA
-     * @type {integer}
-     * @since 3.0.0
      */
     COMMA: 188,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.MINUS
-     * @type {integer}
-     * @since 3.0.0
      */
     MINUS: 189,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PERIOD
-     * @type {integer}
-     * @since 3.0.0
      */
     PERIOD: 190,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH
-     * @type {integer}
-     * @since 3.0.0
      */
     FORWARD_SLASH: 191,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.BACK_SLASH
-     * @type {integer}
-     * @since 3.0.0
      */
     BACK_SLASH: 220,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.QUOTES
-     * @type {integer}
-     * @since 3.0.0
      */
     QUOTES: 222,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.BACKTICK
-     * @type {integer}
-     * @since 3.0.0
      */
     BACKTICK: 192,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.OPEN_BRACKET
-     * @type {integer}
-     * @since 3.0.0
      */
     OPEN_BRACKET: 219,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.CLOSED_BRACKET
-     * @type {integer}
-     * @since 3.0.0
      */
     CLOSED_BRACKET: 221
 
 };
+
+module.exports = KeyCodes;
 
 
 /***/ }),
@@ -85466,12 +85334,19 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-module.exports = {
+/**
+ * Arcade Physics consts.
+ * 
+ * @ignore
+ */
+
+var CONST = {
 
     /**
      * [description]
      * 
      * @name Phaser.Physics.Arcade.DYNAMIC_BODY
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -85481,6 +85356,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.STATIC_BODY
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -85490,6 +85366,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.GROUP
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -85499,6 +85376,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.TILEMAPLAYER
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -85508,6 +85386,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_NONE
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -85517,6 +85396,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_UP
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -85526,6 +85406,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_DOWN
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -85535,6 +85416,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_LEFT
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -85544,12 +85426,15 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_RIGHT
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
     FACING_RIGHT: 14
 
 };
+
+module.exports = CONST;
 
 
 /***/ }),
@@ -104801,7 +104686,7 @@ var CanvasRenderer = new Class({
          * Map to the required function.
          *
          * @name Phaser.Renderer.Canvas.CanvasRenderer#drawImage
-         * @type {Phaser.Renderer.Canvas.DrawImage}
+         * @type {function}
          * @since 3.0.0
          */
         this.drawImage = DrawImage(this.config.roundPixels);
@@ -104810,7 +104695,7 @@ var CanvasRenderer = new Class({
          * [description]
          *
          * @name Phaser.Renderer.Canvas.CanvasRenderer#blitImage
-         * @type {Phaser.Renderer.Canvas.BlitImage}
+         * @type {function}
          * @since 3.0.0
          */
         this.blitImage = BlitImage(this.config.roundPixels);
@@ -115637,13 +115522,19 @@ module.exports = Systems;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+/**
+ * Scene consts.
+ * 
+ * @ignore
+ */
 
-module.exports = {
+var CONST = {
 
     /**
      * Scene state.
      * 
      * @name Phaser.Scenes.PENDING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115653,6 +115544,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.INIT
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115662,6 +115554,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.START
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115671,6 +115564,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.LOADING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115680,6 +115574,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.CREATING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115689,6 +115584,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.RUNNING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115698,6 +115594,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.PAUSED
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115707,6 +115604,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.SLEEPING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115716,6 +115614,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.SHUTDOWN
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -115725,12 +115624,15 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.DESTROYED
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
     DESTROYED: 9
 
 };
+
+module.exports = CONST;
 
 
 /***/ }),
@@ -120068,7 +119970,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 
 /**
  * @callback EachListCallback
- * @generic {*} I - [item]
+ * @generic I - [item]
  *
  * @param {*} item - [description]
  * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
@@ -120077,8 +119979,6 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 /**
  * @classdesc
  * [description]
- *
- * @generic T
  *
  * @class List
  * @memberOf Phaser.Structs
@@ -120305,7 +120205,7 @@ var List = new Class({
      * @since 3.0.0
      *
      * @genericUse {T} - [value]
-     * @genericUse {?T} - [$return]
+     * @genericUse {T | null} - [$return]
      *
      * @param {string} property - The property to check against the value.
      * @param {*} value - The value to check if the property strictly equals.
@@ -120333,7 +120233,7 @@ var List = new Class({
      * @method Phaser.Structs.List#getByName
      * @since 3.0.0
      *
-     * @genericUse {?T} - [$return]
+     * @genericUse {T | null} - [$return]
      *
      * @param {string} name - The name to search for.
      *
@@ -120350,7 +120250,7 @@ var List = new Class({
      * @method Phaser.Structs.List#getRandom
      * @since 3.0.0
      *
-     * @genericUse {?T} - [$return]
+     * @genericUse {T | null} - [$return]
      *
      * @param {integer} [startIndex=0] - Offset from the front of the group (lowest child).
      * @param {integer} [length=(to top)] - Restriction on the number of values you want to randomly select from.
@@ -120379,7 +120279,7 @@ var List = new Class({
      * @since 3.0.0
      *
      * @genericUse {T} - [value]
-     * @genericUse {?T} - [$return]
+     * @genericUse {T | null} - [$return]
      *
      * @param {string} property - [description]
      * @param {*} value - [description]
@@ -120638,6 +120538,8 @@ var List = new Class({
      * @method Phaser.Structs.List#removeAll
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.List.<T>} - [$return]
+     *
      * @return {Phaser.Structs.List} This List object.
      */
     removeAll: function ()
@@ -120658,7 +120560,7 @@ var List = new Class({
      * @method Phaser.Structs.List#bringToTop
      * @since 3.0.0
      *
-     * @generic {T} O - [child,$return]
+     * @genericUse {T} - [child,$return]
      *
      * @param {*} child - [description]
      *
@@ -120681,7 +120583,7 @@ var List = new Class({
      * @method Phaser.Structs.List#sendToBack
      * @since 3.0.0
      *
-     * @generic {T} O - [child,$return]
+     * @genericUse {T} - [child,$return]
      *
      * @param {*} child - [description]
      *
@@ -120704,7 +120606,7 @@ var List = new Class({
      * @method Phaser.Structs.List#moveUp
      * @since 3.0.0
      *
-     * @generic {T} O - [child,$return]
+     * @genericUse {T} - [child,$return]
      *
      * @param {*} child - [description]
      *
@@ -120733,7 +120635,7 @@ var List = new Class({
      * @method Phaser.Structs.List#moveDown
      * @since 3.0.0
      *
-     * @generic {T} O - [child,$return]
+     * @genericUse {T} - [child,$return]
      *
      * @param {*} child - [description]
      *
@@ -120762,6 +120664,8 @@ var List = new Class({
      * @method Phaser.Structs.List#reverse
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.List.<T>} - [$return]
+     *
      * @return {Phaser.Structs.List} This List object.
      */
     reverse: function ()
@@ -120776,6 +120680,8 @@ var List = new Class({
      *
      * @method Phaser.Structs.List#shuffle
      * @since 3.0.0
+     *
+     * @genericUse {Phaser.Structs.List.<T>} - [$return]
      *
      * @return {Phaser.Structs.List} This List object.
      */
@@ -120798,7 +120704,7 @@ var List = new Class({
      * @method Phaser.Structs.List#replace
      * @since 3.0.0
      *
-     * @generic {T} O - [oldChild,newChild,$return]
+     * @genericUse {T} - [oldChild,newChild,$return]
      *
      * @param {*} oldChild - The child in this List that will be replaced.
      * @param {*} newChild - The child to be inserted into this List.
@@ -121057,7 +120963,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 
 /**
  * @callback EachMapCallback
- * @generic {*} E - [entry]
+ * @generic E - [entry]
  *
  * @param {string} key - [description]
  * @param {E} entry - [description]
@@ -121079,8 +120985,9 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.0.0
  *
- * @generic T
- * @genericUse {T[]} - [elements]
+ * @generic K
+ * @generic V
+ * @genericUse {V[]} - [elements]
  *
  * @param {Array.<*>} elements - [description]
  */
@@ -121093,7 +121000,7 @@ var Map = new Class({
         /**
          * [description]
          *
-         * @genericUse {Object.<string, T>} - [$type]
+         * @genericUse {Object.<string, V>} - [$type]
          *
          * @name Phaser.Structs.Map#entries
          * @type {Object.<string, *>}
@@ -121127,7 +121034,9 @@ var Map = new Class({
      * @method Phaser.Structs.Map#set
      * @since 3.0.0
      *
-     * @genericUse {T} - [value]
+     * @genericUse {K} - [key]
+     * @genericUse {V} - [value]
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [$return]
      *
      * @param {string} key - [description]
      * @param {*} value - [description]
@@ -121151,7 +121060,8 @@ var Map = new Class({
      * @method Phaser.Structs.Map#get
      * @since 3.0.0
      *
-     * @genericUse {T} - [$return]
+     * @genericUse {K} - [key]
+     * @genericUse {V} - [$return]
      *
      * @param {string} key - [description]
      *
@@ -121171,7 +121081,7 @@ var Map = new Class({
      * @method Phaser.Structs.Map#getArray
      * @since 3.0.0
      *
-     * @genericUse {T[]} - [$return]
+     * @genericUse {V[]} - [$return]
      *
      * @return {Array.<*>} [description]
      */
@@ -121194,6 +121104,8 @@ var Map = new Class({
      * @method Phaser.Structs.Map#has
      * @since 3.0.0
      *
+     * @genericUse {K} - [key]
+     *
      * @param {string} key - [description]
      *
      * @return {boolean} [description]
@@ -121208,6 +121120,9 @@ var Map = new Class({
      *
      * @method Phaser.Structs.Map#delete
      * @since 3.0.0
+     *
+     * @genericUse {K} - [key]
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [$return]
      *
      * @param {string} key - [description]
      *
@@ -121230,6 +121145,8 @@ var Map = new Class({
      * @method Phaser.Structs.Map#clear
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [$return]
+     *
      * @return {Phaser.Structs.Map} This Map object.
      */
     clear: function ()
@@ -121251,6 +121168,8 @@ var Map = new Class({
      * @method Phaser.Structs.Map#keys
      * @since 3.0.0
      *
+     * @genericUse {K[]} - [$return]
+     *
      * @return {string[]} [description]
      */
     keys: function ()
@@ -121264,7 +121183,7 @@ var Map = new Class({
      * @method Phaser.Structs.Map#values
      * @since 3.0.0
      *
-     * @genericUse {T[]} - [$return]
+     * @genericUse {V[]} - [$return]
      *
      * @return {Array.<*>} [description]
      */
@@ -121309,7 +121228,8 @@ var Map = new Class({
      * @method Phaser.Structs.Map#each
      * @since 3.0.0
      *
-     * @genericUse {EachMapCallback.<T>} - [callback]
+     * @genericUse {EachMapCallback.<V>} - [callback]
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [$return]
      *
      * @param {EachMapCallback} callback - [description]
      *
@@ -121336,7 +121256,7 @@ var Map = new Class({
      * @method Phaser.Structs.Map#contains
      * @since 3.0.0
      *
-     * @genericUse {T} - [value]
+     * @genericUse {V} - [value]
      *
      * @param {*} value - [description]
      *
@@ -121364,6 +121284,8 @@ var Map = new Class({
      *
      * @method Phaser.Structs.Map#merge
      * @since 3.0.0
+     *
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [map,$return]
      *
      * @param {Phaser.Structs.Map} map - [description]
      * @param {boolean} [override=false] - [description]
@@ -121489,6 +121411,7 @@ var ProcessQueue = new Class({
      * @since 3.0.0
      *
      * @genericUse {T} - [item]
+     * @genericUse {Phaser.Structs.ProcessQueue.<T>} - [$return]
      *
      * @param {*} item - [description]
      *
@@ -121510,6 +121433,7 @@ var ProcessQueue = new Class({
      * @since 3.0.0
      *
      * @genericUse {T} - [item]
+     * @genericUse {Phaser.Structs.ProcessQueue.<T>} - [$return]
      *
      * @param {*} item - [description]
      *
@@ -122258,7 +122182,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 
 /**
  * @callback EachSetCallback
- * @generic {*} E - [entry]
+ * @generic E - [entry]
  *
  * @param {*} entry - [description]
  * @param {number} index - [description]
@@ -122314,6 +122238,7 @@ var Set = new Class({
      * @since 3.0.0
      *
      * @genericUse {T} - [value]
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
      *
      * @param {*} value - [description]
      *
@@ -122377,6 +122302,7 @@ var Set = new Class({
      * @since 3.0.0
      *
      * @genericUse {T} - [value]
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
      *
      * @param {*} value - [description]
      *
@@ -122422,6 +122348,7 @@ var Set = new Class({
      * @since 3.0.0
      *
      * @genericUse {EachSetCallback.<T>} - [callback]
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
      *
      * @param {EachSetCallback} callback - [description]
      * @param {*} callbackScope - [description]
@@ -122465,6 +122392,7 @@ var Set = new Class({
      * @since 3.0.0
      *
      * @genericUse {EachSetCallback.<T>} - [callback]
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
      *
      * @param {EachSetCallback} callback - [description]
      * @param {*} callbackScope - [description]
@@ -122506,6 +122434,8 @@ var Set = new Class({
      * @method Phaser.Structs.Set#iterateLocal
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
+     *
      * @param {string} callbackKey - [description]
      * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
      *
@@ -122539,6 +122469,8 @@ var Set = new Class({
      * @method Phaser.Structs.Set#clear
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
+     *
      * @return {Phaser.Structs.Set} This Set object.
      */
     clear: function ()
@@ -122571,6 +122503,8 @@ var Set = new Class({
      * @method Phaser.Structs.Set#union
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Set.<T>} - [set,$return]
+     *
      * @param {Phaser.Structs.Set} set - [description]
      *
      * @return {Phaser.Structs.Set} [description]
@@ -122598,6 +122532,8 @@ var Set = new Class({
      * @method Phaser.Structs.Set#intersect
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Set.<T>} - [set,$return]
+     *
      * @param {Phaser.Structs.Set} set - [description]
      *
      * @return {Phaser.Structs.Set} [description]
@@ -122622,6 +122558,8 @@ var Set = new Class({
      *
      * @method Phaser.Structs.Set#difference
      * @since 3.0.0
+     *
+     * @genericUse {Phaser.Structs.Set.<T>} - [set,$return]
      *
      * @param {Phaser.Structs.Set} set - [description]
      *
@@ -123671,7 +123609,7 @@ var Texture = new Class({
      * @method Phaser.Textures.Texture#setFilter
      * @since 3.0.0
      *
-     * @param {(Phaser.Textures.FilterMode.LINEAR|Phaser.Textures.FilterMode.NEAREST)} filterMode - The Filter Mode.
+     * @param {Phaser.Textures.FilterMode} filterMode - The Filter Mode.
      */
     setFilter: function (filterMode)
     {

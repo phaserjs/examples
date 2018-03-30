@@ -7004,9 +7004,27 @@
           "name": "cross scene",
           "children": [
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
-              "size": 175,
+              "path": "src\\scenes\\cross scene\\boot.json",
+              "name": "boot.json",
+              "size": 115,
+              "extension": ".json"
+            },
+            {
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
+              "size": 220,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\cross scene\\main.js",
+              "name": "main.js",
+              "size": 191,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\cross scene\\MainMenu.js",
+              "name": "MainMenu.js",
+              "size": 230,
               "extension": ".js"
             },
             {
@@ -7016,7 +7034,7 @@
               "extension": ".js"
             }
           ],
-          "size": 451
+          "size": 1032
         },
         {
           "path": "src\\scenes\\extend scene from object.js",
@@ -7176,6 +7194,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\scene injection map utf8.js",
+          "name": "scene injection map utf8.js",
+          "size": 668,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scenes\\scene injection map.js",
           "name": "scene injection map.js",
           "size": 965,
@@ -7218,7 +7242,7 @@
           "extension": ".js"
         }
       ],
-      "size": 46529
+      "size": 47778
     },
     {
       "path": "src\\snapshot",
@@ -8030,5 +8054,5 @@
       "size": 4792
     }
   ],
-  "size": 2097544
+  "size": 2098793
 }

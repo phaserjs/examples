@@ -1,9 +1,17 @@
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    parent: 'phaser-example',
-    scene: [ Preloader ]
-};
+var Game = new Phaser.Class({
 
-var game = new Phaser.Game(config);
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function Game ()
+    {
+        Phaser.Scene.call(this, { key: 'game' });
+    },
+
+    create: function ()
+    {
+    }
+
+});
+

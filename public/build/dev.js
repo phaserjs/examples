@@ -59704,6 +59704,14 @@ var Axis = new Class({
          */
         this.value = 0;
 
+        /**
+         * Movement tolerance threshold.
+         *
+         * @name Phaser.Input.Gamepad.Axis#threshold
+         * @type {float}
+         * @default 0.05
+         * @since 3.0.0
+         */
         this.threshold = 0.05;
     },
 
@@ -59796,7 +59804,7 @@ var Button = new Class({
          * @type {Phaser.Events.EventEmitter}
          * @since 3.0.0
          */
-        this.events = pad.events;
+        this.events = pad.manager;
 
         /**
          * [description]
@@ -59916,15 +59924,6 @@ var Gamepad = new Class({
          * @since 3.0.0
          */
         this.manager = manager;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Input.Gamepad.Gamepad#events
-         * @type {Phaser.Events.EventEmitter}
-         * @since 3.0.0
-         */
-        this.events = manager.events;
 
         /**
          * [description]
@@ -60050,6 +60049,7 @@ module.exports = Gamepad;
  */
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js");
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API
@@ -60075,6 +60075,7 @@ var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js")
  * [description]
  *
  * @class GamepadManager
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Input.Gamepad
  * @constructor
  * @since 3.0.0
@@ -60083,10 +60084,14 @@ var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js")
  */
 var GamepadManager = new Class({
 
+    Extends: EventEmitter,
+
     initialize:
 
     function GamepadManager (inputManager)
     {
+        EventEmitter.call(this);
+
         /**
          * [description]
          *
@@ -60095,15 +60100,6 @@ var GamepadManager = new Class({
          * @since 3.0.0
          */
         this.manager = inputManager;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Input.Gamepad.GamepadManager#events
-         * @type {Phaser.Events.EventEmitter}
-         * @since 3.0.0
-         */
-        this.events = inputManager.events;
 
         /**
          * [description]
@@ -60391,7 +60387,7 @@ var GamepadManager = new Class({
 
                     pad = this.getPad(event.gamepad.index);
 
-                    this.events.emit('connected', pad, event);
+                    this.emit('connected', pad, event);
 
                     break;
 
@@ -60399,7 +60395,7 @@ var GamepadManager = new Class({
 
                     pad = this.getPad(event.gamepad.index);
 
-                    this.events.emit('disconnected', pad, event);
+                    this.emit('disconnected', pad, event);
 
                     break;
             }

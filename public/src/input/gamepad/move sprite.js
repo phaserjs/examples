@@ -1,8 +1,11 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    input: {
+        gamepad: true
+    },
     scene: {
         preload: preload,
         create: create,
@@ -28,16 +31,13 @@ function create ()
 
     sprite = this.add.sprite(400, 300, 'elephant');
 
-    config = Phaser.Input.Gamepad.Configs.SNES_USB;
+    config = Phaser.Input.Gamepad.Configs.XBOX_360;
 
-    this.input.on('GAMEPAD_DOWN_EVENT', function (event) {
+    this.input.gamepad.on('down', function (pad, button, value, data) {
 
-        if (!gamepad)
-        {
-            gamepad = event.gamepad;
-        }
+        gamepad = pad;
 
-        switch (event.button.index)
+        switch (button.index)
         {
             case config.B:
                 sprite.alpha -= 0.1;

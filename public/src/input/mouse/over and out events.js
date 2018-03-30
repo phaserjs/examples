@@ -18,21 +18,21 @@ function preload ()
 
 function create ()
 {
-    window.scene = this;
-
-    var sprite = this.add.sprite(400, 300, 'eye').setInteractive();
+    this.add.sprite(300, 200, 'eye').setInteractive();
+    this.add.sprite(400, 300, 'eye').setInteractive();
+    this.add.sprite(500, 400, 'eye').setInteractive();
 
     //  Events
 
-    this.input.on('pointerover', function (event, objects) {
+    this.input.on('pointerover', function (event, gameObjects) {
 
-        objects[0].setTint(0xff0000);
+        gameObjects[0].setTint(0xff0000);
 
     });
 
-    this.input.on('pointerout', function (event, objects) {
+    this.input.on('pointerout', function (event, gameObjects) {
 
-        objects[0].clearTint();
+        gameObjects[0].clearTint();
 
     });
 }

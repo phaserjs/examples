@@ -43,15 +43,21 @@ function create ()
 
     //  Input Event listeners
 
-    this.input.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0x7878ff);
+        gameObject.setTint(0x7878ff);
+
+    });
+
+    this.input.on('gameobjectout', function (pointer, gameObject) {
+
+        gameObject.clearTint();
 
     });
 
-    this.input.on('POINTER_OUT_EVENT', function (event) {
+    var graphics = this.add.graphics();
 
-        event.gameObject.clearTint();
+    graphics.lineStyle(1, 0x00ff00, 1);
+    graphics.strokeCircleShape(sprite2.input.hitArea);
 
-    });
 }

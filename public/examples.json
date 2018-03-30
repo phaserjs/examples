@@ -3204,12 +3204,6 @@
           "name": "render texture",
           "children": [
             {
-              "path": "src\\game objects\\render texture\\draw text to render texture.js",
-              "name": "draw text to render texture.js",
-              "size": 659,
-              "extension": ".js"
-            },
-            {
               "path": "src\\game objects\\render texture\\draw to render texture.js",
               "name": "draw to render texture.js",
               "size": 513,
@@ -3238,9 +3232,15 @@
               "name": "trail2.js",
               "size": 944,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\transform draw.js",
+              "name": "transform draw.js",
+              "size": 665,
+              "extension": ".js"
             }
           ],
-          "size": 6711
+          "size": 6717
         },
         {
           "path": "src\\game objects\\sprites",
@@ -3853,7 +3853,7 @@
           "size": 259098
         }
       ],
-      "size": 651164
+      "size": 651170
     },
     {
       "path": "src\\games",
@@ -6035,13 +6035,19 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\manually launch the loader.js",
+          "name": "manually launch the loader.js",
+          "size": 1050,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\multi file progress event.js",
           "name": "multi file progress event.js",
           "size": 1417,
           "extension": ".js"
         }
       ],
-      "size": 44062
+      "size": 45112
     },
     {
       "path": "src\\paths",
@@ -6403,6 +6409,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\debug.js",
+              "name": "debug.js",
+              "size": 645,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\destroy body.js",
               "name": "destroy body.js",
               "size": 1168,
@@ -6487,7 +6499,7 @@
               "extension": ".js"
             }
           ],
-          "size": 31403
+          "size": 32048
         },
         {
           "path": "src\\physics\\impact",
@@ -6755,7 +6767,7 @@
             {
               "path": "src\\physics\\matterjs\\cloth.js",
               "name": "cloth.js",
-              "size": 2122,
+              "size": 2229,
               "extension": ".js"
             },
             {
@@ -6879,7 +6891,7 @@
               "extension": ".js"
             }
           ],
-          "size": 44375
+          "size": 44482
         },
         {
           "path": "src\\physics\\multi",
@@ -6901,7 +6913,7 @@
           "size": 2741
         }
       ],
-      "size": 125382
+      "size": 126134
     },
     {
       "path": "src\\pools",
@@ -7016,6 +7028,25 @@
           "name": "copies of the same scene.js",
           "size": 1142,
           "extension": ".js"
+        },
+        {
+          "path": "src\\scenes\\cross scene",
+          "name": "cross scene",
+          "children": [
+            {
+              "path": "src\\scenes\\cross scene\\game.js",
+              "name": "game.js",
+              "size": 175,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\cross scene\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 276,
+              "extension": ".js"
+            }
+          ],
+          "size": 451
         },
         {
           "path": "src\\scenes\\extend scene from object.js",
@@ -7217,7 +7248,7 @@
           "extension": ".js"
         }
       ],
-      "size": 46269
+      "size": 46720
     },
     {
       "path": "src\\snapshot",
@@ -8017,5 +8048,5 @@
       "size": 4792
     }
   ],
-  "size": 2104114
+  "size": 2106373
 }

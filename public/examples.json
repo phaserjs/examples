@@ -2344,13 +2344,19 @@
           "name": "container",
           "children": [
             {
+              "path": "src\\game objects\\container\\container ik.js",
+              "name": "container ik.js",
+              "size": 2612,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\create container.js",
               "name": "create container.js",
               "size": 614,
               "extension": ".js"
             }
           ],
-          "size": 614
+          "size": 3226
         },
         {
           "path": "src\\game objects\\graphics",
@@ -3877,7 +3883,7 @@
           "size": 251895
         }
       ],
-      "size": 650337
+      "size": 652949
     },
     {
       "path": "src\\games",
@@ -3977,7 +3983,7 @@
             {
               "path": "src\\games\\firstgame\\part4.js",
               "name": "part4.js",
-              "size": 1160,
+              "size": 1142,
               "extension": ".js"
             },
             {
@@ -4011,7 +4017,7 @@
               "extension": ".js"
             }
           ],
-          "size": 19551
+          "size": 19533
         },
         {
           "path": "src\\games\\flood",
@@ -4138,7 +4144,7 @@
           "size": 46738
         }
       ],
-      "size": 173289
+      "size": 173271
     },
     {
       "path": "src\\geom",
@@ -5590,11 +5596,11 @@
             {
               "path": "src\\input\\game object\\world game objects.js",
               "name": "world game objects.js",
-              "size": 2960,
+              "size": 2952,
               "extension": ".js"
             }
           ],
-          "size": 12557
+          "size": 12549
         },
         {
           "path": "src\\input\\gamepad",
@@ -5920,7 +5926,7 @@
           "size": 9602
         }
       ],
-      "size": 108727
+      "size": 108719
     },
     {
       "path": "src\\loader",
@@ -6749,7 +6755,7 @@
             {
               "path": "src\\physics\\matterjs\\collision filter.js",
               "name": "collision filter.js",
-              "size": 1369,
+              "size": 1380,
               "extension": ".js"
             },
             {
@@ -6861,7 +6867,7 @@
               "extension": ".js"
             }
           ],
-          "size": 44375
+          "size": 44386
         },
         {
           "path": "src\\physics\\multi",
@@ -6883,7 +6889,7 @@
           "size": 2741
         }
       ],
-      "size": 125382
+      "size": 125393
     },
     {
       "path": "src\\pools",
@@ -8054,5 +8060,5 @@
       "size": 4792
     }
   ],
-  "size": 2098793
+  "size": 2101390
 }

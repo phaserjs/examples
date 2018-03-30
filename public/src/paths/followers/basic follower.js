@@ -42,7 +42,7 @@ function create ()
 
     //  Providing just a number sets the duration for following the path
 
-    ball1.start(4000);
-    ball2.start(4000);
-    ball3.start(4000);
+    ball1.startFollow(4000);
+    ball2.startFollow(4000);
+    ball3.startFollow(4000);
 }

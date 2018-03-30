@@ -36,7 +36,7 @@ function create ()
 
     var lemming = this.add.follower(path, 50, 500, 'lemming');
 
-    lemming.start({
+    lemming.startFollow({
         duration: 10000,
         yoyo: true,
         repeat: -1,

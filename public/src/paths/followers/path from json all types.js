@@ -30,7 +30,7 @@ function create ()
     {
         var follower = this.add.follower(path, 0, 0, 'ship');
 
-        follower.start({
+        follower.startFollow({
             duration: 8000,
             positionOnPath: true,
             repeat: -1,

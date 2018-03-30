@@ -59695,7 +59695,8 @@ var Axis = new Class({
         this.index = index;
 
         /**
-         * Between -1 and 1 with 0 being dead center.
+         * The raw axis value, between -1 and 1 with 0 being dead center.
+         * Use the method `getValue` to get a normalized value with the threshold applied.
          *
          * @name Phaser.Input.Gamepad.Axis#value
          * @type {float}
@@ -59705,14 +59706,14 @@ var Axis = new Class({
         this.value = 0;
 
         /**
-         * Movement tolerance threshold.
+         * Movement tolerance threshold below which axis values are ignored in `getValue`.
          *
          * @name Phaser.Input.Gamepad.Axis#threshold
          * @type {float}
-         * @default 0.05
+         * @default 0.1
          * @since 3.0.0
          */
-        this.threshold = 0.05;
+        this.threshold = 0.1;
     },
 
     /**
@@ -59738,14 +59739,7 @@ var Axis = new Class({
      */
     getValue: function ()
     {
-        var percentage = (Math.abs(this.value) - this.threshold) / (1 - this.threshold);
-
-        if (percentage < 0)
-        {
-            percentage = 0;
-        }
-
-        return percentage * (this.value > 0 ? 1 : -1);
+        return (Math.abs(this.value) < this.threshold) ? 0 : this.value;
     }
 
 });
@@ -60023,8 +60017,10 @@ var Gamepad = new Class({
             {
                 axes[i] = new Axis(this, i);
             }
-
-            axes[i].update(axisData);
+            else
+            {
+                axes[i].update(axisData);
+            }
         }
     }
 
@@ -60061,7 +60057,7 @@ var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js")
  * @typedef {object} Pad
  *
  * @property {string} id - [description]
- * @property {number} index - [description]
+ * @property {integer} index - [description]
  */
 
 /**

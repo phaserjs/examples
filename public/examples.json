@@ -1191,6 +1191,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\background color interpolate.js",
+          "name": "background color interpolate.js",
+          "size": 1196,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\background color.js",
           "name": "background color.js",
           "size": 1325,
@@ -1247,7 +1253,7 @@
         {
           "path": "src\\camera\\ignore.js",
           "name": "ignore.js",
-          "size": 1316,
+          "size": 1214,
           "extension": ".js"
         },
         {
@@ -1384,7 +1390,7 @@
           "extension": ".js"
         }
       ],
-      "size": 100191
+      "size": 101285
     },
     {
       "path": "src\\components",
@@ -3204,9 +3210,33 @@
           "name": "render texture",
           "children": [
             {
+              "path": "src\\game objects\\render texture\\brute force.js",
+              "name": "brute force.js",
+              "size": 1417,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\change frame.js",
+              "name": "change frame.js",
+              "size": 1330,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\draw to render texture.js",
               "name": "draw to render texture.js",
               "size": 513,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\explosion.js",
+              "name": "explosion.js",
+              "size": 1964,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\fireball.js",
+              "name": "fireball.js",
+              "size": 1899,
               "extension": ".js"
             },
             {
@@ -3218,19 +3248,19 @@
             {
               "path": "src\\game objects\\render texture\\sparks.js",
               "name": "sparks.js",
-              "size": 1176,
+              "size": 1108,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\render texture\\trail.js",
               "name": "trail.js",
-              "size": 1493,
+              "size": 1414,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\render texture\\trail2.js",
               "name": "trail2.js",
-              "size": 944,
+              "size": 851,
               "extension": ".js"
             },
             {
@@ -3240,7 +3270,7 @@
               "extension": ".js"
             }
           ],
-          "size": 6717
+          "size": 13087
         },
         {
           "path": "src\\game objects\\sprites",
@@ -3587,12 +3617,6 @@
                   "extension": ".js"
                 },
                 {
-                  "path": "src\\game objects\\tilemap\\dynamic\\Draw Tile.js",
-                  "name": "Draw Tile.js",
-                  "size": 7203,
-                  "extension": ".js"
-                },
-                {
                   "path": "src\\game objects\\tilemap\\dynamic\\dungeon generator.js",
                   "name": "dungeon generator.js",
                   "size": 19777,
@@ -3683,7 +3707,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 71202
+              "size": 63999
             },
             {
               "path": "src\\game objects\\tilemap\\static",
@@ -3850,10 +3874,10 @@
               "size": 71012
             }
           ],
-          "size": 259098
+          "size": 251895
         }
       ],
-      "size": 651170
+      "size": 650337
     },
     {
       "path": "src\\games",
@@ -4713,7 +4737,7 @@
             {
               "path": "src\\geom\\point\\clone.js",
               "name": "clone.js",
-              "size": 737,
+              "size": 738,
               "extension": ".js"
             },
             {
@@ -4861,7 +4885,7 @@
               "extension": ".js"
             }
           ],
-          "size": 28459
+          "size": 28460
         },
         {
           "path": "src\\geom\\polygon",
@@ -5389,7 +5413,7 @@
           "size": 28373
         }
       ],
-      "size": 191835
+      "size": 191836
     },
     {
       "path": "src\\input",
@@ -5402,23 +5426,23 @@
             {
               "path": "src\\input\\camera\\graphics contains.js",
               "name": "graphics contains.js",
-              "size": 4611,
+              "size": 4712,
               "extension": ".js"
             },
             {
               "path": "src\\input\\camera\\multi cam sprite.js",
               "name": "multi cam sprite.js",
-              "size": 5568,
+              "size": 5686,
               "extension": ".js"
             },
             {
               "path": "src\\input\\camera\\sprite.js",
               "name": "sprite.js",
-              "size": 5051,
+              "size": 5152,
               "extension": ".js"
             }
           ],
-          "size": 15230
+          "size": 15550
         },
         {
           "path": "src\\input\\dragging",
@@ -5579,23 +5603,23 @@
             {
               "path": "src\\input\\gamepad\\axes.js",
               "name": "axes.js",
-              "size": 1303,
+              "size": 973,
               "extension": ".js"
             },
             {
               "path": "src\\input\\gamepad\\gamepad debug.js",
               "name": "gamepad debug.js",
-              "size": 1791,
+              "size": 1836,
               "extension": ".js"
             },
             {
               "path": "src\\input\\gamepad\\move sprite.js",
               "name": "move sprite.js",
-              "size": 1520,
+              "size": 1512,
               "extension": ".js"
             }
           ],
-          "size": 4614
+          "size": 4321
         },
         {
           "path": "src\\input\\keyboard",
@@ -5657,12 +5681,6 @@
           "name": "mouse",
           "children": [
             {
-              "path": "src\\input\\mouse\\bitmaptext input test.js",
-              "name": "bitmaptext input test.js",
-              "size": 4277,
-              "extension": ".js"
-            },
-            {
               "path": "src\\input\\mouse\\circle hit area.js",
               "name": "circle hit area.js",
               "size": 943,
@@ -5672,12 +5690,6 @@
               "path": "src\\input\\mouse\\click sprite.js",
               "name": "click sprite.js",
               "size": 669,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\input\\mouse\\concept.js",
-              "name": "concept.js",
-              "size": 1468,
               "extension": ".js"
             },
             {
@@ -5723,45 +5735,15 @@
               "extension": ".js"
             },
             {
-              "path": "src\\input\\mouse\\multiple drag sprites.js",
-              "name": "multiple drag sprites.js",
-              "size": 1349,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\input\\mouse\\on down and up callback.js",
-              "name": "on down and up callback.js",
-              "size": 769,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\input\\mouse\\on down callback.js",
-              "name": "on down callback.js",
-              "size": 632,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\input\\mouse\\on out and over callback.js",
-              "name": "on out and over callback.js",
-              "size": 761,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\input\\mouse\\on up callback.js",
-              "name": "on up callback.js",
-              "size": 626,
-              "extension": ".js"
-            },
-            {
               "path": "src\\input\\mouse\\origin tests.js",
               "name": "origin tests.js",
-              "size": 988,
+              "size": 1031,
               "extension": ".js"
             },
             {
               "path": "src\\input\\mouse\\over and out events.js",
               "name": "over and out events.js",
-              "size": 701,
+              "size": 780,
               "extension": ".js"
             },
             {
@@ -5773,25 +5755,25 @@
             {
               "path": "src\\input\\mouse\\poll always.js",
               "name": "poll always.js",
-              "size": 1264,
+              "size": 1133,
               "extension": ".js"
             },
             {
               "path": "src\\input\\mouse\\poll only on move.js",
               "name": "poll only on move.js",
-              "size": 1291,
+              "size": 1160,
               "extension": ".js"
             },
             {
               "path": "src\\input\\mouse\\polygon hit area.js",
               "name": "polygon hit area.js",
-              "size": 1442,
+              "size": 1450,
               "extension": ".js"
             },
             {
               "path": "src\\input\\mouse\\shape hit tests.js",
               "name": "shape hit tests.js",
-              "size": 1795,
+              "size": 1805,
               "extension": ".js"
             },
             {
@@ -5837,7 +5819,7 @@
               "extension": ".js"
             }
           ],
-          "size": 46329
+          "size": 36325
         },
         {
           "path": "src\\input\\pointer",
@@ -5938,7 +5920,7 @@
           "size": 9602
         }
       ],
-      "size": 118704
+      "size": 108727
     },
     {
       "path": "src\\loader",
@@ -6035,19 +6017,13 @@
           "extension": ".js"
         },
         {
-          "path": "src\\loader\\manually launch the loader.js",
-          "name": "manually launch the loader.js",
-          "size": 1050,
-          "extension": ".js"
-        },
-        {
           "path": "src\\loader\\multi file progress event.js",
           "name": "multi file progress event.js",
           "size": 1417,
           "extension": ".js"
         }
       ],
-      "size": 45112
+      "size": 44062
     },
     {
       "path": "src\\paths",
@@ -6247,59 +6223,77 @@
             {
               "path": "src\\paths\\followers\\basic follower.js",
               "name": "basic follower.js",
-              "size": 1108,
+              "size": 1126,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\followers\\change path.js",
               "name": "change path.js",
-              "size": 1495,
+              "size": 1501,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\followers\\mass followers.js",
               "name": "mass followers.js",
-              "size": 1110,
+              "size": 1116,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\followers\\multi curve path.js",
               "name": "multi curve path.js",
-              "size": 1048,
+              "size": 1054,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\paths\\followers\\path from json all types.js",
+              "name": "path from json all types.js",
+              "size": 929,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\paths\\followers\\path from json.js",
+              "name": "path from json.js",
+              "size": 903,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\followers\\pause and resume.js",
               "name": "pause and resume.js",
-              "size": 1408,
+              "size": 1414,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\followers\\rotate to path.js",
               "name": "rotate to path.js",
-              "size": 1203,
+              "size": 1209,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\followers\\rotation offset.js",
               "name": "rotation offset.js",
-              "size": 826,
+              "size": 832,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\followers\\sparkle trail.js",
               "name": "sparkle trail.js",
-              "size": 1083,
+              "size": 1089,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\paths\\followers\\wave path.js",
+              "name": "wave path.js",
+              "size": 1505,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\followers\\yoyo follower.js",
               "name": "yoyo follower.js",
-              "size": 992,
+              "size": 998,
               "extension": ".js"
             }
           ],
-          "size": 10273
+          "size": 13676
         },
         {
           "path": "src\\paths\\line to ellipse.js",
@@ -6326,18 +6320,6 @@
           "extension": ".js"
         },
         {
-          "path": "src\\paths\\path from json all types.js",
-          "name": "path from json all types.js",
-          "size": 923,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\paths\\path from json.js",
-          "name": "path from json.js",
-          "size": 897,
-          "extension": ".js"
-        },
-        {
           "path": "src\\paths\\path line and bezier.js",
           "name": "path line and bezier.js",
           "size": 1115,
@@ -6356,19 +6338,13 @@
           "extension": ".js"
         },
         {
-          "path": "src\\paths\\wave path.js",
-          "name": "wave path.js",
-          "size": 1499,
-          "extension": ".js"
-        },
-        {
           "path": "src\\paths\\zig zag path.js",
           "name": "zig zag path.js",
           "size": 1818,
           "extension": ".js"
         }
       ],
-      "size": 80720
+      "size": 80804
     },
     {
       "path": "src\\physics",
@@ -6406,12 +6382,6 @@
               "path": "src\\physics\\arcade\\collider 1.js",
               "name": "collider 1.js",
               "size": 1174,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\physics\\arcade\\debug.js",
-              "name": "debug.js",
-              "size": 645,
               "extension": ".js"
             },
             {
@@ -6499,7 +6469,7 @@
               "extension": ".js"
             }
           ],
-          "size": 32048
+          "size": 31403
         },
         {
           "path": "src\\physics\\impact",
@@ -6767,7 +6737,7 @@
             {
               "path": "src\\physics\\matterjs\\cloth.js",
               "name": "cloth.js",
-              "size": 2229,
+              "size": 2122,
               "extension": ".js"
             },
             {
@@ -6891,7 +6861,7 @@
               "extension": ".js"
             }
           ],
-          "size": 44482
+          "size": 44375
         },
         {
           "path": "src\\physics\\multi",
@@ -6913,7 +6883,7 @@
           "size": 2741
         }
       ],
-      "size": 126134
+      "size": 125382
     },
     {
       "path": "src\\pools",
@@ -7142,7 +7112,7 @@
         {
           "path": "src\\scenes\\pause and resume.js",
           "name": "pause and resume.js",
-          "size": 1464,
+          "size": 1394,
           "extension": ".js"
         },
         {
@@ -7220,7 +7190,7 @@
         {
           "path": "src\\scenes\\sleep and wake.js",
           "name": "sleep and wake.js",
-          "size": 4437,
+          "size": 4316,
           "extension": ".js"
         },
         {
@@ -7248,7 +7218,7 @@
           "extension": ".js"
         }
       ],
-      "size": 46720
+      "size": 46529
     },
     {
       "path": "src\\snapshot",
@@ -7277,6 +7247,18 @@
           "path": "src\\textures\\crop x.js",
           "name": "crop x.js",
           "size": 457,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\edit texture hue shift.js",
+          "name": "edit texture hue shift.js",
+          "size": 1550,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\edit texture silhouette.js",
+          "name": "edit texture silhouette.js",
+          "size": 1245,
           "extension": ".js"
         },
         {
@@ -7358,7 +7340,7 @@
           "extension": ".js"
         }
       ],
-      "size": 19477
+      "size": 22272
     },
     {
       "path": "src\\time",
@@ -8048,5 +8030,5 @@
       "size": 4792
     }
   ],
-  "size": 2106373
+  "size": 2097544
 }

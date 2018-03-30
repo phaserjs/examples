@@ -16,14 +16,7 @@ function preload ()
 
 function create ()
 {
-    //  Edge bug fix
-    this.add.sprite(0, 0, 'eye').setAlpha(0.1);
-
-    var sprite = this.add.sprite(100, 300, 'eye');
-
-    var shape = new Phaser.Geom.Rectangle(0, 0, 128, 128);
-
-    sprite.setInteractive(shape, Phaser.Geom.Rectangle.Contains);
+    var sprite = this.add.sprite(100, 300, 'eye').setInteractive();
 
     //  Enable continuous polling
 
@@ -36,21 +29,25 @@ function create ()
 
     //  Events
 
-    this.input.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0xff0000);
-
-    });
-
-    this.input.on('POINTER_OUT_EVENT', function (event) {
-
-        event.gameObject.clearTint();
+        gameObject.setTint(0xff0000);
 
     });
 
-    TweenMax.to(sprite, 5, {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
+
+        gameObject.clearTint();
+
+    });
+
+    this.tweens.add({
+
+        targets: sprite,
         x: 800,
         yoyo: true,
-        repeat: -1
+        repeat: -1,
+        duration: 5000
+
     });
 }

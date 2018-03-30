@@ -75,7 +75,9 @@ function create ()
 
     var cursors = this.input.keyboard.createCursorKeys();
 
-    controls = new Phaser.Cameras.Controls.Smoothed({
+    var camControl = (Phaser.Cameras.Controls.Smoothed) ? Phaser.Cameras.Controls.Smoothed : Phaser.Cameras.Controls.SmoothedKeyControl;
+
+    controls = new camControl({
         camera: cam1,
         left: cursors.left,
         right: cursors.right,

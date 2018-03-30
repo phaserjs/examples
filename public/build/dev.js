@@ -10501,7 +10501,26 @@ module.exports = SmoothedKeyControl;
 
 module.exports = {
 
+    /**
+     * This alias will be removed in a future version.
+     * Use `FixedKeyControl` instead.
+     * 
+     * @deprecated
+     * @name Phaser.Cameras.Controls.Fixed
+     */
+    Fixed: __webpack_require__(/*! ./FixedKeyControl */ "./cameras/controls/FixedKeyControl.js"),
+
     FixedKeyControl: __webpack_require__(/*! ./FixedKeyControl */ "./cameras/controls/FixedKeyControl.js"),
+
+    /**
+     * This alias will be removed in a future version.
+     * Use `SmoothedKeyControl` instead.
+     * 
+     * @deprecated
+     * @name Phaser.Cameras.Controls.Smoothed
+     */
+    Smoothed: __webpack_require__(/*! ./SmoothedKeyControl */ "./cameras/controls/SmoothedKeyControl.js"),
+
     SmoothedKeyControl: __webpack_require__(/*! ./SmoothedKeyControl */ "./cameras/controls/SmoothedKeyControl.js")
 
 };
@@ -56669,7 +56688,7 @@ module.exports = Triangle;
  * @property {boolean} enabled - [description]
  * @property {boolean} draggable - [description]
  * @property {boolean} dropZone - [description]
- * @property {[type]} target - [description]
+ * @property {?Phaser.GameObjects.GameObject} target - [description]
  * @property {Phaser.Cameras.Scene2D.Camera} camera - [description]
  * @property {*} hitArea - [description]
  * @property {HitAreaCallback} hitAreaCallback - [description]

@@ -11,22 +11,36 @@ var GameScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('box', 'assets/sprites/128x128-v2.png');
+        this.load.image('bg', 'assets/skies/sky4.png');
+        this.load.image('crate', 'assets/sprites/crate.png');
     },
 
     create: function ()
     {
-        this.input.setGlobalTopOnly(true);
+        this.add.image(400, 300, 'bg');
 
-        var box = this.add.image(400, 300, 'box');
+        for (var i = 0; i < 64; i++)
+        {
+            var x = Phaser.Math.Between(0, 800);
+            var y = Phaser.Math.Between(0, 600);
 
-        box.setInteractive();
+            var box = this.add.image(x, y, 'crate');
 
-        box.on('pointerdown', function () {
+            //  Make them all input enabled
+            box.setInteractive();
+        }
 
-            box.tint = Math.random() * 0xffffff;
+        this.input.on('gameobjectup', this.clickHandler, this);
+    },
 
-        });
+    clickHandler: function (pointer, box)
+    {
+        //  Disable our box
+        box.input.enabled = false;
+        box.setVisible(false);
+
+        //  Dispatch a Scene event
+        this.events.emit('addScore');
     }
 
 });
@@ -40,24 +54,26 @@ var UIScene = new Phaser.Class({
     function UIScene ()
     {
         Phaser.Scene.call(this, { key: 'UIScene', active: true });
-    },
 
-    preload: function ()
-    {
-        this.load.image('box2', 'assets/sprites/128x128.png');
+        this.score = 0;
     },
 
     create: function ()
     {
-        var box = this.add.image(450, 350, 'box2');
+        //  Our Text object to display the Score
+        var info = this.add.text(10, 10, 'Score: 0', { font: '48px Arial', fill: '#000000' });
 
-        box.setInteractive();
+        //  Grab a reference to the Game Scene
+        var ourGame = this.scene.get('GameScene');
 
-        box.on('pointerdown', function () {
+        //  Listen for events from it
+        ourGame.events.on('addScore', function () {
 
-            box.tint = Math.random() * 0xffffff;
+            this.score += 10;
 
-        });
+            info.setText('Score: ' + this.score);
+
+        }, this);
     }
 
 });

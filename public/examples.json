@@ -6970,6 +6970,18 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\call function in another scene es6.js",
+          "name": "call function in another scene es6.js",
+          "size": 1128,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scenes\\call function in another scene.js",
+          "name": "call function in another scene.js",
+          "size": 1622,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scenes\\change scene from create es6.js",
           "name": "change scene from create es6.js",
           "size": 1215,
@@ -7140,6 +7152,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\registry data exchange es6.js",
+          "name": "registry data exchange es6.js",
+          "size": 1934,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scenes\\registry data exchange.js",
           "name": "registry data exchange.js",
           "size": 1431,
@@ -7242,13 +7260,19 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\ui scene es6.js",
+          "name": "ui scene es6.js",
+          "size": 1696,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scenes\\ui scene.js",
           "name": "ui scene.js",
-          "size": 1356,
+          "size": 1976,
           "extension": ".js"
         }
       ],
-      "size": 47778
+      "size": 54778
     },
     {
       "path": "src\\snapshot",
@@ -8060,5 +8084,5 @@
       "size": 4792
     }
   ],
-  "size": 2101390
+  "size": 2108390
 }

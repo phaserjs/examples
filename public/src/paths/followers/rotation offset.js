@@ -29,7 +29,7 @@ function create ()
 
     var lemming = this.add.follower(curve, 100, 100, 'lemming');
 
-    lemming.start({
+    lemming.startFollow({
         duration: 5000,
         yoyo: true,
         repeat: -1,

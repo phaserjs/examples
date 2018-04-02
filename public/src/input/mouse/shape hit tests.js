@@ -31,7 +31,7 @@ function create ()
 
     var sprite3 = this.add.sprite(600, 200, 'chick').setScale(2);
 
-    sprite3.setInteractive(new Phaser.Geom.Ellipse(0, 0, 66, 133), Phaser.Geom.Ellipse.Contains);
+    sprite3.setInteractive(new Phaser.Geom.Ellipse(33, 65, 66, 133), Phaser.Geom.Ellipse.Contains);
 
     var sprite4 = this.add.sprite(350, 300, 'eye');
 
@@ -43,15 +43,15 @@ function create ()
 
     //  Input Event listeners
 
-    this.input.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        event.gameObject.setTint(0x7878ff);
+        gameObject.setTint(0x7878ff);
 
     });
 
-    this.input.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        event.gameObject.clearTint();
+        gameObject.clearTint();
 
     });
 }

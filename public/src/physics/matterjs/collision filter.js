@@ -48,10 +48,10 @@ function create ()
 
     blockA.setVelocityX(25);
 
-    this.matter.world.on('COLLISION_START_EVENT', function (event) {
+    this.matter.world.on('collisionstart', function (event) {
 
-        event.bodyA.gameObject.setTint(0xff0000);
-        event.bodyB.gameObject.setTint(0x00ff00);
+        event.pairs[0].bodyA.gameObject.setTint(0xff0000);
+        event.pairs[0].bodyB.gameObject.setTint(0x00ff00);
 
     });
 }

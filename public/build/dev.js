@@ -714,13 +714,15 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.Angle
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to be added to the `angle` property.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var Angle = function (items, value, step, index, direction)
 {
@@ -757,11 +759,13 @@ module.exports = Angle;
  * @function Phaser.Actions.Call
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {CallCallback} callback - The callback to be invoked. It will be passed just one argument: the item from the array.
  * @param {*} context - The scope in which the callback will be invoked.
  *
- * @return {array} The array of objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that was passed to this Action.
  */
 var Call = function (items, callback, context)
 {
@@ -802,6 +806,8 @@ module.exports = Call;
  *
  * @function Phaser.Actions.GetFirst
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items]
  *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be searched by this action.
  * @param {object} compare - The comparison object. Each property in this object will be checked against the items of the array.
@@ -863,6 +869,8 @@ module.exports = GetFirst;
  *
  * @function Phaser.Actions.GetLast
  * @since 3.3.0
+ *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items]
  *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be searched by this action.
  * @param {object} compare - The comparison object. Each property in this object will be checked against the items of the array.
@@ -944,10 +952,12 @@ var tempZone = new Zone({ sys: { queueDepthSort: NOOP }}, 0, 0, 1, 1);
  * @function Phaser.Actions.GridAlign
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {GridAlignConfig} options - The GridAlign Configuration object.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var GridAlign = function (items, options)
 {
@@ -1055,13 +1065,15 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.IncAlpha
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to be added to the `alpha` property.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var IncAlpha = function (items, value, step, index, direction)
 {
@@ -1099,13 +1111,15 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.IncX
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to be added to the `x` property.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var IncX = function (items, value, step, index, direction)
 {
@@ -1143,6 +1157,8 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.IncXY
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} x - The amount to be added to the `x` property.
  * @param {number} [y=x] - The amount to be added to the `y` property. If `undefined` or `null` it uses the `x` value.
@@ -1151,7 +1167,7 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var IncXY = function (items, x, y, stepX, stepY, index, direction)
 {
@@ -1193,13 +1209,15 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.IncY
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to be added to the `y` property.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var IncY = function (items, value, step, index, direction)
 {
@@ -1230,12 +1248,14 @@ module.exports = IncY;
  * @function Phaser.Actions.PlaceOnCircle
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Circle} circle - [description]
  * @param {number} [startAngle=0] - [description]
  * @param {number} [endAngle=6.28] - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var PlaceOnCircle = function (items, circle, startAngle, endAngle)
 {
@@ -1280,12 +1300,14 @@ module.exports = PlaceOnCircle;
  * @function Phaser.Actions.PlaceOnEllipse
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Ellipse} ellipse - [description]
  * @param {number} [startAngle=0] - [description]
  * @param {number} [endAngle=6.28] - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var PlaceOnEllipse = function (items, ellipse, startAngle, endAngle)
 {
@@ -1335,10 +1357,12 @@ var GetPoints = __webpack_require__(/*! ../geom/line/GetPoints */ "./geom/line/G
  * @function Phaser.Actions.PlaceOnLine
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Line} line - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var PlaceOnLine = function (items, line)
 {
@@ -1390,11 +1414,13 @@ var RotateRight = __webpack_require__(/*! ../utils/array/RotateRight */ "./utils
  * @function Phaser.Actions.PlaceOnRectangle
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {integer} [shift=1] - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var PlaceOnRectangle = function (items, rect, shift)
 {
@@ -1447,11 +1473,13 @@ var BresenhamPoints = __webpack_require__(/*! ../geom/line/BresenhamPoints */ ".
  * @function Phaser.Actions.PlaceOnTriangle
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {number} [stepRate=1] - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var PlaceOnTriangle = function (items, triangle, stepRate)
 {
@@ -1507,11 +1535,13 @@ module.exports = PlaceOnTriangle;
  * @function Phaser.Actions.PlayAnimation
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {string} key - [description]
  * @param {(string|integer)} [startFrame] - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var PlayAnimation = function (items, key, startFrame)
 {
@@ -1552,6 +1582,8 @@ module.exports = PlayAnimation;
  * @function Phaser.Actions.PropertyValueInc
  * @since 3.3.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {string} key - The property to be updated.
  * @param {number} value - The amount to be added to the property.
@@ -1559,7 +1591,7 @@ module.exports = PlayAnimation;
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var PropertyValueInc = function (items, key, value, step, index, direction)
 {
@@ -1622,6 +1654,8 @@ module.exports = PropertyValueInc;
  * @function Phaser.Actions.PropertyValueSet
  * @since 3.3.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {string} key - The property to be updated.
  * @param {number} value - The amount to set the property to.
@@ -1629,7 +1663,7 @@ module.exports = PropertyValueInc;
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var PropertyValueSet = function (items, key, value, step, index, direction)
 {
@@ -1689,10 +1723,12 @@ var Random = __webpack_require__(/*! ../geom/circle/Random */ "./geom/circle/Ran
  * @function Phaser.Actions.RandomCircle
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Circle} circle - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var RandomCircle = function (items, circle)
 {
@@ -1730,10 +1766,12 @@ var Random = __webpack_require__(/*! ../geom/ellipse/Random */ "./geom/ellipse/R
  * @function Phaser.Actions.RandomEllipse
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Ellipse} ellipse - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var RandomEllipse = function (items, ellipse)
 {
@@ -1771,10 +1809,12 @@ var Random = __webpack_require__(/*! ../geom/line/Random */ "./geom/line/Random.
  * @function Phaser.Actions.RandomLine
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Line} line - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var RandomLine = function (items, line)
 {
@@ -1812,10 +1852,12 @@ var Random = __webpack_require__(/*! ../geom/rectangle/Random */ "./geom/rectang
  * @function Phaser.Actions.RandomRectangle
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Rectangle} rect - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var RandomRectangle = function (items, rect)
 {
@@ -1853,10 +1895,12 @@ var Random = __webpack_require__(/*! ../geom/triangle/Random */ "./geom/triangle
  * @function Phaser.Actions.RandomTriangle
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Triangle} triangle - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var RandomTriangle = function (items, triangle)
 {
@@ -1899,13 +1943,15 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.Rotate
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to be added to the `rotation` property (in radians).
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var Rotate = function (items, value, step, index, direction)
 {
@@ -1939,11 +1985,13 @@ var DistanceBetween = __webpack_require__(/*! ../math/distance/DistanceBetween *
  * @function Phaser.Actions.RotateAround
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {object} point - Any object with public `x` and `y` properties.
  * @param {number} angle - The angle to rotate by, in radians.
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var RotateAround = function (items, point, angle)
 {
@@ -1986,12 +2034,14 @@ var MathRotateAroundDistance = __webpack_require__(/*! ../math/RotateAroundDista
  * @function Phaser.Actions.RotateAroundDistance
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {object} point - Any object with public `x` and `y` properties.
  * @param {number} angle - The angle to rotate by, in radians.
  * @param {number} distance - The distance from the point of rotation in pixels.
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var RotateAroundDistance = function (items, point, angle, distance)
 {
@@ -2043,13 +2093,15 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.ScaleX
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to be added to the `scaleX` property.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var ScaleX = function (items, value, step, index, direction)
 {
@@ -2087,6 +2139,8 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.ScaleXY
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} scaleX - The amount to be added to the `scaleX` property.
  * @param {number} [scaleY] - The amount to be added to the `scaleY` property. If `undefined` or `null` it uses the `scaleX` value.
@@ -2095,7 +2149,7 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var ScaleXY = function (items, scaleX, scaleY, stepX, stepY, index, direction)
 {
@@ -2137,13 +2191,15 @@ var PropertyValueInc = __webpack_require__(/*! ./PropertyValueInc */ "./actions/
  * @function Phaser.Actions.ScaleY
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to be added to the `scaleY` property.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var ScaleY = function (items, value, step, index, direction)
 {
@@ -2181,13 +2237,15 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetAlpha
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to set the property to.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetAlpha = function (items, value, step, index, direction)
 {
@@ -2225,12 +2283,14 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetBlendMode
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to set the property to.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetBlendMode = function (items, value, index, direction)
 {
@@ -2268,13 +2328,15 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetDepth
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to set the property to.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetDepth = function (items, value, step, index, direction)
 {
@@ -2305,11 +2367,13 @@ module.exports = SetDepth;
  * @function Phaser.Actions.SetHitArea
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {*} hitArea - [description]
  * @param {HitAreaCallback} hitAreaCallback - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var SetHitArea = function (items, hitArea, hitAreaCallback)
 {
@@ -2352,6 +2416,8 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetOrigin
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} originX - The amount to set the `originX` property to.
  * @param {number} [originY] - The amount to set the `originY` property to. If `undefined` or `null` it uses the `originX` value.
@@ -2360,7 +2426,7 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetOrigin = function (items, originX, originY, stepX, stepY, index, direction)
 {
@@ -2402,13 +2468,15 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetRotation
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to set the property to.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetRotation = function (items, value, step, index, direction)
 {
@@ -2446,6 +2514,8 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetScale
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} scaleX - The amount to set the `scaleX` property to.
  * @param {number} [scaleY] - The amount to set the `scaleY` property to. If `undefined` or `null` it uses the `scaleX` value.
@@ -2454,7 +2524,7 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetScale = function (items, scaleX, scaleY, stepX, stepY, index, direction)
 {
@@ -2496,13 +2566,15 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetScaleX
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to set the property to.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetScaleX = function (items, value, step, index, direction)
 {
@@ -2540,13 +2612,15 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetScaleY
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to set the property to.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetScaleY = function (items, value, step, index, direction)
 {
@@ -2577,13 +2651,15 @@ module.exports = SetScaleY;
  * @function Phaser.Actions.SetTint
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {number} topLeft - [description]
  * @param {number} [topRight] - [description]
  * @param {number} [bottomLeft] - [description]
  * @param {number} [bottomRight] - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var SetTint = function (items, topLeft, topRight, bottomLeft, bottomRight)
 {
@@ -2624,12 +2700,14 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetVisible
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {boolean} value - The value to set the property to.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetVisible = function (items, value, index, direction)
 {
@@ -2667,13 +2745,15 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetX
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to set the property to.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetX = function (items, value, step, index, direction)
 {
@@ -2711,6 +2791,8 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetXY
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} x - The amount to set the `x` property to.
  * @param {number} [y=x] - The amount to set the `y` property to. If `undefined` or `null` it uses the `x` value.
@@ -2719,7 +2801,7 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetXY = function (items, x, y, stepX, stepY, index, direction)
 {
@@ -2761,13 +2843,15 @@ var PropertyValueSet = __webpack_require__(/*! ./PropertyValueSet */ "./actions/
  * @function Phaser.Actions.SetY
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - The array of items to be updated by this action.
  * @param {number} value - The amount to set the property to.
  * @param {number} [step=0] - This is added to the `value` amount, multiplied by the iteration counter.
  * @param {integer} [index=0] - An optional offset to start searching from within the items array.
  * @param {integer} [direction=1] - The direction to iterate through the array. 1 is from beginning to end, -1 from end to beginning.
  *
- * @return {array} The array of objects that were passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of objects that were passed to this Action.
  */
 var SetY = function (items, value, step, index, direction)
 {
@@ -2802,6 +2886,9 @@ var Vector2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
  *
  * @function Phaser.Actions.ShiftPosition
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items]
+ * @generic {Phaser.Math.Vector2} O - [output,$return]
  *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {number} x - [description]
@@ -2930,9 +3017,11 @@ var ArrayShuffle = __webpack_require__(/*! ../utils/array/Shuffle */ "./utils/ar
  * @function Phaser.Actions.Shuffle
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var Shuffle = function (items)
 {
@@ -2965,13 +3054,15 @@ var MathSmoothStep = __webpack_require__(/*! ../math/SmoothStep */ "./math/Smoot
  * @function Phaser.Actions.SmoothStep
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {string} property - [description]
  * @param {number} min - [description]
  * @param {number} max - [description]
  * @param {number} inc - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var SmoothStep = function (items, property, min, max, inc)
 {
@@ -3024,13 +3115,15 @@ var MathSmootherStep = __webpack_require__(/*! ../math/SmootherStep */ "./math/S
  * @function Phaser.Actions.SmootherStep
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {string} property - [description]
  * @param {number} min - [description]
  * @param {number} max - [description]
  * @param {number} inc - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var SmootherStep = function (items, property, min, max, inc)
 {
@@ -3081,13 +3174,15 @@ module.exports = SmootherStep;
  * @function Phaser.Actions.Spread
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {string} property - [description]
  * @param {number} min - [description]
  * @param {number} max - [description]
  * @param {number} [inc=false] - [description]
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var Spread = function (items, property, min, max, inc)
 {
@@ -3138,9 +3233,11 @@ module.exports = Spread;
  * @function Phaser.Actions.ToggleVisible
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var ToggleVisible = function (items)
 {
@@ -3180,11 +3277,13 @@ var Wrap = __webpack_require__(/*! ../math/Wrap */ "./math/Wrap.js");
  * @since 3.0.0
  * @see Phaser.Math.Wrap
  *
+ * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
+ *
  * @param {(array|Phaser.GameObjects.GameObject[])} items - An array of Game Objects. The contents of this array are updated by this Action.
  * @param {Phaser.Geom.Rectangle} rect - The rectangle.
  * @param {number} [padding=0] - An amount added to each side of the rectangle during the operation.
  *
- * @return {array} The array of Game Objects that was passed to this Action.
+ * @return {(array|Phaser.GameObjects.GameObject[])} The array of Game Objects that was passed to this Action.
  */
 var WrapInRectangle = function (items, rect, padding)
 {
@@ -3328,7 +3427,7 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
  */
 
 /**
- * @typedef {object} AnimationConfig // TODO 19/03/2018 fix type
+ * @typedef {object} AnimationConfig
  *
  * @property {AnimationFrameConfig[]} [frames] - [description]
  * @property {string} [defaultTextureKey=null] - [description]
@@ -3341,15 +3440,15 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
  * @property {boolean} [yoyo=false] - Should the animation yoyo? (reverse back down to the start) before repeating?
  * @property {boolean} [showOnStart=false] - Should sprite.visible = true when the animation starts to play?
  * @property {boolean} [hideOnComplete=false] - Should sprite.visible = false when the animation finishes?
- * @property {object} [callbackScope] - [description]
- * @property {boolean} [onStart=false] - [description]
- * @property {array} [onStartParams] - [description]
- * @property {boolean} [onRepeat=false] - [description]
- * @property {array} [onRepeatParams] - [description]
- * @property {boolean} [onUpdate=false] - [description]
- * @property {array} [onUpdateParams] - [description]
- * @property {boolean} [onComplete=false] - [description]
- * @property {array} [onCompleteParams] - [description]
+ * @property {*} [callbackScope] - [description]
+ * @property {(false|function)} [onStart=false] - [description]
+ * @property {Array.<*>} [onStartParams] - [description]
+ * @property {(false|function)} [onRepeat=false] - [description]
+ * @property {Array.<*>} [onRepeatParams] - [description]
+ * @property {(false|function)} [onUpdate=false] - [description]
+ * @property {Array.<*>} [onUpdateParams] - [description]
+ * @property {(false|function)} [onComplete=false] - [description]
+ * @property {Array.<*>} [onCompleteParams] - [description]
  */
 
 /**
@@ -3542,7 +3641,7 @@ var Animation = new Class({
          * [description]
          *
          * @name Phaser.Animations.Animation#callbackScope
-         * @type {object}
+         * @type {*}
          * @since 3.0.0
          */
         this.callbackScope = GetValue(config, 'callbackScope', this);
@@ -3551,7 +3650,7 @@ var Animation = new Class({
          * [description]
          *
          * @name Phaser.Animations.Animation#onStart
-         * @type {function}
+         * @type {(false|function)}
          * @since 3.0.0
          */
         this.onStart = GetValue(config, 'onStart', false);
@@ -3560,7 +3659,7 @@ var Animation = new Class({
          * [description]
          *
          * @name Phaser.Animations.Animation#onStartParams
-         * @type {array}
+         * @type {Array.<*>}
          * @since 3.0.0
          */
         this.onStartParams = GetValue(config, 'onStartParams', []);
@@ -3569,7 +3668,7 @@ var Animation = new Class({
          * [description]
          *
          * @name Phaser.Animations.Animation#onRepeat
-         * @type {function}
+         * @type {(false|function)}
          * @since 3.0.0
          */
         this.onRepeat = GetValue(config, 'onRepeat', false);
@@ -3578,7 +3677,7 @@ var Animation = new Class({
          * [description]
          *
          * @name Phaser.Animations.Animation#onRepeatParams
-         * @type {array}
+         * @type {Array.<*>}
          * @since 3.0.0
          */
         this.onRepeatParams = GetValue(config, 'onRepeatParams', []);
@@ -3588,7 +3687,7 @@ var Animation = new Class({
          * See AnimationFrame.onUpdate for a frame specific callback.
          *
          * @name Phaser.Animations.Animation#onUpdate
-         * @type {function}
+         * @type {(false|function)}
          * @since 3.0.0
          */
         this.onUpdate = GetValue(config, 'onUpdate', false);
@@ -3597,7 +3696,7 @@ var Animation = new Class({
          * [description]
          *
          * @name Phaser.Animations.Animation#onUpdateParams
-         * @type {array}
+         * @type {Array.<*>}
          * @since 3.0.0
          */
         this.onUpdateParams = GetValue(config, 'onUpdateParams', []);
@@ -3606,7 +3705,7 @@ var Animation = new Class({
          * [description]
          *
          * @name Phaser.Animations.Animation#onComplete
-         * @type {function}
+         * @type {(false|function)}
          * @since 3.0.0
          */
         this.onComplete = GetValue(config, 'onComplete', false);
@@ -3615,7 +3714,7 @@ var Animation = new Class({
          * [description]
          *
          * @name Phaser.Animations.Animation#onCompleteParams
-         * @type {array}
+         * @type {Array.<*>}
          * @since 3.0.0
          */
         this.onCompleteParams = GetValue(config, 'onCompleteParams', []);
@@ -4463,7 +4562,7 @@ var Pad = __webpack_require__(/*! ../utils/string/Pad */ "./utils/string/Pad.js"
  * Sprites and other Game Objects get the data they need from the AnimationManager.
  *
  * @class AnimationManager
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Animations
  * @constructor
  * @since 3.0.0
@@ -4514,7 +4613,7 @@ var AnimationManager = new Class({
          * [description]
          *
          * @name Phaser.Animations.AnimationManager#anims
-         * @type {Phaser.Structs.Map}
+         * @type {Phaser.Structs.Map.<string, Phaser.Animations.Animation>}
          * @protected
          * @since 3.0.0
          */
@@ -4620,7 +4719,7 @@ var AnimationManager = new Class({
      * @method Phaser.Animations.AnimationManager#fromJSON
      * @since 3.0.0
      *
-     * @param {(string|object)} data - [description]
+     * @param {(string|JSONAnimationManager|JSONAnimation)} data - [description]
      * @param {boolean} [clearCurrentAnimations=false] - [description]
      *
      * @return {Phaser.Animations.Animation[]} An array containing all of the Animation objects that were created as a result of this call.
@@ -4676,7 +4775,7 @@ var AnimationManager = new Class({
      * @param {integer} [config.end=0] - [description]
      * @param {string} [config.suffix=''] - [description]
      * @param {integer} [config.zeroPad=0] - [description]
-     * @param {array} [config.outputArray=[]] - [description]
+     * @param {AnimationFrameConfig[]} [config.outputArray=[]] - [description]
      * @param {boolean} [config.frames=false] - [description]
      *
      * @return {AnimationFrameConfig[]} [description]
@@ -4746,7 +4845,7 @@ var AnimationManager = new Class({
      * @param {integer} [config.start=0] - [description]
      * @param {integer} [config.end=-1] - [description]
      * @param {boolean} [config.first=false] - [description]
-     * @param {array} [config.outputArray=[]] - [description]
+     * @param {AnimationFrameConfig[]} [config.outputArray=[]] - [description]
      * @param {boolean} [config.frames=false] - [description]
      *
      * @return {AnimationFrameConfig[]} [description]
@@ -5128,7 +5227,7 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {number} [zoom=1] - [description]
  * @property {number} [resolution=1] - [description]
  * @property {number} [type=CONST.AUTO] - [description]
- * @property {object} [?parent=null] - [description]
+ * @property {*} [?parent=null] - [description]
  * @property {HTMLCanvasElement} [?canvas=null] - [description]
  * @property {string} [?canvasStyle=null] - [description]
  * @property {object} [?scene=null] - [description]
@@ -5136,17 +5235,17 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {string} [title=''] - [description]
  * @property {string} [url='http://phaser.io'] - [description]
  * @property {string} [version=''] - [description]
- * @property {object} [input] - [description]
+ * @property {(boolean|object)} [input] - [description]
  * @property {boolean} [input.keyboard=true] - [description]
- * @property {object} [input.keyboard.target=window] - [description]
- * @property {boolean} [input.mouse=true] - [description]
- * @property {object} [?input.mouse.target=null] - [description]
+ * @property {*} [input.keyboard.target=window] - [description]
+ * @property {(boolean|object)} [input.mouse=true] - [description]
+ * @property {*} [?input.mouse.target=null] - [description]
  * @property {boolean} [input.touch=true] - [description]
- * @property {object} [?input.touch.target=null] - [description]
- * @property {object} [?input.touch.capture=true] - [description]
- * @property {boolean} [input.gamepad=false] - [description]
+ * @property {*} [?input.touch.target=null] - [description]
+ * @property {boolean} [?input.touch.capture=true] - [description]
+ * @property {(boolean|object)} [input.gamepad=false] - [description]
  * @property {boolean} [disableContextMenu=false] - [description]
- * @property {boolean} [banner=false] - [description]
+ * @property {(boolean|object)} [banner=false] - [description]
  * @property {boolean} [banner.hidePhaser=false] - [description]
  * @property {string} [banner.text='#ffffff'] - [description]
  * @property {string[]} [banner.background] - [description]
@@ -5648,7 +5747,7 @@ var VisibilityHandler = __webpack_require__(/*! ./VisibilityHandler */ "./boot/V
  * @constructor
  * @since 3.0.0
  *
- * @param {object} [GameConfig] - The configuration object for your Phaser Game instance.
+ * @param {GameConfig} [GameConfig] - The configuration object for your Phaser Game instance.
  */
 var Game = new Class({
 
@@ -5719,7 +5818,7 @@ var Game = new Class({
          * An Event Emitter which is used to broadcast game-level events from the global systems.
          *
          * @name Phaser.Game#events
-         * @type {EventEmitter}
+         * @type {Phaser.Events.EventEmitter}
          * @since 3.0.0
          */
         this.events = new EventEmitter();
@@ -5806,7 +5905,7 @@ var Game = new Class({
          * The Sound Manager is a global system responsible for the playback and updating of all audio in your game.
          *
          * @name Phaser.Game#sound
-         * @type {Phaser.BaseSoundManager}
+         * @type {Phaser.Sound.BaseSoundManager}
          * @since 3.0.0
          */
         this.sound = SoundManagerCreator.create(this);
@@ -5927,7 +6026,7 @@ var Game = new Class({
      * the Scenes for rendering, but it won't have actually drawn anything yet.
      *
      * @event Phaser.Game#prerenderEvent
-     * @param {(Phaser.Renderer.CanvasRenderer|Phaser.Renderer.WebGLRenderer)} renderer - A reference to the current renderer.
+     * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - A reference to the current renderer.
      */
 
     /**
@@ -5937,7 +6036,7 @@ var Game = new Class({
      * Every Scene will have rendered and drawn to the canvas.
      *
      * @event Phaser.Game#postrenderEvent
-     * @param {(Phaser.Renderer.CanvasRenderer|Phaser.Renderer.WebGLRenderer)} renderer - A reference to the current renderer.
+     * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - A reference to the current renderer.
      */
 
     /**
@@ -7146,7 +7245,7 @@ var BaseCache = new Class({
          * You can query the Map directly or use the BaseCache methods.
          *
          * @name Phaser.Cache.BaseCache#entries
-         * @type {Phaser.Structs.Map}
+         * @type {Phaser.Structs.Map.<String, *>}
          * @since 3.0.0
          */
         this.entries = new CustomMap();
@@ -7155,7 +7254,7 @@ var BaseCache = new Class({
          * An instance of EventEmitter used by the cache to emit related events.
          *
          * @name Phaser.Cache.BaseCache#events
-         * @type {EventEmitter}
+         * @type {Phaser.Events.EventEmitter}
          * @since 3.0.0
          */
         this.events = new EventEmitter();
@@ -7167,9 +7266,9 @@ var BaseCache = new Class({
      * This event is fired by the Cache each time a new object is added to it.
      *
      * @event Phaser.Cache.BaseCache#addEvent
-     * @param {Phaser.Cache.BaseCache} The BaseCache to which the object was added.
-     * @param {string} The key of the object added to the cache.
-     * @param {*} A reference to the object added to the cache.
+     * @param {Phaser.Cache.BaseCache} cache - The BaseCache to which the object was added.
+     * @param {string} key - The key of the object added to the cache.
+     * @param {*} object - A reference to the object added to the cache.
      */
 
     /**
@@ -7230,9 +7329,9 @@ var BaseCache = new Class({
      * This event is fired by the Cache each time an object is removed from it.
      *
      * @event Phaser.Cache.BaseCache#removeEvent
-     * @param {Phaser.Cache.BaseCache} The BaseCache from which the object was removed.
-     * @param {string} The key of the object removed from the cache.
-     * @param {*} The object that was removed from the cache.
+     * @param {Phaser.Cache.BaseCache} cache - The BaseCache from which the object was removed.
+     * @param {string} key - The key of the object removed from the cache.
+     * @param {*} object - The object that was removed from the cache.
      */
 
     /**
@@ -7305,7 +7404,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 /**
  * @classdesc
  * The Cache Manager is the global cache owned and maintained by the Game instance.
- * 
+ *
  * Various systems, such as the file Loader, rely on this cache in order to store the files
  * it has loaded. The manager itself doesn't store any files, but instead owns multiple BaseCache
  * instances, one per type of file. You can also add your own custom caches.
@@ -7440,7 +7539,7 @@ var CacheManager = new Class({
          * Add to this via the `addCustom` method.
          *
          * @name Phaser.Cache.CacheManager#custom
-         * @type {object.<Phaser.Cache.BaseCache>}
+         * @type {Object.<Phaser.Cache.BaseCache>}
          * @protected
          * @since 3.0.0
          */
@@ -7581,6 +7680,12 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @property {number} [bounds.y] - The vertical position of bounds of camera
  * @property {number} [bounds.width] - The width of the bounds of camera
  * @property {number} [bounds.height] - The height of the bounds of camera
+ */
+
+/**
+ * @callback Camera2DCallback
+ *
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
  */
 
 /**
@@ -7746,7 +7851,7 @@ var Camera = new Class({
          * A local transform matrix used for internal calculations.
          *
          * @name Phaser.Cameras.Scene2D.Camera#matrix
-         * @type {TransformMatrix}
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
          * @since 3.0.0
          */
         this.matrix = new TransformMatrix(1, 0, 0, 1, 0, 0);
@@ -7795,7 +7900,7 @@ var Camera = new Class({
          * A temporary array of culled objects.
          *
          * @name Phaser.Cameras.Scene2D.Camera#culledObjects
-         * @type {array}
+         * @type {Phaser.GameObjects.GameObject[]}
          * @default []
          * @since 3.0.0
          */
@@ -7849,7 +7954,7 @@ var Camera = new Class({
          * [description]
          *
          * @name Phaser.Cameras.Scene2D.Camera#_shakeCallback
-         * @type {function}
+         * @type {?Camera2DCallback}
          * @private
          * @default null
          * @since 3.3.0
@@ -7915,7 +8020,7 @@ var Camera = new Class({
          * [description]
          *
          * @name Phaser.Cameras.Scene2D.Camera#_fadeCallback
-         * @type {function}
+         * @type {?Camera2DCallback}
          * @private
          * @default null
          * @since 3.3.0
@@ -7981,7 +8086,7 @@ var Camera = new Class({
          * [description]
          *
          * @name Phaser.Cameras.Scene2D.Camera#_flashCallback
-         * @type {function}
+         * @type {?Camera2DCallback}
          * @private
          * @default null
          * @since 3.3.0
@@ -8049,9 +8154,11 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#cull
      * @since 3.0.0
      *
-     * @param {array} renderableObjects - [description]
+     * @generic {Phaser.GameObjects.GameObject[]} G - [renderableObjects,$return]
      *
-     * @return {array} [description]
+     * @param {Phaser.GameObjects.GameObject[]} renderableObjects - [description]
+     *
+     * @return {Phaser.GameObjects.GameObject[]} [description]
      */
     cull: function (renderableObjects)
     {
@@ -8126,9 +8233,11 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#cullHitTest
      * @since 3.0.0
      *
-     * @param {array} interactiveObjects - [description]
+     * @generic {Phaser.GameObjects.GameObject[]} G - [interactiveObjects,$return]
      *
-     * @return {array} [description]
+     * @param {Phaser.GameObjects.GameObject[]} interactiveObjects - [description]
+     *
+     * @return {Phaser.GameObjects.GameObject[]} [description]
      */
     cullHitTest: function (interactiveObjects)
     {
@@ -8202,9 +8311,9 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#cullTilemap
      * @since 3.0.0
      *
-     * @param {array} tilemap - [description]
+     * @param {Phaser.Tilemaps.Tilemap} tilemap - [description]
      *
-     * @return {array} [description]
+     * @return {Phaser.GameObjects.GameObject[]} [description]
      */
     cullTilemap: function (tilemap)
     {
@@ -8218,6 +8327,8 @@ var Camera = new Class({
         /* First Invert Matrix */
         var determinant = (mva * mvd) - (mvb * mvc);
 
+        var tiles = tilemap.tiles;
+
         if (!determinant)
         {
             return tiles;
@@ -8225,7 +8336,6 @@ var Camera = new Class({
 
         var mve = cameraMatrix[4];
         var mvf = cameraMatrix[5];
-        var tiles = tilemap.tiles;
         var scrollX = this.scrollX;
         var scrollY = this.scrollY;
         var cameraW = this.width;
@@ -8427,9 +8537,11 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#getWorldPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [output,$return]
+     *
      * @param {number} x - [description]
      * @param {number} y - [description]
-     * @param {(object|Phaser.Math.Vector2)} output - [description]
+     * @param {(object|Phaser.Math.Vector2)} [output] - [description]
      *
      * @return {Phaser.Math.Vector2} [description]
      */
@@ -8604,7 +8716,7 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#setAngle
      * @since 3.0.0
      *
-     * @param {number} value - [description]
+     * @param {number} [value=0] - [description]
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
@@ -8623,7 +8735,7 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#setBackgroundColor
      * @since 3.0.0
      *
-     * @param {(string|number|InputColorObject)} color - [description]
+     * @param {(string|number|InputColorObject)} [color='rgba(0,0,0,0)'] - [description]
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
@@ -8666,7 +8778,7 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#setName
      * @since 3.0.0
      *
-     * @param {string} value - [description]
+     * @param {string} [value=''] - [description]
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
@@ -8844,7 +8956,7 @@ var Camera = new Class({
      * @since 3.0.0
      *
      * @param {(Phaser.GameObjects.GameObject|object)} target - [description]
-     * @param {boolean} roundPx - [description]
+     * @param {boolean} [roundPx=false] - [description]
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
@@ -9619,7 +9731,7 @@ var FixedKeyControl = new Class({
          * The Camera that this Control will update.
          *
          * @name Phaser.Cameras.Controls.FixedKeyControl#camera
-         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @type {?Phaser.Cameras.Scene2D.Camera}
          * @default null
          * @since 3.0.0
          */
@@ -9629,7 +9741,7 @@ var FixedKeyControl = new Class({
          * The Key to be pressed that will move the Camera left.
          *
          * @name Phaser.Cameras.Controls.FixedKeyControl#left
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9639,7 +9751,7 @@ var FixedKeyControl = new Class({
          * The Key to be pressed that will move the Camera right.
          *
          * @name Phaser.Cameras.Controls.FixedKeyControl#right
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9649,7 +9761,7 @@ var FixedKeyControl = new Class({
          * The Key to be pressed that will move the Camera up.
          *
          * @name Phaser.Cameras.Controls.FixedKeyControl#up
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9659,7 +9771,7 @@ var FixedKeyControl = new Class({
          * The Key to be pressed that will move the Camera down.
          *
          * @name Phaser.Cameras.Controls.FixedKeyControl#down
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9669,7 +9781,7 @@ var FixedKeyControl = new Class({
          * The Key to be pressed that will zoom the Camera in.
          *
          * @name Phaser.Cameras.Controls.FixedKeyControl#zoomIn
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9679,7 +9791,7 @@ var FixedKeyControl = new Class({
          * The Key to be pressed that will zoom the Camera out.
          *
          * @name Phaser.Cameras.Controls.FixedKeyControl#zoomOut
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9942,7 +10054,7 @@ var SmoothedKeyControl = new Class({
          * The Camera that this Control will update.
          *
          * @name Phaser.Cameras.Controls.SmoothedKeyControl#camera
-         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @type {?Phaser.Cameras.Scene2D.Camera}
          * @default null
          * @since 3.0.0
          */
@@ -9952,7 +10064,7 @@ var SmoothedKeyControl = new Class({
          * The Key to be pressed that will move the Camera left.
          *
          * @name Phaser.Cameras.Controls.SmoothedKeyControl#left
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9962,7 +10074,7 @@ var SmoothedKeyControl = new Class({
          * The Key to be pressed that will move the Camera right.
          *
          * @name Phaser.Cameras.Controls.SmoothedKeyControl#right
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9972,7 +10084,7 @@ var SmoothedKeyControl = new Class({
          * The Key to be pressed that will move the Camera up.
          *
          * @name Phaser.Cameras.Controls.SmoothedKeyControl#up
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9982,7 +10094,7 @@ var SmoothedKeyControl = new Class({
          * The Key to be pressed that will move the Camera down.
          *
          * @name Phaser.Cameras.Controls.SmoothedKeyControl#down
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -9992,7 +10104,7 @@ var SmoothedKeyControl = new Class({
          * The Key to be pressed that will zoom the Camera in.
          *
          * @name Phaser.Cameras.Controls.SmoothedKeyControl#zoomIn
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -10002,7 +10114,7 @@ var SmoothedKeyControl = new Class({
          * The Key to be pressed that will zoom the Camera out.
          *
          * @name Phaser.Cameras.Controls.SmoothedKeyControl#zoomOut
-         * @type {Phaser.Input.Keyboard.Key}
+         * @type {?Phaser.Input.Keyboard.Key}
          * @default null
          * @since 3.0.0
          */
@@ -10389,8 +10501,27 @@ module.exports = SmoothedKeyControl;
 
 module.exports = {
 
+    /**
+     * This alias will be removed in a future version.
+     * Use `FixedKeyControl` instead.
+     * 
+     * @deprecated
+     * @name Phaser.Cameras.Controls.Fixed
+     */
     Fixed: __webpack_require__(/*! ./FixedKeyControl */ "./cameras/controls/FixedKeyControl.js"),
-    Smoothed: __webpack_require__(/*! ./SmoothedKeyControl */ "./cameras/controls/SmoothedKeyControl.js")
+
+    FixedKeyControl: __webpack_require__(/*! ./FixedKeyControl */ "./cameras/controls/FixedKeyControl.js"),
+
+    /**
+     * This alias will be removed in a future version.
+     * Use `SmoothedKeyControl` instead.
+     * 
+     * @deprecated
+     * @name Phaser.Cameras.Controls.Smoothed
+     */
+    Smoothed: __webpack_require__(/*! ./SmoothedKeyControl */ "./cameras/controls/SmoothedKeyControl.js"),
+
+    SmoothedKeyControl: __webpack_require__(/*! ./SmoothedKeyControl */ "./cameras/controls/SmoothedKeyControl.js")
 
 };
 
@@ -10661,7 +10792,7 @@ var Camera = new Class({
          * [description]
          *
          * @name Phaser.Cameras.Sprite3D#children
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.GameObjects.GameObject>}
          * @since 3.0.0
          */
         this.children = new Set();
@@ -11562,7 +11693,7 @@ var CameraManager = new Class({
          * An Array of the Camera objects being managed by this Camera Manager.
          *
          * @name Phaser.Cameras.Sprite3D.CameraManager#cameras
-         * @type {array}
+         * @type {Phaser.Cameras.Sprite3D.Camera[]}
          * @since 3.0.0
          */
         this.cameras = [];
@@ -11796,8 +11927,8 @@ var tmpVec3 = new Vector3();
  * @since 3.0.0
  *
  * @param {Phaser.Scene} scene - [description]
- * @param {integer} viewportWidth - [description]
- * @param {integer} viewportHeight - [description]
+ * @param {integer} [viewportWidth=0] - [description]
+ * @param {integer} [viewportHeight=0] - [description]
  */
 var OrthographicCamera = new Class({
 
@@ -11988,9 +12119,9 @@ var tmpVec3 = new Vector3();
  * @since 3.0.0
  *
  * @param {Phaser.Scene} scene - [description]
- * @param {integer} fieldOfView - [description]
- * @param {integer} viewportWidth - [description]
- * @param {integer} viewportHeight - [description]
+ * @param {integer} [fieldOfView=80] - [description]
+ * @param {integer} [viewportWidth=0] - [description]
+ * @param {integer} [viewportHeight=0] - [description]
  */
 var PerspectiveCamera = new Class({
 
@@ -12144,16 +12275,23 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+/**
+ * Global consts.
+ * 
+ * @ignore
+ */
+
 var CONST = {
 
     /**
      * Phaser Release Version
      * 
      * @name Phaser.VERSION
+     * @readOnly
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.3.0',
+    VERSION: '3.4.0',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -12163,6 +12301,7 @@ var CONST = {
      * AUTO Detect Renderer.
      * 
      * @name Phaser.AUTO
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12172,6 +12311,7 @@ var CONST = {
      * Canvas Renderer.
      * 
      * @name Phaser.CANVAS
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12181,6 +12321,7 @@ var CONST = {
      * WebGL Renderer.
      * 
      * @name Phaser.WEBGL
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12190,6 +12331,7 @@ var CONST = {
      * Headless Renderer.
      * 
      * @name Phaser.HEADLESS
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12200,6 +12342,7 @@ var CONST = {
      * to help you remember what the value is doing in your code.
      * 
      * @name Phaser.FOREVER
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12209,6 +12352,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.NONE
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12218,6 +12362,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.UP
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12227,6 +12372,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.DOWN
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12236,6 +12382,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.LEFT
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12245,6 +12392,7 @@ var CONST = {
      * Direction constant.
      * 
      * @name Phaser.RIGHT
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -12766,6 +12914,8 @@ var CubicBezierCurve = new Class({
      * @method Phaser.Curves.CubicBezierCurve#getStartPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
@@ -12798,6 +12948,8 @@ var CubicBezierCurve = new Class({
      * @method Phaser.Curves.CubicBezierCurve#getPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {float} t - The position along the curve to return. Where 0 is the start and 1 is the end.
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
@@ -12820,6 +12972,8 @@ var CubicBezierCurve = new Class({
      *
      * @method Phaser.Curves.CubicBezierCurve#draw
      * @since 3.0.0
+     *
+     * @generic {Phaser.GameObjects.Graphics} G - [out,$return]
      *
      * @param {Phaser.GameObjects.Graphics} graphics - [description]
      * @param {integer} [pointsTotal=32] - [description]
@@ -13022,6 +13176,8 @@ var Curve = new Class({
      * @method Phaser.Curves.Curve#draw
      * @since 3.0.0
      *
+     * @generic {Phaser.GameObjects.Graphics} G - [out,$return]
+     *
      * @param {Phaser.GameObjects.Graphics} graphics - The Graphics instance onto which this curve will be drawn.
      * @param {integer} [pointsTotal=32] - The resolution of the curve. The higher the value the smoother it will render, at the cost of rendering performance.
      *
@@ -13179,6 +13335,8 @@ var Curve = new Class({
      * @method Phaser.Curves.Curve#getPointAt
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {float} u - [description]
      * @param {Phaser.Math.Vector2} [out] - [description]
      *
@@ -13222,6 +13380,8 @@ var Curve = new Class({
      *
      * @method Phaser.Curves.Curve#getRandomPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {Phaser.Math.Vector2} [out] - [description]
      *
@@ -13268,6 +13428,8 @@ var Curve = new Class({
      * @method Phaser.Curves.Curve#getStartPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {Phaser.Math.Vector2} [out] - [description]
      *
      * @return {Phaser.Math.Vector2} [description]
@@ -13289,6 +13451,8 @@ var Curve = new Class({
      *
      * @method Phaser.Curves.Curve#getTangent
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {number} t - [description]
      * @param {Phaser.Math.Vector2} [out] - [description]
@@ -13326,6 +13490,8 @@ var Curve = new Class({
      *
      * @method Phaser.Curves.Curve#getTangentAt
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {float} u - [description]
      * @param {Phaser.Math.Vector2} [out] - [description]
@@ -13501,6 +13667,19 @@ var Vector2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
  */
 
 /**
+ * @typedef {object} EllipseCurveConfig
+ *
+ * @property {number} [x=0] - [description]
+ * @property {number} [y=0] - [description]
+ * @property {number} [xRadius=0] - [description]
+ * @property {number} [yRadius=0] - [description]
+ * @property {integer} [startAngle=0] - [description]
+ * @property {integer} [endAngle=360] - [description]
+ * @property {boolean} [clockwise=false] - [description]
+ * @property {integer} [rotation=0] - [description]
+  */
+
+/**
  * @classdesc
  * [description]
  *
@@ -13510,14 +13689,14 @@ var Vector2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {number} [x=0] - [description]
+ * @param {(number|EllipseCurveConfig)} [x=0] - [description]
  * @param {number} [y=0] - [description]
  * @param {number} [xRadius=0] - [description]
  * @param {number} [yRadius=0] - [description]
- * @param {number} [startAngle=0] - [description]
- * @param {number} [endAngle=360] - [description]
+ * @param {integer} [startAngle=0] - [description]
+ * @param {integer} [endAngle=360] - [description]
  * @param {boolean} [clockwise=false] - [description]
- * @param {number} [rotation=0] - [description]
+ * @param {integer} [rotation=0] - [description]
  */
 var EllipseCurve = new Class({
 
@@ -13631,6 +13810,8 @@ var EllipseCurve = new Class({
      * @method Phaser.Curves.EllipseCurve#getStartPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
@@ -13662,6 +13843,8 @@ var EllipseCurve = new Class({
      *
      * @method Phaser.Curves.EllipseCurve#getPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {float} t - The position along the curve to return. Where 0 is the start and 1 is the end.
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
@@ -14113,8 +14296,8 @@ var tmpVec2 = new Vector2();
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Math.Vector2} p0 - [description]
- * @param {Phaser.Math.Vector2} p1 - [description]
+ * @param {(Phaser.Math.Vector2|number[])} p0 - [description]
+ * @param {Phaser.Math.Vector2} [p1] - [description]
  */
 var LineCurve = new Class({
 
@@ -14158,6 +14341,8 @@ var LineCurve = new Class({
      * @method Phaser.Curves.LineCurve#getBounds
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Rectangle} O - [out,$return]
+     *
      * @param {Phaser.Geom.Rectangle} [out] - A Rectangle object to store the bounds in. If not given a new Rectangle will be created.
      *
      * @return {Phaser.Geom.Rectangle} A Rectangle object holding the bounds of this curve. If `out` was given it will be this object.
@@ -14174,6 +14359,8 @@ var LineCurve = new Class({
      *
      * @method Phaser.Curves.LineCurve#getStartPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
@@ -14205,6 +14392,8 @@ var LineCurve = new Class({
      * @method Phaser.Curves.LineCurve#getPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {float} t - The position along the curve to return. Where 0 is the start and 1 is the end.
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
@@ -14231,6 +14420,8 @@ var LineCurve = new Class({
      *
      * @method Phaser.Curves.LineCurve#getPointAt
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {float} u - The position along the curve to return. Where 0 is the start and 1 is the end.
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
@@ -14267,6 +14458,8 @@ var LineCurve = new Class({
      *
      * @method Phaser.Curves.LineCurve#draw
      * @since 3.0.0
+     *
+     * @generic {Phaser.GameObjects.Graphics} G - [graphics,$return]
      *
      * @param {Phaser.GameObjects.Graphics} graphics - The Graphics instance onto which this curve will be drawn.
      *
@@ -14354,7 +14547,7 @@ var Vector2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
  * @constructor
  * @since 3.2.0
  *
- * @param {(Phaser.Math.Vector2|Phaser.Math.Vector2[])} p0 - Start point, or an array of point pairs.
+ * @param {(Phaser.Math.Vector2|number[])} p0 - Start point, or an array of point pairs.
  * @param {Phaser.Math.Vector2} p1 - Control Point 1.
  * @param {Phaser.Math.Vector2} p2 - Control Point 2.
  */
@@ -14409,6 +14602,8 @@ var QuadraticBezier = new Class({
      * @method Phaser.Curves.QuadraticBezier#getStartPoint
      * @since 3.2.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
@@ -14441,6 +14636,8 @@ var QuadraticBezier = new Class({
      * @method Phaser.Curves.QuadraticBezier#getPoint
      * @since 3.2.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {float} t - The position along the curve to return. Where 0 is the start and 1 is the end.
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
@@ -14465,6 +14662,8 @@ var QuadraticBezier = new Class({
      *
      * @method Phaser.Curves.QuadraticBezier#draw
      * @since 3.2.0
+     *
+     * @generic {Phaser.GameObjects.Graphics} G - [graphics,$return]
      *
      * @param {Phaser.GameObjects.Graphics} graphics - [description]
      * @param {integer} [pointsTotal=32] - [description]
@@ -14602,7 +14801,7 @@ var SplineCurve = new Class({
      * @method Phaser.Curves.SplineCurve#addPoints
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2[]} points - [description]
+     * @param {(Phaser.Math.Vector2[]|number[]|number[][])} points - [description]
      *
      * @return {Phaser.Curves.SplineCurve} This curve object.
      */
@@ -14662,6 +14861,8 @@ var SplineCurve = new Class({
      * @method Phaser.Curves.SplineCurve#getStartPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
      * @return {Phaser.Math.Vector2} The coordinates of the point on the curve. If an `out` object was given this will be returned.
@@ -14693,6 +14894,8 @@ var SplineCurve = new Class({
      *
      * @method Phaser.Curves.SplineCurve#getPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {float} t - The position along the curve to return. Where 0 is the start and 1 is the end.
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
@@ -14865,6 +15068,8 @@ var MoveTo = new Class({
      * @method Phaser.Curves.MoveTo#getPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {float} t - The position along the curve to return. Where 0 is the start and 1 is the end.
      * @param {Phaser.Math.Vector2} [out] - A Vector2 object to store the result in. If not given will be created.
      *
@@ -14882,6 +15087,8 @@ var MoveTo = new Class({
      *
      * @method Phaser.Curves.MoveTo#getPointAt
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {float} u - [description]
      * @param {Phaser.Math.Vector2} [out] - [description]
@@ -15222,6 +15429,8 @@ var Path = new Class({
      * @method Phaser.Curves.Path#draw
      * @since 3.0.0
      *
+     * @generic {Phaser.GameObjects.Graphics} G - [out,$return]
+     *
      * @param {Phaser.GameObjects.Graphics} graphics - [description]
      * @param {integer} [pointsTotal=32] - [description]
      *
@@ -15334,6 +15543,8 @@ var Path = new Class({
      * @method Phaser.Curves.Path#getBounds
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {Phaser.Geom.Rectangle} [out] - [description]
      * @param {integer} [accuracy=16] - [description]
      *
@@ -15381,7 +15592,7 @@ var Path = new Class({
      * @method Phaser.Curves.Path#getCurveLengths
      * @since 3.0.0
      *
-     * @return {array} [description]
+     * @return {number[]} [description]
      */
     getCurveLengths: function ()
     {
@@ -15415,6 +15626,8 @@ var Path = new Class({
      *
      * @method Phaser.Curves.Path#getEndPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {Phaser.Math.Vector2} [out] - [description]
      *
@@ -15465,6 +15678,8 @@ var Path = new Class({
      *
      * @method Phaser.Curves.Path#getPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {number} t - [description]
      * @param {Phaser.Math.Vector2} [out] - [description]
@@ -15559,6 +15774,8 @@ var Path = new Class({
      * @method Phaser.Curves.Path#getRandomPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
+     *
      * @param {Phaser.Math.Vector2} [out] - [description]
      *
      * @return {Phaser.Math.Vector2} [description]
@@ -15604,6 +15821,8 @@ var Path = new Class({
      *
      * @method Phaser.Curves.Path#getStartPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [out,$return]
      *
      * @param {Phaser.Math.Vector2} [out] - [description]
      *
@@ -15786,7 +16005,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @param {*} parent - [description]
  * @param {string} key - [description]
  * @param {*} value - [description]
- * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the game object, key, and data.
+ * @param {...*} [args] - Additional arguments that will be passed to the callback, after the game object, key, and data.
  */
 
 /**
@@ -15801,7 +16020,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @since 3.0.0
  *
  * @param {*} parent - [description]
- * @param {EventEmitter} eventEmitter - [description]
+ * @param {Phaser.Events.EventEmitter} eventEmitter - [description]
  */
 var DataManager = new Class({
 
@@ -15822,7 +16041,7 @@ var DataManager = new Class({
          * [description]
          *
          * @name Phaser.Data.DataManager#events
-         * @type {EventEmitter}
+         * @type {Phaser.Events.EventEmitter}
          * @since 3.0.0
          */
         this.events = eventEmitter;
@@ -15836,7 +16055,7 @@ var DataManager = new Class({
          * [description]
          *
          * @name Phaser.Data.DataManager#list
-         * @type {Object.<string, any>}
+         * @type {Object.<string, *>}
          * @default {}
          * @since 3.0.0
          */
@@ -15887,7 +16106,7 @@ var DataManager = new Class({
      * @method Phaser.Data.DataManager#getAll
      * @since 3.0.0
      *
-     * @return {Object.<string, any>} [description]
+     * @return {Object.<string, *>} [description]
      */
     getAll: function ()
     {
@@ -15912,7 +16131,7 @@ var DataManager = new Class({
      *
      * @param {string} search - [description]
      *
-     * @return {Object.<string, any>} [description]
+     * @return {Object.<string, *>} [description]
      */
     query: function (search)
     {
@@ -15983,8 +16202,8 @@ var DataManager = new Class({
      * @since 3.0.0
      *
      * @param {DataEachCallback} callback - The function to call.
-     * @param {object} [scope] - Value to use as `this` when executing callback.
-     * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the game object, key, and data.
+     * @param {*} [scope] - Value to use as `this` when executing callback.
+     * @param {...*} [args] - Additional arguments that will be passed to the callback, after the game object, key, and data.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
@@ -16014,7 +16233,7 @@ var DataManager = new Class({
      * @method Phaser.Data.DataManager#merge
      * @since 3.0.0
      *
-     * @param {Object.<string, any>} data - [description]
+     * @param {Object.<string, *>} data - [description]
      * @param {boolean} overwrite - [description]
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
@@ -16370,10 +16589,9 @@ var Browser = __webpack_require__(/*! ./Browser */ "./device/Browser.js");
  * They are then referenced by internal game systems and are available for you to access
  * via `this.sys.game.device.audio` from within any Scene.
  * 
- * @name Phaser.Device.Audio
+ * @typedef {object} Phaser.Device.Audio
  * @since 3.0.0
  * 
- * @type {object}
  * @property {boolean} audioData - Can this device play HTML Audio tags?
  * @property {boolean} dolby - Can this device play EC-3 Dolby Digital Plus files?
  * @property {boolean} m4a - Can this device can play m4a files.
@@ -16501,10 +16719,9 @@ var OS = __webpack_require__(/*! ./OS */ "./device/OS.js");
  * They are then referenced by internal game systems and are available for you to access
  * via `this.sys.game.device.browser` from within any Scene.
  * 
- * @name Phaser.Device.Browser
+ * @typedef {object} Phaser.Device.Browser
  * @since 3.0.0
- *
- * @type {object}
+ * 
  * @property {boolean} chrome - Set to true if running in Chrome.
  * @property {boolean} edge - Set to true if running in Microsoft Edge browser.
  * @property {boolean} firefox - Set to true if running in Firefox.
@@ -16617,10 +16834,9 @@ var CanvasPool = __webpack_require__(/*! ../display/canvas/CanvasPool */ "./disp
  * They are then referenced by internal game systems and are available for you to access
  * via `this.sys.game.device.canvasFeatures` from within any Scene.
  * 
- * @name Phaser.Device.CanvasFeatures
+ * @typedef {object} Phaser.Device.CanvasFeatures
  * @since 3.0.0
- *
- * @type {object}
+ * 
  * @property {boolean} supportInverseAlpha - Set to true if the browser supports inversed alpha.
  * @property {boolean} supportNewBlendModes - Set to true if the browser supports new canvas blend modes.
  */
@@ -16739,10 +16955,9 @@ var CanvasPool = __webpack_require__(/*! ../display/canvas/CanvasPool */ "./disp
  * They are then referenced by internal game systems and are available for you to access
  * via `this.sys.game.device.features` from within any Scene.
  * 
- * @name Phaser.Device.Features
+ * @typedef {object} Phaser.Device.Features
  * @since 3.0.0
  * 
- * @type {object}
  * @property {?boolean} canvasBitBltShift - True if canvas supports a 'copy' bitblt onto itself when the source and destination regions overlap.
  * @property {boolean} canvas - Is canvas available?
  * @property {boolean} file - Is file available?
@@ -16938,10 +17153,9 @@ module.exports = init();
  * They are then referenced by internal game systems and are available for you to access
  * via `this.sys.game.device.fullscreen` from within any Scene.
  * 
- * @name Phaser.Device.Fullscreen
+ * @typedef {object} Phaser.Device.Fullscreen
  * @since 3.0.0
- *
- * @type {object}
+ * 
  * @property {boolean} available - Does the browser support the Full Screen API?
  * @property {boolean} keyboard - Does the browser support access to the Keyboard during Full Screen mode?
  * @property {string} cancel - If the browser supports the Full Screen API this holds the call you need to use to cancel it.
@@ -17045,10 +17259,9 @@ var Browser = __webpack_require__(/*! ./Browser */ "./device/Browser.js");
  * They are then referenced by internal game systems and are available for you to access
  * via `this.sys.game.device.input` from within any Scene.
  * 
- * @name Phaser.Device.Input
+ * @typedef {object} Phaser.Device.Input
  * @since 3.0.0
- *
- * @type {object}
+ * 
  * @property {?string} wheelType - The newest type of Wheel/Scroll event supported: 'wheel', 'mousewheel', 'DOMMouseScroll'
  * @property {boolean} gamepads - Is navigator.getGamepads available?
  * @property {boolean} mspointer - Is mspointer available?
@@ -17127,10 +17340,9 @@ module.exports = init();
  * They are then referenced by internal game systems and are available for you to access
  * via `this.sys.game.device.os` from within any Scene.
  * 
- * @name Phaser.Device.OS
+ * @typedef {object} Phaser.Device.OS
  * @since 3.0.0
- *
- * @type {object}
+ * 
  * @property {boolean} android - Is running on android?
  * @property {boolean} chromeOS - Is running on chromeOS?
  * @property {boolean} cocoonJS - Is the game running under CocoonJS?
@@ -17321,10 +17533,9 @@ module.exports = init();
  * They are then referenced by internal game systems and are available for you to access
  * via `this.sys.game.device.video` from within any Scene.
  * 
- * @name Phaser.Device.Video
+ * @typedef {object} Phaser.Device.Video
  * @since 3.0.0
- *
- * @type {object}
+ * 
  * @property {boolean} h264Video - Can this device play h264 mp4 video files?
  * @property {boolean} hlsVideo - Can this device play hls video files?
  * @property {boolean} mp4Video - Can this device play h264 mp4 video files?
@@ -17608,6 +17819,8 @@ var SetCenterX = __webpack_require__(/*! ../../bounds/SetCenterX */ "./display/b
  * @function Phaser.Display.Align.In.BottomCenter
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -17654,6 +17867,8 @@ var SetLeft = __webpack_require__(/*! ../../bounds/SetLeft */ "./display/bounds/
  *
  * @function Phaser.Display.Align.In.BottomLeft
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
@@ -17702,6 +17917,8 @@ var SetRight = __webpack_require__(/*! ../../bounds/SetRight */ "./display/bound
  * @function Phaser.Display.Align.In.BottomRight
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -17748,6 +17965,8 @@ var GetCenterY = __webpack_require__(/*! ../../bounds/GetCenterY */ "./display/b
  * @function Phaser.Display.Align.In.Center
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -17793,6 +18012,8 @@ var SetLeft = __webpack_require__(/*! ../../bounds/SetLeft */ "./display/bounds/
  *
  * @function Phaser.Display.Align.In.LeftCenter
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
@@ -17851,6 +18072,8 @@ AlignInMap[ALIGN_CONST.TOP_RIGHT] = __webpack_require__(/*! ./TopRight */ "./dis
  * @function Phaser.Display.Align.In.QuickSet
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [child,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} child - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
  * @param {integer} position - The position to align the Game Object with. This is an align constant, such as `ALIGN_CONST.LEFT_CENTER`.
@@ -17892,6 +18115,8 @@ var SetRight = __webpack_require__(/*! ../../bounds/SetRight */ "./display/bound
  *
  * @function Phaser.Display.Align.In.RightCenter
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
@@ -17940,6 +18165,8 @@ var SetTop = __webpack_require__(/*! ../../bounds/SetTop */ "./display/bounds/Se
  * @function Phaser.Display.Align.In.TopCenter
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -17987,6 +18214,8 @@ var SetTop = __webpack_require__(/*! ../../bounds/SetTop */ "./display/bounds/Se
  * @function Phaser.Display.Align.In.TopLeft
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -18033,6 +18262,8 @@ var SetTop = __webpack_require__(/*! ../../bounds/SetTop */ "./display/bounds/Se
  *
  * @function Phaser.Display.Align.In.TopRight
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignIn - The Game Object to base the alignment position on.
@@ -18151,6 +18382,8 @@ var SetTop = __webpack_require__(/*! ../../bounds/SetTop */ "./display/bounds/Se
  * @function Phaser.Display.Align.To.BottomCenter
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -18197,6 +18430,8 @@ var SetTop = __webpack_require__(/*! ../../bounds/SetTop */ "./display/bounds/Se
  *
  * @function Phaser.Display.Align.To.BottomLeft
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
@@ -18245,6 +18480,8 @@ var SetTop = __webpack_require__(/*! ../../bounds/SetTop */ "./display/bounds/Se
  * @function Phaser.Display.Align.To.BottomRight
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -18291,6 +18528,8 @@ var SetRight = __webpack_require__(/*! ../../bounds/SetRight */ "./display/bound
  *
  * @function Phaser.Display.Align.To.LeftBottom
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
@@ -18339,6 +18578,8 @@ var SetRight = __webpack_require__(/*! ../../bounds/SetRight */ "./display/bound
  * @function Phaser.Display.Align.To.LeftCenter
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -18385,6 +18626,8 @@ var SetTop = __webpack_require__(/*! ../../bounds/SetTop */ "./display/bounds/Se
  *
  * @function Phaser.Display.Align.To.LeftTop
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
@@ -18433,6 +18676,8 @@ var SetLeft = __webpack_require__(/*! ../../bounds/SetLeft */ "./display/bounds/
  * @function Phaser.Display.Align.To.RightBottom
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -18479,6 +18724,8 @@ var SetLeft = __webpack_require__(/*! ../../bounds/SetLeft */ "./display/bounds/
  *
  * @function Phaser.Display.Align.To.RightCenter
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
@@ -18527,6 +18774,8 @@ var SetTop = __webpack_require__(/*! ../../bounds/SetTop */ "./display/bounds/Se
  * @function Phaser.Display.Align.To.RightTop
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -18573,6 +18822,8 @@ var SetCenterX = __webpack_require__(/*! ../../bounds/SetCenterX */ "./display/b
  *
  * @function Phaser.Display.Align.To.TopCenter
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
@@ -18621,6 +18872,8 @@ var SetLeft = __webpack_require__(/*! ../../bounds/SetLeft */ "./display/bounds/
  * @function Phaser.Display.Align.To.TopLeft
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
  * @param {number} [offsetX=0] - Optional horizontal offset from the position.
@@ -18667,6 +18920,8 @@ var SetRight = __webpack_require__(/*! ../../bounds/SetRight */ "./display/bound
  *
  * @function Phaser.Display.Align.To.TopRight
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be positioned.
  * @param {Phaser.GameObjects.GameObject} alignTo - The Game Object to base the alignment position on.
@@ -18749,6 +19004,8 @@ var SetCenterY = __webpack_require__(/*! ./SetCenterY */ "./display/bounds/SetCe
  *
  * @function Phaser.Display.Bounds.CenterOn
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be re-positioned.
  * @param {number} x - The horizontal coordinate to position the Game Object on.
@@ -19055,6 +19312,8 @@ module.exports = GetTop;
  * @function Phaser.Display.Bounds.SetBottom
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be re-positioned.
  * @param {number} value - The coordinate to position the Game Object bounds on.
  *
@@ -19090,6 +19349,8 @@ module.exports = SetBottom;
  *
  * @function Phaser.Display.Bounds.SetCenterX
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be re-positioned.
  * @param {number} x - The coordinate to position the Game Object bounds on.
@@ -19129,6 +19390,8 @@ module.exports = SetCenterX;
  * @function Phaser.Display.Bounds.SetCenterY
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be re-positioned.
  * @param {number} y - The coordinate to position the Game Object bounds on.
  *
@@ -19167,6 +19430,8 @@ module.exports = SetCenterY;
  * @function Phaser.Display.Bounds.SetLeft
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be re-positioned.
  * @param {number} value - The coordinate to position the Game Object bounds on.
  *
@@ -19203,6 +19468,8 @@ module.exports = SetLeft;
  * @function Phaser.Display.Bounds.SetRight
  * @since 3.0.0
  *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
+ *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be re-positioned.
  * @param {number} value - The coordinate to position the Game Object bounds on.
  *
@@ -19238,6 +19505,8 @@ module.exports = SetRight;
  *
  * @function Phaser.Display.Bounds.SetTop
  * @since 3.0.0
+ *
+ * @generic {Phaser.GameObjects.GameObject} G - [gameObject,$return]
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will be re-positioned.
  * @param {number} value - The coordinate to position the Game Object bounds on.
@@ -22771,7 +23040,7 @@ var StableSort = __webpack_require__(/*! ../utils/array/StableSort */ "./utils/a
  * [description]
  *
  * @class DisplayList
- * @extends Phaser.Structs.List
+ * @extends Phaser.Structs.List.<Phaser.GameObjects.GameObject>
  * @memberOf Phaser.GameObjects
  * @constructor
  * @since 3.0.0
@@ -23073,7 +23342,7 @@ var GameObject = new Class({
          * If this Game Object is enabled for physics then this property will contain a reference to a Physics Body.
          *
          * @name Phaser.GameObjects.GameObject#body
-         * @type {?Phaser.Physics.Body}
+         * @type {?object}
          * @default null
          * @since 3.0.0
          */
@@ -24504,8 +24773,8 @@ var Render = __webpack_require__(/*! ./DynamicBitmapTextRender */ "./gameobjects
  * @extends Phaser.GameObjects.Components.Visible
  *
  * @param {Phaser.Scene} scene - The Scene to which this Game Object belongs. It can only belong to one Scene at any given time.
- * @param {number} [x=0] - The x coordinate of this Game Object in world space.
- * @param {number} [y=0] - The y coordinate of this Game Object in world space.
+ * @param {number} x - The x coordinate of this Game Object in world space.
+ * @param {number} y - The y coordinate of this Game Object in world space.
  * @param {string} font - [description]
  * @param {(string|string[])} [text] - [description]
  * @param {number} [size] - [description]
@@ -24868,7 +25137,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.DynamicBitmapText} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -25079,7 +25348,7 @@ var GetAdvancedValue = __webpack_require__(/*! ../../../utils/object/GetAdvanced
  * @property {string} [font=''] - [description]
  * @property {string} [text=''] - [description]
  * @property {(number|false)} [size=false] - [description]
- * @property {string} [align=''] - [description]
+ * @property {string} [align='left'] - [description]
  */
 
 /**
@@ -25221,7 +25490,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.DynamicBitmapText} gameObject - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -25311,8 +25580,8 @@ var Render = __webpack_require__(/*! ./BitmapTextRender */ "./gameobjects/bitmap
  * @extends Phaser.GameObjects.Components.Visible
  * 
  * @param {Phaser.Scene} scene - The Scene to which this Game Object belongs. It can only belong to one Scene at any given time.
- * @param {number} [x=0] - The x coordinate of this Game Object in world space.
- * @param {number} [y=0] - The y coordinate of this Game Object in world space.
+ * @param {number} x - The x coordinate of this Game Object in world space.
+ * @param {number} y - The y coordinate of this Game Object in world space.
  * @param {string} font - [description]
  * @param {(string|string[])} [text] - [description]
  * @param {number} [size] - [description]
@@ -25562,7 +25831,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.BitmapText} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -25882,7 +26151,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.BitmapText} gameObject - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -26004,7 +26273,7 @@ var Blitter = new Class({
          * [description]
          *
          * @name Phaser.GameObjects.Blitter#children
-         * @type {Phaser.Structs.List}
+         * @type {Phaser.Structs.List.<Phaser.GameObjects.Blitter.Bob>}
          * @since 3.0.0
          */
         this.children = new List();
@@ -26013,7 +26282,7 @@ var Blitter = new Class({
          * [description]
          *
          * @name Phaser.GameObjects.Blitter#renderList
-         * @type {array}
+         * @type {Phaser.GameObjects.Blitter.Bob[]}
          * @default []
          * @since 3.0.0
          */
@@ -26067,7 +26336,7 @@ var Blitter = new Class({
      *
      * @param {BlitterFromCallback} callback - The callback to invoke after creating a bob. It will be sent two arguments: The Bob and the index of the Bob.
      * @param {integer} quantity - The quantity of Bob objects to create.
-     * @param {string} [frame] - The Frame the Bobs will use. It must be part of the Blitter Texture.
+     * @param {(string|integer|Phaser.Textures.Frame|string[]|integer[]|Phaser.Textures.Frame[])} [frame] - The Frame the Bobs will use. It must be part of the Blitter Texture.
      * @param {boolean} [visible=true] - [description]
      *
      * @return {Phaser.GameObjects.Blitter.Bob[]} An array of Bob objects that were created.
@@ -26093,7 +26362,7 @@ var Blitter = new Class({
      * @since 3.0.0
      *
      * @param {integer} quantity - The quantity of Bob objects to create.
-     * @param {string} [frame] - The Frame the Bobs will use. It must be part of the Blitter Texture.
+     * @param {(string|integer|Phaser.Textures.Frame|string[]|integer[]|Phaser.Textures.Frame[])} [frame] - The Frame the Bobs will use. It must be part of the Blitter Texture.
      * @param {boolean} [visible=true] - [description]
      *
      * @return {Phaser.GameObjects.Blitter.Bob[]} An array of Bob objects that were created.
@@ -26199,7 +26468,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.Blitter} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -26417,7 +26686,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.Blitter} gameObject - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -26815,11 +27084,59 @@ var _FLAG = 2; // 0010
 
 var Alpha = {
 
+    /**
+     * Private internal value. Holds the global alpha value.
+     * 
+     * @name Phaser.GameObjects.Components.Alpha#_alpha
+     * @type {float}
+     * @private
+     * @default 1
+     * @since 3.0.0
+     */
     _alpha: 1,
 
+    /**
+     * Private internal value. Holds the top-left alpha value.
+     * 
+     * @name Phaser.GameObjects.Components.Alpha#_alphaTL
+     * @type {float}
+     * @private
+     * @default 1
+     * @since 3.0.0
+     */
     _alphaTL: 1,
+
+    /**
+     * Private internal value. Holds the top-right alpha value.
+     * 
+     * @name Phaser.GameObjects.Components.Alpha#_alphaTR
+     * @type {float}
+     * @private
+     * @default 1
+     * @since 3.0.0
+     */
     _alphaTR: 1,
+
+    /**
+     * Private internal value. Holds the bottom-left alpha value.
+     * 
+     * @name Phaser.GameObjects.Components.Alpha#_alphaBL
+     * @type {float}
+     * @private
+     * @default 1
+     * @since 3.0.0
+     */
     _alphaBL: 1,
+
+    /**
+     * Private internal value. Holds the bottom-right alpha value.
+     * 
+     * @name Phaser.GameObjects.Components.Alpha#_alphaBR
+     * @type {float}
+     * @private
+     * @default 1
+     * @since 3.0.0
+     */
     _alphaBR: 1,
 
     /**
@@ -27885,6 +28202,15 @@ var BlendModes = __webpack_require__(/*! ../../renderer/BlendModes */ "./rendere
 
 var BlendMode = {
 
+    /**
+     * Private internal value. Holds the current blend mode.
+     * 
+     * @name Phaser.GameObjects.Components.BlendMode#_blendMode
+     * @type {integer}
+     * @private
+     * @default 0
+     * @since 3.0.0
+     */
     _blendMode: BlendModes.NORMAL,
 
     /**
@@ -27908,7 +28234,7 @@ var BlendMode = {
      * are used.
      *
      * @name Phaser.GameObjects.Components.BlendMode#blendMode
-     * @type {(integer|string)}
+     * @type {(Phaser.BlendModes|string)}
      * @since 3.0.0
      */
     blendMode: {
@@ -27958,7 +28284,7 @@ var BlendMode = {
      * @method Phaser.GameObjects.Components.BlendMode#setBlendMode
      * @since 3.0.0
      *
-     * @param {(string|integer)} value - The BlendMode value. Either a string or a CONST.
+     * @param {(string|Phaser.BlendModes)} value - The BlendMode value. Either a string or a CONST.
      *
      * @return {Phaser.GameObjects.GameObject} This Game Object instance.
      */
@@ -27990,7 +28316,7 @@ module.exports = BlendMode;
  */
 
 /**
- * Provides methods used for setting the blend mode of a Game Object.
+ * Provides methods used for calculating and setting the size of a non-Frame based Game Object.
  * Should be applied as a mixin and not used directly.
  * 
  * @name Phaser.GameObjects.Components.ComputedSize
@@ -28059,6 +28385,45 @@ var ComputedSize = {
             this.scaleY = value / this.height;
         }
 
+    },
+
+    /**
+     * Sets the size of this Game Object.
+     * 
+     * @method Phaser.GameObjects.Components.ComputedSize#setSize
+     * @since 3.4.0
+     *
+     * @param {number} width - The width of this Game Object.
+     * @param {number} height - The height of this Game Object.
+     * 
+     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     */
+    setSize: function (width, height)
+    {
+        this.width = width;
+        this.height = height;
+
+        return this;
+    },
+
+    /**
+     * Sets the display size of this Game Object.
+     * Calling this will adjust the scale.
+     * 
+     * @method Phaser.GameObjects.Components.ComputedSize#setDisplaySize
+     * @since 3.4.0
+     *
+     * @param {number} width - The width of this Game Object.
+     * @param {number} height - The height of this Game Object.
+     * 
+     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     */
+    setDisplaySize: function (width, height)
+    {
+        this.displayWidth = width;
+        this.displayHeight = height;
+
+        return this;
     }
 
 };
@@ -28091,6 +28456,15 @@ module.exports = ComputedSize;
 
 var Depth = {
 
+    /**
+     * Private internal value. Holds the depth of the Game Object.
+     * 
+     * @name Phaser.GameObjects.Components.Depth#_depth
+     * @type {integer}
+     * @private
+     * @default 0
+     * @since 3.0.0
+     */
     _depth: 0,
 
     /**
@@ -28343,6 +28717,8 @@ var GetBounds = {
      * @method Phaser.GameObjects.Components.GetBounds#getCenter
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [output,$return]
+     *
      * @param {(Phaser.Math.Vector2|object)} [output] - An object to store the values in. If not provided a new Vector2 will be created.
      *
      * @return {(Phaser.Math.Vector2|object)} The values stored in the output object.
@@ -28362,6 +28738,8 @@ var GetBounds = {
      *
      * @method Phaser.GameObjects.Components.GetBounds#getTopLeft
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [output,$return]
      *
      * @param {(Phaser.Math.Vector2|object)} [output] - An object to store the values in. If not provided a new Vector2 will be created.
      *
@@ -28388,6 +28766,8 @@ var GetBounds = {
      * @method Phaser.GameObjects.Components.GetBounds#getTopRight
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [output,$return]
+     *
      * @param {(Phaser.Math.Vector2|object)} [output] - An object to store the values in. If not provided a new Vector2 will be created.
      *
      * @return {(Phaser.Math.Vector2|object)} The values stored in the output object.
@@ -28412,6 +28792,8 @@ var GetBounds = {
      *
      * @method Phaser.GameObjects.Components.GetBounds#getBottomLeft
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [output,$return]
      *
      * @param {(Phaser.Math.Vector2|object)} [output] - An object to store the values in. If not provided a new Vector2 will be created.
      *
@@ -28438,6 +28820,8 @@ var GetBounds = {
      * @method Phaser.GameObjects.Components.GetBounds#getBottomRight
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [output,$return]
+     *
      * @param {(Phaser.Math.Vector2|object)} [output] - An object to store the values in. If not provided a new Vector2 will be created.
      *
      * @return {(Phaser.Math.Vector2|object)} The values stored in the output object.
@@ -28463,6 +28847,8 @@ var GetBounds = {
      *
      * @method Phaser.GameObjects.Components.GetBounds#getBounds
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [output,$return]
      *
      * @param {(Phaser.Geom.Rectangle|object)} [output] - An object to store the values in. If not provided a new Rectangle will be created.
      *
@@ -28573,7 +28959,7 @@ var MatrixStack = {
     initMatrixStack: function ()
     {
         this.matrixStack = new Float32Array(6000); // up to 1000 matrices
-        this.currentMatrix = new Float32Array([ 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 ]);
+        this.currentMatrix = new Float32Array([ 1, 0, 0, 1, 0, 0 ]);
         this.currentMatrixIndex = 0;
 
         return this;
@@ -28644,7 +29030,7 @@ var MatrixStack = {
      */
     loadIdentity: function ()
     {
-        this.setTransform(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+        this.setTransform(1, 0, 0, 1, 0, 0);
 
         return this;
     },
@@ -28820,7 +29206,7 @@ module.exports = MatrixStack;
  * Values are normalized, given in the range 0 to 1.
  * Display values contain the calculated pixel values.
  * Should be applied as a mixin and not used directly.
- * 
+ *
  * @name Phaser.GameObjects.Components.Origin
  * @since 3.0.0
  */
@@ -28829,7 +29215,7 @@ var Origin = {
 
     /**
      * A property indicating that a Game Object has this component.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Origin#_originComponent
      * @type {boolean}
      * @private
@@ -28843,7 +29229,7 @@ var Origin = {
      * The origin maps the relationship between the size and position of the Game Object.
      * The default value is 0.5, meaning all Game Objects are positioned based on their center.
      * Setting the value to 0 means the position now relates to the left of the Game Object.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Origin#originX
      * @type {float}
      * @default 0.5
@@ -28856,7 +29242,7 @@ var Origin = {
      * The origin maps the relationship between the size and position of the Game Object.
      * The default value is 0.5, meaning all Game Objects are positioned based on their center.
      * Setting the value to 0 means the position now relates to the top of the Game Object.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Origin#originY
      * @type {float}
      * @default 0.5
@@ -28872,7 +29258,7 @@ var Origin = {
      * The horizontal display origin of this Game Object.
      * The origin is a normalized value between 0 and 1.
      * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Origin#displayOriginX
      * @type {float}
      * @since 3.0.0
@@ -28896,7 +29282,7 @@ var Origin = {
      * The vertical display origin of this Game Object.
      * The origin is a normalized value between 0 and 1.
      * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Origin#displayOriginY
      * @type {float}
      * @since 3.0.0
@@ -28920,13 +29306,13 @@ var Origin = {
      * Sets the origin of this Game Object.
      *
      * The values are given in the range 0 to 1.
-     * 
+     *
      * @method Phaser.GameObjects.Components.Origin#setOrigin
      * @since 3.0.0
      *
      * @param {number} [x=0.5] - The horizontal origin value.
-     * @param {number} [y=0.5] - The vertical origin value. If not defined it will be set to the value of `x`.
-     * 
+     * @param {number} [y=x] - The vertical origin value. If not defined it will be set to the value of `x`.
+     *
      * @return {Phaser.GameObjects.GameObject} This Game Object instance.
      */
     setOrigin: function (x, y)
@@ -28942,10 +29328,10 @@ var Origin = {
 
     /**
      * Sets the origin of this Game Object based on the Pivot values in its Frame.
-     * 
+     *
      * @method Phaser.GameObjects.Components.Origin#setOriginFromFrame
      * @since 3.0.0
-     * 
+     *
      * @return {Phaser.GameObjects.GameObject} This Game Object instance.
      */
     setOriginFromFrame: function ()
@@ -28966,13 +29352,13 @@ var Origin = {
     /**
      * Sets the display origin of this Game Object.
      * The difference between this and setting the origin is that you can use pixel values for setting the display origin.
-     * 
+     *
      * @method Phaser.GameObjects.Components.Origin#setDisplayOrigin
      * @since 3.0.0
      *
      * @param {number} [x=0] - The horizontal display origin value.
-     * @param {number} [y=0] - The vertical display origin value. If not defined it will be set to the value of `x`.
-     * 
+     * @param {number} [y=x] - The vertical display origin value. If not defined it will be set to the value of `x`.
+     *
      * @return {Phaser.GameObjects.GameObject} This Game Object instance.
      */
     setDisplayOrigin: function (x, y)
@@ -28989,10 +29375,10 @@ var Origin = {
     /**
      * Updates the Display Origin cached values internally stored on this Game Object.
      * You don't usually call this directly, but it is exposed for edge-cases where you may.
-     * 
+     *
      * @method Phaser.GameObjects.Components.Origin#updateDisplayOrigin
      * @since 3.0.0
-     * 
+     *
      * @return {Phaser.GameObjects.GameObject} This Game Object instance.
      */
     updateDisplayOrigin: function ()
@@ -29161,7 +29547,7 @@ var ScaleModes = __webpack_require__(/*! ../../renderer/ScaleModes */ "./rendere
 
 /**
  * Provides methods used for getting and setting the scale of a Game Object.
- * 
+ *
  * @name Phaser.GameObjects.Components.ScaleMode
  * @since 3.0.0
  */
@@ -29173,9 +29559,9 @@ var ScaleMode = {
     /**
      * The Scale Mode being used by this Game Object.
      * Can be either `ScaleModes.LINEAR` or `ScaleModes.NEAREST`.
-     * 
+     *
      * @name Phaser.GameObjects.Components.ScaleMode#scaleMode
-     * @type {integer}
+     * @type {Phaser.ScaleModes}
      * @since 3.0.0
      */
     scaleMode: {
@@ -29198,12 +29584,12 @@ var ScaleMode = {
     /**
      * Sets the Scale Mode being used by this Game Object.
      * Can be either `ScaleModes.LINEAR` or `ScaleModes.NEAREST`.
-     * 
+     *
      * @method Phaser.GameObjects.Components.ScaleMode#setScaleMode
      * @since 3.0.0
      *
-     * @param {integer} value - The Scale Mode to be used by this Game Object.
-     * 
+     * @param {Phaser.ScaleModes} value - The Scale Mode to be used by this Game Object.
+     *
      * @return {Phaser.GameObjects.GameObject} This Game Object instance.
      */
     setScaleMode: function (value)
@@ -29235,7 +29621,7 @@ module.exports = ScaleMode;
 
 /**
  * Provides methods used for getting and setting the Scroll Factor of a Game Object.
- * 
+ *
  * @name Phaser.GameObjects.Components.ScrollFactor
  * @since 3.0.0
  */
@@ -29244,16 +29630,16 @@ var ScrollFactor = {
 
     /**
      * The horizontal scroll factor of this Game Object.
-     * 
+     *
      * The scroll factor controls the influence of the movement of a Camera upon this Game Object.
      *
      * When a camera scrolls it will change the location at which this Game Object is rendered on-screen.
      * It does not change the Game Objects actual position values.
-     * 
+     *
      * A value of 1 means it will move exactly in sync with a camera.
      * A value of 0 means it will not move at all, even if the camera moves.
      * Other values control the degree to which the camera movement is mapped to this Game Object.
-     * 
+     *
      * @name Phaser.GameObjects.Components.ScrollFactor#scrollFactorX
      * @type {number}
      * @default 1
@@ -29263,16 +29649,16 @@ var ScrollFactor = {
 
     /**
      * The vertical scroll factor of this Game Object.
-     * 
+     *
      * The scroll factor controls the influence of the movement of a Camera upon this Game Object.
      *
      * When a camera scrolls it will change the location at which this Game Object is rendered on-screen.
      * It does not change the Game Objects actual position values.
-     * 
+     *
      * A value of 1 means it will move exactly in sync with a camera.
      * A value of 0 means it will not move at all, even if the camera moves.
      * Other values control the degree to which the camera movement is mapped to this Game Object.
-     * 
+     *
      * @name Phaser.GameObjects.Components.ScrollFactor#scrollFactorY
      * @type {number}
      * @default 1
@@ -29282,22 +29668,22 @@ var ScrollFactor = {
 
     /**
      * Sets the scroll factor of this Game Object.
-     * 
+     *
      * The scroll factor controls the influence of the movement of a Camera upon this Game Object.
      *
      * When a camera scrolls it will change the location at which this Game Object is rendered on-screen.
      * It does not change the Game Objects actual position values.
-     * 
+     *
      * A value of 1 means it will move exactly in sync with a camera.
      * A value of 0 means it will not move at all, even if the camera moves.
      * Other values control the degree to which the camera movement is mapped to this Game Object.
-     * 
+     *
      * @method Phaser.GameObjects.Components.ScrollFactor#setScrollFactor
      * @since 3.0.0
      *
      * @param {number} x - The horizontal scroll factor of this Game Object.
-     * @param {number} [y] - The vertical scroll factor of this Game Object. If not set it will use the `x` value.
-     * 
+     * @param {number} [y=x] - The vertical scroll factor of this Game Object. If not set it will use the `x` value.
+     *
      * @return {Phaser.GameObjects.GameObject} This Game Object instance.
      */
     setScrollFactor: function (x, y)
@@ -29637,10 +30023,48 @@ var GetColor = function (value)
 
 var Tint = {
 
-    //  0: topLeft, 1: topRight, 2: bottomLeft, 3: bottomRight
+    /**
+     * Private internal value. Holds the top-left tint value.
+     * 
+     * @name Phaser.GameObjects.Components.Tint#_tintTL
+     * @type {number}
+     * @private
+     * @default 16777215
+     * @since 3.0.0
+     */
     _tintTL: 16777215,
+
+    /**
+     * Private internal value. Holds the top-right tint value.
+     * 
+     * @name Phaser.GameObjects.Components.Tint#_tintTR
+     * @type {number}
+     * @private
+     * @default 16777215
+     * @since 3.0.0
+     */
     _tintTR: 16777215,
+
+    /**
+     * Private internal value. Holds the bottom-left tint value.
+     * 
+     * @name Phaser.GameObjects.Components.Tint#_tintBL
+     * @type {number}
+     * @private
+     * @default 16777215
+     * @since 3.0.0
+     */
     _tintBL: 16777215,
+
+    /**
+     * Private internal value. Holds the bottom-right tint value.
+     * 
+     * @name Phaser.GameObjects.Components.Tint#_tintBR
+     * @type {number}
+     * @private
+     * @default 16777215
+     * @since 3.0.0
+     */
     _tintBR: 16777215,
 
     /**
@@ -29823,7 +30247,6 @@ module.exports = Tint;
 
 /**
  * @typedef {object} JSONGameObject
- * @template DATA
  *
  * @property {string} name - The name of this Game Object.
  * @property {string} type - A textual representation of this Game Object, i.e. `sprite`.
@@ -29844,7 +30267,7 @@ module.exports = Tint;
  * @property {(integer|string)} blendMode - Sets the Blend Mode being used by this Game Object.
  * @property {string} textureKey - The texture key of this Game Object.
  * @property {string} frameKey - The frame key of this Game Object.
- * @property {DATA} data - The data of this Game Object.
+ * @property {object} data - The data of this Game Object.
  */
 
 //  Default Game Object JSON export
@@ -29931,9 +30354,37 @@ var _FLAG = 4; // 0100
 
 var Transform = {
 
-    //  "private" properties
+    /**
+     * Private internal value. Holds the horizontal scale value.
+     * 
+     * @name Phaser.GameObjects.Components.Transform#_scaleX
+     * @type {float}
+     * @private
+     * @default 1
+     * @since 3.0.0
+     */
     _scaleX: 1,
+
+    /**
+     * Private internal value. Holds the vertical scale value.
+     * 
+     * @name Phaser.GameObjects.Components.Transform#_scaleY
+     * @type {float}
+     * @private
+     * @default 1
+     * @since 3.0.0
+     */
     _scaleY: 1,
+
+    /**
+     * Private internal value. Holds the rotation value in radians.
+     * 
+     * @name Phaser.GameObjects.Components.Transform#_rotation
+     * @type {float}
+     * @private
+     * @default 0
+     * @since 3.0.0
+     */
     _rotation: 0,
 
     /**
@@ -30684,6 +31135,15 @@ var _FLAG = 1; // 0001
 
 var Visible = {
 
+    /**
+     * Private internal value. Holds the visible value.
+     * 
+     * @name Phaser.GameObjects.Components.Visible#_visible
+     * @type {boolean}
+     * @private
+     * @default true
+     * @since 3.0.0
+     */
     _visible: true,
 
     /**
@@ -31988,7 +32448,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.Graphics} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -32379,7 +32839,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.Graphics} graphics - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -32494,8 +32954,8 @@ var Sprite = __webpack_require__(/*! ../sprite/Sprite */ "./gameobjects/sprite/S
  * @since 3.0.0
  *
  * @param {Phaser.Scene} scene - [description]
- * @param {array} children - [description]
- * @param {GroupConfig} config - [description]
+ * @param {?(Phaser.GameObjects.GameObject[]|GroupConfig)} children - [description]
+ * @param {GroupConfig} [config] - [description]
  */
 var Group = new Class({
 
@@ -32522,7 +32982,7 @@ var Group = new Class({
          * [description]
          *
          * @name Phaser.GameObjects.Group#children
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.GameObjects.GameObject>}
          * @since 3.0.0
          */
         this.children = new Set(children);
@@ -32631,11 +33091,10 @@ var Group = new Class({
      * @method Phaser.GameObjects.Group#create
      * @since 3.0.0
      *
-     * @param {number} x - The horizontal position of this Game Object in the world.
-     * @param {number} y - The vertical position of this Game Object in the world.
-     * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
+     * @param {number} [x=0] - The horizontal position of this Game Object in the world.
+     * @param {number} [y=0] - The vertical position of this Game Object in the world.
+     * @param {string} [key=defaultKey] - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
+     * @param {(string|integer)} [frame=defaultFrame] - An optional frame from the Texture this Game Object is rendering with.
      * @param {boolean} [visible=true] - The {@link Phaser.GameObjects.Components.Visible#visible} state of this Game Object.
      * @param {boolean} [active=true] - The {@link Phaser.GameObjects.GameObject#active} state of this Game Object.
      *
@@ -32643,6 +33102,8 @@ var Group = new Class({
      */
     create: function (x, y, key, frame, visible, active)
     {
+        if (x === undefined) { x = 0; }
+        if (y === undefined) { y = 0; }
         if (key === undefined) { key = this.defaultKey; }
         if (frame === undefined) { frame = this.defaultFrame; }
         if (visible === undefined) { visible = true; }
@@ -33030,11 +33491,11 @@ var Group = new Class({
      *
      * @param {boolean} [state=false] - [description]
      * @param {boolean} [createIfNull=false] - [description]
-     * @param {number} [x] - The horizontal position of this Game Object in the world.
-     * @param {number} [y] - The vertical position of this Game Object in the world.
-     * @param {string} [texture] - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
-     * @param {boolean} [visible] - [description]
+     * @param {number} [x=0] - The horizontal position of this Game Object in the world.
+     * @param {number} [y=0] - The vertical position of this Game Object in the world.
+     * @param {string} [key=defaultKey] - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
+     * @param {(string|integer)} [frame=defaultFrame] - An optional frame from the Texture this Game Object is rendering with.
+     * @param {boolean} [visible=true] - The {@link Phaser.GameObjects.Components.Visible#visible} state of this Game Object.
      *
      * @return {?Phaser.GameObjects.GameObject} [description]
      */
@@ -33079,16 +33540,19 @@ var Group = new Class({
     },
 
     /**
-     * [description]
+     * Scans the Group for the first child that has an `active` state set to `false` and returns it.
+     * 
+     * If no child is found then it will create a new one using the arguments given to this method.
+     * Unless a new child is being created the arguments are ignored.
      *
      * @method Phaser.GameObjects.Group#get
      * @since 3.0.0
      *
-     * @param {number} x - The horizontal position of this Game Object in the world.
-     * @param {number} y - The vertical position of this Game Object in the world.
-     * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
-     * @param {boolean} visible - [description]
+     * @param {number} [x=0] - The horizontal position of this Game Object in the world.
+     * @param {number} [y=0] - The vertical position of this Game Object in the world.
+     * @param {string} [key=defaultKey] - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
+     * @param {(string|integer)} [frame=defaultFrame] - An optional frame from the Texture this Game Object is rendering with.
+     * @param {boolean} [visible=true] - The {@link Phaser.GameObjects.Components.Visible#visible} state of this Game Object.
      *
      * @return {Phaser.GameObjects.GameObject} [description]
      */
@@ -33098,17 +33562,20 @@ var Group = new Class({
     },
 
     /**
-     * [description]
+     * Scans the Group for the first child that has an `active` state set to `true` and returns it.
+     * 
+     * If no child is found, and `createIfNull` is `true`, then it will create a new one using the arguments given to this method.
+     * Unless a new child is being created the arguments are ignored.
      *
      * @method Phaser.GameObjects.Group#getFirstAlive
      * @since 3.0.0
      *
      * @param {boolean} createIfNull - [description]
-     * @param {number} x - The horizontal position of this Game Object in the world.
-     * @param {number} y - The vertical position of this Game Object in the world.
-     * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
-     * @param {boolean} visible - [description]
+     * @param {number} [x=0] - The horizontal position of this Game Object in the world.
+     * @param {number} [y=0] - The vertical position of this Game Object in the world.
+     * @param {string} [key=defaultKey] - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
+     * @param {(string|integer)} [frame=defaultFrame] - An optional frame from the Texture this Game Object is rendering with.
+     * @param {boolean} [visible=true] - The {@link Phaser.GameObjects.Components.Visible#visible} state of this Game Object.
      *
      * @return {Phaser.GameObjects.GameObject} [description]
      */
@@ -33118,17 +33585,20 @@ var Group = new Class({
     },
 
     /**
-     * [description]
+     * Scans the Group for the first child that has an `active` state set to `false` and returns it.
+     * 
+     * If no child is found, and `createIfNull` is `true`, then it will create a new one using the arguments given to this method.
+     * Unless a new child is being created the arguments are ignored.
      *
      * @method Phaser.GameObjects.Group#getFirstDead
      * @since 3.0.0
      *
      * @param {boolean} createIfNull - [description]
-     * @param {number} x - The horizontal position of this Game Object in the world.
-     * @param {number} y - The vertical position of this Game Object in the world.
-     * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
-     * @param {boolean} visible - [description]
+     * @param {number} [x=0] - The horizontal position of this Game Object in the world.
+     * @param {number} [y=0] - The vertical position of this Game Object in the world.
+     * @param {string} [key=defaultKey] - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
+     * @param {(string|integer)} [frame=defaultFrame] - An optional frame from the Texture this Game Object is rendering with.
+     * @param {boolean} [visible=true] - The {@link Phaser.GameObjects.Components.Visible#visible} state of this Game Object.
      *
      * @return {Phaser.GameObjects.GameObject} [description]
      */
@@ -33302,9 +33772,28 @@ var Group = new Class({
      *
      * @method Phaser.GameObjects.Group#destroy
      * @since 3.0.0
+     *
+     * @param {boolean} [destroyChildren=false] - Call `GameObject.destroy` on all children of this Group?
      */
-    destroy: function ()
+    destroy: function (destroyChildren)
     {
+        if (destroyChildren === undefined) { destroyChildren = false; }
+
+        if (destroyChildren)
+        {
+            var children = this.children;
+
+            for (var i = 0; i < children.size; i++)
+            {
+                var gameObject = children.entries[i];
+
+                //  Remove the event hook first or it'll go all recursive hell on us
+                gameObject.off('destroy', this.remove, this);
+
+                gameObject.destroy();
+            }
+        }
+
         this.children.clear();
 
         this.scene = undefined;
@@ -33342,7 +33831,7 @@ var Group = __webpack_require__(/*! ./Group */ "./gameobjects/group/Group.js");
  * @method Phaser.GameObjects.GameObjectCreator#group
  * @since 3.0.0
  *
- * @param {object} config - [description]
+ * @param {GroupConfig} config - [description]
  *
  * @return {Phaser.GameObjects.Group} The Game Object that was created.
  */
@@ -33380,8 +33869,8 @@ var GameObjectFactory = __webpack_require__(/*! ../GameObjectFactory */ "./gameo
  * @method Phaser.GameObjects.GameObjectFactory#group
  * @since 3.0.0
  *
- * @param {(array|object)} children - [description]
- * @param {object} [config] - [description]
+ * @param {?(Phaser.GameObjects.GameObject[]|GroupConfig)} children - [description]
+ * @param {GroupConfig} [config] - [description]
  *
  * @return {Phaser.GameObjects.Group} The Game Object that was created.
  */
@@ -33527,7 +34016,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.Image} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -33701,7 +34190,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.Image} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -33756,7 +34245,7 @@ var GameObjects = {
     Graphics: __webpack_require__(/*! ./graphics/Graphics.js */ "./gameobjects/graphics/Graphics.js"),
     Group: __webpack_require__(/*! ./group/Group */ "./gameobjects/group/Group.js"),
     Image: __webpack_require__(/*! ./image/Image */ "./gameobjects/image/Image.js"),
-    Particles: __webpack_require__(/*! ./particles/ParticleEmitterManager */ "./gameobjects/particles/ParticleEmitterManager.js"),
+    Particles: __webpack_require__(/*! ./particles */ "./gameobjects/particles/index.js"),
     PathFollower: __webpack_require__(/*! ./pathfollower/PathFollower */ "./gameobjects/pathfollower/PathFollower.js"),
     RenderTexture: __webpack_require__(/*! ./rendertexture/RenderTexture */ "./gameobjects/rendertexture/RenderTexture.js"),
     Sprite3D: __webpack_require__(/*! ./sprite3d/Sprite3D */ "./gameobjects/sprite3d/Sprite3D.js"),
@@ -34571,10 +35060,10 @@ var MeshRender = __webpack_require__(/*! ./MeshRender */ "./gameobjects/mesh/Mes
  * @param {Phaser.Scene} scene - The Scene to which this Game Object belongs. A Game Object can only belong to one Scene at a time.
  * @param {number} x - The horizontal position of this Game Object in the world.
  * @param {number} y - The vertical position of this Game Object in the world.
- * @param {array} vertices - An array containing the vertices data for this Mesh.
- * @param {array} uv - An array containing the uv data for this Mesh.
- * @param {array} colors - An array containing the color data for this Mesh.
- * @param {array} alphas - An array containing the alpha data for this Mesh.
+ * @param {float[]} vertices - An array containing the vertices data for this Mesh.
+ * @param {float[]} uv - An array containing the uv data for this Mesh.
+ * @param {float[]} colors - An array containing the color data for this Mesh.
+ * @param {float[]} alphas - An array containing the alpha data for this Mesh.
  * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
  */
@@ -34710,7 +35199,7 @@ module.exports = Mesh;
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.Mesh} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -34803,13 +35292,13 @@ var GameObjectFactory = __webpack_require__(/*! ../GameObjectFactory */ "./gameo
  *
  * @param {number} x - The horizontal position of this Game Object in the world.
  * @param {number} y - The vertical position of this Game Object in the world.
- * @param {array} vertices - An array containing the vertices data for this Mesh.
- * @param {array} uv - An array containing the uv data for this Mesh.
- * @param {array} colors - An array containing the color data for this Mesh.
- * @param {array} alphas - An array containing the alpha data for this Mesh.
+ * @param {float[]} vertices - An array containing the vertices data for this Mesh.
+ * @param {float[]} uv - An array containing the uv data for this Mesh.
+ * @param {float[]} colors - An array containing the color data for this Mesh.
+ * @param {float[]} alphas - An array containing the alpha data for this Mesh.
  * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
- * 
+ *
  * @return {Phaser.GameObjects.Mesh} The Game Object that was created.
  */
 if (true)
@@ -34821,9 +35310,9 @@ if (true)
 }
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
-//  
+//
 //  There are several properties available to use:
-//  
+//
 //  this.scene - a reference to the Scene that owns the GameObjectFactory
 //  this.displayList - a reference to the Display List the Scene owns
 //  this.updateList - a reference to the Update List the Scene owns
@@ -34891,7 +35380,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.Mesh} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -34968,12 +35457,12 @@ var Wrap = __webpack_require__(/*! ../../math/Wrap */ "./math/Wrap.js");
  * @param {boolean} [emitOnly=false] - [description]
  */
 var EmitterOp = new Class({
-
-    initialize:
-
-    function EmitterOp (config, key, defaultValue, emitOnly)
+    initialize: function EmitterOp (config, key, defaultValue, emitOnly)
     {
-        if (emitOnly === undefined) { emitOnly = false; }
+        if (emitOnly === undefined)
+        {
+            emitOnly = false;
+        }
 
         /**
          * [description]
@@ -35087,19 +35576,26 @@ var EmitterOp = new Class({
      * @method Phaser.GameObjects.Particles.EmitterOp#loadConfig
      * @since 3.0.0
      *
-     * @param {object} config - [description]
-     * @param {string} newKey - [description]
+     * @param {object} [config] - [description]
+     * @param {string} [newKey] - [description]
      */
     loadConfig: function (config, newKey)
     {
-        if (config === undefined) { config = {}; }
+        if (config === undefined)
+        {
+            config = {};
+        }
 
         if (newKey)
         {
             this.propertyKey = newKey;
         }
 
-        this.propertyValue = GetFastValue(config, this.propertyKey, this.defaultValue);
+        this.propertyValue = GetFastValue(
+            config,
+            this.propertyKey,
+            this.defaultValue
+        );
 
         this.setMethods();
 
@@ -35152,7 +35648,7 @@ var EmitterOp = new Class({
     {
         var value = this.propertyValue;
 
-        var t = typeof(value);
+        var t = typeof value;
 
         if (t === 'number')
         {
@@ -35190,12 +35686,18 @@ var EmitterOp = new Class({
                 this.onUpdate = value;
             }
         }
-        else if (t === 'object' && (this.has(value, 'random') || this.hasBoth(value, 'start', 'end') || this.hasBoth(value, 'min', 'max')))
+        else if (
+            t === 'object' &&
+            (this.has(value, 'random') ||
+                this.hasBoth(value, 'start', 'end') ||
+                this.hasBoth(value, 'min', 'max'))
+        )
         {
-            this.start = (this.has(value, 'start')) ? value.start : value.min;
-            this.end = (this.has(value, 'end')) ? value.end : value.max;
+            this.start = this.has(value, 'start') ? value.start : value.min;
+            this.end = this.has(value, 'end') ? value.end : value.max;
 
-            var isRandom = (this.hasBoth(value, 'min', 'max') || this.has(value, 'random'));
+            var isRandom =
+                this.hasBoth(value, 'min', 'max') || this.has(value, 'random');
 
             //  A random starting value (using 'min | max' instead of 'start | end' automatically implies a random value)
 
@@ -35234,7 +35736,7 @@ var EmitterOp = new Class({
 
                 //  x: { start: 100, end: 400, [ ease: 'Linear' ] }
 
-                var easeType = (this.has(value, 'ease')) ? value.ease : 'Linear';
+                var easeType = this.has(value, 'ease') ? value.ease : 'Linear';
 
                 this.ease = GetEaseFunction(easeType);
 
@@ -35246,7 +35748,10 @@ var EmitterOp = new Class({
                 this.onUpdate = this.easeValueUpdate;
             }
         }
-        else if (t === 'object' && this.hasEither(value, 'onEmit', 'onUpdate'))
+        else if (
+            t === 'object' &&
+            this.hasEither(value, 'onEmit', 'onUpdate')
+        )
         {
             //  Custom onEmit and onUpdate callbacks
 
@@ -35293,7 +35798,7 @@ var EmitterOp = new Class({
      */
     has: function (object, key)
     {
-        return (object.hasOwnProperty(key));
+        return object.hasOwnProperty(key);
     },
 
     /**
@@ -35310,7 +35815,7 @@ var EmitterOp = new Class({
      */
     hasBoth: function (object, key1, key2)
     {
-        return (object.hasOwnProperty(key1) && object.hasOwnProperty(key2));
+        return object.hasOwnProperty(key1) && object.hasOwnProperty(key2);
     },
 
     /**
@@ -35327,7 +35832,7 @@ var EmitterOp = new Class({
      */
     hasEither: function (object, key1, key2)
     {
-        return (object.hasOwnProperty(key1) || object.hasOwnProperty(key2));
+        return object.hasOwnProperty(key1) || object.hasOwnProperty(key2);
     },
 
     /**
@@ -35441,7 +35946,7 @@ var EmitterOp = new Class({
     {
         var current = this.counter;
 
-        var next = this.counter + ((this.end - this.start) / this.steps);
+        var next = this.counter + (this.end - this.start) / this.steps;
 
         this.counter = Wrap(next, this.start, this.end);
 
@@ -35490,7 +35995,6 @@ var EmitterOp = new Class({
 
         return (data.max - data.min) * this.ease(t) + data.min;
     }
-
 });
 
 module.exports = EmitterOp;
@@ -35515,6 +36019,16 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 
 /**
+ * @typedef {object} GravityWellConfig
+ *
+ * @property {number} [x=0] - The x coordinate of the Gravity Well, in world space.
+ * @property {number} [y=0] - The y coordinate of the Gravity Well, in world space.
+ * @property {number} [power=0] - The power of the Gravity Well.
+ * @property {number} [epsilon=100] - [description]
+ * @property {number} [gravity=50] - The gravitational force of this Gravity Well.
+ */
+
+/**
  * @classdesc
  * [description]
  *
@@ -35523,7 +36037,7 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
  * @constructor
  * @since 3.0.0
  *
- * @param {(number|object)} [x=0] - The x coordinate of the Gravity Well, in world space.
+ * @param {(number|GravityWellConfig)} [x=0] - The x coordinate of the Gravity Well, in world space.
  * @param {number} [y=0] - The y coordinate of the Gravity Well, in world space.
  * @param {number} [power=0] - The power of the Gravity Well.
  * @param {number} [epsilon=100] - [description]
@@ -35767,7 +36281,7 @@ var Particle = new Class({
          * [description]
          *
          * @name Phaser.GameObjects.Particles.Particle#frame
-         * @type {Phaser.Texture.Frame}
+         * @type {Phaser.Textures.Frame}
          * @default null
          * @since 3.0.0
          */
@@ -38446,7 +38960,7 @@ var ParticleEmitterManager = new Class({
          * A list of Emitters being managed by this Emitter Manager.
          *
          * @name Phaser.GameObjects.Particles.ParticleEmitterManager#emitters
-         * @type {Phaser.Structs.List}
+             * @type {Phaser.Structs.List.<Phaser.GameObjects.Particles.ParticleEmitter>}
          * @since 3.0.0
          */
         this.emitters = new List(this);
@@ -38455,7 +38969,7 @@ var ParticleEmitterManager = new Class({
          * A list of Gravity Wells being managed by this Emitter Manager.
          *
          * @name Phaser.GameObjects.Particles.ParticleEmitterManager#wells
-         * @type {Phaser.Structs.List}
+         * @type {Phaser.Structs.List.<Phaser.GameObjects.Particles.GravityWell>}
          * @since 3.0.0
          */
         this.wells = new List(this);
@@ -38775,8 +39289,8 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
- * @param {Phaser.GameObjects.Particles} emitterManager - The Game Object being rendered in this call.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  */
@@ -39042,8 +39556,8 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
- * @param {Phaser.GameObjects.Particles} emitterManager - The Game Object being rendered in this call.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  */
@@ -39060,6 +39574,41 @@ var ParticleManagerWebGLRenderer = function (renderer, emitterManager, interpola
 };
 
 module.exports = ParticleManagerWebGLRenderer;
+
+
+/***/ }),
+
+/***/ "./gameobjects/particles/index.js":
+/*!****************************************!*\
+  !*** ./gameobjects/particles/index.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * @namespace Phaser.GameObjects.Particles
+ */
+
+module.exports = {
+
+    GravityWell: __webpack_require__(/*! ./GravityWell */ "./gameobjects/particles/GravityWell.js"),
+    Particle: __webpack_require__(/*! ./Particle */ "./gameobjects/particles/Particle.js"),
+    ParticleEmitter: __webpack_require__(/*! ./ParticleEmitter */ "./gameobjects/particles/ParticleEmitter.js"),
+    ParticleEmitterManager: __webpack_require__(/*! ./ParticleEmitterManager */ "./gameobjects/particles/ParticleEmitterManager.js"),
+
+    Zones: {
+        DeathZone: __webpack_require__(/*! ./zones/DeathZone */ "./gameobjects/particles/zones/DeathZone.js"),
+        EdgeZone: __webpack_require__(/*! ./zones/EdgeZone */ "./gameobjects/particles/zones/EdgeZone.js"),
+        RandomZone: __webpack_require__(/*! ./zones/RandomZone */ "./gameobjects/particles/zones/RandomZone.js")
+    }
+
+};
 
 
 /***/ }),
@@ -39174,8 +39723,8 @@ var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
  * @param {object} source - [description]
  * @param {number} quantity - [description]
  * @param {number} stepRate - [description]
- * @param {boolean} yoyo - [description]
- * @param {boolean} seamless - [description]
+ * @param {boolean} [yoyo=false] - [description]
+ * @param {boolean} [seamless=true] - [description]
  */
 var EdgeZone = new Class({
 
@@ -39654,7 +40203,7 @@ var PathFollower = new Class({
 
         if (config)
         {
-            this.start(config);
+            this.startFollow(config);
         }
 
         return this;
@@ -40698,6 +41247,7 @@ var RenderTextureWebGL = __webpack_require__(/*! ./RenderTextureWebGL */ "./game
  *
  * @extends Phaser.GameObjects.Components.Alpha
  * @extends Phaser.GameObjects.Components.BlendMode
+ * @extends Phaser.GameObjects.Components.ComputedSize
  * @extends Phaser.GameObjects.Components.Depth
  * @extends Phaser.GameObjects.Components.Flip
  * @extends Phaser.GameObjects.Components.GetBounds
@@ -40706,7 +41256,6 @@ var RenderTextureWebGL = __webpack_require__(/*! ./RenderTextureWebGL */ "./game
  * @extends Phaser.GameObjects.Components.Pipeline
  * @extends Phaser.GameObjects.Components.ScaleMode
  * @extends Phaser.GameObjects.Components.ScrollFactor
- * @extends Phaser.GameObjects.Components.Size
  * @extends Phaser.GameObjects.Components.Tint
  * @extends Phaser.GameObjects.Components.Transform
  * @extends Phaser.GameObjects.Components.Visible
@@ -40724,6 +41273,7 @@ var RenderTexture = new Class({
     Mixins: [
         Components.Alpha,
         Components.BlendMode,
+        Components.ComputedSize,
         Components.Depth,
         Components.Flip,
         Components.GetBounds,
@@ -40732,7 +41282,6 @@ var RenderTexture = new Class({
         Components.Pipeline,
         Components.ScaleMode,
         Components.ScrollFactor,
-        Components.Size,
         Components.Tint,
         Components.Transform,
         Components.Visible,
@@ -40750,13 +41299,39 @@ var RenderTexture = new Class({
 
         this.initMatrixStack();
 
+        /**
+         * A reference to either the Canvas or WebGL Renderer that the Game instance is using.
+         *
+         * @name Phaser.GameObjects.RenderTexture#renderer
+         * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
+         * @since 3.2.0
+         */
         this.renderer = scene.sys.game.renderer;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.GameObjects.RenderTexture#globalTint
+         * @type {number}
+         * @default 0xffffff
+         * @since 3.2.0
+         */
         this.globalTint = 0xffffff;
-        this.globalAlpha = 1.0;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.GameObjects.RenderTexture#globalAlpha
+         * @type {float}
+         * @default 1
+         * @since 3.2.0
+         */
+        this.globalAlpha = 1;
 
         if (this.renderer.type === CONST.WEBGL)
         {
             var gl = this.renderer.gl;
+
             this.gl = gl;
             this.fill = RenderTextureWebGL.fill;
             this.clear = RenderTextureWebGL.clear;
@@ -40810,6 +41385,7 @@ var RenderTexture = new Class({
     setGlobalTint: function (tint)
     {
         this.globalTint = tint;
+
         return this;
     },
 
@@ -40826,6 +41402,7 @@ var RenderTexture = new Class({
     setGlobalAlpha: function (alpha)
     {
         this.globalAlpha = alpha;
+
         return this;
     }
 
@@ -40941,7 +41518,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.2.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.RenderTexture} renderTexture - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -41206,6 +41783,7 @@ module.exports = RenderTextureWebGL;
  */
 
 var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
+var Utils = __webpack_require__(/*! ../../renderer/webgl/Utils */ "./renderer/webgl/Utils.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -41216,7 +41794,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.2.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.RenderTexture} renderTexture - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -41240,7 +41818,7 @@ var RenderTextureWebGLRenderer = function (renderer, renderTexture, interpolatio
         renderTexture.scrollFactorX, renderTexture.scrollFactorY,
         renderTexture.displayOriginX, renderTexture.displayOriginY,
         0, 0, renderTexture.texture.width, renderTexture.texture.height,
-        0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
+        Utils.getTintAppendFloatAlpha(renderTexture.tintTopLeft, renderTexture.alphaTopLeft), Utils.getTintAppendFloatAlpha(renderTexture.tintTopRight, renderTexture.alphaTopRight), Utils.getTintAppendFloatAlpha(renderTexture.tintBottomLeft, renderTexture.alphaBottomLeft), Utils.getTintAppendFloatAlpha(renderTexture.tintBottomRight, renderTexture.alphaBottomRight),
         0, 0,
         camera
     );
@@ -41288,7 +41866,6 @@ var SpriteRender = __webpack_require__(/*! ./SpriteRender */ "./gameobjects/spri
  * @since 3.0.0
  *
  * @extends Phaser.GameObjects.Components.Alpha
- * @extends Phaser.GameObjects.Components.Animation
  * @extends Phaser.GameObjects.Components.BlendMode
  * @extends Phaser.GameObjects.Components.Depth
  * @extends Phaser.GameObjects.Components.Flip
@@ -41374,8 +41951,8 @@ var Sprite = new Class({
      * @since 3.0.0
      *
      * @param {string} key - [description]
-     * @param {boolean} ignoreIfPlaying - [description]
-     * @param {(integer|string)} startFrame - [description]
+     * @param {boolean} [ignoreIfPlaying=false] - [description]
+     * @param {integer} [startFrame=0] - [description]
      *
      * @return {Phaser.GameObjects.Sprite} This Game Object.
      */
@@ -41392,7 +41969,7 @@ var Sprite = new Class({
      * @method Phaser.GameObjects.Sprite#toJSON
      * @since 3.0.0
      *
-     * @return {object} [description]
+     * @return {JSONGameObject} A JSON representation of the Game Object.
      */
     toJSON: function ()
     {
@@ -41434,7 +42011,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.Sprite} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -41620,7 +42197,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.Sprite} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -44347,7 +44924,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.Text} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -44607,7 +45184,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.Text} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -44962,7 +45539,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.GameObjects.TileSprite} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -45233,7 +45810,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.GameObjects.TileSprite} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -45784,6 +46361,8 @@ var Circle = new Class({
      * @method Phaser.Geom.Circle#getPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Point} O - [out,$return]
+     *
      * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
      * @param {(Phaser.Geom.Point|object)} [out] - An object to store the return values in. If not given a Point object will be created.
      *
@@ -45801,11 +46380,13 @@ var Circle = new Class({
      * @method Phaser.Geom.Circle#getPoints
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Point[]} O - [output,$return]
+     *
      * @param {integer} quantity - The amount of points to return. If a falsey value the quantity will be derived from the `stepRate` instead.
      * @param {number} [stepRate] - Sets the quantity by getting the circumference of the circle and dividing it by the stepRate.
-     * @param {array} [output] - An array to insert the points in to. If not provided a new array will be created.
+     * @param {(array|Phaser.Geom.Point[])} [output] - An array to insert the points in to. If not provided a new array will be created.
      *
-     * @return {Phaser.Geom.Point[]} An array of Point objects pertaining to the points around the circumference of the circle.
+     * @return {(array|Phaser.Geom.Point[])} An array of Point objects pertaining to the points around the circumference of the circle.
      */
     getPoints: function (quantity, stepRate, output)
     {
@@ -45817,6 +46398,8 @@ var Circle = new Class({
      *
      * @method Phaser.Geom.Circle#getRandomPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Geom.Point} O - [point,$return]
      *
      * @param {(Phaser.Geom.Point|object)} [point] - A Point or point-like object to set the random `x` and `y` values in.
      *
@@ -46089,6 +46672,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Circle.CircumferencePoint
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Circle} circle - The Circle to get the circumference point on.
  * @param {number} angle - The angle from the center of the Circle to the circumference to return the point from. Given in radians.
  * @param {(Phaser.Geom.Point|object)} [out] - A Point, or point-like object, to store the results in. If not given a Point will be created.
@@ -46288,6 +46873,8 @@ module.exports = ContainsRect;
  * @function Phaser.Geom.Circle.CopyFrom
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Circle} O - [dest,$return]
+ *
  * @param {Phaser.Geom.Circle} source - The source Circle to copy the values from.
  * @param {Phaser.Geom.Circle} dest - The destination Circle to copy the values to.
  *
@@ -46363,6 +46950,8 @@ var Rectangle = __webpack_require__(/*! ../rectangle/Rectangle */ "./geom/rectan
  * @function Phaser.Geom.Circle.GetBounds
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [out,$return]
+ *
  * @param {Phaser.Geom.Circle} circle - The Circle to get the bounds from.
  * @param {(Phaser.Geom.Rectangle|object)} [out] - A Rectangle, or rectangle-like object, to store the circle bounds in. If not given a new Rectangle will be created.
  *
@@ -46410,6 +46999,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  *
  * @function Phaser.Geom.Circle.GetPoint
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Circle} circle - The Circle to get the circumference point on.
  * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
@@ -46507,6 +47098,8 @@ module.exports = GetPoints;
  * @function Phaser.Geom.Circle.Offset
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Circle} O - [circle,$return]
+ *
  * @param {Phaser.Geom.Circle} circle - The Circle to be offset (translated.)
  * @param {number} x - The amount to horizontally offset the Circle by.
  * @param {number} y - The amount to vertically offset the Circle by.
@@ -46544,6 +47137,8 @@ module.exports = Offset;
  *
  * @function Phaser.Geom.Circle.OffsetPoint
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Circle} O - [circle,$return]
  *
  * @param {Phaser.Geom.Circle} circle - The Circle to be offset (translated.)
  * @param {(Phaser.Geom.Point|object)} point - The Point object containing the values to offset the Circle by.
@@ -46584,8 +47179,10 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Circle.Random
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Circle} circle - The Circle to get a random point from.
- * @param {(Phaser.Geom.Point|object)} [point] - A Point or point-like object to set the random `x` and `y` values in.
+ * @param {(Phaser.Geom.Point|object)} [out] - A Point or point-like object to set the random `x` and `y` values in.
  *
  * @return {(Phaser.Geom.Point|object)} A Point object with the random values set in the `x` and `y` properties.
  */
@@ -46742,6 +47339,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  *
  * @function Phaser.Geom.Ellipse.CircumferencePoint
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to get the circumference point on.
  * @param {number} angle - The angle from the center of the Ellipse to the circumference to return the point from. Given in radians.
@@ -46946,6 +47545,8 @@ module.exports = ContainsRect;
  * @function Phaser.Geom.Ellipse.CopyFrom
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Ellipse} O - [dest,$return]
+ *
  * @param {Phaser.Geom.Ellipse} source - The source Ellipse to copy the values from.
  * @param {Phaser.Geom.Ellipse} dest - The destination Ellipse to copy the values to.
  *
@@ -47074,6 +47675,8 @@ var Ellipse = new Class({
      * @method Phaser.Geom.Ellipse#getPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Point} O - [out,$return]
+     *
      * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the ellipse.
      * @param {(Phaser.Geom.Point|object)} [out] - An object to store the return values in. If not given a Point object will be created.
      *
@@ -47107,6 +47710,8 @@ var Ellipse = new Class({
      *
      * @method Phaser.Geom.Ellipse#getRandomPoint
      * @since 3.0.0
+     *
+     * @generic {Phaser.Geom.Point} O - [point,$return]
      *
      * @param {(Phaser.Geom.Point|object)} [point] - A Point or point-like object to set the random `x` and `y` values in.
      *
@@ -47241,7 +47846,7 @@ var Ellipse = new Class({
 
     /**
      * The left position of the Ellipse.
-     * 
+     *
      * @name Phaser.Geom.Ellipse#left
      * @type {number}
      * @since 3.0.0
@@ -47262,7 +47867,7 @@ var Ellipse = new Class({
 
     /**
      * The right position of the Ellipse.
-     * 
+     *
      * @name Phaser.Geom.Ellipse#right
      * @type {number}
      * @since 3.0.0
@@ -47283,7 +47888,7 @@ var Ellipse = new Class({
 
     /**
      * The top position of the Ellipse.
-     * 
+     *
      * @name Phaser.Geom.Ellipse#top
      * @type {number}
      * @since 3.0.0
@@ -47304,7 +47909,7 @@ var Ellipse = new Class({
 
     /**
      * The bottom position of the Ellipse.
-     * 
+     *
      * @name Phaser.Geom.Ellipse#bottom
      * @type {number}
      * @since 3.0.0
@@ -47391,6 +47996,8 @@ var Rectangle = __webpack_require__(/*! ../rectangle/Rectangle */ "./geom/rectan
  * @function Phaser.Geom.Ellipse.GetBounds
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [out,$return]
+ *
  * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to get the bounds from.
  * @param {(Phaser.Geom.Rectangle|object)} [out] - A Rectangle, or rectangle-like object, to store the ellipse bounds in. If not given a new Rectangle will be created.
  *
@@ -47439,6 +48046,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Ellipse.GetPoint
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to get the circumference point on.
  * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the ellipse.
  * @param {(Phaser.Geom.Point|object)} [out] - An object to store the return values in. If not given a Point object will be created.
@@ -47484,12 +48093,14 @@ var MATH_CONST = __webpack_require__(/*! ../../math/const */ "./math/const.js");
  * @function Phaser.Geom.Ellipse.GetPoints
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point[]} O - [out,$return]
+ *
  * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to get the points from.
  * @param {integer} quantity - The amount of points to return. If a falsey value the quantity will be derived from the `stepRate` instead.
  * @param {number} [stepRate] - Sets the quantity by getting the circumference of the ellipse and dividing it by the stepRate.
- * @param {array} [output] - An array to insert the points in to. If not provided a new array will be created.
+ * @param {(array|Phaser.Geom.Point[])} [out] - An array to insert the points in to. If not provided a new array will be created.
  *
- * @return {Phaser.Geom.Point[]} An array of Point objects pertaining to the points around the circumference of the ellipse.
+ * @return {(array|Phaser.Geom.Point[])} An array of Point objects pertaining to the points around the circumference of the ellipse.
  */
 var GetPoints = function (ellipse, quantity, stepRate, out)
 {
@@ -47535,6 +48146,8 @@ module.exports = GetPoints;
  * @function Phaser.Geom.Ellipse.Offset
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Ellipse} O - [ellipse,$return]
+ *
  * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to be offset (translated.)
  * @param {number} x - The amount to horizontally offset the Ellipse by.
  * @param {number} y - The amount to vertically offset the Ellipse by.
@@ -47572,6 +48185,8 @@ module.exports = Offset;
  *
  * @function Phaser.Geom.Ellipse.OffsetPoint
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Ellipse} O - [ellipse,$return]
  *
  * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to be offset (translated.)
  * @param {(Phaser.Geom.Point|object)} point - The Point object containing the values to offset the Ellipse by.
@@ -47612,8 +48227,10 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Ellipse.Random
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to get a random point from.
- * @param {(Phaser.Geom.Point|object)} [point] - A Point or point-like object to set the random `x` and `y` values in.
+ * @param {(Phaser.Geom.Point|object)} [out] - A Point or point-like object to set the random `x` and `y` values in.
  *
  * @return {(Phaser.Geom.Point|object)} A Point object with the random values set in the `x` and `y` properties.
  */
@@ -47820,6 +48437,8 @@ var RectangleToRectangle = __webpack_require__(/*! ./RectangleToRectangle */ "./
  *
  * @function Phaser.Geom.Intersects.GetRectangleIntersection
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [output,$return]
  *
  * @param {Phaser.Geom.Rectangle} rectA - [description]
  * @param {Phaser.Geom.Rectangle} rectB - [description]
@@ -48855,6 +49474,8 @@ module.exports = Clone;
  * @function Phaser.Geom.Line.CopyFrom
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Line} O - [dest,$return]
+ *
  * @param {Phaser.Geom.Line} source - [description]
  * @param {Phaser.Geom.Line} dest - [description]
  *
@@ -48930,6 +49551,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Line.GetMidPoint
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
  *
@@ -48972,6 +49595,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  *
  * @function Phaser.Geom.Line.GetNormal
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
@@ -49019,6 +49644,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Line.GetPoint
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
@@ -49062,12 +49689,14 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Line.GetPoints
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point[]} O - [out,$return]
+ *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {integer} quantity - [description]
  * @param {integer} [stepRate] - [description]
- * @param {array} out - [description]
+ * @param {(array|Phaser.Geom.Point[])} [out] - [description]
  *
- * @return {array} [description]
+ * @return {(array|Phaser.Geom.Point[])} [description]
  */
 var GetPoints = function (line, quantity, stepRate, out)
 {
@@ -49197,10 +49826,10 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @constructor
  * @since 3.0.0
  *
- * @param {number} [x1] - [description]
- * @param {number} [y1] - [description]
- * @param {number} [x2] - [description]
- * @param {number} [y2] - [description]
+ * @param {number} [x1=0] - [description]
+ * @param {number} [y1=0] - [description]
+ * @param {number} [x2=0] - [description]
+ * @param {number} [y2=0] - [description]
  */
 var Line = new Class({
 
@@ -49256,6 +49885,8 @@ var Line = new Class({
      * @method Phaser.Geom.Line#getPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Point} O - [output,$return]
+     *
      * @param {float} position - [description]
      * @param {(Phaser.Geom.Point|object)} [output] - [description]
      *
@@ -49271,6 +49902,8 @@ var Line = new Class({
      *
      * @method Phaser.Geom.Line#getPoints
      * @since 3.0.0
+     *
+     * @generic {Phaser.Geom.Point} O - [output,$return]
      *
      * @param {integer} quantity - [description]
      * @param {integer} [stepRate] - [description]
@@ -49289,7 +49922,9 @@ var Line = new Class({
      * @method Phaser.Geom.Line#getRandomPoint
      * @since 3.0.0
      *
-     * @param {(Phaser.Geom.Point|object)} point - [description]
+     * @generic {Phaser.Geom.Point} O - [point,$return]
+     *
+     * @param {(Phaser.Geom.Point|object)} [point] - [description]
      *
      * @return {Phaser.Geom.Point} [description]
      */
@@ -49333,6 +49968,8 @@ var Line = new Class({
      * @method Phaser.Geom.Line#getPointA
      * @since 3.0.0
      *
+     * @generic {Phaser.Math.Vector2} O - [vec2,$return]
+     *
      * @param {Phaser.Math.Vector2} [vec2] - A Vector2 object to set the results in. If `undefined` a new Vector2 will be created.
      *
      * @return {Phaser.Math.Vector2} A Vector2 object that corresponds to the start of this Line.
@@ -49351,6 +49988,8 @@ var Line = new Class({
      *
      * @method Phaser.Geom.Line#getPointB
      * @since 3.0.0
+     *
+     * @generic {Phaser.Math.Vector2} O - [vec2,$return]
      *
      * @param {Phaser.Math.Vector2} [vec2] - A Vector2 object to set the results in. If `undefined` a new Vector2 will be created.
      *
@@ -49614,6 +50253,8 @@ module.exports = NormalY;
  * @function Phaser.Geom.Line.Offset
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Line} O - [line,$return]
+ *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {number} x - [description]
  * @param {number} y - [description]
@@ -49689,6 +50330,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  *
  * @function Phaser.Geom.Line.Random
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
@@ -49774,6 +50417,8 @@ var RotateAroundXY = __webpack_require__(/*! ./RotateAroundXY */ "./geom/line/Ro
  * @function Phaser.Geom.Line.Rotate
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Line} O - [line,$return]
+ *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {number} angle - [description]
  *
@@ -49813,6 +50458,8 @@ var RotateAroundXY = __webpack_require__(/*! ./RotateAroundXY */ "./geom/line/Ro
  * @function Phaser.Geom.Line.RotateAroundPoint
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Line} O - [line,$return]
+ *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {(Phaser.Geom.Point|object)} point - [description]
  * @param {number} angle - [description]
@@ -49847,6 +50494,8 @@ module.exports = RotateAroundPoint;
  *
  * @function Phaser.Geom.Line.RotateAroundXY
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Line} O - [line,$return]
  *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {number} x - [description]
@@ -49898,6 +50547,8 @@ module.exports = RotateAroundXY;
  *
  * @function Phaser.Geom.Line.SetToAngle
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Line} O - [line,$return]
  *
  * @param {Phaser.Geom.Line} line - [description]
  * @param {number} x - [description]
@@ -50054,6 +50705,8 @@ module.exports = Line;
  * @function Phaser.Geom.Point.Ceil
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [point,$return]
+ *
  * @param {Phaser.Geom.Point} point - [description]
  *
  * @return {Phaser.Geom.Point} [description]
@@ -50121,6 +50774,8 @@ module.exports = Clone;
  *
  * @function Phaser.Geom.Point.CopyFrom
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [dest,$return]
  *
  * @param {Phaser.Geom.Point} source - [description]
  * @param {Phaser.Geom.Point} dest - [description]
@@ -50190,6 +50845,8 @@ module.exports = Equals;
  * @function Phaser.Geom.Point.Floor
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [point,$return]
+ *
  * @param {Phaser.Geom.Point} point - [description]
  *
  * @return {Phaser.Geom.Point} [description]
@@ -50224,6 +50881,8 @@ var Point = __webpack_require__(/*! ./Point */ "./geom/point/Point.js");
  *
  * @function Phaser.Geom.Point.GetCentroid
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Point[]} points - [description]
  * @param {Phaser.Geom.Point} [out] - [description]
@@ -50357,6 +51016,8 @@ var Rectangle = __webpack_require__(/*! ../rectangle/Rectangle */ "./geom/rectan
  * @function Phaser.Geom.Point.GetRectangleFromPoints
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [out,$return]
+ *
  * @param {Phaser.Geom.Point[]} points - [description]
  * @param {Phaser.Geom.Rectangle} [out] - [description]
  *
@@ -50430,6 +51091,8 @@ var Point = __webpack_require__(/*! ./Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Point.Interpolate
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Point} pointA - [description]
  * @param {Phaser.Geom.Point} pointB - [description]
  * @param {float} [t=0] - [description]
@@ -50472,6 +51135,8 @@ module.exports = Interpolate;
  * @function Phaser.Geom.Point.Invert
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [point,$return]
+ *
  * @param {Phaser.Geom.Point} point - [description]
  *
  * @return {Phaser.Geom.Point} [description]
@@ -50506,6 +51171,8 @@ var Point = __webpack_require__(/*! ./Point */ "./geom/point/Point.js");
  *
  * @function Phaser.Geom.Point.Negative
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Point} point - [description]
  * @param {Phaser.Geom.Point} [out] - [description]
@@ -50549,7 +51216,7 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
  * @since 3.0.0
  *
  * @param {number} [x=0] - The x coordinate of this Point.
- * @param {number} [y=0] - The y coordinate of this Point.
+ * @param {number} [y=x] - The y coordinate of this Point.
  */
 var Point = new Class({
 
@@ -50588,7 +51255,7 @@ var Point = new Class({
      * @since 3.0.0
      *
      * @param {number} [x=0] - The x coordinate of this Point.
-     * @param {number} [y=0] - The y coordinate of this Point.
+     * @param {number} [y=x] - The y coordinate of this Point.
      *
      * @return {Phaser.Geom.Point} This Point object.
      */
@@ -50631,6 +51298,8 @@ var GetMagnitudeSq = __webpack_require__(/*! ./GetMagnitudeSq */ "./geom/point/G
  *
  * @function Phaser.Geom.Point.Project
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Point} pointA - [description]
  * @param {Phaser.Geom.Point} pointB - [description]
@@ -50680,6 +51349,8 @@ var Point = __webpack_require__(/*! ./Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Point.ProjectUnit
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Point} pointA - [description]
  * @param {Phaser.Geom.Point} pointB - [description]
  * @param {Phaser.Geom.Point} [out] - [description]
@@ -50726,6 +51397,8 @@ var GetMagnitude = __webpack_require__(/*! ./GetMagnitude */ "./geom/point/GetMa
  *
  * @function Phaser.Geom.Point.SetMagnitude
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [point,$return]
  *
  * @param {Phaser.Geom.Point} point - [description]
  * @param {number} magnitude - [description]
@@ -51615,6 +52288,8 @@ var Rectangle = __webpack_require__(/*! ../rectangle/Rectangle */ "./geom/rectan
  * @function Phaser.Geom.Polygon.GetAABB
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [out,$return]
+ *
  * @param {Phaser.Geom.Polygon} polygon - [description]
  * @param {(Phaser.Geom.Rectangle|object)} [out] - [description]
  *
@@ -51674,10 +52349,12 @@ module.exports = GetAABB;
  * @function Phaser.Geom.Polygon.GetNumberArray
  * @since 3.0.0
  *
- * @param {Phaser.Geom.Polygon} polygon - [description]
- * @param {array} [output] - [description]
+ * @generic {number[]} O - [output,$return]
  *
- * @return {number[]} [description]
+ * @param {Phaser.Geom.Polygon} polygon - [description]
+ * @param {(array|number[])} [output] - [description]
+ *
+ * @return {(array|number[])} [description]
  */
 var GetNumberArray = function (polygon, output)
 {
@@ -51965,6 +52642,8 @@ module.exports = Area;
  * @function Phaser.Geom.Rectangle.Ceil
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  *
  * @return {Phaser.Geom.Rectangle} [description]
@@ -52000,6 +52679,8 @@ module.exports = Ceil;
  *
  * @function Phaser.Geom.Rectangle.CeilAll
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
  *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  *
@@ -52040,6 +52721,8 @@ module.exports = CeilAll;
  *
  * @function Phaser.Geom.Rectangle.CenterOn
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
  *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {number} x - [description]
@@ -52237,6 +52920,8 @@ module.exports = ContainsRect;
  * @function Phaser.Geom.Rectangle.CopyFrom
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [dest,$return]
+ *
  * @param {Phaser.Geom.Rectangle} source - [description]
  * @param {Phaser.Geom.Rectangle} dest - [description]
  *
@@ -52357,6 +53042,8 @@ var GetAspectRatio = __webpack_require__(/*! ./GetAspectRatio */ "./geom/rectang
  * @function Phaser.Geom.Rectangle.FitInside
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [target,$return]
+ *
  * @param {Phaser.Geom.Rectangle} target - [description]
  * @param {Phaser.Geom.Rectangle} source - [description]
  *
@@ -52413,6 +53100,8 @@ var GetAspectRatio = __webpack_require__(/*! ./GetAspectRatio */ "./geom/rectang
  * @function Phaser.Geom.Rectangle.FitOutside
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [target,$return]
+ *
  * @param {Phaser.Geom.Rectangle} target - [description]
  * @param {Phaser.Geom.Rectangle} source - [description]
  *
@@ -52463,6 +53152,8 @@ module.exports = FitOutside;
  * @function Phaser.Geom.Rectangle.Floor
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  *
  * @return {Phaser.Geom.Rectangle} [description]
@@ -52498,6 +53189,8 @@ module.exports = Floor;
  *
  * @function Phaser.Geom.Rectangle.FloorAll
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
  *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  *
@@ -52547,8 +53240,10 @@ var Rectangle = __webpack_require__(/*! ./Rectangle */ "./geom/rectangle/Rectang
  * @function Phaser.Geom.Rectangle.FromPoints
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [out,$return]
+ *
  * @param {array} points - [description]
- * @param {Phaser.Geom.Rectangle} out - [description]
+ * @param {Phaser.Geom.Rectangle} [out] - [description]
  *
  * @return {Phaser.Geom.Rectangle} [description]
  */
@@ -52662,6 +53357,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Rectangle.GetCenter
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
  *
@@ -52703,6 +53400,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  *
  * @function Phaser.Geom.Rectangle.GetPoint
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rectangle - [description]
  * @param {float} position - [description]
@@ -52787,12 +53486,14 @@ var Perimeter = __webpack_require__(/*! ./Perimeter */ "./geom/rectangle/Perimet
  * @function Phaser.Geom.Rectangle.GetPoints
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point[]} O - [out,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rectangle - [description]
  * @param {number} step - [description]
  * @param {integer} quantity - [description]
- * @param {array} [out] - [description]
+ * @param {(array|Phaser.Geom.Point[])} [out] - [description]
  *
- * @return {Phaser.Geom.Point[]} [description]
+ * @return {(array|Phaser.Geom.Point[])} [description]
  */
 var GetPoints = function (rectangle, quantity, stepRate, out)
 {
@@ -52843,6 +53544,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Rectangle.GetSize
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
  *
@@ -52879,7 +53582,7 @@ module.exports = GetSize;
 var CenterOn = __webpack_require__(/*! ./CenterOn */ "./geom/rectangle/CenterOn.js");
 
 //  Increases the size of the Rectangle object by the specified amounts.
-//  The center point of the Rectangle object stays the same, and its size increases 
+//  The center point of the Rectangle object stays the same, and its size increases
 //  to the left and right by the x value, and to the top and the bottom by the y value.
 
 /**
@@ -52887,6 +53590,8 @@ var CenterOn = __webpack_require__(/*! ./CenterOn */ "./geom/rectangle/CenterOn.
  *
  * @function Phaser.Geom.Rectangle.Inflate
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
  *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {number} x - [description]
@@ -52934,12 +53639,14 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Rectangle.MarchingAnts
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point[]} O - [out,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {number} step - [description]
  * @param {integer} quantity - [description]
- * @param {array} [out] - [description]
+ * @param {(array|Phaser.Geom.Point[])} [out] - [description]
  *
- * @return {Phaser.Geom.Point[]} [description]
+ * @return {(array|Phaser.Geom.Point[])} [description]
  */
 var MarchingAnts = function (rect, step, quantity, out)
 {
@@ -53054,6 +53761,8 @@ module.exports = MarchingAnts;
  * @function Phaser.Geom.Rectangle.MergePoints
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [target,$return]
+ *
  * @param {Phaser.Geom.Rectangle} target - [description]
  * @param {Phaser.Geom.Point[]} points - [description]
  *
@@ -53109,6 +53818,8 @@ module.exports = MergePoints;
  * @function Phaser.Geom.Rectangle.MergeRect
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [target,$return]
+ *
  * @param {Phaser.Geom.Rectangle} target - [description]
  * @param {Phaser.Geom.Rectangle} source - [description]
  *
@@ -53154,6 +53865,8 @@ module.exports = MergeRect;
  *
  * @function Phaser.Geom.Rectangle.MergeXY
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [target,$return]
  *
  * @param {Phaser.Geom.Rectangle} target - [description]
  * @param {number} x - [description]
@@ -53202,6 +53915,8 @@ module.exports = MergeXY;
  * @function Phaser.Geom.Rectangle.Offset
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {number} x - [description]
  * @param {number} y - [description]
@@ -53239,6 +53954,8 @@ module.exports = Offset;
  *
  * @function Phaser.Geom.Rectangle.OffsetPoint
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
  *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {Phaser.Geom.Point} point - [description]
@@ -53352,6 +54069,8 @@ var DegToRad = __webpack_require__(/*! ../../math/DegToRad */ "./math/DegToRad.j
  * @function Phaser.Geom.Rectangle.PerimeterPoint
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rectangle - [description]
  * @param {integer} angle - [description]
  * @param {Phaser.Geom.Point} [out] - [description]
@@ -53411,6 +54130,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Rectangle.Random
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {Phaser.Geom.Point} out - [description]
  *
@@ -53460,10 +54181,10 @@ var Random = __webpack_require__(/*! ./Random */ "./geom/rectangle/Random.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {number} [x] - [description]
- * @param {number} [y] - [description]
- * @param {number} [width] - [description]
- * @param {number} [height] - [description]
+ * @param {number} [x=0] - [description]
+ * @param {number} [y=0] - [description]
+ * @param {number} [width=0] - [description]
+ * @param {number} [height=0] - [description]
  */
 var Rectangle = new Class({
 
@@ -53539,8 +54260,10 @@ var Rectangle = new Class({
      * @method Phaser.Geom.Rectangle#getPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Point} O - [output,$return]
+     *
      * @param {float} position - [description]
-     * @param {(Phaser.Geom.Point|object)} output - [description]
+     * @param {(Phaser.Geom.Point|object)} [output] - [description]
      *
      * @return {(Phaser.Geom.Point|object)} [description]
      */
@@ -53554,6 +54277,8 @@ var Rectangle = new Class({
      *
      * @method Phaser.Geom.Rectangle#getPoints
      * @since 3.0.0
+     *
+     * @generic {Phaser.Geom.Point[]} O - [output,$return]
      *
      * @param {integer} quantity - [description]
      * @param {number} [stepRate] - [description]
@@ -53572,7 +54297,9 @@ var Rectangle = new Class({
      * @method Phaser.Geom.Rectangle#getRandomPoint
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Point} point - [description]
+     * @generic {Phaser.Geom.Point} O - [point,$return]
+     *
+     * @param {Phaser.Geom.Point} [point] - [description]
      *
      * @return {Phaser.Geom.Point} [description]
      */
@@ -53678,6 +54405,8 @@ var Rectangle = new Class({
      * @method Phaser.Geom.Rectangle#getLineA
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Line} O - [line,$return]
+     *
      * @param {Phaser.Geom.Line} [line] - A Line object to set the results in. If `undefined` a new Line will be created.
      *
      * @return {Phaser.Geom.Line} A Line object that corresponds to the top of this Rectangle.
@@ -53696,6 +54425,8 @@ var Rectangle = new Class({
      *
      * @method Phaser.Geom.Rectangle#getLineB
      * @since 3.0.0
+     *
+     * @generic {Phaser.Geom.Line} O - [line,$return]
      *
      * @param {Phaser.Geom.Line} [line] - A Line object to set the results in. If `undefined` a new Line will be created.
      *
@@ -53716,6 +54447,8 @@ var Rectangle = new Class({
      * @method Phaser.Geom.Rectangle#getLineC
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Line} O - [line,$return]
+     *
      * @param {Phaser.Geom.Line} [line] - A Line object to set the results in. If `undefined` a new Line will be created.
      *
      * @return {Phaser.Geom.Line} A Line object that corresponds to the bottom of this Rectangle.
@@ -53734,6 +54467,8 @@ var Rectangle = new Class({
      *
      * @method Phaser.Geom.Rectangle#getLineD
      * @since 3.0.0
+     *
+     * @generic {Phaser.Geom.Line} O - [line,$return]
      *
      * @param {Phaser.Geom.Line} [line] - A Line object to set the results in. If `undefined` a new Line will be created.
      *
@@ -53934,6 +54669,8 @@ module.exports = Rectangle;
  * @function Phaser.Geom.Rectangle.Scale
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
+ *
  * @param {Phaser.Geom.Rectangle} rect - [description]
  * @param {number} x - [description]
  * @param {number} y - [description]
@@ -53975,6 +54712,8 @@ var Rectangle = __webpack_require__(/*! ./Rectangle */ "./geom/rectangle/Rectang
  *
  * @function Phaser.Geom.Rectangle.Union
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rectA - [description]
  * @param {Phaser.Geom.Rectangle} rectB - [description]
@@ -54178,13 +54917,15 @@ var Triangle = __webpack_require__(/*! ./Triangle */ "./geom/triangle/Triangle.j
  * @function Phaser.Geom.Triangle.BuildFromPolygon
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Triangle[]} O - [out,$return]
+ *
  * @param {array} data - A flat array of vertice coordinates like [x0,y0, x1,y1, x2,y2, ...]
- * @param {array} [?holes] - An array of hole indices if any (e.g. [5, 8] for a 12-vertice input would mean one hole with vertices 5–7 and another with 8–11).
+ * @param {array} [holes=null] - An array of hole indices if any (e.g. [5, 8] for a 12-vertice input would mean one hole with vertices 5–7 and another with 8–11).
  * @param {float} [scaleX=1] - [description]
  * @param {float} [scaleY=1] - [description]
- * @param {array} [out] - [description]
+ * @param {(array|Phaser.Geom.Triangle[])} [out] - [description]
  *
- * @return {Phaser.Geom.Triangle[]} [description]
+ * @return {(array|Phaser.Geom.Triangle[])} [description]
  */
 var BuildFromPolygon = function (data, holes, scaleX, scaleY, out)
 {
@@ -54318,6 +55059,8 @@ var Offset = __webpack_require__(/*! ./Offset */ "./geom/triangle/Offset.js");
  * @function Phaser.Geom.Triangle.CenterOn
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Triangle} O - [triangle,$return]
+ *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {number} x - [description]
  * @param {number} y - [description]
@@ -54369,6 +55112,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Triangle.Centroid
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
  *
@@ -54408,7 +55153,7 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
 
 /**
  * Computes the determinant of a 2x2 matrix. Uses standard double-precision arithmetic, so is susceptible to round-off error.
- * 
+ *
  * @function det
  * @private
  * @since 3.0.0
@@ -54417,7 +55162,7 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @param {number} m01 - The [0,1] entry of the matrix.
  * @param {number} m10 - The [1,0] entry of the matrix.
  * @param {number} m11 - The [1,1] entry of the matrix.
- * 
+ *
  * @return {number} the determinant.
  */
 function det (m00, m01, m10, m11)
@@ -54434,6 +55179,8 @@ function det (m00, m01, m10, m11)
  *
  * @function Phaser.Geom.Triangle.CircumCenter
  * @since 3.0.0
+ *
+ * @generic {Phaser.Math.Vector2} O - [out,$return]
  *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {Phaser.Math.Vector2} [out] - [description]
@@ -54490,6 +55237,8 @@ var Circle = __webpack_require__(/*! ../circle/Circle */ "./geom/circle/Circle.j
  *
  * @function Phaser.Geom.Triangle.CircumCircle
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Circle} O - [out,$return]
  *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {Phaser.Geom.Circle} [out] - [description]
@@ -54793,6 +55542,8 @@ module.exports = ContainsPoint;
  * @function Phaser.Geom.Triangle.CopyFrom
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Triangle} O - [dest,$return]
+ *
  * @param {Phaser.Geom.Triangle} source - [description]
  * @param {Phaser.Geom.Triangle} dest - [description]
  *
@@ -54912,9 +55663,11 @@ var Length = __webpack_require__(/*! ../line/Length */ "./geom/line/Length.js");
  * @function Phaser.Geom.Triangle.GetPoint
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {float} position - [description]
- * @param {(Phaser.Geom.Point|object)} out - [description]
+ * @param {(Phaser.Geom.Point|object)} [out] - [description]
  *
  * @return {(Phaser.Geom.Point|object)} [description]
  */
@@ -55002,10 +55755,12 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Triangle.GetPoints
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {integer} quantity - [description]
  * @param {number} stepRate - [description]
- * @param {(array|Phaser.Geom.Point[])} out - [description]
+ * @param {(array|Phaser.Geom.Point[])} [out] - [description]
  *
  * @return {(array|Phaser.Geom.Point[])} [description]
  */
@@ -55109,6 +55864,8 @@ function getLength (x1, y1, x2, y2)
  * @function Phaser.Geom.Triangle.InCenter
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {Phaser.Geom.Point} [out] - [description]
  *
@@ -55162,6 +55919,8 @@ module.exports = InCenter;
  *
  * @function Phaser.Geom.Triangle.Offset
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Triangle} O - [triangle,$return]
  *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {number} x - [description]
@@ -55250,6 +56009,8 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @function Phaser.Geom.Triangle.Random
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Point} O - [out,$return]
+ *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {Phaser.Geom.Point} [out] - [description]
  *
@@ -55310,6 +56071,8 @@ var InCenter = __webpack_require__(/*! ./InCenter */ "./geom/triangle/InCenter.j
  * @function Phaser.Geom.Triangle.Rotate
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Triangle} O - [triangle,$return]
+ *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {number} angle - [description]
  *
@@ -55348,6 +56111,8 @@ var RotateAroundXY = __webpack_require__(/*! ./RotateAroundXY */ "./geom/triangl
  * @function Phaser.Geom.Triangle.RotateAroundPoint
  * @since 3.0.0
  *
+ * @generic {Phaser.Geom.Triangle} O - [triangle,$return]
+ *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {Phaser.Geom.Point} point - [description]
  * @param {number} angle - [description]
@@ -55382,6 +56147,8 @@ module.exports = RotateAroundPoint;
  *
  * @function Phaser.Geom.Triangle.RotateAroundXY
  * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Triangle} O - [triangle,$return]
  *
  * @param {Phaser.Geom.Triangle} triangle - [description]
  * @param {number} x - [description]
@@ -55555,8 +56322,10 @@ var Triangle = new Class({
      * @method Phaser.Geom.Triangle#getPoint
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Point} O - [output,$return]
+     *
      * @param {float} position - [description]
-     * @param {(Phaser.Geom.Point|object)} output - [description]
+     * @param {(Phaser.Geom.Point|object)} [output] - [description]
      *
      * @return {(Phaser.Geom.Point|object)} [description]
      */
@@ -55570,6 +56339,8 @@ var Triangle = new Class({
      *
      * @method Phaser.Geom.Triangle#getPoints
      * @since 3.0.0
+     *
+     * @generic {Phaser.Geom.Point[]} O - [output,$return]
      *
      * @param {integer} quantity - [description]
      * @param {number} [stepRate] - [description]
@@ -55588,7 +56359,9 @@ var Triangle = new Class({
      * @method Phaser.Geom.Triangle#getRandomPoint
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Point} point - [description]
+     * @generic {Phaser.Geom.Point} O - [point,$return]
+     *
+     * @param {Phaser.Geom.Point} [point] - [description]
      *
      * @return {Phaser.Geom.Point} [description]
      */
@@ -55639,6 +56412,8 @@ var Triangle = new Class({
      * @method Phaser.Geom.Triangle#getLineA
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Line} O - [line,$return]
+     *
      * @param {Phaser.Geom.Line} [line] - A Line object to set the results in. If `undefined` a new Line will be created.
      *
      * @return {Phaser.Geom.Line} A Line object that corresponds to line A of this Triangle.
@@ -55658,6 +56433,8 @@ var Triangle = new Class({
      * @method Phaser.Geom.Triangle#getLineB
      * @since 3.0.0
      *
+     * @generic {Phaser.Geom.Line} O - [line,$return]
+     *
      * @param {Phaser.Geom.Line} [line] - A Line object to set the results in. If `undefined` a new Line will be created.
      *
      * @return {Phaser.Geom.Line} A Line object that corresponds to line B of this Triangle.
@@ -55676,6 +56453,8 @@ var Triangle = new Class({
      *
      * @method Phaser.Geom.Triangle#getLineC
      * @since 3.0.0
+     *
+     * @generic {Phaser.Geom.Line} O - [line,$return]
      *
      * @param {Phaser.Geom.Line} [line] - A Line object to set the results in. If `undefined` a new Line will be created.
      *
@@ -55894,6 +56673,101 @@ module.exports = Triangle;
 
 /***/ }),
 
+/***/ "./input/CreateInteractiveObject.js":
+/*!******************************************!*\
+  !*** ./input/CreateInteractiveObject.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * @callback HitAreaCallback
+ *
+ * @param {*} hitArea - [description]
+ * @param {number} x - [description]
+ * @param {number} y - [description]
+ * @param {Phaser.GameObjects.GameObject} gameObject - [description]
+ *
+ * @return {boolean} [description]
+ */
+
+/**
+ * @typedef {object} Phaser.Input.InteractiveObject
+ *
+ * @property {Phaser.GameObjects.GameObject} gameObject - [description]
+ * @property {boolean} enabled - [description]
+ * @property {boolean} draggable - [description]
+ * @property {boolean} dropZone - [description]
+ * @property {?Phaser.GameObjects.GameObject} target - [description]
+ * @property {Phaser.Cameras.Scene2D.Camera} camera - [description]
+ * @property {*} hitArea - [description]
+ * @property {HitAreaCallback} hitAreaCallback - [description]
+ * @property {number} localX - [description]
+ * @property {number} localY - [description]
+ * @property {(0|1|2)} dragState - [description]
+ * @property {number} dragStartX - [description]
+ * @property {number} dragStartY - [description]
+ * @property {number} dragX - [description]
+ * @property {number} dragY - [description]
+ */
+
+/**
+ * [description]
+ *
+ * @function Phaser.Input.CreateInteractiveObject
+ * @since 3.0.0
+ *
+ * @param {Phaser.GameObjects.GameObject} gameObject - [description]
+ * @param {*} hitArea - [description]
+ * @param {HitAreaCallback} hitAreaCallback - [description]
+ *
+ * @return {Phaser.Input.InteractiveObject} [description]
+ */
+var CreateInteractiveObject = function (gameObject, hitArea, hitAreaCallback)
+{
+    return {
+
+        gameObject: gameObject,
+
+        enabled: true,
+        draggable: false,
+        dropZone: false,
+
+        target: null,
+
+        camera: null,
+
+        hitArea: hitArea,
+        hitAreaCallback: hitAreaCallback,
+
+        localX: 0,
+        localY: 0,
+
+        //  0 = Not being dragged
+        //  1 = Being checked for dragging
+        //  2 = Being dragged
+        dragState: 0,
+
+        dragStartX: 0,
+        dragStartY: 0,
+
+        dragX: 0,
+        dragY: 0
+
+    };
+};
+
+module.exports = CreateInteractiveObject;
+
+
+/***/ }),
+
 /***/ "./input/InputManager.js":
 /*!*******************************!*\
   !*** ./input/InputManager.js ***!
@@ -55976,7 +56850,7 @@ var InputManager = new Class({
          * [description]
          *
          * @name Phaser.Input.InputManager#events
-         * @type {EventEmitter}
+         * @type {Phaser.Events.EventEmitter}
          * @since 3.0.0
          */
         this.events = new EventEmitter();
@@ -56504,7 +57378,7 @@ var DistanceBetween = __webpack_require__(/*! ../math/distance/DistanceBetween *
 var Ellipse = __webpack_require__(/*! ../geom/ellipse/Ellipse */ "./geom/ellipse/Ellipse.js");
 var EllipseContains = __webpack_require__(/*! ../geom/ellipse/Contains */ "./geom/ellipse/Contains.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
-var InteractiveObject = __webpack_require__(/*! ./InteractiveObject */ "./input/InteractiveObject.js");
+var CreateInteractiveObject = __webpack_require__(/*! ./CreateInteractiveObject */ "./input/CreateInteractiveObject.js");
 var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
 var Rectangle = __webpack_require__(/*! ../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
 var RectangleContains = __webpack_require__(/*! ../geom/rectangle/Contains */ "./geom/rectangle/Contains.js");
@@ -56516,7 +57390,7 @@ var TriangleContains = __webpack_require__(/*! ../geom/triangle/Contains */ "./g
  * [description]
  *
  * @class InputPlugin
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Input
  * @constructor
  * @since 3.0.0
@@ -57568,7 +58442,7 @@ var InputPlugin = new Class({
         {
             var gameObject = gameObjects[i];
 
-            gameObject.input = InteractiveObject(gameObject, shape, callback);
+            gameObject.input = CreateInteractiveObject(gameObject, shape, callback);
 
             this.queueForInsertion(gameObject);
         }
@@ -57664,7 +58538,7 @@ var InputPlugin = new Class({
 
             if (width !== 0 && height !== 0)
             {
-                gameObject.input = InteractiveObject(gameObject, new Rectangle(0, 0, width, height), callback);
+                gameObject.input = CreateInteractiveObject(gameObject, new Rectangle(0, 0, width, height), callback);
 
                 this.queueForInsertion(gameObject);
             }
@@ -58128,103 +59002,6 @@ var InputPlugin = new Class({
 PluginManager.register('InputPlugin', InputPlugin, 'input');
 
 module.exports = InputPlugin;
-
-
-/***/ }),
-
-/***/ "./input/InteractiveObject.js":
-/*!************************************!*\
-  !*** ./input/InteractiveObject.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-//  Phaser.Input.InteractiveObject
-
-/**
- * @callback HitAreaCallback
- *
- * @param {*} hitArea - [description]
- * @param {number} x - [description]
- * @param {number} y - [description]
- * @param {Phaser.GameObjects.GameObject} gameObject - [description]
- *
- * @return {boolean} [description]
- */
-
-/**
- * @typedef {object} InteractiveObject
- *
- * @property {Phaser.GameObjects.GameObject} gameObject - [description]
- * @property {boolean} enabled - [description]
- * @property {boolean} draggable - [description]
- * @property {boolean} dropZone - [description]
- * @property {[type]} target - [description]
- * @property {Phaser.Cameras.Scene2D.Camera} camera - [description]
- * @property {*} hitArea - [description]
- * @property {HitAreaCallback} hitAreaCallback - [description]
- * @property {number} localX - [description]
- * @property {number} localY - [description]
- * @property {(0|1|2)} dragState - [description]
- * @property {number} dragStartX - [description]
- * @property {number} dragStartY - [description]
- * @property {number} dragX - [description]
- * @property {number} dragY - [description]
- */
-
-/**
- * [description]
- *
- * @method Phaser.Input.Pointer#positionToCamera
- * @since 3.0.0
- *
- * @param {Phaser.GameObjects.GameObject} gameObject - [description]
- * @param {*} hitArea - [description]
- * @param {HitAreaCallback} hitAreaCallback - [description]
- *
- * @return {InteractiveObject} [description]
- */
-var InteractiveObject = function (gameObject, hitArea, hitAreaCallback)
-{
-    return {
-
-        gameObject: gameObject,
-
-        enabled: true,
-        draggable: false,
-        dropZone: false,
-
-        target: null,
-
-        camera: null,
-
-        hitArea: hitArea,
-        hitAreaCallback: hitAreaCallback,
-
-        localX: 0,
-        localY: 0,
-
-        //  0 = Not being dragged
-        //  1 = Being checked for dragging
-        //  2 = Being dragged
-        dragState: 0,
-
-        dragStartX: 0,
-        dragStartY: 0,
-
-        dragX: 0,
-        dragY: 0
-
-    };
-};
-
-module.exports = InteractiveObject;
 
 
 /***/ }),
@@ -58919,7 +59696,7 @@ var Axis = new Class({
          * [description]
          *
          * @name Phaser.Input.Gamepad.Axis#events
-         * @type {EventEmitter}
+         * @type {Phaser.Events.EventEmitter}
          * @since 3.0.0
          */
         this.events = pad.events;
@@ -58934,7 +59711,8 @@ var Axis = new Class({
         this.index = index;
 
         /**
-         * Between -1 and 1 with 0 being dead center.
+         * The raw axis value, between -1 and 1 with 0 being dead center.
+         * Use the method `getValue` to get a normalized value with the threshold applied.
          *
          * @name Phaser.Input.Gamepad.Axis#value
          * @type {float}
@@ -58943,7 +59721,15 @@ var Axis = new Class({
          */
         this.value = 0;
 
-        this.threshold = 0.05;
+        /**
+         * Movement tolerance threshold below which axis values are ignored in `getValue`.
+         *
+         * @name Phaser.Input.Gamepad.Axis#threshold
+         * @type {float}
+         * @default 0.1
+         * @since 3.0.0
+         */
+        this.threshold = 0.1;
     },
 
     /**
@@ -58969,14 +59755,7 @@ var Axis = new Class({
      */
     getValue: function ()
     {
-        var percentage = (Math.abs(this.value) - this.threshold) / (1 - this.threshold);
-
-        if (percentage < 0)
-        {
-            percentage = 0;
-        }
-
-        return percentage * (this.value > 0 ? 1 : -1);
+        return (Math.abs(this.value) < this.threshold) ? 0 : this.value;
     }
 
 });
@@ -59032,10 +59811,10 @@ var Button = new Class({
          * [description]
          *
          * @name Phaser.Input.Gamepad.Button#events
-         * @type {EventEmitter}
+         * @type {Phaser.Events.EventEmitter}
          * @since 3.0.0
          */
-        this.events = pad.events;
+        this.events = pad.manager;
 
         /**
          * [description]
@@ -59159,15 +59938,6 @@ var Gamepad = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Input.Gamepad.Gamepad#events
-         * @type {EventEmitter}
-         * @since 3.0.0
-         */
-        this.events = manager.events;
-
-        /**
-         * [description]
-         *
          * @name Phaser.Input.Gamepad.Gamepad#id
          * @type {string}
          * @since 3.0.0
@@ -59207,7 +59977,7 @@ var Gamepad = new Class({
          * [description]
          *
          * @name Phaser.Input.Gamepad.Gamepad#buttons
-         * @type {array}
+         * @type {Phaser.Input.Gamepad.Button[]}
          * @default []
          * @since 3.0.0
          */
@@ -59217,7 +59987,7 @@ var Gamepad = new Class({
          * [description]
          *
          * @name Phaser.Input.Gamepad.Gamepad#axes
-         * @type {array}
+         * @type {Phaser.Input.Gamepad.Axis[]}
          * @default []
          * @since 3.0.0
          */
@@ -59263,8 +60033,10 @@ var Gamepad = new Class({
             {
                 axes[i] = new Axis(this, i);
             }
-
-            axes[i].update(axisData);
+            else
+            {
+                axes[i].update(axisData);
+            }
         }
     }
 
@@ -59289,6 +60061,7 @@ module.exports = Gamepad;
  */
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js");
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API
@@ -59300,7 +60073,13 @@ var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js")
  * @typedef {object} Pad
  *
  * @property {string} id - [description]
- * @property {number} index - [description]
+ * @property {integer} index - [description]
+ */
+
+/**
+ * @callback GamepadHandler
+ *
+ * @property {GamepadEvent} event - [description]
  */
 
 /**
@@ -59308,6 +60087,7 @@ var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js")
  * [description]
  *
  * @class GamepadManager
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Input.Gamepad
  * @constructor
  * @since 3.0.0
@@ -59316,10 +60096,14 @@ var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js")
  */
 var GamepadManager = new Class({
 
+    Extends: EventEmitter,
+
     initialize:
 
     function GamepadManager (inputManager)
     {
+        EventEmitter.call(this);
+
         /**
          * [description]
          *
@@ -59328,15 +60112,6 @@ var GamepadManager = new Class({
          * @since 3.0.0
          */
         this.manager = inputManager;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Input.Gamepad.GamepadManager#events
-         * @type {EventEmitter}
-         * @since 3.0.0
-         */
-        this.events = inputManager.events;
 
         /**
          * [description]
@@ -59361,7 +60136,7 @@ var GamepadManager = new Class({
          * [description]
          *
          * @name Phaser.Input.Gamepad.GamepadManager#handler
-         * @type {?function}
+         * @type {?GamepadHandler}
          * @since 3.0.0
          */
         this.handler;
@@ -59624,7 +60399,7 @@ var GamepadManager = new Class({
 
                     pad = this.getPad(event.gamepad.index);
 
-                    this.events.emit('connected', pad, event);
+                    this.emit('connected', pad, event);
 
                     break;
 
@@ -59632,7 +60407,7 @@ var GamepadManager = new Class({
 
                     pad = this.getPad(event.gamepad.index);
 
-                    this.events.emit('disconnected', pad, event);
+                    this.emit('disconnected', pad, event);
 
                     break;
             }
@@ -59908,10 +60683,10 @@ module.exports = {
 
 module.exports = {
 
+    CreateInteractiveObject: __webpack_require__(/*! ./CreateInteractiveObject */ "./input/CreateInteractiveObject.js"),
     Gamepad: __webpack_require__(/*! ./gamepad */ "./input/gamepad/index.js"),
     InputManager: __webpack_require__(/*! ./InputManager */ "./input/InputManager.js"),
     InputPlugin: __webpack_require__(/*! ./InputPlugin */ "./input/InputPlugin.js"),
-    InteractiveObject: __webpack_require__(/*! ./InteractiveObject */ "./input/InteractiveObject.js"),
     Keyboard: __webpack_require__(/*! ./keyboard */ "./input/keyboard/index.js"),
     Mouse: __webpack_require__(/*! ./mouse */ "./input/mouse/index.js"),
     Pointer: __webpack_require__(/*! ./Pointer */ "./input/Pointer.js"),
@@ -59945,6 +60720,12 @@ var ProcessKeyDown = __webpack_require__(/*! ./keys/ProcessKeyDown */ "./input/k
 var ProcessKeyUp = __webpack_require__(/*! ./keys/ProcessKeyUp */ "./input/keyboard/keys/ProcessKeyUp.js");
 
 /**
+ * @callback KeyboardHandler
+ *
+ * @property {KeyboardEvent} event - [description]
+ */
+
+/**
  * @classdesc
  * The Keyboard class monitors keyboard input and dispatches keyboard events.
  *
@@ -59956,7 +60737,7 @@ var ProcessKeyUp = __webpack_require__(/*! ./keys/ProcessKeyUp */ "./input/keybo
  * So please check your extensions before opening Phaser issues.
  *
  * @class KeyboardManager
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Input.Keyboard
  * @constructor
  * @since 3.0.0
@@ -60045,7 +60826,7 @@ var KeyboardManager = new Class({
          * [description]
          *
          * @name Phaser.Input.Keyboard.KeyboardManager#handler
-         * @type {?function}
+         * @type {?KeyboardHandler}
          * @since 3.0.0
          */
         this.handler;
@@ -61195,569 +61976,421 @@ module.exports = Key;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-module.exports = {
+/**
+ * Keyboard Codes.
+ * 
+ * @name Phaser.Input.Keyboard.KeyCodes
+ * @enum {integer}
+ * @memberOf Phaser.Input.Keyboard
+ * @readOnly
+ * @since 3.0.0
+ */
+
+var KeyCodes = {
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.BACKSPACE
-     * @type {integer}
-     * @since 3.0.0
      */
     BACKSPACE: 8,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.TAB
-     * @type {integer}
-     * @since 3.0.0
      */
     TAB: 9,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ENTER
-     * @type {integer}
-     * @since 3.0.0
      */
     ENTER: 13,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SHIFT
-     * @type {integer}
-     * @since 3.0.0
      */
     SHIFT: 16,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.CTRL
-     * @type {integer}
-     * @since 3.0.0
      */
     CTRL: 17,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ALT
-     * @type {integer}
-     * @since 3.0.0
      */
     ALT: 18,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PAUSE
-     * @type {integer}
-     * @since 3.0.0
      */
     PAUSE: 19,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.CAPS_LOCK
-     * @type {integer}
-     * @since 3.0.0
      */
     CAPS_LOCK: 20,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ESC
-     * @type {integer}
-     * @since 3.0.0
      */
     ESC: 27,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SPACE
-     * @type {integer}
-     * @since 3.0.0
      */
     SPACE: 32,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PAGE_UP
-     * @type {integer}
-     * @since 3.0.0
      */
     PAGE_UP: 33,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PAGE_DOWN
-     * @type {integer}
-     * @since 3.0.0
      */
     PAGE_DOWN: 34,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.END
-     * @type {integer}
-     * @since 3.0.0
      */
     END: 35,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.HOME
-     * @type {integer}
-     * @since 3.0.0
      */
     HOME: 36,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.LEFT
-     * @type {integer}
-     * @since 3.0.0
      */
     LEFT: 37,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.UP
-     * @type {integer}
-     * @since 3.0.0
      */
     UP: 38,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.RIGHT
-     * @type {integer}
-     * @since 3.0.0
      */
     RIGHT: 39,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.DOWN
-     * @type {integer}
-     * @since 3.0.0
      */
     DOWN: 40,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PRINT_SCREEN
-     * @type {integer}
-     * @since 3.0.0
      */
     PRINT_SCREEN: 42,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.INSERT
-     * @type {integer}
-     * @since 3.0.0
      */
     INSERT: 45,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.DELETE
-     * @type {integer}
-     * @since 3.0.0
      */
     DELETE: 46,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ZERO
-     * @type {integer}
-     * @since 3.0.0
      */
     ZERO: 48,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.ONE
-     * @type {integer}
-     * @since 3.0.0
      */
     ONE: 49,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.TWO
-     * @type {integer}
-     * @since 3.0.0
      */
     TWO: 50,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.THREE
-     * @type {integer}
-     * @since 3.0.0
      */
     THREE: 51,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.FOUR
-     * @type {integer}
-     * @since 3.0.0
      */
     FOUR: 52,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.FIVE
-     * @type {integer}
-     * @since 3.0.0
      */
     FIVE: 53,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SIX
-     * @type {integer}
-     * @since 3.0.0
      */
     SIX: 54,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SEVEN
-     * @type {integer}
-     * @since 3.0.0
      */
     SEVEN: 55,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.EIGHT
-     * @type {integer}
-     * @since 3.0.0
      */
     EIGHT: 56,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.NINE
-     * @type {integer}
-     * @since 3.0.0
      */
     NINE: 57,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.A
-     * @type {integer}
-     * @since 3.0.0
      */
     A: 65,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.B
-     * @type {integer}
-     * @since 3.0.0
      */
     B: 66,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.C
-     * @type {integer}
-     * @since 3.0.0
      */
     C: 67,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.D
-     * @type {integer}
-     * @since 3.0.0
      */
     D: 68,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.E
-     * @type {integer}
-     * @since 3.0.0
      */
     E: 69,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F
-     * @type {integer}
-     * @since 3.0.0
      */
     F: 70,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.G
-     * @type {integer}
-     * @since 3.0.0
      */
     G: 71,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.H
-     * @type {integer}
-     * @since 3.0.0
      */
     H: 72,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.I
-     * @type {integer}
-     * @since 3.0.0
      */
     I: 73,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.J
-     * @type {integer}
-     * @since 3.0.0
      */
     J: 74,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.K
-     * @type {integer}
-     * @since 3.0.0
      */
     K: 75,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.L
-     * @type {integer}
-     * @since 3.0.0
      */
     L: 76,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.M
-     * @type {integer}
-     * @since 3.0.0
      */
     M: 77,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.N
-     * @type {integer}
-     * @since 3.0.0
      */
     N: 78,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.O
-     * @type {integer}
-     * @since 3.0.0
      */
     O: 79,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.P
-     * @type {integer}
-     * @since 3.0.0
      */
     P: 80,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.Q
-     * @type {integer}
-     * @since 3.0.0
      */
     Q: 81,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.R
-     * @type {integer}
-     * @since 3.0.0
      */
     R: 82,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.S
-     * @type {integer}
-     * @since 3.0.0
      */
     S: 83,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.T
-     * @type {integer}
-     * @since 3.0.0
      */
     T: 84,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.U
-     * @type {integer}
-     * @since 3.0.0
      */
     U: 85,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.V
-     * @type {integer}
-     * @since 3.0.0
      */
     V: 86,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.W
-     * @type {integer}
-     * @since 3.0.0
      */
     W: 87,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.X
-     * @type {integer}
-     * @since 3.0.0
      */
     X: 88,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.Y
-     * @type {integer}
-     * @since 3.0.0
      */
     Y: 89,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.Z
-     * @type {integer}
-     * @since 3.0.0
      */
     Z: 90,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F1
-     * @type {integer}
-     * @since 3.0.0
      */
     F1: 112,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F2
-     * @type {integer}
-     * @since 3.0.0
      */
     F2: 113,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F3
-     * @type {integer}
-     * @since 3.0.0
      */
     F3: 114,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F4
-     * @type {integer}
-     * @since 3.0.0
      */
     F4: 115,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F5
-     * @type {integer}
-     * @since 3.0.0
      */
     F5: 116,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F6
-     * @type {integer}
-     * @since 3.0.0
      */
     F6: 117,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F7
-     * @type {integer}
-     * @since 3.0.0
      */
     F7: 118,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F8
-     * @type {integer}
-     * @since 3.0.0
      */
     F8: 119,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F9
-     * @type {integer}
-     * @since 3.0.0
      */
     F9: 120,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F10
-     * @type {integer}
-     * @since 3.0.0
      */
     F10: 121,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F11
-     * @type {integer}
-     * @since 3.0.0
      */
     F11: 122,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.F12
-     * @type {integer}
-     * @since 3.0.0
      */
     F12: 123,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.SEMICOLON
-     * @type {integer}
-     * @since 3.0.0
      */
     SEMICOLON: 186,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PLUS
-     * @type {integer}
-     * @since 3.0.0
      */
     PLUS: 187,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.COMMA
-     * @type {integer}
-     * @since 3.0.0
      */
     COMMA: 188,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.MINUS
-     * @type {integer}
-     * @since 3.0.0
      */
     MINUS: 189,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.PERIOD
-     * @type {integer}
-     * @since 3.0.0
      */
     PERIOD: 190,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH
-     * @type {integer}
-     * @since 3.0.0
      */
     FORWARD_SLASH: 191,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.BACK_SLASH
-     * @type {integer}
-     * @since 3.0.0
      */
     BACK_SLASH: 220,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.QUOTES
-     * @type {integer}
-     * @since 3.0.0
      */
     QUOTES: 222,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.BACKTICK
-     * @type {integer}
-     * @since 3.0.0
      */
     BACKTICK: 192,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.OPEN_BRACKET
-     * @type {integer}
-     * @since 3.0.0
      */
     OPEN_BRACKET: 219,
 
     /**
      * @name Phaser.Input.Keyboard.KeyCodes.CLOSED_BRACKET
-     * @type {integer}
-     * @since 3.0.0
      */
     CLOSED_BRACKET: 221
 
 };
+
+module.exports = KeyCodes;
 
 
 /***/ }),
@@ -61965,6 +62598,12 @@ var Features = __webpack_require__(/*! ../../device/Features */ "./device/Featur
 //  https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
 
 /**
+ * @callback MouseHandler
+ *
+ * @property {MouseEvent} event - [description]
+ */
+
+/**
  * @classdesc
  * [description]
  *
@@ -62023,7 +62662,7 @@ var MouseManager = new Class({
          * [description]
          *
          * @name Phaser.Input.Mouse.MouseManager#handler
-         * @type {null}
+         * @type {?MouseHandler}
          * @since 3.0.0
          */
         this.handler;
@@ -62090,13 +62729,13 @@ var MouseManager = new Class({
 
     /**
      * If the browser supports it, you can request that the pointer be locked to the browser window.
-     * 
+     *
      * This is classically known as 'FPS controls', where the pointer can't leave the browser until
      * the user presses an exit key.
-     * 
+     *
      * If the browser successfully enters a locked state, a `POINTER_LOCK_CHANGE_EVENT` will be dispatched,
      * from the games Input Manager, with an `isPointerLocked` property.
-     * 
+     *
      * It is important to note that pointer lock can only be enabled after an 'engagement gesture',
      * see: https://w3c.github.io/pointerlock/#dfn-engagement-gesture.
      *
@@ -62119,7 +62758,7 @@ var MouseManager = new Class({
      * @method Phaser.Input.Mouse.MouseManager#pointerLockChange
      * @since 3.0.0
      *
-     * @param {Event} event - The native event from the browser.
+     * @param {MouseHandler} event - The native event from the browser.
      */
     pointerLockChange: function (event)
     {
@@ -62368,7 +63007,7 @@ var TouchManager = new Class({
          * [description]
          *
          * @name Phaser.Input.Touch.TouchManager#handler
-         * @type {TouchHandler}
+         * @type {?TouchHandler}
          * @since 3.0.0
          */
         this.handler;
@@ -62651,10 +63290,10 @@ var File = new Class({
         this.loader = null;
 
         /**
-         * The XHR Loader instance that is loading this File.
+         * The XMLHttpRequest instance (as created by XHR Loader) that is loading this File.
          *
          * @name Phaser.Loader.File#xhrLoader
-         * @type {?Phaser.Loader.XHRLoader}
+         * @type {?XMLHttpRequest}
          * @since 3.0.0
          */
         this.xhrLoader = null;
@@ -63107,6 +63746,14 @@ var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/Plu
 var XHRSettings = __webpack_require__(/*! ./XHRSettings */ "./loader/XHRSettings.js");
 
 /**
+ * @typedef {object} LinkFileObject
+ *
+ * @property {string} type - [description]
+ * @property {Phaser.Loader.File} fileA - [description]
+ * @property {Phaser.Loader.File} fileB - [description]
+ */
+
+/**
  * @typedef {object} LoaderFileObject
  *
  * @property {string} key - [description]
@@ -63133,7 +63780,7 @@ var XHRSettings = __webpack_require__(/*! ./XHRSettings */ "./loader/XHRSettings
  * [description]
  *
  * @class LoaderPlugin
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Loader
  * @constructor
  * @since 3.0.0
@@ -63280,7 +63927,7 @@ var LoaderPlugin = new Class({
          * [description]
          *
          * @name Phaser.Loader.LoaderPlugin#list
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.Loader.File>}
          * @since 3.0.0
          */
         this.list = new CustomSet();
@@ -63289,7 +63936,7 @@ var LoaderPlugin = new Class({
          * [description]
          *
          * @name Phaser.Loader.LoaderPlugin#inflight
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.Loader.File>}
          * @since 3.0.0
          */
         this.inflight = new CustomSet();
@@ -63298,7 +63945,7 @@ var LoaderPlugin = new Class({
          * [description]
          *
          * @name Phaser.Loader.LoaderPlugin#failed
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.Loader.File>}
          * @since 3.0.0
          */
         this.failed = new CustomSet();
@@ -63307,7 +63954,7 @@ var LoaderPlugin = new Class({
          * [description]
          *
          * @name Phaser.Loader.LoaderPlugin#queue
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.Loader.File>}
          * @since 3.0.0
          */
         this.queue = new CustomSet();
@@ -63316,7 +63963,7 @@ var LoaderPlugin = new Class({
          * [description]
          *
          * @name Phaser.Loader.LoaderPlugin#storage
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<(Phaser.Loader.File|LinkFileObject)>}
          * @since 3.0.0
          */
         this.storage = new CustomSet();
@@ -65322,7 +65969,7 @@ var GetURL = __webpack_require__(/*! ../GetURL */ "./loader/GetURL.js");
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {Phaser.Loader.XHRSettingsConfig} config - [description]
+ * @param {XHRSettingsObject} config - [description]
  * @param {boolean} locked - [description]
  */
 var HTML5AudioFile = new Class({
@@ -77070,7 +77717,7 @@ module.exports = Phaser;
 global.Phaser = Phaser;
 
 /*
- * "Documentation is like sex:  when it is good, it is very, very good;
+ * "Documentation is like pizza: when it is good, it is very, very good;
  * and when it is bad, it is better than nothing."
  *  -- Dick Brandon
  */
@@ -77191,13 +77838,14 @@ module.exports = ArcadeImage;
  */
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+var DegToRad = __webpack_require__(/*! ../../math/DegToRad */ "./math/DegToRad.js");
+var DistanceBetween = __webpack_require__(/*! ../../math/distance/DistanceBetween */ "./math/distance/DistanceBetween.js");
 var Factory = __webpack_require__(/*! ./Factory */ "./physics/arcade/Factory.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var Merge = __webpack_require__(/*! ../../utils/object/Merge */ "./utils/object/Merge.js");
 var PluginManager = __webpack_require__(/*! ../../boot/PluginManager */ "./boot/PluginManager.js");
+var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js");
 var World = __webpack_require__(/*! ./World */ "./physics/arcade/World.js");
-var DistanceBetween = __webpack_require__(/*! ../../math/distance/DistanceBetween */ "./math/distance/DistanceBetween.js");
-var DegToRad = __webpack_require__(/*! ../../math/DegToRad */ "./math/DegToRad.js");
 
 //  All methods in this class are available under `this.physics` in a Scene.
 
@@ -77591,13 +78239,14 @@ var ArcadePhysics = new Class({
      *
      * @param {number} angle - The angle in degrees calculated in clockwise positive direction (down = 90 degrees positive, right = 0 degrees positive, up = 90 degrees negative)
      * @param {number} [speed=60] - The speed it will move, in pixels per second sq.
-     * @param {Phaser.Math.Vector2} vec2 - The Vector2 in which the x and y properties will be set to the calculated velocity.
+     * @param {Phaser.Math.Vector2} [vec2] - The Vector2 in which the x and y properties will be set to the calculated velocity.
      *
      * @return {Phaser.Math.Vector2} The Vector2 that stores the velocity.
      */
     velocityFromAngle: function (angle, speed, vec2)
     {
         if (speed === undefined) { speed = 60; }
+        if (vec2 === undefined) { vec2 = new Vector2(); }
 
         return vec2.setToPolar(DegToRad(angle), speed);
     },
@@ -77611,13 +78260,14 @@ var ArcadePhysics = new Class({
      *
      * @param {number} rotation - The angle in radians.
      * @param {number} [speed=60] - The speed it will move, in pixels per second sq.
-     * @param {Phaser.Math.Vector2} vec2 - The Vector2 in which the x and y properties will be set to the calculated velocity.
+     * @param {Phaser.Math.Vector2} [vec2] - The Vector2 in which the x and y properties will be set to the calculated velocity.
      *
      * @return {Phaser.Math.Vector2} The Vector2 that stores the velocity.
      */
     velocityFromRotation: function (rotation, speed, vec2)
     {
         if (speed === undefined) { speed = 60; }
+        if (vec2 === undefined) { vec2 = new Vector2(); }
 
         return vec2.setToPolar(rotation, speed);
     },
@@ -81150,6 +81800,32 @@ var StaticBody = new Class({
     /**
      * [description]
      *
+     * @method Phaser.Physics.Arcade.StaticBody#setOffset
+     * @since 3.4.0
+     *
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     *
+     * @return {Phaser.Physics.Arcade.StaticBody} This Static Body object.
+     */
+    setOffset: function (x, y)
+    {
+        if (y === undefined) { y = x; }
+
+        this.world.staticTree.remove(this);
+
+        this.offset.set(x, y);
+
+        this.updateCenter();
+
+        this.world.staticTree.insert(this);
+
+        return this;
+    },
+
+    /**
+     * [description]
+     *
      * @method Phaser.Physics.Arcade.StaticBody#setSize
      * @since 3.0.0
      *
@@ -81824,7 +82500,7 @@ var Wrap = __webpack_require__(/*! ../../math/Wrap */ "./math/Wrap.js");
  * [description]
  *
  * @class World
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Physics.Arcade
  * @constructor
  * @since 3.0.0
@@ -81855,7 +82531,7 @@ var World = new Class({
          * Dynamic Bodies
          *
          * @name Phaser.Physics.Arcade.World#bodies
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.Physics.Arcade.Body>}
          * @since 3.0.0
          */
         this.bodies = new Set();
@@ -81864,7 +82540,7 @@ var World = new Class({
          * Static Bodies
          *
          * @name Phaser.Physics.Arcade.World#staticBodies
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.Physics.Arcade.StaticBody>}
          * @since 3.0.0
          */
         this.staticBodies = new Set();
@@ -81873,7 +82549,7 @@ var World = new Class({
          * Static Bodies
          *
          * @name Phaser.Physics.Arcade.World#pendingDestroy
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<(Phaser.Physics.Arcade.Body|Phaser.Physics.Arcade.StaticBody)>}
          * @since 3.1.0
          */
         this.pendingDestroy = new Set();
@@ -81882,7 +82558,7 @@ var World = new Class({
          * [description]
          *
          * @name Phaser.Physics.Arcade.World#colliders
-         * @type {Phaser.Structs.ProcessQueue}
+         * @type {Phaser.Structs.ProcessQueue.<Phaser.Physics.Arcade.Collider>}
          * @since 3.0.0
          */
         this.colliders = new ProcessQueue();
@@ -84658,12 +85334,19 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-module.exports = {
+/**
+ * Arcade Physics consts.
+ * 
+ * @ignore
+ */
+
+var CONST = {
 
     /**
      * [description]
      * 
      * @name Phaser.Physics.Arcade.DYNAMIC_BODY
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -84673,6 +85356,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.STATIC_BODY
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -84682,6 +85366,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.GROUP
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -84691,6 +85376,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.TILEMAPLAYER
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -84700,6 +85386,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_NONE
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -84709,6 +85396,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_UP
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -84718,6 +85406,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_DOWN
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -84727,6 +85416,7 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_LEFT
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
@@ -84736,12 +85426,15 @@ module.exports = {
      * [description]
      * 
      * @name Phaser.Physics.Arcade.FACING_RIGHT
+     * @readOnly
      * @type {number}
      * @since 3.0.0
      */
     FACING_RIGHT: 14
 
 };
+
+module.exports = CONST;
 
 
 /***/ }),
@@ -85909,7 +86602,9 @@ module.exports = Body;
  * FIXED collisions is undefined.
  *
  * @name Phaser.Physics.Impact.COLLIDES
- * @type {object}
+ * @enum {integer}
+ * @memberOf Phaser.Physics.Impact
+ * @readOnly
  * @since 3.0.0
  */
 module.exports = {
@@ -85918,8 +86613,6 @@ module.exports = {
      * Never collides.
      *
      * @name Phaser.Physics.Impact.COLLIDES.NEVER
-     * @type {integer}
-     * @since 3.0.0
      */
     NEVER: 0,
 
@@ -85927,8 +86620,6 @@ module.exports = {
      * Lite collision.
      *
      * @name Phaser.Physics.Impact.COLLIDES.LITE
-     * @type {integer}
-     * @since 3.0.0
      */
     LITE: 1,
 
@@ -85936,8 +86627,6 @@ module.exports = {
      * Passive collision.
      *
      * @name Phaser.Physics.Impact.COLLIDES.PASSIVE
-     * @type {integer}
-     * @since 3.0.0
      */
     PASSIVE: 2,
 
@@ -85945,8 +86634,6 @@ module.exports = {
      * Active collision.
      *
      * @name Phaser.Physics.Impact.COLLIDES.ACTIVE
-     * @type {integer}
-     * @since 3.0.0
      */
     ACTIVE: 4,
 
@@ -85954,8 +86641,6 @@ module.exports = {
      * Fixed collision.
      *
      * @name Phaser.Physics.Impact.COLLIDES.FIXED
-     * @type {integer}
-     * @since 3.0.0
      */
     FIXED: 8
 
@@ -85990,7 +86675,7 @@ var DefaultDefs = __webpack_require__(/*! ./DefaultDefs */ "./physics/impact/Def
  * @since 3.0.0
  *
  * @param {integer} [tilesize=32] - [description]
- * @param {array} data - [description]
+ * @param {array} [data] - [description]
  */
 var CollisionMap = new Class({
 
@@ -87526,8 +88211,10 @@ module.exports = Solver;
  * with other LITE or PASSIVE entities at all. The behavior for FIXED vs.
  * FIXED collisions is undefined.
  *
- * @name Phaser.Physics.Impact.TYPES
- * @type {object}
+ * @name Phaser.Physics.Impact.TYPE
+ * @enum {integer}
+ * @memberOf Phaser.Physics.Impact
+ * @readOnly
  * @since 3.0.0
  */
 module.exports = {
@@ -87535,36 +88222,28 @@ module.exports = {
     /**
      * Collides with nothing.
      *
-     * @name Phaser.Physics.Impact.TYPES.NONE
-     * @type {integer}
-     * @since 3.0.0
+     * @name Phaser.Physics.Impact.TYPE.NONE
      */
     NONE: 0,
 
     /**
      * Type A. Collides with Type B.
      *
-     * @name Phaser.Physics.Impact.TYPES.A
-     * @type {integer}
-     * @since 3.0.0
+     * @name Phaser.Physics.Impact.TYPE.A
      */
     A: 1,
 
     /**
      * Type B. Collides with Type A.
      *
-     * @name Phaser.Physics.Impact.TYPES.B
-     * @type {integer}
-     * @since 3.0.0
+     * @name Phaser.Physics.Impact.TYPE.B
      */
     B: 2,
 
     /**
      * Collides with both types A and B.
      *
-     * @name Phaser.Physics.Impact.TYPES.BOTH
-     * @type {integer}
-     * @since 3.0.0
+     * @name Phaser.Physics.Impact.TYPE.BOTH
      */
     BOTH: 3
 
@@ -87705,7 +88384,6 @@ var TYPE = __webpack_require__(/*! ./TYPE */ "./physics/impact/TYPE.js");
  * @property {number} [cellSize=64] - [description]
  * @property {number} [timeScale=1] - [description]
  * @property {float} [maxStep=0.05] - [description]
- * @property {number} [gravity=0] - [description]
  * @property {boolean} [debug=false] - [description]
  * @property {number} [maxVelocity=100] - [description]
  * @property {boolean} [debugShowBody=true] - [description]
@@ -87720,7 +88398,6 @@ var TYPE = __webpack_require__(/*! ./TYPE */ "./physics/impact/TYPE.js");
  * @property {(object|boolean)} [setBounds] - [description]
  * @property {number} [setBounds.x=0] - [description]
  * @property {number} [setBounds.y=0] - [description]
- * @property {number} [setBounds.x=0] - [description]
  * @property {number} [setBounds.width] - [description]
  * @property {number} [setBounds.height] - [description]
  * @property {number} [setBounds.thickness=64] - [description]
@@ -87759,7 +88436,7 @@ var TYPE = __webpack_require__(/*! ./TYPE */ "./physics/impact/TYPE.js");
  * [description]
  *
  * @class World
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Physics.Impact
  * @constructor
  * @since 3.0.0
@@ -87790,7 +88467,7 @@ var World = new Class({
          * [description]
          *
          * @name Phaser.Physics.Impact.World#bodies
-         * @type {Phaser.Structs.Set}
+         * @type {Phaser.Structs.Set.<Phaser.Physics.Impact.Body>}
          * @since 3.0.0
          */
         this.bodies = new Set();
@@ -88016,7 +88693,7 @@ var World = new Class({
      * @method Phaser.Physics.Impact.World#setCollisionMapFromTilemapLayer
      * @since 3.0.0
      *
-     * @param {(StaticTilemapLayer|DynamicTilemapLayer)} tilemapLayer - The tilemap layer to use.
+     * @param {(Phaser.Tilemaps.DynamicTilemapLayer|Phaser.Tilemaps.StaticTilemapLayer)} tilemapLayer - The tilemap layer to use.
      * @param {object} [options] - Options for controlling the mapping from tiles to slope IDs.
      * @param {string} [options.slopeTileProperty=null] - Slope IDs can be stored on tiles directly
      * using Tiled's tileset editor. If a tile has a property with the given slopeTileProperty string
@@ -90104,7 +90781,7 @@ var Factory = new Class({
      * @param {number} height - [description]
      * @param {object} options - [description]
      *
-     * @return {Matter.Body} A Matter JS Body.
+     * @return {MatterJS.Body} A Matter JS Body.
      */
     rectangle: function (x, y, width, height, options)
     {
@@ -90128,7 +90805,7 @@ var Factory = new Class({
      * @param {number} slope - [description]
      * @param {object} options - [description]
      *
-     * @return {Matter.Body} A Matter JS Body.
+     * @return {MatterJS.Body} A Matter JS Body.
      */
     trapezoid: function (x, y, width, height, slope, options)
     {
@@ -90151,7 +90828,7 @@ var Factory = new Class({
      * @param {object} options - [description]
      * @param {number} maxSides - [description]
      *
-     * @return {Matter.Body} A Matter JS Body.
+     * @return {MatterJS.Body} A Matter JS Body.
      */
     circle: function (x, y, radius, options, maxSides)
     {
@@ -90174,7 +90851,7 @@ var Factory = new Class({
      * @param {number} radius - [description]
      * @param {object} options - [description]
      *
-     * @return {Matter.Body} A Matter JS Body.
+     * @return {MatterJS.Body} A Matter JS Body.
      */
     polygon: function (x, y, sides, radius, options)
     {
@@ -90199,7 +90876,7 @@ var Factory = new Class({
      * @param {boolean} removeCollinear - [description]
      * @param {number} minimumArea - [description]
      *
-     * @return {Matter.Body} A Matter JS Body.
+     * @return {MatterJS.Body} A Matter JS Body.
      */
     fromVertices: function (x, y, vertexSets, options, flagInternal, removeCollinear, minimumArea)
     {
@@ -90218,16 +90895,16 @@ var Factory = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
+     * @param {(string|integer)} frame - An optional frame from the Texture this Game Object is rendering with. Set to `null` to skip this value.
      * @param {number} x - The horizontal position of this composite in the world.
      * @param {number} y - The vertical position of this composite in the world.
      * @param {number} columns - The number of columns in the grid.
      * @param {number} rows - The number of rows in the grid.
-     * @param {number} columnGap - The distance between each column.
-     * @param {number} rowGap - The distance between each row.
-     * @param {object} options - [description]
+     * @param {number} [columnGap=0] - The distance between each column.
+     * @param {number} [rowGap=0] - The distance between each row.
+     * @param {object} [options] - [description]
      *
-     * @return {Matter.Composite} A Matter JS Composite Stack.
+     * @return {MatterJS.Composite} A Matter JS Composite Stack.
      */
     imageStack: function (key, frame, x, y, columns, rows, columnGap, rowGap, options)
     {
@@ -90269,7 +90946,7 @@ var Factory = new Class({
      * @param {number} rowGap - The distance between each row.
      * @param {function} callback - The callback that creates the stack.
      *
-     * @return {Matter.Composite} A new composite containing objects created in the callback.
+     * @return {MatterJS.Composite} A new composite containing objects created in the callback.
      */
     stack: function (x, y, columns, rows, columnGap, rowGap, callback)
     {
@@ -90295,7 +90972,7 @@ var Factory = new Class({
      * @param {number} rowGap - The distance between each row.
      * @param {function} callback - [description]
      *
-     * @return {Matter.Composite} A Matter JS Composite pyramid.
+     * @return {MatterJS.Composite} A Matter JS Composite pyramid.
      */
     pyramid: function (x, y, columns, rows, columnGap, rowGap, callback)
     {
@@ -90312,14 +90989,14 @@ var Factory = new Class({
      * @method Phaser.Physics.Matter.Factory#chain
      * @since 3.0.0
      *
-     * @param {Matter.Composite} composite - [description]
+     * @param {MatterJS.Composite} composite - [description]
      * @param {number} xOffsetA - [description]
      * @param {number} yOffsetA - [description]
      * @param {number} xOffsetB - [description]
      * @param {number} yOffsetB - [description]
      * @param {object} options - [description]
      *
-     * @return {Matter.Composite} A new composite containing objects chained together with constraints.
+     * @return {MatterJS.Composite} A new composite containing objects chained together with constraints.
      */
     chain: function (composite, xOffsetA, yOffsetA, xOffsetB, yOffsetB, options)
     {
@@ -90332,13 +91009,13 @@ var Factory = new Class({
      * @method Phaser.Physics.Matter.Factory#mesh
      * @since 3.0.0
      *
-     * @param {Matter.Composite} composite - [description]
+     * @param {MatterJS.Composite} composite - [description]
      * @param {number} columns - [description]
      * @param {number} rows - [description]
      * @param {boolean} crossBrace - [description]
      * @param {object} options - [description]
      *
-     * @return {Matter.Composite} The composite containing objects meshed together with constraints.
+     * @return {MatterJS.Composite} The composite containing objects meshed together with constraints.
      */
     mesh: function (composite, columns, rows, crossBrace, options)
     {
@@ -90357,7 +91034,7 @@ var Factory = new Class({
      * @param {number} size - [description]
      * @param {number} length - [description]
      *
-     * @return {Matter.Composite} A new composite newtonsCradle body.
+     * @return {MatterJS.Composite} A new composite newtonsCradle body.
      */
     newtonsCradle: function (x, y, number, size, length)
     {
@@ -90380,7 +91057,7 @@ var Factory = new Class({
      * @param {number} height - [description]
      * @param {number} wheelSize - [description]
      *
-     * @return {Matter.Composite} A new composite car body.
+     * @return {MatterJS.Composite} A new composite car body.
      */
     car: function (x, y, width, height, wheelSize)
     {
@@ -90408,7 +91085,7 @@ var Factory = new Class({
      * @param {object} particleOptions - [description]
      * @param {object} constraintOptions - [description]
      *
-     * @return {Matter.Composite} A new composite simple soft body.
+     * @return {MatterJS.Composite} A new composite simple soft body.
      */
     softBody: function (x, y, columns, rows, columnGap, rowGap, crossBrace, particleRadius, particleOptions, constraintOptions)
     {
@@ -90425,13 +91102,13 @@ var Factory = new Class({
      * @method Phaser.Physics.Matter.Factory#joint
      * @since 3.0.0
      *
-     * @param {Matter.Body} bodyA - [description]
-     * @param {Matter.Body} bodyB - [description]
+     * @param {MatterJS.Body} bodyA - [description]
+     * @param {MatterJS.Body} bodyB - [description]
      * @param {number} length - [description]
      * @param {number} [stiffness=1] - [description]
      * @param {object} [options={}] - [description]
      *
-     * @return {Matter.Constraint} A Matter JS Constraint.
+     * @return {MatterJS.Constraint} A Matter JS Constraint.
      */
     joint: function (bodyA, bodyB, length, stiffness, options)
     {
@@ -90444,13 +91121,13 @@ var Factory = new Class({
      * @method Phaser.Physics.Matter.Factory#spring
      * @since 3.0.0
      *
-     * @param {Matter.Body} bodyA - [description]
-     * @param {Matter.Body} bodyB - [description]
+     * @param {MatterJS.Body} bodyA - [description]
+     * @param {MatterJS.Body} bodyB - [description]
      * @param {number} length - [description]
      * @param {number} [stiffness=1] - [description]
      * @param {object} [options={}] - [description]
      *
-     * @return {Matter.Constraint} A Matter JS Constraint.
+     * @return {MatterJS.Constraint} A Matter JS Constraint.
      */
     spring: function (bodyA, bodyB, length, stiffness, options)
     {
@@ -90463,13 +91140,13 @@ var Factory = new Class({
      * @method Phaser.Physics.Matter.Factory#constraint
      * @since 3.0.0
      *
-     * @param {Matter.Body} bodyA - [description]
-     * @param {Matter.Body} bodyB - [description]
+     * @param {MatterJS.Body} bodyA - [description]
+     * @param {MatterJS.Body} bodyB - [description]
      * @param {number} length - [description]
      * @param {number} [stiffness=1] - [description]
      * @param {object} [options={}] - [description]
      *
-     * @return {Matter.Constraint} A Matter JS Constraint.
+     * @return {MatterJS.Constraint} A Matter JS Constraint.
      */
     constraint: function (bodyA, bodyB, length, stiffness, options)
     {
@@ -90494,12 +91171,12 @@ var Factory = new Class({
      * @method Phaser.Physics.Matter.Factory#worldConstraint
      * @since 3.0.0
      *
-     * @param {Matter.Body} bodyB - [description]
+     * @param {MatterJS.Body} bodyB - [description]
      * @param {number} length - [description]
      * @param {number} [stiffness=1] - [description]
      * @param {object} [options={}] - [description]
      *
-     * @return {Matter.Constraint} A Matter JS Constraint.
+     * @return {MatterJS.Constraint} A Matter JS Constraint.
      */
     worldConstraint: function (bodyB, length, stiffness, options)
     {
@@ -90525,7 +91202,7 @@ var Factory = new Class({
      *
      * @param {object} options - [description]
      *
-     * @return {Matter.Constraint} A Matter JS Constraint.
+     * @return {MatterJS.Constraint} A Matter JS Constraint.
      */
     mouseSpring: function (options)
     {
@@ -90540,7 +91217,7 @@ var Factory = new Class({
      *
      * @param {object} options - [description]
      *
-     * @return {Matter.Constraint} A Matter JS Constraint.
+     * @return {MatterJS.Constraint} A Matter JS Constraint.
      */
     pointerConstraint: function (options)
     {
@@ -90560,10 +91237,10 @@ var Factory = new Class({
      * @param {number} x - The horizontal position of this Game Object in the world.
      * @param {number} y - The vertical position of this Game Object in the world.
      * @param {string} key - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
-     * @param {object} options - [description]
+     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with. Set to `null` to skip this value.
+     * @param {object} [options={}] - [description]
      *
-     * @return {Phaser.Physics.Matter.MatterImage} [description]
+     * @return {Phaser.Physics.Matter.Image} [description]
      */
     image: function (x, y, key, frame, options)
     {
@@ -90580,10 +91257,10 @@ var Factory = new Class({
      * @method Phaser.Physics.Matter.Factory#tileBody
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.Tile} tile - [description]
+     * @param {Phaser.Tilemaps.Tile} tile - [description]
      * @param {object} options - [description]
      *
-     * @return {Phaser.Physics.Matter.MatterTileBody} [description]
+     * @return {Phaser.Physics.Matter.TileBody} [description]
      */
     tileBody: function (tile, options)
     {
@@ -90601,10 +91278,10 @@ var Factory = new Class({
      * @param {number} x - The horizontal position of this Game Object in the world.
      * @param {number} y - The vertical position of this Game Object in the world.
      * @param {string} key - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
-     * @param {object} options - [description]
+     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with. Set to `null` to skip this value.
+     * @param {object} [options={}] - [description]
      *
-     * @return {Phaser.Physics.Matter.MatterSprite} [description]
+     * @return {Phaser.Physics.Matter.Sprite} [description]
      */
     sprite: function (x, y, key, frame, options)
     {
@@ -90652,8 +91329,6 @@ module.exports = Factory;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Bodies = __webpack_require__(/*! ./lib/factory/Bodies */ "./physics/matter-js/lib/factory/Bodies.js");
-var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var Components = __webpack_require__(/*! ./components */ "./physics/matter-js/components/index.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js");
@@ -90716,8 +91391,8 @@ var MatterGameObject = function (world, gameObject, options)
     ];
 
     //  First let's inject all of the components into the Game Object
-    mixins.forEach(function (mixin) {
-
+    mixins.forEach(function (mixin)
+    {
         for (var key in mixin)
         {
             if (hasGetterOrSetter(mixin[key]))
@@ -90729,9 +91404,7 @@ var MatterGameObject = function (world, gameObject, options)
             }
             else
             {
-                Object.defineProperty(gameObject, key, {
-                    value: mixin[key]
-                });
+                Object.defineProperty(gameObject, key, {value: mixin[key]});
             }
         }
 
@@ -90827,7 +91500,7 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @param {number} y - The vertical position of this Game Object in the world.
  * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
- * @param {object} options - [description]
+ * @param {object} [options={}] - Matter.js configuration object.
  */
 var MatterImage = new Class({
 
@@ -91062,6 +91735,8 @@ var MatterPhysics = new Class({
      *
      * @method Phaser.Physics.Matter.MatterPhysics#enableAttractorPlugin
      * @since 3.0.0
+     * 
+     * @return {Phaser.Physics.Matter.MatterPhysics} This Matter Physics instance.
      */
     enableAttractorPlugin: function ()
     {
@@ -91076,6 +91751,8 @@ var MatterPhysics = new Class({
      *
      * @method Phaser.Physics.Matter.MatterPhysics#enableWrapPlugin
      * @since 3.0.0
+     * 
+     * @return {Phaser.Physics.Matter.MatterPhysics} This Matter Physics instance.
      */
     enableWrapPlugin: function ()
     {
@@ -91109,6 +91786,72 @@ var MatterPhysics = new Class({
     resume: function ()
     {
         return this.world.resume();
+    },
+
+    /**
+     * Sets the Matter Engine to run at fixed timestep of 60Hz and enables `autoUpdate`.
+     * If you have set a custom `getDelta` function then this will override it.
+     *
+     * @method Phaser.Physics.Matter.MatterPhysics#set60Hz
+     * @since 3.4.0
+     *
+     * @return {Phaser.Physics.Matter.MatterPhysics} This Matter Physics instance.
+     */
+    set60Hz: function ()
+    {
+        this.world.getDelta = this.world.update60Hz;
+        this.world.autoUpdate = true;
+
+        return this;
+    },
+
+    /**
+     * Sets the Matter Engine to run at fixed timestep of 30Hz and enables `autoUpdate`.
+     * If you have set a custom `getDelta` function then this will override it.
+     *
+     * @method Phaser.Physics.Matter.MatterPhysics#set30Hz
+     * @since 3.4.0
+     *
+     * @return {Phaser.Physics.Matter.MatterPhysics} This Matter Physics instance.
+     */
+    set30Hz: function ()
+    {
+        this.world.getDelta = this.world.update30Hz;
+        this.world.autoUpdate = true;
+
+        return this;
+    },
+
+    /**
+     * Manually advances the physics simulation by one iteration.
+     * 
+     * You can optionally pass in the `delta` and `correction` values to be used by Engine.update.
+     * If undefined they use the Matter defaults of 60Hz and no correction.
+     * 
+     * Calling `step` directly bypasses any checks of `enabled` or `autoUpdate`.
+     * 
+     * It also ignores any custom `getDelta` functions, as you should be passing the delta
+     * value in to this call.
+     *
+     * You can adjust the number of iterations that Engine.update performs internally.
+     * Use the Scene Matter Physics config object to set the following properties:
+     *
+     * positionIterations (defaults to 6)
+     * velocityIterations (defaults to 4)
+     * constraintIterations (defaults to 2)
+     *
+     * Adjusting these values can help performance in certain situations, depending on the physics requirements
+     * of your game.
+     *
+     * @method Phaser.Physics.Matter.MatterPhysics#step
+     * @since 3.4.0
+     *
+     * @param {number} [delta=16.666] - [description]
+     * @param {number} [correction=1] - [description]
+     */
+    step: function (delta, correction)
+    {
+        this.world.step(delta, correction);
     },
 
     /**
@@ -91216,7 +91959,7 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @param {number} y - The vertical position of this Game Object in the world.
  * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
  * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
- * @param {object} options - [description]
+ * @param {object} [options={}] - Matter.js configuration object.
  */
 var MatterSprite = new Class({
 
@@ -91253,7 +91996,7 @@ var MatterSprite = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Physics.Matter.Image#world
+         * @name Phaser.Physics.Matter.Sprite#world
          * @type {Phaser.Physics.Matter.World}
          * @since 3.0.0
          */
@@ -91262,7 +92005,7 @@ var MatterSprite = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Physics.Matter.Image#_tempVec2
+         * @name Phaser.Physics.Matter.Sprite#_tempVec2
          * @type {Phaser.Math.Vector2}
          * @private
          * @since 3.0.0
@@ -91348,7 +92091,7 @@ var Vertices = __webpack_require__(/*! ./lib/geometry/Vertices */ "./physics/mat
  * @extends Phaser.Physics.Matter.Components.Static
  *
  * @param {Phaser.Physics.Matter.World} world - [description]
- * @param {Phaser.GameObjects.Tile} tile - The target tile that should have a Matter body.
+ * @param {Phaser.Tilemaps.Tile} tile - The target tile that should have a Matter body.
  * @param {object} [options] - Options to be used when creating the Matter body. See
  * Phaser.Physics.Matter.Matter.Body for a list of what Matter accepts.
  * @param {Phaser.Physics.Matter.Matter.Body} [options.body=null] - An existing Matter body to
@@ -91379,7 +92122,7 @@ var MatterTileBody = new Class({
          * The tile object the body is associated with.
          *
          * @name Phaser.Physics.Matter.TileBody#tile
-         * @type {Phaser.GameObjects.Tile}
+         * @type {Phaser.Tilemaps.Tile}
          * @since 3.0.0
          */
         this.tile = tile;
@@ -91434,8 +92177,7 @@ var MatterTileBody = new Class({
      * @method Phaser.Physics.Matter.TileBody#setFromTileRectangle
      * @since 3.0.0
      *
-     * @param {object} [options] - Options to be used when creating the Matter body. See
-     * Phaser.Physics.Matter.Matter.Body for a list of what Matter accepts.
+     * @param {object} [options] - Options to be used when creating the Matter body. See MatterJS.Body for a list of what Matter accepts.
      * @param {boolean} [options.isStatic=true] - Whether or not the newly created body should be
      * made static. This defaults to true since typically tiles should not be moved.
      * @param {boolean} [options.addToWorld=true] - Whether or not to add the newly created body (or
@@ -91473,8 +92215,7 @@ var MatterTileBody = new Class({
      * @method Phaser.Physics.Matter.TileBody#setFromTileCollision
      * @since 3.0.0
      *
-     * @param {object} [options] - Options to be used when creating the Matter body. See
-     * Phaser.Physics.Matter.Matter.Body for a list of what Matter accepts.
+     * @param {object} [options] - Options to be used when creating the Matter body. See MatterJS.Body for a list of what Matter accepts.
      * @param {boolean} [options.isStatic=true] - Whether or not the newly created body should be
      * made static. This defaults to true since typically tiles should not be moved.
      * @param {boolean} [options.addToWorld=true] - Whether or not to add the newly created body (or
@@ -91566,7 +92307,7 @@ var MatterTileBody = new Class({
      * @method Phaser.Physics.Matter.TileBody#setBody
      * @since 3.0.0
      *
-     * @param {Phaser.Physics.Matter.Matter.Body} body - The new Matter body to use.
+     * @param {MatterJS.Body} body - The new Matter body to use.
      * @param {boolean} [addToWorld=true] - Whether or not to add the body to the Matter world.
      * 
      * @return {Phaser.Physics.Matter.TileBody} This TileBody object.
@@ -91614,7 +92355,7 @@ var MatterTileBody = new Class({
     /**
      * Removes the current body from the tile and the world.
      *
-     * @method Phaser.Physics.Matter.TileBody#removeBody
+     * @method Phaser.Physics.Matter.TileBody#destroy
      * @since 3.0.0
      *
      * @return {Phaser.Physics.Matter.TileBody} This TileBody object.
@@ -91806,7 +92547,7 @@ var PointerConstraint = new Class({
      * @method Phaser.Physics.Matter.PointerConstraint#getBodyPart
      * @since 3.0.0
      *
-     * @param {Matter.Body} body - [description]
+     * @param {MatterJS.Body} body - [description]
      * @param {Phaser.Math.Vector2} position - [description]
      *
      * @return {boolean} [description]
@@ -91960,7 +92701,7 @@ var MatterTileBody = __webpack_require__(/*! ./MatterTileBody */ "./physics/matt
  * [description]
  *
  * @class World
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Physics.Matter
  * @constructor
  * @since 3.0.0
@@ -91991,7 +92732,7 @@ var World = new Class({
          * [description]
          *
          * @name Phaser.Physics.Matter.World#engine
-         * @type {Matter.Engine}
+         * @type {MatterJS.Engine}
          * @since 3.0.0
          */
         this.engine = Engine.create(config);
@@ -92000,7 +92741,7 @@ var World = new Class({
          * A `World` composite object that will contain all simulated bodies and constraints.
          *
          * @name Phaser.Physics.Matter.World#localWorld
-         * @type {Matter.World}
+         * @type {MatterJS.World}
          * @since 3.0.0
          */
         this.localWorld = this.engine.world;
@@ -92054,6 +92795,62 @@ var World = new Class({
          * @since 3.0.0
          */
         this.enabled = GetValue(config, 'enabled', true);
+
+        /**
+         * The correction argument is an optional Number that specifies the time correction factor to apply to the update.
+         * This can help improve the accuracy of the simulation in cases where delta is changing between updates.
+         * The value of correction is defined as delta / lastDelta, i.e. the percentage change of delta over the last step.
+         * Therefore the value is always 1 (no correction) when delta constant (or when no correction is desired, which is the default).
+         * See the paper on Time Corrected Verlet for more information.
+         *
+         * @name Phaser.Physics.Matter.World#correction
+         * @type {number}
+         * @default 1
+         * @since 3.4.0
+         */
+        this.correction = GetValue(config, 'correction', 1);
+
+        /**
+         * This function is called every time the core game loop steps, which is bound to the
+         * Request Animation Frame frequency unless otherwise modified.
+         * 
+         * The function is passed two values: `time` and `delta`, both of which come from the game step values.
+         * 
+         * It must return a number. This number is used as the delta value passed to Matter.Engine.update.
+         * 
+         * You can override this function with your own to define your own timestep.
+         * 
+         * If you need to update the Engine multiple times in a single game step then call
+         * `World.update` as many times as required. Each call will trigger the `getDelta` function.
+         * If you wish to have full control over when the Engine updates then see the property `autoUpdate`.
+         *
+         * You can also adjust the number of iterations that Engine.update performs.
+         * Use the Scene Matter Physics config object to set the following properties:
+         *
+         * positionIterations (defaults to 6)
+         * velocityIterations (defaults to 4)
+         * constraintIterations (defaults to 2)
+         *
+         * Adjusting these values can help performance in certain situations, depending on the physics requirements
+         * of your game.
+         *
+         * @name Phaser.Physics.Matter.World#getDelta
+         * @type {function}
+         * @since 3.4.0
+         */
+        this.getDelta = GetValue(config, 'getDelta', this.update60Hz);
+
+        /**
+         * Automatically call Engine.update every time the game steps.
+         * If you disable this then you are responsible for calling `World.step` directly from your game.
+         * If you call `set60Hz` or `set30Hz` then `autoUpdate` is reset to `true`.
+         *
+         * @name Phaser.Physics.Matter.World#autoUpdate
+         * @type {boolean}
+         * @default true
+         * @since 3.4.0
+         */
+        this.autoUpdate = GetValue(config, 'autoUpdate', true);
 
         /**
          * [description]
@@ -92338,7 +93135,7 @@ var World = new Class({
      * @param {number} height - [description]
      * @param {object} options - [description]
      *
-     * @return {Matter.Body} [description]
+     * @return {MatterJS.Body} [description]
      */
     create: function (x, y, width, height, options)
     {
@@ -92392,7 +93189,7 @@ var World = new Class({
      * @method Phaser.Physics.Matter.World#removeConstraint
      * @since 3.0.0
      *
-     * @param {Matter.Constraint} constraint - [description]
+     * @param {MatterJS.Constraint} constraint - [description]
      * @param {boolean} deep - [description]
      *
      * @return {Phaser.Physics.Matter.World} This Matter World object.
@@ -92411,7 +93208,7 @@ var World = new Class({
      * @method Phaser.Physics.Matter.World#convertTilemapLayer
      * @since 3.0.0
      *
-     * @param {(Phaser.GameObjects.StaticTilemapLayer|Phaser.GameObjects.DynamicTilemapLayer)} tilemapLayer -
+     * @param {(Phaser.Tilemaps.DynamicTilemapLayer|Phaser.Tilemaps.StaticTilemapLayer)} tilemapLayer -
      * An array of tiles.
      * @param {object} [options] - Options to be passed to the MatterTileBody constructor. {@ee Phaser.Physics.Matter.TileBody}
      *
@@ -92434,7 +93231,7 @@ var World = new Class({
      * @method Phaser.Physics.Matter.World#convertTiles
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.Tile[]} tiles - An array of tiles.
+     * @param {Phaser.Tilemaps.Tile[]} tiles - An array of tiles.
      * @param {object} [options] - Options to be passed to the MatterTileBody constructor. {@see Phaser.Physics.Matter.TileBody}
      *
      * @return {Phaser.Physics.Matter.World} This Matter World object.
@@ -92527,12 +93324,68 @@ var World = new Class({
      */
     update: function (time, delta)
     {
-        if (this.enabled)
+        if (this.enabled && this.autoUpdate)
         {
-            var correction = 1;
-
-            Engine.update(this.engine, delta, correction);
+            Engine.update(this.engine, this.getDelta(time, delta), this.correction);
         }
+    },
+
+    /**
+     * Manually advances the physics simulation by one iteration.
+     * 
+     * You can optionally pass in the `delta` and `correction` values to be used by Engine.update.
+     * If undefined they use the Matter defaults of 60Hz and no correction.
+     * 
+     * Calling `step` directly bypasses any checks of `enabled` or `autoUpdate`.
+     * 
+     * It also ignores any custom `getDelta` functions, as you should be passing the delta
+     * value in to this call.
+     *
+     * You can adjust the number of iterations that Engine.update performs internally.
+     * Use the Scene Matter Physics config object to set the following properties:
+     *
+     * positionIterations (defaults to 6)
+     * velocityIterations (defaults to 4)
+     * constraintIterations (defaults to 2)
+     *
+     * Adjusting these values can help performance in certain situations, depending on the physics requirements
+     * of your game.
+     *
+     * @method Phaser.Physics.Matter.World#step
+     * @since 3.4.0
+     *
+     * @param {number} [delta=16.666] - [description]
+     * @param {number} [correction=1] - [description]
+     */
+    step: function (delta, correction)
+    {
+        Engine.update(this.engine, delta, correction);
+    },
+
+    /**
+     * Runs the Matter Engine.update at a fixed timestep of 60Hz.
+     *
+     * @method Phaser.Physics.Matter.World#update60Hz
+     * @since 3.4.0
+     *
+     * @return {number} The delta value to be passed to Engine.update.
+     */
+    update60Hz: function ()
+    {
+        return 1000 / 60;
+    },
+
+    /**
+     * Runs the Matter Engine.update at a fixed timestep of 30Hz.
+     *
+     * @method Phaser.Physics.Matter.World#update30Hz
+     * @since 3.4.0
+     *
+     * @return {number} The delta value to be passed to Engine.update.
+     */
+    update30Hz: function ()
+    {
+        return 1000 / 30;
     },
 
     /**
@@ -93294,7 +94147,7 @@ var SetBody = {
      * @method Phaser.Physics.Matter.Components.SetBody#setExistingBody
      * @since 3.0.0
      *
-     * @param {Phaser.Physics.Matter.Body} body - [description]
+     * @param {MatterJS.Body} body - [description]
      * @param {boolean} [addToWorld=true] - [description]
      *
      * @return {Phaser.GameObjects.GameObject} This Game Object.
@@ -94073,6 +94926,58 @@ module.exports = {
     World: __webpack_require__(/*! ./World */ "./physics/matter-js/World.js")
 
 };
+
+/**
+ * @namespace MatterJS
+ */
+
+/**
+ * @classdesc
+ * The `Matter.Body` module contains methods for creating and manipulating body models.
+ * A `Matter.Body` is a rigid body that can be simulated by a `Matter.Engine`.
+ * Factories for commonly used body configurations (such as rectangles, circles and other polygons) can be found in the module `Matter.Bodies`.
+ *
+ * @class MatterJS.Body
+ */
+
+/**
+ * @classdesc
+ * The `Matter.Composite` module contains methods for creating and manipulating composite bodies.
+ * A composite body is a collection of `Matter.Body`, `Matter.Constraint` and other `Matter.Composite`, therefore composites form a tree structure.
+ * It is important to use the functions in this module to modify composites, rather than directly modifying their properties.
+ * Note that the `Matter.World` object is also a type of `Matter.Composite` and as such all composite methods here can also operate on a `Matter.World`.
+ *
+ * @class MatterJS.Composite
+ */
+
+/**
+ * @classdesc
+ * The `Matter.World` module contains methods for creating and manipulating the world composite.
+ * A `Matter.World` is a `Matter.Composite` body, which is a collection of `Matter.Body`, `Matter.Constraint` and other `Matter.Composite`.
+ * A `Matter.World` has a few additional properties including `gravity` and `bounds`.
+ * It is important to use the functions in the `Matter.Composite` module to modify the world composite, rather than directly modifying its properties.
+ * There are also a few methods here that alias those in `Matter.Composite` for easier readability.
+ *
+ * @class MatterJS.World
+ * @extends MatterJS.Composite
+ */
+
+/**
+ * @classdesc
+ * The `Matter.Constraint` module contains methods for creating and manipulating constraints.
+ * Constraints are used for specifying that a fixed distance must be maintained between two bodies (or a body and a fixed world-space position).
+ * The stiffness of constraints can be modified to create springs or elastic.
+ *
+ * @class MatterJS.Constraint
+ */
+
+/**
+ * @classdesc
+ * The `Matter.Engine` module contains methods for creating and manipulating engines.
+ * An engine is a controller that manages updating the simulation of the world.
+ *
+ * @class MatterJS.Engine
+ */
 
 
 /***/ }),
@@ -103447,7 +104352,13 @@ if (!global.cancelAnimationFrame) {
  */
 
 /**
- * @namespace Phaser.BlendModes
+ * Phaser Blend Modes.
+ * 
+ * @name Phaser.BlendModes
+ * @enum {integer}
+ * @memberOf Phaser
+ * @readOnly
+ * @since 3.0.0
  */
 
 module.exports = {
@@ -103456,8 +104367,6 @@ module.exports = {
      * Skips the Blend Mode check in the renderer.
      * 
      * @name Phaser.BlendModes.SKIP_CHECK
-     * @type {integer}
-     * @since 3.0.0
      */
     SKIP_CHECK: -1,
 
@@ -103465,8 +104374,6 @@ module.exports = {
      * Normal blend mode.
      * 
      * @name Phaser.BlendModes.NORMAL
-     * @type {integer}
-     * @since 3.0.0
      */
     NORMAL: 0,
 
@@ -103474,8 +104381,6 @@ module.exports = {
      * Add blend mode.
      * 
      * @name Phaser.BlendModes.ADD
-     * @type {integer}
-     * @since 3.0.0
      */
     ADD: 1,
 
@@ -103483,8 +104388,6 @@ module.exports = {
      * Multiply blend mode.
      * 
      * @name Phaser.BlendModes.MULTIPLY
-     * @type {integer}
-     * @since 3.0.0
      */
     MULTIPLY: 2,
 
@@ -103492,8 +104395,6 @@ module.exports = {
      * Screen blend mode.
      * 
      * @name Phaser.BlendModes.SCREEN
-     * @type {integer}
-     * @since 3.0.0
      */
     SCREEN: 3,
 
@@ -103501,8 +104402,6 @@ module.exports = {
      * Overlay blend mode.
      * 
      * @name Phaser.BlendModes.OVERLAY
-     * @type {integer}
-     * @since 3.0.0
      */
     OVERLAY: 4,
 
@@ -103510,8 +104409,6 @@ module.exports = {
      * Darken blend mode.
      * 
      * @name Phaser.BlendModes.DARKEN
-     * @type {integer}
-     * @since 3.0.0
      */
     DARKEN: 5,
 
@@ -103519,8 +104416,6 @@ module.exports = {
      * Lighten blend mode.
      * 
      * @name Phaser.BlendModes.LIGHTEN
-     * @type {integer}
-     * @since 3.0.0
      */
     LIGHTEN: 6,
 
@@ -103528,8 +104423,6 @@ module.exports = {
      * Color Dodge blend mode.
      * 
      * @name Phaser.BlendModes.COLOR_DODGE
-     * @type {integer}
-     * @since 3.0.0
      */
     COLOR_DODGE: 7,
 
@@ -103537,8 +104430,6 @@ module.exports = {
      * Color Burn blend mode.
      * 
      * @name Phaser.BlendModes.COLOR_BURN
-     * @type {integer}
-     * @since 3.0.0
      */
     COLOR_BURN: 8,
 
@@ -103546,8 +104437,6 @@ module.exports = {
      * Hard Light blend mode.
      * 
      * @name Phaser.BlendModes.HARD_LIGHT
-     * @type {integer}
-     * @since 3.0.0
      */
     HARD_LIGHT: 9,
 
@@ -103555,8 +104444,6 @@ module.exports = {
      * Soft Light blend mode.
      * 
      * @name Phaser.BlendModes.SOFT_LIGHT
-     * @type {integer}
-     * @since 3.0.0
      */
     SOFT_LIGHT: 10,
 
@@ -103564,8 +104451,6 @@ module.exports = {
      * Difference blend mode.
      * 
      * @name Phaser.BlendModes.DIFFERENCE
-     * @type {integer}
-     * @since 3.0.0
      */
     DIFFERENCE: 11,
 
@@ -103573,8 +104458,6 @@ module.exports = {
      * Exclusion blend mode.
      * 
      * @name Phaser.BlendModes.EXCLUSION
-     * @type {integer}
-     * @since 3.0.0
      */
     EXCLUSION: 12,
 
@@ -103582,8 +104465,6 @@ module.exports = {
      * Hue blend mode.
      * 
      * @name Phaser.BlendModes.HUE
-     * @type {integer}
-     * @since 3.0.0
      */
     HUE: 13,
 
@@ -103591,8 +104472,6 @@ module.exports = {
      * Saturation blend mode.
      * 
      * @name Phaser.BlendModes.SATURATION
-     * @type {integer}
-     * @since 3.0.0
      */
     SATURATION: 14,
 
@@ -103600,8 +104479,6 @@ module.exports = {
      * Color blend mode.
      * 
      * @name Phaser.BlendModes.COLOR
-     * @type {integer}
-     * @since 3.0.0
      */
     COLOR: 15,
 
@@ -103609,8 +104486,6 @@ module.exports = {
      * Luminosity blend mode.
      * 
      * @name Phaser.BlendModes.LUMINOSITY
-     * @type {integer}
-     * @since 3.0.0
      */
     LUMINOSITY: 16
 
@@ -103633,7 +104508,13 @@ module.exports = {
  */
 
 /**
- * @namespace Phaser.ScaleModes
+ * Phaser Scale Modes.
+ * 
+ * @name Phaser.ScaleModes
+ * @enum {integer}
+ * @memberOf Phaser
+ * @readOnly
+ * @since 3.0.0
  */
 
 module.exports = {
@@ -103642,8 +104523,6 @@ module.exports = {
      * Default Scale Mode (Linear).
      * 
      * @name Phaser.ScaleModes.DEFAULT
-     * @type {integer}
-     * @since 3.0.0
      */
     DEFAULT: 0,
 
@@ -103651,8 +104530,6 @@ module.exports = {
      * Linear Scale Mode.
      * 
      * @name Phaser.ScaleModes.LINEAR
-     * @type {integer}
-     * @since 3.0.0
      */
     LINEAR: 0,
 
@@ -103660,8 +104537,6 @@ module.exports = {
      * Nearest Scale Mode.
      * 
      * @name Phaser.ScaleModes.NEAREST
-     * @type {integer}
-     * @since 3.0.0
      */
     NEAREST: 1
 
@@ -103811,7 +104686,7 @@ var CanvasRenderer = new Class({
          * Map to the required function.
          *
          * @name Phaser.Renderer.Canvas.CanvasRenderer#drawImage
-         * @type {Phaser.Renderer.Canvas.DrawImage}
+         * @type {function}
          * @since 3.0.0
          */
         this.drawImage = DrawImage(this.config.roundPixels);
@@ -103820,7 +104695,7 @@ var CanvasRenderer = new Class({
          * [description]
          *
          * @name Phaser.Renderer.Canvas.CanvasRenderer#blitImage
-         * @type {Phaser.Renderer.Canvas.BlitImage}
+         * @type {function}
          * @since 3.0.0
          */
         this.blitImage = BlitImage(this.config.roundPixels);
@@ -104224,8 +105099,8 @@ module.exports = CanvasRenderer;
 
 module.exports = {
 
-    CanvasRenderer: __webpack_require__(/*! ./CanvasRenderer */ "./renderer/canvas/CanvasRenderer.js"),
     BlitImage: __webpack_require__(/*! ./utils/BlitImage */ "./renderer/canvas/utils/BlitImage.js"),
+    CanvasRenderer: __webpack_require__(/*! ./CanvasRenderer */ "./renderer/canvas/CanvasRenderer.js"),
     DrawImage: __webpack_require__(/*! ./utils/DrawImage */ "./renderer/canvas/utils/DrawImage.js"),
     GetBlendModes: __webpack_require__(/*! ./utils/GetBlendModes */ "./renderer/canvas/utils/GetBlendModes.js")
 
@@ -108730,7 +109605,7 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.FlatTintPipeline#drawEmitterManager
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.Particles.ParticleEmittermanager} emitterManager - [description]
+     * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
      */
     drawEmitterManager: function ()
@@ -114182,7 +115057,7 @@ var Systems = new Class({
          * [description]
          *
          * @name Phaser.Scenes.Systems#plugins
-         * @type {Phaser.Plugins.PluginManager}
+         * @type {Phaser.Boot.PluginManager}
          * @since 3.0.0
          */
         this.plugins;
@@ -114247,7 +115122,7 @@ var Systems = new Class({
          * [description]
          *
          * @name Phaser.Scenes.Systems#events
-         * @type {EventEmitter}
+         * @type {Phaser.Events.EventEmitter}
          * @since 3.0.0
          */
         this.events;
@@ -114647,13 +115522,19 @@ module.exports = Systems;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+/**
+ * Scene consts.
+ * 
+ * @ignore
+ */
 
-module.exports = {
+var CONST = {
 
     /**
      * Scene state.
      * 
      * @name Phaser.Scenes.PENDING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114663,6 +115544,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.INIT
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114672,6 +115554,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.START
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114681,6 +115564,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.LOADING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114690,6 +115574,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.CREATING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114699,6 +115584,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.RUNNING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114708,6 +115594,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.PAUSED
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114717,6 +115604,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.SLEEPING
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114726,6 +115614,7 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.SHUTDOWN
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
@@ -114735,12 +115624,15 @@ module.exports = {
      * Scene state.
      * 
      * @name Phaser.Scenes.DESTROYED
+     * @readOnly
      * @type {integer}
      * @since 3.0.0
      */
     DESTROYED: 9
 
 };
+
+module.exports = CONST;
 
 
 /***/ }),
@@ -114806,7 +115698,7 @@ var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
  * Class containing all the shared state and behaviour of a sound object, independent of the implementation.
  *
  * @class BaseSound
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Sound
  * @constructor
  * @since 3.0.0
@@ -114928,6 +115820,8 @@ var BaseSound = new Class({
          */
         this.currentConfig = this.config;
 
+        this.config = Extend(this.config, config);
+
         /**
          * Boolean indicating whether the sound is muted or not.
          * Gets or sets the muted state of this sound.
@@ -114951,30 +115845,6 @@ var BaseSound = new Class({
         this.volume = 1;
 
         /**
-         * Defines the speed at which the audio asset will be played.
-         * Value of 1.0 plays the audio at full speed, 0.5 plays the audio
-         * at half speed and 2.0 doubles the audio's playback speed.
-         * This value gets multiplied by global rate to have the final playback speed.
-         *
-         * @name Phaser.Sound.BaseSound#rate
-         * @type {number}
-         * @default 1
-         * @since 3.0.0
-         */
-        this.rate = 1;
-
-        /**
-         * Represents detuning of sound in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
-         * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
-         *
-         * @name Phaser.Sound.BaseSound#detune
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
-        this.detune = 0;
-
-        /**
          * Property representing the position of playback for this sound, in seconds.
          * Setting it to a specific value moves current playback to that position.
          * The value given is clamped to the range 0 to current marker duration.
@@ -114996,7 +115866,6 @@ var BaseSound = new Class({
          * @since 3.0.0
          */
         this.loop = false;
-        this.config = Extend(this.config, config);
 
         /**
          * Object containing markers definitions.
@@ -115319,113 +116188,6 @@ var BaseSound = new Class({
     },
 
     /**
-     * @event Phaser.Sound.BaseSound#rate
-     * @param {Phaser.Sound.BaseSound} sound - Reference to the sound that emitted the event.
-     * @param {number} value - An updated value of Phaser.Sound.BaseSound#rate property.
-     */
-
-    /**
-     * Sets the playback rate of this Sound.
-     * 
-     * For example, a value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
-     * and 2.0 doubles the audios playback speed.
-     *
-     * @method Phaser.Sound.BaseSound#setRate
-     * @fires Phaser.Sound.BaseSound#rate
-     * @since 3.3.0
-     *
-     * @param {number} value - The playback rate at of this Sound.
-     *
-     * @return {Phaser.Sound.BaseSound} This Sound.
-     */
-     setRate: function (value)
-     {
-        this.rate = value;
-
-        return this;
-     },
-
-    /**
-     * Rate at which this Sound will be played.
-     * Value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
-     * and 2.0 doubles the audios playback speed.
-     *
-     * @name Phaser.Sound.BaseSound#rate
-     * @type {number}
-     * @default 1
-     * @since 3.0.0
-     */
-    rate: {
-
-        get: function ()
-        {
-            return this.currentConfig.rate;
-        },
-
-        set: function (value)
-        {
-            this.currentConfig.rate = value;
-
-            this.calculateRate();
-
-            this.emit('rate', this, value);
-        }
-
-    },
-
-    /**
-     * Sets the detune value of this Sound, given in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
-     * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
-     *
-     * @method Phaser.Sound.BaseSound#setDetune
-     * @fires Phaser.Sound.BaseSound#detune
-     * @since 3.3.0
-     *
-     * @param {number} value - The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
-     *
-     * @return {Phaser.Sound.BaseSound} This Sound.
-     */
-     setDetune: function (value)
-     {
-        this.detune = value;
-
-        return this;
-     },
-
-    /**
-     * @event Phaser.Sound.BaseSound#detune
-     * @param {Phaser.Sound.BaseSound} sound - Reference to the Sound that emitted event.
-     * @param {number} value - An updated value of Phaser.Sound.BaseSound#detune property.
-     */
-
-    /**
-     * The detune value of this Sound, given in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
-     * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
-     *
-     * @name Phaser.Sound.BaseSound#detune
-     * @type {number}
-     * @default 0
-     * @since 3.0.0
-     */
-    detune: {
-
-        get: function ()
-        {
-            return this.currentConfig.detune;
-        },
-
-        set: function (value)
-        {
-            this.currentConfig.detune = value;
-
-            this.calculateRate();
-
-            this.emit('detune', this, value);
-        }
-
-    },
-
-    /**
      * Destroys this sound and all associated events and marks it for removal from the sound manager.
      *
      * @method Phaser.Sound.BaseSound#destroy
@@ -115503,7 +116265,7 @@ var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
  * There is a good guide to what's supported [here](https://developer.mozilla.org/en-US/Apps/Fundamentals/Audio_and_video_delivery/Cross-browser_audio_basics#Audio_Codec_Support).
  *
  * @class BaseSoundManager
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Sound
  * @constructor
  * @since 3.0.0
@@ -116015,12 +116777,12 @@ var BaseSoundManager = new Class({
      *
      * @return {Phaser.Sound.BaseSoundManager} This Sound Manager.
      */
-     setRate: function (value)
-     {
+    setRate: function (value)
+    {
         this.rate = value;
 
         return this;
-     },
+    },
 
     /**
      * Global playback rate at which all the sounds will be played.
@@ -116045,7 +116807,7 @@ var BaseSoundManager = new Class({
 
             this.forEachActiveSound(function (sound)
             {
-                sound.setRate();
+                sound.calculateRate();
             });
 
             this.emit('rate', this, value);
@@ -116065,12 +116827,12 @@ var BaseSoundManager = new Class({
      *
      * @return {Phaser.Sound.BaseSoundManager} This Sound Manager.
      */
-     setDetune: function (value)
-     {
+    setDetune: function (value)
+    {
         this.detune = value;
 
         return this;
-     },
+    },
 
     /**
      * @event Phaser.Sound.BaseSoundManager#detune
@@ -116100,7 +116862,7 @@ var BaseSoundManager = new Class({
 
             this.forEachActiveSound(function (sound)
             {
-                sound.setRate();
+                sound.calculateRate();
             });
 
             this.emit('detune', this, value);
@@ -116124,6 +116886,7 @@ module.exports = BaseSoundManager;
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
+ * @author       Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
@@ -116136,7 +116899,6 @@ var WebAudioSoundManager = __webpack_require__(/*! ./webaudio/WebAudioSoundManag
  * Creates a Web Audio, HTML5 Audio or No Audio Sound Manager based on config and device settings.
  *
  * @function Phaser.Sound.SoundManagerCreator
- * @author Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @since 3.0.0
  *
  * @param {Phaser.Game} game - Reference to the current game instance.
@@ -116177,11 +116939,13 @@ module.exports = SoundManagerCreator;
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
+ * @author       Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+
 var BaseSound = __webpack_require__(/*! ../BaseSound */ "./sound/BaseSound.js");
+var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 
 /**
  * @classdesc
@@ -116191,7 +116955,6 @@ var BaseSound = __webpack_require__(/*! ../BaseSound */ "./sound/BaseSound.js");
  * @extends Phaser.Sound.BaseSound
  * @memberOf Phaser.Sound
  * @constructor
- * @author Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @since 3.0.0
  *
  * @param {Phaser.Sound.HTML5AudioSoundManager} manager - Reference to the current sound manager instance.
@@ -116199,10 +116962,14 @@ var BaseSound = __webpack_require__(/*! ../BaseSound */ "./sound/BaseSound.js");
  * @param {SoundConfig} [config={}] - An optional config object containing default sound settings.
  */
 var HTML5AudioSound = new Class({
+
     Extends: BaseSound,
-    initialize: function HTML5AudioSound (manager, key, config)
+
+    initialize:
+
+    function HTML5AudioSound (manager, key, config)
     {
-        if (config === void 0) { config = {}; }
+        if (config === undefined) { config = {}; }
 
         /**
          * An array containing all HTML5 Audio tags that could be used for individual
@@ -116215,6 +116982,7 @@ var HTML5AudioSound = new Class({
          * @since 3.0.0
          */
         this.tags = manager.game.cache.audio.get(key);
+
         if (!this.tags)
         {
             // eslint-disable-next-line no-console
@@ -116257,10 +117025,18 @@ var HTML5AudioSound = new Class({
          * @since 3.0.0
          */
         this.previousTime = 0;
+
         this.duration = this.tags[0].duration;
+
         this.totalDuration = this.tags[0].duration;
+
         BaseSound.call(this, manager, key, config);
     },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#playEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     */
 
     /**
      * Play this sound, or a marked section of it.
@@ -116268,6 +117044,7 @@ var HTML5AudioSound = new Class({
      * you can set 'seek' setting of the config object, provided to this call, to that value.
      *
      * @method Phaser.Sound.HTML5AudioSound#play
+     * @fires Phaser.Sound.HTML5AudioSound#playEvent
      * @since 3.0.0
      *
      * @param {string} [markerName=''] - If you want to play a marker then provide the marker name here, otherwise omit it to play the full sound.
@@ -116292,18 +117069,21 @@ var HTML5AudioSound = new Class({
             return false;
         }
 
-        /**
-         * @event Phaser.Sound.HTML5AudioSound#play
-         * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-         */
         this.emit('play', this);
+
         return true;
     },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#pauseEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     */
 
     /**
      * Pauses the sound.
      *
      * @method Phaser.Sound.HTML5AudioSound#pause
+     * @fires Phaser.Sound.HTML5AudioSound#pauseEvent
      * @since 3.0.0
      *
      * @return {boolean} Whether the sound was paused successfully.
@@ -116314,32 +117094,37 @@ var HTML5AudioSound = new Class({
         {
             return false;
         }
+
         if (this.startTime > 0)
         {
             return false;
         }
+
         if (!BaseSound.prototype.pause.call(this))
         {
             return false;
         }
 
         //  \/\/\/ isPlaying = false, isPaused = true \/\/\/
-        this.currentConfig.seek = this.audio.currentTime
-            - (this.currentMarker ? this.currentMarker.start : 0);
+        this.currentConfig.seek = this.audio.currentTime - (this.currentMarker ? this.currentMarker.start : 0);
+
         this.stopAndReleaseAudioTag();
 
-        /**
-         * @event Phaser.Sound.HTML5AudioSound#pause
-         * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-         */
         this.emit('pause', this);
+
         return true;
     },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#resumeEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     */
 
     /**
      * Resumes the sound.
      *
      * @method Phaser.Sound.HTML5AudioSound#resume
+     * @fires Phaser.Sound.HTML5AudioSound#resumeEvent
      * @since 3.0.0
      *
      * @return {boolean} Whether the sound was resumed successfully.
@@ -116350,10 +117135,12 @@ var HTML5AudioSound = new Class({
         {
             return false;
         }
+
         if (this.startTime > 0)
         {
             return false;
         }
+
         if (!BaseSound.prototype.resume.call(this))
         {
             return false;
@@ -116365,18 +117152,21 @@ var HTML5AudioSound = new Class({
             return false;
         }
 
-        /**
-         * @event Phaser.Sound.HTML5AudioSound#resume
-         * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-         */
         this.emit('resume', this);
+
         return true;
     },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#stopEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     */
 
     /**
      * Stop playing this sound.
      *
      * @method Phaser.Sound.HTML5AudioSound#stop
+     * @fires Phaser.Sound.HTML5AudioSound#stopEvent
      * @since 3.0.0
      *
      * @return {boolean} Whether the sound was stopped successfully.
@@ -116387,6 +117177,7 @@ var HTML5AudioSound = new Class({
         {
             return false;
         }
+
         if (!BaseSound.prototype.stop.call(this))
         {
             return false;
@@ -116395,11 +117186,8 @@ var HTML5AudioSound = new Class({
         //  \/\/\/ isPlaying = false, isPaused = false \/\/\/
         this.stopAndReleaseAudioTag();
 
-        /**
-         * @event Phaser.Sound.HTML5AudioSound#stop
-         * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-         */
         this.emit('stop', this);
+
         return true;
     },
 
@@ -116419,15 +117207,19 @@ var HTML5AudioSound = new Class({
             this.reset();
             return false;
         }
+
         var seek = this.currentConfig.seek;
         var delay = this.currentConfig.delay;
         var offset = (this.currentMarker ? this.currentMarker.start : 0) + seek;
+
         this.previousTime = offset;
         this.audio.currentTime = offset;
         this.applyConfig();
+
         if (delay === 0)
         {
             this.startTime = 0;
+
             if (this.audio.paused)
             {
                 this.playCatchPromise();
@@ -116436,12 +117228,15 @@ var HTML5AudioSound = new Class({
         else
         {
             this.startTime = window.performance.now() + delay * 1000;
+
             if (!this.audio.paused)
             {
                 this.audio.pause();
             }
         }
+
         this.resetConfig();
+
         return true;
     },
 
@@ -116464,9 +117259,11 @@ var HTML5AudioSound = new Class({
         {
             return true;
         }
+
         for (var i = 0; i < this.tags.length; i++)
         {
             var audio = this.tags[i];
+
             if (audio.dataset.used === 'false')
             {
                 audio.dataset.used = 'true';
@@ -116474,11 +117271,14 @@ var HTML5AudioSound = new Class({
                 return true;
             }
         }
+
         if (!this.manager.override)
         {
             return false;
         }
+
         var otherSounds = [];
+
         this.manager.forEachActiveSound(function (sound)
         {
             if (sound.key === this.key && sound.audio)
@@ -116486,6 +117286,7 @@ var HTML5AudioSound = new Class({
                 otherSounds.push(sound);
             }
         }, this);
+
         otherSounds.sort(function (a1, a2)
         {
             if (a1.loop === a2.loop)
@@ -116495,12 +117296,16 @@ var HTML5AudioSound = new Class({
             }
             return a1.loop ? 1 : -1;
         });
+
         var selectedSound = otherSounds[0];
+
         this.audio = selectedSound.audio;
+
         selectedSound.reset();
         selectedSound.audio = null;
         selectedSound.startTime = 0;
         selectedSound.previousTime = 0;
+
         return true;
     },
 
@@ -116515,6 +117320,7 @@ var HTML5AudioSound = new Class({
     playCatchPromise: function ()
     {
         var playPromise = this.audio.play();
+
         if (playPromise)
         {
             // eslint-disable-next-line no-unused-vars
@@ -116566,9 +117372,11 @@ var HTML5AudioSound = new Class({
     {
         this.isPlaying = false;
         this.isPaused = true;
-        this.currentConfig.seek = this.audio.currentTime -
-            (this.currentMarker ? this.currentMarker.start : 0);
+
+        this.currentConfig.seek = this.audio.currentTime - (this.currentMarker ? this.currentMarker.start : 0);
+
         this.currentConfig.delay = Math.max(0, (this.startTime - window.performance.now()) / 1000);
+
         this.stopAndReleaseAudioTag();
     },
 
@@ -116588,9 +117396,21 @@ var HTML5AudioSound = new Class({
     },
 
     /**
+     * @event Phaser.Sound.HTML5AudioSound#loopedEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     */
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#endedEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     */
+
+    /**
      * Update method called automatically by sound manager on every game step.
      *
      * @method Phaser.Sound.HTML5AudioSound#update
+     * @fires Phaser.Sound.HTML5AudioSound#loopedEvent
+     * @fires Phaser.Sound.HTML5AudioSound#endedEvent
      * @protected
      * @since 3.0.0
      *
@@ -116615,6 +117435,7 @@ var HTML5AudioSound = new Class({
                 this.previousTime = this.audio.currentTime;
                 this.playCatchPromise();
             }
+
             return;
         }
 
@@ -116622,6 +117443,7 @@ var HTML5AudioSound = new Class({
         var startTime = this.currentMarker ? this.currentMarker.start : 0;
         var endTime = startTime + this.duration;
         var currentTime = this.audio.currentTime;
+
         if (this.currentConfig.loop)
         {
             if (currentTime >= endTime - this.manager.loopEndOffset)
@@ -116634,27 +117456,23 @@ var HTML5AudioSound = new Class({
                 this.audio.currentTime += startTime;
                 currentTime = this.audio.currentTime;
             }
+
             if (currentTime < this.previousTime)
             {
-                /**
-                 * @event Phaser.Sound.HTML5AudioSound#looped
-                 * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-                 */
                 this.emit('looped', this);
             }
         }
         else if (currentTime >= endTime)
         {
             this.reset();
+
             this.stopAndReleaseAudioTag();
 
-            /**
-             * @event Phaser.Sound.HTML5AudioSound#ended
-             * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-             */
             this.emit('ended', this);
+
             return;
         }
+
         this.previousTime = currentTime;
     },
 
@@ -116668,7 +117486,9 @@ var HTML5AudioSound = new Class({
     destroy: function ()
     {
         BaseSound.prototype.destroy.call(this);
+
         this.tags = null;
+
         if (this.audio)
         {
             this.stopAndReleaseAudioTag();
@@ -116678,11 +117498,11 @@ var HTML5AudioSound = new Class({
     /**
      * Method used internally to determine mute setting of the sound.
      *
-     * @method Phaser.Sound.HTML5AudioSound#setMute
+     * @method Phaser.Sound.HTML5AudioSound#updateMute
      * @private
      * @since 3.0.0
      */
-    setMute: function ()
+    updateMute: function ()
     {
         if (this.audio)
         {
@@ -116693,11 +117513,11 @@ var HTML5AudioSound = new Class({
     /**
      * Method used internally to calculate total volume of the sound.
      *
-     * @method Phaser.Sound.HTML5AudioSound#setVolume
+     * @method Phaser.Sound.HTML5AudioSound#updateVolume
      * @private
      * @since 3.0.0
      */
-    setVolume: function ()
+    updateVolume: function ()
     {
         if (this.audio)
         {
@@ -116708,167 +117528,389 @@ var HTML5AudioSound = new Class({
     /**
      * Method used internally to calculate total playback rate of the sound.
      *
-     * @method Phaser.Sound.HTML5AudioSound#setRate
+     * @method Phaser.Sound.HTML5AudioSound#calculateRate
      * @protected
      * @since 3.0.0
      */
-    setRate: function ()
+    calculateRate: function ()
     {
-        BaseSound.prototype.setRate.call(this);
+        BaseSound.prototype.calculateRate.call(this);
+
         if (this.audio)
         {
             this.audio.playbackRate = this.totalRate;
         }
-    }
-});
-Object.defineProperty(HTML5AudioSound.prototype, 'mute', {
-    get: function ()
-    {
-        return this.currentConfig.mute;
     },
-    set: function (value)
-    {
-        this.currentConfig.mute = value;
-        if (this.manager.isLocked(this, 'mute', value))
-        {
-            return;
-        }
-        this.setMute();
 
-        /**
-         * @event Phaser.Sound.HTML5AudioSound#mute
-         * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-         * @param {boolean} value - An updated value of Phaser.Sound.HTML5AudioSound#mute property.
-         */
-        this.emit('mute', this, value);
-    }
-});
-Object.defineProperty(HTML5AudioSound.prototype, 'volume', {
-    get: function ()
-    {
-        return this.currentConfig.volume;
-    },
-    set: function (value)
-    {
-        this.currentConfig.volume = value;
-        if (this.manager.isLocked(this, 'volume', value))
-        {
-            return;
-        }
-        this.setVolume();
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#muteEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     * @param {boolean} value - An updated value of Phaser.Sound.HTML5AudioSound#mute property.
+     */
 
-        /**
-         * @event Phaser.Sound.HTML5AudioSound#volume
-         * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-         * @param {number} value - An updated value of Phaser.Sound.HTML5AudioSound#volume property.
-         */
-        this.emit('volume', this, value);
-    }
-});
-Object.defineProperty(HTML5AudioSound.prototype, 'rate', {
-    get: function ()
-    {
-        return Object.getOwnPropertyDescriptor(BaseSound.prototype, 'rate').get.call(this);
-    },
-    set: function (value)
-    {
-        this.currentConfig.rate = value;
-        if (this.manager.isLocked(this, 'rate', value))
+    /**
+     * [description]
+     * 
+     * @name Phaser.Sound.HTML5AudioSound#mute
+     * @type {boolean}
+     * @default false
+     * @since 3.0.0
+     */
+    mute: {
+
+        get: function ()
         {
-            return;
-        }
-        Object.getOwnPropertyDescriptor(BaseSound.prototype, 'rate').set.call(this, value);
-    }
-});
-Object.defineProperty(HTML5AudioSound.prototype, 'detune', {
-    get: function ()
-    {
-        return Object.getOwnPropertyDescriptor(BaseSound.prototype, 'detune').get.call(this);
-    },
-    set: function (value)
-    {
-        this.currentConfig.detune = value;
-        if (this.manager.isLocked(this, 'detune', value))
+            return this.currentConfig.mute;
+        },
+
+        set: function (value)
         {
-            return;
-        }
-        Object.getOwnPropertyDescriptor(BaseSound.prototype, 'detune').set.call(this, value);
-    }
-});
-Object.defineProperty(HTML5AudioSound.prototype, 'seek', {
-    get: function ()
-    {
-        if (this.isPlaying)
-        {
-            return this.audio.currentTime -
-                (this.currentMarker ? this.currentMarker.start : 0);
-        }
-        else if (this.isPaused)
-        {
-            return this.currentConfig.seek;
-        }
-        else
-        {
-            return 0;
+            this.currentConfig.mute = value;
+
+            if (this.manager.isLocked(this, 'mute', value))
+            {
+                return;
+            }
+
+            this.setMute();
+
+            this.emit('mute', this, value);
         }
     },
-    set: function (value)
+
+    /**
+     * Sets the muted state of this Sound.
+     *
+     * @method Phaser.Sound.HTML5AudioSound#setMute
+     * @fires Phaser.Sound.HTML5AudioSound#muteEvent
+     * @since 3.4.0
+     *
+     * @param {boolean} value - `true` to mute this sound, `false` to unmute it.
+     *
+     * @return {Phaser.Sound.HTML5AudioSound} This Sound instance.
+     */
+    setMute: function (value)
     {
-        if (this.manager.isLocked(this, 'seek', value))
+        this.mute = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#volumeEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     * @param {number} value - An updated value of Phaser.Sound.HTML5AudioSound#volume property.
+     */
+
+    /**
+     * [description]
+     * 
+     * @name Phaser.Sound.HTML5AudioSound#volume
+     * @type {number}
+     * @default 1
+     * @since 3.0.0
+     */
+    volume: {
+
+        get: function ()
         {
-            return;
+            return this.currentConfig.volume;
+        },
+
+        set: function (value)
+        {
+            this.currentConfig.volume = value;
+
+            if (this.manager.isLocked(this, 'volume', value))
+            {
+                return;
+            }
+
+            this.setVolume();
+
+            this.emit('volume', this, value);
         }
-        if (this.startTime > 0)
+    },
+
+    /**
+     * Sets the volume of this Sound.
+     *
+     * @method Phaser.Sound.HTML5AudioSound#setVolume
+     * @fires Phaser.Sound.HTML5AudioSound#volumeEvent
+     * @since 3.4.0
+     *
+     * @param {number} value - The volume of the sound.
+     *
+     * @return {Phaser.Sound.HTML5AudioSound} This Sound instance.
+     */
+    setVolume: function (value)
+    {
+        this.volume = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#rateEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted the event.
+     * @param {number} value - An updated value of Phaser.Sound.HTML5AudioSound#rate property.
+     */
+
+    /**
+     * Rate at which this Sound will be played.
+     * Value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
+     * and 2.0 doubles the audios playback speed.
+     *
+     * @name Phaser.Sound.HTML5AudioSound#rate
+     * @type {number}
+     * @default 1
+     * @since 3.0.0
+     */
+    rate: {
+
+        get: function ()
         {
-            return;
+            return this.currentConfig.rate;
+        },
+
+        set: function (value)
+        {
+            this.currentConfig.rate = value;
+
+            if (this.manager.isLocked(this, 'rate', value))
+            {
+                return;
+            }
+            else
+            {
+                this.calculateRate();
+
+                this.emit('rate', this, value);
+            }
         }
-        if (this.isPlaying || this.isPaused)
+
+    },
+
+    /**
+     * Sets the playback rate of this Sound.
+     * 
+     * For example, a value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
+     * and 2.0 doubles the audios playback speed.
+     *
+     * @method Phaser.Sound.HTML5AudioSound#setRate
+     * @fires Phaser.Sound.HTML5AudioSound#rateEvent
+     * @since 3.3.0
+     *
+     * @param {number} value - The playback rate at of this Sound.
+     *
+     * @return {Phaser.Sound.HTML5AudioSound} This Sound.
+     */
+    setRate: function (value)
+    {
+        this.rate = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#detuneEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the Sound that emitted event.
+     * @param {number} value - An updated value of Phaser.Sound.HTML5AudioSound#detune property.
+     */
+
+    /**
+     * The detune value of this Sound, given in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
+     * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
+     *
+     * @name Phaser.Sound.HTML5AudioSound#detune
+     * @type {number}
+     * @default 0
+     * @since 3.0.0
+     */
+    detune: {
+
+        get: function ()
         {
-            value = Math.min(Math.max(0, value), this.duration);
+            return this.currentConfig.detune;
+        },
+
+        set: function (value)
+        {
+            this.currentConfig.detune = value;
+
+            if (this.manager.isLocked(this, 'detune', value))
+            {
+                return;
+            }
+            else
+            {
+                this.calculateRate();
+
+                this.emit('detune', this, value);
+            }
+        }
+
+    },
+
+    /**
+     * Sets the detune value of this Sound, given in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
+     * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
+     *
+     * @method Phaser.Sound.HTML5AudioSound#setDetune
+     * @fires Phaser.Sound.HTML5AudioSound#detuneEvent
+     * @since 3.3.0
+     *
+     * @param {number} value - The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
+     *
+     * @return {Phaser.Sound.HTML5AudioSound} This Sound.
+     */
+    setDetune: function (value)
+    {
+        this.detune = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#seekEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     * @param {number} value - An updated value of Phaser.Sound.HTML5AudioSound#seek property.
+     */
+
+    /**
+     * [description]
+     * 
+     * @name Phaser.Sound.HTML5AudioSound#seek
+     * @type {number}
+     * @since 3.0.0
+     */
+    seek: {
+
+        get: function ()
+        {
             if (this.isPlaying)
             {
-                this.previousTime = value;
-                this.audio.currentTime = value;
+                return this.audio.currentTime - (this.currentMarker ? this.currentMarker.start : 0);
             }
             else if (this.isPaused)
             {
-                this.currentConfig.seek = value;
+                return this.currentConfig.seek;
+            }
+            else
+            {
+                return 0;
+            }
+        },
+
+        set: function (value)
+        {
+            if (this.manager.isLocked(this, 'seek', value))
+            {
+                return;
             }
 
-            /**
-             * @event Phaser.Sound.HTML5AudioSound#seek
-             * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-             * @param {number} value - An updated value of Phaser.Sound.HTML5AudioSound#seek property.
-             */
-            this.emit('seek', this, value);
+            if (this.startTime > 0)
+            {
+                return;
+            }
+
+            if (this.isPlaying || this.isPaused)
+            {
+                value = Math.min(Math.max(0, value), this.duration);
+
+                if (this.isPlaying)
+                {
+                    this.previousTime = value;
+                    this.audio.currentTime = value;
+                }
+                else if (this.isPaused)
+                {
+                    this.currentConfig.seek = value;
+                }
+
+                this.emit('seek', this, value);
+            }
         }
-    }
-});
-Object.defineProperty(HTML5AudioSound.prototype, 'loop', {
-    get: function ()
-    {
-        return this.currentConfig.loop;
     },
-    set: function (value)
+
+    /**
+     * Seeks to a specific point in this sound.
+     *
+     * @method Phaser.Sound.HTML5AudioSound#setSeek
+     * @fires Phaser.Sound.HTML5AudioSound#seekEvent
+     * @since 3.4.0
+     *
+     * @param {number} value - The point in the sound to seek to.
+     *
+     * @return {Phaser.Sound.HTML5AudioSound} This Sound instance.
+     */
+    setSeek: function (value)
     {
-        this.currentConfig.loop = value;
-        if (this.manager.isLocked(this, 'loop', value))
+        this.seek = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.HTML5AudioSound#loopEvent
+     * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
+     * @param {boolean} value - An updated value of Phaser.Sound.HTML5AudioSound#loop property.
+     */
+
+    /**
+     * [description]
+     * 
+     * @name Phaser.Sound.HTML5AudioSound#loop
+     * @type {boolean}
+     * @default false
+     * @since 3.0.0
+     */
+    loop: {
+
+        get: function ()
         {
-            return;
-        }
-        if (this.audio)
+            return this.currentConfig.loop;
+        },
+
+        set: function (value)
         {
-            this.audio.loop = value;
+            this.currentConfig.loop = value;
+
+            if (this.manager.isLocked(this, 'loop', value))
+            {
+                return;
+            }
+
+            if (this.audio)
+            {
+                this.audio.loop = value;
+            }
+
+            this.emit('loop', this, value);
         }
 
-        /**
-         * @event Phaser.Sound.HTML5AudioSound#loop
-         * @param {Phaser.Sound.HTML5AudioSound} sound - Reference to the sound that emitted event.
-         * @param {boolean} value - An updated value of Phaser.Sound.HTML5AudioSound#loop property.
-         */
-        this.emit('loop', this, value);
+    },
+
+    /**
+     * Sets the loop state of this Sound.
+     *
+     * @method Phaser.Sound.HTML5AudioSound#setLoop
+     * @fires Phaser.Sound.HTML5AudioSound#loopEvent
+     * @since 3.4.0
+     *
+     * @param {boolean} value - `true` to loop this sound, `false` to not loop it.
+     *
+     * @return {Phaser.Sound.HTML5AudioSound} This Sound instance.
+     */
+    setLoop: function (value)
+    {
+        this.loop = value;
+
+        return this;
     }
+
 });
+
 module.exports = HTML5AudioSound;
 
 
@@ -117200,7 +118242,7 @@ var HTML5AudioSoundManager = new Class({
     },
 
     /**
-     * @event Phaser.Sound.HTML5AudioSoundManager#MuteEvent
+     * @event Phaser.Sound.HTML5AudioSoundManager#muteEvent
      * @param {Phaser.Sound.HTML5AudioSoundManager} soundManager - Reference to the sound manager that emitted event.
      * @param {boolean} value - An updated value of Phaser.Sound.HTML5AudioSoundManager#mute property.
      */
@@ -117209,24 +118251,24 @@ var HTML5AudioSoundManager = new Class({
      * Sets the muted state of all this Sound Manager.
      *
      * @method Phaser.Sound.HTML5AudioSoundManager#setMute
-     * @fires Phaser.Sound.HTML5AudioSoundManager#MuteEvent
+     * @fires Phaser.Sound.HTML5AudioSoundManager#muteEvent
      * @since 3.3.0
      *
      * @param {boolean} value - `true` to mute all sounds, `false` to unmute them.
      *
      * @return {Phaser.Sound.HTML5AudioSoundManager} This Sound Manager.
      */
-     setMute: function (value)
-     {
+    setMute: function (value)
+    {
         this.mute = value;
 
         return this;
-     },
+    },
 
     /**
      * @name Phaser.Sound.HTML5AudioSoundManager#mute
      * @type {boolean}
-     * @fires Phaser.Sound.HTML5AudioSoundManager#MuteEvent
+     * @fires Phaser.Sound.HTML5AudioSoundManager#muteEvent
      * @since 3.0.0
      */
     mute: {
@@ -117242,7 +118284,7 @@ var HTML5AudioSoundManager = new Class({
 
             this.forEachActiveSound(function (sound)
             {
-                sound.setMute();
+                sound.updateMute();
             });
 
             this.emit('mute', this, value);
@@ -117251,7 +118293,7 @@ var HTML5AudioSoundManager = new Class({
     },
 
     /**
-     * @event Phaser.Sound.HTML5AudioSoundManager#VolumeEvent
+     * @event Phaser.Sound.HTML5AudioSoundManager#volumeEvent
      * @param {Phaser.Sound.HTML5AudioSoundManager} soundManager - Reference to the sound manager that emitted event.
      * @param {number} value - An updated value of Phaser.Sound.HTML5AudioSoundManager#volume property.
      */
@@ -117260,24 +118302,24 @@ var HTML5AudioSoundManager = new Class({
      * Sets the volume of this Sound Manager.
      *
      * @method Phaser.Sound.HTML5AudioSoundManager#setVolume
-     * @fires Phaser.Sound.HTML5AudioSoundManager#VolumeEvent
+     * @fires Phaser.Sound.HTML5AudioSoundManager#volumeEvent
      * @since 3.3.0
      *
      * @param {number} value - The global volume of this Sound Manager.
      *
      * @return {Phaser.Sound.HTML5AudioSoundManager} This Sound Manager.
      */
-     setVolume: function (value)
-     {
+    setVolume: function (value)
+    {
         this.volume = value;
 
         return this;
-     },
+    },
 
     /**
      * @name Phaser.Sound.HTML5AudioSoundManager#volume
      * @type {number}
-     * @fires Phaser.Sound.HTML5AudioSoundManager#VolumeEvent
+     * @fires Phaser.Sound.HTML5AudioSoundManager#volumeEvent
      * @since 3.0.0
      */
     volume: {
@@ -117293,7 +118335,7 @@ var HTML5AudioSoundManager = new Class({
 
             this.forEachActiveSound(function (sound)
             {
-                sound.setVolume();
+                sound.updateVolume();
             });
 
             this.emit('volume', this, value);
@@ -117317,14 +118359,13 @@ module.exports = HTML5AudioSoundManager;
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
+ * @author       Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
 /**
  * @namespace Phaser.Sound
- *
- * @author Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  */
 
 /**
@@ -117382,9 +118423,11 @@ module.exports = {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
+ * @author       Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
+
 var BaseSound = __webpack_require__(/*! ../BaseSound */ "./sound/BaseSound.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
@@ -117403,7 +118446,6 @@ var Extend = __webpack_require__(/*! ../../utils/object/Extend */ "./utils/objec
  * @extends Phaser.Sound.BaseSound
  * @memberOf Phaser.Sound
  * @constructor
- * @author Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @since 3.0.0
  *
  * @param {Phaser.Sound.NoAudioSoundManager} manager - Reference to the current sound manager instance.
@@ -117411,11 +118453,17 @@ var Extend = __webpack_require__(/*! ../../utils/object/Extend */ "./utils/objec
  * @param {SoundConfig} [config={}] - An optional config object containing default sound settings.
  */
 var NoAudioSound = new Class({
+
     Extends: EventEmitter,
-    initialize: function NoAudioSound (manager, key, config)
+
+    initialize:
+
+    function NoAudioSound (manager, key, config)
     {
         if (config === void 0) { config = {}; }
+
         EventEmitter.call(this);
+
         this.manager = manager;
         this.key = key;
         this.isPlaying = false;
@@ -117423,6 +118471,7 @@ var NoAudioSound = new Class({
         this.totalRate = 1;
         this.duration = 0;
         this.totalDuration = 0;
+
         this.config = Extend({
             mute: false,
             volume: 1,
@@ -117432,6 +118481,7 @@ var NoAudioSound = new Class({
             loop: false,
             delay: 0
         }, config);
+
         this.currentConfig = this.config;
         this.mute = false;
         this.volume = 1;
@@ -117443,44 +118493,54 @@ var NoAudioSound = new Class({
         this.currentMarker = null;
         this.pendingRemove = false;
     },
+
     // eslint-disable-next-line no-unused-vars
     addMarker: function (marker)
     {
         return false;
     },
+
     // eslint-disable-next-line no-unused-vars
     updateMarker: function (marker)
     {
         return false;
     },
+
     // eslint-disable-next-line no-unused-vars
     removeMarker: function (markerName)
     {
         return null;
     },
+
     // eslint-disable-next-line no-unused-vars
     play: function (markerName, config)
     {
         return false;
     },
+
     pause: function ()
     {
         return false;
     },
+
     resume: function ()
     {
         return false;
     },
+
     stop: function ()
     {
         return false;
     },
+
     destroy: function ()
     {
         this.manager.remove(this);
+
         BaseSound.prototype.destroy.call(this);
     }
 });
+
 module.exports = NoAudioSound;
 
 
@@ -117618,11 +118678,13 @@ module.exports = NoAudioSoundManager;
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
+ * @author       Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+
 var BaseSound = __webpack_require__(/*! ../BaseSound */ "./sound/BaseSound.js");
+var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 
 /**
  * @classdesc
@@ -117632,7 +118694,6 @@ var BaseSound = __webpack_require__(/*! ../BaseSound */ "./sound/BaseSound.js");
  * @extends Phaser.Sound.BaseSound
  * @memberOf Phaser.Sound
  * @constructor
- * @author Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @since 3.0.0
  *
  * @param {Phaser.Sound.WebAudioSoundManager} manager - Reference to the current sound manager instance.
@@ -117640,10 +118701,14 @@ var BaseSound = __webpack_require__(/*! ../BaseSound */ "./sound/BaseSound.js");
  * @param {SoundConfig} [config={}] - An optional config object containing default sound settings.
  */
 var WebAudioSound = new Class({
+
     Extends: BaseSound,
-    initialize: function WebAudioSound (manager, key, config)
+
+    initialize:
+
+    function WebAudioSound (manager, key, config)
     {
-        if (config === void 0) { config = {}; }
+        if (config === undefined) { config = {}; }
 
         /**
          * Audio buffer containing decoded data of the audio asset to be played.
@@ -117654,6 +118719,7 @@ var WebAudioSound = new Class({
          * @since 3.0.0
          */
         this.audioBuffer = manager.game.cache.audio.get(key);
+
         if (!this.audioBuffer)
         {
             // eslint-disable-next-line no-console
@@ -117775,19 +118841,31 @@ var WebAudioSound = new Class({
          * @since 3.0.0
          */
         this.hasLooped = false;
+
         this.muteNode.connect(this.volumeNode);
+
         this.volumeNode.connect(manager.destination);
+
         this.duration = this.audioBuffer.duration;
+
         this.totalDuration = this.audioBuffer.duration;
+
         BaseSound.call(this, manager, key, config);
     },
 
     /**
+     * @event Phaser.Sound.WebAudioSound#playEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the Sound that emitted event.
+     */
+
+    /**
      * Play this sound, or a marked section of it.
+     * 
      * It always plays the sound from the start. If you want to start playback from a specific time
      * you can set 'seek' setting of the config object, provided to this call, to that value.
      *
      * @method Phaser.Sound.WebAudioSound#play
+     * @fires Phaser.Sound.WebAudioSound#playEvent
      * @since 3.0.0
      *
      * @param {string} [markerName=''] - If you want to play a marker then provide the marker name here, otherwise omit it to play the full sound.
@@ -117806,18 +118884,21 @@ var WebAudioSound = new Class({
         this.stopAndRemoveBufferSource();
         this.createAndStartBufferSource();
 
-        /**
-         * @event Phaser.Sound.WebAudioSound#play
-         * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-         */
         this.emit('play', this);
+
         return true;
     },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#pauseEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the Sound that emitted event.
+     */
 
     /**
      * Pauses the sound.
      *
      * @method Phaser.Sound.WebAudioSound#pause
+     * @fires Phaser.Sound.WebAudioSound#pauseEvent
      * @since 3.0.0
      *
      * @return {boolean} Whether the sound was paused successfully.
@@ -117828,6 +118909,7 @@ var WebAudioSound = new Class({
         {
             return false;
         }
+
         if (!BaseSound.prototype.pause.call(this))
         {
             return false;
@@ -117837,18 +118919,21 @@ var WebAudioSound = new Class({
         this.currentConfig.seek = this.getCurrentTime(); // Equivalent to setting paused time
         this.stopAndRemoveBufferSource();
 
-        /**
-         * @event Phaser.Sound.WebAudioSound#pause
-         * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-         */
         this.emit('pause', this);
+
         return true;
     },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#resumeEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the Sound that emitted event.
+     */
 
     /**
      * Resumes the sound.
      *
      * @method Phaser.Sound.WebAudioSound#resume
+     * @fires Phaser.Sound.WebAudioSound#resumeEvent
      * @since 3.0.0
      *
      * @return {boolean} Whether the sound was resumed successfully.
@@ -117859,6 +118944,7 @@ var WebAudioSound = new Class({
         {
             return false;
         }
+
         if (!BaseSound.prototype.resume.call(this))
         {
             return false;
@@ -117867,18 +118953,21 @@ var WebAudioSound = new Class({
         //  \/\/\/ isPlaying = true, isPaused = false \/\/\/
         this.createAndStartBufferSource();
 
-        /**
-         * @event Phaser.Sound.WebAudioSound#resume
-         * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-         */
         this.emit('resume', this);
+
         return true;
     },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#stopEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the Sound that emitted event.
+     */
 
     /**
      * Stop playing this sound.
      *
      * @method Phaser.Sound.WebAudioSound#stop
+     * @fires Phaser.Sound.WebAudioSound#stopEvent
      * @since 3.0.0
      *
      * @return {boolean} Whether the sound was stopped successfully.
@@ -117893,16 +118982,13 @@ var WebAudioSound = new Class({
         //  \/\/\/ isPlaying = false, isPaused = false \/\/\/
         this.stopAndRemoveBufferSource();
 
-        /**
-         * @event Phaser.Sound.WebAudioSound#stop
-         * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-         */
         this.emit('stop', this);
+
         return true;
     },
 
     /**
-     * Used internally to do what the name says.
+     * Used internally.
      *
      * @method Phaser.Sound.WebAudioSound#createAndStartBufferSource
      * @private
@@ -117915,16 +119001,20 @@ var WebAudioSound = new Class({
         var when = this.manager.context.currentTime + delay;
         var offset = (this.currentMarker ? this.currentMarker.start : 0) + seek;
         var duration = this.duration - seek;
+
         this.playTime = when - seek;
         this.startTime = when;
         this.source = this.createBufferSource();
+
         this.applyConfig();
+
         this.source.start(Math.max(0, when), Math.max(0, offset), Math.max(0, duration));
+
         this.resetConfig();
     },
 
     /**
-     * Used internally to do what the name says.
+     * Used internally.
      *
      * @method Phaser.Sound.WebAudioSound#createAndStartLoopBufferSource
      * @private
@@ -117935,6 +119025,7 @@ var WebAudioSound = new Class({
         var when = this.getLoopTime();
         var offset = this.currentMarker ? this.currentMarker.start : 0;
         var duration = this.duration;
+
         this.loopTime = when;
         this.loopSource = this.createBufferSource();
         this.loopSource.playbackRate.setValueAtTime(this.totalRate, 0);
@@ -117942,7 +119033,7 @@ var WebAudioSound = new Class({
     },
 
     /**
-     * Used internally to do what the name says.
+     * Used internally.
      *
      * @method Phaser.Sound.WebAudioSound#createBufferSource
      * @private
@@ -117954,8 +119045,11 @@ var WebAudioSound = new Class({
     {
         var _this = this;
         var source = this.manager.context.createBufferSource();
+
         source.buffer = this.audioBuffer;
+
         source.connect(this.muteNode);
+
         source.onended = function (ev)
         {
             if (ev.target === _this.source)
@@ -117973,11 +119067,12 @@ var WebAudioSound = new Class({
 
             // else was stopped
         };
+
         return source;
     },
 
     /**
-     * Used internally to do what the name says.
+     * Used internally.
      *
      * @method Phaser.Sound.WebAudioSound#stopAndRemoveBufferSource
      * @private
@@ -117991,13 +119086,15 @@ var WebAudioSound = new Class({
             this.source.disconnect();
             this.source = null;
         }
+
         this.playTime = 0;
         this.startTime = 0;
+
         this.stopAndRemoveLoopBufferSource();
     },
 
     /**
-     * Used internally to do what the name says.
+     * Used internally.
      *
      * @method Phaser.Sound.WebAudioSound#stopAndRemoveLoopBufferSource
      * @private
@@ -118011,6 +119108,7 @@ var WebAudioSound = new Class({
             this.loopSource.disconnect();
             this.loopSource = null;
         }
+
         this.loopTime = 0;
     },
 
@@ -118024,17 +119122,31 @@ var WebAudioSound = new Class({
     applyConfig: function ()
     {
         this.rateUpdates.length = 0;
+
         this.rateUpdates.push({
             time: 0,
             rate: 1
         });
+
         BaseSound.prototype.applyConfig.call(this);
     },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#endedEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
+     */
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#loopedEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
+     */
 
     /**
      * Update method called automatically by sound manager on every game step.
      *
      * @method Phaser.Sound.WebAudioSound#update
+     * @fires Phaser.Sound.WebAudioSound#endedEvent
+     * @fires Phaser.Sound.WebAudioSound#loopedEvent
      * @protected
      * @since 3.0.0
      *
@@ -118047,13 +119159,11 @@ var WebAudioSound = new Class({
         if (this.hasEnded)
         {
             this.hasEnded = false;
+
             BaseSound.prototype.stop.call(this);
+
             this.stopAndRemoveBufferSource();
 
-            /**
-             * @event Phaser.Sound.WebAudioSound#ended
-             * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-             */
             this.emit('ended', this);
         }
         else if (this.hasLooped)
@@ -118063,16 +119173,14 @@ var WebAudioSound = new Class({
             this.loopSource = null;
             this.playTime = this.startTime = this.loopTime;
             this.rateUpdates.length = 0;
+
             this.rateUpdates.push({
                 time: 0,
                 rate: this.totalRate
             });
+
             this.createAndStartLoopBufferSource();
 
-            /**
-             * @event Phaser.Sound.WebAudioSound#looped
-             * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-             */
             this.emit('looped', this);
         }
     },
@@ -118087,6 +119195,7 @@ var WebAudioSound = new Class({
     destroy: function ()
     {
         BaseSound.prototype.destroy.call(this);
+
         this.audioBuffer = null;
         this.stopAndRemoveBufferSource();
         this.muteNode.disconnect();
@@ -118100,24 +119209,28 @@ var WebAudioSound = new Class({
     /**
      * Method used internally to calculate total playback rate of the sound.
      *
-     * @method Phaser.Sound.WebAudioSound#setRate
+     * @method Phaser.Sound.WebAudioSound#calculateRate
      * @protected
      * @since 3.0.0
      */
-    setRate: function ()
+    calculateRate: function ()
     {
-        BaseSound.prototype.setRate.call(this);
+        BaseSound.prototype.calculateRate.call(this);
+
         var now = this.manager.context.currentTime;
+
         if (this.source)
         {
             this.source.playbackRate.setValueAtTime(this.totalRate, now);
         }
+
         if (this.isPlaying)
         {
             this.rateUpdates.push({
                 time: Math.max(this.startTime, now) - this.playTime,
                 rate: this.totalRate
             });
+
             if (this.loopSource)
             {
                 this.stopAndRemoveLoopBufferSource();
@@ -118136,9 +119249,11 @@ var WebAudioSound = new Class({
     getCurrentTime: function ()
     {
         var currentTime = 0;
+
         for (var i = 0; i < this.rateUpdates.length; i++)
         {
-            var nextTime = void 0;
+            var nextTime = 0;
+
             if (i < this.rateUpdates.length - 1)
             {
                 nextTime = this.rateUpdates[i + 1].time;
@@ -118147,8 +119262,10 @@ var WebAudioSound = new Class({
             {
                 nextTime = this.manager.context.currentTime - this.playTime;
             }
+
             currentTime += (nextTime - this.rateUpdates[i].time) * this.rateUpdates[i].rate;
         }
+
         return currentTime;
     },
 
@@ -118163,122 +119280,358 @@ var WebAudioSound = new Class({
     getLoopTime: function ()
     {
         var lastRateUpdateCurrentTime = 0;
+
         for (var i = 0; i < this.rateUpdates.length - 1; i++)
         {
-            lastRateUpdateCurrentTime +=
-                (this.rateUpdates[i + 1].time - this.rateUpdates[i].time) * this.rateUpdates[i].rate;
+            lastRateUpdateCurrentTime += (this.rateUpdates[i + 1].time - this.rateUpdates[i].time) * this.rateUpdates[i].rate;
         }
+
         var lastRateUpdate = this.rateUpdates[this.rateUpdates.length - 1];
-        return this.playTime + lastRateUpdate.time
-            + (this.duration - lastRateUpdateCurrentTime) / lastRateUpdate.rate;
-    }
-});
-Object.defineProperty(WebAudioSound.prototype, 'mute', {
-    get: function ()
-    {
-        return this.muteNode.gain.value === 0;
-    },
-    set: function (value)
-    {
-        this.currentConfig.mute = value;
-        this.muteNode.gain.setValueAtTime(value ? 0 : 1, 0);
 
-        /**
-         * @event Phaser.Sound.WebAudioSound#mute
-         * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-         * @param {boolean} value - An updated value of Phaser.Sound.WebAudioSound#mute property.
-         */
-        this.emit('mute', this, value);
-    }
-});
-Object.defineProperty(WebAudioSound.prototype, 'volume', {
-    get: function ()
-    {
-        return this.volumeNode.gain.value;
+        return this.playTime + lastRateUpdate.time + (this.duration - lastRateUpdateCurrentTime) / lastRateUpdate.rate;
     },
-    set: function (value)
-    {
-        this.currentConfig.volume = value;
-        this.volumeNode.gain.setValueAtTime(value, 0);
 
-        /**
-         * @event Phaser.Sound.WebAudioSound#volume
-         * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-         * @param {number} value - An updated value of Phaser.Sound.WebAudioSound#volume property.
-         */
-        this.emit('volume', this, value);
-    }
-});
-Object.defineProperty(WebAudioSound.prototype, 'seek', {
-    get: function ()
+    /**
+     * @event Phaser.Sound.WebAudioSound#rateEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted the event.
+     * @param {number} value - An updated value of Phaser.Sound.WebAudioSound#rate property.
+     */
+
+    /**
+     * Rate at which this Sound will be played.
+     * Value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
+     * and 2.0 doubles the audios playback speed.
+     *
+     * @name Phaser.Sound.WebAudioSound#rate
+     * @type {number}
+     * @default 1
+     * @since 3.0.0
+     */
+    rate: {
+
+        get: function ()
+        {
+            return this.currentConfig.rate;
+        },
+
+        set: function (value)
+        {
+            this.currentConfig.rate = value;
+
+            this.calculateRate();
+
+            this.emit('rate', this, value);
+        }
+
+    },
+
+    /**
+     * Sets the playback rate of this Sound.
+     * 
+     * For example, a value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
+     * and 2.0 doubles the audios playback speed.
+     *
+     * @method Phaser.Sound.WebAudioSound#setRate
+     * @fires Phaser.Sound.WebAudioSound#rateEvent
+     * @since 3.3.0
+     *
+     * @param {number} value - The playback rate at of this Sound.
+     *
+     * @return {Phaser.Sound.WebAudioSound} This Sound.
+     */
+    setRate: function (value)
     {
-        if (this.isPlaying)
+        this.rate = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#detuneEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the Sound that emitted event.
+     * @param {number} value - An updated value of Phaser.Sound.WebAudioSound#detune property.
+     */
+
+    /**
+     * The detune value of this Sound, given in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
+     * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
+     *
+     * @name Phaser.Sound.WebAudioSound#detune
+     * @type {number}
+     * @default 0
+     * @since 3.0.0
+     */
+    detune: {
+
+        get: function ()
+        {
+            return this.currentConfig.detune;
+        },
+
+        set: function (value)
+        {
+            this.currentConfig.detune = value;
+
+            this.calculateRate();
+
+            this.emit('detune', this, value);
+        }
+
+    },
+
+    /**
+     * Sets the detune value of this Sound, given in [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
+     * The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
+     *
+     * @method Phaser.Sound.WebAudioSound#setDetune
+     * @fires Phaser.Sound.WebAudioSound#detuneEvent
+     * @since 3.3.0
+     *
+     * @param {number} value - The range of the value is -1200 to 1200, but we recommend setting it to [50](https://en.wikipedia.org/wiki/50_Cent).
+     *
+     * @return {Phaser.Sound.WebAudioSound} This Sound.
+     */
+    setDetune: function (value)
+    {
+        this.detune = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#muteEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
+     * @param {boolean} value - An updated value of Phaser.Sound.WebAudioSound#mute property.
+     */
+
+    /**
+     * [description]
+     * 
+     * @name Phaser.Sound.WebAudioSound#mute
+     * @type {boolean}
+     * @default false
+     * @since 3.0.0
+     */
+    mute: {
+
+        get: function ()
+        {
+            return (this.muteNode.gain.value === 0);
+        },
+
+        set: function (value)
+        {
+            this.currentConfig.mute = value;
+            this.muteNode.gain.setValueAtTime(value ? 0 : 1, 0);
+
+            this.emit('mute', this, value);
+        }
+
+    },
+
+    /**
+     * Sets the muted state of this Sound.
+     *
+     * @method Phaser.Sound.WebAudioSound#setMute
+     * @fires Phaser.Sound.WebAudioSound#muteEvent
+     * @since 3.4.0
+     *
+     * @param {boolean} value - `true` to mute this sound, `false` to unmute it.
+     *
+     * @return {Phaser.Sound.WebAudioSound} This Sound instance.
+     */
+    setMute: function (value)
+    {
+        this.mute = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#volumeEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
+     * @param {number} value - An updated value of Phaser.Sound.WebAudioSound#volume property.
+     */
+
+    /**
+     * [description]
+     * 
+     * @name Phaser.Sound.WebAudioSound#volume
+     * @type {number}
+     * @default 1
+     * @since 3.0.0
+     */
+    volume: {
+
+        get: function ()
+        {
+            return this.volumeNode.gain.value;
+        },
+
+        set: function (value)
+        {
+            this.currentConfig.volume = value;
+            this.volumeNode.gain.setValueAtTime(value, 0);
+
+            this.emit('volume', this, value);
+        }
+    },
+
+    /**
+     * Sets the volume of this Sound.
+     *
+     * @method Phaser.Sound.WebAudioSound#setVolume
+     * @fires Phaser.Sound.WebAudioSound#volumeEvent
+     * @since 3.4.0
+     *
+     * @param {number} value - The volume of the sound.
+     *
+     * @return {Phaser.Sound.WebAudioSound} This Sound instance.
+     */
+    setVolume: function (value)
+    {
+        this.volume = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#seekEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
+     * @param {number} value - An updated value of Phaser.Sound.WebAudioSound#seek property.
+     */
+
+    /**
+     * [description]
+     * 
+     * @name Phaser.Sound.WebAudioSound#seek
+     * @type {number}
+     * @since 3.0.0
+     */
+    seek: {
+
+        get: function ()
+        {
+            if (this.isPlaying)
+            {
+                if (this.manager.context.currentTime < this.startTime)
+                {
+                    return this.startTime - this.playTime;
+                }
+
+                return this.getCurrentTime();
+            }
+            else if (this.isPaused)
+            {
+                return this.currentConfig.seek;
+            }
+            else
+            {
+                return 0;
+            }
+        },
+
+        set: function (value)
         {
             if (this.manager.context.currentTime < this.startTime)
             {
-                return this.startTime - this.playTime;
+                return;
             }
-            return this.getCurrentTime();
-        }
-        else if (this.isPaused)
-        {
-            return this.currentConfig.seek;
-        }
-        else
-        {
-            return 0;
+
+            if (this.isPlaying || this.isPaused)
+            {
+                value = Math.min(Math.max(0, value), this.duration);
+
+                this.currentConfig.seek = value;
+
+                if (this.isPlaying)
+                {
+                    this.stopAndRemoveBufferSource();
+                    this.createAndStartBufferSource();
+                }
+
+                this.emit('seek', this, value);
+            }
         }
     },
-    set: function (value)
+
+    /**
+     * Seeks to a specific point in this sound.
+     *
+     * @method Phaser.Sound.WebAudioSound#setSeek
+     * @fires Phaser.Sound.WebAudioSound#seekEvent
+     * @since 3.4.0
+     *
+     * @param {number} value - The point in the sound to seek to.
+     *
+     * @return {Phaser.Sound.WebAudioSound} This Sound instance.
+     */
+    setSeek: function (value)
     {
-        if (this.manager.context.currentTime < this.startTime)
+        this.seek = value;
+
+        return this;
+    },
+
+    /**
+     * @event Phaser.Sound.WebAudioSound#loopEvent
+     * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
+     * @param {boolean} value - An updated value of Phaser.Sound.WebAudioSound#loop property.
+     */
+
+    /**
+     * [description]
+     * 
+     * @name Phaser.Sound.WebAudioSound#loop
+     * @type {boolean}
+     * @default false
+     * @since 3.0.0
+     */
+    loop: {
+
+        get: function ()
         {
-            return;
-        }
-        if (this.isPlaying || this.isPaused)
+            return this.currentConfig.loop;
+        },
+
+        set: function (value)
         {
-            value = Math.min(Math.max(0, value), this.duration);
-            this.currentConfig.seek = value;
+            this.currentConfig.loop = value;
+
             if (this.isPlaying)
             {
-                this.stopAndRemoveBufferSource();
-                this.createAndStartBufferSource();
+                this.stopAndRemoveLoopBufferSource();
+
+                if (value)
+                {
+                    this.createAndStartLoopBufferSource();
+                }
             }
 
-            /**
-             * @event Phaser.Sound.WebAudioSound#seek
-             * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-             * @param {number} value - An updated value of Phaser.Sound.WebAudioSound#seek property.
-             */
-            this.emit('seek', this, value);
+            this.emit('loop', this, value);
         }
-    }
-});
-Object.defineProperty(WebAudioSound.prototype, 'loop', {
-    get: function ()
-    {
-        return this.currentConfig.loop;
     },
-    set: function (value)
-    {
-        this.currentConfig.loop = value;
-        if (this.isPlaying)
-        {
-            this.stopAndRemoveLoopBufferSource();
-            if (value)
-            {
-                this.createAndStartLoopBufferSource();
-            }
-        }
 
-        /**
-         * @event Phaser.Sound.WebAudioSound#loop
-         * @param {Phaser.Sound.WebAudioSound} sound - Reference to the sound that emitted event.
-         * @param {boolean} value - An updated value of Phaser.Sound.WebAudioSound#loop property.
-         */
-        this.emit('loop', this, value);
+    /**
+     * Sets the loop state of this Sound.
+     *
+     * @method Phaser.Sound.WebAudioSound#setLoop
+     * @fires Phaser.Sound.WebAudioSound#loopEvent
+     * @since 3.4.0
+     *
+     * @param {boolean} value - `true` to loop this sound, `false` to not loop it.
+     *
+     * @return {Phaser.Sound.WebAudioSound} This Sound instance.
+     */
+    setLoop: function (value)
+    {
+        this.loop = value;
+
+        return this;
     }
+
 });
+
 module.exports = WebAudioSound;
 
 
@@ -118502,7 +119855,7 @@ var WebAudioSoundManager = new Class({
     },
 
     /**
-     * @event Phaser.Sound.WebAudioSoundManager#MuteEvent
+     * @event Phaser.Sound.WebAudioSoundManager#muteEvent
      * @param {Phaser.Sound.WebAudioSoundManager} soundManager - Reference to the sound manager that emitted event.
      * @param {boolean} value - An updated value of Phaser.Sound.WebAudioSoundManager#mute property.
      */
@@ -118511,19 +119864,19 @@ var WebAudioSoundManager = new Class({
      * Sets the muted state of all this Sound Manager.
      *
      * @method Phaser.Sound.WebAudioSoundManager#setMute
-     * @fires Phaser.Sound.WebAudioSoundManager#MuteEvent
+     * @fires Phaser.Sound.WebAudioSoundManager#muteEvent
      * @since 3.3.0
      *
      * @param {boolean} value - `true` to mute all sounds, `false` to unmute them.
      *
      * @return {Phaser.Sound.WebAudioSoundManager} This Sound Manager.
      */
-     setMute: function (value)
-     {
+    setMute: function (value)
+    {
         this.mute = value;
 
         return this;
-     },
+    },
 
     /**
      * @name Phaser.Sound.WebAudioSoundManager#mute
@@ -118564,12 +119917,12 @@ var WebAudioSoundManager = new Class({
      *
      * @return {Phaser.Sound.WebAudioSoundManager} This Sound Manager.
      */
-     setVolume: function (value)
-     {
+    setVolume: function (value)
+    {
         this.volume = value;
 
         return this;
-     },
+    },
 
     /**
      * @name Phaser.Sound.WebAudioSoundManager#volume
@@ -118617,9 +119970,10 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 
 /**
  * @callback EachListCallback
+ * @generic I - [item]
  *
  * @param {*} item - [description]
- * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the child.
+ * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
  */
 
 /**
@@ -118630,6 +119984,8 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @memberOf Phaser.Structs
  * @constructor
  * @since 3.0.0
+ *
+ * @generic T
  *
  * @param {*} parent - [description]
  */
@@ -118651,8 +120007,10 @@ var List = new Class({
         /**
          * The objects that belong to this collection.
          *
+         * @genericUse {T[]} - [$type]
+         *
          * @name Phaser.Structs.List#list
-         * @type {array}
+         * @type {Array.<*>}
          * @default []
          * @since 3.0.0
          */
@@ -118675,9 +120033,11 @@ var List = new Class({
      * @method Phaser.Structs.List#add
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child,$return]
      *
-     * @return {object} [description]
+     * @param {*} child - [description]
+     *
+     * @return {*} [description]
      */
     add: function (child)
     {
@@ -118697,10 +120057,12 @@ var List = new Class({
      * @method Phaser.Structs.List#addAt
      * @since 3.0.0
      *
-     * @param {object} child - [description]
-     * @param {integer} index - [description]
+     * @genericUse {T} - [child,$return]
      *
-     * @return {object} [description]
+     * @param {*} child - [description]
+     * @param {integer} [index=0] - [description]
+     *
+     * @return {*} [description]
      */
     addAt: function (child, index)
     {
@@ -118728,9 +120090,11 @@ var List = new Class({
      * @method Phaser.Structs.List#addMultiple
      * @since 3.0.0
      *
-     * @param {array} children - [description]
+     * @genericUse {T[]} - [children,$return]
      *
-     * @return {array} [description]
+     * @param {Array.<*>} children - [description]
+     *
+     * @return {Array.<*>} [description]
      */
     addMultiple: function (children)
     {
@@ -118751,9 +120115,11 @@ var List = new Class({
      * @method Phaser.Structs.List#getAt
      * @since 3.0.0
      *
+     * @genericUse {T} - [$return]
+     *
      * @param {integer} index - [description]
      *
-     * @return {object} [description]
+     * @return {*} [description]
      */
     getAt: function (index)
     {
@@ -118766,7 +120132,9 @@ var List = new Class({
      * @method Phaser.Structs.List#getIndex
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child]
+     *
+     * @param {*} child - [description]
      *
      * @return {integer} [description]
      */
@@ -118783,9 +120151,11 @@ var List = new Class({
      * @method Phaser.Structs.List#sort
      * @since 3.0.0
      *
-     * @param {array} children - [description]
+     * @genericUse {T[]} - [children,$return]
      *
-     * @return {array} [description]
+     * @param {Array.<*>} children - [description]
+     *
+     * @return {Array.<*>} [description]
      */
     sort: function (children)
     {
@@ -118800,8 +120170,10 @@ var List = new Class({
      * @method Phaser.Structs.List#sortIndexHandler
      * @since 3.0.0
      *
-     * @param {object} childA - [description]
-     * @param {object} childB - [description]
+     * @genericUse {T} - [childA,childB]
+     *
+     * @param {*} childA - [description]
+     * @param {*} childB - [description]
      *
      * @return {integer} [description]
      */
@@ -118832,10 +120204,13 @@ var List = new Class({
      * @method Phaser.Structs.List#getByKey
      * @since 3.0.0
      *
+     * @genericUse {T} - [value]
+     * @genericUse {T | null} - [$return]
+     *
      * @param {string} property - The property to check against the value.
      * @param {*} value - The value to check if the property strictly equals.
      *
-     * @return {*} The item that was found, or null if nothing matched.
+     * @return {?*} The item that was found, or null if nothing matched.
      */
     getByKey: function (property, value)
     {
@@ -118858,9 +120233,11 @@ var List = new Class({
      * @method Phaser.Structs.List#getByName
      * @since 3.0.0
      *
+     * @genericUse {T | null} - [$return]
+     *
      * @param {string} name - The name to search for.
      *
-     * @return {*} The first child with a matching name, or null if none were found.
+     * @return {?*} The first child with a matching name, or null if none were found.
      */
     getByName: function (name)
     {
@@ -118873,10 +120250,12 @@ var List = new Class({
      * @method Phaser.Structs.List#getRandom
      * @since 3.0.0
      *
+     * @genericUse {T | null} - [$return]
+     *
      * @param {integer} [startIndex=0] - Offset from the front of the group (lowest child).
      * @param {integer} [length=(to top)] - Restriction on the number of values you want to randomly select from.
      *
-     * @return {*} A random child of this Group.
+     * @return {?*} A random child of this Group.
      */
     getRandom: function (startIndex, length)
     {
@@ -118899,12 +120278,15 @@ var List = new Class({
      * @method Phaser.Structs.List#getFirst
      * @since 3.0.0
      *
+     * @genericUse {T} - [value]
+     * @genericUse {T | null} - [$return]
+     *
      * @param {string} property - [description]
      * @param {*} value - [description]
      * @param {number} [startIndex=0] - [description]
      * @param {number} [endIndex] - [description]
      *
-     * @return {*} [description]
+     * @return {?*} [description]
      */
     getFirst: function (property, value, startIndex, endIndex)
     {
@@ -118938,12 +120320,15 @@ var List = new Class({
      * @method Phaser.Structs.List#getAll
      * @since 3.0.0
      *
+     * @genericUse {T} - [value]
+     * @genericUse {T[]} - [$return]
+     *
      * @param {string} [property] - An optional property to test against the value argument.
      * @param {*} [value] - If property is set then Child.property must strictly equal this value to be included in the results.
      * @param {integer} [startIndex=0] - The first child index to start the search from.
      * @param {integer} [endIndex] - The last child index to search up until.
      *
-     * @return {array} [description]
+     * @return {Array.<*>} [description]
      */
     getAll: function (property, value, startIndex, endIndex)
     {
@@ -118978,6 +120363,8 @@ var List = new Class({
      * @method Phaser.Structs.List#count
      * @since 3.0.0
      *
+     * @genericUse {T} - [value]
+     *
      * @param {string} property - [description]
      * @param {*} value - [description]
      *
@@ -119006,8 +120393,10 @@ var List = new Class({
      * @method Phaser.Structs.List#swap
      * @since 3.0.0
      *
-     * @param {object} child1 - [description]
-     * @param {object} child2 - [description]
+     * @genericUse {T} - [child1,child2]
+     *
+     * @param {*} child1 - [description]
+     * @param {*} child2 - [description]
      */
     swap: function (child1, child2)
     {
@@ -119034,10 +120423,12 @@ var List = new Class({
      * @method Phaser.Structs.List#moveTo
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child,$return]
+     *
+     * @param {*} child - [description]
      * @param {integer} index - [description]
      *
-     * @return {object} [description]
+     * @return {*} [description]
      */
     moveTo: function (child, index)
     {
@@ -119063,9 +120454,11 @@ var List = new Class({
      * @method Phaser.Structs.List#remove
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child,$return]
      *
-     * @return {object} [description]
+     * @param {*} child - [description]
+     *
+     * @return {*} [description]
      */
     remove: function (child)
     {
@@ -119085,9 +120478,11 @@ var List = new Class({
      * @method Phaser.Structs.List#removeAt
      * @since 3.0.0
      *
+     * @genericUse {T} - [$return]
+     *
      * @param {integer} index - [description]
      *
-     * @return {object} [description]
+     * @return {*} [description]
      */
     removeAt: function (index)
     {
@@ -119107,10 +120502,12 @@ var List = new Class({
      * @method Phaser.Structs.List#removeBetween
      * @since 3.0.0
      *
-     * @param {integer} beginIndex - [description]
-     * @param {integer} endIndex - [description]
+     * @genericUse {T[]} - [$return]
      *
-     * @return {array} [description]
+     * @param {integer} [beginIndex=0] - [description]
+     * @param {integer} [endIndex] - [description]
+     *
+     * @return {Array.<*>} [description]
      */
     removeBetween: function (beginIndex, endIndex)
     {
@@ -119141,6 +120538,8 @@ var List = new Class({
      * @method Phaser.Structs.List#removeAll
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.List.<T>} - [$return]
+     *
      * @return {Phaser.Structs.List} This List object.
      */
     removeAll: function ()
@@ -119161,9 +120560,11 @@ var List = new Class({
      * @method Phaser.Structs.List#bringToTop
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child,$return]
      *
-     * @return {object} [description]
+     * @param {*} child - [description]
+     *
+     * @return {*} [description]
      */
     bringToTop: function (child)
     {
@@ -119182,9 +120583,11 @@ var List = new Class({
      * @method Phaser.Structs.List#sendToBack
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child,$return]
      *
-     * @return {object} [description]
+     * @param {*} child - [description]
+     *
+     * @return {*} [description]
      */
     sendToBack: function (child)
     {
@@ -119203,9 +120606,11 @@ var List = new Class({
      * @method Phaser.Structs.List#moveUp
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child,$return]
      *
-     * @return {object} [description]
+     * @param {*} child - [description]
+     *
+     * @return {*} [description]
      */
     moveUp: function (child)
     {
@@ -119230,9 +120635,11 @@ var List = new Class({
      * @method Phaser.Structs.List#moveDown
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child,$return]
      *
-     * @return {object} [description]
+     * @param {*} child - [description]
+     *
+     * @return {*} [description]
      */
     moveDown: function (child)
     {
@@ -119257,6 +120664,8 @@ var List = new Class({
      * @method Phaser.Structs.List#reverse
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.List.<T>} - [$return]
+     *
      * @return {Phaser.Structs.List} This List object.
      */
     reverse: function ()
@@ -119271,6 +120680,8 @@ var List = new Class({
      *
      * @method Phaser.Structs.List#shuffle
      * @since 3.0.0
+     *
+     * @genericUse {Phaser.Structs.List.<T>} - [$return]
      *
      * @return {Phaser.Structs.List} This List object.
      */
@@ -119293,10 +120704,12 @@ var List = new Class({
      * @method Phaser.Structs.List#replace
      * @since 3.0.0
      *
-     * @param {object} oldChild - The child in this List that will be replaced.
-     * @param {object} newChild - The child to be inserted into this List.
+     * @genericUse {T} - [oldChild,newChild,$return]
      *
-     * @return {object} Returns the oldChild that was replaced within this group.
+     * @param {*} oldChild - The child in this List that will be replaced.
+     * @param {*} newChild - The child to be inserted into this List.
+     *
+     * @return {*} Returns the oldChild that was replaced within this group.
      */
     replace: function (oldChild, newChild)
     {
@@ -119318,7 +120731,9 @@ var List = new Class({
      * @method Phaser.Structs.List#exists
      * @since 3.0.0
      *
-     * @param {object} child - [description]
+     * @genericUse {T} - [child]
+     *
+     * @param {*} child - [description]
      *
      * @return {boolean} True if the item is found in the list, otherwise false.
      */
@@ -119332,6 +120747,8 @@ var List = new Class({
      *
      * @method Phaser.Structs.List#setAll
      * @since 3.0.0
+     *
+     * @genericUse {T} - [value]
      *
      * @param {string} key - [description]
      * @param {*} value - [description]
@@ -119353,9 +120770,11 @@ var List = new Class({
      * @method Phaser.Structs.List#each
      * @since 3.0.0
      *
+     * @genericUse {EachListCallback.<T>} - [callback]
+     *
      * @param {EachListCallback} callback - The function to call.
-     * @param {object} [thisArg] - Value to use as `this` when executing callback.
-     * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the child.
+     * @param {*} [thisArg] - Value to use as `this` when executing callback.
+     * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
      */
     each: function (callback, thisArg)
     {
@@ -119544,9 +120963,10 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 
 /**
  * @callback EachMapCallback
+ * @generic E - [entry]
  *
  * @param {string} key - [description]
- * @param {*} entry - [description]
+ * @param {E} entry - [description]
  *
  * @return {?boolean} [description]
  */
@@ -119565,7 +120985,11 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {array} elements - [description]
+ * @generic K
+ * @generic V
+ * @genericUse {V[]} - [elements]
+ *
+ * @param {Array.<*>} elements - [description]
  */
 var Map = new Class({
 
@@ -119576,8 +121000,10 @@ var Map = new Class({
         /**
          * [description]
          *
+         * @genericUse {Object.<string, V>} - [$type]
+         *
          * @name Phaser.Structs.Map#entries
-         * @type {Object.<string, any>}
+         * @type {Object.<string, *>}
          * @default {}
          * @since 3.0.0
          */
@@ -119608,6 +121034,10 @@ var Map = new Class({
      * @method Phaser.Structs.Map#set
      * @since 3.0.0
      *
+     * @genericUse {K} - [key]
+     * @genericUse {V} - [value]
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [$return]
+     *
      * @param {string} key - [description]
      * @param {*} value - [description]
      *
@@ -119630,6 +121060,9 @@ var Map = new Class({
      * @method Phaser.Structs.Map#get
      * @since 3.0.0
      *
+     * @genericUse {K} - [key]
+     * @genericUse {V} - [$return]
+     *
      * @param {string} key - [description]
      *
      * @return {*} [description]
@@ -119648,7 +121081,9 @@ var Map = new Class({
      * @method Phaser.Structs.Map#getArray
      * @since 3.0.0
      *
-     * @return {array} [description]
+     * @genericUse {V[]} - [$return]
+     *
+     * @return {Array.<*>} [description]
      */
     getArray: function ()
     {
@@ -119669,6 +121104,8 @@ var Map = new Class({
      * @method Phaser.Structs.Map#has
      * @since 3.0.0
      *
+     * @genericUse {K} - [key]
+     *
      * @param {string} key - [description]
      *
      * @return {boolean} [description]
@@ -119683,6 +121120,9 @@ var Map = new Class({
      *
      * @method Phaser.Structs.Map#delete
      * @since 3.0.0
+     *
+     * @genericUse {K} - [key]
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [$return]
      *
      * @param {string} key - [description]
      *
@@ -119705,6 +121145,8 @@ var Map = new Class({
      * @method Phaser.Structs.Map#clear
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [$return]
+     *
      * @return {Phaser.Structs.Map} This Map object.
      */
     clear: function ()
@@ -119726,6 +121168,8 @@ var Map = new Class({
      * @method Phaser.Structs.Map#keys
      * @since 3.0.0
      *
+     * @genericUse {K[]} - [$return]
+     *
      * @return {string[]} [description]
      */
     keys: function ()
@@ -119739,7 +121183,9 @@ var Map = new Class({
      * @method Phaser.Structs.Map#values
      * @since 3.0.0
      *
-     * @return {array} [description]
+     * @genericUse {V[]} - [$return]
+     *
+     * @return {Array.<*>} [description]
      */
     values: function ()
     {
@@ -119782,6 +121228,9 @@ var Map = new Class({
      * @method Phaser.Structs.Map#each
      * @since 3.0.0
      *
+     * @genericUse {EachMapCallback.<V>} - [callback]
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [$return]
+     *
      * @param {EachMapCallback} callback - [description]
      *
      * @return {Phaser.Structs.Map} This Map object.
@@ -119806,6 +121255,8 @@ var Map = new Class({
      *
      * @method Phaser.Structs.Map#contains
      * @since 3.0.0
+     *
+     * @genericUse {V} - [value]
      *
      * @param {*} value - [description]
      *
@@ -119833,6 +121284,8 @@ var Map = new Class({
      *
      * @method Phaser.Structs.Map#merge
      * @since 3.0.0
+     *
+     * @genericUse {Phaser.Structs.Map.<K, V>} - [map,$return]
      *
      * @param {Phaser.Structs.Map} map - [description]
      * @param {boolean} [override=false] - [description]
@@ -119891,6 +121344,8 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @memberOf Phaser.Structs
  * @constructor
  * @since 3.0.0
+ *
+ * @generic T
  */
 var ProcessQueue = new Class({
 
@@ -119901,8 +121356,10 @@ var ProcessQueue = new Class({
         /**
          * [description]
          *
+         * @genericUse {T[]} - [$type]
+         *
          * @name Phaser.Structs.ProcessQueue#_pending
-         * @type {array}
+         * @type {Array.<*>}
          * @private
          * @default []
          * @since 3.0.0
@@ -119912,8 +121369,10 @@ var ProcessQueue = new Class({
         /**
          * [description]
          *
+         * @genericUse {T[]} - [$type]
+         *
          * @name Phaser.Structs.ProcessQueue#_active
-         * @type {array}
+         * @type {Array.<*>}
          * @private
          * @default []
          * @since 3.0.0
@@ -119923,8 +121382,10 @@ var ProcessQueue = new Class({
         /**
          * [description]
          *
+         * @genericUse {T[]} - [$type]
+         *
          * @name Phaser.Structs.ProcessQueue#_destroy
-         * @type {array}
+         * @type {Array.<*>}
          * @private
          * @default []
          * @since 3.0.0
@@ -119949,6 +121410,9 @@ var ProcessQueue = new Class({
      * @method Phaser.Structs.ProcessQueue#add
      * @since 3.0.0
      *
+     * @genericUse {T} - [item]
+     * @genericUse {Phaser.Structs.ProcessQueue.<T>} - [$return]
+     *
      * @param {*} item - [description]
      *
      * @return {Phaser.Structs.ProcessQueue} This Process Queue object.
@@ -119967,6 +121431,9 @@ var ProcessQueue = new Class({
      *
      * @method Phaser.Structs.ProcessQueue#remove
      * @since 3.0.0
+     *
+     * @genericUse {T} - [item]
+     * @genericUse {Phaser.Structs.ProcessQueue.<T>} - [$return]
      *
      * @param {*} item - [description]
      *
@@ -119987,7 +121454,9 @@ var ProcessQueue = new Class({
      * @method Phaser.Structs.ProcessQueue#update
      * @since 3.0.0
      *
-     * @return {array} [description]
+     * @genericUse {T[]} - [$return]
+     *
+     * @return {Array.<*>} [description]
      */
     update: function ()
     {
@@ -120044,7 +121513,9 @@ var ProcessQueue = new Class({
      * @method Phaser.Structs.ProcessQueue#getActive
      * @since 3.0.0
      *
-     * @return {array} [description]
+     * @genericUse {T[]} - [$return]
+     *
+     * @return {Array.<*>} [description]
      */
     getActive: function ()
     {
@@ -120547,20 +122018,29 @@ rbush.prototype = {
     {
         // data format (minX, minY, maxX, maxY accessors)
 
-        // uses eval-type function compilation instead of just accepting a toBBox function
-        // because the algorithms are very sensitive to sorting functions performance,
-        // so they should be dead simple and without inner calls
+        // Do not use string-generated Functions for CSP policies
+        // Instead a combination of anonymous functions and grabbing
+        // properties by string is used.
+        var compareArr = function (accessor)
+        {
+            return function (a, b)
+            {
+                return this[a + accessor] - this[b + accessor];
+            };
+        };
 
-        var compareArr = ['return a', ' - b', ';'];
+        this.compareMinX = compareArr(format[0]);
+        this.compareMinY = compareArr(format[1]);
 
-        this.compareMinX = new Function('a', 'b', compareArr.join(format[0]));
-        this.compareMinY = new Function('a', 'b', compareArr.join(format[1]));
-
-        this.toBBox = new Function('a',
-            'return {minX: a' + format[0] +
-            ', minY: a' + format[1] +
-            ', maxX: a' + format[2] +
-            ', maxY: a' + format[3] + '};');
+        this.toBBox = function (a)
+        {
+            return {
+                minX: a + format[0],
+                minY: a + format[1],
+                maxX: a + format[2],
+                maxy: a + format[3]
+            };
+        };
     }
 };
 
@@ -120702,6 +122182,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 
 /**
  * @callback EachSetCallback
+ * @generic E - [entry]
  *
  * @param {*} entry - [description]
  * @param {number} index - [description]
@@ -120718,7 +122199,10 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {array} [elements] - [description]
+ * @generic T
+ * @genericUse {T[]} - [elements]
+ *
+ * @param {Array.<*>} [elements] - [description]
  */
 var Set = new Class({
 
@@ -120729,8 +122213,10 @@ var Set = new Class({
         /**
          * [description]
          *
+         * @genericUse {T[]} - [$type]
+         *
          * @name Phaser.Structs.Set#entries
-         * @type {array}
+         * @type {Array.<*>}
          * @default []
          * @since 3.0.0
          */
@@ -120751,6 +122237,9 @@ var Set = new Class({
      * @method Phaser.Structs.Set#set
      * @since 3.0.0
      *
+     * @genericUse {T} - [value]
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
+     *
      * @param {*} value - [description]
      *
      * @return {Phaser.Structs.Set} This Set object.
@@ -120770,6 +122259,8 @@ var Set = new Class({
      *
      * @method Phaser.Structs.Set#get
      * @since 3.0.0
+     *
+     * @genericUse {T} - [value,$return]
      *
      * @param {string} property - [description]
      * @param {*} value - [description]
@@ -120795,7 +122286,9 @@ var Set = new Class({
      * @method Phaser.Structs.Set#getArray
      * @since 3.0.0
      *
-     * @return {array} [description]
+     * @genericUse {T[]} - [$return]
+     *
+     * @return {Array.<*>} [description]
      */
     getArray: function ()
     {
@@ -120807,6 +122300,9 @@ var Set = new Class({
      *
      * @method Phaser.Structs.Set#delete
      * @since 3.0.0
+     *
+     * @genericUse {T} - [value]
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
      *
      * @param {*} value - [description]
      *
@@ -120851,8 +122347,11 @@ var Set = new Class({
      * @method Phaser.Structs.Set#each
      * @since 3.0.0
      *
+     * @genericUse {EachSetCallback.<T>} - [callback]
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
+     *
      * @param {EachSetCallback} callback - [description]
-     * @param {object} callbackScope - [description]
+     * @param {*} callbackScope - [description]
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
@@ -120892,8 +122391,11 @@ var Set = new Class({
      * @method Phaser.Structs.Set#iterate
      * @since 3.0.0
      *
+     * @genericUse {EachSetCallback.<T>} - [callback]
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
+     *
      * @param {EachSetCallback} callback - [description]
-     * @param {object} callbackScope - [description]
+     * @param {*} callbackScope - [description]
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
@@ -120932,8 +122434,10 @@ var Set = new Class({
      * @method Phaser.Structs.Set#iterateLocal
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
+     *
      * @param {string} callbackKey - [description]
-     * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the child.
+     * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
      *
      * @return {Phaser.Structs.Set} This Set object.
      */
@@ -120965,6 +122469,8 @@ var Set = new Class({
      * @method Phaser.Structs.Set#clear
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Set.<T>} - [$return]
+     *
      * @return {Phaser.Structs.Set} This Set object.
      */
     clear: function ()
@@ -120980,6 +122486,8 @@ var Set = new Class({
      * @method Phaser.Structs.Set#contains
      * @since 3.0.0
      *
+     * @genericUse {T} - [value]
+     *
      * @param {*} value - [description]
      *
      * @return {boolean} [description]
@@ -120994,6 +122502,8 @@ var Set = new Class({
      *
      * @method Phaser.Structs.Set#union
      * @since 3.0.0
+     *
+     * @genericUse {Phaser.Structs.Set.<T>} - [set,$return]
      *
      * @param {Phaser.Structs.Set} set - [description]
      *
@@ -121022,6 +122532,8 @@ var Set = new Class({
      * @method Phaser.Structs.Set#intersect
      * @since 3.0.0
      *
+     * @genericUse {Phaser.Structs.Set.<T>} - [set,$return]
+     *
      * @param {Phaser.Structs.Set} set - [description]
      *
      * @return {Phaser.Structs.Set} [description]
@@ -121046,6 +122558,8 @@ var Set = new Class({
      *
      * @method Phaser.Structs.Set#difference
      * @since 3.0.0
+     *
+     * @genericUse {Phaser.Structs.Set.<T>} - [set,$return]
      *
      * @param {Phaser.Structs.Set} set - [description]
      *
@@ -122095,7 +123609,7 @@ var Texture = new Class({
      * @method Phaser.Textures.Texture#setFilter
      * @since 3.0.0
      *
-     * @param {(Phaser.Textures.LINEAR|Phaser.Textures.NEAREST)} filterMode - The Filter Mode.
+     * @param {Phaser.Textures.FilterMode} filterMode - The Filter Mode.
      */
     setFilter: function (filterMode)
     {
@@ -122177,7 +123691,7 @@ var Texture = __webpack_require__(/*! ./Texture */ "./textures/Texture.js");
  * @callback EachTextureCallback
  *
  * @param {Phaser.Textures.Texture} texture - [description]
- * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the child.
+ * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
  */
 
 /**
@@ -122190,7 +123704,7 @@ var Texture = __webpack_require__(/*! ./Texture */ "./textures/Texture.js");
  * Access it via `scene.textures`.
  *
  * @class TextureManager
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Textures
  * @constructor
  * @since 3.0.0
@@ -122907,7 +124421,7 @@ var TextureManager = new Class({
      *
      * @param {EachTextureCallback} callback - The callback function to be sent the Textures.
      * @param {object} scope - The value to use as `this` when executing the callback.
-     * @param {...*} [arguments] - Additional arguments that will be passed to the callback, after the child.
+     * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
      */
     each: function (callback, scope)
     {
@@ -123124,7 +124638,7 @@ var TextureSource = new Class({
      * @method Phaser.Textures.TextureSource#setFilter
      * @since 3.0.0
      *
-     * @param {(Phaser.Textures.LINEAR|Phaser.Textures.NEAREST)} filterMode - The Filter Mode.
+     * @param {Phaser.Textures.FilterMode} filterMode - The Filter Mode.
      */
     setFilter: function (filterMode)
     {
@@ -123169,23 +124683,28 @@ module.exports = TextureSource;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+/**
+ * Filter Types.
+ *
+ * @name Phaser.Textures.FilterMode
+ * @enum {integer}
+ * @memberOf Phaser.Textures
+ * @readOnly
+ * @since 3.0.0
+ */
 var CONST = {
 
     /**
      * Linear filter type.
      * 
-     * @name Phaser.Textures.LINEAR
-     * @type {integer}
-     * @since 3.0.0
+     * @name Phaser.Textures.FilterMode.LINEAR
      */
     LINEAR: 0,
 
     /**
      * Nearest neighbor filter type.
      * 
-     * @name Phaser.Textures.NEAREST
-     * @type {integer}
-     * @since 3.0.0
+     * @name Phaser.Textures.FilterMode.NEAREST
      */
     NEAREST: 1
     
@@ -123209,26 +124728,39 @@ module.exports = CONST;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var CONST = __webpack_require__(/*! ./const */ "./textures/const.js");
 var Extend = __webpack_require__(/*! ../utils/object/Extend */ "./utils/object/Extend.js");
+var FilterMode = __webpack_require__(/*! ./const */ "./textures/const.js");
 
 /**
  * @namespace Phaser.Textures
  */
 
+/**
+ * Linear filter type.
+ * 
+ * @name Phaser.Textures.LINEAR
+ * @constant
+ */
+
+/**
+ * Nearest Neighbor filter type.
+ * 
+ * @name Phaser.Textures.NEAREST
+ * @constant
+ */
+
 var Textures = {
 
-    Parsers: __webpack_require__(/*! ./parsers */ "./textures/parsers/index.js"),
-
+    FilterMode: FilterMode,
     Frame: __webpack_require__(/*! ./Frame */ "./textures/Frame.js"),
+    Parsers: __webpack_require__(/*! ./parsers */ "./textures/parsers/index.js"),
     Texture: __webpack_require__(/*! ./Texture */ "./textures/Texture.js"),
     TextureManager: __webpack_require__(/*! ./TextureManager */ "./textures/TextureManager.js"),
     TextureSource: __webpack_require__(/*! ./TextureSource */ "./textures/TextureSource.js")
 
 };
 
-//   Merge in the consts
-Textures = Extend(false, Textures, CONST);
+Textures = Extend(false, Textures, FilterMode);
 
 module.exports = Textures;
 
@@ -132122,7 +133654,7 @@ var GameObject = __webpack_require__(/*! ../../gameobjects/GameObject */ "./game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.Tilemaps.DynamicTilemapLayer} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -132255,7 +133787,7 @@ var GameObject = __webpack_require__(/*! ../../gameobjects/GameObject */ "./game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.Tilemaps.DynamicTilemapLayer} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -134364,7 +135896,7 @@ var StaticTilemapLayer = new Class({
 
         /**
          * @name Phaser.Tilemaps.StaticTilemapLayer#renderer
-         * @type {(Phaser.Renderer.CanvasRenderer|Phaser.Renderer.WebGLRenderer)}
+         * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
          * @private
          * @since 3.0.0
          */
@@ -135271,7 +136803,7 @@ var GameObject = __webpack_require__(/*! ../../gameobjects/GameObject */ "./game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
  * @param {Phaser.Tilemaps.StaticTilemapLayer} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -135385,7 +136917,7 @@ var GameObject = __webpack_require__(/*! ../../gameobjects/GameObject */ "./game
  * @since 3.0.0
  * @private
  *
- * @param {Phaser.Renderer.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
  * @param {Phaser.Tilemaps.StaticTilemapLayer} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
@@ -136153,7 +137685,7 @@ var TWEEN_CONST = __webpack_require__(/*! ./tween/const */ "./tweens/tween/const
  *
  * @class Timeline
  * @memberOf Phaser.Tweens
- * @extends EventEmitter
+ * @extends Phaser.Events.EventEmitter
  * @constructor
  * @since 3.0.0
  *
@@ -137399,7 +138931,7 @@ var TweenManager = new Class({
      *
      * @param {function} callback - [description]
      * @param {object} [scope] - [description]
-     * @param {...*} [arguments] - [description]
+     * @param {...*} [args] - [description]
      */
     each: function (callback, scope)
     {

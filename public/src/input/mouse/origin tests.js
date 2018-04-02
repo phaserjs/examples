@@ -18,27 +18,22 @@ function preload ()
 
 function create ()
 {
-    // var c = this.sys.game.canvas;
-    // c.width = 400;
-    // c.height = 300;
-    // this.sys.game.renderer.resize(400, 300);
+    this.add.sprite(100, 100, 'eye').setInteractive().setOrigin(0);
+    this.add.sprite(300, 100, 'eye').setInteractive().setOrigin(0.5, 0);
+    this.add.sprite(600, 100, 'eye').setInteractive().setOrigin(1, 0);
+    this.add.sprite(200, 400, 'eye').setInteractive().setOrigin(1, 1);
+    this.add.sprite(400, 400, 'eye').setInteractive().setOrigin(1, 0.2);
+    this.add.sprite(600, 400, 'eye').setInteractive().setOrigin(0.6, 0.4);
 
-    // var sprite1 = this.add.sprite(400, 300, 'eye').setScale(2).setAngle(45);
-    var sprite1 = this.add.sprite(400, 300, 'eye');
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-    this.input.setHitAreaFromTexture(sprite1);
-
-    this.input.on('POINTER_OVER_EVENT', function (event) {
-
-        event.gameObject.alpha = 0.5;
-        // event.gameObject.setTint(0xff0000);
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        event.gameObject.alpha = 1;
-        // event.gameObject.clearTint();
+        gameObject.clearTint();
 
     });
 }

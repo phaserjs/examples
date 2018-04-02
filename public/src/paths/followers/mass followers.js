@@ -36,7 +36,7 @@ function create ()
         follower.setScale(0.5);
         follower.setBlendMode(Phaser.BlendModes.ADD);
 
-        follower.start({
+        follower.startFollow({
             duration: 4500,
             yoyo: true,
             repeat: -1,

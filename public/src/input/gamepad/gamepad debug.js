@@ -3,6 +3,9 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    input: {
+        gamepad: true
+    },
     scene: {
         preload: preload,
         create: create,

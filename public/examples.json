@@ -5650,6 +5650,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\just down.js",
+              "name": "just down.js",
+              "size": 1653,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\key combo max key delay.js",
               "name": "key combo max key delay.js",
               "size": 482,
@@ -5680,7 +5686,7 @@
               "extension": ".js"
             }
           ],
-          "size": 6325
+          "size": 7978
         },
         {
           "path": "src\\input\\mouse",
@@ -5864,7 +5870,7 @@
             {
               "path": "src\\input\\pointer\\external link.js",
               "name": "external link.js",
-              "size": 766,
+              "size": 834,
               "extension": ".js"
             },
             {
@@ -5892,7 +5898,7 @@
               "extension": ".js"
             }
           ],
-          "size": 9446
+          "size": 9514
         },
         {
           "path": "src\\input\\zones",
@@ -5932,7 +5938,7 @@
           "size": 9602
         }
       ],
-      "size": 109485
+      "size": 111206
     },
     {
       "path": "src\\loader",
@@ -8090,5 +8096,5 @@
       "size": 4792
     }
   ],
-  "size": 2109816
+  "size": 2111537
 }

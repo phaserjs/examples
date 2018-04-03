@@ -655,39 +655,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "../node_modules/webpack/buildin/module.js":
-/*!*************************************************!*\
-  !*** ../node_modules/webpack/buildin/module.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if (!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-
 /***/ "./actions/Angle.js":
 /*!**************************!*\
   !*** ./actions/Angle.js ***!
@@ -5227,10 +5194,10 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {number} [zoom=1] - [description]
  * @property {number} [resolution=1] - [description]
  * @property {number} [type=CONST.AUTO] - [description]
- * @property {*} [?parent=null] - [description]
- * @property {HTMLCanvasElement} [?canvas=null] - [description]
- * @property {string} [?canvasStyle=null] - [description]
- * @property {object} [?scene=null] - [description]
+ * @property {*} [parent=null] - [description]
+ * @property {HTMLCanvasElement} [canvas=null] - [description]
+ * @property {string} [canvasStyle=null] - [description]
+ * @property {object} [scene=null] - [description]
  * @property {string[]} [seed] - [description]
  * @property {string} [title=''] - [description]
  * @property {string} [url='http://phaser.io'] - [description]
@@ -5239,17 +5206,17 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [input.keyboard=true] - [description]
  * @property {*} [input.keyboard.target=window] - [description]
  * @property {(boolean|object)} [input.mouse=true] - [description]
- * @property {*} [?input.mouse.target=null] - [description]
+ * @property {*} [input.mouse.target=null] - [description]
  * @property {boolean} [input.touch=true] - [description]
- * @property {*} [?input.touch.target=null] - [description]
- * @property {boolean} [?input.touch.capture=true] - [description]
+ * @property {*} [input.touch.target=null] - [description]
+ * @property {boolean} [input.touch.capture=true] - [description]
  * @property {(boolean|object)} [input.gamepad=false] - [description]
  * @property {boolean} [disableContextMenu=false] - [description]
  * @property {(boolean|object)} [banner=false] - [description]
  * @property {boolean} [banner.hidePhaser=false] - [description]
  * @property {string} [banner.text='#ffffff'] - [description]
  * @property {string[]} [banner.background] - [description]
- * @property {FPSConfig} [?fps] - [description]
+ * @property {FPSConfig} [fps] - [description]
  * @property {boolean} [antialias=true] - [description]
  * @property {boolean} [pixelArt=false] - [description]
  * @property {boolean} [autoResize=false] - [description]
@@ -5261,11 +5228,11 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [failIfMajorPerformanceCaveat=false] - [description]
  * @property {boolean} [powerPreference='default'] - "high-performance", "low-power" or "default"
  * @property {(string|number)} [backgroundColor=0x000000] - [description]
- * @property {object} [?callbacks] - [description]
+ * @property {object} [callbacks] - [description]
  * @property {BootCallback} [callbacks.preBoot=NOOP] - [description]
  * @property {BootCallback} [callbacks.postBoot=NOOP] - [description]
- * @property {LoaderConfig} [?loader] - [description]
- * @property {object} [?images] - [description]
+ * @property {LoaderConfig} [loader] - [description]
+ * @property {object} [images] - [description]
  * @property {string} [images.default] - [description]
  * @property {string} [images.missing] - [description]
  */
@@ -6241,7 +6208,10 @@ var Game = new Class({
 
         this.scene.destroy();
 
-        this.renderer.destroy();
+        if (this.renderer)
+        {
+            this.renderer.destroy();
+        }
 
         this.events.emit('destroy');
 
@@ -6249,7 +6219,7 @@ var Game = new Class({
 
         this.onStepCallback = null;
 
-        if (removeCanvas)
+        if (removeCanvas && this.canvas)
         {
             CanvasPool.remove(this.canvas);
         }
@@ -16002,9 +15972,9 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 /**
  * @callback DataEachCallback
  *
- * @param {*} parent - [description]
- * @param {string} key - [description]
- * @param {*} value - [description]
+ * @param {*} parent - The parent object of the DataManager.
+ * @param {string} key - The key of the value.
+ * @param {*} value - The value.
  * @param {...*} [args] - Additional arguments that will be passed to the callback, after the game object, key, and data.
  */
 
@@ -16019,8 +15989,8 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {*} parent - [description]
- * @param {Phaser.Events.EventEmitter} eventEmitter - [description]
+ * @param {object} parent - The object that this DataManager belongs to.
+ * @param {Phaser.Events.EventEmitter} eventEmitter - The DataManager's event emitter.
  */
 var DataManager = new Class({
 
@@ -16029,7 +15999,7 @@ var DataManager = new Class({
     function DataManager (parent, eventEmitter)
     {
         /**
-         * [description]
+         * The object that this DataManager belongs to.
          *
          * @name Phaser.Data.DataManager#parent
          * @type {*}
@@ -16038,7 +16008,7 @@ var DataManager = new Class({
         this.parent = parent;
 
         /**
-         * [description]
+         * The DataManager's event emitter.
          *
          * @name Phaser.Data.DataManager#events
          * @type {Phaser.Events.EventEmitter}
@@ -16052,7 +16022,7 @@ var DataManager = new Class({
         }
 
         /**
-         * [description]
+         * The data list.
          *
          * @name Phaser.Data.DataManager#list
          * @type {Object.<string, *>}
@@ -16062,7 +16032,10 @@ var DataManager = new Class({
         this.list = {};
 
         /**
-         * [description]
+         * Whether setting data is blocked for this DataManager.
+         *
+         * Used temporarily to allow 'changedata' event listeners to prevent
+         * specific data from being set.
          *
          * @name Phaser.Data.DataManager#blockSet
          * @type {boolean}
@@ -16072,7 +16045,7 @@ var DataManager = new Class({
         this.blockSet = false;
 
         /**
-         * [description]
+         * Whether setting data is frozen for this DataManager.
          *
          * @name Phaser.Data.DataManager#_frozen
          * @type {boolean}
@@ -16091,9 +16064,9 @@ var DataManager = new Class({
      * @method Phaser.Data.DataManager#get
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The key of the value to retrieve.
      *
-     * @return {*} [description]
+     * @return {*} The value belonging to the given key.
      */
     get: function (key)
     {
@@ -16101,12 +16074,12 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Retrieves all data values.
      *
      * @method Phaser.Data.DataManager#getAll
      * @since 3.0.0
      *
-     * @return {Object.<string, *>} [description]
+     * @return {Object.<string, *>} All data values.
      */
     getAll: function ()
     {
@@ -16124,14 +16097,14 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Queries the DataManager for the values of keys matching the given search string.
      *
      * @method Phaser.Data.DataManager#query
      * @since 3.0.0
      *
-     * @param {string} search - [description]
+     * @param {string} search - The search string.
      *
-     * @return {Object.<string, *>} [description]
+     * @return {Object.<string, *>} The values of the keys matching the search string.
      */
     query: function (search)
     {
@@ -16149,13 +16122,15 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Sets the value for the given key.
+     *
+     * Emits the 'changedata' and 'setdata' events.
      *
      * @method Phaser.Data.DataManager#set
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {*} data - [description]
+     * @param {string} key - The key to set the value for.
+     * @param {*} data - The value to set.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
@@ -16228,13 +16203,13 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Merge the given data object into this DataManager's data object.
      *
      * @method Phaser.Data.DataManager#merge
      * @since 3.0.0
      *
-     * @param {Object.<string, *>} data - [description]
-     * @param {boolean} overwrite - [description]
+     * @param {Object.<string, *>} data - The data to merge.
+     * @param {boolean} overwrite - Whether to overwrite existing data. Defaults to true.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
@@ -16255,12 +16230,12 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Remove the value for the given key.
      *
      * @method Phaser.Data.DataManager#remove
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The key to remove
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
@@ -16279,14 +16254,14 @@ var DataManager = new Class({
     },
 
     /**
-     * Gets the data associated with the given 'key', deletes it from this Data store, then returns it.
+     * Retrieves the data associated with the given 'key', deletes it from this Data store, then returns it.
      *
      * @method Phaser.Data.DataManager#pop
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The key of the value to retrieve and delete.
      *
-     * @return {*} [description]
+     * @return {*} The value of the given key.
      */
     pop: function (key)
     {
@@ -16305,14 +16280,14 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Determines whether the given key is set in this Data store.
      *
      * @method Phaser.Data.DataManager#has
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The key to check.
      *
-     * @return {boolean} [description]
+     * @return {boolean} Whether the key is set.
      */
     has: function (key)
     {
@@ -16320,12 +16295,12 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Freeze or unfreeze this Data store, to allow or prevent setting its values.
      *
      * @method Phaser.Data.DataManager#setFreeze
      * @since 3.0.0
      *
-     * @param {boolean} value - [description]
+     * @param {boolean} value - Whether to freeze the Data store.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
@@ -16337,7 +16312,7 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Delete all data in this Data store and unfreeze it.
      *
      * @method Phaser.Data.DataManager#reset
      * @since 3.0.0
@@ -16358,7 +16333,7 @@ var DataManager = new Class({
     },
 
     /**
-     * [description]
+     * Destroy this data manager.
      *
      * @method Phaser.Data.DataManager#destroy
      * @since 3.0.0
@@ -16375,7 +16350,7 @@ var DataManager = new Class({
     },
 
     /**
-     * Freeze this Data component, so no changes can be written to it.
+     * Freeze this Data component, so no values can be set.
      *
      * @name Phaser.Data.DataManager#freeze
      * @type {boolean}
@@ -21065,9 +21040,9 @@ module.exports = HexStringToColor;
   !*** ./display/color/HueToComponent.js ***!
   \*****************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-/* WEBPACK VAR INJECTION */(function(module) {/**
+/**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
@@ -21116,9 +21091,8 @@ var HueToComponent = function (p, q, t)
     return p;
 };
 
-module.export = HueToComponent;
+module.exports = HueToComponent;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/module.js */ "../node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -41363,7 +41337,7 @@ var RenderTexture = new Class({
      */
     destroy: function ()
     {
-        GameObject.destroy.call(this);
+        GameObject.prototype.destroy.call(this);
 
         if (this.renderer.type === CONST.WEBGL)
         {
@@ -60921,9 +60895,9 @@ var KeyboardManager = new Class({
      *
      * For example,
      *
-     *     addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
+     *     addKeys({ 'up': Phaser.Input.Keyboard.KeyCodes.W, 'down': Phaser.Input.Keyboard.KeyCodes.S });
      *
-     * would return an object containing properties (`up`, `down`, `left` and `right`) referring to {@link Phaser.Key} object.
+     * would return an object containing properties (`up` and `down`) referring to {@link Phaser.Input.Keyboard.Key} objects.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#addKeys
      * @since 3.0.0
@@ -61700,15 +61674,16 @@ module.exports = DownDuration;
  */
 var JustDown = function (key)
 {
-    var current = false;
-
-    if (key.isDown)
+    if (key._justDown)
     {
-        current = key._justDown;
         key._justDown = false;
-    }
 
-    return current;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 };
 
 module.exports = JustDown;
@@ -61744,15 +61719,16 @@ module.exports = JustDown;
  */
 var JustUp = function (key)
 {
-    var current = false;
-
-    if (key.isDown)
+    if (key._justUp)
     {
-        current = key._justUp;
         key._justUp = false;
-    }
 
-    return current;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 };
 
 module.exports = JustUp;
@@ -62471,12 +62447,11 @@ var ProcessKeyDown = function (key, event)
         key.isUp = false;
         key.timeDown = event.timeStamp;
         key.duration = 0;
+        key._justDown = true;
+        key._justUp = false;
     }
 
     key.repeats++;
-
-    key._justDown = true;
-    key._justUp = false;
 
     return key;
 };
@@ -68364,16 +68339,16 @@ module.exports = IsEvenStrict;
  */
 
 /**
- * [description]
+ * Calculates a linear (interpolation) value over t.
  *
  * @function Phaser.Math.Linear
  * @since 3.0.0
  *
- * @param {number} p0 - [description]
- * @param {number} p1 - [description]
- * @param {float} t - [description]
+ * @param {number} p0 - The first point
+ * @param {number} p1 - The second point
+ * @param {float} t -The percentage between p0 and p1 to return represented as a number between 0 and 1.
  *
- * @return {number} [description]
+ * @return {number} The step t% of the way between p0 and p1
  */
 var Linear = function (p0, p1, t)
 {
@@ -76768,15 +76743,16 @@ module.exports = CubicBezierInterpolation;
 var Linear = __webpack_require__(/*! ../Linear */ "./math/Linear.js");
 
 /**
- * [description]
+ * A Linear Interpolation Method.
  *
  * @function Phaser.Math.Interpolation.Linear
  * @since 3.0.0
+ * @see https://en.wikipedia.org/wiki/Linear_interpolation
  *
- * @param {float} v - [description]
- * @param {number} k - [description]
+ * @param {number[]} v - The input array of values to interpolate between.
+ * @param {!number} k - The percentage of interploation, between 0 and 1.
  *
- * @return {number} [description]
+ * @return {!number} The interpolated value.
  */
 var LinearInterpolation = function (v, k)
 {
@@ -92682,10 +92658,9 @@ module.exports = PointerConstraint;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Physics.Matter.World
-
 var Bodies = __webpack_require__(/*! ./lib/factory/Bodies */ "./physics/matter-js/lib/factory/Bodies.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+var Common = __webpack_require__(/*! ./lib/core/Common */ "./physics/matter-js/lib/core/Common.js");
 var Composite = __webpack_require__(/*! ./lib/body/Composite */ "./physics/matter-js/lib/body/Composite.js");
 var Engine = __webpack_require__(/*! ./lib/core/Engine */ "./physics/matter-js/lib/core/Engine.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
@@ -92693,8 +92668,9 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
 var GetValue = __webpack_require__(/*! ../../utils/object/GetValue */ "./utils/object/GetValue.js");
 var MatterBody = __webpack_require__(/*! ./lib/body/Body */ "./physics/matter-js/lib/body/Body.js");
 var MatterEvents = __webpack_require__(/*! ./lib/core/Events */ "./physics/matter-js/lib/core/Events.js");
-var MatterWorld = __webpack_require__(/*! ./lib/body/World */ "./physics/matter-js/lib/body/World.js");
 var MatterTileBody = __webpack_require__(/*! ./MatterTileBody */ "./physics/matter-js/MatterTileBody.js");
+var MatterWorld = __webpack_require__(/*! ./lib/body/World */ "./physics/matter-js/lib/body/World.js");
+var Vector = __webpack_require__(/*! ./lib/geometry/Vector */ "./physics/matter-js/lib/geometry/Vector.js");
 
 /**
  * @classdesc
@@ -92884,7 +92860,9 @@ var World = new Class({
             debugShowVelocity: GetValue(config, 'debugShowVelocity', true),
             bodyDebugColor: GetValue(config, 'debugBodyColor', 0xff00ff),
             staticBodyDebugColor: GetValue(config, 'debugBodyColor', 0x0000ff),
-            velocityDebugColor: GetValue(config, 'debugVelocityColor', 0x00ff00)
+            velocityDebugColor: GetValue(config, 'debugVelocityColor', 0x00ff00),
+            debugShowJoint: GetValue(config, 'debugShowJoint', true),
+            jointDebugColor: GetValue(config, 'debugJointColor', 0x000000)
         };
 
         if (this.drawDebug)
@@ -93069,7 +93047,7 @@ var World = new Class({
     {
         var graphic = this.scene.sys.add.graphics({ x: 0, y: 0 });
 
-        graphic.setZ(Number.MAX_VALUE);
+        graphic.setDepth(Number.MAX_VALUE);
 
         this.debugGraphic = graphic;
 
@@ -93408,7 +93386,9 @@ var World = new Class({
         graphics.lineStyle(1, this.defaults.bodyDebugColor);
         graphics.beginPath();
 
-        for (var i = 0; i < bodies.length; i++)
+        var i,j;
+
+        for (i = 0; i < bodies.length; i++)
         {
             if (!bodies[i].render.visible)
             {
@@ -93417,7 +93397,7 @@ var World = new Class({
 
             // Handle drawing both single bodies and compound bodies. If compound, draw both the
             // convex hull (first part) and the rest of the bodies.
-            for (var j = 0; j < bodies[i].parts.length; j++)
+            for (j = 0; j < bodies[i].parts.length; j++)
             {
                 var body = bodies[i].parts[j];
 
@@ -93437,6 +93417,99 @@ var World = new Class({
         }
 
         graphics.closePath();
+
+        if (this.defaults.debugShowJoint)
+        {
+            graphics.lineStyle(2, this.defaults.jointDebugColor);
+
+            // Render constraints 
+            var constraints = Composite.allConstraints(this.localWorld);
+
+            for (i = 0; i < constraints.length; i++)
+            {
+                var constraint = constraints[i];
+
+                if (!constraint.render.visible || !constraint.pointA || !constraint.pointB)
+                {
+                    continue;
+                }
+
+                if (constraint.render.lineWidth)
+                {
+                    graphics.lineStyle(constraint.render.lineWidth, Common.colorToNumber(constraint.render.strokeStyle));
+                }
+
+                var bodyA = constraint.bodyA;
+                var bodyB = constraint.bodyB;
+                var start;
+                var end;
+
+                if (bodyA)
+                {
+                    start = Vector.add(bodyA.position, constraint.pointA);
+                }
+                else
+                {
+                    start = constraint.pointA;
+                }
+
+                if (constraint.render.type === 'pin')
+                {
+                    graphics.beginPath();
+                    graphics.arc(start.x, start.y, 3, 0, 2 * Math.PI);
+                    graphics.closePath();
+                }
+                else
+                {
+                    if (bodyB)
+                    {
+                        end = Vector.add(bodyB.position, constraint.pointB);
+                    }
+                    else
+                    {
+                        end = constraint.pointB;
+                    }
+
+                    graphics.beginPath();
+                    graphics.moveTo(start.x, start.y);
+
+                    if (constraint.render.type === 'spring')
+                    {
+                        var delta = Vector.sub(end, start);
+                        var normal = Vector.perp(Vector.normalise(delta));
+                        var coils = Math.ceil(Common.clamp(constraint.length / 5, 12, 20));
+                        var offset;
+
+                        for (j = 1; j < coils; j += 1)
+                        {
+                            offset = (j % 2 === 0) ? 1 : -1;
+
+                            graphics.lineTo(
+                                start.x + delta.x * (j / coils) + normal.x * offset * 4,
+                                start.y + delta.y * (j / coils) + normal.y * offset * 4
+                            );
+                        }
+                    }
+
+                    graphics.lineTo(end.x, end.y);
+                }
+
+                if (constraint.render.lineWidth)
+                {
+                    graphics.strokePath();
+                }
+
+                if (constraint.render.anchors)
+                {
+                    graphics.fillStyle(Common.colorToNumber(constraint.render.strokeStyle));
+                    graphics.beginPath();
+                    graphics.arc(start.x, start.y, 6, 0, 2 * Math.PI);
+                    graphics.arc(end.x, end.y, 6, 0, 2 * Math.PI);
+                    graphics.closePath();
+                    graphics.fillPath();
+                }
+            }
+        }
     },
 
     /**
@@ -112713,8 +112786,14 @@ module.exports = GetScenePlugins;
  */
 
 //  These properties get injected into the Scene and map to local systems
-//  The map key is the property that is added to the Scene, the value is the Scene.Systems reference
+//  The map value is the property that is injected into the Scene, the key is the Scene.Systems reference.
 //  These defaults can be modified via the Scene config object
+//          var config = {
+//            map: {
+//                add: 'makeStuff',
+//                load: 'loader'
+//            }
+//        };
 
 var InjectionMap = {
 
@@ -112793,6 +112872,226 @@ var Scene = new Class({
          * @since 3.0.0
          */
         this.sys = new Systems(this, config);
+
+        /**
+         * A reference to the Phaser.Game instance.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#game
+         * @type {Phaser.Game}
+         * @since 3.0.0
+         */
+        this.game;
+
+        /**
+         * A reference to the global Animation Manager.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#anims
+         * @type {Phaser.Animations.AnimationManager}
+         * @since 3.0.0
+         */
+        this.anims;
+
+        /**
+         * A reference to the global Cache.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#cache
+         * @type {Phaser.Cache.CacheManager}
+         * @since 3.0.0
+         */
+        this.cache;
+
+        /**
+         * A reference to the game level Data Manager.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#registry
+         * @type {Phaser.Data.DataManager}
+         * @since 3.0.0
+         */
+        this.registry;
+
+        /**
+         * A reference to the Sound Manager.
+         * This property will only be available if defined in the Scene Injection Map and the plugin is installed.
+         *
+         * @name Phaser.Scene#sound
+         * @type {Phaser.Sound.BaseSoundManager}
+         * @since 3.0.0
+         */
+        this.sound;
+
+        /**
+         * A reference to the Texture Manager.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#textures
+         * @type {Phaser.Textures.TextureManager}
+         * @since 3.0.0
+         */
+        this.textures;
+
+        /**
+         * A scene level Event Emitter.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#events
+         * @type {Phaser.Events.EventEmitter}
+         * @since 3.0.0
+         */
+        this.events;
+
+        /**
+         * A scene level Camera System.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#cameras
+         * @type {Phaser.Cameras.Scene2D.CameraManager}
+         * @since 3.0.0
+         */
+        this.cameras;
+
+        /**
+         * A scene level 3D Camera System.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#cameras3d
+         * @type {Phaser.Cameras.Sprite3D.CameraManager}
+         * @since 3.0.0
+         */
+        this.cameras3d;
+
+        /**
+         * A scene level Game Object Factory.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#add
+         * @type {Phaser.GameObjects.GameObjectFactory}
+         * @since 3.0.0
+         */
+        this.add;
+
+        /**
+         * A scene level Game Object Creator.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#make
+         * @type {Phaser.GameObjects.GameObjectCreator}
+         * @since 3.0.0
+         */
+        this.make;
+
+        /**
+         * A reference to the Scene Manager Plugin.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#scene
+         * @type {Phaser.Scenes.ScenePlugin}
+         * @since 3.0.0
+         */
+        this.scene;
+
+        /**
+         * A scene level Game Object Display List.
+         * This property will only be available if defined in the Scene Injection Map.
+         *
+         * @name Phaser.Scene#children
+         * @type {Phaser.GameObjects.DisplayList}
+         * @since 3.0.0
+         */
+        this.children;
+
+        /**
+         * A scene level Lights Manager Plugin.
+         * This property will only be available if defined in the Scene Injection Map and the plugin is installed.
+         *
+         * @name Phaser.Scene#lights
+         * @type {Phaser.GameObjects.DisplayList}
+         * @since 3.0.0
+         */
+        this.lights;
+
+        /**
+         * A scene level Data Manager Plugin.
+         * This property will only be available if defined in the Scene Injection Map and the plugin is installed.
+         *
+         * @name Phaser.Scene#data
+         * @type {Phaser.Data.DataManager}
+         * @since 3.0.0
+         */
+        this.data;
+
+        /**
+         * A scene level Input Manager Plugin.
+         * This property will only be available if defined in the Scene Injection Map and the plugin is installed.
+         *
+         * @name Phaser.Scene#input
+         * @type {Phaser.Input.InputPlugin}
+         * @since 3.0.0
+         */
+        this.input;
+
+        /**
+         * A scene level Loader Plugin.
+         * This property will only be available if defined in the Scene Injection Map and the plugin is installed.
+         *
+         * @name Phaser.Scene#load
+         * @type {Phaser.Loader.LoadPlugin}
+         * @since 3.0.0
+         */
+        this.load;
+
+        /**
+         * A scene level Time and Clock Plugin.
+         * This property will only be available if defined in the Scene Injection Map and the plugin is installed.
+         *
+         * @name Phaser.Scene#time
+         * @type {Phaser.Time.Clock}
+         * @since 3.0.0
+         */
+        this.time;
+
+        /**
+         * A scene level Tween Manager Plugin.
+         * This property will only be available if defined in the Scene Injection Map and the plugin is installed.
+         *
+         * @name Phaser.Scene#tweens
+         * @type {Phaser.Tweens.TweenManager}
+         * @since 3.0.0
+         */
+        this.tweens;
+
+        /**
+         * A scene level Arcade Physics Plugin.
+         * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
+         *
+         * @name Phaser.Scene#physics
+         * @type {Phaser.Physics.Arcade.ArcadePhysics}
+         * @since 3.0.0
+         */
+        this.physics;
+
+        /**
+         * A scene level Impact Physics Plugin.
+         * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
+         *
+         * @name Phaser.Scene#impact
+         * @type {Phaser.Physics.Impact.ImpactPhysics}
+         * @since 3.0.0
+         */
+        this.impact;
+
+        /**
+         * A scene level Matter Physics Plugin.
+         * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
+         *
+         * @name Phaser.Scene#matter
+         * @type {Phaser.Physics.Matter.MatterPhysics}
+         * @since 3.0.0
+         */
+        this.matter;
     },
 
     /**
@@ -112801,6 +113100,9 @@ var Scene = new Class({
      * @method Phaser.Scene#update
      * @override
      * @since 3.0.0
+     *
+     * @param {number} time - [description]
+     * @param {number} delta - [description]
      */
     update: function ()
     {
@@ -112856,7 +113158,7 @@ var SceneManager = new Class({
     function SceneManager (game, sceneConfig)
     {
         /**
-         * [description]
+         * The Game that this SceneManager belongs to.
          *
          * @name Phaser.Scenes.SceneManager#game
          * @type {Phaser.Game}
@@ -113009,7 +113311,7 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Process the Scene operations queue.
      *
      * @method Phaser.Scenes.SceneManager#processQueue
      * @since 3.0.0
@@ -113079,10 +113381,10 @@ var SceneManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - A unique key used to reference the Scene, i.e. `MainMenu` or `Level1`.
-     * @param {(Phaser.Scene|SettingsConfig|function)} sceneConfig - [description]
+     * @param {(Phaser.Scene|SettingsConfig|function)} sceneConfig - The config for the Scene
      * @param {boolean} [autoStart=false] - If `true` the Scene will be started immediately after being added.
      *
-     * @return {?Phaser.Scene} [description]
+     * @return {?Phaser.Scene} The added Scene, if it was added immediately.
      */
     add: function (key, sceneConfig, autoStart)
     {
@@ -113195,13 +113497,13 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Boot the given Scene.
      *
      * @method Phaser.Scenes.SceneManager#bootScene
      * @private
      * @since 3.0.0
      *
-     * @param {Phaser.Scene} scene - [description]
+     * @param {Phaser.Scene} scene - The Scene to boot.
      */
     bootScene: function (scene)
     {
@@ -113246,13 +113548,15 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Handles load completion for a Scene's Loader.
+     *
+     * Starts the Scene that the Loader belongs to.
      *
      * @method Phaser.Scenes.SceneManager#loadComplete
      * @private
      * @since 3.0.0
      *
-     * @param {Phaser.Loader.LoaderPlugin} loader - [description]
+     * @param {Phaser.Loader.LoaderPlugin} loader - The loader that has completed loading.
      */
     loadComplete: function (loader)
     {
@@ -113262,13 +113566,13 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Handle payload completion for a Scene.
      *
      * @method Phaser.Scenes.SceneManager#payloadComplete
      * @private
      * @since 3.0.0
      *
-     * @param {Phaser.Loader.LoaderPlugin} loader - [description]
+     * @param {Phaser.Loader.LoaderPlugin} loader - The loader that has completed loading its Scene's payload.
      */
     payloadComplete: function (loader)
     {
@@ -113276,13 +113580,13 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Updates the Scenes.
      *
      * @method Phaser.Scenes.SceneManager#update
      * @since 3.0.0
      *
-     * @param {number} time - [description]
-     * @param {number} delta - [description]
+     * @param {number} time - Time elapsed.
+     * @param {number} delta - Delta time from the last update.
      */
     update: function (time, delta)
     {
@@ -113303,7 +113607,7 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Informs the Scenes of the Game being resized.
      *
      * @method Phaser.Scenes.SceneManager#resize
      * @since 3.2.0
@@ -113323,12 +113627,12 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Renders the Scenes.
      *
      * @method Phaser.Scenes.SceneManager#render
      * @since 3.0.0
      *
-     * @param {*} renderer - [description]
+     * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - The renderer to use.
      */
     render: function (renderer)
     {
@@ -113347,13 +113651,13 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Calls the given Scene's {@link Phaser.Scene#create} method and updates its status.
      *
      * @method Phaser.Scenes.SceneManager#create
      * @private
      * @since 3.0.0
      *
-     * @param {Phaser.Scene} scene - [description]
+     * @param {Phaser.Scene} scene - The Scene to create.
      */
     create: function (scene)
     {
@@ -113368,16 +113672,16 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Creates and initializes a Scene from a function.
      *
      * @method Phaser.Scenes.SceneManager#createSceneFromFunction
      * @private
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {function} scene - [description]
+     * @param {string} key - The key of the Scene.
+     * @param {function} scene - The function to create the Scene from.
      *
-     * @return {Phaser.Scene} [description]
+     * @return {Phaser.Scene} The created Scene.
      */
     createSceneFromFunction: function (key, scene)
     {
@@ -113417,16 +113721,16 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Creates and initializes a Scene instance.
      *
      * @method Phaser.Scenes.SceneManager#createSceneFromInstance
      * @private
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {Phaser.Scene} newScene - [description]
+     * @param {string} key - The key of the Scene.
+     * @param {Phaser.Scene} newScene - The Scene instance.
      *
-     * @return {Phaser.Scene} [description]
+     * @return {Phaser.Scene} The created Scene.
      */
     createSceneFromInstance: function (key, newScene)
     {
@@ -113447,16 +113751,16 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Creates and initializes a Scene from an Object definition.
      *
      * @method Phaser.Scenes.SceneManager#createSceneFromObject
      * @private
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {(string|SettingsConfig)} sceneConfig - [description]
+     * @param {string} key - The key of the Scene.
+     * @param {(string|SettingsConfig)} sceneConfig - The Scene config.
      *
-     * @return {Phaser.Scene} [description]
+     * @return {Phaser.Scene} The created Scene.
      */
     createSceneFromObject: function (key, sceneConfig)
     {
@@ -113521,16 +113825,16 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Retrieves the key of a Scene from a Scene config.
      *
      * @method Phaser.Scenes.SceneManager#getKey
      * @private
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {(Phaser.Scene|SettingsConfig|function)} sceneConfig - [description]
+     * @param {string} key - The key to check in the Scene config.
+     * @param {(Phaser.Scene|SettingsConfig|function)} sceneConfig - The Scene config.
      *
-     * @return {string} [description]
+     * @return {string} The Scene key.
      */
     getKey: function (key, sceneConfig)
     {
@@ -113562,14 +113866,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Retrieves a Scene.
      *
      * @method Phaser.Scenes.SceneManager#getScene
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to retrieve.
      *
-     * @return {?Phaser.Scene} [description]
+     * @return {?Phaser.Scene} The Scene.
      */
     getScene: function (key)
     {
@@ -113595,14 +113899,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Determines whether a Scene is active.
      *
      * @method Phaser.Scenes.SceneManager#isActive
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to check.
      *
-     * @return {boolean} [description]
+     * @return {boolean} Whether the Scene is active.
      */
     isActive: function (key)
     {
@@ -113617,14 +113921,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Determines whether a Scene is visible.
      *
      * @method Phaser.Scenes.SceneManager#isVisible
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to check.
      *
-     * @return {boolean} [description]
+     * @return {boolean} Whether the Scene is visible.
      */
     isVisible: function (key)
     {
@@ -113639,14 +113943,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Determines whether a Scene is sleeping.
      *
      * @method Phaser.Scenes.SceneManager#isSleeping
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to check.
      *
-     * @return {boolean} [description]
+     * @return {boolean} Whether the Scene is sleeping.
      */
     isSleeping: function (key)
     {
@@ -113661,14 +113965,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Pauses the given Scene.
      *
      * @method Phaser.Scenes.SceneManager#pause
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to pause.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     pause: function (key)
     {
@@ -113683,14 +113987,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Resumes the given Scene.
      *
      * @method Phaser.Scenes.SceneManager#resume
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to resume.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     resume: function (key)
     {
@@ -113705,14 +114009,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Puts the given Scene to sleep.
      *
      * @method Phaser.Scenes.SceneManager#sleep
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to put to sleep.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     sleep: function (key)
     {
@@ -113727,14 +114031,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Awakens the given Scene.
      *
      * @method Phaser.Scenes.SceneManager#wake
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to wake up.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     wake: function (key)
     {
@@ -113749,21 +114053,21 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Starts the given Scene.
      *
      * @method Phaser.Scenes.SceneManager#start
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {object} [data] - [description]
+     * @param {string} key - The Scene to start.
+     * @param {object} [data] - The Scene data.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     start: function (key, data)
     {
         if (data === undefined) { data = {}; }
 
-        //  if not booted, then put scene into a holding pattern
+        //  If the Game is not booted, then put the Scene into a holding pattern
         if (!this.game.isBooted)
         {
             for (var i = 0; i < this._pending.length; i++)
@@ -113817,14 +114121,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Stops the given Scene.
      *
      * @method Phaser.Scenes.SceneManager#stop
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to stop.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     stop: function (key)
     {
@@ -113839,15 +114143,15 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Sleeps one one Scene and starts the other.
      *
      * @method Phaser.Scenes.SceneManager#switch
      * @since 3.0.0
      *
-     * @param {string} from - [description]
-     * @param {string} to - [description]
+     * @param {string} from - The Scene to sleep.
+     * @param {string} to - The Scene to start.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     switch: function (from, to)
     {
@@ -113872,14 +114176,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Retrieves a Scene by numeric index.
      *
      * @method Phaser.Scenes.SceneManager#getAt
      * @since 3.0.0
      *
-     * @param {integer} index - [description]
+     * @param {integer} index - The index of the Scene to retrieve.
      *
-     * @return {(Phaser.Scene|undefined)} [description]
+     * @return {(Phaser.Scene|undefined)} The Scene.
      */
     getAt: function (index)
     {
@@ -113887,14 +114191,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Retrieves the numeric index of a Scene.
      *
      * @method Phaser.Scenes.SceneManager#getIndex
      * @since 3.0.0
      *
-     * @param {(string|Phaser.Scene)} key - [description]
+     * @param {(string|Phaser.Scene)} key - The key of the Scene.
      *
-     * @return {integer} [description]
+     * @return {integer} The index of the Scene.
      */
     getIndex: function (key)
     {
@@ -113904,14 +114208,16 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Brings a Scene to the top of the Scenes list.
+     *
+     * This means it will render above all other Scenes.
      *
      * @method Phaser.Scenes.SceneManager#bringToTop
      * @since 3.0.0
      *
-     * @param {(string|Phaser.Scene)} key - [description]
+     * @param {(string|Phaser.Scene)} key - The Scene to move.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     bringToTop: function (key)
     {
@@ -113936,14 +114242,16 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Sends a Scene to the back of the Scenes list.
+     *
+     * This means it will render below all other Scenes.
      *
      * @method Phaser.Scenes.SceneManager#sendToBack
      * @since 3.0.0
      *
-     * @param {(string|Phaser.Scene)} key - [description]
+     * @param {(string|Phaser.Scene)} key - The Scene to move.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     sendToBack: function (key)
     {
@@ -113968,14 +114276,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Moves a Scene down one position in the Scenes list.
      *
      * @method Phaser.Scenes.SceneManager#moveDown
      * @since 3.0.0
      *
-     * @param {(string|Phaser.Scene)} key - [description]
+     * @param {(string|Phaser.Scene)} key - The Scene to move.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     moveDown: function (key)
     {
@@ -114002,14 +114310,14 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Moves a Scene up one position in the Scenes list.
      *
      * @method Phaser.Scenes.SceneManager#moveUp
      * @since 3.0.0
      *
-     * @param {(string|Phaser.Scene)} key - [description]
+     * @param {(string|Phaser.Scene)} key - The Scene to move.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     moveUp: function (key)
     {
@@ -114037,6 +114345,7 @@ var SceneManager = new Class({
 
     /**
      * Moves a Scene so it is immediately above another Scene in the Scenes list.
+     *
      * This means it will render over the top of the other Scene.
      *
      * @method Phaser.Scenes.SceneManager#moveAbove
@@ -114045,7 +114354,7 @@ var SceneManager = new Class({
      * @param {(string|Phaser.Scene)} keyA - The Scene that Scene B will be moved above.
      * @param {(string|Phaser.Scene)} keyB - The Scene to be moved.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     moveAbove: function (keyA, keyB)
     {
@@ -114080,6 +114389,7 @@ var SceneManager = new Class({
 
     /**
      * Moves a Scene so it is immediately below another Scene in the Scenes list.
+     *
      * This means it will render behind the other Scene.
      *
      * @method Phaser.Scenes.SceneManager#moveBelow
@@ -114088,7 +114398,7 @@ var SceneManager = new Class({
      * @param {(string|Phaser.Scene)} keyA - The Scene that Scene B will be moved above.
      * @param {(string|Phaser.Scene)} keyB - The Scene to be moved.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     moveBelow: function (keyA, keyB)
     {
@@ -114129,15 +114439,15 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Swaps the positions of two Scenes in the Scenes list.
      *
      * @method Phaser.Scenes.SceneManager#swapPosition
      * @since 3.0.0
      *
-     * @param {(string|Phaser.Scene)} keyA - [description]
-     * @param {(string|Phaser.Scene)} keyB - [description]
+     * @param {(string|Phaser.Scene)} keyA - The first Scene to swap.
+     * @param {(string|Phaser.Scene)} keyB - The second Scene to swap.
      *
-     * @return {Phaser.Scenes.SceneManager} [description]
+     * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
     swapPosition: function (keyA, keyB)
     {
@@ -114167,6 +114477,12 @@ var SceneManager = new Class({
         return this;
     },
 
+    /**
+     * Dumps debug information about each Scene to the developer console.
+     *
+     * @method Phaser.Scenes.SceneManager#dump
+     * @since 3.2.0
+     */
     dump: function ()
     {
         var out = [];
@@ -114186,7 +114502,7 @@ var SceneManager = new Class({
     },
 
     /**
-     * [description]
+     * Destroy the SceneManager and all of its Scene's systems.
      *
      * @method Phaser.Scenes.SceneManager#destroy
      * @since 3.0.0
@@ -114242,7 +114558,7 @@ var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/Plu
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Scene} scene - [description]
+ * @param {Phaser.Scene} scene - The Scene that this ScenePlugin belongs to.
  */
 var ScenePlugin = new Class({
 
@@ -114251,7 +114567,7 @@ var ScenePlugin = new Class({
     function ScenePlugin (scene)
     {
         /**
-         * [description]
+         * The Scene that this ScenePlugin belongs to.
          *
          * @name Phaser.Scenes.ScenePlugin#scene
          * @type {Phaser.Scene}
@@ -114260,7 +114576,7 @@ var ScenePlugin = new Class({
         this.scene = scene;
 
         /**
-         * [description]
+         * The Scene Systems instance of the Scene that this ScenePlugin belongs to.
          *
          * @name Phaser.Scenes.ScenePlugin#systems
          * @type {Phaser.Scenes.Systems}
@@ -114274,7 +114590,7 @@ var ScenePlugin = new Class({
         }
 
         /**
-         * [description]
+         * The settings of the Scene this ScenePlugin belongs to.
          *
          * @name Phaser.Scenes.ScenePlugin#settings
          * @type {SettingsObject}
@@ -114283,7 +114599,7 @@ var ScenePlugin = new Class({
         this.settings = scene.sys.settings;
 
         /**
-         * [description]
+         * The key of the Scene this ScenePlugin belongs to.
          *
          * @name Phaser.Scenes.ScenePlugin#key
          * @type {string}
@@ -114292,7 +114608,7 @@ var ScenePlugin = new Class({
         this.key = scene.sys.settings.key;
 
         /**
-         * [description]
+         * The Game's SceneManager.
          *
          * @name Phaser.Scenes.ScenePlugin#manager
          * @type {Phaser.Scenes.SceneManager}
@@ -114302,7 +114618,9 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * [description]
+     * Boot the ScenePlugin.
+     *
+     * Registers event handlers.
      *
      * @method Phaser.Scenes.ScenePlugin#boot
      * @since 3.0.0
@@ -114321,8 +114639,8 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#start
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {object} [data] - [description]
+     * @param {string} key - The Scene to start.
+     * @param {object} [data] - The Scene data.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114350,9 +114668,9 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#add
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {object} sceneConfig - [description]
-     * @param {boolean} autoStart - [description]
+     * @param {string} key - The Scene key.
+     * @param {(Phaser.Scene|SettingsConfig|function)} sceneConfig - The config for the Scene.
+     * @param {boolean} autoStart - Whether to start the Scene after it's added.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114369,8 +114687,8 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#launch
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {object} [data] - [description]
+     * @param {string} key - The Scene to launch.
+     * @param {object} [data] - The Scene data.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114397,7 +114715,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#pause
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to pause.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114416,7 +114734,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#resume
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to resume.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114435,7 +114753,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#sleep
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to put to sleep.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114454,7 +114772,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#wake
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to wake up.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114473,7 +114791,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#switch
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to start.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114500,7 +114818,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#stop
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to stop.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114519,7 +114837,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#setActive
      * @since 3.0.0
      *
-     * @param {boolean} value - [description]
+     * @param {boolean} value - The Scene to set the active state for.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114536,7 +114854,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#setVisible
      * @since 3.0.0
      *
-     * @param {boolean} value - [description]
+     * @param {boolean} value - The Scene to set the visible state for.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114553,9 +114871,9 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#isSleeping
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to check.
      *
-     * @return {boolean} [description]
+     * @return {boolean} Whether the Scene is sleeping.
      */
     isSleeping: function (key)
     {
@@ -114570,9 +114888,9 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#isActive
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to check.
      *
-     * @return {boolean} [description]
+     * @return {boolean} Whether the Scene is active.
      */
     isActive: function (key)
     {
@@ -114587,9 +114905,9 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#isVisible
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to check.
      *
-     * @return {boolean} [description]
+     * @return {boolean} Whether the Scene is visible.
      */
     isVisible: function (key)
     {
@@ -114600,6 +114918,7 @@ var ScenePlugin = new Class({
 
     /**
      * Swaps the position of two scenes in the Scenes list.
+     *
      * This controls the order in which they are rendered and updated.
      *
      * @method Phaser.Scenes.ScenePlugin#swapPosition
@@ -114624,6 +114943,7 @@ var ScenePlugin = new Class({
 
     /**
      * Swaps the position of two scenes in the Scenes list, so that Scene B is directly above Scene A.
+     *
      * This controls the order in which they are rendered and updated.
      *
      * @method Phaser.Scenes.ScenePlugin#moveAbove
@@ -114648,6 +114968,7 @@ var ScenePlugin = new Class({
 
     /**
      * Swaps the position of two scenes in the Scenes list, so that Scene B is directly below Scene A.
+     *
      * This controls the order in which they are rendered and updated.
      *
      * @method Phaser.Scenes.ScenePlugin#moveBelow
@@ -114682,7 +115003,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#remove
      * @since 3.2.0
      *
-     * @param {(string|Phaser.Scene)} scene - The Scene to be removed.
+     * @param {(string|Phaser.Scene)} key - The Scene to be removed.
      *
      * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
@@ -114696,12 +115017,12 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * [description]
+     * Moves a Scene up one position in the Scenes list.
      *
      * @method Phaser.Scenes.ScenePlugin#moveUp
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to move.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114715,12 +115036,12 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * [description]
+     * Moves a Scene down one position in the Scenes list.
      *
      * @method Phaser.Scenes.ScenePlugin#moveDown
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to move.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114734,12 +115055,14 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * [description]
+     * Brings a Scene to the top of the Scenes list.
+     *
+     * This means it will render above all other Scenes.
      *
      * @method Phaser.Scenes.ScenePlugin#bringToTop
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to move.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114753,12 +115076,14 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sends a Scene to the back of the Scenes list.
+     *
+     * This means it will render below all other Scenes.
      *
      * @method Phaser.Scenes.ScenePlugin#sendToBack
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to move.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
@@ -114772,14 +115097,14 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * [description]
+     * Retrieve a Scene.
      *
      * @method Phaser.Scenes.ScenePlugin#get
      * @since 3.0.0
      *
-     * @param {string} key - [description]
+     * @param {string} key - The Scene to retrieve.
      *
-     * @return {Phaser.Scene} [description]
+     * @return {Phaser.Scene} The Scene.
      */
     get: function (key)
     {
@@ -114787,7 +115112,7 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * [description]
+     * Shut down the given Scene.
      *
      * @method Phaser.Scenes.ScenePlugin#shutdown
      * @since 3.0.0
@@ -114798,7 +115123,7 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * [description]
+     * Destroy the given Scene.
      *
      * @method Phaser.Scenes.ScenePlugin#destroy
      * @since 3.0.0
@@ -115113,7 +115438,7 @@ var Systems = new Class({
          * [description]
          *
          * @name Phaser.Scenes.Systems#displayList
-         * @type {null}
+         * @type {Phaser.GameObjects.DisplayList}
          * @since 3.0.0
          */
         this.displayList;
@@ -120966,7 +121291,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @generic E - [entry]
  *
  * @param {string} key - [description]
- * @param {E} entry - [description]
+ * @param {*} entry - [description]
  *
  * @return {?boolean} [description]
  */
@@ -127137,7 +127462,7 @@ var Tilemap = new Class({
      *
      * @param {string} tilesetName - The name of the tileset as specified in the map data.
      * @param {string} [key] - The key of the Phaser.Cache image used for this tileset. If
-     * `undefined` or `null` it will look for an image with a key matching the tileset parameter.
+     * `undefined` or `null` it will look for an image with a key matching the tilesetName parameter.
      * @param {integer} [tileWidth] - The width of the tile (in pixels) in the Tileset Image. If not
      * given it will default to the map's tileWidth value, or the tileWidth specified in the Tiled
      * JSON file.
@@ -135974,8 +136299,8 @@ var StaticTilemapLayer = new Class({
         var tileset = this.tileset;
         var mapWidth = this.layer.width;
         var mapHeight = this.layer.height;
-        var width = tileset.image.get().width;
-        var height = tileset.image.get().height;
+        var width = tileset.image.source[0].width;
+        var height = tileset.image.source[0].height;
         var mapData = this.layer.data;
         var renderer = this.renderer;
         var tile;

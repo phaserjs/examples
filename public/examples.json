@@ -5862,6 +5862,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\pointer\\external link.js",
+              "name": "external link.js",
+              "size": 766,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\pointer\\move event.js",
               "name": "move event.js",
               "size": 537,
@@ -5886,7 +5892,7 @@
               "extension": ".js"
             }
           ],
-          "size": 8680
+          "size": 9446
         },
         {
           "path": "src\\input\\zones",
@@ -5926,7 +5932,7 @@
           "size": 9602
         }
       ],
-      "size": 108719
+      "size": 109485
     },
     {
       "path": "src\\loader",
@@ -7154,7 +7160,7 @@
         {
           "path": "src\\scenes\\registry data exchange es6.js",
           "name": "registry data exchange es6.js",
-          "size": 1934,
+          "size": 2594,
           "extension": ".js"
         },
         {
@@ -7272,7 +7278,7 @@
           "extension": ".js"
         }
       ],
-      "size": 54778
+      "size": 55438
     },
     {
       "path": "src\\snapshot",
@@ -8084,5 +8090,5 @@
       "size": 4792
     }
   ],
-  "size": 2108390
+  "size": 2109816
 }

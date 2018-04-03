@@ -37,78 +37,173 @@ function preload ()
 
     //Load in bullet
     this.load.image('bullet', 'assets/sprites/bullets/bullet6.png');
+
+    //Load in enemy spritesheet
+    this.load.spritesheet('face', 'assets/sprites/metalface78x92.png', 
+        { frameWidth: 78, frameHeight: 92 });
 }
+
+//Bullet class
+var Bullet = new Phaser.Class({
+
+    Extends: Phaser.GameObjects.Image,
+
+    initialize:
+
+    //Set the image file for the bullet and initial variables
+    function Bullet (scene)
+    {
+        Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
+
+        this.speed = 1;
+        this.born = 0;
+        this.direction = 0;
+        this.xSpeed = 0;
+        this.ySpeed = 0;
+    },
+
+    //Define the fire function which will be called on left mouse click
+    fire: function (player, pointer)
+    {
+        //Initial position of bullet is player's position
+        this.setPosition(player.x, player.y);
+
+        //Calculate trajectory of bullet so that it moves from player towards pointer
+        this.direction = Math.atan( (pointer.x-this.x) / (pointer.y-this.y));
+
+        if (pointer.y > this.y)
+        {
+            this.xSpeed = this.speed*Math.sin(this.direction);
+            this.ySpeed = this.speed*Math.cos(this.direction);
+        }
+        else
+        {
+          this.xSpeed = -this.speed*Math.sin(this.direction);
+          this.ySpeed = -this.speed*Math.cos(this.direction);
+        }
+
+        //Offset so bullet appears to leave the end of the gun
+        //NOT IMPLEMENTED CURRENTLY
+
+        //Take angling of the bullet from rotation of player
+        this.rotation = player.rotation;
+
+        //Time since new bullet spawned
+        this.born = 0;
+    },
+
+    //Updates the position of the bullet each cycle
+    update: function (time, delta)
+    {
+        this.x += this.xSpeed * delta;
+        this.y += this.ySpeed * delta;
+
+        this.born += delta;
+
+        if (this.born > 1000)
+        {
+            this.setActive(false);
+            this.setVisible(false);
+        }
+
+    }
+
+});
+
+
+//Enemies
+var Enemy = new Phaser.Class( {
+
+    Extends: Phaser.GameObjects.Image,
+
+    initialize: 
+
+    function Enemy(scene)
+    {
+        Phaser.GameObjects.Image.call(this, scene, 0, 0, 'face');
+
+        this.speed = 0.5;
+        this.direction = 0;
+        this.xSpeed = 0;
+        this.ySpeed = 0;
+    }
+});
+
+//Moves player on downpress of W key
+this.input.keyboard.on('keydown_W', function (event) {
+    player.setAccelerationY(-800);
+});
+
+this.input.keyboard.on('keydown_S', function (event) {
+    player.setAccelerationY(800);
+});
+
+this.input.keyboard.on('keydown_A', function (event) {
+    player.setAccelerationX(-800);
+});
+
+this.input.keyboard.on('keydown_D', function (event) {
+    player.setAccelerationX(800);
+});
+
+//Stops player acceleration on uppress of WASD keys
+this.input.keyboard.on('keyup_W', function (event) {
+    if (moveKeys['down'].isUp) {
+        player.setAccelerationY(0);
+    }
+});
+
+this.input.keyboard.on('keyup_S', function (event) {
+    if (moveKeys['up'].isUp) {
+        player.setAccelerationY(0);
+    }
+});
+
+this.input.keyboard.on('keyup_A', function (event) {
+    if (moveKeys['right'].isUp) {
+        player.setAccelerationX(0);
+    }
+});
+
+this.input.keyboard.on('keyup_D', function (event) {
+    if (moveKeys['left'].isUp) {
+        player.setAccelerationX(0);
+    }
+});
+
+//Creates object for input with WASD kets
+moveKeys = this.input.keyboard.addKeys({
+
+  'up': Phaser.Input.Keyboard.KeyCodes.W,
+  'down': Phaser.Input.Keyboard.KeyCodes.S,
+  'left': Phaser.Input.Keyboard.KeyCodes.A,
+  'right': Phaser.Input.Keyboard.KeyCodes.D
+
+});
+
+//Creates a bullet upon left click of mouse
+this.input.on('pointerdown', function (pointer) {
+
+  var bullet = this.bullets.get();
+  bullet.setActive(true);
+  bullet.setVisible(true);
+
+  if (bullet)
+  {
+      bullet.fire(player, pointer);
+
+      //Sets maximum rate of fire of bullet
+      this.lastFired = this.time + 10000;
+  }
+
+}, this);
 
 function create ()
 {
-    //Bullet class
-    var Bullet = new Phaser.Class({
-
-        Extends: Phaser.GameObjects.Image,
-
-        initialize:
-
-        //Set the image file for the bullet and initial variables
-        function Bullet (scene)
-        {
-            Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
-
-            this.speed = 1;
-            this.born = 0;
-            this.direction = 0;
-            this.xSpeed = 0;
-            this.ySpeed = 0;
-        },
-
-        //Define the fire function which will be called on left mouse click
-        fire: function (player, pointer)
-        {
-            //Initial position of bullet is player's position
-            this.setPosition(player.x, player.y);
-
-            //Calculate trajectory of bullet so that it moves from player towards pointer
-            this.direction = Math.atan( (pointer.x-this.x) / (pointer.y-this.y));
-
-            if (pointer.y > this.y)
-            {
-                this.xSpeed = this.speed*Math.sin(this.direction);
-                this.ySpeed = this.speed*Math.cos(this.direction);
-            }
-            else
-            {
-              this.xSpeed = -this.speed*Math.sin(this.direction);
-              this.ySpeed = -this.speed*Math.cos(this.direction);
-            }
-
-            //Offset so bullet appears to leave the end of the gun
-            //NOT IMPLEMENTED CURRENTLY
-
-            //Take angling of the bullet from rotation of player
-            this.rotation = player.rotation;
-
-            //Time since new bullet spawned
-            this.born = 0;
-        },
-
-        //Updates the position of the bullet each cycle
-        update: function (time, delta)
-        {
-            this.x += this.xSpeed * delta;
-            this.y += this.ySpeed * delta;
-
-            this.born += delta;
-
-            if (this.born > 1000)
-            {
-                this.setActive(false);
-                this.setVisible(false);
-            }
-        }
-
-    });
 
     //Does this group automatically handle recycling of Bullet objects?
     this.bullets = this.add.group({ classType: Bullet, runChildUpdate: true });
+    this.enemies = this.add.group({ classType: Enemy, runChildUpdate: true });
 
     //Create player sprite
     player = this.impact.add.sprite(400, 300, 'ship').setDepth(1);
@@ -131,86 +226,12 @@ function create ()
     // });
     // player.anims.play('idle', true);
 
-    //Creates object for input with WASD kets
-    moveKeys = this.input.keyboard.addKeys({
-
-      'up': Phaser.Input.Keyboard.KeyCodes.W,
-      'down': Phaser.Input.Keyboard.KeyCodes.S,
-      'left': Phaser.Input.Keyboard.KeyCodes.A,
-      'right': Phaser.Input.Keyboard.KeyCodes.D
-
-    });
-
-    //Creates a bullet upon left click of mouse
-    this.input.on('pointerdown', function (pointer) {
-
-      var bullet = this.bullets.get();
-      bullet.setActive(true);
-      bullet.setVisible(true);
-
-      if (bullet)
-      {
-          bullet.fire(player, pointer);
-
-          //Sets maximum rate of fire of bullet
-          this.lastFired = this.time + 10000;
-      }
-
-    }, this);
-
-    //Rotates player to face pointer
-    function rotatePlayer(pointer)
-    {
-        var angle = Phaser.Math.Angle.Between(player.x, player.y, pointer.x, pointer.y);
-        player.rotation = angle;
-    }
-
-    //Moves player on downpress of W key
-    this.input.keyboard.on('keydown_W', function (event) {
-        player.setAccelerationY(-800);
-    });
-
-    this.input.keyboard.on('keydown_S', function (event) {
-        player.setAccelerationY(800);
-    });
-
-    this.input.keyboard.on('keydown_A', function (event) {
-        player.setAccelerationX(-800);
-    });
-
-    this.input.keyboard.on('keydown_D', function (event) {
-        player.setAccelerationX(800);
-    });
-
-    //Stops player acceleration on uppress of WASD keys
-    this.input.keyboard.on('keyup_W', function (event) {
-        if (moveKeys['down'].isUp) {
-            player.setAccelerationY(0);
-        }
-    });
-
-    this.input.keyboard.on('keyup_S', function (event) {
-        if (moveKeys['up'].isUp) {
-            player.setAccelerationY(0);
-        }
-    });
-
-    this.input.keyboard.on('keyup_A', function (event) {
-        if (moveKeys['right'].isUp) {
-            player.setAccelerationX(0);
-        }
-    });
-
-    this.input.keyboard.on('keyup_D', function (event) {
-        if (moveKeys['left'].isUp) {
-            player.setAccelerationX(0);
-        }
-    });
-
     //Sets the bound for the camera to 800 x 600
     this.cameras.main.setBounds(0, 0, 800, 600);
 
 }
+
+
 
 function update (time, delta)
 {

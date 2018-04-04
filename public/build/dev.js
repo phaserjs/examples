@@ -3362,7 +3362,9 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Clamp = __webpack_require__(/*! ../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var FindClosestInSorted = __webpack_require__(/*! ../utils/array/FindClosestInSorted */ "./utils/array/FindClosestInSorted.js");
 var Frame = __webpack_require__(/*! ./AnimationFrame */ "./animations/AnimationFrame.js");
 var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/object/GetValue.js");
 
@@ -3373,11 +3375,11 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
  * @property {string} type - A frame based animation (as opposed to a bone based animation)
  * @property {JSONAnimationFrame[]} frames - [description]
  * @property {integer} frameRate - The frame rate of playback in frames per second (default 24 if duration is null)
- * @property {integer} duration - How long the animation should play for.
+ * @property {integer} duration - How long the animation should play for in milliseconds. If not given its derived from frameRate.
  * @property {boolean} skipMissedFrames - Skip frames if the time lags, or always advanced anyway?
- * @property {integer} delay - Delay before starting playback (in seconds)
+ * @property {integer} delay - Delay before starting playback. Value given in milliseconds.
  * @property {integer} repeat - Number of times to repeat the animation (-1 for infinity)
- * @property {integer} repeatDelay - Delay before the repeat starts (in seconds)
+ * @property {integer} repeatDelay - Delay before the animation repeats. Value given in milliseconds.
  * @property {boolean} yoyo - Should the animation yoyo? (reverse back down to the start) before repeating?
  * @property {boolean} showOnStart - Should sprite.visible = true when the animation starts to play?
  * @property {boolean} hideOnComplete - Should sprite.visible = false when the animation finishes?
@@ -3399,14 +3401,15 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
  * @property {AnimationFrameConfig[]} [frames] - [description]
  * @property {string} [defaultTextureKey=null] - [description]
  * @property {integer} [frameRate] - The frame rate of playback in frames per second (default 24 if duration is null)
- * @property {integer} [duration] - How long the animation should play for.
+ * @property {integer} [duration] - How long the animation should play for in milliseconds. If not given its derived from frameRate.
  * @property {boolean} [skipMissedFrames=true] - Skip frames if the time lags, or always advanced anyway?
- * @property {integer} [delay=0] - Delay before starting playback (in seconds)
+ * @property {integer} [delay=0] - Delay before starting playback. Value given in milliseconds.
  * @property {integer} [repeat=0] - Number of times to repeat the animation (-1 for infinity)
- * @property {integer} [repeatDelay=0] - Delay before the repeat starts (in seconds)
+ * @property {integer} [repeatDelay=0] - Delay before the animation repeats. Value given in milliseconds.
  * @property {boolean} [yoyo=false] - Should the animation yoyo? (reverse back down to the start) before repeating?
  * @property {boolean} [showOnStart=false] - Should sprite.visible = true when the animation starts to play?
  * @property {boolean} [hideOnComplete=false] - Should sprite.visible = false when the animation finishes?
+
  * @property {*} [callbackScope] - [description]
  * @property {(false|function)} [onStart=false] - [description]
  * @property {Array.<*>} [onStartParams] - [description]
@@ -3495,8 +3498,9 @@ var Animation = new Class({
         this.frameRate = GetValue(config, 'frameRate', null);
 
         /**
-         * How long the animation should play for.
-         * If frameRate is set it overrides this value otherwise frameRate is derived from duration.
+         * How long the animation should play for, in milliseconds.
+         * If the `frameRate` property has been set then it overrides this value,
+         * otherwise the `frameRate` is derived from `duration`.
          *
          * @name Phaser.Animations.Animation#duration
          * @type {integer}
@@ -3508,25 +3512,25 @@ var Animation = new Class({
         {
             //  No duration or frameRate given, use default frameRate of 24fps
             this.frameRate = 24;
-            this.duration = this.frameRate / this.frames.length;
+            this.duration = (this.frameRate / this.frames.length) * 1000;
         }
         else if (this.duration && this.frameRate === null)
         {
             //  Duration given but no frameRate, so set the frameRate based on duration
-            //  I.e. 12 frames in the animation, duration = 4 (4000 ms)
-            //  So frameRate is 12 / 4 = 3 fps
-            this.frameRate = this.frames.length / this.duration;
+            //  I.e. 12 frames in the animation, duration = 4000 ms
+            //  So frameRate is 12 / (4000 / 1000) = 3 fps
+            this.frameRate = this.frames.length / (this.duration / 1000);
         }
         else
         {
             //  frameRate given, derive duration from it (even if duration also specified)
             //  I.e. 15 frames in the animation, frameRate = 30 fps
-            //  So duration is 15 / 30 = 0.5 (half a second)
-            this.duration = this.frames.length / this.frameRate;
+            //  So duration is 15 / 30 = 0.5 * 1000 (half a second, or 500ms)
+            this.duration = (this.frames.length / this.frameRate) * 1000;
         }
 
         /**
-         * ms per frame (without including frame specific modifiers)
+         * How many ms per frame, not including frame specific modifiers.
          *
          * @name Phaser.Animations.Animation#msPerFrame
          * @type {integer}
@@ -3545,7 +3549,7 @@ var Animation = new Class({
         this.skipMissedFrames = GetValue(config, 'skipMissedFrames', true);
 
         /**
-         * Delay before starting playback (in seconds)
+         * The delay in ms before the playback will begin.
          *
          * @name Phaser.Animations.Animation#delay
          * @type {integer}
@@ -3555,7 +3559,7 @@ var Animation = new Class({
         this.delay = GetValue(config, 'delay', 0);
 
         /**
-         * Number of times to repeat the animation (-1 for infinity)
+         * Number of times to repeat the animation. Set to -1 to repeat forever.
          *
          * @name Phaser.Animations.Animation#repeat
          * @type {integer}
@@ -3565,7 +3569,7 @@ var Animation = new Class({
         this.repeat = GetValue(config, 'repeat', 0);
 
         /**
-         * Delay before the repeat starts (in seconds)
+         * The delay in ms before the a repeat playthrough starts.
          *
          * @name Phaser.Animations.Animation#repeatDelay
          * @type {integer}
@@ -3687,7 +3691,7 @@ var Animation = new Class({
         this.onCompleteParams = GetValue(config, 'onCompleteParams', []);
 
         /**
-         * Global pause, effects all Game Objects using this Animation instance
+         * Global pause. All Game Objects using this Animation instance are impacted by this property.
          *
          * @name Phaser.Animations.Animation#paused
          * @type {boolean}
@@ -3696,14 +3700,12 @@ var Animation = new Class({
          */
         this.paused = false;
 
-        this.manager.on('pauseall', this.pause.bind(this));
-        this.manager.on('resumeall', this.resume.bind(this));
+        this.manager.on('pauseall', this.pause, this);
+        this.manager.on('resumeall', this.resume, this);
     },
 
-    //  Add frames to the end of the animation
-
     /**
-     * [description]
+     * Add frames to the end of the animation.
      *
      * @method Phaser.Animations.Animation#addFrame
      * @since 3.0.0
@@ -3717,10 +3719,8 @@ var Animation = new Class({
         return this.addFrameAt(this.frames.length, config);
     },
 
-    //  Add frame/s into the animation
-
     /**
-     * [description]
+     * Add frame/s into the animation.
      *
      * @method Phaser.Animations.Animation#addFrameAt
      * @since 3.0.0
@@ -3759,24 +3759,25 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Check if the given frame index is valid.
      *
      * @method Phaser.Animations.Animation#checkFrame
      * @since 3.0.0
      *
-     * @param {integer} index - [description]
+     * @param {integer} index - The index to be checked.
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if the index is valid, otherwise `false`.
      */
     checkFrame: function (index)
     {
-        return (index < this.frames.length);
+        return (index >= 0 && index < this.frames.length);
     },
 
     /**
      * [description]
      *
      * @method Phaser.Animations.Animation#completeAnimation
+     * @protected
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Components.Animation} component - [description]
@@ -3795,6 +3796,7 @@ var Animation = new Class({
      * [description]
      *
      * @method Phaser.Animations.Animation#getFirstTick
+     * @protected
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Components.Animation} component - [description]
@@ -3810,7 +3812,7 @@ var Animation = new Class({
 
         if (includeDelay)
         {
-            component.nextTick += (component._delay * 1000);
+            component.nextTick += component._delay;
         }
     },
 
@@ -3818,6 +3820,7 @@ var Animation = new Class({
      * [description]
      *
      * @method Phaser.Animations.Animation#getFrameAt
+     * @protected
      * @since 3.0.0
      *
      * @param {integer} index - [description]
@@ -3972,11 +3975,12 @@ var Animation = new Class({
         {
             component.currentAnim = this;
 
-            component._timeScale = 1;
             component.frameRate = this.frameRate;
             component.duration = this.duration;
             component.msPerFrame = this.msPerFrame;
             component.skipMissedFrames = this.skipMissedFrames;
+
+            component._timeScale = 1;
             component._delay = this.delay;
             component._repeat = this.repeat;
             component._repeatDelay = this.repeatDelay;
@@ -3986,6 +3990,23 @@ var Animation = new Class({
         }
 
         component.updateFrame(this.frames[startFrame]);
+    },
+
+    /**
+     * Returns the frame closest to the given progress value between 0 and 1.
+     *
+     * @method Phaser.Animations.Animation#getFrameByProgress
+     * @since 3.4.0
+     *
+     * @param {float} value - A value between 0 and 1.
+     *
+     * @return {Phaser.Animations.AnimationFrame} [description]
+     */
+    getFrameByProgress: function (value)
+    {
+        value = Clamp(value, 0, 1);
+
+        return FindClosestInSorted(value, this.frames, 'progress');
     },
 
     /**
@@ -4125,7 +4146,7 @@ var Animation = new Class({
         {
             component.pendingRepeat = true;
             component.accumulator -= component.nextTick;
-            component.nextTick += (component._repeatDelay * 1000);
+            component.nextTick += component._repeatDelay;
         }
         else
         {
@@ -4283,7 +4304,19 @@ var Animation = new Class({
      */
     destroy: function ()
     {
-        //  TODO
+        this.manager.off('pauseall', this.pause, this);
+        this.manager.off('resumeall', this.resume, this);
+
+        this.manager.remove(this.key);
+
+        for (var i = 0; i < this.frames.length; i++)
+        {
+            this.frames[i].destroy();
+        }
+
+        this.frames = [];
+
+        this.manager = null;
     }
 
 });
@@ -5012,24 +5045,28 @@ var AnimationManager = new Class({
     },
 
     /**
-     * [description]
+     * Takes an array of Game Objects that have the Animation Component and then
+     * starts the given animation playing on them, each one offset by the
+     * `stagger` amount given to this method.
      *
      * @method Phaser.Animations.AnimationManager#staggerPlay
      * @since 3.0.0
+     * 
+     * @generic {Phaser.GameObjects.GameObject[]} G - [items,$return]
      *
-     * @param {string} key - [description]
-     * @param {Phaser.GameObjects.GameObject} child - [description]
-     * @param {number} [stagger=0] - [description]
+     * @param {string} key - The key of the animation to play on the Game Objects.
+     * @param {Phaser.GameObjects.GameObject[]} children - An array of Game Objects to play the animation on. They must have the Animation Component.
+     * @param {number} [stagger=0] - The amount of time, in milliseconds, to offset each play time by.
      *
      * @return {Phaser.Animations.AnimationManager} This Animation Manager.
      */
-    staggerPlay: function (key, child, stagger)
+    staggerPlay: function (key, children, stagger)
     {
         if (stagger === undefined) { stagger = 0; }
 
-        if (!Array.isArray(child))
+        if (!Array.isArray(children))
         {
-            child = [ child ];
+            children = [ children ];
         }
 
         var anim = this.get(key);
@@ -5039,9 +5076,9 @@ var AnimationManager = new Class({
             return;
         }
 
-        for (var i = 0; i < child.length; i++)
+        for (var i = 0; i < children.length; i++)
         {
-            child[i].anims.delayedPlay(stagger * i, key);
+            children[i].anims.delayedPlay(stagger * i, key);
         }
 
         return this;
@@ -27497,7 +27534,7 @@ var Animation = new Class({
         this.skipMissedFrames = true;
 
         /**
-         * A delay before starting playback, in seconds.
+         * A delay before starting playback, in milliseconds.
          *
          * @name Phaser.GameObjects.Components.Animation#_delay
          * @type {number}
@@ -27519,7 +27556,7 @@ var Animation = new Class({
         this._repeat = 0;
 
         /**
-         * Delay before the repeat starts, in seconds.
+         * Delay before the repeat starts, in milliseconds.
          *
          * @name Phaser.GameObjects.Components.Animation#_repeatDelay
          * @type {number}
@@ -27634,12 +27671,12 @@ var Animation = new Class({
     },
 
     /**
-     * Sets the amount of time, in seconds that the animation will be delayed before starting playback.
+     * Sets the amount of time, in milliseconds, that the animation will be delayed before starting playback.
      *
      * @method Phaser.GameObjects.Components.Animation#delay
      * @since 3.4.0
      *
-     * @param {number} [value=0] - The amount of time, in seconds, to wait before starting playback.
+     * @param {integer} [value=0] - The amount of time, in milliseconds, to wait before starting playback.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -27653,12 +27690,12 @@ var Animation = new Class({
     },
 
     /**
-     * Gets the amount of time, in seconds that the animation will be delayed before starting playback.
+     * Gets the amount of time, in milliseconds that the animation will be delayed before starting playback.
      *
      * @method Phaser.GameObjects.Components.Animation#delay
      * @since 3.4.0
      *
-     * @return {number} The amount of time, in seconds, the Animation will wait before starting playback.
+     * @return {integer} The amount of time, in milliseconds, the Animation will wait before starting playback.
      */
     getDelay: function ()
     {
@@ -27666,14 +27703,14 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Waits for the specified delay, in milliseconds, then starts playback of the requested animation.
      *
      * @method Phaser.GameObjects.Components.Animation#delayedPlay
      * @since 3.0.0
      *
-     * @param {number} delay - [description]
-     * @param {string} key - [description]
-     * @param {integer} startFrame - [description]
+     * @param {integer} delay - The delay, in milliseconds, to wait before starting the animation playing.
+     * @param {string} key - The key of the animation to play.
+     * @param {integer} [startFrame=0] - The frame of the animation to start from.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -27681,18 +27718,18 @@ var Animation = new Class({
     {
         this.play(key, true, startFrame);
 
-        this.nextTick += (delay * 1000);
+        this.nextTick += delay;
 
         return this.parent;
     },
 
     /**
-     * [description]
+     * Returns the key of the animation currently loaded into this component.
      *
      * @method Phaser.GameObjects.Components.Animation#getCurrentKey
      * @since 3.0.0
      *
-     * @return {string} [description]
+     * @return {string} The key of the Animation loaded into this component.
      */
     getCurrentKey: function ()
     {
@@ -27703,9 +27740,10 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Internal method used to load an animation into this component.
      *
      * @method Phaser.GameObjects.Components.Animation#load
+     * @protected
      * @since 3.0.0
      *
      * @param {string} key - [description]
@@ -27729,12 +27767,13 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Pause the current animation and set the `isPlaying` property to `false`.
+     * You can optionally pause it at a specific frame.
      *
      * @method Phaser.GameObjects.Components.Animation#pause
      * @since 3.0.0
      *
-     * @param {Phaser.Animations.Animation} [atFrame] - [description]
+     * @param {Phaser.Animations.AnimationFrame} [atFrame] - An optional frame to set after pausing the animation.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -27756,12 +27795,13 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Resumes playback of a paused animation and sets the `isPlaying` property to `true`.
+     * You can optionally tell it to start playback from a specific frame.
      *
      * @method Phaser.GameObjects.Components.Animation#resume
      * @since 3.0.0
      *
-     * @param {Phaser.Animations.AnimationFrame} [fromFrame] - [description]
+     * @param {Phaser.Animations.AnimationFrame} [fromFrame] - An optional frame to set before restarting playback.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -27785,6 +27825,7 @@ var Animation = new Class({
      * `true` if the current animation is paused, otherwise `false`.
      *
      * @name Phaser.GameObjects.Components.Animation#isPaused
+     * @readOnly
      * @type {boolean}
      * @since 3.4.0
      */
@@ -27798,14 +27839,14 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Plays an Animation on the Game Object that owns this Animation Component.
      *
      * @method Phaser.GameObjects.Components.Animation#play
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {boolean} [ignoreIfPlaying=false] - [description]
-     * @param {integer} [startFrame=0] - [description]
+     * @param {string} key - The string-based key of the animation to play, as defined previously in the Animation Manager.
+     * @param {boolean} [ignoreIfPlaying=false] - If an animation is already playing then ignore this call.
+     * @param {integer} [startFrame=0] - Optionally start the animation playing from this frame index.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -27868,7 +27909,28 @@ var Animation = new Class({
         return p;
     },
 
-    //  TODO: Set progress
+    /**
+     * Takes a value between 0 and 1 and uses it to set how far this animation is through playback.
+     * Does not factor in repeats or yoyos, but does handle playing forwards or backwards.
+     *
+     * @method Phaser.GameObjects.Components.Animation#setProgress
+     * @since 3.4.0
+     *
+     * @param {float} [value=0] - [description]
+     *
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
+     */
+    setProgress: function (value)
+    {
+        if (!this.forward)
+        {
+            value = 1 - value;
+        }
+
+        this.setCurrentFrame(this.animationManager.getFrameByProgress(value));
+
+        return this.parent;
+    },
 
     /**
      * [description]
@@ -142788,31 +142850,64 @@ module.exports = NOOP;
  *
  * @param {number} value - The value to search for in the array.
  * @param {array} array - The array to search, which must be sorted.
+ * @param {string} [key] - An optional property key. If specified the array elements property will be checked against value.
  *
- * @return {number} The nearest value found in the array.
+ * @return {number|object} The nearest value found in the array, or if a `key` was given, the nearest object with the matching property value.
  */
-var FindClosestInSorted = function (value, array)
+var FindClosestInSorted = function (value, array, key)
 {
     if (!array.length)
     {
         return NaN;
     }
-    else if (array.length === 1 || value < array[0])
+    else if (array.length === 1)
     {
         return array[0];
     }
 
     var i = 1;
+    var low;
+    var high;
 
-    while (array[i] < value)
+    if (key)
     {
-        i++;
+        if (value < array[0][key])
+        {
+            return array[0];
+        }
+
+        while (array[i][key] < value)
+        {
+            i++;
+        }
+    }
+    else
+    {
+        while (array[i] < value)
+        {
+            i++;
+        }
     }
 
-    var low = array[i - 1];
-    var high = (i < array.length) ? array[i] : Number.POSITIVE_INFINITY;
+    if (i > array.length)
+    {
+        i = array.length;
+    }
 
-    return ((high - value) <= (value - low)) ? high : low;
+    if (key)
+    {
+        low = array[i - 1][key];
+        high = array[i][key];
+
+        return ((high - value) <= (value - low)) ? array[i] : array[i - 1];
+    }
+    else
+    {
+        low = array[i - 1];
+        high = array[i];
+
+        return ((high - value) <= (value - low)) ? high : low;
+    }
 };
 
 module.exports = FindClosestInSorted;

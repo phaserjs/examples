@@ -172,7 +172,7 @@
         {
           "path": "src\\animation\\add frames to existing animation.js",
           "name": "add frames to existing animation.js",
-          "size": 952,
+          "size": 914,
           "extension": ".js"
         },
         {
@@ -185,6 +185,12 @@
           "path": "src\\animation\\animation from png sequence.js",
           "name": "animation from png sequence.js",
           "size": 847,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\animation\\animation progress.js",
+          "name": "animation progress.js",
+          "size": 674,
           "extension": ".js"
         },
         {
@@ -316,7 +322,7 @@
         {
           "path": "src\\animation\\scaled animation.js",
           "name": "scaled animation.js",
-          "size": 614,
+          "size": 624,
           "extension": ".js"
         },
         {
@@ -334,7 +340,7 @@
         {
           "path": "src\\animation\\stagger play.js",
           "name": "stagger play.js",
-          "size": 910,
+          "size": 907,
           "extension": ".js"
         },
         {
@@ -344,7 +350,7 @@
           "extension": ".js"
         }
       ],
-      "size": 34726
+      "size": 35369
     },
     {
       "path": "src\\archived",
@@ -3150,7 +3156,7 @@
             {
               "path": "src\\game objects\\particle emitter\\particles on a path.js",
               "name": "particles on a path.js",
-              "size": 1048,
+              "size": 818,
               "extension": ".js"
             },
             {
@@ -3214,7 +3220,7 @@
               "extension": ".js"
             }
           ],
-          "size": 74402
+          "size": 74172
         },
         {
           "path": "src\\game objects\\quad",
@@ -3901,7 +3907,7 @@
           "size": 251895
         }
       ],
-      "size": 654613
+      "size": 654383
     },
     {
       "path": "src\\games",
@@ -8114,5 +8120,5 @@
       "size": 4792
     }
   ],
-  "size": 2113991
+  "size": 2114404
 }

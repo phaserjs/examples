@@ -3952,9 +3952,10 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Loads the Animation values into the Animation Component.
      *
      * @method Phaser.Animations.Animation#load
+     * @private
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Components.Animation} component - [description]
@@ -4006,7 +4007,7 @@ var Animation = new Class({
             //  We're at the end of the animation
 
             //  Yoyo? (happens before repeat)
-            if (this.yoyo)
+            if (component.yoyo)
             {
                 component.forward = false;
 
@@ -7407,7 +7408,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#binary
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.binary = new BaseCache();
@@ -7418,7 +7418,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#bitmapFont
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.bitmapFont = new BaseCache();
@@ -7428,7 +7427,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#json
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.json = new BaseCache();
@@ -7438,7 +7436,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#physics
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.physics = new BaseCache();
@@ -7448,7 +7445,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#shader
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.shader = new BaseCache();
@@ -7458,7 +7454,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#audio
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.audio = new BaseCache();
@@ -7468,7 +7463,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#text
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.text = new BaseCache();
@@ -7478,7 +7472,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#obj
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.obj = new BaseCache();
@@ -7489,7 +7482,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#tilemap
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.tilemap = new BaseCache();
@@ -7499,7 +7491,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#xml
          * @type {Phaser.Cache.BaseCache}
-         * @protected
          * @since 3.0.0
          */
         this.xml = new BaseCache();
@@ -7510,7 +7501,6 @@ var CacheManager = new Class({
          *
          * @name Phaser.Cache.CacheManager#custom
          * @type {Object.<Phaser.Cache.BaseCache>}
-         * @protected
          * @since 3.0.0
          */
         this.custom = {};
@@ -14349,11 +14339,15 @@ var LineCurve = new Class({
      * @method Phaser.Curves.LineCurve#getResolution
      * @since 3.0.0
      *
-     * @return {integer} [description]
+     * @param {number} [divisions=1] - [description]
+     *
+     * @return {number} [description]
      */
-    getResolution: function ()
+    getResolution: function (divisions)
     {
-        return 1;
+        if (divisions === undefined) { divisions = 1; }
+
+        return divisions;
     },
 
     /**
@@ -24186,6 +24180,7 @@ var GetBitmapTextSize = function (src, round)
 
     var chars = src.fontData.chars;
     var lineHeight = src.fontData.lineHeight;
+    var letterSpacing = src.letterSpacing;
 
     var xAdvance = 0;
     var yAdvance = 0;
@@ -24258,7 +24253,7 @@ var GetBitmapTextSize = function (src, round)
             bh = gh;
         }
 
-        xAdvance += glyph.xAdvance;
+        xAdvance += glyph.xAdvance + letterSpacing;
         indexCount += 1;
         lastGlyph = glyph;
         lastCharCode = charCode;
@@ -25529,6 +25524,7 @@ var Render = __webpack_require__(/*! ./BitmapTextRender */ "./gameobjects/bitmap
  * @property {string} font - [description]
  * @property {string} text - [description]
  * @property {number} fontSize - [description]
+ * @property {number} letterSpacing - Adds/Removes spacing between characters
  */
 
 /**
@@ -25625,6 +25621,16 @@ var BitmapText = new Class({
          */
         this.fontSize = size || this.fontData.size;
 
+        /**
+         * Adds/Removes spacing between characters
+         * Can be a negative or positive number
+         *
+         * @name Phaser.GameObjects.BitmapText#letterSpacing
+         * @type {number}
+         * @since 3.4.0
+         */
+        this.letterSpacing = 0;
+
         this.setTexture(entry.texture, entry.frame);
         this.setPosition(x, y);
         this.setOrigin(0, 0);
@@ -25654,6 +25660,27 @@ var BitmapText = new Class({
     setFontSize: function (size)
     {
         this.fontSize = size;
+
+        return this;
+    },
+
+    /**
+     * Sets the letter spacing between each character of this Bitmap Text.
+     * Can be a positive value to increase the space, or negative to reduce it.
+     * Spacing is applied after the kerning values have been set.
+     *
+     * @method Phaser.GameObjects.BitmapText#setLetterSpacing
+     * @since 3.4.0
+     *
+     * @param {number} [spacing=0] - The amount of horizontal space to add between each character.
+     *
+     * @return {Phaser.GameObjects.BitmapText} This Game Object.
+     */
+    setLetterSpacing: function (spacing)
+    {
+        if (spacing === undefined) { spacing = 0; }
+
+        this.letterSpacing = spacing;
 
         return this;
     },
@@ -25763,7 +25790,8 @@ var BitmapText = new Class({
         var data = {
             font: this.font,
             text: this.text,
-            fontSize: this.fontSize
+            fontSize: this.fontSize,
+            letterSpacing: this.letterSpacing
         };
 
         out.data = data;
@@ -25824,6 +25852,7 @@ var BitmapTextCanvasRenderer = function (renderer, src, interpolationPercentage,
 
     var chars = src.fontData.chars;
     var lineHeight = src.fontData.lineHeight;
+    var letterSpacing = src.letterSpacing;
 
     var xAdvance = 0;
     var yAdvance = 0;
@@ -25930,7 +25959,7 @@ var BitmapTextCanvasRenderer = function (renderer, src, interpolationPercentage,
         x *= scale;
         y *= scale;
 
-        xAdvance += glyph.xAdvance;
+        xAdvance += glyph.xAdvance + letterSpacing;
         indexCount += 1;
         lastGlyph = glyph;
         lastCharCode = charCode;
@@ -27393,8 +27422,6 @@ var Animation = new Class({
          */
         this.isPlaying = false;
 
-        //  Reference to the Phaser.Animation object
-
         /**
          * The current Animation loaded into this Animation Controller.
          *
@@ -27438,9 +27465,9 @@ var Animation = new Class({
         this.frameRate = 0;
 
         /**
-         * How long the animation should play for.
+         * How long the animation should play for, in milliseconds.
          * If the `frameRate` property has been set then it overrides this value,
-         * otherwise frameRate is derived from `duration`.
+         * otherwise the `frameRate` is derived from `duration`.
          *
          * @name Phaser.GameObjects.Components.Animation#duration
          * @type {number}
@@ -27610,24 +27637,32 @@ var Animation = new Class({
      * Sets the amount of time, in seconds that the animation will be delayed before starting playback.
      *
      * @method Phaser.GameObjects.Components.Animation#delay
-     * @since 3.0.0
+     * @since 3.4.0
      *
-     * @param {number} value - The amount of time, in seconds, to wait before starting playback.
+     * @param {number} [value=0] - The amount of time, in seconds, to wait before starting playback.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object.
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    delay: function (value)
+    setDelay: function (value)
     {
-        if (value === undefined)
-        {
-            return this._delay;
-        }
-        else
-        {
-            this._delay = value;
+        if (value === undefined) { value = 0; }
 
-            return this;
-        }
+        this._delay = value;
+
+        return this.parent;
+    },
+
+    /**
+     * Gets the amount of time, in seconds that the animation will be delayed before starting playback.
+     *
+     * @method Phaser.GameObjects.Components.Animation#delay
+     * @since 3.4.0
+     *
+     * @return {number} The amount of time, in seconds, the Animation will wait before starting playback.
+     */
+    getDelay: function ()
+    {
+        return this._delay;
     },
 
     /**
@@ -27640,7 +27675,7 @@ var Animation = new Class({
      * @param {string} key - [description]
      * @param {integer} startFrame - [description]
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object.
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
     delayedPlay: function (delay, key, startFrame)
     {
@@ -27648,7 +27683,7 @@ var Animation = new Class({
 
         this.nextTick += (delay * 1000);
 
-        return this;
+        return this.parent;
     },
 
     /**
@@ -27676,7 +27711,7 @@ var Animation = new Class({
      * @param {string} key - [description]
      * @param {integer} [startFrame=0] - [description]
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object.
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
     load: function (key, startFrame)
     {
@@ -27690,7 +27725,7 @@ var Animation = new Class({
         //  Load the new animation in
         this.animationManager.load(this, key, startFrame);
 
-        return this;
+        return this.parent;
     },
 
     /**
@@ -27701,7 +27736,7 @@ var Animation = new Class({
      *
      * @param {Phaser.Animations.Animation} [atFrame] - [description]
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object.
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
     pause: function (atFrame)
     {
@@ -27717,37 +27752,49 @@ var Animation = new Class({
             this.updateFrame(atFrame);
         }
 
-        return this;
+        return this.parent;
     },
 
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.Animation#paused
+     * @method Phaser.GameObjects.Components.Animation#resume
      * @since 3.0.0
      *
-     * @param {boolean} [value] - [description]
+     * @param {Phaser.Animations.AnimationFrame} [fromFrame] - [description]
      *
-     * @return {(boolean|Phaser.GameObjects.GameObject)} [description]
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    paused: function (value)
+    resume: function (fromFrame)
     {
-        if (value !== undefined)
+        if (this._paused)
         {
-            //  Setter
-            if (value)
-            {
-                return this.pause();
-            }
-            else
-            {
-                return this.resume();
-            }
+            this._paused = false;
+            this.isPlaying = this._wasPlaying;
         }
-        else
+
+        if (fromFrame !== undefined)
+        {
+            this.updateFrame(fromFrame);
+        }
+
+        return this.parent;
+    },
+
+    /**
+     * `true` if the current animation is paused, otherwise `false`.
+     *
+     * @name Phaser.GameObjects.Components.Animation#isPaused
+     * @type {boolean}
+     * @since 3.4.0
+     */
+    isPaused: {
+
+        get: function ()
         {
             return this._paused;
         }
+
     },
 
     /**
@@ -27760,7 +27807,7 @@ var Animation = new Class({
      * @param {boolean} [ignoreIfPlaying=false] - [description]
      * @param {integer} [startFrame=0] - [description]
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object.
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
     play: function (key, ignoreIfPlaying, startFrame)
     {
@@ -27769,7 +27816,7 @@ var Animation = new Class({
 
         if (ignoreIfPlaying && this.isPlaying && this.currentAnim.key === key)
         {
-            return this;
+            return this.parent;
         }
 
         this.load(key, startFrame);
@@ -27796,44 +27843,32 @@ var Animation = new Class({
             anim.onStart.apply(anim.callbackScope, this._callbackArgs.concat(anim.onStartParams));
         }
 
-        gameObject.setSizeToFrame();
-        gameObject.updateDisplayOrigin();
-
-        return this;
+        return gameObject;
     },
 
     /**
-     * Value between 0 and 1. How far this animation is through, ignoring repeats and yoyos.
-     * If the animation has a non-zero repeat defined, progress and totalProgress will be different
-     * because progress doesn't include any repeats or repeatDelays whereas totalProgress does.
+     * Returns a value between 0 and 1 indicating how far this animation is through, ignoring repeats and yoyos.
+     * If the animation has a non-zero repeat defined, `getProgress` and `getTotalProgress` will be different
+     * because `getProgress` doesn't include any repeats or repeat delays, whereas `getTotalProgress` does.
      *
-     * @method Phaser.GameObjects.Components.Animation#progress
-     * @since 3.0.0
+     * @method Phaser.GameObjects.Components.Animation#getProgress
+     * @since 3.4.0
      *
-     * @param {number} [value] - [description]
-     *
-     * @return {(number|Phaser.GameObjects.GameObject)} [description]
+     * @return {float} The progress of the current animation, between 0 and 1.
      */
-    progress: function (value)
+    getProgress: function ()
     {
-        if (value === undefined)
+        var p = this.currentFrame.progress;
+
+        if (!this.forward)
         {
-            var p = this.currentFrame.progress;
-
-            if (!this.forward)
-            {
-                p = 1 - p;
-            }
-
-            return p;
+            p = 1 - p;
         }
-        else
-        {
-            //  TODO: Set progress
 
-            return this;
-        }
+        return p;
     },
+
+    //  TODO: Set progress
 
     /**
      * [description]
@@ -27851,80 +27886,90 @@ var Animation = new Class({
         {
             this.stop();
 
-            var sprite = this.parent;
-            var frame = this.currentAnim.frames[0];
-
-            this.currentFrame = frame;
-
-            sprite.texture = frame.frame.texture;
-            sprite.frame = frame.frame;
+            this.setCurrentFrame(this.currentAnim.frames[0]);
         }
     },
 
     /**
-     * Gets or sets the number of times that the animation should repeat
+     * Gets the number of times that the animation will repeat
+     * after its first iteration. For example, if returns 1, the animation will
+     * play a total of twice (the initial play plus 1 repeat).
+     * A value of -1 means the animation will repeat indefinitely.
+     *
+     * @method Phaser.GameObjects.Components.Animation#getRepeat
+     * @since 3.4.0
+     *
+     * @return {integer} The number of times that the animation will repeat.
+     */
+    getRepeat: function ()
+    {
+        return this._repeat;
+    },
+
+    /**
+     * Sets the number of times that the animation should repeat
      * after its first iteration. For example, if repeat is 1, the animation will
      * play a total of twice (the initial play plus 1 repeat).
      * To repeat indefinitely, use -1. repeat should always be an integer.
      *
-     * @method Phaser.GameObjects.Components.Animation#repeat
-     * @since 3.0.0
+     * @method Phaser.GameObjects.Components.Animation#setRepeat
+     * @since 3.4.0
      *
-     * @param {number} value - [description]
+     * @param {integer} value - [description]
      *
-     * @return {(number|Phaser.GameObjects.GameObject)} [description]
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    repeat: function (value)
+    setRepeat: function (value)
     {
-        if (value === undefined)
-        {
-            return this._repeat;
-        }
-        else
-        {
-            this._repeat = value;
-            this.repeatCounter = 0;
+        this._repeat = value;
 
-            return this;
-        }
+        this.repeatCounter = 0;
+
+        return this.parent;
     },
 
     /**
-     * Gets or sets the amount of time in seconds between repeats.
-     * For example, if repeat is 2 and repeatDelay is 1, the animation will play initially,
-     * then wait for 1 second before it repeats, then play again, then wait 1 second again
+     * Gets the amount of delay between repeats, if any.
+     * 
+     * @method Phaser.GameObjects.Components.Animation#getRepeatDelay
+     * @since 3.4.0
+     *
+     * @return {number} The delay between repeats.
+     */
+    getRepeatDelay: function ()
+    {
+        return this._repeatDelay;
+    },
+
+    /**
+     * Sets the amount of time in seconds between repeats.
+     * For example, if `repeat` is 2 and `repeatDelay` is 10, the animation will play initially,
+     * then wait for 10 seconds before repeating, then play again, then wait another 10 seconds
      * before doing its final repeat.
      *
-     * @method Phaser.GameObjects.Components.Animation#repeatDelay
-     * @since 3.0.0
+     * @method Phaser.GameObjects.Components.Animation#setRepeatDelay
+     * @since 3.4.0
      *
-     * @param {number} [value] - [description]
+     * @param {number} value - The delay to wait between repeats, in seconds.
      *
-     * @return {(number|Phaser.GameObjects.GameObject)} [description]
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    repeatDelay: function (value)
+    setRepeatDelay: function (value)
     {
-        if (value === undefined)
-        {
-            return this._repeatDelay;
-        }
-        else
-        {
-            this._repeatDelay = value;
+        this._repeatDelay = value;
 
-            return this;
-        }
+        return this.parent;
     },
 
     /**
-     * [description]
+     * Restarts the current animation from its beginning, optionally including its delay value.
      *
      * @method Phaser.GameObjects.Components.Animation#restart
      * @since 3.0.0
      *
      * @param {boolean} [includeDelay=false] - [description]
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object.
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
     restart: function (includeDelay)
     {
@@ -27940,44 +27985,18 @@ var Animation = new Class({
         //  Set frame
         this.updateFrame(this.currentAnim.frames[0]);
 
-        return this;
+        return this.parent;
     },
 
     /**
-     * [description]
-     *
-     * @method Phaser.GameObjects.Components.Animation#resume
-     * @since 3.0.0
-     *
-     * @param {Phaser.Animations.AnimationFrame} fromFrame - [description]
-     *
-     * @return {Phaser.GameObjects.GameObject} This Game Object.
-     */
-    resume: function (fromFrame)
-    {
-        if (this._paused)
-        {
-            this._paused = false;
-            this.isPlaying = this._wasPlaying;
-        }
-
-        if (fromFrame !== undefined)
-        {
-            this.updateFrame(fromFrame);
-        }
-
-        return this;
-    },
-
-    /**
-     * [description]
+     * Stops the current animation from playing and optionally dispatches any onComplete callbacks.
      *
      * @method Phaser.GameObjects.Components.Animation#stop
      * @since 3.0.0
      *
      * @param {boolean} [dispatchCallbacks=false] - [description]
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object.
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
     stop: function (dispatchCallbacks)
     {
@@ -27992,63 +28011,57 @@ var Animation = new Class({
             anim.onComplete.apply(anim.callbackScope, this._callbackArgs.concat(anim.onCompleteParams));
         }
 
-        return this;
+        return this.parent;
     },
 
     /**
-     * Scale the time (make it go faster / slower)
-     * Factor that's used to scale time where 1 = normal speed (the default), 0.5 = half speed, 2 = double speed, etc.
+     * Sets the Time Scale factor, allowing you to make the animation go go faster or slower than default.
+     * Where 1 = normal speed (the default), 0.5 = half speed, 2 = double speed, etc.
      *
-     * @method Phaser.GameObjects.Components.Animation#timeScale
-     * @since 3.0.0
+     * @method Phaser.GameObjects.Components.Animation#setTimeScale
+     * @since 3.4.0
      *
-     * @param {number} [value] - [description]
+     * @param {number} [value=1] - The time scale factor, where 1 is no change, 0.5 is half speed, etc.
      *
-     * @return {(number|Phaser.GameObjects.GameObject)} [description]
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
-    timeScale: function (value)
+    setTimeScale: function (value)
     {
-        if (value === undefined)
-        {
-            return this._timeScale;
-        }
-        else
-        {
-            this._timeScale = value;
+        if (value === undefined) { value = 1; }
 
-            return this;
-        }
+        this._timeScale = value;
+
+        return this.parent;
     },
 
     /**
-     * [description]
+     * Gets the Time Scale factor.
      *
-     * @method Phaser.GameObjects.Components.Animation#totalFrames
-     * @since 3.0.0
+     * @method Phaser.GameObjects.Components.Animation#getTimeScale
+     * @since 3.4.0
      *
-     * @return {number} [description]
+     * @return {number} The Time Scale value.
      */
-    totalFrames: function ()
+    getTimeScale: function ()
+    {
+        return this._timeScale;
+    },
+
+    /**
+     * Returns the total number of frames in this animation.
+     *
+     * @method Phaser.GameObjects.Components.Animation#getTotalFrames
+     * @since 3.4.0
+     *
+     * @return {integer} The total number of frames in this animation.
+     */
+    getTotalFrames: function ()
     {
         return this.currentAnim.frames.length;
     },
 
-    //  Value between 0 and 1. How far this animation is through, including things like delays
-    //  repeats, custom frame durations, etc. If the animation is set to repeat -1 it can never
-    //  have a duration, therefore this will return -1.
     /**
-     * [description]
-     *
-     * @method Phaser.GameObjects.Components.Animation#totalProgres
-     * @since 3.0.0
-     */
-    totalProgres: function ()
-    {
-        // TODO
-    },
-
-    /**
-     * [description]
+     * The internal update loop for the Animation Component.
      *
      * @method Phaser.GameObjects.Components.Animation#update
      * @since 3.0.0
@@ -28072,27 +28085,57 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Sets the given Animation Frame as being the current frame
+     * and applies it to the parent Game Object, adjusting its size and origin as needed.
+     *
+     * @method Phaser.GameObjects.Components.Animation#setCurrentFrame
+     * @since 3.4.0
+     *
+     * @param {Phaser.Animations.AnimationFrame} animationFrame - The Animation Frame to set as being current.
+     *
+     * @return {Phaser.GameObjects.GameObject} The Game Object this Animation Component belongs to.
+     */
+    setCurrentFrame: function (animationFrame)
+    {
+        var gameObject = this.parent;
+
+        this.currentFrame = animationFrame;
+
+        gameObject.texture = animationFrame.frame.texture;
+        gameObject.frame = animationFrame.frame;
+
+        gameObject.setSizeToFrame();
+
+        if (animationFrame.frame.customPivot)
+        {
+            gameObject.setOrigin(animationFrame.frame.pivotX, animationFrame.frame.pivotY);
+        }
+        else
+        {
+            gameObject.updateDisplayOrigin();
+        }
+
+        return gameObject;
+    },
+
+    /**
+     * Internal frame change handler.
      *
      * @method Phaser.GameObjects.Components.Animation#updateFrame
+     * @private
      * @since 3.0.0
      *
      * @param {Phaser.Animations.AnimationFrame} animationFrame - [description]
      */
     updateFrame: function (animationFrame)
     {
-        var sprite = this.parent;
-
-        this.currentFrame = animationFrame;
-
-        sprite.texture = animationFrame.frame.texture;
-        sprite.frame = animationFrame.frame;
+        var gameObject = this.setCurrentFrame(animationFrame);
 
         if (this.isPlaying)
         {
             if (animationFrame.setAlpha)
             {
-                sprite.alpha = animationFrame.alpha;
+                gameObject.alpha = animationFrame.alpha;
             }
 
             var anim = this.currentAnim;
@@ -28104,33 +28147,43 @@ var Animation = new Class({
 
             if (animationFrame.onUpdate)
             {
-                animationFrame.onUpdate(sprite, animationFrame);
+                animationFrame.onUpdate(gameObject, animationFrame);
             }
         }
     },
 
     /**
-     * [description]
+     * Sets if the current Animation will yoyo when it reaches the end.
+     * A yoyo'ing animation will play through consecutively, and then reverse-play back to the start again.
      *
-     * @method Phaser.GameObjects.Components.Animation#yoyo
-     * @since 3.0.0
+     * @method Phaser.GameObjects.Components.Animation#setYoyo
+     * @since 3.4.0
      *
-     * @param {boolean} [value] - [description]
+     * @param {boolean} [value=false] - `true` if the animation should yoyo, `false` to not.
      *
-     * @return {(boolean|Phaser.GameObjects.GameObject)} [description]
+     * @return {Phaser.GameObjects.GameObject} The Game Object this Animation Component belongs to.
      */
-    yoyo: function (value)
+    setYoyo: function (value)
     {
-        if (value === undefined)
-        {
-            return this._yoyo;
-        }
-        else
-        {
-            this._yoyo = value;
+        if (value === undefined) { value = false; }
 
-            return this;
-        }
+        this._yoyo = value;
+
+        return this.parent;
+    },
+
+    /**
+     * Gets if the current Animation will yoyo when it reaches the end.
+     * A yoyo'ing animation will play through consecutively, and then reverse-play back to the start again.
+     *
+     * @method Phaser.GameObjects.Components.Animation#getYoyo
+     * @since 3.4.0
+     *
+     * @return {boolean} `true` if the animation is set to yoyo, `false` if not.
+     */
+    getYoyo: function ()
+    {
+        return this._yoyo;
     },
 
     /**
@@ -28141,7 +28194,16 @@ var Animation = new Class({
      */
     destroy: function ()
     {
-        //  TODO
+        this.animationManager.off('remove', this.remove, this);
+
+        this.animationManager = null;
+        this.parent = null;
+
+        this.currentAnim = null;
+        this.currentFrame = null;
+
+        this._callbackArgs = [];
+        this._updateParams = [];
     }
 
 });
@@ -32187,6 +32249,43 @@ var Graphics = new Class({
     },
 
     /**
+     * Creates a pie-chart slice shape centered at `x`, `y` with the given radius.
+     * You must define the start and end angle of the slice.
+     * 
+     * Setting the `anticlockwise` argument to `true` creates a shape similar to Pacman.
+     * Setting it to `false` creates a shape like a slice of pie.
+     * 
+     * This method will begin a new path and close the path at the end of it.
+     * To display the actual slice you need to call either `strokePath` or `fillPath` after it.
+     *
+     * @method Phaser.GameObjects.Graphics#slice
+     * @since 3.4.0
+     *
+     * @param {number} x - The horizontal center of the slice.
+     * @param {number} y - The vertical center of the slice.
+     * @param {number} radius - The radius of the slice.
+     * @param {number} startAngle - The start angle of the slice, given in radians.
+     * @param {number} endAngle - The end angle of the slice, given in radians.
+     * @param {boolean} [anticlockwise=false] - Draw the slice piece anticlockwise or clockwise?
+     *
+     * @return {Phaser.GameObjects.Graphics} This Game Object.
+     */
+    slice: function (x, y, radius, startAngle, endAngle, anticlockwise)
+    {
+        if (anticlockwise === undefined) { anticlockwise = false; }
+
+        this.commandBuffer.push(Commands.BEGIN_PATH);
+
+        this.commandBuffer.push(Commands.MOVE_TO, x, y);
+
+        this.commandBuffer.push(Commands.ARC, x, y, radius, startAngle, endAngle, anticlockwise);
+
+        this.commandBuffer.push(Commands.CLOSE_PATH);
+
+        return this;
+    },
+
+    /**
      * [description]
      *
      * @method Phaser.GameObjects.Graphics#save
@@ -32692,7 +32791,7 @@ var Graphics = __webpack_require__(/*! ./Graphics */ "./gameobjects/graphics/Gra
  * @method Phaser.GameObjects.GameObjectCreator#graphics
  * @since 3.0.0
  *
- * @param {object} config - [description]
+ * @param {object} [config] - [description]
  *
  * @return {Phaser.GameObjects.Graphics} The Game Object that was created.
  */
@@ -32730,7 +32829,7 @@ var GameObjectFactory = __webpack_require__(/*! ../GameObjectFactory */ "./gameo
  * @method Phaser.GameObjects.GameObjectFactory#graphics
  * @since 3.0.0
  *
- * @param {object} config - [description]
+ * @param {object} [config] - [description]
  * 
  * @return {Phaser.GameObjects.Graphics} The Game Object that was created.
  */
@@ -59259,7 +59358,7 @@ var Pointer = new Class({
      * @since 3.0.0
      *
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {(Phaser.Math.Vector2|object)} output - [description]
+     * @param {(Phaser.Math.Vector2|object)} [output] - [description]
      *
      * @return {(Phaser.Math.Vector2|object)} [description]
      */
@@ -111158,6 +111257,7 @@ var TextureTintPipeline = new Class({
         var rotation = -bitmapText.rotation;
         var scaleX = bitmapText.scaleX;
         var scaleY = bitmapText.scaleY;
+        var letterSpacing = bitmapText.letterSpacing;
         var sr = Math.sin(rotation);
         var cr = Math.cos(rotation);
         var sra = cr * scaleX;
@@ -111217,7 +111317,7 @@ var TextureTintPipeline = new Class({
                 x += (kerningOffset !== undefined) ? kerningOffset : 0;
             }
 
-            xAdvance += glyph.xAdvance;
+            xAdvance += glyph.xAdvance + letterSpacing;
             indexCount += 1;
             lastGlyph = glyph;
             lastCharCode = charCode;
@@ -111390,6 +111490,7 @@ var TextureTintPipeline = new Class({
         var rotation = -bitmapText.rotation;
         var scaleX = bitmapText.scaleX;
         var scaleY = bitmapText.scaleY;
+        var letterSpacing = bitmapText.letterSpacing;
         var sr = Math.sin(rotation);
         var cr = Math.cos(rotation);
         var sra = cr * scaleX;
@@ -111464,7 +111565,7 @@ var TextureTintPipeline = new Class({
                 x += (kerningOffset !== undefined) ? kerningOffset : 0;
             }
 
-            xAdvance += glyph.xAdvance;
+            xAdvance += glyph.xAdvance + letterSpacing;
             indexCount += 1;
             lastGlyph = glyph;
             lastCharCode = charCode;
@@ -111737,8 +111838,8 @@ var TextureTintPipeline = new Class({
             getTint(tileSprite._tintTR, tileSprite._alphaTR),
             getTint(tileSprite._tintBL, tileSprite._alphaBL),
             getTint(tileSprite._tintBR, tileSprite._alphaBR),
-            tileSprite.tilePositionX / tileSprite.frame.width,
-            tileSprite.tilePositionY / tileSprite.frame.height,
+            (tileSprite.tilePositionX % tileSprite.frame.width) / tileSprite.frame.width,
+            (tileSprite.tilePositionY % tileSprite.frame.height) / tileSprite.frame.height,
             camera
         );
     },
@@ -144096,9 +144197,9 @@ module.exports = {
  * @function Phaser.Utils.Object.Clone
  * @since 3.0.0
  *
- * @param {object} obj - [description]
+ * @param {object} obj - the object from which to clone
  *
- * @return {object} [description]
+ * @return {object} a new object with the same properties as the input obj
  */
 var Clone = function (obj)
 {
@@ -144505,15 +144606,15 @@ module.exports = GetValue;
  */
 
 /**
- * [description]
+ * Verifies that an object contains all requested keys
  *
  * @function Phaser.Utils.Object.HasAll
  * @since 3.0.0
  *
- * @param {object} source - [description]
- * @param {string[]} keys - [description]
+ * @param {object} source - an object on which to check for key existence
+ * @param {string[]} keys - an array of keys to ensure the source object contains
  *
- * @return {boolean} [description]
+ * @return {boolean} true if the source object contains all keys, false otherwise.
  */
 var HasAll = function (source, keys)
 {
@@ -144547,15 +144648,15 @@ module.exports = HasAll;
  */
 
 /**
- * [description]
+ * Verifies that an object contains at least one of the requested keys
  *
  * @function Phaser.Utils.Object.HasAny
  * @since 3.0.0
  *
- * @param {object} source - [description]
- * @param {string[]} keys - [description]
+ * @param {object} source - an object on which to check for key existence
+ * @param {string[]} keys - an array of keys to search the object for
  *
- * @return {boolean} [description]
+ * @return {boolean} true if the source object contains at least one of the keys, false otherwise
  */
 var HasAny = function (source, keys)
 {

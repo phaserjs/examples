@@ -314,6 +314,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\animation\\scaled animation.js",
+          "name": "scaled animation.js",
+          "size": 614,
+          "extension": ".js"
+        },
+        {
           "path": "src\\animation\\show on start.js",
           "name": "show on start.js",
           "size": 860,
@@ -338,7 +344,7 @@
           "extension": ".js"
         }
       ],
-      "size": 34112
+      "size": 34726
     },
     {
       "path": "src\\archived",
@@ -2477,6 +2483,18 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\graphics\\pacman arc chomp chomp.js",
+              "name": "pacman arc chomp chomp.js",
+              "size": 1006,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\graphics\\pacman arc.js",
+              "name": "pacman arc.js",
+              "size": 428,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\graphics\\phaser logo 3d.js",
               "name": "phaser logo 3d.js",
               "size": 3970,
@@ -2640,7 +2658,7 @@
               "size": 9314
             }
           ],
-          "size": 157247
+          "size": 158681
         },
         {
           "path": "src\\game objects\\group",
@@ -3132,7 +3150,7 @@
             {
               "path": "src\\game objects\\particle emitter\\particles on a path.js",
               "name": "particles on a path.js",
-              "size": 818,
+              "size": 1048,
               "extension": ".js"
             },
             {
@@ -3196,7 +3214,7 @@
               "extension": ".js"
             }
           ],
-          "size": 74172
+          "size": 74402
         },
         {
           "path": "src\\game objects\\quad",
@@ -3883,7 +3901,7 @@
           "size": 251895
         }
       ],
-      "size": 652949
+      "size": 654613
     },
     {
       "path": "src\\games",
@@ -5652,7 +5670,7 @@
             {
               "path": "src\\input\\keyboard\\just down.js",
               "name": "just down.js",
-              "size": 1653,
+              "size": 1829,
               "extension": ".js"
             },
             {
@@ -5686,7 +5704,7 @@
               "extension": ".js"
             }
           ],
-          "size": 7978
+          "size": 8154
         },
         {
           "path": "src\\input\\mouse",
@@ -5938,7 +5956,7 @@
           "size": 9602
         }
       ],
-      "size": 111206
+      "size": 111382
     },
     {
       "path": "src\\loader",
@@ -8096,5 +8114,5 @@
       "size": 4792
     }
   ],
-  "size": 2111537
+  "size": 2113991
 }

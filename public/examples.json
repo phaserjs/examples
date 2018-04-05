@@ -2356,6 +2356,24 @@
           "name": "container",
           "children": [
             {
+              "path": "src\\game objects\\container\\animation test.js",
+              "name": "animation test.js",
+              "size": 1017,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\child order.js",
+              "name": "child order.js",
+              "size": 700,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\container depth.js",
+              "name": "container depth.js",
+              "size": 1086,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\container ik.js",
               "name": "container ik.js",
               "size": 2612,
@@ -2364,11 +2382,23 @@
             {
               "path": "src\\game objects\\container\\create container.js",
               "name": "create container.js",
-              "size": 614,
+              "size": 977,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\hide original.js",
+              "name": "hide original.js",
+              "size": 1039,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\parent matrix.js",
+              "name": "parent matrix.js",
+              "size": 2261,
               "extension": ".js"
             }
           ],
-          "size": 3226
+          "size": 9692
         },
         {
           "path": "src\\game objects\\graphics",
@@ -3787,6 +3817,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\tilemap\\static\\layer transform.js",
+                  "name": "layer transform.js",
+                  "size": 1250,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\tilemap\\static\\map vs layer with multiple layers.js",
                   "name": "map vs layer with multiple layers.js",
                   "size": 3849,
@@ -3865,7 +3901,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 44498
+              "size": 45748
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -3917,10 +3953,10 @@
               "size": 71012
             }
           ],
-          "size": 251895
+          "size": 253145
         }
       ],
-      "size": 655333
+      "size": 663049
     },
     {
       "path": "src\\games",
@@ -5518,7 +5554,7 @@
             {
               "path": "src\\input\\dragging\\enable for drag.js",
               "name": "enable for drag.js",
-              "size": 1009,
+              "size": 981,
               "extension": ".js"
             },
             {
@@ -5558,7 +5594,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15367
+          "size": 15339
         },
         {
           "path": "src\\input\\game object",
@@ -5975,7 +6011,7 @@
           "size": 9602
         }
       ],
-      "size": 111382
+      "size": 111354
     },
     {
       "path": "src\\loader",
@@ -8133,5 +8169,5 @@
       "size": 4792
     }
   ],
-  "size": 2115651
+  "size": 2123339
 }

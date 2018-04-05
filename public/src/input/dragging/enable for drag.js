@@ -18,9 +18,17 @@ function create ()
 {
     var image = this.add.sprite(200, 300, 'eye').setInteractive();
 
-    image.on('pointerout', function () { console.log('out'); } );
-    image.on('pointerup', function () { console.log('up'); } );
-    image.on('pointerdown', function () { console.log('down'); } );
+    image.on('pointerover', function () {
+
+        this.setTint(0x00ff00);
+
+    });
+
+    image.on('pointerout', function () {
+
+        this.clearTint();
+
+    });
 
     this.input.setDraggable(image);
 

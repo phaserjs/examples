@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -21,13 +21,14 @@ function create ()
 {
     var container = this.add.container(400, 300);
 
-    // var ball1 = this.add.image(0, 0, 'ball');
+    //  Add some images to the container
 
-    // balls.add(ball1);
+    var ball1 = this.add.image(0, 0, 'ball');
+    var ball2 = this.add.image(100, 0, 'ball');
+    var ball3 = this.add.image(100, 100, 'ball');
+    var ball4 = this.add.image(100, 0, 'ball');
 
-    // balls.x += 100;
-    // balls.y += 100;
+    container.add([ ball1, ball2, ball3, ball4 ]);
 
-    // console.log(ball1);
-    // console.log(balls);
+
 }

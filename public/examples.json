@@ -190,7 +190,7 @@
         {
           "path": "src\\animation\\animation progress.js",
           "name": "animation progress.js",
-          "size": 674,
+          "size": 971,
           "extension": ".js"
         },
         {
@@ -350,7 +350,7 @@
           "extension": ".js"
         }
       ],
-      "size": 35369
+      "size": 35666
     },
     {
       "path": "src\\archived",
@@ -2849,6 +2849,31 @@
           "size": 12652
         },
         {
+          "path": "src\\game objects\\lights",
+          "name": "lights",
+          "children": [
+            {
+              "path": "src\\game objects\\lights\\graveyard.js",
+              "name": "graveyard.js",
+              "size": 2775,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\lights\\light follow pointer.js",
+              "name": "light follow pointer.js",
+              "size": 2238,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\lights\\spotlight.js",
+              "name": "spotlight.js",
+              "size": 950,
+              "extension": ".js"
+            }
+          ],
+          "size": 5963
+        },
+        {
           "path": "src\\game objects\\mesh",
           "name": "mesh",
           "children": [
@@ -3313,18 +3338,6 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\sprites\\grave.js",
-              "name": "grave.js",
-              "size": 2775,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\game objects\\sprites\\light sprite.js",
-              "name": "light sprite.js",
-              "size": 2238,
-              "extension": ".js"
-            },
-            {
               "path": "src\\game objects\\sprites\\moving sprite.js",
               "name": "moving sprite.js",
               "size": 539,
@@ -3355,7 +3368,7 @@
               "extension": ".js"
             }
           ],
-          "size": 9524
+          "size": 4511
         },
         {
           "path": "src\\game objects\\text",
@@ -3907,7 +3920,7 @@
           "size": 251895
         }
       ],
-      "size": 654383
+      "size": 655333
     },
     {
       "path": "src\\games",
@@ -8120,5 +8133,5 @@
       "size": 4792
     }
   ],
-  "size": 2114404
+  "size": 2115651
 }

@@ -29,10 +29,10 @@ function preload ()
 
 function create ()
 {
-    image = this.add.image(0, 0, 'lemming');
+    image = this.add.image(0, 0, 'lemming').setName('lemming');
 
-    container1 = this.add.container(100, 100);
-    container2 = this.add.container(200, 200);
+    container1 = this.add.container(100, 100).setName('root');
+    container2 = this.add.container(200, 200).setName('sub');
 
     container1.add(container2);
 
@@ -70,7 +70,7 @@ function create ()
     graphics = this.add.graphics();
 
     text1 = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
-    text2 = this.add.text(400, 10, '', { font: '16px Courier', fill: '#00ff00' });
+    text2 = this.add.text(500, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
     tempMatrix = new Phaser.GameObjects.Components.TransformMatrix();
     tempParentMatrix = new Phaser.GameObjects.Components.TransformMatrix();
@@ -83,6 +83,7 @@ function update ()
     var d = tempMatrix.decomposeMatrix();
 
     text1.setText([
+        'local',
         'x: ' + image.x,
         'y: ' + image.y,
         'sx: ' + image.scaleX,
@@ -91,6 +92,7 @@ function update ()
     ]);
 
     text2.setText([
+        'world',
         'x: ' + d.translateX,
         'y: ' + d.translateY,
         'sx: ' + d.scaleX,

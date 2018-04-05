@@ -14,6 +14,8 @@ var config = {
 var image;
 var text1;
 var text2;
+var container1;
+var container2;
 var tempMatrix;
 var tempParentMatrix;
 
@@ -29,38 +31,46 @@ function create ()
 {
     image = this.add.image(0, 0, 'lemming');
 
-    container = this.add.container(100, 100, [ image ]);
+    container1 = this.add.container(100, 100);
+    container2 = this.add.container(200, 200);
 
-    var container2 = this.add.container(200, 200, [ container ]);
+    container1.add(container2);
+
+    container2.add(image);
 
     //  Visual Container x/y markers
-    this.add.image(container.x, container.y, 'topleft').setOrigin(0);
-    this.add.image(container2.x, container2.y, 'topleft').setOrigin(0).setScale(2);
+    // this.add.image(container1.x, container1.y, 'topleft').setOrigin(0);
+    // this.add.image(container2.x, container2.y, 'topleft').setOrigin(0);
 
-    /*
     this.tweens.add({
-        targets: container,
+        targets: container1,
         x: 400,
         duration: 6000,
         yoyo: true,
         repeat: -1
     });
-    */
 
-    /*
     this.tweens.add({
         targets: container2,
-        y: 400,
+        x: 400,
         duration: 6000,
         yoyo: true,
         repeat: -1
     });
-    */
+
+    this.tweens.add({
+        targets: image,
+        scaleX: 2,
+        scaleY: 2,
+        duration: 6000,
+        yoyo: true,
+        repeat: -1
+    });
 
     graphics = this.add.graphics();
 
     text1 = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
-    text2 = this.add.text(100, 10, '', { font: '16px Courier', fill: '#00ff00' });
+    text2 = this.add.text(400, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
     tempMatrix = new Phaser.GameObjects.Components.TransformMatrix();
     tempParentMatrix = new Phaser.GameObjects.Components.TransformMatrix();
@@ -88,9 +98,11 @@ function update ()
         'r: ' + Phaser.Math.RadToDeg(d.rotation)
     ]);
 
+    var bounds = image.getBounds();
+
     graphics.clear();
 
     graphics.lineStyle(1, 0x00ff00, 1);
 
-    graphics.strokeRect(d.translateX, d.translateY, image.width, image.height);
+    graphics.strokeRect(d.translateX, d.translateY, bounds.width, bounds.height);
 }

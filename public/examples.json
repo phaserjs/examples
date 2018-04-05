@@ -172,7 +172,7 @@
         {
           "path": "src\\animation\\add frames to existing animation.js",
           "name": "add frames to existing animation.js",
-          "size": 952,
+          "size": 914,
           "extension": ".js"
         },
         {
@@ -185,6 +185,12 @@
           "path": "src\\animation\\animation from png sequence.js",
           "name": "animation from png sequence.js",
           "size": 847,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\animation\\animation progress.js",
+          "name": "animation progress.js",
+          "size": 971,
           "extension": ".js"
         },
         {
@@ -314,6 +320,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\animation\\scaled animation.js",
+          "name": "scaled animation.js",
+          "size": 624,
+          "extension": ".js"
+        },
+        {
           "path": "src\\animation\\show on start.js",
           "name": "show on start.js",
           "size": 860,
@@ -328,7 +340,7 @@
         {
           "path": "src\\animation\\stagger play.js",
           "name": "stagger play.js",
-          "size": 910,
+          "size": 907,
           "extension": ".js"
         },
         {
@@ -338,7 +350,7 @@
           "extension": ".js"
         }
       ],
-      "size": 34112
+      "size": 35666
     },
     {
       "path": "src\\archived",
@@ -2477,6 +2489,18 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\graphics\\pacman arc chomp chomp.js",
+              "name": "pacman arc chomp chomp.js",
+              "size": 1006,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\graphics\\pacman arc.js",
+              "name": "pacman arc.js",
+              "size": 428,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\graphics\\phaser logo 3d.js",
               "name": "phaser logo 3d.js",
               "size": 3970,
@@ -2640,7 +2664,7 @@
               "size": 9314
             }
           ],
-          "size": 157247
+          "size": 158681
         },
         {
           "path": "src\\game objects\\group",
@@ -2823,6 +2847,31 @@
             }
           ],
           "size": 12652
+        },
+        {
+          "path": "src\\game objects\\lights",
+          "name": "lights",
+          "children": [
+            {
+              "path": "src\\game objects\\lights\\graveyard.js",
+              "name": "graveyard.js",
+              "size": 2775,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\lights\\light follow pointer.js",
+              "name": "light follow pointer.js",
+              "size": 2238,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\lights\\spotlight.js",
+              "name": "spotlight.js",
+              "size": 950,
+              "extension": ".js"
+            }
+          ],
+          "size": 5963
         },
         {
           "path": "src\\game objects\\mesh",
@@ -3289,18 +3338,6 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\sprites\\grave.js",
-              "name": "grave.js",
-              "size": 2775,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\game objects\\sprites\\light sprite.js",
-              "name": "light sprite.js",
-              "size": 2238,
-              "extension": ".js"
-            },
-            {
               "path": "src\\game objects\\sprites\\moving sprite.js",
               "name": "moving sprite.js",
               "size": 539,
@@ -3331,7 +3368,7 @@
               "extension": ".js"
             }
           ],
-          "size": 9524
+          "size": 4511
         },
         {
           "path": "src\\game objects\\text",
@@ -3883,7 +3920,7 @@
           "size": 251895
         }
       ],
-      "size": 652949
+      "size": 655333
     },
     {
       "path": "src\\games",
@@ -5650,6 +5687,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\just down.js",
+              "name": "just down.js",
+              "size": 1829,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\key combo max key delay.js",
               "name": "key combo max key delay.js",
               "size": 482,
@@ -5680,7 +5723,7 @@
               "extension": ".js"
             }
           ],
-          "size": 6325
+          "size": 8154
         },
         {
           "path": "src\\input\\mouse",
@@ -5862,6 +5905,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\pointer\\external link.js",
+              "name": "external link.js",
+              "size": 834,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\pointer\\move event.js",
               "name": "move event.js",
               "size": 537,
@@ -5886,7 +5935,7 @@
               "extension": ".js"
             }
           ],
-          "size": 8680
+          "size": 9514
         },
         {
           "path": "src\\input\\zones",
@@ -5926,7 +5975,7 @@
           "size": 9602
         }
       ],
-      "size": 108719
+      "size": 111382
     },
     {
       "path": "src\\loader",
@@ -7154,7 +7203,7 @@
         {
           "path": "src\\scenes\\registry data exchange es6.js",
           "name": "registry data exchange es6.js",
-          "size": 1934,
+          "size": 2594,
           "extension": ".js"
         },
         {
@@ -7272,7 +7321,7 @@
           "extension": ".js"
         }
       ],
-      "size": 54778
+      "size": 55438
     },
     {
       "path": "src\\snapshot",
@@ -8084,5 +8133,5 @@
       "size": 4792
     }
   ],
-  "size": 2108390
+  "size": 2115651
 }

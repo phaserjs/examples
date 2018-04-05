@@ -34,5 +34,5 @@ function create ()
 
     Phaser.Actions.GridAlign(group.getChildren(), { width: 20, height: 20, cellWidth: 38, x: 22, y: 32 });
 
-    this.anims.staggerPlay('flash', group.getChildren(), 0.025);
+    this.anims.staggerPlay('flash', group.getChildren(), 50);
 }

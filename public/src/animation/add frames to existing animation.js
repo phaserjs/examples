@@ -20,20 +20,17 @@ function preload ()
 function create ()
 {
     //  Create an animation with 5 frames
-    this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 5, zeroPad: 4 }), repeat: -1 });
+    this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
 
     this.add.sprite(400, 100, 'gems').play('diamond');
 
-    var _anims = this.anims;
+    this.input.once('pointerup', function () {
 
-    document.addEventListener('mouseup', function () {
+        var diamond = this.anims.get('diamond');
 
-        var diamond = _anims.get('diamond');
-
-        var newFrames = _anims.generateFrameNames('gems', { prefix: 'diamond_', start: 6, end: 15, zeroPad: 4 });
+        var newFrames = this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 });
 
         diamond.addFrame(newFrames);
 
-    });
-
+    }, this);
 }

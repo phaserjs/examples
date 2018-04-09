@@ -2007,7 +2007,7 @@
         {
           "path": "src\\game config\\game resize.js",
           "name": "game resize.js",
-          "size": 760,
+          "size": 1146,
           "extension": ".js"
         },
         {
@@ -2065,7 +2065,7 @@
           "extension": ".js"
         }
       ],
-      "size": 10134
+      "size": 10520
     },
     {
       "path": "src\\game objects",
@@ -2368,9 +2368,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\container alpha.js",
+              "name": "container alpha.js",
+              "size": 1259,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\container depth.js",
               "name": "container depth.js",
-              "size": 1086,
+              "size": 1001,
               "extension": ".js"
             },
             {
@@ -2380,25 +2386,31 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\container input test.js",
+              "name": "container input test.js",
+              "size": 1409,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\create container.js",
               "name": "create container.js",
               "size": 977,
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\container\\hide original.js",
-              "name": "hide original.js",
-              "size": 1039,
+              "path": "src\\game objects\\container\\non exclusive containers.js",
+              "name": "non exclusive containers.js",
+              "size": 794,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\container\\parent matrix.js",
               "name": "parent matrix.js",
-              "size": 2261,
+              "size": 2586,
               "extension": ".js"
             }
           ],
-          "size": 9692
+          "size": 12355
         },
         {
           "path": "src\\game objects\\graphics",
@@ -3817,9 +3829,15 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\tilemap\\static\\layer size.js",
+                  "name": "layer size.js",
+                  "size": 1546,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\tilemap\\static\\layer transform.js",
                   "name": "layer transform.js",
-                  "size": 1250,
+                  "size": 1171,
                   "extension": ".js"
                 },
                 {
@@ -3901,7 +3919,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 45748
+              "size": 47215
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -3953,10 +3971,10 @@
               "size": 71012
             }
           ],
-          "size": 253145
+          "size": 254612
         }
       ],
-      "size": 663049
+      "size": 667179
     },
     {
       "path": "src\\games",
@@ -7045,7 +7063,7 @@
         {
           "path": "src\\scenes\\boot data.js",
           "name": "boot data.js",
-          "size": 632,
+          "size": 559,
           "extension": ".js"
         },
         {
@@ -7227,7 +7245,7 @@
         {
           "path": "src\\scenes\\passing data to a scene.js",
           "name": "passing data to a scene.js",
-          "size": 1214,
+          "size": 1753,
           "extension": ".js"
         },
         {
@@ -7357,7 +7375,7 @@
           "extension": ".js"
         }
       ],
-      "size": 55438
+      "size": 55904
     },
     {
       "path": "src\\snapshot",
@@ -7900,7 +7918,7 @@
         {
           "path": "src\\tweens\\pause and resume.js",
           "name": "pause and resume.js",
-          "size": 1219,
+          "size": 1241,
           "extension": ".js"
         },
         {
@@ -8121,7 +8139,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77224
+      "size": 77246
     },
     {
       "path": "src\\utils",
@@ -8169,5 +8187,5 @@
       "size": 4792
     }
   ],
-  "size": 2123339
+  "size": 2128343
 }

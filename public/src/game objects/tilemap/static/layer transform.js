@@ -28,11 +28,7 @@ function create ()
     var tileset = map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
     var layer = map.createStaticLayer('World1', tileset, 0, 0);
 
-    // Canvas only:
-    // layer.flipY = true;
-    // layer.setAngle(20);
-
-    layer.setScale(2);
+    layer.width = 200;
 
     var cursors = this.input.keyboard.createCursorKeys();
 

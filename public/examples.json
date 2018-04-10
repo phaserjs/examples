@@ -2374,6 +2374,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\container as mask.js",
+              "name": "container as mask.js",
+              "size": 3738,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\container depth.js",
               "name": "container depth.js",
               "size": 1001,
@@ -2392,6 +2398,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\container mask.js",
+              "name": "container mask.js",
+              "size": 3738,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\create container.js",
               "name": "create container.js",
               "size": 977,
@@ -2400,7 +2412,7 @@
             {
               "path": "src\\game objects\\container\\non exclusive containers.js",
               "name": "non exclusive containers.js",
-              "size": 794,
+              "size": 901,
               "extension": ".js"
             },
             {
@@ -2410,7 +2422,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12355
+          "size": 19938
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2471,8 +2483,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\line rendering.js",
-              "name": "line rendering.js",
+              "path": "src\\game objects\\graphics\\Line Rendering.js",
+              "name": "Line Rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2483,8 +2495,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\many line stars.js",
-              "name": "many line stars.js",
+              "path": "src\\game objects\\graphics\\Many Line Stars.js",
+              "name": "Many Line Stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2495,8 +2507,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js",
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2615,8 +2627,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\trail.js",
-              "name": "trail.js",
+              "path": "src\\game objects\\graphics\\Trail.js",
+              "name": "Trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -2914,6 +2926,12 @@
             }
           ],
           "size": 5963
+        },
+        {
+          "path": "src\\game objects\\masks",
+          "name": "masks",
+          "children": [],
+          "size": 0
         },
         {
           "path": "src\\game objects\\mesh",
@@ -3974,7 +3992,7 @@
           "size": 254612
         }
       ],
-      "size": 667179
+      "size": 674762
     },
     {
       "path": "src\\games",
@@ -7131,8 +7149,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\Game.js",
-              "name": "Game.js",
+              "path": "src\\scenes\\cross scene\\game.js",
+              "name": "game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -8187,5 +8205,5 @@
       "size": 4792
     }
   ],
-  "size": 2128343
+  "size": 2135926
 }

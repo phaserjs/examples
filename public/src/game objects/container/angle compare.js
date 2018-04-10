@@ -15,20 +15,25 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('buttonBG', 'assets/sprites/button-bg.png');
-    this.load.image('buttonText', 'assets/sprites/button-text.png');
 }
 
 function create ()
 {
-    //  Normal image, rotation is fine
-    var image1 = this.add.image(200, 300, 'buttonBG');
-    image1.setAngle(20);
+    //  Normal image
+    this.add.image(200, 150, 'buttonBG').setAngle(20);
 
+    //  Single level container
     var containerImage = this.add.image(0, 0, 'buttonBG');
+    var container = this.add.container(600, 150, containerImage).setAngle(20);
 
-    //  Container rotation inversed?
-    var container = this.add.container(600, 300, containerImage);
+    //  2 level container
+    var containerImage2 = this.add.image(0, 0, 'buttonBG');
+    var container2a = this.add.container(0, 0, containerImage2);
+    var container2b = this.add.container(200, 450, container2a).setAngle(20);
 
-    container.setAngle(20);
-
+    //  3 level container
+    var containerImage3 = this.add.image(0, 0, 'buttonBG');
+    var container3a = this.add.container(0, 0, containerImage3);
+    var container3b = this.add.container(0, 0, container3a);
+    var container3c = this.add.container(600, 450, container3b).setAngle(20);
 }

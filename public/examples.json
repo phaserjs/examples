@@ -2368,9 +2368,15 @@
           "name": "container",
           "children": [
             {
+              "path": "src\\game objects\\container\\angle compare 2.js",
+              "name": "angle compare 2.js",
+              "size": 1239,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\angle compare.js",
               "name": "angle compare.js",
-              "size": 747,
+              "size": 1161,
               "extension": ".js"
             },
             {
@@ -2430,7 +2436,7 @@
             {
               "path": "src\\game objects\\container\\nested input test.js",
               "name": "nested input test.js",
-              "size": 1519,
+              "size": 1317,
               "extension": ".js"
             },
             {
@@ -2448,7 +2454,7 @@
             {
               "path": "src\\game objects\\container\\rotated input test.js",
               "name": "rotated input test.js",
-              "size": 1285,
+              "size": 1189,
               "extension": ".js"
             },
             {
@@ -2458,7 +2464,7 @@
               "extension": ".js"
             }
           ],
-          "size": 24591
+          "size": 25946
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2908,7 +2914,7 @@
             {
               "path": "src\\game objects\\images\\image rotation.js",
               "name": "image rotation.js",
-              "size": 795,
+              "size": 486,
               "extension": ".js"
             },
             {
@@ -2936,7 +2942,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12652
+          "size": 12343
         },
         {
           "path": "src\\game objects\\lights",
@@ -3452,13 +3458,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\sprites\\sprite rotation.js",
+              "name": "sprite rotation.js",
+              "size": 2315,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\sprites\\to json.js",
               "name": "to json.js",
               "size": 614,
               "extension": ".js"
             }
           ],
-          "size": 4511
+          "size": 6826
         },
         {
           "path": "src\\game objects\\text",
@@ -4028,7 +4040,7 @@
           "size": 255492
         }
       ],
-      "size": 680295
+      "size": 683656
     },
     {
       "path": "src\\games",
@@ -8241,5 +8253,5 @@
       "size": 4792
     }
   ],
-  "size": 2143690
+  "size": 2147051
 }

@@ -25,10 +25,7 @@ function create ()
 
     var container = this.add.container(400, 300, [ bg, text ]);
 
-    //  Comment this out and input works fine
-    // container.setAngle(20);
-    bg.setAngle(20);
-    text.setAngle(20);
+    container.setAngle(20);
 
     this.tweens.add({
         targets: text,

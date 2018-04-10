@@ -23,22 +23,13 @@ function create ()
     var bg = this.add.image(0, 0, 'buttonBG').setInteractive();
     var text = this.add.image(0, 0, 'buttonText');
 
-    // var container = this.add.container(0, 0, [ bg, text ]);
-    var container = this.add.container(400, 300, [ bg, text ]);
-
+    var container = this.add.container(0, 0, [ bg, text ]);
     container.setAngle(20);
 
-    // var container2 = this.add.container(400, 300, container);
-    // container2.setScale(1.2).setAngle(20);
+    var container2 = this.add.container(400, 300, container);
 
-    /*
-    this.tweens.add({
-        targets: container,
-        y: 300,
-        duration: 1000,
-        ease: 'Sine.easeOut'
-    });
-    */
+    // container2.setAngle(40);
+    // container2.setScale(1.5);
 
     this.tweens.add({
         targets: text,

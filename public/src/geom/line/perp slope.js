@@ -63,7 +63,8 @@ function update ()
         midPoint.x + normal.x * 250,
         midPoint.y + normal.y * 250);
 
-    Phaser.Geom.Point.Multiply(normal, position, position);
+    normal.x *= position;
+    normal.y += position;
 
     graphics.fillCircle(midPoint.x + normal.x, midPoint.y + normal.y, 12);
 }

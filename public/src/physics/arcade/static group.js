@@ -47,5 +47,5 @@ function create ()
 
 function update ()
 {
-    this.physics.world.collide(sprite, group);
+    this.physics.world.collide(sprite, group.getChildren());
 }

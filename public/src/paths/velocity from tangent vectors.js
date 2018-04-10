@@ -43,23 +43,14 @@ function create ()
     tempVec = new Phaser.Math.Vector2();
     tempVecP = new Phaser.Math.Vector2();
 
-    ship = this.physics.add.image(points[0].x, points[0].y, 'ship');
+    ship = this.impact.add.image(points[0].x, points[0].y, 'ship');
 
     nextPoint(this);
 }
 
 function nextPoint (scene)
 {
-    var next;
-
-    if (t === points.length)
-    {
-        next = points[0];
-    }
-    else
-    {
-        next = points[t + 1];
-    }
+    var next = points[t % points.length]; 
 
     moveToXY(ship, next.x, next.y, 0, 500);
 

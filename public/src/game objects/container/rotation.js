@@ -6,9 +6,12 @@ var config = {
     parent: 'phaser-example',
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
+
+var container;
 
 var game = new Phaser.Game(config);
 
@@ -23,19 +26,10 @@ function create ()
     var image = this.add.image(0, 0, 'lemming');
     var text = this.add.text(60, 0, 'Oh No!', { font: '16px Courier', fill: '#00ff00' });
 
-    var container1 = this.add.container(200, 300).setExclusive(false);
-    container1.add([ image, text ]);
+    container = this.add.container(200, 300, [ image, text ]);
+}
 
-    var container2 = this.add.container(400, 300).setExclusive(false);
-    container2.add([ image, text ]);
-
-    var container3 = this.add.container(600, 300).setExclusive(false);
-    container3.add([ image, text ]);
-
-    this.tweens.add({
-        targets: [ container1, container2, container3 ],
-        angle: 360,
-        duration: 6000,
-        repeat: -1
-    });
+function update ()
+{
+    container.rotation += 0.01;
 }

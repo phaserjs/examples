@@ -51,7 +51,8 @@ function update ()
 
         for(var j = 0; j < poly.points.length; j++)
         {
-            Phaser.Geom.Point.Add(poly.points[j], 8 + j, 6 + j);
+            poly.points[j].x += 8 + j;
+            poly.points[j].y += 6 + j;
         }
 
         graphics.strokePoints(poly.points, true);

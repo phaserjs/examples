@@ -1233,6 +1233,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\camera fade out and in.js",
+          "name": "camera fade out and in.js",
+          "size": 1072,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\camera-effects.js",
           "name": "camera-effects.js",
           "size": 956,
@@ -1402,7 +1408,7 @@
           "extension": ".js"
         }
       ],
-      "size": 101285
+      "size": 102357
     },
     {
       "path": "src\\components",
@@ -2376,7 +2382,7 @@
             {
               "path": "src\\game objects\\container\\container as mask.js",
               "name": "container as mask.js",
-              "size": 3738,
+              "size": 3953,
               "extension": ".js"
             },
             {
@@ -2412,7 +2418,7 @@
             {
               "path": "src\\game objects\\container\\non exclusive containers.js",
               "name": "non exclusive containers.js",
-              "size": 901,
+              "size": 1056,
               "extension": ".js"
             },
             {
@@ -2420,9 +2426,15 @@
               "name": "parent matrix.js",
               "size": 2586,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\rotation.js",
+              "name": "rotation.js",
+              "size": 732,
+              "extension": ".js"
             }
           ],
-          "size": 19938
+          "size": 21040
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2926,12 +2938,6 @@
             }
           ],
           "size": 5963
-        },
-        {
-          "path": "src\\game objects\\masks",
-          "name": "masks",
-          "children": [],
-          "size": 0
         },
         {
           "path": "src\\game objects\\mesh",
@@ -3895,6 +3901,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\tilemap\\static\\set map size.js",
+                  "name": "set map size.js",
+                  "size": 880,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\tilemap\\static\\switching tilesets.js",
                   "name": "switching tilesets.js",
                   "size": 5396,
@@ -3937,7 +3949,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 47215
+              "size": 48095
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -3989,10 +4001,10 @@
               "size": 71012
             }
           ],
-          "size": 254612
+          "size": 255492
         }
       ],
-      "size": 674762
+      "size": 676744
     },
     {
       "path": "src\\games",
@@ -8205,5 +8217,5 @@
       "size": 4792
     }
   ],
-  "size": 2135926
+  "size": 2138980
 }

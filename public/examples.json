@@ -2368,6 +2368,12 @@
           "name": "container",
           "children": [
             {
+              "path": "src\\game objects\\container\\angle compare.js",
+              "name": "angle compare.js",
+              "size": 747,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\animation test.js",
               "name": "animation test.js",
               "size": 1017,
@@ -2422,6 +2428,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\nested input test.js",
+              "name": "nested input test.js",
+              "size": 1519,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\non exclusive containers.js",
               "name": "non exclusive containers.js",
               "size": 1056,
@@ -2434,13 +2446,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\rotated input test.js",
+              "name": "rotated input test.js",
+              "size": 1285,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\rotation.js",
               "name": "rotation.js",
               "size": 732,
               "extension": ".js"
             }
           ],
-          "size": 21040
+          "size": 24591
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4010,7 +4028,7 @@
           "size": 255492
         }
       ],
-      "size": 676744
+      "size": 680295
     },
     {
       "path": "src\\games",
@@ -8223,5 +8241,5 @@
       "size": 4792
     }
   ],
-  "size": 2140139
+  "size": 2143690
 }

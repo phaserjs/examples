@@ -37,7 +37,7 @@
             margin: 32px 0px 0px 32px;
         }
 
-        #nav a {
+        #nav a, #nav select {
             background: linear-gradient(135deg, #e570e7 0%,#79f1fc 100%);
             text-align: center;
             font-family: Helvetica, Arial;
@@ -68,8 +68,8 @@
     <div id="nav">
 
         <a id="backlink">&lt; Back</a>
-        <a id="editlink">Edit Example</a>
-        <a href="https://github.com/photonstorm/phaser3-examples/issues">Open GitHub Issue</a>
+        <a id="editlink">Edit</a>
+        <a href="https://github.com/photonstorm/phaser3-examples/issues">Open Issue</a>
 
     </div>
 
@@ -84,7 +84,8 @@
     $(document).ready(function () {
 
         var filename = getQueryString('src');
-        var phaserVersion = getQueryString('v', 'dev') + '.js';
+        var phaserVersion = getQueryString('v', 'dev');
+        var phaserVersionJS = getQueryString('v', 'dev') + '.js';
 
         if (filename.substr(-3) === '.js')
         {
@@ -98,6 +99,46 @@
 
             $('#editlink').attr('href', 'edit.html?src=' + filename);
             $('#backlink').attr('href', 'index.html?dir=' + backURL);
+
+            var versions = [
+                { val : 'dev', text: 'Dev Build' },
+                { val : '3.3.0', text: '3.3.0' },
+                { val : '3.2.1', text: '3.2.1' },
+                { val : '3.2.0', text: '3.2.0' },
+                { val : '3.1.2', text: '3.1.2' },
+                { val : '3.1.1', text: '3.1.1' },
+                { val : '3.1.0', text: '3.1.0' },
+                { val : '3.0.0', text: '3.0.0' }
+            ];
+
+            var versionlist = $('<select>').prop('id', 'changeversion').appendTo('#nav');
+
+            versionlist.on('change', function () {
+
+                document.location.href = 'view.html?src=' + filename + '&v=' + this.value;
+
+            });
+
+            var selected = false;
+
+            versions.forEach(function(item) {
+
+                if (item.val === phaserVersion)
+                {
+                    versionlist.append($("<option>").prop('value', item.val).prop('selected', true).text(item.text));
+                    selected = true;
+                }
+                else
+                {
+                    versionlist.append($("<option>").prop('value', item.val).text(item.text));
+                }
+
+            });
+
+            if (!selected)
+            {
+                versionlist.append($("<option>").prop('value', phaserVersion).prop('selected', true).text('Custom: ' + phaserVersion));
+            }
 
             //  Load Phaser
 
@@ -118,7 +159,7 @@
                 $('#nav').show();
             };
 
-            phaserScript.src = './build/' + phaserVersion;
+            phaserScript.src = './build/' + phaserVersionJS;
 
             document.body.appendChild(phaserScript);
         }

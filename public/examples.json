@@ -2434,6 +2434,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\container scrollfactor.js",
+              "name": "container scrollfactor.js",
+              "size": 1733,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\create container.js",
               "name": "create container.js",
               "size": 977,
@@ -2506,7 +2512,7 @@
               "extension": ".js"
             }
           ],
-          "size": 35300
+          "size": 37033
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4082,7 +4088,7 @@
           "size": 255492
         }
       ],
-      "size": 693010
+      "size": 694743
     },
     {
       "path": "src\\games",
@@ -8301,5 +8307,5 @@
       "size": 4792
     }
   ],
-  "size": 2157245
+  "size": 2158978
 }

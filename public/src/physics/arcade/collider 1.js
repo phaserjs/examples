@@ -6,7 +6,8 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            debug: true,
+            gravity: { y: 0 }
         }
     },
     scene: {
@@ -30,7 +31,8 @@ function create ()
 {
     sprite = this.physics.add.image(400, 300, 'mushroom');
 
-    group = this.physics.add.staticGroup({
+    // group = this.physics.add.staticGroup({
+    group = this.physics.add.group({
         key: 'ball',
         frameQuantity: 30
     });
@@ -39,9 +41,11 @@ function create ()
 
     //  We need to call this because placeOnRectangle has changed the coordinates of all the children
     //  If we don't call it, the static physics bodies won't be updated to reflect them
-    group.refresh();
+    // group.refresh();
 
     sprite.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true).setGravityY(200);
 
     this.physics.add.collider(sprite, group);
+
+    console.log(this.physics.world.colliders);
 }

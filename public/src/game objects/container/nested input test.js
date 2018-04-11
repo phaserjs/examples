@@ -27,9 +27,8 @@ function create ()
     container.setAngle(20);
 
     var container2 = this.add.container(400, 300, container);
-
     // container2.setAngle(40);
-    // container2.setScale(1.5);
+    container2.setScale(1.5);
 
     this.tweens.add({
         targets: text,

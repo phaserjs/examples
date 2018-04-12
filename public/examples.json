@@ -2464,6 +2464,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\input overlap test.js",
+              "name": "input overlap test.js",
+              "size": 1254,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\matter physics body test.js",
               "name": "matter physics body test.js",
               "size": 1259,
@@ -2473,6 +2479,12 @@
               "path": "src\\game objects\\container\\matter physics sprite test.js",
               "name": "matter physics sprite test.js",
               "size": 1101,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\multi camera input test.js",
+              "name": "multi camera input test.js",
+              "size": 5760,
               "extension": ".js"
             },
             {
@@ -2510,9 +2522,15 @@
               "name": "rotation.js",
               "size": 732,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\text and sprite test.js",
+              "name": "text and sprite test.js",
+              "size": 959,
+              "extension": ".js"
             }
           ],
-          "size": 37033
+          "size": 45006
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2573,8 +2591,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\line rendering.js",
-              "name": "line rendering.js",
+              "path": "src\\game objects\\graphics\\Line Rendering.js",
+              "name": "Line Rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2585,8 +2603,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\many line stars.js",
-              "name": "many line stars.js",
+              "path": "src\\game objects\\graphics\\Many Line Stars.js",
+              "name": "Many Line Stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2597,8 +2615,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js",
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2717,8 +2735,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\trail.js",
-              "name": "trail.js",
+              "path": "src\\game objects\\graphics\\Trail.js",
+              "name": "Trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -4088,7 +4106,7 @@
           "size": 255492
         }
       ],
-      "size": 694743
+      "size": 702716
     },
     {
       "path": "src\\games",
@@ -7251,8 +7269,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\Game.js",
-              "name": "Game.js",
+              "path": "src\\scenes\\cross scene\\game.js",
+              "name": "game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -8307,5 +8325,5 @@
       "size": 4792
     }
   ],
-  "size": 2158978
+  "size": 2166951
 }

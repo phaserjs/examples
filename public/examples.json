@@ -2386,6 +2386,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\camera transform test.js",
+              "name": "camera transform test.js",
+              "size": 1492,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\child order.js",
               "name": "child order.js",
               "size": 700,
@@ -2466,7 +2472,7 @@
             {
               "path": "src\\game objects\\container\\input overlap test.js",
               "name": "input overlap test.js",
-              "size": 1254,
+              "size": 2209,
               "extension": ".js"
             },
             {
@@ -2484,7 +2490,7 @@
             {
               "path": "src\\game objects\\container\\multi camera input test.js",
               "name": "multi camera input test.js",
-              "size": 5760,
+              "size": 5768,
               "extension": ".js"
             },
             {
@@ -2530,7 +2536,7 @@
               "extension": ".js"
             }
           ],
-          "size": 45006
+          "size": 47461
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4106,7 +4112,7 @@
           "size": 255492
         }
       ],
-      "size": 702716
+      "size": 705171
     },
     {
       "path": "src\\games",
@@ -8325,5 +8331,5 @@
       "size": 4792
     }
   ],
-  "size": 2166951
+  "size": 2169406
 }

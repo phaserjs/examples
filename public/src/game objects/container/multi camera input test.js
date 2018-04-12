@@ -49,7 +49,7 @@ function create ()
     //  Scene bounds
     bounds = new Phaser.Geom.Rectangle(0, 0, 1920, 1920);
 
-    var container = this.add.container();
+    var container = this.add.container(100, 100);
 
     for (var i = 0; i < 32; i++)
     {

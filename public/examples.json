@@ -2388,7 +2388,7 @@
             {
               "path": "src\\game objects\\container\\camera transform test.js",
               "name": "camera transform test.js",
-              "size": 1492,
+              "size": 3946,
               "extension": ".js"
             },
             {
@@ -2536,7 +2536,7 @@
               "extension": ".js"
             }
           ],
-          "size": 47461
+          "size": 49915
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2597,8 +2597,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2609,8 +2609,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2621,8 +2621,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2741,8 +2741,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -4112,7 +4112,7 @@
           "size": 255492
         }
       ],
-      "size": 705171
+      "size": 707625
     },
     {
       "path": "src\\games",
@@ -6656,6 +6656,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\restart physics scene.js",
+              "name": "restart physics scene.js",
+              "size": 4482,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\simple body.js",
               "name": "simple body.js",
               "size": 642,
@@ -6716,7 +6722,7 @@
               "extension": ".js"
             }
           ],
-          "size": 31401
+          "size": 35883
         },
         {
           "path": "src\\physics\\impact",
@@ -7136,7 +7142,7 @@
           "size": 2741
         }
       ],
-      "size": 126233
+      "size": 130715
     },
     {
       "path": "src\\pools",
@@ -7275,8 +7281,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -8331,5 +8337,5 @@
       "size": 4792
     }
   ],
-  "size": 2169406
+  "size": 2176342
 }

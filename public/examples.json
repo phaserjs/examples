@@ -6658,7 +6658,7 @@
             {
               "path": "src\\physics\\arcade\\restart physics scene.js",
               "name": "restart physics scene.js",
-              "size": 4482,
+              "size": 5599,
               "extension": ".js"
             },
             {
@@ -6722,7 +6722,7 @@
               "extension": ".js"
             }
           ],
-          "size": 35883
+          "size": 37000
         },
         {
           "path": "src\\physics\\impact",
@@ -7078,6 +7078,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\restart physics scene.js",
+              "name": "restart physics scene.js",
+              "size": 5279,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\rotate body with cursors.js",
               "name": "rotate body with cursors.js",
               "size": 1111,
@@ -7120,7 +7126,7 @@
               "extension": ".js"
             }
           ],
-          "size": 45229
+          "size": 50508
         },
         {
           "path": "src\\physics\\multi",
@@ -7142,7 +7148,7 @@
           "size": 2741
         }
       ],
-      "size": 130715
+      "size": 137111
     },
     {
       "path": "src\\pools",
@@ -8337,5 +8343,5 @@
       "size": 4792
     }
   ],
-  "size": 2176342
+  "size": 2182738
 }

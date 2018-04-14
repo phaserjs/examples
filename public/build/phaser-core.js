@@ -4858,6 +4858,8 @@ module.exports = {
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var DegToRad = __webpack_require__(/*! ../../math/DegToRad */ "./math/DegToRad.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var Effects = __webpack_require__(/*! ./effects */ "./cameras/2d/effects/index.js");
 var Rectangle = __webpack_require__(/*! ../../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
 var TransformMatrix = __webpack_require__(/*! ../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var ValueToColor = __webpack_require__(/*! ../../display/color/ValueToColor */ "./display/color/ValueToColor.js");
@@ -4895,6 +4897,7 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * [description]
  *
  * @class Camera
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Cameras.Scene2D
  * @constructor
  * @since 3.0.0
@@ -4906,10 +4909,14 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  */
 var Camera = new Class({
 
+    Extends: EventEmitter,
+
     initialize:
 
     function Camera (x, y, width, height)
     {
+        EventEmitter.call(this);
+
         /**
          * A reference to the Scene this camera belongs to.
          *
@@ -5069,16 +5076,6 @@ var Camera = new Class({
         this.transparent = true;
 
         /**
-         * TODO
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#clearBeforeRender
-         * @type {boolean}
-         * @default true
-         * @since 3.0.0
-         */
-        this.clearBeforeRender = true;
-
-        /**
          * The background color of this Camera. Only used if `transparent` is `false`.
          *
          * @name Phaser.Cameras.Scene2D.Camera#backgroundColor
@@ -5087,8 +5084,15 @@ var Camera = new Class({
          */
         this.backgroundColor = ValueToColor('rgba(0,0,0,0)');
 
+        //  Allow to be modified
+        this.effects = {
+            fade: new Effects.Fade(this),
+            flash: new Effects.Flash(this),
+            shake: new Effects.Shake(this)
+        };
+
         /**
-         * Should the camera cull Game Objects before rendering?
+         * Should the camera cull Game Objects before checking them for input hit tests?
          * In some special cases it may be beneficial to disable this.
          *
          * @name Phaser.Cameras.Scene2D.Camera#disableCull
@@ -5111,193 +5115,6 @@ var Camera = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeDuration
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._shakeDuration = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeIntensity
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._shakeIntensity = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeOffsetX
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._shakeOffsetX = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeOffsetY
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._shakeOffsetY = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_shakeCallback
-         * @type {?Camera2DCallback}
-         * @private
-         * @default null
-         * @since 3.3.0
-         */
-        this._shakeCallback = null;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeDuration
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeDuration = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeRed
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeRed = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeGreen
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeGreen = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeBlue
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeBlue = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeAlpha
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._fadeAlpha = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_fadeCallback
-         * @type {?Camera2DCallback}
-         * @private
-         * @default null
-         * @since 3.3.0
-         */
-        this._fadeCallback = null;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashDuration
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._flashDuration = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashRed
-         * @type {number}
-         * @private
-         * @default 1
-         * @since 3.0.0
-         */
-        this._flashRed = 1;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashGreen
-         * @type {number}
-         * @private
-         * @default 1
-         * @since 3.0.0
-         */
-        this._flashGreen = 1;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashBlue
-         * @type {number}
-         * @private
-         * @default 1
-         * @since 3.0.0
-         */
-        this._flashBlue = 1;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashAlpha
-         * @type {number}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._flashAlpha = 0;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_flashCallback
-         * @type {?Camera2DCallback}
-         * @private
-         * @default null
-         * @since 3.3.0
-         */
-        this._flashCallback = null;
-
-        /**
-         * [description]
-         *
          * @name Phaser.Cameras.Scene2D.Camera#_follow
          * @type {?any}
          * @private
@@ -5316,20 +5133,6 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._id = 0;
-    },
-
-    scaleX: {
-        get: function ()
-        {
-            return this.zoom;
-        }
-    },
-
-    scaleY: {
-        get: function ()
-        {
-            return this.zoom;
-        }
     },
 
     /**
@@ -5527,21 +5330,19 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#fadeIn
      * @since 3.3.0
      *
-     * @param {number} duration - The duration of the effect in milliseconds.
-     * @param {function} [callback] - An optional callback to invoke when the fade completes. Will be sent one argument - a reference to this camera.
-     * @param {number} [red=0] - The value to fade the red channel from. A value between 0 and 1.
-     * @param {number} [green=0] - The value to fade the green channel from. A value between 0 and 1.
-     * @param {number} [blue=0] - The value to fade the blue channel from. A value between 0 and 1.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {integer} [red=0] - The amount to fade the red channel towards. A value between 0 and 255.
+     * @param {integer} [green=0] - The amount to fade the green channel towards. A value between 0 and 255.
+     * @param {integer} [blue=0] - The amount to fade the blue channel towards. A value between 0 and 255.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
-    fadeIn: function (duration, callback, red, green, blue)
+    fadeIn: function (duration, red, green, blue, callback, context)
     {
-        if (red === undefined) { red = 0; }
-        if (green === undefined) { green = 0; }
-        if (blue === undefined) { blue = 0; }
-
-        return this.flash(duration, red, green, blue, true, callback);
+        return this.effects.fade.start(false, duration, red, green, blue, true, callback, context);
     },
 
     /**
@@ -5551,99 +5352,85 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#fadeOut
      * @since 3.3.0
      *
-     * @param {number} duration - The duration of the effect in milliseconds.
-     * @param {function} [callback] - An optional callback to invoke when the fade completes. Will be sent one argument - a reference to this camera.
-     * @param {number} [red=0] - The value to fade the red channel from. A value between 0 and 1.
-     * @param {number} [green=0] - The value to fade the green channel from. A value between 0 and 1.
-     * @param {number} [blue=0] - The value to fade the blue channel from. A value between 0 and 1.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {integer} [red=0] - The amount to fade the red channel towards. A value between 0 and 255.
+     * @param {integer} [green=0] - The amount to fade the green channel towards. A value between 0 and 255.
+     * @param {integer} [blue=0] - The amount to fade the blue channel towards. A value between 0 and 255.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
-    fadeOut: function (duration, callback, red, green, blue)
+    fadeOut: function (duration, red, green, blue, callback, context)
     {
-        if (red === undefined) { red = 0; }
-        if (green === undefined) { green = 0; }
-        if (blue === undefined) { blue = 0; }
-
-        return this.fade(duration, red, green, blue, true, callback);
+        return this.effects.fade.start(true, duration, red, green, blue, true, callback, context);
     },
 
     /**
-     * Fades the Camera to the given color over the duration specified.
+     * Fades the Camera from the given color to transparent over the duration specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#fadeFrom
+     * @since 3.5.0
+     *
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {integer} [red=0] - The amount to fade the red channel towards. A value between 0 and 255.
+     * @param {integer} [green=0] - The amount to fade the green channel towards. A value between 0 and 255.
+     * @param {integer} [blue=0] - The amount to fade the blue channel towards. A value between 0 and 255.
+     * @param {boolean} [force=false] - Force the effect to start immediately, even if already running.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    fadeFrom: function (duration, red, green, blue, force, callback, context)
+    {
+        return this.effects.fade.start(false, duration, red, green, blue, force, callback, context);
+    },
+
+    /**
+     * Fades the Camera from transparent to the given color over the duration specified.
      *
      * @method Phaser.Cameras.Scene2D.Camera#fade
      * @since 3.0.0
      *
-     * @param {number} duration - The duration of the effect in milliseconds.
-     * @param {number} [red=0] - The value to fade the red channel to. A value between 0 and 1.
-     * @param {number} [green=0] - The value to fade the green channel to. A value between 0 and 1.
-     * @param {number} [blue=0] - The value to fade the blue channel to. A value between 0 and 1.
-     * @param {boolean} [force=false] - Force the fade effect to start immediately, even if already running.
-     * @param {function} [callback] - An optional callback to invoke when the fade completes. Will be sent one argument - a reference to this camera.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {integer} [red=0] - The amount to fade the red channel towards. A value between 0 and 255.
+     * @param {integer} [green=0] - The amount to fade the green channel towards. A value between 0 and 255.
+     * @param {integer} [blue=0] - The amount to fade the blue channel towards. A value between 0 and 255.
+     * @param {boolean} [force=false] - Force the effect to start immediately, even if already running.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
-    fade: function (duration, red, green, blue, force, callback)
+    fade: function (duration, red, green, blue, force, callback, context)
     {
-        if (!duration) { duration = Number.MIN_VALUE; }
-        if (red === undefined) { red = 0; }
-        if (green === undefined) { green = 0; }
-        if (blue === undefined) { blue = 0; }
-        if (force === undefined) { force = false; }
-        if (callback === undefined) { callback = null; }
-
-        if (!force && this._fadeAlpha > 0)
-        {
-            return this;
-        }
-
-        this._fadeRed = red;
-        this._fadeGreen = green;
-        this._fadeBlue = blue;
-        this._fadeCallback = callback;
-        this._fadeDuration = duration;
-        this._fadeAlpha = Number.MIN_VALUE;
-
-        return this;
+        return this.effects.fade.start(true, duration, red, green, blue, force, callback, context);
     },
 
     /**
-     * Flashes the Camera to the given color over the duration specified.
+     * Flashes the Camera by setting it to the given color immediately and then fading it away again quickly over the duration specified.
      *
      * @method Phaser.Cameras.Scene2D.Camera#flash
      * @since 3.0.0
      *
-     * @param {number} duration - The duration of the effect in milliseconds.
-     * @param {number} [red=1] - The value to flash the red channel to. A value between 0 and 1.
-     * @param {number} [green=1] - The value to flash the green channel to. A value between 0 and 1.
-     * @param {number} [blue=1] - The value to flash the blue channel to. A value between 0 and 1.
-     * @param {boolean} [force=false] - Force the flash effect to start immediately, even if already running.
-     * @param {function} [callback] - An optional callback to invoke when the flash completes. Will be sent one argument - a reference to this camera.
+     * @param {integer} [duration=50] - The duration of the effect in milliseconds.
+     * @param {integer} [red=255] - The amount to fade the red channel towards. A value between 0 and 255.
+     * @param {integer} [green=255] - The amount to fade the green channel towards. A value between 0 and 255.
+     * @param {integer} [blue=255] - The amount to fade the blue channel towards. A value between 0 and 255.
+     * @param {boolean} [force=false] - Force the effect to start immediately, even if already running.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
-    flash: function (duration, red, green, blue, force, callback)
+    flash: function (duration, red, green, blue, force, callback, context)
     {
-        if (!duration) { duration = Number.MIN_VALUE; }
-        if (red === undefined) { red = 1; }
-        if (green === undefined) { green = 1; }
-        if (blue === undefined) { blue = 1; }
-        if (force === undefined) { force = false; }
-        if (callback === undefined) { callback = null; }
-
-        if (!force && this._flashAlpha > 0)
-        {
-            return this;
-        }
-
-        this._flashRed = red;
-        this._flashGreen = green;
-        this._flashBlue = blue;
-        this._flashCallback = callback;
-        this._flashDuration = duration;
-        this._flashAlpha = 1;
-
-        return this;
+        return this.effects.flash.start(duration, red, green, blue, force, callback, context);
     },
 
     /**
@@ -5652,32 +5439,18 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#shake
      * @since 3.0.0
      *
-     * @param {number} duration - The duration of the effect in milliseconds.
+     * @param {integer} [duration=100] - The duration of the effect in milliseconds.
      * @param {number} [intensity=0.05] - The intensity of the shake.
      * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
-     * @param {function} [callback] - An optional callback to invoke when the shake completes. Will be sent one argument - a reference to this camera.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
-    shake: function (duration, intensity, force, callback)
+    shake: function (duration, intensity, force, callback, context)
     {
-        if (!duration) { duration = Number.MIN_VALUE; }
-        if (intensity === undefined) { intensity = 0.05; }
-        if (force === undefined) { force = false; }
-        if (callback === undefined) { callback = null; }
-
-        if (!force && (this._shakeOffsetX !== 0 || this._shakeOffsetY !== 0))
-        {
-            return this;
-        }
-
-        this._shakeDuration = duration;
-        this._shakeIntensity = intensity;
-        this._shakeOffsetX = 0;
-        this._shakeOffsetY = 0;
-        this._shakeCallback = callback;
-
-        return this;
+        return this.effects.shake.start(duration, intensity, force, callback, context);
     },
 
     /**
@@ -5839,7 +5612,8 @@ var Camera = new Class({
         matrix.rotate(this.rotation);
         matrix.scale(zoom, zoom);
         matrix.translate(-originX, -originY);
-        matrix.translate(this._shakeOffsetX, this._shakeOffsetY);
+
+        this.effects.shake.preRender();
     },
 
     /**
@@ -6183,11 +5957,8 @@ var Camera = new Class({
      */
     resetFX: function ()
     {
-        this._flashAlpha = 0;
-        this._fadeAlpha = 0;
-        this._shakeOffsetX = 0;
-        this._shakeOffsetY = 0;
-        this._shakeDuration = 0;
+        this.effects.shake.reset();
+        this.effects.fade.reset();
 
         return this;
     },
@@ -6203,6 +5974,7 @@ var Camera = new Class({
      */
     update: function (time, delta)
     {
+        /*
         if (this._flashAlpha > 0)
         {
             this._flashAlpha -= delta / this._flashDuration;
@@ -6222,73 +5994,38 @@ var Camera = new Class({
                 }
             }
         }
+        */
 
-        if (this._fadeAlpha > 0 && this._fadeAlpha < 1)
-        {
-            this._fadeAlpha += delta / this._fadeDuration;
-
-            if (this._fadeAlpha >= 1)
-            {
-                this._fadeAlpha = 1;
-
-                if (this._fadeCallback)
-                {
-                    //  Do this in case the callback fades again (otherwise we'd overwrite the new callback)
-                    var fadeCallback = this._fadeCallback;
-
-                    this._fadeCallback = null;
-
-                    fadeCallback(this);
-                }
-            }
-        }
-
-        if (this._shakeDuration > 0)
-        {
-            var intensity = this._shakeIntensity;
-
-            this._shakeDuration -= delta;
-
-            if (this._shakeDuration <= 0)
-            {
-                this._shakeOffsetX = 0;
-                this._shakeOffsetY = 0;
-
-                if (this._shakeCallback)
-                {
-                    //  Do this in case the callback shakes again (otherwise we'd overwrite the new callback)
-                    var shakeCallback = this._shakeCallback;
-
-                    this._shakeCallback = null;
-
-                    shakeCallback(this);
-                }
-            }
-            else
-            {
-                this._shakeOffsetX = (Math.random() * intensity * this.width * 2 - intensity * this.width) * this.zoom;
-                this._shakeOffsetY = (Math.random() * intensity * this.height * 2 - intensity * this.height) * this.zoom;
-
-                if (this.roundPixels)
-                {
-                    this._shakeOffsetX |= 0;
-                    this._shakeOffsetY |= 0;
-                }
-            }
-        }
+        this.effects.shake.update(time, delta);
+        this.effects.fade.update(time, delta);
     },
+
+    /**
+     * This event is fired when a camera is destroyed by the Camera Manager.
+     *
+     * @event CameraDestroyEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that was destroyed.
+     */
 
     /**
      * [description]
      *
      * @method Phaser.Cameras.Scene2D.Camera#destroy
+     * @fires CameraDestroyEvent
      * @since 3.0.0
      */
     destroy: function ()
     {
+        this.emit('cameradestroy', this);
+
+        this.removeAllListeners();
+
+        this.matrix.destroy();
+
         this._bounds = undefined;
-        this.matrix = undefined;
+
         this.culledObjects = [];
+
         this.scene = undefined;
     }
 
@@ -6812,6 +6549,1185 @@ module.exports = CameraManager;
 
 /***/ }),
 
+/***/ "./cameras/2d/effects/Fade.js":
+/*!************************************!*\
+  !*** ./cameras/2d/effects/Fade.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Clamp = __webpack_require__(/*! ../../../math/Clamp */ "./math/Clamp.js");
+var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+
+/**
+ * @classdesc
+ * A Camera Fade effect.
+ *
+ * This effect will fade the camera viewport to the given color, over the duration specified.
+ *
+ * Only the camera viewport is faded. None of the objects it is displaying are impacted, i.e. their colors do
+ * not change.
+ *
+ * The effect will dispatch several events on the Camera itself and you can also specify an `onUpdate` callback,
+ * which is invoked each frame for the duration of the effect, if required.
+ *
+ * @class Fade
+ * @memberOf Phaser.Cameras.Scene2D.Effects
+ * @constructor
+ * @since 3.5.0
+ *
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera this effect is acting upon.
+ */
+var Fade = new Class({
+
+    initialize:
+
+    function Fade (camera)
+    {
+        /**
+         * The Camera this effect belongs to.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#camera
+         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @readOnly
+         * @since 3.5.0
+         */
+        this.camera = camera;
+
+        /**
+         * Is this effect actively running?
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#isRunning
+         * @type {boolean}
+         * @readOnly
+         * @default false
+         * @since 3.5.0
+         */
+        this.isRunning = false;
+
+        /**
+         * Has this effect finished running?
+         * 
+         * This is different from `isRunning` because it remains set to `true` when the effect is over,
+         * until the effect is either reset or started again.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#isComplete
+         * @type {boolean}
+         * @readOnly
+         * @default false
+         * @since 3.5.0
+         */
+        this.isComplete = false;
+
+        /**
+         * The direction of the fade.
+         * `true` = fade out (transparent to color), `false` = fade in (color to transparent)
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#direction
+         * @type {boolean}
+         * @readOnly
+         * @since 3.5.0
+         */
+        this.direction = true;
+
+        /**
+         * The duration of the effect, in milliseconds.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#duration
+         * @type {integer}
+         * @readOnly
+         * @default 0
+         * @since 3.5.0
+         */
+        this.duration = 0;
+
+        /**
+         * The value of the red color channel the camera will use for the fade effect.
+         * A value between 0 and 255.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#red
+         * @type {integer}
+         * @private
+         * @since 3.5.0
+         */
+        this.red = 0;
+
+        /**
+         * The value of the green color channel the camera will use for the fade effect.
+         * A value between 0 and 255.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#green
+         * @type {integer}
+         * @private
+         * @since 3.5.0
+         */
+        this.green = 0;
+
+        /**
+         * The value of the blue color channel the camera will use for the fade effect.
+         * A value between 0 and 255.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#blue
+         * @type {integer}
+         * @private
+         * @since 3.5.0
+         */
+        this.blue = 0;
+
+        /**
+         * The value of the alpha channel used during the fade effect.
+         * A value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#alpha
+         * @type {float}
+         * @private
+         * @since 3.5.0
+         */
+        this.alpha = 0;
+
+        /**
+         * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#progress
+         * @type {float}
+         * @since 3.5.0
+         */
+        this.progress = 0;
+
+        /**
+         * Effect elapsed timer.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#_elapsed
+         * @type {number}
+         * @private
+         * @since 3.5.0
+         */
+        this._elapsed = 0;
+
+        /**
+         * This callback is invoked every frame for the duration of the effect.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#_onUpdate
+         * @type {?Camera2DCallback}
+         * @private
+         * @default null
+         * @since 3.5.0
+         */
+        this._onUpdate;
+
+        /**
+         * On Complete callback scope.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Fade#_onUpdateScope
+         * @type {any}
+         * @private
+         * @since 3.5.0
+         */
+        this._onUpdateScope;
+    },
+
+    /**
+     * This event is fired when the fade in effect begins to run on a camera.
+     *
+     * @event CameraFadeInStartEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Fade} effect - A reference to the effect instance.
+     * @param {integer} duration - The duration of the effect.
+     * @param {integer} red - The red color channel value.
+     * @param {integer} green - The green color channel value.
+     * @param {integer} blue - The blue color channel value.
+     */
+
+    /**
+     * This event is fired when the fade out effect begins to run on a camera.
+     *
+     * @event CameraFadeOutStartEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Fade} effect - A reference to the effect instance.
+     * @param {integer} duration - The duration of the effect.
+     * @param {integer} red - The red color channel value.
+     * @param {integer} green - The green color channel value.
+     * @param {integer} blue - The blue color channel value.
+     */
+
+    /**
+     * This event is fired when the fade in effect completes.
+     *
+     * @event CameraFadeInCompleteEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Fade} effect - A reference to the effect instance.
+     */
+
+    /**
+     * This event is fired when the fade out effect completes.
+     *
+     * @event CameraFadeOutCompleteEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Fade} effect - A reference to the effect instance.
+     */
+
+    /**
+     * Fades the Camera to or from the given color over the duration specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Fade#start
+     * @fires CameraFadeInStartEvent
+     * @fires CameraFadeInCompleteEvent
+     * @fires CameraFadeOutStartEvent
+     * @fires CameraFadeOutCompleteEvent
+     * @since 3.5.0
+     *
+     * @param {boolean} [direction=true] - The direction of the fade. `true` = fade out (transparent to color), `false` = fade in (color to transparent)
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {integer} [red=0] - The amount to fade the red channel towards. A value between 0 and 255.
+     * @param {integer} [green=0] - The amount to fade the green channel towards. A value between 0 and 255.
+     * @param {integer} [blue=0] - The amount to fade the blue channel towards. A value between 0 and 255.
+     * @param {boolean} [force=false] - Force the effect to start immediately, even if already running.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} The Camera on which the effect was started.
+     */
+    start: function (direction, duration, red, green, blue, force, callback, context)
+    {
+        if (direction === undefined) { direction = true; }
+        if (duration === undefined) { duration = 1000; }
+        if (red === undefined) { red = 0; }
+        if (green === undefined) { green = 0; }
+        if (blue === undefined) { blue = 0; }
+        if (force === undefined) { force = false; }
+        if (callback === undefined) { callback = null; }
+        if (context === undefined) { context = this.camera.scene; }
+
+        if (!force && this.isRunning)
+        {
+            return this.camera;
+        }
+
+        this.isRunning = true;
+        this.isComplete = false;
+        this.duration = duration;
+        this.direction = direction;
+        this.progress = 0;
+
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.alpha = (direction) ? Number.MIN_VALUE : 1;
+
+        this._elapsed = 0;
+
+        this._onUpdate = callback;
+        this._onUpdateScope = context;
+
+        var eventName = (direction) ? 'camerafadeoutstart' : 'camerafadeinstart';
+
+        this.camera.emit(eventName, this.camera, this, duration, red, green, blue);
+
+        return this.camera;
+    },
+
+    /**
+     * The main update loop for this effect. Called automatically by the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Fade#update
+     * @since 3.5.0
+     *
+     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
+     * @param {number} delta - The delta time, in ms, elapsed since the last frame.
+     */
+    update: function (time, delta)
+    {
+        if (!this.isRunning)
+        {
+            return;
+        }
+
+        this._elapsed += delta;
+
+        this.progress = Clamp(this._elapsed / this.duration, 0, 1);
+
+        if (this._onUpdate)
+        {
+            this._onUpdate.call(this._onUpdateScope, this.camera, this.progress);
+        }
+
+        if (this._elapsed < this.duration)
+        {
+            this.alpha = (this.direction) ? this.progress : 1 - this.progress;
+        }
+        else
+        {
+            this.effectComplete();
+        }
+    },
+
+    /**
+     * Called internally by the Canvas Renderer.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Fade#postRenderCanvas
+     * @since 3.5.0
+     *
+     * @param {CanvasRenderingContext2D} ctx - The Canvas context to render to.
+     *
+     * @return {boolean} `true` if the effect drew to the renderer, otherwise `false`.
+     */
+    postRenderCanvas: function (ctx)
+    {
+        if (!this.isRunning && !this.isComplete)
+        {
+            return false;
+        }
+
+        var camera = this.camera;
+
+        ctx.fillStyle = 'rgba(' + this.red + ',' + this.green + ',' + this.blue + ',' + this.alpha + ')';
+        ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
+
+        return true;
+    },
+
+    /**
+     * Called internally by the WebGL Renderer.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Fade#postRenderWebGL
+     * @since 3.5.0
+     *
+     * @param {Phaser.Renderer.WebGL.WebGLPipeline.FlatTintPipeline} pipeline - The WebGL Pipeline to render to.
+     * @param {function} getTintFunction - A function that will return the gl safe tint colors.
+     *
+     * @return {boolean} `true` if the effect drew to the renderer, otherwise `false`.
+     */
+    postRenderWebGL: function (pipeline, getTintFunction)
+    {
+        if (!this.isRunning && !this.isComplete)
+        {
+            return false;
+        }
+
+        var camera = this.camera;
+        var red = this.red / 255;
+        var blue = this.blue / 255;
+        var green = this.green / 255;
+
+        pipeline.batchFillRect(
+            0, 0, 1, 1, 0,
+            camera.x, camera.y, camera.width, camera.height,
+            getTintFunction(red, green, blue, 1),
+            this.alpha,
+            1, 0, 0, 1, 0, 0,
+            [ 1, 0, 0, 1, 0, 0 ]
+        );
+
+        return true;
+    },
+
+    /**
+     * Called internally when the effect completes.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Fade#effectComplete
+     * @since 3.5.0
+     */
+    effectComplete: function ()
+    {
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+
+        this.isRunning = false;
+        this.isComplete = true;
+
+        var eventName = (this.direction) ? 'camerafadeoutcomplete' : 'camerafadeincomplete';
+
+        this.camera.emit(eventName, this.camera, this);
+    },
+
+    /**
+     * Resets this camera effect.
+     * If it was previously running, it stops instantly without calling its onComplete callback or emitting an event.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Fade#reset
+     * @since 3.5.0
+     */
+    reset: function ()
+    {
+        this.isRunning = false;
+        this.isComplete = false;
+
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+    },
+
+    /**
+     * Destroys this effect, releasing it from the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Fade#destroy
+     * @since 3.5.0
+     */
+    destroy: function ()
+    {
+        this.reset();
+
+        this.camera = null;
+    }
+
+});
+
+module.exports = Fade;
+
+
+/***/ }),
+
+/***/ "./cameras/2d/effects/Flash.js":
+/*!*************************************!*\
+  !*** ./cameras/2d/effects/Flash.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Clamp = __webpack_require__(/*! ../../../math/Clamp */ "./math/Clamp.js");
+var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+
+/**
+ * @classdesc
+ * A Camera Flash effect.
+ *
+ * This effect will flash the camera viewport to the given color, over the duration specified.
+ *
+ * Only the camera viewport is flashed. None of the objects it is displaying are impacted, i.e. their colors do
+ * not change.
+ *
+ * The effect will dispatch several events on the Camera itself and you can also specify an `onUpdate` callback,
+ * which is invoked each frame for the duration of the effect, if required.
+ *
+ * @class Flash
+ * @memberOf Phaser.Cameras.Scene2D.Effects
+ * @constructor
+ * @since 3.5.0
+ *
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera this effect is acting upon.
+ */
+var Flash = new Class({
+
+    initialize:
+
+    function Flash (camera)
+    {
+        /**
+         * The Camera this effect belongs to.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#camera
+         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @readOnly
+         * @since 3.5.0
+         */
+        this.camera = camera;
+
+        /**
+         * Is this effect actively running?
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#isRunning
+         * @type {boolean}
+         * @readOnly
+         * @default false
+         * @since 3.5.0
+         */
+        this.isRunning = false;
+
+        /**
+         * The duration of the effect, in milliseconds.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#duration
+         * @type {integer}
+         * @readOnly
+         * @default 0
+         * @since 3.5.0
+         */
+        this.duration = 0;
+
+        /**
+         * The value of the red color channel the camera will use for the fade effect.
+         * A value between 0 and 255.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#red
+         * @type {integer}
+         * @private
+         * @since 3.5.0
+         */
+        this.red = 0;
+
+        /**
+         * The value of the green color channel the camera will use for the fade effect.
+         * A value between 0 and 255.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#green
+         * @type {integer}
+         * @private
+         * @since 3.5.0
+         */
+        this.green = 0;
+
+        /**
+         * The value of the blue color channel the camera will use for the fade effect.
+         * A value between 0 and 255.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#blue
+         * @type {integer}
+         * @private
+         * @since 3.5.0
+         */
+        this.blue = 0;
+
+        /**
+         * The value of the alpha channel used during the fade effect.
+         * A value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#alpha
+         * @type {float}
+         * @private
+         * @since 3.5.0
+         */
+        this.alpha = 0;
+
+        /**
+         * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#progress
+         * @type {float}
+         * @since 3.5.0
+         */
+        this.progress = 0;
+
+        /**
+         * Effect elapsed timer.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#_elapsed
+         * @type {number}
+         * @private
+         * @since 3.5.0
+         */
+        this._elapsed = 0;
+
+        /**
+         * This callback is invoked every frame for the duration of the effect.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#_onUpdate
+         * @type {?Camera2DCallback}
+         * @private
+         * @default null
+         * @since 3.5.0
+         */
+        this._onUpdate;
+
+        /**
+         * On Complete callback scope.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Flash#_onUpdateScope
+         * @type {any}
+         * @private
+         * @since 3.5.0
+         */
+        this._onUpdateScope;
+    },
+
+    /**
+     * This event is fired when the fade in effect begins to run on a camera.
+     *
+     * @event CameraFlashStartEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Flash} effect - A reference to the effect instance.
+     * @param {integer} duration - The duration of the effect.
+     * @param {integer} red - The red color channel value.
+     * @param {integer} green - The green color channel value.
+     * @param {integer} blue - The blue color channel value.
+     */
+
+    /**
+     * This event is fired when the fade in effect completes.
+     *
+     * @event CameraFlashCompleteEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Flash} effect - A reference to the effect instance.
+     */
+
+    /**
+     * Flashes the Camera to or from the given color over the duration specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Flash#start
+     * @fires CameraFlashStartEvent
+     * @fires CameraFlashCompleteEvent
+     * @since 3.5.0
+     *
+     * @param {integer} [duration=50] - The duration of the effect in milliseconds.
+     * @param {integer} [red=255] - The amount to fade the red channel towards. A value between 0 and 255.
+     * @param {integer} [green=255] - The amount to fade the green channel towards. A value between 0 and 255.
+     * @param {integer} [blue=255] - The amount to fade the blue channel towards. A value between 0 and 255.
+     * @param {boolean} [force=false] - Force the effect to start immediately, even if already running.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} The Camera on which the effect was started.
+     */
+    start: function (duration, red, green, blue, force, callback, context)
+    {
+        if (duration === undefined) { duration = 1000; }
+        if (red === undefined) { red = 255; }
+        if (green === undefined) { green = 255; }
+        if (blue === undefined) { blue = 255; }
+        if (force === undefined) { force = false; }
+        if (callback === undefined) { callback = null; }
+        if (context === undefined) { context = this.camera.scene; }
+
+        if (!force && this.isRunning)
+        {
+            return this.camera;
+        }
+
+        this.isRunning = true;
+        this.duration = duration;
+        this.progress = 0;
+
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.alpha = 1;
+
+        this._elapsed = 0;
+
+        this._onUpdate = callback;
+        this._onUpdateScope = context;
+
+        this.camera.emit('cameraflashstart', this.camera, this, duration, red, green, blue);
+
+        return this.camera;
+    },
+
+    /**
+     * The main update loop for this effect. Called automatically by the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Flash#update
+     * @since 3.5.0
+     *
+     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
+     * @param {number} delta - The delta time, in ms, elapsed since the last frame.
+     */
+    update: function (time, delta)
+    {
+        if (!this.isRunning)
+        {
+            return;
+        }
+
+        this._elapsed += delta;
+
+        this.progress = Clamp(this._elapsed / this.duration, 0, 1);
+
+        if (this._onUpdate)
+        {
+            this._onUpdate.call(this._onUpdateScope, this.camera, this.progress);
+        }
+
+        if (this._elapsed < this.duration)
+        {
+            this.alpha = 1 - this.progress;
+        }
+        else
+        {
+            this.effectComplete();
+        }
+    },
+
+    /**
+     * Called internally by the Canvas Renderer.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Flash#postRenderCanvas
+     * @since 3.5.0
+     *
+     * @param {CanvasRenderingContext2D} ctx - The Canvas context to render to.
+     *
+     * @return {boolean} `true` if the effect drew to the renderer, otherwise `false`.
+     */
+    postRenderCanvas: function (ctx)
+    {
+        if (!this.isRunning)
+        {
+            return false;
+        }
+
+        var camera = this.camera;
+
+        ctx.fillStyle = 'rgba(' + this.red + ',' + this.green + ',' + this.blue + ',' + this.alpha + ')';
+        ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
+
+        return true;
+    },
+
+    /**
+     * Called internally by the WebGL Renderer.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Flash#postRenderWebGL
+     * @since 3.5.0
+     *
+     * @param {Phaser.Renderer.WebGL.WebGLPipeline.FlatTintPipeline} pipeline - The WebGL Pipeline to render to.
+     * @param {function} getTintFunction - A function that will return the gl safe tint colors.
+     *
+     * @return {boolean} `true` if the effect drew to the renderer, otherwise `false`.
+     */
+    postRenderWebGL: function (pipeline, getTintFunction)
+    {
+        if (!this.isRunning)
+        {
+            return false;
+        }
+
+        var camera = this.camera;
+        var red = this.red / 255;
+        var blue = this.blue / 255;
+        var green = this.green / 255;
+
+        pipeline.batchFillRect(
+            0, 0, 1, 1, 0,
+            camera.x, camera.y, camera.width, camera.height,
+            getTintFunction(red, green, blue, 1),
+            this.alpha,
+            1, 0, 0, 1, 0, 0,
+            [ 1, 0, 0, 1, 0, 0 ]
+        );
+
+        return true;
+    },
+
+    /**
+     * Called internally when the effect completes.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Flash#effectComplete
+     * @since 3.5.0
+     */
+    effectComplete: function ()
+    {
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+
+        this.isRunning = false;
+
+        this.camera.emit('cameraflashcomplete', this.camera, this);
+    },
+
+    /**
+     * Resets this camera effect.
+     * If it was previously running, it stops instantly without calling its onComplete callback or emitting an event.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Flash#reset
+     * @since 3.5.0
+     */
+    reset: function ()
+    {
+        this.isRunning = false;
+
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+    },
+
+    /**
+     * Destroys this effect, releasing it from the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Flash#destroy
+     * @since 3.5.0
+     */
+    destroy: function ()
+    {
+        this.reset();
+
+        this.camera = null;
+    }
+
+});
+
+module.exports = Flash;
+
+
+/***/ }),
+
+/***/ "./cameras/2d/effects/Shake.js":
+/*!*************************************!*\
+  !*** ./cameras/2d/effects/Shake.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Clamp = __webpack_require__(/*! ../../../math/Clamp */ "./math/Clamp.js");
+var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+var Vector2 = __webpack_require__(/*! ../../../math/Vector2 */ "./math/Vector2.js");
+
+/**
+ * @classdesc
+ * A Camera Shake effect.
+ *
+ * This effect will shake the camera viewport by a random amount, bounded by the specified intensity, each frame.
+ *
+ * Only the camera viewport is moved. None of the objects it is displaying are impacted, i.e. their positions do
+ * not change.
+ *
+ * The effect will dispatch several events on the Camera itself and you can also specify an `onUpdate` callback,
+ * which is invoked each frame for the duration of the effect if required.
+ *
+ * @class Shake
+ * @memberOf Phaser.Cameras.Scene2D.Effects
+ * @constructor
+ * @since 3.5.0
+ *
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera this effect is acting upon.
+ */
+var Shake = new Class({
+
+    initialize:
+
+    function Shake (camera)
+    {
+        /**
+         * The Camera this effect belongs to.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#camera
+         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @readOnly
+         * @since 3.5.0
+         */
+        this.camera = camera;
+
+        /**
+         * Is this effect actively running?
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#isRunning
+         * @type {boolean}
+         * @readOnly
+         * @default false
+         * @since 3.5.0
+         */
+        this.isRunning = false;
+
+        /**
+         * The duration of the effect, in milliseconds.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#duration
+         * @type {integer}
+         * @readOnly
+         * @default 0
+         * @since 3.5.0
+         */
+        this.duration = 0;
+
+        /**
+         * The intensity of the effect. Use small float values. The default when the effect starts is 0.05.
+         * This is a Vector2 object, allowing you to control the shake intensity independently across x and y.
+         * You can modify this value while the effect is active to create more varied shake effects.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#intensity
+         * @type {Phaser.Math.Vector2}
+         * @since 3.5.0
+         */
+        this.intensity = new Vector2();
+
+        /**
+         * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#progress
+         * @type {float}
+         * @since 3.5.0
+         */
+        this.progress = 0;
+
+        /**
+         * Effect elapsed timer.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#_elapsed
+         * @type {number}
+         * @private
+         * @since 3.5.0
+         */
+        this._elapsed = 0;
+
+        /**
+         * How much to offset the camera by horizontally.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#_offsetX
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._offsetX = 0;
+
+        /**
+         * How much to offset the camera by vertically.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#_offsetY
+         * @type {number}
+         * @private
+         * @default 0
+         * @since 3.0.0
+         */
+        this._offsetY = 0;
+
+        /**
+         * This callback is invoked every frame for the duration of the effect.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#_onUpdate
+         * @type {?Camera2DCallback}
+         * @private
+         * @default null
+         * @since 3.5.0
+         */
+        this._onUpdate;
+
+        /**
+         * On Complete callback scope.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Shake#_onUpdateScope
+         * @type {any}
+         * @private
+         * @since 3.5.0
+         */
+        this._onUpdateScope;
+    },
+
+    /**
+     * This event is fired when the shake effect begins to run on a camera.
+     *
+     * @event CameraShakeStartEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Shake} effect - A reference to the effect instance.
+     * @param {integer} duration - The duration of the effect.
+     * @param {float} intensity - The intensity of the effect.
+     */
+
+    /**
+     * This event is fired when the shake effect completes.
+     *
+     * @event CameraShakeCompleteEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Shake} effect - A reference to the effect instance.
+     */
+
+    /**
+     * Shakes the Camera by the given intensity over the duration specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Shake#start
+     * @fires CameraShakeStartEvent
+     * @fires CameraShakeCompleteEvent
+     * @since 3.5.0
+     *
+     * @param {integer} [duration=100] - The duration of the effect in milliseconds.
+     * @param {number} [intensity=0.05] - The intensity of the shake.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {function} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent two arguments: A reference to the camera and a progress amount between 0 and 1 indicating how complete the effect is.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} The Camera on which the effect was started.
+     */
+    start: function (duration, intensity, force, callback, context)
+    {
+        if (duration === undefined) { duration = 100; }
+        if (intensity === undefined) { intensity = 0.05; }
+        if (force === undefined) { force = false; }
+        if (callback === undefined) { callback = null; }
+        if (context === undefined) { context = this.camera.scene; }
+
+        if (!force && this.isRunning)
+        {
+            return this.camera;
+        }
+
+        this.isRunning = true;
+        this.duration = duration;
+        this.progress = 0;
+
+        if (typeof intensity === 'number')
+        {
+            this.intensity.set(intensity);
+        }
+        else
+        {
+            this.intensity.set(intensity.x, intensity.y);
+        }
+
+        this._elapsed = 0;
+        this._offsetX = 0;
+        this._offsetY = 0;
+
+        this._onUpdate = callback;
+        this._onUpdateScope = context;
+
+        this.camera.emit('camerashakestart', this.camera, this, duration, intensity);
+
+        return this.camera;
+    },
+
+    /**
+     * The pre-render step for this effect. Called automatically by the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Shake#preRender
+     * @since 3.5.0
+     */
+    preRender: function ()
+    {
+        if (this.isRunning)
+        {
+            this.camera.matrix.translate(this._offsetX, this._offsetY);
+        }
+    },
+
+    /**
+     * The main update loop for this effect. Called automatically by the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Shake#update
+     * @since 3.5.0
+     *
+     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
+     * @param {number} delta - The delta time, in ms, elapsed since the last frame.
+     */
+    update: function (time, delta)
+    {
+        if (!this.isRunning)
+        {
+            return;
+        }
+
+        this._elapsed += delta;
+
+        this.progress = Clamp(this._elapsed / this.duration, 0, 1);
+
+        if (this._onUpdate)
+        {
+            this._onUpdate.call(this._onUpdateScope, this.camera, this.progress);
+        }
+
+        if (this._elapsed < this.duration)
+        {
+            var intensity = this.intensity;
+            var width = this.camera.width;
+            var height = this.camera.height;
+            var zoom = this.camera.zoom;
+
+            this._offsetX = (Math.random() * intensity.x * width * 2 - intensity.x * width) * zoom;
+            this._offsetY = (Math.random() * intensity.y * height * 2 - intensity.y * height) * zoom;
+
+            if (this.camera.roundPixels)
+            {
+                this._offsetX |= 0;
+                this._offsetY |= 0;
+            }
+        }
+        else
+        {
+            this.effectComplete();
+        }
+    },
+
+    /**
+     * Called internally when the effect completes.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Shake#effectComplete
+     * @since 3.5.0
+     */
+    effectComplete: function ()
+    {
+        this._offsetX = 0;
+        this._offsetY = 0;
+
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+
+        this.isRunning = false;
+
+        this.camera.emit('camerashakecomplete', this.camera, this);
+    },
+
+    /**
+     * Resets this camera effect.
+     * If it was previously running, it stops instantly without calling its onComplete callback or emitting an event.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Shake#reset
+     * @since 3.5.0
+     */
+    reset: function ()
+    {
+        this.isRunning = false;
+
+        this._offsetX = 0;
+        this._offsetY = 0;
+
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+    },
+
+    /**
+     * Destroys this effect, releasing it from the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Shake#destroy
+     * @since 3.5.0
+     */
+    destroy: function ()
+    {
+        this.reset();
+
+        this.camera = null;
+        this.intensity = null;
+    }
+
+});
+
+module.exports = Shake;
+
+
+/***/ }),
+
+/***/ "./cameras/2d/effects/index.js":
+/*!*************************************!*\
+  !*** ./cameras/2d/effects/index.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * @namespace Phaser.Cameras.Scene2D.Effects
+ */
+
+module.exports = {
+
+    Fade: __webpack_require__(/*! ./Fade */ "./cameras/2d/effects/Fade.js"),
+    Flash: __webpack_require__(/*! ./Flash */ "./cameras/2d/effects/Flash.js"),
+    Shake: __webpack_require__(/*! ./Shake */ "./cameras/2d/effects/Shake.js")
+
+};
+
+
+/***/ }),
+
 /***/ "./cameras/2d/index.js":
 /*!*****************************!*\
   !*** ./cameras/2d/index.js ***!
@@ -7246,7 +8162,10 @@ var DataManager = new Class({
          */
         this._frozen = false;
 
-        this.events.once('destroy', this.destroy, this);
+        if (this.events)
+        {
+            this.events.once('destroy', this.destroy, this);
+        }
     },
 
     /**
@@ -7633,7 +8552,7 @@ var DataManagerPlugin = new Class({
 
     function DataManagerPlugin (scene)
     {
-        DataManager.call(this, this.scene, scene.sys.events);
+        DataManager.call(this, scene, scene.sys.events);
 
         /**
          * [description]
@@ -7667,7 +8586,12 @@ var DataManagerPlugin = new Class({
      */
     start: function ()
     {
-        this.events = this.scene.sys.events;
+        if (this.events)
+        {
+            this.events.off('destroy', this.destroy, this);
+        }
+
+        this.events = this.systems.events;
 
         var eventEmitter = this.systems.events;
 
@@ -7701,7 +8625,7 @@ var DataManagerPlugin = new Class({
     {
         DataManager.prototype.destroy.call(this);
 
-        this.scene.sys.events.off('start', this.start, this);
+        this.systems.events.off('start', this.start, this);
 
         this.scene = null;
         this.systems = null;
@@ -13755,7 +14679,7 @@ var Animation = new Class({
      * @fires Phaser.GameObjects.Components.Animation#onCompleteEvent
      * @since 3.4.0
      *
-     * @param {integer} delay - The number of miliseconds to wait before stopping this animation.
+     * @param {integer} delay - The number of milliseconds to wait before stopping this animation.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -34774,7 +35698,7 @@ AudioFile.create = function (loader, key, urls, config, xhrSettings)
     }
     else
     {
-        return new HTML5AudioFile(key, url, loader.path, config, game.sound.locked);
+        return new HTML5AudioFile(key, url, loader.path, config);
     }
 };
 
@@ -35000,7 +35924,6 @@ var GetURL = __webpack_require__(/*! ../GetURL */ "./loader/GetURL.js");
  * @param {string} url - [description]
  * @param {string} path - [description]
  * @param {XHRSettingsObject} config - [description]
- * @param {boolean} locked - [description]
  */
 var HTML5AudioFile = new Class({
 
@@ -35008,9 +35931,9 @@ var HTML5AudioFile = new Class({
 
     initialize:
 
-        function HTML5AudioFile (key, url, path, config, locked)
+        function HTML5AudioFile (key, url, path, config)
         {
-            this.locked = locked;
+            this.locked = 'ontouchstart' in window;
 
             this.loaded = false;
 
@@ -35087,8 +36010,14 @@ var HTML5AudioFile = new Class({
             audio.dataset.name = this.key + ('0' + i).slice(-2); // Useful for debugging
             audio.dataset.used = 'false';
 
-            if (!this.locked)
+            if (this.locked)
             {
+                audio.dataset.locked = 'true';
+            }
+            else
+            {
+                audio.dataset.locked = 'false';
+
                 audio.preload = 'auto';
                 audio.oncanplaythrough = this.onProgress.bind(this);
                 audio.onerror = this.onError.bind(this);
@@ -40854,19 +41783,8 @@ var CanvasRenderer = new Class({
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.globalCompositeOperation = 'source-over';
 
-        if (camera._fadeAlpha > 0)
-        {
-            // fade rendering
-            ctx.fillStyle = 'rgba(' + (camera._fadeRed * 255) + ',' + (camera._fadeGreen * 255) + ',' + (camera._fadeBlue * 255) + ',' + camera._fadeAlpha + ')';
-            ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
-        }
-
-        if (camera._flashAlpha > 0)
-        {
-            // flash rendering
-            ctx.fillStyle = 'rgba(' + (camera._flashRed * 255) + ',' + (camera._flashGreen * 255) + ',' + (camera._flashBlue * 255) + ',' + camera._flashAlpha + ')';
-            ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
-        }
+        camera.effects.flash.postRenderCanvas(ctx);
+        camera.effects.fade.postRenderCanvas(ctx);
 
         //  Reset the camera scissor
         if (scissor)
@@ -43580,30 +44498,13 @@ var WebGLRenderer = new Class({
      */
     postRenderCamera: function (camera)
     {
-        if (camera._fadeAlpha > 0 || camera._flashAlpha > 0)
+        var FlatTintPipeline = this.pipelines.FlatTintPipeline;
+
+        var isFlashing = camera.effects.flash.postRenderWebGL(FlatTintPipeline, Utils.getTintFromFloats);
+        var isFading = camera.effects.fade.postRenderWebGL(FlatTintPipeline, Utils.getTintFromFloats);
+
+        if (isFading || isFlashing)
         {
-            var FlatTintPipeline = this.pipelines.FlatTintPipeline;
-
-            // Fade
-            FlatTintPipeline.batchFillRect(
-                0, 0, 1, 1, 0,
-                camera.x, camera.y, camera.width, camera.height,
-                Utils.getTintFromFloats(camera._fadeRed, camera._fadeGreen, camera._fadeBlue, 1.0),
-                camera._fadeAlpha,
-                1, 0, 0, 1, 0, 0,
-                [ 1, 0, 0, 1, 0, 0 ]
-            );
-
-            // Flash
-            FlatTintPipeline.batchFillRect(
-                0, 0, 1, 1, 0,
-                camera.x, camera.y, camera.width, camera.height,
-                Utils.getTintFromFloats(camera._flashRed, camera._flashGreen, camera._flashBlue, 1.0),
-                camera._flashAlpha,
-                1, 0, 0, 1, 0, 0,
-                [ 1, 0, 0, 1, 0, 0 ]
-            );
-
             FlatTintPipeline.flush();
         }
 
@@ -49673,6 +50574,7 @@ var SceneManager = new Class({
             {
                 //  There are listeners waiting for the event after 'init' has run, so emit it
                 sys.events.emit('transitionstart', settings.transitionFrom, settings.transitionDuration);
+
                 //  In case they forget to use `once`
                 sys.events.off('transitionstart');
 
@@ -49730,6 +50632,12 @@ var SceneManager = new Class({
     loadComplete: function (loader)
     {
         var scene = loader.scene;
+
+        // Try to unlock HTML5 sounds every time any loader completes
+        if (this.game.sound.onBlurPausedSounds)
+        {
+            this.game.sound.unlock();
+        }
 
         this.create(scene);
     },
@@ -49843,6 +50751,7 @@ var SceneManager = new Class({
             {
                 //  There are listeners waiting for the event after 'init' has run, so emit it
                 sys.events.emit('transitionstart', settings.transitionFrom, settings.transitionDuration);
+
                 //  In case they forget to use `once`
                 sys.events.off('transitionstart');
 
@@ -50867,7 +51776,7 @@ var ScenePlugin = new Class({
         this._onUpdate;
 
         /**
-         * Transition callback.
+         * Transition callback scope.
          *
          * @name Phaser.Scenes.ScenePlugin#_onUpdateScope
          * @type {object}
@@ -51051,7 +51960,14 @@ var ScenePlugin = new Class({
             this.manager.moveBelow(this.key, key);
         }
 
-        this.manager.start(key);
+        if (target.sys.isSleeping())
+        {
+            target.sys.wake();
+        }
+        else
+        {
+            this.manager.start(key);
+        }
 
         this.systems.events.emit('transitionout', target, duration);
 
@@ -53126,9 +54042,9 @@ var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
  * @classdesc
  * The sound manager is responsible for playing back audio via Web Audio API or HTML Audio tag as fallback.
  * The audio file type and the encoding of those files are extremely important.
- * 
+ *
  * Not all browsers can play all audio formats.
- * 
+ *
  * There is a good guide to what's supported [here](https://developer.mozilla.org/en-US/Apps/Fundamentals/Audio_and_video_delivery/Cross-browser_audio_basics#Audio_Codec_Support).
  *
  * @class BaseSoundManager
@@ -53264,11 +54180,6 @@ var BaseSoundManager = new Class({
          * @since 3.0.0
          */
         this.unlocked = false;
-
-        if (this.locked)
-        {
-            this.unlock();
-        }
     },
 
     /**
@@ -53632,7 +54543,7 @@ var BaseSoundManager = new Class({
 
     /**
      * Sets the global playback rate at which all the sounds will be played.
-     * 
+     *
      * For example, a value of 1.0 plays the audio at full speed, 0.5 plays the audio at half speed
      * and 2.0 doubles the audios playback speed.
      *
@@ -54889,7 +55800,7 @@ var HTML5AudioSoundManager = new Class({
          * @private
          * @since 3.0.0
          */
-        this.lockedActionsQueue = this.locked ? [] : null;
+        this.lockedActionsQueue = null;
 
         /**
          * Property that actually holds the value of global mute
@@ -54947,6 +55858,17 @@ var HTML5AudioSoundManager = new Class({
      */
     unlock: function ()
     {
+        this.locked = 'ontouchstart' in window;
+
+        if(this.locked)
+        {
+            this.lockedActionsQueue = [];
+        }
+        else
+        {
+            return;
+        }
+
         var _this = this;
 
         var moved = false;
@@ -54958,11 +55880,6 @@ var HTML5AudioSoundManager = new Class({
 
         var unlock = function ()
         {
-            if (!_this.game.cache.audio.entries.size)
-            {
-                return;
-            }
-
             if (moved)
             {
                 moved = false;
@@ -54972,26 +55889,43 @@ var HTML5AudioSoundManager = new Class({
             document.body.removeEventListener('touchmove', detectMove);
             document.body.removeEventListener('touchend', unlock);
 
-            var allTags = [];
+            var lockedTags = [];
 
             _this.game.cache.audio.entries.each(function (key, tags)
             {
                 for (var i = 0; i < tags.length; i++)
                 {
-                    allTags.push(tags[i]);
+                    var tag = tags[i];
+
+                    if (tag.dataset.locked === 'true')
+                    {
+                        lockedTags.push(tag);
+                    }
                 }
+
                 return true;
             });
 
-            var lastTag = allTags[allTags.length - 1];
+            if (lockedTags.length === 0)
+            {
+                return;
+            }
+
+            var lastTag = lockedTags[lockedTags.length - 1];
 
             lastTag.oncanplaythrough = function ()
             {
                 lastTag.oncanplaythrough = null;
+
+                lockedTags.forEach(function (tag)
+                {
+                    tag.dataset.locked = 'false';
+                });
+
                 _this.unlocked = true;
             };
 
-            allTags.forEach(function (tag)
+            lockedTags.forEach(function (tag)
             {
                 tag.load();
             });
@@ -55001,7 +55935,11 @@ var HTML5AudioSoundManager = new Class({
         {
             this.forEachActiveSound(function (sound)
             {
-                sound.duration = sound.tags[0].duration;
+                if(sound.currentMarker === null && sound.duration === 0)
+                {
+                    sound.duration = sound.tags[0].duration;
+                }
+
                 sound.totalDuration = sound.tags[0].duration;
             });
 
@@ -55019,6 +55957,7 @@ var HTML5AudioSoundManager = new Class({
 
             this.lockedActionsQueue.length = 0;
             this.lockedActionsQueue = null;
+
         }, this);
 
         document.body.addEventListener('touchmove', detectMove, false);
@@ -55095,7 +56034,7 @@ var HTML5AudioSoundManager = new Class({
      */
     isLocked: function (sound, prop, value)
     {
-        if (this.locked)
+        if (sound.tags[0].dataset.locked === 'true')
         {
             this.lockedActionsQueue.push({
                 sound: sound,
@@ -56594,6 +57533,11 @@ var WebAudioSoundManager = new Class({
         this.locked = this.context.state === 'suspended' && 'ontouchstart' in window;
 
         BaseSoundManager.call(this, game);
+
+        if (this.locked)
+        {
+            this.unlock();
+        }
     },
 
     /**
@@ -56663,6 +57607,7 @@ var WebAudioSoundManager = new Class({
             {
                 document.body.removeEventListener('touchstart', unlock);
                 document.body.removeEventListener('touchend', unlock);
+
                 _this.unlocked = true;
             });
         };

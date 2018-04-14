@@ -7,6 +7,8 @@ var SceneA = new Phaser.Class({
     function SceneA ()
     {
         Phaser.Scene.call(this, { key: 'sceneA' });
+
+        this.face;
     },
 
     preload: function ()
@@ -16,21 +18,23 @@ var SceneA = new Phaser.Class({
 
     create: function ()
     {
-        var face = this.add.sprite(400, 300, 'face');
+        this.face = this.add.image(0, 0, 'face').setOrigin(0);
 
         this.input.once('pointerdown', function () {
 
-            this.tweens.add({
-
-                targets: face,
-                alpha: 0,
-                duration: 2000
-
+            this.scene.transition({
+                target: 'sceneB',
+                duration: 2000,
+                moveBelow: true,
+                onUpdate: this.transitionOut
             });
 
-            this.scene.transition('sceneB', 2000);
-
         }, this);
+    },
+
+    transitionOut: function (progress)
+    {
+        this.face.y = (600 * progress);
     }
 
 });
@@ -49,18 +53,45 @@ var SceneB = new Phaser.Class({
     preload: function ()
     {
         this.load.image('arrow', 'assets/sprites/longarrow.png');
+        this.load.image('planet', 'assets/tests/space/purple-planet.png');
     },
 
     create: function ()
     {
-        this.events.on('transitionstart', function () { console.log('B start'); });
-        this.events.on('transitioncomplete', function () { console.log('B complete'); });
+        var planet = this.add.image(400, 300, 'planet').setScale(0);
+
+        this.events.on('transitionstart', function (fromScene, duration) {
+
+            this.tweens.add({
+                targets: planet,
+                scaleX: 1,
+                scaleY: 1,
+                duration: duration
+            });
+
+        }, this);
+
+        this.events.on('transitioncomplete', function () { console.log('Complete'); });
+
+        this.events.on('transitionout', function (toScene, duration) {
+
+            this.tweens.add({
+                targets: planet,
+                scaleX: 0,
+                scaleY: 0,
+                duration: duration
+            });
+
+        }, this);
 
         this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
 
         this.input.once('pointerdown', function (event) {
 
-            this.scene.transition('sceneC', 2000);
+            this.scene.transition({
+                target: 'sceneC',
+                duration: 3000
+            });
 
         }, this);
     },

@@ -6165,7 +6165,7 @@ var CameraManager = new Class({
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {
@@ -7766,7 +7766,8 @@ module.exports = {
 module.exports = {
 
     Camera: __webpack_require__(/*! ./Camera */ "./cameras/2d/Camera.js"),
-    CameraManager: __webpack_require__(/*! ./CameraManager */ "./cameras/2d/CameraManager.js")
+    CameraManager: __webpack_require__(/*! ./CameraManager */ "./cameras/2d/CameraManager.js"),
+    Effects: __webpack_require__(/*! ./effects */ "./cameras/2d/effects/index.js")
 
 };
 
@@ -7802,7 +7803,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.4.1-beta',
+    VERSION: '3.5.0-beta',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -8600,7 +8601,7 @@ var DataManagerPlugin = new Class({
      *
      * @method Phaser.Data.DataManagerPlugin#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {
@@ -8623,7 +8624,7 @@ var DataManagerPlugin = new Class({
      *
      * @method Phaser.Data.DataManagerPlugin#shutdown
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     shutdown: function ()
     {
@@ -8637,7 +8638,7 @@ var DataManagerPlugin = new Class({
      * We need to shutdown and then kill off all external references.
      *
      * @method Phaser.Data.DataManagerPlugin#destroy
-     * @since 3.4.1
+     * @since 3.5.0
      */
     destroy: function ()
     {
@@ -12457,7 +12458,7 @@ var DisplayList = new Class({
      *
      * @method Phaser.GameObjects.DisplayList#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {
@@ -12763,7 +12764,7 @@ var GameObject = new Class({
          * @name Phaser.GameObjects.GameObject#ignoreDestroy
          * @type {boolean}
          * @default false
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this.ignoreDestroy = false;
 
@@ -13143,7 +13144,7 @@ var GameObjectCreator = new Class({
      *
      * @method Phaser.GameObjects.GameObjectCreator#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {
@@ -13297,7 +13298,7 @@ var GameObjectFactory = new Class({
      *
      * @method Phaser.GameObjects.GameObjectFactory#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {
@@ -13487,7 +13488,7 @@ var UpdateList = new Class({
      *
      * @method Phaser.GameObjects.UpdateList#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {
@@ -28653,7 +28654,7 @@ var InputPlugin = new Class({
          *
          * @name Phaser.Input.InputPlugin#settings
          * @type {SettingsObject}
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this.settings = scene.sys.settings;
 
@@ -28672,7 +28673,7 @@ var InputPlugin = new Class({
          * @name Phaser.Input.InputPlugin#enabled
          * @type {boolean}
          * @default true
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this.enabled = true;
 
@@ -28883,7 +28884,7 @@ var InputPlugin = new Class({
      *
      * @method Phaser.Input.InputPlugin#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {
@@ -30134,7 +30135,7 @@ var InputPlugin = new Class({
      *
      * @method Phaser.Input.InputPlugin#transitionIn
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     transitionIn: function ()
     {
@@ -30146,7 +30147,7 @@ var InputPlugin = new Class({
      *
      * @method Phaser.Input.InputPlugin#transitionComplete
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     transitionComplete: function ()
     {
@@ -30161,7 +30162,7 @@ var InputPlugin = new Class({
      *
      * @method Phaser.Input.InputPlugin#transitionOut
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     transitionOut: function ()
     {
@@ -50544,7 +50545,7 @@ var SceneManager = new Class({
         {
             var sceneToRemove = this.getScene(key);
 
-            if (!sceneToRemove)
+            if (!sceneToRemove || sceneToRemove.sys.isTransitioning())
             {
                 return this;
             }
@@ -50588,16 +50589,9 @@ var SceneManager = new Class({
         {
             scene.init.call(scene, settings.data);
 
-            if (settings.isTransition && sys.events.listenerCount('transitionstart') > 0)
+            if (settings.isTransition)
             {
-                //  There are listeners waiting for the event after 'init' has run, so emit it
-                sys.events.emit('transitionstart', settings.transitionFrom, settings.transitionDuration);
-
-                //  In case they forget to use `once`
-                sys.events.off('transitionstart');
-
-                settings.isTransition = false;
-                settings.transitionFrom = null;
+                sys.events.emit('transitioninit', settings.transitionFrom, settings.transitionDuration);
             }
         }
 
@@ -50765,16 +50759,9 @@ var SceneManager = new Class({
 
             scene.create.call(scene, scene.sys.settings.data);
 
-            if (settings.isTransition && sys.events.listenerCount('transitionstart') > 0)
+            if (settings.isTransition)
             {
-                //  There are listeners waiting for the event after 'init' has run, so emit it
                 sys.events.emit('transitionstart', settings.transitionFrom, settings.transitionDuration);
-
-                //  In case they forget to use `once`
-                sys.events.off('transitionstart');
-
-                settings.isTransition = false;
-                settings.transitionFrom = null;
             }
         }
 
@@ -51147,7 +51134,7 @@ var SceneManager = new Class({
     {
         var scene = this.getScene(key);
 
-        if (scene)
+        if (scene && !scene.sys.isTransitioning())
         {
             scene.sys.sleep();
         }
@@ -51251,7 +51238,7 @@ var SceneManager = new Class({
     {
         var scene = this.getScene(key);
 
-        if (scene)
+        if (scene && !scene.sys.isTransitioning())
         {
             scene.sys.shutdown();
         }
@@ -51675,9 +51662,9 @@ module.exports = SceneManager;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Clamp = __webpack_require__(/*! ../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
-var Clamp = __webpack_require__(/*! ../math/Clamp */ "./math/Clamp.js");
 var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
 
@@ -51749,7 +51736,7 @@ var ScenePlugin = new Class({
          *
          * @name Phaser.Scenes.ScenePlugin#transitionProgress
          * @type {float}
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this.transitionProgress = 0;
 
@@ -51759,7 +51746,7 @@ var ScenePlugin = new Class({
          * @name Phaser.Scenes.ScenePlugin#_elapsed
          * @type {integer}
          * @private
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this._elapsed = 0;
 
@@ -51769,7 +51756,7 @@ var ScenePlugin = new Class({
          * @name Phaser.Scenes.ScenePlugin#_target
          * @type {?Phaser.Scenes.Scene}
          * @private
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this._target = null;
 
@@ -51779,7 +51766,7 @@ var ScenePlugin = new Class({
          * @name Phaser.Scenes.ScenePlugin#_duration
          * @type {integer}
          * @private
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this._duration = 0;
 
@@ -51789,7 +51776,7 @@ var ScenePlugin = new Class({
          * @name Phaser.Scenes.ScenePlugin#_onUpdate
          * @type {function}
          * @private
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this._onUpdate;
 
@@ -51799,7 +51786,7 @@ var ScenePlugin = new Class({
          * @name Phaser.Scenes.ScenePlugin#_onUpdateScope
          * @type {object}
          * @private
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this._onUpdateScope;
 
@@ -51809,9 +51796,19 @@ var ScenePlugin = new Class({
          * @name Phaser.Scenes.ScenePlugin#_willSleep
          * @type {boolean}
          * @private
-         * @since 3.4.1
+         * @since 3.5.0
          */
         this._willSleep = false;
+
+        /**
+         * Will this Scene be removed from the Scene Manager after the transition completes?
+         *
+         * @name Phaser.Scenes.ScenePlugin#_willRemove
+         * @type {boolean}
+         * @private
+         * @since 3.5.0
+         */
+        this._willRemove = false;
 
         scene.sys.events.on('start', this.pluginStart, this);
     },
@@ -51893,7 +51890,7 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * @typedef {object} SceneTransitionConfig
+     * @typedef {object} Phaser.Scenes.ScenePlugin#SceneTransitionConfig
      * 
      * @property {string} target - The Scene key to transition to.
      * @property {integer} [duration=1000] - The duration, in ms, for the transition to last.
@@ -51903,6 +51900,7 @@ var ScenePlugin = new Class({
      * @property {boolean} [moveBelow] - More the target Scene to be below this one before the transition starts.
      * @property {function} [onUpdate] - This callback is invoked every frame for the duration of the transition.
      * @property {any} [onUpdateScope] - The context in which the callback is invoked.
+     * @property {any} [data] - An object containing any data you wish to be passed to the target Scenes init / create methods.
      */
 
     /**
@@ -51917,16 +51915,28 @@ var ScenePlugin = new Class({
      *
      * This Scene can either be sent to sleep at the end of the transition, or stopped. The default is to stop.
      * 
-     * There are also 3 transition related events: This scene will emit the event `transitionto` when
-     * the transition begins, which is typically the frame after calling this method. The target Scene
-     * will emit the event `transitionstart` when that Scene's `init` and / or `create` methods are called.
-     * It will then emit the event `transitioncomplete` when the duration of the transition is up and this
-     * Scene has been stopped.
+     * There are also 5 transition related events: This scene will emit the event `transitionto` when
+     * the transition begins, which is typically the frame after calling this method.
+     * 
+     * The target Scene will emit the event `transitioninit` when that Scene's `init` method is called.
+     * It will then emit the event `transitionstart` when its `create` method is called.
+     * If the Scene was sleeping and has been woken up, it will emit the event `transitionwake` instead of these two,
+     * as the Scenes `init` and `create` methods are not invoked when a sleep wakes up.
+     * 
+     * When the duration of the transition has elapsed it will emit the event `transitioncomplete`.
+     * These events are all cleared of listeners when the Scene shuts down, but not if it is sent to sleep.
+     *
+     * It's important to understand that the duration of the transition begins the moment you call this method.
+     * If the Scene you are transitioning to includes delayed processes, such as waiting for files to load, the
+     * time still counts down even while that is happening. If the game itself pauses, or something else causes
+     * this Scenes update loop to stop, then the transition will also pause for that duration. There are
+     * checks in place to prevent you accidentally stopping a transitioning Scene but if you've got code to
+     * override this understand that until the target Scene completes it might never be unlocked for input events.
      * 
      * @method Phaser.Scenes.ScenePlugin#transition
-     * @since 3.4.1
+     * @since 3.5.0
      *
-     * @param {SceneTransitionConfig} config - The transition configuration object.
+     * @param {Phaser.Scenes.ScenePlugin#SceneTransitionConfig} config - The transition configuration object.
      *
      * @return {boolean} `true` is the transition was started, otherwise `false`.
      */
@@ -51949,6 +51959,7 @@ var ScenePlugin = new Class({
         this._target = target;
         this._duration = duration;
         this._willSleep = GetFastValue(config, 'sleep', false);
+        this._willRemove = GetFastValue(config, 'remove', false);
 
         var callback = GetFastValue(config, 'onUpdate', null);
 
@@ -51999,7 +52010,7 @@ var ScenePlugin = new Class({
      *
      * @method Phaser.Scenes.ScenePlugin#checkValidTransition
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      *
      * @param {Phaser.Scene} target - The Scene to test against.
      *
@@ -52022,7 +52033,7 @@ var ScenePlugin = new Class({
      *
      * @method Phaser.Scenes.ScenePlugin#step
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      *
      * @param {number} time - [description]
      * @param {number} delta - [description]
@@ -52049,11 +52060,12 @@ var ScenePlugin = new Class({
      *
      * @method Phaser.Scenes.ScenePlugin#transitionComplete
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     transitionComplete: function ()
     {
         var targetSys = this._target.sys;
+        var targetSettings = this._target.sys.settings;
 
         //  Stop the step
         this.systems.events.off('update', this.step, this);
@@ -52061,22 +52073,22 @@ var ScenePlugin = new Class({
         //  Notify target scene
         targetSys.events.emit('transitioncomplete', this.scene);
 
-        //  Incase they forget to use `once` instead of `on`
-        targetSys.events.off('transitioncomplete');
+        //  Clear target scene settings
+        targetSettings.isTransition = false;
+        targetSettings.transitionFrom = null;
 
-        this.systems.events.off('transitionout');
-
-        //  Clear the target out
-        targetSys.settings.isTransition = false;
-        targetSys.settings.transitionFrom = null;
-
+        //  Clear local settings
         this._duration = 0;
         this._target = null;
         this._onUpdate = null;
         this._onUpdateScope = null;
 
-        //  Stop this Scene
-        if (this._willSleep)
+        //  Now everything is clear we can handle what happens to this Scene
+        if (this._willRemove)
+        {
+            this.manager.remove(this.key);
+        }
+        else if (this._willSleep)
         {
             this.systems.sleep();
         }
@@ -53129,12 +53141,19 @@ var Systems = new Class({
      */
     wake: function ()
     {
-        this.settings.status = CONST.RUNNING;
+        var settings = this.settings;
 
-        this.settings.active = true;
-        this.settings.visible = true;
+        settings.status = CONST.RUNNING;
+
+        settings.active = true;
+        settings.visible = true;
 
         this.events.emit('wake', this);
+
+        if (settings.isTransition)
+        {
+            this.events.emit('transitionwake', settings.transitionFrom, settings.transitionDuration);
+        }
 
         return this;
     },
@@ -53169,7 +53188,7 @@ var Systems = new Class({
      * Is this Scene currently transitioning out to, or in from another Scene?
      *
      * @method Phaser.Scenes.Systems#isTransitioning
-     * @since 3.4.1
+     * @since 3.5.0
      *
      * @return {boolean} `true` if this Scene is currently transitioning, otherwise `false`.
      */
@@ -53182,7 +53201,7 @@ var Systems = new Class({
      * Is this Scene currently transitioning out from itself to another Scene?
      *
      * @method Phaser.Scenes.Systems#isTransitionOut
-     * @since 3.4.1
+     * @since 3.5.0
      *
      * @return {boolean} `true` if this Scene is in transition to another Scene, otherwise `false`.
      */
@@ -53195,7 +53214,7 @@ var Systems = new Class({
      * Is this Scene currently transitioning in from another Scene?
      *
      * @method Phaser.Scenes.Systems#isTransitionIn
-     * @since 3.4.1
+     * @since 3.5.0
      *
      * @return {boolean} `true` if this Scene is transitioning in from another Scene, otherwise `false`.
      */
@@ -53309,6 +53328,11 @@ var Systems = new Class({
      */
     shutdown: function ()
     {
+        this.events.off('transitioninit');
+        this.events.off('transitionstart');
+        this.events.off('transitioncomplete');
+        this.events.off('transitionout');
+
         this.settings.status = CONST.SHUTDOWN;
 
         this.settings.active = false;
@@ -63559,7 +63583,7 @@ var Clock = new Class({
      *
      * @method Phaser.Time.Clock#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {
@@ -65167,7 +65191,7 @@ var TweenManager = new Class({
      *
      * @method Phaser.Tweens.TweenManager#start
      * @private
-     * @since 3.4.1
+     * @since 3.5.0
      */
     start: function ()
     {

@@ -16,11 +16,6 @@ function preload ()
     this.load.image('robota', 'assets/pics/robota-uxo-by-made-of-bomb.jpg');
 }
 
-function runFadeOut (camera)
-{
-    camera.fadeOut(6000);
-}
-
 function create ()
 {
     var image = this.add.image(900, 300, 'robota');
@@ -34,5 +29,11 @@ function create ()
         duration: 3000
     });
 
-    this.cameras.main.fadeIn(6000, runFadeOut);
+    this.cameras.main.once('camerafadeincomplete', function (camera) {
+
+        camera.fadeOut(6000);
+
+    });
+
+    this.cameras.main.fadeIn(6000);
 }

@@ -1229,13 +1229,13 @@
         {
           "path": "src\\camera\\camera fade in and out.js",
           "name": "camera fade in and out.js",
-          "size": 700,
+          "size": 741,
           "extension": ".js"
         },
         {
           "path": "src\\camera\\camera fade out and in.js",
           "name": "camera fade out and in.js",
-          "size": 1072,
+          "size": 691,
           "extension": ".js"
         },
         {
@@ -1251,9 +1251,21 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\fade.js",
+          "name": "fade.js",
+          "size": 1191,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\fixed to camera.js",
           "name": "fixed to camera.js",
           "size": 1650,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\flash.js",
+          "name": "flash.js",
+          "size": 991,
           "extension": ".js"
         },
         {
@@ -1392,7 +1404,7 @@
         {
           "path": "src\\camera\\shake.js",
           "name": "shake.js",
-          "size": 689,
+          "size": 992,
           "extension": ".js"
         },
         {
@@ -1408,7 +1420,7 @@
           "extension": ".js"
         }
       ],
-      "size": 102357
+      "size": 104502
     },
     {
       "path": "src\\components",
@@ -7527,7 +7539,7 @@
         {
           "path": "src\\scenes\\transition test 2.js",
           "name": "transition test 2.js",
-          "size": 4629,
+          "size": 5252,
           "extension": ".js"
         },
         {
@@ -7543,7 +7555,7 @@
           "extension": ".js"
         }
       ],
-      "size": 63568
+      "size": 64191
     },
     {
       "path": "src\\snapshot",
@@ -8355,5 +8367,5 @@
       "size": 4792
     }
   ],
-  "size": 2189222
+  "size": 2191990
 }

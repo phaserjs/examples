@@ -23,15 +23,15 @@ function create ()
 
     var logo = this.add.image(400, 200, 'logo').setVisible(false);
 
-    //  Let's show the logo when the camera shakes, and hide it when it completes
+    //  Let's show the logo when the camera flashes, and hide it when it completes
 
-    this.cameras.main.on('camerashakestart', function () {
+    this.cameras.main.on('cameraflashstart', function (cam, fx, duration) {
 
         logo.setVisible(true);
 
     });
 
-    this.cameras.main.on('camerashakecomplete', function () {
+    this.cameras.main.on('cameraflashcomplete', function () {
 
         logo.setVisible(false);
 
@@ -41,7 +41,7 @@ function create ()
 
     this.input.on('pointerdown', function () {
 
-        this.cameras.main.shake(500);
+        this.cameras.main.flash();
 
     }, this);
 }

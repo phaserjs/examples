@@ -25,23 +25,28 @@ function create ()
 
     //  Let's show the logo when the camera shakes, and hide it when it completes
 
-    this.cameras.main.on('camerashakestart', function () {
+    this.cameras.main.on('camerafadestart', function () {
 
         logo.setVisible(true);
 
     });
 
-    this.cameras.main.on('camerashakecomplete', function () {
+    this.cameras.main.on('camerafadecomplete', function () {
 
         logo.setVisible(false);
 
     });
 
-    //  Every time you click, shake the camera
+    //  Every time you click, fade the camera
 
     this.input.on('pointerdown', function () {
 
-        this.cameras.main.shake(500);
+        //  Get a random color
+        var red = Phaser.Math.Between(50, 255);
+        var green = Phaser.Math.Between(50, 255);
+        var blue = Phaser.Math.Between(50, 255);
+
+        this.cameras.main.fade(2000, red, green, blue);
 
     }, this);
 }

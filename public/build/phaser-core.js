@@ -3165,6 +3165,26 @@ var Game = new Class({
          */
         this.onStepCallback = NOOP;
 
+        /**
+         * Is this Game pending destroy at the end of the next frame?
+         *
+         * @name Phaser.Game#pendingDestroy
+         * @type {boolean}
+         * @private
+         * @since 3.5.0
+         */
+        this.pendingDestroy = false;
+
+        /**
+         * Remove the Canvas once the destroy is over?
+         *
+         * @name Phaser.Game#removeCanvas
+         * @type {boolean}
+         * @private
+         * @since 3.5.0
+         */
+        this.removeCanvas = false;
+
         //  Wait for the DOM Ready event, then call boot.
         DOMContentLoaded(this.boot.bind(this));
     },
@@ -3277,6 +3297,11 @@ var Game = new Class({
      */
     step: function (time, delta)
     {
+        if (this.pendingDestroy)
+        {
+            return this.runDestroy();
+        }
+
         //  Global Managers
 
         this.input.update(time, delta);
@@ -3457,7 +3482,24 @@ var Game = new Class({
      */
     destroy: function (removeCanvas)
     {
-        this.loop.destroy();
+        this.pendingDestroy = true;
+        this.removeCanvas = removeCanvas;
+
+        this.loop.stop();
+    },
+
+    /**
+     * Destroys this Phaser.Game instance, all global systems, all sub-systems and all Scenes.
+     *
+     * @method Phaser.Game#runDestroy
+     * @private
+     * @since 3.5.0
+     */
+    runDestroy: function ()
+    {
+        this.events.emit('destroy');
+
+        this.events.removeAllListeners();
 
         this.scene.destroy();
 
@@ -3466,16 +3508,16 @@ var Game = new Class({
             this.renderer.destroy();
         }
 
-        this.events.emit('destroy');
-
-        this.events.removeAllListeners();
-
         this.onStepCallback = null;
 
-        if (removeCanvas && this.canvas)
+        if (this.removeCanvas && this.canvas)
         {
             CanvasPool.remove(this.canvas);
         }
+
+        this.loop.destroy();
+
+        this.pendingDestroy = false;
     }
 
 });
@@ -47424,6 +47466,7 @@ var TextureTintPipeline = new Class({
         var vertexCapacity = this.vertexCapacity;
         var texture = emitterManager.defaultFrame.source.glTexture;
         var pca, pcb, pcc, pcd, pce, pcf;
+        var vertexCount = this.vertexCount;
 
         if (parentMatrix)
         {
@@ -47468,10 +47511,12 @@ var TextureTintPipeline = new Class({
 
             renderer.setBlendMode(emitter.blendMode);
 
-            if (this.vertexCount >= vertexCapacity)
+            if (vertexCount >= vertexCapacity)
             {
+                this.vertexCount = vertexCount;
                 this.flush();
                 this.setTexture2D(texture, 0);
+                vertexCount = 0;
             }
 
             for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
@@ -47516,7 +47561,7 @@ var TextureTintPipeline = new Class({
                     var ty2 = xw * mvb + yh * mvd + mvf;
                     var tx3 = xw * mva + y * mvc + mve;
                     var ty3 = xw * mvb + y * mvd + mvf;
-                    var vertexOffset = this.vertexCount * vertexComponentCount;
+                    var vertexOffset = vertexCount * vertexComponentCount;
 
                     if (roundPixels)
                     {
@@ -47561,20 +47606,31 @@ var TextureTintPipeline = new Class({
                     vertexViewF32[vertexOffset + 28] = uvs.y3;
                     vertexViewU32[vertexOffset + 29] = color;
 
-                    this.vertexCount += 6;
+                    vertexCount += 6;
+
+                    if (vertexCount >= vertexCapacity)
+                    {
+                        this.vertexCount = vertexCount;
+                        this.flush();
+                        vertexCount = 0;
+                    }
+
                 }
 
                 particleOffset += batchSize;
                 aliveLength -= batchSize;
 
-                if (this.vertexCount >= vertexCapacity)
+                if (vertexCount >= vertexCapacity)
                 {
+                    this.vertexCount = vertexCount;
                     this.flush();
                     this.setTexture2D(texture, 0);
+                    vertexCount = 0;
                 }
             }
         }
         
+        this.vertexCount = vertexCount;
         this.setTexture2D(texture, 0);
     },
 
@@ -51693,6 +51749,8 @@ var SceneManager = new Class({
             sys.destroy();
         }
 
+        this.update = NOOP;
+
         this.scenes = [];
 
         this._pending = [];
@@ -52803,6 +52861,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
 var GetPhysicsPlugins = __webpack_require__(/*! ./GetPhysicsPlugins */ "./scene/GetPhysicsPlugins.js");
 var GetScenePlugins = __webpack_require__(/*! ./GetScenePlugins */ "./scene/GetScenePlugins.js");
+var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
 var Plugins = __webpack_require__(/*! ../plugins */ "./plugins.js");
 var Settings = __webpack_require__(/*! ./Settings */ "./scene/Settings.js");
 
@@ -61829,6 +61888,17 @@ var TextureManager = new Class({
     },
 
     /**
+     * @typedef {object} SpriteSheetConfig
+     * 
+     * @property {integer} frameWidth - The fixed width of each frame.
+     * @property {integer} [frameHeight] - The fixed height of each frame. If not set it will use the frameWidth as the height.
+     * @property {integer} [startFrame=0] - Skip a number of frames. Useful when there are multiple sprite sheets in one Texture.
+     * @property {integer} [endFrame=-1] - The total number of frames to extract from the Sprite Sheet. The default value of -1 means "extract all frames".
+     * @property {integer} [margin=0] - If the frames have been drawn with a margin, specify the amount here.
+     * @property {integer} [spacing=0] - If the frames have been drawn with spacing between them, specify the amount here.
+     */
+
+    /**
      * Adds a Sprite Sheet to this Texture Manager.
      *
      * In Phaser terminology a Sprite Sheet is a texture containing different frames, but each frame is the exact
@@ -61839,13 +61909,7 @@ var TextureManager = new Class({
      *
      * @param {string} key - The unique string-based key of the Texture.
      * @param {HTMLImageElement} source - The source Image element.
-     * @param {object} config - The configuration object for this Sprite Sheet.
-     * @param {integer} config.frameWidth - The fixed width of each frame.
-     * @param {integer} [config.frameHeight] - The fixed height of each frame. If not set it will use the frameWidth as the height.
-     * @param {integer} [config.startFrame=0] - Skip a number of frames. Useful when there are multiple sprite sheets in one Texture.
-     * @param {integer} [config.endFrame=-1] - The total number of frames to extract from the Sprite Sheet. The default value of -1 means "extract all frames".
-     * @param {integer} [config.margin=0] - If the frames have been drawn with a margin, specify the amount here.
-     * @param {integer} [config.spacing=0] - If the frames have been drawn with spacing between them, specify the amount here.
+     * @param {SpriteSheetConfig} config - The configuration object for this Sprite Sheet.
      *
      * @return {Phaser.Textures.Texture} The Texture that was created.
      */
@@ -61862,6 +61926,19 @@ var TextureManager = new Class({
     },
 
     /**
+     * @typedef {object} SpriteSheetFromAtlasConfig
+     * 
+     * @property {string} atlas - The key of the Texture Atlas in which this Sprite Sheet can be found.
+     * @property {string} frame - The key of the Texture Atlas Frame in which this Sprite Sheet can be found.
+     * @property {integer} frameWidth - The fixed width of each frame.
+     * @property {integer} [frameHeight] - The fixed height of each frame. If not set it will use the frameWidth as the height.
+     * @property {integer} [startFrame=0] - Skip a number of frames. Useful when there are multiple sprite sheets in one Texture.
+     * @property {integer} [endFrame=-1] - The total number of frames to extract from the Sprite Sheet. The default value of -1 means "extract all frames".
+     * @property {integer} [margin=0] - If the frames have been drawn with a margin, specify the amount here.
+     * @property {integer} [spacing=0] - If the frames have been drawn with spacing between them, specify the amount here.
+     */
+
+    /**
      * Adds a Sprite Sheet to this Texture Manager, where the Sprite Sheet exists as a Frame within a Texture Atlas.
      *
      * In Phaser terminology a Sprite Sheet is a texture containing different frames, but each frame is the exact
@@ -61871,15 +61948,7 @@ var TextureManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The unique string-based key of the Texture.
-     * @param {object} config - The configuration object for this Sprite Sheet.
-     * @param {string} config.atlas - The key of the Texture Atlas in which this Sprite Sheet can be found.
-     * @param {string} config.frame - The key of the Texture Atlas Frame in which this Sprite Sheet can be found.
-     * @param {integer} config.frameWidth - The fixed width of each frame.
-     * @param {integer} [config.frameHeight] - The fixed height of each frame. If not set it will use the frameWidth as the height.
-     * @param {integer} [config.startFrame=0] - Skip a number of frames. Useful when there are multiple sprite sheets in one Texture.
-     * @param {integer} [config.endFrame=-1] - The total number of frames to extract from the Sprite Sheet. The default value of -1 means "extract all frames".
-     * @param {integer} [config.margin=0] - If the frames have been drawn with a margin, specify the amount here.
-     * @param {integer} [config.spacing=0] - If the frames have been drawn with spacing between them, specify the amount here.
+     * @param {SpriteSheetFromAtlasConfig} config - The configuration object for this Sprite Sheet.
      *
      * @return {Phaser.Textures.Texture} The Texture that was created.
      */
@@ -62548,6 +62617,7 @@ module.exports = Textures;
  *
  * @function Phaser.Textures.Parsers.Canvas
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
@@ -62587,6 +62657,7 @@ module.exports = Canvas;
  *
  * @function Phaser.Textures.Parsers.Image
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
@@ -62629,6 +62700,7 @@ var Clone = __webpack_require__(/*! ../../utils/object/Clone */ "./utils/object/
  *
  * @function Phaser.Textures.Parsers.JSONArray
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
@@ -62740,6 +62812,7 @@ var Clone = __webpack_require__(/*! ../../utils/object/Clone */ "./utils/object/
  *
  * @function Phaser.Textures.Parsers.JSONHash
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
@@ -62840,6 +62913,7 @@ module.exports = JSONHash;
  *
  * @function Phaser.Textures.Parsers.Pyxel
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
@@ -62924,6 +62998,7 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
  *
  * @function Phaser.Textures.Parsers.SpriteSheet
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
@@ -63048,6 +63123,7 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
  *
  * @function Phaser.Textures.Parsers.SpriteSheetFromAtlas
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
@@ -63238,6 +63314,7 @@ module.exports = SpriteSheetFromAtlas;
  *
  * @function Phaser.Textures.Parsers.StarlingXML
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
@@ -63359,6 +63436,7 @@ var addFrame = function (texture, sourceIndex, name, frame)
  *
  * @function Phaser.Textures.Parsers.UnityYAML
  * @memberOf Phaser.Textures.Parsers
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.

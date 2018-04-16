@@ -2035,6 +2035,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\game config\\game rng.js",
+          "name": "game rng.js",
+          "size": 397,
+          "extension": ".js"
+        },
+        {
           "path": "src\\game config\\game title.js",
           "name": "game title.js",
           "size": 614,
@@ -2089,7 +2095,7 @@
           "extension": ".js"
         }
       ],
-      "size": 11679
+      "size": 12076
     },
     {
       "path": "src\\game objects",
@@ -8367,5 +8373,5 @@
       "size": 4792
     }
   ],
-  "size": 2194904
+  "size": 2195301
 }

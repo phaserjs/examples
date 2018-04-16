@@ -1968,20 +1968,25 @@ var AnimationManager = new Class({
     },
 
     /**
+     * @typedef {object} GenerateFrameNamesConfig
+     *
+     * @property {string} [prefix=''] - [description]
+     * @property {integer} [start=0] - [description]
+     * @property {integer} [end=0] - [description]
+     * @property {string} [suffix=''] - [description]
+     * @property {integer} [zeroPad=0] - [description]
+     * @property {AnimationFrameConfig[]} [outputArray=[]] - [description]
+     * @property {boolean} [frames=false] - [description]
+     */
+
+    /**
      * [description]
      *
      * @method Phaser.Animations.AnimationManager#generateFrameNames
      * @since 3.0.0
      *
      * @param {string} key - [description]
-     * @param {object} config - [description]
-     * @param {string} [config.prefix=''] - [description]
-     * @param {integer} [config.start=0] - [description]
-     * @param {integer} [config.end=0] - [description]
-     * @param {string} [config.suffix=''] - [description]
-     * @param {integer} [config.zeroPad=0] - [description]
-     * @param {AnimationFrameConfig[]} [config.outputArray=[]] - [description]
-     * @param {boolean} [config.frames=false] - [description]
+     * @param {GenerateFrameNamesConfig} config - [description]
      *
      * @return {AnimationFrameConfig[]} [description]
      */
@@ -2040,18 +2045,23 @@ var AnimationManager = new Class({
     },
 
     /**
+     * @typedef {object} GenerateFrameNumbersConfig
+     *
+     * @property {integer} [start=0] - [description]
+     * @property {integer} [end=-1] - [description]
+     * @property {boolean} [first=false] - [description]
+     * @property {AnimationFrameConfig[]} [outputArray=[]] - [description]
+     * @property {boolean} [frames=false] - [description]
+     */
+
+    /**
      * [description]
      *
      * @method Phaser.Animations.AnimationManager#generateFrameNumbers
      * @since 3.0.0
      *
      * @param {string} key - [description]
-     * @param {object} config - [description]
-     * @param {integer} [config.start=0] - [description]
-     * @param {integer} [config.end=-1] - [description]
-     * @param {boolean} [config.first=false] - [description]
-     * @param {AnimationFrameConfig[]} [config.outputArray=[]] - [description]
-     * @param {boolean} [config.frames=false] - [description]
+     * @param {GenerateFrameNumbersConfig} config - [description]
      *
      * @return {AnimationFrameConfig[]} [description]
      */
@@ -3645,7 +3655,7 @@ var PluginManager = new Class({
  * Plugin is the object to instantiate to create the plugin
  * Mapping is what the plugin is injected into the Scene.Systems as (i.e. input)
  *
- * @method PluginManager.register
+ * @method Phaser.Boot.PluginManager.register
  * @since 3.0.0
  * 
  * @param {string} key - [description]
@@ -3720,7 +3730,8 @@ var TimeStep = new Class({
         /**
          * A reference to the Phaser.Game instance.
          *
-         * @property {Phaser.Game} game
+         * @name Phaser.Boot.TimeStep#game
+         * @type {Phaser.Game}
          * @readOnly
          * @since 3.0.0
          */
@@ -3729,7 +3740,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {Phaser.DOM.RequestAnimationFrame} raf
+         * @name Phaser.Boot.TimeStep#raf
+         * @type {Phaser.DOM.RequestAnimationFrame}
          * @readOnly
          * @since 3.0.0
          */
@@ -3738,7 +3750,8 @@ var TimeStep = new Class({
         /**
          * A flag that is set once the TimeStep has started running and toggled when it stops.
          *
-         * @property {boolean} started
+         * @name Phaser.Boot.TimeStep#started
+         * @type {boolean}
          * @readOnly
          * @default false
          * @since 3.0.0
@@ -3751,7 +3764,8 @@ var TimeStep = new Class({
          * the TimeStep is sent to sleep, where-as `started` remains `true`, only changing if
          * the TimeStep is actually stopped, not just paused.
          *
-         * @property {boolean} running
+         * @name Phaser.Boot.TimeStep#running
+         * @name {boolean}
          * @readOnly
          * @default false
          * @since 3.0.0
@@ -3761,7 +3775,8 @@ var TimeStep = new Class({
         /**
          * The minimum fps rate you want the Time Step to run at.
          *
-         * @property {integer} minFps
+         * @name Phaser.Boot.TimeStep#minFps
+         * @type {integer}
          * @default 5
          * @since 3.0.0
          */
@@ -3774,7 +3789,8 @@ var TimeStep = new Class({
          * the control of Phaser. Instead, it allows you to determine performance issues and if the Time Step
          * is spiraling out of control.
          *
-         * @property {integer} targetFps
+         * @name Phaser.Boot.TimeStep#targetFps
+         * @name {integer}
          * @default 60
          * @since 3.0.0
          */
@@ -3784,7 +3800,8 @@ var TimeStep = new Class({
          * The minFps value in ms.
          * Defaults to 200ms between frames (i.e. super slow!)
          *
-         * @property {number} _min
+         * @name Phaser.Boot.TimeStep#_min
+         * @type {number}
          * @private
          * @since 3.0.0
          */
@@ -3794,7 +3811,8 @@ var TimeStep = new Class({
          * The targetFps value in ms.
          * Defaults to 16.66ms between frames (i.e. normal)
          *
-         * @property {number} _target
+         * @name Phaser.Boot.TimeStep#_target
+         * @type {number}
          * @private
          * @since 3.0.0
          */
@@ -3803,7 +3821,8 @@ var TimeStep = new Class({
         /**
          * An exponential moving average of the frames per second.
          *
-         * @property {integer} actualFps
+         * @name Phaser.Boot.TimeStep#actualFps
+         * @type {integer}
          * @readOnly
          * @default 60
          * @since 3.0.0
@@ -3813,7 +3832,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} nextFpsUpdate
+         * @name Phaser.Boot.TimeStep#nextFpsUpdate
+         * @type {integer}
          * @readOnly
          * @default 0
          * @since 3.0.0
@@ -3823,7 +3843,8 @@ var TimeStep = new Class({
         /**
          * The number of frames processed this second.
          *
-         * @property {integer} framesThisSecond
+         * @name Phaser.Boot.TimeStep#framesThisSecond
+         * @type {integer}
          * @readOnly
          * @default 0
          * @since 3.0.0
@@ -3833,7 +3854,8 @@ var TimeStep = new Class({
         /**
          * A callback to be invoked each time the Time Step steps.
          *
-         * @property {TimeStepCallback} callback
+         * @name Phaser.Boot.TimeStep#callback
+         * @type {TimeStepCallback}
          * @default NOOP
          * @since 3.0.0
          */
@@ -3843,7 +3865,8 @@ var TimeStep = new Class({
          * You can force the Time Step to use Set Timeout instead of Request Animation Frame by setting
          * the `forceSetTimeOut` property to `true` in the Game Configuration object. It cannot be changed at run-time.
          *
-         * @property {boolean} forceSetTimeOut
+         * @name Phaser.Boot.TimeStep#forceSetTimeOut
+         * @type {boolean}
          * @readOnly
          * @default false
          * @since 3.0.0
@@ -3853,7 +3876,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} time
+         * @name Phaser.Boot.TimeStep#time
+         * @type {integer}
          * @default 0
          * @since 3.0.0
          */
@@ -3862,7 +3886,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} startTime
+         * @name Phaser.Boot.TimeStep#startTime
+         * @type {integer}
          * @default 0
          * @since 3.0.0
          */
@@ -3871,7 +3896,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} lastTime
+         * @name Phaser.Boot.TimeStep#lastTime
+         * @type {integer}
          * @default 0
          * @since 3.0.0
          */
@@ -3880,7 +3906,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} frame
+         * @name Phaser.Boot.TimeStep#frame
+         * @type {integer}
          * @readOnly
          * @default 0
          * @since 3.0.0
@@ -3890,7 +3917,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {boolean} inFocus
+         * @name Phaser.Boot.TimeStep#inFocus
+         * @type {boolean}
          * @readOnly
          * @default true
          * @since 3.0.0
@@ -3900,7 +3928,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} _pauseTime
+         * @name Phaser.Boot.TimeStep#_pauseTime
+         * @type {integer}
          * @private
          * @default 0
          * @since 3.0.0
@@ -3910,7 +3939,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} _coolDown
+         * @name Phaser.Boot.TimeStep#_coolDown
+         * @type {integer}
          * @private
          * @default 0
          * @since 3.0.0
@@ -3920,7 +3950,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} delta
+         * @name Phaser.Boot.TimeStep#delta
+         * @type {integer}
          * @default 0
          * @since 3.0.0
          */
@@ -3929,7 +3960,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} deltaIndex
+         * @name Phaser.Boot.TimeStep#deltaIndex
+         * @type {integer}
          * @default 0
          * @since 3.0.0
          */
@@ -3938,7 +3970,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {array} deltaHistory
+         * @name Phaser.Boot.TimeStep#deltaHistory
+         * @type {array}
          * @default 0
          * @since 3.0.0
          */
@@ -3947,7 +3980,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} deltaSmoothingMax
+         * @name Phaser.Boot.TimeStep#deltaSmoothingMax
+         * @type {integer}
          * @default 10
          * @since 3.0.0
          */
@@ -3956,7 +3990,8 @@ var TimeStep = new Class({
         /**
          * [description]
          *
-         * @property {integer} panicMax
+         * @name Phaser.Boot.TimeStep#panicMax
+         * @type {integer}
          * @default 120
          * @since 3.0.0
          */
@@ -3967,7 +4002,8 @@ var TimeStep = new Class({
          * Unlike with `delta` no smoothing, capping, or averaging is applied to this value.
          * So please be careful when using this value in calculations.
          *
-         * @property {number} rawDelta
+         * @name Phaser.Boot.TimeStep#rawDelta
+         * @type {number}
          * @default 0
          * @since 3.0.0
          */
@@ -14294,7 +14330,7 @@ var Animation = new Class({
     /**
      * Sets the amount of time, in milliseconds, that the animation will be delayed before starting playback.
      *
-     * @method Phaser.GameObjects.Components.Animation#delay
+     * @method Phaser.GameObjects.Components.Animation#setDelay
      * @since 3.4.0
      *
      * @param {integer} [value=0] - The amount of time, in milliseconds, to wait before starting playback.
@@ -14313,7 +14349,7 @@ var Animation = new Class({
     /**
      * Gets the amount of time, in milliseconds that the animation will be delayed before starting playback.
      *
-     * @method Phaser.GameObjects.Components.Animation#delay
+     * @method Phaser.GameObjects.Components.Animation#getDelay
      * @since 3.4.0
      *
      * @return {integer} The amount of time, in milliseconds, the Animation will wait before starting playback.
@@ -21050,7 +21086,7 @@ var TextStyle = new Class({
         /**
          * The Text object that this TextStyle is styling.
          *
-         * @name Phaser.GameObjects.Components.TextStyle#parent
+         * @name Phaser.GameObjects.Text.TextStyle#parent
          * @type {Phaser.GameObjects.Text}
          * @since 3.0.0
          */
@@ -21059,7 +21095,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#fontFamily
+         * @name Phaser.GameObjects.Text.TextStyle#fontFamily
          * @type {string}
          * @default 'Courier'
          * @since 3.0.0
@@ -21069,7 +21105,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#fontSize
+         * @name Phaser.GameObjects.Text.TextStyle#fontSize
          * @type {string}
          * @default '16px'
          * @since 3.0.0
@@ -21079,7 +21115,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#fontStyle
+         * @name Phaser.GameObjects.Text.TextStyle#fontStyle
          * @type {string}
          * @since 3.0.0
          */
@@ -21088,7 +21124,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#backgroundColor
+         * @name Phaser.GameObjects.Text.TextStyle#backgroundColor
          * @type {string}
          * @since 3.0.0
          */
@@ -21097,7 +21133,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#color
+         * @name Phaser.GameObjects.Text.TextStyle#color
          * @type {string}
          * @default '#fff'
          * @since 3.0.0
@@ -21107,7 +21143,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#stroke
+         * @name Phaser.GameObjects.Text.TextStyle#stroke
          * @type {string}
          * @default '#fff'
          * @since 3.0.0
@@ -21117,7 +21153,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#strokeThickness
+         * @name Phaser.GameObjects.Text.TextStyle#strokeThickness
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -21127,7 +21163,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#shadowOffsetX
+         * @name Phaser.GameObjects.Text.TextStyle#shadowOffsetX
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -21137,7 +21173,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#shadowOffsetY
+         * @name Phaser.GameObjects.Text.TextStyle#shadowOffsetY
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -21147,7 +21183,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#shadowColor
+         * @name Phaser.GameObjects.Text.TextStyle#shadowColor
          * @type {string}
          * @default '#000'
          * @since 3.0.0
@@ -21157,7 +21193,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#shadowBlur
+         * @name Phaser.GameObjects.Text.TextStyle#shadowBlur
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -21167,7 +21203,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#shadowStroke
+         * @name Phaser.GameObjects.Text.TextStyle#shadowStroke
          * @type {boolean}
          * @default false
          * @since 3.0.0
@@ -21177,7 +21213,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#shadowFill
+         * @name Phaser.GameObjects.Text.TextStyle#shadowFill
          * @type {boolean}
          * @default false
          * @since 3.0.0
@@ -21187,7 +21223,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#align
+         * @name Phaser.GameObjects.Text.TextStyle#align
          * @type {string}
          * @default 'left'
          * @since 3.0.0
@@ -21197,7 +21233,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#maxLines
+         * @name Phaser.GameObjects.Text.TextStyle#maxLines
          * @type {integer}
          * @default 0
          * @since 3.0.0
@@ -21207,7 +21243,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#fixedWidth
+         * @name Phaser.GameObjects.Text.TextStyle#fixedWidth
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -21217,7 +21253,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#fixedHeight
+         * @name Phaser.GameObjects.Text.TextStyle#fixedHeight
          * @type {number}
          * @default 0
          * @since 3.0.0
@@ -21227,7 +21263,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#rtl
+         * @name Phaser.GameObjects.Text.TextStyle#rtl
          * @type {boolean}
          * @default false
          * @since 3.0.0
@@ -21237,7 +21273,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#testString
+         * @name Phaser.GameObjects.Text.TextStyle#testString
          * @type {string}
          * @default '|MÉqgy'
          * @since 3.0.0
@@ -21247,7 +21283,7 @@ var TextStyle = new Class({
         /**
          * The amount of horizontal padding adding to the width of the text when calculating the font metrics.
          *
-         * @name Phaser.GameObjects.Components.TextStyle#baselineX
+         * @name Phaser.GameObjects.Text.TextStyle#baselineX
          * @type {number}
          * @default 1.2
          * @since 3.3.0
@@ -21257,7 +21293,7 @@ var TextStyle = new Class({
         /**
          * The amount of vertical padding adding to the width of the text when calculating the font metrics.
          *
-         * @name Phaser.GameObjects.Components.TextStyle#baselineY
+         * @name Phaser.GameObjects.Text.TextStyle#baselineY
          * @type {number}
          * @default 1.4
          * @since 3.3.0
@@ -21267,7 +21303,7 @@ var TextStyle = new Class({
         /**
          * [description]
          *
-         * @name Phaser.GameObjects.Components.TextStyle#_font
+         * @name Phaser.GameObjects.Text.TextStyle#_font
          * @type {string}
          * @private
          * @since 3.0.0
@@ -21298,7 +21334,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setStyle
+     * @method Phaser.GameObjects.Text.TextStyle#setStyle
      * @since 3.0.0
      *
      * @param {CSSStyleRule} style - [description]
@@ -21362,7 +21398,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#syncFont
+     * @method Phaser.GameObjects.Text.TextStyle#syncFont
      * @since 3.0.0
      *
      * @param {HTMLCanvasElement} canvas - [description]
@@ -21376,7 +21412,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#syncStyle
+     * @method Phaser.GameObjects.Text.TextStyle#syncStyle
      * @since 3.0.0
      *
      * @param {HTMLCanvasElement} canvas - [description]
@@ -21397,7 +21433,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#syncShadow
+     * @method Phaser.GameObjects.Text.TextStyle#syncShadow
      * @since 3.0.0
      *
      * @param {CanvasRenderingContext2D} context - [description]
@@ -21424,7 +21460,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#update
+     * @method Phaser.GameObjects.Text.TextStyle#update
      * @since 3.0.0
      *
      * @param {boolean} recalculateMetrics - [description]
@@ -21446,7 +21482,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setFont
+     * @method Phaser.GameObjects.Text.TextStyle#setFont
      * @since 3.0.0
      *
      * @param {(string|object)} font - [description]
@@ -21474,7 +21510,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setFontFamily
+     * @method Phaser.GameObjects.Text.TextStyle#setFontFamily
      * @since 3.0.0
      *
      * @param {string} family - [description]
@@ -21491,7 +21527,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setFontStyle
+     * @method Phaser.GameObjects.Text.TextStyle#setFontStyle
      * @since 3.0.0
      *
      * @param {string} style - [description]
@@ -21508,7 +21544,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setFontSize
+     * @method Phaser.GameObjects.Text.TextStyle#setFontSize
      * @since 3.0.0
      *
      * @param {(number|string)} size - [description]
@@ -21530,7 +21566,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setTestString
+     * @method Phaser.GameObjects.Text.TextStyle#setTestString
      * @since 3.0.0
      *
      * @param {string} string - [description]
@@ -21547,7 +21583,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setFixedSize
+     * @method Phaser.GameObjects.Text.TextStyle#setFixedSize
      * @since 3.0.0
      *
      * @param {number} width - [description]
@@ -21576,7 +21612,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setBackgroundColor
+     * @method Phaser.GameObjects.Text.TextStyle#setBackgroundColor
      * @since 3.0.0
      *
      * @param {string} color - [description]
@@ -21593,7 +21629,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setFill
+     * @method Phaser.GameObjects.Text.TextStyle#setFill
      * @since 3.0.0
      *
      * @param {string} color - [description]
@@ -21610,7 +21646,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setColor
+     * @method Phaser.GameObjects.Text.TextStyle#setColor
      * @since 3.0.0
      *
      * @param {string} color - [description]
@@ -21627,7 +21663,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setStroke
+     * @method Phaser.GameObjects.Text.TextStyle#setStroke
      * @since 3.0.0
      *
      * @param {string} color - [description]
@@ -21656,7 +21692,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setShadow
+     * @method Phaser.GameObjects.Text.TextStyle#setShadow
      * @since 3.0.0
      *
      * @param {number} [x=0] - [description]
@@ -21690,7 +21726,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setShadowOffset
+     * @method Phaser.GameObjects.Text.TextStyle#setShadowOffset
      * @since 3.0.0
      *
      * @param {number} [x=0] - [description]
@@ -21712,7 +21748,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setShadowColor
+     * @method Phaser.GameObjects.Text.TextStyle#setShadowColor
      * @since 3.0.0
      *
      * @param {string} [color='#000'] - [description]
@@ -21731,7 +21767,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setShadowBlur
+     * @method Phaser.GameObjects.Text.TextStyle#setShadowBlur
      * @since 3.0.0
      *
      * @param {number} [blur=0] - [description]
@@ -21750,7 +21786,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setShadowStroke
+     * @method Phaser.GameObjects.Text.TextStyle#setShadowStroke
      * @since 3.0.0
      *
      * @param {boolean} enabled - [description]
@@ -21767,7 +21803,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setShadowFill
+     * @method Phaser.GameObjects.Text.TextStyle#setShadowFill
      * @since 3.0.0
      *
      * @param {boolean} enabled - [description]
@@ -21784,7 +21820,7 @@ var TextStyle = new Class({
     /**
      * Set the width (in pixels) to use for wrapping lines. Pass in null to remove wrapping by width.
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setWordWrapWidth
+     * @method Phaser.GameObjects.Text.TextStyle#setWordWrapWidth
      * @since 3.0.0
      *
      * @param {number} width - The maximum width of a line in pixels. Set to null to remove wrapping.
@@ -21807,7 +21843,7 @@ var TextStyle = new Class({
     /**
      * Set a custom callback for wrapping lines. Pass in null to remove wrapping by callback.
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setWordWrapCallback
+     * @method Phaser.GameObjects.Text.TextStyle#setWordWrapCallback
      * @since 3.0.0
      *
      * @param {TextStyleWordWrapCallback} callback - A custom function that will be responsible for wrapping the
@@ -21831,7 +21867,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setAlign
+     * @method Phaser.GameObjects.Text.TextStyle#setAlign
      * @since 3.0.0
      *
      * @param {string} align - [description]
@@ -21850,7 +21886,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#setMaxLines
+     * @method Phaser.GameObjects.Text.TextStyle#setMaxLines
      * @since 3.0.0
      *
      * @param {integer} [max=0] - [description]
@@ -21869,7 +21905,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#getTextMetrics
+     * @method Phaser.GameObjects.Text.TextStyle#getTextMetrics
      * @since 3.0.0
      *
      * @return {object} [description]
@@ -21888,7 +21924,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#toJSON
+     * @method Phaser.GameObjects.Text.TextStyle#toJSON
      * @since 3.0.0
      *
      * @return {object} [description]
@@ -21910,7 +21946,7 @@ var TextStyle = new Class({
     /**
      * [description]
      *
-     * @method Phaser.GameObjects.Components.TextStyle#destroy
+     * @method Phaser.GameObjects.Text.TextStyle#destroy
      * @since 3.0.0
      */
     destroy: function ()
@@ -33734,7 +33770,7 @@ module.exports = KeyMap;
 /**
  * Used internally by the KeyboardManager.
  *
- * @function Phaser.Input.Keyboard.Keys.ProcessKeyDown
+ * @function Phaser.Input.Keyboard.ProcessKeyDown
  * @since 3.0.0
  *
  * @param {Phaser.Input.Keyboard.Key} key - [description]
@@ -33797,7 +33833,7 @@ module.exports = ProcessKeyDown;
 /**
  * Used internally by the KeyboardManager.
  *
- * @function Phaser.Input.Keyboard.Keys.ProcessKeyUp
+ * @function Phaser.Input.Keyboard.ProcessKeyUp
  * @since 3.0.0
  *
  * @param {Phaser.Input.Keyboard.Key} key - [description]
@@ -35552,8 +35588,8 @@ var AtlasJSONFile = function (key, textureURL, atlasURL, path, textureXhrSetting
  * @param {string} key - The key of the file within the loader.
  * @param {string} textureURL - The url to load the texture file from.
  * @param {string} atlasURL - The url to load the atlas file from.
- * @param {XHRSettingsObject} textureXhrSettings - Optional texture file specific XHR settings.
- * @param {XHRSettingsObject} atlasXhrSettings - Optional atlas file specific XHR settings.
+ * @param {XHRSettingsObject} [textureXhrSettings] - Optional texture file specific XHR settings.
+ * @param {XHRSettingsObject} [atlasXhrSettings] - Optional atlas file specific XHR settings.
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -35735,7 +35771,7 @@ AudioFile.create = function (loader, key, urls, config, xhrSettings)
  * @param {string} key - [description]
  * @param {(string|string[])} urls - [description]
  * @param {object} config - [description]
- * @param {object} xhrSettings - [description]
+ * @param {object} [xhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -35865,8 +35901,8 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
  * @param {(string|string[])} urls - [description]
  * @param {object} json - [description]
  * @param {object} config - [description]
- * @param {XHRSettingsObject} audioXhrSettings - Optional file specific XHR settings.
- * @param {XHRSettingsObject} jsonXhrSettings - Optional file specific XHR settings.
+ * @param {XHRSettingsObject} [audioXhrSettings] - Optional file specific XHR settings.
+ * @param {XHRSettingsObject} [jsonXhrSettings] - Optional file specific XHR settings.
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -36190,7 +36226,7 @@ var ImageFile = new Class({
  *
  * @param {string} key - [description]
  * @param {string} url - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -36339,7 +36375,7 @@ var JSONFile = new Class({
  *
  * @param {string} key - [description]
  * @param {string} url - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -36399,8 +36435,8 @@ var NumberArray = __webpack_require__(/*! ../../utils/array/NumberArray */ "./ut
  * @param {string} key - [description]
  * @param {string[]} textureURLs - [description]
  * @param {string[]} atlasURLs - [description]
- * @param {XHRSettingsObject} textureXhrSettings - [description]
- * @param {XHRSettingsObject} atlasXhrSettings - [description]
+ * @param {XHRSettingsObject} [textureXhrSettings] - [description]
+ * @param {XHRSettingsObject} [atlasXhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -36562,7 +36598,7 @@ var PluginFile = new Class({
  *
  * @param {string} key - [description]
  * @param {string} url - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -36679,7 +36715,7 @@ var ScriptFile = new Class({
  *
  * @param {string} key - [description]
  * @param {string} url - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -36761,7 +36797,7 @@ var SpriteSheetFile = function (key, url, config, path, xhrSettings)
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {object} config - config can include: frameWidth, frameHeight, startFrame, endFrame, margin, spacing.
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -36869,7 +36905,7 @@ var TextFile = new Class({
  *
  * @param {string} key - [description]
  * @param {string} url - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -36986,7 +37022,7 @@ var XMLFile = new Class({
  *
  * @param {string} key - [description]
  * @param {string} url - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  *
  * @return {Phaser.Loader.LoaderPlugin} The Loader.
  */
@@ -38393,7 +38429,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Back
+/**
+ * @namespace Phaser.Math.Easing.Back
+ */
 
 module.exports = {
 
@@ -38586,7 +38624,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Bounce
+/**
+ * @namespace Phaser.Math.Easing.Bounce
+ */
 
 module.exports = {
 
@@ -38718,7 +38758,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Circular
+/**
+ * @namespace Phaser.Math.Easing.Circular
+ */
 
 module.exports = {
 
@@ -38850,7 +38892,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Cubic
+/**
+ * @namespace Phaser.Math.Easing.Cubic
+ */
 
 module.exports = {
 
@@ -39063,7 +39107,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Elastic
+/**
+ * @namespace Phaser.Math.Easing.Elastic
+ */
 
 module.exports = {
 
@@ -39195,7 +39241,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Expo
+/**
+ * @namespace Phaser.Math.Easing.Expo
+ */
 
 module.exports = {
 
@@ -39224,7 +39272,7 @@ module.exports = {
 /**
  * [description]
  *
- * @function Phaser.Math.Easing.Linear
+ * @function Phaser.Math.Easing.Linear.Linear
  * @since 3.0.0
  *
  * @param {number} v - [description]
@@ -39254,7 +39302,9 @@ module.exports = Linear;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Linear
+/**
+ * @namespace Phaser.Math.Easing.Linear
+ */
 
 module.exports = __webpack_require__(/*! ./Linear */ "./math/easing/linear/Linear.js");
 
@@ -39380,7 +39430,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Quadratic
+/**
+ * @namespace Phaser.Math.Easing.Quadratic
+ */
 
 module.exports = {
 
@@ -39512,7 +39564,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Quartic
+/**
+ * @namespace Phaser.Math.Easing.Quartic
+ */
 
 module.exports = {
 
@@ -39644,7 +39698,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Quintic
+/**
+ * @namespace Phaser.Math.Easing.Quintic
+ */
 
 module.exports = {
 
@@ -39802,7 +39858,9 @@ module.exports = Out;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Sine
+/**
+ * @namespace Phaser.Math.Easing.Sine
+ */
 
 module.exports = {
 
@@ -39831,7 +39889,7 @@ module.exports = {
 /**
  * [description]
  *
- * @function Phaser.Math.Easing.Stepped
+ * @function Phaser.Math.Easing.Stepped.Stepped
  * @since 3.0.0
  *
  * @param {number} v - [description]
@@ -39875,7 +39933,9 @@ module.exports = Stepped;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-//  Phaser.Math.Easing.Stepped
+/**
+ * @namespace Phaser.Math.Easing.Stepped
+ */
 
 module.exports = __webpack_require__(/*! ./Stepped */ "./math/easing/stepped/Stepped.js");
 
@@ -40007,7 +40067,7 @@ var RandomDataGenerator = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Math.RandomDataGenerator#sign
+         * @name Phaser.Math.RandomDataGenerator#signs
          * @type {number[]}
          * @since 3.0.0
          */
@@ -52611,10 +52671,12 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
 var Merge = __webpack_require__(/*! ../utils/object/Merge */ "./utils/object/Merge.js");
 var InjectionMap = __webpack_require__(/*! ./InjectionMap */ "./scene/InjectionMap.js");
 
-// TODO 22/03/2018 Fix "plugins" type
+/**
+ * @namespace Phaser.Scenes.Settings
+ */
 
 /**
- * @typedef {object} SettingsConfig
+ * @typedef {object} Phaser.Scenes.Settings.Config
  *
  * @property {string} [key] - [description]
  * @property {boolean} [active=false] - [description]
@@ -52629,7 +52691,7 @@ var InjectionMap = __webpack_require__(/*! ./InjectionMap */ "./scene/InjectionM
  */
 
 /**
- * @typedef {object} SettingsObject
+ * @typedef {object} Phaser.Scenes.Settings.Object
  *
  * @property {number} status - [description]
  * @property {string} key - [description]
@@ -52657,9 +52719,9 @@ var Settings = {
      * @function Phaser.Scenes.Settings.create
      * @since 3.0.0
      *
-     * @param {(string|SettingsConfig)} config - [description]
+     * @param {(string|Phaser.Scenes.SettingsConfig)} config - [description]
      *
-     * @return {SettingsObject} [description]
+     * @return {Phaser.Scenes.Settings.Object} [description]
      */
     create: function (config)
     {
@@ -54074,11 +54136,10 @@ var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
 /**
  * Audio sprite sound type.
  *
- * @typedef {Phaser.Sound.BaseSound} AudioSpriteSound
+ * @typedef {Phaser.Sound.BaseSound} Phaser.Sound.BaseSound.AudioSpriteSound
  *
  * @property {object} spritemap - Local reference to 'spritemap' object form json file generated by audiosprite tool.
  */
-
 
 /**
  * @classdesc
@@ -54247,7 +54308,7 @@ var BaseSoundManager = new Class({
      * @param {string} key - Asset key for the sound.
      * @param {SoundConfig} [config] - An optional config object containing default sound settings.
      *
-     * @return {AudioSpriteSound} The new audio sprite sound instance.
+     * @return {Phaser.Sound.BaseSound.AudioSpriteSound} The new audio sprite sound instance.
      */
     addAudioSprite: function (key, config)
     {

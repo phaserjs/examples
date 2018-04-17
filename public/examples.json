@@ -1056,13 +1056,19 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\emitter blend mode.js",
+          "name": "emitter blend mode.js",
+          "size": 1634,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\scroll factor test.js",
           "name": "scroll factor test.js",
           "size": 921,
           "extension": ".js"
         }
       ],
-      "size": 921
+      "size": 2555
     },
     {
       "path": "src\\cache",
@@ -1956,12 +1962,6 @@
       "name": "events",
       "children": [
         {
-          "path": "src\\events\\check once event.js",
-          "name": "check once event.js",
-          "size": 788,
-          "extension": ".js"
-        },
-        {
           "path": "src\\events\\create event emitter.js",
           "name": "create event emitter.js",
           "size": 762,
@@ -2010,7 +2010,7 @@
           "extension": ".js"
         }
       ],
-      "size": 8438
+      "size": 7650
     },
     {
       "path": "src\\game config",
@@ -7253,12 +7253,6 @@
           "extension": ".js"
         },
         {
-          "path": "src\\scenes\\call function in another scene 2.js",
-          "name": "call function in another scene 2.js",
-          "size": 1367,
-          "extension": ".js"
-        },
-        {
           "path": "src\\scenes\\call function in another scene es6.js",
           "name": "call function in another scene es6.js",
           "size": 1128,
@@ -7573,7 +7567,7 @@
           "extension": ".js"
         }
       ],
-      "size": 65558
+      "size": 64191
     },
     {
       "path": "src\\snapshot",
@@ -8385,5 +8379,5 @@
       "size": 4792
     }
   ],
-  "size": 2197983
+  "size": 2197462
 }

@@ -1956,6 +1956,12 @@
       "name": "events",
       "children": [
         {
+          "path": "src\\events\\check once event.js",
+          "name": "check once event.js",
+          "size": 788,
+          "extension": ".js"
+        },
+        {
           "path": "src\\events\\create event emitter.js",
           "name": "create event emitter.js",
           "size": 762,
@@ -2004,7 +2010,7 @@
           "extension": ".js"
         }
       ],
-      "size": 7650
+      "size": 8438
     },
     {
       "path": "src\\game config",
@@ -2037,7 +2043,7 @@
         {
           "path": "src\\game config\\game rng.js",
           "name": "game rng.js",
-          "size": 397,
+          "size": 924,
           "extension": ".js"
         },
         {
@@ -2095,7 +2101,7 @@
           "extension": ".js"
         }
       ],
-      "size": 12076
+      "size": 12603
     },
     {
       "path": "src\\game objects",
@@ -7247,6 +7253,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\call function in another scene 2.js",
+          "name": "call function in another scene 2.js",
+          "size": 1367,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scenes\\call function in another scene es6.js",
           "name": "call function in another scene es6.js",
           "size": 1128,
@@ -7561,7 +7573,7 @@
           "extension": ".js"
         }
       ],
-      "size": 64191
+      "size": 65558
     },
     {
       "path": "src\\snapshot",
@@ -8373,5 +8385,5 @@
       "size": 4792
     }
   ],
-  "size": 2195301
+  "size": 2197983
 }

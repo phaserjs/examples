@@ -3166,7 +3166,7 @@ var Game = new Class({
         this.onStepCallback = NOOP;
 
         /**
-         * Is this Game pending destroy at the end of the next frame?
+         * Is this Game pending destruction at the start of the next frame?
          *
          * @name Phaser.Game#pendingDestroy
          * @type {boolean}
@@ -3475,17 +3475,19 @@ var Game = new Class({
     },
 
     /**
-     * Destroys this Phaser.Game instance, all global systems, all sub-systems and all Scenes.
+     * Flags this Game instance as needing to be destroyed on the next frame.
+     * It will wait until the current frame has completed and then call `runDestroy` internally.
      *
      * @method Phaser.Game#destroy
      * @since 3.0.0
+     *
+     * @param {boolean} removeCanvas - Set to `true` if you would like the parent canvas element removed from the DOM, or `false` to leave it in place.
      */
     destroy: function (removeCanvas)
     {
         this.pendingDestroy = true;
-        this.removeCanvas = removeCanvas;
 
-        this.loop.stop();
+        this.removeCanvas = removeCanvas;
     },
 
     /**
@@ -6233,19 +6235,19 @@ var CameraManager = new Class({
          */
         this.baseScale = 1;
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
     },
 
     /**
-     * This method is called automatically by the Scene when it is starting up.
-     * It is responsible for creating local systems, properties and listening for Scene events.
+     * This method is called automatically, only once, when the Scene is first created.
      * Do not invoke it directly.
      *
-     * @method Phaser.Cameras.Scene2D.CameraManager#start
+     * @method Phaser.Cameras.Scene2D.CameraManager#boot
      * @private
-     * @since 3.5.0
+     * @since 3.5.1
      */
-    start: function ()
+    boot: function ()
     {
         var sys = this.systems;
 
@@ -6262,11 +6264,29 @@ var CameraManager = new Class({
 
         this.main = this.cameras[0];
 
-        var eventEmitter = sys.events;
+        this.systems.events.once('destroy', this.destroy, this);
+    },
+
+    /**
+     * This method is called automatically by the Scene when it is starting up.
+     * It is responsible for creating local systems, properties and listening for Scene events.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Cameras.Scene2D.CameraManager#start
+     * @private
+     * @since 3.5.0
+     */
+    start: function ()
+    {
+        if (!this.main)
+        {
+            this.boot();
+        }
+
+        var eventEmitter = this.systems.events;
 
         eventEmitter.on('update', this.update, this);
         eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
     },
 
     /**
@@ -7881,7 +7901,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.5.0-beta',
+    VERSION: '3.5.1',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -8669,7 +8689,23 @@ var DataManagerPlugin = new Class({
          */
         this.systems = scene.sys;
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Data.DataManagerPlugin#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.events = this.systems.events;
+
+        this.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -8690,10 +8726,7 @@ var DataManagerPlugin = new Class({
 
         this.events = this.systems.events;
 
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
+        this.events.once('shutdown', this.shutdown, this);
     },
 
     /**
@@ -8706,9 +8739,7 @@ var DataManagerPlugin = new Class({
      */
     shutdown: function ()
     {
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.off('shutdown', this.shutdown, this);
+        this.systems.events.off('shutdown', this.shutdown, this);
     },
 
     /**
@@ -9943,12 +9974,12 @@ var pool = [];
 var _disableContextSmoothing = false;
 
 /**
- * The CanvasPool is a global static object, that allows Phaser to recycle and pool Canvas DOM elements.
+ * The CanvasPool is a global static object, that allows Phaser to recycle and pool 2D Context Canvas DOM elements.
+ * It does not pool WebGL Contexts, because once the context options are set they cannot be modified again, 
+ * which is useless for some of the Phaser pipelines / renderer.
  *
- * This singleton is instantiated as soon as Phaser loads,
- * before a Phaser.Game instance has even been created.
- * Which means all instances of Phaser Games on the same page
- * can share the one single pool
+ * This singleton is instantiated as soon as Phaser loads, before a Phaser.Game instance has even been created.
+ * Which means all instances of Phaser Games on the same page can share the one single pool.
  *
  * @namespace Phaser.Display.Canvas.CanvasPool
  * @since 3.0.0
@@ -9985,7 +10016,10 @@ var CanvasPool = function ()
                 type: canvasType
             };
 
-            pool.push(container);
+            if (canvasType === CONST.CANVAS)
+            {
+                pool.push(container);
+            }
 
             canvas = container.canvas;
         }
@@ -10055,6 +10089,11 @@ var CanvasPool = function ()
     {
         if (canvasType === undefined) { canvasType = CONST.CANVAS; }
 
+        if (canvasType ===  CONST.WEBGL)
+        {
+            return null;
+        }
+
         for (var i = 0; i < pool.length; i++)
         {
             var container = pool[i];
@@ -10086,7 +10125,6 @@ var CanvasPool = function ()
         {
             if ((isCanvas && container.canvas === parent) || (!isCanvas && container.parent === parent))
             {
-                // console.log('CanvasPool.remove found and removed');
                 container.parent = null;
                 container.canvas.width = 1;
                 container.canvas.height = 1;
@@ -12526,7 +12564,21 @@ var DisplayList = new Class({
          */
         this.systems = scene.sys;
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.GameObjects.DisplayList#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.systems.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -12540,10 +12592,7 @@ var DisplayList = new Class({
      */
     start: function ()
     {
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
+        this.systems.events.once('shutdown', this.shutdown, this);
     },
 
     /**
@@ -12638,9 +12687,7 @@ var DisplayList = new Class({
     {
         this.removeAll();
 
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.off('shutdown', this.shutdown, this);
+        this.systems.events.off('shutdown', this.shutdown, this);
     },
 
     /**
@@ -13212,7 +13259,24 @@ var GameObjectCreator = new Class({
          */
         this.updateList;
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.GameObjects.GameObjectCreator#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.displayList = this.systems.displayList;
+        this.updateList = this.systems.updateList;
+
+        this.systems.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -13226,13 +13290,7 @@ var GameObjectCreator = new Class({
      */
     start: function ()
     {
-        this.displayList = this.systems.displayList;
-        this.updateList = this.systems.updateList;
-
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
+        this.systems.events.once('shutdown', this.shutdown, this);
     },
 
     /**
@@ -13245,9 +13303,7 @@ var GameObjectCreator = new Class({
      */
     shutdown: function ()
     {
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.off('shutdown', this.shutdown, this);
+        this.systems.events.off('shutdown', this.shutdown, this);
     },
 
     /**
@@ -13366,7 +13422,24 @@ var GameObjectFactory = new Class({
          */
         this.updateList;
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.GameObjects.GameObjectFactory#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.displayList = this.systems.displayList;
+        this.updateList = this.systems.updateList;
+
+        this.systems.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -13380,13 +13453,7 @@ var GameObjectFactory = new Class({
      */
     start: function ()
     {
-        this.displayList = this.systems.displayList;
-        this.updateList = this.systems.updateList;
-
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
+        this.systems.events.once('shutdown', this.shutdown, this);
     },
 
     /**
@@ -13427,9 +13494,7 @@ var GameObjectFactory = new Class({
      */
     shutdown: function ()
     {
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.off('shutdown', this.shutdown, this);
+        this.systems.events.off('shutdown', this.shutdown, this);
     },
 
     /**
@@ -13556,7 +13621,21 @@ var UpdateList = new Class({
          */
         this._pendingRemoval = [];
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.GameObjects.UpdateList#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.systems.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -13575,7 +13654,6 @@ var UpdateList = new Class({
         eventEmitter.on('preupdate', this.preUpdate, this);
         eventEmitter.on('update', this.update, this);
         eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
     },
 
     /**
@@ -28952,7 +29030,25 @@ var InputPlugin = new Class({
          */
         this._validTypes = [ 'onDown', 'onUp', 'onOver', 'onOut', 'onMove', 'onDragStart', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragLeave', 'onDragOver', 'onDrop' ];
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Input.InputPlugin#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.cameras = this.systems.cameras;
+
+        this.displayList = this.systems.displayList;
+
+        this.systems.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -28975,13 +29071,8 @@ var InputPlugin = new Class({
         eventEmitter.on('update', this.update, this);
 
         eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
 
         this.enabled = true;
-
-        this.cameras = this.systems.cameras;
-
-        this.displayList = this.systems.displayList;
     },
 
     /**
@@ -43617,7 +43708,7 @@ var WebGLRenderer = new Class({
         var clearColor = config.backgroundColor;
         var gl = canvas.getContext('webgl', config.contextCreation) || canvas.getContext('experimental-webgl', config.contextCreation);
 
-        if (!gl)
+        if (!gl || gl.isContextLost())
         {
             this.contextLost = true;
             throw new Error('This browser does not support WebGL. Try using the Canvas pipeline.');
@@ -45105,11 +45196,6 @@ var WebGLRenderer = new Class({
         {
             this.deleteTexture(this.nativeTextures[index]);
             delete this.nativeTextures[index];
-        }
-
-        if (this.hasExtension('WEBGL_lose_context'))
-        {
-            this.getExtension('WEBGL_lose_context').loseContext();
         }
 
         delete this.gl;
@@ -51094,7 +51180,7 @@ var SceneManager = new Class({
      * @method Phaser.Scenes.SceneManager#getScene
      * @since 3.0.0
      *
-     * @param {string} key - The Scene to retrieve.
+     * @param {string|Phaser.Scene} key - The Scene to retrieve.
      *
      * @return {?Phaser.Scene} The Scene.
      */
@@ -51107,10 +51193,6 @@ var SceneManager = new Class({
                 return this.keys[key];
             }
         }
-
-        //  What's the point? If you already have the Scene to pass in to this function, you have the Scene!
-
-        /*
         else
         {
             for (var i = 0; i < this.scenes.length; i++)
@@ -51121,7 +51203,6 @@ var SceneManager = new Class({
                 }
             }
         }
-        */
 
         return null;
     },
@@ -51928,7 +52009,21 @@ var ScenePlugin = new Class({
          */
         this._willRemove = false;
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.pluginStart, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Scenes.ScenePlugin#boot
+     * @private
+     * @since 3.0.0
+     */
+    boot: function ()
+    {
+        this.systems.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -51938,16 +52033,13 @@ var ScenePlugin = new Class({
      *
      * @method Phaser.Scenes.ScenePlugin#pluginStart
      * @private
-     * @since 3.0.0
+     * @since 3.5.0
      */
     pluginStart: function ()
     {
         this._target = null;
 
-        var eventEmitter = this.systems.events;
-
-        eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
+        this.systems.events.once('shutdown', this.shutdown, this);
     },
 
     /**
@@ -52861,7 +52953,6 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
 var GetPhysicsPlugins = __webpack_require__(/*! ./GetPhysicsPlugins */ "./scene/GetPhysicsPlugins.js");
 var GetScenePlugins = __webpack_require__(/*! ./GetScenePlugins */ "./scene/GetScenePlugins.js");
-var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
 var Plugins = __webpack_require__(/*! ../plugins */ "./plugins.js");
 var Settings = __webpack_require__(/*! ./Settings */ "./scene/Settings.js");
 
@@ -63712,7 +63803,21 @@ var Clock = new Class({
          */
         this._pendingRemoval = [];
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Time.Clock#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.systems.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -63731,7 +63836,6 @@ var Clock = new Class({
         eventEmitter.on('preupdate', this.preUpdate, this);
         eventEmitter.on('update', this.update, this);
         eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
     },
 
     /**
@@ -65320,7 +65424,21 @@ var TweenManager = new Class({
          */
         this._toProcess = 0;
 
+        scene.sys.events.once('boot', this.boot, this);
         scene.sys.events.on('start', this.start, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Tweens.TweenManager#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.systems.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -65339,7 +65457,6 @@ var TweenManager = new Class({
         eventEmitter.on('preupdate', this.preUpdate, this);
         eventEmitter.on('update', this.update, this);
         eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('destroy', this.destroy, this);
 
         this.timeScale = 1;
     },

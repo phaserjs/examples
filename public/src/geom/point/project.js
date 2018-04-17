@@ -29,7 +29,8 @@ function create ()
 
         Phaser.Geom.Point.CopyFrom(pointer, point2);
 
-        Phaser.Geom.Point.Subtract(point2, 400, 300);
+        point2.x -= 400;
+        point2.y -= 300;
     });
 }
 
@@ -51,7 +52,8 @@ function update ()
     Phaser.Geom.Point.Project(point2, point, projectedPoint);
 
     //move relative to center
-    Phaser.Geom.Point.Add(projectedPoint, 400, 300);
+    projectedPoint.x += 400;
+    projectedPoint.y += 300;
 
     graphics.fillPointShape(projectedPoint, 15);
 

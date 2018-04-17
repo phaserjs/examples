@@ -32,7 +32,8 @@ function create ()
 
         Phaser.Geom.Point.CopyFrom(pointer, point2);
 
-        Phaser.Geom.Point.Subtract(point2, 400, 300);
+        point2.x -= 400;
+        point2.y -= 300;
     });
 }
 
@@ -49,7 +50,8 @@ function update ()
     Phaser.Geom.Point.ProjectUnit(point2, point, projectedPoint);
 
     // set magnitude to 250, because it's unit point, we can simply multiply
-    Phaser.Geom.Point.Multiply(point, 250, 250);
+    point.x *= 250;
+    point.y *= 250;
 
     // drawn from the center (as if center was 0/0)
     graphics.lineBetween(400, 300, 400 + point.x, 300 + point.y);
@@ -59,7 +61,8 @@ function update ()
     graphics.lineBetween(400, 300, 400 + point2.x, 300 + point2.y);
 
     //move relative to center
-    Phaser.Geom.Point.Add(projectedPoint, 400, 300);
+    projectedPoint.x += 400;
+    projectedPoint.y += 300;
 
     graphics.fillPointShape(projectedPoint, 15);
 

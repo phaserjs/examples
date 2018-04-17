@@ -52,7 +52,8 @@ function update ()
 
     for(var j = 0; j < points.length; j++)
     {
-        Phaser.Geom.Point.Add(points[j], 400, 300);
+        points[j].x += 400;
+        points[j].y += 300;
     }
 
     graphics.strokePoints(points, false);

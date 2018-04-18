@@ -49,7 +49,7 @@ function create ()
     //  Scene bounds
     bounds = new Phaser.Geom.Rectangle(0, 0, 1920, 1920);
 
-    var container = this.add.container(100, 100);
+    this.container = this.add.container(100, 100).setAngle(15);
 
     for (var i = 0; i < 32; i++)
     {
@@ -62,7 +62,7 @@ function create ()
         s.setAngle(Phaser.Math.Between(0, 359));
         s.setScale(0.5 + Math.random());
 
-        container.add(s);
+        this.container.add(s);
     }
 
     this.input.on('gameobjectover', function (pointer, gameObject) {
@@ -196,6 +196,7 @@ function create ()
 
 function update (time, delta)
 {
+    this.container.rotation += 0.001;
     controls.update(delta);
 
     graphics.clear();

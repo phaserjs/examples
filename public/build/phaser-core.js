@@ -46190,11 +46190,11 @@ var FlatTintPipeline = new Class({
 
         var cameraScrollX = camera.scrollX * graphics.scrollFactorX;
         var cameraScrollY = camera.scrollY * graphics.scrollFactorY;
-        var srcX = graphics.x - cameraScrollX;
-        var srcY = graphics.y - cameraScrollY;
+        var srcX = graphics.x;
+        var srcY = graphics.y;
         var srcScaleX = graphics.scaleX;
         var srcScaleY = graphics.scaleY;
-        var srcRotation = -graphics.rotation;
+        var srcRotation = graphics.rotation;
         var commands = graphics.commandBuffer;
         var alpha = graphics.alpha;
         var lineAlpha = 1.0;
@@ -46222,8 +46222,8 @@ var FlatTintPipeline = new Class({
         var sr = sin(srcRotation);
         var cr = cos(srcRotation);
         var sra = cr * srcScaleX;
-        var srb = -sr * srcScaleX;
-        var src = sr * srcScaleY;
+        var srb = sr * srcScaleX;
+        var src = -sr * srcScaleY;
         var srd = cr * srcScaleY;
         var sre = srcX;
         var srf = srcY;
@@ -46243,12 +46243,17 @@ var FlatTintPipeline = new Class({
             var pmd = parentMatrix[3];
             var pme = parentMatrix[4];
             var pmf = parentMatrix[5];
-            var pca = cma * pma + cmb * pmc;
-            var pcb = cma * pmb + cmb * pmd;
-            var pcc = cmc * pma + cmd * pmc;
-            var pcd = cmc * pmb + cmd * pmd;
-            var pce = cme * pma + cmf * pmc + pme;
-            var pcf = cme * pmb + cmf * pmd + pmf;
+            var cse = -cameraScrollX;
+            var csf = -cameraScrollY;
+            var pse = cse * cma + csf * cmc + cme;
+            var psf = cse * cmb + csf * cmd + cmf;
+            var pca = pma * cma + pmb * cmc;
+            var pcb = pma * cmb + pmb * cmd;
+            var pcc = pmc * cma + pmd * cmc;
+            var pcd = pmc * cmb + pmd * cmd;
+            var pce = pme * cma + pmf * cmc + pse;
+            var pcf = pme * cmb + pmf * cmd + psf;
+
             mva = sra * pca + srb * pcc;
             mvb = sra * pcb + srb * pcd;
             mvc = src * pca + srd * pcc;
@@ -46258,6 +46263,9 @@ var FlatTintPipeline = new Class({
         }
         else
         {
+            sre -= cameraScrollX;
+            srf -= cameraScrollY;
+
             mva = sra * cma + srb * cmc;
             mvb = sra * cmb + srb * cmd;
             mvc = src * cma + srd * cmc;
@@ -46870,9 +46878,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    drawStaticTilemapLayer: function (tilemap, camera)
+    drawStaticTilemapLayer: function (tilemap, camera, parentTransformMatrix)
     {
         var normalTexture = tilemap.texture.dataSource[0];
 
@@ -46880,12 +46889,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawStaticTilemapLayer.call(this, tilemap, camera);
+            TextureTintPipeline.prototype.drawStaticTilemapLayer.call(this, tilemap, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. StaticTilemapLayer rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawStaticTilemapLayer(tilemap, camera);
+            this.renderer.pipelines.TextureTintPipeline.drawStaticTilemapLayer(tilemap, camera, parentTransformMatrix);
         }
     },
 
@@ -46897,9 +46906,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    drawEmitterManager: function (emitterManager, camera)
+    drawEmitterManager: function (emitterManager, camera, parentTransformMatrix)
     {
         var normalTexture = emitterManager.texture.dataSource[0];
 
@@ -46907,12 +46917,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawEmitterManager.call(this, emitterManager, camera);
+            TextureTintPipeline.prototype.drawEmitterManager.call(this, emitterManager, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. EmitterManager rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawEmitterManager(emitterManager, camera);
+            this.renderer.pipelines.TextureTintPipeline.drawEmitterManager(emitterManager, camera, parentTransformMatrix);
         }
     },
 
@@ -46924,9 +46934,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.GameObjects.Blitter} blitter - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    drawBlitter: function (blitter, camera)
+    drawBlitter: function (blitter, camera, parentTransformMatrix)
     {
         var normalTexture = blitter.texture.dataSource[0];
 
@@ -46934,12 +46945,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawBlitter.call(this, blitter, camera);
+            TextureTintPipeline.prototype.drawBlitter.call(this, blitter, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. Blitter rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawBlitter(blitter, camera);
+            this.renderer.pipelines.TextureTintPipeline.drawBlitter(blitter, camera, parentTransformMatrix);
         }
     },
 
@@ -46951,9 +46962,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.GameObjects.Sprite} sprite - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    batchSprite: function (sprite, camera)
+    batchSprite: function (sprite, camera, parentTransformMatrix)
     {
         var normalTexture = sprite.texture.dataSource[0];
 
@@ -46961,12 +46973,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchSprite.call(this, sprite, camera);
+            TextureTintPipeline.prototype.batchSprite.call(this, sprite, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. Sprite rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchSprite(sprite, camera);
+            this.renderer.pipelines.TextureTintPipeline.batchSprite(sprite, camera, parentTransformMatrix);
         }
     },
 
@@ -46978,9 +46990,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.GameObjects.Mesh} mesh - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    batchMesh: function (mesh, camera)
+    batchMesh: function (mesh, camera, parentTransformMatrix)
     {
         var normalTexture = mesh.texture.dataSource[0];
 
@@ -46988,12 +47001,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchMesh.call(this, mesh, camera);
+            TextureTintPipeline.prototype.batchMesh.call(this, mesh, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. Mesh rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchMesh(mesh, camera);
+            this.renderer.pipelines.TextureTintPipeline.batchMesh(mesh, camera, parentTransformMatrix);
 
         }
     },
@@ -47006,9 +47019,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.GameObjects.BitmapText} bitmapText - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    batchBitmapText: function (bitmapText, camera)
+    batchBitmapText: function (bitmapText, camera, parentTransformMatrix)
     {
         var normalTexture = bitmapText.texture.dataSource[0];
 
@@ -47016,12 +47030,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchBitmapText.call(this, bitmapText, camera);
+            TextureTintPipeline.prototype.batchBitmapText.call(this, bitmapText, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. BitmapText rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchBitmapText(bitmapText, camera);
+            this.renderer.pipelines.TextureTintPipeline.batchBitmapText(bitmapText, camera, parentTransformMatrix);
         }
     },
 
@@ -47033,9 +47047,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    batchDynamicBitmapText: function (bitmapText, camera)
+    batchDynamicBitmapText: function (bitmapText, camera, parentTransformMatrix)
     {
         var normalTexture = bitmapText.texture.dataSource[0];
 
@@ -47043,12 +47058,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchDynamicBitmapText.call(this, bitmapText, camera);
+            TextureTintPipeline.prototype.batchDynamicBitmapText.call(this, bitmapText, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. DynamicBitmapText rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchDynamicBitmapText(bitmapText, camera);
+            this.renderer.pipelines.TextureTintPipeline.batchDynamicBitmapText(bitmapText, camera, parentTransformMatrix);
         }
     },
 
@@ -47060,9 +47075,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.GameObjects.Text} text - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    batchText: function (text, camera)
+    batchText: function (text, camera, parentTransformMatrix)
     {
         var normalTexture = text.texture.dataSource[0];
 
@@ -47070,12 +47086,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchText.call(this, text, camera);
+            TextureTintPipeline.prototype.batchText.call(this, text, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. Text rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchText(text, camera);
+            this.renderer.pipelines.TextureTintPipeline.batchText(text, camera, parentTransformMatrix);
         }
     },
 
@@ -47087,9 +47103,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    batchDynamicTilemapLayer: function (tilemapLayer, camera)
+    batchDynamicTilemapLayer: function (tilemapLayer, camera, parentTransformMatrix)
     {
         var normalTexture = tilemapLayer.texture.dataSource[0];
 
@@ -47097,12 +47114,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchDynamicTilemapLayer.call(this, tilemapLayer, camera);
+            TextureTintPipeline.prototype.batchDynamicTilemapLayer.call(this, tilemapLayer, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. DynamicTilemapLayer rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchDynamicTilemapLayer(tilemapLayer, camera);
+            this.renderer.pipelines.TextureTintPipeline.batchDynamicTilemapLayer(tilemapLayer, camera, parentTransformMatrix);
         }
     },
 
@@ -47114,9 +47131,10 @@ var ForwardDiffuseLightPipeline = new Class({
      *
      * @param {Phaser.GameObjects.TileSprite} tileSprite - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
      */
-    batchTileSprite: function (tileSprite, camera)
+    batchTileSprite: function (tileSprite, camera, parentTransformMatrix)
     {
         var normalTexture = tileSprite.texture.dataSource[0];
 
@@ -47124,12 +47142,12 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchTileSprite.call(this, tileSprite, camera);
+            TextureTintPipeline.prototype.batchTileSprite.call(this, tileSprite, camera, parentTransformMatrix);
         }
         else
         {
             console.warn('Normal map texture missing for using Light2D pipeline. TileSprite rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchTileSprite(tileSprite, camera);
+            this.renderer.pipelines.TextureTintPipeline.batchTileSprite(tileSprite, camera, parentTransformMatrix);
         }
     }
 
@@ -47552,29 +47570,16 @@ var TextureTintPipeline = new Class({
         var vertexCapacity = this.vertexCapacity;
         var texture = emitterManager.defaultFrame.source.glTexture;
         var pca, pcb, pcc, pcd, pce, pcf;
+        var pma, pmb, pmc, pmd, pme, pmf;
 
         if (parentMatrix)
         {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            
-            pca = cma * pma + cmb * pmc;
-            pcb = cma * pmb + cmb * pmd;
-            pcc = cmc * pma + cmd * pmc;
-            pcd = cmc * pmb + cmd * pmd;
-            pce = cme * pma + cmf * pmc + pme;
-            pcf = cme * pmb + cmf * pmd + pmf;
-
-            cma = pca;
-            cmb = pcb;
-            cmc = pcc;
-            cmd = pcd;
-            cme = pce;
-            cmf = pcf;
+            pma = parentMatrix[0];
+            pmb = parentMatrix[1];
+            pmc = parentMatrix[2];
+            pmd = parentMatrix[3];
+            pme = parentMatrix[4];
+            pmf = parentMatrix[5];
         }
 
         this.setTexture2D(texture, 0);
@@ -47588,6 +47593,31 @@ var TextureTintPipeline = new Class({
             var particleOffset = 0;
             var scrollX = cameraScrollX * emitter.scrollFactorX;
             var scrollY = cameraScrollY * emitter.scrollFactorY;
+
+            if (parentMatrix)
+            {
+                var cse = -scrollX;
+                var csf = -scrollY;
+                var pse = cse * cma + csf * cmc + cme;
+                var psf = cse * cmb + csf * cmd + cmf;
+                pca = pma * cma + pmb * cmc;
+                pcb = pma * cmb + pmb * cmd;
+                pcc = pmc * cma + pmd * cmc;
+                pcd = pmc * cmb + pmd * cmd;
+                pce = pme * cma + pmf * cmc + pse;
+                pcf = pme * cmb + pmf * cmd + psf;
+
+                cma = pca;
+                cmb = pcb;
+                cmc = pcc;
+                cmd = pcd;
+                cme = pce;
+                cmf = pcf;
+
+                scrollX = 0.0;
+                scrollY = 0.0;
+            }
+
 
             if (!emitter.visible || aliveLength === 0)
             {
@@ -47625,11 +47655,11 @@ var TextureTintPipeline = new Class({
                     var sr = sin(particle.rotation);
                     var cr = cos(particle.rotation);
                     var sra = cr * particle.scaleX;
-                    var srb = -sr * particle.scaleX;
-                    var src = sr * particle.scaleY;
+                    var srb = sr * particle.scaleX;
+                    var src = -sr * particle.scaleY;
                     var srd = cr * particle.scaleY;
-                    var sre = particle.x - scrollX * particle.scrollFactorX;
-                    var srf = particle.y - scrollY * particle.scrollFactorY;
+                    var sre = particle.x - scrollX;
+                    var srf = particle.y - scrollY;
                     var mva = sra * cma + srb * cmc;
                     var mvb = sra * cmb + srb * cmd;
                     var mvc = src * cma + srd * cmc;
@@ -47751,8 +47781,6 @@ var TextureTintPipeline = new Class({
         var cameraScrollY = camera.scrollY * blitter.scrollFactorY;
         var batchCount = Math.ceil(length / this.maxQuads);
         var batchOffset = 0;
-        var blitterX = blitter.x - cameraScrollX;
-        var blitterY = blitter.y - cameraScrollY;
 
         if (parentMatrix)
         {
@@ -47762,12 +47790,16 @@ var TextureTintPipeline = new Class({
             var pmd = parentMatrix[3];
             var pme = parentMatrix[4];
             var pmf = parentMatrix[5];
-            var pca = a * pma + b * pmc;
-            var pcb = a * pmb + b * pmd;
-            var pcc = c * pma + d * pmc;
-            var pcd = c * pmb + d * pmd;
-            var pce = e * pma + f * pmc + pme;
-            var pcf = e * pmb + f * pmd + pmf;
+            var cse = -cameraScrollX;
+            var csf = -cameraScrollY;
+            var pse = cse * a + csf * c + e;
+            var psf = cse * b + csf * d + f;
+            var pca = pma * a + pmb * c;
+            var pcb = pma * b + pmb * d;
+            var pcc = pmc * a + pmd * c;
+            var pcd = pmc * b + pmd * d;
+            var pce = pme * a + pmf * c + pse;
+            var pcf = pme * b + pmf * d + psf;
 
             a = pca;
             b = pcb;
@@ -47775,7 +47807,13 @@ var TextureTintPipeline = new Class({
             d = pcd;
             e = pce;
             f = pcf;
+
+            cameraScrollX = 0.0;
+            cameraScrollY = 0.0;
         }
+
+        var blitterX = blitter.x - cameraScrollX;
+        var blitterY = blitter.y - cameraScrollY;
 
         for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
         {
@@ -47908,11 +47946,9 @@ var TextureTintPipeline = new Class({
         var y = -sprite.displayOriginY + frame.y + ((frame.height) * (flipY ? 1.0 : 0.0));
         var xw = (roundPixels ? (x|0) : x) + width;
         var yh = (roundPixels ? (y|0) : y) + height;
-        var translateX = sprite.x - camera.scrollX * sprite.scrollFactorX;
-        var translateY = sprite.y - camera.scrollY * sprite.scrollFactorY;
         var scaleX = sprite.scaleX;
         var scaleY = sprite.scaleY;
-        var rotation = -sprite.rotation;
+        var rotation = sprite.rotation;
         var alphaTL = sprite._alphaTL;
         var alphaTR = sprite._alphaTR;
         var alphaBL = sprite._alphaBL;
@@ -47924,11 +47960,11 @@ var TextureTintPipeline = new Class({
         var sr = Math.sin(rotation);
         var cr = Math.cos(rotation);
         var sra = cr * scaleX;
-        var srb = -sr * scaleX;
-        var src = sr * scaleY;
+        var srb = sr * scaleX;
+        var src = -sr * scaleY;
         var srd = cr * scaleY;
-        var sre = translateX;
-        var srf = translateY;
+        var sre = sprite.x;
+        var srf = sprite.y;
         var cma = cameraMatrix[0];
         var cmb = cameraMatrix[1];
         var cmc = cameraMatrix[2];
@@ -47945,12 +47981,17 @@ var TextureTintPipeline = new Class({
             var pmd = parentMatrix[3];
             var pme = parentMatrix[4];
             var pmf = parentMatrix[5];
-            var pca = cma * pma + cmb * pmc;
-            var pcb = cma * pmb + cmb * pmd;
-            var pcc = cmc * pma + cmd * pmc;
-            var pcd = cmc * pmb + cmd * pmd;
-            var pce = cme * pma + cmf * pmc + pme;
-            var pcf = cme * pmb + cmf * pmd + pmf;
+            var cse = -camera.scrollX * sprite.scrollFactorX;
+            var csf = -camera.scrollY * sprite.scrollFactorY;
+            var pse = cse * cma + csf * cmc + cme;
+            var psf = cse * cmb + csf * cmd + cmf;
+            var pca = pma * cma + pmb * cmc;
+            var pcb = pma * cmb + pmb * cmd;
+            var pcc = pmc * cma + pmd * cmc;
+            var pcd = pmc * cmb + pmd * cmd;
+            var pce = pme * cma + pmf * cmc + pse;
+            var pcf = pme * cmb + pmf * cmd + psf;
+
             mva = sra * pca + srb * pcc;
             mvb = sra * pcb + srb * pcd;
             mvc = src * pca + srd * pcc;
@@ -47960,6 +48001,9 @@ var TextureTintPipeline = new Class({
         }
         else
         {
+            sre -= camera.scrollX * sprite.scrollFactorX;
+            srf -= camera.scrollY * sprite.scrollFactorY;
+
             mva = sra * cma + srb * cmc;
             mvb = sra * cmb + srb * cmd;
             mvc = src * cma + srd * cmc;
@@ -48072,16 +48116,16 @@ var TextureTintPipeline = new Class({
         var cameraMatrix = camera.matrix.matrix;
         var frame = mesh.frame;
         var texture = mesh.texture.source[frame.sourceIndex].glTexture;
-        var translateX = mesh.x - camera.scrollX * mesh.scrollFactorX;
-        var translateY = mesh.y - camera.scrollY * mesh.scrollFactorY;
+        var translateX = mesh.x;
+        var translateY = mesh.y;
         var scaleX = mesh.scaleX;
         var scaleY = mesh.scaleY;
-        var rotation = -mesh.rotation;
+        var rotation = mesh.rotation;
         var sr = Math.sin(rotation);
         var cr = Math.cos(rotation);
         var sra = cr * scaleX;
-        var srb = -sr * scaleX;
-        var src = sr * scaleY;
+        var srb = sr * scaleX;
+        var src = -sr * scaleY;
         var srd = cr * scaleY;
         var sre = translateX;
         var srf = translateY;
@@ -48102,12 +48146,17 @@ var TextureTintPipeline = new Class({
             var pmd = parentMatrix[3];
             var pme = parentMatrix[4];
             var pmf = parentMatrix[5];
-            var pca = cma * pma + cmb * pmc;
-            var pcb = cma * pmb + cmb * pmd;
-            var pcc = cmc * pma + cmd * pmc;
-            var pcd = cmc * pmb + cmd * pmd;
-            var pce = cme * pma + cmf * pmc + pme;
-            var pcf = cme * pmb + cmf * pmd + pmf;
+            var cse = -camera.scrollX * mesh.scrollFactorX;
+            var csf = -camera.scrollY * mesh.scrollFactorY;
+            var pse = cse * cma + csf * cmc + cme;
+            var psf = cse * cmb + csf * cmd + cmf;
+            var pca = pma * cma + pmb * cmc;
+            var pcb = pma * cmb + pmb * cmd;
+            var pcc = pmc * cma + pmd * cmc;
+            var pcd = pmc * cmb + pmd * cmd;
+            var pce = pme * cma + pmf * cmc + pse;
+            var pcf = pme * cmb + pmf * cmd + psf;
+
             mva = sra * pca + srb * pcc;
             mvb = sra * pcb + srb * pcd;
             mvc = src * pca + srd * pcc;
@@ -48117,6 +48166,9 @@ var TextureTintPipeline = new Class({
         }
         else
         {
+            sre -= camera.scrollX * mesh.scrollFactorX;
+            srf -= camera.scrollY * mesh.scrollFactorY;
+
             mva = sra * cma + srb * cmc;
             mvb = sra * cmb + srb * cmd;
             mvc = src * cma + srd * cmc;
@@ -48241,17 +48293,17 @@ var TextureTintPipeline = new Class({
         var vmax = 0;
         var lastGlyph = null;
         var lastCharCode = 0;
-        var translateX = (srcX - cameraScrollX) + frame.x;
-        var translateY = (srcY - cameraScrollY) + frame.y;
-        var rotation = -bitmapText.rotation;
+        var translateX = srcX + frame.x;
+        var translateY = srcY + frame.y;
+        var rotation = bitmapText.rotation;
         var scaleX = bitmapText.scaleX;
         var scaleY = bitmapText.scaleY;
         var letterSpacing = bitmapText.letterSpacing;
         var sr = Math.sin(rotation);
         var cr = Math.cos(rotation);
         var sra = cr * scaleX;
-        var srb = -sr * scaleX;
-        var src = sr * scaleY;
+        var srb = sr * scaleX;
+        var src = -sr * scaleY;
         var srd = cr * scaleY;
         var sre = translateX;
         var srf = translateY;
@@ -48272,12 +48324,17 @@ var TextureTintPipeline = new Class({
             var pmd = parentMatrix[3];
             var pme = parentMatrix[4];
             var pmf = parentMatrix[5];
-            var pca = cma * pma + cmb * pmc;
-            var pcb = cma * pmb + cmb * pmd;
-            var pcc = cmc * pma + cmd * pmc;
-            var pcd = cmc * pmb + cmd * pmd;
-            var pce = cme * pma + cmf * pmc + pme;
-            var pcf = cme * pmb + cmf * pmd + pmf;
+            var cse = -cameraScrollX;
+            var csf = -cameraScrollY;
+            var pse = cse * cma + csf * cmc + cme;
+            var psf = cse * cmb + csf * cmd + cmf;
+            var pca = pma * cma + pmb * cmc;
+            var pcb = pma * cmb + pmb * cmd;
+            var pcc = pmc * cma + pmd * cmc;
+            var pcd = pmc * cmb + pmd * cmd;
+            var pce = pme * cma + pmf * cmc + pse;
+            var pcf = pme * cmb + pmf * cmd + psf;
+
             mva = sra * pca + srb * pcc;
             mvb = sra * pcb + srb * pcd;
             mvc = src * pca + srd * pcc;
@@ -48287,6 +48344,9 @@ var TextureTintPipeline = new Class({
         }
         else
         {
+            sre -= cameraScrollX;
+            srf -= cameraScrollY;
+
             mva = sra * cma + srb * cmc;
             mvb = sra * cmb + srb * cmd;
             mvc = src * cma + srd * cmc;
@@ -48510,15 +48570,15 @@ var TextureTintPipeline = new Class({
         var lastCharCode = 0;
         var translateX = srcX + frame.x;
         var translateY = srcY + frame.y;
-        var rotation = -bitmapText.rotation;
+        var rotation = bitmapText.rotation;
         var scaleX = bitmapText.scaleX;
         var scaleY = bitmapText.scaleY;
         var letterSpacing = bitmapText.letterSpacing;
         var sr = Math.sin(rotation);
         var cr = Math.cos(rotation);
         var sra = cr * scaleX;
-        var srb = -sr * scaleX;
-        var src = sr * scaleY;
+        var srb = sr * scaleX;
+        var src = -sr * scaleY;
         var srd = cr * scaleY;
         var sre = translateX;
         var srf = translateY;
@@ -48541,12 +48601,17 @@ var TextureTintPipeline = new Class({
             var pmd = parentMatrix[3];
             var pme = parentMatrix[4];
             var pmf = parentMatrix[5];
-            var pca = cma * pma + cmb * pmc;
-            var pcb = cma * pmb + cmb * pmd;
-            var pcc = cmc * pma + cmd * pmc;
-            var pcd = cmc * pmb + cmd * pmd;
-            var pce = cme * pma + cmf * pmc + pme;
-            var pcf = cme * pmb + cmf * pmd + pmf;
+            var cse = -cameraScrollX;
+            var csf = -cameraScrollY;
+            var pse = cse * cma + csf * cmc + cme;
+            var psf = cse * cmb + csf * cmd + cmf;
+            var pca = pma * cma + pmb * cmc;
+            var pcb = pma * cmb + pmb * cmd;
+            var pcc = pmc * cma + pmd * cmc;
+            var pcd = pmc * cmb + pmd * cmd;
+            var pce = pme * cma + pmf * cmc + pse;
+            var pcf = pme * cmb + pmf * cmd + psf;
+
             mva = sra * pca + srb * pcc;
             mvb = sra * pcb + srb * pcd;
             mvc = src * pca + srd * pcc;
@@ -48556,6 +48621,9 @@ var TextureTintPipeline = new Class({
         }
         else
         {
+            sre -= cameraScrollX;
+            srf -= cameraScrollY;
+
             mva = sra * cma + srb * cmc;
             mvb = sra * cmb + srb * cmd;
             mvc = src * cma + srd * cmc;
@@ -48674,14 +48742,12 @@ var TextureTintPipeline = new Class({
             y -= bitmapText.displayOriginY;
             x *= scale;
             y *= scale;
-            x -= cameraScrollX;
-            y -= cameraScrollY;
 
-            sr = Math.sin(-rotation);
-            cr = Math.cos(-rotation);
+            sr = Math.sin(rotation);
+            cr = Math.cos(rotation);
             uta = cr * scale;
-            utb = -sr * scale;
-            utc = sr * scale;
+            utb = sr * scale;
+            utc = -sr * scale;
             utd = cr * scale;
             ute = x;
             utf = y;
@@ -48967,7 +49033,6 @@ var TextureTintPipeline = new Class({
         }
 
         flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
-        rotation = -rotation;
 
         var roundPixels = this.renderer.config.roundPixels;
         var vertexViewF32 = this.vertexViewF32;
@@ -48979,13 +49044,13 @@ var TextureTintPipeline = new Class({
         var y = -displayOriginY + ((srcHeight) * (flipY ? 1.0 : 0.0));
         var xw = x + width;
         var yh = y + height;
-        var translateX = srcX - camera.scrollX * scrollFactorX;
-        var translateY = srcY - camera.scrollY * scrollFactorY;
+        var translateX = srcX;
+        var translateY = srcY;
         var sr = Math.sin(rotation);
         var cr = Math.cos(rotation);
         var sra = cr * scaleX;
-        var srb = -sr * scaleX;
-        var src = sr * scaleY;
+        var srb = sr * scaleX;
+        var src = -sr * scaleY;
         var srd = cr * scaleY;
         var sre = translateX;
         var srf = translateY;
@@ -49005,12 +49070,17 @@ var TextureTintPipeline = new Class({
             var pmd = parentMatrix[3];
             var pme = parentMatrix[4];
             var pmf = parentMatrix[5];
-            var pca = cma * pma + cmb * pmc;
-            var pcb = cma * pmb + cmb * pmd;
-            var pcc = cmc * pma + cmd * pmc;
-            var pcd = cmc * pmb + cmd * pmd;
-            var pce = cme * pma + cmf * pmc + pme;
-            var pcf = cme * pmb + cmf * pmd + pmf;
+            var cse = -camera.scrollX * scrollFactorX;
+            var csf = -camera.scrollY * scrollFactorY;
+            var pse = cse * cma + csf * cmc + cme;
+            var psf = cse * cmb + csf * cmd + cmf;
+            var pca = pma * cma + pmb * cmc;
+            var pcb = pma * cmb + pmb * cmd;
+            var pcc = pmc * cma + pmd * cmc;
+            var pcd = pmc * cmb + pmd * cmd;
+            var pce = pme * cma + pmf * cmc + pse;
+            var pcf = pme * cmb + pmf * cmd + psf;
+
             mva = sra * pca + srb * pcc;
             mvb = sra * pcb + srb * pcd;
             mvc = src * pca + srd * pcc;
@@ -49020,6 +49090,9 @@ var TextureTintPipeline = new Class({
         }
         else
         {
+            sre -= camera.scrollX * scrollFactorX;
+            srf -= camera.scrollY * scrollFactorY;
+
             mva = sra * cma + srb * cmc;
             mvb = sra * cmb + srb * cmd;
             mvc = src * cma + srd * cmc;
@@ -59459,24 +59532,24 @@ var quickselect = __webpack_require__(/*! ../utils/array/QuickSelect */ "./utils
  * Spatial index is a special data structure for points and rectangles that allows you to perform queries like
  * "all items within this bounding box" very efficiently (e.g. hundreds of times faster than looping over all items).
  *
+ * This version of RBush uses a fixed min/max accessor structure of `[ '.left', '.top', '.right', '.bottom' ]`.
+ * This is to avoid the eval like function creation that the original library used, which caused CSP policy violations.
+ *
  * @class RTree
  * @memberOf Phaser.Structs
  * @constructor
  * @since 3.0.0
  */
 
-function rbush (maxEntries, format)
+function rbush (maxEntries)
 {
+    var format = [ '.left', '.top', '.right', '.bottom' ];
+
     if (!(this instanceof rbush)) return new rbush(maxEntries, format);
 
     // max entries in a node is 9 by default; min node fill is 40% for best performance
     this._maxEntries = Math.max(4, maxEntries || 9);
     this._minEntries = Math.max(2, Math.ceil(this._maxEntries * 0.4));
-
-    if (format)
-    {
-        this._initFormat(format);
-    }
 
     this.clear();
 }
@@ -59908,44 +59981,23 @@ rbush.prototype = {
         }
     },
 
-    _initFormat: function (format)
+    compareMinX: function (a, b)
     {
-        // format: [minX, minY, maxX, maxY accessors]
-        // accessors will be dotted names
+        return a.left - b.left;
+    },
 
-        // Because we have historically used eval-based function constructor
-        // the format accerrsors need to have their leading dots stripped to
-        // obtain the actual accessor
-        format = format.map(
-            function (f)
-            {
-                return f.substring(1);
-            }
-        );
+    compareMinY: function (a, b)
+    {
+        return a.top - b.top;
+    },
 
-        // Do not use string-generated Functions for CSP policies
-        // Instead a combination of anonymous functions and grabbing properties
-        // by string is used.
-        // cf. https://github.com/photonstorm/phaser/issues/3441
-        // and https://github.com/photonstorm/phaser/issues/3535
-
-        var mkCompareFn = function(attr) {
-          return function(a, b) {
-            return a[attr] - b[attr];
-          };
-        };
-
-        this.compareMinX = mkCompareFn(format[0]);
-        this.compareMinY = mkCompareFn(format[1]);
-
-        this.toBBox = function(a)
-        {
-            return {
-                minX: a[format[0]],
-                minY: a[format[1]],
-                maxX: a[format[2]],
-                maxY: a[format[3]],
-            };
+    toBBox: function (a)
+    {
+        return {
+            minX: a.left,
+            minY: a.top,
+            maxX: a.right,
+            maxY: a.bottom
         };
     }
 };
@@ -60067,7 +60119,6 @@ function multiSelect (arr, left, right, n, compare)
 }
 
 module.exports = rbush;
-
 
 /***/ }),
 
@@ -61170,7 +61221,7 @@ var TextureSource = __webpack_require__(/*! ./TextureSource */ "./textures/Textu
  *
  * @param {Phaser.Textures.TextureManager} manager - A reference to the Texture Manager this Texture belongs to.
  * @param {string} key - The unique string-based key of this Texture.
- * @param {(Image|HTMLCanvasElement)} source - The source that is used to create the texture. Usually an Image, but can also be a Canvas.
+ * @param {(HTMLImageElement|HTMLCanvasElement)} source - The source that is used to create the texture. Usually an Image, but can also be a Canvas.
  * @param {number} [width] - The width of the Texture. This is optional and automatically derived from the source images.
  * @param {number} [height] - The height of the Texture. This is optional and automatically derived from the source images.
  */
@@ -61486,7 +61537,7 @@ var Texture = new Class({
      * @method Phaser.Textures.Texture#setDataSource
      * @since 3.0.0
      *
-     * @param {(Image|HTMLCanvasElement)} data - The source image.
+     * @param {(HTMLImageElement|HTMLCanvasElement)} data - The source image.
      */
     setDataSource: function (data)
     {
@@ -62412,7 +62463,7 @@ var ScaleModes = __webpack_require__(/*! ../renderer/ScaleModes */ "./renderer/S
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture this TextureSource belongs to.
- * @param {(Image|HTMLCanvasElement)} source - The source image data.
+ * @param {(HTMLImageElement|HTMLCanvasElement)} source - The source image data.
  * @param {integer} [width] - Optional width of the source image. If not given it's derived from the source itself.
  * @param {integer} [height] - Optional height of the source image. If not given it's derived from the source itself.
  */

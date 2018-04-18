@@ -29,7 +29,7 @@ function preload ()
 
 function create ()
 {
-    this.physics.world.setBounds(0, 0, 800 * 32, 600 * 32);
+    this.physics.world.setBounds(0, 0, 800 * 8, 600 * 8);
 
     var spriteBounds = Phaser.Geom.Rectangle.Inflate(Phaser.Geom.Rectangle.Clone(this.physics.world.bounds), -100, -100);
 
@@ -55,7 +55,8 @@ function create ()
         {
             block.body.velocity.x *= -1;
         }
-        else
+
+        if (Math.random() > 0.5)
         {
             block.body.velocity.y *= -1;
         }

@@ -1499,9 +1499,15 @@
           "name": "raster wave.js",
           "size": 1115,
           "extension": ".js"
+        },
+        {
+          "path": "src\\demoscene\\vertical raster wave.js",
+          "name": "vertical raster wave.js",
+          "size": 1081,
+          "extension": ".js"
         }
       ],
-      "size": 6588
+      "size": 7669
     },
     {
       "path": "src\\depth sorting",
@@ -2621,8 +2627,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\line rendering.js",
-              "name": "line rendering.js",
+              "path": "src\\game objects\\graphics\\Line Rendering.js",
+              "name": "Line Rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2633,8 +2639,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\many line stars.js",
-              "name": "many line stars.js",
+              "path": "src\\game objects\\graphics\\Many Line Stars.js",
+              "name": "Many Line Stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2645,8 +2651,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js",
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2765,8 +2771,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\trail.js",
-              "name": "trail.js",
+              "path": "src\\game objects\\graphics\\Trail.js",
+              "name": "Trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -6689,7 +6695,7 @@
             {
               "path": "src\\physics\\arcade\\10000 world bodies.js",
               "name": "10000 world bodies.js",
-              "size": 2766,
+              "size": 2786,
               "extension": ".js"
             },
             {
@@ -6795,7 +6801,7 @@
               "extension": ".js"
             }
           ],
-          "size": 37000
+          "size": 37020
         },
         {
           "path": "src\\physics\\impact",
@@ -7233,7 +7239,7 @@
           "size": 2741
         }
       ],
-      "size": 139229
+      "size": 139249
     },
     {
       "path": "src\\pools",
@@ -7372,8 +7378,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\Game.js",
-              "name": "Game.js",
+              "path": "src\\scenes\\cross scene\\game.js",
+              "name": "game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -7401,7 +7407,7 @@
         {
           "path": "src\\scenes\\drag scenes demo.js",
           "name": "drag scenes demo.js",
-          "size": 1461,
+          "size": 21077,
           "extension": ".js"
         },
         {
@@ -7634,7 +7640,7 @@
           "extension": ".js"
         }
       ],
-      "size": 65705
+      "size": 85321
     },
     {
       "path": "src\\snapshot",
@@ -8446,5 +8452,5 @@
       "size": 4792
     }
   ],
-  "size": 2212195
+  "size": 2232912
 }

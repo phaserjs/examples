@@ -88,48 +88,60 @@ class Controller extends Phaser.Scene {
         var invadersIcon = this.add.image(120, 34, 'invadersIcon', 0).setOrigin(0).setInteractive();
         var clockIcon = this.add.image(200, 120, 'clockIcon', 0).setOrigin(0).setInteractive();
 
-        var demosContainer = this.add.container(900, 70, [ demosWindow, eyesIcon, jugglerIcon, starsIcon, invadersIcon, clockIcon ]);
+        var demosContainer = this.add.container(32, 70, [ demosWindow, eyesIcon, jugglerIcon, starsIcon, invadersIcon, clockIcon ]);
+
+        demosContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, demosWindow.width, demosWindow.height), Phaser.Geom.Rectangle.Contains);
+
+        this.input.setDraggable(demosContainer);
+
+        demosContainer.on('drag', function (pointer, dragX, dragY) {
+
+            this.x = dragX;
+            this.y = dragY;
+
+        });
 
         eyesIcon.on('pointerup', function () {
 
-            this.createWindow(Phaser.Math.Between(300, 500), 64, Eyes);
+            this.createWindow(Eyes);
 
         }, this);
 
         jugglerIcon.on('pointerup', function () {
 
-            this.createWindow(Phaser.Math.Between(300, 500), 64, Juggler);
+            this.createWindow(Juggler);
 
         }, this);
 
         starsIcon.on('pointerup', function () {
 
-            this.createWindow(Phaser.Math.Between(300, 500), 64, Stars);
+            this.createWindow(Stars);
 
         }, this);
 
         invadersIcon.on('pointerup', function () {
 
-            this.createWindow(Phaser.Math.Between(300, 500), 64, Invaders);
+            this.createWindow(Invaders);
 
         }, this);
 
         clockIcon.on('pointerup', function () {
 
-            this.createWindow(Phaser.Math.Between(300, 500), 64, Clock);
+            this.createWindow(Clock);
 
         }, this);
     }
 
-    createWindow (x, y, func)
+    createWindow (func)
     {
+        var x = Phaser.Math.Between(400, 600);
+        var y = Phaser.Math.Between(64, 128);
+
         var handle = 'window' + this.count++;
 
         var win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
 
         var demo = new func(handle, win);
-
-        // win.setData('target', demo);
 
         this.input.setDraggable(win);
 
@@ -143,6 +155,14 @@ class Controller extends Phaser.Scene {
         });
 
         this.scene.add(handle, demo, true);
+    }
+
+    resize (width, height)
+    {
+        if (width === undefined) { width = this.game.config.width; }
+        if (height === undefined) { height = this.game.config.height; }
+
+        this.cameras.resize(width, height);
     }
 
 }
@@ -749,8 +769,8 @@ Clock.HEIGHT = 276;
 
 var config = {
     type: Phaser.WEBGL,
-    width: 1280,
-    height: 720,
+    width: window.innerWidth,
+    height: window.innerHeight,
     backgroundColor: '#0055aa',
     parent: 'phaser-example',
     scene: Controller,
@@ -764,3 +784,9 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
+window.addEventListener('resize', function (event) {
+
+    game.resize(window.innerWidth, window.innerHeight);
+
+}, false);

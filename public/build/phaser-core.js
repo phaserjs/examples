@@ -59459,24 +59459,24 @@ var quickselect = __webpack_require__(/*! ../utils/array/QuickSelect */ "./utils
  * Spatial index is a special data structure for points and rectangles that allows you to perform queries like
  * "all items within this bounding box" very efficiently (e.g. hundreds of times faster than looping over all items).
  *
+ * This version of RBush uses a fixed min/max accessor structure of `[ '.left', '.top', '.right', '.bottom' ]`.
+ * This is to avoid the eval like function creation that the original library used, which caused CSP policy violations.
+ *
  * @class RTree
  * @memberOf Phaser.Structs
  * @constructor
  * @since 3.0.0
  */
 
-function rbush (maxEntries, format)
+function rbush (maxEntries)
 {
+    var format = [ '.left', '.top', '.right', '.bottom' ];
+
     if (!(this instanceof rbush)) return new rbush(maxEntries, format);
 
     // max entries in a node is 9 by default; min node fill is 40% for best performance
     this._maxEntries = Math.max(4, maxEntries || 9);
     this._minEntries = Math.max(2, Math.ceil(this._maxEntries * 0.4));
-
-    if (format)
-    {
-        this._initFormat(format);
-    }
 
     this.clear();
 }
@@ -59908,44 +59908,23 @@ rbush.prototype = {
         }
     },
 
-    _initFormat: function (format)
+    compareMinX: function (a, b)
     {
-        // format: [minX, minY, maxX, maxY accessors]
-        // accessors will be dotted names
+        return a.left - b.left;
+    },
 
-        // Because we have historically used eval-based function constructor
-        // the format accerrsors need to have their leading dots stripped to
-        // obtain the actual accessor
-        format = format.map(
-            function (f)
-            {
-                return f.substring(1);
-            }
-        );
+    compareMinY: function (a, b)
+    {
+        return a.top - b.top;
+    },
 
-        // Do not use string-generated Functions for CSP policies
-        // Instead a combination of anonymous functions and grabbing properties
-        // by string is used.
-        // cf. https://github.com/photonstorm/phaser/issues/3441
-        // and https://github.com/photonstorm/phaser/issues/3535
-
-        var mkCompareFn = function(attr) {
-          return function(a, b) {
-            return a[attr] - b[attr];
-          };
-        };
-
-        this.compareMinX = mkCompareFn(format[0]);
-        this.compareMinY = mkCompareFn(format[1]);
-
-        this.toBBox = function(a)
-        {
-            return {
-                minX: a[format[0]],
-                minY: a[format[1]],
-                maxX: a[format[2]],
-                maxY: a[format[3]],
-            };
+    toBBox: function (a)
+    {
+        return {
+            minX: a.left,
+            minY: a.top,
+            maxX: a.right,
+            maxY: a.bottom
         };
     }
 };
@@ -60067,7 +60046,6 @@ function multiSelect (arr, left, right, n, compare)
 }
 
 module.exports = rbush;
-
 
 /***/ }),
 
@@ -61170,7 +61148,7 @@ var TextureSource = __webpack_require__(/*! ./TextureSource */ "./textures/Textu
  *
  * @param {Phaser.Textures.TextureManager} manager - A reference to the Texture Manager this Texture belongs to.
  * @param {string} key - The unique string-based key of this Texture.
- * @param {(Image|HTMLCanvasElement)} source - The source that is used to create the texture. Usually an Image, but can also be a Canvas.
+ * @param {(HTMLImageElement|HTMLCanvasElement)} source - The source that is used to create the texture. Usually an Image, but can also be a Canvas.
  * @param {number} [width] - The width of the Texture. This is optional and automatically derived from the source images.
  * @param {number} [height] - The height of the Texture. This is optional and automatically derived from the source images.
  */
@@ -61486,7 +61464,7 @@ var Texture = new Class({
      * @method Phaser.Textures.Texture#setDataSource
      * @since 3.0.0
      *
-     * @param {(Image|HTMLCanvasElement)} data - The source image.
+     * @param {(HTMLImageElement|HTMLCanvasElement)} data - The source image.
      */
     setDataSource: function (data)
     {
@@ -62412,7 +62390,7 @@ var ScaleModes = __webpack_require__(/*! ../renderer/ScaleModes */ "./renderer/S
  * @since 3.0.0
  *
  * @param {Phaser.Textures.Texture} texture - The Texture this TextureSource belongs to.
- * @param {(Image|HTMLCanvasElement)} source - The source image data.
+ * @param {(HTMLImageElement|HTMLCanvasElement)} source - The source image data.
  * @param {integer} [width] - Optional width of the source image. If not given it's derived from the source itself.
  * @param {integer} [height] - Optional height of the source image. If not given it's derived from the source itself.
  */

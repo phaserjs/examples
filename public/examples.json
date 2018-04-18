@@ -2941,13 +2941,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\group\\sprite pool.js",
+              "name": "sprite pool.js",
+              "size": 2564,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\group\\swirl.js",
               "name": "swirl.js",
               "size": 619,
               "extension": ".js"
             }
           ],
-          "size": 14547
+          "size": 17111
         },
         {
           "path": "src\\game objects\\images",
@@ -4136,7 +4142,7 @@
           "size": 255492
         }
       ],
-      "size": 707625
+      "size": 710189
     },
     {
       "path": "src\\games",
@@ -4305,6 +4311,37 @@
           "size": 7639
         },
         {
+          "path": "src\\games\\multi",
+          "name": "multi",
+          "children": [
+            {
+              "path": "src\\games\\multi\\boot.json",
+              "name": "boot.json",
+              "size": 95,
+              "extension": ".json"
+            },
+            {
+              "path": "src\\games\\multi\\Invaders.js",
+              "name": "Invaders.js",
+              "size": 1216,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\games\\multi\\main.js",
+              "name": "main.js",
+              "size": 172,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\games\\multi\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 1086,
+              "extension": ".js"
+            }
+          ],
+          "size": 2569
+        },
+        {
           "path": "src\\games\\pacman",
           "name": "pacman",
           "children": [
@@ -4397,7 +4434,7 @@
           "size": 46738
         }
       ],
-      "size": 173271
+      "size": 175840
     },
     {
       "path": "src\\geom",
@@ -4911,7 +4948,7 @@
             {
               "path": "src\\geom\\line\\perp slope.js",
               "name": "perp slope.js",
-              "size": 1478,
+              "size": 1471,
               "extension": ".js"
             },
             {
@@ -4975,7 +5012,7 @@
               "extension": ".js"
             }
           ],
-          "size": 25780
+          "size": 25773
         },
         {
           "path": "src\\geom\\point",
@@ -5044,7 +5081,7 @@
             {
               "path": "src\\geom\\point\\get magnitude sq.js",
               "name": "get magnitude sq.js",
-              "size": 1317,
+              "size": 1298,
               "extension": ".js"
             },
             {
@@ -5080,7 +5117,7 @@
             {
               "path": "src\\geom\\point\\negative 2.js",
               "name": "negative 2.js",
-              "size": 1092,
+              "size": 1099,
               "extension": ".js"
             },
             {
@@ -5098,13 +5135,13 @@
             {
               "path": "src\\geom\\point\\project unit.js",
               "name": "project unit.js",
-              "size": 1782,
+              "size": 1777,
               "extension": ".js"
             },
             {
               "path": "src\\geom\\point\\project.js",
               "name": "project.js",
-              "size": 1514,
+              "size": 1517,
               "extension": ".js"
             },
             {
@@ -5144,7 +5181,7 @@
               "extension": ".js"
             }
           ],
-          "size": 28460
+          "size": 28446
         },
         {
           "path": "src\\geom\\polygon",
@@ -5165,7 +5202,7 @@
             {
               "path": "src\\geom\\polygon\\clone.js",
               "name": "clone.js",
-              "size": 1321,
+              "size": 1335,
               "extension": ".js"
             },
             {
@@ -5205,7 +5242,7 @@
               "extension": ".js"
             }
           ],
-          "size": 9501
+          "size": 9515
         },
         {
           "path": "src\\geom\\rectangle",
@@ -5672,7 +5709,7 @@
           "size": 28373
         }
       ],
-      "size": 191836
+      "size": 191829
     },
     {
       "path": "src\\input",
@@ -5935,11 +5972,11 @@
             {
               "path": "src\\input\\keyboard\\single keydown event.js",
               "name": "single keydown event.js",
-              "size": 785,
+              "size": 791,
               "extension": ".js"
             }
           ],
-          "size": 8154
+          "size": 8160
         },
         {
           "path": "src\\input\\mouse",
@@ -6191,7 +6228,7 @@
           "size": 9602
         }
       ],
-      "size": 111354
+      "size": 111360
     },
     {
       "path": "src\\loader",
@@ -6605,17 +6642,17 @@
         {
           "path": "src\\paths\\velocity from tangent vectors.js",
           "name": "velocity from tangent vectors.js",
-          "size": 2371,
+          "size": 2271,
           "extension": ".js"
         },
         {
           "path": "src\\paths\\zig zag path.js",
           "name": "zig zag path.js",
-          "size": 1818,
+          "size": 1816,
           "extension": ".js"
         }
       ],
-      "size": 80804
+      "size": 80702
     },
     {
       "path": "src\\physics",
@@ -8092,7 +8129,7 @@
         {
           "path": "src\\tweens\\on start callback.js",
           "name": "on start callback.js",
-          "size": 1126,
+          "size": 1119,
           "extension": ".js"
         },
         {
@@ -8104,7 +8141,7 @@
         {
           "path": "src\\tweens\\pause and resume all.js",
           "name": "pause and resume all.js",
-          "size": 2762,
+          "size": 2752,
           "extension": ".js"
         },
         {
@@ -8309,7 +8346,7 @@
         {
           "path": "src\\tweens\\tween time scale.js",
           "name": "tween time scale.js",
-          "size": 1974,
+          "size": 1966,
           "extension": ".js"
         },
         {
@@ -8331,7 +8368,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77246
+      "size": 77221
     },
     {
       "path": "src\\utils",
@@ -8379,5 +8416,5 @@
       "size": 4792
     }
   ],
-  "size": 2197462
+  "size": 2202467
 }

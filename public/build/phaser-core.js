@@ -7901,7 +7901,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.5.1',
+    VERSION: '3.6.0',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -10089,7 +10089,7 @@ var CanvasPool = function ()
     {
         if (canvasType === undefined) { canvasType = CONST.CANVAS; }
 
-        if (canvasType ===  CONST.WEBGL)
+        if (canvasType === CONST.WEBGL)
         {
             return null;
         }
@@ -35597,7 +35597,7 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
  * @param {string} key - The key of the file within the loader.
  * @param {string} url - The url to load the file from.
  * @param {string} path - The path of the file.
- * @param {XHRSettingsObject} xhrSettings - Optional file specific XHR settings.
+ * @param {XHRSettingsObject} [xhrSettings] - Optional file specific XHR settings.
  *
  * @return {Phaser.Loader.FileTypes.AnimationJSONFile} A File instance to be added to the Loader.
  */
@@ -35686,8 +35686,8 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
  * @param {string} textureURL - The url to load the texture file from.
  * @param {string} atlasURL - The url to load the atlas file from.
  * @param {string} path - The path of the file.
- * @param {XHRSettingsObject} textureXhrSettings - Optional texture file specific XHR settings.
- * @param {XHRSettingsObject} atlasXhrSettings - Optional atlas file specific XHR settings.
+ * @param {XHRSettingsObject} [textureXhrSettings] - Optional texture file specific XHR settings.
+ * @param {XHRSettingsObject} [atlasXhrSettings] - Optional atlas file specific XHR settings.
  *
  * @return {object} An object containing two File objects to be added to the loader.
  */
@@ -35788,8 +35788,8 @@ var HTML5AudioFile = __webpack_require__(/*! ./HTML5AudioFile */ "./loader/filet
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
- * @param {AudioContext} audioContext - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {AudioContext} [audioContext] - [description]
  */
 var AudioFile = new Class({
 
@@ -36111,7 +36111,7 @@ var GetURL = __webpack_require__(/*! ../GetURL */ "./loader/GetURL.js");
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {XHRSettingsObject} config - [description]
+ * @param {XHRSettingsObject} [config] - [description]
  */
 var HTML5AudioFile = new Class({
 
@@ -36270,8 +36270,8 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
- * @param {object} config - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {object} [config] - [description]
  */
 var ImageFile = new Class({
 
@@ -36447,7 +36447,7 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  */
 var JSONFile = new Class({
 
@@ -36663,7 +36663,7 @@ var PluginManager = __webpack_require__(/*! ../../boot/PluginManager */ "./boot/
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  */
 var PluginFile = new Class({
 
@@ -36791,7 +36791,7 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  */
 var ScriptFile = new Class({
 
@@ -36902,7 +36902,7 @@ var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/Im
  * @param {string} url - The url to load the texture file from.
  * @param {object} config - Optional texture file specific XHR settings.
  * @param {string} path - Optional texture file specific XHR settings.
- * @param {XHRSettingsObject} xhrSettings - Optional atlas file specific XHR settings.
+ * @param {XHRSettingsObject} [xhrSettings] - Optional atlas file specific XHR settings.
  *
  * @return {object} An object containing two File objects to be added to the loader.
  */
@@ -36989,7 +36989,7 @@ var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  */
 var TextFile = new Class({
 
@@ -37099,7 +37099,7 @@ var ParseXML = __webpack_require__(/*! ../../dom/ParseXML */ "./dom/ParseXML.js"
  * @param {string} key - [description]
  * @param {string} url - [description]
  * @param {string} path - [description]
- * @param {XHRSettingsObject} xhrSettings - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  */
 var XMLFile = new Class({
 
@@ -47552,7 +47552,6 @@ var TextureTintPipeline = new Class({
         var vertexCapacity = this.vertexCapacity;
         var texture = emitterManager.defaultFrame.source.glTexture;
         var pca, pcb, pcc, pcd, pce, pcf;
-        var vertexCount = this.vertexCount;
 
         if (parentMatrix)
         {
@@ -47597,12 +47596,10 @@ var TextureTintPipeline = new Class({
 
             renderer.setBlendMode(emitter.blendMode);
 
-            if (vertexCount >= vertexCapacity)
+            if (this.vertexCount >= vertexCapacity)
             {
-                this.vertexCount = vertexCount;
                 this.flush();
                 this.setTexture2D(texture, 0);
-                vertexCount = 0;
             }
 
             for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
@@ -47647,7 +47644,7 @@ var TextureTintPipeline = new Class({
                     var ty2 = xw * mvb + yh * mvd + mvf;
                     var tx3 = xw * mva + y * mvc + mve;
                     var ty3 = xw * mvb + y * mvd + mvf;
-                    var vertexOffset = vertexCount * vertexComponentCount;
+                    var vertexOffset = this.vertexCount * vertexComponentCount;
 
                     if (roundPixels)
                     {
@@ -47692,13 +47689,12 @@ var TextureTintPipeline = new Class({
                     vertexViewF32[vertexOffset + 28] = uvs.y3;
                     vertexViewU32[vertexOffset + 29] = color;
 
-                    vertexCount += 6;
+                    this.vertexCount += 6;
 
-                    if (vertexCount >= vertexCapacity)
+                    if (this.vertexCount >= vertexCapacity)
                     {
-                        this.vertexCount = vertexCount;
                         this.flush();
-                        vertexCount = 0;
+                        this.setTexture2D(texture, 0);
                     }
 
                 }
@@ -47706,17 +47702,14 @@ var TextureTintPipeline = new Class({
                 particleOffset += batchSize;
                 aliveLength -= batchSize;
 
-                if (vertexCount >= vertexCapacity)
+                if (this.vertexCount >= vertexCapacity)
                 {
-                    this.vertexCount = vertexCount;
                     this.flush();
                     this.setTexture2D(texture, 0);
-                    vertexCount = 0;
                 }
             }
         }
         
-        this.vertexCount = vertexCount;
         this.setTexture2D(texture, 0);
     },
 

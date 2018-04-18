@@ -1,33 +1,44 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: window.innerWidth,
     height: window.innerHeight,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        resize: resize
     }
 };
 
+function preload ()
+{
+    this.load.image('rain', 'assets/pics/thalion-rain.png');
+    this.load.image('logo', 'assets/sprites/phaser3-logo-x2.png');
+}
+
+function create ()
+{
+    this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'rain').setOrigin(0);
+    this.logo = this.add.sprite(game.config.width / 2, game.config.height / 2, 'logo');
+
+    this.events.on('resize', resize, this);
+}
+
+function resize (width, height)
+{
+    if (width === undefined) { width = this.sys.game.config.width; }
+    if (height === undefined) { height = this.sys.game.config.height; }
+
+    this.cameras.resize(width, height);
+
+    this.bg.setSize(width, height);
+    this.logo.setPosition(width / 2, height / 2);
+}
+
 var game = new Phaser.Game(config);
 
-function preload() {
+window.addEventListener('resize', function (event) {
 
-    this.load.image('beball', 'assets/sprites/beball1.png');
-    this.load.image('atari', 'assets/sprites/atari400.png');
-    this.load.image('bikkuriman', 'assets/sprites/bikkuriman.png');
+    game.resize(window.innerWidth, window.innerHeight);
 
-}
-
-function create() {
-
-    this.add.sprite(200, 300, 'beball');
-    this.add.sprite(500, 300, 'atari');
-    this.add.sprite(800, 300, 'bikkuriman');
-
-    window.onresize = function ()
-    {
-        game.renderer.resize(window.innerWidth, window.innerHeight, 1.0);
-    }
-
-}
+}, false);

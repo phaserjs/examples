@@ -1,5 +1,7 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -8,39 +10,21 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
-
 var image;
 
-function preload() {
+var game = new Phaser.Game(config);
 
-    this.load.image('eye', 'assets/sprites/spikedball.png');
-
+function preload ()
+{
+    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
 }
 
-function create() {
-
-    image = this.add.image(300, 300, 'eye');
-    image.setScale(10.0);
-    console.log(image.angle, image.rotation);
-
-    this.input.keyboard.addKeyCapture(32);
-
-    this.input.keyboard.on('keyup_SPACE', function () {
-
-        // image.angle += 45;
-        // image.angle -= 45;
-
-        image.rotation -= 0.785;
-
-        console.log(image.angle, image.rotation);
-
-    });
-
+function create ()
+{
+    image = this.add.image(400, 300, 'logo');
 }
 
-function update() {
-
-    image.rotation -= 0.01;
-
+function update ()
+{
+    image.rotation += 0.01;
 }

@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -35,7 +35,8 @@ function create ()
         duration: 3000,
         ease: 'Power2',
         yoyo: true,
-        repeat: -1
+        repeat: -1,
+        paused: true
     });
 
     this.input.on('pointerdown', function () {

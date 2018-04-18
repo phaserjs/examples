@@ -1,8 +1,8 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#010101',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -14,20 +14,27 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('ball', 'assets/demoscene/doc-ball.png');
+    this.load.image('lemming', 'assets/sprites/lemming.png');
 }
 
 function create ()
 {
-    var container = this.add.container(400, 300);
+    //  Create some images
 
-    // var ball1 = this.add.image(0, 0, 'ball');
+    //  Positions are relative to the Container x/y
+    var image0 = this.add.image(0, 0, 'lemming');
+    var image1 = this.add.image(-100, -100, 'lemming');
+    var image2 = this.add.image(100, -100, 'lemming');
+    var image3 = this.add.image(100, 100, 'lemming');
+    var image4 = this.add.image(-100, 100, 'lemming');
 
-    // balls.add(ball1);
+    container = this.add.container(400, 300, [ image0, image1, image2, image3, image4 ]);
 
-    // balls.x += 100;
-    // balls.y += 100;
-
-    // console.log(ball1);
-    // console.log(balls);
+    this.tweens.add({
+        targets: container,
+        angle: 360,
+        duration: 6000,
+        yoyo: true,
+        repeat: -1
+    });
 }

@@ -86,15 +86,14 @@ function create ()
 
     var tweens = this.tweens;
 
-    this.input.on('GAME_OBJECT_DOWN_EVENT', function (event) {
-
-        if (event.gameObject === downButton && tweens.timeScale > 0)
+    this.input.on('gameobjectup', function (pointer, gameobject) {
+        if (gameobject === downButton && tweens.timeScale > 0)
         {
             tweens.pauseAll();
     
             text.setText('Pause All');
         }
-        else if (event.gameObject === upButton && tweens.timeScale < 9.9)
+        else if (gameobject === upButton && tweens.timeScale < 9.9)
         {
             tweens.resumeAll();
     

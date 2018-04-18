@@ -57,7 +57,7 @@ function create ()
     {
         var ball = followers.create(0, -50, 'ball');
 
-        ball.data.set('vector', new Phaser.Math.Vector2());
+        ball.setData('vector', new Phaser.Math.Vector2());
 
         this.tweens.add({
             targets: ball,
@@ -83,7 +83,7 @@ function update ()
     for (var i = 0; i < balls.length; i++)
     {
         var t = balls[i].z;
-        var vec = balls[i].data.get('vector');
+        var vec = balls[i].getData('vector');
 
         //  The vector is updated in-place
         path.getPoint(t, vec);

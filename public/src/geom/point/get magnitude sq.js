@@ -44,8 +44,8 @@ function update ()
     {
         var temp = Phaser.Geom.Point.Clone(point);
 
-        Phaser.Geom.Point.Subtract(temp, points[i].x, points[i].y);
-
+		temp.x -= points[i].x;
+		temp.y -= points[i].y;
         var magnitudeSquared = Phaser.Geom.Point.GetMagnitudeSq(temp);
 
         if(magnitudeSquared < 30 * 30)

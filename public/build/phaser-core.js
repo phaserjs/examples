@@ -6077,14 +6077,13 @@ var Camera = new Class({
      */
 
     /**
-     * Destroys this Camera instance.
+     * Destroys this Camera instance. You rarely need to call this directly.
      *
      * Called by the Camera Manager. If you wish to destroy a Camera please use `CameraManager.remove` as
      * cameras are stored in a pool, ready for recycling later, and calling this directly will prevent that.
      *
      * @method Phaser.Cameras.Scene2D.Camera#destroy
      * @fires CameraDestroyEvent
-     * @protected
      * @since 3.0.0
      */
     destroy: function ()
@@ -7001,7 +7000,7 @@ var Fade = new Class({
      * @method Phaser.Cameras.Scene2D.Effects.Fade#postRenderWebGL
      * @since 3.5.0
      *
-     * @param {Phaser.Renderer.WebGL.WebGLPipeline.FlatTintPipeline} pipeline - The WebGL Pipeline to render to.
+     * @param {Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline} pipeline - The WebGL Pipeline to render to.
      * @param {function} getTintFunction - A function that will return the gl safe tint colors.
      *
      * @return {boolean} `true` if the effect drew to the renderer, otherwise `false`.
@@ -7389,7 +7388,7 @@ var Flash = new Class({
      * @method Phaser.Cameras.Scene2D.Effects.Flash#postRenderWebGL
      * @since 3.5.0
      *
-     * @param {Phaser.Renderer.WebGL.WebGLPipeline.FlatTintPipeline} pipeline - The WebGL Pipeline to render to.
+     * @param {Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline} pipeline - The WebGL Pipeline to render to.
      * @param {function} getTintFunction - A function that will return the gl safe tint colors.
      *
      * @return {boolean} `true` if the effect drew to the renderer, otherwise `false`.
@@ -7901,7 +7900,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.6.0',
+    VERSION: '3.5.2',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -20609,6 +20608,7 @@ var Sprite = new Class({
      * [description]
      *
      * @method Phaser.GameObjects.Sprite#preUpdate
+     * @protected
      * @since 3.0.0
      *
      * @param {number} time - [description]
@@ -22192,7 +22192,7 @@ var Text = new Class({
          * [description]
          *
          * @name Phaser.GameObjects.Text#style
-         * @type {Phaser.GameObjects.Components.TextStyle}
+         * @type {Phaser.GameObjects.Text.TextStyle}
          * @since 3.0.0
          */
         this.style = new TextStyle(this, style);
@@ -23150,7 +23150,7 @@ var Text = new Class({
      * @method Phaser.GameObjects.Text#toJSON
      * @since 3.0.0
      *
-     * @return {object} [description]
+     * @return {JSONGameObject} A JSON representation of the Game Object.
      */
     toJSON: function ()
     {
@@ -28809,7 +28809,7 @@ var InputPlugin = new Class({
          * [description]
          *
          * @name Phaser.Input.InputPlugin#settings
-         * @type {SettingsObject}
+         * @type {Phaser.Scenes.Settings.Object}
          * @since 3.5.0
          */
         this.settings = scene.sys.settings;
@@ -35049,7 +35049,7 @@ var File = new Class({
  *
  * @method Phaser.Loader.File.createObjectURL
  * @static
- * @param {Image} image - Image object which 'src' attribute should be set to object URL.
+ * @param {HTMLImageElement} image - Image object which 'src' attribute should be set to object URL.
  * @param {Blob} blob - A Blob object to create an object URL for.
  * @param {string} defaultType - Default mime type used if blob type is not available.
  */
@@ -35081,7 +35081,7 @@ File.createObjectURL = function (image, blob, defaultType)
  *
  * @method Phaser.Loader.File.revokeObjectURL
  * @static
- * @param {Image} image - Image object which 'src' attribute should be revoked.
+ * @param {HTMLImageElement} image - Image object which 'src' attribute should be revoked.
  */
 File.revokeObjectURL = function (image)
 {
@@ -35599,7 +35599,7 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
  * @param {string} path - The path of the file.
  * @param {XHRSettingsObject} [xhrSettings] - Optional file specific XHR settings.
  *
- * @return {Phaser.Loader.FileTypes.AnimationJSONFile} A File instance to be added to the Loader.
+ * @return {Phaser.Loader.FileTypes.JSONFile} A File instance to be added to the Loader.
  */
 var AnimationJSONFile = function (key, url, path, xhrSettings)
 {
@@ -45274,7 +45274,7 @@ var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webg
  *
  * @class BitmapMaskPipeline
  * @extends Phaser.Renderer.WebGL.WebGLPipeline
- * @memberOf Phaser.Renderer.WebGL
+ * @memberOf Phaser.Renderer.WebGL.Pipelines
  * @constructor
  * @since 3.0.0
  *
@@ -45318,7 +45318,7 @@ var BitmapMaskPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.BitmapMaskPipeline#vertexViewF32
+         * @name Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#vertexViewF32
          * @type {Float32Array}
          * @since 3.0.0
          */
@@ -45327,7 +45327,7 @@ var BitmapMaskPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.BitmapMaskPipeline#maxQuads
+         * @name Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#maxQuads
          * @type {number}
          * @default 1
          * @since 3.0.0
@@ -45337,7 +45337,7 @@ var BitmapMaskPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.BitmapMaskPipeline#resolutionDirty
+         * @name Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#resolutionDirty
          * @type {boolean}
          * @default true
          * @since 3.0.0
@@ -45348,10 +45348,10 @@ var BitmapMaskPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.BitmapMaskPipeline#onBind
+     * @method Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#onBind
      * @since 3.0.0
      *
-     * @return {Phaser.Renderer.WebGL.BitmapMaskPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline} [description]
      */
     onBind: function ()
     {
@@ -45374,14 +45374,14 @@ var BitmapMaskPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.BitmapMaskPipeline#resize
+     * @method Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#resize
      * @since 3.0.0
      *
      * @param {number} width - [description]
      * @param {number} height - [description]
      * @param {number} resolution - [description]
      *
-     * @return {Phaser.Renderer.WebGL.BitmapMaskPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline} [description]
      */
     resize: function (width, height, resolution)
     {
@@ -45393,7 +45393,7 @@ var BitmapMaskPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.BitmapMaskPipeline#beginMask
+     * @method Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#beginMask
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.GameObject} mask - [description]
@@ -45430,7 +45430,7 @@ var BitmapMaskPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.BitmapMaskPipeline#endMask
+     * @method Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#endMask
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.GameObject} mask - [description]
@@ -45515,7 +45515,7 @@ var pathArray = [];
  *
  * @class FlatTintPipeline
  * @extends Phaser.Renderer.WebGL.WebGLPipeline
- * @memberOf Phaser.Renderer.WebGL
+ * @memberOf Phaser.Renderer.WebGL.Pipelines
  * @constructor
  * @since 3.0.0
  *
@@ -45567,7 +45567,7 @@ var FlatTintPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.FlatTintPipeline#vertexViewF32
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#vertexViewF32
          * @type {Float32Array}
          * @since 3.0.0
          */
@@ -45576,7 +45576,7 @@ var FlatTintPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.FlatTintPipeline#vertexViewU32
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#vertexViewU32
          * @type {Uint32Array}
          * @since 3.0.0
          */
@@ -45585,7 +45585,7 @@ var FlatTintPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.FlatTintPipeline#tempTriangle
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#tempTriangle
          * @type {array}
          * @since 3.0.0
          */
@@ -45599,7 +45599,7 @@ var FlatTintPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.FlatTintPipeline#polygonCache
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#polygonCache
          * @type {array}
          * @default []
          * @since 3.0.0
@@ -45612,10 +45612,10 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#onBind
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#onBind
      * @since 3.0.0
      *
-     * @return {Phaser.Renderer.WebGL.FlatTintPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline} [description]
      */
     onBind: function ()
     {
@@ -45628,14 +45628,14 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#resize
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#resize
      * @since 3.0.0
      *
      * @param {number} width - [description]
      * @param {number} height - [description]
      * @param {number} resolution - [description]
      *
-     * @return {Phaser.Renderer.WebGL.FlatTintPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline} [description]
      */
     resize: function (width, height, resolution)
     {
@@ -45648,7 +45648,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchFillRect
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillRect
      * @since 3.0.0
      *
      * @param {float} srcX - [description]
@@ -45731,7 +45731,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchFillTriangle
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillTriangle
      * @since 3.0.0
      *
      * @param {float} srcX - [description]
@@ -45803,7 +45803,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchStrokeTriangle
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokeTriangle
      * @since 3.0.0
      *
      * @param {float} srcX - [description]
@@ -45865,7 +45865,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchFillPath
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillPath
      * @since 3.0.0
      *
      * @param {float} srcX - [description]
@@ -45967,7 +45967,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchStrokePath
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokePath
      * @since 3.0.0
      *
      * @param {float} srcX - [description]
@@ -46060,7 +46060,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchLine
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchLine
      * @since 3.0.0
      *
      * @param {float} srcX - [description]
@@ -46168,7 +46168,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchGraphics
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchGraphics
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Graphics} graphics - [description]
@@ -46600,7 +46600,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#drawStaticTilemapLayer
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#drawStaticTilemapLayer
      * @since 3.0.0
      *
      * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
@@ -46613,7 +46613,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#drawEmitterManager
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#drawEmitterManager
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
@@ -46626,7 +46626,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#drawBlitter
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#drawBlitter
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Blitter} blitter - [description]
@@ -46639,7 +46639,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchSprite
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchSprite
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Sprite} sprite - [description]
@@ -46652,7 +46652,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchMesh
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchMesh
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Mesh} mesh - [description]
@@ -46665,7 +46665,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchBitmapText
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchBitmapText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.BitmapText} bitmapText - [description]
@@ -46678,7 +46678,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchDynamicBitmapText
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchDynamicBitmapText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
@@ -46691,7 +46691,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchText
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Text} text - [description]
@@ -46704,7 +46704,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchDynamicTilemapLayer
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchDynamicTilemapLayer
      * @since 3.0.0
      *
      * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
@@ -46717,7 +46717,7 @@ var FlatTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.FlatTintPipeline#batchTileSprite
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchTileSprite
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.TileSprite} tileSprite - [description]
@@ -46759,8 +46759,8 @@ var LIGHT_COUNT = 10;
  * [description]
  *
  * @class ForwardDiffuseLightPipeline
- * @extends Phaser.Renderer.WebGL.TextureTintPipeline
- * @memberOf Phaser.Renderer.WebGL
+ * @extends Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline
+ * @memberOf Phaser.Renderer.WebGL.Pipelines
  * @constructor
  * @since 3.0.0
  *
@@ -46782,10 +46782,10 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#onBind
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#onBind
      * @since 3.0.0
      *
-     * @return {Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline} [description]
      */
     onBind: function ()
     {
@@ -46805,13 +46805,13 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#onRender
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#onRender
      * @since 3.0.0
      *
      * @param {Phaser.Scene} scene - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
      *
-     * @return {Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline} [description]
      */
     onRender: function (scene, camera)
     {
@@ -46865,7 +46865,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#drawStaticTilemapLayer
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawStaticTilemapLayer
      * @since 3.0.0
      *
      * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
@@ -46892,7 +46892,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#drawEmitterManager
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawEmitterManager
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
@@ -46919,7 +46919,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#drawBlitter
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawBlitter
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Blitter} blitter - [description]
@@ -46946,7 +46946,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#batchSprite
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchSprite
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Sprite} sprite - [description]
@@ -46973,7 +46973,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#batchMesh
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchMesh
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Mesh} mesh - [description]
@@ -47001,7 +47001,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#batchBitmapText
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchBitmapText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.BitmapText} bitmapText - [description]
@@ -47028,7 +47028,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#batchDynamicBitmapText
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchDynamicBitmapText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
@@ -47055,7 +47055,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#batchText
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Text} text - [description]
@@ -47082,7 +47082,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#batchDynamicTilemapLayer
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchDynamicTilemapLayer
      * @since 3.0.0
      *
      * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
@@ -47109,7 +47109,7 @@ var ForwardDiffuseLightPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.ForwardDiffuseLightPipeline#batchTileSprite
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchTileSprite
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.TileSprite} tileSprite - [description]
@@ -47169,7 +47169,7 @@ var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webg
  *
  * @class TextureTintPipeline
  * @extends Phaser.Renderer.WebGL.WebGLPipeline
- * @memberOf Phaser.Renderer.WebGL
+ * @memberOf Phaser.Renderer.WebGL.Pipelines
  * @constructor
  * @since 3.0.0
  *
@@ -47229,7 +47229,7 @@ var TextureTintPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.TextureTintPipeline#vertexViewF32
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#vertexViewF32
          * @type {Float32Array}
          * @since 3.0.0
          */
@@ -47238,7 +47238,7 @@ var TextureTintPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.TextureTintPipeline#vertexViewU32
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#vertexViewU32
          * @type {Uint32Array}
          * @since 3.0.0
          */
@@ -47247,7 +47247,7 @@ var TextureTintPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.TextureTintPipeline#maxQuads
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#maxQuads
          * @type {integer}
          * @default 2000
          * @since 3.0.0
@@ -47257,7 +47257,7 @@ var TextureTintPipeline = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.WebGL.TextureTintPipeline#batches
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batches
          * @type {array}
          * @since 3.1.0
          */
@@ -47269,13 +47269,13 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#setTexture2D
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#setTexture2D
      * @since 3.1.0
      *
      * @param {WebGLTexture} texture - [description]
      * @param {integer} textureUnit - [description]
      *
-     * @return {Phaser.Renderer.WebGL.TextureTintPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} [description]
      */
     setTexture2D: function (texture, unit)
     {
@@ -47320,7 +47320,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#pushBatch
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#pushBatch
      * @since 3.1.0
      */
     pushBatch: function ()
@@ -47337,10 +47337,10 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#flush
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#flush
      * @since 3.1.0
      *
-     * @return {Phaser.Renderer.WebGL.TextureTintPipeline} This Pipeline.
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This Pipeline.
      */
     flush: function ()
     {
@@ -47437,10 +47437,10 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#onBind
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#onBind
      * @since 3.0.0
      *
-     * @return {Phaser.Renderer.WebGL.TextureTintPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} [description]
      */
     onBind: function ()
     {
@@ -47458,14 +47458,14 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#resize
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#resize
      * @since 3.0.0
      *
      * @param {number} width - [description]
      * @param {number} height - [description]
      * @param {number} resolution - [description]
      *
-     * @return {Phaser.Renderer.WebGL.TextureTintPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} [description]
      */
     resize: function (width, height, resolution)
     {
@@ -47477,7 +47477,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#drawStaticTilemapLayer
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawStaticTilemapLayer
      * @since 3.0.0
      *
      * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
@@ -47512,7 +47512,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#drawEmitterManager
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawEmitterManager
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
@@ -47716,7 +47716,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#drawBlitter
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawBlitter
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Blitter} blitter - [description]
@@ -47868,7 +47868,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchSprite
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchSprite
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Sprite} sprite - [description]
@@ -48035,7 +48035,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchMesh
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchMesh
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Mesh} mesh - [description]
@@ -48158,7 +48158,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchBitmapText
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchBitmapText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.BitmapText} bitmapText - [description]
@@ -48427,7 +48427,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchDynamicBitmapText
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicBitmapText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
@@ -48771,7 +48771,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchText
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchText
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Text} text - [description]
@@ -48807,7 +48807,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchDynamicTilemapLayer
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicTilemapLayer
      * @since 3.0.0
      *
      * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
@@ -48865,7 +48865,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchTileSprite
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTileSprite
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.TileSprite} tileSprite - [description]
@@ -48902,7 +48902,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchTexture
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.GameObject} gameObject - [description]
@@ -49095,7 +49095,7 @@ var TextureTintPipeline = new Class({
     /**
      * Immediately draws a texture with no batching.
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#drawTexture
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawTexture
      * @since 3.2.0
      *
      * @param {WebGLTexture} texture [description]
@@ -49110,7 +49110,7 @@ var TextureTintPipeline = new Class({
      * @param {Phaser.GameObjects.Components.TransformMatrix} transformMatrix - [description]
      * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      *
-     * @return {Phaser.Renderer.WebGL.TextureTintPipeline} This Pipeline.
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This Pipeline.
      */
     drawTexture: function (
         texture,
@@ -49246,7 +49246,7 @@ var TextureTintPipeline = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Renderer.WebGL.TextureTintPipeline#batchGraphics
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchGraphics
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Graphics} graphics - [description]
@@ -50080,7 +50080,7 @@ var Systems = __webpack_require__(/*! ./Systems */ "./scene/Systems.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {(string|SettingsConfig)} config - Scene specific configuration settings.
+ * @param {(string|Phaser.Scenes.Settings.Config)} config - Scene specific configuration settings.
  */
 var Scene = new Class({
 
@@ -50646,7 +50646,7 @@ var SceneManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - A unique key used to reference the Scene, i.e. `MainMenu` or `Level1`.
-     * @param {(Phaser.Scene|SettingsConfig|function)} sceneConfig - The config for the Scene
+     * @param {(Phaser.Scene|Phaser.Scenes.Settings.Config|function)} sceneConfig - The config for the Scene
      * @param {boolean} [autoStart=false] - If `true` the Scene will be started immediately after being added.
      * @param {object} [data] - Optional data object. This will be set as Scene.settings.data and passed to `Scene.init`.
      *
@@ -51050,7 +51050,7 @@ var SceneManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The key of the Scene.
-     * @param {(string|SettingsConfig)} sceneConfig - The Scene config.
+     * @param {(string|Phaser.Scenes.Settings.Config)} sceneConfig - The Scene config.
      *
      * @return {Phaser.Scene} The created Scene.
      */
@@ -51134,7 +51134,7 @@ var SceneManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The key to check in the Scene config.
-     * @param {(Phaser.Scene|SettingsConfig|function)} sceneConfig - The Scene config.
+     * @param {(Phaser.Scene|Phaser.Scenes.Settings.Config|function)} sceneConfig - The Scene config.
      *
      * @return {string} The Scene key.
      */
@@ -51899,7 +51899,7 @@ var ScenePlugin = new Class({
          * The settings of the Scene this ScenePlugin belongs to.
          *
          * @name Phaser.Scenes.ScenePlugin#settings
-         * @type {SettingsObject}
+         * @type {Phaser.Scenes.Settings.Object}
          * @since 3.0.0
          */
         this.settings = scene.sys.settings;
@@ -52093,7 +52093,7 @@ var ScenePlugin = new Class({
     },
 
     /**
-     * @typedef {object} Phaser.Scenes.ScenePlugin#SceneTransitionConfig
+     * @typedef {object} Phaser.Scenes.ScenePlugin.SceneTransitionConfig
      * 
      * @property {string} target - The Scene key to transition to.
      * @property {integer} [duration=1000] - The duration, in ms, for the transition to last.
@@ -52139,7 +52139,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#transition
      * @since 3.5.0
      *
-     * @param {Phaser.Scenes.ScenePlugin#SceneTransitionConfig} config - The transition configuration object.
+     * @param {Phaser.Scenes.ScenePlugin.SceneTransitionConfig} config - The transition configuration object.
      *
      * @return {boolean} `true` is the transition was started, otherwise `false`.
      */
@@ -52198,7 +52198,7 @@ var ScenePlugin = new Class({
         }
         else
         {
-            this.manager.start(key);
+            this.manager.start(key, GetFastValue(config, 'data'));
         }
 
         this.systems.events.emit('transitionout', target, duration);
@@ -52308,7 +52308,7 @@ var ScenePlugin = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The Scene key.
-     * @param {(Phaser.Scene|SettingsConfig|function)} sceneConfig - The config for the Scene.
+     * @param {(Phaser.Scene|Phaser.Scenes.Settings.Config|function)} sceneConfig - The config for the Scene.
      * @param {boolean} autoStart - Whether to start the Scene after it's added.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
@@ -52862,7 +52862,7 @@ var Settings = {
      * @function Phaser.Scenes.Settings.create
      * @since 3.0.0
      *
-     * @param {(string|Phaser.Scenes.SettingsConfig)} config - [description]
+     * @param {(string|Phaser.Scenes.Settings.Config)} config - [description]
      *
      * @return {Phaser.Scenes.Settings.Object} [description]
      */
@@ -52963,7 +52963,7 @@ var Settings = __webpack_require__(/*! ./Settings */ "./scene/Settings.js");
  * @since 3.0.0
  *
  * @param {Phaser.Scene} scene - The Scene that owns this Systems instance.
- * @param {(string|SettingsConfig)} config - Scene specific configuration settings.
+ * @param {(string|Phaser.Scenes.Settings.Config)} config - Scene specific configuration settings.
  */
 var Systems = new Class({
 
@@ -52993,7 +52993,7 @@ var Systems = new Class({
          * [description]
          *
          * @name Phaser.Scenes.Systems#config
-         * @type {(string|SettingsConfig)}
+         * @type {(string|Phaser.Scenes.Settings.Config)}
          * @since 3.0.0
          */
         this.config = config;
@@ -53002,7 +53002,7 @@ var Systems = new Class({
          * [description]
          *
          * @name Phaser.Scenes.Systems#settings
-         * @type {SettingsObject}
+         * @type {Phaser.Scenes.Settings.Object}
          * @since 3.0.0
          */
         this.settings = Settings.create(config);

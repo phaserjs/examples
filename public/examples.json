@@ -2621,8 +2621,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2633,8 +2633,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2645,8 +2645,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2765,8 +2765,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -4317,29 +4317,41 @@
             {
               "path": "src\\games\\multi\\boot.json",
               "name": "boot.json",
-              "size": 95,
+              "size": 146,
               "extension": ".json"
+            },
+            {
+              "path": "src\\games\\multi\\Controller.js",
+              "name": "Controller.js",
+              "size": 627,
+              "extension": ".js"
             },
             {
               "path": "src\\games\\multi\\Invaders.js",
               "name": "Invaders.js",
-              "size": 1216,
+              "size": 3488,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\games\\multi\\Invaders2.js",
+              "name": "Invaders2.js",
+              "size": 3490,
               "extension": ".js"
             },
             {
               "path": "src\\games\\multi\\main.js",
               "name": "main.js",
-              "size": 172,
+              "size": 381,
               "extension": ".js"
             },
             {
               "path": "src\\games\\multi\\Preloader.js",
               "name": "Preloader.js",
-              "size": 1086,
+              "size": 1927,
               "extension": ".js"
             }
           ],
-          "size": 2569
+          "size": 10059
         },
         {
           "path": "src\\games\\pacman",
@@ -4434,7 +4446,7 @@
           "size": 46738
         }
       ],
-      "size": 175840
+      "size": 183330
     },
     {
       "path": "src\\geom",
@@ -7111,7 +7123,7 @@
             {
               "path": "src\\physics\\matterjs\\multiple physics scenes.js",
               "name": "multiple physics scenes.js",
-              "size": 1913,
+              "size": 1979,
               "extension": ".js"
             },
             {
@@ -7151,6 +7163,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\scene transition.js",
+              "name": "scene transition.js",
+              "size": 1979,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\simple body.js",
               "name": "simple body.js",
               "size": 736,
@@ -7187,7 +7205,7 @@
               "extension": ".js"
             }
           ],
-          "size": 49328
+          "size": 51373
         },
         {
           "path": "src\\physics\\multi",
@@ -7209,7 +7227,7 @@
           "size": 2741
         }
       ],
-      "size": 135931
+      "size": 137976
     },
     {
       "path": "src\\pools",
@@ -7348,8 +7366,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -7582,7 +7600,7 @@
         {
           "path": "src\\scenes\\transition test 1.js",
           "name": "transition test 1.js",
-          "size": 3035,
+          "size": 3088,
           "extension": ".js"
         },
         {
@@ -7604,7 +7622,7 @@
           "extension": ".js"
         }
       ],
-      "size": 64191
+      "size": 64244
     },
     {
       "path": "src\\snapshot",
@@ -8416,5 +8434,5 @@
       "size": 4792
     }
   ],
-  "size": 2202467
+  "size": 2212055
 }

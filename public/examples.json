@@ -1503,11 +1503,11 @@
         {
           "path": "src\\demoscene\\vertical raster wave.js",
           "name": "vertical raster wave.js",
-          "size": 1081,
+          "size": 1055,
           "extension": ".js"
         }
       ],
-      "size": 7669
+      "size": 7643
     },
     {
       "path": "src\\depth sorting",
@@ -2520,7 +2520,7 @@
             {
               "path": "src\\game objects\\container\\multi camera input test.js",
               "name": "multi camera input test.js",
-              "size": 5768,
+              "size": 5826,
               "extension": ".js"
             },
             {
@@ -2566,7 +2566,7 @@
               "extension": ".js"
             }
           ],
-          "size": 49915
+          "size": 49973
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4148,7 +4148,7 @@
           "size": 255492
         }
       ],
-      "size": 710189
+      "size": 710247
     },
     {
       "path": "src\\games",
@@ -7407,7 +7407,7 @@
         {
           "path": "src\\scenes\\drag scenes demo.js",
           "name": "drag scenes demo.js",
-          "size": 21077,
+          "size": 21685,
           "extension": ".js"
         },
         {
@@ -7640,7 +7640,7 @@
           "extension": ".js"
         }
       ],
-      "size": 85321
+      "size": 85929
     },
     {
       "path": "src\\snapshot",
@@ -8452,5 +8452,5 @@
       "size": 4792
     }
   ],
-  "size": 2232912
+  "size": 2233552
 }

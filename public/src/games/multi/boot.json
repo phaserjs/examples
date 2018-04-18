@@ -3,7 +3,7 @@
         "Preloader.js",
         "Controller.js",
         "Invaders.js",
-        "Invaders2.js",
+        "Asteroids.js",
         "main.js"
     ]
 }

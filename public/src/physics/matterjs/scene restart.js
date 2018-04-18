@@ -44,8 +44,18 @@ var config = {
     parent: 'phaser-example',
     scene: [ SceneA ],
     physics: {
-        default: 'matter'
-    },
+        default: 'matter',
+        matter: {
+            setBounds: {
+                x: 0,
+                y: 0,
+                width: 800,
+                height: 600,
+                thickness: 64
+            },
+            enableSleeping: true
+        }
+    }
 };
 
 var game = new Phaser.Game(config);

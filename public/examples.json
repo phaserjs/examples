@@ -4315,6 +4315,12 @@
           "name": "multi",
           "children": [
             {
+              "path": "src\\games\\multi\\Asteroids.js",
+              "name": "Asteroids.js",
+              "size": 916,
+              "extension": ".js"
+            },
+            {
               "path": "src\\games\\multi\\boot.json",
               "name": "boot.json",
               "size": 146,
@@ -4333,12 +4339,6 @@
               "extension": ".js"
             },
             {
-              "path": "src\\games\\multi\\Invaders2.js",
-              "name": "Invaders2.js",
-              "size": 3490,
-              "extension": ".js"
-            },
-            {
               "path": "src\\games\\multi\\main.js",
               "name": "main.js",
               "size": 381,
@@ -4351,7 +4351,7 @@
               "extension": ".js"
             }
           ],
-          "size": 10059
+          "size": 7485
         },
         {
           "path": "src\\games\\pacman",
@@ -4446,7 +4446,7 @@
           "size": 46738
         }
       ],
-      "size": 183330
+      "size": 180756
     },
     {
       "path": "src\\geom",
@@ -7165,13 +7165,13 @@
             {
               "path": "src\\physics\\matterjs\\scene restart.js",
               "name": "scene restart.js",
-              "size": 1077,
+              "size": 1319,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\matterjs\\scene transition.js",
               "name": "scene transition.js",
-              "size": 1077,
+              "size": 1979,
               "extension": ".js"
             },
             {
@@ -7211,7 +7211,7 @@
               "extension": ".js"
             }
           ],
-          "size": 51482
+          "size": 52626
         },
         {
           "path": "src\\physics\\multi",
@@ -7233,7 +7233,7 @@
           "size": 2741
         }
       ],
-      "size": 138085
+      "size": 139229
     },
     {
       "path": "src\\pools",
@@ -7397,6 +7397,12 @@
             }
           ],
           "size": 1032
+        },
+        {
+          "path": "src\\scenes\\drag scenes demo.js",
+          "name": "drag scenes demo.js",
+          "size": 1461,
+          "extension": ".js"
         },
         {
           "path": "src\\scenes\\extend scene from object.js",
@@ -7628,7 +7634,7 @@
           "extension": ".js"
         }
       ],
-      "size": 64244
+      "size": 65705
     },
     {
       "path": "src\\snapshot",
@@ -8440,5 +8446,5 @@
       "size": 4792
     }
   ],
-  "size": 2212164
+  "size": 2212195
 }

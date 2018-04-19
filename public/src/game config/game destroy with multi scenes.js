@@ -23,8 +23,6 @@ var Background = new Phaser.Class({
 
         this.input.on('pointerdown', function () {
 
-            console.log('nuked');
-
             this.sys.game.destroy(true);
 
             document.addEventListener('mousedown', function newGame () {
@@ -80,7 +78,7 @@ var config = {
     height: 600,
     backgroundColor: '#000000',
     parent: 'phaser-example',
-    scene: [ Background ]
+    scene: [ Background, Demo ]
 };
 
 var game = new Phaser.Game(config);

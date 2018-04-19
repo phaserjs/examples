@@ -7466,6 +7466,61 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\multi demo",
+          "name": "multi demo",
+          "children": [
+            {
+              "path": "src\\scenes\\multi demo\\boot.json",
+              "name": "boot.json",
+              "size": 181,
+              "extension": ".json"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Clock.js",
+              "name": "Clock.js",
+              "size": 3974,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Controller.js",
+              "name": "Controller.js",
+              "size": 5864,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Eyes.js",
+              "name": "Eyes.js",
+              "size": 2416,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Invaders.js",
+              "name": "Invaders.js",
+              "size": 6088,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Juggler.js",
+              "name": "Juggler.js",
+              "size": 616,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\main.js",
+              "name": "main.js",
+              "size": 504,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Stars.js",
+              "name": "Stars.js",
+              "size": 2211,
+              "extension": ".js"
+            }
+          ],
+          "size": 21854
+        },
+        {
           "path": "src\\scenes\\multiple scenes from classes.js",
           "name": "multiple scenes from classes.js",
           "size": 1137,
@@ -7640,7 +7695,7 @@
           "extension": ".js"
         }
       ],
-      "size": 85929
+      "size": 107783
     },
     {
       "path": "src\\snapshot",
@@ -8452,5 +8507,5 @@
       "size": 4792
     }
   ],
-  "size": 2233552
+  "size": 2255406
 }

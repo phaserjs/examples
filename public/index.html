@@ -14,6 +14,15 @@
 
     <nav class="breadcrumb" id="breadcrumb">
         <a href="index.html"><img src="images/logo.png" width="144" height="31" /></a>
+		<div class="search">
+			<input id="search-query">
+			<div class="search-icon-wrapper">
+				<div class="search-icon">
+					<div class="search-icon-circle"></div>
+					<div class="search-icon-rectangle"></div>
+				</div>
+			</div>
+		</div>
         <a class="breadcrumb-item" href="index.html">Home</a>
     </nav>
 
@@ -75,7 +84,7 @@
 
         var stateObj = { well: well };
 
-        history.pushState(stateObj, '', 'index.html?dir=' + getURLWell());
+        history.pushState(stateObj, '', 'index.html' + getURLWell());
     }
 
     function getURLWell (skipLast, add)
@@ -95,12 +104,12 @@
             output = output.concat(encodeURI(add)) + '/';
         }
 
-        return output;
+        return '?dir=' + output + '&q=' + $('#search-query').val();
     }
 
     function addBreadcrumb (filename)
     {
-        var nav = $('<a></a>', { class: 'breadcrumb-item', href: 'index.html?dir=' + getURLWell() }).text(filename);
+        var nav = $('<a></a>', { class: 'breadcrumb-item', href: 'index.html' + getURLWell() }).text(filename);
 
         $('#breadcrumb').append(nav);
     }
@@ -159,7 +168,7 @@
     {
         var div = $('<div></div>').addClass('card');
 
-        var a = $('<a></a>', { href: 'index.html?dir=' + getURLWell(true) });
+        var a = $('<a></a>', { href: 'index.html' + getURLWell(true) });
 
         var img = $('<img />', { src: 'images/back.png', width: 128, height: 128 });
 
@@ -173,7 +182,7 @@
         a.append(img);
 
         var p = $('<p></p>').addClass('card-text');
-        p.append($('<a></a>', { href: 'index.html?dir=' + getURLWell(true) }).text('Back'));
+        p.append($('<a></a>', { href: 'index.html' + getURLWell(true) }).text('Back'));
 
         div.append(a).append(p);
 
@@ -230,7 +239,7 @@
 
         var div = $('<div></div>').addClass('card');
 
-        var a = $('<a></a>', { href: 'index.html?dir=' + getURLWell(false, filename) });
+        var a = $('<a></a>', { href: 'index.html' + getURLWell(false, filename) });
 
         var img = $('<img />', { src: 'images/phaser-folder.png', width: 128, height: 128 });
 
@@ -245,7 +254,7 @@
         a.append(img);
 
         var p = $('<p></p>').addClass('card-text');
-        p.append($('<a></a>', { href: 'index.html?dir=' + getURLWell(false, filename) }).text(filename));
+        p.append($('<a></a>', { href: 'index.html' + getURLWell(false, filename) }).text(filename));
 
         div.append(a).append(p);
 
@@ -307,13 +316,115 @@
 
     }
 
+    var originalData = null;
+
+    function copyItemData(item, children)
+    {
+        var copy = {children: children};
+        
+        for (var i in item) {
+            if (i !== 'children') {
+                copy[i] = item[i];
+            }
+        }
+        
+        return copy;
+    }
+
+    function searchQueryRecursive(regex, folder) {
+        
+        var include = [];
+        
+        for (var i = 0; i < folder.children.length; i++)
+        {
+            var item = folder.children[i];
+            if (item.children) {
+                var children = searchQueryRecursive(regex, item);
+                
+                if (children) {
+                    include.push(children);
+                }
+            }
+        }
+        
+        if (regex.test(folder.name) && include.length === 0)
+        {
+            include = folder.children;
+        }
+        
+        if (include.length > 0) {
+            return copyItemData(folder, include);
+        }
+    }
+
+    function debounce(func, wait, callback) {
+        
+        var timeout;
+
+        return function() {
+            
+            var context = this;
+            var args = arguments;
+
+            var later = function() {
+                timeout = null;
+                func.apply(context, args);
+            };
+            
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    };
+
+    function search(query) {
+        
+        var result = searchQueryRecursive(new RegExp(query, 'gi'), data);
+        
+        data = result ? result : originalData;
+        createTopLevelFolders();
+    }
+
     $(document).ready(function () {
+
+        var prevQuery = '';
+        var delayedSearch = debounce(search, 500);
+        
+        $('#search-query').on('keyup', function (event) {
+
+            var query = $(this).val();
+
+            if (!query)
+            {
+                data = originalData;
+                originalData = null;
+                
+                createTopLevelFolders();
+            }
+            else if (query !== prevQuery)
+            {
+                prevQuery = query;
+                
+                if (!originalData) {
+                    originalData = data;
+                }
+                
+                delayedSearch(query);
+            }
+            
+        })
 
         $.getJSON('examples.json', function (json) {
 
             data = json;
 
             var dir = getQueryString('dir');
+            var q = getQueryString('q');
+            
+            $('#search-query').val(q);
+            
+            if (q) {
+                search(q);
+            }
 
             if (dir)
             {

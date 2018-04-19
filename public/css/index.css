@@ -58,9 +58,57 @@ body {
   margin: 8px;
 }
 
-#breadcrumb img {
+#breadcrumb img,
+#breadcrumb .search {
   float: right;
 }
+
+#breadcrumb .search {
+	position: relative;
+}
+
+#breadcrumb .search input {
+  color: white;
+  font-size: 80%;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  margin-right: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-sizing: border-box;
+  outline: none;
+  padding: 3px 24px 3px 6px;
+}
+	
+.search-icon-wrapper {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 1px;
+	right: 17px;
+	margin: 0 auto;
+}
+
+.search-icon-circle {
+	position: absolute;
+	width: 65%;
+	height: 65%;
+	border-radius: 50%;
+	border: 3px solid rgb(165, 150, 180);
+	top: 4px;
+	right: 4px;
+}
+.search-icon-rectangle {
+	position: absolute;
+	height: 35%;
+	transform: rotate(-135deg);
+	border: 2px solid rgb(165, 150, 180);
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	top: 13px;
+	right: 15px;
+}
+
 
 #breadcrumb a {
   text-transform: capitalize;

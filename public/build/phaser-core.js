@@ -3515,6 +3515,11 @@ var Game = new Class({
         if (this.removeCanvas && this.canvas)
         {
             CanvasPool.remove(this.canvas);
+
+            if (this.canvas.parentNode)
+            {
+                this.canvas.parentNode.removeChild(this.canvas);
+            }
         }
 
         this.loop.destroy();
@@ -3809,7 +3814,7 @@ var TimeStep = new Class({
          * the TimeStep is actually stopped, not just paused.
          *
          * @name Phaser.Boot.TimeStep#running
-         * @name {boolean}
+         * @type {boolean}
          * @readOnly
          * @default false
          * @since 3.0.0
@@ -3834,7 +3839,7 @@ var TimeStep = new Class({
          * is spiraling out of control.
          *
          * @name Phaser.Boot.TimeStep#targetFps
-         * @name {integer}
+         * @type {integer}
          * @default 60
          * @since 3.0.0
          */
@@ -33419,6 +33424,33 @@ var Key = new Class({
          * @since 3.0.0
          */
         this._justUp = false;
+    },
+
+    /**
+     * Resets this Key object back to its default un-pressed state.
+     *
+     * @method Phaser.Input.Keyboard.Key.reset
+     * @since 3.5.2
+     * 
+     * @return {Phaser.Input.Keyboard.Key} This Key instance.
+     */
+    reset: function ()
+    {
+        this.preventDefault = true;
+        this.enabled = true;
+        this.isDown = false;
+        this.isUp = true;
+        this.altKey = false;
+        this.ctrlKey = false;
+        this.shiftKey = false;
+        this.timeDown = 0;
+        this.duration = 0;
+        this.timeUp = 0;
+        this.repeats = 0;
+        this._justDown = false;
+        this._justUp = false;
+
+        return this;
     }
 
 });
@@ -35802,7 +35834,8 @@ var AudioFile = new Class({
         /**
          * [description]
          *
-         * @property {AudioContext} context
+         * @name Phaser.Loader.FileTypes.AudioFile#context
+         * @type {AudioContext}
          * @since 3.0.0
          */
         this.context = audioContext;
@@ -46791,6 +46824,7 @@ var ForwardDiffuseLightPipeline = new Class({
      * [description]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#onBind
+     * @override
      * @since 3.0.0
      *
      * @return {Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline} [description]
@@ -46874,12 +46908,12 @@ var ForwardDiffuseLightPipeline = new Class({
      * [description]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawStaticTilemapLayer
+     * @override
      * @since 3.0.0
      *
      * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
      * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
      */
     drawStaticTilemapLayer: function (tilemap, camera, parentTransformMatrix)
     {
@@ -47463,6 +47497,7 @@ var TextureTintPipeline = new Class({
     onBind: function ()
     {
         WebGLPipeline.prototype.onBind.call(this);
+
         this.mvpUpdate();
 
         if (this.batches.length === 0)
@@ -47500,6 +47535,7 @@ var TextureTintPipeline = new Class({
      *
      * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
      */
     drawStaticTilemapLayer: function (tilemap)
     {

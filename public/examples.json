@@ -2029,6 +2029,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\game config\\game destroy with multi scenes.js",
+          "name": "game destroy with multi scenes.js",
+          "size": 1740,
+          "extension": ".js"
+        },
+        {
           "path": "src\\game config\\game destroy.js",
           "name": "game destroy.js",
           "size": 1088,
@@ -2107,7 +2113,7 @@
           "extension": ".js"
         }
       ],
-      "size": 12603
+      "size": 14343
     },
     {
       "path": "src\\game objects",
@@ -2152,36 +2158,6 @@
                   "extension": ".js"
                 },
                 {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\retro text mega scroll.js",
-                  "name": "retro text mega scroll.js",
-                  "size": 1846,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\retro text scroll callback.js",
-                  "name": "retro text scroll callback.js",
-                  "size": 1817,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\retro text scroll.js",
-                  "name": "retro text scroll.js",
-                  "size": 1531,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\scrolling retro text.js",
-                  "name": "scrolling retro text.js",
-                  "size": 3127,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\tinted retro text.js",
-                  "name": "tinted retro text.js",
-                  "size": 1249,
-                  "extension": ".js"
-                },
-                {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\tinted text.js",
                   "name": "tinted text.js",
                   "size": 962,
@@ -2194,7 +2170,56 @@
                   "extension": ".js"
                 }
               ],
-              "size": 19548
+              "size": 9978
+            },
+            {
+              "path": "src\\game objects\\bitmaptext\\retro font",
+              "name": "retro font",
+              "children": [
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text 1.js",
+                  "name": "retro text 1.js",
+                  "size": 918,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text 2.js",
+                  "name": "retro text 2.js",
+                  "size": 909,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text mega scroll.js",
+                  "name": "retro text mega scroll.js",
+                  "size": 1836,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text scroll callback.js",
+                  "name": "retro text scroll callback.js",
+                  "size": 1791,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text scroll.js",
+                  "name": "retro text scroll.js",
+                  "size": 1505,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\scrolling retro text.js",
+                  "name": "scrolling retro text.js",
+                  "size": 3101,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\tinted retro text.js",
+                  "name": "tinted retro text.js",
+                  "size": 1223,
+                  "extension": ".js"
+                }
+              ],
+              "size": 11283
             },
             {
               "path": "src\\game objects\\bitmaptext\\static",
@@ -2267,18 +2292,6 @@
                   "extension": ".js"
                 },
                 {
-                  "path": "src\\game objects\\bitmaptext\\static\\retro text 1.js",
-                  "name": "retro text 1.js",
-                  "size": 945,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\static\\retro text 2.js",
-                  "name": "retro text 2.js",
-                  "size": 935,
-                  "extension": ".js"
-                },
-                {
                   "path": "src\\game objects\\bitmaptext\\static\\tinted text.js",
                   "name": "tinted text.js",
                   "size": 603,
@@ -2291,10 +2304,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 15919
+              "size": 14039
             }
           ],
-          "size": 35467
+          "size": 35300
         },
         {
           "path": "src\\game objects\\blitter",
@@ -2627,8 +2640,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2639,8 +2652,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2651,8 +2664,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2771,8 +2784,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -4148,7 +4161,7 @@
           "size": 255492
         }
       ],
-      "size": 710247
+      "size": 710080
     },
     {
       "path": "src\\games",
@@ -7378,8 +7391,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -7470,9 +7483,15 @@
           "name": "multi demo",
           "children": [
             {
+              "path": "src\\scenes\\multi demo\\Boing.js",
+              "name": "Boing.js",
+              "size": 1142,
+              "extension": ".js"
+            },
+            {
               "path": "src\\scenes\\multi demo\\boot.json",
               "name": "boot.json",
-              "size": 181,
+              "size": 202,
               "extension": ".json"
             },
             {
@@ -7484,7 +7503,7 @@
             {
               "path": "src\\scenes\\multi demo\\Controller.js",
               "name": "Controller.js",
-              "size": 5864,
+              "size": 7550,
               "extension": ".js"
             },
             {
@@ -7518,7 +7537,7 @@
               "extension": ".js"
             }
           ],
-          "size": 21854
+          "size": 24703
         },
         {
           "path": "src\\scenes\\multiple scenes from classes.js",
@@ -7695,7 +7714,7 @@
           "extension": ".js"
         }
       ],
-      "size": 107783
+      "size": 110632
     },
     {
       "path": "src\\snapshot",
@@ -8507,5 +8526,5 @@
       "size": 4792
     }
   ],
-  "size": 2255406
+  "size": 2259828
 }

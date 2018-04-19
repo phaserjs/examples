@@ -26,7 +26,8 @@ var SceneA = new Phaser.Class({
                 target: 'sceneB',
                 duration: 2000,
                 moveBelow: true,
-                onUpdate: this.transitionOut
+                onUpdate: this.transitionOut,
+                data: { x: 400, y: 300 }
             });
 
         }, this);
@@ -56,9 +57,9 @@ var SceneB = new Phaser.Class({
         this.load.image('planet', 'assets/tests/space/purple-planet.png');
     },
 
-    create: function ()
+    create: function (data)
     {
-        var planet = this.add.image(400, 300, 'planet').setScale(0);
+        var planet = this.add.image(data.x, data.y, 'planet').setScale(0);
 
         this.events.on('transitionstart', function (fromScene, duration) {
 

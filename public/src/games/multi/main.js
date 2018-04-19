@@ -11,7 +11,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene: [ Preloader, Controller, Invaders, Invaders2 ]
+    scene: [ Preloader, Controller, Invaders, Asteroids ]
 };
 
 var game = new Phaser.Game(config);

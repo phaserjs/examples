@@ -1499,9 +1499,15 @@
           "name": "raster wave.js",
           "size": 1115,
           "extension": ".js"
+        },
+        {
+          "path": "src\\demoscene\\vertical raster wave.js",
+          "name": "vertical raster wave.js",
+          "size": 1055,
+          "extension": ".js"
         }
       ],
-      "size": 6588
+      "size": 7643
     },
     {
       "path": "src\\depth sorting",
@@ -2023,6 +2029,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\game config\\game destroy with multi scenes.js",
+          "name": "game destroy with multi scenes.js",
+          "size": 1740,
+          "extension": ".js"
+        },
+        {
           "path": "src\\game config\\game destroy.js",
           "name": "game destroy.js",
           "size": 1088,
@@ -2101,7 +2113,7 @@
           "extension": ".js"
         }
       ],
-      "size": 12603
+      "size": 14343
     },
     {
       "path": "src\\game objects",
@@ -2146,36 +2158,6 @@
                   "extension": ".js"
                 },
                 {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\retro text mega scroll.js",
-                  "name": "retro text mega scroll.js",
-                  "size": 1846,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\retro text scroll callback.js",
-                  "name": "retro text scroll callback.js",
-                  "size": 1817,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\retro text scroll.js",
-                  "name": "retro text scroll.js",
-                  "size": 1531,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\scrolling retro text.js",
-                  "name": "scrolling retro text.js",
-                  "size": 3127,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\dynamic\\tinted retro text.js",
-                  "name": "tinted retro text.js",
-                  "size": 1249,
-                  "extension": ".js"
-                },
-                {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\tinted text.js",
                   "name": "tinted text.js",
                   "size": 962,
@@ -2188,7 +2170,56 @@
                   "extension": ".js"
                 }
               ],
-              "size": 19548
+              "size": 9978
+            },
+            {
+              "path": "src\\game objects\\bitmaptext\\retro font",
+              "name": "retro font",
+              "children": [
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text 1.js",
+                  "name": "retro text 1.js",
+                  "size": 918,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text 2.js",
+                  "name": "retro text 2.js",
+                  "size": 909,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text mega scroll.js",
+                  "name": "retro text mega scroll.js",
+                  "size": 1836,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text scroll callback.js",
+                  "name": "retro text scroll callback.js",
+                  "size": 1791,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\retro text scroll.js",
+                  "name": "retro text scroll.js",
+                  "size": 1505,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\scrolling retro text.js",
+                  "name": "scrolling retro text.js",
+                  "size": 3101,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\retro font\\tinted retro text.js",
+                  "name": "tinted retro text.js",
+                  "size": 1223,
+                  "extension": ".js"
+                }
+              ],
+              "size": 11283
             },
             {
               "path": "src\\game objects\\bitmaptext\\static",
@@ -2261,18 +2292,6 @@
                   "extension": ".js"
                 },
                 {
-                  "path": "src\\game objects\\bitmaptext\\static\\retro text 1.js",
-                  "name": "retro text 1.js",
-                  "size": 945,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\bitmaptext\\static\\retro text 2.js",
-                  "name": "retro text 2.js",
-                  "size": 935,
-                  "extension": ".js"
-                },
-                {
                   "path": "src\\game objects\\bitmaptext\\static\\tinted text.js",
                   "name": "tinted text.js",
                   "size": 603,
@@ -2285,10 +2304,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 15919
+              "size": 14039
             }
           ],
-          "size": 35467
+          "size": 35300
         },
         {
           "path": "src\\game objects\\blitter",
@@ -2514,7 +2533,7 @@
             {
               "path": "src\\game objects\\container\\multi camera input test.js",
               "name": "multi camera input test.js",
-              "size": 5768,
+              "size": 5826,
               "extension": ".js"
             },
             {
@@ -2560,7 +2579,7 @@
               "extension": ".js"
             }
           ],
-          "size": 49915
+          "size": 49973
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2621,8 +2640,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2633,8 +2652,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2645,8 +2664,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2765,8 +2784,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -4142,7 +4161,7 @@
           "size": 255492
         }
       ],
-      "size": 710189
+      "size": 710080
     },
     {
       "path": "src\\games",
@@ -4315,31 +4334,43 @@
           "name": "multi",
           "children": [
             {
+              "path": "src\\games\\multi\\Asteroids.js",
+              "name": "Asteroids.js",
+              "size": 916,
+              "extension": ".js"
+            },
+            {
               "path": "src\\games\\multi\\boot.json",
               "name": "boot.json",
-              "size": 95,
+              "size": 146,
               "extension": ".json"
+            },
+            {
+              "path": "src\\games\\multi\\Controller.js",
+              "name": "Controller.js",
+              "size": 627,
+              "extension": ".js"
             },
             {
               "path": "src\\games\\multi\\Invaders.js",
               "name": "Invaders.js",
-              "size": 1216,
+              "size": 3488,
               "extension": ".js"
             },
             {
               "path": "src\\games\\multi\\main.js",
               "name": "main.js",
-              "size": 172,
+              "size": 381,
               "extension": ".js"
             },
             {
               "path": "src\\games\\multi\\Preloader.js",
               "name": "Preloader.js",
-              "size": 1086,
+              "size": 1927,
               "extension": ".js"
             }
           ],
-          "size": 2569
+          "size": 7485
         },
         {
           "path": "src\\games\\pacman",
@@ -4434,7 +4465,7 @@
           "size": 46738
         }
       ],
-      "size": 175840
+      "size": 180756
     },
     {
       "path": "src\\geom",
@@ -6677,7 +6708,7 @@
             {
               "path": "src\\physics\\arcade\\10000 world bodies.js",
               "name": "10000 world bodies.js",
-              "size": 2766,
+              "size": 2786,
               "extension": ".js"
             },
             {
@@ -6783,7 +6814,7 @@
               "extension": ".js"
             }
           ],
-          "size": 37000
+          "size": 37020
         },
         {
           "path": "src\\physics\\impact",
@@ -7151,6 +7182,18 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\scene restart.js",
+              "name": "scene restart.js",
+              "size": 1319,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\matterjs\\scene transition.js",
+              "name": "scene transition.js",
+              "size": 1979,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\simple body.js",
               "name": "simple body.js",
               "size": 736,
@@ -7187,7 +7230,7 @@
               "extension": ".js"
             }
           ],
-          "size": 49328
+          "size": 52626
         },
         {
           "path": "src\\physics\\multi",
@@ -7209,7 +7252,7 @@
           "size": 2741
         }
       ],
-      "size": 135931
+      "size": 139249
     },
     {
       "path": "src\\pools",
@@ -7348,8 +7391,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -7373,6 +7416,12 @@
             }
           ],
           "size": 1032
+        },
+        {
+          "path": "src\\scenes\\drag scenes demo.js",
+          "name": "drag scenes demo.js",
+          "size": 21685,
+          "extension": ".js"
         },
         {
           "path": "src\\scenes\\extend scene from object.js",
@@ -7428,6 +7477,67 @@
           "name": "move up list.js",
           "size": 1478,
           "extension": ".js"
+        },
+        {
+          "path": "src\\scenes\\multi demo",
+          "name": "multi demo",
+          "children": [
+            {
+              "path": "src\\scenes\\multi demo\\Boing.js",
+              "name": "Boing.js",
+              "size": 1142,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\boot.json",
+              "name": "boot.json",
+              "size": 202,
+              "extension": ".json"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Clock.js",
+              "name": "Clock.js",
+              "size": 3974,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Controller.js",
+              "name": "Controller.js",
+              "size": 7550,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Eyes.js",
+              "name": "Eyes.js",
+              "size": 2416,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Invaders.js",
+              "name": "Invaders.js",
+              "size": 6088,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Juggler.js",
+              "name": "Juggler.js",
+              "size": 616,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\main.js",
+              "name": "main.js",
+              "size": 504,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\multi demo\\Stars.js",
+              "name": "Stars.js",
+              "size": 2211,
+              "extension": ".js"
+            }
+          ],
+          "size": 24703
         },
         {
           "path": "src\\scenes\\multiple scenes from classes.js",
@@ -7582,7 +7692,7 @@
         {
           "path": "src\\scenes\\transition test 1.js",
           "name": "transition test 1.js",
-          "size": 3035,
+          "size": 3088,
           "extension": ".js"
         },
         {
@@ -7604,7 +7714,7 @@
           "extension": ".js"
         }
       ],
-      "size": 64191
+      "size": 110632
     },
     {
       "path": "src\\snapshot",
@@ -8416,5 +8526,5 @@
       "size": 4792
     }
   ],
-  "size": 2202467
+  "size": 2259828
 }

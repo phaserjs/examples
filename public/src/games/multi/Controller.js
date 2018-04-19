@@ -21,7 +21,7 @@ class Controller extends Phaser.Scene {
         this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         this.scene.launch('invaders', { x: 0, y: 0 });
-        this.scene.launch('invaders2', { x: 400, y: 0 });
+        this.scene.launch('asteroids', { x: 400, y: 0 });
     }
 
 }

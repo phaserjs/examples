@@ -2031,7 +2031,7 @@
         {
           "path": "src\\game config\\game destroy with multi scenes.js",
           "name": "game destroy with multi scenes.js",
-          "size": 1740,
+          "size": 1709,
           "extension": ".js"
         },
         {
@@ -2113,7 +2113,7 @@
           "extension": ".js"
         }
       ],
-      "size": 14343
+      "size": 14312
     },
     {
       "path": "src\\game objects",
@@ -2203,7 +2203,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\retro font\\retro text scroll.js",
                   "name": "retro text scroll.js",
-                  "size": 1505,
+                  "size": 1472,
                   "extension": ".js"
                 },
                 {
@@ -2219,7 +2219,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 11283
+              "size": 11250
             },
             {
               "path": "src\\game objects\\bitmaptext\\static",
@@ -2307,7 +2307,7 @@
               "size": 14039
             }
           ],
-          "size": 35300
+          "size": 35267
         },
         {
           "path": "src\\game objects\\blitter",
@@ -2410,6 +2410,12 @@
           "path": "src\\game objects\\container",
           "name": "container",
           "children": [
+            {
+              "path": "src\\game objects\\container\\add sprite to container.js",
+              "name": "add sprite to container.js",
+              "size": 1077,
+              "extension": ".js"
+            },
             {
               "path": "src\\game objects\\container\\animation test.js",
               "name": "animation test.js",
@@ -2579,7 +2585,7 @@
               "extension": ".js"
             }
           ],
-          "size": 49973
+          "size": 51050
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4161,7 +4167,7 @@
           "size": 255492
         }
       ],
-      "size": 710080
+      "size": 711124
     },
     {
       "path": "src\\games",
@@ -8526,5 +8532,5 @@
       "size": 4792
     }
   ],
-  "size": 2259828
+  "size": 2260841
 }

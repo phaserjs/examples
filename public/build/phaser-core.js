@@ -7905,7 +7905,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.5.2',
+    VERSION: '3.6.1',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -8283,7 +8283,7 @@ var DataManager = new Class({
          */
         this._frozen = false;
 
-        if (this.events)
+        if (!parent.hasOwnProperty('sys') && this.events)
         {
             this.events.once('destroy', this.destroy, this);
         }
@@ -8723,13 +8723,6 @@ var DataManagerPlugin = new Class({
      */
     start: function ()
     {
-        if (this.events)
-        {
-            this.events.off('destroy', this.destroy, this);
-        }
-
-        this.events = this.systems.events;
-
         this.events.once('shutdown', this.shutdown, this);
     },
 
@@ -8757,7 +8750,7 @@ var DataManagerPlugin = new Class({
     {
         DataManager.prototype.destroy.call(this);
 
-        this.systems.events.off('start', this.start, this);
+        this.events.off('start', this.start, this);
 
         this.scene = null;
         this.systems = null;
@@ -25385,10 +25378,10 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @constructor
  * @since 3.0.0
  *
- * @param {number} [x1=0] - [description]
- * @param {number} [y1=0] - [description]
- * @param {number} [x2=0] - [description]
- * @param {number} [y2=0] - [description]
+ * @param {number} [x1=0] - The x coordinate of the lines starting point.
+ * @param {number} [y1=0] - The y coordinate of the lines starting point.
+ * @param {number} [x2=0] - The x coordinate of the lines ending point.
+ * @param {number} [y2=0] - The y coordinate of the lines ending point.
  */
 var Line = new Class({
 
@@ -25402,7 +25395,7 @@ var Line = new Class({
         if (y2 === undefined) { y2 = 0; }
 
         /**
-         * [description]
+         * The x coordinate of the lines starting point.
          *
          * @name Phaser.Geom.Line#x1
          * @type {number}
@@ -25411,7 +25404,7 @@ var Line = new Class({
         this.x1 = x1;
 
         /**
-         * [description]
+         * The y coordinate of the lines starting point.
          *
          * @name Phaser.Geom.Line#y1
          * @type {number}
@@ -25420,7 +25413,7 @@ var Line = new Class({
         this.y1 = y1;
 
         /**
-         * [description]
+         * The x coordinate of the lines ending point.
          *
          * @name Phaser.Geom.Line#x2
          * @type {number}
@@ -25429,7 +25422,7 @@ var Line = new Class({
         this.x2 = x2;
 
         /**
-         * [description]
+         * The y coordinate of the lines ending point.
          *
          * @name Phaser.Geom.Line#y2
          * @type {number}
@@ -25449,7 +25442,7 @@ var Line = new Class({
      * @param {float} position - [description]
      * @param {(Phaser.Geom.Point|object)} [output] - [description]
      *
-     * @return {(Phaser.Geom.Point|object)} A Point, or point-like object, containing the coordinates of the point around the ellipse.
+     * @return {(Phaser.Geom.Point|object)} A Point, or point-like object, containing the coordinates of the point on the line.
      */
     getPoint: function (position, output)
     {
@@ -25476,16 +25469,16 @@ var Line = new Class({
     },
 
     /**
-     * [description]
+     * Get a random Point on the Line.
      *
      * @method Phaser.Geom.Line#getRandomPoint
      * @since 3.0.0
      *
      * @generic {Phaser.Geom.Point} O - [point,$return]
      *
-     * @param {(Phaser.Geom.Point|object)} [point] - [description]
+     * @param {(Phaser.Geom.Point|object)} [point] - An instance of a Point to be modified.
      *
-     * @return {Phaser.Geom.Point} [description]
+     * @return {Phaser.Geom.Point} A random Point on the Line.
      */
     getRandomPoint: function (point)
     {
@@ -25493,15 +25486,15 @@ var Line = new Class({
     },
 
     /**
-     * [description]
+     * Set new coordinates for the line endpoints.
      *
      * @method Phaser.Geom.Line#setTo
      * @since 3.0.0
      *
-     * @param {number} [x1=0] - [description]
-     * @param {number} [y1=0] - [description]
-     * @param {number} [x2=0] - [description]
-     * @param {number} [y2=0] - [description]
+     * @param {number} [x1=0] - The x coordinate of the lines starting point.
+     * @param {number} [y1=0] - The y coordinate of the lines starting point.
+     * @param {number} [x2=0] - The x coordinate of the lines ending point.
+     * @param {number} [y2=0] - The y coordinate of the lines ending point.
      *
      * @return {Phaser.Geom.Line} This Line object.
      */
@@ -25698,17 +25691,17 @@ module.exports = Line;
 var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
 
 /**
- * [description]
+ * Returns a random point on a given Line.
  *
  * @function Phaser.Geom.Line.Random
  * @since 3.0.0
  *
  * @generic {Phaser.Geom.Point} O - [out,$return]
  *
- * @param {Phaser.Geom.Line} line - [description]
- * @param {(Phaser.Geom.Point|object)} [out] - [description]
+ * @param {Phaser.Geom.Line} line - The Line to calculate the random Point on.
+ * @param {(Phaser.Geom.Point|object)} [out] - An instance of a Point to be modified.
  *
- * @return {(Phaser.Geom.Point|object)} [description]
+ * @return {(Phaser.Geom.Point|object)} A random Point on the Line.
  */
 var Random = function (line, out)
 {
@@ -25744,7 +25737,7 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 
 /**
  * @classdesc
- * [description]
+ * Defines a Point in 2D space, with an x and y component.
  *
  * @class Point
  * @memberOf Phaser.Geom
@@ -25785,7 +25778,7 @@ var Point = new Class({
     },
 
     /**
-     * [description]
+     * Set the x and y coordinates of the point to the given values.
      *
      * @method Phaser.Geom.Point#setTo
      * @since 3.0.0
@@ -33430,7 +33423,7 @@ var Key = new Class({
      * Resets this Key object back to its default un-pressed state.
      *
      * @method Phaser.Input.Keyboard.Key.reset
-     * @since 3.5.2
+     * @since 3.6.0
      * 
      * @return {Phaser.Input.Keyboard.Key} This Key instance.
      */

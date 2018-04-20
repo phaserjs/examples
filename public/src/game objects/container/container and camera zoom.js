@@ -22,6 +22,8 @@ function preload ()
 
 function create ()
 {
+    this.cameras.main.zoom = 0.5;
+
     //  Our container
     var container = this.add.container(400, 300);
 

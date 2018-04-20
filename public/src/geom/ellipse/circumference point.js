@@ -4,59 +4,53 @@ var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
-        create: create,
-        update: update
+        create: create
     }
 };
 
-var graphics;
-var ellipse;
-var point;
-var a = 0;
-var mm;
-var hsv;
-
 var game = new Phaser.Game(config);
+var angle;
 
 function create ()
 {
-    graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
+    var graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
-    ellipse = new Phaser.Geom.Ellipse(400, 300, 600, 300);
-    point = new Phaser.Geom.Rectangle(0, 0, 8, 8);
+    var ellipse = new Phaser.Geom.Ellipse(400, 300, 250, 150);
 
-    hsv = Phaser.Display.Color.HSVColorWheel();
-    mm = new Phaser.Math.MinMax2(0, 359, 359);
-}
+    var circumferencePoint  = new Phaser.Geom.Point(275, 300);
+    var centerPoint = new Phaser.Geom.Point(400, 300);
 
-function update ()
-{
-    a += 0.02;
+    var line = new Phaser.Geom.Line(400, 300, 275, 300);
 
-    if (a >= Phaser.Math.PI2)
+    var text1  = this.add.text(20, 50, 'Circumference Point:');
+    var text2 = this.add.text(20, 75, 'Angle:')
+
+    this.input.on('pointermove', function (pointer) {
+
+        angle = Phaser.Math.Angle.Between(400, 300, pointer.x, pointer.y);
+
+        circumferencePoint = Phaser.Geom.Ellipse.CircumferencePoint(ellipse, angle);
+
+        line.x2 = circumferencePoint.x;
+        line.y2 = circumferencePoint.y;
+
+        text1.setText("Circumference Point: (" + circumferencePoint.x +", " + circumferencePoint.y + ")");
+        text2.setText("Angle: " + angle);
+
+        graphics.fillPointShape(circumferencePoint, 20);
+
+        draw();
+    });
+
+    draw();
+
+    function draw()
     {
-        a = 0;
         graphics.clear();
-
-        //  Change the ellipse
-        ellipse.width = Phaser.Math.Between(0, 800);
-        ellipse.height = Phaser.Math.Between(0, 600);
+        graphics.lineStyle(2, 0x00aaaa);
+        graphics.strokeEllipseShape(ellipse);
+        graphics.strokeLineShape(line);
+        graphics.fillPointShape(centerPoint, 10);
+        graphics.fillPointShape(circumferencePoint, 20);
     }
-
-    Phaser.Geom.Ellipse.CircumferencePoint(ellipse, a, point);
-
-    var c = hsv[mm.getNext()].color;
-
-    graphics.fillStyle(c);
-
-    graphics.fillRect(point.x - 4, point.y - 4, point.width, point.height);
-
-    //  Draw a line from the center of the ellipse to the point on the perimeter
-
-    graphics.lineStyle(2, c);
-    graphics.beginPath();
-    graphics.moveTo(ellipse.x, ellipse.y);
-    graphics.lineTo(point.x, point.y);
-    graphics.closePath();
-    graphics.strokePath();
 }

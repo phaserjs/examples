@@ -2413,7 +2413,7 @@
             {
               "path": "src\\game objects\\container\\add sprite to container.js",
               "name": "add sprite to container.js",
-              "size": 1077,
+              "size": 1186,
               "extension": ".js"
             },
             {
@@ -2450,6 +2450,12 @@
               "path": "src\\game objects\\container\\container alpha.js",
               "name": "container alpha.js",
               "size": 1259,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\container and camera zoom.js",
+              "name": "container and camera zoom.js",
+              "size": 1824,
               "extension": ".js"
             },
             {
@@ -2585,7 +2591,7 @@
               "extension": ".js"
             }
           ],
-          "size": 51050
+          "size": 52983
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4167,7 +4173,7 @@
           "size": 255492
         }
       ],
-      "size": 711124
+      "size": 713057
     },
     {
       "path": "src\\games",
@@ -8532,5 +8538,5 @@
       "size": 4792
     }
   ],
-  "size": 2260841
+  "size": 2262774
 }

@@ -677,7 +677,7 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
 /**
  * @typedef {object} JSONAnimation
  *
- * @property {string} key - [description]
+ * @property {string} key - The key that the animation will be associated with. i.e. sprite.animations.play(key)
  * @property {string} type - A frame based animation (as opposed to a bone based animation)
  * @property {JSONAnimationFrame[]} frames - [description]
  * @property {integer} frameRate - The frame rate of playback in frames per second (default 24 if duration is null)
@@ -694,7 +694,7 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
 /**
  * @typedef {object} AnimationFrameConfig
  *
- * @property {string} key - [description]
+ * @property {string} key - The key that the animation will be associated with. i.e. sprite.animations.play(key)
  * @property {(string|number)} frame - [description]
  * @property {float} [duration=0] - [description]
  * @property {boolean} [visible] - [description]
@@ -703,8 +703,9 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
 /**
  * @typedef {object} AnimationConfig
  *
- * @property {AnimationFrameConfig[]} [frames] - [description]
- * @property {string} [defaultTextureKey=null] - [description]
+ * @property {string} [key] - The key that the animation will be associated with. i.e. sprite.animations.play(key)
+ * @property {AnimationFrameConfig[]} [frames] - An object containing data used to generate the frames for the animation
+ * @property {string} [defaultTextureKey=null] - The key of the texture all frames of the animation will use. Can be overridden on a per frame basis.
  * @property {integer} [frameRate] - The frame rate of playback in frames per second (default 24 if duration is null)
  * @property {integer} [duration] - How long the animation should play for in milliseconds. If not given its derived from frameRate.
  * @property {boolean} [skipMissedFrames=true] - Skip frames if the time lags, or always advanced anyway?
@@ -742,7 +743,7 @@ var Animation = new Class({
     function Animation (manager, key, config)
     {
         /**
-         * [description]
+         * A reference to the global Animation Manager
          *
          * @name Phaser.Animations.Animation#manager
          * @type {Phaser.Animations.AnimationManager}
@@ -751,7 +752,7 @@ var Animation = new Class({
         this.manager = manager;
 
         /**
-         * [description]
+         * The unique identifying string for this animation
          *
          * @name Phaser.Animations.Animation#key
          * @type {string}
@@ -1030,15 +1031,15 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Returns the AnimationFrame at the provided index
      *
      * @method Phaser.Animations.Animation#getFrameAt
      * @protected
      * @since 3.0.0
      *
-     * @param {integer} index - [description]
+     * @param {integer} index - The index in the AnimationFrame array
      *
-     * @return {Phaser.Animations.AnimationFrame} [description]
+     * @return {Phaser.Animations.AnimationFrame} The frame at the index provided from the animation sequence
      */
     getFrameAt: function (index)
     {
@@ -1324,12 +1325,13 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Removes a frame from the AnimationFrame array at the provided index
+     * and updates the animation accordingly.
      *
      * @method Phaser.Animations.Animation#removeFrameAt
      * @since 3.0.0
      *
-     * @param {integer} index - [description]
+     * @param {integer} index - The index in the AnimationFrame array
      *
      * @return {Phaser.Animations.Animation} This Animation object.
      */
@@ -15897,6 +15899,145 @@ module.exports = GetBounds;
 
 /***/ }),
 
+/***/ "./gameobjects/components/Mask.js":
+/*!****************************************!*\
+  !*** ./gameobjects/components/Mask.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var BitmapMask = __webpack_require__(/*! ../../display/mask/BitmapMask */ "./display/mask/BitmapMask.js");
+var GeometryMask = __webpack_require__(/*! ../../display/mask/GeometryMask */ "./display/mask/GeometryMask.js");
+
+/**
+ * Provides methods used for getting and setting the mask of a Game Object.
+ *
+ * @name Phaser.GameObjects.Components.Mask
+ * @since 3.0.0
+ */
+
+var Mask = {
+
+    /**
+     * The Mask this Game Object is using during render.
+     *
+     * @name Phaser.GameObjects.Components.Mask#mask
+     * @type {Phaser.Display.Masks.BitmapMask|Phaser.Display.Masks.GeometryMask}
+     * @since 3.0.0
+     */
+    mask: null,
+
+    /**
+     * Sets the mask that this Game Object will use to render with.
+     *
+     * The mask must have been previously created and can be either a
+     * GeometryMask or a BitmapMask.
+     *
+     * Note: Bitmap Masks only work on WebGL. Geometry Masks work on both WebGL and Canvas.
+     *
+     * If a mask is already set on this Game Object it will be immediately replaced.
+     *
+     * @method Phaser.GameObjects.Components.Mask#setMask
+     * @since 3.6.2
+     *
+     * @param {Phaser.Display.Masks.BitmapMask|Phaser.Display.Masks.GeometryMask} mask - The mask this Game Object will use when rendering.
+     *
+     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     */
+    setMask: function (mask)
+    {
+        this.mask = mask;
+
+        return this;
+    },
+
+    /**
+     * Clears the mask that this Game Object was using.
+     *
+     * @method Phaser.GameObjects.Components.Mask#clearMask
+     * @since 3.6.2
+     *
+     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     */
+    clearMask: function ()
+    {
+        this.mask = null;
+
+        return this;
+    },
+
+    /**
+     * Creates and returns a Bitmap Mask. This mask can be used by any Game Object,
+     * including this one.
+     *
+     * To create the mask you need to pass in a reference to a renderable Game Object.
+     * A renderable Game Object is one that uses a texture to render with, such as an
+     * Image, Sprite, Render Texture or BitmapText.
+     *
+     * If you do not provide a renderable object, and this Game Object has a texture,
+     * it will use itself as the object. This means you can call this method to create
+     * a Bitmap Mask from any renderable Game Object.
+     *
+     * @method Phaser.GameObjects.Components.Mask#createBitmapMask
+     * @since 3.6.2
+     * 
+     * @param {Phaser.GameObjects.GameObject} [renderable] - A renderable Game Object that uses a texture, such as a Sprite.
+     *
+     * @return {Phaser.Display.Masks.BitmapMask} This Bitmap Mask that was created.
+     */
+    createBitmapMask: function (renderable)
+    {
+        if (renderable === undefined && this.texture)
+        {
+            // eslint-disable-next-line consistent-this
+            renderable = this;
+        }
+
+        return new BitmapMask(this.scene, renderable);
+    },
+
+    /**
+     * Creates and returns a Geometry Mask. This mask can be used by any Game Object,
+     * including this one.
+     *
+     * To create the mask you need to pass in a reference to a Graphics Game Object.
+     *
+     * If you do not provide a graphics object, and this Game Object is an instance
+     * of a Graphics object, then it will use itself to create the mask.
+     * 
+     * This means you can call this method to create a Geometry Mask from any Graphics Game Object.
+     *
+     * @method Phaser.GameObjects.Components.Mask#createGeometryMask
+     * @since 3.6.2
+     * 
+     * @param {Phaser.GameObjects.Graphics} [graphics] - A Graphics Game Object. The geometry within it will be used as the mask.
+     *
+     * @return {Phaser.Display.Masks.GeometryMask} This Geometry Mask that was created.
+     */
+    createGeometryMask: function (graphics)
+    {
+        if (graphics === undefined && this.type === 'Graphics')
+        {
+            // eslint-disable-next-line consistent-this
+            graphics = this;
+        }
+
+        return new GeometryMask(this.scene, graphics);
+    }
+
+};
+
+module.exports = Mask;
+
+
+/***/ }),
+
 /***/ "./gameobjects/components/MatrixStack.js":
 /*!***********************************************!*\
   !*** ./gameobjects/components/MatrixStack.js ***!
@@ -18502,6 +18643,7 @@ module.exports = {
     Depth: __webpack_require__(/*! ./Depth */ "./gameobjects/components/Depth.js"),
     Flip: __webpack_require__(/*! ./Flip */ "./gameobjects/components/Flip.js"),
     GetBounds: __webpack_require__(/*! ./GetBounds */ "./gameobjects/components/GetBounds.js"),
+    Mask: __webpack_require__(/*! ./Mask */ "./gameobjects/components/Mask.js"),
     MatrixStack: __webpack_require__(/*! ./MatrixStack */ "./gameobjects/components/MatrixStack.js"),
     Origin: __webpack_require__(/*! ./Origin */ "./gameobjects/components/Origin.js"),
     Pipeline: __webpack_require__(/*! ./Pipeline */ "./gameobjects/components/Pipeline.js"),
@@ -18600,6 +18742,7 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
  * @extends Phaser.GameObjects.Components.Alpha
  * @extends Phaser.GameObjects.Components.BlendMode
  * @extends Phaser.GameObjects.Components.Depth
+ * @extends Phaser.GameObjects.Components.Mask
  * @extends Phaser.GameObjects.Components.Pipeline
  * @extends Phaser.GameObjects.Components.Transform
  * @extends Phaser.GameObjects.Components.Visible
@@ -18616,6 +18759,7 @@ var Graphics = new Class({
         Components.Alpha,
         Components.BlendMode,
         Components.Depth,
+        Components.Mask,
         Components.Pipeline,
         Components.Transform,
         Components.Visible,
@@ -20223,6 +20367,7 @@ var ImageRender = __webpack_require__(/*! ./ImageRender */ "./gameobjects/image/
  * @extends Phaser.GameObjects.Components.Depth
  * @extends Phaser.GameObjects.Components.Flip
  * @extends Phaser.GameObjects.Components.GetBounds
+ * @extends Phaser.GameObjects.Components.Mask
  * @extends Phaser.GameObjects.Components.Origin
  * @extends Phaser.GameObjects.Components.Pipeline
  * @extends Phaser.GameObjects.Components.ScaleMode
@@ -20249,6 +20394,7 @@ var Image = new Class({
         Components.Depth,
         Components.Flip,
         Components.GetBounds,
+        Components.Mask,
         Components.Origin,
         Components.Pipeline,
         Components.ScaleMode,
@@ -20542,6 +20688,7 @@ var SpriteRender = __webpack_require__(/*! ./SpriteRender */ "./gameobjects/spri
  * @extends Phaser.GameObjects.Components.Depth
  * @extends Phaser.GameObjects.Components.Flip
  * @extends Phaser.GameObjects.Components.GetBounds
+ * @extends Phaser.GameObjects.Components.Mask
  * @extends Phaser.GameObjects.Components.Origin
  * @extends Phaser.GameObjects.Components.Pipeline
  * @extends Phaser.GameObjects.Components.ScaleMode
@@ -20568,6 +20715,7 @@ var Sprite = new Class({
         Components.Depth,
         Components.Flip,
         Components.GetBounds,
+        Components.Mask,
         Components.Origin,
         Components.Pipeline,
         Components.ScaleMode,
@@ -22120,6 +22268,7 @@ var TextStyle = __webpack_require__(/*! ../TextStyle */ "./gameobjects/text/Text
  * @extends Phaser.GameObjects.Components.Depth
  * @extends Phaser.GameObjects.Components.Flip
  * @extends Phaser.GameObjects.Components.GetBounds
+ * @extends Phaser.GameObjects.Components.Mask
  * @extends Phaser.GameObjects.Components.Origin
  * @extends Phaser.GameObjects.Components.Pipeline
  * @extends Phaser.GameObjects.Components.ScaleMode
@@ -22145,6 +22294,7 @@ var Text = new Class({
         Components.Depth,
         Components.Flip,
         Components.GetBounds,
+        Components.Mask,
         Components.Origin,
         Components.Pipeline,
         Components.ScaleMode,
@@ -58013,7 +58163,8 @@ var WebAudioSoundManager = new Class({
         {
             var _this = this;
 
-            this.context.close().then(function () {
+            this.context.close().then(function ()
+            {
 
                 _this.context = null;
 

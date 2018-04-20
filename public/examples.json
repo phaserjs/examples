@@ -1830,6 +1830,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\masks\\component",
+              "name": "component",
+              "children": [
+                {
+                  "path": "src\\display\\masks\\component\\add mask to sprite.js",
+                  "name": "add mask to sprite.js",
+                  "size": 994,
+                  "extension": ".js"
+                }
+              ],
+              "size": 994
+            },
+            {
               "path": "src\\display\\masks\\flickering spotlight.js",
               "name": "flickering spotlight.js",
               "size": 1064,
@@ -1872,7 +1885,7 @@
               "extension": ".js"
             }
           ],
-          "size": 26956
+          "size": 27950
         },
         {
           "path": "src\\display\\tint",
@@ -1930,7 +1943,7 @@
           "size": 7378
         }
       ],
-      "size": 83366
+      "size": 84360
     },
     {
       "path": "src\\dwitter",
@@ -2455,7 +2468,7 @@
             {
               "path": "src\\game objects\\container\\container and camera zoom.js",
               "name": "container and camera zoom.js",
-              "size": 1824,
+              "size": 2407,
               "extension": ".js"
             },
             {
@@ -2591,7 +2604,7 @@
               "extension": ".js"
             }
           ],
-          "size": 52983
+          "size": 53566
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4173,7 +4186,7 @@
           "size": 255492
         }
       ],
-      "size": 713057
+      "size": 713640
     },
     {
       "path": "src\\games",
@@ -6320,6 +6333,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\load image on click.js",
+          "name": "load image on click.js",
+          "size": 862,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\load image.js",
           "name": "load image.js",
           "size": 1178,
@@ -6374,7 +6393,7 @@
           "extension": ".js"
         }
       ],
-      "size": 44062
+      "size": 44924
     },
     {
       "path": "src\\paths",
@@ -8538,5 +8557,5 @@
       "size": 4792
     }
   ],
-  "size": 2262774
+  "size": 2265213
 }

@@ -27,7 +27,7 @@ function create ()
 {
     this.impact.world.setBounds();
 
-    var bigBlock = this.impact.add.image(300, 100, 'block').setActive().setBounce(1).setVelocity(200, 100);
+    var bigBlock = this.impact.add.image(300, 100, 'block').setActiveCollision().setBounce(1).setVelocity(200, 100);
 
     //  Scale the Image and the body together
     bigBlock.setBodyScale(2);
@@ -36,12 +36,12 @@ function create ()
     // bigBlock.setScale(2);
     // bigBlock.syncGameObject();
 
-    var smallBlock = this.impact.add.image(100, 500, 'block').setActive().setBounce(1).setVelocity(200, -100);
+    var smallBlock = this.impact.add.image(100, 500, 'block').setActiveCollision().setBounce(1).setVelocity(200, -100);
 
     //  Scale the Image and the body together
     smallBlock.setBodyScale(0.5);
 
-    var wideBlock = this.impact.add.image(600, 400, 'block').setActive().setBounce(1).setVelocity(-200, -100);
+    var wideBlock = this.impact.add.image(600, 400, 'block').setActiveCollision().setBounce(1).setVelocity(-200, -100);
 
     //  Scale the Image and the body together
     wideBlock.setBodyScale(2, 0.5);

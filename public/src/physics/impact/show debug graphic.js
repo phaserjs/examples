@@ -34,7 +34,7 @@ function create ()
     var bodyC = this.impact.add.image(700, 260, 'block');
 
     //  Create a floor. We don't need to render it, so just make a Body
-    this.impact.add.body(0, 500, 800, 64).setFixed().setGravity(0);
+    this.impact.add.body(0, 500, 800, 64).setFixedCollision().setGravity(0);
 
     this.impact.world.setAvsB([ bodyA, bodyB, bodyC ]);
     this.impact.world.setActive([ bodyA, bodyB, bodyC ]);

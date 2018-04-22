@@ -34,7 +34,7 @@ var SceneA = new Phaser.Class({
 
             var block = this.impact.add.sprite(pos.x, pos.y, 'gems');
 
-            block.setActive().setAvsB().setBounce(1);
+            block.setActiveCollision().setAvsB().setBounce(1);
 
             block.setVelocity(Phaser.Math.Between(200, 400), Phaser.Math.Between(200, 400));
 
@@ -84,9 +84,9 @@ var SceneB = new Phaser.Class({
         var blockB = this.impact.add.image(60, 300, 'block');
         var blockC = this.impact.add.image(730, 300, 'block');
 
-        blockA.setTypeA().setCheckAgainstB().setActive().setMaxVelocity(300);
-        blockB.setTypeB().setCheckAgainstA().setFixed();
-        blockC.setTypeB().setCheckAgainstA().setFixed();
+        blockA.setTypeA().setCheckAgainstB().setActiveCollision().setMaxVelocity(300);
+        blockB.setTypeB().setCheckAgainstA().setFixedCollision();
+        blockC.setTypeB().setCheckAgainstA().setFixedCollision();
 
         blockA.setBounce(1).setVelocityX(300);
     }
@@ -121,7 +121,7 @@ var SceneC = new Phaser.Class({
 
     create: function ()
     {
-        this.ship = this.impact.add.image(320, 450, 'ship').setActive().setVelocity(200, -200).setBounce(1);
+        this.ship = this.impact.add.image(320, 450, 'ship').setActiveCollision().setVelocity(200, -200).setBounce(1);
 
         this.add.text(0, 0, 'Press 1 to 3 to pause the scenes');
 

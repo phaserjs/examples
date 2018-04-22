@@ -25,9 +25,9 @@ function create ()
     var blockB = this.impact.add.image(60, 300, 'block');
     var blockC = this.impact.add.image(730, 300, 'block');
 
-    blockA.setTypeA().setCheckAgainstB().setActive().setMaxVelocity(300);
-    blockB.setTypeB().setCheckAgainstA().setFixed();
-    blockC.setTypeB().setCheckAgainstA().setFixed();
+    blockA.setTypeA().setCheckAgainstB().setActiveCollision().setMaxVelocity(300);
+    blockB.setTypeB().setCheckAgainstA().setFixedCollision();
+    blockC.setTypeB().setCheckAgainstA().setFixedCollision();
 
     blockA.setBounce(1).setVelocityX(300);
 }

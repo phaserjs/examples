@@ -51,7 +51,7 @@ function create ()
 
         var block = this.impact.add.sprite(pos.x, pos.y, 'gems');
 
-        block.setActive().setAvsB().setBounce(1);
+        block.setActiveCollision().setAvsB().setBounce(1);
 
         block.setVelocity(Phaser.Math.Between(200, 400), Phaser.Math.Between(200, 400));
 

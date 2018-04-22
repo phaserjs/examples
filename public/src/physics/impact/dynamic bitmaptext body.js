@@ -25,7 +25,7 @@ var rainbowWave = 0;
 
 var game = new Phaser.Game(config);
 
-function preload() 
+function preload()
 {
     this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
     this.load.bitmapFont('hyper', 'assets/fonts/bitmap/hyperdrive.png', 'assets/fonts/bitmap/hyperdrive.xml');
@@ -45,8 +45,8 @@ function create ()
 
     //  If you don't set the body as active it won't collide with the world bounds
     //  Set the Game Object we just created as being bound to this physics body
-    this.impact.add.body(200, 100).setGameObject(text1).setLite().setVelocity(-300, 200).setBounce(1);
-    this.impact.add.body(100, 300).setGameObject(text2).setLite().setVelocity(300, 200).setBounce(1);
+    this.impact.add.body(200, 100).setGameObject(text1).setLiteCollision().setVelocity(-300, 200).setBounce(1);
+    this.impact.add.body(100, 300).setGameObject(text2).setLiteCollision().setVelocity(300, 200).setBounce(1);
 }
 
 function update()

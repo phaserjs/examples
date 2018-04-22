@@ -44,7 +44,7 @@ function create ()
     //  Add a player ship
 
     this.player = this.impact.add.sprite(1600, 200, 'ship');
-    this.player.setMaxVelocity(1000).setFriction(400, 200).setPassive();
+    this.player.setMaxVelocity(1000).setFriction(400, 200).setPassiveCollision();
 
     this.cursors = this.input.keyboard.createCursorKeys();
 }

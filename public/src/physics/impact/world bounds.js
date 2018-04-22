@@ -29,5 +29,5 @@ function create ()
     this.impact.world.setBounds();
 
     //  If you don't set the body as active it won't collide with the world bounds
-    this.impact.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);
+    this.impact.add.image(300, 300, 'gem').setActiveCollision().setVelocity(300, 200).setBounce(1);
 }

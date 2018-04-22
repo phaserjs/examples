@@ -18,7 +18,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload() 
+function preload()
 {
     this.load.bitmapFont('hyper', 'assets/fonts/bitmap/hyperdrive.png', 'assets/fonts/bitmap/hyperdrive.xml');
 }
@@ -33,5 +33,5 @@ function create ()
 
     //  If you don't set the body as active it won't collide with the world bounds
     //  Set the Game Object we just created as being bound to this physics body
-    this.impact.add.body(100, 200).setGameObject(text).setActive().setVelocity(300, 200).setBounce(1);
+    this.impact.add.body(100, 200).setGameObject(text).setActiveCollision().setVelocity(300, 200).setBounce(1);
 }

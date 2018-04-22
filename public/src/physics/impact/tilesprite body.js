@@ -21,7 +21,7 @@ var tilesprite;
 
 var game = new Phaser.Game(config);
 
-function preload() 
+function preload()
 {
     this.load.image('mushroom', 'assets/sprites/mushroom2.png');
 }
@@ -36,7 +36,7 @@ function create ()
 
     //  If you don't set the body as active it won't collide with the world bounds
     //  Set the Game Object we just created as being bound to this physics body
-    var body = this.impact.add.body(200, 100).setGameObject(tilesprite).setActive().setVelocity(300, 150).setBounce(1);
+    var body = this.impact.add.body(200, 100).setGameObject(tilesprite).setActiveCollision().setVelocity(300, 150).setBounce(1);
 
     body.setCollideCallback(collide, this);
 }

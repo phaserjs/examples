@@ -53,6 +53,7 @@ var config = {
     height: 600,
     parent: 'phaser-example',
     physics: {
+        default: 'impact',
         impact: {
             gravity: 500,
             debug: true,
@@ -72,5 +73,7 @@ function preload ()
 
 function create ()
 {
-    this.impact.add.image(300, 300, 'gem').setActive().setVelocity(300, 200).setBounce(1);
+    this.impact.world.setBounds();
+
+    this.impact.add.image(300, 300, 'gem').setActiveCollision().setVelocity(300, 200).setBounce(1);
 }

@@ -9995,14 +9995,16 @@ var CanvasPool = function ()
      * @param {integer} [width=1] - The width of the Canvas.
      * @param {integer} [height=1] - The height of the Canvas.
      * @param {integer} [canvasType=Phaser.CANVAS] - The type of the Canvas. Either `Phaser.CANVAS` or `Phaser.WEBGL`.
+     * @param {boolean} [selfParent=false] - Use the generated Canvas element as the parent?
      *
      * @return {HTMLCanvasElement} [description]
      */
-    var create = function (parent, width, height, canvasType)
+    var create = function (parent, width, height, canvasType, selfParent)
     {
         if (width === undefined) { width = 1; }
         if (height === undefined) { height = 1; }
         if (canvasType === undefined) { canvasType = CONST.CANVAS; }
+        if (selfParent === undefined) { selfParent = false; }
 
         var canvas;
         var container = first(canvasType);
@@ -10027,6 +10029,11 @@ var CanvasPool = function ()
             container.parent = parent;
 
             canvas = container.canvas;
+        }
+
+        if (selfParent)
+        {
+            container.parent = canvas;
         }
 
         canvas.width = width;
@@ -11432,6 +11439,24 @@ var BitmapMask = new Class({
     postRenderCanvas: function ()
     {
         // NOOP
+    },
+
+    /**
+     * Destroys this BitmapMask and nulls any references it holds.
+     * 
+     * Note that if a Game Object is currently using this mask it will _not_ automatically detect you have destroyed it,
+     * so be sure to call `clearMask` on any Game Object using it, before destroying it.
+     *
+     * @method Phaser.Display.Masks.BitmapMask#destroy
+     * @since 3.6.1
+     */
+    destroy: function ()
+    {
+        this.bitmapMask = null;
+        this.mainTexture = null;
+        this.maskTexture = null;
+        this.mainFramebuffer = null;
+        this.maskFramebuffer = null;
     }
 
 });
@@ -11581,6 +11606,20 @@ var GeometryMask = new Class({
     postRenderCanvas: function (renderer)
     {
         renderer.currentContext.restore();
+    },
+
+    /**
+     * Destroys this GeometryMask and nulls any references it holds.
+     * 
+     * Note that if a Game Object is currently using this mask it will _not_ automatically detect you have destroyed it,
+     * so be sure to call `clearMask` on any Game Object using it, before destroying it.
+     *
+     * @method Phaser.Display.Masks.GeometryMask#destroy
+     * @since 3.6.1
+     */
+    destroy: function ()
+    {
+        this.geometryMask = null;
     }
 
 });
@@ -15817,7 +15856,7 @@ var GetBounds = {
      * @method Phaser.GameObjects.Components.GetBounds#getBounds
      * @since 3.0.0
      *
-     * @generic {Phaser.Math.Vector2} O - [output,$return]
+     * @generic {Phaser.Geom.Rectangle} O - [output,$return]
      *
      * @param {(Phaser.Geom.Rectangle|object)} [output] - An object to store the values in. If not provided a new Rectangle will be created.
      *
@@ -15963,10 +16002,19 @@ var Mask = {
      * @method Phaser.GameObjects.Components.Mask#clearMask
      * @since 3.6.2
      *
+     * @param {boolean} [destroyMask=false] - Destroy the mask before clearing it?
+     *
      * @return {Phaser.GameObjects.GameObject} This Game Object instance.
      */
-    clearMask: function ()
+    clearMask: function (destroyMask)
     {
+        if (destroyMask === undefined) { destroyMask = false; }
+
+        if (destroyMask)
+        {
+            this.mask.destroy();
+        }
+
         this.mask = null;
 
         return this;
@@ -19854,7 +19902,7 @@ var Graphics = new Class({
 
             if (sys.game.renderer.gl && texture)
             {
-                texture.source[0].glTexture = sys.game.renderer.canvasToTexture(ctx.canvas, texture.source[0].glTexture, true, 0);
+                texture.source[0].glTexture = sys.game.renderer.canvasToTexture(ctx.canvas, texture.source[0].glTexture);
             }
         }
 
@@ -23653,7 +23701,7 @@ var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera
     
     if (src.dirty)
     {
-        src.canvasTexture = renderer.canvasToTexture(src.canvas, src.canvasTexture, true, src.scaleMode);
+        src.canvasTexture = renderer.canvasToTexture(src.canvas, src.canvasTexture);
         src.dirty = false;
     }
 
@@ -37477,15 +37525,15 @@ module.exports = DegToRad;
  */
 
 /**
- * [description]
+ * Generate a random floating point number between the two given bounds, minimum inclusive, maximum exclusive.
  *
  * @function Phaser.Math.FloatBetween
  * @since 3.0.0
  *
- * @param {float} min - [description]
- * @param {float} max - [description]
+ * @param {float} min - The lower bound for the float, inclusive.
+ * @param {float} max - The upper bound for the float exclusive.
  *
- * @return {float} [description]
+ * @return {float} A random float within the given range.
  */
 var FloatBetween = function (min, max)
 {
@@ -43492,6 +43540,7 @@ module.exports = WebGLPipeline;
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ../../const */ "./const.js");
 var IsSizePowerOfTwo = __webpack_require__(/*! ../../math/pow2/IsSizePowerOfTwo */ "./math/pow2/IsSizePowerOfTwo.js");
+var SpliceOne = __webpack_require__(/*! ../../utils/array/SpliceOne */ "./utils/array/SpliceOne.js");
 var Utils = __webpack_require__(/*! ./Utils */ "./renderer/webgl/Utils.js");
 var WebGLSnapshot = __webpack_require__(/*! ../snapshot/WebGLSnapshot */ "./renderer/snapshot/WebGLSnapshot.js");
 
@@ -44781,6 +44830,13 @@ var WebGLRenderer = new Class({
      */
     deleteTexture: function (texture)
     {
+        var index = this.nativeTextures.indexOf(texture);
+
+        if (index !== -1)
+        {
+            SpliceOne(this.nativeTextures, index);
+        }
+
         this.gl.deleteTexture(texture);
 
         return this;
@@ -45039,9 +45095,7 @@ var WebGLRenderer = new Class({
      * @since 3.0.0
      *
      * @param {HTMLCanvasElement} srcCanvas - [description]
-     * @param {WebGLTexture} dstTexture - [description]
-     * @param {boolean} shouldReallocate - [description]
-     * @param {integer} scaleMode - [description]
+     * @param {WebGLTexture} [dstTexture] - [description]
      *
      * @return {WebGLTexture} [description]
      */
@@ -45064,16 +45118,10 @@ var WebGLRenderer = new Class({
         {
             this.setTexture2D(dstTexture, 0);
 
-            // if (!shouldReallocate && dstTexture.width >= srcCanvas.width || dstTexture.height >= srcCanvas.height)
-            // {
-            //    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, srcCanvas.width, srcCanvas.height, gl.RGBA, gl.UNSIGNED_BYTE, srcCanvas);
-            // }
-            // else
-            {
-                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, srcCanvas);
-                dstTexture.width = srcCanvas.width;
-                dstTexture.height = srcCanvas.height;
-            }
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, srcCanvas);
+
+            dstTexture.width = srcCanvas.width;
+            dstTexture.height = srcCanvas.height;
 
             this.setTexture2D(null, 0);
         }
@@ -45365,12 +45413,14 @@ var WebGLRenderer = new Class({
         for (var key in this.pipelines)
         {
             this.pipelines[key].destroy();
+
             delete this.pipelines[key];
         }
 
         for (var index = 0; index < this.nativeTextures.length; ++index)
         {
             this.deleteTexture(this.nativeTextures[index]);
+
             delete this.nativeTextures[index];
         }
 
@@ -50152,9 +50202,9 @@ var UppercaseFirst = __webpack_require__(/*! ../utils/string/UppercaseFirst */ "
  * @function Phaser.Scenes.GetPhysicsPlugins
  * @since 3.0.0
  *
- * @param {Phaser.Scenes.Systems} sys - [description]
+ * @param {Phaser.Scenes.Systems} sys - The scene system to get the physics systems of.
  *
- * @return {array} [description]
+ * @return {array} An array of Physics systems to start for this Scene.
  */
 var GetPhysicsPlugins = function (sys)
 {
@@ -56298,7 +56348,7 @@ var HTML5AudioSoundManager = new Class({
          * @private
          * @since 3.0.0
          */
-        this.lockedActionsQueue = null;
+        this.lockedActionsQueue = this.locked ? [] : null;
 
         /**
          * Property that actually holds the value of global mute
@@ -56356,18 +56406,29 @@ var HTML5AudioSoundManager = new Class({
      */
     unlock: function ()
     {
-        this.locked = 'ontouchstart' in window;
+        this.locked = false;
 
-        if(this.locked)
+        var _this = this;
+
+        this.game.cache.audio.entries.each(function (key, tags)
         {
-            this.lockedActionsQueue = [];
-        }
-        else
+            for (var i = 0; i < tags.length; i++)
+            {
+                if (tags[i].dataset.locked === 'true')
+                {
+                    _this.locked = true;
+
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        if(!this.locked)
         {
             return;
         }
-
-        var _this = this;
 
         var moved = false;
 
@@ -56441,8 +56502,10 @@ var HTML5AudioSoundManager = new Class({
                 sound.totalDuration = sound.tags[0].duration;
             });
 
-            this.lockedActionsQueue.forEach(function (lockedAction)
+            while(this.lockedActionsQueue.length)
             {
+                var lockedAction = this.lockedActionsQueue.shift();
+
                 if (lockedAction.sound[lockedAction.prop].apply)
                 {
                     lockedAction.sound[lockedAction.prop].apply(lockedAction.sound, lockedAction.value || []);
@@ -56451,10 +56514,7 @@ var HTML5AudioSoundManager = new Class({
                 {
                     lockedAction.sound[lockedAction.prop] = lockedAction.value;
                 }
-            });
-
-            this.lockedActionsQueue.length = 0;
-            this.lockedActionsQueue = null;
+            }
 
         }, this);
 
@@ -60779,6 +60839,220 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./textures/CanvasTexture.js":
+/*!***********************************!*\
+  !*** ./textures/CanvasTexture.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var IsSizePowerOfTwo = __webpack_require__(/*! ../math/pow2/IsSizePowerOfTwo */ "./math/pow2/IsSizePowerOfTwo.js");
+var Texture = __webpack_require__(/*! ./Texture */ "./textures/Texture.js");
+
+/**
+ * @classdesc
+ * A Canvas Texture is a special kind of Texture that is backed by an HTML Canvas Element as its source.
+ *
+ * You can use the properties of this texture to draw to the canvas element directly, using all of the standard
+ * canvas operations available in the browser. Any Game Object can be given this texture and will render with it.
+ *
+ * Note: When running under WebGL the Canvas Texture needs to re-generate its base WebGLTexture and reupload it to
+ * the GPU every time you modify it, otherwise the changes you make to this texture will not be visible. To do this
+ * you should call `CanvasTexture.refresh()` once you are finished with your changes to the canvas. Try and keep
+ * this to a minimum, especially on large canvas sizes, or you may inadvertently thrash the GPU by constantly uploading
+ * texture data to it. This restriction does not apply if using the Canvas Renderer.
+ * 
+ * It starts with only one frame that covers the whole of the canvas. You can add further frames, that specify
+ * sections of the canvas using the `add` method.
+ * 
+ * Should you need to resize the canvas use the `setSize` method so that it accurately updates all of the underlying
+ * texture data as well. Forgetting to do this (i.e. by changing the canvas size directly from your code) could cause
+ * graphical errors.
+ *
+ * @class CanvasTexture
+ * @extends Phaser.Textures.Texture
+ * @memberOf Phaser.Textures
+ * @constructor
+ * @since 3.6.1
+ *
+ * @param {Phaser.Textures.TextureManager} manager - A reference to the Texture Manager this Texture belongs to.
+ * @param {string} key - The unique string-based key of this Texture.
+ * @param {HTMLCanvasElement} source - The source that is used to create the texture. Usually an Image, but can also be a Canvas.
+ * @param {number} [width] - The width of the Texture. This is optional and automatically derived from the source canvas.
+ * @param {number} [height] - The height of the Texture. This is optional and automatically derived from the source canvas.
+ */
+var CanvasTexture = new Class({
+
+    Extends: Texture,
+
+    initialize:
+
+    function CanvasTexture (manager, key, source, width, height)
+    {
+        Texture.call(this, manager, key, source, width, height);
+
+        this.add('__BASE', 0, 0, 0, width, height);
+
+        /**
+         * A reference to the Texture Source of this Canvas.
+         *
+         * @name Phaser.Textures.TextureManager#_source
+         * @type {Phaser.Textures.TextureSource}
+         * @private
+         * @since 3.6.1
+         */
+        this._source = this.frames['__BASE'].source;
+
+        /**
+         * The source Canvas Element.
+         *
+         * @name Phaser.Textures.TextureManager#canvas
+         * @readOnly
+         * @type {HTMLCanvasElement}
+         * @since 3.6.1
+         */
+        this.canvas = this._source.image;
+
+        /**
+         * The 2D Canvas Rendering Context.
+         *
+         * @name Phaser.Textures.TextureManager#canvas
+         * @readOnly
+         * @type {CanvasRenderingContext2D}
+         * @since 3.6.1
+         */
+        this.context = this.canvas.getContext('2d');
+
+        /**
+         * The width of the Canvas.
+         * This property is read-only, if you wish to change use `setSize`.
+         *
+         * @name Phaser.Textures.TextureManager#width
+         * @readOnly
+         * @type {integer}
+         * @since 3.6.1
+         */
+        this.width = width;
+
+        /**
+         * The height of the Canvas.
+         * This property is read-only, if you wish to change use `setSize`.
+         *
+         * @name Phaser.Textures.TextureManager#height
+         * @readOnly
+         * @type {integer}
+         * @since 3.6.1
+         */
+        this.height = height;
+    },
+
+    /**
+     * This should be called manually if you are running under WebGL.
+     * It will refresh the WebGLTexture from the Canvas source. Only call this if you know that the
+     * canvas has changed, as there is a significant GPU texture allocation cost involved in doing so.
+     *
+     * @method Phaser.Textures.CanvasTexture#refresh
+     * @since 3.6.1
+     *
+     * @return {Phaser.Textures.CanvasTexture} This CanvasTexture.
+     */
+    refresh: function ()
+    {
+        this._source.update();
+
+        return this;
+    },
+
+    /**
+     * Gets the Canvas Element.
+     *
+     * @method Phaser.Textures.CanvasTexture#getCanvas
+     * @since 3.6.1
+     *
+     * @return {HTMLCanvasElement} The Canvas DOM element this texture is using.
+     */
+    getCanvas: function ()
+    {
+        return this.canvas;
+    },
+
+    /**
+     * Gets the 2D Canvas Rendering Context.
+     *
+     * @method Phaser.Textures.CanvasTexture#getContext
+     * @since 3.6.1
+     *
+     * @return {CanvasRenderingContext2D} The Canvas Rendering Context this texture is using.
+     */
+    getContext: function ()
+    {
+        return this.context;
+    },
+
+    /**
+     * Clears this Canvas Texture, resetting it back to transparent.
+     *
+     * @method Phaser.Textures.CanvasTexture#clear
+     * @since 3.6.1
+     *
+     * @return {Phaser.Textures.CanvasTexture} The Canvas Texture.
+     */
+    clear: function ()
+    {
+        this.context.clearRect(0, 0, this.width, this.height);
+
+        return this;
+    },
+
+    /**
+     * Changes the size of this Canvas Texture.
+     *
+     * @method Phaser.Textures.CanvasTexture#setSize
+     * @since 3.6.1
+     *
+     * @param {integer} width - The new width of the Canvas.
+     * @param {integer} [height] - The new height of the Canvas. If not given it will use the width as the height.
+     *
+     * @return {Phaser.Textures.CanvasTexture} The Canvas Texture.
+     */
+    setSize: function (width, height)
+    {
+        if (height === undefined) { height = width; }
+
+        if (width !== this.width || height !== this.height)
+        {
+            //  Update the Canvas
+            this.canvas.width = width;
+            this.canvas.height = height;
+
+            //  Update the Texture Source
+            this._source.width = width;
+            this._source.height = height;
+            this._source.isPowerOf2 = IsSizePowerOfTwo(width, height);
+
+            //  Update the Frame
+            this.frames['__BASE'].setSize(width, height, 0, 0);
+
+            this.refresh();
+        }
+
+        return this;
+    }
+
+});
+
+module.exports = CanvasTexture;
+
+
+/***/ }),
+
 /***/ "./textures/Frame.js":
 /*!***************************!*\
   !*** ./textures/Frame.js ***!
@@ -60862,7 +61136,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.cutX = x;
+        this.cutX;
 
         /**
          * Y position within the source image to cut from.
@@ -60871,7 +61145,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.cutY = y;
+        this.cutY;
 
         /**
          * The width of the area in the source image to cut.
@@ -60880,7 +61154,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.cutWidth = width;
+        this.cutWidth;
 
         /**
          * The height of the area in the source image to cut.
@@ -60889,7 +61163,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.cutHeight = height;
+        this.cutHeight;
 
         /**
          * The X rendering offset of this Frame, taking trim into account.
@@ -60918,7 +61192,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.width = width;
+        this.width;
 
         /**
          * The rendering height of this Frame, taking trim into account.
@@ -60927,7 +61201,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.height = height;
+        this.height;
 
         /**
          * Half the width, floored.
@@ -60937,7 +61211,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.halfWidth = Math.floor(width * 0.5);
+        this.halfWidth;
 
         /**
          * Half the height, floored.
@@ -60947,7 +61221,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.halfHeight = Math.floor(height * 0.5);
+        this.halfHeight;
 
         /**
          * The x center of this frame, floored.
@@ -60956,7 +61230,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.centerX = Math.floor(width / 2);
+        this.centerX;
 
         /**
          * The y center of this frame, floored.
@@ -60965,7 +61239,7 @@ var Frame = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.centerY = Math.floor(height / 2);
+        this.centerY;
 
         /**
          * The horizontal pivot point of this Frame.
@@ -61043,23 +61317,23 @@ var Frame = new Class({
          */
         this.data = {
             cut: {
-                x: x,
-                y: y,
-                w: width,
-                h: height,
-                r: x + width,
-                b: y + height
+                x: 0,
+                y: 0,
+                w: 0,
+                h: 0,
+                r: 0,
+                b: 0
             },
             trim: false,
             sourceSize: {
-                w: width,
-                h: height
+                w: 0,
+                h: 0
             },
             spriteSourceSize: {
                 x: 0,
                 y: 0,
-                w: width,
-                h: height
+                w: 0,
+                h: 0
             },
             uvs: {
                 x0: 0,
@@ -61071,18 +61345,83 @@ var Frame = new Class({
                 x3: 0,
                 y3: 0
             },
-            radius: 0.5 * Math.sqrt(width * width + height * height),
+            radius: 0,
             drawImage: {
-                sx: x,
-                sy: y,
-                sWidth: width,
-                sHeight: height,
-                dWidth: width,
-                dHeight: height
+                sx: 0,
+                sy: 0,
+                sWidth: 0,
+                sHeight: 0,
+                dWidth: 0,
+                dHeight: 0
             }
         };
 
-        this.updateUVs();
+        this.setSize(width, height, x, y);
+    },
+
+    /**
+     * Sets the width, height, x and y of this Frame.
+     * 
+     * This is called automatically by the constructor
+     * and should rarely be changed on-the-fly.
+     *
+     * @method Phaser.Textures.Frame#setSize
+     * @since 3.6.1
+     *
+     * @param {integer} width - The width of the frame before being trimmed.
+     * @param {integer} height - The height of the frame before being trimmed.
+     * @param {integer} [x=0] - The x coordinate of the top-left of this Frame.
+     * @param {integer} [y=0] - The y coordinate of the top-left of this Frame.
+     *
+     * @return {Phaser.Textures.Frame} This Frame object.
+     */
+    setSize: function (width, height, x, y)
+    {
+        if (x === undefined) { x = 0; }
+        if (y === undefined) { y = 0; }
+
+        this.cutX = x;
+        this.cutY = y;
+        this.cutWidth = width;
+        this.cutHeight = height;
+
+        this.width = width;
+        this.height = height;
+
+        this.halfWidth = Math.floor(width * 0.5);
+        this.halfHeight = Math.floor(height * 0.5);
+
+        this.centerX = Math.floor(width / 2);
+        this.centerY = Math.floor(height / 2);
+
+        var data = this.data;
+        var cut = data.cut;
+
+        cut.x = x;
+        cut.y = y;
+        cut.w = width;
+        cut.h = height;
+        cut.r = x + width;
+        cut.b = y + height;
+
+        data.sourceSize.w = width;
+        data.sourceSize.h = height;
+
+        data.spriteSourceSize.w = width;
+        data.spriteSourceSize.h = height;
+
+        data.radius = 0.5 * Math.sqrt(width * width + height * height);
+
+        var drawImage = data.drawImage;
+
+        drawImage.sx = x;
+        drawImage.sy = y;
+        drawImage.sWidth = width;
+        drawImage.sHeight = height;
+        drawImage.dWidth = width;
+        drawImage.dHeight = height;
+
+        return this.updateUVs();
     },
 
     /**
@@ -61388,8 +61727,8 @@ var TextureSource = __webpack_require__(/*! ./TextureSource */ "./textures/Textu
 
 /**
  * @classdesc
- * A Texture consists of a source, usually an Image from the Cache, or a Canvas, and a collection
- * of Frames. The Frames represent the different areas of the Texture. For example a texture atlas
+ * A Texture consists of a source, usually an Image from the Cache, and a collection of Frames.
+ * The Frames represent the different areas of the Texture. For example a texture atlas
  * may have many Frames, one for each element within the atlas. Where-as a single image would have
  * just one frame, that encompasses the whole image.
  *
@@ -61797,6 +62136,7 @@ var Texture = new Class({
         this.source = [];
         this.dataSource = [];
         this.frames = {};
+        this.manager = null;
     }
 
 });
@@ -61820,8 +62160,10 @@ module.exports = Texture;
  */
 
 var CanvasPool = __webpack_require__(/*! ../display/canvas/CanvasPool */ "./display/canvas/CanvasPool.js");
+var CanvasTexture = __webpack_require__(/*! ./CanvasTexture */ "./textures/CanvasTexture.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var Color = __webpack_require__(/*! ../display/color/Color */ "./display/color/Color.js");
+var CONST = __webpack_require__(/*! ../const */ "./const.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var GenerateTexture = __webpack_require__(/*! ../create/GenerateTexture */ "./create/GenerateTexture.js");
 var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/object/GetValue.js");
@@ -61963,6 +62305,72 @@ var TextureManager = new Class({
     },
 
     /**
+     * Checks the given texture key and throws a console.warn if the key is already in use, then returns false.
+     *
+     * @method Phaser.Textures.TextureManager#checkKey
+     * @since 3.6.1
+     *
+     * @param {string} key - The texture key to check.
+     *
+     * @return {boolean} `true` if it's safe to use the texture key, otherwise `false`.
+     */
+    checkKey: function (key)
+    {
+        if (this.exists(key))
+        {
+            console.error('Texture key already in use: ' + key);
+
+            return false;
+        }
+
+        return true;
+    },
+
+    /**
+     * Removes a Texture from the Texture Manager and destroys it. This will immediately
+     * clear all references to it from the Texture Manager, and if it has one, destroy its
+     * WebGLTexture. This will emit a `removetexture` event.
+     *
+     * Note: If you have any Game Objects still using this texture they will start throwing
+     * errors the next time they try to render. Make sure that removing the texture is the final
+     * step when clearing down to avoid this.
+     *
+     * @method Phaser.Textures.TextureManager#remove
+     * @since 3.6.1
+     *
+     * @param {(string|Phaser.Textures.Texture)} key - The key of the Texture to remove, or a reference to it.
+     *
+     * @return {Phaser.Textures.TextureManager} The Texture Manager.
+     */
+     remove: function (key)
+     {
+        if (typeof key === 'string')
+        {
+            if (this.exists(key))
+            {
+                key = this.get(key);
+            }
+            else
+            {
+                console.error('No texture found matching key: ' + key)
+                return this;
+            }
+        }
+
+        //  By this point key should be a Texture, if not, the following fails anyway
+        if (this.list.hasOwnProperty(key.key))
+        {
+            delete this.list[key.key];
+
+            key.destroy();
+
+            this.emit('removetexture', key.key);
+        }
+
+        return this;
+     },
+
+    /**
      * Adds a new Texture to the Texture Manager created from the given Base64 encoded data.
      *
      * @method Phaser.Textures.TextureManager#addBase64
@@ -61973,25 +62381,30 @@ var TextureManager = new Class({
      */
     addBase64: function (key, data)
     {
-        var _this = this;
-
-        var image = new Image();
-
-        image.onerror = function ()
+        if (this.checkKey(key))
         {
-            _this.emit('onerror', key);
-        };
+            var _this = this;
 
-        image.onload = function ()
-        {
-            var texture = _this.create(key, image);
+            var image = new Image();
 
-            Parser.Image(texture, 0);
+            image.onerror = function ()
+            {
+                _this.emit('onerror', key);
+            };
 
-            _this.emit('onload', key, texture);
-        };
+            image.onload = function ()
+            {
+                var texture = _this.create(key, image);
 
-        image.src = data;
+                Parser.Image(texture, 0);
+
+                _this.emit('addtexture', key, texture);
+
+                _this.emit('onload', key, texture);
+            };
+
+            image.src = data;
+        }
     },
 
     /**
@@ -62004,19 +62417,26 @@ var TextureManager = new Class({
      * @param {HTMLImageElement} source - The source Image element.
      * @param {HTMLImageElement} [dataSource] - An optional data Image element.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addImage: function (key, source, dataSource)
     {
-        var texture = this.create(key, source);
+        var texture = null;
 
-        Parser.Image(texture, 0);
-
-        if (dataSource)
+        if (this.checkKey(key))
         {
-            texture.setDataSource(dataSource);
-        }
+            texture = this.create(key, source);
 
+            Parser.Image(texture, 0);
+
+            if (dataSource)
+            {
+                texture.setDataSource(dataSource);
+            }
+
+            this.emit('addtexture', key, texture);
+        }
+        
         return texture;
     },
 
@@ -62031,17 +62451,24 @@ var TextureManager = new Class({
      * @param {string} key - The unique string-based key of the Texture.
      * @param {object} config - [description]
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     generate: function (key, config)
     {
-        var canvas = CanvasPool.create(this, 1, 1);
+        if (this.checkKey(key))
+        {
+            var canvas = CanvasPool.create(this, 1, 1);
 
-        config.canvas = canvas;
+            config.canvas = canvas;
 
-        GenerateTexture(config);
+            GenerateTexture(config);
 
-        return this.addCanvas(key, canvas);
+            return this.addCanvas(key, canvas);
+        }
+        else
+        {
+            return null;
+        }
     },
 
     /**
@@ -62054,23 +62481,28 @@ var TextureManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The unique string-based key of the Texture.
-     * @param {integer} width - The width of the Canvas element.
-     * @param {integer} height - The height of the Canvas element.
+     * @param {integer} [width=256]- The width of the Canvas element.
+     * @param {integer} [height=256] - The height of the Canvas element.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.CanvasTexture} The Canvas Texture that was created, or `null` if the key is already in use.
      */
     createCanvas: function (key, width, height)
     {
         if (width === undefined) { width = 256; }
         if (height === undefined) { height = 256; }
 
-        var canvas = CanvasPool.create(this, width, height);
+        if (this.checkKey(key))
+        {
+            var canvas = CanvasPool.create(this, width, height, CONST.CANVAS, true);
 
-        return this.addCanvas(key, canvas);
+            return this.addCanvas(key, canvas);
+        }
+
+        return null;
     },
 
     /**
-     * Creates a new Texture object from an existing Canvas element and adds
+     * Creates a new Canvas Texture object from an existing Canvas element and adds
      * it to this Texture Manager.
      *
      * @method Phaser.Textures.TextureManager#addCanvas
@@ -62079,13 +62511,20 @@ var TextureManager = new Class({
      * @param {string} key - The unique string-based key of the Texture.
      * @param {HTMLCanvasElement} source - The Canvas element to form the base of the new Texture.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.CanvasTexture} The Canvas Texture that was created, or `null` if the key is already in use.
      */
     addCanvas: function (key, source)
     {
-        var texture = this.create(key, source);
+        var texture = null;
 
-        Parser.Canvas(texture, 0);
+        if (this.checkKey(key))
+        {
+            texture = new CanvasTexture(this, key, source, source.width, source.height);
+
+            this.list[key] = texture;
+
+            this.emit('addtexture', key, texture);
+        }
 
         return texture;
     },
@@ -62101,7 +62540,7 @@ var TextureManager = new Class({
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas data.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addAtlas: function (key, source, data)
     {
@@ -62128,24 +62567,33 @@ var TextureManager = new Class({
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas data.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addAtlasJSONArray: function (key, source, data)
     {
-        var texture = this.create(key, source);
+        var texture = null;
 
-        if (Array.isArray(data))
+        if (this.checkKey(key))
         {
-            var singleAtlasFile = (data.length === 1); // multi-pack with one atlas file for all images
-            for (var i = 0; i < texture.source.length; i++)
+            texture = this.create(key, source);
+
+            if (Array.isArray(data))
             {
-                var atlasData = singleAtlasFile ? data[0] : data[i];
-                Parser.JSONArray(texture, i, atlasData);
+                var singleAtlasFile = (data.length === 1); // multi-pack with one atlas file for all images
+
+                for (var i = 0; i < texture.source.length; i++)
+                {
+                    var atlasData = singleAtlasFile ? data[0] : data[i];
+
+                    Parser.JSONArray(texture, i, atlasData);
+                }
             }
-        }
-        else
-        {
-            Parser.JSONArray(texture, 0, data);
+            else
+            {
+                Parser.JSONArray(texture, 0, data);
+            }
+
+            this.emit('addtexture', key, texture);
         }
 
         return texture;
@@ -62163,22 +62611,29 @@ var TextureManager = new Class({
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas data.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addAtlasJSONHash: function (key, source, data)
     {
-        var texture = this.create(key, source);
+        var texture = null;
 
-        if (Array.isArray(data))
+        if (this.checkKey(key))
         {
-            for (var i = 0; i < data.length; i++)
+            texture = this.create(key, source);
+
+            if (Array.isArray(data))
             {
-                Parser.JSONHash(texture, i, data[i]);
+                for (var i = 0; i < data.length; i++)
+                {
+                    Parser.JSONHash(texture, i, data[i]);
+                }
             }
-        }
-        else
-        {
-            Parser.JSONHash(texture, 0, data);
+            else
+            {
+                Parser.JSONHash(texture, 0, data);
+            }
+
+            this.emit('addtexture', key, texture);
         }
 
         return texture;
@@ -62195,13 +62650,20 @@ var TextureManager = new Class({
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas data.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addUnityAtlas: function (key, source, data)
     {
-        var texture = this.create(key, source);
+        var texture = null;
 
-        Parser.UnityYAML(texture, 0, data);
+        if (this.checkKey(key))
+        {
+            var texture = this.create(key, source);
+
+            Parser.UnityYAML(texture, 0, data);
+
+            this.emit('addtexture', key, texture);
+        }
 
         return texture;
     },
@@ -62230,16 +62692,23 @@ var TextureManager = new Class({
      * @param {HTMLImageElement} source - The source Image element.
      * @param {SpriteSheetConfig} config - The configuration object for this Sprite Sheet.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addSpriteSheet: function (key, source, config)
     {
-        var texture = this.create(key, source);
+        var texture = null;
 
-        var width = texture.source[0].width;
-        var height = texture.source[0].height;
+        if (this.checkKey(key))
+        {
+            texture = this.create(key, source);
 
-        Parser.SpriteSheet(texture, 0, 0, 0, width, height, config);
+            var width = texture.source[0].width;
+            var height = texture.source[0].height;
+
+            Parser.SpriteSheet(texture, 0, 0, 0, width, height, config);
+
+            this.emit('addtexture', key, texture);
+        }
 
         return texture;
     },
@@ -62269,10 +62738,15 @@ var TextureManager = new Class({
      * @param {string} key - The unique string-based key of the Texture.
      * @param {SpriteSheetFromAtlasConfig} config - The configuration object for this Sprite Sheet.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addSpriteSheetFromAtlas: function (key, config)
     {
+        if (!this.checkKey(key))
+        {
+            return null;
+        }
+
         var atlasKey = GetValue(config, 'atlas', null);
         var atlasFrame = GetValue(config, 'frame', null);
 
@@ -62298,6 +62772,8 @@ var TextureManager = new Class({
                 Parser.SpriteSheet(texture, 0, sheet.cutX, sheet.cutY, sheet.cutWidth, sheet.cutHeight, config);
             }
 
+            this.emit('addtexture', key, texture);
+
             return texture;
         }
     },
@@ -62313,22 +62789,29 @@ var TextureManager = new Class({
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas XML data.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addAtlasStarlingXML: function (key, source, data)
     {
-        var texture = this.create(key, source);
+        var texture = null;
 
-        if (Array.isArray(data))
+        if (this.checkKey(key))
         {
-            for (var i = 0; i < data.length; i++)
+            texture = this.create(key, source);
+
+            if (Array.isArray(data))
             {
-                Parser.StarlingXML(texture, i, data[i]);
+                for (var i = 0; i < data.length; i++)
+                {
+                    Parser.StarlingXML(texture, i, data[i]);
+                }
             }
-        }
-        else
-        {
-            Parser.StarlingXML(texture, 0, data);
+            else
+            {
+                Parser.StarlingXML(texture, 0, data);
+            }
+
+            this.emit('addtexture', key, texture);
         }
 
         return texture;
@@ -62345,22 +62828,29 @@ var TextureManager = new Class({
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas XML data.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     addAtlasPyxel: function (key, source, data)
     {
-        var texture = this.create(key, source);
+        var texture = null;
 
-        if (Array.isArray(data))
+        if (this.checkKey(key))
         {
-            for (var i = 0; i < data.length; i++)
+            texture = this.create(key, source);
+
+            if (Array.isArray(data))
             {
-                Parser.Pyxel(texture, i, data[i]);
+                for (var i = 0; i < data.length; i++)
+                {
+                    Parser.Pyxel(texture, i, data[i]);
+                }
             }
-        }
-        else
-        {
-            Parser.Pyxel(texture, 0, data);
+            else
+            {
+                Parser.Pyxel(texture, 0, data);
+            }
+
+            this.emit('addtexture', key, texture);
         }
 
         return texture;
@@ -62377,13 +62867,18 @@ var TextureManager = new Class({
      * @param {integer} width - The width of the Texture.
      * @param {integer} height - The height of the Texture.
      *
-     * @return {Phaser.Textures.Texture} The Texture that was created.
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
     create: function (key, source, width, height)
     {
-        var texture = new Texture(this, key, source, width, height);
+        var texture = null;
 
-        this.list[key] = texture;
+        if (this.checkKey(key))
+        {
+            texture = new Texture(this, key, source, width, height);
+
+            this.list[key] = texture;
+        }
 
         return texture;
     },
@@ -62607,6 +63102,8 @@ var TextureManager = new Class({
         this.list = {};
 
         this.game = null;
+
+        CanvasPool.remove(this._tempCanvas);
     }
 
 });
@@ -62629,6 +63126,7 @@ module.exports = TextureManager;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var CanvasPool = __webpack_require__(/*! ../display/canvas/CanvasPool */ "./display/canvas/CanvasPool.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ../const */ "./const.js");
 var IsSizePowerOfTwo = __webpack_require__(/*! ../math/pow2/IsSizePowerOfTwo */ "./math/pow2/IsSizePowerOfTwo.js");
@@ -62658,6 +63156,15 @@ var TextureSource = new Class({
     function TextureSource (texture, source, width, height)
     {
         var game = texture.manager.game;
+
+        /**
+         * The Texture this TextureSource belongs to.
+         *
+         * @name Phaser.Textures.TextureSource#renderer
+         * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
+         * @since 3.6.1
+         */
+        this.renderer = game.renderer;
 
         /**
          * The Texture this TextureSource belongs to.
@@ -62768,9 +63275,16 @@ var TextureSource = new Class({
      */
     init: function (game)
     {
-        if (game.config.renderType === CONST.WEBGL)
+        if (this.renderer.gl)
         {
-            this.glTexture = game.renderer.createTextureFromSource(this.image, this.width, this.height, this.scaleMode);
+            if (this.isCanvas)
+            {
+                this.glTexture = this.renderer.canvasToTexture(this.image);
+            }
+            else
+            {
+                this.glTexture = this.renderer.createTextureFromSource(this.image, this.width, this.height, this.scaleMode);
+            }
         }
 
         if (game.config.pixelArt)
@@ -62793,24 +63307,47 @@ var TextureSource = new Class({
      */
     setFilter: function (filterMode)
     {
-        var game = this.texture.manager.game;
-
-        if (game.config.renderType === CONST.WEBGL)
+        if (this.renderer.gl)
         {
-            game.renderer.setTextureFilter(this.glTexture, filterMode);
+            this.renderer.setTextureFilter(this.glTexture, filterMode);
         }
     },
 
     /**
-     * Destroys this Texture Source and nulls the source image reference.
+     * If this TextureSource is backed by a Canvas and is running under WebGL,
+     * it updates the WebGLTexture using the canvas data.
+     *
+     * @method Phaser.Textures.TextureSource#update
+     * @since 3.6.1
+     */
+    update: function ()
+    {
+        if (this.renderer.gl && this.isCanvas)
+        {
+            this.renderer.canvasToTexture(this.image, this.glTexture);
+        }
+    },
+
+    /**
+     * Destroys this Texture Source and nulls the references.
      *
      * @method Phaser.Textures.TextureSource#destroy
      * @since 3.0.0
      */
     destroy: function ()
     {
-        this.texture = null;
+        if (this.glTexture)
+        {
+            this.renderer.deleteTexture(this.glTexture);
+        }
 
+        if (this.isCanvas)
+        {
+            CanvasPool.remove(this.image);
+        }
+
+        this.renderer = null;
+        this.texture = null;
         this.image = null;
     }
 

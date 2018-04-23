@@ -1,22 +1,19 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
+    width: 800,
+    height: 600,
     scene: {
         preload: preload,
         create: create
-    },
-    width: 800,
-    height: 600
+    }
 };
-
-var game = new Phaser.Game(config);
 
 var originalTexture;
 var newTexture;
 var context; 
 
-var dude;
-var dude2;
+var game = new Phaser.Game(config);
 
 function preload() 
 {
@@ -27,19 +24,19 @@ function create()
 {
     originalTexture = this.textures.get('dude').getSourceImage();
 
-    var newTexture = this.textures.createCanvas('dude_new', originalTexture.width, originalTexture.height);
+    newTexture = this.textures.createCanvas('dudeNew', originalTexture.width, originalTexture.height);
 
     context = newTexture.getSourceImage().getContext('2d');
 
     context.drawImage(originalTexture, 0, 0);
 
-    dude = this.add.image(100, 100, 'dude');
-    dude2 = this.add.image(200, 100, 'dude_new');
+    this.add.image(100, 100, 'dude');
+    this.add.image(200, 100, 'dudeNew');
 
     this.time.addEvent({ delay: 500, callback: hueShift , loop: true });
 }
 
-function hueShift()
+function hueShift ()
 {
     var pixels = context.getImageData(0, 0, originalTexture.width, originalTexture.height);
 
@@ -49,9 +46,11 @@ function hueShift()
     }
 
     context.putImageData(pixels, 0, 0);
+
+    newTexture.update();
 }
 
-function processPixel(data, index, deltahue)
+function processPixel (data, index, deltahue)
 {
     var r = data[index];
     var g = data[index + 1];

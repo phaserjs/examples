@@ -55,11 +55,11 @@ function create ()
 
         if (lemming.isFollowing())
         {
-            lemming.pause();
+            lemming.pauseFollow();
         }
         else
         {
-            lemming.resume();
+            lemming.resumeFollow();
         }
 
     });

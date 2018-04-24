@@ -2424,9 +2424,15 @@
           "name": "container",
           "children": [
             {
+              "path": "src\\game objects\\container\\add array of sprites to container.js",
+              "name": "add array of sprites to container.js",
+              "size": 1284,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\add sprite to container.js",
               "name": "add sprite to container.js",
-              "size": 1186,
+              "size": 1281,
               "extension": ".js"
             },
             {
@@ -2604,7 +2610,7 @@
               "extension": ".js"
             }
           ],
-          "size": 53566
+          "size": 54945
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4186,7 +4192,7 @@
           "size": 255492
         }
       ],
-      "size": 713640
+      "size": 715019
     },
     {
       "path": "src\\games",
@@ -7739,11 +7745,11 @@
             {
               "path": "src\\scenes\\tutorial\\scene order.js",
               "name": "scene order.js",
-              "size": 1309,
+              "size": 1571,
               "extension": ".js"
             }
           ],
-          "size": 1309
+          "size": 1571
         },
         {
           "path": "src\\scenes\\ui scene es6.js",
@@ -7758,7 +7764,7 @@
           "extension": ".js"
         }
       ],
-      "size": 111941
+      "size": 112203
     },
     {
       "path": "src\\snapshot",
@@ -8570,5 +8576,5 @@
       "size": 4792
     }
   ],
-  "size": 2266574
+  "size": 2268215
 }

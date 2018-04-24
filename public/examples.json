@@ -2432,7 +2432,7 @@
             {
               "path": "src\\game objects\\container\\add sprite to container.js",
               "name": "add sprite to container.js",
-              "size": 1281,
+              "size": 1186,
               "extension": ".js"
             },
             {
@@ -2574,6 +2574,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\multiple non exclusive containers.js",
+              "name": "multiple non exclusive containers.js",
+              "size": 2197,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\nested input test.js",
               "name": "nested input test.js",
               "size": 1279,
@@ -2582,7 +2588,7 @@
             {
               "path": "src\\game objects\\container\\non exclusive containers.js",
               "name": "non exclusive containers.js",
-              "size": 1056,
+              "size": 1374,
               "extension": ".js"
             },
             {
@@ -2608,9 +2614,45 @@
               "name": "text and sprite test.js",
               "size": 959,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\twirl 1.js",
+              "name": "twirl 1.js",
+              "size": 2197,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\twirl 2.js",
+              "name": "twirl 2.js",
+              "size": 2264,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\twirl 3.js",
+              "name": "twirl 3.js",
+              "size": 2272,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\twirl 4.js",
+              "name": "twirl 4.js",
+              "size": 2063,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\twirl 5.js",
+              "name": "twirl 5.js",
+              "size": 2348,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\container\\twirl 6.js",
+              "name": "twirl 6.js",
+              "size": 2101,
+              "extension": ".js"
             }
           ],
-          "size": 54945
+          "size": 70610
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2671,8 +2713,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\line rendering.js",
-              "name": "line rendering.js",
+              "path": "src\\game objects\\graphics\\Line Rendering.js",
+              "name": "Line Rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2683,8 +2725,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\many line stars.js",
-              "name": "many line stars.js",
+              "path": "src\\game objects\\graphics\\Many Line Stars.js",
+              "name": "Many Line Stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2695,8 +2737,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js",
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2815,8 +2857,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\trail.js",
-              "name": "trail.js",
+              "path": "src\\game objects\\graphics\\Trail.js",
+              "name": "Trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -4192,7 +4234,7 @@
           "size": 255492
         }
       ],
-      "size": 715019
+      "size": 730684
     },
     {
       "path": "src\\games",
@@ -7428,8 +7470,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\Game.js",
-              "name": "Game.js",
+              "path": "src\\scenes\\cross scene\\game.js",
+              "name": "game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -8576,5 +8618,5 @@
       "size": 4792
     }
   ],
-  "size": 2268215
+  "size": 2283880
 }

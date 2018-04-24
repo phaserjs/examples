@@ -6335,7 +6335,7 @@
         {
           "path": "src\\loader\\load image on click.js",
           "name": "load image on click.js",
-          "size": 862,
+          "size": 988,
           "extension": ".js"
         },
         {
@@ -6393,7 +6393,7 @@
           "extension": ".js"
         }
       ],
-      "size": 44924
+      "size": 45050
     },
     {
       "path": "src\\paths",
@@ -7733,6 +7733,19 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\tutorial",
+          "name": "tutorial",
+          "children": [
+            {
+              "path": "src\\scenes\\tutorial\\scene order.js",
+              "name": "scene order.js",
+              "size": 1309,
+              "extension": ".js"
+            }
+          ],
+          "size": 1309
+        },
+        {
           "path": "src\\scenes\\ui scene es6.js",
           "name": "ui scene es6.js",
           "size": 1696,
@@ -7745,7 +7758,7 @@
           "extension": ".js"
         }
       ],
-      "size": 110632
+      "size": 111941
     },
     {
       "path": "src\\snapshot",
@@ -7767,7 +7780,7 @@
         {
           "path": "src\\textures\\create canvas.js",
           "name": "create canvas.js",
-          "size": 1728,
+          "size": 1670,
           "extension": ".js"
         },
         {
@@ -7779,7 +7792,7 @@
         {
           "path": "src\\textures\\edit texture hue shift.js",
           "name": "edit texture hue shift.js",
-          "size": 1550,
+          "size": 1534,
           "extension": ".js"
         },
         {
@@ -7867,7 +7880,7 @@
           "extension": ".js"
         }
       ],
-      "size": 22272
+      "size": 22198
     },
     {
       "path": "src\\time",
@@ -8557,5 +8570,5 @@
       "size": 4792
     }
   ],
-  "size": 2265213
+  "size": 2266574
 }

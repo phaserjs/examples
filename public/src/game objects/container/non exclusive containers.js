@@ -23,7 +23,7 @@ function create ()
     var image = this.add.image(0, 0, 'lemming');
     var text = this.add.text(60, 0, 'Oh No!', { font: '16px Courier', fill: '#00ff00' });
 
-    var container1 = this.add.container(200, 300).setExclusive(false);
+    var container1 = this.add.container(200, 300).setExclusive(true);
     container1.add([ image, text ]);
 
     var container2 = this.add.container(400, 300).setExclusive(false);
@@ -36,6 +36,23 @@ function create ()
         targets: [ container1, container2, container3 ],
         angle: 360,
         duration: 6000,
+        repeat: -1
+    });
+
+    this.tweens.add({
+        targets: container2,
+        scaleX: 2,
+        scaleY: 2,
+        duration: 3000,
+        yoyo: true,
+        repeat: -1
+    });
+
+    this.tweens.add({
+        targets: container3,
+        alpha: 0,
+        duration: 3000,
+        yoyo: true,
         repeat: -1
     });
 }

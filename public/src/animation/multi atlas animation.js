@@ -23,5 +23,5 @@ function create ()
 {
     this.anims.create({ key: 'fly', frames: this.anims.generateFrameNames('cybercity', { start: 0, end: 98 }), repeat: -1 });
 
-    this.add.sprite().setScale(2.7).play('fly');
+    this.add.sprite(400, 300).setScale(2.7).play('fly');
 }

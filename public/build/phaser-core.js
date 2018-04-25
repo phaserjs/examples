@@ -4595,6 +4595,7 @@ var BaseCache = new Class({
 
     /**
      * Checks if this cache contains an item matching the given key.
+     * This performs the same action as `BaseCache.exists`.
      *
      * @method Phaser.Cache.BaseCache#has
      * @since 3.0.0
@@ -4604,6 +4605,22 @@ var BaseCache = new Class({
      * @return {boolean} Returns `true` if the cache contains an item matching the given key, otherwise `false`.
      */
     has: function (key)
+    {
+        return this.entries.has(key);
+    },
+
+    /**
+     * Checks if this cache contains an item matching the given key.
+     * This performs the same action as `BaseCache.has` and is called directly by the Loader.
+     *
+     * @method Phaser.Cache.BaseCache#exists
+     * @since 3.7.0
+     *
+     * @param {string} key - The unique key of the item to be checked in this cache.
+     *
+     * @return {boolean} Returns `true` if the cache contains an item matching the given key, otherwise `false`.
+     */
+    exists: function (key)
     {
         return this.entries.has(key);
     },
@@ -17084,7 +17101,7 @@ var Texture = {
      * The Texture this Game Object is using to render with.
      *
      * @name Phaser.GameObjects.Components.Texture#texture
-     * @type {Phaser.Textures.Texture}
+     * @type {Phaser.Textures.Texture|Phaser.Textures.CanvasTexture}
      * @since 3.0.0
      */
     texture: null,
@@ -34895,14 +34912,33 @@ var XHRSettings = __webpack_require__(/*! ./XHRSettings */ "./loader/XHRSettings
  * @constructor
  * @since 3.0.0
  *
+ * @param {Phaser.Loader.LoaderPlugin} loader - The Loader that is going to load this File.
  * @param {FileConfig} fileConfig - [description]
  */
 var File = new Class({
 
     initialize:
 
-    function File (fileConfig)
+    function File (loader, fileConfig)
     {
+        /**
+         * A reference to the Loader that is going to load this file.
+         *
+         * @name Phaser.Loader.File#loader
+         * @type {Phaser.Loader.LoaderPlugin}
+         * @since 3.0.0
+         */
+        this.loader = loader;
+
+        /**
+         * A reference to the Cache, or Texture Manager, that is going to store this file if it loads.
+         *
+         * @name Phaser.Loader.File#cache
+         * @type {(Phaser.Cache.BaseCache|Phaser.Textures.TextureManager)}
+         * @since 3.7.0
+         */
+        this.cache = GetFastValue(fileConfig, 'cache');
+
         /**
          * The file type string (image, json, etc) for sorting within the Loader.
          *
@@ -34966,15 +35002,6 @@ var File = new Class({
         {
             this.xhrSettings = MergeXHRSettings(this.xhrSettings, GetFastValue(fileConfig, 'xhrSettings', {}));
         }
-
-        /**
-         * The LoaderPlugin instance that is loading this file.
-         *
-         * @name Phaser.Loader.File#loader
-         * @type {?Phaser.Loader.LoaderPlugin}
-         * @since 3.0.0
-         */
-        this.loader = null;
 
         /**
          * The XMLHttpRequest instance (as created by XHR Loader) that is loading this File.
@@ -35130,22 +35157,18 @@ var File = new Class({
      *
      * @method Phaser.Loader.File#load
      * @since 3.0.0
-     *
-     * @param {Phaser.Loader.LoaderPlugin} loader - The Loader that will load this File.
      */
-    load: function (loader)
+    load: function ()
     {
-        this.loader = loader;
-
         if (this.state === CONST.FILE_POPULATED)
         {
             this.onComplete();
 
-            loader.nextFile(this);
+            this.loader.nextFile(this);
         }
         else
         {
-            this.src = GetURL(this, loader.baseURL);
+            this.src = GetURL(this, this.loader.baseURL);
 
             if (this.src.indexOf('data:') === 0)
             {
@@ -35153,7 +35176,7 @@ var File = new Class({
             }
             else
             {
-                this.xhrLoader = XHRLoader(this, loader.xhr);
+                this.xhrLoader = XHRLoader(this, this.loader.xhr);
             }
         }
     },
@@ -35262,6 +35285,36 @@ var File = new Class({
         {
             this.state = CONST.FILE_COMPLETE;
         }
+    },
+
+    /**
+     * Checks if a key matching the one used by this file exists in the target Cache or not.
+     * This is called automatically by the LoaderPlugin to decide if the file can be safely
+     * loaded or will conflict.
+     *
+     * @method Phaser.Loader.File#hasCacheConflict
+     * @since 3.7.0
+     *
+     * @return {boolean} `true` if adding this file will cause a conflict, otherwise `false`.
+     */
+    hasCacheConflict: function ()
+    {
+        return (this.cache.exists(this.key));
+    },
+
+    /**
+     * Adds this file to its target cache upon successful loading and processing.
+     * It will emit a `filecomplete` event from the LoaderPlugin.
+     * This method is often overridden by specific file types.
+     *
+     * @method Phaser.Loader.File#addToCache
+     * @since 3.7.0
+     */
+    addToCache: function ()
+    {
+        this.cache.add(this.key, this.data);
+
+        this.loader.emit('filecomplete', this.key, this);
     }
 
 });
@@ -35824,9 +35877,9 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
  *
  * @return {Phaser.Loader.FileTypes.JSONFile} A File instance to be added to the Loader.
  */
-var AnimationJSONFile = function (key, url, path, xhrSettings)
+var AnimationJSONFile = function (loader, key, url, xhrSettings)
 {
-    var json = new JSONFile(key, url, path, xhrSettings);
+    var json = new JSONFile(loader, key, url, xhrSettings);
 
     //  Override the File type
     json.type = 'animationJSON';
@@ -35859,12 +35912,12 @@ FileTypesManager.register('animation', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new AnimationJSONFile(key[i], url, this.path, xhrSettings));
+            this.addFile(new AnimationJSONFile(this, key[i], url, xhrSettings));
         }
     }
     else
     {
-        this.addFile(new AnimationJSONFile(key, url, this.path, xhrSettings));
+        this.addFile(new AnimationJSONFile(this, key, url, xhrSettings));
     }
 
     //  For method chaining
@@ -35914,10 +35967,10 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
  *
  * @return {object} An object containing two File objects to be added to the loader.
  */
-var AtlasJSONFile = function (key, textureURL, atlasURL, path, textureXhrSettings, atlasXhrSettings)
+var AtlasJSONFile = function (loader, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings)
 {
-    var image = new ImageFile(key, textureURL, path, textureXhrSettings);
-    var data = new JSONFile(key, atlasURL, path, atlasXhrSettings);
+    var image = new ImageFile(loader, key, textureURL, textureXhrSettings);
+    var data = new JSONFile(loader, key, atlasURL, atlasXhrSettings);
 
     //  Link them together
     image.linkFile = data;
@@ -35951,20 +36004,19 @@ var AtlasJSONFile = function (key, textureURL, atlasURL, path, textureXhrSetting
  */
 FileTypesManager.register('atlas', function (key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings)
 {
-
     var files;
 
     // If param key is an object, use object based loading method
     if ((typeof key === 'object') && (key !== null))
     {
-        files = new AtlasJSONFile(key.key, key.texture, key.data, this.path, textureXhrSettings, atlasXhrSettings);
+        files = new AtlasJSONFile(this, key.key, key.texture, key.data, textureXhrSettings, atlasXhrSettings);
     }
 
     // Else just use the parameters like normal
     else
     {
         //  Returns an object with two properties: 'texture' and 'data'
-        files = new AtlasJSONFile(key, textureURL, atlasURL, this.path, textureXhrSettings, atlasXhrSettings);
+        files = new AtlasJSONFile(this, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings);
     }
 
     this.addFile(files.texture);
@@ -36020,7 +36072,7 @@ var AudioFile = new Class({
 
     initialize:
 
-    function AudioFile (key, url, path, xhrSettings, audioContext)
+    function AudioFile (loader, key, url, xhrSettings, audioContext)
     {
         /**
          * [description]
@@ -36033,15 +36085,16 @@ var AudioFile = new Class({
 
         var fileConfig = {
             type: 'audio',
+            cache: loader.cacheManager.audio,
             extension: GetFastValue(url, 'type', ''),
             responseType: 'arraybuffer',
             key: key,
             url: GetFastValue(url, 'uri', url),
-            path: path,
+            path: loader.path,
             xhrSettings: xhrSettings
         };
 
-        File.call(this, fileConfig);
+        File.call(this, loader, fileConfig);
     },
 
     /**
@@ -36106,11 +36159,11 @@ AudioFile.create = function (loader, key, urls, config, xhrSettings)
 
     if (deviceAudio.webAudio && !(audioConfig && audioConfig.disableWebAudio))
     {
-        return new AudioFile(key, url, loader.path, xhrSettings, game.sound.context);
+        return new AudioFile(loader, key, url, xhrSettings, game.sound.context);
     }
     else
     {
-        return new HTML5AudioFile(key, url, loader.path, config);
+        return new HTML5AudioFile(loader, key, url, config);
     }
 };
 
@@ -36343,23 +36396,24 @@ var HTML5AudioFile = new Class({
 
     initialize:
 
-        function HTML5AudioFile (key, url, path, config)
-        {
-            this.locked = 'ontouchstart' in window;
+    function HTML5AudioFile (loader, key, url, config)
+    {
+        this.locked = 'ontouchstart' in window;
 
-            this.loaded = false;
+        this.loaded = false;
 
-            var fileConfig = {
-                type: 'audio',
-                extension: GetFastValue(url, 'type', ''),
-                key: key,
-                url: GetFastValue(url, 'uri', url),
-                path: path,
-                config: config
-            };
+        var fileConfig = {
+            type: 'audio',
+            cache: loader.cacheManager.audio,
+            extension: GetFastValue(url, 'type', ''),
+            key: key,
+            url: GetFastValue(url, 'uri', url),
+            path: loader.path,
+            config: config
+        };
 
-            File.call(this, fileConfig);
-        },
+        File.call(this, loader, fileConfig);
+    },
 
     onLoad: function ()
     {
@@ -36519,22 +36573,23 @@ var ImageFile = new Class({
     // this.load.image({ key: 'bunny' });
     // this.load.image({ key: 'bunny', extension: 'jpg' });
 
-    function ImageFile (key, url, path, xhrSettings, config)
+    function ImageFile (loader, key, url, xhrSettings, config)
     {
         var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
 
         var fileConfig = {
             type: 'image',
+            cache: loader.textureManager,
             extension: GetFastValue(key, 'extension', 'png'),
             responseType: 'blob',
             key: fileKey,
             url: GetFastValue(key, 'file', url),
-            path: path,
+            path: loader.path,
             xhrSettings: GetFastValue(key, 'xhr', xhrSettings),
             config: GetFastValue(key, 'config', config)
         };
 
-        File.call(this, fileConfig);
+        File.call(this, loader, fileConfig);
     },
 
     onProcess: function (callback)
@@ -36566,6 +36621,13 @@ var ImageFile = new Class({
         };
 
         File.createObjectURL(this.data, this.xhrLoader.response, 'image/png');
+    },
+
+    addToCache: function ()
+    {
+        this.cache.addImage(this.key, this.data);
+
+        this.loader.emit('filecomplete', this.key, this);
     }
 
 });
@@ -36602,14 +36664,14 @@ FileTypesManager.register('image', function (key, url, xhrSettings)
 
             if (Array.isArray(urls) && urls.length === 2)
             {
-                fileA = this.addFile(new ImageFile(key[i], urls[0], this.path, xhrSettings));
-                fileB = this.addFile(new ImageFile(key[i], urls[1], this.path, xhrSettings));
+                fileA = this.addFile(new ImageFile(this, key[i], urls[0], xhrSettings));
+                fileB = this.addFile(new ImageFile(this, key[i], urls[1], xhrSettings));
 
                 fileA.setLinkFile(fileB, 'dataimage');
             }
             else
             {
-                this.addFile(new ImageFile(key[i], url, this.path, xhrSettings));
+                this.addFile(new ImageFile(this, key[i], url, xhrSettings));
             }
         }
     }
@@ -36619,14 +36681,14 @@ FileTypesManager.register('image', function (key, url, xhrSettings)
 
         if (Array.isArray(urls) && urls.length === 2)
         {
-            fileA = this.addFile(new ImageFile(key, urls[0], this.path, xhrSettings));
-            fileB = this.addFile(new ImageFile(key, urls[1], this.path, xhrSettings));
+            fileA = this.addFile(new ImageFile(this, key, urls[0], xhrSettings));
+            fileB = this.addFile(new ImageFile(this, key, urls[1], xhrSettings));
 
             fileA.setLinkFile(fileB, 'dataimage');
         }
         else
         {
-            this.addFile(new ImageFile(key, url, this.path, xhrSettings));
+            this.addFile(new ImageFile(this, key, url, xhrSettings));
         }
     }
 
@@ -36681,21 +36743,22 @@ var JSONFile = new Class({
 
     //  url can either be a string, in which case it is treated like a proper url, or an object, in which case it is treated as a ready-made JS Object
 
-    function JSONFile (key, url, path, xhrSettings)
+    function JSONFile (loader, key, url, xhrSettings)
     {
         var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
 
         var fileConfig = {
             type: 'json',
+            cache: loader.cacheManager.json,
             extension: GetFastValue(key, 'extension', 'json'),
             responseType: 'text',
             key: fileKey,
             url: GetFastValue(key, 'file', url),
-            path: path,
+            path: loader.path,
             xhrSettings: GetFastValue(key, 'xhr', xhrSettings)
         };
 
-        File.call(this, fileConfig);
+        File.call(this, loader, fileConfig);
 
         if (typeof fileConfig.url === 'object')
         {
@@ -37130,12 +37193,19 @@ var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/Im
  *
  * @return {object} An object containing two File objects to be added to the loader.
  */
-var SpriteSheetFile = function (key, url, config, path, xhrSettings)
+var SpriteSheetFile = function (loader, key, url, config, xhrSettings)
 {
-    var image = new ImageFile(key, url, path, xhrSettings, config);
+    var image = new ImageFile(loader, key, url, xhrSettings, config);
 
     //  Override the File type
     image.type = 'spritesheet';
+
+    image.addToCache = function ()
+    {
+        this.cache.addSpriteSheet(this.key, this.data, this.config);
+
+        this.loader.emit('filecomplete', this.key, this);
+    }
 
     return image;
 };
@@ -37165,12 +37235,12 @@ FileTypesManager.register('spritesheet', function (key, url, config, xhrSettings
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new SpriteSheetFile(key[i], url, null, this.path, xhrSettings));
+            this.addFile(new SpriteSheetFile(this, key[i], url, null, xhrSettings));
         }
     }
     else
     {
-        this.addFile(new SpriteSheetFile(key, url, config, this.path, xhrSettings));
+        this.addFile(new SpriteSheetFile(this, key, url, config, xhrSettings));
     }
 
     //  For method chaining
@@ -37221,19 +37291,20 @@ var TextFile = new Class({
 
     initialize:
 
-    function TextFile (key, url, path, xhrSettings)
+    function TextFile (loader, key, url, xhrSettings)
     {
         var fileConfig = {
             type: 'text',
+            cache: loader.cacheManager.text,
             extension: 'txt',
             responseType: 'text',
             key: key,
             url: url,
-            path: path,
+            path: loader.path,
             xhrSettings: xhrSettings
         };
 
-        File.call(this, fileConfig);
+        File.call(this, loader, fileConfig);
     },
 
     onProcess: function (callback)
@@ -37273,12 +37344,12 @@ FileTypesManager.register('text', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new TextFile(key[i], url, this.path, xhrSettings));
+            this.addFile(new TextFile(this, key[i], url, xhrSettings));
         }
     }
     else
     {
-        this.addFile(new TextFile(key, url, this.path, xhrSettings));
+        this.addFile(new TextFile(this, key, url, xhrSettings));
     }
 
     //  For method chaining
@@ -37331,21 +37402,22 @@ var XMLFile = new Class({
 
     initialize:
 
-    function XMLFile (key, url, path, xhrSettings)
+    function XMLFile (loader, key, url, xhrSettings)
     {
         var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
 
         var fileConfig = {
             type: 'xml',
+            cache: loader.cacheManager.xml,
             extension: GetFastValue(key, 'extension', 'xml'),
             responseType: 'text',
             key: fileKey,
             url: GetFastValue(key, 'file', url),
-            path: path,
+            path: loader.path,
             xhrSettings: GetFastValue(key, 'xhr', xhrSettings)
         };
 
-        File.call(this, fileConfig);
+        File.call(this, loader, fileConfig);
     },
 
     onProcess: function (callback)
@@ -37390,12 +37462,12 @@ FileTypesManager.register('xml', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new XMLFile(key[i], url, this.path, xhrSettings));
+            this.addFile(new XMLFile(this, key[i], url, xhrSettings));
         }
     }
     else
     {
-        this.addFile(new XMLFile(key, url, this.path, xhrSettings));
+        this.addFile(new XMLFile(this, key, url, xhrSettings));
     }
 
     //  For method chaining
@@ -42774,15 +42846,15 @@ module.exports = {
 module.exports = {
 
     /**
-     * [description]
+     * [pending]
      *
      * @function Phaser.Renderer.WebGL.Utils.getTintFromFloats
      * @since 3.0.0
      * 
-     * @param {number} r - [description]
+     * @param {number} r - [pending] - what's the range?
      * @param {number} g - [description]
      * @param {number} b - [description]
-     * @param {number} a - [description]
+     * @param {number} a - [pending] - what's the range?
      * 
      * @return {number} [description]
      */
@@ -42797,15 +42869,15 @@ module.exports = {
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @function Phaser.Renderer.WebGL.Utils.getTintAppendFloatAlpha
      * @since 3.0.0
      * 
-     * @param {number} rgb - [description]
-     * @param {number} a - [description]
+     * @param {number} rgb - [pending] - what's the range?
+     * @param {number} a - [pending] - what's the range?
      * 
-     * @return {number} [description]
+     * @return {number} [pending]
      */
     getTintAppendFloatAlpha: function (rgb, a)
     {
@@ -42814,15 +42886,15 @@ module.exports = {
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @function Phaser.Renderer.WebGL.Utils.getTintAppendFloatAlphaAndSwap
      * @since 3.0.0
      * 
-     * @param {number} rgb - [description]
-     * @param {number} a - [description]
+     * @param {number} rgb - [pending] - what's the range?
+     * @param {number} a - [pending] - what's the range?
      * 
-     * @return {number} [description]
+     * @return {number} [pending]
      */
     getTintAppendFloatAlphaAndSwap: function (rgb, a)
     {
@@ -42835,14 +42907,14 @@ module.exports = {
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @function Phaser.Renderer.WebGL.Utils.getFloatsFromUintRGB
      * @since 3.0.0
      * 
-     * @param {number} rgb - [description]
+     * @param {number} rgb - [pending]
      * 
-     * @return {number} [description]
+     * @return {number} [pending]
      */
     getFloatsFromUintRGB: function (rgb)
     {
@@ -42854,15 +42926,15 @@ module.exports = {
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @function Phaser.Renderer.WebGL.Utils.getComponentCount
      * @since 3.0.0
      * 
-     * @param {number} attributes - [description]
-     * @param {WebGLRenderingContext} glContext - [description]
+     * @param {number} attributes - [pending]
+     * @param {WebGLRenderingContext} glContext - [pending]
      * 
-     * @return {number} [description]
+     * @return {number} [pending]
      */
     getComponentCount: function (attributes, glContext)
     {
@@ -42909,7 +42981,7 @@ var Utils = __webpack_require__(/*! ./Utils */ "./renderer/webgl/Utils.js");
 
 /**
  * @classdesc
- * [description]
+ * [pending] explain the concept behind the pipelines, what they are and how they work.
  *
  * @class WebGLPipeline
  * @memberOf Phaser.Renderer.WebGL
@@ -42925,7 +42997,7 @@ var WebGLPipeline = new Class({
     function WebGLPipeline (config)
     {
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#name
          * @type {string}
@@ -42952,7 +43024,7 @@ var WebGLPipeline = new Class({
         this.view = config.game.canvas;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#resolution
          * @type {number}
@@ -42961,7 +43033,7 @@ var WebGLPipeline = new Class({
         this.resolution = config.game.config.resolution;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#width
          * @type {number}
@@ -42970,7 +43042,7 @@ var WebGLPipeline = new Class({
         this.width = config.game.config.width * this.resolution;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#height
          * @type {number}
@@ -42988,7 +43060,7 @@ var WebGLPipeline = new Class({
         this.gl = config.gl;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexCount
          * @type {number}
@@ -42998,7 +43070,7 @@ var WebGLPipeline = new Class({
         this.vertexCount = 0;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexCapacity
          * @type {integer}
@@ -43016,7 +43088,7 @@ var WebGLPipeline = new Class({
         this.renderer = config.renderer;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexData
          * @type {ArrayBuffer}
@@ -43025,7 +43097,7 @@ var WebGLPipeline = new Class({
         this.vertexData = (config.vertices ? config.vertices : new ArrayBuffer(config.vertexCapacity * config.vertexSize));
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexBuffer
          * @type {WebGLBuffer}
@@ -43034,7 +43106,7 @@ var WebGLPipeline = new Class({
         this.vertexBuffer = this.renderer.createVertexBuffer((config.vertices ? config.vertices : this.vertexData.byteLength), this.gl.STREAM_DRAW);
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#program
          * @type {WebGLProgram}
@@ -43043,7 +43115,7 @@ var WebGLPipeline = new Class({
         this.program = this.renderer.createProgram(config.vertShader, config.fragShader);
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#attributes
          * @type {object}
@@ -43052,7 +43124,7 @@ var WebGLPipeline = new Class({
         this.attributes = config.attributes;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexSize
          * @type {integer}
@@ -43061,7 +43133,7 @@ var WebGLPipeline = new Class({
         this.vertexSize = config.vertexSize;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#topology
          * @type {integer}
@@ -43070,7 +43142,7 @@ var WebGLPipeline = new Class({
         this.topology = config.topology;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#bytes
          * @type {Uint8Array}
@@ -43099,16 +43171,16 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#addAttribute
      * @since 3.2.0
      *
-     * @param {string} name - [description]
-     * @param {integer} size - [description]
-     * @param {integer} type - [description]
-     * @param {boolean} normalized - [description]
-     * @param {integer} offset - [description]
+     * @param {string} name - [pending]
+     * @param {integer} size - [pending]
+     * @param {integer} type - [pending]
+     * @param {boolean} normalized - [pending]
+     * @param {integer} offset - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -43126,7 +43198,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#shouldFlush
      * @since 3.0.0
@@ -43139,7 +43211,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#resize
      * @since 3.0.0
@@ -43158,7 +43230,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#bind
      * @since 3.0.0
@@ -43256,7 +43328,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#flush
      * @since 3.0.0
@@ -43368,16 +43440,16 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setFloat4
      * @since 3.2.0
      *
-     * @param {string} name - [description]
-     * @param {float} x - [description]
-     * @param {float} y - [description]
-     * @param {float} z - [description]
-     * @param {float} w - [description]
+     * @param {string} name - [pending]
+     * @param {float} x - [pending]
+     * @param {float} y - [pending]
+     * @param {float} z - [pending]
+     * @param {float} w - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -43443,16 +43515,16 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setInt4
      * @since 3.2.0
      *
-     * @param {string} name - [description]
-     * @param {integer} x - [description]
-     * @param {integer} y - [description]
-     * @param {integer} z - [description]
-     * @param {integer} w - [description]
+     * @param {string} name - [pending]
+     * @param {integer} x - [pending]
+     * @param {integer} y - [pending]
+     * @param {integer} z - [pending]
+     * @param {integer} w - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -43504,9 +43576,9 @@ var WebGLPipeline = new Class({
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setMatrix4
      * @since 3.2.0
      *
-     * @param {string} name - [description]
-     * @param {boolean} transpose - [description]
-     * @param {Float32Array} matrix - [description]
+     * @param {string} name - [pending]
+     * @param {boolean} transpose - [pending]
+     * @param {Float32Array} matrix - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -43566,7 +43638,7 @@ var TextureTintPipeline = __webpack_require__(/*! ./pipelines/TextureTintPipelin
 
 /**
  * @classdesc
- * [description]
+ * [pending] - explain the core concept and philosophy behind how the renderer works.
  *
  * @class WebGLRenderer
  * @memberOf Phaser.Renderer.WebGL
@@ -43688,7 +43760,7 @@ var WebGLRenderer = new Class({
         this.blendModes = [];
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#nativeTextures
          * @type {array}
@@ -43708,7 +43780,7 @@ var WebGLRenderer = new Class({
         this.contextLost = false;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#pipelines
          * @type {object}
@@ -43733,7 +43805,7 @@ var WebGLRenderer = new Class({
         // Internal Renderer State (Textures, Framebuffers, Pipelines, Buffers, etc)
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentActiveTextureUnit
          * @type {integer}
@@ -43742,7 +43814,7 @@ var WebGLRenderer = new Class({
         this.currentActiveTextureUnit = 0;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentTextures
          * @type {array}
@@ -43751,7 +43823,7 @@ var WebGLRenderer = new Class({
         this.currentTextures = new Array(16);
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentFramebuffer
          * @type {WebGLFramebuffer}
@@ -43761,7 +43833,7 @@ var WebGLRenderer = new Class({
         this.currentFramebuffer = null;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentPipeline
          * @type {Phaser.Renderer.WebGL.WebGLPipeline}
@@ -43771,7 +43843,7 @@ var WebGLRenderer = new Class({
         this.currentPipeline = null;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentProgram
          * @type {WebGLProgram}
@@ -43781,7 +43853,7 @@ var WebGLRenderer = new Class({
         this.currentProgram = null;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentVertexBuffer
          * @type {WebGLBuffer}
@@ -43791,7 +43863,7 @@ var WebGLRenderer = new Class({
         this.currentVertexBuffer = null;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentIndexBuffer
          * @type {WebGLBuffer}
@@ -43801,7 +43873,7 @@ var WebGLRenderer = new Class({
         this.currentIndexBuffer = null;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentBlendMode
          * @type {integer}
@@ -43810,7 +43882,7 @@ var WebGLRenderer = new Class({
         this.currentBlendMode = Infinity;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentScissorEnabled
          * @type {boolean}
@@ -43820,7 +43892,7 @@ var WebGLRenderer = new Class({
         this.currentScissorEnabled = false;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentScissor
          * @type {Uint32Array}
@@ -43829,7 +43901,7 @@ var WebGLRenderer = new Class({
         this.currentScissor = new Uint32Array([ 0, 0, this.width, this.height ]);
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentScissorIdx
          * @type {number}
@@ -43839,7 +43911,7 @@ var WebGLRenderer = new Class({
         this.currentScissorIdx = 0;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#scissorStack
          * @type {Uint32Array}
@@ -43872,7 +43944,7 @@ var WebGLRenderer = new Class({
             }
         }, false);
 
-        // This are initialized post context creation
+        // These are initialized post context creation
 
         /**
          * [description]
@@ -43885,7 +43957,7 @@ var WebGLRenderer = new Class({
         this.gl = null;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#supportedExtensions
          * @type {object}
@@ -43895,7 +43967,7 @@ var WebGLRenderer = new Class({
         this.supportedExtensions = null;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#extensions
          * @type {object}
@@ -43905,7 +43977,7 @@ var WebGLRenderer = new Class({
         this.extensions = {};
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#glFormats
          * @type {array}
@@ -43918,7 +43990,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#init
      * @since 3.0.0
@@ -44065,12 +44137,12 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#hasExtension
      * @since 3.0.0
      *
-     * @param {string} extensionName - [description]
+     * @param {string} extensionName - [pending]
      *
      * @return {boolean} [description]
      */
@@ -44080,14 +44152,14 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#getExtension
      * @since 3.0.0
      *
      * @param {string} extensionName - [description]
      *
-     * @return {object} [description]
+     * @return {object} [pending]
      */
     getExtension: function (extensionName)
     {
@@ -44102,7 +44174,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#flush
      * @since 3.0.0
@@ -44118,12 +44190,12 @@ var WebGLRenderer = new Class({
     /* Renderer State Manipulation Functions */
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#hasPipeline
      * @since 3.0.0
      *
-     * @param {string} pipelineName - [description]
+     * @param {string} pipelineName - [pending]
      *
      * @return {boolean} [description]
      */
@@ -44133,7 +44205,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#getPipeline
      * @since 3.0.0
@@ -44148,7 +44220,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#removePipeline
      * @since 3.0.0
@@ -44165,15 +44237,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#addPipeline
      * @since 3.0.0
      *
      * @param {string} pipelineName - [description]
-     * @param {Phaser.Renderer.WebGL.WebGLPipeline} pipelineInstance - [description]
+     * @param {Phaser.Renderer.WebGL.WebGLPipeline} pipelineInstance - [pending]
      *
-     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [pending]
      */
     addPipeline: function (pipelineName, pipelineInstance)
     {
@@ -44194,7 +44266,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setScissor
      * @since 3.0.0
@@ -44241,7 +44313,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending] - what's the difference between addScissor and pushScissor?
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#pushScissor
      * @since 3.0.0
@@ -44271,7 +44343,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#popScissor
      * @since 3.0.0
@@ -44295,7 +44367,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setPipeline
      * @since 3.0.0
@@ -44424,13 +44496,13 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setTexture2D
      * @since 3.0.0
      *
-     * @param {WebGLTexture} texture - [description]
-     * @param {integer} textureUnit - [description]
+     * @param {WebGLTexture} texture - [pending]
+     * @param {integer} textureUnit - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44458,12 +44530,12 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setFramebuffer
      * @since 3.0.0
      *
-     * @param {WebGLFramebuffer} framebuffer - [description]
+     * @param {WebGLFramebuffer} framebuffer - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44484,12 +44556,12 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setProgram
      * @since 3.0.0
      *
-     * @param {WebGLProgram} program - [description]
+     * @param {WebGLProgram} program - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44510,12 +44582,12 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setVertexBuffer
      * @since 3.0.0
      *
-     * @param {WebGLBuffer} vertexBuffer - [description]
+     * @param {WebGLBuffer} vertexBuffer - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44536,12 +44608,12 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setIndexBuffer
      * @since 3.0.0
      *
-     * @param {WebGLBuffer} indexBuffer - [description]
+     * @param {WebGLBuffer} indexBuffer - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44564,7 +44636,7 @@ var WebGLRenderer = new Class({
     /* Renderer Resource Creation Functions */
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createTextureFromSource
      * @since 3.0.0
@@ -44613,23 +44685,23 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createTexture2D
      * @since 3.0.0
      *
-     * @param {integer} mipLevel - [description]
-     * @param {integer} minFilter - [description]
-     * @param {integer} magFilter - [description]
-     * @param {integer} wrapT - [description]
-     * @param {integer} wrapS - [description]
-     * @param {integer} format - [description]
-     * @param {object} pixels - [description]
-     * @param {integer} width - [description]
-     * @param {integer} height - [description]
-     * @param {boolean} pma - [description]
+     * @param {integer} mipLevel - [pending]
+     * @param {integer} minFilter - [pending]
+     * @param {integer} magFilter - [pending]
+     * @param {integer} wrapT - [pending]
+     * @param {integer} wrapS - [pending]
+     * @param {integer} format - [pending]
+     * @param {object} pixels - [pending]
+     * @param {integer} width - [pending]
+     * @param {integer} height - [pending]
+     * @param {boolean} pma - [pending]
      *
-     * @return {WebGLTexture} [description]
+     * @return {WebGLTexture} [pending]
      */
     createTexture2D: function (mipLevel, minFilter, magFilter, wrapT, wrapS, format, pixels, width, height, pma)
     {
@@ -44670,17 +44742,17 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createFramebuffer
      * @since 3.0.0
      *
-     * @param {integer} width - [description]
-     * @param {integer} height - [description]
-     * @param {WebGLFramebuffer} renderTexture - [description]
-     * @param {boolean} addDepthStencilBuffer - [description]
+     * @param {integer} width - [pending]
+     * @param {integer} height - [pending]
+     * @param {WebGLFramebuffer} renderTexture - [pending]
+     * @param {boolean} addDepthStencilBuffer - [pending]
      *
-     * @return {WebGLFramebuffer} [description]
+     * @return {WebGLFramebuffer} [pending]
      */
     createFramebuffer: function (width, height, renderTexture, addDepthStencilBuffer)
     {
@@ -44725,15 +44797,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createProgram
      * @since 3.0.0
      *
-     * @param {string} vertexShader - [description]
-     * @param {string} fragmentShader - [description]
+     * @param {string} vertexShader - [pending]
+     * @param {string} fragmentShader - [pending]
      *
-     * @return {WebGLProgram} [description]
+     * @return {WebGLProgram} [pending]
      */
     createProgram: function (vertexShader, fragmentShader)
     {
@@ -44769,15 +44841,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createVertexBuffer
      * @since 3.0.0
      *
-     * @param {ArrayBuffer} initialDataOrSize - [description]
-     * @param {integer} bufferUsage - [description]
+     * @param {ArrayBuffer} initialDataOrSize - [pending]
+     * @param {integer} bufferUsage - [pending]
      *
-     * @return {WebGLBuffer} [description]
+     * @return {WebGLBuffer} [pending]
      */
     createVertexBuffer: function (initialDataOrSize, bufferUsage)
     {
@@ -44794,15 +44866,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createIndexBuffer
      * @since 3.0.0
      *
-     * @param {ArrayBuffer} initialDataOrSize - [description]
-     * @param {integer} bufferUsage - [description]
+     * @param {ArrayBuffer} initialDataOrSize - [pending]
+     * @param {integer} bufferUsage - [pending]
      *
-     * @return {WebGLBuffer} [description]
+     * @return {WebGLBuffer} [pending]
      */
     createIndexBuffer: function (initialDataOrSize, bufferUsage)
     {
@@ -44843,7 +44915,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#deleteFramebuffer
      * @since 3.0.0
@@ -44877,7 +44949,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#deleteBuffer
      * @since 3.0.0
@@ -44896,7 +44968,7 @@ var WebGLRenderer = new Class({
     /* Rendering Functions */
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#preRenderCamera
      * @since 3.0.0
@@ -44933,7 +45005,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#postRenderCamera
      * @since 3.0.0
@@ -45222,17 +45294,17 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setFloat4
      * @since 3.0.0
      *
-     * @param {WebGLProgram} program - [description]
-     * @param {string} name - [description]
-     * @param {float} x - [description]
-     * @param {float} y - [description]
-     * @param {float} z - [description]
-     * @param {float} w - [description]
+     * @param {WebGLProgram} program - [pending]
+     * @param {string} name - [pending]
+     * @param {float} x - [pending]
+     * @param {float} y - [pending]
+     * @param {float} z - [pending]
+     * @param {float} w - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -45312,17 +45384,17 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setInt4
      * @since 3.0.0
      *
-     * @param {WebGLProgram} program - [description]
-     * @param {string} name - [description]
-     * @param {integer} x - [description]
-     * @param {integer} y - [description]
-     * @param {integer} z - [description]
-     * @param {integer} w - [description]
+     * @param {WebGLProgram} program - [pending]
+     * @param {string} name - [pending]
+     * @param {integer} x - [pending]
+     * @param {integer} y - [pending]
+     * @param {integer} z - [pending]
+     * @param {integer} w - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -45380,15 +45452,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setMatrix4
      * @since 3.0.0
      *
-     * @param {WebGLProgram} program - [description]
-     * @param {string} name - [description]
-     * @param {boolean} transpose - [description]
-     * @param {Float32Array} matrix - [description]
+     * @param {WebGLProgram} program - [pending]
+     * @param {string} name - [pending]
+     * @param {boolean} transpose - [pending]
+     * @param {Float32Array} matrix - [pending]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -45496,7 +45568,17 @@ var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webg
 
 /**
  * @classdesc
- * [description]
+ * BitmapMaskPipeline handles all bitmap masking rendering in WebGL. It works by using 
+ * sampling two texture on the fragment shader and using the fragment's alpha to clip the region.
+ * The config properties are:
+ * - game: Current game instance.
+ * - renderer: Current WebGL renderer.
+ * - topology: This indicates how the primitives are rendered. The default value is GL_TRIANGLES.
+ *              Here is the full list of rendering primitives (https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants).
+ * - vertShader: Source for vertex shader as a string.
+ * - fragShader: Source for fragment shader as a string.
+ * - vertexCapacity: The amount of vertices that shall be allocated
+ * - vertexSize: The size of a single vertex in bytes.
  *
  * @class BitmapMaskPipeline
  * @extends Phaser.Renderer.WebGL.WebGLPipeline
@@ -45504,7 +45586,7 @@ var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webg
  * @constructor
  * @since 3.0.0
  *
- * @param {object} config - [description]
+ * @param {object} config - Used for overriding shader an pipeline properties if extending this pipeline.
  */
 var BitmapMaskPipeline = new Class({
 
@@ -45542,7 +45624,7 @@ var BitmapMaskPipeline = new Class({
         });
 
         /**
-         * [description]
+         * Float32 view of the array buffer containing the pipeline's vertices.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#vertexViewF32
          * @type {Float32Array}
@@ -45551,7 +45633,7 @@ var BitmapMaskPipeline = new Class({
         this.vertexViewF32 = new Float32Array(this.vertexData);
 
         /**
-         * [description]
+         * Size of the batch.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#maxQuads
          * @type {number}
@@ -45561,7 +45643,8 @@ var BitmapMaskPipeline = new Class({
         this.maxQuads = 1;
 
         /**
-         * [description]
+         * Dirty flag to check if resolution properties need to be updated on the 
+         * masking shader.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#resolutionDirty
          * @type {boolean}
@@ -45572,7 +45655,8 @@ var BitmapMaskPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Called every time the pipeline needs to be used.
+     * It binds all necessary resources.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#onBind
      * @since 3.0.0
@@ -45617,13 +45701,14 @@ var BitmapMaskPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Binds necessary resources and renders the mask to a separated framebuffer.
+     * The framebuffer for the masked object is also bound for further use.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#beginMask
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} mask - [description]
-     * @param {Phaser.GameObjects.GameObject} maskedObject - [description]
+     * @param {Phaser.GameObjects.GameObject} mask - GameObject used as mask.
+     * @param {Phaser.GameObjects.GameObject} maskedObject - GameObject masked by the mask GameObject.
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
      */
     beginMask: function (mask, maskedObject, camera)
@@ -45654,12 +45739,15 @@ var BitmapMaskPipeline = new Class({
     },
 
     /**
-     * [description]
+     * The masked game object's framebuffer is unbound and it's texture 
+     * is bound together with the mask texture and the mask shader and 
+     * a draw call with a single quad is processed. Here is where the
+     * masking effect is applied.  
      *
      * @method Phaser.Renderer.WebGL.Pipelines.BitmapMaskPipeline#endMask
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} mask - [description]
+     * @param {Phaser.GameObjects.GameObject} mask - GameObject used as a mask.
      */
     endMask: function (mask)
     {
@@ -45737,7 +45825,17 @@ var pathArray = [];
 
 /**
  * @classdesc
- * [description]
+ * The FlatTintPipeline is used for rendering flat colored shapes. 
+ * Mostyle used by the Graphics game object.
+ * The config properties are:
+ * - game: Current game instance.
+ * - renderer: Current WebGL renderer.
+ * - topology: This indicates how the primitives are rendered. The default value is GL_TRIANGLES.
+ *              Here is the full list of rendering primitives (https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants).
+ * - vertShader: Source for vertex shader as a string.
+ * - fragShader: Source for fragment shader as a string.
+ * - vertexCapacity: The amount of vertices that shall be allocated
+ * - vertexSize: The size of a single vertex in bytes.
  *
  * @class FlatTintPipeline
  * @extends Phaser.Renderer.WebGL.WebGLPipeline
@@ -45745,7 +45843,7 @@ var pathArray = [];
  * @constructor
  * @since 3.0.0
  *
- * @param {object} config - [description]
+ * @param {object} config - Used for overriding shader an pipeline properties if extending this pipeline.
  */
 var FlatTintPipeline = new Class({
 
@@ -45791,7 +45889,7 @@ var FlatTintPipeline = new Class({
         });
 
         /**
-         * [description]
+         * Float32 view of the array buffer containing the pipeline's vertices.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#vertexViewF32
          * @type {Float32Array}
@@ -45800,7 +45898,7 @@ var FlatTintPipeline = new Class({
         this.vertexViewF32 = new Float32Array(this.vertexData);
 
         /**
-         * [description]
+         * Uint32 view of the array buffer containing the pipeline's vertices.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#vertexViewU32
          * @type {Uint32Array}
@@ -45809,7 +45907,7 @@ var FlatTintPipeline = new Class({
         this.vertexViewU32 = new Uint32Array(this.vertexData);
 
         /**
-         * [description]
+         * Used internally to draw triangles
          *
          * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#tempTriangle
          * @type {array}
@@ -45823,7 +45921,7 @@ var FlatTintPipeline = new Class({
         ];
 
         /**
-         * [description]
+         * Used internally by for triangulating a polyong
          *
          * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#polygonCache
          * @type {array}
@@ -45872,29 +45970,29 @@ var FlatTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Pushes a rectangle into the vertex batch
      *
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillRect
      * @since 3.0.0
      *
-     * @param {float} srcX - [description]
-     * @param {float} srcY - [description]
-     * @param {float} srcScaleX - [description]
-     * @param {float} srcScaleY - [description]
-     * @param {float} srcRotation - [description]
-     * @param {float} x - [description]
-     * @param {float} y - [description]
-     * @param {float} width - [description]
-     * @param {float} height - [description]
-     * @param {integer} fillColor - [description]
-     * @param {float} fillAlpha - [description]
-     * @param {float} a1 - [description]
-     * @param {float} b1 - [description]
-     * @param {float} c1 - [description]
-     * @param {float} d1 - [description]
-     * @param {float} e1 - [description]
-     * @param {float} f1 - [description]
-     * @param {Float32Array} currentMatrix - [description]
+     * @param {float} srcX - Graphics horizontal component for translation
+     * @param {float} srcY - Graphics vertical component for translation
+     * @param {float} srcScaleX - Graphics horizontal component for scale
+     * @param {float} srcScaleY - Graphics vertical component for scale
+     * @param {float} srcRotation - Graphics rotation
+     * @param {float} x - Horiztonal top left coordinate of the rectangle
+     * @param {float} y - Vertical top left coordinate of the rectangle
+     * @param {float} width - Width of the rectangle
+     * @param {float} height - Height of the rectangle
+     * @param {integer} fillColor - RGB color packed as a uint
+     * @param {float} fillAlpha - Alpha represented as float
+     * @param {float} a1 - Matrix stack top a component
+     * @param {float} b1 - Matrix stack top b component
+     * @param {float} c1 - Matrix stack top c component
+     * @param {float} d1 - Matrix stack top d component
+     * @param {float} e1 - Matrix stack top e component
+     * @param {float} f1 - Matrix stack top f component
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchFillRect: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x, y, width, height, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
     {
@@ -45960,26 +46058,26 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillTriangle
      * @since 3.0.0
      *
-     * @param {float} srcX - [description]
-     * @param {float} srcY - [description]
-     * @param {float} srcScaleX - [description]
-     * @param {float} srcScaleY - [description]
-     * @param {float} srcRotation - [description]
-     * @param {float} x0 - [description]
-     * @param {float} y0 - [description]
-     * @param {float} x1 - [description]
-     * @param {float} y1 - [description]
-     * @param {float} x2 - [description]
-     * @param {float} y2 - [description]
-     * @param {integer} fillColor - [description]
-     * @param {float} fillAlpha - [description]
-     * @param {float} a1 - [description]
-     * @param {float} b1 - [description]
-     * @param {float} c1 - [description]
-     * @param {float} d1 - [description]
-     * @param {float} e1 - [description]
-     * @param {float} f1 - [description]
-     * @param {Float32Array} currentMatrix - [description]
+     * @param {float} srcX - Graphics horizontal component for translation
+     * @param {float} srcY - Graphics vertical component for translation
+     * @param {float} srcScaleX - Graphics horizontal component for scale
+     * @param {float} srcScaleY - Graphics vertical component for scale
+     * @param {float} srcRotation - Graphics rotation
+     * @param {float} x0 - Point 0 x coordinate
+     * @param {float} y0 - Point 0 y coordinate
+     * @param {float} x1 - Point 1 x coordinate
+     * @param {float} y1 - Point 1 y coordinate
+     * @param {float} x2 - Point 2 x coordinate
+     * @param {float} y2 - Point 2 y coordinate
+     * @param {integer} fillColor - RGB color packed as a uint
+     * @param {float} fillAlpha - Alpha represented as float
+     * @param {float} a1 - Matrix stack top a component
+     * @param {float} b1 - Matrix stack top b component
+     * @param {float} c1 - Matrix stack top c component
+     * @param {float} d1 - Matrix stack top d component
+     * @param {float} e1 - Matrix stack top e component
+     * @param {float} f1 - Matrix stack top f component
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchFillTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
     {
@@ -46032,27 +46130,27 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokeTriangle
      * @since 3.0.0
      *
-     * @param {float} srcX - [description]
-     * @param {float} srcY - [description]
-     * @param {float} srcScaleX - [description]
-     * @param {float} srcScaleY - [description]
-     * @param {float} srcRotation - [description]
+     * @param {float} srcX - Graphics horizontal component for translation
+     * @param {float} srcY - Graphics vertical component for translation
+     * @param {float} srcScaleX - Graphics horizontal component for scale
+     * @param {float} srcScaleY - Graphics vertical component for scale
+     * @param {float} srcRotation - Graphics rotation
      * @param {float} x0 - [description]
      * @param {float} y0 - [description]
      * @param {float} x1 - [description]
      * @param {float} y1 - [description]
      * @param {float} x2 - [description]
      * @param {float} y2 - [description]
-     * @param {float} lineWidth - [description]
-     * @param {integer} lineColor - [description]
-     * @param {float} lineAlpha - [description]
-     * @param {float} a - [description]
-     * @param {float} b - [description]
-     * @param {float} c - [description]
-     * @param {float} d - [description]
-     * @param {float} e - [description]
-     * @param {float} f - [description]
-     * @param {Float32Array} currentMatrix - [description]
+     * @param {float} lineWidth - Size of the line as a float value
+     * @param {integer} lineColor - RGB color packed as a uint
+     * @param {float} lineAlpha - Alpha represented as float
+     * @param {float} a - Matrix stack top a component
+     * @param {float} b - Matrix stack top b component
+     * @param {float} c - Matrix stack top c component
+     * @param {float} d - Matrix stack top d component
+     * @param {float} e - Matrix stack top e component
+     * @param {float} f - Matrix stack top f component
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchStrokeTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, currentMatrix)
     {
@@ -46094,21 +46192,21 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillPath
      * @since 3.0.0
      *
-     * @param {float} srcX - [description]
-     * @param {float} srcY - [description]
-     * @param {float} srcScaleX - [description]
-     * @param {float} srcScaleY - [description]
-     * @param {float} srcRotation - [description]
-     * @param {float} path - [description]
-     * @param {integer} fillColor - [description]
-     * @param {float} fillAlpha - [description]
-     * @param {float} a1 - [description]
-     * @param {float} b1 - [description]
-     * @param {float} c1 - [description]
-     * @param {float} d1 - [description]
-     * @param {float} e1 - [description]
-     * @param {float} f1 - [description]
-     * @param {Float32Array} currentMatrix - [description]
+     * @param {float} srcX - Graphics horizontal component for translation
+     * @param {float} srcY - Graphics vertical component for translation
+     * @param {float} srcScaleX - Graphics horizontal component for scale
+     * @param {float} srcScaleY - Graphics vertical component for scale
+     * @param {float} srcRotation - Graphics rotation
+     * @param {float} path - Collection of points that represent the path
+     * @param {integer} fillColor - RGB color packed as a uint
+     * @param {float} fillAlpha - Alpha represented as float
+     * @param {float} a1 - Matrix stack top a component
+     * @param {float} b1 - Matrix stack top b component
+     * @param {float} c1 - Matrix stack top c component
+     * @param {float} d1 - Matrix stack top d component
+     * @param {float} e1 - Matrix stack top e component
+     * @param {float} f1 - Matrix stack top f component
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchFillPath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
     {
@@ -46196,23 +46294,23 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokePath
      * @since 3.0.0
      *
-     * @param {float} srcX - [description]
-     * @param {float} srcY - [description]
-     * @param {float} srcScaleX - [description]
-     * @param {float} srcScaleY - [description]
-     * @param {float} srcRotation - [description]
+     * @param {float} srcX - Graphics horizontal component for translation
+     * @param {float} srcY - Graphics vertical component for translation
+     * @param {float} srcScaleX - Graphics horizontal component for scale
+     * @param {float} srcScaleY - Graphics vertical component for scale
+     * @param {float} srcRotation - Graphics rotation
      * @param {array} path - [description]
      * @param {float} lineWidth - [description]
-     * @param {integer} lineColor - [description]
-     * @param {float} lineAlpha - [description]
-     * @param {float} a - [description]
-     * @param {float} b - [description]
-     * @param {float} c - [description]
-     * @param {float} d - [description]
-     * @param {float} e - [description]
-     * @param {float} f - [description]
-     * @param {boolean} isLastPath - [description]
-     * @param {Float32Array} currentMatrix - [description]
+     * @param {integer} lineColor - RGB color packed as a uint
+     * @param {float} lineAlpha - Alpha represented as float
+     * @param {float} a - Matrix stack top a component
+     * @param {float} b - Matrix stack top b component
+     * @param {float} c - Matrix stack top c component
+     * @param {float} d - Matrix stack top d component
+     * @param {float} e - Matrix stack top e component
+     * @param {float} f - Matrix stack top f component
+     * @param {boolean} isLastPath - Indicates if the path should be closed
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchStrokePath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, isLastPath, currentMatrix)
     {
@@ -46289,27 +46387,27 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchLine
      * @since 3.0.0
      *
-     * @param {float} srcX - [description]
-     * @param {float} srcY - [description]
-     * @param {float} srcScaleX - [description]
-     * @param {float} srcScaleY - [description]
-     * @param {float} srcRotation - [description]
-     * @param {float} ax - [description]
-     * @param {float} ay - [description]
-     * @param {float} bx - [description]
-     * @param {float} by - [description]
-     * @param {float} aLineWidth - [description]
-     * @param {float} bLineWidth - [description]
-     * @param {integer} aLineColor - [description]
-     * @param {integer} bLineColor - [description]
-     * @param {float} lineAlpha - [description]
-     * @param {float} a1 - [description]
-     * @param {float} b1 - [description]
-     * @param {float} c1 - [description]
-     * @param {float} d1 - [description]
-     * @param {float} e1 - [description]
-     * @param {float} f1 - [description]
-     * @param {Float32Array} currentMatrix - [description]
+     * @param {float} srcX - Graphics horizontal component for translation
+     * @param {float} srcY - Graphics vertical component for translation
+     * @param {float} srcScaleX - Graphics horizontal component for scale
+     * @param {float} srcScaleY - Graphics vertical component for scale
+     * @param {float} srcRotation - Graphics rotation
+     * @param {float} ax - X coordinate to the start of the line
+     * @param {float} ay - Y coordinate to the start of the line
+     * @param {float} bx - X coordinate to the end of the line
+     * @param {float} by - Y coordinate to the end of the line
+     * @param {float} aLineWidth - Width of the start of the line
+     * @param {float} bLineWidth - Width of the end of the line
+     * @param {integer} aLineColor - RGB color packed as a uint
+     * @param {integer} bLineColor - RGB color packed as a uint
+     * @param {float} lineAlpha - Alpha represented as float
+     * @param {float} a1 - Matrix stack top a component
+     * @param {float} b1 - Matrix stack top b component
+     * @param {float} c1 - Matrix stack top c component
+     * @param {float} d1 - Matrix stack top d component
+     * @param {float} e1 - Matrix stack top e component
+     * @param {float} f1 - Matrix stack top f component
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchLine: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, ax, ay, bx, by, aLineWidth, bLineWidth, aLineColor, bLineColor, lineAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
     {
@@ -46990,7 +47088,9 @@ var LIGHT_COUNT = 10;
 
 /**
  * @classdesc
- * [description]
+ * ForwardDiffuseLightPipeline implements a forward rendering approach for 2D lights.
+ * This pipeline extends TextureTintPipeline so it implements all it's rendering functions
+ * and batching system.
  *
  * @class ForwardDiffuseLightPipeline
  * @extends Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline
@@ -47014,7 +47114,7 @@ var ForwardDiffuseLightPipeline = new Class({
     },
 
     /**
-     * [description]
+     * This function binds it's base class resources and this lights 2D resources.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#onBind
      * @override
@@ -47038,7 +47138,7 @@ var ForwardDiffuseLightPipeline = new Class({
     },
 
     /**
-     * [description]
+     * This function sets all the needed resources for each camera pass.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#onRender
      * @since 3.0.0
@@ -47410,7 +47510,7 @@ var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webg
 
 /**
  * @classdesc
- * [description]
+ * [pending] - especially explain the config properties please
  *
  * @class TextureTintPipeline
  * @extends Phaser.Renderer.WebGL.WebGLPipeline
@@ -47472,7 +47572,7 @@ var TextureTintPipeline = new Class({
         });
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#vertexViewF32
          * @type {Float32Array}
@@ -47481,7 +47581,7 @@ var TextureTintPipeline = new Class({
         this.vertexViewF32 = new Float32Array(this.vertexData);
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#vertexViewU32
          * @type {Uint32Array}
@@ -47490,7 +47590,7 @@ var TextureTintPipeline = new Class({
         this.vertexViewU32 = new Uint32Array(this.vertexData);
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#maxQuads
          * @type {integer}
@@ -47500,7 +47600,7 @@ var TextureTintPipeline = new Class({
         this.maxQuads = 2000;
 
         /**
-         * [description]
+         * [pending]
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batches
          * @type {array}
@@ -47512,13 +47612,13 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#setTexture2D
      * @since 3.1.0
      *
-     * @param {WebGLTexture} texture - [description]
-     * @param {integer} textureUnit - [description]
+     * @param {WebGLTexture} texture - [pending]
+     * @param {integer} textureUnit - [pending]
      *
      * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} [description]
      */
@@ -47563,7 +47663,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#pushBatch
      * @since 3.1.0
@@ -47580,7 +47680,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#flush
      * @since 3.1.0
@@ -47680,7 +47780,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#onBind
      * @since 3.0.0
@@ -47721,7 +47821,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawStaticTilemapLayer
      * @since 3.0.0
@@ -47757,7 +47857,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawEmitterManager
      * @since 3.0.0
@@ -47973,7 +48073,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawBlitter
      * @since 3.0.0
@@ -48133,7 +48233,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchSprite
      * @since 3.0.0
@@ -48306,7 +48406,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchMesh
      * @since 3.0.0
@@ -48437,7 +48537,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchBitmapText
      * @since 3.0.0
@@ -48714,7 +48814,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicBitmapText
      * @since 3.0.0
@@ -49064,7 +49164,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchText
      * @since 3.0.0
@@ -49100,7 +49200,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicTilemapLayer
      * @since 3.0.0
@@ -49158,7 +49258,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTileSprite
      * @since 3.0.0
@@ -49195,40 +49295,40 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * [pending]
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} gameObject - [description]
-     * @param {WebGLTexture} texture - [description]
-     * @param {integer} textureWidth - [description]
-     * @param {integer} textureHeight - [description]
-     * @param {float} srcX - [description]
-     * @param {float} srcY - [description]
-     * @param {float} srcWidth - [description]
-     * @param {float} srcHeight - [description]
-     * @param {float} scaleX - [description]
-     * @param {float} scaleY - [description]
-     * @param {float} rotation - [description]
-     * @param {boolean} flipX - [description]
-     * @param {boolean} flipY - [description]
-     * @param {float} scrollFactorX - [description]
-     * @param {float} scrollFactorY - [description]
-     * @param {float} displayOriginX - [description]
-     * @param {float} displayOriginY - [description]
-     * @param {float} frameX - [description]
-     * @param {float} frameY - [description]
-     * @param {float} frameWidth - [description]
-     * @param {float} frameHeight - [description]
-     * @param {integer} tintTL - [description]
-     * @param {integer} tintTR - [description]
-     * @param {integer} tintBL - [description]
-     * @param {integer} tintBR - [description]
-     * @param {float} uOffset - [description]
-     * @param {float} vOffset - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
+     * @param {Phaser.GameObjects.GameObject} gameObject - [pending]
+     * @param {WebGLTexture} texture - [pending]
+     * @param {integer} textureWidth - [pending]
+     * @param {integer} textureHeight - [pending]
+     * @param {float} srcX - [pending]
+     * @param {float} srcY - [pending]
+     * @param {float} srcWidth - [pending]
+     * @param {float} srcHeight - [pending]
+     * @param {float} scaleX - [pending]
+     * @param {float} scaleY - [pending]
+     * @param {float} rotation - [pending]
+     * @param {boolean} flipX - [pending]
+     * @param {boolean} flipY - [pending]
+     * @param {float} scrollFactorX - [pending]
+     * @param {float} scrollFactorY - [pending]
+     * @param {float} displayOriginX - [pending]
+     * @param {float} displayOriginY - [pending]
+     * @param {float} frameX - [pending]
+     * @param {float} frameY - [pending]
+     * @param {float} frameWidth - [pending]
+     * @param {float} frameHeight - [pending]
+     * @param {integer} tintTL - [pending]
+     * @param {integer} tintTR - [pending]
+     * @param {integer} tintBL - [pending]
+     * @param {integer} tintBR - [pending]
+     * @param {float} uOffset - [pending]
+     * @param {float} vOffset - [pending]
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - [pending]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [pending]
      */
     batchTexture: function (
         gameObject,
@@ -49579,15 +49679,47 @@ module.exports = TextureTintPipeline;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+
+/**
+ * Implements a model view projection matrices.
+ * Pipelines can implement this for doing 2D and 3D rendering.
+ */
+
 var ModelViewProjection = {
 
+    /**
+     * Dirty flag for checking if model matrix needs to be updated on GPU.
+     */
     modelMatrixDirty: false,
+
+    /**
+     * Dirty flag for checking if view matrix needs to be updated on GPU.
+     */
     viewMatrixDirty: false,
+
+    /**
+     * Dirty flag for checking if projection matrix needs to be updated on GPU.
+     */
     projectionMatrixDirty: false,
+
+    /**
+     * Model matrix
+     */
     modelMatrix: null,
+
+    /**
+     * View matrix
+     */
     viewMatrix: null,
+
+    /**
+     * Projection matrix
+     */
     projectionMatrix: null,
 
+    /**
+     * Initializes MVP matrices with an identity matrix
+     */
     mvpInit: function ()
     {
         this.modelMatrixDirty = true;
@@ -49618,6 +49750,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * If dirty flags are set then the matrices are uploaded to the GPU.
+     */
     mvpUpdate: function ()
     {
         var program = this.program;
@@ -49643,6 +49778,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * Loads an identity matrix to the model matrix
+     */
     modelIdentity: function ()
     {
         var modelMatrix = this.modelMatrix;
@@ -49669,6 +49807,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * Scale model matrix
+     */
     modelScale: function (x, y, z)
     {
         var modelMatrix = this.modelMatrix;
@@ -49691,6 +49832,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * Translate model matrix
+     */
     modelTranslate: function (x, y, z)
     {
         var modelMatrix = this.modelMatrix;
@@ -49705,6 +49849,10 @@ var ModelViewProjection = {
         return this;
     },
 
+
+    /**
+     * Rotates the model matrix in the X axis.
+     */
     modelRotateX: function (radians)
     {
         var modelMatrix = this.modelMatrix;
@@ -49733,6 +49881,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * Rotates the model matrix in the Y axis.
+     */
     modelRotateY: function (radians)
     {
         var modelMatrix = this.modelMatrix;
@@ -49760,7 +49911,10 @@ var ModelViewProjection = {
         
         return this;
     },
-
+    
+    /**
+     * Rotates the model matrix in the Z axis.
+     */
     modelRotateZ: function (radians)
     {
         var modelMatrix = this.modelMatrix;
@@ -49789,6 +49943,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * Loads identity matrix into the view matrix
+     */
     viewIdentity: function ()
     {
         var viewMatrix = this.viewMatrix;
@@ -49814,7 +49971,10 @@ var ModelViewProjection = {
         
         return this;
     },
-
+    
+    /**
+     * Scales view matrix
+     */
     viewScale: function (x, y, z)
     {
         var viewMatrix = this.viewMatrix;
@@ -49837,6 +49997,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * Translates view matrix
+     */
     viewTranslate: function (x, y, z)
     {
         var viewMatrix = this.viewMatrix;
@@ -49850,7 +50013,10 @@ var ModelViewProjection = {
 
         return this;
     },
-
+    
+    /**
+     * Rotates view matrix in the X axis.
+     */
     viewRotateX: function (radians)
     {
         var viewMatrix = this.viewMatrix;
@@ -49878,7 +50044,10 @@ var ModelViewProjection = {
 
         return this;
     },
-
+    
+    /**
+     * Rotates view matrix in the Y axis.
+     */
     viewRotateY: function (radians)
     {
         var viewMatrix = this.viewMatrix;
@@ -49906,7 +50075,10 @@ var ModelViewProjection = {
         
         return this;
     },
-
+    
+    /**
+     * Rotates view matrix in the Z axis.
+     */
     viewRotateZ: function (radians)
     {
         var viewMatrix = this.viewMatrix;
@@ -49935,6 +50107,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * Loads a 2D view matrix (3x2 matrix) into a 4x4 view matrix 
+     */
     viewLoad2D: function (matrix2D)
     {
         var vm = this.viewMatrix;
@@ -49961,6 +50136,10 @@ var ModelViewProjection = {
         return this;
     },
 
+
+    /**
+     * Copies a 4x4 matrix into the view matrix
+     */
     viewLoad: function (matrix)
     {
         var vm = this.viewMatrix;
@@ -49986,7 +50165,10 @@ var ModelViewProjection = {
 
         return this;
     },
-
+    
+    /**
+     * Loads identity matrix into the projection matrix.
+     */
     projIdentity: function ()
     {
         var projectionMatrix = this.projectionMatrix;
@@ -50013,6 +50195,9 @@ var ModelViewProjection = {
         return this;
     },
 
+    /**
+     * Sets up an orthographics projection matrix
+     */
     projOrtho: function (left, right, bottom, top, near, far)
     {
         var projectionMatrix = this.projectionMatrix;
@@ -50040,7 +50225,10 @@ var ModelViewProjection = {
         this.projectionMatrixDirty = true;
         return this;
     },
-
+    
+    /**
+     * Sets up a perspective projection matrix
+     */
     projPersp: function (fovy, aspectRatio, near, far)
     {
         var projectionMatrix = this.projectionMatrix;
@@ -50968,6 +51156,11 @@ var SceneManager = new Class({
                 autoStart: autoStart,
                 data: data
             });
+
+            if (!this.isBooted)
+            {
+                this._data[key] = { data: data };
+            }
 
             return null;
         }
@@ -60884,9 +61077,9 @@ var Texture = __webpack_require__(/*! ./Texture */ "./textures/Texture.js");
  *
  * @param {Phaser.Textures.TextureManager} manager - A reference to the Texture Manager this Texture belongs to.
  * @param {string} key - The unique string-based key of this Texture.
- * @param {HTMLCanvasElement} source - The source that is used to create the texture. Usually an Image, but can also be a Canvas.
- * @param {number} [width] - The width of the Texture. This is optional and automatically derived from the source canvas.
- * @param {number} [height] - The height of the Texture. This is optional and automatically derived from the source canvas.
+ * @param {HTMLCanvasElement} source - The canvas element that is used as the base of this texture.
+ * @param {integer} width - The width of the canvas.
+ * @param {integer} height - The height of the canvas.
  */
 var CanvasTexture = new Class({
 
@@ -62318,6 +62511,7 @@ var TextureManager = new Class({
     {
         if (this.exists(key))
         {
+            // eslint-disable-next-line no-console
             console.error('Texture key already in use: ' + key);
 
             return false;
@@ -62342,8 +62536,8 @@ var TextureManager = new Class({
      *
      * @return {Phaser.Textures.TextureManager} The Texture Manager.
      */
-     remove: function (key)
-     {
+    remove: function (key)
+    {
         if (typeof key === 'string')
         {
             if (this.exists(key))
@@ -62352,7 +62546,7 @@ var TextureManager = new Class({
             }
             else
             {
-                console.error('No texture found matching key: ' + key)
+                console.warn('No texture found matching key: ' + key);
                 return this;
             }
         }
@@ -62368,7 +62562,7 @@ var TextureManager = new Class({
         }
 
         return this;
-     },
+    },
 
     /**
      * Adds a new Texture to the Texture Manager created from the given Base64 encoded data.
@@ -62658,7 +62852,7 @@ var TextureManager = new Class({
 
         if (this.checkKey(key))
         {
-            var texture = this.create(key, source);
+            texture = this.create(key, source);
 
             Parser.UnityYAML(texture, 0, data);
 
@@ -63128,7 +63322,6 @@ module.exports = TextureManager;
 
 var CanvasPool = __webpack_require__(/*! ../display/canvas/CanvasPool */ "./display/canvas/CanvasPool.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var CONST = __webpack_require__(/*! ../const */ "./const.js");
 var IsSizePowerOfTwo = __webpack_require__(/*! ../math/pow2/IsSizePowerOfTwo */ "./math/pow2/IsSizePowerOfTwo.js");
 var ScaleModes = __webpack_require__(/*! ../renderer/ScaleModes */ "./renderer/ScaleModes.js");
 

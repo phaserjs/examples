@@ -15,21 +15,29 @@ var Menu = new Phaser.Class({
 
         this.input.keyboard.once('keyup_ONE', function () {
 
-            this.scene.start('demo', { image: 'acryl-bladerunner.png' });
+            this.scene.start('demo', { id: 0, image: 'acryl-bladerunner.png' });
 
         }, this);
 
         this.input.keyboard.once('keyup_TWO', function () {
 
-            this.scene.start('demo', { image: 'babar-phaleon-coco.png' });
+            this.scene.start('demo', { id: 1, image: 'babar-phaleon-coco.png' });
 
         }, this);
 
         this.input.keyboard.once('keyup_THREE', function () {
 
-            this.scene.start('demo', { image: 'babar-pym-wait.png' });
+            this.scene.start('demo', { id: 2, image: 'babar-pym-wait.png' });
 
         }, this);
+
+        this.events.on('shutdown', this.shutdown, this);
+    },
+
+    shutdown: function ()
+    {
+        //  We need to clear keyboard events, or they'll stack up when the Menu is re-run
+        this.input.keyboard.shutdown();
     }
 
 });
@@ -47,24 +55,24 @@ var Demo = new Phaser.Class({
 
     init: function (data)
     {
-        console.log('init');
-        console.log(data);
+        console.log('init', data);
 
+        this.imageID = data.id;
         this.imageFile = data.image;
     },
 
     preload: function ()
     {
-        this.load.image('pic', 'assets/pics/' + this.imageFile);
+        this.load.image('pic' + this.imageID, 'assets/pics/' + this.imageFile);
     },
 
     create: function ()
     {
         this.add.text(10, 10, 'Click to Return', { font: '16px Courier', fill: '#00ff00' });
 
-        this.add.image(400, 300, 'pic').setScale(2);
+        this.add.image(400, 300, 'pic' + this.imageID).setScale(2);
 
-        this.input.on('pointerup', function () {
+        this.input.once('pointerup', function () {
 
             this.scene.start('menu');
 

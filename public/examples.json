@@ -2432,7 +2432,7 @@
             {
               "path": "src\\game objects\\container\\add sprite to container.js",
               "name": "add sprite to container.js",
-              "size": 1281,
+              "size": 1186,
               "extension": ".js"
             },
             {
@@ -2582,7 +2582,7 @@
             {
               "path": "src\\game objects\\container\\non exclusive containers.js",
               "name": "non exclusive containers.js",
-              "size": 1056,
+              "size": 1374,
               "extension": ".js"
             },
             {
@@ -2610,7 +2610,7 @@
               "extension": ".js"
             }
           ],
-          "size": 54945
+          "size": 55168
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4192,7 +4192,7 @@
           "size": 255492
         }
       ],
-      "size": 715019
+      "size": 715242
     },
     {
       "path": "src\\games",
@@ -6297,6 +6297,12 @@
       "name": "loader",
       "children": [
         {
+          "path": "src\\loader\\file complete event.js",
+          "name": "file complete event.js",
+          "size": 593,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\file progress event.js",
           "name": "file progress event.js",
           "size": 1050,
@@ -6399,7 +6405,7 @@
           "extension": ".js"
         }
       ],
-      "size": 45050
+      "size": 45643
     },
     {
       "path": "src\\paths",
@@ -7358,6 +7364,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\add scene after game.js",
+          "name": "add scene after game.js",
+          "size": 513,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scenes\\boot data.js",
           "name": "boot data.js",
           "size": 559,
@@ -7609,7 +7621,7 @@
         {
           "path": "src\\scenes\\passing data to a scene.js",
           "name": "passing data to a scene.js",
-          "size": 1753,
+          "size": 2053,
           "extension": ".js"
         },
         {
@@ -7764,7 +7776,7 @@
           "extension": ".js"
         }
       ],
-      "size": 112203
+      "size": 113016
     },
     {
       "path": "src\\snapshot",
@@ -8576,5 +8588,5 @@
       "size": 4792
     }
   ],
-  "size": 2268215
+  "size": 2269844
 }

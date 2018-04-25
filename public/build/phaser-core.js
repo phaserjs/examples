@@ -34937,7 +34937,7 @@ var File = new Class({
          * @type {(Phaser.Cache.BaseCache|Phaser.Textures.TextureManager)}
          * @since 3.7.0
          */
-        this.cache = GetFastValue(fileConfig, 'cache');
+        this.cache = GetFastValue(fileConfig, 'cache', false);
 
         /**
          * The file type string (image, json, etc) for sorting within the Loader.
@@ -35299,7 +35299,7 @@ var File = new Class({
      */
     hasCacheConflict: function ()
     {
-        return (this.cache.exists(this.key));
+        return (this.cache && this.cache.exists(this.key));
     },
 
     /**
@@ -35312,7 +35312,10 @@ var File = new Class({
      */
     addToCache: function ()
     {
-        this.cache.add(this.key, this.data);
+        if (this.cache)
+        {
+            this.cache.add(this.key, this.data);
+        }
 
         this.loader.emit('filecomplete', this.key, this);
     }
@@ -36326,7 +36329,7 @@ FileTypesManager.register('audioSprite', function (key, urls, json, config, audi
 
         if (typeof json === 'string')
         {
-            jsonFile = new JSONFile(key, json, this.path, jsonXhrSettings);
+            jsonFile = new JSONFile(this, key, json, jsonXhrSettings);
 
             this.addFile(jsonFile);
         }
@@ -36893,7 +36896,7 @@ FileTypesManager.register('multiatlas', function (key, textureURLs, atlasURLs, t
     {
         multiKey = '_MA_IMG_' + key + '_' + i.toString();
 
-        file = new ImageFile(multiKey, textureURLs[i], this.path, textureXhrSettings);
+        file = new ImageFile(this, multiKey, textureURLs[i], textureXhrSettings);
 
         this.addFile(file);
 
@@ -36904,7 +36907,7 @@ FileTypesManager.register('multiatlas', function (key, textureURLs, atlasURLs, t
     {
         multiKey = '_MA_JSON_' + key + '_' + i.toString();
 
-        file = new JSONFile(multiKey, atlasURLs[i], this.path, atlasXhrSettings);
+        file = new JSONFile(this, multiKey, atlasURLs[i], atlasXhrSettings);
 
         this.addFile(file);
 
@@ -36958,7 +36961,7 @@ var PluginFile = new Class({
 
     initialize:
 
-    function PluginFile (key, url, path, xhrSettings)
+    function PluginFile (loader, key, url, xhrSettings)
     {
         // If the url variable refers to a class, add the plugin directly
         if (typeof url === 'function')
@@ -36972,11 +36975,12 @@ var PluginFile = new Class({
 
         var fileConfig = {
             type: 'script',
+            cache: false,
             extension: GetFastValue(key, 'extension', 'js'),
             responseType: 'text',
             key: fileKey,
             url: GetFastValue(key, 'file', url),
-            path: path,
+            path: loader.path,
             xhrSettings: GetFastValue(key, 'xhr', xhrSettings)
         };
 
@@ -37029,12 +37033,12 @@ FileTypesManager.register('plugin', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new PluginFile(key[i], url, this.path, xhrSettings));
+            this.addFile(new PluginFile(this, key[i], url, xhrSettings));
         }
     }
     else
     {
-        this.addFile(new PluginFile(key, url, this.path, xhrSettings));
+        this.addFile(new PluginFile(this, key, url, xhrSettings));
     }
 
     //  For method chaining
@@ -37086,17 +37090,18 @@ var ScriptFile = new Class({
 
     initialize:
 
-    function ScriptFile (key, url, path, xhrSettings)
+    function ScriptFile (loader, key, url, xhrSettings)
     {
         var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
 
         var fileConfig = {
             type: 'script',
+            cache: false,
             extension: GetFastValue(key, 'extension', 'js'),
             responseType: 'text',
             key: fileKey,
             url: GetFastValue(key, 'file', url),
-            path: path,
+            path: loader.path,
             xhrSettings: GetFastValue(key, 'xhr', xhrSettings)
         };
 
@@ -37146,12 +37151,12 @@ FileTypesManager.register('script', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new ScriptFile(key[i], url, this.path, xhrSettings));
+            this.addFile(new ScriptFile(this, key[i], url, xhrSettings));
         }
     }
     else
     {
-        this.addFile(new ScriptFile(key, url, this.path, xhrSettings));
+        this.addFile(new ScriptFile(this, key, url, xhrSettings));
     }
 
     //  For method chaining
@@ -42846,15 +42851,15 @@ module.exports = {
 module.exports = {
 
     /**
-     * [pending]
+     * Packs four floats on a range from 0.0 to 1.0 into a single Uint32
      *
      * @function Phaser.Renderer.WebGL.Utils.getTintFromFloats
      * @since 3.0.0
      * 
-     * @param {number} r - [pending] - what's the range?
+     * @param {number} r - Red component in a range from 0.0 to 1.0 
      * @param {number} g - [description]
      * @param {number} b - [description]
-     * @param {number} a - [pending] - what's the range?
+     * @param {number} a - Alpha component in a range from 0.0 to 1.0
      * 
      * @return {number} [description]
      */
@@ -42869,15 +42874,16 @@ module.exports = {
     },
 
     /**
-     * [pending]
+     * Packs a Uint24, representing RGB components, with a Float32, representing
+     * the alpha component, with a range between 0.0 and 1.0 and return a Uint32
      *
      * @function Phaser.Renderer.WebGL.Utils.getTintAppendFloatAlpha
      * @since 3.0.0
      * 
-     * @param {number} rgb - [pending] - what's the range?
-     * @param {number} a - [pending] - what's the range?
+     * @param {number} rgb - Uint24 representing RGB components
+     * @param {number} a - Float32 representing Alpha component
      * 
-     * @return {number} [pending]
+     * @return {number} Packed RGBA as Uint32
      */
     getTintAppendFloatAlpha: function (rgb, a)
     {
@@ -42886,15 +42892,17 @@ module.exports = {
     },
 
     /**
-     * [pending]
+     * Packs a Uint24, representing RGB components, with a Float32, representing
+     * the alpha component, with a range between 0.0 and 1.0 and return a 
+     * swizzled Uint32
      *
      * @function Phaser.Renderer.WebGL.Utils.getTintAppendFloatAlphaAndSwap
      * @since 3.0.0
      * 
-     * @param {number} rgb - [pending] - what's the range?
-     * @param {number} a - [pending] - what's the range?
+     * @param {number} rgb - Uint24 representing RGB components
+     * @param {number} a - Float32 representing Alpha component
      * 
-     * @return {number} [pending]
+     * @return {number} Packed RGBA as Uint32
      */
     getTintAppendFloatAlphaAndSwap: function (rgb, a)
     {
@@ -42907,14 +42915,14 @@ module.exports = {
     },
 
     /**
-     * [pending]
+     * Unpacks a Uint24 RGB into an array of floats of ranges of 0.0 and 1.0
      *
      * @function Phaser.Renderer.WebGL.Utils.getFloatsFromUintRGB
      * @since 3.0.0
      * 
-     * @param {number} rgb - [pending]
+     * @param {number} rgb - RGB packed as a Uint24
      * 
-     * @return {number} [pending]
+     * @return {array} Array of floats representing each component as a float 
      */
     getFloatsFromUintRGB: function (rgb)
     {
@@ -42926,15 +42934,15 @@ module.exports = {
     },
 
     /**
-     * [pending]
+     * Counts how many attributes of 32 bits a vertex has
      *
      * @function Phaser.Renderer.WebGL.Utils.getComponentCount
      * @since 3.0.0
      * 
-     * @param {number} attributes - [pending]
-     * @param {WebGLRenderingContext} glContext - [pending]
+     * @param {array} attributes - Array of attributes 
+     * @param {WebGLRenderingContext} glContext - WebGLContext used for check types
      * 
-     * @return {number} [pending]
+     * @return {number} Count of 32 bit attributes in vertex
      */
     getComponentCount: function (attributes, glContext)
     {
@@ -45826,7 +45834,7 @@ var pathArray = [];
 /**
  * @classdesc
  * The FlatTintPipeline is used for rendering flat colored shapes. 
- * Mostyle used by the Graphics game object.
+ * Mostly used by the Graphics game object.
  * The config properties are:
  * - game: Current game instance.
  * - renderer: Current WebGL renderer.
@@ -47510,7 +47518,17 @@ var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webg
 
 /**
  * @classdesc
- * [pending] - especially explain the config properties please
+ * TextureTintPipeline implements the rendering infrastructure
+ * for displaying textured objects
+ * The config properties are:
+ * - game: Current game instance.
+ * - renderer: Current WebGL renderer.
+ * - topology: This indicates how the primitives are rendered. The default value is GL_TRIANGLES.
+ *              Here is the full list of rendering primitives (https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants).
+ * - vertShader: Source for vertex shader as a string.
+ * - fragShader: Source for fragment shader as a string.
+ * - vertexCapacity: The amount of vertices that shall be allocated
+ * - vertexSize: The size of a single vertex in bytes.
  *
  * @class TextureTintPipeline
  * @extends Phaser.Renderer.WebGL.WebGLPipeline
@@ -47572,7 +47590,7 @@ var TextureTintPipeline = new Class({
         });
 
         /**
-         * [pending]
+         * Float32 view of the array buffer containing the pipeline's vertices.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#vertexViewF32
          * @type {Float32Array}
@@ -47581,7 +47599,7 @@ var TextureTintPipeline = new Class({
         this.vertexViewF32 = new Float32Array(this.vertexData);
 
         /**
-         * [pending]
+         * Uint32 view of the array buffer containing the pipeline's vertices.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#vertexViewU32
          * @type {Uint32Array}
@@ -47590,7 +47608,7 @@ var TextureTintPipeline = new Class({
         this.vertexViewU32 = new Uint32Array(this.vertexData);
 
         /**
-         * [pending]
+         * Size of the batch.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#maxQuads
          * @type {integer}
@@ -47600,7 +47618,7 @@ var TextureTintPipeline = new Class({
         this.maxQuads = 2000;
 
         /**
-         * [pending]
+         * Collection of batch information
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batches
          * @type {array}
@@ -47612,13 +47630,14 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Assigns a texture to the current batch. If a texture is already set it creates
+     * a new batch object.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#setTexture2D
      * @since 3.1.0
      *
-     * @param {WebGLTexture} texture - [pending]
-     * @param {integer} textureUnit - [pending]
+     * @param {WebGLTexture} texture - WebGLTexture that will be assigned to the current batch.
+     * @param {integer} textureUnit - Texture unit to which the texture needs to be bound.
      *
      * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} [description]
      */
@@ -47663,7 +47682,10 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Creates a new batch object and pushes it to a batch array.
+     * The batch object contains information relevant to the current 
+     * vertex batch like the offset in the vertex buffer, vertex count and 
+     * the textures used by that batch.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#pushBatch
      * @since 3.1.0
@@ -47680,7 +47702,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Binds, uploads resources and processes all batches generating draw calls.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#flush
      * @since 3.1.0
@@ -47780,7 +47802,8 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Called every time the pipeline needs to be used.
+     * It binds all necessary resources.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#onBind
      * @since 3.0.0
@@ -47821,7 +47844,8 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Renders immediately a static tilemap. This function won't use
+     * the batching functionality of the pipieline.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawStaticTilemapLayer
      * @since 3.0.0
@@ -47857,7 +47881,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Renders contents of a ParticleEmitterManager. It'll batch all particles if possible.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawEmitterManager
      * @since 3.0.0
@@ -48073,7 +48097,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Batches blitter game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawBlitter
      * @since 3.0.0
@@ -48233,7 +48257,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Batches Sprite game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchSprite
      * @since 3.0.0
@@ -48406,7 +48430,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Batches Mesh game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchMesh
      * @since 3.0.0
@@ -48537,7 +48561,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Batches BitmapText game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchBitmapText
      * @since 3.0.0
@@ -48814,7 +48838,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Batches DynamicBitmapText game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicBitmapText
      * @since 3.0.0
@@ -49164,7 +49188,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Batches Text game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchText
      * @since 3.0.0
@@ -49200,7 +49224,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Batches DynamicTilemapLayer game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicTilemapLayer
      * @since 3.0.0
@@ -49258,7 +49282,7 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Batches TileSprite game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTileSprite
      * @since 3.0.0
@@ -49295,40 +49319,40 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Generic function for batching a textured quad
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} gameObject - [pending]
-     * @param {WebGLTexture} texture - [pending]
-     * @param {integer} textureWidth - [pending]
-     * @param {integer} textureHeight - [pending]
-     * @param {float} srcX - [pending]
-     * @param {float} srcY - [pending]
-     * @param {float} srcWidth - [pending]
-     * @param {float} srcHeight - [pending]
-     * @param {float} scaleX - [pending]
-     * @param {float} scaleY - [pending]
-     * @param {float} rotation - [pending]
-     * @param {boolean} flipX - [pending]
-     * @param {boolean} flipY - [pending]
-     * @param {float} scrollFactorX - [pending]
-     * @param {float} scrollFactorY - [pending]
-     * @param {float} displayOriginX - [pending]
-     * @param {float} displayOriginY - [pending]
-     * @param {float} frameX - [pending]
-     * @param {float} frameY - [pending]
-     * @param {float} frameWidth - [pending]
-     * @param {float} frameHeight - [pending]
-     * @param {integer} tintTL - [pending]
-     * @param {integer} tintTR - [pending]
-     * @param {integer} tintBL - [pending]
-     * @param {integer} tintBR - [pending]
-     * @param {float} uOffset - [pending]
-     * @param {float} vOffset - [pending]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [pending]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [pending]
+     * @param {Phaser.GameObjects.GameObject} gameObject - Source GameObject
+     * @param {WebGLTexture} texture - Raw WebGLTexture associated with the quad
+     * @param {integer} textureWidth - Real texture width
+     * @param {integer} textureHeight - Real texture height
+     * @param {float} srcX - X coordinate of the quad
+     * @param {float} srcY - Y coordinate of the quad
+     * @param {float} srcWidth - Width of the quad
+     * @param {float} srcHeight - Height of the quad
+     * @param {float} scaleX - X component of scale
+     * @param {float} scaleY - Y component of scale
+     * @param {float} rotation - Rotation of the quad
+     * @param {boolean} flipX - Indicates if the quad is horizontally flipped
+     * @param {boolean} flipY - Indicates if the quad is vertically flipped
+     * @param {float} scrollFactorX - By which factor is the quad affected by the camera horizontal scroll
+     * @param {float} scrollFactorY - By which factor is the quad effected by the camera vertical scroll
+     * @param {float} displayOriginX - Horizontal origin in pixels
+     * @param {float} displayOriginY - Vertical origin in pixels
+     * @param {float} frameX - X coordinate of the texture frame
+     * @param {float} frameY - Y coordinate of the texture frame
+     * @param {float} frameWidth - Width of the texture frame
+     * @param {float} frameHeight - Height of the texture frame
+     * @param {integer} tintTL - Tint for top left
+     * @param {integer} tintTR - Tint for top right
+     * @param {integer} tintBL - Tint for bottom left
+     * @param {integer} tintBR - Tint for bottom right
+     * @param {float} uOffset - Horizontal offset on texture coordinate
+     * @param {float} vOffset - Vertical offset on texture coordinate
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - Current used camera
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - Parent container
      */
     batchTexture: function (
         gameObject,

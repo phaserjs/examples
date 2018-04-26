@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -8,6 +8,8 @@ var config = {
         create: create
     }
 };
+
+var gem;
 
 var game = new Phaser.Game(config);
 
@@ -21,23 +23,24 @@ function create ()
     var animConfig = {
         key: 'diamond',
         frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
-        repeat: 3,
-        onComplete: animCompleteCallback.bind(this)
+        repeat: 2
     };
 
     this.anims.create(animConfig);
 
-    var gem = this.add.sprite(400, 300, 'gems');
+    gem = this.add.sprite(400, 300, 'gems');
 
-    //  Animation will repeat 3 times and then invoke the callback
+    //  Animation will repeat twice and then emit the event
+    gem.on('animationcomplete', animComplete, this);
+
     gem.play('diamond');
 }
 
-function animCompleteCallback (sprite, animation)
+function animComplete (animation, frame)
 {
     //  Animation is over, let's fade the sprite out
     this.tweens.add({
-        targets: sprite,
+        targets: gem,
         duration: 3000,
         alpha: 0
     });

@@ -262,7 +262,7 @@
         {
           "path": "src\\animation\\multi atlas animation.js",
           "name": "multi atlas animation.js",
-          "size": 579,
+          "size": 587,
           "extension": ".js"
         },
         {
@@ -350,7 +350,7 @@
           "extension": ".js"
         }
       ],
-      "size": 35666
+      "size": 35674
     },
     {
       "path": "src\\archived",
@@ -2068,7 +2068,7 @@
         {
           "path": "src\\game config\\game rng.js",
           "name": "game rng.js",
-          "size": 924,
+          "size": 1105,
           "extension": ".js"
         },
         {
@@ -2126,7 +2126,7 @@
           "extension": ".js"
         }
       ],
-      "size": 14312
+      "size": 14493
     },
     {
       "path": "src\\game objects",
@@ -3792,14 +3792,14 @@
                 {
                   "path": "src\\game objects\\text\\static\\word wrap by width.js",
                   "name": "word wrap by width.js",
-                  "size": 2027,
+                  "size": 2480,
                   "extension": ".js"
                 }
               ],
-              "size": 25789
+              "size": 26242
             }
           ],
-          "size": 25789
+          "size": 26242
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -4234,7 +4234,7 @@
           "size": 255492
         }
       ],
-      "size": 730687
+      "size": 731140
     },
     {
       "path": "src\\games",
@@ -7685,6 +7685,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\restart a scene.js",
+          "name": "restart a scene.js",
+          "size": 1073,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scenes\\scene add manual start.js",
           "name": "scene add manual start.js",
           "size": 585,
@@ -7818,7 +7824,7 @@
           "extension": ".js"
         }
       ],
-      "size": 113016
+      "size": 114089
     },
     {
       "path": "src\\snapshot",
@@ -8630,5 +8636,5 @@
       "size": 4792
     }
   ],
-  "size": 2285337
+  "size": 2287052
 }

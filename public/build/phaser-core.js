@@ -36548,11 +36548,11 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
- * @param {object} [config] - [description]
+ * @param {(string|object)} key - The name of the asset to load or an object representing the asset
+ * @param {string} [url] - The asset's filename
+ * @param {string} [path] - The path the asset can be found in
+ * @param {XHRSettingsObject} [xhrSettings] - Optional image specific XHR settings
+ * @param {object} [config] - config can include: frameWidth, frameHeight, startFrame, endFrame, margin, spacing
  */
 var ImageFile = new Class({
 
@@ -36573,12 +36573,26 @@ var ImageFile = new Class({
     //         headerValue: 'text/xml'
     //     }
     // });
+    // this.load.image([
+    //     {
+    //         key: 'bunny',
+    //         file: 'assets/sprites/bunny.png',
+    //         xhr: {
+    //             user: 'root',
+    //             password: 'th3G1bs0n',
+    //             timeout: 30,
+    //             header: 'Content-Type',
+    //             headerValue: 'text/xml'
+    //         }
+    //     }
+    // ]);
     // this.load.image({ key: 'bunny' });
     // this.load.image({ key: 'bunny', extension: 'jpg' });
 
     function ImageFile (loader, key, url, xhrSettings, config)
     {
         var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
+        var fileUrl = (url === undefined) ? GetFastValue(key, 'file') : url;
 
         var fileConfig = {
             type: 'image',
@@ -36586,7 +36600,7 @@ var ImageFile = new Class({
             extension: GetFastValue(key, 'extension', 'png'),
             responseType: 'blob',
             key: fileKey,
-            url: GetFastValue(key, 'file', url),
+            url: fileUrl,
             path: loader.path,
             xhrSettings: GetFastValue(key, 'xhr', xhrSettings),
             config: GetFastValue(key, 'config', config)
@@ -37569,14 +37583,14 @@ module.exports = Clamp;
 var CONST = __webpack_require__(/*! ./const */ "./math/const.js");
 
 /**
- * [description]
+ * Convert the given angle from degrees, to the equivalent angle in radians.
  *
  * @function Phaser.Math.DegToRad
  * @since 3.0.0
  *
- * @param {integer} degrees - [description]
+ * @param {integer} degrees - The angle (in degrees) to convert to radians.
  *
- * @return {float} [description]
+ * @return {float} The given angle converted to radians.
  */
 var DegToRad = function (degrees)
 {
@@ -37677,14 +37691,14 @@ module.exports = FromPercent;
 var CONST = __webpack_require__(/*! ./const */ "./math/const.js");
 
 /**
- * [description]
+ * Convert the given angle in radians, to the equivalent angle in degrees.
  *
  * @function Phaser.Math.RadToDeg
  * @since 3.0.0
  *
- * @param {float} radians - [description]
+ * @param {float} radians - The angle in radians to convert ot degrees.
  *
- * @return {integer} [description]
+ * @return {integer} The given angle converted to degrees.
  */
 var RadToDeg = function (radians)
 {
@@ -37755,14 +37769,14 @@ module.exports = RotateAround;
  */
 
 /**
- * [description]
+ * Round a given number so it is further away from zero. That is, positive numbers are rounded up, and negative numbers are rounded down.
  *
  * @function Phaser.Math.RoundAwayFromZero
  * @since 3.0.0
  *
- * @param {number} value - [description]
+ * @param {number} value - The number to round.
  *
- * @return {number} [description]
+ * @return {number} The rounded number, rounded away from zero.
  */
 var RoundAwayFromZero = function (value)
 {
@@ -37873,15 +37887,15 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 
 /**
  * @classdesc
- * [description]
+ * A representation of a vector in 2D space.
  *
  * @class Vector2
  * @memberOf Phaser.Math
  * @constructor
  * @since 3.0.0
  *
- * @param {number} [x] - [description]
- * @param {number} [y] - [description]
+ * @param {number} [x] - The x component of this Vector.
+ * @param {number} [y] - The y component of this Vector.
  */
 var Vector2 = new Class({
 
@@ -37924,7 +37938,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Make a clone of this Vector2.
      *
      * @method Phaser.Math.Vector2#clone
      * @since 3.0.0
@@ -37937,12 +37951,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Copy the components of a given vector, into this Vector.
      *
      * @method Phaser.Math.Vector2#copy
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector to copy the components from.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -37955,12 +37969,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Set the component values of this Vector from a given Vector2Like object.
      *
      * @method Phaser.Math.Vector2#setFromObject
      * @since 3.0.0
      *
-     * @param {Vector2Like} obj - [description]
+     * @param {Vector2Like} obj - The object containing the component values to set for this Vector.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -37973,13 +37987,13 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Set the x and y components of the this Vector to the given x and y values.
      *
      * @method Phaser.Math.Vector2#set
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} [y=x] - [description]
+     * @param {number} x - The x value to set for this Vector.
+     * @param {number} [y=x] - The y value to set for this Vector.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -37999,8 +38013,8 @@ var Vector2 = new Class({
      * @method Phaser.Math.Vector2#setTo
      * @since 3.4.0
      *
-     * @param {number} x - [description]
-     * @param {number} [y=x] - [description]
+     * @param {number} x - The x value to set for this Vector.
+     * @param {number} [y=x] - The y value to set for this Vector.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -38031,14 +38045,14 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Check if this Vector is equal to a given Vector.
      *
      * @method Phaser.Math.Vector2#equals
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} v - [description]
+     * @param {Phaser.Math.Vector2} v - The vector to compare with this Vector.
      *
-     * @return {boolean} [description]
+     * @return {boolean} Whether the given Vector is equal to this Vector.
      */
     equals: function (v)
     {
@@ -38046,12 +38060,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Calculate the angle between this Vector and the positive x-axis, in radians.
      *
      * @method Phaser.Math.Vector2#angle
      * @since 3.0.0
      *
-     * @return {number} [description]
+     * @return {number} The angle between this Vector, and the positive x-axis, given in radians.
      */
     angle: function ()
     {
@@ -38068,12 +38082,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Add a given Vector to this Vector. Addition is element-wise.
      *
      * @method Phaser.Math.Vector2#add
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector to add to this Vector.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -38086,12 +38100,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Subtract the given Vector from this Vector. Subtraction is element-wise.
      *
      * @method Phaser.Math.Vector2#subtract
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector to subtract from this Vector.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -38104,12 +38118,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Perform an element-wise multiplication between this Vector and the given Vector.
      *
      * @method Phaser.Math.Vector2#multiply
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector to multiply this Vector by.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -38122,12 +38136,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Scale this Vector by the given value.
      *
      * @method Phaser.Math.Vector2#scale
      * @since 3.0.0
      *
-     * @param {number} value - [description]
+     * @param {number} value - The value to scale this Vector by.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -38148,12 +38162,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Perform an element-wise division between this Vector and the given Vector. This Vector is divided by the given Vector.
      *
      * @method Phaser.Math.Vector2#divide
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector to divide this Vector by.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -38166,7 +38180,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Negate the x and y components of this Vector.
      *
      * @method Phaser.Math.Vector2#negate
      * @since 3.0.0
@@ -38182,14 +38196,14 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Calculate the distance between this Vector, and the given Vector.
      *
      * @method Phaser.Math.Vector2#distance
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector to calculate the distance to.
      *
-     * @return {number} [description]
+     * @return {number} The distance to the given Vector from this Vector.
      */
     distance: function (src)
     {
@@ -38200,14 +38214,14 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * The distance between this Vector, and the given Vector, squared.
      *
      * @method Phaser.Math.Vector2#distanceSq
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector to calculate the distance to.
      *
-     * @return {number} [description]
+     * @return {number} The distance to this Vector and the given Vector, squared.
      */
     distanceSq: function (src)
     {
@@ -38218,12 +38232,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * The length (or magnitude) of this Vector.
      *
      * @method Phaser.Math.Vector2#length
      * @since 3.0.0
      *
-     * @return {number} [description]
+     * @return {number} The length of this Vector.
      */
     length: function ()
     {
@@ -38234,12 +38248,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Calculate the length of this Vector squared.
      *
      * @method Phaser.Math.Vector2#lengthSq
      * @since 3.0.0
      *
-     * @return {number} [description]
+     * @return {number} The length of this Vector, squared.
      */
     lengthSq: function ()
     {
@@ -38250,7 +38264,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Normalise this Vector, that is, make it a unit length vector (magnitude of 1) in the same direction.
      *
      * @method Phaser.Math.Vector2#normalize
      * @since 3.0.0
@@ -38295,14 +38309,14 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Perform a dot product between this Vector and the given Vector
      *
      * @method Phaser.Math.Vector2#dot
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector2 to dot product with this Vector2.
      *
-     * @return {number} [description]
+     * @return {number} The result of the dot product
      */
     dot: function (src)
     {
@@ -38393,7 +38407,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Make this Vector the zero vector (0, 0).
      *
      * @method Phaser.Math.Vector2#reset
      * @since 3.0.0
@@ -40869,6 +40883,32 @@ var RandomDataGenerator = new Class({
         }
 
         return [ '!rnd', this.c, this.s0, this.s1, this.s2 ].join(',');
+    },
+
+    /**
+     * Shuffles the given array, using the current seed.
+     *
+     * @method Phaser.Math.RandomDataGenerator#shuffle
+     * @since 3.7.0
+     * 
+     * @param {array[]} [array] - The array to be shuffled.
+     *
+     * @return {array} The shuffled array.
+     */
+    shuffle: function (array)
+    {
+        var len = array.length - 1;
+
+        for (var i = len; i > 0; i--)
+        {
+            var randomIndex = Math.floor(this.frac() * (len + 1));
+            var itemAtIndex = array[randomIndex];
+
+            array[randomIndex] = array[i];
+            array[i] = itemAtIndex;
+        }
+
+        return array;
     }
 
 });
@@ -42989,7 +43029,35 @@ var Utils = __webpack_require__(/*! ./Utils */ "./renderer/webgl/Utils.js");
 
 /**
  * @classdesc
- * [pending] explain the concept behind the pipelines, what they are and how they work.
+ * WebGLPipeline is a class that describes the way elements will be rendererd 
+ * in WebGL, specially focused on batching vertices (batching is not provided). 
+ * Pipelines are mostly used for describing 2D rendering passes but it's 
+ * flexible enough to be used for any type of rendering including 3D. 
+ * Internally WebGLPipeline will handle things like compiling shaders,
+ * creating vertex buffers, assigning primitive topology and binding 
+ * vertex attributes.
+ *
+ * The config properties are:
+ * - game: Current game instance.
+ * - renderer: Current WebGL renderer.
+ * - gl: Current WebGL context.
+ * - topology: This indicates how the primitives are rendered. The default value is GL_TRIANGLES.
+ *              Here is the full list of rendering primitives (https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants).
+ * - vertShader: Source for vertex shader as a string.
+ * - fragShader: Source for fragment shader as a string.
+ * - vertexCapacity: The amount of vertices that shall be allocated
+ * - vertexSize: The size of a single vertex in bytes.
+ * - vertices: An optional buffer of vertices
+ * - attributes: An array describing the vertex attributes
+ *  
+ * The vertex attributes properties are:
+ * - name : String - Name of the attribute in the vertex shader
+ * - size : integer - How many components describe the attribute. For ex: vec3 = size of 3, float = size of 1
+ * - type : GLenum - WebGL type (gl.BYTE, gl.SHORT, gl.UNSIGNED_BYTE, gl.UNSIGNED_SHORT, gl.FLOAT)
+ * - normalized : boolean - Is the attribute normalized
+ * - offset : integer - The offset in bytes to the current attribute in the vertex. Equivalent to offsetof(vertex, attrib) in C
+ * Here you can find more information of how to describe an attribute:
+ * - https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/vertexAttribPointer
  *
  * @class WebGLPipeline
  * @memberOf Phaser.Renderer.WebGL
@@ -43005,7 +43073,7 @@ var WebGLPipeline = new Class({
     function WebGLPipeline (config)
     {
         /**
-         * [pending]
+         * Name of the Pipeline. Used for identifying
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#name
          * @type {string}
@@ -43032,7 +43100,7 @@ var WebGLPipeline = new Class({
         this.view = config.game.canvas;
 
         /**
-         * [pending]
+         * Used to store the current game resolution
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#resolution
          * @type {number}
@@ -43041,7 +43109,7 @@ var WebGLPipeline = new Class({
         this.resolution = config.game.config.resolution;
 
         /**
-         * [pending]
+         * Width of the current viewport
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#width
          * @type {number}
@@ -43050,7 +43118,7 @@ var WebGLPipeline = new Class({
         this.width = config.game.config.width * this.resolution;
 
         /**
-         * [pending]
+         * Height of the current viewport
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#height
          * @type {number}
@@ -43068,7 +43136,7 @@ var WebGLPipeline = new Class({
         this.gl = config.gl;
 
         /**
-         * [pending]
+         * How many vertices have been fed to the current pipeline.
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexCount
          * @type {number}
@@ -43078,7 +43146,7 @@ var WebGLPipeline = new Class({
         this.vertexCount = 0;
 
         /**
-         * [pending]
+         * The limit of vertices that the pipeline can hold
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexCapacity
          * @type {integer}
@@ -43096,7 +43164,7 @@ var WebGLPipeline = new Class({
         this.renderer = config.renderer;
 
         /**
-         * [pending]
+         * Raw byte buffer of vertices.
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexData
          * @type {ArrayBuffer}
@@ -43105,7 +43173,7 @@ var WebGLPipeline = new Class({
         this.vertexData = (config.vertices ? config.vertices : new ArrayBuffer(config.vertexCapacity * config.vertexSize));
 
         /**
-         * [pending]
+         * The handle to a WebGL vertex buffer object.
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexBuffer
          * @type {WebGLBuffer}
@@ -43114,7 +43182,7 @@ var WebGLPipeline = new Class({
         this.vertexBuffer = this.renderer.createVertexBuffer((config.vertices ? config.vertices : this.vertexData.byteLength), this.gl.STREAM_DRAW);
 
         /**
-         * [pending]
+         * The handle to a WebGL program
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#program
          * @type {WebGLProgram}
@@ -43123,7 +43191,7 @@ var WebGLPipeline = new Class({
         this.program = this.renderer.createProgram(config.vertShader, config.fragShader);
 
         /**
-         * [pending]
+         * Array of objects that describe the vertex attributes
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#attributes
          * @type {object}
@@ -43132,7 +43200,7 @@ var WebGLPipeline = new Class({
         this.attributes = config.attributes;
 
         /**
-         * [pending]
+         * The size in bytes of the vertex
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#vertexSize
          * @type {integer}
@@ -43141,7 +43209,7 @@ var WebGLPipeline = new Class({
         this.vertexSize = config.vertexSize;
 
         /**
-         * [pending]
+         * The primitive topology which the pipeline will use to submit draw calls
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#topology
          * @type {integer}
@@ -43150,7 +43218,8 @@ var WebGLPipeline = new Class({
         this.topology = config.topology;
 
         /**
-         * [pending]
+         * Uint8 view to the vertex raw buffer. Used for uploading vertex buffer resources
+         * to the GPU.
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#bytes
          * @type {Uint8Array}
@@ -43179,16 +43248,16 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Adds a description of vertex attribute to the pipeline
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#addAttribute
      * @since 3.2.0
      *
-     * @param {string} name - [pending]
-     * @param {integer} size - [pending]
-     * @param {integer} type - [pending]
-     * @param {boolean} normalized - [pending]
-     * @param {integer} offset - [pending]
+     * @param {string} name - Name of the vertex attribute
+     * @param {integer} size - Vertex component size
+     * @param {integer} type - Type of the attribute
+     * @param {boolean} normalized - Is the value normalized to a range
+     * @param {integer} offset - Byte offset to the beginning of the first element in the vertex
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -43206,7 +43275,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Check if the current batch of vertices is full.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#shouldFlush
      * @since 3.0.0
@@ -43219,7 +43288,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Resizes the properties used to describe the viewport
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#resize
      * @since 3.0.0
@@ -43238,7 +43307,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Binds the pipeline resources, including programs, vertex buffers and binds attributes
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#bind
      * @since 3.0.0
@@ -43336,7 +43405,8 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Uploads the vertex data and emits a draw call
+     * for the current batch of vertices.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#flush
      * @since 3.0.0
@@ -43392,7 +43462,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setFloat1
      * @since 3.2.0
@@ -43409,7 +43479,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setFloat2
      * @since 3.2.0
@@ -43428,7 +43498,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setFloat3
      * @since 3.2.0
@@ -43448,16 +43518,16 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setFloat4
      * @since 3.2.0
      *
-     * @param {string} name - [pending]
-     * @param {float} x - [pending]
-     * @param {float} y - [pending]
-     * @param {float} z - [pending]
-     * @param {float} w - [pending]
+     * @param {string} name - Name of the uniform
+     * @param {float} x - X component of the uniform
+     * @param {float} y - Y component of the uniform
+     * @param {float} z - Z component of the uniform
+     * @param {float} w - W component of the uniform
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -43469,7 +43539,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setInt1
      * @since 3.2.0
@@ -43486,7 +43556,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setInt2
      * @since 3.2.0
@@ -43504,7 +43574,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setInt3
      * @since 3.2.0
@@ -43523,16 +43593,16 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [pending]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setInt4
      * @since 3.2.0
      *
-     * @param {string} name - [pending]
-     * @param {integer} x - [pending]
-     * @param {integer} y - [pending]
-     * @param {integer} z - [pending]
-     * @param {integer} w - [pending]
+     * @param {string} name - Name of the uniform
+     * @param {integer} x - X component of the uniform
+     * @param {integer} y - Y component of the uniform
+     * @param {integer} z - Z component of the uniform
+     * @param {integer} w - W component of the uniform
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -43543,6 +43613,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
+     * Set a uniform value of the current pipeline program.
      * [description]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setMatrix2
@@ -43561,6 +43632,8 @@ var WebGLPipeline = new Class({
     },
 
     /**
+     * Set a uniform value of the current pipeline program.
+     * [description]
      * [description]
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setMatrix3
@@ -43579,14 +43652,14 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Set a uniform value of the current pipeline program.
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setMatrix4
      * @since 3.2.0
      *
-     * @param {string} name - [pending]
-     * @param {boolean} transpose - [pending]
-     * @param {Float32Array} matrix - [pending]
+     * @param {string} name - Name of the uniform
+     * @param {boolean} transpose - Should the matrix be transpose
+     * @param {Float32Array} matrix - Matrix data
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -43646,7 +43719,13 @@ var TextureTintPipeline = __webpack_require__(/*! ./pipelines/TextureTintPipelin
 
 /**
  * @classdesc
- * [pending] - explain the core concept and philosophy behind how the renderer works.
+ * WebGLRenderer is a class that contains the needed functionality to keep the
+ * WebGLRenderingContext state clean. The main idea of the WebGLRenderer is to keep track of
+ * any context change that happens for WebGL rendering inside of Phaser. This means
+ * if raw webgl functions are called outside the WebGLRenderer of the Phaser WebGL
+ * rendering ecosystem they might pollute the current WebGLRenderingContext state producing
+ * unexpected behaviour. It's recommended that WebGL interaction is done through 
+ * WebGLRenderer and/or WebGLPipeline.
  *
  * @class WebGLRenderer
  * @memberOf Phaser.Renderer.WebGL
@@ -43768,7 +43847,7 @@ var WebGLRenderer = new Class({
         this.blendModes = [];
 
         /**
-         * [pending]
+         * Keeps track of any WebGLTexture created with the current WebGLRenderingContext
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#nativeTextures
          * @type {array}
@@ -43788,7 +43867,7 @@ var WebGLRenderer = new Class({
         this.contextLost = false;
 
         /**
-         * [pending]
+         * This object will store all pipelines created through addPipeline
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#pipelines
          * @type {object}
@@ -43813,7 +43892,7 @@ var WebGLRenderer = new Class({
         // Internal Renderer State (Textures, Framebuffers, Pipelines, Buffers, etc)
 
         /**
-         * [pending]
+         * Cached value for the last texture unit that was used
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentActiveTextureUnit
          * @type {integer}
@@ -43822,7 +43901,7 @@ var WebGLRenderer = new Class({
         this.currentActiveTextureUnit = 0;
 
         /**
-         * [pending]
+         * An array of the last texture handles that were bound to the WebGLRenderingContext
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentTextures
          * @type {array}
@@ -43831,7 +43910,7 @@ var WebGLRenderer = new Class({
         this.currentTextures = new Array(16);
 
         /**
-         * [pending]
+         * Current framebuffer in use
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentFramebuffer
          * @type {WebGLFramebuffer}
@@ -43841,7 +43920,7 @@ var WebGLRenderer = new Class({
         this.currentFramebuffer = null;
 
         /**
-         * [pending]
+         * Current WebGLPipeline in use
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentPipeline
          * @type {Phaser.Renderer.WebGL.WebGLPipeline}
@@ -43851,7 +43930,7 @@ var WebGLRenderer = new Class({
         this.currentPipeline = null;
 
         /**
-         * [pending]
+         * Current WebGLProgram in use
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentProgram
          * @type {WebGLProgram}
@@ -43861,7 +43940,7 @@ var WebGLRenderer = new Class({
         this.currentProgram = null;
 
         /**
-         * [pending]
+         * Current WebGLBuffer (Vertex buffer) in use
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentVertexBuffer
          * @type {WebGLBuffer}
@@ -43871,7 +43950,7 @@ var WebGLRenderer = new Class({
         this.currentVertexBuffer = null;
 
         /**
-         * [pending]
+         * Current WebGLBuffer (Index buffer) in use
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentIndexBuffer
          * @type {WebGLBuffer}
@@ -43881,7 +43960,7 @@ var WebGLRenderer = new Class({
         this.currentIndexBuffer = null;
 
         /**
-         * [pending]
+         * Current blend mode in use
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentBlendMode
          * @type {integer}
@@ -43890,7 +43969,7 @@ var WebGLRenderer = new Class({
         this.currentBlendMode = Infinity;
 
         /**
-         * [pending]
+         * Indicates if the the scissor state is enabled in WebGLRenderingContext
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentScissorEnabled
          * @type {boolean}
@@ -43900,7 +43979,7 @@ var WebGLRenderer = new Class({
         this.currentScissorEnabled = false;
 
         /**
-         * [pending]
+         * Stores the current scissor data
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentScissor
          * @type {Uint32Array}
@@ -43909,7 +43988,7 @@ var WebGLRenderer = new Class({
         this.currentScissor = new Uint32Array([ 0, 0, this.width, this.height ]);
 
         /**
-         * [pending]
+         * Index to the scissor stack top
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#currentScissorIdx
          * @type {number}
@@ -43919,7 +43998,7 @@ var WebGLRenderer = new Class({
         this.currentScissorIdx = 0;
 
         /**
-         * [pending]
+         * Stack of scissor data
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#scissorStack
          * @type {Uint32Array}
@@ -43965,7 +44044,7 @@ var WebGLRenderer = new Class({
         this.gl = null;
 
         /**
-         * [pending]
+         * Array of strings that indicate which WebGL extensions are supported by the browser
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#supportedExtensions
          * @type {object}
@@ -43975,7 +44054,7 @@ var WebGLRenderer = new Class({
         this.supportedExtensions = null;
 
         /**
-         * [pending]
+         * Extensions loaded into the current context
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#extensions
          * @type {object}
@@ -43985,7 +44064,7 @@ var WebGLRenderer = new Class({
         this.extensions = {};
 
         /**
-         * [pending]
+         * Stores the current WebGL component formats for further use
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#glFormats
          * @type {array}
@@ -43998,7 +44077,8 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Creates a new WebGLRenderingContext and initializes all internal
+     * state.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#init
      * @since 3.0.0
@@ -44145,12 +44225,12 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Checks if a WebGL extension is supported
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#hasExtension
      * @since 3.0.0
      *
-     * @param {string} extensionName - [pending]
+     * @param {string} extensionName - Name of the WebGL extension
      *
      * @return {boolean} [description]
      */
@@ -44160,14 +44240,14 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Loads a WebGL extension
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#getExtension
      * @since 3.0.0
      *
      * @param {string} extensionName - [description]
      *
-     * @return {object} [pending]
+     * @return {object} WebGL extension if the extension is supported
      */
     getExtension: function (extensionName)
     {
@@ -44182,7 +44262,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Flushes the current pipeline if the pipeline is bound
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#flush
      * @since 3.0.0
@@ -44198,12 +44278,12 @@ var WebGLRenderer = new Class({
     /* Renderer State Manipulation Functions */
 
     /**
-     * [pending]
+     * Checks if a pipeline is present in the current WebGLRenderer
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#hasPipeline
      * @since 3.0.0
      *
-     * @param {string} pipelineName - [pending]
+     * @param {string} pipelineName - Name of the pipeline
      *
      * @return {boolean} [description]
      */
@@ -44213,7 +44293,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Returns the pipeline by name if the pipeline exists
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#getPipeline
      * @since 3.0.0
@@ -44228,7 +44308,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Removes a pipeline by name
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#removePipeline
      * @since 3.0.0
@@ -44245,15 +44325,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Adds a pipeline instance into the collection of pipelines
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#addPipeline
      * @since 3.0.0
      *
      * @param {string} pipelineName - [description]
-     * @param {Phaser.Renderer.WebGL.WebGLPipeline} pipelineInstance - [pending]
+     * @param {Phaser.Renderer.WebGL.WebGLPipeline} pipelineInstance - Pipeline instance must extend WebGLPipeline
      *
-     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [pending]
+     * @return {Phaser.Renderer.WebGL.WebGLPipeline} The instance that was passed.
      */
     addPipeline: function (pipelineName, pipelineInstance)
     {
@@ -44274,7 +44354,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Sets the current scissor state
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setScissor
      * @since 3.0.0
@@ -44321,7 +44401,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending] - what's the difference between addScissor and pushScissor?
+     * Pushes a new scissor state. This is used to set nested scissor states.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#pushScissor
      * @since 3.0.0
@@ -44351,7 +44431,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Pops the last scissor state and sets it.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#popScissor
      * @since 3.0.0
@@ -44375,7 +44455,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Binds a WebGLPipeline and sets it as the current pipeline to be used.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setPipeline
      * @since 3.0.0
@@ -44504,13 +44584,14 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Binds a texture at a texture unit. If a texture is already 
+     * bound to that unit it will force a flush on the current pipeline.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setTexture2D
      * @since 3.0.0
      *
-     * @param {WebGLTexture} texture - [pending]
-     * @param {integer} textureUnit - [pending]
+     * @param {WebGLTexture} texture - The WebGL texture that needs to be bound
+     * @param {integer} textureUnit - The texture unit to which the texture will be bound
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44538,12 +44619,13 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Binds a framebuffer. If there was another framebuffer already bound
+     * it will force a pipeline flush.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setFramebuffer
      * @since 3.0.0
      *
-     * @param {WebGLFramebuffer} framebuffer - [pending]
+     * @param {WebGLFramebuffer} framebuffer - The framebuffer that needs to be bound
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44564,12 +44646,13 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Binds a program. If there was another program already bound
+     * it will force a pipeline flush
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setProgram
      * @since 3.0.0
      *
-     * @param {WebGLProgram} program - [pending]
+     * @param {WebGLProgram} program - The program that needs to be bound
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44590,12 +44673,13 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Bounds a vertex buffer. If there is a vertex buffer already bound
+     * it'll force a pipeline flush.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setVertexBuffer
      * @since 3.0.0
      *
-     * @param {WebGLBuffer} vertexBuffer - [pending]
+     * @param {WebGLBuffer} vertexBuffer - The buffer that needs to be bound
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44616,12 +44700,13 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Bounds a index buffer. If there is a index buffer already bound
+     * it'll force a pipeline flush.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setIndexBuffer
      * @since 3.0.0
      *
-     * @param {WebGLBuffer} indexBuffer - [pending]
+     * @param {WebGLBuffer} indexBuffer - The buffer the needs to be bound
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -44644,7 +44729,8 @@ var WebGLRenderer = new Class({
     /* Renderer Resource Creation Functions */
 
     /**
-     * [pending]
+     * Creates a texture from an image source. If the source is not valid
+     * it creates an empty texture
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createTextureFromSource
      * @since 3.0.0
@@ -44693,23 +44779,24 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * A wrapper for creating a WebGLTexture. If not pixel data is passed
+     * it will create an empty texture.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createTexture2D
      * @since 3.0.0
      *
-     * @param {integer} mipLevel - [pending]
-     * @param {integer} minFilter - [pending]
-     * @param {integer} magFilter - [pending]
-     * @param {integer} wrapT - [pending]
-     * @param {integer} wrapS - [pending]
-     * @param {integer} format - [pending]
-     * @param {object} pixels - [pending]
-     * @param {integer} width - [pending]
-     * @param {integer} height - [pending]
-     * @param {boolean} pma - [pending]
+     * @param {integer} mipLevel - Mip level of the texture
+     * @param {integer} minFilter - Filtering of the texture
+     * @param {integer} magFilter - Filtering of the texture
+     * @param {integer} wrapT - Wrapping mode of the texture
+     * @param {integer} wrapS - Wrapping mode of the texture
+     * @param {integer} format - Which format does the texture use
+     * @param {object} pixels - pixel data
+     * @param {integer} width - Width of the texture in pixels
+     * @param {integer} height - Height of the texture in pixels
+     * @param {boolean} pma - Does the texture hace premultiplied alpha.
      *
-     * @return {WebGLTexture} [pending]
+     * @return {WebGLTexture} Raw WebGLTexture
      */
     createTexture2D: function (mipLevel, minFilter, magFilter, wrapT, wrapS, format, pixels, width, height, pma)
     {
@@ -44750,17 +44837,17 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Wrapper for creating WebGLFramebuffer.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createFramebuffer
      * @since 3.0.0
      *
-     * @param {integer} width - [pending]
-     * @param {integer} height - [pending]
-     * @param {WebGLFramebuffer} renderTexture - [pending]
-     * @param {boolean} addDepthStencilBuffer - [pending]
+     * @param {integer} width - Width in pixels of the framebuffer
+     * @param {integer} height - Height in pixels of the framebuffer
+     * @param {WebGLTexture} renderTexture - The color texture to where the color pixels are written 
+     * @param {boolean} addDepthStencilBuffer - Indicates if the current framebuffer support depth and stencil buffers
      *
-     * @return {WebGLFramebuffer} [pending]
+     * @return {WebGLFramebuffer} Raw WebGLFramebuffer
      */
     createFramebuffer: function (width, height, renderTexture, addDepthStencilBuffer)
     {
@@ -44805,15 +44892,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Wrapper for creating a WebGLProgram
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createProgram
      * @since 3.0.0
      *
-     * @param {string} vertexShader - [pending]
-     * @param {string} fragmentShader - [pending]
+     * @param {string} vertexShader - Source to the vertex shader
+     * @param {string} fragmentShader - Source to the fragment shader
      *
-     * @return {WebGLProgram} [pending]
+     * @return {WebGLProgram} Raw WebGLProgram
      */
     createProgram: function (vertexShader, fragmentShader)
     {
@@ -44849,15 +44936,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Wrapper for creating a vertex buffer.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createVertexBuffer
      * @since 3.0.0
      *
-     * @param {ArrayBuffer} initialDataOrSize - [pending]
-     * @param {integer} bufferUsage - [pending]
+     * @param {ArrayBuffer} initialDataOrSize - It's either ArrayBuffer or an integer indicating the size of the vbo
+     * @param {integer} bufferUsage - How the buffer is used. gl.DYNAMIC_DRAW, gl.STATIC_DRAW or gl.STREAM_DRAW
      *
-     * @return {WebGLBuffer} [pending]
+     * @return {WebGLBuffer} Raw vertex buffer
      */
     createVertexBuffer: function (initialDataOrSize, bufferUsage)
     {
@@ -44874,15 +44961,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Wrapper for creating a vertex buffer.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#createIndexBuffer
      * @since 3.0.0
      *
-     * @param {ArrayBuffer} initialDataOrSize - [pending]
-     * @param {integer} bufferUsage - [pending]
+     * @param {ArrayBuffer} initialDataOrSize - It's either ArrayBuffer or an integer indicating the size of the vbo
+     * @param {integer} bufferUsage - How the buffer is used. gl.DYNAMIC_DRAW, gl.STATIC_DRAW or gl.STREAM_DRAW
      *
-     * @return {WebGLBuffer} [pending]
+     * @return {WebGLBuffer} Raw index buffer
      */
     createIndexBuffer: function (initialDataOrSize, bufferUsage)
     {
@@ -44923,7 +45010,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Wrapper for deleting a raw WebGLFramebuffer
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#deleteFramebuffer
      * @since 3.0.0
@@ -44957,7 +45044,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Wrapper for deleting a vertex or index buffer
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#deleteBuffer
      * @since 3.0.0
@@ -44976,7 +45063,8 @@ var WebGLRenderer = new Class({
     /* Rendering Functions */
 
     /**
-     * [pending]
+     * Handles any clipping needed by the camera and renders the background
+     * color if a color is visible.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#preRenderCamera
      * @since 3.0.0
@@ -45013,7 +45101,8 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Renders the foreground camera effects like flash and fading.
+     * It resets the current scissor state.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#postRenderCamera
      * @since 3.0.0
@@ -45036,7 +45125,7 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * Clears the current vertex buffer and updates pipelines.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#preRender
      * @since 3.0.0
@@ -45302,17 +45391,17 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Sets uniform of a WebGLProgram
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setFloat4
      * @since 3.0.0
      *
-     * @param {WebGLProgram} program - [pending]
-     * @param {string} name - [pending]
-     * @param {float} x - [pending]
-     * @param {float} y - [pending]
-     * @param {float} z - [pending]
-     * @param {float} w - [pending]
+     * @param {WebGLProgram} program - Target program
+     * @param {string} name - Name of the uniform
+     * @param {float} x - X component
+     * @param {float} y - Y component
+     * @param {float} z - Z component
+     * @param {float} w - W component
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -45392,17 +45481,17 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Sets uniform of a WebGLProgram
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setInt4
      * @since 3.0.0
      *
-     * @param {WebGLProgram} program - [pending]
-     * @param {string} name - [pending]
-     * @param {integer} x - [pending]
-     * @param {integer} y - [pending]
-     * @param {integer} z - [pending]
-     * @param {integer} w - [pending]
+     * @param {WebGLProgram} program - Target Program
+     * @param {string} name - Name of the uniform
+     * @param {integer} x - X component
+     * @param {integer} y - Y component
+     * @param {integer} z - Z component
+     * @param {integer} w - W component
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -45460,15 +45549,15 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [pending]
+     * Sets uniform of a WebGLProgram
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setMatrix4
      * @since 3.0.0
      *
-     * @param {WebGLProgram} program - [pending]
-     * @param {string} name - [pending]
-     * @param {boolean} transpose - [pending]
-     * @param {Float32Array} matrix - [pending]
+     * @param {WebGLProgram} program - Target program
+     * @param {string} name - Name of the uniform
+     * @param {boolean} transpose - Is the matrix transposed
+     * @param {Float32Array} matrix - Matrix data
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */

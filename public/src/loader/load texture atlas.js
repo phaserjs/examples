@@ -19,6 +19,7 @@ function preload ()
 function create ()
 {
     var atlasTexture = this.textures.get('megaset');
+
     var frames = atlasTexture.getFrameNames();
 
     for (var i = 0; i < frames.length; i++)

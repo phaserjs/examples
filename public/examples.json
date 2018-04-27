@@ -280,7 +280,7 @@
         {
           "path": "src\\animation\\on complete callback.js",
           "name": "on complete callback.js",
-          "size": 1008,
+          "size": 997,
           "extension": ".js"
         },
         {
@@ -350,7 +350,7 @@
           "extension": ".js"
         }
       ],
-      "size": 35674
+      "size": 35663
     },
     {
       "path": "src\\archived",
@@ -2713,8 +2713,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\line rendering.js",
-              "name": "line rendering.js",
+              "path": "src\\game objects\\graphics\\Line Rendering.js",
+              "name": "Line Rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2725,8 +2725,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\many line stars.js",
-              "name": "many line stars.js",
+              "path": "src\\game objects\\graphics\\Many Line Stars.js",
+              "name": "Many Line Stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2737,8 +2737,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js",
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2857,8 +2857,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\trail.js",
-              "name": "trail.js",
+              "path": "src\\game objects\\graphics\\Trail.js",
+              "name": "Trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -3792,14 +3792,14 @@
                 {
                   "path": "src\\game objects\\text\\static\\word wrap by width.js",
                   "name": "word wrap by width.js",
-                  "size": 2480,
+                  "size": 2027,
                   "extension": ".js"
                 }
               ],
-              "size": 26242
+              "size": 25789
             }
           ],
-          "size": 26242
+          "size": 25789
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -4234,7 +4234,7 @@
           "size": 255492
         }
       ],
-      "size": 731140
+      "size": 730687
     },
     {
       "path": "src\\games",
@@ -6369,9 +6369,21 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\load animation json.js",
+          "name": "load animation json.js",
+          "size": 661,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\load atlas with local json.js",
           "name": "load atlas with local json.js",
           "size": 7571,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load bitmap text.js",
+          "name": "load bitmap text.js",
+          "size": 1058,
           "extension": ".js"
         },
         {
@@ -6419,13 +6431,13 @@
         {
           "path": "src\\loader\\load svg.js",
           "name": "load svg.js",
-          "size": 801,
+          "size": 800,
           "extension": ".js"
         },
         {
           "path": "src\\loader\\load texture atlas.js",
           "name": "load texture atlas.js",
-          "size": 682,
+          "size": 684,
           "extension": ".js"
         },
         {
@@ -6447,7 +6459,7 @@
           "extension": ".js"
         }
       ],
-      "size": 45691
+      "size": 47411
     },
     {
       "path": "src\\paths",
@@ -7482,8 +7494,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\Game.js",
-              "name": "Game.js",
+              "path": "src\\scenes\\cross scene\\game.js",
+              "name": "game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -7687,7 +7699,7 @@
         {
           "path": "src\\scenes\\restart a scene.js",
           "name": "restart a scene.js",
-          "size": 1073,
+          "size": 1225,
           "extension": ".js"
         },
         {
@@ -7824,7 +7836,7 @@
           "extension": ".js"
         }
       ],
-      "size": 114089
+      "size": 114241
     },
     {
       "path": "src\\snapshot",
@@ -8636,5 +8648,5 @@
       "size": 4792
     }
   ],
-  "size": 2287052
+  "size": 2288460
 }

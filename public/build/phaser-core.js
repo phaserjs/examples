@@ -13060,7 +13060,7 @@ var GameObject = new Class({
      * @since 3.0.0
      *
      * @param {*} [shape] - A geometric shape that defines the hit area for the Game Object. If not specified a Rectangle will be used.
-     * @param {HitAreaCallback} [callback] - A callback to be invoked when the Game Object is interacted with.
+     * @param {HitAreaCallback} [callback] - A callback to be invoked when the Game Object is interacted with. If you provide a shape you must also provide a callback.
      * @param {boolean} [dropZone=false] - Should this Game Object be treated as a drop zone target?
      *
      * @return {Phaser.GameObjects.GameObject} This GameObject.
@@ -35087,52 +35087,10 @@ var File = new Class({
          * to the linked file. Set and used internally by the Loader.
          *
          * @name Phaser.Loader.File#linkFile
-         * @type {?Phaser.Loader.File}
+         * @type {?Phaser.Loader.LinkFile}
          * @since 3.0.0
          */
-        this.linkFile = undefined;
-
-        /**
-         * If this is a multipart file, i.e. an atlas and its json together, then this is a reference
-         * to the type of linked association. Set and used internally by the Loader.
-         *
-         * @name Phaser.Loader.File#linkType
-         * @type {string}
-         * @default ''
-         * @since 3.0.0
-         */
-        this.linkType = '';
-
-        /**
-         * If this is a link file, is this the parent or the sibbling?
-         *
-         * @name Phaser.Loader.File#linkParent
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
-        this.linkParent = false;
-    },
-
-    /**
-     * If this is a multipart file, i.e. an atlas and its json together, then this is a reference
-     * to the linked file. Set and used internally by the Loader.
-     *
-     * @method Phaser.Loader.File#setLinkFile
-     * @since 3.0.0
-     *
-     * @param {Phaser.Loader.File} fileB - The linked file.
-     * @param {string} linkType - The type of association.
-     */
-    setLinkFile: function (fileB, linkType)
-    {
-        this.linkFile = fileB;
-        fileB.linkFile = this;
-
-        this.linkType = linkType;
-        fileB.linkType = linkType;
-
-        this.linkParent = true;
+        this.linkFile;
     },
 
     /**
@@ -35259,7 +35217,7 @@ var File = new Class({
     },
 
     /**
-     * Called with the File has completed loading.
+     * Called when the File has completed loading.
      * Checks on the state of its linkfile, if set.
      *
      * @method Phaser.Loader.File#onComplete
@@ -35267,23 +35225,11 @@ var File = new Class({
      */
     onComplete: function ()
     {
+        this.state = CONST.FILE_COMPLETE;
+
         if (this.linkFile)
         {
-            if (this.linkFile.state === CONST.FILE_WAITING_LINKFILE)
-            {
-                //  The linkfile has finished processing, and is waiting for this file, so let's do them both
-                this.state = CONST.FILE_COMPLETE;
-                this.linkFile.state = CONST.FILE_COMPLETE;
-            }
-            else
-            {
-                //  The linkfile still hasn't finished loading and/or processing yet
-                this.state = CONST.FILE_WAITING_LINKFILE;
-            }
-        }
-        else
-        {
-            this.state = CONST.FILE_COMPLETE;
+            this.linkFile.onFileComplete(this);
         }
     },
 
@@ -35318,6 +35264,22 @@ var File = new Class({
         }
 
         this.loader.emit('filecomplete', this.key, this);
+    },
+
+    /**
+     * Destroy this File and any references it holds.
+     * Called automatically by the Loader.
+     *
+     * @method Phaser.Loader.File#destroy
+     * @since 3.7.0
+     */
+    destroy: function ()
+    {
+        this.loader = null;
+        this.cache = null;
+        this.xhrSettings = null;
+        this.linkFile = null;
+        this.data = null;
     }
 
 });
@@ -35461,6 +35423,156 @@ var GetURL = function (file, baseURL)
 };
 
 module.exports = GetURL;
+
+
+/***/ }),
+
+/***/ "./loader/LinkFile.js":
+/*!****************************!*\
+  !*** ./loader/LinkFile.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class LinkFile
+ * @memberOf Phaser.Loader
+ * @constructor
+ * @since 3.7.0
+ *
+ * @param {Phaser.Loader.LoaderPlugin} loader - The Loader that is going to load this File.
+ * @param {string} type - The file type string for sorting within the Loader.
+ * @param {string} key - The key of the file within the loader.
+ * @param {Phaser.Loader.File[]} files - An array of Files that make-up this LinkFile.
+ */
+var LinkFile = new Class({
+
+    initialize:
+
+    function LinkFile (loader, type, key, files)
+    {
+        /**
+         * A reference to the Loader that is going to load this file.
+         *
+         * @name Phaser.Loader.LinkFile#loader
+         * @type {Phaser.Loader.LoaderPlugin}
+         * @since 3.7.0
+         */
+        this.loader = loader;
+
+        /**
+         * The file type string for sorting within the Loader.
+         *
+         * @name Phaser.Loader.LinkFile#type
+         * @type {string}
+         * @since 3.7.0
+         */
+        this.type = type;
+
+        /**
+         * Unique cache key (unique within its file type)
+         *
+         * @name Phaser.Loader.LinkFile#key
+         * @type {string}
+         * @since 3.7.0
+         */
+        this.key = key;
+
+        /**
+         * Array of files that make up this LinkFile.
+         *
+         * @name Phaser.Loader.LinkFile#files
+         * @type {Phaser.Loader.File[]}
+         * @since 3.7.0
+         */
+        this.files = files;
+
+        /**
+         * The completion status of this LinkFile.
+         *
+         * @name Phaser.Loader.LinkFile#complete
+         * @type {boolean}
+         * @since 3.7.0
+         */
+        this.complete = false;
+
+        /**
+         * The number of files to load.
+         *
+         * @name Phaser.Loader.LinkFile#pending
+         * @type {integer}
+         * @since 3.7.0
+         */
+
+        this.pending = files.length;
+
+        /**
+         * The number of files that failed to load.
+         *
+         * @name Phaser.Loader.LinkFile#failed
+         * @type {integer}
+         * @default 0
+         * @since 3.7.0
+         */
+        this.failed = 0
+
+        //  Link the files
+        for (var i = 0; i < files.length; i++)
+        {
+            files[i].linkFile = this;
+        }
+    },
+
+    /**
+     * Called by each File when it finishes loading.
+     *
+     * @method Phaser.Loader.LinkFile#onFileComplete
+     * @since 3.7.0
+     *
+     * @param {Phaser.Loader.File} file - The File that has completed processing.
+     */
+    onFileComplete: function (file)
+    {
+        var index = this.files.indexOf(file);
+
+        if (index !== -1)
+        {
+            this.pending--;
+        }
+    },
+
+    /**
+     * Called by each File that fails to load.
+     *
+     * @method Phaser.Loader.LinkFile#onFileFailed
+     * @since 3.7.0
+     *
+     * @param {Phaser.Loader.File} file - The File that has failed to load.
+     */
+    onFileFailed: function (file)
+    {
+        var index = this.files.indexOf(file);
+
+        if (index !== -1)
+        {
+            this.failed++;
+        }
+    }
+
+});
+
+module.exports = LinkFile;
 
 
 /***/ }),
@@ -35864,31 +35976,57 @@ module.exports = FILE_CONST;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
+var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
+var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSONFile.js");
 
 /**
- * An Animation JSON File.
+ * @classdesc
+ * [description]
  *
- * @function Phaser.Loader.FileTypes.AnimationJSONFile
+ * @class AnimationJSONFile
+ * @extends Phaser.Loader.File
+ * @memberOf Phaser.Loader.FileTypes
+ * @constructor
  * @since 3.0.0
  *
- * @param {string} key - The key of the file within the loader.
- * @param {string} url - The url to load the file from.
- * @param {string} path - The path of the file.
- * @param {XHRSettingsObject} [xhrSettings] - Optional file specific XHR settings.
- *
- * @return {Phaser.Loader.FileTypes.JSONFile} A File instance to be added to the Loader.
+ * @param {string} key - [description]
+ * @param {string} url - [description]
+ * @param {string} path - [description]
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  */
-var AnimationJSONFile = function (loader, key, url, xhrSettings)
-{
-    var json = new JSONFile(loader, key, url, xhrSettings);
+var AnimationJSONFile = new Class({
 
-    //  Override the File type
-    json.type = 'animationJSON';
+    Extends: JSONFile,
 
-    return json;
-};
+    initialize:
+
+    //  url can either be a string, in which case it is treated like a proper url, or an object, in which case it is treated as a ready-made JS Object
+
+    function AnimationJSONFile (loader, key, url, xhrSettings)
+    {
+        JSONFile.call(this, loader, key, url, xhrSettings);
+
+        this.type = 'animationJSON';
+    },
+
+    onProcess: function (callback)
+    {
+        JSONFile.prototype.onProcess.call(this, callback);
+
+        //  We also need to hook into this event:
+        this.loader.once('processcomplete', this.onProcessComplete, this);
+    },
+
+    onProcessComplete: function ()
+    {
+        this.loader.scene.sys.anims.fromJSON(this.data);
+    }
+
+});
 
 /**
  * Adds an Animation JSON file to the current load queue.
@@ -35927,12 +36065,6 @@ FileTypesManager.register('animation', function (key, url, xhrSettings)
     return this;
 });
 
-//  When registering a factory function 'this' refers to the Loader context.
-//
-//  There are several properties available to use:
-//
-//  this.scene - a reference to the Scene that owns the GameObjectFactory
-
 module.exports = AnimationJSONFile;
 
 
@@ -35951,14 +36083,20 @@ module.exports = AnimationJSONFile;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/ImageFile.js");
 var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSONFile.js");
+var LinkFile = __webpack_require__(/*! ../LinkFile.js */ "./loader/LinkFile.js");
 
 /**
+ * @classdesc
  * An Atlas JSON File.
  *
- * @function Phaser.Loader.FileTypes.AtlasJSONFile
+ * @class AtlasJSONFile
+ * @extends Phaser.Loader.LinkFile
+ * @memberOf Phaser.Loader.FileTypes
+ * @constructor
  * @since 3.0.0
  *
  * @param {string} key - The key of the file within the loader.
@@ -35967,24 +36105,44 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
  * @param {string} path - The path of the file.
  * @param {XHRSettingsObject} [textureXhrSettings] - Optional texture file specific XHR settings.
  * @param {XHRSettingsObject} [atlasXhrSettings] - Optional atlas file specific XHR settings.
- *
- * @return {object} An object containing two File objects to be added to the loader.
  */
-var AtlasJSONFile = function (loader, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings)
-{
-    var image = new ImageFile(loader, key, textureURL, textureXhrSettings);
-    var data = new JSONFile(loader, key, atlasURL, atlasXhrSettings);
+var AtlasJSONFile = new Class({
 
-    //  Link them together
-    image.linkFile = data;
-    data.linkFile = image;
+    Extends: LinkFile,
 
-    //  Set the type
-    image.linkType = 'atlasjson';
-    data.linkType = 'atlasjson';
+    initialize:
 
-    return { texture: image, data: data };
-};
+    function AtlasJSONFile (loader, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings)
+    {
+        var image = new ImageFile(loader, key, textureURL, textureXhrSettings);
+        var data = new JSONFile(loader, key, atlasURL, atlasXhrSettings);
+
+        LinkFile.call(this, loader, 'atlasjson', key, [ image, data ]);
+    },
+
+    addToCache: function ()
+    {
+        if (this.failed === 0 && !this.complete)
+        {
+            fileA = this.files[0];
+            fileB = this.files[1];
+
+            if (fileA.type === 'image')
+            {
+                this.loader.textureManager.addAtlas(fileA.key, fileA.data, fileB.data);
+                fileB.addToCache();
+            }
+            else
+            {
+                this.loader.textureManager.addAtlas(fileB.key, fileB.data, fileA.data);
+                fileA.addToCache();
+            }
+
+            this.complete = true;
+        }
+    }
+
+});
 
 /**
  * Adds a Texture Atlas file to the current load queue.
@@ -36007,23 +36165,20 @@ var AtlasJSONFile = function (loader, key, textureURL, atlasURL, textureXhrSetti
  */
 FileTypesManager.register('atlas', function (key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings)
 {
-    var files;
+    var linkfile;
 
-    // If param key is an object, use object based loading method
     if ((typeof key === 'object') && (key !== null))
     {
-        files = new AtlasJSONFile(this, key.key, key.texture, key.data, textureXhrSettings, atlasXhrSettings);
+        // If param key is an object, use object based loading method
+        linkfile = new AtlasJSONFile(this, key.key, key.texture, key.data, textureXhrSettings, atlasXhrSettings);
     }
-
-    // Else just use the parameters like normal
     else
     {
-        //  Returns an object with two properties: 'texture' and 'data'
-        files = new AtlasJSONFile(this, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings);
+        // else just use the parameters like normal
+        linkfile = new AtlasJSONFile(this, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings);
     }
 
-    this.addFile(files.texture);
-    this.addFile(files.data);
+    this.addFile(linkfile.files);
 
     return this;
 });
@@ -36823,12 +36978,12 @@ FileTypesManager.register('json', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new JSONFile(key[i], url, this.path, xhrSettings));
+            this.addFile(new JSONFile(this, key[i], url, xhrSettings));
         }
     }
     else
     {
-        this.addFile(new JSONFile(key, url, this.path, xhrSettings));
+        this.addFile(new JSONFile(this, key, url, xhrSettings));
     }
 
     //  For method chaining
@@ -70409,7 +70564,7 @@ var AddAt = function (array, item, index, limit, callback, context)
 
             if (callback)
             {
-                callback.call(context, entry);
+                callback.call(context, item);
             }
 
             return item;

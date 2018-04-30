@@ -24,58 +24,40 @@ function create ()
 
     this.input.topOnly = true;
 
-    this.input.on('POINTER_OVER_EVENT', function (event) {
+    this.input.on('gameobjectover', function (pointer, gameObject) {
 
-        console.log('OVER', event.gameObject.name);
-
-        event.gameObject.setTint(0x00ff00);
+        gameObject.setTint(0x00ff00);
 
     });
 
-    this.input.on('POINTER_OUT_EVENT', function (event) {
+    this.input.on('gameobjectout', function (pointer, gameObject) {
 
-        console.log('OUT', event.gameObject.name);
-
-        if (event.gameObject.input.isDown)
+        if (gameObject.input.isDown)
         {
-            event.gameObject.setTint(0xff0000);
+            gameObject.setTint(0xff0000);
         }
         else
         {
-            event.gameObject.clearTint();
+            gameObject.clearTint();
         }
 
     });
 
-    this.input.on('pointerdown', function (event) {
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
 
-        if (event.gameObject)
-        {
-            console.log('DOWN', event.gameObject.name);
-
-            event.gameObject.setTint(0xff0000);
-        }
+        gameObject.setTint(0xff0000);
 
     });
 
-    this.input.on('pointerup', function () {
+    this.input.on('gameobjectup', function (pointer, gameObject) {
 
-        if (sprite1.input.isOver)
+        if (gameObject.input.isOver)
         {
-            sprite1.setTint(0x00ff00);
+            gameObject.setTint(0x00ff00);
         }
         else
         {
-            sprite1.clearTint();
-        }
-
-        if (sprite2.input.isOver)
-        {
-            sprite2.setTint(0x00ff00);
-        }
-        else
-        {
-            sprite2.clearTint();
+            gameObject.clearTint();
         }
 
     });

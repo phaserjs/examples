@@ -18,13 +18,11 @@ var DemoA = new Phaser.Class({
     {
         this.add.image(400, 300, 'picA');
 
-        var _this = this;
+        this.input.once('pointerdown', function () {
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+            this.scene.sendToBack();
 
-            _this.scene.sendToBack();
-
-        });
+        }, this);
     }
 
 });
@@ -76,7 +74,7 @@ var DemoC = new Phaser.Class({
 });
 
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: 'phaser-example',

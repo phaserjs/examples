@@ -20,12 +20,12 @@ var SceneA = new Phaser.Class({
 
         var _this = this;
 
-        this.input.once('MOUSE_DOWN_EVENT', function (event) {
+        this.input.once('pointerdown', function () {
 
-            _this.scene.launch('sceneB');
-            _this.scene.launch('sceneC');
+            this.scene.launch('sceneB');
+            this.scene.launch('sceneC');
 
-        });
+        }, this);
     }
 
 });
@@ -91,7 +91,7 @@ var SceneC = new Phaser.Class({
 });
 
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000000',

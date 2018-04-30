@@ -25,19 +25,19 @@ function create ()
 
     var _this = this;
 
-    this.input.on('MOUSE_MOVE_EVENT', function (event) {
+    this.input.on('pointermove', function (pointer) {
 
-        var color = _this.textures.getPixel(event.x - 111, event.y - 25, 'wheel');
+        var color = _this.textures.getPixel(pointer.x - 111, pointer.y - 25, 'wheel');
 
         graphics.clear();
 
         if (color)
         {
             graphics.lineStyle(1, 0x000000, 1);
-            graphics.strokeRect(event.x - 1, event.y - 1, 34, 34);
+            graphics.strokeRect(pointer.x - 1, pointer.y - 1, 34, 34);
 
             graphics.fillStyle(color.color, 1);
-            graphics.fillRect(event.x, event.y, 32, 32);
+            graphics.fillRect(pointer.x, pointer.y, 32, 32);
         }
     });
 }

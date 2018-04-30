@@ -4970,6 +4970,14 @@ var ValueToColor = __webpack_require__(/*! ../../display/color/ValueToColor */ "
 var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js");
 
 /**
+ * @typedef {object} JSONCameraBounds
+ * @property {number} x - The horizontal position of camera
+ * @property {number} y - The vertical position of camera
+ * @property {number} width - The width size of camera
+ * @property {number} height - The height size of camera
+ */
+
+/**
  * @typedef {object} JSONCamera
  *
  * @property {string} name - The name of the camera
@@ -4983,11 +4991,7 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @property {number} scrollX - The horizontal scroll of camera
  * @property {number} scrollY - The vertical scroll of camera
  * @property {string} backgroundColor - The background color of camera
- * @property {object} [bounds] - The bounds of camera
- * @property {number} [bounds.x] - The horizontal position of bounds of camera
- * @property {number} [bounds.y] - The vertical position of bounds of camera
- * @property {number} [bounds.width] - The width of the bounds of camera
- * @property {number} [bounds.height] - The height of the bounds of camera
+ * @property {(JSONCameraBounds|undefined)} [bounds] - The bounds of camera
  */
 
 /**
@@ -14757,7 +14761,7 @@ var Animation = new Class({
             value = 1 - value;
         }
 
-        this.setCurrentFrame(this.animationManager.getFrameByProgress(value));
+        this.setCurrentFrame(this.currentAnim.getFrameByProgress(value));
 
         return this.parent;
     },
@@ -22757,13 +22761,19 @@ var Text = new Class({
                     {
                         result += '\n';
                     }
+
                     result += words[j] + ' ';
                     spaceLeft = wordWrapWidth - wordWidth;
                 }
                 else
                 {
                     spaceLeft -= wordWidthWithSpace;
-                    result += words[j] + ' ';
+                    result += words[j];
+
+                    if (j < (words.length - 1))
+                    {
+                        result += ' ';
+                    }
                 }
             }
 
@@ -35525,7 +35535,7 @@ var LinkFile = new Class({
          * @default 0
          * @since 3.7.0
          */
-        this.failed = 0
+        this.failed = 0;
 
         //  Link the files
         for (var i = 0; i < files.length; i++)
@@ -35977,10 +35987,7 @@ module.exports = FILE_CONST;
  */
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
-var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
-var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
-var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSONFile.js");
 
 /**
@@ -36048,12 +36055,15 @@ var AnimationJSONFile = new Class({
  */
 FileTypesManager.register('animation', function (key, url, xhrSettings)
 {
+    //  Supports an Object file definition in the key argument
+    //  Or an array of objects in the key argument
+    //  Or a single entry where all arguments have been defined
+
     if (Array.isArray(key))
     {
         for (var i = 0; i < key.length; i++)
         {
-            //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new AnimationJSONFile(this, key[i], url, xhrSettings));
+            this.addFile(new AnimationJSONFile(this, key[i]));
         }
     }
     else
@@ -36061,7 +36071,6 @@ FileTypesManager.register('animation', function (key, url, xhrSettings)
         this.addFile(new AnimationJSONFile(this, key, url, xhrSettings));
     }
 
-    //  For method chaining
     return this;
 });
 
@@ -36085,7 +36094,9 @@ module.exports = AnimationJSONFile;
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
+var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/ImageFile.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSONFile.js");
 var LinkFile = __webpack_require__(/*! ../LinkFile.js */ "./loader/LinkFile.js");
 
@@ -36114,6 +36125,17 @@ var AtlasJSONFile = new Class({
 
     function AtlasJSONFile (loader, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings)
     {
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            textureURL = GetFastValue(config, 'textureURL');
+            atlasURL = GetFastValue(config, 'atlasURL');
+            textureXhrSettings = GetFastValue(config, 'textureXhrSettings');
+            atlasXhrSettings = GetFastValue(config, 'atlasXhrSettings');
+        }
+
         var image = new ImageFile(loader, key, textureURL, textureXhrSettings);
         var data = new JSONFile(loader, key, atlasURL, atlasXhrSettings);
 
@@ -36124,8 +36146,8 @@ var AtlasJSONFile = new Class({
     {
         if (this.failed === 0 && !this.complete)
         {
-            fileA = this.files[0];
-            fileB = this.files[1];
+            var fileA = this.files[0];
+            var fileB = this.files[1];
 
             if (fileA.type === 'image')
             {
@@ -36167,18 +36189,25 @@ FileTypesManager.register('atlas', function (key, textureURL, atlasURL, textureX
 {
     var linkfile;
 
-    if ((typeof key === 'object') && (key !== null))
+    //  Supports an Object file definition in the key argument
+    //  Or an array of objects in the key argument
+    //  Or a single entry where all arguments have been defined
+
+    if (Array.isArray(key))
     {
-        // If param key is an object, use object based loading method
-        linkfile = new AtlasJSONFile(this, key.key, key.texture, key.data, textureXhrSettings, atlasXhrSettings);
+        for (var i = 0; i < key.length; i++)
+        {
+            linkfile = new AtlasJSONFile(this, key[i]);
+
+            this.addFile(linkfile.files);
+        }
     }
     else
     {
-        // else just use the parameters like normal
         linkfile = new AtlasJSONFile(this, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings);
-    }
 
-    this.addFile(linkfile.files);
+        this.addFile(linkfile.files);
+    }
 
     return this;
 });
@@ -36692,6 +36721,7 @@ var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
 var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
  * @classdesc
@@ -36707,7 +36737,7 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
  * @param {string} [url] - The asset's filename
  * @param {string} [path] - The path the asset can be found in
  * @param {XHRSettingsObject} [xhrSettings] - Optional image specific XHR settings
- * @param {object} [config] - config can include: frameWidth, frameHeight, startFrame, endFrame, margin, spacing
+ * @param {object} [frameConfig] - config can include: frameWidth, frameHeight, startFrame, endFrame, margin, spacing
  */
 var ImageFile = new Class({
 
@@ -36715,50 +36745,31 @@ var ImageFile = new Class({
 
     initialize:
 
-    // this.load.image('pic', 'assets/pics/taikodrummaster.jpg');
-    // this.load.image({ key: 'pic', file: 'assets/pics/taikodrummaster.jpg' });
-    // this.load.image({
-    //     key: 'bunny',
-    //     file: 'assets/sprites/bunny.png',
-    //     xhr: {
-    //         user: 'root',
-    //         password: 'th3G1bs0n',
-    //         timeout: 30,
-    //         header: 'Content-Type',
-    //         headerValue: 'text/xml'
-    //     }
-    // });
-    // this.load.image([
-    //     {
-    //         key: 'bunny',
-    //         file: 'assets/sprites/bunny.png',
-    //         xhr: {
-    //             user: 'root',
-    //             password: 'th3G1bs0n',
-    //             timeout: 30,
-    //             header: 'Content-Type',
-    //             headerValue: 'text/xml'
-    //         }
-    //     }
-    // ]);
-    // this.load.image({ key: 'bunny' });
-    // this.load.image({ key: 'bunny', extension: 'jpg' });
-
-    function ImageFile (loader, key, url, xhrSettings, config)
+    function ImageFile (loader, key, url, xhrSettings, frameConfig)
     {
-        var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
-        var fileUrl = (url === undefined) ? GetFastValue(key, 'file') : url;
+        var extension = 'png';
+
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            url = GetFastValue(config, 'url');
+            xhrSettings = GetFastValue(config, 'xhrSettings');
+            extension = GetFastValue(config, 'extension', extension);
+            frameConfig = GetFastValue(config, 'frameConfig');
+        }
 
         var fileConfig = {
             type: 'image',
             cache: loader.textureManager,
-            extension: GetFastValue(key, 'extension', 'png'),
+            extension: extension,
             responseType: 'blob',
-            key: fileKey,
-            url: fileUrl,
+            key: key,
+            url: url,
             path: loader.path,
-            xhrSettings: GetFastValue(key, 'xhr', xhrSettings),
-            config: GetFastValue(key, 'config', config)
+            xhrSettings: xhrSettings,
+            config: frameConfig
         };
 
         File.call(this, loader, fileConfig);
@@ -36823,48 +36834,19 @@ var ImageFile = new Class({
  */
 FileTypesManager.register('image', function (key, url, xhrSettings)
 {
-    var urls;
-    var fileA;
-    var fileB;
-
     if (Array.isArray(key))
     {
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            urls = GetFastValue(key[i], 'file', url);
-
-            if (Array.isArray(urls) && urls.length === 2)
-            {
-                fileA = this.addFile(new ImageFile(this, key[i], urls[0], xhrSettings));
-                fileB = this.addFile(new ImageFile(this, key[i], urls[1], xhrSettings));
-
-                fileA.setLinkFile(fileB, 'dataimage');
-            }
-            else
-            {
-                this.addFile(new ImageFile(this, key[i], url, xhrSettings));
-            }
+            this.addFile(new ImageFile(this, key[i]));
         }
     }
     else
     {
-        urls = GetFastValue(key, 'file', url);
-
-        if (Array.isArray(urls) && urls.length === 2)
-        {
-            fileA = this.addFile(new ImageFile(this, key, urls[0], xhrSettings));
-            fileB = this.addFile(new ImageFile(this, key, urls[1], xhrSettings));
-
-            fileA.setLinkFile(fileB, 'dataimage');
-        }
-        else
-        {
-            this.addFile(new ImageFile(this, key, url, xhrSettings));
-        }
+        this.addFile(new ImageFile(this, key, url, xhrSettings));
     }
 
-    //  For method chaining
     return this;
 });
 
@@ -36891,6 +36873,7 @@ var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
 var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
  * @classdesc
@@ -36917,25 +36900,35 @@ var JSONFile = new Class({
 
     function JSONFile (loader, key, url, xhrSettings)
     {
-        var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
+        var extension = 'json';
+
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            url = GetFastValue(config, 'url');
+            xhrSettings = GetFastValue(config, 'xhrSettings');
+            extension = GetFastValue(config, 'extension', extension);
+        }
 
         var fileConfig = {
             type: 'json',
             cache: loader.cacheManager.json,
-            extension: GetFastValue(key, 'extension', 'json'),
+            extension: extension,
             responseType: 'text',
-            key: fileKey,
-            url: GetFastValue(key, 'file', url),
+            key: key,
+            url: url,
             path: loader.path,
-            xhrSettings: GetFastValue(key, 'xhr', xhrSettings)
+            xhrSettings: xhrSettings
         };
 
         File.call(this, loader, fileConfig);
 
-        if (typeof fileConfig.url === 'object')
+        if (IsPlainObject(url))
         {
             //  Object provided instead of a URL, so no need to actually load it (populate data with value)
-            this.data = fileConfig.url;
+            this.data = url;
 
             this.state = CONST.FILE_POPULATED;
         }
@@ -36978,7 +36971,7 @@ FileTypesManager.register('json', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new JSONFile(this, key[i], url, xhrSettings));
+            this.addFile(new JSONFile(this, key[i]));
         }
     }
     else
@@ -36986,7 +36979,6 @@ FileTypesManager.register('json', function (key, url, xhrSettings)
         this.addFile(new JSONFile(this, key, url, xhrSettings));
     }
 
-    //  For method chaining
     return this;
 });
 
@@ -37107,6 +37099,7 @@ var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
 var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 var PluginManager = __webpack_require__(/*! ../../boot/PluginManager */ "./boot/PluginManager.js");
 
 /**
@@ -37132,25 +37125,34 @@ var PluginFile = new Class({
 
     function PluginFile (loader, key, url, xhrSettings)
     {
+        var extension = 'js';
+
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            url = GetFastValue(config, 'url');
+            xhrSettings = GetFastValue(config, 'xhrSettings');
+            extension = GetFastValue(config, 'extension', extension);
+        }
+
         // If the url variable refers to a class, add the plugin directly
         if (typeof url === 'function')
         {
-            this.key = key;
             window[key] = url;
             window[key].register(PluginManager);
         }
 
-        var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
-
         var fileConfig = {
             type: 'script',
             cache: false,
-            extension: GetFastValue(key, 'extension', 'js'),
+            extension: extension,
             responseType: 'text',
-            key: fileKey,
-            url: GetFastValue(key, 'file', url),
+            key: key,
+            url: url,
             path: loader.path,
-            xhrSettings: GetFastValue(key, 'xhr', xhrSettings)
+            xhrSettings: xhrSettings
         };
 
         File.call(this, fileConfig);
@@ -37202,7 +37204,7 @@ FileTypesManager.register('plugin', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new PluginFile(this, key[i], url, xhrSettings));
+            this.addFile(new PluginFile(this, key[i]));
         }
     }
     else
@@ -37210,7 +37212,6 @@ FileTypesManager.register('plugin', function (key, url, xhrSettings)
         this.addFile(new PluginFile(this, key, url, xhrSettings));
     }
 
-    //  For method chaining
     return this;
 });
 
@@ -37237,6 +37238,7 @@ var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
 var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
  * @classdesc
@@ -37261,17 +37263,27 @@ var ScriptFile = new Class({
 
     function ScriptFile (loader, key, url, xhrSettings)
     {
-        var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
+        var extension = 'js';
+
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            url = GetFastValue(config, 'url');
+            xhrSettings = GetFastValue(config, 'xhrSettings');
+            extension = GetFastValue(config, 'extension', extension);
+        }
 
         var fileConfig = {
             type: 'script',
             cache: false,
-            extension: GetFastValue(key, 'extension', 'js'),
+            extension: extension,
             responseType: 'text',
-            key: fileKey,
-            url: GetFastValue(key, 'file', url),
+            key: key,
+            url: url,
             path: loader.path,
-            xhrSettings: GetFastValue(key, 'xhr', xhrSettings)
+            xhrSettings: xhrSettings
         };
 
         File.call(this, fileConfig);
@@ -37320,7 +37332,7 @@ FileTypesManager.register('script', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new ScriptFile(this, key[i], url, xhrSettings));
+            this.addFile(new ScriptFile(this, key[i]));
         }
     }
     else
@@ -37328,7 +37340,6 @@ FileTypesManager.register('script', function (key, url, xhrSettings)
         this.addFile(new ScriptFile(this, key, url, xhrSettings));
     }
 
-    //  For method chaining
     return this;
 });
 
@@ -37350,39 +37361,48 @@ module.exports = ScriptFile;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/ImageFile.js");
 
 /**
- * A Sprite Sheet File.
+ * @classdesc
+ * [description]
  *
- * @function Phaser.Loader.FileTypes.SpriteSheetFile
+ * @class SpriteSheetFile
+ * @extends Phaser.Loader.File
+ * @memberOf Phaser.Loader.FileTypes
+ * @constructor
  * @since 3.0.0
  *
- * @param {string} key - The key of the file within the loader.
- * @param {string} url - The url to load the texture file from.
- * @param {object} config - Optional texture file specific XHR settings.
- * @param {string} path - Optional texture file specific XHR settings.
- * @param {XHRSettingsObject} [xhrSettings] - Optional atlas file specific XHR settings.
- *
- * @return {object} An object containing two File objects to be added to the loader.
+ * @param {string} key - [description]
+ * @param {string} url - [description]
+ * @param {object} [config] - config can include: frameWidth, frameHeight, startFrame, endFrame, margin, spacing
+ * @param {XHRSettingsObject} [xhrSettings] - [description]
  */
-var SpriteSheetFile = function (loader, key, url, config, xhrSettings)
-{
-    var image = new ImageFile(loader, key, url, xhrSettings, config);
+var SpriteSheetFile = new Class({
 
-    //  Override the File type
-    image.type = 'spritesheet';
+    Extends: ImageFile,
 
-    image.addToCache = function ()
+    initialize:
+
+    //  url can either be a string, in which case it is treated like a proper url, or an object, in which case it is treated as a ready-made JS Object
+
+    function SpriteSheetFile (loader, key, url, config, xhrSettings)
+    {
+        ImageFile.call(this, loader, key, url, xhrSettings, config);
+
+        this.type = 'spritesheet';
+    },
+
+    addToCache: function ()
     {
         this.cache.addSpriteSheet(this.key, this.data, this.config);
 
         this.loader.emit('filecomplete', this.key, this);
-    };
+    }
 
-    return image;
-};
+});
 
 /**
  * Adds a Sprite Sheet file to the current load queue.
@@ -37409,7 +37429,7 @@ FileTypesManager.register('spritesheet', function (key, url, config, xhrSettings
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new SpriteSheetFile(this, key[i], url, null, xhrSettings));
+            this.addFile(new SpriteSheetFile(this, key[i]));
         }
     }
     else
@@ -37417,7 +37437,6 @@ FileTypesManager.register('spritesheet', function (key, url, config, xhrSettings
         this.addFile(new SpriteSheetFile(this, key, url, config, xhrSettings));
     }
 
-    //  For method chaining
     return this;
 });
 
@@ -37443,6 +37462,8 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
 var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
+var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
  * @classdesc
@@ -37467,10 +37488,22 @@ var TextFile = new Class({
 
     function TextFile (loader, key, url, xhrSettings)
     {
+        var extension = 'txt';
+
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            url = GetFastValue(config, 'url');
+            xhrSettings = GetFastValue(config, 'xhrSettings');
+            extension = GetFastValue(config, 'extension', extension);
+        }
+
         var fileConfig = {
             type: 'text',
             cache: loader.cacheManager.text,
-            extension: 'txt',
+            extension: extension,
             responseType: 'text',
             key: key,
             url: url,
@@ -37518,7 +37551,7 @@ FileTypesManager.register('text', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new TextFile(this, key[i], url, xhrSettings));
+            this.addFile(new TextFile(this, key[i]));
         }
     }
     else
@@ -37526,7 +37559,6 @@ FileTypesManager.register('text', function (key, url, xhrSettings)
         this.addFile(new TextFile(this, key, url, xhrSettings));
     }
 
-    //  For method chaining
     return this;
 });
 
@@ -37553,6 +37585,7 @@ var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
 var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 var ParseXML = __webpack_require__(/*! ../../dom/ParseXML */ "./dom/ParseXML.js");
 
 /**
@@ -37578,17 +37611,27 @@ var XMLFile = new Class({
 
     function XMLFile (loader, key, url, xhrSettings)
     {
-        var fileKey = (typeof key === 'string') ? key : GetFastValue(key, 'key', '');
+        var extension = 'xml';
+
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            url = GetFastValue(config, 'url');
+            xhrSettings = GetFastValue(config, 'xhrSettings');
+            extension = GetFastValue(config, 'extension', extension);
+        }
 
         var fileConfig = {
             type: 'xml',
             cache: loader.cacheManager.xml,
-            extension: GetFastValue(key, 'extension', 'xml'),
+            extension: extension,
             responseType: 'text',
-            key: fileKey,
-            url: GetFastValue(key, 'file', url),
+            key: key,
+            url: url,
             path: loader.path,
-            xhrSettings: GetFastValue(key, 'xhr', xhrSettings)
+            xhrSettings: xhrSettings
         };
 
         File.call(this, loader, fileConfig);
@@ -37636,7 +37679,7 @@ FileTypesManager.register('xml', function (key, url, xhrSettings)
         for (var i = 0; i < key.length; i++)
         {
             //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
-            this.addFile(new XMLFile(this, key[i], url, xhrSettings));
+            this.addFile(new XMLFile(this, key[i]));
         }
     }
     else
@@ -37644,7 +37687,6 @@ FileTypesManager.register('xml', function (key, url, xhrSettings)
         this.addFile(new XMLFile(this, key, url, xhrSettings));
     }
 
-    //  For method chaining
     return this;
 });
 

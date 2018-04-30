@@ -2713,8 +2713,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\line rendering.js",
-              "name": "line rendering.js",
+              "path": "src\\game objects\\graphics\\Line Rendering.js",
+              "name": "Line Rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2725,8 +2725,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\many line stars.js",
-              "name": "many line stars.js",
+              "path": "src\\game objects\\graphics\\Many Line Stars.js",
+              "name": "Many Line Stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2737,8 +2737,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js",
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2857,8 +2857,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\trail.js",
-              "name": "trail.js",
+              "path": "src\\game objects\\graphics\\Trail.js",
+              "name": "Trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -6435,6 +6435,18 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\load texture atlas from object.js",
+          "name": "load texture atlas from object.js",
+          "size": 747,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load texture atlas from payload.js",
+          "name": "load texture atlas from payload.js",
+          "size": 707,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\load texture atlas.js",
           "name": "load texture atlas.js",
           "size": 684,
@@ -6457,9 +6469,15 @@
           "name": "multi file progress event.js",
           "size": 1417,
           "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\scene files payload.js",
+          "name": "scene files payload.js",
+          "size": 1084,
+          "extension": ".js"
         }
       ],
-      "size": 47411
+      "size": 49949
     },
     {
       "path": "src\\paths",
@@ -7494,8 +7512,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\Game.js",
-              "name": "Game.js",
+              "path": "src\\scenes\\cross scene\\game.js",
+              "name": "game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -7817,7 +7835,7 @@
             {
               "path": "src\\scenes\\tutorial\\scene controller.js",
               "name": "scene controller.js",
-              "size": 683,
+              "size": 1438,
               "extension": ".js"
             },
             {
@@ -7827,7 +7845,7 @@
               "extension": ".js"
             }
           ],
-          "size": 2254
+          "size": 3009
         },
         {
           "path": "src\\scenes\\ui scene es6.js",
@@ -7842,7 +7860,7 @@
           "extension": ".js"
         }
       ],
-      "size": 114812
+      "size": 115567
     },
     {
       "path": "src\\snapshot",
@@ -8654,5 +8672,5 @@
       "size": 4792
     }
   ],
-  "size": 2288350
+  "size": 2291643
 }

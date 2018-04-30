@@ -2713,8 +2713,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2725,8 +2725,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2737,8 +2737,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2857,8 +2857,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -6185,19 +6185,19 @@
             {
               "path": "src\\input\\mouse\\single sprite.js",
               "name": "single sprite.js",
-              "size": 762,
+              "size": 770,
               "extension": ".js"
             },
             {
               "path": "src\\input\\mouse\\text input test.js",
               "name": "text input test.js",
-              "size": 3475,
+              "size": 3483,
               "extension": ".js"
             },
             {
               "path": "src\\input\\mouse\\top only over and out events.js",
               "name": "top only over and out events.js",
-              "size": 1077,
+              "size": 986,
               "extension": ".js"
             },
             {
@@ -6209,13 +6209,13 @@
             {
               "path": "src\\input\\mouse\\top only.js",
               "name": "top only.js",
-              "size": 1671,
+              "size": 1315,
               "extension": ".js"
             },
             {
               "path": "src\\input\\mouse\\triangle hit area.js",
               "name": "triangle hit area.js",
-              "size": 1032,
+              "size": 781,
               "extension": ".js"
             },
             {
@@ -6225,7 +6225,7 @@
               "extension": ".js"
             }
           ],
-          "size": 36325
+          "size": 35643
         },
         {
           "path": "src\\input\\pointer",
@@ -6332,7 +6332,7 @@
           "size": 9602
         }
       ],
-      "size": 111360
+      "size": 110678
     },
     {
       "path": "src\\loader",
@@ -7432,7 +7432,7 @@
         {
           "path": "src\\scenes\\bring to top.js",
           "name": "bring to top.js",
-          "size": 1520,
+          "size": 1485,
           "extension": ".js"
         },
         {
@@ -7494,8 +7494,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -7560,7 +7560,7 @@
         {
           "path": "src\\scenes\\launch parallel scene.js",
           "name": "launch parallel scene.js",
-          "size": 1849,
+          "size": 1842,
           "extension": ".js"
         },
         {
@@ -7771,7 +7771,7 @@
         {
           "path": "src\\scenes\\send to back.js",
           "name": "send to back.js",
-          "size": 1520,
+          "size": 1485,
           "extension": ".js"
         },
         {
@@ -7783,7 +7783,7 @@
         {
           "path": "src\\scenes\\swap position.js",
           "name": "swap position.js",
-          "size": 1302,
+          "size": 1267,
           "extension": ".js"
         },
         {
@@ -7815,13 +7815,19 @@
           "name": "tutorial",
           "children": [
             {
+              "path": "src\\scenes\\tutorial\\scene controller.js",
+              "name": "scene controller.js",
+              "size": 683,
+              "extension": ".js"
+            },
+            {
               "path": "src\\scenes\\tutorial\\scene order.js",
               "name": "scene order.js",
               "size": 1571,
               "extension": ".js"
             }
           ],
-          "size": 1571
+          "size": 2254
         },
         {
           "path": "src\\scenes\\ui scene es6.js",
@@ -7836,7 +7842,7 @@
           "extension": ".js"
         }
       ],
-      "size": 114241
+      "size": 114812
     },
     {
       "path": "src\\snapshot",
@@ -7900,7 +7906,7 @@
         {
           "path": "src\\textures\\get pixel dynamic.js",
           "name": "get pixel dynamic.js",
-          "size": 949,
+          "size": 958,
           "extension": ".js"
         },
         {
@@ -7958,7 +7964,7 @@
           "extension": ".js"
         }
       ],
-      "size": 22198
+      "size": 22207
     },
     {
       "path": "src\\time",
@@ -8385,7 +8391,7 @@
         {
           "path": "src\\tweens\\paused tween.js",
           "name": "paused tween.js",
-          "size": 762,
+          "size": 754,
           "extension": ".js"
         },
         {
@@ -8600,7 +8606,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77221
+      "size": 77213
     },
     {
       "path": "src\\utils",
@@ -8648,5 +8654,5 @@
       "size": 4792
     }
   ],
-  "size": 2288460
+  "size": 2288350
 }

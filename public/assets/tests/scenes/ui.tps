@@ -217,6 +217,20 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">toggle-off.png</key>
+            <key type="filename">toggle-on.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>20,6,41,12</rect>
+                <key>scale9Paddings</key>
+                <rect>20,6,41,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -230,6 +244,8 @@
             <filename>nav-up.png</filename>
             <filename>panel.png</filename>
             <filename>scene-labels.png</filename>
+            <filename>toggle-off.png</filename>
+            <filename>toggle-on.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -17,6 +17,11 @@ class Controller extends Phaser.Scene {
         this.text1;
         this.text2;
 
+        this.toggle1;
+        this.toggle2;
+
+        this.showTip = false;
+
         this.dpad;
         this.padUp = new Phaser.Geom.Rectangle(23, 0, 32, 26);
         this.padDown = new Phaser.Geom.Rectangle(23, 53, 32, 26);
@@ -42,7 +47,7 @@ class Controller extends Phaser.Scene {
         this.anims.create({ key: 'asteroid', frames: this.anims.generateFrameNumbers('asteroid', { start: 0, end: 24 }), frameRate: 12, repeat: -1 });
         this.anims.create({ key: 'mine', frames: this.anims.generateFrameNumbers('mine', { start: 0, end: 15 }), frameRate: 20, repeat: -1 });
 
-        this.bg = this.add.tileSprite(400, 300, 800, 600, 'bg');
+        this.bg = this.add.tileSprite(0, 135, 1024, 465, 'bg').setOrigin(0);
 
         this.add.image(0, 0, 'ui', 'panel').setOrigin(0);
 
@@ -63,6 +68,10 @@ class Controller extends Phaser.Scene {
         //  Button Labels
         this.add.image(0, 0, 'ui', 'scene-labels').setOrigin(0);
 
+        //  Toggles
+        this.toggle1 = this.createVisibleToggle(902, 35);
+        this.toggle2 = this.createActiveToggle(902, 75);
+
         //  LCD
         this.text1 = this.add.bitmapText(520, 42, 'digital', 'nebula', 32).setOrigin(0.5, 0).setAlpha(0.8);
         this.text2 = this.add.bitmapText(520, 74, 'digital', 'index 1 / 6', 22).setOrigin(0.5, 0).setAlpha(0.8);
@@ -78,6 +87,63 @@ class Controller extends Phaser.Scene {
         this.scene.launch('SceneF');
 
         this.currentScene = this.scene.get('SceneA');
+    }
+
+    createVisibleToggle (x, y)
+    {
+        let toggle = this.add.image(x, y, 'ui', 'toggle-on').setOrigin(0);
+
+        toggle.setInteractive();
+
+        toggle.setData('on', true);
+
+        toggle.on('pointerup', function () {
+
+            if (toggle.getData('on'))
+            {
+                toggle.setFrame('toggle-off');
+                toggle.setData('on', false);
+                this.scene.setVisible(false, this.currentScene);
+            }
+            else
+            {
+                toggle.setFrame('toggle-on');
+                toggle.setData('on', true);
+                this.scene.setVisible(true, this.currentScene);
+            }
+
+        }, this);
+
+        return toggle;
+    }
+
+    createActiveToggle (x, y)
+    {
+        let toggle = this.add.image(x, y, 'ui', 'toggle-on').setOrigin(0);
+
+        toggle.setInteractive();
+
+        toggle.setData('on', true);
+
+        toggle.on('pointerup', function () {
+
+            if (toggle.getData('on'))
+            {
+                toggle.setFrame('toggle-off');
+                toggle.setData('on', false);
+                this.scene.setActive(false, this.currentScene);
+
+            }
+            else
+            {
+                toggle.setFrame('toggle-on');
+                toggle.setData('on', true);
+                this.scene.setActive(true, this.currentScene);
+            }
+
+        }, this);
+
+        return toggle;
     }
 
     createButton (id, scene, name, x, y)
@@ -133,26 +199,40 @@ class Controller extends Phaser.Scene {
 
         this.dpad.on('pointermove', function (pointer, px, py) {
 
+            this.showTip = true;
+
             if (this.padUp.contains(px, py))
             {
                 this.dpad.setFrame('nav-up');
+                this.updateToolTip('bring to top');
             }
             else if (this.padDown.contains(px, py))
             {
                 this.dpad.setFrame('nav-down');
+                this.updateToolTip('send to back');
             }
             else if (this.padLeft.contains(px, py))
             {
                 this.dpad.setFrame('nav-left');
+                this.updateToolTip('move down');
             }
             else if (this.padRight.contains(px, py))
             {
                 this.dpad.setFrame('nav-right');
+                this.updateToolTip('move up');
             }
             else
             {
                 this.dpad.setFrame('nav-out');
+                this.showTip = false;
             }
+
+        }, this);
+
+        this.dpad.on('pointerout', function () {
+
+            this.dpad.setFrame('nav-out');
+            this.showTip = false;
 
         }, this);
 
@@ -161,10 +241,12 @@ class Controller extends Phaser.Scene {
             if (this.padUp.contains(px, py))
             {
                 this.scene.bringToTop(this.currentScene);
+                this.showTip = false;
             }
             else if (this.padDown.contains(px, py))
             {
                 this.scene.moveAbove('Controller', this.currentScene);
+                this.showTip = false;
             }
             else if (this.padLeft.contains(px, py))
             {
@@ -174,10 +256,13 @@ class Controller extends Phaser.Scene {
                 {
                     this.scene.moveDown(this.currentScene);
                 }
+
+                this.showTip = false;
             }
             else if (this.padRight.contains(px, py))
             {
                 this.scene.moveUp(this.currentScene);
+                this.showTip = false;
             }
 
         }, this);
@@ -195,7 +280,41 @@ class Controller extends Phaser.Scene {
         this.active = btn;
         this.currentScene = this.scene.get(btn.getData('scene'));
 
+        if (this.scene.isVisible(this.currentScene))
+        {
+            this.toggle1.setFrame('toggle-on');
+            this.toggle1.setData('on', true);
+        }
+        else
+        {
+            this.toggle1.setFrame('toggle-off');
+            this.toggle1.setData('on', false);
+        }
+
+        if (this.scene.isActive(this.currentScene))
+        {
+            this.toggle2.setFrame('toggle-on');
+            this.toggle2.setData('on', true);
+        }
+        else
+        {
+            this.toggle2.setFrame('toggle-off');
+            this.toggle2.setData('on', false);
+        }
+
         this.text1.setText(btn.getData('name'));
+    }
+
+    updateToolTip (tip)
+    {
+        if (!tip)
+        {
+            let idx = this.scene.getIndex(this.currentScene);
+
+            tip = 'index ' + idx + ' / 6';
+        }
+
+        this.text2.setText(tip);
     }
 
     update (time, delta)
@@ -203,9 +322,10 @@ class Controller extends Phaser.Scene {
         this.bg.tilePositionX += 0.02 * delta;
         this.bg.tilePositionY += 0.005 * delta;
 
-        let idx = this.scene.getIndex(this.currentScene);
-
-        this.text2.setText('index ' + idx + ' / 6');
+        if (!this.showTip)
+        {
+            this.updateToolTip();
+        }
     }
 
 }
@@ -221,7 +341,7 @@ class SceneA extends Phaser.Scene {
 
     create ()
     {
-        this.cameras.main.setViewport(0, 136, 800, 464);
+        this.cameras.main.setViewport(0, 136, 1024, 465);
 
         this.nebula = this.add.image(300, 250, 'space', 'nebula');
     }
@@ -244,9 +364,20 @@ class SceneB extends Phaser.Scene {
 
     create ()
     {
-        this.cameras.main.setViewport(0, 136, 800, 464);
+        this.cameras.main.setViewport(0, 136, 1024, 465);
 
-        this.sun = this.add.image(650, 80, 'space', 'sun');
+        this.sun = this.add.image(900, 80, 'space', 'sun');
+    }
+
+    update (time, delta)
+    {
+        this.sun.x -= 0.02 * delta;
+        this.sun.y += 0.015 * delta;
+
+        if (this.sun.y >= 630)
+        {
+            this.sun.setPosition(1150, -190);
+        }
     }
 
 }
@@ -278,7 +409,7 @@ class SceneC extends Phaser.Scene {
 
     create ()
     {
-        this.cameras.main.setViewport(0, 136, 800, 464);
+        this.cameras.main.setViewport(0, 136, 1024, 465);
 
         for (let i = 0; i < this.positions.length; i++)
         {
@@ -304,7 +435,7 @@ class SceneC extends Phaser.Scene {
 
             if (therock.x <= -100)
             {
-                therock.x = 1000;
+                therock.x = 1224;
             }
         }
     }
@@ -322,7 +453,7 @@ class SceneD extends Phaser.Scene {
 
     create ()
     {
-        this.cameras.main.setViewport(0, 136, 800, 464);
+        this.cameras.main.setViewport(0, 136, 1024, 465);
 
         this.planet = this.add.image(200, 380, 'space', 'planet');
     }
@@ -331,7 +462,7 @@ class SceneD extends Phaser.Scene {
     {
         this.planet.x += 0.01 * delta;
 
-        if (this.planet.x >= 1000)
+        if (this.planet.x >= 1224)
         {
             this.planet.x = -200;
         }
@@ -384,7 +515,7 @@ class SceneE extends Phaser.Scene {
 
     create ()
     {
-        this.cameras.main.setViewport(0, 136, 800, 464);
+        this.cameras.main.setViewport(0, 136, 1024, 465);
 
         this.curve = new Phaser.Curves.Spline(this.splineData);
 
@@ -429,9 +560,9 @@ class SceneF extends Phaser.Scene {
 
     create ()
     {
-        this.cameras.main.setViewport(0, 136, 800, 464);
+        this.cameras.main.setViewport(0, 136, 1024, 465);
 
-        for (let i = 0; i < 4; i++)
+        for (let i = 0; i < 8; i++)
         {
             let x = Phaser.Math.Between(400, 800);
             let y = Phaser.Math.Between(0, 460);
@@ -454,7 +585,7 @@ class SceneF extends Phaser.Scene {
 
             if (mine.x <= -100)
             {
-                mine.x = 1000;
+                mine.x = 1224;
                 mine.y = Phaser.Math.Between(0, 460);
             }
         }
@@ -464,9 +595,10 @@ class SceneF extends Phaser.Scene {
 
 let config = {
     type: Phaser.AUTO,
-    width: 800,
+    width: 1024,
     height: 600,
     parent: 'phaser-example',
+    backgroundColor: '#000000',
     scene: [ Controller, SceneA, SceneB, SceneC, SceneD, SceneE, SceneF ]
 };
 

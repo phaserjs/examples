@@ -4,8 +4,8 @@
 			"image": "ui.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 804,
-				"h": 235
+				"w": 1028,
+				"h": 213
 			},
 			"scale": 1,
 			"frames": [
@@ -14,7 +14,7 @@
 					"frame": {
 						"x": 2,
 						"y": 2,
-						"w": 800,
+						"w": 1024,
 						"h": 135
 					},
 					"rotated": false,
@@ -22,11 +22,11 @@
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 800,
+						"w": 1024,
 						"h": 135
 					},
 					"sourceSize": {
-						"w": 800,
+						"w": 1024,
 						"h": 135
 					}
 				},
@@ -201,8 +201,8 @@
 				{
 					"filename": "button-over",
 					"frame": {
-						"x": 658,
-						"y": 203,
+						"x": 761,
+						"y": 139,
 						"w": 101,
 						"h": 30
 					},
@@ -218,6 +218,48 @@
 						"w": 101,
 						"h": 30
 					}
+				},
+				{
+					"filename": "toggle-off",
+					"frame": {
+						"x": 761,
+						"y": 171,
+						"w": 81,
+						"h": 24
+					},
+					"rotated": false,
+					"trimmed": false,
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 81,
+						"h": 24
+					},
+					"sourceSize": {
+						"w": 81,
+						"h": 24
+					}
+				},
+				{
+					"filename": "toggle-on",
+					"frame": {
+						"x": 844,
+						"y": 171,
+						"w": 81,
+						"h": 24
+					},
+					"rotated": false,
+					"trimmed": false,
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 81,
+						"h": 24
+					},
+					"sourceSize": {
+						"w": 81,
+						"h": 24
+					}
 				}
 			]
 		}
@@ -225,6 +267,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:4b71f1706c2355ca4b74ef5e6d44810e:39246c9ad93ea63cdc48a1127171bbdc:5b04aa198265472a3c5f56958d78e97b$"
+		"smartupdate": "$TexturePacker:SmartUpdate:3ff603ffe56bb49d8448875a19fd1323:61efe9fd495df62d5c4454844d99f826:5b04aa198265472a3c5f56958d78e97b$"
 	}
 }

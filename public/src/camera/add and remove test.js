@@ -34,7 +34,11 @@ function create() {
     flashCamera = this.cameras.add(0, 300, 400, 300);
     shakeCamera = this.cameras.add(400, 300, 400, 300);
 
+    fadeCamera.on('camerafadeoutcomplete', function () {
+        fadeCamera.fade(1000);
+    });
     fadeCamera.fade(1000);
+
     camerasAdded.push(fadeCamera, shakeCamera, flashCamera);
     scene = this;
     addAndRemove();
@@ -44,12 +48,6 @@ function update()
 {
     flashCamera.flash(1000);
     shakeCamera.shake(1000);
-
-    if (fadeCamera._fadeAlpha >= 1.0)
-    {
-        fadeCamera._fadeAlpha = 0.0;
-        fadeCamera.fade(1000);
-    }
 }
 
 function addAndRemove()

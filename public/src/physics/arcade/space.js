@@ -185,7 +185,7 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
     fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    this.add.sprite(4500, 3000).play('asteroid4-anim');
+    this.add.sprite(4300, 3000).play('asteroid1-anim');
 
     this.tweens.add({
         targets: galaxy,

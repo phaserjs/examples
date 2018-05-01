@@ -13,7 +13,7 @@ class SceneF extends Phaser.Scene {
 
         for (let i = 0; i < 8; i++)
         {
-            let x = Phaser.Math.Between(400, 800);
+            let x = Phaser.Math.Between(400, 1400);
             let y = Phaser.Math.Between(0, 460);
 
             let mine = this.add.sprite(x, y, 'mine').play('mine');

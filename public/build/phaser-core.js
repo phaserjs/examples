@@ -52471,7 +52471,7 @@ var SceneManager = new Class({
             var indexA = this.getIndex(keyA);
             var indexB = this.getIndex(keyB);
 
-            if (indexA > indexB && indexA !== -1 && indexB !== -1)
+            if (indexA !== -1 && indexB !== -1)
             {
                 var tempScene = this.getAt(indexB);
 
@@ -52479,7 +52479,7 @@ var SceneManager = new Class({
                 this.scenes.splice(indexB, 1);
 
                 //  Add in new location
-                this.scenes.splice(indexA, 0, tempScene);
+                this.scenes.splice(indexA + 1, 0, tempScene);
             }
         }
 
@@ -52515,15 +52515,22 @@ var SceneManager = new Class({
             var indexA = this.getIndex(keyA);
             var indexB = this.getIndex(keyB);
 
-            if (indexA < indexB && indexA !== -1 && indexB !== -1)
+            if (indexA !== -1 && indexB !== -1)
             {
                 var tempScene = this.getAt(indexB);
 
                 //  Remove
                 this.scenes.splice(indexB, 1);
 
-                //  Add in new location
-                this.scenes.splice(indexA, 0, tempScene);
+                if (indexA === 0)
+                {
+                    this.scenes.unshift(tempScene);
+                }
+                else
+                {
+                    //  Add in new location
+                    this.scenes.splice(indexA, 0, tempScene);
+                }
             }
         }
 
@@ -53553,6 +53560,23 @@ var ScenePlugin = new Class({
     get: function (key)
     {
         return this.manager.getScene(key);
+    },
+
+    /**
+     * Retrieves the numeric index of a Scene in the Scenes list.
+     *
+     * @method Phaser.Scenes.ScenePlugin#getIndex
+     * @since 3.7.0
+     *
+     * @param {(string|Phaser.Scene)} [key] - The Scene to get the index of.
+     *
+     * @return {integer} The index of the Scene.
+     */
+    getIndex: function (key)
+    {
+        if (key === undefined) { key = this.key; }
+
+        return this.manager.getIndex(key);
     },
 
     /**

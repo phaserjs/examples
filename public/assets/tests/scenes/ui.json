@@ -5,7 +5,7 @@
 			"format": "RGBA8888",
 			"size": {
 				"w": 804,
-				"h": 233
+				"h": 235
 			},
 			"scale": 1,
 			"frames": [
@@ -141,15 +141,15 @@
 						"x": 372,
 						"y": 139,
 						"w": 284,
-						"h": 60
+						"h": 63
 					},
 					"rotated": false,
 					"trimmed": true,
 					"spriteSourceSize": {
-						"x": 75,
-						"y": 36,
+						"x": 78,
+						"y": 35,
 						"w": 284,
-						"h": 60
+						"h": 63
 					},
 					"sourceSize": {
 						"w": 800,
@@ -159,8 +159,8 @@
 				{
 					"filename": "button-down",
 					"frame": {
-						"x": 372,
-						"y": 201,
+						"x": 658,
+						"y": 139,
 						"w": 101,
 						"h": 30
 					},
@@ -180,8 +180,8 @@
 				{
 					"filename": "button-out",
 					"frame": {
-						"x": 475,
-						"y": 201,
+						"x": 658,
+						"y": 171,
 						"w": 101,
 						"h": 30
 					},
@@ -201,8 +201,8 @@
 				{
 					"filename": "button-over",
 					"frame": {
-						"x": 578,
-						"y": 201,
+						"x": 658,
+						"y": 203,
 						"w": 101,
 						"h": 30
 					},
@@ -225,6 +225,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:7d600c2b824535c57cd3ccab237f0689:118e756bd623192ec59512648988fcb2:5b04aa198265472a3c5f56958d78e97b$"
+		"smartupdate": "$TexturePacker:SmartUpdate:4b71f1706c2355ca4b74ef5e6d44810e:39246c9ad93ea63cdc48a1127171bbdc:5b04aa198265472a3c5f56958d78e97b$"
 	}
 }

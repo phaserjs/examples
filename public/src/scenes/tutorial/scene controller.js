@@ -7,12 +7,12 @@ class Controller extends Phaser.Scene {
         this.active;
         this.currentScene;
 
-        this.buttonA;
-        this.buttonB;
-        this.buttonC;
-        this.buttonD;
-        this.buttonE;
-        this.buttonF;
+        this.button1;
+        this.button2;
+        this.button3;
+        this.button4;
+        this.button5;
+        this.button6;
 
         this.text1;
         this.text2;
@@ -29,20 +29,16 @@ class Controller extends Phaser.Scene {
     preload ()
     {
         this.load.image('bg', 'assets/tests/scenes/bg.jpg');
-        this.load.image('planet', 'assets/tests/scenes/planet.png');
-        this.load.image('nebula', 'assets/tests/scenes/nebula.png');
-        this.load.image('sun', 'assets/tests/scenes/sun.png');
-        this.load.image('ship', 'assets/tests/scenes/ship.png');
-        this.load.image('blue', 'assets/tests/scenes/blue.png');
-        this.load.spritesheet('asteroid', 'assets/tests/scenes/asteroid.png', { frameWidth: 96 });
-        this.load.spritesheet('mine', 'assets/tests/scenes/mine.png', { frameWidth: 64 });
-
+        this.load.atlas('space', 'assets/tests/scenes/space.png', 'assets/tests/scenes/space.json');
         this.load.atlas('ui', 'assets/tests/scenes/ui.png', 'assets/tests/scenes/ui.json');
         this.load.bitmapFont('digital', 'assets/tests/scenes/digital.png', 'assets/tests/scenes/digital.xml');
     }
 
     create ()
     {
+        this.textures.addSpriteSheetFromAtlas('mine', { atlas: 'space', frame: 'mine', frameWidth: 64 });
+        this.textures.addSpriteSheetFromAtlas('asteroid', { atlas: 'space', frame: 'asteroid', frameWidth: 96 });
+
         this.anims.create({ key: 'asteroid', frames: this.anims.generateFrameNumbers('asteroid', { start: 0, end: 24 }), frameRate: 12, repeat: -1 });
         this.anims.create({ key: 'mine', frames: this.anims.generateFrameNumbers('mine', { start: 0, end: 15 }), frameRate: 20, repeat: -1 });
 
@@ -51,25 +47,24 @@ class Controller extends Phaser.Scene {
         this.add.image(0, 0, 'ui', 'panel').setOrigin(0);
 
         //  Buttons
-        this.createButton('A', 36, 26);
-        this.createButton('B', 157, 26);
-        this.createButton('C', 278, 26);
-
-        this.createButton('D', 36, 76);
-        this.createButton('E', 157, 76);
-        this.createButton('F', 278, 76);
+        this.createButton(1, 'SceneA', 'nebula', 36, 26);
+        this.createButton(2, 'SceneB', 'sun', 157, 26);
+        this.createButton(3, 'SceneC', 'asteroids', 278, 26);
+        this.createButton(4, 'SceneD', 'planet', 36, 76);
+        this.createButton(5, 'SceneE', 'ship', 157, 76);
+        this.createButton(6, 'SceneF', 'mines', 278, 76);
 
         //  Button 1 is active first
-        this.buttonA.setFrame('button-down');
-        this.buttonA.setData('active', true);
+        this.button1.setFrame('button-down');
+        this.button1.setData('active', true);
 
-        this.active = this.buttonA;
+        this.active = this.button1;
 
         //  Button Labels
         this.add.image(0, 0, 'ui', 'scene-labels').setOrigin(0);
 
         //  LCD
-        this.text1 = this.add.bitmapText(520, 42, 'digital', 'scene a', 32).setOrigin(0.5, 0).setAlpha(0.8);
+        this.text1 = this.add.bitmapText(520, 42, 'digital', 'nebula', 32).setOrigin(0.5, 0).setAlpha(0.8);
         this.text2 = this.add.bitmapText(520, 74, 'digital', 'index 1 / 6', 22).setOrigin(0.5, 0).setAlpha(0.8);
 
         //  D-Pad
@@ -85,13 +80,15 @@ class Controller extends Phaser.Scene {
         this.currentScene = this.scene.get('SceneA');
     }
 
-    createButton (id, x, y)
+    createButton (id, scene, name, x, y)
     {
         let btn = this.add.image(x, y, 'ui', 'button-out').setOrigin(0);
 
         btn.setInteractive();
 
         btn.setData('id', id);
+        btn.setData('scene', scene);
+        btn.setData('name', name);
         btn.setData('active', false);
 
         btn.on('pointerover', function () {
@@ -167,11 +164,16 @@ class Controller extends Phaser.Scene {
             }
             else if (this.padDown.contains(px, py))
             {
-                this.scene.sendToBack(this.currentScene);
+                this.scene.moveAbove('Controller', this.currentScene);
             }
             else if (this.padLeft.contains(px, py))
             {
-                this.scene.moveDown(this.currentScene);
+                let idx = this.scene.getIndex(this.currentScene);                
+
+                if (idx > 1)
+                {
+                    this.scene.moveDown(this.currentScene);
+                }
             }
             else if (this.padRight.contains(px, py))
             {
@@ -190,15 +192,20 @@ class Controller extends Phaser.Scene {
         btn.setData('active', true);
         btn.setFrame('button-down');
 
-        this.text1.setText('scene ' + btn.getData('id'));
-
         this.active = btn;
+        this.currentScene = this.scene.get(btn.getData('scene'));
+
+        this.text1.setText(btn.getData('name'));
     }
 
     update (time, delta)
     {
         this.bg.tilePositionX += 0.02 * delta;
         this.bg.tilePositionY += 0.005 * delta;
+
+        let idx = this.scene.getIndex(this.currentScene);
+
+        this.text2.setText('index ' + idx + ' / 6');
     }
 
 }
@@ -216,7 +223,7 @@ class SceneA extends Phaser.Scene {
     {
         this.cameras.main.setViewport(0, 136, 800, 464);
 
-        this.nebula = this.add.image(300, 250, 'nebula');
+        this.nebula = this.add.image(300, 250, 'space', 'nebula');
     }
 
     update (time, delta)
@@ -239,7 +246,7 @@ class SceneB extends Phaser.Scene {
     {
         this.cameras.main.setViewport(0, 136, 800, 464);
 
-        this.sun = this.add.image(650, 80, 'sun');
+        this.sun = this.add.image(650, 80, 'space', 'sun');
     }
 
 }
@@ -317,7 +324,7 @@ class SceneD extends Phaser.Scene {
     {
         this.cameras.main.setViewport(0, 136, 800, 464);
 
-        this.planet = this.add.image(200, 380, 'planet');
+        this.planet = this.add.image(200, 380, 'space', 'planet');
     }
 
     update (time, delta)
@@ -326,7 +333,7 @@ class SceneD extends Phaser.Scene {
 
         if (this.planet.x >= 1000)
         {
-            this.planet.x = -400;
+            this.planet.x = -200;
         }
     }
 
@@ -381,7 +388,7 @@ class SceneE extends Phaser.Scene {
 
         this.curve = new Phaser.Curves.Spline(this.splineData);
 
-        let ship = this.add.follower(this.curve, 50, 300, 'ship');
+        let ship = this.add.follower(this.curve, 50, 300, 'space', 'ship');
 
         ship.startFollow({
             duration: 12000,
@@ -390,12 +397,10 @@ class SceneE extends Phaser.Scene {
             repeat: -1
         });
 
-        // let particles = this.add.particles('space');
-        // _frame: 'blue',
-
-        this.particles = this.add.particles('blue');
+        this.particles = this.add.particles('space');
 
         this.emitter = this.particles.createEmitter({
+            frame: 'blue',
             speed: 100,
             lifespan: 2000,
             alpha: 0.6,
@@ -456,9 +461,6 @@ class SceneF extends Phaser.Scene {
     }
 
 }
-
-        // this.add.image(400, 300, 'purplePlanet');
-
 
 let config = {
     type: Phaser.AUTO,

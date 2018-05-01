@@ -2713,8 +2713,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2725,8 +2725,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2737,8 +2737,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2857,8 +2857,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -6640,7 +6640,7 @@
             {
               "path": "src\\paths\\curves\\spline builder.js",
               "name": "spline builder.js",
-              "size": 2574,
+              "size": 2554,
               "extension": ".js"
             },
             {
@@ -6668,7 +6668,7 @@
               "extension": ".js"
             }
           ],
-          "size": 51448
+          "size": 51428
         },
         {
           "path": "src\\paths\\followers",
@@ -6798,7 +6798,7 @@
           "extension": ".js"
         }
       ],
-      "size": 80702
+      "size": 80682
     },
     {
       "path": "src\\physics",
@@ -7512,8 +7512,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -7598,6 +7598,67 @@
           "name": "move up list.js",
           "size": 1478,
           "extension": ".js"
+        },
+        {
+          "path": "src\\scenes\\moving scenes demo",
+          "name": "moving scenes demo",
+          "children": [
+            {
+              "path": "src\\scenes\\moving scenes demo\\boot.json",
+              "name": "boot.json",
+              "size": 204,
+              "extension": ".json"
+            },
+            {
+              "path": "src\\scenes\\moving scenes demo\\Controller.js",
+              "name": "Controller.js",
+              "size": 9372,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\moving scenes demo\\main.js",
+              "name": "main.js",
+              "size": 258,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\moving scenes demo\\SceneA.js",
+              "name": "SceneA.js",
+              "size": 380,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\moving scenes demo\\SceneB.js",
+              "name": "SceneB.js",
+              "size": 498,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\moving scenes demo\\SceneC.js",
+              "name": "SceneC.js",
+              "size": 1425,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\moving scenes demo\\SceneD.js",
+              "name": "SceneD.js",
+              "size": 465,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\moving scenes demo\\SceneE.js",
+              "name": "SceneE.js",
+              "size": 1689,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\moving scenes demo\\SceneF.js",
+              "name": "SceneF.js",
+              "size": 927,
+              "extension": ".js"
+            }
+          ],
+          "size": 15218
         },
         {
           "path": "src\\scenes\\multi demo",
@@ -7833,9 +7894,15 @@
           "name": "tutorial",
           "children": [
             {
+              "path": "src\\scenes\\tutorial\\change scene order.js",
+              "name": "change scene order.js",
+              "size": 1508,
+              "extension": ".js"
+            },
+            {
               "path": "src\\scenes\\tutorial\\scene controller.js",
               "name": "scene controller.js",
-              "size": 1438,
+              "size": 15028,
               "extension": ".js"
             },
             {
@@ -7845,7 +7912,7 @@
               "extension": ".js"
             }
           ],
-          "size": 3009
+          "size": 18107
         },
         {
           "path": "src\\scenes\\ui scene es6.js",
@@ -7860,7 +7927,7 @@
           "extension": ".js"
         }
       ],
-      "size": 115567
+      "size": 145883
     },
     {
       "path": "src\\snapshot",
@@ -8672,5 +8739,5 @@
       "size": 4792
     }
   ],
-  "size": 2291643
+  "size": 2321939
 }

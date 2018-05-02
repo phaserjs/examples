@@ -47,7 +47,7 @@ function hueShift ()
 
     context.putImageData(pixels, 0, 0);
 
-    newTexture.update();
+    newTexture.refresh();
 }
 
 function processPixel (data, index, deltahue)

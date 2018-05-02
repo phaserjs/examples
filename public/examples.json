@@ -1942,14 +1942,14 @@
             {
               "path": "src\\display\\tint\\tween tint.js",
               "name": "tween tint.js",
-              "size": 578,
+              "size": 713,
               "extension": ".js"
             }
           ],
-          "size": 7956
+          "size": 8091
         }
       ],
-      "size": 84938
+      "size": 85073
     },
     {
       "path": "src\\dwitter",
@@ -6345,6 +6345,12 @@
       "name": "loader",
       "children": [
         {
+          "path": "src\\loader\\add files during load.js",
+          "name": "add files during load.js",
+          "size": 7784,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\file complete event.js",
           "name": "file complete event.js",
           "size": 641,
@@ -6399,9 +6405,39 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\load file pack test 2.js",
+          "name": "load file pack test 2.js",
+          "size": 442,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load file pack test 3.js",
+          "name": "load file pack test 3.js",
+          "size": 535,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load file pack test 4.js",
+          "name": "load file pack test 4.js",
+          "size": 574,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load file pack.js",
+          "name": "load file pack.js",
+          "size": 453,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\load html to texture.js",
           "name": "load html to texture.js",
           "size": 521,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load image from object.js",
+          "name": "load image from object.js",
+          "size": 441,
           "extension": ".js"
         },
         {
@@ -6483,7 +6519,7 @@
           "extension": ".js"
         }
       ],
-      "size": 49949
+      "size": 60178
     },
     {
       "path": "src\\paths",
@@ -7967,7 +8003,7 @@
         {
           "path": "src\\textures\\edit texture hue shift.js",
           "name": "edit texture hue shift.js",
-          "size": 1534,
+          "size": 1535,
           "extension": ".js"
         },
         {
@@ -8055,7 +8091,7 @@
           "extension": ".js"
         }
       ],
-      "size": 22207
+      "size": 22208
     },
     {
       "path": "src\\time",
@@ -8745,5 +8781,5 @@
       "size": 4792
     }
   ],
-  "size": 2322518
+  "size": 2332883
 }

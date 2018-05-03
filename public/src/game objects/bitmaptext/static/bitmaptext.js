@@ -21,7 +21,8 @@ function preload()
 
 function create() 
 {
-    this.add.bitmapText(0, 0, 'desyrel', 'Lorem ipsum\ndolor sit amet');
+    var b = this.add.bitmapText(0, 0, 'desyrel', 16.34);
+
     this.add.bitmapText(0, 200, 'desyrel-pink', 'Excepteur sint occaecat\ncupidatat non proident');
     this.add.bitmapText(0, 400, 'shortStack', 'Phaser BitmapText');
     dynamic = this.add.bitmapText(0, 500, 'desyrel', '');

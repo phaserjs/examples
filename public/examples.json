@@ -6353,7 +6353,7 @@
         {
           "path": "src\\loader\\display file as loaded.js",
           "name": "display file as loaded.js",
-          "size": 5305,
+          "size": 5277,
           "extension": ".js"
         },
         {
@@ -6462,6 +6462,12 @@
           "path": "src\\loader\\load file pack.js",
           "name": "load file pack.js",
           "size": 453,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load from 404.js",
+          "name": "load from 404.js",
+          "size": 608,
           "extension": ".js"
         },
         {
@@ -6615,7 +6621,7 @@
           "extension": ".js"
         }
       ],
-      "size": 79176
+      "size": 79756
     },
     {
       "path": "src\\paths",
@@ -8883,5 +8889,5 @@
       "size": 4792
     }
   ],
-  "size": 2354743
+  "size": 2355323
 }

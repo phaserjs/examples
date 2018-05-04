@@ -26,7 +26,7 @@ function create ()
     var source = {
         contains: function (x, y)
         {
-            return Phaser.Geom.Rectangle.Contains(block.body, x, y);
+            return block.body.hitTest(x, y);
         }
     };
 

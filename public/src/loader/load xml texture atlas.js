@@ -13,19 +13,12 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.xml('round', 'assets/atlas/round.xml');
-    this.load.image('round', 'assets/atlas/round.png');
+    this.load.atlasXML('round', 'assets/atlas/round.png', 'assets/atlas/round.xml');
 }
 
 function create ()
 {
-    var image = this.textures.get('round').getSourceImage();
-    var data = this.cache.xml.get('round');
-
-    console.log(data.getElementsByTagName('TextureAtlas'));
-    return;
-
-    var atlasTexture = this.textures.addAtlasStarlingXML('newAtlas', image, data);
+    var atlasTexture = this.textures.get('round')
 
     var frames = atlasTexture.getFrameNames();
 
@@ -34,6 +27,6 @@ function create ()
         var x = Phaser.Math.Between(0, 800);
         var y = Phaser.Math.Between(0, 600);
 
-        this.add.image(x, y, 'newAtlas', frames[i]);
+        this.add.image(x, y, 'round', frames[i]);
     }
 }

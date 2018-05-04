@@ -2719,8 +2719,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\line rendering.js",
-              "name": "line rendering.js",
+              "path": "src\\game objects\\graphics\\Line Rendering.js",
+              "name": "Line Rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2731,8 +2731,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\many line stars.js",
-              "name": "many line stars.js",
+              "path": "src\\game objects\\graphics\\Many Line Stars.js",
+              "name": "Many Line Stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2743,8 +2743,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js",
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2863,8 +2863,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\trail.js",
-              "name": "trail.js",
+              "path": "src\\game objects\\graphics\\Trail.js",
+              "name": "Trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -6393,9 +6393,21 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\load audio sprite resources.js",
+          "name": "load audio sprite resources.js",
+          "size": 611,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load audio sprite.js",
+          "name": "load audio sprite.js",
+          "size": 713,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\load audio stream.js",
           "name": "load audio stream.js",
-          "size": 882,
+          "size": 881,
           "extension": ".js"
         },
         {
@@ -6537,6 +6549,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\load xml texture atlas.js",
+          "name": "load xml texture atlas.js",
+          "size": 918,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\multi file progress event.js",
           "name": "multi file progress event.js",
           "size": 1417,
@@ -6549,7 +6567,7 @@
           "extension": ".js"
         }
       ],
-      "size": 64328
+      "size": 66569
     },
     {
       "path": "src\\paths",
@@ -6959,6 +6977,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\sprite overlap group.js",
+              "name": "sprite overlap group.js",
+              "size": 1513,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\sprite vs group.js",
               "name": "sprite vs group.js",
               "size": 1030,
@@ -7001,7 +7025,7 @@
               "extension": ".js"
             }
           ],
-          "size": 37020
+          "size": 38533
         },
         {
           "path": "src\\physics\\impact",
@@ -7439,7 +7463,7 @@
           "size": 2741
         }
       ],
-      "size": 139249
+      "size": 140762
     },
     {
       "path": "src\\pools",
@@ -7584,8 +7608,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\Game.js",
-              "name": "Game.js",
+              "path": "src\\scenes\\cross scene\\game.js",
+              "name": "game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -8811,5 +8835,5 @@
       "size": 4792
     }
   ],
-  "size": 2337019
+  "size": 2340773
 }

@@ -13,10 +13,12 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.audioSprite('kyobi', 'assets/audio/kyobi/kyobi.json', [
-        'assets/audio/kyobi/kyobi.ogg',
-        'assets/audio/kyobi/kyobi.mp3',
-        'assets/audio/kyobi/kyobi.m4a'
+    this.load.setPath('assets/audio/kyobi/');
+
+    this.load.audioSprite('kyobi', 'kyobi.json', [
+        'kyobi.ogg',
+        'kyobi.mp3',
+        'kyobi.m4a'
     ]);
 }
 
@@ -24,9 +26,9 @@ function create ()
 {
     var music = this.sound.addAudioSprite('kyobi');
 
-    // music.play('title');
+    music.play('title');
     // music.play('gameOver');
-    music.play('nextLevel');
+    // music.play('nextLevel');
 
     // text.setText('Playing Dafunk - Hardcore Power (We Believe In Goa - Remix)');
 }

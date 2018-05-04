@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: 'phaser-example',
@@ -20,11 +20,13 @@ function create ()
 {
     var robot = this.add.image(-300, 0, 'robot').setOrigin(0);
 
-    var canvasTexture = this.textures.createCanvas('normalMap', 400, 600);
-    var canvas = canvasTexture.getSourceImage();
-    var context = canvas.getContext('2d');
+    //  The following just displays the normal map on-screen, so you can see that it loaded properly
 
-    context.drawImage(robot.texture.dataSource[0].image, -300, 0);
+    var canvasTexture = this.textures.createCanvas('normalMap', 400, 600);
+
+    canvasTexture.context.drawImage(robot.texture.getDataSourceImage(), -300, 0);
+
+    canvasTexture.refresh();
 
     var robotMap = this.add.image(400, 0, 'normalMap').setOrigin(0);
 }

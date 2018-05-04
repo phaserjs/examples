@@ -17,7 +17,7 @@ function preload ()
 
     this.load.image('atari130xe');
 
-    this.load.on('filecomplete', addFiles, this);
+    this.load.once('filecomplete', addFiles, this);
 }
 
 function create ()
@@ -38,9 +38,6 @@ function addFiles ()
     this.load.image('atari400');
     this.load.image('atari800');
     this.load.image('atari800xl');
-
-    return;
-
     this.load.image('128x128');
     this.load.image('128x128-v2');
     this.load.image('a');

@@ -6347,7 +6347,13 @@
         {
           "path": "src\\loader\\add files during load.js",
           "name": "add files during load.js",
-          "size": 7784,
+          "size": 7769,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\display file as loaded.js",
+          "name": "display file as loaded.js",
+          "size": 5305,
           "extension": ".js"
         },
         {
@@ -6489,6 +6495,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\load multi texture atlas with normal maps.js",
+          "name": "load multi texture atlas with normal maps.js",
+          "size": 1078,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\load multi texture atlas.js",
           "name": "load multi texture atlas.js",
           "size": 838,
@@ -6498,6 +6510,12 @@
           "path": "src\\loader\\load normal map from object.js",
           "name": "load normal map from object.js",
           "size": 891,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load normal map with light.js",
+          "name": "load normal map with light.js",
+          "size": 770,
           "extension": ".js"
         },
         {
@@ -6543,9 +6561,27 @@
           "extension": ".js"
         },
         {
+          "path": "src\\loader\\load texture atlas with normal map.js",
+          "name": "load texture atlas with normal map.js",
+          "size": 1116,
+          "extension": ".js"
+        },
+        {
           "path": "src\\loader\\load texture atlas.js",
           "name": "load texture atlas.js",
           "size": 684,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load tile map json with normal map.js",
+          "name": "load tile map json with normal map.js",
+          "size": 1499,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\loader\\load tile map json.js",
+          "name": "load tile map json.js",
+          "size": 1179,
           "extension": ".js"
         },
         {
@@ -6575,11 +6611,11 @@
         {
           "path": "src\\loader\\scene files payload.js",
           "name": "scene files payload.js",
-          "size": 1120,
+          "size": 1434,
           "extension": ".js"
         }
       ],
-      "size": 67930
+      "size": 79176
     },
     {
       "path": "src\\paths",
@@ -8847,5 +8883,5 @@
       "size": 4792
     }
   ],
-  "size": 2343497
+  "size": 2354743
 }

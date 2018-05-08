@@ -21,25 +21,23 @@ function preload ()
     // this.load.spritesheet({
     //     key: 'explosion',
     //     file: 'assets/sprites/explosion.png',
-    //     config: { frameWidth: 64, frameHeight: 64, endFrame: 23 }
+    //     frameConfig: { frameWidth: 64, frameHeight: 64, endFrame: 23 }
     // });
 
     this.load.setPath('assets/sprites');
 
     //  Automatic filenames based on key and path:
-    // this.load.spritesheet({ key: 'explosion', config: { frameWidth: 64, frameHeight: 64, endFrame: 23 } });
+    // this.load.spritesheet({ key: 'explosion', frameConfig: { frameWidth: 64, frameHeight: 64, endFrame: 23 } });
 
     //  An array of sprite sheets:
     this.load.spritesheet([
-        { key: 'explosion', config: { frameWidth: 64, frameHeight: 64, endFrame: 23 } },
-        { key: 'balls', config: { frameWidth: 17, frameHeight: 17 } }
+        { key: 'explosion', frameConfig: { frameWidth: 64, frameHeight: 64, endFrame: 23 } },
+        { key: 'balls', frameConfig: { frameWidth: 17, frameHeight: 17 } }
     ]);
 }
 
 function create ()
 {
-    console.log(this);
-
     var config = {
         key: 'explodeAnimation',
         frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 23, first: 23 }),

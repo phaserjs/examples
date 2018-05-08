@@ -7,9 +7,11 @@ var config = {
     scene: {
         preload: preload,
         create: create,
-        files: [
-            { type: 'image', key: 'bear', url: 'assets/pics/alex-bear.png' }
-        ]
+        pack: {
+            files: [
+                { type: 'image', key: 'bear', url: 'assets/pics/alex-bear.png' }
+            ]
+        }
     }
 };
 

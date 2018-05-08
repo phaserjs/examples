@@ -6403,8 +6403,27 @@
         {
           "path": "src\\loader\\binary",
           "name": "binary",
-          "children": [],
-          "size": 0
+          "children": [
+            {
+              "path": "src\\loader\\binary\\load binary data from object.js",
+              "name": "load binary data from object.js",
+              "size": 1208,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\loader\\binary\\load binary data parse after load.js",
+              "name": "load binary data parse after load.js",
+              "size": 1156,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\loader\\binary\\load binary data.js",
+              "name": "load binary data.js",
+              "size": 1219,
+              "extension": ".js"
+            }
+          ],
+          "size": 3583
         },
         {
           "path": "src\\loader\\bitmap text",
@@ -6780,7 +6799,7 @@
           "size": 0
         }
       ],
-      "size": 80983
+      "size": 84566
     },
     {
       "path": "src\\paths",
@@ -7130,6 +7149,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\bounce test.js",
+              "name": "bounce test.js",
+              "size": 1092,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\circular body.js",
               "name": "circular body.js",
               "size": 907,
@@ -7238,7 +7263,7 @@
               "extension": ".js"
             }
           ],
-          "size": 39896
+          "size": 40988
         },
         {
           "path": "src\\physics\\impact",
@@ -7676,7 +7701,7 @@
           "size": 2741
         }
       ],
-      "size": 142125
+      "size": 143217
     },
     {
       "path": "src\\pools",
@@ -9048,5 +9073,5 @@
       "size": 4792
     }
   ],
-  "size": 2357522
+  "size": 2362197
 }

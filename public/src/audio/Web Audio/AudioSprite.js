@@ -24,10 +24,7 @@ function preload ()
 
     this.load.bitmapFont('nokia', 'assets/fonts/bitmap/nokia16black.png', 'assets/fonts/bitmap/nokia16black.xml');
 
-    this.load.audioSprite('sfx', [
-        'assets/audio/SoundEffects/fx_mixdown.ogg',
-        'assets/audio/SoundEffects/fx_mixdown.mp3'
-    ], 'assets/audio/SoundEffects/fx_mixdown.json');
+    this.load.audioSprite('sfx', 'assets/audio/SoundEffects/fx_mixdown.json', [ 'assets/audio/SoundEffects/fx_mixdown.ogg', 'assets/audio/SoundEffects/fx_mixdown.mp3' ]);
 }
 
 function create ()

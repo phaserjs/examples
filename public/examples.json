@@ -2381,6 +2381,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\blitter\\bobs using a multi atlas.js",
+              "name": "bobs using a multi atlas.js",
+              "size": 915,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\blitter\\canvas benchmark 1.js",
               "name": "canvas benchmark 1.js",
               "size": 2760,
@@ -2395,7 +2401,7 @@
             {
               "path": "src\\game objects\\blitter\\multiple atlas frame bobs.js",
               "name": "multiple atlas frame bobs.js",
-              "size": 808,
+              "size": 806,
               "extension": ".js"
             },
             {
@@ -2429,7 +2435,7 @@
               "extension": ".js"
             }
           ],
-          "size": 30188
+          "size": 31101
         },
         {
           "path": "src\\game objects\\container",
@@ -4246,7 +4252,7 @@
           "size": 255492
         }
       ],
-      "size": 730670
+      "size": 731583
     },
     {
       "path": "src\\games",
@@ -6598,17 +6604,24 @@
             {
               "path": "src\\loader\\loader events\\start loader manually.js",
               "name": "start loader manually.js",
-              "size": 5536,
+              "size": 5577,
               "extension": ".js"
             }
           ],
-          "size": 29820
+          "size": 29861
         },
         {
           "path": "src\\loader\\plugin",
           "name": "plugin",
-          "children": [],
-          "size": 0
+          "children": [
+            {
+              "path": "src\\loader\\plugin\\load plugin.js",
+              "name": "load plugin.js",
+              "size": 436,
+              "extension": ".js"
+            }
+          ],
+          "size": 436
         },
         {
           "path": "src\\loader\\scene payload",
@@ -6626,8 +6639,15 @@
         {
           "path": "src\\loader\\script",
           "name": "script",
-          "children": [],
-          "size": 0
+          "children": [
+            {
+              "path": "src\\loader\\script\\load script.js",
+              "name": "load script.js",
+              "size": 841,
+              "extension": ".js"
+            }
+          ],
+          "size": 841
         },
         {
           "path": "src\\loader\\shader",
@@ -6823,7 +6843,7 @@
           "size": 0
         }
       ],
-      "size": 93038
+      "size": 94356
     },
     {
       "path": "src\\paths",
@@ -9103,5 +9123,5 @@
       "size": 4792
     }
   ],
-  "size": 2371262
+  "size": 2373493
 }

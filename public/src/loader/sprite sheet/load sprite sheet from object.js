@@ -13,8 +13,11 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.spritesheet('explosion', 'assets/sprites/explosion.png', { frameWidth: 64, frameHeight: 64, endFrame: 23 });
-    this.load.spritesheet('balls', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
+    this.load.spritesheet({
+        key: 'explosion',
+        url: 'assets/sprites/explosion.png',
+        frameConfig: { frameWidth: 64, frameHeight: 64, endFrame: 23 }
+    });
 }
 
 function create ()
@@ -29,6 +32,4 @@ function create ()
     this.anims.create(config);
 
     this.add.sprite(400, 300, 'explosion').play('explodeAnimation');
-
-    this.add.sprite(400, 300, 'balls', 3);
 }

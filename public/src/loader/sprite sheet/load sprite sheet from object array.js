@@ -13,8 +13,14 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.spritesheet('explosion', 'assets/sprites/explosion.png', { frameWidth: 64, frameHeight: 64, endFrame: 23 });
-    this.load.spritesheet('balls', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
+    this.load.setPath('assets/sprites');
+
+    //  An array of sprite sheets.
+    //  The URLs are automatically created based on the path and key (see documentation for details)
+    this.load.spritesheet([
+        { key: 'explosion', frameConfig: { frameWidth: 64, frameHeight: 64, endFrame: 23 } },
+        { key: 'balls', frameConfig: { frameWidth: 17, frameHeight: 17 } }
+    ]);
 }
 
 function create ()

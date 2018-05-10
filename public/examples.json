@@ -2054,6 +2054,18 @@
           "extension": ".js"
         },
         {
+          "path": "src\\game config\\custom canvas.js",
+          "name": "custom canvas.js",
+          "size": 690,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\game config\\custom webgl2 canvas.js",
+          "name": "custom webgl2 canvas.js",
+          "size": 1046,
+          "extension": ".js"
+        },
+        {
           "path": "src\\game config\\game destroy with multi scenes.js",
           "name": "game destroy with multi scenes.js",
           "size": 1709,
@@ -2138,7 +2150,7 @@
           "extension": ".js"
         }
       ],
-      "size": 14493
+      "size": 16229
     },
     {
       "path": "src\\game objects",
@@ -3433,6 +3445,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\particle emitter\\emitter in container.js",
+              "name": "emitter in container.js",
+              "size": 952,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\particle emitter\\explode test.js",
               "name": "explode test.js",
               "size": 1382,
@@ -3553,6 +3571,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\particle emitter\\scale emitter.js",
+              "name": "scale emitter.js",
+              "size": 869,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\particle emitter\\stepped angle.js",
               "name": "stepped angle.js",
               "size": 1655,
@@ -3601,7 +3625,7 @@
               "extension": ".js"
             }
           ],
-          "size": 85751
+          "size": 87572
         },
         {
           "path": "src\\game objects\\quad",
@@ -4300,7 +4324,7 @@
           "size": 255492
         }
       ],
-      "size": 744093
+      "size": 745914
     },
     {
       "path": "src\\games",
@@ -9178,5 +9202,5 @@
       "size": 4792
     }
   ],
-  "size": 2415547
+  "size": 2419104
 }

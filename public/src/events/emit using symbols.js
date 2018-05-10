@@ -24,8 +24,8 @@ function create ()
     const girlSymbol = Symbol();
 
     //  This handler will only be called once, no matter how many times the event fires
-    this.events.on(plushSymbol, addPlushHandler, this);
-    this.events.on(girlSymbol, addGirlHandler, this);
+    this.events.once(plushSymbol, addPlushHandler, this);
+    this.events.once(girlSymbol, addGirlHandler, this);
 
     this.events.emit(girlSymbol);
     this.events.emit(girlSymbol);

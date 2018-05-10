@@ -1,8 +1,10 @@
 var sceneConfig = {
     create: create,
-    files: [
-        { type: 'image', key: 'contra', url: 'assets/pics/contra3.png' }
-    ]
+    pack: {
+        files: [
+            { type: 'image', key: 'contra', url: 'assets/pics/contra3.png' }
+        ]
+    }
 };
 
 var config = {

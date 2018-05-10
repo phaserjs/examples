@@ -2,17 +2,21 @@
 var sceneConfigA = {
     key: 'sceneA',
     create: createA,
-    files: [
-        { type: 'image', key: 'face', url: 'assets/pics/bw-face.png' }
-    ]
+    pack: {
+        files: [
+            { type: 'image', key: 'face', url: 'assets/pics/bw-face.png' }
+        ]
+    }
 };
 
 var sceneConfigB = {
     key: 'sceneB',
     create: createB,
-    files: [
-        { type: 'image', key: 'logo', url: 'assets/pics/monika-krawinkel-amberstar-title.png' }
-    ]
+    pack: {
+        files: [
+            { type: 'image', key: 'logo', url: 'assets/pics/monika-krawinkel-amberstar-title.png' }
+        ]
+    }
 };
 
 var gameConfig = {

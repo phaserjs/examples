@@ -2,9 +2,11 @@
 var sceneConfig = {
     preload: preload,
     create: create,
-    files: [
-        { type: 'image', key: 'sonic', url: 'assets/sprites/sonic_havok_sanity.png' }
-    ]
+    pack: {
+        files: [
+            { type: 'image', key: 'sonic', url: 'assets/sprites/sonic_havok_sanity.png' }
+        ]
+    }
 };
 
 var gameConfig = {

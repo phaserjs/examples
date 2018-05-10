@@ -4,9 +4,11 @@ var backgroundSceneConfig = {
     active: true,
     create: createBackground,
     render: renderBackground,
-    files: [
-        { type: 'image', key: 'face', url: 'assets/pics/bw-face.png' }
-    ]
+    pack: {
+        files: [
+            { type: 'image', key: 'face', url: 'assets/pics/bw-face.png' }
+        ]
+    }
 };
 
 var modalSceneConfig = {
@@ -19,9 +21,11 @@ var modalSceneConfig = {
     height: 200,
     create: createModal,
     render: renderModal,
-    files: [
-        { type: 'image', key: 'logo', url: 'assets/pics/agent-t-buggin-acf-logo.png' }
-    ]
+    pack: {
+        files: [
+            { type: 'image', key: 'logo', url: 'assets/pics/agent-t-buggin-acf-logo.png' }
+        ]
+    }
 };
 
 var gameConfig = {

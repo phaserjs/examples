@@ -3445,12 +3445,6 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\particle emitter\\emitter in container.js",
-              "name": "emitter in container.js",
-              "size": 952,
-              "extension": ".js"
-            },
-            {
               "path": "src\\game objects\\particle emitter\\explode test.js",
               "name": "explode test.js",
               "size": 1382,
@@ -3625,7 +3619,7 @@
               "extension": ".js"
             }
           ],
-          "size": 87572
+          "size": 86620
         },
         {
           "path": "src\\game objects\\quad",
@@ -4324,7 +4318,7 @@
           "size": 255492
         }
       ],
-      "size": 745914
+      "size": 744962
     },
     {
       "path": "src\\games",
@@ -7827,6 +7821,19 @@
       "size": 143666
     },
     {
+      "path": "src\\plugins",
+      "name": "plugins",
+      "children": [
+        {
+          "path": "src\\plugins\\test 1.js",
+          "name": "test 1.js",
+          "size": 514,
+          "extension": ".js"
+        }
+      ],
+      "size": 514
+    },
+    {
       "path": "src\\pools",
       "name": "pools",
       "children": [
@@ -9202,5 +9209,5 @@
       "size": 4792
     }
   ],
-  "size": 2419104
+  "size": 2418666
 }

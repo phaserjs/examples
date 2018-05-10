@@ -19,7 +19,7 @@ var angleConfig = {
     min: 0, max: 360
 };
 var speedConfig = {
-    min: -200, max: 200
+    min: 0, max: 200
 };
 var scaleConfig = {
     start: 1, end: 0, ease: 'Linear'
@@ -56,7 +56,13 @@ var eases = [
     'Circ.easeInOut',
     'Back.easeInOut',
     'Bounce.easeInOut'
-];
+].sort();
+var blendModes = {
+    NORMAL: Phaser.BlendModes.NORMAL,
+    ADD: Phaser.BlendModes.ADD,
+    MULTIPLY: Phaser.BlendModes.MULTIPLY,
+    SCREEN: Phaser.BlendModes.SCREEN
+};
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -67,8 +73,15 @@ function preload ()
 
 function create ()
 {
+    if (typeof dat === 'undefined')
+    {
+        this.add.text(16, 16, 'Please [Launch] this example.');
+        return;
+    }
+
     gui = new dat.GUI();
     emitter = this.add.particles('spark1').createEmitter({
+        name: 'sparks',
         x: 400,
         y: 300,
         gravityY: 300,
@@ -79,22 +92,26 @@ function create ()
         blendMode: 'SCREEN'
     });
 
-    gui.add(angleConfig, 'min').name('angle min').onChange(function() { emitter.setAngle(angleConfig); });
-    gui.add(angleConfig, 'max').name('angle max').onChange(function() { emitter.setAngle(angleConfig); });
-    gui.add({ life: 1000 }, 'life').onChange(function(value) { emitter.setLifespan(value); });
-    gui.add({ gravityX: 0 }, 'gravityX').onChange(function(value) { emitter.setGravityX(value); });
-    gui.add({ gravityY: 300 }, 'gravityY').onChange(function(value) { emitter.setGravityY(value); });
-    gui.add(speedConfig, 'min').name('speed min').onChange(function() { emitter.setSpeed(speedConfig); });
-    gui.add(speedConfig, 'max').name('speed max').onChange(function() { emitter.setSpeed(speedConfig); });
-    gui.add(scaleConfig, 'start').name('scale start').onChange(function() { emitter.setScale(scaleConfig); });
-    gui.add(scaleConfig, 'end').name('scale end').onChange(function() { emitter.setScale(scaleConfig); });
+    gui.add(emitter, 'name');
+    gui.add(emitter, 'on');
+    gui.add(emitter, 'blendMode', blendModes).name('blend mode').onChange(function (val) { emitter.setBlendMode(Number(val)); });
+    gui.add(angleConfig, 'min', 0, 360, 5).name('angle min').onChange(function() { emitter.setAngle(angleConfig); });
+    gui.add(angleConfig, 'max', 0, 360, 5).name('angle max').onChange(function() { emitter.setAngle(angleConfig); });
+    gui.add({ life: 1000 }, 'life', 100, 5000, 100).onChange(function(value) { emitter.setLifespan(value); });
+    gui.add({ gravityX: 0 }, 'gravityX', -300, 300, 10).onChange(function(value) { emitter.setGravityX(value); });
+    gui.add({ gravityY: 300 }, 'gravityY', -300, 300, 10).onChange(function(value) { emitter.setGravityY(value); });
+    gui.add(speedConfig, 'min', 0, 600, 10).name('speed min').onChange(function() { emitter.setSpeed(speedConfig); });
+    gui.add(speedConfig, 'max', 0, 600, 10).name('speed max').onChange(function() { emitter.setSpeed(speedConfig); });
+    gui.add(scaleConfig, 'start', 0, 1, 0.1).name('scale start').onChange(function() { emitter.setScale(scaleConfig); });
+    gui.add(scaleConfig, 'end', 0, 1, 0.1).name('scale end').onChange(function() { emitter.setScale(scaleConfig); });
     gui.add(scaleConfig, 'ease', eases).name('scale ease').onChange(function() { emitter.setScale(scaleConfig); });
-    gui.add(alphaConfig, 'start').name('alpha start').onChange(function() { emitter.setAlpha(alphaConfig); });
-    gui.add(alphaConfig, 'end').name('alpha end').onChange(function() { emitter.setAlpha(alphaConfig); });
+    gui.add(alphaConfig, 'start', 0, 1, 0.1).name('alpha start').onChange(function() { emitter.setAlpha(alphaConfig); });
+    gui.add(alphaConfig, 'end', 0, 1, 0.1).name('alpha end').onChange(function() { emitter.setAlpha(alphaConfig); });
     gui.add(alphaConfig, 'ease', eases).name('alpha ease').onChange(function() { emitter.setAlpha(alphaConfig); });
     gui.add(emitter, 'killAll');
     gui.add(emitter, 'pause');
     gui.add(emitter, 'resume');
+    gui.add({save: saveEmitter.bind(this)}, 'save').name('save JSON');
 
     this.input.on('pointermove', function (pointer) {
         if (move)
@@ -116,5 +133,12 @@ function create ()
 
 function update ()
 {
+    if (!countText) { return; }
+
     countText.setText('Alive Particles: ' + emitter.getAliveParticleCount());
+}
+
+function saveEmitter ()
+{
+    this.load.saveJSON(emitter.toJSON(), emitter.name + '.json');
 }

@@ -39,7 +39,7 @@ function create ()
 
     this.impact.world.setBounds();
 
-    var body = this.impact.add.body(200, 200).setActive().setVelocity(300, 150).setBounce(1);
+    var body = this.impact.add.body(200, 200).setActiveCollision().setVelocity(300, 150).setBounce(1);
 
     //  Assign the graphics object to the body. 'false' tells it not to use the Graphics size.
     body.setGameObject(container, true);

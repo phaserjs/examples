@@ -52,16 +52,16 @@ function create ()
     this.impact.world.setBounds();
 
     //  A few platforms
-    this.impact.add.image(200, 300, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
-    this.impact.add.image(550, 190, 'platform').setFixed().setGravity(0).setBodyScale(0.4);
-    this.impact.add.image(900, 300, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
-    this.impact.add.image(800, 400, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
-    this.impact.add.image(700, 500, 'platform').setFixed().setGravity(0).setBodyScale(0.5);
+    this.impact.add.image(200, 300, 'platform').setFixedCollision().setGravity(0).setBodyScale(0.5);
+    this.impact.add.image(550, 190, 'platform').setFixedCollision().setGravity(0).setBodyScale(0.4);
+    this.impact.add.image(900, 300, 'platform').setFixedCollision().setGravity(0).setBodyScale(0.5);
+    this.impact.add.image(800, 400, 'platform').setFixedCollision().setGravity(0).setBodyScale(0.5);
+    this.impact.add.image(700, 500, 'platform').setFixedCollision().setGravity(0).setBodyScale(0.5);
 
     //  Our sprite
     player = this.impact.add.sprite(200, 200, 'dude', 4).setOrigin(0, 0.15);
 
-    player.setActive();
+    player.setActiveCollision();
     player.setMaxVelocity(500);
     player.setFriction(1000, 100);
 

@@ -19,7 +19,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload() 
+function preload()
 {
     this.load.image('sky', 'assets/skies/deepblue.png');
     this.load.image('ball', 'assets/demoscene/ball-tlb.png');
@@ -37,7 +37,7 @@ function create ()
     group.createMultiple({ key: 'ball', frameQuantity: 64 });
 
     //  If you don't set the body as active it won't collide with the world bounds
-    var balls = this.impact.add.body(200, 100).setActive().setVelocity(300, 200).setBounce(0.95);
+    var balls = this.impact.add.body(200, 100).setActiveCollision().setVelocity(300, 200).setBounce(0.95);
 
     //  Set a body size of 1x1
     balls.setBodySize(1, 1);

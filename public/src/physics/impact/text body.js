@@ -27,5 +27,5 @@ function create ()
 
     //  If you don't set the body as active it won't collide with the world bounds
     //  Set the Game Object we just created as being bound to this physics body
-    this.impact.add.body(300, 300).setGameObject(text).setActive().setVelocity(300, 200).setBounce(1);
+    this.impact.add.body(300, 300).setGameObject(text).setActiveCollision().setVelocity(300, 200).setBounce(1);
 }

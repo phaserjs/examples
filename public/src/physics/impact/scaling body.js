@@ -32,9 +32,9 @@ function create ()
 {
     this.impact.world.setBounds();
 
-    var scalingBody = this.impact.add.image(200, 140, 'gameboy', 2).setFixed().setBodyScale(3);
+    var scalingBody = this.impact.add.image(200, 140, 'gameboy', 2).setFixedCollision().setBodyScale(3);
 
-    movingBody = this.impact.add.image(600, 200, 'gameboy', 3).setActive();
+    movingBody = this.impact.add.image(600, 200, 'gameboy', 3).setActiveCollision();
 
     var scale = { x: 3, y: 3 };
 

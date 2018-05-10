@@ -1211,7 +1211,7 @@
         {
           "path": "src\\camera\\add and remove test.js",
           "name": "add and remove test.js",
-          "size": 1815,
+          "size": 1791,
           "extension": ".js"
         },
         {
@@ -1289,7 +1289,7 @@
         {
           "path": "src\\camera\\graphics landscape.js",
           "name": "graphics landscape.js",
-          "size": 2986,
+          "size": 2995,
           "extension": ".js"
         },
         {
@@ -1301,7 +1301,7 @@
         {
           "path": "src\\camera\\minimap camera.js",
           "name": "minimap camera.js",
-          "size": 5327,
+          "size": 5345,
           "extension": ".js"
         },
         {
@@ -1432,7 +1432,7 @@
           "extension": ".js"
         }
       ],
-      "size": 104518
+      "size": 104521
     },
     {
       "path": "src\\components",
@@ -2007,7 +2007,7 @@
         {
           "path": "src\\events\\emit using symbols.js",
           "name": "emit using symbols.js",
-          "size": 1292,
+          "size": 1296,
           "extension": ".js"
         },
         {
@@ -2041,7 +2041,7 @@
           "extension": ".js"
         }
       ],
-      "size": 7650
+      "size": 7654
     },
     {
       "path": "src\\game config",
@@ -2552,7 +2552,7 @@
             {
               "path": "src\\game objects\\container\\impact physics body test.js",
               "name": "impact physics body test.js",
-              "size": 1262,
+              "size": 1271,
               "extension": ".js"
             },
             {
@@ -2670,7 +2670,7 @@
               "extension": ".js"
             }
           ],
-          "size": 70613
+          "size": 70622
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2731,8 +2731,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2743,8 +2743,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2755,8 +2755,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2875,8 +2875,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -3078,7 +3078,7 @@
             {
               "path": "src\\game objects\\images\\custom image class.js",
               "name": "custom image class.js",
-              "size": 836,
+              "size": 868,
               "extension": ".js"
             },
             {
@@ -3096,7 +3096,7 @@
             {
               "path": "src\\game objects\\images\\get bounds.js",
               "name": "get bounds.js",
-              "size": 520,
+              "size": 1407,
               "extension": ".js"
             },
             {
@@ -3154,7 +3154,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12343
+          "size": 13262
         },
         {
           "path": "src\\game objects\\lights",
@@ -3307,15 +3307,33 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\particle emitter\\create emitter from JSON.js",
+              "name": "create emitter from JSON.js",
+              "size": 616,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\particle emitter\\create emitter.js",
               "name": "create emitter.js",
               "size": 774,
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\particle emitter\\death zone custom.js",
+              "name": "death zone custom.js",
+              "size": 1440,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\particle emitter\\death zone follow mouse.js",
               "name": "death zone follow mouse.js",
               "size": 1410,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\particle emitter\\death zone from arcade body.js",
+              "name": "death zone from arcade body.js",
+              "size": 1187,
               "extension": ".js"
             },
             {
@@ -3331,9 +3349,21 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\particle emitter\\digital rain.js",
+              "name": "digital rain.js",
+              "size": 1710,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\particle emitter\\double acceleration.js",
               "name": "double acceleration.js",
               "size": 1026,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\particle emitter\\edge zone custom.js",
+              "name": "edge zone custom.js",
+              "size": 1415,
               "extension": ".js"
             },
             {
@@ -3382,6 +3412,12 @@
               "path": "src\\game objects\\particle emitter\\emit from sprites.js",
               "name": "emit from sprites.js",
               "size": 1907,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\particle emitter\\emit from texture.js",
+              "name": "emit from texture.js",
+              "size": 1484,
               "extension": ".js"
             },
             {
@@ -3477,7 +3513,13 @@
             {
               "path": "src\\game objects\\particle emitter\\particle editor.js",
               "name": "particle editor.js",
-              "size": 3744,
+              "size": 4619,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\particle emitter\\particle processor.js",
+              "name": "particle processor.js",
+              "size": 1659,
               "extension": ".js"
             },
             {
@@ -3490,6 +3532,12 @@
               "path": "src\\game objects\\particle emitter\\particles on a path.js",
               "name": "particles on a path.js",
               "size": 818,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\particle emitter\\random emit zone custom.js",
+              "name": "random emit zone custom.js",
+              "size": 1196,
               "extension": ".js"
             },
             {
@@ -3553,7 +3601,7 @@
               "extension": ".js"
             }
           ],
-          "size": 74169
+          "size": 85751
         },
         {
           "path": "src\\game objects\\quad",
@@ -4252,7 +4300,7 @@
           "size": 255492
         }
       ],
-      "size": 731583
+      "size": 744093
     },
     {
       "path": "src\\games",
@@ -4309,11 +4357,11 @@
             {
               "path": "src\\games\\defenda\\test.js",
               "name": "test.js",
-              "size": 9002,
+              "size": 9020,
               "extension": ".js"
             }
           ],
-          "size": 9002
+          "size": 9020
         },
         {
           "path": "src\\games\\firstgame",
@@ -4554,9 +4602,40 @@
             }
           ],
           "size": 46738
+        },
+        {
+          "path": "src\\games\\topdownShooter",
+          "name": "topdownShooter",
+          "children": [
+            {
+              "path": "src\\games\\topdownShooter\\topdown_averageFocus.js",
+              "name": "topdown_averageFocus.js",
+              "size": 6621,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\games\\topdownShooter\\topdown_combatMechanics.js",
+              "name": "topdown_combatMechanics.js",
+              "size": 10529,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\games\\topdownShooter\\topdown_playerFocus.js",
+              "name": "topdown_playerFocus.js",
+              "size": 5487,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\games\\topdownShooter\\topdown_targetFocus.js",
+              "name": "topdown_targetFocus.js",
+              "size": 6012,
+              "extension": ".js"
+            }
+          ],
+          "size": 28649
         }
       ],
-      "size": 180756
+      "size": 209423
     },
     {
       "path": "src\\geom",
@@ -4720,7 +4799,7 @@
             {
               "path": "src\\geom\\ellipse\\circumference point.js",
               "name": "circumference point.js",
-              "size": 1421,
+              "size": 1539,
               "extension": ".js"
             },
             {
@@ -4862,7 +4941,7 @@
               "extension": ".js"
             }
           ],
-          "size": 23804
+          "size": 23922
         },
         {
           "path": "src\\geom\\intersects",
@@ -5831,7 +5910,7 @@
           "size": 28373
         }
       ],
-      "size": 191829
+      "size": 191947
     },
     {
       "path": "src\\input",
@@ -6544,12 +6623,6 @@
           "size": 5105
         },
         {
-          "path": "src\\loader\\json",
-          "name": "json",
-          "children": [],
-          "size": 0
-        },
-        {
           "path": "src\\loader\\load config tests.js",
           "name": "load config tests.js",
           "size": 1819,
@@ -6617,11 +6690,11 @@
             {
               "path": "src\\loader\\plugin\\load plugin.js",
               "name": "load plugin.js",
-              "size": 436,
+              "size": 535,
               "extension": ".js"
             }
           ],
-          "size": 436
+          "size": 535
         },
         {
           "path": "src\\loader\\scene payload",
@@ -6648,12 +6721,6 @@
             }
           ],
           "size": 841
-        },
-        {
-          "path": "src\\loader\\shader",
-          "name": "shader",
-          "children": [],
-          "size": 0
         },
         {
           "path": "src\\loader\\sprite sheet",
@@ -6698,12 +6765,6 @@
             }
           ],
           "size": 800
-        },
-        {
-          "path": "src\\loader\\text",
-          "name": "text",
-          "children": [],
-          "size": 0
         },
         {
           "path": "src\\loader\\texture atlas json",
@@ -6835,15 +6896,9 @@
             }
           ],
           "size": 2678
-        },
-        {
-          "path": "src\\loader\\xml",
-          "name": "xml",
-          "children": [],
-          "size": 0
         }
       ],
-      "size": 94356
+      "size": 94455
     },
     {
       "path": "src\\paths",
@@ -7079,7 +7134,7 @@
             {
               "path": "src\\paths\\followers\\pause and resume.js",
               "name": "pause and resume.js",
-              "size": 1414,
+              "size": 1426,
               "extension": ".js"
             },
             {
@@ -7113,7 +7168,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13676
+          "size": 13688
         },
         {
           "path": "src\\paths\\line to ellipse.js",
@@ -7164,7 +7219,7 @@
           "extension": ".js"
         }
       ],
-      "size": 80682
+      "size": 80694
     },
     {
       "path": "src\\physics",
@@ -7316,49 +7371,49 @@
             {
               "path": "src\\physics\\impact\\100 world bodies.js",
               "name": "100 world bodies.js",
-              "size": 2934,
+              "size": 2943,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\1000 world bodies.js",
               "name": "1000 world bodies.js",
-              "size": 2964,
+              "size": 2973,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\10000 world bodies.js",
               "name": "10000 world bodies.js",
-              "size": 2966,
+              "size": 2975,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\bitmaptext body.js",
               "name": "bitmaptext body.js",
-              "size": 1042,
+              "size": 1050,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\body collision.js",
               "name": "body collision.js",
-              "size": 799,
+              "size": 826,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\body offset.js",
               "name": "body offset.js",
-              "size": 890,
+              "size": 908,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\collide callback.js",
               "name": "collide callback.js",
-              "size": 943,
+              "size": 961,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\collide event.js",
               "name": "collide event.js",
-              "size": 1056,
+              "size": 1074,
               "extension": ".js"
             },
             {
@@ -7370,61 +7425,61 @@
             {
               "path": "src\\physics\\impact\\dynamic bitmaptext body.js",
               "name": "dynamic bitmaptext body.js",
-              "size": 2383,
+              "size": 2400,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\dynamic graphics body.js",
               "name": "dynamic graphics body.js",
-              "size": 1865,
+              "size": 1874,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\graphics body.js",
               "name": "graphics body.js",
-              "size": 2293,
+              "size": 2302,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\group shift position from body.js",
               "name": "group shift position from body.js",
-              "size": 1357,
+              "size": 1365,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\move body with cursors.js",
               "name": "move body with cursors.js",
-              "size": 2648,
+              "size": 2702,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\multiple scenes.js",
               "name": "multiple scenes.js",
-              "size": 4746,
+              "size": 4791,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\scaled bodies.js",
               "name": "scaled bodies.js",
-              "size": 1274,
+              "size": 1301,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\scaling body.js",
               "name": "scaling body.js",
-              "size": 1320,
+              "size": 1338,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\scene config.js",
               "name": "scene config.js",
-              "size": 1973,
+              "size": 2048,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\show debug graphic.js",
               "name": "show debug graphic.js",
-              "size": 1228,
+              "size": 1237,
               "extension": ".js"
             },
             {
@@ -7448,41 +7503,41 @@
             {
               "path": "src\\physics\\impact\\small world bounds from config.js",
               "name": "small world bounds from config.js",
-              "size": 1014,
+              "size": 1023,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\text body.js",
               "name": "text body.js",
-              "size": 889,
+              "size": 898,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\tilesprite body.js",
               "name": "tilesprite body.js",
-              "size": 1578,
+              "size": 1586,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\world bounds from config.js",
               "name": "world bounds from config.js",
-              "size": 828,
+              "size": 837,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\world bounds optional walls.js",
               "name": "world bounds optional walls.js",
-              "size": 1192,
+              "size": 1201,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\world bounds.js",
               "name": "world bounds.js",
-              "size": 785,
+              "size": 794,
               "extension": ".js"
             }
           ],
-          "size": 46862
+          "size": 47302
         },
         {
           "path": "src\\physics\\matterjs",
@@ -7732,7 +7787,7 @@
             {
               "path": "src\\physics\\multi\\arcade and matter and impact.js",
               "name": "arcade and matter and impact.js",
-              "size": 1605,
+              "size": 1614,
               "extension": ".js"
             },
             {
@@ -7742,10 +7797,10 @@
               "extension": ".js"
             }
           ],
-          "size": 2741
+          "size": 2750
         }
       ],
-      "size": 143217
+      "size": 143666
     },
     {
       "path": "src\\pools",
@@ -7896,8 +7951,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -8120,7 +8175,7 @@
         {
           "path": "src\\scenes\\multiple scenes from objects.js",
           "name": "multiple scenes from objects.js",
-          "size": 1429,
+          "size": 1493,
           "extension": ".js"
         },
         {
@@ -8180,13 +8235,13 @@
         {
           "path": "src\\scenes\\scene config object.js",
           "name": "scene config object.js",
-          "size": 557,
+          "size": 589,
           "extension": ".js"
         },
         {
           "path": "src\\scenes\\scene files payload.js",
           "name": "scene files payload.js",
-          "size": 956,
+          "size": 988,
           "extension": ".js"
         },
         {
@@ -8252,7 +8307,7 @@
         {
           "path": "src\\scenes\\swapping scenes.js",
           "name": "swapping scenes.js",
-          "size": 999,
+          "size": 1063,
           "extension": ".js"
         },
         {
@@ -8311,7 +8366,7 @@
           "extension": ".js"
         }
       ],
-      "size": 145884
+      "size": 146076
     },
     {
       "path": "src\\snapshot",
@@ -9123,5 +9178,5 @@
       "size": 4792
     }
   ],
-  "size": 2373493
+  "size": 2415547
 }

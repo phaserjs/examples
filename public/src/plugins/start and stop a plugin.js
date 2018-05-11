@@ -2,7 +2,7 @@ class MoveSpritePlugin extends Phaser.Plugins.BasePlugin {
 
     constructor (pluginManager)
     {
-        super('MoveSpritePlugin', pluginManager);
+        super(pluginManager);
 
         this.sprite;
     }
@@ -57,7 +57,7 @@ const config = {
     width: 800,
     height: 600,
     plugins: {
-        install: [
+        global: [
             { key: 'MoveSpritePlugin', plugin: MoveSpritePlugin, start: true }
         ]
     },

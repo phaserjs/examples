@@ -32,8 +32,8 @@ const config = {
     width: 800,
     height: 600,
     plugins: {
-        install: [
-            { key: 'RandomNamePlugin', plugin: RandomNamePlugin, start: true, isScenePlugin: false }
+        global: [
+            { key: 'RandomNamePlugin', plugin: RandomNamePlugin, start: true }
         ]
     },
     scene: {

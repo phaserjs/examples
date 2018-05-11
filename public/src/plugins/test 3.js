@@ -40,7 +40,7 @@ const config = {
     width: 800,
     height: 600,
     plugins: {
-        install: [
+        global: [
             { key: 'RandomNamePlugin', plugin: RandomNamePlugin }
         ]
     },

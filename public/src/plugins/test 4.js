@@ -2,7 +2,7 @@ class RandomNamePlugin extends Phaser.Plugins.BasePlugin {
 
     constructor (pluginManager)
     {
-        super('RandomNamePlugin', pluginManager);
+        super(pluginManager);
 
         this.syllables1 = [ 'fro', 'tir', 'nag', 'bli', 'mon', 'zip' ];
         this.syllables2 = [ 'fay', 'shi', 'zag', 'blarg', 'rash', 'izen' ];

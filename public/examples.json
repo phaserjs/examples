@@ -2582,7 +2582,7 @@
             {
               "path": "src\\game objects\\container\\matter physics body test camera.js",
               "name": "matter physics body test camera.js",
-              "size": 1429,
+              "size": 1432,
               "extension": ".js"
             },
             {
@@ -2688,7 +2688,7 @@
               "extension": ".js"
             }
           ],
-          "size": 72051
+          "size": 72054
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4324,7 +4324,7 @@
           "size": 255492
         }
       ],
-      "size": 746391
+      "size": 746394
     },
     {
       "path": "src\\games",
@@ -7831,15 +7831,51 @@
       "name": "plugins",
       "children": [
         {
+          "path": "src\\plugins\\load plugin test 1.js",
+          "name": "load plugin test 1.js",
+          "size": 548,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\load plugin test 2.js",
+          "name": "load plugin test 2.js",
+          "size": 1369,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\load scene plugin test 1.js",
+          "name": "load scene plugin test 1.js",
+          "size": 1058,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\load scene plugin test 2.js",
+          "name": "load scene plugin test 2.js",
+          "size": 922,
+          "extension": ".js"
+        },
+        {
           "path": "src\\plugins\\scene plugin test 1.js",
           "name": "scene plugin test 1.js",
-          "size": 1884,
+          "size": 1537,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\scene plugin test 2.js",
+          "name": "scene plugin test 2.js",
+          "size": 2310,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\scene plugin test 3.js",
+          "name": "scene plugin test 3.js",
+          "size": 3425,
           "extension": ".js"
         },
         {
           "path": "src\\plugins\\start and stop a plugin.js",
           "name": "start and stop a plugin.js",
-          "size": 1796,
+          "size": 1776,
           "extension": ".js"
         },
         {
@@ -7863,11 +7899,11 @@
         {
           "path": "src\\plugins\\test 4.js",
           "name": "test 4.js",
-          "size": 2009,
+          "size": 1989,
           "extension": ".js"
         }
       ],
-      "size": 10190
+      "size": 19435
     },
     {
       "path": "src\\pools",
@@ -9245,5 +9281,5 @@
       "size": 4792
     }
   ],
-  "size": 2429771
+  "size": 2439019
 }

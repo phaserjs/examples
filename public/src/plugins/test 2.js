@@ -1,41 +1,39 @@
-class TestPlugin extends Phaser.Plugin {
+class RandomNamePlugin extends Phaser.Plugins.BasePlugin {
 
-    constructor (game)
+    constructor (pluginManager)
     {
-        super('TestPlugin', game);
+        super('RandomNamePlugin', pluginManager);
 
-        this.active = false;
-
-        this.image;
+        this.syllables = [ 'fro', 'tir', 'nag', 'bli', 'mon', 'fay', 'shi', 'zag', 'blarg', 'rash', 'izen' ];
     }
 
-    addImage (image)
+    init ()
     {
-        this.image = image;
-        this.active = true;
+        console.log('Plugin is alive');
     }
 
-    //  Called every Game.step by the PluginManager.
-    step (time, delta)
+    getName ()
     {
-        this.image.x--;
+        let name = '';
 
-        if (this.image.x < 0)
+        for (let i = 0; i < Phaser.Math.Between(2, 4); i++)
         {
-            this.image.x = 800;
+            name = name.concat(Phaser.Utils.Array.GetRandom(this.syllables));
         }
+
+        return Phaser.Utils.String.UppercaseFirst(name);
     }
 
 }
 
-var config = {
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    _plugins: {
+    plugins: {
         install: [
-            TestPlugin
+            { key: 'RandomNamePlugin', plugin: RandomNamePlugin, start: true, isScenePlugin: false }
         ]
     },
     scene: {
@@ -44,7 +42,7 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+let game = new Phaser.Game(config);
 
 function preload ()
 {
@@ -53,11 +51,11 @@ function preload ()
 
 function create ()
 {
-    var image = this.add.image(800, 300, 'elephant');
+    let image = this.add.image(400, 300, 'elephant');
 
-    //  The first argument is the unique key the plugin will use internally
-    //  The second is the plugin class (not an instance of it, the actual class)
-    // var p = this.plugins.add('TestPlugin', TestPlugin);
+    let plugin = this.plugins.get('RandomNamePlugin');
 
-    // p.addImage(image);
+    let name = plugin.getName();
+
+    this.add.text(10, 10, 'The elephants name is: ' + name, { font: '16px Courier', fill: '#00ff00' });
 }

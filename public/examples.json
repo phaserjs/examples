@@ -7825,13 +7825,37 @@
       "name": "plugins",
       "children": [
         {
+          "path": "src\\plugins\\start and stop a plugin.js",
+          "name": "start and stop a plugin.js",
+          "size": 1379,
+          "extension": ".js"
+        },
+        {
           "path": "src\\plugins\\test 1.js",
           "name": "test 1.js",
-          "size": 514,
+          "size": 1131,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\test 2.js",
+          "name": "test 2.js",
+          "size": 1388,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\test 3.js",
+          "name": "test 3.js",
+          "size": 2006,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\test 4.js",
+          "name": "test 4.js",
+          "size": 2009,
           "extension": ".js"
         }
       ],
-      "size": 514
+      "size": 7913
     },
     {
       "path": "src\\pools",
@@ -9209,5 +9233,5 @@
       "size": 4792
     }
   ],
-  "size": 2418666
+  "size": 2426065
 }

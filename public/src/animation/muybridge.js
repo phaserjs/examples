@@ -41,5 +41,5 @@ function create ()
         y: 170
     });
 
-    this.anims.staggerPlay('run', group.getChildren(), -0.1);
+    this.anims.staggerPlay('run', group.getChildren(), -100);
 }

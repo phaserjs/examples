@@ -176,6 +176,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\animation\\all frames texture atlas animation.js",
+          "name": "all frames texture atlas animation.js",
+          "size": 575,
+          "extension": ".js"
+        },
+        {
           "path": "src\\animation\\animation data.js",
           "name": "animation data.js",
           "size": 2041,
@@ -238,7 +244,7 @@
         {
           "path": "src\\animation\\gems.js",
           "name": "gems.js",
-          "size": 1316,
+          "size": 1194,
           "extension": ".js"
         },
         {
@@ -354,9 +360,15 @@
           "name": "texture atlas animation.js",
           "size": 2223,
           "extension": ".js"
+        },
+        {
+          "path": "src\\animation\\yoyo.js",
+          "name": "yoyo.js",
+          "size": 655,
+          "extension": ".js"
         }
       ],
-      "size": 36539
+      "size": 37647
     },
     {
       "path": "src\\archived",
@@ -2616,6 +2628,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\nested get bounds test.js",
+              "name": "nested get bounds test.js",
+              "size": 780,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\nested input test.js",
               "name": "nested input test.js",
               "size": 1279,
@@ -2688,7 +2706,7 @@
               "extension": ".js"
             }
           ],
-          "size": 72054
+          "size": 72834
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4324,7 +4342,7 @@
           "size": 255492
         }
       ],
-      "size": 746394
+      "size": 747174
     },
     {
       "path": "src\\games",
@@ -6189,6 +6207,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\numpad.js",
+              "name": "numpad.js",
+              "size": 1801,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\reset key combo on match.js",
               "name": "reset key combo on match.js",
               "size": 744,
@@ -6201,7 +6225,7 @@
               "extension": ".js"
             }
           ],
-          "size": 8160
+          "size": 9961
         },
         {
           "path": "src\\input\\mouse",
@@ -6453,7 +6477,7 @@
           "size": 9602
         }
       ],
-      "size": 110678
+      "size": 112479
     },
     {
       "path": "src\\loader",
@@ -7831,6 +7855,36 @@
       "name": "plugins",
       "children": [
         {
+          "path": "src\\plugins\\add global plugin.js",
+          "name": "add global plugin.js",
+          "size": 1131,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\custom file type.js",
+          "name": "custom file type.js",
+          "size": 4218,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\custom game object.js",
+          "name": "custom game object.js",
+          "size": 1072,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\global plugin test 1.js",
+          "name": "global plugin test 1.js",
+          "size": 1365,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\install global plugin at runtime.js",
+          "name": "install global plugin at runtime.js",
+          "size": 1989,
+          "extension": ".js"
+        },
+        {
           "path": "src\\plugins\\load plugin test 1.js",
           "name": "load plugin test 1.js",
           "size": 548,
@@ -7852,6 +7906,12 @@
           "path": "src\\plugins\\load scene plugin test 2.js",
           "name": "load scene plugin test 2.js",
           "size": 922,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\multiple global plugin instances.js",
+          "name": "multiple global plugin instances.js",
+          "size": 2005,
           "extension": ".js"
         },
         {
@@ -7877,33 +7937,9 @@
           "name": "start and stop a plugin.js",
           "size": 1776,
           "extension": ".js"
-        },
-        {
-          "path": "src\\plugins\\test 1.js",
-          "name": "test 1.js",
-          "size": 1131,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\plugins\\test 2.js",
-          "name": "test 2.js",
-          "size": 1365,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\plugins\\test 3.js",
-          "name": "test 3.js",
-          "size": 2005,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\plugins\\test 4.js",
-          "name": "test 4.js",
-          "size": 1989,
-          "extension": ".js"
         }
       ],
-      "size": 19435
+      "size": 24725
     },
     {
       "path": "src\\pools",
@@ -8028,7 +8064,7 @@
         {
           "path": "src\\scenes\\changing scene es6.js",
           "name": "changing scene es6.js",
-          "size": 1744,
+          "size": 1885,
           "extension": ".js"
         },
         {
@@ -8469,7 +8505,7 @@
           "extension": ".js"
         }
       ],
-      "size": 146076
+      "size": 146217
     },
     {
       "path": "src\\snapshot",
@@ -9244,6 +9280,12 @@
           "name": "array",
           "children": [
             {
+              "path": "src\\utils\\array\\bring to top.js",
+              "name": "bring to top.js",
+              "size": 499,
+              "extension": ".js"
+            },
+            {
               "path": "src\\utils\\array\\range.js",
               "name": "range.js",
               "size": 937,
@@ -9256,7 +9298,7 @@
               "extension": ".js"
             }
           ],
-          "size": 1564
+          "size": 2063
         },
         {
           "path": "src\\utils\\rbush",
@@ -9278,8 +9320,8 @@
           "size": 3228
         }
       ],
-      "size": 4792
+      "size": 5291
     }
   ],
-  "size": 2439019
+  "size": 2448638
 }

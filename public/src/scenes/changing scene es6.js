@@ -14,9 +14,13 @@ class SceneA extends Phaser.Scene {
     {
         this.face = this.add.image(400, 300, 'face');
 
+        this.input.manager.enabled = true;
+
         this.input.once('pointerdown', function () {
 
             console.log('From SceneA to SceneB');
+
+            console.log(this.input._events);
 
             this.scene.start('sceneB');
 
@@ -41,7 +45,7 @@ class SceneB extends Phaser.Scene {
     {
         this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function (event) {
+        this.input.once('pointerup', function (event) {
 
             console.log('From SceneB to SceneC');
 
@@ -73,9 +77,11 @@ class SceneC extends Phaser.Scene {
     {
         this.add.sprite(Phaser.Math.Between(0, 800), 300, 'mech');
 
-        this.input.once('pointerdown', function (event) {
+        this.input.once('pointerup', function (event) {
 
             console.log('From SceneC to SceneA');
+
+            this.input.manager.enabled = false;
 
             this.scene.start('sceneA');
 

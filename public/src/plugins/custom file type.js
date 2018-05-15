@@ -1,30 +1,141 @@
-class RandomNamePlugin extends Phaser.Plugins.BasePlugin {
+class LeetSpeak {
+
+    constructor ()
+    {
+        this.alphabetBasic = {
+            'a': '4',
+            'b': '8',
+            'e': '3',
+            'f': 'ph',
+            'g': '6', // or 9
+            'i': '1', // or |
+            'o': '0',
+            's': '5',
+            't': '7' // or +
+        };
+
+        this.alphabetAdvanced = {
+            'c': '(', // or k or |< or /<
+            'd': '<|',
+            'h': '|-|',
+            'k': '|<', // or /<
+            'l': '|', // or 1
+            'm': '|\\/|',
+            'n': '|\\|',
+            'p': '|2',
+            'u': '|_|',
+            'v': '/', // or \/
+            'w': '//', // or \/\/
+            'x': '><',
+            'y': '\'/'
+        };
+
+        this.alphabetReversed = [
+            [/(\|\\\/\|)/g, 'm'],
+            [/(\|\\\|)/g, 'n'],
+            [/(\()/g, 'c'],
+            [/(<\|)/g, 'd'],
+            [/\|-\|/g, 'h'],
+            [/(\|<)/g, 'k'],
+            [/(\|2)/g, 'p'],
+            [/(\|_\|)/g, 'u'],
+            [/(\/\/)/g, 'w'],
+            [/(><)/g, 'x'],
+            [/(\|)/g, 'l'],
+            [/(\'\/)/g, 'y'],
+            [/(\/)/g, 'v'],
+            [/(1)/g, 'i'],
+            [/(0)/g, 'o'],
+            [/(3)/g, 'e'],
+            [/(4)/g, 'a'],
+            [/(5)/g, 's'],
+            [/(6)/g, 'g'],
+            [/(7)/g, 't'],
+            [/(8)/g, 'b'],
+            [/(ph)/g, 'f'],
+        ];
+    }
+
+    convert (text, useAdvanced = 'n')
+    {
+        for (let i = 0; i < text.length; i++)
+        {
+            let alphabet;
+            let letter = text[i].toLowerCase();
+
+            if (useAdvanced.toLowerCase() === 'y')
+            {
+                // Use advanced l33t speak alphabet
+                alphabet = (this.alphabetBasic[letter]) ? this.alphabetBasic[letter] : this.alphabetAdvanced[letter];
+            }
+            else
+            {
+                // Use basic l33t speak alphabet
+                alphabet = this.alphabetBasic[letter];
+            }
+
+            if (alphabet)
+            {
+                text = text.replace(text[i], alphabet);
+            }
+        }
+
+        return text;
+    }
+}
+
+class LeetTextFile extends Phaser.Loader.FileTypes.TextFile {
+
+    constructor (loader, key, url, xhrSettings)
+    {
+       super(loader, key, url, xhrSettings);
+    }
+
+    onProcess ()
+    {
+        //  Leetify it
+        this.leet = new LeetSpeak();
+
+        this.data = this.leet.convert(this.xhrLoader.responseText);
+
+        this.onProcessComplete();
+    }
+
+}
+
+class LeetSpeakPlugin extends Phaser.Plugins.BasePlugin {
 
     constructor (pluginManager)
     {
         super(pluginManager);
 
-        this.syllables1 = [ 'fro', 'tir', 'nag', 'bli', 'mon', 'zip' ];
-        this.syllables2 = [ 'fay', 'shi', 'zag', 'blarg', 'rash', 'izen' ];
+        this.leet = new LeetSpeak();
 
-        this.current = this.syllables1;
+        //  Register our new Loader File Type
+        pluginManager.registerFileType('leet', this.leetTextFileCallback);
     }
 
-    changeSet ()
+    convert (text)
     {
-        this.current = this.syllables2;
+        return this.leet.convert(text);
     }
 
-    getName ()
+    leetTextFileCallback (key, url, xhrSettings)
     {
-        let name = '';
-
-        for (let i = 0; i < Phaser.Math.Between(2, 4); i++)
+        if (Array.isArray(key))
         {
-            name = name.concat(Phaser.Utils.Array.GetRandom(this.current));
+            for (var i = 0; i < key.length; i++)
+            {
+                //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
+                this.addFile(new LeetTextFile(this, key[i]));
+            }
+        }
+        else
+        {
+            this.addFile(new LeetTextFile(this, key, url, xhrSettings));
         }
 
-        return Phaser.Utils.String.UppercaseFirst(name);
+        return this;
     }
 
 }
@@ -34,6 +145,11 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    plugins: {
+        global: [
+            { key: 'LeetSpeakPlugin', plugin: LeetSpeakPlugin, start: true }
+        ]
+    },
     scene: {
         preload: preload,
         create: create
@@ -44,28 +160,15 @@ let game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('elephant', 'assets/sprites/elephant.png');
+    this.load.leet('story', 'assets/text/hibernation.txt');
 }
 
 function create ()
 {
-    //  Install two instances of the 'RandomNamePlugin' running in the Plugin Manager.
-    //  We will reference them with the keys 'myPluginRef1' and 'myPluginRef2'
-    //  `install` will return the plugins because we are calling this in `create` and the Game
-    //  has booted by now. `install` returns undefined if the game is not yet booted.
+    // let leet = this.plugins.get('LeetSpeakPlugin');
+    // let txt = leet.convert("Hello World! Let's hack the gibson!");
 
-    let plugin1 = this.plugins.install('myPluginRef1', RandomNamePlugin, true);
-    let plugin2 = this.plugins.install('myPluginRef2', RandomNamePlugin, true);
+    let txt = this.cache.text.get('story');
 
-    //  Make the 2nd instance of our plugin use the alternative set of syllables
-    plugin2.changeSet();
-
-    let name1 = plugin1.getName();
-    let name2 = plugin2.getName();
-
-    this.add.image(300, 300, 'elephant');
-    this.add.image(500, 300, 'elephant');
-
-    this.add.text(250, 400, name1, { font: '16px Courier', fill: '#00ff00' });
-    this.add.text(450, 400, name2, { font: '16px Courier', fill: '#ffff00' });
+    this.add.text(4, 4, txt, { font: '16px Courier', fill: '#00ff00' });
 }

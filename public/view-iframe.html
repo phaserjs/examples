@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Phaser 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+    <script src="./js/getQueryString.js"></script>
+    <script src="./js/jquery-3.1.1.min.js"></script>
+    <script src="./js/TweenMax.min.js"></script> 
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="phaser-example"></div>
+
+    <p id="loading">Please wait, loading Phaser build ...</p>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        var filename = getQueryString('src');
+        var phaserVersion = getQueryString('v', 'dev');
+        var phaserVersionJS = getQueryString('v', 'dev') + '.js';
+
+        if (filename.substr(-3) === '.js')
+        {
+            //  Prepare the links and Feedback form before we run the example
+            var parts = filename.split('\\');
+            parts.pop();
+            parts.shift();
+            backURL = parts.join('/') + '/';
+
+            //  Load Phaser
+
+            var phaserScript = document.createElement('script');
+
+            phaserScript.type = 'text/javascript';
+            phaserScript.async = true;
+
+            phaserScript.onload = function ()
+            {
+                //  Inject the example source
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.src = decodeURI(filename).split('\\').join('/');
+                document.body.appendChild(s);
+
+                $('#loading').hide();
+                $('#nav').show();
+            };
+
+            phaserScript.src = './build/' + phaserVersionJS;
+
+            document.body.appendChild(phaserScript);
+        }
+
+    });
+    </script>
+
+</body>
+</html>

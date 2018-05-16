@@ -1239,7 +1239,7 @@ var Animation = new Class({
             //  We're at the end of the animation
 
             //  Yoyo? (happens before repeat)
-            if (component.yoyo)
+            if (component._yoyo)
             {
                 component.forward = false;
 
@@ -1988,7 +1988,7 @@ var AnimationManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - [description]
-     * @param {GenerateFrameNamesConfig} config - [description]
+     * @param {GenerateFrameNamesConfig} [config] - [description]
      *
      * @return {AnimationFrameConfig[]} [description]
      */
@@ -2017,9 +2017,19 @@ var AnimationManager = new Class({
         var i;
         var frame;
 
-        //  Have they provided their own custom frame sequence array?
-        if (Array.isArray(frames))
+        if (!config)
         {
+            //  Use every frame in the atlas?
+            frames = texture.getFrameNames();
+
+            for (i = 0; i < frames.length; i++)
+            {
+                out.push({ key: key, frame: frames[i] });
+            }
+        }
+        else if (Array.isArray(frames))
+        {
+            //  Have they provided their own custom frame sequence array?
             for (i = 0; i < frames.length; i++)
             {
                 frame = prefix + Pad(frames[i], zeroPad, '0', 1) + suffix;
@@ -2103,7 +2113,6 @@ var AnimationManager = new Class({
         else
         {
             //  No endFrame then see if we can get it
-
             if (endFrame === -1)
             {
                 endFrame = texture.frameTotal;
@@ -2397,10 +2406,12 @@ module.exports = {
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ../const */ "./const.js");
+var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/object/GetValue.js");
+var IsPlainObject = __webpack_require__(/*! ../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 var MATH = __webpack_require__(/*! ../math/const */ "./math/const.js");
 var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
-var Plugins = __webpack_require__(/*! ../plugins */ "./plugins.js");
+var DefaultPlugins = __webpack_require__(/*! ../plugins/DefaultPlugins */ "./plugins/DefaultPlugins.js");
 var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./display/color/ValueToColor.js");
 
 /**
@@ -2430,8 +2441,7 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  *
  * @property {string} [baseURL] - [description]
  * @property {string} [path] - [description]
- * @property {boolean} [enableParallel=true] - [description]
- * @property {integer} [maxParallelDownloads=4] - [description]
+ * @property {integer} [maxParallelDownloads=32] - [description]
  * @property {(string|undefined)} [crossOrigin=undefined] - [description]
  * @property {string} [responseType] - [description]
  * @property {boolean} [async=true] - [description]
@@ -2449,8 +2459,9 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {number} [resolution=1] - [description]
  * @property {number} [type=CONST.AUTO] - [description]
  * @property {*} [parent=null] - [description]
- * @property {HTMLCanvasElement} [canvas=null] - [description]
+ * @property {HTMLCanvasElement} [canvas=null] - Provide your own Canvas element for Phaser to use instead of creating one.
  * @property {string} [canvasStyle=null] - [description]
+ * @property {CanvasRenderingContext2D} [context] - Provide your own Canvas Context for Phaser to use, instead of creating one.
  * @property {object} [scene=null] - [description]
  * @property {string[]} [seed] - [description]
  * @property {string} [title=''] - [description]
@@ -2471,16 +2482,16 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {string} [banner.text='#ffffff'] - [description]
  * @property {string[]} [banner.background] - [description]
  * @property {FPSConfig} [fps] - [description]
- * @property {boolean} [antialias=true] - [description]
- * @property {boolean} [pixelArt=false] - [description]
- * @property {boolean} [autoResize=false] - [description]
- * @property {boolean} [roundPixels=false] - [description]
- * @property {boolean} [transparent=false] - [description]
- * @property {boolean} [clearBeforeRender=true] - [description]
- * @property {boolean} [premultipliedAlpha=true] - [description]
- * @property {boolean} [preserveDrawingBuffer=false] - [description]
- * @property {boolean} [failIfMajorPerformanceCaveat=false] - [description]
- * @property {boolean} [powerPreference='default'] - "high-performance", "low-power" or "default"
+ * @property {boolean} [render.antialias=true] - [description]
+ * @property {boolean} [render.pixelArt=false] - [description]
+ * @property {boolean} [render.autoResize=false] - [description]
+ * @property {boolean} [render.roundPixels=false] - [description]
+ * @property {boolean} [render.transparent=false] - [description]
+ * @property {boolean} [render.clearBeforeRender=true] - [description]
+ * @property {boolean} [render.premultipliedAlpha=true] - [description]
+ * @property {boolean} [render.preserveDrawingBuffer=false] - [description]
+ * @property {boolean} [render.failIfMajorPerformanceCaveat=false] - [description]
+ * @property {string} [render.powerPreference='default'] - "high-performance", "low-power" or "default"
  * @property {(string|number)} [backgroundColor=0x000000] - [description]
  * @property {object} [callbacks] - [description]
  * @property {BootCallback} [callbacks.preBoot=NOOP] - [description]
@@ -2502,7 +2513,6 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @since 3.0.0
  *
  * @param {GameConfig} [GameConfig] - The configuration object for your Phaser Game instance.
- *
  */
 var Config = new Class({
 
@@ -2522,51 +2532,155 @@ var Config = new Class({
 
         var defaultBannerTextColor = '#ffffff';
 
+        /**
+         * @const {(integer|string)} Phaser.Boot.Config#width - [description]
+         */
         this.width = GetValue(config, 'width', 1024);
+
+        /**
+         * @const {(integer|string)} Phaser.Boot.Config#height - [description]
+         */
         this.height = GetValue(config, 'height', 768);
+
+        /**
+         * @const {number} Phaser.Boot.Config#zoom - [description]
+         */
         this.zoom = GetValue(config, 'zoom', 1);
 
+        /**
+         * @const {number} Phaser.Boot.Config#resolution - [description]
+         */
         this.resolution = GetValue(config, 'resolution', 1);
 
+        /**
+         * @const {number} Phaser.Boot.Config#renderType - [description]
+         */
         this.renderType = GetValue(config, 'type', CONST.AUTO);
 
+        /**
+         * @const {?*} Phaser.Boot.Config#parent - [description]
+         */
         this.parent = GetValue(config, 'parent', null);
+
+        /**
+         * @const {?HTMLCanvasElement} Phaser.Boot.Config#canvas - Force Phaser to use your own Canvas element instead of creating one.
+         */
         this.canvas = GetValue(config, 'canvas', null);
+
+        /**
+         * @const {?(CanvasRenderingContext2D|WebGLRenderingContext)} Phaser.Boot.Config#context - Force Phaser to use your own Canvas context instead of creating one.
+         */
+        this.context = GetValue(config, 'context', null);
+
+        /**
+         * @const {?string} Phaser.Boot.Config#canvasStyle - [description]
+         */
         this.canvasStyle = GetValue(config, 'canvasStyle', null);
 
+        /**
+         * @const {?object} Phaser.Boot.Config#sceneConfig - [description]
+         */
         this.sceneConfig = GetValue(config, 'scene', null);
 
+        /**
+         * @const {string[]} Phaser.Boot.Config#seed - [description]
+         */
         this.seed = GetValue(config, 'seed', [ (Date.now() * Math.random()).toString() ]);
 
         MATH.RND.init(this.seed);
 
+        /**
+         * @const {string} Phaser.Boot.Config#gameTitle - [description]
+         */
         this.gameTitle = GetValue(config, 'title', '');
+
+        /**
+         * @const {string} Phaser.Boot.Config#gameURL - [description]
+         */
         this.gameURL = GetValue(config, 'url', 'https://phaser.io');
+
+        /**
+         * @const {string} Phaser.Boot.Config#gameVersion - [description]
+         */
         this.gameVersion = GetValue(config, 'version', '');
 
         //  Input
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#inputKeyboard - [description]
+         */
         this.inputKeyboard = GetValue(config, 'input.keyboard', true);
+
+        /**
+         * @const {*} Phaser.Boot.Config#inputKeyboardEventTarget - [description]
+         */
         this.inputKeyboardEventTarget = GetValue(config, 'input.keyboard.target', window);
 
+        /**
+         * @const {(boolean|object)} Phaser.Boot.Config#inputMouse - [description]
+         */
         this.inputMouse = GetValue(config, 'input.mouse', true);
+
+        /**
+         * @const {?*} Phaser.Boot.Config#inputMouseEventTarget - [description]
+         */
         this.inputMouseEventTarget = GetValue(config, 'input.mouse.target', null);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#inputMouseCapture - [description]
+         */
         this.inputMouseCapture = GetValue(config, 'input.mouse.capture', true);
 
+        /**
+         * @const {boolean} Phaser.Boot.Config#inputTouch - [description]
+         */
         this.inputTouch = GetValue(config, 'input.touch', true);
+
+        /**
+         * @const {?*} Phaser.Boot.Config#inputTouchEventTarget - [description]
+         */
         this.inputTouchEventTarget = GetValue(config, 'input.touch.target', null);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#inputTouchCapture - [description]
+         */
         this.inputTouchCapture = GetValue(config, 'input.touch.capture', true);
 
+        /**
+         * @const {boolean} Phaser.Boot.Config#inputGamepad - [description]
+         */
         this.inputGamepad = GetValue(config, 'input.gamepad', false);
 
+        /**
+         * @const {boolean} Phaser.Boot.Config#disableContextMenu - [description]
+         */
         this.disableContextMenu = GetValue(config, 'disableContextMenu', false);
 
+        /**
+         * @const {any} Phaser.Boot.Config#audio - [description]
+         */
         this.audio = GetValue(config, 'audio');
 
         //  If you do: { banner: false } it won't display any banner at all
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#hideBanner - [description]
+         */
         this.hideBanner = (GetValue(config, 'banner', null) === false);
 
+        /**
+         * @const {boolean} Phaser.Boot.Config#hidePhaser - [description]
+         */
         this.hidePhaser = GetValue(config, 'banner.hidePhaser', false);
+
+        /**
+         * @const {string} Phaser.Boot.Config#bannerTextColor - [description]
+         */
         this.bannerTextColor = GetValue(config, 'banner.text', defaultBannerTextColor);
+
+        /**
+         * @const {string[]} Phaser.Boot.Config#bannerBackgroundColor - [description]
+         */
         this.bannerBackgroundColor = GetValue(config, 'banner.background', defaultBannerColor);
 
         if (this.gameTitle === '' && this.hidePhaser)
@@ -2582,6 +2696,9 @@ var Config = new Class({
         //          deltaHistory: 10
         //     }
 
+        /**
+         * @const {?FPSConfig} Phaser.Boot.Config#fps - [description]
+         */
         this.fps = GetValue(config, 'fps', null);
 
         //  Renderer Settings
@@ -2589,19 +2706,61 @@ var Config = new Class({
 
         var renderConfig = GetValue(config, 'render', config);
 
+        /**
+         * @const {boolean} Phaser.Boot.Config#antialias - [description]
+         */
         this.antialias = GetValue(renderConfig, 'antialias', true);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#pixelArt - [description]
+         */
         this.pixelArt = GetValue(renderConfig, 'pixelArt', false);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#autoResize - [description]
+         */
         this.autoResize = GetValue(renderConfig, 'autoResize', false);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#roundPixels - [description]
+         */
         this.roundPixels = GetValue(renderConfig, 'roundPixels', false);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#transparent - [description]
+         */
         this.transparent = GetValue(renderConfig, 'transparent', false);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#zoclearBeforeRenderom - [description]
+         */
         this.clearBeforeRender = GetValue(renderConfig, 'clearBeforeRender', true);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#premultipliedAlpha - [description]
+         */
         this.premultipliedAlpha = GetValue(renderConfig, 'premultipliedAlpha', true);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#preserveDrawingBuffer - [description]
+         */
         this.preserveDrawingBuffer = GetValue(renderConfig, 'preserveDrawingBuffer', false);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#failIfMajorPerformanceCaveat - [description]
+         */
         this.failIfMajorPerformanceCaveat = GetValue(renderConfig, 'failIfMajorPerformanceCaveat', false);
+
+        /**
+         * @const {string} Phaser.Boot.Config#powerPreference - [description]
+         */
         this.powerPreference = GetValue(renderConfig, 'powerPreference', 'default');
 
         var bgc = GetValue(config, 'backgroundColor', 0);
 
+        /**
+         * @const {Phaser.Display.Color} Phaser.Boot.Config#backgroundColor - [description]
+         */
         this.backgroundColor = ValueToColor(bgc);
 
         if (bgc === 0 && this.transparent)
@@ -2610,7 +2769,14 @@ var Config = new Class({
         }
 
         //  Callbacks
+        /**
+         * @const {BootCallback} Phaser.Boot.Config#preBoot - [description]
+         */
         this.preBoot = GetValue(config, 'callbacks.preBoot', NOOP);
+
+        /**
+         * @const {BootCallback} Phaser.Boot.Config#postBoot - [description]
+         */
         this.postBoot = GetValue(config, 'callbacks.postBoot', NOOP);
 
         //  Physics
@@ -2621,28 +2787,135 @@ var Config = new Class({
         //      cellSize: 64
         //  }
 
+        /**
+         * @const {object} Phaser.Boot.Config#physics - [description]
+         */
         this.physics = GetValue(config, 'physics', {});
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#defaultPhysicsSystem - [description]
+         */
         this.defaultPhysicsSystem = GetValue(this.physics, 'default', false);
 
         //  Loader Defaults
+
+        /**
+         * @const {string} Phaser.Boot.Config#loaderBaseURL - [description]
+         */
         this.loaderBaseURL = GetValue(config, 'loader.baseURL', '');
+
+        /**
+         * @const {string} Phaser.Boot.Config#loaderPath - [description]
+         */
         this.loaderPath = GetValue(config, 'loader.path', '');
-        this.loaderEnableParallel = GetValue(config, 'loader.enableParallel', true);
-        this.loaderMaxParallelDownloads = GetValue(config, 'loader.maxParallelDownloads', 4);
+
+        /**
+         * @const {integer} Phaser.Boot.Config#loaderMaxParallelDownloads - [description]
+         */
+        this.loaderMaxParallelDownloads = GetValue(config, 'loader.maxParallelDownloads', 32);
+
+        /**
+         * @const {(string|undefined)} Phaser.Boot.Config#loaderCrossOrigin - [description]
+         */
         this.loaderCrossOrigin = GetValue(config, 'loader.crossOrigin', undefined);
+
+        /**
+         * @const {string} Phaser.Boot.Config#loaderResponseType - [description]
+         */
         this.loaderResponseType = GetValue(config, 'loader.responseType', '');
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#loaderAsync - [description]
+         */
         this.loaderAsync = GetValue(config, 'loader.async', true);
+
+        /**
+         * @const {string} Phaser.Boot.Config#loaderUser - [description]
+         */
         this.loaderUser = GetValue(config, 'loader.user', '');
+
+        /**
+         * @const {string} Phaser.Boot.Config#loaderPassword - [description]
+         */
         this.loaderPassword = GetValue(config, 'loader.password', '');
+
+        /**
+         * @const {integer} Phaser.Boot.Config#loaderTimeout - [description]
+         */
         this.loaderTimeout = GetValue(config, 'loader.timeout', 0);
 
-        //  Scene Plugins
-        this.defaultPlugins = GetValue(config, 'plugins', Plugins.DefaultScene);
+        //  Plugins
+
+        /*
+         * Allows `plugins` property to either be an array, in which case it just replaces
+         * the default plugins like previously, or a config object.
+         *
+         * plugins: {
+         *    global: [
+         *        { key: 'TestPlugin', plugin: TestPlugin, start: true },
+         *    ],
+         *    scene: [
+         *        { key: 'WireFramePlugin', plugin: WireFramePlugin, systemKey: 'wireFramePlugin', sceneKey: 'wireframe' }
+         *    ],
+         *    default: [], OR
+         *    defaultMerge: {
+         *        'ModPlayer'
+         *    }
+         * }
+         */
+
+        /**
+         * @const {any} Phaser.Boot.Config#installGlobalPlugins - [description]
+         */
+        this.installGlobalPlugins = [];
+
+        /**
+         * @const {any} Phaser.Boot.Config#installScenePlugins - [description]
+         */
+        this.installScenePlugins = [];
+
+        var plugins = GetValue(config, 'plugins', null);
+        var defaultPlugins = DefaultPlugins.DefaultScene;
+
+        if (plugins)
+        {
+            //  Old 3.7 array format?
+            if (Array.isArray(plugins))
+            {
+                this.defaultPlugins = plugins;
+            }
+            else if (IsPlainObject(plugins))
+            {
+                this.installGlobalPlugins = GetFastValue(plugins, 'global', []);
+                this.installScenePlugins = GetFastValue(plugins, 'scene', []);
+
+                if (Array.isArray(plugins.default))
+                {
+                    defaultPlugins = plugins.default;
+                }
+                else if (Array.isArray(plugins.defaultMerge))
+                {
+                    defaultPlugins = defaultPlugins.concat(plugins.defaultMerge);
+                }
+            }
+        }
+
+        /**
+         * @const {any} Phaser.Boot.Config#defaultPlugins - The plugins installed into every Scene (in addition to CoreScene and Global).
+         */
+        this.defaultPlugins = defaultPlugins;
 
         //  Default / Missing Images
         var pngPrefix = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAg';
 
+        /**
+         * @const {string} Phaser.Boot.Config#defaultImage - [description]
+         */
         this.defaultImage = GetValue(config, 'images.default', pngPrefix + 'AQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==');
+        
+        /**
+         * @const {string} Phaser.Boot.Config#missingImage - [description]
+         */
         this.missingImage = GetValue(config, 'images.missing', pngPrefix + 'CAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==');
     }
 
@@ -2758,10 +3031,12 @@ var CreateRenderer = function (game)
         CanvasRenderer = __webpack_require__(/*! ../renderer/canvas/CanvasRenderer */ "./renderer/canvas/CanvasRenderer.js");
         WebGLRenderer = __webpack_require__(/*! ../renderer/webgl/WebGLRenderer */ "./renderer/webgl/WebGLRenderer.js");
 
-        //  Let the config pick the renderer type, both are included
+        //  Let the config pick the renderer type, as both are included
         if (config.renderType === CONST.WEBGL)
         {
             game.renderer = new WebGLRenderer(game);
+
+            //  The WebGL Renderer sets this value during its init, not on construction
             game.context = null;
         }
         else
@@ -2942,17 +3217,12 @@ var Device = __webpack_require__(/*! ../device */ "./device/index.js");
 var DOMContentLoaded = __webpack_require__(/*! ../dom/DOMContentLoaded */ "./dom/DOMContentLoaded.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var InputManager = __webpack_require__(/*! ../input/InputManager */ "./input/InputManager.js");
-var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
-var PluginManager = __webpack_require__(/*! ./PluginManager */ "./boot/PluginManager.js");
+var PluginManager = __webpack_require__(/*! ../plugins/PluginManager */ "./plugins/PluginManager.js");
 var SceneManager = __webpack_require__(/*! ../scene/SceneManager */ "./scene/SceneManager.js");
 var SoundManagerCreator = __webpack_require__(/*! ../sound/SoundManagerCreator */ "./sound/SoundManagerCreator.js");
 var TextureManager = __webpack_require__(/*! ../textures/TextureManager */ "./textures/TextureManager.js");
 var TimeStep = __webpack_require__(/*! ./TimeStep */ "./boot/TimeStep.js");
 var VisibilityHandler = __webpack_require__(/*! ./VisibilityHandler */ "./boot/VisibilityHandler.js");
-
-/**
- * @callback GameStepCallback
- */
 
 /**
  * @classdesc
@@ -2999,7 +3269,9 @@ var Game = new Class({
         this.renderer = null;
 
         /**
-         * A reference to the HTML Canvas Element on which the renderer is drawing.
+         * A reference to the HTML Canvas Element that Phaser uses to render the game.
+         * This is created automatically by Phaser unless you provide a `canvas` property
+         * in your Game Config.
          *
          * @name Phaser.Game#canvas
          * @type {HTMLCanvasElement}
@@ -3008,10 +3280,14 @@ var Game = new Class({
         this.canvas = null;
 
         /**
-         * A reference to the Canvas Rendering Context belonging to the Canvas Element this game is rendering to.
+         * A reference to the Rendering Context belonging to the Canvas Element this game is rendering to.
+         * If the game is running under Canvas it will be a 2d Canvas Rendering Context.
+         * If the game is running under WebGL it will be a WebGL Rendering Context.
+         * This context is created automatically by Phaser unless you provide a `context` property
+         * in your Game Config.
          *
          * @name Phaser.Game#context
-         * @type {CanvasRenderingContext2D}
+         * @type {(CanvasRenderingContext2D|WebGLRenderingContext|WebGL2RenderingContext)}
          * @since 3.0.0
          */
         this.context = null;
@@ -3151,21 +3427,10 @@ var Game = new Class({
          * those plugins into Scenes as required.
          *
          * @name Phaser.Game#plugins
-         * @type {Phaser.Boot.PluginManager}
+         * @type {Phaser.Plugins.PluginManager}
          * @since 3.0.0
          */
         this.plugins = new PluginManager(this, this.config);
-
-        /**
-         * The `onStepCallback` is a callback that is fired each time the Time Step ticks.
-         * It is set automatically when the Game boot process has completed.
-         *
-         * @name Phaser.Game#onStepCallback
-         * @type {GameStepCallback}
-         * @private
-         * @since 3.0.0
-         */
-        this.onStepCallback = NOOP;
 
         /**
          * Is this Game pending destruction at the start of the next frame?
@@ -3254,11 +3519,47 @@ var Game = new Class({
 
         VisibilityHandler(this.events);
 
-        this.events.on('hidden', this.onHidden, this);
-        this.events.on('visible', this.onVisible, this);
-        this.events.on('blur', this.onBlur, this);
-        this.events.on('focus', this.onFocus, this);
+        var eventEmitter = this.events;
+
+        eventEmitter.on('hidden', this.onHidden, this);
+        eventEmitter.on('visible', this.onVisible, this);
+        eventEmitter.on('blur', this.onBlur, this);
+        eventEmitter.on('focus', this.onFocus, this);
     },
+
+    /**
+     * Game Pre-Step event.
+     *
+     * This event is dispatched before the main Step starts.
+     * By this point none of the Scene updates have happened.
+     * Hook into it from plugins or systems that need to update before the Scene Manager does.
+     *
+     * @event Phaser.Game#prestepEvent
+     * @param {number} time - [description]
+     * @param {number} delta - [description]
+     */
+
+    /**
+     * Game Step event.
+     *
+     * This event is dispatched after Pre-Step and before the Scene Manager steps.
+     * Hook into it from plugins or systems that need to update before the Scene Manager does, but after core Systems.
+     *
+     * @event Phaser.Game#stepEvent
+     * @param {number} time - [description]
+     * @param {number} delta - [description]
+     */
+
+    /**
+     * Game Post-Step event.
+     *
+     * This event is dispatched after the Scene Manager has updated.
+     * Hook into it from plugins or systems that need to do things before the render starts.
+     *
+     * @event Phaser.Game#poststepEvent
+     * @param {number} time - [description]
+     * @param {number} delta - [description]
+     */
 
     /**
      * Game Pre-Render event.
@@ -3290,6 +3591,9 @@ var Game = new Class({
      * It will then render each Scene in turn, via the Renderer. This process emits `prerender` and `postrender` events.
      *
      * @method Phaser.Game#step
+     * @fires Phaser.Game#prestepEvent
+     * @fires Phaser.Game#stepEvent
+     * @fires Phaser.Game#poststepEvent
      * @fires Phaser.Game#prerenderEvent
      * @fires Phaser.Game#postrenderEvent
      * @since 3.0.0
@@ -3304,31 +3608,43 @@ var Game = new Class({
             return this.runDestroy();
         }
 
-        //  Global Managers
+        var eventEmitter = this.events;
 
-        this.input.update(time, delta);
+        //  Global Managers like Input and Sound update in the prestep
 
-        this.sound.update(time, delta);
+        eventEmitter.emit('prestep', time, delta);
 
-        //  Scenes
+        //  This is mostly meant for user-land code and plugins
 
-        this.onStepCallback();
+        eventEmitter.emit('step', time, delta);
+
+        //  Update the Scene Manager and all active Scenes
 
         this.scene.update(time, delta);
 
-        //  Render
+        //  Our final event before rendering starts
+
+        eventEmitter.emit('poststep', time, delta);
 
         var renderer = this.renderer;
 
+        //  Run the Pre-render (clearing the canvas, setting background colors, etc)
+
         renderer.preRender();
 
-        this.events.emit('prerender', renderer);
+        eventEmitter.emit('prerender', renderer, time, delta);
+
+        //  The main render loop. Iterates all Scenes and all Cameras in those scenes, rendering to the renderer instance.
 
         this.scene.render(renderer);
 
+        //  The Post-Render call. Tidies up loose end, takes snapshots, etc.
+
         renderer.postRender();
 
-        this.events.emit('postrender', renderer);
+        //  The final event before the step repeats. Your last chance to do anything to the canvas before it all starts again.
+
+        eventEmitter.emit('postrender', renderer, time, delta);
     },
 
     /**
@@ -3351,23 +3667,25 @@ var Game = new Class({
      */
     headlessStep: function (time, delta)
     {
+        var eventEmitter = this.events;
+
         //  Global Managers
 
-        this.input.update(time, delta);
+        eventEmitter.emit('prestep', time, delta);
 
-        this.sound.update(time, delta);
+        eventEmitter.emit('step', time, delta);
 
         //  Scenes
 
-        this.onStepCallback();
-
         this.scene.update(time, delta);
+
+        eventEmitter.emit('poststep', time, delta);
 
         //  Render
 
-        this.events.emit('prerender');
+        eventEmitter.emit('prerender');
 
-        this.events.emit('postrender');
+        eventEmitter.emit('postrender');
     },
 
     /**
@@ -3512,8 +3830,6 @@ var Game = new Class({
             this.renderer.destroy();
         }
 
-        this.onStepCallback = null;
-
         if (this.removeCanvas && this.canvas)
         {
             CanvasPool.remove(this.canvas);
@@ -3532,193 +3848,6 @@ var Game = new Class({
 });
 
 module.exports = Game;
-
-
-/***/ }),
-
-/***/ "./boot/PluginManager.js":
-/*!*******************************!*\
-  !*** ./boot/PluginManager.js ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-
-var plugins = {};
-
-/**
- * @classdesc
- * The PluginManager is global and belongs to the Game instance, not a Scene.
- * It handles the installation and removal of all global and Scene based plugins.
- * Plugins automatically register themselves with the PluginManager in their respective classes.
- *
- * @class PluginManager
- * @memberOf Phaser.Boot
- * @constructor
- * @since 3.0.0
- *
- * @param {Phaser.Game} game - [description]
- */
-var PluginManager = new Class({
-
-    initialize:
-
-    function PluginManager (game)
-    {
-        /**
-         * [description]
-         *
-         * @name Phaser.Boot.PluginManager#game
-         * @type {Phaser.Game}
-         * @since 3.0.0
-         */
-        this.game = game;
-
-        game.events.once('boot', this.boot, this);
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Boot.PluginManager#boot
-     * @since 3.0.0
-     */
-    boot: function ()
-    {
-        this.game.events.once('destroy', this.destroy, this);
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Boot.PluginManager#installGlobal
-     * @since 3.0.0
-     *
-     * @param {Phaser.Scenes.Systems} sys - [description]
-     * @param {array} globalPlugins - [description]
-     */
-    installGlobal: function (sys, globalPlugins)
-    {
-        var game = sys.game;
-        var scene = sys.scene;
-        var map = sys.settings.map;
-
-        //  Reference the GlobalPlugins from Game into Scene.Systems
-        for (var i = 0; i < globalPlugins.length; i++)
-        {
-            var pluginKey = globalPlugins[i];
-
-            // console.log('PluginManager.global', pluginKey);
-            
-            if (game[pluginKey])
-            {
-                sys[pluginKey] = game[pluginKey];
-
-                //  Scene level injection
-                if (map.hasOwnProperty(pluginKey))
-                {
-                    scene[map[pluginKey]] = sys[pluginKey];
-                }
-            }
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Boot.PluginManager#installLocal
-     * @since 3.0.0
-     *
-     * @param {Phaser.Scenes.Systems} sys - [description]
-     * @param {array} scenePlugins - [description]
-     */
-    installLocal: function (sys, scenePlugins)
-    {
-        var scene = sys.scene;
-        var map = sys.settings.map;
-        var isBooted = sys.settings.isBooted;
-
-        for (var i = 0; i < scenePlugins.length; i++)
-        {
-            var pluginKey = scenePlugins[i];
-
-            if (!plugins[pluginKey])
-            {
-                continue;
-            }
-
-            var source = plugins[pluginKey];
-
-            var plugin = new source.plugin(scene);
-            
-            sys[source.mapping] = plugin;
-
-            //  Scene level injection
-            if (map.hasOwnProperty(source.mapping))
-            {
-                scene[map[source.mapping]] = plugin;
-            }
-
-            //  Scene is already booted, usually because this method is being called at run-time, so boot the plugin
-            if (isBooted)
-            {
-                plugin.boot();
-            }
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Boot.PluginManager#remove
-     * @since 3.0.0
-     *
-     * @param {string} key - [description]
-     */
-    remove: function (key)
-    {
-        delete plugins[key];
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Boot.PluginManager#destroy
-     * @since 3.0.0
-     */
-    destroy: function ()
-    {
-        this.game = null;
-    }
-
-});
-
-/**
- * Static method called directly by the Plugins
- * Key is a reference used to get the plugin from the plugins object (i.e. InputPlugin)
- * Plugin is the object to instantiate to create the plugin
- * Mapping is what the plugin is injected into the Scene.Systems as (i.e. input)
- *
- * @method Phaser.Boot.PluginManager.register
- * @since 3.0.0
- * 
- * @param {string} key - [description]
- * @param {object} plugin - [description]
- * @param {string} mapping - [description]
- */
-PluginManager.register = function (key, plugin, mapping)
-{
-    plugins[key] = { plugin: plugin, mapping: mapping };
-};
-
-module.exports = PluginManager;
 
 
 /***/ }),
@@ -6156,7 +6285,7 @@ module.exports = Camera;
 var Camera = __webpack_require__(/*! ./Camera */ "./cameras/2d/Camera.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
-var PluginManager = __webpack_require__(/*! ../../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../../plugins/PluginCache */ "./plugins/PluginCache.js");
 var RectangleContains = __webpack_require__(/*! ../../geom/rectangle/Contains */ "./geom/rectangle/Contains.js");
 
 /**
@@ -6664,7 +6793,7 @@ var CameraManager = new Class({
 
 });
 
-PluginManager.register('CameraManager', CameraManager, 'cameras');
+PluginCache.register('CameraManager', CameraManager, 'cameras');
 
 module.exports = CameraManager;
 
@@ -7928,7 +8057,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.6.1',
+    VERSION: '3.8.0',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -8672,7 +8801,7 @@ module.exports = DataManager;
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var DataManager = __webpack_require__(/*! ./DataManager */ "./data/DataManager.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 
 /**
  * @classdesc
@@ -8781,7 +8910,7 @@ var DataManagerPlugin = new Class({
 
 });
 
-PluginManager.register('DataManagerPlugin', DataManagerPlugin, 'data');
+PluginCache.register('DataManagerPlugin', DataManagerPlugin, 'data');
 
 module.exports = DataManagerPlugin;
 
@@ -11469,7 +11598,7 @@ var BitmapMask = new Class({
      * so be sure to call `clearMask` on any Game Object using it, before destroying it.
      *
      * @method Phaser.Display.Masks.BitmapMask#destroy
-     * @since 3.6.1
+     * @since 3.7.0
      */
     destroy: function ()
     {
@@ -11636,7 +11765,7 @@ var GeometryMask = new Class({
      * so be sure to call `clearMask` on any Game Object using it, before destroying it.
      *
      * @method Phaser.Display.Masks.GeometryMask#destroy
-     * @since 3.6.1
+     * @since 3.7.0
      */
     destroy: function ()
     {
@@ -12125,11 +12254,7 @@ module.exports = RequestAnimationFrame;
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var EE = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
-
-/**
- * @namespace Phaser.Events
- */
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 
 /**
  * @classdesc
@@ -12296,9 +12421,31 @@ var EventEmitter = new Class({
  * @return {Phaser.Events.EventEmitter} `this`.
  */
 
-PluginManager.register('EventEmitter', EventEmitter, 'events');
+PluginCache.register('EventEmitter', EventEmitter, 'events');
 
 module.exports = EventEmitter;
+
+
+/***/ }),
+
+/***/ "./events/index.js":
+/*!*************************!*\
+  !*** ./events/index.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * @namespace Phaser.Events
+ */
+
+module.exports = { EventEmitter: __webpack_require__(/*! ./EventEmitter */ "./events/EventEmitter.js") };
 
 
 /***/ }),
@@ -12570,7 +12717,7 @@ module.exports = BuildGameObjectAnimation;
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var List = __webpack_require__(/*! ../structs/List */ "./structs/List.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 var StableSort = __webpack_require__(/*! ../utils/array/StableSort */ "./utils/array/StableSort.js");
 
 /**
@@ -12769,7 +12916,7 @@ var DisplayList = new Class({
 
 });
 
-PluginManager.register('DisplayList', DisplayList, 'displayList');
+PluginCache.register('DisplayList', DisplayList, 'displayList');
 
 module.exports = DisplayList;
 
@@ -12933,7 +13080,7 @@ var GameObject = new Class({
          * If this Game Object is enabled for physics then this property will contain a reference to a Physics Body.
          *
          * @name Phaser.GameObjects.GameObject#body
-         * @type {?object}
+         * @type {?(object|Phaser.Physics.Arcade.Body|Phaser.Physics.Impact.Body)}
          * @default null
          * @since 3.0.0
          */
@@ -13077,6 +13224,57 @@ var GameObject = new Class({
     },
 
     /**
+     * If this Game Object has previously been enabled for input, this will disable it.
+     *
+     * An object that is disabled for input stops processing or being considered for
+     * input events, but can be turned back on again at any time by simply calling
+     * `setInteractive()` with no arguments provided.
+     *
+     * If want to completely remove interaction from this Game Object then use `removeInteractive` instead.
+     *
+     * @method Phaser.GameObjects.GameObject#disableInteractive
+     * @since 3.7.0
+     *
+     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     */
+    disableInteractive: function ()
+    {
+        if (this.input)
+        {
+            this.input.enabled = (this.input.enabled) ? false : true;
+        }
+
+        return this;
+    },
+
+    /**
+     * If this Game Object has previously been enabled for input, this will remove it.
+     *
+     * The Interactive Object that was assigned to this Game Object will be destroyed,
+     * removed from the Input Manager and cleared from this Game Object.
+     *
+     * If you wish to re-enable this Game Object at a later date you will need to
+     * re-create its InteractiveOobject by calling `setInteractive` again.
+     *
+     * If you wish to only temporarily stop an object from receiving input then use
+     * `disableInteractive` instead, as that toggles the interactive state, where-as
+     * this erases it completely.
+     *
+     * @method Phaser.GameObjects.GameObject#removeInteractive
+     * @since 3.7.0
+     *
+     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     */
+    removeInteractive: function ()
+    {
+        this.scene.sys.input.clear(this);
+
+        this.input = undefined;
+
+        return this;
+    },
+
+    /**
      * To be overridden by custom GameObjects. Allows base objects to be used in a Pool.
      *
      * @method Phaser.GameObjects.GameObject#update
@@ -13116,7 +13314,7 @@ var GameObject = new Class({
      * Returns an array containing the display list index of either this Game Object, or if it has one,
      * its parent Container. It then iterates up through all of the parent containers until it hits the
      * root of the display list (which is index 0 in the returned array).
-     * 
+     *
      * Used internally by the InputPlugin but also useful if you wish to find out the display depth of
      * this Game Object and all of its ancestors.
      *
@@ -13132,7 +13330,7 @@ var GameObject = new Class({
         var parent = this.parentContainer;
 
         var indexes = [];
-        
+
         while (parent)
         {
             // indexes.unshift([parent.getIndex(child), parent.name]);
@@ -13254,7 +13452,7 @@ module.exports = GameObject;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 
 /**
  * @classdesc
@@ -13397,7 +13595,7 @@ GameObjectCreator.register = function (factoryType, factoryFunction)
     }
 };
 
-PluginManager.register('GameObjectCreator', GameObjectCreator, 'make');
+PluginCache.register('GameObjectCreator', GameObjectCreator, 'make');
 
 module.exports = GameObjectCreator;
 
@@ -13418,7 +13616,7 @@ module.exports = GameObjectCreator;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 
 /**
  * @classdesc
@@ -13589,7 +13787,7 @@ GameObjectFactory.register = function (factoryType, factoryFunction)
     }
 };
 
-PluginManager.register('GameObjectFactory', GameObjectFactory, 'add');
+PluginCache.register('GameObjectFactory', GameObjectFactory, 'add');
 
 module.exports = GameObjectFactory;
 
@@ -13610,7 +13808,7 @@ module.exports = GameObjectFactory;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 
 /**
  * @classdesc
@@ -13886,7 +14084,7 @@ var UpdateList = new Class({
 
 });
 
-PluginManager.register('UpdateList', UpdateList, 'updateList');
+PluginCache.register('UpdateList', UpdateList, 'updateList');
 
 module.exports = UpdateList;
 
@@ -17782,6 +17980,38 @@ var Transform = {
     },
 
     /**
+     * Sets the position of this Game Object to be a random position within the confines of
+     * the given area.
+     * 
+     * If no area is specified a random position between 0 x 0 and the game width x height is used instead.
+     *
+     * The position does not factor in the size of this Game Object, meaning that only the origin is
+     * guaranteed to be within the area.
+     *
+     * @method Phaser.GameObjects.Components.Transform#setRandomPosition
+     * @since 3.8.0
+     *
+     * @param {number} [x=0] - The x position of the top-left of the random area.
+     * @param {number} [y=0] - The y position of the top-left of the random area.
+     * @param {number} [width] - The width of the random area.
+     * @param {number} [height] - The height of the random area.
+     *
+     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     */
+    setRandomPosition: function (x, y, width, height)
+    {
+        if (x === undefined) { x = 0; }
+        if (y === undefined) { y = 0; }
+        if (width === undefined) { width = this.scene.sys.game.config.width; }
+        if (height === undefined) { height = this.scene.sys.game.config.height; }
+
+        this.x = x + (Math.random() * width);
+        this.y = y + (Math.random() * height);
+
+        return this;
+    },
+
+    /**
      * Sets the rotation of this Game Object.
      *
      * @method Phaser.GameObjects.Components.Transform#setRotation
@@ -20236,7 +20466,6 @@ module.exports = GraphicsCanvasRenderer;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GetAdvancedValue = __webpack_require__(/*! ../../utils/object/GetAdvancedValue */ "./utils/object/GetAdvancedValue.js");
 var GameObjectCreator = __webpack_require__(/*! ../GameObjectCreator */ "./gameobjects/GameObjectCreator.js");
 var Graphics = __webpack_require__(/*! ./Graphics */ "./gameobjects/graphics/Graphics.js");
 
@@ -20248,16 +20477,23 @@ var Graphics = __webpack_require__(/*! ./Graphics */ "./gameobjects/graphics/Gra
  * @method Phaser.GameObjects.GameObjectCreator#graphics
  * @since 3.0.0
  *
- * @param {object} [config] - [description]
+ * @param {object} config - The configuration object this Game Object will use to create itself.
+ * @param {boolean} [addToScene] - Add this Game Object to the Scene after creating it? If set this argument overrides the `add` property in the config object.
  *
  * @return {Phaser.GameObjects.Graphics} The Game Object that was created.
  */
-GameObjectCreator.register('graphics', function (config)
+GameObjectCreator.register('graphics', function (config, addToScene)
 {
-    var add = GetAdvancedValue(config, 'add', true);
+    if (config === undefined) { config = {}; }
+
+    if (addToScene !== undefined)
+    {
+        config.add = addToScene;
+    }
+
     var graphics = new Graphics(this.scene, config);
 
-    if (add)
+    if (config.add)
     {
         this.scene.sys.displayList.add(graphics);
     }
@@ -20567,16 +20803,24 @@ var Image = __webpack_require__(/*! ./Image */ "./gameobjects/image/Image.js");
  * @method Phaser.GameObjects.GameObjectCreator#image
  * @since 3.0.0
  *
- * @param {object} config - [description]
+ * @param {object} config - The configuration object this Game Object will use to create itself.
+ * @param {boolean} [addToScene] - Add this Game Object to the Scene after creating it? If set this argument overrides the `add` property in the config object.
  *
  * @return {Phaser.GameObjects.Image} The Game Object that was created.
  */
-GameObjectCreator.register('image', function (config)
+GameObjectCreator.register('image', function (config, addToScene)
 {
+    if (config === undefined) { config = {}; }
+
     var key = GetAdvancedValue(config, 'key', null);
     var frame = GetAdvancedValue(config, 'frame', null);
 
     var image = new Image(this.scene, 0, 0, key, frame);
+
+    if (addToScene !== undefined)
+    {
+        config.add = addToScene;
+    }
 
     BuildGameObject(this.scene, image, config);
 
@@ -20949,16 +21193,24 @@ var Sprite = __webpack_require__(/*! ./Sprite */ "./gameobjects/sprite/Sprite.js
  * @method Phaser.GameObjects.GameObjectCreator#sprite
  * @since 3.0.0
  *
- * @param {object} config - [description]
+ * @param {object} config - The configuration object this Game Object will use to create itself.
+ * @param {boolean} [addToScene] - Add this Game Object to the Scene after creating it? If set this argument overrides the `add` property in the config object.
  *
  * @return {Phaser.GameObjects.Sprite} The Game Object that was created.
  */
-GameObjectCreator.register('sprite', function (config)
+GameObjectCreator.register('sprite', function (config, addToScene)
 {
+    if (config === undefined) { config = {}; }
+
     var key = GetAdvancedValue(config, 'key', null);
     var frame = GetAdvancedValue(config, 'frame', null);
 
     var sprite = new Sprite(this.scene, 0, 0, key, frame);
+
+    if (addToScene !== undefined)
+    {
+        config.add = addToScene;
+    }
 
     BuildGameObject(this.scene, sprite, config);
 
@@ -20966,12 +21218,8 @@ GameObjectCreator.register('sprite', function (config)
 
     BuildGameObjectAnimation(sprite, config);
 
-    //  Physics, Input, etc to follow ...
-
     return sprite;
 });
-
-//  When registering a factory function 'this' refers to the GameObjectCreator context.
 
 
 /***/ }),
@@ -23548,12 +23796,15 @@ var Text = __webpack_require__(/*! ./Text */ "./gameobjects/text/static/Text.js"
  * @method Phaser.GameObjects.GameObjectCreator#text
  * @since 3.0.0
  *
- * @param {object} config - [description]
+ * @param {object} config - The configuration object this Game Object will use to create itself.
+ * @param {boolean} [addToScene] - Add this Game Object to the Scene after creating it? If set this argument overrides the `add` property in the config object.
  *
  * @return {Phaser.GameObjects.Text} The Game Object that was created.
  */
-GameObjectCreator.register('text', function (config)
+GameObjectCreator.register('text', function (config, addToScene)
 {
+    if (config === undefined) { config = {}; }
+
     // style Object = {
     //     font: [ 'font', '16px Courier' ],
     //     backgroundColor: [ 'backgroundColor', null ],
@@ -23590,6 +23841,11 @@ GameObjectCreator.register('text', function (config)
     }
 
     var text = new Text(this.scene, 0, 0, content, style);
+
+    if (addToScene !== undefined)
+    {
+        config.add = addToScene;
+    }
 
     BuildGameObject(this.scene, text, config);
 
@@ -28545,6 +28801,7 @@ var InputManager = new Class({
         this.touch.boot();
         this.gamepad.boot();
 
+        this.game.events.on('prestep', this.update, this);
         this.game.events.once('destroy', this.destroy, this);
     },
 
@@ -28982,7 +29239,7 @@ var Ellipse = __webpack_require__(/*! ../geom/ellipse/Ellipse */ "./geom/ellipse
 var EllipseContains = __webpack_require__(/*! ../geom/ellipse/Contains */ "./geom/ellipse/Contains.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var CreateInteractiveObject = __webpack_require__(/*! ./CreateInteractiveObject */ "./input/CreateInteractiveObject.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 var Rectangle = __webpack_require__(/*! ../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
 var RectangleContains = __webpack_require__(/*! ../geom/rectangle/Contains */ "./geom/rectangle/Contains.js");
 var Triangle = __webpack_require__(/*! ../geom/triangle/Triangle */ "./geom/triangle/Triangle.js");
@@ -30674,7 +30931,7 @@ var InputPlugin = new Class({
 
 });
 
-PluginManager.register('InputPlugin', InputPlugin, 'input');
+PluginCache.register('InputPlugin', InputPlugin, 'input');
 
 module.exports = InputPlugin;
 
@@ -33859,6 +34116,56 @@ var KeyCodes = {
     NINE: 57,
 
     /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_ZERO
+     */
+    NUMPAD_ZERO: 96,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE
+     */
+    NUMPAD_ONE: 97,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO
+     */
+    NUMPAD_TWO: 98,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE
+     */
+    NUMPAD_THREE: 99,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_FOUR
+     */
+    NUMPAD_FOUR: 100,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_FIVE
+     */
+    NUMPAD_FIVE: 101,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_SIX
+     */
+    NUMPAD_SIX: 102,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_SEVEN
+     */
+    NUMPAD_SEVEN: 103,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_EIGHT
+     */
+    NUMPAD_EIGHT: 104,
+
+    /**
+     * @name Phaser.Input.Keyboard.KeyCodes.NUMPAD_NINE
+     */
+    NUMPAD_NINE: 105,
+
+    /**
      * @name Phaser.Input.Keyboard.KeyCodes.A
      */
     A: 65,
@@ -34895,27 +35202,22 @@ var XHRLoader = __webpack_require__(/*! ./XHRLoader */ "./loader/XHRLoader.js");
 var XHRSettings = __webpack_require__(/*! ./XHRSettings */ "./loader/XHRSettings.js");
 
 /**
- * @callback FileProcessCallback
- *
- * @param {Phaser.Loader.File} file - [description]
- */
-
-/**
  * @typedef {object} FileConfig
  *
- * @property {(string|false)} [type=false] - The file type string (image, json, etc) for sorting within the Loader.
- * @property {(string|false)} [key=false] - Unique cache key (unique within its file type)
+ * @property {string} type - The file type string (image, json, etc) for sorting within the Loader.
+ * @property {string} key - Unique cache key (unique within its file type)
  * @property {string} [url] - The URL of the file, not including baseURL.
- * @property {string} [path=''] - [description]
- * @property {string} [extension=''] - [description]
- * @property {XMLHttpRequestResponseType} [responseType] - [description]
- * @property {(XHRSettingsObject|false)} [xhrSettings=false] - [description]
- * @property {object} [config] - A config object that can be used by file types to store transitional data.
+ * @property {string} [path] - The path of the file, not including the baseURL.
+ * @property {string} [extension] - The default extension this file uses.
+ * @property {XMLHttpRequestResponseType} [responseType] - The responseType to be used by the XHR request.
+ * @property {(XHRSettingsObject|false)} [xhrSettings=false] - Custom XHR Settings specific to this file and merged with the Loader defaults.
+ * @property {any} [config] - A config object that can be used by file types to store transitional data.
  */
 
 /**
  * @classdesc
- * [description]
+ * The base File class used by all File Types that the Loader can support.
+ * You shouldn't create an instance of a File directly, but should extend it with your own class, setting a custom type and processing methods.
  *
  * @class File
  * @memberOf Phaser.Loader
@@ -34923,7 +35225,7 @@ var XHRSettings = __webpack_require__(/*! ./XHRSettings */ "./loader/XHRSettings
  * @since 3.0.0
  *
  * @param {Phaser.Loader.LoaderPlugin} loader - The Loader that is going to load this File.
- * @param {FileConfig} fileConfig - [description]
+ * @param {FileConfig} fileConfig - The file configuration object, as created by the file type.
  */
 var File = new Class({
 
@@ -34967,6 +35269,13 @@ var File = new Class({
          */
         this.key = GetFastValue(fileConfig, 'key', false);
 
+        var loadKey = this.key;
+
+        if (loader.prefix && loader.prefix !== '')
+        {
+            this.key = loader.prefix + loadKey;
+        }
+
         if (!this.type || !this.key)
         {
             throw new Error('Error calling \'Loader.' + this.type + '\' invalid key provided.');
@@ -34974,6 +35283,7 @@ var File = new Class({
 
         /**
          * The URL of the file, not including baseURL.
+         * Automatically has Loader.path prepended to it.
          *
          * @name Phaser.Loader.File#url
          * @type {string}
@@ -34983,15 +35293,16 @@ var File = new Class({
 
         if (this.url === undefined)
         {
-            this.url = GetFastValue(fileConfig, 'path', '') + this.key + '.' + GetFastValue(fileConfig, 'extension', '');
+            this.url = loader.path + loadKey + '.' + GetFastValue(fileConfig, 'extension', '');
         }
         else if (typeof(this.url) !== 'function')
         {
-            this.url = GetFastValue(fileConfig, 'path', '').concat(this.url);
+            this.url = loader.path + this.url;
         }
 
         /**
-         * Set when the Loader calls 'load' on this file.
+         * The final URL this file will load from, including baseURL and path.
+         * Set automatically when the Loader calls 'load' on this file.
          *
          * @name Phaser.Loader.File#src
          * @type {string}
@@ -35075,7 +35386,7 @@ var File = new Class({
         this.crossOrigin = undefined;
 
         /**
-         * The processed file data, stored in here after the file has loaded.
+         * The processed file data, stored here after the file has loaded.
          *
          * @name Phaser.Loader.File#data
          * @type {*}
@@ -35087,24 +35398,50 @@ var File = new Class({
          * A config object that can be used by file types to store transitional data.
          *
          * @name Phaser.Loader.File#config
-         * @type {object}
+         * @type {*}
          * @since 3.0.0
          */
         this.config = GetFastValue(fileConfig, 'config', {});
 
         /**
          * If this is a multipart file, i.e. an atlas and its json together, then this is a reference
-         * to the linked file. Set and used internally by the Loader.
+         * to the parent MultiFile. Set and used internally by the Loader or specific file types.
+         *
+         * @name Phaser.Loader.File#multiFile
+         * @type {?Phaser.Loader.MultiFile}
+         * @since 3.7.0
+         */
+        this.multiFile;
+
+        /**
+         * Does this file have an associated linked file? Such as an image and a normal map.
+         * Atlases and Bitmap Fonts use the multiFile, because those files need loading together but aren't
+         * actually bound by data, where-as a linkFile is.
          *
          * @name Phaser.Loader.File#linkFile
-         * @type {?Phaser.Loader.LinkFile}
-         * @since 3.0.0
+         * @type {?Phaser.Loader.File}
+         * @since 3.7.0
          */
         this.linkFile;
     },
 
     /**
-     * Resets the XHRLoader instance.
+     * Links this File with another, so they depend upon each other for loading and processing.
+     *
+     * @method Phaser.Loader.File#setLink
+     * @since 3.7.0
+     *
+     * @param {Phaser.Loader.File} fileB - The file to link to this one.
+     */
+    setLink: function (fileB)
+    {
+        this.linkFile = fileB;
+
+        fileB.linkFile = this;
+    },
+
+    /**
+     * Resets the XHRLoader instance this file is using.
      *
      * @method Phaser.Loader.File#resetXHR
      * @since 3.0.0
@@ -35121,7 +35458,8 @@ var File = new Class({
 
     /**
      * Called by the Loader, starts the actual file downloading.
-     * During the load the methods onLoad, onProgress, etc are called based on the XHR events.
+     * During the load the methods onLoad, onError and onProgress are called, based on the XHR events.
+     * You shouldn't normally call this method directly, it's meant to be invoked by the Loader.
      *
      * @method Phaser.Loader.File#load
      * @since 3.0.0
@@ -35130,9 +35468,8 @@ var File = new Class({
     {
         if (this.state === CONST.FILE_POPULATED)
         {
-            this.onComplete();
-
-            this.loader.nextFile(this);
+            //  Can happen for example in a JSONFile if they've provided a JSON object instead of a URL
+            this.loader.nextFile(this, true);
         }
         else
         {
@@ -35144,6 +35481,13 @@ var File = new Class({
             }
             else
             {
+                //  The creation of this XHRLoader starts the load process going.
+                //  It will automatically call the following, based on the load outcome:
+                //  
+                // xhr.onload = this.onLoad
+                // xhr.onerror = this.onError
+                // xhr.onprogress = this.onProgress
+
                 this.xhrLoader = XHRLoader(this, this.loader.xhr);
             }
         }
@@ -35155,20 +35499,22 @@ var File = new Class({
      * @method Phaser.Loader.File#onLoad
      * @since 3.0.0
      *
+     * @param {XMLHttpRequest} xhr - The XMLHttpRequest that caused this onload event.
      * @param {ProgressEvent} event - The DOM ProgressEvent that resulted from this load.
      */
-    onLoad: function (event)
+    onLoad: function (xhr, event)
     {
+        var success = !(event.target && event.target.status !== 200);
+
+        //  Handle HTTP status codes of 4xx and 5xx as errors, even if xhr.onerror was not called.
+        if (xhr.readyState === 4 && xhr.status >= 400 && xhr.status <= 599)
+        {
+            success = false;
+        }
+
         this.resetXHR();
 
-        if (event.target && event.target.status !== 200)
-        {
-            this.loader.nextFile(this, false);
-        }
-        else
-        {
-            this.loader.nextFile(this, true);
-        }
+        this.loader.nextFile(this, success);
     },
 
     /**
@@ -35203,44 +35549,60 @@ var File = new Class({
 
             this.percentComplete = Math.min((this.bytesLoaded / this.bytesTotal), 1);
 
-            // console.log(this.percentComplete + '% (' + this.bytesLoaded + ' bytes)');
             this.loader.emit('fileprogress', this, this.percentComplete);
         }
     },
 
     /**
-     * Usually overridden by the FileTypes and is called by Loader.finishedLoading.
-     * The callback is Loader.processUpdate
+     * Usually overridden by the FileTypes and is called by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data, for example a JSON file will parse itself during this stage.
      *
      * @method Phaser.Loader.File#onProcess
      * @since 3.0.0
-     *
-     * @param {FileProcessCallback} callback - The callback to invoke to process this File.
      */
-    onProcess: function (callback)
+    onProcess: function ()
     {
         this.state = CONST.FILE_PROCESSING;
 
-        this.onComplete();
-
-        callback(this);
+        this.onProcessComplete();
     },
 
     /**
-     * Called when the File has completed loading.
-     * Checks on the state of its linkfile, if set.
+     * Called when the File has completed processing.
+     * Checks on the state of its multifile, if set.
      *
-     * @method Phaser.Loader.File#onComplete
-     * @since 3.0.0
+     * @method Phaser.Loader.File#onProcessComplete
+     * @since 3.7.0
      */
-    onComplete: function ()
+    onProcessComplete: function ()
     {
         this.state = CONST.FILE_COMPLETE;
 
-        if (this.linkFile)
+        if (this.multiFile)
         {
-            this.linkFile.onFileComplete(this);
+            this.multiFile.onFileComplete(this);
         }
+
+        this.loader.fileProcessComplete(this);
+    },
+
+    /**
+     * Called when the File has completed processing but it generated an error.
+     * Checks on the state of its multifile, if set.
+     *
+     * @method Phaser.Loader.File#onProcessError
+     * @since 3.7.0
+     */
+    onProcessError: function ()
+    {
+        this.state = CONST.FILE_ERRORED;
+
+        if (this.multiFile)
+        {
+            this.multiFile.onFileFailed(this);
+        }
+
+        this.loader.fileProcessComplete(this);
     },
 
     /**
@@ -35260,7 +35622,6 @@ var File = new Class({
 
     /**
      * Adds this file to its target cache upon successful loading and processing.
-     * It will emit a `filecomplete` event from the LoaderPlugin.
      * This method is often overridden by specific file types.
      *
      * @method Phaser.Loader.File#addToCache
@@ -35273,12 +35634,85 @@ var File = new Class({
             this.cache.add(this.key, this.data);
         }
 
-        this.loader.emit('filecomplete', this.key, this);
+        this.pendingDestroy();
+    },
+
+    /**
+     * You can listen for this event from the LoaderPlugin. It is dispatched _every time_
+     * a file loads and is sent 3 arguments, which allow you to identify the file:
+     *
+     * ```javascript
+     * this.load.on('filecomplete', function (key, type, data) {
+     *     // Your handler code
+     * });
+     * ```
+     * 
+     * @event Phaser.Loader.File#fileCompleteEvent
+     * @param {string} key - The key of the file that just loaded and finished processing.
+     * @param {string} type - The type of the file that just loaded and finished processing.
+     * @param {any} data - The data of the file.
+     */
+
+    /**
+     * You can listen for this event from the LoaderPlugin. It is dispatched only once per
+     * file and you have to use a special listener handle to pick it up.
+     * 
+     * The string of the event is based on the file type and the key you gave it, split up
+     * using hyphens.
+     * 
+     * For example, if you have loaded an image with a key of `monster`, you can listen for it
+     * using the following:
+     *
+     * ```javascript
+     * this.load.on('filecomplete-image-monster', function (key, type, data) {
+     *     // Your handler code
+     * });
+     * ```
+     *
+     * Or, if you have loaded a texture atlas with a key of `Level1`:
+     * 
+     * ```javascript
+     * this.load.on('filecomplete-atlas-Level1', function (key, type, data) {
+     *     // Your handler code
+     * });
+     * ```
+     * 
+     * Or, if you have loaded a sprite sheet with a key of `Explosion` and a prefix of `GAMEOVER`:
+     * 
+     * ```javascript
+     * this.load.on('filecomplete-spritesheet-GAMEOVERExplosion', function (key, type, data) {
+     *     // Your handler code
+     * });
+     * ```
+     * 
+     * @event Phaser.Loader.File#singleFileCompleteEvent
+     * @param {any} data - The data of the file.
+     */
+
+    /**
+     * Called once the file has been added to its cache and is now ready for deletion from the Loader.
+     * It will emit a `filecomplete` event from the LoaderPlugin.
+     *
+     * @method Phaser.Loader.File#pendingDestroy
+     * @fires Phaser.Loader.File#fileCompleteEvent
+     * @fires Phaser.Loader.File#singleFileCompleteEvent
+     * @since 3.7.0
+     */
+    pendingDestroy: function (data)
+    {
+        if (data === undefined) { data = this.data; }
+
+        var key = this.key;
+        var type = this.type;
+
+        this.loader.emit('filecomplete', key, type, data);
+        this.loader.emit('filecomplete_' + type + '_' + key, key, type, data);
+
+        this.loader.flagForRemoval(this);
     },
 
     /**
      * Destroy this File and any references it holds.
-     * Called automatically by the Loader.
      *
      * @method Phaser.Loader.File#destroy
      * @since 3.7.0
@@ -35288,6 +35722,7 @@ var File = new Class({
         this.loader = null;
         this.cache = null;
         this.xhrSettings = null;
+        this.multiFile = null;
         this.linkFile = null;
         this.data = null;
     }
@@ -35364,6 +35799,17 @@ var types = {};
 
 var FileTypesManager = {
 
+    /**
+     * Static method called when a LoaderPlugin is created.
+     * 
+     * Loops through the local types object and injects all of them as
+     * properties into the LoaderPlugin instance.
+     *
+     * @method Phaser.Loader.FileTypesManager.register
+     * @since 3.0.0
+     * 
+     * @param {Phaser.Loader.LoaderPlugin} loader - The LoaderPlugin to install the types into.
+     */
     install: function (loader)
     {
         for (var key in types)
@@ -35372,13 +35818,28 @@ var FileTypesManager = {
         }
     },
 
+    /**
+     * Static method called directly by the File Types.
+     * 
+     * The key is a reference to the function used to load the files via the Loader, i.e. `image`.
+     *
+     * @method Phaser.Loader.FileTypesManager.register
+     * @since 3.0.0
+     * 
+     * @param {string} key - The key that will be used as the method name in the LoaderPlugin.
+     * @param {function} factoryFunction - The function that will be called when LoaderPlugin.key is invoked.
+     */
     register: function (key, factoryFunction)
     {
         types[key] = factoryFunction;
-
-        // console.log('FileTypesManager.register', key);
     },
 
+    /**
+     * Removed all associated file types.
+     *
+     * @method Phaser.Loader.FileTypesManager.destroy
+     * @since 3.0.0
+     */
     destroy: function ()
     {
         types = {};
@@ -35437,10 +35898,10 @@ module.exports = GetURL;
 
 /***/ }),
 
-/***/ "./loader/LinkFile.js":
-/*!****************************!*\
-  !*** ./loader/LinkFile.js ***!
-  \****************************/
+/***/ "./loader/LoaderPlugin.js":
+/*!********************************!*\
+  !*** ./loader/LoaderPlugin.js ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35451,138 +35912,1073 @@ module.exports = GetURL;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var CONST = __webpack_require__(/*! ./const */ "./loader/const.js");
+var CustomSet = __webpack_require__(/*! ../structs/Set */ "./structs/Set.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var FileTypesManager = __webpack_require__(/*! ./FileTypesManager */ "./loader/FileTypesManager.js");
+var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
+var XHRSettings = __webpack_require__(/*! ./XHRSettings */ "./loader/XHRSettings.js");
 
 /**
  * @classdesc
- * [description]
+ * The Loader handles loading all external content such as Images, Sounds, Texture Atlases and data files.
+ * You typically interact with it via `this.load` in your Scene. Scenes can have a `preload` method, which is always
+ * called before the Scenes `create` method, allowing you to preload assets that the Scene may need.
  *
- * @class LinkFile
+ * If you call any `this.load` methods from outside of `Scene.preload` then you need to start the Loader going
+ * yourself by calling `Loader.start()`. It's only automatically started during the Scene preload.
+ *
+ * The Loader uses a combination of tag loading (eg. Audio elements) and XHR and provides progress and completion events.
+ * Files are loaded in parallel by default. The amount of concurrent connections can be controlled in your Game Configuration.
+ *
+ * Once the Loader has started loading you are still able to add files to it. These can be injected as a result of a loader
+ * event, the type of file being loaded (such as a pack file) or other external events. As long as the Loader hasn't finished
+ * simply adding a new file to it, while running, will ensure it's added into the current queue.
+ *
+ * Every Scene has its own instance of the Loader and they are bound to the Scene in which they are created. However,
+ * assets loaded by the Loader are placed into global game-level caches. For example, loading an XML file will place that
+ * file inside `Game.cache.xml`, which is accessible from every Scene in your game, no matter who was responsible
+ * for loading it. The same is true of Textures. A texture loaded in one Scene is instantly available to all other Scenes
+ * in your game.
+ *
+ * The Loader works by using custom File Types. These are stored in the FileTypesManager, which injects them into the Loader
+ * when it's instantiated. You can create your own custom file types by extending either the File or MultiFile classes.
+ * See those files for more details.
+ *
+ * @class LoaderPlugin
+ * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Loader
  * @constructor
- * @since 3.7.0
+ * @since 3.0.0
  *
- * @param {Phaser.Loader.LoaderPlugin} loader - The Loader that is going to load this File.
- * @param {string} type - The file type string for sorting within the Loader.
- * @param {string} key - The key of the file within the loader.
- * @param {Phaser.Loader.File[]} files - An array of Files that make-up this LinkFile.
+ * @param {Phaser.Scene} scene - The Scene which owns this Loader instance.
  */
-var LinkFile = new Class({
+var LoaderPlugin = new Class({
+
+    Extends: EventEmitter,
 
     initialize:
 
-    function LinkFile (loader, type, key, files)
+    function LoaderPlugin (scene)
     {
-        /**
-         * A reference to the Loader that is going to load this file.
-         *
-         * @name Phaser.Loader.LinkFile#loader
-         * @type {Phaser.Loader.LoaderPlugin}
-         * @since 3.7.0
-         */
-        this.loader = loader;
+        EventEmitter.call(this);
+
+        var gameConfig = scene.sys.game.config;
+        var sceneConfig = scene.sys.settings.loader;
 
         /**
-         * The file type string for sorting within the Loader.
+         * The Scene which owns this Loader instance.
          *
-         * @name Phaser.Loader.LinkFile#type
+         * @name Phaser.Loader.LoaderPlugin#scene
+         * @type {Phaser.Scene}
+         * @protected
+         * @since 3.0.0
+         */
+        this.scene = scene;
+
+        /**
+         * A reference to the Scene Systems.
+         *
+         * @name Phaser.Loader.LoaderPlugin#systems
+         * @type {Phaser.Scenes.Systems}
+         * @protected
+         * @since 3.0.0
+         */
+        this.systems = scene.sys;
+
+        /**
+         * A reference to the global Cache Manager.
+         *
+         * @name Phaser.Loader.LoaderPlugin#cacheManager
+         * @type {Phaser.Cache.CacheManager}
+         * @protected
+         * @since 3.7.0
+         */
+        this.cacheManager = scene.sys.cache;
+
+        /**
+         * A reference to the global Texture Manager.
+         *
+         * @name Phaser.Loader.LoaderPlugin#textureManager
+         * @type {Phaser.Textures.TextureManager}
+         * @protected
+         * @since 3.7.0
+         */
+        this.textureManager = scene.sys.textures;
+
+        //  Inject the available filetypes into the Loader
+        FileTypesManager.install(this);
+
+        /**
+         * An optional prefix that is automatically prepended to the start of every file key.
+         * If prefix was `MENU.` and you load an image with the key 'Background' the resulting key would be `MENU.Background`.
+         * You can set this directly, or call `Loader.setPrefix()`. It will then affect every file added to the Loader
+         * from that point on. It does _not_ change any file already in the load queue.
+         *
+         * @name Phaser.Loader.LoaderPlugin#prefix
          * @type {string}
+         * @default ''
          * @since 3.7.0
          */
-        this.type = type;
+        this.prefix = '';
 
         /**
-         * Unique cache key (unique within its file type)
+         * The value of `path`, if set, is placed before any _relative_ file path given. For example:
          *
-         * @name Phaser.Loader.LinkFile#key
+         * ```javascript
+         * this.load.path = "images/sprites/";
+         * this.load.image("ball", "ball.png");
+         * this.load.image("tree", "level1/oaktree.png");
+         * this.load.image("boom", "http://server.com/explode.png");
+         * ```
+         *
+         * Would load the `ball` file from `images/sprites/ball.png` and the tree from
+         * `images/sprites/level1/oaktree.png` but the file `boom` would load from the URL
+         * given as it's an absolute URL.
+         *
+         * Please note that the path is added before the filename but *after* the baseURL (if set.)
+         *
+         * If you set this property directly then it _must_ end with a "/". Alternatively, call `setPath()` and it'll do it for you.
+         *
+         * @name Phaser.Loader.LoaderPlugin#path
          * @type {string}
-         * @since 3.7.0
+         * @default ''
+         * @since 3.0.0
          */
-        this.key = key;
+        this.path = '';
 
         /**
-         * Array of files that make up this LinkFile.
+         * If you want to append a URL before the path of any asset you can set this here.
+         * 
+         * Useful if allowing the asset base url to be configured outside of the game code.
+         * 
+         * If you set this property directly then it _must_ end with a "/". Alternatively, call `setBaseURL()` and it'll do it for you.
          *
-         * @name Phaser.Loader.LinkFile#files
-         * @type {Phaser.Loader.File[]}
-         * @since 3.7.0
+         * @name Phaser.Loader.LoaderPlugin#baseURL
+         * @type {string}
+         * @default ''
+         * @since 3.0.0
          */
-        this.files = files;
+        this.baseURL = '';
+
+        this.setBaseURL(GetFastValue(sceneConfig, 'baseURL', gameConfig.loaderBaseURL));
+
+        this.setPath(GetFastValue(sceneConfig, 'path', gameConfig.loaderPath));
+
+        this.setPrefix(GetFastValue(sceneConfig, 'prefix', gameConfig.loaderPrefix));
 
         /**
-         * The completion status of this LinkFile.
+         * The number of concurrent / parallel resources to try and fetch at once.
          *
-         * @name Phaser.Loader.LinkFile#complete
-         * @type {boolean}
-         * @since 3.7.0
-         */
-        this.complete = false;
-
-        /**
-         * The number of files to load.
+         * Old browsers limit 6 requests per domain; modern ones, especially those with HTTP/2 don't limit it at all.
          *
-         * @name Phaser.Loader.LinkFile#pending
+         * The default is 32 but you can change this in your Game Config, or by changing this property before the Loader starts.
+         *
+         * @name Phaser.Loader.LoaderPlugin#maxParallelDownloads
          * @type {integer}
-         * @since 3.7.0
+         * @since 3.0.0
          */
-
-        this.pending = files.length;
+        this.maxParallelDownloads = GetFastValue(sceneConfig, 'maxParallelDownloads', gameConfig.loaderMaxParallelDownloads);
 
         /**
-         * The number of files that failed to load.
+         * xhr specific global settings (can be overridden on a per-file basis)
          *
-         * @name Phaser.Loader.LinkFile#failed
+         * @name Phaser.Loader.LoaderPlugin#xhr
+         * @type {XHRSettingsObject}
+         * @since 3.0.0
+         */
+        this.xhr = XHRSettings(
+            GetFastValue(sceneConfig, 'responseType', gameConfig.loaderResponseType),
+            GetFastValue(sceneConfig, 'async', gameConfig.loaderAsync),
+            GetFastValue(sceneConfig, 'user', gameConfig.loaderUser),
+            GetFastValue(sceneConfig, 'password', gameConfig.loaderPassword),
+            GetFastValue(sceneConfig, 'timeout', gameConfig.loaderTimeout)
+        );
+
+        /**
+         * The crossOrigin value applied to loaded images. Very often this needs to be set to 'anonymous'.
+         *
+         * @name Phaser.Loader.LoaderPlugin#crossOrigin
+         * @type {string}
+         * @since 3.0.0
+         */
+        this.crossOrigin = GetFastValue(sceneConfig, 'crossOrigin', gameConfig.loaderCrossOrigin);
+
+        /**
+         * The total number of files to load. It may not always be accurate because you may add to the Loader during the process
+         * of loading, especially if you load a Pack File. Therefore this value can change, but in most cases remains static.
+         *
+         * @name Phaser.Loader.LoaderPlugin#totalToLoad
+         * @type {integer}
+         * @default 0
+         * @since 3.0.0
+         */
+        this.totalToLoad = 0;
+
+        /**
+         * The progress of the current load queue, as a float value between 0 and 1.
+         * This is updated automatically as files complete loading.
+         * Note that it is possible for this value to go down again if you add content to the current load queue during a load.
+         *
+         * @name Phaser.Loader.LoaderPlugin#progress
+         * @type {float}
+         * @default 0
+         * @since 3.0.0
+         */
+        this.progress = 0;
+
+        /**
+         * Files are placed in this Set when they're added to the Loader via `addFile`.
+         * 
+         * They are moved to the `inflight` Set when they start loading, and assuming a successful
+         * load, to the `queue` Set for further processing.
+         *
+         * By the end of the load process this Set will be empty.
+         *
+         * @name Phaser.Loader.LoaderPlugin#list
+         * @type {Phaser.Structs.Set.<Phaser.Loader.File>}
+         * @since 3.0.0
+         */
+        this.list = new CustomSet();
+
+        /**
+         * Files are stored in this Set while they're in the process of being loaded.
+         * 
+         * Upon a successful load they are moved to the `queue` Set.
+         * 
+         * By the end of the load process this Set will be empty.
+         *
+         * @name Phaser.Loader.LoaderPlugin#inflight
+         * @type {Phaser.Structs.Set.<Phaser.Loader.File>}
+         * @since 3.0.0
+         */
+        this.inflight = new CustomSet();
+
+        /**
+         * Files are stored in this Set while they're being processed.
+         * 
+         * If the process is successful they are moved to their final destination, which could be
+         * a Cache or the Texture Manager.
+         * 
+         * At the end of the load process this Set will be empty.
+         *
+         * @name Phaser.Loader.LoaderPlugin#queue
+         * @type {Phaser.Structs.Set.<Phaser.Loader.File>}
+         * @since 3.0.0
+         */
+        this.queue = new CustomSet();
+
+        /**
+         * A temporary Set in which files are stored after processing,
+         * awaiting destruction at the end of the load process.
+         *
+         * @name Phaser.Loader.LoaderPlugin#_deleteQueue
+         * @type {Phaser.Structs.Set.<Phaser.Loader.File>}
+         * @private
+         * @since 3.7.0
+         */
+        this._deleteQueue = new CustomSet();
+
+        /**
+         * The total number of files that failed to load during the most recent load.
+         * This value is reset when you call `Loader.start`.
+         *
+         * @name Phaser.Loader.LoaderPlugin#totalFailed
          * @type {integer}
          * @default 0
          * @since 3.7.0
          */
-        this.failed = 0;
+        this.totalFailed = 0;
 
-        //  Link the files
-        for (var i = 0; i < files.length; i++)
+        /**
+         * The total number of files that successfully loaded during the most recent load.
+         * This value is reset when you call `Loader.start`.
+         *
+         * @name Phaser.Loader.LoaderPlugin#totalComplete
+         * @type {integer}
+         * @default 0
+         * @since 3.7.0
+         */
+        this.totalComplete = 0;
+
+        /**
+         * The current state of the Loader.
+         *
+         * @name Phaser.Loader.LoaderPlugin#state
+         * @type {integer}
+         * @readOnly
+         * @since 3.0.0
+         */
+        this.state = CONST.LOADER_IDLE;
+
+        scene.sys.events.once('boot', this.boot, this);
+        scene.sys.events.on('start', this.pluginStart, this);
+    },
+
+    /**
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Loader.LoaderPlugin#boot
+     * @private
+     * @since 3.5.1
+     */
+    boot: function ()
+    {
+        this.systems.events.once('destroy', this.destroy, this);
+    },
+
+    /**
+     * This method is called automatically by the Scene when it is starting up.
+     * It is responsible for creating local systems, properties and listening for Scene events.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Loader.LoaderPlugin#pluginStart
+     * @private
+     * @since 3.5.1
+     */
+    pluginStart: function ()
+    {
+        this.systems.events.once('shutdown', this.shutdown, this);
+    },
+
+    /**
+     * If you want to append a URL before the path of any asset you can set this here.
+     * 
+     * Useful if allowing the asset base url to be configured outside of the game code.
+     * 
+     * Once a base URL is set it will affect every file loaded by the Loader from that point on. It does _not_ change any
+     * file _already_ being loaded. To reset it, call this method with no arguments.
+     *
+     * @method Phaser.Loader.LoaderPlugin#setBaseURL
+     * @since 3.0.0
+     *
+     * @param {string} [url] - The URL to use. Leave empty to reset.
+     *
+     * @return {Phaser.Loader.LoaderPlugin} This Loader object.
+     */
+    setBaseURL: function (url)
+    {
+        if (url === undefined) { url = ''; }
+
+        if (url !== '' && url.substr(-1) !== '/')
         {
-            files[i].linkFile = this;
+            url = url.concat('/');
+        }
+
+        this.baseURL = url;
+
+        return this;
+    },
+
+    /**
+     * The value of `path`, if set, is placed before any _relative_ file path given. For example:
+     *
+     * ```javascript
+     * this.load.setPath("images/sprites/");
+     * this.load.image("ball", "ball.png");
+     * this.load.image("tree", "level1/oaktree.png");
+     * this.load.image("boom", "http://server.com/explode.png");
+     * ```
+     *
+     * Would load the `ball` file from `images/sprites/ball.png` and the tree from
+     * `images/sprites/level1/oaktree.png` but the file `boom` would load from the URL
+     * given as it's an absolute URL.
+     *
+     * Please note that the path is added before the filename but *after* the baseURL (if set.)
+     * 
+     * Once a path is set it will then affect every file added to the Loader from that point on. It does _not_ change any
+     * file _already_ in the load queue. To reset it, call this method with no arguments.
+     *
+     * @method Phaser.Loader.LoaderPlugin#setPath
+     * @since 3.0.0
+     *
+     * @param {string} [path] - The path to use. Leave empty to reset.
+     *
+     * @return {Phaser.Loader.LoaderPlugin} This Loader object.
+     */
+    setPath: function (path)
+    {
+        if (path === undefined) { path = ''; }
+
+        if (path !== '' && path.substr(-1) !== '/')
+        {
+            path = path.concat('/');
+        }
+
+        this.path = path;
+
+        return this;
+    },
+
+    /**
+     * An optional prefix that is automatically prepended to the start of every file key.
+     * 
+     * If prefix was `MENU.` and you load an image with the key 'Background' the resulting key would be `MENU.Background`.
+     * 
+     * Once a prefix is set it will then affect every file added to the Loader from that point on. It does _not_ change any
+     * file _already_ in the load queue. To reset it, call this method with no arguments.
+     *
+     * @method Phaser.Loader.LoaderPlugin#setPrefix
+     * @since 3.7.0
+     *
+     * @param {string} [prefix] - The prefix to use. Leave empty to reset.
+     *
+     * @return {Phaser.Loader.LoaderPlugin} This Loader object.
+     */
+    setPrefix: function (prefix)
+    {
+        if (prefix === undefined) { prefix = ''; }
+
+        this.prefix = prefix;
+
+        return this;
+    },
+
+    /**
+     * Sets the Cross Origin Resource Sharing value used when loading files.
+     * 
+     * Files can override this value on a per-file basis by specifying an alternative `crossOrigin` value in their file config.
+     * 
+     * Once CORs is set it will then affect every file loaded by the Loader from that point on, as long as they don't have
+     * their own CORs setting. To reset it, call this method with no arguments.
+     *
+     * For more details about CORs see https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+     *
+     * @method Phaser.Loader.LoaderPlugin#setCORS
+     * @since 3.0.0
+     *
+     * @param {string} [crossOrigin] - The value to use for the `crossOrigin` property in the load request.
+     *
+     * @return {Phaser.Loader.LoaderPlugin} This Loader object.
+     */
+    setCORS: function (crossOrigin)
+    {
+        this.crossOrigin = crossOrigin;
+
+        return this;
+    },
+
+    /**
+     * This event is fired when a Loader successfully begins to load its queue.
+     * 
+     * @event Phaser.Loader.LoaderPlugin#addFileEvent
+     * @param {string} key - The key of the file that was added.
+     * @param {string} type - The type of the file that was added.
+     * @param {Phaser.Loader.LoaderPlugin} loader - The Loader that had the file added to it.
+     * @param {Phaser.Loader.File} loader - The File object that was added to the Loader.
+     */
+
+    /**
+     * Adds a file, or array of files, into the load queue.
+     *
+     * The file must be an instance of `Phaser.Loader.File`, or a class that extends it. The Loader will check that the key
+     * used by the file won't conflict with any other key either in the loader, the inflight queue or the target cache.
+     * If allowed it will then add the file into the pending list, read for the load to start. Or, if the load has already
+     * started, ready for the next batch of files to be pulled from the list to the inflight queue.
+     *
+     * You should not normally call this method directly, but rather use one of the Loader methods like `image` or `atlas`,
+     * however you can call this as long as the file given to it is well formed.
+     *
+     * @method Phaser.Loader.LoaderPlugin#addFile
+     * @fires Phaser.Loader.LoaderPlugin#addFileEvent
+     * @since 3.0.0
+     *
+     * @param {(Phaser.Loader.File|Phaser.Loader.File[])} file - The file, or array of files, to be added to the load queue.
+     */
+    addFile: function (file)
+    {
+        if (!Array.isArray(file))
+        {
+            file = [ file ];
+        }
+
+        for (var i = 0; i < file.length; i++)
+        {
+            var item = file[i];
+
+            //  Does the file already exist in the cache or texture manager?
+            //  Or will it conflict with a file already in the queue or inflight?
+            if (!this.keyExists(item))
+            {
+                this.list.set(item);
+
+                this.emit('addfile', item.key, item.type, this, item);
+
+                if (this.isLoading())
+                {
+                    this.totalToLoad++;
+                    this.updateProgress();
+                }
+            }
         }
     },
 
     /**
-     * Called by each File when it finishes loading.
+     * Checks the key and type of the given file to see if it will conflict with anything already
+     * in a Cache, the Texture Manager, or the list or inflight queues.
      *
-     * @method Phaser.Loader.LinkFile#onFileComplete
+     * @method Phaser.Loader.LoaderPlugin#keyExists
      * @since 3.7.0
      *
-     * @param {Phaser.Loader.File} file - The File that has completed processing.
+     * @param {Phaser.Loader.File} file - The file to check the key of.
+     *
+     * @return {boolean} `true` if adding this file will cause a cache or queue conflict, otherwise `false`.
      */
-    onFileComplete: function (file)
+    keyExists: function (file)
     {
-        var index = this.files.indexOf(file);
+        var keyConflict = file.hasCacheConflict();
 
-        if (index !== -1)
+        if (!keyConflict)
         {
-            this.pending--;
+            this.list.iterate(function (item)
+            {
+                if (item.type === file.type && item.key === file.key)
+                {
+                    keyConflict = true;
+
+                    return false;
+                }
+
+            });
+        }
+
+        if (!keyConflict && this.isLoading())
+        {
+            this.inflight.iterate(function (item)
+            {
+                if (item.type === file.type && item.key === file.key)
+                {
+                    keyConflict = true;
+
+                    return false;
+                }
+
+            });
+
+            this.queue.iterate(function (item)
+            {
+                if (item.type === file.type && item.key === file.key)
+                {
+                    keyConflict = true;
+
+                    return false;
+                }
+
+            });
+        }
+
+        return keyConflict;
+    },
+
+    /**
+     * Takes a well formed, fully parsed pack file object and adds its entries into the load queue. Usually you do not call
+     * this method directly, but instead use `Loader.pack` and supply a path to a JSON file that holds the
+     * pack data. However, if you've got the data prepared you can pass it to this method.
+     *
+     * You can also provide an optional key. If you do then it will only add the entries from that part of the pack into
+     * to the load queue. If not specified it will add all entries it finds. For more details about the pack file format
+     * see the `LoaderPlugin.pack` method.
+     *
+     * @method Phaser.Loader.LoaderPlugin#addPack
+     * @since 3.7.0
+     *
+     * @param {any} data - The Pack File data to be parsed and each entry of it to added to the load queue.
+     * @param {string} [packKey] - An optional key to use from the pack file data.
+     *
+     * @return {boolean} `true` if any files were added to the queue, otherwise `false`.
+     */
+    addPack: function (pack, packKey)
+    {
+        //  if no packKey provided we'll add everything to the queue
+        if (packKey && pack.hasOwnProperty(packKey))
+        {
+            pack = { packKey: pack[packKey] };
+        }
+
+        var total = 0;
+
+        //  Store the loader settings in case this pack replaces them
+        var currentBaseURL = this.baseURL;
+        var currentPath = this.path;
+        var currentPrefix = this.prefix;
+
+        //  Here we go ...
+        for (var key in pack)
+        {
+            var config = pack[key];
+
+            //  Any meta data to process?
+            var baseURL = GetFastValue(config, 'baseURL', currentBaseURL);
+            var path = GetFastValue(config, 'path', currentPath);
+            var prefix = GetFastValue(config, 'prefix', currentPrefix);
+            var files = GetFastValue(config, 'files', null);
+            var defaultType = GetFastValue(config, 'defaultType', 'void');
+
+            if (Array.isArray(files))
+            {
+                this.setBaseURL(baseURL);
+                this.setPath(path);
+                this.setPrefix(prefix);
+
+                for (var i = 0; i < files.length; i++)
+                {
+                    var file = files[i];
+                    var type = (file.hasOwnProperty('type')) ? file.type : defaultType;
+
+                    if (this[type])
+                    {
+                        this[type](file);
+                        total++;
+                    }
+                }
+            }
+        }
+
+        //  Reset the loader settings
+        this.setBaseURL(currentBaseURL);
+        this.setPath(currentPath);
+        this.setPrefix(currentPrefix);
+
+        return (total > 0);
+    },
+
+    /**
+     * Is the Loader actively loading, or processing loaded files?
+     *
+     * @method Phaser.Loader.LoaderPlugin#isLoading
+     * @since 3.0.0
+     *
+     * @return {boolean} `true` if the Loader is busy loading or processing, otherwise `false`.
+     */
+    isLoading: function ()
+    {
+        return (this.state === CONST.LOADER_LOADING || this.state === CONST.LOADER_PROCESSING);
+    },
+
+    /**
+     * Is the Loader ready to start a new load?
+     *
+     * @method Phaser.Loader.LoaderPlugin#isReady
+     * @since 3.0.0
+     *
+     * @return {boolean} `true` if the Loader is ready to start a new load, otherwise `false`.
+     */
+    isReady: function ()
+    {
+        return (this.state === CONST.LOADER_IDLE || this.state === CONST.LOADER_COMPLETE);
+    },
+
+    /**
+     * This event is fired when a Loader successfully begins to load its queue.
+     * 
+     * @event Phaser.Loader.LoaderPlugin#startEvent
+     * @param {Phaser.Loader.LoaderPlugin} loader - The Loader instance that started.
+     */
+
+    /**
+     * Starts the Loader running. This will reset the progress and totals and then emit a `start` event.
+     * If there is nothing in the queue the Loader will immediately complete, otherwise it will start
+     * loading the first batch of files.
+     *
+     * The Loader is started automatically if the queue is populated within your Scenes `preload` method.
+     *
+     * However, outside of this, you need to call this method to start it.
+     *
+     * If the Loader is already running this method will simply return.
+     *
+     * @method Phaser.Loader.LoaderPlugin#start
+     * @fires Phaser.Loader.LoaderPlugin#startEvent
+     * @since 3.0.0
+     */
+    start: function ()
+    {
+        if (!this.isReady())
+        {
+            return;
+        }
+
+        this.progress = 0;
+
+        this.totalFailed = 0;
+        this.totalComplete = 0;
+        this.totalToLoad = this.list.size;
+
+        this.emit('start', this);
+
+        if (this.list.size === 0)
+        {
+            this.loadComplete();
+        }
+        else
+        {
+            this.state = CONST.LOADER_LOADING;
+
+            this.inflight.clear();
+            this.queue.clear();
+
+            this.updateProgress();
+
+            this.checkLoadQueue();
         }
     },
 
     /**
-     * Called by each File that fails to load.
+     * This event is fired when the Loader updates its progress, typically as a result of
+     * a file having completed loading.
+     * 
+     * @event Phaser.Loader.LoaderPlugin#progressEvent
+     * @param {float} progress - The current progress of the load. A value between 0 and 1.
+     */
+
+    /**
+     * Called automatically during the load process.
+     * It updates the `progress` value and then emits a progress event, which you can use to
+     * display a loading bar in your game.
      *
-     * @method Phaser.Loader.LinkFile#onFileFailed
+     * @method Phaser.Loader.LoaderPlugin#updateProgress
+     * @fires Phaser.Loader.LoaderPlugin#progressEvent
+     * @since 3.0.0
+     */
+    updateProgress: function ()
+    {
+        this.progress = 1 - ((this.list.size + this.inflight.size) / this.totalToLoad);
+
+        this.emit('progress', this.progress);
+    },
+
+    /**
+     * An internal method called by the Loader.
+     * 
+     * It will check to see if there are any more files in the pending list that need loading, and if so it will move
+     * them from the list Set into the inflight Set, set their CORs flag and start them loading.
+     * 
+     * It will carrying on doing this for each file in the pending list until it runs out, or hits the max allowed parallel downloads.
+     *
+     * @method Phaser.Loader.LoaderPlugin#checkLoadQueue
+     * @private
+     * @since 3.7.0
+     */
+    checkLoadQueue: function ()
+    {
+        this.list.each(function (file)
+        {
+            if (file.state === CONST.FILE_POPULATED || (file.state === CONST.FILE_PENDING && this.inflight.size < this.maxParallelDownloads))
+            {
+                this.inflight.set(file);
+
+                this.list.delete(file);
+
+                //  If the file doesn't have its own crossOrigin set,
+                //  we'll use the Loaders (which is undefined by default)
+                if (!file.crossOrigin)
+                {
+                    file.crossOrigin = this.crossOrigin;
+                }
+
+                file.load();
+            }
+
+            if (this.inflight.size === this.maxParallelDownloads)
+            {
+                //  Tells the Set iterator to abort
+                return false;
+            }
+
+        }, this);
+    },
+
+    /**
+     * This event is fired when the a file successfully completes loading, _before_ it is processed.
+     * 
+     * @event Phaser.Loader.LoaderPlugin#loadEvent
+     * @param {Phaser.Loader.File} file - The file that has completed loading.
+     */
+
+    /**
+     * This event is fired when the a file errors during load.
+     * 
+     * @event Phaser.Loader.LoaderPlugin#loadErrorEvent
+     * @param {Phaser.Loader.File} file - The file that has failed to load.
+     */
+
+    /**
+     * An internal method called automatically by the XHRLoader belong to a File.
+     * 
+     * This method will remove the given file from the inflight Set and update the load progress.
+     * If the file was successful its `onProcess` method is called, otherwise it is added to the delete queue.
+     *
+     * @method Phaser.Loader.LoaderPlugin#nextFile
+     * @fires Phaser.Loader.LoaderPlugin#loadEvent
+     * @fires Phaser.Loader.LoaderPlugin#loadErrorEvent
+     * @since 3.0.0
+     *
+     * @param {Phaser.Loader.File} file - The File that just finished loading, or errored during load.
+     * @param {boolean} success - `true` if the file loaded successfully, otherwise `false`.
+     */
+    nextFile: function (file, success)
+    {
+        this.inflight.delete(file);
+
+        this.updateProgress();
+
+        if (success)
+        {
+            this.totalComplete++;
+
+            this.queue.set(file);
+
+            this.emit('load', file);
+
+            file.onProcess();
+        }
+        else
+        {
+            this.totalFailed++;
+
+            this._deleteQueue.set(file);
+
+            this.emit('loaderror', file);
+        }
+
+        if (this.list.size > 0)
+        {
+            this.checkLoadQueue();
+        }
+    },
+
+    /**
+     * An internal method that is called automatically by the File when it has finished processing.
+     *
+     * If the process was successful, and the File isn't part of a MultiFile, its `addToCache` method is called.
+     *
+     * It this then removed from the queue. If there are more files to load, `checkLoadQueue` is called, otherwise `loadComplete` is.
+     *
+     * @method Phaser.Loader.LoaderPlugin#fileProcessComplete
      * @since 3.7.0
      *
-     * @param {Phaser.Loader.File} file - The File that has failed to load.
+     * @param {Phaser.Loader.File} file - The file that has finished processing.
      */
-    onFileFailed: function (file)
+    fileProcessComplete: function (file)
     {
-        var index = this.files.indexOf(file);
-
-        if (index !== -1)
+        //  This file has failed, so move it to the failed Set
+        if (file.state === CONST.FILE_ERRORED)
         {
-            this.failed++;
+            if (file.multiFile)
+            {
+                file.multiFile.onFileFailed(file);
+            }
         }
+        else if (file.state === CONST.FILE_COMPLETE)
+        {
+            if (file.multiFile)
+            {
+                if (file.multiFile.isReadyToProcess())
+                {
+                    //  If we got here then all files the link file needs are ready to add to the cache
+                    file.multiFile.addToCache();
+                }
+            }
+            else
+            {
+                //  If we got here, then the file processed, so let it add itself to its cache
+                file.addToCache();
+            }
+        }
+
+        //  Remove it from the queue
+        this.queue.delete(file);
+
+        //  Nothing left to do?
+        if (this.list.size === 0 && this.inflight.size === 0 && this.queue.size === 0)
+        {
+            this.loadComplete();
+        }
+        else
+        {
+            //  In case we've added to the list by processing this file
+            this.checkLoadQueue();
+        }
+    },
+
+    /**
+     * This event is fired when the Loader has finished loading everything and the queue is empty.
+     * By this point every loaded file will now be in its associated cache and ready for use.
+     * 
+     * @event Phaser.Loader.LoaderPlugin#completeEvent
+     * @param {Phaser.Loader.File} file - The file that has failed to load.
+     */
+
+    /**
+     * Called at the end when the load queue is exhausted and all files have either loaded or errored.
+     * By this point every loaded file will now be in its associated cache and ready for use.
+     *
+     * Also clears down the Sets, puts progress to 1 and clears the deletion queue.
+     *
+     * @method Phaser.Loader.LoaderPlugin#loadComplete
+     * @fires Phaser.Loader.LoaderPlugin#completeEvent
+     * @since 3.7.0
+     */
+    loadComplete: function ()
+    {
+        this.emit('loadcomplete', this);
+
+        this.list.clear();
+        this.inflight.clear();
+        this.queue.clear();
+
+        this.progress = 1;
+
+        this.state = CONST.LOADER_COMPLETE;
+
+        //  Call 'destroy' on each file ready for deletion
+        this._deleteQueue.iterateLocal('destroy');
+
+        this._deleteQueue.clear();
+
+        this.emit('complete', this, this.totalComplete, this.totalFailed);
+    },
+
+    /**
+     * Adds a File into the pending-deletion queue.
+     *
+     * @method Phaser.Loader.LoaderPlugin#flagForRemoval
+     * @since 3.7.0
+     * 
+     * @param {Phaser.Loader.File} file - The File to be queued for deletion when the Loader completes.
+     */
+    flagForRemoval: function (file)
+    {
+        this._deleteQueue.set(file);
+    },
+
+    /**
+     * Converts the given JSON data into a file that the browser then prompts you to download so you can save it locally.
+     *
+     * The data must be well formed JSON and ready-parsed, not a JavaScript object.
+     *
+     * @method Phaser.Loader.LoaderPlugin#saveJSON
+     * @since 3.0.0
+     *
+     * @param {*} data - The JSON data, ready parsed.
+     * @param {string} [filename=file.json] - The name to save the JSON file as.
+     *
+     * @return {Phaser.Loader.LoaderPlugin} This Loader plugin.
+     */
+    saveJSON: function (data, filename)
+    {
+        return this.save(JSON.stringify(data), filename);
+    },
+
+    /**
+     * Causes the browser to save the given data as a file to its default Downloads folder.
+     * 
+     * Creates a DOM level anchor link, assigns it as being a `download` anchor, sets the href
+     * to be an ObjectURL based on the given data, and then invokes a click event.
+     *
+     * @method Phaser.Loader.LoaderPlugin#save
+     * @since 3.0.0
+     *
+     * @param {*} data - The data to be saved. Will be passed through URL.createObjectURL.
+     * @param {string} [filename=file.json] - The filename to save the file as.
+     * @param {string} [filetype=application/json] - The file type to use when saving the file. Defaults to JSON.
+     *
+     * @return {Phaser.Loader.LoaderPlugin} This Loader plugin.
+     */
+    save: function (data, filename, filetype)
+    {
+        if (filename === undefined) { filename = 'file.json'; }
+        if (filetype === undefined) { filetype = 'application/json'; }
+
+        var blob = new Blob([ data ], { type: filetype });
+
+        var url = URL.createObjectURL(blob);
+
+        var a = document.createElement('a');
+
+        a.download = filename;
+        a.textContent = 'Download ' + filename;
+        a.href = url;
+        a.click();
+
+        return this;
+    },
+
+    /**
+     * Resets the Loader.
+     *
+     * This will clear all lists and reset the base URL, path and prefix.
+     *
+     * Warning: If the Loader is currently downloading files, or has files in its queue, they will be aborted.
+     *
+     * @method Phaser.Loader.LoaderPlugin#reset
+     * @since 3.0.0
+     */
+    reset: function ()
+    {
+        this.list.clear();
+        this.inflight.clear();
+        this.queue.clear();
+
+        var gameConfig = this.systems.game.config;
+        var sceneConfig = this.systems.settings.loader;
+
+        this.setBaseURL(GetFastValue(sceneConfig, 'baseURL', gameConfig.loaderBaseURL));
+        this.setPath(GetFastValue(sceneConfig, 'path', gameConfig.loaderPath));
+        this.setPrefix(GetFastValue(sceneConfig, 'prefix', gameConfig.loaderPrefix));
+
+        this.state = CONST.LOADER_IDLE;
+    },
+
+    /**
+     * The Scene that owns this plugin is shutting down.
+     * We need to kill and reset all internal properties as well as stop listening to Scene events.
+     *
+     * @method Phaser.Loader.LoaderPlugin#shutdown
+     * @private
+     * @since 3.0.0
+     */
+    shutdown: function ()
+    {
+        this.reset();
+
+        this.state = CONST.LOADER_SHUTDOWN;
+
+        this.systems.events.off('shutdown', this.shutdown, this);
+    },
+
+    /**
+     * The Scene that owns this plugin is being destroyed.
+     * We need to shutdown and then kill off all external references.
+     *
+     * @method Phaser.Loader.LoaderPlugin#destroy
+     * @private
+     * @since 3.0.0
+     */
+    destroy: function ()
+    {
+        this.shutdown();
+
+        this.state = CONST.LOADER_DESTROYED;
+
+        this.systems.events.off('start', this.pluginStart, this);
+
+        this.list = null;
+        this.inflight = null;
+        this.queue = null;
+
+        this.scene = null;
+        this.systems = null;
+        this.textureManager = null;
+        this.cacheManager = null;
     }
 
 });
 
-module.exports = LinkFile;
+PluginCache.register('Loader', LoaderPlugin, 'load');
+
+module.exports = LoaderPlugin;
 
 
 /***/ }),
@@ -35640,6 +37036,205 @@ module.exports = MergeXHRSettings;
 
 /***/ }),
 
+/***/ "./loader/MultiFile.js":
+/*!*****************************!*\
+  !*** ./loader/MultiFile.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+
+/**
+ * @classdesc
+ * A MultiFile is a special kind of parent that contains two, or more, Files as children and looks after
+ * the loading and processing of them all. It is commonly extended and used as a base class for file types such as AtlasJSON or BitmapFont.
+ * 
+ * You shouldn't create an instance of a MultiFile directly, but should extend it with your own class, setting a custom type and processing methods.
+ *
+ * @class MultiFile
+ * @memberOf Phaser.Loader
+ * @constructor
+ * @since 3.7.0
+ *
+ * @param {Phaser.Loader.LoaderPlugin} loader - The Loader that is going to load this File.
+ * @param {string} type - The file type string for sorting within the Loader.
+ * @param {string} key - The key of the file within the loader.
+ * @param {Phaser.Loader.File[]} files - An array of Files that make-up this MultiFile.
+ */
+var MultiFile = new Class({
+
+    initialize:
+
+    function MultiFile (loader, type, key, files)
+    {
+        /**
+         * A reference to the Loader that is going to load this file.
+         *
+         * @name Phaser.Loader.MultiFile#loader
+         * @type {Phaser.Loader.LoaderPlugin}
+         * @since 3.7.0
+         */
+        this.loader = loader;
+
+        /**
+         * The file type string for sorting within the Loader.
+         *
+         * @name Phaser.Loader.MultiFile#type
+         * @type {string}
+         * @since 3.7.0
+         */
+        this.type = type;
+
+        /**
+         * Unique cache key (unique within its file type)
+         *
+         * @name Phaser.Loader.MultiFile#key
+         * @type {string}
+         * @since 3.7.0
+         */
+        this.key = key;
+
+        /**
+         * Array of files that make up this MultiFile.
+         *
+         * @name Phaser.Loader.MultiFile#files
+         * @type {Phaser.Loader.File[]}
+         * @since 3.7.0
+         */
+        this.files = files;
+
+        /**
+         * The completion status of this MultiFile.
+         *
+         * @name Phaser.Loader.MultiFile#complete
+         * @type {boolean}
+         * @default false
+         * @since 3.7.0
+         */
+        this.complete = false;
+
+        /**
+         * The number of files to load.
+         *
+         * @name Phaser.Loader.MultiFile#pending
+         * @type {integer}
+         * @since 3.7.0
+         */
+
+        this.pending = files.length;
+
+        /**
+         * The number of files that failed to load.
+         *
+         * @name Phaser.Loader.MultiFile#failed
+         * @type {integer}
+         * @default 0
+         * @since 3.7.0
+         */
+        this.failed = 0;
+
+        /**
+         * A storage container for transient data that the loading files need.
+         *
+         * @name Phaser.Loader.MultiFile#config
+         * @type {any}
+         * @since 3.7.0
+         */
+        this.config = {};
+
+        //  Link the files
+        for (var i = 0; i < files.length; i++)
+        {
+            files[i].multiFile = this;
+        }
+    },
+
+    /**
+     * Checks if this MultiFile is ready to process its children or not.
+     *
+     * @method Phaser.Loader.MultiFile#isReadyToProcess
+     * @since 3.7.0
+     *
+     * @return {boolean} `true` if all children of this MultiFile have loaded, otherwise `false`.
+     */
+    isReadyToProcess: function ()
+    {
+        return (this.pending === 0 && this.failed === 0 && !this.complete);
+    },
+
+    /**
+     * Adds another child to this MultiFile, increases the pending count and resets the completion status.
+     *
+     * @method Phaser.Loader.MultiFile#addToMultiFile
+     * @since 3.7.0
+     *
+     * @param {Phaser.Loader.File} files - The File to add to this MultiFile.
+     *
+     * @return {Phaser.Loader.MultiFile} This MultiFile instance.
+     */
+    addToMultiFile: function (file)
+    {
+        this.files.push(file);
+
+        file.multiFile = this;
+
+        this.pending++;
+
+        this.complete = false;
+
+        return this;
+    },
+
+    /**
+     * Called by each File when it finishes loading.
+     *
+     * @method Phaser.Loader.MultiFile#onFileComplete
+     * @since 3.7.0
+     *
+     * @param {Phaser.Loader.File} file - The File that has completed processing.
+     */
+    onFileComplete: function (file)
+    {
+        var index = this.files.indexOf(file);
+
+        if (index !== -1)
+        {
+            this.pending--;
+        }
+    },
+
+    /**
+     * Called by each File that fails to load.
+     *
+     * @method Phaser.Loader.MultiFile#onFileFailed
+     * @since 3.7.0
+     *
+     * @param {Phaser.Loader.File} file - The File that has failed to load.
+     */
+    onFileFailed: function (file)
+    {
+        var index = this.files.indexOf(file);
+
+        if (index !== -1)
+        {
+            this.failed++;
+        }
+    }
+
+});
+
+module.exports = MultiFile;
+
+
+/***/ }),
+
 /***/ "./loader/XHRLoader.js":
 /*!*****************************!*\
   !*** ./loader/XHRLoader.js ***!
@@ -35684,6 +37279,11 @@ var XHRLoader = function (file, globalXHRSettings)
         xhr.setRequestHeader(config.header, config.headerValue);
     }
 
+    if (config.requestedWith)
+    {
+        xhr.setRequestHeader('X-Requested-With', config.requestedWith);
+    }
+
     if (config.overrideMimeType)
     {
         xhr.overrideMimeType(config.overrideMimeType);
@@ -35691,7 +37291,7 @@ var XHRLoader = function (file, globalXHRSettings)
 
     // After a successful request, the xhr.response property will contain the requested data as a DOMString, ArrayBuffer, Blob, or Document (depending on what was set for responseType.)
 
-    xhr.onload = file.onLoad.bind(file);
+    xhr.onload = file.onLoad.bind(file, xhr);
     xhr.onerror = file.onError.bind(file);
     xhr.onprogress = file.onProgress.bind(file);
 
@@ -35724,14 +37324,15 @@ module.exports = XHRLoader;
 /**
  * @typedef {object} XHRSettingsObject
  *
- * @property {XMLHttpRequestResponseType} responseType - [description]
- * @property {boolean} async - [description]
- * @property {string} user - [description]
- * @property {string} password - [description]
- * @property {number} timeout - [description]
- * @property {?string} header - [description]
- * @property {?string} headerValue - [description]
- * @property {(string|undefined)} overrideMimeType - [description]
+ * @property {XMLHttpRequestResponseType} responseType - The response type of the XHR request, i.e. `blob`, `text`, etc.
+ * @property {boolean} [async=true] - Should the XHR request use async or not?
+ * @property {string} [user=''] - Optional username for the XHR request.
+ * @property {string} [password=''] - Optional password for the XHR request.
+ * @property {integer} [timeout=0] - Optional XHR timeout value.
+ * @property {(string|undefined)} [header] - This value is used to populate the XHR `setRequestHeader` and is undefined by default.
+ * @property {(string|undefined)} [headerValue] - This value is used to populate the XHR `setRequestHeader` and is undefined by default.
+ * @property {(string|undefined)} [requestedWith] - This value is used to populate the XHR `setRequestHeader` and is undefined by default.
+ * @property {(string|undefined)} [overrideMimeType] - Provide a custom mime-type to use instead of the default.
  */
 
 /**
@@ -35777,6 +37378,7 @@ var XHRSettings = function (responseType, async, user, password, timeout)
         //  setRequestHeader
         header: undefined,
         headerValue: undefined,
+        requestedWith: false,
 
         //  overrideMimeType
         overrideMimeType: undefined
@@ -35904,15 +37506,6 @@ var FILE_CONST = {
     FILE_PROCESSING: 14,
 
     /**
-     * File is waiting for its linkfile to load.
-     * 
-     * @name Phaser.Loader.FILE_WAITING_LINKFILE
-     * @type {integer}
-     * @since 3.0.0
-     */
-    FILE_WAITING_LINKFILE: 15,
-
-    /**
      * The File has errored somehow during processing.
      * 
      * @name Phaser.Loader.FILE_ERRORED
@@ -35946,25 +37539,7 @@ var FILE_CONST = {
      * @type {integer}
      * @since 3.0.0
      */
-    FILE_POPULATED: 19,
-
-    /**
-     * A special Texture Atlas const.
-     * 
-     * @name Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY
-     * @type {integer}
-     * @since 3.0.0
-     */
-    TEXTURE_ATLAS_JSON_ARRAY: 20,
-
-    /**
-     * A special Texture Atlas const.
-     * 
-     * @name Phaser.Loader.TEXTURE_ATLAS_JSON_HASH
-     * @type {integer}
-     * @since 3.0.0
-     */
-    TEXTURE_ATLAS_JSON_HASH: 21
+    FILE_POPULATED: 19
 
 };
 
@@ -35992,7 +37567,11 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
 
 /**
  * @classdesc
- * [description]
+ * A single Animation JSON File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#animation method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#animation.
  *
  * @class AnimationJSONFile
  * @extends Phaser.Loader.File
@@ -36000,10 +37579,11 @@ var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSON
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.JSONFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ * @param {string} [dataKey] - When the JSON file loads only this property will be stored in the Cache.
  */
 var AnimationJSONFile = new Class({
 
@@ -36012,48 +37592,144 @@ var AnimationJSONFile = new Class({
     initialize:
 
     //  url can either be a string, in which case it is treated like a proper url, or an object, in which case it is treated as a ready-made JS Object
+    //  dataKey allows you to pluck a specific object out of the JSON and put just that into the cache, rather than the whole thing
 
-    function AnimationJSONFile (loader, key, url, xhrSettings)
+    function AnimationJSONFile (loader, key, url, xhrSettings, dataKey)
     {
-        JSONFile.call(this, loader, key, url, xhrSettings);
+        JSONFile.call(this, loader, key, url, xhrSettings, dataKey);
 
         this.type = 'animationJSON';
     },
 
-    onProcess: function (callback)
+    /**
+     * Called automatically by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data.
+     *
+     * @method Phaser.Loader.FileTypes.AnimationJSONFile#onProcess
+     * @since 3.7.0
+     */
+    onProcess: function ()
     {
-        JSONFile.prototype.onProcess.call(this, callback);
+        //  We need to hook into this event:
+        this.loader.once('loadcomplete', this.onLoadComplete, this);
 
-        //  We also need to hook into this event:
-        this.loader.once('processcomplete', this.onProcessComplete, this);
+        //  But the rest is the same as a normal JSON file
+        JSONFile.prototype.onProcess.call(this);
     },
 
-    onProcessComplete: function ()
+    /**
+     * Called at the end of the load process, after the Loader has finished all files in its queue.
+     *
+     * @method Phaser.Loader.FileTypes.AnimationJSONFile#onLoadComplete
+     * @since 3.7.0
+     */
+    onLoadComplete: function ()
     {
-        this.loader.scene.sys.anims.fromJSON(this.data);
+        this.loader.systems.anims.fromJSON(this.data);
+
+        this.pendingDestroy();
     }
 
 });
 
 /**
- * Adds an Animation JSON file to the current load queue.
+ * Adds an Animation JSON Data file, or array of Animation JSON files, to the current load queue.
  *
- * Note: This method will only be available if the Animation JSON File type has been built into Phaser.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.animation('baddieAnims', 'files/BaddieAnims.json');
+ * }
+ * ```
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * If you call this from outside of `preload` then you are responsible for starting the Loader afterwards and monitoring
+ * its events to know when it's safe to use the asset. Please see the Phaser.Loader.LoaderPlugin class for more details.
+ * 
+ * The key must be a unique String. It is used to add the file to the global JSON Cache upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the JSON Cache.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the JSON Cache first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.animation({
+ *     key: 'baddieAnims',
+ *     url: 'files/BaddieAnims.json'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.JSONFileConfig` for more details.
+ *
+ * Once the file has finished loading it will automatically be passed to the global Animation Managers `fromJSON` method.
+ * This will parse all of the JSON data and create animation data from it. This process happens at the very end
+ * of the Loader, once every other file in the load queue has finished. The reason for this is to allow you to load
+ * both animation data and the images it relies upon in the same load call.
+ *
+ * Once the animation data has been parsed you will be able to play animations using that data.
+ * Please see the Animation Manager `fromJSON` method for more details about the format and playback.
+ * 
+ * You can also access the raw animation data from its Cache using its key:
+ * 
+ * ```javascript
+ * this.load.animation('baddieAnims', 'files/BaddieAnims.json');
+ * // and later in your game ...
+ * var data = this.cache.json.get('baddieAnims');
+ * ```
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `LEVEL1.` and the key was `Waves` the final key will be `LEVEL1.Waves` and
+ * this is what you would use to retrieve the text from the JSON Cache.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "data"
+ * and no URL is given then the Loader will set the URL to be "data.json". It will always add `.json` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * You can also optionally provide a `dataKey` to use. This allows you to extract only a part of the JSON and store it in the Cache,
+ * rather than the whole file. For example, if your JSON data had a structure like this:
+ * 
+ * ```json
+ * {
+ *     "level1": {
+ *         "baddies": {
+ *             "aliens": {},
+ *             "boss": {}
+ *         }
+ *     },
+ *     "level2": {},
+ *     "level3": {}
+ * }
+ * ```
+ *
+ * And if you only wanted to create animations from the `boss` data, then you could pass `level1.baddies.boss`as the `dataKey`.
+ *
+ * Note: The ability to load this type of file will only be available if the JSON File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#animation
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {(string|array|object)} key - A unique string to be used as the key to reference this file from the Cache. Must be unique within this file type.
- * @param {string} [url] - URL of the file. If `undefined` or `null` the url will be set to `<key>.json`,
- * i.e. if `key` was "alien" then the URL will be "alien.json".
- * @param {XHRSettingsObject} [xhrSettings] - File specific XHR settings to be used during the load. These settings are merged with the global Loader XHR settings.
+ * @param {(string|Phaser.Loader.FileTypes.JSONFileConfig|Phaser.Loader.FileTypes.JSONFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
+ * @param {string} [dataKey] - When the Animation JSON file loads only this property will be stored in the Cache and used to create animation data.
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
-FileTypesManager.register('animation', function (key, url, xhrSettings)
+FileTypesManager.register('animation', function (key, url, dataKey, xhrSettings)
 {
     //  Supports an Object file definition in the key argument
     //  Or an array of objects in the key argument
@@ -36068,7 +37744,7 @@ FileTypesManager.register('animation', function (key, url, xhrSettings)
     }
     else
     {
-        this.addFile(new AnimationJSONFile(this, key, url, xhrSettings));
+        this.addFile(new AnimationJSONFile(this, key, url, xhrSettings, dataKey));
     }
 
     return this;
@@ -36098,67 +37774,110 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
 var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/ImageFile.js");
 var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSONFile.js");
-var LinkFile = __webpack_require__(/*! ../LinkFile.js */ "./loader/LinkFile.js");
+var MultiFile = __webpack_require__(/*! ../MultiFile.js */ "./loader/MultiFile.js");
+
+/**
+ * @typedef {object} Phaser.Loader.FileTypes.AtlasJSONFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within both the Loader and the Texture Manager.
+ * @property {string} [textureURL] - The absolute or relative URL to load the texture image file from.
+ * @property {string} [textureExtension='png'] - The default file extension to use for the image texture if no url is provided.
+ * @property {XHRSettingsObject} [textureXhrSettings] - Extra XHR Settings specifically for the texture image file.
+ * @property {string} [normalMap] - The filename of an associated normal map. It uses the same path and url to load as the texture image.
+ * @property {string} [atlasURL] - The absolute or relative URL to load the atlas json file from. Or a well formed JSON object to use instead.
+ * @property {string} [atlasExtension='json'] - The default file extension to use for the atlas json if no url is provided.
+ * @property {XHRSettingsObject} [atlasXhrSettings] - Extra XHR Settings specifically for the atlas json file.
+ */
 
 /**
  * @classdesc
- * An Atlas JSON File.
+ * A single JSON based Texture Atlas File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#atlas method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#atlas.
+ * 
+ * https://www.codeandweb.com/texturepacker/tutorials/how-to-create-sprite-sheets-for-phaser3?source=photonstorm
  *
  * @class AtlasJSONFile
- * @extends Phaser.Loader.LinkFile
+ * @extends Phaser.Loader.MultiFile
  * @memberOf Phaser.Loader.FileTypes
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - The key of the file within the loader.
- * @param {string} textureURL - The url to load the texture file from.
- * @param {string} atlasURL - The url to load the atlas file from.
- * @param {string} path - The path of the file.
- * @param {XHRSettingsObject} [textureXhrSettings] - Optional texture file specific XHR settings.
- * @param {XHRSettingsObject} [atlasXhrSettings] - Optional atlas file specific XHR settings.
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.AtlasJSONFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string|string[]} [textureURL] - The absolute or relative URL to load the texture image file from. If undefined or `null` it will be set to `<key>.png`, i.e. if `key` was "alien" then the URL will be "alien.png".
+ * @param {string} [atlasURL] - The absolute or relative URL to load the texture atlas json data file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
+ * @param {XHRSettingsObject} [textureXhrSettings] - An XHR Settings configuration object for the atlas image file. Used in replacement of the Loaders default XHR Settings.
+ * @param {XHRSettingsObject} [atlasXhrSettings] - An XHR Settings configuration object for the atlas json file. Used in replacement of the Loaders default XHR Settings.
  */
 var AtlasJSONFile = new Class({
 
-    Extends: LinkFile,
+    Extends: MultiFile,
 
     initialize:
 
     function AtlasJSONFile (loader, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings)
     {
+        var image;
+        var data;
+
         if (IsPlainObject(key))
         {
             var config = key;
 
             key = GetFastValue(config, 'key');
-            textureURL = GetFastValue(config, 'textureURL');
-            atlasURL = GetFastValue(config, 'atlasURL');
-            textureXhrSettings = GetFastValue(config, 'textureXhrSettings');
-            atlasXhrSettings = GetFastValue(config, 'atlasXhrSettings');
+
+            image = new ImageFile(loader, {
+                key: key,
+                url: GetFastValue(config, 'textureURL'),
+                extension: GetFastValue(config, 'textureExtension', 'png'),
+                normalMap: GetFastValue(config, 'normalMap'),
+                xhrSettings: GetFastValue(config, 'textureXhrSettings')
+            });
+
+            data = new JSONFile(loader, {
+                key: key,
+                url: GetFastValue(config, 'atlasURL'),
+                extension: GetFastValue(config, 'atlasExtension', 'json'),
+                xhrSettings: GetFastValue(config, 'atlasXhrSettings')
+            });
+        }
+        else
+        {
+            image = new ImageFile(loader, key, textureURL, textureXhrSettings);
+            data = new JSONFile(loader, key, atlasURL, atlasXhrSettings);
         }
 
-        var image = new ImageFile(loader, key, textureURL, textureXhrSettings);
-        var data = new JSONFile(loader, key, atlasURL, atlasXhrSettings);
-
-        LinkFile.call(this, loader, 'atlasjson', key, [ image, data ]);
+        if (image.linkFile)
+        {
+            //  Image has a normal map
+            MultiFile.call(this, loader, 'atlasjson', key, [ image, data, image.linkFile ]);
+        }
+        else
+        {
+            MultiFile.call(this, loader, 'atlasjson', key, [ image, data ]);
+        }
     },
 
+    /**
+     * Adds this file to its target cache upon successful loading and processing.
+     *
+     * @method Phaser.Loader.FileTypes.AtlasJSONFile#addToCache
+     * @since 3.7.0
+     */
     addToCache: function ()
     {
-        if (this.failed === 0 && !this.complete)
+        if (this.isReadyToProcess())
         {
-            var fileA = this.files[0];
-            var fileB = this.files[1];
+            var image = this.files[0];
+            var json = this.files[1];
+            var normalMap = (this.files[2]) ? this.files[2].data : null;
 
-            if (fileA.type === 'image')
-            {
-                this.loader.textureManager.addAtlas(fileA.key, fileA.data, fileB.data);
-                fileB.addToCache();
-            }
-            else
-            {
-                this.loader.textureManager.addAtlas(fileB.key, fileB.data, fileA.data);
-                fileA.addToCache();
-            }
+            this.loader.textureManager.addAtlas(image.key, image.data, json.data, normalMap);
+
+            json.addToCache();
 
             this.complete = true;
         }
@@ -36167,27 +37886,113 @@ var AtlasJSONFile = new Class({
 });
 
 /**
- * Adds a Texture Atlas file to the current load queue.
+ * Adds a JSON based Texture Atlas, or array of atlases, to the current load queue.
  *
- * Note: This method will only be available if the Atlas JSON File type has been built into Phaser.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.atlas('mainmenu', 'images/MainMenu.png', 'images/MainMenu.json');
+ * }
+ * ```
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * If you call this from outside of `preload` then you are responsible for starting the Loader afterwards and monitoring
+ * its events to know when it's safe to use the asset. Please see the Phaser.Loader.LoaderPlugin class for more details.
+ *
+ * Phaser expects the atlas data to be provided in a JSON file, using either the JSON Hash or JSON Array format.
+ * These files are created by software such as Texture Packer, Shoebox and Adobe Flash / Animate.
+ * If you are using Texture Packer and have enabled multi-atlas support, then please use the Phaser Multi Atlas loader
+ * instead of this one.
+ * 
+ * Phaser can load all common image types: png, jpg, gif and any other format the browser can natively handle.
+ *
+ * The key must be a unique String. It is used to add the file to the global Texture Manager upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the Texture Manager.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the Texture Manager first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.atlas({
+ *     key: 'mainmenu',
+ *     textureURL: 'images/MainMenu.png',
+ *     atlasURL: 'images/MainMenu.json'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.AtlasJSONFileConfig` for more details.
+ *
+ * Instead of passing a URL for the atlas JSON data you can also pass in a well formed JSON object instead.
+ *
+ * Once the atlas has finished loading you can use frames from it as textures for a Game Object by referencing its key:
+ * 
+ * ```javascript
+ * this.load.atlas('mainmenu', 'images/MainMenu.png', 'images/MainMenu.json');
+ * // and later in your game ...
+ * this.add.image(x, y, 'mainmenu', 'background');
+ * ```
+ *
+ * To get a list of all available frames within an atlas please consult your Texture Atlas software.
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `MENU.` and the key was `Background` the final key will be `MENU.Background` and
+ * this is what you would use to retrieve the image from the Texture Manager.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "alien"
+ * and no URL is given then the Loader will set the URL to be "alien.png". It will always add `.png` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * Phaser also supports the automatic loading of associated normal maps. If you have a normal map to go with this image,
+ * then you can specify it by providing an array as the `url` where the second element is the normal map:
+ * 
+ * ```javascript
+ * this.load.atlas('mainmenu', [ 'images/MainMenu.png', 'images/MainMenu-n.png' ], 'images/MainMenu.json');
+ * ```
+ *
+ * Or, if you are using a config object use the `normalMap` property:
+ * 
+ * ```javascript
+ * this.load.atlas({
+ *     key: 'mainmenu',
+ *     textureURL: 'images/MainMenu.png',
+ *     normalMap: 'images/MainMenu-n.png',
+ *     atlasURL: 'images/MainMenu.json'
+ * });
+ * ```
+ *
+ * The normal map file is subject to the same conditions as the image file with regard to the path, baseURL, CORs and XHR Settings.
+ * Normal maps are a WebGL only feature.
+ *
+ * Note: The ability to load this type of file will only be available if the Atlas JSON File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#atlas
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {string} key - The key of the file within the loader.
- * @param {string} textureURL - The url to load the texture file from.
- * @param {string} atlasURL - The url to load the atlas file from.
- * @param {XHRSettingsObject} [textureXhrSettings] - Optional texture file specific XHR settings.
- * @param {XHRSettingsObject} [atlasXhrSettings] - Optional atlas file specific XHR settings.
+ * @param {(string|Phaser.Loader.FileTypes.AtlasJSONFileConfig|Phaser.Loader.FileTypes.AtlasJSONFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string|string[]} [textureURL] - The absolute or relative URL to load the texture image file from. If undefined or `null` it will be set to `<key>.png`, i.e. if `key` was "alien" then the URL will be "alien.png".
+ * @param {string} [atlasURL] - The absolute or relative URL to load the texture atlas json data file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
+ * @param {XHRSettingsObject} [textureXhrSettings] - An XHR Settings configuration object for the atlas image file. Used in replacement of the Loaders default XHR Settings.
+ * @param {XHRSettingsObject} [atlasXhrSettings] - An XHR Settings configuration object for the atlas json file. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
 FileTypesManager.register('atlas', function (key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings)
 {
-    var linkfile;
+    var multifile;
 
     //  Supports an Object file definition in the key argument
     //  Or an array of objects in the key argument
@@ -36197,16 +38002,16 @@ FileTypesManager.register('atlas', function (key, textureURL, atlasURL, textureX
     {
         for (var i = 0; i < key.length; i++)
         {
-            linkfile = new AtlasJSONFile(this, key[i]);
+            multifile = new AtlasJSONFile(this, key[i]);
 
-            this.addFile(linkfile.files);
+            this.addFile(multifile.files);
         }
     }
     else
     {
-        linkfile = new AtlasJSONFile(this, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings);
+        multifile = new AtlasJSONFile(this, key, textureURL, atlasURL, textureXhrSettings, atlasXhrSettings);
 
-        this.addFile(linkfile.files);
+        this.addFile(multifile.files);
     }
 
     return this;
@@ -36236,10 +38041,24 @@ var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var HTML5AudioFile = __webpack_require__(/*! ./HTML5AudioFile */ "./loader/filetypes/HTML5AudioFile.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
+
+/**
+ * @typedef {object} Phaser.Loader.FileTypes.AudioFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within the Loader and Audio Cache.
+ * @property {string} [urlConfig] - The absolute or relative URL to load the file from.
+ * @property {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ * @property {AudioContext} [audioContext] - The AudioContext this file will use to process itself.
+ */
 
 /**
  * @classdesc
- * [description]
+ * A single Audio File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#audio method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#audio.
  *
  * @class AudioFile
  * @extends Phaser.Loader.File
@@ -36247,11 +38066,11 @@ var HTML5AudioFile = __webpack_require__(/*! ./HTML5AudioFile */ "./loader/filet
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
- * @param {AudioContext} [audioContext] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.AudioFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {any} [urlConfig] - The absolute or relative URL to load this file from in a config object.
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ * @param {AudioContext} [audioContext] - The AudioContext this file will use to process itself.
  */
 var AudioFile = new Class({
 
@@ -36259,67 +38078,63 @@ var AudioFile = new Class({
 
     initialize:
 
-    function AudioFile (loader, key, url, xhrSettings, audioContext)
+    //  URL is an object created by AudioFile.findAudioURL
+    function AudioFile (loader, key, urlConfig, xhrSettings, audioContext)
     {
-        /**
-         * [description]
-         *
-         * @name Phaser.Loader.FileTypes.AudioFile#context
-         * @type {AudioContext}
-         * @since 3.0.0
-         */
-        this.context = audioContext;
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            xhrSettings = GetFastValue(config, 'xhrSettings');
+            audioContext = GetFastValue(config, 'context', audioContext);
+        }
 
         var fileConfig = {
             type: 'audio',
             cache: loader.cacheManager.audio,
-            extension: GetFastValue(url, 'type', ''),
+            extension: urlConfig.type,
             responseType: 'arraybuffer',
             key: key,
-            url: GetFastValue(url, 'uri', url),
-            path: loader.path,
-            xhrSettings: xhrSettings
+            url: urlConfig.url,
+            xhrSettings: xhrSettings,
+            config: { context: audioContext }
         };
 
         File.call(this, loader, fileConfig);
     },
 
     /**
-     * [description]
+     * Called automatically by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data.
      *
      * @method Phaser.Loader.FileTypes.AudioFile#onProcess
      * @since 3.0.0
-     *
-     * @param {FileProcessCallback} callback - [description]
      */
-    onProcess: function (callback)
+    onProcess: function ()
     {
         this.state = CONST.FILE_PROCESSING;
 
         var _this = this;
 
         // interesting read https://github.com/WebAudio/web-audio-api/issues/1305
-        this.context.decodeAudioData(this.xhrLoader.response,
+        this.config.context.decodeAudioData(this.xhrLoader.response,
             function (audioBuffer)
             {
                 _this.data = audioBuffer;
 
-                _this.onComplete();
-
-                callback(_this);
+                _this.onProcessComplete();
             },
             function (e)
             {
                 // eslint-disable-next-line no-console
-                console.error('Error with decoding audio data for \'' + this.key + '\':', e.message);
+                console.error('Error decoding audio: ' + this.key + ' - ', e.message);
 
-                _this.state = CONST.FILE_ERRORED;
-
-                callback(_this);
+                _this.onProcessError();
             }
         );
 
-        this.context = null;
+        this.config.context = null;
     }
 
 });
@@ -36330,114 +38145,43 @@ AudioFile.create = function (loader, key, urls, config, xhrSettings)
     var audioConfig = game.config.audio;
     var deviceAudio = game.device.audio;
 
-    if ((audioConfig && audioConfig.noAudio) || (!deviceAudio.webAudio && !deviceAudio.audioData))
+    //  url may be inside key, which may be an object
+    if (IsPlainObject(key))
     {
-        // console.info('Skipping loading audio \'' + key + '\' since sounds are disabled.');
+        urls = GetFastValue(key, 'url', []);
+        config = GetFastValue(key, 'config', {});
+    }
+
+    var urlConfig = AudioFile.getAudioURL(game, urls);
+
+    if (!urlConfig)
+    {
         return null;
     }
 
-    var url = AudioFile.findAudioURL(game, urls);
-
-    if (!url)
-    {
-        // console.warn('No supported url provided for audio \'' + key + '\'!');
-        return null;
-    }
+    // https://developers.google.com/web/updates/2012/02/HTML5-audio-and-the-Web-Audio-API-are-BFFs
+    // var stream = GetFastValue(config, 'stream', false);
 
     if (deviceAudio.webAudio && !(audioConfig && audioConfig.disableWebAudio))
     {
-        return new AudioFile(loader, key, url, xhrSettings, game.sound.context);
+        return new AudioFile(loader, key, urlConfig, xhrSettings, game.sound.context);
     }
     else
     {
-        return new HTML5AudioFile(loader, key, url, config);
+        return new HTML5AudioFile(loader, key, urlConfig, config);
     }
 };
 
-/**
- * Adds an Audio file to the current load queue.
- *
- * Note: This method will only be available if the Audio File type has been built into Phaser.
- *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
- *
- * @method Phaser.Loader.LoaderPlugin#audio
- * @since 3.0.0
- *
- * @param {string} key - [description]
- * @param {(string|string[])} urls - [description]
- * @param {object} config - [description]
- * @param {object} [xhrSettings] - [description]
- *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
- */
-FileTypesManager.register('audio', function (key, urls, config, xhrSettings)
+AudioFile.getAudioURL = function (game, urls)
 {
-    var audioFile = AudioFile.create(this, key, urls, config, xhrSettings);
-
-    if (audioFile)
-    {
-        this.addFile(audioFile);
-    }
-
-    return this;
-});
-
-// this.load.audio('sound', 'assets/audio/booom.ogg', config, xhrSettings);
-//
-// this.load.audio('sound',
-//     [
-//         'assets/audio/booom.ogg',
-//         'assets/audio/booom.m4a',
-//         'assets/audio/booom.mp3'
-//     ],
-//     config, xhrSettings);
-//
-// this.load.audio('sound',
-//     {
-//         uri: 'assets/audio/boooooom',
-//         type: 'ogg'
-//     },
-//     config, xhrSettings);
-//
-// this.load.audio('sound',
-//     [
-//         {
-//             uri: 'assets/audio/booooooo',
-//             type: 'ogg'
-//         },
-//         {
-//             uri: 'assets/audio/boooooom',
-//             type: 'mp3'
-//         }
-//     ],
-//     config, xhrSettings);
-//
-// this.load.audio('sound',
-//     [
-//         {
-//             uri: 'assets/audio/booooooo',
-//             type: 'ogg'
-//         },
-//         'assets/audio/booom.m4a',
-//         {
-//             uri: 'assets/audio/boooooom',
-//             type: 'mp3'
-//         }
-//     ],
-//     config, xhrSettings);
-
-AudioFile.findAudioURL = function (game, urls)
-{
-    if (urls.constructor !== Array)
+    if (!Array.isArray(urls))
     {
         urls = [ urls ];
     }
 
     for (var i = 0; i < urls.length; i++)
     {
-        var url = GetFastValue(urls[i], 'uri', urls[i]);
+        var url = GetFastValue(urls[i], 'url', urls[i]);
 
         if (url.indexOf('blob:') === 0 || url.indexOf('data:') === 0)
         {
@@ -36451,7 +38195,7 @@ AudioFile.findAudioURL = function (game, urls)
         if (game.device.audio[audioType])
         {
             return {
-                uri: url,
+                url: url,
                 type: audioType
             };
         }
@@ -36460,15 +38204,113 @@ AudioFile.findAudioURL = function (game, urls)
     return null;
 };
 
+/**
+ * Adds an Audio or HTML5Audio file, or array of audio files, to the current load queue.
+ *
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.audio('title', [ 'music/Title.ogg', 'music/Title.mp3', 'music/Title.m4a' ]);
+ * }
+ * ```
+ *
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * The key must be a unique String. It is used to add the file to the global Audio Cache upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the Audio Cache.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the Audio Cache first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.audio({
+ *     key: 'title',
+ *     url: [ 'music/Title.ogg', 'music/Title.mp3', 'music/Title.m4a' ]
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.AudioFileConfig` for more details.
+ *
+ * The URLs can be relative or absolute. If the URLs are relative the `Loader.baseURL` and `Loader.path` values will be prepended to them.
+ *
+ * Due to different browsers supporting different audio file types you should usually provide your audio files in a variety of formats.
+ * ogg, mp3 and m4a are the most common. If you provide an array of URLs then the Loader will determine which _one_ file to load based on
+ * browser support.
+ *
+ * If audio has been disabled in your game, either via the game config, or lack of support from the device, then no audio will be loaded.
+ *
+ * Note: The ability to load this type of file will only be available if the Audio File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
+ *
+ * @method Phaser.Loader.LoaderPlugin#audio
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
+ * @since 3.0.0
+ *
+ * @param {(string|Phaser.Loader.FileTypes.AudioFileConfig|Phaser.Loader.FileTypes.AudioFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {(string|string[])} [urls] - The absolute or relative URL to load the audio files from.
+ * @param {any} [config] - An object containing an `instances` property for HTML5Audio. Defaults to 1.
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
+ *
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
+ */
+FileTypesManager.register('audio', function (key, urls, config, xhrSettings)
+{
+    var game = this.systems.game;
+    var audioConfig = game.config.audio;
+    var deviceAudio = game.device.audio;
+
+    if ((audioConfig && audioConfig.noAudio) || (!deviceAudio.webAudio && !deviceAudio.audioData))
+    {
+        //  Sounds are disabled, so skip loading audio
+        return this;
+    }
+
+    var audioFile;
+
+    if (Array.isArray(key))
+    {
+        for (var i = 0; i < key.length; i++)
+        {
+            //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
+            audioFile = AudioFile.create(this, key[i]);
+
+            if (audioFile)
+            {
+                this.addFile(audioFile);
+            }
+        }
+    }
+    else
+    {
+        audioFile = AudioFile.create(this, key, urls, config, xhrSettings);
+
+        if (audioFile)
+        {
+            this.addFile(audioFile);
+        }
+    }
+
+    return this;
+});
+
 module.exports = AudioFile;
 
 
 /***/ }),
 
-/***/ "./loader/filetypes/AudioSprite.js":
-/*!*****************************************!*\
-  !*** ./loader/filetypes/AudioSprite.js ***!
-  \*****************************************/
+/***/ "./loader/filetypes/AudioSpriteFile.js":
+/*!*********************************************!*\
+  !*** ./loader/filetypes/AudioSpriteFile.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36479,63 +38321,290 @@ module.exports = AudioFile;
  */
 
 var AudioFile = __webpack_require__(/*! ./AudioFile.js */ "./loader/filetypes/AudioFile.js");
-var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
+var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
+var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSONFile.js");
+var MultiFile = __webpack_require__(/*! ../MultiFile.js */ "./loader/MultiFile.js");
 
 /**
- * Adds an Audio Sprite file to the current load queue.
+ * @typedef {object} Phaser.Loader.FileTypes.AudioSpriteFileConfig
  *
- * Note: This method will only be available if the Audio Sprite File type has been built into Phaser.
- *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
- *
- * @method Phaser.Loader.LoaderPlugin#audioSprite
- * @since 3.0.0
- *
- * @param {string} key - [description]
- * @param {(string|string[])} urls - [description]
- * @param {object} json - [description]
- * @param {object} config - [description]
- * @param {XHRSettingsObject} [audioXhrSettings] - Optional file specific XHR settings.
- * @param {XHRSettingsObject} [jsonXhrSettings] - Optional file specific XHR settings.
- *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @property {string} key - The key of the file. Must be unique within both the Loader and the Audio Cache.
+ * @property {string} jsonURL - The absolute or relative URL to load the json file from. Or a well formed JSON object to use instead.
+ * @property {XHRSettingsObject} [jsonXhrSettings] - Extra XHR Settings specifically for the json file.
+ * @property {string} [audioURL] - The absolute or relative URL to load the audio file from.
+ * @property {any} [audioConfig] - The audio configuration options.
+ * @property {XHRSettingsObject} [audioXhrSettings] - Extra XHR Settings specifically for the audio file.
  */
-FileTypesManager.register('audioSprite', function (key, urls, json, config, audioXhrSettings, jsonXhrSettings)
-{
-    var audioFile = AudioFile.create(this, key, urls, config, audioXhrSettings);
 
-    if (audioFile)
+/**
+ * @classdesc
+ * An Audio Sprite File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#audioSprite method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#audioSprite.
+ *
+ * @class AudioSpriteFile
+ * @extends Phaser.Loader.MultiFile
+ * @memberOf Phaser.Loader.FileTypes
+ * @constructor
+ * @since 3.7.0
+ *
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.AudioSpriteFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string} jsonURL - The absolute or relative URL to load the json file from. Or a well formed JSON object to use instead.
+ * @param {string} [audioURL] - The absolute or relative URL to load the audio file from. If empty it will be obtained by parsing the JSON file.
+ * @param {any} [audioConfig] - The audio configuration options.
+ * @param {XHRSettingsObject} [audioXhrSettings] - An XHR Settings configuration object for the audio file. Used in replacement of the Loaders default XHR Settings.
+ * @param {XHRSettingsObject} [jsonXhrSettings] - An XHR Settings configuration object for the json file. Used in replacement of the Loaders default XHR Settings.
+ */
+var AudioSpriteFile = new Class({
+
+    Extends: MultiFile,
+
+    initialize:
+
+    function AudioSpriteFile (loader, key, jsonURL, audioURL, audioConfig, audioXhrSettings, jsonXhrSettings)
     {
-        var jsonFile;
-
-        if (typeof json === 'string')
+        if (IsPlainObject(key))
         {
-            jsonFile = new JSONFile(this, key, json, jsonXhrSettings);
+            var config = key;
 
-            this.addFile(jsonFile);
+            key = GetFastValue(config, 'key');
+            jsonURL = GetFastValue(config, 'jsonURL');
+            audioURL = GetFastValue(config, 'audioURL');
+            audioConfig = GetFastValue(config, 'audioConfig');
+            audioXhrSettings = GetFastValue(config, 'audioXhrSettings');
+            jsonXhrSettings = GetFastValue(config, 'jsonXhrSettings');
+        }
+
+        var data;
+
+        //  No url? then we're going to do a json load and parse it from that
+        if (!audioURL)
+        {
+            data = new JSONFile(loader, key, jsonURL, jsonXhrSettings);
+            
+            MultiFile.call(this, loader, 'audiosprite', key, [ data ]);
+
+            this.config.resourceLoad = true;
+            this.config.audioConfig = audioConfig;
+            this.config.audioXhrSettings = audioXhrSettings;
         }
         else
         {
-            jsonFile = {
-                type: 'json',
-                key: key,
-                data: json,
-                state: CONST.FILE_WAITING_LINKFILE
-            };
+            var audio = AudioFile.create(loader, key, audioURL, audioConfig, audioXhrSettings);
+
+            if (audio)
+            {
+                data = new JSONFile(loader, key, jsonURL, jsonXhrSettings);
+
+                MultiFile.call(this, loader, 'audiosprite', key, [ audio, data ]);
+
+                this.config.resourceLoad = false;
+            }
         }
+    },
 
-        //  Link them together
-        audioFile.linkFile = jsonFile;
-        jsonFile.linkFile = audioFile;
+    /**
+     * Called by each File when it finishes loading.
+     *
+     * @method Phaser.Loader.AudioSpriteFile#onFileComplete
+     * @since 3.7.0
+     *
+     * @param {Phaser.Loader.File} file - The File that has completed processing.
+     */
+    onFileComplete: function (file)
+    {
+        var index = this.files.indexOf(file);
 
-        //  Set the type
-        audioFile.linkType = 'audioSprite';
-        jsonFile.linkType = 'audioSprite';
+        if (index !== -1)
+        {
+            this.pending--;
 
-        this.addFile(audioFile);
+            if (this.config.resourceLoad && file.type === 'json' && file.data.hasOwnProperty('resources'))
+            {
+                //  Inspect the data for the files to now load
+                var urls = file.data.resources;
+
+                var audioConfig = GetFastValue(this.config, 'audioConfig');
+                var audioXhrSettings = GetFastValue(this.config, 'audioXhrSettings');
+
+                var audio = AudioFile.create(this.loader, file.key, urls, audioConfig, audioXhrSettings);
+
+                if (audio)
+                {
+                    this.addToMultiFile(audio);
+
+                    this.loader.addFile(audio);
+                }
+            }
+        }
+    },
+
+    /**
+     * Adds this file to its target cache upon successful loading and processing.
+     *
+     * @method Phaser.Loader.AudioSpriteFile#addToCache
+     * @since 3.7.0
+     */
+    addToCache: function ()
+    {
+        if (this.isReadyToProcess())
+        {
+            var fileA = this.files[0];
+            var fileB = this.files[1];
+
+            fileA.addToCache();
+            fileB.addToCache();
+
+            this.complete = true;
+        }
+    }
+
+});
+
+/**
+ * Adds a JSON based Audio Sprite, or array of audio sprites, to the current load queue.
+ *
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.audioSprite('kyobi', 'kyobi.json', [
+ *         'kyobi.ogg',
+ *         'kyobi.mp3',
+ *         'kyobi.m4a'
+ *     ]);
+ * }
+ * ```
+ * 
+ * Audio Sprites are a combination of audio files and a JSON configuration.
+ * The JSON follows the format of that created by https://github.com/tonistiigi/audiosprite
+ *
+ * If the JSON file includes a 'resource' object then you can let Phaser parse it and load the audio
+ * files automatically based on its content. To do this exclude the audio URLs from the load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.audioSprite('kyobi', 'kyobi.json');
+ * }
+ * ```
+ *
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * If you call this from outside of `preload` then you are responsible for starting the Loader afterwards and monitoring
+ * its events to know when it's safe to use the asset. Please see the Phaser.Loader.LoaderPlugin class for more details.
+ *
+ * The key must be a unique String. It is used to add the file to the global Audio Cache upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the Audio Cache.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the Audio Cache first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.audioSprite({
+ *     key: 'kyobi',
+ *     jsonURL: 'audio/Kyobi.json',
+ *     audioURL: [
+ *         'audio/Kyobi.ogg',
+ *         'audio/Kyobi.mp3',
+ *         'audio/Kyobi.m4a'
+ *     ]
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.AudioSpriteFileConfig` for more details.
+ *
+ * Instead of passing a URL for the audio JSON data you can also pass in a well formed JSON object instead.
+ *
+ * Once the audio has finished loading you can use it create an Audio Sprite by referencing its key:
+ * 
+ * ```javascript
+ * this.load.audioSprite('kyobi', 'kyobi.json');
+ * // and later in your game ...
+ * var music = this.sound.addAudioSprite('kyobi');
+ * music.play('title');
+ * ```
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `MENU.` and the key was `Background` the final key will be `MENU.Background` and
+ * this is what you would use to retrieve the image from the Texture Manager.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * Due to different browsers supporting different audio file types you should usually provide your audio files in a variety of formats.
+ * ogg, mp3 and m4a are the most common. If you provide an array of URLs then the Loader will determine which _one_ file to load based on
+ * browser support.
+ *
+ * If audio has been disabled in your game, either via the game config, or lack of support from the device, then no audio will be loaded.
+ * 
+ * Note: The ability to load this type of file will only be available if the Audio Sprite File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
+ *
+ * @method Phaser.Loader.LoaderPlugin#audioSprite
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
+ * @since 3.0.0
+ *
+ * @param {(string|Phaser.Loader.FileTypes.AudioSpriteFileConfig|Phaser.Loader.FileTypes.AudioSpriteFileConfig[])} key - The key to use for this file, or a file configuration object, or an array of objects.
+ * @param {string} jsonURL - The absolute or relative URL to load the json file from. Or a well formed JSON object to use instead.
+ * @param {string} [audioURL] - The absolute or relative URL to load the audio file from. If empty it will be obtained by parsing the JSON file.
+ * @param {any} [audioConfig] - The audio configuration options.
+ * @param {XHRSettingsObject} [audioXhrSettings] - An XHR Settings configuration object for the audio file. Used in replacement of the Loaders default XHR Settings.
+ * @param {XHRSettingsObject} [jsonXhrSettings] - An XHR Settings configuration object for the json file. Used in replacement of the Loaders default XHR Settings.
+ *
+ * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ */
+FileTypesManager.register('audioSprite', function (key, jsonURL, audioURL, audioConfig, audioXhrSettings, jsonXhrSettings)
+{
+    var game = this.systems.game;
+    var gameAudioConfig = game.config.audio;
+    var deviceAudio = game.device.audio;
+
+    if ((gameAudioConfig && gameAudioConfig.noAudio) || (!deviceAudio.webAudio && !deviceAudio.audioData))
+    {
+        //  Sounds are disabled, so skip loading audio
+        return this;
+    }
+
+    var multifile;
+
+    //  Supports an Object file definition in the key argument
+    //  Or an array of objects in the key argument
+    //  Or a single entry where all arguments have been defined
+
+    if (Array.isArray(key))
+    {
+        for (var i = 0; i < key.length; i++)
+        {
+            multifile = new AudioSpriteFile(this, key[i]);
+
+            if (multifile.files)
+            {
+                this.addFile(multifile.files);
+            }
+        }
+    }
+    else
+    {
+        multifile = new AudioSpriteFile(this, key, jsonURL, audioURL, audioConfig, audioXhrSettings, jsonXhrSettings);
+
+        if (multifile.files)
+        {
+            this.addFile(multifile.files);
+        }
     }
 
     return this;
@@ -36561,10 +38630,15 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var GetURL = __webpack_require__(/*! ../GetURL */ "./loader/GetURL.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
  * @classdesc
- * [description]
+ * A single Audio File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#audio method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#audio.
  *
  * @class HTML5AudioFile
  * @extends Phaser.Loader.File
@@ -36572,10 +38646,10 @@ var GetURL = __webpack_require__(/*! ../GetURL */ "./loader/GetURL.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [config] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.AudioFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string} [urlConfig] - The absolute or relative URL to load this file from.
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
  */
 var HTML5AudioFile = new Class({
 
@@ -36583,28 +38657,43 @@ var HTML5AudioFile = new Class({
 
     initialize:
 
-    function HTML5AudioFile (loader, key, url, config)
+    function HTML5AudioFile (loader, key, urlConfig, audioConfig)
     {
-        this.locked = 'ontouchstart' in window;
+        if (IsPlainObject(key))
+        {
+            var config = key;
 
-        this.loaded = false;
+            key = GetFastValue(config, 'key');
+            audioConfig = GetFastValue(config, 'config', audioConfig);
+        }
 
         var fileConfig = {
             type: 'audio',
             cache: loader.cacheManager.audio,
-            extension: GetFastValue(url, 'type', ''),
+            extension: urlConfig.type,
             key: key,
-            url: GetFastValue(url, 'uri', url),
-            path: loader.path,
-            config: config
+            url: urlConfig.url,
+            config: audioConfig
         };
 
         File.call(this, loader, fileConfig);
+
+        //  New properties specific to this class
+        this.locked = 'ontouchstart' in window;
+        this.loaded = false;
+        this.filesLoaded = 0;
+        this.filesTotal = 0;
     },
 
+    /**
+     * Called when the file finishes loading.
+     *
+     * @method Phaser.Loader.FileTypes.HTML5AudioFile#onLoad
+     * @since 3.0.0
+     */
     onLoad: function ()
     {
-        if(this.loaded)
+        if (this.loaded)
         {
             return;
         }
@@ -36614,11 +38703,18 @@ var HTML5AudioFile = new Class({
         this.loader.nextFile(this, true);
     },
 
+    /**
+     * Called if the file errors while loading.
+     *
+     * @method Phaser.Loader.FileTypes.HTML5AudioFile#onError
+     * @since 3.0.0
+     */
     onError: function ()
     {
         for (var i = 0; i < this.data.length; i++)
         {
             var audio = this.data[i];
+
             audio.oncanplaythrough = null;
             audio.onerror = null;
         }
@@ -36626,9 +38722,16 @@ var HTML5AudioFile = new Class({
         this.loader.nextFile(this, false);
     },
 
+    /**
+     * Called during the file load progress. Is sent a DOM ProgressEvent.
+     *
+     * @method Phaser.Loader.FileTypes.HTML5AudioFile#onProgress
+     * @since 3.0.0
+     */
     onProgress: function (event)
     {
         var audio = event.target;
+
         audio.oncanplaythrough = null;
         audio.onerror = null;
 
@@ -36638,17 +38741,22 @@ var HTML5AudioFile = new Class({
 
         this.loader.emit('fileprogress', this, this.percentComplete);
 
-        if(this.filesLoaded === this.filesTotal)
+        if (this.filesLoaded === this.filesTotal)
         {
             this.onLoad();
         }
     },
 
-    //  Called by the Loader, starts the actual file downloading
-    load: function (loader)
+    /**
+     * Called by the Loader, starts the actual file downloading.
+     * During the load the methods onLoad, onError and onProgress are called, based on the XHR events.
+     * You shouldn't normally call this method directly, it's meant to be invoked by the Loader.
+     *
+     * @method Phaser.Loader.FileTypes.HTML5AudioFile#load
+     * @since 3.0.0
+     */
+    load: function ()
     {
-        this.loader = loader;
-
         this.data = [];
 
         var instances = (this.config && this.config.instances) || 1;
@@ -36657,10 +38765,11 @@ var HTML5AudioFile = new Class({
         this.filesLoaded = 0;
         this.percentComplete = 0;
 
-        for(var i = 0; i < instances; i++)
+        for (var i = 0; i < instances; i++)
         {
             var audio = new Audio();
-            audio.dataset.name = this.key + ('0' + i).slice(-2); // Useful for debugging
+
+            audio.dataset.name = this.key + ('0' + i).slice(-2);
             audio.dataset.used = 'false';
 
             if (this.locked)
@@ -36682,7 +38791,7 @@ var HTML5AudioFile = new Class({
         for (i = 0; i < this.data.length; i++)
         {
             audio = this.data[i];
-            audio.src = GetURL(this, loader.baseURL);
+            audio.src = GetURL(this, this.loader.baseURL);
 
             if (!this.locked)
             {
@@ -36692,6 +38801,8 @@ var HTML5AudioFile = new Class({
 
         if (this.locked)
         {
+            //  This is super-dangerous but works. Race condition potential high.
+            //  Is there another way?
             setTimeout(this.onLoad.bind(this));
         }
     }
@@ -36724,8 +38835,34 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
 var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
+ * @typedef {object} Phaser.Loader.FileTypes.ImageFrameConfig
+ *
+ * @property {integer} frameWidth - The width of the frame in pixels.
+ * @property {integer} [frameHeight] - The height of the frame in pixels. Uses the `frameWidth` value if not provided.
+ * @property {integer} [startFrame=0] - The first frame to start parsing from.
+ * @property {integer} [endFrame] - The frame to stop parsing at. If not provided it will calculate the value based on the image and frame dimensions.
+ * @property {integer} [margin=0] - The margin in the image. This is the space around the edge of the frames.
+ * @property {integer} [spacing=0] - The spacing between each frame in the image.
+ */
+
+/**
+ * @typedef {object} Phaser.Loader.FileTypes.ImageFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within both the Loader and the Texture Manager.
+ * @property {string} [url] - The absolute or relative URL to load the file from.
+ * @property {string} [extension='png'] - The default file extension to use if no url is provided.
+ * @property {string} [normalMap] - The filename of an associated normal map. It uses the same path and url to load as the image.
+ * @property {Phaser.Loader.FileTypes.ImageFrameConfig} [frameConfig] - The frame configuration object. Only provided for, and used by, Sprite Sheets.
+ * @property {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ */
+
+/**
  * @classdesc
- * [description]
+ * A single Image File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#image method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#image.
  *
  * @class ImageFile
  * @extends Phaser.Loader.File
@@ -36733,11 +38870,11 @@ var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ 
  * @constructor
  * @since 3.0.0
  *
- * @param {(string|object)} key - The name of the asset to load or an object representing the asset
- * @param {string} [url] - The asset's filename
- * @param {string} [path] - The path the asset can be found in
- * @param {XHRSettingsObject} [xhrSettings] - Optional image specific XHR settings
- * @param {object} [frameConfig] - config can include: frameWidth, frameHeight, startFrame, endFrame, margin, spacing
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.ImageFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string|string[]} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.png`, i.e. if `key` was "alien" then the URL will be "alien.png".
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ * @param {Phaser.Loader.FileTypes.ImageFrameConfig} [frameConfig] - The frame configuration object. Only provided for, and used by, Sprite Sheets.
  */
 var ImageFile = new Class({
 
@@ -36748,6 +38885,7 @@ var ImageFile = new Class({
     function ImageFile (loader, key, url, xhrSettings, frameConfig)
     {
         var extension = 'png';
+        var normalMapURL;
 
         if (IsPlainObject(key))
         {
@@ -36755,9 +38893,16 @@ var ImageFile = new Class({
 
             key = GetFastValue(config, 'key');
             url = GetFastValue(config, 'url');
+            normalMapURL = GetFastValue(config, 'normalMap');
             xhrSettings = GetFastValue(config, 'xhrSettings');
             extension = GetFastValue(config, 'extension', extension);
             frameConfig = GetFastValue(config, 'frameConfig');
+        }
+
+        if (Array.isArray(url))
+        {
+            normalMapURL = url[1];
+            url = url[0];
         }
 
         var fileConfig = {
@@ -36767,15 +38912,33 @@ var ImageFile = new Class({
             responseType: 'blob',
             key: key,
             url: url,
-            path: loader.path,
             xhrSettings: xhrSettings,
             config: frameConfig
         };
 
         File.call(this, loader, fileConfig);
+
+        //  Do we have a normal map to load as well?
+        if (normalMapURL)
+        {
+            var normalMap = new ImageFile(loader, this.key, normalMapURL, xhrSettings, frameConfig);
+
+            normalMap.type = 'normalMap';
+
+            this.setLink(normalMap);
+
+            loader.addFile(normalMap);
+        }
     },
 
-    onProcess: function (callback)
+    /**
+     * Called automatically by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data.
+     *
+     * @method Phaser.Loader.FileTypes.ImageFile#onProcess
+     * @since 3.7.0
+     */
+    onProcess: function ()
     {
         this.state = CONST.FILE_PROCESSING;
 
@@ -36789,48 +38952,145 @@ var ImageFile = new Class({
         {
             File.revokeObjectURL(_this.data);
 
-            _this.onComplete();
-
-            callback(_this);
+            _this.onProcessComplete();
         };
 
         this.data.onerror = function ()
         {
             File.revokeObjectURL(_this.data);
 
-            _this.state = CONST.FILE_ERRORED;
-
-            callback(_this);
+            _this.onProcessError();
         };
 
         File.createObjectURL(this.data, this.xhrLoader.response, 'image/png');
     },
 
+    /**
+     * Adds this file to its target cache upon successful loading and processing.
+     *
+     * @method Phaser.Loader.FileTypes.ImageFile#addToCache
+     * @since 3.7.0
+     */
     addToCache: function ()
     {
-        this.cache.addImage(this.key, this.data);
+        var texture;
+        var linkFile = this.linkFile;
 
-        this.loader.emit('filecomplete', this.key, this);
+        if (linkFile && linkFile.state === CONST.FILE_COMPLETE)
+        {
+            if (this.type === 'image')
+            {
+                texture = this.cache.addImage(this.key, this.data, linkFile.data);
+            }
+            else
+            {
+                texture = this.cache.addImage(linkFile.key, linkFile.data, this.data);
+            }
+
+            this.pendingDestroy(texture);
+
+            linkFile.pendingDestroy(texture);
+        }
+        else if (!linkFile)
+        {
+            texture = this.cache.addImage(this.key, this.data);
+
+            this.pendingDestroy(texture);
+        }
     }
 
 });
 
 /**
- * Adds an Image file to the current load queue.
+ * Adds an Image, or array of Images, to the current load queue.
  *
- * Note: This method will only be available if the Image File type has been built into Phaser.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.image('logo', 'images/phaserLogo.png');
+ * }
+ * ```
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * Phaser can load all common image types: png, jpg, gif and any other format the browser can natively handle.
+ * If you try to load an animated gif only the first frame will be rendered. Browsers do not natively support playback
+ * of animated gifs to Canvas elements.
+ *
+ * The key must be a unique String. It is used to add the file to the global Texture Manager upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the Texture Manager.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the Texture Manager first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.image({
+ *     key: 'logo',
+ *     url: 'images/AtariLogo.png'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.ImageFileConfig` for more details.
+ *
+ * Once the file has finished loading you can use it as a texture for a Game Object by referencing its key:
+ * 
+ * ```javascript
+ * this.load.image('logo', 'images/AtariLogo.png');
+ * // and later in your game ...
+ * this.add.image(x, y, 'logo');
+ * ```
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `MENU.` and the key was `Background` the final key will be `MENU.Background` and
+ * this is what you would use to retrieve the image from the Texture Manager.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "alien"
+ * and no URL is given then the Loader will set the URL to be "alien.png". It will always add `.png` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * Phaser also supports the automatic loading of associated normal maps. If you have a normal map to go with this image,
+ * then you can specify it by providing an array as the `url` where the second element is the normal map:
+ * 
+ * ```javascript
+ * this.load.image('logo', [ 'images/AtariLogo.png', 'images/AtariLogo-n.png' ]);
+ * ```
+ *
+ * Or, if you are using a config object use the `normalMap` property:
+ * 
+ * ```javascript
+ * this.load.image({
+ *     key: 'logo',
+ *     url: 'images/AtariLogo.png',
+ *     normalMap: 'images/AtariLogo-n.png'
+ * });
+ * ```
+ *
+ * The normal map file is subject to the same conditions as the image file with regard to the path, baseURL, CORs and XHR Settings.
+ * Normal maps are a WebGL only feature.
+ *
+ * Note: The ability to load this type of file will only be available if the Image File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#image
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {(string|Phaser.Loader.FileTypes.ImageFileConfig|Phaser.Loader.FileTypes.ImageFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string|string[]} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.png`, i.e. if `key` was "alien" then the URL will be "alien.png".
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
 FileTypesManager.register('image', function (key, url, xhrSettings)
 {
@@ -36873,11 +39133,26 @@ var CONST = __webpack_require__(/*! ../const */ "./loader/const.js");
 var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var GetValue = __webpack_require__(/*! ../../utils/object/GetValue */ "./utils/object/GetValue.js");
 var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
+ * @typedef {object} Phaser.Loader.FileTypes.JSONFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within both the Loader and the JSON Cache.
+ * @property {string|any} [url] - The absolute or relative URL to load the file from. Or can be a ready formed JSON object, in which case it will be directly added to the Cache.
+ * @property {string} [extension='json'] - The default file extension to use if no url is provided.
+ * @property {string} [dataKey] - If specified instead of the whole JSON file being parsed and added to the Cache, only the section corresponding to this property key will be added. If the property you want to extract is nested, use periods to divide it.
+ * @property {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ */
+
+/**
  * @classdesc
- * [description]
+ * A single JSON File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#json method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#json.
  *
  * @class JSONFile
  * @extends Phaser.Loader.File
@@ -36885,10 +39160,11 @@ var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ 
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.JSONFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ * @param {string} [dataKey] - When the JSON file loads only this property will be stored in the Cache.
  */
 var JSONFile = new Class({
 
@@ -36897,8 +39173,9 @@ var JSONFile = new Class({
     initialize:
 
     //  url can either be a string, in which case it is treated like a proper url, or an object, in which case it is treated as a ready-made JS Object
+    //  dataKey allows you to pluck a specific object out of the JSON and put just that into the cache, rather than the whole thing
 
-    function JSONFile (loader, key, url, xhrSettings)
+    function JSONFile (loader, key, url, xhrSettings, dataKey)
     {
         var extension = 'json';
 
@@ -36910,6 +39187,7 @@ var JSONFile = new Class({
             url = GetFastValue(config, 'url');
             xhrSettings = GetFastValue(config, 'xhrSettings');
             extension = GetFastValue(config, 'extension', extension);
+            dataKey = GetFastValue(config, 'dataKey', dataKey);
         }
 
         var fileConfig = {
@@ -36919,8 +39197,8 @@ var JSONFile = new Class({
             responseType: 'text',
             key: key,
             url: url,
-            path: loader.path,
-            xhrSettings: xhrSettings
+            xhrSettings: xhrSettings,
+            config: dataKey
         };
 
         File.call(this, loader, fileConfig);
@@ -36928,43 +39206,138 @@ var JSONFile = new Class({
         if (IsPlainObject(url))
         {
             //  Object provided instead of a URL, so no need to actually load it (populate data with value)
-            this.data = url;
+            if (dataKey)
+            {
+                this.data = GetValue(url, dataKey);
+            }
+            else
+            {
+                this.data = url;
+            }
 
             this.state = CONST.FILE_POPULATED;
         }
     },
 
-    onProcess: function (callback)
+    /**
+     * Called automatically by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data.
+     *
+     * @method Phaser.Loader.FileTypes.JSONFile#onProcess
+     * @since 3.7.0
+     */
+    onProcess: function ()
     {
-        this.state = CONST.FILE_PROCESSING;
+        if (this.state !== CONST.FILE_POPULATED)
+        {
+            this.state = CONST.FILE_PROCESSING;
 
-        this.data = JSON.parse(this.xhrLoader.responseText);
+            var json = JSON.parse(this.xhrLoader.responseText);
 
-        this.onComplete();
+            var key = this.config;
 
-        callback(this);
+            if (typeof key === 'string')
+            {
+                this.data = GetValue(json, key, json);
+            }
+            else
+            {
+                this.data = json;
+            }
+        }
+
+        this.onProcessComplete();
     }
 
 });
 
 /**
- * Adds a JSON file to the current load queue.
+ * Adds a JSON file, or array of JSON files, to the current load queue.
  *
- * Note: This method will only be available if the JSON File type has been built into Phaser.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.json('wavedata', 'files/AlienWaveData.json');
+ * }
+ * ```
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * The key must be a unique String. It is used to add the file to the global JSON Cache upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the JSON Cache.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the JSON Cache first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.json({
+ *     key: 'wavedata',
+ *     url: 'files/AlienWaveData.json'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.JSONFileConfig` for more details.
+ *
+ * Once the file has finished loading you can access it from its Cache using its key:
+ * 
+ * ```javascript
+ * this.load.json('wavedata', 'files/AlienWaveData.json');
+ * // and later in your game ...
+ * var data = this.cache.json.get('wavedata');
+ * ```
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `LEVEL1.` and the key was `Waves` the final key will be `LEVEL1.Waves` and
+ * this is what you would use to retrieve the text from the JSON Cache.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "data"
+ * and no URL is given then the Loader will set the URL to be "data.json". It will always add `.json` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * You can also optionally provide a `dataKey` to use. This allows you to extract only a part of the JSON and store it in the Cache,
+ * rather than the whole file. For example, if your JSON data had a structure like this:
+ * 
+ * ```json
+ * {
+ *     "level1": {
+ *         "baddies": {
+ *             "aliens": {},
+ *             "boss": {}
+ *         }
+ *     },
+ *     "level2": {},
+ *     "level3": {}
+ * }
+ * ```
+ *
+ * And you only wanted to store the `boss` data in the Cache, then you could pass `level1.baddies.boss`as the `dataKey`.
+ *
+ * Note: The ability to load this type of file will only be available if the JSON File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#json
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {(string|Phaser.Loader.FileTypes.JSONFileConfig|Phaser.Loader.FileTypes.JSONFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
+ * @param {string} [dataKey] - When the JSON file loads only this property will be stored in the Cache.
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
-FileTypesManager.register('json', function (key, url, xhrSettings)
+FileTypesManager.register('json', function (key, url, dataKey, xhrSettings)
 {
     if (Array.isArray(key))
     {
@@ -36976,7 +39349,7 @@ FileTypesManager.register('json', function (key, url, xhrSettings)
     }
     else
     {
-        this.addFile(new JSONFile(this, key, url, xhrSettings));
+        this.addFile(new JSONFile(this, key, url, xhrSettings, dataKey));
     }
 
     return this;
@@ -36987,10 +39360,10 @@ module.exports = JSONFile;
 
 /***/ }),
 
-/***/ "./loader/filetypes/MultiAtlas.js":
-/*!****************************************!*\
-  !*** ./loader/filetypes/MultiAtlas.js ***!
-  \****************************************/
+/***/ "./loader/filetypes/MultiAtlasFile.js":
+/*!********************************************!*\
+  !*** ./loader/filetypes/MultiAtlasFile.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37000,83 +39373,330 @@ module.exports = JSONFile;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
+var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/ImageFile.js");
+var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 var JSONFile = __webpack_require__(/*! ./JSONFile.js */ "./loader/filetypes/JSONFile.js");
-var NumberArray = __webpack_require__(/*! ../../utils/array/NumberArray */ "./utils/array/NumberArray.js");
+var MultiFile = __webpack_require__(/*! ../MultiFile.js */ "./loader/MultiFile.js");
 
 /**
- * Adds a Multi File Texture Atlas to the current load queue.
+ * @typedef {object} Phaser.Loader.FileTypes.MultiAtlasFileConfig
  *
- * Note: This method will only be available if the Multi Atlas File type has been built into Phaser.
+ * @property {string} key - The key of the file. Must be unique within both the Loader and the Texture Manager.
+ * @property {string} [atlasURL] - The absolute or relative URL to load the multi atlas json file from. Or, a well formed JSON object.
+ * @property {string} [atlasExtension='json'] - The default file extension to use for the atlas json if no url is provided.
+ * @property {XHRSettingsObject} [atlasXhrSettings] - Extra XHR Settings specifically for the atlas json file.
+ * @property {string} [path] - Optional path to use when loading the textures defined in the atlas data.
+ * @property {string} [baseURL] - Optional Base URL to use when loading the textures defined in the atlas data.
+ * @property {XHRSettingsObject} [textureXhrSettings] - Extra XHR Settings specifically for the texture files.
+ */
+
+/**
+ * @classdesc
+ * A single Multi Texture Atlas File suitable for loading by the Loader.
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * These are created when you use the Phaser.Loader.LoaderPlugin#multiatlas method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#multiatlas.
+ *
+ * @class MultiAtlasFile
+ * @extends Phaser.Loader.MultiFile
+ * @memberOf Phaser.Loader.FileTypes
+ * @constructor
+ * @since 3.7.0
+ *
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {string} key - The key of the file. Must be unique within both the Loader and the Texture Manager.
+ * @param {string} [atlasURL] - The absolute or relative URL to load the multi atlas json file from.
+ * @param {string} [path] - Optional path to use when loading the textures defined in the atlas data.
+ * @param {string} [baseURL] - Optional Base URL to use when loading the textures defined in the atlas data.
+ * @param {XHRSettingsObject} [atlasXhrSettings] - Extra XHR Settings specifically for the atlas json file.
+ * @param {XHRSettingsObject} [textureXhrSettings] - Extra XHR Settings specifically for the texture files.
+ */
+var MultiAtlasFile = new Class({
+
+    Extends: MultiFile,
+
+    initialize:
+
+    function MultiAtlasFile (loader, key, atlasURL, path, baseURL, atlasXhrSettings, textureXhrSettings)
+    {
+        if (IsPlainObject(key))
+        {
+            var config = key;
+
+            key = GetFastValue(config, 'key');
+            atlasURL = GetFastValue(config, 'url');
+            atlasXhrSettings = GetFastValue(config, 'xhrSettings');
+            path = GetFastValue(config, 'path');
+            baseURL = GetFastValue(config, 'baseURL');
+            textureXhrSettings = GetFastValue(config, 'textureXhrSettings');
+        }
+
+        var data = new JSONFile(loader, key, atlasURL, atlasXhrSettings);
+
+        MultiFile.call(this, loader, 'multiatlas', key, [ data ]);
+
+        this.config.path = path;
+        this.config.baseURL = baseURL;
+        this.config.textureXhrSettings = textureXhrSettings;
+    },
+
+    /**
+     * Called by each File when it finishes loading.
+     *
+     * @method Phaser.Loader.MultiFile#onFileComplete
+     * @since 3.7.0
+     *
+     * @param {Phaser.Loader.File} file - The File that has completed processing.
+     */
+    onFileComplete: function (file)
+    {
+        var index = this.files.indexOf(file);
+
+        if (index !== -1)
+        {
+            this.pending--;
+
+            if (file.type === 'json' && file.data.hasOwnProperty('textures'))
+            {
+                //  Inspect the data for the files to now load
+                var textures = file.data.textures;
+
+                var config = this.config;
+                var loader = this.loader;
+
+                var currentBaseURL = loader.baseURL;
+                var currentPath = loader.path;
+                var currentPrefix = loader.prefix;
+
+                var baseURL = GetFastValue(config, 'baseURL', currentBaseURL);
+                var path = GetFastValue(config, 'path', currentPath);
+                var prefix = GetFastValue(config, 'prefix', currentPrefix);
+                var textureXhrSettings = GetFastValue(config, 'textureXhrSettings');
+
+                loader.setBaseURL(baseURL);
+                loader.setPath(path);
+                loader.setPrefix(prefix);
+
+                for (var i = 0; i < textures.length; i++)
+                {
+                    //  "image": "texture-packer-multi-atlas-0.png",
+                    var textureURL = textures[i].image;
+
+                    var key = '_MA_' + textureURL;
+
+                    var image = new ImageFile(loader, key, textureURL, textureXhrSettings);
+
+                    this.addToMultiFile(image);
+
+                    loader.addFile(image);
+
+                    //  "normalMap": "texture-packer-multi-atlas-0_n.png",
+                    if (textures[i].normalMap)
+                    {
+                        var normalMap = new ImageFile(loader, key, textures[i].normalMap, textureXhrSettings);
+
+                        normalMap.type = 'normalMap';
+
+                        image.setLink(normalMap);
+
+                        this.addToMultiFile(normalMap);
+
+                        loader.addFile(normalMap);
+                    }
+                }
+
+                //  Reset the loader settings
+                loader.setBaseURL(currentBaseURL);
+                loader.setPath(currentPath);
+                loader.setPrefix(currentPrefix);
+            }
+        }
+    },
+
+    /**
+     * Adds this file to its target cache upon successful loading and processing.
+     *
+     * @method Phaser.Loader.MultiFile#addToCache
+     * @since 3.7.0
+     */
+    addToCache: function ()
+    {
+        if (this.isReadyToProcess())
+        {
+            var fileJSON = this.files[0];
+
+            fileJSON.addToCache();
+
+            var data = [];
+            var images = [];
+            var normalMaps = [];
+
+            for (var i = 1; i < this.files.length; i++)
+            {
+                var file = this.files[i];
+
+                if (file.type === 'normalMap')
+                {
+                    continue;
+                }
+
+                var key = file.key.substr(4);
+                var image = file.data;
+
+                //  Now we need to find out which json entry this mapped to
+                for (var t = 0; t < fileJSON.data.textures.length; t++)
+                {
+                    var item = fileJSON.data.textures[t];
+
+                    if (item.image === key)
+                    {
+                        images.push(image);
+                        
+                        data.push(item);
+
+                        if (file.linkFile)
+                        {
+                            normalMaps.push(file.linkFile.data);
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            if (normalMaps.length === 0)
+            {
+                normalMaps = undefined;
+            }
+
+            this.loader.textureManager.addAtlasJSONArray(this.key, images, data, normalMaps);
+
+            this.complete = true;
+
+            for (i = 0; i < this.files.length; i++)
+            {
+                this.files[i].pendingDestroy();
+            }
+        }
+    }
+
+});
+
+/**
+ * Adds a Multi Texture Atlas, or array of multi atlases, to the current load queue.
+ *
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.multiatlas('level1', 'images/Level1.json');
+ * }
+ * ```
+ *
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * If you call this from outside of `preload` then you are responsible for starting the Loader afterwards and monitoring
+ * its events to know when it's safe to use the asset. Please see the Phaser.Loader.LoaderPlugin class for more details.
+ *
+ * Phaser expects the atlas data to be provided in a JSON file as exported from the application Texture Packer,
+ * version 4.6.3 or above, where you have made sure to use the Phaser 3 Export option.
+ *
+ * The way it works internally is that you provide a URL to the JSON file. Phaser then loads this JSON, parses it and
+ * extracts which texture files it also needs to load to complete the process. If the JSON also defines normal maps,
+ * Phaser will load those as well.
+ * 
+ * The key must be a unique String. It is used to add the file to the global Texture Manager upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the Texture Manager.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the Texture Manager first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.multiatlas({
+ *     key: 'level1',
+ *     atlasURL: 'images/Level1.json'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.MultiAtlasFileConfig` for more details.
+ *
+ * Instead of passing a URL for the atlas JSON data you can also pass in a well formed JSON object instead.
+ *
+ * Once the atlas has finished loading you can use frames from it as textures for a Game Object by referencing its key:
+ * 
+ * ```javascript
+ * this.load.multiatlas('level1', 'images/Level1.json');
+ * // and later in your game ...
+ * this.add.image(x, y, 'level1', 'background');
+ * ```
+ *
+ * To get a list of all available frames within an atlas please consult your Texture Atlas software.
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `MENU.` and the key was `Background` the final key will be `MENU.Background` and
+ * this is what you would use to retrieve the image from the Texture Manager.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "alien"
+ * and no URL is given then the Loader will set the URL to be "alien.png". It will always add `.png` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * Note: The ability to load this type of file will only be available if the Multi Atlas File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#multiatlas
- * @since 3.0.0
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
+ * @since 3.7.0
  *
- * @param {string} key - [description]
- * @param {string[]} textureURLs - [description]
- * @param {string[]} atlasURLs - [description]
- * @param {XHRSettingsObject} [textureXhrSettings] - [description]
- * @param {XHRSettingsObject} [atlasXhrSettings] - [description]
+ * @param {(string|Phaser.Loader.FileTypes.MultiAtlasFileConfig|Phaser.Loader.FileTypes.MultiAtlasFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string} [atlasURL] - The absolute or relative URL to load the texture atlas json data file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
+ * @param {string} [path] - Optional path to use when loading the textures defined in the atlas data.
+ * @param {string} [baseURL] - Optional Base URL to use when loading the textures defined in the atlas data.
+ * @param {XHRSettingsObject} [atlasXhrSettings] - An XHR Settings configuration object for the atlas json file. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
-FileTypesManager.register('multiatlas', function (key, textureURLs, atlasURLs, textureXhrSettings, atlasXhrSettings)
+FileTypesManager.register('multiatlas', function (key, atlasURL, path, baseURL, atlasXhrSettings)
 {
-    if (typeof textureURLs === 'number')
-    {
-        var total = textureURLs;
-        var suffix = (atlasURLs === undefined) ? '' : atlasURLs;
+    var multifile;
 
-        textureURLs = NumberArray(0, total, key + suffix, '.png');
-        atlasURLs = NumberArray(0, total, key + suffix, '.json');
+    //  Supports an Object file definition in the key argument
+    //  Or an array of objects in the key argument
+    //  Or a single entry where all arguments have been defined
+
+    if (Array.isArray(key))
+    {
+        for (var i = 0; i < key.length; i++)
+        {
+            multifile = new MultiAtlasFile(this, key[i]);
+
+            this.addFile(multifile.files);
+        }
     }
     else
     {
-        if (!Array.isArray(textureURLs))
-        {
-            textureURLs = [ textureURLs ];
-        }
+        multifile = new MultiAtlasFile(this, key, atlasURL, path, baseURL, atlasXhrSettings);
 
-        if (!Array.isArray(atlasURLs))
-        {
-            atlasURLs = [ atlasURLs ];
-        }
-    }
-
-    var file;
-    var i = 0;
-    var multiKey;
-
-    this._multilist[key] = [];
-
-    for (i = 0; i < textureURLs.length; i++)
-    {
-        multiKey = '_MA_IMG_' + key + '_' + i.toString();
-
-        file = new ImageFile(this, multiKey, textureURLs[i], textureXhrSettings);
-
-        this.addFile(file);
-
-        this._multilist[key].push(multiKey);
-    }
-
-    for (i = 0; i < atlasURLs.length; i++)
-    {
-        multiKey = '_MA_JSON_' + key + '_' + i.toString();
-
-        file = new JSONFile(this, multiKey, atlasURLs[i], atlasXhrSettings);
-
-        this.addFile(file);
-
-        this._multilist[key].push(multiKey);
+        this.addFile(multifile.files);
     }
 
     return this;
 });
+
+module.exports = MultiAtlasFile;
 
 
 /***/ }),
@@ -37100,11 +39720,24 @@ var File = __webpack_require__(/*! ../File */ "./loader/File.js");
 var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/FileTypesManager.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
-var PluginManager = __webpack_require__(/*! ../../boot/PluginManager */ "./boot/PluginManager.js");
+
+/**
+ * @typedef {object} Phaser.Loader.FileTypes.PluginFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within the Loader.
+ * @property {string} [url] - The absolute or relative URL to load the file from.
+ * @property {string} [extension='js'] - The default file extension to use if no url is provided.
+ * @property {boolean} [start=false] - Automatically start the plugin after loading?
+ * @property {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ */
 
 /**
  * @classdesc
- * [description]
+ * A single Plugin Script File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#plugin method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#plugin.
  *
  * @class PluginFile
  * @extends Phaser.Loader.File
@@ -37112,10 +39745,11 @@ var PluginManager = __webpack_require__(/*! ../../boot/PluginManager */ "./boot/
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.PluginFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.js`, i.e. if `key` was "alien" then the URL will be "alien.js".
+ * @param {boolean} [start=false] - Automatically start the plugin after loading?
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
  */
 var PluginFile = new Class({
 
@@ -37123,7 +39757,7 @@ var PluginFile = new Class({
 
     initialize:
 
-    function PluginFile (loader, key, url, xhrSettings)
+    function PluginFile (loader, key, url, start, xhrSettings)
     {
         var extension = 'js';
 
@@ -37135,69 +39769,129 @@ var PluginFile = new Class({
             url = GetFastValue(config, 'url');
             xhrSettings = GetFastValue(config, 'xhrSettings');
             extension = GetFastValue(config, 'extension', extension);
-        }
-
-        // If the url variable refers to a class, add the plugin directly
-        if (typeof url === 'function')
-        {
-            window[key] = url;
-            window[key].register(PluginManager);
+            start = GetFastValue(config, 'start');
         }
 
         var fileConfig = {
-            type: 'script',
+            type: 'plugin',
             cache: false,
             extension: extension,
             responseType: 'text',
             key: key,
             url: url,
-            path: loader.path,
-            xhrSettings: xhrSettings
+            xhrSettings: xhrSettings,
+            config: { start: start }
         };
 
-        File.call(this, fileConfig);
+        File.call(this, loader, fileConfig);
+
+        // If the url variable refers to a class, add the plugin directly
+        if (typeof url === 'function')
+        {
+            this.data = url;
+
+            this.state = CONST.FILE_POPULATED;
+        }
     },
 
-    onProcess: function (callback)
+    /**
+     * Called automatically by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data.
+     *
+     * @method Phaser.Loader.FileTypes.PluginFile#onProcess
+     * @since 3.7.0
+     */
+    onProcess: function ()
     {
-        this.state = CONST.FILE_PROCESSING;
+        var pluginManager = this.loader.systems.plugins;
+        var config = this.config;
 
-        this.data = document.createElement('script');
-        this.data.language = 'javascript';
-        this.data.type = 'text/javascript';
-        this.data.defer = false;
-        this.data.text = this.xhrLoader.responseText;
+        var start = GetFastValue(config, 'start', false);
 
-        document.head.appendChild(this.data);
+        if (this.state === CONST.FILE_POPULATED)
+        {
+            pluginManager.install(this.key, this.data, start);
+        }
+        else
+        {
+            //  Plugin added via a js file
+            this.state = CONST.FILE_PROCESSING;
 
-        //  Need to wait for onload?
-        window[this.key].register(PluginManager);
+            this.data = document.createElement('script');
+            this.data.language = 'javascript';
+            this.data.type = 'text/javascript';
+            this.data.defer = false;
+            this.data.text = this.xhrLoader.responseText;
 
-        this.onComplete();
+            document.head.appendChild(this.data);
 
-        callback(this);
+            pluginManager.install(this.key, window[this.key], start);
+        }
+
+        this.onProcessComplete();
     }
 
 });
 
 /**
- * Adds a Plugin file to the current load queue.
+ * Adds a Plugin Script file, or array of plugin files, to the current load queue.
  *
- * Note: This method will only be available if the Plugin File type has been built into Phaser.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.plugin('modplayer', 'plugins/ModPlayer.js');
+ * }
+ * ```
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * The key must be a unique String and not already in-use by another file in the Loader.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.plugin({
+ *     key: 'modplayer',
+ *     url: 'plugins/ModPlayer.js'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.PluginFileConfig` for more details.
+ *
+ * Once the file has finished loading it will automatically be converted into a script element
+ * via `document.createElement('script')`. It will have its language set to JavaScript, `defer` set to
+ * false and then the resulting element will be appended to `document.head`. Any code then in the
+ * script will be executed. It will then be passed to the Phaser PluginCache.register method.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "alien"
+ * and no URL is given then the Loader will set the URL to be "alien.js". It will always add `.js` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * Note: The ability to load this type of file will only be available if the Script File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#plugin
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {(string|Phaser.Loader.FileTypes.PluginFileConfig|Phaser.Loader.FileTypes.PluginFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {(string|function)} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.js`, i.e. if `key` was "alien" then the URL will be "alien.js". Or, a plugin function.
+ * @param {boolean} [start] - The plugin mapping configuration object.
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
-FileTypesManager.register('plugin', function (key, url, xhrSettings)
+FileTypesManager.register('plugin', function (key, url, start, xhrSettings)
 {
     if (Array.isArray(key))
     {
@@ -37209,7 +39903,7 @@ FileTypesManager.register('plugin', function (key, url, xhrSettings)
     }
     else
     {
-        this.addFile(new PluginFile(this, key, url, xhrSettings));
+        this.addFile(new PluginFile(this, key, url, start, xhrSettings));
     }
 
     return this;
@@ -37241,8 +39935,21 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
 var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
+ * @typedef {object} Phaser.Loader.FileTypes.ScriptFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within the Loader.
+ * @property {string} [url] - The absolute or relative URL to load the file from.
+ * @property {string} [extension='js'] - The default file extension to use if no url is provided.
+ * @property {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ */
+
+/**
  * @classdesc
- * [description]
+ * A single Script File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#script method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#script.
  *
  * @class ScriptFile
  * @extends Phaser.Loader.File
@@ -37250,10 +39957,10 @@ var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ 
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.ScriptFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.js`, i.e. if `key` was "alien" then the URL will be "alien.js".
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
  */
 var ScriptFile = new Class({
 
@@ -37282,14 +39989,20 @@ var ScriptFile = new Class({
             responseType: 'text',
             key: key,
             url: url,
-            path: loader.path,
             xhrSettings: xhrSettings
         };
 
-        File.call(this, fileConfig);
+        File.call(this, loader, fileConfig);
     },
 
-    onProcess: function (callback)
+    /**
+     * Called automatically by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data.
+     *
+     * @method Phaser.Loader.FileTypes.ScriptFile#onProcess
+     * @since 3.7.0
+     */
+    onProcess: function ()
     {
         this.state = CONST.FILE_PROCESSING;
 
@@ -37301,29 +40014,67 @@ var ScriptFile = new Class({
 
         document.head.appendChild(this.data);
 
-        this.onComplete();
-
-        callback(this);
+        this.onProcessComplete();
     }
 
 });
 
 /**
- * Adds a JavaScript file to the current load queue.
+ * Adds a Script file, or array of Script files, to the current load queue.
  *
- * Note: This method will only be available if the Script File type has been built into Phaser.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.script('aliens', 'lib/aliens.js');
+ * }
+ * ```
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * The key must be a unique String and not already in-use by another file in the Loader.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.script({
+ *     key: 'aliens',
+ *     url: 'lib/aliens.js'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.ScriptFileConfig` for more details.
+ *
+ * Once the file has finished loading it will automatically be converted into a script element
+ * via `document.createElement('script')`. It will have its language set to JavaScript, `defer` set to
+ * false and then the resulting element will be appended to `document.head`. Any code then in the
+ * script will be executed.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "alien"
+ * and no URL is given then the Loader will set the URL to be "alien.js". It will always add `.js` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * Note: The ability to load this type of file will only be available if the Script File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#script
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {(string|Phaser.Loader.FileTypes.ScriptFileConfig|Phaser.Loader.FileTypes.ScriptFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.js`, i.e. if `key` was "alien" then the URL will be "alien.js".
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
 FileTypesManager.register('script', function (key, url, xhrSettings)
 {
@@ -37366,8 +40117,23 @@ var FileTypesManager = __webpack_require__(/*! ../FileTypesManager */ "./loader/
 var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/ImageFile.js");
 
 /**
+ * @typedef {object} Phaser.Loader.FileTypes.SpriteSheetFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within both the Loader and the Texture Manager.
+ * @property {string} [url] - The absolute or relative URL to load the file from.
+ * @property {string} [extension='png'] - The default file extension to use if no url is provided.
+ * @property {string} [normalMap] - The filename of an associated normal map. It uses the same path and url to load as the image.
+ * @property {Phaser.Loader.FileTypes.ImageFrameConfig} [frameConfig] - The frame configuration object.
+ * @property {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ */
+
+/**
  * @classdesc
- * [description]
+ * A single Sprite Sheet Image File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#spritesheet method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#spritesheet.
  *
  * @class SpriteSheetFile
  * @extends Phaser.Loader.File
@@ -37375,10 +40141,11 @@ var ImageFile = __webpack_require__(/*! ./ImageFile.js */ "./loader/filetypes/Im
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {object} [config] - config can include: frameWidth, frameHeight, startFrame, endFrame, margin, spacing
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.SpriteSheetFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string|string[]} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.png`, i.e. if `key` was "alien" then the URL will be "alien.png".
+ * @param {Phaser.Loader.FileTypes.ImageFrameConfig} [frameConfig] - The frame configuration object.
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
  */
 var SpriteSheetFile = new Class({
 
@@ -37386,43 +40153,137 @@ var SpriteSheetFile = new Class({
 
     initialize:
 
-    //  url can either be a string, in which case it is treated like a proper url, or an object, in which case it is treated as a ready-made JS Object
-
-    function SpriteSheetFile (loader, key, url, config, xhrSettings)
+    function SpriteSheetFile (loader, key, url, frameConfig, xhrSettings)
     {
-        ImageFile.call(this, loader, key, url, xhrSettings, config);
+        ImageFile.call(this, loader, key, url, xhrSettings, frameConfig);
 
         this.type = 'spritesheet';
     },
 
+    /**
+     * Adds this file to its target cache upon successful loading and processing.
+     *
+     * @method Phaser.Loader.FileTypes.SpriteSheetFile#addToCache
+     * @since 3.7.0
+     */
     addToCache: function ()
     {
-        this.cache.addSpriteSheet(this.key, this.data, this.config);
+        var texture = this.cache.addSpriteSheet(this.key, this.data, this.config);
 
-        this.loader.emit('filecomplete', this.key, this);
+        this.pendingDestroy(texture);
     }
 
 });
 
 /**
- * Adds a Sprite Sheet file to the current load queue.
+ * Adds a Sprite Sheet Image, or array of Sprite Sheet Images, to the current load queue.
  *
- * Note: This method will only be available if the Sprite Sheet File type has been built into Phaser.
+ * The term 'Sprite Sheet' in Phaser means a fixed-size sheet. Where every frame in the sheet is the exact same size,
+ * and you reference those frames using numbers, not frame names. This is not the same thing as a Texture Atlas, where
+ * the frames are packed in a way where they take up the least amount of space, and are referenced by their names,
+ * not numbers. Some articles and software use the term 'Sprite Sheet' to mean Texture Atlas, so please be aware of
+ * what sort of file you're actually trying to load.
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.spritesheet('bot', 'images/robot.png', { frameWidth: 32, frameHeight: 38 });
+ * }
+ * ```
+ *
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * Phaser can load all common image types: png, jpg, gif and any other format the browser can natively handle.
+ * If you try to load an animated gif only the first frame will be rendered. Browsers do not natively support playback
+ * of animated gifs to Canvas elements.
+ *
+ * The key must be a unique String. It is used to add the file to the global Texture Manager upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the Texture Manager.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the Texture Manager first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.spritesheet({
+ *     key: 'bot',
+ *     url: 'images/robot.png',
+ *     frameConfig: {
+ *         frameWidth: 32,
+ *         frameHeight: 38,
+ *         startFrame: 0,
+ *         endFrame: 8
+ *     }
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.SpriteSheetFileConfig` for more details.
+ *
+ * Once the file has finished loading you can use it as a texture for a Game Object by referencing its key:
+ * 
+ * ```javascript
+ * this.load.spritesheet('bot', 'images/robot.png', { frameWidth: 32, frameHeight: 38 });
+ * // and later in your game ...
+ * this.add.image(x, y, 'bot', 0);
+ * ```
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `PLAYER.` and the key was `Running` the final key will be `PLAYER.Running` and
+ * this is what you would use to retrieve the image from the Texture Manager.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "alien"
+ * and no URL is given then the Loader will set the URL to be "alien.png". It will always add `.png` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * Phaser also supports the automatic loading of associated normal maps. If you have a normal map to go with this image,
+ * then you can specify it by providing an array as the `url` where the second element is the normal map:
+ * 
+ * ```javascript
+ * this.load.spritesheet('logo', [ 'images/AtariLogo.png', 'images/AtariLogo-n.png' ], { frameWidth: 256, frameHeight: 80 });
+ * ```
+ *
+ * Or, if you are using a config object use the `normalMap` property:
+ * 
+ * ```javascript
+ * this.load.spritesheet({
+ *     key: 'logo',
+ *     url: 'images/AtariLogo.png',
+ *     normalMap: 'images/AtariLogo-n.png',
+ *     frameConfig: {
+ *         frameWidth: 256,
+ *         frameHeight: 80
+ *     }
+ * });
+ * ```
+ *
+ * The normal map file is subject to the same conditions as the image file with regard to the path, baseURL, CORs and XHR Settings.
+ * Normal maps are a WebGL only feature.
+ * 
+ * Note: The ability to load this type of file will only be available if the Sprite Sheet File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#spritesheet
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {object} config - config can include: frameWidth, frameHeight, startFrame, endFrame, margin, spacing.
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {(string|Phaser.Loader.FileTypes.SpriteSheetFileConfig|Phaser.Loader.FileTypes.SpriteSheetFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.png`, i.e. if `key` was "alien" then the URL will be "alien.png".
+ * @param {Phaser.Loader.FileTypes.ImageFrameConfig} [frameConfig] - The frame configuration object. At a minimum it should have a `frameWidth` property.
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
-FileTypesManager.register('spritesheet', function (key, url, config, xhrSettings)
+FileTypesManager.register('spritesheet', function (key, url, frameConfig, xhrSettings)
 {
     if (Array.isArray(key))
     {
@@ -37434,7 +40295,7 @@ FileTypesManager.register('spritesheet', function (key, url, config, xhrSettings
     }
     else
     {
-        this.addFile(new SpriteSheetFile(this, key, url, config, xhrSettings));
+        this.addFile(new SpriteSheetFile(this, key, url, frameConfig, xhrSettings));
     }
 
     return this;
@@ -37466,8 +40327,21 @@ var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ ".
 var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
 
 /**
+ * @typedef {object} Phaser.Loader.FileTypes.TextFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within both the Loader and the Text Cache.
+ * @property {string} [url] - The absolute or relative URL to load the file from.
+ * @property {string} [extension='txt'] - The default file extension to use if no url is provided.
+ * @property {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ */
+
+/**
  * @classdesc
- * [description]
+ * A single Text File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#text method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#text.
  *
  * @class TextFile
  * @extends Phaser.Loader.File
@@ -37475,10 +40349,10 @@ var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ 
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.TextFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.txt`, i.e. if `key` was "alien" then the URL will be "alien.txt".
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
  */
 var TextFile = new Class({
 
@@ -37507,42 +40381,96 @@ var TextFile = new Class({
             responseType: 'text',
             key: key,
             url: url,
-            path: loader.path,
             xhrSettings: xhrSettings
         };
 
         File.call(this, loader, fileConfig);
     },
 
-    onProcess: function (callback)
+    /**
+     * Called automatically by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data.
+     *
+     * @method Phaser.Loader.FileTypes.TextFile#onProcess
+     * @since 3.7.0
+     */
+    onProcess: function ()
     {
         this.state = CONST.FILE_PROCESSING;
 
         this.data = this.xhrLoader.responseText;
 
-        this.onComplete();
-
-        callback(this);
+        this.onProcessComplete();
     }
 
 });
 
 /**
- * Adds a Text file to the current load queue.
+ * Adds a Text file, or array of Text files, to the current load queue.
  *
- * Note: This method will only be available if the Text File type has been built into Phaser.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.text('story', files/IntroStory.txt');
+ * }
+ * ```
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * The key must be a unique String. It is used to add the file to the global Text Cache upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the Text Cache.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the Text Cache first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.text({
+ *     key: 'story',
+ *     url: 'files/IntroStory.txt'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.TextFileConfig` for more details.
+ *
+ * Once the file has finished loading you can access it from its Cache using its key:
+ * 
+ * ```javascript
+ * this.load.image('story', 'files/IntroStory.txt');
+ * // and later in your game ...
+ * var data = this.cache.text.get('story');
+ * ```
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `LEVEL1.` and the key was `Story` the final key will be `LEVEL1.Story` and
+ * this is what you would use to retrieve the text from the Text Cache.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "story"
+ * and no URL is given then the Loader will set the URL to be "story.txt". It will always add `.txt` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * Note: The ability to load this type of file will only be available if the Text File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#text
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {(string|Phaser.Loader.FileTypes.TextFileConfig|Phaser.Loader.FileTypes.TextFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.txt`, i.e. if `key` was "alien" then the URL will be "alien.txt".
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
 FileTypesManager.register('text', function (key, url, xhrSettings)
 {
@@ -37589,8 +40517,21 @@ var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ 
 var ParseXML = __webpack_require__(/*! ../../dom/ParseXML */ "./dom/ParseXML.js");
 
 /**
+ * @typedef {object} Phaser.Loader.FileTypes.XMLFileConfig
+ *
+ * @property {string} key - The key of the file. Must be unique within both the Loader and the Text Cache.
+ * @property {string} [url] - The absolute or relative URL to load the file from.
+ * @property {string} [extension='xml'] - The default file extension to use if no url is provided.
+ * @property {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
+ */
+
+/**
  * @classdesc
- * [description]
+ * A single XML File suitable for loading by the Loader.
+ *
+ * These are created when you use the Phaser.Loader.LoaderPlugin#xml method and are not typically created directly.
+ * 
+ * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#xml.
  *
  * @class XMLFile
  * @extends Phaser.Loader.File
@@ -37598,10 +40539,10 @@ var ParseXML = __webpack_require__(/*! ../../dom/ParseXML */ "./dom/ParseXML.js"
  * @constructor
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {string} path - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
+ * @param {(string|Phaser.Loader.FileTypes.XMLFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.xml`, i.e. if `key` was "alien" then the URL will be "alien.xml".
+ * @param {XHRSettingsObject} [xhrSettings] - Extra XHR Settings specifically for this file.
  */
 var XMLFile = new Class({
 
@@ -37630,47 +40571,105 @@ var XMLFile = new Class({
             responseType: 'text',
             key: key,
             url: url,
-            path: loader.path,
             xhrSettings: xhrSettings
         };
 
         File.call(this, loader, fileConfig);
     },
 
-    onProcess: function (callback)
+    /**
+     * Called automatically by Loader.nextFile.
+     * This method controls what extra work this File does with its loaded data.
+     *
+     * @method Phaser.Loader.FileTypes.XMLFile#onProcess
+     * @since 3.7.0
+     */
+    onProcess: function ()
     {
         this.state = CONST.FILE_PROCESSING;
 
         this.data = ParseXML(this.xhrLoader.responseText);
 
-        if (this.data === null)
+        if (this.data)
         {
-            throw new Error('XMLFile: Invalid XML');
+            this.onProcessComplete();
         }
-
-        this.onComplete();
-
-        callback(this);
+        else
+        {
+            console.warn('Invalid XMLFile: ' + this.key);
+            
+            this.onProcessError();
+        }
     }
 
 });
 
 /**
- * Adds an XML file to the current load queue.
+ * Adds an XML file, or array of XML files, to the current load queue.
  *
- * Note: This method will only be available if the XML File type has been built into Phaser.
+ * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+ * 
+ * ```javascript
+ * function preload ()
+ * {
+ *     this.load.xml('wavedata', 'files/AlienWaveData.xml');
+ * }
+ * ```
  *
- * The file is **not** loaded immediately after calling this method.
- * Instead, the file is added to a queue within the Loader, which is processed automatically when the Loader starts.
+ * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+ * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+ * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+ * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+ * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+ * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+ * loaded.
+ * 
+ * The key must be a unique String. It is used to add the file to the global XML Cache upon a successful load.
+ * The key should be unique both in terms of files being loaded and files already present in the XML Cache.
+ * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
+ * then remove it from the XML Cache first, before loading a new one.
+ *
+ * Instead of passing arguments you can pass a configuration object, such as:
+ * 
+ * ```javascript
+ * this.load.xml({
+ *     key: 'wavedata',
+ *     url: 'files/AlienWaveData.xml'
+ * });
+ * ```
+ *
+ * See the documentation for `Phaser.Loader.FileTypes.XMLFileConfig` for more details.
+ *
+ * Once the file has finished loading you can access it from its Cache using its key:
+ * 
+ * ```javascript
+ * this.load.xml('wavedata', 'files/AlienWaveData.xml');
+ * // and later in your game ...
+ * var data = this.cache.xml.get('wavedata');
+ * ```
+ *
+ * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+ * key. For example, if the prefix was `LEVEL1.` and the key was `Waves` the final key will be `LEVEL1.Waves` and
+ * this is what you would use to retrieve the text from the XML Cache.
+ *
+ * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+ *
+ * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "data"
+ * and no URL is given then the Loader will set the URL to be "data.xml". It will always add `.xml` as the extension, although
+ * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+ *
+ * Note: The ability to load this type of file will only be available if the XML File type has been built into Phaser.
+ * It is available in the default build but can be excluded from custom builds.
  *
  * @method Phaser.Loader.LoaderPlugin#xml
+ * @fires Phaser.Loader.LoaderPlugin#addFileEvent
  * @since 3.0.0
  *
- * @param {string} key - [description]
- * @param {string} url - [description]
- * @param {XHRSettingsObject} [xhrSettings] - [description]
+ * @param {(string|Phaser.Loader.FileTypes.XMLFileConfig|Phaser.Loader.FileTypes.XMLFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+ * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.xml`, i.e. if `key` was "alien" then the URL will be "alien.xml".
+ * @param {XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
  *
- * @return {Phaser.Loader.LoaderPlugin} The Loader.
+ * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
  */
 FileTypesManager.register('xml', function (key, url, xhrSettings)
 {
@@ -41145,7 +44144,7 @@ var Phaser = {
     Class: __webpack_require__(/*! ./utils/Class */ "./utils/Class.js"),
     Data: __webpack_require__(/*! ./data */ "./data/index.js"),
     Display: { Masks: __webpack_require__(/*! ./display/mask */ "./display/mask/index.js") },
-    EventEmitter: __webpack_require__(/*! ./events/EventEmitter */ "./events/EventEmitter.js"),
+    Events: __webpack_require__(/*! ./events */ "./events/index.js"),
     Game: __webpack_require__(/*! ./boot/Game */ "./boot/Game.js"),
     GameObjects: {
         DisplayList: __webpack_require__(/*! ./gameobjects/DisplayList */ "./gameobjects/DisplayList.js"),
@@ -41179,17 +44178,25 @@ var Phaser = {
             AnimationJSONFile: __webpack_require__(/*! ./loader/filetypes/AnimationJSONFile */ "./loader/filetypes/AnimationJSONFile.js"),
             AtlasJSONFile: __webpack_require__(/*! ./loader/filetypes/AtlasJSONFile */ "./loader/filetypes/AtlasJSONFile.js"),
             AudioFile: __webpack_require__(/*! ./loader/filetypes/AudioFile */ "./loader/filetypes/AudioFile.js"),
-            AudioSprite: __webpack_require__(/*! ./loader/filetypes/AudioSprite */ "./loader/filetypes/AudioSprite.js"),
+            AudioSpriteFile: __webpack_require__(/*! ./loader/filetypes/AudioSpriteFile */ "./loader/filetypes/AudioSpriteFile.js"),
             HTML5AudioFile: __webpack_require__(/*! ./loader/filetypes/HTML5AudioFile */ "./loader/filetypes/HTML5AudioFile.js"),
             ImageFile: __webpack_require__(/*! ./loader/filetypes/ImageFile */ "./loader/filetypes/ImageFile.js"),
             JSONFile: __webpack_require__(/*! ./loader/filetypes/JSONFile */ "./loader/filetypes/JSONFile.js"),
-            MultiAtlas: __webpack_require__(/*! ./loader/filetypes/MultiAtlas */ "./loader/filetypes/MultiAtlas.js"),
+            MultiAtlasFile: __webpack_require__(/*! ./loader/filetypes/MultiAtlasFile */ "./loader/filetypes/MultiAtlasFile.js"),
             PluginFile: __webpack_require__(/*! ./loader/filetypes/PluginFile */ "./loader/filetypes/PluginFile.js"),
             ScriptFile: __webpack_require__(/*! ./loader/filetypes/ScriptFile */ "./loader/filetypes/ScriptFile.js"),
             SpriteSheetFile: __webpack_require__(/*! ./loader/filetypes/SpriteSheetFile */ "./loader/filetypes/SpriteSheetFile.js"),
             TextFile: __webpack_require__(/*! ./loader/filetypes/TextFile */ "./loader/filetypes/TextFile.js"),
             XMLFile: __webpack_require__(/*! ./loader/filetypes/XMLFile */ "./loader/filetypes/XMLFile.js")
-        }
+        },
+        File: __webpack_require__(/*! ./loader/File */ "./loader/File.js"),
+        FileTypesManager: __webpack_require__(/*! ./loader/FileTypesManager */ "./loader/FileTypesManager.js"),
+        GetURL: __webpack_require__(/*! ./loader/GetURL */ "./loader/GetURL.js"),
+        LoaderPlugin: __webpack_require__(/*! ./loader/LoaderPlugin */ "./loader/LoaderPlugin.js"),
+        MergeXHRSettings: __webpack_require__(/*! ./loader/MergeXHRSettings */ "./loader/MergeXHRSettings.js"),
+        MultiFile: __webpack_require__(/*! ./loader/MultiFile */ "./loader/MultiFile.js"),
+        XHRLoader: __webpack_require__(/*! ./loader/XHRLoader */ "./loader/XHRLoader.js"),
+        XHRSettings: __webpack_require__(/*! ./loader/XHRSettings */ "./loader/XHRSettings.js")
     },
     Math: {
         Between: __webpack_require__(/*! ./math/Between */ "./math/Between.js"),
@@ -41198,6 +44205,7 @@ var Phaser = {
         RadToDeg: __webpack_require__(/*! ./math/RadToDeg */ "./math/RadToDeg.js"),
         Vector2: __webpack_require__(/*! ./math/Vector2 */ "./math/Vector2.js")
     },
+    Plugins: __webpack_require__(/*! ./plugins */ "./plugins/index.js"),
     Renderer: __webpack_require__(/*! ./renderer */ "./renderer/index.js"),
     Scene: __webpack_require__(/*! ./scene/Scene */ "./scene/Scene.js"),
     Scenes: __webpack_require__(/*! ./scene */ "./scene/index.js"),
@@ -41228,10 +44236,200 @@ global.Phaser = Phaser;
 
 /***/ }),
 
-/***/ "./plugins.js":
-/*!********************!*\
-  !*** ./plugins.js ***!
-  \********************/
+/***/ "./plugins/BasePlugin.js":
+/*!*******************************!*\
+  !*** ./plugins/BasePlugin.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2018 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
+*/
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+
+//  A Scene Level Plugin is installed into every Scene and belongs to that Scene.
+//  It can listen for Scene events and respond to them.
+//  It can map itself to a Scene property, or into the Scene Systems, or both.
+//  
+//  A Global Plugin is installed just once into the Game owned Plugin Manager.
+//  It can listen for Game events and respond to them.
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class BasePlugin
+ * @memberOf Phaser.Plugins
+ * @constructor
+ * @since 3.8.0
+ *
+ * @param {Phaser.Game} game - [description]
+ */
+var BasePlugin = new Class({
+
+    initialize:
+
+    function BasePlugin (pluginManager)
+    {
+        /**
+         * A handy reference to the Plugin Manager that is responsible for this plugin.
+         * Can be used as a route to gain access to game systems and  events.
+         * 
+         * @name Phaser.Plugins.BasePlugin#pluginManager
+         * @type {Phaser.Plugins.BasePluginManager}
+         * @protected
+         * @since 3.8.0
+         */
+        this.pluginManager = pluginManager;
+
+        /**
+         * A reference to the Game instance this plugin is running under.
+         *
+         * @name Phaser.Plugins.BasePlugin#game
+         * @type {Phaser.Game}
+         * @protected
+         * @since 3.8.0
+         */
+        this.game = pluginManager.game;
+
+        /**
+         * A reference to the Scene that has installed this plugin.
+         * Only set if it's a Scene Plugin, otherwise `null`.
+         * This property is only set when the plugin is instantiated and added to the Scene, not before.
+         * You cannot use it during the `init` method, but you can during the `boot` method.
+         *
+         * @name Phaser.Plugins.BasePlugin#scene
+         * @type {?Phaser.Scene}
+         * @protected
+         * @since 3.8.0
+         */
+        this.scene;
+
+        /**
+         * A reference to the Scene Systems of the Scene that has installed this plugin.
+         * Only set if it's a Scene Plugin, otherwise `null`.
+         * This property is only set when the plugin is instantiated and added to the Scene, not before.
+         * You cannot use it during the `init` method, but you can during the `boot` method.
+         *
+         * @name Phaser.Plugins.BasePlugin#systems
+         * @type {?Phaser.Scene.Systems}
+         * @protected
+         * @since 3.8.0
+         */
+        this.systems;
+    },
+
+    /**
+     * Called by the PluginManager when this plugin is first instantiated.
+     * It will never be called again on this instance.
+     * In here you can set-up whatever you need for this plugin to run.
+     * If a plugin is set to automatically start then `BasePlugin.start` will be called immediately after this.
+     *
+     * @method Phaser.Plugins.BasePlugin#init
+     * @since 3.8.0
+     */
+    init: function ()
+    {
+    },
+
+    /**
+     * Called by the PluginManager when this plugin is started.
+     * If a plugin is stopped, and then started again, this will get called again.
+     * Typically called immediately after `BasePlugin.init`.
+     *
+     * @method Phaser.Plugins.BasePlugin#start
+     * @since 3.8.0
+     */
+    start: function ()
+    {
+        //  Here are the game-level events you can listen to.
+        //  At the very least you should offer a destroy handler for when the game closes down.
+
+        // var eventEmitter = this.game.events;
+
+        // eventEmitter.once('destroy', this.gameDestroy, this);
+        // eventEmitter.on('pause', this.gamePause, this);
+        // eventEmitter.on('resume', this.gameResume, this);
+        // eventEmitter.on('resize', this.gameResize, this);
+        // eventEmitter.on('prestep', this.gamePreStep, this);
+        // eventEmitter.on('step', this.gameStep, this);
+        // eventEmitter.on('poststep', this.gamePostStep, this);
+        // eventEmitter.on('prerender', this.gamePreRender, this);
+        // eventEmitter.on('postrender', this.gamePostRender, this);
+    },
+
+    /**
+     * Called by the PluginManager when this plugin is stopped.
+     * The game code has requested that your plugin stop doing whatever it does.
+     * It is now considered as 'inactive' by the PluginManager.
+     * Handle that process here (i.e. stop listening for events, etc)
+     * If the plugin is started again then `BasePlugin.start` will be called again.
+     *
+     * @method Phaser.Plugins.BasePlugin#stop
+     * @since 3.8.0
+     */
+    stop: function ()
+    {
+    },
+
+    /**
+     * If this is a Scene Plugin (i.e. installed into a Scene) then this method is called when the Scene boots.
+     * By this point the plugin properties `scene` and `systems` will have already been set.
+     * In here you can listen for Scene events and set-up whatever you need for this plugin to run.
+     *
+     * @method Phaser.Plugins.BasePlugin#boot
+     * @since 3.8.0
+     */
+    boot: function ()
+    {
+        //  Here are the Scene events you can listen to.
+        //  At the very least you should offer a destroy handler for when the Scene closes down.
+
+        // var eventEmitter = this.systems.events;
+
+        // eventEmitter.once('destroy', this.sceneDestroy, this);
+        // eventEmitter.on('start', this.sceneStart, this);
+        // eventEmitter.on('preupdate', this.scenePreUpdate, this);
+        // eventEmitter.on('update', this.sceneUpdate, this);
+        // eventEmitter.on('postupdate', this.scenePostUpdate, this);
+        // eventEmitter.on('pause', this.scenePause, this);
+        // eventEmitter.on('resume', this.sceneResume, this);
+        // eventEmitter.on('sleep', this.sceneSleep, this);
+        // eventEmitter.on('wake', this.sceneWake, this);
+        // eventEmitter.on('shutdown', this.sceneShutdown, this);
+        // eventEmitter.on('destroy', this.sceneDestroy, this);
+    },
+
+    /**
+     * Game instance has been destroyed.
+     * You must release everything in here, all references, all objects, free it all up.
+     *
+     * @method Phaser.Plugins.BasePlugin#destroy
+     * @since 3.8.0
+     */
+    destroy: function ()
+    {
+        this.pluginManager = null;
+        this.game = null;
+        this.scene = null;
+        this.systems = null;
+    }
+
+});
+
+module.exports = BasePlugin;
+
+
+/***/ }),
+
+/***/ "./plugins/DefaultPlugins.js":
+/*!***********************************!*\
+  !*** ./plugins/DefaultPlugins.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -41242,9 +44440,14 @@ global.Phaser = Phaser;
  */
 
 /**
- * @namespace Phaser.Plugins
+ * @typedef {object} Phaser.Plugins.DefaultPlugins
+ * 
+ * @property {array} Global - These are the Global Managers that are created by the Phaser.Game instance.
+ * @property {array} CoreScene - These are the core plugins that are installed into every Scene.Systems instance, no matter what.
+ * @property {array} DefaultScene - These plugins are created in Scene.Systems in addition to the CoreScenePlugins.
  */
-var Plugins = {
+
+var DefaultPlugins = {
 
     /**
      * These are the Global Managers that are created by the Phaser.Game instance.
@@ -41258,6 +44461,7 @@ var Plugins = {
 
         'anims',
         'cache',
+        'plugins',
         'registry',
         'sound',
         'textures'
@@ -41316,13 +44520,1138 @@ var Plugins = {
 
 };
 
+module.exports = DefaultPlugins;
+
+
+/***/ }),
+
+/***/ "./plugins/PluginCache.js":
+/*!********************************!*\
+  !*** ./plugins/PluginCache.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+//  Contains the plugins that Phaser uses globally and locally.
+//  These are the source objects, not instantiated.
+var corePlugins = {};
+
+//  Contains the plugins that the dev has loaded into their game
+//  These are the source objects, not instantiated.
+var customPlugins = {};
+
+/**
+ * @typedef {object} CorePluginContainer
+ *
+ * @property {string} key - The unique name of this plugin in the core plugin cache.
+ * @property {function} plugin - The plugin to be stored. Should be the source object, not instantiated.
+ * @property {string} [mapping] - If this plugin is to be injected into the Scene Systems, this is the property key map used.
+ * @property {boolean} [custom=false] - Core Scene plugin or a Custom Scene plugin?
+ */
+
+/**
+ * @typedef {object} CustomPluginContainer
+ *
+ * @property {string} key - The unique name of this plugin in the custom plugin cache.
+ * @property {function} plugin - The plugin to be stored. Should be the source object, not instantiated.
+ */
+
+var PluginCache = {};
+
+/**
+ * Static method called directly by the Core internal Plugins.
+ * Key is a reference used to get the plugin from the plugins object (i.e. InputPlugin)
+ * Plugin is the object to instantiate to create the plugin
+ * Mapping is what the plugin is injected into the Scene.Systems as (i.e. input)
+ *
+ * @method Phaser.Plugins.PluginCache.register
+ * @since 3.8.0
+ * 
+ * @param {string} key - A reference used to get this plugin from the plugin cache.
+ * @param {function} plugin - The plugin to be stored. Should be the core object, not instantiated.
+ * @param {string} mapping - If this plugin is to be injected into the Scene Systems, this is the property key map used.
+ * @param {boolean} [custom=false] - Core Scene plugin or a Custom Scene plugin?
+ */
+PluginCache.register = function (key, plugin, mapping, custom)
+{
+    if (custom === undefined) { custom = false; }
+
+    corePlugins[key] = { plugin: plugin, mapping: mapping, custom: custom };
+};
+
+/**
+ * Stores a custom plugin in the global plugin cache.
+ * The key must be unique, within the scope of the cache.
+ *
+ * @method Phaser.Plugins.PluginCache.registerCustom
+ * @since 3.8.0
+ * 
+ * @param {string} key - A reference used to get this plugin from the plugin cache.
+ * @param {function} plugin - The plugin to be stored. Should be the core object, not instantiated.
+ * @param {string} mapping - If this plugin is to be injected into the Scene Systems, this is the property key map used.
+ */
+PluginCache.registerCustom = function (key, plugin, mapping)
+{
+    customPlugins[key] = { plugin: plugin, mapping: mapping };
+};
+
+/**
+ * Checks if the given key is already being used in the core plugin cache.
+ *
+ * @method Phaser.Plugins.PluginCache.hasCore
+ * @since 3.8.0
+ * 
+ * @param {string} key - The key to check for.
+ *
+ * @return {boolean} `true` if the key is already in use in the core cache, otherwise `false`.
+ */
+PluginCache.hasCore = function (key)
+{
+    return corePlugins.hasOwnProperty(key);
+};
+
+/**
+ * Checks if the given key is already being used in the custom plugin cache.
+ *
+ * @method Phaser.Plugins.PluginCache.hasCustom
+ * @since 3.8.0
+ * 
+ * @param {string} key - The key to check for.
+ *
+ * @return {boolean} `true` if the key is already in use in the custom cache, otherwise `false`.
+ */
+PluginCache.hasCustom = function (key)
+{
+    return customPlugins.hasOwnProperty(key);
+};
+
+/**
+ * Returns the core plugin object from the cache based on the given key.
+ *
+ * @method Phaser.Plugins.PluginCache.getCore
+ * @since 3.8.0
+ * 
+ * @param {string} key - The key of the core plugin to get.
+ *
+ * @return {CorePluginContainer} The core plugin object.
+ */
+PluginCache.getCore = function (key)
+{
+    return corePlugins[key];
+};
+
+/**
+ * Returns the custom plugin object from the cache based on the given key.
+ *
+ * @method Phaser.Plugins.PluginCache.getCustom
+ * @since 3.8.0
+ * 
+ * @param {string} key - The key of the custom plugin to get.
+ *
+ * @return {CustomPluginContainer} The custom plugin object.
+ */
+PluginCache.getCustom = function (key)
+{
+    return customPlugins[key];
+};
+
+/**
+ * Returns an object from the custom cache based on the given key that can be instantiated.
+ *
+ * @method Phaser.Plugins.PluginCache.getCustomClass
+ * @since 3.8.0
+ * 
+ * @param {string} key - The key of the custom plugin to get.
+ *
+ * @return {function} The custom plugin object.
+ */
+PluginCache.getCustomClass = function (key)
+{
+    return (customPlugins.hasOwnProperty(key)) ? customPlugins[key].plugin : null;
+};
+
+/**
+ * Removes a core plugin based on the given key.
+ *
+ * @method Phaser.Plugins.PluginCache.remove
+ * @since 3.8.0
+ * 
+ * @param {string} key - The key of the core plugin to remove.
+ */
+PluginCache.remove = function (key)
+{
+    if (corePlugins.hasOwnProperty(key))
+    {
+        delete corePlugins[key];
+    }
+};
+
+/**
+ * Removes a custom plugin based on the given key.
+ *
+ * @method Phaser.Plugins.PluginCache.removeCustom
+ * @since 3.8.0
+ * 
+ * @param {string} key - The key of the custom plugin to remove.
+ */
+PluginCache.removeCustom = function (key)
+{
+    if (customPlugins.hasOwnProperty(key))
+    {
+        delete customPlugins[key];
+    }
+};
+
+module.exports = PluginCache;
+
+
+/***/ }),
+
+/***/ "./plugins/PluginManager.js":
+/*!**********************************!*\
+  !*** ./plugins/PluginManager.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var FileTypesManager = __webpack_require__(/*! ../loader/FileTypesManager */ "./loader/FileTypesManager.js");
+var GameObjectCreator = __webpack_require__(/*! ../gameobjects/GameObjectCreator */ "./gameobjects/GameObjectCreator.js");
+var GameObjectFactory = __webpack_require__(/*! ../gameobjects/GameObjectFactory */ "./gameobjects/GameObjectFactory.js");
+var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+var PluginCache = __webpack_require__(/*! ./PluginCache */ "./plugins/PluginCache.js");
+var Remove = __webpack_require__(/*! ../utils/array/Remove */ "./utils/array/Remove.js");
+
+/**
+ * @typedef {object} GlobalPlugin
+ *
+ * @property {string} key - The unique name of this plugin within the plugin cache.
+ * @property {function} plugin - An instance of the plugin.
+ * @property {boolean} [active] - Is the plugin active or not?
+ */
+
+/**
+ * @classdesc
+ * The PluginManager is responsible for installing and adding plugins to Phaser.
+ *
+ * It is a global system and therefore belongs to the Game instance, not a specific Scene.
+ *
+ * It works in conjunction with the PluginCache. Core internal plugins automatically register themselves 
+ * with the Cache, but it's the Plugin Manager that is responsible for injecting them into the Scenes.
+ *
+ * There are two types of plugin:
+ *
+ * 1) A Global Plugin
+ * 2) A Scene Plugin
+ *
+ * A Global Plugin is a plugin that lives within the Plugin Manager rather than a Scene. You can get
+ * access to it by calling `PluginManager.get` and providing a key. Any Scene that requests a plugin in
+ * this way will all get access to the same plugin instance, allowing you to use a single plugin across
+ * multiple Scenes.
+ *
+ * A Scene Plugin is a plugin dedicated to running within a Scene. These are different to Global Plugins
+ * in that their instances do not live within the Plugin Manager, but within the Scene Systems class instead.
+ * And that every Scene created is given its own unique instance of a Scene Plugin. Examples of core Scene
+ * Plugins include the Input Plugin, the Tween Plugin and the physics Plugins.
+ *
+ * You can add a plugin to Phaser in three different ways:
+ *
+ * 1) Preload it
+ * 2) Include it in your source code and install it via the Game Config
+ * 3) Include it in your source code and install it within a Scene
+ *
+ * For examples of all of these approaches please see the Phaser 3 Examples Repo `plugins` folder.
+ *
+ * For information on creating your own plugin please see the Phaser 3 Plugin Template.
+ *
+ * @class PluginManager
+ * @memberOf Phaser.Plugins
+ * @constructor
+ * @since 3.0.0
+ *
+ * @param {Phaser.Game} game - The game instance that owns this Plugin Manager.
+ */
+var PluginManager = new Class({
+
+    Extends: EventEmitter,
+
+    initialize:
+
+    function PluginManager (game)
+    {
+        EventEmitter.call(this);
+
+        /**
+         * The game instance that owns this Plugin Manager.
+         *
+         * @name Phaser.Plugins.PluginManager#game
+         * @type {Phaser.Game}
+         * @since 3.0.0
+         */
+        this.game = game;
+
+        /**
+         * The global plugins currently running and managed by this Plugin Manager.
+         * A plugin must have been started at least once in order to appear in this list.
+         *
+         * @name Phaser.Plugins.PluginManager#plugins
+         * @type {GlobalPlugin[]}
+         * @since 3.8.0
+         */
+        this.plugins = [];
+
+        /**
+         * A list of plugin keys that should be installed into Scenes as well as the Core Plugins.
+         *
+         * @name Phaser.Plugins.PluginManager#scenePlugins
+         * @type {string[]}
+         * @since 3.8.0
+         */
+        this.scenePlugins = [];
+
+        /**
+         * A temporary list of plugins to install when the game has booted.
+         *
+         * @name Phaser.Plugins.PluginManager#_pendingGlobal
+         * @private
+         * @type {array}
+         * @since 3.8.0
+         */
+        this._pendingGlobal = [];
+
+        /**
+         * A temporary list of scene plugins to install when the game has booted.
+         *
+         * @name Phaser.Plugins.PluginManager#_pendingScene
+         * @private
+         * @type {array}
+         * @since 3.8.0
+         */
+        this._pendingScene = [];
+
+        if (game.isBooted)
+        {
+            this.boot();
+        }
+        else
+        {
+            game.events.once('boot', this.boot, this);
+        }
+    },
+
+    /**
+     * Run once the game has booted and installs all of the plugins configured in the Game Config.
+     *
+     * @method Phaser.Plugins.PluginManager#boot
+     * @protected
+     * @since 3.0.0
+     */
+    boot: function ()
+    {
+        var i;
+        var entry;
+        var key;
+        var plugin;
+        var start;
+        var mapping;
+        var config = this.game.config;
+
+        //  Any plugins to install?
+        var list = config.installGlobalPlugins;
+
+        //  Any plugins added outside of the game config, but before the game booted?
+        list = list.concat(this._pendingGlobal);
+
+        for (i = 0; i < list.length; i++)
+        {
+            entry = list[i];
+
+            // { key: 'TestPlugin', plugin: TestPlugin, start: true }
+
+            key = GetFastValue(entry, 'key', null);
+            plugin = GetFastValue(entry, 'plugin', null);
+            start = GetFastValue(entry, 'start', false);
+
+            if (key && plugin)
+            {
+                this.install(key, plugin, start);
+            }
+        }
+
+        //  Any scene plugins to install?
+        list = config.installScenePlugins;
+
+        //  Any plugins added outside of the game config, but before the game booted?
+        list = list.concat(this._pendingScene);
+
+        for (i = 0; i < list.length; i++)
+        {
+            entry = list[i];
+
+            // { key: 'moveSpritePlugin', plugin: MoveSpritePlugin, , mapping: 'move' }
+
+            key = GetFastValue(entry, 'key', null);
+            plugin = GetFastValue(entry, 'plugin', null);
+            mapping = GetFastValue(entry, 'mapping', null);
+
+            if (key && plugin)
+            {
+                this.installScenePlugin(key, plugin, mapping);
+            }
+        }
+
+        this._pendingGlobal = [];
+        this._pendingScene = [];
+
+        this.game.events.once('destroy', this.destroy, this);
+    },
+
+    /**
+     * Called by the Scene Systems class. Tells the plugin manager to install all Scene plugins into it.
+     *
+     * @method Phaser.Plugins.PluginManager#addToScene
+     * @protected
+     * @since 3.8.0
+     *
+     * @param {Phaser.Scenes.Systems} sys - The Scene Systems class to install all the plugins in to.
+     * @param {array} globalPlugins - An array of global plugins to install.
+     * @param {array} scenePlugins - An array of scene plugins to install.
+     */
+    addToScene: function (sys, globalPlugins, scenePlugins)
+    {
+        var i;
+        var pluginKey;
+        var game = this.game;
+        var scene = sys.scene;
+        var map = sys.settings.map;
+        var isBooted = sys.settings.isBooted;
+
+        //  Reference the GlobalPlugins from Game into Scene.Systems
+        for (i = 0; i < globalPlugins.length; i++)
+        {
+            pluginKey = globalPlugins[i];
+           
+            if (game[pluginKey])
+            {
+                sys[pluginKey] = game[pluginKey];
+
+                //  Scene level injection
+                if (map.hasOwnProperty(pluginKey))
+                {
+                    scene[map[pluginKey]] = sys[pluginKey];
+                }
+            }
+        }
+
+        for (var s = 0; s < scenePlugins.length; s++)
+        {
+            var pluginList = scenePlugins[s];
+
+            for (i = 0; i < pluginList.length; i++)
+            {
+                pluginKey = pluginList[i];
+
+                if (!PluginCache.hasCore(pluginKey))
+                {
+                    continue;
+                }
+
+                var source = PluginCache.getCore(pluginKey);
+
+                var plugin = new source.plugin(scene, this);
+                
+                sys[source.mapping] = plugin;
+
+                //  Scene level injection
+                if (source.custom)
+                {
+                    scene[source.mapping] = plugin;
+                }
+                else if (map.hasOwnProperty(source.mapping))
+                {
+                    scene[map[source.mapping]] = plugin;
+                }
+
+                //  Scene is already booted, usually because this method is being called at run-time, so boot the plugin
+                if (isBooted)
+                {
+                    plugin.boot();
+                }
+            }
+        }
+    },
+
+    /**
+     * Called by the Scene Systems class. Returns a list of plugins to be installed.
+     *
+     * @method Phaser.Plugins.PluginManager#getDefaultScenePlugins
+     * @protected
+     * @since 3.8.0
+     *
+     * @return {string[]} A list keys of all the Scene Plugins to install.
+     */
+    getDefaultScenePlugins: function ()
+    {
+        var list = this.game.config.defaultPlugins;
+
+        //  Merge in custom Scene plugins
+        list = list.concat(this.scenePlugins);
+
+        return list;
+    },
+
+    /**
+     * Installs a new Scene Plugin into the Plugin Manager and optionally adds it
+     * to the given Scene as well. A Scene Plugin added to the manager in this way
+     * will be automatically installed into all new Scenes using the key and mapping given.
+     *
+     * The `key` property is what the plugin is injected into Scene.Systems as.
+     * The `mapping` property is optional, and if specified is what the plugin is installed into
+     * the Scene as. For example:
+     *
+     * ```javascript
+     * this.plugins.installScenePlugin('powerupsPlugin', pluginCode, 'powerups');
+     * 
+     * // and from within the scene:
+     * this.sys.powerupsPlugin; // key value
+     * this.powerups; // mapping value
+     * ```
+     *
+     * This method is called automatically by Phaser if you install your plugins using either the
+     * Game Configuration object, or by preloading them via the Loader.
+     *
+     * @method Phaser.Plugins.PluginManager#installScenePlugin
+     * @since 3.8.0
+     *
+     * @param {string} key - The property key that will be used to add this plugin to Scene.Systems.
+     * @param {function} plugin - The plugin code. This should be the non-instantiated version.
+     * @param {string} [mapping] - If this plugin is injected into the Phaser.Scene class, this is the property key to use.
+     * @param {Phaser.Scene} [addToScene] - Optionally automatically add this plugin to the given Scene.
+     */
+    installScenePlugin: function (key, plugin, mapping, addToScene)
+    {
+        if (typeof plugin !== 'function')
+        {
+            console.warn('Invalid Scene Plugin: ' + key);
+            return;
+        }
+
+        if (PluginCache.hasCore(key))
+        {
+            console.warn('Scene Plugin key in use: ' + key);
+            return;
+        }
+
+        PluginCache.register(key, plugin, mapping, true);
+
+        this.scenePlugins.push(key);
+
+        if (addToScene)
+        {
+            var instance = new plugin(addToScene, this);
+
+            addToScene.sys[key] = instance;
+
+            if (mapping && mapping !== '')
+            {
+                addToScene[mapping] = instance;
+            }
+
+            instance.boot();
+        }
+    },
+
+    /**
+     * Installs a new Global Plugin into the Plugin Manager and optionally starts it running.
+     * A global plugin belongs to the Plugin Manager, rather than a specific Scene, and can be accessed
+     * and used by all Scenes in your game.
+     *
+     * The `key` property is what you use to access this plugin from the Plugin Manager.
+     *
+     * ```javascript
+     * this.plugins.install('powerupsPlugin', pluginCode);
+     * 
+     * // and from within the scene:
+     * this.plugins.get('powerupsPlugin');
+     * ```
+     *
+     * This method is called automatically by Phaser if you install your plugins using either the
+     * Game Configuration object, or by preloading them via the Loader.
+     *
+     * The same plugin can be installed multiple times into the Plugin Manager by simply giving each
+     * instance its own unique key.
+     *
+     * @method Phaser.Plugins.PluginManager#install
+     * @since 3.8.0
+     * 
+     * @param {string} key - The unique handle given to this plugin within the Plugin Manager.
+     * @param {function} plugin - The plugin code. This should be the non-instantiated version.
+     * @param {boolean} [start=false] - Automatically start the plugin running?
+     */
+    install: function (key, plugin, start)
+    {
+        if (start === undefined) { start = false; }
+
+        if (typeof plugin !== 'function')
+        {
+            console.warn('Invalid Plugin: ' + key);
+            return;
+        }
+
+        if (PluginCache.hasCustom(key))
+        {
+            console.warn('Plugin key in use: ' + key);
+            return;
+        }
+
+        if (!this.game.isBooted)
+        {
+            this._pendingGlobal.push({ key: key, plugin: plugin, start: start });
+        }
+        else
+        {
+            //  Add it to the plugin store
+            PluginCache.registerCustom(key, plugin);
+
+            // gamePlugins[key] = plugin;
+
+            if (start)
+            {
+                return this.start(key);
+            }
+        }
+    },
+
+    /**
+     * Gets an index of a global plugin based on the given key.
+     *
+     * @method Phaser.Plugins.PluginManager#getIndex
+     * @protected
+     * @since 3.8.0
+     *
+     * @param {string} key - The unique plugin key.
+     *
+     * @return {integer} The index of the plugin within the plugins array.
+     */
+    getIndex: function (key)
+    {
+        var list = this.plugins;
+
+        for (var i = 0; i < list.length; i++)
+        {
+            var entry = list[i];
+
+            if (entry.key === key)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    },
+
+    /**
+     * Gets a global plugin based on the given key.
+     *
+     * @method Phaser.Plugins.PluginManager#getEntry
+     * @protected
+     * @since 3.8.0
+     *
+     * @param {string} key - The unique plugin key.
+     *
+     * @return {GlobalPlugin} The plugin entry.
+     */
+    getEntry: function (key)
+    {
+        var idx = this.getIndex(key);
+
+        if (idx !== -1)
+        {
+            return this.plugins[idx];
+        }
+    },
+
+    /**
+     * Checks if the given global plugin, based on its key, is active or not.
+     *
+     * @method Phaser.Plugins.PluginManager#isActive
+     * @since 3.8.0
+     *
+     * @param {string} key - The unique plugin key.
+     *
+     * @return {boolean} `true` if the plugin is active, otherwise `false`.
+     */
+    isActive: function (key)
+    {
+        var entry = this.getEntry(key);
+
+        return (entry && entry.active);
+    },
+
+    /**
+     * Starts a global plugin running.
+     *
+     * If the plugin was previously active then calling `start` will reset it to an active state and then
+     * call its `start` method.
+     *
+     * If the plugin has never been run before a new instance of it will be created within the Plugin Manager,
+     * its active state set and then both of its `init` and `start` methods called, in that order.
+     *
+     * If the plugin is already running under the given key then nothing happens.
+     *
+     * @method Phaser.Plugins.PluginManager#start
+     * @since 3.8.0
+     *
+     * @param {string} key - The key of the plugin to start.
+     * @param {string} [runAs] - Run the plugin under a new key. This allows you to run one plugin multiple times.
+     *
+     * @return {?Phaser.Plugins.BasePlugin} The plugin that was started, or `null` if invalid key given or plugin is already stopped.
+     */
+    start: function (key, runAs)
+    {
+        if (runAs === undefined) { runAs = key; }
+
+        var entry = this.getEntry(runAs);
+
+        //  Plugin already running under this key?
+        if (entry && !entry.active)
+        {
+            //  It exists, we just need to start it up again
+            entry.active = true;
+            entry.plugin.start();
+        }
+        else if (!entry)
+        {
+            var plugin = this.getClass(key);
+
+            if (plugin)
+            {
+                var instance = new plugin(this);
+
+                entry = {
+                    key: runAs,
+                    plugin: instance,
+                    active: true
+                };
+
+                this.plugins.push(entry);
+
+                instance.init();
+                instance.start();
+            }
+        }
+
+        return (entry) ? entry.plugin : null;
+    },
+
+    /**
+     * Stops a global plugin from running.
+     *
+     * If the plugin is active then its active state will be set to false and the plugins `stop` method
+     * will be called.
+     *
+     * If the plugin is not already running, nothing will happen.
+     *
+     * @method Phaser.Plugins.PluginManager#stop
+     * @since 3.8.0
+     *
+     * @param {string} key - The key of the plugin to stop.
+     *
+     * @return {Phaser.Plugins.PluginManager} The Plugin Manager.
+     */
+    stop: function (key)
+    {
+        var entry = this.getEntry(key);
+
+        if (entry && entry.active)
+        {
+            entry.active = false;
+            entry.plugin.stop();
+        }
+
+        return this;
+    },
+
+    /**
+     * Gets a global plugin from the Plugin Manager based on the given key and returns it.
+     *
+     * If it cannot find an active plugin based on the key, but there is one in the Plugin Cache with the same key,
+     * then it will create a new instance of the cached plugin and return that.
+     *
+     * @method Phaser.Plugins.PluginManager#get
+     * @since 3.8.0
+     *
+     * @param {string} key - The key of the plugin to get.
+     * @param {boolean} [autoStart=true] - Automatically start a new instance of the plugin if found in the cache, but not actively running.
+     *
+     * @return {?(Phaser.Plugins.BasePlugin|function)} The plugin, or `null` if no plugin was found matching the key.
+     */
+    get: function (key, autoStart)
+    {
+        if (autoStart === undefined) { autoStart = true; }
+
+        var entry = this.getEntry(key);
+
+        if (entry)
+        {
+            return entry.plugin;
+        }
+        else
+        {
+            var plugin = this.getClass(key);
+
+            if (plugin && autoStart)
+            {
+                var instance = new plugin(this);
+
+                entry = {
+                    key: key,
+                    plugin: instance,
+                    active: true
+                };
+
+                this.plugins.push(entry);
+
+                instance.init();
+                instance.start();
+
+                return instance;
+            }
+            else if (plugin)
+            {
+                return plugin;
+            }
+        }
+
+        return null;
+    },
+
+    /**
+     * Returns the plugin class from the cache.
+     * Used internally by the Plugin Manager.
+     *
+     * @method Phaser.Plugins.PluginManager#getClass
+     * @since 3.8.0
+     *
+     * @param {string} key - The key of the plugin to get.
+     *
+     * @return {Phaser.Plugins.BasePlugin} A Plugin object
+     */
+    getClass: function (key)
+    {
+        return PluginCache.getCustomClass(key);
+    },
+
+    /**
+     * Removes a global plugin from the Plugin Manager and Plugin Cache.
+     *
+     * It is up to you to remove all references to this plugin that you may hold within your game code.
+     *
+     * @method Phaser.Plugins.PluginManager#removeGlobalPlugin
+     * @since 3.8.0
+     *
+     * @param {string} key - The key of the plugin to remove.
+     */
+    removeGlobalPlugin: function (key)
+    {
+        var entry = this.getEntry(key);
+
+        if (entry)
+        {
+            Remove(this.plugins, entry);
+        }
+
+        PluginCache.removeCustom(key);
+    },
+
+    /**
+     * Removes a scene plugin from the Plugin Manager and Plugin Cache.
+     *
+     * This will not remove the plugin from any active Scenes that are already using it.
+     *
+     * It is up to you to remove all references to this plugin that you may hold within your game code.
+     *
+     * @method Phaser.Plugins.PluginManager#removeScenePlugin
+     * @since 3.8.0
+     *
+     * @param {string} key - The key of the plugin to remove.
+     */
+    removeScenePlugin: function (key)
+    {
+        Remove(this.scenePlugins, key);
+
+        PluginCache.remove(key);
+    },
+
+    /**
+     * Registers a new type of Game Object with the global Game Object Factory and / or Creator.
+     * This is usually called from within your Plugin code and is a helpful short-cut for creating
+     * new Game Objects.
+     *
+     * The key is the property that will be injected into the factories and used to create the
+     * Game Object. For example:
+     *
+     * ```javascript
+     * this.plugins.registerGameObject('clown', clownFactoryCallback, clownCreatorCallback);
+     * // later in your game code:
+     * this.add.clown();
+     * this.make.clown();
+     * ```
+     * 
+     * The callbacks are what are called when the factories try to create a Game Object
+     * matching the given key. It's important to understand that the callbacks are invoked within
+     * the context of the GameObjectFactory. In this context there are several properties available
+     * to use:
+     * 
+     * this.scene - A reference to the Scene that owns the GameObjectFactory.
+     * this.displayList - A reference to the Display List the Scene owns.
+     * this.updateList - A reference to the Update List the Scene owns.
+     * 
+     * See the GameObjectFactory and GameObjectCreator classes for more details.
+     * Any public property or method listed is available from your callbacks under `this`.
+     *
+     * @method Phaser.Plugins.PluginManager#registerGameObject
+     * @since 3.8.0
+     *
+     * @param {string} key - The key of the Game Object that the given callbacks will create, i.e. `image`, `sprite`.
+     * @param {function} [factoryCallback] - The callback to invoke when the Game Object Factory is called.
+     * @param {function} [creatorCallback] - The callback to invoke when the Game Object Creator is called.
+     */
+    registerGameObject: function (key, factoryCallback, creatorCallback)
+    {
+        if (factoryCallback)
+        {
+            GameObjectFactory.register(key, factoryCallback);
+        }
+
+        if (creatorCallback)
+        {
+            GameObjectCreator.register(key, creatorCallback);
+        }
+
+        return this;
+    },
+
+    /**
+     * Registers a new file type with the global File Types Manager, making it available to all Loader
+     * Plugins created after this.
+     * 
+     * This is usually called from within your Plugin code and is a helpful short-cut for creating
+     * new loader file types.
+     *
+     * The key is the property that will be injected into the Loader Plugin and used to load the
+     * files. For example:
+     *
+     * ```javascript
+     * this.plugins.registerFileType('wad', doomWadLoaderCallback);
+     * // later in your preload code:
+     * this.load.wad();
+     * ```
+     * 
+     * The callback is what is called when the loader tries to load a file  matching the given key.
+     * It's important to understand that the callback is invoked within
+     * the context of the LoaderPlugin. In this context there are several properties / methods available
+     * to use:
+     * 
+     * this.addFile - A method to add the new file to the load queue.
+     * this.scene - The Scene that owns the Loader Plugin instance.
+     *
+     * See the LoaderPlugin class for more details. Any public property or method listed is available from
+     * your callback under `this`.
+     *
+     * @method Phaser.Plugins.PluginManager#registerFileType
+     * @since 3.8.0
+     *
+     * @param {string} key - The key of the Game Object that the given callbacks will create, i.e. `image`, `sprite`.
+     * @param {function} callback - The callback to invoke when the Game Object Factory is called.
+     */
+    registerFileType: function (key, callback)
+    {
+        FileTypesManager.register(key, callback);
+    },
+
+    /**
+     * Destroys this Plugin Manager and all associated plugins.
+     * It will iterate all plugins found and call their `destroy` methods.
+     * Note that the PluginCache is NOT cleared by this as it doesn't hold any plugin instances.
+     *
+     * @method Phaser.Plugins.PluginManager#destroy
+     * @since 3.8.0
+     */
+    destroy: function ()
+    {
+        for (var i = 0; i < this.plugins.length; i++)
+        {
+            this.plugins[i].destroy();
+        }
+
+        this.game = null;
+        this.plugins = [];
+        this.scenePlugins = [];
+    }
+
+});
+
 /*
  * "Sometimes, the elegant implementation is just a function.
  * Not a method. Not a class. Not a framework. Just a function."
  *  -- John Carmack
  */
 
-module.exports = Plugins;
+module.exports = PluginManager;
+
+
+/***/ }),
+
+/***/ "./plugins/ScenePlugin.js":
+/*!********************************!*\
+  !*** ./plugins/ScenePlugin.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+* @author       Richard Davey <rich@photonstorm.com>
+* @copyright    2018 Photon Storm Ltd.
+* @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
+*/
+
+var BasePlugin = __webpack_require__(/*! ./BasePlugin */ "./plugins/BasePlugin.js");
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+
+/**
+ * @classdesc
+ * A Scene Level Plugin is installed into every Scene and belongs to that Scene.
+ * It can listen for Scene events and respond to them.
+ * It can map itself to a Scene property, or into the Scene Systems, or both.
+ *
+ * @class ScenePlugin
+ * @memberOf Phaser.Plugins
+ * @constructor
+ * @since 3.8.0
+ *
+ * @param {Phaser.Game} game - [description]
+ */
+var ScenePlugin = new Class({
+
+    Extends: BasePlugin,
+
+    initialize:
+
+    function ScenePlugin (scene, pluginManager)
+    {
+        BasePlugin.call(this, pluginManager);
+
+        /**
+         * A reference to the Scene that has installed this plugin.
+         * This property is only set when the plugin is instantiated and added to the Scene, not before.
+         *
+         * @name Phaser.Plugins.ScenePlugin#scene
+         * @type {?Phaser.Scene}
+         * @protected
+         * @since 3.8.0
+         */
+        this.scene = scene;
+
+        /**
+         * A reference to the Scene Systems of the Scene that has installed this plugin.
+         * This property is only set when the plugin is instantiated and added to the Scene, not before.
+         *
+         * @name Phaser.Plugins.ScenePlugin#systems
+         * @type {?Phaser.Scene.Systems}
+         * @protected
+         * @since 3.8.0
+         */
+        this.systems = scene.sys;
+
+        scene.sys.events.once('boot', this.boot, this);
+    },
+
+    /**
+     * This method is called when the Scene boots. It is only ever called once.
+     * 
+     * By this point the plugin properties `scene` and `systems` will have already been set.
+     * 
+     * In here you can listen for Scene events and set-up whatever you need for this plugin to run.
+     * Here are the Scene events you can listen to:
+     * 
+     * start
+     * ready
+     * preupdate
+     * update
+     * postupdate
+     * resize
+     * pause
+     * resume
+     * sleep
+     * wake
+     * transitioninit
+     * transitionstart
+     * transitioncomplete
+     * transitionout
+     * shutdown
+     * destroy
+     * 
+     * At the very least you should offer a destroy handler for when the Scene closes down, i.e:
+     *
+     * ```javascript
+     * var eventEmitter = this.systems.events;
+     * eventEmitter.once('destroy', this.sceneDestroy, this);
+     * ```
+     *
+     * @method Phaser.Plugins.ScenePlugin#boot
+     * @since 3.8.0
+     */
+    boot: function ()
+    {
+    }
+
+});
+
+module.exports = ScenePlugin;
+
+
+/***/ }),
+
+/***/ "./plugins/index.js":
+/*!**************************!*\
+  !*** ./plugins/index.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * @namespace Phaser.Plugins
+ */
+
+module.exports = {
+
+    BasePlugin: __webpack_require__(/*! ./BasePlugin */ "./plugins/BasePlugin.js"),
+    DefaultPlugins: __webpack_require__(/*! ./DefaultPlugins */ "./plugins/DefaultPlugins.js"),
+    PluginCache: __webpack_require__(/*! ./PluginCache */ "./plugins/PluginCache.js"),
+    PluginManager: __webpack_require__(/*! ./PluginManager */ "./plugins/PluginManager.js"),
+    ScenePlugin: __webpack_require__(/*! ./ScenePlugin */ "./plugins/ScenePlugin.js")
+
+};
 
 
 /***/ }),
@@ -42208,7 +46537,7 @@ var CanvasRenderer = new Class({
          * @type {CanvasRenderingContext2D}
          * @since 3.0.0
          */
-        this.gameContext = this.gameCanvas.getContext('2d');
+        this.gameContext = (this.game.config.context) ? this.game.config.context : this.gameCanvas.getContext('2d');
 
         /**
          * [description]
@@ -43967,7 +48296,9 @@ var WebGLRenderer = new Class({
             contextCreation: contextCreationConfig,
             resolution: gameConfig.resolution,
             autoResize: gameConfig.autoResize,
-            roundPixels: gameConfig.roundPixels
+            roundPixels: gameConfig.roundPixels,
+            maxTextures: gameConfig.maxTextures,
+            maxTextureSize: gameConfig.maxTextureSize
         };
 
         /**
@@ -44270,6 +48601,19 @@ var WebGLRenderer = new Class({
          */
         this.glFormats = [];
 
+        /**
+         * Stores the supported WebGL texture compression formats.
+         *
+         * @name Phaser.Renderer.WebGL.WebGLRenderer#compression
+         * @type {array}
+         * @since 3.8.0
+         */
+        this.compression = {
+            ETC1: false,
+            PVRTC: false,
+            S3TC: false
+        };
+
         this.init(this.config);
     },
 
@@ -44286,17 +48630,31 @@ var WebGLRenderer = new Class({
      */
     init: function (config)
     {
+        var gl;
         var canvas = this.canvas;
         var clearColor = config.backgroundColor;
-        var gl = canvas.getContext('webgl', config.contextCreation) || canvas.getContext('experimental-webgl', config.contextCreation);
+
+        //  Did they provide their own context?
+        if (this.game.config.context)
+        {
+            gl = this.game.config.context;
+        }
+        else
+        {
+            gl = canvas.getContext('webgl', config.contextCreation) || canvas.getContext('experimental-webgl', config.contextCreation);
+        }
 
         if (!gl || gl.isContextLost())
         {
             this.contextLost = true;
+
             throw new Error('This browser does not support WebGL. Try using the Canvas pipeline.');
         }
 
         this.gl = gl;
+
+        //  Set it back into the Game, so devs can access it from there too
+        this.game.context = gl;
 
         for (var i = 0; i <= 16; i++)
         {
@@ -44314,7 +48672,26 @@ var WebGLRenderer = new Class({
         this.glFormats[4] = gl.FLOAT;
 
         // Load supported extensions
-        this.supportedExtensions = gl.getSupportedExtensions();
+        var exts = gl.getSupportedExtensions();
+
+        if (!config.maxTextures)
+        {
+            config.maxTextures = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);
+        }
+
+        if (!config.maxTextureSize)
+        {
+            config.maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+        }
+
+        var extString = 'WEBGL_compressed_texture_';
+        var wkExtString = 'WEBKIT_' + extString;
+
+        this.compression.ETC1 = gl.getExtension(extString + 'etc1') || gl.getExtension(wkExtString + 'etc1');
+        this.compression.PVRTC = gl.getExtension(extString + 'pvrtc') || gl.getExtension(wkExtString + 'pvrtc');
+        this.compression.S3TC = gl.getExtension(extString + 's3tc') || gl.getExtension(wkExtString + 's3tc');
+        
+        this.supportedExtensions = exts;
 
         // Setup initial WebGL state
         gl.disable(gl.DEPTH_TEST);
@@ -45768,6 +50145,34 @@ var WebGLRenderer = new Class({
     },
 
     /**
+     * Returns the maximum number of texture units that can be used in a fragment shader.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#getMaxTextures
+     * @since 3.8.0
+     *
+     * @return {integer} The maximum number of textures WebGL supports.
+     */
+    getMaxTextures: function ()
+    {
+        return this.config.maxTextures;
+    },
+
+    /**
+     * Returns the largest texture size (either width or height) that can be created.
+     * Note that VRAM may not allow a texture of any given size, it just expresses
+     * hardware / driver support for a given size.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#getMaxTextureSize
+     * @since 3.8.0
+     *
+     * @return {integer} ...
+     */
+    getMaxTextureSize: function ()
+    {
+        return this.config.maxTextureSize;
+    },
+
+    /**
      * [description]
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#destroy
@@ -45856,8 +50261,8 @@ module.exports = {
  */
 
 var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
-var ShaderSourceFS = __webpack_require__(/*! ../shaders/BitmapMask.frag */ "./renderer/webgl/shaders/BitmapMask.frag");
-var ShaderSourceVS = __webpack_require__(/*! ../shaders/BitmapMask.vert */ "./renderer/webgl/shaders/BitmapMask.vert");
+var ShaderSourceFS = __webpack_require__(/*! ../shaders/BitmapMask-frag.js */ "./renderer/webgl/shaders/BitmapMask-frag.js");
+var ShaderSourceVS = __webpack_require__(/*! ../shaders/BitmapMask-vert.js */ "./renderer/webgl/shaders/BitmapMask-vert.js");
 var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webgl/WebGLPipeline.js");
 
 /**
@@ -46091,8 +50496,8 @@ var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
 var Commands = __webpack_require__(/*! ../../../gameobjects/graphics/Commands */ "./gameobjects/graphics/Commands.js");
 var Earcut = __webpack_require__(/*! ../../../geom/polygon/Earcut */ "./geom/polygon/Earcut.js");
 var ModelViewProjection = __webpack_require__(/*! ./components/ModelViewProjection */ "./renderer/webgl/pipelines/components/ModelViewProjection.js");
-var ShaderSourceFS = __webpack_require__(/*! ../shaders/FlatTint.frag */ "./renderer/webgl/shaders/FlatTint.frag");
-var ShaderSourceVS = __webpack_require__(/*! ../shaders/FlatTint.vert */ "./renderer/webgl/shaders/FlatTint.vert");
+var ShaderSourceFS = __webpack_require__(/*! ../shaders/FlatTint-frag.js */ "./renderer/webgl/shaders/FlatTint-frag.js");
+var ShaderSourceVS = __webpack_require__(/*! ../shaders/FlatTint-vert.js */ "./renderer/webgl/shaders/FlatTint-vert.js");
 var Utils = __webpack_require__(/*! ../Utils */ "./renderer/webgl/Utils.js");
 var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webgl/WebGLPipeline.js");
 
@@ -47375,7 +51780,7 @@ module.exports = FlatTintPipeline;
  */
 
 var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
-var ShaderSourceFS = __webpack_require__(/*! ../shaders/ForwardDiffuse.frag */ "./renderer/webgl/shaders/ForwardDiffuse.frag");
+var ShaderSourceFS = __webpack_require__(/*! ../shaders/ForwardDiffuse-frag.js */ "./renderer/webgl/shaders/ForwardDiffuse-frag.js");
 var TextureTintPipeline = __webpack_require__(/*! ./TextureTintPipeline */ "./renderer/webgl/pipelines/TextureTintPipeline.js");
 
 var LIGHT_COUNT = 10;
@@ -47504,7 +51909,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     drawStaticTilemapLayer: function (tilemap, camera, parentTransformMatrix)
     {
-        var normalTexture = tilemap.texture.dataSource[0];
+        var normalTexture = tilemap.tileset.image.dataSource[0];
 
         if (normalTexture)
         {
@@ -47532,7 +51937,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     drawEmitterManager: function (emitterManager, camera, parentTransformMatrix)
     {
-        var normalTexture = emitterManager.texture.dataSource[0];
+        var normalTexture = emitterManager.texture.dataSource[emitterManager.frame.sourceIndex];
 
         if (normalTexture)
         {
@@ -47560,7 +51965,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     drawBlitter: function (blitter, camera, parentTransformMatrix)
     {
-        var normalTexture = blitter.texture.dataSource[0];
+        var normalTexture = blitter.texture.dataSource[blitter.frame.sourceIndex];
 
         if (normalTexture)
         {
@@ -47588,7 +51993,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchSprite: function (sprite, camera, parentTransformMatrix)
     {
-        var normalTexture = sprite.texture.dataSource[0];
+        var normalTexture = sprite.texture.dataSource[sprite.frame.sourceIndex];
 
         if (normalTexture)
         {
@@ -47616,7 +52021,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchMesh: function (mesh, camera, parentTransformMatrix)
     {
-        var normalTexture = mesh.texture.dataSource[0];
+        var normalTexture = mesh.texture.dataSource[mesh.frame.sourceIndex];
 
         if (normalTexture)
         {
@@ -47645,7 +52050,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchBitmapText: function (bitmapText, camera, parentTransformMatrix)
     {
-        var normalTexture = bitmapText.texture.dataSource[0];
+        var normalTexture = bitmapText.texture.dataSource[bitmapText.frame.sourceIndex];
 
         if (normalTexture)
         {
@@ -47673,7 +52078,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchDynamicBitmapText: function (bitmapText, camera, parentTransformMatrix)
     {
-        var normalTexture = bitmapText.texture.dataSource[0];
+        var normalTexture = bitmapText.texture.dataSource[bitmapText.frame.sourceIndex];
 
         if (normalTexture)
         {
@@ -47701,7 +52106,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchText: function (text, camera, parentTransformMatrix)
     {
-        var normalTexture = text.texture.dataSource[0];
+        var normalTexture = text.texture.dataSource[text.frame.sourceIndex];
 
         if (normalTexture)
         {
@@ -47729,7 +52134,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchDynamicTilemapLayer: function (tilemapLayer, camera, parentTransformMatrix)
     {
-        var normalTexture = tilemapLayer.texture.dataSource[0];
+        var normalTexture = tilemapLayer.tileset.image.dataSource[0];
 
         if (normalTexture)
         {
@@ -47757,7 +52162,7 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchTileSprite: function (tileSprite, camera, parentTransformMatrix)
     {
-        var normalTexture = tileSprite.texture.dataSource[0];
+        var normalTexture = tileSprite.texture.dataSource[tileSprite.frame.sourceIndex];
 
         if (normalTexture)
         {
@@ -47797,8 +52202,8 @@ module.exports = ForwardDiffuseLightPipeline;
 
 var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
 var ModelViewProjection = __webpack_require__(/*! ./components/ModelViewProjection */ "./renderer/webgl/pipelines/components/ModelViewProjection.js");
-var ShaderSourceFS = __webpack_require__(/*! ../shaders/TextureTint.frag */ "./renderer/webgl/shaders/TextureTint.frag");
-var ShaderSourceVS = __webpack_require__(/*! ../shaders/TextureTint.vert */ "./renderer/webgl/shaders/TextureTint.vert");
+var ShaderSourceFS = __webpack_require__(/*! ../shaders/TextureTint-frag.js */ "./renderer/webgl/shaders/TextureTint-frag.js");
+var ShaderSourceVS = __webpack_require__(/*! ../shaders/TextureTint-vert.js */ "./renderer/webgl/shaders/TextureTint-vert.js");
 var Utils = __webpack_require__(/*! ../Utils */ "./renderer/webgl/Utils.js");
 var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webgl/WebGLPipeline.js");
 
@@ -48131,7 +52536,7 @@ var TextureTintPipeline = new Class({
 
     /**
      * Renders immediately a static tilemap. This function won't use
-     * the batching functionality of the pipieline.
+     * the batching functionality of the pipeline.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawStaticTilemapLayer
      * @since 3.0.0
@@ -48454,6 +52859,8 @@ var TextureTintPipeline = new Class({
         var blitterX = blitter.x - cameraScrollX;
         var blitterY = blitter.y - cameraScrollY;
 
+        var prevTextureSourceIndex;
+
         for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
         {
             var batchSize = Math.min(length, this.maxQuads);
@@ -48463,6 +52870,13 @@ var TextureTintPipeline = new Class({
                 var bob = list[batchOffset + index];
                 var frame = bob.frame;
                 var alpha = bob.alpha;
+
+                if (alpha === 0)
+                {
+                    //  Nothing to see here, moving on ...
+                    continue;
+                }
+
                 var tint = getTint(0xffffff, alpha);
                 var uvs = frame.uvs;
                 var flipX = bob.flipX;
@@ -48478,10 +52892,13 @@ var TextureTintPipeline = new Class({
                 var tx1 = xw * a + yh * c + e;
                 var ty1 = xw * b + yh * d + f;
             
-                // Bind Texture if texture wasn't bound.
-                // This needs to be here because of multiple
-                // texture atlas.
-                this.setTexture2D(frame.texture.source[frame.sourceIndex].glTexture, 0);
+                //  Bind texture only if the Texture Source is different from before
+                if (frame.sourceIndex !== prevTextureSourceIndex)
+                {
+                    this.setTexture2D(frame.texture.source[frame.sourceIndex].glTexture, 0);
+
+                    prevTextureSourceIndex = frame.sourceIndex;
+                }
 
                 var vertexOffset = this.vertexCount * this.vertexComponentCount;
 
@@ -48529,6 +52946,8 @@ var TextureTintPipeline = new Class({
                 if (this.vertexCount >= this.vertexCapacity)
                 {
                     this.flush();
+
+                    prevTextureSourceIndex = -1;
                 }
             }
 
@@ -50601,80 +55020,250 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./renderer/webgl/shaders/BitmapMask.frag":
-/*!************************************************!*\
-  !*** ./renderer/webgl/shaders/BitmapMask.frag ***!
-  \************************************************/
+/***/ "./renderer/webgl/shaders/BitmapMask-frag.js":
+/*!***************************************************!*\
+  !*** ./renderer/webgl/shaders/BitmapMask-frag.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#define SHADER_NAME PHASER_BITMAP_MASK_FS\r\n\r\nprecision mediump float;\r\n\r\nuniform vec2 uResolution;\r\nuniform sampler2D uMainSampler;\r\nuniform sampler2D uMaskSampler;\r\nuniform bool uInvertMaskAlpha;\r\n\r\nvoid main()\r\n{\r\n    vec2 uv = gl_FragCoord.xy / uResolution;\r\n    vec4 mainColor = texture2D(uMainSampler, uv);\r\n    vec4 maskColor = texture2D(uMaskSampler, uv);\r\n    float alpha = mainColor.a;\r\n\r\n    if (!uInvertMaskAlpha)\r\n    {\r\n        alpha *= (maskColor.a);\r\n    }\r\n    else\r\n    {\r\n        alpha *= (1.0 - maskColor.a);\r\n    }\r\n    \r\n    gl_FragColor = vec4(mainColor.rgb * alpha, alpha);\r\n}\r\n"
+module.exports = [
+    '#define SHADER_NAME PHASER_BITMAP_MASK_FS',
+    '',
+    'precision mediump float;',
+    '',
+    'uniform vec2 uResolution;',
+    'uniform sampler2D uMainSampler;',
+    'uniform sampler2D uMaskSampler;',
+    'uniform bool uInvertMaskAlpha;',
+    '',
+    'void main()',
+    '{',
+    '    vec2 uv = gl_FragCoord.xy / uResolution;',
+    '    vec4 mainColor = texture2D(uMainSampler, uv);',
+    '    vec4 maskColor = texture2D(uMaskSampler, uv);',
+    '    float alpha = mainColor.a;',
+    '',
+    '    if (!uInvertMaskAlpha)',
+    '    {',
+    '        alpha *= (maskColor.a);',
+    '    }',
+    '    else',
+    '    {',
+    '        alpha *= (1.0 - maskColor.a);',
+    '    }',
+    '',
+    '    gl_FragColor = vec4(mainColor.rgb * alpha, alpha);',
+    '}',
+    ''
+].join('\n');
+
 
 /***/ }),
 
-/***/ "./renderer/webgl/shaders/BitmapMask.vert":
-/*!************************************************!*\
-  !*** ./renderer/webgl/shaders/BitmapMask.vert ***!
-  \************************************************/
+/***/ "./renderer/webgl/shaders/BitmapMask-vert.js":
+/*!***************************************************!*\
+  !*** ./renderer/webgl/shaders/BitmapMask-vert.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#define SHADER_NAME PHASER_BITMAP_MASK_VS\r\n\r\nprecision mediump float;\r\n\r\nattribute vec2 inPosition;\r\n\r\nvoid main()\r\n{\r\n    gl_Position = vec4(inPosition, 0.0, 1.0);\r\n}\r\n"
+module.exports = [
+    '#define SHADER_NAME PHASER_BITMAP_MASK_VS',
+    '',
+    'precision mediump float;',
+    '',
+    'attribute vec2 inPosition;',
+    '',
+    'void main()',
+    '{',
+    '    gl_Position = vec4(inPosition, 0.0, 1.0);',
+    '}',
+    ''
+].join('\n');
+
 
 /***/ }),
 
-/***/ "./renderer/webgl/shaders/FlatTint.frag":
-/*!**********************************************!*\
-  !*** ./renderer/webgl/shaders/FlatTint.frag ***!
-  \**********************************************/
+/***/ "./renderer/webgl/shaders/FlatTint-frag.js":
+/*!*************************************************!*\
+  !*** ./renderer/webgl/shaders/FlatTint-frag.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#define SHADER_NAME PHASER_FLAT_TINT_FS\r\n\r\nprecision mediump float;\r\n\r\nvarying vec4 outTint;\r\n\r\nvoid main() {\r\n    gl_FragColor = vec4(outTint.rgb * outTint.a, outTint.a);\r\n}\r\n"
+module.exports = [
+    '#define SHADER_NAME PHASER_FLAT_TINT_FS',
+    '',
+    'precision mediump float;',
+    '',
+    'varying vec4 outTint;',
+    '',
+    'void main() {',
+    '    gl_FragColor = vec4(outTint.rgb * outTint.a, outTint.a);',
+    '}',
+    ''
+].join('\n');
+
 
 /***/ }),
 
-/***/ "./renderer/webgl/shaders/FlatTint.vert":
-/*!**********************************************!*\
-  !*** ./renderer/webgl/shaders/FlatTint.vert ***!
-  \**********************************************/
+/***/ "./renderer/webgl/shaders/FlatTint-vert.js":
+/*!*************************************************!*\
+  !*** ./renderer/webgl/shaders/FlatTint-vert.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#define SHADER_NAME PHASER_FLAT_TINT_VS\r\n\r\nprecision mediump float;\r\n\r\nuniform mat4 uProjectionMatrix;\r\nuniform mat4 uViewMatrix;\r\nuniform mat4 uModelMatrix;\r\n\r\nattribute vec2 inPosition;\r\nattribute vec4 inTint;\r\n\r\nvarying vec4 outTint;\r\n\r\nvoid main () {\r\n    gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(inPosition, 1.0, 1.0);\r\n    outTint = inTint;\r\n}\r\n"
+module.exports = [
+    '#define SHADER_NAME PHASER_FLAT_TINT_VS',
+    '',
+    'precision mediump float;',
+    '',
+    'uniform mat4 uProjectionMatrix;',
+    'uniform mat4 uViewMatrix;',
+    'uniform mat4 uModelMatrix;',
+    '',
+    'attribute vec2 inPosition;',
+    'attribute vec4 inTint;',
+    '',
+    'varying vec4 outTint;',
+    '',
+    'void main () {',
+    '    gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(inPosition, 1.0, 1.0);',
+    '    outTint = inTint;',
+    '}',
+    ''
+].join('\n');
+
 
 /***/ }),
 
-/***/ "./renderer/webgl/shaders/ForwardDiffuse.frag":
+/***/ "./renderer/webgl/shaders/ForwardDiffuse-frag.js":
+/*!*******************************************************!*\
+  !*** ./renderer/webgl/shaders/ForwardDiffuse-frag.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = [
+    '#define SHADER_NAME PHASER_FORWARD_DIFFUSE_FS',
+    '',
+    'precision mediump float;',
+    '',
+    'struct Light',
+    '{',
+    '    vec2 position;',
+    '    vec3 color;',
+    '    float intensity;',
+    '    float radius;',
+    '};',
+    '',
+    'const int kMaxLights = %LIGHT_COUNT%;',
+    '',
+    'uniform vec4 uCamera; /* x, y, rotation, zoom */',
+    'uniform vec2 uResolution;',
+    'uniform sampler2D uMainSampler;',
+    'uniform sampler2D uNormSampler;',
+    'uniform vec3 uAmbientLightColor;',
+    'uniform Light uLights[kMaxLights];',
+    '',
+    'varying vec2 outTexCoord;',
+    'varying vec4 outTint;',
+    '',
+    'void main()',
+    '{',
+    '    vec3 finalColor = vec3(0.0, 0.0, 0.0);',
+    '    vec4 color = texture2D(uMainSampler, outTexCoord) * vec4(outTint.rgb * outTint.a, outTint.a);',
+    '    vec3 normalMap = texture2D(uNormSampler, outTexCoord).rgb;',
+    '    vec3 normal = normalize(vec3(normalMap * 2.0 - 1.0));',
+    '    vec2 res = vec2(min(uResolution.x, uResolution.y)) * uCamera.w;',
+    '',
+    '    for (int index = 0; index < kMaxLights; ++index)',
+    '    {',
+    '        Light light = uLights[index];',
+    '        vec3 lightDir = vec3((light.position.xy / res) - (gl_FragCoord.xy / res), 0.1);',
+    '        vec3 lightNormal = normalize(lightDir);',
+    '        float distToSurf = length(lightDir) * uCamera.w;',
+    '        float diffuseFactor = max(dot(normal, lightNormal), 0.0);',
+    '        float radius = (light.radius / res.x * uCamera.w) * uCamera.w;',
+    '        float attenuation = clamp(1.0 - distToSurf * distToSurf / (radius * radius), 0.0, 1.0);',
+    '        vec3 diffuse = light.color * diffuseFactor;',
+    '        finalColor += (attenuation * diffuse) * light.intensity;',
+    '    }',
+    '',
+    '    vec4 colorOutput = vec4(uAmbientLightColor + finalColor, 1.0);',
+    '    gl_FragColor = color * vec4(colorOutput.rgb * colorOutput.a, colorOutput.a);',
+    '',
+    '}',
+    ''
+].join('\n');
+
+
+/***/ }),
+
+/***/ "./renderer/webgl/shaders/TextureTint-frag.js":
 /*!****************************************************!*\
-  !*** ./renderer/webgl/shaders/ForwardDiffuse.frag ***!
+  !*** ./renderer/webgl/shaders/TextureTint-frag.js ***!
   \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#define SHADER_NAME PHASER_FORWARD_DIFFUSE_FS\r\n\r\nprecision mediump float;\r\n\r\nstruct Light\r\n{\r\n    vec2 position;\r\n    vec3 color;\r\n    float intensity;\r\n    float radius;\r\n};\r\n\r\nconst int kMaxLights = %LIGHT_COUNT%;\r\n\r\nuniform vec4 uCamera; /* x, y, rotation, zoom */\r\nuniform vec2 uResolution;\r\nuniform sampler2D uMainSampler;\r\nuniform sampler2D uNormSampler;\r\nuniform vec3 uAmbientLightColor;\r\nuniform Light uLights[kMaxLights];\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main()\r\n{\r\n    vec3 finalColor = vec3(0.0, 0.0, 0.0);\r\n    vec4 color = texture2D(uMainSampler, outTexCoord) * vec4(outTint.rgb * outTint.a, outTint.a);\r\n    vec3 normalMap = texture2D(uNormSampler, outTexCoord).rgb;\r\n    vec3 normal = normalize(vec3(normalMap * 2.0 - 1.0));\r\n    vec2 res = vec2(min(uResolution.x, uResolution.y)) * uCamera.w;\r\n\r\n    for (int index = 0; index < kMaxLights; ++index)\r\n    {\r\n        Light light = uLights[index];\r\n        vec3 lightDir = vec3((light.position.xy / res) - (gl_FragCoord.xy / res), 0.1);\r\n        vec3 lightNormal = normalize(lightDir);\r\n        float distToSurf = length(lightDir) * uCamera.w;\r\n        float diffuseFactor = max(dot(normal, lightNormal), 0.0);\r\n        float radius = (light.radius / res.x * uCamera.w) * uCamera.w;\r\n        float attenuation = clamp(1.0 - distToSurf * distToSurf / (radius * radius), 0.0, 1.0);\r\n        vec3 diffuse = light.color * diffuseFactor;\r\n        finalColor += (attenuation * diffuse) * light.intensity;\r\n    }\r\n\r\n    vec4 colorOutput = vec4(uAmbientLightColor + finalColor, 1.0);\r\n    gl_FragColor = color * vec4(colorOutput.rgb * colorOutput.a, colorOutput.a);\r\n\r\n}\r\n"
+module.exports = [
+    '#define SHADER_NAME PHASER_TEXTURE_TINT_FS',
+    '',
+    'precision mediump float;',
+    '',
+    'uniform sampler2D uMainSampler;',
+    '',
+    'varying vec2 outTexCoord;',
+    'varying vec4 outTint;',
+    '',
+    'void main()',
+    '{',
+    '    vec4 texel = texture2D(uMainSampler, outTexCoord);',
+    '    texel *= vec4(outTint.rgb * outTint.a, outTint.a);',
+    '    gl_FragColor = texel;',
+    '}',
+    ''
+].join('\n');
+
 
 /***/ }),
 
-/***/ "./renderer/webgl/shaders/TextureTint.frag":
-/*!*************************************************!*\
-  !*** ./renderer/webgl/shaders/TextureTint.frag ***!
-  \*************************************************/
+/***/ "./renderer/webgl/shaders/TextureTint-vert.js":
+/*!****************************************************!*\
+  !*** ./renderer/webgl/shaders/TextureTint-vert.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#define SHADER_NAME PHASER_TEXTURE_TINT_FS\r\n\r\nprecision mediump float;\r\n\r\nuniform sampler2D uMainSampler;\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main() \r\n{\r\n    vec4 texel = texture2D(uMainSampler, outTexCoord);\r\n    texel *= vec4(outTint.rgb * outTint.a, outTint.a);\r\n    gl_FragColor = texel;\r\n}\r\n"
+module.exports = [
+    '#define SHADER_NAME PHASER_TEXTURE_TINT_VS',
+    '',
+    'precision mediump float;',
+    '',
+    'uniform mat4 uProjectionMatrix;',
+    'uniform mat4 uViewMatrix;',
+    'uniform mat4 uModelMatrix;',
+    '',
+    'attribute vec2 inPosition;',
+    'attribute vec2 inTexCoord;',
+    'attribute vec4 inTint;',
+    '',
+    'varying vec2 outTexCoord;',
+    'varying vec4 outTint;',
+    '',
+    'void main ()',
+    '{',
+    '    gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(inPosition, 1.0, 1.0);',
+    '    outTexCoord = inTexCoord;',
+    '    outTint = inTint;',
+    '}',
+    '',
+    ''
+].join('\n');
 
-/***/ }),
-
-/***/ "./renderer/webgl/shaders/TextureTint.vert":
-/*!*************************************************!*\
-  !*** ./renderer/webgl/shaders/TextureTint.vert ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "#define SHADER_NAME PHASER_TEXTURE_TINT_VS\r\n\r\nprecision mediump float;\r\n\r\nuniform mat4 uProjectionMatrix;\r\nuniform mat4 uViewMatrix;\r\nuniform mat4 uModelMatrix;\r\n\r\nattribute vec2 inPosition;\r\nattribute vec2 inTexCoord;\r\nattribute vec4 inTint;\r\n\r\nvarying vec2 outTexCoord;\r\nvarying vec4 outTint;\r\n\r\nvoid main () \r\n{\r\n    gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(inPosition, 1.0, 1.0);\r\n    outTexCoord = inTexCoord;\r\n    outTint = inTint;\r\n}\r\n\r\n"
 
 /***/ }),
 
@@ -50772,7 +55361,8 @@ var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./ut
  */
 var GetScenePlugins = function (sys)
 {
-    var defaultPlugins = sys.game.config.defaultPlugins;
+    var defaultPlugins = sys.plugins.getDefaultScenePlugins();
+
     var scenePlugins = GetFastValue(sys.settings, 'plugins', false);
 
     //  Scene Plugins always override Default Plugins
@@ -50825,6 +55415,7 @@ var InjectionMap = {
 
     anims: 'anims',
     cache: 'cache',
+    plugins: 'plugins',
     registry: 'registry',
     sound: 'sound',
     textures: 'textures',
@@ -51032,7 +55623,7 @@ var Scene = new Class({
          * This property will only be available if defined in the Scene Injection Map and the plugin is installed.
          *
          * @name Phaser.Scene#lights
-         * @type {Phaser.GameObjects.DisplayList}
+         * @type {Phaser.GameObjects.LightsManager}
          * @since 3.0.0
          */
         this.lights;
@@ -52197,11 +56788,11 @@ var SceneManager = new Class({
             }
 
             //  Files payload?
-            if (loader && Array.isArray(scene.sys.settings.files))
+            if (loader && scene.sys.settings.hasOwnProperty('pack'))
             {
                 loader.reset();
 
-                if (loader.loadArray(scene.sys.settings.files))
+                if (loader.addPack({ payload: scene.sys.settings.pack }))
                 {
                     scene.sys.settings.status = CONST.LOADING;
 
@@ -52670,7 +57261,7 @@ var Clamp = __webpack_require__(/*! ../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
 var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 
 /**
  * @classdesc
@@ -53634,7 +58225,7 @@ var ScenePlugin = new Class({
 
 });
 
-PluginManager.register('ScenePlugin', ScenePlugin, 'scenePlugin');
+PluginCache.register('ScenePlugin', ScenePlugin, 'scenePlugin');
 
 module.exports = ScenePlugin;
 
@@ -53669,7 +58260,7 @@ var InjectionMap = __webpack_require__(/*! ./InjectionMap */ "./scene/InjectionM
  * @property {string} [key] - [description]
  * @property {boolean} [active=false] - [description]
  * @property {boolean} [visible=true] - [description]
- * @property {(false|LoaderFileObject[])} [files=false] - [description]
+ * @property {(false|Phaser.Loader.FileTypes.PackFileConfig)} [pack=false] - [description]
  * @property {?(InputJSONCameraObject|InputJSONCameraObject[])} [cameras=null] - [description]
  * @property {Object.<string, string>} [map] - Overwrites the default injection map for a scene.
  * @property {Object.<string, string>} [mapAdd] - Extends the injection map for a scene.
@@ -53691,7 +58282,7 @@ var InjectionMap = __webpack_require__(/*! ./InjectionMap */ "./scene/InjectionM
  * @property {integer} transitionDuration - [description]
  * @property {boolean} transitionAllowInput - [description]
  * @property {object} data - [description]
- * @property {(false|LoaderFileObject[])} files - [description]
+ * @property {(false|Phaser.Loader.FileTypes.PackFileConfig)} pack - [description]
  * @property {?(InputJSONCameraObject|InputJSONCameraObject[])} cameras - [description]
  * @property {Object.<string, string>} map - [description]
  * @property {object} physics - [description]
@@ -53742,7 +58333,7 @@ var Settings = {
 
             data: {},
 
-            files: GetValue(config, 'files', false),
+            pack: GetValue(config, 'pack', false),
 
             //  Cameras
 
@@ -53789,9 +58380,9 @@ module.exports = Settings;
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
+var DefaultPlugins = __webpack_require__(/*! ../plugins/DefaultPlugins */ "./plugins/DefaultPlugins.js");
 var GetPhysicsPlugins = __webpack_require__(/*! ./GetPhysicsPlugins */ "./scene/GetPhysicsPlugins.js");
 var GetScenePlugins = __webpack_require__(/*! ./GetScenePlugins */ "./scene/GetScenePlugins.js");
-var Plugins = __webpack_require__(/*! ../plugins */ "./plugins.js");
 var Settings = __webpack_require__(/*! ./Settings */ "./scene/Settings.js");
 
 /**
@@ -53894,7 +58485,7 @@ var Systems = new Class({
          * [description]
          *
          * @name Phaser.Scenes.Systems#plugins
-         * @type {Phaser.Boot.PluginManager}
+         * @type {Phaser.Plugins.PluginManager}
          * @since 3.0.0
          */
         this.plugins;
@@ -54016,13 +58607,12 @@ var Systems = new Class({
 
         this.plugins = pluginManager;
 
-        pluginManager.installGlobal(this, Plugins.Global);
+        pluginManager.addToScene(this, DefaultPlugins.Global, [ DefaultPlugins.CoreScene, GetScenePlugins(this), GetPhysicsPlugins(this) ]);
 
-        pluginManager.installLocal(this, Plugins.CoreScene);
-
-        pluginManager.installLocal(this, GetScenePlugins(this));
-
-        pluginManager.installLocal(this, GetPhysicsPlugins(this));
+        // pluginManager.installSceneGlobal(this, DefaultPlugins.Global);
+        // pluginManager.installSceneLocal(this, DefaultPlugins.CoreScene);
+        // pluginManager.installSceneLocal(this, GetScenePlugins(this));
+        // pluginManager.installSceneLocal(this, GetPhysicsPlugins(this));
 
         this.events.emit('boot', this);
 
@@ -54804,7 +59394,7 @@ var BaseSound = new Class({
         if (this.markers[marker.name])
         {
             // eslint-disable-next-line no-console
-            console.error('addMarker - Marker with name \'' + marker.name + '\' already exists for sound \'' + this.key + '\'!');
+            console.error('addMarker ' + marker.name + ' already exists in Sound');
 
             return false;
         }
@@ -55113,6 +59703,7 @@ module.exports = BaseSound;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var Clone = __webpack_require__(/*! ../utils/object/Clone */ "./utils/object/Clone.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
 
@@ -55171,6 +59762,16 @@ var BaseSoundManager = new Class({
         this.game = game;
 
         /**
+         * Local reference to the JSON Cache, as used by Audio Sprites.
+         *
+         * @name Phaser.Sound.BaseSoundManager#jsonCache
+         * @type {Phaser.Cache.BaseCache}
+         * @readOnly
+         * @since 3.7.0
+         */
+        this.jsonCache = game.cache.json;
+
+        /**
          * An array containing all added sounds.
          *
          * @name Phaser.Sound.BaseSoundManager#sounds
@@ -55211,24 +59812,6 @@ var BaseSoundManager = new Class({
          * @since 3.0.0
          */
         this.pauseOnBlur = true;
-
-        game.events.on('blur', function ()
-        {
-            if (this.pauseOnBlur)
-            {
-                this.onBlur();
-            }
-        }, this);
-
-        game.events.on('focus', function ()
-        {
-            if (this.pauseOnBlur)
-            {
-                this.onFocus();
-            }
-        }, this);
-
-        game.events.once('destroy', this.destroy, this);
 
         /**
          * Property that actually holds the value of global playback rate.
@@ -55275,6 +59858,25 @@ var BaseSoundManager = new Class({
          * @since 3.0.0
          */
         this.unlocked = false;
+
+        game.events.on('blur', function ()
+        {
+            if (this.pauseOnBlur)
+            {
+                this.onBlur();
+            }
+        }, this);
+
+        game.events.on('focus', function ()
+        {
+            if (this.pauseOnBlur)
+            {
+                this.onFocus();
+            }
+        }, this);
+
+        game.events.on('prestep', this.update, this);
+        game.events.once('destroy', this.destroy, this);
     },
 
     /**
@@ -55293,6 +59895,8 @@ var BaseSoundManager = new Class({
 
     /**
      * Adds a new audio sprite sound into the sound manager.
+     * Audio Sprites are a combination of audio files and a JSON configuration.
+     * The JSON follows the format of that created by https://github.com/tonistiigi/audiosprite
      *
      * @method Phaser.Sound.BaseSoundManager#addAudioSprite
      * @since 3.0.0
@@ -55304,9 +59908,11 @@ var BaseSoundManager = new Class({
      */
     addAudioSprite: function (key, config)
     {
+        if (config === undefined) { config = {}; }
+
         var sound = this.add(key, config);
 
-        sound.spritemap = this.game.cache.json.get(key).spritemap;
+        sound.spritemap = this.jsonCache.get(key).spritemap;
 
         for (var markerName in sound.spritemap)
         {
@@ -55315,13 +59921,17 @@ var BaseSoundManager = new Class({
                 continue;
             }
 
+            var markerConfig = Clone(config);
+
             var marker = sound.spritemap[markerName];
+
+            markerConfig.loop = (marker.hasOwnProperty('loop')) ? marker.loop : false;
 
             sound.addMarker({
                 name: markerName,
                 start: marker.start,
                 duration: marker.end - marker.start,
-                config: config
+                config: markerConfig
             });
         }
 
@@ -55770,6 +60380,8 @@ var WebAudioSoundManager = __webpack_require__(/*! ./webaudio/WebAudioSoundManag
 
 /**
  * Creates a Web Audio, HTML5 Audio or No Audio Sound Manager based on config and device settings.
+ *
+ * Be aware of https://developers.google.com/web/updates/2017/09/autoplay-policy-changes
  *
  * @function Phaser.Sound.SoundManagerCreator
  * @since 3.0.0
@@ -56799,6 +61411,7 @@ module.exports = HTML5AudioSound;
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
+ * @author       Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
@@ -56808,13 +61421,12 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var HTML5AudioSound = __webpack_require__(/*! ./HTML5AudioSound */ "./sound/html5/HTML5AudioSound.js");
 
 /**
- * HTML5 Audio implementation of the sound manager.
+ * HTML5 Audio implementation of the Sound Manager.
  *
  * @class HTML5AudioSoundManager
  * @extends Phaser.Sound.BaseSoundManager
  * @memberOf Phaser.Sound
  * @constructor
- * @author Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
  * @since 3.0.0
  *
  * @param {Phaser.Game} game - Reference to the current game instance.
@@ -56972,7 +61584,7 @@ var HTML5AudioSoundManager = new Class({
             return true;
         });
 
-        if(!this.locked)
+        if (!this.locked)
         {
             return;
         }
@@ -57041,7 +61653,7 @@ var HTML5AudioSoundManager = new Class({
         {
             this.forEachActiveSound(function (sound)
             {
-                if(sound.currentMarker === null && sound.duration === 0)
+                if (sound.currentMarker === null && sound.duration === 0)
                 {
                     sound.duration = sound.tags[0].duration;
                 }
@@ -57049,7 +61661,7 @@ var HTML5AudioSoundManager = new Class({
                 sound.totalDuration = sound.tags[0].duration;
             });
 
-            while(this.lockedActionsQueue.length)
+            while (this.lockedActionsQueue.length)
             {
                 var lockedAction = this.lockedActionsQueue.shift();
 
@@ -58635,7 +63247,7 @@ var WebAudioSoundManager = new Class({
          */
         this.destination = this.masterMuteNode;
 
-        this.locked = this.context.state === 'suspended' && 'ontouchstart' in window;
+        this.locked = this.context.state === 'suspended' && ('ontouchstart' in window || 'onclick' in window);
 
         BaseSoundManager.call(this, game);
 
@@ -58647,7 +63259,7 @@ var WebAudioSoundManager = new Class({
 
     /**
      * Method responsible for instantiating and returning AudioContext instance.
-     * If an instance of an AudioContext class was provided trough the game config,
+     * If an instance of an AudioContext class was provided through the game config,
      * that instance will be returned instead. This can come in handy if you are reloading
      * a Phaser game on a page that never properly refreshes (such as in an SPA project)
      * and you want to reuse already instantiated AudioContext.
@@ -58695,7 +63307,7 @@ var WebAudioSoundManager = new Class({
     },
 
     /**
-     * Unlocks Web Audio API on iOS devices on the initial touch event.
+     * Unlocks Web Audio API on the initial input event.
      *
      * Read more about how this issue is handled here in [this article](https://medium.com/@pgoloskokovic/unlocking-web-audio-the-smarter-way-8858218c0e09).
      *
@@ -58712,13 +63324,18 @@ var WebAudioSoundManager = new Class({
             {
                 document.body.removeEventListener('touchstart', unlock);
                 document.body.removeEventListener('touchend', unlock);
+                document.body.removeEventListener('click', unlock);
 
                 _this.unlocked = true;
             });
         };
 
-        document.body.addEventListener('touchstart', unlock, false);
-        document.body.addEventListener('touchend', unlock, false);
+        if (document.body)
+        {
+            document.body.addEventListener('touchstart', unlock, false);
+            document.body.addEventListener('touchend', unlock, false);
+            document.body.addEventListener('click', unlock, false);
+        }
     },
 
     /**
@@ -61427,7 +66044,7 @@ var Texture = __webpack_require__(/*! ./Texture */ "./textures/Texture.js");
  * @extends Phaser.Textures.Texture
  * @memberOf Phaser.Textures
  * @constructor
- * @since 3.6.1
+ * @since 3.7.0
  *
  * @param {Phaser.Textures.TextureManager} manager - A reference to the Texture Manager this Texture belongs to.
  * @param {string} key - The unique string-based key of this Texture.
@@ -61453,7 +66070,7 @@ var CanvasTexture = new Class({
          * @name Phaser.Textures.TextureManager#_source
          * @type {Phaser.Textures.TextureSource}
          * @private
-         * @since 3.6.1
+         * @since 3.7.0
          */
         this._source = this.frames['__BASE'].source;
 
@@ -61463,7 +66080,7 @@ var CanvasTexture = new Class({
          * @name Phaser.Textures.TextureManager#canvas
          * @readOnly
          * @type {HTMLCanvasElement}
-         * @since 3.6.1
+         * @since 3.7.0
          */
         this.canvas = this._source.image;
 
@@ -61473,7 +66090,7 @@ var CanvasTexture = new Class({
          * @name Phaser.Textures.TextureManager#canvas
          * @readOnly
          * @type {CanvasRenderingContext2D}
-         * @since 3.6.1
+         * @since 3.7.0
          */
         this.context = this.canvas.getContext('2d');
 
@@ -61484,7 +66101,7 @@ var CanvasTexture = new Class({
          * @name Phaser.Textures.TextureManager#width
          * @readOnly
          * @type {integer}
-         * @since 3.6.1
+         * @since 3.7.0
          */
         this.width = width;
 
@@ -61495,7 +66112,7 @@ var CanvasTexture = new Class({
          * @name Phaser.Textures.TextureManager#height
          * @readOnly
          * @type {integer}
-         * @since 3.6.1
+         * @since 3.7.0
          */
         this.height = height;
     },
@@ -61506,7 +66123,7 @@ var CanvasTexture = new Class({
      * canvas has changed, as there is a significant GPU texture allocation cost involved in doing so.
      *
      * @method Phaser.Textures.CanvasTexture#refresh
-     * @since 3.6.1
+     * @since 3.7.0
      *
      * @return {Phaser.Textures.CanvasTexture} This CanvasTexture.
      */
@@ -61521,7 +66138,7 @@ var CanvasTexture = new Class({
      * Gets the Canvas Element.
      *
      * @method Phaser.Textures.CanvasTexture#getCanvas
-     * @since 3.6.1
+     * @since 3.7.0
      *
      * @return {HTMLCanvasElement} The Canvas DOM element this texture is using.
      */
@@ -61534,7 +66151,7 @@ var CanvasTexture = new Class({
      * Gets the 2D Canvas Rendering Context.
      *
      * @method Phaser.Textures.CanvasTexture#getContext
-     * @since 3.6.1
+     * @since 3.7.0
      *
      * @return {CanvasRenderingContext2D} The Canvas Rendering Context this texture is using.
      */
@@ -61547,7 +66164,7 @@ var CanvasTexture = new Class({
      * Clears this Canvas Texture, resetting it back to transparent.
      *
      * @method Phaser.Textures.CanvasTexture#clear
-     * @since 3.6.1
+     * @since 3.7.0
      *
      * @return {Phaser.Textures.CanvasTexture} The Canvas Texture.
      */
@@ -61562,7 +66179,7 @@ var CanvasTexture = new Class({
      * Changes the size of this Canvas Texture.
      *
      * @method Phaser.Textures.CanvasTexture#setSize
-     * @since 3.6.1
+     * @since 3.7.0
      *
      * @param {integer} width - The new width of the Canvas.
      * @param {integer} [height] - The new height of the Canvas. If not given it will use the width as the height.
@@ -61913,7 +66530,7 @@ var Frame = new Class({
      * and should rarely be changed on-the-fly.
      *
      * @method Phaser.Textures.Frame#setSize
-     * @since 3.6.1
+     * @since 3.7.0
      *
      * @param {integer} width - The width of the frame before being trimmed.
      * @param {integer} height - The height of the frame before being trimmed.
@@ -62291,7 +66908,7 @@ var TextureSource = __webpack_require__(/*! ./TextureSource */ "./textures/Textu
  *
  * @param {Phaser.Textures.TextureManager} manager - A reference to the Texture Manager this Texture belongs to.
  * @param {string} key - The unique string-based key of this Texture.
- * @param {(HTMLImageElement|HTMLCanvasElement)} source - The source that is used to create the texture. Usually an Image, but can also be a Canvas.
+ * @param {(HTMLImageElement[]|HTMLCanvasElement[])} source - An array of sources that are used to create the texture. Usually Images, but can also be a Canvas.
  * @param {number} [width] - The width of the Texture. This is optional and automatically derived from the source images.
  * @param {number} [height] - The height of the Texture. This is optional and automatically derived from the source images.
  */
@@ -62599,6 +67216,43 @@ var Texture = new Class({
     },
 
     /**
+     * Given a Frame name, return the data source image it uses to render with.
+     * You can use this to get the normal map for an image for example.
+     *
+     * This will return the actual DOM Image.
+     *
+     * @method Phaser.Textures.Texture#getDataSourceImage
+     * @since 3.7.0
+     *
+     * @param {(string|integer)} [name] - The string-based name, or integer based index, of the Frame to get from this Texture.
+     *
+     * @return {(HTMLImageElement|HTMLCanvasElement)} The DOM Image or Canvas Element.
+     */
+    getDataSourceImage: function (name)
+    {
+        if (name === undefined || name === null || this.frameTotal === 1)
+        {
+            name = '__BASE';
+        }
+
+        var frame = this.frames[name];
+        var idx;
+
+        if (!frame)
+        {
+            console.warn('No Texture.frame found with name ' + name);
+
+            idx = this.frames['__BASE'].sourceIndex;
+        }
+        else
+        {
+            idx = frame.sourceIndex;
+        }
+
+        return this.dataSource[idx].image;
+    },
+
+    /**
      * Adds a data source image to this Texture.
      *
      * An example of a data source image would be a normal map, where all of the Frames for this Texture
@@ -62853,9 +67507,10 @@ var TextureManager = new Class({
 
     /**
      * Checks the given texture key and throws a console.warn if the key is already in use, then returns false.
+     * If you wish to avoid the console.warn then use `TextureManager.exists` instead.
      *
      * @method Phaser.Textures.TextureManager#checkKey
-     * @since 3.6.1
+     * @since 3.7.0
      *
      * @param {string} key - The texture key to check.
      *
@@ -62884,7 +67539,7 @@ var TextureManager = new Class({
      * step when clearing down to avoid this.
      *
      * @method Phaser.Textures.TextureManager#remove
-     * @since 3.6.1
+     * @since 3.7.0
      *
      * @param {(string|Phaser.Textures.Texture)} key - The key of the Texture to remove, or a reference to it.
      *
@@ -63087,19 +67742,20 @@ var TextureManager = new Class({
      * @param {string} key - The unique string-based key of the Texture.
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas data.
+     * @param {HTMLImageElement} [dataSource] - An optional data Image element.
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addAtlas: function (key, source, data)
+    addAtlas: function (key, source, data, dataSource)
     {
         //  New Texture Packer format?
         if (Array.isArray(data.textures) || Array.isArray(data.frames))
         {
-            return this.addAtlasJSONArray(key, source, data);
+            return this.addAtlasJSONArray(key, source, data, dataSource);
         }
         else
         {
-            return this.addAtlasJSONHash(key, source, data);
+            return this.addAtlasJSONHash(key, source, data, dataSource);
         }
     },
 
@@ -63112,12 +67768,13 @@ var TextureManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The unique string-based key of the Texture.
-     * @param {HTMLImageElement} source - The source Image element.
-     * @param {object} data - The Texture Atlas data.
+     * @param {(HTMLImageElement|HTMLImageElement[])} source - The source Image element/s.
+     * @param {(object|object[])} data - The Texture Atlas data/s.
+     * @param {HTMLImageElement} [dataSource] - An optional data Image element.
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addAtlasJSONArray: function (key, source, data)
+    addAtlasJSONArray: function (key, source, data, dataSource)
     {
         var texture = null;
 
@@ -63125,10 +67782,12 @@ var TextureManager = new Class({
         {
             texture = this.create(key, source);
 
+            //  Multi-Atlas?
             if (Array.isArray(data))
             {
                 var singleAtlasFile = (data.length === 1); // multi-pack with one atlas file for all images
 
+                //  !! Assumes the textures are in the same order in the source array as in the json data !!
                 for (var i = 0; i < texture.source.length; i++)
                 {
                     var atlasData = singleAtlasFile ? data[0] : data[i];
@@ -63139,6 +67798,11 @@ var TextureManager = new Class({
             else
             {
                 Parser.JSONArray(texture, 0, data);
+            }
+
+            if (dataSource)
+            {
+                texture.setDataSource(dataSource);
             }
 
             this.emit('addtexture', key, texture);
@@ -63158,10 +67822,11 @@ var TextureManager = new Class({
      * @param {string} key - The unique string-based key of the Texture.
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas data.
+     * @param {HTMLImageElement} [dataSource] - An optional data Image element.
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addAtlasJSONHash: function (key, source, data)
+    addAtlasJSONHash: function (key, source, data, dataSource)
     {
         var texture = null;
 
@@ -63181,6 +67846,46 @@ var TextureManager = new Class({
                 Parser.JSONHash(texture, 0, data);
             }
 
+            if (dataSource)
+            {
+                texture.setDataSource(dataSource);
+            }
+
+            this.emit('addtexture', key, texture);
+        }
+
+        return texture;
+    },
+
+    /**
+     * Adds a Texture Atlas to this Texture Manager, where the atlas data is given
+     * in the XML format.
+     *
+     * @method Phaser.Textures.TextureManager#addAtlasXML
+     * @since 3.7.0
+     *
+     * @param {string} key - The unique string-based key of the Texture.
+     * @param {HTMLImageElement} source - The source Image element.
+     * @param {object} data - The Texture Atlas XML data.
+     * @param {HTMLImageElement} [dataSource] - An optional data Image element.
+     *
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
+     */
+    addAtlasXML: function (key, source, data, dataSource)
+    {
+        var texture = null;
+
+        if (this.checkKey(key))
+        {
+            texture = this.create(key, source);
+            
+            Parser.AtlasXML(texture, 0, data);
+
+            if (dataSource)
+            {
+                texture.setDataSource(dataSource);
+            }
+
             this.emit('addtexture', key, texture);
         }
 
@@ -63197,10 +67902,11 @@ var TextureManager = new Class({
      * @param {string} key - The unique string-based key of the Texture.
      * @param {HTMLImageElement} source - The source Image element.
      * @param {object} data - The Texture Atlas data.
+     * @param {HTMLImageElement} [dataSource] - An optional data Image element.
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
-    addUnityAtlas: function (key, source, data)
+    addUnityAtlas: function (key, source, data, dataSource)
     {
         var texture = null;
 
@@ -63209,6 +67915,11 @@ var TextureManager = new Class({
             texture = this.create(key, source);
 
             Parser.UnityYAML(texture, 0, data);
+
+            if (dataSource)
+            {
+                texture.setDataSource(dataSource);
+            }
 
             this.emit('addtexture', key, texture);
         }
@@ -63324,84 +68035,6 @@ var TextureManager = new Class({
 
             return texture;
         }
-    },
-
-    /**
-     * Adds a Texture Atlas to this Texture Manager, where the atlas data is given
-     * in the Starling XML format.
-     *
-     * @method Phaser.Textures.TextureManager#addAtlasStarlingXML
-     * @since 3.0.0
-     *
-     * @param {string} key - The unique string-based key of the Texture.
-     * @param {HTMLImageElement} source - The source Image element.
-     * @param {object} data - The Texture Atlas XML data.
-     *
-     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
-     */
-    addAtlasStarlingXML: function (key, source, data)
-    {
-        var texture = null;
-
-        if (this.checkKey(key))
-        {
-            texture = this.create(key, source);
-
-            if (Array.isArray(data))
-            {
-                for (var i = 0; i < data.length; i++)
-                {
-                    Parser.StarlingXML(texture, i, data[i]);
-                }
-            }
-            else
-            {
-                Parser.StarlingXML(texture, 0, data);
-            }
-
-            this.emit('addtexture', key, texture);
-        }
-
-        return texture;
-    },
-
-    /**
-     * Adds a Texture Atlas to this Texture Manager, where the atlas data is given
-     * in the Pyxel JSON format.
-     *
-     * @method Phaser.Textures.TextureManager#addAtlasPyxel
-     * @since 3.0.0
-     *
-     * @param {string} key - The unique string-based key of the Texture.
-     * @param {HTMLImageElement} source - The source Image element.
-     * @param {object} data - The Texture Atlas XML data.
-     *
-     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
-     */
-    addAtlasPyxel: function (key, source, data)
-    {
-        var texture = null;
-
-        if (this.checkKey(key))
-        {
-            texture = this.create(key, source);
-
-            if (Array.isArray(data))
-            {
-                for (var i = 0; i < data.length; i++)
-                {
-                    Parser.Pyxel(texture, i, data[i]);
-                }
-            }
-            else
-            {
-                Parser.Pyxel(texture, 0, data);
-            }
-
-            this.emit('addtexture', key, texture);
-        }
-
-        return texture;
     },
 
     /**
@@ -63709,7 +68342,7 @@ var TextureSource = new Class({
          *
          * @name Phaser.Textures.TextureSource#renderer
          * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
-         * @since 3.6.1
+         * @since 3.7.0
          */
         this.renderer = game.renderer;
 
@@ -63822,7 +68455,7 @@ var TextureSource = new Class({
      */
     init: function (game)
     {
-        if (this.renderer.gl)
+        if (this.renderer && this.renderer.gl)
         {
             if (this.isCanvas)
             {
@@ -63865,7 +68498,7 @@ var TextureSource = new Class({
      * it updates the WebGLTexture using the canvas data.
      *
      * @method Phaser.Textures.TextureSource#update
-     * @since 3.6.1
+     * @since 3.7.0
      */
     update: function ()
     {
@@ -64002,6 +68635,92 @@ module.exports = Textures;
 
 /***/ }),
 
+/***/ "./textures/parsers/AtlasXML.js":
+/*!**************************************!*\
+  !*** ./textures/parsers/AtlasXML.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * Parses an XML Texture Atlas object and adds all the Frames into a Texture.
+ *
+ * @function Phaser.Textures.Parsers.AtlasXML
+ * @memberOf Phaser.Textures.Parsers
+ * @private
+ * @since 3.7.0
+ *
+ * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
+ * @param {integer} sourceIndex - The index of the TextureSource.
+ * @param {*} xml - The XML data.
+ *
+ * @return {Phaser.Textures.Texture} The Texture modified by this parser.
+ */
+var AtlasXML = function (texture, sourceIndex, xml)
+{
+    //  Malformed?
+    if (!xml.getElementsByTagName('TextureAtlas'))
+    {
+        console.warn('Invalid Texture Atlas XML given');
+        return;
+    }
+
+    //  Add in a __BASE entry (for the entire atlas)
+    var source = texture.source[sourceIndex];
+
+    texture.add('__BASE', sourceIndex, 0, 0, source.width, source.height);
+
+    //  By this stage frames is a fully parsed array
+    var frames = xml.getElementsByTagName('SubTexture');
+
+    var newFrame;
+
+    for (var i = 0; i < frames.length; i++)
+    {
+        var frame = frames[i].attributes;
+
+        var name = frame.name.value;
+        var x = parseInt(frame.x.value, 10);
+        var y = parseInt(frame.y.value, 10);
+        var width = parseInt(frame.width.value, 10);
+        var height = parseInt(frame.height.value, 10);
+
+        //  The frame values are the exact coordinates to cut the frame out of the atlas from
+        newFrame = texture.add(name, sourceIndex, x, y, width, height);
+
+        //  These are the original (non-trimmed) sprite values
+        if (frame.frameX)
+        {
+            var frameX = Math.abs(parseInt(frame.frameX.value, 10));
+            var frameY = Math.abs(parseInt(frame.frameY.value, 10));
+            var frameWidth = parseInt(frame.frameWidth.value, 10);
+            var frameHeight = parseInt(frame.frameHeight.value, 10);
+
+            newFrame.setTrim(
+                width,
+                height,
+                frameX,
+                frameY,
+                frameWidth,
+                frameHeight
+            );
+        }
+    }
+
+    return texture;
+};
+
+module.exports = AtlasXML;
+
+
+/***/ }),
+
 /***/ "./textures/parsers/Canvas.js":
 /*!************************************!*\
   !*** ./textures/parsers/Canvas.js ***!
@@ -64117,7 +68836,7 @@ var JSONArray = function (texture, sourceIndex, json)
     //  Malformed?
     if (!json['frames'] && !json['textures'])
     {
-        console.warn('Invalid Texture Atlas JSON Array given, missing \'frames\' and \'textures\' array');
+        console.warn('Invalid Texture Atlas JSON Array');
         return;
     }
 
@@ -64294,86 +69013,6 @@ var JSONHash = function (texture, sourceIndex, json)
 };
 
 module.exports = JSONHash;
-
-
-/***/ }),
-
-/***/ "./textures/parsers/Pyxel.js":
-/*!***********************************!*\
-  !*** ./textures/parsers/Pyxel.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * Parses a Pyxel JSON object and adds the Frames to a Texture.
- *
- * @function Phaser.Textures.Parsers.Pyxel
- * @memberOf Phaser.Textures.Parsers
- * @private
- * @since 3.0.0
- *
- * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
- * @param {object} json - The JSON data.
- *
- * @return {Phaser.Textures.Texture} The Texture modified by this parser.
- */
-var Pyxel = function (texture, json)
-{
-    //  Malformed? There are a few keys to check here.
-    var signature = [ 'layers', 'tilewidth', 'tileheight', 'tileswide', 'tileshigh' ];
-
-    signature.forEach(function (key)
-    {
-        if (!json[key])
-        {
-            // console.warn('Phaser.AnimationParser.JSONDataPyxel: Invalid Pyxel Tilemap JSON given, missing "' + key + '" key.');
-            // console.log(json);
-            return;
-        }
-    });
-
-    // For this purpose, I only care about parsing tilemaps with a single layer.
-    if (json['layers'].length !== 1)
-    {
-        // console.warn('Phaser.AnimationParser.JSONDataPyxel: Too many layers, this parser only supports flat Tilemaps.');
-        // console.log(json);
-        return;
-    }
-
-    var data = new Phaser.FrameData();
-
-    var tileheight = json['tileheight'];
-    var tilewidth = json['tilewidth'];
-
-    var frames = json['layers'][0]['tiles'];
-    var newFrame;
-
-    for (var i = 0; i < frames.length; i++)
-    {
-        newFrame = data.addFrame(new Phaser.Frame(
-            i,
-            frames[i].x,
-            frames[i].y,
-            tilewidth,
-            tileheight,
-            'frame_' + i // No names are included in pyxel tilemap data.
-        ));
-
-        // No trim data is included.
-        newFrame.setTrim(false);
-    }
-
-    return data;
-};
-
-module.exports = Pyxel;
 
 
 /***/ }),
@@ -64699,96 +69338,6 @@ module.exports = SpriteSheetFromAtlas;
 
 /***/ }),
 
-/***/ "./textures/parsers/StarlingXML.js":
-/*!*****************************************!*\
-  !*** ./textures/parsers/StarlingXML.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * Parses a Starling XML object and adds all the Frames into a Texture.
- *
- * @function Phaser.Textures.Parsers.StarlingXML
- * @memberOf Phaser.Textures.Parsers
- * @private
- * @since 3.0.0
- *
- * @param {Phaser.Textures.Texture} texture - The Texture to add the Frames to.
- * @param {*} xml - The XML data.
- *
- * @return {Phaser.Textures.Texture} The Texture modified by this parser.
- */
-var StarlingXML = function (texture, xml)
-{
-    //  Malformed?
-    if (!xml.getElementsByTagName('TextureAtlas'))
-    {
-        // console.warn("Phaser.AnimationParser.XMLData: Invalid Texture Atlas XML given, missing <TextureAtlas> tag");
-        return;
-    }
-
-    //  Let's create some frames then
-    var data = new Phaser.FrameData();
-    var frames = xml.getElementsByTagName('SubTexture');
-    var newFrame;
-
-    var name;
-    var frame;
-    var x;
-    var y;
-    var width;
-    var height;
-    var frameX;
-    var frameY;
-    var frameWidth;
-    var frameHeight;
-
-    for (var i = 0; i < frames.length; i++)
-    {
-        frame = frames[i].attributes;
-
-        name = frame.name.value;
-        x = parseInt(frame.x.value, 10);
-        y = parseInt(frame.y.value, 10);
-        width = parseInt(frame.width.value, 10);
-        height = parseInt(frame.height.value, 10);
-
-        frameX = null;
-        frameY = null;
-
-        if (frame.frameX)
-        {
-            frameX = Math.abs(parseInt(frame.frameX.value, 10));
-            frameY = Math.abs(parseInt(frame.frameY.value, 10));
-            frameWidth = parseInt(frame.frameWidth.value, 10);
-            frameHeight = parseInt(frame.frameHeight.value, 10);
-        }
-
-        newFrame = data.addFrame(new Phaser.Frame(i, x, y, width, height, name));
-
-        //  Trimmed?
-        if (frameX !== null || frameY !== null)
-        {
-            newFrame.setTrim(true, width, height, frameX, frameY, frameWidth, frameHeight);
-        }
-    }
-
-    return data;
-
-};
-
-module.exports = StarlingXML;
-
-
-/***/ }),
-
 /***/ "./textures/parsers/UnityYAML.js":
 /*!***************************************!*\
   !*** ./textures/parsers/UnityYAML.js ***!
@@ -64983,14 +69532,13 @@ TextureImporter:
 
 module.exports = {
 
+    AtlasXML: __webpack_require__(/*! ./AtlasXML */ "./textures/parsers/AtlasXML.js"),
     Canvas: __webpack_require__(/*! ./Canvas */ "./textures/parsers/Canvas.js"),
     Image: __webpack_require__(/*! ./Image */ "./textures/parsers/Image.js"),
     JSONArray: __webpack_require__(/*! ./JSONArray */ "./textures/parsers/JSONArray.js"),
     JSONHash: __webpack_require__(/*! ./JSONHash */ "./textures/parsers/JSONHash.js"),
-    Pyxel: __webpack_require__(/*! ./Pyxel */ "./textures/parsers/Pyxel.js"),
     SpriteSheet: __webpack_require__(/*! ./SpriteSheet */ "./textures/parsers/SpriteSheet.js"),
     SpriteSheetFromAtlas: __webpack_require__(/*! ./SpriteSheetFromAtlas */ "./textures/parsers/SpriteSheetFromAtlas.js"),
-    StarlingXML: __webpack_require__(/*! ./StarlingXML */ "./textures/parsers/StarlingXML.js"),
     UnityYAML: __webpack_require__(/*! ./UnityYAML */ "./textures/parsers/UnityYAML.js")
 
 };
@@ -65012,7 +69560,7 @@ module.exports = {
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 var TimerEvent = __webpack_require__(/*! ./TimerEvent */ "./time/TimerEvent.js");
 
 /**
@@ -65390,7 +69938,7 @@ var Clock = new Class({
 
 });
 
-PluginManager.register('Clock', Clock, 'time');
+PluginCache.register('Clock', Clock, 'time');
 
 module.exports = Clock;
 
@@ -66635,7 +71183,7 @@ module.exports = Timeline;
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var NumberTweenBuilder = __webpack_require__(/*! ./builders/NumberTweenBuilder */ "./tweens/builders/NumberTweenBuilder.js");
-var PluginManager = __webpack_require__(/*! ../boot/PluginManager */ "./boot/PluginManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 var TimelineBuilder = __webpack_require__(/*! ./builders/TimelineBuilder */ "./tweens/builders/TimelineBuilder.js");
 var TWEEN_CONST = __webpack_require__(/*! ./tween/const */ "./tweens/tween/const.js");
 var TweenBuilder = __webpack_require__(/*! ./builders/TweenBuilder */ "./tweens/builders/TweenBuilder.js");
@@ -67299,7 +71847,7 @@ var TweenManager = new Class({
 
 });
 
-PluginManager.register('TweenManager', TweenManager, 'tweens');
+PluginCache.register('TweenManager', TweenManager, 'tweens');
 
 module.exports = TweenManager;
 
@@ -70742,7 +75290,7 @@ var BringToTop = function (array, item)
 {
     var currentIndex = array.indexOf(item);
 
-    if (currentIndex !== -1 && currentIndex < array.length - 2)
+    if (currentIndex !== -1 && currentIndex < array.length)
     {
         array.splice(currentIndex, 1);
         array.push(item);

@@ -2047,13 +2047,19 @@
           "extension": ".js"
         },
         {
+          "path": "src\\events\\turn off anonymous event handler.js",
+          "name": "turn off anonymous event handler.js",
+          "size": 882,
+          "extension": ".js"
+        },
+        {
           "path": "src\\events\\turn off event handler.js",
           "name": "turn off event handler.js",
           "size": 871,
           "extension": ".js"
         }
       ],
-      "size": 7654
+      "size": 8536
     },
     {
       "path": "src\\game config",
@@ -2630,7 +2636,7 @@
             {
               "path": "src\\game objects\\container\\nested get bounds test.js",
               "name": "nested get bounds test.js",
-              "size": 780,
+              "size": 1111,
               "extension": ".js"
             },
             {
@@ -2706,7 +2712,7 @@
               "extension": ".js"
             }
           ],
-          "size": 72834
+          "size": 73165
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4342,7 +4348,7 @@
           "size": 255492
         }
       ],
-      "size": 747174
+      "size": 747505
     },
     {
       "path": "src\\games",
@@ -9323,5 +9329,5 @@
       "size": 5291
     }
   ],
-  "size": 2448638
+  "size": 2449851
 }

@@ -23,7 +23,7 @@ $(document).ready(function () {
     ];
 
     var filename = getQueryString('src');
-    var phaserVersion = getQueryString('v', (remote) ? versions[1].val : 'dev');
+    var phaserVersion = getQueryString('v', (remote) ? versions[2].val : 'dev');
     var phaserVersionJS = phaserVersion + '.js';
     var currentPage = loc.pathname.substr(loc.pathname.lastIndexOf('/') + 1);
 

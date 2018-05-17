@@ -8057,7 +8057,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.8.0',
+    VERSION: '3.9.0-beta1',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -45495,7 +45495,7 @@ var PluginManager = new Class({
     {
         for (var i = 0; i < this.plugins.length; i++)
         {
-            this.plugins[i].destroy();
+            this.plugins[i].plugin.destroy();
         }
 
         this.game = null;

@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     width: 360,
     height: 640,
-    parent: 'phaser-example',
+    _parent: 'phaser-example',
     backgroundColor: '#efefef',
     scene: {
         preload: preload,

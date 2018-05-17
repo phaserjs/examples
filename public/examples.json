@@ -6020,7 +6020,7 @@
             {
               "path": "src\\input\\dragging\\enable for drag test 2.js",
               "name": "enable for drag test 2.js",
-              "size": 644,
+              "size": 645,
               "extension": ".js"
             },
             {
@@ -6066,7 +6066,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15983
+          "size": 15984
         },
         {
           "path": "src\\input\\game object",
@@ -6489,7 +6489,7 @@
           "size": 9602
         }
       ],
-      "size": 113123
+      "size": 113124
     },
     {
       "path": "src\\loader",
@@ -6575,13 +6575,19 @@
           "name": "bitmap text",
           "children": [
             {
+              "path": "src\\loader\\bitmap text\\load bitmap text from pack.js",
+              "name": "load bitmap text from pack.js",
+              "size": 773,
+              "extension": ".js"
+            },
+            {
               "path": "src\\loader\\bitmap text\\load bitmap text.js",
               "name": "load bitmap text.js",
               "size": 1058,
               "extension": ".js"
             }
           ],
-          "size": 1058
+          "size": 1831
         },
         {
           "path": "src\\loader\\file pack",
@@ -6958,7 +6964,7 @@
           "size": 2678
         }
       ],
-      "size": 94455
+      "size": 95228
     },
     {
       "path": "src\\paths",
@@ -9335,5 +9341,5 @@
       "size": 5291
     }
   ],
-  "size": 2450538
+  "size": 2451312
 }

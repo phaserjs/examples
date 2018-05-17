@@ -2049,7 +2049,7 @@
         {
           "path": "src\\events\\turn off anonymous event handler.js",
           "name": "turn off anonymous event handler.js",
-          "size": 882,
+          "size": 925,
           "extension": ".js"
         },
         {
@@ -2059,7 +2059,7 @@
           "extension": ".js"
         }
       ],
-      "size": 8536
+      "size": 8579
     },
     {
       "path": "src\\game config",
@@ -6018,6 +6018,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\dragging\\enable for drag test 2.js",
+              "name": "enable for drag test 2.js",
+              "size": 644,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\dragging\\enable for drag.js",
               "name": "enable for drag.js",
               "size": 981,
@@ -6060,7 +6066,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15339
+          "size": 15983
         },
         {
           "path": "src\\input\\game object",
@@ -6483,7 +6489,7 @@
           "size": 9602
         }
       ],
-      "size": 112479
+      "size": 113123
     },
     {
       "path": "src\\loader",
@@ -9329,5 +9335,5 @@
       "size": 5291
     }
   ],
-  "size": 2449851
+  "size": 2450538
 }

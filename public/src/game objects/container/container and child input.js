@@ -23,12 +23,14 @@ function create ()
     var bg = this.add.image(0, 0, 'buttonBG');
     var text = this.add.image(0, 0, 'buttonText');
 
-    var bg2 = this.add.image(0, 80, 'buttonBG').setInteractive();
+    var bg2 = this.add.image(0, 80, 'buttonBG');
     var text2 = this.add.image(0, 80, 'buttonText');
 
     var container = this.add.container(400, 200, [ bg, text, bg2, text2 ]);
 
     container.setInteractive(new Phaser.Geom.Circle(0, 0, 60), Phaser.Geom.Circle.Contains);
+
+    bg2.setInteractive();
 
     container.on('pointerover', function () {
 

@@ -26,9 +26,9 @@ function create ()
         x: 400,
         y: 300,
         speed: 100,
-        tint: { start: 0xff0000, end: 0xff0000 },
+        tint: [ 0xffff00, 0xff0000, 0x00ff00, 0x0000ff ],
         lifespan: 2000,
-        frequency: 500,
-        _blendMode: 'ADD'
+        frequency: 50,
+        blendMode: 'ADD'
     });
 }

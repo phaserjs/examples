@@ -52,5 +52,7 @@ function preload ()
 
 function create ()
 {
-    this.add.clown(400, 300);
+    this.add.clown(400, 200);
+    this.add.clown(300, 300);
+    this.add.clown(500, 300);
 }

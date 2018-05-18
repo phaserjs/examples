@@ -44,5 +44,4 @@ function create ()
     var ray = this.add.sprite(100, 300, 'seacreatures').play('stingray');
 
     this.add.image(0, 466, 'coral').setOrigin(0);
-
 }

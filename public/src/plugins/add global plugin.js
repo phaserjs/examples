@@ -25,13 +25,26 @@ function create ()
     // https://github.com/Marak/asciimo/issues/3
     var font = this.cache.text.get('3x5').split('\n');
 
-    // var width = 4;
-    // var height = 6;
-    // var start = 6;
+    //         flf2a$ 6 5 20 15 3 0 143 229    NOTE: The first five characters in
+    //           |  | | | |  |  | |  |   |     the entire file must be "flf2a".
+    //          /  /  | | |  |  | |  |   \
+    // Signature  /  /  | |  |  | |   \   Codetag_Count
+    //   Hardblank  /  /  |  |  |  \   Full_Layout*
+    //        Height  /   |  |   \  Print_Direction
+    //        Baseline   /    \   Comment_Lines
+    //         Max_Length      Old_Layout*
+
+
+    //  flf2a$ 6 4 6 -1 4
+    var data = font[0].split(' ');
+    var header = data[0];
+    var height = parseInt(data[1]);
+    var width = parseInt(data[2]);
+    var comments = parseInt(data[5]) + 2;
 
     // The letters start at space (ASCII 32) and go in ASCII order up to 126
 
-    var text = "Phaser 3";
+    var text = "PHASER 3";
 
     var x = 32;
 
@@ -39,13 +52,11 @@ function create ()
     {
         var letter = text.charCodeAt(i);
 
-        console.log(text[i], letter);
+        var offset = comments + ((letter - 32) * height);
 
-        var offset = 6 + ((letter - 32) * 6);
+        this.getCharacter(font, x, 32, offset, width, height);
 
-        this.getCharacter(font, x, 32, offset, 4, 6);
-
-        x += (4 * 17);
+        x += (width * 17);
     }
 }
 

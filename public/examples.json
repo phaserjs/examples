@@ -2213,6 +2213,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\bitmaptext\\dynamic\\text follow path.js",
+                  "name": "text follow path.js",
+                  "size": 1923,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\tinted text.js",
                   "name": "tinted text.js",
                   "size": 962,
@@ -2225,7 +2231,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 9978
+              "size": 11901
             },
             {
               "path": "src\\game objects\\bitmaptext\\retro font",
@@ -2362,7 +2368,7 @@
               "size": 14025
             }
           ],
-          "size": 35253
+          "size": 37176
         },
         {
           "path": "src\\game objects\\blitter",
@@ -2486,7 +2492,7 @@
             {
               "path": "src\\game objects\\container\\add tilesprite to container.js",
               "name": "add tilesprite to container.js",
-              "size": 831,
+              "size": 972,
               "extension": ".js"
             },
             {
@@ -2730,7 +2736,7 @@
               "extension": ".js"
             }
           ],
-          "size": 76319
+          "size": 76460
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4366,7 +4372,7 @@
           "size": 255492
         }
       ],
-      "size": 750665
+      "size": 752729
     },
     {
       "path": "src\\games",
@@ -7073,13 +7079,13 @@
             {
               "path": "src\\paths\\curves\\drag ellipse curve.js",
               "name": "drag ellipse curve.js",
-              "size": 4555,
+              "size": 5157,
               "extension": ".js"
             },
             {
               "path": "src\\paths\\curves\\drag line curve.js",
               "name": "drag line curve.js",
-              "size": 1952,
+              "size": 1932,
               "extension": ".js"
             },
             {
@@ -7091,7 +7097,7 @@
             {
               "path": "src\\paths\\curves\\drag spline curve.js",
               "name": "drag spline curve.js",
-              "size": 1957,
+              "size": 1938,
               "extension": ".js"
             },
             {
@@ -7203,7 +7209,7 @@
               "extension": ".js"
             }
           ],
-          "size": 51428
+          "size": 51991
         },
         {
           "path": "src\\paths\\followers",
@@ -7333,7 +7339,7 @@
           "extension": ".js"
         }
       ],
-      "size": 80694
+      "size": 81257
     },
     {
       "path": "src\\physics",
@@ -9401,5 +9407,5 @@
       "size": 5291
     }
   ],
-  "size": 2458260
+  "size": 2460887
 }

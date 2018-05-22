@@ -2484,6 +2484,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\add tilesprite to container.js",
+              "name": "add tilesprite to container.js",
+              "size": 831,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\animation test.js",
               "name": "animation test.js",
               "size": 1017,
@@ -2724,7 +2730,7 @@
               "extension": ".js"
             }
           ],
-          "size": 75488
+          "size": 76319
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4360,7 +4366,7 @@
           "size": 255492
         }
       ],
-      "size": 749834
+      "size": 750665
     },
     {
       "path": "src\\games",
@@ -7923,7 +7929,7 @@
         {
           "path": "src\\plugins\\add scene plugin in config.js",
           "name": "add scene plugin in config.js",
-          "size": 740,
+          "size": 1012,
           "extension": ".js"
         },
         {
@@ -8011,7 +8017,7 @@
           "extension": ".js"
         }
       ],
-      "size": 27205
+      "size": 27477
     },
     {
       "path": "src\\pools",
@@ -9395,5 +9401,5 @@
       "size": 5291
     }
   ],
-  "size": 2457157
+  "size": 2458260
 }

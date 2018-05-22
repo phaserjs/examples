@@ -45,29 +45,29 @@ function create ()
 
         var handle = this.add.image(point.x, point.y, 'dragcircle', 0).setInteractive();
 
-        handle.data.set('vector', point);
+        handle.setData('vector', point);
 
         this.input.setDraggable(handle);
     }
 
-    this.input.on('DRAG_START_EVENT', function (event) {
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        event.gameObject.setFrame(1);
-
-    });
-
-    this.input.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
-
-        event.gameObject.data.get('vector').set(event.dragX, event.dragY);
+        gameObject.setFrame(1);
 
     });
 
-    this.input.on('DRAG_END_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-        event.gameObject.setFrame(0);
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+
+        gameObject.data.get('vector').set(dragX, dragY);
+
+    });
+
+    this.input.on('dragend', function (pointer, gameObject) {
+
+        gameObject.setFrame(0);
 
     });
 

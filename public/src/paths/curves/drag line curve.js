@@ -34,29 +34,29 @@ function create ()
     var point0 = this.add.image(curve.p0.x, curve.p0.y, 'dragcircle', 0).setInteractive();
     var point1 = this.add.image(curve.p1.x, curve.p1.y, 'dragcircle', 0).setInteractive();
 
-    point0.data.set('vector', curve.p0);
-    point1.data.set('vector', curve.p1);
+    point0.setData('vector', curve.p0);
+    point1.setData('vector', curve.p1);
 
     this.input.setDraggable([ point0, point1 ]);
 
-    this.input.on('DRAG_START_EVENT', function (event) {
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        event.gameObject.setFrame(1);
-
-    });
-
-    this.input.on('DRAG_EVENT', function (event) {
-
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
-
-        event.gameObject.data.get('vector').set(event.dragX, event.dragY);
+        gameObject.setFrame(1);
 
     });
 
-    this.input.on('DRAG_END_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-        event.gameObject.setFrame(0);
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+
+        gameObject.data.get('vector').set(dragX, dragY);
+
+    });
+
+    this.input.on('dragend', function (pointer, gameObject) {
+
+        gameObject.setFrame(0);
 
     });
 

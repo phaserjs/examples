@@ -2215,7 +2215,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\text follow path.js",
                   "name": "text follow path.js",
-                  "size": 1923,
+                  "size": 1299,
                   "extension": ".js"
                 },
                 {
@@ -2231,7 +2231,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 11901
+              "size": 11277
             },
             {
               "path": "src\\game objects\\bitmaptext\\retro font",
@@ -2368,7 +2368,7 @@
               "size": 14025
             }
           ],
-          "size": 37176
+          "size": 36552
         },
         {
           "path": "src\\game objects\\blitter",
@@ -4372,7 +4372,7 @@
           "size": 255492
         }
       ],
-      "size": 752729
+      "size": 752105
     },
     {
       "path": "src\\games",
@@ -5324,7 +5324,7 @@
             {
               "path": "src\\geom\\point\\cross.js",
               "name": "cross.js",
-              "size": 1621,
+              "size": 1514,
               "extension": ".js"
             },
             {
@@ -5454,7 +5454,7 @@
               "extension": ".js"
             }
           ],
-          "size": 28446
+          "size": 28339
         },
         {
           "path": "src\\geom\\polygon",
@@ -5982,7 +5982,7 @@
           "size": 28373
         }
       ],
-      "size": 191947
+      "size": 191840
     },
     {
       "path": "src\\input",
@@ -6719,12 +6719,6 @@
           "size": 5105
         },
         {
-          "path": "src\\loader\\json",
-          "name": "json",
-          "children": [],
-          "size": 0
-        },
-        {
           "path": "src\\loader\\load config tests.js",
           "name": "load config tests.js",
           "size": 1819,
@@ -6825,12 +6819,6 @@
           "size": 841
         },
         {
-          "path": "src\\loader\\shader",
-          "name": "shader",
-          "children": [],
-          "size": 0
-        },
-        {
           "path": "src\\loader\\sprite sheet",
           "name": "sprite sheet",
           "children": [
@@ -6873,12 +6861,6 @@
             }
           ],
           "size": 800
-        },
-        {
-          "path": "src\\loader\\text",
-          "name": "text",
-          "children": [],
-          "size": 0
         },
         {
           "path": "src\\loader\\texture atlas json",
@@ -7010,12 +6992,6 @@
             }
           ],
           "size": 2678
-        },
-        {
-          "path": "src\\loader\\xml",
-          "name": "xml",
-          "children": [],
-          "size": 0
         }
       ],
       "size": 95228
@@ -7315,6 +7291,31 @@
           "extension": ".js"
         },
         {
+          "path": "src\\paths\\path editor",
+          "name": "path editor",
+          "children": [
+            {
+              "path": "src\\paths\\path editor\\boot.json",
+              "name": "boot.json",
+              "size": 72,
+              "extension": ".json"
+            },
+            {
+              "path": "src\\paths\\path editor\\Controller.js",
+              "name": "Controller.js",
+              "size": 334,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\paths\\path editor\\main.js",
+              "name": "main.js",
+              "size": 363,
+              "extension": ".js"
+            }
+          ],
+          "size": 769
+        },
+        {
           "path": "src\\paths\\path line and bezier.js",
           "name": "path line and bezier.js",
           "size": 1115,
@@ -7339,7 +7340,7 @@
           "extension": ".js"
         }
       ],
-      "size": 81257
+      "size": 82026
     },
     {
       "path": "src\\physics",
@@ -9407,5 +9408,5 @@
       "size": 5291
     }
   ],
-  "size": 2460887
+  "size": 2460925
 }

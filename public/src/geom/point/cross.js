@@ -21,16 +21,16 @@ function create ()
 {
     graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x2266aa } });
 
-    point = new Phaser.Geom.Point(250, 0);
-    point2 = new Phaser.Geom.Point(250, 0);
+    point = new Phaser.Math.Vector2(250, 0);
+    point2 = new Phaser.Math.Vector2(250, 0);
 
     text = this.add.text(30, 30, '');
 
     this.input.on('pointermove', function (pointer) {
+        point2.copy(pointer);
 
-        Phaser.Geom.Point.CopyFrom(pointer, point2);
-
-        Phaser.Geom.Point.Subtract(point2, 400, 300);
+        point2.x -= 400;
+        point2.y -= 300;
     });
 }
 
@@ -49,11 +49,9 @@ function update ()
     graphics.lineStyle(2, 0x00aa00);
     graphics.lineBetween(400, 300, 400 + point2.x, 300 + point2.y);
 
-    var cross = Phaser.Geom.Point.Cross(point, point2);
+    var cross = point.cross(point2);
 
-    var area =
-        Phaser.Geom.Point.GetMagnitude(point) *
-        Phaser.Geom.Point.GetMagnitude(point2);
+    var area = point.length() * point2.length();
 
     var angleBetween = Math.asin(cross / area);
 

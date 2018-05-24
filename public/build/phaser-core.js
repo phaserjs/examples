@@ -6328,11 +6328,11 @@ var Camera = new Class({
 
         this.culledObjects = [];
 
-        this.target = undefined;
+        this._follow = null;
 
-        this._bounds = undefined;
+        this._bounds = null;
 
-        this.scene = undefined;
+        this.scene = null;
     }
 
 });

@@ -1295,13 +1295,13 @@
         {
           "path": "src\\camera\\follow sprite.js",
           "name": "follow sprite.js",
-          "size": 974,
+          "size": 1151,
           "extension": ".js"
         },
         {
           "path": "src\\camera\\follow user controlled sprite.js",
           "name": "follow user controlled sprite.js",
-          "size": 1213,
+          "size": 1599,
           "extension": ".js"
         },
         {
@@ -1450,7 +1450,7 @@
           "extension": ".js"
         }
       ],
-      "size": 105734
+      "size": 106297
     },
     {
       "path": "src\\components",
@@ -3148,6 +3148,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\images\\custom image class ES6.js",
+              "name": "custom image class ES6.js",
+              "size": 702,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\images\\custom image class.js",
               "name": "custom image class.js",
               "size": 868,
@@ -3226,7 +3232,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13262
+          "size": 13964
         },
         {
           "path": "src\\game objects\\lights",
@@ -4378,7 +4384,7 @@
           "size": 255492
         }
       ],
-      "size": 752105
+      "size": 752807
     },
     {
       "path": "src\\games",
@@ -9414,5 +9420,5 @@
       "size": 5291
     }
   ],
-  "size": 2462138
+  "size": 2463403
 }

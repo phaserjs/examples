@@ -1,41 +1,39 @@
-var sceneConfig = {
-    create: create,
-    pack: {
-        files: [
-            { type: 'image', key: 'contra', url: 'assets/pics/contra3.png' }
-        ]
+var EnemyRobot = new Phaser.Class({
+
+    Extends: Phaser.GameObjects.Image,
+
+    initialize:
+
+    function EnemyRobot (scene, x, y)
+    {
+        Phaser.GameObjects.Image.call(this, scene);
+
+        this.setTexture('contra');
+        this.setPosition(x, y);
+        this.setScale(2);
     }
-};
+
+});
 
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: sceneConfig
+    scene: {
+        preload: preload,
+        create: create
+    }
 };
 
 var game = new Phaser.Game(config);
 
-function create() {
+function preload ()
+{
+    this.load.image('contra', 'assets/pics/contra3.png');
+}
 
-    var EnemyRobot = new Phaser.Class({
-
-        Extends: Phaser.GameObjects.Image,
-
-        initialize:
-
-        function EnemyRobot (scene, x, y)
-        {
-            Phaser.GameObjects.Image.call(this, scene);
-
-            this.setTexture('contra');
-            this.setPosition(x, y);
-            this.setScale(2);
-        }
-
-    });
-
-    this.children.add(new EnemyRobot(this, 64, 64));
-    this.children.add(new EnemyRobot(this, 264, 150));
-    this.children.add(new EnemyRobot(this, 400, 364));
-
+function create ()
+{
+    this.children.add(new EnemyRobot(this, 264, 250));
+    this.children.add(new EnemyRobot(this, 464, 350));
+    this.children.add(new EnemyRobot(this, 664, 450));
 }

@@ -5122,10 +5122,12 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var Clamp = __webpack_require__(/*! ../../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var DegToRad = __webpack_require__(/*! ../../math/DegToRad */ "./math/DegToRad.js");
-var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var Effects = __webpack_require__(/*! ./effects */ "./cameras/2d/effects/index.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var Linear = __webpack_require__(/*! ../../math/Linear */ "./math/Linear.js");
 var Rectangle = __webpack_require__(/*! ../../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
 var TransformMatrix = __webpack_require__(/*! ../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var ValueToColor = __webpack_require__(/*! ../../display/color/ValueToColor */ "./display/color/ValueToColor.js");
@@ -5417,6 +5419,22 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this.culledObjects = [];
+
+        /**
+         * The linear interpolation value to use when following a target.
+         * 
+         * The default values of 1 means the camera will instantly snap to the target coordinates.
+         * A lower value, such as 0.1 means the camera will more slowly track the target, giving
+         * a smooth transition. You can set the horizontal and vertical values independently, and also
+         * adjust this value in real-time during your game.
+         *
+         * Be sure to keep the value between 0 and 1. A value of zero will disable tracking on that axis.
+         * 
+         * @name Phaser.Cameras.Scene2D.Camera#lerp
+         * @type {Phaser.Math.Vector2}
+         * @since 3.9.0
+         */
+        this.lerp = new Vector2(1, 1);
 
         /**
          * Internal follow target reference.
@@ -5801,13 +5819,10 @@ var Camera = new Class({
         var originY = height / 2;
         var follow = this._follow;
 
-        if (follow !== null)
+        if (follow)
         {
-            originX = follow.x;
-            originY = follow.y;
-
-            this.scrollX = (originX - width * 0.5) / zoom;
-            this.scrollY = (originY - height * 0.5) / zoom;
+            this.scrollX = Linear(this.scrollX, follow.x - originX, this.lerp.x) / zoom;
+            this.scrollY = Linear(this.scrollY, follow.y - originY, this.lerp.y) / zoom;
         }
 
         if (this.useBounds)
@@ -6152,22 +6167,47 @@ var Camera = new Class({
      *
      * When enabled the Camera will automatically adjust its scroll position to keep the target Game Object
      * in its center.
+     * 
+     * You can set the linear interpolation value used in the follow code.
+     * Use low lerp values (such as 0.1) to automatically smooth the camera motion.
+     *
+     * If you find you're getting a slight "jitter" effect when following an object it's probably to do with sub-pixel
+     * rendering of the targets position. This can be rounded by setting the `roundPixels` argument to `true` to
+     * force full pixel rounding rendering. Note that this can still be broken if you have specified a non-integer zoom
+     * value on the camera. So be sure to keep the camera zoom to integers.
      *
      * @method Phaser.Cameras.Scene2D.Camera#startFollow
      * @since 3.0.0
      *
      * @param {(Phaser.GameObjects.GameObject|object)} target - The target for the Camera to follow.
-     * @param {boolean} [roundPx=false] - Round the movement pixels to whole integers?
+     * @param {boolean} [roundPixels=false] - Round the camera position to whole integers to avoid sub-pixel rendering?
+     * @param {float} [lerpX=1] - A value between 0 and 1. This value specifies the amount of linear interpolation to use when horizontally tracking the target. The closer the value to 1, the faster the camera will track.
+     * @param {float} [lerpY=1] - A value between 0 and 1. This value specifies the amount of linear interpolation to use when vertically tracking the target. The closer the value to 1, the faster the camera will track.
      *
-     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     * @return {this} This Camera instance.
      */
-    startFollow: function (target, roundPx)
+    startFollow: function (target, roundPixels, lerpX, lerpY)
     {
-        if (roundPx === undefined) { roundPx = false; }
+        if (roundPixels === undefined) { roundPixels = false; }
+        if (lerpX === undefined) { lerpX = 1; }
+        if (lerpY === undefined) { lerpY = lerpX; }
 
         this._follow = target;
 
-        this.roundPixels = roundPx;
+        this.roundPixels = roundPixels;
+
+        lerpX = Clamp(lerpX, 0, 1);
+        lerpY = Clamp(lerpY, 0, 1);
+
+        this.lerp.set(lerpX, lerpY);
+
+        //  Move the camera there immediately, to avoid a large lerp during preUpdate
+        var zoom = this.zoom;
+        var originX = this.width / 2;
+        var originY = this.height / 2;
+
+        this.scrollX = (target.x - originX) / zoom;
+        this.scrollY = (target.y - originY) / zoom;
 
         return this;
     },
@@ -8848,7 +8888,7 @@ var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/P
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Scene} scene - [description]
+ * @param {Phaser.Scene} scene - A reference to the Scene that this DataManager belongs to.
  */
 var DataManagerPlugin = new Class({
 
@@ -8861,7 +8901,7 @@ var DataManagerPlugin = new Class({
         DataManager.call(this, scene, scene.sys.events);
 
         /**
-         * [description]
+         * A reference to the Scene that this DataManager belongs to.
          *
          * @name Phaser.Data.DataManagerPlugin#scene
          * @type {Phaser.Scene}
@@ -8870,7 +8910,7 @@ var DataManagerPlugin = new Class({
         this.scene = scene;
 
         /**
-         * [description]
+         * A reference to the Scene's Systems.
          *
          * @name Phaser.Data.DataManagerPlugin#systems
          * @type {Phaser.Scenes.Systems}
@@ -14214,7 +14254,7 @@ var Alpha = {
      * @method Phaser.GameObjects.Components.Alpha#clearAlpha
      * @since 3.0.0
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     clearAlpha: function ()
     {
@@ -14236,7 +14276,7 @@ var Alpha = {
      * @param {float} [bottomLeft] - The alpha value used for the bottom-left of the Game Object. WebGL only.
      * @param {float} [bottomRight] - The alpha value used for the bottom-right of the Game Object. WebGL only.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setAlpha: function (topLeft, topRight, bottomLeft, bottomRight)
     {
@@ -15505,7 +15545,7 @@ var BlendMode = {
      *
      * @param {(string|Phaser.BlendModes)} value - The BlendMode value. Either a string or a CONST.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setBlendMode: function (value)
     {
@@ -15615,7 +15655,7 @@ var ComputedSize = {
      * @param {number} width - The width of this Game Object.
      * @param {number} height - The height of this Game Object.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setSize: function (width, height)
     {
@@ -15635,7 +15675,7 @@ var ComputedSize = {
      * @param {number} width - The width of this Game Object.
      * @param {number} height - The height of this Game Object.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setDisplaySize: function (width, height)
     {
@@ -15732,7 +15772,7 @@ var Depth = {
      *
      * @param {integer} value - The depth of this Game Object.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setDepth: function (value)
     {
@@ -15803,7 +15843,7 @@ var Flip = {
      * @method Phaser.GameObjects.Components.Flip#toggleFlipX
      * @since 3.0.0
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     toggleFlipX: function ()
     {
@@ -15818,7 +15858,7 @@ var Flip = {
      * @method Phaser.GameObjects.Components.Flip#toggleFlipY
      * @since 3.0.0
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     toggleFlipY: function ()
     {
@@ -15835,7 +15875,7 @@ var Flip = {
      *
      * @param {boolean} value - The flipped state. `false` for no flip, or `true` to be flipped.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setFlipX: function (value)
     {
@@ -15852,7 +15892,7 @@ var Flip = {
      *
      * @param {boolean} value - The flipped state. `false` for no flip, or `true` to be flipped.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setFlipY: function (value)
     {
@@ -15870,7 +15910,7 @@ var Flip = {
      * @param {boolean} x - The horizontal flipped state. `false` for no flip, or `true` to be flipped.
      * @param {boolean} y - The horizontal flipped state. `false` for no flip, or `true` to be flipped.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setFlip: function (x, y)
     {
@@ -15886,7 +15926,7 @@ var Flip = {
      * @method Phaser.GameObjects.Components.Flip#resetFlip
      * @since 3.0.0
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     resetFlip: function ()
     {
@@ -16239,7 +16279,7 @@ var Mask = {
      *
      * @param {Phaser.Display.Masks.BitmapMask|Phaser.Display.Masks.GeometryMask} mask - The mask this Game Object will use when rendering.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setMask: function (mask)
     {
@@ -16256,7 +16296,7 @@ var Mask = {
      *
      * @param {boolean} [destroyMask=false] - Destroy the mask before clearing it?
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     clearMask: function (destroyMask)
     {
@@ -16397,7 +16437,7 @@ var MatrixStack = {
      * @method Phaser.GameObjects.Components.MatrixStack#initMatrixStack
      * @since 3.2.0
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     initMatrixStack: function ()
     {
@@ -16414,7 +16454,7 @@ var MatrixStack = {
      * @method Phaser.GameObjects.Components.MatrixStack#save
      * @since 3.2.0
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     save: function ()
     {
@@ -16441,7 +16481,7 @@ var MatrixStack = {
      * @method Phaser.GameObjects.Components.MatrixStack#restore
      * @since 3.2.0
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     restore: function ()
     {
@@ -16469,7 +16509,7 @@ var MatrixStack = {
      * @method Phaser.GameObjects.Components.MatrixStack#loadIdentity
      * @since 3.2.0
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     loadIdentity: function ()
     {
@@ -16491,7 +16531,7 @@ var MatrixStack = {
      * @param {number} tx - [description]
      * @param {number} ty - [description]
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     transform: function (a, b, c, d, tx, ty)
     {
@@ -16526,7 +16566,7 @@ var MatrixStack = {
      * @param {number} tx - [description]
      * @param {number} ty - [description]
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setTransform: function (a, b, c, d, tx, ty)
     {
@@ -16551,7 +16591,7 @@ var MatrixStack = {
      * @param {number} x - [description]
      * @param {number} y - [description]
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     translate: function (x, y)
     {
@@ -16578,7 +16618,7 @@ var MatrixStack = {
      * @param {number} x - [description]
      * @param {number} y - [description]
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     scale: function (x, y)
     {
@@ -16604,7 +16644,7 @@ var MatrixStack = {
      *
      * @param {number} t - The angle of rotation, in radians.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     rotate: function (t)
     {
@@ -16756,7 +16796,7 @@ var Origin = {
      * @param {number} [x=0.5] - The horizontal origin value.
      * @param {number} [y=x] - The vertical origin value. If not defined it will be set to the value of `x`.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setOrigin: function (x, y)
     {
@@ -16775,7 +16815,7 @@ var Origin = {
      * @method Phaser.GameObjects.Components.Origin#setOriginFromFrame
      * @since 3.0.0
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setOriginFromFrame: function ()
     {
@@ -16802,7 +16842,7 @@ var Origin = {
      * @param {number} [x=0] - The horizontal display origin value.
      * @param {number} [y=x] - The vertical display origin value. If not defined it will be set to the value of `x`.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setDisplayOrigin: function (x, y)
     {
@@ -16822,7 +16862,7 @@ var Origin = {
      * @method Phaser.GameObjects.Components.Origin#updateDisplayOrigin
      * @since 3.0.0
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     updateDisplayOrigin: function ()
     {
@@ -17033,7 +17073,7 @@ var ScaleMode = {
      *
      * @param {Phaser.ScaleModes} value - The Scale Mode to be used by this Game Object.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setScaleMode: function (value)
     {
@@ -17127,7 +17167,7 @@ var ScrollFactor = {
      * @param {number} x - The horizontal scroll factor of this Game Object.
      * @param {number} [y=x] - The vertical scroll factor of this Game Object. If not set it will use the `x` value.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setScrollFactor: function (x, y)
     {
@@ -17249,7 +17289,7 @@ var Size = {
      *
      * @param {Phaser.Textures.Frame} frame - The frame to base the size of this Game Object on.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setSizeToFrame: function (frame)
     {
@@ -17270,7 +17310,7 @@ var Size = {
      * @param {number} width - The width of this Game Object.
      * @param {number} height - The height of this Game Object.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setSize: function (width, height)
     {
@@ -17290,7 +17330,7 @@ var Size = {
      * @param {number} width - The width of this Game Object.
      * @param {number} height - The height of this Game Object.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setDisplaySize: function (width, height)
     {
@@ -17361,7 +17401,7 @@ var Texture = {
      * @param {string} key - The key of the texture to be used, as stored in the Texture Manager.
      * @param {(string|integer)} [frame] - The name or index of the frame within the Texture.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setTexture: function (key, frame)
     {
@@ -17387,7 +17427,7 @@ var Texture = {
      * @param {boolean} [updateSize=true] - Should this call adjust the size of the Game Object?
      * @param {boolean} [updateOrigin=true] - Should this call adjust the origin of the Game Object?
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setFrame: function (frame, updateSize, updateOrigin)
     {
@@ -17518,7 +17558,7 @@ var Tint = {
      * @webglOnly
      * @since 3.0.0
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     clearTint: function ()
     {
@@ -17539,7 +17579,7 @@ var Tint = {
      * @param {integer} [bottomLeft] - The tint being applied to the bottom-left of the Game Object.
      * @param {integer} [bottomRight] - The tint being applied to the bottom-right of the Game Object.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setTint: function (topLeft, topRight, bottomLeft, bottomRight)
     {
@@ -17995,7 +18035,7 @@ var Transform = {
      * @param {number} [z=0] - The z position of this Game Object.
      * @param {number} [w=0] - The w position of this Game Object.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setPosition: function (x, y, z, w)
     {
@@ -18029,7 +18069,7 @@ var Transform = {
      * @param {number} [width] - The width of the random area.
      * @param {number} [height] - The height of the random area.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setRandomPosition: function (x, y, width, height)
     {
@@ -18052,7 +18092,7 @@ var Transform = {
      *
      * @param {number} [radians=0] - The rotation of this Game Object, in radians.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setRotation: function (radians)
     {
@@ -18071,7 +18111,7 @@ var Transform = {
      *
      * @param {number} [degrees=0] - The rotation of this Game Object, in degrees.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setAngle: function (degrees)
     {
@@ -18091,7 +18131,7 @@ var Transform = {
      * @param {number} x - The horizontal scale of this Game Object.
      * @param {number} [y=x] - The vertical scale of this Game Object. If not set it will use the `x` value.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setScale: function (x, y)
     {
@@ -18112,7 +18152,7 @@ var Transform = {
      *
      * @param {number} [value=0] - The x position of this Game Object.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setX: function (value)
     {
@@ -18131,7 +18171,7 @@ var Transform = {
      *
      * @param {number} [value=0] - The y position of this Game Object.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setY: function (value)
     {
@@ -18150,7 +18190,7 @@ var Transform = {
      *
      * @param {number} [value=0] - The z position of this Game Object.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setZ: function (value)
     {
@@ -18169,7 +18209,7 @@ var Transform = {
      *
      * @param {number} [value=0] - The w position of this Game Object.
      *
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setW: function (value)
     {
@@ -18505,7 +18545,7 @@ var TransformMatrix = new Class({
      * @method Phaser.GameObjects.Components.TransformMatrix#loadIdentity
      * @since 3.0.0
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     loadIdentity: function ()
     {
@@ -18530,7 +18570,7 @@ var TransformMatrix = new Class({
      * @param {number} x - [description]
      * @param {number} y - [description]
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     translate: function (x, y)
     {
@@ -18551,7 +18591,7 @@ var TransformMatrix = new Class({
      * @param {number} x - [description]
      * @param {number} y - [description]
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     scale: function (x, y)
     {
@@ -18573,7 +18613,7 @@ var TransformMatrix = new Class({
      *
      * @param {number} radian - [description]
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     rotate: function (radian)
     {
@@ -18601,7 +18641,7 @@ var TransformMatrix = new Class({
      *
      * @param {Phaser.GameObjects.Components.TransformMatrix} rhs - [description]
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     multiply: function (rhs)
     {
@@ -18645,7 +18685,7 @@ var TransformMatrix = new Class({
      * @param {number} tx - The Translate X value.
      * @param {number} ty - The Translate Y value.
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     transform: function (a, b, c, d, tx, ty)
     {
@@ -18705,7 +18745,7 @@ var TransformMatrix = new Class({
      * @method Phaser.GameObjects.Components.TransformMatrix#invert
      * @since 3.0.0
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     invert: function ()
     {
@@ -18743,7 +18783,7 @@ var TransformMatrix = new Class({
      * @param {number} tx - [description]
      * @param {number} ty - [description]
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     setTransform: function (a, b, c, d, tx, ty)
     {
@@ -18814,7 +18854,7 @@ var TransformMatrix = new Class({
      * @param {number} scaleX - [description]
      * @param {number} scaleY - [description]
      *
-     * @return {Phaser.GameObjects.Components.TransformMatrix} This TransformMatrix.
+     * @return {this} This TransformMatrix.
      */
     applyITRS: function (x, y, rotation, scaleX, scaleY)
     {
@@ -18934,7 +18974,7 @@ var Visible = {
      *
      * @param {boolean} value - The visible state of the Game Object.
      * 
-     * @return {Phaser.GameObjects.GameObject} This Game Object instance.
+     * @return {this} This Game Object instance.
      */
     setVisible: function (value)
     {
@@ -29640,6 +29680,7 @@ var InputPlugin = new Class({
 
         //  Clear the removal list
         removeList.length = 0;
+        this._pendingRemoval.length = 0;
 
         //  Move pendingInsertion to list (also clears pendingInsertion at the same time)
         this._list = current.concat(insertList.splice(0));
@@ -29658,6 +29699,14 @@ var InputPlugin = new Class({
     clear: function (gameObject)
     {
         var input = gameObject.input;
+
+        // If GameObject.input already cleared from higher class
+        if (!input)
+        {
+            return;
+        }
+
+        this.queueForRemoval(gameObject);
 
         input.gameObject = undefined;
         input.target = undefined;
@@ -30912,7 +30961,7 @@ var InputPlugin = new Class({
     },
 
     /**
-     * The Scene that owns this plugin is being destroyed.
+     * The Scene that owns this plugin is being destroyed.     
      * We need to shutdown and then kill off all external references.
      *
      * @method Phaser.Input.InputPlugin#destroy
@@ -40774,15 +40823,15 @@ module.exports = XMLFile;
  */
 
 /**
- * [description]
+ * Compute a random integer between the `min` and `max` values, inclusive.
  *
  * @function Phaser.Math.Between
  * @since 3.0.0
  *
- * @param {integer} min - [description]
- * @param {integer} max - [description]
+ * @param {integer} min - The minimum value.
+ * @param {integer} max - The maximum value.
  *
- * @return {integer} [description]
+ * @return {integer} The random integer.
  */
 var Between = function (min, max)
 {
@@ -40920,10 +40969,10 @@ var Clamp = __webpack_require__(/*! ./Clamp */ "./math/Clamp.js");
  * @since 3.0.0
  *
  * @param {float} percent - A value between 0 and 1 representing the percentage.
- * @param {number} min - [description]
- * @param {number} [max] - [description]
+ * @param {number} min - The minimum value.
+ * @param {number} [max] - The maximum value.
  *
- * @return {number} [description]
+ * @return {number} The value that is `percent` percent between `min` and `max`.
  */
 var FromPercent = function (percent, min, max)
 {
@@ -40933,6 +40982,41 @@ var FromPercent = function (percent, min, max)
 };
 
 module.exports = FromPercent;
+
+
+/***/ }),
+
+/***/ "./math/Linear.js":
+/*!************************!*\
+  !*** ./math/Linear.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * Calculates a linear (interpolation) value over t.
+ *
+ * @function Phaser.Math.Linear
+ * @since 3.0.0
+ *
+ * @param {number} p0 - The first point.
+ * @param {number} p1 - The second point.
+ * @param {float} t - The percentage between p0 and p1 to return, represented as a number between 0 and 1.
+ *
+ * @return {number} The step t% of the way between p0 and p1.
+ */
+var Linear = function (p0, p1, t)
+{
+    return (p1 - p0) * t + p0;
+};
+
+module.exports = Linear;
 
 
 /***/ }),
@@ -40986,17 +41070,17 @@ module.exports = RadToDeg;
  */
 
 /**
- * [description]
+ * Rotate a `point` around `x` and `y` by the given `angle`.
  *
  * @function Phaser.Math.RotateAround
  * @since 3.0.0
  *
- * @param {(Phaser.Geom.Point|object)} point - [description]
- * @param {number} x - [description]
- * @param {number} y - [description]
- * @param {number} angle - [description]
+ * @param {(Phaser.Geom.Point|object)} point - The point to be rotated.
+ * @param {number} x - The horizontal coordinate to rotate around.
+ * @param {number} y - The vertical coordinate to rotate around.
+ * @param {number} angle - The angle of rotation in radians.
  *
- * @return {Phaser.Geom.Point} [description]
+ * @return {Phaser.Geom.Point} The given point, rotated by the given angle around the given coordinates.
  */
 var RotateAround = function (point, x, y, angle)
 {
@@ -41080,7 +41164,7 @@ var Vector2 = __webpack_require__(/*! ./Vector2 */ "./math/Vector2.js");
  * @param {number} rotation - Rotation of the transform point, in radians.
  * @param {number} scaleX - Horizontal scale of the transform point.
  * @param {number} scaleY - Vertical scale of the transform point.
- * @param {(Phaser.Math.Vector2|Phaser.Geom.Point|object)} [output] - [description]
+ * @param {(Phaser.Math.Vector2|Phaser.Geom.Point|object)} [output] - The output vector, point or object for the translated coordinates.
  *
  * @return {(Phaser.Math.Vector2|Phaser.Geom.Point|object)} The translated point.
  */
@@ -41143,13 +41227,15 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 /**
  * @typedef {object} Vector2Like
  *
- * @property {number} x - [description]
- * @property {number} y - [description]
+ * @property {number} x - The x component.
+ * @property {number} y - The y component.
  */
 
 /**
  * @classdesc
  * A representation of a vector in 2D space.
+ *
+ * A two-component vector.
  *
  * @class Vector2
  * @memberOf Phaser.Math
@@ -41213,7 +41299,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * Copy the components of a given vector, into this Vector.
+     * Copy the components of a given Vector into this Vector.
      *
      * @method Phaser.Math.Vector2#copy
      * @since 3.0.0
@@ -41249,7 +41335,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * Set the x and y components of the this Vector to the given x and y values.
+     * Set the `x` and `y` components of the this Vector to the given `x` and `y` values.
      *
      * @method Phaser.Math.Vector2#set
      * @since 3.0.0
@@ -41307,7 +41393,9 @@ var Vector2 = new Class({
     },
 
     /**
-     * Check if this Vector is equal to a given Vector.
+     * Check whether this Vector is equal to a given Vector.
+     *
+     * Performs a strict equality check against each Vector's components.
      *
      * @method Phaser.Math.Vector2#equals
      * @since 3.0.0
@@ -41344,7 +41432,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * Add a given Vector to this Vector. Addition is element-wise.
+     * Add a given Vector to this Vector. Addition is component-wise.
      *
      * @method Phaser.Math.Vector2#add
      * @since 3.0.0
@@ -41362,7 +41450,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * Subtract the given Vector from this Vector. Subtraction is element-wise.
+     * Subtract the given Vector from this Vector. Subtraction is component-wise.
      *
      * @method Phaser.Math.Vector2#subtract
      * @since 3.0.0
@@ -41380,7 +41468,9 @@ var Vector2 = new Class({
     },
 
     /**
-     * Perform an element-wise multiplication between this Vector and the given Vector.
+     * Perform a component-wise multiplication between this Vector and the given Vector.
+     *
+     * Multiplies this Vector by the given Vector.
      *
      * @method Phaser.Math.Vector2#multiply
      * @since 3.0.0
@@ -41424,7 +41514,9 @@ var Vector2 = new Class({
     },
 
     /**
-     * Perform an element-wise division between this Vector and the given Vector. This Vector is divided by the given Vector.
+     * Perform a component-wise division between this Vector and the given Vector.
+     *
+     * Divides this Vector by the given Vector.
      *
      * @method Phaser.Math.Vector2#divide
      * @since 3.0.0
@@ -41442,7 +41534,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * Negate the x and y components of this Vector.
+     * Negate the `x` and `y` components of this Vector.
      *
      * @method Phaser.Math.Vector2#negate
      * @since 3.0.0
@@ -41458,14 +41550,14 @@ var Vector2 = new Class({
     },
 
     /**
-     * Calculate the distance between this Vector, and the given Vector.
+     * Calculate the distance between this Vector and the given Vector.
      *
      * @method Phaser.Math.Vector2#distance
      * @since 3.0.0
      *
      * @param {Phaser.Math.Vector2} src - The Vector to calculate the distance to.
      *
-     * @return {number} The distance to the given Vector from this Vector.
+     * @return {number} The distance from this Vector to the given Vector.
      */
     distance: function (src)
     {
@@ -41476,14 +41568,14 @@ var Vector2 = new Class({
     },
 
     /**
-     * The distance between this Vector, and the given Vector, squared.
+     * Calculate the distance between this Vector, and the given Vector, squared.
      *
      * @method Phaser.Math.Vector2#distanceSq
      * @since 3.0.0
      *
      * @param {Phaser.Math.Vector2} src - The Vector to calculate the distance to.
      *
-     * @return {number} The distance to this Vector and the given Vector, squared.
+     * @return {number} The distance from this Vector to the given Vector, squared.
      */
     distanceSq: function (src)
     {
@@ -41494,7 +41586,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * The length (or magnitude) of this Vector.
+     * Calculate the length (or magnitude) of this Vector.
      *
      * @method Phaser.Math.Vector2#length
      * @since 3.0.0
@@ -41526,7 +41618,9 @@ var Vector2 = new Class({
     },
 
     /**
-     * Normalise this Vector, that is, make it a unit length vector (magnitude of 1) in the same direction.
+     * Normalize this Vector.
+     *
+     * Makes the vector a unit length vector (magnitude of 1) in the same direction.
      *
      * @method Phaser.Math.Vector2#normalize
      * @since 3.0.0
@@ -41542,6 +41636,7 @@ var Vector2 = new Class({
         if (len > 0)
         {
             len = 1 / Math.sqrt(len);
+
             this.x = x * len;
             this.y = y * len;
         }
@@ -41550,10 +41645,7 @@ var Vector2 = new Class({
     },
 
     /**
-    * Right-hand normalize (make unit length) this Vector
-    */
-    /**
-     * [description]
+     * Right-hand normalize (make unit length) this Vector.
      *
      * @method Phaser.Math.Vector2#normalizeRightHand
      * @since 3.0.0
@@ -41571,14 +41663,14 @@ var Vector2 = new Class({
     },
 
     /**
-     * Perform a dot product between this Vector and the given Vector
+     * Calculate the dot product of this Vector and the given Vector.
      *
      * @method Phaser.Math.Vector2#dot
      * @since 3.0.0
      *
      * @param {Phaser.Math.Vector2} src - The Vector2 to dot product with this Vector2.
      *
-     * @return {number} The result of the dot product
+     * @return {number} The dot product of this Vector and the given Vector.
      */
     dot: function (src)
     {
@@ -41601,13 +41693,15 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Linearly interpolate between this Vector and the given Vector.
+     *
+     * Interpolates this Vector towards the given Vector.
      *
      * @method Phaser.Math.Vector2#lerp
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Vector2} src - [description]
-     * @param {number} [t=0] - [description]
+     * @param {Phaser.Math.Vector2} src - The Vector2 to interpolate towards.
+     * @param {number} [t=0] - The interpolation percentage, between 0 and 1.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -41625,12 +41719,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Transform this Vector with the given Matrix.
      *
      * @method Phaser.Math.Vector2#transformMat3
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Matrix3} mat - [description]
+     * @param {Phaser.Math.Matrix3} mat - The Matrix3 to transform this Vector2 with.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -41647,12 +41741,12 @@ var Vector2 = new Class({
     },
 
     /**
-     * [description]
+     * Transform this Vector with the given Matrix.
      *
      * @method Phaser.Math.Vector2#transformMat4
      * @since 3.0.0
      *
-     * @param {Phaser.Math.Matrix4} mat - [description]
+     * @param {Phaser.Math.Matrix4} mat - The Matrix4 to transform this Vector2 with.
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -41713,16 +41807,16 @@ module.exports = Vector2;
  */
 
 /**
- * [description]
+ * Wrap the given `value` between `min` and `max.
  *
  * @function Phaser.Math.Wrap
  * @since 3.0.0
  *
- * @param {number} value - [description]
- * @param {number} min - [description]
- * @param {number} max - [description]
+ * @param {number} value - The value to wrap.
+ * @param {number} min - The minimum value.
+ * @param {number} max - The maximum value.
  *
- * @return {number} [description]
+ * @return {number} The wrapped value.
  */
 var Wrap = function (value, min, max)
 {
@@ -41752,14 +41846,16 @@ module.exports = Wrap;
 var MathWrap = __webpack_require__(/*! ../Wrap */ "./math/Wrap.js");
 
 /**
- * [description]
+ * Wrap an angle.
+ *
+ * Wraps the angle to a value in the range of -PI to PI.
  *
  * @function Phaser.Math.Angle.Wrap
  * @since 3.0.0
  *
- * @param {number} angle - [description]
+ * @param {number} angle - The angle to wrap, in radians.
  *
- * @return {number} [description]
+ * @return {number} The wrapped angle, in radians.
  */
 var Wrap = function (angle)
 {
@@ -41787,14 +41883,16 @@ module.exports = Wrap;
 var Wrap = __webpack_require__(/*! ../Wrap */ "./math/Wrap.js");
 
 /**
- * [description]
+ * Wrap an angle in degrees.
+ *
+ * Wraps the angle to a value in the range of -180 to 180.
  *
  * @function Phaser.Math.Angle.WrapDegrees
  * @since 3.0.0
  *
- * @param {number} angle - [description]
+ * @param {number} angle - The angle to wrap, in degrees.
  *
- * @return {number} [description]
+ * @return {number} The wrapped angle, in degrees.
  */
 var WrapDegrees = function (angle)
 {
@@ -41898,17 +41996,17 @@ module.exports = MATH_CONST;
  */
 
 /**
- * [description]
+ * Calculate the distance between two sets of coordinates (points).
  *
  * @function Phaser.Math.Distance.Between
  * @since 3.0.0
  *
- * @param {number} x1 - [description]
- * @param {number} y1 - [description]
- * @param {number} x2 - [description]
- * @param {number} y2 - [description]
+ * @param {number} x1 - The x coordinate of the first point.
+ * @param {number} y1 - The y coordinate of the first point.
+ * @param {number} x2 - The x coordinate of the second point.
+ * @param {number} y2 - The y coordinate of the second point.
  *
- * @return {number} [description]
+ * @return {number} The distance between each point.
  */
 var DistanceBetween = function (x1, y1, x2, y2)
 {
@@ -42028,10 +42126,10 @@ module.exports = {
  * @function Phaser.Math.Easing.Back.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  * @param {number} [overshoot=1.70158] - [description]
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v, overshoot)
 {
@@ -42064,10 +42162,10 @@ module.exports = In;
  * @function Phaser.Math.Easing.Back.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  * @param {number} [overshoot=1.70158] - [description]
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v, overshoot)
 {
@@ -42109,10 +42207,10 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Back.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  * @param {number} [overshoot=1.70158] - [description]
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v, overshoot)
 {
@@ -42173,9 +42271,9 @@ module.exports = {
  * @function Phaser.Math.Easing.Bounce.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v)
 {
@@ -42223,9 +42321,9 @@ module.exports = In;
  * @function Phaser.Math.Easing.Bounce.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v)
 {
@@ -42292,9 +42390,9 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Bounce.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v)
 {
@@ -42368,9 +42466,9 @@ module.exports = {
  * @function Phaser.Math.Easing.Circular.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v)
 {
@@ -42401,9 +42499,9 @@ module.exports = In;
  * @function Phaser.Math.Easing.Circular.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v)
 {
@@ -42441,9 +42539,9 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Circular.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v)
 {
@@ -42502,9 +42600,9 @@ module.exports = {
  * @function Phaser.Math.Easing.Cubic.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v)
 {
@@ -42535,9 +42633,9 @@ module.exports = In;
  * @function Phaser.Math.Easing.Cubic.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v)
 {
@@ -42575,9 +42673,9 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Cubic.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v)
 {
@@ -42636,11 +42734,11 @@ module.exports = {
  * @function Phaser.Math.Easing.Elastic.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  * @param {float} [amplitude=0.1] - [description]
  * @param {float} [period=0.1] - [description]
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v, amplitude, period)
 {
@@ -42696,11 +42794,11 @@ module.exports = In;
  * @function Phaser.Math.Easing.Elastic.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  * @param {float} [amplitude=0.1] - [description]
  * @param {float} [period=0.1] - [description]
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v, amplitude, period)
 {
@@ -42763,11 +42861,11 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Elastic.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  * @param {float} [amplitude=0.1] - [description]
  * @param {float} [period=0.1] - [description]
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v, amplitude, period)
 {
@@ -42851,9 +42949,9 @@ module.exports = {
  * @function Phaser.Math.Easing.Expo.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v)
 {
@@ -42884,9 +42982,9 @@ module.exports = In;
  * @function Phaser.Math.Easing.Expo.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v)
 {
@@ -42924,9 +43022,9 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Expo.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v)
 {
@@ -42980,14 +43078,14 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Linear easing (no variation).
  *
  * @function Phaser.Math.Easing.Linear.Linear
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Linear = function (v)
 {
@@ -43035,14 +43133,14 @@ module.exports = __webpack_require__(/*! ./Linear */ "./math/easing/linear/Linea
  */
 
 /**
- * [description]
+ * Quadratic ease-in.
  *
  * @function Phaser.Math.Easing.Quadratic.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v)
 {
@@ -43073,9 +43171,9 @@ module.exports = In;
  * @function Phaser.Math.Easing.Quadratic.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v)
 {
@@ -43113,9 +43211,9 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Quadratic.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v)
 {
@@ -43174,9 +43272,9 @@ module.exports = {
  * @function Phaser.Math.Easing.Quartic.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v)
 {
@@ -43207,9 +43305,9 @@ module.exports = In;
  * @function Phaser.Math.Easing.Quartic.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v)
 {
@@ -43247,9 +43345,9 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Quartic.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v)
 {
@@ -43308,9 +43406,9 @@ module.exports = {
  * @function Phaser.Math.Easing.Quintic.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v)
 {
@@ -43341,9 +43439,9 @@ module.exports = In;
  * @function Phaser.Math.Easing.Quintic.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v)
 {
@@ -43381,9 +43479,9 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Quintic.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v)
 {
@@ -43442,9 +43540,9 @@ module.exports = {
  * @function Phaser.Math.Easing.Sine.In
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var In = function (v)
 {
@@ -43486,9 +43584,9 @@ module.exports = In;
  * @function Phaser.Math.Easing.Sine.InOut
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var InOut = function (v)
 {
@@ -43530,9 +43628,9 @@ module.exports = InOut;
  * @function Phaser.Math.Easing.Sine.Out
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Out = function (v)
 {
@@ -43602,10 +43700,10 @@ module.exports = {
  * @function Phaser.Math.Easing.Stepped.Stepped
  * @since 3.0.0
  *
- * @param {number} v - [description]
+ * @param {number} v - The value to be tweened.
  * @param {float} [steps=1] - [description]
  *
- * @return {number} [description]
+ * @return {number} The tweened value.
  */
 var Stepped = function (v, steps)
 {
@@ -43704,14 +43802,14 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 
 /**
  * @classdesc
- * [description]
+ * A seeded random data generator.
  *
  * @class RandomDataGenerator
  * @memberOf Phaser.Math
  * @constructor
  * @since 3.0.0
  *
- * @param {string[]} [seeds] - [description]
+ * @param {string[]} [seeds] - The seeds.
  */
 var RandomDataGenerator = new Class({
 
@@ -43775,7 +43873,7 @@ var RandomDataGenerator = new Class({
         this.n = 0;
 
         /**
-         * [description]
+         * Signs to choose from.
          *
          * @name Phaser.Math.RandomDataGenerator#signs
          * @type {number[]}
@@ -43796,7 +43894,7 @@ var RandomDataGenerator = new Class({
      * @since 3.0.0
      * @private
      *
-     * @return {number} [description]
+     * @return {number} A random number.
      */
     rnd: function ()
     {
@@ -43817,7 +43915,7 @@ var RandomDataGenerator = new Class({
      * @since 3.0.0
      * @private
      *
-     * @param {string} data - [description]
+     * @param {string} data - The value to hash.
      *
      * @return {number} The hashed value.
      */
@@ -43846,12 +43944,12 @@ var RandomDataGenerator = new Class({
     },
 
     /**
-     * [description]
+     * Initialize the state of the random data generator.
      *
      * @method Phaser.Math.RandomDataGenerator#init
      * @since 3.0.0
      *
-     * @param {(string|string[])} seeds - [description]
+     * @param {(string|string[])} seeds - The seeds to initialize the random data generator with.
      */
     init: function (seeds)
     {
@@ -44152,8 +44250,8 @@ var RandomDataGenerator = new Class({
      *
      * @method Phaser.Math.RandomDataGenerator#shuffle
      * @since 3.7.0
-     * 
-     * @param {array[]} [array] - The array to be shuffled.
+     *
+     * @param {array} [array] - The array to be shuffled.
      *
      * @return {array} The shuffled array.
      */
@@ -44317,23 +44415,17 @@ global.Phaser = Phaser;
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 
-//  A Scene Level Plugin is installed into every Scene and belongs to that Scene.
-//  It can listen for Scene events and respond to them.
-//  It can map itself to a Scene property, or into the Scene Systems, or both.
-//  
-//  A Global Plugin is installed just once into the Game owned Plugin Manager.
-//  It can listen for Game events and respond to them.
-
 /**
  * @classdesc
- * [description]
+ * A Global Plugin is installed just once into the Game owned Plugin Manager.
+ * It can listen for Game events and respond to them.
  *
  * @class BasePlugin
  * @memberOf Phaser.Plugins
  * @constructor
  * @since 3.8.0
  *
- * @param {Phaser.Game} game - [description]
+ * @param {Phaser.Game} game - A reference to the Game instance this plugin is running under.
  */
 var BasePlugin = new Class({
 
@@ -44344,7 +44436,7 @@ var BasePlugin = new Class({
         /**
          * A handy reference to the Plugin Manager that is responsible for this plugin.
          * Can be used as a route to gain access to game systems and  events.
-         * 
+         *
          * @name Phaser.Plugins.BasePlugin#pluginManager
          * @type {Phaser.Plugins.PluginManager}
          * @protected
@@ -45652,7 +45744,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.8.0
  *
- * @param {Phaser.Game} game - [description]
+ * @param {Phaser.Game} game - A reference to the Scene that has installed this plugin.
  */
 var ScenePlugin = new Class({
 
@@ -59813,10 +59905,10 @@ var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
 /**
  * @callback EachActiveSoundCallback
  *
- * @param {Phaser.Sound.BaseSoundManager} manager - [description]
- * @param {Phaser.Sound.BaseSound} sound - [description]
- * @param {number} index - [description]
- * @param {Phaser.Sound.BaseSound[]} sounds - [description]
+ * @param {Phaser.Sound.BaseSoundManager} manager - The SoundManager
+ * @param {Phaser.Sound.BaseSound} sound - The current active Sound
+ * @param {number} index - The index of the current active Sound
+ * @param {Phaser.Sound.BaseSound[]} sounds - All sounds
  */
 
 /**
@@ -60327,7 +60419,7 @@ var BaseSoundManager = new Class({
      * @private
      * @since 3.0.0
      *
-     * @param {EachActiveSoundCallback} callback - Callback function. (sound: ISound, index: number, array: ISound[]) => void
+     * @param {EachActiveSoundCallback} callback - Callback function. (manager: Phaser.Sound.BaseSoundManager, sound: Phaser.Sound.BaseSound, index: number, sounds: Phaser.Manager.BaseSound[]) => void
      * @param {*} [scope] - Callback context.
      */
     forEachActiveSound: function (callback, scope)

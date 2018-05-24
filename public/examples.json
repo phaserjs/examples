@@ -1299,6 +1299,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\follow user controlled sprite.js",
+          "name": "follow user controlled sprite.js",
+          "size": 1213,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\graphics landscape.js",
           "name": "graphics landscape.js",
           "size": 2995,
@@ -1444,7 +1450,7 @@
           "extension": ".js"
         }
       ],
-      "size": 104521
+      "size": 105734
     },
     {
       "path": "src\\components",
@@ -2797,8 +2803,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2809,8 +2815,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2821,8 +2827,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2941,8 +2947,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -8175,8 +8181,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -9408,5 +9414,5 @@
       "size": 5291
     }
   ],
-  "size": 2460925
+  "size": 2462138
 }

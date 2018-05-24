@@ -5129,6 +5129,7 @@ var Effects = __webpack_require__(/*! ./effects */ "./cameras/2d/effects/index.j
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var Linear = __webpack_require__(/*! ../../math/Linear */ "./math/Linear.js");
 var Rectangle = __webpack_require__(/*! ../../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
+var SmoothStep = __webpack_require__(/*! ../../math/SmoothStep */ "./math/SmoothStep.js");
 var TransformMatrix = __webpack_require__(/*! ../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var ValueToColor = __webpack_require__(/*! ../../display/color/ValueToColor */ "./display/color/ValueToColor.js");
 var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js");
@@ -5423,6 +5424,8 @@ var Camera = new Class({
         /**
          * The linear interpolation value to use when following a target.
          * 
+         * Can also be set via `setLerp` or as part of the `startFollow` call.
+         * 
          * The default values of 1 means the camera will instantly snap to the target coordinates.
          * A lower value, such as 0.1 means the camera will more slowly track the target, giving
          * a smooth transition. You can set the horizontal and vertical values independently, and also
@@ -5435,6 +5438,17 @@ var Camera = new Class({
          * @since 3.9.0
          */
         this.lerp = new Vector2(1, 1);
+
+        /**
+         * The values stored in this property are subtracted from the Camera targets position, allowing you to
+         * offset the camera from the actual target x/y coordinates by this amount.
+         * Can also be set via `setFollowOffset` or as part of the `startFollow` call.
+         * 
+         * @name Phaser.Cameras.Scene2D.Camera#followOffset
+         * @type {Phaser.Math.Vector2}
+         * @since 3.9.0
+         */
+        this.followOffset = new Vector2();
 
         /**
          * Internal follow target reference.
@@ -5821,8 +5835,8 @@ var Camera = new Class({
 
         if (follow)
         {
-            this.scrollX = Linear(this.scrollX, follow.x - originX, this.lerp.x) / zoom;
-            this.scrollY = Linear(this.scrollY, follow.y - originY, this.lerp.y) / zoom;
+            this.scrollX = Linear(this.scrollX, (follow.x - this.followOffset.x) - originX, this.lerp.x) / zoom;
+            this.scrollY = Linear(this.scrollY, (follow.y - this.followOffset.y) - originY, this.lerp.y) / zoom;
         }
 
         if (this.useBounds)
@@ -5901,6 +5915,56 @@ var Camera = new Class({
         if (value === undefined) { value = 0; }
 
         this.rotation = DegToRad(value);
+
+        return this;
+    },
+
+    /**
+     * Sets the linear interpolation value to use when following a target.
+     * 
+     * The default values of 1 means the camera will instantly snap to the target coordinates.
+     * A lower value, such as 0.1 means the camera will more slowly track the target, giving
+     * a smooth transition. You can set the horizontal and vertical values independently, and also
+     * adjust this value in real-time during your game.
+     *
+     * Be sure to keep the value between 0 and 1. A value of zero will disable tracking on that axis.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setLerp
+     * @since 3.9.0
+     *
+     * @param {number} [x=1] - The amount added to the horizontal linear interpolation of the follow target.
+     * @param {number} [y=1] - The amount added to the vertical linear interpolation of the follow target.
+     *
+     * @return {this} This Camera instance.
+     */
+    setLerp: function (x, y)
+    {
+        if (x === undefined) { x = 1; }
+        if (y === undefined) { y = x; }
+
+        this.lerp.set(x, y);
+
+        return this;
+    },
+
+    /**
+     * Sets the horizontal and vertical offset of the camera from its follow target.
+     * The values are subtracted from the targets position during the Cameras update step.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setFollowOffset
+     * @since 3.9.0
+     *
+     * @param {number} [x=0] - The horizontal offset from the camera follow target.x position.
+     * @param {number} [y=0] - The vertical offset from the camera follow target.y position.
+     *
+     * @return {this} This Camera instance.
+     */
+    setFollowOffset: function (x, y)
+    {
+        if (x === undefined) { x = 0; }
+        if (y === undefined) { y = 0; }
+
+        this.followOffset.set(x, y);
 
         return this;
     },
@@ -6183,14 +6247,18 @@ var Camera = new Class({
      * @param {boolean} [roundPixels=false] - Round the camera position to whole integers to avoid sub-pixel rendering?
      * @param {float} [lerpX=1] - A value between 0 and 1. This value specifies the amount of linear interpolation to use when horizontally tracking the target. The closer the value to 1, the faster the camera will track.
      * @param {float} [lerpY=1] - A value between 0 and 1. This value specifies the amount of linear interpolation to use when vertically tracking the target. The closer the value to 1, the faster the camera will track.
+     * @param {number} [offsetX=0] - The horizontal offset from the camera follow target.x position.
+     * @param {number} [offsetY=0] - The vertical offset from the camera follow target.y position.
      *
      * @return {this} This Camera instance.
      */
-    startFollow: function (target, roundPixels, lerpX, lerpY)
+    startFollow: function (target, roundPixels, lerpX, lerpY, offsetX, offsetY)
     {
         if (roundPixels === undefined) { roundPixels = false; }
         if (lerpX === undefined) { lerpX = 1; }
         if (lerpY === undefined) { lerpY = lerpX; }
+        if (offsetX === undefined) { offsetX = 0; }
+        if (offsetY === undefined) { offsetY = offsetX; }
 
         this._follow = target;
 
@@ -6201,13 +6269,15 @@ var Camera = new Class({
 
         this.lerp.set(lerpX, lerpY);
 
+        this.followOffset.set(offsetX, offsetY);
+
         //  Move the camera there immediately, to avoid a large lerp during preUpdate
         var zoom = this.zoom;
         var originX = this.width / 2;
         var originY = this.height / 2;
 
-        this.scrollX = (target.x - originX) / zoom;
-        this.scrollY = (target.y - originY) / zoom;
+        this.scrollX = (target.x - offsetX - originX) / zoom;
+        this.scrollY = (target.y - offsetY - originY) / zoom;
 
         return this;
     },
@@ -41135,6 +41205,57 @@ module.exports = RoundAwayFromZero;
 
 /***/ }),
 
+/***/ "./math/SmoothStep.js":
+/*!****************************!*\
+  !*** ./math/SmoothStep.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * The function receives the number `x` as an argument and returns 0 if `x` is less than or equal to the left edge,
+ * 1 if `x` is greater than or equal to the right edge, and smoothly interpolates, using a Hermite polynomial,
+ * between 0 and 1 otherwise.
+ *
+ * https://en.wikipedia.org/wiki/Smoothstep
+ *
+ * @function Phaser.Math.SmoothStep
+ * @since 3.0.0
+ *
+ * @param {number} x - The input value.
+ * @param {number} min - The minimum value, also known as the 'left edge', assumed smaller than the 'right edge'.
+ * @param {number} max - The maximum value, also known as the 'right edge', assumed greater than the 'left edge'.
+ *
+ * @return {number} A number between 0 and 1.
+ */
+var SmoothStep = function (x, min, max)
+{
+    if (x <= min)
+    {
+        return 0;
+    }
+
+    if (x >= max)
+    {
+        return 1;
+    }
+
+    x = (x - min) / (max - min);
+
+    return x * x * ( 3 - 2 * x );
+};
+
+module.exports = SmoothStep;
+
+
+/***/ }),
+
 /***/ "./math/TransformXY.js":
 /*!*****************************!*\
   !*** ./math/TransformXY.js ***!
@@ -42121,7 +42242,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Back ease-in.
  *
  * @function Phaser.Math.Easing.Back.In
  * @since 3.0.0
@@ -42157,7 +42278,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Back ease-in/out.
  *
  * @function Phaser.Math.Easing.Back.InOut
  * @since 3.0.0
@@ -42202,7 +42323,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Back ease-out.
  *
  * @function Phaser.Math.Easing.Back.Out
  * @since 3.0.0
@@ -42266,7 +42387,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Bounce ease-in.
  *
  * @function Phaser.Math.Easing.Bounce.In
  * @since 3.0.0
@@ -42316,7 +42437,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Bounce ease-in/out.
  *
  * @function Phaser.Math.Easing.Bounce.InOut
  * @since 3.0.0
@@ -42385,7 +42506,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Bounce ease-out.
  *
  * @function Phaser.Math.Easing.Bounce.Out
  * @since 3.0.0
@@ -42461,7 +42582,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Circular ease-in.
  *
  * @function Phaser.Math.Easing.Circular.In
  * @since 3.0.0
@@ -42494,7 +42615,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Circular ease-in/out.
  *
  * @function Phaser.Math.Easing.Circular.InOut
  * @since 3.0.0
@@ -42534,7 +42655,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Circular ease-out.
  *
  * @function Phaser.Math.Easing.Circular.Out
  * @since 3.0.0
@@ -42595,7 +42716,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Cubic ease-in.
  *
  * @function Phaser.Math.Easing.Cubic.In
  * @since 3.0.0
@@ -42628,7 +42749,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Cubic ease-in/out.
  *
  * @function Phaser.Math.Easing.Cubic.InOut
  * @since 3.0.0
@@ -42668,7 +42789,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Cubic ease-out.
  *
  * @function Phaser.Math.Easing.Cubic.Out
  * @since 3.0.0
@@ -42729,7 +42850,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Elastic ease-in.
  *
  * @function Phaser.Math.Easing.Elastic.In
  * @since 3.0.0
@@ -42789,7 +42910,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Elastic ease-in/out.
  *
  * @function Phaser.Math.Easing.Elastic.InOut
  * @since 3.0.0
@@ -42856,7 +42977,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Elastic ease-out.
  *
  * @function Phaser.Math.Easing.Elastic.Out
  * @since 3.0.0
@@ -42944,7 +43065,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Exponential ease-in.
  *
  * @function Phaser.Math.Easing.Expo.In
  * @since 3.0.0
@@ -42977,7 +43098,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Exponential ease-in/out.
  *
  * @function Phaser.Math.Easing.Expo.InOut
  * @since 3.0.0
@@ -43017,7 +43138,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Exponential ease-out.
  *
  * @function Phaser.Math.Easing.Expo.Out
  * @since 3.0.0
@@ -43166,7 +43287,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Quadratic ease-in/out.
  *
  * @function Phaser.Math.Easing.Quadratic.InOut
  * @since 3.0.0
@@ -43206,7 +43327,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Quadratic ease-out.
  *
  * @function Phaser.Math.Easing.Quadratic.Out
  * @since 3.0.0
@@ -43267,7 +43388,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Quartic ease-in.
  *
  * @function Phaser.Math.Easing.Quartic.In
  * @since 3.0.0
@@ -43300,7 +43421,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Quartic ease-in/out.
  *
  * @function Phaser.Math.Easing.Quartic.InOut
  * @since 3.0.0
@@ -43340,7 +43461,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Quartic ease-out.
  *
  * @function Phaser.Math.Easing.Quartic.Out
  * @since 3.0.0
@@ -43401,7 +43522,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Quintic ease-in.
  *
  * @function Phaser.Math.Easing.Quintic.In
  * @since 3.0.0
@@ -43434,7 +43555,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Quintic ease-in/out.
  *
  * @function Phaser.Math.Easing.Quintic.InOut
  * @since 3.0.0
@@ -43474,7 +43595,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Quintic ease-out.
  *
  * @function Phaser.Math.Easing.Quintic.Out
  * @since 3.0.0
@@ -43535,7 +43656,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Sinusoidal ease-in.
  *
  * @function Phaser.Math.Easing.Sine.In
  * @since 3.0.0
@@ -43579,7 +43700,7 @@ module.exports = In;
  */
 
 /**
- * [description]
+ * Sinusoidal ease-in/out.
  *
  * @function Phaser.Math.Easing.Sine.InOut
  * @since 3.0.0
@@ -43623,7 +43744,7 @@ module.exports = InOut;
  */
 
 /**
- * [description]
+ * Sinusoidal ease-out.
  *
  * @function Phaser.Math.Easing.Sine.Out
  * @since 3.0.0
@@ -43695,7 +43816,7 @@ module.exports = {
  */
 
 /**
- * [description]
+ * Stepped easing.
  *
  * @function Phaser.Math.Easing.Stepped.Stepped
  * @since 3.0.0

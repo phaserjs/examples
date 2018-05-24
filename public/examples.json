@@ -1293,6 +1293,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\follow offset.js",
+          "name": "follow offset.js",
+          "size": 1599,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\follow sprite.js",
           "name": "follow sprite.js",
           "size": 1151,
@@ -1450,7 +1456,7 @@
           "extension": ".js"
         }
       ],
-      "size": 106297
+      "size": 107896
     },
     {
       "path": "src\\components",
@@ -6999,7 +7005,7 @@
             {
               "path": "src\\loader\\tile maps\\load tile map json from scene payload.js",
               "name": "load tile map json from scene payload.js",
-              "size": 1348,
+              "size": 1395,
               "extension": ".js"
             },
             {
@@ -7015,10 +7021,10 @@
               "extension": ".js"
             }
           ],
-          "size": 5244
+          "size": 5291
         }
       ],
-      "size": 97794
+      "size": 97841
     },
     {
       "path": "src\\paths",
@@ -9432,5 +9438,5 @@
       "size": 5291
     }
   ],
-  "size": 2465886
+  "size": 2467532
 }

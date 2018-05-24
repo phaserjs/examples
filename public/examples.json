@@ -3150,13 +3150,13 @@
             {
               "path": "src\\game objects\\images\\custom image class ES6.js",
               "name": "custom image class ES6.js",
-              "size": 702,
+              "size": 704,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\images\\custom image class.js",
               "name": "custom image class.js",
-              "size": 868,
+              "size": 783,
               "extension": ".js"
             },
             {
@@ -3232,7 +3232,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13964
+          "size": 13881
         },
         {
           "path": "src\\game objects\\lights",
@@ -4384,7 +4384,7 @@
           "size": 255492
         }
       ],
-      "size": 752807
+      "size": 752724
     },
     {
       "path": "src\\games",
@@ -6991,6 +6991,18 @@
           "name": "tile maps",
           "children": [
             {
+              "path": "src\\loader\\tile maps\\load tile map json from object.js",
+              "name": "load tile map json from object.js",
+              "size": 1218,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\loader\\tile maps\\load tile map json from scene payload.js",
+              "name": "load tile map json from scene payload.js",
+              "size": 1348,
+              "extension": ".js"
+            },
+            {
               "path": "src\\loader\\tile maps\\load tile map json with normal map.js",
               "name": "load tile map json with normal map.js",
               "size": 1499,
@@ -7003,10 +7015,10 @@
               "extension": ".js"
             }
           ],
-          "size": 2678
+          "size": 5244
         }
       ],
-      "size": 95228
+      "size": 97794
     },
     {
       "path": "src\\paths",
@@ -9420,5 +9432,5 @@
       "size": 5291
     }
   ],
-  "size": 2463403
+  "size": 2465886
 }

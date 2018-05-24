@@ -33,10 +33,11 @@ body {
     text-decoration: none;
     box-shadow: 0 5px 3px rgba(0, 0, 0, 0.7);
     outline: none;
-    margin-right: 58px;
+    margin-right: 32px;
     padding: 10px 20px;
     color: #2d2d2d;
     width: 200px;
+    cursor: pointer;
 }
 
 #nav a:Hover {

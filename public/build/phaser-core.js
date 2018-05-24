@@ -5129,7 +5129,6 @@ var Effects = __webpack_require__(/*! ./effects */ "./cameras/2d/effects/index.j
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var Linear = __webpack_require__(/*! ../../math/Linear */ "./math/Linear.js");
 var Rectangle = __webpack_require__(/*! ../../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
-var SmoothStep = __webpack_require__(/*! ../../math/SmoothStep */ "./math/SmoothStep.js");
 var TransformMatrix = __webpack_require__(/*! ../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var ValueToColor = __webpack_require__(/*! ../../display/color/ValueToColor */ "./display/color/ValueToColor.js");
 var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js");
@@ -5423,16 +5422,16 @@ var Camera = new Class({
 
         /**
          * The linear interpolation value to use when following a target.
-         * 
+         *
          * Can also be set via `setLerp` or as part of the `startFollow` call.
-         * 
+         *
          * The default values of 1 means the camera will instantly snap to the target coordinates.
          * A lower value, such as 0.1 means the camera will more slowly track the target, giving
          * a smooth transition. You can set the horizontal and vertical values independently, and also
          * adjust this value in real-time during your game.
          *
          * Be sure to keep the value between 0 and 1. A value of zero will disable tracking on that axis.
-         * 
+         *
          * @name Phaser.Cameras.Scene2D.Camera#lerp
          * @type {Phaser.Math.Vector2}
          * @since 3.9.0
@@ -5443,7 +5442,7 @@ var Camera = new Class({
          * The values stored in this property are subtracted from the Camera targets position, allowing you to
          * offset the camera from the actual target x/y coordinates by this amount.
          * Can also be set via `setFollowOffset` or as part of the `startFollow` call.
-         * 
+         *
          * @name Phaser.Cameras.Scene2D.Camera#followOffset
          * @type {Phaser.Math.Vector2}
          * @since 3.9.0
@@ -5921,7 +5920,7 @@ var Camera = new Class({
 
     /**
      * Sets the linear interpolation value to use when following a target.
-     * 
+     *
      * The default values of 1 means the camera will instantly snap to the target coordinates.
      * A lower value, such as 0.1 means the camera will more slowly track the target, giving
      * a smooth transition. You can set the horizontal and vertical values independently, and also
@@ -6231,7 +6230,7 @@ var Camera = new Class({
      *
      * When enabled the Camera will automatically adjust its scroll position to keep the target Game Object
      * in its center.
-     * 
+     *
      * You can set the linear interpolation value used in the follow code.
      * Use low lerp values (such as 0.1) to automatically smooth the camera motion.
      *
@@ -8200,7 +8199,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.9.0-beta1',
+    VERSION: '3.9.0',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -41205,57 +41204,6 @@ module.exports = RoundAwayFromZero;
 
 /***/ }),
 
-/***/ "./math/SmoothStep.js":
-/*!****************************!*\
-  !*** ./math/SmoothStep.js ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * The function receives the number `x` as an argument and returns 0 if `x` is less than or equal to the left edge,
- * 1 if `x` is greater than or equal to the right edge, and smoothly interpolates, using a Hermite polynomial,
- * between 0 and 1 otherwise.
- *
- * https://en.wikipedia.org/wiki/Smoothstep
- *
- * @function Phaser.Math.SmoothStep
- * @since 3.0.0
- *
- * @param {number} x - The input value.
- * @param {number} min - The minimum value, also known as the 'left edge', assumed smaller than the 'right edge'.
- * @param {number} max - The maximum value, also known as the 'right edge', assumed greater than the 'left edge'.
- *
- * @return {number} A number between 0 and 1.
- */
-var SmoothStep = function (x, min, max)
-{
-    if (x <= min)
-    {
-        return 0;
-    }
-
-    if (x >= max)
-    {
-        return 1;
-    }
-
-    x = (x - min) / (max - min);
-
-    return x * x * ( 3 - 2 * x );
-};
-
-module.exports = SmoothStep;
-
-
-/***/ }),
-
 /***/ "./math/TransformXY.js":
 /*!*****************************!*\
   !*** ./math/TransformXY.js ***!
@@ -46100,8 +46048,8 @@ and string types for AudioPannerNode.panningModel, AudioPannerNode.distanceModel
 BiquadFilterNode.type and OscillatorNode.type.
 
 */
-(function (global, exports, perf) {
-  'use strict';
+
+(function () {
 
   function fixSetTarget(param) {
     if (!param)	// if NYI, just return
@@ -46231,8 +46179,7 @@ BiquadFilterNode.type and OscillatorNode.type.
     window.OfflineAudioContext = webkitOfflineAudioContext;
   }
 
-}(window));
-
+})();
 
 
 /***/ }),

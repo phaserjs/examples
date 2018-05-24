@@ -7,6 +7,7 @@ $(document).ready(function () {
     var versions = [
         { val : 'dev', text: 'Dev Build' },
         { val : 'phaser-core', text: 'Core Build' },
+        { val : '3.9.0', text: '3.9.0' },
         { val : '3.8.0', text: '3.8.0' },
         { val : '3.7.1', text: '3.7.1' },
         { val : '3.6.0', text: '3.6.0' },
@@ -42,6 +43,28 @@ $(document).ready(function () {
         $('#csslink').attr('href', 'css.html?src=' + filename);
         $('#viewlink').attr('href', 'view.html?src=' + filename);
         $('#backlink').attr('href', 'index.html?dir=' + backURL);
+
+        if (remote)
+        {
+            $('#labslink').hide();
+        }
+        else
+        {
+            $('#labslink').on('click', function () {
+
+                var labsURL = encodeURI('http://labs.phaser.io/view.html?src=' + filename);
+
+                navigator.clipboard.writeText(labsURL)
+                .then(() => {
+                    console.log(labsURL);
+                })
+                .catch(err => {
+                    // This can happen if the user denies clipboard permissions:
+                    console.error('Could not copy text: ', err);
+                });
+
+            });
+        }
 
         var versionlist = $('<select>').prop('id', 'changeversion').appendTo('#nav');
 

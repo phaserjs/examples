@@ -2502,6 +2502,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\add emitter to container.js",
+              "name": "add emitter to container.js",
+              "size": 1162,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\add sprite to container.js",
               "name": "add sprite to container.js",
               "size": 1186,
@@ -2754,7 +2760,7 @@
               "extension": ".js"
             }
           ],
-          "size": 76460
+          "size": 77622
         },
         {
           "path": "src\\game objects\\graphics",
@@ -3731,7 +3737,7 @@
             {
               "path": "src\\game objects\\render texture\\draw to render texture.js",
               "name": "draw to render texture.js",
-              "size": 513,
+              "size": 512,
               "extension": ".js"
             },
             {
@@ -3744,6 +3750,12 @@
               "path": "src\\game objects\\render texture\\fireball.js",
               "name": "fireball.js",
               "size": 1899,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\resize rendertexture.js",
+              "name": "resize rendertexture.js",
+              "size": 915,
               "extension": ".js"
             },
             {
@@ -3773,11 +3785,11 @@
             {
               "path": "src\\game objects\\render texture\\transform draw.js",
               "name": "transform draw.js",
-              "size": 665,
+              "size": 669,
               "extension": ".js"
             }
           ],
-          "size": 13087
+          "size": 14005
         },
         {
           "path": "src\\game objects\\sprites",
@@ -4396,7 +4408,7 @@
           "size": 255492
         }
       ],
-      "size": 752724
+      "size": 754804
     },
     {
       "path": "src\\games",
@@ -6439,6 +6451,19 @@
           "size": 35643
         },
         {
+          "path": "src\\input\\multitouch",
+          "name": "multitouch",
+          "children": [
+            {
+              "path": "src\\input\\multitouch\\two touch inputs.js",
+              "name": "two touch inputs.js",
+              "size": 1040,
+              "extension": ".js"
+            }
+          ],
+          "size": 1040
+        },
+        {
           "path": "src\\input\\pointer",
           "name": "pointer",
           "children": [
@@ -6543,7 +6568,7 @@
           "size": 9602
         }
       ],
-      "size": 114162
+      "size": 115202
     },
     {
       "path": "src\\loader",
@@ -7817,7 +7842,7 @@
             {
               "path": "src\\physics\\matterjs\\drag filter with pointer.js",
               "name": "drag filter with pointer.js",
-              "size": 932,
+              "size": 1563,
               "extension": ".js"
             },
             {
@@ -7947,7 +7972,7 @@
               "extension": ".js"
             }
           ],
-          "size": 53558
+          "size": 54189
         },
         {
           "path": "src\\physics\\multi",
@@ -7969,7 +7994,7 @@
           "size": 2750
         }
       ],
-      "size": 145631
+      "size": 146262
     },
     {
       "path": "src\\plugins",
@@ -9456,5 +9481,5 @@
       "size": 5291
     }
   ],
-  "size": 2471032
+  "size": 2474783
 }

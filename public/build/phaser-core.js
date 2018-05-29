@@ -8199,7 +8199,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.9.0',
+    VERSION: '3.10.0-beta1',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -28819,49 +28819,100 @@ var InputManager = new Class({
         this.queue = [];
 
         /**
-         * [description]
+         * A reference to the Keyboard Manager class, if enabled via the `input.keyboard` Game Config property.
          *
          * @name Phaser.Input.InputManager#keyboard
-         * @type {Phaser.Input.Keyboard.KeyboardManager}
+         * @type {?Phaser.Input.Keyboard.KeyboardManager}
          * @since 3.0.0
          */
-        this.keyboard = new Keyboard(this);
+        this.keyboard = (config.inputKeyboard) ? new Keyboard(this) : null;
 
         /**
-         * [description]
+         * A reference to the Mouse Manager class, if enabled via the `input.mouse` Game Config property.
          *
          * @name Phaser.Input.InputManager#mouse
-         * @type {Phaser.Input.Mouse.MouseManager}
+         * @type {?Phaser.Input.Mouse.MouseManager}
          * @since 3.0.0
          */
-        this.mouse = new Mouse(this);
+        this.mouse = (config.inputMouse) ? new Mouse(this) : null;
 
         /**
-         * [description]
+         * A reference to the Touch Manager class, if enabled via the `input.touch` Game Config property.
          *
          * @name Phaser.Input.InputManager#touch
          * @type {Phaser.Input.Touch.TouchManager}
          * @since 3.0.0
          */
-        this.touch = new Touch(this);
+        this.touch = (config.inputTouch) ? new Touch(this) : null;
 
         /**
-         * [description]
+         * A reference to the Gamepad Manager class, if enabled via the `input.gamepad` Game Config property.
          *
          * @name Phaser.Input.InputManager#gamepad
          * @type {Phaser.Input.Gamepad.GamepadManager}
          * @since 3.0.0
          */
-        this.gamepad = new Gamepad(this);
+        this.gamepad = (config.inputGamepad) ? new Gamepad(this) : null;
 
         /**
-         * [description]
+         * An array of Pointers that have been added to the game.
+         * The first entry is reserved for the Mouse Pointer, the rest are Touch Pointers.
+         * 
+         * By default there are 2 pointers enabled. If you need more use the `addPointer` method to create them.
+         *
+         * @name Phaser.Input.InputManager#pointers
+         * @type {Phaser.Input.Pointer[]}
+         * @since 3.10.0
+         */
+        this.pointers = [
+            new Pointer(this, 0),
+            new Pointer(this, 1),
+            new Pointer(this, 2),
+            new Pointer(this, 3),
+            new Pointer(this, 4),
+            new Pointer(this, 5),
+            new Pointer(this, 6),
+            new Pointer(this, 7),
+            new Pointer(this, 8),
+            new Pointer(this, 9),
+            new Pointer(this, 10)
+        ];
+
+        this.pointersTotal = 2;
+
+        /**
+         * The mouse has its own unique Pointer object, which you can reference directly if making a _desktop specific game_.
+         * If you are supporting both desktop and touch devices then do not use this property, instead use `activePointer`
+         * which will always map to the most recently interacted pointer.
+         *
+         * @name Phaser.Input.InputManager#mousePointer
+         * @type {?Phaser.Input.Pointer}
+         * @since 3.10.0
+         */
+        this.mousePointer = (config.inputMouse) ? this.pointers[0] : null;
+
+        /**
+         * The most recently active Pointer object.
+         *
+         * If you've only 1 Pointer in your game then this will accurately be either the first finger touched, or the mouse.
+         *
+         * If your game doesn't need to support multi-touch then you can safely use this property in all of your game
+         * code and it will adapt to be either the mouse or the touch, based on device.
          *
          * @name Phaser.Input.InputManager#activePointer
          * @type {Phaser.Input.Pointer}
          * @since 3.0.0
          */
-        this.activePointer = new Pointer(this, 0);
+        this.activePointer = this.pointers[0];
+
+        /**
+         * Reset every frame. Set to `true` if any of the Pointers are dirty this frame.
+         *
+         * @name Phaser.Input.InputManager#dirty
+         * @type {boolean}
+         * @since 3.10.0
+         */
+        this.dirty = false;
 
         /**
          * [description]
@@ -28951,10 +29002,7 @@ var InputManager = new Class({
 
         this.updateBounds();
 
-        this.keyboard.boot();
-        this.mouse.boot();
-        this.touch.boot();
-        this.gamepad.boot();
+        this.events.emit('boot');
 
         this.game.events.on('prestep', this.update, this);
         this.game.events.once('destroy', this.destroy, this);
@@ -29011,22 +29059,27 @@ var InputManager = new Class({
      */
     update: function (time)
     {
-        this.keyboard.update();
-        this.gamepad.update();
+        this.events.emit('update');
 
         this.ignoreEvents = false;
 
+        this.dirty = false;
+
         var len = this.queue.length;
 
-        //  Currently just 1 pointer supported
-        var pointer = this.activePointer;
+        var pointers = this.pointers;
 
-        pointer.reset();
+        for (var i = 0; i < this.pointersTotal; i++)
+        {
+            pointers[i].reset();
+        }
 
         if (!this.enabled || len === 0)
         {
             return;
         }
+
+        this.dirty = true;
 
         this.updateBounds();
 
@@ -29038,48 +29091,117 @@ var InputManager = new Class({
         var queue = this.queue.splice(0, len);
 
         //  Process the event queue, dispatching all of the events that have stored up
-        for (var i = 0; i < len; i++)
+        for (var i = 0; i < len; i += 3)
         {
-            var event = queue[i];
+            var callback = queue[i];
+            var context = queue[i + 1];
+            var event = queue[i + 2];
 
-            //  TODO: Move to CONSTs so we can do integer comparisons instead of strings.
-            switch (event.type)
+            callback.call(context, event, time);
+
+            // case 'pointerlockchange':
+            // this.events.emit('pointerlockchange', event, this.mouse.locked);
+        }
+    },
+
+    //  event.targetTouches = list of all touches on the TARGET ELEMENT (i.e. game dom element)
+    //  event.touches = list of all touches on the ENTIRE DOCUMENT, not just the target element
+    //  event.changedTouches = the touches that CHANGED in this event, not the total number of them
+    startPointer: function (event, time)
+    {
+        var pointers = this.pointers;
+
+        for (var c = 0; c < event.changedTouches.length; c++)
+        {
+            var changedTouch = event.changedTouches[c];
+
+            for (var i = 1; i < this.pointersTotal; i++)
             {
-                case 'mousemove':
+                var pointer = pointers[i];
 
-                    pointer.move(event, time);
+                if (!pointer.active)
+                {
+                    pointer.touchstart(changedTouch, time);
+                    this.activePointer = pointer;
                     break;
-
-                case 'mousedown':
-
-                    pointer.down(event, time);
-                    break;
-
-                case 'mouseup':
-
-                    pointer.up(event, time);
-                    break;
-
-                case 'touchmove':
-
-                    pointer.touchmove(event, time);
-                    break;
-
-                case 'touchstart':
-
-                    pointer.touchstart(event, time);
-                    break;
-
-                case 'touchend':
-
-                    pointer.touchend(event, time);
-                    break;
-
-                case 'pointerlockchange':
-
-                    this.events.emit('pointerlockchange', event, this.mouse.locked);
-                    break;
+                }
             }
+        }
+    },
+
+    updatePointer: function (event, time)
+    {
+        var pointers = this.pointers;
+
+        for (var c = 0; c < event.changedTouches.length; c++)
+        {
+            var changedTouch = event.changedTouches[c];
+
+            for (var i = 1; i < this.pointersTotal; i++)
+            {
+                var pointer = pointers[i];
+
+                if (pointer.active && pointer.identifier === changedTouch.identifier)
+                {
+                    pointer.touchmove(changedTouch, time);
+                    this.activePointer = pointer;
+                    break;
+                }
+            }
+        }
+    },
+
+    //  For touch end its a list of the touch points that have been removed from the surface
+    //  https://developer.mozilla.org/en-US/docs/DOM/TouchList
+    //  event.changedTouches = the touches that CHANGED in this event, not the total number of them
+    stopPointer: function (event, time)
+    {
+        var pointers = this.pointers;
+
+        for (var c = 0; c < event.changedTouches.length; c++)
+        {
+            var changedTouch = event.changedTouches[c];
+
+            for (var i = 1; i < this.pointersTotal; i++)
+            {
+                var pointer = pointers[i];
+
+                if (pointer.active && pointer.identifier === changedTouch.identifier)
+                {
+                    pointer.touchend(changedTouch, time);
+                    break;
+                }
+            }
+        }
+    },
+
+    /**
+     * Add a new Pointer object to the Input Manager.
+     * By default Input creates 3 pointer objects: `mousePointer` (not include in part of general pointer pool), `pointer1` and `pointer2`.
+     * This method adds an additional pointer, up to a maximum of Phaser.Input.MAX_POINTERS (default of 10).
+     *
+     * @method Phaser.Input#addPointer
+     * @return {Phaser.Pointer|null} The new Pointer object that was created; null if a new pointer could not be added.
+     */
+    addPointer: function ()
+    {
+        var id = this.pointers.length;
+
+        if (this.pointersTotal < id)
+        {
+            this.pointersTotal++;
+
+            return this.pointers[this.pointersTotal];
+        }
+        else
+        {
+            var pointer = new Pointer(this, id);
+
+            this.pointers.push(pointer);
+
+            this.pointersTotal++;
+
+            return pointer;
         }
     },
 
@@ -30881,9 +31003,7 @@ var InputPlugin = new Class({
             return;
         }
 
-        var pointer = manager.activePointer;
-
-        var runUpdate = (pointer.dirty || this.pollRate === 0);
+        var runUpdate = (manager.dirty || this.pollRate === 0);
 
         if (this.pollRate > -1)
         {
@@ -30903,55 +31023,63 @@ var InputPlugin = new Class({
             return;
         }
 
-        //  Always reset this array
-        this._tempZones = [];
+        var pointers = this.manager.pointers;
 
-        //  _temp contains a hit tested and camera culled list of IO objects
-        this._temp = this.hitTestPointer(pointer);
-
-        this.sortGameObjects(this._temp);
-        this.sortGameObjects(this._tempZones);
-
-        if (this.topOnly)
+        for (var i = 0; i < this.manager.pointersTotal; i++)
         {
-            //  Only the top-most one counts now, so safely ignore the rest
-            if (this._temp.length)
+            var pointer = pointers[i];
+
+            //  Always reset this array
+            this._tempZones = [];
+
+            //  _temp contains a hit tested and camera culled list of IO objects
+            this._temp = this.hitTestPointer(pointer);
+
+            this.sortGameObjects(this._temp);
+            this.sortGameObjects(this._tempZones);
+
+            if (this.topOnly)
             {
-                this._temp.splice(1);
+                //  Only the top-most one counts now, so safely ignore the rest
+                if (this._temp.length)
+                {
+                    this._temp.splice(1);
+                }
+
+                if (this._tempZones.length)
+                {
+                    this._tempZones.splice(1);
+                }
             }
 
-            if (this._tempZones.length)
+            var total = this.processDragEvents(pointer, time);
+
+            //  TODO: Enable for touch
+            if (!pointer.wasTouch)
             {
-                this._tempZones.splice(1);
+                total += this.processOverOutEvents(pointer);
             }
-        }
 
-        var total = this.processDragEvents(pointer, time);
+            if (pointer.justDown)
+            {
+                total += this.processDownEvents(pointer);
+            }
 
-        if (!pointer.wasTouch)
-        {
-            total += this.processOverOutEvents(pointer);
-        }
+            if (pointer.justUp)
+            {
+                total += this.processUpEvents(pointer);
+            }
 
-        if (pointer.justDown)
-        {
-            total += this.processDownEvents(pointer);
-        }
+            if (pointer.justMoved)
+            {
+                total += this.processMoveEvents(pointer);
+            }
 
-        if (pointer.justUp)
-        {
-            total += this.processUpEvents(pointer);
-        }
-
-        if (pointer.justMoved)
-        {
-            total += this.processMoveEvents(pointer);
-        }
-
-        if (total > 0 && manager.globalTopOnly)
-        {
-            //  We interacted with an event in this Scene, so block any Scenes below us from doing the same this frame
-            manager.ignoreEvents = true;
+            if (total > 0 && manager.globalTopOnly)
+            {
+                //  We interacted with an event in this Scene, so block any Scenes below us from doing the same this frame
+                manager.ignoreEvents = true;
+            }
         }
     },
 
@@ -31030,6 +31158,17 @@ var InputPlugin = new Class({
     },
 
     /**
+     * [description]
+     *
+     * @method Phaser.Input.InputPlugin#addPointer
+     * @since 3.10.0
+     */
+    addPointer: function ()
+    {
+        return this.manager.addPointer();
+    },
+
+    /**
      * The Scene that owns this plugin is being destroyed.     
      * We need to shutdown and then kill off all external references.
      *
@@ -31050,23 +31189,6 @@ var InputPlugin = new Class({
         this.keyboard = null;
         this.mouse = null;
         this.gamepad = null;
-    },
-
-    /**
-     * The current active input Pointer.
-     *
-     * @name Phaser.Input.InputPlugin#activePointer
-     * @type {Phaser.Input.Pointer}
-     * @readOnly
-     * @since 3.0.0
-     */
-    activePointer: {
-
-        get: function ()
-        {
-            return this.manager.activePointer;
-        }
-
     },
 
     /**
@@ -31101,6 +31223,222 @@ var InputPlugin = new Class({
         get: function ()
         {
             return this.manager.activePointer.y;
+        }
+
+    },
+
+    /**
+     * The mouse has its own unique Pointer object, which you can reference directly if making a _desktop specific game_.
+     * If you are supporting both desktop and touch devices then do not use this property, instead use `activePointer`
+     * which will always map to the most recently interacted pointer.
+     *
+     * @name Phaser.Input.InputPlugin#mousePointer
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    mousePointer: {
+
+        get: function ()
+        {
+            return this.manager.mousePointer;
+        }
+
+    },
+
+    /**
+     * The current active input Pointer.
+     *
+     * @name Phaser.Input.InputPlugin#activePointer
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.0.0
+     */
+    activePointer: {
+
+        get: function ()
+        {
+            return this.manager.activePointer;
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer1
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer1: {
+
+        get: function ()
+        {
+            return this.manager.pointers[1];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer2
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer2: {
+
+        get: function ()
+        {
+            return this.manager.pointers[2];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer3
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer3: {
+
+        get: function ()
+        {
+            return this.manager.pointers[3];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer4
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer4: {
+
+        get: function ()
+        {
+            return this.manager.pointers[4];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer5
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer5: {
+
+        get: function ()
+        {
+            return this.manager.pointers[5];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer6
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer6: {
+
+        get: function ()
+        {
+            return this.manager.pointers[6];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer7
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer7: {
+
+        get: function ()
+        {
+            return this.manager.pointers[7];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer8
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer8: {
+
+        get: function ()
+        {
+            return this.manager.pointers[8];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer9
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer9: {
+
+        get: function ()
+        {
+            return this.manager.pointers[9];
+        }
+
+    },
+
+    /**
+     * A touch-based Pointer object.
+     * This will be `undefined` by default unless you add a new Pointer using `addPointer`.
+     *
+     * @name Phaser.Input.InputPlugin#pointer10
+     * @type {Phaser.Input.Pointer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    pointer10: {
+
+        get: function ()
+        {
+            return this.manager.pointers[10];
         }
 
     }
@@ -31290,7 +31628,6 @@ var Pointer = new Class({
          */
         this.primaryDown = false;
 
-
         /**
          * The Drag State of the Pointer:
          *
@@ -31384,6 +31721,35 @@ var Pointer = new Class({
          * @since 3.0.0
          */
         this.movementY = 0;
+
+        /**
+         * The identifier property of the Pointer as set by the DOM event when this Pointer is started.
+         *
+         * @name Phaser.Input.Pointer#identifier
+         * @type {number}
+         * @since 3.10.0
+         */
+        this.identifier = 0;
+
+        /**
+         * The pointerId property of the Pointer as set by the DOM event when this Pointer is started.
+         * The browser can and will recycle this value.
+         *
+         * @name Phaser.Input.Pointer#pointerId
+         * @type {number}
+         * @since 3.10.0
+         */
+        this.pointerId = null;
+
+        /**
+         * An active Pointer is one that is currently pressed down on the display.
+         * A Mouse is always considered as active.
+         *
+         * @name Phaser.Input.Pointer#active
+         * @type {boolean}
+         * @since 3.10.0
+         */
+        this.active = (id === 0) ? true : false;
     },
 
     /**
@@ -31405,55 +31771,11 @@ var Pointer = new Class({
     /**
      * [description]
      *
-     * @name Phaser.Input.Pointer#x
-     * @type {number}
-     * @since 3.0.0
-     */
-    x: {
-
-        get: function ()
-        {
-            return this.position.x;
-        },
-
-        set: function (value)
-        {
-            this.position.x = value;
-        }
-
-    },
-
-    /**
-     * [description]
-     *
-     * @name Phaser.Input.Pointer#y
-     * @type {number}
-     * @since 3.0.0
-     */
-    y: {
-
-        get: function ()
-        {
-            return this.position.y;
-        },
-
-        set: function (value)
-        {
-            this.position.y = value;
-        }
-
-    },
-
-    /**
-     * [description]
-     *
      * @method Phaser.Input.Pointer#reset
      * @since 3.0.0
      */
     reset: function ()
     {
-        // this.buttons = 0;
-
         this.dirty = false;
 
         this.justDown = false;
@@ -31467,36 +31789,13 @@ var Pointer = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Input.Pointer#touchmove
-     * @since 3.0.0
-     *
-     * @param {TouchEvent} event - [description]
-     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
-     */
-    touchmove: function (event)
-    {
-        this.event = event;
-
-        this.x = this.manager.transformX(event.changedTouches[0].pageX);
-        this.y = this.manager.transformY(event.changedTouches[0].pageY);
-
-        this.justMoved = true;
-
-        this.dirty = true;
-
-        this.wasTouch = true;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Input.Pointer#move
+     * @method Phaser.Input.Pointer#up
      * @since 3.0.0
      *
      * @param {MouseEvent} event - [description]
      * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      */
-    move: function (event)
+    up: function (event, time)
     {
         if (event.buttons)
         {
@@ -31508,14 +31807,17 @@ var Pointer = new Class({
         this.x = this.manager.transformX(event.pageX);
         this.y = this.manager.transformY(event.pageY);
 
-        if (this.manager.mouse.locked)
+        //  0: Main button pressed, usually the left button or the un-initialized state
+        if (event.button === 0)
         {
-            // Multiple DOM events may occur within one frame, but only one Phaser event will fire
-            this.movementX += event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-            this.movementY += event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+            this.primaryDown = false;
+            this.upX = this.x;
+            this.upY = this.y;
+            this.upTime = time;
         }
 
-        this.justMoved = true;
+        this.justUp = true;
+        this.isDown = false;
 
         this.dirty = true;
 
@@ -31563,6 +31865,41 @@ var Pointer = new Class({
     /**
      * [description]
      *
+     * @method Phaser.Input.Pointer#move
+     * @since 3.0.0
+     *
+     * @param {MouseEvent} event - [description]
+     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
+     */
+    move: function (event)
+    {
+        if (event.buttons)
+        {
+            this.buttons = event.buttons;
+        }
+
+        this.event = event;
+
+        this.x = this.manager.transformX(event.pageX);
+        this.y = this.manager.transformY(event.pageY);
+
+        if (this.manager.mouse.locked)
+        {
+            // Multiple DOM events may occur within one frame, but only one Phaser event will fire
+            this.movementX += event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+            this.movementY += event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+        }
+
+        this.justMoved = true;
+
+        this.dirty = true;
+
+        this.wasTouch = false;
+    },
+
+    /**
+     * [description]
+     *
      * @method Phaser.Input.Pointer#touchstart
      * @since 3.0.0
      *
@@ -31571,12 +31908,21 @@ var Pointer = new Class({
      */
     touchstart: function (event, time)
     {
+        if (event['pointerId'])
+        {
+            this.pointerId = event.pointerId;
+        }
+
+        this.identifier = event.identifier;
+        this.target = event.target;
+        this.active = true;
+
         this.buttons = 1;
 
         this.event = event;
 
-        this.x = this.manager.transformX(event.changedTouches[0].pageX);
-        this.y = this.manager.transformY(event.changedTouches[0].pageY);
+        this.x = this.manager.transformX(event.pageX);
+        this.y = this.manager.transformY(event.pageY);
 
         this.primaryDown = true;
         this.downX = this.x;
@@ -31594,39 +31940,24 @@ var Pointer = new Class({
     /**
      * [description]
      *
-     * @method Phaser.Input.Pointer#up
+     * @method Phaser.Input.Pointer#touchmove
      * @since 3.0.0
      *
-     * @param {MouseEvent} event - [description]
+     * @param {TouchEvent} event - [description]
      * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      */
-    up: function (event, time)
+    touchmove: function (event)
     {
-        if (event.buttons)
-        {
-            this.buttons = event.buttons;
-        }
-
         this.event = event;
 
         this.x = this.manager.transformX(event.pageX);
         this.y = this.manager.transformY(event.pageY);
 
-        //  0: Main button pressed, usually the left button or the un-initialized state
-        if (event.button === 0)
-        {
-            this.primaryDown = false;
-            this.upX = this.x;
-            this.upY = this.y;
-            this.upTime = time;
-        }
-
-        this.justUp = true;
-        this.isDown = false;
+        this.justMoved = true;
 
         this.dirty = true;
 
-        this.wasTouch = false;
+        this.wasTouch = true;
     },
 
     /**
@@ -31644,8 +31975,8 @@ var Pointer = new Class({
 
         this.event = event;
 
-        this.x = this.manager.transformX(event.changedTouches[0].pageX);
-        this.y = this.manager.transformY(event.changedTouches[0].pageY);
+        this.x = this.manager.transformX(event.pageX);
+        this.y = this.manager.transformY(event.pageY);
 
         this.primaryDown = false;
         this.upX = this.x;
@@ -31658,6 +31989,8 @@ var Pointer = new Class({
         this.dirty = true;
 
         this.wasTouch = true;
+        
+        this.active = false;
     },
 
     /**
@@ -31749,6 +32082,48 @@ var Pointer = new Class({
         this.camera = null;
         this.manager = null;
         this.position = null;
+    },
+
+    /**
+     * [description]
+     *
+     * @name Phaser.Input.Pointer#x
+     * @type {number}
+     * @since 3.0.0
+     */
+    x: {
+
+        get: function ()
+        {
+            return this.position.x;
+        },
+
+        set: function (value)
+        {
+            this.position.x = value;
+        }
+
+    },
+
+    /**
+     * [description]
+     *
+     * @name Phaser.Input.Pointer#y
+     * @type {number}
+     * @since 3.0.0
+     */
+    y: {
+
+        get: function ()
+        {
+            return this.position.y;
+        },
+
+        set: function (value)
+        {
+            this.position.y = value;
+        }
+
     }
 
 });
@@ -32268,6 +32643,8 @@ var GamepadManager = new Class({
          * @since 3.0.0
          */
         this.queue = [];
+
+        inputManager.events.once('boot', this.boot, this);
     },
 
     /**
@@ -32322,6 +32699,9 @@ var GamepadManager = new Class({
         target.addEventListener('gamepadbuttondown', handler, false);
         target.addEventListener('gamepadbuttonup', handler, false);
         target.addEventListener('gamepadaxismove', handler, false);
+
+        //  Finally, listen for an update event from the Input Manager
+        this.manager.events.on('update', this.update, this);
     },
 
     /**
@@ -32341,6 +32721,8 @@ var GamepadManager = new Class({
         target.removeEventListener('gamepadbuttondown', handler);
         target.removeEventListener('gamepadbuttonup', handler);
         target.removeEventListener('gamepadaxismove', handler);
+
+        this.manager.events.off('update', this.update);
     },
 
     /**
@@ -32938,6 +33320,8 @@ var KeyboardManager = new Class({
          * @since 3.0.0
          */
         this.handler;
+
+        inputManager.events.once('boot', this.boot, this);
     },
 
     /**
@@ -32990,6 +33374,9 @@ var KeyboardManager = new Class({
 
         this.target.addEventListener('keydown', handler, false);
         this.target.addEventListener('keyup', handler, false);
+
+        //  Finally, listen for an update event from the Input Manager
+        this.manager.events.on('update', this.update, this);
     },
 
     /**
@@ -33002,6 +33389,8 @@ var KeyboardManager = new Class({
     {
         this.target.removeEventListener('keydown', this.handler);
         this.target.removeEventListener('keyup', this.handler);
+
+        this.manager.events.off('update', this.update);
     },
 
     /**
@@ -34873,6 +35262,8 @@ var MouseManager = new Class({
          * @since 3.0.0
          */
         this.locked = false;
+
+        inputManager.events.once('boot', this.boot, this);
     },
 
     /**
@@ -34983,6 +35374,56 @@ var MouseManager = new Class({
         }
     },
 
+    onMouseMove: function (event)
+    {
+        if (event.defaultPrevented)
+        {
+            // Do nothing if event already handled
+            return;
+        }
+
+        this.manager.queue.push(this.manager.mousePointer.move, this.manager.mousePointer, event);
+
+        if (this.capture)
+        {
+            event.preventDefault();
+        }
+    },
+
+    onMouseDown: function (event)
+    {
+        if (event.defaultPrevented)
+        {
+            // Do nothing if event already handled
+            return;
+        }
+
+        this.manager.queue.push(this.manager.mousePointer.down, this.manager.mousePointer, event);
+
+        if (this.capture)
+        {
+            event.preventDefault();
+        }
+    },
+
+    onMouseUp: function (event)
+    {
+        if (event.defaultPrevented)
+        {
+            // Do nothing if event already handled
+            return;
+        }
+
+        this.manager.queue.push(this.manager.mousePointer.up, this.manager.mousePointer, event);
+
+        //  TODO - Add native callback support
+
+        if (this.capture)
+        {
+            event.preventDefault();
+        }
+    },
+
     /**
      * [description]
      *
@@ -34991,54 +35432,23 @@ var MouseManager = new Class({
      */
     startListeners: function ()
     {
-        var queue = this.manager.queue;
         var target = this.target;
 
         var passive = { passive: true };
         var nonPassive = { passive: false };
 
-        var handler;
-
         if (this.capture)
         {
-            handler = function (event)
-            {
-                if (event.defaultPrevented)
-                {
-                    // Do nothing if event already handled
-                    return;
-                }
-
-                // console.log('mouse', event);
-
-                queue.push(event);
-
-                event.preventDefault();
-            };
-
-            target.addEventListener('mousemove', handler, nonPassive);
-            target.addEventListener('mousedown', handler, nonPassive);
-            target.addEventListener('mouseup', handler, nonPassive);
+            target.addEventListener('mousemove', this.onMouseMove.bind(this), nonPassive);
+            target.addEventListener('mousedown', this.onMouseDown.bind(this), nonPassive);
+            target.addEventListener('mouseup', this.onMouseUp.bind(this), nonPassive);
         }
         else
         {
-            handler = function (event)
-            {
-                if (event.defaultPrevented)
-                {
-                    // Do nothing if event already handled
-                    return;
-                }
-
-                queue.push(event);
-            };
-
-            target.addEventListener('mousemove', handler, passive);
-            target.addEventListener('mousedown', handler, passive);
-            target.addEventListener('mouseup', handler, passive);
+            target.addEventListener('mousemove', this.onMouseMove.bind(this), passive);
+            target.addEventListener('mousedown', this.onMouseDown.bind(this), passive);
+            target.addEventListener('mouseup', this.onMouseUp.bind(this), passive);
         }
-
-        this.handler = handler;
 
         if (Features.pointerLock)
         {
@@ -35060,9 +35470,9 @@ var MouseManager = new Class({
     {
         var target = this.target;
 
-        target.removeEventListener('mousemove', this.handler);
-        target.removeEventListener('mousedown', this.handler);
-        target.removeEventListener('mouseup', this.handler);
+        target.removeEventListener('mousemove', this.onMouseMove);
+        target.removeEventListener('mousedown', this.onMouseDown);
+        target.removeEventListener('mouseup', this.onMouseUp);
 
         if (Features.pointerLock)
         {
@@ -35208,6 +35618,8 @@ var TouchManager = new Class({
          * @since 3.0.0
          */
         this.handler;
+
+        inputManager.events.once('boot', this.boot, this);
     },
 
     /**
@@ -35235,6 +35647,54 @@ var TouchManager = new Class({
         }
     },
 
+    onTouchStart: function (event)
+    {
+        if (event.defaultPrevented)
+        {
+            // Do nothing if event already handled
+            return;
+        }
+
+        this.manager.queue.push(this.manager.startPointer, this.manager, event);
+
+        if (this.capture)
+        {
+            event.preventDefault();
+        }
+    },
+
+    onTouchMove: function (event)
+    {
+        if (event.defaultPrevented)
+        {
+            // Do nothing if event already handled
+            return;
+        }
+
+        this.manager.queue.push(this.manager.updatePointer, this.manager, event);
+
+        if (this.capture)
+        {
+            event.preventDefault();
+        }
+    },
+
+    onTouchEnd: function (event)
+    {
+        if (event.defaultPrevented)
+        {
+            // Do nothing if event already handled
+            return;
+        }
+
+        this.manager.queue.push(this.manager.stopPointer, this.manager, event);
+
+        if (this.capture)
+        {
+            event.preventDefault();
+        }
+    },
+
     /**
      * [description]
      *
@@ -35243,54 +35703,23 @@ var TouchManager = new Class({
      */
     startListeners: function ()
     {
-        var queue = this.manager.queue;
         var target = this.target;
 
         var passive = { passive: true };
         var nonPassive = { passive: false };
 
-        var handler;
-
         if (this.capture)
         {
-            handler = function (event)
-            {
-                if (event.defaultPrevented)
-                {
-                    // Do nothing if event already handled
-                    return;
-                }
-
-                // console.log('touch', event);
-
-                queue.push(event);
-
-                event.preventDefault();
-            };
-
-            target.addEventListener('touchstart', handler, nonPassive);
-            target.addEventListener('touchmove', handler, nonPassive);
-            target.addEventListener('touchend', handler, nonPassive);
+            target.addEventListener('touchstart', this.onTouchStart.bind(this), nonPassive);
+            target.addEventListener('touchmove', this.onTouchMove.bind(this), nonPassive);
+            target.addEventListener('touchend', this.onTouchEnd.bind(this), nonPassive);
         }
         else
         {
-            handler = function (event)
-            {
-                if (event.defaultPrevented)
-                {
-                    // Do nothing if event already handled
-                    return;
-                }
-
-                queue.push(event);
-            };
-
-            target.addEventListener('touchstart', handler, passive);
-            target.addEventListener('touchmove', handler, passive);
-            target.addEventListener('touchend', handler, passive);
+            target.addEventListener('touchstart', this.onTouchStart.bind(this), passive);
+            target.addEventListener('touchmove', this.onTouchMove.bind(this), passive);
+            target.addEventListener('touchend', this.onTouchEnd.bind(this), passive);
         }
-
-        this.handler = handler;
     },
 
     /**
@@ -35303,9 +35732,9 @@ var TouchManager = new Class({
     {
         var target = this.target;
 
-        target.removeEventListener('touchstart', this.handler);
-        target.removeEventListener('touchmove', this.handler);
-        target.removeEventListener('touchend', this.handler);
+        target.removeEventListener('touchstart', this.onTouchStart);
+        target.removeEventListener('touchmove', this.onTouchMove);
+        target.removeEventListener('touchend', this.onTouchEnd);
     },
 
     /**
@@ -44494,7 +44923,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.8.0
  *
- * @param {Phaser.Game} game - A reference to the Game instance this plugin is running under.
+ * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the Plugin Manager.
  */
 var BasePlugin = new Class({
 
@@ -45371,8 +45800,6 @@ var PluginManager = new Class({
             start = true;
         }
 
-        console.log('install', key, start, mapping);
-
         if (!this.game.isBooted)
         {
             this._pendingGlobal.push({ key: key, plugin: plugin, start: start, mapping: mapping });
@@ -45813,7 +46240,8 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.8.0
  *
- * @param {Phaser.Game} game - A reference to the Scene that has installed this plugin.
+ * @param {Phaser.Scene} scene - A reference to the Scene that has installed this plugin.
+ * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the Plugin Manager.
  */
 var ScenePlugin = new Class({
 

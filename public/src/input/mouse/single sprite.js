@@ -25,6 +25,19 @@ function create ()
 
     sprite.setInteractive();
 
+    sprite.on('pointerdown', function () {
+
+        this.setTint(0xff0000);
+
+    });
+
+    sprite.on('pointerup', function () {
+
+        this.clearTint();
+
+    });
+
+    /*
     this.input.on('gameobjectover', function (pointer, gameObject) {
 
         gameObject.setTint(0xff0000);
@@ -36,6 +49,7 @@ function create ()
         gameObject.clearTint();
 
     });
+    */
 }
 
 function update ()

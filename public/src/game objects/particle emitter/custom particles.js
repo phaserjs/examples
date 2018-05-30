@@ -72,8 +72,7 @@ function create ()
         angle: { min: 0, max: 30 },
         speed: 200,
         gravityY: 100,
-        lifespan: { min: 2000, max: 4000 }
+        lifespan: { min: 2000, max: 4000 },
+        particleClass: AnimatedParticle
     });
-
-    emitter.particleClass = AnimatedParticle;
 }

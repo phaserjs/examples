@@ -20,29 +20,23 @@ function preload ()
 function create ()
 {
     //  Our container
-    var container = this.add.container(200, 300);
+    var container = this.add.container(400, 300);
 
-    var particles = this.add.particles('flares');
+    //  Our emitter
+    var particles = this.add.particles('lemming');
 
     var emitter = particles.createEmitter({
-        frame: 'blue',
         x: 0,
         y: 0,
         lifespan: 2000,
-        speed: { min: 400, max: 600 },
+        speed: { min: 200, max: 400 },
         angle: 330,
-        gravityY: 300,
-        scale: { start: 0.4, end: 0 },
-        quantity: 2,
-        blendMode: 'ADD'
+        gravityY: 300
     });
 
-    //  Add some sprites - positions are relative to the Container x/y
     container.add(particles);
 
-    //  You could also pass them in as an array, to save doing them one by one
-
-    /*
+    //  Rotate the container
     this.tweens.add({
         targets: container,
         angle: 360,
@@ -50,5 +44,4 @@ function create ()
         yoyo: true,
         repeat: -1
     });
-    */
 }

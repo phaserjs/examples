@@ -30629,14 +30629,6 @@ var InputPlugin = new Class({
                     this.emit('dragenter', pointer, gameObject, input.target);
                 }
 
-                // gameObject.input.dragX = pointer.x - gameObject.x;
-                // gameObject.input.dragY = pointer.y - gameObject.y;
-                // input.dragStartX = pointer.x;
-                // input.dragStartY = pointer.y;
-
-                // var dragX = pointer.x - (gameObject.input.dragStartX - gameObject.x);
-                // var dragY = pointer.y - (gameObject.input.dragStartY - gameObject.y);
-
                 var dragX = pointer.x - gameObject.input.dragX;
                 var dragY = pointer.y - gameObject.input.dragY;
 

@@ -2502,6 +2502,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\add emitter to container.js",
+              "name": "add emitter to container.js",
+              "size": 1162,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\add sprite to container.js",
               "name": "add sprite to container.js",
               "size": 1186,
@@ -2754,7 +2760,7 @@
               "extension": ".js"
             }
           ],
-          "size": 76460
+          "size": 77622
         },
         {
           "path": "src\\game objects\\graphics",
@@ -2815,8 +2821,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2827,8 +2833,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2839,8 +2845,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2959,8 +2965,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -3251,6 +3257,12 @@
           "name": "lights",
           "children": [
             {
+              "path": "src\\game objects\\lights\\change scene.js",
+              "name": "change scene.js",
+              "size": 2028,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\lights\\graveyard.js",
               "name": "graveyard.js",
               "size": 2775,
@@ -3269,7 +3281,7 @@
               "extension": ".js"
             }
           ],
-          "size": 5963
+          "size": 7991
         },
         {
           "path": "src\\game objects\\mesh",
@@ -3411,7 +3423,7 @@
             {
               "path": "src\\game objects\\particle emitter\\custom particles.js",
               "name": "custom particles.js",
-              "size": 1188,
+              "size": 1592,
               "extension": ".js"
             },
             {
@@ -3703,7 +3715,7 @@
               "extension": ".js"
             }
           ],
-          "size": 87814
+          "size": 88218
         },
         {
           "path": "src\\game objects\\quad",
@@ -4408,7 +4420,7 @@
           "size": 255492
         }
       ],
-      "size": 754953
+      "size": 758547
     },
     {
       "path": "src\\games",
@@ -5696,6 +5708,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\geom\\rectangle\\get random point outside.js",
+              "name": "get random point outside.js",
+              "size": 941,
+              "extension": ".js"
+            },
+            {
               "path": "src\\geom\\rectangle\\get random point.js",
               "name": "get random point.js",
               "size": 1026,
@@ -5816,7 +5834,7 @@
               "extension": ".js"
             }
           ],
-          "size": 40779
+          "size": 41720
         },
         {
           "path": "src\\geom\\triangle",
@@ -6018,7 +6036,7 @@
           "size": 28373
         }
       ],
-      "size": 191840
+      "size": 192781
     },
     {
       "path": "src\\input",
@@ -6139,6 +6157,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\dragging\\scale during drag.js",
+              "name": "scale during drag.js",
+              "size": 923,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\dragging\\scroll factor drag.js",
               "name": "scroll factor drag.js",
               "size": 1309,
@@ -6151,7 +6175,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15984
+          "size": 16907
         },
         {
           "path": "src\\input\\game object",
@@ -6593,7 +6617,7 @@
           "size": 9602
         }
       ],
-      "size": 118236
+      "size": 119159
     },
     {
       "path": "src\\loader",
@@ -6793,12 +6817,6 @@
           "size": 5105
         },
         {
-          "path": "src\\loader\\json",
-          "name": "json",
-          "children": [],
-          "size": 0
-        },
-        {
           "path": "src\\loader\\load config tests.js",
           "name": "load config tests.js",
           "size": 1819,
@@ -6899,12 +6917,6 @@
           "size": 841
         },
         {
-          "path": "src\\loader\\shader",
-          "name": "shader",
-          "children": [],
-          "size": 0
-        },
-        {
           "path": "src\\loader\\sprite sheet",
           "name": "sprite sheet",
           "children": [
@@ -6947,12 +6959,6 @@
             }
           ],
           "size": 800
-        },
-        {
-          "path": "src\\loader\\text",
-          "name": "text",
-          "children": [],
-          "size": 0
         },
         {
           "path": "src\\loader\\texture atlas json",
@@ -7096,12 +7102,6 @@
             }
           ],
           "size": 5291
-        },
-        {
-          "path": "src\\loader\\xml",
-          "name": "xml",
-          "children": [],
-          "size": 0
         }
       ],
       "size": 97841
@@ -7563,6 +7563,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\sprite vs multiple groups.js",
+              "name": "sprite vs multiple groups.js",
+              "size": 1725,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\sprite vs sprite.js",
               "name": "sprite vs sprite.js",
               "size": 952,
@@ -7599,7 +7605,7 @@
               "extension": ".js"
             }
           ],
-          "size": 42021
+          "size": 43746
         },
         {
           "path": "src\\physics\\impact",
@@ -8043,7 +8049,7 @@
           "size": 2750
         }
       ],
-      "size": 146262
+      "size": 147987
     },
     {
       "path": "src\\plugins",
@@ -8297,8 +8303,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -9530,5 +9536,5 @@
       "size": 5291
     }
   ],
-  "size": 2477966
+  "size": 2485149
 }

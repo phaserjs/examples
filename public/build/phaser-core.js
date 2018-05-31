@@ -28905,7 +28905,7 @@ var InputManager = new Class({
         /**
          * An array of Pointers that have been added to the game.
          * The first entry is reserved for the Mouse Pointer, the rest are Touch Pointers.
-         * 
+         *
          * By default there is 1 touch pointer enabled. If you need more use the `addPointer` method to start them,
          * or set the `input.activePointers` property in the Game Config.
          *
@@ -28917,7 +28917,7 @@ var InputManager = new Class({
 
         /**
          * The number of touch objects activated and being processed each update.
-         * 
+         *
          * You can change this by either calling `addPointer` at run-time, or by
          * setting the `input.activePointers` property in the Game Config.
          *
@@ -29113,6 +29113,8 @@ var InputManager = new Class({
      */
     update: function (time)
     {
+        var i;
+
         this.events.emit('update');
 
         this.ignoreEvents = false;
@@ -29123,7 +29125,7 @@ var InputManager = new Class({
 
         var pointers = this.pointers;
 
-        for (var i = 0; i < this.pointersTotal; i++)
+        for (i = 0; i < this.pointersTotal; i++)
         {
             pointers[i].reset();
         }
@@ -29146,7 +29148,7 @@ var InputManager = new Class({
         var mouse = this.mousePointer;
 
         //  Process the event queue, dispatching all of the events that have stored up
-        for (var i = 0; i < len; i += 2)
+        for (i = 0; i < len; i += 2)
         {
             var type = queue[i];
             var event = queue[i + 1];
@@ -29257,19 +29259,19 @@ var InputManager = new Class({
 
     /**
      * Adds new Pointer objects to the Input Manager.
-     * 
+     *
      * By default Phaser creates 2 pointer objects: `mousePointer` and `pointer1`.
-     * 
+     *
      * You can create more either by calling this method, or by setting the `input.activePointers` property
      * in the Game Config.
-     * 
+     *
      * The first 10 pointers are available via the `InputPlugin.pointerX` properties.
      *
      * @method Phaser.Input.InputManager#addPointer
      * @since 3.10.0
      *
      * @param {integer} [quantity=1] The number of new Pointers to create.
-     * 
+     *
      * @return {Phaser.Input.Pointer[]} An array containing all of the new Pointer objects that were created.
      */
     addPointer: function (quantity)
@@ -30626,6 +30628,14 @@ var InputPlugin = new Class({
 
                     this.emit('dragenter', pointer, gameObject, input.target);
                 }
+
+                // gameObject.input.dragX = pointer.x - gameObject.x;
+                // gameObject.input.dragY = pointer.y - gameObject.y;
+                // input.dragStartX = pointer.x;
+                // input.dragStartY = pointer.y;
+
+                // var dragX = pointer.x - (gameObject.input.dragStartX - gameObject.x);
+                // var dragY = pointer.y - (gameObject.input.dragStartY - gameObject.y);
 
                 var dragX = pointer.x - gameObject.input.dragX;
                 var dragY = pointer.y - gameObject.input.dragY;
@@ -42209,8 +42219,8 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {number} [x] - The x component of this Vector.
- * @param {number} [y] - The y component of this Vector.
+ * @param {number} [x] - The x component.
+ * @param {number} [y] - The y component.
  */
 var Vector2 = new Class({
 
@@ -43094,7 +43104,7 @@ module.exports = {
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {number} [overshoot=1.70158] - [description]
+ * @param {number} [overshoot=1.70158] - The overshoot amount.
  *
  * @return {number} The tweened value.
  */
@@ -43130,7 +43140,7 @@ module.exports = In;
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {number} [overshoot=1.70158] - [description]
+ * @param {number} [overshoot=1.70158] - The overshoot amount.
  *
  * @return {number} The tweened value.
  */
@@ -43175,7 +43185,7 @@ module.exports = InOut;
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {number} [overshoot=1.70158] - [description]
+ * @param {number} [overshoot=1.70158] - The overshoot amount.
  *
  * @return {number} The tweened value.
  */
@@ -43702,7 +43712,7 @@ module.exports = {
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {float} [amplitude=0.1] - [description]
+ * @param {float} [amplitude=0.1] - The amplitude of the elastic ease.
  * @param {float} [period=0.1] - [description]
  *
  * @return {number} The tweened value.
@@ -43762,7 +43772,7 @@ module.exports = In;
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {float} [amplitude=0.1] - [description]
+ * @param {float} [amplitude=0.1] - The amplitude of the elastic ease.
  * @param {float} [period=0.1] - [description]
  *
  * @return {number} The tweened value.
@@ -43829,7 +43839,7 @@ module.exports = InOut;
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {float} [amplitude=0.1] - [description]
+ * @param {float} [amplitude=0.1] - The amplitude of the elastic ease.
  * @param {float} [period=0.1] - [description]
  *
  * @return {number} The tweened value.
@@ -44668,7 +44678,7 @@ module.exports = {
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {float} [steps=1] - [description]
+ * @param {number} [steps=1] - The number of steps in the ease.
  *
  * @return {number} The tweened value.
  */
@@ -48937,6 +48947,16 @@ var WebGLPipeline = new Class({
          * @since 3.1.0
          */
         this.flushLocked = false;
+
+        /**
+         * Indicates if the current pipeline is active or not for this frame only.
+         * Reset in the onRender method.
+         *
+         * @name Phaser.Renderer.WebGL.WebGLPipeline#active
+         * @type {boolean}
+         * @since 3.10.0
+         */
+        this.active = false;
     },
 
     /**
@@ -53015,24 +53035,28 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     onRender: function (scene, camera)
     {
+        this.active = false;
+
         var lightManager = scene.sys.lights;
 
-        if (!lightManager)
+        if (!lightManager || lightManager.lights.length <= 0 || !lightManager.active)
+        {
+            //  Passthru
+            return this;
+        }
+
+        var lights = lightManager.cull(camera);
+        var lightCount = Math.min(lights.length, LIGHT_COUNT);
+
+        if (lightCount === 0)
         {
             return this;
         }
 
-        lightManager.culledLights.length = 0;
-
-        if (lightManager.lights.length <= 0 || !lightManager.active)
-        {
-            return this; // If not visible lights just passthrough
-        }
+        this.active = true;
 
         var renderer = this.renderer;
         var program = this.program;
-        var lights = lightManager.cull(camera);
-        var lightCount = Math.min(lights.length, LIGHT_COUNT);
         var cameraMatrix = camera.matrix;
         var point = {x: 0, y: 0};
         var height = renderer.height;
@@ -53040,10 +53064,9 @@ var ForwardDiffuseLightPipeline = new Class({
 
         for (index = 0; index < LIGHT_COUNT; ++index)
         {
-            renderer.setFloat1(program, 'uLights[' + index + '].radius', 0); // reset lights
+            //  Reset lights
+            renderer.setFloat1(program, 'uLights[' + index + '].radius', 0);
         }
-
-        if (lightCount <= 0) { return this; }
 
         renderer.setFloat4(program, 'uCamera', camera.x, camera.y, camera.rotation, camera.zoom);
         renderer.setFloat3(program, 'uAmbientLightColor', lightManager.ambientColor.r, lightManager.ambientColor.g, lightManager.ambientColor.b);
@@ -53052,7 +53075,9 @@ var ForwardDiffuseLightPipeline = new Class({
         {
             var light = lights[index];
             var lightName = 'uLights[' + index + '].';
+
             cameraMatrix.transformPoint(light.x, light.y, point);
+
             renderer.setFloat2(program, lightName + 'position', point.x - (camera.scrollX * light.scrollFactorX * camera.zoom), height - (point.y - (camera.scrollY * light.scrollFactorY) * camera.zoom));
             renderer.setFloat3(program, lightName + 'color', light.r, light.g, light.b);
             renderer.setFloat1(program, lightName + 'intensity', light.intensity);
@@ -53075,6 +53100,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     drawStaticTilemapLayer: function (tilemap, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = tilemap.tileset.image.dataSource[0];
 
         if (normalTexture)
@@ -53103,6 +53133,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     drawEmitterManager: function (emitterManager, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = emitterManager.texture.dataSource[emitterManager.frame.sourceIndex];
 
         if (normalTexture)
@@ -53131,6 +53166,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     drawBlitter: function (blitter, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = blitter.texture.dataSource[blitter.frame.sourceIndex];
 
         if (normalTexture)
@@ -53159,6 +53199,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchSprite: function (sprite, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = sprite.texture.dataSource[sprite.frame.sourceIndex];
 
         if (normalTexture)
@@ -53187,6 +53232,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchMesh: function (mesh, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = mesh.texture.dataSource[mesh.frame.sourceIndex];
 
         if (normalTexture)
@@ -53216,6 +53266,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchBitmapText: function (bitmapText, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = bitmapText.texture.dataSource[bitmapText.frame.sourceIndex];
 
         if (normalTexture)
@@ -53272,6 +53327,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchText: function (text, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = text.texture.dataSource[text.frame.sourceIndex];
 
         if (normalTexture)
@@ -53300,6 +53360,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchDynamicTilemapLayer: function (tilemapLayer, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = tilemapLayer.tileset.image.dataSource[0];
 
         if (normalTexture)
@@ -53328,6 +53393,11 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     batchTileSprite: function (tileSprite, camera, parentTransformMatrix)
     {
+        if (!this.active)
+        {
+            return;
+        }
+
         var normalTexture = tileSprite.texture.dataSource[tileSprite.frame.sourceIndex];
 
         if (normalTexture)

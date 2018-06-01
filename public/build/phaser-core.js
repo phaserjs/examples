@@ -1174,8 +1174,8 @@ var Animation = new Class({
      * @private
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.Components.Animation} component - [description]
-     * @param {integer} startFrame - [description]
+     * @param {Phaser.GameObjects.Components.Animation} component - The Animation Component to load values into.
+     * @param {integer} startFrame - The start frame of the animation to load.
      */
     load: function (component, startFrame)
     {
@@ -1211,7 +1211,7 @@ var Animation = new Class({
      *
      * @param {float} value - A value between 0 and 1.
      *
-     * @return {Phaser.Animations.AnimationFrame} [description]
+     * @return {Phaser.Animations.AnimationFrame} The frame closest to the given progress value.
      */
     getFrameByProgress: function (value)
     {
@@ -1221,12 +1221,12 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Advance the animation frame.
      *
      * @method Phaser.Animations.Animation#nextFrame
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.Components.Animation} component - [description]
+     * @param {Phaser.GameObjects.Components.Animation} component - The Animation Component to advance.
      */
     nextFrame: function (component)
     {
@@ -12619,21 +12619,21 @@ var ScaleModes = __webpack_require__(/*! ../renderer/ScaleModes */ "./renderer/S
 /**
  * @typedef {object} GameObjectConfig
  *
- * @property {number} [x=0] - [description]
- * @property {number} [y=0] - [description]
- * @property {number} [depth=0] - [description]
- * @property {boolean} [flipX=false] - [description]
- * @property {boolean} [flipY=false] - [description]
- * @property {?(number|object)} [scale=null] - [description]
- * @property {?(number|object)} [scrollFactor=null] - [description]
- * @property {number} [rotation=0] - [description]
- * @property {?number} [angle=null] - [description]
- * @property {number} [alpha=1] - [description]
- * @property {?(number|object)} [origin=null] - [description]
- * @property {number} [scaleMode=ScaleModes.DEFAULT] - [description]
- * @property {number} [blendMode=BlendModes.DEFAULT] - [description]
- * @property {boolean} [visible=true] - [description]
- * @property {boolean} [add=true] - [description]
+ * @property {number} [x=0] - The x position of the Game Object.
+ * @property {number} [y=0] - The y position of the Game Object.
+ * @property {number} [depth=0] - The depth of the GameObject.
+ * @property {boolean} [flipX=false] - The horizontally flipped state of the Game Object.
+ * @property {boolean} [flipY=false] - The vertically flipped state of the Game Object.
+ * @property {?(number|object)} [scale=null] - The scale of the GameObject.
+ * @property {?(number|object)} [scrollFactor=null] - The scroll factor of the GameObject.
+ * @property {number} [rotation=0] - The rotation angle of the Game Object, in radians.
+ * @property {?number} [angle=null] - The rotation angle of the Game Object, in degrees.
+ * @property {number} [alpha=1] - The alpha (opacity) of the Game Object.
+ * @property {?(number|object)} [origin=null] - The origin of the Game Object.
+ * @property {number} [scaleMode=ScaleModes.DEFAULT] - The scale mode of the GameObject.
+ * @property {number} [blendMode=BlendModes.DEFAULT] - The blend mode of the GameObject.
+ * @property {boolean} [visible=true] - The visible state of the Game Object.
+ * @property {boolean} [add=true] - Add the GameObject to the scene.
  */
 
 /**
@@ -12642,9 +12642,9 @@ var ScaleModes = __webpack_require__(/*! ../renderer/ScaleModes */ "./renderer/S
  * @function Phaser.GameObjects.BuildGameObject
  * @since 3.0.0
  *
- * @param {Phaser.Scene} scene - [description]
- * @param {Phaser.GameObjects.GameObject} gameObject - [description]
- * @param {GameObjectConfig} config - [description]
+ * @param {Phaser.Scene} scene - A reference to the Scene.
+ * @param {Phaser.GameObjects.GameObject} gameObject - The initial GameObject.
+ * @param {GameObjectConfig} config - The config to build the GameObject with.
  *
  * @return {Phaser.GameObjects.GameObject} The built Game Object.
  */
@@ -12778,8 +12778,8 @@ var GetAdvancedValue = __webpack_require__(/*! ../utils/object/GetAdvancedValue 
  * @function Phaser.GameObjects.BuildGameObjectAnimation
  * @since 3.0.0
  *
- * @param {Phaser.GameObjects.Sprite} sprite - [description]
- * @param {object} config - [description]
+ * @param {Phaser.GameObjects.Sprite} sprite - The sprite to add an Animation component to.
+ * @param {object} config - The animation config.
  *
  * @return {Phaser.GameObjects.Sprite} The updated Sprite.
  */
@@ -12820,7 +12820,7 @@ var BuildGameObjectAnimation = function (sprite, config)
         var repeat = GetAdvancedValue(animConfig, 'repeat', 0);
         var repeatDelay = GetAdvancedValue(animConfig, 'repeatDelay', 0);
         var yoyo = GetAdvancedValue(animConfig, 'yoyo', false);
-        
+
         var play = GetAdvancedValue(animConfig, 'play', false);
         var delayedPlay = GetAdvancedValue(animConfig, 'delayedPlay', 0);
 
@@ -12871,7 +12871,11 @@ var StableSort = __webpack_require__(/*! ../utils/array/StableSort */ "./utils/a
 
 /**
  * @classdesc
- * [description]
+ * The Display List plugin.
+ *
+ * Display Lists belong to a Scene and maintain the list of Game Objects to render every frame.
+ *
+ * Some of these Game Objects may also be part of the Scene's [Update List]{@link Phaser.GameObjects.UpdateList}, for updating.
  *
  * @class DisplayList
  * @extends Phaser.Structs.List.<Phaser.GameObjects.GameObject>
@@ -12879,7 +12883,7 @@ var StableSort = __webpack_require__(/*! ../utils/array/StableSort */ "./utils/a
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Scene} scene - [description]
+ * @param {Phaser.Scene} scene - The Scene that this Display List belongs to.
  */
 var DisplayList = new Class({
 
@@ -12892,7 +12896,7 @@ var DisplayList = new Class({
         List.call(this, scene);
 
         /**
-         * [description]
+         * The flag the determines whether Game Objects should be sorted when `depthSort()` is called.
          *
          * @name Phaser.GameObjects.DisplayList#sortChildrenFlag
          * @type {boolean}
@@ -12902,7 +12906,7 @@ var DisplayList = new Class({
         this.sortChildrenFlag = false;
 
         /**
-         * [description]
+         * The Scene that this Display List belongs to.
          *
          * @name Phaser.GameObjects.DisplayList#scene
          * @type {Phaser.Scene}
@@ -12911,7 +12915,7 @@ var DisplayList = new Class({
         this.scene = scene;
 
         /**
-         * [description]
+         * The Scene's Systems.
          *
          * @name Phaser.GameObjects.DisplayList#systems
          * @type {Phaser.Scenes.Systems}
@@ -12978,15 +12982,15 @@ var DisplayList = new Class({
     },
 
     /**
-     * [description]
+     * Compare the depth of two Game Objects.
      *
      * @method Phaser.GameObjects.DisplayList#sortByDepth
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} childA - [description]
-     * @param {Phaser.GameObjects.GameObject} childB - [description]
+     * @param {Phaser.GameObjects.GameObject} childA - The first Game Object.
+     * @param {Phaser.GameObjects.GameObject} childB - The second Game Object.
      *
-     * @return {integer} [description]
+     * @return {integer} The difference between the depths of each Game Object.
      */
     sortByDepth: function (childA, childB)
     {
@@ -12994,15 +12998,15 @@ var DisplayList = new Class({
     },
 
     /**
-     * Given an array of Game Objects, sort the array and return it,
-     * so that the objects are in index order with the lowest at the bottom.
+     * Given an array of Game Objects, sort the array and return it, so that
+     * the objects are in index order with the lowest at the bottom.
      *
      * @method Phaser.GameObjects.DisplayList#sortGameObjects
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject[]} gameObjects - [description]
+     * @param {Phaser.GameObjects.GameObject[]} gameObjects - The array of Game Objects to sort.
      *
-     * @return {array} [description]
+     * @return {array} The sorted array of Game Objects.
      */
     sortGameObjects: function (gameObjects)
     {
@@ -13014,14 +13018,16 @@ var DisplayList = new Class({
     },
 
     /**
+     * Get the top-most Game Object in the given array of Game Objects, after sorting it.
+     *
      * Note that the given array is sorted in place, even though it isn't returned directly it will still be updated.
      *
      * @method Phaser.GameObjects.DisplayList#getTopGameObject
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject[]} gameObjects - [description]
+     * @param {Phaser.GameObjects.GameObject[]} gameObjects - The array of Game Objects.
      *
-     * @return {Phaser.GameObjects.GameObject} The top-most Game Object on the Display List.
+     * @return {Phaser.GameObjects.GameObject} The top-most Game Object in the array of Game Objects.
      */
     getTopGameObject: function (gameObjects)
     {
@@ -13961,14 +13967,18 @@ var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/P
 
 /**
  * @classdesc
- * [description]
+ * The Update List plugin.
+ *
+ * Update Lists belong to a Scene and maintain the list Game Objects to be updated every frame.
+ *
+ * Some or all of these Game Objects may also be part of the Scene's [Display List]{@link Phaser.GameObjects.DisplayList}, for Rendering.
  *
  * @class UpdateList
  * @memberOf Phaser.GameObjects
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Scene} scene - [description]
+ * @param {Phaser.Scene} scene - The Scene that the Update List belongs to.
  */
 var UpdateList = new Class({
 
@@ -13977,7 +13987,7 @@ var UpdateList = new Class({
     function UpdateList (scene)
     {
         /**
-         * [description]
+         * The Scene that the Update List belongs to.
          *
          * @name Phaser.GameObjects.UpdateList#scene
          * @type {Phaser.Scene}
@@ -13986,7 +13996,7 @@ var UpdateList = new Class({
         this.scene = scene;
 
         /**
-         * [description]
+         * The Scene's Systems.
          *
          * @name Phaser.GameObjects.UpdateList#systems
          * @type {Phaser.Scenes.Systems}
@@ -13995,7 +14005,7 @@ var UpdateList = new Class({
         this.systems = scene.sys;
 
         /**
-         * [description]
+         * The list of Game Objects.
          *
          * @name Phaser.GameObjects.UpdateList#_list
          * @type {array}
@@ -14006,7 +14016,7 @@ var UpdateList = new Class({
         this._list = [];
 
         /**
-         * [description]
+         * Game Objects that are pending insertion into the list.
          *
          * @name Phaser.GameObjects.UpdateList#_pendingInsertion
          * @type {array}
@@ -14017,7 +14027,7 @@ var UpdateList = new Class({
         this._pendingInsertion = [];
 
         /**
-         * [description]
+         * Game Objects that are pending removal from the list.
          *
          * @name Phaser.GameObjects.UpdateList#_pendingRemoval
          * @type {array}
@@ -14063,14 +14073,14 @@ var UpdateList = new Class({
     },
 
     /**
-     * [description]
+     * Add a Game Object to the Update List.
      *
      * @method Phaser.GameObjects.UpdateList#add
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} child - [description]
+     * @param {Phaser.GameObjects.GameObject} child - The Game Object to add.
      *
-     * @return {Phaser.GameObjects.GameObject} [description]
+     * @return {Phaser.GameObjects.GameObject} The added Game Object.
      */
     add: function (child)
     {
@@ -14085,13 +14095,12 @@ var UpdateList = new Class({
     },
 
     /**
-     * [description]
+     * The pre-update step.
+     *
+     * Handles Game Objects that are pending insertion to and removal from the list.
      *
      * @method Phaser.GameObjects.UpdateList#preUpdate
      * @since 3.0.0
-     *
-     * @param {number} time - [description]
-     * @param {number} delta - [description]
      */
     preUpdate: function ()
     {
@@ -14129,13 +14138,15 @@ var UpdateList = new Class({
     },
 
     /**
-     * [description]
+     * The update step.
+     *
+     * Pre-updates every active Game Object in the list.
      *
      * @method Phaser.GameObjects.UpdateList#update
      * @since 3.0.0
      *
-     * @param {number} time - [description]
-     * @param {number} delta - [description]
+     * @param {number} time - The current timestamp.
+     * @param {number} delta - The delta time elapsed since the last frame.
      */
     update: function (time, delta)
     {
@@ -14151,14 +14162,14 @@ var UpdateList = new Class({
     },
 
     /**
-     * [description]
+     * Remove a Game Object from the list.
      *
      * @method Phaser.GameObjects.UpdateList#remove
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} child - [description]
+     * @param {Phaser.GameObjects.GameObject} child - The Game Object to remove from the list.
      *
-     * @return {Phaser.GameObjects.GameObject} [description]
+     * @return {Phaser.GameObjects.GameObject} The removed Game Object.
      */
     remove: function (child)
     {
@@ -14168,12 +14179,12 @@ var UpdateList = new Class({
         {
             this._list.splice(index, 1);
         }
-        
+
         return child;
     },
 
     /**
-     * [description]
+     * Remove all Game Objects from the list.
      *
      * @method Phaser.GameObjects.UpdateList#removeAll
      * @since 3.0.0
@@ -14929,8 +14940,8 @@ var Animation = new Class({
      * @protected
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {integer} [startFrame=0] - [description]
+     * @param {string} key - The key of the animation to load.
+     * @param {integer} [startFrame=0] - The start frame of the animation to load.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -15097,7 +15108,7 @@ var Animation = new Class({
      * @method Phaser.GameObjects.Components.Animation#setProgress
      * @since 3.4.0
      *
-     * @param {float} [value=0] - [description]
+     * @param {float} [value=0] - The progress value, between 0 and 1.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -15114,18 +15125,19 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Handle the removal of an animation from the Animation Manager.
      *
      * @method Phaser.GameObjects.Components.Animation#remove
      * @since 3.0.0
      *
-     * @param {Phaser.Animations.Animation} [event] - [description]
+     * @param {string} [key] - The key of the removed Animation.
+     * @param {Phaser.Animations.Animation} [animation] - The removed Animation.
      */
-    remove: function (event)
+    remove: function (key, animation)
     {
-        if (event === undefined) { event = this.currentAnim; }
+        if (animation === undefined) { animation = this.currentAnim; }
 
-        if (this.isPlaying && event.key === this.currentAnim.key)
+        if (this.isPlaying && animation.key === this.currentAnim.key)
         {
             this.stop();
 
@@ -15158,7 +15170,7 @@ var Animation = new Class({
      * @method Phaser.GameObjects.Components.Animation#setRepeat
      * @since 3.4.0
      *
-     * @param {integer} value - [description]
+     * @param {integer} value - The number of times that the animation should repeat.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -15210,7 +15222,7 @@ var Animation = new Class({
      * @method Phaser.GameObjects.Components.Animation#restart
      * @since 3.0.0
      *
-     * @param {boolean} [includeDelay=false] - [description]
+     * @param {boolean} [includeDelay=false] - Whether to include the delay value of the animation when restarting.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -15360,10 +15372,10 @@ var Animation = new Class({
      * @method Phaser.GameObjects.Components.Animation#update
      * @since 3.0.0
      *
-     * @param {number} timestamp - [description]
+     * @param {number} time - The current timestamp.
      * @param {number} delta - The delta time, in ms, elapsed since the last frame.
      */
-    update: function (timestamp, delta)
+    update: function (time, delta)
     {
         if (!this.currentAnim || !this.isPlaying || this.currentAnim.paused)
         {
@@ -15430,7 +15442,7 @@ var Animation = new Class({
      * @private
      * @since 3.0.0
      *
-     * @param {Phaser.Animations.AnimationFrame} animationFrame - [description]
+     * @param {Phaser.Animations.AnimationFrame} animationFrame - The animation frame to change to.
      */
     updateFrame: function (animationFrame)
     {
@@ -15489,7 +15501,9 @@ var Animation = new Class({
     },
 
     /**
-     * [description]
+     * Destroy this Animation component.
+     *
+     * Unregisters event listeners and cleans up its references.
      *
      * @method Phaser.GameObjects.Components.Animation#destroy
      * @since 3.0.0
@@ -16970,17 +16984,17 @@ module.exports = Origin;
 
 /**
  * Provides methods used for setting the WebGL rendering pipeline of a Game Object.
- * 
+ *
  * @name Phaser.GameObjects.Components.Pipeline
  * @webglOnly
  * @since 3.0.0
  */
 
 var Pipeline = {
-    
+
     /**
-     * [description]
-     * 
+     * The initial WebGL pipeline of this Game Object.
+     *
      * @name Phaser.GameObjects.Components.Pipeline#defaultPipeline
      * @type {Phaser.Renderer.WebGL.WebGLPipeline}
      * @default null
@@ -16990,8 +17004,8 @@ var Pipeline = {
     defaultPipeline: null,
 
     /**
-     * [description]
-     * 
+     * The current WebGL pipeline of this Game Object.
+     *
      * @name Phaser.GameObjects.Components.Pipeline#pipeline
      * @type {Phaser.Renderer.WebGL.WebGLPipeline}
      * @default null
@@ -17003,13 +17017,13 @@ var Pipeline = {
     /**
      * Sets the initial WebGL Pipeline of this Game Object.
      * This should only be called during the instantiation of the Game Object.
-     * 
+     *
      * @method Phaser.GameObjects.Components.Pipeline#initPipeline
      * @webglOnly
      * @since 3.0.0
      *
      * @param {string} pipelineName - The name of the pipeline to set on this Game Object.
-     * 
+     *
      * @return {boolean} `true` if the pipeline was set successfully, otherwise `false`.
      */
     initPipeline: function (pipelineName)
@@ -17029,13 +17043,13 @@ var Pipeline = {
 
     /**
      * Sets the active WebGL Pipeline of this Game Object.
-     * 
+     *
      * @method Phaser.GameObjects.Components.Pipeline#setPipeline
      * @webglOnly
      * @since 3.0.0
      *
      * @param {string} pipelineName - The name of the pipeline to set on this Game Object.
-     * 
+     *
      * @return {boolean} `true` if the pipeline was set successfully, otherwise `false`.
      */
     setPipeline: function (pipelineName)
@@ -17048,13 +17062,13 @@ var Pipeline = {
 
             return true;
         }
-        
+
         return false;
     },
 
     /**
      * Resets the WebGL Pipeline of this Game Object back to the default it was created with.
-     * 
+     *
      * @method Phaser.GameObjects.Components.Pipeline#resetPipeline
      * @webglOnly
      * @since 3.0.0
@@ -17070,7 +17084,7 @@ var Pipeline = {
 
     /**
      * Gets the name of the WebGL Pipeline this Game Object is currently using.
-     * 
+     *
      * @method Phaser.GameObjects.Components.Pipeline#getPipelineName
      * @webglOnly
      * @since 3.0.0
@@ -17829,18 +17843,17 @@ module.exports = Tint;
  * @property {object} data - The data of this Game Object.
  */
 
-//  Default Game Object JSON export
-//  Is extended further by Game Object specific implementations
-
 /**
- * [description]
+ * Export a Game Object as a JSON object.
+ *
+ * This is typically extended further by Game Object specific implementations.
  *
  * @method Phaser.GameObjects.Components.ToJSON
  * @since 3.0.0
  *
- * @param {Phaser.GameObjects.GameObject} gameObject - [description]
+ * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to export.
  *
- * @return {JSONGameObject} [description]
+ * @return {JSONGameObject} The exported Game Object.
  */
 var ToJSON = function (gameObject)
 {

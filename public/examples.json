@@ -7503,9 +7503,9 @@
               "extension": ".js"
             },
             {
-              "path": "src\\physics\\arcade\\50000 world bodies.js",
-              "name": "50000 world bodies.js",
-              "size": 2464,
+              "path": "src\\physics\\arcade\\40000 world bodies.js",
+              "name": "40000 world bodies.js",
+              "size": 2576,
               "extension": ".js"
             },
             {
@@ -7559,13 +7559,19 @@
             {
               "path": "src\\physics\\arcade\\mass collision test.js",
               "name": "mass collision test.js",
-              "size": 2802,
+              "size": 1952,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\arcade\\restart physics scene.js",
               "name": "restart physics scene.js",
               "size": 5599,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\arcade\\rtree test.js",
+              "name": "rtree test.js",
+              "size": 1462,
               "extension": ".js"
             },
             {
@@ -7601,7 +7607,7 @@
             {
               "path": "src\\physics\\arcade\\sprite vs immovable.js",
               "name": "sprite vs immovable.js",
-              "size": 869,
+              "size": 921,
               "extension": ".js"
             },
             {
@@ -7647,7 +7653,7 @@
               "extension": ".js"
             }
           ],
-          "size": 50642
+          "size": 51418
         },
         {
           "path": "src\\physics\\impact",
@@ -8091,7 +8097,7 @@
           "size": 2750
         }
       ],
-      "size": 154883
+      "size": 155659
     },
     {
       "path": "src\\plugins",
@@ -9578,5 +9584,5 @@
       "size": 5291
     }
   ],
-  "size": 2492171
+  "size": 2492947
 }

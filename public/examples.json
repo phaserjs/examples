@@ -2779,6 +2779,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\graphics\\circle spin.js",
+              "name": "circle spin.js",
+              "size": 1182,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\graphics\\circles test.js",
               "name": "circles test.js",
               "size": 903,
@@ -3056,7 +3062,7 @@
               "size": 9314
             }
           ],
-          "size": 158681
+          "size": 159863
         },
         {
           "path": "src\\game objects\\group",
@@ -4420,7 +4426,7 @@
           "size": 255492
         }
       ],
-      "size": 758316
+      "size": 759498
     },
     {
       "path": "src\\games",
@@ -4550,11 +4556,11 @@
             {
               "path": "src\\games\\firstgame\\part9.js",
               "name": "part9.js",
-              "size": 3021,
+              "size": 3017,
               "extension": ".js"
             }
           ],
-          "size": 19533
+          "size": 19529
         },
         {
           "path": "src\\games\\flood",
@@ -4755,7 +4761,7 @@
           "size": 28649
         }
       ],
-      "size": 209423
+      "size": 209419
     },
     {
       "path": "src\\geom",
@@ -7515,9 +7521,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\asteroids movement.js",
+              "name": "asteroids movement.js",
+              "size": 1627,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\bounce test.js",
               "name": "bounce test.js",
-              "size": 1853,
+              "size": 1856,
               "extension": ".js"
             },
             {
@@ -7559,7 +7571,7 @@
             {
               "path": "src\\physics\\arcade\\mass collision test.js",
               "name": "mass collision test.js",
-              "size": 1952,
+              "size": 2415,
               "extension": ".js"
             },
             {
@@ -7653,7 +7665,7 @@
               "extension": ".js"
             }
           ],
-          "size": 51418
+          "size": 53511
         },
         {
           "path": "src\\physics\\impact",
@@ -8097,7 +8109,7 @@
           "size": 2750
         }
       ],
-      "size": 155659
+      "size": 157752
     },
     {
       "path": "src\\plugins",
@@ -9584,5 +9596,5 @@
       "size": 5291
     }
   ],
-  "size": 2492947
+  "size": 2496218
 }

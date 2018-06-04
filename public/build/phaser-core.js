@@ -6409,6 +6409,40 @@ var Camera = new Class({
         this._bounds = null;
 
         this.scene = null;
+    },
+
+    /**
+     * The x position of the center of the Camera's viewport, relative to the top-left of the game canvas.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#centerX
+     * @type {number}
+     * @readOnly
+     * @since 3.10.0
+     */
+    centerX: {
+
+        get: function ()
+        {
+            return this.x + (0.5 * this.width);
+        }
+
+    },
+
+    /**
+     * The y position of the center of the Camera's viewport, relative to the top-left of the game canvas.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#centerY
+     * @type {number}
+     * @readOnly
+     * @since 3.10.0
+     */
+    centerY: {
+
+        get: function ()
+        {
+            return this.y + (0.5 * this.height);
+        }
+
     }
 
 });
@@ -12000,6 +12034,10 @@ var AddToDOM = function (element, parent, overflowHidden)
             target = parent;
         }
     }
+    else if (element.parentElement)
+    {
+        return element;
+    }
 
     //  Fallback, covers an invalid ID and a non HTMLelement object
     if (!target)
@@ -14240,6 +14278,23 @@ var UpdateList = new Class({
 
         this.scene = null;
         this.systems = null;
+    },
+
+    /**
+     * [description]
+     *
+     * @name Phaser.GameObjects.UpdateList#length
+     * @type {integer}
+     * @readOnly
+     * @since 3.10.0
+     */
+    length: {
+
+        get: function ()
+        {
+            return this._list.length;
+        }
+
     }
 
 });
@@ -72886,7 +72941,7 @@ var TweenManager = new Class({
             {
                 tween = list[i];
 
-                for (var t = 0; t < target.length; i++)
+                for (var t = 0; t < target.length; t++)
                 {
                     if (tween.hasTarget(target[t]))
                     {

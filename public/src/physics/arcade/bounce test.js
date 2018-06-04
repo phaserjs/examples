@@ -45,7 +45,7 @@ function create ()
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-    this.physics.world.timeScale = 0.1;
+    // this.physics.world.timeScale = 0.1;
 
     this.sys.events.on('postupdate', update, this);
 }

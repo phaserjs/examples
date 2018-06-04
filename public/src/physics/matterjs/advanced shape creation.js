@@ -26,7 +26,7 @@ var game = new Phaser.Game(config);
 
 function preload() {
     // Load sprite sheet generated with TexturePacker
-    this.load.atlas('sheet', 'assets/physics/fruit-sprites.json');
+    this.load.atlas('sheet', 'assets/physics/fruit-sprites.png', 'assets/physics/fruit-sprites.json');
 
     // Load body shapes from JSON file generated using PhysicsEditor
     this.load.json('shapes', 'assets/physics/fruit-shapes.json');

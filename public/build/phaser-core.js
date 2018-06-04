@@ -28716,45 +28716,49 @@ module.exports = Triangle;
 /**
  * @callback HitAreaCallback
  *
- * @param {*} hitArea - [description]
- * @param {number} x - [description]
- * @param {number} y - [description]
- * @param {Phaser.GameObjects.GameObject} gameObject - [description]
+ * @param {any} hitArea - The hit area object.
+ * @param {number} x - The translated x coordinate of the hit test event.
+ * @param {number} y - The translated y coordinate of the hit test event.
+ * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that invoked the hit test.
  *
- * @return {boolean} [description]
+ * @return {boolean} `true` if the coordinates fall within the space of the hitArea, otherwise `false`.
  */
 
 /**
  * @typedef {object} Phaser.Input.InteractiveObject
  *
- * @property {Phaser.GameObjects.GameObject} gameObject - [description]
- * @property {boolean} enabled - [description]
- * @property {boolean} draggable - [description]
- * @property {boolean} dropZone - [description]
+ * @property {Phaser.GameObjects.GameObject} gameObject - The Game Object to which this Interactive Object is bound.
+ * @property {boolean} enabled - Is this Interactive Object currently enabled for input events?
+ * @property {boolean} draggable - Is this Interactive Object draggable? Enable with `InputPlugin.setDraggable`.
+ * @property {boolean} dropZone - Is this Interactive Object a drag-targets drop zone? Set when the object is created.
  * @property {?Phaser.GameObjects.GameObject} target - [description]
- * @property {Phaser.Cameras.Scene2D.Camera} camera - [description]
- * @property {*} hitArea - [description]
- * @property {HitAreaCallback} hitAreaCallback - [description]
- * @property {number} localX - [description]
- * @property {number} localY - [description]
- * @property {(0|1|2)} dragState - [description]
- * @property {number} dragStartX - [description]
- * @property {number} dragStartY - [description]
- * @property {number} dragX - [description]
- * @property {number} dragY - [description]
+ * @property {Phaser.Cameras.Scene2D.Camera} camera - The most recent Camera to be tested against this Interactive Object.
+ * @property {any} hitArea - The hit area for this Interactive Object. Typically a geometry shape, like a Rectangle or Circle.
+ * @property {HitAreaCallback} hitAreaCallback - The 'contains' check callback that the hit area shape will use for all hit tests.
+ * @property {number} localX - The x coordinate that the Pointer interacted with this object on, relative to the Game Object's top-left position.
+ * @property {number} localY - The y coordinate that the Pointer interacted with this object on, relative to the Game Object's top-left position.
+ * @property {(0|1|2)} dragState - The current drag state of this Interactive Object. 0 = Not being dragged, 1 = being checked for drag, or 2 = being actively dragged.
+ * @property {number} dragStartX - The x coordinate that the Pointer started dragging this Interactive Object from.
+ * @property {number} dragStartY - The y coordinate that the Pointer started dragging this Interactive Object from.
+ * @property {number} dragX - The x coordinate that this Interactive Object is currently being dragged to.
+ * @property {number} dragY - The y coordinate that this Interactive Object is currently being dragged to.
  */
 
 /**
- * [description]
+ * Creates a new Interactive Object.
+ * 
+ * This is called automatically by the Input Manager when you enable a Game Object for input.
+ *
+ * The resulting Interactive Object is mapped to the Game Object's `input` property.
  *
  * @function Phaser.Input.CreateInteractiveObject
  * @since 3.0.0
  *
- * @param {Phaser.GameObjects.GameObject} gameObject - [description]
- * @param {*} hitArea - [description]
- * @param {HitAreaCallback} hitAreaCallback - [description]
+ * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to which this Interactive Object is bound.
+ * @param {any} hitArea - The hit area for this Interactive Object. Typically a geometry shape, like a Rectangle or Circle.
+ * @param {HitAreaCallback} hitAreaCallback - The 'contains' check callback that the hit area shape will use for all hit tests.
  *
- * @return {Phaser.Input.InteractiveObject} [description]
+ * @return {Phaser.Input.InteractiveObject} The new Interactive Object.
  */
 var CreateInteractiveObject = function (gameObject, hitArea, hitAreaCallback)
 {
@@ -28822,15 +28826,23 @@ var TransformXY = __webpack_require__(/*! ../math/TransformXY */ "./math/Transfo
 
 /**
  * @classdesc
- * [description]
+ * The Input Manager is responsible for handling all of the input related systems in a single Phaser Game instance.
+ *
+ * Based on the Game Config it will create handlers for mouse, touch, keyboard and gamepad support.
+ *
+ * It then manages the event queue, pointer creation and general hit test related operations.
+ *
+ * You rarely need to interact with the Input Manager directly, and as such, all of its properties and methods
+ * should be considered private. Instead, you should use the Input Plugin, which is a Scene level system, responsible
+ * for dealing with all input events for a Scene.
  *
  * @class InputManager
  * @memberOf Phaser.Input
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Game} game - [description]
- * @param {object} config - [description]
+ * @param {Phaser.Game} game - The Game instance that owns the Input Manager.
+ * @param {object} config - The Input Configuration object, as set in the Game Config.
  */
 var InputManager = new Class({
 
@@ -28839,16 +28851,18 @@ var InputManager = new Class({
     function InputManager (game, config)
     {
         /**
-         * [description]
+         * The Game instance that owns the Input Manager.
+         * A Game only maintains on instance of the Input Manager at any time.
          *
          * @name Phaser.Input.InputManager#game
          * @type {Phaser.Game}
+         * @readOnly
          * @since 3.0.0
          */
         this.game = game;
 
         /**
-         * [description]
+         * The Canvas that is used for all DOM event input listeners.
          *
          * @name Phaser.Input.InputManager#canvas
          * @type {HTMLCanvasElement}
@@ -28857,7 +28871,7 @@ var InputManager = new Class({
         this.canvas;
 
         /**
-         * [description]
+         * The Input Configuration object, as set in the Game Config.
          *
          * @name Phaser.Input.InputManager#config
          * @type {object}
@@ -28866,7 +28880,7 @@ var InputManager = new Class({
         this.config = config;
 
         /**
-         * [description]
+         * If set, the Input Manager will run its update loop every frame.
          *
          * @name Phaser.Input.InputManager#enabled
          * @type {boolean}
@@ -28876,7 +28890,7 @@ var InputManager = new Class({
         this.enabled = true;
 
         /**
-         * [description]
+         * The Event Emitter instance that the Input Manager uses to emit events from.
          *
          * @name Phaser.Input.InputManager#events
          * @type {Phaser.Events.EventEmitter}
@@ -28885,7 +28899,7 @@ var InputManager = new Class({
         this.events = new EventEmitter();
 
         /**
-         * Standard FIFO queue.
+         * A standard FIFO queue for the native DOM events waiting to be handled by the Input Manager.
          *
          * @name Phaser.Input.InputManager#queue
          * @type {array}
@@ -29036,10 +29050,10 @@ var InputManager = new Class({
         this.dirty = false;
 
         /**
-         * [description]
+         * The Scale factor being applied to input coordinates.
          *
          * @name Phaser.Input.InputManager#scale
-         * @type {{x:number,y:number}}
+         * @type { { x:number, y:number } }
          * @since 3.0.0
          */
         this.scale = { x: 1, y: 1 };
@@ -29058,7 +29072,8 @@ var InputManager = new Class({
         this.globalTopOnly = true;
 
         /**
-         * [description]
+         * An internal flag that controls if the Input Manager will ignore or process native DOM events this frame.
+         * Set via the InputPlugin.stopPropagation method.
          *
          * @name Phaser.Input.InputManager#ignoreEvents
          * @type {boolean}
@@ -29068,7 +29083,7 @@ var InputManager = new Class({
         this.ignoreEvents = false;
 
         /**
-         * [description]
+         * The bounds of the Input Manager, used for pointer hit test calculations.
          *
          * @name Phaser.Input.InputManager#bounds
          * @type {Phaser.Geom.Rectangle}
@@ -29077,7 +29092,7 @@ var InputManager = new Class({
         this.bounds = new Rectangle();
 
         /**
-         * [description]
+         * A re-cycled point-like object to store hit test values in.
          *
          * @name Phaser.Input.InputManager#_tempPoint
          * @type {{x:number,y:number}}
@@ -29087,7 +29102,7 @@ var InputManager = new Class({
         this._tempPoint = { x: 0, y: 0 };
 
         /**
-         * [description]
+         * A re-cycled array to store hit results in.
          *
          * @name Phaser.Input.InputManager#_tempHitTest
          * @type {array}
@@ -29098,7 +29113,7 @@ var InputManager = new Class({
         this._tempHitTest = [];
 
         /**
-         * [description]
+         * A re-cycled matrix used in hit test calculations.
          *
          * @name Phaser.Input.InputManager#_tempMatrix
          * @type {Phaser.GameObjects.Components.TransformMatrix}
@@ -29115,6 +29130,7 @@ var InputManager = new Class({
      * The renderer is available by now.
      *
      * @method Phaser.Input.InputManager#boot
+     * @protected
      * @since 3.0.0
      */
     boot: function ()
@@ -29130,7 +29146,8 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Updates the Input Manager bounds rectangle to match the bounding client rectangle of the
+     * canvas element being used to track input events.
      *
      * @method Phaser.Input.InputManager#updateBounds
      * @since 3.0.0
@@ -29148,7 +29165,7 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Resizes the Input Manager internal values, including the bounds and scale factor.
      *
      * @method Phaser.Input.InputManager#resize
      * @since 3.2.0
@@ -29171,13 +29188,13 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Internal update loop, called automatically by the Game Step.
      *
      * @method Phaser.Input.InputManager#update
      * @private
      * @since 3.0.0
      *
-     * @param {number} time - [description]
+     * @param {number} time - The time stamp value of this game step.
      */
     update: function (time)
     {
@@ -29257,6 +29274,17 @@ var InputManager = new Class({
     //  event.targetTouches = list of all touches on the TARGET ELEMENT (i.e. game dom element)
     //  event.touches = list of all touches on the ENTIRE DOCUMENT, not just the target element
     //  event.changedTouches = the touches that CHANGED in this event, not the total number of them
+
+    /**
+     * Called by the main update loop when a Touch Start Event is received.
+     *
+     * @method Phaser.Input.InputManager#startPointer
+     * @private
+     * @since 3.10.0
+     *
+     * @param {TouchEvent} event - The native DOM event to be processed.
+     * @param {number} time - The time stamp value of this game step.
+     */
     startPointer: function (event, time)
     {
         var pointers = this.pointers;
@@ -29279,6 +29307,16 @@ var InputManager = new Class({
         }
     },
 
+    /**
+     * Called by the main update loop when a Touch Move Event is received.
+     *
+     * @method Phaser.Input.InputManager#updatePointer
+     * @private
+     * @since 3.10.0
+     *
+     * @param {TouchEvent} event - The native DOM event to be processed.
+     * @param {number} time - The time stamp value of this game step.
+     */
     updatePointer: function (event, time)
     {
         var pointers = this.pointers;
@@ -29304,6 +29342,17 @@ var InputManager = new Class({
     //  For touch end its a list of the touch points that have been removed from the surface
     //  https://developer.mozilla.org/en-US/docs/DOM/TouchList
     //  event.changedTouches = the touches that CHANGED in this event, not the total number of them
+
+    /**
+     * Called by the main update loop when a Touch End Event is received.
+     *
+     * @method Phaser.Input.InputManager#stopPointer
+     * @private
+     * @since 3.10.0
+     *
+     * @param {TouchEvent} event - The native DOM event to be processed.
+     * @param {number} time - The time stamp value of this game step.
+     */
     stopPointer: function (event, time)
     {
         var pointers = this.pointers;
@@ -29333,7 +29382,8 @@ var InputManager = new Class({
      * You can create more either by calling this method, or by setting the `input.activePointers` property
      * in the Game Config.
      *
-     * The first 10 pointers are available via the `InputPlugin.pointerX` properties.
+     * The first 10 pointers are available via the `InputPlugin.pointerX` properties, once they have been added
+     * via this method.
      *
      * @method Phaser.Input.InputManager#addPointer
      * @since 3.10.0
@@ -29404,7 +29454,7 @@ var InputManager = new Class({
      * @private
      * @since 3.10.0
      *
-     * @param {any} event - The native DOM event.
+     * @param {TouchEvent} event - The native DOM Touch event.
      */
     queueTouchStart: function (event)
     {
@@ -29426,7 +29476,7 @@ var InputManager = new Class({
      * @private
      * @since 3.10.0
      *
-     * @param {any} event - The native DOM event.
+     * @param {TouchEvent} event - The native DOM Touch event.
      */
     queueTouchMove: function (event)
     {
@@ -29448,7 +29498,7 @@ var InputManager = new Class({
      * @private
      * @since 3.10.0
      *
-     * @param {any} event - The native DOM event.
+     * @param {TouchEvent} event - The native DOM Touch event.
      */
     queueTouchEnd: function (event)
     {
@@ -29470,7 +29520,7 @@ var InputManager = new Class({
      * @private
      * @since 3.10.0
      *
-     * @param {any} event - The native DOM event.
+     * @param {MouseEvent} event - The native DOM Mouse event.
      */
     queueMouseDown: function (event)
     {
@@ -29492,7 +29542,7 @@ var InputManager = new Class({
      * @private
      * @since 3.10.0
      *
-     * @param {any} event - The native DOM event.
+     * @param {MouseEvent} event - The native DOM Mouse event.
      */
     queueMouseMove: function (event)
     {
@@ -29514,7 +29564,7 @@ var InputManager = new Class({
      * @private
      * @since 3.10.0
      *
-     * @param {any} event - The native DOM event.
+     * @param {MouseEvent} event - The native DOM Mouse event.
      */
     queueMouseUp: function (event)
     {
@@ -29673,23 +29723,26 @@ var InputManager = new Class({
     },
 
     /**
-     * Will always return an array.
-     * Array contains matching Interactive Objects.
-     * Array will be empty if no objects were matched.
-     * x/y = pointer x/y (un-translated)
+     * Performs a hit test using the given Pointer and camera, against an array of interactive Game Objects.
+     *
+     * The Game Objects are culled against the camera, and then the coordinates are translated into the local camera space
+     * and used to determine if they fall within the remaining Game Objects hit areas or not.
+     *
+     * If nothing is matched an empty array is returned.
+     *
+     * This method is called automatically by InputPlugin.hitTestPointer and doesn't usually need to be invoked directly.
      *
      * @method Phaser.Input.InputManager#hitTest
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {array} gameObjects - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {array} output - [description]
+     * @param {Phaser.Input.Pointer} pointer - The Pointer to test against.
+     * @param {array} gameObjects - An array of interactive Game Objects to check.
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera which is being tested against.
+     * @param {array} [output] - An array to store the results in. If not given, a new empty array is created.
      *
-     * @return {array} [description]
+     * @return {array} An array of the Game Objects that were hit during this hit test.
      */
-    hitTest: function (x, y, gameObjects, camera, output)
+    hitTest: function (pointer, gameObjects, camera, output)
     {
         if (output === undefined) { output = this._tempHitTest; }
 
@@ -29699,6 +29752,9 @@ var InputManager = new Class({
 
         output.length = 0;
 
+        var x = pointer.x;
+        var y = pointer.y;
+
         if (!(x >= camera.x && y >= camera.y && x <= camera.x + cameraW && y <= camera.y + cameraH))
         {
             return output;
@@ -29706,6 +29762,9 @@ var InputManager = new Class({
 
         //  Stores the world point inside of tempPoint
         camera.getWorldPoint(x, y, tempPoint);
+
+        pointer.worldX = tempPoint.x;
+        pointer.worldY = tempPoint.y;
 
         var culledGameObjects = camera.cull(gameObjects);
 
@@ -29748,27 +29807,30 @@ var InputManager = new Class({
     },
 
     /**
-     * x/y MUST be translated before being passed to this function,
-     * unless the gameObject is guaranteed to not be rotated or scaled in any way.
+     * Checks if the given x and y coordinate are within the hit area of the Game Object.
+     *
+     * This method assumes that the coordinate values have already been translated into the space of the Game Object.
+     *
+     * If the coordinates are within the hit area they are set into the Game Objects Input `localX` and `localY` properties.
      *
      * @method Phaser.Input.InputManager#pointWithinHitArea
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} gameObject - [description]
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {Phaser.GameObjects.GameObject} gameObject - The interactive Game Object to check against.
+     * @param {number} x - The translated x coordinate for the hit test.
+     * @param {number} y - The translated y coordinate for the hit test.
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if the coordinates were inside the Game Objects hit area, otherwise `false`.
      */
     pointWithinHitArea: function (gameObject, x, y)
     {
-        var input = gameObject.input;
-
         //  Normalize the origin
         x += gameObject.displayOriginX;
         y += gameObject.displayOriginY;
 
-        if (input.hitAreaCallback(input.hitArea, x, y, gameObject))
+        var input = gameObject.input;
+
+        if (input && input.hitAreaCallback(input.hitArea, x, y, gameObject))
         {
             input.localX = x;
             input.localY = y;
@@ -29782,17 +29844,20 @@ var InputManager = new Class({
     },
 
     /**
-     * x/y MUST be translated before being passed to this function,
-     * unless the gameObject is guaranteed to not be rotated or scaled in any way.
+     * Checks if the given x and y coordinate are within the hit area of the Interactive Object.
+     *
+     * This method assumes that the coordinate values have already been translated into the space of the Interactive Object.
+     *
+     * If the coordinates are within the hit area they are set into the Interactive Objects Input `localX` and `localY` properties.
      *
      * @method Phaser.Input.InputManager#pointWithinInteractiveObject
      * @since 3.0.0
      *
-     * @param {Phaser.Input.InteractiveObject} object - [description]
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {Phaser.Input.InteractiveObject} object - The Interactive Object to check against.
+     * @param {number} x - The translated x coordinate for the hit test.
+     * @param {number} y - The translated y coordinate for the hit test.
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if the coordinates were inside the Game Objects hit area, otherwise `false`.
      */
     pointWithinInteractiveObject: function (object, x, y)
     {
@@ -29812,14 +29877,30 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Transforms the pageX and pageY values of a Pointer into the scaled coordinate space of the Input Manager.
+     *
+     * @method Phaser.Input.InputManager#transformPointer
+     * @since 3.10.0
+     *
+     * @param {Phaser.Input.Pointer} pointer - The Pointer to transform the values for.
+     *
+     * @return {number} The translated value.
+     */
+    transformPointer: function (pointer, pageX, pageY)
+    {
+        pointer.x = (pageX - this.bounds.left) * this.scale.x;
+        pointer.y = (pageY - this.bounds.top) * this.scale.y;
+    },
+
+    /**
+     * Transforms the pageX value into the scaled coordinate space of the Input Manager.
      *
      * @method Phaser.Input.InputManager#transformX
      * @since 3.0.0
      *
-     * @param {number} pageX - [description]
+     * @param {number} pageX - The DOM pageX value.
      *
-     * @return {number} [description]
+     * @return {number} The translated value.
      */
     transformX: function (pageX)
     {
@@ -29827,14 +29908,14 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Transforms the pageY value into the scaled coordinate space of the Input Manager.
      *
      * @method Phaser.Input.InputManager#transformY
      * @since 3.0.0
      *
-     * @param {number} pageY - [description]
+     * @param {number} pageY - The DOM pageY value.
      *
-     * @return {number} [description]
+     * @return {number} The translated value.
      */
     transformY: function (pageY)
     {
@@ -29842,12 +29923,12 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Returns the left offset of the Input bounds.
      *
      * @method Phaser.Input.InputManager#getOffsetX
      * @since 3.0.0
      *
-     * @return {number} [description]
+     * @return {number} The left bounds value.
      */
     getOffsetX: function ()
     {
@@ -29855,12 +29936,12 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Returns the top offset of the Input bounds.
      *
      * @method Phaser.Input.InputManager#getOffsetY
      * @since 3.0.0
      *
-     * @return {number} [description]
+     * @return {number} The top bounds value.
      */
     getOffsetY: function ()
     {
@@ -29868,12 +29949,12 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Returns the horizontal Input Scale value.
      *
      * @method Phaser.Input.InputManager#getScaleX
      * @since 3.0.0
      *
-     * @return {number} [description]
+     * @return {number} The horizontal scale factor of the input.
      */
     getScaleX: function ()
     {
@@ -29881,12 +29962,12 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Returns the vertical Input Scale value.
      *
      * @method Phaser.Input.InputManager#getScaleY
      * @since 3.0.0
      *
-     * @return {number} [description]
+     * @return {number} The vertical scale factor of the input.
      */
     getScaleY: function ()
     {
@@ -29894,7 +29975,9 @@ var InputManager = new Class({
     },
 
     /**
-     * [description]
+     * Destroys the Input Manager and all of its systems.
+     *
+     * There is no way to recover from doing this.
      *
      * @method Phaser.Input.InputManager#destroy
      * @since 3.0.0
@@ -29903,15 +29986,37 @@ var InputManager = new Class({
     {
         this.events.removeAllListeners();
 
-        this.keyboard.destroy();
-        this.mouse.destroy();
-        this.touch.destroy();
-        this.gamepad.destroy();
+        if (this.keyboard)
+        {
+            this.keyboard.destroy();
+        }
 
-        this.activePointer.destroy();
+        if (this.mouse)
+        {
+            this.mouse.destroy();
+        }
 
+        if (this.touch)
+        {
+            this.touch.destroy();
+        }
+
+        if (this.gamepad)
+        {
+            this.gamepad.destroy();
+        }
+
+        for (var i = 0; i < this.pointers.length; i++)
+        {
+            this.pointers[i].destroy();
+        }
+
+        this.domCallbacks = {};
+        this.pointers = [];
         this.queue = [];
-
+        this._tempHitTest = [];
+        this._tempMatrix.destroy();
+        this.canvas = null;
         this.game = null;
     }
 
@@ -29951,7 +30056,28 @@ var TriangleContains = __webpack_require__(/*! ../geom/triangle/Contains */ "./g
 
 /**
  * @classdesc
- * [description]
+ * The Input Plugin belongs to a Scene and handles all input related events and operations for it.
+ *
+ * You can access it from within a Scene using `this.input`.
+ *
+ * It emits events directly. For example, you can do:
+ *
+ * ```javascript
+ * this.input.on('pointerdown', callback, context);
+ * ```
+ *
+ * To listen for a pointer down event anywhere on the game canvas.
+ *
+ * Game Objects can be enabled for input by calling their `setInteractive` method. After which they
+ * will directly emit input events:
+ *
+ * ```javascript
+ * var sprite = this.add.sprite(x, y, texture);
+ * sprite.setInteractive();
+ * sprite.on('pointerdown', callback, context);
+ * ```
+ *
+ * Please see the Input examples and tutorials for more information.
  *
  * @class InputPlugin
  * @extends Phaser.Events.EventEmitter
@@ -29959,7 +30085,7 @@ var TriangleContains = __webpack_require__(/*! ../geom/triangle/Contains */ "./g
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Scene} scene - The Scene that owns this plugin.
+ * @param {Phaser.Scene} scene - A reference to the Scene that this Input Plugin is responsible for.
  */
 var InputPlugin = new Class({
 
@@ -29972,7 +30098,7 @@ var InputPlugin = new Class({
         EventEmitter.call(this);
 
         /**
-         * The Scene that owns this plugin.
+         * A reference to the Scene that this Input Plugin is responsible for.
          *
          * @name Phaser.Input.InputPlugin#scene
          * @type {Phaser.Scene}
@@ -29981,7 +30107,7 @@ var InputPlugin = new Class({
         this.scene = scene;
 
         /**
-         * [description]
+         * A reference to the Scene Systems class.
          *
          * @name Phaser.Input.InputPlugin#systems
          * @type {Phaser.Scenes.Systems}
@@ -29990,7 +30116,7 @@ var InputPlugin = new Class({
         this.systems = scene.sys;
 
         /**
-         * [description]
+         * A reference to the Scene Systems Settings.
          *
          * @name Phaser.Input.InputPlugin#settings
          * @type {Phaser.Scenes.Settings.Object}
@@ -29999,7 +30125,7 @@ var InputPlugin = new Class({
         this.settings = scene.sys.settings;
 
         /**
-         * [description]
+         * A reference to the Game Input Manager.
          *
          * @name Phaser.Input.InputPlugin#manager
          * @type {Phaser.Input.InputManager}
@@ -30008,7 +30134,7 @@ var InputPlugin = new Class({
         this.manager = scene.sys.game.input;
 
         /**
-         * [description]
+         * If set, the Input Plugin will run its update loop every frame.
          *
          * @name Phaser.Input.InputPlugin#enabled
          * @type {boolean}
@@ -30018,7 +30144,7 @@ var InputPlugin = new Class({
         this.enabled = true;
 
         /**
-         * A reference to this.scene.sys.displayList (set in boot)
+         * A reference to the Scene Display List. This property is set during the `boot` method.
          *
          * @name Phaser.Input.InputPlugin#displayList
          * @type {Phaser.GameObjects.DisplayList}
@@ -30027,44 +30153,54 @@ var InputPlugin = new Class({
         this.displayList;
 
         /**
-         * A reference to the this.scene.sys.cameras (set in boot)
+         * A reference to the Scene Cameras Manager. This property is set during the `boot` method.
          *
          * @name Phaser.Input.InputPlugin#cameras
-         * @type {null}
+         * @type {Phaser.Cameras.Scene2D.CameraManager}
          * @since 3.0.0
          */
         this.cameras;
 
         /**
-         * [description]
+         * A reference to the Keyboard Manager.
+         * 
+         * This property is only set if Keyboard support has been enabled in your Game Configuration file.
          *
          * @name Phaser.Input.InputPlugin#keyboard
-         * @type {Phaser.Input.Keyboard.KeyboardManager}
+         * @type {?Phaser.Input.Keyboard.KeyboardManager}
          * @since 3.0.0
          */
         this.keyboard = this.manager.keyboard;
 
         /**
-         * [description]
+         * A reference to the Mouse Manager.
+         * 
+         * This property is only set if Mouse support has been enabled in your Game Configuration file.
+         * 
+         * If you just wish to get access to the mouse pointer, use the `mousePointer` property instead.
          *
          * @name Phaser.Input.InputPlugin#mouse
-         * @type {Phaser.Input.Mouse.MouseManager}
+         * @type {?Phaser.Input.Mouse.MouseManager}
          * @since 3.0.0
          */
         this.mouse = this.manager.mouse;
 
         /**
-         * [description]
+         * A reference to the Gamepad Manager.
+         * 
+         * This property is only set if Gamepad support has been enabled in your Game Configuration file.
          *
          * @name Phaser.Input.InputPlugin#gamepad
-         * @type {Phaser.Input.Gamepad.GamepadManager}
+         * @type {?Phaser.Input.Gamepad.GamepadManager}
          * @since 3.0.0
          */
         this.gamepad = this.manager.gamepad;
 
         /**
-         * Only fire callbacks and events on the top-most Game Object in the display list (emulating DOM behavior)
-         * and ignore any GOs below it, or call them all?
+         * When set to `true` (the default) the Input Plugin will emulate DOM behavior by only emitting events from
+         * the top-most Game Objects in the Display List.
+         *
+         * If set to `false` it will emit events from all Game Objects below a Pointer, not just the top one.
          *
          * @name Phaser.Input.InputPlugin#topOnly
          * @type {boolean}
@@ -30074,10 +30210,18 @@ var InputPlugin = new Class({
         this.topOnly = true;
 
         /**
-         * How often should the pointer input be checked?
-         * Time given in ms
-         * Pointer will *always* be checked if it has been moved by the user.
-         * This controls how often it will be polled if it hasn't been moved.
+         * How often should the Pointers be checked?
+         * 
+         * The value is a time, given in ms, and is the time that must have elapsed between game steps before
+         * the Pointers will be polled again. When a pointer is polled it runs a hit test to see which Game
+         * Objects are currently below it, or being interacted with it.
+         * 
+         * Pointers will *always* be checked if they have been moved by the user, or press or released.
+         * 
+         * This property only controls how often they will be polled if they have not been updated.
+         * You should set this if you want to have Game Objects constantly check against the pointers, even
+         * if the pointer didn't move itself.
+         * 
          * Set to 0 to poll constantly. Set to -1 to only poll on user movement.
          *
          * @name Phaser.Input.InputPlugin#pollRate
@@ -30088,7 +30232,7 @@ var InputPlugin = new Class({
         this.pollRate = -1;
 
         /**
-         * [description]
+         * Internal poll timer value.
          *
          * @name Phaser.Input.InputPlugin#_pollTimer
          * @type {number}
@@ -30099,7 +30243,7 @@ var InputPlugin = new Class({
         this._pollTimer = 0;
 
         /**
-         * The distance, in pixels, the pointer has to move while being held down, before it thinks it is being dragged.
+         * The distance, in pixels, a pointer has to move while being held down, before it thinks it is being dragged.
          *
          * @name Phaser.Input.InputPlugin#dragDistanceThreshold
          * @type {number}
@@ -30109,7 +30253,7 @@ var InputPlugin = new Class({
         this.dragDistanceThreshold = 0;
 
         /**
-         * The amount of time, in ms, the pointer has to be held down before it thinks it is dragging.
+         * The amount of time, in ms, a pointer has to be held down before it thinks it is dragging.
          *
          * @name Phaser.Input.InputPlugin#dragTimeThreshold
          * @type {number}
@@ -30141,7 +30285,7 @@ var InputPlugin = new Class({
         this._tempZones = [];
 
         /**
-         * A list of all Game Objects that have been set to be interactive.
+         * A list of all Game Objects that have been set to be interactive in the Scene this Input Plugin is managing.
          *
          * @name Phaser.Input.InputPlugin#_list
          * @type {Phaser.GameObjects.GameObject[]}
@@ -30205,7 +30349,7 @@ var InputPlugin = new Class({
         this._over = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [] };
 
         /**
-         * [description]
+         * A list of valid DOM event types.
          *
          * @name Phaser.Input.InputPlugin#_validTypes
          * @type {string[]}
@@ -30260,9 +30404,11 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * The pre-update handler is responsible for checking the pending removal and insertion lists and
+     * deleting old Game Objects.
      *
      * @method Phaser.Input.InputPlugin#preUpdate
+     * @private
      * @since 3.0.0
      */
     preUpdate: function ()
@@ -30305,14 +30451,15 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Clears a Game Object so it no longer has an Interactive Object associated with it.
+     * The Game Object is then queued for removal from the Input Plugin on the next update.
      *
      * @method Phaser.Input.InputPlugin#clear
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} gameObject - [description]
+     * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object that will have its Interactive Object removed.
      *
-     * @return {Phaser.GameObjects.GameObject} [description]
+     * @return {Phaser.GameObjects.GameObject} The Game Object that had its Interactive Object removed.
      */
     clear: function (gameObject)
     {
@@ -30360,12 +30507,15 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Disables Input on a single Game Object.
+     *
+     * An input disabled Game Object still retains its Interactive Object component and can be re-enabled
+     * at any time, by passing it to `InputPlugin.enable`.
      *
      * @method Phaser.Input.InputPlugin#disable
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} gameObject - [description]
+     * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to have its input system disabled.
      */
     disable: function (gameObject)
     {
@@ -30373,15 +30523,23 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Enable a Game Object for interaction.
+     *
+     * If the Game Object already has an Interactive Object component, it is enabled and returned.
+     *
+     * Otherwise, a new Interactive Object component is created and assigned to the Game Object's `input` property.
+     *
+     * An optional hit area shape and callback can be provided.
+     *
+     * Finally, the Game Object can also be flagged as being a valid drop zone for dragged items.
      *
      * @method Phaser.Input.InputPlugin#enable
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} gameObject - [description]
-     * @param {object} shape - [description]
-     * @param {HitAreaCallback} callback - [description]
-     * @param {boolean} [dropZone=false] - [description]
+     * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to be enabled for input.
+     * @param {object} [shape] - The shape or object to check if the pointer is within for hit area checks.
+     * @param {HitAreaCallback} [callback] - The 'contains' function to invoke to check if the pointer is within the hit area.
+     * @param {boolean} [dropZone=false] - Is this Game Object a drop zone or not?
      *
      * @return {Phaser.Input.InputPlugin} This Input Plugin.
      */
@@ -30409,14 +30567,18 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Takes the given Pointer and performs a hit test against it, to see which interactive Game Objects
+     * it is currently above.
+     *
+     * The hit test is performed against which-ever Camera the Pointer is over. If it is over multiple
+     * cameras, the one on the top of the camera list is used.
      *
      * @method Phaser.Input.InputPlugin#hitTestPointer
      * @since 3.0.0
      *
-     * @param {Phaser.Input.Pointer} pointer - [description]
+     * @param {Phaser.Input.Pointer} pointer - The Pointer to check against the Game Objects.
      *
-     * @return {array} [description]
+     * @return {Phaser.GameObjects.GameObject[]} An array of all the interactive Game Objects the Pointer was above.
      */
     hitTestPointer: function (pointer)
     {
@@ -30428,7 +30590,7 @@ var InputPlugin = new Class({
 
             //  Get a list of all objects that can be seen by the camera below the pointer in the scene and store in 'output' array.
             //  All objects in this array are input enabled, as checked by the hitTest method, so we don't need to check later on as well.
-            var over = this.manager.hitTest(pointer.x, pointer.y, this._list, camera);
+            var over = this.manager.hitTest(pointer, this._list, camera);
 
             //  Filter out the drop zones
             for (var i = 0; i < over.length; i++)
@@ -30450,12 +30612,13 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * An internal method that handles the Pointer down event.
      *
      * @method Phaser.Input.InputPlugin#processDownEvents
+     * @private
      * @since 3.0.0
      *
-     * @param {Phaser.Input.Pointer} pointer - The Pointer to check for events against.
+     * @param {Phaser.Input.Pointer} pointer - The Pointer being tested.
      *
      * @return {integer} The total number of objects interacted with.
      */
@@ -30489,15 +30652,16 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * An internal method that handles the Pointer drag events.
      *
      * @method Phaser.Input.InputPlugin#processDragEvents
+     * @private
      * @since 3.0.0
      *
-     * @param {number} pointer - [description]
-     * @param {number} time - [description]
+     * @param {Phaser.Input.Pointer} pointer - The Pointer to check against the Game Objects.
+     * @param {number} time - The time stamp of the most recent Game step.
      *
-     * @return {integer} [description]
+     * @return {integer} The total number of objects interacted with.
      */
     processDragEvents: function (pointer, time)
     {
@@ -30756,9 +30920,10 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * An internal method that handles the Pointer movement event.
      *
      * @method Phaser.Input.InputPlugin#processMoveEvents
+     * @private
      * @since 3.0.0
      *
      * @param {Phaser.Input.Pointer} pointer - The pointer to check for events against.
@@ -30799,14 +30964,15 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * An internal method that handles the Pointer over and out events.
      *
      * @method Phaser.Input.InputPlugin#processOverOutEvents
+     * @private
      * @since 3.0.0
      *
-     * @param {Phaser.Input.Pointer} pointer - [description]
+     * @param {Phaser.Input.Pointer} pointer - The pointer to check for events against.
      *
-     * @return {integer} The number of objects interacted with.
+     * @return {integer} The total number of objects interacted with.
      */
     processOverOutEvents: function (pointer)
     {
@@ -30921,12 +31087,15 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * An internal method that handles the Pointer up events.
      *
      * @method Phaser.Input.InputPlugin#processUpEvents
+     * @private
      * @since 3.0.0
      *
-     * @param {Phaser.Input.Pointer} pointer - [description]
+     * @param {Phaser.Input.Pointer} pointer - The pointer to check for events against.
+     *
+     * @return {integer} The total number of objects interacted with.
      */
     processUpEvents: function (pointer)
     {
@@ -30956,9 +31125,10 @@ var InputPlugin = new Class({
     },
 
     /**
-     * Queues a Game Object for insertion into this Input Manager on the next update.
+     * Queues a Game Object for insertion into this Input Plugin on the next update.
      *
      * @method Phaser.Input.InputPlugin#queueForInsertion
+     * @private
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.GameObject} child - The Game Object to add.
@@ -30976,9 +31146,10 @@ var InputPlugin = new Class({
     },
 
     /**
-     * Queues a Game Object for removal from this Input Manager on the next update.
+     * Queues a Game Object for removal from this Input Plugin on the next update.
      *
      * @method Phaser.Input.InputPlugin#queueForRemoval
+     * @private
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.GameObject} child - The Game Object to remove.
@@ -30993,7 +31164,11 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the draggable state of the given array of Game Objects.
+     *
+     * They can either be set to be draggable, or can have their draggable state removed by passing `false`.
+     *
+     * A Game Object will not fire drag events unless it has been specifically enabled for drag.
      *
      * @method Phaser.Input.InputPlugin#setDraggable
      * @since 3.0.0
@@ -31034,13 +31209,23 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the hit area for the given array of Game Objects.
+     *
+     * A hit area is typically one of the geometric shapes Phaser provides, such as a `Phaser.Geom.Rectangle`
+     * or `Phaser.Geom.Circle`. However, it can be any object as long as it works with the provided callback.
+     *
+     * If no hit area is provided a Rectangle is created based on the size of the Game Object, if possible
+     * to calculate.
+     *
+     * The hit area callback is the function that takes an `x` and `y` coordinate and returns a boolean if
+     * those values fall within the area of the shape or not. All of the Phaser geometry objects provide this,
+     * such as `Phaser.Geom.Rectangle.Contains`.
      *
      * @method Phaser.Input.InputPlugin#setHitArea
      * @since 3.0.0
      *
      * @param {(Phaser.GameObjects.GameObject|Phaser.GameObjects.GameObject[])} gameObjects - An array of Game Objects to set the hit area on.
-     * @param {object} [shape] - The shape or object to check if the pointer is within for hit area checks.
+     * @param {any} [shape] - The shape or object to check if the pointer is within for hit area checks.
      * @param {HitAreaCallback} [callback] - The 'contains' function to invoke to check if the pointer is within the hit area.
      *
      * @return {Phaser.Input.InputPlugin} This InputPlugin object.
@@ -31070,7 +31255,8 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the hit area for an array of Game Objects to be a `Phaser.Geom.Circle` shape, using
+     * the given coordinates and radius to control its position and size.
      *
      * @method Phaser.Input.InputPlugin#setHitAreaCircle
      * @since 3.0.0
@@ -31093,7 +31279,8 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the hit area for an array of Game Objects to be a `Phaser.Geom.Ellipse` shape, using
+     * the given coordinates and dimensions to control its position and size.
      *
      * @method Phaser.Input.InputPlugin#setHitAreaEllipse
      * @since 3.0.0
@@ -31117,7 +31304,8 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the hit area for an array of Game Objects to be a `Phaser.Geom.Rectangle` shape, using
+     * the Game Objects texture frame to define the position and size of the hit area.
      *
      * @method Phaser.Input.InputPlugin#setHitAreaFromTexture
      * @since 3.0.0
@@ -31174,7 +31362,8 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the hit area for an array of Game Objects to be a `Phaser.Geom.Rectangle` shape, using
+     * the given coordinates and dimensions to control its position and size.
      *
      * @method Phaser.Input.InputPlugin#setHitAreaRectangle
      * @since 3.0.0
@@ -31198,7 +31387,8 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the hit area for an array of Game Objects to be a `Phaser.Geom.Triangle` shape, using
+     * the given coordinates to control the position of its points.
      *
      * @method Phaser.Input.InputPlugin#setHitAreaTriangle
      * @since 3.0.0
@@ -31224,7 +31414,14 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the Pointers to always poll.
+     * 
+     * When a pointer is polled it runs a hit test to see which Game Objects are currently below it,
+     * or being interacted with it, regardless if the Pointer has actually moved or not.
+     *
+     * You should enable this if you want objects in your game to fire over / out events, and the objects
+     * are constantly moving, but the pointer may not have. Polling every frame has additional computation
+     * costs, especially if there are a large number of interactive objects in your game.
      *
      * @method Phaser.Input.InputPlugin#setPollAlways
      * @since 3.0.0
@@ -31240,7 +31437,10 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the Pointers to only poll when they are moved or updated.
+     * 
+     * When a pointer is polled it runs a hit test to see which Game Objects are currently below it,
+     * or being interacted with it.
      *
      * @method Phaser.Input.InputPlugin#setPollOnMove
      * @since 3.0.0
@@ -31256,12 +31456,13 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Sets the poll rate value. This is the amount of time that should have elapsed before a pointer
+     * will be polled again. See the `setPollAlways` and `setPollOnMove` methods.
      *
      * @method Phaser.Input.InputPlugin#setPollRate
      * @since 3.0.0
      *
-     * @param {number} value - [description]
+     * @param {number} value - The amount of time, in ms, that should elapsed before re-polling the pointers.
      *
      * @return {Phaser.Input.InputPlugin} This InputPlugin object.
      */
@@ -31274,12 +31475,15 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * When set to `true` the global Input Manager will emulate DOM behavior by only emitting events from
+     * the top-most Game Objects in the Display List.
+     *
+     * If set to `false` it will emit events from all Game Objects below a Pointer, not just the top one.
      *
      * @method Phaser.Input.InputPlugin#setGlobalTopOnly
      * @since 3.0.0
      *
-     * @param {boolean} value - [description]
+     * @param {boolean} value - `true` to only include the top-most Game Object, or `false` to include all Game Objects in a hit test.
      *
      * @return {Phaser.Input.InputPlugin} This InputPlugin object.
      */
@@ -31291,12 +31495,15 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * When set to `true` this Input Plugin will emulate DOM behavior by only emitting events from
+     * the top-most Game Objects in the Display List.
+     *
+     * If set to `false` it will emit events from all Game Objects below a Pointer, not just the top one.
      *
      * @method Phaser.Input.InputPlugin#setTopOnly
      * @since 3.0.0
      *
-     * @param {boolean} value - [description]
+     * @param {boolean} value - `true` to only include the top-most Game Object, or `false` to include all Game Objects in a hit test.
      *
      * @return {Phaser.Input.InputPlugin} This InputPlugin object.
      */
@@ -31308,15 +31515,15 @@ var InputPlugin = new Class({
     },
 
     /**
-     * Given an array of Game Objects, sort the array and return it,
-     * so that the objects are in index order with the lowest at the bottom.
+     * Given an array of Game Objects, sort the array and return it, so that the objects are in depth index order
+     * with the lowest at the bottom.
      *
      * @method Phaser.Input.InputPlugin#sortGameObjects
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject[]} gameObjects - [description]
+     * @param {Phaser.GameObjects.GameObject[]} gameObjects - An array of Game Objects to be sorted.
      *
-     * @return {Phaser.GameObjects.GameObject[]} [description]
+     * @return {Phaser.GameObjects.GameObject[]} The sorted array of Game Objects.
      */
     sortGameObjects: function (gameObjects)
     {
@@ -31335,6 +31542,7 @@ var InputPlugin = new Class({
      * Will iterate through all parent containers, if present.
      *
      * @method Phaser.Input.InputPlugin#sortHandlerGO
+     * @private
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.GameObject} childA - The first Game Object to compare.
@@ -31394,7 +31602,7 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Causes the Input Manager to stop emitting any events for the remainder of this game step.
      *
      * @method Phaser.Input.InputPlugin#stopPropagation
      * @since 3.0.0
@@ -31412,13 +31620,15 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * The internal update loop for the Input Plugin.
+     * Called automatically by the Scene Systems step.
      *
      * @method Phaser.Input.InputPlugin#update
+     * @private
      * @since 3.0.0
      *
-     * @param {number} time - [description]
-     * @param {number} delta - [description]
+     * @param {number} time - The time value from the most recent Game step. Typically a high-resolution timer value, or Date.now().
+     * @param {number} delta - The delta value since the last frame. This is smoothed to avoid delta spikes by the TimeStep class.
      */
     update: function (time, delta)
     {
@@ -31510,6 +31720,36 @@ var InputPlugin = new Class({
         }
     },
 
+    /**
+     * Adds a callback to be invoked whenever the native DOM `mouseup` or `touchend` events are received.
+     * By setting the `isOnce` argument you can control if the callback is called once,
+     * or every time the DOM event occurs.
+     *
+     * Callbacks passed to this method are invoked _immediately_ when the DOM event happens,
+     * within the scope of the DOM event handler. Therefore, they are considered as 'native'
+     * from the perspective of the browser. This means they can be used for tasks such as
+     * opening new browser windows, or anything which explicitly requires user input to activate.
+     * However, as a result of this, they come with their own risks, and as such should not be used
+     * for general game input, but instead be reserved for special circumstances.
+     *
+     * If all you're trying to do is execute a callback when a pointer is released, then
+     * please use the internal Input event system instead.
+     *
+     * Please understand that these callbacks are invoked when the browser feels like doing so,
+     * which may be entirely out of the normal flow of the Phaser Game Loop. Therefore, you should absolutely keep
+     * Phaser related operations to a minimum in these callbacks. For example, don't destroy Game Objects,
+     * change Scenes or manipulate internal systems, otherwise you run a very real risk of creating
+     * heisenbugs (https://en.wikipedia.org/wiki/Heisenbug) that prove a challenge to reproduce, never mind
+     * solve.
+     *
+     * @method Phaser.Input.InputPlugin#addUpCallback
+     * @since 3.10.0
+     *
+     * @param {function} callback - The callback to be invoked on this DOM event.
+     * @param {boolean} [isOnce=true] - `true` if the callback will only be invoked once, `false` to call every time this event happens.
+     *
+     * @return {this} The Input Plugin.
+     */
     addUpCallback: function (callback, isOnce)
     {
         this.manager.addUpCallback(callback, isOnce);
@@ -31517,6 +31757,36 @@ var InputPlugin = new Class({
         return this;
     },
 
+    /**
+     * Adds a callback to be invoked whenever the native DOM `mousedown` or `touchstart` events are received.
+     * By setting the `isOnce` argument you can control if the callback is called once,
+     * or every time the DOM event occurs.
+     *
+     * Callbacks passed to this method are invoked _immediately_ when the DOM event happens,
+     * within the scope of the DOM event handler. Therefore, they are considered as 'native'
+     * from the perspective of the browser. This means they can be used for tasks such as
+     * opening new browser windows, or anything which explicitly requires user input to activate.
+     * However, as a result of this, they come with their own risks, and as such should not be used
+     * for general game input, but instead be reserved for special circumstances.
+     *
+     * If all you're trying to do is execute a callback when a pointer is down, then
+     * please use the internal Input event system instead.
+     *
+     * Please understand that these callbacks are invoked when the browser feels like doing so,
+     * which may be entirely out of the normal flow of the Phaser Game Loop. Therefore, you should absolutely keep
+     * Phaser related operations to a minimum in these callbacks. For example, don't destroy Game Objects,
+     * change Scenes or manipulate internal systems, otherwise you run a very real risk of creating
+     * heisenbugs (https://en.wikipedia.org/wiki/Heisenbug) that prove a challenge to reproduce, never mind
+     * solve.
+     *
+     * @method Phaser.Input.InputPlugin#addDownCallback
+     * @since 3.10.0
+     *
+     * @param {function} callback - The callback to be invoked on this dom event.
+     * @param {boolean} [isOnce=true] - `true` if the callback will only be invoked once, `false` to call every time this event happens.
+     *
+     * @return {this} The Input Plugin.
+     */
     addDownCallback: function (callback, isOnce)
     {
         this.manager.addDownCallback(callback, isOnce);
@@ -31524,6 +31794,36 @@ var InputPlugin = new Class({
         return this;
     },
 
+    /**
+     * Adds a callback to be invoked whenever the native DOM `mousemove` or `touchmove` events are received.
+     * By setting the `isOnce` argument you can control if the callback is called once,
+     * or every time the DOM event occurs.
+     *
+     * Callbacks passed to this method are invoked _immediately_ when the DOM event happens,
+     * within the scope of the DOM event handler. Therefore, they are considered as 'native'
+     * from the perspective of the browser. This means they can be used for tasks such as
+     * opening new browser windows, or anything which explicitly requires user input to activate.
+     * However, as a result of this, they come with their own risks, and as such should not be used
+     * for general game input, but instead be reserved for special circumstances.
+     *
+     * If all you're trying to do is execute a callback when a pointer is moved, then
+     * please use the internal Input event system instead.
+     *
+     * Please understand that these callbacks are invoked when the browser feels like doing so,
+     * which may be entirely out of the normal flow of the Phaser Game Loop. Therefore, you should absolutely keep
+     * Phaser related operations to a minimum in these callbacks. For example, don't destroy Game Objects,
+     * change Scenes or manipulate internal systems, otherwise you run a very real risk of creating
+     * heisenbugs (https://en.wikipedia.org/wiki/Heisenbug) that prove a challenge to reproduce, never mind
+     * solve.
+     *
+     * @method Phaser.Input.InputPlugin#addMoveCallback
+     * @since 3.10.0
+     *
+     * @param {function} callback - The callback to be invoked on this dom event.
+     * @param {boolean} [isOnce=false] - `true` if the callback will only be invoked once, `false` to call every time this event happens.
+     *
+     * @return {this} The Input Plugin.
+     */
     addMoveCallback: function (callback, isOnce)
     {
         this.manager.addMoveCallback(callback, isOnce);
@@ -31606,14 +31906,26 @@ var InputPlugin = new Class({
     },
 
     /**
-     * [description]
+     * Adds new Pointer objects to the Input Manager.
+     *
+     * By default Phaser creates 2 pointer objects: `mousePointer` and `pointer1`.
+     *
+     * You can create more either by calling this method, or by setting the `input.activePointers` property
+     * in the Game Config.
+     *
+     * The first 10 pointers are available via the `InputPlugin.pointerX` properties, once they have been added
+     * via this method.
      *
      * @method Phaser.Input.InputPlugin#addPointer
      * @since 3.10.0
+     * 
+     * @param {integer} [quantity=1] The number of new Pointers to create.
+     *
+     * @return {Phaser.Input.Pointer[]} An array containing all of the new Pointer objects that were created.
      */
-    addPointer: function ()
+    addPointer: function (quantity)
     {
-        return this.manager.addPointer();
+        return this.manager.addPointer(quantity);
     },
 
     /**
@@ -31916,26 +32228,28 @@ module.exports = InputPlugin;
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var Vector2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
 
-// DOM event button value:
-// A number representing a given button:
-// 0: Main button pressed, usually the left button or the un-initialized state
-// 1: Auxiliary button pressed, usually the wheel button or the middle button (if present)
-// 2: Secondary button pressed, usually the right button
-// 3: Fourth button, typically the Browser Back button
-// 4: Fifth button, typically the Browser Forward button
-// For a mouse configured for left-handed use, the button actions are reversed. In this case, the values are read from right to left.
-
 /**
  * @classdesc
- * [description]
+ * A Pointer object encapsulates both mouse and touch input within Phaser.
+ *
+ * By default, Phaser will create 2 pointers for your game to use. If you require more, i.e. for a multi-touch
+ * game, then use the `InputPlugin.addPointer` method to do so, rather than instantiating this class directly,
+ * otherwise it won't be managed by the input system.
+ *
+ * You can reference the current active pointer via `InputPlugin.activePointer`. You can also use the properties
+ * `InputPlugin.pointer1` through to `pointer10`, for each pointer you have enabled in your game.
+ *
+ * The properties of this object are set by the Input Plugin during processing. This object is then sent in all
+ * input related events that the Input Plugin emits, so you can reference properties from it directly in your
+ * callbacks.
  *
  * @class Pointer
  * @memberOf Phaser.Input
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Input.InputManager} manager - [description]
- * @param {integer} id - [description]
+ * @param {Phaser.Input.InputManager} manager - A reference to the Input Manager.
+ * @param {integer} id - The internal ID of this Pointer.
  */
 var Pointer = new Class({
 
@@ -31944,7 +32258,7 @@ var Pointer = new Class({
     function Pointer (manager, id)
     {
         /**
-         * [description]
+         * A reference to the Input Manager.
          *
          * @name Phaser.Input.Pointer#manager
          * @type {Phaser.Input.InputManager}
@@ -31953,25 +32267,27 @@ var Pointer = new Class({
         this.manager = manager;
 
         /**
-         * [description]
+         * The internal ID of this Pointer.
          *
          * @name Phaser.Input.Pointer#id
          * @type {integer}
+         * @readOnly
          * @since 3.0.0
          */
         this.id = id;
 
         /**
-         * [description]
+         * The most recent native DOM Event this Pointer has processed.
          *
          * @name Phaser.Input.Pointer#event
-         * @type {null}
+         * @type {(TouchEvent|MouseEvent)}
          * @since 3.0.0
          */
         this.event;
 
         /**
          * The camera the Pointer interacted with during its last update.
+         * 
          * A Pointer can only ever interact with one camera at once, which will be the top-most camera
          * in the list should multiple cameras be positioned on-top of each other.
          *
@@ -31989,22 +32305,45 @@ var Pointer = new Class({
          * 4: Wheel button or middle button
          * 8: 4th button (typically the "Browser Back" button)
          * 16: 5th button (typically the "Browser Forward" button)
+         * 
+         * For a mouse configured for left-handed use, the button actions are reversed.
+         * In this case, the values are read from right to left.
          *
          * @name Phaser.Input.Pointer#buttons
-         * @type {number}
+         * @type {integer}
          * @default 0
          * @since 3.0.0
          */
         this.buttons = 0;
 
         /**
-         * [description]
+         * The position of the Pointer in screen space.
          *
          * @name Phaser.Input.Pointer#position
          * @type {Phaser.Math.Vector2}
          * @since 3.0.0
          */
         this.position = new Vector2();
+
+        /**
+         * The x position of this Pointer, translated into the coordinate space of the most recent Camera it interacted with.
+         *
+         * @name Phaser.Input.Pointer#worldX
+         * @type {number}
+         * @default 0
+         * @since 3.10.0
+         */
+        this.worldX = 0;
+
+        /**
+         * The y position of this Pointer, translated into the coordinate space of the most recent Camera it interacted with.
+         *
+         * @name Phaser.Input.Pointer#worldY
+         * @type {number}
+         * @default 0
+         * @since 3.10.0
+         */
+        this.worldY = 0;
 
         /**
          * X coordinate of the Pointer when Button 1 (left button), or Touch, was pressed, used for dragging objects.
@@ -32101,7 +32440,7 @@ var Pointer = new Class({
         this.isDown = false;
 
         /**
-         * [description]
+         * A dirty flag for this Pointer, used internally by the Input Plugin.
          *
          * @name Phaser.Input.Pointer#dirty
          * @type {boolean}
@@ -32111,7 +32450,7 @@ var Pointer = new Class({
         this.dirty = false;
 
         /**
-         * [description]
+         * Is this Pointer considered as being "just down" or not?
          *
          * @name Phaser.Input.Pointer#justDown
          * @type {boolean}
@@ -32121,7 +32460,7 @@ var Pointer = new Class({
         this.justDown = false;
 
         /**
-         * [description]
+         * Is this Pointer considered as being "just up" or not?
          *
          * @name Phaser.Input.Pointer#justUp
          * @type {boolean}
@@ -32131,7 +32470,7 @@ var Pointer = new Class({
         this.justUp = false;
 
         /**
-         * [description]
+         * Is this Pointer considered as being "just moved" or not?
          *
          * @name Phaser.Input.Pointer#justMoved
          * @type {boolean}
@@ -32201,15 +32540,16 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Takes a Camera and returns a Vector2 containing the translated position of this Pointer
+     * within that Camera. This can be used to convert this Pointers position into camera space.
      *
      * @method Phaser.Input.Pointer#positionToCamera
      * @since 3.0.0
      *
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {(Phaser.Math.Vector2|object)} [output] - [description]
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to use for the translation.
+     * @param {(Phaser.Math.Vector2|object)} [output] - A Vector2-like object in which to store the translated position.
      *
-     * @return {(Phaser.Math.Vector2|object)} [description]
+     * @return {(Phaser.Math.Vector2|object)} A Vector2 containing the translated coordinates of this Pointer, based on the given camera.
      */
     positionToCamera: function (camera, output)
     {
@@ -32217,9 +32557,11 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Resets the temporal properties of this Pointer.
+     * Called automatically by the Input Plugin each update.
      *
      * @method Phaser.Input.Pointer#reset
+     * @private
      * @since 3.0.0
      */
     reset: function ()
@@ -32235,12 +32577,13 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Internal method to handle a Mouse Up Event.
      *
      * @method Phaser.Input.Pointer#up
+     * @private
      * @since 3.0.0
      *
-     * @param {MouseEvent} event - [description]
+     * @param {MouseEvent} event - The Mouse Event to process.
      * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      */
     up: function (event, time)
@@ -32252,8 +32595,8 @@ var Pointer = new Class({
 
         this.event = event;
 
-        this.x = this.manager.transformX(event.pageX);
-        this.y = this.manager.transformY(event.pageY);
+        //  Sets the local x/y properties
+        this.manager.transformPointer(this, event.pageX, event.pageY);
 
         //  0: Main button pressed, usually the left button or the un-initialized state
         if (event.button === 0)
@@ -32273,12 +32616,13 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Internal method to handle a Mouse Down Event.
      *
      * @method Phaser.Input.Pointer#down
+     * @private
      * @since 3.0.0
      *
-     * @param {MouseEvent} event - [description]
+     * @param {MouseEvent} event - The Mouse Event to process.
      * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      */
     down: function (event, time)
@@ -32290,8 +32634,8 @@ var Pointer = new Class({
 
         this.event = event;
 
-        this.x = this.manager.transformX(event.pageX);
-        this.y = this.manager.transformY(event.pageY);
+        //  Sets the local x/y properties
+        this.manager.transformPointer(this, event.pageX, event.pageY);
 
         //  0: Main button pressed, usually the left button or the un-initialized state
         if (event.button === 0)
@@ -32311,12 +32655,13 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Internal method to handle a Mouse Move Event.
      *
      * @method Phaser.Input.Pointer#move
+     * @private
      * @since 3.0.0
      *
-     * @param {MouseEvent} event - [description]
+     * @param {MouseEvent} event - The Mouse Event to process.
      * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      */
     move: function (event)
@@ -32328,8 +32673,8 @@ var Pointer = new Class({
 
         this.event = event;
 
-        this.x = this.manager.transformX(event.pageX);
-        this.y = this.manager.transformY(event.pageY);
+        //  Sets the local x/y properties
+        this.manager.transformPointer(this, event.pageX, event.pageY);
 
         if (this.manager.mouse.locked)
         {
@@ -32346,12 +32691,13 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Internal method to handle a Touch Start Event.
      *
      * @method Phaser.Input.Pointer#touchstart
+     * @private
      * @since 3.0.0
      *
-     * @param {TouchEvent} event - [description]
+     * @param {TouchEvent} event - The Touch Event to process.
      * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      */
     touchstart: function (event, time)
@@ -32369,8 +32715,8 @@ var Pointer = new Class({
 
         this.event = event;
 
-        this.x = this.manager.transformX(event.pageX);
-        this.y = this.manager.transformY(event.pageY);
+        //  Sets the local x/y properties
+        this.manager.transformPointer(this, event.pageX, event.pageY);
 
         this.primaryDown = true;
         this.downX = this.x;
@@ -32386,20 +32732,21 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Internal method to handle a Touch Move Event.
      *
      * @method Phaser.Input.Pointer#touchmove
+     * @private
      * @since 3.0.0
      *
-     * @param {TouchEvent} event - [description]
+     * @param {TouchEvent} event - The Touch Event to process.
      * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      */
     touchmove: function (event)
     {
         this.event = event;
 
-        this.x = this.manager.transformX(event.pageX);
-        this.y = this.manager.transformY(event.pageY);
+        //  Sets the local x/y properties
+        this.manager.transformPointer(this, event.pageX, event.pageY);
 
         this.justMoved = true;
 
@@ -32409,12 +32756,13 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Internal method to handle a Touch End Event.
      *
      * @method Phaser.Input.Pointer#touchend
+     * @private
      * @since 3.0.0
      *
-     * @param {TouchEvent} event - [description]
+     * @param {TouchEvent} event - The Touch Event to process.
      * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
      */
     touchend: function (event, time)
@@ -32423,8 +32771,8 @@ var Pointer = new Class({
 
         this.event = event;
 
-        this.x = this.manager.transformX(event.pageX);
-        this.y = this.manager.transformY(event.pageY);
+        //  Sets the local x/y properties
+        this.manager.transformPointer(this, event.pageX, event.pageY);
 
         this.primaryDown = false;
         this.upX = this.x;
@@ -32442,12 +32790,12 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Checks to see if any buttons are being held down on this Pointer.
      *
      * @method Phaser.Input.Pointer#noButtonDown
      * @since 3.0.0
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if no buttons are being held down.
      */
     noButtonDown: function ()
     {
@@ -32455,12 +32803,12 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Checks to see if the left button is being held down on this Pointer.
      *
      * @method Phaser.Input.Pointer#leftButtonDown
      * @since 3.0.0
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if the left button is being held down.
      */
     leftButtonDown: function ()
     {
@@ -32468,12 +32816,12 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Checks to see if the right button is being held down on this Pointer.
      *
      * @method Phaser.Input.Pointer#rightButtonDown
      * @since 3.0.0
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if the right button is being held down.
      */
     rightButtonDown: function ()
     {
@@ -32481,12 +32829,12 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Checks to see if the middle button is being held down on this Pointer.
      *
      * @method Phaser.Input.Pointer#middleButtonDown
      * @since 3.0.0
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if the middle button is being held down.
      */
     middleButtonDown: function ()
     {
@@ -32494,12 +32842,12 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Checks to see if the back button is being held down on this Pointer.
      *
      * @method Phaser.Input.Pointer#backButtonDown
      * @since 3.0.0
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if the back button is being held down.
      */
     backButtonDown: function ()
     {
@@ -32507,12 +32855,12 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Checks to see if the forward button is being held down on this Pointer.
      *
      * @method Phaser.Input.Pointer#forwardButtonDown
      * @since 3.0.0
      *
-     * @return {boolean} [description]
+     * @return {boolean} `true` if the forward button is being held down.
      */
     forwardButtonDown: function ()
     {
@@ -32520,7 +32868,7 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * Destroys this Pointer instance and resets its external references.
      *
      * @method Phaser.Input.Pointer#destroy
      * @since 3.0.0
@@ -32533,7 +32881,9 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * The x position of this Pointer.
+     * The value is in screen space.
+     * See `worldX` to get a camera converted position.
      *
      * @name Phaser.Input.Pointer#x
      * @type {number}
@@ -32554,7 +32904,9 @@ var Pointer = new Class({
     },
 
     /**
-     * [description]
+     * The y position of this Pointer.
+     * The value is in screen space.
+     * See `worldY` to get a camera converted position.
      *
      * @name Phaser.Input.Pointer#y
      * @type {number}
@@ -33751,21 +34103,37 @@ var ProcessKeyDown = __webpack_require__(/*! ./keys/ProcessKeyDown */ "./input/k
 var ProcessKeyUp = __webpack_require__(/*! ./keys/ProcessKeyUp */ "./input/keyboard/keys/ProcessKeyUp.js");
 
 /**
- * @callback KeyboardHandler
- *
- * @property {KeyboardEvent} event - [description]
- */
-
-/**
  * @classdesc
- * The Keyboard class monitors keyboard input and dispatches keyboard events.
+ * The Keyboard Manager is a helper class that belongs to the Input Manager.
+ * 
+ * Its role is to listen for native DOM Keyboard Events and then process them.
+ * 
+ * You do not need to create this class directly, the Input Manager will create an instance of it automatically.
+ * 
+ * You can access it from within a Scene using `this.input.keyboard`. For example, you can do:
  *
- * _Note_: many keyboards are unable to process certain combinations of keys due to hardware limitations known as ghosting.
+ * ```javascript
+ * this.input.keyboard.on('keydown', callback, context);
+ * ```
+ *
+ * Or, to listen for a specific key:
+ * 
+ * ```javascript
+ * this.input.keyboard.on('keydown_A', callback, context);
+ * ```
+ *
+ * You can also create Key objects, which you can then poll in your game loop:
+ *
+ * ```javascript
+ * var spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+ * ```
+ *
+ * _Note_: Many keyboards are unable to process certain combinations of keys due to hardware limitations known as ghosting.
  * See http://www.html5gamedevs.com/topic/4876-impossible-to-use-more-than-2-keyboard-input-buttons-at-the-same-time/ for more details.
  *
  * Also please be aware that certain browser extensions can disable or override Phaser keyboard handling.
- * For example the Chrome extension vimium is known to disable Phaser from using the D key. And there are others.
- * So please check your extensions before opening Phaser issues.
+ * For example the Chrome extension vimium is known to disable Phaser from using the D key, while EverNote disables the backtick key.
+ * And there are others. So, please check your extensions before opening Phaser issues about keys that don't work.
  *
  * @class KeyboardManager
  * @extends Phaser.Events.EventEmitter
@@ -33773,7 +34141,7 @@ var ProcessKeyUp = __webpack_require__(/*! ./keys/ProcessKeyUp */ "./input/keybo
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Input.InputManager} inputManager - [description]
+ * @param {Phaser.Input.InputManager} inputManager - A reference to the Input Manager.
  */
 var KeyboardManager = new Class({
 
@@ -33786,7 +34154,7 @@ var KeyboardManager = new Class({
         EventEmitter.call(this);
 
         /**
-         * [description]
+         * A reference to the Input Manager.
          *
          * @name Phaser.Input.Keyboard.KeyboardManager#manager
          * @type {Phaser.Input.InputManager}
@@ -33795,7 +34163,8 @@ var KeyboardManager = new Class({
         this.manager = inputManager;
 
         /**
-         * [description]
+         * A boolean that controls if the Keyboard Manager is enabled or not.
+         * Can be toggled on the fly.
          *
          * @name Phaser.Input.Keyboard.KeyboardManager#enabled
          * @type {boolean}
@@ -33805,62 +34174,42 @@ var KeyboardManager = new Class({
         this.enabled = false;
 
         /**
-         * [description]
+         * The Keyboard Event target, as defined in the Game Config.
+         * Typically the browser window, but can be any interactive DOM element.
          *
          * @name Phaser.Input.Keyboard.KeyboardManager#target
-         * @type {?object}
+         * @type {any}
          * @since 3.0.0
          */
         this.target;
 
         /**
-         * [description]
+         * An array of Key objects to process.
          *
          * @name Phaser.Input.Keyboard.KeyboardManager#keys
          * @type {Phaser.Input.Keyboard.Key[]}
-         * @default []
          * @since 3.0.0
          */
         this.keys = [];
 
         /**
-         * [description]
+         * An array of KeyCombo objects to process.
          *
          * @name Phaser.Input.Keyboard.KeyboardManager#combos
          * @type {Phaser.Input.Keyboard.KeyCombo[]}
-         * @default []
          * @since 3.0.0
          */
         this.combos = [];
 
         /**
-         * [description]
-         *
-         * @name Phaser.Input.Keyboard.KeyboardManager#captures
-         * @type {array}
-         * @default []
-         * @since 3.0.0
-         */
-        this.captures = [];
-
-        /**
-         * [description]
+         * An internal event queue.
          *
          * @name Phaser.Input.Keyboard.KeyboardManager#queue
          * @type {KeyboardEvent[]}
-         * @default []
+         * @private
          * @since 3.0.0
          */
         this.queue = [];
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Input.Keyboard.KeyboardManager#handler
-         * @type {?KeyboardHandler}
-         * @since 3.0.0
-         */
-        this.handler;
 
         inputManager.events.once('boot', this.boot, this);
     },
@@ -33869,6 +34218,7 @@ var KeyboardManager = new Class({
      * The Boot handler is called by Phaser.Game when it first starts up.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#boot
+     * @private
      * @since 3.0.0
      */
     boot: function ()
@@ -33885,51 +34235,84 @@ var KeyboardManager = new Class({
     },
 
     /**
-     * [description]
+     * The Keyboard Down Event Handler.
+     *
+     * @method Phaser.Input.Keyboard.KeyboardManager#onKeyDown
+     * @since 3.10.0
+     *
+     * @param {KeyboardEvent} event - The native DOM Keyboard Event.
+     */
+    onKeyDown: function (event)
+    {
+        if (event.defaultPrevented || !this.enabled)
+        {
+            // Do nothing if event already handled
+            return;
+        }
+
+        this.queue.push(event);
+
+        var key = this.keys[event.keyCode];
+
+        if (key && key.preventDefault)
+        {
+            event.preventDefault();
+        }
+    },
+
+    /**
+     * The Keyboard Up Event Handler.
+     *
+     * @method Phaser.Input.Keyboard.KeyboardManager#onKeyUp
+     * @since 3.10.0
+     *
+     * @param {KeyboardEvent} event - The native DOM Keyboard Event.
+     */
+    onKeyUp: function (event)
+    {
+        if (event.defaultPrevented || !this.enabled)
+        {
+            // Do nothing if event already handled
+            return;
+        }
+
+        this.queue.push(event);
+
+        var key = this.keys[event.keyCode];
+
+        if (key && key.preventDefault)
+        {
+            event.preventDefault();
+        }
+    },
+
+    /**
+     * Starts the Keyboard Event listeners running.
+     * This is called automatically and does not need to be manually invoked.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#startListeners
      * @since 3.0.0
      */
     startListeners: function ()
     {
-        var queue = this.queue;
-        var captures = this.captures;
-
-        var handler = function (event)
-        {
-            if (event.defaultPrevented)
-            {
-                // Do nothing if event already handled
-                return;
-            }
-
-            queue.push(event);
-
-            if (captures[event.keyCode])
-            {
-                event.preventDefault();
-            }
-        };
-
-        this.handler = handler;
-
-        this.target.addEventListener('keydown', handler, false);
-        this.target.addEventListener('keyup', handler, false);
+        this.target.addEventListener('keydown', this.onKeyDown.bind(this), false);
+        this.target.addEventListener('keyup', this.onKeyUp.bind(this), false);
 
         //  Finally, listen for an update event from the Input Manager
         this.manager.events.on('update', this.update, this);
     },
 
     /**
-     * [description]
+     * Stops the Keyboard Event listeners.
+     * This is called automatically and does not need to be manually invoked.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#stopListeners
      * @since 3.0.0
      */
     stopListeners: function ()
     {
-        this.target.removeEventListener('keydown', this.handler);
-        this.target.removeEventListener('keyup', this.handler);
+        this.target.removeEventListener('keydown', this.onKeyDown);
+        this.target.removeEventListener('keyup', this.onKeyUp);
 
         this.manager.events.off('update', this.update);
     },
@@ -33968,124 +34351,172 @@ var KeyboardManager = new Class({
     /**
      * A practical way to create an object containing user selected hotkeys.
      *
-     * For example,
+     * For example:
      *
-     *     addKeys({ 'up': Phaser.Input.Keyboard.KeyCodes.W, 'down': Phaser.Input.Keyboard.KeyCodes.S });
+     * ```javascript
+     * this.input.keyboard.addKeys({ 'up': Phaser.Input.Keyboard.KeyCodes.W, 'down': Phaser.Input.Keyboard.KeyCodes.S });
+     * ```
+     * 
+     * would return an object containing the properties (`up` and `down`) mapped to W and S {@link Phaser.Input.Keyboard.Key} objects.
      *
-     * would return an object containing properties (`up` and `down`) referring to {@link Phaser.Input.Keyboard.Key} objects.
+     * You can also pass in a comma-separated string:
+     * 
+     * ```javascript
+     * this.input.keyboard.addKeys('W,S,A,D');
+     * ```
+     *
+     * Which will return an object with the properties W, S, A and D mapped to the relevant Key objects.
+     *
+     * To use non-alpha numeric keys, use a string, such as 'UP', 'SPACE' or 'LEFT'.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#addKeys
      * @since 3.0.0
      *
-     * @param {object} keys - [description]
+     * @param {(object|string)} keys - An object containing Key Codes, or a comma-separated string.
      *
-     * @return {object} [description]
+     * @return {object} An object containing Key objects mapped to the input properties.
      */
     addKeys: function (keys)
     {
         var output = {};
 
-        for (var key in keys)
+        if (typeof keys === 'string')
         {
-            output[key] = this.addKey(keys[key]);
+            keys = keys.split(',');
+
+            for (var i = 0; i < keys.length; i++)
+            {
+                output[keys[i]] = this.addKey(keys[i]);
+            }
+        }
+        else
+        {
+            for (var key in keys)
+            {
+                output[key] = this.addKey(keys[key]);
+            }
         }
 
         return output;
     },
 
     /**
-     * If you need more fine-grained control over a Key you can create a new Phaser.Key object via this method.
-     * The Key object can then be polled, have events attached to it, etc.
+     * Adds a Key object to the Keyboard Manager.
+     *
+     * The given argument can be either an existing Key object, a string, such as `A` or `SPACE`, or a key code value.
+     *
+     * If a Key object is given, and one already exists matching the same key code, the existing one is replaced with the new one.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#addKey
      * @since 3.0.0
      *
-     * @param {(string|integer)} keyCode - [description]
+     * @param {(Phaser.Input.Keyboard.Key|string|integer)} key - Either a Key object, a string, such as `A` or `SPACE`, or a key code value.
      *
-     * @return {Phaser.Input.Keyboard.Key} [description]
+     * @return {Phaser.Input.Keyboard.Key} The newly created Key object, or a reference to it if it already existed in the keys array.
      */
-    addKey: function (keyCode)
+    addKey: function (key)
     {
         var keys = this.keys;
 
-        if (!keys[keyCode])
+        if (key instanceof Key)
         {
-            keys[keyCode] = new Key(keyCode);
-            this.captures[keyCode] = true;
+            var idx = keys.indexOf(key);
+
+            if (idx > -1)
+            {
+                keys[idx] = key;
+            }
+            else
+            {
+                keys[key.keyCode] = key;
+            }
+
+            return key;
         }
 
-        return keys[keyCode];
+        if (typeof key === 'string')
+        {
+            key = KeyCodes[key.toUpperCase()];
+        }
+
+        if (!keys[key])
+        {
+            keys[key] = new Key(key);
+        }
+
+        return keys[key];
     },
 
     /**
-     * Removes a Key object from the Keyboard manager.
+     * Removes a Key object from the Keyboard Manager.
+     *
+     * The given argument can be either a Key object, a string, such as `A` or `SPACE`, or a key code value.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#removeKey
      * @since 3.0.0
      *
-     * @param {(string|integer)} keyCode - [description]
+     * @param {(Phaser.Input.Keyboard.Key|string|integer)} key - Either a Key object, a string, such as `A` or `SPACE`, or a key code value.
      */
-    removeKey: function (keyCode)
+    removeKey: function (key)
     {
-        if (this.keys[keyCode])
+        var keys = this.keys;
+
+        if (key instanceof Key)
         {
-            this.keys[keyCode] = undefined;
-            this.captures[keyCode] = false;
+            var idx = keys.indexOf(key);
+
+            if (idx > -1)
+            {
+                this.keys[idx] = undefined;
+            }
+        }
+        else if (typeof key === 'string')
+        {
+            key = KeyCodes[key.toUpperCase()];
+        }
+
+        if (keys[key])
+        {
+            keys[key] = undefined;
         }
     },
 
     /**
-     * [description]
+     * Creates a new KeyCombo.
+     * 
+     * A KeyCombo will listen for a specific string of keys from the Keyboard, and when it receives them
+     * it will emit a `keycombomatch` event from the Keyboard Manager.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#addKeyCapture
-     * @since 3.0.0
+     * The keys to be listened for can be defined as:
      *
-     * @param {(string|integer|string[]|integer[])} keyCodes - [description]
-     */
-    addKeyCapture: function (keyCodes)
-    {
-        if (!Array.isArray(keyCodes))
-        {
-            keyCodes = [ keyCodes ];
-        }
-
-        for (var i = 0; i < keyCodes.length; i++)
-        {
-            this.captures[keyCodes[i]] = true;
-        }
-    },
-
-    /**
-     * [description]
+     * A string (i.e. 'ATARI')
+     * An array of either integers (key codes) or strings, or a mixture of both
+     * An array of objects (such as Key objects) with a public 'keyCode' property
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#removeKeyCapture
-     * @since 3.0.0
+     * For example, to listen for the Konami code (up, up, up, down, down, down, left, left, left, right, right, right)
+     * you could pass the following array of key codes:
      *
-     * @param {(string|integer|string[]|integer[])} keyCodes - [description]
-     */
-    removeKeyCapture: function (keyCodes)
-    {
-        if (!Array.isArray(keyCodes))
-        {
-            keyCodes = [ keyCodes ];
-        }
-
-        for (var i = 0; i < keyCodes.length; i++)
-        {
-            this.captures[keyCodes[i]] = false;
-        }
-    },
-
-    /**
-     * [description]
+     * ```javascript
+     * this.input.keyboard.createCombo([ 38, 38, 38, 40, 40, 40, 37, 37, 37, 39, 39, 39 ], { resetOnMatch: true });
+     *
+     * this.input.keyboard.on('keycombomatch', function (event) {
+     *     console.log('Konami Code entered!');
+     * });
+     * ```
+     *
+     * Or, to listen for the user entering the word PHASER:
+     *
+     * ```javascript
+     * this.input.keyboard.createCombo('PHASER');
+     * ```
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#createCombo
      * @since 3.0.0
      *
-     * @param {(string|integer[]|object[])} keys - [description]
-     * @param {KeyComboConfig} config - [description]
+     * @param {(string|integer[]|object[])} keys - The keys that comprise this combo.
+     * @param {KeyComboConfig} [config] - A Key Combo configuration object.
      *
-     * @return {Phaser.Input.Keyboard.KeyCombo} [description]
+     * @return {Phaser.Input.Keyboard.KeyCombo} The new KeyCombo object.
      */
     createCombo: function (keys, config)
     {
@@ -34093,9 +34524,10 @@ var KeyboardManager = new Class({
     },
 
     /**
-     * [description]
+     * Internal update handler called by the Input Manager, which is in turn invoked by the Game step.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#update
+     * @private
      * @since 3.0.0
      */
     update: function ()
@@ -34150,7 +34582,8 @@ var KeyboardManager = new Class({
     },
 
     /**
-     * [description]
+     * Shuts the Keyboard Manager down.
+     * All this does is remove any listeners bound to it.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#shutdown
      * @since 3.0.0
@@ -34161,7 +34594,7 @@ var KeyboardManager = new Class({
     },
 
     /**
-     * [description]
+     * Destroys this Keyboard Manager instance and all references it holds, plus clears out local arrays.
      *
      * @method Phaser.Input.Keyboard.KeyboardManager#destroy
      * @since 3.0.0
@@ -34174,9 +34607,7 @@ var KeyboardManager = new Class({
 
         this.keys = [];
         this.combos = [];
-        this.captures = [];
         this.queue = [];
-        this.handler = undefined;
 
         this.manager = null;
     }
@@ -34206,10 +34637,11 @@ module.exports = KeyboardManager;
  * Return `true` if it reached the end of the combo, `false` if not.
  *
  * @function Phaser.Input.Keyboard.KeyCombo.AdvanceKeyCombo
+ * @private
  * @since 3.0.0
  *
- * @param {KeyboardEvent} event - [description]
- * @param {Phaser.Input.Keyboard.KeyCombo} combo - [description]
+ * @param {KeyboardEvent} event - The native Keyboard Event.
+ * @param {Phaser.Input.Keyboard.KeyCombo} combo - The KeyCombo object to advance.
  *
  * @return {boolean} `true` if it reached the end of the combo, `false` if not.
  */
@@ -34255,36 +34687,54 @@ var ResetKeyCombo = __webpack_require__(/*! ./ResetKeyCombo */ "./input/keyboard
 /**
  * @callback KeyboardKeydownCallback
  *
- * @param {KeyboardEvent} event - [description]
+ * @param {KeyboardEvent} event - The Keyboard Event.
  */
 
 /**
  * @typedef {object} KeyComboConfig
  *
- * @property {boolean} [resetOnWrongKey=true] - [description]
- * @property {number} [maxKeyDelay=0] - [description]
- * @property {boolean} [resetOnMatch=false] - [description]
- * @property {boolean} [deleteOnMatch=false] - [description]
+ * @property {boolean} [resetOnWrongKey=true] - If they press the wrong key do we reset the combo?
+ * @property {number} [maxKeyDelay=0] - The max delay in ms between each key press. Above this the combo is reset. 0 means disabled.
+ * @property {boolean} [resetOnMatch=false] - If previously matched and they press the first key of the combo again, will it reset?
+ * @property {boolean} [deleteOnMatch=false] - If the combo matches, will it delete itself?
  */
 
 /**
  * @classdesc
- * [description]
+ * A KeyCombo will listen for a specific string of keys from the Keyboard, and when it receives them
+ * it will emit a `keycombomatch` event from the Keyboard Manager.
  *
- * `keys` argument can be:
+ * The keys to be listened for can be defined as:
  *
- * A string (ATARI)
+ * A string (i.e. 'ATARI')
  * An array of either integers (key codes) or strings, or a mixture of both
  * An array of objects (such as Key objects) with a public 'keyCode' property
+ *
+ * For example, to listen for the Konami code (up, up, up, down, down, down, left, left, left, right, right, right)
+ * you could pass the following array of key codes:
+ *
+ * ```javascript
+ * this.input.keyboard.createCombo([ 38, 38, 38, 40, 40, 40, 37, 37, 37, 39, 39, 39 ], { resetOnMatch: true });
+ *
+ * this.input.keyboard.on('keycombomatch', function (event) {
+ *     console.log('Konami Code entered!');
+ * });
+ * ```
+ *
+ * Or, to listen for the user entering the word PHASER:
+ *
+ * ```javascript
+ * this.input.keyboard.createCombo('PHASER');
+ * ```
  *
  * @class KeyCombo
  * @memberOf Phaser.Input.Keyboard
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Input.Keyboard.KeyboardManager} keyboardManager - [description]
- * @param {(string|integer[]|object[])} keys - [description]
- * @param {KeyComboConfig} [config] - [description]
+ * @param {Phaser.Input.Keyboard.KeyboardManager} keyboardManager - A reference to the Keyboard Manager.
+ * @param {(string|integer[]|object[])} keys - The keys that comprise this combo.
+ * @param {KeyComboConfig} [config] - A Key Combo configuration object.
  */
 var KeyCombo = new Class({
 
@@ -34301,7 +34751,7 @@ var KeyCombo = new Class({
         }
 
         /**
-         * [description]
+         * A reference to the Keyboard Manager
          *
          * @name Phaser.Input.Keyboard.KeyCombo#manager
          * @type {Phaser.Input.Keyboard.KeyboardManager}
@@ -34310,7 +34760,7 @@ var KeyCombo = new Class({
         this.manager = keyboardManager;
 
         /**
-         * [description]
+         * A flag that controls if this Key Combo is actively processing keys or not.
          *
          * @name Phaser.Input.Keyboard.KeyCombo#enabled
          * @type {boolean}
@@ -34320,7 +34770,7 @@ var KeyCombo = new Class({
         this.enabled = true;
 
         /**
-         * [description]
+         * An array of the keycodes that comprise this combo.
          *
          * @name Phaser.Input.Keyboard.KeyCombo#keyCodes
          * @type {array}
@@ -34362,7 +34812,7 @@ var KeyCombo = new Class({
          * The current index of the key being waited for in the 'keys' string.
          *
          * @name Phaser.Input.Keyboard.KeyCombo#index
-         * @type {number}
+         * @type {integer}
          * @default 0
          * @since 3.0.0
          */
@@ -34428,7 +34878,7 @@ var KeyCombo = new Class({
         this.maxKeyDelay = GetFastValue(config, 'maxKeyDelay', 0);
 
         /**
-         * If previously matched and they press Key 1 again, will it reset?
+         * If previously matched and they press the first key of the combo again, will it reset?
          *
          * @name Phaser.Input.Keyboard.KeyCombo#resetOnMatch
          * @type {boolean}
@@ -34474,9 +34924,10 @@ var KeyCombo = new Class({
         };
 
         /**
-         * [description]
+         * The internal Key Down handler.
          *
          * @name Phaser.Input.Keyboard.KeyCombo#onKeyDown
+         * @private
          * @type {KeyboardKeydownCallback}
          * @since 3.0.0
          */
@@ -34503,7 +34954,7 @@ var KeyCombo = new Class({
     },
 
     /**
-     * [description]
+     * Destroys this Key Combo and all of its references.
      *
      * @method Phaser.Input.Keyboard.KeyCombo#destroy
      * @since 3.0.0
@@ -34514,7 +34965,8 @@ var KeyCombo = new Class({
         this.keyCodes = [];
 
         this.manager.off('keydown', this.onKeyDown);
-        this.manager = undefined;
+
+        this.manager = null;
     }
 
 });
@@ -34543,12 +34995,13 @@ var AdvanceKeyCombo = __webpack_require__(/*! ./AdvanceKeyCombo */ "./input/keyb
  * Used internally by the KeyCombo class.
  *
  * @function Phaser.Input.Keyboard.KeyCombo.ProcessKeyCombo
+ * @private
  * @since 3.0.0
  *
- * @param {KeyboardEvent} event - [description]
- * @param {Phaser.Input.Keyboard.KeyCombo} combo - [description]
+ * @param {KeyboardEvent} event - The native Keyboard Event.
+ * @param {Phaser.Input.Keyboard.KeyCombo} combo - The KeyCombo object to be processed.
  *
- * @return {boolean} [description]
+ * @return {boolean} `true` if the combo was matched, otherwise `false`.
  */
 var ProcessKeyCombo = function (event, combo)
 {
@@ -34626,6 +35079,7 @@ module.exports = ProcessKeyCombo;
  * Used internally by the KeyCombo class.
  *
  * @function Phaser.Input.Keyboard.KeyCombo.ResetKeyCombo
+ * @private
  * @since 3.0.0
  *
  * @param {Phaser.Input.Keyboard.KeyCombo} combo - The KeyCombo to reset.
@@ -34704,10 +35158,10 @@ module.exports = {
  * @function Phaser.Input.Keyboard.DownDuration
  * @since 3.0.0
  *
- * @param {Phaser.Input.Keyboard.Key} key - [description]
- * @param {integer} [duration=50] - [description]
+ * @param {Phaser.Input.Keyboard.Key} key - The Key object to test.
+ * @param {integer} [duration=50] - The duration, in ms, within which the key must have been pressed down.
  *
- * @return {boolean} [description]
+ * @return {boolean} `true` if the Key was pressed down within `duration` ms, otherwise `false`.
  */
 var DownDuration = function (key, duration)
 {
@@ -34736,16 +35190,18 @@ module.exports = DownDuration;
 
 /**
  * The justDown value allows you to test if this Key has just been pressed down or not.
+ * 
  * When you check this value it will return `true` if the Key is down, otherwise `false`.
+ * 
  * You can only call justDown once per key press. It will only return `true` once, until the Key is released and pressed down again.
- * This allows you to use it in situations where you want to check if this key is down without using a Signal, such as in a core game loop.
+ * This allows you to use it in situations where you want to check if this key is down without using an event, such as in a core game loop.
  *
  * @function Phaser.Input.Keyboard.JustDown
  * @since 3.0.0
  *
- * @param {Phaser.Input.Keyboard.Key} key - [description]
+ * @param {Phaser.Input.Keyboard.Key} key - The Key to check to see if it's just down or not.
  *
- * @return {boolean} [description]
+ * @return {boolean} `true` if the Key was just pressed, otherwise `false`.
  */
 var JustDown = function (key)
 {
@@ -34781,16 +35237,18 @@ module.exports = JustDown;
 
 /**
  * The justUp value allows you to test if this Key has just been released or not.
+ * 
  * When you check this value it will return `true` if the Key is up, otherwise `false`.
- * You can only call justUp once per key release. It will only return `true` once, until the Key is pressed down and released again.
- * This allows you to use it in situations where you want to check if this key is up without using a Signal, such as in a core game loop.
+ * 
+ * You can only call JustUp once per key release. It will only return `true` once, until the Key is pressed down and released again.
+ * This allows you to use it in situations where you want to check if this key is up without using an event, such as in a core game loop.
  *
  * @function Phaser.Input.Keyboard.JustUp
  * @since 3.0.0
  *
- * @param {Phaser.Input.Keyboard.Key} key - [description]
+ * @param {Phaser.Input.Keyboard.Key} key - The Key to check to see if it's just up or not.
  *
- * @return {boolean} [description]
+ * @return {boolean} `true` if the Key was just released, otherwise `false`.
  */
 var JustUp = function (key)
 {
@@ -35567,12 +36025,13 @@ module.exports = KeyMap;
  * Used internally by the KeyboardManager.
  *
  * @function Phaser.Input.Keyboard.ProcessKeyDown
+ * @private
  * @since 3.0.0
  *
- * @param {Phaser.Input.Keyboard.Key} key - [description]
- * @param {KeyboardEvent} event - [description]
+ * @param {Phaser.Input.Keyboard.Key} key - The Key to process the event for.
+ * @param {KeyboardEvent} event - The native Keyboard event.
  *
- * @return {Phaser.Input.Keyboard.Key} [description]
+ * @return {Phaser.Input.Keyboard.Key} The Key that was processed.
  */
 var ProcessKeyDown = function (key, event)
 {
@@ -35630,12 +36089,13 @@ module.exports = ProcessKeyDown;
  * Used internally by the KeyboardManager.
  *
  * @function Phaser.Input.Keyboard.ProcessKeyUp
+ * @private
  * @since 3.0.0
  *
- * @param {Phaser.Input.Keyboard.Key} key - [description]
- * @param {KeyboardEvent} event - [description]
+ * @param {Phaser.Input.Keyboard.Key} key - The Key to process the event for.
+ * @param {KeyboardEvent} event - The native Keyboard event.
  *
- * @return {Phaser.Input.Keyboard.Key} [description]
+ * @return {Phaser.Input.Keyboard.Key} The Key that was processed.
  */
 var ProcessKeyUp = function (key, event)
 {
@@ -35688,10 +36148,10 @@ module.exports = ProcessKeyUp;
  * @function Phaser.Input.Keyboard.UpDuration
  * @since 3.0.0
  *
- * @param {Phaser.Input.Keyboard.Key} key - [description]
- * @param {integer} [duration=50] - [description]
+ * @param {Phaser.Input.Keyboard.Key} key - The Key object to test.
+ * @param {integer} [duration=50] - The duration, in ms, within which the key must have been released.
  *
- * @return {boolean} [description]
+ * @return {boolean} `true` if the Key was released within `duration` ms, otherwise `false`.
  */
 var UpDuration = function (key, duration)
 {
@@ -35725,21 +36185,19 @@ var Features = __webpack_require__(/*! ../../device/Features */ "./device/Featur
 //  https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
 
 /**
- * @callback MouseHandler
- *
- * @property {MouseEvent} event - [description]
- */
-
-/**
  * @classdesc
- * [description]
+ * The Mouse Manager is a helper class that belongs to the Input Manager.
+ * 
+ * Its role is to listen for native DOM Mouse Events and then pass them onto the Input Manager for further processing.
+ * 
+ * You do not need to create this class directly, the Input Manager will create an instance of it automatically.
  *
  * @class MouseManager
  * @memberOf Phaser.Input.Mouse
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Input.InputManager} inputManager - [description]
+ * @param {Phaser.Input.InputManager} inputManager - A reference to the Input Manager.
  */
 var MouseManager = new Class({
 
@@ -35748,7 +36206,7 @@ var MouseManager = new Class({
     function MouseManager (inputManager)
     {
         /**
-         * [description]
+         * A reference to the Input Manager.
          *
          * @name Phaser.Input.Mouse.MouseManager#manager
          * @type {Phaser.Input.InputManager}
@@ -35767,7 +36225,8 @@ var MouseManager = new Class({
         this.capture = true;
 
         /**
-         * [description]
+         * A boolean that controls if the Mouse Manager is enabled or not.
+         * Can be toggled on the fly.
          *
          * @name Phaser.Input.Mouse.MouseManager#enabled
          * @type {boolean}
@@ -35777,22 +36236,14 @@ var MouseManager = new Class({
         this.enabled = false;
 
         /**
-         * [description]
+         * The Touch Event target, as defined in the Game Config.
+         * Typically the canvas to which the game is rendering, but can be any interactive DOM element.
          *
          * @name Phaser.Input.Mouse.MouseManager#target
-         * @type {null}
+         * @type {any}
          * @since 3.0.0
          */
         this.target;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Input.Mouse.MouseManager#handler
-         * @type {?MouseHandler}
-         * @since 3.0.0
-         */
-        this.handler;
 
         /**
          * If the mouse has been pointer locked successfully this will be set to true.
@@ -35808,9 +36259,10 @@ var MouseManager = new Class({
     },
 
     /**
-     * [description]
+     * The Touch Manager boot process.
      *
      * @method Phaser.Input.Mouse.MouseManager#boot
+     * @private
      * @since 3.0.0
      */
     boot: function ()
@@ -35838,12 +36290,17 @@ var MouseManager = new Class({
     },
 
     /**
-     * [description]
+     * Attempts to disable the context menu from appearing if you right-click on the browser.
+     * 
+     * Works by listening for the `contextmenu` event and prevent defaulting it.
+     * 
+     * Use this if you need to enable right-button mouse support in your game, and the browser
+     * menu keeps getting in the way.
      *
      * @method Phaser.Input.Mouse.MouseManager#disableContextMenu
      * @since 3.0.0
      *
-     * @return {Phaser.Input.Mouse.MouseManager} [description]
+     * @return {Phaser.Input.Mouse.MouseManager} This Mouse Manager instance.
      */
     disableContextMenu: function ()
     {
@@ -35915,9 +36372,17 @@ var MouseManager = new Class({
         }
     },
 
+    /**
+     * The Mouse Move Event Handler.
+     *
+     * @method Phaser.Input.Mouse.MouseManager#onMouseMove
+     * @since 3.10.0
+     *
+     * @param {MouseEvent} event - The native DOM Mouse Move Event.
+     */
     onMouseMove: function (event)
     {
-        if (event.defaultPrevented)
+        if (event.defaultPrevented || !this.enabled)
         {
             // Do nothing if event already handled
             return;
@@ -35931,9 +36396,17 @@ var MouseManager = new Class({
         }
     },
 
+    /**
+     * The Mouse Down Event Handler.
+     *
+     * @method Phaser.Input.Mouse.MouseManager#onMouseDown
+     * @since 3.10.0
+     *
+     * @param {MouseEvent} event - The native DOM Mouse Down Event.
+     */
     onMouseDown: function (event)
     {
-        if (event.defaultPrevented)
+        if (event.defaultPrevented || !this.enabled)
         {
             // Do nothing if event already handled
             return;
@@ -35947,9 +36420,17 @@ var MouseManager = new Class({
         }
     },
 
+    /**
+     * The Mouse Up Event Handler.
+     *
+     * @method Phaser.Input.Mouse.MouseManager#onMouseUp
+     * @since 3.10.0
+     *
+     * @param {MouseEvent} event - The native DOM Mouse Up Event.
+     */
     onMouseUp: function (event)
     {
-        if (event.defaultPrevented)
+        if (event.defaultPrevented || !this.enabled)
         {
             // Do nothing if event already handled
             return;
@@ -35964,7 +36445,8 @@ var MouseManager = new Class({
     },
 
     /**
-     * [description]
+     * Starts the Mouse Event listeners running.
+     * This is called automatically and does not need to be manually invoked.
      *
      * @method Phaser.Input.Mouse.MouseManager#startListeners
      * @since 3.0.0
@@ -36000,7 +36482,8 @@ var MouseManager = new Class({
     },
 
     /**
-     * [description]
+     * Stops the Mouse Event listeners.
+     * This is called automatically and does not need to be manually invoked.
      *
      * @method Phaser.Input.Mouse.MouseManager#stopListeners
      * @since 3.0.0
@@ -36022,7 +36505,7 @@ var MouseManager = new Class({
     },
 
     /**
-     * [description]
+     * Destroys this Mouse Manager instance.
      *
      * @method Phaser.Input.Mouse.MouseManager#destroy
      * @since 3.0.0
@@ -36031,6 +36514,7 @@ var MouseManager = new Class({
     {
         this.stopListeners();
 
+        this.target = null;
         this.manager = null;
     }
 
@@ -36089,21 +36573,19 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 // https://www.html5rocks.com/en/mobile/touch/
 
 /**
- * @callback TouchHandler
- *
- * @param {TouchEvent} event - [description]
- */
-
-/**
  * @classdesc
- * [description]
+ * The Touch Manager is a helper class that belongs to the Input Manager.
+ * 
+ * Its role is to listen for native DOM Touch Events and then pass them onto the Input Manager for further processing.
+ * 
+ * You do not need to create this class directly, the Input Manager will create an instance of it automatically.
  *
  * @class TouchManager
  * @memberOf Phaser.Input.Touch
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Input.InputManager} inputManager - [description]
+ * @param {Phaser.Input.InputManager} inputManager - A reference to the Input Manager.
  */
 var TouchManager = new Class({
 
@@ -36112,7 +36594,7 @@ var TouchManager = new Class({
     function TouchManager (inputManager)
     {
         /**
-         * [description]
+         * A reference to the Input Manager.
          *
          * @name Phaser.Input.Touch.TouchManager#manager
          * @type {Phaser.Input.InputManager}
@@ -36131,7 +36613,8 @@ var TouchManager = new Class({
         this.capture = true;
 
         /**
-         * [description]
+         * A boolean that controls if the Touch Manager is enabled or not.
+         * Can be toggled on the fly.
          *
          * @name Phaser.Input.Touch.TouchManager#enabled
          * @type {boolean}
@@ -36141,30 +36624,23 @@ var TouchManager = new Class({
         this.enabled = false;
 
         /**
-         * [description]
+         * The Touch Event target, as defined in the Game Config.
+         * Typically the canvas to which the game is rendering, but can be any interactive DOM element.
          *
          * @name Phaser.Input.Touch.TouchManager#target
-         * @type {null}
+         * @type {any}
          * @since 3.0.0
          */
         this.target;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Input.Touch.TouchManager#handler
-         * @type {?TouchHandler}
-         * @since 3.0.0
-         */
-        this.handler;
 
         inputManager.events.once('boot', this.boot, this);
     },
 
     /**
-     * [description]
+     * The Touch Manager boot process.
      *
      * @method Phaser.Input.Touch.TouchManager#boot
+     * @private
      * @since 3.0.0
      */
     boot: function ()
@@ -36186,9 +36662,17 @@ var TouchManager = new Class({
         }
     },
 
+    /**
+     * The Touch Start Event Handler.
+     *
+     * @method Phaser.Input.Touch.TouchManager#onTouchStart
+     * @since 3.10.0
+     *
+     * @param {TouchEvent} event - The native DOM Touch Start Event.
+     */
     onTouchStart: function (event)
     {
-        if (event.defaultPrevented)
+        if (event.defaultPrevented || !this.enabled)
         {
             // Do nothing if event already handled
             return;
@@ -36202,9 +36686,17 @@ var TouchManager = new Class({
         }
     },
 
+    /**
+     * The Touch Move Event Handler.
+     *
+     * @method Phaser.Input.Touch.TouchManager#onTouchMove
+     * @since 3.10.0
+     *
+     * @param {TouchEvent} event - The native DOM Touch Move Event.
+     */
     onTouchMove: function (event)
     {
-        if (event.defaultPrevented)
+        if (event.defaultPrevented || !this.enabled)
         {
             // Do nothing if event already handled
             return;
@@ -36218,9 +36710,17 @@ var TouchManager = new Class({
         }
     },
 
+    /**
+     * The Touch End Event Handler.
+     *
+     * @method Phaser.Input.Touch.TouchManager#onTouchEnd
+     * @since 3.10.0
+     *
+     * @param {TouchEvent} event - The native DOM Touch End Event.
+     */
     onTouchEnd: function (event)
     {
-        if (event.defaultPrevented)
+        if (event.defaultPrevented || !this.enabled)
         {
             // Do nothing if event already handled
             return;
@@ -36235,7 +36735,8 @@ var TouchManager = new Class({
     },
 
     /**
-     * [description]
+     * Starts the Touch Event listeners running.
+     * This is called automatically and does not need to be manually invoked.
      *
      * @method Phaser.Input.Touch.TouchManager#startListeners
      * @since 3.0.0
@@ -36262,7 +36763,8 @@ var TouchManager = new Class({
     },
 
     /**
-     * [description]
+     * Stops the Touch Event listeners.
+     * This is called automatically and does not need to be manually invoked.
      *
      * @method Phaser.Input.Touch.TouchManager#stopListeners
      * @since 3.0.0
@@ -36277,7 +36779,7 @@ var TouchManager = new Class({
     },
 
     /**
-     * [description]
+     * Destroys this Touch Manager instance.
      *
      * @method Phaser.Input.Touch.TouchManager#destroy
      * @since 3.0.0
@@ -36286,6 +36788,7 @@ var TouchManager = new Class({
     {
         this.stopListeners();
 
+        this.target = null;
         this.manager = null;
     }
 
@@ -59935,8 +60438,8 @@ var Systems = new Class({
      * @method Phaser.Scenes.Systems#step
      * @since 3.0.0
      *
-     * @param {number} time - [description]
-     * @param {number} delta - [description]
+     * @param {number} time - The time value from the most recent Game step. Typically a high-resolution timer value, or Date.now().
+     * @param {number} delta - The delta value since the last frame. This is smoothed to avoid delta spikes by the TimeStep class.
      */
     step: function (time, delta)
     {

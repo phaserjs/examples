@@ -41,6 +41,11 @@ function create ()
     player.setCollideWorldBounds(true);
 
     this.cameras.main.startFollow(player, true, 0.05, 0.05);
+
+    this.input.on('pointerdown', function (pointer) {
+        console.log(pointer.camera.getWorldPoint(pointer.x, pointer.y));
+        // console.log(pointer, x, y);
+    });
 }
 
 function update ()

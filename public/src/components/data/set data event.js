@@ -20,8 +20,6 @@ function create ()
 {
     var text = this.add.text(350, 250, '', { font: '16px Courier', fill: '#00ff00' });
 
-    console.log(text);
-
     var gem = this.add.image(300, 300, 'gem');
 
     //  Store some data about this Gem:
@@ -44,11 +42,10 @@ function create ()
 
     });
 
-    //  Set the value, this will call the 'after' callback
+    //  Set the value, this will emit the `setdata` event.
     gem.data.set('gold', 50);
 
     //  Change the 'value' property when the mouse is clicked
-
     this.input.on('pointerdown', function () {
 
         var gold = gem.data.get('gold');

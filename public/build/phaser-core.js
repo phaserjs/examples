@@ -4336,20 +4336,28 @@ var TimeStep = new Class({
      * @method Phaser.Boot.TimeStep#step
      * @since 3.0.0
      *
-     * @param {integer} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
+     * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      */
     step: function (time)
     {
         this.frame++;
 
-        this.rawDelta = time - this.lastTime;
+        var before = time - this.lastTime;
+
+        if (before < 0)
+        {
+            //  Because, Chrome.
+            before = 0;
+        }
+
+        this.rawDelta = before;
 
         var idx = this.deltaIndex;
         var history = this.deltaHistory;
         var max = this.deltaSmoothingMax;
 
         //  delta time (time is in ms)
-        var dt = (time - this.lastTime);
+        var dt = before;
 
         //  When a browser switches tab, then comes back again, it takes around 10 frames before
         //  the delta time settles down so we employ a 'cooling down' period before we start
@@ -5273,6 +5281,19 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this.roundPixels = false;
+
+        /**
+         * Is this Camera visible or not?
+         * 
+         * A visible camera will render and perform input tests.
+         * An invisible camera will not render anything and will skip input tests.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#visible
+         * @type {boolean}
+         * @default true
+         * @since 3.10.0
+         */
+        this.visible = true;
 
         /**
          * Is this Camera using a bounds to restrict scrolling movement?
@@ -6233,6 +6254,25 @@ var Camera = new Class({
     },
 
     /**
+     * Sets the visibility of this Camera.
+     * 
+     * An invisible Camera will skip rendering and input tests of everything it can see.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setVisible
+     * @since 3.10.0
+     *
+     * @param {boolean} value - The visible state of the Camera.
+     * 
+     * @return {this} This Camera instance.
+     */
+    setVisible: function (value)
+    {
+        this.visible = value;
+
+        return this;
+    },
+
+    /**
      * Sets the Camera to follow a Game Object.
      *
      * When enabled the Camera will automatically adjust its scroll position to keep the target Game Object
@@ -6370,9 +6410,12 @@ var Camera = new Class({
      */
     update: function (time, delta)
     {
-        this.shakeEffect.update(time, delta);
-        this.flashEffect.update(time, delta);
-        this.fadeEffect.update(time, delta);
+        if (this.visible)
+        {
+            this.shakeEffect.update(time, delta);
+            this.flashEffect.update(time, delta);
+            this.fadeEffect.update(time, delta);
+        }
     },
 
     /**
@@ -6701,6 +6744,7 @@ var CameraManager = new Class({
         {
             this.cameras.push(camera);
             this.cameraPool.slice(poolIndex, 1);
+
             return camera;
         }
 
@@ -6745,6 +6789,7 @@ var CameraManager = new Class({
             camera.scrollX = GetFastValue(cameraConfig, 'scrollX', 0);
             camera.scrollY = GetFastValue(cameraConfig, 'scrollY', 0);
             camera.roundPixels = GetFastValue(cameraConfig, 'roundPixels', false);
+            camera.visible = GetFastValue(cameraConfig, 'visible', true);
 
             // Background Color
 
@@ -6797,29 +6842,38 @@ var CameraManager = new Class({
     },
 
     /**
-     * [description]
+     * Returns an array of all cameras below the given Pointer.
+     * 
+     * The first camera in the array is the top-most camera in the camera list.
      *
-     * @method Phaser.Cameras.Scene2D.CameraManager#getCameraBelowPointer
-     * @since 3.0.0
+     * @method Phaser.Cameras.Scene2D.CameraManager#getCamerasBelowPointer
+     * @since 3.10.0
      *
-     * @param {Phaser.Input.Pointer} pointer - [description]
+     * @param {Phaser.Input.Pointer} pointer - The Pointer to check against.
      *
-     * @return {Phaser.Cameras.Scene2D.Camera} [description]
+     * @return {Phaser.Cameras.Scene2D.Camera[]} An array of cameras below the Pointer.
      */
-    getCameraBelowPointer: function (pointer)
+    getCamerasBelowPointer: function (pointer)
     {
         var cameras = this.cameras;
 
-        //  Start from the most recently added camera (the 'top' camera)
-        for (var i = cameras.length - 1; i >= 0; i--)
+        var x = pointer.x;
+        var y = pointer.y;
+
+        var output = [];
+
+        for (var i = 0; i < cameras.length; i++)
         {
             var camera = cameras[i];
 
-            if (camera.inputEnabled && RectangleContains(camera, pointer.x, pointer.y))
+            if (camera.visible && camera.inputEnabled && RectangleContains(camera, x, y))
             {
-                return camera;
+                //  So the top-most camera is at the top of the search array
+                output.unshift(camera);
             }
         }
+
+        return output;
     },
 
     /**
@@ -6865,9 +6919,12 @@ var CameraManager = new Class({
         {
             var camera = cameras[i];
 
-            camera.preRender(baseScale, renderer.config.resolution);
+            if (camera.visible)
+            {
+                camera.preRender(baseScale, renderer.config.resolution);
 
-            renderer.render(this.scene, children, interpolation, camera);
+                renderer.render(this.scene, children, interpolation, camera);
+            }
         }
     },
 
@@ -8595,17 +8652,28 @@ var DataManager = new Class({
         this.list = {};
 
         /**
-         * Whether setting data is blocked for this DataManager.
+         * The public values list. You can use this to access anything you have stored
+         * in this Data Manager. For example, if you set a value called `gold` you can
+         * access it via:
          *
-         * Used temporarily to allow 'changedata' event listeners to prevent
-         * specific data from being set.
+         * ```javascript
+         * this.data.values.gold;
+         * ```
          *
-         * @name Phaser.Data.DataManager#blockSet
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
+         * You can also modify it directly:
+         * 
+         * ```javascript
+         * this.data.values.gold += 1000;
+         * ```
+         *
+         * Doing so will emit a `setdata` event from the parent of this Data Manager.
+         *
+         * @name Phaser.Data.DataManager#values
+         * @type {Object.<string, *>}
+         * @default {}
+         * @since 3.10.0
          */
-        this.blockSet = false;
+        this.values = {};
 
         /**
          * Whether setting data is frozen for this DataManager.
@@ -8627,20 +8695,56 @@ var DataManager = new Class({
     /**
      * Retrieves the value for the given key, or undefined if it doesn't exist.
      *
+     * You can also access values via the `values` object. For example, if you had a key called `gold` you can do either:
+     * 
+     * ```javascript
+     * this.data.get('gold');
+     * ```
+     *
+     * Or access the value directly:
+     * 
+     * ```javascript
+     * this.data.values.gold;
+     * ```
+     *
+     * You can also pass in an array of keys, in which case an array of values will be returned:
+     * 
+     * ```javascript
+     * this.data.get([ 'gold', 'armor', 'health' ]);
+     * ```
+     *
+     * This approach is useful for destructuring arrays in ES6.
+     *
      * @method Phaser.Data.DataManager#get
      * @since 3.0.0
      *
-     * @param {string} key - The key of the value to retrieve.
+     * @param {(string|string[])} key - The key of the value to retrieve, or an array of keys.
      *
-     * @return {*} The value belonging to the given key.
+     * @return {*} The value belonging to the given key, or an array of values, the order of which will match the input array.
      */
     get: function (key)
     {
-        return this.list[key];
+        var list = this.list;
+
+        if (Array.isArray(key))
+        {
+            var output = [];
+
+            for (var i = 0; i < key.length; i++)
+            {
+                output.push(list[key[i]]);
+            }
+
+            return output;
+        }
+        else
+        {
+            return list[key];
+        }
     },
 
     /**
-     * Retrieves all data values.
+     * Retrieves all data values in a new object.
      *
      * @method Phaser.Data.DataManager#getAll
      * @since 3.0.0
@@ -8653,7 +8757,7 @@ var DataManager = new Class({
 
         for (var key in this.list)
         {
-            if(this.list.hasOwnProperty(key))
+            if (this.list.hasOwnProperty(key))
             {
                 results[key] = this.list[key];
             }
@@ -8663,12 +8767,12 @@ var DataManager = new Class({
     },
 
     /**
-     * Queries the DataManager for the values of keys matching the given search string.
+     * Queries the DataManager for the values of keys matching the given regular expression.
      *
      * @method Phaser.Data.DataManager#query
      * @since 3.0.0
      *
-     * @param {string} search - The search string.
+     * @param {RegExp} search - A regular expression object. If a non-RegExp object obj is passed, it is implicitly converted to a RegExp by using new RegExp(obj).
      *
      * @return {Object.<string, *>} The values of the keys matching the search string.
      */
@@ -8688,15 +8792,44 @@ var DataManager = new Class({
     },
 
     /**
-     * Sets the value for the given key.
+     * Sets a value for the given key. If the key doesn't already exist in the Data Manager then it is created.
+     * 
+     * ```javascript
+     * data.set('name', 'Red Gem Stone');
+     * ```
      *
-     * Emits the 'changedata' and 'setdata' events.
+     * You can also pass in an object of key value pairs as the first argument:
+     *
+     * ```javascript
+     * data.set({ name: 'Red Gem Stone', level: 2, owner: 'Link', gold: 50 });
+     * ```
+     *
+     * To get a value back again you can call `get`:
+     * 
+     * ```javascript
+     * data.get('gold');
+     * ```
+     * 
+     * Or you can access the value directly via the `values` property, where it works like any other variable:
+     * 
+     * ```javascript
+     * data.values.gold += 50;
+     * ```
+     *
+     * When the value is first set, a `setdata` event is emitted.
+     *
+     * If the key already exists, a `changedata` event is emitted instead, along an event named after the key.
+     * For example, if you updated an existing key called `PlayerLives` then it would emit the event `changedata_PlayerLives`.
+     * These events will be emitted regardless if you use this method to set the value, or the direct `values` setter.
+     *
+     * Please note that the data keys are case-sensitive and must be valid JavaScript Object property strings.
+     * This means the keys `gold` and `Gold` are treated as two unique values within the Data Manager.
      *
      * @method Phaser.Data.DataManager#set
      * @since 3.0.0
      *
-     * @param {string} key - The key to set the value for.
-     * @param {*} data - The value to set.
+     * @param {(string|object)} key - The key to set the value for. Or an object or key value pairs. If an object the `data` argument is ignored.
+     * @param {*} data - The value to set for the given key. If an object is provided as the key this argument is ignored.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
@@ -8707,48 +8840,95 @@ var DataManager = new Class({
             return this;
         }
 
-        if (this.events.listenerCount('changedata') > 0)
+        if (typeof key === 'string')
         {
-            this.blockSet = false;
-
-            var _this = this;
-
-            var resetFunction = function (value)
+            return this.setValue(key, data);
+        }
+        else
+        {
+            for (var entry in key)
             {
-                _this.blockSet = true;
-                _this.list[key] = value;
-                _this.events.emit('setdata', _this.parent, key, value);
-            };
-
-            this.events.emit('changedata', this.parent, key, data, resetFunction);
-
-            //  One of the listeners blocked this update from being set, so abort
-            if (this.blockSet)
-            {
-                return this;
+                this.setValue(entry, key[entry]);
             }
         }
-
-        this.list[key] = data;
-
-        this.events.emit('setdata', this.parent, key, data);
 
         return this;
     },
 
     /**
-     * Passes all data entries to the given callback. Stores the result of the callback.
+     * Internal value setter, called automatically by the `set` method.
+     *
+     * @method Phaser.Data.DataManager#setValue
+     * @private
+     * @since 3.10.0
+     *
+     * @param {string} key - The key to set the value for.
+     * @param {*} data - The value to set.
+     *
+     * @return {Phaser.Data.DataManager} This DataManager object.
+     */
+    setValue: function (key, data)
+    {
+        if (this._frozen)
+        {
+            return this;
+        }
+
+        if (this.has(key))
+        {
+            //  Hit the key getter, which will in turn emit the events.
+            this.values[key] = data;
+        }
+        else
+        {
+            var _this = this;
+            var list = this.list;
+            var events = this.events;
+            var parent = this.parent;
+
+            Object.defineProperty(this.values, key, {
+
+                enumerable: true,
+
+                get: function ()
+                {
+                    return list[key];
+                },
+
+                set: function (value)
+                {
+                    if (!_this._frozen)
+                    {
+                        list[key] = value;
+
+                        events.emit('changedata', parent, key, data);
+                        events.emit('changedata_' + key, parent, data);
+                    }
+                }
+
+            });
+
+            list[key] = data;
+
+            events.emit('setdata', parent, key, data);
+        }
+
+        return this;
+    },
+
+    /**
+     * Passes all data entries to the given callback.
      *
      * @method Phaser.Data.DataManager#each
      * @since 3.0.0
      *
      * @param {DataEachCallback} callback - The function to call.
-     * @param {*} [scope] - Value to use as `this` when executing callback.
+     * @param {*} [context] - Value to use as `this` when executing callback.
      * @param {...*} [args] - Additional arguments that will be passed to the callback, after the game object, key, and data.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
-    each: function (callback, scope)
+    each: function (callback, context)
     {
         var args = [ this.parent, null, undefined ];
 
@@ -8762,20 +8942,23 @@ var DataManager = new Class({
             args[1] = key;
             args[2] = this.list[key];
 
-            callback.apply(scope, args);
+            callback.apply(context, args);
         }
 
         return this;
     },
 
     /**
-     * Merge the given data object into this DataManager's data object.
+     * Merge the given object of key value pairs into this DataManager.
+     *
+     * Any newly created values will emit a `setdata` event. Any updated values (see the `overwrite` argument)
+     * will emit a `changedata` event.
      *
      * @method Phaser.Data.DataManager#merge
      * @since 3.0.0
      *
      * @param {Object.<string, *>} data - The data to merge.
-     * @param {boolean} overwrite - Whether to overwrite existing data. Defaults to true.
+     * @param {boolean} [overwrite=true] - Whether to overwrite existing data. Defaults to true.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
@@ -8788,7 +8971,7 @@ var DataManager = new Class({
         {
             if (data.hasOwnProperty(key) && (overwrite || (!overwrite && !this.has(key))))
             {
-                this.list[key] = data[key];
+                this.setValue(key, data[key]);
             }
         }
 
@@ -8798,20 +8981,63 @@ var DataManager = new Class({
     /**
      * Remove the value for the given key.
      *
+     * If the key is found in this Data Manager it is removed from the internal lists and a
+     * `removedata` event is emitted.
+     * 
+     * You can also pass in an array of keys, in which case all keys in the array will be removed:
+     * 
+     * ```javascript
+     * this.data.remove([ 'gold', 'armor', 'health' ]);
+     * ```
+     *
      * @method Phaser.Data.DataManager#remove
      * @since 3.0.0
      *
-     * @param {string} key - The key to remove
+     * @param {(string|string[])} key - The key to remove, or an array of keys to remove.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
     remove: function (key)
     {
-        if (!this._frozen && this.has(key))
+        if (this._frozen)
+        {
+            return this;
+        }
+
+        if (Array.isArray(key))
+        {
+            for (var i = 0; i < key.length; i++)
+            {
+                this.removeValue(key[i]);
+            }
+        }
+        else
+        {
+            return this.removeValue(key);
+        }
+
+        return this;
+    },
+
+    /**
+     * Internal value remover, called automatically by the `remove` method.
+     *
+     * @method Phaser.Data.DataManager#removeValue
+     * @private
+     * @since 3.10.0
+     *
+     * @param {string} key - The key to set the value for.
+     *
+     * @return {Phaser.Data.DataManager} This DataManager object.
+     */
+    removeValue: function (key)
+    {
+        if (this.has(key))
         {
             var data = this.list[key];
 
             delete this.list[key];
+            delete this.values[key];
 
             this.events.emit('removedata', this, key, data);
         }
@@ -8820,7 +9046,7 @@ var DataManager = new Class({
     },
 
     /**
-     * Retrieves the data associated with the given 'key', deletes it from this Data store, then returns it.
+     * Retrieves the data associated with the given 'key', deletes it from this Data Manager, then returns it.
      *
      * @method Phaser.Data.DataManager#pop
      * @since 3.0.0
@@ -8838,6 +9064,7 @@ var DataManager = new Class({
             data = this.list[key];
 
             delete this.list[key];
+            delete this.values[key];
 
             this.events.emit('removedata', this, key, data);
         }
@@ -8846,14 +9073,17 @@ var DataManager = new Class({
     },
 
     /**
-     * Determines whether the given key is set in this Data store.
+     * Determines whether the given key is set in this Data Manager.
+     * 
+     * Please note that the keys are case-sensitive and must be valid JavaScript Object property strings.
+     * This means the keys `gold` and `Gold` are treated as two unique values within the Data Manager.
      *
      * @method Phaser.Data.DataManager#has
      * @since 3.0.0
      *
      * @param {string} key - The key to check.
      *
-     * @return {boolean} Whether the key is set.
+     * @return {boolean} Returns `true` if the key exists, otherwise `false`.
      */
     has: function (key)
     {
@@ -8861,12 +9091,13 @@ var DataManager = new Class({
     },
 
     /**
-     * Freeze or unfreeze this Data store, to allow or prevent setting its values.
+     * Freeze or unfreeze this Data Manager. A frozen Data Manager will block all attempts
+     * to create new values or update existing ones.
      *
      * @method Phaser.Data.DataManager#setFreeze
      * @since 3.0.0
      *
-     * @param {boolean} value - Whether to freeze the Data store.
+     * @param {boolean} value - Whether to freeze or unfreeze the Data Manager.
      *
      * @return {Phaser.Data.DataManager} This DataManager object.
      */
@@ -8878,7 +9109,7 @@ var DataManager = new Class({
     },
 
     /**
-     * Delete all data in this Data store and unfreeze it.
+     * Delete all data in this Data Manager and unfreeze it.
      *
      * @method Phaser.Data.DataManager#reset
      * @since 3.0.0
@@ -8890,9 +9121,9 @@ var DataManager = new Class({
         for (var key in this.list)
         {
             delete this.list[key];
+            delete this.values[key];
         }
 
-        this.blockSet = false;
         this._frozen = false;
 
         return this;
@@ -8916,7 +9147,8 @@ var DataManager = new Class({
     },
 
     /**
-     * Freeze this Data component, so no values can be set.
+     * Gets or sets the frozen state of this Data Manager.
+     * A frozen Data Manager will block all attempts to create new values or update existing ones.
      *
      * @name Phaser.Data.DataManager#freeze
      * @type {boolean}
@@ -8937,7 +9169,7 @@ var DataManager = new Class({
     },
 
     /**
-     * Return the total number of entries in this Data component.
+     * Return the total number of entries in this Data Manager.
      *
      * @name Phaser.Data.DataManager#count
      * @type {integer}
@@ -13335,7 +13567,7 @@ var GameObject = new Class({
     },
 
     /**
-     * Adds a DataManager to this object.
+     * Adds a Data Manager component to this Game Object.
      *
      * @method Phaser.GameObjects.GameObject#setDataEnabled
      * @since 3.0.0
@@ -13354,16 +13586,51 @@ var GameObject = new Class({
     },
 
     /**
-     * This is a quick chainable alias to the `DataProxy.set` method.
-     * It allows you to set a key and value in this Game Objects data store.
+     * Allows you to store a key value pair within this Game Objects Data Manager.
+     * 
+     * If the Game Object has not been enabled for data (via `setDataEnabled`) then it will be enabled
+     * before setting the value.
+     * 
+     * If the key doesn't already exist in the Data Manager then it is created.
+     * 
+     * ```javascript
+     * sprite.setData('name', 'Red Gem Stone');
+     * ```
+     *
+     * You can also pass in an object of key value pairs as the first argument:
+     *
+     * ```javascript
+     * sprite.setData({ name: 'Red Gem Stone', level: 2, owner: 'Link', gold: 50 });
+     * ```
+     *
+     * To get a value back again you can call `getData`:
+     * 
+     * ```javascript
+     * sprite.getData('gold');
+     * ```
+     * 
+     * Or you can access the value directly via the `values` property, where it works like any other variable:
+     * 
+     * ```javascript
+     * sprite.data.values.gold += 50;
+     * ```
+     *
+     * When the value is first set, a `setdata` event is emitted from this Game Object.
+     *
+     * If the key already exists, a `changedata` event is emitted instead, along an event named after the key.
+     * For example, if you updated an existing key called `PlayerLives` then it would emit the event `changedata_PlayerLives`.
+     * These events will be emitted regardless if you use this method to set the value, or the direct `values` setter.
+     *
+     * Please note that the data keys are case-sensitive and must be valid JavaScript Object property strings.
+     * This means the keys `gold` and `Gold` are treated as two unique values within the Data Manager.
      *
      * @method Phaser.GameObjects.GameObject#setData
      * @since 3.0.0
      *
-     * @param {string} key - The key of the property to be stored.
-     * @param {*} value - The value to store with the key. Can be a string, number, array or object.
+     * @param {(string|object)} key - The key to set the value for. Or an object or key value pairs. If an object the `data` argument is ignored.
+     * @param {*} data - The value to set for the given key. If an object is provided as the key this argument is ignored.
      *
-     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     * @return {this} This GameObject.
      */
     setData: function (key, value)
     {
@@ -13378,14 +13645,34 @@ var GameObject = new Class({
     },
 
     /**
-     * This is a quick alias to the `DataProxy.get` method to remain consistent with `setData`.
+     * Retrieves the value for the given key in this Game Objects Data Manager, or undefined if it doesn't exist.
+     *
+     * You can also access values via the `values` object. For example, if you had a key called `gold` you can do either:
+     * 
+     * ```javascript
+     * sprite.getData('gold');
+     * ```
+     *
+     * Or access the value directly:
+     * 
+     * ```javascript
+     * sprite.data.values.gold;
+     * ```
+     *
+     * You can also pass in an array of keys, in which case an array of values will be returned:
+     * 
+     * ```javascript
+     * sprite.getData([ 'gold', 'armor', 'health' ]);
+     * ```
+     *
+     * This approach is useful for destructuring arrays in ES6.
      *
      * @method Phaser.GameObjects.GameObject#getData
      * @since 3.0.0
      *
-     * @param {string} key - The key of the property to be retrieved.
+     * @param {(string|string[])} key - The key of the value to retrieve, or an array of keys.
      *
-     * @return {*} The data, if present in the Data Store.
+     * @return {*} The value belonging to the given key, or an array of values, the order of which will match the input array.
      */
     getData: function (key)
     {
@@ -29723,6 +30010,50 @@ var InputManager = new Class({
     },
 
     /**
+     * Checks if the given Game Object should be considered as a candidate for input or not.
+     *
+     * Checks if the Game Object has an input component that is enabled, that it will render,
+     * and finally, if it has a parent, that the parent parent, or any ancestor, is visible or not.
+     *
+     * @method Phaser.Input.InputManager#inputCandidate
+     * @private
+     * @since 3.10.0
+     *
+     * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to test.
+     *
+     * @return {boolean} `true` if the Game Object should be considered for input, otherwise `false`.
+     */
+    inputCandidate: function (gameObject)
+    {
+        var input = gameObject.input;
+
+        if (!input || !input.enabled || !gameObject.willRender())
+        {
+            return false;
+        }
+
+        var visible = true;
+        var parent = gameObject.parentContainer;
+
+        if (parent)
+        {
+            do
+            {
+                if (!parent.visible)
+                {
+                    visible = false;
+                    break;
+                }
+
+                parent = parent.parentContainer;
+
+            } while (parent);
+        }
+
+        return visible;
+    },
+
+    /**
      * Performs a hit test using the given Pointer and camera, against an array of interactive Game Objects.
      *
      * The Game Objects are culled against the camera, and then the coordinates are translated into the local camera space
@@ -29778,7 +30109,7 @@ var InputManager = new Class({
         {
             var gameObject = culledGameObjects[i];
 
-            if (!gameObject.input || !gameObject.input.enabled || !gameObject.willRender())
+            if (!this.inputCandidate(gameObject))
             {
                 continue;
             }
@@ -30571,7 +30902,7 @@ var InputPlugin = new Class({
      * it is currently above.
      *
      * The hit test is performed against which-ever Camera the Pointer is over. If it is over multiple
-     * cameras, the one on the top of the camera list is used.
+     * cameras, it starts checking the camera at the top of the camera list, and if nothing is found, iterates down the list.
      *
      * @method Phaser.Input.InputPlugin#hitTestPointer
      * @since 3.0.0
@@ -30582,11 +30913,11 @@ var InputPlugin = new Class({
      */
     hitTestPointer: function (pointer)
     {
-        var camera = this.cameras.getCameraBelowPointer(pointer);
+        var cameras = this.cameras.getCamerasBelowPointer(pointer);
 
-        if (camera)
+        for (var c = 0; c < cameras.length; c++)
         {
-            pointer.camera = camera;
+            var camera = cameras[c];
 
             //  Get a list of all objects that can be seen by the camera below the pointer in the scene and store in 'output' array.
             //  All objects in this array are input enabled, as checked by the hitTest method, so we don't need to check later on as well.
@@ -30603,12 +30934,15 @@ var InputPlugin = new Class({
                 }
             }
 
-            return over;
+            if (over.length > 0)
+            {
+                pointer.camera = camera;
+
+                return over;
+            }
         }
-        else
-        {
-            return [];
-        }
+
+        return [];
     },
 
     /**

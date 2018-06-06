@@ -37,11 +37,18 @@ function update ()
     }
 
     var debug = [];
-    var pads = this.input.gamepad.getAll();
+    var pads = this.input.gamepad.gamepads;
+    // var pads = this.input.gamepad.getAll();
+    // var pads = navigator.getGamepads();
 
     for (var i = 0; i < pads.length; i++)
     {
         var pad = pads[i];
+
+        if (!pad)
+        {
+            continue;
+        }
 
         //  Timestamp, index. ID
         debug.push(pad.id);
@@ -56,6 +63,7 @@ function update ()
             var button = pad.buttons[b];
 
             buttons = buttons.concat('B' + button.index + ': ' + button.value + '  ');
+            // buttons = buttons.concat('B' + b + ': ' + button.value + '  ');
 
             if (b === 8)
             {
@@ -75,6 +83,7 @@ function update ()
             var axis = pad.axes[a];
 
             axes = axes.concat('A' + axis.index + ': ' + axis.getValue() + '  ');
+            // axes = axes.concat('A' + a + ': ' + axis + '  ');
 
             if (a === 1)
             {

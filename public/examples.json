@@ -1505,7 +1505,7 @@
             {
               "path": "src\\components\\data\\set multiple values.js",
               "name": "set multiple values.js",
-              "size": 1274,
+              "size": 1272,
               "extension": ".js"
             },
             {
@@ -1515,10 +1515,10 @@
               "extension": ".js"
             }
           ],
-          "size": 8257
+          "size": 8255
         }
       ],
-      "size": 8257
+      "size": 8255
     },
     {
       "path": "src\\demoscene",
@@ -4293,6 +4293,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\tilemap\\static\\grid movement.js",
+                  "name": "grid movement.js",
+                  "size": 658,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\tilemap\\static\\layer size.js",
                   "name": "layer size.js",
                   "size": 1546,
@@ -4389,7 +4395,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 48095
+              "size": 48753
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -4441,10 +4447,10 @@
               "size": 71012
             }
           ],
-          "size": 255492
+          "size": 256150
         }
       ],
-      "size": 761030
+      "size": 761688
     },
     {
       "path": "src\\games",
@@ -6311,17 +6317,29 @@
             {
               "path": "src\\input\\gamepad\\gamepad debug.js",
               "name": "gamepad debug.js",
-              "size": 1836,
+              "size": 2140,
               "extension": ".js"
             },
             {
               "path": "src\\input\\gamepad\\move sprite.js",
               "name": "move sprite.js",
-              "size": 1512,
+              "size": 2001,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\gamepad\\select gamepad.js",
+              "name": "select gamepad.js",
+              "size": 1343,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\gamepad\\twin stick shooter.js",
+              "name": "twin stick shooter.js",
+              "size": 8302,
               "extension": ".js"
             }
           ],
-          "size": 4321
+          "size": 14759
         },
         {
           "path": "src\\input\\keyboard",
@@ -6665,7 +6683,7 @@
           "size": 9602
         }
       ],
-      "size": 125253
+      "size": 135691
     },
     {
       "path": "src\\loader",
@@ -9638,5 +9656,5 @@
       "size": 5291
     }
   ],
-  "size": 2506275
+  "size": 2517369
 }

@@ -14519,7 +14519,7 @@ var UpdateList = new Class({
      * @method Phaser.GameObjects.UpdateList#removeAll
      * @since 3.0.0
      *
-     * @return {Phaser.GameObjects.UpdateList} The UpdateList object.
+     * @return {Phaser.GameObjects.UpdateList} This UpdateList.
      */
     removeAll: function ()
     {
@@ -14573,7 +14573,7 @@ var UpdateList = new Class({
     },
 
     /**
-     * [description]
+     * The length of the list.
      *
      * @name Phaser.GameObjects.UpdateList#length
      * @type {integer}
@@ -14619,7 +14619,7 @@ var _FLAG = 2; // 0010
 /**
  * Provides methods used for setting the alpha properties of a Game Object.
  * Should be applied as a mixin and not used directly.
- * 
+ *
  * @name Phaser.GameObjects.Components.Alpha
  * @since 3.0.0
  */
@@ -14628,7 +14628,7 @@ var Alpha = {
 
     /**
      * Private internal value. Holds the global alpha value.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#_alpha
      * @type {float}
      * @private
@@ -14639,7 +14639,7 @@ var Alpha = {
 
     /**
      * Private internal value. Holds the top-left alpha value.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#_alphaTL
      * @type {float}
      * @private
@@ -14650,7 +14650,7 @@ var Alpha = {
 
     /**
      * Private internal value. Holds the top-right alpha value.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#_alphaTR
      * @type {float}
      * @private
@@ -14661,7 +14661,7 @@ var Alpha = {
 
     /**
      * Private internal value. Holds the bottom-left alpha value.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#_alphaBL
      * @type {float}
      * @private
@@ -14672,7 +14672,7 @@ var Alpha = {
 
     /**
      * Private internal value. Holds the bottom-right alpha value.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#_alphaBR
      * @type {float}
      * @private
@@ -14683,11 +14683,12 @@ var Alpha = {
 
     /**
      * Clears all alpha values associated with this Game Object.
-     * Immediately sets the alpha levels back to 1 (fully opaque)
+     *
+     * Immediately sets the alpha levels back to 1 (fully opaque).
      *
      * @method Phaser.GameObjects.Components.Alpha#clearAlpha
      * @since 3.0.0
-     * 
+     *
      * @return {this} This Game Object instance.
      */
     clearAlpha: function ()
@@ -14704,12 +14705,12 @@ var Alpha = {
      *
      * @method Phaser.GameObjects.Components.Alpha#setAlpha
      * @since 3.0.0
-     * 
+     *
      * @param {float} [topLeft=1] - The alpha value used for the top-left of the Game Object. If this is the only value given it's applied across the whole Game Object.
      * @param {float} [topRight] - The alpha value used for the top-right of the Game Object. WebGL only.
      * @param {float} [bottomLeft] - The alpha value used for the bottom-left of the Game Object. WebGL only.
      * @param {float} [bottomRight] - The alpha value used for the bottom-right of the Game Object. WebGL only.
-     * 
+     *
      * @return {this} This Game Object instance.
      */
     setAlpha: function (topLeft, topRight, bottomLeft, bottomRight)
@@ -14736,7 +14737,7 @@ var Alpha = {
      * The alpha value of the Game Object.
      *
      * This is a global value, impacting the entire Game Object, not just a region of it.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#alpha
      * @type {float}
      * @since 3.0.0
@@ -14773,7 +14774,7 @@ var Alpha = {
     /**
      * The alpha value starting from the top-left of the Game Object.
      * This value is interpolated from the corner to the center of the Game Object.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#alphaTopLeft
      * @type {float}
      * @webglOnly
@@ -14803,7 +14804,7 @@ var Alpha = {
     /**
      * The alpha value starting from the top-right of the Game Object.
      * This value is interpolated from the corner to the center of the Game Object.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#alphaTopRight
      * @type {float}
      * @webglOnly
@@ -14833,7 +14834,7 @@ var Alpha = {
     /**
      * The alpha value starting from the bottom-left of the Game Object.
      * This value is interpolated from the corner to the center of the Game Object.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#alphaBottomLeft
      * @type {float}
      * @webglOnly
@@ -14863,7 +14864,7 @@ var Alpha = {
     /**
      * The alpha value starting from the bottom-right of the Game Object.
      * This value is interpolated from the corner to the center of the Game Object.
-     * 
+     *
      * @name Phaser.GameObjects.Components.Alpha#alphaBottomRight
      * @type {float}
      * @webglOnly
@@ -18191,16 +18192,16 @@ module.exports = Tint;
  */
 
 /**
- * Export a Game Object as a JSON object.
+ * Build a JSON representation of the given Game Object.
  *
  * This is typically extended further by Game Object specific implementations.
  *
  * @method Phaser.GameObjects.Components.ToJSON
  * @since 3.0.0
  *
- * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to export.
+ * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to export as JSON.
  *
- * @return {JSONGameObject} The exported Game Object.
+ * @return {JSONGameObject} The JSON representation of the Game Object.
  */
 var ToJSON = function (gameObject)
 {
@@ -19538,6 +19539,44 @@ var MATH_CONST = __webpack_require__(/*! ../../math/const */ "./math/const.js");
 var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics/GraphicsRender.js");
 
 /**
+ * Graphics line style (or stroke style) settings.
+ *
+ * @typedef {object} GraphicsLineStyle
+ *
+ * @property {number} width - The stroke width.
+ * @property {number} color - The stroke color.
+ * @property {number} alpha - The stroke alpha.
+ */
+
+/**
+ * Graphics fill style settings.
+ *
+ * @typedef {object} GraphicsFillStyle
+ *
+ * @property {number} color - The fill color.
+ * @property {number} alpha - The fill alpha.
+ */
+
+/**
+ * Graphics style settings.
+ *
+ * @typedef {object} GraphicsStyle
+ *
+ * @property {GraphicsLineStyle} lineStyle - The style applied to shape outlines.
+ * @property {GraphicsFillStyle} fillStyle - The style applied to shape areas.
+ */
+
+/**
+ * Options for the Graphics game Object.
+ *
+ * @typedef {object} GraphicsOptions
+ * @extends GraphicsStyle
+ *
+ * @property {number} x - The x coordinate of the Graphics.
+ * @property {number} y - The y coordinate of the Graphics.
+ */
+
+/**
  * @classdesc
  * [description]
  *
@@ -19556,8 +19595,8 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
  * @extends Phaser.GameObjects.Components.Visible
  * @extends Phaser.GameObjects.Components.ScrollFactor
  *
- * @param {Phaser.Scene} scene - [description]
- * @param {object} options - [description]
+ * @param {Phaser.Scene} scene - The Scene to which this Graphics object belongs.
+ * @param {GraphicsOptions} options - Options that set the position and default style of this Graphics object.
  */
 var Graphics = new Class({
 
@@ -19608,7 +19647,7 @@ var Graphics = new Class({
         this.displayOriginY = 0;
 
         /**
-         * [description]
+         * The array of commands used to render the Graphics.
          *
          * @name Phaser.GameObjects.Graphics#commandBuffer
          * @type {array}
@@ -19618,7 +19657,7 @@ var Graphics = new Class({
         this.commandBuffer = [];
 
         /**
-         * [description]
+         * The default fill color for shapes rendered by this Graphics object.
          *
          * @name Phaser.GameObjects.Graphics#defaultFillColor
          * @type {number}
@@ -19628,7 +19667,7 @@ var Graphics = new Class({
         this.defaultFillColor = -1;
 
         /**
-         * [description]
+         * The default fill alpha for shapes rendered by this Graphics object.
          *
          * @name Phaser.GameObjects.Graphics#defaultFillAlpha
          * @type {number}
@@ -19638,7 +19677,7 @@ var Graphics = new Class({
         this.defaultFillAlpha = 1;
 
         /**
-         * [description]
+         * The default stroke width for shapes rendered by this Graphics object.
          *
          * @name Phaser.GameObjects.Graphics#defaultStrokeWidth
          * @type {number}
@@ -19648,7 +19687,7 @@ var Graphics = new Class({
         this.defaultStrokeWidth = 1;
 
         /**
-         * [description]
+         * The default stroke color for shapes rendered by this Graphics object.
          *
          * @name Phaser.GameObjects.Graphics#defaultStrokeColor
          * @type {number}
@@ -19658,7 +19697,7 @@ var Graphics = new Class({
         this.defaultStrokeColor = -1;
 
         /**
-         * [description]
+         * The default stroke alpha for shapes rendered by this Graphics object.
          *
          * @name Phaser.GameObjects.Graphics#defaultStrokeAlpha
          * @type {number}
@@ -19681,12 +19720,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Set the default style settings for this Graphics object.
      *
      * @method Phaser.GameObjects.Graphics#setDefaultStyles
      * @since 3.0.0
      *
-     * @param {object} options - [description]
+     * @param {object} options - The styles to set as defaults.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19713,14 +19752,14 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Set the current line style.
      *
      * @method Phaser.GameObjects.Graphics#lineStyle
      * @since 3.0.0
      *
-     * @param {number} lineWidth - [description]
-     * @param {number} color - [description]
-     * @param {float} [alpha=1] - [description]
+     * @param {number} lineWidth - The stroke width.
+     * @param {number} color - The stroke color.
+     * @param {number} [alpha=1] - The stroke alpha.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19739,13 +19778,13 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Set the current fill style.
      *
      * @method Phaser.GameObjects.Graphics#fillStyle
      * @since 3.0.0
      *
-     * @param {number} color - [description]
-     * @param {float} [alpha=1] - [description]
+     * @param {number} color - The fill color.
+     * @param {number} [alpha=1] - The fill alpha.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19762,7 +19801,7 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Start a new shape path.
      *
      * @method Phaser.GameObjects.Graphics#beginPath
      * @since 3.0.0
@@ -19779,7 +19818,7 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Close the current path.
      *
      * @method Phaser.GameObjects.Graphics#closePath
      * @since 3.0.0
@@ -19796,7 +19835,7 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill the current path.
      *
      * @method Phaser.GameObjects.Graphics#fillPath
      * @since 3.0.0
@@ -19813,7 +19852,7 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke the current path.
      *
      * @method Phaser.GameObjects.Graphics#strokePath
      * @since 3.0.0
@@ -19830,12 +19869,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill the given circle.
      *
      * @method Phaser.GameObjects.Graphics#fillCircleShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Circle} circle - [description]
+     * @param {Phaser.Geom.Circle} circle - The circle to fill.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19845,12 +19884,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke the given circle.
      *
      * @method Phaser.GameObjects.Graphics#strokeCircleShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Circle} circle - [description]
+     * @param {Phaser.Geom.Circle} circle - The circle to stroke.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19860,14 +19899,14 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill a circle with the given position and radius.
      *
      * @method Phaser.GameObjects.Graphics#fillCircle
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} radius - [description]
+     * @param {number} x - The x coordinate of the center of the circle.
+     * @param {number} y - The y coordinate of the center of the circle.
+     * @param {number} radius - The radius of the circle.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19881,14 +19920,14 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke a circle with the given position and radius.
      *
      * @method Phaser.GameObjects.Graphics#strokeCircle
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} radius - [description]
+     * @param {number} x - The x coordinate of the center of the circle.
+     * @param {number} y - The y coordinate of the center of the circle.
+     * @param {number} radius - The radius of the circle.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19902,12 +19941,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill the given rectangle.
      *
      * @method Phaser.GameObjects.Graphics#fillRectShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Rectangle} rect - [description]
+     * @param {Phaser.Geom.Rectangle} rect - The rectangle to fill.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19917,12 +19956,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke the given rectangle.
      *
      * @method Phaser.GameObjects.Graphics#strokeRectShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Rectangle} rect - [description]
+     * @param {Phaser.Geom.Rectangle} rect - The rectangle to stroke.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19932,15 +19971,15 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill a rectangle with the given position and size.
      *
      * @method Phaser.GameObjects.Graphics#fillRect
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} width - [description]
-     * @param {number} height - [description]
+     * @param {number} x - The x coordinate of the top-left of the rectangle.
+     * @param {number} y - The y coordinate of the top-left of the rectangle.
+     * @param {number} width - The width of the rectangle.
+     * @param {number} height - The height of the rectangle.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19955,15 +19994,15 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke a rectangle with the given position and size.
      *
      * @method Phaser.GameObjects.Graphics#strokeRect
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} width - [description]
-     * @param {number} height - [description]
+     * @param {number} x - The x coordinate of the top-left of the rectangle.
+     * @param {number} y - The y coordinate of the top-left of the rectangle.
+     * @param {number} width - The width of the rectangle.
+     * @param {number} height - The height of the rectangle.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -19997,13 +20036,15 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill the given point.
+     *
+     * Draws a square at the given position, 1 pixel in size by default.
      *
      * @method Phaser.GameObjects.Graphics#fillPointShape
      * @since 3.0.0
      *
-     * @param {(Phaser.Geom.Point|Phaser.Math.Vector2|object)} point - [description]
-     * @param {number} [size=1] - [description]
+     * @param {(Phaser.Geom.Point|Phaser.Math.Vector2|object)} point - The point to fill.
+     * @param {number} [size=1] - The size of the square to draw.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20013,14 +20054,16 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill a point at the given position.
+     *
+     * Draws a square at the given position, 1 pixel in size by default.
      *
      * @method Phaser.GameObjects.Graphics#fillPoint
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} [size=1] - [description]
+     * @param {number} x - The x coordinate of the point.
+     * @param {number} y - The y coordinate of the point.
+     * @param {number} [size=1] - The size of the square to draw.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20045,12 +20088,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill the given triangle.
      *
      * @method Phaser.GameObjects.Graphics#fillTriangleShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Triangle} triangle - [description]
+     * @param {Phaser.Geom.Triangle} triangle - The triangle to fill.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20060,12 +20103,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke the given triangle.
      *
      * @method Phaser.GameObjects.Graphics#strokeTriangleShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Triangle} triangle - [description]
+     * @param {Phaser.Geom.Triangle} triangle - The triangle to stroke.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20075,17 +20118,17 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill a triangle with the given points.
      *
      * @method Phaser.GameObjects.Graphics#fillTriangle
      * @since 3.0.0
      *
-     * @param {number} x0 - [description]
-     * @param {number} y0 - [description]
-     * @param {number} x1 - [description]
-     * @param {number} y1 - [description]
-     * @param {number} x2 - [description]
-     * @param {number} y2 - [description]
+     * @param {number} x0 - The x coordinate of the first point.
+     * @param {number} y0 - The y coordinate of the first point.
+     * @param {number} x1 - The x coordinate of the second point.
+     * @param {number} y1 - The y coordinate of the second point.
+     * @param {number} x2 - The x coordinate of the third point.
+     * @param {number} y2 - The y coordinate of the third point.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20100,17 +20143,17 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke a triangle with the given points.
      *
      * @method Phaser.GameObjects.Graphics#strokeTriangle
      * @since 3.0.0
      *
-     * @param {number} x0 - [description]
-     * @param {number} y0 - [description]
-     * @param {number} x1 - [description]
-     * @param {number} y1 - [description]
-     * @param {number} x2 - [description]
-     * @param {number} y2 - [description]
+     * @param {number} x0 - The x coordinate of the first point.
+     * @param {number} y0 - The y coordinate of the first point.
+     * @param {number} x1 - The x coordinate of the second point.
+     * @param {number} y1 - The y coordinate of the second point.
+     * @param {number} x2 - The x coordinate of the third point.
+     * @param {number} y2 - The y coordinate of the third point.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20125,12 +20168,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Draw the given line.
      *
      * @method Phaser.GameObjects.Graphics#strokeLineShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Line} line - [description]
+     * @param {Phaser.Geom.Line} line - The line to stroke.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20140,15 +20183,15 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Draw a line between the given points.
      *
      * @method Phaser.GameObjects.Graphics#lineBetween
      * @since 3.0.0
      *
-     * @param {number} x1 - [description]
-     * @param {number} y1 - [description]
-     * @param {number} x2 - [description]
-     * @param {number} y2 - [description]
+     * @param {number} x1 - The x coordinate of the start point of the line.
+     * @param {number} y1 - The y coordinate of the start point of the line.
+     * @param {number} x2 - The x coordinate of the end point of the line.
+     * @param {number} y2 - The y coordinate of the end point of the line.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20163,13 +20206,15 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Draw a line from the current drawing position to the given position.
+     *
+     * Moves the current drawing position to the given position.
      *
      * @method Phaser.GameObjects.Graphics#lineTo
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {number} x - The x coordinate to draw the line to.
+     * @param {number} y - The y coordinate to draw the line to.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20184,13 +20229,13 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Move the current drawing position to the given position.
      *
      * @method Phaser.GameObjects.Graphics#moveTo
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {number} x - The x coordinate to move to.
+     * @param {number} y - The y coordinate to move to.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20251,14 +20296,16 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke the shape represented by the given array of points.
+     *
+     * Pass `true` to `autoClose` to close the shape automatically.
      *
      * @method Phaser.GameObjects.Graphics#strokePoints
      * @since 3.0.0
      *
-     * @param {(array|Phaser.Geom.Point[])} points - [description]
-     * @param {boolean} [autoClose=false] - [description]
-     * @param {integer} [endIndex] - [description]
+     * @param {(array|Phaser.Geom.Point[])} points - The points to stroke.
+     * @param {boolean} [autoClose=false] - When `true`, the shape is closed by joining the last point to the first point.
+     * @param {integer} [endIndex] - The index of `points` to stop drawing at. Defaults to `points.length`.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20287,14 +20334,16 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill the shape represented by the given array of points.
+     *
+     * Pass `true` to `autoClose` to close the shape automatically.
      *
      * @method Phaser.GameObjects.Graphics#fillPoints
      * @since 3.0.0
      *
-     * @param {(array|Phaser.Geom.Point[])} points - [description]
-     * @param {boolean} [autoClose=false] - [description]
-     * @param {integer} [endIndex] - [description]
+     * @param {(array|Phaser.Geom.Point[])} points - The points to fill.
+     * @param {boolean} [autoClose=false] - Whether to automatically close the polygon.
+     * @param {integer} [endIndex] - The index of `points` to stop at. Defaults to `points.length`.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20323,13 +20372,13 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke the given ellipse.
      *
      * @method Phaser.GameObjects.Graphics#strokeEllipseShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Ellipse} ellipse - [description]
-     * @param {integer} [smoothness=32] - [description]
+     * @param {Phaser.Geom.Ellipse} ellipse - The ellipse to stroke.
+     * @param {integer} [smoothness=32] - The number of points to draw the ellipse with.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20343,16 +20392,16 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Stroke an ellipse with the given position and size.
      *
      * @method Phaser.GameObjects.Graphics#strokeEllipse
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} width - [description]
-     * @param {number} height - [description]
-     * @param {integer} [smoothness=32] - [description]
+     * @param {number} x - The x coordinate of the center of the ellipse.
+     * @param {number} y - The y coordinate of the center of the ellipse.
+     * @param {number} width - The width of the ellipse.
+     * @param {number} height - The height of the ellipse.
+     * @param {integer} [smoothness=32] - The number of points to draw the ellipse with.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20368,13 +20417,13 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill the given ellipse.
      *
      * @method Phaser.GameObjects.Graphics#fillEllipseShape
      * @since 3.0.0
      *
-     * @param {Phaser.Geom.Ellipse} ellipse - [description]
-     * @param {integer} [smoothness=32] - [description]
+     * @param {Phaser.Geom.Ellipse} ellipse - The ellipse to fill.
+     * @param {integer} [smoothness=32] - The number of points to draw the ellipse with.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20388,16 +20437,16 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Fill an ellipse with the given position and size.
      *
      * @method Phaser.GameObjects.Graphics#fillEllipse
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} width - [description]
-     * @param {number} height - [description]
-     * @param {integer} [smoothness=32] - [description]
+     * @param {number} x - The x coordinate of the center of the ellipse.
+     * @param {number} y - The y coordinate of the center of the ellipse.
+     * @param {number} width - The width of the ellipse.
+     * @param {number} height - The height of the ellipse.
+     * @param {integer} [smoothness=32] - The number of points to draw the ellipse with.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20413,17 +20462,22 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Draw an arc.
+     *
+     * This method can be used to create circles, or parts of circles.
+     *
+     * Call {@link Phaser.GameObjects.Graphics#fillPath} or {@link Phaser.GameObjects.Graphics#strokePath} after calling
+     * this method to draw the arc.
      *
      * @method Phaser.GameObjects.Graphics#arc
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} radius - [description]
-     * @param {number} startAngle - [description]
-     * @param {number} endAngle - [description]
-     * @param {boolean} anticlockwise - [description]
+     * @param {number} x - The x coordinate of the center of the circle.
+     * @param {number} y - The y coordinate of the center of the circle.
+     * @param {number} radius - The radius of the circle.
+     * @param {number} startAngle - The starting angle, in radians.
+     * @param {number} endAngle - The ending angle, in radians.
+     * @param {boolean} [anticlockwise=false] - Whether the drawing should be anticlockwise or clockwise.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20596,18 +20650,20 @@ var Graphics = new Class({
     },
 
     /**
-     * If key is a string it'll generate a new texture using it and add it into the
+     * Generate a texture from this Graphics object.
+     *
+     * If `key` is a string it'll generate a new texture using it and add it into the
      * Texture Manager (assuming no key conflict happens).
      *
-     * If key is a Canvas it will draw the texture to that canvas context. Note that it will NOT
+     * If `key` is a Canvas it will draw the texture to that canvas context. Note that it will NOT
      * automatically upload it to the GPU in WebGL mode.
      *
      * @method Phaser.GameObjects.Graphics#generateTexture
      * @since 3.0.0
      *
-     * @param {(string|HTMLCanvasElement)} key - [description]
-     * @param {integer} [width] - [description]
-     * @param {integer} [height] - [description]
+     * @param {(string|HTMLCanvasElement)} key - The key to store the texture with in the Texture Manager, or a Canvas to draw to.
+     * @param {integer} [width] - The width of the graphics to generate.
+     * @param {integer} [height] - The height of the graphics to generate.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -33650,11 +33706,12 @@ var Axis = __webpack_require__(/*! ./Axis */ "./input/gamepad/Axis.js");
 var Button = __webpack_require__(/*! ./Button */ "./input/gamepad/Button.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js");
 
 /**
  * @classdesc
  * A single Gamepad.
- * 
+ *
  * These are created, updated and managed by the Gamepad Manager.
  *
  * @class Gamepad
@@ -33696,13 +33753,13 @@ var Gamepad = new Class({
 
         /**
          * A string containing some information about the controller.
-         * 
+         *
          * This is not strictly specified, but in Firefox it will contain three pieces of information
          * separated by dashes (-): two 4-digit hexadecimal strings containing the USB vendor and
          * product id of the controller, and the name of the controller as provided by the driver.
          * In Chrome it will contain the name of the controller as provided by the driver,
          * followed by vendor and product 4-digit hexadecimal strings.
-         * 
+         *
          * @name Phaser.Input.Gamepad.Gamepad#id
          * @type {string}
          * @since 3.0.0
@@ -33754,7 +33811,8 @@ var Gamepad = new Class({
 
         /**
          * The Gamepad's Haptic Actuator (Vibration / Rumble support).
-         * Only set if present on the device and exposed by both the hardware and browser.
+         * This is highly experimental and only set if both present on the device,
+         * and exposed by both the hardware and browser.
          *
          * @name Phaser.Input.Gamepad.Gamepad#vibration
          * @type {GamepadHapticActuator}
@@ -33784,7 +33842,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._LCRight = (buttons[15]) ? buttons[15] : _noButton;;
+        this._LCRight = (buttons[15]) ? buttons[15] : _noButton;
 
         /**
          * A reference to the Top Button in the Left Cluster.
@@ -33794,7 +33852,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._LCTop = (buttons[12]) ? buttons[12] : _noButton;;
+        this._LCTop = (buttons[12]) ? buttons[12] : _noButton;
 
         /**
          * A reference to the Bottom Button in the Left Cluster.
@@ -33804,7 +33862,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._LCBottom = (buttons[13]) ? buttons[13] : _noButton;;
+        this._LCBottom = (buttons[13]) ? buttons[13] : _noButton;
 
         /**
          * A reference to the Left Button in the Right Cluster.
@@ -33814,7 +33872,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._RCLeft = (buttons[2]) ? buttons[2] : _noButton;;
+        this._RCLeft = (buttons[2]) ? buttons[2] : _noButton;
 
         /**
          * A reference to the Right Button in the Right Cluster.
@@ -33824,7 +33882,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._RCRight = (buttons[1]) ? buttons[1] : _noButton;;
+        this._RCRight = (buttons[1]) ? buttons[1] : _noButton;
 
         /**
          * A reference to the Top Button in the Right Cluster.
@@ -33834,7 +33892,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._RCTop = (buttons[3]) ? buttons[3] : _noButton;;
+        this._RCTop = (buttons[3]) ? buttons[3] : _noButton;
 
         /**
          * A reference to the Bottom Button in the Right Cluster.
@@ -33844,7 +33902,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._RCBottom = (buttons[0]) ? buttons[0] : _noButton;;
+        this._RCBottom = (buttons[0]) ? buttons[0] : _noButton;
 
         /**
          * A reference to the Top Left Front Button (L1 Shoulder Button)
@@ -33854,7 +33912,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._FBLeftTop = (buttons[4]) ? buttons[4] : _noButton;;
+        this._FBLeftTop = (buttons[4]) ? buttons[4] : _noButton;
 
         /**
          * A reference to the Bottom Left Front Button (L2 Shoulder Button)
@@ -33864,7 +33922,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._FBLeftBottom = (buttons[6]) ? buttons[6] : _noButton;;
+        this._FBLeftBottom = (buttons[6]) ? buttons[6] : _noButton;
 
         /**
          * A reference to the Top Right Front Button (R1 Shoulder Button)
@@ -33874,7 +33932,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._FBRightTop = (buttons[5]) ? buttons[5] : _noButton;;
+        this._FBRightTop = (buttons[5]) ? buttons[5] : _noButton;
 
         /**
          * A reference to the Bottom Right Front Button (R2 Shoulder Button)
@@ -33884,7 +33942,7 @@ var Gamepad = new Class({
          * @private
          * @since 3.10.0
          */
-        this._FBRightBottom = (buttons[7]) ? buttons[7] : _noButton;;
+        this._FBRightBottom = (buttons[7]) ? buttons[7] : _noButton;
 
         var _noAxis = { value: 0 };
 
@@ -33927,12 +33985,98 @@ var Gamepad = new Class({
          * @since 3.10.0
          */
         this._VAxisRight = (axes[3]) ? axes[3] : _noAxis;
+
+        /**
+         * A Vector2 containing the most recent values from the Gamepad's left axis stick.
+         * This is updated automatically as part of the Gamepad.update cycle.
+         * The H Axis is mapped to the `Vector2.x` property, and the V Axis to the `Vector2.y` property.
+         * The values are based on the Axis thresholds.
+         * If the Gamepad does not have a left axis stick, the values will always be zero.
+         *
+         * @name Phaser.Input.Gamepad.Gamepad#leftStick
+         * @type {Phaser.Math.Vector2}
+         * @since 3.10.0
+         */
+        this.leftStick = new Vector2();
+
+        /**
+         * A Vector2 containing the most recent values from the Gamepad's right axis stick.
+         * This is updated automatically as part of the Gamepad.update cycle.
+         * The H Axis is mapped to the `Vector2.x` property, and the V Axis to the `Vector2.y` property.
+         * The values are based on the Axis thresholds.
+         * If the Gamepad does not have a right axis stick, the values will always be zero.
+         *
+         * @name Phaser.Input.Gamepad.Gamepad#rightStick
+         * @type {Phaser.Math.Vector2}
+         * @since 3.10.0
+         */
+        this.rightStick = new Vector2();
+    },
+
+    /**
+     * Gets the total number of axis this Gamepad claims to support.
+     *
+     * @method Phaser.Input.Gamepad.Gamepad#getAxisTotal
+     * @since 3.10.0
+     *
+     * @return {integer} The total number of axes this Gamepad claims to support.
+     */
+    getAxisTotal: function ()
+    {
+        return this.axes.length;
+    },
+
+    /**
+     * Gets the value of an axis based on the given index.
+     * The index must be valid within the range of axes supported by this Gamepad.
+     * The return value will be a float between 0 and 1.
+     *
+     * @method Phaser.Input.Gamepad.Gamepad#getAxisValue
+     * @since 3.10.0
+     *
+     * @param {integer} index - The index of the axes to get the value for.
+     *
+     * @return {number} The value of the axis, between 0 and 1.
+     */
+    getAxisValue: function (index)
+    {
+        return this.axes[index].getValue();
+    },
+
+    /**
+     * Sets the threshold value of all axis on this Gamepad.
+     * The value is a float between 0 and 1 and is the amount below which the axis is considered as not having been moved.
+     *
+     * @method Phaser.Input.Gamepad.Gamepad#setAxisThreshold
+     * @since 3.10.0
+     *
+     * @param {number} value - A value between 0 and 1.
+     */
+    setAxisThreshold: function (value)
+    {
+        for (var i = 0; i < this.axes.length; i++)
+        {
+            this.axes[i].threshold = value;
+        }
+    },
+
+    /**
+     * Gets the total number of buttons this Gamepad claims to have.
+     *
+     * @method Phaser.Input.Gamepad.Gamepad#getButtonTotal
+     * @since 3.10.0
+     *
+     * @return {integer} The total number of buttons this Gamepad claims to have.
+     */
+    getButtonTotal: function ()
+    {
+        return this.buttons.length;
     },
 
     /**
      * Gets the value of a button based on the given index.
      * The index must be valid within the range of buttons supported by this Gamepad.
-     * 
+     *
      * The return value will be either 0 or 1 for an analogue button, or a float between 0 and 1
      * for a pressure-sensitive digital button, such as the shoulder buttons on a Dual Shock.
      *
@@ -33981,7 +34125,9 @@ var Gamepad = new Class({
         var localButtons = this.buttons;
         var gamepadButtons = pad.buttons;
 
-        for (i = 0; i < localButtons.length; i++)
+        var len = localButtons.length;
+
+        for (i = 0; i < len; i++)
         {
             localButtons[i].update(gamepadButtons[i].value);
         }
@@ -33990,10 +34136,22 @@ var Gamepad = new Class({
 
         var localAxes = this.axes;
         var gamepadAxes = pad.axes;
+        
+        len = localAxes.length;
 
-        for (i = 0; i < localAxes.length; i++)
+        for (i = 0; i < len; i++)
         {
             localAxes[i].update(gamepadAxes[i]);
+        }
+
+        if (len >= 2)
+        {
+            this.leftStick.set(localAxes[0].getValue(), localAxes[1].getValue());
+
+            if (len >= 4)
+            {
+                this.rightStick.set(localAxes[2].getValue(), localAxes[3].getValue());
+            }
         }
     },
 
@@ -34061,6 +34219,7 @@ var Gamepad = new Class({
 
     /**
      * Is the Gamepad's Left button being pressed?
+     * If the Gamepad doesn't have this button it will always return false.
      * This is the d-pad left button under standard Gamepad mapping.
      *
      * @name Phaser.Input.Gamepad.Gamepad#left
@@ -34078,6 +34237,7 @@ var Gamepad = new Class({
 
     /**
      * Is the Gamepad's Right button being pressed?
+     * If the Gamepad doesn't have this button it will always return false.
      * This is the d-pad right button under standard Gamepad mapping.
      *
      * @name Phaser.Input.Gamepad.Gamepad#right
@@ -34095,6 +34255,7 @@ var Gamepad = new Class({
 
     /**
      * Is the Gamepad's Up button being pressed?
+     * If the Gamepad doesn't have this button it will always return false.
      * This is the d-pad up button under standard Gamepad mapping.
      *
      * @name Phaser.Input.Gamepad.Gamepad#up
@@ -34112,6 +34273,7 @@ var Gamepad = new Class({
 
     /**
      * Is the Gamepad's Down button being pressed?
+     * If the Gamepad doesn't have this button it will always return false.
      * This is the d-pad down button under standard Gamepad mapping.
      *
      * @name Phaser.Input.Gamepad.Gamepad#down
@@ -34129,6 +34291,7 @@ var Gamepad = new Class({
 
     /**
      * Is the Gamepad's bottom button in the right button cluster being pressed?
+     * If the Gamepad doesn't have this button it will always return false.
      * On a Dual Shock controller it's the X button.
      * On an XBox controller it's the A button.
      *
@@ -34147,6 +34310,7 @@ var Gamepad = new Class({
 
     /**
      * Is the Gamepad's top button in the right button cluster being pressed?
+     * If the Gamepad doesn't have this button it will always return false.
      * On a Dual Shock controller it's the Triangle button.
      * On an XBox controller it's the Y button.
      *
@@ -34165,6 +34329,7 @@ var Gamepad = new Class({
 
     /**
      * Is the Gamepad's left button in the right button cluster being pressed?
+     * If the Gamepad doesn't have this button it will always return false.
      * On a Dual Shock controller it's the Square button.
      * On an XBox controller it's the X button.
      *
@@ -34183,6 +34348,7 @@ var Gamepad = new Class({
 
     /**
      * Is the Gamepad's right button in the right button cluster being pressed?
+     * If the Gamepad doesn't have this button it will always return false.
      * On a Dual Shock controller it's the Circle button.
      * On an XBox controller it's the B button.
      *
@@ -34195,6 +34361,86 @@ var Gamepad = new Class({
         get: function ()
         {
             return this._RCRight.pressed;
+        }
+
+    },
+
+    /**
+     * Returns the value of the Gamepad's top left shoulder button.
+     * If the Gamepad doesn't have this button it will always return zero.
+     * The value is a float between 0 and 1, corresponding to how depressed the button is.
+     * On a Dual Shock controller it's the L1 button.
+     * On an XBox controller it's the LB button.
+     *
+     * @name Phaser.Input.Gamepad.Gamepad#L1
+     * @type {number}
+     * @since 3.10.0
+     */
+    L1: {
+
+        get: function ()
+        {
+            return this._FBLeftTop.value
+        }
+
+    },
+
+    /**
+     * Returns the value of the Gamepad's bottom left shoulder button.
+     * If the Gamepad doesn't have this button it will always return zero.
+     * The value is a float between 0 and 1, corresponding to how depressed the button is.
+     * On a Dual Shock controller it's the L2 button.
+     * On an XBox controller it's the LT button.
+     *
+     * @name Phaser.Input.Gamepad.Gamepad#L2
+     * @type {number}
+     * @since 3.10.0
+     */
+    L2: {
+
+        get: function ()
+        {
+            return this._FBLeftBottom.value
+        }
+
+    },
+
+    /**
+     * Returns the value of the Gamepad's top right shoulder button.
+     * If the Gamepad doesn't have this button it will always return zero.
+     * The value is a float between 0 and 1, corresponding to how depressed the button is.
+     * On a Dual Shock controller it's the R1 button.
+     * On an XBox controller it's the RB button.
+     *
+     * @name Phaser.Input.Gamepad.Gamepad#R1
+     * @type {number}
+     * @since 3.10.0
+     */
+    R1: {
+
+        get: function ()
+        {
+            return this._FBRightTop.value
+        }
+
+    },
+
+    /**
+     * Returns the value of the Gamepad's bottom right shoulder button.
+     * If the Gamepad doesn't have this button it will always return zero.
+     * The value is a float between 0 and 1, corresponding to how depressed the button is.
+     * On a Dual Shock controller it's the R2 button.
+     * On an XBox controller it's the RT button.
+     *
+     * @name Phaser.Input.Gamepad.Gamepad#R2
+     * @type {number}
+     * @since 3.10.0
+     */
+    R2: {
+
+        get: function ()
+        {
+            return this._FBRightBottom.value
         }
 
     }
@@ -34238,11 +34484,11 @@ var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js")
 /**
  * @classdesc
  * The Gamepad Manager is a helper class that belongs to the Input Manager.
- * 
+ *
  * Its role is to listen for native DOM Gamepad Events and then process them.
- * 
+ *
  * You do not need to create this class directly, the Input Manager will create an instance of it automatically.
- * 
+ *
  * You can access it from within a Scene using `this.input.gamepad`. For example, you can do:
  *
  * ```javascript
@@ -34442,7 +34688,7 @@ var GamepadManager = new Class({
 
     /**
      * Refreshes the list of connected Gamepads.
-     * 
+     *
      * This is called automatically when a gamepad is connected or disconnected,
      * and during the update loop.
      *
@@ -34479,7 +34725,7 @@ var GamepadManager = new Class({
                 if (!currentPad)
                 {
                     //  A new Gamepad, not currently stored locally
-                    var newPad  = new Gamepad(this, livePad);
+                    var newPad = new Gamepad(this, livePad);
 
                     currentPads[index] = newPad;
 
@@ -34565,7 +34811,7 @@ var GamepadManager = new Class({
 
     /**
      * The internal update loop. Refreshes all connected gamepads and processes their events.
-     * 
+     *
      * Called automatically by the Input Manager, invoked from the Game step.
      *
      * @method Phaser.Input.Gamepad.GamepadManager#update
@@ -34662,7 +34908,7 @@ var GamepadManager = new Class({
 
     /**
      * A reference to the first connected Gamepad.
-     * 
+     *
      * This will be undefined if either no pads are connected, or the browser
      * has not yet issued a gamepadconnect, which can happen even if a Gamepad
      * is plugged in, but hasn't yet had any buttons pressed on it.
@@ -34682,7 +34928,7 @@ var GamepadManager = new Class({
 
     /**
      * A reference to the second connected Gamepad.
-     * 
+     *
      * This will be undefined if either no pads are connected, or the browser
      * has not yet issued a gamepadconnect, which can happen even if a Gamepad
      * is plugged in, but hasn't yet had any buttons pressed on it.
@@ -34702,7 +34948,7 @@ var GamepadManager = new Class({
 
     /**
      * A reference to the third connected Gamepad.
-     * 
+     *
      * This will be undefined if either no pads are connected, or the browser
      * has not yet issued a gamepadconnect, which can happen even if a Gamepad
      * is plugged in, but hasn't yet had any buttons pressed on it.
@@ -34722,7 +34968,7 @@ var GamepadManager = new Class({
 
     /**
      * A reference to the fourth connected Gamepad.
-     * 
+     *
      * This will be undefined if either no pads are connected, or the browser
      * has not yet issued a gamepadconnect, which can happen even if a Gamepad
      * is plugged in, but hasn't yet had any buttons pressed on it.
@@ -34784,18 +35030,7 @@ module.exports = {
     X: 3,
 
     LEFT_SHOULDER: 4,
-    RIGHT_SHOULDER: 5,
-
-    //  (left cluster) Left, Right, Top, Bottom, 
-    //  (right cluster) Left, Right, Top, Bottom, 
-    //  (left shoulder) Top, Bottom, (right shoulder) Top, Bottom, 
-    //  (left axis) Horizontal, Vertical (right axis) Horizontal, Vertical
-    standard: [
-        14, 15, 12, 13,
-        2, 1, 3, 0,
-        4, -1, 5, -1,
-        -1, -1, -1, -1
-    ]
+    RIGHT_SHOULDER: 5
 
 };
 
@@ -34850,18 +35085,7 @@ module.exports = {
     LEFT_STICK_H: 0,
     LEFT_STICK_V: 1,
     RIGHT_STICK_H: 2,
-    RIGHT_STICK_V: 3,
-
-    //  (left cluster) Left, Right, Top, Bottom, 
-    //  (right cluster) Left, Right, Top, Bottom, 
-    //  (left shoulder) Top, Bottom, (right shoulder) Top, Bottom, 
-    //  (left axis) Horizontal, Vertical (right axis) Horizontal, Vertical
-    standard: [
-        14, 15, 12, 13,
-        2, 1, 3, 0,
-        4, 6, 5, 7,
-        0, 1, 2, 3
-    ]
+    RIGHT_STICK_V: 3
 
 };
 
@@ -34917,18 +35141,7 @@ module.exports = {
     LEFT_STICK_H: 0,
     LEFT_STICK_V: 1,
     RIGHT_STICK_H: 2,
-    RIGHT_STICK_V: 3,
-
-    //  (left cluster) Left, Right, Top, Bottom, 
-    //  (right cluster) Left, Right, Top, Bottom, 
-    //  (left shoulder) Top, Bottom, (right shoulder) Top, Bottom, 
-    //  (left axis) Horizontal, Vertical (right axis) Horizontal, Vertical
-    standard: [
-        14, 15, 12, 13,
-        2, 1, 3, 0,
-        4, 6, 5, 7,
-        0, 1, 2, 3
-    ]
+    RIGHT_STICK_V: 3
 
 };
 

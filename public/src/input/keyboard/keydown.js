@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
         create: create,
@@ -7,12 +7,12 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
-
 var BKey;
 
-function create() {
+var game = new Phaser.Game(config);
 
+function create ()
+{
     //  Global event listener, catches all keys
 
     //  Receives every single key down event, regardless of type
@@ -44,14 +44,12 @@ function create() {
     //  Create a Key object we can poll directly in a tight loop
 
     BKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
-
 }
 
-function update() {
-
+function update ()
+{
     if (BKey.isDown)
     {
         console.log('B!');
     }
-
 }

@@ -19560,7 +19560,7 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
 /**
  * Graphics style settings.
  *
- * @typedef {object} GraphicsStyle
+ * @typedef {object} GraphicsStyles
  *
  * @property {GraphicsLineStyle} lineStyle - The style applied to shape outlines.
  * @property {GraphicsFillStyle} fillStyle - The style applied to shape areas.
@@ -19570,7 +19570,7 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
  * Options for the Graphics game Object.
  *
  * @typedef {object} GraphicsOptions
- * @extends GraphicsStyle
+ * @extends GraphicsStyles
  *
  * @property {number} x - The x coordinate of the Graphics.
  * @property {number} y - The y coordinate of the Graphics.
@@ -19578,7 +19578,44 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
 
 /**
  * @classdesc
- * [description]
+ * A Graphics object is a way to draw primitive shapes to you game. Primitives include forms of geometry, such as
+ * Rectangles, Circles, and Polygons. They also include lines, arcs and curves. When you initially create a Graphics
+ * object it will be empty.
+ *
+ * To draw to it you must first specify a line style or fill style (or both), draw shapes using paths, and finally
+ * fill or stroke them. For example:
+ *
+ * ```javascript
+ * graphics.lineStyle(5, 0xFF00FF, 1.0);
+ * graphics.beginPath();
+ * graphics.moveTo(100, 100);
+ * graphics.lineTo(200, 200);
+ * graphics.closePath();
+ * graphics.strokePath();
+ * ```
+ *
+ * There are also many helpful methods that draw and fill/stroke common shapes for you.
+ *
+ * ```javascript
+ * graphics.lineStyle(5, 0xFF00FF, 1.0);
+ * graphics.fillStyle(0xFFFFFF, 1.0);
+ * graphics.fillRect(50, 50, 400, 200);
+ * graphics.strokeRect(50, 50, 400, 200);
+ * ```
+ *
+ * When a Graphics object is rendered it will render differently based on if the game is running under Canvas or WebGL.
+ * Under Canvas it will use the HTML Canvas context drawing operations to draw the path.
+ * Under WebGL the graphics data is decomposed into polygons. Both of these are expensive processes, especially with
+ * complex shapes.
+ *
+ * If your Graphics object doesn't change much (or at all) once you've drawn your shape to it, then you will help
+ * performance by calling {@link Phaser.GameObjects.Graphics#generateTexture}. This will 'bake' the Graphics object into
+ * a Texture, and return it. You can then use this Texture for Sprites or other display objects. If your Graphics object
+ * updates frequently then you should avoid doing this, as it will constantly generate new textures, which will consume
+ * memory.
+ *
+ * As you can tell, Graphics objects are a bit of a trade-off. While they are extremely useful, you need to be careful
+ * in their complexity and quantity of them in your game.
  *
  * @class Graphics
  * @extends Phaser.GameObjects.GameObject
@@ -19627,7 +19664,7 @@ var Graphics = new Class({
         this.initPipeline('FlatTintPipeline');
 
         /**
-         * [description]
+         * The horizontal display origin of the Graphics.
          *
          * @name Phaser.GameObjects.Graphics#displayOriginX
          * @type {number}
@@ -19637,7 +19674,7 @@ var Graphics = new Class({
         this.displayOriginX = 0;
 
         /**
-         * [description]
+         * The vertical display origin of the Graphics.
          *
          * @name Phaser.GameObjects.Graphics#displayOriginY
          * @type {number}
@@ -19707,7 +19744,7 @@ var Graphics = new Class({
         this.defaultStrokeAlpha = 1;
 
         /**
-         * [description]
+         * Internal property that keeps track of the line width style setting.
          *
          * @name Phaser.GameObjects.Graphics#_lineWidth
          * @type {number}
@@ -19725,7 +19762,7 @@ var Graphics = new Class({
      * @method Phaser.GameObjects.Graphics#setDefaultStyles
      * @since 3.0.0
      *
-     * @param {object} options - The styles to set as defaults.
+     * @param {GraphicsStyles} options - The styles to set as defaults.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20563,13 +20600,13 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Translate the graphics.
      *
      * @method Phaser.GameObjects.Graphics#translate
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {number} x - The horizontal translation to apply.
+     * @param {number} y - The vertical translation to apply.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20584,13 +20621,13 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Scale the graphics.
      *
      * @method Phaser.GameObjects.Graphics#scale
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {number} x - The horizontal scale to apply.
+     * @param {number} y - The vertical scale to apply.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20605,12 +20642,12 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Rotate the graphics.
      *
      * @method Phaser.GameObjects.Graphics#rotate
      * @since 3.0.0
      *
-     * @param {number} radians - [description]
+     * @param {number} radians - The rotation angle, in radians.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -20625,7 +20662,7 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Clear the command buffer and reset the fill style and line style to their defaults.
      *
      * @method Phaser.GameObjects.Graphics#clear
      * @since 3.0.0
@@ -20783,7 +20820,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
- * @param {CanvasRenderingContext2D} renderTargetCtx - [description]
+ * @param {CanvasRenderingContext2D} [renderTargetCtx] - The target rendering context.
  * @param {boolean} allowClip - [description]
  */
 var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix, renderTargetCtx, allowClip)
@@ -21107,8 +21144,8 @@ var GameObjectFactory = __webpack_require__(/*! ../GameObjectFactory */ "./gameo
  * @method Phaser.GameObjects.GameObjectFactory#graphics
  * @since 3.0.0
  *
- * @param {object} [config] - [description]
- * 
+ * @param {GraphicsOptions} [config] - The Graphics configuration.
+ *
  * @return {Phaser.GameObjects.Graphics} The Game Object that was created.
  */
 GameObjectFactory.register('graphics', function (config)
@@ -21117,9 +21154,9 @@ GameObjectFactory.register('graphics', function (config)
 });
 
 //  When registering a factory function 'this' refers to the GameObjectFactory context.
-//  
+//
 //  There are several properties available to use:
-//  
+//
 //  this.scene - a reference to the Scene that owns the GameObjectFactory
 //  this.displayList - a reference to the Display List the Scene owns
 //  this.updateList - a reference to the Update List the Scene owns
@@ -21625,7 +21662,7 @@ var Sprite = new Class({
         GameObject.call(this, scene, 'Sprite');
 
         /**
-         * [description]
+         * The Animation Controller of this Sprite.
          *
          * @name Phaser.GameObjects.Sprite#anims
          * @type {Phaser.GameObjects.Components.Animation}
@@ -21641,14 +21678,14 @@ var Sprite = new Class({
     },
 
     /**
-     * [description]
+     * Update this Sprite's animations.
      *
      * @method Phaser.GameObjects.Sprite#preUpdate
      * @protected
      * @since 3.0.0
      *
-     * @param {number} time - [description]
-     * @param {number} delta - [description]
+     * @param {number} time - The current timestamp.
+     * @param {number} delta - The delta time, in ms, elapsed since the last frame.
      */
     preUpdate: function (time, delta)
     {
@@ -21656,14 +21693,14 @@ var Sprite = new Class({
     },
 
     /**
-     * [description]
+     * Start playing the given animation.
      *
      * @method Phaser.GameObjects.Sprite#play
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {boolean} [ignoreIfPlaying=false] - [description]
-     * @param {integer} [startFrame=0] - [description]
+     * @param {string} key - The string-based key of the animation to play.
+     * @param {boolean} [ignoreIfPlaying=false] - If an animation is already playing then ignore this call.
+     * @param {integer} [startFrame=0] - Optionally start the animation playing from this frame index.
      *
      * @return {Phaser.GameObjects.Sprite} This Game Object.
      */
@@ -21675,7 +21712,7 @@ var Sprite = new Class({
     },
 
     /**
-     * [description]
+     * Build a JSON representation of this Sprite.
      *
      * @method Phaser.GameObjects.Sprite#toJSON
      * @since 3.0.0
@@ -29147,6 +29184,50 @@ module.exports = CreateInteractiveObject;
 
 /***/ }),
 
+/***/ "./input/CreatePixelPerfectHandler.js":
+/*!********************************************!*\
+  !*** ./input/CreatePixelPerfectHandler.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * Creates a new Interactive Object.
+ * 
+ * This is called automatically by the Input Manager when you enable a Game Object for input.
+ *
+ * The resulting Interactive Object is mapped to the Game Object's `input` property.
+ *
+ * @function Phaser.Input.CreatePixelPerfectHandler
+ * @since 3.10.0
+ *
+ * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to which this Interactive Object is bound.
+ * @param {any} hitArea - The hit area for this Interactive Object. Typically a geometry shape, like a Rectangle or Circle.
+ * @param {HitAreaCallback} hitAreaCallback - The 'contains' check callback that the hit area shape will use for all hit tests.
+ *
+ * @return {Phaser.Input.InteractiveObject} The new Interactive Object.
+ */
+var CreatePixelPerfectHandler = function (textureManager, alphaTolerance)
+{
+    return function (hitArea, x, y, gameObject)
+    {
+        var alpha = textureManager.getPixelAlpha(x, y, gameObject.texture.key, gameObject.frame.key);
+
+        return (alpha && alpha >= alphaTolerance)
+    };
+};
+
+module.exports = CreatePixelPerfectHandler;
+
+
+/***/ }),
+
 /***/ "./input/InputManager.js":
 /*!*******************************!*\
   !*** ./input/InputManager.js ***!
@@ -29163,8 +29244,6 @@ module.exports = CreateInteractiveObject;
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ./const */ "./input/const.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
-var Gamepad = __webpack_require__(/*! ./gamepad/GamepadManager */ "./input/gamepad/GamepadManager.js");
-var Keyboard = __webpack_require__(/*! ./keyboard/KeyboardManager */ "./input/keyboard/KeyboardManager.js");
 var Mouse = __webpack_require__(/*! ./mouse/MouseManager */ "./input/mouse/MouseManager.js");
 var Pointer = __webpack_require__(/*! ./Pointer */ "./input/Pointer.js");
 var Rectangle = __webpack_require__(/*! ../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
@@ -29174,9 +29253,11 @@ var TransformXY = __webpack_require__(/*! ../math/TransformXY */ "./math/Transfo
 
 /**
  * @classdesc
- * The Input Manager is responsible for handling all of the input related systems in a single Phaser Game instance.
+ * The Input Manager is responsible for handling the pointer related systems in a single Phaser Game instance.
  *
- * Based on the Game Config it will create handlers for mouse, touch, keyboard and gamepad support.
+ * Based on the Game Config it will create handlers for mouse and touch support.
+ *
+ * Keyboard and Gamepad are plugins, handled directly by the InputPlugin class.
  *
  * It then manages the event queue, pointer creation and general hit test related operations.
  *
@@ -29297,15 +29378,6 @@ var InputManager = new Class({
         this._hasMoveCallback = false;
 
         /**
-         * A reference to the Keyboard Manager class, if enabled via the `input.keyboard` Game Config property.
-         *
-         * @name Phaser.Input.InputManager#keyboard
-         * @type {?Phaser.Input.Keyboard.KeyboardManager}
-         * @since 3.0.0
-         */
-        this.keyboard = (config.inputKeyboard) ? new Keyboard(this) : null;
-
-        /**
          * A reference to the Mouse Manager class, if enabled via the `input.mouse` Game Config property.
          *
          * @name Phaser.Input.InputManager#mouse
@@ -29322,15 +29394,6 @@ var InputManager = new Class({
          * @since 3.0.0
          */
         this.touch = (config.inputTouch) ? new Touch(this) : null;
-
-        /**
-         * A reference to the Gamepad Manager class, if enabled via the `input.gamepad` Game Config property.
-         *
-         * @name Phaser.Input.InputManager#gamepad
-         * @type {Phaser.Input.Gamepad.GamepadManager}
-         * @since 3.0.0
-         */
-        this.gamepad = (config.inputGamepad) ? new Gamepad(this) : null;
 
         /**
          * An array of Pointers that have been added to the game.
@@ -30378,11 +30441,6 @@ var InputManager = new Class({
     {
         this.events.removeAllListeners();
 
-        if (this.keyboard)
-        {
-            this.keyboard.destroy();
-        }
-
         if (this.mouse)
         {
             this.mouse.destroy();
@@ -30391,11 +30449,6 @@ var InputManager = new Class({
         if (this.touch)
         {
             this.touch.destroy();
-        }
-
-        if (this.gamepad)
-        {
-            this.gamepad.destroy();
         }
 
         for (var i = 0; i < this.pointers.length; i++)
@@ -30435,11 +30488,13 @@ module.exports = InputManager;
 var Circle = __webpack_require__(/*! ../geom/circle/Circle */ "./geom/circle/Circle.js");
 var CircleContains = __webpack_require__(/*! ../geom/circle/Contains */ "./geom/circle/Contains.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var CreateInteractiveObject = __webpack_require__(/*! ./CreateInteractiveObject */ "./input/CreateInteractiveObject.js");
+var CreatePixelPerfectHandler = __webpack_require__(/*! ./CreatePixelPerfectHandler */ "./input/CreatePixelPerfectHandler.js");
 var DistanceBetween = __webpack_require__(/*! ../math/distance/DistanceBetween */ "./math/distance/DistanceBetween.js");
 var Ellipse = __webpack_require__(/*! ../geom/ellipse/Ellipse */ "./geom/ellipse/Ellipse.js");
 var EllipseContains = __webpack_require__(/*! ../geom/ellipse/Contains */ "./geom/ellipse/Contains.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
-var CreateInteractiveObject = __webpack_require__(/*! ./CreateInteractiveObject */ "./input/CreateInteractiveObject.js");
+var InputPluginCache = __webpack_require__(/*! ./InputPluginCache */ "./input/InputPluginCache.js");
 var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 var Rectangle = __webpack_require__(/*! ../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
 var RectangleContains = __webpack_require__(/*! ../geom/rectangle/Contains */ "./geom/rectangle/Contains.js");
@@ -30526,6 +30581,16 @@ var InputPlugin = new Class({
         this.manager = scene.sys.game.input;
 
         /**
+         * Internal event queue used for plugins only.
+         *
+         * @name Phaser.Input.InputPlugin#pluginEvents
+         * @type {Phaser.Events.EventEmitter}
+         * @private
+         * @since 3.10.0
+         */
+        this.pluginEvents = new EventEmitter();
+
+        /**
          * If set, the Input Plugin will run its update loop every frame.
          *
          * @name Phaser.Input.InputPlugin#enabled
@@ -30553,16 +30618,8 @@ var InputPlugin = new Class({
          */
         this.cameras;
 
-        /**
-         * A reference to the Keyboard Manager.
-         * 
-         * This property is only set if Keyboard support has been enabled in your Game Configuration file.
-         *
-         * @name Phaser.Input.InputPlugin#keyboard
-         * @type {?Phaser.Input.Keyboard.KeyboardManager}
-         * @since 3.0.0
-         */
-        this.keyboard = this.manager.keyboard;
+        //  Inject the available input plugins into this class
+        InputPluginCache.install(this);
 
         /**
          * A reference to the Mouse Manager.
@@ -30576,17 +30633,6 @@ var InputPlugin = new Class({
          * @since 3.0.0
          */
         this.mouse = this.manager.mouse;
-
-        /**
-         * A reference to the Gamepad Manager.
-         * 
-         * This property is only set if Gamepad support has been enabled in your Game Configuration file.
-         *
-         * @name Phaser.Input.InputPlugin#gamepad
-         * @type {?Phaser.Input.Gamepad.GamepadManager}
-         * @since 3.0.0
-         */
-        this.gamepad = this.manager.gamepad;
 
         /**
          * When set to `true` (the default) the Input Plugin will emulate DOM behavior by only emitting events from
@@ -30769,6 +30815,9 @@ var InputPlugin = new Class({
         this.displayList = this.systems.displayList;
 
         this.systems.events.once('destroy', this.destroy, this);
+
+        //  Registered input plugins listen for this
+        this.pluginEvents.emit('boot');
     },
 
     /**
@@ -30793,6 +30842,9 @@ var InputPlugin = new Class({
         eventEmitter.once('shutdown', this.shutdown, this);
 
         this.enabled = true;
+
+        //  Registered input plugins listen for this
+        this.pluginEvents.emit('start');
     },
 
     /**
@@ -30805,6 +30857,9 @@ var InputPlugin = new Class({
      */
     preUpdate: function ()
     {
+        //  Registered input plugins listen for this
+        this.pluginEvents.emit('preUpdate');
+
         var removeList = this._pendingRemoval;
         var insertList = this._pendingInsertion;
 
@@ -30840,6 +30895,127 @@ var InputPlugin = new Class({
 
         //  Move pendingInsertion to list (also clears pendingInsertion at the same time)
         this._list = current.concat(insertList.splice(0));
+    },
+
+    /**
+     * Checks to see if both this plugin and the Scene to which it belongs is active.
+     *
+     * @method Phaser.Input.InputPlugin#isActive
+     * @since 3.10.0
+     *
+     * @return {boolean} `true` if the plugin and the Scene it belongs to is active.
+     */
+    isActive: function ()
+    {
+        return (this.enabled && this.scene.sys.isActive());
+    },
+
+    /**
+     * The internal update loop for the Input Plugin.
+     * Called automatically by the Scene Systems step.
+     *
+     * @method Phaser.Input.InputPlugin#update
+     * @private
+     * @since 3.0.0
+     *
+     * @param {number} time - The time value from the most recent Game step. Typically a high-resolution timer value, or Date.now().
+     * @param {number} delta - The delta value since the last frame. This is smoothed to avoid delta spikes by the TimeStep class.
+     */
+    update: function (time, delta)
+    {
+        if (!this.isActive())
+        {
+            return;
+        }
+
+        this.pluginEvents.emit('update', time, delta);
+
+        var manager = this.manager;
+
+        //  Another Scene above this one has already consumed the input events, or we're in transition
+        if (manager.globalTopOnly && manager.ignoreEvents)
+        {
+            return;
+        }
+
+        var runUpdate = (manager.dirty || this.pollRate === 0);
+
+        if (this.pollRate > -1)
+        {
+            this._pollTimer -= delta;
+
+            if (this._pollTimer < 0)
+            {
+                runUpdate = true;
+
+                //  Discard timer diff
+                this._pollTimer = this.pollRate;
+            }
+        }
+
+        if (!runUpdate)
+        {
+            return;
+        }
+
+        var pointers = this.manager.pointers;
+
+        for (var i = 0; i < this.manager.pointersTotal; i++)
+        {
+            var pointer = pointers[i];
+
+            //  Always reset this array
+            this._tempZones = [];
+
+            //  _temp contains a hit tested and camera culled list of IO objects
+            this._temp = this.hitTestPointer(pointer);
+
+            this.sortGameObjects(this._temp);
+            this.sortGameObjects(this._tempZones);
+
+            if (this.topOnly)
+            {
+                //  Only the top-most one counts now, so safely ignore the rest
+                if (this._temp.length)
+                {
+                    this._temp.splice(1);
+                }
+
+                if (this._tempZones.length)
+                {
+                    this._tempZones.splice(1);
+                }
+            }
+
+            var total = this.processDragEvents(pointer, time);
+
+            //  TODO: Enable for touch
+            if (!pointer.wasTouch)
+            {
+                total += this.processOverOutEvents(pointer);
+            }
+
+            if (pointer.justDown)
+            {
+                total += this.processDownEvents(pointer);
+            }
+
+            if (pointer.justUp)
+            {
+                total += this.processUpEvents(pointer);
+            }
+
+            if (pointer.justMoved)
+            {
+                total += this.processMoveEvents(pointer);
+            }
+
+            if (total > 0 && manager.globalTopOnly)
+            {
+                //  We interacted with an event in this Scene, so block any Scenes below us from doing the same this frame
+                manager.ignoreEvents = true;
+            }
+        }
     },
 
     /**
@@ -31604,6 +31780,48 @@ var InputPlugin = new Class({
     },
 
     /**
+     * Creates a function that can be passed to `setInteractive`, `enable` or `setHitArea` that will handle
+     * pixel-perfect input detection on an Image or Sprite based Game Object, or any custom class that extends them.
+     *
+     * The following will create a sprite that is clickable on any pixel that has an alpha value >= 1.
+     *
+     * ```javascript
+     * this.add.sprite(x, y, key).setInteractive(this.input.makePixelPerfect());
+     * ```
+     * 
+     * The following will create a sprite that is clickable on any pixel that has an alpha value >= 150.
+     *
+     * ```javascript
+     * this.add.sprite(x, y, key).setInteractive(this.input.makePixelPerfect(150));
+     * ```
+     *
+     * Once you have made an Interactive Object pixel perfect it impacts all input related events for it: down, up,
+     * dragstart, drag, etc.
+     *
+     * As a pointer interacts with the Game Object it will constantly poll the texture, extracting a single pixel from
+     * the given coordinates and checking its color values. This is an expensive process, so should only be enabled on
+     * Game Objects that really need it.
+     * 
+     * You cannot make non-texture based Game Objects pixel perfect. So this will not work on Graphics, BitmapText,
+     * Render Textures, Text, Tilemaps, Containers or Particles.
+     *
+     * @method Phaser.Input.InputPlugin#makePixelPerfect
+     * @since 3.10.0
+     *
+     * @param {integer} [alphaTolerance=1] - The alpha level that the pixel should be above to be included as a successful interaction.
+     *
+     * @return {function} A Pixel Perfect Handler for use as a hitArea shape callback.
+     */
+    makePixelPerfect: function (alphaTolerance)
+    {
+        if (alphaTolerance === undefined) { alphaTolerance = 1; }
+
+        var textureManager = this.systems.textures;
+
+        return CreatePixelPerfectHandler(textureManager, alphaTolerance);
+    },
+
+    /**
      * Sets the hit area for the given array of Game Objects.
      *
      * A hit area is typically one of the geometric shapes Phaser provides, such as a `Phaser.Geom.Rectangle`
@@ -31635,6 +31853,12 @@ var InputPlugin = new Class({
         if (!Array.isArray(gameObjects))
         {
             gameObjects = [ gameObjects ];
+        }
+
+        if (typeof shape === 'function' && !callback)
+        {
+            callback = shape;
+            shape = {};
         }
 
         for (var i = 0; i < gameObjects.length; i++)
@@ -32015,107 +32239,6 @@ var InputPlugin = new Class({
     },
 
     /**
-     * The internal update loop for the Input Plugin.
-     * Called automatically by the Scene Systems step.
-     *
-     * @method Phaser.Input.InputPlugin#update
-     * @private
-     * @since 3.0.0
-     *
-     * @param {number} time - The time value from the most recent Game step. Typically a high-resolution timer value, or Date.now().
-     * @param {number} delta - The delta value since the last frame. This is smoothed to avoid delta spikes by the TimeStep class.
-     */
-    update: function (time, delta)
-    {
-        var manager = this.manager;
-
-        //  Another Scene above this one has already consumed the input events, or we're in transition
-        if (!this.enabled || (manager.globalTopOnly && manager.ignoreEvents))
-        {
-            return;
-        }
-
-        var runUpdate = (manager.dirty || this.pollRate === 0);
-
-        if (this.pollRate > -1)
-        {
-            this._pollTimer -= delta;
-
-            if (this._pollTimer < 0)
-            {
-                runUpdate = true;
-
-                //  Discard timer diff
-                this._pollTimer = this.pollRate;
-            }
-        }
-
-        if (!runUpdate)
-        {
-            return;
-        }
-
-        var pointers = this.manager.pointers;
-
-        for (var i = 0; i < this.manager.pointersTotal; i++)
-        {
-            var pointer = pointers[i];
-
-            //  Always reset this array
-            this._tempZones = [];
-
-            //  _temp contains a hit tested and camera culled list of IO objects
-            this._temp = this.hitTestPointer(pointer);
-
-            this.sortGameObjects(this._temp);
-            this.sortGameObjects(this._tempZones);
-
-            if (this.topOnly)
-            {
-                //  Only the top-most one counts now, so safely ignore the rest
-                if (this._temp.length)
-                {
-                    this._temp.splice(1);
-                }
-
-                if (this._tempZones.length)
-                {
-                    this._tempZones.splice(1);
-                }
-            }
-
-            var total = this.processDragEvents(pointer, time);
-
-            //  TODO: Enable for touch
-            if (!pointer.wasTouch)
-            {
-                total += this.processOverOutEvents(pointer);
-            }
-
-            if (pointer.justDown)
-            {
-                total += this.processDownEvents(pointer);
-            }
-
-            if (pointer.justUp)
-            {
-                total += this.processUpEvents(pointer);
-            }
-
-            if (pointer.justMoved)
-            {
-                total += this.processMoveEvents(pointer);
-            }
-
-            if (total > 0 && manager.globalTopOnly)
-            {
-                //  We interacted with an event in this Scene, so block any Scenes below us from doing the same this frame
-                manager.ignoreEvents = true;
-            }
-        }
-    },
-
-    /**
      * Adds a callback to be invoked whenever the native DOM `mouseup` or `touchend` events are received.
      * By setting the `isOnce` argument you can control if the callback is called once,
      * or every time the DOM event occurs.
@@ -32227,6 +32350,29 @@ var InputPlugin = new Class({
     },
 
     /**
+     * Adds new Pointer objects to the Input Manager.
+     *
+     * By default Phaser creates 2 pointer objects: `mousePointer` and `pointer1`.
+     *
+     * You can create more either by calling this method, or by setting the `input.activePointers` property
+     * in the Game Config.
+     *
+     * The first 10 pointers are available via the `InputPlugin.pointerX` properties, once they have been added
+     * via this method.
+     *
+     * @method Phaser.Input.InputPlugin#addPointer
+     * @since 3.10.0
+     * 
+     * @param {integer} [quantity=1] The number of new Pointers to create.
+     *
+     * @return {Phaser.Input.Pointer[]} An array containing all of the new Pointer objects that were created.
+     */
+    addPointer: function (quantity)
+    {
+        return this.manager.addPointer(quantity);
+    },
+
+    /**
      * The Scene that owns this plugin is transitioning in.
      *
      * @method Phaser.Input.InputPlugin#transitionIn
@@ -32275,6 +32421,9 @@ var InputPlugin = new Class({
      */
     shutdown: function ()
     {
+        //  Registered input plugins listen for this
+        this.pluginEvents.emit('shutdown');
+
         this._temp.length = 0;
         this._list.length = 0;
         this._draggable.length = 0;
@@ -32301,29 +32450,6 @@ var InputPlugin = new Class({
     },
 
     /**
-     * Adds new Pointer objects to the Input Manager.
-     *
-     * By default Phaser creates 2 pointer objects: `mousePointer` and `pointer1`.
-     *
-     * You can create more either by calling this method, or by setting the `input.activePointers` property
-     * in the Game Config.
-     *
-     * The first 10 pointers are available via the `InputPlugin.pointerX` properties, once they have been added
-     * via this method.
-     *
-     * @method Phaser.Input.InputPlugin#addPointer
-     * @since 3.10.0
-     * 
-     * @param {integer} [quantity=1] The number of new Pointers to create.
-     *
-     * @return {Phaser.Input.Pointer[]} An array containing all of the new Pointer objects that were created.
-     */
-    addPointer: function (quantity)
-    {
-        return this.manager.addPointer(quantity);
-    },
-
-    /**
      * The Scene that owns this plugin is being destroyed.     
      * We need to shutdown and then kill off all external references.
      *
@@ -32335,15 +32461,18 @@ var InputPlugin = new Class({
     {
         this.shutdown();
 
+        //  Registered input plugins listen for this
+        this.pluginEvents.emit('destroy');
+
+        this.pluginEvents.removeAllListeners();
+
         this.scene.sys.events.off('start', this.start, this);
 
         this.scene = null;
         this.cameras = null;
         this.manager = null;
         this.events = null;
-        this.keyboard = null;
         this.mouse = null;
-        this.gamepad = null;
     },
 
     /**
@@ -32603,6 +32732,119 @@ var InputPlugin = new Class({
 PluginCache.register('InputPlugin', InputPlugin, 'input');
 
 module.exports = InputPlugin;
+
+
+/***/ }),
+
+/***/ "./input/InputPluginCache.js":
+/*!***********************************!*\
+  !*** ./input/InputPluginCache.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/object/GetValue.js");
+
+//  Contains the plugins that Phaser uses globally and locally.
+//  These are the source objects, not instantiated.
+var inputPlugins = {};
+
+/**
+ * @typedef {object} InputPluginContainer
+ *
+ * @property {string} key - The unique name of this plugin in the input plugin cache.
+ * @property {function} plugin - The plugin to be stored. Should be the source object, not instantiated.
+ * @property {string} [mapping] - If this plugin is to be injected into the Input Plugin, this is the property key map used.
+ */
+
+var InputPluginCache = {};
+
+/**
+ * Static method called directly by the Core internal Plugins.
+ * Key is a reference used to get the plugin from the plugins object (i.e. InputPlugin)
+ * Plugin is the object to instantiate to create the plugin
+ * Mapping is what the plugin is injected into the Scene.Systems as (i.e. input)
+ *
+ * @method Phaser.Input.InputPluginCache.register
+ * @since 3.10.0
+ * 
+ * @param {string} key - A reference used to get this plugin from the plugin cache.
+ * @param {function} plugin - The plugin to be stored. Should be the core object, not instantiated.
+ * @param {string} mapping - If this plugin is to be injected into the Input Plugin, this is the property key used.
+ * @param {string} settingsKey - The key in the Scene Settings to check to see if this plugin should install or not.
+ * @param {string} configKey - The key in the Game Config to check to see if this plugin should install or not.
+ */
+InputPluginCache.register = function (key, plugin, mapping, settingsKey, configKey)
+{
+    inputPlugins[key] = { plugin: plugin, mapping: mapping, settingsKey: settingsKey, configKey: configKey };
+};
+
+/**
+ * Returns the input plugin object from the cache based on the given key.
+ *
+ * @method Phaser.Input.InputPluginCache.getCore
+ * @since 3.10.0
+ * 
+ * @param {string} key - The key of the input plugin to get.
+ *
+ * @return {InputPluginContainer} The input plugin object.
+ */
+InputPluginCache.getPlugin = function (key)
+{
+    return inputPlugins[key];
+};
+
+/**
+ * Installs all of the registered Input Plugins into the given target.
+ *
+ * @method Phaser.Input.InputPluginCache.install
+ * @since 3.10.0
+ * 
+ * @param {Phaser.Input.InputPlugin} target - The target InputPlugin to install the plugins into.
+ */
+InputPluginCache.install = function (target)
+{
+    var sys = target.scene.sys;
+    var settings = sys.settings.input;
+    var config = sys.game.config;
+
+    for (var key in inputPlugins)
+    {
+        var source = inputPlugins[key].plugin;
+        var mapping = inputPlugins[key].mapping;
+        var settingsKey = inputPlugins[key].settingsKey;
+        var configKey = inputPlugins[key].configKey;
+
+        if (GetValue(settings, settingsKey, config[configKey]))
+        {
+            target[mapping] = new source(target);
+        }
+    }
+};
+
+/**
+ * Removes an input plugin based on the given key.
+ *
+ * @method Phaser.Input.InputPluginCache.remove
+ * @since 3.10.0
+ * 
+ * @param {string} key - The key of the input plugin to remove.
+ */
+InputPluginCache.remove = function (key)
+{
+    if (inputPlugins.hasOwnProperty(key))
+    {
+        delete inputPlugins[key];
+    }
+};
+
+module.exports = InputPluginCache;
 
 
 /***/ }),
@@ -33712,7 +33954,7 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @classdesc
  * A single Gamepad.
  *
- * These are created, updated and managed by the Gamepad Manager.
+ * These are created, updated and managed by the Gamepad Plugin.
  *
  * @class Gamepad
  * @extends Phaser.Events.EventEmitter
@@ -33720,7 +33962,7 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Input.Gamepad.GamepadManager} manager - A reference to the Gamepad Manager.
+ * @param {Phaser.Input.Gamepad.GamepadPlugin} manager - A reference to the Gamepad Plugin.
  * @param {Pad} pad - The Gamepad object, as extracted from GamepadEvent.
  */
 var Gamepad = new Class({
@@ -33734,10 +33976,10 @@ var Gamepad = new Class({
         EventEmitter.call(this);
 
         /**
-         * A reference to the Gamepad Manager.
+         * A reference to the Gamepad Plugin.
          *
          * @name Phaser.Input.Gamepad.Gamepad#manager
-         * @type {Phaser.Input.Gamepad.GamepadManager}
+         * @type {Phaser.Input.Gamepad.GamepadPlugin}
          * @since 3.0.0
          */
         this.manager = manager;
@@ -34136,7 +34378,7 @@ var Gamepad = new Class({
 
         var localAxes = this.axes;
         var gamepadAxes = pad.axes;
-        
+
         len = localAxes.length;
 
         for (i = 0; i < len; i++)
@@ -34380,7 +34622,7 @@ var Gamepad = new Class({
 
         get: function ()
         {
-            return this._FBLeftTop.value
+            return this._FBLeftTop.value;
         }
 
     },
@@ -34400,7 +34642,7 @@ var Gamepad = new Class({
 
         get: function ()
         {
-            return this._FBLeftBottom.value
+            return this._FBLeftBottom.value;
         }
 
     },
@@ -34420,7 +34662,7 @@ var Gamepad = new Class({
 
         get: function ()
         {
-            return this._FBRightTop.value
+            return this._FBRightTop.value;
         }
 
     },
@@ -34440,7 +34682,7 @@ var Gamepad = new Class({
 
         get: function ()
         {
-            return this._FBRightBottom.value
+            return this._FBRightBottom.value;
         }
 
     }
@@ -34452,10 +34694,10 @@ module.exports = Gamepad;
 
 /***/ }),
 
-/***/ "./input/gamepad/GamepadManager.js":
-/*!*****************************************!*\
-  !*** ./input/gamepad/GamepadManager.js ***!
-  \*****************************************/
+/***/ "./input/gamepad/GamepadPlugin.js":
+/*!****************************************!*\
+  !*** ./input/gamepad/GamepadPlugin.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34468,11 +34710,8 @@ module.exports = Gamepad;
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js");
-
-// https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API
-// https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
-// https://www.smashingmagazine.com/2015/11/gamepad-api-in-web-games/
-// http://html5gamepad.com/
+var GetValue = __webpack_require__(/*! ../../utils/object/GetValue */ "./utils/object/GetValue.js");
+var InputPluginCache = __webpack_require__(/*! ../InputPluginCache */ "./input/InputPluginCache.js");
 
 /**
  * @typedef {object} Pad
@@ -34483,52 +34722,92 @@ var Gamepad = __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js")
 
 /**
  * @classdesc
- * The Gamepad Manager is a helper class that belongs to the Input Manager.
+ * The Gamepad Plugin is an input plugin that belongs to the Scene-owned Input system.
  *
  * Its role is to listen for native DOM Gamepad Events and then process them.
  *
- * You do not need to create this class directly, the Input Manager will create an instance of it automatically.
+ * You do not need to create this class directly, the Input system will create an instance of it automatically.
  *
- * You can access it from within a Scene using `this.input.gamepad`. For example, you can do:
+ * You can access it from within a Scene using `this.input.gamepad`.
+ *
+ * To listen for a gamepad being connected:
  *
  * ```javascript
+ * this.input.gamepad.once('connected', function (pad) {
+ *     //   'pad' is a reference to the gamepad that was just connected
+ * });
  * ```
  *
- * @class GamepadManager
+ * Note that the browser may require you to press a button on a gamepad before it will allow you to access it,
+ * this is for security reasons. However, it may also trust the page already, in which case you won't get the
+ * 'connected' event and instead should check `GamepadPlugin.total` to see if it thinks there are any gamepads
+ * already connected.
+ *
+ * Once you have received the connected event, or polled the gamepads and found them enabled, you can access
+ * them via the built-in properties `GamepadPlugin.pad1` to `pad4`, for up to 4 game pads. With a reference
+ * to the gamepads you can poll its buttons and axis sticks. See the properties and methods available on
+ * the `Gamepad` class for more details.
+ *
+ * For more information about Gamepad support in browsers see the following resources:
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API
+ * https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+ * https://www.smashingmagazine.com/2015/11/gamepad-api-in-web-games/
+ * http://html5gamepad.com/
+ *
+ * @class GamepadPlugin
  * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Input.Gamepad
  * @constructor
- * @since 3.0.0
+ * @since 3.10.0
  *
- * @param {Phaser.Input.InputManager} inputManager - A reference to the Input Manager.
+ * @param {Phaser.Input.InputPlugin} sceneInputPlugin - A reference to the Scene Input Plugin that the KeyboardPlugin belongs to.
  */
-var GamepadManager = new Class({
+var GamepadPlugin = new Class({
 
     Extends: EventEmitter,
 
     initialize:
 
-    function GamepadManager (inputManager)
+    function GamepadPlugin (sceneInputPlugin)
     {
         EventEmitter.call(this);
 
         /**
-         * A reference to the Input Manager.
+         * A reference to the Scene that this Input Plugin is responsible for.
          *
-         * @name Phaser.Input.Gamepad.GamepadManager#manager
-         * @type {Phaser.Input.InputManager}
-         * @since 3.0.0
+         * @name Phaser.Input.Gamepad.GamepadPlugin#scene
+         * @type {Phaser.Scene}
+         * @since 3.10.0
          */
-        this.manager = inputManager;
+        this.scene = sceneInputPlugin.scene;
+
+        /**
+         * A reference to the Scene Systems Settings.
+         *
+         * @name Phaser.Input.Gamepad.GamepadPlugin#settings
+         * @type {Phaser.Scenes.Settings.Object}
+         * @since 3.10.0
+         */
+        this.settings = this.scene.sys.settings;
+
+        /**
+         * A reference to the Scene Input Plugin that created this Keyboard Plugin.
+         *
+         * @name Phaser.Input.Gamepad.GamepadPlugin#sceneInputPlugin
+         * @type {Phaser.Input.InputPlugin}
+         * @since 3.10.0
+         */
+        this.sceneInputPlugin = sceneInputPlugin;
 
         /**
          * A boolean that controls if the Gamepad Manager is enabled or not.
          * Can be toggled on the fly.
          *
-         * @name Phaser.Input.Gamepad.GamepadManager#enabled
+         * @name Phaser.Input.Gamepad.GamepadPlugin#enabled
          * @type {boolean}
          * @default true
-         * @since 3.0.0
+         * @since 3.10.0
          */
         this.enabled = true;
 
@@ -34536,147 +34815,200 @@ var GamepadManager = new Class({
          * The Gamepad Event target, as defined in the Game Config.
          * Typically the browser window, but can be any interactive DOM element.
          *
-         * @name Phaser.Input.Gamepad.GamepadManager#target
+         * @name Phaser.Input.Gamepad.GamepadPlugin#target
          * @type {any}
-         * @since 3.0.0
+         * @since 3.10.0
          */
         this.target;
 
         /**
          * An array of the connected Gamepads.
          *
-         * @name Phaser.Input.Gamepad.GamepadManager#gamepads
+         * @name Phaser.Input.Gamepad.GamepadPlugin#gamepads
          * @type {Phaser.Input.Gamepad.Gamepad[]}
          * @default []
-         * @since 3.0.0
+         * @since 3.10.0
          */
         this.gamepads = [];
 
         /**
          * An internal event queue.
          *
-         * @name Phaser.Input.Gamepad.GamepadManager#queue
+         * @name Phaser.Input.Gamepad.GamepadPlugin#queue
          * @type {GamepadEvent[]}
          * @private
-         * @since 3.0.0
+         * @since 3.10.0
          */
         this.queue = [];
 
+        /**
+         * Internal event handler.
+         *
+         * @name Phaser.Input.Gamepad.GamepadPlugin#onGamepadHandler
+         * @type {function}
+         * @private
+         * @since 3.10.0
+         */
+        this.onGamepadHandler;
+
+        /**
+         * Internal Gamepad reference.
+         *
+         * @name Phaser.Input.Gamepad.GamepadPlugin#_pad1
+         * @type {Phaser.Input.Gamepad.Gamepad}
+         * @private
+         * @since 3.10.0
+         */
         this._pad1;
+
+        /**
+         * Internal Gamepad reference.
+         *
+         * @name Phaser.Input.Gamepad.GamepadPlugin#_pad2
+         * @type {Phaser.Input.Gamepad.Gamepad}
+         * @private
+         * @since 3.10.0
+         */
         this._pad2;
+
+        /**
+         * Internal Gamepad reference.
+         *
+         * @name Phaser.Input.Gamepad.GamepadPlugin#_pad3
+         * @type {Phaser.Input.Gamepad.Gamepad}
+         * @private
+         * @since 3.10.0
+         */
         this._pad3;
+
+        /**
+         * Internal Gamepad reference.
+         *
+         * @name Phaser.Input.Gamepad.GamepadPlugin#_pad4
+         * @type {Phaser.Input.Gamepad.Gamepad}
+         * @private
+         * @since 3.10.0
+         */
         this._pad4;
 
-        inputManager.events.once('boot', this.boot, this);
+        sceneInputPlugin.pluginEvents.once('boot', this.boot, this);
+        sceneInputPlugin.pluginEvents.on('start', this.start, this);
     },
 
     /**
-     * The Boot handler is called by Phaser.Game when it first starts up.
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#boot
-     * @since 3.0.0
+     * @method Phaser.Input.Gamepad.GamepadPlugin#boot
+     * @private
+     * @since 3.10.0
      */
     boot: function ()
     {
-        var config = this.manager.config;
+        var game = this.scene.sys.game;
+        var settings = this.settings.input;
+        var config = game.config;
 
-        this.enabled = (config.inputGamepad && this.manager.game.device.input.gamepads);
-        this.target = config.inputGamepadEventTarget;
+        this.enabled = GetValue(settings, 'gamepad', config.inputGamepad) && game.device.input.gamepads;
+        this.target = GetValue(settings, 'gamepad.target', config.inputGamepadEventTarget);
 
+        this.sceneInputPlugin.pluginEvents.once('destroy', this.destroy, this);
+    },
+
+    /**
+     * This method is called automatically by the Scene when it is starting up.
+     * It is responsible for creating local systems, properties and listening for Scene events.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Input.Gamepad.GamepadPlugin#start
+     * @private
+     * @since 3.10.0
+     */
+    start: function ()
+    {
         if (this.enabled)
         {
             this.startListeners();
         }
+
+        this.sceneInputPlugin.pluginEvents.once('shutdown', this.shutdown, this);
     },
 
     /**
-     * The Gamepad Connected Event Handler.
+     * Checks to see if both this plugin and the Scene to which it belongs is active.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#onGamepadConnected
+     * @method Phaser.Input.Gamepad.GamepadPlugin#isActive
      * @since 3.10.0
      *
-     * @param {GamepadEvent} event - The native DOM Gamepad Event.
+     * @return {boolean} `true` if the plugin and the Scene it belongs to is active.
      */
-    onGamepadConnected: function (event)
+    isActive: function ()
     {
-        // console.log(event);
-
-        if (event.defaultPrevented || !this.enabled)
-        {
-            // Do nothing if event already handled
-            return;
-        }
-
-        this.refreshPads();
-
-        this.queue.push(event);
-    },
-
-    /**
-     * The Gamepad Disconnected Event Handler.
-     *
-     * @method Phaser.Input.Gamepad.GamepadManager#onGamepadDisconnected
-     * @since 3.10.0
-     *
-     * @param {GamepadEvent} event - The native DOM Gamepad Event.
-     */
-    onGamepadDisconnected: function (event)
-    {
-        if (event.defaultPrevented || !this.enabled)
-        {
-            // Do nothing if event already handled
-            return;
-        }
-
-        this.refreshPads();
-
-        this.queue.push(event);
+        return (this.enabled && this.scene.sys.isActive());
     },
 
     /**
      * Starts the Gamepad Event listeners running.
      * This is called automatically and does not need to be manually invoked.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#startListeners
-     * @since 3.0.0
+     * @method Phaser.Input.Gamepad.GamepadPlugin#startListeners
+     * @private
+     * @since 3.10.0
      */
     startListeners: function ()
     {
+        var _this = this;
         var target = this.target;
 
-        target.addEventListener('gamepadconnected', this.onGamepadConnected.bind(this), false);
-        target.addEventListener('gamepaddisconnected', this.onGamepadDisconnected.bind(this), false);
+        var handler = function (event)
+        {
+            // console.log(event);
+
+            if (event.defaultPrevented || !_this.isActive())
+            {
+                // Do nothing if event already handled
+                return;
+            }
+
+            _this.refreshPads();
+
+            _this.queue.push(event);
+        };
+
+        this.onGamepadHandler = handler;
+
+        target.addEventListener('gamepadconnected', handler, false);
+        target.addEventListener('gamepaddisconnected', handler, false);
 
         //  FF also supports gamepadbuttondown, gamepadbuttonup and gamepadaxismove but
         //  nothing else does, and we can get those values via the gamepads anyway, so we will
         //  until more browsers support this
 
-        //  Finally, listen for an update event from the Input Manager
-        this.manager.events.on('update', this.update, this);
+        //  Finally, listen for an update event from the Input Plugin
+        this.sceneInputPlugin.pluginEvents.on('update', this.update, this);
     },
 
     /**
      * Stops the Gamepad Event listeners.
      * This is called automatically and does not need to be manually invoked.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#stopListeners
-     * @since 3.0.0
+     * @method Phaser.Input.Gamepad.GamepadPlugin#stopListeners
+     * @private
+     * @since 3.10.0
      */
     stopListeners: function ()
     {
-        var target = this.target;
+        this.target.removeEventListener('gamepadconnected', this.onGamepadHandler);
+        this.target.removeEventListener('gamepaddisconnected', this.onGamepadHandler);
 
-        target.removeEventListener('gamepadconnected', this.onGamepadConnected);
-        target.removeEventListener('gamepaddisconnected', this.onGamepadDisconnected);
-
-        this.manager.events.off('update', this.update);
+        this.sceneInputPlugin.pluginEvents.off('update', this.update);
     },
 
     /**
      * Disconnects all current Gamepads.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#disconnectAll
-     * @since 3.0.0
+     * @method Phaser.Input.Gamepad.GamepadPlugin#disconnectAll
+     * @since 3.10.0
      */
     disconnectAll: function ()
     {
@@ -34692,9 +35024,9 @@ var GamepadManager = new Class({
      * This is called automatically when a gamepad is connected or disconnected,
      * and during the update loop.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#refreshPads
+     * @method Phaser.Input.Gamepad.GamepadPlugin#refreshPads
      * @private
-     * @since 3.0.0
+     * @since 3.10.0
      */
     refreshPads: function ()
     {
@@ -34765,8 +35097,8 @@ var GamepadManager = new Class({
     /**
      * Returns an array of all currently connected Gamepads.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#getAll
-     * @since 3.0.0
+     * @method Phaser.Input.Gamepad.GamepadPlugin#getAll
+     * @since 3.10.0
      *
      * @return {Phaser.Input.Gamepad.Gamepad[]} An array of all currently connected Gamepads.
      */
@@ -34789,8 +35121,8 @@ var GamepadManager = new Class({
     /**
      * Looks-up a single Gamepad based on the given index value.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#getPad
-     * @since 3.0.0
+     * @method Phaser.Input.Gamepad.GamepadPlugin#getPad
+     * @since 3.10.0
      *
      * @param {number} index - The index of the Gamepad to get.
      *
@@ -34814,9 +35146,9 @@ var GamepadManager = new Class({
      *
      * Called automatically by the Input Manager, invoked from the Game step.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#update
+     * @method Phaser.Input.Gamepad.GamepadPlugin#update
      * @private
-     * @since 3.0.0
+     * @since 3.10.0
      */
     update: function ()
     {
@@ -34840,41 +35172,46 @@ var GamepadManager = new Class({
         for (var i = 0; i < len; i++)
         {
             var event = queue[i];
-            var pad;
+            var pad = this.getPad(event.gamepad.index);
 
-            switch (event.type)
+            if (event.type === 'gamepadconnected')
             {
-                case 'gamepadconnected':
-
-                    pad = this.getPad(event.gamepad.index);
-
-                    this.emit('connected', pad, event);
-
-                    break;
-
-                case 'gamepaddisconnected':
-
-                    pad = this.getPad(event.gamepad.index);
-
-                    this.emit('disconnected', pad, event);
-
-                    break;
+                this.emit('connected', pad, event);
+            }
+            else if (event.type === 'gamepaddisconnected')
+            {
+                this.emit('disconnected', pad, event);
             }
         }
     },
 
     /**
-     * Destroys this Gamepad Manager, disconnecting all Gamepads and releasing internal references.
+     * Shuts the Gamepad Plugin down.
+     * All this does is remove any listeners bound to it.
      *
-     * @method Phaser.Input.Gamepad.GamepadManager#destroy
-     * @since 3.0.0
+     * @method Phaser.Input.Gamepad.GamepadPlugin#shutdown
+     * @private
+     * @since 3.10.0
      */
-    destroy: function ()
+    shutdown: function ()
     {
         this.stopListeners();
+
         this.disconnectAll();
 
         this.removeAllListeners();
+    },
+
+    /**
+     * Destroys this Gamepad Plugin, disconnecting all Gamepads and releasing internal references.
+     *
+     * @method Phaser.Input.Gamepad.GamepadPlugin#destroy
+     * @private
+     * @since 3.10.0
+     */
+    destroy: function ()
+    {
+        this.shutdown();
 
         for (var i = 0; i < this.gamepads.length; i++)
         {
@@ -34886,16 +35223,18 @@ var GamepadManager = new Class({
 
         this.gamepads = [];
 
+        this.scene = null;
+        this.settings = null;
+        this.sceneInputPlugin = null;
         this.target = null;
-        this.manager = null;
     },
 
     /**
      * The total number of connected game pads.
      *
-     * @name Phaser.Input.Gamepad.GamepadManager#total
+     * @name Phaser.Input.Gamepad.GamepadPlugin#total
      * @type {integer}
-     * @since 3.0.0
+     * @since 3.10.0
      */
     total: {
 
@@ -34913,7 +35252,7 @@ var GamepadManager = new Class({
      * has not yet issued a gamepadconnect, which can happen even if a Gamepad
      * is plugged in, but hasn't yet had any buttons pressed on it.
      *
-     * @name Phaser.Input.Gamepad.GamepadManager#pad1
+     * @name Phaser.Input.Gamepad.GamepadPlugin#pad1
      * @type {Phaser.Input.Gamepad.Gamepad}
      * @since 3.10.0
      */
@@ -34933,7 +35272,7 @@ var GamepadManager = new Class({
      * has not yet issued a gamepadconnect, which can happen even if a Gamepad
      * is plugged in, but hasn't yet had any buttons pressed on it.
      *
-     * @name Phaser.Input.Gamepad.GamepadManager#pad2
+     * @name Phaser.Input.Gamepad.GamepadPlugin#pad2
      * @type {Phaser.Input.Gamepad.Gamepad}
      * @since 3.10.0
      */
@@ -34953,7 +35292,7 @@ var GamepadManager = new Class({
      * has not yet issued a gamepadconnect, which can happen even if a Gamepad
      * is plugged in, but hasn't yet had any buttons pressed on it.
      *
-     * @name Phaser.Input.Gamepad.GamepadManager#pad3
+     * @name Phaser.Input.Gamepad.GamepadPlugin#pad3
      * @type {Phaser.Input.Gamepad.Gamepad}
      * @since 3.10.0
      */
@@ -34973,7 +35312,7 @@ var GamepadManager = new Class({
      * has not yet issued a gamepadconnect, which can happen even if a Gamepad
      * is plugged in, but hasn't yet had any buttons pressed on it.
      *
-     * @name Phaser.Input.Gamepad.GamepadManager#pad4
+     * @name Phaser.Input.Gamepad.GamepadPlugin#pad4
      * @type {Phaser.Input.Gamepad.Gamepad}
      * @since 3.10.0
      */
@@ -34988,7 +35327,17 @@ var GamepadManager = new Class({
 
 });
 
-module.exports = GamepadManager;
+/**
+ * An instance of the Gamepad Plugin class, if enabled via the `input.gamepad` Scene or Game Config property.
+ * Use this to create access Gamepads connected to the browser and respond to gamepad buttons.
+ *
+ * @name Phaser.Input.InputPlugin#gamepad
+ * @type {?Phaser.Input.Gamepad.GamepadPlugin}
+ * @since 3.10.0
+ */
+InputPluginCache.register('GamepadPlugin', GamepadPlugin, 'gamepad', 'gamepad', 'inputGamepad');
+
+module.exports = GamepadPlugin;
 
 
 /***/ }),
@@ -35198,7 +35547,7 @@ module.exports = {
     Axis: __webpack_require__(/*! ./Axis */ "./input/gamepad/Axis.js"),
     Button: __webpack_require__(/*! ./Button */ "./input/gamepad/Button.js"),
     Gamepad: __webpack_require__(/*! ./Gamepad */ "./input/gamepad/Gamepad.js"),
-    GamepadManager: __webpack_require__(/*! ./GamepadManager */ "./input/gamepad/GamepadManager.js"),
+    GamepadPlugin: __webpack_require__(/*! ./GamepadPlugin */ "./input/gamepad/GamepadPlugin.js"),
     
     Configs: __webpack_require__(/*! ./configs/ */ "./input/gamepad/configs/index.js")
 };
@@ -35232,6 +35581,7 @@ var Input = {
     Gamepad: __webpack_require__(/*! ./gamepad */ "./input/gamepad/index.js"),
     InputManager: __webpack_require__(/*! ./InputManager */ "./input/InputManager.js"),
     InputPlugin: __webpack_require__(/*! ./InputPlugin */ "./input/InputPlugin.js"),
+    InputPluginCache: __webpack_require__(/*! ./InputPluginCache */ "./input/InputPluginCache.js"),
     Keyboard: __webpack_require__(/*! ./keyboard */ "./input/keyboard/index.js"),
     Mouse: __webpack_require__(/*! ./mouse */ "./input/mouse/index.js"),
     Pointer: __webpack_require__(/*! ./Pointer */ "./input/Pointer.js"),
@@ -35247,10 +35597,10 @@ module.exports = Input;
 
 /***/ }),
 
-/***/ "./input/keyboard/KeyboardManager.js":
-/*!*******************************************!*\
-  !*** ./input/keyboard/KeyboardManager.js ***!
-  \*******************************************/
+/***/ "./input/keyboard/KeyboardPlugin.js":
+/*!******************************************!*\
+  !*** ./input/keyboard/KeyboardPlugin.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35262,6 +35612,8 @@ module.exports = Input;
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var GetValue = __webpack_require__(/*! ../../utils/object/GetValue */ "./utils/object/GetValue.js");
+var InputPluginCache = __webpack_require__(/*! ../InputPluginCache */ "./input/InputPluginCache.js");
 var Key = __webpack_require__(/*! ./keys/Key */ "./input/keyboard/keys/Key.js");
 var KeyCodes = __webpack_require__(/*! ./keys/KeyCodes */ "./input/keyboard/keys/KeyCodes.js");
 var KeyCombo = __webpack_require__(/*! ./combo/KeyCombo */ "./input/keyboard/combo/KeyCombo.js");
@@ -35271,11 +35623,11 @@ var ProcessKeyUp = __webpack_require__(/*! ./keys/ProcessKeyUp */ "./input/keybo
 
 /**
  * @classdesc
- * The Keyboard Manager is a helper class that belongs to the Input Manager.
+ * The Keyboard Plugin is an input plugin that belongs to the Scene-owned Input system.
  * 
  * Its role is to listen for native DOM Keyboard Events and then process them.
  * 
- * You do not need to create this class directly, the Input Manager will create an instance of it automatically.
+ * You do not need to create this class directly, the Input system will create an instance of it automatically.
  * 
  * You can access it from within a Scene using `this.input.keyboard`. For example, you can do:
  *
@@ -35302,186 +35654,219 @@ var ProcessKeyUp = __webpack_require__(/*! ./keys/ProcessKeyUp */ "./input/keybo
  * For example the Chrome extension vimium is known to disable Phaser from using the D key, while EverNote disables the backtick key.
  * And there are others. So, please check your extensions before opening Phaser issues about keys that don't work.
  *
- * @class KeyboardManager
+ * @class KeyboardPlugin
  * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Input.Keyboard
  * @constructor
- * @since 3.0.0
+ * @since 3.10.0
  *
- * @param {Phaser.Input.InputManager} inputManager - A reference to the Input Manager.
+ * @param {Phaser.Input.InputPlugin} sceneInputPlugin - A reference to the Scene Input Plugin that the KeyboardPlugin belongs to.
  */
-var KeyboardManager = new Class({
+var KeyboardPlugin = new Class({
 
     Extends: EventEmitter,
 
     initialize:
 
-    function KeyboardManager (inputManager)
+    function KeyboardPlugin (sceneInputPlugin)
     {
         EventEmitter.call(this);
 
         /**
-         * A reference to the Input Manager.
+         * A reference to the Scene that this Input Plugin is responsible for.
          *
-         * @name Phaser.Input.Keyboard.KeyboardManager#manager
-         * @type {Phaser.Input.InputManager}
-         * @since 3.0.0
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#scene
+         * @type {Phaser.Scene}
+         * @since 3.10.0
          */
-        this.manager = inputManager;
+        this.scene = sceneInputPlugin.scene;
 
         /**
-         * A boolean that controls if the Keyboard Manager is enabled or not.
+         * A reference to the Scene Systems Settings.
+         *
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#settings
+         * @type {Phaser.Scenes.Settings.Object}
+         * @since 3.10.0
+         */
+        this.settings = this.scene.sys.settings;
+
+        /**
+         * A reference to the Scene Input Plugin that created this Keyboard Plugin.
+         *
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#sceneInputPlugin
+         * @type {Phaser.Input.InputPlugin}
+         * @since 3.10.0
+         */
+        this.sceneInputPlugin = sceneInputPlugin;
+
+        /**
+         * A boolean that controls if the Keyboard Plugin is enabled or not.
          * Can be toggled on the fly.
          *
-         * @name Phaser.Input.Keyboard.KeyboardManager#enabled
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#enabled
          * @type {boolean}
-         * @default false
-         * @since 3.0.0
+         * @default true
+         * @since 3.10.0
          */
-        this.enabled = false;
+        this.enabled = true;
 
         /**
-         * The Keyboard Event target, as defined in the Game Config.
+         * The Keyboard Event target, as defined in the Scene or Game Config.
          * Typically the browser window, but can be any interactive DOM element.
          *
-         * @name Phaser.Input.Keyboard.KeyboardManager#target
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#target
          * @type {any}
-         * @since 3.0.0
+         * @since 3.10.0
          */
         this.target;
 
         /**
          * An array of Key objects to process.
          *
-         * @name Phaser.Input.Keyboard.KeyboardManager#keys
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#keys
          * @type {Phaser.Input.Keyboard.Key[]}
-         * @since 3.0.0
+         * @since 3.10.0
          */
         this.keys = [];
 
         /**
          * An array of KeyCombo objects to process.
          *
-         * @name Phaser.Input.Keyboard.KeyboardManager#combos
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#combos
          * @type {Phaser.Input.Keyboard.KeyCombo[]}
-         * @since 3.0.0
+         * @since 3.10.0
          */
         this.combos = [];
 
         /**
          * An internal event queue.
          *
-         * @name Phaser.Input.Keyboard.KeyboardManager#queue
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#queue
          * @type {KeyboardEvent[]}
          * @private
-         * @since 3.0.0
+         * @since 3.10.0
          */
         this.queue = [];
 
-        inputManager.events.once('boot', this.boot, this);
+        /**
+         * Internal event handler.
+         *
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#onKeyHandler
+         * @type {function}
+         * @private
+         * @since 3.10.0
+         */
+        this.onKeyHandler;
+
+        sceneInputPlugin.pluginEvents.once('boot', this.boot, this);
+        sceneInputPlugin.pluginEvents.on('start', this.start, this);
     },
 
     /**
-     * The Boot handler is called by Phaser.Game when it first starts up.
+     * This method is called automatically, only once, when the Scene is first created.
+     * Do not invoke it directly.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#boot
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#boot
      * @private
-     * @since 3.0.0
+     * @since 3.10.0
      */
     boot: function ()
     {
-        var config = this.manager.config;
+        var settings = this.settings.input;
+        var config = this.scene.sys.game.config;
 
-        this.enabled = config.inputKeyboard;
-        this.target = config.inputKeyboardEventTarget;
+        this.enabled = GetValue(settings, 'keyboard', config.inputKeyboard);
+        this.target = GetValue(settings, 'keyboard.target', config.inputKeyboardEventTarget);
 
+        this.sceneInputPlugin.pluginEvents.once('destroy', this.destroy, this);
+    },
+
+    /**
+     * This method is called automatically by the Scene when it is starting up.
+     * It is responsible for creating local systems, properties and listening for Scene events.
+     * Do not invoke it directly.
+     *
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#start
+     * @private
+     * @since 3.10.0
+     */
+    start: function ()
+    {
         if (this.enabled)
         {
             this.startListeners();
         }
+
+        this.sceneInputPlugin.pluginEvents.once('shutdown', this.shutdown, this);
     },
 
     /**
-     * The Keyboard Down Event Handler.
+     * Checks to see if both this plugin and the Scene to which it belongs is active.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#onKeyDown
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#isActive
      * @since 3.10.0
      *
-     * @param {KeyboardEvent} event - The native DOM Keyboard Event.
+     * @return {boolean} `true` if the plugin and the Scene it belongs to is active.
      */
-    onKeyDown: function (event)
+    isActive: function ()
     {
-        if (event.defaultPrevented || !this.enabled)
-        {
-            // Do nothing if event already handled
-            return;
-        }
-
-        this.queue.push(event);
-
-        var key = this.keys[event.keyCode];
-
-        if (key && key.preventDefault)
-        {
-            event.preventDefault();
-        }
-    },
-
-    /**
-     * The Keyboard Up Event Handler.
-     *
-     * @method Phaser.Input.Keyboard.KeyboardManager#onKeyUp
-     * @since 3.10.0
-     *
-     * @param {KeyboardEvent} event - The native DOM Keyboard Event.
-     */
-    onKeyUp: function (event)
-    {
-        if (event.defaultPrevented || !this.enabled)
-        {
-            // Do nothing if event already handled
-            return;
-        }
-
-        this.queue.push(event);
-
-        var key = this.keys[event.keyCode];
-
-        if (key && key.preventDefault)
-        {
-            event.preventDefault();
-        }
+        return (this.enabled && this.scene.sys.isActive());
     },
 
     /**
      * Starts the Keyboard Event listeners running.
      * This is called automatically and does not need to be manually invoked.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#startListeners
-     * @since 3.0.0
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#startListeners
+     * @private
+     * @since 3.10.0
      */
     startListeners: function ()
     {
-        this.target.addEventListener('keydown', this.onKeyDown.bind(this), false);
-        this.target.addEventListener('keyup', this.onKeyUp.bind(this), false);
+        var _this = this;
 
-        //  Finally, listen for an update event from the Input Manager
-        this.manager.events.on('update', this.update, this);
+        var handler = function (event)
+        {
+            if (event.defaultPrevented || !_this.isActive())
+            {
+                // Do nothing if event already handled
+                return;
+            }
+
+            _this.queue.push(event);
+
+            var key = _this.keys[event.keyCode];
+
+            if (key && key.preventDefault)
+            {
+                event.preventDefault();
+            }
+
+        };
+
+        this.onKeyHandler = handler;
+
+        this.target.addEventListener('keydown', handler, false);
+        this.target.addEventListener('keyup', handler, false);
+
+        //  Finally, listen for an update event from the Input Plugin
+        this.sceneInputPlugin.pluginEvents.on('update', this.update, this);
     },
 
     /**
      * Stops the Keyboard Event listeners.
      * This is called automatically and does not need to be manually invoked.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#stopListeners
-     * @since 3.0.0
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#stopListeners
+     * @private
+     * @since 3.10.0
      */
     stopListeners: function ()
     {
-        this.target.removeEventListener('keydown', this.onKeyDown);
-        this.target.removeEventListener('keyup', this.onKeyUp);
+        this.target.removeEventListener('keydown', this.onKeyHandler);
+        this.target.removeEventListener('keyup', this.onKeyHandler);
 
-        this.manager.events.off('update', this.update);
+        this.sceneInputPlugin.pluginEvents.off('update', this.update);
     },
 
     /**
@@ -35498,8 +35883,8 @@ var KeyboardManager = new Class({
     /**
      * Creates and returns an object containing 4 hotkeys for Up, Down, Left and Right, and also Space Bar and shift.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#createCursorKeys
-     * @since 3.0.0
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#createCursorKeys
+     * @since 3.10.0
      *
      * @return {CursorKeys} An object containing the properties: `up`, `down`, `left`, `right`, `space` and `shift`.
      */
@@ -35536,8 +35921,8 @@ var KeyboardManager = new Class({
      *
      * To use non-alpha numeric keys, use a string, such as 'UP', 'SPACE' or 'LEFT'.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#addKeys
-     * @since 3.0.0
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#addKeys
+     * @since 3.10.0
      *
      * @param {(object|string)} keys - An object containing Key Codes, or a comma-separated string.
      *
@@ -35568,14 +35953,14 @@ var KeyboardManager = new Class({
     },
 
     /**
-     * Adds a Key object to the Keyboard Manager.
+     * Adds a Key object to this Keyboard Plugin.
      *
      * The given argument can be either an existing Key object, a string, such as `A` or `SPACE`, or a key code value.
      *
      * If a Key object is given, and one already exists matching the same key code, the existing one is replaced with the new one.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#addKey
-     * @since 3.0.0
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#addKey
+     * @since 3.10.0
      *
      * @param {(Phaser.Input.Keyboard.Key|string|integer)} key - Either a Key object, a string, such as `A` or `SPACE`, or a key code value.
      *
@@ -35615,12 +36000,12 @@ var KeyboardManager = new Class({
     },
 
     /**
-     * Removes a Key object from the Keyboard Manager.
+     * Removes a Key object from this Keyboard Plugin.
      *
      * The given argument can be either a Key object, a string, such as `A` or `SPACE`, or a key code value.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#removeKey
-     * @since 3.0.0
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#removeKey
+     * @since 3.10.0
      *
      * @param {(Phaser.Input.Keyboard.Key|string|integer)} key - Either a Key object, a string, such as `A` or `SPACE`, or a key code value.
      */
@@ -35652,7 +36037,7 @@ var KeyboardManager = new Class({
      * Creates a new KeyCombo.
      * 
      * A KeyCombo will listen for a specific string of keys from the Keyboard, and when it receives them
-     * it will emit a `keycombomatch` event from the Keyboard Manager.
+     * it will emit a `keycombomatch` event from this Keyboard Plugin.
      *
      * The keys to be listened for can be defined as:
      *
@@ -35677,8 +36062,8 @@ var KeyboardManager = new Class({
      * this.input.keyboard.createCombo('PHASER');
      * ```
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#createCombo
-     * @since 3.0.0
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#createCombo
+     * @since 3.10.0
      *
      * @param {(string|integer[]|object[])} keys - The keys that comprise this combo.
      * @param {KeyComboConfig} [config] - A Key Combo configuration object.
@@ -35693,9 +36078,9 @@ var KeyboardManager = new Class({
     /**
      * Internal update handler called by the Input Manager, which is in turn invoked by the Game step.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#update
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#update
      * @private
-     * @since 3.0.0
+     * @since 3.10.0
      */
     update: function ()
     {
@@ -35749,39 +36134,54 @@ var KeyboardManager = new Class({
     },
 
     /**
-     * Shuts the Keyboard Manager down.
+     * Shuts the Keyboard Plugin down.
      * All this does is remove any listeners bound to it.
      *
-     * @method Phaser.Input.Keyboard.KeyboardManager#shutdown
-     * @since 3.0.0
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#shutdown
+     * @private
+     * @since 3.10.0
      */
     shutdown: function ()
-    {
-        this.removeAllListeners();
-    },
-
-    /**
-     * Destroys this Keyboard Manager instance and all references it holds, plus clears out local arrays.
-     *
-     * @method Phaser.Input.Keyboard.KeyboardManager#destroy
-     * @since 3.0.0
-     */
-    destroy: function ()
     {
         this.stopListeners();
 
         this.removeAllListeners();
+    },
+
+    /**
+     * Destroys this Keyboard Plugin instance and all references it holds, plus clears out local arrays.
+     *
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#destroy
+     * @private
+     * @since 3.10.0
+     */
+    destroy: function ()
+    {
+        this.shutdown();
 
         this.keys = [];
         this.combos = [];
         this.queue = [];
 
-        this.manager = null;
+        this.scene = null;
+        this.settings = null;
+        this.sceneInputPlugin = null;
+        this.target = null;
     }
 
 });
 
-module.exports = KeyboardManager;
+/**
+ * An instance of the Keyboard Plugin class, if enabled via the `input.keyboard` Scene or Game Config property.
+ * Use this to create Key objects and listen for keyboard specific events.
+ *
+ * @name Phaser.Input.InputPlugin#keyboard
+ * @type {?Phaser.Input.Keyboard.KeyboardPlugin}
+ * @since 3.10.0
+ */
+InputPluginCache.register('KeyboardPlugin', KeyboardPlugin, 'keyboard', 'keyboard', 'inputKeyboard');
+
+module.exports = KeyboardPlugin;
 
 
 /***/ }),
@@ -36288,7 +36688,7 @@ module.exports = ResetKeyCombo;
 
 module.exports = {
 
-    KeyboardManager: __webpack_require__(/*! ./KeyboardManager */ "./input/keyboard/KeyboardManager.js"),
+    KeyboardPlugin: __webpack_require__(/*! ./KeyboardPlugin */ "./input/keyboard/KeyboardPlugin.js"),
 
     Key: __webpack_require__(/*! ./keys/Key */ "./input/keyboard/keys/Key.js"),
     KeyCodes: __webpack_require__(/*! ./keys/KeyCodes */ "./input/keyboard/keys/KeyCodes.js"),
@@ -59716,6 +60116,49 @@ var SceneManager = new Class({
     },
 
     /**
+     * Runs the given Scene, but does not change the state of this Scene.
+     * 
+     * If the given Scene is paused, it will resume it. If sleeping, it will wake it.
+     * If not running at all, it will be started.
+     *
+     * Use this if you wish to open a modal Scene by calling `pause` on the current
+     * Scene, then `run` on the modal Scene.
+     *
+     * @method Phaser.Scenes.SceneManager#run
+     * @since 3.10.0
+     *
+     * @param {string} key - The Scene to run.
+     * @param {object} [data] - A data object that will be passed to the Scene that is run _only if the Scene isn't asleep or paused_.
+     *
+     * @return {Phaser.Scenes.SceneManager} This Scene Manager.
+     */
+    run: function (key, data)
+    {
+        var scene = this.getScene(key);
+
+        if (!scene)
+        {
+            return this;
+        }
+
+        if (scene.sys.isSleeping())
+        {
+            //  Sleeping?
+            scene.sys.wake();
+        }
+        else if (scene.sys.isBooted && !scene.sys.isActive())
+        {
+            //  Paused?
+            scene.sys.resume();
+        }
+        else
+        {
+            //  Not actually running?
+            this.start(key, data);
+        }
+    },
+
+    /**
      * Starts the given Scene.
      *
      * @method Phaser.Scenes.SceneManager#start
@@ -60717,6 +61160,37 @@ var ScenePlugin = new Class({
     },
 
     /**
+     * Runs the given Scene, but does not change the state of this Scene.
+     * 
+     * If the given Scene is paused, it will resume it. If sleeping, it will wake it.
+     * If not running at all, it will be started.
+     *
+     * Use this if you wish to open a modal Scene by calling `pause` on the current
+     * Scene, then `run` on the modal Scene.
+     *
+     * @method Phaser.Scenes.ScenePlugin#run
+     * @since 3.10.0
+     *
+     * @param {string} key - The Scene to run.
+     * @param {object} [data] - A data object that will be passed to the Scene that is run _only if the Scene isn't asleep or paused_.
+     *
+     * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
+     */
+    run: function (key, data)
+    {
+        if (this.settings.status !== CONST.RUNNING)
+        {
+            this.manager.queueOp('run', key, data);
+        }
+        else
+        {
+            this.manager.run(key, data);
+        }
+
+        return this;
+    },
+
+    /**
      * Pause the Scene - this stops the update step from happening but it still renders.
      *
      * @method Phaser.Scenes.ScenePlugin#pause
@@ -61318,7 +61792,11 @@ var Settings = {
 
             //  Plugins
 
-            plugins: GetValue(config, 'plugins', false)
+            plugins: GetValue(config, 'plugins', false),
+
+            //  Input
+
+            input: GetValue(config, 'input', {})
 
         };
     }
@@ -71170,6 +71648,48 @@ var TextureManager = new Class({
                 var rgb = context.getImageData(0, 0, 1, 1);
 
                 return new Color(rgb.data[0], rgb.data[1], rgb.data[2], rgb.data[3]);
+            }
+        }
+
+        return null;
+    },
+
+    /**
+     * Given a Texture and an `x` and `y` coordinate this method will return a value between 0 and 255
+     * corresponding to the alpha value of the pixel at that location in the Texture. If the coordinate
+     * is out of bounds it will return null.
+     *
+     * @method Phaser.Textures.TextureManager#getPixelAlpha
+     * @since 3.10.0
+     *
+     * @param {integer} x - The x coordinate of the pixel within the Texture.
+     * @param {integer} y - The y coordinate of the pixel within the Texture.
+     * @param {string} key - The unique string-based key of the Texture.
+     * @param {(string|integer)} frame - The string or index of the Frame.
+     *
+     * @return {integer} A value between 0 and 255, or `null` if the coordinates were out of bounds.
+     */
+    getPixelAlpha: function (x, y, key, frame)
+    {
+        var textureFrame = this.getFrame(key, frame);
+
+        if (textureFrame)
+        {
+            var source = textureFrame.source.image;
+
+            if (x >= 0 && x <= source.width && y >= 0 && y <= source.height)
+            {
+                x += textureFrame.cutX;
+                y += textureFrame.cutY;
+
+                var context = this._tempContext;
+
+                context.clearRect(0, 0, 1, 1);
+                context.drawImage(source, x, y, 1, 1, 0, 0, 1, 1);
+
+                var rgb = context.getImageData(0, 0, 1, 1);
+
+                return rgb.data[3];
             }
         }
 

@@ -2845,8 +2845,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1726,
               "extension": ".js"
             },
@@ -2857,8 +2857,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Many Line Stars.js",
-              "name": "Many Line Stars.js",
+              "path": "src\\game objects\\graphics\\many line stars.js",
+              "name": "many line stars.js",
               "size": 1793,
               "extension": ".js"
             },
@@ -2869,8 +2869,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -2989,8 +2989,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -4295,7 +4295,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\grid movement.js",
                   "name": "grid movement.js",
-                  "size": 658,
+                  "size": 2223,
                   "extension": ".js"
                 },
                 {
@@ -4395,7 +4395,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 48753
+              "size": 50318
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -4447,10 +4447,10 @@
               "size": 71012
             }
           ],
-          "size": 256150
+          "size": 257715
         }
       ],
-      "size": 761688
+      "size": 763253
     },
     {
       "path": "src\\games",
@@ -6335,11 +6335,11 @@
             {
               "path": "src\\input\\gamepad\\twin stick shooter.js",
               "name": "twin stick shooter.js",
-              "size": 8302,
+              "size": 8326,
               "extension": ".js"
             }
           ],
-          "size": 14759
+          "size": 14783
         },
         {
           "path": "src\\input\\keyboard",
@@ -6388,9 +6388,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\keydown multi scene test.js",
+              "name": "keydown multi scene test.js",
+              "size": 2832,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\keydown.js",
               "name": "keydown.js",
-              "size": 1153,
+              "size": 1149,
               "extension": ".js"
             },
             {
@@ -6418,7 +6424,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12538
+          "size": 15366
         },
         {
           "path": "src\\input\\mouse",
@@ -6579,6 +6585,31 @@
           "size": 1505
         },
         {
+          "path": "src\\input\\pixel perfect",
+          "name": "pixel perfect",
+          "children": [
+            {
+              "path": "src\\input\\pixel perfect\\on down.js",
+              "name": "on down.js",
+              "size": 1144,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\pixel perfect\\on drag.js",
+              "name": "on drag.js",
+              "size": 1157,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\pixel perfect\\transformed.js",
+              "name": "transformed.js",
+              "size": 1157,
+              "extension": ".js"
+            }
+          ],
+          "size": 3458
+        },
+        {
           "path": "src\\input\\pointer",
           "name": "pointer",
           "children": [
@@ -6683,7 +6714,7 @@
           "size": 9602
         }
       ],
-      "size": 135691
+      "size": 142001
     },
     {
       "path": "src\\loader",
@@ -6883,12 +6914,6 @@
           "size": 5105
         },
         {
-          "path": "src\\loader\\json",
-          "name": "json",
-          "children": [],
-          "size": 0
-        },
-        {
           "path": "src\\loader\\load config tests.js",
           "name": "load config tests.js",
           "size": 1819,
@@ -6941,13 +6966,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\loader\\loader events\\play animation during load.js",
+              "name": "play animation during load.js",
+              "size": 8569,
+              "extension": ".js"
+            },
+            {
               "path": "src\\loader\\loader events\\start loader manually.js",
               "name": "start loader manually.js",
               "size": 5577,
               "extension": ".js"
             }
           ],
-          "size": 29861
+          "size": 38430
         },
         {
           "path": "src\\loader\\plugin",
@@ -6987,12 +7018,6 @@
             }
           ],
           "size": 841
-        },
-        {
-          "path": "src\\loader\\shader",
-          "name": "shader",
-          "children": [],
-          "size": 0
         },
         {
           "path": "src\\loader\\sprite sheet",
@@ -7037,12 +7062,6 @@
             }
           ],
           "size": 800
-        },
-        {
-          "path": "src\\loader\\text",
-          "name": "text",
-          "children": [],
-          "size": 0
         },
         {
           "path": "src\\loader\\texture atlas json",
@@ -7186,15 +7205,9 @@
             }
           ],
           "size": 5291
-        },
-        {
-          "path": "src\\loader\\xml",
-          "name": "xml",
-          "children": [],
-          "size": 0
         }
       ],
-      "size": 97841
+      "size": 106410
     },
     {
       "path": "src\\paths",
@@ -8423,8 +8436,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -9656,5 +9669,5 @@
       "size": 5291
     }
   ],
-  "size": 2517369
+  "size": 2533813
 }

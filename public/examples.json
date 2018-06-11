@@ -6110,6 +6110,31 @@
           "size": 18534
         },
         {
+          "path": "src\\input\\cursors",
+          "name": "cursors",
+          "children": [
+            {
+              "path": "src\\input\\cursors\\custom cursor.js",
+              "name": "custom cursor.js",
+              "size": 747,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\cursors\\cute cursor.js",
+              "name": "cute cursor.js",
+              "size": 953,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\cursors\\sc2 cursors.js",
+              "name": "sc2 cursors.js",
+              "size": 988,
+              "extension": ".js"
+            }
+          ],
+          "size": 2688
+        },
+        {
           "path": "src\\input\\dom events",
           "name": "dom events",
           "children": [
@@ -6130,9 +6155,15 @@
               "name": "add up callback.js",
               "size": 770,
               "extension": ".js"
+            },
+            {
+              "path": "src\\input\\dom events\\on canvas out.js",
+              "name": "on canvas out.js",
+              "size": 754,
+              "extension": ".js"
             }
           ],
-          "size": 2377
+          "size": 3131
         },
         {
           "path": "src\\input\\dragging",
@@ -6201,7 +6232,7 @@
             {
               "path": "src\\input\\dragging\\scale during drag.js",
               "name": "scale during drag.js",
-              "size": 1280,
+              "size": 1250,
               "extension": ".js"
             },
             {
@@ -6217,7 +6248,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17264
+          "size": 17234
         },
         {
           "path": "src\\input\\game object",
@@ -6296,13 +6327,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\game object\\use hand cursor.js",
+              "name": "use hand cursor.js",
+              "size": 629,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\game object\\world game objects.js",
               "name": "world game objects.js",
               "size": 2952,
               "extension": ".js"
             }
           ],
-          "size": 13763
+          "size": 14392
         },
         {
           "path": "src\\input\\gamepad",
@@ -6576,13 +6613,19 @@
           "name": "multitouch",
           "children": [
             {
+              "path": "src\\input\\multitouch\\multi drag.js",
+              "name": "multi drag.js",
+              "size": 1844,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\multitouch\\two touch inputs.js",
               "name": "two touch inputs.js",
-              "size": 1505,
+              "size": 1187,
               "extension": ".js"
             }
           ],
-          "size": 1505
+          "size": 3031
         },
         {
           "path": "src\\input\\pixel perfect",
@@ -6591,23 +6634,23 @@
             {
               "path": "src\\input\\pixel perfect\\on down.js",
               "name": "on down.js",
-              "size": 1144,
+              "size": 1262,
               "extension": ".js"
             },
             {
               "path": "src\\input\\pixel perfect\\on drag.js",
               "name": "on drag.js",
-              "size": 1157,
+              "size": 1141,
               "extension": ".js"
             },
             {
               "path": "src\\input\\pixel perfect\\transformed.js",
               "name": "transformed.js",
-              "size": 1157,
+              "size": 1212,
               "extension": ".js"
             }
           ],
-          "size": 3458
+          "size": 3615
         },
         {
           "path": "src\\input\\pointer",
@@ -6714,7 +6757,7 @@
           "size": 9602
         }
       ],
-      "size": 142001
+      "size": 147725
     },
     {
       "path": "src\\loader",
@@ -6966,19 +7009,13 @@
               "extension": ".js"
             },
             {
-              "path": "src\\loader\\loader events\\play animation during load.js",
-              "name": "play animation during load.js",
-              "size": 8569,
-              "extension": ".js"
-            },
-            {
               "path": "src\\loader\\loader events\\start loader manually.js",
               "name": "start loader manually.js",
               "size": 5577,
               "extension": ".js"
             }
           ],
-          "size": 38430
+          "size": 29861
         },
         {
           "path": "src\\loader\\plugin",
@@ -7207,7 +7244,7 @@
           "size": 5291
         }
       ],
-      "size": 106410
+      "size": 97841
     },
     {
       "path": "src\\paths",
@@ -9669,5 +9706,5 @@
       "size": 5291
     }
   ],
-  "size": 2533813
+  "size": 2530968
 }

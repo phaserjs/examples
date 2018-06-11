@@ -21,12 +21,10 @@ function preload ()
 function create ()
 {
     //  This sprite is draggable from any pixel that has an alpha value >= 1
-    var sprite1 = this.add.sprite(400, 200, 'logo').setInteractive(this.input.makePixelPerfect());
+    var sprite1 = this.add.sprite(400, 200, 'logo').setInteractive({ pixelPerfect: true, draggable: true });
 
-    //  This sprite is draggable from any pixel that has an alpha value >= 100 (i.e. the left side of the sprite)
-    var sprite2 = this.add.sprite(400, 400, 'logoAlpha').setInteractive(this.input.makePixelPerfect(100));
-
-    this.input.setDraggable([ sprite1, sprite2 ]);
+    //  This sprite is draggable from any pixel that has an alpha value >= 120 (i.e. the left side of the sprite)
+    var sprite2 = this.add.sprite(400, 400, 'logoAlpha').setInteractive({ pixelPerfect: true, alphaTolerance: 120, draggable: true });
 
     sprite1.on('drag', function (pointer, dragX, dragY) {
 

@@ -28,10 +28,8 @@ function create ()
 
         gameObject.setScale(gameObject.y / height);
 
-        gameObject.x = dragX;
-        gameObject.y = dragY;
-
-        gameObject.setOrigin(0.5);
+        gameObject.x = pointer.x;
+        gameObject.y = pointer.y;
 
     });
 

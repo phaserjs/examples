@@ -6128,11 +6128,11 @@
             {
               "path": "src\\input\\cursors\\sc2 cursors.js",
               "name": "sc2 cursors.js",
-              "size": 988,
+              "size": 1728,
               "extension": ".js"
             }
           ],
-          "size": 2688
+          "size": 3428
         },
         {
           "path": "src\\input\\dom events",
@@ -6757,7 +6757,7 @@
           "size": 9602
         }
       ],
-      "size": 147725
+      "size": 148465
     },
     {
       "path": "src\\loader",
@@ -7157,9 +7157,15 @@
               "name": "load texture atlas.js",
               "size": 684,
               "extension": ".js"
+            },
+            {
+              "path": "src\\loader\\texture atlas json\\mixed json test.js",
+              "name": "mixed json test.js",
+              "size": 7632,
+              "extension": ".js"
             }
           ],
-          "size": 23295
+          "size": 30927
         },
         {
           "path": "src\\loader\\texture atlas multi",
@@ -7244,7 +7250,7 @@
           "size": 5291
         }
       ],
-      "size": 97841
+      "size": 105473
     },
     {
       "path": "src\\paths",
@@ -9706,5 +9712,5 @@
       "size": 5291
     }
   ],
-  "size": 2530968
+  "size": 2539340
 }

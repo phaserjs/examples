@@ -14,9 +14,9 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     // this.load.image('testimage1', 'assets/sprites/block.png');
-    this.load.json('test1', 'assets/atlas/megaset-0.json');
+    // this.load.json('test1', 'assets/atlas/megaset-0.json');
     this.load.atlas('megaset', 'assets/atlas/megaset-3.png', atlasJSON);
-    this.load.image('testimage2', 'assets/sprites/crate.png');
+    this.load.image('bob', 'assets/sprites/crate.png');
 }
 
 function create ()

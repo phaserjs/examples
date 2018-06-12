@@ -36576,7 +36576,7 @@ var ResetKeyCombo = __webpack_require__(/*! ./ResetKeyCombo */ "./input/keyboard
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Input.Keyboard.KeyboardManager} keyboardManager - A reference to the Keyboard Manager.
+ * @param {Phaser.Input.Keyboard.KeyboardPlugin} keyboardPlugin - A reference to the Keyboard Plugin.
  * @param {(string|integer[]|object[])} keys - The keys that comprise this combo.
  * @param {KeyComboConfig} [config] - A Key Combo configuration object.
  */
@@ -36584,7 +36584,7 @@ var KeyCombo = new Class({
 
     initialize:
 
-    function KeyCombo (keyboardManager, keys, config)
+    function KeyCombo (keyboardPlugin, keys, config)
     {
         if (config === undefined) { config = {}; }
 
@@ -36598,10 +36598,10 @@ var KeyCombo = new Class({
          * A reference to the Keyboard Manager
          *
          * @name Phaser.Input.Keyboard.KeyCombo#manager
-         * @type {Phaser.Input.Keyboard.KeyboardManager}
+         * @type {Phaser.Input.Keyboard.KeyboardPlugin}
          * @since 3.0.0
          */
-        this.manager = keyboardManager;
+        this.manager = keyboardPlugin;
 
         /**
          * A flag that controls if this Key Combo is actively processing keys or not.
@@ -37866,7 +37866,7 @@ module.exports = KeyMap;
  */
 
 /**
- * Used internally by the KeyboardManager.
+ * Used internally by the Keyboard Plugin.
  *
  * @function Phaser.Input.Keyboard.ProcessKeyDown
  * @private
@@ -37930,7 +37930,7 @@ module.exports = ProcessKeyDown;
  */
 
 /**
- * Used internally by the KeyboardManager.
+ * Used internally by the Keyboard Plugin.
  *
  * @function Phaser.Input.Keyboard.ProcessKeyUp
  * @private
@@ -38188,7 +38188,7 @@ var MouseManager = new Class({
      * @method Phaser.Input.Mouse.MouseManager#pointerLockChange
      * @since 3.0.0
      *
-     * @param {MouseHandler} event - The native event from the browser.
+     * @param {MouseEvent} event - The native event from the browser.
      */
     pointerLockChange: function (event)
     {
@@ -38831,7 +38831,7 @@ var File = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.state = typeof(this.url) === 'function' ? CONST.FILE_POPULATED : CONST.FILE_PENDING;
+        this.state = (typeof(this.url) === 'function') ? CONST.FILE_POPULATED : CONST.FILE_PENDING;
 
         /**
          * The total size of this file.
@@ -40112,6 +40112,8 @@ var LoaderPlugin = new Class({
             this.updateProgress();
 
             this.checkLoadQueue();
+
+            this.systems.events.on('update', this.update, this);
         }
     },
 
@@ -40140,6 +40142,20 @@ var LoaderPlugin = new Class({
     },
 
     /**
+     * Called automatically during the load process.
+     *
+     * @method Phaser.Loader.LoaderPlugin#update
+     * @since 3.10.0
+     */
+    update: function ()
+    {
+        if (this.state === CONST.LOADER_LOADING && this.list.size > 0 && this.inflight.size < this.maxParallelDownloads)
+        {
+            this.checkLoadQueue();
+        }
+    },
+
+    /**
      * An internal method called by the Loader.
      * 
      * It will check to see if there are any more files in the pending list that need loading, and if so it will move
@@ -40161,8 +40177,7 @@ var LoaderPlugin = new Class({
 
                 this.list.delete(file);
 
-                //  If the file doesn't have its own crossOrigin set,
-                //  we'll use the Loaders (which is undefined by default)
+                //  If the file doesn't have its own crossOrigin set, we'll use the Loaders (which is undefined by default)
                 if (!file.crossOrigin)
                 {
                     file.crossOrigin = this.crossOrigin;
@@ -40232,11 +40247,6 @@ var LoaderPlugin = new Class({
 
             this.emit('loaderror', file);
         }
-
-        if (this.list.size > 0)
-        {
-            this.checkLoadQueue();
-        }
     },
 
     /**
@@ -40244,7 +40254,7 @@ var LoaderPlugin = new Class({
      *
      * If the process was successful, and the File isn't part of a MultiFile, its `addToCache` method is called.
      *
-     * It this then removed from the queue. If there are more files to load, `checkLoadQueue` is called, otherwise `loadComplete` is.
+     * It this then removed from the queue. If there are no more files to load `loadComplete` is called.
      *
      * @method Phaser.Loader.LoaderPlugin#fileProcessComplete
      * @since 3.7.0
@@ -40286,11 +40296,6 @@ var LoaderPlugin = new Class({
         {
             this.loadComplete();
         }
-        else
-        {
-            //  In case we've added to the list by processing this file
-            this.checkLoadQueue();
-        }
     },
 
     /**
@@ -40322,6 +40327,8 @@ var LoaderPlugin = new Class({
         this.progress = 1;
 
         this.state = CONST.LOADER_COMPLETE;
+
+        this.systems.events.off('update', this.update, this);
 
         //  Call 'destroy' on each file ready for deletion
         this._deleteQueue.iterateLocal('destroy');
@@ -40436,6 +40443,7 @@ var LoaderPlugin = new Class({
 
         this.state = CONST.LOADER_SHUTDOWN;
 
+        this.systems.events.off('update', this.update, this);
         this.systems.events.off('shutdown', this.shutdown, this);
     },
 
@@ -40453,6 +40461,7 @@ var LoaderPlugin = new Class({
 
         this.state = CONST.LOADER_DESTROYED;
 
+        this.systems.events.off('update', this.update, this);
         this.systems.events.off('start', this.pluginStart, this);
 
         this.list = null;
@@ -59921,7 +59930,7 @@ var SceneManager = new Class({
         {
             var sys = this.scenes[i].sys;
 
-            if (sys.settings.status === CONST.RUNNING)
+            if (sys.settings.status > CONST.START && sys.settings.status <= CONST.RUNNING)
             {
                 sys.step(time, delta);
             }
@@ -59998,6 +60007,12 @@ var SceneManager = new Class({
             }
         }
 
+        //  If the Scene has an update function we'll set it now, otherwise it'll remain as NOOP
+        if (scene.update)
+        {
+            sys.sceneUpdate = scene.update;
+        }
+
         settings.status = CONST.RUNNING;
     },
 
@@ -60040,11 +60055,6 @@ var SceneManager = new Class({
             newScene.sys.settings.key = key;
 
             newScene.sys.init(this.game);
-
-            if (!newScene.update)
-            {
-                newScene.update = NOOP;
-            }
 
             return newScene;
         }
@@ -60116,12 +60126,6 @@ var SceneManager = new Class({
         for (var i = 0; i < defaults.length; i++)
         {
             var sceneCallback = GetValue(sceneConfig, defaults[i], null);
-
-            //  Must always have an update function, no matter what (the rest are optional)
-            if (defaults[i] === 'update' && !sceneCallback)
-            {
-                sceneCallback = NOOP;
-            }
 
             if (sceneCallback)
             {
@@ -62103,6 +62107,7 @@ var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
 var DefaultPlugins = __webpack_require__(/*! ../plugins/DefaultPlugins */ "./plugins/DefaultPlugins.js");
 var GetPhysicsPlugins = __webpack_require__(/*! ./GetPhysicsPlugins */ "./scene/GetPhysicsPlugins.js");
 var GetScenePlugins = __webpack_require__(/*! ./GetScenePlugins */ "./scene/GetScenePlugins.js");
+var NOOP = __webpack_require__(/*! ../utils/NOOP */ "./utils/NOOP.js");
 var Settings = __webpack_require__(/*! ./Settings */ "./scene/Settings.js");
 
 /**
@@ -62301,6 +62306,19 @@ var Systems = new Class({
          * @since 3.0.0
          */
         this.updateList;
+
+        /**
+         * The Scene Update function.
+         * 
+         * This starts out as NOOP during init, preload and create, and at the end of create
+         * it swaps to be whatever the Scene.update function is.
+         *
+         * @name Phaser.Scenes.Systems#sceneUpdate
+         * @type {function}
+         * @private
+         * @since 3.10.0
+         */
+        this.sceneUpdate = NOOP;
     },
 
     /**
@@ -62317,6 +62335,9 @@ var Systems = new Class({
     init: function (game)
     {
         this.settings.status = CONST.INIT;
+
+        //  This will get replaced by the SceneManager with the actual update function, if it exists, once create is over.
+        this.sceneUpdate = NOOP;
 
         this.game = game;
 
@@ -62369,7 +62390,7 @@ var Systems = new Class({
 
         this.events.emit('update', time, delta);
 
-        this.scene.update.call(this.scene, time, delta);
+        this.sceneUpdate.call(this.scene, time, delta);
 
         this.events.emit('postupdate', time, delta);
     },

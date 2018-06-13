@@ -7,6 +7,7 @@ $(document).ready(function () {
     var versions = [
         { val : 'dev', text: 'Dev Build' },
         { val : 'phaser-core', text: 'Core Build' },
+        { val : '3.10.0', text: '3.10.0' },
         { val : '3.9.0', text: '3.9.0' },
         { val : '3.8.0', text: '3.8.0' },
         { val : '3.7.1', text: '3.7.1' },

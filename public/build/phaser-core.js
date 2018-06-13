@@ -4195,8 +4195,7 @@ var TimeStep = new Class({
          * [description]
          *
          * @name Phaser.Boot.TimeStep#deltaHistory
-         * @type {array}
-         * @default 0
+         * @type {integer[]}
          * @since 3.0.0
          */
         this.deltaHistory = [];
@@ -8328,7 +8327,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.10.0-beta1',
+    VERSION: '3.10.0',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -67881,7 +67880,7 @@ var List = new Class({
      * @genericUse {EachListCallback.<T>} - [callback]
      *
      * @param {EachListCallback} callback - The function to call.
-     * @param {*} [thisArg] - Value to use as `this` when executing callback.
+     * @param {*} [context] - Value to use as `this` when executing callback.
      * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
      */
     each: function (callback, context)

@@ -16,7 +16,7 @@ function preload ()
 {
     this.load.path = 'assets/animations/cybercity/';
 
-    this.load.multiatlas('cybercity', 2);
+    this.load.multiatlas('cybercity', 'cybercity-multi.json');
 }
 
 function create ()

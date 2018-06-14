@@ -22,4 +22,6 @@ function create ()
 {
     this.add.image(400, 300, 'taikodrummaster');
     this.add.image(400, 500, 'sukasuka-chtholly');
+
+    this.add.text(10, 10, 'Load complete, both files 404d', { font: '16px Courier', fill: '#00ff00' });
 }

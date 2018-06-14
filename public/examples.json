@@ -1000,6 +1000,19 @@
           "size": 35618
         },
         {
+          "path": "src\\audio\\SID",
+          "name": "SID",
+          "children": [
+            {
+              "path": "src\\audio\\SID\\test.js",
+              "name": "test.js",
+              "size": 596,
+              "extension": ".js"
+            }
+          ],
+          "size": 596
+        },
+        {
           "path": "src\\audio\\Web Audio",
           "name": "Web Audio",
           "children": [
@@ -1067,7 +1080,7 @@
           "size": 41088
         }
       ],
-      "size": 116867
+      "size": 117463
     },
     {
       "path": "src\\bugs",
@@ -6977,7 +6990,7 @@
         {
           "path": "src\\loader\\load from 404.js",
           "name": "load from 404.js",
-          "size": 608,
+          "size": 715,
           "extension": ".js"
         },
         {
@@ -6994,6 +7007,12 @@
               "path": "src\\loader\\loader events\\display file as loaded.js",
               "name": "display file as loaded.js",
               "size": 5277,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\loader\\loader events\\file complete event with key.js",
+              "name": "file complete event with key.js",
+              "size": 554,
               "extension": ".js"
             },
             {
@@ -7039,7 +7058,7 @@
               "extension": ".js"
             }
           ],
-          "size": 46044
+          "size": 46598
         },
         {
           "path": "src\\loader\\plugin",
@@ -7274,7 +7293,7 @@
           "size": 5291
         }
       ],
-      "size": 123153
+      "size": 123814
     },
     {
       "path": "src\\paths",
@@ -9742,5 +9761,5 @@
       "size": 5291
     }
   ],
-  "size": 2560633
+  "size": 2561890
 }

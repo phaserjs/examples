@@ -367,6 +367,8 @@ var Flood = new Phaser.Class({
         // console.log(this.monsterTween.targets[0].y);
 
         this.monsterTween.stop(0);
+		
+		gameObject.getData('monster').setY(gameObject.y);
 
         // console.log(this.monsterTween.targets[0].y);
 

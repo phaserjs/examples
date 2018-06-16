@@ -53,7 +53,7 @@ function create ()
         speed: 0.5
     };
 
-    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
     var help = this.add.text(16, 16, 'Arrow keys to scroll', {
         fontSize: '18px',

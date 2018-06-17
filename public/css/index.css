@@ -114,3 +114,41 @@ body {
   text-transform: capitalize;
   color: white;
 }
+
+.result{
+    clear:both;
+    background-color: #442760;
+    margin:3px;
+    border-radius:3px;
+    padding:5px;
+}
+#search-results{
+    display:none;
+    line-height: 15px;
+    width: 353px;
+    padding: 4px;
+    background-color: #6e538a;
+    border: 1px solid #331053;
+    border-radius: 4px;
+    position: absolute;
+    top: 35px;
+    right: -60px;
+    z-index: 3;
+}
+
+#search-results .relevancy{
+    float:right;
+    color: #777777;
+    font-size: 12px;
+}
+#search-results .path{
+    font-size: 12px;
+    color: #777777;
+    letter-spacing: 1px;
+}
+
+#search-results .searching{
+    text-align: center;
+    padding:10px;
+    color:white;
+}

@@ -22,6 +22,10 @@
 					<div class="search-icon-rectangle"></div>
 				</div>
 			</div>
+
+            <div id="search-results">
+
+            </div>
 		</div>
         <a class="breadcrumb-item" href="index.html">Home</a>
     </nav>
@@ -38,6 +42,7 @@
     var folder = [];
     var trail = [];
     var well = [];
+    var index = {};
 
     function openFolder ()
     {
@@ -374,7 +379,7 @@
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
         };
-    };
+    }
 
     function search(query) {
         
@@ -384,34 +389,112 @@
         createTopLevelFolders();
     }
 
+    function scoreDocument(document, terms) {
+        var score = 0;
+
+        for (var i in document.words) {
+            terms.forEach(function (term) {
+                term = term.toLowerCase();
+                if (i === term) {
+                    score += document.words[i];
+                }
+            });
+        }
+        for (var i in document.importantWords) {
+            terms.forEach(function (term) {
+                term = term.toLowerCase();
+                if (i === term) {
+                    score += document.importantWords[i] * 4;
+                }
+            });
+        }
+
+        return score;
+    }
+
+
+    function renderResults(results){
+        var $resultsContainer = $("#search-results"),
+            template = $("#result-row-template").html();
+
+        $resultsContainer.html("");
+        $.each(results, function(i, item){
+            var fullPath = item.path;
+            var segments = item.path.split("/");
+            var title = segments.pop();
+            var path = segments.join('/');
+
+            var html = template.replace('{{title}}', title);
+            html = html.replace('{{path}}', path);
+            html = html.replace('{{fullPath}}', fullPath);
+            html = html.replace('{{score}}', item.score);
+            $resultsContainer.append(html);
+        });
+    }
+
+    function showResults(query){
+        var terms = query.split(/[-\[\],:<>+*=;{}'().\s\d/\\]+/);
+
+        var results = [];
+        for (var i in index) {
+            var score = scoreDocument(index[i], terms);
+            results.push({
+                path  : i,
+                score : score
+            });
+        }
+
+        results.sort(function (a, b) {
+            var y = a.score;
+            var x = b.score;
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+
+        results = results.filter(function(item){
+            return item.score > 0;
+        });
+
+        renderResults(results);
+    }
+
+    function startSearching(query){
+        var $results = $("#search-results");
+
+        if($.trim(query) === ""){
+            $results.hide();
+            return;
+        }
+
+        $results.html("<div class='searching'>Searching...</div>");
+        $results.show();
+        return;
+
+
+        var indexCount = Object.keys(index).length;
+        if(indexCount === 0){
+            $.getJSON('documentIndex.json', function(data){
+                index = data;
+                showResults(query);
+            });
+        }
+        else {
+            showResults(query);
+        }
+    }
+
+    function bindSearch(){
+        $('#search-query').on('keyup', function (event) {
+            if(event.which === 13){
+                var query = $(this).val();
+                event.preventDefault();
+                startSearching(query);
+            }
+        });
+    }
+
     $(document).ready(function () {
 
-        var prevQuery = '';
-        var delayedSearch = debounce(search, 500);
-        
-        $('#search-query').on('keyup', function (event) {
-
-            var query = $(this).val();
-
-            if (!query)
-            {
-                data = originalData;
-                originalData = null;
-                
-                createTopLevelFolders();
-            }
-            else if (query !== prevQuery)
-            {
-                prevQuery = query;
-                
-                if (!originalData) {
-                    originalData = data;
-                }
-                
-                delayedSearch(query);
-            }
-            
-        })
+        bindSearch();
 
         $.getJSON('examples.json', function (json) {
 
@@ -439,6 +522,23 @@
 
     });
         
+    </script>
+
+
+    <script type="text/template" id="result-row-template">
+        <div class="result">
+            <a href="/edit.html?src=src/{{fullPath}}">
+                {{title}}
+
+            </a>
+            <br>
+            <span class="relevancy">
+                Relevancy: {{score}}
+            </span>
+            <a href="" class="path">
+                {{path}}
+            </a>
+        </div>
     </script>
 
     </body>

@@ -48,8 +48,8 @@ function indexDocument(documentPath) {
 
     return {
         path           : path,
-        importantWords : wordMap(title),
-        words          : wordMap(contents)
+        titleWords : wordMap(title),
+        bodyWords          : wordMap(contents)
     }
 }
 
@@ -66,57 +66,6 @@ function index(filteredTree) {
     fs.writeFileSync(indexFile, JSON.stringify(index, null, 2))
 }
 
-function scoreDocument(document, terms) {
-    var score = 0;
-
-    for (var i in document.words) {
-        terms.forEach(function (term) {
-            term = term.toLowerCase();
-            if (i === term) {
-                score += document.words[i];
-            }
-        });
-    }
-    for (var i in document.importantWords) {
-        terms.forEach(function (term) {
-            term = term.toLowerCase();
-            if (i === term) {
-                score += document.importantWords[i] * 10;
-            }
-        });
-    }
-
-    return score;
-}
-
-
-function search(phrase) {
-    var terms = phrase.split(/[-\[\],:<>+*=;{}'().\s\d/\\]+/);
-    var index = JSON.parse(fs.readFileSync(indexFile));
-
-    var results = [];
-    for (var i in index) {
-        var score = scoreDocument(index[i], terms);
-        results.push({
-            path  : i,
-            score : score
-        });
-
-        console.log(score);
-    }
-
-    results.sort(function (a, b) {
-        var y = a.score;
-        var x = b.score;
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    });
-
-    results = results.slice(0, 20);
-
-    console.log(results);
-}
-
 module.exports = {
-    index : index,
-    search : search
+    index : index
 };

@@ -134,6 +134,8 @@ body {
     top: 35px;
     right: -60px;
     z-index: 3;
+    max-height:492px;
+    overflow:auto;
 }
 
 #search-results .relevancy{

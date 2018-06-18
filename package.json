@@ -6,7 +6,6 @@
   "scripts": {
     "postinstall": "npm start",
     "start": "./node_modules/.bin/http-server -s -o",
-    "startport": "./node_modules/.bin/http-server -s -o -p",
     "update": "node ./build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

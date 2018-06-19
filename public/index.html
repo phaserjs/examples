@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="./css/index.css">
         <script src="./js/jquery-3.1.1.min.js"></script>
         <script src="./js/getQueryString.js"></script>
+        <script src="./js/phaserSearch.js"></script>
     </head>
     <body>
 
@@ -22,6 +23,10 @@
 					<div class="search-icon-rectangle"></div>
 				</div>
 			</div>
+
+            <div id="search-results">
+
+            </div>
 		</div>
         <a class="breadcrumb-item" href="index.html">Home</a>
     </nav>
@@ -38,6 +43,7 @@
     var folder = [];
     var trail = [];
     var well = [];
+    var index = {};
 
     function openFolder ()
     {
@@ -316,102 +322,9 @@
 
     }
 
-    var originalData = null;
-
-    function copyItemData(item, children)
-    {
-        var copy = {children: children};
-        
-        for (var i in item) {
-            if (i !== 'children') {
-                copy[i] = item[i];
-            }
-        }
-        
-        return copy;
-    }
-
-    function searchQueryRecursive(regex, folder) {
-        
-        var include = [];
-        
-        for (var i = 0; i < folder.children.length; i++)
-        {
-            var item = folder.children[i];
-            if (item.children) {
-                var children = searchQueryRecursive(regex, item);
-                
-                if (children) {
-                    include.push(children);
-                }
-            }
-        }
-        
-        if (regex.test(folder.name) && include.length === 0)
-        {
-            include = folder.children;
-        }
-        
-        if (include.length > 0) {
-            return copyItemData(folder, include);
-        }
-    }
-
-    function debounce(func, wait, callback) {
-        
-        var timeout;
-
-        return function() {
-            
-            var context = this;
-            var args = arguments;
-
-            var later = function() {
-                timeout = null;
-                func.apply(context, args);
-            };
-            
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    };
-
-    function search(query) {
-        
-        var result = searchQueryRecursive(new RegExp(query, 'gi'), data);
-        
-        data = result ? result : originalData;
-        createTopLevelFolders();
-    }
-
     $(document).ready(function () {
 
-        var prevQuery = '';
-        var delayedSearch = debounce(search, 500);
-        
-        $('#search-query').on('keyup', function (event) {
-
-            var query = $(this).val();
-
-            if (!query)
-            {
-                data = originalData;
-                originalData = null;
-                
-                createTopLevelFolders();
-            }
-            else if (query !== prevQuery)
-            {
-                prevQuery = query;
-                
-                if (!originalData) {
-                    originalData = data;
-                }
-                
-                delayedSearch(query);
-            }
-            
-        })
+        PHASER.search.initialize();
 
         $.getJSON('examples.json', function (json) {
 
@@ -439,6 +352,26 @@
 
     });
         
+    </script>
+
+
+    <!--
+     This is the template for rendering search box results
+     -->
+    <script type="text/template" id="result-row-template">
+        <div class="result">
+            <a href="{{fullPath}}">
+                {{title}}
+
+            </a>
+            <br>
+            <span class="relevancy">
+                Relevancy: {{score}}
+            </span>
+            <a href="?dir={{path}}" class="path">
+                {{path}}
+            </a>
+        </div>
     </script>
 
     </body>

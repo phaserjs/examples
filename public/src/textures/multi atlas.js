@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -15,11 +15,7 @@ function preload() {
 
     this.load.path = 'assets/atlas/';
 
-    this.load.multiatlas('megaset', 
-        ['megaset-0.png', 'megaset-1.png', 'megaset-2.png', 'megaset-3.png'],
-        ['megaset-0.json', 'megaset-1.json', 'megaset-2.json', 'megaset-3.json']
-    );
-
+    this.load.multiatlas('megaset', 'tp3-multi-atlas.json');
 }
 
 function create() {

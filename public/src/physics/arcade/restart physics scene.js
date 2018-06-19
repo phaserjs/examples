@@ -132,7 +132,7 @@ var Game = new Phaser.Class({
             maxSpeed: 1.0
         };
 
-        this.controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
+        this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
         this.add.text(0, 0, 'Use Cursors to scroll camera.\nClick to Quit', { font: '18px Courier', fill: '#00ff00' }).setScrollFactor(0);
 

@@ -43,7 +43,7 @@ function create ()
         speed: 0.5
     };
 
-    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
     this.cameras.main.setBounds(0, 0, layer2.x + layer2.width, 0);
 }

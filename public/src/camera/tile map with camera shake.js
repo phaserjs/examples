@@ -43,7 +43,7 @@ function create ()
         speed: 0.5
     };
 
-    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
     //  Every time you click, shake the camera
 

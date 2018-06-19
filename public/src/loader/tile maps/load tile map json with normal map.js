@@ -59,7 +59,7 @@ function create ()
         speed: 0.5
     };
 
-    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 }
 
 function update (time, delta)

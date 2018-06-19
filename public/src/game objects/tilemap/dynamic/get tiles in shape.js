@@ -78,7 +78,7 @@ function create ()
         down: cursors.down,
         speed: 0.5
     };
-    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
     var helpText = this.add.text(16, 16, getHelpMessage(), {
         fontSize: '18px',

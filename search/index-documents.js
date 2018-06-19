@@ -143,7 +143,15 @@ function index(filteredTree) {
 
     debugOutput();
 
-    fs.writeFileSync(indexFile, JSON.stringify(index, null, 2))
+    if(debug){
+        //use prettiefied version for dev and testing
+        fs.writeFileSync(indexFile, JSON.stringify(index, null, 2))
+    }
+    else {
+        //use minified version for production
+        fs.writeFileSync(indexFile, JSON.stringify(index))
+    }
+
 }
 
 module.exports = {

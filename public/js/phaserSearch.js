@@ -133,10 +133,19 @@ PHASER.search = (function(){
 
         var count = 0;
         $.each(results, function(i, item){
-            var fullPath = item.path;
+            var fullPath = '/edit.html?src=src/' + item.path;
             var segments = item.path.split("/");
             var title = segments.pop();
             var path = segments.join('/');
+
+            if(/boot\.json$/.test(title)){
+                segments = path.split("/");
+                title = segments.pop();
+                path = segments.join('/');
+                fullPath = 'boot.html?src=src\\' + item.path.replace(/\//g, "\\");
+            }
+
+            title = title.replace(/\.(?:json|js)$/, '');
 
             var html = getTemplateHtml("#result-row-template", {
                 title : title,

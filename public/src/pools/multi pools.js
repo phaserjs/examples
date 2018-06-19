@@ -88,7 +88,7 @@ function create ()
         runChildUpdate: true
     });
     
-    ship = this.add.sprite(400, 300, 'ship');
+    ship = this.add.sprite(400, 300, 'ship').setDepth(1);
 
     this.input.on('pointerdown', function (pointer) {
 
@@ -129,6 +129,5 @@ function update (time, delta)
     }
 
     ship.setRotation(Phaser.Math.Angle.Between(mouseX, mouseY, ship.x, ship.y) - Math.PI / 2);    
-    this.children.bringToTop(ship);
 
 }

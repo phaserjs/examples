@@ -184,7 +184,7 @@
         {
           "path": "src/animation/animation data.js",
           "name": "animation data.js",
-          "size": 1940,
+          "size": 1998,
           "extension": ".js"
         },
         {
@@ -368,7 +368,7 @@
           "extension": ".js"
         }
       ],
-      "size": 36210
+      "size": 36268
     },
     {
       "path": "src/archived",
@@ -1296,7 +1296,7 @@
         {
           "path": "src/camera/fixed to camera.js",
           "name": "fixed to camera.js",
-          "size": 1582,
+          "size": 1596,
           "extension": ".js"
         },
         {
@@ -1312,6 +1312,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/follow sprite with deadzone.js",
+          "name": "follow sprite with deadzone.js",
+          "size": 2904,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/follow sprite.js",
           "name": "follow sprite.js",
           "size": 1103,
@@ -1320,7 +1326,7 @@
         {
           "path": "src/camera/follow user controlled sprite.js",
           "name": "follow user controlled sprite.js",
-          "size": 1708,
+          "size": 1533,
           "extension": ".js"
         },
         {
@@ -1475,7 +1481,7 @@
           "extension": ".js"
         }
       ],
-      "size": 104810
+      "size": 107553
     },
     {
       "path": "src/components",
@@ -2050,7 +2056,7 @@
         {
           "path": "src/events/create event emitter.js",
           "name": "create event emitter.js",
-          "size": 726,
+          "size": 733,
           "extension": ".js"
         },
         {
@@ -2102,7 +2108,7 @@
           "extension": ".js"
         }
       ],
-      "size": 8185
+      "size": 8192
     },
     {
       "path": "src/game config",
@@ -2943,6 +2949,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/game objects/graphics/fill rounded rectangle.js",
+              "name": "fill rounded rectangle.js",
+              "size": 572,
+              "extension": ".js"
+            },
+            {
               "path": "src/game objects/graphics/generate texture to blitter.js",
               "name": "generate texture to blitter.js",
               "size": 4018,
@@ -3075,6 +3087,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/game objects/graphics/stroke rounded rectangle.js",
+              "name": "stroke rounded rectangle.js",
+              "size": 582,
+              "extension": ".js"
+            },
+            {
               "path": "src/game objects/graphics/stroke triangle.js",
               "name": "stroke triangle.js",
               "size": 575,
@@ -3093,7 +3111,7 @@
               "extension": ".js"
             }
           ],
-          "size": 154661
+          "size": 155815
         },
         {
           "path": "src/game objects/group",
@@ -4463,7 +4481,7 @@
           "size": 249879
         }
       ],
-      "size": 735681
+      "size": 736835
     },
     {
       "path": "src/games",
@@ -4606,11 +4624,11 @@
             {
               "path": "src/games/flood/flood-fill.js",
               "name": "flood-fill.js",
-              "size": 18785,
+              "size": 18840,
               "extension": ".js"
             }
           ],
-          "size": 18785
+          "size": 18840
         },
         {
           "path": "src/games/mass attack",
@@ -4798,7 +4816,7 @@
           "size": 27744
         }
       ],
-      "size": 201773
+      "size": 201828
     },
     {
       "path": "src/geom",
@@ -9755,5 +9773,5 @@
       "size": 5041
     }
   ],
-  "size": 2459147
+  "size": 2463164
 }

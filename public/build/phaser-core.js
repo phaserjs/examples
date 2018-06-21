@@ -5290,7 +5290,10 @@ var Camera = new Class({
         this.y = y;
 
         /**
-         * The width of the Camera, in pixels.
+         * The width of the Camera viewport, in pixels.
+         * 
+         * The viewport is the area into which the Camera renders. Setting the viewport does
+         * not restrict where the Camera can scroll to.
          *
          * @name Phaser.Cameras.Scene2D.Camera#width
          * @type {number}
@@ -5299,7 +5302,10 @@ var Camera = new Class({
         this.width = width;
 
         /**
-         * The height of the Camera, in pixels.
+         * The height of the Camera viewport, in pixels.
+         * 
+         * The viewport is the area into which the Camera renders. Setting the viewport does
+         * not restrict where the Camera can scroll to.
          *
          * @name Phaser.Cameras.Scene2D.Camera#height
          * @type {number}
@@ -5332,6 +5338,7 @@ var Camera = new Class({
 
         /**
          * Is this Camera using a bounds to restrict scrolling movement?
+         * 
          * Set this property along with the bounds via `Camera.setBounds`.
          *
          * @name Phaser.Cameras.Scene2D.Camera#useBounds
@@ -5362,8 +5369,14 @@ var Camera = new Class({
         this.inputEnabled = true;
 
         /**
-         * The horizontal scroll position of this camera.
-         * Optionally restricted via the Camera bounds.
+         * The horizontal scroll position of this Camera.
+         * 
+         * Change this value to cause the Camera to scroll around your Scene.
+         * 
+         * Alternatively, setting the Camera to follow a Game Object, via the `startFollow` method,
+         * will automatically adjust the Camera scroll values accordingly.
+         * 
+         * You can set the bounds within which the Camera can scroll via the `setBounds` method.
          *
          * @name Phaser.Cameras.Scene2D.Camera#scrollX
          * @type {number}
@@ -5373,8 +5386,14 @@ var Camera = new Class({
         this.scrollX = 0;
 
         /**
-         * The vertical scroll position of this camera.
-         * Optionally restricted via the Camera bounds.
+         * The vertical scroll position of this Camera.
+         * 
+         * Change this value to cause the Camera to scroll around your Scene.
+         * 
+         * Alternatively, setting the Camera to follow a Game Object, via the `startFollow` method,
+         * will automatically adjust the Camera scroll values accordingly.
+         * 
+         * You can set the bounds within which the Camera can scroll via the `setBounds` method.
          *
          * @name Phaser.Cameras.Scene2D.Camera#scrollY
          * @type {number}
@@ -5385,18 +5404,30 @@ var Camera = new Class({
 
         /**
          * The Camera zoom value. Change this value to zoom in, or out of, a Scene.
+         * 
+         * A value of 0.5 would zoom the Camera out, so you can now see twice as much
+         * of the Scene as before. A value of 2 would zoom the Camera in, so every pixel
+         * now takes up 2 pixels when rendered.
+         * 
          * Set to 1 to return to the default zoom level.
+         * 
+         * Be careful to never set this value to zero.
          *
          * @name Phaser.Cameras.Scene2D.Camera#zoom
          * @type {float}
          * @default 1
          * @since 3.0.0
-        this.zoom = 1;
          */
+        this.zoom = 1;
 
         /**
-         * The rotation of the Camera. This influences the rendering of all Game Objects visible by this camera.
-         * It does not rotate the camera viewport.
+         * The rotation of the Camera in radians.
+         * 
+         * Camera rotation always takes place based on the Camera viewport. By default, rotation happens
+         * in the center of the viewport. You can adjust this with the `originX` and `originY` properties.
+         * 
+         * Rotation influences the rendering of _all_ Game Objects visible by this Camera. However, it does not
+         * rotate the Camera viewport itself, which always remains an axis-aligned rectangle.
          *
          * @name Phaser.Cameras.Scene2D.Camera#rotation
          * @type {number}
@@ -5410,6 +5441,7 @@ var Camera = new Class({
          *
          * @name Phaser.Cameras.Scene2D.Camera#matrix
          * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @private
          * @since 3.0.0
          */
         this.matrix = new TransformMatrix(1, 0, 0, 1, 0, 0);
@@ -5462,6 +5494,16 @@ var Camera = new Class({
          * @since 3.5.0
          */
         this.shakeEffect = new Effects.Shake(this);
+
+        /**
+         * The Camera Pan effect handler.
+         * To pan this camera see the `Camera.pan` method.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#panEffect
+         * @type {Phaser.Cameras.Scene2D.Effects.Pan}
+         * @since 3.11.0
+         */
+        this.panEffect = new Effects.Pan(this);
 
         /**
          * Should the camera cull Game Objects before checking them for input hit tests?
@@ -5530,6 +5572,40 @@ var Camera = new Class({
         this.midPoint = new Vector2(width / 2, height / 2);
 
         /**
+         * The horizontal origin of rotation for this Camera.
+         * 
+         * By default the camera rotates around the center of the viewport.
+         * 
+         * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
+         * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
+         * 
+         * See `setOrigin` to set both origins in a single, chainable call.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#originX
+         * @type {float}
+         * @default 0.5
+         * @since 3.11.0
+         */
+        this.originX = 0.5;
+
+        /**
+         * The vertical origin of rotation for this Camera.
+         * 
+         * By default the camera rotates around the center of the viewport.
+         * 
+         * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
+         * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
+         * 
+         * See `setOrigin` to set both origins in a single, chainable call.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#originY
+         * @type {float}
+         * @default 0.5
+         * @since 3.11.0
+         */
+        this.originY = 0.5;
+
+        /**
          * The Camera dead zone.
          * 
          * The deadzone is only used when the camera is following a target.
@@ -5575,9 +5651,35 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._id = 0;
+    },
 
-        this._zoom = 1;
-        this._zoomInversed = 1;
+    /**
+     * Sets the rotation origin of this Camera.
+     *
+     * The values are given in the range 0 to 1 and are only used when calculating Camera rotation.
+     * 
+     * By default the camera rotates around the center of the viewport.
+     * 
+     * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
+     * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
+     *
+     * @method Phaser.GameObjects.Components.Origin#setOrigin
+     * @since 3.11.0
+     *
+     * @param {number} [x=0.5] - The horizontal origin value.
+     * @param {number} [y=x] - The vertical origin value. If not defined it will be set to the value of `x`.
+     *
+     * @return {this} This Camera instance.
+     */
+    setOrigin: function (x, y)
+    {
+        if (x === undefined) { x = 0.5; }
+        if (y === undefined) { y = x; }
+
+        this.originX = x;
+        this.originY = y;
+
+        return this;
     },
 
     /**
@@ -5643,7 +5745,70 @@ var Camera = new Class({
     },
 
     /**
-     * Scrolls the Camera so that it is looking at the center of the Camera Bounds (if previously enabled)
+     * Calculates what the Camera.scrollX and scrollY values would need to be in order to move
+     * the Camera so it is centered on the given x and y coordinates, without actually moving
+     * the Camera there. The results are clamped based on the Camera bounds, if set.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#getScroll
+     * @since 3.11.0
+     * 
+     * @param {number} x - The horizontal coordinate to center on.
+     * @param {number} y - The vertical coordinate to center on.
+     * @param {Phaser.Math.Vector2} [out] - A Vec2 to store the values in. If not given a new Vec2 is created.
+     *
+     * @return {Phaser.Math.Vector2} The scroll coordinates stored in the `x` abd `y` properties.
+     */
+    getScroll: function (x, y, out)
+    {
+        if (out === undefined) { out = new Vector2(); }
+
+        var originX = this.width * 0.5;
+        var originY = this.height * 0.5;
+
+        out.x = x - originX;
+        out.y = y - originY;
+
+        if (this.useBounds)
+        {
+            out.x = this.clampX(out.x);
+            out.y = this.clampY(out.y);
+        }
+
+        return out;
+    },
+
+    /**
+     * Moves the Camera so that it is centered on the given coordinates, bounds allowing.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#centerOn
+     * @since 3.11.0
+     * 
+     * @param {number} x - The horizontal coordinate to center on.
+     * @param {number} y - The vertical coordinate to center on.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    centerOn: function (x, y)
+    {
+        var originX = this.width * 0.5;
+        var originY = this.height * 0.5;
+
+        this.midPoint.set(x, y);
+
+        this.scrollX = x - originX;
+        this.scrollY = y - originY;
+
+        if (this.useBounds)
+        {
+            this.scrollX = this.clampX(this.scrollX);
+            this.scrollY = this.clampY(this.scrollY);
+        }
+
+        return this;
+    },
+
+    /**
+     * Moves the Camera so that it is looking at the center of the Camera Bounds, if enabled.
      *
      * @method Phaser.Cameras.Scene2D.Camera#centerToBounds
      * @since 3.0.0
@@ -5654,15 +5819,21 @@ var Camera = new Class({
     {
         if (this.useBounds)
         {
-            this.scrollX = (this._bounds.width * 0.5) - (this.width * 0.5);
-            this.scrollY = (this._bounds.height * 0.5) - (this.height * 0.5);
+            var bounds = this._bounds;
+            var originX = this.width * 0.5;
+            var originY = this.height * 0.5;
+    
+            this.midPoint.set(bounds.centerX, bounds.centerY);
+
+            this.scrollX = bounds.centerX - originX;
+            this.scrollY = bounds.centerY - originY;
         }
 
         return this;
     },
 
     /**
-     * Scrolls the Camera so that it is re-centered based on its viewport size.
+     * Moves the Camera so that it is re-centered based on its viewport size.
      *
      * @method Phaser.Cameras.Scene2D.Camera#centerToSize
      * @since 3.0.0
@@ -5887,6 +6058,30 @@ var Camera = new Class({
     },
 
     /**
+     * This effect will scroll the Camera so that the center of its viewport finishes at the given destination,
+     * over the duration and with the ease specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#pan
+     * @since 3.11.0
+     *
+     * @param {number} x - The destination x coordinate to scroll the center of the Camera viewport to.
+     * @param {number} y - The destination y coordinate to scroll the center of the Camera viewport to.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {(string|function)} [ease='Linear'] - The ease to use for the pan. Can be any of the Phaser Easing constants or a custom function.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {CameraPanCallback} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent four arguments: A reference to the camera, a progress amount between 0 and 1 indicating how complete the effect is,
+     * the current camera scroll x coordinate and the current camera scroll y coordinate.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    pan: function (x, y, duration, ease, force, callback, context)
+    {
+        return this.panEffect.start(x, y, duration, ease, force, callback, context);
+    },
+
+    /**
      * Converts the given `x` and `y` coordinates into World space, based on this Cameras transform.
      * You can optionally provide a Vector2, or similar object, to store the results in.
      *
@@ -5996,10 +6191,10 @@ var Camera = new Class({
     {
         var width = this.width;
         var height = this.height;
-        var zoom = this._zoom * baseScale;
+        var zoom = this.zoom * baseScale;
         var matrix = this.matrix;
-        var originX = width / 2;
-        var originY = height / 2;
+        var originX = width * this.originX;
+        var originY = height * this.originY;
         var follow = this._follow;
         var deadzone = this.deadzone;
         var sx = this.scrollX;
@@ -6044,33 +6239,8 @@ var Camera = new Class({
 
         if (this.useBounds)
         {
-            var bounds = this._bounds;
-
-            var dw = this.displayWidth;
-            var dh = this.displayHeight;
-
-            var bx = (dw - width) / 2;
-            var by = (dh - height) / 2;
-            var bw = Math.max(bx, bx + bounds.width - dw);
-            var bh = Math.max(by, by + bounds.height - dh);
-
-            if (sx < bx)
-            {
-                sx = bx;
-            }
-            else if (sx > bw)
-            {
-                sx = bw;
-            }
-
-            if (sy < by)
-            {
-                sy = by;
-            }
-            else if (sy > bh)
-            {
-                sy = bh;
-            }
+            sx = this.clampX(sx);
+            sy = this.clampY(sy);
         }
 
         if (this.roundPixels)
@@ -6082,7 +6252,7 @@ var Camera = new Class({
         this.scrollX = sx;
         this.scrollY = sy;
 
-        this.midPoint.set(sx + originX, sy + originY);
+        this.midPoint.set(sx + (width * 0.5), sy + (height * 0.5));
 
         matrix.loadIdentity();
         matrix.scale(resolution, resolution);
@@ -6094,34 +6264,73 @@ var Camera = new Class({
         this.shakeEffect.preRender();
     },
 
+    /**
+     * Takes an x value and checks it's within the range of the Camera bounds, adjusting if required.
+     * Do not call this method if you are not using camera bounds.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#clampX
+     * @since 3.11.0
+     * 
+     * @param {number} x - The value to horizontally scroll clamp.
+     *
+     * @return {number} The adjusted value to use as scrollX.
+     */
+    clampX: function (x)
+    {
+        var bounds = this._bounds;
+
+        var dw = this.displayWidth;
+
+        var bx = bounds.x + ((dw - this.width) / 2);
+        var bw = Math.max(bx, bx + bounds.width - dw);
+
+        if (x < bx)
+        {
+            x = bx;
+        }
+        else if (x > bw)
+        {
+            x = bw;
+        }
+
+        return x;
+    },
+
+    /**
+     * Takes a y value and checks it's within the range of the Camera bounds, adjusting if required.
+     * Do not call this method if you are not using camera bounds.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#clampY
+     * @since 3.11.0
+     * 
+     * @param {number} y - The value to vertically scroll clamp.
+     *
+     * @return {number} The adjusted value to use as scrollY.
+     */
+    clampY: function (y)
+    {
+        var bounds = this._bounds;
+
+        var dh = this.displayHeight;
+
+        var by = bounds.y + ((dh - this.height) / 2);
+        var bh = Math.max(by, by + bounds.height - dh);
+
+        if (y < by)
+        {
+            y = by;
+        }
+        else if (y > bh)
+        {
+            y = bh;
+        }
+
+        return y;
+    },
+
     /*
-    getRenderX: function (src)
-    {
-        if (this.roundPixels)
-        {
-            var gap = this._zoomInversed;
-
-            return gap * Math.round((src.x - this.scrollX * src.scrollFactorX) / gap);
-        }
-        else
-        {
-            return src.x - this.scrollX * src.scrollFactorX;
-        }
-    },
-
-    getRenderY: function (src)
-    {
-        if (this.roundPixels)
-        {
-            var gap = this._zoomInversed;
-
-            return gap * Math.round((src.y - this.scrollY * src.scrollFactorY) / gap);
-        }
-        else
-        {
-            return src.y - this.scrollY * src.scrollFactorY;
-        }
-    },
+        var gap = this._zoomInversed;
+        return gap * Math.round((src.x - this.scrollX * src.scrollFactorX) / gap);
     */
 
     /**
@@ -6615,6 +6824,7 @@ var Camera = new Class({
      */
     resetFX: function ()
     {
+        this.panEffect.reset();
         this.shakeEffect.reset();
         this.flashEffect.reset();
         this.fadeEffect.reset();
@@ -6636,6 +6846,7 @@ var Camera = new Class({
     {
         if (this.visible)
         {
+            this.panEffect.update(time, delta);
             this.shakeEffect.update(time, delta);
             this.flashEffect.update(time, delta);
             this.fadeEffect.update(time, delta);
@@ -6729,7 +6940,7 @@ var Camera = new Class({
 
         get: function ()
         {
-            return this.width / this._zoom;
+            return this.width / this.zoom;
         }
 
     },
@@ -6752,27 +6963,7 @@ var Camera = new Class({
 
         get: function ()
         {
-            return this.height / this._zoom;
-        }
-
-    },
-
-    zoom: {
-
-        get: function ()
-        {
-            return this._zoom;
-        },
-
-        set: function (value)
-        {
-            if (value === 0)
-            {
-                value = 0.001;
-            }
-
-            this._zoom = value;
-            this._zoomInversed = 1 / value;
+            return this.height / this.zoom;
         }
 
     }
@@ -8154,6 +8345,346 @@ module.exports = Flash;
 
 /***/ }),
 
+/***/ "./cameras/2d/effects/Pan.js":
+/*!***********************************!*\
+  !*** ./cameras/2d/effects/Pan.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Clamp = __webpack_require__(/*! ../../../math/Clamp */ "./math/Clamp.js");
+var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+var Vector2 = __webpack_require__(/*! ../../../math/Vector2 */ "./math/Vector2.js");
+var EaseMap = __webpack_require__(/*! ../../../math/easing/EaseMap */ "./math/easing/EaseMap.js");
+
+/**
+ * @classdesc
+ * A Camera Pan effect.
+ *
+ * This effect will scroll the Camera so that the center of its viewport finishes at the given destination,
+ * over the duration and with the ease specified.
+ *
+ * Only the camera scroll is moved. None of the objects it is displaying are impacted, i.e. their positions do
+ * not change.
+ *
+ * The effect will dispatch several events on the Camera itself and you can also specify an `onUpdate` callback,
+ * which is invoked each frame for the duration of the effect if required.
+ *
+ * @class Pan
+ * @memberOf Phaser.Cameras.Scene2D.Effects
+ * @constructor
+ * @since 3.11.0
+ *
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera this effect is acting upon.
+ */
+var Pan = new Class({
+
+    initialize:
+
+    function Pan (camera)
+    {
+        /**
+         * The Camera this effect belongs to.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#camera
+         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.camera = camera;
+
+        /**
+         * Is this effect actively running?
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#isRunning
+         * @type {boolean}
+         * @readOnly
+         * @default false
+         * @since 3.11.0
+         */
+        this.isRunning = false;
+
+        /**
+         * The duration of the effect, in milliseconds.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#duration
+         * @type {integer}
+         * @readOnly
+         * @default 0
+         * @since 3.11.0
+         */
+        this.duration = 0;
+
+        /**
+         * The starting scroll coordinates to pan the camera from.
+         * 
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#source
+         * @type {Phaser.Math.Vector2}
+         * @since 3.11.0
+         */
+        this.source = new Vector2();
+
+        /**
+         * The destination scroll coordinates to pan the camera to.
+         * 
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#destination
+         * @type {Phaser.Math.Vector2}
+         * @since 3.11.0
+         */
+        this.destination = new Vector2();
+
+        /**
+         * The ease function to use during the pan.
+         * 
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#ease
+         * @type {function}
+         * @since 3.11.0
+         */
+        this.ease;
+
+        /**
+         * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#progress
+         * @type {float}
+         * @since 3.11.0
+         */
+        this.progress = 0;
+
+        /**
+         * Effect elapsed timer.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#_elapsed
+         * @type {number}
+         * @private
+         * @since 3.11.0
+         */
+        this._elapsed = 0;
+
+        /**
+         * @callback CameraPanCallback
+         *
+         * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera on which the effect is running.
+         * @param {float} progress - The progress of the effect. A value between 0 and 1.
+         * @param {number} x - The Camera's new scrollX coordinate.
+         * @param {number} y - The Camera's new scrollY coordinate.
+         */
+
+        /**
+         * This callback is invoked every frame for the duration of the effect.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#_onUpdate
+         * @type {?CameraPanCallback}
+         * @private
+         * @default null
+         * @since 3.11.0
+         */
+        this._onUpdate;
+
+        /**
+         * On Complete callback scope.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#_onUpdateScope
+         * @type {any}
+         * @private
+         * @since 3.11.0
+         */
+        this._onUpdateScope;
+    },
+
+    /**
+     * This event is fired when the pan effect begins to run on a camera.
+     *
+     * @event CameraPanStartEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Pan} effect - A reference to the effect instance.
+     * @param {integer} duration - The duration of the effect.
+     * @param {number} x - The destination scroll x coordinate.
+     * @param {number} y - The destination scroll y coordinate.
+     */
+
+    /**
+     * This event is fired when the pan effect completes.
+     *
+     * @event CameraPanCompleteEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Pan} effect - A reference to the effect instance.
+     */
+
+    /**
+     * This effect will scroll the Camera so that the center of its viewport finishes at the given destination,
+     * over the duration and with the ease specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#start
+     * @fires CameraPanStartEvent
+     * @fires CameraPanCompleteEvent
+     * @since 3.11.0
+     *
+     * @param {number} x - The destination x coordinate to scroll the center of the Camera viewport to.
+     * @param {number} y - The destination y coordinate to scroll the center of the Camera viewport to.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {(string|function)} [ease='Linear'] - The ease to use for the pan. Can be any of the Phaser Easing constants or a custom function.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {CameraPanCallback} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent four arguments: A reference to the camera, a progress amount between 0 and 1 indicating how complete the effect is,
+     * the current camera scroll x coordinate and the current camera scroll y coordinate.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} The Camera on which the effect was started.
+     */
+    start: function (x, y, duration, ease, force, callback, context)
+    {
+        if (duration === undefined) { duration = 1000; }
+        if (ease === undefined) { ease = EaseMap.Linear; }
+        if (force === undefined) { force = false; }
+        if (callback === undefined) { callback = null; }
+        if (context === undefined) { context = this.camera.scene; }
+
+        var cam = this.camera;
+
+        if (!force && this.isRunning)
+        {
+            return cam;
+        }
+
+        this.isRunning = true;
+        this.duration = duration;
+        this.progress = 0;
+
+        //  Starting from
+        this.source.set(cam.scrollX, cam.scrollY);
+
+        //  Panning to
+        cam.getScroll(x, y, this.destination);
+
+        //  Using this ease
+        if (typeof ease === 'string' && EaseMap.hasOwnProperty(ease))
+        {
+            this.ease = EaseMap[ease];
+        }
+        else if (typeof ease === 'function')
+        {
+            this.ease = ease;
+        }
+
+        this._elapsed = 0;
+
+        this._onUpdate = callback;
+        this._onUpdateScope = context;
+
+        this.camera.emit('camerapanstart', this.camera, this, duration, x, y);
+
+        return cam;
+    },
+
+    /**
+     * The main update loop for this effect. Called automatically by the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#update
+     * @since 3.11.0
+     *
+     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
+     * @param {number} delta - The delta time, in ms, elapsed since the last frame.
+     */
+    update: function (time, delta)
+    {
+        if (!this.isRunning)
+        {
+            return;
+        }
+
+        this._elapsed += delta;
+
+        this.progress = Clamp(this._elapsed / this.duration, 0, 1);
+
+        if (this._elapsed < this.duration)
+        {
+            var v = this.ease(this.progress);
+
+            var x = this.source.x + ((this.destination.x - this.source.x) * v);
+            var y = this.source.y + ((this.destination.y - this.source.y) * v);
+
+            this.camera.setScroll(x, y);
+
+            if (this._onUpdate)
+            {
+                this._onUpdate.call(this._onUpdateScope, this.camera, this.progress, x, y);
+            }
+        }
+        else
+        {
+            this.camera.setScroll(this.destination.x, this.destination.y);
+
+            if (this._onUpdate)
+            {
+                this._onUpdate.call(this._onUpdateScope, this.camera, this.progress, this.destination.x, this.destination.y);
+            }
+    
+            this.effectComplete();
+        }
+    },
+
+    /**
+     * Called internally when the effect completes.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#effectComplete
+     * @since 3.11.0
+     */
+    effectComplete: function ()
+    {
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+
+        this.isRunning = false;
+
+        this.camera.emit('camerapancomplete', this.camera, this);
+    },
+
+    /**
+     * Resets this camera effect.
+     * If it was previously running, it stops instantly without calling its onComplete callback or emitting an event.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#reset
+     * @since 3.11.0
+     */
+    reset: function ()
+    {
+        this.isRunning = false;
+
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+    },
+
+    /**
+     * Destroys this effect, releasing it from the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#destroy
+     * @since 3.11.0
+     */
+    destroy: function ()
+    {
+        this.reset();
+
+        this.camera = null;
+
+        this.destination = null;
+        this.current = null;
+        this.source = null;
+    }
+
+});
+
+module.exports = Pan;
+
+
+/***/ }),
+
 /***/ "./cameras/2d/effects/Shake.js":
 /*!*************************************!*\
   !*** ./cameras/2d/effects/Shake.js ***!
@@ -8522,6 +9053,7 @@ module.exports = {
 
     Fade: __webpack_require__(/*! ./Fade */ "./cameras/2d/effects/Fade.js"),
     Flash: __webpack_require__(/*! ./Flash */ "./cameras/2d/effects/Flash.js"),
+    Pan: __webpack_require__(/*! ./Pan */ "./cameras/2d/effects/Pan.js"),
     Shake: __webpack_require__(/*! ./Shake */ "./cameras/2d/effects/Shake.js")
 
 };
@@ -78709,8 +79241,8 @@ module.exports = Tween;
  * @property {number} [repeatDelay=0] - Time in ms/frames before the repeat will start.
  * @property {boolean} [flipX=false] - Automatically call toggleFlipX when the TweenData yoyos or repeats
  * @property {boolean} [flipY=false] - Automatically call toggleFlipY when the TweenData yoyos or repeats
- * @property {float} [progress=0] - Between 0 and 1 showing completion of this TweenData.
- * @property {float} [elapsed=0] - Delta counter
+ * @property {number} [progress=0] - Between 0 and 1 showing completion of this TweenData.
+ * @property {number} [elapsed=0] - Delta counter
  * @property {integer} [repeatCounter=0] - How many repeats are left to run?
  * @property {number} [start=0] - Ease value data.
  * @property {number} [current=0] - Ease value data.
@@ -79980,7 +80512,7 @@ module.exports = GetFirst;
  * @param {integer} [startIndex=0] - An optional start index.
  * @param {integer} [length=array.length] - An optional length, the total number of elements (from the startIndex) to choose from.
  *
- * @return {object} A random element from the array, or `null` if no element could be found in the range given.
+ * @return {*} A random element from the array, or `null` if no element could be found in the range given.
  */
 var GetRandom = function (array, startIndex, length)
 {

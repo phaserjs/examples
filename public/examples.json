@@ -1258,6 +1258,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/bounds at zero.js",
+          "name": "bounds at zero.js",
+          "size": 2604,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/camera effect callbacks.js",
           "name": "camera effect callbacks.js",
           "size": 930,
@@ -1288,6 +1294,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/center on.js",
+          "name": "center on.js",
+          "size": 1730,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/fade.js",
           "name": "fade.js",
           "size": 1139,
@@ -1314,7 +1326,7 @@
         {
           "path": "src/camera/follow sprite small bounds.js",
           "name": "follow sprite small bounds.js",
-          "size": 3202,
+          "size": 3091,
           "extension": ".js"
         },
         {
@@ -1445,6 +1457,18 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/pan to.js",
+          "name": "pan to.js",
+          "size": 1731,
+          "extension": ".js"
+        },
+        {
+          "path": "src/camera/rotate camera.js",
+          "name": "rotate camera.js",
+          "size": 1724,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/scroll view.js",
           "name": "scroll view.js",
           "size": 1524,
@@ -1499,7 +1523,7 @@
           "extension": ".js"
         }
       ],
-      "size": 115843
+      "size": 123521
     },
     {
       "path": "src/components",
@@ -9785,5 +9809,5 @@
       "size": 5041
     }
   ],
-  "size": 2470523
+  "size": 2478201
 }

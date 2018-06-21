@@ -5268,7 +5268,9 @@ var Camera = new Class({
         this.name = '';
 
         /**
-         * The x position of the Camera, relative to the top-left of the game canvas.
+         * The x position of the Camera viewport, relative to the top-left of the game canvas.
+         * The viewport is the area into which the camera renders.
+         * To adjust the position the camera is looking at in the game world, see the `scrollX` value.
          *
          * @name Phaser.Cameras.Scene2D.Camera#x
          * @type {number}
@@ -5278,6 +5280,8 @@ var Camera = new Class({
 
         /**
          * The y position of the Camera, relative to the top-left of the game canvas.
+         * The viewport is the area into which the camera renders.
+         * To adjust the position the camera is looking at in the game world, see the `scrollY` value.
          *
          * @name Phaser.Cameras.Scene2D.Camera#y
          * @type {number}
@@ -5315,7 +5319,7 @@ var Camera = new Class({
 
         /**
          * Is this Camera visible or not?
-         * 
+         *
          * A visible camera will render and perform input tests.
          * An invisible camera will not render anything and will skip input tests.
          *
@@ -5387,11 +5391,12 @@ var Camera = new Class({
          * @type {float}
          * @default 1
          * @since 3.0.0
-         */
         this.zoom = 1;
+         */
 
         /**
          * The rotation of the Camera. This influences the rendering of all Game Objects visible by this camera.
+         * It does not rotate the camera viewport.
          *
          * @name Phaser.Cameras.Scene2D.Camera#rotation
          * @type {number}
@@ -5475,6 +5480,7 @@ var Camera = new Class({
          * @name Phaser.Cameras.Scene2D.Camera#culledObjects
          * @type {Phaser.GameObjects.GameObject[]}
          * @default []
+         * @private
          * @since 3.0.0
          */
         this.culledObjects = [];
@@ -5511,8 +5517,10 @@ var Camera = new Class({
         /**
          * The mid-point of the Camera in 'world' coordinates.
          * 
+         * Use it to obtain exactly where in the world the center of the camera is currently looking.
+         * 
          * This value is updated in the preRender method, after the scroll values and follower
-         * update have been calculated.
+         * have been processed. 
          *
          * @name Phaser.Cameras.Scene2D.Camera#midPoint
          * @type {Phaser.Math.Vector2}
@@ -5522,7 +5530,23 @@ var Camera = new Class({
         this.midPoint = new Vector2(width / 2, height / 2);
 
         /**
-         * Camera dead zone.
+         * The Camera dead zone.
+         * 
+         * The deadzone is only used when the camera is following a target.
+         * 
+         * It defines a rectangular region within which if the target is present, the camera will not scroll.
+         * If the target moves outside of this area, the camera will begin scrolling in order to follow it.
+         * 
+         * The `lerp` values that you can set for a follower target also apply when using a deadzone.
+         * 
+         * You can directly set this property to be an instance of a Rectangle. Or, you can use the
+         * `setDeadzone` method for a chainable approach.
+         * 
+         * The rectangle you provide can have its dimensions adjusted dynamically, however, please
+         * note that its position is updated every frame, as it is constantly re-centered on the cameras mid point.
+         * 
+         * Calling `setDeadzone` with no arguments will reset an active deadzone, as will setting this property
+         * to `null`.
          *
          * @name Phaser.Cameras.Scene2D.Camera#deadzone
          * @type {?Phaser.Geom.Rectangle}
@@ -5551,6 +5575,71 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._id = 0;
+
+        this._zoom = 1;
+        this._zoomInversed = 1;
+    },
+
+    /**
+     * Sets the Camera dead zone.
+     * 
+     * The deadzone is only used when the camera is following a target.
+     * 
+     * It defines a rectangular region within which if the target is present, the camera will not scroll.
+     * If the target moves outside of this area, the camera will begin scrolling in order to follow it.
+     * 
+     * The deadzone rectangle is re-positioned every frame so that it is centered on the mid-point
+     * of the camera. This allows you to use the object for additional game related checks, such as
+     * testing if an object is within it or not via a Rectangle.contains call.
+     * 
+     * The `lerp` values that you can set for a follower target also apply when using a deadzone.
+     * 
+     * Calling this method with no arguments will reset an active deadzone.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setDeadzone
+     * @since 3.11.0
+     * 
+     * @param {number} [width] - The width of the deadzone rectangle in pixels. If not specified the deadzone is removed.
+     * @param {number} [height] - The height of the deadzone rectangle in pixels.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setDeadzone: function (width, height)
+    {
+        if (width === undefined)
+        {
+            this.deadzone = null;
+        }
+        else
+        {
+            if (this.deadzone)
+            {
+                this.deadzone.width = width;
+                this.deadzone.height = height;
+            }
+            else
+            {
+                this.deadzone = new Rectangle(0, 0, width, height);
+            }
+
+            if (this._follow)
+            {
+                var originX = this.width / 2;
+                var originY = this.height / 2;
+
+                var fx = this._follow.x - this.followOffset.x;
+                var fy = this._follow.y - this.followOffset.y;
+
+                this.midPoint.set(fx, fy);
+    
+                this.scrollX = fx - originX;
+                this.scrollY = fy - originY;
+            }
+
+            CenterOn(this.deadzone, this.midPoint.x, this.midPoint.y);
+        }
+
+        return this;
     },
 
     /**
@@ -5907,49 +5996,49 @@ var Camera = new Class({
     {
         var width = this.width;
         var height = this.height;
-        var zoom = this.zoom * baseScale;
+        var zoom = this._zoom * baseScale;
         var matrix = this.matrix;
         var originX = width / 2;
         var originY = height / 2;
         var follow = this._follow;
         var deadzone = this.deadzone;
+        var sx = this.scrollX;
+        var sy = this.scrollY;
+
+        if (deadzone)
+        {
+            CenterOn(deadzone, this.midPoint.x, this.midPoint.y);
+        }
 
         if (follow)
         {
             var fx = (follow.x - this.followOffset.x);
             var fy = (follow.y - this.followOffset.y);
 
-            this._fx = fx;
-            this._fy = fy;
-
             if (deadzone)
             {
-                CenterOn(deadzone, this.midPoint.x, this.midPoint.y);
-
-                if (fx <= deadzone.x)
+                if (fx < deadzone.x)
                 {
-                    this.scrollX = Linear(fx, deadzone.x, this.lerp.x) / zoom;
-                    this.scrollX -= deadzone.x;
-                    console.log(this.scrollX);
-                    // debugger;
+                    sx = Linear(sx, sx - (deadzone.x - fx), this.lerp.x);
                 }
-                else if (fx >= deadzone.right)
+                else if (fx > deadzone.right)
                 {
-                    this.scrollX = Linear(fx, deadzone.right, this.lerp.x) / zoom;
-                    this.scrollX -= deadzone.right;
-                    console.log(this.scrollX);
-                    // debugger;
+                    sx = Linear(sx, sx + (fx - deadzone.right), this.lerp.x);
                 }
 
-                // if (fy < deadzone.y || fy > deadzone.bottom)
-                // {
-                //     this.scrollY = Linear(this.scrollY, fy - originY, this.lerp.y) / zoom;
-                // }
+                if (fy < deadzone.y)
+                {
+                    sy = Linear(sy, sy - (deadzone.y - fy), this.lerp.y);
+                }
+                else if (fy > deadzone.bottom)
+                {
+                    sy = Linear(sy, sy + (fy - deadzone.bottom), this.lerp.y);
+                }
             }
             else
             {
-                this.scrollX = Linear(this.scrollX, fx, this.lerp.x) / zoom;
-                this.scrollY = Linear(this.scrollY, fy, this.lerp.y) / zoom;
+                sx = Linear(sx, fx - originX, this.lerp.x);
+                sy = Linear(sy, fy - originY, this.lerp.y);
             }
         }
 
@@ -5957,35 +6046,43 @@ var Camera = new Class({
         {
             var bounds = this._bounds;
 
-            var bw = Math.max(0, bounds.right - width);
-            var bh = Math.max(0, bounds.bottom - height);
+            var dw = this.displayWidth;
+            var dh = this.displayHeight;
 
-            if (this.scrollX < bounds.x)
+            var bx = (dw - width) / 2;
+            var by = (dh - height) / 2;
+            var bw = Math.max(bx, bx + bounds.width - dw);
+            var bh = Math.max(by, by + bounds.height - dh);
+
+            if (sx < bx)
             {
-                this.scrollX = bounds.x;
+                sx = bx;
             }
-            else if (this.scrollX > bw)
+            else if (sx > bw)
             {
-                this.scrollX = bw;
+                sx = bw;
             }
 
-            if (this.scrollY < bounds.y)
+            if (sy < by)
             {
-                this.scrollY = bounds.y;
+                sy = by;
             }
-            else if (this.scrollY > bh)
+            else if (sy > bh)
             {
-                this.scrollY = bh;
+                sy = bh;
             }
         }
 
         if (this.roundPixels)
         {
-            this.scrollX = Math.round(this.scrollX);
-            this.scrollY = Math.round(this.scrollY);
+            originX = Math.round(originX);
+            originY = Math.round(originY);
         }
 
-        this.midPoint.set(this.scrollX + originX, this.scrollY + originY);
+        this.scrollX = sx;
+        this.scrollY = sy;
+
+        this.midPoint.set(sx + originX, sy + originY);
 
         matrix.loadIdentity();
         matrix.scale(resolution, resolution);
@@ -5996,6 +6093,36 @@ var Camera = new Class({
 
         this.shakeEffect.preRender();
     },
+
+    /*
+    getRenderX: function (src)
+    {
+        if (this.roundPixels)
+        {
+            var gap = this._zoomInversed;
+
+            return gap * Math.round((src.x - this.scrollX * src.scrollFactorX) / gap);
+        }
+        else
+        {
+            return src.x - this.scrollX * src.scrollFactorX;
+        }
+    },
+
+    getRenderY: function (src)
+    {
+        if (this.roundPixels)
+        {
+            var gap = this._zoomInversed;
+
+            return gap * Math.round((src.y - this.scrollY * src.scrollFactorY) / gap);
+        }
+        else
+        {
+            return src.y - this.scrollY * src.scrollFactorY;
+        }
+    },
+    */
 
     /**
      * If this Camera has previously had movement bounds set on it, this will remove them.
@@ -6329,13 +6456,18 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#setZoom
      * @since 3.0.0
      *
-     * @param {float} [value=1] - The zoom value of the Camera.
+     * @param {float} [value=1] - The zoom value of the Camera. The minimum it can be is 0.001.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
     setZoom: function (value)
     {
         if (value === undefined) { value = 1; }
+
+        if (value === 0)
+        {
+            value = 0.001;
+        }
 
         this.zoom = value;
 
@@ -6344,14 +6476,14 @@ var Camera = new Class({
 
     /**
      * Sets the visibility of this Camera.
-     * 
+     *
      * An invisible Camera will skip rendering and input tests of everything it can see.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setVisible
      * @since 3.10.0
      *
      * @param {boolean} value - The visible state of the Camera.
-     * 
+     *
      * @return {this} This Camera instance.
      */
     setVisible: function (value)
@@ -6406,13 +6538,16 @@ var Camera = new Class({
 
         this.followOffset.set(offsetX, offsetY);
 
-        //  Move the camera there immediately, to avoid a large lerp during preUpdate
-        var zoom = this.zoom;
         var originX = this.width / 2;
         var originY = this.height / 2;
 
-        this.scrollX = (target.x - offsetX - originX) / zoom;
-        this.scrollY = (target.y - offsetY - originY) / zoom;
+        var fx = target.x - offsetX;
+        var fy = target.y - offsetY;
+
+        this.midPoint.set(fx, fy);
+
+        this.scrollX = fx - originX;
+        this.scrollY = fy - originY;
 
         return this;
     },
@@ -6537,10 +6672,9 @@ var Camera = new Class({
         this.culledObjects = [];
 
         this._follow = null;
-
         this._bounds = null;
-
         this.scene = null;
+        this.deadzone = null;
     },
 
     /**
@@ -6573,6 +6707,72 @@ var Camera = new Class({
         get: function ()
         {
             return this.y + (0.5 * this.height);
+        }
+
+    },
+
+    /**
+     * The displayed width of the camera viewport, factoring in the camera zoom level.
+     * 
+     * If a camera has a viewport width of 800 and a zoom of 0.5 then its display width
+     * would be 1600, as it's displaying twice as many pixels as zoom level 1.
+     * 
+     * Equally, a camera with a width of 800 and zoom of 2 would have a display width
+     * of 400 pixels.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#displayWidth
+     * @type {number}
+     * @readOnly
+     * @since 3.11.0
+     */
+    displayWidth: {
+
+        get: function ()
+        {
+            return this.width / this._zoom;
+        }
+
+    },
+
+    /**
+     * The displayed height of the camera viewport, factoring in the camera zoom level.
+     * 
+     * If a camera has a viewport height of 600 and a zoom of 0.5 then its display height
+     * would be 1200, as it's displaying twice as many pixels as zoom level 1.
+     * 
+     * Equally, a camera with a height of 600 and zoom of 2 would have a display height
+     * of 300 pixels.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#displayHeight
+     * @type {number}
+     * @readOnly
+     * @since 3.11.0
+     */
+    displayHeight: {
+
+        get: function ()
+        {
+            return this.height / this._zoom;
+        }
+
+    },
+
+    zoom: {
+
+        get: function ()
+        {
+            return this._zoom;
+        },
+
+        set: function (value)
+        {
+            if (value === 0)
+            {
+                value = 0.001;
+            }
+
+            this._zoom = value;
+            this._zoomInversed = 1 / value;
         }
 
     }
@@ -22199,9 +22399,9 @@ module.exports = SpriteWebGLRenderer;
  * @function Phaser.GameObjects.Text.GetTextSize
  * @since 3.0.0
  *
- * @param {Phaser.GameObjects.Text} text - The Text object to get the size from.
- * @param {number} size - [description]
- * @param {array} lines - [description]
+ * @param {Phaser.GameObjects.Text} text - The Text object to calculate the size from.
+ * @param {TextMetrics} size - The Text metrics to use when calculating the size.
+ * @param {array} lines - The lines of text to calculate the size from.
  *
  * @return {object} An object containing dimensions of the Text object.
  */
@@ -22214,7 +22414,7 @@ var GetTextSize = function (text, size, lines)
     var lineWidths = [];
     var maxLineWidth = 0;
     var drawnLines = lines.length;
-    
+
     if (style.maxLines > 0 && style.maxLines < lines.length)
     {
         drawnLines = style.maxLines;
@@ -22472,6 +22672,16 @@ var propertyMap = {
 };
 
 /**
+ * Font metrics for a Text Style object.
+ *
+ * @typedef {object} TextMetrics
+ *
+ * @property {number} ascent - The ascent of the font.
+ * @property {number} descent - The descent of the font.
+ * @property {number} fontSize - The size of the font.
+ */
+
+/**
  * @classdesc
  * Style settings for a Text object.
  *
@@ -22481,7 +22691,7 @@ var propertyMap = {
  * @since 3.0.0
  *
  * @param {Phaser.GameObjects.Text} text - The Text object that this TextStyle is styling.
- * @param {CSSStyleRule} style - The style settings to set.
+ * @param {object} style - The style settings to set.
  */
 var TextStyle = new Class({
 
@@ -23340,7 +23550,7 @@ var TextStyle = new Class({
      * @method Phaser.GameObjects.Text.TextStyle#getTextMetrics
      * @since 3.0.0
      *
-     * @return {object} The text metrics.
+     * @return {TextMetrics} The text metrics.
      */
     getTextMetrics: function ()
     {

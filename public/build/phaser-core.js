@@ -5258,6 +5258,17 @@ var Camera = new Class({
         this.scene;
 
         /**
+         * The Camera ID. Assigned by the Camera Manager and used to handle camera exclusion.
+         * This value is a bitmask.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#id
+         * @type {integer}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.id = 0;
+
+        /**
          * The name of the Camera. This is left empty for your own use.
          *
          * @name Phaser.Cameras.Scene2D.Camera#name
@@ -5291,7 +5302,7 @@ var Camera = new Class({
 
         /**
          * The width of the Camera viewport, in pixels.
-         * 
+         *
          * The viewport is the area into which the Camera renders. Setting the viewport does
          * not restrict where the Camera can scroll to.
          *
@@ -5303,7 +5314,7 @@ var Camera = new Class({
 
         /**
          * The height of the Camera viewport, in pixels.
-         * 
+         *
          * The viewport is the area into which the Camera renders. Setting the viewport does
          * not restrict where the Camera can scroll to.
          *
@@ -5338,7 +5349,7 @@ var Camera = new Class({
 
         /**
          * Is this Camera using a bounds to restrict scrolling movement?
-         * 
+         *
          * Set this property along with the bounds via `Camera.setBounds`.
          *
          * @name Phaser.Cameras.Scene2D.Camera#useBounds
@@ -5370,12 +5381,12 @@ var Camera = new Class({
 
         /**
          * The horizontal scroll position of this Camera.
-         * 
+         *
          * Change this value to cause the Camera to scroll around your Scene.
-         * 
+         *
          * Alternatively, setting the Camera to follow a Game Object, via the `startFollow` method,
          * will automatically adjust the Camera scroll values accordingly.
-         * 
+         *
          * You can set the bounds within which the Camera can scroll via the `setBounds` method.
          *
          * @name Phaser.Cameras.Scene2D.Camera#scrollX
@@ -5387,12 +5398,12 @@ var Camera = new Class({
 
         /**
          * The vertical scroll position of this Camera.
-         * 
+         *
          * Change this value to cause the Camera to scroll around your Scene.
-         * 
+         *
          * Alternatively, setting the Camera to follow a Game Object, via the `startFollow` method,
          * will automatically adjust the Camera scroll values accordingly.
-         * 
+         *
          * You can set the bounds within which the Camera can scroll via the `setBounds` method.
          *
          * @name Phaser.Cameras.Scene2D.Camera#scrollY
@@ -5404,13 +5415,13 @@ var Camera = new Class({
 
         /**
          * The Camera zoom value. Change this value to zoom in, or out of, a Scene.
-         * 
+         *
          * A value of 0.5 would zoom the Camera out, so you can now see twice as much
          * of the Scene as before. A value of 2 would zoom the Camera in, so every pixel
          * now takes up 2 pixels when rendered.
-         * 
+         *
          * Set to 1 to return to the default zoom level.
-         * 
+         *
          * Be careful to never set this value to zero.
          *
          * @name Phaser.Cameras.Scene2D.Camera#zoom
@@ -5422,10 +5433,10 @@ var Camera = new Class({
 
         /**
          * The rotation of the Camera in radians.
-         * 
+         *
          * Camera rotation always takes place based on the Camera viewport. By default, rotation happens
          * in the center of the viewport. You can adjust this with the `originX` and `originY` properties.
-         * 
+         *
          * Rotation influences the rendering of _all_ Game Objects visible by this Camera. However, it does not
          * rotate the Camera viewport itself, which always remains an axis-aligned rectangle.
          *
@@ -5466,6 +5477,18 @@ var Camera = new Class({
         this.backgroundColor = ValueToColor('rgba(0,0,0,0)');
 
         /**
+         * The Camera alpha value. Setting this property impacts every single object that this Camera
+         * renders. You can either set the property directly, i.e. via a Tween, to fade a Camera in or out,
+         * or via the chainable `setAlpha` method instead.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#alpha
+         * @type {number}
+         * @default 1
+         * @since 3.11.0
+         */
+        this.alpha = 1;
+
+        /**
          * The Camera Fade effect handler.
          * To fade this camera see the `Camera.fade` methods.
          *
@@ -5504,6 +5527,16 @@ var Camera = new Class({
          * @since 3.11.0
          */
         this.panEffect = new Effects.Pan(this);
+
+        /**
+         * The Camera Zoom effect handler.
+         * To zoom this camera see the `Camera.zoom` method.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#zoomEffect
+         * @type {Phaser.Cameras.Scene2D.Effects.Zoom}
+         * @since 3.11.0
+         */
+        this.zoomEffect = new Effects.Zoom(this);
 
         /**
          * Should the camera cull Game Objects before checking them for input hit tests?
@@ -5558,11 +5591,11 @@ var Camera = new Class({
 
         /**
          * The mid-point of the Camera in 'world' coordinates.
-         * 
+         *
          * Use it to obtain exactly where in the world the center of the camera is currently looking.
-         * 
+         *
          * This value is updated in the preRender method, after the scroll values and follower
-         * have been processed. 
+         * have been processed.
          *
          * @name Phaser.Cameras.Scene2D.Camera#midPoint
          * @type {Phaser.Math.Vector2}
@@ -5573,12 +5606,12 @@ var Camera = new Class({
 
         /**
          * The horizontal origin of rotation for this Camera.
-         * 
+         *
          * By default the camera rotates around the center of the viewport.
-         * 
+         *
          * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
          * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
-         * 
+         *
          * See `setOrigin` to set both origins in a single, chainable call.
          *
          * @name Phaser.Cameras.Scene2D.Camera#originX
@@ -5590,12 +5623,12 @@ var Camera = new Class({
 
         /**
          * The vertical origin of rotation for this Camera.
-         * 
+         *
          * By default the camera rotates around the center of the viewport.
-         * 
+         *
          * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
          * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
-         * 
+         *
          * See `setOrigin` to set both origins in a single, chainable call.
          *
          * @name Phaser.Cameras.Scene2D.Camera#originY
@@ -5607,20 +5640,20 @@ var Camera = new Class({
 
         /**
          * The Camera dead zone.
-         * 
+         *
          * The deadzone is only used when the camera is following a target.
-         * 
+         *
          * It defines a rectangular region within which if the target is present, the camera will not scroll.
          * If the target moves outside of this area, the camera will begin scrolling in order to follow it.
-         * 
+         *
          * The `lerp` values that you can set for a follower target also apply when using a deadzone.
-         * 
+         *
          * You can directly set this property to be an instance of a Rectangle. Or, you can use the
          * `setDeadzone` method for a chainable approach.
-         * 
+         *
          * The rectangle you provide can have its dimensions adjusted dynamically, however, please
          * note that its position is updated every frame, as it is constantly re-centered on the cameras mid point.
-         * 
+         *
          * Calling `setDeadzone` with no arguments will reset an active deadzone, as will setting this property
          * to `null`.
          *
@@ -5640,26 +5673,35 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._follow = null;
+    },
 
-        /**
-         * Internal camera ID. Assigned by the Camera Manager and used in the camera pool.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_id
-         * @type {integer}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._id = 0;
+    /**
+     * Set the Alpha level of this Camera. The alpha controls the opacity of the Camera as it renders.
+     * Alpha values are provided as a float between 0, fully transparent, and 1, fully opaque.
+     *
+     * @method Phaser.GameObjects.Components.Origin#setAlpha
+     * @since 3.11.0
+     *
+     * @param {number} [value=1] - The Camera alpha value.
+     *
+     * @return {this} This Camera instance.
+     */
+    setAlpha: function (value)
+    {
+        if (value === undefined) { value = 1; }
+
+        this.alpha = value;
+
+        return this;
     },
 
     /**
      * Sets the rotation origin of this Camera.
      *
      * The values are given in the range 0 to 1 and are only used when calculating Camera rotation.
-     * 
+     *
      * By default the camera rotates around the center of the viewport.
-     * 
+     *
      * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
      * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
      *
@@ -5684,23 +5726,23 @@ var Camera = new Class({
 
     /**
      * Sets the Camera dead zone.
-     * 
+     *
      * The deadzone is only used when the camera is following a target.
-     * 
+     *
      * It defines a rectangular region within which if the target is present, the camera will not scroll.
      * If the target moves outside of this area, the camera will begin scrolling in order to follow it.
-     * 
+     *
      * The deadzone rectangle is re-positioned every frame so that it is centered on the mid-point
      * of the camera. This allows you to use the object for additional game related checks, such as
      * testing if an object is within it or not via a Rectangle.contains call.
-     * 
+     *
      * The `lerp` values that you can set for a follower target also apply when using a deadzone.
-     * 
+     *
      * Calling this method with no arguments will reset an active deadzone.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setDeadzone
      * @since 3.11.0
-     * 
+     *
      * @param {number} [width] - The width of the deadzone rectangle in pixels. If not specified the deadzone is removed.
      * @param {number} [height] - The height of the deadzone rectangle in pixels.
      *
@@ -5733,7 +5775,7 @@ var Camera = new Class({
                 var fy = this._follow.y - this.followOffset.y;
 
                 this.midPoint.set(fx, fy);
-    
+
                 this.scrollX = fx - originX;
                 this.scrollY = fy - originY;
             }
@@ -5751,7 +5793,7 @@ var Camera = new Class({
      *
      * @method Phaser.Cameras.Scene2D.Camera#getScroll
      * @since 3.11.0
-     * 
+     *
      * @param {number} x - The horizontal coordinate to center on.
      * @param {number} y - The vertical coordinate to center on.
      * @param {Phaser.Math.Vector2} [out] - A Vec2 to store the values in. If not given a new Vec2 is created.
@@ -5782,7 +5824,7 @@ var Camera = new Class({
      *
      * @method Phaser.Cameras.Scene2D.Camera#centerOn
      * @since 3.11.0
-     * 
+     *
      * @param {number} x - The horizontal coordinate to center on.
      * @param {number} y - The vertical coordinate to center on.
      *
@@ -5822,7 +5864,7 @@ var Camera = new Class({
             var bounds = this._bounds;
             var originX = this.width * 0.5;
             var originY = this.height * 0.5;
-    
+
             this.midPoint.set(bounds.centerX, bounds.centerY);
 
             this.scrollX = bounds.centerX - originX;
@@ -6082,6 +6124,28 @@ var Camera = new Class({
     },
 
     /**
+     * This effect will zoom the Camera to the given scale, over the duration and with the ease specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#zoomTo
+     * @since 3.11.0
+     *
+     * @param {number} zoom - The target Camera zoom value.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {(string|function)} [ease='Linear'] - The ease to use for the pan. Can be any of the Phaser Easing constants or a custom function.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {CameraPanCallback} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent four arguments: A reference to the camera, a progress amount between 0 and 1 indicating how complete the effect is,
+     * the current camera scroll x coordinate and the current camera scroll y coordinate.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    zoomTo: function (zoom, duration, ease, force, callback, context)
+    {
+        return this.zoomEffect.start(zoom, duration, ease, force, callback, context);
+    },
+
+    /**
      * Converts the given `x` and `y` coordinates into World space, based on this Cameras transform.
      * You can optionally provide a Vector2, or similar object, to store the results in.
      *
@@ -6270,7 +6334,7 @@ var Camera = new Class({
      *
      * @method Phaser.Cameras.Scene2D.Camera#clampX
      * @since 3.11.0
-     * 
+     *
      * @param {number} x - The value to horizontally scroll clamp.
      *
      * @return {number} The adjusted value to use as scrollX.
@@ -6302,7 +6366,7 @@ var Camera = new Class({
      *
      * @method Phaser.Cameras.Scene2D.Camera#clampY
      * @since 3.11.0
-     * 
+     *
      * @param {number} y - The value to vertically scroll clamp.
      *
      * @return {number} The adjusted value to use as scrollY.
@@ -6448,10 +6512,23 @@ var Camera = new Class({
     },
 
     /**
-     * Set the world bounds for this Camera.
-     *
-     * A Camera bounds controls where the camera can scroll to within the world. It does not limit
-     * rendering of the camera, or placement of the viewport within your game.
+     * Set the bounds of the Camera. The bounds are an axis-aligned rectangle.
+     * 
+     * The Camera bounds controls where the Camera can scroll to, stopping it from scrolling off the
+     * edges and into blank space. It does not limit the placement of Game Objects, or where
+     * the Camera viewport can be positioned.
+     * 
+     * Temporarily disable the bounds by changing the boolean `Camera.useBounds`.
+     * 
+     * Clear the bounds entirely by calling `Camera.removeBounds`.
+     * 
+     * If you set bounds that are smaller than the viewport it will stop the Camera from being
+     * able to scroll. The bounds can be positioned where-ever you wish. By default they are from
+     * 0x0 to the canvas width x height. This means that the coordinate 0x0 is the top left of
+     * the Camera bounds. However, you can position them anywhere. So if you wanted a game world
+     * that was 2048x2048 in size, with 0x0 being the center of it, you can set the bounds x/y
+     * to be -1024, -1024, with a width and height of 2048. Depending on your game you may find
+     * it easier for 0x0 to be the top-left of the bounds, or you may wish 0x0 to be the middle.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setBounds
      * @since 3.0.0
@@ -6460,14 +6537,25 @@ var Camera = new Class({
      * @param {integer} y - The top-left y coordinate of the bounds.
      * @param {integer} width - The width of the bounds, in pixels.
      * @param {integer} height - The height of the bounds, in pixels.
+     * @param {boolean} [centerOn] - If `true` the Camera will automatically be centered on the new bounds.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
-    setBounds: function (x, y, width, height)
+    setBounds: function (x, y, width, height, centerOn)
     {
         this._bounds.setTo(x, y, width, height);
 
         this.useBounds = true;
+
+        if (centerOn)
+        {
+            this.centerToBounds();
+        }
+        else
+        {
+            this.scrollX = this.clampX(this.scrollX);
+            this.scrollY = this.clampY(this.scrollY);
+        }
 
         return this;
     },
@@ -6847,6 +6935,7 @@ var Camera = new Class({
         if (this.visible)
         {
             this.panEffect.update(time, delta);
+            this.zoomEffect.update(time, delta);
             this.shakeEffect.update(time, delta);
             this.flashEffect.update(time, delta);
             this.fadeEffect.update(time, delta);
@@ -6924,10 +7013,10 @@ var Camera = new Class({
 
     /**
      * The displayed width of the camera viewport, factoring in the camera zoom level.
-     * 
+     *
      * If a camera has a viewport width of 800 and a zoom of 0.5 then its display width
      * would be 1600, as it's displaying twice as many pixels as zoom level 1.
-     * 
+     *
      * Equally, a camera with a width of 800 and zoom of 2 would have a display width
      * of 400 pixels.
      *
@@ -6947,10 +7036,10 @@ var Camera = new Class({
 
     /**
      * The displayed height of the camera viewport, factoring in the camera zoom level.
-     * 
+     *
      * If a camera has a viewport height of 600 and a zoom of 0.5 then its display height
      * would be 1200, as it's displaying twice as many pixels as zoom level 1.
-     * 
+     *
      * Equally, a camera with a height of 600 and zoom of 2 would have a display height
      * of 300 pixels.
      *
@@ -7015,6 +7104,9 @@ var RectangleContains = __webpack_require__(/*! ../../geom/rectangle/Contains */
  * @property {number} [bounds.height] - [description]
  */
 
+//  TODO stop it assigning more than 32 cameras (or whatever the limit is)
+//  The remove method leaves gaps in the ID list
+
 /**
  * @classdesc
  * [description]
@@ -7051,18 +7143,22 @@ var CameraManager = new Class({
         this.systems = scene.sys;
 
         /**
-         * The current Camera ID.
+         * The ID that will be assigned to the next Camera that is created.
+         * This is a bitmask value, meaning only up to 31 cameras can be created in total.
          *
-         * @name Phaser.Cameras.Scene2D.CameraManager#currentCameraId
-         * @type {number}
+         * @name Phaser.Cameras.Scene2D.CameraManager#nextID
+         * @type {integer}
          * @default 1
          * @readOnly
          * @since 3.0.0
          */
-        this.currentCameraId = 1;
+        this.nextID = 1;
 
         /**
          * An Array of the Camera objects being managed by this Camera Manager.
+         * The Cameras are updated and rendered in the same order in which they appear in this array.
+         * Do not directly add or remove entries to this array. However, you can move the contents
+         * around the array should you wish to adjust the display order.
          *
          * @name Phaser.Cameras.Scene2D.CameraManager#cameras
          * @type {Phaser.Cameras.Scene2D.Camera[]}
@@ -7071,16 +7167,15 @@ var CameraManager = new Class({
         this.cameras = [];
 
         /**
-         * A pool of Camera objects available to be used by the Camera Manager.
-         *
-         * @name Phaser.Cameras.Scene2D.CameraManager#cameraPool
-         * @type {Phaser.Cameras.Scene2D.Camera[]}
-         * @since 3.0.0
-         */
-        this.cameraPool = [];
-
-        /**
-         * The default Camera in the Camera Manager.
+         * A handy reference to the 'main' camera. By default this is the first Camera the
+         * Camera Manager creates. You can also set it directly, or use the `makeMain` argument
+         * in the `add` and `addExisting` methods. It allows you to access it from your game:
+         * 
+         * ```javascript
+         * var cam = this.cameras.main;
+         * ```
+         * 
+         * Also see the properties `camera1`, `camera2` and so on.
          *
          * @name Phaser.Cameras.Scene2D.CameraManager#main
          * @type {Phaser.Cameras.Scene2D.Camera}
@@ -7089,7 +7184,7 @@ var CameraManager = new Class({
         this.main;
 
         /**
-         * This scale affects all cameras. It's used by Scale Manager.
+         * This scale affects all cameras. It's used by the Scale Manager.
          *
          * @name Phaser.Cameras.Scene2D.CameraManager#baseScale
          * @type {number}
@@ -7175,18 +7270,7 @@ var CameraManager = new Class({
         if (makeMain === undefined) { makeMain = false; }
         if (name === undefined) { name = ''; }
 
-        var camera = null;
-
-        if (this.cameraPool.length > 0)
-        {
-            camera = this.cameraPool.pop();
-
-            camera.setViewport(x, y, width, height);
-        }
-        else
-        {
-            camera = new Camera(x, y, width, height);
-        }
+        var camera = new Camera(x, y, width, height);
 
         camera.setName(name);
         camera.setScene(this.scene);
@@ -7198,9 +7282,9 @@ var CameraManager = new Class({
             this.main = camera;
         }
 
-        camera._id = this.currentCameraId;
+        camera.id = this.nextID;
 
-        this.currentCameraId = this.currentCameraId << 1;
+        this.nextID = this.nextID << 1;
 
         return camera;
     },
@@ -7212,19 +7296,29 @@ var CameraManager = new Class({
      * @since 3.0.0
      *
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {boolean} [makeMain=false] - [description]
      *
      * @return {Phaser.Cameras.Scene2D.Camera} [description]
      */
-    addExisting: function (camera)
+    addExisting: function (camera, makeMain)
     {
-        var index = this.cameras.indexOf(camera);
-        var poolIndex = this.cameraPool.indexOf(camera);
+        if (makeMain === undefined) { makeMain = false; }
 
-        if (index < 0 && poolIndex >= 0)
+        var index = this.cameras.indexOf(camera);
+
+        if (index === -1)
         {
             this.cameras.push(camera);
-            this.cameraPool.slice(poolIndex, 1);
 
+            camera.id = this.nextID;
+
+            this.nextID = this.nextID << 1;
+
+            if (makeMain)
+            {
+                this.main = camera;
+            }
+    
             return camera;
         }
 
@@ -7306,15 +7400,17 @@ var CameraManager = new Class({
      *
      * @param {string} name - [description]
      *
-     * @return {Phaser.Cameras.Scene2D.Camera} [description]
+     * @return {?Phaser.Cameras.Scene2D.Camera} [description]
      */
     getCamera: function (name)
     {
-        for (var i = 0; i < this.cameras.length; i++)
+        var cameras = this.cameras;
+
+        for (var i = 0; i < cameras.length; i++)
         {
-            if (this.cameras[i].name === name)
+            if (cameras[i].name === name)
             {
-                return this.cameras[i];
+                return cameras[i];
             }
         }
 
@@ -7370,7 +7466,6 @@ var CameraManager = new Class({
 
         if (cameraIndex >= 0 && this.cameras.length > 1)
         {
-            this.cameraPool.push(this.cameras[cameraIndex]);
             this.cameras.splice(cameraIndex, 1);
 
             if (this.main === camera)
@@ -7392,18 +7487,20 @@ var CameraManager = new Class({
      */
     render: function (renderer, children, interpolation)
     {
+        var scene = this.scene;
         var cameras = this.cameras;
         var baseScale = this.baseScale;
+        var resolution = renderer.config.resolution;
 
-        for (var i = 0, l = cameras.length; i < l; ++i)
+        for (var i = 0; i < this.cameras.length; i++)
         {
             var camera = cameras[i];
 
-            if (camera.visible)
+            if (camera.visible && camera.alpha > 0)
             {
-                camera.preRender(baseScale, renderer.config.resolution);
+                camera.preRender(baseScale, resolution);
 
-                renderer.render(this.scene, children, interpolation, camera);
+                renderer.render(scene, children, interpolation, camera);
             }
         }
     },
@@ -7418,10 +7515,14 @@ var CameraManager = new Class({
      */
     resetAll: function ()
     {
-        while (this.cameras.length > 0)
+        for (var i = 0; i < this.cameras.length; i++)
         {
-            this.cameraPool.push(this.cameras.pop());
+            this.cameras[i].destroy();
         }
+
+        this.cameras = [];
+
+        this.nextID = 1;
 
         this.main = this.add();
 
@@ -7439,7 +7540,7 @@ var CameraManager = new Class({
      */
     update: function (timestep, delta)
     {
-        for (var i = 0, l = this.cameras.length; i < l; ++i)
+        for (var i = 0; i < this.cameras.length; i++)
         {
             this.cameras[i].update(timestep, delta);
         }
@@ -7456,7 +7557,7 @@ var CameraManager = new Class({
      */
     resize: function (width, height)
     {
-        for (var i = 0, l = this.cameras.length; i < l; ++i)
+        for (var i = 0; i < this.cameras.length; i++)
         {
             this.cameras[i].setSize(width, height);
         }
@@ -7479,13 +7580,7 @@ var CameraManager = new Class({
             this.cameras[i].destroy();
         }
 
-        for (i = 0; i < this.cameraPool.length; i++)
-        {
-            this.cameraPool[i].destroy();
-        }
-
         this.cameras = [];
-        this.cameraPool = [];
 
         var eventEmitter = this.systems.events;
 
@@ -7509,6 +7604,195 @@ var CameraManager = new Class({
 
         this.scene = null;
         this.systems = null;
+    },
+
+    /**
+     * A reference to Camera 1 in the Camera Manager.
+     * 
+     * Create additional cameras using the `add` method.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera1
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera1: {
+
+        get: function ()
+        {
+            return this.cameras[0];
+        }
+
+    },
+
+    /**
+     * A reference to Camera 2 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera2
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera2: {
+
+        get: function ()
+        {
+            return this.cameras[1];
+        }
+
+    },
+
+    /**
+     * A reference to Camera 3 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera3
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera3: {
+
+        get: function ()
+        {
+            return this.cameras[2];
+        }
+
+    },
+
+    /**
+     * A reference to Camera 4 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera4
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera4: {
+
+        get: function ()
+        {
+            return this.cameras[3];
+        }
+
+    },
+
+    /**
+     * A reference to Camera 5 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera5
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera5: {
+
+        get: function ()
+        {
+            return this.cameras[4];
+        }
+
+    },
+
+    /**
+     * A reference to Camera 6 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera6
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera6: {
+
+        get: function ()
+        {
+            return this.cameras[5];
+        }
+
+    },
+
+    /**
+     * A reference to Camera 7 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera7
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera7: {
+
+        get: function ()
+        {
+            return this.cameras[6];
+        }
+
+    },
+
+    /**
+     * A reference to Camera 8 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera8
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera8: {
+
+        get: function ()
+        {
+            return this.cameras[7];
+        }
+
+    },
+
+    /**
+     * A reference to Camera 9 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera9
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera9: {
+
+        get: function ()
+        {
+            return this.cameras[8];
+        }
+
+    },
+    /**
+     * A reference to Camera 10 in the Camera Manager.
+     * 
+     * This will be `undefined` by default unless you have created new cameras via `add` or `addExisting`.
+     *
+     * @name Phaser.Cameras.Scene2D.CameraManager#camera10
+     * @type {Phaser.Cameras.Scene2D.Camera}
+     * @readOnly
+     * @since 3.11.0
+     */
+    camera10: {
+
+        get: function ()
+        {
+            return this.cameras[9];
+        }
+
     }
 
 });
@@ -8431,6 +8715,15 @@ var Pan = new Class({
         this.source = new Vector2();
 
         /**
+         * The constantly updated value based on zoom.
+         * 
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#current
+         * @type {Phaser.Math.Vector2}
+         * @since 3.11.0
+         */
+        this.current = new Vector2();
+
+        /**
          * The destination scroll coordinates to pan the camera to.
          * 
          * @name Phaser.Cameras.Scene2D.Effects.Pan#destination
@@ -8560,8 +8853,11 @@ var Pan = new Class({
         //  Starting from
         this.source.set(cam.scrollX, cam.scrollY);
 
-        //  Panning to
-        cam.getScroll(x, y, this.destination);
+        //  Destination
+        this.destination.set(x, y);
+
+        //  Zoom factored version
+        cam.getScroll(x, y, this.current);
 
         //  Using this ease
         if (typeof ease === 'string' && EaseMap.hasOwnProperty(ease))
@@ -8601,29 +8897,35 @@ var Pan = new Class({
 
         this._elapsed += delta;
 
-        this.progress = Clamp(this._elapsed / this.duration, 0, 1);
+        var progress = Clamp(this._elapsed / this.duration, 0, 1);
+
+        this.progress = progress;
+
+        var cam = this.camera;
 
         if (this._elapsed < this.duration)
         {
-            var v = this.ease(this.progress);
+            var v = this.ease(progress);
 
-            var x = this.source.x + ((this.destination.x - this.source.x) * v);
-            var y = this.source.y + ((this.destination.y - this.source.y) * v);
+            cam.getScroll(this.destination.x, this.destination.y, this.current);
 
-            this.camera.setScroll(x, y);
+            var x = this.source.x + ((this.current.x - this.source.x) * v);
+            var y = this.source.y + ((this.current.y - this.source.y) * v);
+
+            cam.setScroll(x, y);
 
             if (this._onUpdate)
             {
-                this._onUpdate.call(this._onUpdateScope, this.camera, this.progress, x, y);
+                this._onUpdate.call(this._onUpdateScope, cam, progress, x, y);
             }
         }
         else
         {
-            this.camera.setScroll(this.destination.x, this.destination.y);
+            cam.centerOn(this.destination.x, this.destination.y);
 
             if (this._onUpdate)
             {
-                this._onUpdate.call(this._onUpdateScope, this.camera, this.progress, this.destination.x, this.destination.y);
+                this._onUpdate.call(this._onUpdateScope, cam, progress, cam.scrollX, cam.scrollY);
             }
     
             this.effectComplete();
@@ -8672,10 +8974,8 @@ var Pan = new Class({
         this.reset();
 
         this.camera = null;
-
-        this.destination = null;
-        this.current = null;
         this.source = null;
+        this.destination = null;
     }
 
 });
@@ -9032,6 +9332,328 @@ module.exports = Shake;
 
 /***/ }),
 
+/***/ "./cameras/2d/effects/Zoom.js":
+/*!************************************!*\
+  !*** ./cameras/2d/effects/Zoom.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Clamp = __webpack_require__(/*! ../../../math/Clamp */ "./math/Clamp.js");
+var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+var EaseMap = __webpack_require__(/*! ../../../math/easing/EaseMap */ "./math/easing/EaseMap.js");
+
+/**
+ * @classdesc
+ * A Camera Zoom effect.
+ *
+ * This effect will zoom the Camera to the given scale, over the duration and with the ease specified.
+ *
+ * The effect will dispatch several events on the Camera itself and you can also specify an `onUpdate` callback,
+ * which is invoked each frame for the duration of the effect if required.
+ *
+ * @class Zoom
+ * @memberOf Phaser.Cameras.Scene2D.Effects
+ * @constructor
+ * @since 3.11.0
+ *
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera this effect is acting upon.
+ */
+var Zoom = new Class({
+
+    initialize:
+
+    function Zoom (camera)
+    {
+        /**
+         * The Camera this effect belongs to.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#camera
+         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.camera = camera;
+
+        /**
+         * Is this effect actively running?
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#isRunning
+         * @type {boolean}
+         * @readOnly
+         * @default false
+         * @since 3.11.0
+         */
+        this.isRunning = false;
+
+        /**
+         * The duration of the effect, in milliseconds.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#duration
+         * @type {integer}
+         * @readOnly
+         * @default 0
+         * @since 3.11.0
+         */
+        this.duration = 0;
+
+        /**
+         * The starting zoom value;
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#source
+         * @type {number}
+         * @since 3.11.0
+         */
+        this.source = 1;
+
+        /**
+         * The destination zoom value.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#destination
+         * @type {number}
+         * @since 3.11.0
+         */
+        this.destination = 1;
+
+        /**
+         * The ease function to use during the zoom.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#ease
+         * @type {function}
+         * @since 3.11.0
+         */
+        this.ease;
+
+        /**
+         * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#progress
+         * @type {number}
+         * @since 3.11.0
+         */
+        this.progress = 0;
+
+        /**
+         * Effect elapsed timer.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#_elapsed
+         * @type {number}
+         * @private
+         * @since 3.11.0
+         */
+        this._elapsed = 0;
+
+        /**
+         * @callback CameraZoomCallback
+         *
+         * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera on which the effect is running.
+         * @param {number} progress - The progress of the effect. A value between 0 and 1.
+         * @param {number} zoom - The Camera's new zoom value.
+         */
+
+        /**
+         * This callback is invoked every frame for the duration of the effect.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#_onUpdate
+         * @type {?CameraZoomCallback}
+         * @private
+         * @default null
+         * @since 3.11.0
+         */
+        this._onUpdate;
+
+        /**
+         * On Complete callback scope.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#_onUpdateScope
+         * @type {any}
+         * @private
+         * @since 3.11.0
+         */
+        this._onUpdateScope;
+    },
+
+    /**
+     * This event is fired when the Zoom effect begins to run on a camera.
+     *
+     * @event CameraZoomStartEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Zoom} effect - A reference to the effect instance.
+     * @param {integer} duration - The duration of the effect.
+     * @param {number} zoom - The destination zoom value.
+     */
+
+    /**
+     * This event is fired when the Zoom effect completes.
+     *
+     * @event CameraZoomCompleteEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Zoom} effect - A reference to the effect instance.
+     */
+
+    /**
+     * This effect will zoom the Camera to the given scale, over the duration and with the ease specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#start
+     * @fires CameraZoomStartEvent
+     * @fires CameraZoomCompleteEvent
+     * @since 3.11.0
+     *
+     * @param {number} zoom - The target Camera zoom value.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {(string|function)} [ease='Linear'] - The ease to use for the Zoom. Can be any of the Phaser Easing constants or a custom function.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {CameraZoomCallback} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent three arguments: A reference to the camera, a progress amount between 0 and 1 indicating how complete the effect is,
+     * and the current camera zoom value.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} The Camera on which the effect was started.
+     */
+    start: function (zoom, duration, ease, force, callback, context)
+    {
+        if (duration === undefined) { duration = 1000; }
+        if (ease === undefined) { ease = EaseMap.Linear; }
+        if (force === undefined) { force = false; }
+        if (callback === undefined) { callback = null; }
+        if (context === undefined) { context = this.camera.scene; }
+
+        var cam = this.camera;
+
+        if (!force && this.isRunning)
+        {
+            return cam;
+        }
+
+        this.isRunning = true;
+        this.duration = duration;
+        this.progress = 0;
+
+        //  Starting from
+        this.source = cam.zoom;
+
+        //  Zooming to
+        this.destination = zoom;
+
+        //  Using this ease
+        if (typeof ease === 'string' && EaseMap.hasOwnProperty(ease))
+        {
+            this.ease = EaseMap[ease];
+        }
+        else if (typeof ease === 'function')
+        {
+            this.ease = ease;
+        }
+
+        this._elapsed = 0;
+
+        this._onUpdate = callback;
+        this._onUpdateScope = context;
+
+        this.camera.emit('camerazoomstart', this.camera, this, duration, zoom);
+
+        return cam;
+    },
+
+    /**
+     * The main update loop for this effect. Called automatically by the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#update
+     * @since 3.11.0
+     *
+     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
+     * @param {number} delta - The delta time, in ms, elapsed since the last frame.
+     */
+    update: function (time, delta)
+    {
+        if (!this.isRunning)
+        {
+            return;
+        }
+
+        this._elapsed += delta;
+
+        this.progress = Clamp(this._elapsed / this.duration, 0, 1);
+
+        if (this._elapsed < this.duration)
+        {
+            this.camera.zoom = this.source + ((this.destination - this.source) * this.ease(this.progress));
+
+            if (this._onUpdate)
+            {
+                this._onUpdate.call(this._onUpdateScope, this.camera, this.progress, this.camera.zoom);
+            }
+        }
+        else
+        {
+            this.camera.zoom = this.destination;
+
+            if (this._onUpdate)
+            {
+                this._onUpdate.call(this._onUpdateScope, this.camera, this.progress, this.destination);
+            }
+
+            this.effectComplete();
+        }
+    },
+
+    /**
+     * Called internally when the effect completes.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#effectComplete
+     * @since 3.11.0
+     */
+    effectComplete: function ()
+    {
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+
+        this.isRunning = false;
+
+        this.camera.emit('camerazoomcomplete', this.camera, this);
+    },
+
+    /**
+     * Resets this camera effect.
+     * If it was previously running, it stops instantly without calling its onComplete callback or emitting an event.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#reset
+     * @since 3.11.0
+     */
+    reset: function ()
+    {
+        this.isRunning = false;
+
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+    },
+
+    /**
+     * Destroys this effect, releasing it from the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#destroy
+     * @since 3.11.0
+     */
+    destroy: function ()
+    {
+        this.reset();
+
+        this.camera = null;
+    }
+
+});
+
+module.exports = Zoom;
+
+
+/***/ }),
+
 /***/ "./cameras/2d/effects/index.js":
 /*!*************************************!*\
   !*** ./cameras/2d/effects/index.js ***!
@@ -9054,7 +9676,8 @@ module.exports = {
     Fade: __webpack_require__(/*! ./Fade */ "./cameras/2d/effects/Fade.js"),
     Flash: __webpack_require__(/*! ./Flash */ "./cameras/2d/effects/Flash.js"),
     Pan: __webpack_require__(/*! ./Pan */ "./cameras/2d/effects/Pan.js"),
-    Shake: __webpack_require__(/*! ./Shake */ "./cameras/2d/effects/Shake.js")
+    Shake: __webpack_require__(/*! ./Shake */ "./cameras/2d/effects/Shake.js"),
+    Zoom: __webpack_require__(/*! ./Zoom */ "./cameras/2d/effects/Zoom.js")
 
 };
 
@@ -14302,7 +14925,11 @@ var GameObject = new Class({
 
         /**
          * A bitmask that controls if this Game Object is drawn by a Camera or not.
-         * Not usually set directly. Instead call `Camera.ignore`.
+         * Not usually set directly, instead call `Camera.ignore`, however you can
+         * set this property directly using the Camera.id property:
+         * 
+         * @example
+         * this.cameraFilter |= camera.id
          *
          * @name Phaser.GameObjects.GameObject#cameraFilter
          * @type {number}
@@ -14552,7 +15179,7 @@ var GameObject = new Class({
     {
         if (this.input)
         {
-            this.input.enabled = (this.input.enabled) ? false : true;
+            this.input.enabled = false;
         }
 
         return this;
@@ -17906,7 +18533,7 @@ var MatrixStack = {
      * @method Phaser.GameObjects.Components.MatrixStack#rotate
      * @since 3.2.0
      *
-     * @param {number} t - The angle of rotation, in radians.
+     * @param {number} t - The angle of rotation in radians.
      *
      * @return {this} This Game Object instance.
      */
@@ -19882,7 +20509,7 @@ var TransformMatrix = new Class({
      * @method Phaser.GameObjects.Components.TransformMatrix#rotate
      * @since 3.0.0
      *
-     * @param {number} radian - The angle of rotation, in radians.
+     * @param {number} radian - The angle of rotation in radians.
      *
      * @return {this} This TransformMatrix.
      */
@@ -20121,7 +20748,7 @@ var TransformMatrix = new Class({
      *
      * @param {number} x - The horizontal translation.
      * @param {number} y - The vertical translation.
-     * @param {number} rotation - The angle of rotation, in radians.
+     * @param {number} rotation - The angle of rotation in radians.
      * @param {number} scaleX - The horizontal scale.
      * @param {number} scaleY - The vertical scale.
      *
@@ -21766,7 +22393,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix, renderTargetCtx, allowClip)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -21789,18 +22416,26 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     var green = 0;
     var blue = 0;
 
+    //  Alpha
+
+    var alpha = camera.alpha * src.alpha;
+
+    if (alpha === 0)
+    {
+        //  Nothing to see, so abort early
+        return;
+    }
+    else if (renderer.currentAlpha !== alpha)
+    {
+        renderer.currentAlpha = alpha;
+        ctx.globalAlpha = alpha;
+    }
+
     //  Blend Mode
     if (renderer.currentBlendMode !== src.blendMode)
     {
         renderer.currentBlendMode = src.blendMode;
         ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
-    }
-
-    //  Alpha
-    if (renderer.currentAlpha !== src.alpha)
-    {
-        renderer.currentAlpha = src.alpha;
-        ctx.globalAlpha = src.alpha;
     }
 
     //  Smoothing
@@ -21810,11 +22445,14 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     }
 
     ctx.save();
+
     if (parentMatrix)
     {
         var matrix = parentMatrix.matrix;
+
         ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
     }
+
     ctx.translate(srcX - cameraScrollX, srcY - cameraScrollY);
     ctx.rotate(srcRotation);
     ctx.scale(srcScaleX, srcScaleY);
@@ -21992,10 +22630,6 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
                     commandBuffer[index + 1]
                 );
                 index += 1;
-                break;
-
-            default:
-                // console.error('Phaser: Invalid Graphics Command ID ' + commandID);
                 break;
         }
     }
@@ -22319,7 +22953,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var ImageCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -22502,7 +23136,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var ImageWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -22708,7 +23342,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var SpriteCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -22899,7 +23533,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var SpriteWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -25319,30 +25953,38 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  */
 var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)) || src.text === '')
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)) || src.text === '')
     {
         return;
     }
     
     var ctx = renderer.currentContext;
 
-    // var resolution = src.resolution;
+    //  Alpha
 
+    var alpha = camera.alpha * src.alpha;
+
+    if (alpha === 0)
+    {
+        //  Nothing to see, so abort early
+        return;
+    }
+    else if (renderer.currentAlpha !== alpha)
+    {
+        renderer.currentAlpha = alpha;
+        ctx.globalAlpha = alpha;
+    }
+    
     //  Blend Mode
+
     if (renderer.currentBlendMode !== src.blendMode)
     {
         renderer.currentBlendMode = src.blendMode;
         ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
     }
 
-    //  Alpha
-    if (renderer.currentAlpha !== src.alpha)
-    {
-        renderer.currentAlpha = src.alpha;
-        ctx.globalAlpha = src.alpha;
-    }
-
     //  Smoothing
+
     if (renderer.currentScaleMode !== src.scaleMode)
     {
         renderer.currentScaleMode = src.scaleMode;
@@ -25594,7 +26236,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  */
 var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)) || src.text === '')
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)) || src.text === '')
     {
         return;
     }
@@ -26520,7 +27162,7 @@ var Contains = __webpack_require__(/*! ./Contains */ "./geom/ellipse/Contains.js
  * @function Phaser.Geom.Ellipse.ContainsRect
  * @since 3.0.0
  *
- * @param {Phaser.Geom.Ellipse} ellipse - [description]
+ * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to check.
  * @param {(Phaser.Geom.Rectangle|object)} rect - The Rectangle object to check if it's within the Ellipse or not.
  *
  * @return {boolean} True if all of the Rectangle coordinates are within the ellipse, otherwise false.
@@ -26565,7 +27207,7 @@ module.exports = ContainsRect;
  * @param {Phaser.Geom.Ellipse} source - The source Ellipse to copy the values from.
  * @param {Phaser.Geom.Ellipse} dest - The destination Ellipse to copy the values to.
  *
- * @return {Phaser.Geom.Ellipse} The dest Ellipse.
+ * @return {Phaser.Geom.Ellipse} The destination Ellipse.
  */
 var CopyFrom = function (source, dest)
 {
@@ -27318,22 +27960,19 @@ module.exports = Ellipse;
 
 var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
 
-//  Get a point on the given line 'progress' percentage along its length.
-//  progress is a value between 0 and 1.
-
 /**
- * [description]
+ * Get a point on a line that's a given percentage along its length.
  *
  * @function Phaser.Geom.Line.GetPoint
  * @since 3.0.0
  *
  * @generic {Phaser.Geom.Point} O - [out,$return]
  *
- * @param {Phaser.Geom.Line} line - [description]
- * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
- * @param {(Phaser.Geom.Point|object)} [out] - [description]
+ * @param {Phaser.Geom.Line} line - The line.
+ * @param {number} position - A value between 0 and 1, where 0 is the start, 0.5 is the middle and 1 is the end of the line.
+ * @param {(Phaser.Geom.Point|object)} [out] - An optional point, or point-like object, to store the coordinates of the point on the line.
  *
- * @return {(Phaser.Geom.Point|object)} [description]
+ * @return {(Phaser.Geom.Point|object)} The point on the line.
  */
 var GetPoint = function (line, position, out)
 {
@@ -27367,19 +28006,24 @@ var Length = __webpack_require__(/*! ./Length */ "./geom/line/Length.js");
 var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
 
 /**
- * [description]
+ * Get a number of points along a line's length.
+ *
+ * Provide a `quantity` to get an exact number of points along the line.
+ *
+ * Provide a `stepRate` to ensure a specific distance between each point on the line. Set `quantity` to `0` when
+ * providing a `stepRate`.
  *
  * @function Phaser.Geom.Line.GetPoints
  * @since 3.0.0
  *
  * @generic {Phaser.Geom.Point[]} O - [out,$return]
  *
- * @param {Phaser.Geom.Line} line - [description]
- * @param {integer} quantity - [description]
- * @param {integer} [stepRate] - [description]
- * @param {(array|Phaser.Geom.Point[])} [out] - [description]
+ * @param {Phaser.Geom.Line} line - The line.
+ * @param {integer} quantity - The number of points to place on the line. Set to `0` to use `stepRate` instead.
+ * @param {number} [stepRate] - The distance between each point on the line. When set, `quantity` is implied and should be set to `0`.
+ * @param {(array|Phaser.Geom.Point[])} [out] - An optional array of Points, or point-like objects, to store the coordinates of the points on the line.
  *
- * @return {(array|Phaser.Geom.Point[])} [description]
+ * @return {(array|Phaser.Geom.Point[])} An array of Points, or point-like objects, containing the coordinates of the points on the line.
  */
 var GetPoints = function (line, quantity, stepRate, out)
 {
@@ -27429,14 +28073,14 @@ module.exports = GetPoints;
  */
 
 /**
- * [description]
+ * Calculate the length of the given line.
  *
  * @function Phaser.Geom.Line.Length
  * @since 3.0.0
  *
- * @param {Phaser.Geom.Line} line - [description]
+ * @param {Phaser.Geom.Line} line - The line to calculate the length of.
  *
- * @return {number} [description]
+ * @return {number} The length of the line.
  */
 var Length = function (line)
 {
@@ -27530,15 +28174,15 @@ var Line = new Class({
     },
 
     /**
-     * [description]
+     * Get a point on a line that's a given percentage along its length.
      *
      * @method Phaser.Geom.Line#getPoint
      * @since 3.0.0
      *
      * @generic {Phaser.Geom.Point} O - [output,$return]
      *
-     * @param {float} position - [description]
-     * @param {(Phaser.Geom.Point|object)} [output] - [description]
+     * @param {number} position - A value between 0 and 1, where 0 is the start, 0.5 is the middle and 1 is the end of the line.
+     * @param {(Phaser.Geom.Point|object)} [output] - An optional point, or point-like object, to store the coordinates of the point on the line.
      *
      * @return {(Phaser.Geom.Point|object)} A Point, or point-like object, containing the coordinates of the point on the line.
      */
@@ -27548,18 +28192,23 @@ var Line = new Class({
     },
 
     /**
-     * [description]
+     * Get a number of points along a line's length.
+     *
+     * Provide a `quantity` to get an exact number of points along the line.
+     *
+     * Provide a `stepRate` to ensure a specific distance between each point on the line. Set `quantity` to `0` when
+     * providing a `stepRate`.
      *
      * @method Phaser.Geom.Line#getPoints
      * @since 3.0.0
      *
      * @generic {Phaser.Geom.Point} O - [output,$return]
      *
-     * @param {integer} quantity - [description]
-     * @param {integer} [stepRate] - [description]
-     * @param {(array|Phaser.Geom.Point[])} [output] - [description]
+     * @param {integer} quantity - The number of points to place on the line. Set to `0` to use `stepRate` instead.
+     * @param {integer} [stepRate] - The distance between each point on the line. When set, `quantity` is implied and should be set to `0`.
+     * @param {(array|Phaser.Geom.Point[])} [output] - An optional array of Points, or point-like objects, to store the coordinates of the points on the line.
      *
-     * @return {(array|Phaser.Geom.Point[])} [description]
+     * @return {(array|Phaser.Geom.Point[])} An array of Points, or point-like objects, containing the coordinates of the points on the line.
      */
     getPoints: function (quantity, stepRate, output)
     {
@@ -51422,11 +52071,9 @@ var CanvasRenderer = new Class({
             ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
         }
 
-        if (this.currentAlpha !== 1)
-        {
-            ctx.globalAlpha = 1;
-            this.currentAlpha = 1;
-        }
+        ctx.globalAlpha = camera.alpha;
+
+        this.currentAlpha = camera.alpha;
 
         if (this.currentBlendMode !== 0)
         {
@@ -51469,6 +52116,7 @@ var CanvasRenderer = new Class({
 
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
 
         camera.flashEffect.postRenderCanvas(ctx);
         camera.fadeEffect.postRenderCanvas(ctx);
@@ -51662,20 +52310,24 @@ var DrawImage = function (src, camera, parentMatrix)
     var frame = src.frame;
     var cd = frame.canvasData;
 
+    //  Alpha
+
+    var alpha = camera.alpha * src.alpha;
+
+    if (alpha === 0)
+    {
+        //  Nothing to see, so abort early
+        return;
+    }
+
+    ctx.globalAlpha = alpha;
+
     //  Blend Mode
 
     if (this.currentBlendMode !== src.blendMode)
     {
         this.currentBlendMode = src.blendMode;
         ctx.globalCompositeOperation = this.blendModes[src.blendMode];
-    }
-
-    //  Alpha
-
-    if (this.currentAlpha !== src.alpha)
-    {
-        this.currentAlpha = src.alpha;
-        ctx.globalAlpha = src.alpha;
     }
 
     //  Smoothing
@@ -55837,7 +56489,7 @@ var FlatTintPipeline = new Class({
         var srcScaleY = graphics.scaleY;
         var srcRotation = graphics.rotation;
         var commands = graphics.commandBuffer;
-        var alpha = graphics.alpha;
+        var alpha = camera.alpha * graphics.alpha;
         var lineAlpha = 1.0;
         var fillAlpha = 1.0;
         var lineColor = 0;
@@ -57365,18 +58017,21 @@ var TextureTintPipeline = new Class({
                     var yh = y + frame.height;
                     var sr = sin(particle.rotation);
                     var cr = cos(particle.rotation);
+
                     var sra = cr * particle.scaleX;
                     var srb = sr * particle.scaleX;
                     var src = -sr * particle.scaleY;
                     var srd = cr * particle.scaleY;
                     var sre = particle.x - scrollX;
                     var srf = particle.y - scrollY;
+
                     var mva = sra * cma + srb * cmc;
                     var mvb = sra * cmb + srb * cmd;
                     var mvc = src * cma + srd * cmc;
                     var mvd = src * cmb + srd * cmd;
                     var mve = sre * cma + srf * cmc + cme;
                     var mvf = sre * cmb + srf * cmd + cmf;
+
                     var tx0 = x * mva + y * mvc + mve;
                     var ty0 = x * mvb + y * mvd + mvf;
                     var tx1 = x * mva + yh * mvc + mve;
@@ -57385,6 +58040,7 @@ var TextureTintPipeline = new Class({
                     var ty2 = xw * mvb + yh * mvd + mvf;
                     var tx3 = xw * mva + y * mvc + mve;
                     var ty3 = xw * mvb + y * mvd + mvf;
+
                     var vertexOffset = this.vertexCount * vertexComponentCount;
 
                     if (roundPixels)
@@ -57404,26 +58060,31 @@ var TextureTintPipeline = new Class({
                     vertexViewF32[vertexOffset + 2] = uvs.x0;
                     vertexViewF32[vertexOffset + 3] = uvs.y0;
                     vertexViewU32[vertexOffset + 4] = color;
+
                     vertexViewF32[vertexOffset + 5] = tx1;
                     vertexViewF32[vertexOffset + 6] = ty1;
                     vertexViewF32[vertexOffset + 7] = uvs.x1;
                     vertexViewF32[vertexOffset + 8] = uvs.y1;
                     vertexViewU32[vertexOffset + 9] = color;
+
                     vertexViewF32[vertexOffset + 10] = tx2;
                     vertexViewF32[vertexOffset + 11] = ty2;
                     vertexViewF32[vertexOffset + 12] = uvs.x2;
                     vertexViewF32[vertexOffset + 13] = uvs.y2;
                     vertexViewU32[vertexOffset + 14] = color;
+
                     vertexViewF32[vertexOffset + 15] = tx0;
                     vertexViewF32[vertexOffset + 16] = ty0;
                     vertexViewF32[vertexOffset + 17] = uvs.x0;
                     vertexViewF32[vertexOffset + 18] = uvs.y0;
                     vertexViewU32[vertexOffset + 19] = color;
+
                     vertexViewF32[vertexOffset + 20] = tx2;
                     vertexViewF32[vertexOffset + 21] = ty2;
                     vertexViewF32[vertexOffset + 22] = uvs.x2;
                     vertexViewF32[vertexOffset + 23] = uvs.y2;
                     vertexViewU32[vertexOffset + 24] = color;
+
                     vertexViewF32[vertexOffset + 25] = tx3;
                     vertexViewF32[vertexOffset + 26] = ty3;
                     vertexViewF32[vertexOffset + 27] = uvs.x3;
@@ -57437,7 +58098,6 @@ var TextureTintPipeline = new Class({
                         this.flush();
                         this.setTexture2D(texture, 0);
                     }
-
                 }
 
                 particleOffset += batchSize;
@@ -57528,6 +58188,8 @@ var TextureTintPipeline = new Class({
 
         var prevTextureSourceIndex;
 
+        var alpha = camera.alpha * blitter.alpha;
+
         for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
         {
             var batchSize = Math.min(length, this.maxQuads);
@@ -57536,15 +58198,15 @@ var TextureTintPipeline = new Class({
             {
                 var bob = list[batchOffset + index];
                 var frame = bob.frame;
-                var alpha = bob.alpha;
+                var bobAlpha = bob.alpha * alpha;
 
-                if (alpha === 0)
+                if (bobAlpha === 0)
                 {
                     //  Nothing to see here, moving on ...
                     continue;
                 }
 
-                var tint = getTint(0xffffff, alpha);
+                var tint = getTint(0xffffff, bobAlpha);
                 var uvs = frame.uvs;
                 var flipX = bob.flipX;
                 var flipY = bob.flipY;
@@ -57674,10 +58336,10 @@ var TextureTintPipeline = new Class({
         var scaleX = sprite.scaleX;
         var scaleY = sprite.scaleY;
         var rotation = sprite.rotation;
-        var alphaTL = sprite._alphaTL;
-        var alphaTR = sprite._alphaTR;
-        var alphaBL = sprite._alphaBL;
-        var alphaBR = sprite._alphaBR;
+        var alphaTL = camera.alpha * sprite._alphaTL;
+        var alphaTR = camera.alpha * sprite._alphaTR;
+        var alphaBL = camera.alpha * sprite._alphaBL;
+        var alphaBR = camera.alpha * sprite._alphaBR;
         var tintTL = sprite._tintTL;
         var tintTR = sprite._tintTR;
         var tintBL = sprite._tintBL;
@@ -57923,7 +58585,7 @@ var TextureTintPipeline = new Class({
             vertexViewF32[vertexOffset + 1] = ty;
             vertexViewF32[vertexOffset + 2] = uvs[index + 0];
             vertexViewF32[vertexOffset + 3] = uvs[index + 1];
-            vertexViewU32[vertexOffset + 4] = getTint(colors[index0], alphas[index0]);
+            vertexViewU32[vertexOffset + 4] = getTint(colors[index0], camera.alpha * alphas[index0]);
 
             vertexOffset += 5;
             index0 += 1;
@@ -57977,7 +58639,7 @@ var TextureTintPipeline = new Class({
         var lineHeight = fontData.lineHeight;
         var scale = (bitmapText.fontSize / fontData.size);
         var chars = fontData.chars;
-        var alpha = bitmapText.alpha;
+        var alpha = camera.alpha * bitmapText.alpha;
         var vTintTL = getTint(bitmapText._tintTL, alpha);
         var vTintTR = getTint(bitmapText._tintTR, alpha);
         var vTintBL = getTint(bitmapText._tintBL, alpha);
@@ -58254,7 +58916,7 @@ var TextureTintPipeline = new Class({
         var lineHeight = fontData.lineHeight;
         var scale = (bitmapText.fontSize / fontData.size);
         var chars = fontData.chars;
-        var alpha = bitmapText.alpha;
+        var alpha = camera.alpha * bitmapText.alpha;
         var vTintTL = getTint(bitmapText._tintTL, alpha);
         var vTintTR = getTint(bitmapText._tintTR, alpha);
         var vTintBL = getTint(bitmapText._tintBL, alpha);
@@ -58585,10 +59247,10 @@ var TextureTintPipeline = new Class({
             text.scrollFactorX, text.scrollFactorY,
             text.displayOriginX, text.displayOriginY,
             0, 0, text.canvasTexture.width, text.canvasTexture.height,
-            getTint(text._tintTL, text._alphaTL),
-            getTint(text._tintTR, text._alphaTR),
-            getTint(text._tintBL, text._alphaBL),
-            getTint(text._tintBR, text._alphaBR),
+            getTint(text._tintTL, camera.alpha * text._alphaTL),
+            getTint(text._tintTR, camera.alpha * text._alphaTR),
+            getTint(text._tintBL, camera.alpha * text._alphaBL),
+            getTint(text._tintBR, camera.alpha * text._alphaBR),
             0, 0,
             camera,
             parentTransformMatrix
@@ -58613,7 +59275,7 @@ var TextureTintPipeline = new Class({
         var tileset = tilemapLayer.tileset;
         var scrollFactorX = tilemapLayer.scrollFactorX;
         var scrollFactorY = tilemapLayer.scrollFactorY;
-        var alpha = tilemapLayer.alpha;
+        var alpha = camera.alpha * tilemapLayer.alpha;
         var x = tilemapLayer.x;
         var y = tilemapLayer.y;
         var sx = tilemapLayer.scaleX;
@@ -58679,10 +59341,10 @@ var TextureTintPipeline = new Class({
             tileSprite.scrollFactorX, tileSprite.scrollFactorY,
             tileSprite.originX * tileSprite.width, tileSprite.originY * tileSprite.height,
             0, 0, tileSprite.width, tileSprite.height,
-            getTint(tileSprite._tintTL, tileSprite._alphaTL),
-            getTint(tileSprite._tintTR, tileSprite._alphaTR),
-            getTint(tileSprite._tintBL, tileSprite._alphaBL),
-            getTint(tileSprite._tintBR, tileSprite._alphaBR),
+            getTint(tileSprite._tintTL, camera.alpha * tileSprite._alphaTL),
+            getTint(tileSprite._tintTR, camera.alpha * tileSprite._alphaTR),
+            getTint(tileSprite._tintBL, camera.alpha * tileSprite._alphaBL),
+            getTint(tileSprite._tintBR, camera.alpha * tileSprite._alphaBR),
             (tileSprite.tilePositionX % tileSprite.frame.width) / tileSprite.frame.width,
             (tileSprite.tilePositionY % tileSprite.frame.height) / tileSprite.frame.height,
             camera,
@@ -60546,7 +61208,7 @@ var SceneManager = new Class({
                 });
             }
         }
-        
+
         game.events.once('ready', this.bootQueue, this);
     },
 
@@ -61417,7 +62079,7 @@ var SceneManager = new Class({
 
     /**
      * Runs the given Scene, but does not change the state of this Scene.
-     * 
+     *
      * If the given Scene is paused, it will resume it. If sleeping, it will wake it.
      * If not running at all, it will be started.
      *
@@ -61438,6 +62100,14 @@ var SceneManager = new Class({
 
         if (!scene)
         {
+            for (var i = 0; i < this._pending.length; i++)
+            {
+                if (this._pending[i].key === key)
+                {
+                    this.queueOp('start', key, data);
+                    break;
+                }
+            }
             return this;
         }
 

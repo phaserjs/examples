@@ -1264,6 +1264,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/camera alpha.js",
+          "name": "camera alpha.js",
+          "size": 2218,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/camera effect callbacks.js",
           "name": "camera effect callbacks.js",
           "size": 930,
@@ -1459,7 +1465,7 @@
         {
           "path": "src/camera/pan to.js",
           "name": "pan to.js",
-          "size": 1731,
+          "size": 1912,
           "extension": ".js"
         },
         {
@@ -1521,9 +1527,15 @@
           "name": "world camera.js",
           "size": 5141,
           "extension": ".js"
+        },
+        {
+          "path": "src/camera/zoom to.js",
+          "name": "zoom to.js",
+          "size": 2017,
+          "extension": ".js"
         }
       ],
-      "size": 123521
+      "size": 127937
     },
     {
       "path": "src/components",
@@ -2486,7 +2498,7 @@
             {
               "path": "src/game objects/blitter/blitter alpha.js",
               "name": "blitter alpha.js",
-              "size": 512,
+              "size": 565,
               "extension": ".js"
             },
             {
@@ -2499,6 +2511,12 @@
               "path": "src/game objects/blitter/blitter camera test.js",
               "name": "blitter camera test.js",
               "size": 1294,
+              "extension": ".js"
+            },
+            {
+              "path": "src/game objects/blitter/blitter global alpha.js",
+              "name": "blitter global alpha.js",
+              "size": 488,
               "extension": ".js"
             },
             {
@@ -2562,7 +2580,7 @@
               "extension": ".js"
             }
           ],
-          "size": 29975
+          "size": 30516
         },
         {
           "path": "src/game objects/container",
@@ -4523,7 +4541,7 @@
           "size": 250179
         }
       ],
-      "size": 737175
+      "size": 737716
     },
     {
       "path": "src/games",
@@ -9809,5 +9827,5 @@
       "size": 5041
     }
   ],
-  "size": 2478201
+  "size": 2483158
 }

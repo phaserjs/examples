@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -17,6 +17,8 @@ function preload ()
 function create ()
 {
     var blitter = this.add.blitter(0, 0, 'atari');
+
+    //  Change the alpha of each Bob as its created
 
     blitter.create(0, 0).setAlpha(1);
 

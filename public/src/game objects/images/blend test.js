@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000000',
@@ -29,7 +29,6 @@ function create ()
     image1 = this.add.image(400+15, 300, 'p1');
     image0.blendMode = 'ADD';
     image1.blendMode = 'ADD';
-
 }
 
 function update ()

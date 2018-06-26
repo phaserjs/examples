@@ -25,13 +25,13 @@ function create ()
 
     //  Let's show the logo when the camera shakes, and hide it when it completes
 
-    this.cameras.main.on('camerafadestart', function () {
+    this.cameras.main.on('camerafadeoutstart', function () {
 
         logo.setVisible(true);
 
     });
 
-    this.cameras.main.on('camerafadecomplete', function () {
+    this.cameras.main.on('camerafadeoutcomplete', function () {
 
         logo.setVisible(false);
 

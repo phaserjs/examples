@@ -1089,17 +1089,11 @@
         {
           "path": "src/bugs/emitter blend mode.js",
           "name": "emitter blend mode.js",
-          "size": 1574,
-          "extension": ".js"
-        },
-        {
-          "path": "src/bugs/scroll factor test.js",
-          "name": "scroll factor test.js",
-          "size": 873,
+          "size": 533,
           "extension": ".js"
         }
       ],
-      "size": 2447
+      "size": 533
     },
     {
       "path": "src/cache",
@@ -1130,6 +1124,18 @@
       "path": "src/camera",
       "name": "camera",
       "children": [
+        {
+          "path": "src/camera/16 camera test.js",
+          "name": "16 camera test.js",
+          "size": 837,
+          "extension": ".js"
+        },
+        {
+          "path": "src/camera/32 camera test.js",
+          "name": "32 camera test.js",
+          "size": 836,
+          "extension": ".js"
+        },
         {
           "path": "src/camera/3D camera",
           "name": "3D camera",
@@ -1237,6 +1243,12 @@
           "path": "src/camera/add and remove test.js",
           "name": "add and remove test.js",
           "size": 1708,
+          "extension": ".js"
+        },
+        {
+          "path": "src/camera/add camera on click.js",
+          "name": "add camera on click.js",
+          "size": 937,
           "extension": ".js"
         },
         {
@@ -1374,7 +1386,7 @@
         {
           "path": "src/camera/ignore.js",
           "name": "ignore.js",
-          "size": 1165,
+          "size": 1150,
           "extension": ".js"
         },
         {
@@ -1469,9 +1481,21 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/remove camera on click.js",
+          "name": "remove camera on click.js",
+          "size": 1495,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/rotate camera.js",
           "name": "rotate camera.js",
           "size": 1724,
+          "extension": ".js"
+        },
+        {
+          "path": "src/camera/round pixels.js",
+          "name": "round pixels.js",
+          "size": 479,
           "extension": ".js"
         },
         {
@@ -1535,7 +1559,7 @@
           "extension": ".js"
         }
       ],
-      "size": 127937
+      "size": 132506
     },
     {
       "path": "src/components",
@@ -2324,7 +2348,7 @@
                 {
                   "path": "src/game objects/bitmaptext/dynamic/tinted text.js",
                   "name": "tinted text.js",
-                  "size": 918,
+                  "size": 965,
                   "extension": ".js"
                 },
                 {
@@ -2334,7 +2358,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 10856
+              "size": 10903
             },
             {
               "path": "src/game objects/bitmaptext/retro font",
@@ -2471,7 +2495,7 @@
               "size": 13467
             }
           ],
-          "size": 35117
+          "size": 35164
         },
         {
           "path": "src/game objects/blitter",
@@ -2498,7 +2522,7 @@
             {
               "path": "src/game objects/blitter/blitter alpha.js",
               "name": "blitter alpha.js",
-              "size": 565,
+              "size": 567,
               "extension": ".js"
             },
             {
@@ -2516,7 +2540,7 @@
             {
               "path": "src/game objects/blitter/blitter global alpha.js",
               "name": "blitter global alpha.js",
-              "size": 488,
+              "size": 500,
               "extension": ".js"
             },
             {
@@ -2580,12 +2604,18 @@
               "extension": ".js"
             }
           ],
-          "size": 30516
+          "size": 30530
         },
         {
           "path": "src/game objects/container",
           "name": "container",
           "children": [
+            {
+              "path": "src/game objects/container/add array of sprites at index.js",
+              "name": "add array of sprites at index.js",
+              "size": 1207,
+              "extension": ".js"
+            },
             {
               "path": "src/game objects/container/add array of sprites to container.js",
               "name": "add array of sprites to container.js",
@@ -2857,7 +2887,7 @@
               "extension": ".js"
             }
           ],
-          "size": 75133
+          "size": 76340
         },
         {
           "path": "src/game objects/graphics",
@@ -3277,7 +3307,7 @@
             {
               "path": "src/game objects/images/blend test.js",
               "name": "blend test.js",
-              "size": 814,
+              "size": 812,
               "extension": ".js"
             },
             {
@@ -3365,7 +3395,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13209
+          "size": 13207
         },
         {
           "path": "src/game objects/lights",
@@ -4147,9 +4177,15 @@
               "name": "flipped.js",
               "size": 620,
               "extension": ".js"
+            },
+            {
+              "path": "src/game objects/tile sprite/tilesprite pixel art test.js",
+              "name": "tilesprite pixel art test.js",
+              "size": 827,
+              "extension": ".js"
             }
           ],
-          "size": 6355
+          "size": 7182
         },
         {
           "path": "src/game objects/tilemap",
@@ -4277,7 +4313,7 @@
                 {
                   "path": "src/game objects/tilemap/dynamic/endless map.js",
                   "name": "endless map.js",
-                  "size": 2049,
+                  "size": 2048,
                   "extension": ".js"
                 },
                 {
@@ -4347,7 +4383,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 62270
+              "size": 62269
             },
             {
               "path": "src/game objects/tilemap/static",
@@ -4538,10 +4574,10 @@
               "size": 68986
             }
           ],
-          "size": 250179
+          "size": 250178
         }
       ],
-      "size": 737716
+      "size": 739808
     },
     {
       "path": "src/games",
@@ -9035,6 +9071,18 @@
       "name": "textures",
       "children": [
         {
+          "path": "src/textures/batch canvas texture.js",
+          "name": "batch canvas texture.js",
+          "size": 1770,
+          "extension": ".js"
+        },
+        {
+          "path": "src/textures/batch texture.js",
+          "name": "batch texture.js",
+          "size": 1771,
+          "extension": ".js"
+        },
+        {
           "path": "src/textures/create canvas.js",
           "name": "create canvas.js",
           "size": 1605,
@@ -9131,7 +9179,7 @@
           "extension": ".js"
         }
       ],
-      "size": 19788
+      "size": 23329
     },
     {
       "path": "src/time",
@@ -9827,5 +9875,5 @@
       "size": 5041
     }
   ],
-  "size": 2483158
+  "size": 2491446
 }

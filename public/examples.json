@@ -2043,6 +2043,18 @@
               "extension": ".js"
             },
             {
+              "path": "src/display/tint/corner tint.js",
+              "name": "corner tint.js",
+              "size": 893,
+              "extension": ".js"
+            },
+            {
+              "path": "src/display/tint/flash white.js",
+              "name": "flash white.js",
+              "size": 777,
+              "extension": ".js"
+            },
+            {
               "path": "src/display/tint/multiple images.js",
               "name": "multiple images.js",
               "size": 488,
@@ -2067,6 +2079,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/display/tint/rasters.js",
+              "name": "rasters.js",
+              "size": 439,
+              "extension": ".js"
+            },
+            {
               "path": "src/display/tint/single color tint.js",
               "name": "single color tint.js",
               "size": 693,
@@ -2075,12 +2093,18 @@
             {
               "path": "src/display/tint/text tint.js",
               "name": "text tint.js",
-              "size": 485,
+              "size": 645,
               "extension": ".js"
             },
             {
               "path": "src/display/tint/tile sprite tint.js",
               "name": "tile sprite tint.js",
+              "size": 1002,
+              "extension": ".js"
+            },
+            {
+              "path": "src/display/tint/tint fill effect.js",
+              "name": "tint fill effect.js",
               "size": 1002,
               "extension": ".js"
             },
@@ -2091,10 +2115,10 @@
               "extension": ".js"
             }
           ],
-          "size": 7815
+          "size": 11086
         }
       ],
-      "size": 81754
+      "size": 85025
     },
     {
       "path": "src/dwitter",
@@ -4169,7 +4193,7 @@
             {
               "path": "src/game objects/tile sprite/Example.js",
               "name": "Example.js",
-              "size": 845,
+              "size": 1117,
               "extension": ".js"
             },
             {
@@ -4185,7 +4209,7 @@
               "extension": ".js"
             }
           ],
-          "size": 7182
+          "size": 7454
         },
         {
           "path": "src/game objects/tilemap",
@@ -4577,7 +4601,7 @@
           "size": 250178
         }
       ],
-      "size": 739808
+      "size": 740080
     },
     {
       "path": "src/games",
@@ -9073,13 +9097,13 @@
         {
           "path": "src/textures/batch canvas texture.js",
           "name": "batch canvas texture.js",
-          "size": 1770,
+          "size": 1968,
           "extension": ".js"
         },
         {
           "path": "src/textures/batch texture.js",
           "name": "batch texture.js",
-          "size": 1771,
+          "size": 1929,
           "extension": ".js"
         },
         {
@@ -9179,7 +9203,7 @@
           "extension": ".js"
         }
       ],
-      "size": 23329
+      "size": 23685
     },
     {
       "path": "src/time",
@@ -9875,5 +9899,5 @@
       "size": 5041
     }
   ],
-  "size": 2491446
+  "size": 2495345
 }

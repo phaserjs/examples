@@ -44,10 +44,10 @@ function update ()
 
     var x = 400;
     var y = 300;
-    var textureWidth = 128 * tileScaleX;
-    var textureHeight = 128 * tileScaleY;
-    var displayWidth = 400;
-    var displayHeight = 300;
+    var textureWidth = 128;
+    var textureHeight = 128;
+    var displayWidth = 64;
+    var displayHeight = 128;
     var flipX = false;
     var flipY = false;
     var displayOriginX = displayWidth * 0.5;
@@ -55,8 +55,8 @@ function update ()
 
     var frameX = 0;
     var frameY = 0;
-    var frameWidth = 400;
-    var frameHeight = 300;
+    var frameWidth = 64;
+    var frameHeight = 128;
 
     var scrollFactorX = 1;
     var scrollFactorY = 1;
@@ -78,13 +78,13 @@ function update ()
         scrollFactorX, scrollFactorY,
         displayOriginX, displayOriginY,
         frameX, frameY, frameWidth, frameHeight,
-        tint, tint, tint, tint,
+        tint, tint, tint, tint, false,
         uOffset, vOffset,
         this.cameras.main,
         null
     );
 
-    tileScaleX = tileScaleY = Math.sin(iter) + 0.2;
-    iter += 0.001;
+    // tileScaleX = tileScaleY = Math.sin(iter) + 0.2;
+    // iter += 0.001;
 
 }

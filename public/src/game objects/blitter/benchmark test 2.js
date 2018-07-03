@@ -1,6 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
+    batchSize: 8000,
     scene: {
         preload: preload,
         create: create,

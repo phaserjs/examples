@@ -2,7 +2,6 @@ var config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     scene: {
-        preload: preload,
         create: create,
         update: update
     },
@@ -12,9 +11,6 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload ()
-{
-}
 function create() {
     var text = this.make.text({
         add: false,

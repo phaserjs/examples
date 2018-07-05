@@ -2081,7 +2081,7 @@
             {
               "path": "src/display/tint/rasters.js",
               "name": "rasters.js",
-              "size": 439,
+              "size": 1087,
               "extension": ".js"
             },
             {
@@ -2115,10 +2115,10 @@
               "extension": ".js"
             }
           ],
-          "size": 11086
+          "size": 11734
         }
       ],
-      "size": 85025
+      "size": 85673
     },
     {
       "path": "src/dwitter",
@@ -2534,7 +2534,7 @@
             {
               "path": "src/game objects/blitter/benchmark test 2.js",
               "name": "benchmark test 2.js",
-              "size": 1062,
+              "size": 1083,
               "extension": ".js"
             },
             {
@@ -2628,7 +2628,7 @@
               "extension": ".js"
             }
           ],
-          "size": 30530
+          "size": 30551
         },
         {
           "path": "src/game objects/container",
@@ -4601,7 +4601,7 @@
           "size": 250178
         }
       ],
-      "size": 740080
+      "size": 740101
     },
     {
       "path": "src/games",
@@ -5913,6 +5913,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/geom/rectangle/intersection.js",
+              "name": "intersection.js",
+              "size": 1105,
+              "extension": ".js"
+            },
+            {
               "path": "src/geom/rectangle/is empty.js",
               "name": "is empty.js",
               "size": 761,
@@ -6015,7 +6021,7 @@
               "extension": ".js"
             }
           ],
-          "size": 39778
+          "size": 40883
         },
         {
           "path": "src/geom/triangle",
@@ -6217,7 +6223,7 @@
           "size": 27123
         }
       ],
-      "size": 183859
+      "size": 184964
     },
     {
       "path": "src/input",
@@ -9103,13 +9109,49 @@
         {
           "path": "src/textures/batch texture.js",
           "name": "batch texture.js",
-          "size": 1929,
+          "size": 1914,
           "extension": ".js"
         },
         {
           "path": "src/textures/create canvas.js",
           "name": "create canvas.js",
           "size": 1605,
+          "extension": ".js"
+        },
+        {
+          "path": "src/textures/crop texture atlas frame flip.js",
+          "name": "crop texture atlas frame flip.js",
+          "size": 1201,
+          "extension": ".js"
+        },
+        {
+          "path": "src/textures/crop texture atlas frame trimmed.js",
+          "name": "crop texture atlas frame trimmed.js",
+          "size": 1167,
+          "extension": ".js"
+        },
+        {
+          "path": "src/textures/crop texture atlas frame.js",
+          "name": "crop texture atlas frame.js",
+          "size": 1169,
+          "extension": ".js"
+        },
+        {
+          "path": "src/textures/crop texture image flip.js",
+          "name": "crop texture image flip.js",
+          "size": 1139,
+          "extension": ".js"
+        },
+        {
+          "path": "src/textures/crop texture image.js",
+          "name": "crop texture image.js",
+          "size": 1109,
+          "extension": ".js"
+        },
+        {
+          "path": "src/textures/crop texture.js",
+          "name": "crop texture.js",
+          "size": 5303,
           "extension": ".js"
         },
         {
@@ -9203,7 +9245,7 @@
           "extension": ".js"
         }
       ],
-      "size": 23685
+      "size": 34758
     },
     {
       "path": "src/time",
@@ -9899,5 +9941,5 @@
       "size": 5041
     }
   ],
-  "size": 2495345
+  "size": 2508192
 }

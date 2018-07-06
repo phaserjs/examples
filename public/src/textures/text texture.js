@@ -31,7 +31,6 @@ function create() {
         alpha: { start: 1, end: 0 },
         speed: { min: 60, max: 60 },
         blendMode: 'ADD',
-        on: true,
         x: 300,
         y: 300,
         lifespan: { min: 1000, max: 2000 }

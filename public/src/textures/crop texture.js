@@ -55,9 +55,13 @@ function create ()
 
     //  flippedX:
     //  0.5463917525773195 0.034722222222222224 0.9587628865979382 0.20833333333333334
+    //  converted: 265 x 20 - 465 x 120
+    //  200 x 100 diff, same size as our crop rect
 
     //  un-flippedX:
     //  0.041237113402061855 0.034722222222222224 0.4536082474226804 0.20833333333333334
+    //  converted: 20 x 20 - 220 x 120
+    //  200 x 100 diff, same size as our crop rect
 
 
 

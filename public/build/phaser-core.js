@@ -2494,6 +2494,7 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [render.preserveDrawingBuffer=false] - [description]
  * @property {boolean} [render.failIfMajorPerformanceCaveat=false] - [description]
  * @property {string} [render.powerPreference='default'] - "high-performance", "low-power" or "default"
+ * @property {integer} [render.batchSize=2000] - The default WebGL batch size.
  * @property {(string|number)} [backgroundColor=0x000000] - [description]
  * @property {object} [callbacks] - [description]
  * @property {BootCallback} [callbacks.preBoot=NOOP] - [description]
@@ -2755,7 +2756,7 @@ var Config = new Class({
         this.transparent = GetValue(renderConfig, 'transparent', false);
 
         /**
-         * @const {boolean} Phaser.Boot.Config#zoclearBeforeRenderom - [description]
+         * @const {boolean} Phaser.Boot.Config#clearBeforeRender - [description]
          */
         this.clearBeforeRender = GetValue(renderConfig, 'clearBeforeRender', true);
 
@@ -2778,6 +2779,11 @@ var Config = new Class({
          * @const {string} Phaser.Boot.Config#powerPreference - [description]
          */
         this.powerPreference = GetValue(renderConfig, 'powerPreference', 'default');
+
+        /**
+         * @const {integer} Phaser.Boot.Config#batchSize - The default WebGL Batch size.
+         */
+        this.batchSize = GetValue(renderConfig, 'batchSize', 2000);
 
         var bgc = GetValue(config, 'backgroundColor', 0);
 
@@ -10312,6 +10318,8 @@ var DataManager = new Class({
             Object.defineProperty(this.values, key, {
 
                 enumerable: true,
+                
+                configurable: true,
 
                 get: function ()
                 {
@@ -19261,6 +19269,16 @@ var Texture = {
     frame: null,
 
     /**
+     * Internal flag. Not to be set by this Game Object.
+     *
+     * @name Phaser.GameObjects.Components.Texture#isCropped
+     * @type {boolean}
+     * @private
+     * @since 3.11.0
+     */
+    isCropped: false,
+
+    /**
      * Sets the texture and frame this Game Object will use to render with.
      *
      * Textures are referenced by their string-based keys, as stored in the Texture Manager.
@@ -19338,6 +19356,201 @@ var Texture = {
 };
 
 module.exports = Texture;
+
+
+/***/ }),
+
+/***/ "./gameobjects/components/TextureCrop.js":
+/*!***********************************************!*\
+  !*** ./gameobjects/components/TextureCrop.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+//  bitmask flag for GameObject.renderMask
+var _FLAG = 8; // 1000
+
+/**
+ * Provides methods used for getting and setting the texture of a Game Object.
+ *
+ * @name Phaser.GameObjects.Components.TextureCrop
+ * @since 3.0.0
+ */
+
+var TextureCrop = {
+
+    /**
+     * The Texture this Game Object is using to render with.
+     *
+     * @name Phaser.GameObjects.Components.TextureCrop#texture
+     * @type {Phaser.Textures.Texture|Phaser.Textures.CanvasTexture}
+     * @since 3.0.0
+     */
+    texture: null,
+
+    /**
+     * The Texture Frame this Game Object is using to render with.
+     *
+     * @name Phaser.GameObjects.Components.TextureCrop#frame
+     * @type {Phaser.Textures.Frame}
+     * @since 3.0.0
+     */
+    frame: null,
+
+    /**
+     * A boolean flag indicating if this Game Object is being cropped or not.
+     * You can toggle this at any time after `setCrop` has been called, to turn cropping on or off.
+     * Equally, calling `setCrop` with no arguments will reset the crop and disable it.
+     *
+     * @name Phaser.GameObjects.Components.TextureCrop#isCropped
+     * @type {boolean}
+     * @since 3.11.0
+     */
+    isCropped: false,
+
+    /**
+     * The internal crop data object, as used by `setCrop` and passed to the `Frame.getCropUVs` method.
+     *
+     * @name Phaser.GameObjects.Components.TextureCrop#isCropped
+     * @type {object}
+     * @private
+     * @since 3.11.0
+     */
+    _crop: { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false },
+
+    /**
+     * Applies a crop to a texture based Game Object, such as a Sprite or Image.
+     * 
+     * The crop is a rectangle that limits the area of the texture frame that is visible during rendering.
+     * 
+     * Cropping a Game Object does not change its size, dimensions, physics body or hit area, it just
+     * changes what is shown when rendered.
+     * 
+     * The crop coordinates are relative to the texture frame, not the Game Object, meaning 0 x 0 is the top-left.
+     * 
+     * Therefore, if you had a Game Object that had an 800x600 sized texture, and you wanted to show only the left
+     * half of it, you could call `setCrop(0, 0, 400, 600)`.
+     * 
+     * Call this method with no arguments to reset the crop, or toggle the property `isCropped` to `false`.
+     * 
+     * You should do this if the crop rectangle becomes the same size as the frame itself, as it will allow
+     * the renderer to skip several internal calculations.
+     *
+     * @method Phaser.GameObjects.Components.TextureCrop#setCrop
+     * @since 3.11.0
+     *
+     * @param {number} [x] - The x coordinate to start the crop from.
+     * @param {number} [y] - The y coordinate to start the crop from.
+     * @param {number} [width] - The width of the crop rectangle in pixels.
+     * @param {number} [height] - The height of the crop rectangle in pixels.
+     *
+     * @return {this} This Game Object instance.
+     */
+    setCrop: function (x, y, width, height)
+    {
+        if (x === undefined)
+        {
+            this.isCropped = false;
+        }
+        else if (this.frame)
+        {
+            this.frame.setCropUVs(this._crop, x, y, width, height, this.flipX, this.flipY);
+
+            this.isCropped = true;
+        }
+
+        return this;
+    },
+
+    /**
+     * Sets the texture and frame this Game Object will use to render with.
+     *
+     * Textures are referenced by their string-based keys, as stored in the Texture Manager.
+     *
+     * @method Phaser.GameObjects.Components.TextureCrop#setTexture
+     * @since 3.0.0
+     *
+     * @param {string} key - The key of the texture to be used, as stored in the Texture Manager.
+     * @param {(string|integer)} [frame] - The name or index of the frame within the Texture.
+     *
+     * @return {this} This Game Object instance.
+     */
+    setTexture: function (key, frame)
+    {
+        this.texture = this.scene.sys.textures.get(key);
+
+        return this.setFrame(frame);
+    },
+
+    /**
+     * Sets the frame this Game Object will use to render with.
+     *
+     * The Frame has to belong to the current Texture being used.
+     *
+     * It can be either a string or an index.
+     *
+     * Calling `setFrame` will modify the `width` and `height` properties of your Game Object.
+     * It will also change the `origin` if the Frame has a custom pivot point, as exported from packages like Texture Packer.
+     *
+     * @method Phaser.GameObjects.Components.TextureCrop#setFrame
+     * @since 3.0.0
+     *
+     * @param {(string|integer)} frame - The name or index of the frame within the Texture.
+     * @param {boolean} [updateSize=true] - Should this call adjust the size of the Game Object?
+     * @param {boolean} [updateOrigin=true] - Should this call adjust the origin of the Game Object?
+     *
+     * @return {this} This Game Object instance.
+     */
+    setFrame: function (frame, updateSize, updateOrigin)
+    {
+        if (updateSize === undefined) { updateSize = true; }
+        if (updateOrigin === undefined) { updateOrigin = true; }
+
+        this.frame = this.texture.get(frame);
+
+        if (!this.frame.cutWidth || !this.frame.cutHeight)
+        {
+            this.renderFlags &= ~_FLAG;
+        }
+        else
+        {
+            this.renderFlags |= _FLAG;
+        }
+
+        if (this._sizeComponent && updateSize)
+        {
+            this.setSizeToFrame();
+        }
+
+        if (this._originComponent && updateOrigin)
+        {
+            if (this.frame.customPivot)
+            {
+                this.setOrigin(this.frame.pivotX, this.frame.pivotY);
+            }
+            else
+            {
+                this.updateDisplayOrigin();
+            }
+        }
+
+        if (this.isCropped)
+        {
+            this.frame.updateCropUVs(this._crop, this.flipX, this.flipY);
+        }
+
+        return this;
+    }
+
+};
+
+module.exports = TextureCrop;
 
 
 /***/ }),
@@ -19568,6 +19781,7 @@ var Tint = {
         set: function (value)
         {
             this._tintTL = GetColor(value);
+            this._isTinted = true;
         }
 
     },
@@ -19591,6 +19805,7 @@ var Tint = {
         set: function (value)
         {
             this._tintTR = GetColor(value);
+            this._isTinted = true;
         }
 
     },
@@ -19614,6 +19829,7 @@ var Tint = {
         set: function (value)
         {
             this._tintBL = GetColor(value);
+            this._isTinted = true;
         }
 
     },
@@ -19637,6 +19853,7 @@ var Tint = {
         set: function (value)
         {
             this._tintBR = GetColor(value);
+            this._isTinted = true;
         }
 
     },
@@ -20405,6 +20622,48 @@ var TransformMatrix = new Class({
     /**
      * The Translate X value.
      *
+     * @name Phaser.GameObjects.Components.TransformMatrix#e
+     * @type {number}
+     * @since 3.11.0
+     */
+    e: {
+
+        get: function ()
+        {
+            return this.matrix[4];
+        },
+
+        set: function (value)
+        {
+            this.matrix[4] = value;
+        }
+
+    },
+
+    /**
+     * The Translate Y value.
+     *
+     * @name Phaser.GameObjects.Components.TransformMatrix#f
+     * @type {number}
+     * @since 3.11.0
+     */
+    f: {
+
+        get: function ()
+        {
+            return this.matrix[5];
+        },
+
+        set: function (value)
+        {
+            this.matrix[5] = value;
+        }
+
+    },
+
+    /**
+     * The Translate X value.
+     *
      * @name Phaser.GameObjects.Components.TransformMatrix#tx
      * @type {number}
      * @since 3.4.0
@@ -20629,6 +20888,53 @@ var TransformMatrix = new Class({
     },
 
     /**
+     * Multiply this Matrix by the matrix given, including the offset.
+     * 
+     * The offsetX is added to the tx value: `offsetX * a + offsetY * c + tx`.
+     * The offsetY is added to the ty value: `offsetY * b + offsetY * d + ty`.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#multiplyWithOffset
+     * @since 3.11.0
+     *
+     * @param {Phaser.GameObjects.Components.TransformMatrix} src - The source Matrix to copy from.
+     * @param {number} offsetX - Horizontal offset to factor in to the multiplication.
+     * @param {number} offsetY - Vertical offset to factor in to the multiplication.
+     *
+     * @return {this} This TransformMatrix.
+     */
+    multiplyWithOffset: function (src, offsetX, offsetY)
+    {
+        var matrix = this.matrix;
+        var otherMatrix = src.matrix;
+
+        var a0 = matrix[0];
+        var b0 = matrix[1];
+        var c0 = matrix[2];
+        var d0 = matrix[3];
+        var tx0 = matrix[4];
+        var ty0 = matrix[5];
+
+        var pse = offsetX * a0 + offsetY * c0 + tx0;
+        var psf = offsetX * b0 + offsetY * d0 + ty0;
+
+        var a1 = otherMatrix[0];
+        var b1 = otherMatrix[1];
+        var c1 = otherMatrix[2];
+        var d1 = otherMatrix[3];
+        var tx1 = otherMatrix[4];
+        var ty1 = otherMatrix[5];
+
+        matrix[0] = a1 * a0 + b1 * c0;
+        matrix[1] = a1 * b0 + b1 * d0;
+        matrix[2] = c1 * a0 + d1 * c0;
+        matrix[3] = c1 * b0 + d1 * d0;
+        matrix[4] = tx1 * a0 + ty1 * c0 + pse;
+        matrix[5] = tx1 * b0 + ty1 * d0 + psf;
+
+        return this;
+    },
+
+    /**
      * Transform the Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#transform
@@ -20722,6 +21028,30 @@ var TransformMatrix = new Class({
         matrix[3] = a / n;
         matrix[4] = (c * ty - d * tx) / n;
         matrix[5] = -(a * ty - b * tx) / n;
+
+        return this;
+    },
+
+    /**
+     * Set the values of this Matrix to copy those of the matrix given.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#copyFrom
+     * @since 3.11.0
+     *
+     * @param {Phaser.GameObjects.Components.TransformMatrix} src - The source Matrix to copy from.
+     *
+     * @return {this} This TransformMatrix.
+     */
+    copyFrom: function (src)
+    {
+        var matrix = this.matrix;
+
+        matrix[0] = src.a;
+        matrix[1] = src.b;
+        matrix[2] = src.c;
+        matrix[3] = src.d;
+        matrix[4] = src.tx;
+        matrix[5] = src.ty;
 
         return this;
     },
@@ -20979,6 +21309,7 @@ module.exports = {
     ScrollFactor: __webpack_require__(/*! ./ScrollFactor */ "./gameobjects/components/ScrollFactor.js"),
     Size: __webpack_require__(/*! ./Size */ "./gameobjects/components/Size.js"),
     Texture: __webpack_require__(/*! ./Texture */ "./gameobjects/components/Texture.js"),
+    TextureCrop: __webpack_require__(/*! ./TextureCrop */ "./gameobjects/components/TextureCrop.js"),
     Tint: __webpack_require__(/*! ./Tint */ "./gameobjects/components/Tint.js"),
     ToJSON: __webpack_require__(/*! ./ToJSON */ "./gameobjects/components/ToJSON.js"),
     Transform: __webpack_require__(/*! ./Transform */ "./gameobjects/components/Transform.js"),
@@ -22925,7 +23256,7 @@ var ImageRender = __webpack_require__(/*! ./ImageRender */ "./gameobjects/image/
  * @extends Phaser.GameObjects.Components.ScaleMode
  * @extends Phaser.GameObjects.Components.ScrollFactor
  * @extends Phaser.GameObjects.Components.Size
- * @extends Phaser.GameObjects.Components.Texture
+ * @extends Phaser.GameObjects.Components.TextureCrop
  * @extends Phaser.GameObjects.Components.Tint
  * @extends Phaser.GameObjects.Components.Transform
  * @extends Phaser.GameObjects.Components.Visible
@@ -22952,7 +23283,7 @@ var Image = new Class({
         Components.ScaleMode,
         Components.ScrollFactor,
         Components.Size,
-        Components.Texture,
+        Components.TextureCrop,
         Components.Tint,
         Components.Transform,
         Components.Visible,
@@ -23254,7 +23585,7 @@ var SpriteRender = __webpack_require__(/*! ./SpriteRender */ "./gameobjects/spri
  * @extends Phaser.GameObjects.Components.ScaleMode
  * @extends Phaser.GameObjects.Components.ScrollFactor
  * @extends Phaser.GameObjects.Components.Size
- * @extends Phaser.GameObjects.Components.Texture
+ * @extends Phaser.GameObjects.Components.TextureCrop
  * @extends Phaser.GameObjects.Components.Tint
  * @extends Phaser.GameObjects.Components.Transform
  * @extends Phaser.GameObjects.Components.Visible
@@ -23281,7 +23612,7 @@ var Sprite = new Class({
         Components.ScaleMode,
         Components.ScrollFactor,
         Components.Size,
-        Components.Texture,
+        Components.TextureCrop,
         Components.Tint,
         Components.Transform,
         Components.Visible,
@@ -26276,6 +26607,7 @@ module.exports = {
  */
 
 var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/GameObject.js");
+var Utils = __webpack_require__(/*! ../../../renderer/webgl/Utils */ "./renderer/webgl/Utils.js");
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -26305,7 +26637,29 @@ var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera
         src.dirty = false;
     }
 
-    this.pipeline.batchText(this, camera, parentMatrix);
+    var getTint = Utils.getTintAppendFloatAlpha;
+
+    this.pipeline.batchTexture(
+        src,
+        src.canvasTexture,
+        src.canvasTexture.width, src.canvasTexture.height,
+        src.x, src.y,
+        src.canvasTexture.width, src.canvasTexture.height,
+        src.scaleX, src.scaleY,
+        src.rotation,
+        src.flipX, src.flipY,
+        src.scrollFactorX, src.scrollFactorY,
+        src.displayOriginX, src.displayOriginY,
+        0, 0, src.canvasTexture.width, src.canvasTexture.height,
+        getTint(src._tintTL, camera.alpha * src._alphaTL),
+        getTint(src._tintTR, camera.alpha * src._alphaTR),
+        getTint(src._tintBL, camera.alpha * src._alphaBL),
+        getTint(src._tintBR, camera.alpha * src._alphaBR),
+        (src._isTinted && src.tintFill),
+        0, 0,
+        camera,
+        parentMatrix
+    );
 };
 
 module.exports = TextWebGLRenderer;
@@ -52319,14 +52673,14 @@ var BlitImage = function (dx, dy, frame)
 
     ctx.drawImage(
         frame.source.image,
-        cd.sx,
-        cd.sy,
-        cd.sWidth,
-        cd.sHeight,
+        cd.x,
+        cd.y,
+        cd.width,
+        cd.height,
         dx,
         dy,
-        cd.dWidth,
-        cd.dHeight
+        cd.width,
+        cd.height
     );
 };
 
@@ -52409,7 +52763,7 @@ var DrawImage = function (src, camera, parentMatrix)
     if (src.flipX)
     {
         fx = -1;
-        dx -= cd.dWidth - src.displayOriginX;
+        dx -= cd.width - src.displayOriginX;
     }
     else
     {
@@ -52419,7 +52773,7 @@ var DrawImage = function (src, camera, parentMatrix)
     if (src.flipY)
     {
         fy = -1;
-        dy -= cd.dHeight - src.displayOriginY;
+        dy -= cd.height - src.displayOriginY;
     }
     else
     {
@@ -52455,7 +52809,16 @@ var DrawImage = function (src, camera, parentMatrix)
     ctx.scale(src.scaleX, src.scaleY);
     ctx.scale(fx, fy);
 
-    ctx.drawImage(frame.source.image, cd.sx, cd.sy, cd.sWidth, cd.sHeight, dx, dy, cd.dWidth, cd.dHeight);
+    if (src.isCropped)
+    {
+        var crop = src._crop;
+
+        ctx.drawImage(frame.source.image, crop.cx, crop.cy, crop.width, crop.height, crop.x + dx, crop.y + dy, crop.width, crop.height);
+    }
+    else
+    {
+        ctx.drawImage(frame.source.image, cd.x, cd.y, cd.width, cd.height, dx, dy, cd.width, cd.height);
+    }
 
     ctx.restore();
 };
@@ -53574,7 +53937,7 @@ var TextureTintPipeline = __webpack_require__(/*! ./pipelines/TextureTintPipelin
  * any context change that happens for WebGL rendering inside of Phaser. This means
  * if raw webgl functions are called outside the WebGLRenderer of the Phaser WebGL
  * rendering ecosystem they might pollute the current WebGLRenderingContext state producing
- * unexpected behaviour. It's recommended that WebGL interaction is done through 
+ * unexpected behavior. It's recommended that WebGL interaction is done through 
  * WebGLRenderer and/or WebGLPipeline.
  *
  * @class WebGLRenderer
@@ -53622,7 +53985,8 @@ var WebGLRenderer = new Class({
             autoResize: gameConfig.autoResize,
             roundPixels: gameConfig.roundPixels,
             maxTextures: gameConfig.maxTextures,
-            maxTextureSize: gameConfig.maxTextureSize
+            maxTextureSize: gameConfig.maxTextureSize,
+            batchSize: gameConfig.batchSize
         };
 
         /**
@@ -53977,7 +54341,7 @@ var WebGLRenderer = new Class({
 
         this.gl = gl;
 
-        //  Set it back into the Game, so devs can access it from there too
+        //  Set it back into the Game, so developers can access it from there too
         this.game.context = gl;
 
         for (var i = 0; i <= 16; i++)
@@ -57459,6 +57823,7 @@ module.exports = ForwardDiffuseLightPipeline;
 
 var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
 var ModelViewProjection = __webpack_require__(/*! ./components/ModelViewProjection */ "./renderer/webgl/pipelines/components/ModelViewProjection.js");
+var TransformMatrix = __webpack_require__(/*! ../../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var ShaderSourceFS = __webpack_require__(/*! ../shaders/TextureTint-frag.js */ "./renderer/webgl/shaders/TextureTint-frag.js");
 var ShaderSourceVS = __webpack_require__(/*! ../shaders/TextureTint-vert.js */ "./renderer/webgl/shaders/TextureTint-vert.js");
 var Utils = __webpack_require__(/*! ../Utils */ "./renderer/webgl/Utils.js");
@@ -57498,21 +57863,19 @@ var TextureTintPipeline = new Class({
 
     function TextureTintPipeline (config)
     {
+        var rendererConfig = config.renderer.config;
+
+        //  Vertex Size = attribute size added together (2 + 2 + 1 + 4)
+
         WebGLPipeline.call(this, {
             game: config.game,
             renderer: config.renderer,
             gl: config.renderer.gl,
-            topology: (config.topology ? config.topology : config.renderer.gl.TRIANGLES),
-            vertShader: (config.vertShader ? config.vertShader : ShaderSourceVS),
-            fragShader: (config.fragShader ? config.fragShader : ShaderSourceFS),
-            vertexCapacity: (config.vertexCapacity ? config.vertexCapacity : 6 * 2000),
-
-            vertexSize: (config.vertexSize ? config.vertexSize :
-                Float32Array.BYTES_PER_ELEMENT * 2 +
-                Float32Array.BYTES_PER_ELEMENT * 2 +
-                Float32Array.BYTES_PER_ELEMENT * 1 +
-                Uint8Array.BYTES_PER_ELEMENT * 4
-            ),
+            topology: config.renderer.gl.TRIANGLES,
+            vertShader: ShaderSourceVS,
+            fragShader: ShaderSourceFS,
+            vertexCapacity: 6 * rendererConfig.batchSize,
+            vertexSize: Float32Array.BYTES_PER_ELEMENT * 5 + Uint8Array.BYTES_PER_ELEMENT * 4,
 
             attributes: [
                 {
@@ -57569,10 +57932,9 @@ var TextureTintPipeline = new Class({
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#maxQuads
          * @type {integer}
-         * @default 2000
          * @since 3.0.0
          */
-        this.maxQuads = 2000;
+        this.maxQuads = rendererConfig.batchSize;
 
         /**
          * Collection of batch information
@@ -57582,6 +57944,26 @@ var TextureTintPipeline = new Class({
          * @since 3.1.0
          */
         this.batches = [];
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempCameraMatrix
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.11.0
+         */
+        this._tempCameraMatrix = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempSpriteMatrix
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.11.0
+         */
+        this._tempSpriteMatrix = new TransformMatrix();
 
         this.mvpInit();
     },
@@ -57796,45 +58178,10 @@ var TextureTintPipeline = new Class({
     resize: function (width, height, resolution)
     {
         WebGLPipeline.prototype.resize.call(this, width, height, resolution);
+
         this.projOrtho(0, this.width, this.height, 0, -1000.0, 1000.0);
+
         return this;
-    },
-
-    /**
-     * Renders immediately a static tilemap. This function won't use
-     * the batching functionality of the pipeline.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawStaticTilemapLayer
-     * @since 3.0.0
-     *
-     * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    drawStaticTilemapLayer: function (tilemap)
-    {
-        if (tilemap.vertexCount > 0)
-        {
-            var pipelineVertexBuffer = this.vertexBuffer;
-            var gl = this.gl;
-            var renderer = this.renderer;
-            var frame = tilemap.tileset.image.get();
-
-            if (renderer.currentPipeline &&
-                renderer.currentPipeline.vertexCount > 0)
-            {
-                renderer.flush();
-            }
-
-            this.vertexBuffer = tilemap.vertexBuffer;
-            renderer.setPipeline(this);
-            renderer.setTexture2D(frame.source.glTexture, 0);
-            gl.drawArrays(this.topology, 0, tilemap.vertexCount);
-            this.vertexBuffer = pipelineVertexBuffer;
-        }
-
-        this.viewIdentity();
-        this.modelIdentity();
     },
 
     /**
@@ -58069,195 +58416,6 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * Batches blitter game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawBlitter
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Blitter} blitter - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    drawBlitter: function (blitter, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        this.renderer.setPipeline(this);
-
-        var roundPixels = camera.roundPixels;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var list = blitter.getRenderList();
-        var length = list.length;
-        var cameraMatrix = camera.matrix.matrix;
-        var a = cameraMatrix[0];
-        var b = cameraMatrix[1];
-        var c = cameraMatrix[2];
-        var d = cameraMatrix[3];
-        var e = cameraMatrix[4];
-        var f = cameraMatrix[5];
-        var cameraScrollX = camera.scrollX * blitter.scrollFactorX;
-        var cameraScrollY = camera.scrollY * blitter.scrollFactorY;
-        var batchCount = Math.ceil(length / this.maxQuads);
-        var batchOffset = 0;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -cameraScrollX;
-            var csf = -cameraScrollY;
-            var pse = cse * a + csf * c + e;
-            var psf = cse * b + csf * d + f;
-            var pca = pma * a + pmb * c;
-            var pcb = pma * b + pmb * d;
-            var pcc = pmc * a + pmd * c;
-            var pcd = pmc * b + pmd * d;
-            var pce = pme * a + pmf * c + pse;
-            var pcf = pme * b + pmf * d + psf;
-
-            a = pca;
-            b = pcb;
-            c = pcc;
-            d = pcd;
-            e = pce;
-            f = pcf;
-
-            cameraScrollX = 0.0;
-            cameraScrollY = 0.0;
-        }
-
-        var blitterX = blitter.x - cameraScrollX;
-        var blitterY = blitter.y - cameraScrollY;
-
-        var prevTextureSourceIndex;
-
-        var alpha = camera.alpha * blitter.alpha;
-        var tintEffect = false;
-
-        for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
-        {
-            var batchSize = Math.min(length, this.maxQuads);
-
-            for (var index = 0; index < batchSize; ++index)
-            {
-                var bob = list[batchOffset + index];
-                var frame = bob.frame;
-                var bobAlpha = bob.alpha * alpha;
-
-                if (bobAlpha === 0)
-                {
-                    //  Nothing to see here, moving on ...
-                    continue;
-                }
-
-                var tint = getTint(0xffffff, bobAlpha);
-                var uvs = frame.uvs;
-                var flipX = bob.flipX;
-                var flipY = bob.flipY;
-                var width = frame.width * (flipX ? -1.0 : 1.0);
-                var height = frame.height * (flipY ? -1.0 : 1.0);
-                var x = blitterX + bob.x + frame.x + (frame.width * ((flipX) ? 1.0 : 0.0));
-                var y = blitterY + bob.y + frame.y + (frame.height * ((flipY) ? 1.0 : 0.0));
-                var xw = x + width;
-                var yh = y + height;
-                var tx0 = x * a + y * c + e;
-                var ty0 = x * b + y * d + f;
-                var tx1 = xw * a + yh * c + e;
-                var ty1 = xw * b + yh * d + f;
-            
-                //  Bind texture only if the Texture Source is different from before
-                if (frame.sourceIndex !== prevTextureSourceIndex)
-                {
-                    this.setTexture2D(frame.texture.source[frame.sourceIndex].glTexture, 0);
-
-                    prevTextureSourceIndex = frame.sourceIndex;
-                }
-
-                if (roundPixels)
-                {
-                    tx0 |= 0;
-                    ty0 |= 0;
-                    tx1 |= 0;
-                    ty1 |= 0;
-                }
-
-                var vertexOffset = this.vertexCount * this.vertexComponentCount - 1;
-            
-                vertexViewF32[++vertexOffset] = tx0;
-                vertexViewF32[++vertexOffset] = ty0;
-                vertexViewF32[++vertexOffset] = uvs.x0;
-                vertexViewF32[++vertexOffset] = uvs.y0;
-                vertexViewF32[++vertexOffset] = tintEffect;
-                vertexViewU32[++vertexOffset] = tint;
-        
-                vertexViewF32[++vertexOffset] = tx0;
-                vertexViewF32[++vertexOffset] = ty1;
-                vertexViewF32[++vertexOffset] = uvs.x1;
-                vertexViewF32[++vertexOffset] = uvs.y1;
-                vertexViewF32[++vertexOffset] = tintEffect;
-                vertexViewU32[++vertexOffset] = tint;
-
-                vertexViewF32[++vertexOffset] = tx1;
-                vertexViewF32[++vertexOffset] = ty1;
-                vertexViewF32[++vertexOffset] = uvs.x2;
-                vertexViewF32[++vertexOffset] = uvs.y2;
-                vertexViewF32[++vertexOffset] = tintEffect;
-                vertexViewU32[++vertexOffset] = tint;
-
-                vertexViewF32[++vertexOffset] = tx0;
-                vertexViewF32[++vertexOffset] = ty0;
-                vertexViewF32[++vertexOffset] = uvs.x0;
-                vertexViewF32[++vertexOffset] = uvs.y0;
-                vertexViewF32[++vertexOffset] = tintEffect;
-                vertexViewU32[++vertexOffset] = tint;
-
-                vertexViewF32[++vertexOffset] = tx1;
-                vertexViewF32[++vertexOffset] = ty1;
-                vertexViewF32[++vertexOffset] = uvs.x2;
-                vertexViewF32[++vertexOffset] = uvs.y2;
-                vertexViewF32[++vertexOffset] = tintEffect;
-                vertexViewU32[++vertexOffset] = tint;
-
-                vertexViewF32[++vertexOffset] = tx1;
-                vertexViewF32[++vertexOffset] = ty0;
-                vertexViewF32[++vertexOffset] = uvs.x3;
-                vertexViewF32[++vertexOffset] = uvs.y3;
-                vertexViewF32[++vertexOffset] = tintEffect;
-                vertexViewU32[++vertexOffset] = tint;
-
-                this.vertexCount += 6;
-
-                if (this.vertexCount >= this.vertexCapacity)
-                {
-                    this.flush();
-
-                    prevTextureSourceIndex = -1;
-                }
-            }
-
-            batchOffset += batchSize;
-
-            length -= batchSize;
-
-            if (this.vertexCount >= this.vertexCapacity)
-            {
-                this.flush();
-            }
-        }
-    },
-
-    /**
      * Batches Sprite game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchSprite
@@ -58269,179 +58427,234 @@ var TextureTintPipeline = new Class({
      */
     batchSprite: function (sprite, camera, parentTransformMatrix)
     {
-        var parentMatrix = null;
+        this.renderer.setPipeline(this);
+
+        var camMatrix = this._tempCameraMatrix;
+        var spriteMatrix = this._tempSpriteMatrix;
+
+        spriteMatrix.applyITRS(sprite.x - camera.scrollX * sprite.scrollFactorX, sprite.y - camera.scrollY * sprite.scrollFactorY, sprite.rotation, sprite.scaleX, sprite.scaleY);
+
+        var frame = sprite.frame;
+        var texture = frame.glTexture;
+
+        var u0 = frame.u0;
+        var v0 = frame.v0;
+        var u1 = frame.u1;
+        var v1 = frame.v1;
+        var frameX = frame.x;
+        var frameY = frame.y;
+        var frameWidth = frame.width;
+        var frameHeight = frame.height;
+
+        var x = -sprite.displayOriginX + frameX;
+        var y = -sprite.displayOriginY + frameY;
+
+        if (sprite.isCropped)
+        {
+            var crop = sprite._crop;
+
+            if (crop.flipX !== sprite.flipX || crop.flipY !== sprite.flipY)
+            {
+                frame.updateCropUVs(crop, sprite.flipX, sprite.flipY);
+            }
+
+            u0 = crop.u0;
+            v0 = crop.v0;
+            u1 = crop.u1;
+            v1 = crop.v1;
+
+            frameWidth = crop.width;
+            frameHeight = crop.height;
+
+            frameX = crop.x;
+            frameY = crop.y;
+
+            x = -sprite.displayOriginX + frameX;
+            y = -sprite.displayOriginY + frameY;
+        }
+
+        if (sprite.flipX)
+        {
+            x += frameWidth;
+            frameWidth *= -1;
+        }
+
+        if (sprite.flipY)
+        {
+            y += frameHeight;
+            frameHeight *= -1;
+        }
+
+        var xw = x + frameWidth;
+        var yh = y + frameHeight;
+
+        camMatrix.copyFrom(camera.matrix);
+
+        var calcMatrix;
 
         if (parentTransformMatrix)
         {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
+            //  Multiply the camera by the parent matrix
+            camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * sprite.scrollFactorX, -camera.scrollY * sprite.scrollFactorY);
 
-        this.renderer.setPipeline(this);
+            //  Undo the camera scroll
+            spriteMatrix.e = sprite.x;
+            spriteMatrix.f = sprite.y;
 
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        var frame = sprite.frame;
-        var texture = frame.texture.source[frame.sourceIndex].glTexture;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var forceFlipY = (texture.isRenderTexture ? true : false);
-        var flipX = sprite.flipX;
-        var flipY = sprite.flipY ^ forceFlipY;
-        var uvs = frame.uvs;
-
-        var scaleX = sprite.scaleX;
-        var scaleY = sprite.scaleY;
-        var rotation = sprite.rotation;
-        var alphaTL = camera.alpha * sprite._alphaTL;
-        var alphaTR = camera.alpha * sprite._alphaTR;
-        var alphaBL = camera.alpha * sprite._alphaBL;
-        var alphaBR = camera.alpha * sprite._alphaBR;
-        var tintTL = sprite._tintTL;
-        var tintTR = sprite._tintTR;
-        var tintBL = sprite._tintBL;
-        var tintBR = sprite._tintBR;
-        
-        var roundPixels = camera.roundPixels;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var cameraMatrix = camera.matrix.matrix;
-        var width = frame.width * (flipX ? -1.0 : 1.0);
-        var height = frame.height * (flipY ? -1.0 : 1.0);
-        var x = -sprite.displayOriginX + frame.x + ((frame.width) * (flipX ? 1.0 : 0.0));
-        var y = -sprite.displayOriginY + frame.y + ((frame.height) * (flipY ? 1.0 : 0.0));
-        var xw = (roundPixels ? (x | 0) : x) + width;
-        var yh = (roundPixels ? (y | 0) : y) + height;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = sprite.x;
-        var srf = sprite.y;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -camera.scrollX * sprite.scrollFactorX;
-            var csf = -camera.scrollY * sprite.scrollFactorY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
+            //  Multiply by the Sprite matrix
+            calcMatrix = camMatrix.multiply(spriteMatrix);
         }
         else
         {
-            sre -= camera.scrollX * sprite.scrollFactorX;
-            srf -= camera.scrollY * sprite.scrollFactorY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
+            calcMatrix = spriteMatrix.multiply(camMatrix);
         }
 
-        var tx0 = x * mva + y * mvc + mve;
-        var ty0 = x * mvb + y * mvd + mvf;
-        var tx1 = x * mva + yh * mvc + mve;
-        var ty1 = x * mvb + yh * mvd + mvf;
-        var tx2 = xw * mva + yh * mvc + mve;
-        var ty2 = xw * mvb + yh * mvd + mvf;
-        var tx3 = xw * mva + y * mvc + mve;
-        var ty3 = xw * mvb + y * mvd + mvf;
-        var vTintTL = getTint(tintTL, alphaTL);
-        var vTintTR = getTint(tintTR, alphaTR);
-        var vTintBL = getTint(tintBL, alphaBL);
-        var vTintBR = getTint(tintBR, alphaBR);
+        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
 
-        if (roundPixels)
+        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        var tintTL = Utils.getTintAppendFloatAlpha(sprite._tintTL, camera.alpha * sprite._alphaTL);
+        var tintTR = Utils.getTintAppendFloatAlpha(sprite._tintTR, camera.alpha * sprite._alphaTR);
+        var tintBL = Utils.getTintAppendFloatAlpha(sprite._tintBL, camera.alpha * sprite._alphaBL);
+        var tintBR = Utils.getTintAppendFloatAlpha(sprite._tintBR, camera.alpha * sprite._alphaBR);
+
+        if (camera.roundPixels)
         {
             tx0 |= 0;
             ty0 |= 0;
+
             tx1 |= 0;
             ty1 |= 0;
+
             tx2 |= 0;
             ty2 |= 0;
+
             tx3 |= 0;
             ty3 |= 0;
         }
 
         this.setTexture2D(texture, 0);
 
-        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
-
         var tintEffect = (sprite._isTinted && sprite.tintFill);
 
+        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
+    },
+
+    /**
+     * Adds the vertices data into the batch and flushes if full.
+     * 
+     * Assumes 6 vertices in the following arrangement:
+     * 
+     * ```
+     * 0----3
+     * |\  B|
+     * | \  |
+     * |  \ |
+     * | A \|
+     * |    \
+     * 1----2
+     * ```
+     * 
+     * Where tx0/ty0 = 0, tx1/ty1 = 1, tx2/ty2 = 2 and tx3/ty3 = 3
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchVertices
+     * @since 3.11.0
+     *
+     * @param {number} tx0 - The top-left x position.
+     * @param {number} ty0 - The top-left y position.
+     * @param {number} tx1 - The bottom-left x position.
+     * @param {number} ty1 - The bottom-left y position.
+     * @param {number} tx2 - The bottom-right x position.
+     * @param {number} ty2 - The bottom-right y position.
+     * @param {number} tx3 - The top-right x position.
+     * @param {number} ty3 - The top-right y position.
+     * @param {number} u0 - UV u0 value.
+     * @param {number} v0 - UV v0 value.
+     * @param {number} u1 - UV u1 value.
+     * @param {number} v1 - UV v1 value.
+     * @param {number} tintTL - The top-left tint color value.
+     * @param {number} tintTR - The top-right tint color value.
+     * @param {number} tintBL - The bottom-left tint color value.
+     * @param {number} tintBR - The bottom-right tint color value.
+     * @param {(number|boolean)} tintEffect - The tint effect for the shader to use.
+     * 
+     * @return {boolean} `true` if this method caused the batch to flush, otherwise `false`.
+     */
+    batchVertices: function (tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect)
+    {
+        if (this.vertexCount + 6 > this.vertexCapacity)
+        {
+            this.flush();
+        }
+
+        var vertexViewF32 = this.vertexViewF32;
+        var vertexViewU32 = this.vertexViewU32;
+
+        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
+            
         vertexViewF32[++vertexOffset] = tx0;
         vertexViewF32[++vertexOffset] = ty0;
-        vertexViewF32[++vertexOffset] = uvs.x0;
-        vertexViewF32[++vertexOffset] = uvs.y0;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v0;
         vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = vTintTL;
+        vertexViewU32[++vertexOffset] = tintTL;
 
         vertexViewF32[++vertexOffset] = tx1;
         vertexViewF32[++vertexOffset] = ty1;
-        vertexViewF32[++vertexOffset] = uvs.x1;
-        vertexViewF32[++vertexOffset] = uvs.y1;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v1;
         vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = vTintBL;
+        vertexViewU32[++vertexOffset] = tintBL;
 
         vertexViewF32[++vertexOffset] = tx2;
         vertexViewF32[++vertexOffset] = ty2;
-        vertexViewF32[++vertexOffset] = uvs.x2;
-        vertexViewF32[++vertexOffset] = uvs.y2;
+        vertexViewF32[++vertexOffset] = u1;
+        vertexViewF32[++vertexOffset] = v1;
         vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = vTintBR;
+        vertexViewU32[++vertexOffset] = tintBR;
 
         vertexViewF32[++vertexOffset] = tx0;
         vertexViewF32[++vertexOffset] = ty0;
-        vertexViewF32[++vertexOffset] = uvs.x0;
-        vertexViewF32[++vertexOffset] = uvs.y0;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v0;
         vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = vTintTL;
+        vertexViewU32[++vertexOffset] = tintTL;
 
         vertexViewF32[++vertexOffset] = tx2;
         vertexViewF32[++vertexOffset] = ty2;
-        vertexViewF32[++vertexOffset] = uvs.x2;
-        vertexViewF32[++vertexOffset] = uvs.y2;
+        vertexViewF32[++vertexOffset] = u1;
+        vertexViewF32[++vertexOffset] = v1;
         vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = vTintBR;
+        vertexViewU32[++vertexOffset] = tintBR;
 
         vertexViewF32[++vertexOffset] = tx3;
         vertexViewF32[++vertexOffset] = ty3;
-        vertexViewF32[++vertexOffset] = uvs.x3;
-        vertexViewF32[++vertexOffset] = uvs.y3;
+        vertexViewF32[++vertexOffset] = u1;
+        vertexViewF32[++vertexOffset] = v0;
         vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = vTintTR;
+        vertexViewU32[++vertexOffset] = tintTR;
 
         this.vertexCount += 6;
+
+        if (this.vertexCapacity - this.vertexCount < 6)
+        {
+            //  No more room at the inn
+            this.flush();
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     },
 
     /**
@@ -59228,101 +59441,6 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * Batches Text game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Text} text - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchText: function (text, camera, parentTransformMatrix)
-    {
-        var getTint = Utils.getTintAppendFloatAlpha;
-
-        this.batchTexture(
-            text,
-            text.canvasTexture,
-            text.canvasTexture.width, text.canvasTexture.height,
-            text.x, text.y,
-            text.canvasTexture.width, text.canvasTexture.height,
-            text.scaleX, text.scaleY,
-            text.rotation,
-            text.flipX, text.flipY,
-            text.scrollFactorX, text.scrollFactorY,
-            text.displayOriginX, text.displayOriginY,
-            0, 0, text.canvasTexture.width, text.canvasTexture.height,
-            getTint(text._tintTL, camera.alpha * text._alphaTL),
-            getTint(text._tintTR, camera.alpha * text._alphaTR),
-            getTint(text._tintBL, camera.alpha * text._alphaBL),
-            getTint(text._tintBR, camera.alpha * text._alphaBR),
-            (text._isTinted && text.tintFill),
-            0, 0,
-            camera,
-            parentTransformMatrix
-        );
-    },
-
-    /**
-     * Batches DynamicTilemapLayer game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicTilemapLayer
-     * @since 3.0.0
-     *
-     * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchDynamicTilemapLayer: function (tilemapLayer, camera, parentTransformMatrix)
-    {
-        var renderTiles = tilemapLayer.culledTiles;
-        var length = renderTiles.length;
-        var texture = tilemapLayer.tileset.image.get().source.glTexture;
-        var tileset = tilemapLayer.tileset;
-        var scrollFactorX = tilemapLayer.scrollFactorX;
-        var scrollFactorY = tilemapLayer.scrollFactorY;
-        var alpha = camera.alpha * tilemapLayer.alpha;
-        var x = tilemapLayer.x;
-        var y = tilemapLayer.y;
-        var sx = tilemapLayer.scaleX;
-        var sy = tilemapLayer.scaleY;
-        var getTint = Utils.getTintAppendFloatAlpha;
-
-        for (var index = 0; index < length; ++index)
-        {
-            var tile = renderTiles[index];
-
-            var tileTexCoords = tileset.getTileTextureCoordinates(tile.index);
-            if (tileTexCoords === null) { continue; }
-
-            var frameWidth = tile.width;
-            var frameHeight = tile.height;
-            var frameX = tileTexCoords.x;
-            var frameY = tileTexCoords.y;
-            var tint = getTint(tile.tint, alpha * tile.alpha);
-
-            this.batchTexture(
-                tilemapLayer,
-                texture,
-                texture.width, texture.height,
-                (tile.width / 2) + x + tile.pixelX * sx, (tile.height / 2) + y + tile.pixelY * sy,
-                tile.width * sx, tile.height * sy,
-                1, 1,
-                tile.rotation,
-                tile.flipX, tile.flipY,
-                scrollFactorX, scrollFactorY,
-                (tile.width / 2), (tile.height / 2),
-                frameX, frameY, frameWidth, frameHeight,
-                tint, tint, tint, tint, false,
-                0, 0,
-                camera,
-                parentTransformMatrix
-            );
-        }
-    },
-
-    /**
      * Generic function for batching a textured quad
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
@@ -59353,6 +59471,7 @@ var TextureTintPipeline = new Class({
      * @param {integer} tintTR - Tint for top right
      * @param {integer} tintBL - Tint for bottom left
      * @param {integer} tintBR - Tint for bottom right
+     * @param {number} tintEffect - The tint effect (0 for additive, 1 for replacement)
      * @param {number} uOffset - Horizontal offset on texture coordinate
      * @param {number} vOffset - Vertical offset on texture coordinate
      * @param {Phaser.Cameras.Scene2D.Camera} camera - Current used camera
@@ -59375,106 +59494,74 @@ var TextureTintPipeline = new Class({
         camera,
         parentTransformMatrix)
     {
-        var parentMatrix = null;
+        this.renderer.setPipeline(this);
+
+        var camMatrix = this._tempCameraMatrix;
+        var spriteMatrix = this._tempSpriteMatrix;
+
+        spriteMatrix.applyITRS(srcX - camera.scrollX * scrollFactorX, srcY - camera.scrollY * scrollFactorY, rotation, scaleX, scaleY);
+
+        var width = srcWidth;
+        var height = srcHeight;
+
+        var x = -displayOriginX;
+        var y = -displayOriginY;
+
+        if (flipX)
+        {
+            width *= -1;
+            x += srcWidth;
+        }
+
+        if (flipY || texture.isRenderTexture)
+        {
+            height *= -1;
+            y += srcHeight;
+        }
+
+        if (camera.roundPixels)
+        {
+            x |= 0;
+            y |= 0;
+        }
+
+        var xw = x + width;
+        var yh = y + height;
+
+        camMatrix.copyFrom(camera.matrix);
+
+        var calcMatrix;
 
         if (parentTransformMatrix)
         {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
+            //  Multiply the camera by the parent matrix
+            camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * scrollFactorX, -camera.scrollY * scrollFactorY);
 
-        this.renderer.setPipeline(this);
+            //  Undo the camera scroll
+            spriteMatrix.e = srcX;
+            spriteMatrix.f = srcY;
 
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
-
-        var roundPixels = camera.roundPixels;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var cameraMatrix = camera.matrix.matrix;
-        var width = srcWidth * (flipX ? -1.0 : 1.0);
-        var height = srcHeight * (flipY ? -1.0 : 1.0);
-        var x = -displayOriginX + ((srcWidth) * (flipX ? 1.0 : 0.0));
-        var y = -displayOriginY + ((srcHeight) * (flipY ? 1.0 : 0.0));
-
-        // var x = -displayOriginX + frameX + ((frameWidth) * (flipX ? 1.0 : 0.0));
-        // var y = -displayOriginY + frameY + ((frameHeight) * (flipY ? 1.0 : 0.0));
-
-        var xw = (roundPixels ? (x | 0) : x) + width;
-        var yh = (roundPixels ? (y | 0) : y) + height;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = srcX;
-        var srf = srcY;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -camera.scrollX * scrollFactorX;
-            var csf = -camera.scrollY * scrollFactorY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
+            //  Multiply by the Sprite matrix
+            calcMatrix = camMatrix.multiply(spriteMatrix);
         }
         else
         {
-            sre -= camera.scrollX * scrollFactorX;
-            srf -= camera.scrollY * scrollFactorY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
+            calcMatrix = spriteMatrix.multiply(camMatrix);
         }
 
-        var tx0 = x * mva + y * mvc + mve;
-        var ty0 = x * mvb + y * mvd + mvf;
-        var tx1 = x * mva + yh * mvc + mve;
-        var ty1 = x * mvb + yh * mvd + mvf;
-        var tx2 = xw * mva + yh * mvc + mve;
-        var ty2 = xw * mvb + yh * mvd + mvf;
-        var tx3 = xw * mva + y * mvc + mve;
-        var ty3 = xw * mvb + y * mvd + mvf;
+        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
 
-        var u0 = (frameX / textureWidth) + uOffset;
-        var v0 = (frameY / textureHeight) + vOffset;
-        var u1 = (frameX + frameWidth) / textureWidth + uOffset;
-        var v1 = (frameY + frameHeight) / textureHeight + vOffset;
+        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
 
-        if (roundPixels)
+        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        if (camera.roundPixels)
         {
             tx0 |= 0;
             ty0 |= 0;
@@ -59486,53 +59573,14 @@ var TextureTintPipeline = new Class({
             ty3 |= 0;
         }
 
+        var u0 = (frameX / textureWidth) + uOffset;
+        var v0 = (frameY / textureHeight) + vOffset;
+        var u1 = (frameX + frameWidth) / textureWidth + uOffset;
+        var v1 = (frameY + frameHeight) / textureHeight + vOffset;
+
         this.setTexture2D(texture, 0);
 
-        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
-
-        vertexViewF32[++vertexOffset] = tx0;
-        vertexViewF32[++vertexOffset] = ty0;
-        vertexViewF32[++vertexOffset] = u0;
-        vertexViewF32[++vertexOffset] = v0;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tintTL;
-
-        vertexViewF32[++vertexOffset] = tx1;
-        vertexViewF32[++vertexOffset] = ty1;
-        vertexViewF32[++vertexOffset] = u0;
-        vertexViewF32[++vertexOffset] = v1;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tintTR;
-
-        vertexViewF32[++vertexOffset] = tx2;
-        vertexViewF32[++vertexOffset] = ty2;
-        vertexViewF32[++vertexOffset] = u1;
-        vertexViewF32[++vertexOffset] = v1;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tintBL;
-
-        vertexViewF32[++vertexOffset] = tx0;
-        vertexViewF32[++vertexOffset] = ty0;
-        vertexViewF32[++vertexOffset] = u0;
-        vertexViewF32[++vertexOffset] = v0;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tintTL;
-
-        vertexViewF32[++vertexOffset] = tx2;
-        vertexViewF32[++vertexOffset] = ty2;
-        vertexViewF32[++vertexOffset] = u1;
-        vertexViewF32[++vertexOffset] = v1;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tintBL;
-
-        vertexViewF32[++vertexOffset] = tx3;
-        vertexViewF32[++vertexOffset] = ty3;
-        vertexViewF32[++vertexOffset] = u1;
-        vertexViewF32[++vertexOffset] = v0;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tintBR;
-
-        this.vertexCount += 6;
+        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
     },
 
     /**
@@ -71654,6 +71702,7 @@ module.exports = CanvasTexture;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var Clamp = __webpack_require__(/*! ../math/Clamp */ "./math/Clamp.js");
 var Extend = __webpack_require__(/*! ../utils/object/Extend */ "./utils/object/Extend.js");
 
 /**
@@ -71715,6 +71764,16 @@ var Frame = new Class({
          * @since 3.0.0
          */
         this.sourceIndex = sourceIndex;
+
+        /**
+         * A reference to the Texture Source WebGL Texture that this Frame is using.
+         *
+         * @name Phaser.Textures.Frame#glTexture
+         * @type {?WebGLTexture}
+         * @default null
+         * @since 3.11.0
+         */
+        this.glTexture = this.source.glTexture;
 
         /**
          * X position within the source image to cut from.
@@ -71895,6 +71954,46 @@ var Frame = new Class({
         this.customData = {};
 
         /**
+         * WebGL UV u0 value.
+         *
+         * @name Phaser.Textures.Frame#u0
+         * @type {number}
+         * @default 0
+         * @since 3.11.0
+         */
+        this.u0 = 0;
+
+        /**
+         * WebGL UV v0 value.
+         *
+         * @name Phaser.Textures.Frame#v0
+         * @type {number}
+         * @default 0
+         * @since 3.11.0
+         */
+        this.v0 = 0;
+
+        /**
+         * WebGL UV u1 value.
+         *
+         * @name Phaser.Textures.Frame#u1
+         * @type {number}
+         * @default 0
+         * @since 3.11.0
+         */
+        this.u1 = 0;
+
+        /**
+         * WebGL UV v1 value.
+         *
+         * @name Phaser.Textures.Frame#v1
+         * @type {number}
+         * @default 0
+         * @since 3.11.0
+         */
+        this.v1 = 0;
+
+        /**
          * The un-modified source frame, trim and UV data.
          *
          * @name Phaser.Textures.Frame#data
@@ -71922,24 +72021,12 @@ var Frame = new Class({
                 w: 0,
                 h: 0
             },
-            uvs: {
-                x0: 0,
-                y0: 0,
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 0,
-                x3: 0,
-                y3: 0
-            },
             radius: 0,
             drawImage: {
-                sx: 0,
-                sy: 0,
-                sWidth: 0,
-                sHeight: 0,
-                dWidth: 0,
-                dHeight: 0
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0
             }
         };
 
@@ -72001,12 +72088,10 @@ var Frame = new Class({
 
         var drawImage = data.drawImage;
 
-        drawImage.sx = x;
-        drawImage.sy = y;
-        drawImage.sWidth = width;
-        drawImage.sHeight = height;
-        drawImage.dWidth = width;
-        drawImage.dHeight = height;
+        drawImage.x = x;
+        drawImage.y = y;
+        drawImage.width = width;
+        drawImage.height = height;
 
         return this.updateUVs();
     },
@@ -72060,6 +72145,121 @@ var Frame = new Class({
     },
 
     /**
+     * Takes a crop data object and, based on the rectangular region given, calculates the
+     * required UV coordinates in order to crop this Frame for WebGL and Canvas rendering.
+     * 
+     * This is called directly by the Game Object Texture Components `setCrop` method.
+     * Please use that method to crop a Game Object.
+     *
+     * @method Phaser.Textures.Frame#setCropUVs
+     * @since 3.11.0
+     * 
+     * @param {object} crop - The crop data object. This is the `GameObject._crop` property.
+     * @param {number} x - The x coordinate to start the crop from. Cannot be negative or exceed the Frame width.
+     * @param {number} y - The y coordinate to start the crop from. Cannot be negative or exceed the Frame height.
+     * @param {number} width - The width of the crop rectangle. Cannot exceed the Frame width.
+     * @param {number} height - The height of the crop rectangle. Cannot exceed the Frame height.
+     * @param {boolean} flipX - Does the parent Game Object have flipX set?
+     * @param {boolean} flipY - Does the parent Game Object have flipY set?
+     *
+     * @return {object} The updated crop data object.
+     */
+    setCropUVs: function (crop, x, y, width, height, flipX, flipY)
+    {
+        //  Clamp the input values
+
+        var cx = this.cutX;
+        var cy = this.cutY;
+        var cw = this.cutWidth;
+        var ch = this.cutHeight;
+        var rw = this.realWidth;
+        var rh = this.realHeight;
+
+        // x = Clamp(x, 0, cw);
+        // y = Clamp(y, 0, ch);
+
+        // width = Clamp(width, 0, cw - x);
+        // height = Clamp(height, 0, ch - y);
+
+        x = Clamp(x, 0, rw);
+        y = Clamp(y, 0, rh);
+
+        width = Clamp(width, 0, rw - x);
+        height = Clamp(height, 0, rh - y);
+
+        var ox = cx + x;
+        var oy = cy + y;
+
+        if (flipX)
+        {
+            ox = cx + (cw - x - width);
+        }
+
+        if (flipY)
+        {
+            oy = cy + (ch - y - height);
+        }
+
+        //  Check ox/oy within cut region, otherwise make UVs empty
+
+        if (this.data.trim)
+        {
+            //  Need to check for intersection between the cut xywh and ox
+            //  If there is none, we set UV to be empty, otherwise set it to be the intersection rect
+
+            // return !(rectA.right < rectB.x || rectA.bottom < rectB.y || rectA.x > rectB.right || rectA.y > rectB.bottom);
+
+            // out.x = Math.max(rectA.x, rectB.x);
+            // out.y = Math.max(rectA.y, rectB.y);
+            // out.width = Math.min(rectA.right, rectB.right) - out.x;
+            // out.height = Math.min(rectA.bottom, rectB.bottom) - out.y;
+    
+        }
+
+        var tw = this.source.width;
+        var th = this.source.height;
+
+        //  Map the given coordinates into UV space, clamping to the 0-1 range.
+
+        crop.u0 = Math.max(0, ox / tw);
+        crop.v0 = Math.max(0, oy / th);
+        crop.u1 = Math.min(1, (ox + width) / tw);
+        crop.v1 = Math.min(1, (oy + height) / th);
+
+        crop.width = width;
+        crop.height = height;
+
+        crop.x = x;
+        crop.y = y;
+
+        crop.cx = cx + x;
+        crop.cy = cy + y;
+
+        crop.flipX = flipX;
+        crop.flipY = flipY;
+
+        return crop;
+    },
+
+    /**
+     * Takes a crop data object and recalculates the UVs based on the dimensions inside the crop object.
+     * Called automatically by `setFrame`.
+     *
+     * @method Phaser.Textures.Frame#updateCropUVs
+     * @since 3.11.0
+     * 
+     * @param {object} crop - The crop data object. This is the `GameObject._crop` property.
+     * @param {boolean} flipX - Does the parent Game Object have flipX set?
+     * @param {boolean} flipY - Does the parent Game Object have flipY set?
+     *
+     * @return {object} The updated crop data object.
+     */
+    updateCropUVs: function (crop, flipX, flipY)
+    {
+        return this.setCropUVs(crop, crop.x, crop.y, crop.width, crop.height, flipX, flipY);
+    },
+
+    /**
      * Updates the internal WebGL UV cache and the drawImage cache.
      *
      * @method Phaser.Textures.Frame#updateUVs
@@ -72078,28 +72278,19 @@ var Frame = new Class({
 
         var cd = this.data.drawImage;
 
-        cd.sWidth = cw;
-        cd.sHeight = ch;
-        cd.dWidth = cw;
-        cd.dHeight = ch;
+        cd.width = cw;
+        cd.height = ch;
 
         //  WebGL data
 
         var tw = this.source.width;
         var th = this.source.height;
-        var uvs = this.data.uvs;
 
-        uvs.x0 = cx / tw;
-        uvs.y0 = cy / th;
+        this.u0 = cx / tw;
+        this.v0 = cy / th;
 
-        uvs.x1 = cx / tw;
-        uvs.y1 = (cy + ch) / th;
-
-        uvs.x2 = (cx + cw) / tw;
-        uvs.y2 = (cy + ch) / th;
-
-        uvs.x3 = (cx + cw) / tw;
-        uvs.y3 = cy / th;
+        this.u1 = (cx + cw) / tw;
+        this.v1 = (cy + ch) / th;
 
         return this;
     },
@@ -72116,19 +72307,12 @@ var Frame = new Class({
     {
         var tw = this.source.width;
         var th = this.source.height;
-        var uvs = this.data.uvs;
 
-        uvs.x3 = (this.cutX + this.cutHeight) / tw;
-        uvs.y3 = (this.cutY + this.cutWidth) / th;
+        this.u0 = (this.cutX + this.cutHeight) / tw;
+        this.v0 = this.cutY / th;
 
-        uvs.x2 = this.cutX / tw;
-        uvs.y2 = (this.cutY + this.cutWidth) / th;
-
-        uvs.x1 = this.cutX / tw;
-        uvs.y1 = this.cutY / th;
-
-        uvs.x0 = (this.cutX + this.cutHeight) / tw;
-        uvs.y0 = this.cutY / th;
+        this.u1 = this.cutX / tw;
+        this.v1 = (this.cutY + this.cutWidth) / th;
 
         return this;
     },
@@ -72216,23 +72400,6 @@ var Frame = new Class({
         get: function ()
         {
             return this.data.sourceSize.h;
-        }
-
-    },
-
-    /**
-     * The UV data for this Frame.
-     *
-     * @name Phaser.Textures.Frame#uvs
-     * @type {object}
-     * @readOnly
-     * @since 3.0.0
-     */
-    uvs: {
-
-        get: function ()
-        {
-            return this.data.uvs;
         }
 
     },

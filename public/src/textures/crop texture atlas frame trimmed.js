@@ -26,9 +26,9 @@ function create ()
 {
     this.add.image(400, 300, 'atlas', 'hello').setAlpha(0.3);
 
-    bob = this.add.image(400, 300, 'atlas', 'hello');
-
     graphics = this.add.graphics();
+
+    bob = this.add.image(400, 300, 'atlas', 'hello');
 
     var cropWidth = 200;
     var cropHeight = 100;

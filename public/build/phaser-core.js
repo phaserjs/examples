@@ -19437,7 +19437,12 @@ var TextureCrop = {
      * Therefore, if you had a Game Object that had an 800x600 sized texture, and you wanted to show only the left
      * half of it, you could call `setCrop(0, 0, 400, 600)`.
      * 
-     * Call this method with no arguments to reset the crop, or toggle the property `isCropped` to `false`.
+     * It is also scaled to match the Game Object scale automatically. Therefore a crop rect of 100x50 would crop
+     * an area of 200x100 when applied to a Game Object that had a scale factor of 2.
+     * 
+     * You can either pass in numeric values directly, or you can provide a single Rectangle object as the first argument.
+     * 
+     * Call this method with no arguments at all to reset the crop, or toggle the property `isCropped` to `false`.
      * 
      * You should do this if the crop rectangle becomes the same size as the frame itself, as it will allow
      * the renderer to skip several internal calculations.
@@ -19445,7 +19450,7 @@ var TextureCrop = {
      * @method Phaser.GameObjects.Components.TextureCrop#setCrop
      * @since 3.11.0
      *
-     * @param {number} [x] - The x coordinate to start the crop from.
+     * @param {(number|Phaser.Geom.Rectangle)} [x] - The x coordinate to start the crop from. Or a Phaser.Geom.Rectangle object, in which case the rest of the arguments are ignored.
      * @param {number} [y] - The y coordinate to start the crop from.
      * @param {number} [width] - The width of the crop rectangle in pixels.
      * @param {number} [height] - The height of the crop rectangle in pixels.
@@ -19460,7 +19465,16 @@ var TextureCrop = {
         }
         else if (this.frame)
         {
-            this.frame.setCropUVs(this._crop, x, y, width, height, this.flipX, this.flipY);
+            if (typeof x === 'number')
+            {
+                this.frame.setCropUVs(this._crop, x, y, width, height, this.flipX, this.flipY);
+            }
+            else
+            {
+                var rect = x;
+
+                this.frame.setCropUVs(this._crop, rect.x, rect.y, rect.width, rect.height, this.flipX, this.flipY);
+            }
 
             this.isCropped = true;
         }
@@ -72019,7 +72033,9 @@ var Frame = new Class({
                 x: 0,
                 y: 0,
                 w: 0,
-                h: 0
+                h: 0,
+                r: 0,
+                b: 0
             },
             radius: 0,
             drawImage: {
@@ -72127,6 +72143,8 @@ var Frame = new Class({
         ss.y = destY;
         ss.w = destWidth;
         ss.h = destHeight;
+        ss.r = destX + destWidth;
+        ss.b = destY + destHeight;
 
         //  Adjust properties
         this.x = destX;
@@ -72175,12 +72193,6 @@ var Frame = new Class({
         var rw = this.realWidth;
         var rh = this.realHeight;
 
-        // x = Clamp(x, 0, cw);
-        // y = Clamp(y, 0, ch);
-
-        // width = Clamp(width, 0, cw - x);
-        // height = Clamp(height, 0, ch - y);
-
         x = Clamp(x, 0, rw);
         y = Clamp(y, 0, rh);
 
@@ -72189,31 +72201,76 @@ var Frame = new Class({
 
         var ox = cx + x;
         var oy = cy + y;
+        var ow = width;
+        var oh = height;
 
-        if (flipX)
+        var data = this.data;
+
+        if (data.trim)
         {
-            ox = cx + (cw - x - width);
-        }
+            var ss = data.spriteSourceSize;
 
-        if (flipY)
-        {
-            oy = cy + (ch - y - height);
-        }
+            //  Need to check for intersection between the cut area and the crop area
+            //  If there is none, we set UV to be empty, otherwise set it to be the intersection area
 
-        //  Check ox/oy within cut region, otherwise make UVs empty
+            var cropRight = x + width;
+            var cropBottom = y + height;
 
-        if (this.data.trim)
-        {
-            //  Need to check for intersection between the cut xywh and ox
-            //  If there is none, we set UV to be empty, otherwise set it to be the intersection rect
+            var intersects = !(ss.r < x || ss.b < y || ss.x > cropRight || ss.y > cropBottom);
 
-            // return !(rectA.right < rectB.x || rectA.bottom < rectB.y || rectA.x > rectB.right || rectA.y > rectB.bottom);
+            if (intersects)
+            {
+                var ix = Math.max(ss.x, x);
+                var iy = Math.max(ss.y, y);
+                var iw = Math.min(ss.r, cropRight) - ix;
+                var ih = Math.min(ss.b, cropBottom) - iy;
 
-            // out.x = Math.max(rectA.x, rectB.x);
-            // out.y = Math.max(rectA.y, rectB.y);
-            // out.width = Math.min(rectA.right, rectB.right) - out.x;
-            // out.height = Math.min(rectA.bottom, rectB.bottom) - out.y;
+                ow = iw;
+                oh = ih;
     
+                if (flipX)
+                {
+                    ox = cx + (cw - (ix - ss.x) - iw);
+                }
+                else
+                {
+                    ox = cx + (ix - ss.x);
+                }
+        
+                if (flipY)
+                {
+                    oy = cy + (ch - (iy - ss.y) - ih);
+                }
+                else
+                {
+                    oy = cy + (iy - ss.y);
+                }
+
+                x = ix;
+                y = iy;
+
+                width = iw;
+                height = ih;
+            }
+            else
+            {
+                ox = 0;
+                oy = 0;
+                ow = 0;
+                oh = 0;
+            }
+        }
+        else
+        {
+            if (flipX)
+            {
+                ox = cx + (cw - x - width);
+            }
+    
+            if (flipY)
+            {
+                oy = cy + (ch - y - height);
+            }
         }
 
         var tw = this.source.width;
@@ -72223,17 +72280,17 @@ var Frame = new Class({
 
         crop.u0 = Math.max(0, ox / tw);
         crop.v0 = Math.max(0, oy / th);
-        crop.u1 = Math.min(1, (ox + width) / tw);
-        crop.v1 = Math.min(1, (oy + height) / th);
+        crop.u1 = Math.min(1, (ox + ow) / tw);
+        crop.v1 = Math.min(1, (oy + oh) / th);
 
-        crop.width = width;
-        crop.height = height;
+        crop.cx = cx + x;
+        crop.cy = cy + y;
 
         crop.x = x;
         crop.y = y;
 
-        crop.cx = cx + x;
-        crop.cy = cy + y;
+        crop.width = width;
+        crop.height = height;
 
         crop.flipX = flipX;
         crop.flipY = flipY;

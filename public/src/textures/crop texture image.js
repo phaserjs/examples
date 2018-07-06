@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
     height: 600,

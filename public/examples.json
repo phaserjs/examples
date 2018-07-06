@@ -9127,55 +9127,43 @@
         {
           "path": "src\\textures\\crop texture atlas frame flip.js",
           "name": "crop texture atlas frame flip.js",
-          "size": 1257,
+          "size": 1256,
           "extension": ".js"
         },
         {
           "path": "src\\textures\\crop texture atlas frame trimmed flip.js",
           "name": "crop texture atlas frame trimmed flip.js",
-          "size": 1253,
+          "size": 1252,
           "extension": ".js"
         },
         {
           "path": "src\\textures\\crop texture atlas frame trimmed.js",
           "name": "crop texture atlas frame trimmed.js",
-          "size": 1223,
+          "size": 1222,
           "extension": ".js"
         },
         {
           "path": "src\\textures\\crop texture atlas frame.js",
           "name": "crop texture atlas frame.js",
-          "size": 1225,
+          "size": 1224,
           "extension": ".js"
         },
         {
           "path": "src\\textures\\crop texture image flip.js",
           "name": "crop texture image flip.js",
-          "size": 1195,
+          "size": 1194,
           "extension": ".js"
         },
         {
           "path": "src\\textures\\crop texture image scaled.js",
           "name": "crop texture image scaled.js",
-          "size": 1210,
+          "size": 1241,
           "extension": ".js"
         },
         {
           "path": "src\\textures\\crop texture image.js",
           "name": "crop texture image.js",
-          "size": 1165,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\textures\\crop texture.js",
-          "name": "crop texture.js",
-          "size": 5510,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\textures\\crop x.js",
-          "name": "crop x.js",
-          "size": 457,
+          "size": 1166,
           "extension": ".js"
         },
         {
@@ -9263,7 +9251,7 @@
           "extension": ".js"
         }
       ],
-      "size": 38775
+      "size": 32835
     },
     {
       "path": "src\\time",
@@ -9959,5 +9947,5 @@
       "size": 5291
     }
   ],
-  "size": 2616071
+  "size": 2610131
 }

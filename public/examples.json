@@ -1087,13 +1087,19 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\canvas container.js",
+          "name": "canvas container.js",
+          "size": 1214,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\emitter blend mode.js",
           "name": "emitter blend mode.js",
           "size": 559,
           "extension": ".js"
         }
       ],
-      "size": 559
+      "size": 1773
     },
     {
       "path": "src\\cache",
@@ -2049,12 +2055,6 @@
               "extension": ".js"
             },
             {
-              "path": "src\\display\\tint\\flash white.js",
-              "name": "flash white.js",
-              "size": 821,
-              "extension": ".js"
-            },
-            {
               "path": "src\\display\\tint\\multiple images.js",
               "name": "multiple images.js",
               "size": 512,
@@ -2109,16 +2109,22 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\tint\\tint fill.js",
+              "name": "tint fill.js",
+              "size": 1766,
+              "extension": ".js"
+            },
+            {
               "path": "src\\display\\tint\\tween tint.js",
               "name": "tween tint.js",
               "size": 713,
               "extension": ".js"
             }
           ],
-          "size": 12254
+          "size": 13199
         }
       ],
-      "size": 89236
+      "size": 90181
     },
     {
       "path": "src\\dwitter",
@@ -2793,7 +2799,7 @@
             {
               "path": "src\\game objects\\container\\matter physics body test camera.js",
               "name": "matter physics body test camera.js",
-              "size": 1432,
+              "size": 1434,
               "extension": ".js"
             },
             {
@@ -2911,7 +2917,7 @@
               "extension": ".js"
             }
           ],
-          "size": 79541
+          "size": 79543
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4607,7 +4613,7 @@
           "size": 258024
         }
       ],
-      "size": 768300
+      "size": 768302
     },
     {
       "path": "src\\games",
@@ -6797,7 +6803,7 @@
             {
               "path": "src\\input\\pixel perfect\\on down.js",
               "name": "on down.js",
-              "size": 1262,
+              "size": 1255,
               "extension": ".js"
             },
             {
@@ -6809,11 +6815,11 @@
             {
               "path": "src\\input\\pixel perfect\\transformed.js",
               "name": "transformed.js",
-              "size": 1212,
+              "size": 1205,
               "extension": ".js"
             }
           ],
-          "size": 3615
+          "size": 3601
         },
         {
           "path": "src\\input\\pointer",
@@ -6920,7 +6926,7 @@
           "size": 9602
         }
       ],
-      "size": 148525
+      "size": 148511
     },
     {
       "path": "src\\loader",
@@ -9947,5 +9953,5 @@
       "size": 5291
     }
   ],
-  "size": 2610131
+  "size": 2612278
 }

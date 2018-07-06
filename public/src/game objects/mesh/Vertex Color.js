@@ -47,6 +47,8 @@ function create ()
         ],
         colors: [0x000000, 0xFFFFFF, 0xFFFFFF, 0x000000, 0xFFFFFF, 0x000000]
     });
+
+    // mesh0.tintFill = true;
 }
 
 function update ()

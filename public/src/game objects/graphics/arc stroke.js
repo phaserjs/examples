@@ -14,9 +14,16 @@ function create ()
 {
     var graphics = this.add.graphics();
 
-    graphics.lineStyle(50, 0xf44277);
+    graphics.lineStyle(50, 0xffffff);
 
-    graphics.arc(400, 300, 200, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(361));
-
+    graphics.beginPath();
+    graphics.arc(400, 300, 200, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(360), false, 0.01);
     graphics.strokePath();
+    graphics.closePath();
+
+    graphics.beginPath();
+    graphics.lineStyle(40, 0xff00ff);
+    graphics.arc(400, 300, 200, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(360), true, 0.01);
+    graphics.strokePath();
+    graphics.closePath();
 }

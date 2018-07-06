@@ -18180,7 +18180,7 @@ var Mask = {
     {
         if (destroyMask === undefined) { destroyMask = false; }
 
-        if (destroyMask)
+        if (destroyMask && this.mask)
         {
             this.mask.destroy();
         }
@@ -20893,28 +20893,28 @@ var TransformMatrix = new Class({
     multiply: function (rhs)
     {
         var matrix = this.matrix;
-        var otherMatrix = rhs.matrix;
+        var source = rhs.matrix;
 
-        var a0 = matrix[0];
-        var b0 = matrix[1];
-        var c0 = matrix[2];
-        var d0 = matrix[3];
-        var tx0 = matrix[4];
-        var ty0 = matrix[5];
+        var localA = matrix[0];
+        var localB = matrix[1];
+        var localC = matrix[2];
+        var localD = matrix[3];
+        var localE = matrix[4];
+        var localF = matrix[5];
 
-        var a1 = otherMatrix[0];
-        var b1 = otherMatrix[1];
-        var c1 = otherMatrix[2];
-        var d1 = otherMatrix[3];
-        var tx1 = otherMatrix[4];
-        var ty1 = otherMatrix[5];
+        var sourceA = source[0];
+        var sourceB = source[1];
+        var sourceC = source[2];
+        var sourceD = source[3];
+        var sourceE = source[4];
+        var sourceF = source[5];
 
-        matrix[0] = a1 * a0 + b1 * c0;
-        matrix[1] = a1 * b0 + b1 * d0;
-        matrix[2] = c1 * a0 + d1 * c0;
-        matrix[3] = c1 * b0 + d1 * d0;
-        matrix[4] = tx1 * a0 + ty1 * c0 + tx0;
-        matrix[5] = tx1 * b0 + ty1 * d0 + ty0;
+        matrix[0] = sourceA * localA + sourceB * localC;
+        matrix[1] = sourceA * localB + sourceB * localD;
+        matrix[2] = sourceC * localA + sourceD * localC;
+        matrix[3] = sourceC * localB + sourceD * localD;
+        matrix[4] = sourceE * localA + sourceF * localC + localE;
+        matrix[5] = sourceE * localB + sourceF * localD + localF;
 
         return this;
     },
@@ -22485,6 +22485,9 @@ var Graphics = new Class({
      * Draw an arc.
      *
      * This method can be used to create circles, or parts of circles.
+     * 
+     * Use the optional `overshoot` argument to allow the arc to extend beyond 360 degrees. This is useful if you're drawing
+     * an arc with an especially thick line, as it will allow the arc to fully join-up. Try small values at first, i.e. 0.01.
      *
      * Call {@link Phaser.GameObjects.Graphics#fillPath} or {@link Phaser.GameObjects.Graphics#strokePath} after calling
      * this method to draw the arc.
@@ -22498,11 +22501,44 @@ var Graphics = new Class({
      * @param {number} startAngle - The starting angle, in radians.
      * @param {number} endAngle - The ending angle, in radians.
      * @param {boolean} [anticlockwise=false] - Whether the drawing should be anticlockwise or clockwise.
+     * @param {number} [overshoot=0] - This value allows you to overshoot the endAngle by this amount. Useful if the arc has a thick stroke and needs to overshoot to join-up cleanly.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
-    arc: function (x, y, radius, startAngle, endAngle, anticlockwise)
+    arc: function (x, y, radius, startAngle, endAngle, anticlockwise, overshoot)
     {
+        if (anticlockwise === undefined) { anticlockwise = false; }
+        if (overshoot === undefined) { overshoot = 0; }
+
+        var PI2 = Math.PI * 2;
+
+        if (anticlockwise)
+        {
+            if (endAngle < -PI2)
+            {
+                endAngle = -PI2 - overshoot;
+            }
+            else if (endAngle > 0)
+            {
+                endAngle = -PI2 + endAngle % PI2 - overshoot;
+            }
+        }
+        else
+        {
+            endAngle -= startAngle;
+            endAngle += overshoot;
+
+            if (endAngle > PI2 + overshoot)
+            {
+                endAngle = PI2 + overshoot;
+                
+            }
+            else if (endAngle < -overshoot)
+            {
+                endAngle = PI2 + endAngle % PI2 - overshoot;
+            }
+        }
+
         this.commandBuffer.push(
             Commands.ARC,
             x, y, radius, startAngle, endAngle, anticlockwise
@@ -56415,7 +56451,7 @@ var FlatTintPipeline = new Class({
      * @param {number} srcScaleX - Graphics horizontal component for scale
      * @param {number} srcScaleY - Graphics vertical component for scale
      * @param {number} srcRotation - Graphics rotation
-     * @param {number} x - Horiztonal top left coordinate of the rectangle
+     * @param {number} x - Horizontal top left coordinate of the rectangle
      * @param {number} y - Vertical top left coordinate of the rectangle
      * @param {number} width - Width of the rectangle
      * @param {number} height - Height of the rectangle
@@ -56992,11 +57028,9 @@ var FlatTintPipeline = new Class({
         var radius = 0;
         var startAngle = 0;
         var endAngle = 0;
-        var anticlockwise = 0;
         var path = null;
         var sin = Math.sin;
         var cos = Math.cos;
-        var PI2 = Math.PI * 2;
         var sr = sin(srcRotation);
         var cr = cos(srcRotation);
         var sra = cr * srcScaleX;
@@ -57070,35 +57104,12 @@ var FlatTintPipeline = new Class({
                     radius = commands[cmdIndex + 3];
                     startAngle = commands[cmdIndex + 4];
                     endAngle = commands[cmdIndex + 5];
-                    anticlockwise = commands[cmdIndex + 6];
 
                     if (lastPath === null)
                     {
                         lastPath = new Path(x + cos(startAngle) * radius, y + sin(startAngle) * radius, lineWidth, lineColor, lineAlpha * alpha);
                         pathArray.push(lastPath);
                         iteration += iterStep;
-                    }
-
-                    endAngle -= startAngle;
-
-                    if (anticlockwise)
-                    {
-                        if (endAngle < -PI2)
-                        {
-                            endAngle = -PI2;
-                        }
-                        else if (endAngle > 0)
-                        {
-                            endAngle = -PI2 + endAngle % PI2;
-                        }
-                    }
-                    else if (endAngle > PI2)
-                    {
-                        endAngle = PI2;
-                    }
-                    else if (endAngle < 0)
-                    {
-                        endAngle = PI2 + endAngle % PI2;
                     }
 
                     while (iteration < 1)
@@ -58707,138 +58718,6 @@ var TextureTintPipeline = new Class({
         {
             return false;
         }
-    },
-
-    /**
-     * Batches Mesh game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchMesh
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Mesh} mesh - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchMesh: function (mesh, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        var vertices = mesh.vertices;
-        var length = vertices.length;
-        var vertexCount = (length / 2)|0;
-
-        this.renderer.setPipeline(this);
-
-        if (this.vertexCount + vertexCount > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        var roundPixels = camera.roundPixels;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var uvs = mesh.uv;
-        var colors = mesh.colors;
-        var alphas = mesh.alphas;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var cameraMatrix = camera.matrix.matrix;
-        var frame = mesh.frame;
-        var texture = mesh.texture.source[frame.sourceIndex].glTexture;
-        var translateX = mesh.x;
-        var translateY = mesh.y;
-        var scaleX = mesh.scaleX;
-        var scaleY = mesh.scaleY;
-        var rotation = mesh.rotation;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = translateX;
-        var srf = translateY;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var vertexOffset = 0;
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -camera.scrollX * mesh.scrollFactorX;
-            var csf = -camera.scrollY * mesh.scrollFactorY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
-        }
-        else
-        {
-            sre -= camera.scrollX * mesh.scrollFactorX;
-            srf -= camera.scrollY * mesh.scrollFactorY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
-        }
-
-        this.setTexture2D(texture, 0);
-
-        vertexOffset = this.vertexCount * this.vertexComponentCount;
-
-        for (var index = 0, index0 = 0; index < length; index += 2)
-        {
-            var x = vertices[index + 0];
-            var y = vertices[index + 1];
-            var tx = x * mva + y * mvc + mve;
-            var ty = x * mvb + y * mvd + mvf;
-
-            if (roundPixels)
-            {
-                tx |= 0;
-                ty |= 0;
-            }
-
-            vertexViewF32[vertexOffset + 0] = tx;
-            vertexViewF32[vertexOffset + 1] = ty;
-            vertexViewF32[vertexOffset + 2] = uvs[index + 0];
-            vertexViewF32[vertexOffset + 3] = uvs[index + 1];
-            vertexViewF32[vertexOffset + 4] = 0;
-            vertexViewU32[vertexOffset + 5] = getTint(colors[index0], camera.alpha * alphas[index0]);
-
-            vertexOffset += 6;
-            index0 += 1;
-        }
-
-        this.vertexCount += vertexCount;
     },
 
     /**

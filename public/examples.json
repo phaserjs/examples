@@ -2024,11 +2024,17 @@
                 {
                   "path": "src/display/masks/geometry mask/image mask arc.js",
                   "name": "image mask arc.js",
-                  "size": 829,
+                  "size": 826,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src/display/masks/geometry mask/multiple image mask.js",
+                  "name": "multiple image mask.js",
+                  "size": 961,
                   "extension": ".js"
                 }
               ],
-              "size": 1687
+              "size": 2645
             },
             {
               "path": "src/display/masks/logo shine.js",
@@ -2055,7 +2061,7 @@
               "extension": ".js"
             }
           ],
-          "size": 28479
+          "size": 29437
         },
         {
           "path": "src/display/tint",
@@ -2143,7 +2149,7 @@
           "size": 12651
         }
       ],
-      "size": 88277
+      "size": 89235
     },
     {
       "path": "src/dwitter",
@@ -9972,5 +9978,5 @@
       "size": 5041
     }
   ],
-  "size": 2508140
+  "size": 2509098
 }

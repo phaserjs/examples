@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -14,12 +14,15 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('neuro', 'assets/pics/neuromancer.jpg');
     this.load.bitmapFont('atari', 'assets/fonts/bitmap/atari-smooth.png', 'assets/fonts/bitmap/atari-smooth.xml');
     this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
 }
 
 function create () 
 {
+    this.add.image(512, 0, 'neuro').setOrigin(0.5, 0);
+
     var content = [
         "",
         "",
@@ -47,17 +50,18 @@ function create ()
         "From Neuromancer by William Gibson"
     ];
 
-    scroller = this.add.dynamicBitmapText(0, 300, 'desyrel', content, 24);
+    // scroller = this.add.dynamicBitmapText(0, 0, 'desyrel', content, 24);
+    scroller = this.add.bitmapText(0, 0, 'desyrel', content, 24);
 
-    scroller.setSize(1024, 60);
+    // scroller.setSize(1024, 60);
 }
 
 function update (time, delta)
 {
-    scroller.scrollY += 0.03 * delta;
+    // scroller.scrollY += 0.03 * delta;
 
     if (scroller.scrollY > 2100)
     {
-        scroller.scrollY = 0;
+        // scroller.scrollY = 0;
     }
 }

@@ -13271,6 +13271,15 @@ var BitmapMask = new Class({
         var renderer = scene.sys.game.renderer;
 
         /**
+         * A reference to either the Canvas or WebGL Renderer that this Mask is using.
+         *
+         * @name Phaser.Display.Masks.BitmapMask#renderer
+         * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
+         * @since 3.11.0
+         */
+        this.renderer = renderer;
+
+        /**
          * A renderable Game Object that uses a texture, such as a Sprite.
          *
          * @name Phaser.Display.Masks.BitmapMask#bitmapMask
@@ -13449,10 +13458,22 @@ var BitmapMask = new Class({
     destroy: function ()
     {
         this.bitmapMask = null;
+
+        var renderer = this.renderer;
+
+        if (renderer && renderer.gl)
+        {
+            renderer.deleteTexture(this.mainTexture);
+            renderer.deleteTexture(this.maskTexture);
+            renderer.deleteFramebuffer(this.mainFramebuffer);
+            renderer.deleteFramebuffer(this.maskFramebuffer);
+        }
+
         this.mainTexture = null;
         this.maskTexture = null;
         this.mainFramebuffer = null;
         this.maskFramebuffer = null;
+        this.renderer = null;
     }
 
 });
@@ -18145,12 +18166,16 @@ var Mask = {
     /**
      * Sets the mask that this Game Object will use to render with.
      *
-     * The mask must have been previously created and can be either a
-     * GeometryMask or a BitmapMask.
-     *
+     * The mask must have been previously created and can be either a GeometryMask or a BitmapMask.
      * Note: Bitmap Masks only work on WebGL. Geometry Masks work on both WebGL and Canvas.
      *
      * If a mask is already set on this Game Object it will be immediately replaced.
+     * 
+     * Masks are positioned in global space and are not relative to the Game Object to which they
+     * are applied. The reason for this is that multiple Game Objects can all share the same mask.
+     * 
+     * Masks have no impact on physics or input detection. They are purely a rendering component
+     * that allows you to limit what is visible during the render pass.
      *
      * @method Phaser.GameObjects.Components.Mask#setMask
      * @since 3.6.2
@@ -57932,7 +57957,7 @@ var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webg
  * - renderer: Current WebGL renderer.
  * - topology: This indicates how the primitives are rendered. The default value is GL_TRIANGLES.
  *              Here is the full list of rendering primitives (https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants).
- * - vertShader: Source for vertex shader as a string.
+ * - vertShader: Source for vertex shaóder as a string.
  * - fragShader: Source for fragment shader as a string.
  * - vertexCapacity: The amount of vertices that shall be allocated
  * - vertexSize: The size of a single vertex in bytes.
@@ -62818,14 +62843,7 @@ var ScenePlugin = new Class({
     {
         if (key && key !== this.key)
         {
-            if (this.settings.status !== CONST.RUNNING)
-            {
-                this.manager.queueOp('start', key, data);
-            }
-            else
-            {
-                this.manager.start(key, data);
-            }
+            this.manager.queueOp('start', key, data);
         }
 
         return this;
@@ -62850,13 +62868,9 @@ var ScenePlugin = new Class({
      */
     run: function (key, data)
     {
-        if (this.settings.status !== CONST.RUNNING)
+        if (key && key !== this.key)
         {
             this.manager.queueOp('run', key, data);
-        }
-        else
-        {
-            this.manager.run(key, data);
         }
 
         return this;
@@ -62877,7 +62891,7 @@ var ScenePlugin = new Class({
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.pause(key, data);
+        this.manager.queueOp('pause', key, data);
 
         return this;
     },
@@ -62897,7 +62911,7 @@ var ScenePlugin = new Class({
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.resume(key, data);
+        this.manager.queueOp('resume', key, data);
 
         return this;
     },
@@ -62917,7 +62931,7 @@ var ScenePlugin = new Class({
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.sleep(key, data);
+        this.manager.queueOp('sleep', key, data);
 
         return this;
     },
@@ -62928,7 +62942,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#wake
      * @since 3.0.0
      *
-     * @param {string} key - The Scene to wake up.
+     * @param {string} [key] - The Scene to wake up.
      * @param {object} [data] - An optional data object that will be passed to the Scene and emitted in its wake event.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
@@ -62937,7 +62951,7 @@ var ScenePlugin = new Class({
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.wake(key, data);
+        this.manager.queueOp('wake', key, data);
 
         return this;
     },
@@ -62956,14 +62970,7 @@ var ScenePlugin = new Class({
     {
         if (key !== this.key)
         {
-            if (this.settings.status !== CONST.RUNNING)
-            {
-                this.manager.queueOp('switch', this.key, key);
-            }
-            else
-            {
-                this.manager.switch(this.key, key);
-            }
+            this.manager.queueOp('switch', this.key, key);
         }
 
         return this;
@@ -62983,7 +62990,7 @@ var ScenePlugin = new Class({
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.stop(key);
+        this.manager.queueOp('stop', key);
 
         return this;
     },
@@ -74433,6 +74440,11 @@ var SpriteSheet = function (texture, sourceIndex, x, y, width, height, config)
     var row = Math.floor((width - margin + spacing) / (frameWidth + spacing));
     var column = Math.floor((height - margin + spacing) / (frameHeight + spacing));
     var total = row * column;
+
+    if (total === 0)
+    {
+        console.warn('SpriteSheet frame dimensions will result in zero frames.');
+    }
 
     if (startFrame > total || startFrame < -total)
     {

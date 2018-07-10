@@ -1,6 +1,7 @@
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
+    _backgroundColor: '#2d2d2d',
     scene: {
         preload: preload,
         create: create,
@@ -21,9 +22,9 @@ function preload ()
 
 function create () 
 {
-    this.add.image(512, 0, 'neuro').setOrigin(0.5, 0);
-
     var content = [
+        "",
+        "",
         "",
         "",
         "The sky above the port was the color of television, tuned to a dead channel.",
@@ -50,18 +51,19 @@ function create ()
         "From Neuromancer by William Gibson"
     ];
 
-    // scroller = this.add.dynamicBitmapText(0, 0, 'desyrel', content, 24);
-    scroller = this.add.bitmapText(0, 0, 'desyrel', content, 24);
+    this.add.image(512, 0, 'neuro').setOrigin(0.5, 0);
 
-    // scroller.setSize(1024, 60);
+    scroller = this.add.dynamicBitmapText(16, 600, 'desyrel', content, 24);
+
+    scroller.setSize(1024, 300);
 }
 
 function update (time, delta)
 {
-    // scroller.scrollY += 0.03 * delta;
+    scroller.scrollY += 0.03 * delta;
 
     if (scroller.scrollY > 2100)
     {
-        // scroller.scrollY = 0;
+        scroller.scrollY = 0;
     }
 }

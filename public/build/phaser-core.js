@@ -20907,15 +20907,20 @@ var TransformMatrix = new Class({
 
     /**
      * Multiply this Matrix by the given Matrix.
+     * 
+     * If an `out` Matrix is given then the results will be stored in it.
+     * If it is not given, this matrix will be updated in place instead.
+     * Use an `out` Matrix if you do not wish to mutate this matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#multiply
      * @since 3.0.0
      *
      * @param {Phaser.GameObjects.Components.TransformMatrix} rhs - The Matrix to multiply by.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} [out] - An optional Matrix to store the results in.
      *
-     * @return {this} This TransformMatrix.
+     * @return {Phaser.GameObjects.Components.TransformMatrix} Either this TransformMatrix, or the `out` Matrix, if given in the arguments.
      */
-    multiply: function (rhs)
+    multiply: function (rhs, out)
     {
         var matrix = this.matrix;
         var source = rhs.matrix;
@@ -20934,14 +20939,16 @@ var TransformMatrix = new Class({
         var sourceE = source[4];
         var sourceF = source[5];
 
-        matrix[0] = sourceA * localA + sourceB * localC;
-        matrix[1] = sourceA * localB + sourceB * localD;
-        matrix[2] = sourceC * localA + sourceD * localC;
-        matrix[3] = sourceC * localB + sourceD * localD;
-        matrix[4] = sourceE * localA + sourceF * localC + localE;
-        matrix[5] = sourceE * localB + sourceF * localD + localF;
+        var destinationMatrix = (out === undefined) ? this : out;
 
-        return this;
+        destinationMatrix.a = sourceA * localA + sourceB * localC;
+        destinationMatrix.b = sourceA * localB + sourceB * localD;
+        destinationMatrix.c = sourceC * localA + sourceD * localC;
+        destinationMatrix.d = sourceC * localB + sourceD * localD;
+        destinationMatrix.e = sourceE * localA + sourceF * localC + localE;
+        destinationMatrix.f = sourceE * localB + sourceF * localD + localF;
+
+        return destinationMatrix;
     },
 
     /**
@@ -21107,8 +21114,8 @@ var TransformMatrix = new Class({
         matrix[1] = src.b;
         matrix[2] = src.c;
         matrix[3] = src.d;
-        matrix[4] = src.tx;
-        matrix[5] = src.ty;
+        matrix[4] = src.e;
+        matrix[5] = src.f;
 
         return this;
     },
@@ -23653,8 +23660,9 @@ var ImageWebGLRenderer = function (renderer, src, interpolationPercentage, camer
     {
         return;
     }
-    
+
     this.pipeline.batchSprite(src, camera, parentMatrix);
+
 };
 
 module.exports = ImageWebGLRenderer;
@@ -54446,6 +54454,16 @@ var WebGLRenderer = new Class({
             S3TC: false
         };
 
+        /**
+         * Cached drawing buffer height to reduce gl calls.
+         *
+         * @name Phaser.Renderer.WebGL.WebGLRenderer#drawingBufferHeight
+         * @type {number}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.drawingBufferHeight = 0;
+
         this.init(this.config);
     },
 
@@ -54528,7 +54546,9 @@ var WebGLRenderer = new Class({
         // Setup initial WebGL state
         gl.disable(gl.DEPTH_TEST);
         gl.disable(gl.CULL_FACE);
-        gl.disable(gl.SCISSOR_TEST);
+        
+        // gl.disable(gl.SCISSOR_TEST);
+
         gl.enable(gl.BLEND);
         gl.clearColor(clearColor.redGL, clearColor.greenGL, clearColor.blueGL, 1.0);
 
@@ -54590,6 +54610,8 @@ var WebGLRenderer = new Class({
         }
                 
         this.currentScissor.set([ 0, 0, this.width, this.height ]);
+        
+        this.drawingBufferHeight = gl.drawingBufferHeight;
 
         return this;
     },
@@ -54776,7 +54798,10 @@ var WebGLRenderer = new Class({
     {
         var gl = this.gl;
         var currentScissor = this.currentScissor;
-        var enabled = (x === 0 && y === 0 && w === gl.canvas.width && h === gl.canvas.height && w >= 0 && h >= 0);
+        var enabled = (x === 0 && y === 0 && w === this.width && h === this.height && w >= 0 && h >= 0);
+
+        //  TODO: If new scissor is same as old scissor, skip setting it again
+        //  TODO: If scissor is viewport size, skip setting altogether
 
         if (currentScissor[0] !== x ||
             currentScissor[1] !== y ||
@@ -54801,7 +54826,7 @@ var WebGLRenderer = new Class({
         }
 
         gl.enable(gl.SCISSOR_TEST);
-        gl.scissor(x, (gl.drawingBufferHeight - y - h), w, h);
+        gl.scissor(x, (this.drawingBufferHeight - y - h), w, h);
 
         return this;
     },
@@ -55578,6 +55603,7 @@ var WebGLRenderer = new Class({
             pipelines[key].onRender(scene, camera);
         }
 
+        //   Apply scissor for cam region + render background color, if not transparent
         this.preRenderCamera(camera);
 
         for (var index = 0; index < childCount; ++index)
@@ -55609,6 +55635,8 @@ var WebGLRenderer = new Class({
 
         this.flush();
         this.setBlendMode(CONST.BlendModes.NORMAL);
+
+        //  Applies camera effects and pops the scissor, if set
         this.postRenderCamera(camera);
     },
 
@@ -57957,7 +57985,7 @@ var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webg
  * - renderer: Current WebGL renderer.
  * - topology: This indicates how the primitives are rendered. The default value is GL_TRIANGLES.
  *              Here is the full list of rendering primitives (https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants).
- * - vertShader: Source for vertex shaóder as a string.
+ * - vertShader: Source for vertex shader as a string.
  * - fragShader: Source for fragment shader as a string.
  * - vertexCapacity: The amount of vertices that shall be allocated
  * - vertexSize: The size of a single vertex in bytes.
@@ -58067,22 +58095,42 @@ var TextureTintPipeline = new Class({
         /**
          * A temporary Transform Matrix, re-used internally during batching.
          *
-         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempCameraMatrix
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix1
          * @private
          * @type {Phaser.GameObjects.Components.TransformMatrix}
          * @since 3.11.0
          */
-        this._tempCameraMatrix = new TransformMatrix();
+        this._tempMatrix1 = new TransformMatrix();
 
         /**
          * A temporary Transform Matrix, re-used internally during batching.
          *
-         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempSpriteMatrix
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix2
          * @private
          * @type {Phaser.GameObjects.Components.TransformMatrix}
          * @since 3.11.0
          */
-        this._tempSpriteMatrix = new TransformMatrix();
+        this._tempMatrix2 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix3
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.11.0
+         */
+        this._tempMatrix3 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix4
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.11.0
+         */
+        this._tempMatrix4 = new TransformMatrix();
 
         this.mvpInit();
     },
@@ -58548,10 +58596,9 @@ var TextureTintPipeline = new Class({
     {
         this.renderer.setPipeline(this);
 
-        var camMatrix = this._tempCameraMatrix;
-        var spriteMatrix = this._tempSpriteMatrix;
-
-        spriteMatrix.applyITRS(sprite.x - camera.scrollX * sprite.scrollFactorX, sprite.y - camera.scrollY * sprite.scrollFactorY, sprite.rotation, sprite.scaleX, sprite.scaleY);
+        var camMatrix = this._tempMatrix1;
+        var spriteMatrix = this._tempMatrix2;
+        var calcMatrix = this._tempMatrix3;
 
         var frame = sprite.frame;
         var texture = frame.glTexture;
@@ -58607,9 +58654,9 @@ var TextureTintPipeline = new Class({
         var xw = x + frameWidth;
         var yh = y + frameHeight;
 
-        camMatrix.copyFrom(camera.matrix);
+        spriteMatrix.applyITRS(sprite.x, sprite.y, sprite.rotation, sprite.scaleX, sprite.scaleY);
 
-        var calcMatrix;
+        camMatrix.copyFrom(camera.matrix);
 
         if (parentTransformMatrix)
         {
@@ -58620,12 +58667,16 @@ var TextureTintPipeline = new Class({
             spriteMatrix.e = sprite.x;
             spriteMatrix.f = sprite.y;
 
-            //  Multiply by the Sprite matrix
-            calcMatrix = camMatrix.multiply(spriteMatrix);
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
         else
         {
-            calcMatrix = spriteMatrix.multiply(camMatrix);
+            spriteMatrix.e -= camera.scrollX * sprite.scrollFactorX;
+            spriteMatrix.f -= camera.scrollY * sprite.scrollFactorY;
+    
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
 
         var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
@@ -58777,368 +58828,6 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * Batches DynamicBitmapText game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchXDynamicBitmapText: function (bitmapText, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        this.renderer.setPipeline(this);
-
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        var roundPixels = camera.roundPixels;
-        var displayCallback = bitmapText.displayCallback;
-        var text = bitmapText.text;
-        var textLength = text.length;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var renderer = this.renderer;
-        var cameraMatrix = camera.matrix.matrix;
-        var frame = bitmapText.frame;
-        var textureSource = bitmapText.texture.source[frame.sourceIndex];
-        var cameraScrollX = camera.scrollX * bitmapText.scrollFactorX;
-        var cameraScrollY = camera.scrollY * bitmapText.scrollFactorY;
-        var scrollX = bitmapText.scrollX;
-        var scrollY = bitmapText.scrollY;
-        var fontData = bitmapText.fontData;
-        var lineHeight = fontData.lineHeight;
-        var scale = (bitmapText.fontSize / fontData.size);
-        var chars = fontData.chars;
-        var alpha = camera.alpha * bitmapText.alpha;
-        var vTintTL = getTint(bitmapText._tintTL, alpha);
-        var vTintTR = getTint(bitmapText._tintTR, alpha);
-        var vTintBL = getTint(bitmapText._tintBL, alpha);
-        var vTintBR = getTint(bitmapText._tintBR, alpha);
-        var tintEffect = (bitmapText._isTinted && bitmapText.tintFill);
-        var srcX = bitmapText.x;
-        var srcY = bitmapText.y;
-        var textureX = frame.cutX;
-        var textureY = frame.cutY;
-        var textureWidth = textureSource.width;
-        var textureHeight = textureSource.height;
-        var texture = textureSource.glTexture;
-        var xAdvance = 0;
-        var yAdvance = 0;
-        var indexCount = 0;
-        var charCode = 0;
-        var glyph = null;
-        var glyphX = 0;
-        var glyphY = 0;
-        var glyphW = 0;
-        var glyphH = 0;
-        var x = 0;
-        var y = 0;
-        var xw = 0;
-        var tx0;
-        var ty0;
-        var tx1;
-        var ty1;
-        var tx2;
-        var ty2;
-        var tx3;
-        var ty3;
-        var yh = 0;
-        var umin = 0;
-        var umax = 0;
-        var vmin = 0;
-        var vmax = 0;
-        var lastGlyph = null;
-        var lastCharCode = 0;
-        var translateX = srcX + frame.x;
-        var translateY = srcY + frame.y;
-        var rotation = bitmapText.rotation;
-        var scaleX = bitmapText.scaleX;
-        var scaleY = bitmapText.scaleY;
-        var letterSpacing = bitmapText.letterSpacing;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = translateX;
-        var srf = translateY;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var crop = (bitmapText.cropWidth > 0 || bitmapText.cropHeight > 0);
-        var uta, utb, utc, utd, ute, utf;
-        var vertexOffset = 0;
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -cameraScrollX;
-            var csf = -cameraScrollY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
-        }
-        else
-        {
-            sre -= cameraScrollX;
-            srf -= cameraScrollY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
-        }
-
-        this.setTexture2D(texture, 0);
-
-        if (crop)
-        {
-            renderer.pushScissor(
-                bitmapText.x,
-                bitmapText.y,
-                bitmapText.cropWidth * bitmapText.scaleX,
-                bitmapText.cropHeight * bitmapText.scaleY
-            );
-        }
-
-        for (var index = 0; index < textLength; ++index)
-        {
-            scale = (bitmapText.fontSize / bitmapText.fontData.size);
-            rotation = 0;
-
-            charCode = text.charCodeAt(index);
-
-            if (charCode === 10)
-            {
-                xAdvance = 0;
-                indexCount = 0;
-                yAdvance += lineHeight;
-                lastGlyph = null;
-                continue;
-            }
-
-            glyph = chars[charCode];
-
-            if (!glyph)
-            {
-                continue;
-            }
-
-            glyphX = textureX + glyph.x;
-            glyphY = textureY + glyph.y;
-
-            glyphW = glyph.width;
-            glyphH = glyph.height;
-            
-            x = (indexCount + glyph.xOffset + xAdvance) - scrollX;
-            y = (glyph.yOffset + yAdvance) - scrollY;
-
-            if (lastGlyph !== null)
-            {
-                var kerningOffset = glyph.kerning[lastCharCode];
-                x += (kerningOffset !== undefined) ? kerningOffset : 0;
-            }
-
-            xAdvance += glyph.xAdvance + letterSpacing;
-            indexCount += 1;
-            lastGlyph = glyph;
-            lastCharCode = charCode;
-
-            //  Nothing to render or a space? Then skip to the next glyph
-            if (glyphW === 0 || glyphH === 0 || charCode === 32)
-            {
-                continue;
-            }
-
-            if (displayCallback)
-            {
-                var output = displayCallback({
-                    color: 0,
-                    tint: {
-                        topLeft: vTintTL,
-                        topRight: vTintTR,
-                        bottomLeft: vTintBL,
-                        bottomRight: vTintBR
-                    },
-                    index: index,
-                    charCode: charCode,
-                    x: x,
-                    y: y,
-                    scale: scale,
-                    rotation: 0,
-                    data: glyph.data
-                });
-
-                x = output.x;
-                y = output.y;
-                scale = output.scale;
-                rotation = output.rotation;
-
-                if (output.color)
-                {
-                    vTintTL = output.color;
-                    vTintTR = output.color;
-                    vTintBL = output.color;
-                    vTintBR = output.color;
-                }
-                else
-                {
-                    vTintTL = output.tint.topLeft;
-                    vTintTR = output.tint.topRight;
-                    vTintBL = output.tint.bottomLeft;
-                    vTintBR = output.tint.bottomRight;
-                }
-
-                vTintTL = getTint(vTintTL, alpha);
-                vTintTR = getTint(vTintTR, alpha);
-                vTintBL = getTint(vTintBL, alpha);
-                vTintBR = getTint(vTintBR, alpha);
-            }
-
-            x -= bitmapText.displayOriginX;
-            y -= bitmapText.displayOriginY;
-            x *= scale;
-            y *= scale;
-
-            sr = Math.sin(rotation);
-            cr = Math.cos(rotation);
-            uta = cr * scale;
-            utb = sr * scale;
-            utc = -sr * scale;
-            utd = cr * scale;
-            ute = x;
-            utf = y;
-
-            sra = uta * mva + utb * mvc;
-            srb = uta * mvb + utb * mvd;
-            src = utc * mva + utd * mvc;
-            srd = utc * mvb + utd * mvd;
-            sre = ute * mva + utf * mvc + mve;
-            srf = ute * mvb + utf * mvd + mvf;
-
-            xw = glyphW;
-            yh = glyphH;
-            tx0 = sre;
-            ty0 = srf;
-            tx1 = yh * src + sre;
-            ty1 = yh * srd + srf;
-            tx2 = xw * sra + yh * src + sre;
-            ty2 = xw * srb + yh * srd + srf;
-            tx3 = xw * sra + sre;
-            ty3 = xw * srb + srf;
-
-            umin = glyphX / textureWidth;
-            umax = (glyphX + glyphW) / textureWidth;
-            vmin = glyphY / textureHeight;
-            vmax = (glyphY + glyphH) / textureHeight;
-
-            if (this.vertexCount + 6 > this.vertexCapacity)
-            {
-                this.flush();
-            }
-            
-            if (roundPixels)
-            {
-                tx0 |= 0;
-                ty0 |= 0;
-                tx1 |= 0;
-                ty1 |= 0;
-                tx2 |= 0;
-                ty2 |= 0;
-                tx3 |= 0;
-                ty3 |= 0;
-            }
-
-            vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
-
-            vertexViewF32[++vertexOffset] = tx0;
-            vertexViewF32[++vertexOffset] = ty0;
-            vertexViewF32[++vertexOffset] = umin;
-            vertexViewF32[++vertexOffset] = vmin;
-            vertexViewF32[++vertexOffset] = tintEffect;
-            vertexViewU32[++vertexOffset] = vTintTL;
-    
-            vertexViewF32[++vertexOffset] = tx1;
-            vertexViewF32[++vertexOffset] = ty1;
-            vertexViewF32[++vertexOffset] = umin;
-            vertexViewF32[++vertexOffset] = vmax;
-            vertexViewF32[++vertexOffset] = tintEffect;
-            vertexViewU32[++vertexOffset] = vTintBL;
-
-            vertexViewF32[++vertexOffset] = tx2;
-            vertexViewF32[++vertexOffset] = ty2;
-            vertexViewF32[++vertexOffset] = umax;
-            vertexViewF32[++vertexOffset] = vmax;
-            vertexViewF32[++vertexOffset] = tintEffect;
-            vertexViewU32[++vertexOffset] = vTintBR;
-
-            vertexViewF32[++vertexOffset] = tx0;
-            vertexViewF32[++vertexOffset] = ty0;
-            vertexViewF32[++vertexOffset] = umin;
-            vertexViewF32[++vertexOffset] = vmin;
-            vertexViewF32[++vertexOffset] = tintEffect;
-            vertexViewU32[++vertexOffset] = vTintTL;
-
-            vertexViewF32[++vertexOffset] = tx2;
-            vertexViewF32[++vertexOffset] = ty2;
-            vertexViewF32[++vertexOffset] = umax;
-            vertexViewF32[++vertexOffset] = vmax;
-            vertexViewF32[++vertexOffset] = tintEffect;
-            vertexViewU32[++vertexOffset] = vTintBR;
-
-            vertexViewF32[++vertexOffset] = tx3;
-            vertexViewF32[++vertexOffset] = ty3;
-            vertexViewF32[++vertexOffset] = umax;
-            vertexViewF32[++vertexOffset] = vmin;
-            vertexViewF32[++vertexOffset] = tintEffect;
-            vertexViewU32[++vertexOffset] = vTintTR;
-        
-            this.vertexCount += 6;
-        }
-
-        if (crop)
-        {
-            renderer.popScissor();
-        }
-    },
-
-    /**
      * Generic function for batching a textured quad
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
@@ -59194,10 +58883,9 @@ var TextureTintPipeline = new Class({
     {
         this.renderer.setPipeline(this);
 
-        var camMatrix = this._tempCameraMatrix;
-        var spriteMatrix = this._tempSpriteMatrix;
-
-        spriteMatrix.applyITRS(srcX - camera.scrollX * scrollFactorX, srcY - camera.scrollY * scrollFactorY, rotation, scaleX, scaleY);
+        var camMatrix = this._tempMatrix1;
+        var spriteMatrix = this._tempMatrix2;
+        var calcMatrix = this._tempMatrix3;
 
         var width = srcWidth;
         var height = srcHeight;
@@ -59226,9 +58914,9 @@ var TextureTintPipeline = new Class({
         var xw = x + width;
         var yh = y + height;
 
-        camMatrix.copyFrom(camera.matrix);
+        spriteMatrix.applyITRS(srcX, srcY, rotation, scaleX, scaleY);
 
-        var calcMatrix;
+        camMatrix.copyFrom(camera.matrix);
 
         if (parentTransformMatrix)
         {
@@ -59239,12 +58927,16 @@ var TextureTintPipeline = new Class({
             spriteMatrix.e = srcX;
             spriteMatrix.f = srcY;
 
-            //  Multiply by the Sprite matrix
-            calcMatrix = camMatrix.multiply(spriteMatrix);
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
         else
         {
-            calcMatrix = spriteMatrix.multiply(camMatrix);
+            spriteMatrix.e -= camera.scrollX * scrollFactorX;
+            spriteMatrix.f -= camera.scrollY * scrollFactorY;
+    
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
 
         var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
@@ -59263,10 +58955,13 @@ var TextureTintPipeline = new Class({
         {
             tx0 |= 0;
             ty0 |= 0;
+
             tx1 |= 0;
             ty1 |= 0;
+
             tx2 |= 0;
             ty2 |= 0;
+
             tx3 |= 0;
             ty3 |= 0;
         }
@@ -62380,7 +62075,6 @@ module.exports = SceneManager;
 
 var Clamp = __webpack_require__(/*! ../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
 var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 

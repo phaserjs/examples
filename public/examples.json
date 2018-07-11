@@ -1087,12 +1087,6 @@
       "name": "bugs",
       "children": [
         {
-          "path": "src\\bugs\\cam matrix.js",
-          "name": "cam matrix.js",
-          "size": 557,
-          "extension": ".js"
-        },
-        {
           "path": "src\\bugs\\emitter blend mode.js",
           "name": "emitter blend mode.js",
           "size": 559,
@@ -1105,7 +1099,7 @@
           "extension": ".js"
         }
       ],
-      "size": 2706
+      "size": 2149
     },
     {
       "path": "src\\cache",
@@ -2421,11 +2415,11 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\vertical scroller.js",
                   "name": "vertical scroller.js",
-                  "size": 2566,
+                  "size": 2551,
                   "extension": ".js"
                 }
               ],
-              "size": 11482
+              "size": 11467
             },
             {
               "path": "src\\game objects\\bitmaptext\\retro font",
@@ -2580,7 +2574,7 @@
               "size": 18087
             }
           ],
-          "size": 40819
+          "size": 40804
         },
         {
           "path": "src\\game objects\\blitter",
@@ -3493,6 +3487,12 @@
           "name": "lights",
           "children": [
             {
+              "path": "src\\game objects\\lights\\blitter light.js",
+              "name": "blitter light.js",
+              "size": 2231,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\lights\\change scene.js",
               "name": "change scene.js",
               "size": 2028,
@@ -3511,13 +3511,25 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\lights\\mesh light.js",
+              "name": "mesh light.js",
+              "size": 2808,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\lights\\spotlight.js",
               "name": "spotlight.js",
-              "size": 950,
+              "size": 1038,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\lights\\tilesprite light.js",
+              "name": "tilesprite light.js",
+              "size": 1867,
               "extension": ".js"
             }
           ],
-          "size": 7991
+          "size": 14985
         },
         {
           "path": "src\\game objects\\mesh",
@@ -3991,7 +4003,7 @@
             {
               "path": "src\\game objects\\render texture\\draw to render texture.js",
               "name": "draw to render texture.js",
-              "size": 512,
+              "size": 508,
               "extension": ".js"
             },
             {
@@ -4004,6 +4016,30 @@
               "path": "src\\game objects\\render texture\\fireball.js",
               "name": "fireball.js",
               "size": 1899,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\paint interpolated shadow.js",
+              "name": "paint interpolated shadow.js",
+              "size": 1509,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\paint interpolated.js",
+              "name": "paint interpolated.js",
+              "size": 1205,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\paint tinted.js",
+              "name": "paint tinted.js",
+              "size": 834,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\paint.js",
+              "name": "paint.js",
+              "size": 647,
               "extension": ".js"
             },
             {
@@ -4043,7 +4079,7 @@
               "extension": ".js"
             }
           ],
-          "size": 14128
+          "size": 18319
         },
         {
           "path": "src\\game objects\\sprites",
@@ -4674,7 +4710,7 @@
           "size": 258024
         }
       ],
-      "size": 776546
+      "size": 787716
     },
     {
       "path": "src\\games",
@@ -8640,7 +8676,7 @@
         {
           "path": "src\\renderer\\Custom Pipeline.js",
           "name": "Custom Pipeline.js",
-          "size": 2964,
+          "size": 2990,
           "extension": ".js"
         },
         {
@@ -8650,7 +8686,7 @@
           "extension": ".js"
         }
       ],
-      "size": 3580
+      "size": 3606
     },
     {
       "path": "src\\scenes",
@@ -10014,5 +10050,5 @@
       "size": 5291
     }
   ],
-  "size": 2627836
+  "size": 2638475
 }

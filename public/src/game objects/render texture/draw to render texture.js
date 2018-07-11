@@ -16,9 +16,9 @@ function preload ()
     this.load.image('bunny', 'assets/sprites/bunny.png');
 }
 
-function create() {
-
-    var rt = this.add.renderTexture(400, 300, 800, 600);
+function create ()
+{
+    var rt = this.add.renderTexture(0, 0, 800, 600);
 
     var bunny = this.make.sprite({ key: 'bunny', add: false });
 

@@ -21121,6 +21121,31 @@ var TransformMatrix = new Class({
     },
 
     /**
+     * Set the values of this Matrix to copy those of the array given.
+     * Where array indexes 0, 1, 2, 3, 4 and 5 are mapped to a, b, c, d, e and f.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#copyFromArray
+     * @since 3.11.0
+     *
+     * @param {array} src - The array of values to set into this matrix.
+     *
+     * @return {this} This TransformMatrix.
+     */
+    copyFromArray: function (src)
+    {
+        var matrix = this.matrix;
+
+        matrix[0] = src[0];
+        matrix[1] = src[1];
+        matrix[2] = src[2];
+        matrix[3] = src[3];
+        matrix[4] = src[4];
+        matrix[5] = src[5];
+
+        return this;
+    },
+
+    /**
      * Set the values of this Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#setTransform
@@ -23662,7 +23687,6 @@ var ImageWebGLRenderer = function (renderer, src, interpolationPercentage, camer
     }
 
     this.pipeline.batchSprite(src, camera, parentMatrix);
-
 };
 
 module.exports = ImageWebGLRenderer;
@@ -32723,6 +32747,11 @@ var InputManager = new Class({
      */
     transformPointer: function (pointer, pageX, pageY)
     {
+        //  Store the previous position
+        pointer.prevPosition.x = pointer.x;
+        pointer.prevPosition.y = pointer.y;
+
+        //  Set the new position
         pointer.x = (pageX - this.bounds.left) * this.scale.x;
         pointer.y = (pageY - this.bounds.top) * this.scale.y;
     },
@@ -35351,7 +35380,9 @@ module.exports = InputPluginCache;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var SmoothStepInterpolation = __webpack_require__(/*! ../math/interpolation/SmoothStepInterpolation */ "./math/interpolation/SmoothStepInterpolation.js");
 var Vector2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
+
 
 /**
  * @classdesc
@@ -35449,6 +35480,20 @@ var Pointer = new Class({
          * @since 3.0.0
          */
         this.position = new Vector2();
+
+        /**
+         * The previous position of the Pointer in screen space.
+         * 
+         * The old x and y values are stored in here during the InputManager.transformPointer call.
+         * 
+         * You can use it to track how fast the pointer is moving, or to smoothly interpolate between the old and current position.
+         * See the `Pointer.getInterpolatedPosition` method to assist in this.
+         *
+         * @name Phaser.Input.Pointer#prevPosition
+         * @type {Phaser.Math.Vector2}
+         * @since 3.11.0
+         */
+        this.prevPosition = new Vector2();
 
         /**
          * The x position of this Pointer, translated into the coordinate space of the most recent Camera it interacted with.
@@ -35990,6 +36035,57 @@ var Pointer = new Class({
     forwardButtonDown: function ()
     {
         return (this.buttons & 16);
+    },
+
+    /**
+     * Takes the previous and current Pointer positions and then generates an array of interpolated values between
+     * the two. The array will be populated up to the size of the `steps` argument.
+     * 
+     * ```javaScript
+     * var points = pointer.getInterpolatedPosition(4);
+     * 
+     * // points[0] = { x: 0, y: 0 }
+     * // points[1] = { x: 2, y: 1 }
+     * // points[2] = { x: 3, y: 2 }
+     * // points[3] = { x: 6, y: 3 }
+     * ```
+     * 
+     * Use this if you need to get smoothed values between the previous and current pointer positions. DOM pointer
+     * events can often fire faster than the main browser loop, and this will help you avoid janky movement
+     * especially if you have an object following a Pointer.
+     * 
+     * Note that if you provide an output array it will only be populated up to the number of steps provided.
+     * It will not clear any previous data that may have existed beyond the range of the steps count.
+     * 
+     * Internally it uses the Smooth Step interpolation calculation.
+     *
+     * @method Phaser.Input.Pointer#getInterpolatedPosition
+     * @since 3.11.0
+     * 
+     * @param {integer} [steps=10] - The number of interpolation steps to use.
+     * @param {array} [out] - An array to store the results in. If not provided a new one will be created.
+     * 
+     * @return {array} An array of interpolated values.
+     */
+    getInterpolatedPosition: function (steps, out)
+    {
+        if (steps === undefined) { steps = 10; }
+        if (out === undefined) { out = []; }
+
+        var prevX = this.prevPosition.x;
+        var prevY = this.prevPosition.y;
+
+        var curX = this.position.x;
+        var curY = this.position.y;
+
+        for (var i = 0; i < steps; i++)
+        {
+            var t = (1 / steps) * i;
+
+            out[i] = { x: SmoothStepInterpolation(t, prevX, curX), y: SmoothStepInterpolation(t, prevY, curY) };
+        }
+
+        return out;
     },
 
     /**
@@ -46742,6 +46838,58 @@ module.exports = RoundAwayFromZero;
 
 /***/ }),
 
+/***/ "./math/SmoothStep.js":
+/*!****************************!*\
+  !*** ./math/SmoothStep.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * Calculate a smooth interpolation percentage of `x` between `min` and `max`.
+ *
+ * The function receives the number `x` as an argument and returns 0 if `x` is less than or equal to the left edge,
+ * 1 if `x` is greater than or equal to the right edge, and smoothly interpolates, using a Hermite polynomial,
+ * between 0 and 1 otherwise.
+ *
+ * @function Phaser.Math.SmoothStep
+ * @since 3.0.0
+ * @see {@link https://en.wikipedia.org/wiki/Smoothstep}
+ *
+ * @param {number} x - The input value.
+ * @param {number} min - The minimum value, also known as the 'left edge', assumed smaller than the 'right edge'.
+ * @param {number} max - The maximum value, also known as the 'right edge', assumed greater than the 'left edge'.
+ *
+ * @return {number} The percentage of interpolation, between 0 and 1.
+ */
+var SmoothStep = function (x, min, max)
+{
+    if (x <= min)
+    {
+        return 0;
+    }
+
+    if (x >= max)
+    {
+        return 1;
+    }
+
+    x = (x - min) / (max - min);
+
+    return x * x * (3 - 2 * x);
+};
+
+module.exports = SmoothStep;
+
+
+/***/ }),
+
 /***/ "./math/TransformXY.js":
 /*!*****************************!*\
   !*** ./math/TransformXY.js ***!
@@ -49353,6 +49501,44 @@ module.exports = Stepped;
  */
 
 module.exports = __webpack_require__(/*! ./Stepped */ "./math/easing/stepped/Stepped.js");
+
+
+/***/ }),
+
+/***/ "./math/interpolation/SmoothStepInterpolation.js":
+/*!*******************************************************!*\
+  !*** ./math/interpolation/SmoothStepInterpolation.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var SmoothStep = __webpack_require__(/*! ../SmoothStep */ "./math/SmoothStep.js");
+
+/**
+ * A Smooth Step interpolation method.
+ *
+ * @function Phaser.Math.Interpolation.SmoothStep
+ * @since 3.9.0
+ * @see {@link https://en.wikipedia.org/wiki/Smoothstep}
+ *
+ * @param {number} t - The percentage of interpolation, between 0 and 1.
+ * @param {number} min - The minimum value, also known as the 'left edge', assumed smaller than the 'right edge'.
+ * @param {number} max - The maximum value, also known as the 'right edge', assumed greater than the 'left edge'.
+ *
+ * @return {number} The interpolated value.
+ */
+var SmoothStepInterpolation = function (t, min, max)
+{
+    return min + (max - min) * SmoothStep(t, 0, 1);
+};
+
+module.exports = SmoothStepInterpolation;
 
 
 /***/ }),
@@ -54891,11 +55077,12 @@ var WebGLRenderer = new Class({
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setPipeline
      * @since 3.0.0
      *
-     * @param {Phaser.Renderer.WebGL.WebGLPipeline} pipelineInstance - [description]
+     * @param {Phaser.Renderer.WebGL.WebGLPipeline} pipelineInstance - The pipeline instance to be activated.
+     * @param {Phaser.GameObjects.GameObject} [gameObject] - The Game Object that invoked this pipeline, if any.
      *
-     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLPipeline} The pipeline that was activated.
      */
-    setPipeline: function (pipelineInstance)
+    setPipeline: function (pipelineInstance, gameObject)
     {
         if (this.currentPipeline !== pipelineInstance ||
             this.currentPipeline.vertexBuffer !== this.currentVertexBuffer ||
@@ -54906,7 +55093,7 @@ var WebGLRenderer = new Class({
             this.currentPipeline.bind();
         }
 
-        this.currentPipeline.onBind();
+        this.currentPipeline.onBind(gameObject);
 
         return this.currentPipeline;
     },
@@ -57531,15 +57718,17 @@ var ForwardDiffuseLightPipeline = new Class({
     },
 
     /**
-     * This function binds it's base class resources and this lights 2D resources.
+     * This function binds its base class resources and this lights 2D resources.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#onBind
      * @override
      * @since 3.0.0
+     * 
+     * @param {Phaser.GameObjects.GameObject} [gameObject] - The Game Object that invoked this pipeline, if any.
      *
      * @return {Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline} [description]
      */
-    onBind: function ()
+    onBind: function (gameObject)
     {
         TextureTintPipeline.prototype.onBind.call(this);
 
@@ -57550,6 +57739,11 @@ var ForwardDiffuseLightPipeline = new Class({
 
         renderer.setInt1(program, 'uNormSampler', 1);
         renderer.setFloat2(program, 'uResolution', this.width, this.height);
+
+        if (gameObject)
+        {
+            this.setNormalMap(gameObject);
+        }
 
         return this;
     },
@@ -57620,102 +57814,29 @@ var ForwardDiffuseLightPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Sets the Game Objects normal map as the active texture.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawStaticTilemapLayer
-     * @override
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#setNormalMap
+     * @since 3.11.0
      *
-     * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
+     * @param {Phaser.GameObjects.GameObject} gameObject - [description]
      */
-    drawStaticTilemapLayer: function (tilemap, camera, parentTransformMatrix)
+    setNormalMap: function (gameObject)
     {
-        if (!this.active)
+        if (!this.active || !gameObject || !gameObject.texture)
         {
             return;
         }
 
-        var normalTexture = tilemap.tileset.image.dataSource[0];
+        // var normalTexture = tilemapLayer.tileset.image.dataSource[0];
+        var normalTexture = gameObject.texture.dataSource[gameObject.frame.sourceIndex];
 
         if (normalTexture)
         {
-            this.renderer.setPipeline(this);
             this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawStaticTilemapLayer.call(this, tilemap, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. StaticTilemapLayer rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawStaticTilemapLayer(tilemap, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawEmitterManager
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    drawEmitterManager: function (emitterManager, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
         }
 
-        var normalTexture = emitterManager.texture.dataSource[emitterManager.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawEmitterManager.call(this, emitterManager, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. EmitterManager rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawEmitterManager(emitterManager, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawBlitter
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Blitter} blitter - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    drawBlitter: function (blitter, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = blitter.texture.dataSource[blitter.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawBlitter.call(this, blitter, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. Blitter rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawBlitter(blitter, camera, parentTransformMatrix);
-        }
+        this.renderer.setPipeline(gameObject.defaultPipeline);
     },
 
     /**
@@ -57741,207 +57862,10 @@ var ForwardDiffuseLightPipeline = new Class({
         if (normalTexture)
         {
             this.renderer.setPipeline(this);
+
             this.setTexture2D(normalTexture.glTexture, 1);
+
             TextureTintPipeline.prototype.batchSprite.call(this, sprite, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. Sprite rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchSprite(sprite, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchMesh
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Mesh} mesh - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchMesh: function (mesh, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = mesh.texture.dataSource[mesh.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchMesh.call(this, mesh, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. Mesh rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchMesh(mesh, camera, parentTransformMatrix);
-
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.BitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchBitmapText: function (bitmapText, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = bitmapText.texture.dataSource[bitmapText.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchBitmapText.call(this, bitmapText, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. BitmapText rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchBitmapText(bitmapText, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchDynamicBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchDynamicBitmapText: function (bitmapText, camera, parentTransformMatrix)
-    {
-        var normalTexture = bitmapText.texture.dataSource[bitmapText.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchDynamicBitmapText.call(this, bitmapText, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. DynamicBitmapText rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchDynamicBitmapText(bitmapText, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Text} text - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchText: function (text, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = text.texture.dataSource[text.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchText.call(this, text, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. Text rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchText(text, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchDynamicTilemapLayer
-     * @since 3.0.0
-     *
-     * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchDynamicTilemapLayer: function (tilemapLayer, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = tilemapLayer.tileset.image.dataSource[0];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchDynamicTilemapLayer.call(this, tilemapLayer, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. DynamicTilemapLayer rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchDynamicTilemapLayer(tilemapLayer, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchTileSprite
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.TileSprite} tileSprite - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchTileSprite: function (tileSprite, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = tileSprite.texture.dataSource[tileSprite.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchTileSprite.call(this, tileSprite, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. TileSprite rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchTileSprite(tileSprite, camera, parentTransformMatrix);
         }
     }
 
@@ -57969,6 +57893,7 @@ module.exports = ForwardDiffuseLightPipeline;
  */
 
 var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+var GetFastValue = __webpack_require__(/*! ../../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var ModelViewProjection = __webpack_require__(/*! ./components/ModelViewProjection */ "./renderer/webgl/pipelines/components/ModelViewProjection.js");
 var TransformMatrix = __webpack_require__(/*! ../../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var ShaderSourceFS = __webpack_require__(/*! ../shaders/TextureTint-frag.js */ "./renderer/webgl/shaders/TextureTint-frag.js");
@@ -58018,12 +57943,11 @@ var TextureTintPipeline = new Class({
             game: config.game,
             renderer: config.renderer,
             gl: config.renderer.gl,
-            topology: config.renderer.gl.TRIANGLES,
-            vertShader: ShaderSourceVS,
-            fragShader: ShaderSourceFS,
-            vertexCapacity: 6 * rendererConfig.batchSize,
-            vertexSize: Float32Array.BYTES_PER_ELEMENT * 5 + Uint8Array.BYTES_PER_ELEMENT * 4,
-
+            topology: GetFastValue(config, 'topology', config.renderer.gl.TRIANGLES),
+            vertShader: GetFastValue(config, 'vertShader', ShaderSourceVS),
+            fragShader: GetFastValue(config, 'fragShader', ShaderSourceFS),
+            vertexCapacity: GetFastValue(config, 'vertexCapacity', 6 * rendererConfig.batchSize),
+            vertexSize: GetFastValue(config, 'vertexSize', Float32Array.BYTES_PER_ELEMENT * 5 + Uint8Array.BYTES_PER_ELEMENT * 4),
             attributes: [
                 {
                     name: 'inPosition',
@@ -58352,237 +58276,6 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * Renders contents of a ParticleEmitterManager. It'll batch all particles if possible.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawEmitterManager
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    drawEmitterManager: function (emitterManager, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        this.renderer.setPipeline(this);
-
-        var roundPixels = camera.roundPixels;
-        var emitters = emitterManager.emitters.list;
-        var emitterCount = emitters.length;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var renderer = this.renderer;
-        var maxQuads = this.maxQuads;
-        var cameraScrollX = camera.scrollX;
-        var cameraScrollY = camera.scrollY;
-        var cameraMatrix = camera.matrix.matrix;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var sin = Math.sin;
-        var cos = Math.cos;
-        var vertexComponentCount = this.vertexComponentCount;
-        var vertexCapacity = this.vertexCapacity;
-        var texture = emitterManager.defaultFrame.source.glTexture;
-        var pca, pcb, pcc, pcd, pce, pcf;
-        var pma, pmb, pmc, pmd, pme, pmf;
-
-        if (parentMatrix)
-        {
-            pma = parentMatrix[0];
-            pmb = parentMatrix[1];
-            pmc = parentMatrix[2];
-            pmd = parentMatrix[3];
-            pme = parentMatrix[4];
-            pmf = parentMatrix[5];
-        }
-
-        this.setTexture2D(texture, 0);
-        
-        for (var emitterIndex = 0; emitterIndex < emitterCount; ++emitterIndex)
-        {
-            var emitter = emitters[emitterIndex];
-            var particles = emitter.alive;
-            var aliveLength = particles.length;
-            var batchCount = Math.ceil(aliveLength / maxQuads);
-            var particleOffset = 0;
-            var scrollX = cameraScrollX * emitter.scrollFactorX;
-            var scrollY = cameraScrollY * emitter.scrollFactorY;
-
-            if (parentMatrix)
-            {
-                var cse = -scrollX;
-                var csf = -scrollY;
-                var pse = cse * cma + csf * cmc + cme;
-                var psf = cse * cmb + csf * cmd + cmf;
-                pca = pma * cma + pmb * cmc;
-                pcb = pma * cmb + pmb * cmd;
-                pcc = pmc * cma + pmd * cmc;
-                pcd = pmc * cmb + pmd * cmd;
-                pce = pme * cma + pmf * cmc + pse;
-                pcf = pme * cmb + pmf * cmd + psf;
-
-                cma = pca;
-                cmb = pcb;
-                cmc = pcc;
-                cmd = pcd;
-                cme = pce;
-                cmf = pcf;
-
-                scrollX = 0.0;
-                scrollY = 0.0;
-            }
-
-            if (!emitter.visible || aliveLength === 0)
-            {
-                continue;
-            }
-
-            renderer.setBlendMode(emitter.blendMode);
-
-            if (this.vertexCount >= vertexCapacity)
-            {
-                this.flush();
-                this.setTexture2D(texture, 0);
-            }
-
-            var tintEffect = false;
-
-            for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
-            {
-                var batchSize = Math.min(aliveLength, maxQuads);
-
-                for (var index = 0; index < batchSize; ++index)
-                {
-                    var particle = particles[particleOffset + index];
-
-                    if (particle.alpha <= 0)
-                    {
-                        continue;
-                    }
-
-                    var frame = particle.frame;
-                    var uvs = frame.uvs;
-                    var x = -(frame.halfWidth);
-                    var y = -(frame.halfHeight);
-                    var color = particle.color;
-                    var xw = x + frame.width;
-                    var yh = y + frame.height;
-                    var sr = sin(particle.rotation);
-                    var cr = cos(particle.rotation);
-
-                    var sra = cr * particle.scaleX;
-                    var srb = sr * particle.scaleX;
-                    var src = -sr * particle.scaleY;
-                    var srd = cr * particle.scaleY;
-                    var sre = particle.x - scrollX;
-                    var srf = particle.y - scrollY;
-
-                    var mva = sra * cma + srb * cmc;
-                    var mvb = sra * cmb + srb * cmd;
-                    var mvc = src * cma + srd * cmc;
-                    var mvd = src * cmb + srd * cmd;
-                    var mve = sre * cma + srf * cmc + cme;
-                    var mvf = sre * cmb + srf * cmd + cmf;
-
-                    var tx0 = x * mva + y * mvc + mve;
-                    var ty0 = x * mvb + y * mvd + mvf;
-                    var tx1 = x * mva + yh * mvc + mve;
-                    var ty1 = x * mvb + yh * mvd + mvf;
-                    var tx2 = xw * mva + yh * mvc + mve;
-                    var ty2 = xw * mvb + yh * mvd + mvf;
-                    var tx3 = xw * mva + y * mvc + mve;
-                    var ty3 = xw * mvb + y * mvd + mvf;
-
-                    if (roundPixels)
-                    {
-                        tx0 |= 0;
-                        ty0 |= 0;
-                        tx1 |= 0;
-                        ty1 |= 0;
-                        tx2 |= 0;
-                        ty2 |= 0;
-                        tx3 |= 0;
-                        ty3 |= 0;
-                    }
-
-                    var vertexOffset = (this.vertexCount * vertexComponentCount) - 1;
-
-                    vertexViewF32[++vertexOffset] = tx0;
-                    vertexViewF32[++vertexOffset] = ty0;
-                    vertexViewF32[++vertexOffset] = uvs.x0;
-                    vertexViewF32[++vertexOffset] = uvs.y0;
-                    vertexViewF32[++vertexOffset] = tintEffect;
-                    vertexViewU32[++vertexOffset] = color;
-
-                    vertexViewF32[++vertexOffset] = tx1;
-                    vertexViewF32[++vertexOffset] = ty1;
-                    vertexViewF32[++vertexOffset] = uvs.x1;
-                    vertexViewF32[++vertexOffset] = uvs.y1;
-                    vertexViewF32[++vertexOffset] = tintEffect;
-                    vertexViewU32[++vertexOffset] = color;
-
-                    vertexViewF32[++vertexOffset] = tx2;
-                    vertexViewF32[++vertexOffset] = ty2;
-                    vertexViewF32[++vertexOffset] = uvs.x2;
-                    vertexViewF32[++vertexOffset] = uvs.y2;
-                    vertexViewF32[++vertexOffset] = tintEffect;
-                    vertexViewU32[++vertexOffset] = color;
-
-                    vertexViewF32[++vertexOffset] = tx0;
-                    vertexViewF32[++vertexOffset] = ty0;
-                    vertexViewF32[++vertexOffset] = uvs.x0;
-                    vertexViewF32[++vertexOffset] = uvs.y0;
-                    vertexViewF32[++vertexOffset] = tintEffect;
-                    vertexViewU32[++vertexOffset] = color;
-
-                    vertexViewF32[++vertexOffset] = tx2;
-                    vertexViewF32[++vertexOffset] = ty2;
-                    vertexViewF32[++vertexOffset] = uvs.x2;
-                    vertexViewF32[++vertexOffset] = uvs.y2;
-                    vertexViewF32[++vertexOffset] = tintEffect;
-                    vertexViewU32[++vertexOffset] = color;
-
-                    vertexViewF32[++vertexOffset] = tx3;
-                    vertexViewF32[++vertexOffset] = ty3;
-                    vertexViewF32[++vertexOffset] = uvs.x3;
-                    vertexViewF32[++vertexOffset] = uvs.y3;
-                    vertexViewF32[++vertexOffset] = tintEffect;
-                    vertexViewU32[++vertexOffset] = color;
-
-                    this.vertexCount += 6;
-
-                    if (this.vertexCount >= vertexCapacity)
-                    {
-                        this.flush();
-                        this.setTexture2D(texture, 0);
-                    }
-                }
-
-                particleOffset += batchSize;
-                aliveLength -= batchSize;
-
-                if (this.vertexCount >= vertexCapacity)
-                {
-                    this.flush();
-                    this.setTexture2D(texture, 0);
-                }
-            }
-        }
-        
-        this.setTexture2D(texture, 0);
-    },
-
-    /**
      * Batches Sprite game object
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchSprite
@@ -58760,9 +58453,13 @@ var TextureTintPipeline = new Class({
      */
     batchVertices: function (tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect)
     {
+        var hasFlushed = false;
+
         if (this.vertexCount + 6 > this.vertexCapacity)
         {
             this.flush();
+
+            hasFlushed = true;
         }
 
         var vertexViewF32 = this.vertexViewF32;
@@ -58819,12 +58516,10 @@ var TextureTintPipeline = new Class({
             //  No more room at the inn
             this.flush();
 
-            return true;
+            hasFlushed = true;
         }
-        else
-        {
-            return false;
-        }
+
+        return hasFlushed;
     },
 
     /**
@@ -58881,7 +58576,7 @@ var TextureTintPipeline = new Class({
         camera,
         parentTransformMatrix)
     {
-        this.renderer.setPipeline(this);
+        this.renderer.setPipeline(this, gameObject);
 
         var camMatrix = this._tempMatrix1;
         var spriteMatrix = this._tempMatrix2;
@@ -58893,13 +58588,16 @@ var TextureTintPipeline = new Class({
         var x = -displayOriginX;
         var y = -displayOriginY;
 
+        //  Invert the flipY if this is a RenderTexture
+        flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
+
         if (flipX)
         {
             width *= -1;
             x += srcWidth;
         }
 
-        if (flipY || texture.isRenderTexture)
+        if (flipY)
         {
             height *= -1;
             y += srcHeight;
@@ -58977,41 +58675,29 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * Immediately draws a texture with no batching.
+     * Immediately draws a Texture Frame with no batching.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawTexture
-     * @since 3.2.0
+     * @since 3.11.0
      *
-     * @param {WebGLTexture} texture [description]
-     * @param {number} srcX - [description]
-     * @param {number} srcY - [description]
-     * @param {number} tint - [description]
-     * @param {number} alpha - [description]
-     * @param {number} frameX - [description]
-     * @param {number} frameY - [description]
-     * @param {number} frameWidth - [description]
-     * @param {number} frameHeight - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} transformMatrix - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
+     * @param {WebGLTexture} texture - The WebGL Texture to be rendered.
+     * @param {number} x - The horizontal position to render the texture at.
+     * @param {number} y - The vertical position to render the texture at.
+     * @param {number} tint - The tint color.
+     * @param {number} alpha - The alpha value.
+     * @param {array} transformMatrix - An array of matrix values.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} [parentTransformMatrix] - A parent Transform Matrix.
      *
      * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This Pipeline.
      */
-    drawTexture: function (
-        texture,
-        srcX, srcY,
+    drawTextureFrame: function (
+        frame,
+        x, y,
         tint, alpha,
-        frameX, frameY, frameWidth, frameHeight,
         transformMatrix,
         parentTransformMatrix
     )
     {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
         this.renderer.setPipeline(this);
 
         if (this.vertexCount + 6 > this.vertexCapacity)
@@ -59019,123 +58705,56 @@ var TextureTintPipeline = new Class({
             this.flush();
         }
 
-        var roundPixels = this.renderer.config.roundPixels;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var width = frameWidth;
-        var height = frameHeight;
-        var x = srcX;
-        var y = srcY;
-        var xw = x + width;
-        var yh = y + height;
-        var mva = transformMatrix[0];
-        var mvb = transformMatrix[1];
-        var mvc = transformMatrix[2];
-        var mvd = transformMatrix[3];
-        var mve = transformMatrix[4];
-        var mvf = transformMatrix[5];
+        var spriteMatrix = this._tempMatrix1.copyFromArray(transformMatrix);
+        var calcMatrix = this._tempMatrix2;
 
-        if (parentMatrix)
+        var xw = x + frame.width;
+        var yh = y + frame.height;
+
+        if (parentTransformMatrix)
         {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var pca = mva * pma + mvb * pmc;
-            var pcb = mva * pmb + mvb * pmd;
-            var pcc = mvc * pma + mvd * pmc;
-            var pcd = mvc * pmb + mvd * pmd;
-            var pce = mve * pma + mvf * pmc + pme;
-            var pcf = mve * pmb + mvf * pmd + pmf;
-            mva = pca;
-            mvb = pcb;
-            mvc = pcc;
-            mvd = pcd;
-            mve = pce;
-            mvf = pcf;
+            spriteMatrix.multiply(parentTransformMatrix, calcMatrix);
+        }
+        else
+        {
+            calcMatrix = spriteMatrix;
         }
 
-        var tx0 = x * mva + y * mvc + mve;
-        var ty0 = x * mvb + y * mvd + mvf;
-        var tx1 = x * mva + yh * mvc + mve;
-        var ty1 = x * mvb + yh * mvd + mvf;
-        var tx2 = xw * mva + yh * mvc + mve;
-        var ty2 = xw * mvb + yh * mvd + mvf;
-        var tx3 = xw * mva + y * mvc + mve;
-        var ty3 = xw * mvb + y * mvd + mvf;
-        var textureWidth = texture.width;
-        var textureHeight = texture.height;
-        var u0 = (frameX / textureWidth);
-        var v0 = (frameY / textureHeight);
-        var u1 = (frameX + frameWidth) / textureWidth;
-        var v1 = (frameY + frameHeight) / textureHeight;
-        var tintEffect = 0;
-        tint = Utils.getTintAppendFloatAlpha(tint, alpha);
-        
-        this.setTexture2D(texture, 0);
+        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
 
-        if (roundPixels)
+        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        if (this.renderer.config.roundPixels)
         {
             tx0 |= 0;
             ty0 |= 0;
+
             tx1 |= 0;
             ty1 |= 0;
+
             tx2 |= 0;
             ty2 |= 0;
+
             tx3 |= 0;
             ty3 |= 0;
         }
 
-        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
+        this.setTexture2D(frame.glTexture, 0);
 
-        vertexViewF32[++vertexOffset] = tx0;
-        vertexViewF32[++vertexOffset] = ty0;
-        vertexViewF32[++vertexOffset] = u0;
-        vertexViewF32[++vertexOffset] = v0;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint;
+        tint = Utils.getTintAppendFloatAlpha(tint, alpha);
 
-        vertexViewF32[++vertexOffset] = tx1;
-        vertexViewF32[++vertexOffset] = ty1;
-        vertexViewF32[++vertexOffset] = u0;
-        vertexViewF32[++vertexOffset] = v1;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint;
-
-        vertexViewF32[++vertexOffset] = tx2;
-        vertexViewF32[++vertexOffset] = ty2;
-        vertexViewF32[++vertexOffset] = u1;
-        vertexViewF32[++vertexOffset] = v1;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint;
-
-        vertexViewF32[++vertexOffset] = tx0;
-        vertexViewF32[++vertexOffset] = ty0;
-        vertexViewF32[++vertexOffset] = u0;
-        vertexViewF32[++vertexOffset] = v0;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint;
-
-        vertexViewF32[++vertexOffset] = tx2;
-        vertexViewF32[++vertexOffset] = ty2;
-        vertexViewF32[++vertexOffset] = u1;
-        vertexViewF32[++vertexOffset] = v1;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint;
-
-        vertexViewF32[++vertexOffset] = tx3;
-        vertexViewF32[++vertexOffset] = ty3;
-        vertexViewF32[++vertexOffset] = u1;
-        vertexViewF32[++vertexOffset] = v0;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint;
-
-        this.vertexCount += 6;
-
-        // Force an immediate draw
-        this.flush();
+        if (!this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, frame.u0, frame.v0, frame.u1, frame.v1, tint, tint, tint, tint, 0))
+        {
+            this.flush();
+        }
     }
 
 });
@@ -72278,7 +71897,7 @@ var Texture = new Class({
         {
             data = [ data ];
         }
-
+        
         for (var i = 0; i < data.length; i++)
         {
             var source = this.source[i];
@@ -73140,7 +72759,7 @@ var TextureManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The unique string-based key of the Texture.
-     * @param {(string|integer)} frame - The string or index of the Frame.
+     * @param {(string|integer)} [frame] - The string-based name, or integer based index, of the Frame to get from the Texture.
      *
      * @return {Phaser.Textures.Frame} A Texture Frame object.
      */

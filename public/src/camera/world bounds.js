@@ -1,10 +1,8 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
-    parent: 'phaser-example',
-    pixelArt: true,
     scene: {
         preload: preload,
         create: create,
@@ -18,18 +16,14 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('tiles', 'assets/tilemaps/tiles/catastrophi_tiles_16.png');
-    this.load.tilemapCSV('map', 'assets/tilemaps/csv/catastrophi_level2.csv');
+    this.load.image('grid', 'assets/pics/uv-grid-4096-ian-maclachlan.png');
 }
 
 function create ()
 {
-    // When loading a CSV map, make sure to specify the tileWidth and tileHeight
-    var map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
-    var tileset = map.addTilesetImage('tiles');
-    var layer = map.createStaticLayer(0, tileset, 0, 0); // layer index, tileset, x, y
+    var gui = new dat.GUI();
 
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.add.image(0, 0, 'grid').setOrigin(0);
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -39,26 +33,18 @@ function create ()
         right: cursors.right,
         up: cursors.up,
         down: cursors.down,
-        speed: 0.5
+        acceleration: 0.02,
+        drag: 0.0005,
+        maxSpeed: 1.0
     };
 
-    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
-
-    var help = this.add.text(16, 16, 'Arrow keys to scroll', {
-        fontSize: '18px',
-        fill: '#ffffff'
-    });
-
-    help.setScrollFactor(0);
-
-    var gui = new dat.GUI();
+    controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
     var cam = this.cameras.main;
 
     cam.setBounds(0, 0, 4096, 4096);
 
     gui.addFolder('Camera');
-    gui.add(cam, 'dirty').listen();
     gui.add(cam.midPoint, 'x').listen();
     gui.add(cam.midPoint, 'y').listen();
     gui.add(cam.worldBounds, 'top').listen();

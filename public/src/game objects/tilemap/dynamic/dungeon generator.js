@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#000000',
+    backgroundColor: '#2a2a55',
     parent: 'phaser-example',
     pixelArt: true,
     scene: {
@@ -13,6 +13,7 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
 var controls;
 var activeRoom;
 var dungeon;
@@ -22,6 +23,9 @@ var cursors;
 var player;
 var lastMoveTime = 0;
 var cam;
+
+//  Toggle this to disable the room hiding / layer scale, so you can see the extent of the map easily!
+var debug = false;
 
 // Tile index mapping to make the code more readable
 var TILES = {
@@ -63,8 +67,6 @@ var TILES = {
 
 function preload ()
 {
-    this.load.spritesheet('dude', 'assets/sprites/dude.png', { frameWidth: 32, frameHeight: 48 });
-
     // Credits! Michele "Buch" Bucelli (tilset artist) & Abram Connelly (tileset sponser)
     // https://opengameart.org/content/top-down-dungeon-tileset
     this.load.image('tiles', 'assets/tilemaps/tiles/buch-dungeon-tileset.png');
@@ -74,22 +76,61 @@ function create ()
 {
     // Note: Dungeon is not a Phaser element - it's from the custom script embedded at the bottom :)
     // It generates a simple set of connected rectangular rooms that then we can turn into a tilemap
+
+    //  2,500 tile test
+    // dungeon = new Dungeon({
+    //     width: 50,
+    //     height: 50,
+    //     rooms: {
+    //         width: { min: 7, max: 15, onlyOdd: true },
+    //         height: { min: 7, max: 15, onlyOdd: true }
+    //     }
+    // });
+
+    //  40,000 tile test
     dungeon = new Dungeon({
-        width: 50,
-        height: 50,
+        width: 200,
+        height: 200,
         rooms: {
-            width: { min: 7, max: 15, onlyOdd: true },
-            height: { min: 7, max: 15, onlyOdd: true }
+            width: { min: 7, max: 20, onlyOdd: true },
+            height: { min: 7, max: 20, onlyOdd: true }
         }
     });
 
+    //  250,000 tile test!
+    // dungeon = new Dungeon({
+    //     width: 500,
+    //     height: 500,
+    //     rooms: {
+    //         width: { min: 7, max: 20, onlyOdd: true },
+    //         height: { min: 7, max: 20, onlyOdd: true }
+    //     }
+    // });
+
+    //  1,000,000 tile test! - Warning, takes a few seconds to generate the dungeon :)
+    // dungeon = new Dungeon({
+    //     width: 1000,
+    //     height: 1000,
+    //     rooms: {
+    //         width: { min: 7, max: 20, onlyOdd: true },
+    //         height: { min: 7, max: 20, onlyOdd: true }
+    //     }
+    // });
+
     // Creating a blank tilemap with dimensions matching the dungeon
     map = this.make.tilemap({ tileWidth: 16, tileHeight: 16, width: dungeon.width, height: dungeon.height });
+
     var tileset = map.addTilesetImage('tiles');
+
     layer = map.createBlankDynamicLayer('Layer 1', tileset);
 
-    layer.setScale(3);
-    layer.fill(20); // Fill with black tiles
+    if (!debug)
+    {
+        layer.setScale(3);
+    }
+
+    // Fill with black tiles
+    layer.fill(20);
 
     // Use the array of rooms generated to place tiles in the map
     dungeon.rooms.forEach(function (room) {
@@ -105,7 +146,7 @@ function create ()
         var bottom = y + (h - 1);
 
         // Fill the floor with mostly clean tiles, but occasionally place a dirty tile
-        // See "Weighted Ranomize" example for more information on how to use weightedRandomize.
+        // See "Weighted Randomize" example for more information on how to use weightedRandomize.
         map.weightedRandomize(x, y, w, h, TILES.FLOOR);
 
         // Place the room corners tiles
@@ -120,9 +161,9 @@ function create ()
         map.weightedRandomize(left, top + 1, 1, h - 2, TILES.LEFT_WALL);
         map.weightedRandomize(right, top + 1, 1, h - 2, TILES.RIGHT_WALL);
 
-        // Dunegons have rooms that are connected with doors. Each door has an x & y relative to the
-        // room's location
+        // Dungeons have rooms that are connected with doors. Each door has an x & y relative to the rooms location
         var doors = room.getDoorLocations();
+
         for (var i = 0; i < doors.length; i++)
         {
             map.putTileAt(6, x + doors[i].x, y + doors[i].y);
@@ -187,31 +228,54 @@ function create ()
     layer.setCollisionByExclusion([ 6, 7, 8, 26 ]);
 
     // Hide all the rooms
-    layer.forEachTile(function (tile) { tile.alpha = 0; });
+    if (!debug)
+    {
+        layer.forEachTile(function (tile) { tile.alpha = 0; });
+    }
 
     // Place the player in the first room
     var playerRoom = dungeon.rooms[0];
-    player = this.add.graphics({ fillStyle: { color: 0xedca40, alpha: 1 } })
-        .fillRect(0, 0, map.tileWidth * layer.scaleX, map.tileHeight * layer.scaleY);
+
+    player = this.add.graphics({ fillStyle: { color: 0xedca40, alpha: 1 } }).fillRect(0, 0, map.tileWidth * layer.scaleX, map.tileHeight * layer.scaleY);
+
     player.x = map.tileToWorldX(playerRoom.x + 1);
     player.y = map.tileToWorldY(playerRoom.y + 1);
-    setRoomAlpha(playerRoom, 1); // Make the saarting room visible
+
+    if (!debug)
+    {
+        setRoomAlpha(playerRoom, 1); // Make the starting room visible
+    }
 
     // Scroll to the player
     cam = this.cameras.main;
+
     cam.setBounds(0, 0, layer.width * layer.scaleX, layer.height * layer.scaleY);
     cam.scrollX = player.x - cam.width * 0.5;
     cam.scrollY = player.y - cam.height * 0.5;
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    var help = this.add.text(16, 16, 'Arrows keys to move.', {
+    var help = this.add.text(16, 16, 'Arrows keys to move', {
         fontSize: '18px',
         padding: { x: 10, y: 5 },
         backgroundColor: '#ffffff',
         fill: '#000000'
     });
+
     help.setScrollFactor(0);
+
+    var gui = new dat.GUI();
+
+    gui.addFolder('Camera');
+    gui.add(cam, 'scrollX').listen();
+    gui.add(cam, 'scrollY').listen();
+    gui.add(cam, 'zoom', 0.1, 4).step(0.1);
+    gui.add(cam, 'rotation').step(0.01);
+    gui.add(layer, 'skipCull').listen();
+    gui.add(layer, 'cullPaddingX').step(1);
+    gui.add(layer, 'cullPaddingY').step(1);
+    gui.add(layer, 'tilesDrawn').listen();
+    gui.add(layer, 'tilesTotal').listen();
 }
 
 function update (time, delta)
@@ -225,14 +289,20 @@ function update (time, delta)
     var room = dungeon.getRoomAt(playerTileX, playerTileY);
 
     // If the player has entered a new room, make it visible and dim the last room
-    if (room && activeRoom && activeRoom !== room) {
-        setRoomAlpha(room, 1);
-        setRoomAlpha(activeRoom, 0.5);
+    if (room && activeRoom && activeRoom !== room)
+    {
+        if (!debug)
+        {
+            setRoomAlpha(room, 1);
+            setRoomAlpha(activeRoom, 0.5);
+        }
     }
+
     activeRoom = room;
 
     // Smooth follow the player
     var smoothFactor = 0.9;
+
     cam.scrollX = smoothFactor * cam.scrollX + (1 - smoothFactor) * (player.x - cam.width * 0.5);
     cam.scrollY = smoothFactor * cam.scrollY + (1 - smoothFactor) * (player.y - cam.height * 0.5);
 }
@@ -249,6 +319,7 @@ function isTileOpenAt (worldX, worldY)
     // nonNull = true, don't return null for empty tiles. This means null will be returned only for
     // tiles outside of the bounds of the map.
     var tile = map.getTileAtWorldXY(worldX, worldY, true);
+
     if (tile && !tile.collides)
     {
         return true;

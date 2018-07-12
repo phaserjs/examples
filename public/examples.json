@@ -1553,15 +1553,15 @@
           "extension": ".js"
         },
         {
-          "path": "src\\camera\\world bounds.js",
-          "name": "world bounds.js",
-          "size": 1413,
-          "extension": ".js"
-        },
-        {
           "path": "src\\camera\\world camera.js",
           "name": "world camera.js",
           "size": 5377,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\world view.js",
+          "name": "world view.js",
+          "size": 1625,
           "extension": ".js"
         },
         {
@@ -1571,7 +1571,7 @@
           "extension": ".js"
         }
       ],
-      "size": 140009
+      "size": 140221
     },
     {
       "path": "src\\components",
@@ -10056,5 +10056,5 @@
       "size": 5291
     }
   ],
-  "size": 2640586
+  "size": 2640798
 }

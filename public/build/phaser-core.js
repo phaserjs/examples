@@ -9956,7 +9956,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.11.0-beta1',
+    VERSION: '3.11',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -19093,7 +19093,7 @@ var Pipeline = {
      *
      * @param {string} pipelineName - The name of the pipeline to set on this Game Object.
      *
-     * @return {boolean} `true` if the pipeline was set successfully, otherwise `false`.
+     * @return {this} This Game Object instance.
      */
     setPipeline: function (pipelineName)
     {
@@ -19102,11 +19102,9 @@ var Pipeline = {
         if (renderer && renderer.gl && renderer.hasPipeline(pipelineName))
         {
             this.pipeline = renderer.getPipeline(pipelineName);
-
-            return true;
         }
 
-        return false;
+        return this;
     },
 
     /**
@@ -38434,6 +38432,7 @@ var KeyCombo = __webpack_require__(/*! ./combo/KeyCombo */ "./input/keyboard/com
 var KeyMap = __webpack_require__(/*! ./keys/KeyMap */ "./input/keyboard/keys/KeyMap.js");
 var ProcessKeyDown = __webpack_require__(/*! ./keys/ProcessKeyDown */ "./input/keyboard/keys/ProcessKeyDown.js");
 var ProcessKeyUp = __webpack_require__(/*! ./keys/ProcessKeyUp */ "./input/keyboard/keys/ProcessKeyUp.js");
+var SnapFloor = __webpack_require__(/*! ../../math/snap/SnapFloor */ "./math/snap/SnapFloor.js");
 
 /**
  * @classdesc
@@ -38571,6 +38570,16 @@ var KeyboardPlugin = new Class({
          * @since 3.10.0
          */
         this.onKeyHandler;
+
+        /**
+         * Internal time value.
+         *
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#time
+         * @type {number}
+         * @private
+         * @since 3.11.0
+         */
+        this.time = 0;
 
         sceneInputPlugin.pluginEvents.once('boot', this.boot, this);
         sceneInputPlugin.pluginEvents.on('start', this.start, this);
@@ -38890,14 +38899,53 @@ var KeyboardPlugin = new Class({
     },
 
     /**
+     * Checks if the given Key object is currently being held down.
+     * 
+     * The difference between this method and checking the `Key.isDown` property directly is that you can provide
+     * a duration to this method. For example, if you wanted a key press to fire a bullet, but you only wanted
+     * it to be able to fire every 100ms, then you can call this method with a `duration` of 100 and it
+     * will only return `true` every 100ms.
+     * 
+     * If the Keyboard Plugin has been disabled, this method will always return `false`.
+     *
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#checkDown
+     * @since 3.11.0
+     *
+     * @param {Phaser.Input.Keyboard.Key} key - A Key object.
+     * @param {number} [duration=0] - The duration which must have elapsed before this Key is considered as being down.
+     * 
+     * @return {boolean} `True` if the Key is down within the duration specified, otherwise `false`.
+     */
+    checkDown: function (key, duration)
+    {
+        if (this.enabled && key.isDown)
+        {
+            var t = SnapFloor(this.time - key.timeDown, duration);
+
+            if (t > key._tick)
+            {
+                key._tick = t;
+
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    /**
      * Internal update handler called by the Input Manager, which is in turn invoked by the Game step.
      *
      * @method Phaser.Input.Keyboard.KeyboardPlugin#update
      * @private
      * @since 3.10.0
+     * 
+     * @param {number} time - The game loop time value.
      */
-    update: function ()
+    update: function (time)
     {
+        this.time = time;
+
         var len = this.queue.length;
 
         if (!this.enabled || len === 0)
@@ -39792,9 +39840,7 @@ var Key = new Class({
         this.timeDown = 0;
 
         /**
-         * The number of milliseconds this key has been held down for.
-         * If the key is down this value holds the duration of that key press and is constantly updated.
-         * If the key is up it holds the duration of the previous down session.
+         * The number of milliseconds this key was held down for in the previous down - up sequence.
          *
          * @name Phaser.Input.Keyboard.Key#duration
          * @type {number}
@@ -39844,6 +39890,16 @@ var Key = new Class({
          * @since 3.0.0
          */
         this._justUp = false;
+
+        /**
+         * Internal tick counter.
+         *
+         * @name Phaser.Input.Keyboard.Key#_tick
+         * @type {number}
+         * @private
+         * @since 3.11.0
+         */
+        this._tick = -1;
     },
 
     /**
@@ -39869,6 +39925,7 @@ var Key = new Class({
         this.repeats = 0;
         this._justDown = false;
         this._justUp = false;
+        this._tick = -1;
 
         return this;
     }
@@ -40500,6 +40557,7 @@ var ProcessKeyUp = function (key, event)
 
     key._justDown = false;
     key._justUp = true;
+    key._tick = -1;
 
     return key;
 };
@@ -50301,6 +50359,54 @@ module.exports = RandomDataGenerator;
 
 /***/ }),
 
+/***/ "./math/snap/SnapFloor.js":
+/*!********************************!*\
+  !*** ./math/snap/SnapFloor.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * Snap a value to nearest grid slice, using floor.
+ *
+ * Example: if you have an interval gap of `5` and a position of `12`... you will snap to `10`.
+ * As will `14` snap to `10`... but `16` will snap to `15`.
+ *
+ * @function Phaser.Math.Snap.Floor
+ * @since 3.0.0
+ *
+ * @param {number} value - The value to snap.
+ * @param {number} gap - The interval gap of the grid.
+ * @param {number} [start=0] - Optional starting offset for gap.
+ *
+ * @return {number} The snapped value.
+ */
+var SnapFloor = function (value, gap, start)
+{
+    if (start === undefined) { start = 0; }
+
+    if (gap === 0)
+    {
+        return value;
+    }
+
+    value -= start;
+    value = gap * Math.floor(value / gap);
+
+    return start + value;
+};
+
+module.exports = SnapFloor;
+
+
+/***/ }),
+
 /***/ "./phaser-core.js":
 /*!************************!*\
   !*** ./phaser-core.js ***!
@@ -54031,6 +54137,19 @@ var WebGLPipeline = new Class({
     },
 
     /**
+     * Called when the Game has fully booted and the Renderer has finished setting up.
+     * 
+     * By this stage all Game level systems are now in place and you can perform any final
+     * tasks that the pipeline may need that relied on game systems such as the Texture Manager.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLPipeline#boot
+     * @since 3.11.0
+     */
+    boot: function ()
+    {
+    },
+
+    /**
      * Adds a description of vertex attribute to the pipeline
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#addAttribute
@@ -54987,7 +55106,24 @@ var WebGLRenderer = new Class({
         this.setBlendMode(CONST.BlendModes.NORMAL);
         this.resize(this.width, this.height);
 
+        this.game.events.once('ready', this.boot, this);
+
         return this;
+    },
+
+    /**
+     * Internal boot handler. Calls 'boot' on each pipeline.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#boot
+     * @private
+     * @since 3.11.0
+     */
+    boot: function ()
+    {
+        for (var pipelineName in this.pipelines)
+        {
+            this.pipelines[pipelineName].boot();
+        }
     },
 
     /**
@@ -55021,7 +55157,7 @@ var WebGLRenderer = new Class({
 
         gl.viewport(0, 0, this.width, this.height);
 
-        // Update all registered pipelines
+        //  Update all registered pipelines
         for (var pipelineName in pipelines)
         {
             pipelines[pipelineName].resize(width, height, resolution);
@@ -57949,6 +58085,31 @@ var ForwardDiffuseLightPipeline = new Class({
         config.fragShader = ShaderSourceFS.replace('%LIGHT_COUNT%', LIGHT_COUNT.toString());
 
         TextureTintPipeline.call(this, config);
+
+        /**
+         * Default normal map texture to use.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#defaultNormalMap
+         * @type {Phaser.Texture.Frame}
+         * @private
+         * @since 3.11.0
+         */
+        this.defaultNormalMap;
+    },
+
+    /**
+     * Called when the Game has fully booted and the Renderer has finished setting up.
+     * 
+     * By this stage all Game level systems are now in place and you can perform any final
+     * tasks that the pipeline may need that relied on game systems such as the Texture Manager.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#boot
+     * @override
+     * @since 3.11.0
+     */
+    boot: function ()
+    {
+        this.defaultNormalMap = this.game.textures.getFrame('__DEFAULT');
     },
 
     /**
@@ -58048,6 +58209,181 @@ var ForwardDiffuseLightPipeline = new Class({
     },
 
     /**
+     * Generic function for batching a textured quad
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
+     * @since 3.0.0
+     *
+     * @param {Phaser.GameObjects.GameObject} gameObject - Source GameObject
+     * @param {WebGLTexture} texture - Raw WebGLTexture associated with the quad
+     * @param {integer} textureWidth - Real texture width
+     * @param {integer} textureHeight - Real texture height
+     * @param {number} srcX - X coordinate of the quad
+     * @param {number} srcY - Y coordinate of the quad
+     * @param {number} srcWidth - Width of the quad
+     * @param {number} srcHeight - Height of the quad
+     * @param {number} scaleX - X component of scale
+     * @param {number} scaleY - Y component of scale
+     * @param {number} rotation - Rotation of the quad
+     * @param {boolean} flipX - Indicates if the quad is horizontally flipped
+     * @param {boolean} flipY - Indicates if the quad is vertically flipped
+     * @param {number} scrollFactorX - By which factor is the quad affected by the camera horizontal scroll
+     * @param {number} scrollFactorY - By which factor is the quad effected by the camera vertical scroll
+     * @param {number} displayOriginX - Horizontal origin in pixels
+     * @param {number} displayOriginY - Vertical origin in pixels
+     * @param {number} frameX - X coordinate of the texture frame
+     * @param {number} frameY - Y coordinate of the texture frame
+     * @param {number} frameWidth - Width of the texture frame
+     * @param {number} frameHeight - Height of the texture frame
+     * @param {integer} tintTL - Tint for top left
+     * @param {integer} tintTR - Tint for top right
+     * @param {integer} tintBL - Tint for bottom left
+     * @param {integer} tintBR - Tint for bottom right
+     * @param {number} tintEffect - The tint effect (0 for additive, 1 for replacement)
+     * @param {number} uOffset - Horizontal offset on texture coordinate
+     * @param {number} vOffset - Vertical offset on texture coordinate
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - Current used camera
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - Parent container
+     */
+    batchTexture: function (
+        gameObject,
+        texture,
+        textureWidth, textureHeight,
+        srcX, srcY,
+        srcWidth, srcHeight,
+        scaleX, scaleY,
+        rotation,
+        flipX, flipY,
+        scrollFactorX, scrollFactorY,
+        displayOriginX, displayOriginY,
+        frameX, frameY, frameWidth, frameHeight,
+        tintTL, tintTR, tintBL, tintBR, tintEffect,
+        uOffset, vOffset,
+        camera,
+        parentTransformMatrix)
+    {
+        if (!this.active)
+        {
+            return;
+        }
+
+        this.renderer.setPipeline(this);
+
+        var normalTexture;
+
+        if (gameObject.texture)
+        {
+            normalTexture = gameObject.texture.dataSource[gameObject.frame.sourceIndex];
+        }
+        else if (gameObject.tileset)
+        {
+            normalTexture = gameObject.tileset.image.dataSource[0];
+        }
+
+        if (!normalTexture)
+        {
+            normalTexture = this.defaultNormalMap;
+        }
+
+        this.setTexture2D(normalTexture.glTexture, 1);
+
+        var camMatrix = this._tempMatrix1;
+        var spriteMatrix = this._tempMatrix2;
+        var calcMatrix = this._tempMatrix3;
+
+        var width = srcWidth;
+        var height = srcHeight;
+
+        var x = -displayOriginX;
+        var y = -displayOriginY;
+
+        //  Invert the flipY if this is a RenderTexture
+        flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
+
+        if (flipX)
+        {
+            width *= -1;
+            x += srcWidth;
+        }
+
+        if (flipY)
+        {
+            height *= -1;
+            y += srcHeight;
+        }
+
+        if (camera.roundPixels)
+        {
+            x |= 0;
+            y |= 0;
+        }
+
+        var xw = x + width;
+        var yh = y + height;
+
+        spriteMatrix.applyITRS(srcX, srcY, rotation, scaleX, scaleY);
+
+        camMatrix.copyFrom(camera.matrix);
+
+        if (parentTransformMatrix)
+        {
+            //  Multiply the camera by the parent matrix
+            camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * scrollFactorX, -camera.scrollY * scrollFactorY);
+
+            //  Undo the camera scroll
+            spriteMatrix.e = srcX;
+            spriteMatrix.f = srcY;
+
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
+        }
+        else
+        {
+            spriteMatrix.e -= camera.scrollX * scrollFactorX;
+            spriteMatrix.f -= camera.scrollY * scrollFactorY;
+    
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
+        }
+
+        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        if (camera.roundPixels)
+        {
+            tx0 |= 0;
+            ty0 |= 0;
+
+            tx1 |= 0;
+            ty1 |= 0;
+
+            tx2 |= 0;
+            ty2 |= 0;
+
+            tx3 |= 0;
+            ty3 |= 0;
+        }
+
+        var u0 = (frameX / textureWidth) + uOffset;
+        var v0 = (frameY / textureHeight) + vOffset;
+        var u1 = (frameX + frameWidth) / textureWidth + uOffset;
+        var v1 = (frameY + frameHeight) / textureHeight + vOffset;
+
+        this.setTexture2D(texture, 0);
+
+        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
+    },
+
+    /**
      * Sets the Game Objects normal map as the active texture.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#setNormalMap
@@ -58057,18 +58393,24 @@ var ForwardDiffuseLightPipeline = new Class({
      */
     setNormalMap: function (gameObject)
     {
-        if (!this.active || !gameObject || !gameObject.texture)
+        if (!this.active || !gameObject)
         {
             return;
         }
 
-        // var normalTexture = tilemapLayer.tileset.image.dataSource[0];
-        var normalTexture = gameObject.texture.dataSource[gameObject.frame.sourceIndex];
+        var normalTexture;
 
-        if (normalTexture)
+        if (gameObject.texture)
         {
-            this.setTexture2D(normalTexture.glTexture, 1);
+            normalTexture = gameObject.texture.dataSource[gameObject.frame.sourceIndex];
         }
+
+        if (!normalTexture)
+        {
+            normalTexture = this.defaultNormalMap;
+        }
+
+        this.setTexture2D(normalTexture.glTexture, 1);
 
         this.renderer.setPipeline(gameObject.defaultPipeline);
     },

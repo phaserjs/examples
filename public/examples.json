@@ -4434,7 +4434,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\dungeon generator.js",
                   "name": "dungeon generator.js",
-                  "size": 19777,
+                  "size": 21334,
                   "extension": ".js"
                 },
                 {
@@ -4446,13 +4446,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\endless map.js",
                   "name": "endless map.js",
-                  "size": 2186,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\tilemap\\dynamic\\Example.js",
-                  "name": "Example.js",
-                  "size": 1688,
+                  "size": 2072,
                   "extension": ".js"
                 },
                 {
@@ -4465,6 +4459,12 @@
                   "path": "src\\game objects\\tilemap\\dynamic\\get tiles in shape.js",
                   "name": "get tiles in shape.js",
                   "size": 5326,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\tilemap\\dynamic\\light map.js",
+                  "name": "light map.js",
+                  "size": 3276,
                   "extension": ".js"
                 },
                 {
@@ -4522,7 +4522,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 64145
+              "size": 67176
             },
             {
               "path": "src\\game objects\\tilemap\\static",
@@ -4713,10 +4713,10 @@
               "size": 71042
             }
           ],
-          "size": 258612
+          "size": 261643
         }
       ],
-      "size": 788414
+      "size": 791445
     },
     {
       "path": "src\\games",
@@ -6697,6 +6697,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\key down delay.js",
+              "name": "key down delay.js",
+              "size": 911,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\keydown multi scene test.js",
               "name": "keydown multi scene test.js",
               "size": 2832,
@@ -6733,7 +6739,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15366
+          "size": 16277
         },
         {
           "path": "src\\input\\mouse",
@@ -7029,7 +7035,7 @@
           "size": 9602
         }
       ],
-      "size": 148511
+      "size": 149422
     },
     {
       "path": "src\\loader",
@@ -10056,5 +10062,5 @@
       "size": 5291
     }
   ],
-  "size": 2640798
+  "size": 2644740
 }

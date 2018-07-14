@@ -55,7 +55,7 @@ function create ()
         down: cursors.down,
         speed: 0.5
     };
-    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
     shiftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 

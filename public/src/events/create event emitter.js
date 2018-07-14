@@ -19,7 +19,7 @@ function preload ()
 function create ()
 {
     //  Create our own EventEmitter instance
-    var emitter = new Phaser.EventEmitter();
+    var emitter = new Phaser.Events.EventEmitter();
 
     //  Set-up an event handler
     emitter.on('addImage', handler, this);

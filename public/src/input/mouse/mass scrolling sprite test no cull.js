@@ -68,7 +68,7 @@ function create ()
 
     this.cameras.main.disableCull = true;
 
-    controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
+    controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
     this.input.on('pointerover', function (pointer, gameObjects) {
 

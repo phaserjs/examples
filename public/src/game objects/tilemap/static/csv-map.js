@@ -12,8 +12,9 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
 var controls;
+
+var game = new Phaser.Game(config);
 
 function preload ()
 {
@@ -31,6 +32,7 @@ function create ()
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     var cursors = this.input.keyboard.createCursorKeys();
+
     var controlConfig = {
         camera: this.cameras.main,
         left: cursors.left,
@@ -39,13 +41,32 @@ function create ()
         down: cursors.down,
         speed: 0.5
     };
-    controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+
+    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
     var help = this.add.text(16, 16, 'Arrow keys to scroll', {
         fontSize: '18px',
         fill: '#ffffff'
     });
+
     help.setScrollFactor(0);
+
+    var gui = new dat.GUI();
+
+    var cam = this.cameras.main;
+
+    cam.setBounds(0, 0, 4096, 4096);
+
+    gui.addFolder('Camera');
+    gui.add(cam, 'dirty').listen();
+    gui.add(cam.midPoint, 'x').listen();
+    gui.add(cam.midPoint, 'y').listen();
+    gui.add(cam.worldBounds, 'top').listen();
+    gui.add(cam.worldBounds, 'left').listen();
+    gui.add(cam.worldBounds, 'right').listen();
+    gui.add(cam.worldBounds, 'bottom').listen();
+    gui.add(cam, 'scrollX').listen();
+    gui.add(cam, 'scrollY').listen();
 }
 
 function update (time, delta)

@@ -69,7 +69,7 @@ function create ()
         maxSpeed: 1.0
     };
 
-    controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
+    controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
     this.input.keyboard.on('KEY_DOWN_Z', function (event) {
 

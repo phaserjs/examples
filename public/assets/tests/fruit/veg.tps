@@ -4,9 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.3.3</string>
-        <key>fileName</key>
-        <string>D:/wamp/www/phaser3-examples/public/assets/tests/fruit/veg.tps</string>
+        <string>4.8.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -28,13 +26,13 @@
             </struct>
         </array>
         <key>allowRotation</key>
-        <false/>
+        <true/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
         <uint>72</uint>
         <key>dataFormat</key>
-        <string>json</string>
+        <string>phaser</string>
         <key>textureFileName</key>
         <filename></filename>
         <key>flipPVR</key>
@@ -72,7 +70,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>1</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -86,7 +84,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>1</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -129,28 +127,12 @@
                 <uint>1</uint>
             </struct>
         </struct>
-        <key>andEngine</key>
-        <struct type="AndEngine">
-            <key>minFilter</key>
-            <enum type="AndEngine::MinFilter">Linear</enum>
-            <key>packageName</key>
-            <string>Texture</string>
-            <key>wrap</key>
-            <struct type="AndEngineWrap">
-                <key>s</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-                <key>t</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-            </struct>
-            <key>magFilter</key>
-            <enum type="AndEngine::MagFilter">MagLinear</enum>
-        </struct>
         <key>dataFileNames</key>
         <map type="GFileNameMap">
-            <key>data</key>
+            <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>veg.json</filename>
+                <filename>veg2.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -172,6 +154,8 @@
         <true/>
         <key>prependSmartFolderName</key>
         <false/>
+        <key>autodetectAnimations</key>
+        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -179,7 +163,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -198,14 +182,23 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">0.png</key>
+            <key type="filename">0_n.png</key>
             <key type="filename">2.png</key>
+            <key type="filename">2_n.png</key>
             <key type="filename">3.png</key>
+            <key type="filename">3_n.png</key>
             <key type="filename">4.png</key>
+            <key type="filename">4_n.png</key>
             <key type="filename">5.png</key>
+            <key type="filename">5_n.png</key>
             <key type="filename">6.png</key>
+            <key type="filename">6_n.png</key>
             <key type="filename">7.png</key>
+            <key type="filename">7_n.png</key>
             <key type="filename">8.png</key>
+            <key type="filename">8_n.png</key>
             <key type="filename">9.png</key>
+            <key type="filename">9_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -219,6 +212,7 @@
                 <false/>
             </struct>
             <key type="filename">1.png</key>
+            <key type="filename">1_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -232,6 +226,7 @@
                 <false/>
             </struct>
             <key type="filename">veg01.png</key>
+            <key type="filename">veg01_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -245,6 +240,7 @@
                 <false/>
             </struct>
             <key type="filename">veg02.png</key>
+            <key type="filename">veg02_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -258,6 +254,8 @@
                 <false/>
             </struct>
             <key type="filename">veg03.png</key>
+            <key type="filename">veg03_n.png</key>
+            <key type="filename">veg08_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -283,6 +281,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">veg04_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,6,10,11</rect>
+                <key>scale9Paddings</key>
+                <rect>5,6,10,11</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg05.png</key>
             <key type="filename">veg23.png</key>
             <struct type="IndividualSpriteSettings">
@@ -297,7 +308,22 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">veg05_n.png</key>
+            <key type="filename">veg23_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,7,11,13</rect>
+                <key>scale9Paddings</key>
+                <rect>5,7,11,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg06.png</key>
+            <key type="filename">veg06_n.png</key>
             <key type="filename">veg15.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -312,6 +338,7 @@
                 <false/>
             </struct>
             <key type="filename">veg07.png</key>
+            <key type="filename">veg07_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -338,6 +365,7 @@
                 <false/>
             </struct>
             <key type="filename">veg09.png</key>
+            <key type="filename">veg09_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -351,6 +379,8 @@
                 <false/>
             </struct>
             <key type="filename">veg10.png</key>
+            <key type="filename">veg10_n.png</key>
+            <key type="filename">veg20_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -376,7 +406,21 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">veg11_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,8,15,16</rect>
+                <key>scale9Paddings</key>
+                <rect>8,8,15,16</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg12.png</key>
+            <key type="filename">veg12_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -390,6 +434,7 @@
                 <false/>
             </struct>
             <key type="filename">veg13.png</key>
+            <key type="filename">veg13_n.png</key>
             <key type="filename">veg26.png</key>
             <key type="filename">veg31.png</key>
             <struct type="IndividualSpriteSettings">
@@ -417,6 +462,32 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">veg14_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,5,13,10</rect>
+                <key>scale9Paddings</key>
+                <rect>7,5,13,10</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">veg15_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,5,13,11</rect>
+                <key>scale9Paddings</key>
+                <rect>7,5,13,11</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg16.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -430,7 +501,21 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">veg16_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,7,13,15</rect>
+                <key>scale9Paddings</key>
+                <rect>7,7,13,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg17.png</key>
+            <key type="filename">veg17_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -444,6 +529,7 @@
                 <false/>
             </struct>
             <key type="filename">veg18.png</key>
+            <key type="filename">veg18_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -457,6 +543,7 @@
                 <false/>
             </struct>
             <key type="filename">veg19.png</key>
+            <key type="filename">veg19_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -484,6 +571,7 @@
             </struct>
             <key type="filename">veg21.png</key>
             <key type="filename">veg22.png</key>
+            <key type="filename">veg22_n.png</key>
             <key type="filename">veg28.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -497,7 +585,22 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">veg21_n.png</key>
+            <key type="filename">veg28_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,7,15,13</rect>
+                <key>scale9Paddings</key>
+                <rect>8,7,15,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg24.png</key>
+            <key type="filename">veg24_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -512,6 +615,7 @@
             </struct>
             <key type="filename">veg25.png</key>
             <key type="filename">veg32.png</key>
+            <key type="filename">veg32_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -524,7 +628,35 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">veg25_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,6,13,13</rect>
+                <key>scale9Paddings</key>
+                <rect>7,6,13,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">veg26_n.png</key>
+            <key type="filename">veg31_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,6,15,12</rect>
+                <key>scale9Paddings</key>
+                <rect>8,6,15,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg27.png</key>
+            <key type="filename">veg27_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -538,6 +670,7 @@
                 <false/>
             </struct>
             <key type="filename">veg29.png</key>
+            <key type="filename">veg29_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -551,6 +684,7 @@
                 <false/>
             </struct>
             <key type="filename">veg30.png</key>
+            <key type="filename">veg30_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -564,6 +698,7 @@
                 <false/>
             </struct>
             <key type="filename">veg33.png</key>
+            <key type="filename">veg33_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -589,7 +724,21 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">veg34_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,8,9,15</rect>
+                <key>scale9Paddings</key>
+                <rect>5,8,9,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">veg35.png</key>
+            <key type="filename">veg35_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -603,6 +752,7 @@
                 <false/>
             </struct>
             <key type="filename">veg36.png</key>
+            <key type="filename">veg36_n.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -625,6 +775,19 @@
                 <rect>7,6,14,12</rect>
                 <key>scale9Paddings</key>
                 <rect>7,6,14,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">veg37_n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,6,13,12</rect>
+                <key>scale9Paddings</key>
+                <rect>7,6,13,12</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -678,6 +841,53 @@
             <filename>7.png</filename>
             <filename>8.png</filename>
             <filename>9.png</filename>
+            <filename>0_n.png</filename>
+            <filename>1_n.png</filename>
+            <filename>2_n.png</filename>
+            <filename>3_n.png</filename>
+            <filename>4_n.png</filename>
+            <filename>5_n.png</filename>
+            <filename>6_n.png</filename>
+            <filename>7_n.png</filename>
+            <filename>8_n.png</filename>
+            <filename>9_n.png</filename>
+            <filename>veg01_n.png</filename>
+            <filename>veg02_n.png</filename>
+            <filename>veg03_n.png</filename>
+            <filename>veg04_n.png</filename>
+            <filename>veg05_n.png</filename>
+            <filename>veg06_n.png</filename>
+            <filename>veg07_n.png</filename>
+            <filename>veg08_n.png</filename>
+            <filename>veg09_n.png</filename>
+            <filename>veg10_n.png</filename>
+            <filename>veg11_n.png</filename>
+            <filename>veg12_n.png</filename>
+            <filename>veg13_n.png</filename>
+            <filename>veg14_n.png</filename>
+            <filename>veg15_n.png</filename>
+            <filename>veg16_n.png</filename>
+            <filename>veg17_n.png</filename>
+            <filename>veg18_n.png</filename>
+            <filename>veg19_n.png</filename>
+            <filename>veg20_n.png</filename>
+            <filename>veg21_n.png</filename>
+            <filename>veg22_n.png</filename>
+            <filename>veg23_n.png</filename>
+            <filename>veg24_n.png</filename>
+            <filename>veg25_n.png</filename>
+            <filename>veg26_n.png</filename>
+            <filename>veg27_n.png</filename>
+            <filename>veg28_n.png</filename>
+            <filename>veg29_n.png</filename>
+            <filename>veg30_n.png</filename>
+            <filename>veg31_n.png</filename>
+            <filename>veg32_n.png</filename>
+            <filename>veg33_n.png</filename>
+            <filename>veg34_n.png</filename>
+            <filename>veg35_n.png</filename>
+            <filename>veg36_n.png</filename>
+            <filename>veg37_n.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -690,7 +900,7 @@
         <key>commonDivisorY</key>
         <uint>1</uint>
         <key>packNormalMaps</key>
-        <false/>
+        <true/>
         <key>autodetectNormalMaps</key>
         <true/>
         <key>normalMapFilter</key>
@@ -698,7 +908,7 @@
         <key>normalMapSuffix</key>
         <string></string>
         <key>normalMapSheetFileName</key>
-        <filename></filename>
+        <filename>veg-n.png</filename>
         <key>exporterProperties</key>
         <map type="ExporterProperties"/>
     </struct>

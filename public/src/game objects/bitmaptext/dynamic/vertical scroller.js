@@ -1,6 +1,7 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
+    _backgroundColor: '#2d2d2d',
     scene: {
         preload: preload,
         create: create,
@@ -14,6 +15,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('neuro', 'assets/pics/neuromancer.jpg');
     this.load.bitmapFont('atari', 'assets/fonts/bitmap/atari-smooth.png', 'assets/fonts/bitmap/atari-smooth.xml');
     this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
 }
@@ -21,6 +23,8 @@ function preload ()
 function create () 
 {
     var content = [
+        "",
+        "",
         "",
         "",
         "The sky above the port was the color of television, tuned to a dead channel.",
@@ -47,9 +51,11 @@ function create ()
         "From Neuromancer by William Gibson"
     ];
 
-    scroller = this.add.dynamicBitmapText(0, 300, 'desyrel', content, 24);
+    this.add.image(512, 0, 'neuro').setOrigin(0.5, 0);
 
-    scroller.setSize(1024, 60);
+    scroller = this.add.dynamicBitmapText(16, 600, 'desyrel', content, 24);
+
+    scroller.setSize(1024, 300);
 }
 
 function update (time, delta)

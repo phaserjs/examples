@@ -62,7 +62,7 @@ function create ()
 
     this.input.keyboard.on('keydown_P', function (event) {
 
-        if (sprite.anims.paused())
+        if (sprite.anims.isPaused)
         {
             sprite.anims.resume();
         }
@@ -92,7 +92,8 @@ function update ()
     updateFrameView();
 
     var debug = [
-        'Progress: ' + sprite.anims.progress() + '%',
+        'SPACE to start animation, P to pause/resume',
+        'Progress: ' + sprite.anims.getProgress() + '%',
         'Accumulator: ' + sprite.anims.accumulator,
         'NextTick: ' + sprite.anims.nextTick
     ];

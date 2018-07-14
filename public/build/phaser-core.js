@@ -696,7 +696,7 @@ var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/obje
  *
  * @property {string} key - The key that the animation will be associated with. i.e. sprite.animations.play(key)
  * @property {(string|number)} frame - [description]
- * @property {float} [duration=0] - [description]
+ * @property {number} [duration=0] - [description]
  * @property {boolean} [visible] - [description]
  */
 
@@ -1209,7 +1209,7 @@ var Animation = new Class({
      * @method Phaser.Animations.Animation#getFrameByProgress
      * @since 3.4.0
      *
-     * @param {float} value - A value between 0 and 1.
+     * @param {number} value - A value between 0 and 1.
      *
      * @return {Phaser.Animations.AnimationFrame} The frame closest to the given progress value.
      */
@@ -2494,6 +2494,7 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [render.preserveDrawingBuffer=false] - [description]
  * @property {boolean} [render.failIfMajorPerformanceCaveat=false] - [description]
  * @property {string} [render.powerPreference='default'] - "high-performance", "low-power" or "default"
+ * @property {integer} [render.batchSize=2000] - The default WebGL batch size.
  * @property {(string|number)} [backgroundColor=0x000000] - [description]
  * @property {object} [callbacks] - [description]
  * @property {BootCallback} [callbacks.preBoot=NOOP] - [description]
@@ -2724,19 +2725,14 @@ var Config = new Class({
         var renderConfig = GetValue(config, 'render', config);
 
         /**
-         * @const {boolean} Phaser.Boot.Config#antialias - [description]
-         */
-        this.antialias = GetValue(renderConfig, 'antialias', true);
-
-        /**
-         * @const {boolean} Phaser.Boot.Config#pixelArt - [description]
-         */
-        this.pixelArt = GetValue(renderConfig, 'pixelArt', false);
-
-        /**
          * @const {boolean} Phaser.Boot.Config#autoResize - [description]
          */
         this.autoResize = GetValue(renderConfig, 'autoResize', false);
+
+        /**
+         * @const {boolean} Phaser.Boot.Config#antialias - [description]
+         */
+        this.antialias = GetValue(renderConfig, 'antialias', true);
 
         /**
          * @const {boolean} Phaser.Boot.Config#roundPixels - [description]
@@ -2744,12 +2740,23 @@ var Config = new Class({
         this.roundPixels = GetValue(renderConfig, 'roundPixels', false);
 
         /**
+         * @const {boolean} Phaser.Boot.Config#pixelArt - [description]
+         */
+        this.pixelArt = GetValue(renderConfig, 'pixelArt', false);
+
+        if (this.pixelArt)
+        {
+            this.antialias = false;
+            this.roundPixels = true;
+        }
+
+        /**
          * @const {boolean} Phaser.Boot.Config#transparent - [description]
          */
         this.transparent = GetValue(renderConfig, 'transparent', false);
 
         /**
-         * @const {boolean} Phaser.Boot.Config#zoclearBeforeRenderom - [description]
+         * @const {boolean} Phaser.Boot.Config#clearBeforeRender - [description]
          */
         this.clearBeforeRender = GetValue(renderConfig, 'clearBeforeRender', true);
 
@@ -2772,6 +2779,11 @@ var Config = new Class({
          * @const {string} Phaser.Boot.Config#powerPreference - [description]
          */
         this.powerPreference = GetValue(renderConfig, 'powerPreference', 'default');
+
+        /**
+         * @const {integer} Phaser.Boot.Config#batchSize - The default WebGL Batch size.
+         */
+        this.batchSize = GetValue(renderConfig, 'batchSize', 2000);
 
         var bgc = GetValue(config, 'backgroundColor', 0);
 
@@ -3001,7 +3013,7 @@ var CreateRenderer = function (game)
     }
 
     //  Pixel Art mode?
-    if (config.pixelArt)
+    if (!config.antialias)
     {
         CanvasPool.disableSmoothing();
     }
@@ -3023,7 +3035,7 @@ var CreateRenderer = function (game)
     }
 
     //  Pixel Art mode?
-    if (config.pixelArt)
+    if (!config.antialias)
     {
         CanvasInterpolation.setCrisp(game.canvas);
     }
@@ -5167,6 +5179,7 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var CenterOn = __webpack_require__(/*! ../../geom/rectangle/CenterOn */ "./geom/rectangle/CenterOn.js");
 var Clamp = __webpack_require__(/*! ../../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var DegToRad = __webpack_require__(/*! ../../math/DegToRad */ "./math/DegToRad.js");
@@ -5257,6 +5270,17 @@ var Camera = new Class({
         this.scene;
 
         /**
+         * The Camera ID. Assigned by the Camera Manager and used to handle camera exclusion.
+         * This value is a bitmask.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#id
+         * @type {integer}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.id = 0;
+
+        /**
          * The name of the Camera. This is left empty for your own use.
          *
          * @name Phaser.Cameras.Scene2D.Camera#name
@@ -5267,7 +5291,9 @@ var Camera = new Class({
         this.name = '';
 
         /**
-         * The x position of the Camera, relative to the top-left of the game canvas.
+         * The x position of the Camera viewport, relative to the top-left of the game canvas.
+         * The viewport is the area into which the camera renders.
+         * To adjust the position the camera is looking at in the game world, see the `scrollX` value.
          *
          * @name Phaser.Cameras.Scene2D.Camera#x
          * @type {number}
@@ -5277,6 +5303,8 @@ var Camera = new Class({
 
         /**
          * The y position of the Camera, relative to the top-left of the game canvas.
+         * The viewport is the area into which the camera renders.
+         * To adjust the position the camera is looking at in the game world, see the `scrollY` value.
          *
          * @name Phaser.Cameras.Scene2D.Camera#y
          * @type {number}
@@ -5285,22 +5313,30 @@ var Camera = new Class({
         this.y = y;
 
         /**
-         * The width of the Camera, in pixels.
+         * The width of the Camera viewport, in pixels.
          *
-         * @name Phaser.Cameras.Scene2D.Camera#width
+         * The viewport is the area into which the Camera renders. Setting the viewport does
+         * not restrict where the Camera can scroll to.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_width
          * @type {number}
-         * @since 3.0.0
+         * @private
+         * @since 3.11.0
          */
-        this.width = width;
+        this._width = width;
 
         /**
-         * The height of the Camera, in pixels.
+         * The height of the Camera viewport, in pixels.
          *
-         * @name Phaser.Cameras.Scene2D.Camera#height
+         * The viewport is the area into which the Camera renders. Setting the viewport does
+         * not restrict where the Camera can scroll to.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_height
          * @type {number}
-         * @since 3.0.0
+         * @private
+         * @since 3.11.0
          */
-        this.height = height;
+        this._height = height;
 
         /**
          * Should this camera round its pixel values to integers?
@@ -5314,7 +5350,7 @@ var Camera = new Class({
 
         /**
          * Is this Camera visible or not?
-         * 
+         *
          * A visible camera will render and perform input tests.
          * An invisible camera will not render anything and will skip input tests.
          *
@@ -5327,6 +5363,7 @@ var Camera = new Class({
 
         /**
          * Is this Camera using a bounds to restrict scrolling movement?
+         *
          * Set this property along with the bounds via `Camera.setBounds`.
          *
          * @name Phaser.Cameras.Scene2D.Camera#useBounds
@@ -5347,6 +5384,33 @@ var Camera = new Class({
         this._bounds = new Rectangle();
 
         /**
+         * The World View is a Rectangle that defines the area of the 'world' the Camera is currently looking at.
+         * This factors in the Camera viewport size, zoom and scroll position and is updated in the Camera preRender step.
+         * If you have enabled Camera bounds the worldview will be clamped to those bounds accordingly.
+         * You can use it for culling or intersection checks.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#worldView
+         * @type {Phaser.Geom.Rectangle}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.worldView = new Rectangle();
+
+        /**
+         * Is this Camera dirty?
+         * 
+         * A dirty Camera has had either its viewport size, bounds, scroll, rotation or zoom levels changed since the last frame.
+         * 
+         * This flag is cleared during the `postRenderCamera` method of the renderer.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#dirty
+         * @type {boolean}
+         * @default true
+         * @since 3.11.0
+         */
+        this.dirty = true;
+
+        /**
          * Does this Camera allow the Game Objects it renders to receive input events?
          *
          * @name Phaser.Cameras.Scene2D.Camera#inputEnabled
@@ -5357,56 +5421,86 @@ var Camera = new Class({
         this.inputEnabled = true;
 
         /**
-         * The horizontal scroll position of this camera.
-         * Optionally restricted via the Camera bounds.
+         * The horizontal scroll position of this Camera.
          *
-         * @name Phaser.Cameras.Scene2D.Camera#scrollX
+         * Change this value to cause the Camera to scroll around your Scene.
+         *
+         * Alternatively, setting the Camera to follow a Game Object, via the `startFollow` method,
+         * will automatically adjust the Camera scroll values accordingly.
+         *
+         * You can set the bounds within which the Camera can scroll via the `setBounds` method.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_scrollX
          * @type {number}
+         * @private
          * @default 0
-         * @since 3.0.0
+         * @since 3.11.0
          */
-        this.scrollX = 0;
+        this._scrollX = 0;
 
         /**
-         * The vertical scroll position of this camera.
-         * Optionally restricted via the Camera bounds.
+         * The vertical scroll position of this Camera.
          *
-         * @name Phaser.Cameras.Scene2D.Camera#scrollY
+         * Change this value to cause the Camera to scroll around your Scene.
+         *
+         * Alternatively, setting the Camera to follow a Game Object, via the `startFollow` method,
+         * will automatically adjust the Camera scroll values accordingly.
+         *
+         * You can set the bounds within which the Camera can scroll via the `setBounds` method.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_scrollY
          * @type {number}
+         * @private
          * @default 0
-         * @since 3.0.0
+         * @since 3.11.0
          */
-        this.scrollY = 0;
+        this._scrollY = 0;
 
         /**
          * The Camera zoom value. Change this value to zoom in, or out of, a Scene.
+         *
+         * A value of 0.5 would zoom the Camera out, so you can now see twice as much
+         * of the Scene as before. A value of 2 would zoom the Camera in, so every pixel
+         * now takes up 2 pixels when rendered.
+         *
          * Set to 1 to return to the default zoom level.
          *
-         * @name Phaser.Cameras.Scene2D.Camera#zoom
-         * @type {float}
+         * Be careful to never set this value to zero.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_zoom
+         * @type {number}
+         * @private
          * @default 1
-         * @since 3.0.0
+         * @since 3.11.0
          */
-        this.zoom = 1;
+        this._zoom = 1;
 
         /**
-         * The rotation of the Camera. This influences the rendering of all Game Objects visible by this camera.
+         * The rotation of the Camera in radians.
          *
-         * @name Phaser.Cameras.Scene2D.Camera#rotation
+         * Camera rotation always takes place based on the Camera viewport. By default, rotation happens
+         * in the center of the viewport. You can adjust this with the `originX` and `originY` properties.
+         *
+         * Rotation influences the rendering of _all_ Game Objects visible by this Camera. However, it does not
+         * rotate the Camera viewport itself, which always remains an axis-aligned rectangle.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_rotation
          * @type {number}
+         * @private
          * @default 0
-         * @since 3.0.0
+         * @since 3.11.0
          */
-        this.rotation = 0;
+        this._rotation = 0;
 
         /**
          * A local transform matrix used for internal calculations.
          *
          * @name Phaser.Cameras.Scene2D.Camera#matrix
          * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @private
          * @since 3.0.0
          */
-        this.matrix = new TransformMatrix(1, 0, 0, 1, 0, 0);
+        this.matrix = new TransformMatrix();
 
         /**
          * Does this Camera have a transparent background?
@@ -5426,6 +5520,18 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this.backgroundColor = ValueToColor('rgba(0,0,0,0)');
+
+        /**
+         * The Camera alpha value. Setting this property impacts every single object that this Camera
+         * renders. You can either set the property directly, i.e. via a Tween, to fade a Camera in or out,
+         * or via the chainable `setAlpha` method instead.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#alpha
+         * @type {number}
+         * @default 1
+         * @since 3.11.0
+         */
+        this.alpha = 1;
 
         /**
          * The Camera Fade effect handler.
@@ -5458,6 +5564,26 @@ var Camera = new Class({
         this.shakeEffect = new Effects.Shake(this);
 
         /**
+         * The Camera Pan effect handler.
+         * To pan this camera see the `Camera.pan` method.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#panEffect
+         * @type {Phaser.Cameras.Scene2D.Effects.Pan}
+         * @since 3.11.0
+         */
+        this.panEffect = new Effects.Pan(this);
+
+        /**
+         * The Camera Zoom effect handler.
+         * To zoom this camera see the `Camera.zoom` method.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#zoomEffect
+         * @type {Phaser.Cameras.Scene2D.Effects.Zoom}
+         * @since 3.11.0
+         */
+        this.zoomEffect = new Effects.Zoom(this);
+
+        /**
          * Should the camera cull Game Objects before checking them for input hit tests?
          * In some special cases it may be beneficial to disable this.
          *
@@ -5474,6 +5600,7 @@ var Camera = new Class({
          * @name Phaser.Cameras.Scene2D.Camera#culledObjects
          * @type {Phaser.GameObjects.GameObject[]}
          * @default []
+         * @private
          * @since 3.0.0
          */
         this.culledObjects = [];
@@ -5508,6 +5635,80 @@ var Camera = new Class({
         this.followOffset = new Vector2();
 
         /**
+         * The mid-point of the Camera in 'world' coordinates.
+         *
+         * Use it to obtain exactly where in the world the center of the camera is currently looking.
+         *
+         * This value is updated in the preRender method, after the scroll values and follower
+         * have been processed.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#midPoint
+         * @type {Phaser.Math.Vector2}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.midPoint = new Vector2(width / 2, height / 2);
+
+        /**
+         * The horizontal origin of rotation for this Camera.
+         *
+         * By default the camera rotates around the center of the viewport.
+         *
+         * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
+         * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
+         *
+         * See `setOrigin` to set both origins in a single, chainable call.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#originX
+         * @type {number}
+         * @default 0.5
+         * @since 3.11.0
+         */
+        this.originX = 0.5;
+
+        /**
+         * The vertical origin of rotation for this Camera.
+         *
+         * By default the camera rotates around the center of the viewport.
+         *
+         * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
+         * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
+         *
+         * See `setOrigin` to set both origins in a single, chainable call.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#originY
+         * @type {number}
+         * @default 0.5
+         * @since 3.11.0
+         */
+        this.originY = 0.5;
+
+        /**
+         * The Camera dead zone.
+         *
+         * The deadzone is only used when the camera is following a target.
+         *
+         * It defines a rectangular region within which if the target is present, the camera will not scroll.
+         * If the target moves outside of this area, the camera will begin scrolling in order to follow it.
+         *
+         * The `lerp` values that you can set for a follower target also apply when using a deadzone.
+         *
+         * You can directly set this property to be an instance of a Rectangle. Or, you can use the
+         * `setDeadzone` method for a chainable approach.
+         *
+         * The rectangle you provide can have its dimensions adjusted dynamically, however, please
+         * note that its position is updated every frame, as it is constantly re-centered on the cameras mid point.
+         *
+         * Calling `setDeadzone` with no arguments will reset an active deadzone, as will setting this property
+         * to `null`.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#deadzone
+         * @type {?Phaser.Geom.Rectangle}
+         * @since 3.11.0
+         */
+        this.deadzone = null;
+
+        /**
          * Internal follow target reference.
          *
          * @name Phaser.Cameras.Scene2D.Camera#_follow
@@ -5517,21 +5718,184 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._follow = null;
-
-        /**
-         * Internal camera ID. Assigned by the Camera Manager and used in the camera pool.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#_id
-         * @type {integer}
-         * @private
-         * @default 0
-         * @since 3.0.0
-         */
-        this._id = 0;
     },
 
     /**
-     * Scrolls the Camera so that it is looking at the center of the Camera Bounds (if previously enabled)
+     * Set the Alpha level of this Camera. The alpha controls the opacity of the Camera as it renders.
+     * Alpha values are provided as a float between 0, fully transparent, and 1, fully opaque.
+     *
+     * @method Phaser.GameObjects.Components.Origin#setAlpha
+     * @since 3.11.0
+     *
+     * @param {number} [value=1] - The Camera alpha value.
+     *
+     * @return {this} This Camera instance.
+     */
+    setAlpha: function (value)
+    {
+        if (value === undefined) { value = 1; }
+
+        this.alpha = value;
+
+        return this;
+    },
+
+    /**
+     * Sets the rotation origin of this Camera.
+     *
+     * The values are given in the range 0 to 1 and are only used when calculating Camera rotation.
+     *
+     * By default the camera rotates around the center of the viewport.
+     *
+     * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
+     * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
+     *
+     * @method Phaser.GameObjects.Components.Origin#setOrigin
+     * @since 3.11.0
+     *
+     * @param {number} [x=0.5] - The horizontal origin value.
+     * @param {number} [y=x] - The vertical origin value. If not defined it will be set to the value of `x`.
+     *
+     * @return {this} This Camera instance.
+     */
+    setOrigin: function (x, y)
+    {
+        if (x === undefined) { x = 0.5; }
+        if (y === undefined) { y = x; }
+
+        this.originX = x;
+        this.originY = y;
+
+        return this;
+    },
+
+    /**
+     * Sets the Camera dead zone.
+     *
+     * The deadzone is only used when the camera is following a target.
+     *
+     * It defines a rectangular region within which if the target is present, the camera will not scroll.
+     * If the target moves outside of this area, the camera will begin scrolling in order to follow it.
+     *
+     * The deadzone rectangle is re-positioned every frame so that it is centered on the mid-point
+     * of the camera. This allows you to use the object for additional game related checks, such as
+     * testing if an object is within it or not via a Rectangle.contains call.
+     *
+     * The `lerp` values that you can set for a follower target also apply when using a deadzone.
+     *
+     * Calling this method with no arguments will reset an active deadzone.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setDeadzone
+     * @since 3.11.0
+     *
+     * @param {number} [width] - The width of the deadzone rectangle in pixels. If not specified the deadzone is removed.
+     * @param {number} [height] - The height of the deadzone rectangle in pixels.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    setDeadzone: function (width, height)
+    {
+        if (width === undefined)
+        {
+            this.deadzone = null;
+        }
+        else
+        {
+            if (this.deadzone)
+            {
+                this.deadzone.width = width;
+                this.deadzone.height = height;
+            }
+            else
+            {
+                this.deadzone = new Rectangle(0, 0, width, height);
+            }
+
+            if (this._follow)
+            {
+                var originX = this.width / 2;
+                var originY = this.height / 2;
+
+                var fx = this._follow.x - this.followOffset.x;
+                var fy = this._follow.y - this.followOffset.y;
+
+                this.midPoint.set(fx, fy);
+
+                this.scrollX = fx - originX;
+                this.scrollY = fy - originY;
+            }
+
+            CenterOn(this.deadzone, this.midPoint.x, this.midPoint.y);
+        }
+
+        return this;
+    },
+
+    /**
+     * Calculates what the Camera.scrollX and scrollY values would need to be in order to move
+     * the Camera so it is centered on the given x and y coordinates, without actually moving
+     * the Camera there. The results are clamped based on the Camera bounds, if set.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#getScroll
+     * @since 3.11.0
+     *
+     * @param {number} x - The horizontal coordinate to center on.
+     * @param {number} y - The vertical coordinate to center on.
+     * @param {Phaser.Math.Vector2} [out] - A Vec2 to store the values in. If not given a new Vec2 is created.
+     *
+     * @return {Phaser.Math.Vector2} The scroll coordinates stored in the `x` abd `y` properties.
+     */
+    getScroll: function (x, y, out)
+    {
+        if (out === undefined) { out = new Vector2(); }
+
+        var originX = this.width * 0.5;
+        var originY = this.height * 0.5;
+
+        out.x = x - originX;
+        out.y = y - originY;
+
+        if (this.useBounds)
+        {
+            out.x = this.clampX(out.x);
+            out.y = this.clampY(out.y);
+        }
+
+        return out;
+    },
+
+    /**
+     * Moves the Camera so that it is centered on the given coordinates, bounds allowing.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#centerOn
+     * @since 3.11.0
+     *
+     * @param {number} x - The horizontal coordinate to center on.
+     * @param {number} y - The vertical coordinate to center on.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    centerOn: function (x, y)
+    {
+        var originX = this.width * 0.5;
+        var originY = this.height * 0.5;
+
+        this.midPoint.set(x, y);
+
+        this.scrollX = x - originX;
+        this.scrollY = y - originY;
+
+        if (this.useBounds)
+        {
+            this.scrollX = this.clampX(this.scrollX);
+            this.scrollY = this.clampY(this.scrollY);
+        }
+
+        return this;
+    },
+
+    /**
+     * Moves the Camera so that it is looking at the center of the Camera Bounds, if enabled.
      *
      * @method Phaser.Cameras.Scene2D.Camera#centerToBounds
      * @since 3.0.0
@@ -5542,15 +5906,21 @@ var Camera = new Class({
     {
         if (this.useBounds)
         {
-            this.scrollX = (this._bounds.width * 0.5) - (this.width * 0.5);
-            this.scrollY = (this._bounds.height * 0.5) - (this.height * 0.5);
+            var bounds = this._bounds;
+            var originX = this.width * 0.5;
+            var originY = this.height * 0.5;
+
+            this.midPoint.set(bounds.centerX, bounds.centerY);
+
+            this.scrollX = bounds.centerX - originX;
+            this.scrollY = bounds.centerY - originY;
         }
 
         return this;
     },
 
     /**
-     * Scrolls the Camera so that it is re-centered based on its viewport size.
+     * Moves the Camera so that it is re-centered based on its viewport size.
      *
      * @method Phaser.Cameras.Scene2D.Camera#centerToSize
      * @since 3.0.0
@@ -5775,6 +6145,52 @@ var Camera = new Class({
     },
 
     /**
+     * This effect will scroll the Camera so that the center of its viewport finishes at the given destination,
+     * over the duration and with the ease specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#pan
+     * @since 3.11.0
+     *
+     * @param {number} x - The destination x coordinate to scroll the center of the Camera viewport to.
+     * @param {number} y - The destination y coordinate to scroll the center of the Camera viewport to.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {(string|function)} [ease='Linear'] - The ease to use for the pan. Can be any of the Phaser Easing constants or a custom function.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {CameraPanCallback} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent four arguments: A reference to the camera, a progress amount between 0 and 1 indicating how complete the effect is,
+     * the current camera scroll x coordinate and the current camera scroll y coordinate.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    pan: function (x, y, duration, ease, force, callback, context)
+    {
+        return this.panEffect.start(x, y, duration, ease, force, callback, context);
+    },
+
+    /**
+     * This effect will zoom the Camera to the given scale, over the duration and with the ease specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#zoomTo
+     * @since 3.11.0
+     *
+     * @param {number} zoom - The target Camera zoom value.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {(string|function)} [ease='Linear'] - The ease to use for the pan. Can be any of the Phaser Easing constants or a custom function.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {CameraPanCallback} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent four arguments: A reference to the camera, a progress amount between 0 and 1 indicating how complete the effect is,
+     * the current camera scroll x coordinate and the current camera scroll y coordinate.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
+    zoomTo: function (zoom, duration, ease, force, callback, context)
+    {
+        return this.zoomEffect.start(zoom, duration, ease, force, callback, context);
+    },
+
+    /**
      * Converts the given `x` and `y` coordinates into World space, based on this Cameras transform.
      * You can optionally provide a Vector2, or similar object, to store the results in.
      *
@@ -5853,7 +6269,7 @@ var Camera = new Class({
      */
     ignore: function (gameObject)
     {
-        var id = this._id;
+        var id = this.id;
 
         if (Array.isArray(gameObject))
         {
@@ -5884,49 +6300,91 @@ var Camera = new Class({
     {
         var width = this.width;
         var height = this.height;
+
+        var halfWidth = width * 0.5;
+        var halfHeight = height * 0.5;
+
         var zoom = this.zoom * baseScale;
         var matrix = this.matrix;
-        var originX = width / 2;
-        var originY = height / 2;
+
+        var originX = width * this.originX;
+        var originY = height * this.originY;
+
         var follow = this._follow;
+        var deadzone = this.deadzone;
+
+        var sx = this.scrollX;
+        var sy = this.scrollY;
+
+        if (deadzone)
+        {
+            CenterOn(deadzone, this.midPoint.x, this.midPoint.y);
+        }
 
         if (follow)
         {
-            this.scrollX = Linear(this.scrollX, (follow.x - this.followOffset.x) - originX, this.lerp.x) / zoom;
-            this.scrollY = Linear(this.scrollY, (follow.y - this.followOffset.y) - originY, this.lerp.y) / zoom;
+            var fx = (follow.x - this.followOffset.x);
+            var fy = (follow.y - this.followOffset.y);
+
+            if (deadzone)
+            {
+                if (fx < deadzone.x)
+                {
+                    sx = Linear(sx, sx - (deadzone.x - fx), this.lerp.x);
+                }
+                else if (fx > deadzone.right)
+                {
+                    sx = Linear(sx, sx + (fx - deadzone.right), this.lerp.x);
+                }
+
+                if (fy < deadzone.y)
+                {
+                    sy = Linear(sy, sy - (deadzone.y - fy), this.lerp.y);
+                }
+                else if (fy > deadzone.bottom)
+                {
+                    sy = Linear(sy, sy + (fy - deadzone.bottom), this.lerp.y);
+                }
+            }
+            else
+            {
+                sx = Linear(sx, fx - originX, this.lerp.x);
+                sy = Linear(sy, fy - originY, this.lerp.y);
+            }
         }
 
         if (this.useBounds)
         {
-            var bounds = this._bounds;
-
-            var bw = Math.max(0, bounds.right - width);
-            var bh = Math.max(0, bounds.bottom - height);
-
-            if (this.scrollX < bounds.x)
-            {
-                this.scrollX = bounds.x;
-            }
-            else if (this.scrollX > bw)
-            {
-                this.scrollX = bw;
-            }
-
-            if (this.scrollY < bounds.y)
-            {
-                this.scrollY = bounds.y;
-            }
-            else if (this.scrollY > bh)
-            {
-                this.scrollY = bh;
-            }
+            sx = this.clampX(sx);
+            sy = this.clampY(sy);
         }
 
         if (this.roundPixels)
         {
-            this.scrollX = Math.round(this.scrollX);
-            this.scrollY = Math.round(this.scrollY);
+            originX = Math.round(originX);
+            originY = Math.round(originY);
         }
+
+        //  Values are in pixels and not impacted by zooming the Camera
+        this.scrollX = sx;
+        this.scrollY = sy;
+
+        var midX = sx + halfWidth;
+        var midY = sy + halfHeight;
+
+        //  The center of the camera, in world space, so taking zoom into account
+        //  Basically the pixel value of what it's looking at in the middle of the cam
+        this.midPoint.set(midX, midY);
+
+        var displayWidth = width / zoom;
+        var displayHeight = height / zoom;
+
+        this.worldView.setTo(
+            midX - (displayWidth / 2),
+            midY - (displayHeight / 2),
+            displayWidth,
+            displayHeight
+        );
 
         matrix.loadIdentity();
         matrix.scale(resolution, resolution);
@@ -5939,6 +6397,75 @@ var Camera = new Class({
     },
 
     /**
+     * Takes an x value and checks it's within the range of the Camera bounds, adjusting if required.
+     * Do not call this method if you are not using camera bounds.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#clampX
+     * @since 3.11.0
+     *
+     * @param {number} x - The value to horizontally scroll clamp.
+     *
+     * @return {number} The adjusted value to use as scrollX.
+     */
+    clampX: function (x)
+    {
+        var bounds = this._bounds;
+
+        var dw = this.displayWidth;
+
+        var bx = bounds.x + ((dw - this.width) / 2);
+        var bw = Math.max(bx, bx + bounds.width - dw);
+
+        if (x < bx)
+        {
+            x = bx;
+        }
+        else if (x > bw)
+        {
+            x = bw;
+        }
+
+        return x;
+    },
+
+    /**
+     * Takes a y value and checks it's within the range of the Camera bounds, adjusting if required.
+     * Do not call this method if you are not using camera bounds.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#clampY
+     * @since 3.11.0
+     *
+     * @param {number} y - The value to vertically scroll clamp.
+     *
+     * @return {number} The adjusted value to use as scrollY.
+     */
+    clampY: function (y)
+    {
+        var bounds = this._bounds;
+
+        var dh = this.displayHeight;
+
+        var by = bounds.y + ((dh - this.height) / 2);
+        var bh = Math.max(by, by + bounds.height - dh);
+
+        if (y < by)
+        {
+            y = by;
+        }
+        else if (y > bh)
+        {
+            y = bh;
+        }
+
+        return y;
+    },
+
+    /*
+        var gap = this._zoomInversed;
+        return gap * Math.round((src.x - this.scrollX * src.scrollFactorX) / gap);
+    */
+
+    /**
      * If this Camera has previously had movement bounds set on it, this will remove them.
      *
      * @method Phaser.Cameras.Scene2D.Camera#removeBounds
@@ -5949,6 +6476,8 @@ var Camera = new Class({
     removeBounds: function ()
     {
         this.useBounds = false;
+
+        this.dirty = true;
 
         this._bounds.setEmpty();
 
@@ -6053,10 +6582,23 @@ var Camera = new Class({
     },
 
     /**
-     * Set the world bounds for this Camera.
-     *
-     * A Camera bounds controls where the camera can scroll to within the world. It does not limit
-     * rendering of the camera, or placement of the viewport within your game.
+     * Set the bounds of the Camera. The bounds are an axis-aligned rectangle.
+     * 
+     * The Camera bounds controls where the Camera can scroll to, stopping it from scrolling off the
+     * edges and into blank space. It does not limit the placement of Game Objects, or where
+     * the Camera viewport can be positioned.
+     * 
+     * Temporarily disable the bounds by changing the boolean `Camera.useBounds`.
+     * 
+     * Clear the bounds entirely by calling `Camera.removeBounds`.
+     * 
+     * If you set bounds that are smaller than the viewport it will stop the Camera from being
+     * able to scroll. The bounds can be positioned where-ever you wish. By default they are from
+     * 0x0 to the canvas width x height. This means that the coordinate 0x0 is the top left of
+     * the Camera bounds. However, you can position them anywhere. So if you wanted a game world
+     * that was 2048x2048 in size, with 0x0 being the center of it, you can set the bounds x/y
+     * to be -1024, -1024, with a width and height of 2048. Depending on your game you may find
+     * it easier for 0x0 to be the top-left of the bounds, or you may wish 0x0 to be the middle.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setBounds
      * @since 3.0.0
@@ -6065,14 +6607,26 @@ var Camera = new Class({
      * @param {integer} y - The top-left y coordinate of the bounds.
      * @param {integer} width - The width of the bounds, in pixels.
      * @param {integer} height - The height of the bounds, in pixels.
+     * @param {boolean} [centerOn] - If `true` the Camera will automatically be centered on the new bounds.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
-    setBounds: function (x, y, width, height)
+    setBounds: function (x, y, width, height, centerOn)
     {
         this._bounds.setTo(x, y, width, height);
 
+        this.dirty = true;
         this.useBounds = true;
+
+        if (centerOn)
+        {
+            this.centerToBounds();
+        }
+        else
+        {
+            this.scrollX = this.clampX(this.scrollX);
+            this.scrollY = this.clampY(this.scrollY);
+        }
 
         return this;
     },
@@ -6142,8 +6696,9 @@ var Camera = new Class({
     },
 
     /**
-     * Should the Camera round pixel values to whole integers when scrolling?
-     * In some types of game this is required to prevent sub-pixel aliasing.
+     * Should the Camera round pixel values to whole integers when rendering Game Objects?
+     * 
+     * In some types of game, especially with pixel art, this is required to prevent sub-pixel aliasing.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setRoundPixels
      * @since 3.0.0
@@ -6270,13 +6825,18 @@ var Camera = new Class({
      * @method Phaser.Cameras.Scene2D.Camera#setZoom
      * @since 3.0.0
      *
-     * @param {float} [value=1] - The zoom value of the Camera.
+     * @param {number} [value=1] - The zoom value of the Camera. The minimum it can be is 0.001.
      *
      * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
      */
     setZoom: function (value)
     {
         if (value === undefined) { value = 1; }
+
+        if (value === 0)
+        {
+            value = 0.001;
+        }
 
         this.zoom = value;
 
@@ -6285,14 +6845,14 @@ var Camera = new Class({
 
     /**
      * Sets the visibility of this Camera.
-     * 
+     *
      * An invisible Camera will skip rendering and input tests of everything it can see.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setVisible
      * @since 3.10.0
      *
      * @param {boolean} value - The visible state of the Camera.
-     * 
+     *
      * @return {this} This Camera instance.
      */
     setVisible: function (value)
@@ -6321,8 +6881,8 @@ var Camera = new Class({
      *
      * @param {(Phaser.GameObjects.GameObject|object)} target - The target for the Camera to follow.
      * @param {boolean} [roundPixels=false] - Round the camera position to whole integers to avoid sub-pixel rendering?
-     * @param {float} [lerpX=1] - A value between 0 and 1. This value specifies the amount of linear interpolation to use when horizontally tracking the target. The closer the value to 1, the faster the camera will track.
-     * @param {float} [lerpY=1] - A value between 0 and 1. This value specifies the amount of linear interpolation to use when vertically tracking the target. The closer the value to 1, the faster the camera will track.
+     * @param {number} [lerpX=1] - A value between 0 and 1. This value specifies the amount of linear interpolation to use when horizontally tracking the target. The closer the value to 1, the faster the camera will track.
+     * @param {number} [lerpY=1] - A value between 0 and 1. This value specifies the amount of linear interpolation to use when vertically tracking the target. The closer the value to 1, the faster the camera will track.
      * @param {number} [offsetX=0] - The horizontal offset from the camera follow target.x position.
      * @param {number} [offsetY=0] - The vertical offset from the camera follow target.y position.
      *
@@ -6347,13 +6907,16 @@ var Camera = new Class({
 
         this.followOffset.set(offsetX, offsetY);
 
-        //  Move the camera there immediately, to avoid a large lerp during preUpdate
-        var zoom = this.zoom;
         var originX = this.width / 2;
         var originY = this.height / 2;
 
-        this.scrollX = (target.x - offsetX - originX) / zoom;
-        this.scrollY = (target.y - offsetY - originY) / zoom;
+        var fx = target.x - offsetX;
+        var fy = target.y - offsetY;
+
+        this.midPoint.set(fx, fy);
+
+        this.scrollX = fx - originX;
+        this.scrollY = fy - originY;
 
         return this;
     },
@@ -6421,6 +6984,7 @@ var Camera = new Class({
      */
     resetFX: function ()
     {
+        this.panEffect.reset();
         this.shakeEffect.reset();
         this.flashEffect.reset();
         this.fadeEffect.reset();
@@ -6442,6 +7006,8 @@ var Camera = new Class({
     {
         if (this.visible)
         {
+            this.panEffect.update(time, delta);
+            this.zoomEffect.update(time, delta);
             this.shakeEffect.update(time, delta);
             this.flashEffect.update(time, delta);
             this.fadeEffect.update(time, delta);
@@ -6478,10 +7044,180 @@ var Camera = new Class({
         this.culledObjects = [];
 
         this._follow = null;
-
         this._bounds = null;
-
         this.scene = null;
+        this.deadzone = null;
+    },
+
+    /**
+     * The width of the Camera viewport, in pixels.
+     *
+     * The viewport is the area into which the Camera renders. Setting the viewport does
+     * not restrict where the Camera can scroll to.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#width
+     * @type {number}
+     * @since 3.0.0
+     */
+    width: {
+
+        get: function ()
+        {
+            return this._width;
+        },
+
+        set: function (value)
+        {
+            this._width = value;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
+     * The height of the Camera viewport, in pixels.
+     *
+     * The viewport is the area into which the Camera renders. Setting the viewport does
+     * not restrict where the Camera can scroll to.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#height
+     * @type {number}
+     * @since 3.0.0
+     */
+    height: {
+
+        get: function ()
+        {
+            return this._height;
+        },
+
+        set: function (value)
+        {
+            this._height = value;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
+     * The horizontal scroll position of this Camera.
+     *
+     * Change this value to cause the Camera to scroll around your Scene.
+     *
+     * Alternatively, setting the Camera to follow a Game Object, via the `startFollow` method,
+     * will automatically adjust the Camera scroll values accordingly.
+     *
+     * You can set the bounds within which the Camera can scroll via the `setBounds` method.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#scrollX
+     * @type {number}
+     * @default 0
+     * @since 3.0.0
+     */
+    scrollX: {
+
+        get: function ()
+        {
+            return this._scrollX;
+        },
+
+        set: function (value)
+        {
+            this._scrollX = value;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
+     * The vertical scroll position of this Camera.
+     *
+     * Change this value to cause the Camera to scroll around your Scene.
+     *
+     * Alternatively, setting the Camera to follow a Game Object, via the `startFollow` method,
+     * will automatically adjust the Camera scroll values accordingly.
+     *
+     * You can set the bounds within which the Camera can scroll via the `setBounds` method.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#scrollY
+     * @type {number}
+     * @default 0
+     * @since 3.0.0
+     */
+    scrollY: {
+
+        get: function ()
+        {
+            return this._scrollY;
+        },
+
+        set: function (value)
+        {
+            this._scrollY = value;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
+     * The Camera zoom value. Change this value to zoom in, or out of, a Scene.
+     *
+     * A value of 0.5 would zoom the Camera out, so you can now see twice as much
+     * of the Scene as before. A value of 2 would zoom the Camera in, so every pixel
+     * now takes up 2 pixels when rendered.
+     *
+     * Set to 1 to return to the default zoom level.
+     *
+     * Be careful to never set this value to zero.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#zoom
+     * @type {number}
+     * @default 1
+     * @since 3.0.0
+     */
+    zoom: {
+
+        get: function ()
+        {
+            return this._zoom;
+        },
+
+        set: function (value)
+        {
+            this._zoom = value;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
+     * The rotation of the Camera in radians.
+     *
+     * Camera rotation always takes place based on the Camera viewport. By default, rotation happens
+     * in the center of the viewport. You can adjust this with the `originX` and `originY` properties.
+     *
+     * Rotation influences the rendering of _all_ Game Objects visible by this Camera. However, it does not
+     * rotate the Camera viewport itself, which always remains an axis-aligned rectangle.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#rotation
+     * @type {number}
+     * @private
+     * @default 0
+     * @since 3.11.0
+     */
+    rotation: {
+
+        get: function ()
+        {
+            return this._rotation;
+        },
+
+        set: function (value)
+        {
+            this._rotation = value;
+            this.dirty = true;
+        }
+
     },
 
     /**
@@ -6516,6 +7252,52 @@ var Camera = new Class({
             return this.y + (0.5 * this.height);
         }
 
+    },
+
+    /**
+     * The displayed width of the camera viewport, factoring in the camera zoom level.
+     *
+     * If a camera has a viewport width of 800 and a zoom of 0.5 then its display width
+     * would be 1600, as it's displaying twice as many pixels as zoom level 1.
+     *
+     * Equally, a camera with a width of 800 and zoom of 2 would have a display width
+     * of 400 pixels.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#displayWidth
+     * @type {number}
+     * @readOnly
+     * @since 3.11.0
+     */
+    displayWidth: {
+
+        get: function ()
+        {
+            return this.width / this.zoom;
+        }
+
+    },
+
+    /**
+     * The displayed height of the camera viewport, factoring in the camera zoom level.
+     *
+     * If a camera has a viewport height of 600 and a zoom of 0.5 then its display height
+     * would be 1200, as it's displaying twice as many pixels as zoom level 1.
+     *
+     * Equally, a camera with a height of 600 and zoom of 2 would have a display height
+     * of 300 pixels.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#displayHeight
+     * @type {number}
+     * @readOnly
+     * @since 3.11.0
+     */
+    displayHeight: {
+
+        get: function ()
+        {
+            return this.height / this.zoom;
+        }
+
     }
 
 });
@@ -6547,27 +7329,54 @@ var RectangleContains = __webpack_require__(/*! ../../geom/rectangle/Contains */
 /**
  * @typedef {object} InputJSONCameraObject
  *
- * @property {string} [name=''] - [description]
- * @property {integer} [x=0] - [description]
- * @property {integer} [y=0] - [description]
- * @property {integer} [width] - [description]
- * @property {integer} [height] - [description]
- * @property {float} [zoom=1] - [description]
- * @property {float} [rotation=0] - [description]
- * @property {boolean} [roundPixels=false] - [description]
- * @property {float} [scrollX=0] - [description]
- * @property {float} [scrollY=0] - [description]
- * @property {(false|string)} [backgroundColor=false] - [description]
- * @property {?object} [bounds] - [description]
- * @property {number} [bounds.x=0] - [description]
- * @property {number} [bounds.y=0] - [description]
- * @property {number} [bounds.width] - [description]
- * @property {number} [bounds.height] - [description]
+ * @property {string} [name=''] - The name of the Camera.
+ * @property {integer} [x=0] - The horizontal position of the Camera viewport.
+ * @property {integer} [y=0] - The vertical position of the Camera viewport.
+ * @property {integer} [width] - The width of the Camera viewport.
+ * @property {integer} [height] - The height of the Camera viewport.
+ * @property {number} [zoom=1] - The default zoom level of the Camera.
+ * @property {number} [rotation=0] - The rotation of the Camera, in radians.
+ * @property {boolean} [roundPixels=false] - Should the Camera round pixels before rendering?
+ * @property {number} [scrollX=0] - The horizontal scroll position of the Camera.
+ * @property {number} [scrollY=0] - The vertical scroll position of the Camera.
+ * @property {(false|string)} [backgroundColor=false] - A CSS color string controlling the Camera background color.
+ * @property {?object} [bounds] - Defines the Camera bounds.
+ * @property {number} [bounds.x=0] - The top-left extent of the Camera bounds.
+ * @property {number} [bounds.y=0] - The top-left extent of the Camera bounds.
+ * @property {number} [bounds.width] - The width of the Camera bounds.
+ * @property {number} [bounds.height] - The height of the Camera bounds.
  */
 
 /**
  * @classdesc
- * [description]
+ * The Camera Manager is a plugin that belongs to a Scene and is responsible for managing all of the Scene Cameras.
+ * 
+ * By default you can access the Camera Manager from within a Scene using `this.cameras`, although this can be changed
+ * in your game config.
+ * 
+ * Create new Cameras using the `add` method. Or extend the Camera class with your own addition code and then add
+ * the new Camera in using the `addExisting` method.
+ * 
+ * Cameras provide a view into your game world, and can be positioned, rotated, zoomed and scrolled accordingly.
+ *
+ * A Camera consists of two elements: The viewport and the scroll values.
+ *
+ * The viewport is the physical position and size of the Camera within your game. Cameras, by default, are
+ * created the same size as your game, but their position and size can be set to anything. This means if you
+ * wanted to create a camera that was 320x200 in size, positioned in the bottom-right corner of your game,
+ * you'd adjust the viewport to do that (using methods like `setViewport` and `setSize`).
+ *
+ * If you wish to change where the Camera is looking in your game, then you scroll it. You can do this
+ * via the properties `scrollX` and `scrollY` or the method `setScroll`. Scrolling has no impact on the
+ * viewport, and changing the viewport has no impact on the scrolling.
+ *
+ * By default a Camera will render all Game Objects it can see. You can change this using the `ignore` method,
+ * allowing you to filter Game Objects out on a per-Camera basis. The Camera Manager can manage up to 31 unique 
+ * 'Game Object ignore capable' Cameras. Any Cameras beyond 31 that you create will all be given a Camera ID of
+ * zero, meaning that they cannot be used for Game Object exclusion. This means if you need your Camera to ignore
+ * Game Objects, make sure it's one of the first 31 created.
+ *
+ * A Camera also has built-in special effects including Fade, Flash, Camera Shake, Pan and Zoom.
  *
  * @class CameraManager
  * @memberOf Phaser.Cameras.Scene2D
@@ -6601,18 +7410,22 @@ var CameraManager = new Class({
         this.systems = scene.sys;
 
         /**
-         * The current Camera ID.
+         * All Cameras created by, or added to, this Camera Manager, will have their `roundPixels`
+         * property set to match this value. By default it is set to match the value set in the
+         * game configuration, but can be changed at any point. Equally, individual cameras can
+         * also be changed as needed.
          *
-         * @name Phaser.Cameras.Scene2D.CameraManager#currentCameraId
-         * @type {number}
-         * @default 1
-         * @readOnly
-         * @since 3.0.0
+         * @name Phaser.Cameras.Scene2D.CameraManager#roundPixels
+         * @type {boolean}
+         * @since 3.11.0
          */
-        this.currentCameraId = 1;
+        this.roundPixels = scene.sys.game.config.roundPixels;
 
         /**
          * An Array of the Camera objects being managed by this Camera Manager.
+         * The Cameras are updated and rendered in the same order in which they appear in this array.
+         * Do not directly add or remove entries to this array. However, you can move the contents
+         * around the array should you wish to adjust the display order.
          *
          * @name Phaser.Cameras.Scene2D.CameraManager#cameras
          * @type {Phaser.Cameras.Scene2D.Camera[]}
@@ -6621,16 +7434,15 @@ var CameraManager = new Class({
         this.cameras = [];
 
         /**
-         * A pool of Camera objects available to be used by the Camera Manager.
-         *
-         * @name Phaser.Cameras.Scene2D.CameraManager#cameraPool
-         * @type {Phaser.Cameras.Scene2D.Camera[]}
-         * @since 3.0.0
-         */
-        this.cameraPool = [];
-
-        /**
-         * The default Camera in the Camera Manager.
+         * A handy reference to the 'main' camera. By default this is the first Camera the
+         * Camera Manager creates. You can also set it directly, or use the `makeMain` argument
+         * in the `add` and `addExisting` methods. It allows you to access it from your game:
+         * 
+         * ```javascript
+         * var cam = this.cameras.main;
+         * ```
+         * 
+         * Also see the properties `camera1`, `camera2` and so on.
          *
          * @name Phaser.Cameras.Scene2D.CameraManager#main
          * @type {Phaser.Cameras.Scene2D.Camera}
@@ -6639,7 +7451,7 @@ var CameraManager = new Class({
         this.main;
 
         /**
-         * This scale affects all cameras. It's used by Scale Manager.
+         * This scale affects all cameras. It's used by the Scale Manager.
          *
          * @name Phaser.Cameras.Scene2D.CameraManager#baseScale
          * @type {number}
@@ -6702,19 +7514,33 @@ var CameraManager = new Class({
     },
 
     /**
-     * [description]
+     * Adds a new Camera into the Camera Manager. The Camera Manager can support up to 31 different Cameras.
+     * 
+     * Each Camera has its own viewport, which controls the size of the Camera and its position within the canvas.
+     * 
+     * Use the `Camera.scrollX` and `Camera.scrollY` properties to change where the Camera is looking, or the
+     * Camera methods such as `centerOn`. Cameras also have built in special effects, such as fade, flash, shake,
+     * pan and zoom.
+     * 
+     * By default Cameras are transparent and will render anything that they can see based on their `scrollX`
+     * and `scrollY` values. Game Objects can be set to be ignored by a Camera by using the `Camera.ignore` method.
+     * 
+     * The Camera will have its `roundPixels` propery set to whatever `CameraManager.roundPixels` is. You can change
+     * it after creation if required.
+     * 
+     * See the Camera class documentation for more details.
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#add
      * @since 3.0.0
      *
-     * @param {number} [x=0] - [description]
-     * @param {number} [y=0] - [description]
-     * @param {number} [width] - [description]
-     * @param {number} [height] - [description]
-     * @param {boolean} [makeMain=false] - [description]
-     * @param {string} [name=''] - [description]
+     * @param {integer} [x=0] - The horizontal position of the Camera viewport.
+     * @param {integer} [y=0] - The vertical position of the Camera viewport.
+     * @param {integer} [width] - The width of the Camera viewport. If not given it'll be the game config size.
+     * @param {integer} [height] - The height of the Camera viewport. If not given it'll be the game config size.
+     * @param {boolean} [makeMain=false] - Set this Camera as being the 'main' camera. This just makes the property `main` a reference to it.
+     * @param {string} [name=''] - The name of the Camera.
      *
-     * @return {Phaser.Cameras.Scene2D.Camera} [description]
+     * @return {Phaser.Cameras.Scene2D.Camera} The newly created Camera.
      */
     add: function (x, y, width, height, makeMain, name)
     {
@@ -6725,21 +7551,13 @@ var CameraManager = new Class({
         if (makeMain === undefined) { makeMain = false; }
         if (name === undefined) { name = ''; }
 
-        var camera = null;
-
-        if (this.cameraPool.length > 0)
-        {
-            camera = this.cameraPool.pop();
-
-            camera.setViewport(x, y, width, height);
-        }
-        else
-        {
-            camera = new Camera(x, y, width, height);
-        }
+        var camera = new Camera(x, y, width, height);
 
         camera.setName(name);
         camera.setScene(this.scene);
+        camera.setRoundPixels(this.roundPixels);
+
+        camera.id = this.getNextID();
 
         this.cameras.push(camera);
 
@@ -6748,33 +7566,49 @@ var CameraManager = new Class({
             this.main = camera;
         }
 
-        camera._id = this.currentCameraId;
-
-        this.currentCameraId = this.currentCameraId << 1;
-
         return camera;
     },
 
     /**
-     * [description]
+     * Adds an existing Camera into the Camera Manager.
+     * 
+     * The Camera should either be a `Phaser.Cameras.Scene2D.Camera` instance, or a class that extends from it.
+     * 
+     * The Camera will have its `roundPixels` propery set to whatever `CameraManager.roundPixels` is. You can change
+     * it after addition if required.
+     * 
+     * The Camera will be assigned an ID, which is used for Game Object exclusion and then added to the
+     * manager. As long as it doesn't already exist in the manager it will be added then returned.
+     * 
+     * If this method returns `null` then the Camera already exists in this Camera Manager.
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#addExisting
      * @since 3.0.0
      *
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to be added to the Camera Manager.
+     * @param {boolean} [makeMain=false] - Set this Camera as being the 'main' camera. This just makes the property `main` a reference to it.
      *
-     * @return {Phaser.Cameras.Scene2D.Camera} [description]
+     * @return {?Phaser.Cameras.Scene2D.Camera} The Camera that was added to the Camera Manager, or `null` if it couldn't be added.
      */
-    addExisting: function (camera)
+    addExisting: function (camera, makeMain)
     {
+        if (makeMain === undefined) { makeMain = false; }
+
         var index = this.cameras.indexOf(camera);
-        var poolIndex = this.cameraPool.indexOf(camera);
 
-        if (index < 0 && poolIndex >= 0)
+        if (index === -1)
         {
-            this.cameras.push(camera);
-            this.cameraPool.slice(poolIndex, 1);
+            camera.id = this.getNextID();
 
+            camera.setRoundPixels(this.roundPixels);
+
+            this.cameras.push(camera);
+
+            if (makeMain)
+            {
+                this.main = camera;
+            }
+    
             return camera;
         }
 
@@ -6782,14 +7616,97 @@ var CameraManager = new Class({
     },
 
     /**
-     * [description]
+     * Gets the next available Camera ID number.
+     * 
+     * The Camera Manager supports up to 31 unique cameras, after which the ID returned will always be zero.
+     * You can create additional cameras beyond 31, but they cannot be used for Game Object exclusion.
+     *
+     * @method Phaser.Cameras.Scene2D.CameraManager#getNextID
+     * @private
+     * @since 3.11.0
+     *
+     * @return {number} The next available Camera ID, or 0 if they're all already in use.
+     */
+    getNextID: function ()
+    {
+        var cameras = this.cameras;
+
+        var testID = 1;
+
+        //  Find the first free camera ID we can use
+
+        for (var t = 0; t < 32; t++)
+        {
+            var found = false;
+
+            for (var i = 0; i < cameras.length; i++)
+            {
+                var camera = cameras[i];
+
+                if (camera && camera.id === testID)
+                {
+                    found = true;
+                    continue;
+                }
+            }
+
+            if (found)
+            {
+                testID = testID << 1;
+            }
+            else
+            {
+                return testID;
+            }
+        }
+
+        return 0;
+    },
+
+    /**
+     * Gets the total number of Cameras in this Camera Manager.
+     * 
+     * If the optional `isVisible` argument is set it will only count Cameras that are currently visible.
+     *
+     * @method Phaser.Cameras.Scene2D.CameraManager#getTotal
+     * @since 3.11.0
+     * 
+     * @param {boolean} [isVisible=false] - Set the `true` to only include visible Cameras in the total.
+     *
+     * @return {integer} The total number of Cameras in this Camera Manager.
+     */
+    getTotal: function (isVisible)
+    {
+        if (isVisible === undefined) { isVisible = false; }
+
+        var total = 0;
+
+        var cameras = this.cameras;
+
+        for (var i = 0; i < cameras.length; i++)
+        {
+            var camera = cameras[i];
+
+            if (!isVisible || (isVisible && camera.visible))
+            {
+                total++;
+            }
+        }
+
+        return total;
+    },
+
+    /**
+     * Populates this Camera Manager based on the given configuration object, or an array of config objects.
+     * 
+     * See the `InputJSONCameraObject` documentation for details of the object structure.
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#fromJSON
      * @since 3.0.0
      *
-     * @param {(InputJSONCameraObject|InputJSONCameraObject[])} config - [description]
+     * @param {(InputJSONCameraObject|InputJSONCameraObject[])} config - A Camera configuration object, or an array of them, to be added to this Camera Manager.
      *
-     * @return {Phaser.Cameras.Scene2D.CameraManager} [description]
+     * @return {Phaser.Cameras.Scene2D.CameraManager} This Camera Manager instance.
      */
     fromJSON: function (config)
     {
@@ -6849,22 +7766,27 @@ var CameraManager = new Class({
     },
 
     /**
-     * [description]
+     * Gets a Camera based on its name.
+     * 
+     * Camera names are optional and don't have to be set, so this method is only of any use if you
+     * have given your Cameras unique names.
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#getCamera
      * @since 3.0.0
      *
-     * @param {string} name - [description]
+     * @param {string} name - The name of the Camera.
      *
-     * @return {Phaser.Cameras.Scene2D.Camera} [description]
+     * @return {?Phaser.Cameras.Scene2D.Camera} The first Camera with a name matching the given string, otherwise `null`.
      */
     getCamera: function (name)
     {
-        for (var i = 0; i < this.cameras.length; i++)
+        var cameras = this.cameras;
+
+        for (var i = 0; i < cameras.length; i++)
         {
-            if (this.cameras[i].name === name)
+            if (cameras[i].name === name)
             {
-                return this.cameras[i];
+                return cameras[i];
             }
         }
 
@@ -6907,33 +7829,58 @@ var CameraManager = new Class({
     },
 
     /**
-     * [description]
+     * Removes the given Camera, or an array of Cameras, from this Camera Manager.
+     * 
+     * If found in the Camera Manager it will be immediately removed from the local cameras array.
+     * If also currently the 'main' camera, 'main' will be reset to be camera 0.
+     * 
+     * The removed Camera is not destroyed. If you also wish to destroy the Camera, you should call
+     * `Camera.destroy` on it, so that it clears all references to the Camera Manager.
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#remove
      * @since 3.0.0
      *
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
+     * @param {(Phaser.Cameras.Scene2D.Camera|Phaser.Cameras.Scene2D.Camera[])} camera - The Camera, or an array of Cameras, to be removed from this Camera Manager.
+     * 
+     * @return {integer} The total number of Cameras removed.
      */
     remove: function (camera)
     {
-        var cameraIndex = this.cameras.indexOf(camera);
-
-        if (cameraIndex >= 0 && this.cameras.length > 1)
+        if (!Array.isArray(camera))
         {
-            this.cameraPool.push(this.cameras[cameraIndex]);
-            this.cameras.splice(cameraIndex, 1);
+            camera = [ camera ];
+        }
 
-            if (this.main === camera)
+        var total = 0;
+        var cameras = this.cameras;
+
+        for (var i = 0; i < camera.length; i++)
+        {
+            var index = cameras.indexOf(camera[i]);
+
+            if (index !== -1)
             {
-                this.main = this.cameras[0];
+                cameras.splice(index, 1);
+                total++;
             }
         }
+
+        if (!this.main)
+        {
+            this.main = cameras[0];
+        }
+
+        return total;
     },
 
     /**
-     * [description]
+     * The internal render method. This is called automatically by the Scene and should not be invoked directly.
+     * 
+     * It will iterate through all local cameras and render them in turn, as long as they're visible and have
+     * an alpha level > 0.
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#render
+     * @protected
      * @since 3.0.0
      *
      * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - The Renderer that will render the children to this camera.
@@ -6942,36 +7889,43 @@ var CameraManager = new Class({
      */
     render: function (renderer, children, interpolation)
     {
+        var scene = this.scene;
         var cameras = this.cameras;
         var baseScale = this.baseScale;
+        var resolution = renderer.config.resolution;
 
-        for (var i = 0, l = cameras.length; i < l; ++i)
+        for (var i = 0; i < this.cameras.length; i++)
         {
             var camera = cameras[i];
 
-            if (camera.visible)
+            if (camera.visible && camera.alpha > 0)
             {
-                camera.preRender(baseScale, renderer.config.resolution);
+                camera.preRender(baseScale, resolution);
 
-                renderer.render(this.scene, children, interpolation, camera);
+                renderer.render(scene, children, interpolation, camera);
             }
         }
     },
 
     /**
-     * [description]
+     * Resets this Camera Manager.
+     * 
+     * This will iterate through all current Cameras, destroying them all, then it will reset the
+     * cameras array, reset the ID counter and create 1 new single camera using the default values.
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#resetAll
      * @since 3.0.0
      *
-     * @return {Phaser.Cameras.Scene2D.Camera} [description]
+     * @return {Phaser.Cameras.Scene2D.Camera} The freshly created main Camera.
      */
     resetAll: function ()
     {
-        while (this.cameras.length > 0)
+        for (var i = 0; i < this.cameras.length; i++)
         {
-            this.cameraPool.push(this.cameras.pop());
+            this.cameras[i].destroy();
         }
+
+        this.cameras = [];
 
         this.main = this.add();
 
@@ -6979,17 +7933,18 @@ var CameraManager = new Class({
     },
 
     /**
-     * [description]
+     * The main update loop. Called automatically when the Scene steps.
      *
      * @method Phaser.Cameras.Scene2D.CameraManager#update
+     * @protected
      * @since 3.0.0
      *
-     * @param {number} timestep - [description]
-     * @param {number} delta - [description]
+     * @param {number} timestep - The timestep value.
+     * @param {number} delta - The delta value since the last frame.
      */
     update: function (timestep, delta)
     {
-        for (var i = 0, l = this.cameras.length; i < l; ++i)
+        for (var i = 0; i < this.cameras.length; i++)
         {
             this.cameras[i].update(timestep, delta);
         }
@@ -7006,7 +7961,7 @@ var CameraManager = new Class({
      */
     resize: function (width, height)
     {
-        for (var i = 0, l = this.cameras.length; i < l; ++i)
+        for (var i = 0; i < this.cameras.length; i++)
         {
             this.cameras[i].setSize(width, height);
         }
@@ -7029,13 +7984,7 @@ var CameraManager = new Class({
             this.cameras[i].destroy();
         }
 
-        for (i = 0; i < this.cameraPool.length; i++)
-        {
-            this.cameraPool[i].destroy();
-        }
-
         this.cameras = [];
-        this.cameraPool = [];
 
         var eventEmitter = this.systems.events;
 
@@ -7206,7 +8155,7 @@ var Fade = new Class({
          * A value between 0 and 1.
          *
          * @name Phaser.Cameras.Scene2D.Effects.Fade#alpha
-         * @type {float}
+         * @type {number}
          * @private
          * @since 3.5.0
          */
@@ -7216,7 +8165,7 @@ var Fade = new Class({
          * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
          *
          * @name Phaser.Cameras.Scene2D.Effects.Fade#progress
-         * @type {float}
+         * @type {number}
          * @since 3.5.0
          */
         this.progress = 0;
@@ -7235,7 +8184,7 @@ var Fade = new Class({
          * @callback CameraFadeCallback
          *
          * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera on which the effect is running.
-         * @param {float} progress - The progress of the effect. A value between 0 and 1.
+         * @param {number} progress - The progress of the effect. A value between 0 and 1.
          */
 
         /**
@@ -7622,7 +8571,7 @@ var Flash = new Class({
          * A value between 0 and 1.
          *
          * @name Phaser.Cameras.Scene2D.Effects.Flash#alpha
-         * @type {float}
+         * @type {number}
          * @private
          * @since 3.5.0
          */
@@ -7632,7 +8581,7 @@ var Flash = new Class({
          * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
          *
          * @name Phaser.Cameras.Scene2D.Effects.Flash#progress
-         * @type {float}
+         * @type {number}
          * @since 3.5.0
          */
         this.progress = 0;
@@ -7651,7 +8600,7 @@ var Flash = new Class({
          * @callback CameraFlashCallback
          *
          * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera on which the effect is running.
-         * @param {float} progress - The progress of the effect. A value between 0 and 1.
+         * @param {number} progress - The progress of the effect. A value between 0 and 1.
          */
 
         /**
@@ -7895,6 +8844,362 @@ module.exports = Flash;
 
 /***/ }),
 
+/***/ "./cameras/2d/effects/Pan.js":
+/*!***********************************!*\
+  !*** ./cameras/2d/effects/Pan.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Clamp = __webpack_require__(/*! ../../../math/Clamp */ "./math/Clamp.js");
+var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+var Vector2 = __webpack_require__(/*! ../../../math/Vector2 */ "./math/Vector2.js");
+var EaseMap = __webpack_require__(/*! ../../../math/easing/EaseMap */ "./math/easing/EaseMap.js");
+
+/**
+ * @classdesc
+ * A Camera Pan effect.
+ *
+ * This effect will scroll the Camera so that the center of its viewport finishes at the given destination,
+ * over the duration and with the ease specified.
+ *
+ * Only the camera scroll is moved. None of the objects it is displaying are impacted, i.e. their positions do
+ * not change.
+ *
+ * The effect will dispatch several events on the Camera itself and you can also specify an `onUpdate` callback,
+ * which is invoked each frame for the duration of the effect if required.
+ *
+ * @class Pan
+ * @memberOf Phaser.Cameras.Scene2D.Effects
+ * @constructor
+ * @since 3.11.0
+ *
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera this effect is acting upon.
+ */
+var Pan = new Class({
+
+    initialize:
+
+    function Pan (camera)
+    {
+        /**
+         * The Camera this effect belongs to.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#camera
+         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.camera = camera;
+
+        /**
+         * Is this effect actively running?
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#isRunning
+         * @type {boolean}
+         * @readOnly
+         * @default false
+         * @since 3.11.0
+         */
+        this.isRunning = false;
+
+        /**
+         * The duration of the effect, in milliseconds.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#duration
+         * @type {integer}
+         * @readOnly
+         * @default 0
+         * @since 3.11.0
+         */
+        this.duration = 0;
+
+        /**
+         * The starting scroll coordinates to pan the camera from.
+         * 
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#source
+         * @type {Phaser.Math.Vector2}
+         * @since 3.11.0
+         */
+        this.source = new Vector2();
+
+        /**
+         * The constantly updated value based on zoom.
+         * 
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#current
+         * @type {Phaser.Math.Vector2}
+         * @since 3.11.0
+         */
+        this.current = new Vector2();
+
+        /**
+         * The destination scroll coordinates to pan the camera to.
+         * 
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#destination
+         * @type {Phaser.Math.Vector2}
+         * @since 3.11.0
+         */
+        this.destination = new Vector2();
+
+        /**
+         * The ease function to use during the pan.
+         * 
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#ease
+         * @type {function}
+         * @since 3.11.0
+         */
+        this.ease;
+
+        /**
+         * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#progress
+         * @type {number}
+         * @since 3.11.0
+         */
+        this.progress = 0;
+
+        /**
+         * Effect elapsed timer.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#_elapsed
+         * @type {number}
+         * @private
+         * @since 3.11.0
+         */
+        this._elapsed = 0;
+
+        /**
+         * @callback CameraPanCallback
+         *
+         * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera on which the effect is running.
+         * @param {number} progress - The progress of the effect. A value between 0 and 1.
+         * @param {number} x - The Camera's new scrollX coordinate.
+         * @param {number} y - The Camera's new scrollY coordinate.
+         */
+
+        /**
+         * This callback is invoked every frame for the duration of the effect.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#_onUpdate
+         * @type {?CameraPanCallback}
+         * @private
+         * @default null
+         * @since 3.11.0
+         */
+        this._onUpdate;
+
+        /**
+         * On Complete callback scope.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Pan#_onUpdateScope
+         * @type {any}
+         * @private
+         * @since 3.11.0
+         */
+        this._onUpdateScope;
+    },
+
+    /**
+     * This event is fired when the pan effect begins to run on a camera.
+     *
+     * @event CameraPanStartEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Pan} effect - A reference to the effect instance.
+     * @param {integer} duration - The duration of the effect.
+     * @param {number} x - The destination scroll x coordinate.
+     * @param {number} y - The destination scroll y coordinate.
+     */
+
+    /**
+     * This event is fired when the pan effect completes.
+     *
+     * @event CameraPanCompleteEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Pan} effect - A reference to the effect instance.
+     */
+
+    /**
+     * This effect will scroll the Camera so that the center of its viewport finishes at the given destination,
+     * over the duration and with the ease specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#start
+     * @fires CameraPanStartEvent
+     * @fires CameraPanCompleteEvent
+     * @since 3.11.0
+     *
+     * @param {number} x - The destination x coordinate to scroll the center of the Camera viewport to.
+     * @param {number} y - The destination y coordinate to scroll the center of the Camera viewport to.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {(string|function)} [ease='Linear'] - The ease to use for the pan. Can be any of the Phaser Easing constants or a custom function.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {CameraPanCallback} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent four arguments: A reference to the camera, a progress amount between 0 and 1 indicating how complete the effect is,
+     * the current camera scroll x coordinate and the current camera scroll y coordinate.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} The Camera on which the effect was started.
+     */
+    start: function (x, y, duration, ease, force, callback, context)
+    {
+        if (duration === undefined) { duration = 1000; }
+        if (ease === undefined) { ease = EaseMap.Linear; }
+        if (force === undefined) { force = false; }
+        if (callback === undefined) { callback = null; }
+        if (context === undefined) { context = this.camera.scene; }
+
+        var cam = this.camera;
+
+        if (!force && this.isRunning)
+        {
+            return cam;
+        }
+
+        this.isRunning = true;
+        this.duration = duration;
+        this.progress = 0;
+
+        //  Starting from
+        this.source.set(cam.scrollX, cam.scrollY);
+
+        //  Destination
+        this.destination.set(x, y);
+
+        //  Zoom factored version
+        cam.getScroll(x, y, this.current);
+
+        //  Using this ease
+        if (typeof ease === 'string' && EaseMap.hasOwnProperty(ease))
+        {
+            this.ease = EaseMap[ease];
+        }
+        else if (typeof ease === 'function')
+        {
+            this.ease = ease;
+        }
+
+        this._elapsed = 0;
+
+        this._onUpdate = callback;
+        this._onUpdateScope = context;
+
+        this.camera.emit('camerapanstart', this.camera, this, duration, x, y);
+
+        return cam;
+    },
+
+    /**
+     * The main update loop for this effect. Called automatically by the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#update
+     * @since 3.11.0
+     *
+     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
+     * @param {number} delta - The delta time, in ms, elapsed since the last frame.
+     */
+    update: function (time, delta)
+    {
+        if (!this.isRunning)
+        {
+            return;
+        }
+
+        this._elapsed += delta;
+
+        var progress = Clamp(this._elapsed / this.duration, 0, 1);
+
+        this.progress = progress;
+
+        var cam = this.camera;
+
+        if (this._elapsed < this.duration)
+        {
+            var v = this.ease(progress);
+
+            cam.getScroll(this.destination.x, this.destination.y, this.current);
+
+            var x = this.source.x + ((this.current.x - this.source.x) * v);
+            var y = this.source.y + ((this.current.y - this.source.y) * v);
+
+            cam.setScroll(x, y);
+
+            if (this._onUpdate)
+            {
+                this._onUpdate.call(this._onUpdateScope, cam, progress, x, y);
+            }
+        }
+        else
+        {
+            cam.centerOn(this.destination.x, this.destination.y);
+
+            if (this._onUpdate)
+            {
+                this._onUpdate.call(this._onUpdateScope, cam, progress, cam.scrollX, cam.scrollY);
+            }
+    
+            this.effectComplete();
+        }
+    },
+
+    /**
+     * Called internally when the effect completes.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#effectComplete
+     * @since 3.11.0
+     */
+    effectComplete: function ()
+    {
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+
+        this.isRunning = false;
+
+        this.camera.emit('camerapancomplete', this.camera, this);
+    },
+
+    /**
+     * Resets this camera effect.
+     * If it was previously running, it stops instantly without calling its onComplete callback or emitting an event.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#reset
+     * @since 3.11.0
+     */
+    reset: function ()
+    {
+        this.isRunning = false;
+
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+    },
+
+    /**
+     * Destroys this effect, releasing it from the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Pan#destroy
+     * @since 3.11.0
+     */
+    destroy: function ()
+    {
+        this.reset();
+
+        this.camera = null;
+        this.source = null;
+        this.destination = null;
+    }
+
+});
+
+module.exports = Pan;
+
+
+/***/ }),
+
 /***/ "./cameras/2d/effects/Shake.js":
 /*!*************************************!*\
   !*** ./cameras/2d/effects/Shake.js ***!
@@ -7984,7 +9289,7 @@ var Shake = new Class({
          * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
          *
          * @name Phaser.Cameras.Scene2D.Effects.Shake#progress
-         * @type {float}
+         * @type {number}
          * @since 3.5.0
          */
         this.progress = 0;
@@ -8025,7 +9330,7 @@ var Shake = new Class({
          * @callback CameraShakeCallback
          *
          * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera on which the effect is running.
-         * @param {float} progress - The progress of the effect. A value between 0 and 1.
+         * @param {number} progress - The progress of the effect. A value between 0 and 1.
          */
 
         /**
@@ -8057,7 +9362,7 @@ var Shake = new Class({
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
      * @param {Phaser.Cameras.Scene2D.Effects.Shake} effect - A reference to the effect instance.
      * @param {integer} duration - The duration of the effect.
-     * @param {float} intensity - The intensity of the effect.
+     * @param {number} intensity - The intensity of the effect.
      */
 
     /**
@@ -8242,6 +9547,328 @@ module.exports = Shake;
 
 /***/ }),
 
+/***/ "./cameras/2d/effects/Zoom.js":
+/*!************************************!*\
+  !*** ./cameras/2d/effects/Zoom.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Clamp = __webpack_require__(/*! ../../../math/Clamp */ "./math/Clamp.js");
+var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+var EaseMap = __webpack_require__(/*! ../../../math/easing/EaseMap */ "./math/easing/EaseMap.js");
+
+/**
+ * @classdesc
+ * A Camera Zoom effect.
+ *
+ * This effect will zoom the Camera to the given scale, over the duration and with the ease specified.
+ *
+ * The effect will dispatch several events on the Camera itself and you can also specify an `onUpdate` callback,
+ * which is invoked each frame for the duration of the effect if required.
+ *
+ * @class Zoom
+ * @memberOf Phaser.Cameras.Scene2D.Effects
+ * @constructor
+ * @since 3.11.0
+ *
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera this effect is acting upon.
+ */
+var Zoom = new Class({
+
+    initialize:
+
+    function Zoom (camera)
+    {
+        /**
+         * The Camera this effect belongs to.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#camera
+         * @type {Phaser.Cameras.Scene2D.Camera}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.camera = camera;
+
+        /**
+         * Is this effect actively running?
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#isRunning
+         * @type {boolean}
+         * @readOnly
+         * @default false
+         * @since 3.11.0
+         */
+        this.isRunning = false;
+
+        /**
+         * The duration of the effect, in milliseconds.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#duration
+         * @type {integer}
+         * @readOnly
+         * @default 0
+         * @since 3.11.0
+         */
+        this.duration = 0;
+
+        /**
+         * The starting zoom value;
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#source
+         * @type {number}
+         * @since 3.11.0
+         */
+        this.source = 1;
+
+        /**
+         * The destination zoom value.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#destination
+         * @type {number}
+         * @since 3.11.0
+         */
+        this.destination = 1;
+
+        /**
+         * The ease function to use during the zoom.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#ease
+         * @type {function}
+         * @since 3.11.0
+         */
+        this.ease;
+
+        /**
+         * If this effect is running this holds the current percentage of the progress, a value between 0 and 1.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#progress
+         * @type {number}
+         * @since 3.11.0
+         */
+        this.progress = 0;
+
+        /**
+         * Effect elapsed timer.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#_elapsed
+         * @type {number}
+         * @private
+         * @since 3.11.0
+         */
+        this._elapsed = 0;
+
+        /**
+         * @callback CameraZoomCallback
+         *
+         * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera on which the effect is running.
+         * @param {number} progress - The progress of the effect. A value between 0 and 1.
+         * @param {number} zoom - The Camera's new zoom value.
+         */
+
+        /**
+         * This callback is invoked every frame for the duration of the effect.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#_onUpdate
+         * @type {?CameraZoomCallback}
+         * @private
+         * @default null
+         * @since 3.11.0
+         */
+        this._onUpdate;
+
+        /**
+         * On Complete callback scope.
+         *
+         * @name Phaser.Cameras.Scene2D.Effects.Zoom#_onUpdateScope
+         * @type {any}
+         * @private
+         * @since 3.11.0
+         */
+        this._onUpdateScope;
+    },
+
+    /**
+     * This event is fired when the Zoom effect begins to run on a camera.
+     *
+     * @event CameraZoomStartEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Zoom} effect - A reference to the effect instance.
+     * @param {integer} duration - The duration of the effect.
+     * @param {number} zoom - The destination zoom value.
+     */
+
+    /**
+     * This event is fired when the Zoom effect completes.
+     *
+     * @event CameraZoomCompleteEvent
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The camera that the effect began on.
+     * @param {Phaser.Cameras.Scene2D.Effects.Zoom} effect - A reference to the effect instance.
+     */
+
+    /**
+     * This effect will zoom the Camera to the given scale, over the duration and with the ease specified.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#start
+     * @fires CameraZoomStartEvent
+     * @fires CameraZoomCompleteEvent
+     * @since 3.11.0
+     *
+     * @param {number} zoom - The target Camera zoom value.
+     * @param {integer} [duration=1000] - The duration of the effect in milliseconds.
+     * @param {(string|function)} [ease='Linear'] - The ease to use for the Zoom. Can be any of the Phaser Easing constants or a custom function.
+     * @param {boolean} [force=false] - Force the shake effect to start immediately, even if already running.
+     * @param {CameraZoomCallback} [callback] - This callback will be invoked every frame for the duration of the effect.
+     * It is sent three arguments: A reference to the camera, a progress amount between 0 and 1 indicating how complete the effect is,
+     * and the current camera zoom value.
+     * @param {any} [context] - The context in which the callback is invoked. Defaults to the Scene to which the Camera belongs.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} The Camera on which the effect was started.
+     */
+    start: function (zoom, duration, ease, force, callback, context)
+    {
+        if (duration === undefined) { duration = 1000; }
+        if (ease === undefined) { ease = EaseMap.Linear; }
+        if (force === undefined) { force = false; }
+        if (callback === undefined) { callback = null; }
+        if (context === undefined) { context = this.camera.scene; }
+
+        var cam = this.camera;
+
+        if (!force && this.isRunning)
+        {
+            return cam;
+        }
+
+        this.isRunning = true;
+        this.duration = duration;
+        this.progress = 0;
+
+        //  Starting from
+        this.source = cam.zoom;
+
+        //  Zooming to
+        this.destination = zoom;
+
+        //  Using this ease
+        if (typeof ease === 'string' && EaseMap.hasOwnProperty(ease))
+        {
+            this.ease = EaseMap[ease];
+        }
+        else if (typeof ease === 'function')
+        {
+            this.ease = ease;
+        }
+
+        this._elapsed = 0;
+
+        this._onUpdate = callback;
+        this._onUpdateScope = context;
+
+        this.camera.emit('camerazoomstart', this.camera, this, duration, zoom);
+
+        return cam;
+    },
+
+    /**
+     * The main update loop for this effect. Called automatically by the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#update
+     * @since 3.11.0
+     *
+     * @param {integer} time - The current timestamp as generated by the Request Animation Frame or SetTimeout.
+     * @param {number} delta - The delta time, in ms, elapsed since the last frame.
+     */
+    update: function (time, delta)
+    {
+        if (!this.isRunning)
+        {
+            return;
+        }
+
+        this._elapsed += delta;
+
+        this.progress = Clamp(this._elapsed / this.duration, 0, 1);
+
+        if (this._elapsed < this.duration)
+        {
+            this.camera.zoom = this.source + ((this.destination - this.source) * this.ease(this.progress));
+
+            if (this._onUpdate)
+            {
+                this._onUpdate.call(this._onUpdateScope, this.camera, this.progress, this.camera.zoom);
+            }
+        }
+        else
+        {
+            this.camera.zoom = this.destination;
+
+            if (this._onUpdate)
+            {
+                this._onUpdate.call(this._onUpdateScope, this.camera, this.progress, this.destination);
+            }
+
+            this.effectComplete();
+        }
+    },
+
+    /**
+     * Called internally when the effect completes.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#effectComplete
+     * @since 3.11.0
+     */
+    effectComplete: function ()
+    {
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+
+        this.isRunning = false;
+
+        this.camera.emit('camerazoomcomplete', this.camera, this);
+    },
+
+    /**
+     * Resets this camera effect.
+     * If it was previously running, it stops instantly without calling its onComplete callback or emitting an event.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#reset
+     * @since 3.11.0
+     */
+    reset: function ()
+    {
+        this.isRunning = false;
+
+        this._onUpdate = null;
+        this._onUpdateScope = null;
+    },
+
+    /**
+     * Destroys this effect, releasing it from the Camera.
+     *
+     * @method Phaser.Cameras.Scene2D.Effects.Zoom#destroy
+     * @since 3.11.0
+     */
+    destroy: function ()
+    {
+        this.reset();
+
+        this.camera = null;
+    }
+
+});
+
+module.exports = Zoom;
+
+
+/***/ }),
+
 /***/ "./cameras/2d/effects/index.js":
 /*!*************************************!*\
   !*** ./cameras/2d/effects/index.js ***!
@@ -8263,7 +9890,9 @@ module.exports = {
 
     Fade: __webpack_require__(/*! ./Fade */ "./cameras/2d/effects/Fade.js"),
     Flash: __webpack_require__(/*! ./Flash */ "./cameras/2d/effects/Flash.js"),
-    Shake: __webpack_require__(/*! ./Shake */ "./cameras/2d/effects/Shake.js")
+    Pan: __webpack_require__(/*! ./Pan */ "./cameras/2d/effects/Pan.js"),
+    Shake: __webpack_require__(/*! ./Shake */ "./cameras/2d/effects/Shake.js"),
+    Zoom: __webpack_require__(/*! ./Zoom */ "./cameras/2d/effects/Zoom.js")
 
 };
 
@@ -8327,7 +9956,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.10.1',
+    VERSION: '3.11',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -8919,6 +10548,8 @@ var DataManager = new Class({
             Object.defineProperty(this.values, key, {
 
                 enumerable: true,
+                
+                configurable: true,
 
                 get: function ()
                 {
@@ -8931,8 +10562,8 @@ var DataManager = new Class({
                     {
                         list[key] = value;
 
-                        events.emit('changedata', parent, key, data);
-                        events.emit('changedata_' + key, parent, data);
+                        events.emit('changedata', parent, key, value);
+                        events.emit('changedata_' + key, parent, value);
                     }
                 }
 
@@ -9069,7 +10700,7 @@ var DataManager = new Class({
             delete this.list[key];
             delete this.values[key];
 
-            this.events.emit('removedata', this, key, data);
+            this.events.emit('removedata', this.parent, key, data);
         }
 
         return this;
@@ -11128,10 +12759,10 @@ var Color = new Class({
      * @method Phaser.Display.Color#setGLTo
      * @since 3.0.0
      *
-     * @param {float} red - The red color value. A number between 0 and 1.
-     * @param {float} green - The green color value. A number between 0 and 1.
-     * @param {float} blue - The blue color value. A number between 0 and 1.
-     * @param {float} [alpha=1] - The alpha value. A number between 0 and 1.
+     * @param {number} red - The red color value. A number between 0 and 1.
+     * @param {number} green - The green color value. A number between 0 and 1.
+     * @param {number} blue - The blue color value. A number between 0 and 1.
+     * @param {number} [alpha=1] - The alpha value. A number between 0 and 1.
      *
      * @return {Phaser.Display.Color} This Color object.
      */
@@ -11256,7 +12887,7 @@ var Color = new Class({
      * The red color value, normalized to the range 0 to 1.
      *
      * @name Phaser.Display.Color#redGL
-     * @type {float}
+     * @type {number}
      * @since 3.0.0
      */
     redGL: {
@@ -11281,7 +12912,7 @@ var Color = new Class({
      * The green color value, normalized to the range 0 to 1.
      *
      * @name Phaser.Display.Color#greenGL
-     * @type {float}
+     * @type {number}
      * @since 3.0.0
      */
     greenGL: {
@@ -11306,7 +12937,7 @@ var Color = new Class({
      * The blue color value, normalized to the range 0 to 1.
      *
      * @name Phaser.Display.Color#blueGL
-     * @type {float}
+     * @type {number}
      * @since 3.0.0
      */
     blueGL: {
@@ -11331,7 +12962,7 @@ var Color = new Class({
      * The alpha color value, normalized to the range 0 to 1.
      *
      * @name Phaser.Display.Color#alphaGL
-     * @type {float}
+     * @type {number}
      * @since 3.0.0
      */
     alphaGL: {
@@ -11870,6 +13501,15 @@ var BitmapMask = new Class({
         var renderer = scene.sys.game.renderer;
 
         /**
+         * A reference to either the Canvas or WebGL Renderer that this Mask is using.
+         *
+         * @name Phaser.Display.Masks.BitmapMask#renderer
+         * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
+         * @since 3.11.0
+         */
+        this.renderer = renderer;
+
+        /**
          * A renderable Game Object that uses a texture, such as a Sprite.
          *
          * @name Phaser.Display.Masks.BitmapMask#bitmapMask
@@ -12048,10 +13688,22 @@ var BitmapMask = new Class({
     destroy: function ()
     {
         this.bitmapMask = null;
+
+        var renderer = this.renderer;
+
+        if (renderer && renderer.gl)
+        {
+            renderer.deleteTexture(this.mainTexture);
+            renderer.deleteTexture(this.maskTexture);
+            renderer.deleteFramebuffer(this.mainFramebuffer);
+            renderer.deleteFramebuffer(this.maskFramebuffer);
+        }
+
         this.mainTexture = null;
         this.maskTexture = null;
         this.mainFramebuffer = null;
         this.maskFramebuffer = null;
+        this.renderer = null;
     }
 
 });
@@ -12123,7 +13775,7 @@ var GeometryMask = new Class({
      * @method Phaser.Display.Masks.GeometryMask#preRenderWebGL
      * @since 3.0.0
      *
-     * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - [description]
+     * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - [description]
      * @param {Phaser.GameObjects.GameObject} mask - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
      */
@@ -12149,7 +13801,7 @@ var GeometryMask = new Class({
         // Use stencil buffer to affect next rendering object
         gl.colorMask(true, true, true, true);
         gl.stencilFunc(gl.EQUAL, 1, 1);
-        gl.stencilOp(gl.INVERT, gl.INVERT, gl.INVERT);
+        gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP);
     },
 
     /**
@@ -12158,7 +13810,7 @@ var GeometryMask = new Class({
      * @method Phaser.Display.Masks.GeometryMask#postRenderWebGL
      * @since 3.0.0
      *
-     * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - [description]
+     * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - [description]
      */
     postRenderWebGL: function (renderer)
     {
@@ -12175,7 +13827,7 @@ var GeometryMask = new Class({
      * @method Phaser.Display.Masks.GeometryMask#preRenderCanvas
      * @since 3.0.0
      *
-     * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - [description]
+     * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - [description]
      * @param {Phaser.GameObjects.GameObject} mask - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
      */
@@ -12196,7 +13848,7 @@ var GeometryMask = new Class({
      * @method Phaser.Display.Masks.GeometryMask#postRenderCanvas
      * @since 3.0.0
      *
-     * @param {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)} renderer - [description]
+     * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - [description]
      */
     postRenderCanvas: function (renderer)
     {
@@ -13124,10 +14776,10 @@ var BuildGameObjectAnimation = function (sprite, config)
         var play = GetAdvancedValue(animConfig, 'play', false);
         var delayedPlay = GetAdvancedValue(animConfig, 'delayedPlay', 0);
 
-        anims.delay(delay);
-        anims.repeat(repeat);
-        anims.repeatDelay(repeatDelay);
-        anims.yoyo(yoyo);
+        anims.setDelay(delay);
+        anims.setRepeat(repeat);
+        anims.setRepeatDelay(repeatDelay);
+        anims.setYoyo(yoyo);
 
         if (play)
         {
@@ -13511,7 +15163,11 @@ var GameObject = new Class({
 
         /**
          * A bitmask that controls if this Game Object is drawn by a Camera or not.
-         * Not usually set directly. Instead call `Camera.ignore`.
+         * Not usually set directly, instead call `Camera.ignore`, however you can
+         * set this property directly using the Camera.id property:
+         * 
+         * @example
+         * this.cameraFilter |= camera.id
          *
          * @name Phaser.GameObjects.GameObject#cameraFilter
          * @type {number}
@@ -13569,7 +15225,7 @@ var GameObject = new Class({
      *
      * @param {boolean} value - True if this Game Object should be set as active, false if not.
      *
-     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     * @return {this} This GameObject.
      */
     setActive: function (value)
     {
@@ -13587,7 +15243,7 @@ var GameObject = new Class({
      *
      * @param {string} value - The name to be given to this Game Object.
      *
-     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     * @return {this} This GameObject.
      */
     setName: function (value)
     {
@@ -13603,7 +15259,7 @@ var GameObject = new Class({
      * @since 3.0.0
      * @see Phaser.Data.DataManager
      *
-     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     * @return {this} This GameObject.
      */
     setDataEnabled: function ()
     {
@@ -13734,7 +15390,7 @@ var GameObject = new Class({
      * @param {HitAreaCallback} [callback] - A callback to be invoked when the Game Object is interacted with. If you provide a shape you must also provide a callback.
      * @param {boolean} [dropZone=false] - Should this Game Object be treated as a drop zone target?
      *
-     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     * @return {this} This GameObject.
      */
     setInteractive: function (shape, callback, dropZone)
     {
@@ -13755,13 +15411,13 @@ var GameObject = new Class({
      * @method Phaser.GameObjects.GameObject#disableInteractive
      * @since 3.7.0
      *
-     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     * @return {this} This GameObject.
      */
     disableInteractive: function ()
     {
         if (this.input)
         {
-            this.input.enabled = (this.input.enabled) ? false : true;
+            this.input.enabled = false;
         }
 
         return this;
@@ -13783,7 +15439,7 @@ var GameObject = new Class({
      * @method Phaser.GameObjects.GameObject#removeInteractive
      * @since 3.7.0
      *
-     * @return {Phaser.GameObjects.GameObject} This GameObject.
+     * @return {this} This GameObject.
      */
     removeInteractive: function ()
     {
@@ -14665,7 +16321,7 @@ var Alpha = {
      * Private internal value. Holds the global alpha value.
      *
      * @name Phaser.GameObjects.Components.Alpha#_alpha
-     * @type {float}
+     * @type {number}
      * @private
      * @default 1
      * @since 3.0.0
@@ -14676,7 +16332,7 @@ var Alpha = {
      * Private internal value. Holds the top-left alpha value.
      *
      * @name Phaser.GameObjects.Components.Alpha#_alphaTL
-     * @type {float}
+     * @type {number}
      * @private
      * @default 1
      * @since 3.0.0
@@ -14687,7 +16343,7 @@ var Alpha = {
      * Private internal value. Holds the top-right alpha value.
      *
      * @name Phaser.GameObjects.Components.Alpha#_alphaTR
-     * @type {float}
+     * @type {number}
      * @private
      * @default 1
      * @since 3.0.0
@@ -14698,7 +16354,7 @@ var Alpha = {
      * Private internal value. Holds the bottom-left alpha value.
      *
      * @name Phaser.GameObjects.Components.Alpha#_alphaBL
-     * @type {float}
+     * @type {number}
      * @private
      * @default 1
      * @since 3.0.0
@@ -14709,7 +16365,7 @@ var Alpha = {
      * Private internal value. Holds the bottom-right alpha value.
      *
      * @name Phaser.GameObjects.Components.Alpha#_alphaBR
-     * @type {float}
+     * @type {number}
      * @private
      * @default 1
      * @since 3.0.0
@@ -14741,10 +16397,10 @@ var Alpha = {
      * @method Phaser.GameObjects.Components.Alpha#setAlpha
      * @since 3.0.0
      *
-     * @param {float} [topLeft=1] - The alpha value used for the top-left of the Game Object. If this is the only value given it's applied across the whole Game Object.
-     * @param {float} [topRight] - The alpha value used for the top-right of the Game Object. WebGL only.
-     * @param {float} [bottomLeft] - The alpha value used for the bottom-left of the Game Object. WebGL only.
-     * @param {float} [bottomRight] - The alpha value used for the bottom-right of the Game Object. WebGL only.
+     * @param {number} [topLeft=1] - The alpha value used for the top-left of the Game Object. If this is the only value given it's applied across the whole Game Object.
+     * @param {number} [topRight] - The alpha value used for the top-right of the Game Object. WebGL only.
+     * @param {number} [bottomLeft] - The alpha value used for the bottom-left of the Game Object. WebGL only.
+     * @param {number} [bottomRight] - The alpha value used for the bottom-right of the Game Object. WebGL only.
      *
      * @return {this} This Game Object instance.
      */
@@ -14774,7 +16430,7 @@ var Alpha = {
      * This is a global value, impacting the entire Game Object, not just a region of it.
      *
      * @name Phaser.GameObjects.Components.Alpha#alpha
-     * @type {float}
+     * @type {number}
      * @since 3.0.0
      */
     alpha: {
@@ -14811,7 +16467,7 @@ var Alpha = {
      * This value is interpolated from the corner to the center of the Game Object.
      *
      * @name Phaser.GameObjects.Components.Alpha#alphaTopLeft
-     * @type {float}
+     * @type {number}
      * @webglOnly
      * @since 3.0.0
      */
@@ -14841,7 +16497,7 @@ var Alpha = {
      * This value is interpolated from the corner to the center of the Game Object.
      *
      * @name Phaser.GameObjects.Components.Alpha#alphaTopRight
-     * @type {float}
+     * @type {number}
      * @webglOnly
      * @since 3.0.0
      */
@@ -14871,7 +16527,7 @@ var Alpha = {
      * This value is interpolated from the corner to the center of the Game Object.
      *
      * @name Phaser.GameObjects.Components.Alpha#alphaBottomLeft
-     * @type {float}
+     * @type {number}
      * @webglOnly
      * @since 3.0.0
      */
@@ -14901,7 +16557,7 @@ var Alpha = {
      * This value is interpolated from the corner to the center of the Game Object.
      *
      * @name Phaser.GameObjects.Components.Alpha#alphaBottomRight
-     * @type {float}
+     * @type {number}
      * @webglOnly
      * @since 3.0.0
      */
@@ -15470,7 +17126,7 @@ var Animation = new Class({
      * @method Phaser.GameObjects.Components.Animation#getProgress
      * @since 3.4.0
      *
-     * @return {float} The progress of the current animation, between 0 and 1.
+     * @return {number} The progress of the current animation, between 0 and 1.
      */
     getProgress: function ()
     {
@@ -15491,7 +17147,7 @@ var Animation = new Class({
      * @method Phaser.GameObjects.Components.Animation#setProgress
      * @since 3.4.0
      *
-     * @param {float} [value=0] - The progress value, between 0 and 1.
+     * @param {number} [value=0] - The progress value, between 0 and 1.
      *
      * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
      */
@@ -16740,12 +18396,16 @@ var Mask = {
     /**
      * Sets the mask that this Game Object will use to render with.
      *
-     * The mask must have been previously created and can be either a
-     * GeometryMask or a BitmapMask.
-     *
+     * The mask must have been previously created and can be either a GeometryMask or a BitmapMask.
      * Note: Bitmap Masks only work on WebGL. Geometry Masks work on both WebGL and Canvas.
      *
      * If a mask is already set on this Game Object it will be immediately replaced.
+     * 
+     * Masks are positioned in global space and are not relative to the Game Object to which they
+     * are applied. The reason for this is that multiple Game Objects can all share the same mask.
+     * 
+     * Masks have no impact on physics or input detection. They are purely a rendering component
+     * that allows you to limit what is visible during the render pass.
      *
      * @method Phaser.GameObjects.Components.Mask#setMask
      * @since 3.6.2
@@ -16775,7 +18435,7 @@ var Mask = {
     {
         if (destroyMask === undefined) { destroyMask = false; }
 
-        if (destroyMask)
+        if (destroyMask && this.mask)
         {
             this.mask.destroy();
         }
@@ -16977,7 +18637,7 @@ var MatrixStack = {
     },
 
     /**
-     * Resets the current matrix to the identity matrix.
+     * Reset the current matrix to the identity matrix.
      *
      * @method Phaser.GameObjects.Components.MatrixStack#loadIdentity
      * @since 3.2.0
@@ -17115,7 +18775,7 @@ var MatrixStack = {
      * @method Phaser.GameObjects.Components.MatrixStack#rotate
      * @since 3.2.0
      *
-     * @param {number} t - The angle of rotation, in radians.
+     * @param {number} t - The angle of rotation in radians.
      *
      * @return {this} This Game Object instance.
      */
@@ -17187,7 +18847,7 @@ var Origin = {
      * Setting the value to 0 means the position now relates to the left of the Game Object.
      *
      * @name Phaser.GameObjects.Components.Origin#originX
-     * @type {float}
+     * @type {number}
      * @default 0.5
      * @since 3.0.0
      */
@@ -17200,7 +18860,7 @@ var Origin = {
      * Setting the value to 0 means the position now relates to the top of the Game Object.
      *
      * @name Phaser.GameObjects.Components.Origin#originY
-     * @type {float}
+     * @type {number}
      * @default 0.5
      * @since 3.0.0
      */
@@ -17216,7 +18876,7 @@ var Origin = {
      * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
      *
      * @name Phaser.GameObjects.Components.Origin#displayOriginX
-     * @type {float}
+     * @type {number}
      * @since 3.0.0
      */
     displayOriginX: {
@@ -17240,7 +18900,7 @@ var Origin = {
      * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
      *
      * @name Phaser.GameObjects.Components.Origin#displayOriginY
-     * @type {float}
+     * @type {number}
      * @since 3.0.0
      */
     displayOriginY: {
@@ -17433,7 +19093,7 @@ var Pipeline = {
      *
      * @param {string} pipelineName - The name of the pipeline to set on this Game Object.
      *
-     * @return {boolean} `true` if the pipeline was set successfully, otherwise `false`.
+     * @return {this} This Game Object instance.
      */
     setPipeline: function (pipelineName)
     {
@@ -17442,11 +19102,9 @@ var Pipeline = {
         if (renderer && renderer.gl && renderer.hasPipeline(pipelineName))
         {
             this.pipeline = renderer.getPipeline(pipelineName);
-
-            return true;
         }
 
-        return false;
+        return this;
     },
 
     /**
@@ -17864,6 +19522,16 @@ var Texture = {
     frame: null,
 
     /**
+     * Internal flag. Not to be set by this Game Object.
+     *
+     * @name Phaser.GameObjects.Components.Texture#isCropped
+     * @type {boolean}
+     * @private
+     * @since 3.11.0
+     */
+    isCropped: false,
+
+    /**
      * Sets the texture and frame this Game Object will use to render with.
      *
      * Textures are referenced by their string-based keys, as stored in the Texture Manager.
@@ -17941,6 +19609,215 @@ var Texture = {
 };
 
 module.exports = Texture;
+
+
+/***/ }),
+
+/***/ "./gameobjects/components/TextureCrop.js":
+/*!***********************************************!*\
+  !*** ./gameobjects/components/TextureCrop.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+//  bitmask flag for GameObject.renderMask
+var _FLAG = 8; // 1000
+
+/**
+ * Provides methods used for getting and setting the texture of a Game Object.
+ *
+ * @name Phaser.GameObjects.Components.TextureCrop
+ * @since 3.0.0
+ */
+
+var TextureCrop = {
+
+    /**
+     * The Texture this Game Object is using to render with.
+     *
+     * @name Phaser.GameObjects.Components.TextureCrop#texture
+     * @type {Phaser.Textures.Texture|Phaser.Textures.CanvasTexture}
+     * @since 3.0.0
+     */
+    texture: null,
+
+    /**
+     * The Texture Frame this Game Object is using to render with.
+     *
+     * @name Phaser.GameObjects.Components.TextureCrop#frame
+     * @type {Phaser.Textures.Frame}
+     * @since 3.0.0
+     */
+    frame: null,
+
+    /**
+     * A boolean flag indicating if this Game Object is being cropped or not.
+     * You can toggle this at any time after `setCrop` has been called, to turn cropping on or off.
+     * Equally, calling `setCrop` with no arguments will reset the crop and disable it.
+     *
+     * @name Phaser.GameObjects.Components.TextureCrop#isCropped
+     * @type {boolean}
+     * @since 3.11.0
+     */
+    isCropped: false,
+
+    /**
+     * The internal crop data object, as used by `setCrop` and passed to the `Frame.setCropUVs` method.
+     *
+     * @name Phaser.GameObjects.Components.TextureCrop#isCropped
+     * @type {object}
+     * @private
+     * @since 3.11.0
+     */
+    _crop: { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 },
+
+    /**
+     * Applies a crop to a texture based Game Object, such as a Sprite or Image.
+     * 
+     * The crop is a rectangle that limits the area of the texture frame that is visible during rendering.
+     * 
+     * Cropping a Game Object does not change its size, dimensions, physics body or hit area, it just
+     * changes what is shown when rendered.
+     * 
+     * The crop coordinates are relative to the texture frame, not the Game Object, meaning 0 x 0 is the top-left.
+     * 
+     * Therefore, if you had a Game Object that had an 800x600 sized texture, and you wanted to show only the left
+     * half of it, you could call `setCrop(0, 0, 400, 600)`.
+     * 
+     * It is also scaled to match the Game Object scale automatically. Therefore a crop rect of 100x50 would crop
+     * an area of 200x100 when applied to a Game Object that had a scale factor of 2.
+     * 
+     * You can either pass in numeric values directly, or you can provide a single Rectangle object as the first argument.
+     * 
+     * Call this method with no arguments at all to reset the crop, or toggle the property `isCropped` to `false`.
+     * 
+     * You should do this if the crop rectangle becomes the same size as the frame itself, as it will allow
+     * the renderer to skip several internal calculations.
+     *
+     * @method Phaser.GameObjects.Components.TextureCrop#setCrop
+     * @since 3.11.0
+     *
+     * @param {(number|Phaser.Geom.Rectangle)} [x] - The x coordinate to start the crop from. Or a Phaser.Geom.Rectangle object, in which case the rest of the arguments are ignored.
+     * @param {number} [y] - The y coordinate to start the crop from.
+     * @param {number} [width] - The width of the crop rectangle in pixels.
+     * @param {number} [height] - The height of the crop rectangle in pixels.
+     *
+     * @return {this} This Game Object instance.
+     */
+    setCrop: function (x, y, width, height)
+    {
+        if (x === undefined)
+        {
+            this.isCropped = false;
+        }
+        else if (this.frame)
+        {
+            if (typeof x === 'number')
+            {
+                this.frame.setCropUVs(this._crop, x, y, width, height, this.flipX, this.flipY);
+            }
+            else
+            {
+                var rect = x;
+
+                this.frame.setCropUVs(this._crop, rect.x, rect.y, rect.width, rect.height, this.flipX, this.flipY);
+            }
+
+            this.isCropped = true;
+        }
+
+        return this;
+    },
+
+    /**
+     * Sets the texture and frame this Game Object will use to render with.
+     *
+     * Textures are referenced by their string-based keys, as stored in the Texture Manager.
+     *
+     * @method Phaser.GameObjects.Components.TextureCrop#setTexture
+     * @since 3.0.0
+     *
+     * @param {string} key - The key of the texture to be used, as stored in the Texture Manager.
+     * @param {(string|integer)} [frame] - The name or index of the frame within the Texture.
+     *
+     * @return {this} This Game Object instance.
+     */
+    setTexture: function (key, frame)
+    {
+        this.texture = this.scene.sys.textures.get(key);
+
+        return this.setFrame(frame);
+    },
+
+    /**
+     * Sets the frame this Game Object will use to render with.
+     *
+     * The Frame has to belong to the current Texture being used.
+     *
+     * It can be either a string or an index.
+     *
+     * Calling `setFrame` will modify the `width` and `height` properties of your Game Object.
+     * It will also change the `origin` if the Frame has a custom pivot point, as exported from packages like Texture Packer.
+     *
+     * @method Phaser.GameObjects.Components.TextureCrop#setFrame
+     * @since 3.0.0
+     *
+     * @param {(string|integer)} frame - The name or index of the frame within the Texture.
+     * @param {boolean} [updateSize=true] - Should this call adjust the size of the Game Object?
+     * @param {boolean} [updateOrigin=true] - Should this call adjust the origin of the Game Object?
+     *
+     * @return {this} This Game Object instance.
+     */
+    setFrame: function (frame, updateSize, updateOrigin)
+    {
+        if (updateSize === undefined) { updateSize = true; }
+        if (updateOrigin === undefined) { updateOrigin = true; }
+
+        this.frame = this.texture.get(frame);
+
+        if (!this.frame.cutWidth || !this.frame.cutHeight)
+        {
+            this.renderFlags &= ~_FLAG;
+        }
+        else
+        {
+            this.renderFlags |= _FLAG;
+        }
+
+        if (this._sizeComponent && updateSize)
+        {
+            this.setSizeToFrame();
+        }
+
+        if (this._originComponent && updateOrigin)
+        {
+            if (this.frame.customPivot)
+            {
+                this.setOrigin(this.frame.pivotX, this.frame.pivotY);
+            }
+            else
+            {
+                this.updateDisplayOrigin();
+            }
+        }
+
+        if (this.isCropped)
+        {
+            this.frame.updateCropUVs(this._crop, this.flipX, this.flipY);
+        }
+
+        return this;
+    }
+
+};
+
+module.exports = TextureCrop;
 
 
 /***/ }),
@@ -18024,8 +19901,31 @@ var Tint = {
     _tintBR: 16777215,
 
     /**
+     * Private internal value. Holds if the Game Object is tinted or not.
+     * 
+     * @name Phaser.GameObjects.Components.Tint#_isTinted
+     * @type {boolean}
+     * @private
+     * @default false
+     * @since 3.11.0
+     */
+    _isTinted: false,
+
+    /**
+     * Fill or additive?
+     * 
+     * @name Phaser.GameObjects.Components.Tint#tintFill
+     * @type {boolean}
+     * @default false
+     * @since 3.11.0
+     */
+    tintFill: false,
+
+    /**
      * Clears all tint values associated with this Game Object.
-     * Immediately sets the alpha levels back to 0xffffff (no tint)
+     * 
+     * Immediately sets the color values back to 0xffffff and the tint type to 'additive',
+     * which results in no visible change to the texture.
      *
      * @method Phaser.GameObjects.Components.Tint#clearTint
      * @webglOnly
@@ -18037,11 +19937,26 @@ var Tint = {
     {
         this.setTint(0xffffff);
 
+        this._isTinted = false;
+
         return this;
     },
 
     /**
-     * Sets the tint values for this Game Object.
+     * Sets an additive tint on this Game Object.
+     * 
+     * The tint works by taking the pixel color values from the Game Objects texture, and then
+     * multiplying it by the color value of the tint. You can provide either one color value,
+     * in which case the whole Game Object will be tinted in that color. Or you can provide a color
+     * per corner. The colors are blended together across the extent of the Game Object.
+     * 
+     * To modify the tint color once set, either call this method again with new values or use the
+     * `tint` property to set all colors at once. Or, use the properties `tintTopLeft`, `tintTopRight,
+     * `tintBottomLeft` and `tintBottomRight` to set the corner color values independently.
+     * 
+     * To remove a tint call `clearTint`.
+     * 
+     * To swap this from being an additive tint to a fill based tint set the property `tintFill` to `true`.
      *
      * @method Phaser.GameObjects.Components.Tint#setTint
      * @webglOnly
@@ -18070,6 +19985,47 @@ var Tint = {
         this._tintBL = GetColor(bottomLeft);
         this._tintBR = GetColor(bottomRight);
 
+        this._isTinted = true;
+
+        this.tintFill = false;
+
+        return this;
+    },
+
+    /**
+     * Sets a fill-based tint on this Game Object.
+     * 
+     * Unlike an additive tint, a fill-tint literally replaces the pixel colors from the texture
+     * with those in the tint. You can use this for effects such as making a player flash 'white'
+     * if hit by something. You can provide either one color value, in which case the whole
+     * Game Object will be rendered in that color. Or you can provide a color per corner. The colors
+     * are blended together across the extent of the Game Object.
+     * 
+     * To modify the tint color once set, either call this method again with new values or use the
+     * `tint` property to set all colors at once. Or, use the properties `tintTopLeft`, `tintTopRight,
+     * `tintBottomLeft` and `tintBottomRight` to set the corner color values independently.
+     * 
+     * To remove a tint call `clearTint`.
+     * 
+     * To swap this from being a fill-tint to an additive tint set the property `tintFill` to `false`.
+     *
+     * @method Phaser.GameObjects.Components.Tint#setTintFill
+     * @webglOnly
+     * @since 3.11.0
+     *
+     * @param {integer} [topLeft=0xffffff] - The tint being applied to the top-left of the Game Object. If not other values are given this value is applied evenly, tinting the whole Game Object.
+     * @param {integer} [topRight] - The tint being applied to the top-right of the Game Object.
+     * @param {integer} [bottomLeft] - The tint being applied to the bottom-left of the Game Object.
+     * @param {integer} [bottomRight] - The tint being applied to the bottom-right of the Game Object.
+     * 
+     * @return {this} This Game Object instance.
+     */
+    setTintFill: function (topLeft, topRight, bottomLeft, bottomRight)
+    {
+        this.setTint(topLeft, topRight, bottomLeft, bottomRight);
+
+        this.tintFill = true;
+
         return this;
     },
 
@@ -18092,6 +20048,7 @@ var Tint = {
         set: function (value)
         {
             this._tintTL = GetColor(value);
+            this._isTinted = true;
         }
 
     },
@@ -18115,6 +20072,7 @@ var Tint = {
         set: function (value)
         {
             this._tintTR = GetColor(value);
+            this._isTinted = true;
         }
 
     },
@@ -18138,6 +20096,7 @@ var Tint = {
         set: function (value)
         {
             this._tintBL = GetColor(value);
+            this._isTinted = true;
         }
 
     },
@@ -18161,6 +20120,7 @@ var Tint = {
         set: function (value)
         {
             this._tintBR = GetColor(value);
+            this._isTinted = true;
         }
 
     },
@@ -18179,6 +20139,24 @@ var Tint = {
         {
             this.setTint(value, value, value, value);
         }
+    },
+
+    /**
+     * Does this Game Object have a tint applied to it or not?
+     * 
+     * @name Phaser.GameObjects.Components.Tint#isTinted
+     * @type {boolean}
+     * @webglOnly
+     * @readOnly
+     * @since 3.11.0
+     */
+    isTinted: {
+
+        get: function ()
+        {
+            return this._isTinted;
+        }
+
     }
 
 };
@@ -18212,12 +20190,12 @@ module.exports = Tint;
  * @property {number} scale.x - The horizontal scale of this Game Object.
  * @property {number} scale.y - The vertical scale of this Game Object.
  * @property {object} origin - The origin of this Game Object.
- * @property {float} origin.x - The horizontal origin of this Game Object.
- * @property {float} origin.y - The vertical origin of this Game Object.
+ * @property {number} origin.x - The horizontal origin of this Game Object.
+ * @property {number} origin.y - The vertical origin of this Game Object.
  * @property {boolean} flipX - The horizontally flipped state of the Game Object.
  * @property {boolean} flipY - The vertically flipped state of the Game Object.
  * @property {number} rotation - The angle of this Game Object in radians.
- * @property {float} alpha - The alpha value of the Game Object.
+ * @property {number} alpha - The alpha value of the Game Object.
  * @property {boolean} visible - The visible state of the Game Object.
  * @property {integer} scaleMode - The Scale Mode being used by this Game Object.
  * @property {(integer|string)} blendMode - Sets the Blend Mode being used by this Game Object.
@@ -18236,7 +20214,7 @@ module.exports = Tint;
  *
  * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to export as JSON.
  *
- * @return {JSONGameObject} The JSON representation of the Game Object.
+ * @return {JSONGameObject} A JSON representation of the Game Object.
  */
 var ToJSON = function (gameObject)
 {
@@ -18314,7 +20292,7 @@ var Transform = {
      * Private internal value. Holds the horizontal scale value.
      * 
      * @name Phaser.GameObjects.Components.Transform#_scaleX
-     * @type {float}
+     * @type {number}
      * @private
      * @default 1
      * @since 3.0.0
@@ -18325,7 +20303,7 @@ var Transform = {
      * Private internal value. Holds the vertical scale value.
      * 
      * @name Phaser.GameObjects.Components.Transform#_scaleY
-     * @type {float}
+     * @type {number}
      * @private
      * @default 1
      * @since 3.0.0
@@ -18336,7 +20314,7 @@ var Transform = {
      * Private internal value. Holds the rotation value in radians.
      * 
      * @name Phaser.GameObjects.Components.Transform#_rotation
-     * @type {float}
+     * @type {number}
      * @private
      * @default 0
      * @since 3.0.0
@@ -18782,7 +20760,15 @@ var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 
 /**
  * @classdesc
- * [description]
+ * A Matrix used for display transformations for rendering.
+ *
+ * It is represented like so:
+ *
+ * ```
+ * | a | c | tx |
+ * | b | d | ty |
+ * | 0 | 0 | 1  |
+ * ```
  *
  * @class TransformMatrix
  * @memberOf Phaser.GameObjects.Components
@@ -18810,7 +20796,7 @@ var TransformMatrix = new Class({
         if (ty === undefined) { ty = 0; }
 
         /**
-         * [description]
+         * The matrix values.
          *
          * @name Phaser.GameObjects.Components.TransformMatrix#matrix
          * @type {Float32Array}
@@ -18819,7 +20805,7 @@ var TransformMatrix = new Class({
         this.matrix = new Float32Array([ a, b, c, d, tx, ty, 0, 0, 1 ]);
 
         /**
-         * [description]
+         * The decomposed matrix.
          *
          * @name Phaser.GameObjects.Components.TransformMatrix#decomposedMatrix
          * @type {object}
@@ -18835,7 +20821,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The Scale X value.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#a
      * @type {number}
@@ -18856,7 +20842,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The Shear Y value.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#b
      * @type {number}
@@ -18877,7 +20863,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The Shear X value.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#c
      * @type {number}
@@ -18898,7 +20884,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The Scale Y value.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#d
      * @type {number}
@@ -18919,7 +20905,49 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The Translate X value.
+     *
+     * @name Phaser.GameObjects.Components.TransformMatrix#e
+     * @type {number}
+     * @since 3.11.0
+     */
+    e: {
+
+        get: function ()
+        {
+            return this.matrix[4];
+        },
+
+        set: function (value)
+        {
+            this.matrix[4] = value;
+        }
+
+    },
+
+    /**
+     * The Translate Y value.
+     *
+     * @name Phaser.GameObjects.Components.TransformMatrix#f
+     * @type {number}
+     * @since 3.11.0
+     */
+    f: {
+
+        get: function ()
+        {
+            return this.matrix[5];
+        },
+
+        set: function (value)
+        {
+            this.matrix[5] = value;
+        }
+
+    },
+
+    /**
+     * The Translate X value.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#tx
      * @type {number}
@@ -18940,7 +20968,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The Translate Y value.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#ty
      * @type {number}
@@ -18961,7 +20989,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The rotation of the Matrix.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#rotation
      * @type {number}
@@ -18978,7 +21006,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The horizontal scale of the Matrix.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#scaleX
      * @type {number}
@@ -18995,7 +21023,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * The vertical scale of the Matrix.
      *
      * @name Phaser.GameObjects.Components.TransformMatrix#scaleY
      * @type {number}
@@ -19012,7 +21040,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Reset the Matrix to an identity matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#loadIdentity
      * @since 3.0.0
@@ -19034,13 +21062,13 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Translate the Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#translate
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {number} x - The horizontal translation value.
+     * @param {number} y - The vertical translation value.
      *
      * @return {this} This TransformMatrix.
      */
@@ -19055,13 +21083,13 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Scale the Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#scale
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {number} x - The horizontal scale value.
+     * @param {number} y - The vertical scale value.
      *
      * @return {this} This TransformMatrix.
      */
@@ -19078,12 +21106,12 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Rotate the Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#rotate
      * @since 3.0.0
      *
-     * @param {number} radian - [description]
+     * @param {number} radian - The angle of rotation in radians.
      *
      * @return {this} This TransformMatrix.
      */
@@ -19106,19 +21134,70 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Multiply this Matrix by the given Matrix.
+     * 
+     * If an `out` Matrix is given then the results will be stored in it.
+     * If it is not given, this matrix will be updated in place instead.
+     * Use an `out` Matrix if you do not wish to mutate this matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#multiply
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.Components.TransformMatrix} rhs - [description]
+     * @param {Phaser.GameObjects.Components.TransformMatrix} rhs - The Matrix to multiply by.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} [out] - An optional Matrix to store the results in.
+     *
+     * @return {Phaser.GameObjects.Components.TransformMatrix} Either this TransformMatrix, or the `out` Matrix, if given in the arguments.
+     */
+    multiply: function (rhs, out)
+    {
+        var matrix = this.matrix;
+        var source = rhs.matrix;
+
+        var localA = matrix[0];
+        var localB = matrix[1];
+        var localC = matrix[2];
+        var localD = matrix[3];
+        var localE = matrix[4];
+        var localF = matrix[5];
+
+        var sourceA = source[0];
+        var sourceB = source[1];
+        var sourceC = source[2];
+        var sourceD = source[3];
+        var sourceE = source[4];
+        var sourceF = source[5];
+
+        var destinationMatrix = (out === undefined) ? this : out;
+
+        destinationMatrix.a = sourceA * localA + sourceB * localC;
+        destinationMatrix.b = sourceA * localB + sourceB * localD;
+        destinationMatrix.c = sourceC * localA + sourceD * localC;
+        destinationMatrix.d = sourceC * localB + sourceD * localD;
+        destinationMatrix.e = sourceE * localA + sourceF * localC + localE;
+        destinationMatrix.f = sourceE * localB + sourceF * localD + localF;
+
+        return destinationMatrix;
+    },
+
+    /**
+     * Multiply this Matrix by the matrix given, including the offset.
+     * 
+     * The offsetX is added to the tx value: `offsetX * a + offsetY * c + tx`.
+     * The offsetY is added to the ty value: `offsetY * b + offsetY * d + ty`.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#multiplyWithOffset
+     * @since 3.11.0
+     *
+     * @param {Phaser.GameObjects.Components.TransformMatrix} src - The source Matrix to copy from.
+     * @param {number} offsetX - Horizontal offset to factor in to the multiplication.
+     * @param {number} offsetY - Vertical offset to factor in to the multiplication.
      *
      * @return {this} This TransformMatrix.
      */
-    multiply: function (rhs)
+    multiplyWithOffset: function (src, offsetX, offsetY)
     {
         var matrix = this.matrix;
-        var otherMatrix = rhs.matrix;
+        var otherMatrix = src.matrix;
 
         var a0 = matrix[0];
         var b0 = matrix[1];
@@ -19126,6 +21205,9 @@ var TransformMatrix = new Class({
         var d0 = matrix[3];
         var tx0 = matrix[4];
         var ty0 = matrix[5];
+
+        var pse = offsetX * a0 + offsetY * c0 + tx0;
+        var psf = offsetX * b0 + offsetY * d0 + ty0;
 
         var a1 = otherMatrix[0];
         var b1 = otherMatrix[1];
@@ -19138,14 +21220,14 @@ var TransformMatrix = new Class({
         matrix[1] = a1 * b0 + b1 * d0;
         matrix[2] = c1 * a0 + d1 * c0;
         matrix[3] = c1 * b0 + d1 * d0;
-        matrix[4] = tx1 * a0 + ty1 * c0 + tx0;
-        matrix[5] = tx1 * b0 + ty1 * d0 + ty0;
+        matrix[4] = tx1 * a0 + ty1 * c0 + pse;
+        matrix[5] = tx1 * b0 + ty1 * d0 + psf;
 
         return this;
     },
 
     /**
-     * [description]
+     * Transform the Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#transform
      * @since 3.0.0
@@ -19181,16 +21263,16 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Transform a point using this Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#transformPoint
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {(Phaser.Geom.Point|Phaser.Math.Vector2|object)} point - [description]
+     * @param {number} x - The x coordinate of the point to transform.
+     * @param {number} y - The y coordinate of the point to transform.
+     * @param {(Phaser.Geom.Point|Phaser.Math.Vector2|object)} point - The Point object to store the transformed coordinates.
      *
-     * @return {(Phaser.Geom.Point|Phaser.Math.Vector2|object)} [description]
+     * @return {(Phaser.Geom.Point|Phaser.Math.Vector2|object)} The Point containing the transformed coordinates.
      */
     transformPoint: function (x, y, point)
     {
@@ -19212,7 +21294,7 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Invert the Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#invert
      * @since 3.0.0
@@ -19243,17 +21325,66 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Set the values of this Matrix to copy those of the matrix given.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#copyFrom
+     * @since 3.11.0
+     *
+     * @param {Phaser.GameObjects.Components.TransformMatrix} src - The source Matrix to copy from.
+     *
+     * @return {this} This TransformMatrix.
+     */
+    copyFrom: function (src)
+    {
+        var matrix = this.matrix;
+
+        matrix[0] = src.a;
+        matrix[1] = src.b;
+        matrix[2] = src.c;
+        matrix[3] = src.d;
+        matrix[4] = src.e;
+        matrix[5] = src.f;
+
+        return this;
+    },
+
+    /**
+     * Set the values of this Matrix to copy those of the array given.
+     * Where array indexes 0, 1, 2, 3, 4 and 5 are mapped to a, b, c, d, e and f.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#copyFromArray
+     * @since 3.11.0
+     *
+     * @param {array} src - The array of values to set into this matrix.
+     *
+     * @return {this} This TransformMatrix.
+     */
+    copyFromArray: function (src)
+    {
+        var matrix = this.matrix;
+
+        matrix[0] = src[0];
+        matrix[1] = src[1];
+        matrix[2] = src[2];
+        matrix[3] = src[3];
+        matrix[4] = src[4];
+        matrix[5] = src[5];
+
+        return this;
+    },
+
+    /**
+     * Set the values of this Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#setTransform
      * @since 3.0.0
      *
-     * @param {number} a - [description]
-     * @param {number} b - [description]
-     * @param {number} c - [description]
-     * @param {number} d - [description]
-     * @param {number} tx - [description]
-     * @param {number} ty - [description]
+     * @param {number} a - The Scale X value.
+     * @param {number} b - The Shear Y value.
+     * @param {number} c - The Shear X value.
+     * @param {number} d - The Scale Y value.
+     * @param {number} tx - The Translate X value.
+     * @param {number} ty - The Translate Y value.
      *
      * @return {this} This TransformMatrix.
      */
@@ -19272,12 +21403,12 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * [description]
+     * Decompose this Matrix into its translation, scale and rotation values.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#decomposeMatrix
      * @since 3.0.0
      *
-     * @return {object} [description]
+     * @return {object} The decomposed Matrix.
      */
     decomposeMatrix: function ()
     {
@@ -19315,16 +21446,16 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * Identity + Translate + Rotate + Scale
+     * Apply the identity, translate, rotate and scale operations on the Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#applyITRS
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {number} rotation - [description]
-     * @param {number} scaleX - [description]
-     * @param {number} scaleY - [description]
+     * @param {number} x - The horizontal translation.
+     * @param {number} y - The vertical translation.
+     * @param {number} rotation - The angle of rotation in radians.
+     * @param {number} scaleX - The horizontal scale.
+     * @param {number} scaleY - The vertical scale.
      *
      * @return {this} This TransformMatrix.
      */
@@ -19495,6 +21626,7 @@ module.exports = {
     ScrollFactor: __webpack_require__(/*! ./ScrollFactor */ "./gameobjects/components/ScrollFactor.js"),
     Size: __webpack_require__(/*! ./Size */ "./gameobjects/components/Size.js"),
     Texture: __webpack_require__(/*! ./Texture */ "./gameobjects/components/Texture.js"),
+    TextureCrop: __webpack_require__(/*! ./TextureCrop */ "./gameobjects/components/TextureCrop.js"),
     Tint: __webpack_require__(/*! ./Tint */ "./gameobjects/components/Tint.js"),
     ToJSON: __webpack_require__(/*! ./ToJSON */ "./gameobjects/components/ToJSON.js"),
     Transform: __webpack_require__(/*! ./Transform */ "./gameobjects/components/Transform.js"),
@@ -19569,6 +21701,7 @@ var Commands = __webpack_require__(/*! ./Commands */ "./gameobjects/graphics/Com
 var Components = __webpack_require__(/*! ../components */ "./gameobjects/components/index.js");
 var Ellipse = __webpack_require__(/*! ../../geom/ellipse/ */ "./geom/ellipse/index.js");
 var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
+var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var GetValue = __webpack_require__(/*! ../../utils/object/GetValue */ "./utils/object/GetValue.js");
 var MATH_CONST = __webpack_require__(/*! ../../math/const */ "./math/const.js");
 var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics/GraphicsRender.js");
@@ -19578,9 +21711,9 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
  *
  * @typedef {object} GraphicsLineStyle
  *
- * @property {number} width - The stroke width.
- * @property {number} color - The stroke color.
- * @property {number} alpha - The stroke alpha.
+ * @property {number} [width] - The stroke width.
+ * @property {number} [color] - The stroke color.
+ * @property {number} [alpha] - The stroke alpha.
  */
 
 /**
@@ -19588,8 +21721,8 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
  *
  * @typedef {object} GraphicsFillStyle
  *
- * @property {number} color - The fill color.
- * @property {number} alpha - The fill alpha.
+ * @property {number} [color] - The fill color.
+ * @property {number} [alpha] - The fill alpha.
  */
 
 /**
@@ -19597,8 +21730,8 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
  *
  * @typedef {object} GraphicsStyles
  *
- * @property {GraphicsLineStyle} lineStyle - The style applied to shape outlines.
- * @property {GraphicsFillStyle} fillStyle - The style applied to shape areas.
+ * @property {GraphicsLineStyle} [lineStyle] - The style applied to shape outlines.
+ * @property {GraphicsFillStyle} [fillStyle] - The style applied to shape areas.
  */
 
 /**
@@ -19607,8 +21740,8 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
  * @typedef {object} GraphicsOptions
  * @extends GraphicsStyles
  *
- * @property {number} x - The x coordinate of the Graphics.
- * @property {number} y - The y coordinate of the Graphics.
+ * @property {number} [x] - The x coordinate of the Graphics.
+ * @property {number} [y] - The y coordinate of the Graphics.
  */
 
 /**
@@ -19668,7 +21801,7 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
  * @extends Phaser.GameObjects.Components.ScrollFactor
  *
  * @param {Phaser.Scene} scene - The Scene to which this Graphics object belongs.
- * @param {GraphicsOptions} options - Options that set the position and default style of this Graphics object.
+ * @param {GraphicsOptions} [options] - Options that set the position and default style of this Graphics object.
  */
 var Graphics = new Class({
 
@@ -20108,6 +22241,106 @@ var Graphics = new Class({
     },
 
     /**
+     * Fill a rounded rectangle with the given position, size and radius.
+     *
+     * @method Phaser.GameObjects.Graphics#fillRoundedRect
+     * @since 3.11.0
+     *
+     * @param {number} x - The x coordinate of the top-left of the rectangle.
+     * @param {number} y - The y coordinate of the top-left of the rectangle.
+     * @param {number} width - The width of the rectangle.
+     * @param {number} height - The height of the rectangle.
+     * @param {number} [radius = 20] - The corner radius; It can also be an object to specify different radii for corners
+     * @param {number} [radius.tl = 20] Top left
+     * @param {number} [radius.tr = 20] Top right
+     * @param {number} [radius.br = 20] Bottom right
+     * @param {number} [radius.bl = 20] Bottom left
+     *
+     * @return {Phaser.GameObjects.Graphics} This Game Object.
+     */
+    fillRoundedRect: function (x, y, width, height, radius)
+    {
+        if (radius === undefined) { radius = 20; }
+
+        var tl = radius;
+        var tr = radius;
+        var bl = radius;
+        var br = radius;
+
+        if (typeof radius !== 'number')
+        {
+            tl = GetFastValue(radius, 'tl', 20);
+            tr = GetFastValue(radius, 'tr', 20);
+            bl = GetFastValue(radius, 'bl', 20);
+            br = GetFastValue(radius, 'br', 20);
+        }
+
+        this.beginPath();
+        this.moveTo(x + tl, y);
+        this.lineTo(x + width - tr, y);
+        this.arc(x + width - tr, y + tr, tr, -MATH_CONST.TAU, 0);
+        this.lineTo(x + width, y + height - br);
+        this.arc(x + width - br, y + height - br, br, 0, MATH_CONST.TAU);
+        this.lineTo(x + bl, y + height);
+        this.arc(x + bl, y + height - bl, bl, MATH_CONST.TAU, Math.PI);
+        this.lineTo(x, y + tl);
+        this.arc(x + tl, y + tl, tl, -Math.PI, -MATH_CONST.TAU);
+        this.fillPath();
+
+        return this;
+    },
+
+    /**
+     * Stroke a rounded rectangle with the given position, size and radius.
+     *
+     * @method Phaser.GameObjects.Graphics#strokeRoundedRect
+     * @since 3.11.0
+     *
+     * @param {number} x - The x coordinate of the top-left of the rectangle.
+     * @param {number} y - The y coordinate of the top-left of the rectangle.
+     * @param {number} width - The width of the rectangle.
+     * @param {number} height - The height of the rectangle.
+     * @param {number} [radius = 20] - The corner radius; It can also be an object to specify different radii for corners
+     * @param {number} [radius.tl = 20] Top left
+     * @param {number} [radius.tr = 20] Top right
+     * @param {number} [radius.br = 20] Bottom right
+     * @param {number} [radius.bl = 20] Bottom left
+     *
+     * @return {Phaser.GameObjects.Graphics} This Game Object.
+     */
+    strokeRoundedRect: function (x, y, width, height, radius)
+    {
+        if (radius === undefined) { radius = 20; }
+
+        var tl = radius;
+        var tr = radius;
+        var bl = radius;
+        var br = radius;
+
+        if (typeof radius !== 'number')
+        {
+            tl = GetFastValue(radius, 'tl', 20);
+            tr = GetFastValue(radius, 'tr', 20);
+            bl = GetFastValue(radius, 'bl', 20);
+            br = GetFastValue(radius, 'br', 20);
+        }
+
+        this.beginPath();
+        this.moveTo(x + tl, y);
+        this.lineTo(x + width - tr, y);
+        this.arc(x + width - tr, y + tr, tr, -MATH_CONST.TAU, 0);
+        this.lineTo(x + width, y + height - br);
+        this.arc(x + width - br, y + height - br, br, 0, MATH_CONST.TAU);
+        this.lineTo(x + bl, y + height);
+        this.arc(x + bl, y + height - bl, bl, MATH_CONST.TAU, Math.PI);
+        this.lineTo(x, y + tl);
+        this.arc(x + tl, y + tl, tl, -Math.PI, -MATH_CONST.TAU);
+        this.strokePath();
+
+        return this;
+    },
+
+    /**
      * Fill the given point.
      *
      * Draws a square at the given position, 1 pixel in size by default.
@@ -20537,6 +22770,9 @@ var Graphics = new Class({
      * Draw an arc.
      *
      * This method can be used to create circles, or parts of circles.
+     * 
+     * Use the optional `overshoot` argument to allow the arc to extend beyond 360 degrees. This is useful if you're drawing
+     * an arc with an especially thick line, as it will allow the arc to fully join-up. Try small values at first, i.e. 0.01.
      *
      * Call {@link Phaser.GameObjects.Graphics#fillPath} or {@link Phaser.GameObjects.Graphics#strokePath} after calling
      * this method to draw the arc.
@@ -20550,11 +22786,44 @@ var Graphics = new Class({
      * @param {number} startAngle - The starting angle, in radians.
      * @param {number} endAngle - The ending angle, in radians.
      * @param {boolean} [anticlockwise=false] - Whether the drawing should be anticlockwise or clockwise.
+     * @param {number} [overshoot=0] - This value allows you to overshoot the endAngle by this amount. Useful if the arc has a thick stroke and needs to overshoot to join-up cleanly.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
-    arc: function (x, y, radius, startAngle, endAngle, anticlockwise)
+    arc: function (x, y, radius, startAngle, endAngle, anticlockwise, overshoot)
     {
+        if (anticlockwise === undefined) { anticlockwise = false; }
+        if (overshoot === undefined) { overshoot = 0; }
+
+        var PI2 = Math.PI * 2;
+
+        if (anticlockwise)
+        {
+            if (endAngle < -PI2)
+            {
+                endAngle = -PI2 - overshoot;
+            }
+            else if (endAngle >= 0)
+            {
+                endAngle = -PI2 + endAngle % PI2 - overshoot;
+            }
+        }
+        else
+        {
+            endAngle -= startAngle;
+            endAngle += overshoot;
+
+            if (endAngle > PI2 + overshoot)
+            {
+                endAngle = PI2 + overshoot;
+                
+            }
+            else if (endAngle < -overshoot)
+            {
+                endAngle = PI2 + endAngle % PI2 - overshoot;
+            }
+        }
+
         this.commandBuffer.push(
             Commands.ARC,
             x, y, radius, startAngle, endAngle, anticlockwise
@@ -20581,13 +22850,44 @@ var Graphics = new Class({
      * @param {number} radius - The radius of the slice.
      * @param {number} startAngle - The start angle of the slice, given in radians.
      * @param {number} endAngle - The end angle of the slice, given in radians.
-     * @param {boolean} [anticlockwise=false] - Draw the slice piece anticlockwise or clockwise?
+     * @param {boolean} [anticlockwise=false] - Whether the drawing should be anticlockwise or clockwise.
+     * @param {number} [overshoot=0] - This value allows you to overshoot the endAngle by this amount. Useful if the arc has a thick stroke and needs to overshoot to join-up cleanly.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
-    slice: function (x, y, radius, startAngle, endAngle, anticlockwise)
+    slice: function (x, y, radius, startAngle, endAngle, anticlockwise, overshoot)
     {
         if (anticlockwise === undefined) { anticlockwise = false; }
+        if (overshoot === undefined) { overshoot = 0; }
+
+        var PI2 = Math.PI * 2;
+
+        if (anticlockwise)
+        {
+            if (endAngle < -PI2)
+            {
+                endAngle = -PI2 - overshoot;
+            }
+            else if (endAngle >= 0)
+            {
+                endAngle = -PI2 + endAngle % PI2 - overshoot;
+            }
+        }
+        else
+        {
+            endAngle -= startAngle;
+            endAngle += overshoot;
+
+            if (endAngle > PI2 + overshoot)
+            {
+                endAngle = PI2 + overshoot;
+                
+            }
+            else if (endAngle <= -overshoot)
+            {
+                endAngle = PI2 + endAngle % PI2 - overshoot;
+            }
+        }
 
         this.commandBuffer.push(Commands.BEGIN_PATH);
 
@@ -20601,7 +22901,9 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Saves the state of the Graphics by pushing the current state onto a stack.
+     *
+     * The most recently saved state can then be restored with {@link Phaser.GameObjects.Graphics#restore}.
      *
      * @method Phaser.GameObjects.Graphics#save
      * @since 3.0.0
@@ -20618,7 +22920,11 @@ var Graphics = new Class({
     },
 
     /**
-     * [description]
+     * Restores the most recently saved state of the Graphics by popping from the state stack.
+     *
+     * Use {@link Phaser.GameObjects.Graphics#save} to save the current state, and call this afterwards to restore that state.
+     *
+     * If there is no saved state, this command does nothing.
      *
      * @method Phaser.GameObjects.Graphics#restore
      * @since 3.0.0
@@ -20860,7 +23166,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix, renderTargetCtx, allowClip)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -20883,18 +23189,26 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     var green = 0;
     var blue = 0;
 
+    //  Alpha
+
+    var alpha = camera.alpha * src.alpha;
+
+    if (alpha === 0)
+    {
+        //  Nothing to see, so abort early
+        return;
+    }
+    else if (renderer.currentAlpha !== alpha)
+    {
+        renderer.currentAlpha = alpha;
+        ctx.globalAlpha = alpha;
+    }
+
     //  Blend Mode
     if (renderer.currentBlendMode !== src.blendMode)
     {
         renderer.currentBlendMode = src.blendMode;
         ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
-    }
-
-    //  Alpha
-    if (renderer.currentAlpha !== src.alpha)
-    {
-        renderer.currentAlpha = src.alpha;
-        ctx.globalAlpha = src.alpha;
     }
 
     //  Smoothing
@@ -20904,11 +23218,14 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     }
 
     ctx.save();
+
     if (parentMatrix)
     {
         var matrix = parentMatrix.matrix;
+
         ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
     }
+
     ctx.translate(srcX - cameraScrollX, srcY - cameraScrollY);
     ctx.rotate(srcRotation);
     ctx.scale(srcScaleX, srcScaleY);
@@ -21086,10 +23403,6 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
                     commandBuffer[index + 1]
                 );
                 index += 1;
-                break;
-
-            default:
-                // console.error('Phaser: Invalid Graphics Command ID ' + commandID);
                 break;
         }
     }
@@ -21327,7 +23640,7 @@ var ImageRender = __webpack_require__(/*! ./ImageRender */ "./gameobjects/image/
  * @extends Phaser.GameObjects.Components.ScaleMode
  * @extends Phaser.GameObjects.Components.ScrollFactor
  * @extends Phaser.GameObjects.Components.Size
- * @extends Phaser.GameObjects.Components.Texture
+ * @extends Phaser.GameObjects.Components.TextureCrop
  * @extends Phaser.GameObjects.Components.Tint
  * @extends Phaser.GameObjects.Components.Transform
  * @extends Phaser.GameObjects.Components.Visible
@@ -21354,7 +23667,7 @@ var Image = new Class({
         Components.ScaleMode,
         Components.ScrollFactor,
         Components.Size,
-        Components.Texture,
+        Components.TextureCrop,
         Components.Tint,
         Components.Transform,
         Components.Visible,
@@ -21413,7 +23726,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var ImageCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -21596,11 +23909,11 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var ImageWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
-    
+
     this.pipeline.batchSprite(src, camera, parentMatrix);
 };
 
@@ -21656,7 +23969,7 @@ var SpriteRender = __webpack_require__(/*! ./SpriteRender */ "./gameobjects/spri
  * @extends Phaser.GameObjects.Components.ScaleMode
  * @extends Phaser.GameObjects.Components.ScrollFactor
  * @extends Phaser.GameObjects.Components.Size
- * @extends Phaser.GameObjects.Components.Texture
+ * @extends Phaser.GameObjects.Components.TextureCrop
  * @extends Phaser.GameObjects.Components.Tint
  * @extends Phaser.GameObjects.Components.Transform
  * @extends Phaser.GameObjects.Components.Visible
@@ -21683,7 +23996,7 @@ var Sprite = new Class({
         Components.ScaleMode,
         Components.ScrollFactor,
         Components.Size,
-        Components.Texture,
+        Components.TextureCrop,
         Components.Tint,
         Components.Transform,
         Components.Visible,
@@ -21802,7 +24115,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var SpriteCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -21993,7 +24306,7 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var SpriteWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)))
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
     {
         return;
     }
@@ -22025,9 +24338,9 @@ module.exports = SpriteWebGLRenderer;
  * @function Phaser.GameObjects.Text.GetTextSize
  * @since 3.0.0
  *
- * @param {Phaser.GameObjects.Text} text - The Text object to get the size from.
- * @param {number} size - [description]
- * @param {array} lines - [description]
+ * @param {Phaser.GameObjects.Text} text - The Text object to calculate the size from.
+ * @param {TextMetrics} size - The Text metrics to use when calculating the size.
+ * @param {array} lines - The lines of text to calculate the size from.
  *
  * @return {object} An object containing dimensions of the Text object.
  */
@@ -22040,7 +24353,7 @@ var GetTextSize = function (text, size, lines)
     var lineWidths = [];
     var maxLineWidth = 0;
     var drawnLines = lines.length;
-    
+
     if (style.maxLines > 0 && style.maxLines < lines.length)
     {
         drawnLines = style.maxLines;
@@ -22298,8 +24611,18 @@ var propertyMap = {
 };
 
 /**
+ * Font metrics for a Text Style object.
+ *
+ * @typedef {object} TextMetrics
+ *
+ * @property {number} ascent - The ascent of the font.
+ * @property {number} descent - The descent of the font.
+ * @property {number} fontSize - The size of the font.
+ */
+
+/**
  * @classdesc
- * [description]
+ * Style settings for a Text object.
  *
  * @class TextStyle
  * @memberOf Phaser.GameObjects.Text
@@ -22307,7 +24630,7 @@ var propertyMap = {
  * @since 3.0.0
  *
  * @param {Phaser.GameObjects.Text} text - The Text object that this TextStyle is styling.
- * @param {object} style - [description]
+ * @param {object} style - The style settings to set.
  */
 var TextStyle = new Class({
 
@@ -22325,7 +24648,7 @@ var TextStyle = new Class({
         this.parent = text;
 
         /**
-         * [description]
+         * The font family.
          *
          * @name Phaser.GameObjects.Text.TextStyle#fontFamily
          * @type {string}
@@ -22335,7 +24658,7 @@ var TextStyle = new Class({
         this.fontFamily;
 
         /**
-         * [description]
+         * The font size.
          *
          * @name Phaser.GameObjects.Text.TextStyle#fontSize
          * @type {string}
@@ -22345,7 +24668,7 @@ var TextStyle = new Class({
         this.fontSize;
 
         /**
-         * [description]
+         * The font style.
          *
          * @name Phaser.GameObjects.Text.TextStyle#fontStyle
          * @type {string}
@@ -22354,7 +24677,7 @@ var TextStyle = new Class({
         this.fontStyle;
 
         /**
-         * [description]
+         * The background color.
          *
          * @name Phaser.GameObjects.Text.TextStyle#backgroundColor
          * @type {string}
@@ -22363,7 +24686,7 @@ var TextStyle = new Class({
         this.backgroundColor;
 
         /**
-         * [description]
+         * The text fill color.
          *
          * @name Phaser.GameObjects.Text.TextStyle#color
          * @type {string}
@@ -22373,7 +24696,7 @@ var TextStyle = new Class({
         this.color;
 
         /**
-         * [description]
+         * The text stroke color.
          *
          * @name Phaser.GameObjects.Text.TextStyle#stroke
          * @type {string}
@@ -22383,7 +24706,7 @@ var TextStyle = new Class({
         this.stroke;
 
         /**
-         * [description]
+         * The text stroke thickness.
          *
          * @name Phaser.GameObjects.Text.TextStyle#strokeThickness
          * @type {number}
@@ -22393,7 +24716,7 @@ var TextStyle = new Class({
         this.strokeThickness;
 
         /**
-         * [description]
+         * The horizontal shadow offset.
          *
          * @name Phaser.GameObjects.Text.TextStyle#shadowOffsetX
          * @type {number}
@@ -22403,7 +24726,7 @@ var TextStyle = new Class({
         this.shadowOffsetX;
 
         /**
-         * [description]
+         * The vertical shadow offset.
          *
          * @name Phaser.GameObjects.Text.TextStyle#shadowOffsetY
          * @type {number}
@@ -22413,7 +24736,7 @@ var TextStyle = new Class({
         this.shadowOffsetY;
 
         /**
-         * [description]
+         * The shadow color.
          *
          * @name Phaser.GameObjects.Text.TextStyle#shadowColor
          * @type {string}
@@ -22423,7 +24746,7 @@ var TextStyle = new Class({
         this.shadowColor;
 
         /**
-         * [description]
+         * The shadow blur radius.
          *
          * @name Phaser.GameObjects.Text.TextStyle#shadowBlur
          * @type {number}
@@ -22433,7 +24756,7 @@ var TextStyle = new Class({
         this.shadowBlur;
 
         /**
-         * [description]
+         * Whether shadow stroke is enabled or not.
          *
          * @name Phaser.GameObjects.Text.TextStyle#shadowStroke
          * @type {boolean}
@@ -22443,7 +24766,7 @@ var TextStyle = new Class({
         this.shadowStroke;
 
         /**
-         * [description]
+         * Whether shadow fill is enabled or not.
          *
          * @name Phaser.GameObjects.Text.TextStyle#shadowFill
          * @type {boolean}
@@ -22453,7 +24776,7 @@ var TextStyle = new Class({
         this.shadowFill;
 
         /**
-         * [description]
+         * The text alignment.
          *
          * @name Phaser.GameObjects.Text.TextStyle#align
          * @type {string}
@@ -22463,7 +24786,7 @@ var TextStyle = new Class({
         this.align;
 
         /**
-         * [description]
+         * The maximum number of lines to draw.
          *
          * @name Phaser.GameObjects.Text.TextStyle#maxLines
          * @type {integer}
@@ -22473,7 +24796,9 @@ var TextStyle = new Class({
         this.maxLines;
 
         /**
-         * [description]
+         * The fixed width of the text.
+         *
+         * `0` means no fixed with.
          *
          * @name Phaser.GameObjects.Text.TextStyle#fixedWidth
          * @type {number}
@@ -22483,7 +24808,9 @@ var TextStyle = new Class({
         this.fixedWidth;
 
         /**
-         * [description]
+         * The fixed height of the text.
+         *
+         * `0` means no fixed height.
          *
          * @name Phaser.GameObjects.Text.TextStyle#fixedHeight
          * @type {number}
@@ -22493,7 +24820,7 @@ var TextStyle = new Class({
         this.fixedHeight;
 
         /**
-         * [description]
+         * Whether the text should render right to left.
          *
          * @name Phaser.GameObjects.Text.TextStyle#rtl
          * @type {boolean}
@@ -22503,7 +24830,7 @@ var TextStyle = new Class({
         this.rtl;
 
         /**
-         * [description]
+         * The test string to use when measuring the font.
          *
          * @name Phaser.GameObjects.Text.TextStyle#testString
          * @type {string}
@@ -22533,7 +24860,7 @@ var TextStyle = new Class({
         this.baselineY;
 
         /**
-         * [description]
+         * The font style, size and family.
          *
          * @name Phaser.GameObjects.Text.TextStyle#_font
          * @type {string}
@@ -22564,13 +24891,22 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the text style.
+     *
+     * @example
+     * text.setStyle({
+     *     fontSize: '64px',
+     *     fontFamily: 'Arial',
+     *     color: '#ffffff',
+     *     align: 'center',
+     *     backgroundColor: '#ff00ff'
+     * });
      *
      * @method Phaser.GameObjects.Text.TextStyle#setStyle
      * @since 3.0.0
      *
-     * @param {CSSStyleRule} style - [description]
-     * @param {boolean} [updateText=true] - [description]
+     * @param {object} style - The style settings to set.
+     * @param {boolean} [updateText=true] - Whether to update the text immediately.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22628,13 +24964,13 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Synchronize the font settings to the given Canvas Rendering Context.
      *
      * @method Phaser.GameObjects.Text.TextStyle#syncFont
      * @since 3.0.0
      *
-     * @param {HTMLCanvasElement} canvas - [description]
-     * @param {CanvasRenderingContext2D} context - [description]
+     * @param {HTMLCanvasElement} canvas - The Canvas Element.
+     * @param {CanvasRenderingContext2D} context - The Canvas Rendering Context.
      */
     syncFont: function (canvas, context)
     {
@@ -22642,13 +24978,13 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Synchronize the text style settings to the given Canvas Rendering Context.
      *
      * @method Phaser.GameObjects.Text.TextStyle#syncStyle
      * @since 3.0.0
      *
-     * @param {HTMLCanvasElement} canvas - [description]
-     * @param {CanvasRenderingContext2D} context - [description]
+     * @param {HTMLCanvasElement} canvas - The Canvas Element.
+     * @param {CanvasRenderingContext2D} context - The Canvas Rendering Context.
      */
     syncStyle: function (canvas, context)
     {
@@ -22663,13 +24999,13 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Synchronize the shadow settings to the given Canvas Rendering Context.
      *
      * @method Phaser.GameObjects.Text.TextStyle#syncShadow
      * @since 3.0.0
      *
-     * @param {CanvasRenderingContext2D} context - [description]
-     * @param {boolean} enabled - [description]
+     * @param {CanvasRenderingContext2D} context - The Canvas Rendering Context.
+     * @param {boolean} enabled - Whether shadows are enabled or not.
      */
     syncShadow: function (context, enabled)
     {
@@ -22690,12 +25026,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Update the style settings for the parent Text object.
      *
      * @method Phaser.GameObjects.Text.TextStyle#update
      * @since 3.0.0
      *
-     * @param {boolean} recalculateMetrics - [description]
+     * @param {boolean} recalculateMetrics - Whether to recalculate font and text metrics.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22712,12 +25048,17 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the font.
+     *
+     * If a string is given, the font family is set.
+     *
+     * If an object is given, the `fontFamily`, `fontSize` and `fontStyle`
+     * properties of that object are set.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setFont
      * @since 3.0.0
      *
-     * @param {(string|object)} font - [description]
+     * @param {(string|object)} font - The font family or font settings to set.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22740,12 +25081,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the font family.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setFontFamily
      * @since 3.0.0
      *
-     * @param {string} family - [description]
+     * @param {string} family - The font family.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22757,12 +25098,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the font style.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setFontStyle
      * @since 3.0.0
      *
-     * @param {string} style - [description]
+     * @param {string} style - The font style.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22774,12 +25115,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the font size.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setFontSize
      * @since 3.0.0
      *
-     * @param {(number|string)} size - [description]
+     * @param {(number|string)} size - The font size.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22796,12 +25137,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the test string to use when measuring the font.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setTestString
      * @since 3.0.0
      *
-     * @param {string} string - [description]
+     * @param {string} string - The test string to use when measuring the font.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22813,13 +25154,15 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set a fixed width and height for the text.
+     *
+     * Pass in `0` for either of these parameters to disable fixed width or height respectively.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setFixedSize
      * @since 3.0.0
      *
-     * @param {number} width - [description]
-     * @param {number} height - [description]
+     * @param {number} width - The fixed width to set.
+     * @param {number} height - The fixed height to set.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22842,12 +25185,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the background color.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setBackgroundColor
      * @since 3.0.0
      *
-     * @param {string} color - [description]
+     * @param {string} color - The background color.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22859,12 +25202,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the text fill color.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setFill
      * @since 3.0.0
      *
-     * @param {string} color - [description]
+     * @param {string} color - The text fill color.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22876,12 +25219,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the text fill color.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setColor
      * @since 3.0.0
      *
-     * @param {string} color - [description]
+     * @param {string} color - The text fill color.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22893,13 +25236,13 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the stroke settings.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setStroke
      * @since 3.0.0
      *
-     * @param {string} color - [description]
-     * @param {number} thickness - [description]
+     * @param {string} color - The stroke color.
+     * @param {number} thickness - The stroke thickness.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22922,17 +25265,17 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the shadow settings.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setShadow
      * @since 3.0.0
      *
-     * @param {number} [x=0] - [description]
-     * @param {number} [y=0] - [description]
-     * @param {string} [color='#000'] - [description]
-     * @param {number} [blur=0] - [description]
-     * @param {boolean} [shadowStroke=false] - [description]
-     * @param {boolean} [shadowFill=true] - [description]
+     * @param {number} [x=0] - The horizontal shadow offset.
+     * @param {number} [y=0] - The vertical shadow offset.
+     * @param {string} [color='#000'] - The shadow color.
+     * @param {number} [blur=0] - The shadow blur radius.
+     * @param {boolean} [shadowStroke=false] - Whether to stroke the shadow.
+     * @param {boolean} [shadowFill=true] - Whether to fill the shadow.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22956,13 +25299,13 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the shadow offset.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setShadowOffset
      * @since 3.0.0
      *
-     * @param {number} [x=0] - [description]
-     * @param {number} [y=0] - [description]
+     * @param {number} [x=0] - The horizontal shadow offset.
+     * @param {number} [y=0] - The vertical shadow offset.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22978,12 +25321,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the shadow color.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setShadowColor
      * @since 3.0.0
      *
-     * @param {string} [color='#000'] - [description]
+     * @param {string} [color='#000'] - The shadow color.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -22997,12 +25340,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the shadow blur radius.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setShadowBlur
      * @since 3.0.0
      *
-     * @param {number} [blur=0] - [description]
+     * @param {number} [blur=0] - The shadow blur radius.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -23016,12 +25359,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Enable or disable shadow stroke.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setShadowStroke
      * @since 3.0.0
      *
-     * @param {boolean} enabled - [description]
+     * @param {boolean} enabled - Whether shadow stroke is enabled or not.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -23033,12 +25376,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Enable or disable shadow fill.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setShadowFill
      * @since 3.0.0
      *
-     * @param {boolean} enabled - [description]
+     * @param {boolean} enabled - Whether shadow fill is enabled or not.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -23050,7 +25393,9 @@ var TextStyle = new Class({
     },
 
     /**
-     * Set the width (in pixels) to use for wrapping lines. Pass in null to remove wrapping by width.
+     * Set the width (in pixels) to use for wrapping lines.
+     *
+     * Pass in null to remove wrapping by width.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setWordWrapWidth
      * @since 3.0.0
@@ -23073,7 +25418,9 @@ var TextStyle = new Class({
     },
 
     /**
-     * Set a custom callback for wrapping lines. Pass in null to remove wrapping by callback.
+     * Set a custom callback for wrapping lines.
+     *
+     * Pass in null to remove wrapping by callback.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setWordWrapCallback
      * @since 3.0.0
@@ -23097,12 +25444,14 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the text alignment.
+     *
+     * Expects values like `'left'`, `'right'`, `'center'` or `'justified'`.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setAlign
      * @since 3.0.0
      *
-     * @param {string} align - [description]
+     * @param {string} align - The text alignment.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -23116,12 +25465,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Set the maximum number of lines to draw.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setMaxLines
      * @since 3.0.0
      *
-     * @param {integer} [max=0] - [description]
+     * @param {integer} [max=0] - The maximum number of lines to draw.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
@@ -23135,12 +25484,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Get the current text metrics.
      *
      * @method Phaser.GameObjects.Text.TextStyle#getTextMetrics
      * @since 3.0.0
      *
-     * @return {object} [description]
+     * @return {TextMetrics} The text metrics.
      */
     getTextMetrics: function ()
     {
@@ -23154,12 +25503,12 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Build a JSON representation of this Text Style.
      *
      * @method Phaser.GameObjects.Text.TextStyle#toJSON
      * @since 3.0.0
      *
-     * @return {object} [description]
+     * @return {object} A JSON representation of this Text Style.
      */
     toJSON: function ()
     {
@@ -23176,7 +25525,7 @@ var TextStyle = new Class({
     },
 
     /**
-     * [description]
+     * Destroy this Text Style.
      *
      * @method Phaser.GameObjects.Text.TextStyle#destroy
      * @since 3.0.0
@@ -23303,7 +25652,9 @@ var Text = new Class({
         this.context = this.canvas.getContext('2d');
 
         /**
-         * [description]
+         * The Text Style object.
+         *
+         * Manages the style of this Text object.
          *
          * @name Phaser.GameObjects.Text#style
          * @type {Phaser.GameObjects.Text.TextStyle}
@@ -23312,7 +25663,7 @@ var Text = new Class({
         this.style = new TextStyle(this, style);
 
         /**
-         * [description]
+         * Whether to automatically round line positions.
          *
          * @name Phaser.GameObjects.Text#autoRound
          * @type {boolean}
@@ -23333,7 +25684,7 @@ var Text = new Class({
         this.splitRegExp = /(?:\r\n|\r|\n)/;
 
         /**
-         * [description]
+         * The text to display.
          *
          * @name Phaser.GameObjects.Text#text
          * @type {string}
@@ -23342,7 +25693,7 @@ var Text = new Class({
         this.text = '';
 
         /**
-         * [description]
+         * The resolution of the text.
          *
          * @name Phaser.GameObjects.Text#resolution
          * @type {number}
@@ -23362,7 +25713,7 @@ var Text = new Class({
         this.padding = { left: 0, right: 0, top: 0, bottom: 0 };
 
         /**
-         * [description]
+         * The width of this Text object.
          *
          * @name Phaser.GameObjects.Text#width
          * @type {number}
@@ -23372,7 +25723,7 @@ var Text = new Class({
         this.width = 1;
 
         /**
-         * [description]
+         * The height of this Text object.
          *
          * @name Phaser.GameObjects.Text#height
          * @type {number}
@@ -23382,7 +25733,7 @@ var Text = new Class({
         this.height = 1;
 
         /**
-         * [description]
+         * The Canvas Texture that the text is rendered to for WebGL rendering.
          *
          * @name Phaser.GameObjects.Text#canvasTexture
          * @type {HTMLCanvasElement}
@@ -23392,7 +25743,7 @@ var Text = new Class({
         this.canvasTexture = null;
 
         /**
-         * [description]
+         * Whether the text or its settings have changed and need updating.
          *
          * @name Phaser.GameObjects.Text#dirty
          * @type {boolean}
@@ -23426,7 +25777,7 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Initialize right to left text.
      *
      * @method Phaser.GameObjects.Text#initRTL
      * @since 3.0.0
@@ -23510,8 +25861,8 @@ var Text = new Class({
      * @since 3.0.0
      *
      * @param {string} text - The text to perform word wrap detection against.
-     * @param {CanvasRenderingContext2D} context - [description]
-     * @param {number} wordWrapWidth - [description]
+     * @param {CanvasRenderingContext2D} context - The Canvas Rendering Context.
+     * @param {number} wordWrapWidth - The word wrap width.
      *
      * @return {string} The wrapped text.
      */
@@ -23630,8 +25981,8 @@ var Text = new Class({
      * @since 3.0.0
      *
      * @param {string} text - The text to perform word wrap detection against.
-     * @param {CanvasRenderingContext2D} context - [description]
-     * @param {number} wordWrapWidth - [description]
+     * @param {CanvasRenderingContext2D} context - The Canvas Rendering Context.
+     * @param {number} wordWrapWidth - The word wrap width.
      *
      * @return {string} The wrapped text.
      */
@@ -23706,7 +26057,9 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the text to display.
+     *
+     * An array of strings will be joined with `\n` line breaks.
      *
      * @method Phaser.GameObjects.Text#setText
      * @since 3.0.0
@@ -23738,12 +26091,21 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the text style.
+     *
+     * @example
+     * text.setStyle({
+     *     fontSize: '64px',
+     *     fontFamily: 'Arial',
+     *     color: '#ffffff',
+     *     align: 'center',
+     *     backgroundColor: '#ff00ff'
+     * });
      *
      * @method Phaser.GameObjects.Text#setStyle
      * @since 3.0.0
      *
-     * @param {object} style - [description]
+     * @param {object} style - The style settings to set.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23753,12 +26115,17 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the font.
+     *
+     * If a string is given, the font family is set.
+     *
+     * If an object is given, the `fontFamily`, `fontSize` and `fontStyle`
+     * properties of that object are set.
      *
      * @method Phaser.GameObjects.Text#setFont
      * @since 3.0.0
      *
-     * @param {string} font - [description]
+     * @param {string} font - The font family or font settings to set.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23768,12 +26135,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the font family.
      *
      * @method Phaser.GameObjects.Text#setFontFamily
      * @since 3.0.0
      *
-     * @param {string} family - [description]
+     * @param {string} family - The font family.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23783,12 +26150,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the font size.
      *
      * @method Phaser.GameObjects.Text#setFontSize
      * @since 3.0.0
      *
-     * @param {number} size - [description]
+     * @param {number} size - The font size.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23798,12 +26165,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the font style.
      *
      * @method Phaser.GameObjects.Text#setFontStyle
      * @since 3.0.0
      *
-     * @param {string} style - [description]
+     * @param {string} style - The font style.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23813,13 +26180,15 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set a fixed width and height for the text.
+     *
+     * Pass in `0` for either of these parameters to disable fixed width or height respectively.
      *
      * @method Phaser.GameObjects.Text#setFixedSize
      * @since 3.0.0
      *
-     * @param {number} width - [description]
-     * @param {number} height - [description]
+     * @param {number} width - The fixed width to set. `0` disables fixed width.
+     * @param {number} height - The fixed height to set. `0` disables fixed height.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23829,12 +26198,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the background color.
      *
      * @method Phaser.GameObjects.Text#setBackgroundColor
      * @since 3.0.0
      *
-     * @param {string} color - [description]
+     * @param {string} color - The background color.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23844,12 +26213,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the text fill color.
      *
      * @method Phaser.GameObjects.Text#setFill
      * @since 3.0.0
      *
-     * @param {string} color - [description]
+     * @param {string} color - The text fill color.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23859,12 +26228,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the text fill color.
      *
      * @method Phaser.GameObjects.Text#setColor
      * @since 3.0.0
      *
-     * @param {string} color - [description]
+     * @param {string} color - The text fill color.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23874,13 +26243,13 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the stroke settings.
      *
      * @method Phaser.GameObjects.Text#setStroke
      * @since 3.0.0
      *
-     * @param {string} color - [description]
-     * @param {number} thickness - [description]
+     * @param {string} color - The stroke color.
+     * @param {number} thickness - The stroke thickness.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23890,17 +26259,17 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the shadow settings.
      *
      * @method Phaser.GameObjects.Text#setShadow
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
-     * @param {string} color - [description]
-     * @param {number} blur - [description]
-     * @param {boolean} shadowStroke - [description]
-     * @param {boolean} shadowFill - [description]
+     * @param {number} [x=0] - The horizontal shadow offset.
+     * @param {number} [y=0] - The vertical shadow offset.
+     * @param {string} [color='#000'] - The shadow color.
+     * @param {number} [blur=0] - The shadow blur radius.
+     * @param {boolean} [shadowStroke=false] - Whether to stroke the shadow.
+     * @param {boolean} [shadowFill=true] - Whether to fill the shadow.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23910,13 +26279,13 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the shadow offset.
      *
      * @method Phaser.GameObjects.Text#setShadowOffset
      * @since 3.0.0
      *
-     * @param {number} x - [description]
-     * @param {number} y - [description]
+     * @param {number} x - The horizontal shadow offset.
+     * @param {number} y - The vertical shadow offset.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23926,12 +26295,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the shadow color.
      *
      * @method Phaser.GameObjects.Text#setShadowColor
      * @since 3.0.0
      *
-     * @param {string} color - [description]
+     * @param {string} color - The shadow color.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23941,12 +26310,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the shadow blur radius.
      *
      * @method Phaser.GameObjects.Text#setShadowBlur
      * @since 3.0.0
      *
-     * @param {number} blur - [description]
+     * @param {number} blur - The shadow blur radius.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23956,12 +26325,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Enable or disable shadow stroke.
      *
      * @method Phaser.GameObjects.Text#setShadowStroke
      * @since 3.0.0
      *
-     * @param {boolean} enabled - [description]
+     * @param {boolean} enabled - Whether shadow stroke is enabled or not.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -23971,12 +26340,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Enable or disable shadow fill.
      *
      * @method Phaser.GameObjects.Text#setShadowFill
      * @since 3.0.0
      *
-     * @param {boolean} enabled - [description]
+     * @param {boolean} enabled - Whether shadow fill is enabled or not.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -24023,12 +26392,14 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the text alignment.
+     *
+     * Expects values like `'left'`, `'right'`, `'center'` or `'justified'`.
      *
      * @method Phaser.GameObjects.Text#setAlign
      * @since 3.0.0
      *
-     * @param {string} align - [description]
+     * @param {string} align - The text alignment.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -24038,16 +26409,19 @@ var Text = new Class({
     },
 
     /**
+     * Set the text padding.
+     *
      * 'left' can be an object.
-     * If only 'left' and 'top' are given they are treated as 'x' and 'y'
+     *
+     * If only 'left' and 'top' are given they are treated as 'x' and 'y'.
      *
      * @method Phaser.GameObjects.Text#setPadding
      * @since 3.0.0
      *
-     * @param {(number|object)} left - [description]
-     * @param {number} top - [description]
-     * @param {number} right - [description]
-     * @param {number} bottom - [description]
+     * @param {(number|object)} left - The left padding value, or a padding config object.
+     * @param {number} top - The top padding value.
+     * @param {number} right - The right padding value.
+     * @param {number} bottom - The bottom padding value.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -24101,12 +26475,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Set the maximum number of lines to draw.
      *
      * @method Phaser.GameObjects.Text#setMaxLines
      * @since 3.0.0
      *
-     * @param {integer} [max=0] - [description]
+     * @param {integer} [max=0] - The maximum number of lines to draw.
      *
      * @return {Phaser.GameObjects.Text} This Text object.
      */
@@ -24116,7 +26490,7 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Update the displayed text.
      *
      * @method Phaser.GameObjects.Text#updateText
      * @since 3.0.0
@@ -24252,12 +26626,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Get the current text metrics.
      *
      * @method Phaser.GameObjects.Text#getTextMetrics
      * @since 3.0.0
      *
-     * @return {object} [description]
+     * @return {object} The text metrics.
      */
     getTextMetrics: function ()
     {
@@ -24265,12 +26639,12 @@ var Text = new Class({
     },
 
     /**
-     * [description]
+     * Build a JSON representation of the Text object.
      *
      * @method Phaser.GameObjects.Text#toJSON
      * @since 3.0.0
      *
-     * @return {JSONGameObject} A JSON representation of the Game Object.
+     * @return {JSONGameObject} A JSON representation of the Text object.
      */
     toJSON: function ()
     {
@@ -24352,30 +26726,38 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  */
 var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)) || src.text === '')
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)) || src.text === '')
     {
         return;
     }
     
     var ctx = renderer.currentContext;
 
-    // var resolution = src.resolution;
+    //  Alpha
 
+    var alpha = camera.alpha * src.alpha;
+
+    if (alpha === 0)
+    {
+        //  Nothing to see, so abort early
+        return;
+    }
+    else if (renderer.currentAlpha !== alpha)
+    {
+        renderer.currentAlpha = alpha;
+        ctx.globalAlpha = alpha;
+    }
+    
     //  Blend Mode
+
     if (renderer.currentBlendMode !== src.blendMode)
     {
         renderer.currentBlendMode = src.blendMode;
         ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
     }
 
-    //  Alpha
-    if (renderer.currentAlpha !== src.alpha)
-    {
-        renderer.currentAlpha = src.alpha;
-        ctx.globalAlpha = src.alpha;
-    }
-
     //  Smoothing
+
     if (renderer.currentScaleMode !== src.scaleMode)
     {
         renderer.currentScaleMode = src.scaleMode;
@@ -24394,7 +26776,7 @@ var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camer
     var tx = src.x - camera.scrollX * src.scrollFactorX;
     var ty = src.y - camera.scrollY * src.scrollFactorY;
 
-    if (renderer.config.roundPixels)
+    if (camera.roundPixels)
     {
         tx |= 0;
         ty |= 0;
@@ -24609,6 +26991,7 @@ module.exports = {
  */
 
 var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/GameObject.js");
+var Utils = __webpack_require__(/*! ../../../renderer/webgl/Utils */ "./renderer/webgl/Utils.js");
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -24627,7 +27010,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  */
 var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera._id)) || src.text === '')
+    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)) || src.text === '')
     {
         return;
     }
@@ -24638,7 +27021,29 @@ var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera
         src.dirty = false;
     }
 
-    this.pipeline.batchText(this, camera, parentMatrix);
+    var getTint = Utils.getTintAppendFloatAlpha;
+
+    this.pipeline.batchTexture(
+        src,
+        src.canvasTexture,
+        src.canvasTexture.width, src.canvasTexture.height,
+        src.x, src.y,
+        src.canvasTexture.width, src.canvasTexture.height,
+        src.scaleX, src.scaleY,
+        src.rotation,
+        src.flipX, src.flipY,
+        src.scrollFactorX, src.scrollFactorY,
+        src.displayOriginX, src.displayOriginY,
+        0, 0, src.canvasTexture.width, src.canvasTexture.height,
+        getTint(src._tintTL, camera.alpha * src._alphaTL),
+        getTint(src._tintTR, camera.alpha * src._alphaTR),
+        getTint(src._tintBL, camera.alpha * src._alphaBL),
+        getTint(src._tintBR, camera.alpha * src._alphaBR),
+        (src._isTinted && src.tintFill),
+        0, 0,
+        camera,
+        parentMatrix
+    );
 };
 
 module.exports = TextWebGLRenderer;
@@ -24759,7 +27164,7 @@ var Circle = new Class({
      *
      * @generic {Phaser.Geom.Point} O - [out,$return]
      *
-     * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
+     * @param {number} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
      * @param {(Phaser.Geom.Point|object)} [out] - An object to store the return values in. If not given a Point object will be created.
      *
      * @return {(Phaser.Geom.Point|object)} A Point, or point-like object, containing the coordinates of the point around the circle.
@@ -25166,7 +27571,7 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Circle} circle - The Circle to get the circumference point on.
- * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
+ * @param {number} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
  * @param {(Phaser.Geom.Point|object)} [out] - An object to store the return values in. If not given a Point object will be created.
  *
  * @return {(Phaser.Geom.Point|object)} A Point, or point-like object, containing the coordinates of the point around the circle.
@@ -25553,7 +27958,7 @@ var Contains = __webpack_require__(/*! ./Contains */ "./geom/ellipse/Contains.js
  * @function Phaser.Geom.Ellipse.ContainsRect
  * @since 3.0.0
  *
- * @param {Phaser.Geom.Ellipse} ellipse - [description]
+ * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to check.
  * @param {(Phaser.Geom.Rectangle|object)} rect - The Rectangle object to check if it's within the Ellipse or not.
  *
  * @return {boolean} True if all of the Rectangle coordinates are within the ellipse, otherwise false.
@@ -25598,7 +28003,7 @@ module.exports = ContainsRect;
  * @param {Phaser.Geom.Ellipse} source - The source Ellipse to copy the values from.
  * @param {Phaser.Geom.Ellipse} dest - The destination Ellipse to copy the values to.
  *
- * @return {Phaser.Geom.Ellipse} The dest Ellipse.
+ * @return {Phaser.Geom.Ellipse} The destination Ellipse.
  */
 var CopyFrom = function (source, dest)
 {
@@ -25725,7 +28130,7 @@ var Ellipse = new Class({
      *
      * @generic {Phaser.Geom.Point} O - [out,$return]
      *
-     * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the ellipse.
+     * @param {number} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the ellipse.
      * @param {(Phaser.Geom.Point|object)} [out] - An object to store the return values in. If not given a Point object will be created.
      *
      * @return {(Phaser.Geom.Point|object)} A Point, or point-like object, containing the coordinates of the point around the ellipse.
@@ -26097,7 +28502,7 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to get the circumference point on.
- * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the ellipse.
+ * @param {number} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the ellipse.
  * @param {(Phaser.Geom.Point|object)} [out] - An object to store the return values in. If not given a Point object will be created.
  *
  * @return {(Phaser.Geom.Point|object)} A Point, or point-like object, containing the coordinates of the point around the ellipse.
@@ -26351,22 +28756,19 @@ module.exports = Ellipse;
 
 var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
 
-//  Get a point on the given line 'progress' percentage along its length.
-//  progress is a value between 0 and 1.
-
 /**
- * [description]
+ * Get a point on a line that's a given percentage along its length.
  *
  * @function Phaser.Geom.Line.GetPoint
  * @since 3.0.0
  *
  * @generic {Phaser.Geom.Point} O - [out,$return]
  *
- * @param {Phaser.Geom.Line} line - [description]
- * @param {float} position - A value between 0 and 1, where 0 equals 0 degrees, 0.5 equals 180 degrees and 1 equals 360 around the circle.
- * @param {(Phaser.Geom.Point|object)} [out] - [description]
+ * @param {Phaser.Geom.Line} line - The line.
+ * @param {number} position - A value between 0 and 1, where 0 is the start, 0.5 is the middle and 1 is the end of the line.
+ * @param {(Phaser.Geom.Point|object)} [out] - An optional point, or point-like object, to store the coordinates of the point on the line.
  *
- * @return {(Phaser.Geom.Point|object)} [description]
+ * @return {(Phaser.Geom.Point|object)} The point on the line.
  */
 var GetPoint = function (line, position, out)
 {
@@ -26400,19 +28802,24 @@ var Length = __webpack_require__(/*! ./Length */ "./geom/line/Length.js");
 var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
 
 /**
- * [description]
+ * Get a number of points along a line's length.
+ *
+ * Provide a `quantity` to get an exact number of points along the line.
+ *
+ * Provide a `stepRate` to ensure a specific distance between each point on the line. Set `quantity` to `0` when
+ * providing a `stepRate`.
  *
  * @function Phaser.Geom.Line.GetPoints
  * @since 3.0.0
  *
  * @generic {Phaser.Geom.Point[]} O - [out,$return]
  *
- * @param {Phaser.Geom.Line} line - [description]
- * @param {integer} quantity - [description]
- * @param {integer} [stepRate] - [description]
- * @param {(array|Phaser.Geom.Point[])} [out] - [description]
+ * @param {Phaser.Geom.Line} line - The line.
+ * @param {integer} quantity - The number of points to place on the line. Set to `0` to use `stepRate` instead.
+ * @param {number} [stepRate] - The distance between each point on the line. When set, `quantity` is implied and should be set to `0`.
+ * @param {(array|Phaser.Geom.Point[])} [out] - An optional array of Points, or point-like objects, to store the coordinates of the points on the line.
  *
- * @return {(array|Phaser.Geom.Point[])} [description]
+ * @return {(array|Phaser.Geom.Point[])} An array of Points, or point-like objects, containing the coordinates of the points on the line.
  */
 var GetPoints = function (line, quantity, stepRate, out)
 {
@@ -26462,14 +28869,14 @@ module.exports = GetPoints;
  */
 
 /**
- * [description]
+ * Calculate the length of the given line.
  *
  * @function Phaser.Geom.Line.Length
  * @since 3.0.0
  *
- * @param {Phaser.Geom.Line} line - [description]
+ * @param {Phaser.Geom.Line} line - The line to calculate the length of.
  *
- * @return {number} [description]
+ * @return {number} The length of the line.
  */
 var Length = function (line)
 {
@@ -26563,15 +28970,15 @@ var Line = new Class({
     },
 
     /**
-     * [description]
+     * Get a point on a line that's a given percentage along its length.
      *
      * @method Phaser.Geom.Line#getPoint
      * @since 3.0.0
      *
      * @generic {Phaser.Geom.Point} O - [output,$return]
      *
-     * @param {float} position - [description]
-     * @param {(Phaser.Geom.Point|object)} [output] - [description]
+     * @param {number} position - A value between 0 and 1, where 0 is the start, 0.5 is the middle and 1 is the end of the line.
+     * @param {(Phaser.Geom.Point|object)} [output] - An optional point, or point-like object, to store the coordinates of the point on the line.
      *
      * @return {(Phaser.Geom.Point|object)} A Point, or point-like object, containing the coordinates of the point on the line.
      */
@@ -26581,18 +28988,23 @@ var Line = new Class({
     },
 
     /**
-     * [description]
+     * Get a number of points along a line's length.
+     *
+     * Provide a `quantity` to get an exact number of points along the line.
+     *
+     * Provide a `stepRate` to ensure a specific distance between each point on the line. Set `quantity` to `0` when
+     * providing a `stepRate`.
      *
      * @method Phaser.Geom.Line#getPoints
      * @since 3.0.0
      *
      * @generic {Phaser.Geom.Point} O - [output,$return]
      *
-     * @param {integer} quantity - [description]
-     * @param {integer} [stepRate] - [description]
-     * @param {(array|Phaser.Geom.Point[])} [output] - [description]
+     * @param {integer} quantity - The number of points to place on the line. Set to `0` to use `stepRate` instead.
+     * @param {integer} [stepRate] - The distance between each point on the line. When set, `quantity` is implied and should be set to `0`.
+     * @param {(array|Phaser.Geom.Point[])} [output] - An optional array of Points, or point-like objects, to store the coordinates of the points on the line.
      *
-     * @return {(array|Phaser.Geom.Point[])} [description]
+     * @return {(array|Phaser.Geom.Point[])} An array of Points, or point-like objects, containing the coordinates of the points on the line.
      */
     getPoints: function (quantity, stepRate, output)
     {
@@ -26667,7 +29079,7 @@ var Line = new Class({
     },
 
     /**
-     * Returns a Vector2 object that corresponds to the start of this Line.
+     * Returns a Vector2 object that corresponds to the end of this Line.
      *
      * @method Phaser.Geom.Line#getPointB
      * @since 3.0.0
@@ -26676,7 +29088,7 @@ var Line = new Class({
      *
      * @param {Phaser.Math.Vector2} [vec2] - A Vector2 object to set the results in. If `undefined` a new Vector2 will be created.
      *
-     * @return {Phaser.Math.Vector2} A Vector2 object that corresponds to the start of this Line.
+     * @return {Phaser.Math.Vector2} A Vector2 object that corresponds to the end of this Line.
      */
     getPointB: function (vec2)
     {
@@ -27617,6 +30029,48 @@ earcut.flatten = function (data) {
 
 /***/ }),
 
+/***/ "./geom/rectangle/CenterOn.js":
+/*!************************************!*\
+  !*** ./geom/rectangle/CenterOn.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+// Centers this Rectangle so that the center coordinates match the given x and y values.
+
+/**
+ * [description]
+ *
+ * @function Phaser.Geom.Rectangle.CenterOn
+ * @since 3.0.0
+ *
+ * @generic {Phaser.Geom.Rectangle} O - [rect,$return]
+ *
+ * @param {Phaser.Geom.Rectangle} rect - [description]
+ * @param {number} x - [description]
+ * @param {number} y - [description]
+ *
+ * @return {Phaser.Geom.Rectangle} [description]
+ */
+var CenterOn = function (rect, x, y)
+{
+    rect.x = x - (rect.width / 2);
+    rect.y = y - (rect.height / 2);
+
+    return rect;
+};
+
+module.exports = CenterOn;
+
+
+/***/ }),
+
 /***/ "./geom/rectangle/Contains.js":
 /*!************************************!*\
   !*** ./geom/rectangle/Contains.js ***!
@@ -27682,7 +30136,7 @@ var Point = __webpack_require__(/*! ../point/Point */ "./geom/point/Point.js");
  * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Rectangle} rectangle - [description]
- * @param {float} position - [description]
+ * @param {number} position - [description]
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
  *
  * @return {Phaser.Geom.Point} [description]
@@ -27984,7 +30438,7 @@ var Rectangle = new Class({
      *
      * @generic {Phaser.Geom.Point} O - [output,$return]
      *
-     * @param {float} position - [description]
+     * @param {number} position - [description]
      * @param {(Phaser.Geom.Point|object)} [output] - [description]
      *
      * @return {(Phaser.Geom.Point|object)} [description]
@@ -28454,7 +30908,7 @@ var Length = __webpack_require__(/*! ../line/Length */ "./geom/line/Length.js");
  * @generic {Phaser.Geom.Point} O - [out,$return]
  *
  * @param {Phaser.Geom.Triangle} triangle - [description]
- * @param {float} position - [description]
+ * @param {number} position - [description]
  * @param {(Phaser.Geom.Point|object)} [out] - [description]
  *
  * @return {(Phaser.Geom.Point|object)} [description]
@@ -28816,7 +31270,7 @@ var Triangle = new Class({
      *
      * @generic {Phaser.Geom.Point} O - [output,$return]
      *
-     * @param {float} position - [description]
+     * @param {number} position - [description]
      * @param {(Phaser.Geom.Point|object)} [output] - [description]
      *
      * @return {(Phaser.Geom.Point|object)} [description]
@@ -30521,6 +32975,11 @@ var InputManager = new Class({
      */
     transformPointer: function (pointer, pageX, pageY)
     {
+        //  Store the previous position
+        pointer.prevPosition.x = pointer.x;
+        pointer.prevPosition.y = pointer.y;
+
+        //  Set the new position
         pointer.x = (pageX - this.bounds.left) * this.scale.x;
         pointer.y = (pageY - this.bounds.top) * this.scale.y;
     },
@@ -31342,7 +33801,7 @@ var InputPlugin = new Class({
         {
             var camera = cameras[c];
 
-            //  Get a list of all objects that can be seen by the camera below the pointer in the scene and store in 'output' array.
+            //  Get a list of all objects that can be seen by the camera below the pointer in the scene and store in 'over' array.
             //  All objects in this array are input enabled, as checked by the hitTest method, so we don't need to check later on as well.
             var over = this.manager.hitTest(pointer, this._list, camera);
 
@@ -31364,6 +33823,11 @@ var InputPlugin = new Class({
                 return over;
             }
         }
+
+        //  If we got this far then there were no Game Objects below the pointer, but it was still over
+        //  a camera, so set that the top-most one into the pointer
+
+        pointer.camera = cameras[0];
 
         return [];
     },
@@ -31462,7 +33926,7 @@ var InputPlugin = new Class({
             {
                 gameObject = currentlyOver[i];
 
-                if (gameObject.input.draggable)
+                if (gameObject.input.draggable && (gameObject.input.dragState === 0))
                 {
                     draglist.push(gameObject);
                 }
@@ -33144,7 +35608,9 @@ module.exports = InputPluginCache;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var SmoothStepInterpolation = __webpack_require__(/*! ../math/interpolation/SmoothStepInterpolation */ "./math/interpolation/SmoothStepInterpolation.js");
 var Vector2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
+
 
 /**
  * @classdesc
@@ -33242,6 +35708,20 @@ var Pointer = new Class({
          * @since 3.0.0
          */
         this.position = new Vector2();
+
+        /**
+         * The previous position of the Pointer in screen space.
+         * 
+         * The old x and y values are stored in here during the InputManager.transformPointer call.
+         * 
+         * You can use it to track how fast the pointer is moving, or to smoothly interpolate between the old and current position.
+         * See the `Pointer.getInterpolatedPosition` method to assist in this.
+         *
+         * @name Phaser.Input.Pointer#prevPosition
+         * @type {Phaser.Math.Vector2}
+         * @since 3.11.0
+         */
+        this.prevPosition = new Vector2();
 
         /**
          * The x position of this Pointer, translated into the coordinate space of the most recent Camera it interacted with.
@@ -33786,6 +36266,57 @@ var Pointer = new Class({
     },
 
     /**
+     * Takes the previous and current Pointer positions and then generates an array of interpolated values between
+     * the two. The array will be populated up to the size of the `steps` argument.
+     * 
+     * ```javaScript
+     * var points = pointer.getInterpolatedPosition(4);
+     * 
+     * // points[0] = { x: 0, y: 0 }
+     * // points[1] = { x: 2, y: 1 }
+     * // points[2] = { x: 3, y: 2 }
+     * // points[3] = { x: 6, y: 3 }
+     * ```
+     * 
+     * Use this if you need to get smoothed values between the previous and current pointer positions. DOM pointer
+     * events can often fire faster than the main browser loop, and this will help you avoid janky movement
+     * especially if you have an object following a Pointer.
+     * 
+     * Note that if you provide an output array it will only be populated up to the number of steps provided.
+     * It will not clear any previous data that may have existed beyond the range of the steps count.
+     * 
+     * Internally it uses the Smooth Step interpolation calculation.
+     *
+     * @method Phaser.Input.Pointer#getInterpolatedPosition
+     * @since 3.11.0
+     * 
+     * @param {integer} [steps=10] - The number of interpolation steps to use.
+     * @param {array} [out] - An array to store the results in. If not provided a new one will be created.
+     * 
+     * @return {array} An array of interpolated values.
+     */
+    getInterpolatedPosition: function (steps, out)
+    {
+        if (steps === undefined) { steps = 10; }
+        if (out === undefined) { out = []; }
+
+        var prevX = this.prevPosition.x;
+        var prevY = this.prevPosition.y;
+
+        var curX = this.position.x;
+        var curY = this.position.y;
+
+        for (var i = 0; i < steps; i++)
+        {
+            var t = (1 / steps) * i;
+
+            out[i] = { x: SmoothStepInterpolation(t, prevX, curX), y: SmoothStepInterpolation(t, prevY, curY) };
+        }
+
+        return out;
+    },
+
+    /**
      * Destroys this Pointer instance and resets its external references.
      *
      * @method Phaser.Input.Pointer#destroy
@@ -34002,7 +36533,7 @@ var Axis = new Class({
          * Use the method `getValue` to get a normalized value with the threshold applied.
          *
          * @name Phaser.Input.Gamepad.Axis#value
-         * @type {float}
+         * @type {number}
          * @default 0
          * @since 3.0.0
          */
@@ -34012,7 +36543,7 @@ var Axis = new Class({
          * Movement tolerance threshold below which axis values are ignored in `getValue`.
          *
          * @name Phaser.Input.Gamepad.Axis#threshold
-         * @type {float}
+         * @type {number}
          * @default 0.1
          * @since 3.0.0
          */
@@ -34027,7 +36558,7 @@ var Axis = new Class({
      * @private
      * @since 3.0.0
      *
-     * @param {float} value - The value of the axis movement.
+     * @param {number} value - The value of the axis movement.
      */
     update: function (value)
     {
@@ -34040,7 +36571,7 @@ var Axis = new Class({
      * @method Phaser.Input.Gamepad.Axis#getValue
      * @since 3.0.0
      *
-     * @return {float} The axis value, adjusted for the movement threshold.
+     * @return {number} The axis value, adjusted for the movement threshold.
      */
     getValue: function ()
     {
@@ -34131,7 +36662,7 @@ var Button = new Class({
          * Between 0 and 1.
          *
          * @name Phaser.Input.Gamepad.Button#value
-         * @type {float}
+         * @type {number}
          * @default 0
          * @since 3.0.0
          */
@@ -34142,7 +36673,7 @@ var Button = new Class({
          * before a button is considered as being 'pressed'.
          *
          * @name Phaser.Input.Gamepad.Button#threshold
-         * @type {float}
+         * @type {number}
          * @default 1
          * @since 3.0.0
          */
@@ -35901,6 +38432,7 @@ var KeyCombo = __webpack_require__(/*! ./combo/KeyCombo */ "./input/keyboard/com
 var KeyMap = __webpack_require__(/*! ./keys/KeyMap */ "./input/keyboard/keys/KeyMap.js");
 var ProcessKeyDown = __webpack_require__(/*! ./keys/ProcessKeyDown */ "./input/keyboard/keys/ProcessKeyDown.js");
 var ProcessKeyUp = __webpack_require__(/*! ./keys/ProcessKeyUp */ "./input/keyboard/keys/ProcessKeyUp.js");
+var SnapFloor = __webpack_require__(/*! ../../math/snap/SnapFloor */ "./math/snap/SnapFloor.js");
 
 /**
  * @classdesc
@@ -36038,6 +38570,16 @@ var KeyboardPlugin = new Class({
          * @since 3.10.0
          */
         this.onKeyHandler;
+
+        /**
+         * Internal time value.
+         *
+         * @name Phaser.Input.Keyboard.KeyboardPlugin#time
+         * @type {number}
+         * @private
+         * @since 3.11.0
+         */
+        this.time = 0;
 
         sceneInputPlugin.pluginEvents.once('boot', this.boot, this);
         sceneInputPlugin.pluginEvents.on('start', this.start, this);
@@ -36357,14 +38899,53 @@ var KeyboardPlugin = new Class({
     },
 
     /**
+     * Checks if the given Key object is currently being held down.
+     * 
+     * The difference between this method and checking the `Key.isDown` property directly is that you can provide
+     * a duration to this method. For example, if you wanted a key press to fire a bullet, but you only wanted
+     * it to be able to fire every 100ms, then you can call this method with a `duration` of 100 and it
+     * will only return `true` every 100ms.
+     * 
+     * If the Keyboard Plugin has been disabled, this method will always return `false`.
+     *
+     * @method Phaser.Input.Keyboard.KeyboardPlugin#checkDown
+     * @since 3.11.0
+     *
+     * @param {Phaser.Input.Keyboard.Key} key - A Key object.
+     * @param {number} [duration=0] - The duration which must have elapsed before this Key is considered as being down.
+     * 
+     * @return {boolean} `True` if the Key is down within the duration specified, otherwise `false`.
+     */
+    checkDown: function (key, duration)
+    {
+        if (this.enabled && key.isDown)
+        {
+            var t = SnapFloor(this.time - key.timeDown, duration);
+
+            if (t > key._tick)
+            {
+                key._tick = t;
+
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    /**
      * Internal update handler called by the Input Manager, which is in turn invoked by the Game step.
      *
      * @method Phaser.Input.Keyboard.KeyboardPlugin#update
      * @private
      * @since 3.10.0
+     * 
+     * @param {number} time - The game loop time value.
      */
-    update: function ()
+    update: function (time)
     {
+        this.time = time;
+
         var len = this.queue.length;
 
         if (!this.enabled || len === 0)
@@ -37259,9 +39840,7 @@ var Key = new Class({
         this.timeDown = 0;
 
         /**
-         * The number of milliseconds this key has been held down for.
-         * If the key is down this value holds the duration of that key press and is constantly updated.
-         * If the key is up it holds the duration of the previous down session.
+         * The number of milliseconds this key was held down for in the previous down - up sequence.
          *
          * @name Phaser.Input.Keyboard.Key#duration
          * @type {number}
@@ -37311,6 +39890,16 @@ var Key = new Class({
          * @since 3.0.0
          */
         this._justUp = false;
+
+        /**
+         * Internal tick counter.
+         *
+         * @name Phaser.Input.Keyboard.Key#_tick
+         * @type {number}
+         * @private
+         * @since 3.11.0
+         */
+        this._tick = -1;
     },
 
     /**
@@ -37336,6 +39925,7 @@ var Key = new Class({
         this.repeats = 0;
         this._justDown = false;
         this._justUp = false;
+        this._tick = -1;
 
         return this;
     }
@@ -37967,6 +40557,7 @@ var ProcessKeyUp = function (key, event)
 
     key._justDown = false;
     key._justUp = true;
+    key._tick = -1;
 
     return key;
 };
@@ -38864,7 +41455,7 @@ var File = new Class({
          * Only set if loading via XHR.
          *
          * @name Phaser.Loader.File#percentComplete
-         * @type {float}
+         * @type {number}
          * @default -1
          * @since 3.0.0
          */
@@ -39201,7 +41792,7 @@ var File = new Class({
         var type = this.type;
 
         this.loader.emit('filecomplete', key, type, data);
-        this.loader.emit('filecomplete_' + type + '_' + key, key, type, data);
+        this.loader.emit('filecomplete-' + type + '-' + key, key, type, data);
 
         this.loader.flagForRemoval(this);
     },
@@ -39617,7 +42208,7 @@ var LoaderPlugin = new Class({
          * Note that it is possible for this value to go down again if you add content to the current load queue during a load.
          *
          * @name Phaser.Loader.LoaderPlugin#progress
-         * @type {float}
+         * @type {number}
          * @default 0
          * @since 3.0.0
          */
@@ -40126,7 +42717,7 @@ var LoaderPlugin = new Class({
      * a file having completed loading.
      * 
      * @event Phaser.Loader.LoaderPlugin#progressEvent
-     * @param {float} progress - The current progress of the load. A value between 0 and 1.
+     * @param {number} progress - The current progress of the load. A value between 0 and 1.
      */
 
     /**
@@ -40250,6 +42841,8 @@ var LoaderPlugin = new Class({
             this._deleteQueue.set(file);
 
             this.emit('loaderror', file);
+
+            this.fileProcessComplete(file);
         }
     },
 
@@ -40296,6 +42889,7 @@ var LoaderPlugin = new Class({
         this.queue.delete(file);
 
         //  Nothing left to do?
+
         if (this.list.size === 0 && this.inflight.size === 0 && this.queue.size === 0)
         {
             this.loadComplete();
@@ -44298,7 +46892,7 @@ var CONST = __webpack_require__(/*! ./const */ "./math/const.js");
  *
  * @param {integer} degrees - The angle (in degrees) to convert to radians.
  *
- * @return {float} The given angle converted to radians.
+ * @return {number} The given angle converted to radians.
  */
 var DegToRad = function (degrees)
 {
@@ -44329,10 +46923,10 @@ module.exports = DegToRad;
  * @function Phaser.Math.FloatBetween
  * @since 3.0.0
  *
- * @param {float} min - The lower bound for the float, inclusive.
- * @param {float} max - The upper bound for the float exclusive.
+ * @param {number} min - The lower bound for the float, inclusive.
+ * @param {number} max - The upper bound for the float exclusive.
  *
- * @return {float} A random float within the given range.
+ * @return {number} A random float within the given range.
  */
 var FloatBetween = function (min, max)
 {
@@ -44365,7 +46959,7 @@ var Clamp = __webpack_require__(/*! ./Clamp */ "./math/Clamp.js");
  * @function Phaser.Math.FromPercent
  * @since 3.0.0
  *
- * @param {float} percent - A value between 0 and 1 representing the percentage.
+ * @param {number} percent - A value between 0 and 1 representing the percentage.
  * @param {number} min - The minimum value.
  * @param {number} [max] - The maximum value.
  *
@@ -44404,7 +46998,7 @@ module.exports = FromPercent;
  *
  * @param {number} p0 - The first point.
  * @param {number} p1 - The second point.
- * @param {float} t - The percentage between p0 and p1 to return, represented as a number between 0 and 1.
+ * @param {number} t - The percentage between p0 and p1 to return, represented as a number between 0 and 1.
  *
  * @return {number} The step t% of the way between p0 and p1.
  */
@@ -44439,7 +47033,7 @@ var CONST = __webpack_require__(/*! ./const */ "./math/const.js");
  * @function Phaser.Math.RadToDeg
  * @since 3.0.0
  *
- * @param {float} radians - The angle in radians to convert ot degrees.
+ * @param {number} radians - The angle in radians to convert ot degrees.
  *
  * @return {integer} The given angle converted to degrees.
  */
@@ -44528,6 +47122,58 @@ var RoundAwayFromZero = function (value)
 };
 
 module.exports = RoundAwayFromZero;
+
+
+/***/ }),
+
+/***/ "./math/SmoothStep.js":
+/*!****************************!*\
+  !*** ./math/SmoothStep.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * Calculate a smooth interpolation percentage of `x` between `min` and `max`.
+ *
+ * The function receives the number `x` as an argument and returns 0 if `x` is less than or equal to the left edge,
+ * 1 if `x` is greater than or equal to the right edge, and smoothly interpolates, using a Hermite polynomial,
+ * between 0 and 1 otherwise.
+ *
+ * @function Phaser.Math.SmoothStep
+ * @since 3.0.0
+ * @see {@link https://en.wikipedia.org/wiki/Smoothstep}
+ *
+ * @param {number} x - The input value.
+ * @param {number} min - The minimum value, also known as the 'left edge', assumed smaller than the 'right edge'.
+ * @param {number} max - The maximum value, also known as the 'right edge', assumed greater than the 'left edge'.
+ *
+ * @return {number} The percentage of interpolation, between 0 and 1.
+ */
+var SmoothStep = function (x, min, max)
+{
+    if (x <= min)
+    {
+        return 0;
+    }
+
+    if (x >= max)
+    {
+        return 1;
+    }
+
+    x = (x - min) / (max - min);
+
+    return x * x * (3 - 2 * x);
+};
+
+module.exports = SmoothStep;
 
 
 /***/ }),
@@ -44774,8 +47420,8 @@ var Vector2 = new Class({
      * @method Phaser.Math.Vector2#setToPolar
      * @since 3.0.0
      *
-     * @param {float} azimuth - The angular coordinate, in radians.
-     * @param {float} [radius=1] - The radial coordinate (length).
+     * @param {number} azimuth - The angular coordinate, in radians.
+     * @param {number} [radius=1] - The radial coordinate (length).
      *
      * @return {Phaser.Math.Vector2} This Vector2.
      */
@@ -44965,7 +47611,7 @@ var Vector2 = new Class({
     },
 
     /**
-     * Calculate the distance between this Vector, and the given Vector, squared.
+     * Calculate the distance between this Vector and the given Vector, squared.
      *
      * @method Phaser.Math.Vector2#distanceSq
      * @since 3.0.0
@@ -46132,8 +48778,8 @@ module.exports = {
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {float} [amplitude=0.1] - The amplitude of the elastic ease.
- * @param {float} [period=0.1] - [description]
+ * @param {number} [amplitude=0.1] - The amplitude of the elastic ease.
+ * @param {number} [period=0.1] - [description]
  *
  * @return {number} The tweened value.
  */
@@ -46192,8 +48838,8 @@ module.exports = In;
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {float} [amplitude=0.1] - The amplitude of the elastic ease.
- * @param {float} [period=0.1] - [description]
+ * @param {number} [amplitude=0.1] - The amplitude of the elastic ease.
+ * @param {number} [period=0.1] - [description]
  *
  * @return {number} The tweened value.
  */
@@ -46259,8 +48905,8 @@ module.exports = InOut;
  * @since 3.0.0
  *
  * @param {number} v - The value to be tweened.
- * @param {float} [amplitude=0.1] - The amplitude of the elastic ease.
- * @param {float} [period=0.1] - [description]
+ * @param {number} [amplitude=0.1] - The amplitude of the elastic ease.
+ * @param {number} [period=0.1] - [description]
  *
  * @return {number} The tweened value.
  */
@@ -47147,6 +49793,44 @@ module.exports = __webpack_require__(/*! ./Stepped */ "./math/easing/stepped/Ste
 
 /***/ }),
 
+/***/ "./math/interpolation/SmoothStepInterpolation.js":
+/*!*******************************************************!*\
+  !*** ./math/interpolation/SmoothStepInterpolation.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var SmoothStep = __webpack_require__(/*! ../SmoothStep */ "./math/SmoothStep.js");
+
+/**
+ * A Smooth Step interpolation method.
+ *
+ * @function Phaser.Math.Interpolation.SmoothStep
+ * @since 3.9.0
+ * @see {@link https://en.wikipedia.org/wiki/Smoothstep}
+ *
+ * @param {number} t - The percentage of interpolation, between 0 and 1.
+ * @param {number} min - The minimum value, also known as the 'left edge', assumed smaller than the 'right edge'.
+ * @param {number} max - The maximum value, also known as the 'right edge', assumed greater than the 'left edge'.
+ *
+ * @return {number} The interpolated value.
+ */
+var SmoothStepInterpolation = function (t, min, max)
+{
+    return min + (max - min) * SmoothStep(t, 0, 1);
+};
+
+module.exports = SmoothStepInterpolation;
+
+
+/***/ }),
+
 /***/ "./math/pow2/IsSizePowerOfTwo.js":
 /*!***************************************!*\
   !*** ./math/pow2/IsSizePowerOfTwo.js ***!
@@ -47671,6 +50355,54 @@ var RandomDataGenerator = new Class({
 });
 
 module.exports = RandomDataGenerator;
+
+
+/***/ }),
+
+/***/ "./math/snap/SnapFloor.js":
+/*!********************************!*\
+  !*** ./math/snap/SnapFloor.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * Snap a value to nearest grid slice, using floor.
+ *
+ * Example: if you have an interval gap of `5` and a position of `12`... you will snap to `10`.
+ * As will `14` snap to `10`... but `16` will snap to `15`.
+ *
+ * @function Phaser.Math.Snap.Floor
+ * @since 3.0.0
+ *
+ * @param {number} value - The value to snap.
+ * @param {number} gap - The interval gap of the grid.
+ * @param {number} [start=0] - Optional starting offset for gap.
+ *
+ * @return {number} The snapped value.
+ */
+var SnapFloor = function (value, gap, start)
+{
+    if (start === undefined) { start = 0; }
+
+    if (gap === 0)
+    {
+        return value;
+    }
+
+    value -= start;
+    value = gap * Math.floor(value / gap);
+
+    return start + value;
+};
+
+module.exports = SnapFloor;
 
 
 /***/ }),
@@ -50101,10 +52833,10 @@ var CanvasRenderer = new Class({
          */
         this.config = {
             clearBeforeRender: game.config.clearBeforeRender,
-            pixelArt: game.config.pixelArt,
             backgroundColor: game.config.backgroundColor,
             resolution: game.config.resolution,
             autoResize: game.config.autoResize,
+            antialias: game.config.antialias,
             roundPixels: game.config.roundPixels
         };
 
@@ -50115,7 +52847,7 @@ var CanvasRenderer = new Class({
          * @type {integer}
          * @since 3.0.0
          */
-        this.scaleMode = (game.config.pixelArt) ? ScaleModes.NEAREST : ScaleModes.LINEAR;
+        this.scaleMode = (game.config.antialias) ? ScaleModes.LINEAR : ScaleModes.NEAREST;
 
         /**
          * [description]
@@ -50151,7 +52883,7 @@ var CanvasRenderer = new Class({
          * @type {function}
          * @since 3.0.0
          */
-        this.drawImage = DrawImage(this.config.roundPixels);
+        this.drawImage = DrawImage;
 
         /**
          * [description]
@@ -50339,9 +53071,9 @@ var CanvasRenderer = new Class({
      * @method Phaser.Renderer.Canvas.CanvasRenderer#setAlpha
      * @since 3.0.0
      *
-     * @param {float} alpha - [description]
+     * @param {number} alpha - [description]
      *
-     * @return {float} [description]
+     * @return {number} [description]
      */
     setAlpha: function (alpha)
     {
@@ -50390,7 +53122,7 @@ var CanvasRenderer = new Class({
      *
      * @param {Phaser.Scene} scene - [description]
      * @param {Phaser.GameObjects.DisplayList} children - [description]
-     * @param {float} interpolationPercentage - [description]
+     * @param {number} interpolationPercentage - [description]
      * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
      */
     render: function (scene, children, interpolationPercentage, camera)
@@ -50410,11 +53142,9 @@ var CanvasRenderer = new Class({
             ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
         }
 
-        if (this.currentAlpha !== 1)
-        {
-            ctx.globalAlpha = 1;
-            this.currentAlpha = 1;
-        }
+        ctx.globalAlpha = camera.alpha;
+
+        this.currentAlpha = camera.alpha;
 
         if (this.currentBlendMode !== 0)
         {
@@ -50457,9 +53187,12 @@ var CanvasRenderer = new Class({
 
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
 
         camera.flashEffect.postRenderCanvas(ctx);
         camera.fadeEffect.postRenderCanvas(ctx);
+
+        camera.dirty = false;
 
         //  Reset the camera scissor
         if (scissor)
@@ -50596,14 +53329,14 @@ var BlitImage = function (dx, dy, frame)
 
     ctx.drawImage(
         frame.source.image,
-        cd.sx,
-        cd.sy,
-        cd.sWidth,
-        cd.sHeight,
+        cd.x,
+        cd.y,
+        cd.width,
+        cd.height,
         dx,
         dy,
-        cd.dWidth,
-        cd.dHeight
+        cd.width,
+        cd.height
     );
 };
 
@@ -50624,7 +53357,7 @@ module.exports = function (configRoundPixels)
   !*** ./renderer/canvas/utils/DrawImage.js ***!
   \********************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
@@ -50632,7 +53365,10 @@ module.exports = function (configRoundPixels)
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var roundPixels = false;
+var TransformMatrix = __webpack_require__(/*! ../../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
+
+var _tempCameraMatrix = new TransformMatrix();
+var _tempSpriteMatrix = new TransformMatrix();
 
 /**
  * [description]
@@ -50642,13 +53378,23 @@ var roundPixels = false;
  *
  * @param {Phaser.GameObjects.GameObject} src - [description]
  * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
- * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - [description]
+ * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
  */
-var DrawImage = function (src, camera, parentMatrix)
+var DrawImage = function (src, camera, parentTransformMatrix)
 {
     var ctx = this.currentContext;
-    var frame = src.frame;
-    var cd = frame.canvasData;
+
+    //  Alpha
+
+    var alpha = camera.alpha * src.alpha;
+
+    if (alpha === 0)
+    {
+        //  Nothing to see, so abort early
+        return;
+    }
+
+    ctx.globalAlpha = alpha;
 
     //  Blend Mode
 
@@ -50658,91 +53404,102 @@ var DrawImage = function (src, camera, parentMatrix)
         ctx.globalCompositeOperation = this.blendModes[src.blendMode];
     }
 
-    //  Alpha
+    var camMatrix = _tempCameraMatrix;
+    var spriteMatrix = _tempSpriteMatrix;
 
-    if (this.currentAlpha !== src.alpha)
+    spriteMatrix.applyITRS(src.x - camera.scrollX * src.scrollFactorX, src.y - camera.scrollY * src.scrollFactorY, src.rotation, src.scaleX, src.scaleY);
+
+    var frame = src.frame;
+
+    var cd = frame.canvasData;
+
+    var frameX = cd.x;
+    var frameY = cd.y;
+    var frameWidth = frame.width;
+    var frameHeight = frame.height;
+
+    var x = -src.displayOriginX + frame.x;
+    var y = -src.displayOriginY + frame.y;
+
+    var fx = (src.flipX) ? -1 : 1;
+    var fy = (src.flipY) ? -1 : 1;
+
+    if (src.isCropped)
     {
-        this.currentAlpha = src.alpha;
-        ctx.globalAlpha = src.alpha;
+        var crop = src._crop;
+
+        if (crop.flipX !== src.flipX || crop.flipY !== src.flipY)
+        {
+            frame.updateCropUVs(crop, src.flipX, src.flipY);
+        }
+
+        frameWidth = crop.cw;
+        frameHeight = crop.ch;
+
+        frameX = crop.cx;
+        frameY = crop.cy;
+
+        x = -src.displayOriginX + crop.x;
+        y = -src.displayOriginY + crop.y;
+
+        if (fx === -1)
+        {
+            if (x >= 0)
+            {
+                x = -(x + frameWidth);
+            }
+            else if (x < 0)
+            {
+                x = (Math.abs(x) - frameWidth);
+            }
+        }
+    
+        if (fy === -1)
+        {
+            if (y >= 0)
+            {
+                y = -(y + frameHeight);
+            }
+            else if (y < 0)
+            {
+                y = (Math.abs(y) - frameHeight);
+            }
+        }
     }
 
-    //  Smoothing
+    camMatrix.copyFrom(camera.matrix);
 
-    if (this.currentScaleMode !== src.scaleMode)
+    var calcMatrix;
+
+    if (parentTransformMatrix)
     {
-        this.currentScaleMode = src.scaleMode;
+        //  Multiply the camera by the parent matrix
+        camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * src.scrollFactorX, -camera.scrollY * src.scrollFactorY);
 
-        // ctx[this.smoothProperty] = (source.scaleMode === ScaleModes.LINEAR);
-    }
+        //  Undo the camera scroll
+        spriteMatrix.e = src.x;
+        spriteMatrix.f = src.y;
 
-    var dx = frame.x;
-    var dy = frame.y;
-
-    var fx = 1;
-    var fy = 1;
-
-    if (src.flipX)
-    {
-        fx = -1;
-        dx -= cd.dWidth - src.displayOriginX;
+        //  Multiply by the Sprite matrix
+        calcMatrix = camMatrix.multiply(spriteMatrix);
     }
     else
     {
-        dx -= src.displayOriginX;
+        calcMatrix = spriteMatrix.multiply(camMatrix);
     }
-
-    if (src.flipY)
-    {
-        fy = -1;
-        dy -= cd.dHeight - src.displayOriginY;
-    }
-    else
-    {
-        dy -= src.displayOriginY;
-    }
-
-    var tx = src.x - camera.scrollX * src.scrollFactorX;
-    var ty = src.y - camera.scrollY * src.scrollFactorY;
-
-    if (roundPixels)
-    {
-        tx |= 0;
-        ty |= 0;
-        dx |= 0;
-        dy |= 0;
-    }
-
-    //  Perform Matrix ITRS
 
     ctx.save();
 
-    if (parentMatrix)
-    {
-        var matrix = parentMatrix.matrix;
+    ctx.transform(calcMatrix.a, calcMatrix.b, calcMatrix.c, calcMatrix.d, calcMatrix.e, calcMatrix.f);
 
-        ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
-    }
-
-    ctx.translate(tx, ty);
-
-    ctx.rotate(src.rotation);
-
-    ctx.scale(src.scaleX, src.scaleY);
     ctx.scale(fx, fy);
 
-    ctx.drawImage(frame.source.image, cd.sx, cd.sy, cd.sWidth, cd.sHeight, dx, dy, cd.dWidth, cd.dHeight);
+    ctx.drawImage(frame.source.image, frameX, frameY, frameWidth, frameHeight, x, y, frameWidth, frameHeight);
 
     ctx.restore();
 };
 
-//  Special return so we can store the config value locally
-
-module.exports = function (configRoundPixels)
-{
-    roundPixels = configRoundPixels;
-
-    return DrawImage;
-};
+module.exports = DrawImage;
 
 
 /***/ }),
@@ -50819,7 +53576,7 @@ module.exports = GetBlendModes;
  * @typedef {object} RendererConfig
  *
  * @property {boolean} clearBeforeRender - [description]
- * @property {boolean} pixelArt - [description]
+ * @property {boolean} antialias - [description]
  * @property {Phaser.Display.Color} backgroundColor - [description]
  * @property {number} resolution - [description]
  * @property {boolean} autoResize - [description]
@@ -50862,7 +53619,7 @@ module.exports = {
  *
  * @param {HTMLCanvasElement} canvas - [description]
  * @param {string} [type='image/png'] - [description]
- * @param {float} [encoderOptions=0.92] - [description]
+ * @param {number} [encoderOptions=0.92] - [description]
  *
  * @return {HTMLImageElement} [description]
  */
@@ -50906,7 +53663,7 @@ module.exports = CanvasSnapshot;
  *
  * @param {HTMLCanvasElement} sourceCanvas - [description]
  * @param {string} [type='image/png'] - [description]
- * @param {float} [encoderOptions=0.92] - [description]
+ * @param {number} [encoderOptions=0.92] - [description]
  *
  * @return {HTMLImageElement} [description]
  */
@@ -51380,6 +54137,19 @@ var WebGLPipeline = new Class({
     },
 
     /**
+     * Called when the Game has fully booted and the Renderer has finished setting up.
+     * 
+     * By this stage all Game level systems are now in place and you can perform any final
+     * tasks that the pipeline may need that relied on game systems such as the Texture Manager.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLPipeline#boot
+     * @since 3.11.0
+     */
+    boot: function ()
+    {
+    },
+
+    /**
      * Adds a description of vertex attribute to the pipeline
      *
      * @method Phaser.Renderer.WebGL.WebGLPipeline#addAttribute
@@ -51600,7 +54370,7 @@ var WebGLPipeline = new Class({
      * @since 3.2.0
      *
      * @param {string} name - [description]
-     * @param {float} x - [description]
+     * @param {number} x - [description]
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -51617,8 +54387,8 @@ var WebGLPipeline = new Class({
      * @since 3.2.0
      *
      * @param {string} name - [description]
-     * @param {float} x - [description]
-     * @param {float} y - [description]
+     * @param {number} x - [description]
+     * @param {number} y - [description]
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -51636,9 +54406,9 @@ var WebGLPipeline = new Class({
      * @since 3.2.0
      *
      * @param {string} name - [description]
-     * @param {float} x - [description]
-     * @param {float} y - [description]
-     * @param {float} z - [description]
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     * @param {number} z - [description]
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -51656,10 +54426,10 @@ var WebGLPipeline = new Class({
      * @since 3.2.0
      *
      * @param {string} name - Name of the uniform
-     * @param {float} x - X component of the uniform
-     * @param {float} y - Y component of the uniform
-     * @param {float} z - Z component of the uniform
-     * @param {float} w - W component of the uniform
+     * @param {number} x - X component of the uniform
+     * @param {number} y - Y component of the uniform
+     * @param {number} z - Z component of the uniform
+     * @param {number} w - W component of the uniform
      *
      * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
      */
@@ -51846,7 +54616,7 @@ var TextureTintPipeline = __webpack_require__(/*! ./pipelines/TextureTintPipelin
  *
  * @property {SnapshotCallback} callback - [description]
  * @property {string} type - [description]
- * @property {float} encoder - [description]
+ * @property {number} encoder - [description]
  */
 
 /**
@@ -51856,7 +54626,7 @@ var TextureTintPipeline = __webpack_require__(/*! ./pipelines/TextureTintPipelin
  * any context change that happens for WebGL rendering inside of Phaser. This means
  * if raw webgl functions are called outside the WebGLRenderer of the Phaser WebGL
  * rendering ecosystem they might pollute the current WebGLRenderingContext state producing
- * unexpected behaviour. It's recommended that WebGL interaction is done through 
+ * unexpected behavior. It's recommended that WebGL interaction is done through 
  * WebGLRenderer and/or WebGLPipeline.
  *
  * @class WebGLRenderer
@@ -51897,14 +54667,15 @@ var WebGLRenderer = new Class({
          */
         this.config = {
             clearBeforeRender: gameConfig.clearBeforeRender,
-            pixelArt: gameConfig.pixelArt,
+            antialias: gameConfig.antialias,
             backgroundColor: gameConfig.backgroundColor,
             contextCreation: contextCreationConfig,
             resolution: gameConfig.resolution,
             autoResize: gameConfig.autoResize,
             roundPixels: gameConfig.roundPixels,
             maxTextures: gameConfig.maxTextures,
-            maxTextureSize: gameConfig.maxTextureSize
+            maxTextureSize: gameConfig.maxTextureSize,
+            batchSize: gameConfig.batchSize
         };
 
         /**
@@ -52220,6 +54991,16 @@ var WebGLRenderer = new Class({
             S3TC: false
         };
 
+        /**
+         * Cached drawing buffer height to reduce gl calls.
+         *
+         * @name Phaser.Renderer.WebGL.WebGLRenderer#drawingBufferHeight
+         * @type {number}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.drawingBufferHeight = 0;
+
         this.init(this.config);
     },
 
@@ -52259,7 +55040,7 @@ var WebGLRenderer = new Class({
 
         this.gl = gl;
 
-        //  Set it back into the Game, so devs can access it from there too
+        //  Set it back into the Game, so developers can access it from there too
         this.game.context = gl;
 
         for (var i = 0; i <= 16; i++)
@@ -52302,7 +55083,9 @@ var WebGLRenderer = new Class({
         // Setup initial WebGL state
         gl.disable(gl.DEPTH_TEST);
         gl.disable(gl.CULL_FACE);
-        gl.disable(gl.SCISSOR_TEST);
+        
+        // gl.disable(gl.SCISSOR_TEST);
+
         gl.enable(gl.BLEND);
         gl.clearColor(clearColor.redGL, clearColor.greenGL, clearColor.blueGL, 1.0);
 
@@ -52323,7 +55106,24 @@ var WebGLRenderer = new Class({
         this.setBlendMode(CONST.BlendModes.NORMAL);
         this.resize(this.width, this.height);
 
+        this.game.events.once('ready', this.boot, this);
+
         return this;
+    },
+
+    /**
+     * Internal boot handler. Calls 'boot' on each pipeline.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#boot
+     * @private
+     * @since 3.11.0
+     */
+    boot: function ()
+    {
+        for (var pipelineName in this.pipelines)
+        {
+            this.pipelines[pipelineName].boot();
+        }
     },
 
     /**
@@ -52357,13 +55157,15 @@ var WebGLRenderer = new Class({
 
         gl.viewport(0, 0, this.width, this.height);
 
-        // Update all registered pipelines
+        //  Update all registered pipelines
         for (var pipelineName in pipelines)
         {
             pipelines[pipelineName].resize(width, height, resolution);
         }
                 
         this.currentScissor.set([ 0, 0, this.width, this.height ]);
+        
+        this.drawingBufferHeight = gl.drawingBufferHeight;
 
         return this;
     },
@@ -52550,7 +55352,10 @@ var WebGLRenderer = new Class({
     {
         var gl = this.gl;
         var currentScissor = this.currentScissor;
-        var enabled = (x === 0 && y === 0 && w === gl.canvas.width && h === gl.canvas.height && w >= 0 && h >= 0);
+        var enabled = (x === 0 && y === 0 && w === this.width && h === this.height && w >= 0 && h >= 0);
+
+        //  TODO: If new scissor is same as old scissor, skip setting it again
+        //  TODO: If scissor is viewport size, skip setting altogether
 
         if (currentScissor[0] !== x ||
             currentScissor[1] !== y ||
@@ -52575,7 +55380,7 @@ var WebGLRenderer = new Class({
         }
 
         gl.enable(gl.SCISSOR_TEST);
-        gl.scissor(x, (gl.drawingBufferHeight - y - h), w, h);
+        gl.scissor(x, (this.drawingBufferHeight - y - h), w, h);
 
         return this;
     },
@@ -52640,11 +55445,12 @@ var WebGLRenderer = new Class({
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setPipeline
      * @since 3.0.0
      *
-     * @param {Phaser.Renderer.WebGL.WebGLPipeline} pipelineInstance - [description]
+     * @param {Phaser.Renderer.WebGL.WebGLPipeline} pipelineInstance - The pipeline instance to be activated.
+     * @param {Phaser.GameObjects.GameObject} [gameObject] - The Game Object that invoked this pipeline, if any.
      *
-     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.WebGLPipeline} The pipeline that was activated.
      */
-    setPipeline: function (pipelineInstance)
+    setPipeline: function (pipelineInstance, gameObject)
     {
         if (this.currentPipeline !== pipelineInstance ||
             this.currentPipeline.vertexBuffer !== this.currentVertexBuffer ||
@@ -52655,7 +55461,7 @@ var WebGLRenderer = new Class({
             this.currentPipeline.bind();
         }
 
-        this.currentPipeline.onBind();
+        this.currentPipeline.onBind(gameObject);
 
         return this.currentPipeline;
     },
@@ -52937,13 +55743,9 @@ var WebGLRenderer = new Class({
             wrap = gl.REPEAT;
         }
 
-        if (scaleMode === CONST.ScaleModes.LINEAR)
+        if (scaleMode === CONST.ScaleModes.LINEAR && this.config.antialias)
         {
             filter = gl.LINEAR;
-        }
-        else if (scaleMode === CONST.ScaleModes.NEAREST || this.config.pixelArt)
-        {
-            filter = gl.NEAREST;
         }
 
         if (!source && typeof width === 'number' && typeof height === 'number')
@@ -52974,7 +55776,7 @@ var WebGLRenderer = new Class({
      * @param {object} pixels - pixel data
      * @param {integer} width - Width of the texture in pixels
      * @param {integer} height - Height of the texture in pixels
-     * @param {boolean} pma - Does the texture hace premultiplied alpha.
+     * @param {boolean} pma - Does the texture have premultiplied alpha?
      *
      * @return {WebGLTexture} Raw WebGLTexture
      */
@@ -53301,6 +56103,8 @@ var WebGLRenderer = new Class({
             FlatTintPipeline.flush();
         }
 
+        camera.dirty = false;
+
         this.popScissor();
     },
 
@@ -53356,6 +56160,7 @@ var WebGLRenderer = new Class({
             pipelines[key].onRender(scene, camera);
         }
 
+        //   Apply scissor for cam region + render background color, if not transparent
         this.preRenderCamera(camera);
 
         for (var index = 0; index < childCount; ++index)
@@ -53387,6 +56192,8 @@ var WebGLRenderer = new Class({
 
         this.flush();
         this.setBlendMode(CONST.BlendModes.NORMAL);
+
+        //  Applies camera effects and pops the scissor, if set
         this.postRenderCamera(camera);
     },
 
@@ -53424,7 +56231,7 @@ var WebGLRenderer = new Class({
      *
      * @param {SnapshotCallback} callback - [description]
      * @param {string} type - [description]
-     * @param {float} encoderOptions - [description]
+     * @param {number} encoderOptions - [description]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -53512,7 +56319,7 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLProgram} program - [description]
      * @param {string} name - [description]
-     * @param {float} x - [description]
+     * @param {number} x - [description]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -53533,8 +56340,8 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLProgram} program - [description]
      * @param {string} name - [description]
-     * @param {float} x - [description]
-     * @param {float} y - [description]
+     * @param {number} x - [description]
+     * @param {number} y - [description]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -53555,9 +56362,9 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLProgram} program - [description]
      * @param {string} name - [description]
-     * @param {float} x - [description]
-     * @param {float} y - [description]
-     * @param {float} z - [description]
+     * @param {number} x - [description]
+     * @param {number} y - [description]
+     * @param {number} z - [description]
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -53578,10 +56385,10 @@ var WebGLRenderer = new Class({
      *
      * @param {WebGLProgram} program - Target program
      * @param {string} name - Name of the uniform
-     * @param {float} x - X component
-     * @param {float} y - Y component
-     * @param {float} z - Z component
-     * @param {float} w - W component
+     * @param {number} x - X component
+     * @param {number} y - Y component
+     * @param {number} z - Z component
+     * @param {number} w - W component
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
@@ -54030,7 +56837,7 @@ var BitmapMaskPipeline = new Class({
             gl.clearColor(0, 0, 0, 0);
             gl.clear(gl.COLOR_BUFFER_BIT);
 
-            // We render out mask source
+            // We render our mask source
             bitmapMask.visible = true;
             bitmapMask.renderWebGL(renderer, bitmapMask, 0.0, camera);
             bitmapMask.visible = visible;
@@ -54226,7 +57033,7 @@ var FlatTintPipeline = new Class({
         ];
 
         /**
-         * Used internally by for triangulating a polyong
+         * Used internally for triangulating a polygon
          *
          * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#polygonCache
          * @type {array}
@@ -54280,23 +57087,23 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillRect
      * @since 3.0.0
      *
-     * @param {float} srcX - Graphics horizontal component for translation
-     * @param {float} srcY - Graphics vertical component for translation
-     * @param {float} srcScaleX - Graphics horizontal component for scale
-     * @param {float} srcScaleY - Graphics vertical component for scale
-     * @param {float} srcRotation - Graphics rotation
-     * @param {float} x - Horiztonal top left coordinate of the rectangle
-     * @param {float} y - Vertical top left coordinate of the rectangle
-     * @param {float} width - Width of the rectangle
-     * @param {float} height - Height of the rectangle
+     * @param {number} srcX - Graphics horizontal component for translation
+     * @param {number} srcY - Graphics vertical component for translation
+     * @param {number} srcScaleX - Graphics horizontal component for scale
+     * @param {number} srcScaleY - Graphics vertical component for scale
+     * @param {number} srcRotation - Graphics rotation
+     * @param {number} x - Horizontal top left coordinate of the rectangle
+     * @param {number} y - Vertical top left coordinate of the rectangle
+     * @param {number} width - Width of the rectangle
+     * @param {number} height - Height of the rectangle
      * @param {integer} fillColor - RGB color packed as a uint
-     * @param {float} fillAlpha - Alpha represented as float
-     * @param {float} a1 - Matrix stack top a component
-     * @param {float} b1 - Matrix stack top b component
-     * @param {float} c1 - Matrix stack top c component
-     * @param {float} d1 - Matrix stack top d component
-     * @param {float} e1 - Matrix stack top e component
-     * @param {float} f1 - Matrix stack top f component
+     * @param {number} fillAlpha - Alpha represented as float
+     * @param {number} a1 - Matrix stack top a component
+     * @param {number} b1 - Matrix stack top b component
+     * @param {number} c1 - Matrix stack top c component
+     * @param {number} d1 - Matrix stack top d component
+     * @param {number} e1 - Matrix stack top e component
+     * @param {number} f1 - Matrix stack top f component
      * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchFillRect: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x, y, width, height, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
@@ -54338,18 +57145,23 @@ var FlatTintPipeline = new Class({
         vertexViewF32[vertexOffset + 0] = tx0;
         vertexViewF32[vertexOffset + 1] = ty0;
         vertexViewU32[vertexOffset + 2] = tint;
+
         vertexViewF32[vertexOffset + 3] = tx1;
         vertexViewF32[vertexOffset + 4] = ty1;
         vertexViewU32[vertexOffset + 5] = tint;
+
         vertexViewF32[vertexOffset + 6] = tx2;
         vertexViewF32[vertexOffset + 7] = ty2;
         vertexViewU32[vertexOffset + 8] = tint;
+
         vertexViewF32[vertexOffset + 9] = tx0;
         vertexViewF32[vertexOffset + 10] = ty0;
         vertexViewU32[vertexOffset + 11] = tint;
+
         vertexViewF32[vertexOffset + 12] = tx2;
         vertexViewF32[vertexOffset + 13] = ty2;
         vertexViewU32[vertexOffset + 14] = tint;
+
         vertexViewF32[vertexOffset + 15] = tx3;
         vertexViewF32[vertexOffset + 16] = ty3;
         vertexViewU32[vertexOffset + 17] = tint;
@@ -54363,25 +57175,25 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillTriangle
      * @since 3.0.0
      *
-     * @param {float} srcX - Graphics horizontal component for translation
-     * @param {float} srcY - Graphics vertical component for translation
-     * @param {float} srcScaleX - Graphics horizontal component for scale
-     * @param {float} srcScaleY - Graphics vertical component for scale
-     * @param {float} srcRotation - Graphics rotation
-     * @param {float} x0 - Point 0 x coordinate
-     * @param {float} y0 - Point 0 y coordinate
-     * @param {float} x1 - Point 1 x coordinate
-     * @param {float} y1 - Point 1 y coordinate
-     * @param {float} x2 - Point 2 x coordinate
-     * @param {float} y2 - Point 2 y coordinate
+     * @param {number} srcX - Graphics horizontal component for translation
+     * @param {number} srcY - Graphics vertical component for translation
+     * @param {number} srcScaleX - Graphics horizontal component for scale
+     * @param {number} srcScaleY - Graphics vertical component for scale
+     * @param {number} srcRotation - Graphics rotation
+     * @param {number} x0 - Point 0 x coordinate
+     * @param {number} y0 - Point 0 y coordinate
+     * @param {number} x1 - Point 1 x coordinate
+     * @param {number} y1 - Point 1 y coordinate
+     * @param {number} x2 - Point 2 x coordinate
+     * @param {number} y2 - Point 2 y coordinate
      * @param {integer} fillColor - RGB color packed as a uint
-     * @param {float} fillAlpha - Alpha represented as float
-     * @param {float} a1 - Matrix stack top a component
-     * @param {float} b1 - Matrix stack top b component
-     * @param {float} c1 - Matrix stack top c component
-     * @param {float} d1 - Matrix stack top d component
-     * @param {float} e1 - Matrix stack top e component
-     * @param {float} f1 - Matrix stack top f component
+     * @param {number} fillAlpha - Alpha represented as float
+     * @param {number} a1 - Matrix stack top a component
+     * @param {number} b1 - Matrix stack top b component
+     * @param {number} c1 - Matrix stack top c component
+     * @param {number} d1 - Matrix stack top d component
+     * @param {number} e1 - Matrix stack top e component
+     * @param {number} f1 - Matrix stack top f component
      * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchFillTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
@@ -54419,9 +57231,11 @@ var FlatTintPipeline = new Class({
         vertexViewF32[vertexOffset + 0] = tx0;
         vertexViewF32[vertexOffset + 1] = ty0;
         vertexViewU32[vertexOffset + 2] = tint;
+
         vertexViewF32[vertexOffset + 3] = tx1;
         vertexViewF32[vertexOffset + 4] = ty1;
         vertexViewU32[vertexOffset + 5] = tint;
+
         vertexViewF32[vertexOffset + 6] = tx2;
         vertexViewF32[vertexOffset + 7] = ty2;
         vertexViewU32[vertexOffset + 8] = tint;
@@ -54435,26 +57249,26 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokeTriangle
      * @since 3.0.0
      *
-     * @param {float} srcX - Graphics horizontal component for translation
-     * @param {float} srcY - Graphics vertical component for translation
-     * @param {float} srcScaleX - Graphics horizontal component for scale
-     * @param {float} srcScaleY - Graphics vertical component for scale
-     * @param {float} srcRotation - Graphics rotation
-     * @param {float} x0 - [description]
-     * @param {float} y0 - [description]
-     * @param {float} x1 - [description]
-     * @param {float} y1 - [description]
-     * @param {float} x2 - [description]
-     * @param {float} y2 - [description]
-     * @param {float} lineWidth - Size of the line as a float value
+     * @param {number} srcX - Graphics horizontal component for translation
+     * @param {number} srcY - Graphics vertical component for translation
+     * @param {number} srcScaleX - Graphics horizontal component for scale
+     * @param {number} srcScaleY - Graphics vertical component for scale
+     * @param {number} srcRotation - Graphics rotation
+     * @param {number} x0 - [description]
+     * @param {number} y0 - [description]
+     * @param {number} x1 - [description]
+     * @param {number} y1 - [description]
+     * @param {number} x2 - [description]
+     * @param {number} y2 - [description]
+     * @param {number} lineWidth - Size of the line as a float value
      * @param {integer} lineColor - RGB color packed as a uint
-     * @param {float} lineAlpha - Alpha represented as float
-     * @param {float} a - Matrix stack top a component
-     * @param {float} b - Matrix stack top b component
-     * @param {float} c - Matrix stack top c component
-     * @param {float} d - Matrix stack top d component
-     * @param {float} e - Matrix stack top e component
-     * @param {float} f - Matrix stack top f component
+     * @param {number} lineAlpha - Alpha represented as float
+     * @param {number} a - Matrix stack top a component
+     * @param {number} b - Matrix stack top b component
+     * @param {number} c - Matrix stack top c component
+     * @param {number} d - Matrix stack top d component
+     * @param {number} e - Matrix stack top e component
+     * @param {number} f - Matrix stack top f component
      * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchStrokeTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, currentMatrix)
@@ -54497,20 +57311,20 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillPath
      * @since 3.0.0
      *
-     * @param {float} srcX - Graphics horizontal component for translation
-     * @param {float} srcY - Graphics vertical component for translation
-     * @param {float} srcScaleX - Graphics horizontal component for scale
-     * @param {float} srcScaleY - Graphics vertical component for scale
-     * @param {float} srcRotation - Graphics rotation
-     * @param {float} path - Collection of points that represent the path
+     * @param {number} srcX - Graphics horizontal component for translation
+     * @param {number} srcY - Graphics vertical component for translation
+     * @param {number} srcScaleX - Graphics horizontal component for scale
+     * @param {number} srcScaleY - Graphics vertical component for scale
+     * @param {number} srcRotation - Graphics rotation
+     * @param {number} path - Collection of points that represent the path
      * @param {integer} fillColor - RGB color packed as a uint
-     * @param {float} fillAlpha - Alpha represented as float
-     * @param {float} a1 - Matrix stack top a component
-     * @param {float} b1 - Matrix stack top b component
-     * @param {float} c1 - Matrix stack top c component
-     * @param {float} d1 - Matrix stack top d component
-     * @param {float} e1 - Matrix stack top e component
-     * @param {float} f1 - Matrix stack top f component
+     * @param {number} fillAlpha - Alpha represented as float
+     * @param {number} a1 - Matrix stack top a component
+     * @param {number} b1 - Matrix stack top b component
+     * @param {number} c1 - Matrix stack top c component
+     * @param {number} d1 - Matrix stack top d component
+     * @param {number} e1 - Matrix stack top e component
+     * @param {number} f1 - Matrix stack top f component
      * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchFillPath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
@@ -54580,9 +57394,11 @@ var FlatTintPipeline = new Class({
             vertexViewF32[vertexOffset + 0] = tx0;
             vertexViewF32[vertexOffset + 1] = ty0;
             vertexViewU32[vertexOffset + 2] = tint;
+
             vertexViewF32[vertexOffset + 3] = tx1;
             vertexViewF32[vertexOffset + 4] = ty1;
             vertexViewU32[vertexOffset + 5] = tint;
+
             vertexViewF32[vertexOffset + 6] = tx2;
             vertexViewF32[vertexOffset + 7] = ty2;
             vertexViewU32[vertexOffset + 8] = tint;
@@ -54599,21 +57415,21 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokePath
      * @since 3.0.0
      *
-     * @param {float} srcX - Graphics horizontal component for translation
-     * @param {float} srcY - Graphics vertical component for translation
-     * @param {float} srcScaleX - Graphics horizontal component for scale
-     * @param {float} srcScaleY - Graphics vertical component for scale
-     * @param {float} srcRotation - Graphics rotation
+     * @param {number} srcX - Graphics horizontal component for translation
+     * @param {number} srcY - Graphics vertical component for translation
+     * @param {number} srcScaleX - Graphics horizontal component for scale
+     * @param {number} srcScaleY - Graphics vertical component for scale
+     * @param {number} srcRotation - Graphics rotation
      * @param {array} path - [description]
-     * @param {float} lineWidth - [description]
+     * @param {number} lineWidth - [description]
      * @param {integer} lineColor - RGB color packed as a uint
-     * @param {float} lineAlpha - Alpha represented as float
-     * @param {float} a - Matrix stack top a component
-     * @param {float} b - Matrix stack top b component
-     * @param {float} c - Matrix stack top c component
-     * @param {float} d - Matrix stack top d component
-     * @param {float} e - Matrix stack top e component
-     * @param {float} f - Matrix stack top f component
+     * @param {number} lineAlpha - Alpha represented as float
+     * @param {number} a - Matrix stack top a component
+     * @param {number} b - Matrix stack top b component
+     * @param {number} c - Matrix stack top c component
+     * @param {number} d - Matrix stack top d component
+     * @param {number} e - Matrix stack top e component
+     * @param {number} f - Matrix stack top f component
      * @param {boolean} isLastPath - Indicates if the path should be closed
      * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
@@ -54664,18 +57480,23 @@ var FlatTintPipeline = new Class({
             vertexViewF32[vertexOffset + 0] = last[3 * 2 + 0];
             vertexViewF32[vertexOffset + 1] = last[3 * 2 + 1];
             vertexViewU32[vertexOffset + 2] = getTint(last[3 * 2 + 2], lineAlpha);
+
             vertexViewF32[vertexOffset + 3] = last[3 * 0 + 0];
             vertexViewF32[vertexOffset + 4] = last[3 * 0 + 1];
             vertexViewU32[vertexOffset + 5] = getTint(last[3 * 0 + 2], lineAlpha);
+
             vertexViewF32[vertexOffset + 6] = curr[3 * 3 + 0];
             vertexViewF32[vertexOffset + 7] = curr[3 * 3 + 1];
             vertexViewU32[vertexOffset + 8] = getTint(curr[3 * 3 + 2], lineAlpha);
+
             vertexViewF32[vertexOffset + 9] = last[3 * 0 + 0];
             vertexViewF32[vertexOffset + 10] = last[3 * 0 + 1];
             vertexViewU32[vertexOffset + 11] = getTint(last[3 * 0 + 2], lineAlpha);
+
             vertexViewF32[vertexOffset + 12] = last[3 * 2 + 0];
             vertexViewF32[vertexOffset + 13] = last[3 * 2 + 1];
             vertexViewU32[vertexOffset + 14] = getTint(last[3 * 2 + 2], lineAlpha);
+
             vertexViewF32[vertexOffset + 15] = curr[3 * 1 + 0];
             vertexViewF32[vertexOffset + 16] = curr[3 * 1 + 1];
             vertexViewU32[vertexOffset + 17] = getTint(curr[3 * 1 + 2], lineAlpha);
@@ -54692,26 +57513,26 @@ var FlatTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchLine
      * @since 3.0.0
      *
-     * @param {float} srcX - Graphics horizontal component for translation
-     * @param {float} srcY - Graphics vertical component for translation
-     * @param {float} srcScaleX - Graphics horizontal component for scale
-     * @param {float} srcScaleY - Graphics vertical component for scale
-     * @param {float} srcRotation - Graphics rotation
-     * @param {float} ax - X coordinate to the start of the line
-     * @param {float} ay - Y coordinate to the start of the line
-     * @param {float} bx - X coordinate to the end of the line
-     * @param {float} by - Y coordinate to the end of the line
-     * @param {float} aLineWidth - Width of the start of the line
-     * @param {float} bLineWidth - Width of the end of the line
+     * @param {number} srcX - Graphics horizontal component for translation
+     * @param {number} srcY - Graphics vertical component for translation
+     * @param {number} srcScaleX - Graphics horizontal component for scale
+     * @param {number} srcScaleY - Graphics vertical component for scale
+     * @param {number} srcRotation - Graphics rotation
+     * @param {number} ax - X coordinate to the start of the line
+     * @param {number} ay - Y coordinate to the start of the line
+     * @param {number} bx - X coordinate to the end of the line
+     * @param {number} by - Y coordinate to the end of the line
+     * @param {number} aLineWidth - Width of the start of the line
+     * @param {number} bLineWidth - Width of the end of the line
      * @param {integer} aLineColor - RGB color packed as a uint
      * @param {integer} bLineColor - RGB color packed as a uint
-     * @param {float} lineAlpha - Alpha represented as float
-     * @param {float} a1 - Matrix stack top a component
-     * @param {float} b1 - Matrix stack top b component
-     * @param {float} c1 - Matrix stack top c component
-     * @param {float} d1 - Matrix stack top d component
-     * @param {float} e1 - Matrix stack top e component
-     * @param {float} f1 - Matrix stack top f component
+     * @param {number} lineAlpha - Alpha represented as float
+     * @param {number} a1 - Matrix stack top a component
+     * @param {number} b1 - Matrix stack top b component
+     * @param {number} c1 - Matrix stack top c component
+     * @param {number} d1 - Matrix stack top d component
+     * @param {number} e1 - Matrix stack top e component
+     * @param {number} f1 - Matrix stack top f component
      * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
      */
     batchLine: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, ax, ay, bx, by, aLineWidth, bLineWidth, aLineColor, bLineColor, lineAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
@@ -54768,18 +57589,23 @@ var FlatTintPipeline = new Class({
         vertexViewF32[vertexOffset + 0] = x0;
         vertexViewF32[vertexOffset + 1] = y0;
         vertexViewU32[vertexOffset + 2] = bTint;
+
         vertexViewF32[vertexOffset + 3] = x1;
         vertexViewF32[vertexOffset + 4] = y1;
         vertexViewU32[vertexOffset + 5] = aTint;
+
         vertexViewF32[vertexOffset + 6] = x2;
         vertexViewF32[vertexOffset + 7] = y2;
         vertexViewU32[vertexOffset + 8] = bTint;
+
         vertexViewF32[vertexOffset + 9] = x1;
         vertexViewF32[vertexOffset + 10] = y1;
         vertexViewU32[vertexOffset + 11] = aTint;
+
         vertexViewF32[vertexOffset + 12] = x3;
         vertexViewF32[vertexOffset + 13] = y3;
         vertexViewU32[vertexOffset + 14] = aTint;
+
         vertexViewF32[vertexOffset + 15] = x2;
         vertexViewF32[vertexOffset + 16] = y2;
         vertexViewU32[vertexOffset + 17] = bTint;
@@ -54825,7 +57651,7 @@ var FlatTintPipeline = new Class({
         var srcScaleY = graphics.scaleY;
         var srcRotation = graphics.rotation;
         var commands = graphics.commandBuffer;
-        var alpha = graphics.alpha;
+        var alpha = camera.alpha * graphics.alpha;
         var lineAlpha = 1.0;
         var fillAlpha = 1.0;
         var lineColor = 0;
@@ -54843,11 +57669,9 @@ var FlatTintPipeline = new Class({
         var radius = 0;
         var startAngle = 0;
         var endAngle = 0;
-        var anticlockwise = 0;
         var path = null;
         var sin = Math.sin;
         var cos = Math.cos;
-        var PI2 = Math.PI * 2;
         var sr = sin(srcRotation);
         var cr = cos(srcRotation);
         var sra = cr * srcScaleX;
@@ -54921,35 +57745,12 @@ var FlatTintPipeline = new Class({
                     radius = commands[cmdIndex + 3];
                     startAngle = commands[cmdIndex + 4];
                     endAngle = commands[cmdIndex + 5];
-                    anticlockwise = commands[cmdIndex + 6];
 
                     if (lastPath === null)
                     {
                         lastPath = new Path(x + cos(startAngle) * radius, y + sin(startAngle) * radius, lineWidth, lineColor, lineAlpha * alpha);
                         pathArray.push(lastPath);
                         iteration += iterStep;
-                    }
-
-                    endAngle -= startAngle;
-
-                    if (anticlockwise)
-                    {
-                        if (endAngle < -PI2)
-                        {
-                            endAngle = -PI2;
-                        }
-                        else if (endAngle > 0)
-                        {
-                            endAngle = -PI2 + endAngle % PI2;
-                        }
-                    }
-                    else if (endAngle > PI2)
-                    {
-                        endAngle = PI2;
-                    }
-                    else if (endAngle < 0)
-                    {
-                        endAngle = PI2 + endAngle % PI2;
                     }
 
                     while (iteration < 1)
@@ -55230,138 +58031,6 @@ var FlatTintPipeline = new Class({
                     break;
             }
         }
-    },
-
-    // Stubs
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#drawStaticTilemapLayer
-     * @since 3.0.0
-     *
-     * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    drawStaticTilemapLayer: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#drawEmitterManager
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    drawEmitterManager: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#drawBlitter
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Blitter} blitter - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    drawBlitter: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchSprite
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Sprite} sprite - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    batchSprite: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchMesh
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Mesh} mesh - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    batchMesh: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.BitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    batchBitmapText: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchDynamicBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    batchDynamicBitmapText: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Text} text - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    batchText: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchDynamicTilemapLayer
-     * @since 3.0.0
-     *
-     * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    batchDynamicTilemapLayer: function ()
-    {
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchTileSprite
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.TileSprite} tileSprite - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    batchTileSprite: function ()
-    {
     }
 
 });
@@ -55416,18 +58085,45 @@ var ForwardDiffuseLightPipeline = new Class({
         config.fragShader = ShaderSourceFS.replace('%LIGHT_COUNT%', LIGHT_COUNT.toString());
 
         TextureTintPipeline.call(this, config);
+
+        /**
+         * Default normal map texture to use.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#defaultNormalMap
+         * @type {Phaser.Texture.Frame}
+         * @private
+         * @since 3.11.0
+         */
+        this.defaultNormalMap;
     },
 
     /**
-     * This function binds it's base class resources and this lights 2D resources.
+     * Called when the Game has fully booted and the Renderer has finished setting up.
+     * 
+     * By this stage all Game level systems are now in place and you can perform any final
+     * tasks that the pipeline may need that relied on game systems such as the Texture Manager.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#boot
+     * @override
+     * @since 3.11.0
+     */
+    boot: function ()
+    {
+        this.defaultNormalMap = this.game.textures.getFrame('__DEFAULT');
+    },
+
+    /**
+     * This function binds its base class resources and this lights 2D resources.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#onBind
      * @override
      * @since 3.0.0
+     * 
+     * @param {Phaser.GameObjects.GameObject} [gameObject] - The Game Object that invoked this pipeline, if any.
      *
      * @return {Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline} [description]
      */
-    onBind: function ()
+    onBind: function (gameObject)
     {
         TextureTintPipeline.prototype.onBind.call(this);
 
@@ -55438,6 +58134,11 @@ var ForwardDiffuseLightPipeline = new Class({
 
         renderer.setInt1(program, 'uNormSampler', 1);
         renderer.setFloat2(program, 'uResolution', this.width, this.height);
+
+        if (gameObject)
+        {
+            this.setNormalMap(gameObject);
+        }
 
         return this;
     },
@@ -55508,102 +58209,210 @@ var ForwardDiffuseLightPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Generic function for batching a textured quad
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawStaticTilemapLayer
-     * @override
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
      * @since 3.0.0
      *
-     * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
+     * @param {Phaser.GameObjects.GameObject} gameObject - Source GameObject
+     * @param {WebGLTexture} texture - Raw WebGLTexture associated with the quad
+     * @param {integer} textureWidth - Real texture width
+     * @param {integer} textureHeight - Real texture height
+     * @param {number} srcX - X coordinate of the quad
+     * @param {number} srcY - Y coordinate of the quad
+     * @param {number} srcWidth - Width of the quad
+     * @param {number} srcHeight - Height of the quad
+     * @param {number} scaleX - X component of scale
+     * @param {number} scaleY - Y component of scale
+     * @param {number} rotation - Rotation of the quad
+     * @param {boolean} flipX - Indicates if the quad is horizontally flipped
+     * @param {boolean} flipY - Indicates if the quad is vertically flipped
+     * @param {number} scrollFactorX - By which factor is the quad affected by the camera horizontal scroll
+     * @param {number} scrollFactorY - By which factor is the quad effected by the camera vertical scroll
+     * @param {number} displayOriginX - Horizontal origin in pixels
+     * @param {number} displayOriginY - Vertical origin in pixels
+     * @param {number} frameX - X coordinate of the texture frame
+     * @param {number} frameY - Y coordinate of the texture frame
+     * @param {number} frameWidth - Width of the texture frame
+     * @param {number} frameHeight - Height of the texture frame
+     * @param {integer} tintTL - Tint for top left
+     * @param {integer} tintTR - Tint for top right
+     * @param {integer} tintBL - Tint for bottom left
+     * @param {integer} tintBR - Tint for bottom right
+     * @param {number} tintEffect - The tint effect (0 for additive, 1 for replacement)
+     * @param {number} uOffset - Horizontal offset on texture coordinate
+     * @param {number} vOffset - Vertical offset on texture coordinate
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - Current used camera
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - Parent container
      */
-    drawStaticTilemapLayer: function (tilemap, camera, parentTransformMatrix)
+    batchTexture: function (
+        gameObject,
+        texture,
+        textureWidth, textureHeight,
+        srcX, srcY,
+        srcWidth, srcHeight,
+        scaleX, scaleY,
+        rotation,
+        flipX, flipY,
+        scrollFactorX, scrollFactorY,
+        displayOriginX, displayOriginY,
+        frameX, frameY, frameWidth, frameHeight,
+        tintTL, tintTR, tintBL, tintBR, tintEffect,
+        uOffset, vOffset,
+        camera,
+        parentTransformMatrix)
     {
         if (!this.active)
         {
             return;
         }
 
-        var normalTexture = tilemap.tileset.image.dataSource[0];
+        this.renderer.setPipeline(this);
 
-        if (normalTexture)
+        var normalTexture;
+
+        if (gameObject.texture)
         {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawStaticTilemapLayer.call(this, tilemap, camera, parentTransformMatrix);
+            normalTexture = gameObject.texture.dataSource[gameObject.frame.sourceIndex];
+        }
+        else if (gameObject.tileset)
+        {
+            normalTexture = gameObject.tileset.image.dataSource[0];
+        }
+
+        if (!normalTexture)
+        {
+            normalTexture = this.defaultNormalMap;
+        }
+
+        this.setTexture2D(normalTexture.glTexture, 1);
+
+        var camMatrix = this._tempMatrix1;
+        var spriteMatrix = this._tempMatrix2;
+        var calcMatrix = this._tempMatrix3;
+
+        var width = srcWidth;
+        var height = srcHeight;
+
+        var x = -displayOriginX;
+        var y = -displayOriginY;
+
+        //  Invert the flipY if this is a RenderTexture
+        flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
+
+        if (flipX)
+        {
+            width *= -1;
+            x += srcWidth;
+        }
+
+        if (flipY)
+        {
+            height *= -1;
+            y += srcHeight;
+        }
+
+        if (camera.roundPixels)
+        {
+            x |= 0;
+            y |= 0;
+        }
+
+        var xw = x + width;
+        var yh = y + height;
+
+        spriteMatrix.applyITRS(srcX, srcY, rotation, scaleX, scaleY);
+
+        camMatrix.copyFrom(camera.matrix);
+
+        if (parentTransformMatrix)
+        {
+            //  Multiply the camera by the parent matrix
+            camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * scrollFactorX, -camera.scrollY * scrollFactorY);
+
+            //  Undo the camera scroll
+            spriteMatrix.e = srcX;
+            spriteMatrix.f = srcY;
+
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
         else
         {
-            console.warn('Normal map texture missing for using Light2D pipeline. StaticTilemapLayer rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawStaticTilemapLayer(tilemap, camera, parentTransformMatrix);
+            spriteMatrix.e -= camera.scrollX * scrollFactorX;
+            spriteMatrix.f -= camera.scrollY * scrollFactorY;
+    
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
+
+        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        if (camera.roundPixels)
+        {
+            tx0 |= 0;
+            ty0 |= 0;
+
+            tx1 |= 0;
+            ty1 |= 0;
+
+            tx2 |= 0;
+            ty2 |= 0;
+
+            tx3 |= 0;
+            ty3 |= 0;
+        }
+
+        var u0 = (frameX / textureWidth) + uOffset;
+        var v0 = (frameY / textureHeight) + vOffset;
+        var u1 = (frameX + frameWidth) / textureWidth + uOffset;
+        var v1 = (frameY + frameHeight) / textureHeight + vOffset;
+
+        this.setTexture2D(texture, 0);
+
+        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
     },
 
     /**
-     * [description]
+     * Sets the Game Objects normal map as the active texture.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawEmitterManager
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#setNormalMap
+     * @since 3.11.0
      *
-     * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
+     * @param {Phaser.GameObjects.GameObject} gameObject - [description]
      */
-    drawEmitterManager: function (emitterManager, camera, parentTransformMatrix)
+    setNormalMap: function (gameObject)
     {
-        if (!this.active)
+        if (!this.active || !gameObject)
         {
             return;
         }
 
-        var normalTexture = emitterManager.texture.dataSource[emitterManager.frame.sourceIndex];
+        var normalTexture;
 
-        if (normalTexture)
+        if (gameObject.texture)
         {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawEmitterManager.call(this, emitterManager, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. EmitterManager rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawEmitterManager(emitterManager, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#drawBlitter
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Blitter} blitter - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    drawBlitter: function (blitter, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
+            normalTexture = gameObject.texture.dataSource[gameObject.frame.sourceIndex];
         }
 
-        var normalTexture = blitter.texture.dataSource[blitter.frame.sourceIndex];
+        if (!normalTexture)
+        {
+            normalTexture = this.defaultNormalMap;
+        }
 
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.drawBlitter.call(this, blitter, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. Blitter rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.drawBlitter(blitter, camera, parentTransformMatrix);
-        }
+        this.setTexture2D(normalTexture.glTexture, 1);
+
+        this.renderer.setPipeline(gameObject.defaultPipeline);
     },
 
     /**
@@ -55629,207 +58438,10 @@ var ForwardDiffuseLightPipeline = new Class({
         if (normalTexture)
         {
             this.renderer.setPipeline(this);
+
             this.setTexture2D(normalTexture.glTexture, 1);
+
             TextureTintPipeline.prototype.batchSprite.call(this, sprite, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. Sprite rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchSprite(sprite, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchMesh
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Mesh} mesh - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchMesh: function (mesh, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = mesh.texture.dataSource[mesh.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchMesh.call(this, mesh, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. Mesh rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchMesh(mesh, camera, parentTransformMatrix);
-
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.BitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchBitmapText: function (bitmapText, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = bitmapText.texture.dataSource[bitmapText.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchBitmapText.call(this, bitmapText, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. BitmapText rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchBitmapText(bitmapText, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchDynamicBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchDynamicBitmapText: function (bitmapText, camera, parentTransformMatrix)
-    {
-        var normalTexture = bitmapText.texture.dataSource[bitmapText.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchDynamicBitmapText.call(this, bitmapText, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. DynamicBitmapText rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchDynamicBitmapText(bitmapText, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Text} text - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchText: function (text, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = text.texture.dataSource[text.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchText.call(this, text, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. Text rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchText(text, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchDynamicTilemapLayer
-     * @since 3.0.0
-     *
-     * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchDynamicTilemapLayer: function (tilemapLayer, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = tilemapLayer.tileset.image.dataSource[0];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchDynamicTilemapLayer.call(this, tilemapLayer, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. DynamicTilemapLayer rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchDynamicTilemapLayer(tilemapLayer, camera, parentTransformMatrix);
-        }
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.ForwardDiffuseLightPipeline#batchTileSprite
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.TileSprite} tileSprite - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     *
-     */
-    batchTileSprite: function (tileSprite, camera, parentTransformMatrix)
-    {
-        if (!this.active)
-        {
-            return;
-        }
-
-        var normalTexture = tileSprite.texture.dataSource[tileSprite.frame.sourceIndex];
-
-        if (normalTexture)
-        {
-            this.renderer.setPipeline(this);
-            this.setTexture2D(normalTexture.glTexture, 1);
-            TextureTintPipeline.prototype.batchTileSprite.call(this, tileSprite, camera, parentTransformMatrix);
-        }
-        else
-        {
-            console.warn('Normal map texture missing for using Light2D pipeline. TileSprite rendered with default pipeline.');
-            this.renderer.pipelines.TextureTintPipeline.batchTileSprite(tileSprite, camera, parentTransformMatrix);
         }
     }
 
@@ -55857,7 +58469,9 @@ module.exports = ForwardDiffuseLightPipeline;
  */
 
 var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+var GetFastValue = __webpack_require__(/*! ../../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var ModelViewProjection = __webpack_require__(/*! ./components/ModelViewProjection */ "./renderer/webgl/pipelines/components/ModelViewProjection.js");
+var TransformMatrix = __webpack_require__(/*! ../../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var ShaderSourceFS = __webpack_require__(/*! ../shaders/TextureTint-frag.js */ "./renderer/webgl/shaders/TextureTint-frag.js");
 var ShaderSourceVS = __webpack_require__(/*! ../shaders/TextureTint-vert.js */ "./renderer/webgl/shaders/TextureTint-vert.js");
 var Utils = __webpack_require__(/*! ../Utils */ "./renderer/webgl/Utils.js");
@@ -55897,20 +58511,19 @@ var TextureTintPipeline = new Class({
 
     function TextureTintPipeline (config)
     {
+        var rendererConfig = config.renderer.config;
+
+        //  Vertex Size = attribute size added together (2 + 2 + 1 + 4)
+
         WebGLPipeline.call(this, {
             game: config.game,
             renderer: config.renderer,
             gl: config.renderer.gl,
-            topology: (config.topology ? config.topology : config.renderer.gl.TRIANGLES),
-            vertShader: (config.vertShader ? config.vertShader : ShaderSourceVS),
-            fragShader: (config.fragShader ? config.fragShader : ShaderSourceFS),
-            vertexCapacity: (config.vertexCapacity ? config.vertexCapacity : 6 * 2000),
-
-            vertexSize: (config.vertexSize ? config.vertexSize :
-                Float32Array.BYTES_PER_ELEMENT * 2 +
-                Float32Array.BYTES_PER_ELEMENT * 2 +
-                Uint8Array.BYTES_PER_ELEMENT * 4),
-
+            topology: GetFastValue(config, 'topology', config.renderer.gl.TRIANGLES),
+            vertShader: GetFastValue(config, 'vertShader', ShaderSourceVS),
+            fragShader: GetFastValue(config, 'fragShader', ShaderSourceFS),
+            vertexCapacity: GetFastValue(config, 'vertexCapacity', 6 * rendererConfig.batchSize),
+            vertexSize: GetFastValue(config, 'vertexSize', Float32Array.BYTES_PER_ELEMENT * 5 + Uint8Array.BYTES_PER_ELEMENT * 4),
             attributes: [
                 {
                     name: 'inPosition',
@@ -55927,11 +58540,18 @@ var TextureTintPipeline = new Class({
                     offset: Float32Array.BYTES_PER_ELEMENT * 2
                 },
                 {
+                    name: 'inTintEffect',
+                    size: 1,
+                    type: config.renderer.gl.FLOAT,
+                    normalized: false,
+                    offset: Float32Array.BYTES_PER_ELEMENT * 4
+                },
+                {
                     name: 'inTint',
                     size: 4,
                     type: config.renderer.gl.UNSIGNED_BYTE,
                     normalized: true,
-                    offset: Float32Array.BYTES_PER_ELEMENT * 4
+                    offset: Float32Array.BYTES_PER_ELEMENT * 5
                 }
             ]
         });
@@ -55959,10 +58579,9 @@ var TextureTintPipeline = new Class({
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#maxQuads
          * @type {integer}
-         * @default 2000
          * @since 3.0.0
          */
-        this.maxQuads = 2000;
+        this.maxQuads = rendererConfig.batchSize;
 
         /**
          * Collection of batch information
@@ -55972,6 +58591,46 @@ var TextureTintPipeline = new Class({
          * @since 3.1.0
          */
         this.batches = [];
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix1
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.11.0
+         */
+        this._tempMatrix1 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix2
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.11.0
+         */
+        this._tempMatrix2 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix3
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.11.0
+         */
+        this._tempMatrix3 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix4
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.11.0
+         */
+        this._tempMatrix4 = new TransformMatrix();
 
         this.mvpInit();
     },
@@ -55986,7 +58645,7 @@ var TextureTintPipeline = new Class({
      * @param {WebGLTexture} texture - WebGLTexture that will be assigned to the current batch.
      * @param {integer} textureUnit - Texture unit to which the texture needs to be bound.
      *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
      */
     setTexture2D: function (texture, unit)
     {
@@ -56054,7 +58713,7 @@ var TextureTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#flush
      * @since 3.1.0
      *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This Pipeline.
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
      */
     flush: function ()
     {
@@ -56155,7 +58814,7 @@ var TextureTintPipeline = new Class({
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#onBind
      * @since 3.0.0
      *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
      */
     onBind: function ()
     {
@@ -56172,1510 +58831,271 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Resizes this pipeline and updates the projection.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#resize
      * @since 3.0.0
      *
-     * @param {number} width - [description]
-     * @param {number} height - [description]
-     * @param {number} resolution - [description]
+     * @param {number} width - The new width.
+     * @param {number} height - The new height.
+     * @param {number} resolution - The resolution.
      *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
      */
     resize: function (width, height, resolution)
     {
         WebGLPipeline.prototype.resize.call(this, width, height, resolution);
+
         this.projOrtho(0, this.width, this.height, 0, -1000.0, 1000.0);
+
         return this;
     },
 
     /**
-     * Renders immediately a static tilemap. This function won't use
-     * the batching functionality of the pipeline.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawStaticTilemapLayer
-     * @since 3.0.0
-     *
-     * @param {Phaser.Tilemaps.StaticTilemapLayer} tilemap - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    drawStaticTilemapLayer: function (tilemap)
-    {
-        if (tilemap.vertexCount > 0)
-        {
-            var pipelineVertexBuffer = this.vertexBuffer;
-            var gl = this.gl;
-            var renderer = this.renderer;
-            var frame = tilemap.tileset.image.get();
-
-            if (renderer.currentPipeline &&
-                renderer.currentPipeline.vertexCount > 0)
-            {
-                renderer.flush();
-            }
-
-            this.vertexBuffer = tilemap.vertexBuffer;
-            renderer.setPipeline(this);
-            renderer.setTexture2D(frame.source.glTexture, 0);
-            gl.drawArrays(this.topology, 0, tilemap.vertexCount);
-            this.vertexBuffer = pipelineVertexBuffer;
-        }
-
-        this.viewIdentity();
-        this.modelIdentity();
-    },
-
-    /**
-     * Renders contents of a ParticleEmitterManager. It'll batch all particles if possible.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawEmitterManager
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Particles.ParticleEmitterManager} emitterManager - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    drawEmitterManager: function (emitterManager, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        this.renderer.setPipeline(this);
-
-        var roundPixels = this.renderer.config.roundPixels;
-        var emitters = emitterManager.emitters.list;
-        var emitterCount = emitters.length;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var renderer = this.renderer;
-        var maxQuads = this.maxQuads;
-        var cameraScrollX = camera.scrollX;
-        var cameraScrollY = camera.scrollY;
-        var cameraMatrix = camera.matrix.matrix;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var sin = Math.sin;
-        var cos = Math.cos;
-        var vertexComponentCount = this.vertexComponentCount;
-        var vertexCapacity = this.vertexCapacity;
-        var texture = emitterManager.defaultFrame.source.glTexture;
-        var pca, pcb, pcc, pcd, pce, pcf;
-        var pma, pmb, pmc, pmd, pme, pmf;
-
-        if (parentMatrix)
-        {
-            pma = parentMatrix[0];
-            pmb = parentMatrix[1];
-            pmc = parentMatrix[2];
-            pmd = parentMatrix[3];
-            pme = parentMatrix[4];
-            pmf = parentMatrix[5];
-        }
-
-        this.setTexture2D(texture, 0);
-        
-        for (var emitterIndex = 0; emitterIndex < emitterCount; ++emitterIndex)
-        {
-            var emitter = emitters[emitterIndex];
-            var particles = emitter.alive;
-            var aliveLength = particles.length;
-            var batchCount = Math.ceil(aliveLength / maxQuads);
-            var particleOffset = 0;
-            var scrollX = cameraScrollX * emitter.scrollFactorX;
-            var scrollY = cameraScrollY * emitter.scrollFactorY;
-
-            if (parentMatrix)
-            {
-                var cse = -scrollX;
-                var csf = -scrollY;
-                var pse = cse * cma + csf * cmc + cme;
-                var psf = cse * cmb + csf * cmd + cmf;
-                pca = pma * cma + pmb * cmc;
-                pcb = pma * cmb + pmb * cmd;
-                pcc = pmc * cma + pmd * cmc;
-                pcd = pmc * cmb + pmd * cmd;
-                pce = pme * cma + pmf * cmc + pse;
-                pcf = pme * cmb + pmf * cmd + psf;
-
-                cma = pca;
-                cmb = pcb;
-                cmc = pcc;
-                cmd = pcd;
-                cme = pce;
-                cmf = pcf;
-
-                scrollX = 0.0;
-                scrollY = 0.0;
-            }
-
-            if (!emitter.visible || aliveLength === 0)
-            {
-                continue;
-            }
-
-            renderer.setBlendMode(emitter.blendMode);
-
-            if (this.vertexCount >= vertexCapacity)
-            {
-                this.flush();
-                this.setTexture2D(texture, 0);
-            }
-
-            for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
-            {
-                var batchSize = Math.min(aliveLength, maxQuads);
-
-                for (var index = 0; index < batchSize; ++index)
-                {
-                    var particle = particles[particleOffset + index];
-
-                    if (particle.alpha <= 0)
-                    {
-                        continue;
-                    }
-
-                    var frame = particle.frame;
-                    var uvs = frame.uvs;
-                    var x = -(frame.halfWidth);
-                    var y = -(frame.halfHeight);
-                    var color = particle.color;
-                    var xw = x + frame.width;
-                    var yh = y + frame.height;
-                    var sr = sin(particle.rotation);
-                    var cr = cos(particle.rotation);
-                    var sra = cr * particle.scaleX;
-                    var srb = sr * particle.scaleX;
-                    var src = -sr * particle.scaleY;
-                    var srd = cr * particle.scaleY;
-                    var sre = particle.x - scrollX;
-                    var srf = particle.y - scrollY;
-                    var mva = sra * cma + srb * cmc;
-                    var mvb = sra * cmb + srb * cmd;
-                    var mvc = src * cma + srd * cmc;
-                    var mvd = src * cmb + srd * cmd;
-                    var mve = sre * cma + srf * cmc + cme;
-                    var mvf = sre * cmb + srf * cmd + cmf;
-                    var tx0 = x * mva + y * mvc + mve;
-                    var ty0 = x * mvb + y * mvd + mvf;
-                    var tx1 = x * mva + yh * mvc + mve;
-                    var ty1 = x * mvb + yh * mvd + mvf;
-                    var tx2 = xw * mva + yh * mvc + mve;
-                    var ty2 = xw * mvb + yh * mvd + mvf;
-                    var tx3 = xw * mva + y * mvc + mve;
-                    var ty3 = xw * mvb + y * mvd + mvf;
-                    var vertexOffset = this.vertexCount * vertexComponentCount;
-
-                    if (roundPixels)
-                    {
-                        tx0 |= 0;
-                        ty0 |= 0;
-                        tx1 |= 0;
-                        ty1 |= 0;
-                        tx2 |= 0;
-                        ty2 |= 0;
-                        tx3 |= 0;
-                        ty3 |= 0;
-                    }
-
-                    vertexViewF32[vertexOffset + 0] = tx0;
-                    vertexViewF32[vertexOffset + 1] = ty0;
-                    vertexViewF32[vertexOffset + 2] = uvs.x0;
-                    vertexViewF32[vertexOffset + 3] = uvs.y0;
-                    vertexViewU32[vertexOffset + 4] = color;
-                    vertexViewF32[vertexOffset + 5] = tx1;
-                    vertexViewF32[vertexOffset + 6] = ty1;
-                    vertexViewF32[vertexOffset + 7] = uvs.x1;
-                    vertexViewF32[vertexOffset + 8] = uvs.y1;
-                    vertexViewU32[vertexOffset + 9] = color;
-                    vertexViewF32[vertexOffset + 10] = tx2;
-                    vertexViewF32[vertexOffset + 11] = ty2;
-                    vertexViewF32[vertexOffset + 12] = uvs.x2;
-                    vertexViewF32[vertexOffset + 13] = uvs.y2;
-                    vertexViewU32[vertexOffset + 14] = color;
-                    vertexViewF32[vertexOffset + 15] = tx0;
-                    vertexViewF32[vertexOffset + 16] = ty0;
-                    vertexViewF32[vertexOffset + 17] = uvs.x0;
-                    vertexViewF32[vertexOffset + 18] = uvs.y0;
-                    vertexViewU32[vertexOffset + 19] = color;
-                    vertexViewF32[vertexOffset + 20] = tx2;
-                    vertexViewF32[vertexOffset + 21] = ty2;
-                    vertexViewF32[vertexOffset + 22] = uvs.x2;
-                    vertexViewF32[vertexOffset + 23] = uvs.y2;
-                    vertexViewU32[vertexOffset + 24] = color;
-                    vertexViewF32[vertexOffset + 25] = tx3;
-                    vertexViewF32[vertexOffset + 26] = ty3;
-                    vertexViewF32[vertexOffset + 27] = uvs.x3;
-                    vertexViewF32[vertexOffset + 28] = uvs.y3;
-                    vertexViewU32[vertexOffset + 29] = color;
-
-                    this.vertexCount += 6;
-
-                    if (this.vertexCount >= vertexCapacity)
-                    {
-                        this.flush();
-                        this.setTexture2D(texture, 0);
-                    }
-
-                }
-
-                particleOffset += batchSize;
-                aliveLength -= batchSize;
-
-                if (this.vertexCount >= vertexCapacity)
-                {
-                    this.flush();
-                    this.setTexture2D(texture, 0);
-                }
-            }
-        }
-        
-        this.setTexture2D(texture, 0);
-    },
-
-    /**
-     * Batches blitter game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawBlitter
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Blitter} blitter - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    drawBlitter: function (blitter, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        this.renderer.setPipeline(this);
-
-        var roundPixels = this.renderer.config.roundPixels;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var list = blitter.getRenderList();
-        var length = list.length;
-        var cameraMatrix = camera.matrix.matrix;
-        var a = cameraMatrix[0];
-        var b = cameraMatrix[1];
-        var c = cameraMatrix[2];
-        var d = cameraMatrix[3];
-        var e = cameraMatrix[4];
-        var f = cameraMatrix[5];
-        var cameraScrollX = camera.scrollX * blitter.scrollFactorX;
-        var cameraScrollY = camera.scrollY * blitter.scrollFactorY;
-        var batchCount = Math.ceil(length / this.maxQuads);
-        var batchOffset = 0;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -cameraScrollX;
-            var csf = -cameraScrollY;
-            var pse = cse * a + csf * c + e;
-            var psf = cse * b + csf * d + f;
-            var pca = pma * a + pmb * c;
-            var pcb = pma * b + pmb * d;
-            var pcc = pmc * a + pmd * c;
-            var pcd = pmc * b + pmd * d;
-            var pce = pme * a + pmf * c + pse;
-            var pcf = pme * b + pmf * d + psf;
-
-            a = pca;
-            b = pcb;
-            c = pcc;
-            d = pcd;
-            e = pce;
-            f = pcf;
-
-            cameraScrollX = 0.0;
-            cameraScrollY = 0.0;
-        }
-
-        var blitterX = blitter.x - cameraScrollX;
-        var blitterY = blitter.y - cameraScrollY;
-
-        var prevTextureSourceIndex;
-
-        for (var batchIndex = 0; batchIndex < batchCount; ++batchIndex)
-        {
-            var batchSize = Math.min(length, this.maxQuads);
-
-            for (var index = 0; index < batchSize; ++index)
-            {
-                var bob = list[batchOffset + index];
-                var frame = bob.frame;
-                var alpha = bob.alpha;
-
-                if (alpha === 0)
-                {
-                    //  Nothing to see here, moving on ...
-                    continue;
-                }
-
-                var tint = getTint(0xffffff, alpha);
-                var uvs = frame.uvs;
-                var flipX = bob.flipX;
-                var flipY = bob.flipY;
-                var width = frame.width * (flipX ? -1.0 : 1.0);
-                var height = frame.height * (flipY ? -1.0 : 1.0);
-                var x = blitterX + bob.x + frame.x + (frame.width * ((flipX) ? 1.0 : 0.0));
-                var y = blitterY + bob.y + frame.y + (frame.height * ((flipY) ? 1.0 : 0.0));
-                var xw = x + width;
-                var yh = y + height;
-                var tx0 = x * a + y * c + e;
-                var ty0 = x * b + y * d + f;
-                var tx1 = xw * a + yh * c + e;
-                var ty1 = xw * b + yh * d + f;
-            
-                //  Bind texture only if the Texture Source is different from before
-                if (frame.sourceIndex !== prevTextureSourceIndex)
-                {
-                    this.setTexture2D(frame.texture.source[frame.sourceIndex].glTexture, 0);
-
-                    prevTextureSourceIndex = frame.sourceIndex;
-                }
-
-                var vertexOffset = this.vertexCount * this.vertexComponentCount;
-
-                if (roundPixels)
-                {
-                    tx0 |= 0;
-                    ty0 |= 0;
-                    tx1 |= 0;
-                    ty1 |= 0;
-                }
-            
-                vertexViewF32[vertexOffset + 0] = tx0;
-                vertexViewF32[vertexOffset + 1] = ty0;
-                vertexViewF32[vertexOffset + 2] = uvs.x0;
-                vertexViewF32[vertexOffset + 3] = uvs.y0;
-                vertexViewU32[vertexOffset + 4] = tint;
-                vertexViewF32[vertexOffset + 5] = tx0;
-                vertexViewF32[vertexOffset + 6] = ty1;
-                vertexViewF32[vertexOffset + 7] = uvs.x1;
-                vertexViewF32[vertexOffset + 8] = uvs.y1;
-                vertexViewU32[vertexOffset + 9] = tint;
-                vertexViewF32[vertexOffset + 10] = tx1;
-                vertexViewF32[vertexOffset + 11] = ty1;
-                vertexViewF32[vertexOffset + 12] = uvs.x2;
-                vertexViewF32[vertexOffset + 13] = uvs.y2;
-                vertexViewU32[vertexOffset + 14] = tint;
-                vertexViewF32[vertexOffset + 15] = tx0;
-                vertexViewF32[vertexOffset + 16] = ty0;
-                vertexViewF32[vertexOffset + 17] = uvs.x0;
-                vertexViewF32[vertexOffset + 18] = uvs.y0;
-                vertexViewU32[vertexOffset + 19] = tint;
-                vertexViewF32[vertexOffset + 20] = tx1;
-                vertexViewF32[vertexOffset + 21] = ty1;
-                vertexViewF32[vertexOffset + 22] = uvs.x2;
-                vertexViewF32[vertexOffset + 23] = uvs.y2;
-                vertexViewU32[vertexOffset + 24] = tint;
-                vertexViewF32[vertexOffset + 25] = tx1;
-                vertexViewF32[vertexOffset + 26] = ty0;
-                vertexViewF32[vertexOffset + 27] = uvs.x3;
-                vertexViewF32[vertexOffset + 28] = uvs.y3;
-                vertexViewU32[vertexOffset + 29] = tint;
-
-                this.vertexCount += 6;
-
-                if (this.vertexCount >= this.vertexCapacity)
-                {
-                    this.flush();
-
-                    prevTextureSourceIndex = -1;
-                }
-            }
-
-            batchOffset += batchSize;
-            length -= batchSize;
-
-            if (this.vertexCount >= this.vertexCapacity)
-            {
-                this.flush();
-            }
-        }
-    },
-
-    /**
-     * Batches Sprite game object
+     * Takes a Sprite Game Object, or any object that extends it, and adds it to the batch.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchSprite
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.Sprite} sprite - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
+     * @param {(Phaser.GameObjects.Image|Phaser.GameObjects.Sprite)} sprite - The texture based Game Object to add to the batch.
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to use for the rendering transform.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} [parentTransformMatrix] - The transform matrix of the parent container, if set.
      */
     batchSprite: function (sprite, camera, parentTransformMatrix)
     {
-        var parentMatrix = null;
+        this.renderer.setPipeline(this);
+
+        var camMatrix = this._tempMatrix1;
+        var spriteMatrix = this._tempMatrix2;
+        var calcMatrix = this._tempMatrix3;
+
+        var frame = sprite.frame;
+        var texture = frame.glTexture;
+
+        var u0 = frame.u0;
+        var v0 = frame.v0;
+        var u1 = frame.u1;
+        var v1 = frame.v1;
+        var frameX = frame.x;
+        var frameY = frame.y;
+        var frameWidth = frame.width;
+        var frameHeight = frame.height;
+
+        var x = -sprite.displayOriginX + frameX;
+        var y = -sprite.displayOriginY + frameY;
+
+        if (sprite.isCropped)
+        {
+            var crop = sprite._crop;
+
+            if (crop.flipX !== sprite.flipX || crop.flipY !== sprite.flipY)
+            {
+                frame.updateCropUVs(crop, sprite.flipX, sprite.flipY);
+            }
+
+            u0 = crop.u0;
+            v0 = crop.v0;
+            u1 = crop.u1;
+            v1 = crop.v1;
+
+            frameWidth = crop.width;
+            frameHeight = crop.height;
+
+            frameX = crop.x;
+            frameY = crop.y;
+
+            x = -sprite.displayOriginX + frameX;
+            y = -sprite.displayOriginY + frameY;
+        }
+
+        if (sprite.flipX)
+        {
+            x += frameWidth;
+            frameWidth *= -1;
+        }
+
+        if (sprite.flipY)
+        {
+            y += frameHeight;
+            frameHeight *= -1;
+        }
+
+        var xw = x + frameWidth;
+        var yh = y + frameHeight;
+
+        spriteMatrix.applyITRS(sprite.x, sprite.y, sprite.rotation, sprite.scaleX, sprite.scaleY);
+
+        camMatrix.copyFrom(camera.matrix);
 
         if (parentTransformMatrix)
         {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
+            //  Multiply the camera by the parent matrix
+            camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * sprite.scrollFactorX, -camera.scrollY * sprite.scrollFactorY);
 
-        this.renderer.setPipeline(this);
+            //  Undo the camera scroll
+            spriteMatrix.e = sprite.x;
+            spriteMatrix.f = sprite.y;
 
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-        
-        var roundPixels = this.renderer.config.roundPixels;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var cameraMatrix = camera.matrix.matrix;
-        var frame = sprite.frame;
-        var texture = frame.texture.source[frame.sourceIndex].glTexture;
-        var forceFlipY = (texture.isRenderTexture ? true : false);
-        var flipX = sprite.flipX;
-        var flipY = sprite.flipY ^ forceFlipY;
-        var uvs = frame.uvs;
-        var width = frame.width * (flipX ? -1.0 : 1.0);
-        var height = frame.height * (flipY ? -1.0 : 1.0);
-        var x = -sprite.displayOriginX + frame.x + ((frame.width) * (flipX ? 1.0 : 0.0));
-        var y = -sprite.displayOriginY + frame.y + ((frame.height) * (flipY ? 1.0 : 0.0));
-        var xw = (roundPixels ? (x|0) : x) + width;
-        var yh = (roundPixels ? (y|0) : y) + height;
-        var scaleX = sprite.scaleX;
-        var scaleY = sprite.scaleY;
-        var rotation = sprite.rotation;
-        var alphaTL = sprite._alphaTL;
-        var alphaTR = sprite._alphaTR;
-        var alphaBL = sprite._alphaBL;
-        var alphaBR = sprite._alphaBR;
-        var tintTL = sprite._tintTL;
-        var tintTR = sprite._tintTR;
-        var tintBL = sprite._tintBL;
-        var tintBR = sprite._tintBR;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = sprite.x;
-        var srf = sprite.y;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -camera.scrollX * sprite.scrollFactorX;
-            var csf = -camera.scrollY * sprite.scrollFactorY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
         else
         {
-            sre -= camera.scrollX * sprite.scrollFactorX;
-            srf -= camera.scrollY * sprite.scrollFactorY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
+            spriteMatrix.e -= camera.scrollX * sprite.scrollFactorX;
+            spriteMatrix.f -= camera.scrollY * sprite.scrollFactorY;
+    
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
 
-        var tx0 = x * mva + y * mvc + mve;
-        var ty0 = x * mvb + y * mvd + mvf;
-        var tx1 = x * mva + yh * mvc + mve;
-        var ty1 = x * mvb + yh * mvd + mvf;
-        var tx2 = xw * mva + yh * mvc + mve;
-        var ty2 = xw * mvb + yh * mvd + mvf;
-        var tx3 = xw * mva + y * mvc + mve;
-        var ty3 = xw * mvb + y * mvd + mvf;
-        var vTintTL = getTint(tintTL, alphaTL);
-        var vTintTR = getTint(tintTR, alphaTR);
-        var vTintBL = getTint(tintBL, alphaBL);
-        var vTintBR = getTint(tintBR, alphaBR);
-        var vertexOffset = 0;
+        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
 
-        if (roundPixels)
+        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        var tintTL = Utils.getTintAppendFloatAlpha(sprite._tintTL, camera.alpha * sprite._alphaTL);
+        var tintTR = Utils.getTintAppendFloatAlpha(sprite._tintTR, camera.alpha * sprite._alphaTR);
+        var tintBL = Utils.getTintAppendFloatAlpha(sprite._tintBL, camera.alpha * sprite._alphaBL);
+        var tintBR = Utils.getTintAppendFloatAlpha(sprite._tintBR, camera.alpha * sprite._alphaBR);
+
+        if (camera.roundPixels)
         {
             tx0 |= 0;
             ty0 |= 0;
+
             tx1 |= 0;
             ty1 |= 0;
+
             tx2 |= 0;
             ty2 |= 0;
+
             tx3 |= 0;
             ty3 |= 0;
         }
 
         this.setTexture2D(texture, 0);
 
-        vertexOffset = this.vertexCount * this.vertexComponentCount;
+        var tintEffect = (sprite._isTinted && sprite.tintFill);
 
-        vertexViewF32[vertexOffset + 0] = tx0;
-        vertexViewF32[vertexOffset + 1] = ty0;
-        vertexViewF32[vertexOffset + 2] = uvs.x0;
-        vertexViewF32[vertexOffset + 3] = uvs.y0;
-        vertexViewU32[vertexOffset + 4] = vTintTL;
-        vertexViewF32[vertexOffset + 5] = tx1;
-        vertexViewF32[vertexOffset + 6] = ty1;
-        vertexViewF32[vertexOffset + 7] = uvs.x1;
-        vertexViewF32[vertexOffset + 8] = uvs.y1;
-        vertexViewU32[vertexOffset + 9] = vTintBL;
-        vertexViewF32[vertexOffset + 10] = tx2;
-        vertexViewF32[vertexOffset + 11] = ty2;
-        vertexViewF32[vertexOffset + 12] = uvs.x2;
-        vertexViewF32[vertexOffset + 13] = uvs.y2;
-        vertexViewU32[vertexOffset + 14] = vTintBR;
-        vertexViewF32[vertexOffset + 15] = tx0;
-        vertexViewF32[vertexOffset + 16] = ty0;
-        vertexViewF32[vertexOffset + 17] = uvs.x0;
-        vertexViewF32[vertexOffset + 18] = uvs.y0;
-        vertexViewU32[vertexOffset + 19] = vTintTL;
-        vertexViewF32[vertexOffset + 20] = tx2;
-        vertexViewF32[vertexOffset + 21] = ty2;
-        vertexViewF32[vertexOffset + 22] = uvs.x2;
-        vertexViewF32[vertexOffset + 23] = uvs.y2;
-        vertexViewU32[vertexOffset + 24] = vTintBR;
-        vertexViewF32[vertexOffset + 25] = tx3;
-        vertexViewF32[vertexOffset + 26] = ty3;
-        vertexViewF32[vertexOffset + 27] = uvs.x3;
-        vertexViewF32[vertexOffset + 28] = uvs.y3;
-        vertexViewU32[vertexOffset + 29] = vTintTR;
+        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
+    },
+
+    /**
+     * Adds the vertices data into the batch and flushes if full.
+     * 
+     * Assumes 6 vertices in the following arrangement:
+     * 
+     * ```
+     * 0----3
+     * |\  B|
+     * | \  |
+     * |  \ |
+     * | A \|
+     * |    \
+     * 1----2
+     * ```
+     * 
+     * Where tx0/ty0 = 0, tx1/ty1 = 1, tx2/ty2 = 2 and tx3/ty3 = 3
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchVertices
+     * @since 3.11.0
+     *
+     * @param {number} tx0 - The top-left x position.
+     * @param {number} ty0 - The top-left y position.
+     * @param {number} tx1 - The bottom-left x position.
+     * @param {number} ty1 - The bottom-left y position.
+     * @param {number} tx2 - The bottom-right x position.
+     * @param {number} ty2 - The bottom-right y position.
+     * @param {number} tx3 - The top-right x position.
+     * @param {number} ty3 - The top-right y position.
+     * @param {number} u0 - UV u0 value.
+     * @param {number} v0 - UV v0 value.
+     * @param {number} u1 - UV u1 value.
+     * @param {number} v1 - UV v1 value.
+     * @param {number} tintTL - The top-left tint color value.
+     * @param {number} tintTR - The top-right tint color value.
+     * @param {number} tintBL - The bottom-left tint color value.
+     * @param {number} tintBR - The bottom-right tint color value.
+     * @param {(number|boolean)} tintEffect - The tint effect for the shader to use.
+     * 
+     * @return {boolean} `true` if this method caused the batch to flush, otherwise `false`.
+     */
+    batchVertices: function (tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect)
+    {
+        var hasFlushed = false;
+
+        if (this.vertexCount + 6 > this.vertexCapacity)
+        {
+            this.flush();
+
+            hasFlushed = true;
+        }
+
+        var vertexViewF32 = this.vertexViewF32;
+        var vertexViewU32 = this.vertexViewU32;
+
+        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
+            
+        vertexViewF32[++vertexOffset] = tx0;
+        vertexViewF32[++vertexOffset] = ty0;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v0;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintTL;
+
+        vertexViewF32[++vertexOffset] = tx1;
+        vertexViewF32[++vertexOffset] = ty1;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v1;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintBL;
+
+        vertexViewF32[++vertexOffset] = tx2;
+        vertexViewF32[++vertexOffset] = ty2;
+        vertexViewF32[++vertexOffset] = u1;
+        vertexViewF32[++vertexOffset] = v1;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintBR;
+
+        vertexViewF32[++vertexOffset] = tx0;
+        vertexViewF32[++vertexOffset] = ty0;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v0;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintTL;
+
+        vertexViewF32[++vertexOffset] = tx2;
+        vertexViewF32[++vertexOffset] = ty2;
+        vertexViewF32[++vertexOffset] = u1;
+        vertexViewF32[++vertexOffset] = v1;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintBR;
+
+        vertexViewF32[++vertexOffset] = tx3;
+        vertexViewF32[++vertexOffset] = ty3;
+        vertexViewF32[++vertexOffset] = u1;
+        vertexViewF32[++vertexOffset] = v0;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintTR;
 
         this.vertexCount += 6;
-    },
 
-    /**
-     * Batches Mesh game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchMesh
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Mesh} mesh - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchMesh: function (mesh, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
+        if (this.vertexCapacity - this.vertexCount < 6)
         {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        var vertices = mesh.vertices;
-        var length = vertices.length;
-        var vertexCount = (length / 2)|0;
-
-        this.renderer.setPipeline(this);
-
-        if (this.vertexCount + vertexCount > this.vertexCapacity)
-        {
+            //  No more room at the inn
             this.flush();
+
+            hasFlushed = true;
         }
 
-        var roundPixels = this.renderer.config.roundPixels;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var uvs = mesh.uv;
-        var colors = mesh.colors;
-        var alphas = mesh.alphas;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var cameraMatrix = camera.matrix.matrix;
-        var frame = mesh.frame;
-        var texture = mesh.texture.source[frame.sourceIndex].glTexture;
-        var translateX = mesh.x;
-        var translateY = mesh.y;
-        var scaleX = mesh.scaleX;
-        var scaleY = mesh.scaleY;
-        var rotation = mesh.rotation;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = translateX;
-        var srf = translateY;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var vertexOffset = 0;
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -camera.scrollX * mesh.scrollFactorX;
-            var csf = -camera.scrollY * mesh.scrollFactorY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
-        }
-        else
-        {
-            sre -= camera.scrollX * mesh.scrollFactorX;
-            srf -= camera.scrollY * mesh.scrollFactorY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
-        }
-
-        this.setTexture2D(texture, 0);
-
-        vertexOffset = this.vertexCount * this.vertexComponentCount;
-
-        for (var index = 0, index0 = 0; index < length; index += 2)
-        {
-            var x = vertices[index + 0];
-            var y = vertices[index + 1];
-            var tx = x * mva + y * mvc + mve;
-            var ty = x * mvb + y * mvd + mvf;
-
-            if (roundPixels)
-            {
-                tx |= 0;
-                ty |= 0;
-            }
-
-            vertexViewF32[vertexOffset + 0] = tx;
-            vertexViewF32[vertexOffset + 1] = ty;
-            vertexViewF32[vertexOffset + 2] = uvs[index + 0];
-            vertexViewF32[vertexOffset + 3] = uvs[index + 1];
-            vertexViewU32[vertexOffset + 4] = getTint(colors[index0], alphas[index0]);
-
-            vertexOffset += 5;
-            index0 += 1;
-        }
-
-        this.vertexCount += vertexCount;
-    },
-
-    /**
-     * Batches BitmapText game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.BitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchBitmapText: function (bitmapText, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        this.renderer.setPipeline(this);
-
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        var roundPixels = this.renderer.config.roundPixels;
-        var text = bitmapText.text;
-        var textLength = text.length;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var cameraMatrix = camera.matrix.matrix;
-        var cameraWidth = camera.width + 50;
-        var cameraHeight = camera.height + 50;
-        var cameraX = -50;
-        var cameraY = -50;
-        var frame = bitmapText.frame;
-        var textureSource = bitmapText.texture.source[frame.sourceIndex];
-        var cameraScrollX = camera.scrollX * bitmapText.scrollFactorX;
-        var cameraScrollY = camera.scrollY * bitmapText.scrollFactorY;
-        var fontData = bitmapText.fontData;
-        var lineHeight = fontData.lineHeight;
-        var scale = (bitmapText.fontSize / fontData.size);
-        var chars = fontData.chars;
-        var alpha = bitmapText.alpha;
-        var vTintTL = getTint(bitmapText._tintTL, alpha);
-        var vTintTR = getTint(bitmapText._tintTR, alpha);
-        var vTintBL = getTint(bitmapText._tintBL, alpha);
-        var vTintBR = getTint(bitmapText._tintBR, alpha);
-        var srcX = bitmapText.x;
-        var srcY = bitmapText.y;
-        var textureX = frame.cutX;
-        var textureY = frame.cutY;
-        var textureWidth = textureSource.width;
-        var textureHeight = textureSource.height;
-        var texture = textureSource.glTexture;
-        var xAdvance = 0;
-        var yAdvance = 0;
-        var indexCount = 0;
-        var charCode = 0;
-        var glyph = null;
-        var glyphX = 0;
-        var glyphY = 0;
-        var glyphW = 0;
-        var glyphH = 0;
-        var x = 0;
-        var y = 0;
-        var xw = 0;
-        var yh = 0;
-
-        var tx0;
-        var ty0;
-        var tx1;
-        var ty1;
-        var tx2;
-        var ty2;
-        var tx3;
-        var ty3;
-
-        var umin = 0;
-        var umax = 0;
-        var vmin = 0;
-        var vmax = 0;
-        var lastGlyph = null;
-        var lastCharCode = 0;
-        var translateX = srcX + frame.x;
-        var translateY = srcY + frame.y;
-        var rotation = bitmapText.rotation;
-        var scaleX = bitmapText.scaleX;
-        var scaleY = bitmapText.scaleY;
-        var letterSpacing = bitmapText.letterSpacing;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = translateX;
-        var srf = translateY;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var vertexOffset = 0;
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -cameraScrollX;
-            var csf = -cameraScrollY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
-        }
-        else
-        {
-            sre -= cameraScrollX;
-            srf -= cameraScrollY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
-        }
-
-        this.setTexture2D(texture, 0);
-
-        for (var index = 0; index < textLength; ++index)
-        {
-            charCode = text.charCodeAt(index);
-
-            if (charCode === 10)
-            {
-                xAdvance = 0;
-                indexCount = 0;
-                yAdvance += lineHeight;
-                lastGlyph = null;
-                continue;
-            }
-
-            glyph = chars[charCode];
-
-            if (!glyph)
-            {
-                continue;
-            }
-
-            glyphX = textureX + glyph.x;
-            glyphY = textureY + glyph.y;
-
-            glyphW = glyph.width;
-            glyphH = glyph.height;
-
-            x = (indexCount + glyph.xOffset + xAdvance) * scale;
-            y = (glyph.yOffset + yAdvance) * scale;
-
-            if (lastGlyph !== null)
-            {
-                var kerningOffset = glyph.kerning[lastCharCode];
-                x += (kerningOffset !== undefined) ? kerningOffset : 0;
-            }
-
-            xAdvance += glyph.xAdvance + letterSpacing;
-            indexCount += 1;
-            lastGlyph = glyph;
-            lastCharCode = charCode;
-
-            //  Nothing to render or a space? Then skip to the next glyph
-            if (glyphW === 0 || glyphH === 0 || charCode === 32)
-            {
-                continue;
-            }
-
-            x -= bitmapText.displayOriginX;
-            y -= bitmapText.displayOriginY;
-
-            xw = x + glyphW * scale;
-            yh = y + glyphH * scale;
-            tx0 = x * mva + y * mvc + mve;
-            ty0 = x * mvb + y * mvd + mvf;
-            tx1 = x * mva + yh * mvc + mve;
-            ty1 = x * mvb + yh * mvd + mvf;
-            tx2 = xw * mva + yh * mvc + mve;
-            ty2 = xw * mvb + yh * mvd + mvf;
-            tx3 = xw * mva + y * mvc + mve;
-            ty3 = xw * mvb + y * mvd + mvf;
-
-            umin = glyphX / textureWidth;
-            umax = (glyphX + glyphW) / textureWidth;
-            vmin = glyphY / textureHeight;
-            vmax = (glyphY + glyphH) / textureHeight;
-
-            if ((tx0 < cameraX || tx0 > cameraWidth || ty0 < cameraY || ty0 > cameraHeight) &&
-                (tx1 < cameraX || tx1 > cameraWidth || ty1 < cameraY || ty1 > cameraHeight) &&
-                (tx2 < cameraX || tx2 > cameraWidth || ty2 < cameraY || ty2 > cameraHeight) &&
-                (tx3 < cameraX || tx3 > cameraWidth || ty3 < cameraY || ty3 > cameraHeight))
-            {
-                continue;
-            }
-
-            if (this.vertexCount + 6 > this.vertexCapacity)
-            {
-                this.flush();
-            }
-            
-            vertexOffset = this.vertexCount * this.vertexComponentCount;
-
-            if (roundPixels)
-            {
-                tx0 |= 0;
-                ty0 |= 0;
-                tx1 |= 0;
-                ty1 |= 0;
-                tx2 |= 0;
-                ty2 |= 0;
-                tx3 |= 0;
-                ty3 |= 0;
-            }
-
-            vertexViewF32[vertexOffset + 0] = tx0;
-            vertexViewF32[vertexOffset + 1] = ty0;
-            vertexViewF32[vertexOffset + 2] = umin;
-            vertexViewF32[vertexOffset + 3] = vmin;
-            vertexViewU32[vertexOffset + 4] = vTintTL;
-            vertexViewF32[vertexOffset + 5] = tx1;
-            vertexViewF32[vertexOffset + 6] = ty1;
-            vertexViewF32[vertexOffset + 7] = umin;
-            vertexViewF32[vertexOffset + 8] = vmax;
-            vertexViewU32[vertexOffset + 9] = vTintBL;
-            vertexViewF32[vertexOffset + 10] = tx2;
-            vertexViewF32[vertexOffset + 11] = ty2;
-            vertexViewF32[vertexOffset + 12] = umax;
-            vertexViewF32[vertexOffset + 13] = vmax;
-            vertexViewU32[vertexOffset + 14] = vTintBR;
-            vertexViewF32[vertexOffset + 15] = tx0;
-            vertexViewF32[vertexOffset + 16] = ty0;
-            vertexViewF32[vertexOffset + 17] = umin;
-            vertexViewF32[vertexOffset + 18] = vmin;
-            vertexViewU32[vertexOffset + 19] = vTintTL;
-            vertexViewF32[vertexOffset + 20] = tx2;
-            vertexViewF32[vertexOffset + 21] = ty2;
-            vertexViewF32[vertexOffset + 22] = umax;
-            vertexViewF32[vertexOffset + 23] = vmax;
-            vertexViewU32[vertexOffset + 24] = vTintBR;
-            vertexViewF32[vertexOffset + 25] = tx3;
-            vertexViewF32[vertexOffset + 26] = ty3;
-            vertexViewF32[vertexOffset + 27] = umax;
-            vertexViewF32[vertexOffset + 28] = vmin;
-            vertexViewU32[vertexOffset + 29] = vTintTR;
-        
-            this.vertexCount += 6;
-        }
-    },
-
-    /**
-     * Batches DynamicBitmapText game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicBitmapText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.DynamicBitmapText} bitmapText - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchDynamicBitmapText: function (bitmapText, camera, parentTransformMatrix)
-    {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
-        this.renderer.setPipeline(this);
-
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        var roundPixels = this.renderer.config.roundPixels;
-        var displayCallback = bitmapText.displayCallback;
-        var text = bitmapText.text;
-        var textLength = text.length;
-        var getTint = Utils.getTintAppendFloatAlpha;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var renderer = this.renderer;
-        var cameraMatrix = camera.matrix.matrix;
-        var frame = bitmapText.frame;
-        var textureSource = bitmapText.texture.source[frame.sourceIndex];
-        var cameraScrollX = camera.scrollX * bitmapText.scrollFactorX;
-        var cameraScrollY = camera.scrollY * bitmapText.scrollFactorY;
-        var scrollX = bitmapText.scrollX;
-        var scrollY = bitmapText.scrollY;
-        var fontData = bitmapText.fontData;
-        var lineHeight = fontData.lineHeight;
-        var scale = (bitmapText.fontSize / fontData.size);
-        var chars = fontData.chars;
-        var alpha = bitmapText.alpha;
-        var vTintTL = getTint(bitmapText._tintTL, alpha);
-        var vTintTR = getTint(bitmapText._tintTR, alpha);
-        var vTintBL = getTint(bitmapText._tintBL, alpha);
-        var vTintBR = getTint(bitmapText._tintBR, alpha);
-        var srcX = bitmapText.x;
-        var srcY = bitmapText.y;
-        var textureX = frame.cutX;
-        var textureY = frame.cutY;
-        var textureWidth = textureSource.width;
-        var textureHeight = textureSource.height;
-        var texture = textureSource.glTexture;
-        var xAdvance = 0;
-        var yAdvance = 0;
-        var indexCount = 0;
-        var charCode = 0;
-        var glyph = null;
-        var glyphX = 0;
-        var glyphY = 0;
-        var glyphW = 0;
-        var glyphH = 0;
-        var x = 0;
-        var y = 0;
-        var xw = 0;
-        var tx0;
-        var ty0;
-        var tx1;
-        var ty1;
-        var tx2;
-        var ty2;
-        var tx3;
-        var ty3;
-        var yh = 0;
-        var umin = 0;
-        var umax = 0;
-        var vmin = 0;
-        var vmax = 0;
-        var lastGlyph = null;
-        var lastCharCode = 0;
-        var translateX = srcX + frame.x;
-        var translateY = srcY + frame.y;
-        var rotation = bitmapText.rotation;
-        var scaleX = bitmapText.scaleX;
-        var scaleY = bitmapText.scaleY;
-        var letterSpacing = bitmapText.letterSpacing;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = translateX;
-        var srf = translateY;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var crop = (bitmapText.cropWidth > 0 || bitmapText.cropHeight > 0);
-        var uta, utb, utc, utd, ute, utf;
-        var vertexOffset = 0;
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -cameraScrollX;
-            var csf = -cameraScrollY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
-        }
-        else
-        {
-            sre -= cameraScrollX;
-            srf -= cameraScrollY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
-        }
-
-        this.setTexture2D(texture, 0);
-
-        if (crop)
-        {
-            renderer.pushScissor(
-                bitmapText.x,
-                bitmapText.y,
-                bitmapText.cropWidth * bitmapText.scaleX,
-                bitmapText.cropHeight * bitmapText.scaleY
-            );
-        }
-
-        for (var index = 0; index < textLength; ++index)
-        {
-            scale = (bitmapText.fontSize / bitmapText.fontData.size);
-            rotation = 0;
-
-            charCode = text.charCodeAt(index);
-
-            if (charCode === 10)
-            {
-                xAdvance = 0;
-                indexCount = 0;
-                yAdvance += lineHeight;
-                lastGlyph = null;
-                continue;
-            }
-
-            glyph = chars[charCode];
-
-            if (!glyph)
-            {
-                continue;
-            }
-
-            glyphX = textureX + glyph.x;
-            glyphY = textureY + glyph.y;
-
-            glyphW = glyph.width;
-            glyphH = glyph.height;
-            
-            x = (indexCount + glyph.xOffset + xAdvance) - scrollX;
-            y = (glyph.yOffset + yAdvance) - scrollY;
-
-            if (lastGlyph !== null)
-            {
-                var kerningOffset = glyph.kerning[lastCharCode];
-                x += (kerningOffset !== undefined) ? kerningOffset : 0;
-            }
-
-            xAdvance += glyph.xAdvance + letterSpacing;
-            indexCount += 1;
-            lastGlyph = glyph;
-            lastCharCode = charCode;
-
-            //  Nothing to render or a space? Then skip to the next glyph
-            if (glyphW === 0 || glyphH === 0 || charCode === 32)
-            {
-                continue;
-            }
-
-            if (displayCallback)
-            {
-                var output = displayCallback({
-                    color: 0,
-                    tint: {
-                        topLeft: vTintTL,
-                        topRight: vTintTR,
-                        bottomLeft: vTintBL,
-                        bottomRight: vTintBR
-                    },
-                    index: index,
-                    charCode: charCode,
-                    x: x,
-                    y: y,
-                    scale: scale,
-                    rotation: 0,
-                    data: glyph.data
-                });
-
-                x = output.x;
-                y = output.y;
-                scale = output.scale;
-                rotation = output.rotation;
-
-                if (output.color)
-                {
-                    vTintTL = output.color;
-                    vTintTR = output.color;
-                    vTintBL = output.color;
-                    vTintBR = output.color;
-                }
-                else
-                {
-                    vTintTL = output.tint.topLeft;
-                    vTintTR = output.tint.topRight;
-                    vTintBL = output.tint.bottomLeft;
-                    vTintBR = output.tint.bottomRight;
-                }
-
-                vTintTL = getTint(vTintTL, alpha);
-                vTintTR = getTint(vTintTR, alpha);
-                vTintBL = getTint(vTintBL, alpha);
-                vTintBR = getTint(vTintBR, alpha);
-            }
-
-            x -= bitmapText.displayOriginX;
-            y -= bitmapText.displayOriginY;
-            x *= scale;
-            y *= scale;
-
-            sr = Math.sin(rotation);
-            cr = Math.cos(rotation);
-            uta = cr * scale;
-            utb = sr * scale;
-            utc = -sr * scale;
-            utd = cr * scale;
-            ute = x;
-            utf = y;
-
-            sra = uta * mva + utb * mvc;
-            srb = uta * mvb + utb * mvd;
-            src = utc * mva + utd * mvc;
-            srd = utc * mvb + utd * mvd;
-            sre = ute * mva + utf * mvc + mve;
-            srf = ute * mvb + utf * mvd + mvf;
-
-            xw = glyphW;
-            yh = glyphH;
-            tx0 = sre;
-            ty0 = srf;
-            tx1 = yh * src + sre;
-            ty1 = yh * srd + srf;
-            tx2 = xw * sra + yh * src + sre;
-            ty2 = xw * srb + yh * srd + srf;
-            tx3 = xw * sra + sre;
-            ty3 = xw * srb + srf;
-
-            umin = glyphX / textureWidth;
-            umax = (glyphX + glyphW) / textureWidth;
-            vmin = glyphY / textureHeight;
-            vmax = (glyphY + glyphH) / textureHeight;
-
-            if (this.vertexCount + 6 > this.vertexCapacity)
-            {
-                this.flush();
-            }
-            
-            vertexOffset = this.vertexCount * this.vertexComponentCount;
-
-            if (roundPixels)
-            {
-                tx0 |= 0;
-                ty0 |= 0;
-                tx1 |= 0;
-                ty1 |= 0;
-                tx2 |= 0;
-                ty2 |= 0;
-                tx3 |= 0;
-                ty3 |= 0;
-            }
-
-            vertexViewF32[vertexOffset + 0] = tx0;
-            vertexViewF32[vertexOffset + 1] = ty0;
-            vertexViewF32[vertexOffset + 2] = umin;
-            vertexViewF32[vertexOffset + 3] = vmin;
-            vertexViewU32[vertexOffset + 4] = vTintTL;
-            vertexViewF32[vertexOffset + 5] = tx1;
-            vertexViewF32[vertexOffset + 6] = ty1;
-            vertexViewF32[vertexOffset + 7] = umin;
-            vertexViewF32[vertexOffset + 8] = vmax;
-            vertexViewU32[vertexOffset + 9] = vTintBL;
-            vertexViewF32[vertexOffset + 10] = tx2;
-            vertexViewF32[vertexOffset + 11] = ty2;
-            vertexViewF32[vertexOffset + 12] = umax;
-            vertexViewF32[vertexOffset + 13] = vmax;
-            vertexViewU32[vertexOffset + 14] = vTintBR;
-            vertexViewF32[vertexOffset + 15] = tx0;
-            vertexViewF32[vertexOffset + 16] = ty0;
-            vertexViewF32[vertexOffset + 17] = umin;
-            vertexViewF32[vertexOffset + 18] = vmin;
-            vertexViewU32[vertexOffset + 19] = vTintTL;
-            vertexViewF32[vertexOffset + 20] = tx2;
-            vertexViewF32[vertexOffset + 21] = ty2;
-            vertexViewF32[vertexOffset + 22] = umax;
-            vertexViewF32[vertexOffset + 23] = vmax;
-            vertexViewU32[vertexOffset + 24] = vTintBR;
-            vertexViewF32[vertexOffset + 25] = tx3;
-            vertexViewF32[vertexOffset + 26] = ty3;
-            vertexViewF32[vertexOffset + 27] = umax;
-            vertexViewF32[vertexOffset + 28] = vmin;
-            vertexViewU32[vertexOffset + 29] = vTintTR;
-        
-            this.vertexCount += 6;
-        }
-
-        if (crop)
-        {
-            renderer.popScissor();
-        }
-    },
-
-    /**
-     * Batches Text game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchText
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Text} text - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchText: function (text, camera, parentTransformMatrix)
-    {
-        var getTint = Utils.getTintAppendFloatAlpha;
-
-        this.batchTexture(
-            text,
-            text.canvasTexture,
-            text.canvasTexture.width, text.canvasTexture.height,
-            text.x, text.y,
-            text.canvasTexture.width, text.canvasTexture.height,
-            text.scaleX, text.scaleY,
-            text.rotation,
-            text.flipX, text.flipY,
-            text.scrollFactorX, text.scrollFactorY,
-            text.displayOriginX, text.displayOriginY,
-            0, 0, text.canvasTexture.width, text.canvasTexture.height,
-            getTint(text._tintTL, text._alphaTL),
-            getTint(text._tintTR, text._alphaTR),
-            getTint(text._tintBL, text._alphaBL),
-            getTint(text._tintBR, text._alphaBR),
-            0, 0,
-            camera,
-            parentTransformMatrix
-        );
-    },
-
-    /**
-     * Batches DynamicTilemapLayer game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchDynamicTilemapLayer
-     * @since 3.0.0
-     *
-     * @param {Phaser.Tilemaps.DynamicTilemapLayer} tilemapLayer - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchDynamicTilemapLayer: function (tilemapLayer, camera, parentTransformMatrix)
-    {
-        var renderTiles = tilemapLayer.culledTiles;
-        var length = renderTiles.length;
-        var texture = tilemapLayer.tileset.image.get().source.glTexture;
-        var tileset = tilemapLayer.tileset;
-        var scrollFactorX = tilemapLayer.scrollFactorX;
-        var scrollFactorY = tilemapLayer.scrollFactorY;
-        var alpha = tilemapLayer.alpha;
-        var x = tilemapLayer.x;
-        var y = tilemapLayer.y;
-        var sx = tilemapLayer.scaleX;
-        var sy = tilemapLayer.scaleY;
-        var getTint = Utils.getTintAppendFloatAlpha;
-
-        for (var index = 0; index < length; ++index)
-        {
-            var tile = renderTiles[index];
-
-            var tileTexCoords = tileset.getTileTextureCoordinates(tile.index);
-            if (tileTexCoords === null) { continue; }
-
-            var frameWidth = tile.width;
-            var frameHeight = tile.height;
-            var frameX = tileTexCoords.x;
-            var frameY = tileTexCoords.y;
-            var tint = getTint(tile.tint, alpha * tile.alpha);
-
-            this.batchTexture(
-                tilemapLayer,
-                texture,
-                texture.width, texture.height,
-                (tile.width / 2) + x + tile.pixelX * sx, (tile.height / 2) + y + tile.pixelY * sy,
-                tile.width * sx, tile.height * sy,
-                1, 1,
-                tile.rotation,
-                tile.flipX, tile.flipY,
-                scrollFactorX, scrollFactorY,
-                (tile.width / 2), (tile.height / 2),
-                frameX, frameY, frameWidth, frameHeight,
-                tint, tint, tint, tint,
-                0, 0,
-                camera,
-                parentTransformMatrix
-            );
-        }
-    },
-
-    /**
-     * Batches TileSprite game object
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTileSprite
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.TileSprite} tileSprite - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchTileSprite: function (tileSprite, camera, parentTransformMatrix)
-    {
-        var getTint = Utils.getTintAppendFloatAlpha;
-
-        this.batchTexture(
-            tileSprite,
-            tileSprite.tileTexture,
-            tileSprite.frame.width, tileSprite.frame.height,
-            tileSprite.x, tileSprite.y,
-            tileSprite.width, tileSprite.height,
-            tileSprite.scaleX, tileSprite.scaleY,
-            tileSprite.rotation,
-            tileSprite.flipX, tileSprite.flipY,
-            tileSprite.scrollFactorX, tileSprite.scrollFactorY,
-            tileSprite.originX * tileSprite.width, tileSprite.originY * tileSprite.height,
-            0, 0, tileSprite.width, tileSprite.height,
-            getTint(tileSprite._tintTL, tileSprite._alphaTL),
-            getTint(tileSprite._tintTR, tileSprite._alphaTR),
-            getTint(tileSprite._tintBL, tileSprite._alphaBL),
-            getTint(tileSprite._tintBR, tileSprite._alphaBR),
-            (tileSprite.tilePositionX % tileSprite.frame.width) / tileSprite.frame.width,
-            (tileSprite.tilePositionY % tileSprite.frame.height) / tileSprite.frame.height,
-            camera,
-            parentTransformMatrix
-        );
+        return hasFlushed;
     },
 
     /**
@@ -57688,29 +59108,30 @@ var TextureTintPipeline = new Class({
      * @param {WebGLTexture} texture - Raw WebGLTexture associated with the quad
      * @param {integer} textureWidth - Real texture width
      * @param {integer} textureHeight - Real texture height
-     * @param {float} srcX - X coordinate of the quad
-     * @param {float} srcY - Y coordinate of the quad
-     * @param {float} srcWidth - Width of the quad
-     * @param {float} srcHeight - Height of the quad
-     * @param {float} scaleX - X component of scale
-     * @param {float} scaleY - Y component of scale
-     * @param {float} rotation - Rotation of the quad
+     * @param {number} srcX - X coordinate of the quad
+     * @param {number} srcY - Y coordinate of the quad
+     * @param {number} srcWidth - Width of the quad
+     * @param {number} srcHeight - Height of the quad
+     * @param {number} scaleX - X component of scale
+     * @param {number} scaleY - Y component of scale
+     * @param {number} rotation - Rotation of the quad
      * @param {boolean} flipX - Indicates if the quad is horizontally flipped
      * @param {boolean} flipY - Indicates if the quad is vertically flipped
-     * @param {float} scrollFactorX - By which factor is the quad affected by the camera horizontal scroll
-     * @param {float} scrollFactorY - By which factor is the quad effected by the camera vertical scroll
-     * @param {float} displayOriginX - Horizontal origin in pixels
-     * @param {float} displayOriginY - Vertical origin in pixels
-     * @param {float} frameX - X coordinate of the texture frame
-     * @param {float} frameY - Y coordinate of the texture frame
-     * @param {float} frameWidth - Width of the texture frame
-     * @param {float} frameHeight - Height of the texture frame
+     * @param {number} scrollFactorX - By which factor is the quad affected by the camera horizontal scroll
+     * @param {number} scrollFactorY - By which factor is the quad effected by the camera vertical scroll
+     * @param {number} displayOriginX - Horizontal origin in pixels
+     * @param {number} displayOriginY - Vertical origin in pixels
+     * @param {number} frameX - X coordinate of the texture frame
+     * @param {number} frameY - Y coordinate of the texture frame
+     * @param {number} frameWidth - Width of the texture frame
+     * @param {number} frameHeight - Height of the texture frame
      * @param {integer} tintTL - Tint for top left
      * @param {integer} tintTR - Tint for top right
      * @param {integer} tintBL - Tint for bottom left
      * @param {integer} tintBR - Tint for bottom right
-     * @param {float} uOffset - Horizontal offset on texture coordinate
-     * @param {float} vOffset - Vertical offset on texture coordinate
+     * @param {number} tintEffect - The tint effect (0 for additive, 1 for replacement)
+     * @param {number} uOffset - Horizontal offset on texture coordinate
+     * @param {number} vOffset - Vertical offset on texture coordinate
      * @param {Phaser.Cameras.Scene2D.Camera} camera - Current used camera
      * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - Parent container
      */
@@ -57726,194 +59147,133 @@ var TextureTintPipeline = new Class({
         scrollFactorX, scrollFactorY,
         displayOriginX, displayOriginY,
         frameX, frameY, frameWidth, frameHeight,
-        tintTL, tintTR, tintBL, tintBR,
+        tintTL, tintTR, tintBL, tintBR, tintEffect,
         uOffset, vOffset,
         camera,
         parentTransformMatrix)
     {
-        var parentMatrix = null;
+        this.renderer.setPipeline(this, gameObject);
+
+        var camMatrix = this._tempMatrix1;
+        var spriteMatrix = this._tempMatrix2;
+        var calcMatrix = this._tempMatrix3;
+
+        var width = srcWidth;
+        var height = srcHeight;
+
+        var x = -displayOriginX;
+        var y = -displayOriginY;
+
+        //  Invert the flipY if this is a RenderTexture
+        flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
+
+        if (flipX)
+        {
+            width *= -1;
+            x += srcWidth;
+        }
+
+        if (flipY)
+        {
+            height *= -1;
+            y += srcHeight;
+        }
+
+        if (camera.roundPixels)
+        {
+            x |= 0;
+            y |= 0;
+        }
+
+        var xw = x + width;
+        var yh = y + height;
+
+        spriteMatrix.applyITRS(srcX, srcY, rotation, scaleX, scaleY);
+
+        camMatrix.copyFrom(camera.matrix);
 
         if (parentTransformMatrix)
         {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
+            //  Multiply the camera by the parent matrix
+            camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * scrollFactorX, -camera.scrollY * scrollFactorY);
 
-        this.renderer.setPipeline(this);
+            //  Undo the camera scroll
+            spriteMatrix.e = srcX;
+            spriteMatrix.f = srcY;
 
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
-
-        var roundPixels = this.renderer.config.roundPixels;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var cameraMatrix = camera.matrix.matrix;
-        var width = srcWidth * (flipX ? -1.0 : 1.0);
-        var height = srcHeight * (flipY ? -1.0 : 1.0);
-        var x = -displayOriginX + ((srcWidth) * (flipX ? 1.0 : 0.0));
-        var y = -displayOriginY + ((srcHeight) * (flipY ? 1.0 : 0.0));
-        var xw = x + width;
-        var yh = y + height;
-        var translateX = srcX;
-        var translateY = srcY;
-        var sr = Math.sin(rotation);
-        var cr = Math.cos(rotation);
-        var sra = cr * scaleX;
-        var srb = sr * scaleX;
-        var src = -sr * scaleY;
-        var srd = cr * scaleY;
-        var sre = translateX;
-        var srf = translateY;
-        var cma = cameraMatrix[0];
-        var cmb = cameraMatrix[1];
-        var cmc = cameraMatrix[2];
-        var cmd = cameraMatrix[3];
-        var cme = cameraMatrix[4];
-        var cmf = cameraMatrix[5];
-        var mva, mvb, mvc, mvd, mve, mvf;
-
-        if (parentMatrix)
-        {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var cse = -camera.scrollX * scrollFactorX;
-            var csf = -camera.scrollY * scrollFactorY;
-            var pse = cse * cma + csf * cmc + cme;
-            var psf = cse * cmb + csf * cmd + cmf;
-            var pca = pma * cma + pmb * cmc;
-            var pcb = pma * cmb + pmb * cmd;
-            var pcc = pmc * cma + pmd * cmc;
-            var pcd = pmc * cmb + pmd * cmd;
-            var pce = pme * cma + pmf * cmc + pse;
-            var pcf = pme * cmb + pmf * cmd + psf;
-
-            mva = sra * pca + srb * pcc;
-            mvb = sra * pcb + srb * pcd;
-            mvc = src * pca + srd * pcc;
-            mvd = src * pcb + srd * pcd;
-            mve = sre * pca + srf * pcc + pce;
-            mvf = sre * pcb + srf * pcd + pcf;
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
         else
         {
-            sre -= camera.scrollX * scrollFactorX;
-            srf -= camera.scrollY * scrollFactorY;
-
-            mva = sra * cma + srb * cmc;
-            mvb = sra * cmb + srb * cmd;
-            mvc = src * cma + srd * cmc;
-            mvd = src * cmb + srd * cmd;
-            mve = sre * cma + srf * cmc + cme;
-            mvf = sre * cmb + srf * cmd + cmf;
+            spriteMatrix.e -= camera.scrollX * scrollFactorX;
+            spriteMatrix.f -= camera.scrollY * scrollFactorY;
+    
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
         }
 
-        var tx0 = x * mva + y * mvc + mve;
-        var ty0 = x * mvb + y * mvd + mvf;
-        var tx1 = x * mva + yh * mvc + mve;
-        var ty1 = x * mvb + yh * mvd + mvf;
-        var tx2 = xw * mva + yh * mvc + mve;
-        var ty2 = xw * mvb + yh * mvd + mvf;
-        var tx3 = xw * mva + y * mvc + mve;
-        var ty3 = xw * mvb + y * mvd + mvf;
-        var vertexOffset = 0;
+        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        if (camera.roundPixels)
+        {
+            tx0 |= 0;
+            ty0 |= 0;
+
+            tx1 |= 0;
+            ty1 |= 0;
+
+            tx2 |= 0;
+            ty2 |= 0;
+
+            tx3 |= 0;
+            ty3 |= 0;
+        }
+
         var u0 = (frameX / textureWidth) + uOffset;
         var v0 = (frameY / textureHeight) + vOffset;
         var u1 = (frameX + frameWidth) / textureWidth + uOffset;
         var v1 = (frameY + frameHeight) / textureHeight + vOffset;
-        
+
         this.setTexture2D(texture, 0);
 
-        vertexOffset = this.vertexCount * this.vertexComponentCount;
-
-        if (roundPixels)
-        {
-            tx0 |= 0;
-            ty0 |= 0;
-            tx1 |= 0;
-            ty1 |= 0;
-            tx2 |= 0;
-            ty2 |= 0;
-            tx3 |= 0;
-            ty3 |= 0;
-        }
-
-        vertexViewF32[vertexOffset + 0] = tx0;
-        vertexViewF32[vertexOffset + 1] = ty0;
-        vertexViewF32[vertexOffset + 2] = u0;
-        vertexViewF32[vertexOffset + 3] = v0;
-        vertexViewU32[vertexOffset + 4] = tintTL;
-        vertexViewF32[vertexOffset + 5] = tx1;
-        vertexViewF32[vertexOffset + 6] = ty1;
-        vertexViewF32[vertexOffset + 7] = u0;
-        vertexViewF32[vertexOffset + 8] = v1;
-        vertexViewU32[vertexOffset + 9] = tintTR;
-        vertexViewF32[vertexOffset + 10] = tx2;
-        vertexViewF32[vertexOffset + 11] = ty2;
-        vertexViewF32[vertexOffset + 12] = u1;
-        vertexViewF32[vertexOffset + 13] = v1;
-        vertexViewU32[vertexOffset + 14] = tintBL;
-        vertexViewF32[vertexOffset + 15] = tx0;
-        vertexViewF32[vertexOffset + 16] = ty0;
-        vertexViewF32[vertexOffset + 17] = u0;
-        vertexViewF32[vertexOffset + 18] = v0;
-        vertexViewU32[vertexOffset + 19] = tintTL;
-        vertexViewF32[vertexOffset + 20] = tx2;
-        vertexViewF32[vertexOffset + 21] = ty2;
-        vertexViewF32[vertexOffset + 22] = u1;
-        vertexViewF32[vertexOffset + 23] = v1;
-        vertexViewU32[vertexOffset + 24] = tintBL;
-        vertexViewF32[vertexOffset + 25] = tx3;
-        vertexViewF32[vertexOffset + 26] = ty3;
-        vertexViewF32[vertexOffset + 27] = u1;
-        vertexViewF32[vertexOffset + 28] = v0;
-        vertexViewU32[vertexOffset + 29] = tintBR;
-
-        this.vertexCount += 6;
+        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
     },
 
     /**
-     * Immediately draws a texture with no batching.
+     * Immediately draws a Texture Frame with no batching.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawTexture
-     * @since 3.2.0
+     * @since 3.11.0
      *
-     * @param {WebGLTexture} texture [description]
-     * @param {number} srcX - [description]
-     * @param {number} srcY - [description]
-     * @param {number} tint - [description]
-     * @param {number} alpha - [description]
-     * @param {number} frameX - [description]
-     * @param {number} frameY - [description]
-     * @param {number} frameWidth - [description]
-     * @param {number} frameHeight - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} transformMatrix - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
+     * @param {WebGLTexture} texture - The WebGL Texture to be rendered.
+     * @param {number} x - The horizontal position to render the texture at.
+     * @param {number} y - The vertical position to render the texture at.
+     * @param {number} tint - The tint color.
+     * @param {number} alpha - The alpha value.
+     * @param {array} transformMatrix - An array of matrix values.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} [parentTransformMatrix] - A parent Transform Matrix.
      *
      * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This Pipeline.
      */
-    drawTexture: function (
-        texture,
-        srcX, srcY,
+    drawTextureFrame: function (
+        frame,
+        x, y,
         tint, alpha,
-        frameX, frameY, frameWidth, frameHeight,
         transformMatrix,
         parentTransformMatrix
     )
     {
-        var parentMatrix = null;
-
-        if (parentTransformMatrix)
-        {
-            parentMatrix = parentTransformMatrix.matrix;
-        }
-
         this.renderer.setPipeline(this);
 
         if (this.vertexCount + 6 > this.vertexCapacity)
@@ -57921,126 +59281,57 @@ var TextureTintPipeline = new Class({
             this.flush();
         }
 
-        var roundPixels = this.renderer.config.roundPixels;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var width = frameWidth;
-        var height = frameHeight;
-        var x = srcX;
-        var y = srcY;
-        var xw = x + width;
-        var yh = y + height;
-        var mva = transformMatrix[0];
-        var mvb = transformMatrix[1];
-        var mvc = transformMatrix[2];
-        var mvd = transformMatrix[3];
-        var mve = transformMatrix[4];
-        var mvf = transformMatrix[5];
+        var spriteMatrix = this._tempMatrix1.copyFromArray(transformMatrix);
+        var calcMatrix = this._tempMatrix2;
 
-        if (parentMatrix)
+        var xw = x + frame.width;
+        var yh = y + frame.height;
+
+        if (parentTransformMatrix)
         {
-            var pma = parentMatrix[0];
-            var pmb = parentMatrix[1];
-            var pmc = parentMatrix[2];
-            var pmd = parentMatrix[3];
-            var pme = parentMatrix[4];
-            var pmf = parentMatrix[5];
-            var pca = mva * pma + mvb * pmc;
-            var pcb = mva * pmb + mvb * pmd;
-            var pcc = mvc * pma + mvd * pmc;
-            var pcd = mvc * pmb + mvd * pmd;
-            var pce = mve * pma + mvf * pmc + pme;
-            var pcf = mve * pmb + mvf * pmd + pmf;
-            mva = pca;
-            mvb = pcb;
-            mvc = pcc;
-            mvd = pcd;
-            mve = pce;
-            mvf = pcf;
+            spriteMatrix.multiply(parentTransformMatrix, calcMatrix);
+        }
+        else
+        {
+            calcMatrix = spriteMatrix;
         }
 
-        var tx0 = x * mva + y * mvc + mve;
-        var ty0 = x * mvb + y * mvd + mvf;
-        var tx1 = x * mva + yh * mvc + mve;
-        var ty1 = x * mvb + yh * mvd + mvf;
-        var tx2 = xw * mva + yh * mvc + mve;
-        var ty2 = xw * mvb + yh * mvd + mvf;
-        var tx3 = xw * mva + y * mvc + mve;
-        var ty3 = xw * mvb + y * mvd + mvf;
-        var vertexOffset = 0;
-        var textureWidth = texture.width;
-        var textureHeight = texture.height;
-        var u0 = (frameX / textureWidth);
-        var v0 = (frameY / textureHeight);
-        var u1 = (frameX + frameWidth) / textureWidth;
-        var v1 = (frameY + frameHeight) / textureHeight;
-        tint = Utils.getTintAppendFloatAlpha(tint, alpha);
-        
-        this.setTexture2D(texture, 0);
+        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
 
-        vertexOffset = this.vertexCount * this.vertexComponentCount;
+        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
 
-        if (roundPixels)
+        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
+        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+
+        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
+        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+
+        if (this.renderer.config.roundPixels)
         {
             tx0 |= 0;
             ty0 |= 0;
+
             tx1 |= 0;
             ty1 |= 0;
+
             tx2 |= 0;
             ty2 |= 0;
+
             tx3 |= 0;
             ty3 |= 0;
         }
 
-        vertexViewF32[vertexOffset + 0] = tx0;
-        vertexViewF32[vertexOffset + 1] = ty0;
-        vertexViewF32[vertexOffset + 2] = u0;
-        vertexViewF32[vertexOffset + 3] = v0;
-        vertexViewU32[vertexOffset + 4] = tint;
-        vertexViewF32[vertexOffset + 5] = tx1;
-        vertexViewF32[vertexOffset + 6] = ty1;
-        vertexViewF32[vertexOffset + 7] = u0;
-        vertexViewF32[vertexOffset + 8] = v1;
-        vertexViewU32[vertexOffset + 9] = tint;
-        vertexViewF32[vertexOffset + 10] = tx2;
-        vertexViewF32[vertexOffset + 11] = ty2;
-        vertexViewF32[vertexOffset + 12] = u1;
-        vertexViewF32[vertexOffset + 13] = v1;
-        vertexViewU32[vertexOffset + 14] = tint;
-        vertexViewF32[vertexOffset + 15] = tx0;
-        vertexViewF32[vertexOffset + 16] = ty0;
-        vertexViewF32[vertexOffset + 17] = u0;
-        vertexViewF32[vertexOffset + 18] = v0;
-        vertexViewU32[vertexOffset + 19] = tint;
-        vertexViewF32[vertexOffset + 20] = tx2;
-        vertexViewF32[vertexOffset + 21] = ty2;
-        vertexViewF32[vertexOffset + 22] = u1;
-        vertexViewF32[vertexOffset + 23] = v1;
-        vertexViewU32[vertexOffset + 24] = tint;
-        vertexViewF32[vertexOffset + 25] = tx3;
-        vertexViewF32[vertexOffset + 26] = ty3;
-        vertexViewF32[vertexOffset + 27] = u1;
-        vertexViewF32[vertexOffset + 28] = v0;
-        vertexViewU32[vertexOffset + 29] = tint;
+        this.setTexture2D(frame.glTexture, 0);
 
-        this.vertexCount += 6;
+        tint = Utils.getTintAppendFloatAlpha(tint, alpha);
 
-        // Force an immediate draw
-        this.flush();
-    },
+        if (!this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, frame.u0, frame.v0, frame.u1, frame.v1, tint, tint, tint, tint, 0))
+        {
+            this.flush();
+        }
 
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchGraphics
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Graphics} graphics - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     */
-    batchGraphics: function ()
-    {
-        // Stub
     }
 
 });
@@ -58872,12 +60163,22 @@ module.exports = [
     'uniform sampler2D uMainSampler;',
     '',
     'varying vec2 outTexCoord;',
+    'varying float outTintEffect;',
     'varying vec4 outTint;',
     '',
     'void main()',
     '{',
     '    vec4 texel = texture2D(uMainSampler, outTexCoord);',
-    '    texel *= vec4(outTint.rgb * outTint.a, outTint.a);',
+    '',
+    '    if (outTintEffect == 1.0)',
+    '    {',
+    '        texel.rgb = mix(texel.rgb, outTint.rgb, texel.a);',
+    '    }',
+    '    else',
+    '    {',
+    '        texel *= vec4(outTint.rgb * outTint.a, outTint.a);',
+    '    }',
+    '',
     '    gl_FragColor = texel;',
     '}',
     ''
@@ -58904,16 +60205,20 @@ module.exports = [
     '',
     'attribute vec2 inPosition;',
     'attribute vec2 inTexCoord;',
+    'attribute float inTintEffect;',
     'attribute vec4 inTint;',
     '',
     'varying vec2 outTexCoord;',
+    'varying float outTintEffect;',
     'varying vec4 outTint;',
     '',
     'void main ()',
     '{',
     '    gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(inPosition, 1.0, 1.0);',
+    '',
     '    outTexCoord = inTexCoord;',
     '    outTint = inTint;',
+    '    outTintEffect = inTintEffect;',
     '}',
     '',
     ''
@@ -59534,7 +60839,7 @@ var SceneManager = new Class({
                 });
             }
         }
-        
+
         game.events.once('ready', this.bootQueue, this);
     },
 
@@ -59835,6 +61140,8 @@ var SceneManager = new Class({
         {
             scene.init.call(scene, settings.data);
 
+            settings.status = CONST.INIT;
+
             if (settings.isTransition)
             {
                 sys.events.emit('transitioninit', settings.transitionFrom, settings.transitionDuration);
@@ -60001,9 +61308,9 @@ var SceneManager = new Class({
 
         if (scene.create)
         {
-            scene.sys.settings.status = CONST.CREATING;
+            settings.status = CONST.CREATING;
 
-            scene.create.call(scene, scene.sys.settings.data);
+            scene.create.call(scene, settings.data);
 
             if (settings.isTransition)
             {
@@ -60319,16 +61626,17 @@ var SceneManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The Scene to pause.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted by its pause event.
      *
      * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
-    pause: function (key)
+    pause: function (key, data)
     {
         var scene = this.getScene(key);
 
         if (scene)
         {
-            scene.sys.pause();
+            scene.sys.pause(data);
         }
 
         return this;
@@ -60341,16 +61649,17 @@ var SceneManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The Scene to resume.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted by its resume event.
      *
      * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
-    resume: function (key)
+    resume: function (key, data)
     {
         var scene = this.getScene(key);
 
         if (scene)
         {
-            scene.sys.resume();
+            scene.sys.resume(data);
         }
 
         return this;
@@ -60363,16 +61672,17 @@ var SceneManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The Scene to put to sleep.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted by its sleep event.
      *
      * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
-    sleep: function (key)
+    sleep: function (key, data)
     {
         var scene = this.getScene(key);
 
         if (scene && !scene.sys.isTransitioning())
         {
-            scene.sys.sleep();
+            scene.sys.sleep(data);
         }
 
         return this;
@@ -60385,16 +61695,17 @@ var SceneManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The Scene to wake up.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted by its wake event.
      *
      * @return {Phaser.Scenes.SceneManager} This SceneManager.
      */
-    wake: function (key)
+    wake: function (key, data)
     {
         var scene = this.getScene(key);
 
         if (scene)
         {
-            scene.sys.wake();
+            scene.sys.wake(data);
         }
 
         return this;
@@ -60402,7 +61713,7 @@ var SceneManager = new Class({
 
     /**
      * Runs the given Scene, but does not change the state of this Scene.
-     * 
+     *
      * If the given Scene is paused, it will resume it. If sleeping, it will wake it.
      * If not running at all, it will be started.
      *
@@ -60413,7 +61724,7 @@ var SceneManager = new Class({
      * @since 3.10.0
      *
      * @param {string} key - The Scene to run.
-     * @param {object} [data] - A data object that will be passed to the Scene that is run _only if the Scene isn't asleep or paused_.
+     * @param {object} [data] - A data object that will be passed to the Scene on start, wake, or resume.
      *
      * @return {Phaser.Scenes.SceneManager} This Scene Manager.
      */
@@ -60423,18 +61734,26 @@ var SceneManager = new Class({
 
         if (!scene)
         {
+            for (var i = 0; i < this._pending.length; i++)
+            {
+                if (this._pending[i].key === key)
+                {
+                    this.queueOp('start', key, data);
+                    break;
+                }
+            }
             return this;
         }
 
         if (scene.sys.isSleeping())
         {
             //  Sleeping?
-            scene.sys.wake();
+            scene.sys.wake(data);
         }
         else if (scene.sys.isBooted && !scene.sys.isActive())
         {
             //  Paused?
-            scene.sys.resume();
+            scene.sys.resume(data);
         }
         else
         {
@@ -60952,7 +62271,6 @@ module.exports = SceneManager;
 
 var Clamp = __webpack_require__(/*! ../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var CONST = __webpack_require__(/*! ./const */ "./scene/const.js");
 var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 
@@ -61023,7 +62341,7 @@ var ScenePlugin = new Class({
          * the current percentage of the transition progress, between 0 and 1.
          *
          * @name Phaser.Scenes.ScenePlugin#transitionProgress
-         * @type {float}
+         * @type {number}
          * @since 3.5.0
          */
         this.transitionProgress = 0;
@@ -61137,7 +62455,7 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#start
      * @since 3.0.0
      *
-     * @param {string} key - The Scene to start.
+     * @param {string} [key] - The Scene to start.
      * @param {object} [data] - The Scene data.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
@@ -61146,16 +62464,8 @@ var ScenePlugin = new Class({
     {
         if (key === undefined) { key = this.key; }
 
-        if (this.settings.status !== CONST.RUNNING)
-        {
-            this.manager.queueOp('stop', this.key);
-            this.manager.queueOp('start', key, data);
-        }
-        else
-        {
-            this.manager.stop(this.key);
-            this.manager.start(key, data);
-        }
+        this.manager.queueOp('stop', this.key);
+        this.manager.queueOp('start', key, data);
 
         return this;
     },
@@ -61174,16 +62484,8 @@ var ScenePlugin = new Class({
     {
         var key = this.key;
 
-        if (this.settings.status !== CONST.RUNNING)
-        {
-            this.manager.queueOp('stop', key);
-            this.manager.queueOp('start', key, data);
-        }
-        else
-        {
-            this.manager.stop(key);
-            this.manager.start(key, data);
-        }
+        this.manager.queueOp('stop', key);
+        this.manager.queueOp('start', key, data);
 
         return this;
     },
@@ -61431,14 +62733,7 @@ var ScenePlugin = new Class({
     {
         if (key && key !== this.key)
         {
-            if (this.settings.status !== CONST.RUNNING)
-            {
-                this.manager.queueOp('start', key, data);
-            }
-            else
-            {
-                this.manager.start(key, data);
-            }
+            this.manager.queueOp('start', key, data);
         }
 
         return this;
@@ -61457,19 +62752,15 @@ var ScenePlugin = new Class({
      * @since 3.10.0
      *
      * @param {string} key - The Scene to run.
-     * @param {object} [data] - A data object that will be passed to the Scene that is run _only if the Scene isn't asleep or paused_.
+     * @param {object} [data] - A data object that will be passed to the Scene and emitted in its ready, wake, or resume events.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
     run: function (key, data)
     {
-        if (this.settings.status !== CONST.RUNNING)
+        if (key && key !== this.key)
         {
             this.manager.queueOp('run', key, data);
-        }
-        else
-        {
-            this.manager.run(key, data);
         }
 
         return this;
@@ -61481,15 +62772,16 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#pause
      * @since 3.0.0
      *
-     * @param {string} key - The Scene to pause.
+     * @param {string} [key] - The Scene to pause.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted in its pause event.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
-    pause: function (key)
+    pause: function (key, data)
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.pause(key);
+        this.manager.queueOp('pause', key, data);
 
         return this;
     },
@@ -61500,15 +62792,16 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#resume
      * @since 3.0.0
      *
-     * @param {string} key - The Scene to resume.
+     * @param {string} [key] - The Scene to resume.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted in its resume event.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
-    resume: function (key)
+    resume: function (key, data)
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.resume(key);
+        this.manager.queueOp('resume', key, data);
 
         return this;
     },
@@ -61519,15 +62812,16 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#sleep
      * @since 3.0.0
      *
-     * @param {string} key - The Scene to put to sleep.
+     * @param {string} [key] - The Scene to put to sleep.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted in its sleep event.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
-    sleep: function (key)
+    sleep: function (key, data)
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.sleep(key);
+        this.manager.queueOp('sleep', key, data);
 
         return this;
     },
@@ -61538,15 +62832,16 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#wake
      * @since 3.0.0
      *
-     * @param {string} key - The Scene to wake up.
+     * @param {string} [key] - The Scene to wake up.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted in its wake event.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
-    wake: function (key)
+    wake: function (key, data)
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.wake(key);
+        this.manager.queueOp('wake', key, data);
 
         return this;
     },
@@ -61565,14 +62860,7 @@ var ScenePlugin = new Class({
     {
         if (key !== this.key)
         {
-            if (this.settings.status !== CONST.RUNNING)
-            {
-                this.manager.queueOp('switch', this.key, key);
-            }
-            else
-            {
-                this.manager.switch(this.key, key);
-            }
+            this.manager.queueOp('switch', this.key, key);
         }
 
         return this;
@@ -61592,7 +62880,7 @@ var ScenePlugin = new Class({
     {
         if (key === undefined) { key = this.key; }
 
-        this.manager.stop(key);
+        this.manager.queueOp('stop', key);
 
         return this;
     },
@@ -61603,12 +62891,13 @@ var ScenePlugin = new Class({
      * @method Phaser.Scenes.ScenePlugin#setActive
      * @since 3.0.0
      *
-     * @param {boolean} value - The active value.
-     * @param {string} [key] - The Scene to set the active state for.
+     * @param {boolean} value - If `true` the Scene will be resumed. If `false` it will be paused.
+     * @param {string} [key] - The Scene to set the active state of.
+     * @param {object} [data] - An optional data object that will be passed to the Scene and emitted with its events.
      *
      * @return {Phaser.Scenes.ScenePlugin} This ScenePlugin object.
      */
-    setActive: function (value, key)
+    setActive: function (value, key, data)
     {
         if (key === undefined) { key = this.key; }
 
@@ -61616,7 +62905,7 @@ var ScenePlugin = new Class({
 
         if (scene)
         {
-            scene.sys.setActive(value);
+            scene.sys.setActive(value, data);
         }
 
         return this;
@@ -62313,7 +63602,7 @@ var Systems = new Class({
 
         /**
          * The Scene Update function.
-         * 
+         *
          * This starts out as NOOP during init, preload and create, and at the end of create
          * it swaps to be whatever the Scene.update function is.
          *
@@ -62447,10 +63736,12 @@ var Systems = new Class({
      *
      * @method Phaser.Scenes.Systems#pause
      * @since 3.0.0
+     * 
+     * @param {object} [data] - A data object that will be passed in the 'pause' event.
      *
      * @return {Phaser.Scenes.Systems} This Systems object.
      */
-    pause: function ()
+    pause: function (data)
     {
         if (this.settings.active)
         {
@@ -62458,7 +63749,7 @@ var Systems = new Class({
 
             this.settings.active = false;
 
-            this.events.emit('pause', this);
+            this.events.emit('pause', this, data);
         }
 
         return this;
@@ -62470,9 +63761,11 @@ var Systems = new Class({
      * @method Phaser.Scenes.Systems#resume
      * @since 3.0.0
      *
+     * @param {object} [data] - A data object that will be passed in the 'resume' event.
+     *
      * @return {Phaser.Scenes.Systems} This Systems object.
      */
-    resume: function ()
+    resume: function (data)
     {
         if (!this.settings.active)
         {
@@ -62480,7 +63773,7 @@ var Systems = new Class({
 
             this.settings.active = true;
 
-            this.events.emit('resume', this);
+            this.events.emit('resume', this, data);
         }
 
         return this;
@@ -62496,17 +63789,19 @@ var Systems = new Class({
      *
      * @method Phaser.Scenes.Systems#sleep
      * @since 3.0.0
+     * 
+     * @param {object} [data] - A data object that will be passed in the 'sleep' event.
      *
      * @return {Phaser.Scenes.Systems} This Systems object.
      */
-    sleep: function ()
+    sleep: function (data)
     {
         this.settings.status = CONST.SLEEPING;
 
         this.settings.active = false;
         this.settings.visible = false;
 
-        this.events.emit('sleep', this);
+        this.events.emit('sleep', this, data);
 
         return this;
     },
@@ -62517,9 +63812,11 @@ var Systems = new Class({
      * @method Phaser.Scenes.Systems#wake
      * @since 3.0.0
      *
+     * @param {object} [data] - A data object that will be passed in the 'wake' event.
+     *
      * @return {Phaser.Scenes.Systems} This Systems object.
      */
-    wake: function ()
+    wake: function (data)
     {
         var settings = this.settings;
 
@@ -62528,7 +63825,7 @@ var Systems = new Class({
         settings.active = true;
         settings.visible = true;
 
-        this.events.emit('wake', this);
+        this.events.emit('wake', this, data);
 
         if (settings.isTransition)
         {
@@ -62636,24 +63933,26 @@ var Systems = new Class({
 
     /**
      * Set the active state of this Scene.
+     * 
      * An active Scene will run its core update loop.
      *
      * @method Phaser.Scenes.Systems#setActive
      * @since 3.0.0
      *
      * @param {boolean} value - If `true` the Scene will be resumed, if previously paused. If `false` it will be paused.
+     * @param {object} [data] - A data object that will be passed in the 'resume' or 'pause' events.
      *
      * @return {Phaser.Scenes.Systems} This Systems object.
      */
-    setActive: function (value)
+    setActive: function (value, data)
     {
         if (value)
         {
-            return this.resume();
+            return this.resume(data);
         }
         else
         {
-            return this.pause();
+            return this.pause(data);
         }
     },
 
@@ -62682,7 +63981,7 @@ var Systems = new Class({
         this.events.emit('start', this);
 
         //  For user-land code to listen out for
-        this.events.emit('ready', this);
+        this.events.emit('ready', this, data);
     },
 
     /**
@@ -62709,8 +64008,10 @@ var Systems = new Class({
      *
      * @method Phaser.Scenes.Systems#shutdown
      * @since 3.0.0
+     * 
+     * @param {object} [data] - A data object that will be passed in the 'shutdown' event.
      */
-    shutdown: function ()
+    shutdown: function (data)
     {
         this.events.off('transitioninit');
         this.events.off('transitionstart');
@@ -62722,7 +64023,7 @@ var Systems = new Class({
         this.settings.active = false;
         this.settings.visible = false;
 
-        this.events.emit('shutdown', this);
+        this.events.emit('shutdown', this, data);
     },
 
     /**
@@ -69971,6 +71272,7 @@ module.exports = CanvasTexture;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var Clamp = __webpack_require__(/*! ../math/Clamp */ "./math/Clamp.js");
 var Extend = __webpack_require__(/*! ../utils/object/Extend */ "./utils/object/Extend.js");
 
 /**
@@ -70032,6 +71334,16 @@ var Frame = new Class({
          * @since 3.0.0
          */
         this.sourceIndex = sourceIndex;
+
+        /**
+         * A reference to the Texture Source WebGL Texture that this Frame is using.
+         *
+         * @name Phaser.Textures.Frame#glTexture
+         * @type {?WebGLTexture}
+         * @default null
+         * @since 3.11.0
+         */
+        this.glTexture = this.source.glTexture;
 
         /**
          * X position within the source image to cut from.
@@ -70212,6 +71524,46 @@ var Frame = new Class({
         this.customData = {};
 
         /**
+         * WebGL UV u0 value.
+         *
+         * @name Phaser.Textures.Frame#u0
+         * @type {number}
+         * @default 0
+         * @since 3.11.0
+         */
+        this.u0 = 0;
+
+        /**
+         * WebGL UV v0 value.
+         *
+         * @name Phaser.Textures.Frame#v0
+         * @type {number}
+         * @default 0
+         * @since 3.11.0
+         */
+        this.v0 = 0;
+
+        /**
+         * WebGL UV u1 value.
+         *
+         * @name Phaser.Textures.Frame#u1
+         * @type {number}
+         * @default 0
+         * @since 3.11.0
+         */
+        this.u1 = 0;
+
+        /**
+         * WebGL UV v1 value.
+         *
+         * @name Phaser.Textures.Frame#v1
+         * @type {number}
+         * @default 0
+         * @since 3.11.0
+         */
+        this.v1 = 0;
+
+        /**
          * The un-modified source frame, trim and UV data.
          *
          * @name Phaser.Textures.Frame#data
@@ -70237,26 +71589,16 @@ var Frame = new Class({
                 x: 0,
                 y: 0,
                 w: 0,
-                h: 0
-            },
-            uvs: {
-                x0: 0,
-                y0: 0,
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 0,
-                x3: 0,
-                y3: 0
+                h: 0,
+                r: 0,
+                b: 0
             },
             radius: 0,
             drawImage: {
-                sx: 0,
-                sy: 0,
-                sWidth: 0,
-                sHeight: 0,
-                dWidth: 0,
-                dHeight: 0
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0
             }
         };
 
@@ -70318,12 +71660,10 @@ var Frame = new Class({
 
         var drawImage = data.drawImage;
 
-        drawImage.sx = x;
-        drawImage.sy = y;
-        drawImage.sWidth = width;
-        drawImage.sHeight = height;
-        drawImage.dWidth = width;
-        drawImage.dHeight = height;
+        drawImage.x = x;
+        drawImage.y = y;
+        drawImage.width = width;
+        drawImage.height = height;
 
         return this.updateUVs();
     },
@@ -70359,6 +71699,8 @@ var Frame = new Class({
         ss.y = destY;
         ss.w = destWidth;
         ss.h = destHeight;
+        ss.r = destX + destWidth;
+        ss.b = destY + destHeight;
 
         //  Adjust properties
         this.x = destX;
@@ -70374,6 +71716,162 @@ var Frame = new Class({
         this.centerY = Math.floor(destHeight / 2);
 
         return this.updateUVs();
+    },
+
+    /**
+     * Takes a crop data object and, based on the rectangular region given, calculates the
+     * required UV coordinates in order to crop this Frame for WebGL and Canvas rendering.
+     * 
+     * This is called directly by the Game Object Texture Components `setCrop` method.
+     * Please use that method to crop a Game Object.
+     *
+     * @method Phaser.Textures.Frame#setCropUVs
+     * @since 3.11.0
+     * 
+     * @param {object} crop - The crop data object. This is the `GameObject._crop` property.
+     * @param {number} x - The x coordinate to start the crop from. Cannot be negative or exceed the Frame width.
+     * @param {number} y - The y coordinate to start the crop from. Cannot be negative or exceed the Frame height.
+     * @param {number} width - The width of the crop rectangle. Cannot exceed the Frame width.
+     * @param {number} height - The height of the crop rectangle. Cannot exceed the Frame height.
+     * @param {boolean} flipX - Does the parent Game Object have flipX set?
+     * @param {boolean} flipY - Does the parent Game Object have flipY set?
+     *
+     * @return {object} The updated crop data object.
+     */
+    setCropUVs: function (crop, x, y, width, height, flipX, flipY)
+    {
+        //  Clamp the input values
+
+        var cx = this.cutX;
+        var cy = this.cutY;
+        var cw = this.cutWidth;
+        var ch = this.cutHeight;
+        var rw = this.realWidth;
+        var rh = this.realHeight;
+
+        x = Clamp(x, 0, rw);
+        y = Clamp(y, 0, rh);
+
+        width = Clamp(width, 0, rw - x);
+        height = Clamp(height, 0, rh - y);
+
+        var ox = cx + x;
+        var oy = cy + y;
+        var ow = width;
+        var oh = height;
+
+        var data = this.data;
+
+        if (data.trim)
+        {
+            var ss = data.spriteSourceSize;
+
+            //  Need to check for intersection between the cut area and the crop area
+            //  If there is none, we set UV to be empty, otherwise set it to be the intersection area
+
+            var cropRight = x + width;
+            var cropBottom = y + height;
+
+            var intersects = !(ss.r < x || ss.b < y || ss.x > cropRight || ss.y > cropBottom);
+
+            if (intersects)
+            {
+                var ix = Math.max(ss.x, x);
+                var iy = Math.max(ss.y, y);
+                var iw = Math.min(ss.r, cropRight) - ix;
+                var ih = Math.min(ss.b, cropBottom) - iy;
+
+                ow = iw;
+                oh = ih;
+    
+                if (flipX)
+                {
+                    ox = cx + (cw - (ix - ss.x) - iw);
+                }
+                else
+                {
+                    ox = cx + (ix - ss.x);
+                }
+        
+                if (flipY)
+                {
+                    oy = cy + (ch - (iy - ss.y) - ih);
+                }
+                else
+                {
+                    oy = cy + (iy - ss.y);
+                }
+
+                x = ix;
+                y = iy;
+
+                width = iw;
+                height = ih;
+            }
+            else
+            {
+                ox = 0;
+                oy = 0;
+                ow = 0;
+                oh = 0;
+            }
+        }
+        else
+        {
+            if (flipX)
+            {
+                ox = cx + (cw - x - width);
+            }
+    
+            if (flipY)
+            {
+                oy = cy + (ch - y - height);
+            }
+        }
+
+        var tw = this.source.width;
+        var th = this.source.height;
+
+        //  Map the given coordinates into UV space, clamping to the 0-1 range.
+
+        crop.u0 = Math.max(0, ox / tw);
+        crop.v0 = Math.max(0, oy / th);
+        crop.u1 = Math.min(1, (ox + ow) / tw);
+        crop.v1 = Math.min(1, (oy + oh) / th);
+
+        crop.x = x;
+        crop.y = y;
+
+        crop.cx = ox;
+        crop.cy = oy;
+        crop.cw = ow;
+        crop.ch = oh;
+
+        crop.width = width;
+        crop.height = height;
+
+        crop.flipX = flipX;
+        crop.flipY = flipY;
+
+        return crop;
+    },
+
+    /**
+     * Takes a crop data object and recalculates the UVs based on the dimensions inside the crop object.
+     * Called automatically by `setFrame`.
+     *
+     * @method Phaser.Textures.Frame#updateCropUVs
+     * @since 3.11.0
+     * 
+     * @param {object} crop - The crop data object. This is the `GameObject._crop` property.
+     * @param {boolean} flipX - Does the parent Game Object have flipX set?
+     * @param {boolean} flipY - Does the parent Game Object have flipY set?
+     *
+     * @return {object} The updated crop data object.
+     */
+    updateCropUVs: function (crop, flipX, flipY)
+    {
+        return this.setCropUVs(crop, crop.x, crop.y, crop.width, crop.height, flipX, flipY);
     },
 
     /**
@@ -70395,28 +71893,19 @@ var Frame = new Class({
 
         var cd = this.data.drawImage;
 
-        cd.sWidth = cw;
-        cd.sHeight = ch;
-        cd.dWidth = cw;
-        cd.dHeight = ch;
+        cd.width = cw;
+        cd.height = ch;
 
         //  WebGL data
 
         var tw = this.source.width;
         var th = this.source.height;
-        var uvs = this.data.uvs;
 
-        uvs.x0 = cx / tw;
-        uvs.y0 = cy / th;
+        this.u0 = cx / tw;
+        this.v0 = cy / th;
 
-        uvs.x1 = cx / tw;
-        uvs.y1 = (cy + ch) / th;
-
-        uvs.x2 = (cx + cw) / tw;
-        uvs.y2 = (cy + ch) / th;
-
-        uvs.x3 = (cx + cw) / tw;
-        uvs.y3 = cy / th;
+        this.u1 = (cx + cw) / tw;
+        this.v1 = (cy + ch) / th;
 
         return this;
     },
@@ -70433,19 +71922,12 @@ var Frame = new Class({
     {
         var tw = this.source.width;
         var th = this.source.height;
-        var uvs = this.data.uvs;
 
-        uvs.x3 = (this.cutX + this.cutHeight) / tw;
-        uvs.y3 = (this.cutY + this.cutWidth) / th;
+        this.u0 = (this.cutX + this.cutHeight) / tw;
+        this.v0 = this.cutY / th;
 
-        uvs.x2 = this.cutX / tw;
-        uvs.y2 = (this.cutY + this.cutWidth) / th;
-
-        uvs.x1 = this.cutX / tw;
-        uvs.y1 = this.cutY / th;
-
-        uvs.x0 = (this.cutX + this.cutHeight) / tw;
-        uvs.y0 = this.cutY / th;
+        this.u1 = this.cutX / tw;
+        this.v1 = (this.cutY + this.cutWidth) / th;
 
         return this;
     },
@@ -70533,23 +72015,6 @@ var Frame = new Class({
         get: function ()
         {
             return this.data.sourceSize.h;
-        }
-
-    },
-
-    /**
-     * The UV data for this Frame.
-     *
-     * @name Phaser.Textures.Frame#uvs
-     * @type {object}
-     * @readOnly
-     * @since 3.0.0
-     */
-    uvs: {
-
-        get: function ()
-        {
-            return this.data.uvs;
         }
 
     },
@@ -71009,7 +72474,7 @@ var Texture = new Class({
         {
             data = [ data ];
         }
-
+        
         for (var i = 0; i < data.length; i++)
         {
             var source = this.source[i];
@@ -71871,7 +73336,7 @@ var TextureManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The unique string-based key of the Texture.
-     * @param {(string|integer)} frame - The string or index of the Frame.
+     * @param {(string|integer)} [frame] - The string-based name, or integer based index, of the Frame to get from the Texture.
      *
      * @return {Phaser.Textures.Frame} A Texture Frame object.
      */
@@ -72249,7 +73714,7 @@ var TextureSource = new Class({
             }
         }
 
-        if (game.config.pixelArt)
+        if (!game.config.antialias)
         {
             this.setFilter(1);
         }
@@ -72866,6 +74331,11 @@ var SpriteSheet = function (texture, sourceIndex, x, y, width, height, config)
     var column = Math.floor((height - margin + spacing) / (frameHeight + spacing));
     var total = row * column;
 
+    if (total === 0)
+    {
+        console.warn('SpriteSheet frame dimensions will result in zero frames.');
+    }
+
     if (startFrame > total || startFrame < -total)
     {
         startFrame = 0;
@@ -73396,7 +74866,7 @@ var Clock = new Class({
          * [description]
          *
          * @name Phaser.Time.Clock#timeScale
-         * @type {float}
+         * @type {number}
          * @default 1
          * @since 3.0.0
          */
@@ -75574,7 +77044,7 @@ var TweenManager = new Class({
      * @method Phaser.Tweens.TweenManager#setGlobalTimeScale
      * @since 3.0.0
      *
-     * @param {float} value - [description]
+     * @param {number} value - [description]
      *
      * @return {Phaser.Tweens.TweenManager} [description]
      */
@@ -77469,6 +78939,8 @@ var Tween = new Class({
 
                 onStart.func.apply(onStart.scope, onStart.params);
             }
+
+            this.parent.makeActive(this);
         }
     },
 
@@ -77545,7 +79017,7 @@ var Tween = new Class({
      * @method Phaser.Tweens.Tween#seek
      * @since 3.0.0
      *
-     * @param {float} toPosition - A value between 0 and 1.
+     * @param {number} toPosition - A value between 0 and 1.
      */
     seek: function (toPosition)
     {
@@ -77678,7 +79150,7 @@ var Tween = new Class({
      * @method Phaser.Tweens.Tween#stop
      * @since 3.0.0
      *
-     * @param {float} [resetTo] - A value between 0 and 1.
+     * @param {number} [resetTo] - A value between 0 and 1.
      */
     stop: function (resetTo)
     {
@@ -78224,8 +79696,8 @@ module.exports = Tween;
  * @property {number} [repeatDelay=0] - Time in ms/frames before the repeat will start.
  * @property {boolean} [flipX=false] - Automatically call toggleFlipX when the TweenData yoyos or repeats
  * @property {boolean} [flipY=false] - Automatically call toggleFlipY when the TweenData yoyos or repeats
- * @property {float} [progress=0] - Between 0 and 1 showing completion of this TweenData.
- * @property {float} [elapsed=0] - Delta counter
+ * @property {number} [progress=0] - Between 0 and 1 showing completion of this TweenData.
+ * @property {number} [elapsed=0] - Delta counter
  * @property {integer} [repeatCounter=0] - How many repeats are left to run?
  * @property {number} [start=0] - Ease value data.
  * @property {number} [current=0] - Ease value data.
@@ -79023,7 +80495,7 @@ var AddAt = function (array, item, index, limit, callback, context)
         itemLength = remaining;
     }
 
-    for (var i = itemLength; i > 0; i--)
+    for (var i = itemLength - 1; i >= 0; i--)
     {
         var entry = item[i];
 
@@ -79165,7 +80637,7 @@ module.exports = CountAllMatching;
  * @param {array} array - The array to search.
  * @param {function} callback - A callback to be invoked for each item in the array.
  * @param {object} context - The context in which the callback is invoked.
- * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
+ * @param {...*} [args] - Additional arguments that will be passed to the callback, after the current array item.
  *
  * @return {array} The input array.
  */
@@ -79174,7 +80646,7 @@ var Each = function (array, callback, context)
     var i;
     var args = [ null ];
 
-    for (i = 2; i < arguments.length; i++)
+    for (i = 3; i < arguments.length; i++)
     {
         args.push(arguments[i]);
     }
@@ -79495,7 +80967,7 @@ module.exports = GetFirst;
  * @param {integer} [startIndex=0] - An optional start index.
  * @param {integer} [length=array.length] - An optional length, the total number of elements (from the startIndex) to choose from.
  *
- * @return {object} A random element from the array, or `null` if no element could be found in the range given.
+ * @return {*} A random element from the array, or `null` if no element could be found in the range given.
  */
 var GetRandom = function (array, startIndex, length)
 {

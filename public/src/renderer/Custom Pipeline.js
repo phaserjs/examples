@@ -79,10 +79,13 @@ function preload() {
 
 function create() {
 
-    this.add.sprite(500, 300, 'atari');
+    this.add.sprite(200, 300, 'beball');
+
+    this.add.sprite(500, 300, 'atari').setPipeline('Custom');
 
     bunny = this.add.sprite(400, 300, 'bunny');
     bunny.setPipeline('Custom');
+
     this.input.on('pointermove', function (pointer) {
         bunny.x = pointer.x;
         bunny.y = pointer.y;
@@ -100,7 +103,6 @@ function create() {
     }, this);
 
     this.add.sprite(800, 300, 'bikkuriman');
-    this.add.sprite(200, 300, 'beball');
 }
 
 var time = 0.0;

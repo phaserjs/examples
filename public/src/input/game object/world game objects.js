@@ -58,7 +58,7 @@ function create ()
         maxSpeed: 1.0
     };
 
-    controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
+    controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
     // this.cameras.main.setBackgroundColor('rgba(255, 0, 0, 0.5)');
     // this.cameras.main.setZoom(0.8);

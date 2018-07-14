@@ -184,7 +184,7 @@
         {
           "path": "src\\animation\\animation data.js",
           "name": "animation data.js",
-          "size": 2041,
+          "size": 2100,
           "extension": ".js"
         },
         {
@@ -274,7 +274,7 @@
         {
           "path": "src\\animation\\multi atlas animation.js",
           "name": "multi atlas animation.js",
-          "size": 587,
+          "size": 608,
           "extension": ".js"
         },
         {
@@ -368,7 +368,7 @@
           "extension": ".js"
         }
       ],
-      "size": 37645
+      "size": 37725
     },
     {
       "path": "src\\archived",
@@ -1006,11 +1006,11 @@
             {
               "path": "src\\audio\\SID\\test.js",
               "name": "test.js",
-              "size": 596,
+              "size": 2429,
               "extension": ".js"
             }
           ],
-          "size": 596
+          "size": 2429
         },
         {
           "path": "src\\audio\\Web Audio",
@@ -1080,7 +1080,7 @@
           "size": 41088
         }
       ],
-      "size": 117463
+      "size": 119296
     },
     {
       "path": "src\\bugs",
@@ -1089,17 +1089,17 @@
         {
           "path": "src\\bugs\\emitter blend mode.js",
           "name": "emitter blend mode.js",
-          "size": 1634,
+          "size": 559,
           "extension": ".js"
         },
         {
-          "path": "src\\bugs\\scroll factor test.js",
-          "name": "scroll factor test.js",
-          "size": 921,
+          "path": "src\\bugs\\mask.js",
+          "name": "mask.js",
+          "size": 1590,
           "extension": ".js"
         }
       ],
-      "size": 2555
+      "size": 2149
     },
     {
       "path": "src\\cache",
@@ -1130,6 +1130,18 @@
       "path": "src\\camera",
       "name": "camera",
       "children": [
+        {
+          "path": "src\\camera\\16 camera test.js",
+          "name": "16 camera test.js",
+          "size": 884,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\32 camera test.js",
+          "name": "32 camera test.js",
+          "size": 883,
+          "extension": ".js"
+        },
         {
           "path": "src\\camera\\3D camera",
           "name": "3D camera",
@@ -1240,6 +1252,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\add camera on click.js",
+          "name": "add camera on click.js",
+          "size": 991,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\background color interpolate.js",
           "name": "background color interpolate.js",
           "size": 1196,
@@ -1255,6 +1273,18 @@
           "path": "src\\camera\\basics.js",
           "name": "basics.js",
           "size": 1146,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\bounds at zero.js",
+          "name": "bounds at zero.js",
+          "size": 2711,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\camera alpha.js",
+          "name": "camera alpha.js",
+          "size": 2321,
           "extension": ".js"
         },
         {
@@ -1288,6 +1318,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\center on.js",
+          "name": "center on.js",
+          "size": 1815,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\fade.js",
           "name": "fade.js",
           "size": 1191,
@@ -1296,7 +1332,7 @@
         {
           "path": "src\\camera\\fixed to camera.js",
           "name": "fixed to camera.js",
-          "size": 1650,
+          "size": 1664,
           "extension": ".js"
         },
         {
@@ -1312,6 +1348,18 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\follow sprite small bounds.js",
+          "name": "follow sprite small bounds.js",
+          "size": 3224,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\follow sprite with deadzone.js",
+          "name": "follow sprite with deadzone.js",
+          "size": 4389,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\follow sprite.js",
           "name": "follow sprite.js",
           "size": 1151,
@@ -1320,7 +1368,19 @@
         {
           "path": "src\\camera\\follow user controlled sprite.js",
           "name": "follow user controlled sprite.js",
-          "size": 1779,
+          "size": 1599,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\follow zoom tilemap.js",
+          "name": "follow zoom tilemap.js",
+          "size": 2061,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\follow zoom.js",
+          "name": "follow zoom.js",
+          "size": 1821,
           "extension": ".js"
         },
         {
@@ -1332,7 +1392,7 @@
         {
           "path": "src\\camera\\ignore.js",
           "name": "ignore.js",
-          "size": 1214,
+          "size": 1199,
           "extension": ".js"
         },
         {
@@ -1344,7 +1404,7 @@
         {
           "path": "src\\camera\\move camera with keys.js",
           "name": "move camera with keys.js",
-          "size": 1814,
+          "size": 1824,
           "extension": ".js"
         },
         {
@@ -1421,9 +1481,27 @@
           "extension": ".js"
         },
         {
-          "path": "src\\camera\\rotate around sprite.js",
-          "name": "rotate around sprite.js",
-          "size": 1828,
+          "path": "src\\camera\\pan to.js",
+          "name": "pan to.js",
+          "size": 2005,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\remove camera on click.js",
+          "name": "remove camera on click.js",
+          "size": 1570,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\rotate camera.js",
+          "name": "rotate camera.js",
+          "size": 1813,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\round pixels.js",
+          "name": "round pixels.js",
+          "size": 505,
           "extension": ".js"
         },
         {
@@ -1435,19 +1513,19 @@
         {
           "path": "src\\camera\\set bounds.js",
           "name": "set bounds.js",
-          "size": 1056,
+          "size": 1066,
           "extension": ".js"
         },
         {
           "path": "src\\camera\\set scroll factor.js",
           "name": "set scroll factor.js",
-          "size": 1901,
+          "size": 1911,
           "extension": ".js"
         },
         {
           "path": "src\\camera\\set small bounds.js",
           "name": "set small bounds.js",
-          "size": 1115,
+          "size": 1125,
           "extension": ".js"
         },
         {
@@ -1471,17 +1549,29 @@
         {
           "path": "src\\camera\\tile map with camera shake.js",
           "name": "tile map with camera shake.js",
-          "size": 1337,
+          "size": 1347,
           "extension": ".js"
         },
         {
           "path": "src\\camera\\world camera.js",
           "name": "world camera.js",
-          "size": 5367,
+          "size": 5377,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\world view.js",
+          "name": "world view.js",
+          "size": 1625,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\zoom to.js",
+          "name": "zoom to.js",
+          "size": 2113,
           "extension": ".js"
         }
       ],
-      "size": 111439
+      "size": 140221
     },
     {
       "path": "src\\components",
@@ -1607,7 +1697,7 @@
         {
           "path": "src\\depth sorting\\isometric blocks.js",
           "name": "isometric blocks.js",
-          "size": 2391,
+          "size": 2401,
           "extension": ".js"
         },
         {
@@ -1629,7 +1719,7 @@
           "extension": ".js"
         }
       ],
-      "size": 23373
+      "size": 23383
     },
     {
       "path": "src\\display",
@@ -1916,6 +2006,37 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\masks\\geometry mask",
+              "name": "geometry mask",
+              "children": [
+                {
+                  "path": "src\\display\\masks\\geometry mask\\graphics mask.js",
+                  "name": "graphics mask.js",
+                  "size": 3246,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\display\\masks\\geometry mask\\image mask arc.js",
+                  "name": "image mask arc.js",
+                  "size": 868,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\display\\masks\\geometry mask\\image mask.js",
+                  "name": "image mask.js",
+                  "size": 901,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\display\\masks\\geometry mask\\multiple image mask.js",
+                  "name": "multiple image mask.js",
+                  "size": 1366,
+                  "extension": ".js"
+                }
+              ],
+              "size": 6381
+            },
+            {
               "path": "src\\display\\masks\\GeometryMask Example.js",
               "name": "GeometryMask Example.js",
               "size": 2119,
@@ -1952,7 +2073,7 @@
               "extension": ".js"
             }
           ],
-          "size": 27950
+          "size": 34331
         },
         {
           "path": "src\\display\\tint",
@@ -1962,6 +2083,12 @@
               "path": "src\\display\\tint\\atlas frame tint.js",
               "name": "atlas frame tint.js",
               "size": 835,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\tint\\corner tint.js",
+              "name": "corner tint.js",
+              "size": 924,
               "extension": ".js"
             },
             {
@@ -1989,6 +2116,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\tint\\rasters.js",
+              "name": "rasters.js",
+              "size": 1119,
+              "extension": ".js"
+            },
+            {
               "path": "src\\display\\tint\\single color tint.js",
               "name": "single color tint.js",
               "size": 731,
@@ -1997,7 +2130,7 @@
             {
               "path": "src\\display\\tint\\text tint.js",
               "name": "text tint.js",
-              "size": 507,
+              "size": 671,
               "extension": ".js"
             },
             {
@@ -2007,16 +2140,28 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\tint\\tint fill effect.js",
+              "name": "tint fill effect.js",
+              "size": 1036,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\tint\\tint fill.js",
+              "name": "tint fill.js",
+              "size": 1766,
+              "extension": ".js"
+            },
+            {
               "path": "src\\display\\tint\\tween tint.js",
               "name": "tween tint.js",
               "size": 713,
               "extension": ".js"
             }
           ],
-          "size": 8190
+          "size": 13199
         }
       ],
-      "size": 85172
+      "size": 96562
     },
     {
       "path": "src\\dwitter",
@@ -2056,7 +2201,7 @@
         {
           "path": "src\\events\\create event emitter.js",
           "name": "create event emitter.js",
-          "size": 762,
+          "size": 769,
           "extension": ".js"
         },
         {
@@ -2108,7 +2253,7 @@
           "extension": ".js"
         }
       ],
-      "size": 8579
+      "size": 8586
     },
     {
       "path": "src\\game config",
@@ -2234,7 +2379,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\canvas text.js",
                   "name": "canvas text.js",
-                  "size": 1241,
+                  "size": 1251,
                   "extension": ".js"
                 },
                 {
@@ -2276,11 +2421,11 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\vertical scroller.js",
                   "name": "vertical scroller.js",
-                  "size": 2371,
+                  "size": 2551,
                   "extension": ".js"
                 }
               ],
-              "size": 11277
+              "size": 11467
             },
             {
               "path": "src\\game objects\\bitmaptext\\retro font",
@@ -2366,6 +2511,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\bitmaptext\\static\\change font.js",
+                  "name": "change font.js",
+                  "size": 1365,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\bitmaptext\\static\\get text size multiline.js",
                   "name": "get text size multiline.js",
                   "size": 925,
@@ -2390,6 +2541,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\bitmaptext\\static\\multi line alignment.js",
+                  "name": "multi line alignment.js",
+                  "size": 1316,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\bitmaptext\\static\\multi line.js",
                   "name": "multi line.js",
                   "size": 801,
@@ -2399,6 +2556,12 @@
                   "path": "src\\game objects\\bitmaptext\\static\\padding.js",
                   "name": "padding.js",
                   "size": 898,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\bitmaptext\\static\\text origin.js",
+                  "name": "text origin.js",
+                  "size": 1381,
                   "extension": ".js"
                 },
                 {
@@ -2414,10 +2577,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 14025
+              "size": 18087
             }
           ],
-          "size": 36552
+          "size": 40804
         },
         {
           "path": "src\\game objects\\blitter",
@@ -2432,7 +2595,7 @@
             {
               "path": "src\\game objects\\blitter\\benchmark test 2.js",
               "name": "benchmark test 2.js",
-              "size": 1112,
+              "size": 1134,
               "extension": ".js"
             },
             {
@@ -2444,19 +2607,25 @@
             {
               "path": "src\\game objects\\blitter\\blitter alpha.js",
               "name": "blitter alpha.js",
-              "size": 540,
+              "size": 597,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\blitter\\blitter camera test canvas.js",
               "name": "blitter camera test canvas.js",
-              "size": 1340,
+              "size": 1350,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\blitter\\blitter camera test.js",
               "name": "blitter camera test.js",
-              "size": 1340,
+              "size": 1350,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\blitter\\blitter global alpha.js",
+              "name": "blitter global alpha.js",
+              "size": 530,
               "extension": ".js"
             },
             {
@@ -2520,12 +2689,18 @@
               "extension": ".js"
             }
           ],
-          "size": 31101
+          "size": 31730
         },
         {
           "path": "src\\game objects\\container",
           "name": "container",
           "children": [
+            {
+              "path": "src\\game objects\\container\\add array of sprites at index.js",
+              "name": "add array of sprites at index.js",
+              "size": 1251,
+              "extension": ".js"
+            },
             {
               "path": "src\\game objects\\container\\add array of sprites to container.js",
               "name": "add array of sprites to container.js",
@@ -2589,7 +2764,7 @@
             {
               "path": "src\\game objects\\container\\container and camera zoom.js",
               "name": "container and camera zoom.js",
-              "size": 2407,
+              "size": 2417,
               "extension": ".js"
             },
             {
@@ -2797,12 +2972,18 @@
               "extension": ".js"
             }
           ],
-          "size": 78280
+          "size": 79541
         },
         {
           "path": "src\\game objects\\graphics",
           "name": "graphics",
           "children": [
+            {
+              "path": "src\\game objects\\graphics\\arc stroke.js",
+              "name": "arc stroke.js",
+              "size": 708,
+              "extension": ".js"
+            },
             {
               "path": "src\\game objects\\graphics\\arc.js",
               "name": "arc.js",
@@ -2837,6 +3018,12 @@
               "path": "src\\game objects\\graphics\\fill rect.js",
               "name": "fill rect.js",
               "size": 495,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\graphics\\fill rounded rectangle.js",
+              "name": "fill rounded rectangle.js",
+              "size": 600,
               "extension": ".js"
             },
             {
@@ -2996,6 +3183,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\graphics\\stroke rounded rectangle.js",
+              "name": "stroke rounded rectangle.js",
+              "size": 610,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\graphics\\stroke triangle.js",
               "name": "stroke triangle.js",
               "size": 605,
@@ -3099,7 +3292,7 @@
               "size": 9314
             }
           ],
-          "size": 160506
+          "size": 162424
         },
         {
           "path": "src\\game objects\\group",
@@ -3205,7 +3398,7 @@
             {
               "path": "src\\game objects\\images\\blend test.js",
               "name": "blend test.js",
-              "size": 852,
+              "size": 849,
               "extension": ".js"
             },
             {
@@ -3293,12 +3486,18 @@
               "extension": ".js"
             }
           ],
-          "size": 13881
+          "size": 13878
         },
         {
           "path": "src\\game objects\\lights",
           "name": "lights",
           "children": [
+            {
+              "path": "src\\game objects\\lights\\blitter light.js",
+              "name": "blitter light.js",
+              "size": 2341,
+              "extension": ".js"
+            },
             {
               "path": "src\\game objects\\lights\\change scene.js",
               "name": "change scene.js",
@@ -3318,13 +3517,25 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\lights\\mesh light.js",
+              "name": "mesh light.js",
+              "size": 2808,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\lights\\spotlight.js",
               "name": "spotlight.js",
-              "size": 950,
+              "size": 1038,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\lights\\tilesprite light.js",
+              "name": "tilesprite light.js",
+              "size": 1867,
               "extension": ".js"
             }
           ],
-          "size": 7991
+          "size": 15095
         },
         {
           "path": "src\\game objects\\mesh",
@@ -3369,7 +3580,7 @@
             {
               "path": "src\\game objects\\mesh\\Vertex Color.js",
               "name": "Vertex Color.js",
-              "size": 1571,
+              "size": 1604,
               "extension": ".js"
             },
             {
@@ -3379,7 +3590,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15352
+          "size": 15385
         },
         {
           "path": "src\\game objects\\particle emitter",
@@ -3769,9 +3980,15 @@
               "name": "basic quad.js",
               "size": 3173,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\quad\\quad with atlas frame.js",
+              "name": "quad with atlas frame.js",
+              "size": 3719,
+              "extension": ".js"
             }
           ],
-          "size": 3173
+          "size": 6892
         },
         {
           "path": "src\\game objects\\render texture",
@@ -3792,7 +4009,7 @@
             {
               "path": "src\\game objects\\render texture\\draw to render texture.js",
               "name": "draw to render texture.js",
-              "size": 512,
+              "size": 508,
               "extension": ".js"
             },
             {
@@ -3805,6 +4022,30 @@
               "path": "src\\game objects\\render texture\\fireball.js",
               "name": "fireball.js",
               "size": 1899,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\paint interpolated shadow.js",
+              "name": "paint interpolated shadow.js",
+              "size": 1509,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\paint interpolated.js",
+              "name": "paint interpolated.js",
+              "size": 1205,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\paint tinted.js",
+              "name": "paint tinted.js",
+              "size": 834,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\paint.js",
+              "name": "paint.js",
+              "size": 647,
               "extension": ".js"
             },
             {
@@ -3844,7 +4085,7 @@
               "extension": ".js"
             }
           ],
-          "size": 14128
+          "size": 18319
         },
         {
           "path": "src\\game objects\\sprites",
@@ -4067,7 +4308,7 @@
             {
               "path": "src\\game objects\\tile sprite\\Example.js",
               "name": "Example.js",
-              "size": 882,
+              "size": 1170,
               "extension": ".js"
             },
             {
@@ -4075,9 +4316,15 @@
               "name": "flipped.js",
               "size": 651,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\tile sprite\\tilesprite pixel art test.js",
+              "name": "tilesprite pixel art test.js",
+              "size": 872,
+              "extension": ".js"
             }
           ],
-          "size": 6630
+          "size": 7790
         },
         {
           "path": "src\\game objects\\tilemap",
@@ -4102,7 +4349,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter detect collision with tile.js",
                   "name": "matter detect collision with tile.js",
-                  "size": 5223,
+                  "size": 5233,
                   "extension": ".js"
                 },
                 {
@@ -4126,7 +4373,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter.js",
                   "name": "matter.js",
-                  "size": 2813,
+                  "size": 2823,
                   "extension": ".js"
                 },
                 {
@@ -4160,7 +4407,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 72386
+              "size": 72406
             },
             {
               "path": "src\\game objects\\tilemap\\dynamic",
@@ -4169,25 +4416,25 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\base tile size.js",
                   "name": "base tile size.js",
-                  "size": 1857,
+                  "size": 1867,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\copy tiles.js",
                   "name": "copy tiles.js",
-                  "size": 2815,
+                  "size": 2825,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\creating blank layers.js",
                   "name": "creating blank layers.js",
-                  "size": 1793,
+                  "size": 1803,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\dungeon generator.js",
                   "name": "dungeon generator.js",
-                  "size": 19777,
+                  "size": 21334,
                   "extension": ".js"
                 },
                 {
@@ -4199,25 +4446,25 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\endless map.js",
                   "name": "endless map.js",
-                  "size": 2140,
-                  "extension": ".js"
-                },
-                {
-                  "path": "src\\game objects\\tilemap\\dynamic\\Example.js",
-                  "name": "Example.js",
-                  "size": 1688,
+                  "size": 2072,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\fill tiles.js",
                   "name": "fill tiles.js",
-                  "size": 2207,
+                  "size": 2217,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\get tiles in shape.js",
                   "name": "get tiles in shape.js",
-                  "size": 5316,
+                  "size": 5326,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\tilemap\\dynamic\\light map.js",
+                  "name": "light map.js",
+                  "size": 3276,
                   "extension": ".js"
                 },
                 {
@@ -4229,7 +4476,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\paint-tiles.js",
                   "name": "paint-tiles.js",
-                  "size": 2886,
+                  "size": 2896,
                   "extension": ".js"
                 },
                 {
@@ -4247,25 +4494,25 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\randomize tiles.js",
                   "name": "randomize tiles.js",
-                  "size": 2347,
+                  "size": 2357,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\replace tiles.js",
                   "name": "replace tiles.js",
-                  "size": 1966,
+                  "size": 1976,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\shuffle tiles.js",
                   "name": "shuffle tiles.js",
-                  "size": 2166,
+                  "size": 2176,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\swap tiles.js",
                   "name": "swap tiles.js",
-                  "size": 2070,
+                  "size": 2080,
                   "extension": ".js"
                 },
                 {
@@ -4275,7 +4522,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 63999
+              "size": 67176
             },
             {
               "path": "src\\game objects\\tilemap\\static",
@@ -4284,7 +4531,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\create from objects.js",
                   "name": "create from objects.js",
-                  "size": 1859,
+                  "size": 1869,
                   "extension": ".js"
                 },
                 {
@@ -4296,19 +4543,19 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\csv-map.js",
                   "name": "csv-map.js",
-                  "size": 1472,
+                  "size": 2023,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\danger.js",
                   "name": "danger.js",
-                  "size": 1415,
+                  "size": 1425,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\debug colliding tiles.js",
                   "name": "debug colliding tiles.js",
-                  "size": 3158,
+                  "size": 3168,
                   "extension": ".js"
                 },
                 {
@@ -4320,49 +4567,49 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\layer size.js",
                   "name": "layer size.js",
-                  "size": 1546,
+                  "size": 1556,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\layer transform.js",
                   "name": "layer transform.js",
-                  "size": 1171,
+                  "size": 1181,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\map vs layer with multiple layers.js",
                   "name": "map vs layer with multiple layers.js",
-                  "size": 3849,
+                  "size": 3859,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\mario-map-scroller.js",
                   "name": "mario-map-scroller.js",
-                  "size": 1520,
+                  "size": 1530,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\multi camera map.js",
                   "name": "multi camera map.js",
-                  "size": 1607,
+                  "size": 1617,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\set colliding by collision data.js",
                   "name": "set colliding by collision data.js",
-                  "size": 4954,
+                  "size": 4964,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\set colliding by property.js",
                   "name": "set colliding by property.js",
-                  "size": 2660,
+                  "size": 2670,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\set colliding tiles.js",
                   "name": "set colliding tiles.js",
-                  "size": 2264,
+                  "size": 2274,
                   "extension": ".js"
                 },
                 {
@@ -4386,25 +4633,25 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\tiled  multi tileset.js",
                   "name": "tiled  multi tileset.js",
-                  "size": 1905,
+                  "size": 1915,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\tiled-json-map.js",
                   "name": "tiled-json-map.js",
-                  "size": 1699,
+                  "size": 1709,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\tileset collision shapes.js",
                   "name": "tileset collision shapes.js",
-                  "size": 3997,
+                  "size": 4007,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\tileset with spacing.js",
                   "name": "tileset with spacing.js",
-                  "size": 1963,
+                  "size": 1973,
                   "extension": ".js"
                 },
                 {
@@ -4414,7 +4661,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 50318
+              "size": 51019
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -4429,7 +4676,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\tests\\visual culling check.js",
                   "name": "visual culling check.js",
-                  "size": 2958,
+                  "size": 2968,
                   "extension": ".js"
                 },
                 {
@@ -4453,23 +4700,23 @@
                 {
                   "path": "src\\game objects\\tilemap\\tests\\visual tile coords test.js",
                   "name": "visual tile coords test.js",
-                  "size": 3759,
+                  "size": 3769,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\tests\\visual worldxy test.js",
                   "name": "visual worldxy test.js",
-                  "size": 3975,
+                  "size": 3985,
                   "extension": ".js"
                 }
               ],
-              "size": 71012
+              "size": 71042
             }
           ],
-          "size": 257715
+          "size": 261643
         }
       ],
-      "size": 763253
+      "size": 791445
     },
     {
       "path": "src\\games",
@@ -4612,11 +4859,11 @@
             {
               "path": "src\\games\\flood\\flood-fill.js",
               "name": "flood-fill.js",
-              "size": 19546,
+              "size": 19603,
               "extension": ".js"
             }
           ],
-          "size": 19546
+          "size": 19603
         },
         {
           "path": "src\\games\\mass attack",
@@ -4804,7 +5051,7 @@
           "size": 28649
         }
       ],
-      "size": 209423
+      "size": 209480
     },
     {
       "path": "src\\geom",
@@ -5781,6 +6028,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\geom\\rectangle\\intersection.js",
+              "name": "intersection.js",
+              "size": 1155,
+              "extension": ".js"
+            },
+            {
               "path": "src\\geom\\rectangle\\is empty.js",
               "name": "is empty.js",
               "size": 806,
@@ -5883,7 +6136,7 @@
               "extension": ".js"
             }
           ],
-          "size": 41720
+          "size": 42875
         },
         {
           "path": "src\\geom\\triangle",
@@ -6085,7 +6338,7 @@
           "size": 28373
         }
       ],
-      "size": 192781
+      "size": 193936
     },
     {
       "path": "src\\input",
@@ -6098,7 +6351,7 @@
             {
               "path": "src\\input\\camera\\graphics contains.js",
               "name": "graphics contains.js",
-              "size": 4712,
+              "size": 4722,
               "extension": ".js"
             },
             {
@@ -6110,7 +6363,7 @@
             {
               "path": "src\\input\\camera\\sprite.js",
               "name": "sprite.js",
-              "size": 5152,
+              "size": 5162,
               "extension": ".js"
             },
             {
@@ -6126,7 +6379,7 @@
               "extension": ".js"
             }
           ],
-          "size": 18534
+          "size": 18554
         },
         {
           "path": "src\\input\\cursors",
@@ -6191,7 +6444,7 @@
             {
               "path": "src\\input\\dragging\\camera move and rotate.js",
               "name": "camera move and rotate.js",
-              "size": 1814,
+              "size": 1824,
               "extension": ".js"
             },
             {
@@ -6267,7 +6520,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17234
+          "size": 17244
         },
         {
           "path": "src\\input\\game object",
@@ -6354,11 +6607,11 @@
             {
               "path": "src\\input\\game object\\world game objects.js",
               "name": "world game objects.js",
-              "size": 2952,
+              "size": 2962,
               "extension": ".js"
             }
           ],
-          "size": 14392
+          "size": 14402
         },
         {
           "path": "src\\input\\gamepad",
@@ -6444,6 +6697,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\key down delay.js",
+              "name": "key down delay.js",
+              "size": 911,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\keydown multi scene test.js",
               "name": "keydown multi scene test.js",
               "size": 2832,
@@ -6480,7 +6739,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15366
+          "size": 16277
         },
         {
           "path": "src\\input\\mouse",
@@ -6507,13 +6766,13 @@
             {
               "path": "src\\input\\mouse\\mass scrolling sprite test no cull.js",
               "name": "mass scrolling sprite test no cull.js",
-              "size": 2374,
+              "size": 2384,
               "extension": ".js"
             },
             {
               "path": "src\\input\\mouse\\mass scrolling sprite test.js",
               "name": "mass scrolling sprite test.js",
-              "size": 2329,
+              "size": 2339,
               "extension": ".js"
             },
             {
@@ -6625,7 +6884,7 @@
               "extension": ".js"
             }
           ],
-          "size": 35835
+          "size": 35855
         },
         {
           "path": "src\\input\\multitouch",
@@ -6653,7 +6912,7 @@
             {
               "path": "src\\input\\pixel perfect\\on down.js",
               "name": "on down.js",
-              "size": 1262,
+              "size": 1255,
               "extension": ".js"
             },
             {
@@ -6665,11 +6924,11 @@
             {
               "path": "src\\input\\pixel perfect\\transformed.js",
               "name": "transformed.js",
-              "size": 1212,
+              "size": 1205,
               "extension": ".js"
             }
           ],
-          "size": 3615
+          "size": 3601
         },
         {
           "path": "src\\input\\pointer",
@@ -6776,7 +7035,7 @@
           "size": 9602
         }
       ],
-      "size": 148465
+      "size": 149422
     },
     {
       "path": "src\\loader",
@@ -7268,32 +7527,32 @@
             {
               "path": "src\\loader\\tile maps\\load tile map json from object.js",
               "name": "load tile map json from object.js",
-              "size": 1218,
+              "size": 1228,
               "extension": ".js"
             },
             {
               "path": "src\\loader\\tile maps\\load tile map json from scene payload.js",
               "name": "load tile map json from scene payload.js",
-              "size": 1395,
+              "size": 1405,
               "extension": ".js"
             },
             {
               "path": "src\\loader\\tile maps\\load tile map json with normal map.js",
               "name": "load tile map json with normal map.js",
-              "size": 1499,
+              "size": 1509,
               "extension": ".js"
             },
             {
               "path": "src\\loader\\tile maps\\load tile map json.js",
               "name": "load tile map json.js",
-              "size": 1179,
+              "size": 1189,
               "extension": ".js"
             }
           ],
-          "size": 5291
+          "size": 5331
         }
       ],
-      "size": 123814
+      "size": 123854
     },
     {
       "path": "src\\paths",
@@ -7652,25 +7911,25 @@
             {
               "path": "src\\physics\\arcade\\100 world bodies.js",
               "name": "100 world bodies.js",
-              "size": 2761,
+              "size": 2771,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\arcade\\1000 world bodies.js",
               "name": "1000 world bodies.js",
-              "size": 2762,
+              "size": 2772,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\arcade\\10000 world bodies.js",
               "name": "10000 world bodies.js",
-              "size": 2786,
+              "size": 2796,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\arcade\\40000 world bodies.js",
               "name": "40000 world bodies.js",
-              "size": 2576,
+              "size": 2586,
               "extension": ".js"
             },
             {
@@ -7736,7 +7995,7 @@
             {
               "path": "src\\physics\\arcade\\restart physics scene.js",
               "name": "restart physics scene.js",
-              "size": 5599,
+              "size": 5609,
               "extension": ".js"
             },
             {
@@ -7824,7 +8083,7 @@
               "extension": ".js"
             }
           ],
-          "size": 53511
+          "size": 53561
         },
         {
           "path": "src\\physics\\impact",
@@ -7833,19 +8092,19 @@
             {
               "path": "src\\physics\\impact\\100 world bodies.js",
               "name": "100 world bodies.js",
-              "size": 2943,
+              "size": 2953,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\1000 world bodies.js",
               "name": "1000 world bodies.js",
-              "size": 2973,
+              "size": 2983,
               "extension": ".js"
             },
             {
               "path": "src\\physics\\impact\\10000 world bodies.js",
               "name": "10000 world bodies.js",
-              "size": 2975,
+              "size": 2985,
               "extension": ".js"
             },
             {
@@ -7999,7 +8258,7 @@
               "extension": ".js"
             }
           ],
-          "size": 47302
+          "size": 47332
         },
         {
           "path": "src\\physics\\matterjs",
@@ -8008,7 +8267,7 @@
             {
               "path": "src\\physics\\matterjs\\100 world bodies.js",
               "name": "100 world bodies.js",
-              "size": 2896,
+              "size": 2906,
               "extension": ".js"
             },
             {
@@ -8194,7 +8453,7 @@
             {
               "path": "src\\physics\\matterjs\\restart physics scene.js",
               "name": "restart physics scene.js",
-              "size": 4099,
+              "size": 4109,
               "extension": ".js"
             },
             {
@@ -8252,7 +8511,7 @@
               "extension": ".js"
             }
           ],
-          "size": 55974
+          "size": 55994
         },
         {
           "path": "src\\physics\\multi",
@@ -8274,7 +8533,7 @@
           "size": 2750
         }
       ],
-      "size": 159537
+      "size": 159637
     },
     {
       "path": "src\\plugins",
@@ -8429,7 +8688,7 @@
         {
           "path": "src\\renderer\\Custom Pipeline.js",
           "name": "Custom Pipeline.js",
-          "size": 2964,
+          "size": 2990,
           "extension": ".js"
         },
         {
@@ -8439,7 +8698,7 @@
           "extension": ".js"
         }
       ],
-      "size": 3580
+      "size": 3606
     },
     {
       "path": "src\\scenes",
@@ -8963,15 +9222,63 @@
       "name": "textures",
       "children": [
         {
+          "path": "src\\textures\\batch canvas texture.js",
+          "name": "batch canvas texture.js",
+          "size": 2056,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\batch texture.js",
+          "name": "batch texture.js",
+          "size": 2004,
+          "extension": ".js"
+        },
+        {
           "path": "src\\textures\\create canvas.js",
           "name": "create canvas.js",
           "size": 1670,
           "extension": ".js"
         },
         {
-          "path": "src\\textures\\crop x.js",
-          "name": "crop x.js",
-          "size": 457,
+          "path": "src\\textures\\crop texture atlas frame flip.js",
+          "name": "crop texture atlas frame flip.js",
+          "size": 1256,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\crop texture atlas frame trimmed flip.js",
+          "name": "crop texture atlas frame trimmed flip.js",
+          "size": 1252,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\crop texture atlas frame trimmed.js",
+          "name": "crop texture atlas frame trimmed.js",
+          "size": 1222,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\crop texture atlas frame.js",
+          "name": "crop texture atlas frame.js",
+          "size": 1224,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\crop texture image flip.js",
+          "name": "crop texture image flip.js",
+          "size": 1194,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\crop texture image scaled.js",
+          "name": "crop texture image scaled.js",
+          "size": 1241,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\textures\\crop texture image.js",
+          "name": "crop texture image.js",
+          "size": 1166,
           "extension": ".js"
         },
         {
@@ -9017,21 +9324,15 @@
           "extension": ".js"
         },
         {
-          "path": "src\\textures\\multi atlas auto name.js",
-          "name": "multi atlas auto name.js",
-          "size": 1272,
-          "extension": ".js"
-        },
-        {
           "path": "src\\textures\\multi atlas.js",
           "name": "multi atlas.js",
-          "size": 1121,
+          "size": 973,
           "extension": ".js"
         },
         {
           "path": "src\\textures\\rotated frames from single atlas.js",
           "name": "rotated frames from single atlas.js",
-          "size": 500,
+          "size": 539,
           "extension": ".js"
         },
         {
@@ -9055,7 +9356,7 @@
         {
           "path": "src\\textures\\trimmed frame from multi atlas.js",
           "name": "trimmed frame from multi atlas.js",
-          "size": 582,
+          "size": 432,
           "extension": ".js"
         },
         {
@@ -9065,7 +9366,7 @@
           "extension": ".js"
         }
       ],
-      "size": 22208
+      "size": 32835
     },
     {
       "path": "src\\time",
@@ -9761,5 +10062,5 @@
       "size": 5291
     }
   ],
-  "size": 2561890
+  "size": 2644740
 }

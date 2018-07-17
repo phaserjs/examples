@@ -5,6 +5,7 @@ var config = {
     backgroundColor: '#2a2a55',
     parent: 'phaser-example',
     pixelArt: true,
+    roundPixels: false,
     scene: {
         preload: preload,
         create: create,
@@ -69,7 +70,7 @@ function preload ()
 {
     // Credits! Michele "Buch" Bucelli (tilset artist) & Abram Connelly (tileset sponser)
     // https://opengameart.org/content/top-down-dungeon-tileset
-    this.load.image('tiles', 'assets/tilemaps/tiles/buch-dungeon-tileset.png');
+    this.load.image('tiles', 'assets/tilemaps/tiles/buch-dungeon-tileset-extruded.png');
 }
 
 function create ()
@@ -120,7 +121,9 @@ function create ()
     // Creating a blank tilemap with dimensions matching the dungeon
     map = this.make.tilemap({ tileWidth: 16, tileHeight: 16, width: dungeon.width, height: dungeon.height });
 
-    var tileset = map.addTilesetImage('tiles');
+    // addTilesetImage: function (tilesetName, key, tileWidth, tileHeight, tileMargin, tileSpacing, gid)
+
+    var tileset = map.addTilesetImage('tiles', 'tiles', 16, 16, 1, 2);
 
     layer = map.createBlankDynamicLayer('Layer 1', tileset);
 

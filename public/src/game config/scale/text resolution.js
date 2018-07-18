@@ -4,7 +4,8 @@ var config = {
     backgroundColor: '#0056a4',
     width: 800,
     height: 600,
-    resolution: window.devicePixelRatio,
+    _resolution: window.devicePixelRatio,
+    resolution: 2,
     scene: {
         preload: preload,
         create: create,

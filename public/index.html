@@ -79,7 +79,13 @@
                 {
                     createFolder(i, child.name, child.path);
                 }
-                else
+            }
+
+            for (var i = 0; i < folder.length; i++)
+            {
+                var child = folder[i];
+
+                if (!child.hasOwnProperty('children'))
                 {
                     createFile(i, child.name, child.path);
                 }

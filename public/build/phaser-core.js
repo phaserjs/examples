@@ -2451,6 +2451,13 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  */
 
 /**
+ * @typedef {object} DOMContainerConfig
+ *
+ * @property {boolean} [createContainer=false] - Create a div element in which DOM Elements will be contained. You must also provide a parent.
+ * @property {boolean} [behindCanvas=false] - Place the DOM Container behind the Phaser Canvas. The default is to place it over the Canvas.
+ */
+
+/**
  * @typedef {object} GameConfig
  *
  * @property {(integer|string)} [width=1024] - [description]
@@ -2483,6 +2490,7 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [banner.hidePhaser=false] - [description]
  * @property {string} [banner.text='#ffffff'] - [description]
  * @property {string[]} [banner.background] - [description]
+ * @property {DOMContainerConfig} [dom] - The DOM Container configuration object.
  * @property {FPSConfig} [fps] - [description]
  * @property {boolean} [render.antialias=true] - [description]
  * @property {boolean} [render.pixelArt=false] - [description]
@@ -2611,6 +2619,18 @@ var Config = new Class({
          * @const {boolean} Phaser.Boot.Config#autoFocus - [description]
          */
         this.autoFocus = GetValue(config, 'autoFocus', true);
+
+        //  DOM Element Container
+
+        /**
+         * @const {?boolean} Phaser.Boot.Config#domCreateContainer - [description]
+         */
+        this.domCreateContainer = GetValue(config, 'dom.createContainer', false);
+
+        /**
+         * @const {?boolean} Phaser.Boot.Config#domBehindCanvas - [description]
+         */
+        this.domBehindCanvas = GetValue(config, 'dom.behindCanvas', false);
 
         //  Input
 
@@ -2956,6 +2976,54 @@ module.exports = Config;
 
 /***/ }),
 
+/***/ "./boot/CreateDOMContainer.js":
+/*!************************************!*\
+  !*** ./boot/CreateDOMContainer.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var AddToDOM = __webpack_require__(/*! ../dom/AddToDOM */ "./dom/AddToDOM.js");
+
+var CreateDOMContainer = function (game)
+{
+    var config = game.config;
+
+    if (!config.parent || !config.domCreateContainer)
+    {
+        return;
+    }
+
+    var width = game.canvas.width;
+    var height = game.canvas.height;
+
+    var z = (config.domBehindCanvas) ? 1 : 3;
+
+    //  DOM Element Container
+    var div = document.createElement('div');
+
+    div.style = 'width: ' + width + 'px; height: ' + height + 'px; padding: 0; margin: 0; position: absolute; overflow: hidden; pointer-events: none; z-index: ' + z;
+
+    // game.canvas.style.position = 'absolute';
+    // game.canvas.style.zIndex = '2';
+    // game.canvas.parentElement.style.position = 'relative';
+
+    game.domContainer = div;
+
+    AddToDOM(div, config.parent);
+};
+
+module.exports = CreateDOMContainer;
+
+
+/***/ }),
+
 /***/ "./boot/CreateRenderer.js":
 /*!********************************!*\
   !*** ./boot/CreateRenderer.js ***!
@@ -3025,7 +3093,7 @@ var CreateRenderer = function (game)
     }
     else
     {
-        game.canvas = CanvasPool.create(game, config.width, config.height, config.renderType);
+        game.canvas = CanvasPool.create(game, config.width * config.resolution, config.height * config.resolution, config.renderType);
     }
 
     //  Does the game config provide some canvas css styles to use?
@@ -3041,11 +3109,8 @@ var CreateRenderer = function (game)
     }
 
     //  Zoomed?
-    if (config.zoom !== 1)
-    {
-        game.canvas.style.width = (config.width * config.zoom).toString() + 'px';
-        game.canvas.style.height = (config.height * config.zoom).toString() + 'px';
-    }
+    game.canvas.style.width = (config.width * config.zoom).toString() + 'px';
+    game.canvas.style.height = (config.height * config.zoom).toString() + 'px';
 
     if (config.renderType === CONST.HEADLESS)
     {
@@ -3240,6 +3305,7 @@ var CacheManager = __webpack_require__(/*! ../cache/CacheManager */ "./cache/Cac
 var CanvasPool = __webpack_require__(/*! ../display/canvas/CanvasPool */ "./display/canvas/CanvasPool.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var Config = __webpack_require__(/*! ./Config */ "./boot/Config.js");
+var CreateDOMContainer = __webpack_require__(/*! ./CreateDOMContainer */ "./boot/CreateDOMContainer.js");
 var CreateRenderer = __webpack_require__(/*! ./CreateRenderer */ "./boot/CreateRenderer.js");
 var DataManager = __webpack_require__(/*! ../data/DataManager */ "./data/DataManager.js");
 var DebugHeader = __webpack_require__(/*! ./DebugHeader */ "./boot/DebugHeader.js");
@@ -3297,6 +3363,20 @@ var Game = new Class({
          * @since 3.0.0
          */
         this.renderer = null;
+
+        /**
+         * A reference to an HTML Div Element used as a DOM Element Container.
+         * 
+         * Only set if `createDOMContainer` is `true` in the game config (by default it is `false`) and
+         * if you provide a parent element to insert the Phaser Game inside.
+         *
+         * See the DOM Element Game Object for more details.
+         *
+         * @name Phaser.Game#domContainer
+         * @type {HTMLDivElement}
+         * @since 3.12.0
+         */
+        this.domContainer = null;
 
         /**
          * A reference to the HTML Canvas Element that Phaser uses to render the game.
@@ -3534,6 +3614,8 @@ var Game = new Class({
         this.config.preBoot(this);
 
         CreateRenderer(this);
+
+        CreateDOMContainer(this);
 
         DebugHeader(this);
 
@@ -3841,6 +3923,12 @@ var Game = new Class({
         this.config.width = width;
         this.config.height = height;
 
+        if (this.domContainer)
+        {
+            this.domContainer.style.width = width + 'px';
+            this.domContainer.style.height = height + 'px';
+        }
+
         this.renderer.resize(width, height);
 
         this.input.resize();
@@ -3894,6 +3982,11 @@ var Game = new Class({
             {
                 this.canvas.parentNode.removeChild(this.canvas);
             }
+        }
+
+        if (this.domContainer)
+        {
+            this.domContainer.parentNode.removeChild(this.domContainer);
         }
 
         this.loop.destroy();
@@ -5297,9 +5390,10 @@ var Camera = new Class({
          *
          * @name Phaser.Cameras.Scene2D.Camera#x
          * @type {number}
+         * @private
          * @since 3.0.0
          */
-        this.x = x;
+        this._x = x;
 
         /**
          * The y position of the Camera, relative to the top-left of the game canvas.
@@ -5308,9 +5402,60 @@ var Camera = new Class({
          *
          * @name Phaser.Cameras.Scene2D.Camera#y
          * @type {number}
+         * @private
          * @since 3.0.0
          */
-        this.y = y;
+        this._y = y;
+
+        /**
+         * The resolution of the Game, used in most Camera calculations.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#resolution
+         * @type {number}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.resolution = 1;
+
+        /**
+         * Internal Camera X value multiplied by the resolution.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_cx
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
+        this._cx = 0;
+
+        /**
+         * Internal Camera Y value multiplied by the resolution.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_cy
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
+        this._cy = 0;
+
+        /**
+         * Internal Camera Width value multiplied by the resolution.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_cw
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
+        this._cw = 0;
+
+        /**
+         * Internal Camera Height value multiplied by the resolution.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_ch
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
+        this._ch = 0;
 
         /**
          * The width of the Camera viewport, in pixels.
@@ -5724,7 +5869,7 @@ var Camera = new Class({
      * Set the Alpha level of this Camera. The alpha controls the opacity of the Camera as it renders.
      * Alpha values are provided as a float between 0, fully transparent, and 1, fully opaque.
      *
-     * @method Phaser.GameObjects.Components.Origin#setAlpha
+     * @method Phaser.Cameras.Scene2D.Camera#setAlpha
      * @since 3.11.0
      *
      * @param {number} [value=1] - The Camera alpha value.
@@ -5750,7 +5895,7 @@ var Camera = new Class({
      * Changing the origin allows you to adjust the point in the viewport from which rotation happens.
      * A value of 0 would rotate from the top-left of the viewport. A value of 1 from the bottom right.
      *
-     * @method Phaser.GameObjects.Components.Origin#setOrigin
+     * @method Phaser.Cameras.Scene2D.Camera#setOrigin
      * @since 3.11.0
      *
      * @param {number} [x=0.5] - The horizontal origin value.
@@ -6246,8 +6391,10 @@ var Camera = new Class({
         var scrollX = this.scrollX;
         var scrollY = this.scrollY;
 
-        var sx = x + ((scrollX * c - scrollY * s) * zoom);
-        var sy = y + ((scrollX * s + scrollY * c) * zoom);
+        var res = this.resolution;
+
+        var sx = x * res + ((scrollX * c - scrollY * s) * zoom);
+        var sy = y * res + ((scrollX * s + scrollY * c) * zoom);
 
         /* Apply transform to point */
         output.x = (sx * ima + sy * imc + ime);
@@ -6716,6 +6863,7 @@ var Camera = new Class({
 
     /**
      * Sets the Scene the Camera is bound to.
+     * Also populates the `resolution` property and updates the internal size values.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setScene
      * @since 3.0.0
@@ -6727,6 +6875,15 @@ var Camera = new Class({
     setScene: function (scene)
     {
         this.scene = scene;
+
+        var res = scene.sys.game.config.resolution;
+
+        this.resolution = res;
+
+        this._cx = this._x * res;
+        this._cy = this._y * res;
+        this._cw = this._width * res;
+        this._ch = this._height * res;
 
         return this;
     },
@@ -7050,6 +7207,56 @@ var Camera = new Class({
     },
 
     /**
+     * The x position of the Camera viewport, relative to the top-left of the game canvas.
+     * The viewport is the area into which the camera renders.
+     * To adjust the position the camera is looking at in the game world, see the `scrollX` value.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#x
+     * @type {number}
+     * @since 3.0.0
+     */
+    x: {
+
+        get: function ()
+        {
+            return this._x;
+        },
+
+        set: function (value)
+        {
+            this._x = value;
+            this._cx = value * this.resolution;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
+     * The y position of the Camera viewport, relative to the top-left of the game canvas.
+     * The viewport is the area into which the camera renders.
+     * To adjust the position the camera is looking at in the game world, see the `scrollY` value.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#y
+     * @type {number}
+     * @since 3.0.0
+     */
+    y: {
+
+        get: function ()
+        {
+            return this._y;
+        },
+
+        set: function (value)
+        {
+            this._y = value;
+            this._cy = value * this.resolution;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
      * The width of the Camera viewport, in pixels.
      *
      * The viewport is the area into which the Camera renders. Setting the viewport does
@@ -7069,6 +7276,7 @@ var Camera = new Class({
         set: function (value)
         {
             this._width = value;
+            this._cw = value * this.resolution;
             this.dirty = true;
         }
 
@@ -7094,6 +7302,7 @@ var Camera = new Class({
         set: function (value)
         {
             this._height = value;
+            this._ch = value * this.resolution;
             this.dirty = true;
         }
 
@@ -8365,7 +8574,7 @@ var Fade = new Class({
         var camera = this.camera;
 
         ctx.fillStyle = 'rgba(' + this.red + ',' + this.green + ',' + this.blue + ',' + this.alpha + ')';
-        ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
+        ctx.fillRect(camera._cx, camera._cy, camera._cw, camera._ch);
 
         return true;
     },
@@ -8395,7 +8604,7 @@ var Fade = new Class({
 
         pipeline.batchFillRect(
             0, 0, 1, 1, 0,
-            camera.x, camera.y, camera.width, camera.height,
+            camera._cx, camera._cy, camera._cw, camera._ch,
             getTintFunction(red, green, blue, 1),
             this.alpha,
             1, 0, 0, 1, 0, 0,
@@ -8753,7 +8962,7 @@ var Flash = new Class({
         var camera = this.camera;
 
         ctx.fillStyle = 'rgba(' + this.red + ',' + this.green + ',' + this.blue + ',' + this.alpha + ')';
-        ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
+        ctx.fillRect(camera._cx, camera._cy, camera._cw, camera._ch);
 
         return true;
     },
@@ -8783,7 +8992,7 @@ var Flash = new Class({
 
         pipeline.batchFillRect(
             0, 0, 1, 1, 0,
-            camera.x, camera.y, camera.width, camera.height,
+            camera._cx, camera._cy, camera._cw, camera._ch,
             getTintFunction(red, green, blue, 1),
             this.alpha,
             1, 0, 0, 1, 0, 0,
@@ -9470,8 +9679,8 @@ var Shake = new Class({
         if (this._elapsed < this.duration)
         {
             var intensity = this.intensity;
-            var width = this.camera.width;
-            var height = this.camera.height;
+            var width = this.camera._cw;
+            var height = this.camera._ch;
             var zoom = this.camera.zoom;
 
             this._offsetX = (Math.random() * intensity.x * width * 2 - intensity.x * width) * zoom;
@@ -9956,7 +10165,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.11',
+    VERSION: '3.12.0-beta1',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -24339,7 +24548,7 @@ module.exports = SpriteWebGLRenderer;
  * @since 3.0.0
  *
  * @param {Phaser.GameObjects.Text} text - The Text object to calculate the size from.
- * @param {TextMetrics} size - The Text metrics to use when calculating the size.
+ * @param {BitmapTextMetrics} size - The Text metrics to use when calculating the size.
  * @param {array} lines - The lines of text to calculate the size from.
  *
  * @return {object} An object containing dimensions of the Text object.
@@ -24600,6 +24809,7 @@ var propertyMap = {
     maxLines: [ 'maxLines', 0 ],
     fixedWidth: [ 'fixedWidth', 0 ],
     fixedHeight: [ 'fixedHeight', 0 ],
+    resolution: [ 'resolution', 0 ],
     rtl: [ 'rtl', false ],
     testString: [ 'testString', '|MÃ‰qgy' ],
     baselineX: [ 'baselineX', 1.2 ],
@@ -24613,7 +24823,7 @@ var propertyMap = {
 /**
  * Font metrics for a Text Style object.
  *
- * @typedef {object} TextMetrics
+ * @typedef {object} BitmapTextMetrics
  *
  * @property {number} ascent - The ascent of the font.
  * @property {number} descent - The descent of the font.
@@ -24818,6 +25028,17 @@ var TextStyle = new Class({
          * @since 3.0.0
          */
         this.fixedHeight;
+
+        /**
+         * The resolution the text is rendered to its internal canvas at.
+         * The default is 0, which means it will use the resolution set in the Game Config.
+         *
+         * @name Phaser.GameObjects.Text.TextStyle#resolution
+         * @type {number}
+         * @default 0
+         * @since 3.12.0
+         */
+        this.resolution;
 
         /**
          * Whether the text should render right to left.
@@ -25236,6 +25457,29 @@ var TextStyle = new Class({
     },
 
     /**
+     * Set the resolution used by the Text object.
+     *
+     * By default it will be set to match the resolution set in the Game Config,
+     * but you can override it via this method. It allows for much clearer text on High DPI devices,
+     * at the cost of memory because it uses larger internal Canvas textures for the Text.
+     * 
+     * Please use with caution, as the more high res Text you have, the more memory it uses up.
+     *
+     * @method Phaser.GameObjects.Text.TextStyle#setResolution
+     * @since 3.12.0
+     *
+     * @param {number} value - The resolution for this Text object to use.
+     *
+     * @return {Phaser.GameObjects.Text} The parent Text object.
+     */
+    setResolution: function (value)
+    {
+        this.resolution = value;
+
+        return this.update(false);
+    },
+
+    /**
      * Set the stroke settings.
      *
      * @method Phaser.GameObjects.Text.TextStyle#setStroke
@@ -25489,7 +25733,7 @@ var TextStyle = new Class({
      * @method Phaser.GameObjects.Text.TextStyle#getTextMetrics
      * @since 3.0.0
      *
-     * @return {TextMetrics} The text metrics.
+     * @return {BitmapTextMetrics} The text metrics.
      */
     getTextMetrics: function ()
     {
@@ -25693,16 +25937,6 @@ var Text = new Class({
         this.text = '';
 
         /**
-         * The resolution of the text.
-         *
-         * @name Phaser.GameObjects.Text#resolution
-         * @type {number}
-         * @default 1
-         * @since 3.0.0
-         */
-        this.resolution = 1;
-
-        /**
          * Specify a padding value which is added to the line width and height when calculating the Text size.
          * Allows you to add extra spacing if the browser is unable to accurately determine the true font dimensions.
          *
@@ -25751,6 +25985,12 @@ var Text = new Class({
          * @since 3.0.0
          */
         this.dirty = false;
+
+        //  If resolution wasn't set, then we get it from the game config
+        if (this.style.resolution === 0)
+        {
+            this.style.resolution = scene.sys.game.config.resolution;
+        }
 
         this.initRTL();
 
@@ -26409,6 +26649,29 @@ var Text = new Class({
     },
 
     /**
+     * Set the resolution used by this Text object.
+     *
+     * By default it will be set to match the resolution set in the Game Config,
+     * but you can override it via this method, or by specifying it in the Text style configuration object.
+     * 
+     * It allows for much clearer text on High DPI devices, at the cost of memory because it uses larger
+     * internal Canvas textures for the Text.
+     * 
+     * Therefore, please use with caution, as the more high res Text you have, the more memory it uses.
+     *
+     * @method Phaser.GameObjects.Text#setResolution
+     * @since 3.12.0
+     *
+     * @param {number} value - The resolution for this Text object to use.
+     *
+     * @return {Phaser.GameObjects.Text} This Text object.
+     */
+    setResolution: function (value)
+    {
+        return this.style.setResolution(value);
+    },
+
+    /**
      * Set the text padding.
      *
      * 'left' can be an object.
@@ -26502,7 +26765,7 @@ var Text = new Class({
         var canvas = this.canvas;
         var context = this.context;
         var style = this.style;
-        var resolution = this.resolution;
+        var resolution = style.resolution;
         var size = style.metrics;
 
         style.syncFont(canvas, context);
@@ -26555,7 +26818,7 @@ var Text = new Class({
 
         context.save();
 
-        // context.scale(resolution, resolution);
+        context.scale(resolution, resolution);
 
         if (style.backgroundColor)
         {
@@ -26656,7 +26919,6 @@ var Text = new Class({
             autoRound: this.autoRound,
             text: this.text,
             style: this.style.toJSON(),
-            resolution: this.resolution,
             padding: {
                 left: this.padding.left,
                 right: this.padding.right,
@@ -26792,7 +27054,7 @@ var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camer
 
     ctx.scale(src.flipX ? -1 : 1, src.flipY ? -1 : 1);
 
-    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, -src.displayOriginX, -src.displayOriginY, canvas.width, canvas.height);
+    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, -src.displayOriginX, -src.displayOriginY, canvas.width / src.style.resolution, canvas.height / src.style.resolution);
 
     ctx.restore();
 };
@@ -27028,7 +27290,7 @@ var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera
         src.canvasTexture,
         src.canvasTexture.width, src.canvasTexture.height,
         src.x, src.y,
-        src.canvasTexture.width, src.canvasTexture.height,
+        src.canvasTexture.width / src.style.resolution, src.canvasTexture.height / src.style.resolution,
         src.scaleX, src.scaleY,
         src.rotation,
         src.flipX, src.flipY,
@@ -32076,6 +32338,9 @@ var InputManager = new Class({
     {
         this.canvas = this.game.canvas;
 
+        // this.scale.x = this.game.config.resolution;
+        // this.scale.y = this.game.config.resolution;
+
         this.updateBounds();
 
         this.events.emit('boot');
@@ -32833,15 +33098,20 @@ var InputManager = new Class({
         if (output === undefined) { output = this._tempHitTest; }
 
         var tempPoint = this._tempPoint;
-        var cameraW = camera.width;
-        var cameraH = camera.height;
+
+        var cx = camera._cx;
+        var cy = camera._cy;
+        var cw = camera._cw;
+        var ch = camera._ch;
+        var csx = camera.scrollX;
+        var csy = camera.scrollY;
 
         output.length = 0;
 
         var x = pointer.x;
         var y = pointer.y;
 
-        if (!(x >= camera.x && y >= camera.y && x <= camera.x + cameraW && y <= camera.y + cameraH))
+        if (!(x >= cx && y >= cy && x <= cx + cw && y <= cy + ch))
         {
             return output;
         }
@@ -32852,12 +33122,7 @@ var InputManager = new Class({
         pointer.worldX = tempPoint.x;
         pointer.worldY = tempPoint.y;
 
-        //  Disable until fixed.
-        // var culledGameObjects = camera.cull(gameObjects);
-
         var point = { x: 0, y: 0 };
-
-        var res = this.game.config.resolution;
 
         var matrix = this._tempMatrix;
 
@@ -32870,8 +33135,8 @@ var InputManager = new Class({
                 continue;
             }
 
-            var px = tempPoint.x * res + (camera.scrollX * gameObject.scrollFactorX) - camera.scrollX;
-            var py = tempPoint.y * res + (camera.scrollY * gameObject.scrollFactorY) - camera.scrollY;
+            var px = tempPoint.x + (csx * gameObject.scrollFactorX) - csx;
+            var py = tempPoint.y + (csy * gameObject.scrollFactorY) - csy;
 
             if (gameObject.parentContainer)
             {
@@ -32970,8 +33235,8 @@ var InputManager = new Class({
      * @since 3.10.0
      *
      * @param {Phaser.Input.Pointer} pointer - The Pointer to transform the values for.
-     *
-     * @return {number} The translated value.
+     * @param {number} pageX - The Page X value.
+     * @param {number} pageY - The Page Y value.
      */
     transformPointer: function (pointer, pageX, pageY)
     {
@@ -32979,7 +33244,6 @@ var InputManager = new Class({
         pointer.prevPosition.x = pointer.x;
         pointer.prevPosition.y = pointer.y;
 
-        //  Set the new position
         pointer.x = (pageX - this.bounds.left) * this.scale.x;
         pointer.y = (pageY - this.bounds.top) * this.scale.y;
     },
@@ -44226,7 +44490,7 @@ var AudioFile = new Class({
             function (e)
             {
                 // eslint-disable-next-line no-console
-                console.error('Error decoding audio: ' + this.key + ' - ', e.message);
+                console.error('Error decoding audio: ' + this.key + ' - ', e ? e.message : null);
 
                 _this.onProcessError();
             }
@@ -53127,10 +53391,14 @@ var CanvasRenderer = new Class({
      */
     render: function (scene, children, interpolationPercentage, camera)
     {
+        var cx = camera._cx;
+        var cy = camera._cy;
+        var cw = camera._cw;
+        var ch = camera._ch;
+
         var ctx = scene.sys.context;
-        var scissor = (camera.x !== 0 || camera.y !== 0 || camera.width !== ctx.canvas.width || camera.height !== ctx.canvas.height);
+        var scissor = (cx !== 0 || cy !== 0 || cw !== ctx.canvas.width || ch !== ctx.canvas.height);
         var list = children.list;
-        var resolution = this.config.resolution;
 
         this.currentContext = ctx;
 
@@ -53139,7 +53407,7 @@ var CanvasRenderer = new Class({
         if (!camera.transparent)
         {
             ctx.fillStyle = camera.backgroundColor.rgba;
-            ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
+            ctx.fillRect(cx, cy, cw, ch);
         }
 
         ctx.globalAlpha = camera.alpha;
@@ -53160,7 +53428,7 @@ var CanvasRenderer = new Class({
         {
             ctx.save();
             ctx.beginPath();
-            ctx.rect(camera.x * resolution, camera.y * resolution, camera.width * resolution, camera.height * resolution);
+            ctx.rect(cx, cy, cw, ch);
             ctx.clip();
         }
 
@@ -56055,12 +56323,10 @@ var WebGLRenderer = new Class({
      */
     preRenderCamera: function (camera)
     {
-        var resolution = this.config.resolution;
-
-        var cx = Math.floor(camera.x * resolution);
-        var cy = Math.floor(camera.y * resolution);
-        var cw = Math.floor(camera.width * resolution);
-        var ch = Math.floor(camera.height * resolution);
+        var cx = camera._cx;
+        var cy = camera._cy;
+        var cw = camera._cw;
+        var ch = camera._ch;
 
         this.pushScissor(cx, cy, cw, ch);
 
@@ -56071,7 +56337,7 @@ var WebGLRenderer = new Class({
 
             FlatTintPipeline.batchFillRect(
                 0, 0, 1, 1, 0,
-                camera.x, camera.y, camera.width, camera.height,
+                cx, cy, cw, ch,
                 Utils.getTintFromFloats(color.redGL, color.greenGL, color.blueGL, 1.0),
                 color.alphaGL,
                 1, 0, 0, 1, 0, 0,

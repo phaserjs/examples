@@ -28,15 +28,16 @@ function create ()
     div.style = 'background-color: lime; width: 220px; height: 100px; font: 48px Arial; font-weight: bold';
     div.innerText = 'Phaser 3';
 
-    element = this.add.dom(400, 0, div);
+    element = this.add.dom(400, 300, div);
 
     this.tweens.add({
         targets: element,
-        y: 600,
-        alpha: 0.5,
+        _y: 600,
+        _alpha: 0.5,
         angle: 200,
         duration: 3000,
         scaleX: 2,
+        scaleY: 2,
         ease: 'Sine.easeInOut',
         loop: -1,
         yoyo: true

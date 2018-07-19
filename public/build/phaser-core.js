@@ -46,32 +46,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -3015,19 +3000,18 @@ var CreateDOMContainer = function (game)
         return;
     }
 
-    var width = game.canvas.width;
-    var height = game.canvas.height;
-
-    var z = (config.domBehindCanvas) ? 1 : 3;
-
     //  DOM Element Container
     var div = document.createElement('div');
 
-    div.style = 'display: block; width: ' + width + 'px; height: ' + height + 'px; padding: 0; margin: 0; position: absolute; overflow: hidden; pointer-events: none; z-index: ' + z;
-
-    // game.canvas.style.position = 'absolute';
-    // game.canvas.style.zIndex = '2';
-    // game.canvas.parentElement.style.position = 'relative';
+    div.style = [
+        'display: block;',
+        'width: ' + game.canvas.width + 'px;',
+        'height: ' + game.canvas.height + 'px;',
+        'padding: 0; margin: 0;',
+        'position: absolute;',
+        'overflow: hidden;',
+        'pointer-events: none;'
+    ].join(' ');
 
     game.domContainer = div;
 
@@ -5141,6 +5125,15 @@ var CacheManager = new Class({
         this.text = new BaseCache();
 
         /**
+         * A Cache storing all html files, typically added via the Loader.
+         *
+         * @name Phaser.Cache.CacheManager#html
+         * @type {Phaser.Cache.BaseCache}
+         * @since 3.12.0
+         */
+        this.html = new BaseCache();
+
+        /**
          * A Cache storing all WaveFront OBJ files, typically added via the Loader.
          *
          * @name Phaser.Cache.CacheManager#obj
@@ -5219,6 +5212,7 @@ var CacheManager = new Class({
             'shader',
             'audio',
             'text',
+            'html',
             'obj',
             'tilemap',
             'xml'
@@ -15699,15 +15693,18 @@ var GameObject = new Class({
 
     /**
      * Compares the renderMask with the renderFlags to see if this Game Object will render or not.
+     * Also checks the Game Object against the given Cameras exclusion list.
      *
      * @method Phaser.GameObjects.GameObject#willRender
      * @since 3.0.0
+     * 
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to check against this Game Object.
      *
      * @return {boolean} True if the Game Object should be rendered, otherwise false.
      */
-    willRender: function ()
+    willRender: function (camera)
     {
-        return (GameObject.RENDER_MASK === this.renderFlags);
+        return !(GameObject.RENDER_MASK !== this.renderFlags || (this.cameraFilter > 0 && (this.cameraFilter & camera.id)));
     },
 
     /**
@@ -23374,7 +23371,6 @@ module.exports = Graphics;
  */
 
 var Commands = __webpack_require__(/*! ./Commands */ "./gameobjects/graphics/Commands.js");
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -23395,7 +23391,10 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix, renderTargetCtx, allowClip)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
+    var commandBuffer = src.commandBuffer;
+    var commandBufferLength = commandBuffer.length;
+
+    if (commandBufferLength === 0)
     {
         return;
     }
@@ -23407,7 +23406,6 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     var srcScaleX = src.scaleX;
     var srcScaleY = src.scaleY;
     var srcRotation = src.rotation;
-    var commandBuffer = src.commandBuffer;
     var ctx = renderTargetCtx || renderer.currentContext;
     var lineAlpha = 1.0;
     var fillAlpha = 1.0;
@@ -23461,7 +23459,7 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     ctx.fillStyle = '#fff';
     ctx.globalAlpha = src.alpha;
 
-    for (var index = 0, length = commandBuffer.length; index < length; ++index)
+    for (var index = 0; index < commandBufferLength; ++index)
     {
         var commandID = commandBuffer[index];
 
@@ -23785,15 +23783,13 @@ module.exports = {
   !*** ./gameobjects/graphics/GraphicsWebGLRenderer.js ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -23805,19 +23801,22 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @private
  *
  * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
- * @param {Phaser.GameObjects.Graphics} graphics - The Game Object being rendered in this call.
+ * @param {Phaser.GameObjects.Graphics} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var GraphicsWebGLRenderer = function (renderer, graphics, interpolationPercentage, camera, parentMatrix)
+var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== graphics.renderFlags || (graphics.cameraFilter > 0 && (graphics.cameraFilter & camera._id)))
+    var commandBuffer = src.commandBuffer;
+    var commandBufferLength = commandBuffer.length;
+
+    if (commandBufferLength === 0)
     {
         return;
     }
 
-    this.pipeline.batchGraphics(this, camera, parentMatrix);
+    this.pipeline.batchGraphics(src, camera, parentMatrix);
 };
 
 module.exports = GraphicsWebGLRenderer;
@@ -23938,15 +23937,13 @@ module.exports = Image;
   !*** ./gameobjects/image/ImageCanvasRenderer.js ***!
   \**************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -23965,11 +23962,6 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var ImageCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
-    {
-        return;
-    }
-
     renderer.drawImage(src, camera, parentMatrix);
 };
 
@@ -24121,15 +24113,13 @@ module.exports = {
   !*** ./gameobjects/image/ImageWebGLRenderer.js ***!
   \*************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -24148,11 +24138,6 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var ImageWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
-    {
-        return;
-    }
-
     this.pipeline.batchSprite(src, camera, parentMatrix);
 };
 
@@ -24337,15 +24322,13 @@ module.exports = Sprite;
   !*** ./gameobjects/sprite/SpriteCanvasRenderer.js ***!
   \****************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -24364,11 +24347,6 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var SpriteCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
-    {
-        return;
-    }
-
     renderer.drawImage(src, camera, parentMatrix);
 };
 
@@ -24528,15 +24506,13 @@ module.exports = {
   !*** ./gameobjects/sprite/SpriteWebGLRenderer.js ***!
   \***************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -24555,11 +24531,6 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var SpriteWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
-    {
-        return;
-    }
-
     this.pipeline.batchSprite(src, camera, parentMatrix);
 };
 
@@ -27001,15 +26972,13 @@ module.exports = Text;
   !*** ./gameobjects/text/static/TextCanvasRenderer.js ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -27028,7 +26997,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  */
 var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)) || src.text === '')
+    if (src.text === '')
     {
         return;
     }
@@ -27292,7 +27261,6 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/GameObject.js");
 var Utils = __webpack_require__(/*! ../../../renderer/webgl/Utils */ "./renderer/webgl/Utils.js");
 
 /**
@@ -27312,7 +27280,7 @@ var Utils = __webpack_require__(/*! ../../../renderer/webgl/Utils */ "./renderer
  */
 var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)) || src.text === '')
+    if (src.text === '')
     {
         return;
     }
@@ -32377,9 +32345,6 @@ var InputManager = new Class({
     boot: function ()
     {
         this.canvas = this.game.canvas;
-
-        // this.scale.x = this.game.config.resolution;
-        // this.scale.y = this.game.config.resolution;
 
         this.updateBounds();
 
@@ -46854,7 +46819,7 @@ var TextFile = new Class({
  * Once the file has finished loading you can access it from its Cache using its key:
  * 
  * ```javascript
- * this.load.image('story', 'files/IntroStory.txt');
+ * this.load.text('story', 'files/IntroStory.txt');
  * // and later in your game ...
  * var data = this.cache.text.get('story');
  * ```
@@ -52547,59 +52512,6 @@ BiquadFilterNode.type and OscillatorNode.type.
 
 /***/ }),
 
-/***/ "./polyfills/Function.bind.js":
-/*!************************************!*\
-  !*** ./polyfills/Function.bind.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
-* A polyfill for Function.prototype.bind
-*/
-if (!Function.prototype.bind) {
-
-    /* jshint freeze: false */
-    Function.prototype.bind = (function () {
-
-        var slice = Array.prototype.slice;
-
-        return function (thisArg) {
-
-            var target = this, boundArgs = slice.call(arguments, 1);
-
-            if (typeof target !== 'function')
-            {
-                throw new TypeError();
-            }
-
-            function bound() {
-                var args = boundArgs.concat(slice.call(arguments));
-                target.apply(this instanceof bound ? this : thisArg, args);
-            }
-
-            bound.prototype = (function F(proto) {
-                if (proto)
-                {
-                    F.prototype = proto;
-                }
-
-                if (!(this instanceof F))
-                {
-                    /* jshint supernew: true */
-                    return new F;
-                }
-            })(target.prototype);
-
-            return bound;
-        };
-    })();
-}
-
-
-
-/***/ }),
-
 /***/ "./polyfills/Math.trunc.js":
 /*!*********************************!*\
   !*** ./polyfills/Math.trunc.js ***!
@@ -52706,7 +52618,6 @@ __webpack_require__(/*! ./Array.forEach */ "./polyfills/Array.forEach.js");
 __webpack_require__(/*! ./Array.isArray */ "./polyfills/Array.isArray.js");
 __webpack_require__(/*! ./AudioContextMonkeyPatch */ "./polyfills/AudioContextMonkeyPatch.js");
 __webpack_require__(/*! ./console */ "./polyfills/console.js");
-__webpack_require__(/*! ./Function.bind */ "./polyfills/Function.bind.js");
 __webpack_require__(/*! ./Math.trunc */ "./polyfills/Math.trunc.js");
 __webpack_require__(/*! ./performance.now */ "./polyfills/performance.now.js");
 __webpack_require__(/*! ./requestAnimationFrame */ "./polyfills/requestAnimationFrame.js");
@@ -53431,6 +53342,9 @@ var CanvasRenderer = new Class({
      */
     render: function (scene, children, interpolationPercentage, camera)
     {
+        var list = children.list;
+        var childCount = list.length;
+
         var cx = camera._cx;
         var cy = camera._cy;
         var cw = camera._cw;
@@ -53438,7 +53352,6 @@ var CanvasRenderer = new Class({
 
         var ctx = scene.sys.context;
         var scissor = (cx !== 0 || cy !== 0 || cw !== ctx.canvas.width || ch !== ctx.canvas.height);
-        var list = children.list;
 
         this.currentContext = ctx;
 
@@ -53476,9 +53389,14 @@ var CanvasRenderer = new Class({
 
         ctx.setTransform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
 
-        for (var c = 0; c < list.length; c++)
+        for (var i = 0; i < childCount; i++)
         {
-            var child = list[c];
+            var child = list[i];
+
+            if (!child.willRender(camera))
+            {
+                continue;
+            }
 
             if (child.mask)
             {
@@ -56469,11 +56387,11 @@ var WebGLRenderer = new Class({
         //   Apply scissor for cam region + render background color, if not transparent
         this.preRenderCamera(camera);
 
-        for (var index = 0; index < childCount; ++index)
+        for (var i = 0; i < childCount; i++)
         {
-            var child = list[index];
+            var child = list[i];
 
-            if (!child.willRender())
+            if (!child.willRender(camera))
             {
                 continue;
             }

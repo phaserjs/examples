@@ -3024,13 +3024,19 @@
             {
               "path": "src\\game objects\\dom element\\form input.js",
               "name": "form input.js",
-              "size": 742,
+              "size": 2218,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\dom element\\input test.js",
               "name": "input test.js",
-              "size": 993,
+              "size": 2403,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\dom element\\physics element.js",
+              "name": "physics element.js",
+              "size": 1083,
               "extension": ".js"
             },
             {
@@ -3052,7 +3058,7 @@
               "extension": ".js"
             }
           ],
-          "size": 8127
+          "size": 12096
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4796,7 +4802,7 @@
           "size": 261872
         }
       ],
-      "size": 799801
+      "size": 803770
     },
     {
       "path": "src\\games",
@@ -10148,5 +10154,5 @@
       "size": 5291
     }
   ],
-  "size": 2656133
+  "size": 2660102
 }

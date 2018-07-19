@@ -3034,9 +3034,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\dom element\\move camera.js",
+              "name": "move camera.js",
+              "size": 1584,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\dom element\\physics element.js",
               "name": "physics element.js",
-              "size": 1083,
+              "size": 1251,
               "extension": ".js"
             },
             {
@@ -3058,7 +3064,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12096
+          "size": 13848
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4802,7 +4808,7 @@
           "size": 261872
         }
       ],
-      "size": 803770
+      "size": 805522
     },
     {
       "path": "src\\games",
@@ -10154,5 +10160,5 @@
       "size": 5291
     }
   ],
-  "size": 2660102
+  "size": 2661854
 }

@@ -3036,7 +3036,7 @@
             {
               "path": "src\\game objects\\dom element\\move camera.js",
               "name": "move camera.js",
-              "size": 1584,
+              "size": 2028,
               "extension": ".js"
             },
             {
@@ -3064,7 +3064,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13848
+          "size": 14292
         },
         {
           "path": "src\\game objects\\graphics",
@@ -4808,7 +4808,7 @@
           "size": 261872
         }
       ],
-      "size": 805522
+      "size": 805966
     },
     {
       "path": "src\\games",
@@ -10160,5 +10160,5 @@
       "size": 5291
     }
   ],
-  "size": 2661854
+  "size": 2662298
 }

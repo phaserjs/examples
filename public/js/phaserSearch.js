@@ -133,7 +133,7 @@ PHASER.search = (function(){
 
         var count = 0;
         $.each(results, function(i, item){
-            var fullPath = '/edit.html?src=src/' + item.path;
+            var fullPath = './view.html?src=src/' + item.path;
             var segments = item.path.split("/");
             var title = segments.pop();
             var path = segments.join('/');
@@ -207,7 +207,7 @@ PHASER.search = (function(){
             return;
         }
 
-        $.getJSON('/documentIndex.json', function(data){
+        $.getJSON('./documentIndex.json', function(data){
             index = data;
             callback(index);
         });

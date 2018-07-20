@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 //  Toggles debug output.
-var debug = false;
+var debug = true;
 
 //  List of directories containing files which should be excluded from the index.
 var excludedDirectories = [];
@@ -14,7 +14,7 @@ var excludedFiles = [];
 var indexFile = 'public/documentIndex.json';
 
 //  Exclude files and folders beginning with `_` or `archived`
-var excludeDocuments = /\/(?:archived|_)/;
+var excludeDocuments = /(?:archived|_)/;
 
 //  Includes files ending with `.json` or `.js`
 var includeDocuments = /\.(?:js|json)$/;
@@ -126,7 +126,13 @@ function wordMap (string)
 
 function indexDocument (documentPath)
 {
-    var path = documentPath.replace("public/src/", "");
+    var path = documentPath;
+
+    if (path.substr(0, 6) === 'public')
+    {
+        path = path.substr(11);
+    }
+
     var title = path.replace(".json", "");
     var contents = fs.readFileSync(documentPath).toString();
 

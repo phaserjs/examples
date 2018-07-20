@@ -1087,6 +1087,12 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\container bounds.js",
+          "name": "container bounds.js",
+          "size": 1013,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\emitter blend mode.js",
           "name": "emitter blend mode.js",
           "size": 559,
@@ -1097,9 +1103,15 @@
           "name": "mask.js",
           "size": 1590,
           "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\particles.js",
+          "name": "particles.js",
+          "size": 994,
+          "extension": ".js"
         }
       ],
-      "size": 2149
+      "size": 4156
     },
     {
       "path": "src\\cache",
@@ -10160,5 +10172,5 @@
       "size": 5291
     }
   ],
-  "size": 2662298
+  "size": 2664305
 }

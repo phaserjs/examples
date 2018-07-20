@@ -25,33 +25,47 @@ function preload ()
 
 function create ()
 {
+    var smileys = [ '😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊','😋','😎','😍','😘','😗','😙','😚','️🙂','🤗','🤩','🤔','🤨','😐','😑','😶','🙄','😏','😣','😥','😮','🤐','😯','😪','😫','😴','😌','😛','😜','😝','🤤','😒','😓','😔','😕','🙃','🤑','😲','☹️','🙁','😖','😞','😟','😤','😢','😭','😦','😧','😨','😩','🤯','😬','😰','😱','😳','🤪','😵','😡','😠','🤬','😷','🤒','🤕','🤢','🤮','🤧','😇','🤠','🤡','🤥','🤫','🤭','🧐','🤓','😈','👿','👹','👺','💀','👻','👽','🤖','💩','😺','😸','😹','😻','😼','😽','🙀','😿','😾' ];
+
     //  Create a bunch of random divs all over the place
-    for (var i = 0; i < 300; i++)
+
+    var sf = 0.5;
+    var px = 64;
+
+    for (var i = 1; i <= 250; i++)
     {
         var div = document.createElement('div');
 
-        var r1 = Phaser.Math.Between(0, 255);
-        var g1 = Phaser.Math.Between(0, 255);
-        var b1 = Phaser.Math.Between(0, 255);
+        div.style = 'font-size: ' + px + 'px';
+        div.innerText = Phaser.Utils.Array.GetRandom(smileys);
 
-        var r2 = Phaser.Math.Between(0, 255);
-        var g2 = Phaser.Math.Between(0, 255);
-        var b2 = Phaser.Math.Between(0, 255);
+        var x = Phaser.Math.Between(100, 3900);
+        var y = Phaser.Math.Between(100, 3900);
 
-        var rgba1 = 'rgba(' + r1 + ',' + b1 + ',' + g1 + ',1) 0%,';
-        var rgba2 = 'rgba(' + r2 + ',' + b2 + ',' + g2 + ',1) 100%';
+        var element = this.add.dom(x, y, div).setScrollFactor(sf);
 
-        div.style = 'background: linear-gradient(180deg, ' + rgba1 + rgba2 + '); font: 48px Arial; font-weight: bold';
-        div.innerText = '<div>';
+        element.setPerspective(800);
+        // element.rotate3d.set(0, 1, 0, 0);
 
-        var x = Phaser.Math.Between(0, 4000);
-        var y = Phaser.Math.Between(0, 4000);
+        element.rotate3d.set(Math.random(), Math.random(), Math.random(), 0);
 
-        this.add.dom(x, y, div);
+        this.tweens.add({
+            targets: element.rotate3d,
+            w: 180,
+            duration: 2000,
+            ease: 'Sine.easeInOut',
+            loop: -1,
+            yoyo: true
+        });
+
+        if (i % 50 === 0)
+        {
+            sf += 0.1;
+            px += 32;
+        }
     }
 
     this.cameras.main.setBounds(0, 0, 4000, 4000);
-
 
     var cursors = this.input.keyboard.createCursorKeys();
 

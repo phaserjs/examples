@@ -331,6 +331,12 @@
           "size": 1295,
           "extension": ".js"
         },
+		{
+          "path": "src\\animation\\reverse animation.js",
+          "name": "reverse animation.js",
+          "size": 1334,
+          "extension": ".js"
+        },
         {
           "path": "src/animation/scaled animation.js",
           "name": "scaled animation.js",

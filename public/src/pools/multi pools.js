@@ -82,11 +82,13 @@ function create ()
 
     });
 
-    bullets = this.add.group({
+    bullets1 = this.add.group({
         classType: Bullet,
         maxSize: 50,
         runChildUpdate: true
     });
+    
+    ship = this.add.sprite(400, 300, 'ship').setDepth(1);
 
     this.input.on('pointerdown', function (pointer) {
 
@@ -113,6 +115,7 @@ function create ()
 
 function update (time, delta)
 {
+
     if (isDown && time > lastFired)
     {
         var bullet = bullets.get();
@@ -124,4 +127,7 @@ function update (time, delta)
             lastFired = time + 50;
         }
     }
+
+    ship.setRotation(Phaser.Math.Angle.Between(mouseX, mouseY, ship.x, ship.y) - Math.PI / 2);    
+
 }

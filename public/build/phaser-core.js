@@ -1215,14 +1215,7 @@ var Animation = new Class({
             component._yoyo = this.yoyo;
         }
 
-        var frame = this.frames[startFrame];
-
-        if(startFrame === 0 && !component.forward)
-        {
-            frame = this.getLastFrame();
-        }
-
-        component.updateFrame(frame);
+        component.updateFrame(this.frames[startFrame]);
     },
 
     /**
@@ -1264,20 +1257,16 @@ var Animation = new Class({
             if (component._yoyo)
             {
                 component.forward = false;
-                this._updateAndGetNextTick(component, frame.prevFrame);
+
+                component.updateFrame(frame.prevFrame);
+
+                //  Delay for the current frame
+                this.getNextTick(component);
             }
             else if (component.repeatCounter > 0)
             {
                 //  Repeat (happens before complete)
-
-                if(component._reverse && component.forward)
-                {
-                    component.forward = false;
-                }
-                else
-                {
-                    this.repeatAnimation(component);
-                }
+                this.repeatAnimation(component);
             }
             else
             {
@@ -1286,20 +1275,10 @@ var Animation = new Class({
         }
         else
         {
-            this._updateAndGetNextTick(component, frame.nextFrame);
-        }
-    },
+            component.updateFrame(frame.nextFrame);
 
-    /**
-     * Returns the animation last frame.
-     *
-     * @method Phaser.Animations.Animation#getLastFrame
-     *
-     * @return {Phaser.Animations.AnimationFrame} component - The Animation Last Frame.
-     */
-    getLastFrame: function ()
-    {
-        return this.frames[this.frames.length - 1];
+            this.getNextTick(component);
+        }
     },
 
     /**
@@ -1320,24 +1299,10 @@ var Animation = new Class({
         {
             //  We're at the start of the animation
 
-            if (component._yoyo)
+            if (component.repeatCounter > 0)
             {
-                component.forward = true;
-                this._updateAndGetNextTick(component, frame.nextFrame);
-            }
-            else if (component.repeatCounter > 0)
-            {
-                if(component._reverse && !component.forward)
-                {
-                    component.currentFrame = this.getLastFrame();
-                    this._updateAndGetNextTick(component, component.currentFrame);
-                }
-                else
-                {
-                    //  Repeat (happens before complete)
-                    component.forward = true;
-                    this.repeatAnimation(component);
-                }
+                //  Repeat (happens before complete)
+                this.repeatAnimation(component);
             }
             else
             {
@@ -1346,22 +1311,10 @@ var Animation = new Class({
         }
         else
         {
-            this._updateAndGetNextTick(component, frame.prevFrame);
-        }
-    },
+            component.updateFrame(frame.prevFrame);
 
-    /**
-     * Update Frame and Wait next tick
-     *
-     * @method Phaser.Animations.Animation#_updateAndGetNextTick
-     *
-     * @param {Phaser.Animations.AnimationFrame} frame - An Animation frame
-     *
-     */
-    _updateAndGetNextTick: function (component, frame)
-    {
-        component.updateFrame(frame);
-        this.getNextTick(component);
+            this.getNextTick(component);
+        }
     },
 
     /**
@@ -1431,7 +1384,9 @@ var Animation = new Class({
         {
             component.repeatCounter--;
 
-            component.updateFrame(component.currentFrame[(component.forward) ? 'nextFrame' : 'prevFrame']);
+            component.forward = true;
+
+            component.updateFrame(component.currentFrame.nextFrame);
 
             if (component.isPlaying)
             {
@@ -2511,6 +2466,13 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  */
 
 /**
+ * @typedef {object} DOMContainerConfig
+ *
+ * @property {boolean} [createContainer=false] - Create a div element in which DOM Elements will be contained. You must also provide a parent.
+ * @property {boolean} [behindCanvas=false] - Place the DOM Container behind the Phaser Canvas. The default is to place it over the Canvas.
+ */
+
+/**
  * @typedef {object} GameConfig
  *
  * @property {(integer|string)} [width=1024] - [description]
@@ -2543,6 +2505,7 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [banner.hidePhaser=false] - [description]
  * @property {string} [banner.text='#ffffff'] - [description]
  * @property {string[]} [banner.background] - [description]
+ * @property {DOMContainerConfig} [dom] - The DOM Container configuration object.
  * @property {FPSConfig} [fps] - [description]
  * @property {boolean} [render.antialias=true] - [description]
  * @property {boolean} [render.pixelArt=false] - [description]
@@ -2671,6 +2634,18 @@ var Config = new Class({
          * @const {boolean} Phaser.Boot.Config#autoFocus - [description]
          */
         this.autoFocus = GetValue(config, 'autoFocus', true);
+
+        //  DOM Element Container
+
+        /**
+         * @const {?boolean} Phaser.Boot.Config#domCreateContainer - [description]
+         */
+        this.domCreateContainer = GetValue(config, 'dom.createContainer', false);
+
+        /**
+         * @const {?boolean} Phaser.Boot.Config#domBehindCanvas - [description]
+         */
+        this.domBehindCanvas = GetValue(config, 'dom.behindCanvas', false);
 
         //  Input
 
@@ -3016,6 +2991,53 @@ module.exports = Config;
 
 /***/ }),
 
+/***/ "./boot/CreateDOMContainer.js":
+/*!************************************!*\
+  !*** ./boot/CreateDOMContainer.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var AddToDOM = __webpack_require__(/*! ../dom/AddToDOM */ "./dom/AddToDOM.js");
+
+var CreateDOMContainer = function (game)
+{
+    var config = game.config;
+
+    if (!config.parent || !config.domCreateContainer)
+    {
+        return;
+    }
+
+    //  DOM Element Container
+    var div = document.createElement('div');
+
+    div.style = [
+        'display: block;',
+        'width: ' + game.canvas.width + 'px;',
+        'height: ' + game.canvas.height + 'px;',
+        'padding: 0; margin: 0;',
+        'position: absolute;',
+        'overflow: hidden;',
+        'pointer-events: none;'
+    ].join(' ');
+
+    game.domContainer = div;
+
+    AddToDOM(div, config.parent);
+};
+
+module.exports = CreateDOMContainer;
+
+
+/***/ }),
+
 /***/ "./boot/CreateRenderer.js":
 /*!********************************!*\
   !*** ./boot/CreateRenderer.js ***!
@@ -3297,6 +3319,7 @@ var CacheManager = __webpack_require__(/*! ../cache/CacheManager */ "./cache/Cac
 var CanvasPool = __webpack_require__(/*! ../display/canvas/CanvasPool */ "./display/canvas/CanvasPool.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var Config = __webpack_require__(/*! ./Config */ "./boot/Config.js");
+var CreateDOMContainer = __webpack_require__(/*! ./CreateDOMContainer */ "./boot/CreateDOMContainer.js");
 var CreateRenderer = __webpack_require__(/*! ./CreateRenderer */ "./boot/CreateRenderer.js");
 var DataManager = __webpack_require__(/*! ../data/DataManager */ "./data/DataManager.js");
 var DebugHeader = __webpack_require__(/*! ./DebugHeader */ "./boot/DebugHeader.js");
@@ -3354,6 +3377,20 @@ var Game = new Class({
          * @since 3.0.0
          */
         this.renderer = null;
+
+        /**
+         * A reference to an HTML Div Element used as a DOM Element Container.
+         * 
+         * Only set if `createDOMContainer` is `true` in the game config (by default it is `false`) and
+         * if you provide a parent element to insert the Phaser Game inside.
+         *
+         * See the DOM Element Game Object for more details.
+         *
+         * @name Phaser.Game#domContainer
+         * @type {HTMLDivElement}
+         * @since 3.12.0
+         */
+        this.domContainer = null;
 
         /**
          * A reference to the HTML Canvas Element that Phaser uses to render the game.
@@ -3591,6 +3628,8 @@ var Game = new Class({
         this.config.preBoot(this);
 
         CreateRenderer(this);
+
+        CreateDOMContainer(this);
 
         DebugHeader(this);
 
@@ -3898,6 +3937,12 @@ var Game = new Class({
         this.config.width = width;
         this.config.height = height;
 
+        if (this.domContainer)
+        {
+            this.domContainer.style.width = width + 'px';
+            this.domContainer.style.height = height + 'px';
+        }
+
         this.renderer.resize(width, height);
 
         this.input.resize();
@@ -3951,6 +3996,11 @@ var Game = new Class({
             {
                 this.canvas.parentNode.removeChild(this.canvas);
             }
+        }
+
+        if (this.domContainer)
+        {
+            this.domContainer.parentNode.removeChild(this.domContainer);
         }
 
         this.loop.destroy();
@@ -5090,6 +5140,15 @@ var CacheManager = new Class({
         this.text = new BaseCache();
 
         /**
+         * A Cache storing all html files, typically added via the Loader.
+         *
+         * @name Phaser.Cache.CacheManager#html
+         * @type {Phaser.Cache.BaseCache}
+         * @since 3.12.0
+         */
+        this.html = new BaseCache();
+
+        /**
          * A Cache storing all WaveFront OBJ files, typically added via the Loader.
          *
          * @name Phaser.Cache.CacheManager#obj
@@ -5168,6 +5227,7 @@ var CacheManager = new Class({
             'shader',
             'audio',
             'text',
+            'html',
             'obj',
             'tilemap',
             'xml'
@@ -5354,9 +5414,10 @@ var Camera = new Class({
          *
          * @name Phaser.Cameras.Scene2D.Camera#x
          * @type {number}
+         * @private
          * @since 3.0.0
          */
-        this.x = x;
+        this._x = x;
 
         /**
          * The y position of the Camera, relative to the top-left of the game canvas.
@@ -5365,9 +5426,60 @@ var Camera = new Class({
          *
          * @name Phaser.Cameras.Scene2D.Camera#y
          * @type {number}
+         * @private
          * @since 3.0.0
          */
-        this.y = y;
+        this._y = y;
+
+        /**
+         * The resolution of the Game, used in most Camera calculations.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#resolution
+         * @type {number}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.resolution = 1;
+
+        /**
+         * Internal Camera X value multiplied by the resolution.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_cx
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
+        this._cx = 0;
+
+        /**
+         * Internal Camera Y value multiplied by the resolution.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_cy
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
+        this._cy = 0;
+
+        /**
+         * Internal Camera Width value multiplied by the resolution.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_cw
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
+        this._cw = 0;
+
+        /**
+         * Internal Camera Height value multiplied by the resolution.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_ch
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
+        this._ch = 0;
 
         /**
          * The width of the Camera viewport, in pixels.
@@ -6303,8 +6415,10 @@ var Camera = new Class({
         var scrollX = this.scrollX;
         var scrollY = this.scrollY;
 
-        var sx = x + ((scrollX * c - scrollY * s) * zoom);
-        var sy = y + ((scrollX * s + scrollY * c) * zoom);
+        var res = this.resolution;
+
+        var sx = x * res + ((scrollX * c - scrollY * s) * zoom);
+        var sy = y * res + ((scrollX * s + scrollY * c) * zoom);
 
         /* Apply transform to point */
         output.x = (sx * ima + sy * imc + ime);
@@ -6773,6 +6887,7 @@ var Camera = new Class({
 
     /**
      * Sets the Scene the Camera is bound to.
+     * Also populates the `resolution` property and updates the internal size values.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setScene
      * @since 3.0.0
@@ -6784,6 +6899,15 @@ var Camera = new Class({
     setScene: function (scene)
     {
         this.scene = scene;
+
+        var res = scene.sys.game.config.resolution;
+
+        this.resolution = res;
+
+        this._cx = this._x * res;
+        this._cy = this._y * res;
+        this._cw = this._width * res;
+        this._ch = this._height * res;
 
         return this;
     },
@@ -7107,6 +7231,56 @@ var Camera = new Class({
     },
 
     /**
+     * The x position of the Camera viewport, relative to the top-left of the game canvas.
+     * The viewport is the area into which the camera renders.
+     * To adjust the position the camera is looking at in the game world, see the `scrollX` value.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#x
+     * @type {number}
+     * @since 3.0.0
+     */
+    x: {
+
+        get: function ()
+        {
+            return this._x;
+        },
+
+        set: function (value)
+        {
+            this._x = value;
+            this._cx = value * this.resolution;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
+     * The y position of the Camera viewport, relative to the top-left of the game canvas.
+     * The viewport is the area into which the camera renders.
+     * To adjust the position the camera is looking at in the game world, see the `scrollY` value.
+     *
+     * @name Phaser.Cameras.Scene2D.Camera#y
+     * @type {number}
+     * @since 3.0.0
+     */
+    y: {
+
+        get: function ()
+        {
+            return this._y;
+        },
+
+        set: function (value)
+        {
+            this._y = value;
+            this._cy = value * this.resolution;
+            this.dirty = true;
+        }
+
+    },
+
+    /**
      * The width of the Camera viewport, in pixels.
      *
      * The viewport is the area into which the Camera renders. Setting the viewport does
@@ -7126,6 +7300,7 @@ var Camera = new Class({
         set: function (value)
         {
             this._width = value;
+            this._cw = value * this.resolution;
             this.dirty = true;
         }
 
@@ -7151,6 +7326,7 @@ var Camera = new Class({
         set: function (value)
         {
             this._height = value;
+            this._ch = value * this.resolution;
             this.dirty = true;
         }
 
@@ -8422,7 +8598,7 @@ var Fade = new Class({
         var camera = this.camera;
 
         ctx.fillStyle = 'rgba(' + this.red + ',' + this.green + ',' + this.blue + ',' + this.alpha + ')';
-        ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
+        ctx.fillRect(camera._cx, camera._cy, camera._cw, camera._ch);
 
         return true;
     },
@@ -8452,7 +8628,7 @@ var Fade = new Class({
 
         pipeline.batchFillRect(
             0, 0, 1, 1, 0,
-            camera.x, camera.y, camera.width, camera.height,
+            camera._cx, camera._cy, camera._cw, camera._ch,
             getTintFunction(red, green, blue, 1),
             this.alpha,
             1, 0, 0, 1, 0, 0,
@@ -8810,7 +8986,7 @@ var Flash = new Class({
         var camera = this.camera;
 
         ctx.fillStyle = 'rgba(' + this.red + ',' + this.green + ',' + this.blue + ',' + this.alpha + ')';
-        ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
+        ctx.fillRect(camera._cx, camera._cy, camera._cw, camera._ch);
 
         return true;
     },
@@ -8840,7 +9016,7 @@ var Flash = new Class({
 
         pipeline.batchFillRect(
             0, 0, 1, 1, 0,
-            camera.x, camera.y, camera.width, camera.height,
+            camera._cx, camera._cy, camera._cw, camera._ch,
             getTintFunction(red, green, blue, 1),
             this.alpha,
             1, 0, 0, 1, 0, 0,
@@ -9527,8 +9703,8 @@ var Shake = new Class({
         if (this._elapsed < this.duration)
         {
             var intensity = this.intensity;
-            var width = this.camera.width;
-            var height = this.camera.height;
+            var width = this.camera._cw;
+            var height = this.camera._ch;
             var zoom = this.camera.zoom;
 
             this._offsetX = (Math.random() * intensity.x * width * 2 - intensity.x * width) * zoom;
@@ -15487,7 +15663,7 @@ var GameObject = new Class({
      * removed from the Input Manager and cleared from this Game Object.
      *
      * If you wish to re-enable this Game Object at a later date you will need to
-     * re-create its InteractiveOobject by calling `setInteractive` again.
+     * re-create its InteractiveObject by calling `setInteractive` again.
      *
      * If you wish to only temporarily stop an object from receiving input then use
      * `disableInteractive` instead, as that toggles the interactive state, where-as
@@ -15532,15 +15708,18 @@ var GameObject = new Class({
 
     /**
      * Compares the renderMask with the renderFlags to see if this Game Object will render or not.
+     * Also checks the Game Object against the given Cameras exclusion list.
      *
      * @method Phaser.GameObjects.GameObject#willRender
      * @since 3.0.0
+     * 
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to check against this Game Object.
      *
      * @return {boolean} True if the Game Object should be rendered, otherwise false.
      */
-    willRender: function ()
+    willRender: function (camera)
     {
-        return (GameObject.RENDER_MASK === this.renderFlags);
+        return !(GameObject.RENDER_MASK !== this.renderFlags || (this.cameraFilter > 0 && (this.cameraFilter & camera.id)));
     },
 
     /**
@@ -16863,7 +17042,7 @@ var Animation = new Class({
         this._yoyo = false;
 
         /**
-         * Will the playhead move forwards (`true`) or in reverse (`false`).
+         * Will the playhead move forwards (`true`) or in reverse (`false`)
          *
          * @name Phaser.GameObjects.Components.Animation#forward
          * @type {boolean}
@@ -16871,16 +17050,6 @@ var Animation = new Class({
          * @since 3.0.0
          */
         this.forward = true;
-
-        /**
-         * An Internal trigger that's play the animation in reverse mode ('true') or not ('false'),
-         * needed because forward can be changed by yoyo feature.
-         *
-         * @name Phaser.GameObjects.Components.Animation#forward
-         * @type {boolean}
-         * @default false
-         */
-        this._reverse = false;
 
         /**
          * Internal time overflow accumulator.
@@ -17161,52 +17330,6 @@ var Animation = new Class({
             return this.parent;
         }
 
-        this.forward = true;
-        this._reverse = false;
-        return this._startAnimation(key, startFrame);
-    },
-
-    /**
-     * Plays an Animation (in reverse mode) on the Game Object that owns this Animation Component.
-     *
-     * @method Phaser.GameObjects.Components.Animation#playReverse
-     * @fires Phaser.GameObjects.Components.Animation#onStartEvent
-     *
-     * @param {string} key - The string-based key of the animation to play, as defined previously in the Animation Manager.
-     * @param {boolean} [ignoreIfPlaying=false] - If an animation is already playing then ignore this call.
-     * @param {integer} [startFrame=0] - Optionally start the animation playing from this frame index.
-     *
-     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
-     */
-    playReverse: function (key, ignoreIfPlaying, startFrame)
-    {
-        if (ignoreIfPlaying === undefined) { ignoreIfPlaying = false; }
-        if (startFrame === undefined) { startFrame = 0; }
-
-        if (ignoreIfPlaying && this.isPlaying && this.currentAnim.key === key)
-        {
-            return this.parent;
-        }
-
-        this.forward = false;
-        this._reverse = true;
-        return this._startAnimation(key, startFrame);
-    },
-
-    /**
-     * Load an Animation and fires 'onStartEvent' event,
-     * extracted from 'play' method
-     *
-     * @method Phaser.GameObjects.Components.Animation#_startAnimation
-     * @fires Phaser.GameObjects.Components.Animation#onStartEvent
-     *
-     * @param {string} key - The string-based key of the animation to play, as defined previously in the Animation Manager.
-     * @param {integer} [startFrame=0] - Optionally start the animation playing from this frame index.
-     *
-     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
-     */
-    _startAnimation: function (key, startFrame)
-    {
         this.load(key, startFrame);
 
         var anim = this.currentAnim;
@@ -17216,7 +17339,8 @@ var Animation = new Class({
         this.repeatCounter = (this._repeat === -1) ? Number.MAX_VALUE : this._repeat;
 
         anim.getFirstTick(this);
-        
+
+        this.forward = true;
         this.isPlaying = true;
         this.pendingRepeat = false;
 
@@ -17228,24 +17352,6 @@ var Animation = new Class({
         gameObject.emit('animationstart', this.currentAnim, this.currentFrame);
 
         return gameObject;
-    },
-
-    /**
-     * Revert an Animation that is already playing on the Game Object.
-     *
-     * @method Phaser.GameObjects.Components.Animation#revert
-     *
-     * @param {string} key - The string-based key of the animation to play, as defined previously in the Animation Manager.
-     *
-     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
-     */
-    revert: function (key)
-    {
-        if (!this.isPlaying || this.currentAnim.key !== key) { return this.parent; }
-        this._reverse = !this._reverse;
-        this.forward = !this.forward;
-
-        return this.parent;
     },
 
     /**
@@ -19798,16 +19904,6 @@ var TextureCrop = {
     isCropped: false,
 
     /**
-     * The internal crop data object, as used by `setCrop` and passed to the `Frame.setCropUVs` method.
-     *
-     * @name Phaser.GameObjects.Components.TextureCrop#isCropped
-     * @type {object}
-     * @private
-     * @since 3.11.0
-     */
-    _crop: { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 },
-
-    /**
      * Applies a crop to a texture based Game Object, such as a Sprite or Image.
      * 
      * The crop is a rectangle that limits the area of the texture frame that is visible during rendering.
@@ -21610,6 +21706,21 @@ var TransformMatrix = new Class({
     },
 
     /**
+     * Returns a string that can be used in a CSS Transform call as a `matrix` property.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#getCSSMatrix
+     * @since 3.12.0
+     *
+     * @return {string} A string containing the CSS Transform matrix values.
+     */
+    getCSSMatrix: function ()
+    {
+        var m = this.matrix;
+
+        return 'matrix(' + m[0] + ',' + m[1] + ',' + m[2] + ',' + m[3] + ',' + m[4] + ',' + m[5] + ')';
+    },
+
+    /**
      * Destroys this Transform Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#destroy
@@ -23275,7 +23386,6 @@ module.exports = Graphics;
  */
 
 var Commands = __webpack_require__(/*! ./Commands */ "./gameobjects/graphics/Commands.js");
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -23296,7 +23406,10 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix, renderTargetCtx, allowClip)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
+    var commandBuffer = src.commandBuffer;
+    var commandBufferLength = commandBuffer.length;
+
+    if (commandBufferLength === 0)
     {
         return;
     }
@@ -23308,7 +23421,6 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     var srcScaleX = src.scaleX;
     var srcScaleY = src.scaleY;
     var srcRotation = src.rotation;
-    var commandBuffer = src.commandBuffer;
     var ctx = renderTargetCtx || renderer.currentContext;
     var lineAlpha = 1.0;
     var fillAlpha = 1.0;
@@ -23362,7 +23474,7 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     ctx.fillStyle = '#fff';
     ctx.globalAlpha = src.alpha;
 
-    for (var index = 0, length = commandBuffer.length; index < length; ++index)
+    for (var index = 0; index < commandBufferLength; ++index)
     {
         var commandID = commandBuffer[index];
 
@@ -23686,15 +23798,13 @@ module.exports = {
   !*** ./gameobjects/graphics/GraphicsWebGLRenderer.js ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -23706,19 +23816,22 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  * @private
  *
  * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
- * @param {Phaser.GameObjects.Graphics} graphics - The Game Object being rendered in this call.
+ * @param {Phaser.GameObjects.Graphics} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var GraphicsWebGLRenderer = function (renderer, graphics, interpolationPercentage, camera, parentMatrix)
+var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== graphics.renderFlags || (graphics.cameraFilter > 0 && (graphics.cameraFilter & camera._id)))
+    var commandBuffer = src.commandBuffer;
+    var commandBufferLength = commandBuffer.length;
+
+    if (commandBufferLength === 0)
     {
         return;
     }
 
-    this.pipeline.batchGraphics(this, camera, parentMatrix);
+    this.pipeline.batchGraphics(src, camera, parentMatrix);
 };
 
 module.exports = GraphicsWebGLRenderer;
@@ -23810,6 +23923,16 @@ var Image = new Class({
     {
         GameObject.call(this, scene, 'Image');
 
+        /**
+         * The internal crop data object, as used by `setCrop` and passed to the `Frame.setCropUVs` method.
+         *
+         * @name Phaser.GameObjects.Image#_crop
+         * @type {object}
+         * @private
+         * @since 3.11.0
+         */
+        this._crop = { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 };
+
         this.setTexture(texture, frame);
         this.setPosition(x, y);
         this.setSizeToFrame();
@@ -23829,15 +23952,13 @@ module.exports = Image;
   !*** ./gameobjects/image/ImageCanvasRenderer.js ***!
   \**************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -23856,11 +23977,6 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var ImageCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
-    {
-        return;
-    }
-
     renderer.drawImage(src, camera, parentMatrix);
 };
 
@@ -24012,15 +24128,13 @@ module.exports = {
   !*** ./gameobjects/image/ImageWebGLRenderer.js ***!
   \*************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -24039,11 +24153,6 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var ImageWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
-    {
-        return;
-    }
-
     this.pipeline.batchSprite(src, camera, parentMatrix);
 };
 
@@ -24140,6 +24249,16 @@ var Sprite = new Class({
         GameObject.call(this, scene, 'Sprite');
 
         /**
+         * The internal crop data object, as used by `setCrop` and passed to the `Frame.setCropUVs` method.
+         *
+         * @name Phaser.GameObjects.Sprite#_crop
+         * @type {object}
+         * @private
+         * @since 3.11.0
+         */
+        this._crop = { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 };
+
+        /**
          * The Animation Controller of this Sprite.
          *
          * @name Phaser.GameObjects.Sprite#anims
@@ -24218,15 +24337,13 @@ module.exports = Sprite;
   !*** ./gameobjects/sprite/SpriteCanvasRenderer.js ***!
   \****************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -24245,11 +24362,6 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var SpriteCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
-    {
-        return;
-    }
-
     renderer.drawImage(src, camera, parentMatrix);
 };
 
@@ -24409,15 +24521,13 @@ module.exports = {
   !*** ./gameobjects/sprite/SpriteWebGLRenderer.js ***!
   \***************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -24436,11 +24546,6 @@ var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObj
  */
 var SpriteWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)))
-    {
-        return;
-    }
-
     this.pipeline.batchSprite(src, camera, parentMatrix);
 };
 
@@ -25373,6 +25478,29 @@ var TextStyle = new Class({
     setColor: function (color)
     {
         this.color = color;
+
+        return this.update(false);
+    },
+
+    /**
+     * Set the resolution used by the Text object.
+     *
+     * By default it will be set to match the resolution set in the Game Config,
+     * but you can override it via this method. It allows for much clearer text on High DPI devices,
+     * at the cost of memory because it uses larger internal Canvas textures for the Text.
+     * 
+     * Please use with caution, as the more high res Text you have, the more memory it uses up.
+     *
+     * @method Phaser.GameObjects.Text.TextStyle#setResolution
+     * @since 3.12.0
+     *
+     * @param {number} value - The resolution for this Text object to use.
+     *
+     * @return {Phaser.GameObjects.Text} The parent Text object.
+     */
+    setResolution: function (value)
+    {
+        this.resolution = value;
 
         return this.update(false);
     },
@@ -26547,6 +26675,29 @@ var Text = new Class({
     },
 
     /**
+     * Set the resolution used by this Text object.
+     *
+     * By default it will be set to match the resolution set in the Game Config,
+     * but you can override it via this method, or by specifying it in the Text style configuration object.
+     * 
+     * It allows for much clearer text on High DPI devices, at the cost of memory because it uses larger
+     * internal Canvas textures for the Text.
+     * 
+     * Therefore, please use with caution, as the more high res Text you have, the more memory it uses.
+     *
+     * @method Phaser.GameObjects.Text#setResolution
+     * @since 3.12.0
+     *
+     * @param {number} value - The resolution for this Text object to use.
+     *
+     * @return {Phaser.GameObjects.Text} This Text object.
+     */
+    setResolution: function (value)
+    {
+        return this.style.setResolution(value);
+    },
+
+    /**
      * Set the text padding.
      *
      * 'left' can be an object.
@@ -26836,15 +26987,13 @@ module.exports = Text;
   !*** ./gameobjects/text/static/TextCanvasRenderer.js ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
-
-var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/GameObject.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -26863,7 +27012,7 @@ var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/Game
  */
 var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)) || src.text === '')
+    if (src.text === '')
     {
         return;
     }
@@ -27127,7 +27276,6 @@ module.exports = {
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var GameObject = __webpack_require__(/*! ../../GameObject */ "./gameobjects/GameObject.js");
 var Utils = __webpack_require__(/*! ../../../renderer/webgl/Utils */ "./renderer/webgl/Utils.js");
 
 /**
@@ -27147,7 +27295,7 @@ var Utils = __webpack_require__(/*! ../../../renderer/webgl/Utils */ "./renderer
  */
 var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (GameObject.RENDER_MASK !== src.renderFlags || (src.cameraFilter > 0 && (src.cameraFilter & camera.id)) || src.text === '')
+    if (src.text === '')
     {
         return;
     }
@@ -32213,9 +32361,6 @@ var InputManager = new Class({
     {
         this.canvas = this.game.canvas;
 
-        // this.scale.x = this.game.config.resolution;
-        // this.scale.y = this.game.config.resolution;
-
         this.updateBounds();
 
         this.events.emit('boot');
@@ -32973,15 +33118,20 @@ var InputManager = new Class({
         if (output === undefined) { output = this._tempHitTest; }
 
         var tempPoint = this._tempPoint;
-        var cameraW = camera.width;
-        var cameraH = camera.height;
+
+        var cx = camera._cx;
+        var cy = camera._cy;
+        var cw = camera._cw;
+        var ch = camera._ch;
+        var csx = camera.scrollX;
+        var csy = camera.scrollY;
 
         output.length = 0;
 
         var x = pointer.x;
         var y = pointer.y;
 
-        if (!(x >= camera.x && y >= camera.y && x <= camera.x + cameraW && y <= camera.y + cameraH))
+        if (!(x >= cx && y >= cy && x <= cx + cw && y <= cy + ch))
         {
             return output;
         }
@@ -32992,12 +33142,7 @@ var InputManager = new Class({
         pointer.worldX = tempPoint.x;
         pointer.worldY = tempPoint.y;
 
-        //  Disable until fixed.
-        // var culledGameObjects = camera.cull(gameObjects);
-
         var point = { x: 0, y: 0 };
-
-        var res = this.game.config.resolution;
 
         var matrix = this._tempMatrix;
 
@@ -33010,8 +33155,8 @@ var InputManager = new Class({
                 continue;
             }
 
-            var px = tempPoint.x * res + (camera.scrollX * gameObject.scrollFactorX) - camera.scrollX;
-            var py = tempPoint.y * res + (camera.scrollY * gameObject.scrollFactorY) - camera.scrollY;
+            var px = tempPoint.x + (csx * gameObject.scrollFactorX) - csx;
+            var py = tempPoint.y + (csy * gameObject.scrollFactorY) - csy;
 
             if (gameObject.parentContainer)
             {
@@ -33110,17 +33255,14 @@ var InputManager = new Class({
      * @since 3.10.0
      *
      * @param {Phaser.Input.Pointer} pointer - The Pointer to transform the values for.
-     *
-     * @return {number} The translated value.
+     * @param {number} pageX - The Page X value.
+     * @param {number} pageY - The Page Y value.
      */
     transformPointer: function (pointer, pageX, pageY)
     {
         //  Store the previous position
         pointer.prevPosition.x = pointer.x;
         pointer.prevPosition.y = pointer.y;
-
-        //  Set the new position
-        var res = this.game.config.resolution;
 
         pointer.x = (pageX - this.bounds.left) * this.scale.x;
         pointer.y = (pageY - this.bounds.top) * this.scale.y;
@@ -46692,7 +46834,7 @@ var TextFile = new Class({
  * Once the file has finished loading you can access it from its Cache using its key:
  * 
  * ```javascript
- * this.load.image('story', 'files/IntroStory.txt');
+ * this.load.text('story', 'files/IntroStory.txt');
  * // and later in your game ...
  * var data = this.cache.text.get('story');
  * ```
@@ -52385,59 +52527,6 @@ BiquadFilterNode.type and OscillatorNode.type.
 
 /***/ }),
 
-/***/ "./polyfills/Function.bind.js":
-/*!************************************!*\
-  !*** ./polyfills/Function.bind.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
-* A polyfill for Function.prototype.bind
-*/
-if (!Function.prototype.bind) {
-
-    /* jshint freeze: false */
-    Function.prototype.bind = (function () {
-
-        var slice = Array.prototype.slice;
-
-        return function (thisArg) {
-
-            var target = this, boundArgs = slice.call(arguments, 1);
-
-            if (typeof target !== 'function')
-            {
-                throw new TypeError();
-            }
-
-            function bound() {
-                var args = boundArgs.concat(slice.call(arguments));
-                target.apply(this instanceof bound ? this : thisArg, args);
-            }
-
-            bound.prototype = (function F(proto) {
-                if (proto)
-                {
-                    F.prototype = proto;
-                }
-
-                if (!(this instanceof F))
-                {
-                    /* jshint supernew: true */
-                    return new F;
-                }
-            })(target.prototype);
-
-            return bound;
-        };
-    })();
-}
-
-
-
-/***/ }),
-
 /***/ "./polyfills/Math.trunc.js":
 /*!*********************************!*\
   !*** ./polyfills/Math.trunc.js ***!
@@ -52544,7 +52633,6 @@ __webpack_require__(/*! ./Array.forEach */ "./polyfills/Array.forEach.js");
 __webpack_require__(/*! ./Array.isArray */ "./polyfills/Array.isArray.js");
 __webpack_require__(/*! ./AudioContextMonkeyPatch */ "./polyfills/AudioContextMonkeyPatch.js");
 __webpack_require__(/*! ./console */ "./polyfills/console.js");
-__webpack_require__(/*! ./Function.bind */ "./polyfills/Function.bind.js");
 __webpack_require__(/*! ./Math.trunc */ "./polyfills/Math.trunc.js");
 __webpack_require__(/*! ./performance.now */ "./polyfills/performance.now.js");
 __webpack_require__(/*! ./requestAnimationFrame */ "./polyfills/requestAnimationFrame.js");
@@ -53269,15 +53357,16 @@ var CanvasRenderer = new Class({
      */
     render: function (scene, children, interpolationPercentage, camera)
     {
-        var ctx = scene.sys.context;
-        var scissor = (camera.x !== 0 || camera.y !== 0 || camera.width !== ctx.canvas.width || camera.height !== ctx.canvas.height);
         var list = children.list;
-        var resolution = this.config.resolution;
+        var childCount = list.length;
 
-        var cx = Math.floor(camera.x * resolution);
-        var cy = Math.floor(camera.y * resolution);
-        var cw = Math.floor(camera.width * resolution);
-        var ch = Math.floor(camera.height * resolution);
+        var cx = camera._cx;
+        var cy = camera._cy;
+        var cw = camera._cw;
+        var ch = camera._ch;
+
+        var ctx = scene.sys.context;
+        var scissor = (cx !== 0 || cy !== 0 || cw !== ctx.canvas.width || ch !== ctx.canvas.height);
 
         this.currentContext = ctx;
 
@@ -53315,9 +53404,14 @@ var CanvasRenderer = new Class({
 
         ctx.setTransform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
 
-        for (var c = 0; c < list.length; c++)
+        for (var i = 0; i < childCount; i++)
         {
-            var child = list[c];
+            var child = list[i];
+
+            if (!child.willRender(camera))
+            {
+                continue;
+            }
 
             if (child.mask)
             {
@@ -55614,22 +55708,24 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * [description]
+     * Sets the blend mode to the value given.
+     *
+     * If the current blend mode is different from the one given, the pipeline is flushed and the new
+     * blend mode is enabled.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setBlendMode
      * @since 3.0.0
      *
-     * @param {integer} blendModeId - [description]
+     * @param {integer} blendModeId - The blend mode to be set. Can be a `BlendModes` const or an integer value.
      *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
+     * @return {boolean} `true` if the blend mode was changed as a result of this call, forcing a flush, otherwise `false`.
      */
     setBlendMode: function (blendModeId)
     {
         var gl = this.gl;
         var blendMode = this.blendModes[blendModeId];
 
-        if (blendModeId !== CONST.BlendModes.SKIP_CHECK &&
-            this.currentBlendMode !== blendModeId)
+        if (blendModeId !== CONST.BlendModes.SKIP_CHECK && this.currentBlendMode !== blendModeId)
         {
             this.flush();
 
@@ -55646,9 +55742,11 @@ var WebGLRenderer = new Class({
             }
 
             this.currentBlendMode = blendModeId;
+
+            return true;
         }
 
-        return this;
+        return false;
     },
 
     /**
@@ -56202,12 +56300,10 @@ var WebGLRenderer = new Class({
      */
     preRenderCamera: function (camera)
     {
-        var resolution = this.config.resolution;
-
-        var cx = Math.floor(camera.x * resolution);
-        var cy = Math.floor(camera.y * resolution);
-        var cw = Math.floor(camera.width * resolution);
-        var ch = Math.floor(camera.height * resolution);
+        var cx = camera._cx;
+        var cy = camera._cy;
+        var cw = camera._cw;
+        var ch = camera._ch;
 
         this.pushScissor(cx, cy, cw, ch);
 
@@ -56310,11 +56406,11 @@ var WebGLRenderer = new Class({
         //   Apply scissor for cam region + render background color, if not transparent
         this.preRenderCamera(camera);
 
-        for (var index = 0; index < childCount; ++index)
+        for (var i = 0; i < childCount; i++)
         {
-            var child = list[index];
+            var child = list[i];
 
-            if (!child.willRender())
+            if (!child.willRender(camera))
             {
                 continue;
             }

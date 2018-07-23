@@ -438,7 +438,7 @@ var Flood = new Phaser.Class({
             alpha: { start: 1, end: 0 },
             scale: { start: 0.5, end: 0 },
             rotate: { start: 0, end: 360, ease: 'Power2' },
-            blendMode: 'ADD',
+            blendMode: 'NORMAL',
             on: false
         });
     },

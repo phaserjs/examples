@@ -26,7 +26,7 @@ function preload ()
     this.load.image('player', 'assets/sprites/phaser-dude.png');
 
     // A standard Weltmeister map with two layers: "map" & "collision"
-    this.load.tilemapWeltmeister('map', 'assets/tilemaps/maps/impact3.json');
+    this.load.tilemapImpact('map', 'assets/tilemaps/maps/impact3.json');
 }
 
 function create ()

@@ -27,7 +27,7 @@ function create ()
 
     var highlighted = this.add.image(16, 16, 'block');
 
-    var hitArea = new Phaser.Geom.Rectangle(-16, -16, 32, 32);
+    var hitArea = new Phaser.Geom.Rectangle(0, 0, 32, 32);
     var hitAreaCallback = Phaser.Geom.Rectangle.Contains;
 
     //  Create 400 sprites aligned in a grid

@@ -35,7 +35,7 @@ function create ()
     }
 
     //  A drop zone
-    var zone = this.add.zone(500, 300, 300, 300).setDropZone();
+    var zone = this.add.zone(500, 300, 300, 300).setRectangleDropZone(300, 300);
 
     //  Just a visual display of the drop zone
     var graphics = this.add.graphics();

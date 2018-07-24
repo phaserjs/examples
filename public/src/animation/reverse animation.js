@@ -53,18 +53,18 @@ function create ()
     this.input.keyboard.on('keydown_SPACE', function (event) {
         sprite.anims.play('walk');
     });
-	
+
 	this.input.keyboard.on('keydown_Y', function (event) {
 		const yoyo = sprite.anims.getYoyo();
         sprite.anims.setYoyo(!yoyo);
     });
-	
+
 	this.input.keyboard.on('keydown_Q', function (event) {
         sprite.anims.playReverse('walk');
     });
-	
+
 	this.input.keyboard.on('keydown_R', function (event) {
-		sprite.anims.revert('walk');
+		sprite.anims.reverse('walk');
 	});
 
     this.input.keyboard.on('keydown_P', function (event) {

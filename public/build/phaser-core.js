@@ -46,32 +46,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -1215,7 +1200,14 @@ var Animation = new Class({
             component._yoyo = this.yoyo;
         }
 
-        component.updateFrame(this.frames[startFrame]);
+        var frame = this.frames[startFrame];
+
+        if (startFrame === 0 && !component.forward)
+        {
+            frame = this.getLastFrame();
+        }
+
+        component.updateFrame(frame);
     },
 
     /**
@@ -1257,16 +1249,20 @@ var Animation = new Class({
             if (component._yoyo)
             {
                 component.forward = false;
-
-                component.updateFrame(frame.prevFrame);
-
-                //  Delay for the current frame
-                this.getNextTick(component);
+                this._updateAndGetNextTick(component, frame.prevFrame);
             }
             else if (component.repeatCounter > 0)
             {
                 //  Repeat (happens before complete)
-                this.repeatAnimation(component);
+
+                if (component._reverse && component.forward)
+                {
+                    component.forward = false;
+                }
+                else
+                {
+                    this.repeatAnimation(component);
+                }
             }
             else
             {
@@ -1275,10 +1271,21 @@ var Animation = new Class({
         }
         else
         {
-            component.updateFrame(frame.nextFrame);
-
-            this.getNextTick(component);
+            this._updateAndGetNextTick(component, frame.nextFrame);
         }
+    },
+
+    /**
+     * Returns the animation last frame.
+     *
+     * @method Phaser.Animations.Animation#getLastFrame
+     * @since 3.12.0
+     *
+     * @return {Phaser.Animations.AnimationFrame} component - The Animation Last Frame.
+     */
+    getLastFrame: function ()
+    {
+        return this.frames[this.frames.length - 1];
     },
 
     /**
@@ -1299,10 +1306,24 @@ var Animation = new Class({
         {
             //  We're at the start of the animation
 
-            if (component.repeatCounter > 0)
+            if (component._yoyo)
             {
-                //  Repeat (happens before complete)
-                this.repeatAnimation(component);
+                component.forward = true;
+                this._updateAndGetNextTick(component, frame.nextFrame);
+            }
+            else if (component.repeatCounter > 0)
+            {
+                if (component._reverse && !component.forward)
+                {
+                    component.currentFrame = this.getLastFrame();
+                    this._updateAndGetNextTick(component, component.currentFrame);
+                }
+                else
+                {
+                    //  Repeat (happens before complete)
+                    component.forward = true;
+                    this.repeatAnimation(component);
+                }
             }
             else
             {
@@ -1311,10 +1332,23 @@ var Animation = new Class({
         }
         else
         {
-            component.updateFrame(frame.prevFrame);
-
-            this.getNextTick(component);
+            this._updateAndGetNextTick(component, frame.prevFrame);
         }
+    },
+
+    /**
+     * Update Frame and Wait next tick
+     *
+     * @method Phaser.Animations.Animation#_updateAndGetNextTick
+     * @since 3.12.0
+     *
+     * @param {Phaser.Animations.AnimationFrame} frame - An Animation frame
+     *
+     */
+    _updateAndGetNextTick: function (component, frame)
+    {
+        component.updateFrame(frame);
+        this.getNextTick(component);
     },
 
     /**
@@ -1384,9 +1418,7 @@ var Animation = new Class({
         {
             component.repeatCounter--;
 
-            component.forward = true;
-
-            component.updateFrame(component.currentFrame.nextFrame);
+            component.updateFrame(component.currentFrame[(component.forward) ? 'nextFrame' : 'prevFrame']);
 
             if (component.isPlaying)
             {
@@ -17042,7 +17074,7 @@ var Animation = new Class({
         this._yoyo = false;
 
         /**
-         * Will the playhead move forwards (`true`) or in reverse (`false`)
+         * Will the playhead move forwards (`true`) or in reverse (`false`).
          *
          * @name Phaser.GameObjects.Components.Animation#forward
          * @type {boolean}
@@ -17050,6 +17082,17 @@ var Animation = new Class({
          * @since 3.0.0
          */
         this.forward = true;
+
+        /**
+         * An Internal trigger that's play the animation in reverse mode ('true') or not ('false'),
+         * needed because forward can be changed by yoyo feature.
+         *
+         * @name Phaser.GameObjects.Components.Animation#forward
+         * @type {boolean}
+         * @default false
+         * @since 3.12.0
+         */
+        this._reverse = false;
 
         /**
          * Internal time overflow accumulator.
@@ -17330,6 +17373,54 @@ var Animation = new Class({
             return this.parent;
         }
 
+        this.forward = true;
+        this._reverse = false;
+        return this._startAnimation(key, startFrame);
+    },
+
+    /**
+     * Plays an Animation (in reverse mode) on the Game Object that owns this Animation Component.
+     *
+     * @method Phaser.GameObjects.Components.Animation#playReverse
+     * @fires Phaser.GameObjects.Components.Animation#onStartEvent
+     * @since 3.12.0
+     *
+     * @param {string} key - The string-based key of the animation to play, as defined previously in the Animation Manager.
+     * @param {boolean} [ignoreIfPlaying=false] - If an animation is already playing then ignore this call.
+     * @param {integer} [startFrame=0] - Optionally start the animation playing from this frame index.
+     *
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
+     */
+    playReverse: function (key, ignoreIfPlaying, startFrame)
+    {
+        if (ignoreIfPlaying === undefined) { ignoreIfPlaying = false; }
+        if (startFrame === undefined) { startFrame = 0; }
+
+        if (ignoreIfPlaying && this.isPlaying && this.currentAnim.key === key)
+        {
+            return this.parent;
+        }
+
+        this.forward = false;
+        this._reverse = true;
+        return this._startAnimation(key, startFrame);
+    },
+
+    /**
+     * Load an Animation and fires 'onStartEvent' event,
+     * extracted from 'play' method
+     *
+     * @method Phaser.GameObjects.Components.Animation#_startAnimation
+     * @fires Phaser.GameObjects.Components.Animation#onStartEvent
+     * @since 3.12.0
+     *
+     * @param {string} key - The string-based key of the animation to play, as defined previously in the Animation Manager.
+     * @param {integer} [startFrame=0] - Optionally start the animation playing from this frame index.
+     *
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
+     */
+    _startAnimation: function (key, startFrame)
+    {
         this.load(key, startFrame);
 
         var anim = this.currentAnim;
@@ -17340,7 +17431,6 @@ var Animation = new Class({
 
         anim.getFirstTick(this);
 
-        this.forward = true;
         this.isPlaying = true;
         this.pendingRepeat = false;
 
@@ -17352,6 +17442,25 @@ var Animation = new Class({
         gameObject.emit('animationstart', this.currentAnim, this.currentFrame);
 
         return gameObject;
+    },
+
+    /**
+     * Reverse an Animation that is already playing on the Game Object.
+     *
+     * @method Phaser.GameObjects.Components.Animation#reverse
+     * @since 3.12.0
+     *
+     * @param {string} key - The string-based key of the animation to play, as defined previously in the Animation Manager.
+     *
+     * @return {Phaser.GameObjects.GameObject} The Game Object that owns this Animation Component.
+     */
+    reverse: function (key)
+    {
+        if (!this.isPlaying || this.currentAnim.key !== key) { return this.parent; }
+        this._reverse = !this._reverse;
+        this.forward = !this.forward;
+
+        return this.parent;
     },
 
     /**
@@ -55361,6 +55470,8 @@ var WebGLRenderer = new Class({
      */
     boot: function ()
     {
+        this.blankTexture = this.game.textures.getFrame('__DEFAULT').glTexture;
+
         for (var pipelineName in this.pipelines)
         {
             this.pipelines[pipelineName].boot();
@@ -57151,9 +57262,11 @@ module.exports = BitmapMaskPipeline;
 var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
 var Commands = __webpack_require__(/*! ../../../gameobjects/graphics/Commands */ "./gameobjects/graphics/Commands.js");
 var Earcut = __webpack_require__(/*! ../../../geom/polygon/Earcut */ "./geom/polygon/Earcut.js");
+var GetFastValue = __webpack_require__(/*! ../../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var ModelViewProjection = __webpack_require__(/*! ./components/ModelViewProjection */ "./renderer/webgl/pipelines/components/ModelViewProjection.js");
-var ShaderSourceFS = __webpack_require__(/*! ../shaders/FlatTint-frag.js */ "./renderer/webgl/shaders/FlatTint-frag.js");
-var ShaderSourceVS = __webpack_require__(/*! ../shaders/FlatTint-vert.js */ "./renderer/webgl/shaders/FlatTint-vert.js");
+var ShaderSourceFS = __webpack_require__(/*! ../shaders/TextureTint-frag.js */ "./renderer/webgl/shaders/TextureTint-frag.js");
+var ShaderSourceVS = __webpack_require__(/*! ../shaders/TextureTint-vert.js */ "./renderer/webgl/shaders/TextureTint-vert.js");
+var TransformMatrix = __webpack_require__(/*! ../../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var Utils = __webpack_require__(/*! ../Utils */ "./renderer/webgl/Utils.js");
 var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webgl/WebGLPipeline.js");
 
@@ -57212,19 +57325,17 @@ var FlatTintPipeline = new Class({
 
     function FlatTintPipeline (config)
     {
+        var rendererConfig = config.renderer.config;
+
         WebGLPipeline.call(this, {
             game: config.game,
             renderer: config.renderer,
             gl: config.renderer.gl,
-            topology: (config.topology ? config.topology : config.renderer.gl.TRIANGLES),
-            vertShader: (config.vertShader ? config.vertShader : ShaderSourceVS),
-            fragShader: (config.fragShader ? config.fragShader : ShaderSourceFS),
-            vertexCapacity: (config.vertexCapcity ? config.vertexCapacity : 12000),
-
-            vertexSize: (config.vertexSize ? config.vertexSize :
-                Float32Array.BYTES_PER_ELEMENT * 2 +
-                Uint8Array.BYTES_PER_ELEMENT * 4),
-
+            topology: GetFastValue(config, 'topology', config.renderer.gl.TRIANGLES),
+            vertShader: GetFastValue(config, 'vertShader', ShaderSourceVS),
+            fragShader: GetFastValue(config, 'fragShader', ShaderSourceFS),
+            vertexCapacity: GetFastValue(config, 'vertexCapacity', 6 * rendererConfig.batchSize),
+            vertexSize: GetFastValue(config, 'vertexSize', Float32Array.BYTES_PER_ELEMENT * 5 + Uint8Array.BYTES_PER_ELEMENT * 4),
             attributes: [
                 {
                     name: 'inPosition',
@@ -57234,11 +57345,25 @@ var FlatTintPipeline = new Class({
                     offset: 0
                 },
                 {
+                    name: 'inTexCoord',
+                    size: 2,
+                    type: config.renderer.gl.FLOAT,
+                    normalized: false,
+                    offset: Float32Array.BYTES_PER_ELEMENT * 2
+                },
+                {
+                    name: 'inTintEffect',
+                    size: 1,
+                    type: config.renderer.gl.FLOAT,
+                    normalized: false,
+                    offset: Float32Array.BYTES_PER_ELEMENT * 4
+                },
+                {
                     name: 'inTint',
                     size: 4,
                     type: config.renderer.gl.UNSIGNED_BYTE,
                     normalized: true,
-                    offset: Float32Array.BYTES_PER_ELEMENT * 2
+                    offset: Float32Array.BYTES_PER_ELEMENT * 5
                 }
             ]
         });
@@ -57285,6 +57410,46 @@ var FlatTintPipeline = new Class({
          */
         this.polygonCache = [];
 
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#_tempMatrix1
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.12.0
+         */
+        this._tempMatrix1 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#_tempMatrix2
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.12.0
+         */
+        this._tempMatrix2 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#_tempMatrix3
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.12.0
+         */
+        this._tempMatrix3 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#_tempMatrix4
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.12.0
+         */
+        this._tempMatrix4 = new TransformMatrix();
+
         this.mvpInit();
     },
 
@@ -57325,6 +57490,92 @@ var FlatTintPipeline = new Class({
     },
 
     /**
+     * Uploads the vertex data and emits a draw call
+     * for the current batch of vertices.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLPipeline#flush
+     * @since 3.0.0
+     *
+     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
+     */
+    flush: function ()
+    {
+        if (this.flushLocked) { return this; }
+
+        this.flushLocked = true;
+
+        var gl = this.gl;
+        var vertexCount = this.vertexCount;
+        var topology = this.topology;
+        var vertexSize = this.vertexSize;
+        var renderer = this.renderer;
+
+        if (vertexCount === 0)
+        {
+            this.flushLocked = false;
+            return;
+        }
+
+        renderer.setTexture2D(renderer.blankTexture, 0);
+
+        gl.bufferSubData(gl.ARRAY_BUFFER, 0, this.bytes.subarray(0, vertexCount * vertexSize));
+        gl.drawArrays(topology, 0, vertexCount);
+
+        this.vertexCount = 0;
+        this.flushLocked = false;
+
+        return this;
+    },
+
+    batchVertex: function (x, y, tint)
+    {
+        var vertexViewF32 = this.vertexViewF32;
+        var vertexViewU32 = this.vertexViewU32;
+
+        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
+
+        vertexViewF32[++vertexOffset] = x;
+        vertexViewF32[++vertexOffset] = y;
+        vertexViewF32[++vertexOffset] = 0;
+        vertexViewF32[++vertexOffset] = 0;
+        vertexViewF32[++vertexOffset] = 0.5;
+        vertexViewU32[++vertexOffset] = tint;
+
+        this.vertexCount++;
+    },
+
+    batchTri: function (x1, y1, x2, y2, x3, y3, tint)
+    {
+        var vertexViewF32 = this.vertexViewF32;
+        var vertexViewU32 = this.vertexViewU32;
+
+        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
+
+        vertexViewF32[++vertexOffset] = x1;
+        vertexViewF32[++vertexOffset] = y1;
+        vertexViewF32[++vertexOffset] = 0;
+        vertexViewF32[++vertexOffset] = 0;
+        vertexViewF32[++vertexOffset] = 0.5;
+        vertexViewU32[++vertexOffset] = tint;
+
+        vertexViewF32[++vertexOffset] = x2;
+        vertexViewF32[++vertexOffset] = y2;
+        vertexViewF32[++vertexOffset] = 0;
+        vertexViewF32[++vertexOffset] = 0;
+        vertexViewF32[++vertexOffset] = 0.5;
+        vertexViewU32[++vertexOffset] = tint;
+
+        vertexViewF32[++vertexOffset] = x3;
+        vertexViewF32[++vertexOffset] = y3;
+        vertexViewF32[++vertexOffset] = 0;
+        vertexViewF32[++vertexOffset] = 0;
+        vertexViewF32[++vertexOffset] = 0.5;
+        vertexViewU32[++vertexOffset] = tint;
+
+        this.vertexCount += 3;
+    },
+
+    /**
      * Pushes a rectangle into the vertex batch
      *
      * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillRect
@@ -57358,9 +57609,6 @@ var FlatTintPipeline = new Class({
             this.flush();
         }
         
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var vertexOffset = this.vertexCount * this.vertexComponentCount;
         var xw = x + width;
         var yh = y + height;
         var a0 = currentMatrix[0];
@@ -57385,31 +57633,8 @@ var FlatTintPipeline = new Class({
         var ty3 = xw * b + y * d + f;
         var tint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha);
 
-        vertexViewF32[vertexOffset + 0] = tx0;
-        vertexViewF32[vertexOffset + 1] = ty0;
-        vertexViewU32[vertexOffset + 2] = tint;
-
-        vertexViewF32[vertexOffset + 3] = tx1;
-        vertexViewF32[vertexOffset + 4] = ty1;
-        vertexViewU32[vertexOffset + 5] = tint;
-
-        vertexViewF32[vertexOffset + 6] = tx2;
-        vertexViewF32[vertexOffset + 7] = ty2;
-        vertexViewU32[vertexOffset + 8] = tint;
-
-        vertexViewF32[vertexOffset + 9] = tx0;
-        vertexViewF32[vertexOffset + 10] = ty0;
-        vertexViewU32[vertexOffset + 11] = tint;
-
-        vertexViewF32[vertexOffset + 12] = tx2;
-        vertexViewF32[vertexOffset + 13] = ty2;
-        vertexViewU32[vertexOffset + 14] = tint;
-
-        vertexViewF32[vertexOffset + 15] = tx3;
-        vertexViewF32[vertexOffset + 16] = ty3;
-        vertexViewU32[vertexOffset + 17] = tint;
-
-        this.vertexCount += 6;
+        this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, tint);
+        this.batchTri(tx0, ty0, tx2, ty2, tx3, ty3, tint);
     },
 
     /**
@@ -57448,9 +57673,6 @@ var FlatTintPipeline = new Class({
             this.flush();
         }
 
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var vertexOffset = this.vertexCount * this.vertexComponentCount;
         var a0 = currentMatrix[0];
         var b0 = currentMatrix[1];
         var c0 = currentMatrix[2];
@@ -57471,19 +57693,7 @@ var FlatTintPipeline = new Class({
         var ty2 = x2 * b + y2 * d + f;
         var tint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha);
 
-        vertexViewF32[vertexOffset + 0] = tx0;
-        vertexViewF32[vertexOffset + 1] = ty0;
-        vertexViewU32[vertexOffset + 2] = tint;
-
-        vertexViewF32[vertexOffset + 3] = tx1;
-        vertexViewF32[vertexOffset + 4] = ty1;
-        vertexViewU32[vertexOffset + 5] = tint;
-
-        vertexViewF32[vertexOffset + 6] = tx2;
-        vertexViewF32[vertexOffset + 7] = ty2;
-        vertexViewU32[vertexOffset + 8] = tint;
-
-        this.vertexCount += 3;
+        this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, tint);
     },
 
     /**
@@ -57579,9 +57789,6 @@ var FlatTintPipeline = new Class({
         var polygonIndexArray;
         var point;
         var v0, v1, v2;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var vertexOffset = 0;
         var x0, y0, x1, y1, x2, y2;
         var tx0, ty0, tx1, ty1, tx2, ty2;
         var a0 = currentMatrix[0];
@@ -57618,8 +57825,6 @@ var FlatTintPipeline = new Class({
                 this.flush();
             }
 
-            vertexOffset = this.vertexCount * this.vertexComponentCount;
-
             x0 = polygonCache[v0 + 0];
             y0 = polygonCache[v0 + 1];
             x1 = polygonCache[v1 + 0];
@@ -57634,19 +57839,7 @@ var FlatTintPipeline = new Class({
             tx2 = x2 * a + y2 * c + e;
             ty2 = x2 * b + y2 * d + f;
 
-            vertexViewF32[vertexOffset + 0] = tx0;
-            vertexViewF32[vertexOffset + 1] = ty0;
-            vertexViewU32[vertexOffset + 2] = tint;
-
-            vertexViewF32[vertexOffset + 3] = tx1;
-            vertexViewF32[vertexOffset + 4] = ty1;
-            vertexViewU32[vertexOffset + 5] = tint;
-
-            vertexViewF32[vertexOffset + 6] = tx2;
-            vertexViewF32[vertexOffset + 7] = ty2;
-            vertexViewU32[vertexOffset + 8] = tint;
-
-            this.vertexCount += 3;
+            this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, tint);
         }
 
         polygonCache.length = 0;
@@ -57684,9 +57877,6 @@ var FlatTintPipeline = new Class({
         var pathLength = path.length;
         var polylines = this.polygonCache;
         var last, curr;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-        var vertexOffset;
         var line;
         var getTint = Utils.getTintAppendFloatAlphaAndSwap;
 
@@ -57718,33 +57908,37 @@ var FlatTintPipeline = new Class({
 
             last = polylines[index - 1] || polylines[polylinesLength - 1];
             curr = polylines[index];
-            vertexOffset = this.vertexCount * this.vertexComponentCount;
 
-            vertexViewF32[vertexOffset + 0] = last[3 * 2 + 0];
-            vertexViewF32[vertexOffset + 1] = last[3 * 2 + 1];
-            vertexViewU32[vertexOffset + 2] = getTint(last[3 * 2 + 2], lineAlpha);
+            var tx0 = last[3 * 2 + 0];
+            var ty0 = last[3 * 2 + 1];
+            var tint0 = getTint(last[3 * 2 + 2], lineAlpha);
 
-            vertexViewF32[vertexOffset + 3] = last[3 * 0 + 0];
-            vertexViewF32[vertexOffset + 4] = last[3 * 0 + 1];
-            vertexViewU32[vertexOffset + 5] = getTint(last[3 * 0 + 2], lineAlpha);
+            var tx1 = last[3 * 0 + 0];
+            var ty1 = last[3 * 0 + 1];
+            var tint1 = getTint(last[3 * 0 + 2], lineAlpha);
 
-            vertexViewF32[vertexOffset + 6] = curr[3 * 3 + 0];
-            vertexViewF32[vertexOffset + 7] = curr[3 * 3 + 1];
-            vertexViewU32[vertexOffset + 8] = getTint(curr[3 * 3 + 2], lineAlpha);
+            var tx2 = curr[3 * 3 + 0];
+            var ty2 = curr[3 * 3 + 1];
+            var tint2 = getTint(curr[3 * 3 + 2], lineAlpha);
 
-            vertexViewF32[vertexOffset + 9] = last[3 * 0 + 0];
-            vertexViewF32[vertexOffset + 10] = last[3 * 0 + 1];
-            vertexViewU32[vertexOffset + 11] = getTint(last[3 * 0 + 2], lineAlpha);
+            // var tx3 = last[3 * 0 + 0]; //tx1
+            // var ty3 = last[3 * 0 + 1]; //ty1
+            // var tint3 = getTint(last[3 * 0 + 2], lineAlpha); //tint1
 
-            vertexViewF32[vertexOffset + 12] = last[3 * 2 + 0];
-            vertexViewF32[vertexOffset + 13] = last[3 * 2 + 1];
-            vertexViewU32[vertexOffset + 14] = getTint(last[3 * 2 + 2], lineAlpha);
+            // var tx4 = last[3 * 2 + 0]; //tx0
+            // var ty4 = last[3 * 2 + 1]; //ty0
+            // var tint4 = getTint(last[3 * 2 + 2], lineAlpha); //tint0
 
-            vertexViewF32[vertexOffset + 15] = curr[3 * 1 + 0];
-            vertexViewF32[vertexOffset + 16] = curr[3 * 1 + 1];
-            vertexViewU32[vertexOffset + 17] = getTint(curr[3 * 1 + 2], lineAlpha);
+            var tx5 = curr[3 * 1 + 0];
+            var ty5 = curr[3 * 1 + 1];
+            var tint5 = getTint(curr[3 * 1 + 2], lineAlpha);
 
-            this.vertexCount += 6;
+            this.batchVertex(tx0, ty0, tint0);
+            this.batchVertex(tx1, ty1, tint1);
+            this.batchVertex(tx2, ty2, tint2);
+            this.batchVertex(tx1, ty1, tint1);
+            this.batchVertex(tx0, ty0, tint0);
+            this.batchVertex(tx5, ty5, tint5);
         }
 
         polylines.length = 0;
@@ -57799,8 +57993,6 @@ var FlatTintPipeline = new Class({
         var d = c1 * b0 + d1 * d0;
         var e = e1 * a0 + f1 * c0 + e0;
         var f = e1 * b0 + f1 * d0 + f0;
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
         var dx = bx - ax;
         var dy = by - ay;
         var len = Math.sqrt(dx * dx + dy * dy);
@@ -57827,33 +58019,13 @@ var FlatTintPipeline = new Class({
         var getTint = Utils.getTintAppendFloatAlphaAndSwap;
         var aTint = getTint(aLineColor, lineAlpha);
         var bTint = getTint(bLineColor, lineAlpha);
-        var vertexOffset = this.vertexCount * this.vertexComponentCount;
 
-        vertexViewF32[vertexOffset + 0] = x0;
-        vertexViewF32[vertexOffset + 1] = y0;
-        vertexViewU32[vertexOffset + 2] = bTint;
-
-        vertexViewF32[vertexOffset + 3] = x1;
-        vertexViewF32[vertexOffset + 4] = y1;
-        vertexViewU32[vertexOffset + 5] = aTint;
-
-        vertexViewF32[vertexOffset + 6] = x2;
-        vertexViewF32[vertexOffset + 7] = y2;
-        vertexViewU32[vertexOffset + 8] = bTint;
-
-        vertexViewF32[vertexOffset + 9] = x1;
-        vertexViewF32[vertexOffset + 10] = y1;
-        vertexViewU32[vertexOffset + 11] = aTint;
-
-        vertexViewF32[vertexOffset + 12] = x3;
-        vertexViewF32[vertexOffset + 13] = y3;
-        vertexViewU32[vertexOffset + 14] = aTint;
-
-        vertexViewF32[vertexOffset + 15] = x2;
-        vertexViewF32[vertexOffset + 16] = y2;
-        vertexViewU32[vertexOffset + 17] = bTint;
-
-        this.vertexCount += 6;
+        this.batchVertex(x0, y0, bTint);
+        this.batchVertex(x1, y1, aTint);
+        this.batchVertex(x2, y2, bTint);
+        this.batchVertex(x1, y1, aTint);
+        this.batchVertex(x3, y3, aTint);
+        this.batchVertex(x2, y2, bTint);
 
         return [
             x0, y0, bLineColor,
@@ -60274,60 +60446,6 @@ module.exports = [
 
 /***/ }),
 
-/***/ "./renderer/webgl/shaders/FlatTint-frag.js":
-/*!*************************************************!*\
-  !*** ./renderer/webgl/shaders/FlatTint-frag.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = [
-    '#define SHADER_NAME PHASER_FLAT_TINT_FS',
-    '',
-    'precision mediump float;',
-    '',
-    'varying vec4 outTint;',
-    '',
-    'void main() {',
-    '    gl_FragColor = vec4(outTint.rgb * outTint.a, outTint.a);',
-    '}',
-    ''
-].join('\n');
-
-
-/***/ }),
-
-/***/ "./renderer/webgl/shaders/FlatTint-vert.js":
-/*!*************************************************!*\
-  !*** ./renderer/webgl/shaders/FlatTint-vert.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = [
-    '#define SHADER_NAME PHASER_FLAT_TINT_VS',
-    '',
-    'precision mediump float;',
-    '',
-    'uniform mat4 uProjectionMatrix;',
-    'uniform mat4 uViewMatrix;',
-    'uniform mat4 uModelMatrix;',
-    '',
-    'attribute vec2 inPosition;',
-    'attribute vec4 inTint;',
-    '',
-    'varying vec4 outTint;',
-    '',
-    'void main () {',
-    '    gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(inPosition, 1.0, 1.0);',
-    '    outTint = inTint;',
-    '}',
-    ''
-].join('\n');
-
-
-/***/ }),
-
 /***/ "./renderer/webgl/shaders/ForwardDiffuse-frag.js":
 /*!*******************************************************!*\
   !*** ./renderer/webgl/shaders/ForwardDiffuse-frag.js ***!
@@ -60411,15 +60529,16 @@ module.exports = [
     '',
     'void main()',
     '{',
-    '    vec4 texel = texture2D(uMainSampler, outTexCoord);',
+    '    vec4 texel = vec4(outTint.rgb * outTint.a, outTint.a);',
     '',
     '    if (outTintEffect == 1.0)',
     '    {',
+    '        texel = texture2D(uMainSampler, outTexCoord);',
     '        texel.rgb = mix(texel.rgb, outTint.rgb, texel.a);',
     '    }',
-    '    else',
+    '    else if (outTintEffect == 0.0)',
     '    {',
-    '        texel *= vec4(outTint.rgb * outTint.a, outTint.a);',
+    '        texel *= texture2D(uMainSampler, outTexCoord);',
     '    }',
     '',
     '    gl_FragColor = texel;',
@@ -72822,7 +72941,7 @@ var Texture = __webpack_require__(/*! ./Texture */ "./textures/Texture.js");
 /**
  * @callback EachTextureCallback
  *
- * @param {Phaser.Textures.Texture} texture - [description]
+ * @param {Phaser.Textures.Texture} texture - Each texture in Texture Manager.
  * @param {...*} [args] - Additional arguments that will be passed to the callback, after the child.
  */
 
@@ -72841,7 +72960,7 @@ var Texture = __webpack_require__(/*! ./Texture */ "./textures/Texture.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {Phaser.Game} game - [description]
+ * @param {Phaser.Game} game - The Phaser.Game instance this Texture Manager belongs to.
  */
 var TextureManager = new Class({
 
@@ -72854,7 +72973,7 @@ var TextureManager = new Class({
         EventEmitter.call(this);
 
         /**
-         * [description]
+         * The Game that this TextureManager belongs to.
          *
          * @name Phaser.Textures.TextureManager#game
          * @type {Phaser.Game}
@@ -72863,7 +72982,7 @@ var TextureManager = new Class({
         this.game = game;
 
         /**
-         * [description]
+         * The name of this manager.
          *
          * @name Phaser.Textures.TextureManager#name
          * @type {string}
@@ -72872,7 +72991,8 @@ var TextureManager = new Class({
         this.name = 'TextureManager';
 
         /**
-         * [description]
+         * An object that has all of textures that Texture Manager creates.
+         * Textures are assigned to keys so we can access to any texture that this object has directly by key value without iteration.
          *
          * @name Phaser.Textures.TextureManager#list
          * @type {object}
@@ -72882,7 +73002,7 @@ var TextureManager = new Class({
         this.list = {};
 
         /**
-         * [description]
+         * The temporary canvas element to save an pixel data of an arbitrary texture in getPixel() and getPixelAlpha() method.
          *
          * @name Phaser.Textures.TextureManager#_tempCanvas
          * @type {HTMLCanvasElement}
@@ -72892,7 +73012,7 @@ var TextureManager = new Class({
         this._tempCanvas = CanvasPool.create2D(this, 1, 1);
 
         /**
-         * [description]
+         * The context of the temporary canvas element made to save an pixel data in getPixel() and getPixelAlpha() method.
          *
          * @name Phaser.Textures.TextureManager#_tempContext
          * @type {CanvasRenderingContext2D}
@@ -72902,7 +73022,7 @@ var TextureManager = new Class({
         this._tempContext = this._tempCanvas.getContext('2d');
 
         /**
-         * [description]
+         * An counting value used for emitting 'ready' event after all of managers in game is loaded.
          *
          * @name Phaser.Textures.TextureManager#_pending
          * @type {integer}
@@ -72916,7 +73036,7 @@ var TextureManager = new Class({
     },
 
     /**
-     * [description]
+     * The Boot Handler called by Phaser.Game when it first starts up.
      *
      * @method Phaser.Textures.TextureManager#boot
      * @since 3.0.0
@@ -72935,7 +73055,7 @@ var TextureManager = new Class({
     },
 
     /**
-     * [description]
+     * After 'onload' or 'onerror' invoked twice, emit 'ready' event.
      *
      * @method Phaser.Textures.TextureManager#updatePending
      * @since 3.0.0
@@ -73100,7 +73220,7 @@ var TextureManager = new Class({
      * @since 3.0.0
      *
      * @param {string} key - The unique string-based key of the Texture.
-     * @param {object} config - [description]
+     * @param {object} config - The configuration object needed to generate the texture.
      *
      * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
      */
@@ -73713,7 +73833,7 @@ var TextureManager = new Class({
      * @method Phaser.Textures.TextureManager#setTexture
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} gameObject - [description]
+     * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object the texture would be set on.
      * @param {string} key - The unique string-based key of the Texture.
      * @param {(string|integer)} frame - The string or index of the Frame.
      *

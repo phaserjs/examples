@@ -1,20 +1,30 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
+    backgroundColor: '#2d2d66',
+    width: 800,
+    height: 600,
     scene: {
+        preload: preload,
         create: create,
         update: update
-    },
-    width: 800,
-    height: 600
+    }
 };
 
 var starGraphics;
 var lineRectangle;
+
 var game = new Phaser.Game(config);
 
+function preload ()
+{
+    this.load.image('pic', 'assets/sprites/phaser2.png');
+}
 
 function create() {
+
+    this.add.image(400, 300, 'pic');
+
     starGraphics = this.add.graphics({x: 400, y: 300});
     drawStar(starGraphics, 0, 0, 5, 200, 100, 0xFFFF00, 0xFF0000);
     starGraphics.rotation = Math.random();

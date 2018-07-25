@@ -331,10 +331,10 @@
           "size": 1295,
           "extension": ".js"
         },
-		{
-          "path": "src\\animation\\reverse animation.js",
+        {
+          "path": "src/animation/reverse animation.js",
           "name": "reverse animation.js",
-          "size": 1334,
+          "size": 2371,
           "extension": ".js"
         },
         {
@@ -374,7 +374,7 @@
           "extension": ".js"
         }
       ],
-      "size": 36268
+      "size": 38639
     },
     {
       "path": "src/archived",
@@ -902,7 +902,7 @@
             {
               "path": "src/audio/HTML5 Audio/AudioSprite.js",
               "name": "AudioSprite.js",
-              "size": 2156,
+              "size": 2126,
               "extension": ".js"
             },
             {
@@ -954,7 +954,7 @@
               "extension": ".js"
             }
           ],
-          "size": 38533
+          "size": 38503
         },
         {
           "path": "src/audio/No Audio",
@@ -1086,7 +1086,7 @@
           "size": 39425
         }
       ],
-      "size": 114498
+      "size": 114468
     },
     {
       "path": "src/bugs",
@@ -1344,7 +1344,7 @@
         {
           "path": "src/camera/fade.js",
           "name": "fade.js",
-          "size": 1139,
+          "size": 1145,
           "extension": ".js"
         },
         {
@@ -1589,7 +1589,7 @@
           "extension": ".js"
         }
       ],
-      "size": 134065
+      "size": 134071
     },
     {
       "path": "src/components",
@@ -2532,7 +2532,7 @@
                 {
                   "path": "src/game objects/bitmaptext/static/bitmaptext blend mode.js",
                   "name": "bitmaptext blend mode.js",
-                  "size": 865,
+                  "size": 909,
                   "extension": ".js"
                 },
                 {
@@ -2632,10 +2632,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 18264
+              "size": 18308
             }
           ],
-          "size": 40088
+          "size": 40132
         },
         {
           "path": "src/game objects/blitter",
@@ -3109,7 +3109,7 @@
             {
               "path": "src/game objects/graphics/Line Rendering.js",
               "name": "Line Rendering.js",
-              "size": 1668,
+              "size": 1848,
               "extension": ".js"
             },
             {
@@ -3354,6 +3354,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/game objects/graphics/rect test.js",
+              "name": "rect test.js",
+              "size": 524,
+              "extension": ".js"
+            },
+            {
               "path": "src/game objects/graphics/single obj viewer.js",
               "name": "single obj viewer.js",
               "size": 6669,
@@ -3414,7 +3420,7 @@
               "extension": ".js"
             }
           ],
-          "size": 156494
+          "size": 157198
         },
         {
           "path": "src/game objects/group",
@@ -4525,11 +4531,11 @@
                 {
                   "path": "src/game objects/tilemap/collision/weltmeister map and impact.js",
                   "name": "weltmeister map and impact.js",
-                  "size": 2278,
+                  "size": 2273,
                   "extension": ".js"
                 }
               ],
-              "size": 70211
+              "size": 70206
             },
             {
               "path": "src/game objects/tilemap/dynamic",
@@ -4835,10 +4841,10 @@
               "size": 68986
             }
           ],
-          "size": 253856
+          "size": 253851
         }
       ],
-      "size": 778235
+      "size": 778978
     },
     {
       "path": "src/games",
@@ -6894,19 +6900,19 @@
             {
               "path": "src/input/mouse/mass scrolling sprite test no cull.js",
               "name": "mass scrolling sprite test no cull.js",
-              "size": 2295,
+              "size": 2291,
               "extension": ".js"
             },
             {
               "path": "src/input/mouse/mass scrolling sprite test.js",
               "name": "mass scrolling sprite test.js",
-              "size": 2252,
+              "size": 2248,
               "extension": ".js"
             },
             {
               "path": "src/input/mouse/mass sprite test.js",
               "name": "mass sprite test.js",
-              "size": 1389,
+              "size": 1385,
               "extension": ".js"
             },
             {
@@ -7006,7 +7012,7 @@
               "extension": ".js"
             }
           ],
-          "size": 34512
+          "size": 34500
         },
         {
           "path": "src/input/multitouch",
@@ -7138,7 +7144,7 @@
             {
               "path": "src/input/zones/drop zone.js",
               "name": "drop zone.js",
-              "size": 2535,
+              "size": 2553,
               "extension": ".js"
             },
             {
@@ -7154,10 +7160,10 @@
               "extension": ".js"
             }
           ],
-          "size": 9223
+          "size": 9241
         }
       ],
-      "size": 141209
+      "size": 141215
     },
     {
       "path": "src/loader",
@@ -8055,15 +8061,39 @@
               "extension": ".js"
             },
             {
+              "path": "src/physics/arcade/accelerate to.js",
+              "name": "accelerate to.js",
+              "size": 1116,
+              "extension": ".js"
+            },
+            {
               "path": "src/physics/arcade/add body to tilesprite.js",
               "name": "add body to tilesprite.js",
               "size": 990,
               "extension": ".js"
             },
             {
+              "path": "src/physics/arcade/angular acceleration.js",
+              "name": "angular acceleration.js",
+              "size": 833,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/angular velocity.js",
+              "name": "angular velocity.js",
+              "size": 1097,
+              "extension": ".js"
+            },
+            {
               "path": "src/physics/arcade/asteroids movement.js",
               "name": "asteroids movement.js",
               "size": 1548,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/body controls.js",
+              "name": "body controls.js",
+              "size": 2457,
               "extension": ".js"
             },
             {
@@ -8079,6 +8109,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/physics/arcade/closest furthest.js",
+              "name": "closest furthest.js",
+              "size": 1525,
+              "extension": ".js"
+            },
+            {
               "path": "src/physics/arcade/collider 1.js",
               "name": "collider 1.js",
               "size": 1126,
@@ -8088,6 +8124,24 @@
               "path": "src/physics/arcade/destroy body.js",
               "name": "destroy body.js",
               "size": 1110,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/draggable body.js",
+              "name": "draggable body.js",
+              "size": 972,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/friction.js",
+              "name": "friction.js",
+              "size": 1418,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/gravity.js",
+              "name": "gravity.js",
+              "size": 816,
               "extension": ".js"
             },
             {
@@ -8115,6 +8169,42 @@
               "extension": ".js"
             },
             {
+              "path": "src/physics/arcade/mass.js",
+              "name": "mass.js",
+              "size": 1192,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/move to pointer.js",
+              "name": "move to pointer.js",
+              "size": 1106,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/move to.js",
+              "name": "move to.js",
+              "size": 984,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/overlap collider.js",
+              "name": "overlap collider.js",
+              "size": 1077,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/overlap zone.js",
+              "name": "overlap zone.js",
+              "size": 1101,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/remove collider.js",
+              "name": "remove collider.js",
+              "size": 1199,
+              "extension": ".js"
+            },
+            {
               "path": "src/physics/arcade/restart physics scene.js",
               "name": "restart physics scene.js",
               "size": 5403,
@@ -8136,6 +8226,12 @@
               "path": "src/physics/arcade/simple group.js",
               "name": "simple group.js",
               "size": 862,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/smaller bounding box.js",
+              "name": "smaller bounding box.js",
+              "size": 934,
               "extension": ".js"
             },
             {
@@ -8193,6 +8289,36 @@
               "extension": ".js"
             },
             {
+              "path": "src/physics/arcade/tween body.js",
+              "name": "tween body.js",
+              "size": 979,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/velocity from angle.js",
+              "name": "velocity from angle.js",
+              "size": 1988,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/vertical friction.js",
+              "name": "vertical friction.js",
+              "size": 1037,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/world bounds event.js",
+              "name": "world bounds event.js",
+              "size": 1164,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/arcade/world controls.js",
+              "name": "world controls.js",
+              "size": 2905,
+              "extension": ".js"
+            },
+            {
               "path": "src/physics/arcade/wrap group.js",
               "name": "wrap group.js",
               "size": 1585,
@@ -8205,7 +8331,7 @@
               "extension": ".js"
             }
           ],
-          "size": 51426
+          "size": 77326
         },
         {
           "path": "src/physics/impact",
@@ -8340,7 +8466,7 @@
             {
               "path": "src/physics/impact/slope tests.js",
               "name": "slope tests.js",
-              "size": 2278,
+              "size": 2273,
               "extension": ".js"
             },
             {
@@ -8380,7 +8506,7 @@
               "extension": ".js"
             }
           ],
-          "size": 45556
+          "size": 45551
         },
         {
           "path": "src/physics/matterjs",
@@ -8655,7 +8781,7 @@
           "size": 2643
         }
       ],
-      "size": 153223
+      "size": 179118
     },
     {
       "path": "src/plugins",
@@ -8785,7 +8911,7 @@
         {
           "path": "src/pools/multi pools.js",
           "name": "multi pools.js",
-          "size": 2475,
+          "size": 2641,
           "extension": ".js"
         },
         {
@@ -8801,7 +8927,7 @@
           "extension": ".js"
         }
       ],
-      "size": 11771
+      "size": 11937
     },
     {
       "path": "src/renderer",
@@ -9476,6 +9602,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/textures/text texture.js",
+          "name": "text texture.js",
+          "size": 855,
+          "extension": ".js"
+        },
+        {
           "path": "src/textures/texture packer atlas.js",
           "name": "texture packer atlas.js",
           "size": 912,
@@ -9494,7 +9626,7 @@
           "extension": ".js"
         }
       ],
-      "size": 31987
+      "size": 32842
     },
     {
       "path": "src/time",
@@ -10190,5 +10322,5 @@
       "size": 5041
     }
   ],
-  "size": 2558765
+  "size": 2588777
 }

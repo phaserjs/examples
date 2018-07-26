@@ -3323,7 +3323,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\scene stack test.js",
                   "name": "scene stack test.js",
-                  "size": 1189,
+                  "size": 1561,
                   "extension": ".js"
                 },
                 {
@@ -3345,7 +3345,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 10359
+              "size": 10731
             },
             {
               "path": "src\\game objects\\graphics\\rect test.js",
@@ -3499,7 +3499,7 @@
               "size": 9314
             }
           ],
-          "size": 173528
+          "size": 173900
         },
         {
           "path": "src\\game objects\\group",
@@ -4305,6 +4305,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\sprites\\custom sprite class ES6.js",
+              "name": "custom sprite class ES6.js",
+              "size": 721,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\sprites\\moving sprite.js",
               "name": "moving sprite.js",
               "size": 539,
@@ -4341,7 +4347,7 @@
               "extension": ".js"
             }
           ],
-          "size": 6826
+          "size": 7547
         },
         {
           "path": "src\\game objects\\text",
@@ -4923,7 +4929,7 @@
           "size": 261867
         }
       ],
-      "size": 818847
+      "size": 819940
     },
     {
       "path": "src\\games",
@@ -10401,5 +10407,5 @@
       "size": 5291
     }
   ],
-  "size": 2707718
+  "size": 2708811
 }

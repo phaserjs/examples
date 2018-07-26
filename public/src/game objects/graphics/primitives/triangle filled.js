@@ -19,9 +19,9 @@ function preload ()
 
 function create ()
 {
-    this.sys.game.renderer.blankTexture = this.textures.getFrame('bunny').glTexture;
-
     var graphics = this.add.graphics();
+
+    graphics.setTexture('metal');
 
     graphics.fillStyle(0xffffff, 1);
     graphics.fillTriangle(200, 200, 400, 50, 500, 300);

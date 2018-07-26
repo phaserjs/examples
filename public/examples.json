@@ -3181,7 +3181,7 @@
             {
               "path": "src\\game objects\\graphics\\many line stars.js",
               "name": "many line stars.js",
-              "size": 1793,
+              "size": 1815,
               "extension": ".js"
             },
             {
@@ -3267,37 +3267,85 @@
               "name": "primitives",
               "children": [
                 {
+                  "path": "src\\game objects\\graphics\\primitives\\arc filled.js",
+                  "name": "arc filled.js",
+                  "size": 934,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\arc stroked.js",
+                  "name": "arc stroked.js",
+                  "size": 978,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\fill circle.js",
+                  "name": "fill circle.js",
+                  "size": 563,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\graphics\\primitives\\line between.js",
                   "name": "line between.js",
-                  "size": 566,
+                  "size": 568,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\graphics\\primitives\\path filled.js",
                   "name": "path filled.js",
-                  "size": 791,
+                  "size": 794,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\graphics\\primitives\\path stroked.js",
                   "name": "path stroked.js",
-                  "size": 796,
+                  "size": 799,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\rectangle filled texture.js",
+                  "name": "rectangle filled texture.js",
+                  "size": 744,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\graphics\\primitives\\rectangle filled.js",
                   "name": "rectangle filled.js",
-                  "size": 792,
+                  "size": 759,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\rectangle stroked.js",
+                  "name": "rectangle stroked.js",
+                  "size": 802,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\scene stack test.js",
+                  "name": "scene stack test.js",
+                  "size": 1189,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\triangle filled texture.js",
+                  "name": "triangle filled texture.js",
+                  "size": 818,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\graphics\\primitives\\triangle filled.js",
                   "name": "triangle filled.js",
-                  "size": 726,
+                  "size": 675,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\triangle stroked.js",
+                  "name": "triangle stroked.js",
+                  "size": 736,
                   "extension": ".js"
                 }
               ],
-              "size": 3671
+              "size": 10359
             },
             {
               "path": "src\\game objects\\graphics\\rect test.js",
@@ -3451,7 +3499,7 @@
               "size": 9314
             }
           ],
-          "size": 166818
+          "size": 173528
         },
         {
           "path": "src\\game objects\\group",
@@ -4875,7 +4923,7 @@
           "size": 261867
         }
       ],
-      "size": 812137
+      "size": 818847
     },
     {
       "path": "src\\games",
@@ -10353,5 +10401,5 @@
       "size": 5291
     }
   ],
-  "size": 2701008
+  "size": 2707718
 }

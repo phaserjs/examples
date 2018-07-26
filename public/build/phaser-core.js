@@ -46,32 +46,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -8673,13 +8658,10 @@ var Fade = new Class({
         var blue = this.blue / 255;
         var green = this.green / 255;
 
-        pipeline.batchFillRect(
-            0, 0, 1, 1, 0,
+        pipeline.drawFillRect(
             camera._cx, camera._cy, camera._cw, camera._ch,
             getTintFunction(red, green, blue, 1),
-            this.alpha,
-            1, 0, 0, 1, 0, 0,
-            [ 1, 0, 0, 1, 0, 0 ]
+            this.alpha
         );
 
         return true;
@@ -9061,13 +9043,10 @@ var Flash = new Class({
         var blue = this.blue / 255;
         var green = this.green / 255;
 
-        pipeline.batchFillRect(
-            0, 0, 1, 1, 0,
+        pipeline.drawFillRect(
             camera._cx, camera._cy, camera._cw, camera._ch,
             getTintFunction(red, green, blue, 1),
-            this.alpha,
-            1, 0, 0, 1, 0, 0,
-            [ 1, 0, 0, 1, 0, 0 ]
+            this.alpha
         );
 
         return true;
@@ -22108,7 +22087,9 @@ module.exports = {
     RESTORE: 15,
     TRANSLATE: 16,
     SCALE: 17,
-    ROTATE: 18
+    ROTATE: 18,
+    SET_TEXTURE: 19,
+    CLEAR_TEXTURE: 20
 
 };
 
@@ -22262,7 +22243,7 @@ var Graphics = new Class({
         GameObject.call(this, scene, 'Graphics');
 
         this.setPosition(x, y);
-        this.initPipeline('FlatTintPipeline');
+        this.initPipeline('TextureTintPipeline');
 
         /**
          * The horizontal display origin of the Graphics.
@@ -22434,6 +22415,62 @@ var Graphics = new Class({
             Commands.FILL_STYLE,
             color, alpha
         );
+
+        return this;
+    },
+
+    /**
+     * Sets the texture and frame this Graphics Object will use when texturing the shapes it renders.
+     *
+     * Textures are referenced by their string-based keys, as stored in the Texture Manager.
+     * 
+     * Once set, all shapes will use this texture. Call this method with no arguments to clear a previously texture.
+     * 
+     * The textures are not tiled. They are stretched to the dimensions of the shapes being rendered. For this reason,
+     * it works best with seamless / tileable textures.
+     * 
+     * The mode argument controls how the textures are combined with the fill colors. The default value (0) will
+     * multiply the texture by the fill color. A value of 1 will use just the fill color, but the alpha data from the texture,
+     * and a value of 2 will use just the texture and no fill color at all.
+     *
+     * @method Phaser.GameObjects.Graphics#setTexture
+     * @since 3.12.0
+     * @webglOnly
+     *
+     * @param {string} [key] - The key of the texture to be used, as stored in the Texture Manager. Leave blank to clear a previously set texture.
+     * @param {(string|integer)} [frame] - The name or index of the frame within the Texture.
+     * @param {number} [mode=0] - The texture tint mode. 0 is multiply, 1 is alpha only and 2 is texture only.
+     *
+     * @return {this} This Game Object.
+     */
+    setTexture: function (key, frame, mode)
+    {
+        if (mode === undefined) { mode = 0; }
+
+        if (key === undefined)
+        {
+            this.commandBuffer.push(
+                Commands.CLEAR_TEXTURE
+            );
+        }
+        else
+        {
+            var textureFrame = this.scene.sys.textures.getFrame(key, frame);
+
+            if (textureFrame)
+            {
+                if (mode === 2)
+                {
+                    mode = 3;
+                }
+
+                this.commandBuffer.push(
+                    Commands.SET_TEXTURE,
+                    textureFrame,
+                    mode
+                );
+            }
+        }
 
         return this;
     },
@@ -23990,13 +24027,34 @@ module.exports = {
   !*** ./gameobjects/graphics/GraphicsWebGLRenderer.js ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2018 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
+
+var Commands = __webpack_require__(/*! ./Commands */ "./gameobjects/graphics/Commands.js");
+var Utils = __webpack_require__(/*! ../../renderer/webgl/Utils */ "./renderer/webgl/Utils.js");
+
+//  TODO: Remove the use of this
+var Point = function (x, y, width)
+{
+    this.x = x;
+    this.y = y;
+    this.width = width;
+};
+
+//  TODO: Remove the use of this
+var Path = function (x, y, width)
+{
+    this.points = [];
+    this.pointsLength = 1;
+    this.points[0] = new Point(x, y, width);
+};
+
+var matrixStack = [];
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -24015,15 +24073,267 @@ module.exports = {
  */
 var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    var commandBuffer = src.commandBuffer;
-    var commandBufferLength = commandBuffer.length;
-
-    if (commandBufferLength === 0)
+    if (src.commandBuffer.length === 0)
     {
         return;
     }
 
-    this.pipeline.batchGraphics(src, camera, parentMatrix);
+    var pipeline = this.pipeline;
+
+    var camMatrix = pipeline._tempMatrix1;
+    var graphicsMatrix = pipeline._tempMatrix2;
+    var currentMatrix = pipeline._tempMatrix4;
+   
+    renderer.setPipeline(pipeline);
+
+    currentMatrix.loadIdentity();
+
+    graphicsMatrix.applyITRS(src.x, src.y, src.rotation, src.scaleX, src.scaleY);
+
+    camMatrix.copyFrom(camera.matrix);
+
+    if (parentMatrix)
+    {
+        //  Multiply the camera by the parent matrix
+        camMatrix.multiplyWithOffset(parentMatrix, -camera.scrollX * src.scrollFactorX, -camera.scrollY * src.scrollFactorY);
+
+        //  Undo the camera scroll
+        graphicsMatrix.e = src.x;
+        graphicsMatrix.f = src.y;
+
+        //  Multiply by the Sprite matrix, store result in calcMatrix
+        camMatrix.multiply(graphicsMatrix);
+    }
+    else
+    {
+        graphicsMatrix.e -= camera.scrollX * src.scrollFactorX;
+        graphicsMatrix.f -= camera.scrollY * src.scrollFactorY;
+
+        //  Multiply by the Sprite matrix, store result in calcMatrix
+        camMatrix.multiply(graphicsMatrix);
+    }
+
+    var commands = src.commandBuffer;
+    var alpha = camera.alpha * src.alpha;
+    var lineAlpha = 1.0;
+    var fillAlpha = 1.0;
+    var lineColor = 0;
+    var fillColor = 0;
+    var lineWidth = 1.0;
+    var lastPath = null;
+    var iteration = 0;
+    var iterStep = 0.01;
+    var tx = 0;
+    var ty = 0;
+    var ta = 0;
+    var x = 0;
+    var y = 0;
+    var radius = 0;
+    var startAngle = 0;
+    var endAngle = 0;
+    var cmd;
+    var path = [];
+    var pathIndex = 0;
+    var pathOpen = false;
+
+    for (var cmdIndex = 0; cmdIndex < commands.length; cmdIndex++)
+    {
+        cmd = commands[cmdIndex];
+
+        switch (cmd)
+        {
+            case Commands.BEGIN_PATH:
+
+                path.length = 0;
+                lastPath = null;
+                pathOpen = true;
+                break;
+
+            case Commands.CLOSE_PATH:
+
+                pathOpen = false;
+
+                if (lastPath && lastPath.points.length)
+                {
+                    lastPath.points.push(lastPath.points[0]);
+                }
+                break;
+
+            case Commands.FILL_PATH:
+                for (pathIndex = 0; pathIndex < path.length; pathIndex++)
+                {
+                    pipeline.batchFillPath(
+                        path[pathIndex].points,
+                        currentMatrix,
+                        camMatrix
+                    );
+                }
+                break;
+
+            case Commands.STROKE_PATH:
+                for (pathIndex = 0; pathIndex < path.length; pathIndex++)
+                {
+                    pipeline.batchStrokePath(
+                        path[pathIndex].points,
+                        lineWidth,
+                        pathOpen,
+                        currentMatrix,
+                        camMatrix
+                    );
+                }
+                break;
+
+            case Commands.LINE_STYLE:
+                lineWidth = commands[++cmdIndex];
+                lineColor = commands[++cmdIndex];
+                lineAlpha = commands[++cmdIndex];
+                pipeline.strokeTint = Utils.getTintAppendFloatAlphaAndSwap(lineColor, lineAlpha * alpha);
+                break;
+
+            case Commands.FILL_STYLE:
+                fillColor = commands[++cmdIndex];
+                fillAlpha = commands[++cmdIndex];
+                pipeline.fillTint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha * alpha);
+                break;
+
+            case Commands.ARC:
+                iteration = 0;
+                x = commands[++cmdIndex];
+                y = commands[++cmdIndex];
+                radius = commands[++cmdIndex];
+                startAngle = commands[++cmdIndex];
+                endAngle = commands[++cmdIndex];
+
+                // var anticlockwise
+                cmdIndex++;
+
+                if (lastPath === null)
+                {
+                    lastPath = new Path(x + Math.cos(startAngle) * radius, y + Math.sin(startAngle) * radius, lineWidth);
+                    path.push(lastPath);
+                    iteration += iterStep;
+                }
+
+                while (iteration < 1)
+                {
+                    ta = endAngle * iteration + startAngle;
+                    tx = x + Math.cos(ta) * radius;
+                    ty = y + Math.sin(ta) * radius;
+
+                    lastPath.points.push(new Point(tx, ty, lineWidth));
+
+                    iteration += iterStep;
+                }
+
+                ta = endAngle + startAngle;
+                tx = x + Math.cos(ta) * radius;
+                ty = y + Math.sin(ta) * radius;
+
+                lastPath.points.push(new Point(tx, ty, lineWidth));
+
+                break;
+
+            case Commands.FILL_RECT:
+                pipeline.batchFillRect(
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    currentMatrix,
+                    camMatrix
+                );
+                break;
+
+            case Commands.FILL_TRIANGLE:
+                pipeline.batchFillTriangle(
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    currentMatrix,
+                    camMatrix
+                );
+                break;
+
+            case Commands.STROKE_TRIANGLE:
+                pipeline.batchStrokeTriangle(
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    commands[++cmdIndex],
+                    lineWidth,
+                    currentMatrix,
+                    camMatrix
+                );
+                break;
+
+            case Commands.LINE_TO:
+                if (lastPath !== null)
+                {
+                    lastPath.points.push(new Point(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth));
+                }
+                else
+                {
+                    lastPath = new Path(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth);
+                    path.push(lastPath);
+                }
+                cmdIndex += 2;
+                break;
+
+            case Commands.MOVE_TO:
+                lastPath = new Path(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth);
+                path.push(lastPath);
+                cmdIndex += 2;
+                break;
+
+            case Commands.SAVE:
+                matrixStack.push(currentMatrix.copyToArray());
+                break;
+
+            case Commands.RESTORE:
+                currentMatrix.copyFromArray(matrixStack.pop());
+                break;
+
+            case Commands.TRANSLATE:
+                x = commands[++cmdIndex];
+                y = commands[++cmdIndex];
+                currentMatrix.translate(x, y);
+                break;
+
+            case Commands.SCALE:
+                x = commands[++cmdIndex];
+                y = commands[++cmdIndex];
+                currentMatrix.scale(x, y);
+                break;
+
+            case Commands.ROTATE:
+                var r = commands[++cmdIndex];
+                currentMatrix.rotate(r);
+                break;
+
+            case Commands.SET_TEXTURE:
+                var frame = commands[++cmdIndex];
+                var mode = commands[++cmdIndex];
+
+                pipeline.currentFrame = frame;
+                renderer.setTexture2D(frame.glTexture, 0);
+                pipeline.tintEffect = mode;
+
+                break;
+
+            case Commands.CLEAR_TEXTURE:
+                pipeline.currentFrame = renderer.blankTexture;
+                renderer.setTexture2D(renderer.blankTexture.glTexture, 0);
+                pipeline.tintEffect = 2;
+
+                break;
+
+        }
+    }
 };
 
 module.exports = GraphicsWebGLRenderer;
@@ -55040,7 +55350,6 @@ var WebGLSnapshot = __webpack_require__(/*! ../snapshot/WebGLSnapshot */ "./rend
 
 // Default Pipelines
 var BitmapMaskPipeline = __webpack_require__(/*! ./pipelines/BitmapMaskPipeline */ "./renderer/webgl/pipelines/BitmapMaskPipeline.js");
-var FlatTintPipeline = __webpack_require__(/*! ./pipelines/FlatTintPipeline */ "./renderer/webgl/pipelines/FlatTintPipeline.js");
 var ForwardDiffuseLightPipeline = __webpack_require__(/*! ./pipelines/ForwardDiffuseLightPipeline */ "./renderer/webgl/pipelines/ForwardDiffuseLightPipeline.js");
 var TextureTintPipeline = __webpack_require__(/*! ./pipelines/TextureTintPipeline */ "./renderer/webgl/pipelines/TextureTintPipeline.js");
 
@@ -55329,7 +55638,8 @@ var WebGLRenderer = new Class({
          * @type {Uint32Array}
          * @since 3.0.0
          */
-        this.currentScissor = new Uint32Array([ 0, 0, this.width, this.height ]);
+        // this.currentScissor = new Uint32Array([ 0, 0, this.width, this.height ]);
+        this.currentScissor = null;
 
         /**
          * Index to the scissor stack top
@@ -55339,7 +55649,7 @@ var WebGLRenderer = new Class({
          * @default 0
          * @since 3.0.0
          */
-        this.currentScissorIdx = 0;
+        // this.currentScissorIdx = 0;
 
         /**
          * Stack of scissor data
@@ -55348,7 +55658,8 @@ var WebGLRenderer = new Class({
          * @type {Uint32Array}
          * @since 3.0.0
          */
-        this.scissorStack = new Uint32Array(4 * 1000);
+        // this.scissorStack = new Uint32Array(4 * 1000);
+        this.scissorStack = [];
 
         // Setup context lost and restore event listeners
 
@@ -55474,7 +55785,7 @@ var WebGLRenderer = new Class({
         {
             this.contextLost = true;
 
-            throw new Error('This browser does not support WebGL. Try using the Canvas pipeline.');
+            throw new Error('WebGL unsupported');
         }
 
         this.gl = gl;
@@ -55538,11 +55849,13 @@ var WebGLRenderer = new Class({
         this.pipelines = {};
 
         this.addPipeline('TextureTintPipeline', new TextureTintPipeline({ game: this.game, renderer: this }));
-        this.addPipeline('FlatTintPipeline', new FlatTintPipeline({ game: this.game, renderer: this }));
         this.addPipeline('BitmapMaskPipeline', new BitmapMaskPipeline({ game: this.game, renderer: this }));
         this.addPipeline('Light2D', new ForwardDiffuseLightPipeline({ game: this.game, renderer: this }));
 
         this.setBlendMode(CONST.BlendModes.NORMAL);
+
+        // this.pushScissor(0, 0, this.width, this.height);
+
         this.resize(this.width, this.height);
 
         this.game.events.once('ready', this.boot, this);
@@ -55559,12 +55872,16 @@ var WebGLRenderer = new Class({
      */
     boot: function ()
     {
-        this.blankTexture = this.game.textures.getFrame('__DEFAULT').glTexture;
-
         for (var pipelineName in this.pipelines)
         {
             this.pipelines[pipelineName].boot();
         }
+
+        var blank = this.game.textures.getFrame('__DEFAULT');
+
+        this.pipelines.TextureTintPipeline.currentFrame = blank;
+
+        this.blankTexture = blank;
     },
 
     /**
@@ -55604,7 +55921,10 @@ var WebGLRenderer = new Class({
             pipelines[pipelineName].resize(width, height, resolution);
         }
                 
-        this.currentScissor.set([ 0, 0, this.width, this.height ]);
+        // if (this.currentScissor)
+        // {
+        //     this.currentScissor = [ 0, 0, this.width, this.height ];
+        // }
         
         this.drawingBufferHeight = gl.drawingBufferHeight;
 
@@ -55781,49 +56101,29 @@ var WebGLRenderer = new Class({
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setScissor
      * @since 3.0.0
-     *
-     * @param {integer} x - [description]
-     * @param {integer} y - [description]
-     * @param {integer} w - [description]
-     * @param {integer} h - [description]
-     *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
-    setScissor: function (x, y, w, h)
+    setScissor: function ()
     {
         var gl = this.gl;
-        var currentScissor = this.currentScissor;
-        var enabled = (x === 0 && y === 0 && w === this.width && h === this.height && w >= 0 && h >= 0);
 
-        //  TODO: If new scissor is same as old scissor, skip setting it again
-        //  TODO: If scissor is viewport size, skip setting altogether
+        var current = this.currentScissor;
 
-        if (currentScissor[0] !== x ||
-            currentScissor[1] !== y ||
-            currentScissor[2] !== w ||
-            currentScissor[3] !== h)
+        var x = current[0];
+        var y = current[1];
+        var w = current[2];
+        var h = current[3];
+
+        // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/scissor
+        var box = gl.getParameter(gl.SCISSOR_BOX);
+
+        if (box && (box[0] !== x || box[1] !== y || box[2] !== w || box[3] !== h))
         {
             this.flush();
+
+            gl.enable(gl.SCISSOR_TEST);
+
+            gl.scissor(x, (this.drawingBufferHeight - y - h), w, h);
         }
-
-        currentScissor[0] = x;
-        currentScissor[1] = y;
-        currentScissor[2] = w;
-        currentScissor[3] = h;
-
-        this.currentScissorEnabled = enabled;
-
-        if (enabled)
-        {
-            gl.disable(gl.SCISSOR_TEST);
-
-            return this;
-        }
-
-        gl.enable(gl.SCISSOR_TEST);
-        gl.scissor(x, (this.drawingBufferHeight - y - h), w, h);
-
-        return this;
     },
 
     /**
@@ -55842,18 +56142,17 @@ var WebGLRenderer = new Class({
     pushScissor: function (x, y, w, h)
     {
         var scissorStack = this.scissorStack;
-        var stackIndex = this.currentScissorIdx;
-        var currentScissor = this.currentScissor;
+        var stackLength = scissorStack.length;
 
-        scissorStack[stackIndex + 0] = currentScissor[0];
-        scissorStack[stackIndex + 1] = currentScissor[1];
-        scissorStack[stackIndex + 2] = currentScissor[2];
-        scissorStack[stackIndex + 3] = currentScissor[3];
+        var scissor = [ x, y, w, h ];
+        
+        scissorStack.push(scissor);
 
-        this.currentScissorIdx += 4;
-        this.setScissor(x, y, w, h);
+        this.currentScissor = scissor;
 
-        return this;
+        this.setScissor();
+
+        return scissor;
     },
 
     /**
@@ -55861,23 +56160,14 @@ var WebGLRenderer = new Class({
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#popScissor
      * @since 3.0.0
-     *
-     * @return {Phaser.Renderer.WebGL.WebGLRenderer} [description]
      */
     popScissor: function ()
     {
         var scissorStack = this.scissorStack;
-        var stackIndex = this.currentScissorIdx - 4;
 
-        var x = scissorStack[stackIndex + 0];
-        var y = scissorStack[stackIndex + 1];
-        var w = scissorStack[stackIndex + 2];
-        var h = scissorStack[stackIndex + 3];
+        this.currentScissor = scissorStack.pop();
 
-        this.currentScissorIdx = stackIndex;
-        this.setScissor(x, y, w, h);
-
-        return this;
+        this.setScissor();
     },
 
     /**
@@ -56012,6 +56302,24 @@ var WebGLRenderer = new Class({
         }
 
         return this;
+    },
+
+    /**
+     * Sets the current active texture for texture unit zero to be a blank texture.
+     * This only happens if there isn't a texture already in use by texture unit zero.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#setBlankTexture
+     * @private
+     * @since 3.12.0
+     *
+     * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
+     */
+    setBlankTexture: function ()
+    {
+        if (this.currentActiveTextureUnit !== 0 || !this.currentTextures[0])
+        {
+            this.setTexture2D(this.blankTexture.glTexture, 0);
+        }
     },
 
     /**
@@ -56510,18 +56818,13 @@ var WebGLRenderer = new Class({
         if (camera.backgroundColor.alphaGL > 0)
         {
             var color = camera.backgroundColor;
-            var FlatTintPipeline = this.pipelines.FlatTintPipeline;
+            var TextureTintPipeline = this.pipelines.TextureTintPipeline;
 
-            FlatTintPipeline.batchFillRect(
-                0, 0, 1, 1, 0,
+            TextureTintPipeline.drawFillRect(
                 cx, cy, cw, ch,
                 Utils.getTintFromFloats(color.redGL, color.greenGL, color.blueGL, 1.0),
-                color.alphaGL,
-                1, 0, 0, 1, 0, 0,
-                [ 1, 0, 0, 1, 0, 0 ]
+                color.alphaGL
             );
-
-            FlatTintPipeline.flush();
         }
     },
 
@@ -56536,15 +56839,10 @@ var WebGLRenderer = new Class({
      */
     postRenderCamera: function (camera)
     {
-        var FlatTintPipeline = this.pipelines.FlatTintPipeline;
+        var TextureTintPipeline = this.pipelines.TextureTintPipeline;
 
-        var isFlashing = camera.flashEffect.postRenderWebGL(FlatTintPipeline, Utils.getTintFromFloats);
-        var isFading = camera.fadeEffect.postRenderWebGL(FlatTintPipeline, Utils.getTintFromFloats);
-
-        if (isFading || isFlashing)
-        {
-            FlatTintPipeline.flush();
-        }
+        camera.flashEffect.postRenderWebGL(TextureTintPipeline, Utils.getTintFromFloats);
+        camera.fadeEffect.postRenderWebGL(TextureTintPipeline, Utils.getTintFromFloats);
 
         camera.dirty = false;
 
@@ -56577,6 +56875,11 @@ var WebGLRenderer = new Class({
         {
             pipelines[key].onPreRender();
         }
+
+        this.scissorStack = [];
+        this.currentScissor = null;
+
+        this.setPipeline(this.pipelines.TextureTintPipeline);
     },
 
     /**
@@ -56633,7 +56936,6 @@ var WebGLRenderer = new Class({
             }
         }
 
-        this.flush();
         this.setBlendMode(CONST.BlendModes.NORMAL);
 
         //  Applies camera effects and pops the scissor, if set
@@ -56649,6 +56951,8 @@ var WebGLRenderer = new Class({
     postRender: function ()
     {
         if (this.contextLost) { return; }
+
+        this.flush();
 
         // Unbind custom framebuffer here
 
@@ -57334,1339 +57638,6 @@ module.exports = BitmapMaskPipeline;
 
 /***/ }),
 
-/***/ "./renderer/webgl/pipelines/FlatTintPipeline.js":
-/*!******************************************************!*\
-  !*** ./renderer/webgl/pipelines/FlatTintPipeline.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @author       Felipe Alfonso <@bitnenfer>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
-var Commands = __webpack_require__(/*! ../../../gameobjects/graphics/Commands */ "./gameobjects/graphics/Commands.js");
-var Earcut = __webpack_require__(/*! ../../../geom/polygon/Earcut */ "./geom/polygon/Earcut.js");
-var GetFastValue = __webpack_require__(/*! ../../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
-var ModelViewProjection = __webpack_require__(/*! ./components/ModelViewProjection */ "./renderer/webgl/pipelines/components/ModelViewProjection.js");
-var ShaderSourceFS = __webpack_require__(/*! ../shaders/TextureTint-frag.js */ "./renderer/webgl/shaders/TextureTint-frag.js");
-var ShaderSourceVS = __webpack_require__(/*! ../shaders/TextureTint-vert.js */ "./renderer/webgl/shaders/TextureTint-vert.js");
-var TransformMatrix = __webpack_require__(/*! ../../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
-var Utils = __webpack_require__(/*! ../Utils */ "./renderer/webgl/Utils.js");
-var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webgl/WebGLPipeline.js");
-
-//  TODO: Remove the use of this
-var Point = function (x, y, width, rgb, alpha)
-{
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.rgb = rgb;
-    this.alpha = alpha;
-};
-
-//  TODO: Remove the use of this
-var Path = function (x, y, width, rgb, alpha)
-{
-    this.points = [];
-    this.pointsLength = 1;
-    this.points[0] = new Point(x, y, width, rgb, alpha);
-};
-
-// var currentMatrix = new Float32Array([ 1, 0, 0, 1, 0, 0 ]);
-// var matrixStack = new Float32Array(6 * 1000);
-// var matrixStackLength = 0;
-
-var matrixStack = [];
-var pathArray = [];
-
-/**
- * @classdesc
- * The FlatTintPipeline is used for rendering flat colored shapes. 
- * Mostly used by the Graphics game object.
- * The config properties are:
- * - game: Current game instance.
- * - renderer: Current WebGL renderer.
- * - topology: This indicates how the primitives are rendered. The default value is GL_TRIANGLES.
- *              Here is the full list of rendering primitives (https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants).
- * - vertShader: Source for vertex shader as a string.
- * - fragShader: Source for fragment shader as a string.
- * - vertexCapacity: The amount of vertices that shall be allocated
- * - vertexSize: The size of a single vertex in bytes.
- *
- * @class FlatTintPipeline
- * @extends Phaser.Renderer.WebGL.WebGLPipeline
- * @memberOf Phaser.Renderer.WebGL.Pipelines
- * @constructor
- * @since 3.0.0
- *
- * @param {object} config - Used for overriding shader an pipeline properties if extending this pipeline.
- */
-var FlatTintPipeline = new Class({
-
-    Extends: WebGLPipeline,
-
-    Mixins: [
-        ModelViewProjection
-    ],
-
-    initialize:
-
-    function FlatTintPipeline (config)
-    {
-        var rendererConfig = config.renderer.config;
-
-        WebGLPipeline.call(this, {
-            game: config.game,
-            renderer: config.renderer,
-            gl: config.renderer.gl,
-            topology: GetFastValue(config, 'topology', config.renderer.gl.TRIANGLES),
-            vertShader: GetFastValue(config, 'vertShader', ShaderSourceVS),
-            fragShader: GetFastValue(config, 'fragShader', ShaderSourceFS),
-            vertexCapacity: GetFastValue(config, 'vertexCapacity', 6 * rendererConfig.batchSize),
-            vertexSize: GetFastValue(config, 'vertexSize', Float32Array.BYTES_PER_ELEMENT * 5 + Uint8Array.BYTES_PER_ELEMENT * 4),
-            attributes: [
-                {
-                    name: 'inPosition',
-                    size: 2,
-                    type: config.renderer.gl.FLOAT,
-                    normalized: false,
-                    offset: 0
-                },
-                {
-                    name: 'inTexCoord',
-                    size: 2,
-                    type: config.renderer.gl.FLOAT,
-                    normalized: false,
-                    offset: Float32Array.BYTES_PER_ELEMENT * 2
-                },
-                {
-                    name: 'inTintEffect',
-                    size: 1,
-                    type: config.renderer.gl.FLOAT,
-                    normalized: false,
-                    offset: Float32Array.BYTES_PER_ELEMENT * 4
-                },
-                {
-                    name: 'inTint',
-                    size: 4,
-                    type: config.renderer.gl.UNSIGNED_BYTE,
-                    normalized: true,
-                    offset: Float32Array.BYTES_PER_ELEMENT * 5
-                }
-            ]
-        });
-
-        /**
-         * Float32 view of the array buffer containing the pipeline's vertices.
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#vertexViewF32
-         * @type {Float32Array}
-         * @since 3.0.0
-         */
-        this.vertexViewF32 = new Float32Array(this.vertexData);
-
-        /**
-         * Uint32 view of the array buffer containing the pipeline's vertices.
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#vertexViewU32
-         * @type {Uint32Array}
-         * @since 3.0.0
-         */
-        this.vertexViewU32 = new Uint32Array(this.vertexData);
-
-        /**
-         * Used internally to draw triangles
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#tempTriangle
-         * @type {array}
-         * @since 3.0.0
-         */
-        this.tempTriangle = [
-            {x: 0, y: 0, width: 0, rgb: 0xFFFFFF, alpha: 1.0},
-            {x: 0, y: 0, width: 0, rgb: 0xFFFFFF, alpha: 1.0},
-            {x: 0, y: 0, width: 0, rgb: 0xFFFFFF, alpha: 1.0},
-            {x: 0, y: 0, width: 0, rgb: 0xFFFFFF, alpha: 1.0}
-        ];
-
-        /**
-         * Used internally for triangulating a polygon
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#polygonCache
-         * @type {array}
-         * @default []
-         * @since 3.0.0
-         */
-        this.polygonCache = [];
-
-        /**
-         * A temporary Transform Matrix, re-used internally during batching.
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#_tempMatrix1
-         * @private
-         * @type {Phaser.GameObjects.Components.TransformMatrix}
-         * @since 3.12.0
-         */
-        this._tempMatrix1 = new TransformMatrix();
-
-        /**
-         * A temporary Transform Matrix, re-used internally during batching.
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#_tempMatrix2
-         * @private
-         * @type {Phaser.GameObjects.Components.TransformMatrix}
-         * @since 3.12.0
-         */
-        this._tempMatrix2 = new TransformMatrix();
-
-        /**
-         * A temporary Transform Matrix, re-used internally during batching.
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#_tempMatrix3
-         * @private
-         * @type {Phaser.GameObjects.Components.TransformMatrix}
-         * @since 3.12.0
-         */
-        this._tempMatrix3 = new TransformMatrix();
-
-        /**
-         * A temporary Transform Matrix, re-used internally during batching.
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#_tempMatrix4
-         * @private
-         * @type {Phaser.GameObjects.Components.TransformMatrix}
-         * @since 3.12.0
-         */
-        this._tempMatrix4 = new TransformMatrix();
-
-        this.mvpInit();
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#onBind
-     * @since 3.0.0
-     *
-     * @return {Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline} [description]
-     */
-    onBind: function ()
-    {
-        WebGLPipeline.prototype.onBind.call(this);
-        this.mvpUpdate();
-
-        return this;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#resize
-     * @since 3.0.0
-     *
-     * @param {number} width - [description]
-     * @param {number} height - [description]
-     * @param {number} resolution - [description]
-     *
-     * @return {Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline} [description]
-     */
-    resize: function (width, height, resolution)
-    {
-        WebGLPipeline.prototype.resize.call(this, width, height, resolution);
-        this.projOrtho(0, this.width, this.height, 0, -1000.0, 1000.0);
-        
-        return this;
-    },
-
-    /**
-     * Uploads the vertex data and emits a draw call
-     * for the current batch of vertices.
-     *
-     * @method Phaser.Renderer.WebGL.WebGLPipeline#flush
-     * @since 3.0.0
-     *
-     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
-     */
-    flush: function ()
-    {
-        if (this.flushLocked) { return this; }
-
-        this.flushLocked = true;
-
-        var gl = this.gl;
-        var vertexCount = this.vertexCount;
-        var topology = this.topology;
-        var vertexSize = this.vertexSize;
-        var renderer = this.renderer;
-
-        if (vertexCount === 0)
-        {
-            this.flushLocked = false;
-            return;
-        }
-
-        renderer.setTexture2D(renderer.blankTexture, 0);
-
-        gl.bufferSubData(gl.ARRAY_BUFFER, 0, this.bytes.subarray(0, vertexCount * vertexSize));
-        gl.drawArrays(topology, 0, vertexCount);
-
-        this.vertexCount = 0;
-        this.flushLocked = false;
-
-        return this;
-    },
-
-    batchVertex: function (x, y, tint)
-    {
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-
-        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
-
-        vertexViewF32[++vertexOffset] = x;
-        vertexViewF32[++vertexOffset] = y;
-        vertexViewF32[++vertexOffset] = 0;
-        vertexViewF32[++vertexOffset] = 0;
-        vertexViewF32[++vertexOffset] = 0.5;
-        vertexViewU32[++vertexOffset] = tint;
-
-        this.vertexCount++;
-    },
-
-    batchTri: function (x1, y1, x2, y2, x3, y3, tint)
-    {
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-
-        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
-
-        vertexViewF32[++vertexOffset] = x1;
-        vertexViewF32[++vertexOffset] = y1;
-        vertexViewF32[++vertexOffset] = 0;
-        vertexViewF32[++vertexOffset] = 0;
-        vertexViewF32[++vertexOffset] = 0.5;
-        vertexViewU32[++vertexOffset] = tint;
-
-        vertexViewF32[++vertexOffset] = x2;
-        vertexViewF32[++vertexOffset] = y2;
-        vertexViewF32[++vertexOffset] = 0;
-        vertexViewF32[++vertexOffset] = 0;
-        vertexViewF32[++vertexOffset] = 0.5;
-        vertexViewU32[++vertexOffset] = tint;
-
-        vertexViewF32[++vertexOffset] = x3;
-        vertexViewF32[++vertexOffset] = y3;
-        vertexViewF32[++vertexOffset] = 0;
-        vertexViewF32[++vertexOffset] = 0;
-        vertexViewF32[++vertexOffset] = 0.5;
-        vertexViewU32[++vertexOffset] = tint;
-
-        this.vertexCount += 3;
-    },
-
-    /**
-     * Pushes a rectangle into the vertex batch
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillRect
-     * @since 3.0.0
-     *
-     * @param {number} x - Horizontal top left coordinate of the rectangle
-     * @param {number} y - Vertical top left coordinate of the rectangle
-     * @param {number} width - Width of the rectangle
-     * @param {number} height - Height of the rectangle
-     * @param {integer} fillColor - RGB color packed as a uint
-     * @param {number} fillAlpha - Alpha represented as float
-     * @param {number} a1 - Matrix stack top a component
-     * @param {number} b1 - Matrix stack top b component
-     * @param {number} c1 - Matrix stack top c component
-     * @param {number} d1 - Matrix stack top d component
-     * @param {number} e1 - Matrix stack top e component
-     * @param {number} f1 - Matrix stack top f component
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
-     */
-    batchFillRect: function (x, y, width, height, fillColor, fillAlpha, currentMatrix, parentMatrix)
-    {
-        this.renderer.setPipeline(this);
-
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        var calcMatrix = this._tempMatrix3;
-
-        //  Multiply and store result in calcMatrix
-        parentMatrix.multiply(currentMatrix, calcMatrix);
-        
-        var xw = x + width;
-        var yh = y + height;
-
-        var tx0 = calcMatrix.getX(x, y);
-        var ty0 = calcMatrix.getY(x, y);
-
-        var tx1 = calcMatrix.getX(x, yh);
-        var ty1 = calcMatrix.getY(x, yh);
-
-        var tx2 = calcMatrix.getX(xw, yh);
-        var ty2 = calcMatrix.getY(xw, yh);
-
-        var tx3 = calcMatrix.getX(xw, y);
-        var ty3 = calcMatrix.getY(xw, y);
-
-        // var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        // var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
-
-        // var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        // var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
-
-        // var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        // var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
-
-        // var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        // var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
-
-        // var a0 = currentMatrix[0];
-        // var b0 = currentMatrix[1];
-        // var c0 = currentMatrix[2];
-        // var d0 = currentMatrix[3];
-        // var e0 = currentMatrix[4];
-        // var f0 = currentMatrix[5];
-        // var a = a1 * a0 + b1 * c0;
-        // var b = a1 * b0 + b1 * d0;
-        // var c = c1 * a0 + d1 * c0;
-        // var d = c1 * b0 + d1 * d0;
-        // var e = e1 * a0 + f1 * c0 + e0;
-        // var f = e1 * b0 + f1 * d0 + f0;
-        // var tx0 = x * a + y * c + e;
-        // var ty0 = x * b + y * d + f;
-        // var tx1 = x * a + yh * c + e;
-        // var ty1 = x * b + yh * d + f;
-        // var tx2 = xw * a + yh * c + e;
-        // var ty2 = xw * b + yh * d + f;
-        // var tx3 = xw * a + y * c + e;
-        // var ty3 = xw * b + y * d + f;
-
-        var tint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha);
-
-        this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, tint);
-        this.batchTri(tx0, ty0, tx2, ty2, tx3, ty3, tint);
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillTriangle
-     * @since 3.0.0
-     *
-     * @param {number} srcX - Graphics horizontal component for translation
-     * @param {number} srcY - Graphics vertical component for translation
-     * @param {number} srcScaleX - Graphics horizontal component for scale
-     * @param {number} srcScaleY - Graphics vertical component for scale
-     * @param {number} srcRotation - Graphics rotation
-     * @param {number} x0 - Point 0 x coordinate
-     * @param {number} y0 - Point 0 y coordinate
-     * @param {number} x1 - Point 1 x coordinate
-     * @param {number} y1 - Point 1 y coordinate
-     * @param {number} x2 - Point 2 x coordinate
-     * @param {number} y2 - Point 2 y coordinate
-     * @param {integer} fillColor - RGB color packed as a uint
-     * @param {number} fillAlpha - Alpha represented as float
-     * @param {number} a1 - Matrix stack top a component
-     * @param {number} b1 - Matrix stack top b component
-     * @param {number} c1 - Matrix stack top c component
-     * @param {number} d1 - Matrix stack top d component
-     * @param {number} e1 - Matrix stack top e component
-     * @param {number} f1 - Matrix stack top f component
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
-     */
-    batchFillTriangle: function (x0, y0, x1, y1, x2, y2, fillColor, fillAlpha, currentMatrix, parentMatrix)
-    {
-        this.renderer.setPipeline(this);
-
-        if (this.vertexCount + 3 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        var calcMatrix = this._tempMatrix3;
-
-        //  Multiply and store result in calcMatrix
-        parentMatrix.multiply(currentMatrix, calcMatrix);
-        
-        var tx0 = calcMatrix.getX(x0, y0);
-        var ty0 = calcMatrix.getY(x0, y0);
-
-        var tx1 = calcMatrix.getX(x1, y1);
-        var ty1 = calcMatrix.getY(x1, y1);
-
-        var tx2 = calcMatrix.getX(x2, y2);
-        var ty2 = calcMatrix.getY(x2, y2);
-
-        // var tx0 = x0 * calcMatrix.a + y0 * calcMatrix.c + calcMatrix.e;
-        // var ty0 = x0 * calcMatrix.b + y0 * calcMatrix.d + calcMatrix.f;
-
-        // var tx1 = x1 * calcMatrix.a + y1 * calcMatrix.c + calcMatrix.e;
-        // var ty1 = x1 * calcMatrix.b + y1 * calcMatrix.d + calcMatrix.f;
-
-        // var tx2 = x2 * calcMatrix.a + y2 * calcMatrix.c + calcMatrix.e;
-        // var ty2 = x2 * calcMatrix.b + y2 * calcMatrix.d + calcMatrix.f;
-
-        // var a0 = currentMatrix[0];
-        // var b0 = currentMatrix[1];
-        // var c0 = currentMatrix[2];
-        // var d0 = currentMatrix[3];
-        // var e0 = currentMatrix[4];
-        // var f0 = currentMatrix[5];
-        // var a = a1 * a0 + b1 * c0;
-        // var b = a1 * b0 + b1 * d0;
-        // var c = c1 * a0 + d1 * c0;
-        // var d = c1 * b0 + d1 * d0;
-        // var e = e1 * a0 + f1 * c0 + e0;
-        // var f = e1 * b0 + f1 * d0 + f0;
-        // var tx0 = x0 * a + y0 * c + e;
-        // var ty0 = x0 * b + y0 * d + f;
-        // var tx1 = x1 * a + y1 * c + e;
-        // var ty1 = x1 * b + y1 * d + f;
-        // var tx2 = x2 * a + y2 * c + e;
-        // var ty2 = x2 * b + y2 * d + f;
-
-        var tint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha);
-
-        this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, tint);
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokeTriangle
-     * @since 3.0.0
-     *
-     * @param {number} srcX - Graphics horizontal component for translation
-     * @param {number} srcY - Graphics vertical component for translation
-     * @param {number} srcScaleX - Graphics horizontal component for scale
-     * @param {number} srcScaleY - Graphics vertical component for scale
-     * @param {number} srcRotation - Graphics rotation
-     * @param {number} x0 - [description]
-     * @param {number} y0 - [description]
-     * @param {number} x1 - [description]
-     * @param {number} y1 - [description]
-     * @param {number} x2 - [description]
-     * @param {number} y2 - [description]
-     * @param {number} lineWidth - Size of the line as a float value
-     * @param {integer} lineColor - RGB color packed as a uint
-     * @param {number} lineAlpha - Alpha represented as float
-     * @param {number} a - Matrix stack top a component
-     * @param {number} b - Matrix stack top b component
-     * @param {number} c - Matrix stack top c component
-     * @param {number} d - Matrix stack top d component
-     * @param {number} e - Matrix stack top e component
-     * @param {number} f - Matrix stack top f component
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
-     */
-    batchStrokeTriangle: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, x0, y0, x1, y1, x2, y2, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, currentMatrix)
-    {
-        var tempTriangle = this.tempTriangle;
-
-        tempTriangle[0].x = x0;
-        tempTriangle[0].y = y0;
-        tempTriangle[0].width = lineWidth;
-        tempTriangle[0].rgb = lineColor;
-        tempTriangle[0].alpha = lineAlpha;
-        tempTriangle[1].x = x1;
-        tempTriangle[1].y = y1;
-        tempTriangle[1].width = lineWidth;
-        tempTriangle[1].rgb = lineColor;
-        tempTriangle[1].alpha = lineAlpha;
-        tempTriangle[2].x = x2;
-        tempTriangle[2].y = y2;
-        tempTriangle[2].width = lineWidth;
-        tempTriangle[2].rgb = lineColor;
-        tempTriangle[2].alpha = lineAlpha;
-        tempTriangle[3].x = x0;
-        tempTriangle[3].y = y0;
-        tempTriangle[3].width = lineWidth;
-        tempTriangle[3].rgb = lineColor;
-        tempTriangle[3].alpha = lineAlpha;
-
-        this.batchStrokePath(
-            srcX, srcY, srcScaleX, srcScaleY, srcRotation,
-            tempTriangle, lineWidth, lineColor, lineAlpha,
-            a, b, c, d, e, f,
-            false,
-            currentMatrix
-        );
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillPath
-     * @since 3.0.0
-     *
-     * @param {number} srcX - Graphics horizontal component for translation
-     * @param {number} srcY - Graphics vertical component for translation
-     * @param {number} srcScaleX - Graphics horizontal component for scale
-     * @param {number} srcScaleY - Graphics vertical component for scale
-     * @param {number} srcRotation - Graphics rotation
-     * @param {number} path - Collection of points that represent the path
-     * @param {integer} fillColor - RGB color packed as a uint
-     * @param {number} fillAlpha - Alpha represented as float
-     * @param {number} a1 - Matrix stack top a component
-     * @param {number} b1 - Matrix stack top b component
-     * @param {number} c1 - Matrix stack top c component
-     * @param {number} d1 - Matrix stack top d component
-     * @param {number} e1 - Matrix stack top e component
-     * @param {number} f1 - Matrix stack top f component
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
-     */
-    batchFillPath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, fillColor, fillAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
-    {
-        this.renderer.setPipeline(this);
-
-        var length = path.length;
-        var polygonCache = this.polygonCache;
-        var polygonIndexArray;
-        var point;
-        var v0, v1, v2;
-        var x0, y0, x1, y1, x2, y2;
-        var tx0, ty0, tx1, ty1, tx2, ty2;
-        var a0 = currentMatrix[0];
-        var b0 = currentMatrix[1];
-        var c0 = currentMatrix[2];
-        var d0 = currentMatrix[3];
-        var e0 = currentMatrix[4];
-        var f0 = currentMatrix[5];
-        var a = a1 * a0 + b1 * c0;
-        var b = a1 * b0 + b1 * d0;
-        var c = c1 * a0 + d1 * c0;
-        var d = c1 * b0 + d1 * d0;
-        var e = e1 * a0 + f1 * c0 + e0;
-        var f = e1 * b0 + f1 * d0 + f0;
-        var tint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha);
-
-        for (var pathIndex = 0; pathIndex < length; ++pathIndex)
-        {
-            point = path[pathIndex];
-            polygonCache.push(point.x, point.y);
-        }
-
-        polygonIndexArray = Earcut(polygonCache);
-        length = polygonIndexArray.length;
-
-        for (var index = 0; index < length; index += 3)
-        {
-            v0 = polygonIndexArray[index + 0] * 2;
-            v1 = polygonIndexArray[index + 1] * 2;
-            v2 = polygonIndexArray[index + 2] * 2;
-
-            if (this.vertexCount + 3 > this.vertexCapacity)
-            {
-                this.flush();
-            }
-
-            x0 = polygonCache[v0 + 0];
-            y0 = polygonCache[v0 + 1];
-            x1 = polygonCache[v1 + 0];
-            y1 = polygonCache[v1 + 1];
-            x2 = polygonCache[v2 + 0];
-            y2 = polygonCache[v2 + 1];
-
-            tx0 = x0 * a + y0 * c + e;
-            ty0 = x0 * b + y0 * d + f;
-            tx1 = x1 * a + y1 * c + e;
-            ty1 = x1 * b + y1 * d + f;
-            tx2 = x2 * a + y2 * c + e;
-            ty2 = x2 * b + y2 * d + f;
-
-            this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, tint);
-        }
-
-        polygonCache.length = 0;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokePath
-     * @since 3.0.0
-     *
-     * @param {number} srcX - Graphics horizontal component for translation
-     * @param {number} srcY - Graphics vertical component for translation
-     * @param {number} srcScaleX - Graphics horizontal component for scale
-     * @param {number} srcScaleY - Graphics vertical component for scale
-     * @param {number} srcRotation - Graphics rotation
-     * @param {array} path - [description]
-     * @param {number} lineWidth - [description]
-     * @param {integer} lineColor - RGB color packed as a uint
-     * @param {number} lineAlpha - Alpha represented as float
-     * @param {number} a - Matrix stack top a component
-     * @param {number} b - Matrix stack top b component
-     * @param {number} c - Matrix stack top c component
-     * @param {number} d - Matrix stack top d component
-     * @param {number} e - Matrix stack top e component
-     * @param {number} f - Matrix stack top f component
-     * @param {boolean} isLastPath - Indicates if the path should be closed
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
-     */
-    batchStrokePath: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, path, lineWidth, lineColor, lineAlpha, a, b, c, d, e, f, isLastPath, currentMatrix)
-    {
-        this.renderer.setPipeline(this);
-
-        var point0, point1;
-        var pathLength = path.length;
-        var polylines = this.polygonCache;
-        var last, curr;
-        var line;
-        var getTint = Utils.getTintAppendFloatAlphaAndSwap;
-
-        for (var pathIndex = 0; pathIndex + 1 < pathLength; pathIndex += 1)
-        {
-            point0 = path[pathIndex];
-            point1 = path[pathIndex + 1];
-
-            line = this.batchLine(
-                srcX, srcY, srcScaleX, srcScaleY, srcRotation,
-                point0.x, point0.y,
-                point1.x, point1.y,
-                point0.width / 2, point1.width / 2,
-                point0.rgb, point1.rgb, lineAlpha,
-                a, b, c, d, e, f,
-                currentMatrix
-            );
-
-            polylines.push(line);
-        }
-
-        /* Render joints */
-        for (var index = 1, polylinesLength = polylines.length; index < polylinesLength; ++index)
-        {
-            if (this.vertexCount + 6 > this.vertexCapacity)
-            {
-                this.flush();
-            }
-
-            last = polylines[index - 1] || polylines[polylinesLength - 1];
-            curr = polylines[index];
-
-            var tx0 = last[3 * 2 + 0];
-            var ty0 = last[3 * 2 + 1];
-            var tint0 = getTint(last[3 * 2 + 2], lineAlpha);
-
-            var tx1 = last[3 * 0 + 0];
-            var ty1 = last[3 * 0 + 1];
-            var tint1 = getTint(last[3 * 0 + 2], lineAlpha);
-
-            var tx2 = curr[3 * 3 + 0];
-            var ty2 = curr[3 * 3 + 1];
-            var tint2 = getTint(curr[3 * 3 + 2], lineAlpha);
-
-            // var tx3 = last[3 * 0 + 0]; //tx1
-            // var ty3 = last[3 * 0 + 1]; //ty1
-            // var tint3 = getTint(last[3 * 0 + 2], lineAlpha); //tint1
-
-            // var tx4 = last[3 * 2 + 0]; //tx0
-            // var ty4 = last[3 * 2 + 1]; //ty0
-            // var tint4 = getTint(last[3 * 2 + 2], lineAlpha); //tint0
-
-            var tx5 = curr[3 * 1 + 0];
-            var ty5 = curr[3 * 1 + 1];
-            var tint5 = getTint(curr[3 * 1 + 2], lineAlpha);
-
-            this.batchVertex(tx0, ty0, tint0);
-            this.batchVertex(tx1, ty1, tint1);
-            this.batchVertex(tx2, ty2, tint2);
-            this.batchVertex(tx1, ty1, tint1);
-            this.batchVertex(tx0, ty0, tint0);
-            this.batchVertex(tx5, ty5, tint5);
-        }
-
-        polylines.length = 0;
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchLine
-     * @since 3.0.0
-     *
-     * @param {number} srcX - Graphics horizontal component for translation
-     * @param {number} srcY - Graphics vertical component for translation
-     * @param {number} srcScaleX - Graphics horizontal component for scale
-     * @param {number} srcScaleY - Graphics vertical component for scale
-     * @param {number} srcRotation - Graphics rotation
-     * @param {number} ax - X coordinate to the start of the line
-     * @param {number} ay - Y coordinate to the start of the line
-     * @param {number} bx - X coordinate to the end of the line
-     * @param {number} by - Y coordinate to the end of the line
-     * @param {number} aLineWidth - Width of the start of the line
-     * @param {number} bLineWidth - Width of the end of the line
-     * @param {integer} aLineColor - RGB color packed as a uint
-     * @param {integer} bLineColor - RGB color packed as a uint
-     * @param {number} lineAlpha - Alpha represented as float
-     * @param {number} a1 - Matrix stack top a component
-     * @param {number} b1 - Matrix stack top b component
-     * @param {number} c1 - Matrix stack top c component
-     * @param {number} d1 - Matrix stack top d component
-     * @param {number} e1 - Matrix stack top e component
-     * @param {number} f1 - Matrix stack top f component
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
-     */
-    batchLine: function (srcX, srcY, srcScaleX, srcScaleY, srcRotation, ax, ay, bx, by, aLineWidth, bLineWidth, aLineColor, bLineColor, lineAlpha, a1, b1, c1, d1, e1, f1, currentMatrix)
-    {
-        this.renderer.setPipeline(this);
-
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-        
-        var a0 = currentMatrix[0];
-        var b0 = currentMatrix[1];
-        var c0 = currentMatrix[2];
-        var d0 = currentMatrix[3];
-        var e0 = currentMatrix[4];
-        var f0 = currentMatrix[5];
-        var a = a1 * a0 + b1 * c0;
-        var b = a1 * b0 + b1 * d0;
-        var c = c1 * a0 + d1 * c0;
-        var d = c1 * b0 + d1 * d0;
-        var e = e1 * a0 + f1 * c0 + e0;
-        var f = e1 * b0 + f1 * d0 + f0;
-        var dx = bx - ax;
-        var dy = by - ay;
-        var len = Math.sqrt(dx * dx + dy * dy);
-        var al0 = aLineWidth * (by - ay) / len;
-        var al1 = aLineWidth * (ax - bx) / len;
-        var bl0 = bLineWidth * (by - ay) / len;
-        var bl1 = bLineWidth * (ax - bx) / len;
-        var lx0 = bx - bl0;
-        var ly0 = by - bl1;
-        var lx1 = ax - al0;
-        var ly1 = ay - al1;
-        var lx2 = bx + bl0;
-        var ly2 = by + bl1;
-        var lx3 = ax + al0;
-        var ly3 = ay + al1;
-        var x0 = lx0 * a + ly0 * c + e;
-        var y0 = lx0 * b + ly0 * d + f;
-        var x1 = lx1 * a + ly1 * c + e;
-        var y1 = lx1 * b + ly1 * d + f;
-        var x2 = lx2 * a + ly2 * c + e;
-        var y2 = lx2 * b + ly2 * d + f;
-        var x3 = lx3 * a + ly3 * c + e;
-        var y3 = lx3 * b + ly3 * d + f;
-        var getTint = Utils.getTintAppendFloatAlphaAndSwap;
-        var aTint = getTint(aLineColor, lineAlpha);
-        var bTint = getTint(bLineColor, lineAlpha);
-
-        this.batchVertex(x0, y0, bTint);
-        this.batchVertex(x1, y1, aTint);
-        this.batchVertex(x2, y2, bTint);
-        this.batchVertex(x1, y1, aTint);
-        this.batchVertex(x3, y3, aTint);
-        this.batchVertex(x2, y2, bTint);
-
-        return [
-            x0, y0, bLineColor,
-            x1, y1, aLineColor,
-            x2, y2, bLineColor,
-            x3, y3, aLineColor
-        ];
-    },
-
-    /**
-     * [description]
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchGraphics
-     * @since 3.0.0
-     *
-     * @param {Phaser.GameObjects.Graphics} graphics - [description]
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - [description]
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - [description]
-     */
-    batchGraphics: function (graphics, camera, parentTransformMatrix)
-    {
-        var camMatrix = this._tempMatrix1;
-        var graphicsMatrix = this._tempMatrix2;
-        var calcMatrix = this._tempMatrix3;
-        var currentMatrix = this._tempMatrix4;
-
-        // var parentMatrix = null;
-
-        // if (parentTransformMatrix)
-        // {
-        //     parentMatrix = parentTransformMatrix.matrix;
-        // }
-        
-        this.renderer.setPipeline(this);
-
-        currentMatrix.loadIdentity();
-
-        graphicsMatrix.applyITRS(graphics.x, graphics.y, graphics.rotation, graphics.scaleX, graphics.scaleY);
-
-        camMatrix.copyFrom(camera.matrix);
-
-        if (parentTransformMatrix)
-        {
-            //  Multiply the camera by the parent matrix
-            camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * graphics.scrollFactorX, -camera.scrollY * graphics.scrollFactorY);
-
-            //  Undo the camera scroll
-            graphicsMatrix.e = graphics.x;
-            graphicsMatrix.f = graphics.y;
-
-            //  Multiply by the Sprite matrix, store result in calcMatrix
-            camMatrix.multiply(graphicsMatrix);
-        }
-        else
-        {
-            graphicsMatrix.e -= camera.scrollX * graphics.scrollFactorX;
-            graphicsMatrix.f -= camera.scrollY * graphics.scrollFactorY;
-    
-            //  Multiply by the Sprite matrix, store result in calcMatrix
-            camMatrix.multiply(graphicsMatrix);
-        }
-
-        // var cameraScrollX = camera.scrollX * graphics.scrollFactorX;
-        // var cameraScrollY = camera.scrollY * graphics.scrollFactorY;
-        // var srcX = graphics.x;
-        // var srcY = graphics.y;
-        // var srcScaleX = graphics.scaleX;
-        // var srcScaleY = graphics.scaleY;
-        // var srcRotation = graphics.rotation;
-        var commands = graphics.commandBuffer;
-        var alpha = camera.alpha * graphics.alpha;
-        var lineAlpha = 1.0;
-        var fillAlpha = 1.0;
-        var lineColor = 0;
-        var fillColor = 0;
-        var lineWidth = 1.0;
-        // var cameraMatrix = camera.matrix.matrix;
-        var lastPath = null;
-        var iteration = 0;
-        var iterStep = 0.01;
-        var tx = 0;
-        var ty = 0;
-        var ta = 0;
-        var x = 0;
-        var y = 0;
-        var radius = 0;
-        var startAngle = 0;
-        var endAngle = 0;
-        var path = null;
-        // var sin = Math.sin;
-        // var cos = Math.cos;
-        // var sr = sin(srcRotation);
-        // var cr = cos(srcRotation);
-        // var sra = cr * srcScaleX;
-        // var srb = sr * srcScaleX;
-        // var src = -sr * srcScaleY;
-        // var srd = cr * srcScaleY;
-        // var sre = srcX;
-        // var srf = srcY;
-        // var cma = cameraMatrix[0];
-        // var cmb = cameraMatrix[1];
-        // var cmc = cameraMatrix[2];
-        // var cmd = cameraMatrix[3];
-        // var cme = cameraMatrix[4];
-        // var cmf = cameraMatrix[5];
-        // var mva, mvb, mvc, mvd, mve, mvf;
-
-        // if (parentMatrix)
-        // {
-        //     var pma = parentMatrix[0];
-        //     var pmb = parentMatrix[1];
-        //     var pmc = parentMatrix[2];
-        //     var pmd = parentMatrix[3];
-        //     var pme = parentMatrix[4];
-        //     var pmf = parentMatrix[5];
-        //     var cse = -cameraScrollX;
-        //     var csf = -cameraScrollY;
-        //     var pse = cse * cma + csf * cmc + cme;
-        //     var psf = cse * cmb + csf * cmd + cmf;
-        //     var pca = pma * cma + pmb * cmc;
-        //     var pcb = pma * cmb + pmb * cmd;
-        //     var pcc = pmc * cma + pmd * cmc;
-        //     var pcd = pmc * cmb + pmd * cmd;
-        //     var pce = pme * cma + pmf * cmc + pse;
-        //     var pcf = pme * cmb + pmf * cmd + psf;
-
-        //     mva = sra * pca + srb * pcc;
-        //     mvb = sra * pcb + srb * pcd;
-        //     mvc = src * pca + srd * pcc;
-        //     mvd = src * pcb + srd * pcd;
-        //     mve = sre * pca + srf * pcc + pce;
-        //     mvf = sre * pcb + srf * pcd + pcf;
-        // }
-        // else
-        // {
-        //     sre -= cameraScrollX;
-        //     srf -= cameraScrollY;
-
-        //     mva = sra * cma + srb * cmc;
-        //     mvb = sra * cmb + srb * cmd;
-        //     mvc = src * cma + srd * cmc;
-        //     mvd = src * cmb + srd * cmd;
-        //     mve = sre * cma + srf * cmc + cme;
-        //     mvf = sre * cmb + srf * cmd + cmf;
-        // }
-
-        var pathArrayIndex;
-        var pathArrayLength;
-        var cmd;
-
-        pathArray.length = 0;
-
-        for (var cmdIndex = 0, cmdLength = commands.length; cmdIndex < cmdLength; ++cmdIndex)
-        {
-            cmd = commands[cmdIndex];
-
-            switch (cmd)
-            {
-                case Commands.LINE_STYLE:
-                    lineWidth = commands[++cmdIndex];
-                    lineColor = commands[++cmdIndex];
-                    lineAlpha = commands[++cmdIndex];
-                    break;
-
-                case Commands.FILL_STYLE:
-                    fillColor = commands[++cmdIndex];
-                    fillAlpha = commands[++cmdIndex];
-                    break;
-
-                case Commands.FILL_RECT:
-                    this.batchFillRect(
-                        commands[++cmdIndex],
-                        commands[++cmdIndex],
-                        commands[++cmdIndex],
-                        commands[++cmdIndex],
-                        fillColor,
-                        fillAlpha * alpha,
-                        currentMatrix,
-                        camMatrix
-                    );
-                    break;
-
-                case Commands.FILL_TRIANGLE:
-                    this.batchFillTriangle(
-                        commands[++cmdIndex],
-                        commands[++cmdIndex],
-                        commands[++cmdIndex],
-                        commands[++cmdIndex],
-                        commands[++cmdIndex],
-                        commands[++cmdIndex],
-                        fillColor,
-                        fillAlpha * alpha,
-                        currentMatrix,
-                        camMatrix
-                    );
-                    break;
-
-                case Commands.SAVE:
-
-                    matrixStack.push(currentMatrix.copyToArray());
-                    break;
-
-                case Commands.RESTORE:
-
-                    currentMatrix.copyFromArray(matrixStack.pop());
-                    break;
-
-            }
-
-            /**
-            switch (cmd)
-            {
-                case Commands.ARC:
-                    iteration = 0;
-                    x = commands[cmdIndex + 1];
-                    y = commands[cmdIndex + 2];
-                    radius = commands[cmdIndex + 3];
-                    startAngle = commands[cmdIndex + 4];
-                    endAngle = commands[cmdIndex + 5];
-
-                    if (lastPath === null)
-                    {
-                        lastPath = new Path(x + Math.cos(startAngle) * radius, y + Math.sin(startAngle) * radius, lineWidth, lineColor, lineAlpha * alpha);
-                        pathArray.push(lastPath);
-                        iteration += iterStep;
-                    }
-
-                    while (iteration < 1)
-                    {
-                        ta = endAngle * iteration + startAngle;
-                        tx = x + Math.cos(ta) * radius;
-                        ty = y + Math.sin(ta) * radius;
-
-                        lastPath.points.push(new Point(tx, ty, lineWidth, lineColor, lineAlpha * alpha));
-
-                        iteration += iterStep;
-                    }
-
-                    ta = endAngle + startAngle;
-                    tx = x + Math.cos(ta) * radius;
-                    ty = y + Math.sin(ta) * radius;
-
-                    lastPath.points.push(new Point(tx, ty, lineWidth, lineColor, lineAlpha * alpha));
-
-                    cmdIndex += 6;
-                    break;
-
-                case Commands.LINE_STYLE:
-                    lineWidth = commands[cmdIndex + 1];
-                    lineColor = commands[cmdIndex + 2];
-                    lineAlpha = commands[cmdIndex + 3];
-                    cmdIndex += 3;
-                    break;
-
-                case Commands.FILL_STYLE:
-                    fillColor = commands[cmdIndex + 1];
-                    fillAlpha = commands[cmdIndex + 2];
-                    cmdIndex += 2;
-                    break;
-
-                case Commands.BEGIN_PATH:
-                    pathArray.length = 0;
-                    lastPath = null;
-                    break;
-
-                case Commands.CLOSE_PATH:
-                    if (lastPath && lastPath.points.length)
-                    {
-                        lastPath.points.push(lastPath.points[0]);
-                    }
-                    break;
-
-                case Commands.FILL_PATH:
-                    for (pathArrayIndex = 0, pathArrayLength = pathArray.length;
-                        pathArrayIndex < pathArrayLength;
-                        ++pathArrayIndex)
-                    {
-                        this.batchFillPath(
-
-                            srcX, srcY, srcScaleX, srcScaleY, srcRotation,
-
-                            pathArray[pathArrayIndex].points,
-                            fillColor,
-                            fillAlpha * alpha,
-
-                            mva, mvb, mvc, mvd, mve, mvf,
-                            currentMatrix
-                        );
-                    }
-                    break;
-
-                case Commands.STROKE_PATH:
-                    for (pathArrayIndex = 0, pathArrayLength = pathArray.length;
-                        pathArrayIndex < pathArrayLength;
-                        ++pathArrayIndex)
-                    {
-                        path = pathArray[pathArrayIndex];
-                        this.batchStrokePath(
-
-                            srcX, srcY, srcScaleX, srcScaleY, srcRotation,
-
-                            path.points,
-                            lineWidth,
-                            lineColor,
-                            lineAlpha * alpha,
-
-                            mva, mvb, mvc, mvd, mve, mvf,
-                            path === this._lastPath,
-                            currentMatrix
-                        );
-                    }
-                    break;
-                    
-                case Commands.FILL_RECT:
-                    this.batchFillRect(
-
-                        commands[cmdIndex + 1],
-                        commands[cmdIndex + 2],
-                        commands[cmdIndex + 3],
-                        commands[cmdIndex + 4],
-                        fillColor,
-                        fillAlpha * alpha,
-
-                        mva, mvb, mvc, mvd, mve, mvf,
-                        currentMatrix
-                    );
-                 
-                    cmdIndex += 4;
-                    break;
-
-                case Commands.FILL_TRIANGLE:
-                    this.batchFillTriangle(
-
-                        srcX, srcY, srcScaleX, srcScaleY, srcRotation,
-
-                        commands[cmdIndex + 1],
-                        commands[cmdIndex + 2],
-                        commands[cmdIndex + 3],
-                        commands[cmdIndex + 4],
-                        commands[cmdIndex + 5],
-                        commands[cmdIndex + 6],
-                        fillColor,
-                        fillAlpha * alpha,
-
-                        mva, mvb, mvc, mvd, mve, mvf,
-                        currentMatrix
-                    );
-                    
-                    cmdIndex += 6;
-                    break;
-
-                case Commands.STROKE_TRIANGLE:
-                    this.batchStrokeTriangle(
-
-                        srcX, srcY, srcScaleX, srcScaleY, srcRotation,
-
-                        commands[cmdIndex + 1],
-                        commands[cmdIndex + 2],
-                        commands[cmdIndex + 3],
-                        commands[cmdIndex + 4],
-                        commands[cmdIndex + 5],
-                        commands[cmdIndex + 6],
-                        lineWidth,
-                        lineColor,
-                        lineAlpha * alpha,
-
-                        mva, mvb, mvc, mvd, mve, mvf,
-                        currentMatrix
-                    );
-                    
-                    cmdIndex += 6;
-                    break;
-
-                case Commands.LINE_TO:
-                    if (lastPath !== null)
-                    {
-                        lastPath.points.push(new Point(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth, lineColor, lineAlpha * alpha));
-                    }
-                    else
-                    {
-                        lastPath = new Path(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth, lineColor, lineAlpha * alpha);
-                        pathArray.push(lastPath);
-                    }
-                    cmdIndex += 2;
-                    break;
-
-                case Commands.MOVE_TO:
-                    lastPath = new Path(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth, lineColor, lineAlpha * alpha);
-                    pathArray.push(lastPath);
-                    cmdIndex += 2;
-                    break;
-
-                case Commands.LINE_FX_TO:
-                    if (lastPath !== null)
-                    {
-                        lastPath.points.push(new Point(
-                            commands[cmdIndex + 1],
-                            commands[cmdIndex + 2],
-                            commands[cmdIndex + 3],
-                            commands[cmdIndex + 4],
-                            commands[cmdIndex + 5] * alpha
-                        ));
-                    }
-                    else
-                    {
-                        lastPath = new Path(
-                            commands[cmdIndex + 1],
-                            commands[cmdIndex + 2],
-                            commands[cmdIndex + 3],
-                            commands[cmdIndex + 4],
-                            commands[cmdIndex + 5] * alpha
-                        );
-                        pathArray.push(lastPath);
-                    }
-                    cmdIndex += 5;
-                    break;
-
-                case Commands.MOVE_FX_TO:
-                    lastPath = new Path(
-                        commands[cmdIndex + 1],
-                        commands[cmdIndex + 2],
-                        commands[cmdIndex + 3],
-                        commands[cmdIndex + 4],
-                        commands[cmdIndex + 5] * alpha
-                    );
-                    pathArray.push(lastPath);
-                    cmdIndex += 5;
-                    break;
-
-                case Commands.SAVE:
-                    matrixStack[matrixStackLength + 0] = currentMatrix[0];
-                    matrixStack[matrixStackLength + 1] = currentMatrix[1];
-                    matrixStack[matrixStackLength + 2] = currentMatrix[2];
-                    matrixStack[matrixStackLength + 3] = currentMatrix[3];
-                    matrixStack[matrixStackLength + 4] = currentMatrix[4];
-                    matrixStack[matrixStackLength + 5] = currentMatrix[5];
-                    matrixStackLength += 6;
-                    break;
-
-                case Commands.RESTORE:
-                    matrixStackLength -= 6;
-                    currentMatrix[0] = matrixStack[matrixStackLength + 0];
-                    currentMatrix[1] = matrixStack[matrixStackLength + 1];
-                    currentMatrix[2] = matrixStack[matrixStackLength + 2];
-                    currentMatrix[3] = matrixStack[matrixStackLength + 3];
-                    currentMatrix[4] = matrixStack[matrixStackLength + 4];
-                    currentMatrix[5] = matrixStack[matrixStackLength + 5];
-                    break;
-
-                case Commands.TRANSLATE:
-                    x = commands[cmdIndex + 1];
-                    y = commands[cmdIndex + 2];
-                    currentMatrix[4] = currentMatrix[0] * x + currentMatrix[2] * y + currentMatrix[4];
-                    currentMatrix[5] = currentMatrix[1] * x + currentMatrix[3] * y + currentMatrix[5];
-                    cmdIndex += 2;
-                    break;
-
-                case Commands.SCALE:
-                    x = commands[cmdIndex + 1];
-                    y = commands[cmdIndex + 2];
-                    currentMatrix[0] *= x;
-                    currentMatrix[1] *= x;
-                    currentMatrix[2] *= y;
-                    currentMatrix[3] *= y;
-                    cmdIndex += 2;
-                    break;
-
-                case Commands.ROTATE:
-                    y = commands[cmdIndex + 1];
-                    x = Math.sin(y);
-                    y = Math.cos(y);
-                    sra = currentMatrix[0];
-                    srb = currentMatrix[1];
-                    src = currentMatrix[2];
-                    srd = currentMatrix[3];
-                    currentMatrix[0] = y * sra + x * src;
-                    currentMatrix[1] = y * srb + x * srd;
-                    currentMatrix[2] = -x * sra + y * src;
-                    currentMatrix[3] = -x * srb + y * srd;
-                    cmdIndex += 1;
-                    break;
-
-                default:
-                    // eslint-disable-next-line no-console
-                    console.error('Phaser: Invalid Graphics Command ID ' + cmd);
-                    break;
-            }
-            */
-        }
-    }
-
-});
-
-module.exports = FlatTintPipeline;
-
-
-/***/ }),
-
 /***/ "./renderer/webgl/pipelines/ForwardDiffuseLightPipeline.js":
 /*!*****************************************************************!*\
   !*** ./renderer/webgl/pipelines/ForwardDiffuseLightPipeline.js ***!
@@ -58722,6 +57693,15 @@ var ForwardDiffuseLightPipeline = new Class({
          * @since 3.11.0
          */
         this.defaultNormalMap;
+
+        /**
+         * Collection of batch information
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batches
+         * @type {array}
+         * @since 3.1.0
+         */
+        this.batches = [];
     },
 
     /**
@@ -58759,12 +57739,89 @@ var ForwardDiffuseLightPipeline = new Class({
 
         this.mvpUpdate();
 
+        if (this.batches.length === 0)
+        {
+            this.pushBatch();
+        }
+
         renderer.setInt1(program, 'uNormSampler', 1);
         renderer.setFloat2(program, 'uResolution', this.width, this.height);
 
         if (gameObject)
         {
             this.setNormalMap(gameObject);
+        }
+
+        return this;
+    },
+
+    /**
+     * Creates a new batch object and pushes it to a batch array.
+     * The batch object contains information relevant to the current 
+     * vertex batch like the offset in the vertex buffer, vertex count and 
+     * the textures used by that batch.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#pushBatch
+     * @since 3.1.0
+     */
+    pushBatch: function ()
+    {
+        var batch = {
+            first: this.vertexCount,
+            texture: null,
+            textures: []
+        };
+
+        this.batches.push(batch);
+    },
+
+    /**
+     * Assigns a texture to the current batch. If a texture is already set it creates
+     * a new batch object.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#setTexture2D
+     * @since 3.1.0
+     *
+     * @param {WebGLTexture} texture - WebGLTexture that will be assigned to the current batch.
+     * @param {integer} textureUnit - Texture unit to which the texture needs to be bound.
+     *
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
+     */
+    setTexture2D: function (texture, unit)
+    {
+        if (!texture)
+        {
+            return this;
+        }
+
+        var batches = this.batches;
+
+        if (batches.length === 0)
+        {
+            this.pushBatch();
+        }
+
+        var batch = batches[batches.length - 1];
+
+        if (unit > 0)
+        {
+            if (batch.textures[unit - 1] &&
+                batch.textures[unit - 1] !== texture)
+            {
+                this.pushBatch();
+            }
+
+            batches[batches.length - 1].textures[unit - 1] = texture;
+        }
+        else
+        {
+            if (batch.texture !== null &&
+                batch.texture !== texture)
+            {
+                this.pushBatch();
+            }
+
+            batches[batches.length - 1].texture = texture;
         }
 
         return this;
@@ -58832,6 +57889,106 @@ var ForwardDiffuseLightPipeline = new Class({
             renderer.setFloat1(program, lightName + 'radius', light.radius);
         }
         
+        return this;
+    },
+
+    /**
+     * Binds, uploads resources and processes all batches generating draw calls.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#flush
+     * @since 3.1.0
+     *
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
+     */
+    flush: function ()
+    {
+        if (this.flushLocked)
+        {
+            return this;
+        }
+
+        this.flushLocked = true;
+
+        var gl = this.gl;
+        var renderer = this.renderer;
+        var vertexCount = this.vertexCount;
+        var topology = this.topology;
+        var vertexSize = this.vertexSize;
+        var batches = this.batches;
+        var batchCount = batches.length;
+        var batchVertexCount = 0;
+        var batch = null;
+        var batchNext;
+        var textureIndex;
+        var nTexture;
+
+        if (batchCount === 0 || vertexCount === 0)
+        {
+            this.flushLocked = false;
+            return this;
+        }
+
+        gl.bufferSubData(gl.ARRAY_BUFFER, 0, this.bytes.subarray(0, vertexCount * vertexSize));
+
+        for (var index = 0; index < batches.length - 1; ++index)
+        {
+            batch = batches[index];
+            batchNext = batches[index + 1];
+
+            if (batch.textures.length > 0)
+            {
+                for (textureIndex = 0; textureIndex < batch.textures.length; ++textureIndex)
+                {
+                    nTexture = batch.textures[textureIndex];
+
+                    if (nTexture)
+                    {
+                        renderer.setTexture2D(nTexture, 1 + textureIndex);
+                    }
+                }
+
+                gl.activeTexture(gl.TEXTURE0);
+            }
+
+            batchVertexCount = batchNext.first - batch.first;
+
+            if (batch.texture === null || batchVertexCount <= 0) { continue; }
+
+            renderer.setTexture2D(batch.texture, 0);
+            gl.drawArrays(topology, batch.first, batchVertexCount);
+        }
+
+        // Left over data
+        batch = batches[batches.length - 1];
+
+        if (batch.textures.length > 0)
+        {
+            for (textureIndex = 0; textureIndex < batch.textures.length; ++textureIndex)
+            {
+                nTexture = batch.textures[textureIndex];
+
+                if (nTexture)
+                {
+                    renderer.setTexture2D(nTexture, 1 + textureIndex);
+                }
+            }
+
+            gl.activeTexture(gl.TEXTURE0);
+        }
+
+        batchVertexCount = vertexCount - batch.first;
+
+        if (batch.texture && batchVertexCount > 0)
+        {
+            renderer.setTexture2D(batch.texture, 0);
+            gl.drawArrays(topology, batch.first, batchVertexCount);
+        }
+
+        this.vertexCount = 0;
+        batches.length = 0;
+        this.pushBatch();
+        this.flushLocked = false;
+
         return this;
     },
 
@@ -59096,11 +58253,12 @@ module.exports = ForwardDiffuseLightPipeline;
  */
 
 var Class = __webpack_require__(/*! ../../../utils/Class */ "./utils/Class.js");
+var Earcut = __webpack_require__(/*! ../../../geom/polygon/Earcut */ "./geom/polygon/Earcut.js");
 var GetFastValue = __webpack_require__(/*! ../../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var ModelViewProjection = __webpack_require__(/*! ./components/ModelViewProjection */ "./renderer/webgl/pipelines/components/ModelViewProjection.js");
-var TransformMatrix = __webpack_require__(/*! ../../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var ShaderSourceFS = __webpack_require__(/*! ../shaders/TextureTint-frag.js */ "./renderer/webgl/shaders/TextureTint-frag.js");
 var ShaderSourceVS = __webpack_require__(/*! ../shaders/TextureTint-vert.js */ "./renderer/webgl/shaders/TextureTint-vert.js");
+var TransformMatrix = __webpack_require__(/*! ../../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 var Utils = __webpack_require__(/*! ../Utils */ "./renderer/webgl/Utils.js");
 var WebGLPipeline = __webpack_require__(/*! ../WebGLPipeline */ "./renderer/webgl/WebGLPipeline.js");
 
@@ -59211,15 +58369,6 @@ var TextureTintPipeline = new Class({
         this.maxQuads = rendererConfig.batchSize;
 
         /**
-         * Collection of batch information
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batches
-         * @type {array}
-         * @since 3.1.0
-         */
-        this.batches = [];
-
-        /**
          * A temporary Transform Matrix, re-used internally during batching.
          *
          * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#_tempMatrix1
@@ -59259,179 +58408,52 @@ var TextureTintPipeline = new Class({
          */
         this._tempMatrix4 = new TransformMatrix();
 
+        /**
+         * Used internally to draw triangles
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#tempTriangle
+         * @type {array}
+         * @since 3.0.0
+         */
+        this.tempTriangle = [
+            { x: 0, y: 0, width: 0 },
+            { x: 0, y: 0, width: 0 },
+            { x: 0, y: 0, width: 0 },
+            { x: 0, y: 0, width: 0 }
+        ];
+
+        //  0 = texture multiplied by color
+        //  1 = solid color + texture alpha
+        //  2 = solid color, no texture
+        //  3 = solid texture, no color
+        this.tintEffect = 2;
+
+        this.strokeTint;
+        this.fillTint;
+
+        //  Set during Renderer boot
+        this.currentFrame = null;
+
+        // this.tintTL = 0;
+        // this.tintTR = 0;
+        // this.tintBL = 0;
+        // this.tintBR = 0;
+
+        this.firstQuad = [ 0, 0, 0, 0 ];
+
+        this.prevQuad = [ 0, 0, 0, 0 ];
+
+        /**
+         * Used internally for triangulating a polygon
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#polygonCache
+         * @type {array}
+         * @default []
+         * @since 3.0.0
+         */
+        this.polygonCache = [];
+
         this.mvpInit();
-    },
-
-    /**
-     * Assigns a texture to the current batch. If a texture is already set it creates
-     * a new batch object.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#setTexture2D
-     * @since 3.1.0
-     *
-     * @param {WebGLTexture} texture - WebGLTexture that will be assigned to the current batch.
-     * @param {integer} textureUnit - Texture unit to which the texture needs to be bound.
-     *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
-     */
-    setTexture2D: function (texture, unit)
-    {
-        if (!texture)
-        {
-            return this;
-        }
-
-        var batches = this.batches;
-
-        if (batches.length === 0)
-        {
-            this.pushBatch();
-        }
-
-        var batch = batches[batches.length - 1];
-
-        if (unit > 0)
-        {
-            if (batch.textures[unit - 1] &&
-                batch.textures[unit - 1] !== texture)
-            {
-                this.pushBatch();
-            }
-
-            batches[batches.length - 1].textures[unit - 1] = texture;
-        }
-        else
-        {
-            if (batch.texture !== null &&
-                batch.texture !== texture)
-            {
-                this.pushBatch();
-            }
-
-            batches[batches.length - 1].texture = texture;
-        }
-
-        return this;
-    },
-
-    /**
-     * Creates a new batch object and pushes it to a batch array.
-     * The batch object contains information relevant to the current 
-     * vertex batch like the offset in the vertex buffer, vertex count and 
-     * the textures used by that batch.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#pushBatch
-     * @since 3.1.0
-     */
-    pushBatch: function ()
-    {
-        var batch = {
-            first: this.vertexCount,
-            texture: null,
-            textures: []
-        };
-
-        this.batches.push(batch);
-    },
-
-    /**
-     * Binds, uploads resources and processes all batches generating draw calls.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#flush
-     * @since 3.1.0
-     *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
-     */
-    flush: function ()
-    {
-        if (this.flushLocked)
-        {
-            return this;
-        }
-
-        this.flushLocked = true;
-
-        var gl = this.gl;
-        var renderer = this.renderer;
-        var vertexCount = this.vertexCount;
-        var topology = this.topology;
-        var vertexSize = this.vertexSize;
-        var batches = this.batches;
-        var batchCount = batches.length;
-        var batchVertexCount = 0;
-        var batch = null;
-        var batchNext;
-        var textureIndex;
-        var nTexture;
-
-        if (batchCount === 0 || vertexCount === 0)
-        {
-            this.flushLocked = false;
-            return this;
-        }
-
-        gl.bufferSubData(gl.ARRAY_BUFFER, 0, this.bytes.subarray(0, vertexCount * vertexSize));
-
-        for (var index = 0; index < batches.length - 1; ++index)
-        {
-            batch = batches[index];
-            batchNext = batches[index + 1];
-
-            if (batch.textures.length > 0)
-            {
-                for (textureIndex = 0; textureIndex < batch.textures.length; ++textureIndex)
-                {
-                    nTexture = batch.textures[textureIndex];
-
-                    if (nTexture)
-                    {
-                        renderer.setTexture2D(nTexture, 1 + textureIndex);
-                    }
-                }
-
-                gl.activeTexture(gl.TEXTURE0);
-            }
-
-            batchVertexCount = batchNext.first - batch.first;
-
-            if (batch.texture === null || batchVertexCount <= 0) { continue; }
-
-            renderer.setTexture2D(batch.texture, 0);
-            gl.drawArrays(topology, batch.first, batchVertexCount);
-        }
-
-        // Left over data
-        batch = batches[batches.length - 1];
-
-        if (batch.textures.length > 0)
-        {
-            for (textureIndex = 0; textureIndex < batch.textures.length; ++textureIndex)
-            {
-                nTexture = batch.textures[textureIndex];
-
-                if (nTexture)
-                {
-                    renderer.setTexture2D(nTexture, 1 + textureIndex);
-                }
-            }
-
-            gl.activeTexture(gl.TEXTURE0);
-        }
-
-        batchVertexCount = vertexCount - batch.first;
-
-        if (batch.texture && batchVertexCount > 0)
-        {
-            renderer.setTexture2D(batch.texture, 0);
-            gl.drawArrays(topology, batch.first, batchVertexCount);
-        }
-
-        this.vertexCount = 0;
-        batches.length = 0;
-        this.pushBatch();
-        this.flushLocked = false;
-
-        return this;
     },
 
     /**
@@ -59448,11 +58470,6 @@ var TextureTintPipeline = new Class({
         WebGLPipeline.prototype.onBind.call(this);
 
         this.mvpUpdate();
-
-        if (this.batches.length === 0)
-        {
-            this.pushBatch();
-        }
 
         return this;
     },
@@ -59476,6 +58493,135 @@ var TextureTintPipeline = new Class({
         this.projOrtho(0, this.width, this.height, 0, -1000.0, 1000.0);
 
         return this;
+    },
+
+    /**
+     * Assigns a texture to the current batch. If a texture is already set it creates
+     * a new batch object.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#setTexture2D
+     * @since 3.1.0
+     *
+     * @param {WebGLTexture} texture - WebGLTexture that will be assigned to the current batch.
+     * @param {integer} textureUnit - Texture unit to which the texture needs to be bound.
+     *
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
+     */
+    setTexture2D: function (texture, unit)
+    {
+        this.renderer.setTexture2D(texture, unit);
+
+        return this;
+    },
+
+    /**
+     * Uploads the vertex data and emits a draw call
+     * for the current batch of vertices.
+     *
+     * @method Phaser.Renderer.WebGL.WebGLPipeline#flush
+     * @since 3.0.0
+     *
+     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
+     */
+    flush: function ()
+    {
+        if (this.flushLocked) { return this; }
+
+        this.flushLocked = true;
+
+        var gl = this.gl;
+        var vertexCount = this.vertexCount;
+        var topology = this.topology;
+        var vertexSize = this.vertexSize;
+        var renderer = this.renderer;
+
+        if (vertexCount === 0)
+        {
+            this.flushLocked = false;
+            return;
+        }
+
+        renderer.setBlankTexture();
+
+        gl.bufferSubData(gl.ARRAY_BUFFER, 0, this.bytes.subarray(0, vertexCount * vertexSize));
+        gl.drawArrays(topology, 0, vertexCount);
+
+        this.vertexCount = 0;
+        this.flushLocked = false;
+
+        return this;
+    },
+
+    /**
+     * Adds the vertices data into the batch and flushes if full.
+     * 
+     * Assumes 3 vertices in the following arrangement:
+     * 
+     * ```
+     * ```
+     * 
+     * 
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTri
+     * @since 3.12.0
+     *
+     * @param {number} x1 - The bottom-left x position.
+     * @param {number} y1 - The bottom-left y position.
+     * @param {number} x2 - The bottom-right x position.
+     * @param {number} y2 - The bottom-right y position.
+     * @param {number} x3 - The top-right x position.
+     * @param {number} y3 - The top-right y position.
+     * @param {number} u0 - UV u0 value.
+     * @param {number} v0 - UV v0 value.
+     * @param {number} u1 - UV u1 value.
+     * @param {number} v1 - UV v1 value.
+     * @param {number} tint1 - The top-left tint color value.
+     * @param {number} tint2 - The top-right tint color value.
+     * @param {number} tint3 - The bottom-left tint color value.
+     * @param {(number|boolean)} tintEffect - The tint effect for the shader to use.
+     * 
+     * @return {boolean} `true` if this method caused the batch to flush, otherwise `false`.
+     */
+    batchTri: function (x1, y1, x2, y2, x3, y3, u0, v0, u1, v1, tint1, tint2, tint3, tintEffect)
+    {
+        var hasFlushed = false;
+
+        if (this.vertexCount + 3 > this.vertexCapacity)
+        {
+            this.flush();
+
+            hasFlushed = true;
+        }
+
+        var vertexViewF32 = this.vertexViewF32;
+        var vertexViewU32 = this.vertexViewU32;
+
+        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
+
+        vertexViewF32[++vertexOffset] = x1;
+        vertexViewF32[++vertexOffset] = y1;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v0;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tint1;
+
+        vertexViewF32[++vertexOffset] = x2;
+        vertexViewF32[++vertexOffset] = y2;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v1;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tint2;
+
+        vertexViewF32[++vertexOffset] = x3;
+        vertexViewF32[++vertexOffset] = y3;
+        vertexViewF32[++vertexOffset] = u1;
+        vertexViewF32[++vertexOffset] = v1;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tint3;
+
+        this.vertexCount += 3;
+
+        return hasFlushed;
     },
 
     /**
@@ -59611,7 +58757,7 @@ var TextureTintPipeline = new Class({
 
         var tintEffect = (sprite._isTinted && sprite.tintFill);
 
-        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
+        this.batchQuad(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
     },
 
     /**
@@ -59631,17 +58777,17 @@ var TextureTintPipeline = new Class({
      * 
      * Where tx0/ty0 = 0, tx1/ty1 = 1, tx2/ty2 = 2 and tx3/ty3 = 3
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchVertices
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchQuad
      * @since 3.11.0
      *
-     * @param {number} tx0 - The top-left x position.
-     * @param {number} ty0 - The top-left y position.
-     * @param {number} tx1 - The bottom-left x position.
-     * @param {number} ty1 - The bottom-left y position.
-     * @param {number} tx2 - The bottom-right x position.
-     * @param {number} ty2 - The bottom-right y position.
-     * @param {number} tx3 - The top-right x position.
-     * @param {number} ty3 - The top-right y position.
+     * @param {number} x0 - The top-left x position.
+     * @param {number} y0 - The top-left y position.
+     * @param {number} x1 - The bottom-left x position.
+     * @param {number} y1 - The bottom-left y position.
+     * @param {number} x2 - The bottom-right x position.
+     * @param {number} y2 - The bottom-right y position.
+     * @param {number} x3 - The top-right x position.
+     * @param {number} y3 - The top-right y position.
      * @param {number} u0 - UV u0 value.
      * @param {number} v0 - UV v0 value.
      * @param {number} u1 - UV u1 value.
@@ -59654,7 +58800,7 @@ var TextureTintPipeline = new Class({
      * 
      * @return {boolean} `true` if this method caused the batch to flush, otherwise `false`.
      */
-    batchVertices: function (tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect)
+    batchQuad: function (x0, y0, x1, y1, x2, y2, x3, y3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect)
     {
         var hasFlushed = false;
 
@@ -59670,43 +58816,43 @@ var TextureTintPipeline = new Class({
 
         var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
             
-        vertexViewF32[++vertexOffset] = tx0;
-        vertexViewF32[++vertexOffset] = ty0;
+        vertexViewF32[++vertexOffset] = x0;
+        vertexViewF32[++vertexOffset] = y0;
         vertexViewF32[++vertexOffset] = u0;
         vertexViewF32[++vertexOffset] = v0;
         vertexViewF32[++vertexOffset] = tintEffect;
         vertexViewU32[++vertexOffset] = tintTL;
 
-        vertexViewF32[++vertexOffset] = tx1;
-        vertexViewF32[++vertexOffset] = ty1;
+        vertexViewF32[++vertexOffset] = x1;
+        vertexViewF32[++vertexOffset] = y1;
         vertexViewF32[++vertexOffset] = u0;
         vertexViewF32[++vertexOffset] = v1;
         vertexViewF32[++vertexOffset] = tintEffect;
         vertexViewU32[++vertexOffset] = tintBL;
 
-        vertexViewF32[++vertexOffset] = tx2;
-        vertexViewF32[++vertexOffset] = ty2;
+        vertexViewF32[++vertexOffset] = x2;
+        vertexViewF32[++vertexOffset] = y2;
         vertexViewF32[++vertexOffset] = u1;
         vertexViewF32[++vertexOffset] = v1;
         vertexViewF32[++vertexOffset] = tintEffect;
         vertexViewU32[++vertexOffset] = tintBR;
 
-        vertexViewF32[++vertexOffset] = tx0;
-        vertexViewF32[++vertexOffset] = ty0;
+        vertexViewF32[++vertexOffset] = x0;
+        vertexViewF32[++vertexOffset] = y0;
         vertexViewF32[++vertexOffset] = u0;
         vertexViewF32[++vertexOffset] = v0;
         vertexViewF32[++vertexOffset] = tintEffect;
         vertexViewU32[++vertexOffset] = tintTL;
 
-        vertexViewF32[++vertexOffset] = tx2;
-        vertexViewF32[++vertexOffset] = ty2;
+        vertexViewF32[++vertexOffset] = x2;
+        vertexViewF32[++vertexOffset] = y2;
         vertexViewF32[++vertexOffset] = u1;
         vertexViewF32[++vertexOffset] = v1;
         vertexViewF32[++vertexOffset] = tintEffect;
         vertexViewU32[++vertexOffset] = tintBR;
 
-        vertexViewF32[++vertexOffset] = tx3;
-        vertexViewF32[++vertexOffset] = ty3;
+        vertexViewF32[++vertexOffset] = x3;
+        vertexViewF32[++vertexOffset] = y3;
         vertexViewF32[++vertexOffset] = u1;
         vertexViewF32[++vertexOffset] = v0;
         vertexViewF32[++vertexOffset] = tintEffect;
@@ -59714,13 +58860,13 @@ var TextureTintPipeline = new Class({
 
         this.vertexCount += 6;
 
-        if (this.vertexCapacity - this.vertexCount < 6)
-        {
-            //  No more room at the inn
-            this.flush();
+        // if (this.vertexCapacity - this.vertexCount < 6)
+        // {
+        //     //  No more room at the inn
+        //     this.flush();
 
-            hasFlushed = true;
-        }
+        //     hasFlushed = true;
+        // }
 
         return hasFlushed;
     },
@@ -59874,7 +59020,7 @@ var TextureTintPipeline = new Class({
 
         this.setTexture2D(texture, 0);
 
-        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
+        this.batchQuad(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
     },
 
     /**
@@ -59954,11 +59100,393 @@ var TextureTintPipeline = new Class({
 
         tint = Utils.getTintAppendFloatAlpha(tint, alpha);
 
-        if (!this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, frame.u0, frame.v0, frame.u1, frame.v1, tint, tint, tint, tint, 0))
+        if (!this.batchQuad(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, frame.u0, frame.v0, frame.u1, frame.v1, tint, tint, tint, tint, 0))
         {
             this.flush();
         }
 
+    },
+
+    /**
+     * Pushes a filled rectangle into the vertex batch.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#drawFillRect
+     * @since 3.0.0
+     *
+     * @param {number} x - Horizontal top left coordinate of the rectangle.
+     * @param {number} y - Vertical top left coordinate of the rectangle.
+     * @param {number} width - Width of the rectangle.
+     * @param {number} height - Height of the rectangle.
+     * @param {number} color - Color of the rectangle to draw.
+     * @param {number} alpha - Alpha value of the rectangle to draw.
+     */
+    drawFillRect: function (x, y, width, height, color, alpha)
+    {
+        var xw = x + width;
+        var yh = y + height;
+
+        var x0 = x;
+        var y0 = y;
+        var x1 = x;
+        var y1 = yh;
+        var x2 = xw;
+        var y2 = yh;
+        var x3 = xw;
+        var y3 = y;
+
+        var tint = Utils.getTintAppendFloatAlphaAndSwap(color, alpha);
+
+        this.batchQuad(x0, y0, x1, y1, x2, y2, x3, y3, 0, 0, 1, 1, tint, tint, tint, tint, 2);
+    },
+
+    /**
+     * Pushes a filled rectangle into the vertex batch.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillRect
+     * @since 3.0.0
+     *
+     * @param {number} x - Horizontal top left coordinate of the rectangle
+     * @param {number} y - Vertical top left coordinate of the rectangle
+     * @param {number} width - Width of the rectangle
+     * @param {number} height - Height of the rectangle
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     */
+    batchFillRect: function (x, y, width, height, currentMatrix, parentMatrix)
+    {
+        this.renderer.setPipeline(this);
+
+        var calcMatrix = this._tempMatrix3;
+
+        //  Multiply and store result in calcMatrix
+        parentMatrix.multiply(currentMatrix, calcMatrix);
+        
+        var xw = x + width;
+        var yh = y + height;
+
+        var x0 = calcMatrix.getX(x, y);
+        var y0 = calcMatrix.getY(x, y);
+
+        var x1 = calcMatrix.getX(x, yh);
+        var y1 = calcMatrix.getY(x, yh);
+
+        var x2 = calcMatrix.getX(xw, yh);
+        var y2 = calcMatrix.getY(xw, yh);
+
+        var x3 = calcMatrix.getX(xw, y);
+        var y3 = calcMatrix.getY(xw, y);
+
+        var frame = this.currentFrame;
+
+        var u0 = frame.u0;
+        var v0 = frame.v0;
+        var u1 = frame.u1;
+        var v1 = frame.v1;
+
+        var tint = this.fillTint;
+
+        this.batchQuad(x0, y0, x1, y1, x2, y2, x3, y3, u0, v0, u1, v1, tint, tint, tint, tint, this.tintEffect);
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillTriangle
+     * @since 3.0.0
+     *
+     * @param {number} x0 - Point 0 x coordinate
+     * @param {number} y0 - Point 0 y coordinate
+     * @param {number} x1 - Point 1 x coordinate
+     * @param {number} y1 - Point 1 y coordinate
+     * @param {number} x2 - Point 2 x coordinate
+     * @param {number} y2 - Point 2 y coordinate
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     */
+    batchFillTriangle: function (x0, y0, x1, y1, x2, y2, currentMatrix, parentMatrix)
+    {
+        this.renderer.setPipeline(this);
+
+        var calcMatrix = this._tempMatrix3;
+
+        //  Multiply and store result in calcMatrix
+        parentMatrix.multiply(currentMatrix, calcMatrix);
+        
+        var tx0 = calcMatrix.getX(x0, y0);
+        var ty0 = calcMatrix.getY(x0, y0);
+
+        var tx1 = calcMatrix.getX(x1, y1);
+        var ty1 = calcMatrix.getY(x1, y1);
+
+        var tx2 = calcMatrix.getX(x2, y2);
+        var ty2 = calcMatrix.getY(x2, y2);
+
+        var frame = this.currentFrame;
+
+        var u0 = frame.u0;
+        var v0 = frame.v0;
+        var u1 = frame.u1;
+        var v1 = frame.v1;
+
+        var tint = this.fillTint;
+
+        this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, u0, v0, u1, v1, tint, tint, tint, this.tintEffect);
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokeTriangle
+     * @since 3.0.0
+     *
+     * @param {number} x0 - [description]
+     * @param {number} y0 - [description]
+     * @param {number} x1 - [description]
+     * @param {number} y1 - [description]
+     * @param {number} x2 - [description]
+     * @param {number} y2 - [description]
+     * @param {number} lineWidth - Size of the line as a float value
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     */
+    batchStrokeTriangle: function (x0, y0, x1, y1, x2, y2, lineWidth, currentMatrix, parentMatrix)
+    {
+        var tempTriangle = this.tempTriangle;
+
+        tempTriangle[0].x = x0;
+        tempTriangle[0].y = y0;
+        tempTriangle[0].width = lineWidth;
+
+        tempTriangle[1].x = x1;
+        tempTriangle[1].y = y1;
+        tempTriangle[1].width = lineWidth;
+
+        tempTriangle[2].x = x2;
+        tempTriangle[2].y = y2;
+        tempTriangle[2].width = lineWidth;
+
+        tempTriangle[3].x = x0;
+        tempTriangle[3].y = y0;
+        tempTriangle[3].width = lineWidth;
+
+        this.batchStrokePath(tempTriangle, lineWidth, false, currentMatrix, parentMatrix);
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillPath
+     * @since 3.0.0
+     *
+     * @param {number} path - Collection of points that represent the path
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     */
+    batchFillPath: function (path, currentMatrix, parentMatrix)
+    {
+        this.renderer.setPipeline(this);
+
+        var calcMatrix = this._tempMatrix3;
+
+        //  Multiply and store result in calcMatrix
+        parentMatrix.multiply(currentMatrix, calcMatrix);
+
+        var length = path.length;
+        var polygonCache = this.polygonCache;
+        var polygonIndexArray;
+        var point;
+
+        var tint = this.fillTint;
+        var tintEffect = this.tintEffect;
+
+        for (var pathIndex = 0; pathIndex < length; ++pathIndex)
+        {
+            point = path[pathIndex];
+            polygonCache.push(point.x, point.y);
+        }
+
+        polygonIndexArray = Earcut(polygonCache);
+        length = polygonIndexArray.length;
+
+        var frame = this.currentFrame;
+
+        for (var index = 0; index < length; index += 3)
+        {
+            var p0 = polygonIndexArray[index + 0] * 2;
+            var p1 = polygonIndexArray[index + 1] * 2;
+            var p2 = polygonIndexArray[index + 2] * 2;
+
+            var x0 = polygonCache[p0 + 0];
+            var y0 = polygonCache[p0 + 1];
+            var x1 = polygonCache[p1 + 0];
+            var y1 = polygonCache[p1 + 1];
+            var x2 = polygonCache[p2 + 0];
+            var y2 = polygonCache[p2 + 1];
+
+            var tx0 = calcMatrix.getX(x0, y0);
+            var ty0 = calcMatrix.getY(x0, y0);
+    
+            var tx1 = calcMatrix.getX(x1, y1);
+            var ty1 = calcMatrix.getY(x1, y1);
+    
+            var tx2 = calcMatrix.getX(x2, y2);
+            var ty2 = calcMatrix.getY(x2, y2);
+
+            var u0 = frame.u0;
+            var v0 = frame.v0;
+            var u1 = frame.u1;
+            var v1 = frame.v1;
+        
+            this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, u0, v0, u1, v1, tint, tint, tint, tintEffect);
+        }
+
+        polygonCache.length = 0;
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokePath
+     * @since 3.0.0
+     *
+     * @param {array} path - [description]
+     * @param {number} lineWidth - [description]
+     * @param {boolean} pathOpen - Indicates if the path should be closed
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     */
+    batchStrokePath: function (path, lineWidth, pathOpen, currentMatrix, parentMatrix)
+    {
+        this.renderer.setPipeline(this);
+
+        var pathLength = path.length - 1;
+
+        for (var pathIndex = 0; pathIndex < pathLength; pathIndex++)
+        {
+            var point0 = path[pathIndex];
+            var point1 = path[pathIndex + 1];
+
+            this.batchLine(
+                point0.x,
+                point0.y,
+                point1.x,
+                point1.y,
+                point0.width / 2,
+                point1.width / 2,
+                lineWidth,
+                pathIndex,
+                !pathOpen && (pathIndex === pathLength - 1),
+                currentMatrix,
+                parentMatrix
+            );
+        }
+    },
+
+    /**
+     * [description]
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchLine
+     * @since 3.0.0
+     *
+     * @param {number} ax - X coordinate to the start of the line
+     * @param {number} ay - Y coordinate to the start of the line
+     * @param {number} bx - X coordinate to the end of the line
+     * @param {number} by - Y coordinate to the end of the line
+     * @param {number} aLineWidth - Width of the start of the line
+     * @param {number} bLineWidth - Width of the end of the line
+     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     */
+    batchLine: function (ax, ay, bx, by, aLineWidth, bLineWidth, lineWidth, index, closePath, currentMatrix, parentMatrix)
+    {
+        this.renderer.setPipeline(this);
+
+        var calcMatrix = this._tempMatrix3;
+
+        //  Multiply and store result in calcMatrix
+        parentMatrix.multiply(currentMatrix, calcMatrix);
+
+        if (this.vertexCount + 6 > this.vertexCapacity)
+        {
+            this.flush();
+        }
+        
+        var dx = bx - ax;
+        var dy = by - ay;
+
+        var len = Math.sqrt(dx * dx + dy * dy);
+        var al0 = aLineWidth * (by - ay) / len;
+        var al1 = aLineWidth * (ax - bx) / len;
+        var bl0 = bLineWidth * (by - ay) / len;
+        var bl1 = bLineWidth * (ax - bx) / len;
+
+        var lx0 = bx - bl0;
+        var ly0 = by - bl1;
+        var lx1 = ax - al0;
+        var ly1 = ay - al1;
+        var lx2 = bx + bl0;
+        var ly2 = by + bl1;
+        var lx3 = ax + al0;
+        var ly3 = ay + al1;
+
+        //  tx0 = bottom right
+        var brX = calcMatrix.getX(lx0, ly0);
+        var brY = calcMatrix.getY(lx0, ly0);
+
+        //  tx1 = bottom left
+        var blX = calcMatrix.getX(lx1, ly1);
+        var blY = calcMatrix.getY(lx1, ly1);
+
+        //  tx2 = top right
+        var trX = calcMatrix.getX(lx2, ly2);
+        var trY = calcMatrix.getY(lx2, ly2);
+
+        //  tx3 = top left
+        var tlX = calcMatrix.getX(lx3, ly3);
+        var tlY = calcMatrix.getY(lx3, ly3);
+
+        var tint = this.strokeTint;
+        var tintEffect = this.tintEffect;
+
+        var frame = this.currentFrame;
+
+        var u0 = frame.u0;
+        var v0 = frame.v0;
+        var u1 = frame.u1;
+        var v1 = frame.v1;
+
+        //  TL, BL, BR, TR
+        this.batchQuad(tlX, tlY, blX, blY, brX, brY, trX, trY, u0, v0, u1, v1, tint, tint, tint, tint, tintEffect);
+
+        if (lineWidth <= 1)
+        {
+            //  No point doing a linejoin if the line isn't thick enough
+            return;
+        }
+
+        var prev = this.prevQuad;
+        var first = this.firstQuad;
+
+        if (index > 0)
+        {
+            this.batchQuad(tlX, tlY, blX, blY, prev[0], prev[1], prev[2], prev[3], u0, v0, u1, v1, tint, tint, tint, tint, tintEffect);
+        }
+        else
+        {
+            first[0] = blX;
+            first[1] = blY;
+            first[2] = tlX;
+            first[3] = tlY;
+        }
+
+        if (closePath)
+        {
+            //  Add a join for the final path segment
+            this.batchQuad(first[0], first[1], first[2], first[3], brX, brY, trX, trY, u0, v0, u1, v1, tint, tint, tint, tint, tintEffect);
+        }
+        else
+        {
+            //  Store it
+
+            prev[0] = brX;
+            prev[1] = brY;
+            prev[2] = trX;
+            prev[3] = trY;
+        }
     }
 
 });
@@ -60584,7 +60112,6 @@ module.exports = ModelViewProjection;
 module.exports = {
 
     BitmapMaskPipeline: __webpack_require__(/*! ./BitmapMaskPipeline */ "./renderer/webgl/pipelines/BitmapMaskPipeline.js"),
-    FlatTintPipeline: __webpack_require__(/*! ./FlatTintPipeline */ "./renderer/webgl/pipelines/FlatTintPipeline.js"),
     ForwardDiffuseLightPipeline: __webpack_require__(/*! ./ForwardDiffuseLightPipeline */ "./renderer/webgl/pipelines/ForwardDiffuseLightPipeline.js"),
     TextureTintPipeline: __webpack_require__(/*! ./TextureTintPipeline */ "./renderer/webgl/pipelines/TextureTintPipeline.js")
 
@@ -60741,19 +60268,27 @@ module.exports = [
     '',
     'void main()',
     '{',
+    '    vec4 texture = texture2D(uMainSampler, outTexCoord);',
     '    vec4 texel = vec4(outTint.rgb * outTint.a, outTint.a);',
+    '    vec4 color = texture;',
     '',
-    '    if (outTintEffect == 1.0)',
+    '    if (outTintEffect == 0.0)',
     '    {',
-    '        texel = texture2D(uMainSampler, outTexCoord);',
-    '        texel.rgb = mix(texel.rgb, outTint.rgb, texel.a);',
+    '        //  Multiply tint',
+    '        color = texture * texel;',
     '    }',
-    '    else if (outTintEffect == 0.0)',
+    '    else if (outTintEffect == 1.0)',
     '    {',
-    '        texel *= texture2D(uMainSampler, outTexCoord);',
+    '        //  Solid texture-based tint',
+    '        color.rgb = mix(texture.rgb, outTint.rgb, texture.a);',
+    '    }',
+    '    else if (outTintEffect == 2.0)',
+    '    {',
+    '        //  Solid color, no texture',
+    '        color = texel;',
     '    }',
     '',
-    '    gl_FragColor = texel;',
+    '    gl_FragColor = color;',
     '}',
     ''
 ].join('\n');

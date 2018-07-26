@@ -18,7 +18,9 @@ function preload ()
 
 function create ()
 {
-    this.sys.game.renderer.blankTexture = this.textures.getFrame('metal').glTexture;
+    this.cameras.main.setBackgroundColor(0xff0000);
+
+    this.add.image(0,0,'metal');
 
     var graphics = this.add.graphics();
 

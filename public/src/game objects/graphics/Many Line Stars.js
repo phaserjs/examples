@@ -5,6 +5,7 @@ var config = {
         create: create,
         update: update
     },
+    batchSize: 8000,
     width: 800,
     height: 600
 };

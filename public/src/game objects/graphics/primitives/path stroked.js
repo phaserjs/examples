@@ -22,7 +22,7 @@ function create ()
 
     var graphics = this.add.graphics();
 
-    graphics.lineStyle(64, 0x00ff00, 1);
+    graphics.lineStyle(16, 0x00ff00, 1);
 
     graphics.beginPath();
 
@@ -32,8 +32,8 @@ function create ()
     graphics.lineTo(650, 300);
     graphics.lineTo(700, 180);
     graphics.lineTo(600, 80);
-    graphics.lineTo(400, 100);
 
     graphics.closePath();
+
     graphics.strokePath();
 }

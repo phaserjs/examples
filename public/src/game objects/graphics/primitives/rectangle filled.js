@@ -15,14 +15,14 @@ function preload ()
 {
     this.load.image('metal', 'assets/textures/alien-metal.jpg');
     this.load.image('bunny', 'assets/sprites/bunny.png');
+    this.load.atlas('megaset', 'assets/atlas/megaset-0.png', 'assets/atlas/megaset-0.json');
 }
 
 function create ()
 {
-    // this.sys.game.renderer.blankTexture = this.textures.getFrame('metal').glTexture;
-    this.sys.game.renderer.blankTexture = this.textures.getFrame('bunny').glTexture;
-
     var graphics = this.add.graphics();
+
+    graphics.setTexture('megaset', 'contra1');
 
     graphics.fillStyle(0x00ff00, 1);
     graphics.fillRect(100, 100, 256, 256);

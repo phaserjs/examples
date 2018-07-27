@@ -7,16 +7,15 @@ class SceneA extends Phaser.Scene {
 
     preload ()
     {
-        this.load.image('bunny', 'assets/sprites/bunny.png');
-        this.load.image('metal', 'assets/textures/alien-metal.jpg');
+        // this.load.image('metal', 'assets/textures/alien-metal.jpg');
+        this.load.atlas('megaset', 'assets/atlas/megaset-0.png', 'assets/atlas/megaset-0.json');
     }
 
     create ()
     {
         this.cameras.main.setBackgroundColor(0xff0000);
-        // this.cameras.main.setViewport(100, 100, 600, 400);
 
-        this.add.image(200, 200, 'bunny');
+        this.add.image(200, 300, 'megaset', 'phaser2');
 
         var graphics = this.add.graphics();
 
@@ -25,6 +24,8 @@ class SceneA extends Phaser.Scene {
 
         graphics.fillStyle(0x00ffff, 1);
         graphics.fillTriangle(60, 500, 60, 400, 500, 500);
+
+        this.scene.launch('SceneC');
     }
 
 }
@@ -59,12 +60,31 @@ class SceneB extends Phaser.Scene {
 
 }
 
+class SceneC extends Phaser.Scene {
+
+    constructor (config)
+    {
+        super('SceneC');
+    }
+
+    create ()
+    {
+        this.add.image(400, 300, 'megaset', 'cactuar');
+
+        var graphics = this.add.graphics();
+
+        graphics.fillStyle(0xffff00, 0.8);
+        graphics.fillTriangle(400, 400, 690, 50, 780, 300);
+    }
+
+}
+
 var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: [ SceneA, SceneB ]
+    scene: [ SceneA, SceneB, SceneC ]
 };
 
 var game = new Phaser.Game(config);

@@ -3273,6 +3273,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\graphics\\primitives\\arc gradient filled.js",
+                  "name": "arc gradient filled.js",
+                  "size": 506,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\graphics\\primitives\\arc stroked.js",
                   "name": "arc stroked.js",
                   "size": 978,
@@ -3291,9 +3297,21 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\graphics\\primitives\\line gradient stroked.js",
+                  "name": "line gradient stroked.js",
+                  "size": 396,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\graphics\\primitives\\path filled.js",
                   "name": "path filled.js",
                   "size": 794,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\path gradient filled.js",
+                  "name": "path gradient filled.js",
+                  "size": 619,
                   "extension": ".js"
                 },
                 {
@@ -3311,7 +3329,13 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\rectangle filled.js",
                   "name": "rectangle filled.js",
-                  "size": 759,
+                  "size": 434,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\rectangle gradient filled.js",
+                  "name": "rectangle gradient filled.js",
+                  "size": 594,
                   "extension": ".js"
                 },
                 {
@@ -3323,7 +3347,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\scene stack test.js",
                   "name": "scene stack test.js",
-                  "size": 1561,
+                  "size": 1951,
                   "extension": ".js"
                 },
                 {
@@ -3339,13 +3363,25 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\graphics\\primitives\\triangle gradient filled.js",
+                  "name": "triangle gradient filled.js",
+                  "size": 533,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\triangle gradient stroked.js",
+                  "name": "triangle gradient stroked.js",
+                  "size": 511,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\graphics\\primitives\\triangle stroked.js",
                   "name": "triangle stroked.js",
-                  "size": 736,
+                  "size": 467,
                   "extension": ".js"
                 }
               ],
-              "size": 10731
+              "size": 13686
             },
             {
               "path": "src\\game objects\\graphics\\rect test.js",
@@ -3499,7 +3535,7 @@
               "size": 9314
             }
           ],
-          "size": 173900
+          "size": 176855
         },
         {
           "path": "src\\game objects\\group",
@@ -4307,7 +4343,7 @@
             {
               "path": "src\\game objects\\sprites\\custom sprite class ES6.js",
               "name": "custom sprite class ES6.js",
-              "size": 721,
+              "size": 775,
               "extension": ".js"
             },
             {
@@ -4347,7 +4383,7 @@
               "extension": ".js"
             }
           ],
-          "size": 7547
+          "size": 7601
         },
         {
           "path": "src\\game objects\\text",
@@ -4929,7 +4965,7 @@
           "size": 261867
         }
       ],
-      "size": 819940
+      "size": 822949
     },
     {
       "path": "src\\games",
@@ -10407,5 +10443,5 @@
       "size": 5291
     }
   ],
-  "size": 2708811
+  "size": 2711820
 }

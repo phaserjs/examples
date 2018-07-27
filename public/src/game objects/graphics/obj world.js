@@ -532,6 +532,7 @@ var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
+    batchSize: 100000,
     parent: 'phaser-example',
     scene: WireframeScene.Start
 };

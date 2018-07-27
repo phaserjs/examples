@@ -26,8 +26,8 @@ function create ()
     graphics.fillStyle(0x00ff00);
     graphics.fillRect(100, 100, 256, 256);
 
-    graphics.setTexture('megaset', 'dragonwiz');
+    graphics.setTexture('megaset', 'dragonwiz', 1);
 
-    graphics.fillStyle(0xff0000);
-    graphics.fillRect(250, 200, 400, 256);
+    graphics.fillGradientStyle(0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 1);
+    graphics.fillRect(350, 300, 256, 256);
 }

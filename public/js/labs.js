@@ -46,7 +46,9 @@ $(document).ready(function () {
         $('#csslink').attr('href', 'css.html?src=' + filename);
         $('#viewlink').attr('href', 'view.html?src=' + filename);
         $('#backlink').attr('href', 'index.html?dir=' + backURL);
+        $('#fblink').attr('href', 'fbinstant.html?src=' + filename);
 
+        /*
         if (remote)
         {
             $('#labslink').hide();
@@ -68,6 +70,7 @@ $(document).ready(function () {
 
             });
         }
+        */
 
         var versionlist = $('<select>').prop('id', 'changeversion').appendTo('#nav');
 

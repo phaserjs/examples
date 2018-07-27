@@ -14,9 +14,12 @@ function create ()
 {
     var graphics = this.add.graphics();
 
-    graphics.fillStyle(0x00ff00, 1);
+    graphics.fillGradientStyle(0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 1);
     graphics.fillRect(100, 100, 256, 256);
 
-    graphics.fillStyle(0xff0000, 0.5);
+    graphics.fillGradientStyle(0xff0000, 0xff0000, 0xffff00, 0xffff00, 1);
     graphics.fillRect(250, 200, 400, 256);
+
+    graphics.fillStyle(0x00ff00, 0.5);
+    graphics.fillRect(550, 300, 160, 256);
 }

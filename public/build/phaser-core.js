@@ -3358,6 +3358,7 @@ var DebugHeader = __webpack_require__(/*! ./DebugHeader */ "./boot/DebugHeader.j
 var Device = __webpack_require__(/*! ../device */ "./device/index.js");
 var DOMContentLoaded = __webpack_require__(/*! ../dom/DOMContentLoaded */ "./dom/DOMContentLoaded.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var FacebookInstantGamesPlugin = __webpack_require__(/*! ../fbinstant/FacebookInstantGamesPlugin */ "./fbinstant/FacebookInstantGamesPlugin.js");
 var InputManager = __webpack_require__(/*! ../input/InputManager */ "./input/InputManager.js");
 var PluginManager = __webpack_require__(/*! ../plugins/PluginManager */ "./plugins/PluginManager.js");
 var SceneManager = __webpack_require__(/*! ../scene/SceneManager */ "./scene/SceneManager.js");
@@ -3587,6 +3588,15 @@ var Game = new Class({
          * @since 3.0.0
          */
         this.plugins = new PluginManager(this, this.config);
+
+        /**
+         * An instance of the Facebook Instant Games Manager.
+         *
+         * @name Phaser.Game#facebook
+         * @type {any}
+         * @since 3.12.0
+         */
+        this.facebook = new FacebookInstantGamesPlugin(this);
 
         /**
          * Is this Game pending destruction at the start of the next frame?
@@ -5419,6 +5429,25 @@ var Camera = new Class({
         this.scene;
 
         /**
+         * A reference to the Game Scene Manager.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#sceneManager
+         * @type {Phaser.Scenes.SceneManager}
+         * @since 3.12.0
+         */
+        this.sceneManager;
+
+        /**
+         * A reference to the Game Config.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#config
+         * @type {object}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.config;
+
+        /**
          * The Camera ID. Assigned by the Camera Manager and used to handle camera exclusion.
          * This value is a bitmask.
          *
@@ -5438,6 +5467,88 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this.name = '';
+
+        /**
+         * The resolution of the Game, used in most Camera calculations.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#resolution
+         * @type {number}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.resolution = 1;
+
+        /**
+         * Should this camera round its pixel values to integers?
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#roundPixels
+         * @type {boolean}
+         * @default false
+         * @since 3.0.0
+         */
+        this.roundPixels = false;
+
+        /**
+         * Is this Camera visible or not?
+         *
+         * A visible camera will render and perform input tests.
+         * An invisible camera will not render anything and will skip input tests.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#visible
+         * @type {boolean}
+         * @default true
+         * @since 3.10.0
+         */
+        this.visible = true;
+
+        /**
+         * Is this Camera using a bounds to restrict scrolling movement?
+         *
+         * Set this property along with the bounds via `Camera.setBounds`.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#useBounds
+         * @type {boolean}
+         * @default false
+         * @since 3.0.0
+         */
+        this.useBounds = false;
+
+        /**
+         * The World View is a Rectangle that defines the area of the 'world' the Camera is currently looking at.
+         * This factors in the Camera viewport size, zoom and scroll position and is updated in the Camera preRender step.
+         * If you have enabled Camera bounds the worldview will be clamped to those bounds accordingly.
+         * You can use it for culling or intersection checks.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#worldView
+         * @type {Phaser.Geom.Rectangle}
+         * @readOnly
+         * @since 3.11.0
+         */
+        this.worldView = new Rectangle();
+
+        /**
+         * Is this Camera dirty?
+         * 
+         * A dirty Camera has had either its viewport size, bounds, scroll, rotation or zoom levels changed since the last frame.
+         * 
+         * This flag is cleared during the `postRenderCamera` method of the renderer.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#dirty
+         * @type {boolean}
+         * @default true
+         * @since 3.11.0
+         */
+        this.dirty = true;
+
+        /**
+         * Does this Camera allow the Game Objects it renders to receive input events?
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#inputEnabled
+         * @type {boolean}
+         * @default true
+         * @since 3.0.0
+         */
+        this.inputEnabled = true;
 
         /**
          * The x position of the Camera viewport, relative to the top-left of the game canvas.
@@ -5462,16 +5573,6 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._y = y;
-
-        /**
-         * The resolution of the Game, used in most Camera calculations.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#resolution
-         * @type {number}
-         * @readOnly
-         * @since 3.12.0
-         */
-        this.resolution = 1;
 
         /**
          * Internal Camera X value multiplied by the resolution.
@@ -5540,41 +5641,6 @@ var Camera = new Class({
         this._height = height;
 
         /**
-         * Should this camera round its pixel values to integers?
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#roundPixels
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
-        this.roundPixels = false;
-
-        /**
-         * Is this Camera visible or not?
-         *
-         * A visible camera will render and perform input tests.
-         * An invisible camera will not render anything and will skip input tests.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#visible
-         * @type {boolean}
-         * @default true
-         * @since 3.10.0
-         */
-        this.visible = true;
-
-        /**
-         * Is this Camera using a bounds to restrict scrolling movement?
-         *
-         * Set this property along with the bounds via `Camera.setBounds`.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#useBounds
-         * @type {boolean}
-         * @default false
-         * @since 3.0.0
-         */
-        this.useBounds = false;
-
-        /**
          * The bounds the camera is restrained to during scrolling.
          *
          * @name Phaser.Cameras.Scene2D.Camera#_bounds
@@ -5583,43 +5649,6 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._bounds = new Rectangle();
-
-        /**
-         * The World View is a Rectangle that defines the area of the 'world' the Camera is currently looking at.
-         * This factors in the Camera viewport size, zoom and scroll position and is updated in the Camera preRender step.
-         * If you have enabled Camera bounds the worldview will be clamped to those bounds accordingly.
-         * You can use it for culling or intersection checks.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#worldView
-         * @type {Phaser.Geom.Rectangle}
-         * @readOnly
-         * @since 3.11.0
-         */
-        this.worldView = new Rectangle();
-
-        /**
-         * Is this Camera dirty?
-         * 
-         * A dirty Camera has had either its viewport size, bounds, scroll, rotation or zoom levels changed since the last frame.
-         * 
-         * This flag is cleared during the `postRenderCamera` method of the renderer.
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#dirty
-         * @type {boolean}
-         * @default true
-         * @since 3.11.0
-         */
-        this.dirty = true;
-
-        /**
-         * Does this Camera allow the Game Objects it renders to receive input events?
-         *
-         * @name Phaser.Cameras.Scene2D.Camera#inputEnabled
-         * @type {boolean}
-         * @default true
-         * @since 3.0.0
-         */
-        this.inputEnabled = true;
 
         /**
          * The horizontal scroll position of this Camera.
@@ -5919,6 +5948,17 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._follow = null;
+
+        /**
+         * Does this Camera have a custom viewport?
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#_customViewport
+         * @type {boolean}
+         * @private
+         * @default false
+         * @since 3.12.0
+         */
+        this._customViewport = false;
     },
 
     /**
@@ -6919,6 +6959,7 @@ var Camera = new Class({
 
     /**
      * Sets the Scene the Camera is bound to.
+     * 
      * Also populates the `resolution` property and updates the internal size values.
      *
      * @method Phaser.Cameras.Scene2D.Camera#setScene
@@ -6932,7 +6973,10 @@ var Camera = new Class({
     {
         this.scene = scene;
 
-        var res = scene.sys.game.config.resolution;
+        this.config = scene.sys.game.config;
+        this.sceneManager = scene.sys.game.scene;
+
+        var res = this.config.resolution;
 
         this.resolution = res;
 
@@ -7228,6 +7272,49 @@ var Camera = new Class({
     },
 
     /**
+     * Internal method called automatically when the viewport changes.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#updateSystem
+     * @private
+     * @since 3.12.0
+     */
+    updateSystem: function ()
+    {
+        var custom = false;
+
+        if (this._x !== 0 || this._y !== 0)
+        {
+            custom = true;
+        }
+        else
+        {
+            var gameWidth = this.config.width;
+            var gameHeight = this.config.height;
+
+            if (gameWidth !== this._width || gameHeight !== this._height)
+            {
+                custom = true;
+            }
+        }
+
+        var sceneManager = this.sceneManager;
+
+        if (custom && !this._customViewport)
+        {
+            //  We need a custom viewport for this Camera
+            sceneManager.customViewports++;
+        }
+        else if (!custom && this._customViewport)
+        {
+            //  We're turning off a custom viewport for this Camera
+            sceneManager.customViewports--;
+        }
+
+        this.dirty = true;
+        this._customViewport = custom;
+    },
+
+    /**
      * This event is fired when a camera is destroyed by the Camera Manager.
      *
      * @event CameraDestroyEvent
@@ -7256,10 +7343,19 @@ var Camera = new Class({
 
         this.culledObjects = [];
 
+        if (this._customViewport)
+        {
+            //  We're turning off a custom viewport for this Camera
+            this.sceneManager.customViewports--;
+        }
+
         this._follow = null;
         this._bounds = null;
-        this.scene = null;
         this.deadzone = null;
+
+        this.scene = null;
+        this.config = null;
+        this.sceneManager = null;
     },
 
     /**
@@ -7282,7 +7378,7 @@ var Camera = new Class({
         {
             this._x = value;
             this._cx = value * this.resolution;
-            this.dirty = true;
+            this.updateSystem();
         }
 
     },
@@ -7307,7 +7403,7 @@ var Camera = new Class({
         {
             this._y = value;
             this._cy = value * this.resolution;
-            this.dirty = true;
+            this.updateSystem();
         }
 
     },
@@ -7333,7 +7429,7 @@ var Camera = new Class({
         {
             this._width = value;
             this._cw = value * this.resolution;
-            this.dirty = true;
+            this.updateSystem();
         }
 
     },
@@ -7359,7 +7455,7 @@ var Camera = new Class({
         {
             this._height = value;
             this._ch = value * this.resolution;
-            this.dirty = true;
+            this.updateSystem();
         }
 
     },
@@ -14810,6 +14906,458 @@ module.exports = { EventEmitter: __webpack_require__(/*! ./EventEmitter */ "./ev
 
 /***/ }),
 
+/***/ "./fbinstant/FacebookInstantGamesPlugin.js":
+/*!*************************************************!*\
+  !*** ./fbinstant/FacebookInstantGamesPlugin.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var DataManager = __webpack_require__(/*! ../data/DataManager */ "./data/DataManager.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/object/GetValue.js");
+var LeaderboardScore = __webpack_require__(/*! ./LeaderboardScore */ "./fbinstant/LeaderboardScore.js");
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class FacebookInstantGamesPlugin
+ * @memberOf Phaser
+ * @constructor
+ * @extends Phaser.Events.EventEmitter
+ * @since 3.12.0
+ *
+ * @param {Phaser.Game} game - A reference to the Phaser.Game instance.
+ * @param {FBConfig} config
+ */
+var FacebookInstantGamesPlugin = new Class({
+
+    Extends: EventEmitter,
+
+    initialize:
+
+    function FacebookInstantGamesPlugin (game, config)
+    {
+        EventEmitter.call(this);
+
+        /**
+         * A reference to the Phaser.Game instance.
+         *
+         * @name Phaser.Boot.FacebookInstantGamesPlugin#game
+         * @type {Phaser.Game}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.game = game;
+
+        this.data = new DataManager(this);
+
+        this.on('setdata', this.setDataHandler, this);
+        this.on('changedata', this.changeDataHandler, this);
+
+        this.hasLoaded = false;
+        this.dataLocked = false;
+
+        this.apis = [];
+        this.entryPoint = '';
+        this.entryPointData = null;
+        this.contextID = 0;
+        this.contextType = '';
+        this.locale = '';
+        this.platform = '';
+        this.version = '';
+
+        this.playerID = '';
+        this.playerName = '';
+        this.playerPhotoURL = '';
+    },
+
+    setDataHandler: function (parent, key, value)
+    {
+        if (this.dataLocked)
+        {
+            return;
+        }
+
+        console.log('set data:', key, value);
+
+        var data = {};
+        data[key] = value;
+
+        var _this = this;
+
+        FBInstant.player.setDataAsync(data).then(function() {
+            console.log('sdh saved', data);
+            _this.emit('savedata', data);
+        });
+    },
+
+    changeDataHandler: function (parent, key, value)
+    {
+        if (this.dataLocked)
+        {
+            return;
+        }
+
+        console.log('change data:', key, value);
+
+        var data = {};
+        data[key] = value;
+
+        var _this = this;
+
+        FBInstant.player.setDataAsync(data).then(function() {
+            console.log('cdh saved', data);
+            _this.emit('savedata', data);
+        });
+    },
+
+    showLoadProgress: function (scene)
+    {
+        scene.load.on('progress', function (value) {
+
+            if (!this.hasLoaded)
+            {
+                console.log(value);
+                FBInstant.setLoadingProgress(value * 100);
+            }
+
+        }, this);
+
+        scene.load.on('complete', function () {
+
+            this.hasLoaded = true;
+
+            console.log('loaded');
+
+            FBInstant.startGameAsync().then(this.gameStarted.bind(this));
+            
+        }, this);
+
+        return this;
+    },
+
+    gameStarted: function ()
+    {
+        console.log('FBP gameStarted');
+        
+        this.apis = FBInstant.getSupportedAPIs();
+
+        this.contextID = FBInstant.context.getID();
+        this.contextType = FBInstant.context.getType();
+        this.locale = FBInstant.getLocale();
+        this.platform = FBInstant.getPlatform();
+        this.version = FBInstant.getSDKVersion();
+
+        this.playerID = FBInstant.player.getID();
+        this.playerName = FBInstant.player.getName();
+        this.playerPhotoURL = FBInstant.player.getPhoto();
+
+        var _this = this;
+
+        FBInstant.onPause(function() {
+            _this.emit('pause');
+        });
+
+        FBInstant.getEntryPointAsync().then(function (entrypoint) {
+
+            _this.entryPoint = entrypoint;
+            _this.entryPointData = FBInstant.getEntryPointData();
+            _this.emit('startgame');
+
+        });
+
+        // this.emit('startgame');
+    },
+
+    loadPlayerPhoto: function (scene, key)
+    {
+        console.log('load');
+
+        scene.load.setCORS('anonymous');
+
+        scene.load.image(key, this.playerPhotoURL);
+
+        scene.load.on('complete', function () {
+
+            this.emit('photocomplete', key);
+
+        }, this);
+
+        scene.load.start();
+
+        return this;
+    },
+
+    getData: function (keys)
+    {
+        if (!Array.isArray(keys))
+        {
+            keys = [ keys ];
+        }
+
+        console.log('getdata', keys);
+
+        var _this = this;
+
+        FBInstant.player.getDataAsync(keys).then(function(data) {
+
+            console.log('getdata req', data);
+
+            _this.dataLocked = true;
+
+            for (var key in data)
+            {
+                _this.data.set(key, data[key]);
+            }
+
+            _this.dataLocked = false;
+
+            _this.emit('getdata', data);
+
+        });
+
+        return this;
+    },
+
+    saveData: function (data)
+    {
+        var _this = this;
+
+        FBInstant.player.setDataAsync(data).then(function() {
+            console.log('data saved to fb');
+            _this.emit('savedata', data);
+        });
+
+        return this;
+    },
+
+    getStats: function (keys)
+    {
+        var _this = this;
+
+        FBInstant.player.getStatsAsync(keys).then(function(data) {
+            console.log('stats got from fb');
+            _this.emit('getstats', data);
+        });
+
+        return this;
+    },
+
+    saveStats: function (data)
+    {
+        var output = {};
+
+        for (var key in data)
+        {
+            if (typeof data[key] === 'number')
+            {
+                output[key] = data[key];
+            }
+        }
+
+        var _this = this;
+
+        FBInstant.player.setStatsAsync(output).then(function() {
+            console.log('stats saved to fb');
+            _this.emit('savestats', output);
+        });
+
+        return this;
+    },
+
+    incStats: function (data)
+    {
+        var output = {};
+
+        for (var key in data)
+        {
+            if (typeof data[key] === 'number')
+            {
+                output[key] = data[key];
+            }
+        }
+
+        var _this = this;
+
+        FBInstant.player.incrementStatsAsync(output).then(function(stats) {
+            console.log('stats modified');
+            _this.emit('incstats', stats);
+        });
+
+        return this;
+    },
+
+    saveSession: function (data)
+    {
+        var test = JSON.stringify(data);
+
+        if (test.length <= 1000)
+        {
+            FBInstant.setSessionData(data);
+        }
+        else
+        {
+            console.warn('Session data too long. Max 1000 chars.');
+        }
+
+        return this;
+    },
+
+    openShare: function (text, key, frame, sessionData)
+    {
+        return this._share('SHARE', text, key, frame, sessionData);
+    },
+
+    openInvite: function (text, key, frame, sessionData)
+    {
+        return this._share('INVITE', text, key, frame, sessionData);
+    },
+
+    openRequest: function (text, key, frame, sessionData)
+    {
+        return this._share('REQUEST', text, key, frame, sessionData);
+    },
+
+    openChallenge: function (text, key, frame, sessionData)
+    {
+        return this._share('CHALLENGE', text, key, frame, sessionData);
+    },
+
+    createShortcut: function ()
+    {
+        var _this = this;
+
+        FBInstant.canCreateShortcutAsync().then(function(canCreateShortcut) {
+
+            if (canCreateShortcut)
+            {
+                FBInstant.createShortcutAsync().then(function() {
+                    _this.emit('shortcutcreated');
+                }).catch(function() {
+                    _this.emit('shortcutfailed');
+                });
+            }
+
+        });
+    },
+
+    _share: function (intent, text, key, frame, sessionData)
+    {
+        if (sessionData === undefined) { sessionData = {}; }
+
+        if (key)
+        {
+            var imageData = this.game.textures.getBase64(key, frame);
+        }
+
+        var payload = {
+            intent: intent,
+            image: imageData,
+            text: text,
+            data: sessionData
+        };
+
+        // console.log(payload);
+
+        // intent ("INVITE" | "REQUEST" | "CHALLENGE" | "SHARE") Indicates the intent of the share.
+        // image string A base64 encoded image to be shared.
+        // text string A text message to be shared.
+        // data Object? A blob of data to attach to the share. All game sessions launched from the share will be able to access this blob through FBInstant.getEntryPointData().
+
+        var _this = this;
+
+        FBInstant.shareAsync(payload).then(function() {
+            _this.emit('resume');
+        });
+
+        return this;
+    },
+
+    log: function (name, value, params)
+    {
+        if (params === undefined) { params = {}; }
+
+        if (name.length >= 2 && name.length <= 40)
+        {
+            FBInstant.logEvent(name, parseFloat(value), params);
+        }
+
+        return this;
+    },
+
+    /**
+     * Destroys the FacebookInstantGamesPlugin.
+     *
+     * @method Phaser.Boot.FacebookInstantGamesPlugin#destroy
+     * @since 3.12.0
+     */
+    destroy: function ()
+    {
+        FBInstant.quit();
+
+        this.game = null;
+    }
+
+});
+
+module.exports = FacebookInstantGamesPlugin;
+
+
+/***/ }),
+
+/***/ "./fbinstant/LeaderboardScore.js":
+/*!***************************************!*\
+  !*** ./fbinstant/LeaderboardScore.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class FacebookInstantGamesPlugin
+ * @memberOf Phaser
+ * @constructor
+ * @since 3.12.0
+ */
+var LeaderboardScore = new Class({
+
+    initialize:
+
+    function LeaderboardScore ()
+    {
+        this.value;
+        this.valueFormatted;
+        this.timestamp;
+        this.rank;
+        this.data;
+    }
+
+});
+
+module.exports = LeaderboardScore;
+
+
+/***/ }),
+
 /***/ "./gameobjects/BuildGameObject.js":
 /*!****************************************!*\
   !*** ./gameobjects/BuildGameObject.js ***!
@@ -20291,7 +20839,7 @@ var Tint = {
      * @webglOnly
      * @since 3.0.0
      *
-     * @param {integer} [topLeft=0xffffff] - The tint being applied to the top-left of the Game Object. If not other values are given this value is applied evenly, tinting the whole Game Object.
+     * @param {integer} [topLeft=0xffffff] - The tint being applied to the top-left of the Game Object. If no other values are given this value is applied evenly, tinting the whole Game Object.
      * @param {integer} [topRight] - The tint being applied to the top-right of the Game Object.
      * @param {integer} [bottomLeft] - The tint being applied to the bottom-left of the Game Object.
      * @param {integer} [bottomRight] - The tint being applied to the bottom-right of the Game Object.
@@ -22089,7 +22637,9 @@ module.exports = {
     SCALE: 17,
     ROTATE: 18,
     SET_TEXTURE: 19,
-    CLEAR_TEXTURE: 20
+    CLEAR_TEXTURE: 20,
+    GRADIENT_FILL_STYLE: 21,
+    GRADIENT_LINE_STYLE: 22
 
 };
 
@@ -22420,11 +22970,88 @@ var Graphics = new Class({
     },
 
     /**
-     * Sets the texture and frame this Graphics Object will use when texturing the shapes it renders.
+     * Sets a gradient fill style. This is a WebGL only feature.
+     * 
+     * The gradient color values represent the 4 corners of an untransformed rectangle.
+     * The gradient is used to color all filled shapes and paths drawn after calling this method.
+     * If you wish to turn a gradient off, call `fillStyle` and provide a new single fill color.
+     * 
+     * When filling a triangle only the first 3 color values provided are used for the 3 points of a triangle.
+     * 
+     * This feature is best used only on rectangles and triangles. All other shapes will give strange results.
+     * 
+     * Note that for objects such as arcs or ellipses, or anything which is made out of triangles, each triangle used
+     * will be filled with a gradient on its own. There is no ability to gradient fill a shape or path as a single
+     * entity at this time.
+     *
+     * @method Phaser.GameObjects.Graphics#fillGradientStyle
+     * @webglOnly
+     * @since 3.12.0
+     *
+     * @param {integer} topLeft - The tint being applied to the top-left of the Game Object.
+     * @param {integer} topRight - The tint being applied to the top-right of the Game Object.
+     * @param {integer} bottomLeft - The tint being applied to the bottom-left of the Game Object.
+     * @param {integer} bottomRight - The tint being applied to the bottom-right of the Game Object.
+     * @param {number} [alpha=1] - The fill alpha.
+     *
+     * @return {Phaser.GameObjects.Graphics} This Game Object.
+     */
+    fillGradientStyle: function (topLeft, topRight, bottomLeft, bottomRight, alpha)
+    {
+        if (alpha === undefined) { alpha = 1; }
+
+        this.commandBuffer.push(
+            Commands.GRADIENT_FILL_STYLE,
+            alpha, topLeft, topRight, bottomLeft, bottomRight
+        );
+
+        return this;
+    },
+
+    /**
+     * Sets a gradient line style. This is a WebGL only feature.
+     * 
+     * The gradient color values represent the 4 corners of an untransformed rectangle.
+     * The gradient is used to color all stroked shapes and paths drawn after calling this method.
+     * If you wish to turn a gradient off, call `lineStyle` and provide a new single line color.
+     * 
+     * This feature is best used only on single lines. All other shapes will give strange results.
+     * 
+     * Note that for objects such as arcs or ellipses, or anything which is made out of triangles, each triangle used
+     * will be filled with a gradient on its own. There is no ability to gradient stroke a shape or path as a single
+     * entity at this time.
+     *
+     * @method Phaser.GameObjects.Graphics#lineGradientStyle
+     * @webglOnly
+     * @since 3.12.0
+     *
+     * @param {number} lineWidth - The stroke width.
+     * @param {integer} topLeft - The tint being applied to the top-left of the Game Object.
+     * @param {integer} topRight - The tint being applied to the top-right of the Game Object.
+     * @param {integer} bottomLeft - The tint being applied to the bottom-left of the Game Object.
+     * @param {integer} bottomRight - The tint being applied to the bottom-right of the Game Object.
+     * @param {number} [alpha=1] - The fill alpha.
+     *
+     * @return {Phaser.GameObjects.Graphics} This Game Object.
+     */
+    lineGradientStyle: function (lineWidth, topLeft, topRight, bottomLeft, bottomRight, alpha)
+    {
+        if (alpha === undefined) { alpha = 1; }
+
+        this.commandBuffer.push(
+            Commands.GRADIENT_LINE_STYLE,
+            lineWidth, alpha, topLeft, topRight, bottomLeft, bottomRight
+        );
+
+        return this;
+    },
+
+    /**
+     * Sets the texture frame this Graphics Object will use when drawing all shapes defined after calling this.
      *
      * Textures are referenced by their string-based keys, as stored in the Texture Manager.
      * 
-     * Once set, all shapes will use this texture. Call this method with no arguments to clear a previously texture.
+     * Once set, all shapes will use this texture. Call this method with no arguments to clear it.
      * 
      * The textures are not tiled. They are stretched to the dimensions of the shapes being rendered. For this reason,
      * it works best with seamless / tileable textures.
@@ -24115,26 +24742,24 @@ var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, ca
 
     var commands = src.commandBuffer;
     var alpha = camera.alpha * src.alpha;
-    var lineAlpha = 1.0;
-    var fillAlpha = 1.0;
-    var lineColor = 0;
-    var fillColor = 0;
-    var lineWidth = 1.0;
-    var lastPath = null;
-    var iteration = 0;
-    var iterStep = 0.01;
+
+    var lineWidth = 1;
+    var fillTint = pipeline.fillTint;
+    var strokeTint = pipeline.strokeTint;
+
     var tx = 0;
     var ty = 0;
     var ta = 0;
-    var x = 0;
-    var y = 0;
-    var radius = 0;
-    var startAngle = 0;
-    var endAngle = 0;
+    var iterStep = 0.01;
+
     var cmd;
+
     var path = [];
     var pathIndex = 0;
     var pathOpen = false;
+    var lastPath = null;
+
+    var getTint = Utils.getTintAppendFloatAlphaAndSwap;
 
     for (var cmdIndex = 0; cmdIndex < commands.length; cmdIndex++)
     {
@@ -24185,27 +24810,51 @@ var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, ca
 
             case Commands.LINE_STYLE:
                 lineWidth = commands[++cmdIndex];
-                lineColor = commands[++cmdIndex];
-                lineAlpha = commands[++cmdIndex];
-                pipeline.strokeTint = Utils.getTintAppendFloatAlphaAndSwap(lineColor, lineAlpha * alpha);
+                var strokeColor = commands[++cmdIndex];
+                var strokeAlpha = commands[++cmdIndex] * alpha;
+                var strokeTintColor = getTint(strokeColor, strokeAlpha);
+                strokeTint.TL = strokeTintColor;
+                strokeTint.TR = strokeTintColor;
+                strokeTint.BL = strokeTintColor;
+                strokeTint.BR = strokeTintColor;
                 break;
 
             case Commands.FILL_STYLE:
-                fillColor = commands[++cmdIndex];
-                fillAlpha = commands[++cmdIndex];
-                pipeline.fillTint = Utils.getTintAppendFloatAlphaAndSwap(fillColor, fillAlpha * alpha);
+                var fillColor = commands[++cmdIndex];
+                var fillAlpha = commands[++cmdIndex] * alpha;
+                var fillTintColor = getTint(fillColor, fillAlpha);
+                fillTint.TL = fillTintColor;
+                fillTint.TR = fillTintColor;
+                fillTint.BL = fillTintColor;
+                fillTint.BR = fillTintColor;
+                break;
+
+            case Commands.GRADIENT_FILL_STYLE:
+                var gradientFillAlpha = commands[++cmdIndex] * alpha;
+                fillTint.TL = getTint(commands[++cmdIndex], gradientFillAlpha);
+                fillTint.TR = getTint(commands[++cmdIndex], gradientFillAlpha);
+                fillTint.BL = getTint(commands[++cmdIndex], gradientFillAlpha);
+                fillTint.BR = getTint(commands[++cmdIndex], gradientFillAlpha);
+                break;
+
+            case Commands.GRADIENT_LINE_STYLE:
+                lineWidth = commands[++cmdIndex];
+                var gradientLineAlpha = commands[++cmdIndex] * alpha;
+                strokeTint.TL = getTint(commands[++cmdIndex], gradientLineAlpha);
+                strokeTint.TR = getTint(commands[++cmdIndex], gradientLineAlpha);
+                strokeTint.BL = getTint(commands[++cmdIndex], gradientLineAlpha);
+                strokeTint.BR = getTint(commands[++cmdIndex], gradientLineAlpha);
                 break;
 
             case Commands.ARC:
-                iteration = 0;
-                x = commands[++cmdIndex];
-                y = commands[++cmdIndex];
-                radius = commands[++cmdIndex];
-                startAngle = commands[++cmdIndex];
-                endAngle = commands[++cmdIndex];
+                var iteration = 0;
+                var x = commands[++cmdIndex];
+                var y = commands[++cmdIndex];
+                var radius = commands[++cmdIndex];
+                var startAngle = commands[++cmdIndex];
+                var endAngle = commands[++cmdIndex];
 
-                // var anticlockwise
-                cmdIndex++;
+                cmdIndex++; // anticlockwise (canvas only)
 
                 if (lastPath === null)
                 {
@@ -24274,20 +24923,18 @@ var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, ca
             case Commands.LINE_TO:
                 if (lastPath !== null)
                 {
-                    lastPath.points.push(new Point(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth));
+                    lastPath.points.push(new Point(commands[++cmdIndex], commands[++cmdIndex], lineWidth));
                 }
                 else
                 {
-                    lastPath = new Path(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth);
+                    lastPath = new Path(commands[++cmdIndex], commands[++cmdIndex], lineWidth);
                     path.push(lastPath);
                 }
-                cmdIndex += 2;
                 break;
 
             case Commands.MOVE_TO:
-                lastPath = new Path(commands[cmdIndex + 1], commands[cmdIndex + 2], lineWidth);
+                lastPath = new Path(commands[++cmdIndex], commands[++cmdIndex], lineWidth);
                 path.push(lastPath);
-                cmdIndex += 2;
                 break;
 
             case Commands.SAVE:
@@ -24311,8 +24958,7 @@ var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, ca
                 break;
 
             case Commands.ROTATE:
-                var r = commands[++cmdIndex];
-                currentMatrix.rotate(r);
+                currentMatrix.rotate(commands[++cmdIndex]);
                 break;
 
             case Commands.SET_TEXTURE:
@@ -24322,14 +24968,12 @@ var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, ca
                 pipeline.currentFrame = frame;
                 renderer.setTexture2D(frame.glTexture, 0);
                 pipeline.tintEffect = mode;
-
                 break;
 
             case Commands.CLEAR_TEXTURE:
                 pipeline.currentFrame = renderer.blankTexture;
                 renderer.setTexture2D(renderer.blankTexture.glTexture, 0);
                 pipeline.tintEffect = 2;
-
                 break;
 
         }
@@ -51540,6 +52184,7 @@ var DefaultPlugins = {
 
         'anims',
         'cache',
+        'facebook',
         'plugins',
         'registry',
         'sound',
@@ -55854,8 +56499,6 @@ var WebGLRenderer = new Class({
 
         this.setBlendMode(CONST.BlendModes.NORMAL);
 
-        // this.pushScissor(0, 0, this.width, this.height);
-
         this.resize(this.width, this.height);
 
         this.game.events.once('ready', this.boot, this);
@@ -55920,11 +56563,6 @@ var WebGLRenderer = new Class({
         {
             pipelines[pipelineName].resize(width, height, resolution);
         }
-                
-        // if (this.currentScissor)
-        // {
-        //     this.currentScissor = [ 0, 0, this.width, this.height ];
-        // }
         
         this.drawingBufferHeight = gl.drawingBufferHeight;
 
@@ -56097,36 +56735,6 @@ var WebGLRenderer = new Class({
     },
 
     /**
-     * Sets the current scissor state
-     *
-     * @method Phaser.Renderer.WebGL.WebGLRenderer#setScissor
-     * @since 3.0.0
-     */
-    setScissor: function ()
-    {
-        var gl = this.gl;
-
-        var current = this.currentScissor;
-
-        var x = current[0];
-        var y = current[1];
-        var w = current[2];
-        var h = current[3];
-
-        // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/scissor
-        var box = gl.getParameter(gl.SCISSOR_BOX);
-
-        if (box && (box[0] !== x || box[1] !== y || box[2] !== w || box[3] !== h))
-        {
-            this.flush();
-
-            gl.enable(gl.SCISSOR_TEST);
-
-            gl.scissor(x, (this.drawingBufferHeight - y - h), w, h);
-        }
-    },
-
-    /**
      * Pushes a new scissor state. This is used to set nested scissor states.
      *
      * @method Phaser.Renderer.WebGL.WebGLRenderer#pushScissor
@@ -56142,17 +56750,42 @@ var WebGLRenderer = new Class({
     pushScissor: function (x, y, w, h)
     {
         var scissorStack = this.scissorStack;
-        var stackLength = scissorStack.length;
 
         var scissor = [ x, y, w, h ];
         
         scissorStack.push(scissor);
 
+        this.setScissor(x, y, w, h);
+
         this.currentScissor = scissor;
 
-        this.setScissor();
-
         return scissor;
+    },
+
+    /**
+     * Sets the current scissor state
+     *
+     * @method Phaser.Renderer.WebGL.WebGLRenderer#setScissor
+     * @since 3.0.0
+     */
+    setScissor: function (x, y, w, h)
+    {
+        var gl = this.gl;
+
+        var current = this.currentScissor;
+
+        var cx = current[0];
+        var cy = current[1];
+        var cw = current[2];
+        var ch = current[3];
+
+        if (cx !== x || cy !== y || cw !== w || ch !== h)
+        {
+            this.flush();
+
+            // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/scissor
+            gl.scissor(x, (this.drawingBufferHeight - y - h), w, h);
+        }
     },
 
     /**
@@ -56165,9 +56798,11 @@ var WebGLRenderer = new Class({
     {
         var scissorStack = this.scissorStack;
 
-        this.currentScissor = scissorStack.pop();
+        var scissor = scissorStack.pop();
+       
+        this.setScissor(scissor[0], scissor[1], scissor[2], scissor[3]);
 
-        this.setScissor();
+        this.currentScissor = scissor;
     },
 
     /**
@@ -56876,8 +57511,18 @@ var WebGLRenderer = new Class({
             pipelines[key].onPreRender();
         }
 
-        this.scissorStack = [];
-        this.currentScissor = null;
+        //  TODO - Find a way to stop needing to create these arrays every frame
+        //  and equally not need a huge array buffer created to hold them
+
+        this.currentScissor = [ 0, 0, this.width, this.height ];
+        this.scissorStack = [ this.currentScissor ];
+
+        if (this.game.scene.customViewports)
+        {
+            gl.enable(gl.SCISSOR_TEST);
+
+            gl.scissor(0, (this.drawingBufferHeight - this.height), this.width, this.height);
+        }
 
         this.setPipeline(this.pipelines.TextureTintPipeline);
     },
@@ -58409,11 +59054,12 @@ var TextureTintPipeline = new Class({
         this._tempMatrix4 = new TransformMatrix();
 
         /**
-         * Used internally to draw triangles
+         * Used internally to draw stroked triangles.
          *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#tempTriangle
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#tempTriangle
          * @type {array}
-         * @since 3.0.0
+         * @private
+         * @since 3.12.0
          */
         this.tempTriangle = [
             { x: 0, y: 0, width: 0 },
@@ -58422,34 +59068,78 @@ var TextureTintPipeline = new Class({
             { x: 0, y: 0, width: 0 }
         ];
 
-        //  0 = texture multiplied by color
-        //  1 = solid color + texture alpha
-        //  2 = solid color, no texture
-        //  3 = solid texture, no color
+        /**
+         * The tint effect to be applied by the shader in the next geometry draw:
+         * 
+         * 0 = texture multiplied by color
+         * 1 = solid color + texture alpha
+         * 2 = solid color, no texture
+         * 3 = solid texture, no color
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#tintEffect
+         * @type {number}
+         * @private
+         * @since 3.12.0
+         */
         this.tintEffect = 2;
 
-        this.strokeTint;
-        this.fillTint;
+        /**
+         * Cached stroke tint.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#strokeTint
+         * @type {object}
+         * @private
+         * @since 3.12.0
+         */
+        this.strokeTint = { TL: 0, TR: 0, BL: 0, BR: 0 };
 
-        //  Set during Renderer boot
+        /**
+         * Cached fill tint.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#fillTint
+         * @type {object}
+         * @private
+         * @since 3.12.0
+         */
+        this.fillTint = { TL: 0, TR: 0, BL: 0, BR: 0 };
+
+        /**
+         * Internal texture frame reference.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#currentFrame
+         * @type {Phaser.Textures.Frame}
+         * @private
+         * @since 3.12.0
+         */
         this.currentFrame = null;
 
-        // this.tintTL = 0;
-        // this.tintTR = 0;
-        // this.tintBL = 0;
-        // this.tintBR = 0;
-
+        /**
+         * Internal path quad cache.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#firstQuad
+         * @type {array}
+         * @private
+         * @since 3.12.0
+         */
         this.firstQuad = [ 0, 0, 0, 0 ];
 
+        /**
+         * Internal path quad cache.
+         *
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#prevQuad
+         * @type {array}
+         * @private
+         * @since 3.12.0
+         */
         this.prevQuad = [ 0, 0, 0, 0 ];
 
         /**
-         * Used internally for triangulating a polygon
+         * Used internally for triangulating a polygon.
          *
-         * @name Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#polygonCache
+         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#polygonCache
          * @type {array}
-         * @default []
-         * @since 3.0.0
+         * @private
+         * @since 3.12.0
          */
         this.polygonCache = [];
 
@@ -58515,13 +59205,12 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * Uploads the vertex data and emits a draw call
-     * for the current batch of vertices.
+     * Uploads the vertex data and emits a draw call for the current batch of vertices.
      *
-     * @method Phaser.Renderer.WebGL.WebGLPipeline#flush
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#flush
      * @since 3.0.0
      *
-     * @return {Phaser.Renderer.WebGL.WebGLPipeline} [description]
+     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
      */
     flush: function ()
     {
@@ -58550,78 +59239,6 @@ var TextureTintPipeline = new Class({
         this.flushLocked = false;
 
         return this;
-    },
-
-    /**
-     * Adds the vertices data into the batch and flushes if full.
-     * 
-     * Assumes 3 vertices in the following arrangement:
-     * 
-     * ```
-     * ```
-     * 
-     * 
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTri
-     * @since 3.12.0
-     *
-     * @param {number} x1 - The bottom-left x position.
-     * @param {number} y1 - The bottom-left y position.
-     * @param {number} x2 - The bottom-right x position.
-     * @param {number} y2 - The bottom-right y position.
-     * @param {number} x3 - The top-right x position.
-     * @param {number} y3 - The top-right y position.
-     * @param {number} u0 - UV u0 value.
-     * @param {number} v0 - UV v0 value.
-     * @param {number} u1 - UV u1 value.
-     * @param {number} v1 - UV v1 value.
-     * @param {number} tint1 - The top-left tint color value.
-     * @param {number} tint2 - The top-right tint color value.
-     * @param {number} tint3 - The bottom-left tint color value.
-     * @param {(number|boolean)} tintEffect - The tint effect for the shader to use.
-     * 
-     * @return {boolean} `true` if this method caused the batch to flush, otherwise `false`.
-     */
-    batchTri: function (x1, y1, x2, y2, x3, y3, u0, v0, u1, v1, tint1, tint2, tint3, tintEffect)
-    {
-        var hasFlushed = false;
-
-        if (this.vertexCount + 3 > this.vertexCapacity)
-        {
-            this.flush();
-
-            hasFlushed = true;
-        }
-
-        var vertexViewF32 = this.vertexViewF32;
-        var vertexViewU32 = this.vertexViewU32;
-
-        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
-
-        vertexViewF32[++vertexOffset] = x1;
-        vertexViewF32[++vertexOffset] = y1;
-        vertexViewF32[++vertexOffset] = u0;
-        vertexViewF32[++vertexOffset] = v0;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint1;
-
-        vertexViewF32[++vertexOffset] = x2;
-        vertexViewF32[++vertexOffset] = y2;
-        vertexViewF32[++vertexOffset] = u0;
-        vertexViewF32[++vertexOffset] = v1;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint2;
-
-        vertexViewF32[++vertexOffset] = x3;
-        vertexViewF32[++vertexOffset] = y3;
-        vertexViewF32[++vertexOffset] = u1;
-        vertexViewF32[++vertexOffset] = v1;
-        vertexViewF32[++vertexOffset] = tintEffect;
-        vertexViewU32[++vertexOffset] = tint3;
-
-        this.vertexCount += 3;
-
-        return hasFlushed;
     },
 
     /**
@@ -58721,17 +59338,17 @@ var TextureTintPipeline = new Class({
             camMatrix.multiply(spriteMatrix, calcMatrix);
         }
 
-        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+        var tx0 = calcMatrix.getX(x, y);
+        var ty0 = calcMatrix.getY(x, y);
 
-        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+        var tx1 = calcMatrix.getX(x, yh);
+        var ty1 = calcMatrix.getY(x, yh);
 
-        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+        var tx2 = calcMatrix.getX(xw, yh);
+        var ty2 = calcMatrix.getY(xw, yh);
 
-        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+        var tx3 = calcMatrix.getX(xw, y);
+        var ty3 = calcMatrix.getY(xw, y);
 
         var tintTL = Utils.getTintAppendFloatAlpha(sprite._tintTL, camera.alpha * sprite._alphaTL);
         var tintTR = Utils.getTintAppendFloatAlpha(sprite._tintTR, camera.alpha * sprite._alphaTR);
@@ -58778,7 +59395,7 @@ var TextureTintPipeline = new Class({
      * Where tx0/ty0 = 0, tx1/ty1 = 1, tx2/ty2 = 2 and tx3/ty3 = 3
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchQuad
-     * @since 3.11.0
+     * @since 3.12.0
      *
      * @param {number} x0 - The top-left x position.
      * @param {number} y0 - The top-left y position.
@@ -58860,53 +59477,122 @@ var TextureTintPipeline = new Class({
 
         this.vertexCount += 6;
 
-        // if (this.vertexCapacity - this.vertexCount < 6)
-        // {
-        //     //  No more room at the inn
-        //     this.flush();
+        return hasFlushed;
+    },
 
-        //     hasFlushed = true;
-        // }
+    /**
+     * Adds the vertices data into the batch and flushes if full.
+     * 
+     * Assumes 3 vertices in the following arrangement:
+     * 
+     * ```
+     * 0
+     * |\
+     * | \
+     * |  \
+     * |   \
+     * |    \
+     * 1-----2
+     * ```
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTri
+     * @since 3.12.0
+     *
+     * @param {number} x1 - The bottom-left x position.
+     * @param {number} y1 - The bottom-left y position.
+     * @param {number} x2 - The bottom-right x position.
+     * @param {number} y2 - The bottom-right y position.
+     * @param {number} x3 - The top-right x position.
+     * @param {number} y3 - The top-right y position.
+     * @param {number} u0 - UV u0 value.
+     * @param {number} v0 - UV v0 value.
+     * @param {number} u1 - UV u1 value.
+     * @param {number} v1 - UV v1 value.
+     * @param {number} tintTL - The top-left tint color value.
+     * @param {number} tintTR - The top-right tint color value.
+     * @param {number} tintBL - The bottom-left tint color value.
+     * @param {(number|boolean)} tintEffect - The tint effect for the shader to use.
+     * 
+     * @return {boolean} `true` if this method caused the batch to flush, otherwise `false`.
+     */
+    batchTri: function (x1, y1, x2, y2, x3, y3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintEffect)
+    {
+        var hasFlushed = false;
+
+        if (this.vertexCount + 3 > this.vertexCapacity)
+        {
+            this.flush();
+
+            hasFlushed = true;
+        }
+
+        var vertexViewF32 = this.vertexViewF32;
+        var vertexViewU32 = this.vertexViewU32;
+
+        var vertexOffset = (this.vertexCount * this.vertexComponentCount) - 1;
+
+        vertexViewF32[++vertexOffset] = x1;
+        vertexViewF32[++vertexOffset] = y1;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v0;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintTL;
+
+        vertexViewF32[++vertexOffset] = x2;
+        vertexViewF32[++vertexOffset] = y2;
+        vertexViewF32[++vertexOffset] = u0;
+        vertexViewF32[++vertexOffset] = v1;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintTR;
+
+        vertexViewF32[++vertexOffset] = x3;
+        vertexViewF32[++vertexOffset] = y3;
+        vertexViewF32[++vertexOffset] = u1;
+        vertexViewF32[++vertexOffset] = v1;
+        vertexViewF32[++vertexOffset] = tintEffect;
+        vertexViewU32[++vertexOffset] = tintBL;
+
+        this.vertexCount += 3;
 
         return hasFlushed;
     },
 
     /**
-     * Generic function for batching a textured quad
+     * Generic function for batching a textured quad using argument values instead of a Game Object.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
      * @since 3.0.0
      *
-     * @param {Phaser.GameObjects.GameObject} gameObject - Source GameObject
-     * @param {WebGLTexture} texture - Raw WebGLTexture associated with the quad
-     * @param {integer} textureWidth - Real texture width
-     * @param {integer} textureHeight - Real texture height
-     * @param {number} srcX - X coordinate of the quad
-     * @param {number} srcY - Y coordinate of the quad
-     * @param {number} srcWidth - Width of the quad
-     * @param {number} srcHeight - Height of the quad
-     * @param {number} scaleX - X component of scale
-     * @param {number} scaleY - Y component of scale
-     * @param {number} rotation - Rotation of the quad
-     * @param {boolean} flipX - Indicates if the quad is horizontally flipped
-     * @param {boolean} flipY - Indicates if the quad is vertically flipped
-     * @param {number} scrollFactorX - By which factor is the quad affected by the camera horizontal scroll
-     * @param {number} scrollFactorY - By which factor is the quad effected by the camera vertical scroll
-     * @param {number} displayOriginX - Horizontal origin in pixels
-     * @param {number} displayOriginY - Vertical origin in pixels
-     * @param {number} frameX - X coordinate of the texture frame
-     * @param {number} frameY - Y coordinate of the texture frame
-     * @param {number} frameWidth - Width of the texture frame
-     * @param {number} frameHeight - Height of the texture frame
-     * @param {integer} tintTL - Tint for top left
-     * @param {integer} tintTR - Tint for top right
-     * @param {integer} tintBL - Tint for bottom left
-     * @param {integer} tintBR - Tint for bottom right
-     * @param {number} tintEffect - The tint effect (0 for additive, 1 for replacement)
-     * @param {number} uOffset - Horizontal offset on texture coordinate
-     * @param {number} vOffset - Vertical offset on texture coordinate
-     * @param {Phaser.Cameras.Scene2D.Camera} camera - Current used camera
-     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - Parent container
+     * @param {Phaser.GameObjects.GameObject} gameObject - Source GameObject.
+     * @param {WebGLTexture} texture - Raw WebGLTexture associated with the quad.
+     * @param {integer} textureWidth - Real texture width.
+     * @param {integer} textureHeight - Real texture height.
+     * @param {number} srcX - X coordinate of the quad.
+     * @param {number} srcY - Y coordinate of the quad.
+     * @param {number} srcWidth - Width of the quad.
+     * @param {number} srcHeight - Height of the quad.
+     * @param {number} scaleX - X component of scale.
+     * @param {number} scaleY - Y component of scale.
+     * @param {number} rotation - Rotation of the quad.
+     * @param {boolean} flipX - Indicates if the quad is horizontally flipped.
+     * @param {boolean} flipY - Indicates if the quad is vertically flipped.
+     * @param {number} scrollFactorX - By which factor is the quad affected by the camera horizontal scroll.
+     * @param {number} scrollFactorY - By which factor is the quad effected by the camera vertical scroll.
+     * @param {number} displayOriginX - Horizontal origin in pixels.
+     * @param {number} displayOriginY - Vertical origin in pixels.
+     * @param {number} frameX - X coordinate of the texture frame.
+     * @param {number} frameY - Y coordinate of the texture frame.
+     * @param {number} frameWidth - Width of the texture frame.
+     * @param {number} frameHeight - Height of the texture frame.
+     * @param {integer} tintTL - Tint for top left.
+     * @param {integer} tintTR - Tint for top right.
+     * @param {integer} tintBL - Tint for bottom left.
+     * @param {integer} tintBR - Tint for bottom right.
+     * @param {number} tintEffect - The tint effect.
+     * @param {number} uOffset - Horizontal offset on texture coordinate.
+     * @param {number} vOffset - Vertical offset on texture coordinate.
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - Current used camera.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentTransformMatrix - Parent container.
      */
     batchTexture: function (
         gameObject,
@@ -58986,17 +59672,17 @@ var TextureTintPipeline = new Class({
             camMatrix.multiply(spriteMatrix, calcMatrix);
         }
 
-        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+        var tx0 = calcMatrix.getX(x, y);
+        var ty0 = calcMatrix.getY(x, y);
 
-        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+        var tx1 = calcMatrix.getX(x, yh);
+        var ty1 = calcMatrix.getY(x, yh);
 
-        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+        var tx2 = calcMatrix.getX(xw, yh);
+        var ty2 = calcMatrix.getY(xw, yh);
 
-        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+        var tx3 = calcMatrix.getX(xw, y);
+        var ty3 = calcMatrix.getY(xw, y);
 
         if (camera.roundPixels)
         {
@@ -59036,8 +59722,6 @@ var TextureTintPipeline = new Class({
      * @param {number} alpha - The alpha value.
      * @param {array} transformMatrix - An array of matrix values.
      * @param {Phaser.GameObjects.Components.TransformMatrix} [parentTransformMatrix] - A parent Transform Matrix.
-     *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This Pipeline.
      */
     drawTextureFrame: function (
         frame,
@@ -59069,17 +59753,17 @@ var TextureTintPipeline = new Class({
             calcMatrix = spriteMatrix;
         }
 
-        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+        var tx0 = calcMatrix.getX(x, y);
+        var ty0 = calcMatrix.getY(x, y);
 
-        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+        var tx1 = calcMatrix.getX(x, yh);
+        var ty1 = calcMatrix.getY(x, yh);
 
-        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+        var tx2 = calcMatrix.getX(xw, yh);
+        var ty2 = calcMatrix.getY(xw, yh);
 
-        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+        var tx3 = calcMatrix.getX(xw, y);
+        var ty3 = calcMatrix.getY(xw, y);
 
         if (this.renderer.config.roundPixels)
         {
@@ -59104,14 +59788,15 @@ var TextureTintPipeline = new Class({
         {
             this.flush();
         }
-
     },
 
     /**
      * Pushes a filled rectangle into the vertex batch.
+     * Rectangle has no transform values and isn't transformed into the local space.
+     * Used for directly batching untransformed rectangles, such as Camera background colors.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#drawFillRect
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawFillRect
+     * @since 3.12.0
      *
      * @param {number} x - Horizontal top left coordinate of the rectangle.
      * @param {number} y - Vertical top left coordinate of the rectangle.
@@ -59125,31 +59810,24 @@ var TextureTintPipeline = new Class({
         var xw = x + width;
         var yh = y + height;
 
-        var x0 = x;
-        var y0 = y;
-        var x1 = x;
-        var y1 = yh;
-        var x2 = xw;
-        var y2 = yh;
-        var x3 = xw;
-        var y3 = y;
-
         var tint = Utils.getTintAppendFloatAlphaAndSwap(color, alpha);
 
-        this.batchQuad(x0, y0, x1, y1, x2, y2, x3, y3, 0, 0, 1, 1, tint, tint, tint, tint, 2);
+        this.batchQuad(x, y, x, yh, xw, yh, xw, y, 0, 0, 1, 1, tint, tint, tint, tint, 2);
     },
 
     /**
      * Pushes a filled rectangle into the vertex batch.
+     * Rectangle factors in the given transform matrices before adding to the batch.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillRect
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchFillRect
+     * @since 3.12.0
      *
-     * @param {number} x - Horizontal top left coordinate of the rectangle
-     * @param {number} y - Vertical top left coordinate of the rectangle
-     * @param {number} width - Width of the rectangle
-     * @param {number} height - Height of the rectangle
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     * @param {number} x - Horizontal top left coordinate of the rectangle.
+     * @param {number} y - Vertical top left coordinate of the rectangle.
+     * @param {number} width - Width of the rectangle.
+     * @param {number} height - Height of the rectangle.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} currentMatrix - The current transform.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - The parent transform.
      */
     batchFillRect: function (x, y, width, height, currentMatrix, parentMatrix)
     {
@@ -59182,24 +59860,24 @@ var TextureTintPipeline = new Class({
         var u1 = frame.u1;
         var v1 = frame.v1;
 
-        var tint = this.fillTint;
-
-        this.batchQuad(x0, y0, x1, y1, x2, y2, x3, y3, u0, v0, u1, v1, tint, tint, tint, tint, this.tintEffect);
+        this.batchQuad(x0, y0, x1, y1, x2, y2, x3, y3, u0, v0, u1, v1, this.fillTint.TL, this.fillTint.TR, this.fillTint.BL, this.fillTint.BR, this.tintEffect);
     },
 
     /**
-     * [description]
+     * Pushes a filled triangle into the vertex batch.
+     * Triangle factors in the given transform matrices before adding to the batch.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillTriangle
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchFillTriangle
+     * @since 3.12.0
      *
-     * @param {number} x0 - Point 0 x coordinate
-     * @param {number} y0 - Point 0 y coordinate
-     * @param {number} x1 - Point 1 x coordinate
-     * @param {number} y1 - Point 1 y coordinate
-     * @param {number} x2 - Point 2 x coordinate
-     * @param {number} y2 - Point 2 y coordinate
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     * @param {number} x0 - Point 0 x coordinate.
+     * @param {number} y0 - Point 0 y coordinate.
+     * @param {number} x1 - Point 1 x coordinate.
+     * @param {number} y1 - Point 1 y coordinate.
+     * @param {number} x2 - Point 2 x coordinate.
+     * @param {number} y2 - Point 2 y coordinate.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} currentMatrix - The current transform.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - The parent transform.
      */
     batchFillTriangle: function (x0, y0, x1, y1, x2, y2, currentMatrix, parentMatrix)
     {
@@ -59226,25 +59904,26 @@ var TextureTintPipeline = new Class({
         var u1 = frame.u1;
         var v1 = frame.v1;
 
-        var tint = this.fillTint;
-
-        this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, u0, v0, u1, v1, tint, tint, tint, this.tintEffect);
+        this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, u0, v0, u1, v1, this.fillTint.TL, this.fillTint.TR, this.fillTint.BL, this.tintEffect);
     },
 
     /**
-     * [description]
+     * Pushes a stroked triangle into the vertex batch.
+     * Triangle factors in the given transform matrices before adding to the batch.
+     * The triangle is created from 3 lines and drawn using the `batchStrokePath` method.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokeTriangle
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchStrokeTriangle
+     * @since 3.12.0
      *
-     * @param {number} x0 - [description]
-     * @param {number} y0 - [description]
-     * @param {number} x1 - [description]
-     * @param {number} y1 - [description]
-     * @param {number} x2 - [description]
-     * @param {number} y2 - [description]
-     * @param {number} lineWidth - Size of the line as a float value
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     * @param {number} x0 - Point 0 x coordinate.
+     * @param {number} y0 - Point 0 y coordinate.
+     * @param {number} x1 - Point 1 x coordinate.
+     * @param {number} y1 - Point 1 y coordinate.
+     * @param {number} x2 - Point 2 x coordinate.
+     * @param {number} y2 - Point 2 y coordinate.
+     * @param {number} lineWidth - The width of the line in pixels.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} currentMatrix - The current transform.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - The parent transform.
      */
     batchStrokeTriangle: function (x0, y0, x1, y1, x2, y2, lineWidth, currentMatrix, parentMatrix)
     {
@@ -59270,13 +59949,19 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Adds the given path to the vertex batch for rendering.
+     * 
+     * It works by taking the array of path data and then passing it through Earcut, which
+     * creates a list of polygons. Each polygon is then added to the batch.
+     * 
+     * The path is always automatically closed because it's filled.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchFillPath
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchFillPath
+     * @since 3.12.0
      *
-     * @param {number} path - Collection of points that represent the path
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     * @param {array} path - Collection of points that represent the path.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} currentMatrix - The current transform.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - The parent transform.
      */
     batchFillPath: function (path, currentMatrix, parentMatrix)
     {
@@ -59292,7 +59977,9 @@ var TextureTintPipeline = new Class({
         var polygonIndexArray;
         var point;
 
-        var tint = this.fillTint;
+        var tintTL = this.fillTint.TL;
+        var tintTR = this.fillTint.TR;
+        var tintBL = this.fillTint.BL;
         var tintEffect = this.tintEffect;
 
         for (var pathIndex = 0; pathIndex < length; ++pathIndex)
@@ -59333,22 +60020,28 @@ var TextureTintPipeline = new Class({
             var u1 = frame.u1;
             var v1 = frame.v1;
         
-            this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, u0, v0, u1, v1, tint, tint, tint, tintEffect);
+            this.batchTri(tx0, ty0, tx1, ty1, tx2, ty2, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintEffect);
         }
 
         polygonCache.length = 0;
     },
 
     /**
-     * [description]
+     * Adds the given path to the vertex batch for rendering.
+     * 
+     * It works by taking the array of path data and calling `batchLine` for each section
+     * of the path.
+     * 
+     * The path is optionally closed at the end.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchStrokePath
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchStrokePath
+     * @since 3.12.0
      *
-     * @param {array} path - [description]
-     * @param {number} lineWidth - [description]
-     * @param {boolean} pathOpen - Indicates if the path should be closed
-     * @param {Float32Array} currentMatrix - Parent matrix, generally used by containers
+     * @param {array} path - Collection of points that represent the path.
+     * @param {number} lineWidth - The width of the line segments in pixels.
+     * @param {boolean} pathOpen - Indicates if the path should be closed or left open.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} currentMatrix - The current transform.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - The parent transform.
      */
     batchStrokePath: function (path, lineWidth, pathOpen, currentMatrix, parentMatrix)
     {
@@ -59378,10 +60071,10 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * [description]
+     * Creates a quad and adds it to the vertex batch based on the given line values.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline#batchLine
-     * @since 3.0.0
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchLine
+     * @since 3.12.0
      *
      * @param {number} ax - X coordinate to the start of the line
      * @param {number} ay - Y coordinate to the start of the line
@@ -59442,6 +60135,11 @@ var TextureTintPipeline = new Class({
         var tint = this.strokeTint;
         var tintEffect = this.tintEffect;
 
+        var tintTL = tint.TL;
+        var tintTR = tint.TR;
+        var tintBL = tint.BL;
+        var tintBR = tint.BR;
+
         var frame = this.currentFrame;
 
         var u0 = frame.u0;
@@ -59450,7 +60148,7 @@ var TextureTintPipeline = new Class({
         var v1 = frame.v1;
 
         //  TL, BL, BR, TR
-        this.batchQuad(tlX, tlY, blX, blY, brX, brY, trX, trY, u0, v0, u1, v1, tint, tint, tint, tint, tintEffect);
+        this.batchQuad(tlX, tlY, blX, blY, brX, brY, trX, trY, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
 
         if (lineWidth <= 1)
         {
@@ -59463,7 +60161,7 @@ var TextureTintPipeline = new Class({
 
         if (index > 0)
         {
-            this.batchQuad(tlX, tlY, blX, blY, prev[0], prev[1], prev[2], prev[3], u0, v0, u1, v1, tint, tint, tint, tint, tintEffect);
+            this.batchQuad(tlX, tlY, blX, blY, prev[0], prev[1], prev[2], prev[3], u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
         }
         else
         {
@@ -59476,7 +60174,7 @@ var TextureTintPipeline = new Class({
         if (closePath)
         {
             //  Add a join for the final path segment
-            this.batchQuad(first[0], first[1], first[2], first[3], brX, brY, trX, trY, u0, v0, u1, v1, tint, tint, tint, tint, tintEffect);
+            this.batchQuad(first[0], first[1], first[2], first[3], brX, brY, trX, trY, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
         }
         else
         {
@@ -60488,6 +61186,7 @@ var InjectionMap = {
     registry: 'registry',
     sound: 'sound',
     textures: 'textures',
+    facebook: 'facebook',
 
     events: 'events',
     cameras: 'cameras',
@@ -60930,6 +61629,17 @@ var SceneManager = new Class({
          */
         this.isBooted = false;
 
+        /**
+         * Do any of the Cameras in any of the Scenes require a custom viewport?
+         * If not we can skip scissor tests.
+         *
+         * @name Phaser.Scenes.SceneManager#customViewports
+         * @type {number}
+         * @default 0
+         * @since 3.12.0
+         */
+        this.customViewports = 0;
+
         if (sceneConfig)
         {
             if (!Array.isArray(sceneConfig))
@@ -61185,7 +61895,7 @@ var SceneManager = new Class({
      * The Scene is removed from the local scenes array, it's key is cleared from the keys
      * cache and Scene.Systems.destroy is then called on it.
      *
-     * If the SceneManager is processing the Scenes when this method is called it wil
+     * If the SceneManager is processing the Scenes when this method is called it will
      * queue the operation for the next update sequence.
      *
      * @method Phaser.Scenes.SceneManager#remove
@@ -63551,6 +64261,15 @@ var Systems = new Class({
          * @since 3.0.0
          */
         this.game;
+
+        /**
+         * [description]
+         *
+         * @name Phaser.Scenes.Systems#facebook
+         * @type {any}
+         * @since 3.12.0
+         */
+        this.facebook;
 
         /**
          * [description]
@@ -72923,6 +73642,57 @@ var TextureManager = new Class({
 
             image.src = data;
         }
+    },
+
+    /**
+     * Gets an existing texture frame and converts it into a base64 encoded image and returns the base64 data.
+     * 
+     * You can also provide the image type and encoder options.
+     *
+     * @method Phaser.Textures.TextureManager#getBase64
+     * @since 3.12.0
+     *
+     * @param {string} key - The unique string-based key of the Texture.
+     * @param {(string|integer)} [frame] - The string-based name, or integer based index, of the Frame to get from the Texture.
+     * @param {string} [type='image/png'] - [description]
+     * @param {number} [encoderOptions=0.92] - [description]
+     * 
+     * @return {string} The base64 encoded data, or an empty string if the texture frame could not be found.
+     */
+    getBase64: function (key, frame, type, encoderOptions)
+    {
+        if (type === undefined) { type = 'image/png'; }
+        if (encoderOptions === undefined) { encoderOptions = 0.92; }
+
+        var data = '';
+
+        var textureFrame = this.getFrame(key, frame);
+
+        if (textureFrame)
+        {
+            var cd = textureFrame.canvasData;
+
+            var canvas = CanvasPool.create2D(this, cd.width, cd.height);
+            var ctx = canvas.getContext('2d');
+
+            ctx.drawImage(
+                textureFrame.source.image,
+                cd.x,
+                cd.y,
+                cd.width,
+                cd.height,
+                0,
+                0,
+                cd.width,
+                cd.height
+            );
+
+            data = canvas.toDataURL(type, encoderOptions);
+
+            CanvasPool.remove(canvas);
+        }
+
+        return data;
     },
 
     /**

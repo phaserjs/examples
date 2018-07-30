@@ -3167,6 +3167,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\graphics\\health bars demo.js",
+              "name": "health bars demo.js",
+              "size": 1099,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\graphics\\line rendering.js",
               "name": "line rendering.js",
               "size": 1916,
@@ -3223,7 +3229,7 @@
             {
               "path": "src\\game objects\\graphics\\obj world.js",
               "name": "obj world.js",
-              "size": 37504,
+              "size": 37528,
               "extension": ".js"
             },
             {
@@ -3323,7 +3329,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\rectangle filled texture.js",
                   "name": "rectangle filled texture.js",
-                  "size": 744,
+                  "size": 788,
                   "extension": ".js"
                 },
                 {
@@ -3371,7 +3377,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\triangle gradient stroked.js",
                   "name": "triangle gradient stroked.js",
-                  "size": 511,
+                  "size": 543,
                   "extension": ".js"
                 },
                 {
@@ -3381,7 +3387,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 13686
+              "size": 13762
             },
             {
               "path": "src\\game objects\\graphics\\rect test.js",
@@ -3535,7 +3541,7 @@
               "size": 9314
             }
           ],
-          "size": 176855
+          "size": 178054
         },
         {
           "path": "src\\game objects\\group",
@@ -4965,7 +4971,7 @@
           "size": 261867
         }
       ],
-      "size": 822949
+      "size": 824148
     },
     {
       "path": "src\\games",
@@ -10443,5 +10449,5 @@
       "size": 5291
     }
   ],
-  "size": 2711820
+  "size": 2713019
 }

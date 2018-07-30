@@ -3169,7 +3169,7 @@
             {
               "path": "src\\game objects\\graphics\\health bars demo.js",
               "name": "health bars demo.js",
-              "size": 1099,
+              "size": 6552,
               "extension": ".js"
             },
             {
@@ -3357,9 +3357,15 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\graphics\\primitives\\triangle fill types.js",
+                  "name": "triangle fill types.js",
+                  "size": 890,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\graphics\\primitives\\triangle filled texture.js",
                   "name": "triangle filled texture.js",
-                  "size": 818,
+                  "size": 986,
                   "extension": ".js"
                 },
                 {
@@ -3387,7 +3393,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 13762
+              "size": 14820
             },
             {
               "path": "src\\game objects\\graphics\\rect test.js",
@@ -3541,7 +3547,7 @@
               "size": 9314
             }
           ],
-          "size": 178054
+          "size": 184565
         },
         {
           "path": "src\\game objects\\group",
@@ -4971,7 +4977,7 @@
           "size": 261867
         }
       ],
-      "size": 824148
+      "size": 830659
     },
     {
       "path": "src\\games",
@@ -10449,5 +10455,5 @@
       "size": 5291
     }
   ],
-  "size": 2713019
+  "size": 2719530
 }

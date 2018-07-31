@@ -25,6 +25,7 @@ function create ()
 
     graphics.fillStyle(0x00ff00);
     graphics.fillTriangle(200, 200, 400, 50, 500, 300);
+
     graphics.fillStyle(0xff0000);
     graphics.fillTriangle(200, 200, 500, 300, 300, 300);
 

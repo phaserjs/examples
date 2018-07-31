@@ -2949,7 +2949,7 @@ var Config = new Class({
          *
          * plugins: {
          *    global: [
-         *        { key: 'TestPlugin', plugin: TestPlugin, start: true },
+         *        { key: 'TestPlugin', plugin: TestPlugin, start: true, data: { msg: 'The plugin is alive' } },
          *    ],
          *    scene: [
          *        { key: 'WireFramePlugin', plugin: WireFramePlugin, systemKey: 'wireFramePlugin', sceneKey: 'wireframe' }
@@ -3360,6 +3360,7 @@ var DOMContentLoaded = __webpack_require__(/*! ../dom/DOMContentLoaded */ "./dom
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var FacebookInstantGamesPlugin = __webpack_require__(/*! ../fbinstant/FacebookInstantGamesPlugin */ "./fbinstant/FacebookInstantGamesPlugin.js");
 var InputManager = __webpack_require__(/*! ../input/InputManager */ "./input/InputManager.js");
+var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 var PluginManager = __webpack_require__(/*! ../plugins/PluginManager */ "./plugins/PluginManager.js");
 var SceneManager = __webpack_require__(/*! ../scene/SceneManager */ "./scene/SceneManager.js");
 var SoundManagerCreator = __webpack_require__(/*! ../sound/SoundManagerCreator */ "./sound/SoundManagerCreator.js");
@@ -3619,6 +3620,17 @@ var Game = new Class({
         this.removeCanvas = false;
 
         /**
+         * Remove everything when the game is destroyed.
+         * You cannot create a new Phaser instance on the same web page after doing this.
+         *
+         * @name Phaser.Game#noReturn
+         * @type {boolean}
+         * @private
+         * @since 3.12.0
+         */
+        this.noReturn = false;
+
+        /**
          * Does the window the game is running in currently have focus or not?
          * This is modified by the VisibilityHandler.
          *
@@ -3665,6 +3677,12 @@ var Game = new Class({
      */
     boot: function ()
     {
+        if (!PluginCache.hasCore('EventEmitter'))
+        {
+            console.warn('Core Phaser Plugins missing. Cannot start.');
+            return;
+        }
+
         this.isBooted = true;
 
         this.config.preBoot(this);
@@ -3997,17 +4015,24 @@ var Game = new Class({
     /**
      * Flags this Game instance as needing to be destroyed on the next frame.
      * It will wait until the current frame has completed and then call `runDestroy` internally.
+     * 
+     * If you **do not** need to run Phaser again on the same web page you can set the `noReturn` argument to `true` and it will free-up
+     * memory being held by the core Phaser plugins. If you do need to create another game instance on the same page, leave this as `false`.
      *
      * @method Phaser.Game#destroy
      * @since 3.0.0
      *
      * @param {boolean} removeCanvas - Set to `true` if you would like the parent canvas element removed from the DOM, or `false` to leave it in place.
+     * @param {boolean} [noReturn=false] - If `true` all the core Phaser plugins are destroyed. You cannot create another instance of Phaser on the same web page if you do this.
      */
-    destroy: function (removeCanvas)
+    destroy: function (removeCanvas, noReturn)
     {
+        if (noReturn === undefined) { noReturn = false; }
+        
         this.pendingDestroy = true;
 
         this.removeCanvas = removeCanvas;
+        this.noReturn = noReturn;
     },
 
     /**
@@ -4046,7 +4071,7 @@ var Game = new Class({
         }
 
         this.loop.destroy();
-
+        
         this.pendingDestroy = false;
     }
 
@@ -7865,7 +7890,20 @@ var CameraManager = new Class({
     {
         if (!this.main)
         {
-            this.boot();
+            var sys = this.systems;
+
+            if (sys.settings.cameras)
+            {
+                //  We have cameras to create
+                this.fromJSON(sys.settings.cameras);
+            }
+            else
+            {
+                //  Make one
+                this.add();
+            }
+    
+            this.main = this.cameras[0];
         }
 
         var eventEmitter = this.systems.events;
@@ -15972,7 +16010,7 @@ var GameObject = new Class({
          * A bitmask that controls if this Game Object is drawn by a Camera or not.
          * Not usually set directly, instead call `Camera.ignore`, however you can
          * set this property directly using the Camera.id property:
-         * 
+         *
          * @example
          * this.cameraFilter |= camera.id
          *
@@ -16080,12 +16118,12 @@ var GameObject = new Class({
 
     /**
      * Allows you to store a key value pair within this Game Objects Data Manager.
-     * 
+     *
      * If the Game Object has not been enabled for data (via `setDataEnabled`) then it will be enabled
      * before setting the value.
-     * 
+     *
      * If the key doesn't already exist in the Data Manager then it is created.
-     * 
+     *
      * ```javascript
      * sprite.setData('name', 'Red Gem Stone');
      * ```
@@ -16097,13 +16135,13 @@ var GameObject = new Class({
      * ```
      *
      * To get a value back again you can call `getData`:
-     * 
+     *
      * ```javascript
      * sprite.getData('gold');
      * ```
-     * 
+     *
      * Or you can access the value directly via the `values` property, where it works like any other variable:
-     * 
+     *
      * ```javascript
      * sprite.data.values.gold += 50;
      * ```
@@ -16141,19 +16179,19 @@ var GameObject = new Class({
      * Retrieves the value for the given key in this Game Objects Data Manager, or undefined if it doesn't exist.
      *
      * You can also access values via the `values` object. For example, if you had a key called `gold` you can do either:
-     * 
+     *
      * ```javascript
      * sprite.getData('gold');
      * ```
      *
      * Or access the value directly:
-     * 
+     *
      * ```javascript
      * sprite.data.values.gold;
      * ```
      *
      * You can also pass in an array of keys, in which case an array of values will be returned:
-     * 
+     *
      * ```javascript
      * sprite.getData([ 'gold', 'armor', 'health' ]);
      * ```
@@ -16262,6 +16300,8 @@ var GameObject = new Class({
      *
      * @method Phaser.GameObjects.GameObject#update
      * @since 3.0.0
+     *
+     * @param {...*} [args] - args
      */
     update: function ()
     {
@@ -16286,7 +16326,7 @@ var GameObject = new Class({
      *
      * @method Phaser.GameObjects.GameObject#willRender
      * @since 3.0.0
-     * 
+     *
      * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera to check against this Game Object.
      *
      * @return {boolean} True if the Game Object should be rendered, otherwise false.
@@ -22710,7 +22750,7 @@ var Render = __webpack_require__(/*! ./GraphicsRender */ "./gameobjects/graphics
 
 /**
  * @classdesc
- * A Graphics object is a way to draw primitive shapes to you game. Primitives include forms of geometry, such as
+ * A Graphics object is a way to draw primitive shapes to your game. Primitives include forms of geometry, such as
  * Rectangles, Circles, and Polygons. They also include lines, arcs and curves. When you initially create a Graphics
  * object it will be empty.
  *
@@ -22971,15 +23011,15 @@ var Graphics = new Class({
 
     /**
      * Sets a gradient fill style. This is a WebGL only feature.
-     * 
+     *
      * The gradient color values represent the 4 corners of an untransformed rectangle.
      * The gradient is used to color all filled shapes and paths drawn after calling this method.
      * If you wish to turn a gradient off, call `fillStyle` and provide a new single fill color.
-     * 
+     *
      * When filling a triangle only the first 3 color values provided are used for the 3 points of a triangle.
-     * 
+     *
      * This feature is best used only on rectangles and triangles. All other shapes will give strange results.
-     * 
+     *
      * Note that for objects such as arcs or ellipses, or anything which is made out of triangles, each triangle used
      * will be filled with a gradient on its own. There is no ability to gradient fill a shape or path as a single
      * entity at this time.
@@ -23010,13 +23050,13 @@ var Graphics = new Class({
 
     /**
      * Sets a gradient line style. This is a WebGL only feature.
-     * 
+     *
      * The gradient color values represent the 4 corners of an untransformed rectangle.
      * The gradient is used to color all stroked shapes and paths drawn after calling this method.
      * If you wish to turn a gradient off, call `lineStyle` and provide a new single line color.
-     * 
+     *
      * This feature is best used only on single lines. All other shapes will give strange results.
-     * 
+     *
      * Note that for objects such as arcs or ellipses, or anything which is made out of triangles, each triangle used
      * will be filled with a gradient on its own. There is no ability to gradient stroke a shape or path as a single
      * entity at this time.
@@ -23050,12 +23090,12 @@ var Graphics = new Class({
      * Sets the texture frame this Graphics Object will use when drawing all shapes defined after calling this.
      *
      * Textures are referenced by their string-based keys, as stored in the Texture Manager.
-     * 
+     *
      * Once set, all shapes will use this texture. Call this method with no arguments to clear it.
-     * 
+     *
      * The textures are not tiled. They are stretched to the dimensions of the shapes being rendered. For this reason,
      * it works best with seamless / tileable textures.
-     * 
+     *
      * The mode argument controls how the textures are combined with the fill colors. The default value (0) will
      * multiply the texture by the fill color. A value of 1 will use just the fill color, but the alpha data from the texture,
      * and a value of 2 will use just the texture and no fill color at all.
@@ -23867,7 +23907,7 @@ var Graphics = new Class({
      * Draw an arc.
      *
      * This method can be used to create circles, or parts of circles.
-     * 
+     *
      * Use the optional `overshoot` argument to allow the arc to extend beyond 360 degrees. This is useful if you're drawing
      * an arc with an especially thick line, as it will allow the arc to fully join-up. Try small values at first, i.e. 0.01.
      *
@@ -23913,7 +23953,7 @@ var Graphics = new Class({
             if (endAngle > PI2 + overshoot)
             {
                 endAngle = PI2 + overshoot;
-                
+
             }
             else if (endAngle < -overshoot)
             {
@@ -23978,7 +24018,7 @@ var Graphics = new Class({
             if (endAngle > PI2 + overshoot)
             {
                 endAngle = PI2 + overshoot;
-                
+
             }
             else if (endAngle <= -overshoot)
             {
@@ -24149,6 +24189,7 @@ var Graphics = new Class({
         if (width === undefined) { width = sys.game.config.width; }
         if (height === undefined) { height = sys.game.config.height; }
 
+        Graphics.TargetCamera.setScene(this.scene);
         Graphics.TargetCamera.setViewport(0, 0, width, height);
         Graphics.TargetCamera.scrollX = this.x;
         Graphics.TargetCamera.scrollY = this.y;
@@ -25536,6 +25577,14 @@ var GetAdvancedValue = __webpack_require__(/*! ../../utils/object/GetAdvancedVal
 var Sprite = __webpack_require__(/*! ./Sprite */ "./gameobjects/sprite/Sprite.js");
 
 /**
+ * @typedef {object} SpriteConfig
+ * @extends GameObjectConfig
+ *
+ * @property {string} [key] - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
+ * @property {(number|string)} [frame] - An optional frame from the Texture this Game Object is rendering with.
+ */
+
+/**
  * Creates a new Sprite Game Object and returns it.
  *
  * Note: This method will only be available if the Sprite Game Object has been built into Phaser.
@@ -25543,7 +25592,7 @@ var Sprite = __webpack_require__(/*! ./Sprite */ "./gameobjects/sprite/Sprite.js
  * @method Phaser.GameObjects.GameObjectCreator#sprite
  * @since 3.0.0
  *
- * @param {object} config - The configuration object this Game Object will use to create itself.
+ * @param {SpriteConfig} config - The configuration object this Game Object will use to create itself.
  * @param {boolean} [addToScene] - Add this Game Object to the Scene after creating it? If set this argument overrides the `add` property in the config object.
  *
  * @return {Phaser.GameObjects.Sprite} The Game Object that was created.
@@ -42251,7 +42300,7 @@ var MouseManager = new Class({
      */
     onMouseMove: function (event)
     {
-        if (event.defaultPrevented || !this.enabled)
+        if (event.defaultPrevented || !this.enabled || !this.manager)
         {
             // Do nothing if event already handled
             return;
@@ -42541,7 +42590,7 @@ var TouchManager = new Class({
      */
     onTouchStart: function (event)
     {
-        if (event.defaultPrevented || !this.enabled)
+        if (event.defaultPrevented || !this.enabled || !this.manager)
         {
             // Do nothing if event already handled
             return;
@@ -42565,7 +42614,7 @@ var TouchManager = new Class({
      */
     onTouchMove: function (event)
     {
-        if (event.defaultPrevented || !this.enabled)
+        if (event.defaultPrevented || !this.enabled || !this.manager)
         {
             // Do nothing if event already handled
             return;
@@ -42589,7 +42638,7 @@ var TouchManager = new Class({
      */
     onTouchEnd: function (event)
     {
-        if (event.defaultPrevented || !this.enabled)
+        if (event.defaultPrevented || !this.enabled || !this.manager)
         {
             // Do nothing if event already handled
             return;
@@ -47876,7 +47925,7 @@ var IsPlainObject = __webpack_require__(/*! ../../utils/object/IsPlainObject */ 
  * A single Text File suitable for loading by the Loader.
  *
  * These are created when you use the Phaser.Loader.LoaderPlugin#text method and are not typically created directly.
- * 
+ *
  * For documentation about what all the arguments and configuration options mean please see Phaser.Loader.LoaderPlugin#text.
  *
  * @class TextFile
@@ -47945,11 +47994,11 @@ var TextFile = new Class({
  * Adds a Text file, or array of Text files, to the current load queue.
  *
  * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
- * 
+ *
  * ```javascript
  * function preload ()
  * {
- *     this.load.text('story', files/IntroStory.txt');
+ *     this.load.text('story', 'files/IntroStory.txt');
  * }
  * ```
  *
@@ -47960,14 +48009,14 @@ var TextFile = new Class({
  * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
  * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
  * loaded.
- * 
+ *
  * The key must be a unique String. It is used to add the file to the global Text Cache upon a successful load.
  * The key should be unique both in terms of files being loaded and files already present in the Text Cache.
  * Loading a file using a key that is already taken will result in a warning. If you wish to replace an existing file
  * then remove it from the Text Cache first, before loading a new one.
  *
  * Instead of passing arguments you can pass a configuration object, such as:
- * 
+ *
  * ```javascript
  * this.load.text({
  *     key: 'story',
@@ -47978,7 +48027,7 @@ var TextFile = new Class({
  * See the documentation for `Phaser.Loader.FileTypes.TextFileConfig` for more details.
  *
  * Once the file has finished loading you can access it from its Cache using its key:
- * 
+ *
  * ```javascript
  * this.load.text('story', 'files/IntroStory.txt');
  * // and later in your game ...
@@ -52054,6 +52103,8 @@ var BasePlugin = new Class({
      *
      * @method Phaser.Plugins.BasePlugin#init
      * @since 3.8.0
+     *
+     * @param {?any} [data] - A value specified by the user, if any, from the `data` property of the plugin's configuration object (if started at game boot) or passed in the PluginManager's `install` method (if started manually).
      */
     init: function ()
     {
@@ -52319,10 +52370,11 @@ PluginCache.register = function (key, plugin, mapping, custom)
  * @param {string} key - A reference used to get this plugin from the plugin cache.
  * @param {function} plugin - The plugin to be stored. Should be the core object, not instantiated.
  * @param {string} mapping - If this plugin is to be injected into the Scene Systems, this is the property key map used.
+ * @param {?any} data - A value to be passed to the plugin's `init` method.
  */
-PluginCache.registerCustom = function (key, plugin, mapping)
+PluginCache.registerCustom = function (key, plugin, mapping, data)
 {
-    customPlugins[key] = { plugin: plugin, mapping: mapping };
+    customPlugins[key] = { plugin: plugin, mapping: mapping, data: data };
 };
 
 /**
@@ -52429,6 +52481,43 @@ PluginCache.removeCustom = function (key)
     if (customPlugins.hasOwnProperty(key))
     {
         delete customPlugins[key];
+    }
+};
+
+/**
+ * Removes all Core Plugins.
+ * 
+ * This includes all of the internal system plugins that Phaser needs, like the Input Plugin and Loader Plugin.
+ * So be sure you only call this if you do not wish to run Phaser again.
+ *
+ * @method Phaser.Plugins.PluginCache.destroyCorePlugins
+ * @since 3.12.0
+ */
+PluginCache.destroyCorePlugins = function ()
+{
+    for (var key in corePlugins)
+    {
+        if (corePlugins.hasOwnProperty(key))
+        {
+            delete corePlugins[key];
+        }
+    }
+};
+
+/**
+ * Removes all Custom Plugins.
+ *
+ * @method Phaser.Plugins.PluginCache.destroyCustomPlugins
+ * @since 3.12.0
+ */
+PluginCache.destroyCustomPlugins = function ()
+{
+    for (var key in customPlugins)
+    {
+        if (customPlugins.hasOwnProperty(key))
+        {
+            delete customPlugins[key];
+        }
     }
 };
 
@@ -52592,6 +52681,7 @@ var PluginManager = new Class({
         var plugin;
         var start;
         var mapping;
+        var data;
         var config = this.game.config;
 
         //  Any plugins to install?
@@ -52604,16 +52694,17 @@ var PluginManager = new Class({
         {
             entry = list[i];
 
-            // { key: 'TestPlugin', plugin: TestPlugin, start: true, mapping: 'test' }
+            // { key: 'TestPlugin', plugin: TestPlugin, start: true, mapping: 'test', data: { msg: 'The plugin is alive' } }
 
             key = GetFastValue(entry, 'key', null);
             plugin = GetFastValue(entry, 'plugin', null);
             start = GetFastValue(entry, 'start', false);
             mapping = GetFastValue(entry, 'mapping', null);
+            data = GetFastValue(entry, 'data', null);
 
             if (key && plugin)
             {
-                this.install(key, plugin, start, mapping);
+                this.install(key, plugin, start, mapping, data);
             }
         }
 
@@ -52845,11 +52936,13 @@ var PluginManager = new Class({
      * @param {function} plugin - The plugin code. This should be the non-instantiated version.
      * @param {boolean} [start=false] - Automatically start the plugin running? This is always `true` if you provide a mapping value.
      * @param {string} [mapping] - If this plugin is injected into the Phaser.Scene class, this is the property key to use.
+     * @param {any} [data] - A value passed to the plugin's `init` method.
      */
-    install: function (key, plugin, start, mapping)
+    install: function (key, plugin, start, mapping, data)
     {
         if (start === undefined) { start = false; }
         if (mapping === undefined) { mapping = null; }
+        if (data === undefined) { data = null; }
 
         if (typeof plugin !== 'function')
         {
@@ -52870,12 +52963,12 @@ var PluginManager = new Class({
 
         if (!this.game.isBooted)
         {
-            this._pendingGlobal.push({ key: key, plugin: plugin, start: start, mapping: mapping });
+            this._pendingGlobal.push({ key: key, plugin: plugin, start: start, mapping: mapping, data: data });
         }
         else
         {
             //  Add it to the plugin store
-            PluginCache.registerCustom(key, plugin, mapping);
+            PluginCache.registerCustom(key, plugin, mapping, data);
 
             if (start)
             {
@@ -53014,12 +53107,13 @@ var PluginManager = new Class({
                 key: runAs,
                 plugin: instance,
                 active: true,
-                mapping: entry.mapping
+                mapping: entry.mapping,
+                data: entry.data
             };
 
             this.plugins.push(entry);
 
-            instance.init();
+            instance.init(entry.data);
             instance.start();
         }
 
@@ -53250,7 +53344,8 @@ var PluginManager = new Class({
     /**
      * Destroys this Plugin Manager and all associated plugins.
      * It will iterate all plugins found and call their `destroy` methods.
-     * Note that the PluginCache is NOT cleared by this as it doesn't hold any plugin instances.
+     * 
+     * The PluginCache will remove all custom plugins.
      *
      * @method Phaser.Plugins.PluginManager#destroy
      * @since 3.8.0
@@ -53260,6 +53355,13 @@ var PluginManager = new Class({
         for (var i = 0; i < this.plugins.length; i++)
         {
             this.plugins[i].plugin.destroy();
+        }
+
+        PluginCache.destroyCustomPlugins();
+
+        if (this.game.noReturn)
+        {
+            PluginCache.destroyCorePlugins();
         }
 
         this.game = null;
@@ -56999,7 +57101,7 @@ var WebGLRenderer = new Class({
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setFramebuffer
      * @since 3.0.0
      *
-     * @param {WebGLFramebuffer} framebuffer - The framebuffer that needs to be bound
+     * @param {WebGLFramebuffer} framebuffer - The framebuffer that needs to be bound.
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
@@ -57007,11 +57109,20 @@ var WebGLRenderer = new Class({
     {
         var gl = this.gl;
 
+        var width = this.width;
+        var height = this.height;
+
         if (framebuffer !== this.currentFramebuffer)
         {
-            this.flush();
+            if (framebuffer && framebuffer.renderTexture)
+            {
+                width = framebuffer.renderTexture.width;
+                height = framebuffer.renderTexture.height;
+            }
 
             gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+
+            gl.viewport(0, 0, width, height);
 
             this.currentFramebuffer = framebuffer;
         }
@@ -59710,12 +59821,106 @@ var TextureTintPipeline = new Class({
     },
 
     /**
+     * Generic function for batching a textured quad using argument values instead of a Game Object.
+     *
+     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTextureFrame
+     * @since 3.12.0
+     *
+     * @param {Phaser.GameObjects.GameObject} gameObject - Source GameObject.
+     * @param {Phaser.Textures.Frame} frame - The Texture Frame to be rendered.
+     * @param {number} srcX - X coordinate of the quad.
+     * @param {number} srcY - Y coordinate of the quad.
+     * @param {number} srcWidth - Width of the quad.
+     * @param {number} srcHeight - Height of the quad.
+     * @param {number} scaleX - X component of scale.
+     * @param {number} scaleY - Y component of scale.
+     * @param {number} rotation - Rotation of the quad.
+     * @param {boolean} flipX - Indicates if the quad is horizontally flipped.
+     * @param {boolean} flipY - Indicates if the quad is vertically flipped.
+     * @param {number} displayOriginX - Horizontal origin in pixels.
+     * @param {number} displayOriginY - Vertical origin in pixels.
+     * @param {integer} tintTL - Tint for top left.
+     * @param {integer} tintTR - Tint for top right.
+     * @param {integer} tintBL - Tint for bottom left.
+     * @param {integer} tintBR - Tint for bottom right.
+     * @param {number} tintEffect - The tint effect.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} [parentTransformMatrix] - A parent Transform Matrix.
+     */
+    batchTextureFrame: function (
+        gameObject,
+        frame,
+        srcX, srcY,
+        srcWidth, srcHeight,
+        scaleX, scaleY,
+        rotation,
+        flipX, flipY,
+        displayOriginX, displayOriginY,
+        tintTL, tintTR, tintBL, tintBR, tintEffect,
+        parentTransformMatrix)
+    {
+        this.renderer.setPipeline(this, gameObject);
+
+        var spriteMatrix = this._tempMatrix1;
+        var calcMatrix = this._tempMatrix2;
+
+        var width = srcWidth;
+        var height = srcHeight;
+
+        var x = -displayOriginX;
+        var y = -displayOriginY;
+
+        if (flipX)
+        {
+            width *= -1;
+            x += srcWidth;
+        }
+
+        if (flipY)
+        {
+            height *= -1;
+            y += srcHeight;
+        }
+
+        var xw = x + width;
+        var yh = y + height;
+
+        spriteMatrix.applyITRS(srcX, srcY, rotation, scaleX, scaleY);
+
+        if (parentTransformMatrix)
+        {
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            spriteMatrix.multiply(parentTransformMatrix, calcMatrix);
+        }
+        else
+        {
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            calcMatrix = spriteMatrix;
+        }
+
+        var tx0 = calcMatrix.getX(x, y);
+        var ty0 = calcMatrix.getY(x, y);
+
+        var tx1 = calcMatrix.getX(x, yh);
+        var ty1 = calcMatrix.getY(x, yh);
+
+        var tx2 = calcMatrix.getX(xw, yh);
+        var ty2 = calcMatrix.getY(xw, yh);
+
+        var tx3 = calcMatrix.getX(xw, y);
+        var ty3 = calcMatrix.getY(xw, y);
+
+        this.setTexture2D(frame.glTexture, 0);
+
+        this.batchQuad(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, frame.u0, frame.v0, frame.u1, frame.v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
+    },
+
+    /**
      * Immediately draws a Texture Frame with no batching.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawTexture
      * @since 3.11.0
      *
-     * @param {WebGLTexture} texture - The WebGL Texture to be rendered.
+     * @param {Phaser.Textures.Frame} frame - The Texture Frame to be rendered.
      * @param {number} x - The horizontal position to render the texture at.
      * @param {number} y - The vertical position to render the texture at.
      * @param {number} tint - The tint color.
@@ -59733,12 +59938,8 @@ var TextureTintPipeline = new Class({
     {
         this.renderer.setPipeline(this);
 
-        if (this.vertexCount + 6 > this.vertexCapacity)
-        {
-            this.flush();
-        }
-
-        var spriteMatrix = this._tempMatrix1.copyFromArray(transformMatrix);
+        // var spriteMatrix = this._tempMatrix1.copyFromArray(transformMatrix);
+        var spriteMatrix = this._tempMatrix1.copyFrom(transformMatrix);
         var calcMatrix = this._tempMatrix2;
 
         var xw = x + frame.width;
@@ -59784,10 +59985,7 @@ var TextureTintPipeline = new Class({
 
         tint = Utils.getTintAppendFloatAlpha(tint, alpha);
 
-        if (!this.batchQuad(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, frame.u0, frame.v0, frame.u1, frame.v1, tint, tint, tint, tint, 0))
-        {
-            this.flush();
-        }
+        this.batchQuad(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, frame.u0, frame.v0, frame.u1, frame.v1, tint, tint, tint, tint, 0);
     },
 
     /**
@@ -63050,7 +63248,7 @@ var SceneManager = new Class({
      */
     destroy: function ()
     {
-        for (var i = this.scenes.length - 1; i >= 0; i--)
+        for (var i = 0; i < this.scenes.length; i++)
         {
             var sys = this.scenes[i].sys;
 
@@ -83814,7 +84012,7 @@ module.exports = {
 /**
  * Shallow Object Clone. Will not clone nested objects.
  *
- * @function Phaser.Utils.Object.Clone
+ * @function Phaser.Utils.Objects.Clone
  * @since 3.0.0
  *
  * @param {object} obj - the object from which to clone
@@ -83867,7 +84065,7 @@ var IsPlainObject = __webpack_require__(/*! ./IsPlainObject */ "./utils/object/I
 /**
  * This is a slightly modified version of http://api.jquery.com/jQuery.extend/
  *
- * @function Phaser.Utils.Object.Extend
+ * @function Phaser.Utils.Objects.Extend
  * @since 3.0.0
  *
  * @return {object} [description]
@@ -83995,7 +84193,7 @@ var GetValue = __webpack_require__(/*! ./GetValue */ "./utils/object/GetValue.js
 /**
  * [description]
  *
- * @function Phaser.Utils.Object.GetAdvancedValue
+ * @function Phaser.Utils.Objects.GetAdvancedValue
  * @since 3.0.0
  *
  * @param {object} source - [description]
@@ -84056,7 +84254,7 @@ module.exports = GetAdvancedValue;
 /**
  * Finds the key within the top level of the {@link source} object, or returns {@link defaultValue}
  *
- * @function Phaser.Utils.Object.GetFastValue
+ * @function Phaser.Utils.Objects.GetFastValue
  * @since 3.0.0
  *
  * @param {object} source - The object to search
@@ -84108,7 +84306,7 @@ module.exports = GetFastValue;
 /**
  * [description]
  *
- * @function Phaser.Utils.Object.GetValue
+ * @function Phaser.Utils.Objects.GetValue
  * @since 3.0.0
  *
  * @param {object} source - [description]
@@ -84181,7 +84379,7 @@ module.exports = GetValue;
  * This is a slightly modified version of jQuery.isPlainObject.
  * A plain object is an object whose internal class property is [object Object].
  *
- * @function Phaser.Utils.Object.IsPlainObject
+ * @function Phaser.Utils.Objects.IsPlainObject
  * @since 3.0.0
  *
  * @param {object} obj - The object to inspect.
@@ -84244,7 +84442,7 @@ var Clone = __webpack_require__(/*! ./Clone */ "./utils/object/Clone.js");
  * Creates a new Object using all values from obj1 and obj2.
  * If a value exists in both obj1 and obj2, the value in obj1 is used.
  *
- * @function Phaser.Utils.Object.Merge
+ * @function Phaser.Utils.Objects.Merge
  * @since 3.0.0
  *
  * @param {object} obj1 - [description]

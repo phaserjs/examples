@@ -1,9 +1,10 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 650,
-    backgroundColor: '#7d7d7d',
+    backgroundColor: '#4d4d4d',
+    pixelArt: true,
     scene: {
         preload: preload,
         create: create,

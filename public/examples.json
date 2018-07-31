@@ -334,7 +334,7 @@
         {
           "path": "src\\animation\\reverse animation.js",
           "name": "reverse animation.js",
-          "size": 2479,
+          "size": 2498,
           "extension": ".js"
         },
         {
@@ -374,7 +374,7 @@
           "extension": ".js"
         }
       ],
-      "size": 40204
+      "size": 40223
     },
     {
       "path": "src\\archived",
@@ -1105,6 +1105,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\game destroy.js",
+          "name": "game destroy.js",
+          "size": 1602,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\mask.js",
           "name": "mask.js",
           "size": 1590,
@@ -1117,7 +1123,7 @@
           "extension": ".js"
         }
       ],
-      "size": 4167
+      "size": 5769
     },
     {
       "path": "src\\cache",
@@ -2042,7 +2048,7 @@
                 {
                   "path": "src\\display\\masks\\geometry mask\\image mask.js",
                   "name": "image mask.js",
-                  "size": 901,
+                  "size": 903,
                   "extension": ".js"
                 },
                 {
@@ -2052,7 +2058,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 6381
+              "size": 6383
             },
             {
               "path": "src\\display\\masks\\GeometryMask Example.js",
@@ -2091,7 +2097,7 @@
               "extension": ".js"
             }
           ],
-          "size": 34331
+          "size": 34333
         },
         {
           "path": "src\\display\\tint",
@@ -2179,7 +2185,7 @@
           "size": 13199
         }
       ],
-      "size": 96562
+      "size": 96564
     },
     {
       "path": "src\\dwitter",
@@ -2943,6 +2949,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\nested container visibility.js",
+              "name": "nested container visibility.js",
+              "size": 710,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\nested get bounds test.js",
               "name": "nested get bounds test.js",
               "size": 1111,
@@ -3021,7 +3033,7 @@
               "extension": ".js"
             }
           ],
-          "size": 79541
+          "size": 80251
         },
         {
           "path": "src\\game objects\\dom element",
@@ -3357,15 +3369,21 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\graphics\\primitives\\split path filled.js",
+                  "name": "split path filled.js",
+                  "size": 756,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\graphics\\primitives\\triangle fill types.js",
                   "name": "triangle fill types.js",
-                  "size": 890,
+                  "size": 1114,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\graphics\\primitives\\triangle filled texture.js",
                   "name": "triangle filled texture.js",
-                  "size": 986,
+                  "size": 818,
                   "extension": ".js"
                 },
                 {
@@ -3393,7 +3411,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 14820
+              "size": 15632
             },
             {
               "path": "src\\game objects\\graphics\\rect test.js",
@@ -3547,7 +3565,7 @@
               "size": 9314
             }
           ],
-          "size": 184565
+          "size": 185377
         },
         {
           "path": "src\\game objects\\group",
@@ -4977,7 +4995,7 @@
           "size": 261867
         }
       ],
-      "size": 830659
+      "size": 832181
     },
     {
       "path": "src\\games",
@@ -8864,7 +8882,7 @@
             {
               "path": "src\\physics\\matterjs\\sleep events.js",
               "name": "sleep events.js",
-              "size": 1233,
+              "size": 1221,
               "extension": ".js"
             },
             {
@@ -8892,7 +8910,7 @@
               "extension": ".js"
             }
           ],
-          "size": 55994
+          "size": 55982
         },
         {
           "path": "src\\physics\\multi",
@@ -8914,7 +8932,7 @@
           "size": 2750
         }
       ],
-      "size": 186629
+      "size": 186617
     },
     {
       "path": "src\\plugins",
@@ -8942,6 +8960,12 @@
           "path": "src\\plugins\\custom game object.js",
           "name": "custom game object.js",
           "size": 1134,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\plugins\\destroy game with plugin.js",
+          "name": "destroy game with plugin.js",
+          "size": 913,
           "extension": ".js"
         },
         {
@@ -9017,7 +9041,7 @@
           "extension": ".js"
         }
       ],
-      "size": 27477
+      "size": 28390
     },
     {
       "path": "src\\pools",
@@ -10455,5 +10479,5 @@
       "size": 5291
     }
   ],
-  "size": 2719530
+  "size": 2723576
 }

@@ -3697,8 +3697,26 @@ var Game = new Class({
 
         this.events.emit('boot');
 
-        //  The Texture Manager has to wait on a couple of non-blocking events before it's fully ready, so it will emit this event
-        this.events.once('ready', this.start, this);
+        //  The Texture Manager has to wait on a couple of non-blocking events before it's fully ready.
+        //  So it will emit this internal event when done:
+        this.events.once('texturesready', this.texturesReady, this);
+    },
+
+    /**
+     * Called automatically when the Texture Manager has finished setting up and preparing the
+     * default textures.
+     *
+     * @method Phaser.Game#texturesReady
+     * @private
+     * @fires Phaser.Game#ready
+     * @since 3.12.0
+     */
+    texturesReady: function ()
+    {
+        //  Start all the other systems
+        this.events.emit('ready');
+
+        this.start();
     },
 
     /**
@@ -54245,6 +54263,7 @@ var DrawImage = __webpack_require__(/*! ./utils/DrawImage */ "./renderer/canvas/
 var GetBlendModes = __webpack_require__(/*! ./utils/GetBlendModes */ "./renderer/canvas/utils/GetBlendModes.js");
 var ScaleModes = __webpack_require__(/*! ../ScaleModes */ "./renderer/ScaleModes.js");
 var Smoothing = __webpack_require__(/*! ../../display/canvas/Smoothing */ "./display/canvas/Smoothing.js");
+var TransformMatrix = __webpack_require__(/*! ../../gameobjects/components/TransformMatrix */ "./gameobjects/components/TransformMatrix.js");
 
 /**
  * @classdesc
@@ -54447,6 +54466,46 @@ var CanvasRenderer = new Class({
          * @since 3.0.0
          */
         this.snapshotEncoder = null;
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.Canvas.CanvasRenderer#_tempMatrix1
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.12.0
+         */
+        this._tempMatrix1 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.Canvas.CanvasRenderer#_tempMatrix2
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.12.0
+         */
+        this._tempMatrix2 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.Canvas.CanvasRenderer#_tempMatrix3
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.12.0
+         */
+        this._tempMatrix3 = new TransformMatrix();
+
+        /**
+         * A temporary Transform Matrix, re-used internally during batching.
+         *
+         * @name Phaser.Renderer.Canvas.CanvasRenderer#_tempMatrix4
+         * @private
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @since 3.12.0
+         */
+        this._tempMatrix4 = new TransformMatrix();
 
         this.init();
     },
@@ -56498,6 +56557,17 @@ var WebGLRenderer = new Class({
          */
         this.drawingBufferHeight = 0;
 
+        /**
+         * A blank 32x32 transparent texture, as used by the Graphics system where needed.
+         * This is set in the `boot` method.
+         *
+         * @name Phaser.Renderer.WebGL.WebGLRenderer#blankTexture
+         * @type {WebGLTexture}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.blankTexture = null;
+
         this.init(this.config);
     },
 
@@ -56603,7 +56673,7 @@ var WebGLRenderer = new Class({
 
         this.resize(this.width, this.height);
 
-        this.game.events.once('ready', this.boot, this);
+        this.game.events.once('texturesready', this.boot, this);
 
         return this;
     },
@@ -57048,12 +57118,16 @@ var WebGLRenderer = new Class({
      * @method Phaser.Renderer.WebGL.WebGLRenderer#setBlankTexture
      * @private
      * @since 3.12.0
+     * 
+     * @param {boolean} [force=false] - Force a blank texture set, regardless of what's already bound?
      *
      * @return {Phaser.Renderer.WebGL.WebGLRenderer} This WebGL Renderer.
      */
-    setBlankTexture: function ()
+    setBlankTexture: function (force)
     {
-        if (this.currentActiveTextureUnit !== 0 || !this.currentTextures[0])
+        if (force === undefined) { force = false; }
+
+        if (force || this.currentActiveTextureUnit !== 0 || !this.currentTextures[0])
         {
             this.setTexture2D(this.blankTexture.glTexture, 0);
         }
@@ -59821,114 +59895,20 @@ var TextureTintPipeline = new Class({
     },
 
     /**
-     * Generic function for batching a textured quad using argument values instead of a Game Object.
+     * Adds a Texture Frame into the batch for rendering.
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTextureFrame
      * @since 3.12.0
-     *
-     * @param {Phaser.GameObjects.GameObject} gameObject - Source GameObject.
-     * @param {Phaser.Textures.Frame} frame - The Texture Frame to be rendered.
-     * @param {number} srcX - X coordinate of the quad.
-     * @param {number} srcY - Y coordinate of the quad.
-     * @param {number} srcWidth - Width of the quad.
-     * @param {number} srcHeight - Height of the quad.
-     * @param {number} scaleX - X component of scale.
-     * @param {number} scaleY - Y component of scale.
-     * @param {number} rotation - Rotation of the quad.
-     * @param {boolean} flipX - Indicates if the quad is horizontally flipped.
-     * @param {boolean} flipY - Indicates if the quad is vertically flipped.
-     * @param {number} displayOriginX - Horizontal origin in pixels.
-     * @param {number} displayOriginY - Vertical origin in pixels.
-     * @param {integer} tintTL - Tint for top left.
-     * @param {integer} tintTR - Tint for top right.
-     * @param {integer} tintBL - Tint for bottom left.
-     * @param {integer} tintBR - Tint for bottom right.
-     * @param {number} tintEffect - The tint effect.
-     * @param {Phaser.GameObjects.Components.TransformMatrix} [parentTransformMatrix] - A parent Transform Matrix.
-     */
-    batchTextureFrame: function (
-        gameObject,
-        frame,
-        srcX, srcY,
-        srcWidth, srcHeight,
-        scaleX, scaleY,
-        rotation,
-        flipX, flipY,
-        displayOriginX, displayOriginY,
-        tintTL, tintTR, tintBL, tintBR, tintEffect,
-        parentTransformMatrix)
-    {
-        this.renderer.setPipeline(this, gameObject);
-
-        var spriteMatrix = this._tempMatrix1;
-        var calcMatrix = this._tempMatrix2;
-
-        var width = srcWidth;
-        var height = srcHeight;
-
-        var x = -displayOriginX;
-        var y = -displayOriginY;
-
-        if (flipX)
-        {
-            width *= -1;
-            x += srcWidth;
-        }
-
-        if (flipY)
-        {
-            height *= -1;
-            y += srcHeight;
-        }
-
-        var xw = x + width;
-        var yh = y + height;
-
-        spriteMatrix.applyITRS(srcX, srcY, rotation, scaleX, scaleY);
-
-        if (parentTransformMatrix)
-        {
-            //  Multiply by the Sprite matrix, store result in calcMatrix
-            spriteMatrix.multiply(parentTransformMatrix, calcMatrix);
-        }
-        else
-        {
-            //  Multiply by the Sprite matrix, store result in calcMatrix
-            calcMatrix = spriteMatrix;
-        }
-
-        var tx0 = calcMatrix.getX(x, y);
-        var ty0 = calcMatrix.getY(x, y);
-
-        var tx1 = calcMatrix.getX(x, yh);
-        var ty1 = calcMatrix.getY(x, yh);
-
-        var tx2 = calcMatrix.getX(xw, yh);
-        var ty2 = calcMatrix.getY(xw, yh);
-
-        var tx3 = calcMatrix.getX(xw, y);
-        var ty3 = calcMatrix.getY(xw, y);
-
-        this.setTexture2D(frame.glTexture, 0);
-
-        this.batchQuad(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, frame.u0, frame.v0, frame.u1, frame.v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
-    },
-
-    /**
-     * Immediately draws a Texture Frame with no batching.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#drawTexture
-     * @since 3.11.0
      *
      * @param {Phaser.Textures.Frame} frame - The Texture Frame to be rendered.
      * @param {number} x - The horizontal position to render the texture at.
      * @param {number} y - The vertical position to render the texture at.
      * @param {number} tint - The tint color.
      * @param {number} alpha - The alpha value.
-     * @param {array} transformMatrix - An array of matrix values.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} transformMatrix - The Transform Matrix to use for the texture.
      * @param {Phaser.GameObjects.Components.TransformMatrix} [parentTransformMatrix] - A parent Transform Matrix.
      */
-    drawTextureFrame: function (
+    batchTextureFrame: function (
         frame,
         x, y,
         tint, alpha,
@@ -59938,7 +59918,6 @@ var TextureTintPipeline = new Class({
     {
         this.renderer.setPipeline(this);
 
-        // var spriteMatrix = this._tempMatrix1.copyFromArray(transformMatrix);
         var spriteMatrix = this._tempMatrix1.copyFrom(transformMatrix);
         var calcMatrix = this._tempMatrix2;
 
@@ -59965,21 +59944,6 @@ var TextureTintPipeline = new Class({
 
         var tx3 = calcMatrix.getX(xw, y);
         var ty3 = calcMatrix.getY(xw, y);
-
-        if (this.renderer.config.roundPixels)
-        {
-            tx0 |= 0;
-            ty0 |= 0;
-
-            tx1 |= 0;
-            ty1 |= 0;
-
-            tx2 |= 0;
-            ty2 |= 0;
-
-            tx3 |= 0;
-            ty3 |= 0;
-        }
 
         this.setTexture2D(frame.glTexture, 0);
 
@@ -73703,6 +73667,7 @@ var TextureManager = new Class({
      * The Boot Handler called by Phaser.Game when it first starts up.
      *
      * @method Phaser.Textures.TextureManager#boot
+     * @private
      * @since 3.0.0
      */
     boot: function ()
@@ -73722,6 +73687,7 @@ var TextureManager = new Class({
      * After 'onload' or 'onerror' invoked twice, emit 'ready' event.
      *
      * @method Phaser.Textures.TextureManager#updatePending
+     * @private
      * @since 3.0.0
      */
     updatePending: function ()
@@ -73733,7 +73699,7 @@ var TextureManager = new Class({
             this.off('onload');
             this.off('onerror');
 
-            this.game.events.emit('ready');
+            this.game.events.emit('texturesready');
         }
     },
 

@@ -107,17 +107,17 @@ function update ()
 
     rt.clear();
 
-    // rt.draw(graphics, 0, 0);
+    rt.draw(graphics, 0, 0);
     rt.draw(bob, 200, 200);
     rt.draw(quad, 200, 200);
     rt.draw(tilesprite, 200, 200);
     rt.draw(blitter, 0, 0);
-    // rt.draw(text, 100, 100);
-    // rt.draw(bob, 300, 300);
-    // rt.draw(bob, 400, 400);
-    // rt.draw(text, 300, 200);
-    // rt.draw(particles, 300, 0);
-    // rt.draw(bitmaptext, 200, 100);
+    rt.draw(text, 100, 100);
+    rt.draw(bob, 300, 300);
+    rt.draw(bob, 400, 400);
+    rt.draw(text, 300, 200);
+    rt.draw(particles, 300, 0);
+    rt.draw(bitmaptext, 200, 100);
 
     tilesprite.tilePositionX = Math.cos(-iter) * 400;
     tilesprite.tilePositionY = Math.sin(-iter) * 400;

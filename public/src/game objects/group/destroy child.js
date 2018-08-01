@@ -51,6 +51,8 @@ function create ()
             invader.destroy();
         }
 
+        console.log(group.getChildren());
+
     }, this);
 }
 

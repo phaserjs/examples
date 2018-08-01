@@ -61,10 +61,6 @@ function create ()
     gui.add(cam, 'dirty').listen();
     gui.add(cam.midPoint, 'x').listen();
     gui.add(cam.midPoint, 'y').listen();
-    gui.add(cam.worldBounds, 'top').listen();
-    gui.add(cam.worldBounds, 'left').listen();
-    gui.add(cam.worldBounds, 'right').listen();
-    gui.add(cam.worldBounds, 'bottom').listen();
     gui.add(cam, 'scrollX').listen();
     gui.add(cam, 'scrollY').listen();
 }

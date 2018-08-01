@@ -4300,7 +4300,7 @@
             {
               "path": "src\\game objects\\render texture\\dynamic tilemap to render texture.js",
               "name": "dynamic tilemap to render texture.js",
-              "size": 973,
+              "size": 821,
               "extension": ".js"
             },
             {
@@ -4364,6 +4364,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\render texture\\scene to render texture.js",
+              "name": "scene to render texture.js",
+              "size": 3053,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\scratch.js",
               "name": "scratch.js",
               "size": 1926,
@@ -4384,7 +4390,7 @@
             {
               "path": "src\\game objects\\render texture\\trail.js",
               "name": "trail.js",
-              "size": 1414,
+              "size": 1178,
               "extension": ".js"
             },
             {
@@ -4400,7 +4406,7 @@
               "extension": ".js"
             }
           ],
-          "size": 28385
+          "size": 31050
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5037,7 +5043,7 @@
           "size": 261673
         }
       ],
-      "size": 843243
+      "size": 845908
     },
     {
       "path": "src\\games",
@@ -10521,5 +10527,5 @@
       "size": 5291
     }
   ],
-  "size": 2734638
+  "size": 2737303
 }

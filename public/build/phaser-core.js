@@ -14260,7 +14260,7 @@ var GeometryMask = new Class({
 
         renderer.currentContext.save();
 
-        geometryMask.renderCanvas(renderer, geometryMask, 0.0, camera, undefined, null, true);
+        geometryMask.renderCanvas(renderer, geometryMask, 0, camera, null, null, true);
 
         renderer.currentContext.clip();
     },
@@ -73489,14 +73489,16 @@ var Texture = new Class({
 
         var frame = this.frames[name];
 
-        if (!frame)
+        if (frame)
+        {
+            return frame.source.image;
+        }
+        else
         {
             console.warn(TEXTURE_MISSING_ERROR + name);
 
-            frame = '__BASE';
+            return this.frames['__BASE'].source.image;
         }
-
-        return this.frames[frame].source.image;
     },
 
     /**

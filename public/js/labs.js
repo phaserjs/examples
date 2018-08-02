@@ -144,7 +144,7 @@ $(document).ready(function () {
                         var type = (game.config.renderType === 2) ? 'Canvas' : 'WebGL';
 
                         $('#forcemode').text('Force '  + type);
-                        $('#forcemode').attr('href', 'view.html?force=' + type + '&src=' + filename);
+                        $('#forcemode').attr('href', 'view.html?force=' + type + '&v=' + phaserVersion + '&src=' + filename);
                     }
                     else
                     {

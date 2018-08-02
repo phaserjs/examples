@@ -26,6 +26,7 @@ $(document).ready(function () {
         { val : '3.0.0', text: '3.0.0' }
     ];
 
+    var forceMode = getQueryString('force');
     var filename = getQueryString('src');
     var phaserVersion = getQueryString('v', (remote) ? versions[2].val : 'dev');
     var phaserVersionJS = phaserVersion + '.js';
@@ -46,9 +47,7 @@ $(document).ready(function () {
         $('#csslink').attr('href', 'css.html?src=' + filename);
         $('#viewlink').attr('href', 'view.html?src=' + filename);
         $('#backlink').attr('href', 'index.html?dir=' + backURL);
-        $('#fblink').attr('href', 'fbinstant.html?src=' + filename);
 
-        /*
         if (remote)
         {
             $('#labslink').hide();
@@ -59,20 +58,20 @@ $(document).ready(function () {
 
                 var labsURL = encodeURI('http://labs.phaser.io/view.html?src=' + filename);
 
-                navigator.clipboard.writeText(labsURL)
-                .then(() => {
-                    console.log(labsURL);
-                })
-                .catch(err => {
-                    // This can happen if the user denies clipboard permissions:
-                    console.error('Could not copy text: ', err);
-                });
+                if (phaserVersion === 'dev')
+                {
+                    labsURL += '&v=dev';
+                }
+
+                $('#clippy').attr('value', labsURL);
+                $('#clippy').focus();
+                $('#clippy').select();
+                var result = document.execCommand('copy');
 
             });
         }
-        */
 
-        var versionlist = $('<select>').prop('id', 'changeversion').appendTo('#nav');
+        var versionlist = $('<select>').prop('id', 'changeversion').insertAfter('#csslink');
 
         versionlist.on('change', function () {
 
@@ -111,6 +110,15 @@ $(document).ready(function () {
         }
         else
         {
+            if (forceMode === 'Canvas')
+            {
+                window.FORCE_CANVAS = true;
+            }
+            else if (forceMode === 'WebGL')
+            {
+                window.FORCE_WEBGL = true;
+            }
+
             var phaserScript = document.createElement('script');
 
             phaserScript.type = 'text/javascript';
@@ -119,13 +127,30 @@ $(document).ready(function () {
             phaserScript.onload = function ()
             {
                 //  Inject the example source
-                var s = document.createElement('script');
-                s.type = 'text/javascript';
-                s.src = decodeURI(filename).split('\\').join('/');
-                document.body.appendChild(s);
+                var phaserExample = document.createElement('script');
+
+                phaserExample.type = 'text/javascript';
+                phaserExample.src = decodeURI(filename).split('\\').join('/');
+
+                document.body.appendChild(phaserExample);
 
                 $('#loading').hide();
                 $('#nav').show();
+
+                phaserExample.onload = function ()
+                {
+                    if (window.game)
+                    {
+                        var type = (game.config.renderType === 2) ? 'Canvas' : 'WebGL';
+
+                        $('#forcemode').text('Force '  + type);
+                        $('#forcemode').attr('href', 'view.html?force=' + type + '&src=' + filename);
+                    }
+                    else
+                    {
+                        $('#forcemode').hide();
+                    }
+                }
             };
 
             if (remote && phaserVersion !== 'dev' && selected)

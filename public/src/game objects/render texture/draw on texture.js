@@ -37,7 +37,7 @@ function create ()
 
     rt.on('pointerdown', function (pointer) {
 
-        this.drawTexture('brush', null, pointer.x - 8, pointer.y - 8, 1, hsv[i].color);
+        this.draw('brush', pointer.x - 8, pointer.y - 8, 1, hsv[i].color);
 
     });
 
@@ -45,14 +45,14 @@ function create ()
 
         if (pointer.isDown)
         {
-            this.drawTexture('brush', null, pointer.x - 8, pointer.y - 8, 1, hsv[i].color);
+            this.draw('brush', pointer.x - 8, pointer.y - 8, 1, hsv[i].color);
 
             i = Phaser.Math.Wrap(i + 1, 0, 360);
         }
 
     });
 
-    rt.cacheTexture('doodle');
+    rt.saveTexture('doodle');
 
     var blocks = this.add.group({ key: 'doodle', repeat: 35, setScale: { x: 0.2, y: 0.1 } });
 

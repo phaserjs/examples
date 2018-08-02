@@ -146,6 +146,9 @@ var RenderScene = new Phaser.Class({
         this.scene.setVisible(false, 'gameScene');
 
         this.rt = this.add.renderTexture(0, 0, 800, 600);
+
+        //  Tint the whole render texture
+        this.rt.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
     },
 
     update: function (time, delta)

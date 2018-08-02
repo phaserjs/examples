@@ -31,6 +31,9 @@ function create ()
     //  Create a hash shape Graphics object
     shape.fillStyle(0xffffff);
 
+    //  You have to begin a path for a Geometry mask to work
+    shape.beginPath();
+
     shape.fillRect(50, 0, 50, 300);
     shape.fillRect(175, 0, 50, 300);
     shape.fillRect(0, 75, 275, 50);

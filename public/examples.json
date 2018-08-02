@@ -4274,15 +4274,15 @@
           "name": "render texture",
           "children": [
             {
-              "path": "src\\game objects\\render texture\\brute force.js",
-              "name": "brute force.js",
-              "size": 1417,
+              "path": "src\\game objects\\render texture\\atlas frame to render texture.js",
+              "name": "atlas frame to render texture.js",
+              "size": 771,
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\render texture\\cache texture.js",
-              "name": "cache texture.js",
-              "size": 858,
+              "path": "src\\game objects\\render texture\\brute force.js",
+              "name": "brute force.js",
+              "size": 1417,
               "extension": ".js"
             },
             {
@@ -4300,7 +4300,7 @@
             {
               "path": "src\\game objects\\render texture\\draw on texture.js",
               "name": "draw on texture.js",
-              "size": 936,
+              "size": 1999,
               "extension": ".js"
             },
             {
@@ -4376,6 +4376,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\render texture\\save texture.js",
+              "name": "save texture.js",
+              "size": 804,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\scene to render texture.js",
               "name": "scene to render texture.js",
               "size": 4444,
@@ -4394,9 +4400,21 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\render texture\\sprite to render texture.js",
+              "name": "sprite to render texture.js",
+              "size": 652,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\static tilemap to render texture.js",
               "name": "static tilemap to render texture.js",
               "size": 1690,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\texture key to render texture.js",
+              "name": "texture key to render texture.js",
+              "size": 550,
               "extension": ".js"
             },
             {
@@ -4418,7 +4436,7 @@
               "extension": ".js"
             }
           ],
-          "size": 34235
+          "size": 37217
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5055,7 +5073,7 @@
           "size": 261673
         }
       ],
-      "size": 849093
+      "size": 852075
     },
     {
       "path": "src\\games",
@@ -10096,7 +10114,7 @@
         {
           "path": "src\\tweens\\checkerboard.js",
           "name": "checkerboard.js",
-          "size": 1087,
+          "size": 1085,
           "extension": ".js"
         },
         {
@@ -10485,7 +10503,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77213
+      "size": 77211
     },
     {
       "path": "src\\utils",
@@ -10539,5 +10557,5 @@
       "size": 5291
     }
   ],
-  "size": 2740488
+  "size": 2743468
 }

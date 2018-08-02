@@ -5,8 +5,7 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
 
@@ -23,16 +22,16 @@ function preload ()
 
 function create ()
 {
-    var invader1 = this.add.group({ key: 'invader1', frame: 0, repeat: 13, setXY: { x: 32, y: 100, stepX: 40 }, visible: false });
+    var invader1 = this.add.group({ key: 'invader1', frame: 0, repeat: 13, setXY: { x: 32, y: 100, stepX: 40 } });
 
     var invader2 = this.add.group([
-        { key: 'invader2', frame: 0, repeat: 10, setXY: { x: 32, y: 148, stepX: 52 }, visible: false },
-        { key: 'invader2', frame: 0, repeat: 10, setXY: { x: 32, y: 148 + 48, stepX: 52 }, visible: false }
+        { key: 'invader2', frame: 0, repeat: 10, setXY: { x: 32, y: 148, stepX: 52 } },
+        { key: 'invader2', frame: 0, repeat: 10, setXY: { x: 32, y: 148 + 48, stepX: 52 } }
     ]);
 
     var invader3 = this.add.group([
-        { key: 'invader3', frame: 0, repeat: 9, setXY: { x: 32, y: 148+96, stepX: 58 }, visible: false },
-        { key: 'invader3', frame: 0, repeat: 9, setXY: { x: 32, y: 148+96+48, stepX: 58 }, visible: false }
+        { key: 'invader3', frame: 0, repeat: 9, setXY: { x: 32, y: 148+96, stepX: 58 } },
+        { key: 'invader3', frame: 0, repeat: 9, setXY: { x: 32, y: 148+96+48, stepX: 58 } }
     ]);
 
     Phaser.Actions.IncX(invader1.getChildren(), 100);
@@ -48,4 +47,10 @@ function create ()
     rt.draw(invader1);
     rt.draw(invader2);
     rt.draw(invader3);
+
+    //  Now we're drawn them to the Render Texture, we can hide them:
+
+    invader1.toggleVisible();
+    invader2.toggleVisible();
+    invader3.toggleVisible();
 }

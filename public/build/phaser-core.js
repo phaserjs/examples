@@ -3014,6 +3014,18 @@ var Config = new Class({
          * @const {string} Phaser.Boot.Config#missingImage - [description]
          */
         this.missingImage = GetValue(config, 'images.missing', pngPrefix + 'CAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==');
+
+        if (window)
+        {
+            if (window.FORCE_WEBGL)
+            {
+                this.renderType = CONST.WEBGL;
+            }
+            else if (window.FORCE_CANVAS)
+            {
+                this.renderType = CONST.CANVAS;
+            }
+        }
     }
 
 });
@@ -22322,6 +22334,25 @@ var TransformMatrix = new Class({
     },
 
     /**
+     * Copy the values from this Matrix to the given Canvas Rendering Context.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#copyToContext
+     * @since 3.12.0
+     *
+     * @param {CanvasRenderingContext2D} ctx - The Canvas Rendering Context to copy the matrix values to.
+     *
+     * @return {CanvasRenderingContext2D} The Canvas Rendering Context.
+     */
+    copyToContext: function (ctx)
+    {
+        var matrix = this.matrix;
+
+        ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
+
+        return ctx;
+    },
+
+    /**
      * Copy the values in this Matrix to the array given.
      * 
      * Where array indexes 0, 1, 2, 3, 4 and 5 are mapped to a, b, c, d, e and f.
@@ -22343,7 +22374,6 @@ var TransformMatrix = new Class({
         }
         else
         {
-
             out[0] = matrix[0];
             out[1] = matrix[1];
             out[2] = matrix[2];
@@ -24342,19 +24372,12 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
         return;
     }
 
-    var cameraScrollX = camera.scrollX * src.scrollFactorX;
-    var cameraScrollY = camera.scrollY * src.scrollFactorY;
-    var srcX = src.x;
-    var srcY = src.y;
-    var srcScaleX = src.scaleX;
-    var srcScaleY = src.scaleY;
-    var srcRotation = src.rotation;
     var ctx = renderTargetCtx || renderer.currentContext;
-    var lineAlpha = 1.0;
-    var fillAlpha = 1.0;
+    var lineAlpha = 1;
+    var fillAlpha = 1;
     var lineColor = 0;
     var fillColor = 0;
-    var lineWidth = 1.0;
+    var lineWidth = 1;
     var red = 0;
     var green = 0;
     var blue = 0;
@@ -24389,16 +24412,40 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
 
     ctx.save();
 
+    var camMatrix = renderer._tempMatrix1;
+    var graphicsMatrix = renderer._tempMatrix2;
+    var calcMatrix = renderer._tempMatrix3;
+    var currentMatrix = renderer._tempMatrix4;
+   
+    currentMatrix.loadIdentity();
+
+    graphicsMatrix.applyITRS(src.x, src.y, src.rotation, src.scaleX, src.scaleY);
+
+    camMatrix.copyFrom(camera.matrix);
+
     if (parentMatrix)
     {
-        var matrix = parentMatrix.matrix;
+        //  Multiply the camera by the parent matrix
+        camMatrix.multiplyWithOffset(parentMatrix, -camera.scrollX * src.scrollFactorX, -camera.scrollY * src.scrollFactorY);
 
-        ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
+        //  Undo the camera scroll
+        graphicsMatrix.e = src.x;
+        graphicsMatrix.f = src.y;
+
+        //  Multiply by the Sprite matrix, store result in calcMatrix
+        camMatrix.multiply(graphicsMatrix, calcMatrix);
+    }
+    else
+    {
+        graphicsMatrix.e -= camera.scrollX * src.scrollFactorX;
+        graphicsMatrix.f -= camera.scrollY * src.scrollFactorY;
+
+        //  Multiply by the Sprite matrix, store result in calcMatrix
+        camMatrix.multiply(graphicsMatrix, calcMatrix);
     }
 
-    ctx.translate(srcX - cameraScrollX, srcY - cameraScrollY);
-    ctx.rotate(srcRotation);
-    ctx.scale(srcScaleX, srcScaleY);
+    calcMatrix.copyToContext(ctx);
+
     ctx.fillStyle = '#fff';
     ctx.globalAlpha = src.alpha;
 
@@ -24573,6 +24620,18 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
                     commandBuffer[index + 1]
                 );
                 index += 1;
+                break;
+
+            case Commands.GRADIENT_FILL_STYLE:
+                index += 5;
+                break;
+
+            case Commands.GRADIENT_LINE_STYLE:
+                index += 6;
+                break;
+
+            case Commands.SET_TEXTURE:
+                index += 2;
                 break;
         }
     }
@@ -54623,6 +54682,23 @@ var CanvasRenderer = new Class({
     },
 
     /**
+     * Changes the Canvas Rendering Context that all draw operations are performed against.
+     *
+     * @method Phaser.Renderer.Canvas.CanvasRenderer#setContext
+     * @since 3.12.0
+     *
+     * @param {?CanvasRenderingContext2D} [ctx] - The new Canvas Rendering Context to draw everything to. Leave empty to reset to the Game Canvas.
+     *
+     * @return {this} The Canvas Renderer instance.
+     */
+    setContext: function (ctx)
+    {
+        this.currentContext = (ctx) ? ctx : this.gameContext;
+
+        return this;
+    },
+
+    /**
      * [description]
      *
      * @method Phaser.Renderer.Canvas.CanvasRenderer#setAlpha
@@ -74688,11 +74764,21 @@ var TextureSource = new Class({
         this.texture = texture;
 
         /**
-         * The source image data.
+         * The source of the image data.
          * This is either an Image Element, a Canvas Element or a RenderTexture.
          *
-         * @name Phaser.Textures.TextureSource#image
+         * @name Phaser.Textures.TextureSource#source
          * @type {(HTMLImageElement|HTMLCanvasElement|Phaser.GameObjects.RenderTexture)}
+         * @since 3.12.0
+         */
+        this.source = source;
+
+        /**
+         * The image data.
+         * This is either an Image element or a Canvas element.
+         *
+         * @name Phaser.Textures.TextureSource#image
+         * @type {(HTMLImageElement|HTMLCanvasElement)}
          * @since 3.0.0
          */
         this.image = source;
@@ -74797,19 +74883,27 @@ var TextureSource = new Class({
      */
     init: function (game)
     {
-        if (this.renderer && this.renderer.gl)
+        if (this.renderer)
         {
-            if (this.isCanvas)
+            if (this.renderer.gl)
             {
-                this.glTexture = this.renderer.canvasToTexture(this.image);
+                if (this.isCanvas)
+                {
+                    this.glTexture = this.renderer.canvasToTexture(this.image);
+                }
+                else if (this.isRenderTexture)
+                {
+                    this.glTexture = this.source.texture;
+                    this.image = this.source.canvas;
+                }
+                else
+                {
+                    this.glTexture = this.renderer.createTextureFromSource(this.image, this.width, this.height, this.scaleMode);
+                }
             }
             else if (this.isRenderTexture)
             {
-                this.glTexture = this.image.texture;
-            }
-            else
-            {
-                this.glTexture = this.renderer.createTextureFromSource(this.image, this.width, this.height, this.scaleMode);
+                this.image = this.source.canvas;
             }
         }
 
@@ -74874,7 +74968,9 @@ var TextureSource = new Class({
 
         this.renderer = null;
         this.texture = null;
+        this.source = null;
         this.image = null;
+        this.glTexture = null;
     }
 
 });

@@ -22,8 +22,8 @@ body {
 #nav {
     display: none;
     width: 1200px;
-    height: 60px;
-    margin: 32px 0px 0px 32px;
+    height: 120px;
+    margin: 16px 0px 0px 16px;
 }
 
 #nav a, #nav select {
@@ -34,7 +34,7 @@ body {
     text-decoration: none;
     box-shadow: 0 5px 3px rgba(0, 0, 0, 0.7);
     outline: none;
-    margin-right: 32px;
+    margin: 0px 32px 32px 0px;
     padding: 10px 20px;
     color: #2d2d2d;
     width: 200px;

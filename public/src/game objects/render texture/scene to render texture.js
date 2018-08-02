@@ -142,6 +142,9 @@ var RenderScene = new Phaser.Class({
 
     create: function ()
     {
+        //  Hide the Game Scene so it doesn't render (as we don't need it rendering twice)
+        this.scene.setVisible(false, 'gameScene');
+
         this.rt = this.add.renderTexture(0, 0, 800, 600);
     },
 
@@ -151,7 +154,7 @@ var RenderScene = new Phaser.Class({
 
         this.rt.clear();
 
-        this.rt.draw(gameScene.children, 50, 50);
+        this.rt.draw(gameScene.children, 0, 0);
     }
 
 });

@@ -4280,6 +4280,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\render texture\\cache texture.js",
+              "name": "cache texture.js",
+              "size": 858,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\change frame.js",
               "name": "change frame.js",
               "size": 1330,
@@ -4289,6 +4295,12 @@
               "path": "src\\game objects\\render texture\\container to render texture.js",
               "name": "container to render texture.js",
               "size": 1074,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\draw on texture.js",
+              "name": "draw on texture.js",
+              "size": 936,
               "extension": ".js"
             },
             {
@@ -4366,7 +4378,7 @@
             {
               "path": "src\\game objects\\render texture\\scene to render texture.js",
               "name": "scene to render texture.js",
-              "size": 3053,
+              "size": 4444,
               "extension": ".js"
             },
             {
@@ -4406,7 +4418,7 @@
               "extension": ".js"
             }
           ],
-          "size": 31050
+          "size": 34235
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5043,7 +5055,7 @@
           "size": 261673
         }
       ],
-      "size": 845908
+      "size": 849093
     },
     {
       "path": "src\\games",
@@ -10527,5 +10539,5 @@
       "size": 5291
     }
   ],
-  "size": 2737303
+  "size": 2740488
 }

@@ -53,5 +53,4 @@ function create ()
         }
 
     }, this);
-
 }

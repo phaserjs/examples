@@ -46,32 +46,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -73112,6 +73097,8 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var Frame = __webpack_require__(/*! ./Frame */ "./textures/Frame.js");
 var TextureSource = __webpack_require__(/*! ./TextureSource */ "./textures/TextureSource.js");
 
+var TEXTURE_MISSING_ERROR = 'Texture.frame missing: ';
+
 /**
  * @classdesc
  * A Texture consists of a source, usually an Image from the Cache, and a collection of Frames.
@@ -73307,7 +73294,7 @@ var Texture = new Class({
 
         if (!frame)
         {
-            console.warn('No Texture.frame found with name ' + name);
+            console.warn(TEXTURE_MISSING_ERROR + name);
 
             frame = this.frames[this.firstFrame];
         }
@@ -73415,7 +73402,7 @@ var Texture = new Class({
      *
      * @param {(string|integer)} [name] - The string-based name, or integer based index, of the Frame to get from this Texture.
      *
-     * @return {(HTMLImageElement|HTMLCanvasElement)} The DOM Image or Canvas Element.
+     * @return {(HTMLImageElement|HTMLCanvasElement|Phaser.GameObjects.RenderTexture)} The DOM Image, Canvas Element or Render Texture.
      */
     getSourceImage: function (name)
     {
@@ -73428,14 +73415,12 @@ var Texture = new Class({
 
         if (!frame)
         {
-            console.warn('No Texture.frame found with name ' + name);
+            console.warn(TEXTURE_MISSING_ERROR + name);
 
-            return this.frames['__BASE'].source.image;
+            frame = '__BASE';
         }
-        else
-        {
-            return frame.source.image;
-        }
+
+        return this.frames[frame].source.image;
     },
 
     /**
@@ -73463,7 +73448,7 @@ var Texture = new Class({
 
         if (!frame)
         {
-            console.warn('No Texture.frame found with name ' + name);
+            console.warn(TEXTURE_MISSING_ERROR + name);
 
             idx = this.frames['__BASE'].sourceIndex;
         }
@@ -73913,6 +73898,34 @@ var TextureManager = new Class({
             {
                 texture.setDataSource(dataSource);
             }
+
+            this.emit('addtexture', key, texture);
+        }
+        
+        return texture;
+    },
+
+    /**
+     * Adds a Render Texture to the Texture Manager using the given key.
+     * This allows you to then use the Render Texture as a normal texture for texture based Game Objects like Sprites.
+     *
+     * @method Phaser.Textures.TextureManager#addRenderTexture
+     * @since 3.12.0
+     *
+     * @param {string} key - The unique string-based key of the Texture.
+     * @param {Phaser.GameObjects.RenderTexture} renderTexture - The source Render Texture.
+     *
+     * @return {?Phaser.Textures.Texture} The Texture that was created, or `null` if the key is already in use.
+     */
+    addRenderTexture: function (key, renderTexture)
+    {
+        var texture = null;
+
+        if (this.checkKey(key))
+        {
+            texture = this.create(key, renderTexture);
+
+            texture.add('__BASE', 0, 0, 0, renderTexture.width, renderTexture.height);
 
             this.emit('addtexture', key, texture);
         }
@@ -74669,16 +74682,17 @@ var TextureSource = new Class({
          * The Texture this TextureSource belongs to.
          *
          * @name Phaser.Textures.TextureSource#texture
-         * @type {string}
+         * @type {Phaser.Textures.Texture}
          * @since 3.0.0
          */
         this.texture = texture;
 
         /**
-         * The source image data. This is either an Image Element, or a Canvas Element.
+         * The source image data.
+         * This is either an Image Element, a Canvas Element or a RenderTexture.
          *
          * @name Phaser.Textures.TextureSource#image
-         * @type {(HTMLImageElement|HTMLCanvasElement)}
+         * @type {(HTMLImageElement|HTMLCanvasElement|Phaser.GameObjects.RenderTexture)}
          * @since 3.0.0
          */
         this.image = source;
@@ -74743,6 +74757,15 @@ var TextureSource = new Class({
         this.isCanvas = (source instanceof HTMLCanvasElement);
 
         /**
+         * Is the source image a Render Texture?
+         *
+         * @name Phaser.Textures.TextureSource#isRenderTexture
+         * @type {boolean}
+         * @since 3.12.0
+         */
+        this.isRenderTexture = (source.type === 'RenderTexture');
+
+        /**
          * Are the source image dimensions a power of two?
          *
          * @name Phaser.Textures.TextureSource#isPowerOf2
@@ -74779,6 +74802,10 @@ var TextureSource = new Class({
             if (this.isCanvas)
             {
                 this.glTexture = this.renderer.canvasToTexture(this.image);
+            }
+            else if (this.isRenderTexture)
+            {
+                this.glTexture = this.image.texture;
             }
             else
             {

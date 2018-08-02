@@ -23,11 +23,17 @@ function create ()
 
     this.add.graphics().fillStyle(0x000000).lineStyle(1, 0xffffff).fillRect(0, 0, 128, 128).strokeRect(0, 0, 128, 128).setDepth(1000);
 
-    this.add.text(136, 8, '<- draw in here');
+    this.add.text(136, 8, '<- draw in here\n   press SPACE to clear');
 
     var hsv = Phaser.Display.Color.HSVColorWheel();
 
     var i = 0;
+
+    this.input.keyboard.on('keydown_SPACE', function () {
+
+        rt.clear();
+
+    });
 
     rt.on('pointerdown', function (pointer) {
 

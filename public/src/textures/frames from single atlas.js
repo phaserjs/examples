@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -9,16 +9,14 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload() {
-
+function preload ()
+{
     this.load.atlas('atlas', 'assets/atlas/megaset-1.png', 'assets/atlas/megaset-1.json');
-
 }
 
-function create() {
-
-    this.add.image(100, 400, 'atlas', 'supercars-parsec');
-    this.add.image(200, 100, 'atlas', 'titan-mech');
-    this.add.image(300, 300, 'atlas', 'ship');
-
+function create ()
+{
+    this.add.image(400, 200, 'atlas', 'titan-mech');
+    this.add.image(400, 400, 'atlas', 'ship');
+    this.add.image(400, 600, 'atlas', 'supercars-parsec');
 }

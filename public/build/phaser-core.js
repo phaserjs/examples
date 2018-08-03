@@ -46,32 +46,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -18806,6 +18791,139 @@ module.exports = ComputedSize;
 
 /***/ }),
 
+/***/ "./gameobjects/components/Crop.js":
+/*!****************************************!*\
+  !*** ./gameobjects/components/Crop.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+//  bitmask flag for GameObject.renderMask
+var _FLAG = 8; // 1000
+
+/**
+ * Provides methods used for getting and setting the texture of a Game Object.
+ *
+ * @name Phaser.GameObjects.Components.Crop
+ * @since 3.12.0
+ */
+
+var Crop = {
+
+    /**
+     * The Texture this Game Object is using to render with.
+     *
+     * @name Phaser.GameObjects.Components.Crop#texture
+     * @type {Phaser.Textures.Texture|Phaser.Textures.CanvasTexture}
+     * @since 3.0.0
+     */
+    texture: null,
+
+    /**
+     * The Texture Frame this Game Object is using to render with.
+     *
+     * @name Phaser.GameObjects.Components.Crop#frame
+     * @type {Phaser.Textures.Frame}
+     * @since 3.0.0
+     */
+    frame: null,
+
+    /**
+     * A boolean flag indicating if this Game Object is being cropped or not.
+     * You can toggle this at any time after `setCrop` has been called, to turn cropping on or off.
+     * Equally, calling `setCrop` with no arguments will reset the crop and disable it.
+     *
+     * @name Phaser.GameObjects.Components.Crop#isCropped
+     * @type {boolean}
+     * @since 3.11.0
+     */
+    isCropped: false,
+
+    /**
+     * Applies a crop to a texture based Game Object, such as a Sprite or Image.
+     * 
+     * The crop is a rectangle that limits the area of the texture frame that is visible during rendering.
+     * 
+     * Cropping a Game Object does not change its size, dimensions, physics body or hit area, it just
+     * changes what is shown when rendered.
+     * 
+     * The crop coordinates are relative to the texture frame, not the Game Object, meaning 0 x 0 is the top-left.
+     * 
+     * Therefore, if you had a Game Object that had an 800x600 sized texture, and you wanted to show only the left
+     * half of it, you could call `setCrop(0, 0, 400, 600)`.
+     * 
+     * It is also scaled to match the Game Object scale automatically. Therefore a crop rect of 100x50 would crop
+     * an area of 200x100 when applied to a Game Object that had a scale factor of 2.
+     * 
+     * You can either pass in numeric values directly, or you can provide a single Rectangle object as the first argument.
+     * 
+     * Call this method with no arguments at all to reset the crop, or toggle the property `isCropped` to `false`.
+     * 
+     * You should do this if the crop rectangle becomes the same size as the frame itself, as it will allow
+     * the renderer to skip several internal calculations.
+     *
+     * @method Phaser.GameObjects.Components.Crop#setCrop
+     * @since 3.11.0
+     *
+     * @param {(number|Phaser.Geom.Rectangle)} [x] - The x coordinate to start the crop from. Or a Phaser.Geom.Rectangle object, in which case the rest of the arguments are ignored.
+     * @param {number} [y] - The y coordinate to start the crop from.
+     * @param {number} [width] - The width of the crop rectangle in pixels.
+     * @param {number} [height] - The height of the crop rectangle in pixels.
+     *
+     * @return {this} This Game Object instance.
+     */
+    setCrop: function (x, y, width, height)
+    {
+        if (x === undefined)
+        {
+            this.isCropped = false;
+        }
+        else if (this.frame)
+        {
+            if (typeof x === 'number')
+            {
+                this.frame.setCropUVs(this._crop, x, y, width, height, this.flipX, this.flipY);
+            }
+            else
+            {
+                var rect = x;
+
+                this.frame.setCropUVs(this._crop, rect.x, rect.y, rect.width, rect.height, this.flipX, this.flipY);
+            }
+
+            this.isCropped = true;
+        }
+
+        return this;
+    },
+
+    /**
+     * Internal method that returns a blank, well-formed crop object for use by a Game Object.
+     *
+     * @method Phaser.GameObjects.Components.Crop#resetCropObject
+     * @private
+     * @since 3.12.0
+     * 
+     * @return {object} The crop object.
+     */
+    resetCropObject: function ()
+    {
+        return { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 };
+    }
+
+};
+
+module.exports = Crop;
+
+
+/***/ }),
+
 /***/ "./gameobjects/components/Depth.js":
 /*!*****************************************!*\
   !*** ./gameobjects/components/Depth.js ***!
@@ -20788,6 +20906,20 @@ var TextureCrop = {
         }
 
         return this;
+    },
+
+    /**
+     * Internal method that returns a blank, well-formed crop object for use by a Game Object.
+     *
+     * @method Phaser.GameObjects.Components.TextureCrop#resetCropObject
+     * @private
+     * @since 3.12.0
+     * 
+     * @return {object} The crop object.
+     */
+    resetCropObject: function ()
+    {
+        return { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 };
     }
 
 };
@@ -22350,6 +22482,7 @@ var TransformMatrix = new Class({
 
     /**
      * Copy the values from this Matrix to the given Canvas Rendering Context.
+     * This will use the Context.transform method.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#copyToContext
      * @since 3.12.0
@@ -22363,6 +22496,26 @@ var TransformMatrix = new Class({
         var matrix = this.matrix;
 
         ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
+
+        return ctx;
+    },
+
+    /**
+     * Copy the values from this Matrix to the given Canvas Rendering Context.
+     * This will use the Context.setTransform method.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#setToContext
+     * @since 3.12.0
+     *
+     * @param {CanvasRenderingContext2D} ctx - The Canvas Rendering Context to copy the matrix values to.
+     *
+     * @return {CanvasRenderingContext2D} The Canvas Rendering Context.
+     */
+    setToContext: function (ctx)
+    {
+        var matrix = this.matrix;
+
+        ctx.setTransform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
 
         return ctx;
     },
@@ -22691,6 +22844,7 @@ module.exports = {
     Animation: __webpack_require__(/*! ./Animation */ "./gameobjects/components/Animation.js"),
     BlendMode: __webpack_require__(/*! ./BlendMode */ "./gameobjects/components/BlendMode.js"),
     ComputedSize: __webpack_require__(/*! ./ComputedSize */ "./gameobjects/components/ComputedSize.js"),
+    Crop: __webpack_require__(/*! ./Crop */ "./gameobjects/components/Crop.js"),
     Depth: __webpack_require__(/*! ./Depth */ "./gameobjects/components/Depth.js"),
     Flip: __webpack_require__(/*! ./Flip */ "./gameobjects/components/Flip.js"),
     GetBounds: __webpack_require__(/*! ./GetBounds */ "./gameobjects/components/GetBounds.js"),
@@ -24359,6 +24513,7 @@ module.exports = Graphics;
  */
 
 var Commands = __webpack_require__(/*! ./Commands */ "./gameobjects/graphics/Commands.js");
+var SetTransform = __webpack_require__(/*! ../../renderer/canvas/utils/SetTransform */ "./renderer/canvas/utils/SetTransform.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
@@ -24382,12 +24537,13 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     var commandBuffer = src.commandBuffer;
     var commandBufferLength = commandBuffer.length;
 
-    if (commandBufferLength === 0)
+    var ctx = renderTargetCtx || renderer.currentContext;
+
+    if (commandBufferLength === 0 || !SetTransform(renderer, ctx, src, camera, parentMatrix))
     {
         return;
     }
 
-    var ctx = renderTargetCtx || renderer.currentContext;
     var lineAlpha = 1;
     var fillAlpha = 1;
     var lineColor = 0;
@@ -24396,53 +24552,6 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     var red = 0;
     var green = 0;
     var blue = 0;
-
-    var alpha = camera.alpha * src.alpha;
-
-    if (alpha === 0)
-    {
-        //  Nothing to see, so abort early
-        return;
-    }
-
-    //  Blend Mode
-    ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
-
-    //  Alpha
-    ctx.globalAlpha = alpha;
-
-    ctx.save();
-
-    var camMatrix = renderer._tempMatrix1;
-    var graphicsMatrix = renderer._tempMatrix2;
-    var calcMatrix = renderer._tempMatrix3;
-
-    graphicsMatrix.applyITRS(src.x, src.y, src.rotation, src.scaleX, src.scaleY);
-
-    camMatrix.copyFrom(camera.matrix);
-
-    if (parentMatrix)
-    {
-        //  Multiply the camera by the parent matrix
-        camMatrix.multiplyWithOffset(parentMatrix, -camera.scrollX * src.scrollFactorX, -camera.scrollY * src.scrollFactorY);
-
-        //  Undo the camera scroll
-        graphicsMatrix.e = src.x;
-        graphicsMatrix.f = src.y;
-
-        //  Multiply by the Sprite matrix, store result in calcMatrix
-        camMatrix.multiply(graphicsMatrix, calcMatrix);
-    }
-    else
-    {
-        graphicsMatrix.e -= camera.scrollX * src.scrollFactorX;
-        graphicsMatrix.f -= camera.scrollY * src.scrollFactorY;
-
-        //  Multiply by the Sprite matrix, store result in calcMatrix
-        camMatrix.multiply(graphicsMatrix, calcMatrix);
-    }
-
-    calcMatrix.copyToContext(ctx);
 
     ctx.fillStyle = '#fff';
 
@@ -25205,7 +25314,7 @@ var Image = new Class({
          * @private
          * @since 3.11.0
          */
-        this._crop = { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 };
+        this._crop = this.resetCropObject();
 
         this.setTexture(texture, frame);
         this.setPosition(x, y);
@@ -25251,7 +25360,7 @@ module.exports = Image;
  */
 var ImageCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    renderer.drawImage(src, camera, parentMatrix);
+    renderer.batchSprite(src, src.frame, camera, parentMatrix);
 };
 
 module.exports = ImageCanvasRenderer;
@@ -25530,7 +25639,7 @@ var Sprite = new Class({
          * @private
          * @since 3.11.0
          */
-        this._crop = { u0: 0, v0: 0, u1: 0, v1: 0, width: 0, height: 0, x: 0, y: 0, flipX: false, flipY: false, cx: 0, cy: 0, cw: 0, ch: 0 };
+        this._crop = this.resetCropObject();
 
         /**
          * The Animation Controller of this Sprite.
@@ -25636,7 +25745,7 @@ module.exports = Sprite;
  */
 var SpriteCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    renderer.drawImage(src, camera, parentMatrix);
+    renderer.batchSprite(src, src.frame, camera, parentMatrix);
 };
 
 module.exports = SpriteCanvasRenderer;
@@ -27132,6 +27241,7 @@ var TextStyle = __webpack_require__(/*! ../TextStyle */ "./gameobjects/text/Text
  * @extends Phaser.GameObjects.Components.Alpha
  * @extends Phaser.GameObjects.Components.BlendMode
  * @extends Phaser.GameObjects.Components.ComputedSize
+ * @extends Phaser.GameObjects.Components.Crop
  * @extends Phaser.GameObjects.Components.Depth
  * @extends Phaser.GameObjects.Components.Flip
  * @extends Phaser.GameObjects.Components.GetBounds
@@ -27158,6 +27268,7 @@ var Text = new Class({
         Components.Alpha,
         Components.BlendMode,
         Components.ComputedSize,
+        Components.Crop,
         Components.Depth,
         Components.Flip,
         Components.GetBounds,
@@ -27180,6 +27291,15 @@ var Text = new Class({
         if (y === undefined) { y = 0; }
 
         GameObject.call(this, scene, 'Text');
+
+        /**
+         * The renderer in use by this Text object.
+         *
+         * @name Phaser.GameObjects.Text#renderer
+         * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
+         * @since 3.12.0
+         */
+        this.renderer = scene.sys.game.renderer;
 
         this.setPosition(x, y);
         this.setOrigin(0, 0);
@@ -27275,16 +27395,6 @@ var Text = new Class({
         this.height = 1;
 
         /**
-         * The Canvas Texture that the text is rendered to for WebGL rendering.
-         *
-         * @name Phaser.GameObjects.Text#canvasTexture
-         * @type {HTMLCanvasElement}
-         * @default null
-         * @since 3.0.0
-         */
-        this.canvasTexture = null;
-
-        /**
          * Whether the text or its settings have changed and need updating.
          *
          * @name Phaser.GameObjects.Text#dirty
@@ -27298,6 +27408,34 @@ var Text = new Class({
         if (this.style.resolution === 0)
         {
             this.style.resolution = scene.sys.game.config.resolution;
+        }
+
+        /**
+         * The internal crop data object, as used by `setCrop` and passed to the `Frame.setCropUVs` method.
+         *
+         * @name Phaser.GameObjects.Text#_crop
+         * @type {object}
+         * @private
+         * @since 3.12.0
+         */
+        this._crop = this.resetCropObject();
+
+        //  Create a Texture for this Text object
+        this.texture = scene.sys.textures.addCanvas(null, this.canvas, true);
+
+        //  Get the frame
+        this.frame = this.texture.get();
+
+        //  Set the resolution
+        this.frame.source.resolution = this.style.resolution;
+
+        if (this.renderer && this.renderer.gl)
+        {
+            //  Clear the default 1x1 glTexture, as we override it later
+
+            this.renderer.deleteTexture(this.frame.source.glTexture);
+
+            this.frame.source.glTexture = null;
         }
 
         this.initRTL();
@@ -27318,7 +27456,6 @@ var Text = new Class({
         {
             scene.sys.game.renderer.onContextRestored(function ()
             {
-                this.canvasTexture = null;
                 this.dirty = true;
             }, this);
         }
@@ -28117,6 +28254,9 @@ var Text = new Class({
         {
             canvas.width = w;
             canvas.height = h;
+
+            this.frame.setSize(w, h);
+
             style.syncFont(canvas, context); // Resizing resets the context
         }
         else
@@ -28191,6 +28331,12 @@ var Text = new Class({
 
         context.restore();
 
+        if (this.renderer.gl)
+        {
+            this.frame.source.glTexture = this.renderer.canvasToTexture(canvas, this.frame.source.glTexture);
+            this.frame.glTexture = this.frame.source.glTexture;
+        }
+
         this.dirty = true;
 
         return this;
@@ -28255,6 +28401,8 @@ var Text = new Class({
         }
 
         CanvasPool.remove(this.canvas);
+
+        this.texture.destroy();
     }
 
 });
@@ -28294,58 +28442,10 @@ module.exports = Text;
  */
 var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix)
 {
-    if (src.text === '')
+    if (src.text !== '')
     {
-        return;
+        renderer.batchSprite(src, src.frame, camera, parentMatrix);
     }
-    
-    var ctx = renderer.currentContext;
-
-    var alpha = camera.alpha * src.alpha;
-
-    if (alpha === 0)
-    {
-        //  Nothing to see, so abort early
-        return;
-    }
-    
-    //  Blend Mode
-    ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
-
-    //  Alpha
-    ctx.globalAlpha = alpha;
-
-    var canvas = src.canvas;
-
-    ctx.save();
-
-    if (parentMatrix)
-    {
-        parentMatrix.copyToContext(ctx);
-    }
-
-    var tx = src.x - camera.scrollX * src.scrollFactorX;
-    var ty = src.y - camera.scrollY * src.scrollFactorY;
-
-    if (camera.roundPixels)
-    {
-        tx |= 0;
-        ty |= 0;
-    }
-
-    ctx.translate(tx, ty);
-
-    ctx.rotate(src.rotation);
-
-    ctx.scale(src.scaleX, src.scaleY);
-
-    ctx.translate(canvas.width * (src.flipX ? 1 : 0), canvas.height * (src.flipY ? 1 : 0));
-
-    ctx.scale(src.flipX ? -1 : 1, src.flipY ? -1 : 1);
-
-    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, -src.displayOriginX, -src.displayOriginY, canvas.width / src.style.resolution, canvas.height / src.style.resolution);
-
-    ctx.restore();
 };
 
 module.exports = TextCanvasRenderer;
@@ -28564,27 +28664,24 @@ var TextWebGLRenderer = function (renderer, src, interpolationPercentage, camera
     {
         return;
     }
-    
-    if (src.dirty)
-    {
-        src.canvasTexture = renderer.canvasToTexture(src.canvas, src.canvasTexture);
-        src.dirty = false;
-    }
 
+    var frame = src.frame;
+    var width = frame.width;
+    var height = frame.height;
     var getTint = Utils.getTintAppendFloatAlpha;
 
     this.pipeline.batchTexture(
         src,
-        src.canvasTexture,
-        src.canvasTexture.width, src.canvasTexture.height,
+        frame.glTexture,
+        width, height,
         src.x, src.y,
-        src.canvasTexture.width / src.style.resolution, src.canvasTexture.height / src.style.resolution,
+        width / src.style.resolution, height / src.style.resolution,
         src.scaleX, src.scaleY,
         src.rotation,
         src.flipX, src.flipY,
         src.scrollFactorX, src.scrollFactorY,
         src.displayOriginX, src.displayOriginY,
-        0, 0, src.canvasTexture.width, src.canvasTexture.height,
+        0, 0, width, height,
         getTint(src._tintTL, camera.alpha * src._alphaTL),
         getTint(src._tintTR, camera.alpha * src._alphaTR),
         getTint(src._tintBL, camera.alpha * src._alphaBL),
@@ -54825,6 +54922,119 @@ var CanvasRenderer = new Class({
         this.snapshotEncoder = encoderOptions;
     },
 
+    batchSprite: function (sprite, frame, camera, parentTransformMatrix)
+    {
+        var alpha = camera.alpha * sprite.alpha;
+
+        if (alpha === 0)
+        {
+            //  Nothing to see, so abort early
+            return;
+        }
+    
+        var ctx = this.currentContext;
+
+        var camMatrix = this._tempMatrix1;
+        var spriteMatrix = this._tempMatrix2;
+        var calcMatrix = this._tempMatrix3;
+
+        var cd = frame.canvasData;
+
+        var frameX = cd.x;
+        var frameY = cd.y;
+        var frameWidth = frame.width;
+        var frameHeight = frame.height;
+        var res = frame.source.resolution;
+
+        var x = -sprite.displayOriginX + frame.x;
+        var y = -sprite.displayOriginY + frame.y;
+
+        var fx = (sprite.flipX) ? -1 : 1;
+        var fy = (sprite.flipY) ? -1 : 1;
+    
+        if (sprite.isCropped)
+        {
+            var crop = sprite._crop;
+
+            if (crop.flipX !== sprite.flipX || crop.flipY !== sprite.flipY)
+            {
+                frame.updateCropUVs(crop, sprite.flipX, sprite.flipY);
+            }
+
+            frameWidth = crop.cw;
+            frameHeight = crop.ch;
+    
+            frameX = crop.cx;
+            frameY = crop.cy;
+
+            x = -sprite.displayOriginX + crop.x;
+            y = -sprite.displayOriginY + crop.y;
+
+            if (fx === -1)
+            {
+                if (x >= 0)
+                {
+                    x = -(x + frameWidth);
+                }
+                else if (x < 0)
+                {
+                    x = (Math.abs(x) - frameWidth);
+                }
+            }
+        
+            if (fy === -1)
+            {
+                if (y >= 0)
+                {
+                    y = -(y + frameHeight);
+                }
+                else if (y < 0)
+                {
+                    y = (Math.abs(y) - frameHeight);
+                }
+            }
+        }
+
+        spriteMatrix.applyITRS(sprite.x, sprite.y, sprite.rotation, sprite.scaleX, sprite.scaleY);
+
+        camMatrix.copyFrom(camera.matrix);
+
+        if (parentTransformMatrix)
+        {
+            //  Multiply the camera by the parent matrix
+            camMatrix.multiplyWithOffset(parentTransformMatrix, -camera.scrollX * sprite.scrollFactorX, -camera.scrollY * sprite.scrollFactorY);
+
+            //  Undo the camera scroll
+            spriteMatrix.e = sprite.x;
+            spriteMatrix.f = sprite.y;
+
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
+        }
+        else
+        {
+            spriteMatrix.e -= camera.scrollX * sprite.scrollFactorX;
+            spriteMatrix.f -= camera.scrollY * sprite.scrollFactorY;
+    
+            //  Multiply by the Sprite matrix, store result in calcMatrix
+            camMatrix.multiply(spriteMatrix, calcMatrix);
+        }
+
+        ctx.save();
+       
+        calcMatrix.setToContext(ctx);
+
+        ctx.scale(fx, fy);
+
+        ctx.globalCompositeOperation = this.blendModes[sprite.blendMode];
+
+        ctx.globalAlpha = alpha;
+
+        ctx.drawImage(frame.source.image, frameX, frameY, frameWidth, frameHeight, x, y, frameWidth / res, frameHeight / res);
+
+        ctx.restore();
+    },
+
     /**
      * [description]
      *
@@ -55135,6 +55345,95 @@ var GetBlendModes = function ()
 };
 
 module.exports = GetBlendModes;
+
+
+/***/ }),
+
+/***/ "./renderer/canvas/utils/SetTransform.js":
+/*!***********************************************!*\
+  !*** ./renderer/canvas/utils/SetTransform.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * Takes a reference to the Canvas Renderer, a Canvas Rendering Context, a Game Object, a Camera and a parent matrix
+ * and then performs the following steps:
+ * 
+ * 1) Checks the alpha of the source combined with the Camera alpha. If 0 or less it aborts.
+ * 2) Takes the Camera and Game Object matrix and multiplies them, combined with the parent matrix if given.
+ * 3) Sets the blend mode of the context to be that used by the Game Object.
+ * 4) Sets the alpha value of the context to be that used by the Game Object combined with the Camera.
+ * 5) Saves the context state.
+ * 6) Sets the final matrix values into the context via setTransform.
+ * 
+ * This function is only meant to be used internally. Most of the Canvas Renderer classes use it.
+ *
+ * @function Phaser.Renderer.Canvas.SetTransform
+ * @since 3.12.0
+ *
+ * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {Phaser.GameObjects.GameObject} src - The Game Object being rendered. Can be any type that extends the base class.
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
+ * @param {Phaser.GameObjects.Components.TransformMatrix} [parentMatrix] - A parent transform matrix to apply to the Game Object before rendering.
+ * 
+ * @return {boolean} `true` if the Game Object context was set, otherwise `false`.
+ */
+var SetTransform = function (renderer, ctx, src, camera, parentMatrix)
+{
+    var alpha = camera.alpha * src.alpha;
+
+    if (alpha <= 0)
+    {
+        //  Nothing to see, so don't waste time calculating stuff
+        return false;
+    }
+
+    var camMatrix = renderer._tempMatrix1.copyFromArray(camera.matrix.matrix);
+    var gameObjectMatrix = renderer._tempMatrix2.applyITRS(src.x, src.y, src.rotation, src.scaleX, src.scaleY);
+    var calcMatrix = renderer._tempMatrix3;
+
+    if (parentMatrix)
+    {
+        //  Multiply the camera by the parent matrix
+        camMatrix.multiplyWithOffset(parentMatrix, -camera.scrollX * src.scrollFactorX, -camera.scrollY * src.scrollFactorY);
+
+        //  Undo the camera scroll
+        gameObjectMatrix.e = src.x;
+        gameObjectMatrix.f = src.y;
+
+        //  Multiply by the Sprite matrix, store result in calcMatrix
+        camMatrix.multiply(gameObjectMatrix, calcMatrix);
+    }
+    else
+    {
+        gameObjectMatrix.e -= camera.scrollX * src.scrollFactorX;
+        gameObjectMatrix.f -= camera.scrollY * src.scrollFactorY;
+
+        //  Multiply by the Sprite matrix, store result in calcMatrix
+        camMatrix.multiply(gameObjectMatrix, calcMatrix);
+    }
+
+    //  Blend Mode
+    ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
+
+    //  Alpha
+    ctx.globalAlpha = alpha;
+
+    ctx.save();
+
+    calcMatrix.setToContext(ctx);
+
+    return true;
+};
+
+module.exports = SetTransform;
 
 
 /***/ }),
@@ -56473,23 +56772,12 @@ var WebGLRenderer = new Class({
         this.currentScissor = null;
 
         /**
-         * Index to the scissor stack top
-         *
-         * @name Phaser.Renderer.WebGL.WebGLRenderer#currentScissorIdx
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
-        // this.currentScissorIdx = 0;
-
-        /**
          * Stack of scissor data
          *
          * @name Phaser.Renderer.WebGL.WebGLRenderer#scissorStack
          * @type {Uint32Array}
          * @since 3.0.0
          */
-        // this.scissorStack = new Uint32Array(4 * 1000);
         this.scissorStack = [];
 
         // Setup context lost and restore event listeners
@@ -59827,11 +60115,54 @@ var TextureTintPipeline = new Class({
         var spriteMatrix = this._tempMatrix2;
         var calcMatrix = this._tempMatrix3;
 
+        var u0 = (frameX / textureWidth) + uOffset;
+        var v0 = (frameY / textureHeight) + vOffset;
+        var u1 = (frameX + frameWidth) / textureWidth + uOffset;
+        var v1 = (frameY + frameHeight) / textureHeight + vOffset;
+
         var width = srcWidth;
         var height = srcHeight;
 
+        // var x = -displayOriginX + frameX;
+        // var y = -displayOriginY + frameY;
+
         var x = -displayOriginX;
         var y = -displayOriginY;
+
+        if (gameObject.isCropped)
+        {
+            var crop = gameObject._crop;
+
+            width = crop.width;
+            height = crop.height;
+
+            srcWidth = crop.width;
+            srcHeight = crop.height;
+
+            frameX = crop.x;
+            frameY = crop.y;
+
+            var ox = frameX;
+            var oy = frameY;
+
+            if (flipX)
+            {
+                ox = (frameWidth - crop.x - crop.width);
+            }
+    
+            if (flipY && !texture.isRenderTexture)
+            {
+                oy = (frameHeight - crop.y - crop.height);
+            }
+
+            u0 = (ox / textureWidth) + uOffset;
+            v0 = (oy / textureHeight) + vOffset;
+            u1 = (ox + crop.width) / textureWidth + uOffset;
+            v1 = (oy + crop.height) / textureHeight + vOffset;
+
+            x = -displayOriginX + frameX;
+            y = -displayOriginY + frameY;
+        }
 
         //  Invert the flipY if this is a RenderTexture
         flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
@@ -59848,11 +60179,12 @@ var TextureTintPipeline = new Class({
             y += srcHeight;
         }
 
-        if (camera.roundPixels)
-        {
-            x |= 0;
-            y |= 0;
-        }
+        //  Do we need this? (doubt it)
+        // if (camera.roundPixels)
+        // {
+        //     x |= 0;
+        //     y |= 0;
+        // }
 
         var xw = x + width;
         var yh = y + height;
@@ -59908,11 +60240,6 @@ var TextureTintPipeline = new Class({
             tx3 |= 0;
             ty3 |= 0;
         }
-
-        var u0 = (frameX / textureWidth) + uOffset;
-        var v0 = (frameY / textureHeight) + vOffset;
-        var u1 = (frameX + frameWidth) / textureWidth + uOffset;
-        var v1 = (frameY + frameHeight) / textureHeight + vOffset;
 
         this.setTexture2D(texture, 0);
 
@@ -74009,22 +74336,29 @@ var TextureManager = new Class({
     },
 
     /**
-     * Creates a new Canvas Texture object from an existing Canvas element and adds
-     * it to this Texture Manager.
+     * Creates a new Canvas Texture object from an existing Canvas element
+     * and adds it to this Texture Manager, unless `skipCache` is true.
      *
      * @method Phaser.Textures.TextureManager#addCanvas
      * @since 3.0.0
      *
      * @param {string} key - The unique string-based key of the Texture.
      * @param {HTMLCanvasElement} source - The Canvas element to form the base of the new Texture.
+     * @param {boolean} [skipCache=false] - Skip adding this Texture into the Cache?
      *
      * @return {?Phaser.Textures.CanvasTexture} The Canvas Texture that was created, or `null` if the key is already in use.
      */
-    addCanvas: function (key, source)
+    addCanvas: function (key, source, skipCache)
     {
+        if (skipCache === undefined) { skipCache = false; }
+
         var texture = null;
 
-        if (this.checkKey(key))
+        if (skipCache)
+        {
+            texture = new CanvasTexture(this, key, source, source.width, source.height);
+        }
+        else if (this.checkKey(key))
         {
             texture = new CanvasTexture(this, key, source, source.width, source.height);
 
@@ -74587,6 +74921,40 @@ var TextureManager = new Class({
     },
 
     /**
+     * Changes the key being used by a Texture to the new key provided.
+     * 
+     * The old key is removed, allowing it to be re-used.
+     * 
+     * Game Objects are linked to Textures by a reference to the Texture object, so
+     * all existing references will be retained.
+     *
+     * @method Phaser.Textures.TextureManager#renameTexture
+     * @since 3.12.0
+     *
+     * @param {string} currentKey - The current string-based key of the Texture you wish to rename.
+     * @param {string} newKey - The new unique string-based key to use for the Texture.
+     *
+     * @return {boolean} `true` if the Texture key was successfully renamed, otherwise `false`.
+     */
+    renameTexture: function (currentKey, newKey)
+    {
+        var texture = this.get(currentKey);
+
+        if (texture && currentKey !== newKey)
+        {
+            texture.key = newKey;
+
+            this.list[newKey] = texture;
+
+            delete this.list[currentKey];
+
+            return true;
+        }
+
+        return false;
+    },
+
+    /**
      * Passes all Textures to the given callback.
      *
      * @method Phaser.Textures.TextureManager#each
@@ -74831,8 +75199,9 @@ var TextureSource = new Class({
                 }
                 else if (this.isRenderTexture)
                 {
-                    this.glTexture = this.source.texture;
                     this.image = this.source.canvas;
+                 
+                    this.glTexture = this.renderer.createTextureFromSource(null, this.width, this.height, this.scaleMode);
                 }
                 else
                 {

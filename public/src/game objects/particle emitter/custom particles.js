@@ -43,7 +43,8 @@ let config = {
 };
 
 let anim;
-let game = new Phaser.Game(config);
+
+var game = new Phaser.Game(config);
 
 function preload ()
 {

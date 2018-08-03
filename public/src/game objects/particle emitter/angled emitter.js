@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     width: 800,
     height: 600,
     backgroundColor: '#000',

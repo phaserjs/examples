@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -13,6 +13,7 @@ var config = {
 };
 
 var controls;
+
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -32,7 +33,7 @@ function create ()
 
     var map2 = this.add.tilemap('map3');
     var tileset2 = map2.addTilesetImage('SuperMarioBrosMap1-3_bank.png', 'tiles3');
-    var layer2 = map2.createStaticLayer('ShoeBox Tile Grab', tileset2, 900, 300);
+    var layer2 = map2.createStaticLayer('ShoeBox Tile Grab', tileset2, 700, 300);
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -45,7 +46,7 @@ function create ()
 
     controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
-    this.cameras.main.setBounds(0, 0, layer2.x + layer2.width, 0);
+    this.cameras.main.setBounds(0, 0, layer2.x + layer2.width + 600, 0);
 }
 
 function update (time, delta)

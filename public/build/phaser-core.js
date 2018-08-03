@@ -46,17 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -24360,7 +24375,7 @@ var Commands = __webpack_require__(/*! ./Commands */ "./gameobjects/graphics/Com
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  * @param {CanvasRenderingContext2D} [renderTargetCtx] - The target rendering context.
- * @param {boolean} allowClip - [description]
+ * @param {boolean} allowClip - If `true` then path operations will be used instead of fill operations.
  */
 var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, camera, parentMatrix, renderTargetCtx, allowClip)
 {
@@ -24382,8 +24397,6 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     var green = 0;
     var blue = 0;
 
-    //  Alpha
-
     var alpha = camera.alpha * src.alpha;
 
     if (alpha === 0)
@@ -24391,33 +24404,18 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
         //  Nothing to see, so abort early
         return;
     }
-    else if (renderer.currentAlpha !== alpha)
-    {
-        renderer.currentAlpha = alpha;
-        ctx.globalAlpha = alpha;
-    }
 
     //  Blend Mode
-    if (renderer.currentBlendMode !== src.blendMode)
-    {
-        renderer.currentBlendMode = src.blendMode;
-        ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
-    }
+    ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
 
-    //  Smoothing
-    if (renderer.currentScaleMode !== src.scaleMode)
-    {
-        renderer.currentScaleMode = src.scaleMode;
-    }
+    //  Alpha
+    ctx.globalAlpha = alpha;
 
     ctx.save();
 
     var camMatrix = renderer._tempMatrix1;
     var graphicsMatrix = renderer._tempMatrix2;
     var calcMatrix = renderer._tempMatrix3;
-    var currentMatrix = renderer._tempMatrix4;
-   
-    currentMatrix.loadIdentity();
 
     graphicsMatrix.applyITRS(src.x, src.y, src.rotation, src.scaleX, src.scaleY);
 
@@ -24447,7 +24445,6 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     calcMatrix.copyToContext(ctx);
 
     ctx.fillStyle = '#fff';
-    ctx.globalAlpha = src.alpha;
 
     for (var index = 0; index < commandBufferLength; ++index)
     {
@@ -28304,8 +28301,6 @@ var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camer
     
     var ctx = renderer.currentContext;
 
-    //  Alpha
-
     var alpha = camera.alpha * src.alpha;
 
     if (alpha === 0)
@@ -28313,35 +28308,20 @@ var TextCanvasRenderer = function (renderer, src, interpolationPercentage, camer
         //  Nothing to see, so abort early
         return;
     }
-    else if (renderer.currentAlpha !== alpha)
-    {
-        renderer.currentAlpha = alpha;
-        ctx.globalAlpha = alpha;
-    }
     
     //  Blend Mode
+    ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
 
-    if (renderer.currentBlendMode !== src.blendMode)
-    {
-        renderer.currentBlendMode = src.blendMode;
-        ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
-    }
-
-    //  Smoothing
-
-    if (renderer.currentScaleMode !== src.scaleMode)
-    {
-        renderer.currentScaleMode = src.scaleMode;
-    }
+    //  Alpha
+    ctx.globalAlpha = alpha;
 
     var canvas = src.canvas;
 
     ctx.save();
 
-    if (parentMatrix !== undefined)
+    if (parentMatrix)
     {
-        var matrix = parentMatrix.matrix;
-        ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
+        parentMatrix.copyToContext(ctx);
     }
 
     var tx = src.x - camera.scrollX * src.scrollFactorX;
@@ -51959,10 +51939,11 @@ module.exports = RandomDataGenerator;
  * @param {number} value - The value to snap.
  * @param {number} gap - The interval gap of the grid.
  * @param {number} [start=0] - Optional starting offset for gap.
+ * @param {boolean} [divide=false] - If `true` it will divide the snapped value by the gap before returning.
  *
  * @return {number} The snapped value.
  */
-var SnapFloor = function (value, gap, start)
+var SnapFloor = function (value, gap, start, divide)
 {
     if (start === undefined) { start = 0; }
 
@@ -51974,7 +51955,7 @@ var SnapFloor = function (value, gap, start)
     value -= start;
     value = gap * Math.floor(value / gap);
 
-    return start + value;
+    return (divide) ? (start + value) / gap : start + value;
 };
 
 module.exports = SnapFloor;
@@ -54482,26 +54463,6 @@ var CanvasRenderer = new Class({
         /**
          * [description]
          *
-         * @name Phaser.Renderer.Canvas.CanvasRenderer#currentAlpha
-         * @type {number}
-         * @default 1
-         * @since 3.0.0
-         */
-        this.currentAlpha = 1;
-
-        /**
-         * [description]
-         *
-         * @name Phaser.Renderer.Canvas.CanvasRenderer#currentBlendMode
-         * @type {number}
-         * @default 0
-         * @since 3.0.0
-         */
-        this.currentBlendMode = 0;
-
-        /**
-         * [description]
-         *
          * @name Phaser.Renderer.Canvas.CanvasRenderer#currentScaleMode
          * @type {number}
          * @default 0
@@ -54668,17 +54629,13 @@ var CanvasRenderer = new Class({
      *
      * @param {number} blendMode - [description]
      *
-     * @return {number} [description]
+     * @return {this} [description]
      */
     setBlendMode: function (blendMode)
     {
-        if (this.currentBlendMode !== blendMode)
-        {
-            this.currentContext.globalCompositeOperation = blendMode;
-            this.currentBlendMode = blendMode;
-        }
+        this.currentContext.globalCompositeOperation = blendMode;
 
-        return this.currentBlendMode;
+        return this;
     },
 
     /**
@@ -54706,17 +54663,13 @@ var CanvasRenderer = new Class({
      *
      * @param {number} alpha - [description]
      *
-     * @return {number} [description]
+     * @return {this} [description]
      */
     setAlpha: function (alpha)
     {
-        if (this.currentAlpha !== alpha)
-        {
-            this.currentContext.globalAlpha = alpha;
-            this.currentAlpha = alpha;
-        }
+        this.currentContext.globalAlpha = alpha;
 
-        return this.currentAlpha;
+        return this;
     },
 
     /**
@@ -54783,15 +54736,7 @@ var CanvasRenderer = new Class({
 
         ctx.globalAlpha = camera.alpha;
 
-        this.currentAlpha = camera.alpha;
-
-        if (this.currentBlendMode !== 0)
-        {
-            ctx.globalCompositeOperation = 'source-over';
-            this.currentBlendMode = 0;
-        }
-
-        this.currentScaleMode = 0;
+        ctx.globalCompositeOperation = 'source-over';
 
         this.drawCount += list.length;
 
@@ -54803,9 +54748,7 @@ var CanvasRenderer = new Class({
             ctx.clip();
         }
 
-        var matrix = camera.matrix.matrix;
-
-        ctx.setTransform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
+        camera.matrix.copyToContext(ctx);
 
         for (var i = 0; i < childCount; i++)
         {
@@ -54857,9 +54800,6 @@ var CanvasRenderer = new Class({
 
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = 'source-over';
-
-        this.currentAlpha = 1;
-        this.currentBlendMode = 0;
 
         if (this.snapshotCallback)
         {
@@ -55038,15 +54978,11 @@ var DrawImage = function (src, camera, parentTransformMatrix)
         return;
     }
 
-    ctx.globalAlpha = alpha;
-
     //  Blend Mode
+    ctx.globalCompositeOperation = this.blendModes[src.blendMode];
 
-    if (this.currentBlendMode !== src.blendMode)
-    {
-        this.currentBlendMode = src.blendMode;
-        ctx.globalCompositeOperation = this.blendModes[src.blendMode];
-    }
+    //  Alpha
+    ctx.globalAlpha = alpha;
 
     var camMatrix = _tempCameraMatrix;
     var spriteMatrix = _tempSpriteMatrix;

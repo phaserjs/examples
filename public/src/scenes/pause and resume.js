@@ -20,12 +20,20 @@ var SceneA = new Phaser.Class({
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function () {
+        this.input.once('pointerup', function () {
 
             this.scene.pause();
             this.scene.launch('sceneB');
 
         }, this);
+
+        this.events.on('pause', function () {
+            console.log('Scene A paused');
+        })
+
+        this.events.on('resume', function () {
+            console.log('Scene A resumed');
+        })
     },
 
     update: function (time, delta)

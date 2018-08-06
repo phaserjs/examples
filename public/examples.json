@@ -1414,9 +1414,15 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\ignore gameobjects in containers.js",
+          "name": "ignore gameobjects in containers.js",
+          "size": 1852,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\ignore gameobjects.js",
           "name": "ignore gameobjects.js",
-          "size": 986,
+          "size": 1617,
           "extension": ".js"
         },
         {
@@ -1601,7 +1607,7 @@
           "extension": ".js"
         }
       ],
-      "size": 141213
+      "size": 143696
     },
     {
       "path": "src\\components",
@@ -3422,7 +3428,7 @@
             {
               "path": "src\\game objects\\graphics\\rect test.js",
               "name": "rect test.js",
-              "size": 533,
+              "size": 531,
               "extension": ".js"
             },
             {
@@ -3571,7 +3577,7 @@
               "size": 9314
             }
           ],
-          "size": 185242
+          "size": 185240
         },
         {
           "path": "src\\game objects\\group",
@@ -5164,7 +5170,7 @@
           "size": 261680
         }
       ],
-      "size": 871482
+      "size": 871480
     },
     {
       "path": "src\\games",
@@ -10666,5 +10672,5 @@
       "size": 5291
     }
   ],
-  "size": 2769101
+  "size": 2771582
 }

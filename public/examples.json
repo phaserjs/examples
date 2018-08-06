@@ -1414,6 +1414,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\ignore gameobjects.js",
+          "name": "ignore gameobjects.js",
+          "size": 986,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\ignore.js",
           "name": "ignore.js",
           "size": 1199,
@@ -1595,7 +1601,7 @@
           "extension": ".js"
         }
       ],
-      "size": 140227
+      "size": 141213
     },
     {
       "path": "src\\components",
@@ -10660,5 +10666,5 @@
       "size": 5291
     }
   ],
-  "size": 2768115
+  "size": 2769101
 }

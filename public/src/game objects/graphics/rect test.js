@@ -22,5 +22,4 @@ function create ()
 
     graphics.fillStyle(0x00ff00, 1);
     graphics.fillTriangle(200, 200, 400, 50, 500, 300);
-
 }

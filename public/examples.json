@@ -1093,18 +1093,6 @@
       "name": "bugs",
       "children": [
         {
-          "path": "src\\bugs\\container bounds.js",
-          "name": "container bounds.js",
-          "size": 1025,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\bugs\\emitter blend mode.js",
-          "name": "emitter blend mode.js",
-          "size": 559,
-          "extension": ".js"
-        },
-        {
           "path": "src\\bugs\\game destroy.js",
           "name": "game destroy.js",
           "size": 1602,
@@ -1115,15 +1103,9 @@
           "name": "mask.js",
           "size": 1590,
           "extension": ".js"
-        },
-        {
-          "path": "src\\bugs\\particles.js",
-          "name": "particles.js",
-          "size": 993,
-          "extension": ".js"
         }
       ],
-      "size": 5769
+      "size": 3192
     },
     {
       "path": "src\\cache",
@@ -4412,6 +4394,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\render texture\\scene to render texture quad.js",
+              "name": "scene to render texture quad.js",
+              "size": 6888,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\scene to render texture with crop.js",
               "name": "scene to render texture with crop.js",
               "size": 5390,
@@ -4484,7 +4472,7 @@
               "extension": ".js"
             }
           ],
-          "size": 47400
+          "size": 54288
         },
         {
           "path": "src\\game objects\\sprites",
@@ -4870,7 +4858,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\base tile size.js",
                   "name": "base tile size.js",
-                  "size": 1867,
+                  "size": 1929,
                   "extension": ".js"
                 },
                 {
@@ -4976,7 +4964,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 67405
+              "size": 67467
             },
             {
               "path": "src\\game objects\\tilemap\\static",
@@ -5167,10 +5155,10 @@
               "size": 71042
             }
           ],
-          "size": 261680
+          "size": 261742
         }
       ],
-      "size": 871480
+      "size": 878430
     },
     {
       "path": "src\\games",
@@ -10672,5 +10660,5 @@
       "size": 5291
     }
   ],
-  "size": 2771582
+  "size": 2775955
 }

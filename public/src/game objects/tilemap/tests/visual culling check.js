@@ -63,7 +63,7 @@ function create() {
     var dangerousTiles = map.addTilesetImage('dangerous-kiss');
     var layer = map.createDynamicLayer('Tile Layer 1', ground_1x1, 0, 300);
     var layer2 = map.createStaticLayer('Offset Tile Layer', tiles2, 0, 300);
-    var layer3 = map.createDynamicLayer('Small Tile Layer', dangerousTiles, 0, 300);
+    var layer3 = map.createDynamicLayer('Small Tile Layer', dangerousTiles, 300, 300).setScrollFactor(0.5);
 
     var cursors = this.input.keyboard.createCursorKeys();
     var controlConfig = {

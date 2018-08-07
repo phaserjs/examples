@@ -250,7 +250,7 @@
         {
           "path": "src\\animation\\generate frames.js",
           "name": "generate frames.js",
-          "size": 613,
+          "size": 690,
           "extension": ".js"
         },
         {
@@ -374,7 +374,7 @@
           "extension": ".js"
         }
       ],
-      "size": 40327
+      "size": 40404
     },
     {
       "path": "src\\archived",
@@ -1511,6 +1511,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\render to texture.js",
+          "name": "render to texture.js",
+          "size": 1253,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\rotate camera.js",
           "name": "rotate camera.js",
           "size": 1813,
@@ -1589,7 +1595,7 @@
           "extension": ".js"
         }
       ],
-      "size": 143696
+      "size": 144949
     },
     {
       "path": "src\\components",
@@ -2384,6 +2390,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game config\\scale\\scaled canvas.js",
+              "name": "scaled canvas.js",
+              "size": 469,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game config\\scale\\sprite ondown.js",
               "name": "sprite ondown.js",
               "size": 1325,
@@ -2396,7 +2408,7 @@
               "extension": ".js"
             }
           ],
-          "size": 4478
+          "size": 4947
         },
         {
           "path": "src\\game config\\transparent.js",
@@ -2405,7 +2417,7 @@
           "extension": ".js"
         }
       ],
-      "size": 20707
+      "size": 21176
     },
     {
       "path": "src\\game objects",
@@ -4468,11 +4480,11 @@
             {
               "path": "src\\game objects\\render texture\\transform draw.js",
               "name": "transform draw.js",
-              "size": 669,
+              "size": 582,
               "extension": ".js"
             }
           ],
-          "size": 54396
+          "size": 54309
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5158,7 +5170,7 @@
           "size": 261765
         }
       ],
-      "size": 878561
+      "size": 878474
     },
     {
       "path": "src\\games",
@@ -7761,11 +7773,11 @@
             {
               "path": "src\\loader\\loader events\\test loading files already loaded.js",
               "name": "test loading files already loaded.js",
-              "size": 2805,
+              "size": 2955,
               "extension": ".js"
             }
           ],
-          "size": 49403
+          "size": 49553
         },
         {
           "path": "src\\loader\\plugin",
@@ -7844,11 +7856,11 @@
             {
               "path": "src\\loader\\svg\\load svg.js",
               "name": "load svg.js",
-              "size": 800,
+              "size": 908,
               "extension": ".js"
             }
           ],
-          "size": 800
+          "size": 908
         },
         {
           "path": "src\\loader\\texture atlas json",
@@ -8000,7 +8012,7 @@
           "size": 5331
         }
       ],
-      "size": 126659
+      "size": 126917
     },
     {
       "path": "src\\paths",
@@ -9952,6 +9964,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\textures\\texture from base64.js",
+          "name": "texture from base64.js",
+          "size": 4374,
+          "extension": ".js"
+        },
+        {
           "path": "src\\textures\\texture packer atlas.js",
           "name": "texture packer atlas.js",
           "size": 956,
@@ -9970,7 +9988,7 @@
           "extension": ".js"
         }
       ],
-      "size": 39110
+      "size": 43484
     },
     {
       "path": "src\\time",
@@ -10666,5 +10684,5 @@
       "size": 5291
     }
   ],
-  "size": 2778995
+  "size": 2785339
 }

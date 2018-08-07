@@ -2484,6 +2484,21 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  */
 
 /**
+ * @typedef {object} ScaleConfig
+ *
+ * @property {(integer|string)} [width=1024] - The base width of your game.
+ * @property {(integer|string)} [height=768] - The base height of your game.
+ * @property {integer} [zoom=1] - The zoom value of the game canvas.
+ * @property {number} [resolution=1] - The rendering resolution of the canvas.
+ * @property {any} [parent] - The parent DOM element.
+ * @property {integer} [mode=0] - The scale mode to apply to the canvas.
+ * @property {integer} [minWidth] - The minimum width the canvas can be scaled down to.
+ * @property {integer} [minHeight] - The minimum height the canvas can be scaled down to.
+ * @property {integer} [maxWidth] - The maximum width the canvas can be scaled up to.
+ * @property {integer} [maxHeight] - The maximum height the canvas can be scaled up to.
+ */
+
+/**
  * @typedef {object} LoaderConfig
  *
  * @property {string} [baseURL] - [description]
@@ -2611,14 +2626,35 @@ var Config = new Class({
         this.resolution = GetValue(config, 'resolution', 1);
 
         /**
-         * @const {number} Phaser.Boot.Config#renderType - [description]
-         */
-        this.renderType = GetValue(config, 'type', CONST.AUTO);
-
-        /**
          * @const {?*} Phaser.Boot.Config#parent - [description]
          */
         this.parent = GetValue(config, 'parent', null);
+
+        /**
+         * @const {?*} Phaser.Boot.Config#scaleMode - [description]
+         */
+        this.scaleMode = GetValue(config, 'scaleMode', 0);
+
+        //  Scale Manager - Anything set in here over-rides anything set above
+
+        var scaleConfig = GetValue(config, 'scale', null);
+
+        if (scaleConfig)
+        {
+            this.width = GetValue(scaleConfig, 'width', this.width);
+            this.height = GetValue(scaleConfig, 'height', this.height);
+            this.zoom = GetValue(scaleConfig, 'zoom', this.zoom);
+            this.resolution = GetValue(scaleConfig, 'resolution', this.resolution);
+            this.parent = GetValue(scaleConfig, 'parent', this.parent);
+            this.scaleMode = GetValue(scaleConfig, 'mode', this.scaleMode);
+
+            //  TODO: Add in min / max sizes
+        }
+
+        /**
+         * @const {number} Phaser.Boot.Config#renderType - [description]
+         */
+        this.renderType = GetValue(config, 'type', CONST.AUTO);
 
         /**
          * @const {?HTMLCanvasElement} Phaser.Boot.Config#canvas - Force Phaser to use your own Canvas element instead of creating one.
@@ -3374,6 +3410,7 @@ var FacebookInstantGamesPlugin = __webpack_require__(/*! ../fbinstant/FacebookIn
 var InputManager = __webpack_require__(/*! ../input/InputManager */ "./input/InputManager.js");
 var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 var PluginManager = __webpack_require__(/*! ../plugins/PluginManager */ "./plugins/PluginManager.js");
+var ScaleManager = __webpack_require__(/*! ./ScaleManager */ "./boot/ScaleManager.js");
 var SceneManager = __webpack_require__(/*! ../scene/SceneManager */ "./scene/SceneManager.js");
 var SoundManagerCreator = __webpack_require__(/*! ../sound/SoundManagerCreator */ "./sound/SoundManagerCreator.js");
 var TextureManager = __webpack_require__(/*! ../textures/TextureManager */ "./textures/TextureManager.js");
@@ -3566,6 +3603,17 @@ var Game = new Class({
          * @since 3.0.0
          */
         this.device = Device;
+
+        /**
+         * An instance of the Scale Manager.
+         *
+         * The Scale Manager is a global system responsible for handling game scaling events.
+         *
+         * @name Phaser.Game#scaleManager
+         * @type {Phaser.Boot.ScaleManager}
+         * @since 3.12.0
+         */
+        this.scaleManager = new ScaleManager(this, this.config);
 
         /**
          * An instance of the base Sound Manager.
@@ -4108,6 +4156,310 @@ var Game = new Class({
 });
 
 module.exports = Game;
+
+
+/***/ }),
+
+/***/ "./boot/ScaleManager.js":
+/*!******************************!*\
+  !*** ./boot/ScaleManager.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var Vec2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
+
+/*
+    Use `scaleMode` SHOW_ALL.
+    Use `scaleMode` EXACT_FIT.
+    Use `scaleMode` USER_SCALE. Examine `parentBounds` in the {@link #setResizeCallback resize callback} and call {@link #setUserScale} if necessary.
+    Use `scaleMode` RESIZE. Examine the game or canvas size from the {@link #onSizeChange} signal **or** the {@link Phaser.State#resize} callback and reposition game objects if necessary.
+
+    Canvas width / height in the element
+    Canvas CSS width / height in the style
+
+    Detect orientation
+    Lock orientation (Android only?)
+    Full-screen support
+
+    Scale Mode - 
+*/
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class ScaleManager
+ * @memberOf Phaser.Boot
+ * @constructor
+ * @since 3.12.0
+ *
+ * @param {Phaser.Game} game - A reference to the Phaser.Game instance.
+ * @param {ScaleManagerConfig} config
+ */
+var ScaleManager = new Class({
+
+    initialize:
+
+    function ScaleManager (game, config)
+    {
+        /**
+         * A reference to the Phaser.Game instance.
+         *
+         * @name Phaser.Boot.ScaleManager#game
+         * @type {Phaser.Game}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.game = game;
+
+        this.config = config;
+
+        /**
+         * Target width (in pixels) of the Display canvas.
+         * @property {number} width
+         * @readonly
+         */
+        this.width = 0;
+
+        /**
+         * Target height (in pixels) of the Display canvas.
+         * @property {number} height
+         * @readonly
+         */
+        this.height = 0;
+
+        this.zoom = 0;
+
+        this.resolution = 1;
+
+        this.parent = null;
+
+        this.scaleMode = 0;
+
+        /**
+         * Minimum width the canvas should be scaled to (in pixels).
+         * Change with {@link #setMinMax}.
+         * @property {?number} minWidth
+         * @readonly
+         * @protected
+         */
+        this.minWidth = null;
+
+        /**
+         * Minimum height the canvas should be scaled to (in pixels).
+         * Change with {@link #setMinMax}.
+         * @property {?number} minHeight
+         * @readonly
+         * @protected
+         */
+        this.minHeight = null;
+
+        /**
+         * Maximum width the canvas should be scaled to (in pixels).
+         * If null it will scale to whatever width the browser can handle.
+         * Change with {@link #setMinMax}.
+         * @property {?number} maxWidth
+         * @readonly
+         * @protected
+         */
+        this.maxWidth = null;
+
+        /**
+         * Maximum height the canvas should be scaled to (in pixels).
+         * If null it will scale to whatever height the browser can handle.
+         * Change with {@link #setMinMax}.
+         * @property {?number} maxHeight
+         * @readonly
+         * @protected
+         */
+        this.maxHeight = null;
+
+        /**
+         * The _current_ scale factor based on the game dimensions vs. the scaled dimensions.
+         * @property {Phaser.Point} scaleFactor
+         * @readonly
+         */
+        this.scaleFactor = new Vec2(1, 1);
+
+        /**
+         * The _current_ inversed scale factor. The displayed dimensions divided by the game dimensions.
+         * @property {Phaser.Point} scaleFactorInversed
+         * @readonly
+         * @protected
+         */
+        this.scaleFactorInversed = new Vec2(1, 1);
+
+        /**
+         * The aspect ratio of the scaled Display canvas.
+         * @property {number} aspectRatio
+         * @readonly
+         */
+        this.aspectRatio = 0;
+
+        /**
+         * The aspect ratio of the original game dimensions.
+         * @property {number} sourceAspectRatio
+         * @readonly
+         */
+        this.sourceAspectRatio = 0;
+
+        /**
+         * True if the the browser window (instead of the display canvas's DOM parent) should be used as the bounding parent.
+         *
+         * This is set automatically based on the `parent` argument passed to {@link Phaser.Game}.
+         *
+         * The {@link #parentNode} property is generally ignored while this is in effect.
+         *
+         * @property {boolean} parentIsWindow
+         */
+        this.parentIsWindow = false;
+
+        /**
+         * The _original_ DOM element for the parent of the Display canvas.
+         * This may be different in fullscreen - see {@link #createFullScreenTarget}.
+         *
+         * This is set automatically based on the `parent` argument passed to {@link Phaser.Game}.
+         *
+         * This should only be changed after moving the Game canvas to a different DOM parent.
+         *
+         * @property {?DOMElement} parentNode
+         */
+        this.parentNode = null;
+
+        /**
+         * The scale of the game in relation to its parent container.
+         * @property {Phaser.Point} parentScaleFactor
+         * @readonly
+         */
+        this.parentScaleFactor = new Vec2(1, 1);
+
+        this._lastParentWidth = 0;
+
+        this._lastParentHeight = 0;
+
+        this._innerHeight = 0;
+
+        this.init();
+    },
+
+    init: function ()
+    {
+        this._innerHeight = this.getInnerHeight();
+
+        // var gameWidth = this.config.width;
+        // var gameHeight = this.config.height;
+    },
+
+    centerDisplay: function ()
+    {
+        var height = this.height;
+        var gameWidth = 0;
+        var gameHeight = 0;
+
+        this.parentNode.style.display = 'flex';
+        this.parentNode.style.height = height + 'px';
+
+        this.canvas.style.margin = 'auto';
+        this.canvas.style.width = gameWidth + 'px';
+        this.canvas.style.height = gameHeight + 'px';
+    },
+
+    /*
+    iOS10 Resize hack. Thanks, Apple.
+
+    I._onWindowResize = function(a) {
+        if (this._lastReportedWidth != document.body.offsetWidth) {
+            this._lastReportedWidth = document.body.offsetWidth;
+            if (this._isAutoPlaying && this._cancelAutoPlayOnInteraction) {
+                this.stopAutoPlay(a)
+            }
+            window.clearTimeout(this._onResizeDebouncedTimeout);
+            this._onResizeDebouncedTimeout = setTimeout(this._onResizeDebounced, 500);
+            aj._onWindowResize.call(this, a)
+        }
+    };
+    */
+
+    resizeHandler: function ()
+    {
+
+    },
+
+    /*
+    resize: function ()
+    {
+        let scale = Math.min(window.innerWidth / canvas.width, window.innerHeight / canvas.height);
+        let orientation = 'left';
+        let extra = (this.mobile) ? 'margin-left: -50%': '';
+        let margin = window.innerWidth / 2 - (canvas.width / 2) * scale;
+
+        canvas.setAttribute('style', '-ms-transform-origin: ' + orientation + ' top; -webkit-transform-origin: ' + orientation + ' top;' +
+            ' -moz-transform-origin: ' + orientation + ' top; -o-transform-origin: ' + orientation + ' top; transform-origin: ' + orientation + ' top;' +
+            ' -ms-transform: scale(' + scale + '); -webkit-transform: scale3d(' + scale + ', 1);' +
+            ' -moz-transform: scale(' + scale + '); -o-transform: scale(' + scale + '); transform: scale(' + scale + ');' +
+            ' display: block; margin-left: ' + margin + 'px;'
+        );
+    },
+    */
+
+    getInnerHeight: function ()
+    {
+        //  Based on code by @tylerjpeterson
+
+        if (!this.game.device.os.iOS)
+        {
+            return window.innerHeight;
+        }
+
+        var axis = Math.abs(window.orientation);
+
+        var size = { w: 0, h: 0 };
+        
+        var ruler = document.createElement('div');
+
+        ruler.setAttribute('style', 'position: fixed; height: 100vh; width: 0; top: 0');
+
+        document.documentElement.appendChild(ruler);
+
+        size.w = (axis === 90) ? ruler.offsetHeight : window.innerWidth;
+        size.h = (axis === 90) ? window.innerWidth : ruler.offsetHeight;
+
+        document.documentElement.removeChild(ruler);
+
+        ruler = null;
+
+        if (Math.abs(window.orientation) !== 90)
+        {
+            return size.h;
+        }
+        else
+        {
+            return size.w;
+        }
+    },
+
+    /**
+     * Destroys the ScaleManager.
+     *
+     * @method Phaser.Boot.ScaleManager#destroy
+     * @since 3.12.0
+     */
+    destroy: function ()
+    {
+        this.game = null;
+    }
+
+});
+
+module.exports = ScaleManager;
 
 
 /***/ }),
@@ -6787,6 +7139,11 @@ var BaseCamera = new Class({
      */
     updateSystem: function ()
     {
+        if (!this.config)
+        {
+            return;
+        }
+
         var custom = false;
 
         if (this._x !== 0 || this._y !== 0)
@@ -7185,6 +7542,7 @@ module.exports = BaseCamera;
  */
 
 var BaseCamera = __webpack_require__(/*! ./BaseCamera */ "./cameras/2d/BaseCamera.js");
+var CanvasPool = __webpack_require__(/*! ../../display/canvas/CanvasPool */ "./display/canvas/CanvasPool.js");
 var CenterOn = __webpack_require__(/*! ../../geom/rectangle/CenterOn */ "./geom/rectangle/CenterOn.js");
 var Clamp = __webpack_require__(/*! ../../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
@@ -7361,6 +7719,84 @@ var Camera = new Class({
          * @since 3.0.0
          */
         this._follow = null;
+
+        this.renderToTexture = false;
+
+        /**
+         * The HTML Canvas Element that the Render Texture is drawing to.
+         * This is only populated if Phaser is running with the Canvas Renderer.
+         *
+         * @name Phaser.GameObjects.RenderTexture#canvas
+         * @type {HTMLCanvasElement}
+         * @since 3.12.0
+         */
+        this.canvas = null;
+
+        /**
+         * A reference to the Rendering Context belonging to the Canvas Element this Render Texture is drawing to.
+         *
+         * @name Phaser.GameObjects.RenderTexture#context
+         * @type {CanvasRenderingContext2D}
+         * @since 3.12.0
+         */
+        this.context = null;
+
+        /**
+         * A reference to the GL Frame Buffer this Render Texture is drawing to.
+         * This is only set if Phaser is running with the WebGL Renderer.
+         *
+         * @name Phaser.GameObjects.RenderTexture#framebuffer
+         * @type {?WebGLFramebuffer}
+         * @since 3.12.0
+         */
+        this.glTexture = null;
+
+        /**
+         * A reference to the GL Frame Buffer this Render Texture is drawing to.
+         * This is only set if Phaser is running with the WebGL Renderer.
+         *
+         * @name Phaser.GameObjects.RenderTexture#framebuffer
+         * @type {?WebGLFramebuffer}
+         * @since 3.12.0
+         */
+        this.framebuffer = null;
+
+        this.pipeline = null;
+
+        this.flipX = false;
+        this.flipY = false;
+        this.tintFill = 0;
+        this._isTinted = false;
+        this._tintTL = 0xffffff;
+        this._tintTR = 0xffffff;
+        this._tintBL = 0xffffff;
+        this._tintBR = 0xffffff;
+        this._alphaTL = 1;
+        this._alphaTR = 1;
+        this._alphaBL = 1;
+        this._alphaBR = 1;
+    },
+
+    setRenderToTexture: function (pipeline)
+    {
+        var renderer = this.scene.sys.game.renderer;
+
+        if (renderer.gl)
+        {
+            this.glTexture = renderer.createTextureFromSource(null, this.width, this.height, 0);
+            this.framebuffer = renderer.createFramebuffer(this.width, this.height, this.glTexture, false);
+        }
+        else
+        {
+            this.canvas = CanvasPool.create2D(this, this.width, this.height);
+            this.context = this.canvas.getContext('2d');
+        }
+
+        this.renderToTexture = true;
+
+        this.pipeline = pipeline;
+
+        return this;
     },
 
     /**
@@ -10558,7 +10994,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.12.0-beta1',
+    VERSION: '3.12.0-beta2',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -53285,6 +53721,7 @@ var DefaultPlugins = {
      */
     Global: [
 
+        'game',
         'anims',
         'cache',
         'facebook',
@@ -53827,6 +54264,10 @@ var PluginManager = new Class({
                 {
                     scene[map[pluginKey]] = sys[pluginKey];
                 }
+            }
+            else if (pluginKey === 'game' && map.hasOwnProperty(pluginKey))
+            {
+                scene[map[pluginKey]] = game;
             }
         }
 
@@ -56925,6 +57366,7 @@ var WebGLPipeline = new Class({
     setFloat1: function (name, x)
     {
         this.renderer.setFloat1(this.program, name, x);
+
         return this;
     },
 
@@ -56942,8 +57384,8 @@ var WebGLPipeline = new Class({
      */
     setFloat2: function (name, x, y)
     {
-
         this.renderer.setFloat2(this.program, name, x, y);
+
         return this;
     },
 
@@ -56962,8 +57404,8 @@ var WebGLPipeline = new Class({
      */
     setFloat3: function (name, x, y, z)
     {
-
         this.renderer.setFloat3(this.program, name, x, y, z);
+
         return this;
     },
 
@@ -56983,8 +57425,8 @@ var WebGLPipeline = new Class({
      */
     setFloat4: function (name, x, y, z, w)
     {
-
         this.renderer.setFloat4(this.program, name, x, y, z, w);
+
         return this;
     },
 
@@ -57002,6 +57444,7 @@ var WebGLPipeline = new Class({
     setInt1: function (name, x)
     {
         this.renderer.setInt1(this.program, name, x);
+
         return this;
     },
 
@@ -57020,6 +57463,7 @@ var WebGLPipeline = new Class({
     setInt2: function (name, x, y)
     {
         this.renderer.setInt2(this.program, name, x, y);
+
         return this;
     },
 
@@ -57039,6 +57483,7 @@ var WebGLPipeline = new Class({
     setInt3: function (name, x, y, z)
     {
         this.renderer.setInt3(this.program, name, x, y, z);
+
         return this;
     },
 
@@ -57059,6 +57504,7 @@ var WebGLPipeline = new Class({
     setInt4: function (name, x, y, z, w)
     {
         this.renderer.setInt4(this.program, name, x, y, z, w);
+
         return this;
     },
 
@@ -57078,6 +57524,7 @@ var WebGLPipeline = new Class({
     setMatrix2: function (name, transpose, matrix)
     {
         this.renderer.setMatrix2(this.program, name, transpose, matrix);
+
         return this;
     },
 
@@ -57098,6 +57545,7 @@ var WebGLPipeline = new Class({
     setMatrix3: function (name, transpose, matrix)
     {
         this.renderer.setMatrix3(this.program, name, transpose, matrix);
+
         return this;
     },
 
@@ -57116,6 +57564,7 @@ var WebGLPipeline = new Class({
     setMatrix4: function (name, transpose, matrix)
     {
         this.renderer.setMatrix4(this.program, name, transpose, matrix);
+
         return this;
     }
 
@@ -57140,6 +57589,7 @@ module.exports = WebGLPipeline;
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
+var BaseCamera = __webpack_require__(/*! ../../cameras/2d/BaseCamera */ "./cameras/2d/BaseCamera.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ../../const */ "./const.js");
 var IsSizePowerOfTwo = __webpack_require__(/*! ../../math/pow2/IsSizePowerOfTwo */ "./math/pow2/IsSizePowerOfTwo.js");
@@ -57551,6 +58001,8 @@ var WebGLRenderer = new Class({
          */
         this.blankTexture = null;
 
+        this.defaultCamera = new BaseCamera(0, 0, 0, 0);
+
         /**
          * A temporary Transform Matrix, re-used internally during batching.
          *
@@ -57760,6 +58212,8 @@ var WebGLRenderer = new Class({
         }
         
         this.drawingBufferHeight = gl.drawingBufferHeight;
+
+        this.defaultCamera.setSize(width, height);
 
         return this;
     },
@@ -58658,14 +59112,36 @@ var WebGLRenderer = new Class({
 
         this.pushScissor(cx, cy, cw, ch);
 
-        if (camera.backgroundColor.alphaGL > 0)
-        {
-            var color = camera.backgroundColor;
-            var TextureTintPipeline = this.pipelines.TextureTintPipeline;
+        var TextureTintPipeline = this.pipelines.TextureTintPipeline;
 
+        var color = camera.backgroundColor;
+
+        if (camera.renderToTexture)
+        {
+            this.setFramebuffer(camera.framebuffer);
+
+            var gl = this.gl;
+        
+            gl.clearColor(0, 0, 0, 0);
+    
+            gl.clear(gl.COLOR_BUFFER_BIT);
+
+            TextureTintPipeline.projOrtho(0, camera.width, 0, camera.height, -1000, 1000);
+
+            if (color.alphaGL > 0)
+            {
+                TextureTintPipeline.drawFillRect(
+                    cx, cy, cw, ch,
+                    Utils.getTintFromFloats(color.redGL, color.greenGL, color.blueGL, 1),
+                    color.alphaGL
+                );
+            }
+        }
+        else if (color.alphaGL > 0)
+        {
             TextureTintPipeline.drawFillRect(
                 cx, cy, cw, ch,
-                Utils.getTintFromFloats(color.redGL, color.greenGL, color.blueGL, 1.0),
+                Utils.getTintFromFloats(color.redGL, color.greenGL, color.blueGL, 1),
                 color.alphaGL
             );
         }
@@ -58690,6 +59166,42 @@ var WebGLRenderer = new Class({
         camera.dirty = false;
 
         this.popScissor();
+
+        if (camera.renderToTexture)
+        {
+            TextureTintPipeline.flush();
+
+            this.setFramebuffer(null);
+
+            TextureTintPipeline.projOrtho(0, TextureTintPipeline.width, TextureTintPipeline.height, 0, -1000.0, 1000.0);
+
+            var getTint = Utils.getTintAppendFloatAlpha;
+        
+            camera.pipeline.batchTexture(
+                camera,
+                camera.glTexture,
+                camera.width, camera.height,
+                camera.x, camera.y,
+                camera.width, camera.height,
+                camera.zoom, camera.zoom,
+                camera.rotation,
+                camera.flipX, !camera.flipY,
+                1, 1,
+                0, 0,
+                0, 0, camera.width, camera.height,
+                getTint(camera._tintTL, camera.alpha * camera._alphaTL),
+                getTint(camera._tintTR, camera.alpha * camera._alphaTR),
+                getTint(camera._tintBL, camera.alpha * camera._alphaBL),
+                getTint(camera._tintBR, camera.alpha * camera._alphaBR),
+                (camera._isTinted && camera.tintFill),
+                0, 0,
+                this.defaultCamera,
+                null
+            );
+
+            //  Force clear the current texture so that items next in the batch (like Graphics) don't try and use it
+            this.setBlankTexture(true);
+        }
     },
 
     /**
@@ -74843,6 +75355,8 @@ var TextureManager = new Class({
      *
      * @param {string} key - The unique string-based key of the Texture.
      * @param {*} data - The Base64 encoded data.
+     * 
+     * @return {this} This Texture Manager instance.
      */
     addBase64: function (key, data)
     {
@@ -74870,6 +75384,8 @@ var TextureManager = new Class({
 
             image.src = data;
         }
+
+        return this;
     },
 
     /**

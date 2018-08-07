@@ -16,6 +16,7 @@ function preload ()
 {
     this.load.svg('pencil', 'assets/svg/pencil.svg');
     this.load.svg('cartman', 'assets/svg/cartman.svg');
+    this.load.svg('fireflower', 'assets/svg/fireflower.svg');
 
     // this.load.svg({ key: 'pencil', file: 'assets/svg/pencil.svg' });
     // this.load.svg({ key: 'cartman', file: 'assets/svg/cartman.svg' });
@@ -30,6 +31,7 @@ function preload ()
 
 function create ()
 {
+    this.add.image(400, 300, 'fireflower');
     this.add.image(400, 300, 'pencil');
     this.add.image(150, 300, 'cartman');
 }

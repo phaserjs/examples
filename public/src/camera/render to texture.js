@@ -67,7 +67,9 @@ function create ()
 
     // this.cameras.main.setBounds(-560, -240, 1920, 1080);
     this.cameras.main.ignore(hotdog);
-    this.cameras.main.setRenderToTexture(customPipeline);
+    this.cameras.main.setRenderToTexture();
+    // this.cameras.main.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
+    // this.cameras.main.setAlpha(1, 0, 1, 0);
 
     var cam1 = this.cameras.add(0, 0, 800, 600);
 

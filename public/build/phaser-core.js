@@ -46,17 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -2519,6 +2534,26 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [behindCanvas=false] - Place the DOM Container behind the Phaser Canvas. The default is to place it over the Canvas.
  */
 
+/** 
+ * @typedef {object} PluginObjectItem
+ * 
+ * @property {string} [key] - [description]
+ * @property {*} [plugin] - [description]
+ * @property {boolean} [start] - [description]
+ * @property {string} [systemKey] - [description]
+ * @property {string} [sceneKey] - [description]
+ * @property {*} [data] - [description]
+ */
+
+/** 
+ * @typedef {object} PluginObject
+ * 
+ * @property {PluginObjectItem[]} [global=null] - [description]
+ * @property {PluginObjectItem[]} [scene=null] - [description]
+ * @property {Array} [default=[]] - [description]
+ * @property {*} [defaultMerge={}] - [description]
+ */
+
 /**
  * @typedef {object} GameConfig
  *
@@ -2574,6 +2609,7 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {string} [images.default] - [description]
  * @property {string} [images.missing] - [description]
  * @property {object} [physics] - [description]
+ * @property {PluginObject|PluginObjectItem[]} [plugins] - [description]
  */
 
 /**
@@ -5746,6 +5782,7 @@ module.exports = {
  */
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+var Components = __webpack_require__(/*! ../../gameobjects/components */ "./gameobjects/components/index.js");
 var DegToRad = __webpack_require__(/*! ../../math/DegToRad */ "./math/DegToRad.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 var Rectangle = __webpack_require__(/*! ../../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
@@ -5807,10 +5844,13 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * to when they were added to the Camera class.
  *
  * @class BaseCamera
- * @extends Phaser.Events.EventEmitter
  * @memberOf Phaser.Cameras.Scene2D
  * @constructor
  * @since 3.12.0
+ * 
+ * @extends Phaser.Events.EventEmitter
+ * @extends Phaser.GameObjects.Components.Alpha
+ * @extends Phaser.GameObjects.Components.Visible
  *
  * @param {number} x - The x position of the Camera, relative to the top-left of the game canvas.
  * @param {number} y - The y position of the Camera, relative to the top-left of the game canvas.
@@ -5820,6 +5860,11 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
 var BaseCamera = new Class({
 
     Extends: EventEmitter,
+
+    Mixins: [
+        Components.Alpha,
+        Components.Visible
+    ],
 
     initialize:
 
@@ -5911,8 +5956,8 @@ var BaseCamera = new Class({
          * @type {boolean}
          * @default true
          * @since 3.10.0
-         */
         this.visible = true;
+         */
 
         /**
          * Is this Camera using a bounds to restrict scrolling movement?
@@ -6163,8 +6208,8 @@ var BaseCamera = new Class({
          * @type {number}
          * @default 1
          * @since 3.11.0
-         */
         this.alpha = 1;
+         */
 
         /**
          * Should the camera cull Game Objects before checking them for input hit tests?
@@ -6259,7 +6304,6 @@ var BaseCamera = new Class({
      * @param {number} [value=1] - The Camera alpha value.
      *
      * @return {this} This Camera instance.
-     */
     setAlpha: function (value)
     {
         if (value === undefined) { value = 1; }
@@ -6268,6 +6312,7 @@ var BaseCamera = new Class({
 
         return this;
     },
+     */
 
     /**
      * Sets the rotation origin of this Camera.
@@ -7070,13 +7115,13 @@ var BaseCamera = new Class({
      * @param {boolean} value - The visible state of the Camera.
      *
      * @return {this} This Camera instance.
-     */
     setVisible: function (value)
     {
         this.visible = value;
 
         return this;
     },
+     */
 
     /**
      * Returns an Object suitable for JSON storage containing all of the Camera viewport and rendering properties.
@@ -7546,6 +7591,7 @@ var CanvasPool = __webpack_require__(/*! ../../display/canvas/CanvasPool */ "./d
 var CenterOn = __webpack_require__(/*! ../../geom/rectangle/CenterOn */ "./geom/rectangle/CenterOn.js");
 var Clamp = __webpack_require__(/*! ../../math/Clamp */ "./math/Clamp.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+var Components = __webpack_require__(/*! ../../gameobjects/components */ "./gameobjects/components/index.js");
 var Effects = __webpack_require__(/*! ./effects */ "./cameras/2d/effects/index.js");
 var Linear = __webpack_require__(/*! ../../math/Linear */ "./math/Linear.js");
 var Rectangle = __webpack_require__(/*! ../../geom/rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
@@ -7575,10 +7621,13 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
  * A Camera also has built-in special effects including Fade, Flash and Camera Shake.
  *
  * @class Camera
- * @extends Phaser.Cameras.Scene2D.BaseCamera
  * @memberOf Phaser.Cameras.Scene2D
  * @constructor
  * @since 3.0.0
+ * 
+ * @extends Phaser.Cameras.Scene2D.BaseCamera
+ * @extends Phaser.GameObjects.Components.Flip
+ * @extends Phaser.GameObjects.Components.Tint
  *
  * @param {number} x - The x position of the Camera, relative to the top-left of the game canvas.
  * @param {number} y - The y position of the Camera, relative to the top-left of the game canvas.
@@ -7588,6 +7637,11 @@ var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js")
 var Camera = new Class({
 
     Extends: BaseCamera,
+
+    Mixins: [
+        Components.Flip,
+        Components.Tint
+    ],
 
     initialize:
 
@@ -7763,18 +7817,18 @@ var Camera = new Class({
 
         this.pipeline = null;
 
-        this.flipX = false;
-        this.flipY = false;
-        this.tintFill = 0;
-        this._isTinted = false;
-        this._tintTL = 0xffffff;
-        this._tintTR = 0xffffff;
-        this._tintBL = 0xffffff;
-        this._tintBR = 0xffffff;
-        this._alphaTL = 1;
-        this._alphaTR = 1;
-        this._alphaBL = 1;
-        this._alphaBR = 1;
+        // this.flipX = false;
+        // this.flipY = false;
+        // this.tintFill = 0;
+        // this._isTinted = false;
+        // this._tintTL = 0xffffff;
+        // this._tintTR = 0xffffff;
+        // this._tintBL = 0xffffff;
+        // this._tintBR = 0xffffff;
+        // this._alphaTL = 1;
+        // this._alphaTR = 1;
+        // this._alphaBL = 1;
+        // this._alphaBR = 1;
     },
 
     setRenderToTexture: function (pipeline)
@@ -7794,7 +7848,10 @@ var Camera = new Class({
 
         this.renderToTexture = true;
 
-        this.pipeline = pipeline;
+        if (pipeline)
+        {
+            this.pipeline = pipeline;
+        }
 
         return this;
     },
@@ -59176,8 +59233,10 @@ var WebGLRenderer = new Class({
             TextureTintPipeline.projOrtho(0, TextureTintPipeline.width, TextureTintPipeline.height, 0, -1000.0, 1000.0);
 
             var getTint = Utils.getTintAppendFloatAlpha;
+
+            var p = (camera.pipeline) ? camera.pipeline : TextureTintPipeline;
         
-            camera.pipeline.batchTexture(
+            p.batchTexture(
                 camera,
                 camera.glTexture,
                 camera.width, camera.height,
@@ -59189,10 +59248,10 @@ var WebGLRenderer = new Class({
                 1, 1,
                 0, 0,
                 0, 0, camera.width, camera.height,
-                getTint(camera._tintTL, camera.alpha * camera._alphaTL),
-                getTint(camera._tintTR, camera.alpha * camera._alphaTR),
-                getTint(camera._tintBL, camera.alpha * camera._alphaBL),
-                getTint(camera._tintBR, camera.alpha * camera._alphaBR),
+                getTint(camera._tintTL, camera._alphaTL),
+                getTint(camera._tintTR, camera._alphaTR),
+                getTint(camera._tintBL, camera._alphaBL),
+                getTint(camera._tintBR, camera._alphaBR),
                 (camera._isTinted && camera.tintFill),
                 0, 0,
                 this.defaultCamera,

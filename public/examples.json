@@ -1390,6 +1390,18 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/game shader test 1.js",
+          "name": "game shader test 1.js",
+          "size": 5226,
+          "extension": ".js"
+        },
+        {
+          "path": "src/camera/game shader test 2.js",
+          "name": "game shader test 2.js",
+          "size": 5790,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/graphics landscape.js",
           "name": "graphics landscape.js",
           "size": 2856,
@@ -1537,7 +1549,7 @@
         {
           "path": "src/camera/render to texture shader 6.js",
           "name": "render to texture shader 6.js",
-          "size": 3376,
+          "size": 2401,
           "extension": ".js"
         },
         {
@@ -1631,7 +1643,7 @@
           "extension": ".js"
         }
       ],
-      "size": 157610
+      "size": 167651
     },
     {
       "path": "src/components",
@@ -4352,6 +4364,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/game objects/render texture/destroy render texture.js",
+              "name": "destroy render texture.js",
+              "size": 1130,
+              "extension": ".js"
+            },
+            {
               "path": "src/game objects/render texture/draw on texture.js",
               "name": "draw on texture.js",
               "size": 1984,
@@ -4526,7 +4544,7 @@
               "extension": ".js"
             }
           ],
-          "size": 51955
+          "size": 53085
         },
         {
           "path": "src/game objects/sprites",
@@ -5212,7 +5230,7 @@
           "size": 253747
         }
       ],
-      "size": 846003
+      "size": 847133
     },
     {
       "path": "src/games",
@@ -6851,6 +6869,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/input/camera/large world high res.js",
+              "name": "large world high res.js",
+              "size": 1922,
+              "extension": ".js"
+            },
+            {
               "path": "src/input/camera/multi cam sprite.js",
               "name": "multi cam sprite.js",
               "size": 5483,
@@ -6875,7 +6899,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17837
+          "size": 19759
         },
         {
           "path": "src/input/cursors",
@@ -7531,7 +7555,7 @@
           "size": 9241
         }
       ],
-      "size": 141215
+      "size": 143137
     },
     {
       "path": "src/loader",
@@ -10726,5 +10750,5 @@
       "size": 5041
     }
   ],
-  "size": 2692227
+  "size": 2705320
 }

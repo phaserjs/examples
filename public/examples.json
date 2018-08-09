@@ -1093,6 +1093,12 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src/bugs/damping.js",
+          "name": "damping.js",
+          "size": 659,
+          "extension": ".js"
+        },
+        {
           "path": "src/bugs/game destroy.js",
           "name": "game destroy.js",
           "size": 1521,
@@ -1105,7 +1111,7 @@
           "extension": ".js"
         }
       ],
-      "size": 3046
+      "size": 3705
     },
     {
       "path": "src/cache",
@@ -1398,7 +1404,13 @@
         {
           "path": "src/camera/game shader test 2.js",
           "name": "game shader test 2.js",
-          "size": 5790,
+          "size": 4942,
+          "extension": ".js"
+        },
+        {
+          "path": "src/camera/game shader test 3.js",
+          "name": "game shader test 3.js",
+          "size": 5260,
           "extension": ".js"
         },
         {
@@ -1643,7 +1655,7 @@
           "extension": ".js"
         }
       ],
-      "size": 167651
+      "size": 172063
     },
     {
       "path": "src/components",
@@ -10750,5 +10762,5 @@
       "size": 5041
     }
   ],
-  "size": 2705320
+  "size": 2710391
 }

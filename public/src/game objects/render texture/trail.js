@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -14,7 +14,7 @@ var game = new Phaser.Game(config);
 
 var rt;
 var trail;
-var player;
+var bubble;
 var tween;
 
 function preload ()
@@ -26,14 +26,14 @@ function create ()
 {
     rt = this.add.renderTexture(0, 0, 800, 600);
 
-    trail = this.add.image(400, 300, 'bubble').setVisible(false);
+    trail = this.add.image(400, 300, 'bubble');
 
-    player = this.add.image(400, 300, 'bubble');
+    bubble = this.add.image(400, 300, 'bubble');
 
     tween = this.tweens.add({
         targets: trail,
-        x: player.x,
-        y: player.y,
+        x: bubble.x,
+        y: bubble.y,
         ease: 'Sine.easeInOut',
         duration: 50000,
         repeat: -1
@@ -42,18 +42,16 @@ function create ()
 
 function update ()
 {
-    player.x = this.input.x;
-    player.y = this.input.y;
+    bubble.setPosition(this.input.x, this.input.y);
 
-    var dist = Phaser.Math.Distance.Between(trail.x, trail.y, player.x, player.y);
+    var dist = Phaser.Math.Distance.Between(trail.x, trail.y, bubble.x, bubble.y);
 
     tween.timeScale = dist / 100;
 
-    tween.updateTo('x', player.x, true);
-    tween.updateTo('y', player.y, true);
+    tween.updateTo('x', bubble.x, true);
+    tween.updateTo('y', bubble.y, true);
 
-    trail.setAlpha(100 / (dist + 0.001));
-    trail.setTint(dist | 0xff0000);
+    trail.setAlpha(100 / (dist + 0.001)).setTint(dist | 0xff0000);
 
     rt.draw(trail);
 }

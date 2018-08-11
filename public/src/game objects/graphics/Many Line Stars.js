@@ -18,6 +18,7 @@ function create() {
     var radius = 10;
     var radius2 = radius * 2;
     var maxWidth = (800 / radius2)|0;
+
     for (var i = 0; i < 1200; ++i)
     {
         var graphics = this.add.graphics({x: radius + (i % maxWidth) * radius2, y: radius + ((i / maxWidth)|0) * radius2});
@@ -27,7 +28,8 @@ function create() {
     }
 }
 
-function update() {
+function update ()
+{
     for (var i = 0; i < stars.length; ++i)
     {
         var star = stars[i];

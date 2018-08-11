@@ -19,6 +19,8 @@ function preload ()
 
 function create ()
 {
+    console.log(this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }));
+
     //  Create an animation with 5 frames
     this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
 

@@ -21,13 +21,9 @@ function create ()
     //  Create a Render Texture at 0x0 which is 800x600 in size
     var rt = this.add.renderTexture(0, 0, 800, 600);
 
-    //  Get a texture to draw with
-    var bunny = this.textures.getFrame('bunny');
+    rt.camera.setAngle(20);
+    rt.camera.setZoom(2);
+    rt.camera.setPosition(450, 350);
 
-    rt.rotate(0.9);
-    rt.scale(0.5, 0.5);
-    rt.translate(600, 200);
-
-    rt.draw(bunny.texture, bunny, 200, 0);
-
+    rt.drawFrame('bunny');
 }

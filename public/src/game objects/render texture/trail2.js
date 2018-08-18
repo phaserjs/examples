@@ -22,7 +22,7 @@ function preload()
 
 function create() 
 {
-    rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 }).setOrigin(0, 0);
+    rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
 
     player = this.add.image(256, 256, 'dude');
     player.setOrigin(0.5, 0.5);
@@ -30,16 +30,8 @@ function create()
 
 function update()
 {
-    player.x = this.input.x;
-    player.y = this.input.y;
+    player.setPosition(this.input.x, this.input.y);
 
-    draw();
+    rt.draw(player);
 }
 
-function draw() 
-{
-    rt.save();
-    rt.translate(player.x, player.y);
-    rt.draw(player.texture, player.frame, -player.width / 2, -player.height / 2);
-    rt.restore();
-}

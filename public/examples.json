@@ -5102,13 +5102,19 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src/game objects/tilemap/dynamic/tile draw order.js",
+                  "name": "tile draw order.js",
+                  "size": 1341,
+                  "extension": ".js"
+                },
+                {
                   "path": "src/game objects/tilemap/dynamic/weighted randomize.js",
                   "name": "weighted randomize.js",
                   "size": 2816,
                   "extension": ".js"
                 }
               ],
-              "size": 65484
+              "size": 66825
             },
             {
               "path": "src/game objects/tilemap/static",
@@ -5211,6 +5217,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src/game objects/tilemap/static/tile draw order.js",
+                  "name": "tile draw order.js",
+                  "size": 1341,
+                  "extension": ".js"
+                },
+                {
                   "path": "src/game objects/tilemap/static/tile properties.js",
                   "name": "tile properties.js",
                   "size": 1911,
@@ -5247,7 +5259,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 49048
+              "size": 50389
             },
             {
               "path": "src/game objects/tilemap/tests",
@@ -5299,10 +5311,10 @@
               "size": 69009
             }
           ],
-          "size": 253747
+          "size": 256429
         }
       ],
-      "size": 847004
+      "size": 849686
     },
     {
       "path": "src/games",
@@ -7510,7 +7522,7 @@
             {
               "path": "src/input/pixel perfect/atlas frame.js",
               "name": "atlas frame.js",
-              "size": 768,
+              "size": 771,
               "extension": ".js"
             },
             {
@@ -7532,7 +7544,7 @@
               "extension": ".js"
             }
           ],
-          "size": 4232
+          "size": 4235
         },
         {
           "path": "src/input/pointer",
@@ -7639,7 +7651,7 @@
           "size": 9241
         }
       ],
-      "size": 144478
+      "size": 144481
     },
     {
       "path": "src/loader",
@@ -9145,6 +9157,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/physics/matterjs/increase body scale.js",
+              "name": "increase body scale.js",
+              "size": 1040,
+              "extension": ".js"
+            },
+            {
               "path": "src/physics/matterjs/mixed bodies.js",
               "name": "mixed bodies.js",
               "size": 1185,
@@ -9247,7 +9265,7 @@
               "extension": ".js"
             }
           ],
-          "size": 54504
+          "size": 55544
         },
         {
           "path": "src/physics/multi",
@@ -9269,7 +9287,7 @@
           "size": 2643
         }
       ],
-      "size": 180024
+      "size": 181064
     },
     {
       "path": "src/plugins",
@@ -10840,5 +10858,5 @@
       "size": 5041
     }
   ],
-  "size": 2726017
+  "size": 2729742
 }

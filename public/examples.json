@@ -1125,11 +1125,17 @@
         {
           "path": "src/bugs/multi pan.js",
           "name": "multi pan.js",
-          "size": 3010,
+          "size": 2608,
+          "extension": ".js"
+        },
+        {
+          "path": "src/bugs/rt crop.js",
+          "name": "rt crop.js",
+          "size": 1125,
           "extension": ".js"
         }
       ],
-      "size": 8117
+      "size": 8840
     },
     {
       "path": "src/cache",
@@ -7502,6 +7508,12 @@
           "name": "pixel perfect",
           "children": [
             {
+              "path": "src/input/pixel perfect/atlas frame.js",
+              "name": "atlas frame.js",
+              "size": 768,
+              "extension": ".js"
+            },
+            {
               "path": "src/input/pixel perfect/on down.js",
               "name": "on down.js",
               "size": 1207,
@@ -7520,7 +7532,7 @@
               "extension": ".js"
             }
           ],
-          "size": 3464
+          "size": 4232
         },
         {
           "path": "src/input/pointer",
@@ -7627,7 +7639,7 @@
           "size": 9241
         }
       ],
-      "size": 143710
+      "size": 144478
     },
     {
       "path": "src/loader",
@@ -10828,5 +10840,5 @@
       "size": 5041
     }
   ],
-  "size": 2724526
+  "size": 2726017
 }

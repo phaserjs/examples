@@ -13,6 +13,7 @@ var config = {
 var game = new Phaser.Game(config);
 
 var rt;
+var rnd;
 var player;
 
 function preload() 
@@ -24,14 +25,14 @@ function create()
 {
     rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
 
-    player = this.add.sprite(256, 256, 'dude');
-    player.setOrigin(0.5, 0.5);
+    player = this.add.sprite(256, 256, 'dude').setOrigin(0.5, 0.5);
+
+    rnd = Math.random;
 }
 
 function update()
 {
-    player.x = this.input.x;
-    player.y = this.input.y;
+    player.setPosition(this.input.x, this.input.y);
 
     draw();
 }
@@ -39,15 +40,17 @@ function update()
 function draw() 
 {
     rt.clear();
-    rt.globalAlpha = Math.random();
-    rt.globalTint = ((0.5 + Math.random()) * 0xFFFFFF << 0);
+    
+    rt.alpha = rnd();
+    rt.tint = (0xFFFFFF << rnd()*8092);
 
     for (i = 0; i < 5; i++)
     {
-        var rot = Math.floor((Math.random() * Math.PI * 2) + 1);
-        var dist = 75 + Math.floor((Math.random() * 50) + 1);
-
-        rt.draw(player.texture, player.frame, player.x + dist * Math.cos(rot), player.y + dist * Math.sin(rot));
-        rt.restore();
+        var rot = Math.floor((rnd() * Math.PI * 2) + 1);
+        var dist = 75 + Math.floor((rnd() * 50) + 1);
+        var x = player.x + dist * Math.cos(rot);
+        var y = player.y + dist * Math.sin(rot);
+        
+        rt.draw("dude", x, y);
     }
 }

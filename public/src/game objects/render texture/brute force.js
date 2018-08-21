@@ -13,7 +13,7 @@ var config = {
 var game = new Phaser.Game(config);
 
 var rt;
-var matrixTexture;
+var rnd;
 var t;
 
 function preload()
@@ -25,9 +25,9 @@ function preload()
 
 function create()
 {
-    matrixTexture = this.textures.get('matrix');
+    rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
 
-    rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 }).setOrigin(0, 0);
+    rnd = Math.random;
 }
 
 function update()
@@ -45,17 +45,9 @@ function update()
 
 function draw()
 {
-    rt.save();
+    var alpha = rnd();
+    var tint = (0x00ffff * (rnd() * 0.1 + 0.8));
+    var frame = ~~(rnd() * 22);
 
-    rt.globalAlpha = Math.random();
-    rt.globalTint = (0x00ffff * (Math.random() * 0.1 + 0.9));
-
-    var frame = matrixTexture.frames[Math.floor(Math.random() * 10)];
-
-    var rand = Math.random() + 0.1;
-
-    rt.currentMatrix = [rand, 0, 0, rand, Math.random() * 800, Math.random() * 600];
-
-    rt.draw(matrixTexture, frame, -matrixTexture.frames[0].halfWidth, -matrixTexture.frames[0].halfHeight);
-    rt.restore();
+    rt.drawFrame("matrix", frame, rnd() * 800, rnd() * 600, alpha, tint);
 }

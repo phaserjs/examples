@@ -1101,7 +1101,7 @@
         {
           "path": "src/bugs/container tilesprite.js",
           "name": "container tilesprite.js",
-          "size": 806,
+          "size": 1095,
           "extension": ".js"
         },
         {
@@ -1121,9 +1121,15 @@
           "name": "mask.js",
           "size": 1525,
           "extension": ".js"
+        },
+        {
+          "path": "src/bugs/multi pan.js",
+          "name": "multi pan.js",
+          "size": 3010,
+          "extension": ".js"
         }
       ],
-      "size": 4818
+      "size": 8117
     },
     {
       "path": "src/cache",
@@ -1312,6 +1318,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/camera blur shader.js",
+          "name": "camera blur shader.js",
+          "size": 4016,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/camera effect callbacks.js",
           "name": "camera effect callbacks.js",
           "size": 930,
@@ -1327,6 +1339,12 @@
           "path": "src/camera/camera fade out and in.js",
           "name": "camera fade out and in.js",
           "size": 658,
+          "extension": ".js"
+        },
+        {
+          "path": "src/camera/camera filter.js",
+          "name": "camera filter.js",
+          "size": 1504,
           "extension": ".js"
         },
         {
@@ -1432,6 +1450,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/camera/ignore container.js",
+          "name": "ignore container.js",
+          "size": 1281,
+          "extension": ".js"
+        },
+        {
           "path": "src/camera/ignore gameobjects in containers.js",
           "name": "ignore gameobjects in containers.js",
           "size": 1797,
@@ -1441,6 +1465,12 @@
           "path": "src/camera/ignore gameobjects.js",
           "name": "ignore gameobjects.js",
           "size": 1570,
+          "extension": ".js"
+        },
+        {
+          "path": "src/camera/ignore group children.js",
+          "name": "ignore group children.js",
+          "size": 1564,
           "extension": ".js"
         },
         {
@@ -1667,7 +1697,7 @@
           "extension": ".js"
         }
       ],
-      "size": 172063
+      "size": 180428
     },
     {
       "path": "src/components",
@@ -4372,7 +4402,7 @@
             {
               "path": "src/game objects/render texture/brute force.js",
               "name": "brute force.js",
-              "size": 1357,
+              "size": 1049,
               "extension": ".js"
             },
             {
@@ -4420,13 +4450,13 @@
             {
               "path": "src/game objects/render texture/explosion.js",
               "name": "explosion.js",
-              "size": 1874,
+              "size": 1401,
               "extension": ".js"
             },
             {
               "path": "src/game objects/render texture/fireball.js",
               "name": "fireball.js",
-              "size": 1819,
+              "size": 1390,
               "extension": ".js"
             },
             {
@@ -4516,7 +4546,7 @@
             {
               "path": "src/game objects/render texture/sparks.js",
               "name": "sparks.js",
-              "size": 1055,
+              "size": 1026,
               "extension": ".js"
             },
             {
@@ -4558,7 +4588,7 @@
             {
               "path": "src/game objects/render texture/trail2.js",
               "name": "trail2.js",
-              "size": 806,
+              "size": 619,
               "extension": ".js"
             },
             {
@@ -4568,7 +4598,7 @@
               "extension": ".js"
             }
           ],
-          "size": 53085
+          "size": 51659
         },
         {
           "path": "src/game objects/sprites",
@@ -4745,7 +4775,7 @@
                 {
                   "path": "src/game objects/text/static/set test string.js",
                   "name": "set test string.js",
-                  "size": 583,
+                  "size": 696,
                   "extension": ".js"
                 },
                 {
@@ -4816,10 +4846,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 26395
+              "size": 26508
             }
           ],
-          "size": 26395
+          "size": 26508
         },
         {
           "path": "src/game objects/tile sprite",
@@ -5266,7 +5296,7 @@
           "size": 253747
         }
       ],
-      "size": 848317
+      "size": 847004
     },
     {
       "path": "src/games",
@@ -10798,5 +10828,5 @@
       "size": 5041
     }
   ],
-  "size": 2714175
+  "size": 2724526
 }

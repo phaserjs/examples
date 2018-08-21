@@ -1093,9 +1093,21 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src/bugs/alpha.js",
+          "name": "alpha.js",
+          "size": 712,
+          "extension": ".js"
+        },
+        {
+          "path": "src/bugs/container tilesprite.js",
+          "name": "container tilesprite.js",
+          "size": 806,
+          "extension": ".js"
+        },
+        {
           "path": "src/bugs/damping.js",
           "name": "damping.js",
-          "size": 659,
+          "size": 254,
           "extension": ".js"
         },
         {
@@ -1111,7 +1123,7 @@
           "extension": ".js"
         }
       ],
-      "size": 3705
+      "size": 4818
     },
     {
       "path": "src/cache",
@@ -4677,6 +4689,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src/game objects/text/static/change text.js",
+                  "name": "change text.js",
+                  "size": 592,
+                  "extension": ".js"
+                },
+                {
                   "path": "src/game objects/text/static/create from config.js",
                   "name": "create from config.js",
                   "size": 576,
@@ -4722,6 +4740,12 @@
                   "path": "src/game objects/text/static/right to left text.js",
                   "name": "right to left text.js",
                   "size": 1216,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src/game objects/text/static/set test string.js",
+                  "name": "set test string.js",
+                  "size": 583,
                   "extension": ".js"
                 },
                 {
@@ -4792,10 +4816,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 25220
+              "size": 26395
             }
           ],
-          "size": 25220
+          "size": 26395
         },
         {
           "path": "src/game objects/tile sprite",
@@ -4840,7 +4864,7 @@
             {
               "path": "src/game objects/tile sprite/flipped.js",
               "name": "flipped.js",
-              "size": 620,
+              "size": 629,
               "extension": ".js"
             },
             {
@@ -4850,7 +4874,7 @@
               "extension": ".js"
             }
           ],
-          "size": 7454
+          "size": 7463
         },
         {
           "path": "src/game objects/tilemap",
@@ -5242,7 +5266,7 @@
           "size": 253747
         }
       ],
-      "size": 847133
+      "size": 848317
     },
     {
       "path": "src/games",
@@ -7091,7 +7115,7 @@
             {
               "path": "src/input/game object/on down event.js",
               "name": "on down event.js",
-              "size": 468,
+              "size": 469,
               "extension": ".js"
             },
             {
@@ -7119,6 +7143,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/input/game object/tilesprite on down.js",
+              "name": "tilesprite on down.js",
+              "size": 572,
+              "extension": ".js"
+            },
+            {
               "path": "src/input/game object/top only over out events.js",
               "name": "top only over out events.js",
               "size": 1326,
@@ -7143,7 +7173,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13756
+          "size": 14329
         },
         {
           "path": "src/input/gamepad",
@@ -7567,7 +7597,7 @@
           "size": 9241
         }
       ],
-      "size": 143137
+      "size": 143710
     },
     {
       "path": "src/loader",
@@ -8971,6 +9001,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/physics/matterjs/body scale.js",
+              "name": "body scale.js",
+              "size": 914,
+              "extension": ".js"
+            },
+            {
               "path": "src/physics/matterjs/body velocity.js",
               "name": "body velocity.js",
               "size": 1055,
@@ -9169,7 +9205,7 @@
               "extension": ".js"
             }
           ],
-          "size": 53590
+          "size": 54504
         },
         {
           "path": "src/physics/multi",
@@ -9191,7 +9227,7 @@
           "size": 2643
         }
       ],
-      "size": 179110
+      "size": 180024
     },
     {
       "path": "src/plugins",
@@ -10762,5 +10798,5 @@
       "size": 5041
     }
   ],
-  "size": 2710391
+  "size": 2714175
 }

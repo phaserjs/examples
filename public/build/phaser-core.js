@@ -2121,23 +2121,23 @@ var AnimationManager = new Class({
     /**
      * @typedef {object} GenerateFrameNumbersConfig
      *
-     * @property {integer} [start=0] - [description]
-     * @property {integer} [end=-1] - [description]
-     * @property {boolean} [first=false] - [description]
-     * @property {AnimationFrameConfig[]} [outputArray=[]] - [description]
-     * @property {boolean} [frames=false] - [description]
+     * @property {integer} [start=0] - The starting frame of the animation.
+     * @property {integer} [end=-1] - The ending frame of the animation.
+     * @property {(boolean|integer)} [first=false] - A frame to put at the beginning of the animation, before `start` or `outputArray` or `frames`.
+     * @property {AnimationFrameConfig[]} [outputArray=[]] - An array to concatenate the output onto.
+     * @property {(boolean|integer[])} [frames=false] - A custom sequence of frames.
      */
 
     /**
-     * [description]
+     * Generates an array of {@link AnimationFrameConfig} objects from a texture key and configuration object.
      *
      * @method Phaser.Animations.AnimationManager#generateFrameNumbers
      * @since 3.0.0
      *
-     * @param {string} key - [description]
-     * @param {GenerateFrameNumbersConfig} config - [description]
+     * @param {string} key - The key for the texture containing the animation frames.
+     * @param {GenerateFrameNumbersConfig} config - The configuration object for the animation frames.
      *
-     * @return {AnimationFrameConfig[]} [description]
+     * @return {AnimationFrameConfig[]} The array of {@link AnimationFrameConfig} objects.
      */
     generateFrameNumbers: function (key, config)
     {
@@ -2489,6 +2489,50 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  */
 
 /**
+ * @typedef {object} InputConfig
+ *
+ * @property {(boolean|KeyboardInputConfig)} [keyboard=true] - [description]
+ * @property {(boolean|MouseInputConfig)} [mouse=true] - [description]
+ * @property {(boolean|TouchInputConfig)} [touch=true] - [description]
+ * @property {(boolean|GamepadInputConfig)} [gamepad=false] - [description]
+ * @property {integer} [activePointers=1] - [description]
+ */
+
+/**
+ * @typedef {object} MouseInputConfig
+ *
+ * @property {*} [target=null] - [description]
+ * @property {boolean} [capture=true] - [description]
+ */
+
+/**
+ * @typedef {object} KeyboardInputConfig
+ *
+ * @property {*} [target=window] - [description]
+ */
+
+/**
+ * @typedef {object} TouchInputConfig
+ *
+ * @property {*} [target=null] - [description]
+ * @property {boolean} [capture=true] - [description]
+ */
+
+/**
+ * @typedef {object} GamepadInputConfig
+ *
+ * @property {*} [target=window] - [description]
+ */
+
+/**
+ * @typedef {object} BannerConfig
+ *
+ * @property {boolean} [hidePhaser=false] - [description]
+ * @property {string} [text='#ffffff'] - [description]
+ * @property {string[]} [background] - [description]
+ */
+
+/**
  * @typedef {object} FPSConfig
  *
  * @property {integer} [min=10] - [description]
@@ -2496,6 +2540,22 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [forceSetTimeOut=false] - [description]
  * @property {integer} [deltaHistory=10] - [description]
  * @property {integer} [panicMax=120] - [description]
+ */
+
+/**
+ * @typedef {object} RenderConfig
+ *
+ * @property {boolean} [antialias=true] - [description]
+ * @property {boolean} [pixelArt=false] - [description]
+ * @property {boolean} [autoResize=false] - [description]
+ * @property {boolean} [roundPixels=false] - [description]
+ * @property {boolean} [transparent=false] - [description]
+ * @property {boolean} [clearBeforeRender=true] - [description]
+ * @property {boolean} [premultipliedAlpha=true] - [description]
+ * @property {boolean} [preserveDrawingBuffer=false] - [description]
+ * @property {boolean} [failIfMajorPerformanceCaveat=false] - [description]
+ * @property {string} [powerPreference='default'] - "high-performance", "low-power" or "default"
+ * @property {integer} [batchSize=2000] - The default WebGL batch size.
  */
 
 /**
@@ -2511,6 +2571,13 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {integer} [minHeight] - The minimum height the canvas can be scaled down to.
  * @property {integer} [maxWidth] - The maximum width the canvas can be scaled up to.
  * @property {integer} [maxHeight] - The maximum height the canvas can be scaled up to.
+ */
+
+/**
+ * @typedef {object} CallbacksConfig
+ *
+ * @property {BootCallback} [preBoot=NOOP] - [description]
+ * @property {BootCallback} [postBoot=NOOP] - [description]
  */
 
 /**
@@ -2534,9 +2601,16 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {boolean} [behindCanvas=false] - Place the DOM Container behind the Phaser Canvas. The default is to place it over the Canvas.
  */
 
-/** 
+/**
+ * @typedef {object} ImagesConfig
+ *
+ * @property {string} [default] - [description]
+ * @property {string} [missing] - [description]
+ */
+
+/**
  * @typedef {object} PluginObjectItem
- * 
+ *
  * @property {string} [key] - [description]
  * @property {*} [plugin] - [description]
  * @property {boolean} [start] - [description]
@@ -2545,9 +2619,9 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {*} [data] - [description]
  */
 
-/** 
+/**
  * @typedef {object} PluginObject
- * 
+ *
  * @property {PluginObjectItem[]} [global=null] - [description]
  * @property {PluginObjectItem[]} [scene=null] - [description]
  * @property {Array} [default=[]] - [description]
@@ -2572,42 +2646,16 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  * @property {string} [url='http://phaser.io'] - [description]
  * @property {string} [version=''] - [description]
  * @property {boolean} [autoFocus=true] - Automatically call window.focus() when the game boots.
- * @property {(boolean|object)} [input] - [description]
- * @property {boolean} [input.keyboard=true] - [description]
- * @property {*} [input.keyboard.target=window] - [description]
- * @property {(boolean|object)} [input.mouse=true] - [description]
- * @property {*} [input.mouse.target=null] - [description]
- * @property {boolean} [input.touch=true] - [description]
- * @property {integer} [input.activePointers=1] - [description]
- * @property {*} [input.touch.target=null] - [description]
- * @property {boolean} [input.touch.capture=true] - [description]
- * @property {(boolean|object)} [input.gamepad=false] - [description]
+ * @property {(boolean|InputConfig)} [input] - [description]
  * @property {boolean} [disableContextMenu=false] - [description]
- * @property {(boolean|object)} [banner=false] - [description]
- * @property {boolean} [banner.hidePhaser=false] - [description]
- * @property {string} [banner.text='#ffffff'] - [description]
- * @property {string[]} [banner.background] - [description]
+ * @property {(boolean|BannerConfig)} [banner=false] - [description]
  * @property {DOMContainerConfig} [dom] - The DOM Container configuration object.
  * @property {FPSConfig} [fps] - [description]
- * @property {boolean} [render.antialias=true] - [description]
- * @property {boolean} [render.pixelArt=false] - [description]
- * @property {boolean} [render.autoResize=false] - [description]
- * @property {boolean} [render.roundPixels=false] - [description]
- * @property {boolean} [render.transparent=false] - [description]
- * @property {boolean} [render.clearBeforeRender=true] - [description]
- * @property {boolean} [render.premultipliedAlpha=true] - [description]
- * @property {boolean} [render.preserveDrawingBuffer=false] - [description]
- * @property {boolean} [render.failIfMajorPerformanceCaveat=false] - [description]
- * @property {string} [render.powerPreference='default'] - "high-performance", "low-power" or "default"
- * @property {integer} [render.batchSize=2000] - The default WebGL batch size.
+ * @property {RenderConfig} [render] - [description]
  * @property {(string|number)} [backgroundColor=0x000000] - [description]
- * @property {object} [callbacks] - [description]
- * @property {BootCallback} [callbacks.preBoot=NOOP] - [description]
- * @property {BootCallback} [callbacks.postBoot=NOOP] - [description]
+ * @property {CallbacksConfig} [callbacks] - [description]
  * @property {LoaderConfig} [loader] - [description]
- * @property {object} [images] - [description]
- * @property {string} [images.default] - [description]
- * @property {string} [images.missing] - [description]
+ * @property {ImagesConfig} [images] - [description]
  * @property {object} [physics] - [description]
  * @property {PluginObject|PluginObjectItem[]} [plugins] - [description]
  */
@@ -3081,7 +3129,7 @@ var Config = new Class({
          * @const {string} Phaser.Boot.Config#defaultImage - [description]
          */
         this.defaultImage = GetValue(config, 'images.default', pngPrefix + 'AQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==');
-        
+
         /**
          * @const {string} Phaser.Boot.Config#missingImage - [description]
          */
@@ -11062,7 +11110,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.12.0-beta2',
+    VERSION: '3.12.0-beta3',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -11666,10 +11714,11 @@ var DataManager = new Class({
                 {
                     if (!_this._frozen)
                     {
+                        var previousValue = list[key];
                         list[key] = value;
 
-                        events.emit('changedata', parent, key, value);
-                        events.emit('changedata_' + key, parent, value);
+                        events.emit('changedata', parent, key, value, previousValue);
+                        events.emit('changedata_' + key, parent, value, previousValue);
                     }
                 }
 
@@ -21760,6 +21809,11 @@ var ScrollFactor = {
      * A value of 1 means it will move exactly in sync with a camera.
      * A value of 0 means it will not move at all, even if the camera moves.
      * Other values control the degree to which the camera movement is mapped to this Game Object.
+     * 
+     * Please be aware that scroll factor values other than 1 are not taken in to consideration when
+     * calculating physics collisions. Bodies always collide based on their world position, but changing
+     * the scroll factor is a visual adjustment to where the textures are rendered, which can offset
+     * them from physics bodies if not accounted for in your code.
      *
      * @name Phaser.GameObjects.Components.ScrollFactor#scrollFactorX
      * @type {number}
@@ -21779,6 +21833,11 @@ var ScrollFactor = {
      * A value of 1 means it will move exactly in sync with a camera.
      * A value of 0 means it will not move at all, even if the camera moves.
      * Other values control the degree to which the camera movement is mapped to this Game Object.
+     * 
+     * Please be aware that scroll factor values other than 1 are not taken in to consideration when
+     * calculating physics collisions. Bodies always collide based on their world position, but changing
+     * the scroll factor is a visual adjustment to where the textures are rendered, which can offset
+     * them from physics bodies if not accounted for in your code.
      *
      * @name Phaser.GameObjects.Components.ScrollFactor#scrollFactorY
      * @type {number}
@@ -21798,6 +21857,11 @@ var ScrollFactor = {
      * A value of 1 means it will move exactly in sync with a camera.
      * A value of 0 means it will not move at all, even if the camera moves.
      * Other values control the degree to which the camera movement is mapped to this Game Object.
+     * 
+     * Please be aware that scroll factor values other than 1 are not taken in to consideration when
+     * calculating physics collisions. Bodies always collide based on their world position, but changing
+     * the scroll factor is a visual adjustment to where the textures are rendered, which can offset
+     * them from physics bodies if not accounted for in your code.
      *
      * @method Phaser.GameObjects.Components.ScrollFactor#setScrollFactor
      * @since 3.0.0
@@ -23653,24 +23717,26 @@ var TransformMatrix = new Class({
      * @method Phaser.GameObjects.Components.TransformMatrix#rotate
      * @since 3.0.0
      *
-     * @param {number} radian - The angle of rotation in radians.
+     * @param {number} angle - The angle of rotation in radians.
      *
      * @return {this} This TransformMatrix.
      */
-    rotate: function (radian)
+    rotate: function (angle)
     {
-        var radianSin = Math.sin(radian);
-        var radianCos = Math.cos(radian);
+        var sin = Math.sin(angle);
+        var cos = Math.cos(angle);
+
         var matrix = this.matrix;
+
         var a = matrix[0];
         var b = matrix[1];
         var c = matrix[2];
         var d = matrix[3];
 
-        matrix[0] = a * radianCos + c * radianSin;
-        matrix[1] = b * radianCos + d * radianSin;
-        matrix[2] = a * -radianSin + c * radianCos;
-        matrix[3] = b * -radianSin + d * radianCos;
+        matrix[0] = a * cos + c * sin;
+        matrix[1] = b * cos + d * sin;
+        matrix[2] = a * -sin + c * cos;
+        matrix[3] = b * -sin + d * cos;
 
         return this;
     },
@@ -28794,11 +28860,12 @@ var Text = new Class({
         /**
          * The text to display.
          *
-         * @name Phaser.GameObjects.Text#text
+         * @name Phaser.GameObjects.Text#_text
          * @type {string}
-         * @since 3.0.0
+         * @private
+         * @since 3.12.0
          */
-        this.text = '';
+        this._text = '';
 
         /**
          * Specify a padding value which is added to the line width and height when calculating the Text size.
@@ -29168,7 +29235,7 @@ var Text = new Class({
      */
     getWrappedText: function (text)
     {
-        if (text === undefined) { text = this.text; }
+        if (text === undefined) { text = this._text; }
 
         this.style.syncFont(this.canvas, this.context);
 
@@ -29201,9 +29268,9 @@ var Text = new Class({
             value = value.join('\n');
         }
 
-        if (value !== this.text)
+        if (value !== this._text)
         {
-            this.text = value.toString();
+            this._text = value.toString();
 
             this.updateText();
         }
@@ -29651,11 +29718,11 @@ var Text = new Class({
 
         style.syncFont(canvas, context);
 
-        var outputText = this.text;
+        var outputText = this._text;
 
         if (style.wordWrapWidth || style.wordWrapCallback)
         {
-            outputText = this.runWordWrap(this.text);
+            outputText = this.runWordWrap(this._text);
         }
 
         //  Split text into lines
@@ -29792,6 +29859,27 @@ var Text = new Class({
     },
 
     /**
+     * The text string being rendered by this Text Game Object.
+     *
+     * @name Phaser.GameObjects.Text#text
+     * @type {string}
+     * @since 3.0.0
+     */
+    text: {
+
+        get: function ()
+        {
+            return this._text;
+        },
+
+        set: function (value)
+        {
+            this.setText(value);
+        }
+
+    },
+
+    /**
      * Build a JSON representation of the Text object.
      *
      * @method Phaser.GameObjects.Text#toJSON
@@ -29807,7 +29895,7 @@ var Text = new Class({
 
         var data = {
             autoRound: this.autoRound,
-            text: this.text,
+            text: this._text,
             style: this.style.toJSON(),
             padding: {
                 left: this.padding.left,
@@ -34788,7 +34876,7 @@ var CreatePixelPerfectHandler = function (textureManager, alphaTolerance)
 {
     return function (hitArea, x, y, gameObject)
     {
-        var alpha = textureManager.getPixelAlpha(x, y, gameObject.texture.key, gameObject.frame.key);
+        var alpha = textureManager.getPixelAlpha(x, y, gameObject.texture.key, gameObject.frame.name);
 
         return (alpha && alpha >= alphaTolerance);
     };
@@ -41950,11 +42038,11 @@ var KeyboardPlugin = new Class({
      * An array of either integers (key codes) or strings, or a mixture of both
      * An array of objects (such as Key objects) with a public 'keyCode' property
      *
-     * For example, to listen for the Konami code (up, up, up, down, down, down, left, left, left, right, right, right)
+     * For example, to listen for the Konami code (up, up, down, down, left, right, left, right, b, a, enter)
      * you could pass the following array of key codes:
      *
      * ```javascript
-     * this.input.keyboard.createCombo([ 38, 38, 38, 40, 40, 40, 37, 37, 37, 39, 39, 39 ], { resetOnMatch: true });
+     * this.input.keyboard.createCombo([ 38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 13 ], { resetOnMatch: true });
      *
      * this.input.keyboard.on('keycombomatch', function (event) {
      *     console.log('Konami Code entered!');
@@ -42221,11 +42309,11 @@ var ResetKeyCombo = __webpack_require__(/*! ./ResetKeyCombo */ "./input/keyboard
  * An array of either integers (key codes) or strings, or a mixture of both
  * An array of objects (such as Key objects) with a public 'keyCode' property
  *
- * For example, to listen for the Konami code (up, up, up, down, down, down, left, left, left, right, right, right)
+ * For example, to listen for the Konami code (up, up, down, down, left, right, left, right, b, a, enter)
  * you could pass the following array of key codes:
  *
  * ```javascript
- * this.input.keyboard.createCombo([ 38, 38, 38, 40, 40, 40, 37, 37, 37, 39, 39, 39 ], { resetOnMatch: true });
+ * this.input.keyboard.createCombo([ 38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 13 ], { resetOnMatch: true });
  *
  * this.input.keyboard.on('keycombomatch', function (event) {
  *     console.log('Konami Code entered!');
@@ -50367,7 +50455,7 @@ var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
  * @constructor
  * @since 3.0.0
  *
- * @param {number} [x] - The x component.
+ * @param {number|Vector2Like} [x] - The x component, or an object with `x` and `y` properties.
  * @param {number} [y] - The y component.
  */
 var Vector2 = new Class({
@@ -50908,7 +50996,9 @@ var Vector2 = new Class({
 /**
  * A static zero Vector2 for use by reference.
  *
- * @method Phaser.Math.Vector2.ZERO
+ * @constant
+ * @name Phaser.Math.Vector2.ZERO
+ * @type {Vector2}
  * @since 3.1.0
  */
 Vector2.ZERO = new Vector2();
@@ -59336,11 +59426,9 @@ var WebGLRenderer = new Class({
         var color = this.config.backgroundColor;
         var pipelines = this.pipelines;
 
-        // Bind custom framebuffer here
-        gl.clearColor(color.redGL, color.greenGL, color.blueGL, color.alphaGL);
-
         if (this.config.clearBeforeRender)
         {
+            gl.clearColor(color.redGL, color.greenGL, color.blueGL, color.alphaGL);
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
         }
 

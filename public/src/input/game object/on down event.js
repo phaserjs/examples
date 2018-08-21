@@ -22,5 +22,5 @@ function create ()
 
         this.setTint(Math.random() * 16000000);
 
-    })
+    });
 }

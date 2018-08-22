@@ -1133,9 +1133,15 @@
           "name": "rt crop.js",
           "size": 1125,
           "extension": ".js"
+        },
+        {
+          "path": "src/bugs/scene input.js",
+          "name": "scene input.js",
+          "size": 786,
+          "extension": ".js"
         }
       ],
-      "size": 8840
+      "size": 9626
     },
     {
       "path": "src/cache",
@@ -2925,6 +2931,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/game objects/container/child blend mode.js",
+              "name": "child blend mode.js",
+              "size": 1040,
+              "extension": ".js"
+            },
+            {
               "path": "src/game objects/container/child order.js",
               "name": "child order.js",
               "size": 670,
@@ -3153,7 +3165,7 @@
               "extension": ".js"
             }
           ],
-          "size": 77064
+          "size": 78104
         },
         {
           "path": "src/game objects/dom element",
@@ -5219,7 +5231,7 @@
                 {
                   "path": "src/game objects/tilemap/static/tile draw order.js",
                   "name": "tile draw order.js",
-                  "size": 1341,
+                  "size": 1339,
                   "extension": ".js"
                 },
                 {
@@ -5259,7 +5271,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 50389
+              "size": 50387
             },
             {
               "path": "src/game objects/tilemap/tests",
@@ -5311,10 +5323,10 @@
               "size": 69009
             }
           ],
-          "size": 256429
+          "size": 256427
         }
       ],
-      "size": 849686
+      "size": 850724
     },
     {
       "path": "src/games",
@@ -10858,5 +10870,5 @@
       "size": 5041
     }
   ],
-  "size": 2729742
+  "size": 2731566
 }

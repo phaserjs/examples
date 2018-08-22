@@ -18038,7 +18038,9 @@ var GameObject = new Class({
     },
 
     /**
-     * If this Game Object has previously been enabled for input, this will remove it.
+     * If this Game Object has previously been enabled for input, this will queue it
+     * for removal, causing it to no longer be interactive. The removal happens on
+     * the next game step, it is not immediate.
      *
      * The Interactive Object that was assigned to this Game Object will be destroyed,
      * removed from the Input Manager and cleared from this Game Object.
@@ -18049,6 +18051,11 @@ var GameObject = new Class({
      * If you wish to only temporarily stop an object from receiving input then use
      * `disableInteractive` instead, as that toggles the interactive state, where-as
      * this erases it completely.
+     * 
+     * If you wish to resize a hit area, don't remove and then set it as being
+     * interactive. Instead, access the hitarea object directly and resize the shape
+     * being used. I.e.: `sprite.input.hitArea.setSize(width, height)` (assuming the
+     * shape is a Rectangle, which it is by default.)
      *
      * @method Phaser.GameObjects.GameObject#removeInteractive
      * @since 3.7.0
@@ -20337,7 +20344,7 @@ var BlendMode = {
 
             value |= 0;
 
-            if (value >= 0)
+            if (value >= -1)
             {
                 this._blendMode = value;
             }
@@ -76262,30 +76269,19 @@ var TextureManager = new Class({
     {
         var textureFrame = this.getFrame(key, frame);
 
-        if (textureFrame)
+        if (textureFrame && x >= 0 && x < textureFrame.cutWidth && y >= 0 && y < textureFrame.cutHeight)
         {
-            var source = textureFrame.source.image;
+            x += textureFrame.cutX;
+            y += textureFrame.cutY;
 
-            if (x >= 0 && x <= source.width && y >= 0 && y <= source.height)
-            {
-                x += textureFrame.cutX;
-                y += textureFrame.cutY;
+            var ctx = this._tempContext;
 
-                // if (textureFrame.trimmed)
-                // {
-                //     x -= this.sprite.texture.trim.x;
-                //     y -= this.sprite.texture.trim.y;
-                // }
+            ctx.clearRect(0, 0, 1, 1);
+            ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
 
-                var ctx = this._tempContext;
+            var rgb = ctx.getImageData(0, 0, 1, 1);
 
-                ctx.clearRect(0, 0, 1, 1);
-                ctx.drawImage(source, x, y, 1, 1, 0, 0, 1, 1);
-
-                var rgb = ctx.getImageData(0, 0, 1, 1);
-
-                return new Color(rgb.data[0], rgb.data[1], rgb.data[2], rgb.data[3]);
-            }
+            return new Color(rgb.data[0], rgb.data[1], rgb.data[2], rgb.data[3]);
         }
 
         return null;
@@ -76310,24 +76306,19 @@ var TextureManager = new Class({
     {
         var textureFrame = this.getFrame(key, frame);
 
-        if (textureFrame)
+        if (textureFrame && x >= 0 && x < textureFrame.cutWidth && y >= 0 && y < textureFrame.cutHeight)
         {
-            var source = textureFrame.source.image;
+            x += textureFrame.cutX;
+            y += textureFrame.cutY;
 
-            if (x >= 0 && x <= source.width && y >= 0 && y <= source.height)
-            {
-                x += textureFrame.cutX;
-                y += textureFrame.cutY;
+            var ctx = this._tempContext;
 
-                var ctx = this._tempContext;
+            ctx.clearRect(0, 0, 1, 1);
+            ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
 
-                ctx.clearRect(0, 0, 1, 1);
-                ctx.drawImage(source, x, y, 1, 1, 0, 0, 1, 1);
+            var rgb = ctx.getImageData(0, 0, 1, 1);
 
-                var rgb = ctx.getImageData(0, 0, 1, 1);
-
-                return rgb.data[3];
-            }
+            return rgb.data[3];
         }
 
         return null;

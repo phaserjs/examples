@@ -46,32 +46,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -2468,6 +2453,7 @@ module.exports = {
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var CONST = __webpack_require__(/*! ../const */ "./const.js");
+var Device = __webpack_require__(/*! ../device */ "./device/index.js");
 var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var GetValue = __webpack_require__(/*! ../utils/object/GetValue */ "./utils/object/GetValue.js");
 var IsPlainObject = __webpack_require__(/*! ../utils/object/IsPlainObject */ "./utils/object/IsPlainObject.js");
@@ -2829,7 +2815,7 @@ var Config = new Class({
         /**
          * @const {boolean} Phaser.Boot.Config#inputTouch - [description]
          */
-        this.inputTouch = GetValue(config, 'input.touch', true);
+        this.inputTouch = GetValue(config, 'input.touch', Device.input.touch);
 
         /**
          * @const {?*} Phaser.Boot.Config#inputTouchEventTarget - [description]
@@ -76269,19 +76255,28 @@ var TextureManager = new Class({
     {
         var textureFrame = this.getFrame(key, frame);
 
-        if (textureFrame && x >= 0 && x < textureFrame.cutWidth && y >= 0 && y < textureFrame.cutHeight)
+        if (textureFrame)
         {
-            x += textureFrame.cutX;
-            y += textureFrame.cutY;
+            //  Adjust for trim (if not trimmed x and y are just zero)
+            x -= textureFrame.x;
+            y -= textureFrame.y;
 
-            var ctx = this._tempContext;
+            var data = textureFrame.data.cut;
 
-            ctx.clearRect(0, 0, 1, 1);
-            ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
+            x += data.x;
+            y += data.y;
 
-            var rgb = ctx.getImageData(0, 0, 1, 1);
+            if (x >= data.x && x < data.r && y >= data.y && y < data.b)
+            {
+                var ctx = this._tempContext;
 
-            return new Color(rgb.data[0], rgb.data[1], rgb.data[2], rgb.data[3]);
+                ctx.clearRect(0, 0, 1, 1);
+                ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
+
+                var rgb = ctx.getImageData(0, 0, 1, 1);
+
+                return new Color(rgb.data[0], rgb.data[1], rgb.data[2], rgb.data[3]);
+            }
         }
 
         return null;
@@ -76306,19 +76301,28 @@ var TextureManager = new Class({
     {
         var textureFrame = this.getFrame(key, frame);
 
-        if (textureFrame && x >= 0 && x < textureFrame.cutWidth && y >= 0 && y < textureFrame.cutHeight)
+        if (textureFrame)
         {
-            x += textureFrame.cutX;
-            y += textureFrame.cutY;
+            //  Adjust for trim (if not trimmed x and y are just zero)
+            x -= textureFrame.x;
+            y -= textureFrame.y;
 
-            var ctx = this._tempContext;
+            var data = textureFrame.data.cut;
 
-            ctx.clearRect(0, 0, 1, 1);
-            ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
+            x += data.x;
+            y += data.y;
 
-            var rgb = ctx.getImageData(0, 0, 1, 1);
+            if (x >= data.x && x < data.r && y >= data.y && y < data.b)
+            {
+                var ctx = this._tempContext;
 
-            return rgb.data[3];
+                ctx.clearRect(0, 0, 1, 1);
+                ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
+    
+                var rgb = ctx.getImageData(0, 0, 1, 1);
+    
+                return rgb.data[3];
+            }
         }
 
         return null;

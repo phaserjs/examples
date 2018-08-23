@@ -23,6 +23,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.scenePlugin('Camera3DPlugin', 'plugins/camera3d.min.js', 'Camera3DPlugin', 'cameras3d');
+
     this.load.image('particle', 'assets/sprites/mushroom2.png');
 }
 

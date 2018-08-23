@@ -3141,53 +3141,6 @@ module.exports = Config;
 
 /***/ }),
 
-/***/ "./boot/CreateDOMContainer.js":
-/*!************************************!*\
-  !*** ./boot/CreateDOMContainer.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var AddToDOM = __webpack_require__(/*! ../dom/AddToDOM */ "./dom/AddToDOM.js");
-
-var CreateDOMContainer = function (game)
-{
-    var config = game.config;
-
-    if (!config.parent || !config.domCreateContainer)
-    {
-        return;
-    }
-
-    //  DOM Element Container
-    var div = document.createElement('div');
-
-    div.style = [
-        'display: block;',
-        'width: ' + game.canvas.width + 'px;',
-        'height: ' + game.canvas.height + 'px;',
-        'padding: 0; margin: 0;',
-        'position: absolute;',
-        'overflow: hidden;',
-        'pointer-events: none;'
-    ].join(' ');
-
-    game.domContainer = div;
-
-    AddToDOM(div, config.parent);
-};
-
-module.exports = CreateDOMContainer;
-
-
-/***/ }),
-
 /***/ "./boot/CreateRenderer.js":
 /*!********************************!*\
   !*** ./boot/CreateRenderer.js ***!
@@ -3469,23 +3422,27 @@ var CacheManager = __webpack_require__(/*! ../cache/CacheManager */ "./cache/Cac
 var CanvasPool = __webpack_require__(/*! ../display/canvas/CanvasPool */ "./display/canvas/CanvasPool.js");
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
 var Config = __webpack_require__(/*! ./Config */ "./boot/Config.js");
-var CreateDOMContainer = __webpack_require__(/*! ./CreateDOMContainer */ "./boot/CreateDOMContainer.js");
 var CreateRenderer = __webpack_require__(/*! ./CreateRenderer */ "./boot/CreateRenderer.js");
 var DataManager = __webpack_require__(/*! ../data/DataManager */ "./data/DataManager.js");
 var DebugHeader = __webpack_require__(/*! ./DebugHeader */ "./boot/DebugHeader.js");
 var Device = __webpack_require__(/*! ../device */ "./device/index.js");
 var DOMContentLoaded = __webpack_require__(/*! ../dom/DOMContentLoaded */ "./dom/DOMContentLoaded.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
-var FacebookInstantGamesPlugin = __webpack_require__(/*! ../fbinstant/FacebookInstantGamesPlugin */ "./fbinstant/FacebookInstantGamesPlugin.js");
 var InputManager = __webpack_require__(/*! ../input/InputManager */ "./input/InputManager.js");
 var PluginCache = __webpack_require__(/*! ../plugins/PluginCache */ "./plugins/PluginCache.js");
 var PluginManager = __webpack_require__(/*! ../plugins/PluginManager */ "./plugins/PluginManager.js");
-var ScaleManager = __webpack_require__(/*! ./ScaleManager */ "./boot/ScaleManager.js");
 var SceneManager = __webpack_require__(/*! ../scene/SceneManager */ "./scene/SceneManager.js");
 var SoundManagerCreator = __webpack_require__(/*! ../sound/SoundManagerCreator */ "./sound/SoundManagerCreator.js");
 var TextureManager = __webpack_require__(/*! ../textures/TextureManager */ "./textures/TextureManager.js");
 var TimeStep = __webpack_require__(/*! ./TimeStep */ "./boot/TimeStep.js");
 var VisibilityHandler = __webpack_require__(/*! ./VisibilityHandler */ "./boot/VisibilityHandler.js");
+
+
+if (false)
+{ var ScaleManager, CreateDOMContainer; }
+
+if (false)
+{ var FacebookInstantGamesPlugin; }
 
 /**
  * @classdesc
@@ -3531,19 +3488,8 @@ var Game = new Class({
          */
         this.renderer = null;
 
-        /**
-         * A reference to an HTML Div Element used as a DOM Element Container.
-         * 
-         * Only set if `createDOMContainer` is `true` in the game config (by default it is `false`) and
-         * if you provide a parent element to insert the Phaser Game inside.
-         *
-         * See the DOM Element Game Object for more details.
-         *
-         * @name Phaser.Game#domContainer
-         * @type {HTMLDivElement}
-         * @since 3.12.0
-         */
-        this.domContainer = null;
+        if (false)
+        {}
 
         /**
          * A reference to the HTML Canvas Element that Phaser uses to render the game.
@@ -3674,16 +3620,8 @@ var Game = new Class({
          */
         this.device = Device;
 
-        /**
-         * An instance of the Scale Manager.
-         *
-         * The Scale Manager is a global system responsible for handling game scaling events.
-         *
-         * @name Phaser.Game#scaleManager
-         * @type {Phaser.Boot.ScaleManager}
-         * @since 3.12.0
-         */
-        this.scaleManager = new ScaleManager(this, this.config);
+        if (false)
+        {}
 
         /**
          * An instance of the base Sound Manager.
@@ -3720,14 +3658,8 @@ var Game = new Class({
          */
         this.plugins = new PluginManager(this, this.config);
 
-        /**
-         * An instance of the Facebook Instant Games Manager.
-         *
-         * @name Phaser.Game#facebook
-         * @type {any}
-         * @since 3.12.0
-         */
-        this.facebook = new FacebookInstantGamesPlugin(this);
+        if (false)
+        {}
 
         /**
          * Is this Game pending destruction at the start of the next frame?
@@ -3819,7 +3751,8 @@ var Game = new Class({
 
         CreateRenderer(this);
 
-        CreateDOMContainer(this);
+        if (false)
+        {}
 
         DebugHeader(this);
 
@@ -4145,11 +4078,8 @@ var Game = new Class({
         this.config.width = width;
         this.config.height = height;
 
-        if (this.domContainer)
-        {
-            this.domContainer.style.width = width + 'px';
-            this.domContainer.style.height = height + 'px';
-        }
+        if (false)
+        {}
 
         this.renderer.resize(width, height);
 
@@ -4213,10 +4143,8 @@ var Game = new Class({
             }
         }
 
-        if (this.domContainer)
-        {
-            this.domContainer.parentNode.removeChild(this.domContainer);
-        }
+        if (false)
+        {}
 
         this.loop.destroy();
         
@@ -4226,310 +4154,6 @@ var Game = new Class({
 });
 
 module.exports = Game;
-
-
-/***/ }),
-
-/***/ "./boot/ScaleManager.js":
-/*!******************************!*\
-  !*** ./boot/ScaleManager.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var Vec2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
-
-/*
-    Use `scaleMode` SHOW_ALL.
-    Use `scaleMode` EXACT_FIT.
-    Use `scaleMode` USER_SCALE. Examine `parentBounds` in the {@link #setResizeCallback resize callback} and call {@link #setUserScale} if necessary.
-    Use `scaleMode` RESIZE. Examine the game or canvas size from the {@link #onSizeChange} signal **or** the {@link Phaser.State#resize} callback and reposition game objects if necessary.
-
-    Canvas width / height in the element
-    Canvas CSS width / height in the style
-
-    Detect orientation
-    Lock orientation (Android only?)
-    Full-screen support
-
-    Scale Mode - 
-*/
-
-/**
- * @classdesc
- * [description]
- *
- * @class ScaleManager
- * @memberOf Phaser.Boot
- * @constructor
- * @since 3.12.0
- *
- * @param {Phaser.Game} game - A reference to the Phaser.Game instance.
- * @param {ScaleManagerConfig} config
- */
-var ScaleManager = new Class({
-
-    initialize:
-
-    function ScaleManager (game, config)
-    {
-        /**
-         * A reference to the Phaser.Game instance.
-         *
-         * @name Phaser.Boot.ScaleManager#game
-         * @type {Phaser.Game}
-         * @readOnly
-         * @since 3.12.0
-         */
-        this.game = game;
-
-        this.config = config;
-
-        /**
-         * Target width (in pixels) of the Display canvas.
-         * @property {number} width
-         * @readonly
-         */
-        this.width = 0;
-
-        /**
-         * Target height (in pixels) of the Display canvas.
-         * @property {number} height
-         * @readonly
-         */
-        this.height = 0;
-
-        this.zoom = 0;
-
-        this.resolution = 1;
-
-        this.parent = null;
-
-        this.scaleMode = 0;
-
-        /**
-         * Minimum width the canvas should be scaled to (in pixels).
-         * Change with {@link #setMinMax}.
-         * @property {?number} minWidth
-         * @readonly
-         * @protected
-         */
-        this.minWidth = null;
-
-        /**
-         * Minimum height the canvas should be scaled to (in pixels).
-         * Change with {@link #setMinMax}.
-         * @property {?number} minHeight
-         * @readonly
-         * @protected
-         */
-        this.minHeight = null;
-
-        /**
-         * Maximum width the canvas should be scaled to (in pixels).
-         * If null it will scale to whatever width the browser can handle.
-         * Change with {@link #setMinMax}.
-         * @property {?number} maxWidth
-         * @readonly
-         * @protected
-         */
-        this.maxWidth = null;
-
-        /**
-         * Maximum height the canvas should be scaled to (in pixels).
-         * If null it will scale to whatever height the browser can handle.
-         * Change with {@link #setMinMax}.
-         * @property {?number} maxHeight
-         * @readonly
-         * @protected
-         */
-        this.maxHeight = null;
-
-        /**
-         * The _current_ scale factor based on the game dimensions vs. the scaled dimensions.
-         * @property {Phaser.Point} scaleFactor
-         * @readonly
-         */
-        this.scaleFactor = new Vec2(1, 1);
-
-        /**
-         * The _current_ inversed scale factor. The displayed dimensions divided by the game dimensions.
-         * @property {Phaser.Point} scaleFactorInversed
-         * @readonly
-         * @protected
-         */
-        this.scaleFactorInversed = new Vec2(1, 1);
-
-        /**
-         * The aspect ratio of the scaled Display canvas.
-         * @property {number} aspectRatio
-         * @readonly
-         */
-        this.aspectRatio = 0;
-
-        /**
-         * The aspect ratio of the original game dimensions.
-         * @property {number} sourceAspectRatio
-         * @readonly
-         */
-        this.sourceAspectRatio = 0;
-
-        /**
-         * True if the the browser window (instead of the display canvas's DOM parent) should be used as the bounding parent.
-         *
-         * This is set automatically based on the `parent` argument passed to {@link Phaser.Game}.
-         *
-         * The {@link #parentNode} property is generally ignored while this is in effect.
-         *
-         * @property {boolean} parentIsWindow
-         */
-        this.parentIsWindow = false;
-
-        /**
-         * The _original_ DOM element for the parent of the Display canvas.
-         * This may be different in fullscreen - see {@link #createFullScreenTarget}.
-         *
-         * This is set automatically based on the `parent` argument passed to {@link Phaser.Game}.
-         *
-         * This should only be changed after moving the Game canvas to a different DOM parent.
-         *
-         * @property {?DOMElement} parentNode
-         */
-        this.parentNode = null;
-
-        /**
-         * The scale of the game in relation to its parent container.
-         * @property {Phaser.Point} parentScaleFactor
-         * @readonly
-         */
-        this.parentScaleFactor = new Vec2(1, 1);
-
-        this._lastParentWidth = 0;
-
-        this._lastParentHeight = 0;
-
-        this._innerHeight = 0;
-
-        this.init();
-    },
-
-    init: function ()
-    {
-        this._innerHeight = this.getInnerHeight();
-
-        // var gameWidth = this.config.width;
-        // var gameHeight = this.config.height;
-    },
-
-    centerDisplay: function ()
-    {
-        var height = this.height;
-        var gameWidth = 0;
-        var gameHeight = 0;
-
-        this.parentNode.style.display = 'flex';
-        this.parentNode.style.height = height + 'px';
-
-        this.canvas.style.margin = 'auto';
-        this.canvas.style.width = gameWidth + 'px';
-        this.canvas.style.height = gameHeight + 'px';
-    },
-
-    /*
-    iOS10 Resize hack. Thanks, Apple.
-
-    I._onWindowResize = function(a) {
-        if (this._lastReportedWidth != document.body.offsetWidth) {
-            this._lastReportedWidth = document.body.offsetWidth;
-            if (this._isAutoPlaying && this._cancelAutoPlayOnInteraction) {
-                this.stopAutoPlay(a)
-            }
-            window.clearTimeout(this._onResizeDebouncedTimeout);
-            this._onResizeDebouncedTimeout = setTimeout(this._onResizeDebounced, 500);
-            aj._onWindowResize.call(this, a)
-        }
-    };
-    */
-
-    resizeHandler: function ()
-    {
-
-    },
-
-    /*
-    resize: function ()
-    {
-        let scale = Math.min(window.innerWidth / canvas.width, window.innerHeight / canvas.height);
-        let orientation = 'left';
-        let extra = (this.mobile) ? 'margin-left: -50%': '';
-        let margin = window.innerWidth / 2 - (canvas.width / 2) * scale;
-
-        canvas.setAttribute('style', '-ms-transform-origin: ' + orientation + ' top; -webkit-transform-origin: ' + orientation + ' top;' +
-            ' -moz-transform-origin: ' + orientation + ' top; -o-transform-origin: ' + orientation + ' top; transform-origin: ' + orientation + ' top;' +
-            ' -ms-transform: scale(' + scale + '); -webkit-transform: scale3d(' + scale + ', 1);' +
-            ' -moz-transform: scale(' + scale + '); -o-transform: scale(' + scale + '); transform: scale(' + scale + ');' +
-            ' display: block; margin-left: ' + margin + 'px;'
-        );
-    },
-    */
-
-    getInnerHeight: function ()
-    {
-        //  Based on code by @tylerjpeterson
-
-        if (!this.game.device.os.iOS)
-        {
-            return window.innerHeight;
-        }
-
-        var axis = Math.abs(window.orientation);
-
-        var size = { w: 0, h: 0 };
-        
-        var ruler = document.createElement('div');
-
-        ruler.setAttribute('style', 'position: fixed; height: 100vh; width: 0; top: 0');
-
-        document.documentElement.appendChild(ruler);
-
-        size.w = (axis === 90) ? ruler.offsetHeight : window.innerWidth;
-        size.h = (axis === 90) ? window.innerWidth : ruler.offsetHeight;
-
-        document.documentElement.removeChild(ruler);
-
-        ruler = null;
-
-        if (Math.abs(window.orientation) !== 90)
-        {
-            return size.h;
-        }
-        else
-        {
-            return size.w;
-        }
-    },
-
-    /**
-     * Destroys the ScaleManager.
-     *
-     * @method Phaser.Boot.ScaleManager#destroy
-     * @since 3.12.0
-     */
-    destroy: function ()
-    {
-        this.game = null;
-    }
-
-});
-
-module.exports = ScaleManager;
 
 
 /***/ }),
@@ -7819,63 +7443,84 @@ var Camera = new Class({
          */
         this._follow = null;
 
+        /**
+         * Is this Camera rendering directly or to a texture?
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#renderToTexture
+         * @type {boolean}
+         * @default false
+         * @private
+         * @since 3.12.0-EXPERIMENTAL
+         */
         this.renderToTexture = false;
 
         /**
-         * The HTML Canvas Element that the Render Texture is drawing to.
+         * The HTML Canvas Element that the Camera is drawing to if rendering to a texture.
          * This is only populated if Phaser is running with the Canvas Renderer.
          *
-         * @name Phaser.GameObjects.RenderTexture#canvas
+         * @name Phaser.Cameras.Scene2D.Camera#canvas
          * @type {HTMLCanvasElement}
-         * @since 3.12.0
+         * @private
+         * @since 3.12.0-EXPERIMENTAL
          */
         this.canvas = null;
 
         /**
-         * A reference to the Rendering Context belonging to the Canvas Element this Render Texture is drawing to.
+         * A reference to the Rendering Context belonging to the Canvas Element this Camera is rendering to a texture.
          *
-         * @name Phaser.GameObjects.RenderTexture#context
+         * @name Phaser.Cameras.Scene2D.Camera#context
          * @type {CanvasRenderingContext2D}
-         * @since 3.12.0
+         * @private
+         * @since 3.12.0-EXPERIMENTAL
          */
         this.context = null;
 
         /**
-         * A reference to the GL Frame Buffer this Render Texture is drawing to.
+         * A reference to the GL Frame Buffer this Camera ia drawing to if rendering to a texture.
          * This is only set if Phaser is running with the WebGL Renderer.
          *
-         * @name Phaser.GameObjects.RenderTexture#framebuffer
+         * @name Phaser.Cameras.Scene2D.Camera#framebuffer
          * @type {?WebGLFramebuffer}
-         * @since 3.12.0
+         * @private
+         * @since 3.12.0-EXPERIMENTAL
          */
         this.glTexture = null;
+
+        /**
+         * A reference to the GL Frame Buffer this Camera is drawing to if rendering to a texture.
+         * This is only set if Phaser is running with the WebGL Renderer.
+         *
+         * @name Phaser.Cameras.Scene2D.Camera#framebuffer
+         * @type {?WebGLFramebuffer}
+         * @private
+         * @since 3.12.0-EXPERIMENTAL
+         */
+        this.framebuffer = null;
 
         /**
          * A reference to the GL Frame Buffer this Render Texture is drawing to.
          * This is only set if Phaser is running with the WebGL Renderer.
          *
-         * @name Phaser.GameObjects.RenderTexture#framebuffer
-         * @type {?WebGLFramebuffer}
-         * @since 3.12.0
+         * @name Phaser.Cameras.Scene2D.Camera#pipeline
+         * @type {any}
+         * @private
+         * @since 3.12.0-EXPERIMENTAL
          */
-        this.framebuffer = null;
-
         this.pipeline = null;
-
-        // this.flipX = false;
-        // this.flipY = false;
-        // this.tintFill = 0;
-        // this._isTinted = false;
-        // this._tintTL = 0xffffff;
-        // this._tintTR = 0xffffff;
-        // this._tintBL = 0xffffff;
-        // this._tintBR = 0xffffff;
-        // this._alphaTL = 1;
-        // this._alphaTR = 1;
-        // this._alphaBL = 1;
-        // this._alphaBR = 1;
     },
 
+    /**
+     * Sets the Camera to render to a texture instead of to the main display.
+     * 
+     * This is an experimental feature and should be expected to change in the future.
+     *
+     * @method Phaser.Cameras.Scene2D.Camera#setRenderToTexture
+     * @since 3.12.0-EXPERIMENTAL
+     *
+     * @param {any} [pipeline] - An optional WebGL Pipeline to render with.
+     *
+     * @return {Phaser.Cameras.Scene2D.Camera} This Camera instance.
+     */
     setRenderToTexture: function (pipeline)
     {
         var renderer = this.scene.sys.game.renderer;
@@ -15688,1452 +15333,6 @@ module.exports = EventEmitter;
  */
 
 module.exports = { EventEmitter: __webpack_require__(/*! ./EventEmitter */ "./events/EventEmitter.js") };
-
-
-/***/ }),
-
-/***/ "./fbinstant/AdInstance.js":
-/*!*********************************!*\
-  !*** ./fbinstant/AdInstance.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var AdInstance = function (instance, video)
-{
-    return {
-        instance: instance,
-        placementID: instance.getPlacementID(),
-        shown: false,
-        video: video
-    };
-};
-
-module.exports = AdInstance;
-
-
-/***/ }),
-
-/***/ "./fbinstant/FacebookInstantGamesPlugin.js":
-/*!*************************************************!*\
-  !*** ./fbinstant/FacebookInstantGamesPlugin.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* eslint no-console: 0 */
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var AdInstance = __webpack_require__(/*! ./AdInstance */ "./fbinstant/AdInstance.js");
-var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var DataManager = __webpack_require__(/*! ../data/DataManager */ "./data/DataManager.js");
-var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
-var Leaderboard = __webpack_require__(/*! ./Leaderboard */ "./fbinstant/Leaderboard.js");
-var Product = __webpack_require__(/*! ./Product */ "./fbinstant/Product.js");
-var Purchase = __webpack_require__(/*! ./Purchase */ "./fbinstant/Purchase.js");
-
-/**
- * @classdesc
- * [description]
- *
- * @class FacebookInstantGamesPlugin
- * @memberOf Phaser
- * @constructor
- * @extends Phaser.Events.EventEmitter
- * @since 3.12.0
- *
- * @param {Phaser.Game} game - A reference to the Phaser.Game instance.
- * @param {FBConfig} config
- */
-var FacebookInstantGamesPlugin = new Class({
-
-    Extends: EventEmitter,
-
-    initialize:
-
-    function FacebookInstantGamesPlugin (game)
-    {
-        EventEmitter.call(this);
-
-        /**
-         * A reference to the Phaser.Game instance.
-         *
-         * @name Phaser.Boot.FacebookInstantGamesPlugin#game
-         * @type {Phaser.Game}
-         * @readOnly
-         * @since 3.12.0
-         */
-        this.game = game;
-
-        this.data = new DataManager(this);
-
-        this.on('setdata', this.setDataHandler, this);
-        this.on('changedata', this.changeDataHandler, this);
-
-        this.hasLoaded = false;
-        this.dataLocked = false;
-
-        this.supportedAPIs = [];
-
-        this.entryPoint = '';
-        this.entryPointData = null;
-        this.contextID = null;
-
-        // POST - A facebook post.
-        // THREAD - A messenger thread.
-        // GROUP - A facebook group.
-        // SOLO - Default context, where the player is the only participant.
-        this.contextType = null;
-        this.locale = null;
-        this.platform = null;
-        this.version = null;
-
-        this.playerID = null;
-        this.playerName = null;
-        this.playerPhotoURL = null;
-        this.playerCanSubscribeBot = false;
-
-        this.paymentsReady = false;
-        this.catalog = [];
-        this.purchases = [];
-        this.leaderboards = {};
-        this.ads = [];
-    },
-
-    setDataHandler: function (parent, key, value)
-    {
-        if (this.dataLocked)
-        {
-            return;
-        }
-
-        console.log('set data:', key, value);
-
-        var data = {};
-        data[key] = value;
-
-        var _this = this;
-
-        FBInstant.player.setDataAsync(data).then(function ()
-        {
-            console.log('sdh saved', data);
-
-            _this.emit('savedata', data);
-        });
-    },
-
-    changeDataHandler: function (parent, key, value)
-    {
-        if (this.dataLocked)
-        {
-            return;
-        }
-
-        console.log('change data:', key, value);
-
-        var data = {};
-        data[key] = value;
-
-        var _this = this;
-
-        FBInstant.player.setDataAsync(data).then(function ()
-        {
-            console.log('cdh saved', data);
-
-            _this.emit('savedata', data);
-        });
-    },
-
-    showLoadProgress: function (scene)
-    {
-        scene.load.on('progress', function (value)
-        {
-
-            if (!this.hasLoaded)
-            {
-                console.log(value);
-
-                FBInstant.setLoadingProgress(value * 100);
-            }
-
-        }, this);
-
-        scene.load.on('complete', function ()
-        {
-
-            this.hasLoaded = true;
-
-            console.log('loaded');
-
-            FBInstant.startGameAsync().then(this.gameStarted.bind(this));
-            
-        }, this);
-
-        return this;
-    },
-
-    gameStarted: function ()
-    {
-        console.log('FBP gameStarted');
-        
-        var APIs = FBInstant.getSupportedAPIs();
-
-        var supported = {};
-
-        var dotToUpper = function (match)
-        {
-            return match[1].toUpperCase();
-        };
-
-        APIs.forEach(function (api)
-        {
-            api = api.replace(/\../g, dotToUpper);
-
-            supported[api] = true;
-        });
-
-        this.supportedAPIs = supported;
-
-        console.log(this.supportedAPIs);
-
-        this.getID();
-        this.getType();
-        this.getLocale();
-        this.getPlatform();
-        this.getSDKVersion();
-
-        this.getPlayerID();
-        this.getPlayerName();
-        this.getPlayerPhotoURL();
-
-        var _this = this;
-
-        FBInstant.onPause(function ()
-        {
-            _this.emit('pause');
-        });
-
-        FBInstant.getEntryPointAsync().then(function (entrypoint)
-        {
-            _this.entryPoint = entrypoint;
-            _this.entryPointData = FBInstant.getEntryPointData();
-
-            _this.emit('startgame');
-
-        }).catch(function (e)
-        {
-            console.warn(e);
-        });
-
-        //  Facebook.com and Android 6 only
-        if (this.supportedAPIs.paymentsPurchaseAsync)
-        {
-            FBInstant.payments.onReady(function ()
-            {
-                console.log('payments ready');
-    
-                _this.paymentsReady = true;
-            }).catch(function (e)
-            {
-                console.warn(e);
-            });
-        }
-    },
-
-    checkAPI: function (api)
-    {
-        if (!this.supportedAPIs[api])
-        {
-            console.warn(api + ' not supported');
-
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    },
-
-    getID: function ()
-    {
-        if (!this.contextID && this.supportedAPIs.contextGetID)
-        {
-            this.contextID = FBInstant.context.getID();
-        }
-
-        return this.contextID;
-    },
-
-    getType: function ()
-    {
-        if (!this.contextType && this.supportedAPIs.contextGetType)
-        {
-            this.contextType = FBInstant.context.getType();
-        }
-
-        return this.contextType;
-    },
-
-    getLocale: function ()
-    {
-        if (!this.locale && this.supportedAPIs.getLocale)
-        {
-            this.locale = FBInstant.getLocale();
-        }
-
-        return this.locale;
-    },
-
-    getPlatform: function ()
-    {
-        if (!this.platform && this.supportedAPIs.getPlatform)
-        {
-            this.platform = FBInstant.getPlatform();
-        }
-
-        return this.platform;
-    },
-
-    getSDKVersion: function ()
-    {
-        if (!this.version && this.supportedAPIs.getSDKVersion)
-        {
-            this.version = FBInstant.getSDKVersion();
-        }
-
-        return this.version;
-    },
-
-    getPlayerID: function ()
-    {
-        if (!this.playerID && this.supportedAPIs.playerGetID)
-        {
-            this.playerID = FBInstant.player.getID();
-        }
-
-        return this.playerID;
-    },
-
-    getPlayerName: function ()
-    {
-        if (!this.playerName && this.supportedAPIs.playerGetName)
-        {
-            this.playerName = FBInstant.player.getName();
-        }
-
-        return this.playerName;
-    },
-
-    getPlayerPhotoURL: function ()
-    {
-        if (!this.playerPhotoURL && this.supportedAPIs.playerGetPhoto)
-        {
-            this.playerPhotoURL = FBInstant.player.getPhoto();
-        }
-
-        return this.playerPhotoURL;
-    },
-
-    loadPlayerPhoto: function (scene, key)
-    {
-        if (this.playerPhotoURL)
-        {
-            console.log('load');
-
-            scene.load.setCORS('anonymous');
-    
-            scene.load.image(key, this.playerPhotoURL);
-    
-            scene.load.on('complete', function ()
-            {
-                this.emit('photocomplete', key);
-            }, this);
-    
-            scene.load.start();
-        }
-
-        return this;
-    },
-
-    canSubscribeBot: function ()
-    {
-        if (this.supportedAPIs.playerCanSubscribeBotAsync)
-        {
-            var _this = this;
-
-            FBInstant.player.canSubscribeBotAsync().then(function ()
-            {
-                _this.playerCanSubscribeBot = true;
-
-                _this.emit('cansubscribebot');
-            });
-        }
-
-        return this;
-    },
-
-    subscribeBot: function ()
-    {
-        if (this.playerCanSubscribeBot)
-        {
-            var _this = this;
-
-            FBInstant.player.subscribeBotAsync().then(function ()
-            {
-                _this.emit('subscribebot');
-            }).catch(function ()
-            {
-                _this.emit('subscribebotfailed');
-            });
-        }
-
-        return this;
-    },
-
-    getData: function (keys)
-    {
-        if (!this.checkAPI('playerGetDataAsync'))
-        {
-            return this;
-        }
-
-        if (!Array.isArray(keys))
-        {
-            keys = [ keys ];
-        }
-
-        console.log('getdata', keys);
-
-        var _this = this;
-
-        FBInstant.player.getDataAsync(keys).then(function (data)
-        {
-            console.log('getdata req', data);
-
-            _this.dataLocked = true;
-
-            for (var key in data)
-            {
-                _this.data.set(key, data[key]);
-            }
-
-            _this.dataLocked = false;
-
-            _this.emit('getdata', data);
-        });
-
-        return this;
-    },
-
-    saveData: function (data)
-    {
-        if (!this.checkAPI('playerSetDataAsync'))
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.player.setDataAsync(data).then(function ()
-        {
-            console.log('data saved to fb');
-
-            _this.emit('savedata', data);
-        });
-
-        return this;
-    },
-
-    flushData: function ()
-    {
-        if (!this.checkAPI('playerFlushDataAsync'))
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.player.flushDataAsync().then(function ()
-        {
-            console.log('data flushed');
-
-            _this.emit('flushdata');
-        });
-
-        return this;
-    },
-
-    getStats: function (keys)
-    {
-        if (!this.checkAPI('playerGetStatsAsync'))
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.player.getStatsAsync(keys).then(function (data)
-        {
-            console.log('stats got from fb');
-
-            _this.emit('getstats', data);
-        });
-
-        return this;
-    },
-
-    saveStats: function (data)
-    {
-        if (!this.checkAPI('playerSetStatsAsync'))
-        {
-            return this;
-        }
-
-        var output = {};
-
-        for (var key in data)
-        {
-            if (typeof data[key] === 'number')
-            {
-                output[key] = data[key];
-            }
-        }
-
-        var _this = this;
-
-        FBInstant.player.setStatsAsync(output).then(function ()
-        {
-            console.log('stats saved to fb');
-            _this.emit('savestats', output);
-        });
-
-        return this;
-    },
-
-    incStats: function (data)
-    {
-        if (!this.checkAPI('playerIncrementStatsAsync'))
-        {
-            return this;
-        }
-
-        var output = {};
-
-        for (var key in data)
-        {
-            if (typeof data[key] === 'number')
-            {
-                output[key] = data[key];
-            }
-        }
-
-        var _this = this;
-
-        FBInstant.player.incrementStatsAsync(output).then(function (stats)
-        {
-            console.log('stats modified');
-
-            _this.emit('incstats', stats);
-        });
-
-        return this;
-    },
-
-    saveSession: function (data)
-    {
-        if (!this.checkAPI('setSessionData'))
-        {
-            return this;
-        }
-
-        var test = JSON.stringify(data);
-
-        if (test.length <= 1000)
-        {
-            FBInstant.setSessionData(data);
-        }
-        else
-        {
-            console.warn('Session data too long. Max 1000 chars.');
-        }
-
-        return this;
-    },
-
-    openShare: function (text, key, frame, sessionData)
-    {
-        return this._share('SHARE', text, key, frame, sessionData);
-    },
-
-    openInvite: function (text, key, frame, sessionData)
-    {
-        return this._share('INVITE', text, key, frame, sessionData);
-    },
-
-    openRequest: function (text, key, frame, sessionData)
-    {
-        return this._share('REQUEST', text, key, frame, sessionData);
-    },
-
-    openChallenge: function (text, key, frame, sessionData)
-    {
-        return this._share('CHALLENGE', text, key, frame, sessionData);
-    },
-
-    _share: function (intent, text, key, frame, sessionData)
-    {
-        if (!this.checkAPI('shareAsync'))
-        {
-            return this;
-        }
-
-        if (sessionData === undefined) { sessionData = {}; }
-
-        if (key)
-        {
-            var imageData = this.game.textures.getBase64(key, frame);
-        }
-
-        var payload = {
-            intent: intent,
-            image: imageData,
-            text: text,
-            data: sessionData
-        };
-
-        // console.log(payload);
-
-        // intent ("INVITE" | "REQUEST" | "CHALLENGE" | "SHARE") Indicates the intent of the share.
-        // image string A base64 encoded image to be shared.
-        // text string A text message to be shared.
-        // data Object? A blob of data to attach to the share. All game sessions launched from the share will be able to access this blob through FBInstant.getEntryPointData().
-
-        var _this = this;
-
-        FBInstant.shareAsync(payload).then(function ()
-        {
-            _this.emit('resume');
-        });
-
-        return this;
-    },
-
-    isSizeBetween: function (min, max)
-    {
-        if (!this.checkAPI('contextIsSizeBetween'))
-        {
-            return this;
-        }
-
-        return FBInstant.context.isSizeBetween(min, max);
-    },
-
-    switchContext: function (contextID)
-    {
-        if (!this.checkAPI('contextSwitchAsync'))
-        {
-            return this;
-        }
-
-        if (contextID !== this.contextID)
-        {
-            var _this = this;
-
-            FBInstant.context.switchAsync(contextID).then(function ()
-            {
-                _this.contextID = FBInstant.context.getID();
-                _this.emit('switch', _this.contextID);
-            });
-        }
-
-        return this;
-    },
-
-    chooseContext: function (options)
-    {
-        if (!this.checkAPI('contextChoseAsync'))
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.context.chooseAsync(options).then(function ()
-        {
-            _this.contextID = FBInstant.context.getID();
-            _this.emit('choose', _this.contextID);
-        });
-
-        return this;
-    },
-
-    createContext: function (playerID)
-    {
-        if (!this.checkAPI('contextCreateAsync'))
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.context.createAsync(playerID).then(function ()
-        {
-            _this.contextID = FBInstant.context.getID();
-            _this.emit('create', _this.contextID);
-        });
-
-        return this;
-    },
-
-    getPlayers: function ()
-    {
-        if (!this.checkAPI('playerGetConnectedPlayersAsync'))
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.player.getConnectedPlayersAsync().then(function (players)
-        {
-            console.log('got player data');
-            console.log(players);
-
-            _this.emit('players', players);
-        });
-
-        return this;
-    },
-
-    getCatalog: function ()
-    {
-        if (!this.paymentsReady)
-        {
-            return this;
-        }
-
-        var _this = this;
-        var catalog = this.catalog;
-
-        FBInstant.payments.getCatalogAsync().then(function (data)
-        {
-            console.log('got catalog');
-
-            catalog = [];
-
-            data.forEach(function (item)
-            {
-
-                catalog.push(Product(item));
-
-            });
-
-            _this.emit('getcatalog', catalog);
-        });
-
-        return this;
-    },
-
-    purchase: function (productID, developerPayload)
-    {
-        if (!this.paymentsReady)
-        {
-            return this;
-        }
-
-        var config = {productID: productID};
-
-        if (developerPayload)
-        {
-            config.developerPayload = developerPayload;
-        }
-
-        var _this = this;
-
-        FBInstant.payments.purchaseAsync(config).then(function (data)
-        {
-            var purchase = Purchase(data);
-
-            console.log('product purchase', purchase);
-
-            _this.emit('purchase', purchase);
-        });
-
-        return this;
-    },
-
-    getPurchases: function ()
-    {
-        if (!this.paymentsReady)
-        {
-            return this;
-        }
-
-        var _this = this;
-        var purchases = this.purchases;
-
-        FBInstant.payments.getPurchasesAsync().then(function (data)
-        {
-            console.log('got purchases');
-
-            purchases = [];
-
-            data.forEach(function (item)
-            {
-
-                purchases.push(Purchase(item));
-
-            });
-
-            _this.emit('getpurchases', purchases);
-        });
-
-        return this;
-    },
-
-    consumePurchases: function (purchaseToken)
-    {
-        if (!this.paymentsReady)
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.payments.consumePurchaseAsync(purchaseToken).then(function ()
-        {
-            console.log('purchase consumed');
-
-            _this.emit('consumepurchase', purchaseToken);
-        });
-
-        return this;
-    },
-
-    update: function (cta, text, key, frame, template, updateData)
-    {
-        return this._update('CUSTOM', cta, text, key, frame, template, updateData);
-    },
-
-    updateLeaderboard: function (cta, text, key, frame, template, updateData)
-    {
-        return this._update('LEADERBOARD', cta, text, key, frame, template, updateData);
-    },
-
-    _update: function (action, cta, text, key, frame, template, updateData)
-    {
-        if (!this.checkAPI('shareAsync'))
-        {
-            return this;
-        }
-
-        if (cta === undefined) { cta = ''; }
-
-        if (typeof text === 'string')
-        {
-            text = {default: text};
-        }
-
-        if (updateData === undefined) { updateData = {}; }
-
-        if (key)
-        {
-            var imageData = this.game.textures.getBase64(key, frame);
-        }
-
-        var payload = {
-            action: action,
-            cta: cta,
-            image: imageData,
-            text: text,
-            template: template,
-            data: updateData,
-            strategy: 'IMMEDIATE',
-            notification: 'NO_PUSH'
-        };
-
-        var _this = this;
-
-        FBInstant.updateAsync(payload).then(function ()
-        {
-            _this.emit('update');
-        });
-
-        return this;
-    },
-
-    switchGame: function (appID, data)
-    {
-        if (!this.checkAPI('switchGameAsync'))
-        {
-            return this;
-        }
-
-        if (data)
-        {
-            var test = JSON.stringify(data);
-
-            if (test.length > 1000)
-            {
-                console.warn('Switch Game data too long. Max 1000 chars.');
-                return this;
-            }
-        }
-
-        var _this = this;
-
-        FBInstant.switchGameAsync(appID, data).then(function ()
-        {
-            _this.emit('switchgame', appID);
-        });
-
-        return this;
-    },
-
-    createShortcut: function ()
-    {
-        var _this = this;
-
-        FBInstant.canCreateShortcutAsync().then(function (canCreateShortcut)
-        {
-            if (canCreateShortcut)
-            {
-                FBInstant.createShortcutAsync().then(function ()
-                {
-                    _this.emit('shortcutcreated');
-                }).catch(function ()
-                {
-                    _this.emit('shortcutfailed');
-                });
-            }
-
-        });
-    },
-
-    quit: function ()
-    {
-        FBInstant.quit();
-    },
-
-    log: function (name, value, params)
-    {
-        if (!this.checkAPI('logEvent'))
-        {
-            return this;
-        }
-
-        if (params === undefined) { params = {}; }
-
-        if (name.length >= 2 && name.length <= 40)
-        {
-            FBInstant.logEvent(name, parseFloat(value), params);
-        }
-
-        return this;
-    },
-
-    preloadAds: function (placementID)
-    {
-        if (!this.checkAPI('getInterstitialAdAsync'))
-        {
-            return this;
-        }
-
-        if (!Array.isArray(placementID))
-        {
-            placementID = [ placementID ];
-        }
-
-        var i;
-        var _this = this;
-
-        var total = 0;
-
-        for (i = 0; i < this.ads.length; i++)
-        {
-            if (!this.ads[i].shown)
-            {
-                total++;
-            }
-        }
-
-        if (total + placementID.length >= 3)
-        {
-            console.warn('Too many AdInstances. Show an ad before loading more');
-            return this;
-        }
-
-        for (i = 0; i < placementID.length; i++)
-        {
-            var id = placementID[i];
-
-            FBInstant.getInterstitialAdAsync(id).then(function (data)
-            {
-                console.log('ad preloaded');
-    
-                var ad = AdInstance(data, true);
-    
-                _this.ads.push(ad);
-    
-                return ad.loadAsync();
-    
-            }).catch(function (e)
-            {
-                console.error(e);
-            });
-        }
-
-        return this;
-    },
-
-    preloadVideoAds: function (placementID)
-    {
-        if (!this.checkAPI('getRewardedVideoAsync'))
-        {
-            return this;
-        }
-
-        if (!Array.isArray(placementID))
-        {
-            placementID = [ placementID ];
-        }
-
-        var i;
-        var _this = this;
-
-        var total = 0;
-
-        for (i = 0; i < this.ads.length; i++)
-        {
-            if (!this.ads[i].shown)
-            {
-                total++;
-            }
-        }
-
-        if (total + placementID.length >= 3)
-        {
-            console.warn('Too many AdInstances. Show an ad before loading more');
-            return this;
-        }
-
-        for (i = 0; i < placementID.length; i++)
-        {
-            var id = placementID[i];
-
-            FBInstant.getRewardedVideoAsync(id).then(function (data)
-            {
-                console.log('video ad preloaded');
-
-                var ad = AdInstance(data, true);
-    
-                _this.ads.push(ad);
-    
-                return ad.loadAsync();
-    
-            }).catch(function (e)
-            {
-                console.error(e);
-            });
-        }
-
-        return this;
-    },
-
-    showAd: function (placementID)
-    {
-        var _this = this;
-
-        for (var i = 0; i < this.ads.length; i++)
-        {
-            var ad = this.ads[i];
-
-            if (ad.placementID === placementID)
-            {
-                ad.instance.showAsync().then(function ()
-                {
-                    ad.shown = true;
-
-                    _this.emit('showad', ad);
-                }).catch(function (e)
-                {
-                    if (e.code === 'ADS_NO_FILL')
-                    {
-                        _this.emit('adsnofill');
-                    }
-                    else
-                    {
-                        console.error(e);
-                    }
-                });
-            }
-        }
-
-        return this;
-    },
-
-    showVideo: function (placementID)
-    {
-        var _this = this;
-
-        for (var i = 0; i < this.ads.length; i++)
-        {
-            var ad = this.ads[i];
-
-            if (ad.placementID === placementID && ad.video)
-            {
-                ad.instance.showAsync().then(function ()
-                {
-                    ad.shown = true;
-
-                    _this.emit('showvideo', ad);
-                }).catch(function (e)
-                {
-                    if (e.code === 'ADS_NO_FILL')
-                    {
-                        _this.emit('adsnofill');
-                    }
-                    else
-                    {
-                        console.error(e);
-                    }
-                });
-            }
-        }
-
-        return this;
-    },
-
-    matchPlayer: function (matchTag, switchImmediately)
-    {
-        if (matchTag === undefined) { matchTag = null; }
-        if (switchImmediately === undefined) { switchImmediately = false; }
-
-        if (!this.checkAPI('matchPlayerAsync'))
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.matchPlayerAsync(matchTag, switchImmediately).then(function ()
-        {
-            console.log('match player');
-
-            _this.getID();
-            _this.getType();
-
-            _this.emit('matchplayer', _this.contextID, _this.contextType);
-        });
-
-        return this;
-    },
-
-    //  TODO: checkCanPlayerMatchAsync ?
-
-    getLeaderboard: function (name)
-    {
-        if (!this.checkAPI('getLeaderboardAsync'))
-        {
-            return this;
-        }
-
-        var _this = this;
-
-        FBInstant.getLeaderboardAsync(name).then(function (data)
-        {
-            console.log('leaderboard');
-            console.log(data);
-
-            var leaderboard = new Leaderboard(_this, data);
-
-            _this.leaderboards[name] = leaderboard;
-
-            _this.emit('getleaderboard', leaderboard);
-        }).catch(function (e)
-        {
-            console.warn(e);
-        });
-
-        return this;
-    },
-
-    /**
-     * Destroys the FacebookInstantGamesPlugin.
-     *
-     * @method Phaser.Boot.FacebookInstantGamesPlugin#destroy
-     * @since 3.12.0
-     */
-    destroy: function ()
-    {
-        FBInstant.quit();
-
-        this.game = null;
-    }
-
-});
-
-module.exports = FacebookInstantGamesPlugin;
-
-
-/***/ }),
-
-/***/ "./fbinstant/Leaderboard.js":
-/*!**********************************!*\
-  !*** ./fbinstant/Leaderboard.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
-var LeaderboardScore = __webpack_require__(/*! ./LeaderboardScore */ "./fbinstant/LeaderboardScore.js");
-
-/**
- * @classdesc
- * [description]
- *
- * @class FacebookInstantGamesPlugin
- * @memberOf Phaser
- * @constructor
- * @since 3.12.0
- */
-var Leaderboard = new Class({
-
-    Extends: EventEmitter,
-
-    initialize:
-
-    function Leaderboard (plugin, data)
-    {
-        EventEmitter.call(this);
-
-        this.plugin = plugin;
-        this.ref = data;
-
-        this.name = data.getName();
-        this.contextID = data.getContextID();
-        this.entryCount = 0;
-
-        this.playerScore = null;
-        this.scores = [];
-
-        this.getEntryCount();
-    },
-
-    getEntryCount: function ()
-    {
-        var _this = this;
-
-        this.ref.getEntryCountAsync().then(function (count)
-        {
-            console.log('entry count', count);
-
-            _this.entryCount = count;
-
-            _this.emit('getentrycount', count, _this.name);
-
-        }).catch(function (e)
-        {
-            console.warn(e);
-        });
-    },
-
-    setScore: function (score, data)
-    {
-        if (data === undefined) { data = ''; }
-
-        var _this = this;
-
-        this.ref.setScoreAsync(score, data).then(function (entry)
-        {
-            console.log('set score', entry);
-
-            _this.emit('setscore', entry.getScore(), entry.getExtraData(), _this.name);
-
-        }).catch(function (e)
-        {
-            console.warn(e);
-        });
-    },
-
-    getPlayerScore: function ()
-    {
-        var _this = this;
-
-        this.ref.getPlayerEntryAsync().then(function (entry)
-        {
-            console.log('get player score');
-
-            var score = LeaderboardScore(entry);
-
-            console.log(score);
-
-            _this.playerScore = score;
-
-            _this.emit('getplayerscore', score, _this.name);
-
-        }).catch(function (e)
-        {
-            console.warn(e);
-        });
-
-    },
-
-    getScores: function (count, offset)
-    {
-        if (count === undefined) { count = 10; }
-        if (offset === undefined) { offset = 0; }
-
-        var _this = this;
-
-        this.ref.getEntriesAsync().then(function (entries)
-        {
-            console.log('get scores', entries);
-
-            _this.scores = [];
-
-            entries.forEach(function (entry)
-            {
-
-                _this.scores.push(LeaderboardScore(entry));
-
-            });
-
-            _this.emit('getscores', _this.scores, _this.name);
-
-        }).catch(function (e)
-        {
-            console.warn(e);
-        });
-
-    }
-
-});
-
-module.exports = Leaderboard;
-
-
-/***/ }),
-
-/***/ "./fbinstant/LeaderboardScore.js":
-/*!***************************************!*\
-  !*** ./fbinstant/LeaderboardScore.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var LeaderboardScore = function (entry)
-{
-    return {
-        score: entry.getScore(),
-        scoreFormatted: entry.getFormattedScore(),
-        timestamp: entry.getTimestamp(),
-        rank: entry.getRank(),
-        data: entry.getExtraData(),
-        playerName: entry.getPlayer().getName(),
-        playerPhotoURL: entry.getPlayer().getPhoto(),
-        playerID: entry.getPlayer().getID()
-    };
-};
-
-module.exports = LeaderboardScore;
-
-
-/***/ }),
-
-/***/ "./fbinstant/Product.js":
-/*!******************************!*\
-  !*** ./fbinstant/Product.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
-
-/**
- * @classdesc
- * [description]
- *
- * @class FacebookInstantGamesPlugin
- * @memberOf Phaser
- * @constructor
- * @since 3.12.0
- */
-var Product = function (data)
-{
-    return {
-        title: GetFastValue(data, 'title', ''),
-        productID: GetFastValue(data, 'productID', ''),
-        description: GetFastValue(data, 'description', ''),
-        imageURI: GetFastValue(data, 'imageURI', ''),
-        price: GetFastValue(data, 'price', ''),
-        priceCurrencyCode: GetFastValue(data, 'priceCurrencyCode', '')
-    };
-};
-
-module.exports = Product;
-
-
-/***/ }),
-
-/***/ "./fbinstant/Purchase.js":
-/*!*******************************!*\
-  !*** ./fbinstant/Purchase.js ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var GetFastValue = __webpack_require__(/*! ../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
-
-var Purchase = function (data)
-{
-    return {
-        developerPayload: GetFastValue(data, 'developerPayload', ''),
-        paymentID: GetFastValue(data, 'paymentID', ''),
-        productID: GetFastValue(data, 'productID', ''),
-        purchaseTime: GetFastValue(data, 'purchaseTime', ''),
-        purchaseToken: GetFastValue(data, 'purchaseToken', ''),
-        signedRequest: GetFastValue(data, 'signedRequest', '')
-    };
-};
-
-module.exports = Purchase;
 
 
 /***/ }),
@@ -25630,9 +23829,13 @@ var Graphics = new Class({
      * Draw an arc.
      *
      * This method can be used to create circles, or parts of circles.
+     * 
+     * Make sure you call `beginPath` before starting the arc unless you wish for the arc to automatically
+     * close when filled or stroked.
      *
-     * Use the optional `overshoot` argument to allow the arc to extend beyond 360 degrees. This is useful if you're drawing
-     * an arc with an especially thick line, as it will allow the arc to fully join-up. Try small values at first, i.e. 0.01.
+     * Use the optional `overshoot` argument increase the number of iterations that take place when
+     * the arc is rendered in WebGL. This is useful if you're drawing an arc with an especially thick line,
+     * as it will allow the arc to fully join-up. Try small values at first, i.e. 0.01.
      *
      * Call {@link Phaser.GameObjects.Graphics#fillPath} or {@link Phaser.GameObjects.Graphics#strokePath} after calling
      * this method to draw the arc.
@@ -25646,7 +23849,7 @@ var Graphics = new Class({
      * @param {number} startAngle - The starting angle, in radians.
      * @param {number} endAngle - The ending angle, in radians.
      * @param {boolean} [anticlockwise=false] - Whether the drawing should be anticlockwise or clockwise.
-     * @param {number} [overshoot=0] - This value allows you to overshoot the endAngle by this amount. Useful if the arc has a thick stroke and needs to overshoot to join-up cleanly.
+     * @param {number} [overshoot=0] - This value allows you to increase the segment iterations in WebGL rendering. Useful if the arc has a thick stroke and needs to overshoot to join-up cleanly. Use small numbers such as 0.01 to start with and increase as needed.
      *
      * @return {Phaser.GameObjects.Graphics} This Game Object.
      */
@@ -25655,38 +23858,9 @@ var Graphics = new Class({
         if (anticlockwise === undefined) { anticlockwise = false; }
         if (overshoot === undefined) { overshoot = 0; }
 
-        var PI2 = Math.PI * 2;
-
-        if (anticlockwise)
-        {
-            if (endAngle < -PI2)
-            {
-                endAngle = -PI2 - overshoot;
-            }
-            else if (endAngle >= 0)
-            {
-                endAngle = -PI2 + endAngle % PI2 - overshoot;
-            }
-        }
-        else
-        {
-            endAngle -= startAngle;
-            endAngle += overshoot;
-
-            if (endAngle > PI2 + overshoot)
-            {
-                endAngle = PI2 + overshoot;
-
-            }
-            else if (endAngle < -overshoot)
-            {
-                endAngle = PI2 + endAngle % PI2 - overshoot;
-            }
-        }
-
         this.commandBuffer.push(
             Commands.ARC,
-            x, y, radius, startAngle, endAngle, anticlockwise
+            x, y, radius, startAngle, endAngle, anticlockwise, overshoot
         );
 
         return this;
@@ -25720,40 +23894,11 @@ var Graphics = new Class({
         if (anticlockwise === undefined) { anticlockwise = false; }
         if (overshoot === undefined) { overshoot = 0; }
 
-        var PI2 = Math.PI * 2;
-
-        if (anticlockwise)
-        {
-            if (endAngle < -PI2)
-            {
-                endAngle = -PI2 - overshoot;
-            }
-            else if (endAngle >= 0)
-            {
-                endAngle = -PI2 + endAngle % PI2 - overshoot;
-            }
-        }
-        else
-        {
-            endAngle -= startAngle;
-            endAngle += overshoot;
-
-            if (endAngle > PI2 + overshoot)
-            {
-                endAngle = PI2 + overshoot;
-
-            }
-            else if (endAngle <= -overshoot)
-            {
-                endAngle = PI2 + endAngle % PI2 - overshoot;
-            }
-        }
-
         this.commandBuffer.push(Commands.BEGIN_PATH);
 
         this.commandBuffer.push(Commands.MOVE_TO, x, y);
 
-        this.commandBuffer.push(Commands.ARC, x, y, radius, startAngle, endAngle, anticlockwise);
+        this.commandBuffer.push(Commands.ARC, x, y, radius, startAngle, endAngle, anticlockwise, overshoot);
 
         this.commandBuffer.push(Commands.CLOSE_PATH);
 
@@ -26065,7 +24210,9 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
                     commandBuffer[index + 5],
                     commandBuffer[index + 6]
                 );
-                index += 6;
+
+                //  +7 because overshoot is the 7th value, not used in Canvas
+                index += 7;
                 break;
 
             case Commands.LINE_STYLE:
@@ -26483,6 +24630,7 @@ var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, ca
     var ty = 0;
     var ta = 0;
     var iterStep = 0.01;
+    var PI2 = Math.PI * 2;
 
     var cmd;
 
@@ -26585,8 +24733,30 @@ var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, ca
                 var radius = commands[++cmdIndex];
                 var startAngle = commands[++cmdIndex];
                 var endAngle = commands[++cmdIndex];
+                var anticlockwise = commands[++cmdIndex];
+                var overshoot = commands[++cmdIndex];
 
-                cmdIndex++; // anticlockwise (canvas only)
+                endAngle -= startAngle;
+
+                if (anticlockwise)
+                {
+                    if (endAngle < -PI2)
+                    {
+                        endAngle = -PI2;
+                    }
+                    else if (endAngle > 0)
+                    {
+                        endAngle = -PI2 + endAngle % PI2;
+                    }
+                }
+                else if (endAngle > PI2)
+                {
+                    endAngle = PI2;
+                }
+                else if (endAngle < 0)
+                {
+                    endAngle = PI2 + endAngle % PI2;
+                }
 
                 if (lastPath === null)
                 {
@@ -26595,7 +24765,7 @@ var GraphicsWebGLRenderer = function (renderer, src, interpolationPercentage, ca
                     iteration += iterStep;
                 }
 
-                while (iteration < 1)
+                while (iteration < 1 + overshoot)
                 {
                     ta = endAngle * iteration + startAngle;
                     tx = x + Math.cos(ta) * radius;
@@ -53897,7 +52067,7 @@ module.exports = BasePlugin;
   !*** ./plugins/DefaultPlugins.js ***!
   \***********************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
@@ -53928,7 +52098,6 @@ var DefaultPlugins = {
         'game',
         'anims',
         'cache',
-        'facebook',
         'plugins',
         'registry',
         'sound',
@@ -53976,7 +52145,6 @@ var DefaultPlugins = {
      */
     DefaultScene: [
 
-        'CameraManager3D',
         'Clock',
         'DataManagerPlugin',
         'InputPlugin',
@@ -53987,6 +52155,12 @@ var DefaultPlugins = {
     ]
 
 };
+
+if (false)
+{}
+
+if (false)
+{}
 
 module.exports = DefaultPlugins;
 
@@ -55120,26 +53294,7 @@ var ScenePlugin = new Class({
     {
         BasePlugin.call(this, pluginManager);
 
-        /**
-         * A reference to the Scene that has installed this plugin.
-         * This property is only set when the plugin is instantiated and added to the Scene, not before.
-         *
-         * @name Phaser.Plugins.ScenePlugin#scene
-         * @type {?Phaser.Scene}
-         * @protected
-         * @since 3.8.0
-         */
         this.scene = scene;
-
-        /**
-         * A reference to the Scene Systems of the Scene that has installed this plugin.
-         * This property is only set when the plugin is instantiated and added to the Scene, not before.
-         *
-         * @name Phaser.Plugins.ScenePlugin#systems
-         * @type {?Phaser.Scenes.Systems}
-         * @protected
-         * @since 3.8.0
-         */
         this.systems = scene.sys;
 
         scene.sys.events.once('boot', this.boot, this);
@@ -60262,15 +58417,6 @@ var ForwardDiffuseLightPipeline = new Class({
          * @since 3.11.0
          */
         this.defaultNormalMap;
-
-        /**
-         * Collection of batch information
-         *
-         * @name Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batches
-         * @type {array}
-         * @since 3.1.0
-         */
-        this.batches = [];
     },
 
     /**
@@ -60308,89 +58454,12 @@ var ForwardDiffuseLightPipeline = new Class({
 
         this.mvpUpdate();
 
-        if (this.batches.length === 0)
-        {
-            this.pushBatch();
-        }
-
         renderer.setInt1(program, 'uNormSampler', 1);
         renderer.setFloat2(program, 'uResolution', this.width, this.height);
 
         if (gameObject)
         {
             this.setNormalMap(gameObject);
-        }
-
-        return this;
-    },
-
-    /**
-     * Creates a new batch object and pushes it to a batch array.
-     * The batch object contains information relevant to the current 
-     * vertex batch like the offset in the vertex buffer, vertex count and 
-     * the textures used by that batch.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#pushBatch
-     * @since 3.1.0
-     */
-    pushBatch: function ()
-    {
-        var batch = {
-            first: this.vertexCount,
-            texture: null,
-            textures: []
-        };
-
-        this.batches.push(batch);
-    },
-
-    /**
-     * Assigns a texture to the current batch. If a texture is already set it creates
-     * a new batch object.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#setTexture2D
-     * @since 3.1.0
-     *
-     * @param {WebGLTexture} texture - WebGLTexture that will be assigned to the current batch.
-     * @param {integer} textureUnit - Texture unit to which the texture needs to be bound.
-     *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
-     */
-    setTexture2D: function (texture, unit)
-    {
-        if (!texture)
-        {
-            return this;
-        }
-
-        var batches = this.batches;
-
-        if (batches.length === 0)
-        {
-            this.pushBatch();
-        }
-
-        var batch = batches[batches.length - 1];
-
-        if (unit > 0)
-        {
-            if (batch.textures[unit - 1] &&
-                batch.textures[unit - 1] !== texture)
-            {
-                this.pushBatch();
-            }
-
-            batches[batches.length - 1].textures[unit - 1] = texture;
-        }
-        else
-        {
-            if (batch.texture !== null &&
-                batch.texture !== texture)
-            {
-                this.pushBatch();
-            }
-
-            batches[batches.length - 1].texture = texture;
         }
 
         return this;
@@ -60462,106 +58531,6 @@ var ForwardDiffuseLightPipeline = new Class({
     },
 
     /**
-     * Binds, uploads resources and processes all batches generating draw calls.
-     *
-     * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#flush
-     * @since 3.1.0
-     *
-     * @return {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} This pipeline instance.
-     */
-    flush: function ()
-    {
-        if (this.flushLocked)
-        {
-            return this;
-        }
-
-        this.flushLocked = true;
-
-        var gl = this.gl;
-        var renderer = this.renderer;
-        var vertexCount = this.vertexCount;
-        var topology = this.topology;
-        var vertexSize = this.vertexSize;
-        var batches = this.batches;
-        var batchCount = batches.length;
-        var batchVertexCount = 0;
-        var batch = null;
-        var batchNext;
-        var textureIndex;
-        var nTexture;
-
-        if (batchCount === 0 || vertexCount === 0)
-        {
-            this.flushLocked = false;
-            return this;
-        }
-
-        gl.bufferSubData(gl.ARRAY_BUFFER, 0, this.bytes.subarray(0, vertexCount * vertexSize));
-
-        for (var index = 0; index < batches.length - 1; ++index)
-        {
-            batch = batches[index];
-            batchNext = batches[index + 1];
-
-            if (batch.textures.length > 0)
-            {
-                for (textureIndex = 0; textureIndex < batch.textures.length; ++textureIndex)
-                {
-                    nTexture = batch.textures[textureIndex];
-
-                    if (nTexture)
-                    {
-                        renderer.setTexture2D(nTexture, 1 + textureIndex);
-                    }
-                }
-
-                gl.activeTexture(gl.TEXTURE0);
-            }
-
-            batchVertexCount = batchNext.first - batch.first;
-
-            if (batch.texture === null || batchVertexCount <= 0) { continue; }
-
-            renderer.setTexture2D(batch.texture, 0);
-            gl.drawArrays(topology, batch.first, batchVertexCount);
-        }
-
-        // Left over data
-        batch = batches[batches.length - 1];
-
-        if (batch.textures.length > 0)
-        {
-            for (textureIndex = 0; textureIndex < batch.textures.length; ++textureIndex)
-            {
-                nTexture = batch.textures[textureIndex];
-
-                if (nTexture)
-                {
-                    renderer.setTexture2D(nTexture, 1 + textureIndex);
-                }
-            }
-
-            gl.activeTexture(gl.TEXTURE0);
-        }
-
-        batchVertexCount = vertexCount - batch.first;
-
-        if (batch.texture && batchVertexCount > 0)
-        {
-            renderer.setTexture2D(batch.texture, 0);
-            gl.drawArrays(topology, batch.first, batchVertexCount);
-        }
-
-        this.vertexCount = 0;
-        batches.length = 0;
-        this.pushBatch();
-        this.flushLocked = false;
-
-        return this;
-    },
-
-    /**
      * Generic function for batching a textured quad
      *
      * @method Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline#batchTexture
@@ -60624,7 +58593,11 @@ var ForwardDiffuseLightPipeline = new Class({
 
         var normalTexture;
 
-        if (gameObject.texture)
+        if (gameObject.displayTexture)
+        {
+            normalTexture = gameObject.displayTexture.dataSource[gameObject.displayFrame.sourceIndex];
+        }
+        else if (gameObject.texture)
         {
             normalTexture = gameObject.texture.dataSource[gameObject.frame.sourceIndex];
         }
@@ -60635,7 +58608,8 @@ var ForwardDiffuseLightPipeline = new Class({
 
         if (!normalTexture)
         {
-            normalTexture = this.defaultNormalMap;
+            console.warn('Normal map missing or invalid');
+            return;
         }
 
         this.setTexture2D(normalTexture.glTexture, 1);
@@ -60644,11 +58618,54 @@ var ForwardDiffuseLightPipeline = new Class({
         var spriteMatrix = this._tempMatrix2;
         var calcMatrix = this._tempMatrix3;
 
+        var u0 = (frameX / textureWidth) + uOffset;
+        var v0 = (frameY / textureHeight) + vOffset;
+        var u1 = (frameX + frameWidth) / textureWidth + uOffset;
+        var v1 = (frameY + frameHeight) / textureHeight + vOffset;
+
         var width = srcWidth;
         var height = srcHeight;
 
+        // var x = -displayOriginX + frameX;
+        // var y = -displayOriginY + frameY;
+
         var x = -displayOriginX;
         var y = -displayOriginY;
+
+        if (gameObject.isCropped)
+        {
+            var crop = gameObject._crop;
+
+            width = crop.width;
+            height = crop.height;
+
+            srcWidth = crop.width;
+            srcHeight = crop.height;
+
+            frameX = crop.x;
+            frameY = crop.y;
+
+            var ox = frameX;
+            var oy = frameY;
+
+            if (flipX)
+            {
+                ox = (frameWidth - crop.x - crop.width);
+            }
+    
+            if (flipY && !texture.isRenderTexture)
+            {
+                oy = (frameHeight - crop.y - crop.height);
+            }
+
+            u0 = (ox / textureWidth) + uOffset;
+            v0 = (oy / textureHeight) + vOffset;
+            u1 = (ox + crop.width) / textureWidth + uOffset;
+            v1 = (oy + crop.height) / textureHeight + vOffset;
+
+            x = -displayOriginX + frameX;
+            y = -displayOriginY + frameY;
+        }
 
         //  Invert the flipY if this is a RenderTexture
         flipY = flipY ^ (texture.isRenderTexture ? 1 : 0);
@@ -60665,11 +58682,12 @@ var ForwardDiffuseLightPipeline = new Class({
             y += srcHeight;
         }
 
-        if (camera.roundPixels)
-        {
-            x |= 0;
-            y |= 0;
-        }
+        //  Do we need this? (doubt it)
+        // if (camera.roundPixels)
+        // {
+        //     x |= 0;
+        //     y |= 0;
+        // }
 
         var xw = x + width;
         var yh = y + height;
@@ -60699,17 +58717,17 @@ var ForwardDiffuseLightPipeline = new Class({
             camMatrix.multiply(spriteMatrix, calcMatrix);
         }
 
-        var tx0 = x * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        var ty0 = x * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+        var tx0 = calcMatrix.getX(x, y);
+        var ty0 = calcMatrix.getY(x, y);
 
-        var tx1 = x * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        var ty1 = x * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+        var tx1 = calcMatrix.getX(x, yh);
+        var ty1 = calcMatrix.getY(x, yh);
 
-        var tx2 = xw * calcMatrix.a + yh * calcMatrix.c + calcMatrix.e;
-        var ty2 = xw * calcMatrix.b + yh * calcMatrix.d + calcMatrix.f;
+        var tx2 = calcMatrix.getX(xw, yh);
+        var ty2 = calcMatrix.getY(xw, yh);
 
-        var tx3 = xw * calcMatrix.a + y * calcMatrix.c + calcMatrix.e;
-        var ty3 = xw * calcMatrix.b + y * calcMatrix.d + calcMatrix.f;
+        var tx3 = calcMatrix.getX(xw, y);
+        var ty3 = calcMatrix.getY(xw, y);
 
         if (camera.roundPixels)
         {
@@ -60726,14 +58744,9 @@ var ForwardDiffuseLightPipeline = new Class({
             ty3 |= 0;
         }
 
-        var u0 = (frameX / textureWidth) + uOffset;
-        var v0 = (frameY / textureHeight) + vOffset;
-        var u1 = (frameX + frameWidth) / textureWidth + uOffset;
-        var v1 = (frameY + frameHeight) / textureHeight + vOffset;
-
         this.setTexture2D(texture, 0);
 
-        this.batchVertices(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
+        this.batchQuad(tx0, ty0, tx1, ty1, tx2, ty2, tx3, ty3, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
     },
 
     /**
@@ -63098,7 +61111,7 @@ module.exports = GetScenePlugins;
   !*** ./scene/InjectionMap.js ***!
   \*******************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
@@ -63126,11 +61139,9 @@ var InjectionMap = {
     registry: 'registry',
     sound: 'sound',
     textures: 'textures',
-    facebook: 'facebook',
 
     events: 'events',
     cameras: 'cameras',
-    cameras3d: 'cameras3d',
     add: 'add',
     make: 'make',
     scenePlugin: 'scene',
@@ -63148,6 +61159,12 @@ var InjectionMap = {
     matterPhysics: 'matter'
 
 };
+
+if (false)
+{}
+
+if (false)
+{}
 
 module.exports = InjectionMap;
 
@@ -66202,14 +64219,8 @@ var Systems = new Class({
          */
         this.game;
 
-        /**
-         * [description]
-         *
-         * @name Phaser.Scenes.Systems#facebook
-         * @type {any}
-         * @since 3.12.0
-         */
-        this.facebook;
+        if (false)
+        {}
 
         /**
          * [description]
@@ -73569,7 +71580,7 @@ var Set = new Class({
      * @genericUse {Phaser.Structs.Set.<T>} - [$return]
      *
      * @param {EachSetCallback} callback - [description]
-     * @param {*} callbackScope - [description]
+     * @param {*} [callbackScope] - [description]
      *
      * @return {Phaser.Structs.Set} This Set object.
      */

@@ -1093,33 +1093,15 @@
       "name": "bugs",
       "children": [
         {
-          "path": "src\\bugs\\alpha.js",
-          "name": "alpha.js",
-          "size": 737,
-          "extension": ".js"
-        },
-        {
           "path": "src\\bugs\\container tilesprite.js",
           "name": "container tilesprite.js",
           "size": 1152,
           "extension": ".js"
         },
         {
-          "path": "src\\bugs\\damping.js",
-          "name": "damping.js",
-          "size": 270,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\bugs\\game destroy.js",
-          "name": "game destroy.js",
-          "size": 1602,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\bugs\\mask.js",
-          "name": "mask.js",
-          "size": 1590,
+          "path": "src\\bugs\\light.js",
+          "name": "light.js",
+          "size": 1208,
           "extension": ".js"
         },
         {
@@ -1129,19 +1111,19 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\rect scale.js",
+          "name": "rect scale.js",
+          "size": 500,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\rt crop.js",
           "name": "rt crop.js",
           "size": 1180,
           "extension": ".js"
-        },
-        {
-          "path": "src\\bugs\\scene input.js",
-          "name": "scene input.js",
-          "size": 1136,
-          "extension": ".js"
         }
       ],
-      "size": 10404
+      "size": 6777
     },
     {
       "path": "src\\cache",
@@ -1191,101 +1173,107 @@
             {
               "path": "src\\camera\\3D camera\\blend cube.js",
               "name": "blend cube.js",
-              "size": 3030,
+              "size": 3136,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\distance alpha.js",
               "name": "distance alpha.js",
-              "size": 1501,
+              "size": 1607,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\dot sphere.js",
               "name": "dot sphere.js",
-              "size": 2948,
+              "size": 3054,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\fixed scale.js",
               "name": "fixed scale.js",
-              "size": 2107,
+              "size": 2213,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\floor.js",
               "name": "floor.js",
-              "size": 1401,
+              "size": 1507,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\forest.js",
               "name": "forest.js",
-              "size": 2074,
+              "size": 2180,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\meadow.js",
               "name": "meadow.js",
-              "size": 3803,
+              "size": 3909,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\orthographic camera.js",
               "name": "orthographic camera.js",
-              "size": 1674,
+              "size": 1780,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\perspective camera.js",
               "name": "perspective camera.js",
-              "size": 1754,
+              "size": 1860,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\camera\\3D camera\\rectangle scaled.js",
+              "name": "rectangle scaled.js",
+              "size": 2891,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\rectangle.js",
               "name": "rectangle.js",
-              "size": 2780,
+              "size": 2886,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\road 1.js",
               "name": "road 1.js",
-              "size": 2107,
+              "size": 2213,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\road 2.js",
               "name": "road 2.js",
-              "size": 3406,
+              "size": 3512,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\rotate around.js",
               "name": "rotate around.js",
-              "size": 1955,
+              "size": 2061,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\rotate camera around cube.js",
               "name": "rotate camera around cube.js",
-              "size": 4031,
+              "size": 4137,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\rotate camera.js",
               "name": "rotate camera.js",
-              "size": 1767,
+              "size": 1873,
               "extension": ".js"
             },
             {
               "path": "src\\camera\\3D camera\\rotate image to camera.js",
               "name": "rotate image to camera.js",
-              "size": 3815,
+              "size": 3921,
               "extension": ".js"
             }
           ],
-          "size": 40153
+          "size": 44740
         },
         {
           "path": "src\\camera\\add and remove test.js",
@@ -1709,7 +1697,7 @@
           "extension": ".js"
         }
       ],
-      "size": 188291
+      "size": 192878
     },
     {
       "path": "src\\components",
@@ -3241,7 +3229,7 @@
             {
               "path": "src\\game objects\\graphics\\arc.js",
               "name": "arc.js",
-              "size": 515,
+              "size": 677,
               "extension": ".js"
             },
             {
@@ -3691,7 +3679,7 @@
               "size": 9314
             }
           ],
-          "size": 185244
+          "size": 185406
         },
         {
           "path": "src\\game objects\\group",
@@ -3904,6 +3892,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\lights\\dynamic tilemap layer.js",
+              "name": "dynamic tilemap layer.js",
+              "size": 3340,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\lights\\graveyard.js",
               "name": "graveyard.js",
               "size": 2775,
@@ -3912,13 +3906,19 @@
             {
               "path": "src\\game objects\\lights\\light follow pointer.js",
               "name": "light follow pointer.js",
-              "size": 2238,
+              "size": 2256,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\lights\\mesh light.js",
               "name": "mesh light.js",
               "size": 2808,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\lights\\rotated sprite.js",
+              "name": "rotated sprite.js",
+              "size": 1098,
               "extension": ".js"
             },
             {
@@ -3934,7 +3934,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15095
+          "size": 19551
         },
         {
           "path": "src\\game objects\\mesh",
@@ -5320,7 +5320,7 @@
           "size": 264567
         }
       ],
-      "size": 883419
+      "size": 888037
     },
     {
       "path": "src\\games",
@@ -8191,7 +8191,7 @@
             {
               "path": "src\\loader\\tile maps\\load tile map json with normal map.js",
               "name": "load tile map json with normal map.js",
-              "size": 1509,
+              "size": 1566,
               "extension": ".js"
             },
             {
@@ -8201,10 +8201,10 @@
               "extension": ".js"
             }
           ],
-          "size": 5331
+          "size": 5388
         }
       ],
-      "size": 129881
+      "size": 129938
     },
     {
       "path": "src\\paths",
@@ -10888,5 +10888,5 @@
       "size": 5291
     }
   ],
-  "size": 2850592
+  "size": 2856227
 }

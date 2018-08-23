@@ -33,8 +33,8 @@ function create ()
 
     this.input.on('pointermove', function (pointer) {
 
-        light.x = pointer.x;
-        light.y = pointer.y;
+        light.x = this.cameras.main.scrollX + pointer.x;
+        light.y = this.cameras.main.scrollY + pointer.y;
 
     });
 
@@ -42,7 +42,7 @@ function create ()
 
     var tiles = map.addTilesetImage('cybernoid', 'tiles');
 
-    var layer = map.createStaticLayer(0, tiles, 0, 0);
+    var layer = map.createDynamicLayer(0, tiles, 0, 0);
 
     layer.setPipeline('Light2D');
 

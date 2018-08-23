@@ -23,6 +23,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.scenePlugin('Camera3DPlugin', 'plugins/camera3d.min.js', 'Camera3DPlugin', 'cameras3d');
+
     this.load.spritesheet('bgStrip', 'assets/sprites/stripes800x32-bg.png', { frameWidth: 800, frameHeight: 32 });
     this.load.spritesheet('roadStrip', 'assets/sprites/stripes800x32-layer.png', { frameWidth: 100, frameHeight: 32 });
     this.load.image('treeLeft', 'assets/sprites/palm-tree-left.png');

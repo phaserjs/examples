@@ -21,6 +21,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.scenePlugin('Camera3DPlugin', 'plugins/camera3d.min.js', 'Camera3DPlugin', 'cameras3d');
+
     this.load.image('bg', 'assets/tests/camera3d/bg.png');
     this.load.image('horizon', 'assets/tests/camera3d/horizon-wide.png');
     this.load.image('tree', 'assets/tests/camera3d/tree.png');

@@ -31,7 +31,7 @@ function create() {
     brick.setOrigin(0.0);
     brick.setPipeline('Light2D');
 
-    light  = this.lights.addLight(0, 0, 200).setScrollFactor(0.0);
+    light  = this.lights.addLight(0, 0, 200).setScrollFactor(0.0).setIntensity(2);
 
     this.lights.enable().setAmbientColor(0x555555);
 
@@ -43,6 +43,7 @@ function create() {
     });
 
     var scene = this;
+
     this.input.on('pointerdown', function (pointer) {
 
         if (brick.getPipelineName() === 'Light2D')

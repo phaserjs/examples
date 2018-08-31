@@ -3,6 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: window.innerWidth,
     height: window.innerHeight,
+    autoResize: true,
     scene: {
         preload: preload,
         create: create,

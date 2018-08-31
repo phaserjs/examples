@@ -24,6 +24,8 @@ function create ()
 
     var pic = this.add.image(400, 300, 'pic');
 
+    this.add.image(100, 260, 'logo');
+
     var spotlight = this.make.sprite({
         x: 400,
         y: 300,

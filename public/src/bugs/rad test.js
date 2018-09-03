@@ -1,8 +1,8 @@
 var config = {
     type: Phaser.AUTO,
+    parent: 'phaser-example',
     width: 800,
     height: 600,
-    parent: 'phaser-example',
     scene: {
         preload: preload,
         create: create,
@@ -15,6 +15,7 @@ var a = 0;
 var container;
 var image;
 var text;
+var text2;
 var px = 400;
 var py = 300;
 var hit = false;
@@ -24,7 +25,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('mushroom', 'assets/sprites/mushroom2.png');
+    this.load.script('glmatrix', 'http://192.168.0.100/gl-matrix/dist/gl-matrix.js');
+    this.load.script('pixi', 'https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js');
     this.load.image('land', 'assets/sprites/advanced_wars_land.png');
 }
 
@@ -64,17 +66,59 @@ function create ()
     });
 
     text = this.add.text(10, 10, 'Hit?', { font: '16px Courier', fill: '#00ff00' });
+
+    text2 = this.add.text(400, 10, '', { font: '16px Courier', fill: '#00ff00' });
+
+    //  glMatrix
+    // var gm = mat2d.create();
+    // console.log(gm);
+
+    // var pm = new PIXI.Matrix();
+    // console.log(pm);
+
+    var app = new PIXI.Application();
+    
+    document.getElementById('phaser-example').appendChild(app.view);
+
+    // var ps = new PIXI.Sprite();
+    // console.log(ps.rotation);
+
+    PIXI.loader.add('land', 'assets/sprites/advanced_wars_land.png').load((loader, resources) => {
+
+        const pc = new PIXI.Container();
+
+        var sprite = new PIXI.Sprite(resources.land.texture);
+
+        sprite.x = app.renderer.width / 2;
+        sprite.y = app.renderer.height / 2;
+
+        sprite.anchor.x = 0.5;
+        sprite.anchor.y = 0.5;
+
+        pc.addChild(sprite);
+
+        app.stage.addChild(pc);
+
+        app.ticker.add(() => {
+
+            sprite.rotation = image._rotation;
+
+            text2.setText([ 'Rot: ' + sprite.rotation ]);
+
+        });
+    });
 }
+
 
 function update ()
 {
     if (cursors.left.isDown)
     {
-        container.angle--;
+        image.angle--;
     }
     else if (cursors.right.isDown)
     {
-        container.angle++;
+        image.angle++;
     }
 
     var c = this.game.input.hitTest({ x: px, y: py }, [ image ], this.cameras.main);

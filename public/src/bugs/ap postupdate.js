@@ -37,6 +37,9 @@ function create() {
   sprite = this.physics.add.image(400, 200, 'mushroom');
   
   sprite.setGravityY(300);
+
+  // sprite.setBounce(0, 0.8);
+
   // or:
   // sprite.setVelocityY(300);
   

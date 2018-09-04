@@ -1193,7 +1193,6 @@ var Animation = new Class({
             component.msPerFrame = this.msPerFrame;
             component.skipMissedFrames = this.skipMissedFrames;
 
-            component._timeScale = 1;
             component._delay = this.delay;
             component._repeat = this.repeat;
             component._repeatDelay = this.repeatDelay;
@@ -1248,8 +1247,7 @@ var Animation = new Class({
             //  Yoyo? (happens before repeat)
             if (component._yoyo)
             {
-                component.forward = false;
-                this._updateAndGetNextTick(component, frame.prevFrame);
+                this._handleYoyoFrame(component, false);
             }
             else if (component.repeatCounter > 0)
             {
@@ -1273,6 +1271,37 @@ var Animation = new Class({
         {
             this._updateAndGetNextTick(component, frame.nextFrame);
         }
+    },
+
+    /**
+     * Handle the yoyo functionality in nextFrame and previousFrame methods.
+     *
+     * @method Phaser.Animations.Animation#_handleYoyoFrame
+     * @since 3.12.0
+     *
+     * @param {Phaser.GameObjects.Components.Animation} component - The Animation Component to advance.
+     * @param {bool} isReverse - Is animation in reverse mode? (Default: false)
+     */
+    _handleYoyoFrame: function (component, isReverse)
+    {
+        if (!isReverse) { isReverse = false; }
+
+        if (component._reverse === !isReverse && component.repeatCounter > 0)
+        {
+            component.forward = isReverse;
+            this.repeatAnimation(component);
+            return;
+        }
+
+        if (component._reverse !== isReverse && component.repeatCounter === 0)
+        {
+            this.completeAnimation(component);
+            return;
+        }
+        
+        component.forward = isReverse;
+        var frame = isReverse ? component.currentFrame.nextFrame : component.currentFrame.prevFrame;
+        this._updateAndGetNextTick(component, frame);
     },
 
     /**
@@ -1308,15 +1337,14 @@ var Animation = new Class({
 
             if (component._yoyo)
             {
-                component.forward = true;
-                this._updateAndGetNextTick(component, frame.nextFrame);
+                this._handleYoyoFrame(component, true);
             }
             else if (component.repeatCounter > 0)
             {
                 if (component._reverse && !component.forward)
                 {
                     component.currentFrame = this.getLastFrame();
-                    this._updateAndGetNextTick(component, component.currentFrame);
+                    this.repeatAnimation(component);
                 }
                 else
                 {
@@ -2533,7 +2561,7 @@ var ValueToColor = __webpack_require__(/*! ../display/color/ValueToColor */ "./d
  *
  * @property {boolean} [antialias=true] - [description]
  * @property {boolean} [pixelArt=false] - [description]
- * @property {boolean} [autoResize=false] - [description]
+ * @property {boolean} [autoResize=true] - Automatically resize the Game Canvas if you resize the renderer.
  * @property {boolean} [roundPixels=false] - [description]
  * @property {boolean} [transparent=false] - [description]
  * @property {boolean} [clearBeforeRender=true] - [description]
@@ -2898,9 +2926,9 @@ var Config = new Class({
         var renderConfig = GetValue(config, 'render', config);
 
         /**
-         * @const {boolean} Phaser.Boot.Config#autoResize - [description]
+         * @const {boolean} Phaser.Boot.Config#autoResize - Automatically resize the Game Canvas if you resize the renderer.
          */
-        this.autoResize = GetValue(renderConfig, 'autoResize', false);
+        this.autoResize = GetValue(renderConfig, 'autoResize', true);
 
         /**
          * @const {boolean} Phaser.Boot.Config#antialias - [description]
@@ -6213,7 +6241,7 @@ var BaseCamera = new Class({
         var mve = cameraMatrix[4];
         var mvf = cameraMatrix[5];
 
-        /* First Invert Matrix */
+        //  Invert Matrix
         var determinant = (mva * mvd) - (mvb * mvc);
 
         if (!determinant)
@@ -6241,14 +6269,14 @@ var BaseCamera = new Class({
         var scrollX = this.scrollX;
         var scrollY = this.scrollY;
 
+        var sx = x + ((scrollX * c - scrollY * s) * zoom);
+        var sy = y + ((scrollX * s + scrollY * c) * zoom);
+
+        //  Apply transform to point
         var res = this.resolution;
 
-        var sx = x * res + ((scrollX * c - scrollY * s) * zoom);
-        var sy = y * res + ((scrollX * s + scrollY * c) * zoom);
-
-        /* Apply transform to point */
-        output.x = (sx * ima + sy * imc + ime);
-        output.y = (sx * imb + sy * imd + imf);
+        output.x = (sx * ima + sy * imc + ime) * res;
+        output.y = (sx * imb + sy * imd + imf) * res;
 
         return output;
     },
@@ -7511,6 +7539,8 @@ var Camera = new Class({
 
     /**
      * Sets the Camera to render to a texture instead of to the main display.
+     * 
+     * Make sure that you resize the camera first if you're going to use this feature.
      * 
      * This is an experimental feature and should be expected to change in the future.
      *
@@ -10741,7 +10771,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.12.0-beta3',
+    VERSION: '3.12.0-beta4',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -15843,7 +15873,7 @@ module.exports = DisplayList;
  */
 
 var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
-var Components = __webpack_require__(/*! ./components */ "./gameobjects/components/index.js");
+var ComponentsToJSON = __webpack_require__(/*! ./components/ToJSON */ "./gameobjects/components/ToJSON.js");
 var DataManager = __webpack_require__(/*! ../data/DataManager */ "./data/DataManager.js");
 var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
 
@@ -16278,7 +16308,7 @@ var GameObject = new Class({
      */
     toJSON: function ()
     {
-        return Components.ToJSON(this);
+        return ComponentsToJSON(this);
     },
 
     /**
@@ -17918,6 +17948,7 @@ var Animation = new Class({
 
         this.forward = true;
         this._reverse = false;
+
         return this._startAnimation(key, startFrame);
     },
 
@@ -17946,6 +17977,7 @@ var Animation = new Class({
 
         this.forward = false;
         this._reverse = true;
+
         return this._startAnimation(key, startFrame);
     },
 
@@ -21492,12 +21524,14 @@ var Transform = {
      * @since 3.4.0
      *
      * @param {Phaser.GameObjects.Components.TransformMatrix} [tempMatrix] - The matrix to populate with the values from this Game Object.
+     * @param {Phaser.GameObjects.Components.TransformMatrix} [parentMatrix] - A temporary matrix to hold parent values during the calculations.
      *
      * @return {Phaser.GameObjects.Components.TransformMatrix} The populated Transform Matrix.
      */
-    getWorldTransformMatrix: function (tempMatrix)
+    getWorldTransformMatrix: function (tempMatrix, parentMatrix)
     {
         if (tempMatrix === undefined) { tempMatrix = new TransformMatrix(); }
+        if (parentMatrix === undefined) { parentMatrix = new TransformMatrix(); }
 
         var parent = this.parentContainer;
 
@@ -21506,30 +21540,16 @@ var Transform = {
             return this.getLocalTransformMatrix(tempMatrix);
         }
 
-        var parents = [];
-        
+        tempMatrix.applyITRS(this.x, this.y, this._rotation, this._scaleX, this._scaleY);
+
         while (parent)
         {
-            parents.unshift(parent);
+            parentMatrix.applyITRS(parent.x, parent.y, parent._rotation, parent._scaleX, parent._scaleY);
+
+            parentMatrix.multiply(tempMatrix, tempMatrix);
+
             parent = parent.parentContainer;
         }
-
-        tempMatrix.loadIdentity();
-
-        var length = parents.length;
-        
-        for (var i = 0; i < length; ++i)
-        {
-            parent = parents[i];
-
-            tempMatrix.translate(parent.x, parent.y);
-            tempMatrix.rotate(parent.rotation);
-            tempMatrix.scale(parent.scaleX, parent.scaleY);
-        }
-
-        tempMatrix.translate(this.x, this.y);
-        tempMatrix.rotate(this._rotation);
-        tempMatrix.scale(this._scaleX, this._scaleY);
 
         return tempMatrix;
     }
@@ -21555,6 +21575,7 @@ module.exports = Transform;
  */
 
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
+var Vector2 = __webpack_require__(/*! ../../math/Vector2 */ "./math/Vector2.js");
 
 /**
  * @classdesc
@@ -21969,12 +21990,12 @@ var TransformMatrix = new Class({
 
         var destinationMatrix = (out === undefined) ? this : out;
 
-        destinationMatrix.a = sourceA * localA + sourceB * localC;
-        destinationMatrix.b = sourceA * localB + sourceB * localD;
-        destinationMatrix.c = sourceC * localA + sourceD * localC;
-        destinationMatrix.d = sourceC * localB + sourceD * localD;
-        destinationMatrix.e = sourceE * localA + sourceF * localC + localE;
-        destinationMatrix.f = sourceE * localB + sourceF * localD + localF;
+        destinationMatrix.a = (sourceA * localA) + (sourceB * localC);
+        destinationMatrix.b = (sourceA * localB) + (sourceB * localD);
+        destinationMatrix.c = (sourceC * localA) + (sourceD * localC);
+        destinationMatrix.d = (sourceC * localB) + (sourceD * localD);
+        destinationMatrix.e = (sourceE * localA) + (sourceF * localC) + localE;
+        destinationMatrix.f = (sourceE * localB) + (sourceF * localD) + localF;
 
         return destinationMatrix;
     },
@@ -22353,6 +22374,42 @@ var TransformMatrix = new Class({
     },
 
     /**
+     * Takes the `x` and `y` values and returns a new position in the `output` vector that is the inverse of
+     * the current matrix with its transformation applied.
+     * 
+     * Can be used to translate points from world to local space.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#applyInverse
+     * @since 3.12.0
+     *
+     * @param {number} x - The x position to translate.
+     * @param {number} y - The y position to translate.
+     * @param {Phaser.Math.Vector2} [output] - A Vector2, or point-like object, to store the results in.
+     *
+     * @return {Phaser.Math.Vector2} The coordinates, inverse-transformed through this matrix.
+     */
+    applyInverse: function (x, y, output)
+    {
+        if (output === undefined) { output = new Vector2(); }
+
+        var matrix = this.matrix;
+
+        var a = matrix[0];
+        var b = matrix[1];
+        var c = matrix[2];
+        var d = matrix[3];
+        var tx = matrix[4];
+        var ty = matrix[5];
+
+        var id = 1 / ((a * d) + (c * -b));
+
+        output.x = (d * id * x) + (-c * id * y) + (((ty * c) - (tx * d)) * id);
+        output.y = (a * id * y) + (-b * id * x) + (((-ty * a) + (tx * b)) * id);
+
+        return output;
+    },
+
+    /**
      * Returns the X component of this matrix multiplied by the given values.
      * This is the same as `x * a + y * c + e`.
      *
@@ -22624,8 +22681,16 @@ module.exports = {
 var BaseCamera = __webpack_require__(/*! ../../cameras/2d/BaseCamera.js */ "./cameras/2d/BaseCamera.js");
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var Commands = __webpack_require__(/*! ./Commands */ "./gameobjects/graphics/Commands.js");
-var Components = __webpack_require__(/*! ../components */ "./gameobjects/components/index.js");
-var Ellipse = __webpack_require__(/*! ../../geom/ellipse/ */ "./geom/ellipse/index.js");
+var ComponentsAlpha = __webpack_require__(/*! ../components/Alpha */ "./gameobjects/components/Alpha.js");
+var ComponentsBlendMode = __webpack_require__(/*! ../components/BlendMode */ "./gameobjects/components/BlendMode.js");
+var ComponentsDepth = __webpack_require__(/*! ../components/Depth */ "./gameobjects/components/Depth.js");
+var ComponentsMask = __webpack_require__(/*! ../components/Mask */ "./gameobjects/components/Mask.js");
+var ComponentsPipeline = __webpack_require__(/*! ../components/Pipeline */ "./gameobjects/components/Pipeline.js");
+var ComponentsTransform = __webpack_require__(/*! ../components/Transform */ "./gameobjects/components/Transform.js");
+var ComponentsVisible = __webpack_require__(/*! ../components/Visible */ "./gameobjects/components/Visible.js");
+var ComponentsScrollFactor = __webpack_require__(/*! ../components/ScrollFactor */ "./gameobjects/components/ScrollFactor.js");
+
+var Ellipse = __webpack_require__(/*! ../../geom/ellipse/Ellipse */ "./geom/ellipse/Ellipse.js");
 var GameObject = __webpack_require__(/*! ../GameObject */ "./gameobjects/GameObject.js");
 var GetFastValue = __webpack_require__(/*! ../../utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
 var GetValue = __webpack_require__(/*! ../../utils/object/GetValue */ "./utils/object/GetValue.js");
@@ -22734,14 +22799,14 @@ var Graphics = new Class({
     Extends: GameObject,
 
     Mixins: [
-        Components.Alpha,
-        Components.BlendMode,
-        Components.Depth,
-        Components.Mask,
-        Components.Pipeline,
-        Components.Transform,
-        Components.Visible,
-        Components.ScrollFactor,
+        ComponentsAlpha,
+        ComponentsBlendMode,
+        ComponentsDepth,
+        ComponentsMask,
+        ComponentsPipeline,
+        ComponentsTransform,
+        ComponentsVisible,
+        ComponentsScrollFactor,
         Render
     ],
 
@@ -29030,45 +29095,6 @@ module.exports = Random;
 
 /***/ }),
 
-/***/ "./geom/ellipse/Area.js":
-/*!******************************!*\
-  !*** ./geom/ellipse/Area.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * Calculates the area of the Ellipse.
- *
- * @function Phaser.Geom.Ellipse.Area
- * @since 3.0.0
- *
- * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to get the area of.
- *
- * @return {number} The area of the Ellipse.
- */
-var Area = function (ellipse)
-{
-    if (ellipse.isEmpty())
-    {
-        return 0;
-    }
-
-    //  units squared
-    return (ellipse.getMajorRadius() * ellipse.getMinorRadius() * Math.PI);
-};
-
-module.exports = Area;
-
-
-/***/ }),
-
 /***/ "./geom/ellipse/Circumference.js":
 /*!***************************************!*\
   !*** ./geom/ellipse/Circumference.js ***!
@@ -29153,41 +29179,6 @@ module.exports = CircumferencePoint;
 
 /***/ }),
 
-/***/ "./geom/ellipse/Clone.js":
-/*!*******************************!*\
-  !*** ./geom/ellipse/Clone.js ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Ellipse = __webpack_require__(/*! ./Ellipse */ "./geom/ellipse/Ellipse.js");
-
-/**
- * Creates a new Ellipse instance based on the values contained in the given source.
- *
- * @function Phaser.Geom.Ellipse.Clone
- * @since 3.0.0
- *
- * @param {Phaser.Geom.Ellipse} source - The Ellipse to be cloned. Can be an instance of an Ellipse or a ellipse-like object, with x, y, width and height properties.
- *
- * @return {Phaser.Geom.Ellipse} A clone of the source Ellipse.
- */
-var Clone = function (source)
-{
-    return new Ellipse(source.x, source.y, source.width, source.height);
-};
-
-module.exports = Clone;
-
-
-/***/ }),
-
 /***/ "./geom/ellipse/Contains.js":
 /*!**********************************!*\
   !*** ./geom/ellipse/Contains.js ***!
@@ -29231,120 +29222,6 @@ var Contains = function (ellipse, x, y)
 };
 
 module.exports = Contains;
-
-
-/***/ }),
-
-/***/ "./geom/ellipse/ContainsPoint.js":
-/*!***************************************!*\
-  !*** ./geom/ellipse/ContainsPoint.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Contains = __webpack_require__(/*! ./Contains */ "./geom/ellipse/Contains.js");
-
-/**
- * Check to see if the Ellipse contains the given Point object.
- *
- * @function Phaser.Geom.Ellipse.ContainsPoint
- * @since 3.0.0
- *
- * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to check.
- * @param {(Phaser.Geom.Point|object)} point - The Point object to check if it's within the Circle or not.
- *
- * @return {boolean} True if the Point coordinates are within the circle, otherwise false.
- */
-var ContainsPoint = function (ellipse, point)
-{
-    return Contains(ellipse, point.x, point.y);
-};
-
-module.exports = ContainsPoint;
-
-
-/***/ }),
-
-/***/ "./geom/ellipse/ContainsRect.js":
-/*!**************************************!*\
-  !*** ./geom/ellipse/ContainsRect.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Contains = __webpack_require__(/*! ./Contains */ "./geom/ellipse/Contains.js");
-
-/**
- * Check to see if the Ellipse contains all four points of the given Rectangle object.
- *
- * @function Phaser.Geom.Ellipse.ContainsRect
- * @since 3.0.0
- *
- * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to check.
- * @param {(Phaser.Geom.Rectangle|object)} rect - The Rectangle object to check if it's within the Ellipse or not.
- *
- * @return {boolean} True if all of the Rectangle coordinates are within the ellipse, otherwise false.
- */
-var ContainsRect = function (ellipse, rect)
-{
-    return (
-        Contains(ellipse, rect.x, rect.y) &&
-        Contains(ellipse, rect.right, rect.y) &&
-        Contains(ellipse, rect.x, rect.bottom) &&
-        Contains(ellipse, rect.right, rect.bottom)
-    );
-};
-
-module.exports = ContainsRect;
-
-
-/***/ }),
-
-/***/ "./geom/ellipse/CopyFrom.js":
-/*!**********************************!*\
-  !*** ./geom/ellipse/CopyFrom.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * Copies the `x`, `y`, `width` and `height` properties from the `source` Ellipse
- * into the given `dest` Ellipse, then returns the `dest` Ellipse.
- *
- * @function Phaser.Geom.Ellipse.CopyFrom
- * @since 3.0.0
- *
- * @generic {Phaser.Geom.Ellipse} O - [dest,$return]
- *
- * @param {Phaser.Geom.Ellipse} source - The source Ellipse to copy the values from.
- * @param {Phaser.Geom.Ellipse} dest - The destination Ellipse to copy the values to.
- *
- * @return {Phaser.Geom.Ellipse} The destination Ellipse.
- */
-var CopyFrom = function (source, dest)
-{
-    return dest.setTo(source.x, source.y, source.width, source.height);
-};
-
-module.exports = CopyFrom;
 
 
 /***/ }),
@@ -29722,91 +29599,6 @@ module.exports = Ellipse;
 
 /***/ }),
 
-/***/ "./geom/ellipse/Equals.js":
-/*!********************************!*\
-  !*** ./geom/ellipse/Equals.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * Compares the `x`, `y`, `width` and `height` properties of the two given Ellipses.
- * Returns `true` if they all match, otherwise returns `false`.
- *
- * @function Phaser.Geom.Ellipse.Equals
- * @since 3.0.0
- *
- * @param {Phaser.Geom.Ellipse} ellipse - The first Ellipse to compare.
- * @param {Phaser.Geom.Ellipse} toCompare - The second Ellipse to compare.
- *
- * @return {boolean} `true` if the two Ellipse equal each other, otherwise `false`.
- */
-var Equals = function (ellipse, toCompare)
-{
-    return (
-        ellipse.x === toCompare.x &&
-        ellipse.y === toCompare.y &&
-        ellipse.width === toCompare.width &&
-        ellipse.height === toCompare.height
-    );
-};
-
-module.exports = Equals;
-
-
-/***/ }),
-
-/***/ "./geom/ellipse/GetBounds.js":
-/*!***********************************!*\
-  !*** ./geom/ellipse/GetBounds.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Rectangle = __webpack_require__(/*! ../rectangle/Rectangle */ "./geom/rectangle/Rectangle.js");
-
-/**
- * Returns the bounds of the Ellipse object.
- *
- * @function Phaser.Geom.Ellipse.GetBounds
- * @since 3.0.0
- *
- * @generic {Phaser.Geom.Rectangle} O - [out,$return]
- *
- * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to get the bounds from.
- * @param {(Phaser.Geom.Rectangle|object)} [out] - A Rectangle, or rectangle-like object, to store the ellipse bounds in. If not given a new Rectangle will be created.
- *
- * @return {(Phaser.Geom.Rectangle|object)} The Rectangle object containing the Ellipse bounds.
- */
-var GetBounds = function (ellipse, out)
-{
-    if (out === undefined) { out = new Rectangle(); }
-
-    out.x = ellipse.left;
-    out.y = ellipse.top;
-    out.width = ellipse.width;
-    out.height = ellipse.height;
-
-    return out;
-};
-
-module.exports = GetBounds;
-
-
-/***/ }),
-
 /***/ "./geom/ellipse/GetPoint.js":
 /*!**********************************!*\
   !*** ./geom/ellipse/GetPoint.js ***!
@@ -29914,85 +29706,6 @@ module.exports = GetPoints;
 
 /***/ }),
 
-/***/ "./geom/ellipse/Offset.js":
-/*!********************************!*\
-  !*** ./geom/ellipse/Offset.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * Offsets the Ellipse by the values given.
- *
- * @function Phaser.Geom.Ellipse.Offset
- * @since 3.0.0
- *
- * @generic {Phaser.Geom.Ellipse} O - [ellipse,$return]
- *
- * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to be offset (translated.)
- * @param {number} x - The amount to horizontally offset the Ellipse by.
- * @param {number} y - The amount to vertically offset the Ellipse by.
- *
- * @return {Phaser.Geom.Ellipse} The Ellipse that was offset.
- */
-var Offset = function (ellipse, x, y)
-{
-    ellipse.x += x;
-    ellipse.y += y;
-
-    return ellipse;
-};
-
-module.exports = Offset;
-
-
-/***/ }),
-
-/***/ "./geom/ellipse/OffsetPoint.js":
-/*!*************************************!*\
-  !*** ./geom/ellipse/OffsetPoint.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * Offsets the Ellipse by the values given in the `x` and `y` properties of the Point object.
- *
- * @function Phaser.Geom.Ellipse.OffsetPoint
- * @since 3.0.0
- *
- * @generic {Phaser.Geom.Ellipse} O - [ellipse,$return]
- *
- * @param {Phaser.Geom.Ellipse} ellipse - The Ellipse to be offset (translated.)
- * @param {(Phaser.Geom.Point|object)} point - The Point object containing the values to offset the Ellipse by.
- *
- * @return {Phaser.Geom.Ellipse} The Ellipse that was offset.
- */
-var OffsetPoint = function (ellipse, point)
-{
-    ellipse.x += point.x;
-    ellipse.y += point.y;
-
-    return ellipse;
-};
-
-module.exports = OffsetPoint;
-
-
-/***/ }),
-
 /***/ "./geom/ellipse/Random.js":
 /*!********************************!*\
   !*** ./geom/ellipse/Random.js ***!
@@ -30035,42 +29748,6 @@ var Random = function (ellipse, out)
 };
 
 module.exports = Random;
-
-
-/***/ }),
-
-/***/ "./geom/ellipse/index.js":
-/*!*******************************!*\
-  !*** ./geom/ellipse/index.js ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-var Ellipse = __webpack_require__(/*! ./Ellipse */ "./geom/ellipse/Ellipse.js");
-
-Ellipse.Area = __webpack_require__(/*! ./Area */ "./geom/ellipse/Area.js");
-Ellipse.Circumference = __webpack_require__(/*! ./Circumference */ "./geom/ellipse/Circumference.js");
-Ellipse.CircumferencePoint = __webpack_require__(/*! ./CircumferencePoint */ "./geom/ellipse/CircumferencePoint.js");
-Ellipse.Clone = __webpack_require__(/*! ./Clone */ "./geom/ellipse/Clone.js");
-Ellipse.Contains = __webpack_require__(/*! ./Contains */ "./geom/ellipse/Contains.js");
-Ellipse.ContainsPoint = __webpack_require__(/*! ./ContainsPoint */ "./geom/ellipse/ContainsPoint.js");
-Ellipse.ContainsRect = __webpack_require__(/*! ./ContainsRect */ "./geom/ellipse/ContainsRect.js");
-Ellipse.CopyFrom = __webpack_require__(/*! ./CopyFrom */ "./geom/ellipse/CopyFrom.js");
-Ellipse.Equals = __webpack_require__(/*! ./Equals */ "./geom/ellipse/Equals.js");
-Ellipse.GetBounds = __webpack_require__(/*! ./GetBounds */ "./geom/ellipse/GetBounds.js");
-Ellipse.GetPoint = __webpack_require__(/*! ./GetPoint */ "./geom/ellipse/GetPoint.js");
-Ellipse.GetPoints = __webpack_require__(/*! ./GetPoints */ "./geom/ellipse/GetPoints.js");
-Ellipse.Offset = __webpack_require__(/*! ./Offset */ "./geom/ellipse/Offset.js");
-Ellipse.OffsetPoint = __webpack_require__(/*! ./OffsetPoint */ "./geom/ellipse/OffsetPoint.js");
-Ellipse.Random = __webpack_require__(/*! ./Random */ "./geom/ellipse/Random.js");
-
-module.exports = Ellipse;
 
 
 /***/ }),
@@ -33395,6 +33072,16 @@ var InputManager = new Class({
          */
         this._tempMatrix = new TransformMatrix();
 
+        /**
+         * A re-cycled matrix used in hit test calculations.
+         *
+         * @name Phaser.Input.InputManager#_tempMatrix2
+         * @type {Phaser.GameObjects.Components.TransformMatrix}
+         * @private
+         * @since 3.12.0
+         */
+        this._tempMatrix2 = new TransformMatrix();
+
         game.events.once('boot', this.boot, this);
     },
 
@@ -34109,14 +33796,15 @@ var InputManager = new Class({
      * @since 3.10.0
      *
      * @param {Phaser.GameObjects.GameObject} gameObject - The Game Object to test.
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera which is being tested against.
      *
      * @return {boolean} `true` if the Game Object should be considered for input, otherwise `false`.
      */
-    inputCandidate: function (gameObject)
+    inputCandidate: function (gameObject, camera)
     {
         var input = gameObject.input;
 
-        if (!input || !input.enabled || !gameObject.willRender())
+        if (!input || !input.enabled || !gameObject.willRender(camera))
         {
             return false;
         }
@@ -34128,7 +33816,7 @@ var InputManager = new Class({
         {
             do
             {
-                if (!parent.visible)
+                if (!parent.willRender(camera))
                 {
                     visible = false;
                     break;
@@ -34194,12 +33882,15 @@ var InputManager = new Class({
         var point = { x: 0, y: 0 };
 
         var matrix = this._tempMatrix;
+        var parentMatrix = this._tempMatrix2;
 
         for (var i = 0; i < gameObjects.length; i++)
         {
             var gameObject = gameObjects[i];
 
-            if (!this.inputCandidate(gameObject))
+            //  Checks if the Game Object can receive input (isn't being ignored by the camera, invisible, etc)
+            //  and also checks all of its parents, if any
+            if (!this.inputCandidate(gameObject, camera))
             {
                 continue;
             }
@@ -34209,15 +33900,15 @@ var InputManager = new Class({
 
             if (gameObject.parentContainer)
             {
-                gameObject.getWorldTransformMatrix(matrix);
+                gameObject.getWorldTransformMatrix(matrix, parentMatrix);
 
-                TransformXY(px, py, matrix.tx, matrix.ty, matrix.rotation, matrix.scaleX, matrix.scaleY, point);
+                matrix.applyInverse(px, py, point);
             }
             else
             {
                 TransformXY(px, py, gameObject.x, gameObject.y, gameObject.rotation, gameObject.scaleX, gameObject.scaleY, point);
             }
-
+    
             if (this.pointWithinHitArea(gameObject, point.x, point.y))
             {
                 output.push(gameObject);
@@ -40027,7 +39718,8 @@ var KeyboardPlugin = new Class({
 
     /**
      * @typedef {object} CursorKeys
-     *
+     * @memberOf Phaser.Input.Keyboard
+     * 
      * @property {Phaser.Input.Keyboard.Key} [up] - A Key object mapping to the UP arrow key.
      * @property {Phaser.Input.Keyboard.Key} [down] - A Key object mapping to the DOWN arrow key.
      * @property {Phaser.Input.Keyboard.Key} [left] - A Key object mapping to the LEFT arrow key.
@@ -40094,7 +39786,11 @@ var KeyboardPlugin = new Class({
 
             for (var i = 0; i < keys.length; i++)
             {
-                output[keys[i]] = this.addKey(keys[i]);
+                var currentKey = keys[i].trim();
+                if (currentKey)
+                {
+                    output[currentKey] = this.addKey(currentKey);
+                }
             }
         }
         else
@@ -48548,31 +48244,20 @@ var TransformXY = function (x, y, positionX, positionY, rotation, scaleX, scaleY
 {
     if (output === undefined) { output = new Vector2(); }
 
-    //  ITRS
+    var radianSin = Math.sin(rotation);
+    var radianCos = Math.cos(rotation);
 
-    var sr = Math.sin(-rotation);
-    var cr = Math.cos(-rotation);
-
-    var a = cr * scaleX;
-    var b = -sr * scaleX;
-    var c = sr * scaleY;
-    var d = cr * scaleY;
+    // Rotate and Scale
+    var a = radianCos * scaleX;
+    var b = radianSin * scaleX;
+    var c = -radianSin * scaleY;
+    var d = radianCos * scaleY;
 
     //  Invert
+    var id = 1 / ((a * d) + (c * -b));
 
-    var n = a * d - b * c;
-
-    var m0 = d / n;
-    var m1 = -b / n;
-    var m2 = -c / n;
-    var m3 = a / n;
-    var m4 = (c * positionY - d * positionX) / n;
-    var m5 = -(a * positionY - b * positionX) / n;
-
-    //  Transform
-
-    output.x = x * m0 + y * m2 + m4;
-    output.y = x * m1 + y * m3 + m5;
+    output.x = (d * id * x) + (-c * id * y) + (((positionY * c) - (positionX * d)) * id);
+    output.y = (a * id * y) + (-b * id * x) + (((-positionY * a) + (positionX * b)) * id);
 
     return output;
 };
@@ -56792,7 +56477,11 @@ var WebGLRenderer = new Class({
             this.flush();
 
             // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/scissor
-            gl.scissor(x, (this.drawingBufferHeight - y - h), w, h);
+
+            if (w > 0 && h > 0)
+            {
+                gl.scissor(x, (this.drawingBufferHeight - y - h), w, h);
+            }
         }
     },
 
@@ -57028,6 +56717,10 @@ var WebGLRenderer = new Class({
             {
                 width = framebuffer.renderTexture.width;
                 height = framebuffer.renderTexture.height;
+            }
+            else
+            {
+                this.flush();
             }
 
             gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
@@ -57469,14 +57162,16 @@ var WebGLRenderer = new Class({
         var cw = camera._cw;
         var ch = camera._ch;
 
-        this.pushScissor(cx, cy, cw, ch);
-
         var TextureTintPipeline = this.pipelines.TextureTintPipeline;
 
         var color = camera.backgroundColor;
 
         if (camera.renderToTexture)
         {
+            this.flush();
+
+            this.pushScissor(cx, cy, cw, -ch);
+
             this.setFramebuffer(camera.framebuffer);
 
             var gl = this.gl;
@@ -57485,12 +57180,12 @@ var WebGLRenderer = new Class({
     
             gl.clear(gl.COLOR_BUFFER_BIT);
 
-            TextureTintPipeline.projOrtho(0, camera.width, 0, camera.height, -1000, 1000);
+            TextureTintPipeline.projOrtho(cx, cw + cx, cy, ch + cy, -1000, 1000);
 
             if (color.alphaGL > 0)
             {
                 TextureTintPipeline.drawFillRect(
-                    cx, cy, cw, ch,
+                    0, 0, cw + cx, ch + cy,
                     Utils.getTintFromFloats(color.redGL, color.greenGL, color.blueGL, 1),
                     color.alphaGL
                 );
@@ -57498,11 +57193,17 @@ var WebGLRenderer = new Class({
         }
         else if (color.alphaGL > 0)
         {
+            this.pushScissor(cx, cy, cw, ch);
+
             TextureTintPipeline.drawFillRect(
-                cx, cy, cw, ch,
+                0, 0, cw + cx, ch + cy,
                 Utils.getTintFromFloats(color.redGL, color.greenGL, color.blueGL, 1),
                 color.alphaGL
             );
+        }
+        else
+        {
+            this.pushScissor(cx, cy, cw, ch);
         }
     },
 
@@ -57528,6 +57229,7 @@ var WebGLRenderer = new Class({
 
         if (camera.renderToTexture)
         {
+            // this.flush();
             TextureTintPipeline.flush();
 
             this.setFramebuffer(null);
@@ -57536,9 +57238,9 @@ var WebGLRenderer = new Class({
 
             var getTint = Utils.getTintAppendFloatAlpha;
 
-            var p = (camera.pipeline) ? camera.pipeline : TextureTintPipeline;
-        
-            p.batchTexture(
+            var pipeline = (camera.pipeline) ? camera.pipeline : TextureTintPipeline;
+       
+            pipeline.batchTexture(
                 camera,
                 camera.glTexture,
                 camera.width, camera.height,
@@ -57559,6 +57261,8 @@ var WebGLRenderer = new Class({
                 this.defaultCamera,
                 null
             );
+
+            // this.setPipeline(TextureTintPipeline);
 
             //  Force clear the current texture so that items next in the batch (like Graphics) don't try and use it
             this.setBlankTexture(true);
@@ -57647,16 +57351,19 @@ var WebGLRenderer = new Class({
                 this.setBlendMode(child.blendMode);
             }
 
-            if (child.mask)
+            var mask = child.mask;
+
+            if (mask)
             {
-                child.mask.preRenderWebGL(this, child, camera);
+                mask.preRenderWebGL(this, child, camera);
+
+                child.renderWebGL(this, child, interpolationPercentage, camera);
+
+                mask.postRenderWebGL(this, child);
             }
-
-            child.renderWebGL(this, child, interpolationPercentage, camera);
-
-            if (child.mask)
+            else
             {
-                child.mask.postRenderWebGL(this, child);
+                child.renderWebGL(this, child, interpolationPercentage, camera);
             }
         }
 
@@ -58296,26 +58003,28 @@ var BitmapMaskPipeline = new Class({
      */
     beginMask: function (mask, maskedObject, camera)
     {
-        var bitmapMask = mask.bitmapMask;
         var renderer = this.renderer;
         var gl = this.gl;
-        var visible = bitmapMask.visible;
+
+        //  The renderable Game Object that is being used for the bitmap mask
+        var bitmapMask = mask.bitmapMask;
 
         if (bitmapMask && gl)
         {
+            renderer.flush();
+
             // First we clear the mask framebuffer
             renderer.setFramebuffer(mask.maskFramebuffer);
             gl.clearColor(0, 0, 0, 0);
             gl.clear(gl.COLOR_BUFFER_BIT);
 
             // We render our mask source
-            bitmapMask.visible = true;
-            bitmapMask.renderWebGL(renderer, bitmapMask, 0.0, camera);
-            bitmapMask.visible = visible;
+            bitmapMask.renderWebGL(renderer, bitmapMask, 0, camera);
             renderer.flush();
 
             // Bind and clear our main source (masked object)
             renderer.setFramebuffer(mask.mainFramebuffer);
+
             gl.clearColor(0, 0, 0, 0);
             gl.clear(gl.COLOR_BUFFER_BIT);
         }
@@ -58334,11 +58043,13 @@ var BitmapMaskPipeline = new Class({
      */
     endMask: function (mask)
     {
-        var bitmapMask = mask.bitmapMask;
         var renderer = this.renderer;
         var gl = this.gl;
 
-        if (bitmapMask)
+        //  The renderable Game Object that is being used for the bitmap mask
+        var bitmapMask = mask.bitmapMask;
+
+        if (bitmapMask && gl)
         {
             // Return to default framebuffer
             renderer.setFramebuffer(null);
@@ -59048,7 +58759,7 @@ var TextureTintPipeline = new Class({
          * @private
          * @since 3.12.0
          */
-        this.currentFrame = null;
+        this.currentFrame = { u0: 0, v0: 0, u1: 1, v1: 1 };
 
         /**
          * Internal path quad cache.
@@ -59562,9 +59273,6 @@ var TextureTintPipeline = new Class({
         var width = srcWidth;
         var height = srcHeight;
 
-        // var x = -displayOriginX + frameX;
-        // var y = -displayOriginY + frameY;
-
         var x = -displayOriginX;
         var y = -displayOriginY;
 
@@ -59617,13 +59325,6 @@ var TextureTintPipeline = new Class({
             height *= -1;
             y += srcHeight;
         }
-
-        //  Do we need this? (doubt it)
-        // if (camera.roundPixels)
-        // {
-        //     x |= 0;
-        //     y |= 0;
-        // }
 
         var xw = x + width;
         var yh = y + height;
@@ -60925,13 +60626,14 @@ module.exports = [
     '',
     '    if (outTintEffect == 0.0)',
     '    {',
-    '        //  Multiply tint',
+    '        //  Multiply texture tint',
     '        color = texture * texel;',
     '    }',
     '    else if (outTintEffect == 1.0)',
     '    {',
-    '        //  Solid texture-based tint',
-    '        color.rgb = mix(texture.rgb, outTint.rgb, texture.a);',
+    '        //  Solid color + texture alpha',
+    '        color.rgb = mix(texture.rgb, outTint.rgb * outTint.a, texture.a);',
+    '        color.a = texture.a * texel.a;',
     '    }',
     '    else if (outTintEffect == 2.0)',
     '    {',

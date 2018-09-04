@@ -1093,9 +1093,33 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\ap postupdate.js",
+          "name": "ap postupdate.js",
+          "size": 1135,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\ap tilemap.js",
+          "name": "ap tilemap.js",
+          "size": 4530,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\container tilesprite.js",
           "name": "container tilesprite.js",
-          "size": 1152,
+          "size": 2088,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\input res.js",
+          "name": "input res.js",
+          "size": 2443,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\light 2.js",
+          "name": "light 2.js",
+          "size": 1664,
           "extension": ".js"
         },
         {
@@ -1111,9 +1135,27 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\rad test.js",
+          "name": "rad test.js",
+          "size": 3234,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\rect scale.js",
           "name": "rect scale.js",
           "size": 500,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\reverse anim.js",
+          "name": "reverse anim.js",
+          "size": 2865,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\rounded texture.js",
+          "name": "rounded texture.js",
+          "size": 487,
           "extension": ".js"
         },
         {
@@ -1121,9 +1163,21 @@
           "name": "rt crop.js",
           "size": 1180,
           "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\stroke.js",
+          "name": "stroke.js",
+          "size": 1365,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\ts 2.js",
+          "name": "ts 2.js",
+          "size": 953,
+          "extension": ".js"
         }
       ],
-      "size": 6777
+      "size": 26389
     },
     {
       "path": "src\\cache",
@@ -1154,6 +1208,12 @@
       "path": "src\\camera",
       "name": "camera",
       "children": [
+        {
+          "path": "src\\camera\\16 camera shader test.js",
+          "name": "16 camera shader test.js",
+          "size": 4156,
+          "extension": ".js"
+        },
         {
           "path": "src\\camera\\16 camera test.js",
           "name": "16 camera test.js",
@@ -1637,6 +1697,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\select shader test.js",
+          "name": "select shader test.js",
+          "size": 2669,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\set bounds.js",
           "name": "set bounds.js",
           "size": 1066,
@@ -1658,6 +1724,12 @@
           "path": "src\\camera\\set viewport.js",
           "name": "set viewport.js",
           "size": 623,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\camera\\shader multi cam test.js",
+          "name": "shader multi cam test.js",
+          "size": 2334,
           "extension": ".js"
         },
         {
@@ -1697,7 +1769,7 @@
           "extension": ".js"
         }
       ],
-      "size": 192878
+      "size": 202037
     },
     {
       "path": "src\\components",
@@ -1734,7 +1806,7 @@
             {
               "path": "src\\components\\data\\set data event.js",
               "name": "set data event.js",
-              "size": 1399,
+              "size": 2127,
               "extension": ".js"
             },
             {
@@ -1750,10 +1822,10 @@
               "extension": ".js"
             }
           ],
-          "size": 8255
+          "size": 8983
         }
       ],
-      "size": 8255
+      "size": 8983
     },
     {
       "path": "src\\demoscene",
@@ -2195,11 +2267,11 @@
             {
               "path": "src\\display\\masks\\spotlight.js",
               "name": "spotlight.js",
-              "size": 885,
+              "size": 926,
               "extension": ".js"
             }
           ],
-          "size": 34597
+          "size": 34638
         },
         {
           "path": "src\\display\\tint",
@@ -2266,6 +2338,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\tint\\tint and alpha.js",
+              "name": "tint and alpha.js",
+              "size": 817,
+              "extension": ".js"
+            },
+            {
               "path": "src\\display\\tint\\tint fill effect.js",
               "name": "tint fill effect.js",
               "size": 1036,
@@ -2284,10 +2362,10 @@
               "extension": ".js"
             }
           ],
-          "size": 13199
+          "size": 14016
         }
       ],
-      "size": 96828
+      "size": 97686
     },
     {
       "path": "src\\dwitter",
@@ -2418,13 +2496,13 @@
         {
           "path": "src\\game config\\game resize stretch image.js",
           "name": "game resize stretch image.js",
-          "size": 1159,
+          "size": 1182,
           "extension": ".js"
         },
         {
           "path": "src\\game config\\game resize.js",
           "name": "game resize.js",
-          "size": 1146,
+          "size": 1169,
           "extension": ".js"
         },
         {
@@ -2519,7 +2597,7 @@
           "extension": ".js"
         }
       ],
-      "size": 21176
+      "size": 21222
     },
     {
       "path": "src\\game objects",
@@ -3105,6 +3183,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\container\\scaled input test.js",
+              "name": "scaled input test.js",
+              "size": 819,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\container\\text and sprite test.js",
               "name": "text and sprite test.js",
               "size": 959,
@@ -3147,7 +3231,7 @@
               "extension": ".js"
             }
           ],
-          "size": 81376
+          "size": 82195
         },
         {
           "path": "src\\game objects\\dom element",
@@ -3233,6 +3317,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\graphics\\atari lines.js",
+              "name": "atari lines.js",
+              "size": 4693,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\graphics\\circle overlap.js",
               "name": "circle overlap.js",
               "size": 923,
@@ -3266,6 +3356,12 @@
               "path": "src\\game objects\\graphics\\fill rounded rectangle.js",
               "name": "fill rounded rectangle.js",
               "size": 600,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\graphics\\generate texture test.js",
+              "name": "generate texture test.js",
+              "size": 433,
               "extension": ".js"
             },
             {
@@ -3588,6 +3684,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\graphics\\trace.js",
+              "name": "trace.js",
+              "size": 1213,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\graphics\\trail.js",
               "name": "trail.js",
               "size": 2476,
@@ -3679,7 +3781,7 @@
               "size": 9314
             }
           ],
-          "size": 185406
+          "size": 191745
         },
         {
           "path": "src\\game objects\\group",
@@ -5320,7 +5422,7 @@
           "size": 264567
         }
       ],
-      "size": 888037
+      "size": 895195
     },
     {
       "path": "src\\games",
@@ -6457,13 +6559,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\geom\\polygon\\get points.js",
+              "name": "get points.js",
+              "size": 654,
+              "extension": ".js"
+            },
+            {
               "path": "src\\geom\\polygon\\set to.js",
               "name": "set to.js",
               "size": 870,
               "extension": ".js"
             }
           ],
-          "size": 9515
+          "size": 10169
         },
         {
           "path": "src\\geom\\rectangle",
@@ -6942,7 +7050,7 @@
           "size": 28373
         }
       ],
-      "size": 193936
+      "size": 194590
     },
     {
       "path": "src\\input",
@@ -6953,6 +7061,18 @@
           "name": "camera",
           "children": [
             {
+              "path": "src\\input\\camera\\camera container ignore.js",
+              "name": "camera container ignore.js",
+              "size": 1227,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\camera\\camera ignore.js",
+              "name": "camera ignore.js",
+              "size": 985,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\camera\\graphics contains.js",
               "name": "graphics contains.js",
               "size": 4722,
@@ -6961,19 +7081,13 @@
             {
               "path": "src\\input\\camera\\large world high res.js",
               "name": "large world high res.js",
-              "size": 2005,
+              "size": 2129,
               "extension": ".js"
             },
             {
               "path": "src\\input\\camera\\multi cam sprite.js",
               "name": "multi cam sprite.js",
               "size": 5686,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\input\\camera\\sprite.js",
-              "name": "sprite.js",
-              "size": 5162,
               "extension": ".js"
             },
             {
@@ -6989,7 +7103,7 @@
               "extension": ".js"
             }
           ],
-          "size": 20559
+          "size": 17733
         },
         {
           "path": "src\\input\\cursors",
@@ -7669,7 +7783,7 @@
           "size": 9621
         }
       ],
-      "size": 152114
+      "size": 149288
     },
     {
       "path": "src\\loader",
@@ -10888,5 +11002,5 @@
       "size": 5291
     }
   ],
-  "size": 2856227
+  "size": 2891616
 }

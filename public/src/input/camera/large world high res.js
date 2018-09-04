@@ -6,7 +6,7 @@ var config = {
     },
     width: 800,
     height: 600,
-    resolution: 2,
+    resolution: window.devicePixelRatio,
     scene: {
         preload: preload,
         create: create,
@@ -25,16 +25,19 @@ function preload ()
 
 function create ()
 {
-    this.cameras.main.setBounds(0, 0, 20000, 20000);
+    this.cameras.main.setBounds(0, 0, 10000, 10000);
 
-    var total = 1000;
+    var total = 1024;
 
     var text = this.add.text(10, 10, 'Cursors to move. Click boxes. Remaining: ' + total, { font: '16px Courier', fill: '#00ff00' }).setScrollFactor(0);
 
+    var x = 0;
+    var y = 0;
+    var sx = 10000 / 32;
 
     for (var i = 0; i < total; i++)
     {
-        var image = this.add.image(Phaser.Math.Between(0, 20000), Phaser.Math.Between(0, 20000), 'block').setInteractive();
+        var image = this.add.image(x, y, 'block').setInteractive();
 
         image.on('pointerup', function () {
 
@@ -43,6 +46,14 @@ function create ()
             this.destroy();
 
         })
+
+        x += sx;
+
+        if (i > 0 && i % 32 === 0)
+        {
+            x = 0;
+            y += sx;
+        }
     }
 
     var cursors = this.input.keyboard.createCursorKeys();
@@ -53,7 +64,7 @@ function create ()
         right: cursors.right,
         up: cursors.up,
         down: cursors.down,
-        acceleration: 0.02,
+        acceleration: 0.04,
         drag: 0.0005,
         maxSpeed: 1.0
     };

@@ -1113,7 +1113,7 @@
         {
           "path": "src\\bugs\\input res.js",
           "name": "input res.js",
-          "size": 2443,
+          "size": 2575,
           "extension": ".js"
         },
         {
@@ -1177,7 +1177,7 @@
           "extension": ".js"
         }
       ],
-      "size": 26389
+      "size": 26521
     },
     {
       "path": "src\\cache",
@@ -4224,6 +4224,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\particle emitter\\dynamic emitter config property.js",
+              "name": "dynamic emitter config property.js",
+              "size": 522,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\particle emitter\\edge zone custom.js",
               "name": "edge zone custom.js",
               "size": 1415,
@@ -4476,7 +4482,7 @@
               "extension": ".js"
             }
           ],
-          "size": 89451
+          "size": 89973
         },
         {
           "path": "src\\game objects\\quad",
@@ -4713,6 +4719,19 @@
             }
           ],
           "size": 54019
+        },
+        {
+          "path": "src\\game objects\\shapes",
+          "name": "shapes",
+          "children": [
+            {
+              "path": "src\\game objects\\shapes\\rectangle.js",
+              "name": "rectangle.js",
+              "size": 1179,
+              "extension": ".js"
+            }
+          ],
+          "size": 1179
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5422,7 +5441,7 @@
           "size": 264567
         }
       ],
-      "size": 895195
+      "size": 896896
     },
     {
       "path": "src\\games",
@@ -7081,7 +7100,7 @@
             {
               "path": "src\\input\\camera\\large world high res.js",
               "name": "large world high res.js",
-              "size": 2129,
+              "size": 2151,
               "extension": ".js"
             },
             {
@@ -7103,7 +7122,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17733
+          "size": 17755
         },
         {
           "path": "src\\input\\cursors",
@@ -7783,7 +7802,7 @@
           "size": 9621
         }
       ],
-      "size": 149288
+      "size": 149310
     },
     {
       "path": "src\\loader",
@@ -11002,5 +11021,5 @@
       "size": 5291
     }
   ],
-  "size": 2891616
+  "size": 2893471
 }

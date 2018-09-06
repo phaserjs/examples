@@ -53,22 +53,34 @@ function create ()
     // t.setAlpha(0.5);
 
 
-    var t = this.add.isobox(400, 300);
+    // var t = this.add.isobox(400, 300);
 
     // t.setAngle(25);
     // t.setAlpha(0.5);
     // t.setScale(2);
 
-    this.tweens.add({
+    // this.tweens.add({
 
-        targets: t,
-        _width: 100,
-        height: 200,
-        yoyo: true,
-        repeat: -1,
-        ease: 'Sine.easeInOut'
+    //     targets: t,
+    //     _width: 100,
+    //     height: 200,
+    //     yoyo: true,
+    //     repeat: -1,
+    //     ease: 'Sine.easeInOut'
 
-    });
+    // });
+
+    var t = this.add.star(400, 300);
+
+    // t.setAngle(20);
+    // t.setScale(2);
+
+    t.setFillStyle(0x000088);
+
+    // t.setOrigin(0.5, 0);
+
+    t.setStrokeStyle(4, 0xff0000);
+
 
     // this.input.on('pointermove', function (pointer) {
 

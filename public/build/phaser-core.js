@@ -5642,7 +5642,6 @@ var BaseCamera = new Class({
          * @type {boolean}
          * @default true
          * @since 3.10.0
-        this.visible = true;
          */
 
         /**
@@ -5894,7 +5893,6 @@ var BaseCamera = new Class({
          * @type {number}
          * @default 1
          * @since 3.11.0
-        this.alpha = 1;
          */
 
         /**
@@ -5990,14 +5988,6 @@ var BaseCamera = new Class({
      * @param {number} [value=1] - The Camera alpha value.
      *
      * @return {this} This Camera instance.
-    setAlpha: function (value)
-    {
-        if (value === undefined) { value = 1; }
-
-        this.alpha = value;
-
-        return this;
-    },
      */
 
     /**
@@ -6265,16 +6255,16 @@ var BaseCamera = new Class({
         var s = Math.sin(this.rotation);
 
         var zoom = this.zoom;
+        var res = this.resolution;
 
         var scrollX = this.scrollX;
         var scrollY = this.scrollY;
 
+        //  Works for zoom of 1 with any resolution, but resolution > 1 and zoom !== 1 breaks
         var sx = x + ((scrollX * c - scrollY * s) * zoom);
         var sy = y + ((scrollX * s + scrollY * c) * zoom);
 
         //  Apply transform to point
-        var res = this.resolution;
-
         output.x = (sx * ima + sy * imc + ime) * res;
         output.y = (sx * imb + sy * imd + imf) * res;
 
@@ -6812,12 +6802,6 @@ var BaseCamera = new Class({
      * @param {boolean} value - The visible state of the Camera.
      *
      * @return {this} This Camera instance.
-    setVisible: function (value)
-    {
-        this.visible = value;
-
-        return this;
-    },
      */
 
     /**
@@ -7473,6 +7457,8 @@ var Camera = new Class({
 
         /**
          * Is this Camera rendering directly or to a texture?
+         * 
+         * Warning: This is an experimental feature.
          *
          * @name Phaser.Cameras.Scene2D.Camera#renderToTexture
          * @type {boolean}
@@ -7485,6 +7471,8 @@ var Camera = new Class({
         /**
          * The HTML Canvas Element that the Camera is drawing to if rendering to a texture.
          * This is only populated if Phaser is running with the Canvas Renderer.
+         * 
+         * Warning: This is an experimental feature.
          *
          * @name Phaser.Cameras.Scene2D.Camera#canvas
          * @type {HTMLCanvasElement}
@@ -7495,6 +7483,8 @@ var Camera = new Class({
 
         /**
          * A reference to the Rendering Context belonging to the Canvas Element this Camera is rendering to a texture.
+         * 
+         * Warning: This is an experimental feature.
          *
          * @name Phaser.Cameras.Scene2D.Camera#context
          * @type {CanvasRenderingContext2D}
@@ -7506,6 +7496,8 @@ var Camera = new Class({
         /**
          * A reference to the GL Frame Buffer this Camera ia drawing to if rendering to a texture.
          * This is only set if Phaser is running with the WebGL Renderer.
+         * 
+         * Warning: This is an experimental feature.
          *
          * @name Phaser.Cameras.Scene2D.Camera#framebuffer
          * @type {?WebGLFramebuffer}
@@ -7517,6 +7509,8 @@ var Camera = new Class({
         /**
          * A reference to the GL Frame Buffer this Camera is drawing to if rendering to a texture.
          * This is only set if Phaser is running with the WebGL Renderer.
+         * 
+         * Warning: This is an experimental feature.
          *
          * @name Phaser.Cameras.Scene2D.Camera#framebuffer
          * @type {?WebGLFramebuffer}
@@ -7528,6 +7522,8 @@ var Camera = new Class({
         /**
          * A reference to the GL Frame Buffer this Render Texture is drawing to.
          * This is only set if Phaser is running with the WebGL Renderer.
+         * 
+         * Warning: This is an experimental feature.
          *
          * @name Phaser.Cameras.Scene2D.Camera#pipeline
          * @type {any}
@@ -10771,7 +10767,7 @@ var CONST = {
      * @type {string}
      * @since 3.0.0
      */
-    VERSION: '3.12.0-beta4',
+    VERSION: '3.13.0-beta1',
 
     BlendModes: __webpack_require__(/*! ./renderer/BlendModes */ "./renderer/BlendModes.js"),
 
@@ -19845,12 +19841,14 @@ var Pipeline = {
      * @webglOnly
      * @since 3.0.0
      *
-     * @param {string} pipelineName - The name of the pipeline to set on this Game Object.
+     * @param {string} [pipelineName=TextureTintPipeline] - The name of the pipeline to set on this Game Object. Defaults to the Texture Tint Pipeline.
      *
      * @return {boolean} `true` if the pipeline was set successfully, otherwise `false`.
      */
     initPipeline: function (pipelineName)
     {
+        if (pipelineName === undefined) { pipelineName = 'TextureTintPipeline'; }
+
         var renderer = this.scene.sys.game.renderer;
 
         if (renderer && renderer.gl && renderer.hasPipeline(pipelineName))
@@ -22820,7 +22818,7 @@ var Graphics = new Class({
         GameObject.call(this, scene, 'Graphics');
 
         this.setPosition(x, y);
-        this.initPipeline('TextureTintPipeline');
+        this.initPipeline();
 
         /**
          * The horizontal display origin of the Graphics.
@@ -24258,7 +24256,10 @@ var GraphicsCanvasRenderer = function (renderer, src, interpolationPercentage, c
     var green = 0;
     var blue = 0;
 
-    ctx.fillStyle = '#fff';
+    ctx.save();
+
+    //  Reset any currently active paths
+    ctx.beginPath();
 
     for (var index = 0; index < commandBufferLength; ++index)
     {
@@ -25050,7 +25051,7 @@ var Image = new Class({
         this.setPosition(x, y);
         this.setSizeToFrame();
         this.setOriginFromFrame();
-        this.initPipeline('TextureTintPipeline');
+        this.initPipeline();
     }
 
 });
@@ -25384,7 +25385,7 @@ var Sprite = new Class({
         this.setPosition(x, y);
         this.setSizeToFrame();
         this.setOriginFromFrame();
-        this.initPipeline('TextureTintPipeline');
+        this.initPipeline();
     },
 
     /**
@@ -26238,7 +26239,7 @@ var TextStyle = new Class({
         this._font;
 
         //  Set to defaults + user style
-        this.setStyle(style, false);
+        this.setStyle(style, false, true);
 
         var metrics = GetValue(style, 'metrics', false);
 
@@ -26275,12 +26276,14 @@ var TextStyle = new Class({
      *
      * @param {object} style - The style settings to set.
      * @param {boolean} [updateText=true] - Whether to update the text immediately.
+     * @param {boolean} [setDefaults=false] - Use the default values is not set, or the local values.
      *
      * @return {Phaser.GameObjects.Text} The parent Text object.
      */
-    setStyle: function (style, updateText)
+    setStyle: function (style, updateText, setDefaults)
     {
         if (updateText === undefined) { updateText = true; }
+        if (setDefaults === undefined) { setDefaults = false; }
 
         //  Avoid type mutation
         if (style && style.hasOwnProperty('fontSize') && typeof style.fontSize === 'number')
@@ -26290,14 +26293,16 @@ var TextStyle = new Class({
 
         for (var key in propertyMap)
         {
+            var value = (setDefaults) ? propertyMap[key][1] : this[key];
+
             if (key === 'wordWrapCallback' || key === 'wordWrapCallbackScope')
             {
                 // Callback & scope should be set without processing the values
-                this[key] = GetValue(style, propertyMap[key][0], propertyMap[key][1]);
+                this[key] = GetValue(style, propertyMap[key][0], value);
             }
             else
             {
-                this[key] = GetAdvancedValue(style, propertyMap[key][0], propertyMap[key][1]);
+                this[key] = GetAdvancedValue(style, propertyMap[key][0], value);
             }
         }
 
@@ -27033,7 +27038,7 @@ var Text = new Class({
 
         this.setPosition(x, y);
         this.setOrigin(0, 0);
-        this.initPipeline('TextureTintPipeline');
+        this.initPipeline();
 
         /**
          * The canvas element that the text is rendered to.
@@ -33856,10 +33861,6 @@ var InputManager = new Class({
 
         var tempPoint = this._tempPoint;
 
-        var cx = camera._cx;
-        var cy = camera._cy;
-        var cw = camera._cw;
-        var ch = camera._ch;
         var csx = camera.scrollX;
         var csy = camera.scrollY;
 
@@ -33868,9 +33869,10 @@ var InputManager = new Class({
         var x = pointer.x;
         var y = pointer.y;
 
-        if (!(x >= cx && y >= cy && x <= cx + cw && y <= cy + ch))
+        if (camera.resolution !== 1)
         {
-            return output;
+            x += camera._x;
+            y += camera._y;
         }
 
         //  Stores the world point inside of tempPoint
@@ -58769,7 +58771,7 @@ var TextureTintPipeline = new Class({
          * @private
          * @since 3.12.0
          */
-        this.firstQuad = [ 0, 0, 0, 0 ];
+        this.firstQuad = [ 0, 0, 0, 0, 0 ];
 
         /**
          * Internal path quad cache.
@@ -58779,7 +58781,7 @@ var TextureTintPipeline = new Class({
          * @private
          * @since 3.12.0
          */
-        this.prevQuad = [ 0, 0, 0, 0 ];
+        this.prevQuad = [ 0, 0, 0, 0, 0 ];
 
         /**
          * Used internally for triangulating a polygon.
@@ -59489,8 +59491,11 @@ var TextureTintPipeline = new Class({
 
         var calcMatrix = this._tempMatrix3;
 
-        //  Multiply and store result in calcMatrix
-        parentMatrix.multiply(currentMatrix, calcMatrix);
+        //  Multiply and store result in calcMatrix, only if the parentMatrix is set, otherwise we'll use whatever values are already in the calcMatrix
+        if (parentMatrix)
+        {
+            parentMatrix.multiply(currentMatrix, calcMatrix);
+        }
         
         var xw = x + width;
         var yh = y + height;
@@ -59701,6 +59706,10 @@ var TextureTintPipeline = new Class({
     {
         this.renderer.setPipeline(this);
 
+        //  Reset the closePath booleans
+        this.prevQuad[4] = 0;
+        this.firstQuad[4] = 0;
+
         var pathLength = path.length - 1;
 
         for (var pathIndex = 0; pathIndex < pathLength; pathIndex++)
@@ -59744,14 +59753,12 @@ var TextureTintPipeline = new Class({
 
         var calcMatrix = this._tempMatrix3;
 
-        //  Multiply and store result in calcMatrix
-        parentMatrix.multiply(currentMatrix, calcMatrix);
-
-        if (this.vertexCount + 6 > this.vertexCapacity)
+        //  Multiply and store result in calcMatrix, only if the parentMatrix is set, otherwise we'll use whatever values are already in the calcMatrix
+        if (parentMatrix)
         {
-            this.flush();
+            parentMatrix.multiply(currentMatrix, calcMatrix);
         }
-        
+
         var dx = bx - ax;
         var dy = by - ay;
 
@@ -59804,7 +59811,7 @@ var TextureTintPipeline = new Class({
         //  TL, BL, BR, TR
         this.batchQuad(tlX, tlY, blX, blY, brX, brY, trX, trY, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
 
-        if (lineWidth <= 1)
+        if (lineWidth <= 2)
         {
             //  No point doing a linejoin if the line isn't thick enough
             return;
@@ -59813,22 +59820,23 @@ var TextureTintPipeline = new Class({
         var prev = this.prevQuad;
         var first = this.firstQuad;
 
-        if (index > 0)
+        if (index > 0 && prev[4])
         {
             this.batchQuad(tlX, tlY, blX, blY, prev[0], prev[1], prev[2], prev[3], u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
         }
         else
         {
-            first[0] = blX;
-            first[1] = blY;
-            first[2] = tlX;
-            first[3] = tlY;
+            first[0] = tlX;
+            first[1] = tlY;
+            first[2] = blX;
+            first[3] = blY;
+            first[4] = 1;
         }
 
-        if (closePath)
+        if (closePath && first[4])
         {
             //  Add a join for the final path segment
-            this.batchQuad(first[0], first[1], first[2], first[3], brX, brY, trX, trY, u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
+            this.batchQuad(brX, brY, trX, trY, first[0], first[1], first[2], first[3], u0, v0, u1, v1, tintTL, tintTR, tintBL, tintBR, tintEffect);
         }
         else
         {
@@ -59838,6 +59846,7 @@ var TextureTintPipeline = new Class({
             prev[1] = brY;
             prev[2] = trX;
             prev[3] = trY;
+            prev[4] = 1;
         }
     }
 

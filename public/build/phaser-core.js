@@ -1247,7 +1247,7 @@ var Animation = new Class({
             //  Yoyo? (happens before repeat)
             if (component._yoyo)
             {
-                this._handleYoyoFrame(component, false);
+                this.handleYoyoFrame(component, false);
             }
             else if (component.repeatCounter > 0)
             {
@@ -1269,39 +1269,45 @@ var Animation = new Class({
         }
         else
         {
-            this._updateAndGetNextTick(component, frame.nextFrame);
+            this.updateAndGetNextTick(component, frame.nextFrame);
         }
     },
 
     /**
      * Handle the yoyo functionality in nextFrame and previousFrame methods.
      *
-     * @method Phaser.Animations.Animation#_handleYoyoFrame
+     * @method Phaser.Animations.Animation#handleYoyoFrame
+     * @private
      * @since 3.12.0
      *
      * @param {Phaser.GameObjects.Components.Animation} component - The Animation Component to advance.
-     * @param {bool} isReverse - Is animation in reverse mode? (Default: false)
+     * @param {boolean} isReverse - Is animation in reverse mode? (Default: false)
      */
-    _handleYoyoFrame: function (component, isReverse)
+    handleYoyoFrame: function (component, isReverse)
     {
         if (!isReverse) { isReverse = false; }
 
         if (component._reverse === !isReverse && component.repeatCounter > 0)
         {
             component.forward = isReverse;
+
             this.repeatAnimation(component);
+
             return;
         }
 
         if (component._reverse !== isReverse && component.repeatCounter === 0)
         {
             this.completeAnimation(component);
+
             return;
         }
         
         component.forward = isReverse;
-        var frame = isReverse ? component.currentFrame.nextFrame : component.currentFrame.prevFrame;
-        this._updateAndGetNextTick(component, frame);
+
+        var frame = (isReverse) ? component.currentFrame.nextFrame : component.currentFrame.prevFrame;
+
+        this.updateAndGetNextTick(component, frame);
     },
 
     /**
@@ -1337,7 +1343,7 @@ var Animation = new Class({
 
             if (component._yoyo)
             {
-                this._handleYoyoFrame(component, true);
+                this.handleYoyoFrame(component, true);
             }
             else if (component.repeatCounter > 0)
             {
@@ -1360,22 +1366,23 @@ var Animation = new Class({
         }
         else
         {
-            this._updateAndGetNextTick(component, frame.prevFrame);
+            this.updateAndGetNextTick(component, frame.prevFrame);
         }
     },
 
     /**
-     * Update Frame and Wait next tick
+     * Update Frame and Wait next tick.
      *
-     * @method Phaser.Animations.Animation#_updateAndGetNextTick
+     * @method Phaser.Animations.Animation#updateAndGetNextTick
+     * @private
      * @since 3.12.0
      *
-     * @param {Phaser.Animations.AnimationFrame} frame - An Animation frame
-     *
+     * @param {Phaser.Animations.AnimationFrame} frame - An Animation frame.
      */
-    _updateAndGetNextTick: function (component, frame)
+    updateAndGetNextTick: function (component, frame)
     {
         component.updateFrame(frame);
+
         this.getNextTick(component);
     },
 
@@ -9193,7 +9200,7 @@ var Fade = new Class({
      * @method Phaser.Cameras.Scene2D.Effects.Fade#postRenderWebGL
      * @since 3.5.0
      *
-     * @param {Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline} pipeline - The WebGL Pipeline to render to.
+     * @param {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} pipeline - The WebGL Pipeline to render to.
      * @param {function} getTintFunction - A function that will return the gl safe tint colors.
      *
      * @return {boolean} `true` if the effect drew to the renderer, otherwise `false`.
@@ -9578,7 +9585,7 @@ var Flash = new Class({
      * @method Phaser.Cameras.Scene2D.Effects.Flash#postRenderWebGL
      * @since 3.5.0
      *
-     * @param {Phaser.Renderer.WebGL.Pipelines.FlatTintPipeline} pipeline - The WebGL Pipeline to render to.
+     * @param {Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline} pipeline - The WebGL Pipeline to render to.
      * @param {function} getTintFunction - A function that will return the gl safe tint colors.
      *
      * @return {boolean} `true` if the effect drew to the renderer, otherwise `false`.
@@ -61009,16 +61016,6 @@ var Scene = new Class({
          * @since 3.0.0
          */
         this.cameras;
-
-        /**
-         * A scene level 3D Camera System.
-         * This property will only be available if defined in the Scene Injection Map.
-         *
-         * @name Phaser.Scene#cameras3d
-         * @type {Phaser.Cameras.Sprite3D.CameraManager}
-         * @since 3.0.0
-         */
-        this.cameras3d;
 
         /**
          * A scene level Game Object Factory.

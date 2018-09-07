@@ -4725,6 +4725,12 @@
           "name": "shapes",
           "children": [
             {
+              "path": "src\\game objects\\shapes\\curve.js",
+              "name": "curve.js",
+              "size": 846,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\shapes\\iso birdie.js",
               "name": "iso birdie.js",
               "size": 1581,
@@ -4734,6 +4740,12 @@
               "path": "src\\game objects\\shapes\\iso box.js",
               "name": "iso box.js",
               "size": 822,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shapes\\iso landscape.js",
+              "name": "iso landscape.js",
+              "size": 501,
               "extension": ".js"
             },
             {
@@ -4753,9 +4765,15 @@
               "name": "rectangle.js",
               "size": 2047,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shapes\\spline.js",
+              "name": "spline.js",
+              "size": 883,
+              "extension": ".js"
             }
           ],
-          "size": 5905
+          "size": 8135
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5465,7 +5483,7 @@
           "size": 264567
         }
       ],
-      "size": 901920
+      "size": 904150
     },
     {
       "path": "src\\games",
@@ -11045,5 +11063,5 @@
       "size": 5291
     }
   ],
-  "size": 2898495
+  "size": 2900725
 }

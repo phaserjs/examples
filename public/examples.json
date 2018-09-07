@@ -4226,7 +4226,7 @@
             {
               "path": "src\\game objects\\particle emitter\\dynamic emitter config property.js",
               "name": "dynamic emitter config property.js",
-              "size": 522,
+              "size": 820,
               "extension": ".js"
             },
             {
@@ -4482,7 +4482,7 @@
               "extension": ".js"
             }
           ],
-          "size": 89973
+          "size": 90271
         },
         {
           "path": "src\\game objects\\quad",
@@ -4725,13 +4725,37 @@
           "name": "shapes",
           "children": [
             {
+              "path": "src\\game objects\\shapes\\iso birdie.js",
+              "name": "iso birdie.js",
+              "size": 1581,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shapes\\iso box.js",
+              "name": "iso box.js",
+              "size": 822,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shapes\\iso triangle.js",
+              "name": "iso triangle.js",
+              "size": 857,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shapes\\line.js",
+              "name": "line.js",
+              "size": 598,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\shapes\\rectangle.js",
               "name": "rectangle.js",
-              "size": 1179,
+              "size": 2047,
               "extension": ".js"
             }
           ],
-          "size": 1179
+          "size": 5905
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5441,7 +5465,7 @@
           "size": 264567
         }
       ],
-      "size": 896896
+      "size": 901920
     },
     {
       "path": "src\\games",
@@ -11021,5 +11045,5 @@
       "size": 5291
     }
   ],
-  "size": 2893471
+  "size": 2898495
 }

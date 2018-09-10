@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -12,7 +12,7 @@ var game = new Phaser.Game(config);
 
 function create ()
 {
-    // var r = this.add.rectangle(400, 300, 300, 300, 0x000088);
+    // var r = this.add.rectangle(400, 300, 300, 300, 0x0000bb);
     // r.setFillStyle(0x000088, 0.5);
     // r.setStrokeStyle(2, 0xff0000);
     // r.setAlpha(0.5);
@@ -28,13 +28,13 @@ function create ()
 
     // console.log(r);
 
-    // var t = this.add.triangle(400, 300, 0, 200, 200, 200, 100, 0);
+    var t = this.add.triangle(400, 300, 0, 200, 200, 200, 100, 0);
     // t.setAngle(20);
     // t.setOrigin(1);
-    // t.setFillStyle(0xaaaa00);
-    // t.setScale(2);
+    t.setFillStyle(0x00ff00);
+    // t.setScale(0.5);
     // t.setAlpha(0.5);
-    // t.setStrokeStyle(4, 0xff0000);
+    t.setStrokeStyle(4, 0xff0000);
 
     // var t = this.add.circle(400, 300, 140, 0x000088);
     // t.setFillStyle(0xff0000);
@@ -70,16 +70,16 @@ function create ()
 
     // });
 
-    var t = this.add.star(400, 300);
+    // var t = this.add.star(400, 300);
 
     // t.setAngle(20);
     // t.setScale(2);
 
-    t.setFillStyle(0x000088);
+    // t.setFillStyle(0x000088);
 
     // t.setOrigin(0.5, 0);
 
-    t.setStrokeStyle(4, 0xff0000);
+    // t.setStrokeStyle(4, 0xff0000);
 
 
     // this.input.on('pointermove', function (pointer) {

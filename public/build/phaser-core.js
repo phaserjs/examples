@@ -46,17 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -651,6 +666,1452 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+
+/***/ }),
+
+/***/ "../plugins/fbinstant/src/AdInstance.js":
+/*!**********************************************!*\
+  !*** ../plugins/fbinstant/src/AdInstance.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var AdInstance = function (instance, video)
+{
+    return {
+        instance: instance,
+        placementID: instance.getPlacementID(),
+        shown: false,
+        video: video
+    };
+};
+
+module.exports = AdInstance;
+
+
+/***/ }),
+
+/***/ "../plugins/fbinstant/src/FacebookInstantGamesPlugin.js":
+/*!**************************************************************!*\
+  !*** ../plugins/fbinstant/src/FacebookInstantGamesPlugin.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* eslint no-console: 0 */
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var AdInstance = __webpack_require__(/*! ./AdInstance */ "../plugins/fbinstant/src/AdInstance.js");
+var Class = __webpack_require__(/*! ../../../src/utils/Class */ "./utils/Class.js");
+var DataManager = __webpack_require__(/*! ../../../src/data/DataManager */ "./data/DataManager.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var Leaderboard = __webpack_require__(/*! ./Leaderboard */ "../plugins/fbinstant/src/Leaderboard.js");
+var Product = __webpack_require__(/*! ./Product */ "../plugins/fbinstant/src/Product.js");
+var Purchase = __webpack_require__(/*! ./Purchase */ "../plugins/fbinstant/src/Purchase.js");
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class FacebookInstantGamesPlugin
+ * @memberOf Phaser
+ * @constructor
+ * @extends Phaser.Events.EventEmitter
+ * @since 3.12.0
+ *
+ * @param {Phaser.Game} game - A reference to the Phaser.Game instance.
+ * @param {FBConfig} config
+ */
+var FacebookInstantGamesPlugin = new Class({
+
+    Extends: EventEmitter,
+
+    initialize:
+
+    function FacebookInstantGamesPlugin (game)
+    {
+        EventEmitter.call(this);
+
+        /**
+         * A reference to the Phaser.Game instance.
+         *
+         * @name Phaser.Boot.FacebookInstantGamesPlugin#game
+         * @type {Phaser.Game}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.game = game;
+
+        this.data = new DataManager(this);
+
+        this.on('setdata', this.setDataHandler, this);
+        this.on('changedata', this.changeDataHandler, this);
+
+        this.hasLoaded = false;
+        this.dataLocked = false;
+
+        this.supportedAPIs = [];
+
+        this.entryPoint = '';
+        this.entryPointData = null;
+        this.contextID = null;
+
+        // POST - A facebook post.
+        // THREAD - A messenger thread.
+        // GROUP - A facebook group.
+        // SOLO - Default context, where the player is the only participant.
+        this.contextType = null;
+        this.locale = null;
+        this.platform = null;
+        this.version = null;
+
+        this.playerID = null;
+        this.playerName = null;
+        this.playerPhotoURL = null;
+        this.playerCanSubscribeBot = false;
+
+        this.paymentsReady = false;
+        this.catalog = [];
+        this.purchases = [];
+        this.leaderboards = {};
+        this.ads = [];
+    },
+
+    setDataHandler: function (parent, key, value)
+    {
+        if (this.dataLocked)
+        {
+            return;
+        }
+
+        console.log('set data:', key, value);
+
+        var data = {};
+        data[key] = value;
+
+        var _this = this;
+
+        FBInstant.player.setDataAsync(data).then(function ()
+        {
+            console.log('sdh saved', data);
+
+            _this.emit('savedata', data);
+        });
+    },
+
+    changeDataHandler: function (parent, key, value)
+    {
+        if (this.dataLocked)
+        {
+            return;
+        }
+
+        console.log('change data:', key, value);
+
+        var data = {};
+        data[key] = value;
+
+        var _this = this;
+
+        FBInstant.player.setDataAsync(data).then(function ()
+        {
+            console.log('cdh saved', data);
+
+            _this.emit('savedata', data);
+        });
+    },
+
+    showLoadProgress: function (scene)
+    {
+        scene.load.on('progress', function (value)
+        {
+
+            if (!this.hasLoaded)
+            {
+                console.log(value);
+
+                FBInstant.setLoadingProgress(value * 100);
+            }
+
+        }, this);
+
+        scene.load.on('complete', function ()
+        {
+
+            this.hasLoaded = true;
+
+            console.log('loaded');
+
+            FBInstant.startGameAsync().then(this.gameStarted.bind(this));
+            
+        }, this);
+
+        return this;
+    },
+
+    gameStarted: function ()
+    {
+        console.log('FBP gameStarted');
+        
+        var APIs = FBInstant.getSupportedAPIs();
+
+        var supported = {};
+
+        var dotToUpper = function (match)
+        {
+            return match[1].toUpperCase();
+        };
+
+        APIs.forEach(function (api)
+        {
+            api = api.replace(/\../g, dotToUpper);
+
+            supported[api] = true;
+        });
+
+        this.supportedAPIs = supported;
+
+        console.log(this.supportedAPIs);
+
+        this.getID();
+        this.getType();
+        this.getLocale();
+        this.getPlatform();
+        this.getSDKVersion();
+
+        this.getPlayerID();
+        this.getPlayerName();
+        this.getPlayerPhotoURL();
+
+        var _this = this;
+
+        FBInstant.onPause(function ()
+        {
+            _this.emit('pause');
+        });
+
+        FBInstant.getEntryPointAsync().then(function (entrypoint)
+        {
+            _this.entryPoint = entrypoint;
+            _this.entryPointData = FBInstant.getEntryPointData();
+
+            _this.emit('startgame');
+
+        }).catch(function (e)
+        {
+            console.warn(e);
+        });
+
+        //  Facebook.com and Android 6 only
+        if (this.supportedAPIs.paymentsPurchaseAsync)
+        {
+            FBInstant.payments.onReady(function ()
+            {
+                console.log('payments ready');
+    
+                _this.paymentsReady = true;
+            }).catch(function (e)
+            {
+                console.warn(e);
+            });
+        }
+    },
+
+    checkAPI: function (api)
+    {
+        if (!this.supportedAPIs[api])
+        {
+            console.warn(api + ' not supported');
+
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    },
+
+    getID: function ()
+    {
+        if (!this.contextID && this.supportedAPIs.contextGetID)
+        {
+            this.contextID = FBInstant.context.getID();
+        }
+
+        return this.contextID;
+    },
+
+    getType: function ()
+    {
+        if (!this.contextType && this.supportedAPIs.contextGetType)
+        {
+            this.contextType = FBInstant.context.getType();
+        }
+
+        return this.contextType;
+    },
+
+    getLocale: function ()
+    {
+        if (!this.locale && this.supportedAPIs.getLocale)
+        {
+            this.locale = FBInstant.getLocale();
+        }
+
+        return this.locale;
+    },
+
+    getPlatform: function ()
+    {
+        if (!this.platform && this.supportedAPIs.getPlatform)
+        {
+            this.platform = FBInstant.getPlatform();
+        }
+
+        return this.platform;
+    },
+
+    getSDKVersion: function ()
+    {
+        if (!this.version && this.supportedAPIs.getSDKVersion)
+        {
+            this.version = FBInstant.getSDKVersion();
+        }
+
+        return this.version;
+    },
+
+    getPlayerID: function ()
+    {
+        if (!this.playerID && this.supportedAPIs.playerGetID)
+        {
+            this.playerID = FBInstant.player.getID();
+        }
+
+        return this.playerID;
+    },
+
+    getPlayerName: function ()
+    {
+        if (!this.playerName && this.supportedAPIs.playerGetName)
+        {
+            this.playerName = FBInstant.player.getName();
+        }
+
+        return this.playerName;
+    },
+
+    getPlayerPhotoURL: function ()
+    {
+        if (!this.playerPhotoURL && this.supportedAPIs.playerGetPhoto)
+        {
+            this.playerPhotoURL = FBInstant.player.getPhoto();
+        }
+
+        return this.playerPhotoURL;
+    },
+
+    loadPlayerPhoto: function (scene, key)
+    {
+        if (this.playerPhotoURL)
+        {
+            console.log('load');
+
+            scene.load.setCORS('anonymous');
+    
+            scene.load.image(key, this.playerPhotoURL);
+    
+            scene.load.on('complete', function ()
+            {
+                this.emit('photocomplete', key);
+            }, this);
+    
+            scene.load.start();
+        }
+
+        return this;
+    },
+
+    canSubscribeBot: function ()
+    {
+        if (this.supportedAPIs.playerCanSubscribeBotAsync)
+        {
+            var _this = this;
+
+            FBInstant.player.canSubscribeBotAsync().then(function ()
+            {
+                _this.playerCanSubscribeBot = true;
+
+                _this.emit('cansubscribebot');
+            });
+        }
+
+        return this;
+    },
+
+    subscribeBot: function ()
+    {
+        if (this.playerCanSubscribeBot)
+        {
+            var _this = this;
+
+            FBInstant.player.subscribeBotAsync().then(function ()
+            {
+                _this.emit('subscribebot');
+            }).catch(function ()
+            {
+                _this.emit('subscribebotfailed');
+            });
+        }
+
+        return this;
+    },
+
+    getData: function (keys)
+    {
+        if (!this.checkAPI('playerGetDataAsync'))
+        {
+            return this;
+        }
+
+        if (!Array.isArray(keys))
+        {
+            keys = [ keys ];
+        }
+
+        console.log('getdata', keys);
+
+        var _this = this;
+
+        FBInstant.player.getDataAsync(keys).then(function (data)
+        {
+            console.log('getdata req', data);
+
+            _this.dataLocked = true;
+
+            for (var key in data)
+            {
+                _this.data.set(key, data[key]);
+            }
+
+            _this.dataLocked = false;
+
+            _this.emit('getdata', data);
+        });
+
+        return this;
+    },
+
+    saveData: function (data)
+    {
+        if (!this.checkAPI('playerSetDataAsync'))
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.player.setDataAsync(data).then(function ()
+        {
+            console.log('data saved to fb');
+
+            _this.emit('savedata', data);
+        });
+
+        return this;
+    },
+
+    flushData: function ()
+    {
+        if (!this.checkAPI('playerFlushDataAsync'))
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.player.flushDataAsync().then(function ()
+        {
+            console.log('data flushed');
+
+            _this.emit('flushdata');
+        });
+
+        return this;
+    },
+
+    getStats: function (keys)
+    {
+        if (!this.checkAPI('playerGetStatsAsync'))
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.player.getStatsAsync(keys).then(function (data)
+        {
+            console.log('stats got from fb');
+
+            _this.emit('getstats', data);
+        });
+
+        return this;
+    },
+
+    saveStats: function (data)
+    {
+        if (!this.checkAPI('playerSetStatsAsync'))
+        {
+            return this;
+        }
+
+        var output = {};
+
+        for (var key in data)
+        {
+            if (typeof data[key] === 'number')
+            {
+                output[key] = data[key];
+            }
+        }
+
+        var _this = this;
+
+        FBInstant.player.setStatsAsync(output).then(function ()
+        {
+            console.log('stats saved to fb');
+            _this.emit('savestats', output);
+        });
+
+        return this;
+    },
+
+    incStats: function (data)
+    {
+        if (!this.checkAPI('playerIncrementStatsAsync'))
+        {
+            return this;
+        }
+
+        var output = {};
+
+        for (var key in data)
+        {
+            if (typeof data[key] === 'number')
+            {
+                output[key] = data[key];
+            }
+        }
+
+        var _this = this;
+
+        FBInstant.player.incrementStatsAsync(output).then(function (stats)
+        {
+            console.log('stats modified');
+
+            _this.emit('incstats', stats);
+        });
+
+        return this;
+    },
+
+    saveSession: function (data)
+    {
+        if (!this.checkAPI('setSessionData'))
+        {
+            return this;
+        }
+
+        var test = JSON.stringify(data);
+
+        if (test.length <= 1000)
+        {
+            FBInstant.setSessionData(data);
+        }
+        else
+        {
+            console.warn('Session data too long. Max 1000 chars.');
+        }
+
+        return this;
+    },
+
+    openShare: function (text, key, frame, sessionData)
+    {
+        return this._share('SHARE', text, key, frame, sessionData);
+    },
+
+    openInvite: function (text, key, frame, sessionData)
+    {
+        return this._share('INVITE', text, key, frame, sessionData);
+    },
+
+    openRequest: function (text, key, frame, sessionData)
+    {
+        return this._share('REQUEST', text, key, frame, sessionData);
+    },
+
+    openChallenge: function (text, key, frame, sessionData)
+    {
+        return this._share('CHALLENGE', text, key, frame, sessionData);
+    },
+
+    _share: function (intent, text, key, frame, sessionData)
+    {
+        if (!this.checkAPI('shareAsync'))
+        {
+            return this;
+        }
+
+        if (sessionData === undefined) { sessionData = {}; }
+
+        if (key)
+        {
+            var imageData = this.game.textures.getBase64(key, frame);
+        }
+
+        var payload = {
+            intent: intent,
+            image: imageData,
+            text: text,
+            data: sessionData
+        };
+
+        // console.log(payload);
+
+        // intent ("INVITE" | "REQUEST" | "CHALLENGE" | "SHARE") Indicates the intent of the share.
+        // image string A base64 encoded image to be shared.
+        // text string A text message to be shared.
+        // data Object? A blob of data to attach to the share. All game sessions launched from the share will be able to access this blob through FBInstant.getEntryPointData().
+
+        var _this = this;
+
+        FBInstant.shareAsync(payload).then(function ()
+        {
+            _this.emit('resume');
+        });
+
+        return this;
+    },
+
+    isSizeBetween: function (min, max)
+    {
+        if (!this.checkAPI('contextIsSizeBetween'))
+        {
+            return this;
+        }
+
+        return FBInstant.context.isSizeBetween(min, max);
+    },
+
+    switchContext: function (contextID)
+    {
+        if (!this.checkAPI('contextSwitchAsync'))
+        {
+            return this;
+        }
+
+        if (contextID !== this.contextID)
+        {
+            var _this = this;
+
+            FBInstant.context.switchAsync(contextID).then(function ()
+            {
+                _this.contextID = FBInstant.context.getID();
+                _this.emit('switch', _this.contextID);
+            });
+        }
+
+        return this;
+    },
+
+    chooseContext: function (options)
+    {
+        if (!this.checkAPI('contextChoseAsync'))
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.context.chooseAsync(options).then(function ()
+        {
+            _this.contextID = FBInstant.context.getID();
+            _this.emit('choose', _this.contextID);
+        });
+
+        return this;
+    },
+
+    createContext: function (playerID)
+    {
+        if (!this.checkAPI('contextCreateAsync'))
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.context.createAsync(playerID).then(function ()
+        {
+            _this.contextID = FBInstant.context.getID();
+            _this.emit('create', _this.contextID);
+        });
+
+        return this;
+    },
+
+    getPlayers: function ()
+    {
+        if (!this.checkAPI('playerGetConnectedPlayersAsync'))
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.player.getConnectedPlayersAsync().then(function (players)
+        {
+            console.log('got player data');
+            console.log(players);
+
+            _this.emit('players', players);
+        });
+
+        return this;
+    },
+
+    getCatalog: function ()
+    {
+        if (!this.paymentsReady)
+        {
+            return this;
+        }
+
+        var _this = this;
+        var catalog = this.catalog;
+
+        FBInstant.payments.getCatalogAsync().then(function (data)
+        {
+            console.log('got catalog');
+
+            catalog = [];
+
+            data.forEach(function (item)
+            {
+
+                catalog.push(Product(item));
+
+            });
+
+            _this.emit('getcatalog', catalog);
+        });
+
+        return this;
+    },
+
+    purchase: function (productID, developerPayload)
+    {
+        if (!this.paymentsReady)
+        {
+            return this;
+        }
+
+        var config = {productID: productID};
+
+        if (developerPayload)
+        {
+            config.developerPayload = developerPayload;
+        }
+
+        var _this = this;
+
+        FBInstant.payments.purchaseAsync(config).then(function (data)
+        {
+            var purchase = Purchase(data);
+
+            console.log('product purchase', purchase);
+
+            _this.emit('purchase', purchase);
+        });
+
+        return this;
+    },
+
+    getPurchases: function ()
+    {
+        if (!this.paymentsReady)
+        {
+            return this;
+        }
+
+        var _this = this;
+        var purchases = this.purchases;
+
+        FBInstant.payments.getPurchasesAsync().then(function (data)
+        {
+            console.log('got purchases');
+
+            purchases = [];
+
+            data.forEach(function (item)
+            {
+
+                purchases.push(Purchase(item));
+
+            });
+
+            _this.emit('getpurchases', purchases);
+        });
+
+        return this;
+    },
+
+    consumePurchases: function (purchaseToken)
+    {
+        if (!this.paymentsReady)
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.payments.consumePurchaseAsync(purchaseToken).then(function ()
+        {
+            console.log('purchase consumed');
+
+            _this.emit('consumepurchase', purchaseToken);
+        });
+
+        return this;
+    },
+
+    update: function (cta, text, key, frame, template, updateData)
+    {
+        return this._update('CUSTOM', cta, text, key, frame, template, updateData);
+    },
+
+    updateLeaderboard: function (cta, text, key, frame, template, updateData)
+    {
+        return this._update('LEADERBOARD', cta, text, key, frame, template, updateData);
+    },
+
+    _update: function (action, cta, text, key, frame, template, updateData)
+    {
+        if (!this.checkAPI('shareAsync'))
+        {
+            return this;
+        }
+
+        if (cta === undefined) { cta = ''; }
+
+        if (typeof text === 'string')
+        {
+            text = {default: text};
+        }
+
+        if (updateData === undefined) { updateData = {}; }
+
+        if (key)
+        {
+            var imageData = this.game.textures.getBase64(key, frame);
+        }
+
+        var payload = {
+            action: action,
+            cta: cta,
+            image: imageData,
+            text: text,
+            template: template,
+            data: updateData,
+            strategy: 'IMMEDIATE',
+            notification: 'NO_PUSH'
+        };
+
+        var _this = this;
+
+        FBInstant.updateAsync(payload).then(function ()
+        {
+            _this.emit('update');
+        });
+
+        return this;
+    },
+
+    switchGame: function (appID, data)
+    {
+        if (!this.checkAPI('switchGameAsync'))
+        {
+            return this;
+        }
+
+        if (data)
+        {
+            var test = JSON.stringify(data);
+
+            if (test.length > 1000)
+            {
+                console.warn('Switch Game data too long. Max 1000 chars.');
+                return this;
+            }
+        }
+
+        var _this = this;
+
+        FBInstant.switchGameAsync(appID, data).then(function ()
+        {
+            _this.emit('switchgame', appID);
+        });
+
+        return this;
+    },
+
+    createShortcut: function ()
+    {
+        var _this = this;
+
+        FBInstant.canCreateShortcutAsync().then(function (canCreateShortcut)
+        {
+            if (canCreateShortcut)
+            {
+                FBInstant.createShortcutAsync().then(function ()
+                {
+                    _this.emit('shortcutcreated');
+                }).catch(function ()
+                {
+                    _this.emit('shortcutfailed');
+                });
+            }
+
+        });
+    },
+
+    quit: function ()
+    {
+        FBInstant.quit();
+    },
+
+    log: function (name, value, params)
+    {
+        if (!this.checkAPI('logEvent'))
+        {
+            return this;
+        }
+
+        if (params === undefined) { params = {}; }
+
+        if (name.length >= 2 && name.length <= 40)
+        {
+            FBInstant.logEvent(name, parseFloat(value), params);
+        }
+
+        return this;
+    },
+
+    preloadAds: function (placementID)
+    {
+        if (!this.checkAPI('getInterstitialAdAsync'))
+        {
+            return this;
+        }
+
+        if (!Array.isArray(placementID))
+        {
+            placementID = [ placementID ];
+        }
+
+        var i;
+        var _this = this;
+
+        var total = 0;
+
+        for (i = 0; i < this.ads.length; i++)
+        {
+            if (!this.ads[i].shown)
+            {
+                total++;
+            }
+        }
+
+        if (total + placementID.length >= 3)
+        {
+            console.warn('Too many AdInstances. Show an ad before loading more');
+            return this;
+        }
+
+        for (i = 0; i < placementID.length; i++)
+        {
+            var id = placementID[i];
+
+            FBInstant.getInterstitialAdAsync(id).then(function (data)
+            {
+                console.log('ad preloaded');
+    
+                var ad = AdInstance(data, true);
+    
+                _this.ads.push(ad);
+    
+                return ad.loadAsync();
+    
+            }).catch(function (e)
+            {
+                console.error(e);
+            });
+        }
+
+        return this;
+    },
+
+    preloadVideoAds: function (placementID)
+    {
+        if (!this.checkAPI('getRewardedVideoAsync'))
+        {
+            return this;
+        }
+
+        if (!Array.isArray(placementID))
+        {
+            placementID = [ placementID ];
+        }
+
+        var i;
+        var _this = this;
+
+        var total = 0;
+
+        for (i = 0; i < this.ads.length; i++)
+        {
+            if (!this.ads[i].shown)
+            {
+                total++;
+            }
+        }
+
+        if (total + placementID.length >= 3)
+        {
+            console.warn('Too many AdInstances. Show an ad before loading more');
+            return this;
+        }
+
+        for (i = 0; i < placementID.length; i++)
+        {
+            var id = placementID[i];
+
+            FBInstant.getRewardedVideoAsync(id).then(function (data)
+            {
+                console.log('video ad preloaded');
+
+                var ad = AdInstance(data, true);
+    
+                _this.ads.push(ad);
+    
+                return ad.loadAsync();
+    
+            }).catch(function (e)
+            {
+                console.error(e);
+            });
+        }
+
+        return this;
+    },
+
+    showAd: function (placementID)
+    {
+        var _this = this;
+
+        for (var i = 0; i < this.ads.length; i++)
+        {
+            var ad = this.ads[i];
+
+            if (ad.placementID === placementID)
+            {
+                ad.instance.showAsync().then(function ()
+                {
+                    ad.shown = true;
+
+                    _this.emit('showad', ad);
+                }).catch(function (e)
+                {
+                    if (e.code === 'ADS_NO_FILL')
+                    {
+                        _this.emit('adsnofill');
+                    }
+                    else
+                    {
+                        console.error(e);
+                    }
+                });
+            }
+        }
+
+        return this;
+    },
+
+    showVideo: function (placementID)
+    {
+        var _this = this;
+
+        for (var i = 0; i < this.ads.length; i++)
+        {
+            var ad = this.ads[i];
+
+            if (ad.placementID === placementID && ad.video)
+            {
+                ad.instance.showAsync().then(function ()
+                {
+                    ad.shown = true;
+
+                    _this.emit('showvideo', ad);
+                }).catch(function (e)
+                {
+                    if (e.code === 'ADS_NO_FILL')
+                    {
+                        _this.emit('adsnofill');
+                    }
+                    else
+                    {
+                        console.error(e);
+                    }
+                });
+            }
+        }
+
+        return this;
+    },
+
+    matchPlayer: function (matchTag, switchImmediately)
+    {
+        if (matchTag === undefined) { matchTag = null; }
+        if (switchImmediately === undefined) { switchImmediately = false; }
+
+        if (!this.checkAPI('matchPlayerAsync'))
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.matchPlayerAsync(matchTag, switchImmediately).then(function ()
+        {
+            console.log('match player');
+
+            _this.getID();
+            _this.getType();
+
+            _this.emit('matchplayer', _this.contextID, _this.contextType);
+        });
+
+        return this;
+    },
+
+    //  TODO: checkCanPlayerMatchAsync ?
+
+    getLeaderboard: function (name)
+    {
+        if (!this.checkAPI('getLeaderboardAsync'))
+        {
+            return this;
+        }
+
+        var _this = this;
+
+        FBInstant.getLeaderboardAsync(name).then(function (data)
+        {
+            console.log('leaderboard');
+            console.log(data);
+
+            var leaderboard = new Leaderboard(_this, data);
+
+            _this.leaderboards[name] = leaderboard;
+
+            _this.emit('getleaderboard', leaderboard);
+        }).catch(function (e)
+        {
+            console.warn(e);
+        });
+
+        return this;
+    },
+
+    /**
+     * Destroys the FacebookInstantGamesPlugin.
+     *
+     * @method Phaser.Boot.FacebookInstantGamesPlugin#destroy
+     * @since 3.12.0
+     */
+    destroy: function ()
+    {
+        FBInstant.quit();
+
+        this.game = null;
+    }
+
+});
+
+module.exports = FacebookInstantGamesPlugin;
+
+
+/***/ }),
+
+/***/ "../plugins/fbinstant/src/Leaderboard.js":
+/*!***********************************************!*\
+  !*** ../plugins/fbinstant/src/Leaderboard.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../../../src/utils/Class */ "./utils/Class.js");
+var EventEmitter = __webpack_require__(/*! eventemitter3 */ "../node_modules/eventemitter3/index.js");
+var LeaderboardScore = __webpack_require__(/*! ./LeaderboardScore */ "../plugins/fbinstant/src/LeaderboardScore.js");
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class FacebookInstantGamesPlugin
+ * @memberOf Phaser
+ * @constructor
+ * @since 3.12.0
+ */
+var Leaderboard = new Class({
+
+    Extends: EventEmitter,
+
+    initialize:
+
+    function Leaderboard (plugin, data)
+    {
+        EventEmitter.call(this);
+
+        this.plugin = plugin;
+        this.ref = data;
+
+        this.name = data.getName();
+        this.contextID = data.getContextID();
+        this.entryCount = 0;
+
+        this.playerScore = null;
+        this.scores = [];
+
+        this.getEntryCount();
+    },
+
+    getEntryCount: function ()
+    {
+        var _this = this;
+
+        this.ref.getEntryCountAsync().then(function (count)
+        {
+            console.log('entry count', count);
+
+            _this.entryCount = count;
+
+            _this.emit('getentrycount', count, _this.name);
+
+        }).catch(function (e)
+        {
+            console.warn(e);
+        });
+    },
+
+    setScore: function (score, data)
+    {
+        if (data === undefined) { data = ''; }
+
+        var _this = this;
+
+        this.ref.setScoreAsync(score, data).then(function (entry)
+        {
+            console.log('set score', entry);
+
+            _this.emit('setscore', entry.getScore(), entry.getExtraData(), _this.name);
+
+        }).catch(function (e)
+        {
+            console.warn(e);
+        });
+    },
+
+    getPlayerScore: function ()
+    {
+        var _this = this;
+
+        this.ref.getPlayerEntryAsync().then(function (entry)
+        {
+            console.log('get player score');
+
+            var score = LeaderboardScore(entry);
+
+            console.log(score);
+
+            _this.playerScore = score;
+
+            _this.emit('getplayerscore', score, _this.name);
+
+        }).catch(function (e)
+        {
+            console.warn(e);
+        });
+
+    },
+
+    getScores: function (count, offset)
+    {
+        if (count === undefined) { count = 10; }
+        if (offset === undefined) { offset = 0; }
+
+        var _this = this;
+
+        this.ref.getEntriesAsync().then(function (entries)
+        {
+            console.log('get scores', entries);
+
+            _this.scores = [];
+
+            entries.forEach(function (entry)
+            {
+
+                _this.scores.push(LeaderboardScore(entry));
+
+            });
+
+            _this.emit('getscores', _this.scores, _this.name);
+
+        }).catch(function (e)
+        {
+            console.warn(e);
+        });
+
+    }
+
+});
+
+module.exports = Leaderboard;
+
+
+/***/ }),
+
+/***/ "../plugins/fbinstant/src/LeaderboardScore.js":
+/*!****************************************************!*\
+  !*** ../plugins/fbinstant/src/LeaderboardScore.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var LeaderboardScore = function (entry)
+{
+    return {
+        score: entry.getScore(),
+        scoreFormatted: entry.getFormattedScore(),
+        timestamp: entry.getTimestamp(),
+        rank: entry.getRank(),
+        data: entry.getExtraData(),
+        playerName: entry.getPlayer().getName(),
+        playerPhotoURL: entry.getPlayer().getPhoto(),
+        playerID: entry.getPlayer().getID()
+    };
+};
+
+module.exports = LeaderboardScore;
+
+
+/***/ }),
+
+/***/ "../plugins/fbinstant/src/Product.js":
+/*!*******************************************!*\
+  !*** ../plugins/fbinstant/src/Product.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var GetFastValue = __webpack_require__(/*! ../../../src/utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class FacebookInstantGamesPlugin
+ * @memberOf Phaser
+ * @constructor
+ * @since 3.12.0
+ */
+var Product = function (data)
+{
+    return {
+        title: GetFastValue(data, 'title', ''),
+        productID: GetFastValue(data, 'productID', ''),
+        description: GetFastValue(data, 'description', ''),
+        imageURI: GetFastValue(data, 'imageURI', ''),
+        price: GetFastValue(data, 'price', ''),
+        priceCurrencyCode: GetFastValue(data, 'priceCurrencyCode', '')
+    };
+};
+
+module.exports = Product;
+
+
+/***/ }),
+
+/***/ "../plugins/fbinstant/src/Purchase.js":
+/*!********************************************!*\
+  !*** ../plugins/fbinstant/src/Purchase.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var GetFastValue = __webpack_require__(/*! ../../../src/utils/object/GetFastValue */ "./utils/object/GetFastValue.js");
+
+var Purchase = function (data)
+{
+    return {
+        developerPayload: GetFastValue(data, 'developerPayload', ''),
+        paymentID: GetFastValue(data, 'paymentID', ''),
+        productID: GetFastValue(data, 'productID', ''),
+        purchaseTime: GetFastValue(data, 'purchaseTime', ''),
+        purchaseToken: GetFastValue(data, 'purchaseToken', ''),
+        signedRequest: GetFastValue(data, 'signedRequest', '')
+    };
+};
+
+module.exports = Purchase;
 
 
 /***/ }),
@@ -3176,6 +4637,53 @@ module.exports = Config;
 
 /***/ }),
 
+/***/ "./boot/CreateDOMContainer.js":
+/*!************************************!*\
+  !*** ./boot/CreateDOMContainer.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var AddToDOM = __webpack_require__(/*! ../dom/AddToDOM */ "./dom/AddToDOM.js");
+
+var CreateDOMContainer = function (game)
+{
+    var config = game.config;
+
+    if (!config.parent || !config.domCreateContainer)
+    {
+        return;
+    }
+
+    //  DOM Element Container
+    var div = document.createElement('div');
+
+    div.style = [
+        'display: block;',
+        'width: ' + game.canvas.width + 'px;',
+        'height: ' + game.canvas.height + 'px;',
+        'padding: 0; margin: 0;',
+        'position: absolute;',
+        'overflow: hidden;',
+        'pointer-events: none;'
+    ].join(' ');
+
+    game.domContainer = div;
+
+    AddToDOM(div, config.parent);
+};
+
+module.exports = CreateDOMContainer;
+
+
+/***/ }),
+
 /***/ "./boot/CreateRenderer.js":
 /*!********************************!*\
   !*** ./boot/CreateRenderer.js ***!
@@ -3473,11 +4981,16 @@ var TimeStep = __webpack_require__(/*! ./TimeStep */ "./boot/TimeStep.js");
 var VisibilityHandler = __webpack_require__(/*! ./VisibilityHandler */ "./boot/VisibilityHandler.js");
 
 
-if (false)
-{ var ScaleManager, CreateDOMContainer; }
+if (typeof EXPERIMENTAL)
+{
+    var CreateDOMContainer = __webpack_require__(/*! ./CreateDOMContainer */ "./boot/CreateDOMContainer.js");
+    var ScaleManager = __webpack_require__(/*! ./ScaleManager */ "./boot/ScaleManager.js");
+}
 
-if (false)
-{ var FacebookInstantGamesPlugin; }
+if (typeof PLUGIN_FBINSTANT)
+{
+    var FacebookInstantGamesPlugin = __webpack_require__(/*! ../../plugins/fbinstant/src/FacebookInstantGamesPlugin */ "../plugins/fbinstant/src/FacebookInstantGamesPlugin.js");
+}
 
 /**
  * @classdesc
@@ -3523,8 +5036,22 @@ var Game = new Class({
          */
         this.renderer = null;
 
-        if (false)
-        {}
+        if (typeof EXPERIMENTAL)
+        {
+            /**
+             * A reference to an HTML Div Element used as a DOM Element Container.
+             * 
+             * Only set if `createDOMContainer` is `true` in the game config (by default it is `false`) and
+             * if you provide a parent element to insert the Phaser Game inside.
+             *
+             * See the DOM Element Game Object for more details.
+             *
+             * @name Phaser.Game#domContainer
+             * @type {HTMLDivElement}
+             * @since 3.12.0
+             */
+            this.domContainer = null;
+        }
 
         /**
          * A reference to the HTML Canvas Element that Phaser uses to render the game.
@@ -3655,8 +5182,19 @@ var Game = new Class({
          */
         this.device = Device;
 
-        if (false)
-        {}
+        if (typeof EXPERIMENTAL)
+        {
+            /**
+             * An instance of the Scale Manager.
+             *
+             * The Scale Manager is a global system responsible for handling game scaling events.
+             *
+             * @name Phaser.Game#scaleManager
+             * @type {Phaser.Boot.ScaleManager}
+             * @since 3.12.0
+             */
+            this.scaleManager = new ScaleManager(this, this.config);
+        }
 
         /**
          * An instance of the base Sound Manager.
@@ -3693,8 +5231,17 @@ var Game = new Class({
          */
         this.plugins = new PluginManager(this, this.config);
 
-        if (false)
-        {}
+        if (typeof PLUGIN_FBINSTANT)
+        {
+            /**
+             * An instance of the Facebook Instant Games Manager.
+             *
+             * @name Phaser.Game#facebook
+             * @type {any}
+             * @since 3.12.0
+             */
+            this.facebook = new FacebookInstantGamesPlugin(this);
+        }
 
         /**
          * Is this Game pending destruction at the start of the next frame?
@@ -3786,8 +5333,10 @@ var Game = new Class({
 
         CreateRenderer(this);
 
-        if (false)
-        {}
+        if (typeof EXPERIMENTAL)
+        {
+            CreateDOMContainer(this);
+        }
 
         DebugHeader(this);
 
@@ -4113,8 +5662,14 @@ var Game = new Class({
         this.config.width = width;
         this.config.height = height;
 
-        if (false)
-        {}
+        if (typeof EXPERIMENTAL)
+        {
+            if (this.domContainer)
+            {
+                this.domContainer.style.width = width + 'px';
+                this.domContainer.style.height = height + 'px';
+            }
+        }
 
         this.renderer.resize(width, height);
 
@@ -4178,8 +5733,13 @@ var Game = new Class({
             }
         }
 
-        if (false)
-        {}
+        if (typeof EXPERIMENTAL)
+        {
+            if (this.domContainer)
+            {
+                this.domContainer.parentNode.removeChild(this.domContainer);
+            }
+        }
 
         this.loop.destroy();
         
@@ -4189,6 +5749,310 @@ var Game = new Class({
 });
 
 module.exports = Game;
+
+
+/***/ }),
+
+/***/ "./boot/ScaleManager.js":
+/*!******************************!*\
+  !*** ./boot/ScaleManager.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Class = __webpack_require__(/*! ../utils/Class */ "./utils/Class.js");
+var Vec2 = __webpack_require__(/*! ../math/Vector2 */ "./math/Vector2.js");
+
+/*
+    Use `scaleMode` SHOW_ALL.
+    Use `scaleMode` EXACT_FIT.
+    Use `scaleMode` USER_SCALE. Examine `parentBounds` in the {@link #setResizeCallback resize callback} and call {@link #setUserScale} if necessary.
+    Use `scaleMode` RESIZE. Examine the game or canvas size from the {@link #onSizeChange} signal **or** the {@link Phaser.State#resize} callback and reposition game objects if necessary.
+
+    Canvas width / height in the element
+    Canvas CSS width / height in the style
+
+    Detect orientation
+    Lock orientation (Android only?)
+    Full-screen support
+
+    Scale Mode - 
+*/
+
+/**
+ * @classdesc
+ * [description]
+ *
+ * @class ScaleManager
+ * @memberOf Phaser.Boot
+ * @constructor
+ * @since 3.12.0
+ *
+ * @param {Phaser.Game} game - A reference to the Phaser.Game instance.
+ * @param {any} config
+ */
+var ScaleManager = new Class({
+
+    initialize:
+
+    function ScaleManager (game, config)
+    {
+        /**
+         * A reference to the Phaser.Game instance.
+         *
+         * @name Phaser.Boot.ScaleManager#game
+         * @type {Phaser.Game}
+         * @readOnly
+         * @since 3.12.0
+         */
+        this.game = game;
+
+        this.config = config;
+
+        /**
+         * Target width (in pixels) of the Display canvas.
+         * @property {number} width
+         * @readonly
+         */
+        this.width = 0;
+
+        /**
+         * Target height (in pixels) of the Display canvas.
+         * @property {number} height
+         * @readonly
+         */
+        this.height = 0;
+
+        this.zoom = 0;
+
+        this.resolution = 1;
+
+        this.parent = null;
+
+        this.scaleMode = 0;
+
+        /**
+         * Minimum width the canvas should be scaled to (in pixels).
+         * Change with {@link #setMinMax}.
+         * @property {?number} minWidth
+         * @readonly
+         * @protected
+         */
+        this.minWidth = null;
+
+        /**
+         * Minimum height the canvas should be scaled to (in pixels).
+         * Change with {@link #setMinMax}.
+         * @property {?number} minHeight
+         * @readonly
+         * @protected
+         */
+        this.minHeight = null;
+
+        /**
+         * Maximum width the canvas should be scaled to (in pixels).
+         * If null it will scale to whatever width the browser can handle.
+         * Change with {@link #setMinMax}.
+         * @property {?number} maxWidth
+         * @readonly
+         * @protected
+         */
+        this.maxWidth = null;
+
+        /**
+         * Maximum height the canvas should be scaled to (in pixels).
+         * If null it will scale to whatever height the browser can handle.
+         * Change with {@link #setMinMax}.
+         * @property {?number} maxHeight
+         * @readonly
+         * @protected
+         */
+        this.maxHeight = null;
+
+        /**
+         * The _current_ scale factor based on the game dimensions vs. the scaled dimensions.
+         * @property {Phaser.Point} scaleFactor
+         * @readonly
+         */
+        this.scaleFactor = new Vec2(1, 1);
+
+        /**
+         * The _current_ inversed scale factor. The displayed dimensions divided by the game dimensions.
+         * @property {Phaser.Point} scaleFactorInversed
+         * @readonly
+         * @protected
+         */
+        this.scaleFactorInversed = new Vec2(1, 1);
+
+        /**
+         * The aspect ratio of the scaled Display canvas.
+         * @property {number} aspectRatio
+         * @readonly
+         */
+        this.aspectRatio = 0;
+
+        /**
+         * The aspect ratio of the original game dimensions.
+         * @property {number} sourceAspectRatio
+         * @readonly
+         */
+        this.sourceAspectRatio = 0;
+
+        /**
+         * True if the the browser window (instead of the display canvas's DOM parent) should be used as the bounding parent.
+         *
+         * This is set automatically based on the `parent` argument passed to {@link Phaser.Game}.
+         *
+         * The {@link #parentNode} property is generally ignored while this is in effect.
+         *
+         * @property {boolean} parentIsWindow
+         */
+        this.parentIsWindow = false;
+
+        /**
+         * The _original_ DOM element for the parent of the Display canvas.
+         * This may be different in fullscreen - see {@link #createFullScreenTarget}.
+         *
+         * This is set automatically based on the `parent` argument passed to {@link Phaser.Game}.
+         *
+         * This should only be changed after moving the Game canvas to a different DOM parent.
+         *
+         * @property {?DOMElement} parentNode
+         */
+        this.parentNode = null;
+
+        /**
+         * The scale of the game in relation to its parent container.
+         * @property {Phaser.Point} parentScaleFactor
+         * @readonly
+         */
+        this.parentScaleFactor = new Vec2(1, 1);
+
+        this._lastParentWidth = 0;
+
+        this._lastParentHeight = 0;
+
+        this._innerHeight = 0;
+
+        this.init();
+    },
+
+    init: function ()
+    {
+        this._innerHeight = this.getInnerHeight();
+
+        // var gameWidth = this.config.width;
+        // var gameHeight = this.config.height;
+    },
+
+    centerDisplay: function ()
+    {
+        var height = this.height;
+        var gameWidth = 0;
+        var gameHeight = 0;
+
+        this.parentNode.style.display = 'flex';
+        this.parentNode.style.height = height + 'px';
+
+        this.canvas.style.margin = 'auto';
+        this.canvas.style.width = gameWidth + 'px';
+        this.canvas.style.height = gameHeight + 'px';
+    },
+
+    /*
+    iOS10 Resize hack. Thanks, Apple.
+
+    I._onWindowResize = function(a) {
+        if (this._lastReportedWidth != document.body.offsetWidth) {
+            this._lastReportedWidth = document.body.offsetWidth;
+            if (this._isAutoPlaying && this._cancelAutoPlayOnInteraction) {
+                this.stopAutoPlay(a)
+            }
+            window.clearTimeout(this._onResizeDebouncedTimeout);
+            this._onResizeDebouncedTimeout = setTimeout(this._onResizeDebounced, 500);
+            aj._onWindowResize.call(this, a)
+        }
+    };
+    */
+
+    resizeHandler: function ()
+    {
+
+    },
+
+    /*
+    resize: function ()
+    {
+        let scale = Math.min(window.innerWidth / canvas.width, window.innerHeight / canvas.height);
+        let orientation = 'left';
+        let extra = (this.mobile) ? 'margin-left: -50%': '';
+        let margin = window.innerWidth / 2 - (canvas.width / 2) * scale;
+
+        canvas.setAttribute('style', '-ms-transform-origin: ' + orientation + ' top; -webkit-transform-origin: ' + orientation + ' top;' +
+            ' -moz-transform-origin: ' + orientation + ' top; -o-transform-origin: ' + orientation + ' top; transform-origin: ' + orientation + ' top;' +
+            ' -ms-transform: scale(' + scale + '); -webkit-transform: scale3d(' + scale + ', 1);' +
+            ' -moz-transform: scale(' + scale + '); -o-transform: scale(' + scale + '); transform: scale(' + scale + ');' +
+            ' display: block; margin-left: ' + margin + 'px;'
+        );
+    },
+    */
+
+    getInnerHeight: function ()
+    {
+        //  Based on code by @tylerjpeterson
+
+        if (!this.game.device.os.iOS)
+        {
+            return window.innerHeight;
+        }
+
+        var axis = Math.abs(window.orientation);
+
+        var size = { w: 0, h: 0 };
+        
+        var ruler = document.createElement('div');
+
+        ruler.setAttribute('style', 'position: fixed; height: 100vh; width: 0; top: 0');
+
+        document.documentElement.appendChild(ruler);
+
+        size.w = (axis === 90) ? ruler.offsetHeight : window.innerWidth;
+        size.h = (axis === 90) ? window.innerWidth : ruler.offsetHeight;
+
+        document.documentElement.removeChild(ruler);
+
+        ruler = null;
+
+        if (Math.abs(window.orientation) !== 90)
+        {
+            return size.h;
+        }
+        else
+        {
+            return size.w;
+        }
+    },
+
+    /**
+     * Destroys the ScaleManager.
+     *
+     * @method Phaser.Boot.ScaleManager#destroy
+     * @since 3.12.0
+     */
+    destroy: function ()
+    {
+        this.game = null;
+    }
+
+});
+
+module.exports = ScaleManager;
 
 
 /***/ }),
@@ -13414,6 +15278,8 @@ module.exports = Smoothing();
 var Class = __webpack_require__(/*! ../../utils/Class */ "./utils/Class.js");
 var GetColor = __webpack_require__(/*! ./GetColor */ "./display/color/GetColor.js");
 var GetColor32 = __webpack_require__(/*! ./GetColor32 */ "./display/color/GetColor32.js");
+var HSVToRGB = __webpack_require__(/*! ./HSVToRGB */ "./display/color/HSVToRGB.js");
+var RGBToHSV = __webpack_require__(/*! ./RGBToHSV */ "./display/color/RGBToHSV.js");
 
 /**
  * @classdesc
@@ -13485,6 +15351,52 @@ var Color = new Class({
         this.a = 255;
 
         /**
+         * The hue color value. A number between 0 and 1.
+         * This is the base color.
+         *
+         * @name Phaser.Display.Color#_h
+         * @type {number}
+         * @default 0
+         * @private
+         * @since 3.13.0
+         */
+        this._h = 0;
+
+        /**
+         * The saturation color value. A number between 0 and 1.
+         * This controls how much of the hue will be in the final color, where 1 is fully saturated and 0 will give you white.
+         *
+         * @name Phaser.Display.Color#_s
+         * @type {number}
+         * @default 0
+         * @private
+         * @since 3.13.0
+         */
+        this._s = 0;
+
+        /**
+         * The lightness color value. A number between 0 and 1.
+         * This controls how dark the color is. Where 1 is as bright as possible and 0 is black.
+         *
+         * @name Phaser.Display.Color#_v
+         * @type {number}
+         * @default 0
+         * @private
+         * @since 3.13.0
+         */
+        this._v = 0;
+
+        /**
+         * Is this color update locked?
+         *
+         * @name Phaser.Display.Color#_locked
+         * @type {boolean}
+         * @private
+         * @since 3.13.0
+         */
+        this._locked = false;
+
+        /**
          * An array containing the calculated color values for WebGL use.
          *
          * @name Phaser.Display.Color#gl
@@ -13539,12 +15451,16 @@ var Color = new Class({
      */
     transparent: function ()
     {
+        this._locked = true;
+
         this.red = 0;
         this.green = 0;
         this.blue = 0;
         this.alpha = 0;
 
-        return this.update();
+        this._locked = false;
+
+        return this.update(true);
     },
 
     /**
@@ -13557,19 +15473,25 @@ var Color = new Class({
      * @param {integer} green - The green color value. A number between 0 and 255.
      * @param {integer} blue - The blue color value. A number between 0 and 255.
      * @param {integer} [alpha=255] - The alpha value. A number between 0 and 255.
+     * @param {boolean} [updateHSV=true] - Update the HSV values after setting the RGB values?
      *
      * @return {Phaser.Display.Color} This Color object.
      */
-    setTo: function (red, green, blue, alpha)
+    setTo: function (red, green, blue, alpha, updateHSV)
     {
         if (alpha === undefined) { alpha = 255; }
+        if (updateHSV === undefined) { updateHSV = true; }
+
+        this._locked = true;
 
         this.red = red;
         this.green = green;
         this.blue = blue;
         this.alpha = alpha;
 
-        return this.update();
+        this._locked = false;
+
+        return this.update(updateHSV);
     },
 
     /**
@@ -13589,12 +15511,16 @@ var Color = new Class({
     {
         if (alpha === undefined) { alpha = 1; }
 
+        this._locked = true;
+
         this.redGL = red;
         this.greenGL = green;
         this.blueGL = blue;
         this.alphaGL = alpha;
 
-        return this.update();
+        this._locked = false;
+
+        return this.update(true);
     },
 
     /**
@@ -13609,6 +15535,8 @@ var Color = new Class({
      */
     setFromRGB: function (color)
     {
+        this._locked = true;
+
         this.red = color.r;
         this.green = color.g;
         this.blue = color.b;
@@ -13618,22 +15546,79 @@ var Color = new Class({
             this.alpha = color.a;
         }
 
-        return this.update();
+        this._locked = false;
+
+        return this.update(true);
+    },
+
+    /**
+     * Sets the color based on the hue, saturation and lightness values given.
+     *
+     * @method Phaser.Display.Color#setFromHSV
+     * @since 3.13.0
+     *
+     * @param {number} h - The hue, in the range 0 - 1. This is the base color.
+     * @param {number} s - The saturation, in the range 0 - 1. This controls how much of the hue will be in the final color, where 1 is fully saturated and 0 will give you white.
+     * @param {number} v - The value, in the range 0 - 1. This controls how dark the color is. Where 1 is as bright as possible and 0 is black.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    setFromHSV: function (h, s, v)
+    {
+        return HSVToRGB(h, s, v, this);
     },
 
     /**
      * Updates the internal cache values.
      *
      * @method Phaser.Display.Color#update
+     * @private
      * @since 3.0.0
      *
      * @return {Phaser.Display.Color} This Color object.
      */
-    update: function ()
+    update: function (updateHSV)
     {
-        this._color = GetColor(this.r, this.g, this.b);
-        this._color32 = GetColor32(this.r, this.g, this.b, this.a);
-        this._rgba = 'rgba(' + this.r + ',' + this.g + ',' + this.b + ',' + (this.a / 255) + ')';
+        if (updateHSV === undefined) { updateHSV = false; }
+
+        if (this._locked)
+        {
+            return this;
+        }
+
+        var r = this.r;
+        var g = this.g;
+        var b = this.b;
+        var a = this.a;
+
+        this._color = GetColor(r, g, b);
+        this._color32 = GetColor32(r, g, b, a);
+        this._rgba = 'rgba(' + r + ',' + g + ',' + b + ',' + (a / 255) + ')';
+
+        if (updateHSV)
+        {
+            RGBToHSV(r, g, b, this);
+        }
+
+        return this;
+    },
+
+    /**
+     * Updates the internal hsv cache values.
+     *
+     * @method Phaser.Display.Color#updateHSV
+     * @private
+     * @since 3.13.0
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    updateHSV: function ()
+    {
+        var r = this.r;
+        var g = this.g;
+        var b = this.b;
+
+        RGBToHSV(r, g, b, this);
 
         return this;
     },
@@ -13649,6 +15634,158 @@ var Color = new Class({
     clone: function ()
     {
         return new Color(this.r, this.g, this.b, this.a);
+    },
+
+    /**
+     * Sets this Color object to be grayscaled based on the shade value given.
+     *
+     * @method Phaser.Display.Color#gray
+     * @since 3.13.0
+     * 
+     * @param {integer} shade - A value between 0 and 255.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    gray: function (shade)
+    {
+        return this.setTo(shade, shade, shade);
+    },
+
+    /**
+     * Sets this Color object to be a random color between the `min` and `max` values given.
+     *
+     * @method Phaser.Display.Color#random
+     * @since 3.13.0
+     * 
+     * @param {integer} [min=0] - The minimum random color value. Between 0 and 255.
+     * @param {integer} [max=255] - The maximum random color value. Between 0 and 255.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    random: function (min, max)
+    {
+        if (min === undefined) { min = 0; }
+        if (max === undefined) { max = 255; }
+
+        var r = Math.floor(min + Math.random() * (max - min));
+        var g = Math.floor(min + Math.random() * (max - min));
+        var b = Math.floor(min + Math.random() * (max - min));
+
+        return this.setTo(r, g, b);
+    },
+
+    /**
+     * Sets this Color object to be a random grayscale color between the `min` and `max` values given.
+     *
+     * @method Phaser.Display.Color#randomGray
+     * @since 3.13.0
+     * 
+     * @param {integer} [min=0] - The minimum random color value. Between 0 and 255.
+     * @param {integer} [max=255] - The maximum random color value. Between 0 and 255.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    randomGray: function (min, max)
+    {
+        if (min === undefined) { min = 0; }
+        if (max === undefined) { max = 255; }
+
+        var s = Math.floor(min + Math.random() * (max - min));
+
+        return this.setTo(s, s, s);
+    },
+
+    /**
+     * Increase the saturation of this Color by the percentage amount given.
+     * The saturation is the amount of the base color in the hue.
+     *
+     * @method Phaser.Display.Color#saturate
+     * @since 3.13.0
+     * 
+     * @param {integer} amount - The percentage amount to change this color by. A value between 0 and 100.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    saturate: function (amount)
+    {
+        this.s += amount / 100;
+
+        return this;
+    },
+
+    /**
+     * Decrease the saturation of this Color by the percentage amount given.
+     * The saturation is the amount of the base color in the hue.
+     *
+     * @method Phaser.Display.Color#desaturate
+     * @since 3.13.0
+     * 
+     * @param {integer} amount - The percentage amount to change this color by. A value between 0 and 100.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    desaturate: function (amount)
+    {
+        this.s -= amount / 100;
+
+        return this;
+    },
+
+    /**
+     * Increase the lightness of this Color by the percentage amount given.
+     *
+     * @method Phaser.Display.Color#lighten
+     * @since 3.13.0
+     * 
+     * @param {integer} amount - The percentage amount to change this color by. A value between 0 and 100.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    lighten: function (amount)
+    {
+        this.v += amount / 100;
+
+        return this;
+    },
+
+    /**
+     * Decrease the lightness of this Color by the percentage amount given.
+     *
+     * @method Phaser.Display.Color#darken
+     * @since 3.13.0
+     * 
+     * @param {integer} amount - The percentage amount to change this color by. A value between 0 and 100.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    darken: function (amount)
+    {
+        this.v -= amount / 100;
+
+        return this;
+    },
+
+    /**
+     * Brighten this Color by the percentage amount given.
+     *
+     * @method Phaser.Display.Color#brighten
+     * @since 3.13.0
+     * 
+     * @param {integer} amount - The percentage amount to change this color by. A value between 0 and 100.
+     *
+     * @return {Phaser.Display.Color} This Color object.
+     */
+    brighten: function (amount)
+    {
+        var r = this.r;
+        var g = this.g;
+        var b = this.b;
+
+        r = Math.max(0, Math.min(255, r - Math.round(255 * - (amount / 100))));
+        g = Math.max(0, Math.min(255, g - Math.round(255 * - (amount / 100))));
+        b = Math.max(0, Math.min(255, b - Math.round(255 * - (amount / 100))));
+
+        return this.setTo(r, g, b);
     },
 
     /**
@@ -13722,7 +15859,7 @@ var Color = new Class({
 
             this.r = Math.floor(this.gl[0] * 255);
 
-            this.update();
+            this.update(true);
         }
 
     },
@@ -13747,7 +15884,7 @@ var Color = new Class({
 
             this.g = Math.floor(this.gl[1] * 255);
 
-            this.update();
+            this.update(true);
         }
 
     },
@@ -13772,7 +15909,7 @@ var Color = new Class({
 
             this.b = Math.floor(this.gl[2] * 255);
 
-            this.update();
+            this.update(true);
         }
 
     },
@@ -13824,7 +15961,7 @@ var Color = new Class({
 
             this.gl[0] = value / 255;
 
-            this.update();
+            this.update(true);
         }
 
     },
@@ -13851,7 +15988,7 @@ var Color = new Class({
 
             this.gl[1] = value / 255;
 
-            this.update();
+            this.update(true);
         }
 
     },
@@ -13878,7 +16015,7 @@ var Color = new Class({
 
             this.gl[2] = value / 255;
 
-            this.update();
+            this.update(true);
         }
 
     },
@@ -13906,6 +16043,78 @@ var Color = new Class({
             this.gl[3] = value / 255;
 
             this.update();
+        }
+
+    },
+
+    /**
+     * The hue color value. A number between 0 and 1.
+     * This is the base color.
+     *
+     * @name Phaser.Display.Color#h
+     * @type {number}
+     * @since 3.13.0
+     */
+    h: {
+
+        get: function ()
+        {
+            return this._h;
+        },
+
+        set: function (value)
+        {
+            this._h = value;
+
+            HSVToRGB(value, this._s, this._v, this);
+        }
+
+    },
+
+    /**
+     * The saturation color value. A number between 0 and 1.
+     * This controls how much of the hue will be in the final color, where 1 is fully saturated and 0 will give you white.
+     *
+     * @name Phaser.Display.Color#s
+     * @type {number}
+     * @since 3.13.0
+     */
+    s: {
+
+        get: function ()
+        {
+            return this._s;
+        },
+
+        set: function (value)
+        {
+            this._s = value;
+
+            HSVToRGB(this._h, value, this._v, this);
+        }
+
+    },
+
+    /**
+     * The lightness color value. A number between 0 and 1.
+     * This controls how dark the color is. Where 1 is as bright as possible and 0 is black.
+     *
+     * @name Phaser.Display.Color#v
+     * @type {number}
+     * @since 3.13.0
+     */
+    v: {
+
+        get: function ()
+        {
+            return this._v;
+        },
+
+        set: function (value)
+        {
+            this._v = value;
+
+            HSVToRGB(this._h, this._s, value, this);
         }
 
     }
@@ -13984,6 +16193,112 @@ var GetColor32 = function (red, green, blue, alpha)
 };
 
 module.exports = GetColor32;
+
+
+/***/ }),
+
+/***/ "./display/color/HSVToRGB.js":
+/*!***********************************!*\
+  !*** ./display/color/HSVToRGB.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var GetColor = __webpack_require__(/*! ./GetColor */ "./display/color/GetColor.js");
+
+/**
+ * Converts an HSV (hue, saturation and value) color value to RGB.
+ * Conversion formula from http://en.wikipedia.org/wiki/HSL_color_space.
+ * Assumes HSV values are contained in the set [0, 1].
+ * Based on code by Michael Jackson (https://github.com/mjijackson)
+ *
+ * @function Phaser.Display.Color.HSVToRGB
+ * @since 3.0.0
+ *
+ * @param {number} h - The hue, in the range 0 - 1. This is the base color.
+ * @param {number} s - The saturation, in the range 0 - 1. This controls how much of the hue will be in the final color, where 1 is fully saturated and 0 will give you white.
+ * @param {number} v - The value, in the range 0 - 1. This controls how dark the color is. Where 1 is as bright as possible and 0 is black.
+ * @param {(ColorObject|Phaser.Display.Color)} [out] - A Color object to store the results in. If not given a new ColorObject will be created.
+ *
+ * @return {(ColorObject|Phaser.Display.Color)} An object with the red, green and blue values set in the r, g and b properties.
+ */
+var HSVToRGB = function (h, s, v, out)
+{
+    if (s === undefined) { s = 1; }
+    if (v === undefined) { v = 1; }
+
+    var i = Math.floor(h * 6);
+    var f = h * 6 - i;
+
+    var p = Math.floor((v * (1 - s)) * 255);
+    var q = Math.floor((v * (1 - f * s)) * 255);
+    var t = Math.floor((v * (1 - (1 - f) * s)) * 255);
+
+    v = Math.floor(v *= 255);
+
+    var r = v;
+    var g = v;
+    var b = v;
+
+    var c = i % 6;
+
+    if (c === 0)
+    {
+        g = t;
+        b = p;
+    }
+    else if (c === 1)
+    {
+        r = q;
+        b = p;
+    }
+    else if (c === 2)
+    {
+        r = p;
+        b = t;
+    }
+    else if (c === 3)
+    {
+        r = p;
+        g = q;
+    }
+    else if (c === 4)
+    {
+        r = t;
+        g = p;
+    }
+    else if (c === 5)
+    {
+        g = p;
+        b = q;
+    }
+
+    if (!out)
+    {
+        return { r: r, g: g, b: b, color: GetColor(r, g, b) };
+    }
+    else if (out.setTo)
+    {
+        return out.setTo(r, g, b, out.alpha, false);
+    }
+    else
+    {
+        out.r = r;
+        out.g = g;
+        out.b = b;
+        out.color = GetColor(r, g, b);
+
+        return out;
+    }
+};
+
+module.exports = HSVToRGB;
 
 
 /***/ }),
@@ -14219,6 +16534,99 @@ var RGBStringToColor = function (rgb)
 };
 
 module.exports = RGBStringToColor;
+
+
+/***/ }),
+
+/***/ "./display/color/RGBToHSV.js":
+/*!***********************************!*\
+  !*** ./display/color/RGBToHSV.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2018 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * @typedef {object} HSVColorObject
+ *
+ * @property {number} h - The hue color value. A number between 0 and 1
+ * @property {number} s - The saturation color value. A number between 0 and 1
+ * @property {number} v - The lightness color value. A number between 0 and 1
+ */
+
+/**
+ * Converts an RGB color value to HSV (hue, saturation and value).
+ * Conversion forumla from http://en.wikipedia.org/wiki/HSL_color_space.
+ * Assumes RGB values are contained in the set [0, 255] and returns h, s and v in the set [0, 1].
+ * Based on code by Michael Jackson (https://github.com/mjijackson)
+ *
+ * @function Phaser.Display.Color.RGBToHSV
+ * @since 3.0.0
+ *
+ * @param {integer} r - The red color value. A number between 0 and 255.
+ * @param {integer} g - The green color value. A number between 0 and 255.
+ * @param {integer} b - The blue color value. A number between 0 and 255.
+ * @param {(HSVColorObject|Phaser.Display.Color)} [out] - An object to store the color values in. If not given an HSV Color Object will be created.
+ *
+ * @return {(HSVColorObject|Phaser.Display.Color)} An object with the properties `h`, `s` and `v` set.
+ */
+var RGBToHSV = function (r, g, b, out)
+{
+    if (out === undefined) { out = { h: 0, s: 0, v: 0 }; }
+
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    var min = Math.min(r, g, b);
+    var max = Math.max(r, g, b);
+    var d = max - min;
+
+    // achromatic by default
+    var h = 0;
+    var s = (max === 0) ? 0 : d / max;
+    var v = max;
+
+    if (max !== min)
+    {
+        if (max === r)
+        {
+            h = (g - b) / d + ((g < b) ? 6 : 0);
+        }
+        else if (max === g)
+        {
+            h = (b - r) / d + 2;
+        }
+        else if (max === b)
+        {
+            h = (r - g) / d + 4;
+        }
+
+        h /= 6;
+    }
+
+    if (out.hasOwnProperty('_h'))
+    {
+        out._h = h;
+        out._s = s;
+        out._v = v;
+    }
+    else
+    {
+        out.h = h;
+        out.s = s;
+        out.v = v;
+    }
+
+    return out;
+};
+
+module.exports = RGBToHSV;
 
 
 /***/ }),
@@ -51761,7 +54169,7 @@ module.exports = BasePlugin;
   !*** ./plugins/DefaultPlugins.js ***!
   \***********************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
@@ -51850,11 +54258,15 @@ var DefaultPlugins = {
 
 };
 
-if (false)
-{}
+if (typeof PLUGIN_CAMERA3D)
+{
+    DefaultPlugins.DefaultScene.push('CameraManager3D');
+}
 
-if (false)
-{}
+if (typeof PLUGIN_FBINSTANT)
+{
+    DefaultPlugins.Global.push('facebook');
+}
 
 module.exports = DefaultPlugins;
 
@@ -54542,6 +56954,7 @@ module.exports = GetBlendModes;
  * @since 3.12.0
  *
  * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
+ * @param {CanvasRenderingContext2D} ctx - The canvas context to set the transform on.
  * @param {Phaser.GameObjects.GameObject} src - The Game Object being rendered. Can be any type that extends the base class.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} [parentMatrix] - A parent transform matrix to apply to the Game Object before rendering.
@@ -60835,7 +63248,7 @@ module.exports = GetScenePlugins;
   !*** ./scene/InjectionMap.js ***!
   \*******************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
@@ -60884,11 +63297,15 @@ var InjectionMap = {
 
 };
 
-if (false)
-{}
+if (typeof PLUGIN_CAMERA3D)
+{
+    InjectionMap.cameras3d = 'cameras3d';
+}
 
-if (false)
-{}
+if (typeof PLUGIN_FBINSTANT)
+{
+    InjectionMap.facebook = 'facebook';
+}
 
 module.exports = InjectionMap;
 
@@ -63933,8 +66350,17 @@ var Systems = new Class({
          */
         this.game;
 
-        if (false)
-        {}
+        if (typeof PLUGIN_FBINSTANT)
+        {
+            /**
+             * [description]
+             *
+             * @name Phaser.Scenes.Systems#facebook
+             * @type {any}
+             * @since 3.12.0
+             */
+            this.facebook;
+        }
 
         /**
          * [description]
@@ -71631,7 +74057,7 @@ var CanvasTexture = new Class({
 
         /**
          * The width of the Canvas.
-         * This property is read-only, if you wish to change use `setSize`.
+         * This property is read-only, if you wish to change it use the `setSize` method.
          *
          * @name Phaser.Textures.CanvasTexture#width
          * @readOnly
@@ -71642,7 +74068,7 @@ var CanvasTexture = new Class({
 
         /**
          * The height of the Canvas.
-         * This property is read-only, if you wish to change use `setSize`.
+         * This property is read-only, if you wish to change it use the `setSize` method.
          *
          * @name Phaser.Textures.CanvasTexture#height
          * @readOnly
@@ -71666,7 +74092,7 @@ var CanvasTexture = new Class({
          * Use the `update` method to populate this when the canvas changes.
          * Note that this is unavailable in some browsers, such as Epic Browser, due to their security restrictions.
          *
-         * @name Phaser.Textures.CanvasTexture#imageData
+         * @name Phaser.Textures.CanvasTexture#data
          * @type {Uint8ClampedArray}
          * @since 3.13.0
          */
@@ -71702,8 +74128,7 @@ var CanvasTexture = new Class({
                 this.buffer = this.imageData.data.buffer;
                 this.pixels = new Uint32Array(this.buffer);
             }
-            else
-            if (window.ArrayBuffer)
+            else if (window.ArrayBuffer)
             {
                 this.buffer = new ArrayBuffer(this.imageData.data.length);
                 this.pixels = new Uint32Array(this.buffer);
@@ -71725,10 +74150,10 @@ var CanvasTexture = new Class({
      * @since 3.13.0
      *
      * @return {Phaser.Textures.CanvasTexture} This CanvasTexture.
-    */
+     */
     update: function ()
     {
-        this.imageData = this.context.getImageData(0, 0, this.context.width, this.context.height);
+        this.imageData = this.context.getImageData(0, 0, this.width, this.height);
 
         this.data = this.imageData.data;
 
@@ -71751,19 +74176,39 @@ var CanvasTexture = new Class({
     },
 
     /**
-     * Get the color of a specific pixel in the context into a color object.
+     * Draws the given Image or Canvas element to this CanvasTexture, then updates the internal
+     * ImageData buffer and arrays.
+     *
+     * @method Phaser.Textures.CanvasTexture#draw
+     * @since 3.13.0
      * 
-     * If you have drawn anything to the CanvasTexture since it was created you must call CanvasTexture.update to refresh the array buffer,
+     * @param {integer} x - The x coordinate to draw the source at.
+     * @param {integer} y - The y coordinate to draw the source at.
+     * @param {(HTMLImageElement|HTMLCanvasElement)} source - The element to draw to this canvas.
+     * 
+     * @return {Phaser.Textures.CanvasTexture} This CanvasTexture.
+     */
+    draw: function (x, y, source)
+    {
+        this.context.drawImage(source, x, y);
+
+        return this.update();
+    },
+
+    /**
+     * Get the color of a specific pixel from this texture and store it in a Color object.
+     * 
+     * If you have drawn anything to this CanvasTexture since it was created you must call `CanvasTexture.update` to refresh the array buffer,
      * otherwise this may return out of date color values, or worse - throw a run-time error as it tries to access an array element that doesn't exist.
      *
      * @method Phaser.Textures.CanvasTexture#getPixel
      * @since 3.13.0
      * 
-     * @param {integer} x - The x coordinate of the pixel to be set. Must lay within the dimensions of this CanvasTexture and be an integer, not a float.
-     * @param {integer} y - The y coordinate of the pixel to be set. Must lay within the dimensions of this CanvasTexture and be an integer, not a float.
-     * @param {object} [out] - An object into which 4 properties will be created: r, g, b and a. If not provided a new object will be created.
+     * @param {integer} x - The x coordinate of the pixel to be set. Must lay within the dimensions of this CanvasTexture and be an integer.
+     * @param {integer} y - The y coordinate of the pixel to be set. Must lay within the dimensions of this CanvasTexture and be an integer.
+     * @param {Phaser.Display.Color} [out] - An object into which 4 properties will be set: r, g, b and a. If not provided a Color object will be created.
      * 
-     * @return {object} An object with the red, green, blue and alpha values set in the r, g, b and a properties.
+     * @return {Phaser.Display.Color} An object with the red, green, blue and alpha values set in the r, g, b and a properties.
      */
     getPixel: function (x, y, out)
     {
@@ -71776,12 +74221,12 @@ var CanvasTexture = new Class({
 
         index *= 4;
 
-        out.r = this.data[index];
-        out.g = this.data[++index];
-        out.b = this.data[++index];
-        out.a = this.data[++index];
+        var r = this.data[index];
+        var g = this.data[++index];
+        var b = this.data[++index];
+        var a = this.data[++index];
 
-        return out;
+        return out.setTo(r, g, b, a);
     },
 
     /**
@@ -71839,7 +74284,7 @@ var CanvasTexture = new Class({
     {
         this.context.clearRect(0, 0, this.width, this.height);
 
-        return this;
+        return this.update();
     },
 
     /**

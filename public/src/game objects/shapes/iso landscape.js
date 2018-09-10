@@ -9,57 +9,42 @@ var config = {
         create: create,
         update: update,
         extend: {
-            scanMap: scanMap,
             updateLand: updateLand
         }
     }
 };
 
-var map = [];
+var color = new Phaser.Display.Color();
+var heightmap;
 var land = [];
 var px = 0;
 var py = 0;
 var cursors;
-var gridWidth = 31;
-var gridHeight = 37;
+var gridWidth = 39;
+var gridHeight = 46;
 var size = 20;
-var spacing = 10;
-var offsetY = 100;
-var maxHeight = 70;
-var waterHeight = 40;
+var spacing = 12;
+var offsetY = 90;
+var maxHeight = 120;
+var waterHeight = 60;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('noise', 'assets/tests/93_3.png');
-}
-
-function scanMap ()
-{
-    for (var y = 0; y < 512; y++)
-    {
-        var row = [];
-
-        for (var x = 0; x < 512; x++)
-        {
-            var color = this.textures.getPixel(x, y, 'noise');
-            var total = Math.max(color.r, color.g, color.b);
-
-            row.push((total / 255) * maxHeight);
-        }
-
-        map.push(row);
-    }
+    this.load.image('noise', 'assets/tests/98_2.png');
+    // this.load.image('noise', 'assets/tests/heightmap.png');
 }
 
 function create ()
 {
-    this.scanMap();
+    heightmap = this.textures.createCanvas('map', 512, 512);
+
+    heightmap.draw(0, 0, this.textures.get('noise').getSourceImage());
 
     var ox = size;
-    // var h = size / 2;
     var r = 0;
+    var h = size;
 
     for (var y = 0; y < gridHeight; y++)
     {
@@ -67,8 +52,6 @@ function create ()
 
         for (var x = 0; x < gridWidth - r; x++)
         {
-            var h = map[y][x];
-
             var tile = this.add.isobox(ox + x * size, offsetY + y * spacing, size, h, 0x8dcb0e, 0x3f8403, 0x63a505);
 
             row.push(tile);
@@ -158,11 +141,17 @@ function updateLand ()
             var cx = Phaser.Math.Wrap(px + x, 0, 512);
             var cy = Phaser.Math.Wrap(py + y, 0, 512);
 
-            var h = map[cy][cx];
+            heightmap.getPixel(cx, cy, color);
+
+            var h = (Math.max(color.r, color.g, color.b) / 255) * maxHeight;
 
             if (h < waterHeight)
             {
                 land[y][x].setFillStyle(0x00b9f2, 0x016fce, 0x028fdf);
+            }
+            else if (h === maxHeight)
+            {
+                land[y][x].setFillStyle(0xffe31f, 0xf2a022, 0xf8d80b);
             }
             else
             {

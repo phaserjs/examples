@@ -35,8 +35,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    // this.load.image('pic', 'assets/tests/octave1.jpg');
-    this.load.image('pic', 'assets/tests/sw.png');
+    this.load.image('pic', 'assets/tests/terrain/terrain3.png');
 }
 
 function create ()

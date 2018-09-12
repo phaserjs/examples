@@ -18,6 +18,7 @@ var config = {
             setStar: setStar,
             setLine: setLine,
             changeColor: changeColor,
+            updateColor: updateColor,
             deleteShape: deleteShape,
             changeShape: changeShape
         }
@@ -27,7 +28,7 @@ var config = {
 var shapes = [];
 var isDown = false;
 var current = 1;
-var shape;
+var shape = null;
 var index = 0;
 var cursors;
 var color = new Phaser.Display.Color();
@@ -55,6 +56,7 @@ function create ()
     swatch.setInteractive();
 
     swatch.on('pointerdown', this.changeColor, this);
+    swatch.on('pointermove', this.updateColor, this);
 
     this.input.keyboard.on('keydown_C', this.setCircle, this);
     this.input.keyboard.on('keydown_R', this.setRectangle, this);
@@ -73,6 +75,23 @@ function create ()
 
 function changeColor (pointer, x, y, event)
 {
+    swatchData.getPixel(x, y, color);
+
+    if (shape)
+    {
+        shape.setFillStyle(color.color);
+    }
+
+    event.stopPropagation();
+}
+
+function updateColor (pointer, x, y, event)
+{
+    if (!pointer.isDown)
+    {
+        return;
+    }
+
     swatchData.getPixel(x, y, color);
 
     if (shape)
@@ -111,6 +130,11 @@ function changeShape ()
 
 function update ()
 {
+    if (!shape)
+    {
+        return;
+    }
+
     if (this.input.keyboard.checkDown(cursors.left, 100))
     {
         shape.x -= (cursors.left.shiftKey) ? 10 : 1;
@@ -212,6 +236,7 @@ function setCircle ()
     }
 
     current = 1;
+    shape = null;
 }
 
 function setRectangle ()
@@ -222,6 +247,7 @@ function setRectangle ()
     }
 
     current = 2;
+    shape = null;
 }
 
 function setEllipse ()
@@ -232,6 +258,7 @@ function setEllipse ()
     }
 
     current = 3;
+    shape = null;
 }
 
 function setStar ()
@@ -242,6 +269,7 @@ function setStar ()
     }
 
     current = 4;
+    shape = null;
 }
 
 
@@ -253,5 +281,6 @@ function setLine ()
     }
 
     current = 5;
+    shape = null;
 }
 

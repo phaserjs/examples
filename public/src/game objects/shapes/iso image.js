@@ -35,7 +35,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('pic', 'assets/tests/terrain/terrain3.png');
+    this.load.image('pic', 'assets/tests/terrain/terrain2.png');
 }
 
 function create ()

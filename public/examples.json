@@ -1105,12 +1105,6 @@
           "extension": ".js"
         },
         {
-          "path": "src\\bugs\\canvas alias.js",
-          "name": "canvas alias.js",
-          "size": 793,
-          "extension": ".js"
-        },
-        {
           "path": "src\\bugs\\container tilesprite.js",
           "name": "container tilesprite.js",
           "size": 2088,
@@ -1138,6 +1132,12 @@
           "path": "src\\bugs\\multi pan.js",
           "name": "multi pan.js",
           "size": 2737,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\pixi text.js",
+          "name": "pixi text.js",
+          "size": 1501,
           "extension": ".js"
         },
         {
@@ -1183,7 +1183,7 @@
           "extension": ".js"
         }
       ],
-      "size": 27314
+      "size": 28022
     },
     {
       "path": "src\\cache",
@@ -4787,7 +4787,7 @@
             {
               "path": "src\\game objects\\shapes\\draw.js",
               "name": "draw.js",
-              "size": 5297,
+              "size": 5800,
               "extension": ".js"
             },
             {
@@ -4797,15 +4797,27 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\shapes\\grid.js",
+              "name": "grid.js",
+              "size": 1072,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\shapes\\iso birdie.js",
               "name": "iso birdie.js",
-              "size": 1581,
+              "size": 1580,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\shapes\\iso box.js",
               "name": "iso box.js",
               "size": 822,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shapes\\iso draw.js",
+              "name": "iso draw.js",
+              "size": 5437,
               "extension": ".js"
             },
             {
@@ -4851,6 +4863,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\shapes\\stacker.js",
+              "name": "stacker.js",
+              "size": 793,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\shapes\\star.js",
               "name": "star.js",
               "size": 1301,
@@ -4863,7 +4881,7 @@
               "extension": ".js"
             }
           ],
-          "size": 27731
+          "size": 35535
         },
         {
           "path": "src\\game objects\\sprites",
@@ -4996,9 +5014,21 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\text\\static\\custom webfont.js",
+                  "name": "custom webfont.js",
+                  "size": 2193,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\text\\static\\emojis.js",
                   "name": "emojis.js",
                   "size": 898,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\text\\static\\google webfont.js",
+                  "name": "google webfont.js",
+                  "size": 1257,
                   "extension": ".js"
                 },
                 {
@@ -5010,7 +5040,7 @@
                 {
                   "path": "src\\game objects\\text\\static\\line spacing.js",
                   "name": "line spacing.js",
-                  "size": 1483,
+                  "size": 1647,
                   "extension": ".js"
                 },
                 {
@@ -5117,10 +5147,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 28913
+              "size": 32527
             }
           ],
-          "size": 28913
+          "size": 32527
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -5579,7 +5609,7 @@
           "size": 264567
         }
       ],
-      "size": 925229
+      "size": 936647
     },
     {
       "path": "src\\games",
@@ -9826,6 +9856,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\changing large scene.js",
+          "name": "changing large scene.js",
+          "size": 2000,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scenes\\changing scene es6.js",
           "name": "changing scene es6.js",
           "size": 1885,
@@ -10269,7 +10305,7 @@
           "extension": ".js"
         }
       ],
-      "size": 146427
+      "size": 148427
     },
     {
       "path": "src\\snapshot",
@@ -11171,5 +11207,5 @@
       "size": 5291
     }
   ],
-  "size": 2927415
+  "size": 2941541
 }

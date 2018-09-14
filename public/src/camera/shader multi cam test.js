@@ -67,17 +67,19 @@ function create ()
 
     var cam = this.cameras.main;
 
+    //  With shader
     cam.setSize(256, 512);
     cam.setRenderToTexture(customPipeline2);
 
+    //  No shader
     cam = this.cameras.add(256, 0, 256, 512);
-    // cam.setRenderToTexture(customPipeline2);
 
+    //  With shader
     cam = this.cameras.add(512, 0, 256, 512);
     cam.setRenderToTexture(customPipeline2);
 
+    //  No shader
     cam = this.cameras.add(768, 0, 256, 512);
-    // cam.setRenderToTexture(customPipeline2);
 }
 
 function update ()

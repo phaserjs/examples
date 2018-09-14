@@ -1137,7 +1137,7 @@
         {
           "path": "src\\bugs\\pixi text.js",
           "name": "pixi text.js",
-          "size": 1501,
+          "size": 1917,
           "extension": ".js"
         },
         {
@@ -1183,7 +1183,7 @@
           "extension": ".js"
         }
       ],
-      "size": 28022
+      "size": 28438
     },
     {
       "path": "src\\cache",
@@ -1432,6 +1432,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\change camera shader.js",
+          "name": "change camera shader.js",
+          "size": 3719,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\fade.js",
           "name": "fade.js",
           "size": 1197,
@@ -1548,7 +1554,7 @@
         {
           "path": "src\\camera\\minimap camera.js",
           "name": "minimap camera.js",
-          "size": 5345,
+          "size": 5378,
           "extension": ".js"
         },
         {
@@ -1735,7 +1741,7 @@
         {
           "path": "src\\camera\\shader multi cam test.js",
           "name": "shader multi cam test.js",
-          "size": 2334,
+          "size": 2316,
           "extension": ".js"
         },
         {
@@ -1775,7 +1781,7 @@
           "extension": ".js"
         }
       ],
-      "size": 202037
+      "size": 205771
     },
     {
       "path": "src\\components",
@@ -4863,9 +4869,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\shapes\\stacker es6.js",
+              "name": "stacker es6.js",
+              "size": 12883,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\shapes\\stacker.js",
               "name": "stacker.js",
-              "size": 793,
+              "size": 8738,
               "extension": ".js"
             },
             {
@@ -4881,7 +4893,7 @@
               "extension": ".js"
             }
           ],
-          "size": 35535
+          "size": 56363
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5016,7 +5028,7 @@
                 {
                   "path": "src\\game objects\\text\\static\\custom webfont.js",
                   "name": "custom webfont.js",
-                  "size": 2193,
+                  "size": 1452,
                   "extension": ".js"
                 },
                 {
@@ -5147,10 +5159,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 32527
+              "size": 31786
             }
           ],
-          "size": 32527
+          "size": 31786
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -5327,7 +5339,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\endless map.js",
                   "name": "endless map.js",
-                  "size": 2072,
+                  "size": 2078,
                   "extension": ".js"
                 },
                 {
@@ -5409,7 +5421,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 68869
+              "size": 68875
             },
             {
               "path": "src\\game objects\\tilemap\\static",
@@ -5606,10 +5618,10 @@
               "size": 71065
             }
           ],
-          "size": 264567
+          "size": 264573
         }
       ],
-      "size": 936647
+      "size": 956740
     },
     {
       "path": "src\\games",
@@ -7863,13 +7875,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\pixel perfect\\on move.js",
+              "name": "on move.js",
+              "size": 1373,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\pixel perfect\\transformed.js",
               "name": "transformed.js",
               "size": 1205,
               "extension": ".js"
             }
           ],
-          "size": 5727
+          "size": 7100
         },
         {
           "path": "src\\input\\pointer",
@@ -7976,7 +7994,7 @@
           "size": 9621
         }
       ],
-      "size": 150663
+      "size": 152036
     },
     {
       "path": "src\\loader",
@@ -9864,7 +9882,7 @@
         {
           "path": "src\\scenes\\changing scene es6.js",
           "name": "changing scene es6.js",
-          "size": 1885,
+          "size": 1633,
           "extension": ".js"
         },
         {
@@ -10305,7 +10323,7 @@
           "extension": ".js"
         }
       ],
-      "size": 148427
+      "size": 148175
     },
     {
       "path": "src\\snapshot",
@@ -11207,5 +11225,5 @@
       "size": 5291
     }
   ],
-  "size": 2941541
+  "size": 2966905
 }

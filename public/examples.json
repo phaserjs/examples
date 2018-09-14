@@ -1171,6 +1171,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\scene keys.js",
+          "name": "scene keys.js",
+          "size": 1240,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\stroke.js",
           "name": "stroke.js",
           "size": 1365,
@@ -1183,7 +1189,7 @@
           "extension": ".js"
         }
       ],
-      "size": 28438
+      "size": 29678
     },
     {
       "path": "src\\cache",
@@ -1649,6 +1655,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\render to texture canvas.js",
+          "name": "render to texture canvas.js",
+          "size": 1213,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\render to texture shader 2.js",
           "name": "render to texture shader 2.js",
           "size": 3220,
@@ -1781,7 +1793,7 @@
           "extension": ".js"
         }
       ],
-      "size": 205771
+      "size": 206984
     },
     {
       "path": "src\\components",
@@ -4871,7 +4883,7 @@
             {
               "path": "src\\game objects\\shapes\\stacker es6.js",
               "name": "stacker es6.js",
-              "size": 12883,
+              "size": 16815,
               "extension": ".js"
             },
             {
@@ -4893,7 +4905,7 @@
               "extension": ".js"
             }
           ],
-          "size": 56363
+          "size": 60295
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5339,7 +5351,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\dynamic\\endless map.js",
                   "name": "endless map.js",
-                  "size": 2078,
+                  "size": 2072,
                   "extension": ".js"
                 },
                 {
@@ -5421,7 +5433,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 68875
+              "size": 68869
             },
             {
               "path": "src\\game objects\\tilemap\\static",
@@ -5618,10 +5630,10 @@
               "size": 71065
             }
           ],
-          "size": 264573
+          "size": 264567
         }
       ],
-      "size": 956740
+      "size": 960666
     },
     {
       "path": "src\\games",
@@ -11225,5 +11237,5 @@
       "size": 5291
     }
   ],
-  "size": 2966905
+  "size": 2973284
 }

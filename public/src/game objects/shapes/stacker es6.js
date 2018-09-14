@@ -19,6 +19,26 @@ class Boot extends Phaser.Scene {
         this.load.image('bg', 'assets/skies/gradient26.png');
         this.load.image('grid', 'assets/skies/grid.png');
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+
+        this.load.audio('place', [
+            'assets/audio/stacker/place.ogg',
+            'assets/audio/stacker/place.m4a'
+        ]);
+
+        this.load.audio('miss', [
+            'assets/audio/stacker/miss.ogg',
+            'assets/audio/stacker/miss.m4a'
+        ]);
+
+        this.load.audio('gamelost', [
+            'assets/audio/stacker/gamelost.ogg',
+            'assets/audio/stacker/gamelost.m4a'
+        ]);
+
+        this.load.audio('gamewon', [
+            'assets/audio/stacker/gamewon.ogg',
+            'assets/audio/stacker/gamewon.m4a'
+        ]);
     }
 
     create ()
@@ -31,9 +51,48 @@ class Boot extends Phaser.Scene {
             },
             active: function ()
             {
-                scene.start('game');
+                scene.start('instructions');
             }
         });
+    }
+
+}
+
+class Instructions extends Phaser.Scene {
+
+    constructor ()
+    {
+        super('instructions');
+    }
+
+    create ()
+    {
+        this.add.image(400, 300, 'bg');
+        this.add.image(400, 430, 'grid').setDisplaySize(800, 376);
+
+        this.add.text(720, 0, 'S\n t\na\n c\nk\n e\nr', { fontFamily: 'bebas', fontSize: 74, color: '#ffffff', lineSpacing: -10 }).setShadow(2, 2, "#333333", 2, false, true);
+
+        this.add.text(20, 40, 'Instructions', { fontFamily: 'bebas', fontSize: 70, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+
+        var help = [
+            'Build a tower all the way to the top of the screen',
+            'to win big "prizes"! Place rows of blocks on top',
+            'of each other, but be careful: it gets faster each',
+            'time, you lose blocks if you don\'t land perfectly,',
+            'and you automatically shrink after rows 5 and 10!'
+        ];
+
+        this.add.text(20, 180, help, { fontFamily: 'bebas', fontSize: 30, color: '#ffffff', lineSpacing: 6 }).setShadow(2, 2, "#333333", 2, false, true);
+
+        this.add.text(20, 450, 'Space Bar or Click to Place a Row', { fontFamily: 'bebas', fontSize: 40, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+
+        this.input.keyboard.once('keydown_SPACE', this.start, this);
+        this.input.once('pointerdown', this.start, this);
+    }
+
+    start ()
+    {
+        this.scene.start('game');
     }
 
 }
@@ -229,10 +288,6 @@ class StackerGame extends Phaser.Scene {
         let pos2 = (this.block2) ? this.getGridX(this.block2) : -1;
         let pos3 = (this.block3) ? this.getGridX(this.block3) : -1;
 
-        console.log('drop');
-
-        // console.log('drop y', currentY, 'pos', pos1, pos2, pos3);
-
         let mapY = this.currentY - 1;
 
         if (this.currentY === this.gridHeight)
@@ -243,12 +298,16 @@ class StackerGame extends Phaser.Scene {
             this.grid[mapY][pos2] = 1;
             this.grid[mapY][pos3] = 1;
 
+            this.sound.play('place');
+
             this.nextRow();
         }
         else
         {
             //  Can we drop? First check all 3 blocks. If none of them have anything
             //  below then it's game over.
+
+            var droppedOne = false;
 
             if (!this.hasBlockBelow(this.block1) && !this.hasBlockBelow(this.block2) && !this.hasBlockBelow(this.block3))
             {
@@ -269,6 +328,7 @@ class StackerGame extends Phaser.Scene {
                         //  There's nothing below this block, so they lose it
                         this.block1.visible = false;
                         this.block1 = null;
+                        droppedOne = true;
                     }
                 }
 
@@ -284,6 +344,7 @@ class StackerGame extends Phaser.Scene {
                         //  There's nothing below this block, so they lose it
                         this.block2.visible = false;
                         this.block2 = null;
+                        droppedOne = true;
                     }
                 }
 
@@ -299,19 +360,29 @@ class StackerGame extends Phaser.Scene {
                         //  There's nothing below this block, so they lose it
                         this.block3.visible = false;
                         this.block3 = null;
+                        droppedOne = true;
                     }
                 }
-
-                // console.table(grid);
 
                 if (this.block1 || this.block2 || this.block3)
                 {
                     if (this.currentY === 1)
                     {
-                        this.gameWon();
+                        this.currentY--;
+
+                        this.gameOver();
                     }
                     else
                     {
+                        if (droppedOne)
+                        {
+                            this.sound.play('miss');
+                        }
+                        else
+                        {
+                            this.sound.play('place');
+                        }
+
                         this.nextRow();
                     }
                 }
@@ -329,8 +400,6 @@ class StackerGame extends Phaser.Scene {
 
         if (this.currentY === 10 || this.currentY === 5)
         {
-            // console.log('GETTING HARDER!', this.currentY);
-
             this.speed -= (this.currentY === 10) ? 100 : 50;
 
             //  We also need to remove a block if they've still got the full amount
@@ -395,24 +464,15 @@ class StackerGame extends Phaser.Scene {
 
     gameOver ()
     {
-        console.log('GAME OVER, removing events');
-
         this.timer.remove(false);
 
         this.input.keyboard.off('keydown_SPACE', this.drop);
         this.input.off('pointerdown', this.drop);
 
-        this.scene.launch('gameOver');
-    }
+        this.registry.set('score', this.gridHeight - this.currentY);
 
-    gameWon ()
-    {
-        console.log('GAME WON');
-
-        this.timer.remove(false);
-
-        this.input.keyboard.off('keydown_SPACE', this.drop);
-        this.input.off('pointerdown', this.drop);
+        this.scene.pause();
+        this.scene.run('gameOver');
     }
 }
 
@@ -425,29 +485,66 @@ class GameOver extends Phaser.Scene {
 
     create ()
     {
-        this.add.text(400, 300, 'GAME OVER!', { fontFamily: 'bebas', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+        this.add.rectangle(400, 300, 640, 500, 0x000000, 0.7);
 
-        this.input.keyboard.once('keydown_SPACE', this.restart, this);
-        this.input.once('pointerdown', this.restart, this);
-    }
+        var list = [
+            'Tiny Bonus:',
+            '',
+            'Minor Prize:',
+            '',
+            'Major Prize:'
+        ];
 
-    restart ()
-    {
-        this.scene.start('game');
-    }
+        var prizes1 = [ 'A Paperclip', 'Half-eaten Sandwich', 'A Boiled Egg', 'Used Gum', 'A Goldfish', 'A Book about Flash' ];
+        var prizes2 = [ 'Mario Stickers', 'SNES Joypad', 'Superman Cape', 'Contra Poster', 'Bubble Machine', 'X-Ray Specs', 'Skateboard' ];
+        var prizes3 = [ 'Playstation 4', 'A Tardis', 'An X-Wing', 'Super Nintendo', 'Arcade Machine', 'Dragon Egg', 'Personal Cyborg' ];
 
-}
+        var score = this.registry.get('score');
 
-class GameWon extends Phaser.Scene {
+        console.log(score);
 
-    constructor ()
-    {
-        super('gameWon');
-    }
+        var prizelist = [
+            'Nothing (Complete 5 rows)',
+            '',
+            'Nothing (Complete 10 rows)',
+            '',
+            'Nothing (Complete 15 rows)'
+        ];
 
-    create ()
-    {
-        this.add.text(400, 300, 'GAME WON!', { fontFamily: 'bebas', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+        var title = 'GAME OVER!';
+
+        if (score >= 5)
+        {
+            prizelist[0] = Phaser.Utils.Array.GetRandom(prizes1);
+        }
+
+        if (score >= 10)
+        {
+            prizelist[2] = Phaser.Utils.Array.GetRandom(prizes2);
+        }
+
+        if (score === 15)
+        {
+            prizelist[4] = Phaser.Utils.Array.GetRandom(prizes3);
+            title = 'GAME WON!';
+        }
+
+        if (score < 5)
+        {
+            this.sound.play('gamelost');
+        }
+        else
+        {
+            this.sound.play('gamewon');
+        }
+
+        this.add.text(400, 120, title, { fontFamily: 'bebas', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true).setOrigin(0.5);
+        this.add.text(400, 200, 'Let\'s see what you have won:', { fontFamily: 'bebas', fontSize: 26, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true).setOrigin(0.5);
+
+        this.add.text(100, 270, list, { fontFamily: 'bebas', fontSize: 26, color: '#ffffff', align: 'right' }).setShadow(2, 2, "#333333", 2, false, true);
+        this.add.text(260, 270, prizelist, { fontFamily: 'bebas', fontSize: 26, color: '#ffff00' }).setShadow(2, 2, "#333333", 2, false, true);
+
+        this.add.text(400, 500, 'Space or Click to try again', { fontFamily: 'bebas', fontSize: 26, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true).setOrigin(0.5);
 
         this.input.keyboard.once('keydown_SPACE', this.restart, this);
         this.input.once('pointerdown', this.restart, this);
@@ -465,7 +562,7 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: [ Boot, StackerGame, GameOver, GameWon ]
+    scene: [ Boot, Instructions, StackerGame, GameOver ]
 };
 
 var game = new Phaser.Game(config);

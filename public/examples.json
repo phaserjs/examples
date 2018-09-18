@@ -4682,6 +4682,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\render texture\\resize render texture.js",
+              "name": "resize render texture.js",
+              "size": 998,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\resize rendertexture.js",
               "name": "resize rendertexture.js",
               "size": 1038,
@@ -4772,7 +4778,7 @@
               "extension": ".js"
             }
           ],
-          "size": 54019
+          "size": 55017
         },
         {
           "path": "src\\game objects\\shapes",
@@ -5193,6 +5199,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\tile sprite\\change frame.js",
+              "name": "change frame.js",
+              "size": 1345,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\tile sprite\\Example - Canvas.js",
               "name": "Example - Canvas.js",
               "size": 939,
@@ -5229,7 +5241,7 @@
               "extension": ".js"
             }
           ],
-          "size": 7799
+          "size": 9144
         },
         {
           "path": "src\\game objects\\tilemap",
@@ -5633,7 +5645,7 @@
           "size": 264567
         }
       ],
-      "size": 960666
+      "size": 963009
     },
     {
       "path": "src\\games",
@@ -11237,5 +11249,5 @@
       "size": 5291
     }
   ],
-  "size": 2973284
+  "size": 2975627
 }

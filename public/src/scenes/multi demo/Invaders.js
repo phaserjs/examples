@@ -105,6 +105,11 @@ class Invaders extends Phaser.Scene {
             }
         }
 
+        if (this.topLeft === null && this.bottomRight === null)
+        {
+            this.gameOver();
+        }
+
         this.topLeft = first;
         this.bottomRight = last;
     }
@@ -187,7 +192,7 @@ class Invaders extends Phaser.Scene {
 
     update ()
     {
-        if (this.isGameOver)
+        if (this.isGameOver || (this.bottomRight === null && this.topLeft === null))
         {
             return;
         }

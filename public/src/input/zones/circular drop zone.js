@@ -57,10 +57,23 @@ function create ()
 
     });
 
-    this.input.on('drop', function (pointer, gameObject, dropZone) {
+    this.input.on('dragenter', function (pointer, gameObject, dropZone) {
 
-        console.log('drop');
-        console.log(dropZone);
+        graphics.clear();
+        graphics.lineStyle(2, 0x00ffff);
+        graphics.strokeCircle(zone.x, zone.y, zone.input.hitArea.radius);
+
+    });
+
+    this.input.on('dragleave', function (pointer, gameObject, dropZone) {
+
+        graphics.clear();
+        graphics.lineStyle(2, 0xffff00);
+        graphics.strokeCircle(zone.x, zone.y, zone.input.hitArea.radius);
+
+    });
+
+    this.input.on('drop', function (pointer, gameObject, dropZone) {
 
         gameObject.x = dropZone.x;
         gameObject.y = dropZone.y;
@@ -70,8 +83,6 @@ function create ()
     });
 
     this.input.on('dragend', function (pointer, gameObject, dropped) {
-
-        console.log('dragend', dropped);
 
         if (!dropped)
         {

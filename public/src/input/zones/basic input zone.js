@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 1024,
     height: 600,
@@ -31,13 +31,13 @@ function create ()
     //  And here's the real content.. some hit zones.
     //  One for each donut in the picture.
     
-    this.add.zone(0, 0, 345, 300).setName('Plain').setInteractive();
-    this.add.zone(345, 0, 310, 300).setName('Chocolate').setInteractive();
-    this.add.zone(655, 0, 369, 300).setName('Coffee\nand cream').setInteractive();
+    var zone1 = this.add.zone(0, 0, 345, 300).setOrigin(0).setName('Plain').setInteractive();
+    var zone2 = this.add.zone(345, 0, 310, 300).setOrigin(0).setName('Chocolate').setInteractive();
+    var zone3 = this.add.zone(655, 0, 369, 300).setOrigin(0).setName('Coffee\nand cream').setInteractive();
 
-    this.add.zone(0, 300, 330, 300).setName('Chocolate\nSprinkles').setInteractive();
-    this.add.zone(330, 300, 350, 300).setName('Strawberry').setInteractive();
-    this.add.zone(680, 300, 344, 300).setName('More\nSprinkles').setInteractive();
+    var zone4 = this.add.zone(0, 300, 330, 300).setOrigin(0).setName('Chocolate\nSprinkles').setInteractive();
+    var zone5 = this.add.zone(330, 300, 350, 300).setOrigin(0).setName('Strawberry').setInteractive();
+    var zone6 = this.add.zone(680, 300, 344, 300).setOrigin(0).setName('More\nSprinkles').setInteractive();
 
     //  And some events
 

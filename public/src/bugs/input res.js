@@ -22,7 +22,7 @@ function preload ()
 
 function create ()
 {
-    this.cameras.main.setBounds(0, 0, 10000, 10000);
+    this.cameras.main.setBounds(0, 0, 10000, 10000).setZoom(2);
 
     var image = this.add.image(400, 300, 'block').setInteractive();
 

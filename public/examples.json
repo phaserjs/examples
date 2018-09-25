@@ -1113,7 +1113,7 @@
         {
           "path": "src\\bugs\\input res.js",
           "name": "input res.js",
-          "size": 2575,
+          "size": 2586,
           "extension": ".js"
         },
         {
@@ -1126,6 +1126,12 @@
           "path": "src\\bugs\\light.js",
           "name": "light.js",
           "size": 1208,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\mapbug.js",
+          "name": "mapbug.js",
+          "size": 754,
           "extension": ".js"
         },
         {
@@ -1189,7 +1195,7 @@
           "extension": ".js"
         }
       ],
-      "size": 29678
+      "size": 30443
     },
     {
       "path": "src\\cache",
@@ -8258,6 +8264,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\loader\\loader events\\destroy game during load.js",
+              "name": "destroy game during load.js",
+              "size": 8881,
+              "extension": ".js"
+            },
+            {
               "path": "src\\loader\\loader events\\display file as loaded.js",
               "name": "display file as loaded.js",
               "size": 5277,
@@ -8308,7 +8320,7 @@
             {
               "path": "src\\loader\\loader events\\start loader manually.js",
               "name": "start loader manually.js",
-              "size": 5577,
+              "size": 5723,
               "extension": ".js"
             },
             {
@@ -8318,7 +8330,7 @@
               "extension": ".js"
             }
           ],
-          "size": 49553
+          "size": 58580
         },
         {
           "path": "src\\loader\\plugin",
@@ -8583,7 +8595,7 @@
           "size": 0
         }
       ],
-      "size": 129938
+      "size": 138965
     },
     {
       "path": "src\\paths",
@@ -9002,7 +9014,7 @@
             {
               "path": "src\\physics\\arcade\\body on a path.js",
               "name": "body on a path.js",
-              "size": 2754,
+              "size": 3855,
               "extension": ".js"
             },
             {
@@ -9240,7 +9252,7 @@
               "extension": ".js"
             }
           ],
-          "size": 83312
+          "size": 84413
         },
         {
           "path": "src\\physics\\impact",
@@ -9702,7 +9714,7 @@
           "size": 2750
         }
       ],
-      "size": 191423
+      "size": 192524
     },
     {
       "path": "src\\plugins",
@@ -11285,5 +11297,5 @@
       "size": 5291
     }
   ],
-  "size": 2980390
+  "size": 2991283
 }

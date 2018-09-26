@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#ffffff',
@@ -28,7 +28,8 @@ var layer;
 function preload ()
 {
     this.load.spritesheet('balls', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
-    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-shapes.json');
+    // this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-shapes.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-shapes-v12.json');
     this.load.image('kenny_platformer_64x64', 'assets/tilemaps/tiles/kenny_platformer_64x64.png');
 }
 
@@ -62,7 +63,7 @@ function create ()
     }, this);
 
     this.input.keyboard.on('keydown_SPACE', function (event) {
-        shapeGraphics.visible = !shapeGraphics.visible;
+        // shapeGraphics.visible = !shapeGraphics.visible;
     });
 
     var help = this.add.text(16, 16, 'Click to drop balls\nPress "space" to toggle rendering collision shapes', {
@@ -101,6 +102,8 @@ function drawCollisionShapes (graphics)
         var tileWorldX = tile.getLeft();
         var tileWorldY = tile.getTop();
         var collisionGroup = tile.getCollisionGroup();
+
+        // console.log(collisionGroup);
 
         if (!collisionGroup || collisionGroup.objects.length === 0) { return; }
 

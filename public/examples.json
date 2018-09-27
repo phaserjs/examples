@@ -292,7 +292,7 @@
         {
           "path": "src\\animation\\on complete callback.js",
           "name": "on complete callback.js",
-          "size": 1017,
+          "size": 997,
           "extension": ".js"
         },
         {
@@ -374,7 +374,7 @@
           "extension": ".js"
         }
       ],
-      "size": 40424
+      "size": 40404
     },
     {
       "path": "src\\archived",
@@ -1093,9 +1093,15 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\anim.js",
+          "name": "anim.js",
+          "size": 621,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
-          "size": 525,
+          "size": 626,
           "extension": ".js"
         },
         {
@@ -1117,9 +1123,9 @@
           "extension": ".js"
         },
         {
-          "path": "src\\bugs\\flip y.js",
-          "name": "flip y.js",
-          "size": 2560,
+          "path": "src\\bugs\\gen texture.js",
+          "name": "gen texture.js",
+          "size": 779,
           "extension": ".js"
         },
         {
@@ -1201,7 +1207,7 @@
           "extension": ".js"
         }
       ],
-      "size": 32774
+      "size": 31715
     },
     {
       "path": "src\\cache",
@@ -4678,7 +4684,7 @@
             {
               "path": "src\\game objects\\render texture\\paint.js",
               "name": "paint.js",
-              "size": 631,
+              "size": 647,
               "extension": ".js"
             },
             {
@@ -4790,7 +4796,7 @@
               "extension": ".js"
             }
           ],
-          "size": 55001
+          "size": 55017
         },
         {
           "path": "src\\game objects\\shapes",
@@ -5278,7 +5284,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\csv map arcade physics.js",
                   "name": "csv map arcade physics.js",
-                  "size": 4456,
+                  "size": 4384,
                   "extension": ".js"
                 },
                 {
@@ -5348,7 +5354,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 72473
+              "size": 72401
             },
             {
               "path": "src\\game objects\\tilemap\\dynamic",
@@ -5542,15 +5548,21 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\tilemap\\static\\multiple tilesets.js",
+                  "name": "multiple tilesets.js",
+                  "size": 2167,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\tilemap\\static\\set colliding by collision data.js",
                   "name": "set colliding by collision data.js",
-                  "size": 4964,
+                  "size": 5109,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\static\\set colliding by property.js",
                   "name": "set colliding by property.js",
-                  "size": 2670,
+                  "size": 2738,
                   "extension": ".js"
                 },
                 {
@@ -5580,7 +5592,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\tile properties.js",
                   "name": "tile properties.js",
-                  "size": 1982,
+                  "size": 2074,
                   "extension": ".js"
                 },
                 {
@@ -5614,7 +5626,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 52232
+              "size": 54704
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -5641,7 +5653,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\tests\\visual flipping test.js",
                   "name": "visual flipping test.js",
-                  "size": 1495,
+                  "size": 1396,
                   "extension": ".js"
                 },
                 {
@@ -5663,13 +5675,13 @@
                   "extension": ".js"
                 }
               ],
-              "size": 71164
+              "size": 71065
             }
           ],
-          "size": 264738
+          "size": 267039
         }
       ],
-      "size": 965684
+      "size": 968001
     },
     {
       "path": "src\\games",
@@ -7714,9 +7726,15 @@
               "name": "single keydown event.js",
               "size": 791,
               "extension": ".js"
+            },
+            {
+              "path": "src\\input\\keyboard\\text entry.js",
+              "name": "text entry.js",
+              "size": 1213,
+              "extension": ".js"
             }
           ],
-          "size": 16370
+          "size": 17583
         },
         {
           "path": "src\\input\\mouse",
@@ -8042,7 +8060,7 @@
           "size": 10196
         }
       ],
-      "size": 152869
+      "size": 154082
     },
     {
       "path": "src\\loader",
@@ -9134,7 +9152,7 @@
             {
               "path": "src\\physics\\arcade\\simple group.js",
               "name": "simple group.js",
-              "size": 900,
+              "size": 948,
               "extension": ".js"
             },
             {
@@ -9240,7 +9258,7 @@
               "extension": ".js"
             }
           ],
-          "size": 84413
+          "size": 84461
         },
         {
           "path": "src\\physics\\impact",
@@ -9702,7 +9720,7 @@
           "size": 2750
         }
       ],
-      "size": 192632
+      "size": 192680
     },
     {
       "path": "src\\plugins",
@@ -10421,6 +10439,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\textures\\crop animated sprite.js",
+          "name": "crop animated sprite.js",
+          "size": 1408,
+          "extension": ".js"
+        },
+        {
           "path": "src\\textures\\crop multi frames.js",
           "name": "crop multi frames.js",
           "size": 612,
@@ -10583,7 +10607,7 @@
           "extension": ".js"
         }
       ],
-      "size": 43484
+      "size": 44892
     },
     {
       "path": "src\\time",
@@ -11285,5 +11309,5 @@
       "size": 5291
     }
   ],
-  "size": 2995270
+  "size": 2999177
 }

@@ -1093,12 +1093,6 @@
       "name": "bugs",
       "children": [
         {
-          "path": "src\\bugs\\anim.js",
-          "name": "anim.js",
-          "size": 621,
-          "extension": ".js"
-        },
-        {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
           "size": 626,
@@ -1120,12 +1114,6 @@
           "path": "src\\bugs\\container tilesprite.js",
           "name": "container tilesprite.js",
           "size": 2088,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\bugs\\gen texture.js",
-          "name": "gen texture.js",
-          "size": 779,
           "extension": ".js"
         },
         {
@@ -1207,7 +1195,7 @@
           "extension": ".js"
         }
       ],
-      "size": 31715
+      "size": 30315
     },
     {
       "path": "src\\cache",
@@ -10441,7 +10429,7 @@
         {
           "path": "src\\textures\\crop animated sprite.js",
           "name": "crop animated sprite.js",
-          "size": 1408,
+          "size": 1489,
           "extension": ".js"
         },
         {
@@ -10553,6 +10541,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\textures\\get pixels.js",
+          "name": "get pixels.js",
+          "size": 910,
+          "extension": ".js"
+        },
+        {
           "path": "src\\textures\\multi atlas.js",
           "name": "multi atlas.js",
           "size": 973,
@@ -10607,7 +10601,7 @@
           "extension": ".js"
         }
       ],
-      "size": 44892
+      "size": 45883
     },
     {
       "path": "src\\time",
@@ -11309,5 +11303,5 @@
       "size": 5291
     }
   ],
-  "size": 2999177
+  "size": 2998768
 }

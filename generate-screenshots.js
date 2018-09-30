@@ -92,7 +92,7 @@ const saveCanvas = async (page, example) => {
       });
     }
     else {
-      fs.copyFileSync(p.resolve(public/images/doc.png), p.resolve(path));
+      fs.copyFileSync(p.resolve('public/images/doc.png'), p.resolve(path));
     }
     resolve();
   });

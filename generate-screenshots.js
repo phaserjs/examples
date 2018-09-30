@@ -61,12 +61,6 @@ const digForCanvas = async (page, url, depth = 0) => {
     if (depth > 0) {
       items = items.slice(1)
     }
-    else {
-      items = items.filter(u => u.match(/dir=(.)/)[1].charCodeAt(0) >= 'u'.charCodeAt(0));
-      // items = items.filter(u => u.match(/dir=(.)/)[1].charCodeAt(0) <= 'p'.charCodeAt(0));
-      console.log(items);
-    }
-
     for (let url of items.reverse()) {
       if (url.match(/[^\.]+$/)[0].slice(0,2) === 'js') {
         console.log('saving', url);

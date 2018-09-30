@@ -62,11 +62,11 @@ screenshots = screenshots
 
 const saveCanvas = async (page, example) => {
   return new Promise(async (resolve, reject) => {
-    const path = example.path ;
+    const path = example.path;
 
     console.log('- ' + example.url);
     console.log('  Screenshot to path:', path);
-    const filename = path.match(/[^\/]+$/)[0];
+    const filename = path.match(/[^\/\\]+$/)[0];
     fs.mkdirp(path.slice(0, -(filename.length + 1)));
     await page.goto(example.url);
     try {
@@ -74,7 +74,7 @@ const saveCanvas = async (page, example) => {
         timeout: 5000,
       });
     } catch (e) {
-      fs.copyFileSync('public/images/doc.png', path);
+      fs.copyFileSync(p.resolve(public/images/doc.png), p.resolve(path));
       resolve();
       return;
     }
@@ -88,11 +88,11 @@ const saveCanvas = async (page, example) => {
     const canvas = await page.$('canvas');
     if (canvas) {
       await canvas.screenshot({
-        path,
+        path: p.resolve(path),
       });
     }
     else {
-      fs.copyFileSync('public/images/doc.png', path);
+      fs.copyFileSync(p.resolve(public/images/doc.png), p.resolve(path));
     }
     resolve();
   });

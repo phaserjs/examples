@@ -9,7 +9,7 @@ server.listen(8080, 'localhost', () => {});
 
 let examples = [];
 const getExamples = (path, depth = 0) => {
-  const files = fs.readdirSync(path);
+  const files = fs.readdirSync(p.resolve(path));
   if (depth > maxDepth || path.includes('archived')) {
     return;
   }
@@ -44,7 +44,7 @@ const getScreenshots = (path, depth = 0) => {
   for(let file of files) {
     const fileInfo = fs.statSync(p.resolve(path, file));
     if (fileInfo.isDirectory()) {
-      getScreenshots(p.resolve(path,file), depth + 1);
+      getScreenshots(p.resolve(path, file), depth + 1);
     } 
     screenshots.push(p.resolve(path, file));
   }
@@ -74,7 +74,7 @@ const saveCanvas = async (page, example) => {
         timeout: 5000,
       });
     } catch (e) {
-      fs.copyFileSync(p.resolve(public/images/doc.png), p.resolve(path));
+      fs.copyFileSync(p.resolve('public/images/doc.png'), p.resolve(path));
       resolve();
       return;
     }

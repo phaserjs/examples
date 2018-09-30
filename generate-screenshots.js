@@ -1,6 +1,11 @@
 const puppeteer = require('puppeteer');
+const httpServer = require('http-server');
 const fs = require('fs-extra');
 const p = require('path');
+
+
+var server = httpServer.createServer();
+server.listen(8080, 'localhost', () => {});
 
 let examples = [];
 const getExamples = (path, depth = 0) => {
@@ -59,10 +64,10 @@ const saveCanvas = async (page, example) => {
   return new Promise(async (resolve, reject) => {
     const path = example.path ;
 
-    console.log('  screenshot to path:', path);
+    console.log('- ' + example.url);
+    console.log('  Screenshot to path:', path);
     const filename = path.match(/[^\/]+$/)[0];
     fs.mkdirp(path.slice(0, -(filename.length + 1)));
-    console.log(example.url)
     await page.goto(example.url);
     try {
       await page.waitForSelector('canvas', {
@@ -103,6 +108,7 @@ async function run() {
   }
 
   browser.close();
+  server.close();
 }
 
 run();

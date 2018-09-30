@@ -207,7 +207,11 @@
 
         var a = $('<a></a>', { href: 'boot.html?src=' + filepath });
 
-        var img = $('<img />', { src: 'images/joystick.png', width: 128, height: 128 });
+        const imgPath = filepath
+          .replace(/^src/, 'screenshots')
+          .replace(/\.json$/, '.png')
+          .replace(/\.js$/, '.png');
+        var img = $('<img />', { src: imgPath, width: 240, height: 180 });
 
         a.append(img);
 
@@ -230,7 +234,11 @@
 
         var a = $('<a></a>', { href: 'view.html?src=' + filepath });
 
-        var img = $('<img />', { src: 'images/doc.png', width: 128, height: 128 });
+        const imgPath = filepath
+          .replace(/^src/, 'screenshots')
+          .replace(/\.json$/, '.png')
+          .replace(/\.js$/, '.png');
+        var img = $('<img />', { src: imgPath, width: 240, height: 180 });
 
         a.append(img);
 

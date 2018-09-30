@@ -1,29 +1,69 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs-extra');
+const p = require('path');
 
-const getItems = async (page) => {
-  return new Promise(async (resolve, reject) => {
-    const items = await page.evaluate((sel) => {
-      return [...document.querySelectorAll(sel)]
-        .map(a => a.href)
-        .filter(url => !url.includes('rbush')); // rbrush is super broken...
-    }, '.card > a');
-    resolve(items);
-  });
+let examples = [];
+const getExamples = (path, depth = 0) => {
+  const files = fs.readdirSync(path);
+  if (depth > maxDepth || path.includes('archived')) {
+    return;
+  }
+  
+  if (files.includes('boot.json')){
+    examples.push({
+      url: path + '/' + 'boot.json',
+      path: p.resolve(path, 'boot.json'),
+    });
+  } else {
+    for(let file of files) {
+      const fileInfo = fs.statSync(p.resolve(path, file));
+      if (fileInfo.isDirectory() && file[0] !== '_') {
+        getExamples(path + '/' + file, depth + 1);
+      } else if (file[0] !== '_' && file[0] !== '.') {
+        examples.push({
+          url: path + '/' +  file,
+          path: p.resolve(path, file),
+        });
+      }
+    }
+  }
 }
 
-const saveCanvas = async (page, url) => {
+let screenshots = [];
+const maxDepth = 25;
+const getScreenshots = (path, depth = 0) => {
+  const files = fs.readdirSync(path);
+  if (depth > maxDepth) {
+    return;
+  }
+  for(let file of files) {
+    const fileInfo = fs.statSync(p.resolve(path, file));
+    if (fileInfo.isDirectory()) {
+      getScreenshots(p.resolve(path,file), depth + 1);
+    } 
+    screenshots.push(p.resolve(path, file));
+  }
+}
+
+getExamples('./public/src');
+examples = examples
+  .filter(e => !e.url.includes('rbush'))
+  .filter(e => e.url.match(/[^\.]+$/)[0].slice(0,2) === 'js')
+  .map(e => ({ url: e.url = 'http://localhost:8080/' + (e.url.includes('boot.json') ? 'boot.html?src=' : 'view.html?src=') + e.url.slice(9).replace(/\//g, '\\'), path: e.path.toLowerCase().replace(/src/, 'screenshots').replace(/\.json/, '').replace(/\.js/, '') + '.png' }));
+
+getScreenshots('./public/screenshots');
+screenshots = screenshots
+  .map(s => s.toLowerCase());
+
+const saveCanvas = async (page, example) => {
   return new Promise(async (resolve, reject) => {
-    await page.goto(url);
-    const path = 'public/screenshots' + url
-      .replace(/\\\\/g, '/')
-      .replace(/\\/g, '/')
-      .replace(/%20/g, ' ')
-      .match(/src=src([^\.]+)/)[1] + '.png';
+    const path = example.path ;
+
     console.log('  screenshot to path:', path);
     const filename = path.match(/[^\/]+$/)[0];
     fs.mkdirp(path.slice(0, -(filename.length + 1)));
-
+    console.log(example.url)
+    await page.goto(example.url);
     try {
       await page.waitForSelector('canvas', {
         timeout: 5000,
@@ -31,6 +71,7 @@ const saveCanvas = async (page, url) => {
     } catch (e) {
       fs.copyFileSync('public/images/doc.png', path);
       resolve();
+      return;
     }
     await page.evaluate(() => {
       const c = document.querySelector('canvas');
@@ -52,33 +93,14 @@ const saveCanvas = async (page, url) => {
   });
 };
 
-const maxDepth = 10;
-const digForCanvas = async (page, url, depth = 0) => {
-  return new Promise(async (resolve, reject) => {
-    await page.goto(url, {waitUntil: 'networkidle2'});
-    
-    let items = await getItems(page);
-    if (depth > 0) {
-      items = items.slice(1)
-    }
-    for (let url of items.reverse()) {
-      if (url.match(/[^\.]+$/)[0].slice(0,2) === 'js') {
-        console.log('saving', url);
-        await saveCanvas(page, url);
-      } else {
-        console.log('digging', url);
-        await digForCanvas(page, url, depth + 1);
-      }
-    }
-    resolve();
-  });
-}
-
 async function run() {
   const browser = await puppeteer.launch({ headless: true });
   const [page] = await browser.pages();
   page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1');
-  await digForCanvas(page, 'http://localhost:8080');
+
+  for (let example of examples.filter(e => !screenshots.includes(e.path))) {
+    await saveCanvas(page, example);
+  }
 
   browser.close();
 }

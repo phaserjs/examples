@@ -95,13 +95,13 @@ const scanForError = async (page, example) => {
 async function run() {
   const browser = await puppeteer.launch({ headless: true });
   const [page] = await browser.pages();
-  page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1');
+  await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1');
 
   for (let example of examples) {
     await scanForError(page, example);
   }
 
-  browser.close();
+  await browser.close();
   server.close();
 }
 

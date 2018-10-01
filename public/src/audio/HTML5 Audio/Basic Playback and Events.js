@@ -40,10 +40,10 @@ function preload ()
         instances: 2
     });
 
-    this.load.audioSprite('creatures', [
+    this.load.audioSprite('creatures', 'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.json', [
         'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.ogg',
         'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.mp3'
-    ], 'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.json');
+    ]);
 }
 
 var first;

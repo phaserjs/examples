@@ -1117,6 +1117,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\graphics update.js",
+          "name": "graphics update.js",
+          "size": 701,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\input res.js",
           "name": "input res.js",
           "size": 2586,
@@ -1195,7 +1201,7 @@
           "extension": ".js"
         }
       ],
-      "size": 30315
+      "size": 31016
     },
     {
       "path": "src\\cache",
@@ -9036,6 +9042,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\custom separate.js",
+              "name": "custom separate.js",
+              "size": 1227,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\destroy body.js",
               "name": "destroy body.js",
               "size": 1168,
@@ -9246,7 +9258,7 @@
               "extension": ".js"
             }
           ],
-          "size": 84461
+          "size": 85688
         },
         {
           "path": "src\\physics\\impact",
@@ -9472,7 +9484,7 @@
             {
               "path": "src\\physics\\matterjs\\basic constraint.js",
               "name": "basic constraint.js",
-              "size": 1687,
+              "size": 1694,
               "extension": ".js"
             },
             {
@@ -9686,7 +9698,7 @@
               "extension": ".js"
             }
           ],
-          "size": 58142
+          "size": 58149
         },
         {
           "path": "src\\physics\\multi",
@@ -9708,7 +9720,7 @@
           "size": 2750
         }
       ],
-      "size": 192680
+      "size": 193914
     },
     {
       "path": "src\\plugins",
@@ -10543,7 +10555,7 @@
         {
           "path": "src\\textures\\get pixels.js",
           "name": "get pixels.js",
-          "size": 910,
+          "size": 1008,
           "extension": ".js"
         },
         {
@@ -10601,7 +10613,7 @@
           "extension": ".js"
         }
       ],
-      "size": 45883
+      "size": 45981
     },
     {
       "path": "src\\time",
@@ -11303,5 +11315,5 @@
       "size": 5291
     }
   ],
-  "size": 2998768
+  "size": 3000801
 }

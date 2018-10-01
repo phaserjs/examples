@@ -42,7 +42,7 @@ function create ()
 
     //  Or you can create a native Matter constraint:
 
-    // var constraint = Phaser.Physics.Matter.Constraint.create({
+    // var constraint = Phaser.Physics.Matter.Matter.Constraint.create({
     //     bodyA: ballA.body,
     //     bodyB: ballB.body,
     //     length: 100,

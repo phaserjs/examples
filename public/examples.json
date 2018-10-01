@@ -1117,12 +1117,6 @@
           "extension": ".js"
         },
         {
-          "path": "src\\bugs\\graphics update.js",
-          "name": "graphics update.js",
-          "size": 701,
-          "extension": ".js"
-        },
-        {
           "path": "src\\bugs\\input res.js",
           "name": "input res.js",
           "size": 2586,
@@ -1201,7 +1195,7 @@
           "extension": ".js"
         }
       ],
-      "size": 31016
+      "size": 30315
     },
     {
       "path": "src\\cache",
@@ -2538,7 +2532,13 @@
         {
           "path": "src\\game config\\custom canvas.js",
           "name": "custom canvas.js",
-          "size": 690,
+          "size": 687,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\game config\\custom webgl canvas.js",
+          "name": "custom webgl canvas.js",
+          "size": 1045,
           "extension": ".js"
         },
         {
@@ -2663,7 +2663,7 @@
           "extension": ".js"
         }
       ],
-      "size": 21222
+      "size": 22264
     },
     {
       "path": "src\\game objects",
@@ -7783,12 +7783,6 @@
               "extension": ".js"
             },
             {
-              "path": "src\\input\\mouse\\multi camera hit test.js",
-              "name": "multi camera hit test.js",
-              "size": 4704,
-              "extension": ".js"
-            },
-            {
               "path": "src\\input\\mouse\\origin tests.js",
               "name": "origin tests.js",
               "size": 1031,
@@ -7879,7 +7873,7 @@
               "extension": ".js"
             }
           ],
-          "size": 37196
+          "size": 32492
         },
         {
           "path": "src\\input\\multitouch",
@@ -8054,7 +8048,7 @@
           "size": 10196
         }
       ],
-      "size": 154082
+      "size": 149378
     },
     {
       "path": "src\\loader",
@@ -11315,5 +11309,5 @@
       "size": 5291
     }
   ],
-  "size": 3000801
+  "size": 2996438
 }

@@ -358,7 +358,13 @@
         {
           "path": "src\\animation\\spine test 1.js",
           "name": "spine test 1.js",
-          "size": 439,
+          "size": 6600,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\animation\\spine test 2.js",
+          "name": "spine test 2.js",
+          "size": 6600,
           "extension": ".js"
         },
         {
@@ -380,7 +386,7 @@
           "extension": ".js"
         }
       ],
-      "size": 40843
+      "size": 53604
     },
     {
       "path": "src\\archived",
@@ -5652,11 +5658,11 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\zoom.js",
                   "name": "zoom.js",
-                  "size": 1977,
+                  "size": 1401,
                   "extension": ".js"
                 }
               ],
-              "size": 55280
+              "size": 54704
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -5708,10 +5714,10 @@
               "size": 71065
             }
           ],
-          "size": 267615
+          "size": 267039
         }
       ],
-      "size": 970940
+      "size": 970364
     },
     {
       "path": "src\\games",
@@ -11351,5 +11357,5 @@
       "size": 5291
     }
   ],
-  "size": 3005757
+  "size": 3017942
 }

@@ -42,6 +42,7 @@ function create ()
         images[1].setFrame(Phaser.Utils.Array.GetRandom(frames));
         images[2].setFrame(Phaser.Utils.Array.GetRandom(frames));
         images[3].setFrame(Phaser.Utils.Array.GetRandom(frames));
+        images[4].setFrame(Phaser.Utils.Array.GetRandom(frames));
 
     }, this);
 }

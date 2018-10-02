@@ -356,6 +356,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\animation\\spine test 1.js",
+          "name": "spine test 1.js",
+          "size": 439,
+          "extension": ".js"
+        },
+        {
           "path": "src\\animation\\stagger play.js",
           "name": "stagger play.js",
           "size": 907,
@@ -374,7 +380,7 @@
           "extension": ".js"
         }
       ],
-      "size": 40404
+      "size": 40843
     },
     {
       "path": "src\\archived",
@@ -1111,6 +1117,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\cam zoom.js",
+          "name": "cam zoom.js",
+          "size": 481,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\container tilesprite.js",
           "name": "container tilesprite.js",
           "size": 2088,
@@ -1135,9 +1147,21 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\map zoom canvas.js",
+          "name": "map zoom canvas.js",
+          "size": 1990,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\multi pan.js",
           "name": "multi pan.js",
           "size": 2737,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\order.js",
+          "name": "order.js",
+          "size": 1309,
           "extension": ".js"
         },
         {
@@ -1195,7 +1219,7 @@
           "extension": ".js"
         }
       ],
-      "size": 30315
+      "size": 34095
     },
     {
       "path": "src\\cache",
@@ -4054,6 +4078,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\lights\\change max lights.js",
+              "name": "change max lights.js",
+              "size": 1358,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\lights\\change scene.js",
               "name": "change scene.js",
               "size": 2028,
@@ -4074,7 +4104,7 @@
             {
               "path": "src\\game objects\\lights\\light follow pointer.js",
               "name": "light follow pointer.js",
-              "size": 2256,
+              "size": 2261,
               "extension": ".js"
             },
             {
@@ -4102,7 +4132,7 @@
               "extension": ".js"
             }
           ],
-          "size": 19551
+          "size": 20914
         },
         {
           "path": "src\\game objects\\mesh",
@@ -5225,7 +5255,13 @@
             {
               "path": "src\\game objects\\tile sprite\\change frame.js",
               "name": "change frame.js",
-              "size": 1462,
+              "size": 1529,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\tile sprite\\create from frame.js",
+              "name": "create from frame.js",
+              "size": 1088,
               "extension": ".js"
             },
             {
@@ -5261,11 +5297,11 @@
             {
               "path": "src\\game objects\\tile sprite\\tilesprite pixel art test.js",
               "name": "tilesprite pixel art test.js",
-              "size": 872,
+              "size": 717,
               "extension": ".js"
             }
           ],
-          "size": 9261
+          "size": 10261
         },
         {
           "path": "src\\game objects\\tilemap",
@@ -5616,11 +5652,11 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\zoom.js",
                   "name": "zoom.js",
-                  "size": 1401,
+                  "size": 1977,
                   "extension": ".js"
                 }
               ],
-              "size": 54704
+              "size": 55280
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -5672,10 +5708,10 @@
               "size": 71065
             }
           ],
-          "size": 267039
+          "size": 267615
         }
       ],
-      "size": 968001
+      "size": 970940
     },
     {
       "path": "src\\games",
@@ -9674,6 +9710,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\top down car body.js",
+              "name": "top down car body.js",
+              "size": 2161,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\trapezoid body.js",
               "name": "trapezoid body.js",
               "size": 895,
@@ -9692,7 +9734,7 @@
               "extension": ".js"
             }
           ],
-          "size": 58149
+          "size": 60310
         },
         {
           "path": "src\\physics\\multi",
@@ -9714,7 +9756,7 @@
           "size": 2750
         }
       ],
-      "size": 193914
+      "size": 196075
     },
     {
       "path": "src\\plugins",
@@ -11309,5 +11351,5 @@
       "size": 5291
     }
   ],
-  "size": 2996438
+  "size": 3005757
 }

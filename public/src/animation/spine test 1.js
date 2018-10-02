@@ -4,7 +4,6 @@ var config = {
     width: 800,
     height: 600,
     scene: {
-        init: init,
         preload: preload,
         create: create,
         update: update
@@ -21,17 +20,9 @@ var animName = "walk";
 
 var game = new Phaser.Game(config);
 
-function init ()
-{
-}
-
 function preload ()
 {
-    this.load.script('spine', '/phaser/plugins/spine/src/spine-canvas.js');
-
-    // this.load.json('spineboy', 'assets/animations/spine/spineboy-ess.json');
-    // this.load.text('spineboyAtlas', 'assets/animations/spine/spineboy.atlas');
-    // this.load.image('spineboy', 'assets/animations/spine/spineboy.png');
+    this.load.script('spine', 'spine/spine-canvas.js');
 }
 
 function create ()
@@ -72,11 +63,8 @@ function loadSkeleton (name, initialAnimation, skin) {
     // The function passed to TextureAtlas is used to resolve relative paths.
 
     atlas = new spine.TextureAtlas(assetManager.get("assets/animations/spine/" + name.replace("-pro", "").replace("-ess", "") + ".atlas"), function(path) {
-        console.log(assetManager.get("assets/animations/spine/" + path));
         return assetManager.get("assets/animations/spine/" + path);
     });
-
-    // atlas = new spine.TextureAtlas();
 
     // Create a AtlasAttachmentLoader, which is specific to the WebGL backend.
     atlasLoader = new spine.AtlasAttachmentLoader(atlas);

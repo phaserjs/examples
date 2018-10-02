@@ -20,7 +20,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.script('spine', '/phaser/plugins/spine/src/spine-canvas.js');
+    this.load.script('spine', 'spine/spine-canvas.js');
 
     this.load.json('spineboy', 'assets/animations/spine/spineboy-ess.json');
     this.load.text('spineboyAtlas', 'assets/animations/spine/spineboy.atlas');

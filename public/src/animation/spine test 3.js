@@ -1,3 +1,5 @@
+//  THIS IS A WORK IN PROGRESS TEST - DO NOT TRY TO USE IN PRODUCTION!
+
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',

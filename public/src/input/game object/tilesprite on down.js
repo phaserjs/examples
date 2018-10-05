@@ -30,5 +30,8 @@ function create ()
 
         this.setTint(Math.random() * 16000000);
 
+        //  So something happens for canvas
+        this.x += 2;
+
     });
 }

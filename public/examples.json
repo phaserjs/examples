@@ -5182,6 +5182,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\text\\static\\speech bubble.js",
+                  "name": "speech bubble.js",
+                  "size": 321,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\text\\static\\tests",
                   "name": "tests",
                   "children": [
@@ -5243,10 +5249,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 31786
+              "size": 32107
             }
           ],
-          "size": 31786
+          "size": 32107
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -5723,7 +5729,7 @@
           "size": 267039
         }
       ],
-      "size": 970364
+      "size": 970685
     },
     {
       "path": "src\\games",
@@ -7614,7 +7620,7 @@
             {
               "path": "src\\input\\game object\\tilesprite on down.js",
               "name": "tilesprite on down.js",
-              "size": 606,
+              "size": 675,
               "extension": ".js"
             },
             {
@@ -7642,7 +7648,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15267
+          "size": 15336
         },
         {
           "path": "src\\input\\gamepad",
@@ -8096,7 +8102,7 @@
           "size": 10196
         }
       ],
-      "size": 149378
+      "size": 149447
     },
     {
       "path": "src\\loader",
@@ -9628,7 +9634,7 @@
             {
               "path": "src\\physics\\matterjs\\get shape bounds.js",
               "name": "get shape bounds.js",
-              "size": 1785,
+              "size": 1942,
               "extension": ".js"
             },
             {
@@ -9752,7 +9758,7 @@
               "extension": ".js"
             }
           ],
-          "size": 62095
+          "size": 62252
         },
         {
           "path": "src\\physics\\multi",
@@ -9774,7 +9780,7 @@
           "size": 2750
         }
       ],
-      "size": 197860
+      "size": 198017
     },
     {
       "path": "src\\plugins",
@@ -11369,5 +11375,5 @@
       "size": 5291
     }
   ],
-  "size": 3026437
+  "size": 3026984
 }

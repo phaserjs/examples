@@ -5,7 +5,11 @@ var config = {
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: { gravity: { y: 200 } }
+        arcade: {
+            gravity: {
+                y: 200
+            }
+        }
     },
     scene: {
         preload: preload,
@@ -15,13 +19,15 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload() {
+function preload ()
+{
     this.load.image('bg', 'assets/skies/space2.png');
     this.load.spritesheet('ball', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
 }
 
-function create() {
-this.add.image(400, 300, 'bg');
+function create ()
+{
+    this.add.image(400, 300, 'bg');
 
     var group = this.physics.add.group({
         key: 'ball',
@@ -40,14 +46,15 @@ this.add.image(400, 300, 'bg');
     });
 
     this.physics.world.on('worldbounds', onWorldBounds);
-    
 }
 
-function onWorldBounds(body) {
+function onWorldBounds (body)
+{
     var ball = body.gameObject;
     var frame = ball.frame.name;
     
     frame += 1;
     frame %= 5;
+
     ball.setFrame(frame);
 }

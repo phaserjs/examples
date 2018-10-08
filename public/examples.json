@@ -3993,6 +3993,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\images\\custom game object.js",
+              "name": "custom game object.js",
+              "size": 908,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\images\\custom image class ES6.js",
               "name": "custom image class ES6.js",
               "size": 704,
@@ -4077,7 +4083,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13878
+          "size": 14786
         },
         {
           "path": "src\\game objects\\lights",
@@ -5184,7 +5190,7 @@
                 {
                   "path": "src\\game objects\\text\\static\\speech bubble.js",
                   "name": "speech bubble.js",
-                  "size": 321,
+                  "size": 2807,
                   "extension": ".js"
                 },
                 {
@@ -5249,10 +5255,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 32107
+              "size": 34593
             }
           ],
-          "size": 32107
+          "size": 34593
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -5729,7 +5735,7 @@
           "size": 267039
         }
       ],
-      "size": 970685
+      "size": 974079
     },
     {
       "path": "src\\games",
@@ -9270,6 +9276,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\tween velocity.js",
+              "name": "tween velocity.js",
+              "size": 3449,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\velocity from angle.js",
               "name": "velocity from angle.js",
               "size": 2047,
@@ -9306,7 +9318,7 @@
               "extension": ".js"
             }
           ],
-          "size": 85688
+          "size": 89137
         },
         {
           "path": "src\\physics\\impact",
@@ -9780,7 +9792,7 @@
           "size": 2750
         }
       ],
-      "size": 198017
+      "size": 201466
     },
     {
       "path": "src\\plugins",
@@ -11375,5 +11387,5 @@
       "size": 5291
     }
   ],
-  "size": 3026984
+  "size": 3033827
 }

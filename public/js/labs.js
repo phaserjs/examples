@@ -49,6 +49,7 @@ $(document).ready(function () {
         $('#csslink').attr('href', 'css.html?src=' + filename);
         $('#viewlink').attr('href', 'view.html?src=' + filename);
         $('#backlink').attr('href', 'index.html?dir=' + backURL);
+        $('#mobilelink').attr('href', 'mobile.html?src=' + filename);
 
         if (remote)
         {

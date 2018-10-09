@@ -1147,6 +1147,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\ios.js",
+          "name": "ios.js",
+          "size": 2714,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\light 2.js",
           "name": "light 2.js",
           "size": 1664,
@@ -1231,7 +1237,7 @@
           "extension": ".js"
         }
       ],
-      "size": 34095
+      "size": 36809
     },
     {
       "path": "src\\cache",
@@ -3995,7 +4001,7 @@
             {
               "path": "src\\game objects\\images\\custom game object.js",
               "name": "custom game object.js",
-              "size": 908,
+              "size": 1071,
               "extension": ".js"
             },
             {
@@ -4083,7 +4089,7 @@
               "extension": ".js"
             }
           ],
-          "size": 14786
+          "size": 14949
         },
         {
           "path": "src\\game objects\\lights",
@@ -5735,7 +5741,7 @@
           "size": 267039
         }
       ],
-      "size": 974079
+      "size": 974242
     },
     {
       "path": "src\\games",
@@ -9966,6 +9972,31 @@
       "size": 3606
     },
     {
+      "path": "src\\scalemanager",
+      "name": "scalemanager",
+      "children": [
+        {
+          "path": "src\\scalemanager\\exact fit.js",
+          "name": "exact fit.js",
+          "size": 479,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\fixed scale.js",
+          "name": "fixed scale.js",
+          "size": 373,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\min max scale.js",
+          "name": "min max scale.js",
+          "size": 710,
+          "extension": ".js"
+        }
+      ],
+      "size": 1562
+    },
+    {
       "path": "src\\scenes",
       "name": "scenes",
       "children": [
@@ -11242,7 +11273,7 @@
             {
               "path": "src\\tweens\\timelines\\loop timeline.js",
               "name": "loop timeline.js",
-              "size": 1182,
+              "size": 1270,
               "extension": ".js"
             },
             {
@@ -11294,7 +11325,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12104
+          "size": 12192
         },
         {
           "path": "src\\tweens\\tint tween.js",
@@ -11333,7 +11364,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77907
+      "size": 77995
     },
     {
       "path": "src\\utils",
@@ -11387,5 +11418,5 @@
       "size": 5291
     }
   ],
-  "size": 3033827
+  "size": 3038354
 }

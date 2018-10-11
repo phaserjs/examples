@@ -1,10 +1,18 @@
 var config = {
     type: Phaser.AUTO,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#2dab2d',
     scale: {
-        mode: Phaser.ScaleManager.EXACT_FIT,
+        mode: Phaser.DOM.CONTAIN,
         width: 800,
         height: 600,
+        min: {
+            width: 800,
+            height: 600
+        },
+        max: {
+            width: 1600,
+            height: 1200
+        }
     },
     scene: {
         preload: preload,
@@ -16,6 +24,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.game.canvas.style.backgroundColor = 'red';
+
     this.load.image('pic', 'assets/pics/zero-two.png');
 }
 

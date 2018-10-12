@@ -1,8 +1,9 @@
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     parent: 'phaser-example',
     width: 800,
-    height: 16,
+    height: 600,
+    backgroundColor: 0x10bb99,
     scene: {
         init: init,
         preload: preload,
@@ -34,19 +35,30 @@ function preload ()
 
 function create ()
 {
+    var _this = this;
+
     WebFont.load({
         custom: {
             families: [ 'troika' ]
         },
         active: function ()
         {
+            var text = _this.add.text(30, 180, '1234567890', { fontFamily: 'troika', fontSize: 70, color: '#ffffff' });
+
+            text.setInteractive();
+
+            text.once('pointerup', function () {
+                text.setText('1234567890!');
+                text.setFontSize(120);
+            });
+
             var app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             
             document.getElementById('phaser-example').appendChild(app.view);
 
             var style = new PIXI.TextStyle({
                 fontFamily: 'troika',
-                fontSize: 64,
+                fontSize: 70,
                 fill: ['#ffffff']
             });
 
@@ -55,18 +67,13 @@ function create ()
             richText.x = 30;
             richText.y = 180;
 
-            // Opt-in to interactivity
             richText.interactive = true;
-
-            // Shows hand cursor
             richText.buttonMode = true;
 
-            console.log(richText);
-
-            // Pointers normalize touch and mouse
             richText.on('pointerdown', function () {
 
-                richText.style.fontSize = 128;
+                richText.text = '1234567890!';
+                richText.style.fontSize = 120;
                 richText.dirty = true;
 
             });

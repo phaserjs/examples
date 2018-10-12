@@ -1185,7 +1185,7 @@
         {
           "path": "src\\bugs\\pixi text.js",
           "name": "pixi text.js",
-          "size": 1917,
+          "size": 2175,
           "extension": ".js"
         },
         {
@@ -1231,13 +1231,19 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\text.js",
+          "name": "text.js",
+          "size": 1061,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\ts 2.js",
           "name": "ts 2.js",
           "size": 953,
           "extension": ".js"
         }
       ],
-      "size": 36809
+      "size": 38128
     },
     {
       "path": "src\\cache",
@@ -3605,7 +3611,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\arc filled.js",
                   "name": "arc filled.js",
-                  "size": 934,
+                  "size": 846,
                   "extension": ".js"
                 },
                 {
@@ -3617,7 +3623,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\arc stroked.js",
                   "name": "arc stroked.js",
-                  "size": 978,
+                  "size": 890,
                   "extension": ".js"
                 },
                 {
@@ -3629,7 +3635,13 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\line between.js",
                   "name": "line between.js",
-                  "size": 568,
+                  "size": 357,
+                  "extension": ".js"
+                },
+                {
+                  "path": "src\\game objects\\graphics\\primitives\\line filled.js",
+                  "name": "line filled.js",
+                  "size": 517,
                   "extension": ".js"
                 },
                 {
@@ -3729,7 +3741,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 15497
+              "size": 15627
             },
             {
               "path": "src\\game objects\\graphics\\rect test.js",
@@ -3889,7 +3901,7 @@
               "size": 9314
             }
           ],
-          "size": 191745
+          "size": 191875
         },
         {
           "path": "src\\game objects\\group",
@@ -5741,7 +5753,7 @@
           "size": 267039
         }
       ],
-      "size": 974242
+      "size": 974372
     },
     {
       "path": "src\\games",
@@ -9120,6 +9132,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\extending arcade sprite.js",
+              "name": "extending arcade sprite.js",
+              "size": 1855,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\friction.js",
               "name": "friction.js",
               "size": 1471,
@@ -9302,7 +9320,7 @@
             {
               "path": "src\\physics\\arcade\\world bounds event.js",
               "name": "world bounds event.js",
-              "size": 1216,
+              "size": 1276,
               "extension": ".js"
             },
             {
@@ -9324,7 +9342,7 @@
               "extension": ".js"
             }
           ],
-          "size": 89137
+          "size": 91052
         },
         {
           "path": "src\\physics\\impact",
@@ -9798,7 +9816,7 @@
           "size": 2750
         }
       ],
-      "size": 201466
+      "size": 203381
     },
     {
       "path": "src\\plugins",
@@ -9976,9 +9994,27 @@
       "name": "scalemanager",
       "children": [
         {
-          "path": "src\\scalemanager\\exact fit.js",
-          "name": "exact fit.js",
-          "size": 479,
+          "path": "src\\scalemanager\\contain min max.js",
+          "name": "contain min max.js",
+          "size": 661,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\contain.js",
+          "name": "contain.js",
+          "size": 448,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\fill min max.js",
+          "name": "fill min max.js",
+          "size": 603,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\fill.js",
+          "name": "fill.js",
+          "size": 445,
           "extension": ".js"
         },
         {
@@ -9992,9 +10028,15 @@
           "name": "min max scale.js",
           "size": 710,
           "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\no scale.js",
+          "name": "no scale.js",
+          "size": 481,
+          "extension": ".js"
         }
       ],
-      "size": 1562
+      "size": 3721
     },
     {
       "path": "src\\scenes",
@@ -10526,7 +10568,7 @@
         {
           "path": "src\\textures\\batch canvas texture.js",
           "name": "batch canvas texture.js",
-          "size": 2056,
+          "size": 2059,
           "extension": ".js"
         },
         {
@@ -10716,7 +10758,7 @@
           "extension": ".js"
         }
       ],
-      "size": 45981
+      "size": 45984
     },
     {
       "path": "src\\time",
@@ -11273,7 +11315,7 @@
             {
               "path": "src\\tweens\\timelines\\loop timeline.js",
               "name": "loop timeline.js",
-              "size": 1270,
+              "size": 1182,
               "extension": ".js"
             },
             {
@@ -11325,7 +11367,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12192
+          "size": 12104
         },
         {
           "path": "src\\tweens\\tint tween.js",
@@ -11364,7 +11406,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77995
+      "size": 77907
     },
     {
       "path": "src\\utils",
@@ -11418,5 +11460,5 @@
       "size": 5291
     }
   ],
-  "size": 3038354
+  "size": 3043792
 }

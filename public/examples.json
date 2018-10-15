@@ -3653,7 +3653,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\path filled.js",
                   "name": "path filled.js",
-                  "size": 794,
+                  "size": 740,
                   "extension": ".js"
                 },
                 {
@@ -3665,7 +3665,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\path stroked.js",
                   "name": "path stroked.js",
-                  "size": 799,
+                  "size": 711,
                   "extension": ".js"
                 },
                 {
@@ -3689,7 +3689,7 @@
                 {
                   "path": "src\\game objects\\graphics\\primitives\\rectangle stroked.js",
                   "name": "rectangle stroked.js",
-                  "size": 802,
+                  "size": 662,
                   "extension": ".js"
                 },
                 {
@@ -3741,7 +3741,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 15627
+              "size": 15345
             },
             {
               "path": "src\\game objects\\graphics\\rect test.js",
@@ -3901,7 +3901,7 @@
               "size": 9314
             }
           ],
-          "size": 191875
+          "size": 191593
         },
         {
           "path": "src\\game objects\\group",
@@ -5753,7 +5753,7 @@
           "size": 267039
         }
       ],
-      "size": 974372
+      "size": 974090
     },
     {
       "path": "src\\games",
@@ -9548,6 +9548,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\add body to world.js",
+              "name": "add body to world.js",
+              "size": 2676,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\advanced shape creation.js",
               "name": "advanced shape creation.js",
               "size": 1785,
@@ -9794,7 +9800,7 @@
               "extension": ".js"
             }
           ],
-          "size": 62252
+          "size": 64928
         },
         {
           "path": "src\\physics\\multi",
@@ -9816,7 +9822,7 @@
           "size": 2750
         }
       ],
-      "size": 203381
+      "size": 206057
     },
     {
       "path": "src\\plugins",
@@ -11460,5 +11466,5 @@
       "size": 5291
     }
   ],
-  "size": 3043792
+  "size": 3046186
 }

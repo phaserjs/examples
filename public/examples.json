@@ -9550,7 +9550,7 @@
             {
               "path": "src\\physics\\matterjs\\add body to world.js",
               "name": "add body to world.js",
-              "size": 2676,
+              "size": 1861,
               "extension": ".js"
             },
             {
@@ -9800,7 +9800,7 @@
               "extension": ".js"
             }
           ],
-          "size": 64928
+          "size": 64113
         },
         {
           "path": "src\\physics\\multi",
@@ -9822,7 +9822,7 @@
           "size": 2750
         }
       ],
-      "size": 206057
+      "size": 205242
     },
     {
       "path": "src\\plugins",
@@ -11466,5 +11466,5 @@
       "size": 5291
     }
   ],
-  "size": 3046186
+  "size": 3045371
 }

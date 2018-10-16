@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     var versions = [
         { val : 'dev', text: 'Dev Build' },
+        { val : '3.15.0', text: '3.15.0' },
         { val : '3.14.0', text: '3.14.0' },
         { val : '3.13.0', text: '3.13.0' },
         { val : '3.12.0', text: '3.12.0' },
@@ -163,7 +164,7 @@ $(document).ready(function () {
             }
             else
             {
-                phaserScript.src = './build/' + phaserVersionJS;
+                phaserScript.src = './build/' + phaserVersionJS + '?rnd=' + Math.random().toString();
             }
 
             document.body.appendChild(phaserScript);

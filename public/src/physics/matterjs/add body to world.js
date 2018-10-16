@@ -33,12 +33,21 @@ function create ()
 
     var path = '0 307 0 67 8 55 12 53 57 128 86 94 128 136 148 103 190 159 210 135 222 149 248 109 267 133 293 93 321 128 361 75 381 97 439 4 523 117 551 78 563 92 569 93 603 38 637 99 654 53 701 154 729 109 750 140 800 66 800 307';
 
-    var verts = Phaser.Physics.Matter.Matter.Vertices.fromPath(path);
+    //  The direct Matter way:
 
-    var body = Phaser.Physics.Matter.Matter.Bodies.fromVertices(408, 492, verts, { ignoreGravity: true }, true, 0.01, 10);
- 
-    this.matter.world.add(body);
+    // var verts = Phaser.Physics.Matter.Matter.Vertices.fromPath(path);
 
+    // var body = Phaser.Physics.Matter.Matter.Bodies.fromVertices(408, 492, verts, { ignoreGravity: true }, true, 0.01, 10);
+
+    // Phaser.Physics.Matter.Matter.World.add(this.matter.world.localWorld, body);
+
+    //  Or the short-cut version using factory helpers:
+
+    var verts = this.matter.verts.fromPath(path);
+
+    this.matter.add.fromVertices(408, 492, verts, { ignoreGravity: true }, true, 0.01, 10);
+
+    //  Just a repeating timer
     this.time.addEvent({ delay: 250, callback: releaseBall, callbackScope: this, repeat: 256 });
 }
 

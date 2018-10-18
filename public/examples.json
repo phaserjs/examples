@@ -1498,6 +1498,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\camera\\cross scene object placement.js",
+          "name": "cross scene object placement.js",
+          "size": 3059,
+          "extension": ".js"
+        },
+        {
           "path": "src\\camera\\fade.js",
           "name": "fade.js",
           "size": 1197,
@@ -1847,7 +1853,7 @@
           "extension": ".js"
         }
       ],
-      "size": 206984
+      "size": 210043
     },
     {
       "path": "src\\components",
@@ -11466,5 +11472,5 @@
       "size": 5291
     }
   ],
-  "size": 3045371
+  "size": 3048430
 }

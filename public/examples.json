@@ -1500,7 +1500,7 @@
         {
           "path": "src\\camera\\cross scene object placement.js",
           "name": "cross scene object placement.js",
-          "size": 3059,
+          "size": 4147,
           "extension": ".js"
         },
         {
@@ -1853,7 +1853,7 @@
           "extension": ".js"
         }
       ],
-      "size": 210043
+      "size": 211131
     },
     {
       "path": "src\\components",
@@ -4808,6 +4808,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\render texture\\shape to render texture.js",
+              "name": "shape to render texture.js",
+              "size": 438,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\sparks.js",
               "name": "sparks.js",
               "size": 1082,
@@ -4862,7 +4868,7 @@
               "extension": ".js"
             }
           ],
-          "size": 55017
+          "size": 55455
         },
         {
           "path": "src\\game objects\\shapes",
@@ -4973,7 +4979,7 @@
             {
               "path": "src\\game objects\\shapes\\rectangle.js",
               "name": "rectangle.js",
-              "size": 1325,
+              "size": 1412,
               "extension": ".js"
             },
             {
@@ -5007,7 +5013,7 @@
               "extension": ".js"
             }
           ],
-          "size": 62698
+          "size": 62785
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5759,7 +5765,7 @@
           "size": 267039
         }
       ],
-      "size": 974090
+      "size": 974615
     },
     {
       "path": "src\\games",
@@ -11441,13 +11447,49 @@
               "extension": ".js"
             },
             {
+              "path": "src\\utils\\array\\reverse matrix columns.js",
+              "name": "reverse matrix columns.js",
+              "size": 883,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\array\\reverse matrix rows.js",
+              "name": "reverse matrix rows.js",
+              "size": 877,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\array\\rotate matrix 180.js",
+              "name": "rotate matrix 180.js",
+              "size": 873,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\array\\rotate matrix left.js",
+              "name": "rotate matrix left.js",
+              "size": 875,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\array\\rotate matrix right.js",
+              "name": "rotate matrix right.js",
+              "size": 877,
+              "extension": ".js"
+            },
+            {
               "path": "src\\utils\\array\\rotate matrix.js",
               "name": "rotate matrix.js",
-              "size": 627,
+              "size": 871,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\array\\transpose matrix.js",
+              "name": "transpose matrix.js",
+              "size": 881,
               "extension": ".js"
             }
           ],
-          "size": 2063
+          "size": 7573
         },
         {
           "path": "src\\utils\\rbush",
@@ -11469,8 +11511,8 @@
           "size": 3228
         }
       ],
-      "size": 5291
+      "size": 10801
     }
   ],
-  "size": 3048430
+  "size": 3055553
 }

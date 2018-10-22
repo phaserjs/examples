@@ -4979,7 +4979,7 @@
             {
               "path": "src\\game objects\\shapes\\rectangle.js",
               "name": "rectangle.js",
-              "size": 1412,
+              "size": 1325,
               "extension": ".js"
             },
             {
@@ -5013,7 +5013,7 @@
               "extension": ".js"
             }
           ],
-          "size": 62785
+          "size": 62698
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5765,7 +5765,7 @@
           "size": 267039
         }
       ],
-      "size": 974615
+      "size": 974528
     },
     {
       "path": "src\\games",
@@ -10580,6 +10580,19 @@
       "size": 2524
     },
     {
+      "path": "src\\spine",
+      "name": "spine",
+      "children": [
+        {
+          "path": "src\\spine\\canvas test 1.js",
+          "name": "canvas test 1.js",
+          "size": 5494,
+          "extension": ".js"
+        }
+      ],
+      "size": 5494
+    },
+    {
       "path": "src\\textures",
       "name": "textures",
       "children": [
@@ -11514,5 +11527,5 @@
       "size": 10801
     }
   ],
-  "size": 3055553
+  "size": 3060960
 }

@@ -17,7 +17,7 @@ var assetManager;
 var skeleton, state, bounds;
 var skeletonRenderer;
 
-var skelName = "spineboy-ess";
+var skelName = "spineboy";
 var animName = "walk";
 
 var game = new Phaser.Game(config);
@@ -32,13 +32,14 @@ function create ()
     skeletonRenderer = new spine.canvas.SkeletonRenderer(this.sys.context);
 
     // skeletonRenderer.debugRendering = true;
-    // skeletonRenderer.triangleRendering = true;
+    skeletonRenderer.triangleRendering = true;
 
     assetManager = new spine.canvas.AssetManager();
 
-    assetManager.loadText("assets/animations/spine/" + skelName + ".json");
-    assetManager.loadText("assets/animations/spine/" + skelName.replace("-pro", "").replace("-ess", "") + ".atlas");
-    assetManager.loadTexture("assets/animations/spine/" + skelName.replace("-pro", "").replace("-ess", "") + ".png");
+    assetManager.loadText("assets/animations/spine/spineboy-pro.json");
+    assetManager.loadText("assets/animations/spine/spineboy-pro.atlas");
+    assetManager.loadTexture("assets/animations/spine/spineboy-pro.png");
+    assetManager.loadTexture("assets/animations/spine/spineboy-pro2.png");
 }
 
 function update ()
@@ -64,9 +65,12 @@ function loadSkeleton (name, initialAnimation, skin) {
     // Load the texture atlas using name.atlas and name.png from the AssetManager.
     // The function passed to TextureAtlas is used to resolve relative paths.
 
-    atlas = new spine.TextureAtlas(assetManager.get("assets/animations/spine/" + name.replace("-pro", "").replace("-ess", "") + ".atlas"), function(path) {
+    atlas = new spine.TextureAtlas(assetManager.get("assets/animations/spine/spineboy-pro.atlas"), function(path) {
+        console.log(path);
         return assetManager.get("assets/animations/spine/" + path);
     });
+
+    console.log(atlas);
 
     // Create a AtlasAttachmentLoader, which is specific to the WebGL backend.
     atlasLoader = new spine.AtlasAttachmentLoader(atlas);
@@ -75,7 +79,7 @@ function loadSkeleton (name, initialAnimation, skin) {
     var skeletonJson = new spine.SkeletonJson(atlasLoader);
 
     // Set the scale to apply during parsing, parse the file, and create a new skeleton.
-    var skeletonData = skeletonJson.readSkeletonData(assetManager.get("assets/animations/spine/" + name + ".json"));
+    var skeletonData = skeletonJson.readSkeletonData(assetManager.get("assets/animations/spine/spineboy-pro.json"));
     var skeleton = new spine.Skeleton(skeletonData);
     skeleton.flipY = true;
     var bounds = calculateBounds(skeleton);

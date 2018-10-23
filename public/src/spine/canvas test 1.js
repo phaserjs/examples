@@ -3,62 +3,60 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    backgroundColor: '#2d2d2d',
     scene: {
         preload: preload,
         create: create,
-        render: render
+        update: update,
+        render: render,
+        pack: {
+            files: [
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+            ]
+        }
     }
 };
 
-var lastFrameTime = Date.now() / 1000;
 var skeleton;
 var bounds;
-var spine;
 var state;
-var skelName = 'spineboy-ess';
-var animName = 'walk';
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.plugin('SpinePlugin', 'plugins/SpinePlugin.js', true, 'spine');
+    this.load.setPath('assets/animations/spine/');
 
-    this.load.json('spineboy', 'assets/animations/spine/spineboy-ess.json');
-    this.load.text('spineboyAtlas', 'assets/animations/spine/spineboy.atlas');
-    this.load.image('spineboy', 'assets/animations/spine/spineboy.png');
+    this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
 }
 
 function create ()
 {
-    spine = this.plugins.get('SpinePlugin');
+    // this.spine.skeletonRenderer.debugRendering = true;
+    // this.spine.skeletonRenderer.triangleRendering = true;
 
-    // spine.skeletonRenderer.debugRendering = true;
-    // spine.skeletonRenderer.triangleRendering = true;
+    skeleton = this.spine.createSkeleton('boy');
 
-    skeleton = spine.createSkeleton('spineboy', 'spineboyAtlas', 'spineboy');
+    bounds = this.spine.getBounds(skeleton);
 
-    console.log(skeleton);
-
-    bounds = spine.getBounds(skeleton);
-
-    console.log(bounds);
-
-    state = spine.createAnimationState(skeleton, animName);
+    state = this.spine.createAnimationState(skeleton, 'run');
 
     this.sys.events.on('render', render, this);
 }
 
+function update (time, delta)
+{
+    state.update(delta / 1000);
+
+    state.apply(skeleton);
+}
+
 function render ()
 {
-    var now = Date.now() / 1000;
-    var delta = now - lastFrameTime;
-    lastFrameTime = now;
-
     var canvas = this.sys.canvas;
     var context = this.sys.context;
 
-    // magic
+    //  ALl needs moving to Spine Game Object
     var centerX = bounds.offset.x + bounds.size.x / 2;
     var centerY = bounds.offset.y + bounds.size.y / 2;
     var scaleX = bounds.size.x / canvas.width;
@@ -68,34 +66,15 @@ function render ()
     var width = canvas.width * scale;
     var height = canvas.height * scale;
 
-    // context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "#cccccc";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-
+    context.save();
     context.setTransform(1, 0, 0, 1, 0, 0);
     context.scale(1 / scale, 1 / scale);
     context.translate(-centerX, -centerY);
     context.translate(width / 2, height / 2);
 
-    // context.save();
-    // context.setTransform(1, 0, 0, 1, 0, 0);
-    // context.fillStyle = "#cccccc";
-    // context.fillRect(0, 0, canvas.width, canvas.height);
-    // context.restore();
-
-    state.update(delta);
-
-    state.apply(skeleton);
-
     skeleton.updateWorldTransform();
 
-    spine.skeletonRenderer.draw(skeleton);
+    this.spine.skeletonRenderer.draw(skeleton);
 
-    // context.strokeStyle = "green";
-    // context.beginPath();
-    // context.moveTo(-1000, 0);
-    // context.lineTo(1000, 0);
-    // context.moveTo(0, -1000);
-    // context.lineTo(0, 1000);
-    // context.stroke();
+    context.restore();
 }

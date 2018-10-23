@@ -23,7 +23,14 @@ function create()
             fontFamily: 'Arial',
             color: '#ffffff',
             align: 'center',
-            backgroundColor: '#ff00ff'
+            backgroundColor: '#ff00ff',
+            shadow: {
+                color: '#000000',
+                fill: true,
+                offsetX: 2,
+                offsetY: 2,
+                blur: 8
+            }
         }
     };
 

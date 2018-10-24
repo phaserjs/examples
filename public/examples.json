@@ -358,7 +358,7 @@
         {
           "path": "src\\animation\\spine test 1.js",
           "name": "spine test 1.js",
-          "size": 5409,
+          "size": 5401,
           "extension": ".js"
         },
         {
@@ -371,6 +371,12 @@
           "path": "src\\animation\\spine test 3.js",
           "name": "spine test 3.js",
           "size": 10063,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\animation\\spine test 4.js",
+          "name": "spine test 4.js",
+          "size": 9134,
           "extension": ".js"
         },
         {
@@ -392,7 +398,7 @@
           "extension": ".js"
         }
       ],
-      "size": 60314
+      "size": 69440
     },
     {
       "path": "src\\archived",
@@ -831,11 +837,11 @@
             {
               "path": "src\\archived\\canvas renderer\\zoom x2.js",
               "name": "zoom x2.js",
-              "size": 429,
+              "size": 856,
               "extension": ".js"
             }
           ],
-          "size": 5554
+          "size": 5981
         },
         {
           "path": "src\\archived\\container",
@@ -907,7 +913,7 @@
           "extension": ".js"
         }
       ],
-      "size": 102358
+      "size": 102785
     },
     {
       "path": "src\\audio",
@@ -5142,7 +5148,7 @@
                 {
                   "path": "src\\game objects\\text\\static\\create from config.js",
                   "name": "create from config.js",
-                  "size": 607,
+                  "size": 793,
                   "extension": ".js"
                 },
                 {
@@ -5285,10 +5291,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 34593
+              "size": 34779
             }
           ],
-          "size": 34593
+          "size": 34779
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -5765,7 +5771,7 @@
           "size": 267039
         }
       ],
-      "size": 974528
+      "size": 974714
     },
     {
       "path": "src\\games",
@@ -10586,11 +10592,17 @@
         {
           "path": "src\\spine\\canvas test 1.js",
           "name": "canvas test 1.js",
-          "size": 5494,
+          "size": 943,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\webgl test 1.js",
+          "name": "webgl test 1.js",
+          "size": 949,
           "extension": ".js"
         }
       ],
-      "size": 5494
+      "size": 1892
     },
     {
       "path": "src\\textures",
@@ -11527,5 +11539,5 @@
       "size": 10801
     }
   ],
-  "size": 3060960
+  "size": 3067097
 }

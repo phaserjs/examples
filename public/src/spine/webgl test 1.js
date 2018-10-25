@@ -3,7 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d66',
+    backgroundColor: '#cdcdcd',
     scene: {
         preload: preload,
         create: create,
@@ -33,16 +33,9 @@ function create ()
 {
     this.add.image(0, 0, 'logo').setOrigin(0);
 
-    // var spineBoy = this.add.spine(400, 550, 'boy', 'run', true);
+    var spineBoy = this.add.spine(400, 600, 'boy', 'run', true);
 
-    var spineBoy = this.add.spine(400, 300, 'boy', 'idle', true);
-    spineBoy.setScale(0.5);
-
-    // spineBoy.setAngle(-45);
-
-    // var spineBoy2 = this.add.spine(200, 400, 'boy', 'shoot', true);
-
-    // spineBoy2.setScale(0.3);
+    spineBoy.setScale(0.7);
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -52,9 +45,11 @@ function create ()
         right: cursors.right,
         up: cursors.up,
         down: cursors.down,
-        acceleration: 0.06,
-        drag: 0.0005,
-        maxSpeed: 1.0
+        zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+        zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
+        acceleration: 0.5,
+        drag: 0.01,
+        maxSpeed: 1.2
     };
 
     controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);

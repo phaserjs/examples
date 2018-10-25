@@ -376,7 +376,7 @@
         {
           "path": "src\\animation\\spine test 4.js",
           "name": "spine test 4.js",
-          "size": 9134,
+          "size": 9277,
           "extension": ".js"
         },
         {
@@ -398,7 +398,7 @@
           "extension": ".js"
         }
       ],
-      "size": 69440
+      "size": 69583
     },
     {
       "path": "src\\archived",
@@ -2746,7 +2746,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\display callback index effect.js",
                   "name": "display callback index effect.js",
-                  "size": 1702,
+                  "size": 1755,
                   "extension": ".js"
                 },
                 {
@@ -2786,7 +2786,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 11467
+              "size": 11520
             },
             {
               "path": "src\\game objects\\bitmaptext\\retro font",
@@ -2947,7 +2947,7 @@
               "size": 19041
             }
           ],
-          "size": 41758
+          "size": 41811
         },
         {
           "path": "src\\game objects\\blitter",
@@ -5771,7 +5771,7 @@
           "size": 267039
         }
       ],
-      "size": 974714
+      "size": 974767
     },
     {
       "path": "src\\games",
@@ -10592,17 +10592,47 @@
         {
           "path": "src\\spine\\canvas test 1.js",
           "name": "canvas test 1.js",
-          "size": 943,
+          "size": 1678,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\draw debug bounds.js",
+          "name": "draw debug bounds.js",
+          "size": 1499,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\webgl test 1.js",
           "name": "webgl test 1.js",
-          "size": 949,
+          "size": 1495,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\webgl test 2.js",
+          "name": "webgl test 2.js",
+          "size": 1889,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\webgl test 3.js",
+          "name": "webgl test 3.js",
+          "size": 1716,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\webgl test 4.js",
+          "name": "webgl test 4.js",
+          "size": 1664,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\webgl test 5.js",
+          "name": "webgl test 5.js",
+          "size": 1811,
           "extension": ".js"
         }
       ],
-      "size": 1892
+      "size": 11752
     },
     {
       "path": "src\\textures",
@@ -11539,5 +11569,5 @@
       "size": 10801
     }
   ],
-  "size": 3067097
+  "size": 3077153
 }

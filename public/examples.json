@@ -1135,6 +1135,18 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\audio.js",
+          "name": "audio.js",
+          "size": 382,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\bird.js",
+          "name": "bird.js",
+          "size": 651,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\cam zoom.js",
           "name": "cam zoom.js",
           "size": 481,
@@ -1213,6 +1225,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\rot.js",
+          "name": "rot.js",
+          "size": 2513,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\rounded texture.js",
           "name": "rounded texture.js",
           "size": 487,
@@ -1249,7 +1267,7 @@
           "extension": ".js"
         }
       ],
-      "size": 38128
+      "size": 41674
     },
     {
       "path": "src\\cache",
@@ -10602,6 +10620,24 @@
           "extension": ".js"
         },
         {
+          "path": "src\\spine\\spine inside container.js",
+          "name": "spine inside container.js",
+          "size": 1689,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\spine rotation test.js",
+          "name": "spine rotation test.js",
+          "size": 3817,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\stretchy man.js",
+          "name": "stretchy man.js",
+          "size": 805,
+          "extension": ".js"
+        },
+        {
           "path": "src\\spine\\webgl test 1.js",
           "name": "webgl test 1.js",
           "size": 1495,
@@ -10628,11 +10664,11 @@
         {
           "path": "src\\spine\\webgl test 5.js",
           "name": "webgl test 5.js",
-          "size": 1811,
+          "size": 2153,
           "extension": ".js"
         }
       ],
-      "size": 11752
+      "size": 18405
     },
     {
       "path": "src\\textures",
@@ -11569,5 +11605,5 @@
       "size": 10801
     }
   ],
-  "size": 3077153
+  "size": 3087352
 }

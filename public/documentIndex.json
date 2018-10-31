@@ -8283,88 +8283,6 @@
       "": 1
     }
   },
-  "bugs\\audio.js": {
-    "path": "bugs\\audio.js",
-    "titleWords": {
-      "bugs": 1,
-      "audio": 1
-    },
-    "bodyWords": {
-      "var": 3,
-      "config": 2,
-      "type": 1,
-      "phaser": 3,
-      "auto": 1,
-      "parent": 1,
-      "example": 1,
-      "scene": 1,
-      "preload": 3,
-      "create": 3,
-      "game": 2,
-      "new": 1,
-      "function": 2,
-      "this": 2,
-      "load": 1,
-      "audio": 2,
-      "theme": 2,
-      "assets": 1,
-      "pty_": 1,
-      "_hero_quest_": 1,
-      "_piano": 1,
-      "m": 1,
-      "a": 1,
-      "music": 2,
-      "sound": 1,
-      "add": 1,
-      "play": 1,
-      "": 1
-    }
-  },
-  "bugs\\bird.js": {
-    "path": "bugs\\bird.js",
-    "titleWords": {
-      "bugs": 1,
-      "bird": 1
-    },
-    "bodyWords": {
-      "var": 3,
-      "config": 4,
-      "type": 1,
-      "phaser": 3,
-      "auto": 1,
-      "parent": 1,
-      "example": 1,
-      "width": 1,
-      "height": 1,
-      "scene": 1,
-      "preload": 3,
-      "create": 4,
-      "game": 2,
-      "new": 1,
-      "function": 2,
-      "x": 1,
-      "this": 4,
-      "load": 1,
-      "spritesheet": 1,
-      "bird": 3,
-      "assets": 1,
-      "tests": 1,
-      "img_bird": 1,
-      "png": 1,
-      "framewidth": 1,
-      "frameheight": 1,
-      "key": 1,
-      "flap": 2,
-      "frames": 2,
-      "anims": 2,
-      "generateframenumbers": 1,
-      "framerate": 1,
-      "add": 1,
-      "sprite": 1,
-      "play": 1,
-      "": 1
-    }
-  },
   "bugs\\cam zoom.js": {
     "path": "bugs\\cam zoom.js",
     "titleWords": {
@@ -35263,8 +35181,8 @@
       "": 1
     }
   },
-  "game objects\\graphics\\line rendering.js": {
-    "path": "game objects\\graphics\\line rendering.js",
+  "game objects\\graphics\\Line Rendering.js": {
+    "path": "game objects\\graphics\\Line Rendering.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
@@ -35542,8 +35460,8 @@
       "": 1
     }
   },
-  "game objects\\graphics\\multiple graphic objects.js": {
-    "path": "game objects\\graphics\\multiple graphic objects.js",
+  "game objects\\graphics\\Multiple Graphic Objects.js": {
+    "path": "game objects\\graphics\\Multiple Graphic Objects.js",
     "titleWords": {
       "game": 1,
       "objects": 2,
@@ -38656,8 +38574,8 @@
       "": 1
     }
   },
-  "game objects\\graphics\\trail.js": {
-    "path": "game objects\\graphics\\trail.js",
+  "game objects\\graphics\\Trail.js": {
+    "path": "game objects\\graphics\\Trail.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
@@ -112059,6 +111977,61 @@
       "": 1
     }
   },
+  "spine\\basic spineboy.js": {
+    "path": "spine\\basic spineboy.js",
+    "titleWords": {
+      "spine": 1,
+      "basic": 1,
+      "spineboy": 1
+    },
+    "bodyWords": {
+      "var": 2,
+      "config": 2,
+      "type": 2,
+      "phaser": 4,
+      "webgl": 1,
+      "parent": 1,
+      "example": 1,
+      "width": 1,
+      "height": 1,
+      "backgroundcolor": 1,
+      "#cdcdcd": 1,
+      "scene": 1,
+      "preload": 3,
+      "create": 3,
+      "pack": 1,
+      "files": 1,
+      "sceneplugin": 1,
+      "key": 1,
+      "spinewebglplugin": 2,
+      "url": 1,
+      "plugins": 1,
+      "js": 1,
+      "scenekey": 1,
+      "spine": 4,
+      "game": 2,
+      "new": 1,
+      "function": 2,
+      "this": 5,
+      "load": 3,
+      "image": 2,
+      "logo": 2,
+      "assets": 2,
+      "sprites": 1,
+      "png": 1,
+      "setpath": 1,
+      "animations": 1,
+      "boy": 2,
+      "spineboy": 2,
+      "json": 1,
+      "atlas": 1,
+      "add": 2,
+      "setorigin": 1,
+      "idle": 1,
+      "true": 1,
+      "": 1
+    }
+  },
   "spine\\canvas test 1.js": {
     "path": "spine\\canvas test 1.js",
     "titleWords": {
@@ -112283,7 +112256,7 @@
       "add": 5,
       "setorigin": 1,
       "walk": 1,
-      "true": 3,
+      "true": 2,
       "setscale": 2,
       "rotate": 1,
       "container": 3,
@@ -112291,7 +112264,6 @@
       "targets": 1,
       "angle": 1,
       "duration": 1,
-      "yoyo": 1,
       "repeat": 1,
       "cursors": 5,
       "input": 1,
@@ -112322,10 +112294,10 @@
       "test": 1
     },
     "bodyWords": {
-      "var": 27,
+      "var": 29,
       "config": 2,
       "type": 2,
-      "phaser": 19,
+      "phaser": 28,
       "webgl": 2,
       "parent": 1,
       "example": 1,
@@ -112350,18 +112322,18 @@
       "game": 2,
       "new": 5,
       "function": 4,
-      "this": 16,
+      "this": 17,
       "load": 6,
       "image": 4,
       "logo": 2,
       "assets": 4,
       "sprites": 2,
       "png": 2,
-      "arrow": 6,
+      "arrow": 9,
       "setpath": 2,
       "animations": 2,
       "boy": 3,
-      "spineboy": 12,
+      "spineboy": 23,
       "ess": 1,
       "json": 2,
       "atlas": 2,
@@ -112383,7 +112355,7 @@
       "graphics": 16,
       "linestyle": 2,
       "x": 6,
-      "bb": 2,
+      "bb": 9,
       "strokecircleshape": 2,
       "beginpath": 2,
       "for": 2,
@@ -112391,8 +112363,8 @@
       "moveto": 2,
       "p": 6,
       "circumferencepoint": 4,
-      "math": 8,
-      "degtorad": 7,
+      "math": 17,
+      "degtorad": 12,
       "lineto": 2,
       "y": 4,
       "lp": 6,
@@ -112405,10 +112377,10 @@
       "\"°": 2,
       "n\"": 2,
       "label": 2,
-      "text": 5,
+      "text": 6,
       "strokepath": 2,
-      "convert": 12,
-      "angle": 6,
+      "convert": 18,
+      "angle": 8,
       "return": 1,
       "abs": 1,
       "%": 2,
@@ -112418,13 +112390,17 @@
       "walk": 1,
       "true": 1,
       "setscale": 1,
+      "rot": 9,
+      "aa": 7,
+      "radtodeg": 4,
+      "rotcc": 4,
       "courier": 1,
       "input": 1,
       "on": 1,
       "pointerdown": 1,
-      "rot": 3,
-      "settext": 1,
-      "rotation": 2,
+      "works!": 1,
+      "rotation": 4,
+      "settext": 2,
       "": 1
     }
   },

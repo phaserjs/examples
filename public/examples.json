@@ -4772,6 +4772,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\render texture\\render texture larger than camera.js",
+              "name": "render texture larger than camera.js",
+              "size": 618,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\render texture\\render texture to render texture.js",
               "name": "render texture to render texture.js",
               "size": 974,
@@ -4880,7 +4886,7 @@
               "extension": ".js"
             }
           ],
-          "size": 55455
+          "size": 56073
         },
         {
           "path": "src\\game objects\\shapes",
@@ -5777,7 +5783,7 @@
           "size": 267039
         }
       ],
-      "size": 974767
+      "size": 975385
     },
     {
       "path": "src\\games",
@@ -9676,7 +9682,7 @@
             {
               "path": "src\\physics\\matterjs\\compound sensors.js",
               "name": "compound sensors.js",
-              "size": 1386,
+              "size": 3882,
               "extension": ".js"
             },
             {
@@ -9836,7 +9842,7 @@
               "extension": ".js"
             }
           ],
-          "size": 66885
+          "size": 69381
         },
         {
           "path": "src\\physics\\multi",
@@ -9858,7 +9864,7 @@
           "size": 2750
         }
       ],
-      "size": 208014
+      "size": 210510
     },
     {
       "path": "src\\plugins",
@@ -11611,5 +11617,5 @@
       "size": 10801
     }
   ],
-  "size": 3090637
+  "size": 3093751
 }

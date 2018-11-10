@@ -1155,7 +1155,7 @@
         {
           "path": "src/bugs/extern2.js",
           "name": "extern2.js",
-          "size": 2679,
+          "size": 4429,
           "extension": ".js"
         },
         {
@@ -1267,7 +1267,7 @@
           "extension": ".js"
         }
       ],
-      "size": 43273
+      "size": 45023
     },
     {
       "path": "src/cache",
@@ -4790,6 +4790,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/game objects/render texture/render texture larger than camera.js",
+              "name": "render texture larger than camera.js",
+              "size": 1167,
+              "extension": ".js"
+            },
+            {
               "path": "src/game objects/render texture/render texture to render texture.js",
               "name": "render texture to render texture.js",
               "size": 930,
@@ -4898,7 +4904,7 @@
               "extension": ".js"
             }
           ],
-          "size": 53025
+          "size": 54192
         },
         {
           "path": "src/game objects/shapes",
@@ -5795,7 +5801,7 @@
           "size": 258824
         }
       ],
-      "size": 938223
+      "size": 939390
     },
     {
       "path": "src/games",
@@ -9686,6 +9692,18 @@
               "extension": ".js"
             },
             {
+              "path": "src/physics/matterjs/compound body.js",
+              "name": "compound body.js",
+              "size": 1333,
+              "extension": ".js"
+            },
+            {
+              "path": "src/physics/matterjs/compound sensors.js",
+              "name": "compound sensors.js",
+              "size": 3736,
+              "extension": ".js"
+            },
+            {
               "path": "src/physics/matterjs/destroy body.js",
               "name": "destroy body.js",
               "size": 804,
@@ -9842,7 +9860,7 @@
               "extension": ".js"
             }
           ],
-          "size": 61406
+          "size": 66475
         },
         {
           "path": "src/physics/multi",
@@ -9864,7 +9882,7 @@
           "size": 2643
         }
       ],
-      "size": 196969
+      "size": 202038
     },
     {
       "path": "src/plugins",
@@ -10614,6 +10632,12 @@
       "name": "spine",
       "children": [
         {
+          "path": "src/spine/basic spineboy.js",
+          "name": "basic spineboy.js",
+          "size": 746,
+          "extension": ".js"
+        },
+        {
           "path": "src/spine/canvas test 1.js",
           "name": "canvas test 1.js",
           "size": 1609,
@@ -10674,7 +10698,7 @@
           "extension": ".js"
         }
       ],
-      "size": 18445
+      "size": 19191
     },
     {
       "path": "src/textures",
@@ -11611,5 +11635,5 @@
       "size": 10334
     }
   ],
-  "size": 2967518
+  "size": 2976250
 }

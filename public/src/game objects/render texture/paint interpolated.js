@@ -33,7 +33,7 @@ function create ()
 
             points.forEach(function (p) {
 
-                rt.draw(brush.texture, brush, p.x - 16, p.y - 16, hsv[i].color);
+                rt.draw(brush, p.x - 16, p.y - 16, 1, hsv[i].color);
 
             });
 
@@ -49,7 +49,7 @@ function create ()
 
     this.input.on('pointerdown', function (pointer) {
 
-        rt.draw(brush.texture, brush, pointer.x - 16, pointer.y - 16, hsv[i].color);
+        rt.draw(brush, pointer.x - 16, pointer.y - 16, 1, hsv[i].color);
 
         i++;
 

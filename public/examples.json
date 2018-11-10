@@ -4736,6 +4736,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/game objects/render texture/erase part of render texture.js",
+              "name": "erase part of render texture.js",
+              "size": 1153,
+              "extension": ".js"
+            },
+            {
               "path": "src/game objects/render texture/explosion.js",
               "name": "explosion.js",
               "size": 1401,
@@ -4904,7 +4910,7 @@
               "extension": ".js"
             }
           ],
-          "size": 54192
+          "size": 55345
         },
         {
           "path": "src/game objects/shapes",
@@ -5801,7 +5807,7 @@
           "size": 258824
         }
       ],
-      "size": 939390
+      "size": 940543
     },
     {
       "path": "src/games",
@@ -11635,5 +11641,5 @@
       "size": 10334
     }
   ],
-  "size": 2976250
+  "size": 2977403
 }

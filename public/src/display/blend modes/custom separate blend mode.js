@@ -2,6 +2,7 @@ var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
+    backgroundColor: '#00ff00',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -81,10 +82,11 @@ function create ()
 
     var modeIndex = renderer.addBlendMode(newMode, equation);
 
-    this.add.image(400, 300, 'face');
+    this.add.image(400, 300, 'face').setBlendMode(modeIndex);
     // this.add.image(400, 300, 'dst');
     // this.add.image(400, 300, 'src').setBlendMode(modeIndex);
-    this.add.image(400, 300, 'logo').setBlendMode(modeIndex);
+    // this.add.image(400, 300, 'logo').setBlendMode(modeIndex);
+    this.add.image(400, 300, 'logo');
 
     //  zero, one, one, zero, add
 

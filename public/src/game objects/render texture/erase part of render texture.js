@@ -6,75 +6,53 @@ var config = {
     backgroundColor: '#2d2d88',
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var controls;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
-    // this.load.image('test', 'assets/sprites/mask1.png');
-    this.load.image('test', 'assets/sprites/brush1.png');
-    this.load.image('soil', 'assets/textures/soil.png');
-    this.load.image('tiles', 'assets/textures/tiles.jpg');
+    // this.load.image('brush', 'assets/sprites/a.png');
+    this.load.image('brush', 'assets/particles/sparkle1.png');
+    // this.load.image('brush', 'assets/sprites/brush1.png');
+    this.load.image('tiles', 'assets/textures/grass.png');
+    this.load.image('bg', 'assets/pics/turkey-1985086.jpg');
 }
 
 function create ()
 {
-    // this.add.image(0, 0, 'tiles').setOrigin(0);
+    this.add.image(0, 0, 'bg').setOrigin(0);
 
-    var rt = this.add.renderTexture(0, 0, 1400, 1200);
+    var rt = this.add.renderTexture(0, 0, 800, 600);
 
-    for (var y = 0; y < 4; y++)
+    for (var y = 0; y < 2; y++)
     {
-        for (var x = 0; x < 4; x++)
+        for (var x = 0; x < 2; x++)
         {
-            rt.draw('soil', x * 512, y * 512);
+            rt.draw('tiles', x * 512, y * 512);
         }
     }
 
-    var brush = this.make.image({ key: 'test' }, false);
+    // var brush = this.make.image({ key: 'brush' }, false);
 
-    var gl = this.sys.game.renderer.gl;
+    var brush = this.make.image({ key: 'brush' }, false).setScale(0.4);
 
-    var sfactor = gl.ZERO;
-    var dfactor = gl.ONE_MINUS_SRC_ALPHA;
-    var equation = gl.FUNC_ADD;
+    // var brush = this.add.circle(0, 0, 32, 0xffffff);
 
-    var newMode = [ sfactor, dfactor ];
+    this.input.on('pointermove', function (pointer) {
 
-    var renderer = this.sys.game.renderer;
+        if (pointer.isDown)
+        {
+            rt.erase(brush, pointer.x - 16, pointer.y - 16);
+        }
 
-    var modeIndex = renderer.addBlendMode(newMode, equation);
+    }, this);
 
-    brush.setBlendMode(modeIndex);
+    this.input.on('pointerdown', function (pointer) {
 
-    rt.draw(brush, 100, 100);
-    rt.draw(brush, 300, 100);
+        rt.erase(brush, pointer.x - 16, pointer.y - 16);
 
-    var cursors = this.input.keyboard.createCursorKeys();
-
-    var controlConfig = {
-        camera: this.cameras.main,
-        left: cursors.left,
-        right: cursors.right,
-        up: cursors.up,
-        down: cursors.down,
-        acceleration: 0.06,
-        drag: 0.0005,
-        maxSpeed: 1.0
-    };
-
-    controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
-
-    // this.add.text(10, 10, 'Cursors to move', { font: '16px Courier', fill: '#ffffff' }).setScrollFactor(0);
-}
-
-function update (time, delta)
-{
-    controls.update(delta);
+    }, this);
 }

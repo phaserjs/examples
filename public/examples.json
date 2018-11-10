@@ -2134,6 +2134,12 @@
           "name": "blend modes",
           "children": [
             {
+              "path": "src/display/blend modes/circle cut out.js",
+              "name": "circle cut out.js",
+              "size": 3773,
+              "extension": ".js"
+            },
+            {
               "path": "src/display/blend modes/custom blend mode with graphics.js",
               "name": "custom blend mode with graphics.js",
               "size": 3999,
@@ -2148,7 +2154,7 @@
             {
               "path": "src/display/blend modes/custom separate blend mode.js",
               "name": "custom separate blend mode.js",
-              "size": 3934,
+              "size": 4031,
               "extension": ".js"
             },
             {
@@ -2176,7 +2182,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17168
+          "size": 21038
         },
         {
           "path": "src/display/color",
@@ -2509,7 +2515,7 @@
           "size": 13433
         }
       ],
-      "size": 96396
+      "size": 100266
     },
     {
       "path": "src/dwitter",
@@ -4738,7 +4744,7 @@
             {
               "path": "src/game objects/render texture/erase part of render texture.js",
               "name": "erase part of render texture.js",
-              "size": 1153,
+              "size": 1340,
               "extension": ".js"
             },
             {
@@ -4768,25 +4774,25 @@
             {
               "path": "src/game objects/render texture/paint interpolated shadow.js",
               "name": "paint interpolated shadow.js",
-              "size": 1434,
+              "size": 1410,
               "extension": ".js"
             },
             {
               "path": "src/game objects/render texture/paint interpolated.js",
               "name": "paint interpolated.js",
-              "size": 1142,
+              "size": 1118,
               "extension": ".js"
             },
             {
               "path": "src/game objects/render texture/paint tinted.js",
               "name": "paint tinted.js",
-              "size": 792,
+              "size": 780,
               "extension": ".js"
             },
             {
               "path": "src/game objects/render texture/paint.js",
               "name": "paint.js",
-              "size": 614,
+              "size": 551,
               "extension": ".js"
             },
             {
@@ -4910,7 +4916,7 @@
               "extension": ".js"
             }
           ],
-          "size": 55345
+          "size": 55409
         },
         {
           "path": "src/game objects/shapes",
@@ -5807,7 +5813,7 @@
           "size": 258824
         }
       ],
-      "size": 940543
+      "size": 940607
     },
     {
       "path": "src/games",
@@ -11641,5 +11647,5 @@
       "size": 10334
     }
   ],
-  "size": 2977403
+  "size": 2981337
 }

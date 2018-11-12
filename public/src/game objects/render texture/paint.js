@@ -20,13 +20,11 @@ function create ()
 {
     var rt = this.add.renderTexture(0, 0, 800, 600);
 
-    var brush = this.textures.getFrame('brush');
-
     this.input.on('pointermove', function (pointer) {
 
         if (pointer.isDown)
         {
-            rt.draw(brush.texture, brush, pointer.x - 32, pointer.y - 32);
+            rt.draw('brush', pointer.x - 32, pointer.y - 32);
         }
 
     }, this);

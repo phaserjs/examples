@@ -42,6 +42,15 @@ class InputPanel extends Phaser.Scene {
 
         text.on('pointermove', this.moveBlock, this);
         text.on('pointerup', this.pressKey, this);
+
+        this.tweens.add({
+            targets: this.block,
+            alpha: 0.2,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut',
+            duration: 350
+        });
     }
 
     moveBlock (pointer, x, y)
@@ -137,10 +146,8 @@ class InputPanel extends Phaser.Scene {
         {
             code -= 65;
 
-            let y = Math.floor(code / 9);
-            let x = code - (y * 9);
-
-            console.log(event.key, '=', x, y);
+            let y = Math.floor(code / 10);
+            let x = code - (y * 10);
 
             this.cursor.set(x, y);
             this.pressKey();
@@ -152,6 +159,9 @@ class InputPanel extends Phaser.Scene {
         let x = this.cursor.x;
         let y = this.cursor.y;
         let nameLength = this.name.length;
+
+        this.block.x = this.text.x - 10 + (x * 52);
+        this.block.y = this.text.y - 2 + (y * 64);
 
         if (x === 9 && y === 2 && nameLength > 0)
         {
@@ -175,11 +185,78 @@ class InputPanel extends Phaser.Scene {
     }
 }
 
+class Starfield extends Phaser.Scene {
+
+    constructor ()
+    {
+        super({ key: 'Starfield', active: true });
+
+        this.stars;
+
+        this.distance = 300;
+        this.speed = 250;
+
+        this.max = 500;
+        this.xx = [];
+        this.yy = [];
+        this.zz = [];
+    }
+
+    preload ()
+    {
+        this.load.image('star', 'assets/demoscene/star4.png');
+    }
+
+    create ()
+    {
+        //  Do this, otherwise this Scene will steal all keyboard input
+        this.input.keyboard.enabled = false;
+
+        this.stars = this.add.blitter(0, 0, 'star');
+
+        for (let i = 0; i < this.max; i++)
+        {
+            this.xx[i] = Math.floor(Math.random() * 800) - 400;
+            this.yy[i] = Math.floor(Math.random() * 600) - 300;
+            this.zz[i] = Math.floor(Math.random() * 1700) - 100;
+
+            let perspective = this.distance / (this.distance - this.zz[i]);
+            let x = 400 + this.xx[i] * perspective;
+            let y = 300 + this.yy[i] * perspective;
+
+            this.stars.create(x, y);
+        }
+    }
+
+    update (time, delta)
+    {
+        for (let i = 0; i < this.max; i++)
+        {
+            let perspective = this.distance / (this.distance - this.zz[i]);
+            let x = 400 + this.xx[i] * perspective;
+            let y = 300 + this.yy[i] * perspective;
+
+            this.zz[i] += this.speed * (delta / 1000);
+
+            if (this.zz[i] > 300)
+            {
+                this.zz[i] -= 600;
+            }
+
+            let bob = this.stars.children.list[i];
+
+            bob.x = x;
+            bob.y = y;
+        }
+    }
+
+}
+
 class Highscore extends Phaser.Scene {
 
     constructor ()
     {
-        super('Highscore');
+        super({ key: 'Highscore', active: true });
 
         this.playerText;
     }
@@ -216,10 +293,10 @@ class Highscore extends Phaser.Scene {
     {
         this.scene.stop('InputPanel');
 
-        this.add.bitmapText(100, 360, 'arcade', '2ND   40000    ICE').setTint(0xff8200);
-        this.add.bitmapText(100, 410, 'arcade', '3RD   30000    GOS').setTint(0xffff00);
-        this.add.bitmapText(100, 460, 'arcade', '4TH   20000    HRE').setTint(0x00ff00);
-        this.add.bitmapText(100, 510, 'arcade', '5TH   10000    ETE').setTint(0x00bfff);
+        this.add.bitmapText(100, 360, 'arcade', '2ND   40000    ANT').setTint(0xff8200);
+        this.add.bitmapText(100, 410, 'arcade', '3RD   30000    .-.').setTint(0xffff00);
+        this.add.bitmapText(100, 460, 'arcade', '4TH   20000    BOB').setTint(0x00ff00);
+        this.add.bitmapText(100, 510, 'arcade', '5TH   10000    ZIK').setTint(0x00bfff);
     }
 
     updateName (name)
@@ -235,7 +312,7 @@ let config = {
     width: 800,
     height: 600,
     pixelArt: true,
-    scene: [ Highscore, InputPanel ]
+    scene: [ Starfield, Highscore, InputPanel ]
 };
 
 let game = new Phaser.Game(config);

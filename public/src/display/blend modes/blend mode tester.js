@@ -2,6 +2,7 @@ var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
+    transparent: false,
     backgroundColor: '#00ff00',
     parent: 'phaser-example',
     scene: {
@@ -23,6 +24,8 @@ function preload ()
 
 function create ()
 {
+    document.body.style.backgroundColor = 'pink';
+
     var gl = this.sys.game.renderer.gl;
 
     var consts = [
@@ -73,11 +76,11 @@ function create ()
         'FUNC_REVERSE_SUBTRACT'
     ];
 
-    var srcRGBIndex = 0;
-    var dstRGBIndex = 0;
-    var srcAlphaIndex = 0;
-    var dstAlphaIndex = 0;
-    var equationIndex = 2;
+    var srcRGBIndex = 1;
+    var dstRGBIndex = 7;
+    var srcAlphaIndex = 1;
+    var dstAlphaIndex = 1;
+    var equationIndex = 0;
 
     var srcRGB = consts[srcRGBIndex];
     var dstRGB = consts[dstRGBIndex];
@@ -92,16 +95,80 @@ function create ()
 
     var modeIndex = renderer.addBlendMode(newMode, equation);
 
-    this.add.image(400, 300, 'turkey');
+    this.add.image(700, 300, 'turkey');
 
     this.add.rectangle(200, 300, 1, 600, 0xefefef);
     this.add.rectangle(400, 300, 1, 600, 0xefefef);
     this.add.rectangle(600, 300, 1, 600, 0xefefef);
     this.add.rectangle(400, 300, 800, 1, 0xefefef);
 
+    // this.add.image(400, 300, 'logo');
     this.add.image(400, 300, 'logo').setBlendMode(modeIndex);
 
     var text = this.add.text(0, 0, 'Blend Mode', { color: '#ffffff' });
+
+    text.setText([
+        srcRGBIndex + ' = ' + list[srcRGBIndex],
+        dstRGBIndex + ' = ' + list[dstRGBIndex],
+        srcAlphaIndex + ' = ' + list[srcAlphaIndex],
+        dstAlphaIndex + ' = ' + list[dstAlphaIndex],
+        '',
+        equationIndex + ' = ' + list2[equationIndex] + ' - ASR'
+    ]);
+
+    this.input.keyboard.on('keydown_A', function (event) {
+
+        equationIndex = 0;
+        equation = equations[equationIndex];
+
+        renderer.updateBlendMode(modeIndex, newMode, equation);
+
+        text.setText([
+            srcRGBIndex + ' = ' + list[srcRGBIndex],
+            dstRGBIndex + ' = ' + list[dstRGBIndex],
+            srcAlphaIndex + ' = ' + list[srcAlphaIndex],
+            dstAlphaIndex + ' = ' + list[dstAlphaIndex],
+            '',
+            equationIndex + ' = ' + list2[equationIndex] + ' - ASR'
+        ]);
+
+    });
+
+    this.input.keyboard.on('keydown_S', function (event) {
+
+        equationIndex = 1;
+        equation = equations[equationIndex];
+
+        renderer.updateBlendMode(modeIndex, newMode, equation);
+
+        text.setText([
+            srcRGBIndex + ' = ' + list[srcRGBIndex],
+            dstRGBIndex + ' = ' + list[dstRGBIndex],
+            srcAlphaIndex + ' = ' + list[srcAlphaIndex],
+            dstAlphaIndex + ' = ' + list[dstAlphaIndex],
+            '',
+            equationIndex + ' = ' + list2[equationIndex] + ' - ASR'
+        ]);
+
+    });
+
+    this.input.keyboard.on('keydown_R', function (event) {
+
+        equationIndex = 2;
+        equation = equations[equationIndex];
+
+        renderer.updateBlendMode(modeIndex, newMode, equation);
+
+        text.setText([
+            srcRGBIndex + ' = ' + list[srcRGBIndex],
+            dstRGBIndex + ' = ' + list[dstRGBIndex],
+            srcAlphaIndex + ' = ' + list[srcAlphaIndex],
+            dstAlphaIndex + ' = ' + list[dstAlphaIndex],
+            '',
+            equationIndex + ' = ' + list2[equationIndex] + ' - ASR'
+        ]);
+
+    });
 
     this.input.on('pointerup', function (pointer)
     {
@@ -161,7 +228,8 @@ function create ()
             dstRGBIndex + ' = ' + list[dstRGBIndex],
             srcAlphaIndex + ' = ' + list[srcAlphaIndex],
             dstAlphaIndex + ' = ' + list[dstAlphaIndex],
-            equationIndex + ' = ' + list2[equationIndex]
+            '',
+            equationIndex + ' = ' + list2[equationIndex] + ' - ASR'
         ]);
     });
 }

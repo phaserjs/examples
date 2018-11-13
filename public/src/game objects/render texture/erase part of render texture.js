@@ -3,7 +3,6 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d88',
     scene: {
         preload: preload,
         create: create
@@ -14,9 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    // this.load.image('brush', 'assets/sprites/a.png');
     this.load.image('brush', 'assets/particles/sparkle1.png');
-    // this.load.image('brush', 'assets/sprites/brush1.png');
     this.load.image('tiles', 'assets/textures/grass.png');
     this.load.image('bg', 'assets/pics/turkey-1985086.jpg');
 }
@@ -35,9 +32,7 @@ function create ()
         }
     }
 
-    // var brush = this.make.image({ key: 'brush' }, false);
-
-    var brush = this.make.image({ key: 'brush' }, false).setScale(0.4);
+    var brush = this.make.image({ key: 'brush' }, false).setScale(0.5);
 
     // var brush = this.add.circle(0, 0, 32, 0xffffff);
 

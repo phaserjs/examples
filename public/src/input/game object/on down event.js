@@ -28,8 +28,6 @@ function create ()
 
         text.setText('DOWN');
 
-        debugger;
-
     });
 
     sprite.on('pointerup', function () {

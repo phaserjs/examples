@@ -90,7 +90,7 @@ function create ()
         else if (event.keyCode === 13 || event.keyCode === 32)
         {
             //  Enter or Space
-            if (cursor.x === 9 && cursor.y === 2)
+            if (cursor.x === 9 && cursor.y === 2 && name.length > 0)
             {
                 //  Submit
             }
@@ -112,6 +112,20 @@ function create ()
 
     });
 
+    input.on('pointermove', function (pointer, x, y) {
+
+        var cx = Phaser.Math.Snap.Floor(x, 52, 0, true);
+        var cy = Phaser.Math.Snap.Floor(y, 64, 0, true);
+        var char = chars[cy][cx];
+
+        cursor.x = cx;
+        cursor.y = cy;
+
+        block.x = input.x - 10 + (cx * 52);
+        block.y = input.y - 2 + (cy * 64);
+
+    }, this);
+
     input.on('pointerup', function (pointer, x, y) {
 
         var cx = Phaser.Math.Snap.Floor(x, 52, 0, true);
@@ -131,7 +145,7 @@ function create ()
 
             playerText.text = name;
         }
-        else if (char === '>')
+        else if (char === '>' && name.length > 0)
         {
             //  Submit
         }

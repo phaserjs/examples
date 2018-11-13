@@ -2134,9 +2134,15 @@
           "name": "blend modes",
           "children": [
             {
+              "path": "src/display/blend modes/blend mode tester.js",
+              "name": "blend mode tester.js",
+              "size": 4471,
+              "extension": ".js"
+            },
+            {
               "path": "src/display/blend modes/circle cut out.js",
               "name": "circle cut out.js",
-              "size": 3773,
+              "size": 745,
               "extension": ".js"
             },
             {
@@ -2182,7 +2188,7 @@
               "extension": ".js"
             }
           ],
-          "size": 21038
+          "size": 22481
         },
         {
           "path": "src/display/color",
@@ -2515,7 +2521,7 @@
           "size": 13433
         }
       ],
-      "size": 100266
+      "size": 101709
     },
     {
       "path": "src/dwitter",
@@ -4742,6 +4748,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/game objects/render texture/erase part of render texture canvas.js",
+              "name": "erase part of render texture canvas.js",
+              "size": 1102,
+              "extension": ".js"
+            },
+            {
               "path": "src/game objects/render texture/erase part of render texture.js",
               "name": "erase part of render texture.js",
               "size": 1340,
@@ -4916,7 +4928,7 @@
               "extension": ".js"
             }
           ],
-          "size": 55409
+          "size": 56511
         },
         {
           "path": "src/game objects/shapes",
@@ -5813,7 +5825,7 @@
           "size": 258824
         }
       ],
-      "size": 940607
+      "size": 941709
     },
     {
       "path": "src/games",
@@ -7800,6 +7812,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/input/keyboard/enter name.js",
+              "name": "enter name.js",
+              "size": 4007,
+              "extension": ".js"
+            },
+            {
               "path": "src/input/keyboard/global keydown event.js",
               "name": "global keydown event.js",
               "size": 347,
@@ -7866,7 +7884,7 @@
               "extension": ".js"
             }
           ],
-          "size": 16797
+          "size": 20804
         },
         {
           "path": "src/input/mouse",
@@ -8186,7 +8204,7 @@
           "size": 9805
         }
       ],
-      "size": 143122
+      "size": 147129
     },
     {
       "path": "src/loader",
@@ -10729,6 +10747,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/textures/canvas texture composite op.js",
+          "name": "canvas texture composite op.js",
+          "size": 1239,
+          "extension": ".js"
+        },
+        {
           "path": "src/textures/create canvas.js",
           "name": "create canvas.js",
           "size": 1605,
@@ -10909,7 +10933,7 @@
           "extension": ".js"
         }
       ],
-      "size": 44148
+      "size": 45387
     },
     {
       "path": "src/time",
@@ -11647,5 +11671,5 @@
       "size": 10334
     }
   ],
-  "size": 2981337
+  "size": 2989128
 }

@@ -2,8 +2,6 @@ var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
-    transparent: false,
-    backgroundColor: '#00ff00',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -16,16 +14,11 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('turkey', 'assets/pics/turkey-1985086.jpg');
-    this.load.image('face', 'assets/pics/bw-face.png');
-    this.load.image('src', 'assets/tests/blendmode/src.png');
-    this.load.image('dst', 'assets/tests/blendmode/dst.png');
     this.load.image('logo', 'assets/sprites/phaser-large.png');
 }
 
 function create ()
 {
-    document.body.style.backgroundColor = 'pink';
-
     var gl = this.sys.game.renderer.gl;
 
     var consts = [
@@ -95,7 +88,7 @@ function create ()
 
     var modeIndex = renderer.addBlendMode(newMode, equation);
 
-    this.add.image(700, 300, 'turkey');
+    this.add.image(400, 300, 'turkey');
 
     this.add.rectangle(200, 300, 1, 600, 0xefefef);
     this.add.rectangle(400, 300, 1, 600, 0xefefef);

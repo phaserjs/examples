@@ -16,6 +16,7 @@ class InputPanel extends Phaser.Scene {
         this.block;
 
         this.name = '';
+        this.charLimit = 3;
     }
 
     create ()
@@ -175,7 +176,7 @@ class InputPanel extends Phaser.Scene {
 
             this.events.emit('updateName', this.name);
         }
-        else if (this.name.length < 3)
+        else if (this.name.length < this.charLimit)
         {
             //  Add
             this.name = this.name.concat(this.chars[y][x]);

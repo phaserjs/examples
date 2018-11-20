@@ -1261,13 +1261,19 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\tint.js",
+          "name": "tint.js",
+          "size": 2378,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\ts 2.js",
           "name": "ts 2.js",
           "size": 953,
           "extension": ".js"
         }
       ],
-      "size": 46896
+      "size": 49274
     },
     {
       "path": "src\\cache",
@@ -7836,6 +7842,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\key modifier.js",
+              "name": "key modifier.js",
+              "size": 620,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\keydown multi scene test.js",
               "name": "keydown multi scene test.js",
               "size": 2832,
@@ -7868,7 +7880,7 @@
             {
               "path": "src\\input\\keyboard\\retro leaderboard.js",
               "name": "retro leaderboard.js",
-              "size": 4643,
+              "size": 8461,
               "extension": ".js"
             },
             {
@@ -7884,7 +7896,7 @@
               "extension": ".js"
             }
           ],
-          "size": 26788
+          "size": 31226
         },
         {
           "path": "src\\input\\mouse",
@@ -8204,7 +8216,7 @@
           "size": 10196
         }
       ],
-      "size": 158631
+      "size": 163069
     },
     {
       "path": "src\\loader",
@@ -9192,6 +9204,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\custom debug colors.js",
+              "name": "custom debug colors.js",
+              "size": 2192,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\custom separate.js",
               "name": "custom separate.js",
               "size": 1227,
@@ -9420,7 +9438,7 @@
               "extension": ".js"
             }
           ],
-          "size": 91052
+          "size": 93244
         },
         {
           "path": "src\\physics\\impact",
@@ -9912,7 +9930,7 @@
           "size": 2750
         }
       ],
-      "size": 210510
+      "size": 212702
     },
     {
       "path": "src\\plugins",
@@ -11671,5 +11689,5 @@
       "size": 10801
     }
   ],
-  "size": 3120678
+  "size": 3129686
 }

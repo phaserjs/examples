@@ -132,6 +132,6 @@ function update ()
             cat.anims.resume();
         }
 
-        cat.anims.timeScale(catAstroPhi.totalRate);
+        cat.anims.setTimeScale(catAstroPhi.totalRate);
     }
 }

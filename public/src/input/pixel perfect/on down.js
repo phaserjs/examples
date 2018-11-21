@@ -28,12 +28,6 @@ function create ()
 
     var text = this.add.text(10, 10, 'Click either of the sprites', { font: '16px Courier', fill: '#000000' });
 
-    this.input.on('pointerdown', function () {
-
-        text.setText('');
-
-    });
-
     sprite1.on('pointerdown', function () {
 
         text.setText('Clicked Sprite 1');

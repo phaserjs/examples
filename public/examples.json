@@ -968,17 +968,17 @@
             {
               "path": "src\\audio\\HTML5 Audio\\Seek.js",
               "name": "Seek.js",
-              "size": 3622,
+              "size": 3625,
               "extension": ".js"
             },
             {
               "path": "src\\audio\\HTML5 Audio\\Volume Mute Rate Detune.js",
               "name": "Volume Mute Rate Detune.js",
-              "size": 3904,
+              "size": 3912,
               "extension": ".js"
             }
           ],
-          "size": 40129
+          "size": 40140
         },
         {
           "path": "src\\audio\\No Audio",
@@ -1097,20 +1097,20 @@
             {
               "path": "src\\audio\\Web Audio\\Seek.js",
               "name": "Seek.js",
-              "size": 3569,
+              "size": 3572,
               "extension": ".js"
             },
             {
               "path": "src\\audio\\Web Audio\\Volume Mute Rate Detune.js",
               "name": "Volume Mute Rate Detune.js",
-              "size": 3851,
+              "size": 3857,
               "extension": ".js"
             }
           ],
-          "size": 41088
+          "size": 41097
         }
       ],
-      "size": 119264
+      "size": 119284
     },
     {
       "path": "src\\bugs",
@@ -1138,6 +1138,12 @@
           "path": "src\\bugs\\cam zoom.js",
           "name": "cam zoom.js",
           "size": 481,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\circ.js",
+          "name": "circ.js",
+          "size": 1278,
           "extension": ".js"
         },
         {
@@ -1273,7 +1279,7 @@
           "extension": ".js"
         }
       ],
-      "size": 49274
+      "size": 50552
     },
     {
       "path": "src\\cache",
@@ -4286,7 +4292,7 @@
             {
               "path": "src\\game objects\\particle emitter\\angled emitter.js",
               "name": "angled emitter.js",
-              "size": 754,
+              "size": 990,
               "extension": ".js"
             },
             {
@@ -4662,7 +4668,7 @@
               "extension": ".js"
             }
           ],
-          "size": 90271
+          "size": 90507
         },
         {
           "path": "src\\game objects\\quad",
@@ -5825,7 +5831,7 @@
           "size": 267039
         }
       ],
-      "size": 978201
+      "size": 978437
     },
     {
       "path": "src\\games",
@@ -7654,6 +7660,12 @@
           "name": "game object",
           "children": [
             {
+              "path": "src\\input\\game object\\custom shape hit area.js",
+              "name": "custom shape hit area.js",
+              "size": 1329,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\game object\\destroy sprite on down event.js",
               "name": "destroy sprite on down event.js",
               "size": 1047,
@@ -7744,7 +7756,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15315
+          "size": 16644
         },
         {
           "path": "src\\input\\gamepad",
@@ -8087,7 +8099,7 @@
             {
               "path": "src\\input\\pixel perfect\\on down.js",
               "name": "on down.js",
-              "size": 1255,
+              "size": 1165,
               "extension": ".js"
             },
             {
@@ -8109,7 +8121,7 @@
               "extension": ".js"
             }
           ],
-          "size": 7100
+          "size": 7010
         },
         {
           "path": "src\\input\\pointer",
@@ -8216,7 +8228,7 @@
           "size": 10196
         }
       ],
-      "size": 163069
+      "size": 164308
     },
     {
       "path": "src\\loader",
@@ -8526,6 +8538,25 @@
           "size": 535
         },
         {
+          "path": "src\\loader\\scene",
+          "name": "scene",
+          "children": [
+            {
+              "path": "src\\loader\\scene\\load scene.js",
+              "name": "load scene.js",
+              "size": 471,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\loader\\scene\\SceneB.js",
+              "name": "SceneB.js",
+              "size": 495,
+              "extension": ".js"
+            }
+          ],
+          "size": 966
+        },
+        {
           "path": "src\\loader\\scene payload",
           "name": "scene payload",
           "children": [
@@ -8757,7 +8788,7 @@
           "size": 5388
         }
       ],
-      "size": 138819
+      "size": 139785
     },
     {
       "path": "src\\paths",
@@ -9015,6 +9046,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\paths\\followers\\start at.js",
+              "name": "start at.js",
+              "size": 1449,
+              "extension": ".js"
+            },
+            {
               "path": "src\\paths\\followers\\wave path.js",
               "name": "wave path.js",
               "size": 1505,
@@ -9027,7 +9064,7 @@
               "extension": ".js"
             }
           ],
-          "size": 13688
+          "size": 15137
         },
         {
           "path": "src\\paths\\line to ellipse.js",
@@ -9103,7 +9140,7 @@
           "extension": ".js"
         }
       ],
-      "size": 82026
+      "size": 83475
     },
     {
       "path": "src\\physics",
@@ -9206,7 +9243,7 @@
             {
               "path": "src\\physics\\arcade\\custom debug colors.js",
               "name": "custom debug colors.js",
-              "size": 2192,
+              "size": 2982,
               "extension": ".js"
             },
             {
@@ -9438,7 +9475,7 @@
               "extension": ".js"
             }
           ],
-          "size": 93244
+          "size": 94034
         },
         {
           "path": "src\\physics\\impact",
@@ -9930,7 +9967,7 @@
           "size": 2750
         }
       ],
-      "size": 212702
+      "size": 213492
     },
     {
       "path": "src\\plugins",
@@ -11306,7 +11343,7 @@
         {
           "path": "src\\tweens\\loop.js",
           "name": "loop.js",
-          "size": 633,
+          "size": 632,
           "extension": ".js"
         },
         {
@@ -11599,7 +11636,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77907
+      "size": 77906
     },
     {
       "path": "src\\utils",
@@ -11689,5 +11726,5 @@
       "size": 10801
     }
   ],
-  "size": 3129686
+  "size": 3135663
 }

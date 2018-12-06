@@ -166,7 +166,7 @@
         {
           "path": "src\\animation\\add animation event.js",
           "name": "add animation event.js",
-          "size": 1638,
+          "size": 1624,
           "extension": ".js"
         },
         {
@@ -197,6 +197,12 @@
           "path": "src\\animation\\animation progress.js",
           "name": "animation progress.js",
           "size": 971,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\animation\\animation repeat event.js",
+          "name": "animation repeat event.js",
+          "size": 903,
           "extension": ".js"
         },
         {
@@ -398,7 +404,7 @@
           "extension": ".js"
         }
       ],
-      "size": 69583
+      "size": 70472
     },
     {
       "path": "src\\archived",
@@ -4292,7 +4298,7 @@
             {
               "path": "src\\game objects\\particle emitter\\angled emitter.js",
               "name": "angled emitter.js",
-              "size": 990,
+              "size": 754,
               "extension": ".js"
             },
             {
@@ -4668,7 +4674,7 @@
               "extension": ".js"
             }
           ],
-          "size": 90507
+          "size": 90271
         },
         {
           "path": "src\\game objects\\quad",
@@ -5831,7 +5837,7 @@
           "size": 267039
         }
       ],
-      "size": 978437
+      "size": 978201
     },
     {
       "path": "src\\games",
@@ -7812,9 +7818,21 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\add single key.js",
+              "name": "add single key.js",
+              "size": 4246,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\create key combo.js",
               "name": "create key combo.js",
               "size": 596,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\keyboard\\cross scene keys.js",
+              "name": "cross scene keys.js",
+              "size": 9208,
               "extension": ".js"
             },
             {
@@ -7898,7 +7916,7 @@
             {
               "path": "src\\input\\keyboard\\single keydown event.js",
               "name": "single keydown event.js",
-              "size": 791,
+              "size": 837,
               "extension": ".js"
             },
             {
@@ -7908,7 +7926,7 @@
               "extension": ".js"
             }
           ],
-          "size": 31226
+          "size": 44726
         },
         {
           "path": "src\\input\\mouse",
@@ -8228,7 +8246,7 @@
           "size": 10196
         }
       ],
-      "size": 164308
+      "size": 177808
     },
     {
       "path": "src\\loader",
@@ -8544,17 +8562,11 @@
             {
               "path": "src\\loader\\scene\\load scene.js",
               "name": "load scene.js",
-              "size": 471,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\loader\\scene\\SceneB.js",
-              "name": "SceneB.js",
-              "size": 495,
+              "size": 675,
               "extension": ".js"
             }
           ],
-          "size": 966
+          "size": 675
         },
         {
           "path": "src\\loader\\scene payload",
@@ -8788,7 +8800,7 @@
           "size": 5388
         }
       ],
-      "size": 139785
+      "size": 139494
     },
     {
       "path": "src\\paths",
@@ -11726,5 +11738,5 @@
       "size": 10801
     }
   ],
-  "size": 3135663
+  "size": 3149525
 }

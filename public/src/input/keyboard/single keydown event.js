@@ -32,4 +32,5 @@ function create() {
 
     });
 
+    this.input.keyboard.addCapture('SPACE');
 }

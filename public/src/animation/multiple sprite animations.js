@@ -35,6 +35,6 @@ function create ()
 
         var boom = this.add.sprite(x, y, 'boom', 23);
 
-        boom.anims.delayedPlay(Math.random() * 3, 'explode');
+        boom.anims.delayedPlay(Math.random() * 3000, 'explode');
     }
 }

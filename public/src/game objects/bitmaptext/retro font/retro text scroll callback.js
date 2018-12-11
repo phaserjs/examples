@@ -59,7 +59,7 @@ function create()
     this.add.image(640, 400, 'contra').setOrigin(1).setScale(2);
 }
 
-//  data = { index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY, data: Object }
+//  data = { color: color, index: index, charCode: charCode, x: x, y: y, scale: scale, rotation: rotation, data: Object }
 function textCallback (data)
 {
     data.y += 32 + s.y * Math.sin(data.index);

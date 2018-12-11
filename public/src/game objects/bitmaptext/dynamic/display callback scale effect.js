@@ -9,7 +9,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var scale = { i: -64, x: 16, y: -16 };
+var scale = { i: -64, x: 16, y: -16, scale: 0.5 };
 
 function preload()
 {
@@ -28,16 +28,18 @@ function create()
         i: 64,
         x: -16,
         y: 16,
+        scale: 2,
         ease: 'Linear',
         repeat: -1,
         yoyo: true
     });
 }
 
-//  data = { index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY }
+//  data = { color: color, index: index, charCode: charCode, x: x, y: y, scale: scale, rotation: rotation }
 function textCallback (data)
 {
     data.y += scale.y * data.index;
+    data.scale = scale.scale;
 
     // if (data.index % 2)
     // {

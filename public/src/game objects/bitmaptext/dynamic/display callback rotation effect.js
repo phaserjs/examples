@@ -41,7 +41,7 @@ function create()
     });
 }
 
-//  data = { index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY }
+//  data = { color: color, index: index, charCode: charCode, x: x, y: y, scale: scale, rotation: rotation }
 function textCallback (data)
 {
     data.rotation = scale.r;

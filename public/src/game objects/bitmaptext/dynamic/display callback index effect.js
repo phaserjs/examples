@@ -56,7 +56,7 @@ function rainbowCallback(data)
     return data;
 }
 
-//  data = { color: color, index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY }
+//  data = { color: color, index: index, charCode: charCode, x: x, y: y, scale: scale, rotation: rotation }
 function textCallback (data)
 {
     if (data.index >= 5 && data.index <= 8)

@@ -33,7 +33,7 @@ function create()
     });
 }
 
-//  data = { index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY }
+//  data = { color: color, index: index, charCode: charCode, x: x, y: y, scale: scale, rotation: rotation }
 function textCallback (data)
 {
     data.x = Phaser.Math.Between(data.x - 2, data.x + 2);

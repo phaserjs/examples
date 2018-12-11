@@ -49,7 +49,7 @@ function update()
     }
 }
 
-//  data = { color: color, index: index, charCode: charCode, x: x, y: y, scaleX: scaleX, scaleY: scaleY }
+//  data = { color: color, index: index, charCode: charCode, x: x, y: y, scale: scale, rotation: rotation }
 function positionOnPath (data)
 {
     var pathVector = path.getPoint(t + ((6 - data.index) * 0.04));

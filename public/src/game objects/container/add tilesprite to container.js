@@ -31,12 +31,6 @@ function create ()
 
     var image = this.add.image(0, 0, 'mushroom').setName('mushy').setScale(4);
     container.add(image);
-
-    this.input.on('pointerup', function () {
-
-        this.scene.stop();
-    
-    }, this);
 }
 
 function update ()

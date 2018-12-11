@@ -29,6 +29,7 @@ function create ()
     var image4 = this.add.image(-100, 100, 'lemming');
 
     container = this.add.container(400, 300, [ image0, image1, image2, image3, image4 ]);
+    container.setDepth(-1);
 
     this.tweens.add({
         targets: container,

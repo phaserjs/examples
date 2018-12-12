@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -25,9 +25,7 @@ function create ()
     var frames = ['atari400', 'bunny', 'cokecan', 'copy-that-floppy', 'hotdog'];
     for (var i = 0; i < frames.length; ++i) 
     {
-        images[i] = this.add.tileSprite(i * 160, 0, 160, 600, 'atlas', frames[i]);
-        images[i].originX = 0;
-        images[i].originY = 0;
+        images[i] = this.add.tileSprite(i * 160, 0, 160, 600, 'atlas', frames[i]).setOrigin(0);
     }
 }
 

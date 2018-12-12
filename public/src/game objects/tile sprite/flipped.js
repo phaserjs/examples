@@ -26,6 +26,6 @@ function create ()
     image0 = this.add.tileSprite(400, 300, 500.5, 500, 'image0');
     image1 = this.add.tileSprite(400, 300, 150, 150, 'image1');
 
-    // image0.flipX = true;
-    // image1.flipY = true;
+    image0.flipX = true;
+    image1.flipY = true;
 }

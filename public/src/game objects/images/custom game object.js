@@ -1,4 +1,4 @@
-class EnemyRobot extends Phaser.GameObjects.Sprite {
+class EnemyRobot extends Phaser.GameObjects.Image {
 
     constructor (scene, x, y)
     {
@@ -10,8 +10,6 @@ class EnemyRobot extends Phaser.GameObjects.Sprite {
 
     preUpdate (time, delta)
     {
-        super.preUpdate(time, delta);
-
         this.rotation += 0.01;
     }
 

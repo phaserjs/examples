@@ -67,6 +67,15 @@ class SceneB extends Phaser.Scene {
 
             this.add.image(x, y, 'megaset', frames[i]).setPipeline('Light2D');
         }
+		
+		// There is no light, so none of these will render.
+		// Let's add one on click.
+		
+		this.input.once('pointerup', function (pointer) {
+
+            this.lights.addLight(300, 300, 500, 0x00ffff, 1);
+
+        }, this);
 
         this.add.image(120, 160, 'megaset', 'contra2');
     }

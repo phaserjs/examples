@@ -50,7 +50,7 @@ function create ()
 
         var handle = this.add.image(point.x, point.y, 'dragcircle', 0).setInteractive();
 
-        handle.data.set('vector', point);
+        handle.setData('vector', point);
 
         this.input.setDraggable(handle);
     }

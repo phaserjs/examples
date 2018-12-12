@@ -33,6 +33,6 @@ function create ()
         frequency: 32,
         lifespan: 400,
         alpha: { start: 1, end: 0 },
-        zone: { type: 'edge', source: shape1, quantity: 32 }
+        emitZone: { type: 'edge', source: shape1, quantity: 32 }
     });
 }

@@ -29,9 +29,9 @@ function create ()
 {
     var particles = this.add.particles('megaset');
 
-    var sprite = this.impact.add.image(300, 300, 'megaset', 'gem').setActive().setVelocity(300, 200).setBounce(1);
+    var sprite = this.impact.add.image(300, 300, 'megaset', 'gem').setActiveCollision().setVelocity(300, 200).setBounce(1);
 
-    var sprite2 = this.impact.add.image(200, 200, 'megaset', 'ilkke').setPassive().setVelocity(-300, -200).setBounce(1);
+    var sprite2 = this.impact.add.image(200, 200, 'megaset', 'ilkke').setPassiveCollision().setVelocity(-300, -200).setBounce(1);
 
     particles.createEmitter({
         frame: 'yellow_ball',
@@ -51,6 +51,5 @@ function create ()
     });
 
     emitter.startFollow(sprite2);
-
 
 }

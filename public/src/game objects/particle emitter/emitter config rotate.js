@@ -41,7 +41,7 @@ function create ()
         lifespan: 2000,
         scale: { start: 4, end: 1, random: true },
         alpha: { start: 1, end: 0 },
-        particleAngle: { start: 0, end: 360 },
+        rotate: { start: 0, end: 360 },
         active: true
     });
 

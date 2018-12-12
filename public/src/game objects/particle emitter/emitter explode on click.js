@@ -6,8 +6,7 @@ var config = {
     parent: 'phaser-example',
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
 
@@ -48,13 +47,8 @@ function create ()
     this.input.on('pointerdown', function (pointer) {
         emitter0.setPosition(pointer.x, pointer.y);
         emitter1.setPosition(pointer.x, pointer.y);
-        emitter0.explode();
-        emitter1.explode();
+        emitter0.explode(10);
+        emitter1.explode(10);
     });
 
 }
-
-function update ()
-{
-}
-

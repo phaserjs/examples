@@ -30,6 +30,7 @@ function create ()
         var image = this.add.image(100 + Math.random() * 600, 100 + Math.random() * 400, 'atlas', 'veg0' + Math.floor(1 + Math.random() * 9));
         image.depth = image.y;
     }
+
     mushroom0 = this.add.image(400, 300, 'image');
     mushroom1 = this.add.image(400, 300, 'image');
     mushroom2 = this.add.image(400, 300, 'image');

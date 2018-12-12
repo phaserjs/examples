@@ -50,14 +50,6 @@ function create()
 
     this.input.on('pointermove', function (pointer)
     {
-        draw(pointer.x, pointer.y);
+        rt.draw(selected, pointer.x, pointer.y);
     });
-}
-
-function draw(x, y) 
-{
-    rt.save();
-    rt.translate(x, y);
-    rt.draw(selected.texture, selected.frame, -selected.width, -selected.height / 2);
-    rt.restore();
 }

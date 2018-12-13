@@ -28,7 +28,8 @@ function create ()
     var tileset = map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
     var layer = map.createStaticLayer('World1', tileset, 0, 0);
 
-    layer.width = 200;
+    layer.displayHeight = 600;
+    layer.scaleX = layer.scaleY;
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -36,12 +37,12 @@ function create ()
         camera: this.cameras.main,
         left: cursors.left,
         right: cursors.right,
-        speed: 0.5
+        speed: 1
     };
 
     controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
-    this.cameras.main.setBounds(0, 0, layer.x + layer.displayWidth, 0);
+    this.cameras.main.setBounds(0, 0, layer.displayWidth, 0);
 }
 
 function update (time, delta)

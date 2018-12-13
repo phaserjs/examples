@@ -30,7 +30,6 @@ function create ()
     var tiles = map.addTilesetImage('Desert');
     var layer = map.createStaticLayer(0, tiles, 0, 0);
     layer.setScrollFactor(0.5);
-    layer.setAlpha(0.75);
 
 
     // 2 - Tilesets loaded outside of a Tiled JSON file will need the spacing properties set (if

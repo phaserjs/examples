@@ -1,8 +1,7 @@
 var config = {
     type: Phaser.AUTO,
     width: 11 * 16, // Number of tiles * size of the tile
-    height: 10 * 16,
-    zoom: 4,
+    height: 11 * 16,
     parent: 'phaser-example',
     pixelArt: true,
     scene: {

@@ -58,7 +58,7 @@ function update (time, delta)
     marker.x = map.tileToWorldX(pointerTileX);
     marker.y = map.tileToWorldY(pointerTileY);
 
-    if (this.input.manager.activePointer.isDown)
+    if (this.input.manager.activePointer.justDown)
     {
         var tile = map.getTileAt(pointerTileX, pointerTileY);
 

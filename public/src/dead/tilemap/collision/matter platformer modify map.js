@@ -4,7 +4,6 @@ var config = {
     height: 600,
     backgroundColor: '#000000',
     parent: 'phaser-example',
-    pixelArt: true,
     physics: {
         default: 'matter',
         matter: {
@@ -27,7 +26,6 @@ var text;
 var cam;
 var smoothedControls;
 var map;
-var mapScale = 2.5;
 
 // Smoothed horizontal controls helper. This gives us a value between -1 and 1 depending on how long
 // the player has been pressing left or right, respectively.
@@ -64,39 +62,32 @@ var SmoothedHorionztalControl = new Phaser.Class({
 
 function preload ()
 {
-    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/matter-destroy-tile-bodies.json');
-    this.load.image('platformer_tiles', 'assets/tilemaps/tiles/platformer_tiles.png');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/matter-platformer-dynamic-example.json');
+    this.load.image('kenney_redux_64x64', 'assets/tilemaps/tiles/kenney_redux_64x64.png');
     this.load.spritesheet('player', 'assets/sprites/dude-cropped.png', { frameWidth: 32, frameHeight: 42 });
+    this.load.image('box', 'assets/sprites/box-item-boxed.png');
 }
 
 function create ()
 {
     map = this.make.tilemap({ key: 'map' });
-    var tileset = map.addTilesetImage('platformer_tiles');
-    var bgLayer = map.createDynamicLayer('Background Layer', tileset, 0, 0)
-        .setScale(mapScale);
-    var groundLayer = map.createDynamicLayer('Ground Layer', tileset, 0, 0)
-        .setScale(mapScale);
-    var fgLayer = map.createDynamicLayer('Foreground Layer', tileset, 0, 0)
-        .setScale(mapScale)
-        .setDepth(1);
+    var tileset = map.addTilesetImage('kenney_redux_64x64');
+    var bgLayer = map.createDynamicLayer('Background Layer', tileset, 0, 0);
+    var groundLayer = map.createDynamicLayer('Ground Layer', tileset, 0, 0);
+    var fgLayer = map.createDynamicLayer('Foreground Layer', tileset, 0, 0).setDepth(1);
 
     // Set up the layer to have matter bodies. Any colliding tiles will be given a Matter body.
     groundLayer.setCollisionByProperty({ collides: true });
     this.matter.world.convertTilemapLayer(groundLayer);
 
-    // Change the label of the Matter body on platform tiles that should fall when the player steps
-    // on them. This makes it easier to check Matter collisions.
-    groundLayer.forEachTile(function (tile) {
-        // In Tiled, the platform tiles have been given a "fallOnContact" property
-        if (tile.properties.fallOnContact)
-        {
-            tile.physics.matterBody.body.label = 'disappearingPlatform';
-        }
-    });
+    this.matter.world.setBounds(map.widthInPixels, map.heightInPixels);
+    this.matter.world.createDebugGraphic();
+    this.matter.world.drawDebug = false;
 
-    // The player is a collection of bodies and sensors. See "matter platformer with wall jumping"
-    // example for more explanation.
+    cursors = this.input.keyboard.createCursorKeys();
+    smoothedControls = new SmoothedHorionztalControl(0.001);
+
+    // The player is a collection of bodies and sensors
     playerController = {
         matterSprite: this.matter.add.sprite(0, 0, 'player', 4),
         blocked: {
@@ -121,7 +112,7 @@ function create ()
         lastJumpedAt: 0,
         speed: {
             run: 5,
-            jump: 12
+            jump: 7
         }
     };
 
@@ -142,18 +133,26 @@ function create ()
         restitution: 0.05 // Prevent body from sticking against a wall
     });
 
+    // There is a "Button Press Sensor" polygon in the "Sensors" layer in Tiled. We can use this to
+    // map out the "pressable" hitbox for the button.
+    var sensor = map.findObject('Sensors', function (obj) {
+        return obj.name === 'Button Press Sensor';
+    });
+    var center = M.Vertices.centre(sensor.polygon); // Matter places shapes by center of mass
+    var sensorBody = this.matter.add.fromVertices(
+        sensor.x + center.x, sensor.y + center.y,
+        sensor.polygon,
+        { isStatic: true, isSensor: true }
+    );
+
     playerController.matterSprite
         .setExistingBody(compoundBody)
         .setFixedRotation() // Sets max inertia to prevent rotation
-        .setPosition(32, 500);
+        .setPosition(32, 1000);
 
     cam = this.cameras.main;
-    cam.setBounds(0, 0, map.widthInPixels * mapScale, map.heightInPixels * mapScale);
+    cam.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     smoothMoveCameraTowards(playerController.matterSprite);
-
-    this.matter.world.setBounds(map.widthInPixels * mapScale, map.heightInPixels * mapScale);
-    this.matter.world.createDebugGraphic();
-    this.matter.world.drawDebug = false;
 
     this.anims.create({
         key: 'left',
@@ -174,43 +173,45 @@ function create ()
         repeat: -1
     });
 
+    // Use matter events to detect whether the player is touching a surface to the left, right or
+    // bottom.
+
     // Loop over the active colliding pairs and count the surfaces the player is touching.
     this.matter.world.on('collisionstart', function (event) {
         for (var i = 0; i < event.pairs.length; i++)
         {
             var bodyA = event.pairs[i].bodyA;
             var bodyB = event.pairs[i].bodyB;
-
-            if ((bodyA === playerBody && bodyB.label === 'disappearingPlatform') ||
-                (bodyB === playerBody && bodyA.label === 'disappearingPlatform'))
+            if ((bodyA === playerBody && bodyB === sensorBody) ||
+                (bodyA === sensorBody && bodyB === playerBody))
             {
-                var tileBody = bodyA.label === 'disappearingPlatform' ? bodyA : bodyB;
+                this.matter.world.remove(sensorBody);
 
-                // Matter Body instances have a reference to their associated game object. Here,
-                // that's the Phaser.Physics.Matter.TileBody, which has a reference to the
-                // Phaser.GameObjects.Tile.
-                var tileWrapper = tileBody.gameObject;
-                var tile = tileWrapper.tile;
+                var buttonTile = groundLayer.getTileAt(4, 18);
 
-                // Only destroy a tile once
-                if (tile.properties.isBeingDestroyed)
+                // Change the tile to the new index (a "pressed" button tile) and tell the existing
+                // matter body to update itself from the Tiled collision data.
+                buttonTile.index = 93;
+                buttonTile.physics.matterBody.setFromTileCollision();
+
+                // Animate a bridge of new tiles opening up over the lava.
+                for (var j = 5; j <= 14; j++)
                 {
-                    continue;
+                    this.time.addEvent({
+                        delay: (j - 5) * 50,
+                        callback: function (x)
+                        {
+                            var bridgeTile = groundLayer.putTileAt(12, x, 19);
+
+                            // When creating a new tile that didn't already have a tile body, you
+                            // can use the tileBody factory method. See
+                            // Phaser.Physics.Matter.TileBody for options. This will default to
+                            // adding a body with the Tiled collision data here.
+                            this.matter.add.tileBody(bridgeTile);
+                        }.bind(this, j)
+                    });
                 }
-                tile.properties.isBeingDestroyed = true;
-
-                // Since we are using ES5 here, the local tile variable isn't scoped to this block -
-                // bind to the rescue.
-                this.tweens.add({
-                    targets: tile,
-                    alpha: { value: 0, duration: 500, ease: 'Power1' },
-                    onComplete: destroyTile.bind(this, tile)
-                });
             }
-
-            // Note: the tile bodies in this level are all simple rectangle bodies, so checking the
-            // label is easy. See matter detect collision with tile for how to handle when the tile
-            // bodies are compound shapes or concave polygons.
         }
     }, this);
 
@@ -271,29 +272,18 @@ function create ()
         this.matter.world.debugGraphic.visible = this.matter.world.drawDebug;
     }, this);
 
-    cursors = this.input.keyboard.createCursorKeys();
-    smoothedControls = new SmoothedHorionztalControl(0.001);
-
     var lines = [
-        'Arrow keys to move.',
-        'Press "Up" to jump.',
-        'Don\'t look back :)',
+        'Arrow keys to move. Press "Up" to jump.',
+        'Press the button!',
         'Click to toggle rendering Matter debug.'
     ];
     text = this.add.text(16, 16, lines, {
         fontSize: '20px',
         padding: { x: 20, y: 10 },
-        backgroundColor: '#000000',
-        fill: '#ffffff'
+        backgroundColor: '#ffffff',
+        fill: '#000000'
     });
     text.setScrollFactor(0);
-}
-
-function destroyTile (tile)
-{
-    var layer = tile.tilemapLayer;
-    layer.removeTileAt(tile.x, tile.y);
-    tile.physics.matterBody.destroy();
 }
 
 function update (time, delta)
@@ -303,7 +293,7 @@ function update (time, delta)
 
     // Player death
 
-    if (matterSprite.y > map.heightInPixels * mapScale)
+    if (matterSprite.y > map.heightInPixels)
     {
         matterSprite.destroy();
         playerController.matterSprite = null;
@@ -380,8 +370,7 @@ function restart ()
         callback: function ()
         {
             cam.resetFX();
-            this.scene.stop();
-            game.scene.start('main');
+            this.scene.restart();
         },
         callbackScope: this
     });

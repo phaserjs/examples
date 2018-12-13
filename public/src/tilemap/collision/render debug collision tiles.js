@@ -38,7 +38,6 @@ function create ()
     map.setCollision([ 14, 15, 16, 20, 21, 22, 23, 24, 25, 27, 28, 29, 33, 39, 40 ]);
 
     debugGraphics = this.add.graphics();
-    debugGraphics.setScale(2);
 
     this.input.keyboard.on('keydown_ONE', function (event) {
         showTiles = !showTiles;

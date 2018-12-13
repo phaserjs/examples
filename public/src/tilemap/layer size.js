@@ -30,11 +30,10 @@ function create ()
     var tileset1 = map1.addTilesetImage('SuperMarioBros-World1-1', 'tiles1');
     var layer1 = map1.createStaticLayer('World1', tileset1, 0, 0);
 
-    layer1.width = 200;
-
     var map2 = this.add.tilemap('map3');
     var tileset2 = map2.addTilesetImage('SuperMarioBrosMap1-3_bank.png', 'tiles3');
-    var layer2 = map2.createStaticLayer('ShoeBox Tile Grab', tileset2, 900, 300);
+    var layer2 = map2.createStaticLayer('ShoeBox Tile Grab', tileset2, 0, layer1.height);
+    layer2.x = layer1.width - layer2.width;
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -42,12 +41,12 @@ function create ()
         camera: this.cameras.main,
         left: cursors.left,
         right: cursors.right,
-        speed: 0.5
+        speed: 1
     };
 
     controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
-    this.cameras.main.setBounds(0, 0, layer2.x + layer2.width, 0);
+    this.cameras.main.setBounds(0, 0, layer1.width, 0);
 }
 
 function update (time, delta)

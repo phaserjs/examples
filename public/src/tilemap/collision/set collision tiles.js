@@ -44,7 +44,6 @@ function create ()
 
     // Visualize the colliding tiles
     var debugGraphics = this.add.graphics();
-    debugGraphics.setScale(2);
     map.renderDebug(debugGraphics);
 
     this.input.on('pointerdown', function () {

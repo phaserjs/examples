@@ -44,7 +44,7 @@ function create ()
     // collision shapes.
     layer.setCollisionFromCollisionGroup();
 
-    shapeGraphics = this.add.graphics();
+    shapeGraphics = this.add.graphics({ lineStyle: { color: 0xff00ff, width: 2 } });
     drawCollisionShapes(shapeGraphics);
 
     this.matter.world.convertTilemapLayer(layer);
@@ -63,7 +63,7 @@ function create ()
     }, this);
 
     this.input.keyboard.on('keydown_SPACE', function (event) {
-        // shapeGraphics.visible = !shapeGraphics.visible;
+        shapeGraphics.visible = !shapeGraphics.visible;
     });
 
     var help = this.add.text(16, 16, 'Click to drop balls\nPress "space" to toggle rendering collision shapes', {

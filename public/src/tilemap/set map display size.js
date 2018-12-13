@@ -7,12 +7,10 @@ var config = {
     pixelArt: true,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
 
-var controls;
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -25,14 +23,7 @@ function create ()
 {
     var map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
-    var layer = map.createStaticLayer('World1', tileset, 100, 200);
+    var layer = map.createStaticLayer('World1', tileset, 50, 50);
 
-    layer.width = 400;
-
-    var cursors = this.input.keyboard.createCursorKeys();
-}
-
-function update (time, delta)
-{
-    // controls.update(delta);
+    layer.setDisplaySize(700, 500);
 }

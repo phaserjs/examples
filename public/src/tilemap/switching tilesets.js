@@ -100,14 +100,15 @@ function create ()
     // collisions in update via: this.physics.world.collide(player, layer).
     this.physics.add.collider(player, layer);
 
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.setBounds(0, 0, map.widthInPixels * 2, map.heightInPixels * 2);
     this.cameras.main.startFollow(player);
 
     debugGraphics = this.add.graphics();
 
-    this.input.keyboard.on('down_67', function (event)
+    this.input.keyboard.on('keydown_C', function (event)
     {
         showDebug = !showDebug;
+        console.log('d');
         drawDebug();
     });
 
@@ -190,6 +191,7 @@ function updateHelpText ()
     helpText.setText(
         'Arrow keys to move.' +
         '\nPress 1/2/3 to change the tileset texture.' +
-        '\nCurrent texture: ' + currentTileset
+        '\nCurrent texture: ' + currentTileset +
+        '\nPress C to toggle debug draw.'
     );
 }

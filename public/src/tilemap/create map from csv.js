@@ -58,7 +58,6 @@ function create ()
     cam.setBounds(0, 0, 4096, 4096);
 
     gui.addFolder('Camera');
-    gui.add(cam, 'dirty').listen();
     gui.add(cam.midPoint, 'x').listen();
     gui.add(cam.midPoint, 'y').listen();
     gui.add(cam, 'scrollX').listen();

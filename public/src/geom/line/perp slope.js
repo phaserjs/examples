@@ -64,7 +64,7 @@ function update ()
         midPoint.y + normal.y * 250);
 
     normal.x *= position;
-    normal.y += position;
+    normal.y *= position;
 
     graphics.fillCircle(midPoint.x + normal.x, midPoint.y + normal.y, 12);
 }

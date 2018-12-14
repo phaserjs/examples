@@ -19,7 +19,8 @@ function create ()
 
     var point = new Phaser.Geom.Point(Math.cos(Math.PI / 4), Math.sin(Math.PI / 4));
 
-    Phaser.Geom.Point.Multiply(point, 100, 100);
+    point.x *= 100
+    point.y *= 100;
 
     for(var i = 0; i < 10; i++)
     {

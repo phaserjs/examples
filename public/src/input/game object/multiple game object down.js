@@ -23,6 +23,8 @@ function create ()
 {
     this.createCards();
 
+    this.input.topOnly = false;
+
     this.input.on('gameobjectdown', function (pointer, gameObject) {
 
         this.tweens.add({

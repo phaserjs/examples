@@ -54,6 +54,7 @@ function create ()
         if (game.input.mouse.locked)
         {
             game.input.mouse.releasePointerLock();
+            updateLockText(false);
         }
     }, 0, this);
 

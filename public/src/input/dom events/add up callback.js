@@ -20,25 +20,13 @@ function create ()
 
     this.input.addUpCallback(function () {
 
-        console.log('hello world');
+        sprite.clearTint();
 
-    }, true);
+    }, false);
 
     sprite.on('pointerdown', function (pointer) {
 
         this.setTint(0xff0000);
-
-    });
-
-    sprite.on('pointerout', function (pointer) {
-
-        this.clearTint();
-
-    });
-
-    sprite.on('pointerup', function (pointer) {
-
-        this.clearTint();
 
     });
 }

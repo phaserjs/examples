@@ -29,7 +29,7 @@ function create ()
 
     var total = 1024;
 
-    var text = this.add.text(10, 10, 'Cursors to move. Click boxes. Remaining: ' + total, { font: '16px Courier', fill: '#00ff00' }).setScrollFactor(0);
+    var text = this.add.text(10, 10, 'Cursors to move. Click boxes. Remaining: ' + total, { font: '16px Courier', fill: '#00ff00' }).setScrollFactor(0).setDepth(1);
 
     var x = 0;
     var y = 0;

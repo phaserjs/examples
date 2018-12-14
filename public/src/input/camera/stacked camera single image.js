@@ -29,7 +29,7 @@ function create ()
     cam2.scrollX = 100;
     cam2.scrollY = 100;
 
-    var cam3 = this.cameras.add().setName('cam3');;
+    var cam3 = this.cameras.add().setName('cam3');
 
     cam3.scrollX = 200;
     cam3.scrollY = 200;

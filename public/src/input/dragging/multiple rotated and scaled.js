@@ -44,8 +44,6 @@ function create ()
         cards.add(image);
     }
 
-    var _this = this;
-
     this.input.on('dragstart', function (pointer, gameObject) {
 
         this.children.bringToTop(gameObject);

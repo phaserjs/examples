@@ -46,6 +46,6 @@ function create ()
     //  Just a visual display of the drop zone
     var graphics = this.add.graphics();
     graphics.lineStyle(2, 0xffff00);
-    graphics.strokeRect(zone.x + zone.input.hitArea.x, zone.y + zone.input.hitArea.y, zone.input.hitArea.width, zone.input.hitArea.height);
+    graphics.strokeRectShape(zone.getBounds());
 
 }

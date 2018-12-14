@@ -31,10 +31,10 @@ function create ()
     {
         graphics.clear();
 
-        graphics.lineStyle(2, 0x00ff00);
+        graphics.lineStyle(10, 0x00ff00);
         graphics.strokeLineShape(line);
 
-        if (Phaser.Geom.Intersects.PointToLine(point, line))
+        if (Phaser.Geom.Intersects.PointToLine(point, line, 10))
         {
             graphics.fillStyle(0xff0000);
         }

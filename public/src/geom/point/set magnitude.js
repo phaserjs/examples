@@ -21,7 +21,8 @@ function create ()
         Phaser.Geom.Point.CopyFrom(pointer, point);
 
         // set relative to center
-        Phaser.Geom.Point.Subtract(point, 400, 300);
+        point.x -= 400
+        point.y -= 300;
 
         redraw();
     });

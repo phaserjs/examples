@@ -14,12 +14,15 @@ function create ()
 {
     var graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
-    var point = new Phaser.Geom.Point(0, 300);
+    var vec = new Phaser.Math.Vector2(0, 300);
+    var angleVec = new Phaser.Math.Vector2(20);
 
-    for(var angle = 0; point.x < 800; angle += Math.PI / 18) {
+    for(var angle = 0; vec.x < 800; angle += Math.PI / 18) {
 
-        graphics.fillPointShape(point, 20);
+        graphics.fillPointShape(vec, 20);
 
-        Phaser.Geom.Point.Add(point, 20, Math.cos(angle) * 40);
+        angleVec.y =  Math.cos(angle) * 40;
+
+        vec.add(angleVec);
     }
 }

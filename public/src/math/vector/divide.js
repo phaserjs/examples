@@ -14,23 +14,26 @@ function create ()
 {
     var graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
+    var vec = new Phaser.Math.Vector2(1.2, 1.2);
+
     this.input.on('pointermove', function(pointer) {
-        redraw(1.01 + pointer.x / 800, 1.01 + pointer.y / 600);
+        vec.setTo(1.01 + pointer.x / 800, 1.01 + pointer.y / 600);
+        redraw();
     });
 
-    redraw(1.2, 1.2);
+    redraw();
 
-    function redraw(mulX, mulY)
+    function redraw()
     {
         graphics.clear();
 
-        var point = new Phaser.Geom.Point(8, 6);
+        var screenVector = new Phaser.Math.Vector2(800, 600);
 
-        while(point.x < 800 && point.y < 600)
+        while(screenVector.x > 10 || screenVector.y > 10)
         {
-            graphics.fillPointShape(point, 20);
+            graphics.fillPointShape(screenVector, 20);
 
-            Phaser.Geom.Point.Multiply(point, mulX, mulY);
+            screenVector.divide(vec);
         }
     }
 }

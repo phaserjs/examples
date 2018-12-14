@@ -11,18 +11,18 @@ var config = {
 
 var game = new Phaser.Game(config);
 var graphics;
-var points;
+var vectors;
 var angle = 0;
 
 function create ()
 {
     graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
-    points = [];
+    vectors = [];
 
     for(var i = 0; i <= 800 / 5; i++)
     {
-        points.push(new Phaser.Geom.Point(i * 5));
+        vectors.push(new Phaser.Math.Vector2(i * 5));
     }
 }
 
@@ -32,17 +32,21 @@ function update ()
 
     angle += 0.05;
 
-    for(var i = 0; i < points.length; i++)
+    var subtractVec = new Phaser.Math.Vector2(5);
+
+    for(var i = 0; i < vectors.length; i++)
     {
-        if(points[i].x > 0)
+        subtractVec.y = Math.sin(angle + vectors[i].x / 400 * Math.PI) * 3;
+
+        if(vectors[i].x > 0)
         {
-            Phaser.Geom.Point.Subtract(points[i], 5, Math.sin(angle + points[i].x / 400 * Math.PI) * 3);
+            vectors[i].subtract(subtractVec);
         }
         else
         {
-            points[i].setTo(800, Math.sin(angle) * 150 + 300);
+            vectors[i].set(800, Math.sin(angle) * 150 + 300);
         }
 
-        graphics.fillPointShape(points[i], 7);
+        graphics.fillPointShape(vectors[i], 7);
     }
 }

@@ -25,7 +25,7 @@ function create ()
             var height = Phaser.Math.Between(50, 100);
 
             rectangles[x][y] = new Phaser.Geom.Rectangle(0, 0, width, height);
-            Phaser.Geom.Rectangle.CenterOn(rectangles[x][y], x * 200, y * 200);
+            Phaser.Geom.Rectangle.CenterOn(rectangles[x][y], x * 200 + 100, y * 200 + 100);
         }
     }
 

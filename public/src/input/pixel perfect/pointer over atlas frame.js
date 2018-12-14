@@ -21,17 +21,17 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'megaset', 'mask-test2').setInteractive({ pixelPerfect: true });
 
-    var text = this.add.text(10, 10, 'Click the sprite', { font: '16px Courier', fill: '#000000' });
+    sprite.alpha = 0.6;
 
-    this.input.on('pointerdown', function () {
+    sprite.on('pointerover', function () {
 
-        text.setText('');
+        sprite.alpha = 1;
 
     });
 
-    sprite.on('pointerdown', function () {
+    sprite.on('pointerout', function () {
 
-        text.setText('Clicked Sprite');
+        sprite.alpha = 0.6;
 
     });
 }

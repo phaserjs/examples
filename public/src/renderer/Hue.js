@@ -11,11 +11,11 @@ var HuePipeline = new Phaser.Class({
                 fragShader: `
             precision mediump float;
 
-            uniform sampler2D uMainSampler;
-            uniform float time;
-
             varying vec2 outTexCoord;
             varying vec4 outTint;
+
+            uniform sampler2D uMainSampler;
+            uniform float time;
 
             #define SPEED 10.0
 
@@ -28,7 +28,7 @@ var HuePipeline = new Phaser.Class({
 
                 vec4 pixel = texture2D(uMainSampler, outTexCoord);
 
-                gl_FragColor = pixel * hueRotation;
+                gl_FragColor = pixel * hueRotation * outTint;
             }   
             `
             });

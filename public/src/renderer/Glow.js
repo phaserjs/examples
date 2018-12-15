@@ -4,21 +4,23 @@ var GlowPipeline = new Phaser.Class({
 
     initialize:
 
-    function GlowPipeline (game)
-    {
-        Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline.call(this, {
-            game: game,
-            renderer: game.renderer,
-            fragShader: `
+        function GlowPipeline(game) {
+            Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline.call(this, {
+                game: game,
+                renderer: game.renderer,
+                fragShader: `
                 precision lowp float;
+                
                 varying vec2 outTexCoord;
+                varying vec4 outTint;
+
                 uniform sampler2D uMainSampler;
                 uniform float time;
                 uniform float strength;
                 uniform vec4 glowColor;
 
                 void main() {
-                    vec4 tc = texture2D(uMainSampler, outTexCoord);
+                    vec4 texel = texture2D(uMainSampler, outTexCoord)* outTint;
 
                     vec4 sum = vec4(0);
 
@@ -32,11 +34,11 @@ var GlowPipeline = new Phaser.Class({
                         }
                     }
                     //remove pulse for static glow
-                    gl_FragColor = tc + (sum * glowColor * strength * pulse);
+                    gl_FragColor = texel + (sum * glowColor *  strength * pulse);
                 }
             `
-        });
-    } 
+            });
+        }
 
 });
 
@@ -56,10 +58,9 @@ var time = 0;
 
 var game = new Phaser.Game(config);
 
-function preload ()
+function preload() 
 {
     this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-    this.load.image('atari', 'assets/sprites/atari400.png');
 
     GlowPipeline = game.renderer.addPipeline('Glow', new GlowPipeline(game));
     //rgba
@@ -68,13 +69,13 @@ function preload ()
 
 }
 
-function create ()
+function create() 
 {
     logo = this.add.image(400, 300, 'logo').setPipeline('Glow');
-    atari = this.add.image(400, 500, 'atari').setPipeline('Glow');
+    atari = this.add.image(400, 500, 'logo').setPipeline('Glow').setTint(0x00ff00);
 }
 
-function update ()
+function update() 
 {
     GlowPipeline.setFloat1('time', time);
 

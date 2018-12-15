@@ -21,7 +21,7 @@ var BlurPipeline = new Phaser.Class({
             precision mediump float;
 
             //"in" attributes from our vertex shader
-            varying vec4 outColor;
+            varying vec4 outTint;
             varying vec2 outTexCoord;
 
             //declare uniforms
@@ -54,7 +54,7 @@ var BlurPipeline = new Phaser.Class({
             sum += texture2D(u_texture, tc + 3.0 * strength) * 0.0540540541;
             sum += texture2D(u_texture, tc + 4.0 * strength) * 0.0162162162;
 
-            gl_FragColor =  sum;
+            gl_FragColor =  sum * outTint;
             }
 
             `

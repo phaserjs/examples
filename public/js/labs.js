@@ -6,7 +6,11 @@ $(document).ready(function () {
 
     var versions = [
         { val : 'dev', text: 'Dev Build' },
-        { val : 'phaser-core', text: 'Core Build' },
+        { val : '3.15.1', text: '3.15.1' },
+        { val : '3.15.0', text: '3.15.0' },
+        { val : '3.14.0', text: '3.14.0' },
+        { val : '3.13.0', text: '3.13.0' },
+        { val : '3.12.0', text: '3.12.0' },
         { val : '3.11.0', text: '3.11.0' },
         { val : '3.10.1', text: '3.10.1' },
         { val : '3.10.0', text: '3.10.0' },
@@ -28,7 +32,7 @@ $(document).ready(function () {
 
     var forceMode = getQueryString('force');
     var filename = getQueryString('src');
-    var phaserVersion = getQueryString('v', (remote) ? versions[2].val : 'dev');
+    var phaserVersion = getQueryString('v', (remote) ? versions[1].val : 'dev');
     var phaserVersionJS = phaserVersion + '.js';
     var currentPage = loc.pathname.substr(loc.pathname.lastIndexOf('/') + 1);
 
@@ -47,6 +51,7 @@ $(document).ready(function () {
         $('#csslink').attr('href', 'css.html?src=' + filename);
         $('#viewlink').attr('href', 'view.html?src=' + filename);
         $('#backlink').attr('href', 'index.html?dir=' + backURL);
+        $('#mobilelink').attr('href', 'mobile.html?src=' + filename);
 
         if (remote)
         {
@@ -160,7 +165,7 @@ $(document).ready(function () {
             }
             else
             {
-                phaserScript.src = './build/' + phaserVersionJS;
+                phaserScript.src = './build/' + phaserVersionJS + '?rnd=' + Math.random().toString();
             }
 
             document.body.appendChild(phaserScript);

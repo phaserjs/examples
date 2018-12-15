@@ -18,11 +18,9 @@ function preload ()
 
 function create ()
 {
-    this.cameras.main.setBackgroundColor(0xff0000);
-
-    this.add.image(0,0,'metal');
-
     var graphics = this.add.graphics();
+
+    graphics.setTexture('metal');
 
     graphics.fillStyle(0x00ff00, 1);
 

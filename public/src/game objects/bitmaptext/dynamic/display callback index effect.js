@@ -14,6 +14,9 @@ var rainbowColorOffset = 0;
 var delay = 0;
 var rainbowWave = 0;
 
+var jiggleText;
+var rainbowText;
+
 var game = new Phaser.Game(config);
 
 function preload() 
@@ -23,11 +26,13 @@ function preload()
 
 function create() 
 {
-    var text = this.add.dynamicBitmapText(32, 100, 'desyrel', 'It\'s cold outside,\nthere\'s no kind of atmosphere', 64);
-    var rainbow = this.add.dynamicBitmapText(32, 400, 'desyrel', 'HELLO WORLD', 96);
+    jiggleText = this.add.dynamicBitmapText(32, 100, 'desyrel', 'It\'s cold outside,\nthere\'s no kind of atmosphere', 64);
 
-    text.setDisplayCallback(textCallback);
-    rainbow.setDisplayCallback(rainbowCallback);
+    rainbowText = this.add.dynamicBitmapText(32, 400, 'desyrel', 'HELLO WORLD', 96);
+
+    jiggleText.setDisplayCallback(textCallback);
+
+    rainbowText.setDisplayCallback(rainbowCallback);
 }
 
 function update()

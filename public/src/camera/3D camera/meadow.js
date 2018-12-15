@@ -22,6 +22,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.scenePlugin('Camera3DPlugin', 'plugins/camera3d.min.js', 'Camera3DPlugin', 'cameras3d');
+
     this.load.image('sky', 'assets/tests/meadow/summer.jpg');
     this.load.image('strip', 'assets/tests/meadow/grass-strip.png');
     this.load.atlas('grass', 'assets/tests/meadow/grass.png', 'assets/tests/meadow/grass.json');

@@ -19,7 +19,8 @@ var debugGraphics;
 
 function preload ()
 {
-    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-property.json');
+    // this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-property.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-property-v12.json');
     this.load.image('kenny_platformer_64x64', 'assets/tilemaps/tiles/kenny_platformer_64x64.png');
 }
 
@@ -44,7 +45,6 @@ function create ()
     // Visualize the colliding tiles
     debugGraphics = this.add.graphics();
     drawDebug();
-    debugGraphics.setScale(0.75);
 
     this.input.on('pointerdown', function ()
     {

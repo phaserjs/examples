@@ -12,26 +12,26 @@ var config = {
 
 
 var game = new Phaser.Game(config);
+
 var offsets = [];
 var brick;
 var light;
 var text;
 var time = 0.0;
 
-function preload() {
-
+function preload ()
+{
     this.load.image('brick', ['assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png']);
     this.load.image('phaser', 'assets/sprites/phaser2.png');
-
 }
 
-function create() {
-
+function create ()
+{
     brick = this.add.sprite(0, 0, 'brick');
     brick.setOrigin(0.0);
     brick.setPipeline('Light2D');
 
-    light  = this.lights.addLight(0, 0, 200).setScrollFactor(0.0);
+    light  = this.lights.addLight(0, 0, 200).setScrollFactor(0.0).setIntensity(2);
 
     this.lights.enable().setAmbientColor(0x555555);
 
@@ -43,6 +43,7 @@ function create() {
     });
 
     var scene = this;
+
     this.input.on('pointerdown', function (pointer) {
 
         if (brick.getPipelineName() === 'Light2D')
@@ -70,10 +71,12 @@ function create() {
     offsets = [Math.random()+ 1 - 2, Math.random()+ 1 - 2, Math.random()+ 1 - 2, Math.random()+ 1 - 2];
 }
 
-function update()
+function update ()
 {
     text.setText('visible lights: ' + this.lights.culledLights.length);
+
     var index = 0;
+
     this.lights.forEachLight(function (currLight) {
         if (light !== currLight)
         {

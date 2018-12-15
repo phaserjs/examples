@@ -28,7 +28,7 @@ function create ()
 
         if (pointer.isDown)
         {
-            rt.draw(brush.texture, brush, pointer.x - 32, pointer.y - 32, hsv[i].color);
+            rt.draw(brush, pointer.x - 32, pointer.y - 32, 1, hsv[i].color);
 
             i++;
 

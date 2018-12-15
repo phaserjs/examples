@@ -5,15 +5,14 @@ myCustomCanvas.style = 'border: 8px solid red';
 
 document.body.appendChild(myCustomCanvas);
 
-var myCustomContext = myCustomCanvas.getContext('2d');
+// var myCustomContext = myCustomCanvas.getContext('2d');
 
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    canvas: myCustomCanvas,
-    context: myCustomContext,
+    canvas: document.getElementById('myCustomCanvas'),
     scene: {
         preload: preload,
         create: create

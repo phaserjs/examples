@@ -27,7 +27,7 @@ function create ()
     //  This is a canvas non-PoT texture (133 x 188)
     var ts = this.make.tileSprite({ key: 'pic' }, false);
 
-    document.body.appendChild(ts.canvasBuffer);
+    // document.body.appendChild(ts.canvasBuffer);
 
     glTexture = ts.tileTexture;
 

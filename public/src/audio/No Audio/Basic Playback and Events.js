@@ -38,10 +38,10 @@ function preload ()
         'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/Overture.mp3'
     ]);
 
-    this.load.audioSprite('creatures', [
+    this.load.audioSprite('creatures', 'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.json', [
         'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.ogg',
         'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.mp3'
-    ], 'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.json');
+    ]);
 }
 
 var first;

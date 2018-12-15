@@ -23,6 +23,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.scenePlugin('Camera3DPlugin', 'plugins/camera3d.min.js', 'Camera3DPlugin', 'cameras3d');
+
     this.load.image('block', 'assets/sprites/128x128-v2.png');
     this.load.spritesheet('positionButton', 'assets/ui/position-button.png', { frameWidth: 74, frameHeight: 23 });
     this.load.spritesheet('rotationButton', 'assets/ui/rotation-button.png', { frameWidth: 74, frameHeight: 23 });

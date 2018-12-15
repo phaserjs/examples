@@ -19,8 +19,6 @@ function preload ()
 
 function create ()
 {
-    this.sys.game.renderer.blankTexture = this.textures.getFrame('bunny').glTexture;
-
     var graphics = this.add.graphics();
 
     graphics.lineStyle(50, 0xffffff);

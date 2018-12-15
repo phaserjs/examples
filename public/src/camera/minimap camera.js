@@ -42,11 +42,11 @@ function preload ()
 
 function create ()
 {
-    //  The world is 3200 x 600 in size
-    this.cameras.main.setBounds(0, 0, 3200, 600);
+     //  The world is 3200 x 600 in size
+    this.cameras.main.setBounds(0, 0, 3200, 600).setName('main');
 
     //  The miniCam is 400px wide, so can display the whole world at a zoom of 0.2
-    this.minimap = this.cameras.add(200, 10, 400, 100).setZoom(0.2);
+    this.minimap = this.cameras.add(200, 10, 400, 100).setZoom(0.2).setName('mini');
     this.minimap.setBackgroundColor(0x002244);
     this.minimap.scrollX = 1600;
     this.minimap.scrollY = 300;

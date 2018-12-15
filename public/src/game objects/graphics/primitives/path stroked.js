@@ -18,8 +18,6 @@ function preload ()
 
 function create ()
 {
-    this.sys.game.renderer.blankTexture = this.textures.getFrame('metal').glTexture;
-
     var graphics = this.add.graphics();
 
     graphics.lineStyle(16, 0x00ff00, 1);

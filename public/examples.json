@@ -1255,9 +1255,27 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\rt camera crop.js",
+          "name": "rt camera crop.js",
+          "size": 1694,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\rt camera scroll.js",
+          "name": "rt camera scroll.js",
+          "size": 1592,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\rt crop.js",
           "name": "rt crop.js",
-          "size": 1180,
+          "size": 1437,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\rt destroy.js",
+          "name": "rt destroy.js",
+          "size": 1372,
           "extension": ".js"
         },
         {
@@ -1293,11 +1311,11 @@
         {
           "path": "src\\bugs\\y2k.js",
           "name": "y2k.js",
-          "size": 710,
+          "size": 1473,
           "extension": ".js"
         }
       ],
-      "size": 51262
+      "size": 56940
     },
     {
       "path": "src\\cache",
@@ -2938,6 +2956,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\bitmaptext\\static\\change font size.js",
+                  "name": "change font size.js",
+                  "size": 854,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\bitmaptext\\static\\change font.js",
                   "name": "change font.js",
                   "size": 1365,
@@ -3004,10 +3028,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 19041
+              "size": 19895
             }
           ],
-          "size": 41811
+          "size": 42665
         },
         {
           "path": "src\\game objects\\blitter",
@@ -5670,7 +5694,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\danger.js",
                   "name": "danger.js",
-                  "size": 1425,
+                  "size": 1427,
                   "extension": ".js"
                 },
                 {
@@ -5794,7 +5818,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 54704
+              "size": 54706
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -5846,10 +5870,10 @@
               "size": 71065
             }
           ],
-          "size": 267039
+          "size": 267041
         }
       ],
-      "size": 978201
+      "size": 979057
     },
     {
       "path": "src\\games",
@@ -11750,5 +11774,5 @@
       "size": 10801
     }
   ],
-  "size": 3151596
+  "size": 3158130
 }

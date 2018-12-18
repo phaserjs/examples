@@ -11,45 +11,51 @@ var config = {
     }
 };
 
-var rt1;
-var i = -100;
+var rt;
+var logo;
+var controls;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('bunny', 'assets/sprites/bunny.png');
-    this.load.image('box', 'assets/sprites/50x50.png');
+    this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
+    this.load.image('grid', 'assets/pics/uv-grid-diag.png');
 }
 
 function create ()
 {
-    this.bunny = this.textures.get('bunny').get();
-    this.box = this.textures.get('box').get();
+    rt = this.add.renderTexture(0, 0, 1024, 1024).setInteractive();
 
-    rt1 = this.add.renderTexture(0, 0, 1024, 1024).setInteractive();
+    rt.draw('grid');
 
-    rt1.on('pointermove', function (pointer) {
+    this.cameras.main.zoom = 0.5;
+    this.cameras.main.setScroll(400, 300);
 
-        if (pointer.isDown)
-        {
-            this.draw('box', pointer.x - 25, pointer.y - 25);
-        }
+    var cursors = this.input.keyboard.createCursorKeys();
 
-    });
+    var controlConfig = {
+        camera: this.cameras.main,
+        left: cursors.left,
+        right: cursors.right,
+        up: cursors.up,
+        down: cursors.down,
+        zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+        zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
+        acceleration: 0.04,
+        drag: 0.0005,
+        maxSpeed: 1.0
+    };
 
-    rt1.draw(this.bunny, -50, -50);
-    rt1.draw(this.bunny, 555, 555);
-
-    // this.cameras.main.zoom = 0.5;
+    controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 }
 
-function update ()
+function update (time, delta)
 {
-    // rt1.draw(this.bunny, 333 + i++, 333 + i);
+    controls.update(delta);
 
-    // rt1.draw(this.box, 0, 0);
-    // rt1.draw(this.box, 800-50, 0);
-    // rt1.draw(this.box, 0, 600-50);
-    // rt1.draw(this.box, 800-50, 600-50);
+    var x = Phaser.Math.Between(-3000, 3000);
+    var y = Phaser.Math.Between(-3000, 3000);
+
+    rt.draw('logo', x, y);
 }

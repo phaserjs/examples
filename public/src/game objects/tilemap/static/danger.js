@@ -28,6 +28,7 @@ function create ()
 
     // The map was created with 8x8 tiles, but we want to load it with a 2x high resolution tileset
     map.setBaseTileSize(16, 16);
+
     var tileset = map.addTilesetImage('DangerousKiss_bank.png', 'tiles', 16, 16);
 
     var layer = map.createStaticLayer('ShoeBox Tile Grab', tileset, 0, 0);

@@ -13,8 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload() 
 {
-    this.load.bitmapFont('atari', 'assets/fonts/bitmap/atari-smooth.png', 'assets/fonts/bitmap/atari-smooth.xml');
-    this.load.bitmapFont('hyper', 'assets/fonts/bitmap/hyperdrive.png', 'assets/fonts/bitmap/hyperdrive.xml');
+    this.load.bitmapFont('atari', 'assets/fonts/bitmap/gem.png', 'assets/fonts/bitmap/gem.xml');
 }
 
 function create() 

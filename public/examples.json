@@ -218,6 +218,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\animation\\create animation from canvas texture.js",
+          "name": "create animation from canvas texture.js",
+          "size": 1739,
+          "extension": ".js"
+        },
+        {
           "path": "src\\animation\\create animation without frame names.js",
           "name": "create animation without frame names.js",
           "size": 754,
@@ -410,7 +416,7 @@
           "extension": ".js"
         }
       ],
-      "size": 71831
+      "size": 73570
     },
     {
       "path": "src\\archived",
@@ -2958,7 +2964,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\change font size.js",
                   "name": "change font size.js",
-                  "size": 854,
+                  "size": 733,
                   "extension": ".js"
                 },
                 {
@@ -3028,10 +3034,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 19895
+              "size": 19774
             }
           ],
-          "size": 42665
+          "size": 42544
         },
         {
           "path": "src\\game objects\\blitter",
@@ -5873,7 +5879,7 @@
           "size": 267041
         }
       ],
-      "size": 979057
+      "size": 978936
     },
     {
       "path": "src\\games",
@@ -11774,5 +11780,5 @@
       "size": 10801
     }
   ],
-  "size": 3158130
+  "size": 3159748
 }

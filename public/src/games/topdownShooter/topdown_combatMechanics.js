@@ -129,7 +129,7 @@ function create ()
     this.cameras.main.zoom = 0.5;
     this.cameras.main.startFollow(player);
 
-    // Creates object for input with WASD kets
+    // Creates object for input with WASD keys
     moveKeys = this.input.keyboard.addKeys({
         'up': Phaser.Input.Keyboard.KeyCodes.W,
         'down': Phaser.Input.Keyboard.KeyCodes.S,

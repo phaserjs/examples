@@ -32,14 +32,7 @@ function create ()
 
     this.input.on('pointerdown', function () {
 
-        if (timedEvent.paused)
-        {
-            timedEvent.paused = false;
-        }
-        else
-        {
-            timedEvent.paused = true;
-        }
+	    timedEvent.paused = !timedEvent.paused;
 
     });
 }

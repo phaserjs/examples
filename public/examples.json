@@ -220,7 +220,7 @@
         {
           "path": "src\\animation\\create animation from canvas texture.js",
           "name": "create animation from canvas texture.js",
-          "size": 1739,
+          "size": 2270,
           "extension": ".js"
         },
         {
@@ -416,7 +416,7 @@
           "extension": ".js"
         }
       ],
-      "size": 73570
+      "size": 74101
     },
     {
       "path": "src\\archived",
@@ -7606,7 +7606,7 @@
             {
               "path": "src\\input\\dom events\\add up callback.js",
               "name": "add up callback.js",
-              "size": 770,
+              "size": 980,
               "extension": ".js"
             },
             {
@@ -7616,7 +7616,7 @@
               "extension": ".js"
             }
           ],
-          "size": 3131
+          "size": 3341
         },
         {
           "path": "src\\input\\dragging",
@@ -7677,6 +7677,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\dragging\\multiple scene drag.js",
+              "name": "multiple scene drag.js",
+              "size": 2045,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\dragging\\rotated and scaled.js",
               "name": "rotated and scaled.js",
               "size": 921,
@@ -7701,7 +7707,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15098
+          "size": 17143
         },
         {
           "path": "src\\input\\game object",
@@ -8288,7 +8294,7 @@
           "size": 10196
         }
       ],
-      "size": 177808
+      "size": 180063
     },
     {
       "path": "src\\loader",
@@ -9771,6 +9777,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\body to json.js",
+              "name": "body to json.js",
+              "size": 802,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\body velocity.js",
               "name": "body velocity.js",
               "size": 1107,
@@ -9999,7 +10011,7 @@
               "extension": ".js"
             }
           ],
-          "size": 69381
+          "size": 70183
         },
         {
           "path": "src\\physics\\multi",
@@ -10021,7 +10033,7 @@
           "size": 2750
         }
       ],
-      "size": 213492
+      "size": 214294
     },
     {
       "path": "src\\plugins",
@@ -10201,7 +10213,7 @@
         {
           "path": "src\\scalemanager\\contain min max.js",
           "name": "contain min max.js",
-          "size": 661,
+          "size": 1132,
           "extension": ".js"
         },
         {
@@ -10241,7 +10253,7 @@
           "extension": ".js"
         }
       ],
-      "size": 3721
+      "size": 4192
     },
     {
       "path": "src\\scenes",
@@ -10862,6 +10874,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\textures\\canvas texture rotation.js",
+          "name": "canvas texture rotation.js",
+          "size": 925,
+          "extension": ".js"
+        },
+        {
           "path": "src\\textures\\create canvas.js",
           "name": "create canvas.js",
           "size": 1670,
@@ -11042,7 +11060,7 @@
           "extension": ".js"
         }
       ],
-      "size": 47269
+      "size": 48194
     },
     {
       "path": "src\\time",
@@ -11775,10 +11793,16 @@
             }
           ],
           "size": 3228
+        },
+        {
+          "path": "src\\utils\\size.js",
+          "name": "size.js",
+          "size": 1008,
+          "extension": ".js"
         }
       ],
-      "size": 10801
+      "size": 11809
     }
   ],
-  "size": 3159748
+  "size": 3165740
 }

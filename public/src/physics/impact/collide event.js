@@ -29,18 +29,10 @@ function create ()
 
     blockA.setVelocityX(300);
 
-    this.impact.world.on('COLLIDE_EVENT', collide);
+    this.impact.world.on('collide', collide);
 }
 
-function collide (event)
+function collide (bodyA, bodyB, axis)
 {
-    //  The event has the following properties:
-
-    //  event.bodyA
-    //  event.bodyB
-    //  event.gameObjectA (the GO linked to bodyA, if any)
-    //  event.gameObjectB (the GO linked to bodyB, if any)
-    //  event.axis (either 'x' or 'y')
-
-    event.gameObjectA.tint = 0xff0000;
+    bodyA.gameObject.tint = 0xff0000;
 }

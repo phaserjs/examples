@@ -71,17 +71,17 @@ function create ()
 
     controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
-    this.input.keyboard.on('KEY_DOWN_Z', function (event) {
+    this.input.keyboard.on('keydown_Z', function (event) {
 
         this.cameras.main.rotation += 0.01;
 
-    }, 0, this);
+    }, this);
 
-    this.input.keyboard.on('KEY_DOWN_X', function (event) {
+    this.input.keyboard.on('keydown_X', function (event) {
 
         this.cameras.main.rotation -= 0.01;
 
-    }, 0, this);
+    }, this);
 
     var cam = this.cameras.main;
 

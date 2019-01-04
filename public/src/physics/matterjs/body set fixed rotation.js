@@ -31,6 +31,7 @@ function create ()
 
     block.setFrictionAir(0.001);
     block.setBounce(0.6);
+    block.setFixedRotation();
 
     var ground = this.matter.add.image(400, 400, 'platform', null, { isStatic: true });
 

@@ -14,7 +14,6 @@ var config = {
 var path;
 var curve;
 var bounds;
-var points;
 var graphics;
 
 var game = new Phaser.Game(config);
@@ -26,55 +25,45 @@ function preload ()
 
 function create ()
 {
+    graphics = this.add.graphics();
+
     path = { t: 0, vec: new Phaser.Math.Vector2() };
 
     bounds = new Phaser.Geom.Rectangle();
 
-    curve = new Phaser.Curves.Spline([
-        20, 550,
-        260, 450,
-        300, 250,
-        550, 145,
-        745, 256
-    ]);
-
-    points = curve.points;
+    curve = new Phaser.Curves.Line([ 100, 100, 600, 400 ]);
+    // curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(100, 100), new Phaser.Math.Vector2(600, 400));
 
     curve.getBounds(bounds);
 
-    //  Create drag-handles for each point
+    var point0 = this.add.image(curve.p0.x, curve.p0.y, 'dragcircle', 0).setInteractive();
+    var point1 = this.add.image(curve.p1.x, curve.p1.y, 'dragcircle', 0).setInteractive();
 
-    for (var i = 0; i < points.length; i++)
-    {
-        var point = points[i];
+    point0.setData('vector', curve.p0);
+    point1.setData('vector', curve.p1);
 
-        var handle = this.add.image(point.x, point.y, 'dragcircle', 0).setInteractive();
+    this.input.setDraggable([ point0, point1 ]);
 
-        handle.data.set('vector', point);
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        this.input.setDraggable(handle);
-    }
-
-    this.input.on('DRAG_START_EVENT', function (event) {
-
-        event.gameObject.setFrame(1);
+        gameObject.setFrame(1);
 
     });
 
-    this.input.on('DRAG_EVENT', function (event) {
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
-        event.gameObject.data.get('vector').set(event.dragX, event.dragY);
+        gameObject.getData('vector').set(dragX, dragY);
 
         curve.getBounds(bounds);
 
     });
 
-    this.input.on('DRAG_END_EVENT', function (event) {
+    this.input.on('dragend', function (pointer, gameObject) {
 
-        event.gameObject.setFrame(0);
+        gameObject.setFrame(0);
 
     });
 
@@ -86,8 +75,6 @@ function create ()
         yoyo: true,
         repeat: -1
     });
-
-    graphics = this.add.graphics();
 }
 
 function update ()
@@ -97,14 +84,14 @@ function update ()
     //  Draw the bounds
     graphics.lineStyle(1, 0x00ff00, 1).strokeRectShape(bounds);
 
-    //  Draw the curve through the points
+    //  Draw the curve
     graphics.lineStyle(2, 0xffffff, 1);
 
-    curve.draw(graphics, 64);
+    curve.draw(graphics);
 
-    //  Draw t
+    //  Draw the follower
     curve.getPoint(path.t, path.vec);
 
     graphics.fillStyle(0xffff00, 1);
-    graphics.fillCircle(path.vec.x, path.vec.y, 8);
+    graphics.fillRect(path.vec.x - 8, path.vec.y - 8, 16, 16);
 }

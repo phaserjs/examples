@@ -136,7 +136,7 @@ function create ()
     this.createSlider(sliderGraphics, 100, 30, 'height', 500, 0, 300, 150, curve.setYRadius);
     this.createSlider(sliderGraphics, 100, 50, 'start', 500, 0, 360, 0, curve.setStartAngle);
     this.createSlider(sliderGraphics, 100, 70, 'end', 500, 0, 360, 360, curve.setEndAngle);
-    this.createSlider(sliderGraphics, 100, 90, 'angle', 500, 0, 360, 0, curve.setRotation);
+    this.createSlider(sliderGraphics, 100, 90, 'rotation', 500, 0, Math.PI, 0, curve.setRotation);
 
     var centerPoint = this.add.image(curve.p0.x, curve.p0.y, 'dragcircle', 0).setInteractive();
     centerPoint.setData('control', 'center').setData('vector', curve.p0);

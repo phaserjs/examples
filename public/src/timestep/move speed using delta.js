@@ -4,7 +4,7 @@ var config = {
     height: 600,
     parent: 'phaser-example',
     backgroundColor: '#9adaea',
-    useTicker: true,
+    pixelArt: true,
     scene: {
         preload: preload,
         create: create,

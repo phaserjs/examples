@@ -20,7 +20,7 @@ var log;
 //  600px in 20 seconds
 //  600 / 20 = 30px per second
 //  30 / 1000 = 0.03px per ms
-var speed = (600 / 2) / 1000;
+var speed = (600 / 20) / 1000;
 
 var game = new Phaser.Game(config);
 
@@ -40,9 +40,9 @@ function create ()
     log = [];
 }
 
-function update (dt)
+function update (totalTime, dt)
 {
-    image.x += speed * (dt * 1000);
+    image.x += speed * dt;
 
     if (image.x > 1000)
     {
@@ -56,7 +56,7 @@ function update (dt)
         log.shift();
     }
 
-    time.setText('time: ' + this.sys.game.loop.time.toString());
+    time.setText('time: ' + totalTime);
 
     delta.setText(log);
 }

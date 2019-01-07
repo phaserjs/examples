@@ -47,10 +47,12 @@ function launch (i)
 {
     var image = this.add.image(48 + i * 64, 32, 'dude');
 
-    var tween = TweenMax.to(image, 2, {
+    this.tweens.add({
+        targets: image,
+        duration: 2000,
         y: 550,
-        delay: i * 0.0625,
-        ease: Power1.easeInOut,
+        delay: i * 62,
+        ease: 'Quad.easeInOut',
         repeat: -1,
         yoyo: true
     });

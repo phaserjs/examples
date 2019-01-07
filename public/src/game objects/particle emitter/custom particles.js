@@ -10,7 +10,7 @@ class AnimatedParticle extends Phaser.GameObjects.Particles.Particle
 
     update (delta, step, processors)
     {
-        super.update(delta, step, processors);
+        var result = super.update(delta, step, processors);
 
         this.t += delta;
 
@@ -27,6 +27,8 @@ class AnimatedParticle extends Phaser.GameObjects.Particles.Particle
 
             this.t -= anim.msPerFrame;
         }
+
+        return result;
     }
 }
 
@@ -73,7 +75,7 @@ function create ()
         angle: { min: 0, max: 30 },
         speed: 200,
         gravityY: 100,
-        lifespan: { min: 2000, max: 4000 },
+        lifespan: { min: 1000, max: 2000 },
         particleClass: AnimatedParticle
     });
 }

@@ -34,5 +34,5 @@ function create ()
         y: -220
     });
 
-    this.anims.staggerPlay('blast', group.getChildren(), 0.3);
+    this.anims.staggerPlay('blast', group.getChildren(), 300);
 }

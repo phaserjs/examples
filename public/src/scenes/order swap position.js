@@ -41,7 +41,7 @@ var Demo = new Phaser.Class({
     {
         this.arrow = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function () {
+        this.input.on('pointerdown', function () {
 
             this.scene.swapPosition('background');
 

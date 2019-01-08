@@ -32,4 +32,29 @@ function preload ()
 function create ()
 {
     this.add.image(0, 0, 'pic').setOrigin(0);
+
+    // var a = new Phaser.Structs.Size(800, 600, true, false);
+
+    var a = new Phaser.Structs.Size(800, 600, true, true);
+
+    console.log(a.toString());
+
+    a.setMin(400, 300);
+    // a.setMax(1600, 1200);
+
+    a.setMax(1000, 1200);
+
+    // a.setAspectRatioLock(true);
+
+    // a.setWidth(2000);
+    // a.setHeight(768);
+    // a.setSize(1024, 768);
+
+    a.setHeight(1500);
+
+    console.log(a.toString());
+
+    // console.log(a.toString());
+
+
 }

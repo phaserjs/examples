@@ -29,10 +29,7 @@ function create ()
         duration: 3000,
         yoyo: true,
         repeat: 1,
-        onStart: function () { console.log('onStart'); console.log(arguments); },
-        onComplete: function () { console.log('onComplete'); console.log(arguments); },
-        onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
-        onRepeat: function () { console.log('onRepeat'); console.log(arguments); },
+        onYoyo: onYoyoHandler
     });
 }
 

@@ -24,14 +24,12 @@ function create ()
     var tween = this.tweens.add({
         targets: image,
         x: 600,
-        paused: true
+        yoyo: true,
+        repeat: -1
     });
-
-    window.tweens = this.tweens;
 
     this.input.once('pointerdown', function () {
 
-        console.log('stopped?');
         tween.stop();
 
     }, this);

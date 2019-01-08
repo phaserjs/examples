@@ -1,7 +1,8 @@
 var config = {
     type: Phaser.WEBGL,
-    width: 768,
-    height: 576,
+    width: 800,
+    height: 600,
+    backgroundColor: '#080808',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -13,64 +14,49 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('block', 'assets/sprites/checkerboard.png');
+    this.load.image('block', 'assets/sprites/50x50.png');
 }
 
 function create ()
 {
-    var blocks = this.add.group({ key: 'block', repeat: 107 });
+    var blocks = this.add.group({ key: 'block', repeat: 139, setScale: { x: 0, y: 0 } });
 
     Phaser.Actions.GridAlign(blocks.getChildren(), {
-        width: 12,
-        height: 9,
-        cellWidth: 64,
-        cellHeight: 64,
-        x: 32,
-        y: 32
+        width: 14,
+        cellWidth: 50,
+        cellHeight: 50,
+        x: 70,
+        y: 60
     });
 
-    var a = [ 0, 90, 180, 270 ];
+    var _this = this;
+
+    var i = 0;
 
     blocks.children.iterate(function (child) {
 
-        child.angle = Phaser.Math.RND.pick(a);
-
-        this.tweens.add({
+        _this.tweens.add({
             targets: child,
-            ease: 'Power1',
-            duration: 250,
-            delay: (Math.random() * 6000),
-            repeatDelay: 3000 + (Math.random() * 6000),
+            scaleX: 1,
+            scaleY: 1,
+            angle: 180,
+            _ease: 'Sine.easeInOut',
+            ease: 'Power2',
+            duration: 1000,
+            delay: i * 50,
             repeat: -1,
-            angle: {
-
-                getEnd: function (target, key, value)
-                {
-                    var a = 90;
-
-                    if (Math.random() > 0.5)
-                    {
-                        a = 180;
-                    }
-
-                    if (Math.random() > 0.5)
-                    {
-                        return target.angle + a;
-                    }
-                    else
-                    {
-                        return target.angle - a;
-                    }
-                },
-
-                getStart: function (target, key, value)
-                {
-                    return target.angle;
-                }
-
-            }
+            yoyo: true,
+            hold: 1000,
+            repeatDelay: 1000
         });
 
-    }, this);
+        i++;
+
+        if (i % 14 === 0)
+        {
+            i = 0;
+        }
+
+    });
 
 }

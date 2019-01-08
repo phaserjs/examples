@@ -23,7 +23,7 @@ function create ()
 
     var circle = new Phaser.Geom.Circle(400, 300, 32);
 
-    stars.placeOnCircle(circle);
+    Phaser.Actions.PlaceOnCircle(stars.getChildren(), circle);
 
     this.tweens.add({
         targets: circle,
@@ -34,7 +34,7 @@ function create ()
         repeat: -1,
         onUpdate: function ()
         {
-            stars.rotateAroundDistance({ x: 400, y: 300 }, 0.02, circle.radius);
+            Phaser.Actions.RotateAroundDistance(stars.getChildren(), { x: 400, y: 300 }, 0.02, circle.radius);
         }
     });
 }

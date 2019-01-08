@@ -35,12 +35,3 @@ function create ()
         onRepeat: function () { console.log('onRepeat'); console.log(arguments); },
     });
 }
-
-//  The callback is always sent a reference to the Tween as the first argument and the targets as the second,
-//  then whatever you provided in the onStartParams array as the rest
-function onYoyoHandler (tween, target)
-{
-    console.log(arguments);
-
-    target.toggleFlipX().setAlpha(0.2 + Math.random());
-}

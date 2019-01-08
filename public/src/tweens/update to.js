@@ -39,7 +39,7 @@ function create ()
 
     this.input.on('pointerdown', function () {
 
-        tween.play();
+        tween.restart();
 
     });
 }

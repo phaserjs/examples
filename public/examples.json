@@ -9,7 +9,7 @@
         {
           "path": "src\\actions\\grid align.js",
           "name": "grid align.js",
-          "size": 744,
+          "size": 790,
           "extension": ".js"
         },
         {
@@ -157,7 +157,7 @@
           "extension": ".js"
         }
       ],
-      "size": 21514
+      "size": 21560
     },
     {
       "path": "src\\animation",
@@ -1291,12 +1291,6 @@
           "extension": ".js"
         },
         {
-          "path": "src\\bugs\\shadow.js",
-          "name": "shadow.js",
-          "size": 1412,
-          "extension": ".js"
-        },
-        {
           "path": "src\\bugs\\stroke.js",
           "name": "stroke.js",
           "size": 1365,
@@ -1327,7 +1321,7 @@
           "extension": ".js"
         }
       ],
-      "size": 58352
+      "size": 56940
     },
     {
       "path": "src\\cache",
@@ -1927,7 +1921,7 @@
         {
           "path": "src\\camera\\world coordinate from another scene.js",
           "name": "world coordinate from another scene.js",
-          "size": 2591,
+          "size": 3161,
           "extension": ".js"
         },
         {
@@ -1943,7 +1937,7 @@
           "extension": ".js"
         }
       ],
-      "size": 213722
+      "size": 214292
     },
     {
       "path": "src\\components",
@@ -4424,7 +4418,7 @@
             {
               "path": "src\\game objects\\particle emitter\\custom particles.js",
               "name": "custom particles.js",
-              "size": 1594,
+              "size": 1633,
               "extension": ".js"
             },
             {
@@ -4728,7 +4722,7 @@
               "extension": ".js"
             }
           ],
-          "size": 90271
+          "size": 90310
         },
         {
           "path": "src\\game objects\\quad",
@@ -5518,7 +5512,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter platformer modify map.js",
                   "name": "matter platformer modify map.js",
-                  "size": 13288,
+                  "size": 13364,
                   "extension": ".js"
                 },
                 {
@@ -5564,7 +5558,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 72401
+              "size": 72477
             },
             {
               "path": "src\\game objects\\tilemap\\dynamic",
@@ -5888,10 +5882,10 @@
               "size": 71065
             }
           ],
-          "size": 267041
+          "size": 267117
         }
       ],
-      "size": 978936
+      "size": 979051
     },
     {
       "path": "src\\games",
@@ -10714,6 +10708,43 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scenes\\sub game demo",
+          "name": "sub game demo",
+          "children": [
+            {
+              "path": "src\\scenes\\sub game demo\\boot.json",
+              "name": "boot.json",
+              "size": 114,
+              "extension": ".json"
+            },
+            {
+              "path": "src\\scenes\\sub game demo\\Game.js",
+              "name": "Game.js",
+              "size": 331,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\sub game demo\\main.js",
+              "name": "main.js",
+              "size": 190,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\sub game demo\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 503,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\scenes\\sub game demo\\SubGame.js",
+              "name": "SubGame.js",
+              "size": 229,
+              "extension": ".js"
+            }
+          ],
+          "size": 1367
+        },
+        {
           "path": "src\\scenes\\swap position.js",
           "name": "swap position.js",
           "size": 1267,
@@ -10781,7 +10812,7 @@
           "extension": ".js"
         }
       ],
-      "size": 148350
+      "size": 149717
     },
     {
       "path": "src\\snapshot",
@@ -10906,7 +10937,7 @@
         {
           "path": "src\\textures\\crop animated sprite.js",
           "name": "crop animated sprite.js",
-          "size": 1489,
+          "size": 1525,
           "extension": ".js"
         },
         {
@@ -11078,7 +11109,7 @@
           "extension": ".js"
         }
       ],
-      "size": 48194
+      "size": 48230
     },
     {
       "path": "src\\time",
@@ -11822,5 +11853,5 @@
       "size": 11809
     }
   ],
-  "size": 3171140
+  "size": 3171862
 }

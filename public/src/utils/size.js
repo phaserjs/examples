@@ -25,8 +25,8 @@ function create ()
 
     this.input.once('pointerdown', function () {
 
-        // boxA.fitTo(boxB.width, boxB.height);
-        boxA.envelope(boxB.width, boxB.height);
+        boxA.fitTo(boxB.width, boxB.height);
+        // boxA.envelope(boxB.width, boxB.height);
 
         // debug.clear();
         // debug.lineStyle(1.5, 0xff00ff).strokeRect(10, 10, boxB.width, boxB.height);

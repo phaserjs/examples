@@ -14,23 +14,25 @@ function create ()
 {
     var debug = this.add.graphics();
 
-    // var parent = new Phaser.Structs.Size(640, 480);
-    var child = new Phaser.Structs.Size(300, 400, 2);
+    var parent = new Phaser.Structs.Size(400, 280, 0);
+    var child = new Phaser.Structs.Size(100, 190, Phaser.Structs.WIDTH_CONTROLS_HEIGHT, parent);
 
-    console.log(child.toString());
+    debug.lineStyle(1.5, 0xffff00).strokeRect(1, 1, parent.width, parent.height);
+    debug.lineStyle(1.5, 0x00ff00).strokeRect(1, 1, child.width, child.height);
 
-    // debug.lineStyle(1.5, 0xff00ff).strokeRect(10, 10, parent.width, parent.height);
-    debug.lineStyle(1.5, 0x00ff00).strokeRect(10, 10, child.width, child.height);
+    var text = this.add.text(0, 550, '', { fill: '#00ff00' });
+
+    text.setText([ parent.toString(), child.toString() ]);
 
     this.input.on('pointermove', function (pointer) {
 
         child.setSize(pointer.x, pointer.y);
 
-        // console.log(child.toString());
+        text.setText([ parent.toString(), child.toString() ]);
 
         debug.clear();
-        // debug.lineStyle(1.5, 0xff00ff).strokeRect(10, 10, parent.width, parent.height);
-        debug.lineStyle(1.5, 0x00ff00).strokeRect(10, 10, child.width, child.height);
+        debug.lineStyle(1.5, 0xffff00).strokeRect(1, 1, parent.width, parent.height);
+        debug.lineStyle(1.5, 0x00ff00).strokeRect(1, 1, child.width, child.height);
 
     });
 }

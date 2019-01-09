@@ -39,6 +39,7 @@
 
     <script type="text/javascript">
 
+    var dir = '';
     var data = {};
     var folder = [];
     var trail = [];
@@ -232,7 +233,14 @@
 
         var div = $('<div></div>').addClass('card');
 
-        var a = $('<a></a>', { href: 'view.html?src=' + filepath });
+        if (dir === 'scalemanager/')
+        {
+            var a = $('<a></a>', { href: '100.html?src=' + filepath });
+        }
+        else
+        {
+            var a = $('<a></a>', { href: 'view.html?src=' + filepath });
+        }
 
         const imgPath = filepath
           .replace(/^src/, 'screenshots')
@@ -344,12 +352,14 @@
 
             data = json;
 
-            var dir = getQueryString('dir');
+            dir = getQueryString('dir');
+
             var q = getQueryString('q');
             
             $('#search-query').val(q);
             
-            if (q) {
+            if (q)
+            {
                 search(q);
             }
 
@@ -367,7 +377,6 @@
     });
         
     </script>
-
 
     <!--
      This is the template for rendering search box results

@@ -4,6 +4,7 @@ var config = {
     scale: {
         mode: Phaser.DOM.FIT,
         _parent: 'phaser-example',
+        _resolution: 2,
         width: 800,
         height: 600
     },
@@ -17,10 +18,11 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('pic', 'assets/pics/zero-two.png');
+    // this.load.image('pic', 'assets/pics/zero-two.png');
+    this.load.image('pic', 'assets/pics/akira.jpg');
 }
 
 function create ()
 {
-    this.add.image(0, 0, 'pic').setOrigin(0);
+    this.add.image(0, 0, 'pic').setOrigin(0).setScale(0.5);
 }

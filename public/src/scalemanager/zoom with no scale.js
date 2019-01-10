@@ -2,10 +2,11 @@ var config = {
     type: Phaser.AUTO,
     backgroundColor: '#2dab2d',
     scale: {
-        mode: Phaser.DOM.FIT,
+        mode: Phaser.DOM.NONE,
         parent: 'phaser-example',
-        width: 800,
-        height: 600
+        width: 160,
+        height: 144,
+        zoom: 4
     },
     scene: {
         preload: preload,
@@ -17,7 +18,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('pic', 'assets/pics/zero-two.png');
+    this.load.image('pic', 'assets/tests/zoom/title.png');
 }
 
 function create ()

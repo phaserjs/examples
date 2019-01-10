@@ -3,7 +3,7 @@ var config = {
     backgroundColor: '#2dab2d',
     scale: {
         mode: Phaser.DOM.NONE,
-        _parent: 'phaser-example',
+        parent: 'phaser-example',
         width: 800,
         height: 600
     },

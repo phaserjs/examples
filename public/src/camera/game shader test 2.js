@@ -172,9 +172,13 @@ var GameScene = new Phaser.Class({
 
 var config = {
     type: Phaser.WEBGL,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
+    scale: {
+        mode: Phaser.DOM.FIT,
+        parent: 'phaser-example',
+        autoCenter: Phaser.DOM.CENTER_BOTH,
+        width: 800,
+        height: 600
+    },
     physics: {
         default: 'arcade',
         arcade: {

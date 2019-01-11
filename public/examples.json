@@ -10247,9 +10247,15 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scalemanager\\fit running game.js",
+          "name": "fit running game.js",
+          "size": 4019,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scalemanager\\fit with auto center.js",
           "name": "fit with auto center.js",
-          "size": 503,
+          "size": 513,
           "extension": ".js"
         },
         {
@@ -10307,6 +10313,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scalemanager\\zoom manual resize.js",
+          "name": "zoom manual resize.js",
+          "size": 762,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scalemanager\\zoom with fit.js",
           "name": "zoom with fit.js",
           "size": 500,
@@ -10319,7 +10331,7 @@
           "extension": ".js"
         }
       ],
-      "size": 12826
+      "size": 17617
     },
     {
       "path": "src\\scenes",
@@ -11919,5 +11931,5 @@
       "size": 14331
     }
   ],
-  "size": 3185850
+  "size": 3190641
 }

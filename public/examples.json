@@ -10237,13 +10237,19 @@
         {
           "path": "src\\scalemanager\\fit hi-res.js",
           "name": "fit hi-res.js",
-          "size": 514,
+          "size": 673,
           "extension": ".js"
         },
         {
           "path": "src\\scalemanager\\fit min max.js",
           "name": "fit min max.js",
-          "size": 638,
+          "size": 669,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\fit with auto center.js",
+          "name": "fit with auto center.js",
+          "size": 503,
           "extension": ".js"
         },
         {
@@ -10259,15 +10265,33 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scalemanager\\no scale with auto center.js",
+          "name": "no scale with auto center.js",
+          "size": 504,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scalemanager\\no scale.js",
           "name": "no scale.js",
-          "size": 480,
+          "size": 504,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\orientation check.js",
+          "name": "orientation check.js",
+          "size": 1090,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\resize min max.js",
+          "name": "resize min max.js",
+          "size": 1177,
           "extension": ".js"
         },
         {
           "path": "src\\scalemanager\\resize.js",
           "name": "resize.js",
-          "size": 482,
+          "size": 1019,
           "extension": ".js"
         },
         {
@@ -10279,7 +10303,7 @@
         {
           "path": "src\\scalemanager\\world input.js",
           "name": "world input.js",
-          "size": 3060,
+          "size": 3083,
           "extension": ".js"
         },
         {
@@ -10295,7 +10319,7 @@
           "extension": ".js"
         }
       ],
-      "size": 8778
+      "size": 12826
     },
     {
       "path": "src\\scenes",
@@ -11895,5 +11919,5 @@
       "size": 14331
     }
   ],
-  "size": 3181802
+  "size": 3185850
 }

@@ -3,7 +3,7 @@ var config = {
     backgroundColor: '#2dab2d',
     scale: {
         mode: Phaser.DOM.FIT,
-        _parent: 'phaser-example',
+        parent: 'phaser-example',
         width: 800,
         height: 600,
         min: {
@@ -31,4 +31,6 @@ function preload ()
 function create ()
 {
     this.add.image(0, 0, 'pic').setOrigin(0);
+
+    console.log(this.scale);
 }

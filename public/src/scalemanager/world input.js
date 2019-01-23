@@ -4,7 +4,6 @@ var config = {
     scale: {
         mode: Phaser.DOM.FIT,
         parent: 'phaser-example',
-        resolution: 1,
         width: 800,
         height: 600
     },
@@ -82,6 +81,11 @@ function create ()
 
         this.cameras.main.setRotation(this.cameras.main.rotation - 0.01);
 
+    }, this);
+
+    this.input.once('pointerdown', function ()
+    {
+        this.scale.startFullscreen();
     }, this);
 }
 

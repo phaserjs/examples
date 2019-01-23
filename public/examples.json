@@ -166,7 +166,7 @@
         {
           "path": "src\\animation\\add animation event.js",
           "name": "add animation event.js",
-          "size": 1624,
+          "size": 1709,
           "extension": ".js"
         },
         {
@@ -416,7 +416,7 @@
           "extension": ".js"
         }
       ],
-      "size": 74101
+      "size": 74186
     },
     {
       "path": "src\\archived",
@@ -1189,6 +1189,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\input test.js",
+          "name": "input test.js",
+          "size": 669,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\ios.js",
           "name": "ios.js",
           "size": 2714,
@@ -1321,7 +1327,7 @@
           "extension": ".js"
         }
       ],
-      "size": 56940
+      "size": 57609
     },
     {
       "path": "src\\cache",
@@ -5387,6 +5393,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\text\\static\\text with fallback font.js",
+                  "name": "text with fallback font.js",
+                  "size": 361,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\text\\static\\to json.js",
                   "name": "to json.js",
                   "size": 594,
@@ -5405,10 +5417,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 34779
+              "size": 35140
             }
           ],
-          "size": 34779
+          "size": 35140
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -5885,7 +5897,7 @@
           "size": 267041
         }
       ],
-      "size": 978975
+      "size": 979336
     },
     {
       "path": "src\\games",
@@ -5967,7 +5979,7 @@
             {
               "path": "src\\games\\firstgame\\part10.js",
               "name": "part10.js",
-              "size": 4840,
+              "size": 4804,
               "extension": ".js"
             },
             {
@@ -6019,7 +6031,7 @@
               "extension": ".js"
             }
           ],
-          "size": 19533
+          "size": 19497
         },
         {
           "path": "src\\games\\flood",
@@ -6220,7 +6232,7 @@
           "size": 28649
         }
       ],
-      "size": 209480
+      "size": 209444
     },
     {
       "path": "src\\geom",
@@ -10255,13 +10267,19 @@
         {
           "path": "src\\scalemanager\\fit with auto center.js",
           "name": "fit with auto center.js",
-          "size": 513,
+          "size": 524,
           "extension": ".js"
         },
         {
           "path": "src\\scalemanager\\fit.js",
           "name": "fit.js",
           "size": 479,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scalemanager\\full screen game.js",
+          "name": "full screen game.js",
+          "size": 4173,
           "extension": ".js"
         },
         {
@@ -10331,7 +10349,7 @@
           "extension": ".js"
         }
       ],
-      "size": 17387
+      "size": 21571
     },
     {
       "path": "src\\scenes",
@@ -10347,6 +10365,12 @@
           "path": "src\\scenes\\add scene after game.js",
           "name": "add scene after game.js",
           "size": 513,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\scenes\\add scene from another scene.js",
+          "name": "add scene from another scene.js",
+          "size": 701,
           "extension": ".js"
         },
         {
@@ -10878,7 +10902,7 @@
           "extension": ".js"
         }
       ],
-      "size": 152707
+      "size": 153408
     },
     {
       "path": "src\\snapshot",
@@ -11969,10 +11993,16 @@
             }
           ],
           "size": 9209
+        },
+        {
+          "path": "src\\utils\\size4.js",
+          "name": "size4.js",
+          "size": 408,
+          "extension": ".js"
         }
       ],
-      "size": 20010
+      "size": 20418
     }
   ],
-  "size": 3196199
+  "size": 3202571
 }

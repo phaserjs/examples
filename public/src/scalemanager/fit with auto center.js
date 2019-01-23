@@ -4,7 +4,7 @@ var config = {
     scale: {
         parent: 'phaser-example',
         mode: Phaser.DOM.FIT,
-        autoCenter: CENTER_BOTH,
+        autoCenter: Phaser.DOM.CENTER_BOTH,
         width: 800,
         height: 600
     },

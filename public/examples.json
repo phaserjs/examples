@@ -1650,7 +1650,7 @@
         {
           "path": "src\\camera\\game shader test 2.js",
           "name": "game shader test 2.js",
-          "size": 5130,
+          "size": 5239,
           "extension": ".js"
         },
         {
@@ -1937,7 +1937,7 @@
           "extension": ".js"
         }
       ],
-      "size": 214292
+      "size": 214401
     },
     {
       "path": "src\\components",
@@ -10223,15 +10223,15 @@
       "name": "scalemanager",
       "children": [
         {
-          "path": "src\\scalemanager\\envelope min max.js",
-          "name": "envelope min max.js",
-          "size": 643,
+          "path": "src\\scalemanager\\envelop min max.js",
+          "name": "envelop min max.js",
+          "size": 642,
           "extension": ".js"
         },
         {
-          "path": "src\\scalemanager\\envelope.js",
-          "name": "envelope.js",
-          "size": 485,
+          "path": "src\\scalemanager\\envelop.js",
+          "name": "envelop.js",
+          "size": 484,
           "extension": ".js"
         },
         {
@@ -10249,7 +10249,7 @@
         {
           "path": "src\\scalemanager\\fit running game.js",
           "name": "fit running game.js",
-          "size": 4019,
+          "size": 3791,
           "extension": ".js"
         },
         {
@@ -10331,7 +10331,7 @@
           "extension": ".js"
         }
       ],
-      "size": 17617
+      "size": 17387
     },
     {
       "path": "src\\scenes",
@@ -11910,26 +11910,69 @@
           "size": 3228
         },
         {
-          "path": "src\\utils\\size.js",
-          "name": "size.js",
-          "size": 1008,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\utils\\size2.js",
-          "name": "size2.js",
-          "size": 1095,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\utils\\size3.js",
-          "name": "size3.js",
-          "size": 1427,
-          "extension": ".js"
+          "path": "src\\utils\\size",
+          "name": "size",
+          "children": [
+            {
+              "path": "src\\utils\\size\\aspect mode envelop.js",
+              "name": "aspect mode envelop.js",
+              "size": 1043,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\size\\aspect mode fit.js",
+              "name": "aspect mode fit.js",
+              "size": 1039,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\size\\aspect mode height controls width.js",
+              "name": "aspect mode height controls width.js",
+              "size": 1057,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\size\\aspect mode none.js",
+              "name": "aspect mode none.js",
+              "size": 1040,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\size\\aspect mode width controls height.js",
+              "name": "aspect mode width controls height.js",
+              "size": 1057,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\size\\max size.js",
+              "name": "max size.js",
+              "size": 923,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\size\\min max size.js",
+              "name": "min max size.js",
+              "size": 914,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\size\\min size.js",
+              "name": "min size.js",
+              "size": 1071,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\utils\\size\\snap child.js",
+              "name": "snap child.js",
+              "size": 1065,
+              "extension": ".js"
+            }
+          ],
+          "size": 9209
         }
       ],
-      "size": 14331
+      "size": 20010
     }
   ],
-  "size": 3190641
+  "size": 3196199
 }

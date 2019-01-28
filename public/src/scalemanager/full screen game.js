@@ -21,6 +21,7 @@ var GameScene = new Phaser.Class({
         this.load.image('star', 'src/games/firstgame/assets/star.png');
         this.load.image('bomb', 'src/games/firstgame/assets/bomb.png');
         this.load.spritesheet('dude', 'src/games/firstgame/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('fullscreen', 'assets/ui/fullscreen.png', { frameWidth: 64, frameHeight: 64 });
     },
 
     create: function ()
@@ -83,22 +84,22 @@ var GameScene = new Phaser.Class({
 
         this.player = player;
 
-        var _this = this;
+        var button = this.add.image(800-16, 16, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
 
-        this.input.addUpCallback(function () {
+        button.on('pointerdown', function () {
 
-            console.log('clicked!');
-
-            if (_this.scale.isFullScreen)
+            if (this.scale.isFullscreen)
             {
-                _this.scale.stopFullscreen();
+                button.setFrame(0);
+                this.scale.stopFullscreen();
             }
             else
             {
-                _this.scale.startFullscreen();
+                button.setFrame(1);
+                this.scale.startFullscreen();
             }
 
-        }, false);
+        }, this);
     },
 
     update: function ()

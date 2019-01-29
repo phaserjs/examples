@@ -3,8 +3,8 @@ var config = {
     backgroundColor: '#2dab2d',
     scale: {
         parent: 'phaser-example',
-        mode: Phaser.DOM.FIT,
-        autoCenter: Phaser.DOM.CENTER_BOTH,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 800,
         height: 600
     },

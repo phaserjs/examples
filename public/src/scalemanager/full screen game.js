@@ -145,9 +145,9 @@ var GameScene = new Phaser.Class({
 var config = {
     type: Phaser.AUTO,
     scale: {
-        mode: Phaser.DOM.FIT,
+        mode: Phaser.Scale.FIT,
         parent: 'phaser-example',
-        autoCenter: Phaser.DOM.CENTER_BOTH,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 800,
         height: 600
     },

@@ -2,9 +2,9 @@ var config = {
     type: Phaser.AUTO,
     backgroundColor: '#2dab2d',
     scale: {
-        mode: Phaser.DOM.FIT,
+        mode: Phaser.Scale.FIT,
         parent: 'phaser-example',
-        autoCenter: Phaser.DOM.CENTER_BOTH,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 160,
         height: 144,
         zoom: 2

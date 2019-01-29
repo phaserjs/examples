@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     backgroundColor: '#000000',
     scale: {
-        mode: Phaser.DOM.FIT,
+        mode: Phaser.Scale.FIT,
         parent: 'phaser-example',
         autoCenter: 1,
         width: 640,
@@ -37,12 +37,12 @@ function create ()
 
 function checkOriention (orientation)
 {
-    if (orientation === Phaser.DOM.PORTRAIT)
+    if (orientation === Phaser.Scale.PORTRAIT)
     {
         ship.alpha = 0.2;
         text.setVisible(true);
     }
-    else if (orientation === Phaser.DOM.LANDSCAPE)
+    else if (orientation === Phaser.Scale.LANDSCAPE)
     {
         ship.alpha = 1;
         text.setVisible(false);

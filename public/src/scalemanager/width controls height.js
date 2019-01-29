@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     backgroundColor: '#2dab2d',
     scale: {
-        mode: Phaser.DOM.WIDTH_CONTROLS_HEIGHT,
+        mode: Phaser.Scale.WIDTH_CONTROLS_HEIGHT,
         _parent: 'phaser-example',
         width: 800,
         height: 600

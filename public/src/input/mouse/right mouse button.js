@@ -5,9 +5,12 @@ var config = {
     parent: 'phaser-example',
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
+
+var text;
 
 var game = new Phaser.Game(config);
 
@@ -21,15 +24,15 @@ function preload ()
 
 function create ()
 {
+    text = this.add.text(10, 10, '', { fill: '#00ff00' }).setDepth(1);
+
     this.input.mouse.disableContextMenu();
 
-    this.input.on('pointerup', function (pointer) {
-
-        console.log(pointer.upTime - pointer.downTime + 'ms');
+    this.input.on('pointerdown', function (pointer) {
 
         if (pointer.rightButtonDown())
         {
-            if (pointer.upTime - pointer.downTime > 500)
+            if (pointer.getDuration() > 500)
             {
                 this.add.image(pointer.x, pointer.y, 'disk');
             }
@@ -40,7 +43,7 @@ function create ()
         }
         else
         {
-            if (pointer.upTime - pointer.downTime > 500)
+            if (pointer.getDuration() > 500)
             {
                 this.add.image(pointer.x, pointer.y, 'tree');
             }
@@ -51,4 +54,16 @@ function create ()
         }
 
     }, this);
+}
+
+function update ()
+{
+    var pointer = this.input.activePointer;
+
+    text.setText([
+        'x: ' + pointer.worldX,
+        'y: ' + pointer.worldY,
+        'isDown: ' + pointer.isDown,
+        'rightButtonDown: ' + pointer.rightButtonDown()
+    ]);
 }

@@ -1167,7 +1167,7 @@
         {
           "path": "src/bugs/click scenes.js",
           "name": "click scenes.js",
-          "size": 1895,
+          "size": 1983,
           "extension": ".js"
         },
         {
@@ -1327,7 +1327,7 @@
           "extension": ".js"
         }
       ],
-      "size": 56530
+      "size": 56618
     },
     {
       "path": "src/cache",
@@ -5558,6 +5558,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src/game objects/tilemap/collision/simple map.js",
+                  "name": "simple map.js",
+                  "size": 610,
+                  "extension": ".js"
+                },
+                {
                   "path": "src/game objects/tilemap/collision/tile callbacks.js",
                   "name": "tile callbacks.js",
                   "size": 4275,
@@ -5576,7 +5582,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 70206
+              "size": 70816
             },
             {
               "path": "src/game objects/tilemap/dynamic",
@@ -5900,10 +5906,10 @@
               "size": 69009
             }
           ],
-          "size": 258825
+          "size": 259435
         }
       ],
-      "size": 942607
+      "size": 943217
     },
     {
       "path": "src/games",
@@ -7964,7 +7970,7 @@
             {
               "path": "src/input/keyboard/keydown.js",
               "name": "keydown.js",
-              "size": 1094,
+              "size": 1240,
               "extension": ".js"
             },
             {
@@ -8004,7 +8010,7 @@
               "extension": ".js"
             }
           ],
-          "size": 43033
+          "size": 43179
         },
         {
           "path": "src/input/mouse",
@@ -8103,7 +8109,7 @@
             {
               "path": "src/input/mouse/right mouse button.js",
               "name": "right mouse button.js",
-              "size": 1299,
+              "size": 1573,
               "extension": ".js"
             },
             {
@@ -8149,7 +8155,7 @@
               "extension": ".js"
             }
           ],
-          "size": 31255
+          "size": 31529
         },
         {
           "path": "src/input/multitouch",
@@ -8324,7 +8330,7 @@
           "size": 9805
         }
       ],
-      "size": 173232
+      "size": 173652
     },
     {
       "path": "src/loader",
@@ -10249,119 +10255,131 @@
         {
           "path": "src/scalemanager/envelop min max.js",
           "name": "envelop min max.js",
-          "size": 608,
+          "size": 610,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/envelop.js",
           "name": "envelop.js",
-          "size": 458,
+          "size": 460,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/fit hi-res.js",
           "name": "fit hi-res.js",
-          "size": 643,
+          "size": 645,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/fit min max.js",
           "name": "fit min max.js",
-          "size": 633,
+          "size": 635,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/fit running game.js",
           "name": "fit running game.js",
-          "size": 3645,
+          "size": 3649,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/fit with auto center.js",
           "name": "fit with auto center.js",
-          "size": 497,
+          "size": 501,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/fit.js",
           "name": "fit.js",
-          "size": 453,
+          "size": 455,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/full screen game.js",
           "name": "full screen game.js",
-          "size": 4200,
+          "size": 4204,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/height controls width.js",
           "name": "height controls width.js",
-          "size": 472,
+          "size": 473,
+          "extension": ".js"
+        },
+        {
+          "path": "src/scalemanager/manually resize with zoom.js",
+          "name": "manually resize with zoom.js",
+          "size": 1332,
+          "extension": ".js"
+        },
+        {
+          "path": "src/scalemanager/manually resize.js",
+          "name": "manually resize.js",
+          "size": 1398,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/no scale with auto center.js",
           "name": "no scale with auto center.js",
-          "size": 477,
+          "size": 479,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/no scale.js",
           "name": "no scale.js",
-          "size": 477,
+          "size": 507,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/orientation check.js",
           "name": "orientation check.js",
-          "size": 1040,
+          "size": 1046,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/resize min max.js",
           "name": "resize min max.js",
-          "size": 1128,
+          "size": 1130,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/resize.js",
           "name": "resize.js",
-          "size": 978,
+          "size": 980,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/width controls height.js",
           "name": "width controls height.js",
-          "size": 472,
+          "size": 474,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/world input.js",
           "name": "world input.js",
-          "size": 3048,
+          "size": 3050,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/zoom manual resize.js",
           "name": "zoom manual resize.js",
-          "size": 723,
+          "size": 727,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/zoom with fit.js",
           "name": "zoom with fit.js",
-          "size": 473,
+          "size": 475,
           "extension": ".js"
         },
         {
           "path": "src/scalemanager/zoom with no scale.js",
           "name": "zoom with no scale.js",
-          "size": 474,
+          "size": 476,
           "extension": ".js"
         }
       ],
-      "size": 20899
+      "size": 23706
     },
     {
       "path": "src/scenes",
@@ -12028,5 +12046,5 @@
       "size": 19536
     }
   ],
-  "size": 3080809
+  "size": 3084734
 }

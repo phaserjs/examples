@@ -21,6 +21,8 @@ class SceneA extends Phaser.Scene {
 
         this.add.text(10, 10, 'Scene A. Press arrows to move. Click to change Scene.', { font: '16px Courier', fill: '#00ff00' });
 
+        this.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT')
+
         this.input.keyboard.on('keydown_UP', function (event) {
 
             hotdog.y -= 4;
@@ -84,6 +86,8 @@ class SceneB extends Phaser.Scene {
         this.add.text(10, 30, 'Scene B. Press arrows to move. Space to change Scene.', { font: '16px Courier', fill: '#00ff00' });
 
         var hotdog = this.add.image(400, 300, 'hotdog').setTint(0xff0000);
+
+        this.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT');
 
         this.input.keyboard.on('keydown_UP', function (event) {
 

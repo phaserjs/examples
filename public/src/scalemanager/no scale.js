@@ -23,6 +23,4 @@ function preload ()
 function create ()
 {
     this.add.image(0, 0, 'pic').setOrigin(0);
-
-    console.log(this.sys.displaySize.toString());
 }

@@ -4735,6 +4735,12 @@
           "name": "quad",
           "children": [
             {
+              "path": "src\\game objects\\quad\\add quad to container.js",
+              "name": "add quad to container.js",
+              "size": 1011,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\quad\\basic quad.js",
               "name": "basic quad.js",
               "size": 3173,
@@ -4747,7 +4753,7 @@
               "extension": ".js"
             }
           ],
-          "size": 6892
+          "size": 7903
         },
         {
           "path": "src\\game objects\\render texture",
@@ -5903,7 +5909,7 @@
           "size": 267685
         }
       ],
-      "size": 980011
+      "size": 981022
     },
     {
       "path": "src\\games",
@@ -7746,7 +7752,7 @@
             {
               "path": "src\\input\\game object\\change sprite hitarea size.js",
               "name": "change sprite hitarea size.js",
-              "size": 638,
+              "size": 2835,
               "extension": ".js"
             },
             {
@@ -7846,7 +7852,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17282
+          "size": 19479
         },
         {
           "path": "src\\input\\gamepad",
@@ -8280,7 +8286,13 @@
             {
               "path": "src\\input\\pointer\\multiple scene down event.js",
               "name": "multiple scene down event.js",
-              "size": 704,
+              "size": 1760,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\pointer\\pointer buttons debug.js",
+              "name": "pointer buttons debug.js",
+              "size": 1498,
               "extension": ".js"
             },
             {
@@ -8290,7 +8302,7 @@
               "extension": ".js"
             }
           ],
-          "size": 9514
+          "size": 12068
         },
         {
           "path": "src\\input\\zones",
@@ -8330,7 +8342,7 @@
           "size": 10196
         }
       ],
-      "size": 182144
+      "size": 186895
     },
     {
       "path": "src\\loader",
@@ -11061,6 +11073,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\textures\\convert tileset to spritesheet.js",
+          "name": "convert tileset to spritesheet.js",
+          "size": 650,
+          "extension": ".js"
+        },
+        {
           "path": "src\\textures\\create canvas.js",
           "name": "create canvas.js",
           "size": 1670,
@@ -11241,7 +11259,7 @@
           "extension": ".js"
         }
       ],
-      "size": 48194
+      "size": 48844
     },
     {
       "path": "src\\time",
@@ -12046,5 +12064,5 @@
       "size": 20418
     }
   ],
-  "size": 3215034
+  "size": 3221446
 }

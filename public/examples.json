@@ -4735,12 +4735,6 @@
           "name": "quad",
           "children": [
             {
-              "path": "src\\game objects\\quad\\add quad to container.js",
-              "name": "add quad to container.js",
-              "size": 1011,
-              "extension": ".js"
-            },
-            {
               "path": "src\\game objects\\quad\\basic quad.js",
               "name": "basic quad.js",
               "size": 3173,
@@ -4753,7 +4747,7 @@
               "extension": ".js"
             }
           ],
-          "size": 7903
+          "size": 6892
         },
         {
           "path": "src\\game objects\\render texture",
@@ -5560,7 +5554,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\simple map.js",
                   "name": "simple map.js",
-                  "size": 2506,
+                  "size": 2342,
                   "extension": ".js"
                 },
                 {
@@ -5582,7 +5576,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 74904
+              "size": 74740
             },
             {
               "path": "src\\game objects\\tilemap\\dynamic",
@@ -5718,7 +5712,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\create-from-array.js",
                   "name": "create-from-array.js",
-                  "size": 1521,
+                  "size": 1397,
                   "extension": ".js"
                 },
                 {
@@ -5854,7 +5848,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 54830
+              "size": 54706
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -5906,10 +5900,10 @@
               "size": 71065
             }
           ],
-          "size": 269668
+          "size": 269380
         }
       ],
-      "size": 983005
+      "size": 981706
     },
     {
       "path": "src\\games",
@@ -7697,7 +7691,7 @@
             {
               "path": "src\\input\\dragging\\multi camera stack of cards.js",
               "name": "multi camera stack of cards.js",
-              "size": 1402,
+              "size": 1250,
               "extension": ".js"
             },
             {
@@ -7743,7 +7737,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17305
+          "size": 17153
         },
         {
           "path": "src\\input\\game object",
@@ -8337,18 +8331,12 @@
               "name": "sprite drop zone.js",
               "size": 1930,
               "extension": ".js"
-            },
-            {
-              "path": "src\\input\\zones\\zone up.js",
-              "name": "zone up.js",
-              "size": 638,
-              "extension": ".js"
             }
           ],
-          "size": 10834
+          "size": 10196
         }
       ],
-      "size": 187683
+      "size": 186893
     },
     {
       "path": "src\\loader",
@@ -9393,7 +9381,7 @@
             {
               "path": "src\\physics\\arcade\\fps test.js",
               "name": "fps test.js",
-              "size": 946,
+              "size": 1231,
               "extension": ".js"
             },
             {
@@ -9441,7 +9429,7 @@
             {
               "path": "src\\physics\\arcade\\move and stop at position.js",
               "name": "move and stop at position.js",
-              "size": 1750,
+              "size": 1597,
               "extension": ".js"
             },
             {
@@ -9531,7 +9519,7 @@
             {
               "path": "src\\physics\\arcade\\sprite vs multiple groups.js",
               "name": "sprite vs multiple groups.js",
-              "size": 1649,
+              "size": 1725,
               "extension": ".js"
             },
             {
@@ -9585,7 +9573,7 @@
             {
               "path": "src\\physics\\arcade\\world bounds event.js",
               "name": "world bounds event.js",
-              "size": 1315,
+              "size": 1276,
               "extension": ".js"
             },
             {
@@ -9607,7 +9595,7 @@
               "extension": ".js"
             }
           ],
-          "size": 100056
+          "size": 100225
         },
         {
           "path": "src\\physics\\impact",
@@ -10105,7 +10093,7 @@
           "size": 2750
         }
       ],
-      "size": 220316
+      "size": 220485
     },
     {
       "path": "src\\plugins",
@@ -11091,12 +11079,6 @@
           "extension": ".js"
         },
         {
-          "path": "src\\textures\\convert tileset to spritesheet.js",
-          "name": "convert tileset to spritesheet.js",
-          "size": 784,
-          "extension": ".js"
-        },
-        {
           "path": "src\\textures\\create canvas.js",
           "name": "create canvas.js",
           "size": 1670,
@@ -11277,7 +11259,7 @@
           "extension": ".js"
         }
       ],
-      "size": 48978
+      "size": 48194
     },
     {
       "path": "src\\time",
@@ -12082,5 +12064,5 @@
       "size": 20418
     }
   ],
-  "size": 3228776
+  "size": 3226072
 }

@@ -53,7 +53,7 @@ function create ()
     // This will set the map location (2, 0) to call the function "hitSecretDoor" Un-comment this to
     // be jump through the ceiling above where the player spawns. You can use this to create a
     // secret area.
-    // groundLayer.setTileLocationCallback(2, 0, 1, 1, hitSecretDoor, this);
+    groundLayer.setTileLocationCallback(2, 0, 1, 1, hitSecretDoor, this);
 
     player = this.physics.add.sprite(80, 70, 'player')
         .setBounce(0.1);

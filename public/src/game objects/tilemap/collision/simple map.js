@@ -37,7 +37,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
     tileset = map.addTilesetImage('tiles');
-    layer = map.createDynamicLayer('Level2', tileset);
+    layer = map.createDynamicLayer('Level1', tileset);
 
     map.setCollision([ 20, 48 ]);
 
@@ -48,8 +48,6 @@ function create ()
     player = this.add.rectangle(96, 96, 24, 38, 0xffff00);
 
     this.physics.add.existing(player);
-
-    player.body.collideWorldBounds = true;
 
     this.physics.add.collider(player, layer);
 
@@ -81,24 +79,9 @@ function update ()
 
 function hitPickup (player, tile)
 {
-    if (tile.index === 134)
-    {
-        console.log('LEVEL COMPLETE');
-    }
-    else
-    {
-        map.removeTile(tile, 29, false);
+    map.removeTile(tile, 29, false);
 
-        pickups = map.filterTiles(function (tile) {
-            return (tile.index === 82);
-        });
-
-        if (pickups.length === 0)
-        {
-            pickups.push(map.putTileAt(134, 4, 16));
-            pickups.push(map.putTileAt(134, 4, 17));
-            pickups.push(map.putTileAt(134, 5, 16));
-            pickups.push(map.putTileAt(134, 5, 17));
-        }
-    }
+    pickups = map.filterTiles(function (tile) {
+        return (tile.index === 82);
+    });
 }

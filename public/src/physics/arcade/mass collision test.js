@@ -55,8 +55,7 @@ function create ()
     graphics.fillStyle(0x000044);
     graphics.fillRect(0,140,800,460);
 
-    this.physics.world.setBounds(0, 0, 800 * 1, 600 * 1);
-    this.physics.world.useTree = false;
+    this.physics.world.setBounds(0, 0, 800, 600);
 
     spriteBounds = Phaser.Geom.Rectangle.Inflate(Phaser.Geom.Rectangle.Clone(this.physics.world.bounds), -10, -200);
     spriteBounds.y += 100;

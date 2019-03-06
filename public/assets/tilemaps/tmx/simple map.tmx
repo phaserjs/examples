@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="140" columns="14">
   <image source="../tiles/gridtiles.png" width="448" height="320"/>
  </tileset>
- <layer id="3" name="Level1" width="25" height="19" visible="0">
+ <layer id="3" name="Level1" width="25" height="19">
   <data encoding="csv">
 20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,
 20,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,20,
@@ -26,7 +26,7 @@
 20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 </data>
  </layer>
- <layer id="4" name="Level2" width="25" height="19">
+ <layer id="4" name="Level2" width="25" height="19" visible="0">
   <data encoding="csv">
 20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,
 20,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,20,

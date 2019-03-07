@@ -9947,7 +9947,13 @@
             {
               "path": "src\\physics\\matterjs\\draw chain.js",
               "name": "draw chain.js",
-              "size": 1731,
+              "size": 1905,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\matterjs\\draw stiff line.js",
+              "name": "draw stiff line.js",
+              "size": 1908,
               "extension": ".js"
             },
             {
@@ -10089,7 +10095,7 @@
               "extension": ".js"
             }
           ],
-          "size": 73264
+          "size": 75346
         },
         {
           "path": "src\\physics\\multi",
@@ -10111,7 +10117,7 @@
           "size": 2750
         }
       ],
-      "size": 225360
+      "size": 227442
     },
     {
       "path": "src\\plugins",
@@ -12082,5 +12088,5 @@
       "size": 20418
     }
   ],
-  "size": 3230540
+  "size": 3232622
 }

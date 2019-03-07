@@ -5554,7 +5554,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\simple map.js",
                   "name": "simple map.js",
-                  "size": 2342,
+                  "size": 1898,
                   "extension": ".js"
                 },
                 {
@@ -5576,7 +5576,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 74740
+              "size": 74296
             },
             {
               "path": "src\\game objects\\tilemap\\dynamic",
@@ -5900,10 +5900,10 @@
               "size": 71065
             }
           ],
-          "size": 269380
+          "size": 268936
         }
       ],
-      "size": 981706
+      "size": 981262
     },
     {
       "path": "src\\games",
@@ -9391,6 +9391,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\get bodies within rectangle.js",
+              "name": "get bodies within rectangle.js",
+              "size": 1843,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\gravity.js",
               "name": "gravity.js",
               "size": 857,
@@ -9417,7 +9423,7 @@
             {
               "path": "src\\physics\\arcade\\mass collision test.js",
               "name": "mass collision test.js",
-              "size": 2456,
+              "size": 2407,
               "extension": ".js"
             },
             {
@@ -9595,7 +9601,7 @@
               "extension": ".js"
             }
           ],
-          "size": 100225
+          "size": 102019
         },
         {
           "path": "src\\physics\\impact",
@@ -9939,6 +9945,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\draw chain.js",
+              "name": "draw chain.js",
+              "size": 1705,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\fixed rotation.js",
               "name": "fixed rotation.js",
               "size": 981,
@@ -10071,7 +10083,7 @@
               "extension": ".js"
             }
           ],
-          "size": 70183
+          "size": 71888
         },
         {
           "path": "src\\physics\\multi",
@@ -10093,7 +10105,7 @@
           "size": 2750
         }
       ],
-      "size": 220485
+      "size": 223984
     },
     {
       "path": "src\\plugins",
@@ -10315,7 +10327,7 @@
         {
           "path": "src\\scalemanager\\full screen game.js",
           "name": "full screen game.js",
-          "size": 4781,
+          "size": 4818,
           "extension": ".js"
         },
         {
@@ -10397,7 +10409,7 @@
           "extension": ".js"
         }
       ],
-      "size": 25164
+      "size": 25201
     },
     {
       "path": "src\\scenes",
@@ -12064,5 +12076,5 @@
       "size": 20418
     }
   ],
-  "size": 3226072
+  "size": 3229164
 }

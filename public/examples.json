@@ -9951,9 +9951,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\draw smoother stiff line.js",
+              "name": "draw smoother stiff line.js",
+              "size": 2463,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\draw stiff line.js",
               "name": "draw stiff line.js",
-              "size": 1908,
+              "size": 2399,
               "extension": ".js"
             },
             {
@@ -10095,7 +10101,7 @@
               "extension": ".js"
             }
           ],
-          "size": 75346
+          "size": 78300
         },
         {
           "path": "src\\physics\\multi",
@@ -10117,7 +10123,7 @@
           "size": 2750
         }
       ],
-      "size": 227442
+      "size": 230396
     },
     {
       "path": "src\\plugins",
@@ -12088,5 +12094,5 @@
       "size": 20418
     }
   ],
-  "size": 3232622
+  "size": 3235576
 }

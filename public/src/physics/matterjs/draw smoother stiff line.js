@@ -11,7 +11,7 @@ var config = {
                 y: 0.8
             },
             enableSleep: true,
-            debug: true
+            debug: false
         }
     },
     scene: {
@@ -31,23 +31,34 @@ function create ()
 {
     this.matter.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
 
-    var sides = 6;
+    var lineCategory = this.matter.world.nextCategory();
+    var ballsCategory = this.matter.world.nextCategory();
+
+    var sides = 4;
     var size = 14;
-    var distance = size * 2;
+    var distance = size;
     var stiffness = 0.1;
     var lastPosition = new Phaser.Math.Vector2();
-    var options = { friction: 0.005, frictionAir: 0, restitution: 1 };
-    var pinOptions = { friction: 0, frictionAir: 0, restitution: 0, ignoreGravity: true, inertia: Infinity, isStatic: true };
+    var options = { friction: 0, frictionAir: 0, restitution: 0, ignoreGravity: true, inertia: Infinity, isStatic: true, angle: 0, collisionFilter: { category: lineCategory } };
 
     var current = null;
     var previous = null;
+
+    var curves = [];
+    var curve = null;
+
+    var graphics = this.add.graphics();
 
     this.input.on('pointerdown', function (pointer) {
 
         lastPosition.x = pointer.x;
         lastPosition.y = pointer.y;
 
-        previous = this.matter.add.polygon(pointer.x, pointer.y, sides, size, pinOptions);
+        previous = this.matter.add.polygon(pointer.x, pointer.y, sides, size, options);
+
+        curve = new Phaser.Curves.Spline([ pointer.x, pointer.y ]);
+
+        curves.push(curve);
 
     }, this);
 
@@ -60,14 +71,25 @@ function create ()
 
             if (Phaser.Math.Distance.Between(x, y, lastPosition.x, lastPosition.y) > distance)
             {
+                options.angle = Phaser.Math.Angle.Between(x, y, lastPosition.x, lastPosition.y);
+
                 lastPosition.x = x;
                 lastPosition.y = y;
 
-                current = this.matter.add.polygon(pointer.x, pointer.y, sides, size, pinOptions);
+                current = this.matter.add.polygon(pointer.x, pointer.y, sides, size, options);
 
                 this.matter.add.constraint(previous, current, distance, stiffness);
 
                 previous = current;
+
+                curve.addPoint(x, y);
+
+                graphics.clear();
+                graphics.lineStyle(size * 1.5, 0xffffff);
+
+                curves.forEach(function(c) {
+                    c.draw(graphics, 64);
+                });
             }
         }
 
@@ -80,8 +102,10 @@ function create ()
             callback: function ()
             {
                 var ball = this.matter.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball');
+
                 ball.setCircle();
-                ball.setFriction(0.005).setBounce(1);
+                ball.setCollisionCategory(ballsCategory);
+                ball.setFriction(0.005).setBounce(0.9);
             },
             callbackScope: this,
             repeat: 100

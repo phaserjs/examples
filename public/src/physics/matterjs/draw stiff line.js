@@ -10,6 +10,7 @@ var config = {
             gravity: {
                 y: 0.8
             },
+            enableSleep: true,
             debug: true
         }
     },

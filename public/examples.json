@@ -9325,6 +9325,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\body stack test.js",
+              "name": "body stack test.js",
+              "size": 554,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\bounce test.js",
               "name": "bounce test.js",
               "size": 1856,
@@ -9601,7 +9607,7 @@
               "extension": ".js"
             }
           ],
-          "size": 102019
+          "size": 102573
         },
         {
           "path": "src\\physics\\impact",
@@ -9953,7 +9959,7 @@
             {
               "path": "src\\physics\\matterjs\\draw smoother stiff line.js",
               "name": "draw smoother stiff line.js",
-              "size": 2463,
+              "size": 3093,
               "extension": ".js"
             },
             {
@@ -10101,7 +10107,7 @@
               "extension": ".js"
             }
           ],
-          "size": 78300
+          "size": 78930
         },
         {
           "path": "src\\physics\\multi",
@@ -10123,7 +10129,7 @@
           "size": 2750
         }
       ],
-      "size": 230396
+      "size": 231580
     },
     {
       "path": "src\\plugins",
@@ -12094,5 +12100,5 @@
       "size": 20418
     }
   ],
-  "size": 3235576
+  "size": 3236760
 }

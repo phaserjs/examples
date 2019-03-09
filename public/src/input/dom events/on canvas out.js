@@ -26,13 +26,15 @@ function create ()
     graphics.fillRect(0, 0, 800, 600);
     graphics.setVisible(false);
 
-    this.sys.game.events.on('mouseout', function () {
+    var text = this.add.text(0, 0, 'Move the mouse out and over the game canvas');
+
+    this.input.on('gameout', function () {
 
         graphics.setVisible(true);
 
     });
 
-    this.sys.game.events.on('mouseover', function () {
+    this.input.on('gameover', function () {
 
         graphics.setVisible(false);
 

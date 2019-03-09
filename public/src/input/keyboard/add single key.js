@@ -48,15 +48,15 @@ function create ()
 
         bubble3.setVisible(true);
 
-    })
+    });
 
     //  Phase 2: Global keydown + keycode handler.
     //  Emits only on the SPACE BAR keycode event, but dispatches globally.
     //  You can call stopPropagation at this level, which will stop it reaching the listener below.
 
-    this.input.keyboard.on('keydown_SPACE', function (event) {
+    this.input.keyboard.on('keydown-SPACE', function (event) {
 
-        // event.stopPropagation();
+        event.stopPropagation();
 
         bubble2.setVisible(true);
 

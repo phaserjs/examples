@@ -5554,13 +5554,13 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\simple map.js",
                   "name": "simple map.js",
-                  "size": 644,
+                  "size": 1898,
                   "extension": ".js"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\collision\\tile callbacks.js",
                   "name": "tile callbacks.js",
-                  "size": 4426,
+                  "size": 4423,
                   "extension": ".js"
                 },
                 {
@@ -5576,7 +5576,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 73045
+              "size": 74296
             },
             {
               "path": "src\\game objects\\tilemap\\dynamic",
@@ -5900,10 +5900,10 @@
               "size": 71065
             }
           ],
-          "size": 267685
+          "size": 268936
         }
       ],
-      "size": 980011
+      "size": 981262
     },
     {
       "path": "src\\games",
@@ -7746,7 +7746,7 @@
             {
               "path": "src\\input\\game object\\change sprite hitarea size.js",
               "name": "change sprite hitarea size.js",
-              "size": 638,
+              "size": 2835,
               "extension": ".js"
             },
             {
@@ -7846,7 +7846,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17282
+          "size": 19479
         },
         {
           "path": "src\\input\\gamepad",
@@ -7904,7 +7904,7 @@
             {
               "path": "src\\input\\keyboard\\add single key.js",
               "name": "add single key.js",
-              "size": 4246,
+              "size": 4244,
               "extension": ".js"
             },
             {
@@ -8010,7 +8010,7 @@
               "extension": ".js"
             }
           ],
-          "size": 45016
+          "size": 45014
         },
         {
           "path": "src\\input\\mouse",
@@ -8280,7 +8280,13 @@
             {
               "path": "src\\input\\pointer\\multiple scene down event.js",
               "name": "multiple scene down event.js",
-              "size": 704,
+              "size": 1760,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\pointer\\pointer buttons debug.js",
+              "name": "pointer buttons debug.js",
+              "size": 1498,
               "extension": ".js"
             },
             {
@@ -8290,7 +8296,7 @@
               "extension": ".js"
             }
           ],
-          "size": 9514
+          "size": 12068
         },
         {
           "path": "src\\input\\zones",
@@ -8330,7 +8336,7 @@
           "size": 10196
         }
       ],
-      "size": 182144
+      "size": 186893
     },
     {
       "path": "src\\loader",
@@ -9301,6 +9307,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\basic platform.js",
+              "name": "basic platform.js",
+              "size": 3322,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\body controls.js",
               "name": "body controls.js",
               "size": 2550,
@@ -9310,6 +9322,12 @@
               "path": "src\\physics\\arcade\\body on a path.js",
               "name": "body on a path.js",
               "size": 3855,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\arcade\\body stack test.js",
+              "name": "body stack test.js",
+              "size": 554,
               "extension": ".js"
             },
             {
@@ -9367,9 +9385,21 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\fps test.js",
+              "name": "fps test.js",
+              "size": 1231,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\friction.js",
               "name": "friction.js",
               "size": 1471,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\arcade\\get bodies within rectangle.js",
+              "name": "get bodies within rectangle.js",
+              "size": 1843,
               "extension": ".js"
             },
             {
@@ -9399,7 +9429,7 @@
             {
               "path": "src\\physics\\arcade\\mass collision test.js",
               "name": "mass collision test.js",
-              "size": 2415,
+              "size": 2407,
               "extension": ".js"
             },
             {
@@ -9577,7 +9607,7 @@
               "extension": ".js"
             }
           ],
-          "size": 95631
+          "size": 102573
         },
         {
           "path": "src\\physics\\impact",
@@ -9921,6 +9951,30 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\draw chain.js",
+              "name": "draw chain.js",
+              "size": 1905,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\matterjs\\draw smoother stiff line.js",
+              "name": "draw smoother stiff line.js",
+              "size": 3093,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\matterjs\\draw stiff line.js",
+              "name": "draw stiff line.js",
+              "size": 2399,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\matterjs\\draw triangles.js",
+              "name": "draw triangles.js",
+              "size": 1350,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\fixed rotation.js",
               "name": "fixed rotation.js",
               "size": 981,
@@ -10053,7 +10107,7 @@
               "extension": ".js"
             }
           ],
-          "size": 70183
+          "size": 78930
         },
         {
           "path": "src\\physics\\multi",
@@ -10075,7 +10129,7 @@
           "size": 2750
         }
       ],
-      "size": 215891
+      "size": 231580
     },
     {
       "path": "src\\plugins",
@@ -10297,7 +10351,7 @@
         {
           "path": "src\\scalemanager\\full screen game.js",
           "name": "full screen game.js",
-          "size": 4781,
+          "size": 4818,
           "extension": ".js"
         },
         {
@@ -10379,7 +10433,7 @@
           "extension": ".js"
         }
       ],
-      "size": 25164
+      "size": 25201
     },
     {
       "path": "src\\scenes",
@@ -12046,5 +12100,5 @@
       "size": 20418
     }
   ],
-  "size": 3215034
+  "size": 3236760
 }

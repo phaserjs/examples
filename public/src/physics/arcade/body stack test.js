@@ -19,8 +19,8 @@ var config = {
 
 var text;
 var blocks = [];
-var bob;
-var ben;
+var mushroom;
+var block;
 
 var game = new Phaser.Game(config);
 
@@ -28,58 +28,42 @@ function preload ()
 {
     this.load.image('block', 'assets/sprites/crate32.png');
     this.load.image('block2', 'assets/sprites/crate.png');
+    this.load.image('mushroom', 'assets/sprites/mushroom2.png');
 }
 
 function create ()
 {
-    //  Immovable ben:
+    //  overlap = 1.5 (mushroom DOWN onto block, m v b)
+    //  overlap = -1.5 (mushroom DOWN onto block, b v m)
 
-    //  bob x ben above = 204.66 to 204.0 (moved up the diff)
-    //  bob x ben below = 331.33 to 332 (moved down the diff)
+    //  So, even though they were moving in the same direction, the overlap is negative because
+    //  we were checking them in a different order.
 
-    //  ben x bob above = 204.66 to 204.0 (moved up the diff)
-    //  ben x bob below = 331.33 to 332 (moved down the diff)
+    //  Positive overlap = BOTTOM of body A
+    //  Negative overlap = TOP of body A
 
-    //  Immovable ben ++
+    //  We cannot rely on overlap to tell us the face of collision
 
-    //  bob x ben above = 204.66 to 204.0 (moved up the diff)
-    //  bob x ben below = 331.33 to 332 (moved down the diff)
+    // mushroom = this.physics.add.image(410, 100, 'mushroom').setName('mushroom').setVelocityY(100).setCollideWorldBounds(true);
+    // block = this.physics.add.image(400, 170, 'block2').setName('block').setVelocityY(200).setCollideWorldBounds(true);
 
-    bob = this.physics.add.image(400, 100, 'block2').setName('bob').setVelocityY(100).setCollideWorldBounds(true);
+    // mushroom = this.physics.add.image(410, 400, 'mushroom').setName('mushroom').setVelocityY(100).setCollideWorldBounds(true);
+    // block = this.physics.add.image(400, 300, 'block2').setName('block').setVelocityY(120).setCollideWorldBounds(true);
 
-    ben = this.physics.add.image(400, 300, 'block2').setName('ben').setVelocityY(20).setCollideWorldBounds(true);
-
-    // ben = this.physics.add.image(400, 300, 'block2').setName('ben').setImmovable().setCollideWorldBounds(true);
-
-    // bob = this.physics.add.image(400, 500, 'block2').setName('bob').setVelocityY(-100).setCollideWorldBounds(true);
-
-
-    // blocks.push(this.physics.add.image(50, 50, 'block2').setName(blocks.length).setCollideWorldBounds(true).setBounce(0));
-
-    // this.input.on('pointerdown', function (pointer) {
-
-    //     console.log(blocks[0].body.getMoveX(850));
-    //     console.log(blocks[0].body.getMoveY(50));
-
-    // }, this);
-
-    // this.input.on('pointerdown', function (pointer) {
-
-    //     blocks.push(this.physics.add.image(pointer.x, pointer.y, 'block').setName(blocks.length).setCollideWorldBounds(true).setBounce(0));
-
-    // }, this);
+    mushroom = this.physics.add.image(410, 400, 'mushroom').setName('mushroom').setVelocityY(100).setCollideWorldBounds(true);
+    block = this.physics.add.image(400, 300, 'block2').setName('block').setVelocityY(120).setCollideWorldBounds(true);
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 }
 
-function update ()
+function update (time)
 {
-    this.physics.collide(bob, ben);
-
-    // this.physics.collide(ben, bob);
+    this.physics.collide(mushroom, block);
+    // this.physics.collide(block, mushroom);
 
     // for (var i = 0; i < 10; i++)
     // {
+        // this.physics.collide(block, mushroom);
         // this.physics.collide(blocks);
     // }
 
@@ -97,16 +81,28 @@ function update ()
     // text.setText(t);
 
     text.setText([
-        'bob',
-        'down: ' + bob.body.blocked.down,
-        'y: ' + bob.body.y,
-        'vy: ' + bob.body.velocity.y,
-        'dy: ' + bob.body._dy,
+        'mushroom',
+        'tup: ' + mushroom.body.touching.up,
+        'tdown: ' + mushroom.body.touching.down,
+        'wup: ' + mushroom.body.worldBlocked.up,
+        'up: ' + mushroom.body.blocked.up,
+        'down: ' + mushroom.body.blocked.down,
+        'y: ' + mushroom.body.y,
+        'bot: ' + mushroom.body.bottom,
+        'vy: ' + mushroom.body.velocity.y,
+        'dy: ' + mushroom.body._dy,
         '',
-        'ben',
-        'down: ' + ben.body.blocked.down,
-        'y: ' + ben.body.y,
-        'vy: ' + ben.body.velocity.y,
-        'dy: ' + ben.body._dy
+        'block',
+        'tup: ' + block.body.touching.up,
+        'tdown: ' + block.body.touching.down,
+        'up: ' + block.body.blocked.up,
+        'down: ' + block.body.blocked.down,
+        'wdown: ' + block.body.worldBlocked.down,
+        'y: ' + block.body.y,
+        'bot: ' + block.body.bottom,
+        'vy: ' + block.body.velocity.y,
+        'dy: ' + block.body._dy
     ]);
+
+
 }

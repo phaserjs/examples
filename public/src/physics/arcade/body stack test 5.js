@@ -7,7 +7,7 @@ var config = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: { y: 200 }
+            gravity: { y: 0 }
         }
     },
     scene: {
@@ -37,7 +37,7 @@ function create ()
 {
     size = 'block2';
 
-    blocks.push(this.physics.add.image(400, 80, size).setName('0').setVelocityY(200).setCollideWorldBounds(true).setBounce(0.5).setInteractive());
+    blocks.push(this.physics.add.image(400, 300, size).setName('0').setVelocityY(0).setCollideWorldBounds(true).setImmovable(false).setInteractive());
 
     this.input.on('gameobjectdown', function (pointer, gameobject, event) {
 
@@ -55,7 +55,9 @@ function create ()
 
     this.input.on('pointerdown', function (pointer) {
 
-        blocks.push(this.physics.add.image(pointer.x, pointer.y, size).setName(blocks.length + 1).setVelocityY(-100).setCollideWorldBounds(true).setBounce(0.5).setInteractive());
+        // blocks.push(this.physics.add.image(pointer.x, pointer.y, size).setName(blocks.length + 1).setVelocityY(-100).setCollideWorldBounds(true).setBounce(0.5).setInteractive());
+        // blocks.push(this.physics.add.image(pointer.x, pointer.y, size).setName(blocks.length + 1).setVelocityY(-100).setCollideWorldBounds(true).setBounce(0.5).setInteractive());
+        blocks.push(this.physics.add.image(pointer.x, pointer.y, size).setName(blocks.length + 1).setVelocityY(100).setCollideWorldBounds(true).setBounce(0.5).setInteractive());
 
         if (monitor)
         {
@@ -87,7 +89,7 @@ function create ()
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-    this.physics.add.collider(blocks, blocks);
+    // this.physics.add.collider(blocks, blocks);
 }
 
 function update (time)
@@ -97,7 +99,7 @@ function update (time)
         // this.physics.collide(blocks);
     // }
 
-    // this.physics.collide(blocks);
+    this.physics.collide(blocks);
 
     if (monitor)
     {
@@ -106,6 +108,8 @@ function update (time)
             'name: ' + monitor.name,
             'up: ' + monitor.body.blocked.up,
             'down: ' + monitor.body.blocked.down,
+            'tup: ' + monitor.body.touching.up,
+            'tdown: ' + monitor.body.touching.down,
             'y: ' + monitor.body.y,
             'bot: ' + monitor.body.bottom,
             'vy: ' + monitor.body.velocity.y,

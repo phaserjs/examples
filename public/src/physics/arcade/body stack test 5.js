@@ -7,7 +7,7 @@ var config = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: { y: 0 }
+            gravity: { y: 50 }
         }
     },
     scene: {
@@ -21,6 +21,7 @@ var size;
 var text;
 var monitor = null;
 var blocks = [];
+var stop = false;
 
 var game = new Phaser.Game(config);
 
@@ -37,7 +38,13 @@ function create ()
 {
     size = 'block2';
 
-    blocks.push(this.physics.add.image(400, 300, size).setName('0').setVelocityY(0).setCollideWorldBounds(true).setImmovable(false).setInteractive());
+    var b = this.physics.add.image(400, 400, size).setName('0').setInteractive();
+    b.setVelocityY(0)
+    b.setCollideWorldBounds(true);
+    b.setImmovable(false);
+    b.setBounce(0.8);
+
+    blocks.push(b);
 
     this.input.on('gameobjectdown', function (pointer, gameobject, event) {
 
@@ -55,9 +62,21 @@ function create ()
 
     this.input.on('pointerdown', function (pointer) {
 
-        // blocks.push(this.physics.add.image(pointer.x, pointer.y, size).setName(blocks.length + 1).setVelocityY(-100).setCollideWorldBounds(true).setBounce(0.5).setInteractive());
-        // blocks.push(this.physics.add.image(pointer.x, pointer.y, size).setName(blocks.length + 1).setVelocityY(-100).setCollideWorldBounds(true).setBounce(0.5).setInteractive());
-        blocks.push(this.physics.add.image(pointer.x, pointer.y, size).setName(blocks.length + 1).setVelocityY(100).setCollideWorldBounds(true).setBounce(0.5).setInteractive());
+        var x = pointer.x;
+        var y = pointer.y;
+        // var y = 152;
+
+        var b = this.physics.add.image(x, y, size).setName(blocks.length).setInteractive();
+
+        //  35 = problem?
+        console.log('created at', y);
+
+        b.setVelocityY(Phaser.Math.Between(200, 400));
+        b.setCollideWorldBounds(true);
+        b.setImmovable(false);
+        b.setBounce(0.8);
+
+        blocks.push(b);
 
         if (monitor)
         {
@@ -87,19 +106,33 @@ function create ()
         size = 'car';
     }, this);
 
+    this.input.keyboard.on('keydown-SPACE', function () {
+        console.log('stop');
+        this.physics.world.isPaused = true;
+        stop = true;
+    }, this);
+
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
+    if (Phaser.VERSION !== '3.17.0')
+    {
+        this.physics.add.collider(blocks, blocks);
+    }
     // this.physics.add.collider(blocks, blocks);
 }
 
 function update (time)
 {
-    // for (var i = 0; i < 10; i++)
-    // {
-        // this.physics.collide(blocks);
-    // }
+    if (stop)
+    {
+        return;
+    }
 
-    this.physics.collide(blocks);
+    if (Phaser.VERSION === '3.17.0')
+    {
+        this.physics.collide(blocks);
+        // this.physics.collide(blocks, blocks);
+    }
 
     if (monitor)
     {

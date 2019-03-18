@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
     width: 800,
-    height: 600,
+    height: 608,
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
@@ -27,6 +27,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('16x16', 'assets/sprites/16x16.png');
     this.load.image('bita', 'assets/sprites/1bitblock1.png');
     this.load.image('bitb', 'assets/sprites/1bitblock2.png');
     this.load.image('bitc', 'assets/sprites/1bitblock3.png');
@@ -44,7 +45,8 @@ function create ()
 {
     var setImmovable = false;
 
-    size = 'bita';
+    // size = '16x16';
+    size = 'bitb';
 
     var ghost = this.add.image(400, 300, size).setAlpha(0.5).setDepth(1000).setOrigin(0);
 
@@ -95,8 +97,8 @@ function create ()
         monitor = b;
         b.setTint(0x00ff00);
 
-        console.clear();
-        console.log(y);
+        // console.clear();
+        console.log('', y);
         // window.track = b.body;
 
     }, this);
@@ -148,6 +150,11 @@ function create ()
 
     this.input.keyboard.on('keydown-J', function () {
         size = 'bitc';
+        ghost.setTexture(size);
+    }, this);
+
+    this.input.keyboard.on('keydown-K', function () {
+        size = '16x16';
         ghost.setTexture(size);
     }, this);
 

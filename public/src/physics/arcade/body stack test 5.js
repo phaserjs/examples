@@ -27,6 +27,9 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('bita', 'assets/sprites/1bitblock1.png');
+    this.load.image('bitb', 'assets/sprites/1bitblock2.png');
+    this.load.image('bitc', 'assets/sprites/1bitblock3.png');
     this.load.image('bar', 'assets/sprites/bluebar.png');
     this.load.image('smallblock', 'assets/sprites/crate32.png');
     this.load.image('block', 'assets/sprites/crate.png');
@@ -41,7 +44,7 @@ function create ()
 {
     var setImmovable = false;
 
-    size = 'block';
+    size = 'bita';
 
     var ghost = this.add.image(400, 300, size).setAlpha(0.5).setDepth(1000).setOrigin(0);
 
@@ -99,7 +102,7 @@ function create ()
     }, this);
 
     this.input.keyboard.on('keydown-A', function () {
-        size = 'block';
+        size = 'bita';
         ghost.setTexture(size);
     }, this);
 
@@ -109,7 +112,7 @@ function create ()
     }, this);
 
     this.input.keyboard.on('keydown-C', function () {
-        size = 'bar';
+        size = 'bitb';
         ghost.setTexture(size);
     }, this);
 
@@ -141,6 +144,11 @@ function create ()
     this.input.keyboard.on('keydown-I', function () {
         setImmovable = (setImmovable) ? false: true;
         console.log('setImmovable', setImmovable);
+    }, this);
+
+    this.input.keyboard.on('keydown-J', function () {
+        size = 'bitc';
+        ghost.setTexture(size);
     }, this);
 
     this.input.keyboard.on('keydown-SPACE', function () {
@@ -185,6 +193,7 @@ function update (time)
 
             text.setText([
                 'size: ' + size,
+                'gravity: ' + this.physics.world.gravity.y,
                 '',
                 'name: ' + monitor.name,
                 'up: ' + monitor.body.blocked.up,
@@ -201,7 +210,8 @@ function update (time)
                 'dy: ' + monitor.body._dy,
                 'speed: ' + monitor.body.speed,
                 '_sleep: ' + monitor.body._sleep,
-                'sleeping: ' + monitor.body.sleeping
+                'sleeping: ' + monitor.body.sleeping,
+                'blockers: ' + monitor.body.blockers.length
             ]);
         }
         else

@@ -6,8 +6,8 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
-            gravity: { y: 200 }
+            debug: true,
+            gravity: { y: 100 }
         }
     },
     scene: {
@@ -51,9 +51,10 @@ function create ()
     var setImmovable = false;
 
     // size = '16x16';
-    size = 'bit0';
+    size = 'block';
+    // size = 'bit0';
 
-    var ghost = this.add.image(400, 300, size).setAlpha(0.5).setDepth(1000).setOrigin(0);
+    var ghost = this.add.image(0, 0, size).setAlpha(0.5).setDepth(1000).setOrigin(0);
 
     window.scene = this;
 
@@ -65,10 +66,10 @@ function create ()
         var b = scene.physics.add.image(x, y, size).setName(size + blocks.length).setInteractive();
 
         b.setOrigin(0);
-        b.setVelocityY(-278);
+        b.setVelocityY(70);
         b.setCollideWorldBounds(true);
         // b.setImmovable(setImmovable);
-        b.setBounce(0.64);
+        b.setBounce(0.8);
 
         blocks.push(b);
 
@@ -83,11 +84,10 @@ function create ()
         return b;
     };
 
+    var blockA = createBody({ x: 400, y: 400 }).setVelocityY(5);
+    // var blockB = createBody({ x: 400, y: 200 }).setVelocityY(0);
 
-    // var block = createBody({ x: 400, y: 500 }).setVelocityY(0);
-
-
-
+    size = 'bit0';
 
     this.input.on('gameobjectdown', function (pointer, gameobject, event) {
 

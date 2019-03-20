@@ -1,12 +1,12 @@
 var config = {
     type: Phaser.AUTO,
     width: 800,
-    height: 608,
+    height: 640,
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: { y: 200 }
         }
     },
@@ -22,12 +22,14 @@ var text;
 var monitor = null;
 var blocks = [];
 var stop = false;
+var scene;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
     this.load.image('16x16', 'assets/sprites/16x16.png');
+    this.load.image('bit0', 'assets/sprites/1bitblock0.png');
     this.load.image('bita', 'assets/sprites/1bitblock1.png');
     this.load.image('bitb', 'assets/sprites/1bitblock2.png');
     this.load.image('bitc', 'assets/sprites/1bitblock3.png');
@@ -39,16 +41,53 @@ function preload ()
     this.load.image('tall', 'assets/sprites/flectrum.png');
     this.load.image('platform', 'assets/sprites/platform.png');
     this.load.image('vu', 'assets/sprites/vu.png');
+    this.load.image('bg', 'assets/tests/32pxstrip.png');
 }
 
 function create ()
 {
+    this.add.image(0, 0, 'bg').setOrigin(0);
+
     var setImmovable = false;
 
     // size = '16x16';
-    size = 'bitb';
+    size = 'bit0';
 
     var ghost = this.add.image(400, 300, size).setAlpha(0.5).setDepth(1000).setOrigin(0);
+
+    window.scene = this;
+
+    var createBody = function (p)
+    {
+        var x = p.x;
+        var y = p.y;
+
+        var b = scene.physics.add.image(x, y, size).setName(size + blocks.length).setInteractive();
+
+        b.setOrigin(0);
+        b.setVelocityY(-278);
+        b.setCollideWorldBounds(true);
+        // b.setImmovable(setImmovable);
+        b.setBounce(0.64);
+
+        blocks.push(b);
+
+        if (monitor)
+        {
+            monitor.setTint(0xffffff);
+        }
+
+        monitor = b;
+        b.setTint(0x00ff00);
+
+        return b;
+    };
+
+
+    // var block = createBody({ x: 400, y: 500 }).setVelocityY(0);
+
+
+
 
     this.input.on('gameobjectdown', function (pointer, gameobject, event) {
 
@@ -71,37 +110,7 @@ function create ()
 
     });
 
-    this.input.on('pointerdown', function (pointer) {
-
-        var x = pointer.x;
-        var y = pointer.y;
-
-        var b = this.physics.add.image(x, y, size).setName(size + blocks.length).setInteractive();
-
-        // b.setVelocityY(Phaser.Math.Between(-200, -300));
-        // b.setVelocityY(100);
-
-        b.setOrigin(0);
-        b.setVelocityY(400);
-        b.setCollideWorldBounds(true);
-        b.setImmovable(setImmovable);
-        b.setBounce(0.5);
-
-        blocks.push(b);
-
-        if (monitor)
-        {
-            monitor.setTint(0xffffff);
-        }
-
-        monitor = b;
-        b.setTint(0x00ff00);
-
-        // console.clear();
-        console.log('', y);
-        // window.track = b.body;
-
-    }, this);
+    this.input.on('pointerdown', createBody, this);
 
     this.input.keyboard.on('keydown-A', function () {
         size = 'bita';
@@ -168,7 +177,14 @@ function create ()
         monitor.setVelocityY(-800);
     }, this);
 
-    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+    this.input.keyboard.on('keydown-DOWN', function () {
+        if (monitor)
+        {
+            monitor.setTint(0xffffff);
+        }
+    }, this);
+
+    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#000000' });
 
     if (Phaser.VERSION !== '3.17.0')
     {
@@ -198,24 +214,36 @@ function update (time)
             var mh = monitor.height;
             var mhh = mh / 2;
 
+            mhh = 0; // origin 0
+
+            var blocked = monitor.body.blocked;
+            var touching = monitor.body.touching;
+            var worldBlocked = monitor.body.worldBlocked;
+
             text.setText([
-                'size: ' + size,
-                'gravity: ' + this.physics.world.gravity.y,
+                'texture: ' + size,
+                'world gravity: ' + this.physics.world.gravity.y,
                 '',
                 'name: ' + monitor.name,
-                'up: ' + monitor.body.blocked.up,
-                'down: ' + monitor.body.blocked.down,
-                'tup: ' + monitor.body.touching.up,
-                'tdown: ' + monitor.body.touching.down,
-                'wup: ' + monitor.body.worldBlocked.up,
-                'wdown: ' + monitor.body.worldBlocked.down,
-                'gy: ' + (my - mhh),
-                'gbot: ' + ((my - mhh) + mh),
-                'y: ' + monitor.body.y,
-                'bot: ' + monitor.body.bottom,
-                'vy: ' + monitor.body.velocity.y,
-                'dy: ' + monitor.body._dy,
-                'speed: ' + monitor.body.speed,
+                '',
+                'BLOCKED = None: ' + blocked.none + ' Up: ' + blocked.up + ' Down: ' + blocked.down,
+                'WORLD BLOCKED = None: ' + worldBlocked.none + ' Up: ' + worldBlocked.up + ' Down: ' + worldBlocked.down,
+                'TOUCHING = None: ' + touching.none + ' Up: ' + touching.up + ' Down: ' + touching.down,
+                '',
+                'isBlockedY: ' + monitor.body.isBlockedY(),
+                'isBlockedUp: ' + monitor.body.isBlockedUp(),
+                'isBlockedDown: ' + monitor.body.isBlockedDown(),
+                '',
+                'sprite y: ' + (my - mhh),
+                'sprite bottom: ' + ((my - mhh) + mh),
+                '',
+                'body y: ' + monitor.body.y,
+                'body bottom: ' + monitor.body.bottom,
+                '',
+                'Velocity Y: ' + monitor.body.velocity.y,
+                'Delta Y: ' + monitor.body._dy,
+                'Speed: ' + monitor.body.speed,
+                '',
                 '_sleep: ' + monitor.body._sleep,
                 'sleeping: ' + monitor.body.sleeping,
                 'blockers: ' + monitor.body.blockers.length
@@ -234,7 +262,7 @@ function update (time)
                 'size: ' + size,
                 '',
                 'name: ' + monitor.name,
-                'up: ' + monitor.body.blocked.up,
+                'BLOCKED = Up: ' + monitor.body.blocked.up,
                 'down: ' + monitor.body.blocked.down,
                 'tup: ' + monitor.body.touching.up,
                 'tdown: ' + monitor.body.touching.down,

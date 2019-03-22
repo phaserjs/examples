@@ -51,8 +51,9 @@ function create ()
     var setImmovable = false;
 
     // size = '16x16';
-    size = 'block';
+    // size = 'block';
     // size = 'bit0';
+    size = 'bullet';
 
     var ghost = this.add.image(0, 0, size).setAlpha(0.5).setDepth(1000).setOrigin(0);
 
@@ -66,10 +67,10 @@ function create ()
         var b = scene.physics.add.image(x, y, size).setName(size + blocks.length).setInteractive();
 
         b.setOrigin(0);
-        b.setVelocityY(Phaser.Math.Between(150,300));
+        // b.setVelocityY(Phaser.Math.Between(150,300));
         b.setCollideWorldBounds(true);
         // b.setImmovable(setImmovable);
-        // b.setBounce(0.5);
+        b.setBounce(0.5);
 
         blocks.push(b);
 
@@ -88,8 +89,16 @@ function create ()
     // var blockB = createBody({ x: 410, y: 300 }).setVelocityY(0);
     // var blockB = createBody({ x: 390, y: 200 }).setVelocityY(50);
 
+    createBody({ x: 400, y: 500 }).setVelocityY(50);
+    createBody({ x: 400, y: 480 }).setVelocityY(0);
+    createBody({ x: 400, y: 450 }).setVelocityY(100);
+    createBody({ x: 400, y: 300 }).setVelocityY(200);
+    createBody({ x: 400, y: 350 }).setVelocityY(170);
+
+
     // size = 'vu';
-    // ghost.setTexture('vu');
+
+    ghost.setTexture('bullet');
 
     // var blockB = createBody({ x: 400, y: 200 }).setVelocityY(100);
 
@@ -200,17 +209,6 @@ function create ()
 
 function update (time)
 {
-    if (stop)
-    {
-        return;
-    }
-
-    if (Phaser.VERSION === '3.17.0')
-    {
-        this.physics.collide(blocks);
-        // this.physics.collide(blocks, blocks);
-    }
-
     if (Phaser.VERSION === '3.17.0')
     {
         if (monitor)
@@ -286,4 +284,15 @@ function update (time)
             text.setText('size: ' + size);
         }
     }
+
+    if (stop)
+    {
+        return;
+    }
+
+    if (Phaser.VERSION === '3.17.0')
+    {
+        this.physics.collide(blocks);
+    }
+
 }

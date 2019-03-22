@@ -66,10 +66,10 @@ function create ()
         var b = scene.physics.add.image(x, y, size).setName(size + blocks.length).setInteractive();
 
         b.setOrigin(0);
-        // b.setVelocityY(150);
+        b.setVelocityY(Phaser.Math.Between(150,300));
         b.setCollideWorldBounds(true);
         // b.setImmovable(setImmovable);
-        b.setBounce(0.5);
+        // b.setBounce(0.5);
 
         blocks.push(b);
 
@@ -84,11 +84,12 @@ function create ()
         return b;
     };
 
-    //  With gravity zero this tests blocks sticking together
-    var blockA = createBody({ x: 400, y: 400 }).setVelocityY(0);
+    // var blockA = createBody({ x: 400, y: 500 }).setVelocityY(50);
+    // var blockB = createBody({ x: 410, y: 300 }).setVelocityY(0);
+    // var blockB = createBody({ x: 390, y: 200 }).setVelocityY(50);
 
-    size = 'vu';
-    ghost.setTexture('vu');
+    // size = 'vu';
+    // ghost.setTexture('vu');
 
     // var blockB = createBody({ x: 400, y: 200 }).setVelocityY(100);
 
@@ -223,6 +224,7 @@ function update (time)
             var blocked = monitor.body.blocked;
             var touching = monitor.body.touching;
             var worldBlocked = monitor.body.worldBlocked;
+            var hardBlocked = monitor.body.hardBlocked;
 
             text.setText([
                 'texture: ' + size,
@@ -231,6 +233,7 @@ function update (time)
                 'name: ' + monitor.name,
                 '',
                 'BLOCKED = None: ' + blocked.none + ' Up: ' + blocked.up + ' Down: ' + blocked.down,
+                'HARD BLOCKED = None: ' + hardBlocked.none + ' Up: ' + hardBlocked.up + ' Down: ' + hardBlocked.down,
                 'WORLD BLOCKED = None: ' + worldBlocked.none + ' Up: ' + worldBlocked.up + ' Down: ' + worldBlocked.down,
                 'TOUCHING = None: ' + touching.none + ' Up: ' + touching.up + ' Down: ' + touching.down,
                 '',
@@ -249,8 +252,7 @@ function update (time)
                 'Speed: ' + monitor.body.speed,
                 '',
                 '_sleep: ' + monitor.body._sleep,
-                'sleeping: ' + monitor.body.sleeping,
-                'blockers: ' + monitor.body.blockers.length
+                'sleeping: ' + monitor.body.sleeping
             ]);
         }
         else

@@ -70,7 +70,8 @@ function create ()
 
         b.setOrigin(0);
         b.setCollideWorldBounds(true);
-        // b.setBounce(0.8);
+        b.setBounce(1);
+        b.setVelocity(Phaser.Math.Between(-300, 300), Phaser.Math.Between(-200, 200));
 
         blocks.push(b);
 
@@ -86,8 +87,10 @@ function create ()
     };
 
 
-    player = createBody({ x: 200, y: 500 }).setImmovable(false);
-    player.body.setAllowGravity(false);
+    createBody({ x: 200, y: 200 });
+
+    // player = createBody({ x: 200, y: 500 }).setImmovable(false);
+    // player.body.setAllowGravity(false);
 
     // size = 'vu';
 
@@ -304,6 +307,7 @@ function update (time)
         return;
     }
 
+    /*
     player.setVelocity(0);
 
     if (cursors.left.isDown)
@@ -323,9 +327,10 @@ function update (time)
     {
         player.setVelocityY(400);
     }
+    */
 
     if (Phaser.VERSION === '3.17.0')
     {
-        this.physics.collide(blocks);
+        // this.physics.collide(blocks);
     }
 }

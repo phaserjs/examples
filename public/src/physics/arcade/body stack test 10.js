@@ -6,8 +6,8 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
-            gravity: { y: 100 }
+            debug: false,
+            gravity: { y: 0 }
         }
     },
     scene: {
@@ -50,11 +50,14 @@ function create ()
 {
     this.add.image(0, 0, 'bg').setOrigin(0);
 
+    // this.add.image(0, 500, 'bit0').setOrigin(0);
+    // this.add.image(64, 501, 'bit0').setOrigin(0).setTint(0xff0000);
+
     var setImmovable = false;
 
     // size = '16x16';
-    size = 'block';
-    // size = 'bit0';
+    // size = 'block';
+    size = 'bit0';
     // size = 'bullet';
 
     var ghost = this.add.image(0, 0, size).setAlpha(0.5).setDepth(1000).setOrigin(0);
@@ -70,7 +73,8 @@ function create ()
 
         b.setOrigin(0);
         b.setCollideWorldBounds(true);
-        // b.setBounce(0.8);
+        b.setBounce(0);
+        // b.setVelocityY(100);
 
         blocks.push(b);
 
@@ -86,8 +90,15 @@ function create ()
     };
 
 
-    player = createBody({ x: 200, y: 500 }).setImmovable(false);
-    player.body.setAllowGravity(false);
+    createBody({ x: 200, y: 300 }).setVelocityX(100);
+    // size = 'car';
+    createBody({ x: 600, y: 310 }).setVelocityX(-100);
+
+    // createBody({ x: 600, y: 200 }).setVelocityY(100);
+    // createBody({ x: 620, y: 500 }).setVelocityY(-100);
+
+    // player = createBody({ x: 200, y: 500 }).setImmovable(false);
+    // player.body.setAllowGravity(false);
 
     // size = 'vu';
 
@@ -264,7 +275,9 @@ function update (time)
                 'Speed: ' + monitor.body.speed,
                 '',
                 '_sleep: ' + monitor.body._sleep,
-                'sleeping: ' + monitor.body.sleeping
+                'sleeping: ' + monitor.body.sleeping,
+                'gravity x blocked: ' + monitor.body.isGravityBlockedX(),
+                'gravity y blocked: ' + monitor.body.isGravityBlockedY()
             ]);
         }
         else
@@ -304,6 +317,7 @@ function update (time)
         return;
     }
 
+    /*
     player.setVelocity(0);
 
     if (cursors.left.isDown)
@@ -323,6 +337,7 @@ function update (time)
     {
         player.setVelocityY(400);
     }
+    */
 
     if (Phaser.VERSION === '3.17.0')
     {

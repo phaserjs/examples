@@ -6,7 +6,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: { y: 0 }
         }
     },
@@ -73,8 +73,8 @@ function create ()
 
         b.setOrigin(0);
         b.setCollideWorldBounds(true);
-        b.setBounce(0);
-        // b.setVelocityY(100);
+        // b.setBounce(0.8);
+        b.setVelocityX(100);
 
         blocks.push(b);
 
@@ -91,8 +91,16 @@ function create ()
 
 
     createBody({ x: 200, y: 300 }).setVelocityX(100);
-    // size = 'car';
     createBody({ x: 600, y: 310 }).setVelocityX(-100);
+
+    // createBody({ x: 600, y: 300 }).setVelocityX(-100);
+    // createBody({ x: 200, y: 310 }).setVelocityX(100);
+
+    // createBody({ x: 600, y: 200 }).setVelocityY(100);
+    // createBody({ x: 600, y: 500 }).setVelocityY(-100);
+
+    // createBody({ x: 600, y: 500 }).setVelocityY(-100);
+    // createBody({ x: 600, y: 200 }).setVelocityY(100);
 
     // createBody({ x: 600, y: 200 }).setVelocityY(100);
     // createBody({ x: 620, y: 500 }).setVelocityY(-100);
@@ -275,9 +283,9 @@ function update (time)
                 'Speed: ' + monitor.body.speed,
                 '',
                 '_sleep: ' + monitor.body._sleep,
-                'sleeping: ' + monitor.body.sleeping,
-                'gravity x blocked: ' + monitor.body.isGravityBlockedX(),
-                'gravity y blocked: ' + monitor.body.isGravityBlockedY()
+                '_sleepX: ' + monitor.body._sleepX,
+                '_sleepY: ' + monitor.body._sleepY,
+                'sleeping: ' + monitor.body.sleeping
             ]);
         }
         else

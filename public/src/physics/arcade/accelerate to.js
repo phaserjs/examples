@@ -32,14 +32,10 @@ function create ()
     // Same:
     // this.physics.accelerateTo(clown, block.x, block.y, 60, 300, 300);
 
-    console.log('acceleration', clown.body.acceleration.x);
-    console.log('maxVelocity', clown.body.maxVelocity.x);
-
     var collider = this.physics.add.overlap(clown, block, function (clownOnBlock)
     {
-        clownOnBlock.setAcceleration(0).setDrag(600);
+        clownOnBlock.body.stop();
 
         this.physics.world.removeCollider(collider);
     }, null, this);
-
 }

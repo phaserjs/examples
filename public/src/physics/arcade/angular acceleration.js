@@ -5,7 +5,7 @@ var config = {
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: {debug: true}
+        arcade: { debug: true }
     },
     scene: {
         preload: preload,
@@ -35,5 +35,4 @@ function create ()
         group.children.iterateLocal('setAngularAcceleration', 0);
         group.children.iterateLocal('setAngularDrag', 60);
     });
-
 }

@@ -3623,8 +3623,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1916,
               "extension": ".js"
             },
@@ -3647,8 +3647,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js"
             },
@@ -3924,8 +3924,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\Trail.js",
-              "name": "Trail.js",
+              "path": "src\\game objects\\graphics\\trail.js",
+              "name": "trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -8542,12 +8542,6 @@
           "size": 5105
         },
         {
-          "path": "src\\loader\\json",
-          "name": "json",
-          "children": [],
-          "size": 0
-        },
-        {
           "path": "src\\loader\\load config tests.js",
           "name": "load config tests.js",
           "size": 1819,
@@ -8691,12 +8685,6 @@
           "size": 841
         },
         {
-          "path": "src\\loader\\shader",
-          "name": "shader",
-          "children": [],
-          "size": 0
-        },
-        {
           "path": "src\\loader\\sprite sheet",
           "name": "sprite sheet",
           "children": [
@@ -8751,12 +8739,6 @@
             }
           ],
           "size": 3872
-        },
-        {
-          "path": "src\\loader\\text",
-          "name": "text",
-          "children": [],
-          "size": 0
         },
         {
           "path": "src\\loader\\texture atlas json",
@@ -8906,12 +8888,6 @@
             }
           ],
           "size": 5388
-        },
-        {
-          "path": "src\\loader\\xml",
-          "name": "xml",
-          "children": [],
-          "size": 0
         }
       ],
       "size": 139494
@@ -9417,7 +9393,7 @@
             {
               "path": "src\\physics\\arcade\\bounce test.js",
               "name": "bounce test.js",
-              "size": 1856,
+              "size": 4503,
               "extension": ".js"
             },
             {
@@ -9454,6 +9430,12 @@
               "path": "src\\physics\\arcade\\destroy body.js",
               "name": "destroy body.js",
               "size": 1168,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\arcade\\drag through open face.js",
+              "name": "drag through open face.js",
+              "size": 1311,
               "extension": ".js"
             },
             {
@@ -9529,6 +9511,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\move through open face.js",
+              "name": "move through open face.js",
+              "size": 1390,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\move to pointer.js",
               "name": "move to pointer.js",
               "size": 1150,
@@ -9543,7 +9531,13 @@
             {
               "path": "src\\physics\\arcade\\non rendering body.js",
               "name": "non rendering body.js",
-              "size": 10308,
+              "size": 4145,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\arcade\\one way collision.js",
+              "name": "one way collision.js",
+              "size": 3007,
               "extension": ".js"
             },
             {
@@ -9697,7 +9691,7 @@
               "extension": ".js"
             }
           ],
-          "size": 186086
+          "size": 188278
         },
         {
           "path": "src\\physics\\impact",
@@ -10219,7 +10213,7 @@
           "size": 2750
         }
       ],
-      "size": 315093
+      "size": 317285
     },
     {
       "path": "src\\plugins",
@@ -10624,8 +10618,8 @@
               "extension": ".json"
             },
             {
-              "path": "src\\scenes\\cross scene\\game.js",
-              "name": "game.js",
+              "path": "src\\scenes\\cross scene\\Game.js",
+              "name": "Game.js",
               "size": 220,
               "extension": ".js"
             },
@@ -12190,5 +12184,5 @@
       "size": 20418
     }
   ],
-  "size": 3320885
+  "size": 3323077
 }

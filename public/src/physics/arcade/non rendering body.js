@@ -44,7 +44,7 @@ function create ()
         var width = Phaser.Math.Between(64, 256);
         var height = Phaser.Math.Between(64, 256);
 
-        var b = scene.physics.add.rectangle(x, y, width, height);
+        var b = scene.physics.add.body(x, y, width, height);
 
         b.setCollideWorldBounds(true);
         b.setBounce(1);

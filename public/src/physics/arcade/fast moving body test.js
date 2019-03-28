@@ -25,7 +25,6 @@ function preload ()
 {
     this.load.image('block', 'assets/sprites/p2.jpg');
     this.load.image('box', 'assets/sprites/steelbox.png');
-    this.load.image('chunk', 'assets/sprites/chunk.png');
     this.load.image('bg', 'assets/tests/32pxstrip.png');
 }
 
@@ -33,30 +32,37 @@ function create ()
 {
     this.add.image(0, 0, 'bg').setOrigin(0);
 
-    var block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
+    //  top test
+    // block = this.physics.add.image(400, 300, 'block').setOrigin(0).setImmovable(true).setName('big');
+    // player = this.physics.add.image(400 - 60, 100, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(0, 450);
 
-    //  Allow entrance through the top-face only
-    // block.body.setCheckCollisionUp(false);
+    //  left test
+    // block = this.physics.add.image(400, 300, 'block').setOrigin(0).setImmovable(true).setName('big');
+    // player = this.physics.add.image(200, 300 - 60, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(500, 0);
 
-    var block2 = this.physics.add.image(700, 500, 'box').setImmovable(true);
-    var block3 = this.physics.add.image(200, 500, 'chunk').setImmovable(true);
+    //  right test
+    // block = this.physics.add.image(200, 300, 'block').setOrigin(0).setImmovable(true).setName('big');
+    // player = this.physics.add.image(700, 300 - 60, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(-500, 0);
 
-    var player = this.physics.add.image(100, 300, 'box').setCollideWorldBounds(true);
+    //  bottom test
+    // block = this.physics.add.image(400, 100, 'block').setOrigin(0).setImmovable(true).setName('big');
+    // player = this.physics.add.image(400 - 60, 500, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(0, -500);
 
-    player.body.setDirectControl();
-
-    this.input.setDraggable(player.setInteractive());
-
-    this.input.on('drag', function (pointer, obj, dragX, dragY)
-    {
-        obj.body.setPosition(dragX - 32, dragY - 32);
-    });
+    //  diagnol test
+    block = this.physics.add.image(400, 100, 'block').setOrigin(0).setImmovable(true).setName('big');
+    player = this.physics.add.image(400 - 64 - 100, 100 + 256 + 100, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    player.setVelocity(500, -500);
 
     monitor = player;
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#000000' });
 
-    this.physics.add.collider(player, [ block, block2, block3 ]);
+    this.physics.add.collider(block, player);
+    // this.physics.add.collider(player, block);
 }
 
 function update (time)

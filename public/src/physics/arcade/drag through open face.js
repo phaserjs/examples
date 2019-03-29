@@ -36,12 +36,13 @@ function create ()
     var block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
 
     //  Allow entrance through the top-face only
-    // block.body.setCheckCollisionUp(false);
+    block.body.setCheckCollisionUp(false);
+    block.body.setCheckCollisionDown(false);
 
-    var block2 = this.physics.add.image(700, 500, 'box').setImmovable(true);
-    var block3 = this.physics.add.image(200, 500, 'chunk').setImmovable(true);
+    // var block2 = this.physics.add.image(700, 500, 'box').setImmovable(true);
+    // var block3 = this.physics.add.image(200, 500, 'chunk').setImmovable(true);
 
-    var player = this.physics.add.image(100, 300, 'box').setCollideWorldBounds(true);
+    var player = this.physics.add.image(100, 300, 'box').setCollideWorldBounds(true).setName('small');
 
     player.body.setDirectControl();
 
@@ -56,7 +57,9 @@ function create ()
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#000000' });
 
-    this.physics.add.collider(player, [ block, block2, block3 ]);
+    this.physics.add.collider(player, block);
+
+    // this.physics.add.collider(player, [ block, block2, block3 ]);
 }
 
 function update (time)

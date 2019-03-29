@@ -52,10 +52,24 @@ function create ()
     // player = this.physics.add.image(400 - 60, 500, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
     // player.setVelocity(0, -500);
 
-    //  diagnol test
-    block = this.physics.add.image(400, 100, 'block').setOrigin(0).setImmovable(true).setName('big');
-    player = this.physics.add.image(400 - 64 - 100, 100 + 256 + 100, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    //  edge test
+    // block = this.physics.add.image(400, 100, 'block').setOrigin(0).setImmovable(true).setName('big');
+    // player = this.physics.add.image(400 - 64 - 100, 100 + 256 + 100, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(500, -500);
+
+    //  edge test 2
+    block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
+    player = this.physics.add.image(150, 650, 'box').setCollideWorldBounds(true).setName('small');
     player.setVelocity(500, -500);
+
+    // player = this.physics.add.image(300, 650, 'box').setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(700, -700);
+
+    // player = this.physics.add.image(400, 70, 'box').setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(500, 700);
+
+    // player = this.physics.add.image(420, 550, 'box').setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(500, -700);
 
     monitor = player;
 

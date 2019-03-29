@@ -32,12 +32,12 @@ function create ()
 {
     this.add.image(0, 0, 'bg').setOrigin(0);
 
-    var block = this.physics.add.image(400, 300, 'block').setImmovable(true);
+    var block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
 
     //  Allow entrance through the top-face only
-    block.body.setCheckCollisionUp(false);
+    // block.body.setCheckCollisionUp(false);
 
-    player = this.physics.add.image(100, 300, 'box');
+    player = this.physics.add.image(100, 300, 'box').setName('small');
 
     this.physics.add.collider(block, player);
 

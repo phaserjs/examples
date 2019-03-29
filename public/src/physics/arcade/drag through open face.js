@@ -36,8 +36,8 @@ function create ()
     var block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
 
     //  Allow entrance through the top-face only
-    block.body.setCheckCollisionUp(false);
-    block.body.setCheckCollisionDown(false);
+    // block.body.setCheckCollisionUp(false);
+    // block.body.setCheckCollisionDown(false);
 
     // var block2 = this.physics.add.image(700, 500, 'box').setImmovable(true);
     // var block3 = this.physics.add.image(200, 500, 'chunk').setImmovable(true);
@@ -78,23 +78,26 @@ function update (time)
         var worldBlocked = monitor.body.worldBlocked;
         var hardBlocked = monitor.body.hardBlocked;
 
+            // 'isBlockedX: ' + monitor.body.isBlockedX(),
+            // 'isBlockedY: ' + monitor.body.isBlockedY(),
+            // 'isBlockedUp: ' + monitor.body.isBlockedUp(),
+            // 'isBlockedDown: ' + monitor.body.isBlockedDown(),
+            // 'isBlockedLeft: ' + monitor.body.isBlockedLeft(),
+            // 'isBlockedRight: ' + monitor.body.isBlockedRight(),
+
+
         text.setText([
             'BLOCKED = None: ' + blocked.none + ' Up: ' + blocked.up + ' Down: ' + blocked.down + ' Left: ' + blocked.left + ' Right: ' + blocked.right,
             'HARD BLOCKED = None: ' + hardBlocked.none + ' Up: ' + hardBlocked.up + ' Down: ' + hardBlocked.down + ' Left: ' + hardBlocked.left + ' Right: ' + hardBlocked.right,
             'WORLD BLOCKED = None: ' + worldBlocked.none + ' Up: ' + worldBlocked.up + ' Down: ' + worldBlocked.down + ' Left: ' + worldBlocked.left + ' Right: ' + worldBlocked.right,
             'TOUCHING = None: ' + touching.none + ' Up: ' + touching.up + ' Down: ' + touching.down + ' Left: ' + touching.left + ' Right: ' + touching.right,
             '',
-            'isBlockedX: ' + monitor.body.isBlockedX(),
-            'isBlockedY: ' + monitor.body.isBlockedY(),
-            'isBlockedUp: ' + monitor.body.isBlockedUp(),
-            'isBlockedDown: ' + monitor.body.isBlockedDown(),
-            'isBlockedLeft: ' + monitor.body.isBlockedLeft(),
-            'isBlockedRight: ' + monitor.body.isBlockedRight(),
-            '',
             'sprite x: ' + (mx - mww),
             'sprite y: ' + (my - mhh),
             'sprite right: ' + ((mx - mww) + mw),
             'sprite bottom: ' + ((my - mhh) + mh),
+            '',
+            'embedded: ' + monitor.body.embedded,
             '',
             'body x: ' + monitor.body.x,
             'body y: ' + monitor.body.y,

@@ -33,24 +33,24 @@ function create ()
     this.add.image(0, 0, 'bg').setOrigin(0);
 
     //  top test
-    // block = this.physics.add.image(400, 300, 'block').setOrigin(0).setImmovable(true).setName('big');
-    // player = this.physics.add.image(400 - 60, 100, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
-    // player.setVelocity(0, 450);
+    block = this.physics.add.image(400, 300, 'block').setOrigin(0).setImmovable(true).setName('big');
+    player = this.physics.add.image(400 - 60, 100, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    player.setVelocity(0, 1000);
 
     //  left test
     // block = this.physics.add.image(400, 300, 'block').setOrigin(0).setImmovable(true).setName('big');
-    // player = this.physics.add.image(200, 300 - 60, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
-    // player.setVelocity(500, 0);
+    // player = this.physics.add.image(80, 300 - 60, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(5000, 0);
 
     //  right test
     // block = this.physics.add.image(200, 300, 'block').setOrigin(0).setImmovable(true).setName('big');
     // player = this.physics.add.image(700, 300 - 60, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
-    // player.setVelocity(-500, 0);
+    // player.setVelocity(-1000, 0);
 
     //  bottom test
     // block = this.physics.add.image(400, 100, 'block').setOrigin(0).setImmovable(true).setName('big');
     // player = this.physics.add.image(400 - 60, 500, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
-    // player.setVelocity(0, -500);
+    // player.setVelocity(0, -1000);
 
     //  edge test
     // block = this.physics.add.image(400, 100, 'block').setOrigin(0).setImmovable(true).setName('big');
@@ -58,9 +58,10 @@ function create ()
     // player.setVelocity(500, -500);
 
     //  edge test 2
-    block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
-    player = this.physics.add.image(150, 650, 'box').setCollideWorldBounds(true).setName('small');
-    player.setVelocity(500, -500);
+    // block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
+    // player = this.physics.add.image(150, 650, 'box').setCollideWorldBounds(true).setName('small');
+    // player.setVelocity(1500, -1500);
+
 
     // player = this.physics.add.image(300, 650, 'box').setCollideWorldBounds(true).setName('small');
     // player.setVelocity(700, -700);

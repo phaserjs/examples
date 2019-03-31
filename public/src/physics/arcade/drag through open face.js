@@ -36,8 +36,8 @@ function create ()
     var block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
 
     //  Allow entrance through the top-face only
-    // block.body.setCheckCollisionUp(false);
-    // block.body.setCheckCollisionDown(false);
+    block.body.setCheckCollisionUp(false);
+    block.body.setCheckCollisionDown(false);
 
     // var block2 = this.physics.add.image(700, 500, 'box').setImmovable(true);
     // var block3 = this.physics.add.image(200, 500, 'chunk').setImmovable(true);
@@ -64,6 +64,29 @@ function create ()
 
 function update (time)
 {
+    if (window.ci)
+    {
+        var ci = window.ci;
+
+        text.setText([
+            'forceX: ' + ci.forceX,
+            'intersects: ' + ci.intersects,
+            'touching: ' + ci.touching,
+            'intersectsX: ' + ci.intersectsX,
+            'intersectsY: ' + ci.intersectsY,
+            'embeddedX: ' + ci.embeddedX,
+            'embeddedY: ' + ci.embeddedY,
+            'timeXCollision: ' + ci.timeXCollision,
+            'timeYCollision: ' + ci.timeYCollision,
+            'overlapX: ' + ci.overlapX,
+            'overlapY: ' + ci.overlapY,
+            'face: ' + ci.face,
+            'faceX: ' + ci.faceX,
+            'faceY: ' + ci.faceY,
+        ]);
+    }
+
+    /*
     if (monitor)
     {
         var mx = monitor.x;
@@ -97,7 +120,8 @@ function update (time)
             'sprite right: ' + ((mx - mww) + mw),
             'sprite bottom: ' + ((my - mhh) + mh),
             '',
-            'embedded: ' + monitor.body.embedded,
+            'timeCollision: ' + monitor.body.timeCollision,
+            'embeddedY: ' + monitor.body.embeddedY,
             '',
             'body x: ' + monitor.body.x,
             'body y: ' + monitor.body.y,
@@ -111,4 +135,6 @@ function update (time)
             'Speed: ' + monitor.body.speed,
         ]);
     }
+    */
+
 }

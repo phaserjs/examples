@@ -101,17 +101,32 @@ function draw ()
         faceX = Phaser.Physics.Arcade.FACING_NONE;
         faceY = Phaser.Physics.Arcade.FACING_NONE;
 
+        var dx = vx;
+        var dy = vy;
+
+        if (dx === 0)
+        {
+            dx = 1;
+        }
+
+        if (dy === 0)
+        {
+            dy = 1;
+        }
+
         if (leftFace && intersectsX)
         {
             overlapX = distanceX2;
             faceX = Phaser.Physics.Arcade.FACING_LEFT;
             timeXCollision = overlapX / ((vx === 0) ? 1 : -vx);
+            // timeXCollision = overlapX / -dx;
         }
         else if (intersectsX)
         {
             overlapX = distanceX1;
             faceX = Phaser.Physics.Arcade.FACING_RIGHT;
             timeXCollision = overlapX / ((vx === 0) ? 1 : vx);
+            // timeXCollision = overlapX / dx;
         }
 
         if (topFace && intersectsY)
@@ -119,19 +134,25 @@ function draw ()
             overlapY = distanceY2;
             faceY = Phaser.Physics.Arcade.FACING_UP;
             timeYCollision = overlapY / ((vy === 0) ? 1 : vy);
+            // timeYCollision = overlapY / dy;
         }
         else if (intersectsY)
         {
             overlapY = distanceY1;
             faceY = Phaser.Physics.Arcade.FACING_DOWN;
             timeYCollision = overlapY / ((vy === 0) ? 1 : -vy);
+            // timeYCollision = overlapY / -dy;
         }
+
+        var faces = { 10: 'None', 11: 'Up', 12: 'Down', 13: 'Left', 14: 'Right' };
 
         var forceX = (touchingX || (timeXCollision < timeYCollision));
 
-        // console.log('forceX', forceX, 'time', timeXCollision, timeYCollision);
-
         face = (forceX) ? faceX : faceY;
+
+        console.log('forceX', forceX, 'time x', timeXCollision, 'time y', timeYCollision, '===', faces[face]);
+        console.log('ox', overlapX, 'oy', overlapY);
+        console.log('vx', vx, 'vy', vy);
 
         graphics.lineStyle(2, 0x0000ff);
 
@@ -227,12 +248,12 @@ function create ()
 
     body1 = new Phaser.Geom.Rectangle(300, 200, 200, 256);
 
-    body2 = new Phaser.Geom.Rectangle(0, 0, 64, 48);
+    // body2 = new Phaser.Geom.Rectangle(0, 0, 64, 48);
 
     //  Top
-    // body2 = new Phaser.Geom.Rectangle(300 - 60, 10, 64, 48);
-    // var destX = body2.x;
-    // var destY = 500;
+    body2 = new Phaser.Geom.Rectangle(300 - 60, 10, 64, 48);
+    var destX = body2.x;
+    var destY = 500;
 
     //  Bottom
     // body2 = new Phaser.Geom.Rectangle(300 - 60, 550, 64, 48);
@@ -249,11 +270,15 @@ function create ()
     // var destX = 0;
     // var destY = body2.y;
 
+    //  Right Bottom
+    // body2 = new Phaser.Geom.Rectangle(750, body1.bottom - 4, 64, 48);
+    // var destX = 0;
+    // var destY = body2.y;
+
     prev = new Phaser.Math.Vector2(body2.x, body2.y);
 
     graphics = this.add.graphics();
 
-    /*
     moveTween = this.tweens.add({
         targets: body2,
         x: destX,
@@ -262,22 +287,30 @@ function create ()
         ease: 'Linear',
         delay: 1000
     });
-    */
 
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#000000' });
 
+    /*
     this.input.on('pointermove', function (p) {
 
         body2.x = p.x;
         body2.y = p.y;
 
     }, this);
+    */
 }
 
 function update ()
 {
     vx = (body2.x - prev.x);
     vy = (body2.y - prev.y);
+
+    text.setText([
+        vx,
+        vy,
+        timeXCollision,
+        timeYCollision
+    ]);
 
     draw();
 

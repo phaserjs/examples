@@ -45,7 +45,7 @@ function create ()
     // var block2 = this.physics.add.image(700, 500, 'box').setImmovable(true);
     // var block3 = this.physics.add.image(200, 500, 'chunk').setImmovable(true);
 
-    var player = this.physics.add.image(100, 300, 'box').setCollideWorldBounds(true).setName('small');
+    var player = this.physics.add.image(100, 100, 'box').setCollideWorldBounds(true).setName('small');
 
     player.body.setDirectControl(true);
 
@@ -53,15 +53,26 @@ function create ()
 
     this.input.on('drag', function (pointer, obj, dragX, dragY)
     {
-        // obj.body.setPosition(dragX - 32, dragY - 32);
-        obj.x = dragX;
-        obj.y = dragY;
-        // obj.body._cx = dragX;
-        // obj.body._cy = dragY;
-        // obj.body._cs = true;
-        // obj.body.x = dragX;
-        // obj.body.y = dragY;
+        // obj.body.setDirectPosition(dragX - 32, dragY - 32);
+
+        // obj.x = dragX;
+        // obj.y = dragY;
+
+        obj.body.directX = dragX;
+        obj.body.directY = dragY;
     });
+   
+    /*
+    this.tweens.add({
+        targets: player.body,
+        cx: 300,
+        cy: 500,
+        ease: 'Sine.easeInOut',
+        duration: 5000,
+        yoyo: true,
+        repeat: -1
+    });
+    */
 
     monitor = player;
 

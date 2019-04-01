@@ -16,7 +16,10 @@ var config = {
     }
 };
 
+var body1;
+var body2;
 var text;
+var debug;
 var monitor = null;
 
 var game = new Phaser.Game(config);
@@ -36,21 +39,28 @@ function create ()
     var block = this.physics.add.image(400, 300, 'block').setImmovable(true).setName('big');
 
     //  Allow entrance through the top-face only
-    block.body.setCheckCollisionUp(false);
-    block.body.setCheckCollisionDown(false);
+    // block.body.setCheckCollisionUp(false);
+    // block.body.setCheckCollisionDown(false);
 
     // var block2 = this.physics.add.image(700, 500, 'box').setImmovable(true);
     // var block3 = this.physics.add.image(200, 500, 'chunk').setImmovable(true);
 
     var player = this.physics.add.image(100, 300, 'box').setCollideWorldBounds(true).setName('small');
 
-    player.body.setDirectControl();
+    player.body.setDirectControl(true);
 
     this.input.setDraggable(player.setInteractive());
 
     this.input.on('drag', function (pointer, obj, dragX, dragY)
     {
-        obj.body.setPosition(dragX - 32, dragY - 32);
+        // obj.body.setPosition(dragX - 32, dragY - 32);
+        obj.x = dragX;
+        obj.y = dragY;
+        // obj.body._cx = dragX;
+        // obj.body._cy = dragY;
+        // obj.body._cs = true;
+        // obj.body.x = dragX;
+        // obj.body.y = dragY;
     });
 
     monitor = player;
@@ -58,8 +68,15 @@ function create ()
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#000000' });
 
     this.physics.add.collider(player, block);
+    // this.physics.add.collider(block, player);
+
+    body1 = block;
+    body2 = player;
 
     // this.physics.add.collider(player, [ block, block2, block3 ]);
+    // 
+
+    debug = this.add.graphics();
 }
 
 function update (time)
@@ -67,22 +84,75 @@ function update (time)
     if (window.ci)
     {
         var ci = window.ci;
+        var faces = { 10: 'None', 11: 'Up', 12: 'Down', 13: 'Left', 14: 'Right' };
+        var dir = { 0: 'Right', 1: 'Down', 2: 'Left', 3: 'Up' };
+
+        var body1Size = Phaser.Geom.Rectangle.Area(body1.body);
+        var body2Size = Phaser.Geom.Rectangle.Area(body2.body);
+        var overlapSize = Phaser.Geom.Rectangle.Area(ci.area);
+
+        var p1 = Phaser.Math.Percent(overlapSize, 0, body1Size);
+        var p2 = Phaser.Math.Percent(overlapSize, 0, body2Size);
+
+        var blocked = body2.body.blocked;
+        var touching = body2.body.touching;
+        var worldBlocked = body2.body.worldBlocked;
+        var hardBlocked = body2.body.hardBlocked;
 
         text.setText([
-            'forceX: ' + ci.forceX,
-            'intersects: ' + ci.intersects,
-            'touching: ' + ci.touching,
-            'intersectsX: ' + ci.intersectsX,
-            'intersectsY: ' + ci.intersectsY,
-            'embeddedX: ' + ci.embeddedX,
-            'embeddedY: ' + ci.embeddedY,
-            'timeXCollision: ' + ci.timeXCollision,
-            'timeYCollision: ' + ci.timeYCollision,
+            'BLOCKED = None: ' + blocked.none + ' Up: ' + blocked.up + ' Down: ' + blocked.down + ' Left: ' + blocked.left + ' Right: ' + blocked.right,
+            'HARD BLOCKED = None: ' + hardBlocked.none + ' Up: ' + hardBlocked.up + ' Down: ' + hardBlocked.down + ' Left: ' + hardBlocked.left + ' Right: ' + hardBlocked.right,
+            'WORLD BLOCKED = None: ' + worldBlocked.none + ' Up: ' + worldBlocked.up + ' Down: ' + worldBlocked.down + ' Left: ' + worldBlocked.left + ' Right: ' + worldBlocked.right,
+            'TOUCHING = None: ' + touching.none + ' Up: ' + touching.up + ' Down: ' + touching.down + ' Left: ' + touching.left + ' Right: ' + touching.right,
+            '',
+            'Velocity X: ' + body2.body.velocity.x,
+            'Velocity Y: ' + body2.body.velocity.y,
+            'Delta X: ' + body2.body._dx,
+            'Delta Y: ' + body2.body._dy,
+            'Angle: ' + body2.body.angle,
+            'Speed: ' + body2.body.speed,
+            '',
+            'body1Size: ' + body1Size,
+            'body2Size: ' + body2Size,
+            'overlapSize: ' + overlapSize,
+            'p1%: ' + p1,
+            'p2%: ' + p2,
+            // 'forceX: ' + ci.forceX,
+            // 'intersects: ' + ci.intersects,
+            // 'touching: ' + ci.touching,
+            // 'intersectsX: ' + ci.intersectsX,
+            // 'intersectsY: ' + ci.intersectsY,
+            // 'embeddedX: ' + ci.embeddedX,
+            // 'embeddedY: ' + ci.embeddedY,
+            // 'timeXCollision: ' + ci.timeXCollision,
+            // 'timeYCollision: ' + ci.timeYCollision,
             'overlapX: ' + ci.overlapX,
             'overlapY: ' + ci.overlapY,
-            'face: ' + ci.face,
-            'faceX: ' + ci.faceX,
-            'faceY: ' + ci.faceY,
+            'face: ' + faces[ci.face],
+            'faceX: ' + faces[ci.faceX],
+            'faceY: ' + faces[ci.faceY],
+            '',
+            'angle: ' + dir[ci.moving1],
+            '',
+            '_sleep: ' + body2.body._sleep,
+            'sleeping: ' + body2.body.sleeping
+        ]);
+
+        debug.clear();
+        debug.fillStyle(0xffff00, 1);
+        debug.fillRect(ci.area.x, ci.area.y, ci.area.width, ci.area.height);
+    }
+    else
+    {
+        text.setText([
+            'Velocity X: ' + body2.body.velocity.x,
+            'Velocity Y: ' + body2.body.velocity.y,
+            'Delta X: ' + body2.body._dx,
+            'Delta Y: ' + body2.body._dy,
+            'Angle: ' + body2.body.angle,
+            'Speed: ' + body2.body.speed,
+            '_sleep: ' + body2.body._sleep,
+            'sleeping: ' + body2.body.sleeping
         ]);
     }
 

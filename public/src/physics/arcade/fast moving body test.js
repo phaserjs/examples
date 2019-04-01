@@ -35,7 +35,7 @@ function create ()
     //  top test
     block = this.physics.add.image(400, 300, 'block').setOrigin(0).setImmovable(true).setName('big');
     player = this.physics.add.image(400 - 60, 100, 'box').setOrigin(0).setCollideWorldBounds(true).setName('small');
-    player.setVelocity(0, 1000);
+    player.setVelocity(0, 2000);
 
     //  left test
     // block = this.physics.add.image(400, 300, 'block').setOrigin(0).setImmovable(true).setName('big');

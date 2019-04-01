@@ -39,7 +39,9 @@ function create ()
 
     player = this.physics.add.image(100, 300, 'box').setName('small');
 
-    this.physics.add.collider(block, player);
+    // this.physics.add.collider(block, player);
+
+    this.physics.add.collider(player, block);
 
     cursors = this.input.keyboard.createCursorKeys();
 }

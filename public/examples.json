@@ -2401,6 +2401,36 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\masks\\Camera Mask Test 1.js",
+              "name": "Camera Mask Test 1.js",
+              "size": 2033,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\masks\\Camera Mask Test 2.js",
+              "name": "Camera Mask Test 2.js",
+              "size": 2459,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\masks\\Camera Mask Test 3.js",
+              "name": "Camera Mask Test 3.js",
+              "size": 2188,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\masks\\Camera Mask Test 4.js",
+              "name": "Camera Mask Test 4.js",
+              "size": 2380,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\masks\\Camera Mask Test 5.js",
+              "name": "Camera Mask Test 5.js",
+              "size": 2104,
+              "extension": ".js"
+            },
+            {
               "path": "src\\display\\masks\\component",
               "name": "component",
               "children": [
@@ -2487,7 +2517,7 @@
               "extension": ".js"
             }
           ],
-          "size": 34638
+          "size": 45802
         },
         {
           "path": "src\\display\\tint",
@@ -2581,7 +2611,7 @@
           "size": 14016
         }
       ],
-      "size": 107842
+      "size": 119006
     },
     {
       "path": "src\\dwitter",
@@ -3468,7 +3498,7 @@
             {
               "path": "src\\game objects\\dom element\\blend mode.js",
               "name": "blend mode.js",
-              "size": 1165,
+              "size": 1641,
               "extension": ".js"
             },
             {
@@ -3498,7 +3528,7 @@
             {
               "path": "src\\game objects\\dom element\\move camera.js",
               "name": "move camera.js",
-              "size": 2856,
+              "size": 2953,
               "extension": ".js"
             },
             {
@@ -3526,7 +3556,7 @@
               "extension": ".js"
             }
           ],
-          "size": 15120
+          "size": 15693
         },
         {
           "path": "src\\game objects\\graphics",
@@ -3924,8 +3954,8 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\graphics\\trail.js",
-              "name": "trail.js",
+              "path": "src\\game objects\\graphics\\Trail.js",
+              "name": "Trail.js",
               "size": 2476,
               "extension": ".js"
             },
@@ -5903,7 +5933,7 @@
           "size": 268936
         }
       ],
-      "size": 981262
+      "size": 981835
     },
     {
       "path": "src\\games",
@@ -9393,7 +9423,7 @@
             {
               "path": "src\\physics\\arcade\\bounce test.js",
               "name": "bounce test.js",
-              "size": 4503,
+              "size": 1856,
               "extension": ".js"
             },
             {
@@ -9427,6 +9457,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\debug face.js",
+              "name": "debug face.js",
+              "size": 8909,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\destroy body.js",
               "name": "destroy body.js",
               "size": 1168,
@@ -9435,7 +9471,7 @@
             {
               "path": "src\\physics\\arcade\\drag through open face.js",
               "name": "drag through open face.js",
-              "size": 1311,
+              "size": 7931,
               "extension": ".js"
             },
             {
@@ -9448,6 +9484,18 @@
               "path": "src\\physics\\arcade\\extending arcade sprite.js",
               "name": "extending arcade sprite.js",
               "size": 1855,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\arcade\\fast moving body test 2.js",
+              "name": "fast moving body test 2.js",
+              "size": 5477,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\physics\\arcade\\fast moving body test.js",
+              "name": "fast moving body test.js",
+              "size": 5211,
               "extension": ".js"
             },
             {
@@ -9513,7 +9561,7 @@
             {
               "path": "src\\physics\\arcade\\move through open face.js",
               "name": "move through open face.js",
-              "size": 1390,
+              "size": 1477,
               "extension": ".js"
             },
             {
@@ -9691,7 +9739,7 @@
               "extension": ".js"
             }
           ],
-          "size": 188278
+          "size": 211935
         },
         {
           "path": "src\\physics\\impact",
@@ -10185,13 +10233,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\wrap plugin.js",
+              "name": "wrap plugin.js",
+              "size": 1564,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\wrecking ball.js",
               "name": "wrecking ball.js",
               "size": 846,
               "extension": ".js"
             }
           ],
-          "size": 78930
+          "size": 80494
         },
         {
           "path": "src\\physics\\multi",
@@ -10213,7 +10267,7 @@
           "size": 2750
         }
       ],
-      "size": 317285
+      "size": 342506
     },
     {
       "path": "src\\plugins",
@@ -12184,5 +12238,5 @@
       "size": 20418
     }
   ],
-  "size": 3323077
+  "size": 3360035
 }

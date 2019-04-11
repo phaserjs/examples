@@ -6,9 +6,12 @@ var config = {
     parent: 'phaser-example',
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
+
+var controls;
 
 var game = new Phaser.Game(config);
 
@@ -20,16 +23,70 @@ function preload ()
 
 function create ()
 {
-    var shape = this.make.graphics();
+    var shape1 = this.make.graphics().fillRect(200, 50, 400, 500);
+    var shape2 = this.make.graphics().fillCircle(400, 300, 200);
 
-    shape.fillStyle(0xffffff);
-    shape.slice(400, 300, 200, Phaser.Math.DegToRad(340), Phaser.Math.DegToRad(30), true);
-    shape.fillPath();
+    var mask1 = shape1.createGeometryMask();
+    var mask2 = shape2.createGeometryMask();
 
-    var mask = shape.createGeometryMask();
+    this.cameras.main.setMask(mask1);
+    // this.cameras.main.setMask(mask2);
 
-    this.cameras.main.setMask(mask);
+    var bg = this.add.image(300, 300, 'image');
 
-    this.add.image(400, 300, 'image');
-    this.add.image(400, 300, 'phaser2');
+    // bg.setMask(mask2);
+
+    this.tweens.add({
+        targets: bg,
+        x: 500,
+        ease: 'Sine.easeInOut',
+        yoyo: true,
+        repeat: -1,
+        duration: 2000
+    });
+
+    var logo = this.add.image(400, 100, 'phaser2');
+
+    this.tweens.add({
+        targets: logo,
+        y: 500,
+        ease: 'Sine.easeInOut',
+        yoyo: true,
+        repeat: -1,
+        duration: 2000
+    });
+
+    var cursors = this.input.keyboard.createCursorKeys();
+
+    var controlConfig = {
+        camera: this.cameras.main,
+        left: cursors.left,
+        right: cursors.right,
+        up: cursors.up,
+        down: cursors.down,
+        zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+        zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
+        acceleration: 0.03,
+        drag: 0.0005,
+        maxSpeed: 1.0
+    };
+
+    controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
+
+    this.input.keyboard.on('keydown-Z', function (event) {
+
+        this.cameras.main.rotation += 0.01;
+
+    }, this);
+
+    this.input.keyboard.on('keydown-X', function (event) {
+
+        this.cameras.main.rotation -= 0.01;
+
+    }, this);
+}
+
+function update (time, delta)
+{
+    controls.update(delta);
 }

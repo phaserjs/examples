@@ -35,13 +35,23 @@ function create ()
 
     var mask = maskImage.createBitmapMask();
 
-    this.cameras.main.setMask(mask);
+    var bg = this.add.image(400, 300, 'bg');
 
-    this.add.image(400, 300, 'bg');
+    // var shape2 = this.make.graphics().fillCircle(400, 300, 200);
+    // var mask2 = shape2.createGeometryMask();
+
+    var maskImage2 = this.make.image({
+        x: 400,
+        y: 300,
+        key: 'phaser2',
+        add: false
+    });
+
+    var mask2 = maskImage2.createBitmapMask();
 
     var particles = this.add.particles('fish');
 
-    particles.createEmitter({
+    var emitter = particles.createEmitter({
         frame: { frames: [ 0, 1, 2 ], cycle: true, quantity: 4 },
         x: -70,
         y: { min: 100, max: 500, steps: 8 },
@@ -50,6 +60,34 @@ function create ()
         quantity: 4,
         frequency: 500
     });
+
+    this.cameras.main.setMask(mask);
+
+    // particles.visible = false;
+
+    // bg.mask = new Phaser.Display.Masks.BitmapMask(this, particles);
+    // bg.mask = new Phaser.Display.Masks.BitmapMask(this, particles);
+
+    // bg.setMask(mask2);
+
+    // this.cameras.main.setMask(new Phaser.Display.Masks.BitmapMask(this, particles));
+
+    var shape1 = this.make.graphics().fillRect(200, 150, 400, 500);
+    var shape2 = this.make.graphics().fillCircle(400, 300, 300);
+
+    var geomask1 = shape1.createGeometryMask();
+    var geomask2 = shape2.createGeometryMask();
+
+    // emitter.setMask(geomask);
+    // emitter.setMask(mask);
+
+    particles.setMask(geomask1);
+    // particles.setMask(geomask2);
+
+    // particles.setMask(mask);
+    // particles.setMask(mask2);
+
+    // emitter.setMask(mask2);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

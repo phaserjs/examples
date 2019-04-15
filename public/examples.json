@@ -2401,9 +2401,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\masks\\Camera Inversed Mask Test 1.js",
+              "name": "Camera Inversed Mask Test 1.js",
+              "size": 4252,
+              "extension": ".js"
+            },
+            {
               "path": "src\\display\\masks\\Camera Mask Test 1.js",
               "name": "Camera Mask Test 1.js",
-              "size": 2033,
+              "size": 2595,
               "extension": ".js"
             },
             {
@@ -2415,7 +2421,7 @@
             {
               "path": "src\\display\\masks\\Camera Mask Test 3.js",
               "name": "Camera Mask Test 3.js",
-              "size": 2188,
+              "size": 4252,
               "extension": ".js"
             },
             {
@@ -2442,6 +2448,12 @@
                 }
               ],
               "size": 994
+            },
+            {
+              "path": "src\\display\\masks\\Container Mask Test 1.js",
+              "name": "Container Mask Test 1.js",
+              "size": 2892,
+              "extension": ".js"
             },
             {
               "path": "src\\display\\masks\\flickering spotlight.js",
@@ -2517,7 +2529,7 @@
               "extension": ".js"
             }
           ],
-          "size": 45802
+          "size": 55572
         },
         {
           "path": "src\\display\\tint",
@@ -2611,7 +2623,7 @@
           "size": 14016
         }
       ],
-      "size": 119006
+      "size": 128776
     },
     {
       "path": "src\\dwitter",
@@ -12238,5 +12250,5 @@
       "size": 20418
     }
   ],
-  "size": 3360035
+  "size": 3369805
 }

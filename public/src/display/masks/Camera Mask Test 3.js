@@ -51,7 +51,7 @@ function create ()
 
     var particles = this.add.particles('fish');
 
-    var emitter = particles.createEmitter({
+    var emitter1 = particles.createEmitter({
         frame: { frames: [ 0, 1, 2 ], cycle: true, quantity: 4 },
         x: -70,
         y: { min: 100, max: 500, steps: 8 },
@@ -61,7 +61,15 @@ function create ()
         frequency: 500
     });
 
-    this.cameras.main.setMask(mask);
+    var emitter2 = particles.createEmitter({
+        frame: { frames: [ 0, 1, 2 ], cycle: true, quantity: 4 },
+        x: 870,
+        y: { min: 100, max: 500, steps: 8 },
+        lifespan: 5000,
+        speedX: { min: -200, max: -400, steps: 8 },
+        quantity: 4,
+        frequency: 500
+    });
 
     // particles.visible = false;
 
@@ -72,22 +80,43 @@ function create ()
 
     // this.cameras.main.setMask(new Phaser.Display.Masks.BitmapMask(this, particles));
 
-    var shape1 = this.make.graphics().fillRect(200, 150, 400, 500);
+    var shape1 = this.make.graphics().fillRect(50, 50, 700, 500);
     var shape2 = this.make.graphics().fillCircle(400, 300, 300);
+    // var shape3 = this.make.graphics().fillCircle(400, 300, 100);
+    var shape3 = this.make.graphics().fillRect(400, 0, 600, 600);
+
+    // var shape1 = this.make.graphics().fillRect(200, 150, 400, 500);
+    // var shape2 = this.make.graphics().fillCircle(400, 300, 300);
 
     var geomask1 = shape1.createGeometryMask();
     var geomask2 = shape2.createGeometryMask();
+    var geomask3 = shape3.createGeometryMask();
+
+    // geomask1.invertAlpha = false;
+    // geomask2.invertAlpha = true;
+    // geomask3.invertAlpha = true;
 
     // emitter.setMask(geomask);
     // emitter.setMask(mask);
 
-    particles.setMask(geomask1);
+    // particles.setMask(geomask1);
     // particles.setMask(geomask2);
 
     // particles.setMask(mask);
     // particles.setMask(mask2);
 
-    // emitter.setMask(mask2);
+    // this.cameras.main.setMask(mask);
+
+    this.cameras.main.setMask(geomask1);
+
+    // particles.setMask(geomask2);
+
+    emitter1.setMask(geomask2);
+    emitter2.setMask(geomask3);
+
+    // this.cameras.main.setMask(geomask2);
+    // particles.setMask(mask2);
+
 
     var cursors = this.input.keyboard.createCursorKeys();
 

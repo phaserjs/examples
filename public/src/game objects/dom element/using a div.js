@@ -1,7 +1,12 @@
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        parent: 'phaser-example',
+        width: 800,
+        height: 600
+    },
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     dom: {

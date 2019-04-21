@@ -14,7 +14,6 @@ class Ship extends Phaser.Physics.Arcade.Sprite {
         this.points = points;
 
         this.target;
-        this.targetIndex = -1;
 
         this.isSeeking = true;
         
@@ -24,10 +23,12 @@ class Ship extends Phaser.Physics.Arcade.Sprite {
     seek ()
     {
         //  Pick a random target point
-        var entry = Phaser.Utils.Array.GetRandomExcluding(this.points, this.targetIndex);
+        var entry;
+        do{
+            entry = Phaser.Utils.Array.GetRandom(this.points);
+        }while(this.target&&Phaser.Geom.Circle.Equals(entry,this.target));
 
-        this.targetIndex = entry.index;
-        this.target = entry.value;
+        this.target = entry;
 
         this.isSeeking = false;
 

@@ -44,8 +44,8 @@ function create ()
 
 function update ()
 {
-    if (keySpace.isDown && )
-    {
+    // if (keySpace.isDown && )
+    // {
         
-    }
+    // }
 }

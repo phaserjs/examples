@@ -2,6 +2,8 @@ var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     backgroundColor: '#0072bc',
+    width: 800,
+    height: 600,
     dom: {
         createContainer: true
     },
@@ -20,6 +22,7 @@ var config = {
 
 var cursors;
 var player;
+var element;
 
 var game = new Phaser.Game(config);
 
@@ -32,7 +35,9 @@ function create ()
 {
     cursors = this.input.keyboard.createCursorKeys();
 
-    player = this.physics.add.image(400, 300, 'block');
+    player = this.physics.add.body(400, 300, 108, 96);
+
+    element = this.add.dom(400, 300, 'div', 'font-size: 96px', '💩');
 
     player.setCollideWorldBounds(true);
 }
@@ -58,4 +63,7 @@ function update ()
     {
         player.setVelocityY(300);
     }
+
+    element.x = player.x + 54;
+    element.y = player.y + 36;
 }

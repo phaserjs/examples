@@ -45,7 +45,7 @@ function create ()
             var x = pointer.x;
             var y = pointer.y;
 
-            if (Phaser.Math.Distance.Between(x, y, lastPosition.x, lastPosition.y) > triSize)
+            if (Phaser.Math.Distance.Between(x, y, lastPosition.x, lastPosition.y) > triSize * 1.5)
             {
                 lastPosition.x = x;
                 lastPosition.y = y;

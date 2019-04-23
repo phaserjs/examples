@@ -2403,7 +2403,7 @@
             {
               "path": "src\\display\\masks\\Camera Inversed Mask Test 1.js",
               "name": "Camera Inversed Mask Test 1.js",
-              "size": 4252,
+              "size": 3390,
               "extension": ".js"
             },
             {
@@ -2529,7 +2529,7 @@
               "extension": ".js"
             }
           ],
-          "size": 55572
+          "size": 54710
         },
         {
           "path": "src\\display\\tint",
@@ -2623,7 +2623,7 @@
           "size": 14016
         }
       ],
-      "size": 128776
+      "size": 127914
     },
     {
       "path": "src\\dwitter",
@@ -3514,9 +3514,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\dom element\\css text.js",
+              "name": "css text.js",
+              "size": 1036,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\dom element\\cursors test.js",
               "name": "cursors test.js",
-              "size": 1088,
+              "size": 1279,
               "extension": ".js"
             },
             {
@@ -3564,11 +3570,11 @@
             {
               "path": "src\\game objects\\dom element\\using a div.js",
               "name": "using a div.js",
-              "size": 981,
+              "size": 1125,
               "extension": ".js"
             }
           ],
-          "size": 15693
+          "size": 17064
         },
         {
           "path": "src\\game objects\\graphics",
@@ -5945,7 +5951,7 @@
           "size": 268936
         }
       ],
-      "size": 981835
+      "size": 983206
     },
     {
       "path": "src\\games",
@@ -10115,7 +10121,7 @@
             {
               "path": "src\\physics\\matterjs\\draw triangles.js",
               "name": "draw triangles.js",
-              "size": 1350,
+              "size": 1356,
               "extension": ".js"
             },
             {
@@ -10257,7 +10263,7 @@
               "extension": ".js"
             }
           ],
-          "size": 80494
+          "size": 80500
         },
         {
           "path": "src\\physics\\multi",
@@ -10279,7 +10285,7 @@
           "size": 2750
         }
       ],
-      "size": 342506
+      "size": 342512
     },
     {
       "path": "src\\plugins",
@@ -12250,5 +12256,5 @@
       "size": 20418
     }
   ],
-  "size": 3369805
+  "size": 3370320
 }

@@ -1195,6 +1195,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\interactive destroy.js",
+          "name": "interactive destroy.js",
+          "size": 1998,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\ios.js",
           "name": "ios.js",
           "size": 2714,
@@ -1234,6 +1240,12 @@
           "path": "src\\bugs\\pixi text.js",
           "name": "pixi text.js",
           "size": 2175,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\poly.js",
+          "name": "poly.js",
+          "size": 4289,
           "extension": ".js"
         },
         {
@@ -1293,7 +1305,7 @@
         {
           "path": "src\\bugs\\scene keys.js",
           "name": "scene keys.js",
-          "size": 1240,
+          "size": 1725,
           "extension": ".js"
         },
         {
@@ -1305,7 +1317,7 @@
         {
           "path": "src\\bugs\\text.js",
           "name": "text.js",
-          "size": 1061,
+          "size": 650,
           "extension": ".js"
         },
         {
@@ -1327,7 +1339,7 @@
           "extension": ".js"
         }
       ],
-      "size": 59032
+      "size": 65393
     },
     {
       "path": "src\\cache",
@@ -2456,6 +2468,18 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\masks\\Container Mask Test 2.js",
+              "name": "Container Mask Test 2.js",
+              "size": 4064,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\masks\\Container Mask Test 3.js",
+              "name": "Container Mask Test 3.js",
+              "size": 4414,
+              "extension": ".js"
+            },
+            {
               "path": "src\\display\\masks\\flickering spotlight.js",
               "name": "flickering spotlight.js",
               "size": 1064,
@@ -2517,6 +2541,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\display\\masks\\Mask Perf Test.js",
+              "name": "Mask Perf Test.js",
+              "size": 1913,
+              "extension": ".js"
+            },
+            {
               "path": "src\\display\\masks\\spotlight rect.js",
               "name": "spotlight rect.js",
               "size": 885,
@@ -2529,7 +2559,7 @@
               "extension": ".js"
             }
           ],
-          "size": 54710
+          "size": 65101
         },
         {
           "path": "src\\display\\tint",
@@ -2623,7 +2653,7 @@
           "size": 14016
         }
       ],
-      "size": 127914
+      "size": 138305
     },
     {
       "path": "src\\dwitter",
@@ -3516,7 +3546,7 @@
             {
               "path": "src\\game objects\\dom element\\css text.js",
               "name": "css text.js",
-              "size": 1036,
+              "size": 821,
               "extension": ".js"
             },
             {
@@ -3574,7 +3604,7 @@
               "extension": ".js"
             }
           ],
-          "size": 17064
+          "size": 16849
         },
         {
           "path": "src\\game objects\\graphics",
@@ -5951,7 +5981,7 @@
           "size": 268936
         }
       ],
-      "size": 983206
+      "size": 982991
     },
     {
       "path": "src\\games",
@@ -8004,6 +8034,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\key down duration.js",
+              "name": "key down duration.js",
+              "size": 582,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\key modifier.js",
               "name": "key modifier.js",
               "size": 620,
@@ -8058,7 +8094,7 @@
               "extension": ".js"
             }
           ],
-          "size": 45014
+          "size": 45596
         },
         {
           "path": "src\\input\\mouse",
@@ -8286,7 +8322,7 @@
             {
               "path": "src\\input\\pointer\\down event.js",
               "name": "down event.js",
-              "size": 537,
+              "size": 733,
               "extension": ".js"
             },
             {
@@ -8344,7 +8380,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12068
+          "size": 12264
         },
         {
           "path": "src\\input\\zones",
@@ -8384,7 +8420,7 @@
           "size": 10196
         }
       ],
-      "size": 187505
+      "size": 188283
     },
     {
       "path": "src\\loader",
@@ -12256,5 +12292,5 @@
       "size": 20418
     }
   ],
-  "size": 3370320
+  "size": 3387635
 }

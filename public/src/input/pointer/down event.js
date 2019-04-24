@@ -5,7 +5,8 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
@@ -18,9 +19,16 @@ function preload ()
 
 function create ()
 {
+    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+
     this.input.on('pointerdown', function (pointer) {
 
         this.add.image(pointer.x, pointer.y, 'balls', Phaser.Math.Between(0, 5));
 
     }, this);
+}
+
+function update ()
+{
+    text.setText(this.input.activePointer.getDuration());
 }

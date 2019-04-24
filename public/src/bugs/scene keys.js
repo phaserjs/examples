@@ -1,36 +1,47 @@
 class SceneA extends Phaser.Scene {
-
-    constructor ()
-    {
-        super('a');
-    }
-
+  constructor ()
+  {
+    super('sceneA');
+    this.hotdog;
+  }
+  
     preload ()
     {
-        this.load.image('bg', 'assets/skies/gradient26.png');
-        this.load.image('grid', 'assets/skies/grid.png');
+      this.load.image('pic', 'assets/pics/case.jpg');
+      this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }
+
 
     create ()
     {
-        console.log('A created');
+        this.add.image(400, 300, 'pic');
 
-        this.add.image(400, 300, 'bg');
+        this.hotdog = this.add.image(400, 300, 'hotdog');
 
-        this.input.once('pointerdown', this.restart, this);
+        this.add.text(10, 10, 'Scene A. Hold down to move image then click to change Scene.');
 
-        this.input.keyboard.on('keydown_SPACE', this.check, this);
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.input.on('pointerup', function () {
+
+            console.log('down');
+            this.scene.pause();
+            this.scene.run('sceneB');
+
+        }, this);
+
     }
 
-    restart ()
+    update ()
     {
-        this.scene.pause();
-        this.scene.run('b');
-    }
-
-    check ()
-    {
-        console.log('Yo Yo Yo!');
+        if (this.cursors.up.isDown)
+        {
+            this.hotdog.y -= 4;
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.hotdog.y += 4;
+        }
     }
 
 }
@@ -39,23 +50,26 @@ class SceneB extends Phaser.Scene {
 
     constructor ()
     {
-        super('b');
+        super('sceneB');
+
+        this.hotdog;
     }
 
     create ()
     {
-        console.log('B created');
+        var graphics = this.add.graphics();
 
-        this.add.image(400, 300, 'grid');
+        graphics.fillStyle(0x000000, 0.5);
+        graphics.fillRect(0, 0, 800, 600);
 
-        this.input.keyboard.once('keydown_SPACE', this.restart, this);
-    }
+        this.add.text(10, 30, 'Scene B. SPACE to change back.', { font: '16px Courier', fill: '#00ff00' });
 
-    restart ()
-    {
-        console.log('r2');
-        this.scene.stop();
-        this.scene.resume('a');
+        this.input.keyboard.once('keydown_SPACE', function (event) {
+
+            this.scene.stop();
+            this.scene.resume('sceneA');
+
+        }, this);
     }
 
 }

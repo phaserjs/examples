@@ -2543,7 +2543,7 @@
             {
               "path": "src\\display\\masks\\Mask Perf Test.js",
               "name": "Mask Perf Test.js",
-              "size": 1913,
+              "size": 2703,
               "extension": ".js"
             },
             {
@@ -2559,7 +2559,20 @@
               "extension": ".js"
             }
           ],
-          "size": 65101
+          "size": 65891
+        },
+        {
+          "path": "src\\display\\shaders",
+          "name": "shaders",
+          "children": [
+            {
+              "path": "src\\display\\shaders\\shader test 1.js",
+              "name": "shader test 1.js",
+              "size": 2609,
+              "extension": ".js"
+            }
+          ],
+          "size": 2609
         },
         {
           "path": "src\\display\\tint",
@@ -2653,7 +2666,7 @@
           "size": 14016
         }
       ],
-      "size": 138305
+      "size": 141704
     },
     {
       "path": "src\\dwitter",
@@ -12292,5 +12305,5 @@
       "size": 20418
     }
   ],
-  "size": 3387635
+  "size": 3391034
 }

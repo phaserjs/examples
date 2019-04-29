@@ -2586,11 +2586,17 @@
             {
               "path": "src\\display\\shaders\\shader test 4.js",
               "name": "shader test 4.js",
-              "size": 2495,
+              "size": 6689,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\shaders\\shader test 5.js",
+              "name": "shader test 5.js",
+              "size": 6638,
               "extension": ".js"
             }
           ],
-          "size": 18978
+          "size": 29810
         },
         {
           "path": "src\\display\\tint",
@@ -2684,7 +2690,7 @@
           "size": 14016
         }
       ],
-      "size": 158073
+      "size": 168905
     },
     {
       "path": "src\\dwitter",
@@ -12329,5 +12335,5 @@
       "size": 20418
     }
   ],
-  "size": 3408472
+  "size": 3419304
 }

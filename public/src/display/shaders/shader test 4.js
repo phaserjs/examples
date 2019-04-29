@@ -174,54 +174,48 @@ function create ()
     var shape1 = this.make.graphics().fillCircle(400, 300, 300);
     var shape2 = this.make.graphics().fillCircle(400, 300, 200);
 
-    var mask1 = shape1.createGeometryMask();
-    var mask2 = shape2.createGeometryMask();
+    var geomask1 = shape1.createGeometryMask().setName('geo1');
+    var geomask2 = shape2.createGeometryMask().setName('geo2');
 
-    var maskImage = this.make.image({
-        x: 400,
-        y: 300,
-        key: 'splat1',
-        add: false
-    });
+    var maskImage1 = this.make.image({ x: 400, y: 300, key: 'splat1', add: false });
+    var maskImage2 = this.make.image({ x: 400, y: 300, key: 'splat2', add: false });
+    var maskImage3 = this.make.image({ x: 400, y: 300, key: 'splat3', add: false });
+    var maskImage4 = this.make.image({ x: 400, y: 300, key: 'bunny', add: false });
 
-    var mask3 = maskImage.createBitmapMask();
+    var bitmask1 = maskImage1.createBitmapMask();
+    var bitmask2 = maskImage2.createBitmapMask();
+    var bitmask3 = maskImage3.createBitmapMask();
+    var bitmask4 = maskImage4.createBitmapMask();
 
-    var maskImage2 = this.make.image({
-        x: 400,
-        y: 300,
-        key: 'bunny',
-        add: false
-    });
-
-    var mask4 = maskImage2.createBitmapMask();
+    // bitmask3.invertAlpha = true;
 
     // mask3.invertAlpha = true;
-    this.cameras.main.setMask(mask1, false);
-    // this.cameras.main.setMask(mask3, false);
 
-    // this.add.image(700, 300, 'bunny');
+    // this.cameras.main.setMask(geomask1, false);
+    this.cameras.main.setMask(bitmask1, false);
 
-    // this.add.image(400, 300, 'pic');
-    this.add.image(400, 300, 'pic').setMask(mask2);
-    // this.add.image(400, 300, 'pic').setMask(mask4);
+    this.add.image(700, 300, 'bunny').setName('bunny');
+
+    this.add.image(400, 300, 'pic');
+    // this.add.image(400, 300, 'pic').setName('rick').setMask(geomask2);
+    // this.add.image(400, 300, 'pic').setMask(bitmask3);
 
     // var shader = this.add.shader(600, 300, 800, 600, fragmentShader7);
 
     // mask4.invertAlpha = true;
-    // var shader = this.add.shader(700, 300, 800, 400, fragmentShader);
-    // var shader = this.add.shader(600, 300, 800, 400, fragmentShader).setMask(mask4);
+    // var shader = this.add.shader(400, 300, 800, 400, fragmentShader);
+    var shader = this.add.shader(400, 300, 800, 600, fragmentShader).setMask(bitmask3);
     // var shader = this.add.shader(700, 300, 800, 400, fragmentShader).setMask(mask2);
 
     // shader.setPointer(this.input.activePointer);
 
-    text = this.add.text(80, 320, '', { font: '16px Courier', fill: '#00ff00' });
+    text = this.add.text(80, 320, '', { font: '16px Courier', fill: '#00ff00' }).setName('text');
 
-    this.add.image(400, 300, 'logo');
+    this.add.image(400, 300, 'logo').setName('logo');
     // this.add.image(400, 300, 'logo').setMask(mask2);
     // this.add.image(300, 300, 'logo').setMask(mask4);
 
     // this.add.image(400, 500, 'logo').setMask(mask4);
-
 }
 
 function update ()

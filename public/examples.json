@@ -2592,11 +2592,17 @@
             {
               "path": "src\\display\\shaders\\shader test 5.js",
               "name": "shader test 5.js",
-              "size": 6638,
+              "size": 17179,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\shaders\\shader test 6.js",
+              "name": "shader test 6.js",
+              "size": 487,
               "extension": ".js"
             }
           ],
-          "size": 29810
+          "size": 40838
         },
         {
           "path": "src\\display\\tint",
@@ -2690,7 +2696,7 @@
           "size": 14016
         }
       ],
-      "size": 168905
+      "size": 179933
     },
     {
       "path": "src\\dwitter",
@@ -3645,9 +3651,15 @@
               "name": "using a div.js",
               "size": 1125,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\dom element\\video element.js",
+              "name": "video element.js",
+              "size": 1099,
+              "extension": ".js"
             }
           ],
-          "size": 16849
+          "size": 17948
         },
         {
           "path": "src\\game objects\\graphics",
@@ -6024,7 +6036,7 @@
           "size": 268936
         }
       ],
-      "size": 984060
+      "size": 985159
     },
     {
       "path": "src\\games",
@@ -12335,5 +12347,5 @@
       "size": 20418
     }
   ],
-  "size": 3419304
+  "size": 3431431
 }

@@ -1,4 +1,30 @@
 ---
+name: Stripes
+type: fragment
+author: Richard Davey
+uniform.size: { "type": "1f", "value": 16.0 }
+---
+
+precision mediump float;
+
+uniform float size;
+uniform vec2 resolution;
+
+varying vec2 fragCoord;
+
+void main(void)
+{
+    vec3 black = vec3(0.0, 0.0, 0.0);
+    vec3 white = vec3(1.0, 1.0, 1.0);
+    bool color = (mod((fragCoord.y / resolution.y) * size, 1.0) > 0.5);
+
+    if (!color)
+    {
+        gl_FragColor = vec4(white, 1.0);
+    }
+}
+
+---
 name: HSL
 type: fragment
 author: Per Bloksgaard
@@ -42,15 +68,24 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     float l = a*x*x + b*x + c;
     //vec3 hsl_standard = HSLtoRGB(vec3(h*3./PI,1.,l));
     vec3 hsl_cubic = HSL2RGB_CubicSmooth(vec3(h*3.0/PI,1.,l));
-    fragColor = vec4(hsl_cubic,1.0);
+    //  dot product = distance from black (set as the alpha)
+    // fragColor = vec4(hsl_cubic, dot(black, hsl_cubic));
+    fragColor = vec4(hsl_cubic, 1.0);
 }
 
 void main(void)
 {
     mainImage(gl_FragColor, fragCoord.xy);
-    gl_FragColor.a = 1.0;
-}
 
+    // vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
+
+    if (gl_FragColor.x = 0.0 && gl_FragColor.y = 0.0 && gl_FragColor.z = 0.0)
+    {
+        gl_FragColor.a = 0.0;
+    }
+
+    // gl_FragColor.a = dot(black, gl_FragColor);
+}
 
 ---
 name: Marble

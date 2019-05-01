@@ -20,14 +20,22 @@ function preload ()
 
 function create ()
 {
-    var shader = this.add.shader('HSL', 400, 300, 512, 512).setVisible(false);
+    var shader = this.add.shader('Stripes', 400, 300, 800, 600).setVisible(false);
 
-    var mask = new Phaser.Display.Masks.BitmapMask(this, shader);
+    shader.setUniform('size.value', 0.0);
 
-    console.log(mask);
+    var mask = shader.createBitmapMask();
 
-    // var pic = this.add.image(400, 300, 'pic');
     var pic = this.add.image(400, 300, 'pic').setMask(mask);
 
     this.add.image(400, 300, 'logo');
+
+    this.tweens.add({
+        targets: shader.uniforms.size,
+        value: 32,
+        duration: 6000,
+        ease: 'Sine.easeInOut',
+        yoyo: true,
+        repeat: -1
+    });
 }

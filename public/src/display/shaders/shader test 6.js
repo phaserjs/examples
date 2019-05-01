@@ -13,21 +13,40 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('metal', 'assets/textures/alien-metal.jpg');
+    this.load.image('grass', 'assets/textures/grass.png');
+    this.load.image('tiles', 'assets/textures/tiles.jpg');
+    this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
     this.load.image('pic', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
-    this.load.glsl('test', 'assets/shaders/bundle.glsl.js');
+    this.load.glsl('bundle', 'assets/shaders/bundle.glsl.js');
 }
 
 function create ()
 {
     this.add.image(400, 300, 'pic');
 
-    var s1 = this.cache.shader.get('Shader1');
-    var s2 = this.cache.shader.get('Plasma Mask');
+    var s = this.add.shader('Tunnel', 400, 300, 512, 512, [ 'metal' ]);
 
-    // console.log(s1);
-    // console.log(s2);
+    // s.uniforms.origin.value = 1.0;
 
-    var s = this.add.shader('Shader1', 400, 300, 512, 512);
+    s.setInteractive();
 
-    console.log(s);
+    s.on('pointerdown', function () {
+
+        if (s.uniforms.iChannel0.textureKey === 'metal')
+        {
+            s.setChannel0('grass');
+        }
+        else if (s.uniforms.iChannel0.textureKey === 'grass')
+        {
+            s.setChannel0('tiles');
+        }
+        else
+        {
+            s.setChannel0('metal');
+        }
+
+    });
+
+    this.add.image(400, 300, 'logo');
 }

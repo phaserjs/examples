@@ -1,5 +1,168 @@
 ---
-name: Shader1
+name: Tunnel
+type: fragment
+uniform.alpha: { "type": "1f", "value": 1.0 }
+uniform.origin: { "type": "1f", "value": 2.0 }
+uniform.iChannel0: { "type": "sampler2D", "value": null, "textureData": { "repeat": true } }
+---
+
+precision mediump float;
+
+uniform float time;
+uniform vec2 resolution;
+uniform sampler2D iChannel0;
+uniform float alpha;
+uniform float origin;
+
+varying vec2 fragCoord;
+
+#define S 0.79577471545 // Precalculated 2.5 / PI
+#define E 0.0001
+
+void main(void) {
+    vec2 p = (origin * fragCoord.xy / resolution.xy - 1.0) * vec2(resolution.x / resolution.y, 1.0);
+    vec2 t = vec2(S * atan(p.x, p.y), 1.0 / max(length(p), E));
+    vec3 c = texture2D(iChannel0, t + vec2(time * 0.1, time)).xyz;
+    gl_FragColor = vec4(c / (t.y + 0.5), alpha);
+}
+
+---
+name: Test1
+type: fragment
+author: https://www.shadertoy.com/view/ltdXzX
+---
+
+/*
+ * Original shader from: https://www.shadertoy.com/view/ltdXzX
+ */
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+// glslsandbox uniforms
+uniform float time;
+uniform vec2 resolution;
+
+varying vec2 fragCoord;
+
+// shadertoy globals
+#define iTime time
+#define iResolution resolution
+
+// --------[ Original ShaderToy begins here ]---------- //
+#define PI 3.1415926535897932384626433832795
+
+vec4 hsv_to_rgb(float h, float s, float v, float a)
+{
+    float c = v * s;
+    h = mod((h * 6.0), 6.0);
+    float x = c * (1.0 - abs(mod(h, 2.0) - 1.0));
+    vec4 color;
+ 
+    if (0.0 <= h && h < 1.0) {
+        color = vec4(c, x, 0.0, a);
+    } else if (1.0 <= h && h < 2.0) {
+        color = vec4(x, c, 0.0, a);
+    } else if (2.0 <= h && h < 3.0) {
+        color = vec4(0.0, c, x, a);
+    } else if (3.0 <= h && h < 4.0) {
+        color = vec4(0.0, x, c, a);
+    } else if (4.0 <= h && h < 5.0) {
+        color = vec4(x, 0.0, c, a);
+    } else if (5.0 <= h && h < 6.0) {
+        color = vec4(c, 0.0, x, a);
+    } else {
+        color = vec4(0.0, 0.0, 0.0, a);
+    }
+ 
+    color.rgb += v - c;
+ 
+    return color;
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    float x = fragCoord.x - (iResolution.x / 2.0);
+    float y = fragCoord.y - (iResolution.y / 2.0);
+    
+    float r = length(vec2(x,y));
+    float angle = atan(x,y) - sin(iTime)*r / 200.0 + 1.0*iTime;
+    float intensity = 0.5 + 0.25*sin(15.0*angle);
+    // float intensity = mod(angle, (PI / 8.0));
+    // float intensity = 0.5 + 0.25*sin(angle*16.0-5.0*iTime);
+    
+    fragColor = hsv_to_rgb(angle/PI, intensity, 1.0, 0.5);
+}
+// --------[ Original ShaderToy ends here ]---------- //
+
+void main(void)
+{
+    mainImage(gl_FragColor, fragCoord.xy);
+    gl_FragColor.a = 1.0;
+}
+
+
+---
+name: Oldschool Plasma
+type: fragment
+---
+
+precision mediump float;
+
+uniform float time;
+uniform vec2 resolution;
+uniform vec2 mouse;
+
+varying vec2 fragCoord;
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    vec2 p = -1.0 + 2.0 * fragCoord.xy / resolution.xy;
+    
+    // main code, *original shader by: 'Plasma' by Viktor Korsun (2011)
+    float x = p.x;
+    float y = p.y;
+    float mov0 = x+y+cos(sin(time)*2.0)*100.+sin(x/100.)*1000.;
+    float mov1 = y / 0.9 +  time;
+    float mov2 = x / 0.2;
+    float c1 = abs(sin(mov1+time)/2.+mov2/2.-mov1-mov2+time);
+    float c2 = abs(sin(c1+sin(mov0/1000.+time)+sin(y/40.+time)+sin((x+y)/100.)*3.));
+    float c3 = abs(sin(c2+cos(mov1+mov2+c2)+cos(mov2)+sin(x/1000.)));
+    fragColor = vec4(c1,c2,c3,1);
+}
+
+void main(void)
+{
+    mainImage(gl_FragColor, fragCoord.xy);
+}
+
+---
+name: Rainbow
+type: fragment
+---
+
+precision mediump float;
+
+uniform float time;
+uniform vec2 resolution;
+uniform vec2 mouse;
+
+varying vec2 fragCoord;
+
+void main (void)
+{
+    vec2 uv = fragCoord.xy / resolution.xy;
+
+    // Time varying pixel color
+    // vec3 col = cos(uv.xyx + vec3(0, 2, 4));
+    vec3 col = uv.xyx;
+
+    gl_FragColor = vec4(col, 1.0);
+}
+
+---
+name: Particles
 type: fragment
 ---
 
@@ -34,7 +197,7 @@ void main(void)
 }
 
 ---
-name: Plasma Mask
+name: Plasma
 type: fragment
 ---
 
@@ -43,11 +206,11 @@ precision highp float;
 uniform float time;
 uniform vec2 resolution;
 
+varying vec2 fragCoord;
+
 void main( void ) {
 
-    vec2 resolution = vec2(800.0, 600.0);
-
-    vec2 position = ( gl_FragCoord.xy / resolution.xy );
+    vec2 position = ( fragCoord.xy / resolution.xy );
 
     float color = 0.0;
     color += sin( position.x * cos( time / 15.0 ) * 80.0 ) + cos( position.y * cos( time / 15.0 ) * 10.0 );
@@ -56,7 +219,7 @@ void main( void ) {
     color *= sin( time / 10.0 ) * 0.5;
 
     
-    gl_FragColor = vec4( vec3( sin( color + time / 3.0 ) * 0.75, sin( color + time / 3.0 ) * 0.75, sin( color + time / 3.0 ) * 0.75 ), 1.0 );
+    gl_FragColor = vec4( vec3( sin( color + time / 3.0 ) * 0.75, cos( color + time / 3.0 ) * 0.75, sin( color + time / 3.0 ) * 0.75 ), 1.0 );
 
 }
 

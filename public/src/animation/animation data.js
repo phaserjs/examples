@@ -93,7 +93,7 @@ function update ()
 
     var debug = [
         'SPACE to start animation, P to pause/resume',
-        'Progress: ' + sprite.anims.getProgress() + '%',
+        'Progress: ' + sprite.anims.getProgress() * 100 + '%',
         'Accumulator: ' + sprite.anims.accumulator,
         'NextTick: ' + sprite.anims.nextTick
     ];

@@ -1,8 +1,7 @@
 var config = {
     type: Phaser.AUTO,
     scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
+        _mode: Phaser.Scale.WIDTH_CONTROLS_HEIGHT,
         parent: 'phaser-example',
         width: 800,
         height: 600
@@ -18,8 +17,6 @@ var config = {
     }
 };
 
-var element;
-
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -30,23 +27,33 @@ function preload ()
 function create ()
 {
     var div = document.createElement('div');
-    div.style = 'background-color: lime; width: 220px; height: 100px; font: 48px Arial; font-weight: bold';
+    div.style = 'background-color: rgba(0,255,0,0.2); width: 250px; height: 100px; font: 48px Arial; font-weight: bold';
     div.innerText = 'Phaser 3';
 
-    element = this.add.dom(400, 300, div);
+    var container = this.add.container(400, 300);
+    var element = this.add.dom(0, 0, div);
+    var rect = this.add.rectangle(0, 0, 16, 16, 0xff00ff);
+
+    // var element = this.add.dom(400, 300, div).setOrigin(0);
+    // var rect = this.add.rectangle(400, 300, 16, 16, 0xff00ff);
+
+    container.add([ element, rect ]);
+
+    this.tweens.add({
+        targets: container,
+        angle: 360,
+        duration: 12000,
+        loop: -1
+    });
 
     this.tweens.add({
         targets: element,
-        _y: 600,
-        _alpha: 0.5,
-        angle: 200,
         duration: 3000,
+        _angle: 360,
         scaleX: 2,
         scaleY: 2,
         ease: 'Sine.easeInOut',
         loop: -1,
         yoyo: true
     });
-
-    this.add.image(400, 300, 'einstein');
 }

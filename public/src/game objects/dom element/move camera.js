@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     backgroundColor: '#2d2d2d',
     scale: {
-        mode: Phaser.Scale.FIT,
+        _mode: Phaser.Scale.FIT,
         parent: 'phaser-example',
         width: 800,
         height: 600
@@ -35,15 +35,10 @@ function create ()
     var sf = 0.5;
     var px = 64;
 
-    for (var i = 1; i <= 250; i++)
+    for (var i = 1; i <= 100; i++)
     {
-        // var div = document.createElement('div');
-
-        // div.style = 'font-size: ' + px + 'px';
-        // div.innerText = Phaser.Utils.Array.GetRandom(smileys);
-
-        var x = Phaser.Math.Between(100, 3900);
-        var y = Phaser.Math.Between(100, 3900);
+        var x = Phaser.Math.Between(100, 2000);
+        var y = Phaser.Math.Between(100, 2000);
 
         var element = this.add.dom(x, y, 'div', 'font-size: ' + px + 'px', Phaser.Utils.Array.GetRandom(smileys)).setScrollFactor(sf);
 

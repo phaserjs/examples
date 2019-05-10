@@ -3,6 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    backgroundColor: '#222288',
     dom: {
         createContainer: true
     },

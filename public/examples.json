@@ -1135,12 +1135,6 @@
       "name": "bugs",
       "children": [
         {
-          "path": "src\\bugs\\ap damp.js",
-          "name": "ap damp.js",
-          "size": 1068,
-          "extension": ".js"
-        },
-        {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
           "size": 626,
@@ -1345,7 +1339,7 @@
           "extension": ".js"
         }
       ],
-      "size": 66461
+      "size": 65393
     },
     {
       "path": "src\\cache",
@@ -3661,7 +3655,7 @@
             {
               "path": "src\\game objects\\dom element\\div position test 5.js",
               "name": "div position test 5.js",
-              "size": 1006,
+              "size": 1000,
               "extension": ".js"
             },
             {
@@ -3713,7 +3707,7 @@
               "extension": ".js"
             }
           ],
-          "size": 23672
+          "size": 23666
         },
         {
           "path": "src\\game objects\\graphics",
@@ -5184,6 +5178,43 @@
           "size": 58889
         },
         {
+          "path": "src\\game objects\\shaders",
+          "name": "shaders",
+          "children": [
+            {
+              "path": "src\\game objects\\shaders\\change shader texture.js",
+              "name": "change shader texture.js",
+              "size": 1298,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shaders\\load shader.js",
+              "name": "load shader.js",
+              "size": 397,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shaders\\shader arcade physics.js",
+              "name": "shader arcade physics.js",
+              "size": 1182,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shaders\\shader as a mask.js",
+              "name": "shader as a mask.js",
+              "size": 833,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shaders\\shader bundle.js",
+              "name": "shader bundle.js",
+              "size": 607,
+              "extension": ".js"
+            }
+          ],
+          "size": 4317
+        },
+        {
           "path": "src\\game objects\\shapes",
           "name": "shapes",
           "children": [
@@ -6090,7 +6121,7 @@
           "size": 268936
         }
       ],
-      "size": 990883
+      "size": 995194
     },
     {
       "path": "src\\games",
@@ -12401,5 +12432,5 @@
       "size": 20418
     }
   ],
-  "size": 3439788
+  "size": 3443031
 }

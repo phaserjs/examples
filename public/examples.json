@@ -1135,6 +1135,12 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\ap damp.js",
+          "name": "ap damp.js",
+          "size": 1068,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
           "size": 626,
@@ -1339,7 +1345,7 @@
           "extension": ".js"
         }
       ],
-      "size": 65393
+      "size": 66461
     },
     {
       "path": "src\\cache",
@@ -3300,7 +3306,7 @@
             {
               "path": "src\\game objects\\container\\add array of sprites to container.js",
               "name": "add array of sprites to container.js",
-              "size": 1776,
+              "size": 1284,
               "extension": ".js"
             },
             {
@@ -3592,7 +3598,7 @@
               "extension": ".js"
             }
           ],
-          "size": 83756
+          "size": 83264
         },
         {
           "path": "src\\game objects\\dom element",
@@ -3607,7 +3613,7 @@
             {
               "path": "src\\game objects\\dom element\\css style object.js",
               "name": "css style object.js",
-              "size": 1125,
+              "size": 901,
               "extension": ".js"
             },
             {
@@ -3626,6 +3632,36 @@
               "path": "src\\game objects\\dom element\\div depth.js",
               "name": "div depth.js",
               "size": 1216,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\dom element\\div position test 1.js",
+              "name": "div position test 1.js",
+              "size": 920,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\dom element\\div position test 2.js",
+              "name": "div position test 2.js",
+              "size": 949,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\dom element\\div position test 3.js",
+              "name": "div position test 3.js",
+              "size": 949,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\dom element\\div position test 4.js",
+              "name": "div position test 4.js",
+              "size": 1002,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\dom element\\div position test 5.js",
+              "name": "div position test 5.js",
+              "size": 1006,
               "extension": ".js"
             },
             {
@@ -3667,7 +3703,7 @@
             {
               "path": "src\\game objects\\dom element\\using a div.js",
               "name": "using a div.js",
-              "size": 1125,
+              "size": 1423,
               "extension": ".js"
             },
             {
@@ -3677,7 +3713,7 @@
               "extension": ".js"
             }
           ],
-          "size": 18772
+          "size": 23672
         },
         {
           "path": "src\\game objects\\graphics",
@@ -6054,7 +6090,7 @@
           "size": 268936
         }
       ],
-      "size": 986475
+      "size": 990883
     },
     {
       "path": "src\\games",
@@ -9754,7 +9790,7 @@
             {
               "path": "src\\physics\\arcade\\simple group.js",
               "name": "simple group.js",
-              "size": 1395,
+              "size": 948,
               "extension": ".js"
             },
             {
@@ -9866,7 +9902,7 @@
               "extension": ".js"
             }
           ],
-          "size": 212382
+          "size": 211935
         },
         {
           "path": "src\\physics\\impact",
@@ -10394,7 +10430,7 @@
           "size": 2750
         }
       ],
-      "size": 342959
+      "size": 342512
     },
     {
       "path": "src\\plugins",
@@ -12365,5 +12401,5 @@
       "size": 20418
     }
   ],
-  "size": 3434759
+  "size": 3439788
 }

@@ -3601,7 +3601,7 @@
             {
               "path": "src\\game objects\\dom element\\blend mode.js",
               "name": "blend mode.js",
-              "size": 1641,
+              "size": 1642,
               "extension": ".js"
             },
             {
@@ -3667,13 +3667,13 @@
             {
               "path": "src\\game objects\\dom element\\input test.js",
               "name": "input test.js",
-              "size": 2403,
+              "size": 2436,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\dom element\\move camera.js",
               "name": "move camera.js",
-              "size": 2953,
+              "size": 2779,
               "extension": ".js"
             },
             {
@@ -3707,7 +3707,7 @@
               "extension": ".js"
             }
           ],
-          "size": 23666
+          "size": 23526
         },
         {
           "path": "src\\game objects\\graphics",
@@ -5196,7 +5196,7 @@
             {
               "path": "src\\game objects\\shaders\\shader arcade physics.js",
               "name": "shader arcade physics.js",
-              "size": 1182,
+              "size": 1023,
               "extension": ".js"
             },
             {
@@ -5210,9 +5210,15 @@
               "name": "shader bundle.js",
               "size": 607,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shaders\\shader transforms.js",
+              "name": "shader transforms.js",
+              "size": 408,
+              "extension": ".js"
             }
           ],
-          "size": 4317
+          "size": 4566
         },
         {
           "path": "src\\game objects\\shapes",
@@ -6121,7 +6127,7 @@
           "size": 268936
         }
       ],
-      "size": 995194
+      "size": 995303
     },
     {
       "path": "src\\games",
@@ -12432,5 +12438,5 @@
       "size": 20418
     }
   ],
-  "size": 3443031
+  "size": 3443140
 }

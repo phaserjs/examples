@@ -41,5 +41,4 @@ function create ()
         });
 
     }, this);
-
 }

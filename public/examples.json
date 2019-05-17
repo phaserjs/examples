@@ -5214,11 +5214,11 @@
             {
               "path": "src\\game objects\\shaders\\shader transforms.js",
               "name": "shader transforms.js",
-              "size": 408,
+              "size": 1043,
               "extension": ".js"
             }
           ],
-          "size": 4566
+          "size": 5201
         },
         {
           "path": "src\\game objects\\shapes",
@@ -6127,7 +6127,7 @@
           "size": 268936
         }
       ],
-      "size": 995303
+      "size": 995938
     },
     {
       "path": "src\\games",
@@ -9093,6 +9093,12 @@
           "name": "tile maps",
           "children": [
             {
+              "path": "src\\loader\\tile maps\\load tile map from local json.js",
+              "name": "load tile map from local json.js",
+              "size": 23985,
+              "extension": ".js"
+            },
+            {
               "path": "src\\loader\\tile maps\\load tile map json from object.js",
               "name": "load tile map json from object.js",
               "size": 1228,
@@ -9117,10 +9123,10 @@
               "extension": ".js"
             }
           ],
-          "size": 5388
+          "size": 29373
         }
       ],
-      "size": 139494
+      "size": 163479
     },
     {
       "path": "src\\paths",
@@ -12438,5 +12444,5 @@
       "size": 20418
     }
   ],
-  "size": 3443140
+  "size": 3467760
 }

@@ -23,6 +23,8 @@ function create ()
 
     this.input.on('pointerdown', function (pointer) {
 
+        console.log(this.game.loop.frame, 'down B');
+
         this.add.image(pointer.x, pointer.y, 'balls', Phaser.Math.Between(0, 5));
 
     }, this);
@@ -30,5 +32,11 @@ function create ()
 
 function update ()
 {
-    text.setText(this.input.activePointer.getDuration());
+    var p = this.input.activePointer;
+
+    text.setText([
+        'x: ' + p.x,
+        'y: ' + p.y,
+        'duration: ' + p.getDuration()
+    ]);
 }

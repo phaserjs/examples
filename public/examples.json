@@ -4356,7 +4356,7 @@
             {
               "path": "src\\game objects\\images\\image edge points.js",
               "name": "image edge points.js",
-              "size": 1535,
+              "size": 1961,
               "extension": ".js"
             },
             {
@@ -4396,7 +4396,7 @@
               "extension": ".js"
             }
           ],
-          "size": 14949
+          "size": 15375
         },
         {
           "path": "src\\game objects\\lights",
@@ -6127,7 +6127,7 @@
           "size": 268936
         }
       ],
-      "size": 995938
+      "size": 996364
     },
     {
       "path": "src\\games",
@@ -7994,7 +7994,7 @@
             {
               "path": "src\\input\\game object\\multiple down.js",
               "name": "multiple down.js",
-              "size": 1167,
+              "size": 2411,
               "extension": ".js"
             },
             {
@@ -8012,7 +8012,7 @@
             {
               "path": "src\\input\\game object\\on down event.js",
               "name": "on down event.js",
-              "size": 732,
+              "size": 844,
               "extension": ".js"
             },
             {
@@ -8070,7 +8070,7 @@
               "extension": ".js"
             }
           ],
-          "size": 19479
+          "size": 20835
         },
         {
           "path": "src\\input\\gamepad",
@@ -8285,7 +8285,13 @@
             {
               "path": "src\\input\\mouse\\mouse down.js",
               "name": "mouse down.js",
-              "size": 438,
+              "size": 468,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\mouse\\mouse wheel.js",
+              "name": "mouse wheel.js",
+              "size": 575,
               "extension": ".js"
             },
             {
@@ -8315,7 +8321,7 @@
             {
               "path": "src\\input\\mouse\\poll always.js",
               "name": "poll always.js",
-              "size": 1133,
+              "size": 1222,
               "extension": ".js"
             },
             {
@@ -8385,16 +8391,28 @@
               "extension": ".js"
             }
           ],
-          "size": 32781
+          "size": 33475
         },
         {
           "path": "src\\input\\multitouch",
           "name": "multitouch",
           "children": [
             {
+              "path": "src\\input\\multitouch\\multi down test.js",
+              "name": "multi down test.js",
+              "size": 1223,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\multitouch\\multi drag.js",
               "name": "multi drag.js",
-              "size": 1844,
+              "size": 1817,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\input\\multitouch\\multi over test.js",
+              "name": "multi over test.js",
+              "size": 1470,
               "extension": ".js"
             },
             {
@@ -8404,7 +8422,7 @@
               "extension": ".js"
             }
           ],
-          "size": 3297
+          "size": 5963
         },
         {
           "path": "src\\input\\pixel perfect",
@@ -8468,7 +8486,7 @@
             {
               "path": "src\\input\\pointer\\down event.js",
               "name": "down event.js",
-              "size": 733,
+              "size": 884,
               "extension": ".js"
             },
             {
@@ -8526,7 +8544,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12264
+          "size": 12415
         },
         {
           "path": "src\\input\\zones",
@@ -8566,7 +8584,7 @@
           "size": 10196
         }
       ],
-      "size": 188283
+      "size": 193150
     },
     {
       "path": "src\\loader",
@@ -10213,7 +10231,7 @@
             {
               "path": "src\\physics\\matterjs\\chamfer body.js",
               "name": "chamfer body.js",
-              "size": 1346,
+              "size": 1347,
               "extension": ".js"
             },
             {
@@ -10451,7 +10469,7 @@
               "extension": ".js"
             }
           ],
-          "size": 80500
+          "size": 80501
         },
         {
           "path": "src\\physics\\multi",
@@ -10473,7 +10491,7 @@
           "size": 2750
         }
       ],
-      "size": 342512
+      "size": 342513
     },
     {
       "path": "src\\plugins",
@@ -12444,5 +12462,5 @@
       "size": 20418
     }
   ],
-  "size": 3467760
+  "size": 3473054
 }

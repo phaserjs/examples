@@ -22,7 +22,7 @@ function preload ()
 
 function create ()
 {
-    // this.createCards2();
+    this.createCards2();
 
     this.input.on('pointerdown', function (pointer) {
 

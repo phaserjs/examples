@@ -41,6 +41,10 @@ function create ()
 
     });
 
+    this.input.on('pointerdown', function () {
+        console.log('down');
+    });
+
     this.tweens.add({
 
         targets: sprite,

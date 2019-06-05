@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -18,6 +18,8 @@ function preload () {
 function create() {
 
     this.input.on('pointerdown', function (pointer) {
+
+        console.log('down');
 
         this.add.image(pointer.x, pointer.y, 'logo');
 

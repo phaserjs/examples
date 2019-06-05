@@ -22,9 +22,8 @@ function preload ()
 
 function create ()
 {
-    //  We need extra pointers, as we only get 1 by default
-    this.input.addPointer();
-    this.input.addPointer();
+    //  We need 2 extra pointers, as we only get 1 by default
+    this.input.addPointer(2);
 
     var sprite1 = this.add.sprite(400, 100, 'logo').setInteractive({ draggable: true });
 

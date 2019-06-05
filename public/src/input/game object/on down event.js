@@ -22,6 +22,8 @@ function create ()
 
     var text = this.add.text(10, 10, 'Tap the Sprite', { font: '16px Courier', fill: '#00ff00' });
 
+    var text2 = this.add.text(10, 100, Phaser.VERSION + ' + v2', { font: '16px Courier', fill: '#ffffff' });
+
     sprite.on('pointerdown', function () {
 
         this.setTint(Math.random() * 16000000);

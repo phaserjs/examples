@@ -1309,6 +1309,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\skip tile.js",
+          "name": "skip tile.js",
+          "size": 2168,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\stroke.js",
           "name": "stroke.js",
           "size": 1365,
@@ -1318,6 +1324,12 @@
           "path": "src\\bugs\\text.js",
           "name": "text.js",
           "size": 650,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\tilemap resize.js",
+          "name": "tilemap resize.js",
+          "size": 4482,
           "extension": ".js"
         },
         {
@@ -1339,7 +1351,7 @@
           "extension": ".js"
         }
       ],
-      "size": 65393
+      "size": 72043
     },
     {
       "path": "src\\cache",
@@ -8289,9 +8301,15 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\mouse\\mouse wheel over gameobject.js",
+              "name": "mouse wheel over gameobject.js",
+              "size": 647,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\mouse\\mouse wheel.js",
               "name": "mouse wheel.js",
-              "size": 575,
+              "size": 692,
               "extension": ".js"
             },
             {
@@ -8391,7 +8409,7 @@
               "extension": ".js"
             }
           ],
-          "size": 33475
+          "size": 34239
         },
         {
           "path": "src\\input\\multitouch",
@@ -8584,7 +8602,7 @@
           "size": 10196
         }
       ],
-      "size": 193150
+      "size": 193914
     },
     {
       "path": "src\\loader",
@@ -10453,7 +10471,7 @@
             {
               "path": "src\\physics\\matterjs\\vertices body.js",
               "name": "vertices body.js",
-              "size": 1603,
+              "size": 1669,
               "extension": ".js"
             },
             {
@@ -10469,7 +10487,7 @@
               "extension": ".js"
             }
           ],
-          "size": 80501
+          "size": 80567
         },
         {
           "path": "src\\physics\\multi",
@@ -10491,7 +10509,7 @@
           "size": 2750
         }
       ],
-      "size": 342513
+      "size": 342579
     },
     {
       "path": "src\\plugins",
@@ -10759,6 +10777,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\scalemanager\\resize on click.js",
+          "name": "resize on click.js",
+          "size": 2528,
+          "extension": ".js"
+        },
+        {
           "path": "src\\scalemanager\\resize.js",
           "name": "resize.js",
           "size": 1021,
@@ -10795,7 +10819,7 @@
           "extension": ".js"
         }
       ],
-      "size": 25201
+      "size": 27729
     },
     {
       "path": "src\\scenes",
@@ -12462,5 +12486,5 @@
       "size": 20418
     }
   ],
-  "size": 3473054
+  "size": 3483062
 }

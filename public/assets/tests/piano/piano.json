@@ -4,30 +4,72 @@
 			"image": "piano.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 701,
-				"h": 494
+				"w": 628,
+				"h": 907
 			},
 			"scale": 1,
 			"frames": [
+				{
+					"filename": "panel",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 600,
+						"h": 106
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 600,
+						"h": 106
+					}
+				},
+				{
+					"filename": "key10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 428,
+						"y": 104,
+						"w": 88,
+						"h": 496
+					},
+					"frame": {
+						"x": 2,
+						"y": 110,
+						"w": 88,
+						"h": 496
+					}
+				},
 				{
 					"filename": "key3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 343,
-						"h": 593
+						"w": 600,
+						"h": 600
 					},
 					"spriteSourceSize": {
-						"x": 86,
-						"y": 103,
-						"w": 86,
-						"h": 490
+						"x": 85,
+						"y": 104,
+						"w": 88,
+						"h": 496
 					},
 					"frame": {
-						"x": 2,
-						"y": 2,
-						"w": 86,
-						"h": 490
+						"x": 92,
+						"y": 110,
+						"w": 88,
+						"h": 496
 					}
 				},
 				{
@@ -35,20 +77,41 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 343,
-						"h": 593
+						"w": 600,
+						"h": 600
 					},
 					"spriteSourceSize": {
 						"x": 171,
-						"y": 103,
-						"w": 86,
-						"h": 490
+						"y": 104,
+						"w": 88,
+						"h": 496
 					},
 					"frame": {
-						"x": 91,
-						"y": 2,
-						"w": 86,
-						"h": 490
+						"x": 182,
+						"y": 110,
+						"w": 88,
+						"h": 496
+					}
+				},
+				{
+					"filename": "key8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 342,
+						"y": 104,
+						"w": 88,
+						"h": 496
+					},
+					"frame": {
+						"x": 272,
+						"y": 110,
+						"w": 88,
+						"h": 496
 					}
 				},
 				{
@@ -56,41 +119,20 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 343,
-						"h": 593
+						"w": 600,
+						"h": 600
 					},
 					"spriteSourceSize": {
-						"x": 1,
-						"y": 103,
-						"w": 85,
-						"h": 490
+						"x": 0,
+						"y": 104,
+						"w": 87,
+						"h": 496
 					},
 					"frame": {
-						"x": 180,
-						"y": 2,
-						"w": 85,
-						"h": 490
-					}
-				},
-				{
-					"filename": "key7",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 343,
-						"h": 593
-					},
-					"spriteSourceSize": {
-						"x": 258,
-						"y": 103,
-						"w": 85,
-						"h": 490
-					},
-					"frame": {
-						"x": 268,
-						"y": 2,
-						"w": 85,
-						"h": 490
+						"x": 362,
+						"y": 110,
+						"w": 87,
+						"h": 496
 					}
 				},
 				{
@@ -98,41 +140,41 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 343,
-						"h": 593
+						"w": 600,
+						"h": 600
 					},
 					"spriteSourceSize": {
-						"x": 238,
-						"y": 103,
-						"w": 53,
-						"h": 297
+						"x": 257,
+						"y": 104,
+						"w": 87,
+						"h": 496
 					},
 					"frame": {
-						"x": 356,
-						"y": 2,
-						"w": 53,
-						"h": 297
+						"x": 451,
+						"y": 110,
+						"w": 87,
+						"h": 496
 					}
 				},
 				{
-					"filename": "panel",
+					"filename": "key12",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 343,
-						"h": 593
+						"w": 600,
+						"h": 600
 					},
 					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 343,
-						"h": 105
+						"x": 514,
+						"y": 104,
+						"w": 86,
+						"h": 496
 					},
 					"frame": {
-						"x": 356,
-						"y": 302,
-						"w": 343,
-						"h": 105
+						"x": 540,
+						"y": 110,
+						"w": 86,
+						"h": 496
 					}
 				},
 				{
@@ -140,18 +182,81 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 343,
-						"h": 593
+						"w": 600,
+						"h": 600
 					},
 					"spriteSourceSize": {
-						"x": 54,
-						"y": 103,
+						"x": 55,
+						"y": 104,
+						"w": 53,
+						"h": 297
+					},
+					"frame": {
+						"x": 2,
+						"y": 608,
+						"w": 53,
+						"h": 297
+					}
+				},
+				{
+					"filename": "key7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 309,
+						"y": 104,
+						"w": 53,
+						"h": 297
+					},
+					"frame": {
+						"x": 57,
+						"y": 608,
+						"w": 53,
+						"h": 297
+					}
+				},
+				{
+					"filename": "key9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 401,
+						"y": 104,
+						"w": 53,
+						"h": 297
+					},
+					"frame": {
+						"x": 112,
+						"y": 608,
+						"w": 53,
+						"h": 297
+					}
+				},
+				{
+					"filename": "key11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 494,
+						"y": 104,
 						"w": 52,
 						"h": 297
 					},
 					"frame": {
-						"x": 412,
-						"y": 2,
+						"x": 167,
+						"y": 608,
 						"w": 52,
 						"h": 297
 					}
@@ -161,20 +266,20 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 343,
-						"h": 593
+						"w": 600,
+						"h": 600
 					},
 					"spriteSourceSize": {
-						"x": 146,
-						"y": 103,
+						"x": 148,
+						"y": 104,
 						"w": 52,
-						"h": 297
+						"h": 296
 					},
 					"frame": {
-						"x": 467,
-						"y": 2,
+						"x": 221,
+						"y": 608,
 						"w": 52,
-						"h": 297
+						"h": 296
 					}
 				}
 			]
@@ -183,6 +288,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:fec25a47402d2ce5bda2cd969a5220f4:a494c4bd0cd0b90a519a51708ce037ea:6cd36eeab5dfd2d30fe3adc8e02579c9$"
+		"smartupdate": "$TexturePacker:SmartUpdate:1fb6d7e3076618884105e5dd94d70184:21521eb2a2fe4fef1c5ea1b6abfac32c:6cd36eeab5dfd2d30fe3adc8e02579c9$"
 	}
 }

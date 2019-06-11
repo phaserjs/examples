@@ -3,10 +3,13 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#000000',
+    backgroundColor: '#2d2d2d',
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        extend: {
+            createPiano: createPiano
+        }
     }
 };
 
@@ -14,54 +17,76 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.atlas('piano', 'assets/tests/piano/piano.png', 'assets/tests/piano/piano.json');
+    this.load.setPath('assets/tests/piano');
 
-    this.load.setPath('assets/audio/synth-strings-sound-kit');
+    this.load.atlas('piano', 'piano.png', 'piano.json');
 
-    this.load.audio('A2', 'StringAS2.mp3');
-    this.load.audio('A3', 'StringAS3.mp3');
-    this.load.audio('C2', 'StringC2.mp3');
-    this.load.audio('C3', 'StringC3.mp3');
-    this.load.audio('C4', 'StringC4.mp3');
-    this.load.audio('D2', 'StringDS2.mp3');
-    this.load.audio('D3', 'StringDS3.mp3');
-    this.load.audio('F2', 'StringF2.mp3');
-    this.load.audio('F3', 'StringF3.mp3');
-    this.load.audio('G2', 'StringG2.mp3');
-    this.load.audio('G3', 'StringG3.mp3');
-}
-
-function createIOS ()
-{
-    this.input.once('pointerdown', createKeys, this);
+    this.load.audio('C3', 'C3.mp3');
+    this.load.audio('Db3', 'Db3.mp3');
+    this.load.audio('D3', 'D3.mp3');
+    this.load.audio('Eb3', 'Eb3.mp3');
+    this.load.audio('E3', 'E3.mp3');
+    this.load.audio('F3', 'F3.mp3');
+    this.load.audio('Gb3', 'Gb3.mp3');
+    this.load.audio('G3', 'G3.mp3');
+    this.load.audio('Ab3', 'Ab3.mp3');
+    this.load.audio('A3', 'A3.mp3');
+    this.load.audio('Bb3', 'Bb3.mp3');
+    this.load.audio('B3', 'B3.mp3');
 }
 
 function create ()
 {
+    if (this.sound.locked)
+    {
+        var text = this.add.text(10, 10, 'Tap to unlock audio', { font: '16px Courier', fill: '#00ff00' });
+
+        this.sound.once('unlocked', function ()
+        {
+            text.destroy();
+            this.createPiano();
+        }, this);
+    }
+    else
+    {
+        this.createPiano();
+    }
+}
+
+function createPiano ()
+{
     this.input.addPointer(9);
 
-    var x = 0;
+    var x = 100;
     var y = 0;
 
     this.add.image(x, y, 'piano', 'panel').setOrigin(0);
 
-    var keys = {
-        'key1': 'A2',
-        'key2': 'A3',
-        'key3': 'C2',
-        'key4': 'C3',
-        'key5': 'C4',
-        'key6': 'D2',
-        'key7': 'D3',
-    };
+    var keys = [
+        [ 'key1', 'C3' ],
+        [ 'key2', 'Db3' ],
+        [ 'key3', 'D3' ],
+        [ 'key4', 'Eb3' ],
+        [ 'key5', 'E3' ],
+        [ 'key6', 'F3' ],
+        [ 'key7', 'Gb3' ],
+        [ 'key8', 'G3' ],
+        [ 'key9', 'Ab3' ],
+        [ 'key10', 'A3' ],
+        [ 'key11', 'Bb3' ],
+        [ 'key12', 'B3' ]
+    ];
 
-    var black = [ 'key2', 'key4', 'key6' ];
+    var black = [ 'key2', 'key4', 'key7', 'key9', 'key11' ];
 
-    for (var key in keys)
+    for (var i = 0; i < keys.length; i++)
     {
+        var key = keys[i][0];
+        var note = keys[i][1];
+
         var singleKey = this.add.image(x, y, 'piano', key);
 
-        singleKey.setName(key);
+        singleKey.setName(note);
         singleKey.setOrigin(0);
 
         if (black.indexOf(key) !== -1)
@@ -75,34 +100,20 @@ function create ()
 
         singleKey.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains);
 
-        var note = this.sound.add(keys[key]);
+        var sound = this.sound.add(note);
 
-        // singleKey.setData('note', note);
-        // var sound = this.sound;
-
-        singleKey.on('pointerdown', function ()
+        singleKey.on('pointerdown', function (sound)
         {
-            console.log('down', singleKey.name);
+            sound.play();
 
-            note.play();
-        });
+        }.bind(this, sound));
 
-        // singleKey.on('pointerup', function ()
-        // {
-            // sound.stop(keys[this.frame.name]);
-            // note.play();
-            // note.stop();
-            // this.getData('note').stop();
-        // });
-
-        singleKey.on('pointerover', function (pointer)
+        singleKey.on('pointerover', function (sound, pointer)
         {
             if (pointer.isDown)
             {
-                console.log('over', singleKey.name);
-                note.play();
-                // sound.play(keys[singleKey.frame.name]);
+                sound.play();
             }
-        });
+        }.bind(this, sound));
     }
 }

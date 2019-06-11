@@ -31,12 +31,12 @@ function preload ()
     this.load.audio('G3', 'StringG3.mp3');
 }
 
-function create ()
+function createIOS ()
 {
     this.input.once('pointerdown', createKeys, this);
 }
 
-function createKeys ()
+function create ()
 {
     this.input.addPointer(9);
 
@@ -61,6 +61,7 @@ function createKeys ()
     {
         var singleKey = this.add.image(x, y, 'piano', key);
 
+        singleKey.setName(key);
         singleKey.setOrigin(0);
 
         if (black.indexOf(key) !== -1)
@@ -76,31 +77,30 @@ function createKeys ()
 
         var note = this.sound.add(keys[key]);
 
-        singleKey.setData('note', note);
-
+        // singleKey.setData('note', note);
         // var sound = this.sound;
 
         singleKey.on('pointerdown', function ()
         {
-            // sound.play(keys[this.frame.name]);
-            console.log(this.frame.name, keys[this.frame.name]);
-            // note.play();
+            console.log('down', singleKey.name);
 
-            this.getData('note').play();
+            note.play();
         });
 
-        singleKey.on('pointerup', function ()
-        {
+        // singleKey.on('pointerup', function ()
+        // {
             // sound.stop(keys[this.frame.name]);
             // note.play();
-
-            this.getData('note').stop();
-        });
+            // note.stop();
+            // this.getData('note').stop();
+        // });
 
         singleKey.on('pointerover', function (pointer)
         {
             if (pointer.isDown)
             {
+                console.log('over', singleKey.name);
+                note.play();
                 // sound.play(keys[singleKey.frame.name]);
             }
         });

@@ -1143,7 +1143,7 @@
         {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
-          "size": 931,
+          "size": 626,
           "extension": ".js"
         },
         {
@@ -1228,12 +1228,6 @@
           "path": "src\\bugs\\map zoom canvas.js",
           "name": "map zoom canvas.js",
           "size": 1990,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\bugs\\mask depth.js",
-          "name": "mask depth.js",
-          "size": 1167,
           "extension": ".js"
         },
         {
@@ -1363,7 +1357,7 @@
           "extension": ".js"
         }
       ],
-      "size": 72924
+      "size": 71452
     },
     {
       "path": "src\\cache",
@@ -5418,6 +5412,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\sprites\\rotate around a sprite.js",
+              "name": "rotate around a sprite.js",
+              "size": 823,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\sprites\\single sprite.js",
               "name": "single sprite.js",
               "size": 370,
@@ -5442,7 +5442,7 @@
               "extension": ".js"
             }
           ],
-          "size": 7601
+          "size": 8424
         },
         {
           "path": "src\\game objects\\tests",
@@ -6151,7 +6151,7 @@
           "size": 268936
         }
       ],
-      "size": 996364
+      "size": 997187
     },
     {
       "path": "src\\games",
@@ -7981,7 +7981,7 @@
             {
               "path": "src\\input\\dragging\\scrolling text box.js",
               "name": "scrolling text box.js",
-              "size": 2502,
+              "size": 2664,
               "extension": ".js"
             },
             {
@@ -7991,7 +7991,7 @@
               "extension": ".js"
             }
           ],
-          "size": 19655
+          "size": 19817
         },
         {
           "path": "src\\input\\game object",
@@ -8632,7 +8632,7 @@
           "size": 10196
         }
       ],
-      "size": 200921
+      "size": 201083
     },
     {
       "path": "src\\loader",
@@ -12516,5 +12516,5 @@
       "size": 20418
     }
   ],
-  "size": 3493408
+  "size": 3492921
 }

@@ -1109,7 +1109,7 @@
             {
               "path": "src\\audio\\Web Audio\\play sound on keypress.js",
               "name": "play sound on keypress.js",
-              "size": 1829,
+              "size": 2524,
               "extension": ".js"
             },
             {
@@ -1131,10 +1131,10 @@
               "extension": ".js"
             }
           ],
-          "size": 42926
+          "size": 43621
         }
       ],
-      "size": 121113
+      "size": 121808
     },
     {
       "path": "src\\bugs",
@@ -1143,7 +1143,7 @@
         {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
-          "size": 626,
+          "size": 931,
           "extension": ".js"
         },
         {
@@ -1228,6 +1228,12 @@
           "path": "src\\bugs\\map zoom canvas.js",
           "name": "map zoom canvas.js",
           "size": 1990,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\mask depth.js",
+          "name": "mask depth.js",
+          "size": 1167,
           "extension": ".js"
         },
         {
@@ -1357,7 +1363,7 @@
           "extension": ".js"
         }
       ],
-      "size": 71452
+      "size": 72924
     },
     {
       "path": "src\\cache",
@@ -7973,13 +7979,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\dragging\\scrolling text box.js",
+              "name": "scrolling text box.js",
+              "size": 2502,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\dragging\\stack of cards.js",
               "name": "stack of cards.js",
               "size": 1017,
               "extension": ".js"
             }
           ],
-          "size": 17153
+          "size": 19655
         },
         {
           "path": "src\\input\\game object",
@@ -8265,6 +8277,12 @@
           "name": "mouse",
           "children": [
             {
+              "path": "src\\input\\mouse\\check button released.js",
+              "name": "check button released.js",
+              "size": 1679,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\mouse\\circle hit area.js",
               "name": "circle hit area.js",
               "size": 943,
@@ -8415,7 +8433,7 @@
               "extension": ".js"
             }
           ],
-          "size": 34239
+          "size": 35918
         },
         {
           "path": "src\\input\\multitouch",
@@ -8442,7 +8460,7 @@
             {
               "path": "src\\input\\multitouch\\multi touch test.js",
               "name": "multi touch test.js",
-              "size": 2707,
+              "size": 2826,
               "extension": ".js"
             },
             {
@@ -8452,7 +8470,7 @@
               "extension": ".js"
             }
           ],
-          "size": 8670
+          "size": 8789
         },
         {
           "path": "src\\input\\pixel perfect",
@@ -8614,7 +8632,7 @@
           "size": 10196
         }
       ],
-      "size": 196621
+      "size": 200921
     },
     {
       "path": "src\\loader",
@@ -12498,5 +12516,5 @@
       "size": 20418
     }
   ],
-  "size": 3486941
+  "size": 3493408
 }

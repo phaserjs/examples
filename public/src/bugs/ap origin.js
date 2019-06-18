@@ -1,5 +1,6 @@
 var config = {
     type: Phaser.AUTO,
+    backgroundColor: 0xefefef,
     parent: 'phaser-example',
     physics: {
         default: 'arcade',

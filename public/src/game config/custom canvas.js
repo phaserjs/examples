@@ -8,7 +8,7 @@ document.body.appendChild(myCustomCanvas);
 // var myCustomContext = myCustomCanvas.getContext('2d');
 
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
     height: 600,

@@ -374,30 +374,6 @@
           "extension": ".js"
         },
         {
-          "path": "src\\animation\\spine test 1.js",
-          "name": "spine test 1.js",
-          "size": 5401,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\animation\\spine test 2.js",
-          "name": "spine test 2.js",
-          "size": 4438,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\animation\\spine test 3.js",
-          "name": "spine test 3.js",
-          "size": 10063,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\animation\\spine test 4.js",
-          "name": "spine test 4.js",
-          "size": 9277,
-          "extension": ".js"
-        },
-        {
           "path": "src\\animation\\stagger play.js",
           "name": "stagger play.js",
           "size": 907,
@@ -416,7 +392,7 @@
           "extension": ".js"
         }
       ],
-      "size": 74186
+      "size": 45007
     },
     {
       "path": "src\\archived",
@@ -1143,7 +1119,7 @@
         {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
-          "size": 626,
+          "size": 658,
           "extension": ".js"
         },
         {
@@ -1357,7 +1333,7 @@
           "extension": ".js"
         }
       ],
-      "size": 71452
+      "size": 71484
     },
     {
       "path": "src\\cache",
@@ -2833,7 +2809,7 @@
         {
           "path": "src\\game config\\custom canvas.js",
           "name": "custom canvas.js",
-          "size": 687,
+          "size": 689,
           "extension": ".js"
         },
         {
@@ -2964,7 +2940,7 @@
           "extension": ".js"
         }
       ],
-      "size": 22264
+      "size": 22266
     },
     {
       "path": "src\\game objects",
@@ -5414,7 +5390,7 @@
             {
               "path": "src\\game objects\\sprites\\rotate around a sprite.js",
               "name": "rotate around a sprite.js",
-              "size": 823,
+              "size": 1224,
               "extension": ".js"
             },
             {
@@ -5442,7 +5418,7 @@
               "extension": ".js"
             }
           ],
-          "size": 8424
+          "size": 8825
         },
         {
           "path": "src\\game objects\\tests",
@@ -6151,7 +6127,7 @@
           "size": 268936
         }
       ],
-      "size": 997187
+      "size": 997588
     },
     {
       "path": "src\\games",
@@ -12516,5 +12492,5 @@
       "size": 20418
     }
   ],
-  "size": 3492921
+  "size": 3464177
 }

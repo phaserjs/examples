@@ -1153,9 +1153,21 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\container drag.js",
+          "name": "container drag.js",
+          "size": 891,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\container tilesprite.js",
           "name": "container tilesprite.js",
           "size": 2088,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\dom resize.js",
+          "name": "dom resize.js",
+          "size": 675,
           "extension": ".js"
         },
         {
@@ -1333,7 +1345,7 @@
           "extension": ".js"
         }
       ],
-      "size": 71484
+      "size": 73050
     },
     {
       "path": "src\\cache",
@@ -12180,7 +12192,7 @@
         {
           "path": "src\\tweens\\restart.js",
           "name": "restart.js",
-          "size": 1012,
+          "size": 1043,
           "extension": ".js"
         },
         {
@@ -12262,7 +12274,7 @@
             {
               "path": "src\\tweens\\timelines\\simple timeline 1.js",
               "name": "simple timeline 1.js",
-              "size": 1107,
+              "size": 1077,
               "extension": ".js"
             },
             {
@@ -12296,7 +12308,7 @@
               "extension": ".js"
             }
           ],
-          "size": 12104
+          "size": 12074
         },
         {
           "path": "src\\tweens\\tint tween.js",
@@ -12335,7 +12347,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77906
+      "size": 77907
     },
     {
       "path": "src\\utils",
@@ -12492,5 +12504,5 @@
       "size": 20418
     }
   ],
-  "size": 3464177
+  "size": 3465744
 }

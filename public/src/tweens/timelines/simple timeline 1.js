@@ -28,28 +28,26 @@ function create ()
             targets: image,
             x: 600,
             ease: 'Power1',
-            duration: 3000
+            duration: 1000
         },
         {
             targets: image,
             y: 500,
             ease: 'Power1',
-            duration: 3000
+            duration: 1000
         },
         {
             targets: image,
             x: 100,
             ease: 'Power1',
-            duration: 3000
+            duration: 1000
         },
         {
             targets: image,
             y: 100,
             ease: 'Power1',
-            duration: 3000
+            duration: 1000
         }]
 
     });
-
-    console.log(timeline);
 }

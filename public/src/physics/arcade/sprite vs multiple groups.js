@@ -33,8 +33,8 @@ function create ()
 
     //  Create a few balls
 
-    var balls = this.add.group();
-    // var balls = this.physics.add.group({ immovable: true });
+    // var balls = this.add.group();
+    var balls = this.physics.add.group({ immovable: true });
 
     for (var i = 0; i < 8; i++)
     {
@@ -63,7 +63,7 @@ function create ()
 
     sprite.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true).setGravityY(200);
 
-    this.physics.add.collider(sprite, balls);
+    // this.physics.add.collider(sprite, balls);
 
-    // this.physics.add.collider(sprite, [ balls, crates ]);
+    this.physics.add.collider(sprite, [ balls, crates ]);
 }

@@ -34,7 +34,7 @@ function create ()
 {
     sprite = this.physics.add.image(100, 100, 'mushroom');
 
-    static1 = this.physics.add.staticImage(400, 100, 'bar');
+    static1 = this.physics.add.staticImage(700, 100, 'bar');
     static2 = this.physics.add.staticImage(100, 400, 'bar');
     static3 = this.physics.add.staticImage(500, 300, 'bar');
 
@@ -42,8 +42,8 @@ function create ()
 
     this.input.on('pointerdown', function () {
     
-        static1.x -= 200;
-        static1.setScale(3, 5);
+        static1.x -= 50;
+        // static1.setScale(3, 5);
         static1.refreshBody();
     
     }, this);

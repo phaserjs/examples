@@ -1,60 +1,92 @@
 var config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  backgroundColor: 0x666666,
-  parent: 'phaser-example',
-  physics: {
-    default: 'arcade',
-    arcade: {
-      debug: true
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    parent: 'phaser-example',
+    physics: {
+        default: "arcade",
+        arcade: {
+            gravity: { y: 200 },
+            _fps: 30
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create
     }
-  },
-  scene: {
-    preload: preload,
-    create: create,
-    update: update
-  }
 };
 
-var sprite;
-var group;
+var logo = null;
+
+var maxY = 0;
+var minY = 600;
+var lastY = 0;
+var duration = 0;
+var prevDuration = 0;
+var prevDirection = null;
 
 var game = new Phaser.Game(config);
 
-function preload() {
-  this.load.image('mushroom', 'assets/sprites/50x50-white.png');
-  this.load.image('ball', 'assets/sprites/50x50-black.png');
+function preload ()
+{
+    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
+    this.load.image('marker', 'assets/sprites/longarrow.png');
 }
 
-function create() {
-  group = this.physics.add.staticGroup({
-    key: 'ball',
-    frameQuantity: 1,
-    setXY: { x: 400, y: 350 }
-  });
-  
-  sprite = this.physics.add.image(400, 200, 'mushroom');
-  
-  sprite.setGravityY(300);
+function create ()
+{
+    text = this.add.text(10, 10, 'Click to start test', { font: '16px Courier', fill: '#00ff00' });
 
-  // sprite.setBounce(0, 0.8);
+    this.input.once('pointerdown', function () {
 
-  // or:
-  // sprite.setVelocityY(300);
-  
-  // Works as expected:
-  // this.physics.add.collider(sprite, group);
-  
-  gfx = this.add.graphics();
+        logo = this.physics.add.image(400, 100, 'logo');
+
+        logo.setOrigin(0.5, 0);
+        logo.setVelocity(0, 60);
+        logo.setBounce(1, 1);
+        logo.setCollideWorldBounds(true);
+
+        lastY = logo.y;
+
+        this.sys.events.on('postupdate', update, this);
+
+    }, this);
 }
 
-function update() {    
-  this.physics.world.collide(sprite, group);
-  
-  // console.log(Math.round(sprite.y - sprite.body.y - 32));
-  
-  this.physics.world.wrap(sprite);
+function update (time, delta)
+{
+    text.setText([
+        'steps: ' + this.physics.world.stepsLastFrame,
+        'duration: ' + prevDuration,
+        'last y: ' + lastY,
+        'min y: ' + minY,
+        'max y: ' + maxY
+    ]);
+
+    if (Phaser.Math.Fuzzy.LessThan(logo.body.velocity.y, 0, 0.1))
+    {
+        direction = 'up';
+    }
+    else
+    {
+        direction = 'down';
+    }
+
+    if (prevDirection !== direction && prevDirection === 'up')
+    {
+        var marker = this.add.sprite(0, logo.y + 18, 'marker');
+
+        marker.setOrigin(0, 1);
+
+        lastY = logo.y;
+
+        prevDuration = duration;
+        duration = 0;
+    }
+
+    prevDirection = direction;
+    duration += delta;
+
+    minY = Math.min(minY, logo.y);
+    maxY = Math.max(minY, maxY, lastY);
 }
-
-

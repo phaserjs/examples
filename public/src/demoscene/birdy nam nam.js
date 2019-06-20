@@ -10,7 +10,10 @@ var demoSceneConfig = {
     active: false,
     visible: false,
     preload: preload,
-    create: create
+    create: create,
+    extend: {
+        startDemo: startDemo
+    }
 };
 
 var config = {
@@ -27,23 +30,25 @@ var egg = 0;
 var chick1;
 var chick2;
 var chick3;
+var loadImage;
 
 var game = new Phaser.Game(config);
 
 function bootLoader ()
 {
     this.load.image('loader', 'assets/demoscene/birdy-nam-nam-loader.png');
+    this.load.image('click', 'assets/demoscene/birdy-nam-nam-click.png');
 }
 
 function bootCreate ()
 {
-    this.add.image(0, 0, 'loader').setOrigin(0);
-
-    this.scene.launch('demo');
+    this.scene.start('demo');
 }
 
 function preload ()
 {
+    loadImage = this.add.image(0, 0, 'loader').setOrigin(0);
+
     this.load.audio('jungle', [ 'assets/audio/jungle.ogg', 'assets/audio/jungle.mp3' ]);
     this.load.animation('birdyAnims', 'assets/demoscene/birdy.json');
     this.load.image('bg1', 'assets/demoscene/birdy-nam-nam-bg1.png');
@@ -57,14 +62,33 @@ function create ()
 
     track = this.sound.add('jungle');
 
-    this.add.image(0, 0, 'bg1').setOrigin(0);
-
     this.anims.create({
         key: 'lay',
         frames: this.anims.generateFrameNames('birdy', { prefix: 'lay', start: 0, end: 19 }),
         frameRate: 28,
         delay: 1
     });
+
+    if (this.sound.locked)
+    {
+        loadImage.setTexture('click');
+
+        this.sound.once('unlocked', function ()
+        {
+            this.startDemo();
+        }, this);
+    }
+    else
+    {
+        this.startDemo();
+    }
+}
+
+function startDemo ()
+{
+    loadImage.setVisible(false);
+
+    this.add.image(0, 0, 'bg1').setOrigin(0);
 
     bird = this.add.sprite(328, 152, 'birdy', 'lay0').setOrigin(0).setDepth(10);
 

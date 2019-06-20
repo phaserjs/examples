@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     var versions = [
         { val : 'dev', text: 'Dev Build' },
+        { val : '3.18.1', text: '3.18.1' },
         { val : '3.18.0', text: '3.18.0' },
         { val : '3.17.0', text: '3.17.0' },
         { val : '3.16.2', text: '3.16.2' },

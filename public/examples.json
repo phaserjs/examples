@@ -1125,7 +1125,7 @@
         {
           "path": "src\\bugs\\ap postupdate.js",
           "name": "ap postupdate.js",
-          "size": 1135,
+          "size": 1953,
           "extension": ".js"
         },
         {
@@ -1345,7 +1345,7 @@
           "extension": ".js"
         }
       ],
-      "size": 73050
+      "size": 73868
     },
     {
       "path": "src\\cache",
@@ -2026,7 +2026,7 @@
         {
           "path": "src\\demoscene\\birdy nam nam.js",
           "name": "birdy nam nam.js",
-          "size": 3104,
+          "size": 3608,
           "extension": ".js"
         },
         {
@@ -2054,7 +2054,7 @@
           "extension": ".js"
         }
       ],
-      "size": 7643
+      "size": 8147
     },
     {
       "path": "src\\depth sorting",
@@ -5196,7 +5196,13 @@
             {
               "path": "src\\game objects\\shaders\\load shader.js",
               "name": "load shader.js",
-              "size": 397,
+              "size": 664,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shaders\\save shader as texture.js",
+              "name": "save shader as texture.js",
+              "size": 1139,
               "extension": ".js"
             },
             {
@@ -5218,13 +5224,25 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\shaders\\shader mass texture test.js",
+              "name": "shader mass texture test.js",
+              "size": 1405,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\shaders\\shader transforms.js",
               "name": "shader transforms.js",
               "size": 1043,
               "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\shaders\\using a shader as a buffer.js",
+              "name": "using a shader as a buffer.js",
+              "size": 943,
+              "extension": ".js"
             }
           ],
-          "size": 5201
+          "size": 8955
         },
         {
           "path": "src\\game objects\\shapes",
@@ -6139,7 +6157,7 @@
           "size": 268936
         }
       ],
-      "size": 997588
+      "size": 1001342
     },
     {
       "path": "src\\games",
@@ -9935,7 +9953,7 @@
             {
               "path": "src\\physics\\arcade\\static body update.js",
               "name": "static body update.js",
-              "size": 1230,
+              "size": 1232,
               "extension": ".js"
             },
             {
@@ -9999,7 +10017,7 @@
               "extension": ".js"
             }
           ],
-          "size": 211935
+          "size": 211937
         },
         {
           "path": "src\\physics\\impact",
@@ -10527,7 +10545,7 @@
           "size": 2750
         }
       ],
-      "size": 342513
+      "size": 342515
     },
     {
       "path": "src\\plugins",
@@ -12504,5 +12522,5 @@
       "size": 20418
     }
   ],
-  "size": 3465744
+  "size": 3470822
 }

@@ -67,10 +67,6 @@ void main(void)
 }
     `;
 
-    //  Create our BaseShader object using the fragment source above (and the default vertex source):
-
-    const baseShader1 = new Phaser.Display.BaseShader('BufferA', s1);
-
     var s2 = `
 precision mediump float;
 
@@ -96,22 +92,15 @@ void main(void)
 }
     `;
 
+    const baseShader1 = new Phaser.Display.BaseShader('BufferA', s1);
     const baseShader2 = new Phaser.Display.BaseShader('BufferB', s2);
 
-    var shader1 = this.add.shader(baseShader1, 400, 300, 512, 512);
+    var shader1 = this.add.shader(baseShader1, 0, 0, 512, 512).setRenderToTexture();
+    var shader2 = this.add.shader(baseShader2, 0, 0, 512, 512).setRenderToTexture('output');
 
-    shader1.setRenderToTexture('blah');
+    shader1.setSampler2DBuffer('iChannel0', shader2.glTexture, 512, 512);
+    shader2.setSampler2DBuffer('iChannel0', shader1.glTexture, 512, 512);
 
-    var shader2 = this.add.shader(baseShader2, 400, 300, 512, 512);
-
-    shader2.setRenderToTexture('blah2');
-
-    shader1.setSampler2D('iChannel0', 'blah2');
-    shader2.setSampler2D('iChannel0', 'blah');
-
-    this.add.image(400, 300, 'blah2');
-
-
-
-
+    //  Render our shader to this image
+    this.add.image(400, 300, 'output');
 }

@@ -22,7 +22,7 @@ function create ()
     var marker = this.add.image(100, 300, 'block').setAlpha(0.3);
     var image = this.add.image(100, 300, 'block');
 
-    this.tweens.add({
+    var tween = this.tweens.add({
         targets: image,
         x: 700,
         duration: 3000,

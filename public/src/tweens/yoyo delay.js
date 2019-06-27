@@ -30,6 +30,4 @@ function create ()
         yoyo: true,
         hold: 2000
     });
-
-    console.log(tween);
 }

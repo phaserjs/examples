@@ -31,15 +31,15 @@ function create ()
     text1 = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
     text2 = this.add.text(400, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-    // tween = this.tweens.add({
-    //     targets: image,
-    //     props: {
-    //         x: { value: 700, duration: 4000, ease: 'Power2' },
-    //         y: { value: 500, duration: 1500, ease: 'Bounce.easeOut' }
-    //     },
-    //     loop: 2,
-    //     loopDelay: 1000
-    // });
+    tween = this.tweens.add({
+        targets: image,
+        props: {
+            x: { value: 700, duration: 4000, ease: 'Power2' },
+            y: { value: 500, duration: 1500, ease: 'Bounce.easeOut' }
+        },
+        loop: 2,
+        loopDelay: 1000
+    });
 
     // tween = this.tweens.add({
     //     targets: image,
@@ -51,26 +51,26 @@ function create ()
     //     completeDelay: 2000
     // });
 
-    tween = this.tweens.add({
-        targets: image,
-        props: {
-            x: { value: 700, duration: 4000, ease: 'Linear' },
-        },
-        delay: 2000,
-        completeDelay: 2000
-    });
+    // tween = this.tweens.add({
+    //     targets: image,
+    //     props: {
+    //         x: { value: 700, duration: 4000, ease: 'Linear' },
+    //     },
+    //     delay: 2000,
+    //     completeDelay: 2000
+    // });
 
     this.input.on('pointerdown', function () {
 
-        var td = tween.data[0];
+        // var td = tween.data[0];
 
-        console.log('start', td.getStartValue(td.target, td.key, td.start));
-        console.log('end', td.getEndValue(td.target, td.key, td.end));
+        // console.log('start', td.getStartValue(td.target, td.key, td.start));
+        // console.log('end', td.getEndValue(td.target, td.key, td.end));
 
-        tween.seek(0.5);
+        tween.seek(0.01);
 
-        console.log('start', td.getStartValue(td.target, td.key, td.start));
-        console.log('end', td.getEndValue(td.target, td.key, td.end));
+        // console.log('start', td.getStartValue(td.target, td.key, td.start));
+        // console.log('end', td.getEndValue(td.target, td.key, td.end));
 
     });
 

@@ -28,49 +28,48 @@ function create ()
     var triangle2 = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 300);
 
     //  Store the position data for each shape:
-
-    balls.placeOnCircle(circle);
+    Phaser.Actions.PlaceOnCircle(balls.getChildren(), circle);
 
     balls.children.iterate(function (child) {
 
-        child.data.set('circle', { x: child.x, y: child.y });
+        child.setData('circle', { x: child.x, y: child.y });
 
     });
 
-    balls.placeOnTriangle(triangle);
+    Phaser.Actions.PlaceOnTriangle(balls.getChildren(), triangle);
 
     balls.children.iterate(function (child) {
 
-        child.data.set('triangle', { x: child.x, y: child.y });
+        child.setData('triangle', { x: child.x, y: child.y });
 
     });
 
-    balls.placeOnRectangle(rect);
+    Phaser.Actions.PlaceOnRectangle(balls.getChildren(), rect);
 
     balls.children.iterate(function (child) {
 
-        child.data.set('rect', { x: child.x, y: child.y });
+        child.setData('rect', { x: child.x, y: child.y });
 
     });
 
-    balls.placeOnEllipse(ellipse);
+    Phaser.Actions.PlaceOnEllipse(balls.getChildren(), ellipse);
 
     balls.children.iterate(function (child) {
 
-        child.data.set('ellipse', { x: child.x, y: child.y });
+        child.setData('ellipse', { x: child.x, y: child.y });
 
     });
 
-    balls.placeOnTriangle(triangle2);
+    Phaser.Actions.PlaceOnTriangle(balls.getChildren(), triangle2);
 
     balls.children.iterate(function (child) {
 
-        child.data.set('triangle2', { x: child.x, y: child.y });
+        child.setData('triangle2', { x: child.x, y: child.y });
 
     });
 
     //  Start off on the Circle
-    balls.placeOnCircle(circle);
+    Phaser.Actions.PlaceOnCircle(balls.getChildren(), circle);
 
     var shapes = [ 'circle', 'triangle', 'rect', 'ellipse', 'triangle2' ];
     var shape1 = 0;
@@ -89,12 +88,12 @@ function create ()
 
             getEnd: function (target, key, value)
             {
-                return target.data.get(shapes[shape2]).x;
+                return target.getData(shapes[shape2]).x;
             },
 
             getStart: function (target, key, value)
             {
-                return target.data.get(shapes[shape1]).x;
+                return target.getData(shapes[shape1]).x;
             }
 
         },
@@ -103,12 +102,12 @@ function create ()
 
             getEnd: function (target, key, value)
             {
-                return target.data.get(shapes[shape2]).y;
+                return target.getData(shapes[shape2]).y;
             },
 
             getStart: function (target, key, value)
             {
-                return target.data.get(shapes[shape1]).y;
+                return target.getData(shapes[shape1]).y;
             }
 
         },

@@ -12250,9 +12250,15 @@
           "extension": ".js"
         },
         {
+          "path": "src\\tweens\\stagger compare.js",
+          "name": "stagger compare.js",
+          "size": 2179,
+          "extension": ".js"
+        },
+        {
           "path": "src\\tweens\\stagger delay.js",
           "name": "stagger delay.js",
-          "size": 889,
+          "size": 1596,
           "extension": ".js"
         },
         {
@@ -12389,7 +12395,7 @@
           "extension": ".js"
         }
       ],
-      "size": 87267
+      "size": 90153
     },
     {
       "path": "src\\utils",
@@ -12546,5 +12552,5 @@
       "size": 20418
     }
   ],
-  "size": 3498125
+  "size": 3501011
 }

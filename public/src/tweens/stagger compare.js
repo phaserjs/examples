@@ -53,6 +53,7 @@ function create ()
 
     var gw = 10;
     var gh = 10;
+    var bs = 50;
 
     var group1 = this.add.group({
         key: 'block',
@@ -60,10 +61,10 @@ function create ()
         gridAlign: {
             width: gw,
             height: gh,
-            cellWidth: 50,
-            cellHeight: 50,
-            x: 50 + 25,
-            y: 50 + 25
+            cellWidth: bs,
+            cellHeight: bs,
+            x: bs + (bs/2),
+            y: bs + (bs/2)
         }
     });
 
@@ -89,6 +90,8 @@ function create ()
         var c = Math.floor(index * (360 / size));
 
         child.setTint(hsv[c].color);
+        child.displayWidth = bs;
+        child.displayHeight = bs;
 
     });
 
@@ -114,15 +117,23 @@ function create ()
         // delay: this.tweens.stagger([ 1500, 3000 ]),
         // delay: this.tweens.stagger([ 0, 5000 ], { from: 'center' }),
         // delay: this.tweens.stagger(200, { grid: [ gw, gh ], from: 'first' }),
+        // delay: this.tweens.stagger(20, { ease: 'cubic.inout', from: 'center' }),
 
     var tween1 = this.tweens.add({
         targets: group1.getChildren(),
         scale: 0.2,
-        duration: 500,
-        ease: 'linear',
+        _x: '+=700',
+        _yoyo: true,
+        _repeat: -1,
+        duration: 1000,
+        ease: 'power1',
         _delay: this.tweens.stagger([ 500, 5000 ], { from: 'center' }),
         _delay: this.tweens.stagger(500, { from: 'center' }),
-        delay: this.tweens.stagger(1000, { grid: [ gw, gh ], from: 'center' }),
+        _delay: this.tweens.stagger(1000, { grid: [ gw, gh ], from: 'center' }),
+        _delay: this.tweens.stagger(20, { ease: 'cubic.inout', from: 'center' }),
+        _delay: this.tweens.stagger(100),
+        _delay: this.tweens.stagger([ 100, 600 ], { ease: 'cubic.inout' }),
+        delay: this.tweens.stagger(100, { grid: [ gw, gh ], from: 'first', ease: 'cubic.inout' }),
         paused: true
     });
 

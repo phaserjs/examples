@@ -202,7 +202,7 @@
         {
           "path": "src\\animation\\animation repeat event.js",
           "name": "animation repeat event.js",
-          "size": 1343,
+          "size": 1377,
           "extension": ".js"
         },
         {
@@ -392,7 +392,7 @@
           "extension": ".js"
         }
       ],
-      "size": 45007
+      "size": 45041
     },
     {
       "path": "src\\archived",
@@ -1117,6 +1117,12 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\anim remove.js",
+          "name": "anim remove.js",
+          "size": 917,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
           "size": 658,
@@ -1228,6 +1234,12 @@
           "path": "src\\bugs\\order.js",
           "name": "order.js",
           "size": 1309,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\pivot.js",
+          "name": "pivot.js",
+          "size": 3116,
           "extension": ".js"
         },
         {
@@ -1345,7 +1357,7 @@
           "extension": ".js"
         }
       ],
-      "size": 73868
+      "size": 77901
     },
     {
       "path": "src\\cache",
@@ -5232,7 +5244,7 @@
             {
               "path": "src\\game objects\\shaders\\shader bundle.js",
               "name": "shader bundle.js",
-              "size": 607,
+              "size": 752,
               "extension": ".js"
             },
             {
@@ -5254,7 +5266,7 @@
               "extension": ".js"
             }
           ],
-          "size": 26898
+          "size": 27043
         },
         {
           "path": "src\\game objects\\shapes",
@@ -6169,7 +6181,7 @@
           "size": 268936
         }
       ],
-      "size": 1019285
+      "size": 1019430
     },
     {
       "path": "src\\games",
@@ -6479,32 +6491,32 @@
             {
               "path": "src\\games\\topdownShooter\\topdown_averageFocus.js",
               "name": "topdown_averageFocus.js",
-              "size": 6621,
+              "size": 6651,
               "extension": ".js"
             },
             {
               "path": "src\\games\\topdownShooter\\topdown_combatMechanics.js",
               "name": "topdown_combatMechanics.js",
-              "size": 10529,
+              "size": 10559,
               "extension": ".js"
             },
             {
               "path": "src\\games\\topdownShooter\\topdown_playerFocus.js",
               "name": "topdown_playerFocus.js",
-              "size": 5487,
+              "size": 5517,
               "extension": ".js"
             },
             {
               "path": "src\\games\\topdownShooter\\topdown_targetFocus.js",
               "name": "topdown_targetFocus.js",
-              "size": 6012,
+              "size": 6042,
               "extension": ".js"
             }
           ],
-          "size": 28649
+          "size": 28769
         }
       ],
-      "size": 209444
+      "size": 209564
     },
     {
       "path": "src\\geom",
@@ -7882,24 +7894,6 @@
           "name": "dom events",
           "children": [
             {
-              "path": "src\\input\\dom events\\add move callback loop.js",
-              "name": "add move callback loop.js",
-              "size": 702,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\input\\dom events\\add move callback.js",
-              "name": "add move callback.js",
-              "size": 905,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\input\\dom events\\add up callback.js",
-              "name": "add up callback.js",
-              "size": 1318,
-              "extension": ".js"
-            },
-            {
               "path": "src\\input\\dom events\\on canvas out.js",
               "name": "on canvas out.js",
               "size": 818,
@@ -7912,7 +7906,7 @@
               "extension": ".js"
             }
           ],
-          "size": 4541
+          "size": 1616
         },
         {
           "path": "src\\input\\dragging",
@@ -8198,6 +8192,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\keyboard\\cursors time.js",
+              "name": "cursors time.js",
+              "size": 1556,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\keyboard\\enter name.js",
               "name": "enter name.js",
               "size": 4562,
@@ -8288,7 +8288,7 @@
               "extension": ".js"
             }
           ],
-          "size": 45596
+          "size": 47152
         },
         {
           "path": "src\\input\\mouse",
@@ -8375,7 +8375,7 @@
             {
               "path": "src\\input\\mouse\\pointer lock.js",
               "name": "pointer lock.js",
-              "size": 2526,
+              "size": 2532,
               "extension": ".js"
             },
             {
@@ -8451,7 +8451,7 @@
               "extension": ".js"
             }
           ],
-          "size": 35918
+          "size": 35924
         },
         {
           "path": "src\\input\\multitouch",
@@ -8608,9 +8608,15 @@
               "name": "pointer buttons.js",
               "size": 1616,
               "extension": ".js"
+            },
+            {
+              "path": "src\\input\\pointer\\pointer debug.js",
+              "name": "pointer debug.js",
+              "size": 966,
+              "extension": ".js"
             }
           ],
-          "size": 12415
+          "size": 13381
         },
         {
           "path": "src\\input\\zones",
@@ -8650,7 +8656,7 @@
           "size": 10196
         }
       ],
-      "size": 201083
+      "size": 200686
     },
     {
       "path": "src\\loader",
@@ -9717,6 +9723,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\bullets group.js",
+              "name": "bullets group.js",
+              "size": 2019,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\circular body.js",
               "name": "circular body.js",
               "size": 907,
@@ -10029,7 +10041,7 @@
               "extension": ".js"
             }
           ],
-          "size": 211937
+          "size": 213956
         },
         {
           "path": "src\\physics\\impact",
@@ -10557,7 +10569,7 @@
           "size": 2750
         }
       ],
-      "size": 342515
+      "size": 344534
     },
     {
       "path": "src\\plugins",
@@ -12252,13 +12264,13 @@
         {
           "path": "src\\tweens\\stagger compare.js",
           "name": "stagger compare.js",
-          "size": 2179,
+          "size": 3634,
           "extension": ".js"
         },
         {
           "path": "src\\tweens\\stagger delay.js",
           "name": "stagger delay.js",
-          "size": 1596,
+          "size": 889,
           "extension": ".js"
         },
         {
@@ -12395,7 +12407,7 @@
           "extension": ".js"
         }
       ],
-      "size": 90153
+      "size": 90901
     },
     {
       "path": "src\\utils",
@@ -12552,5 +12564,5 @@
       "size": 20418
     }
   ],
-  "size": 3501011
+  "size": 3507713
 }

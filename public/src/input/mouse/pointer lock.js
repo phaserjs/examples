@@ -23,9 +23,11 @@ function create ()
     sprite = this.add.sprite(400, 300, 'ship');
 
     // Pointer lock will only work after an 'engagement gesture', e.g. mousedown, keypress, etc.
-    game.canvas.addEventListener('mousedown', function () {
-        game.input.mouse.requestPointerLock();
-    });
+    this.input.on('pointerdown', function (pointer) {
+
+        this.input.mouse.requestPointerLock();
+
+    }, this);
 
     // When locked, you will have to use the movementX and movementY properties of the pointer
     // (since a locked cursor's xy position does not update)
@@ -35,6 +37,7 @@ function create ()
         {
             sprite.x += pointer.movementX;
             sprite.y += pointer.movementY;
+
 
             // Force the sprite to stay on screen
             sprite.x = Phaser.Math.Wrap(sprite.x, 0, game.renderer.width);
@@ -51,23 +54,26 @@ function create ()
     // Exit pointer lock when Q is pressed. Browsers will also exit pointer lock when escape is
     // pressed.
     this.input.keyboard.on('keydown_Q', function (event) {
-        if (game.input.mouse.locked)
+        if (this.input.mouse.locked)
         {
-            game.input.mouse.releasePointerLock();
+            this.input.mouse.releasePointerLock();
         }
-    }, 0, this);
+    }, this);
 
     // Optionally, you can subscribe to the game's pointer lock change event to know when the player
     // enters/exits pointer lock. This is useful if you need to update the UI, change to a custom
     // mouse cursor, etc.
     this.input.on('pointerlockchange', function (event) {
+
         updateLockText(event.isPointerLocked, sprite.x, sprite.y);
-    }, 0, this);
+
+    }, this);
 
     lockText = this.add.text(16, 16, '', {
         fontSize: '20px',
         fill: '#ffffff'
     });
+
     updateLockText(false);
 }
 

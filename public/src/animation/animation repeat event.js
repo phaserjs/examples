@@ -24,12 +24,14 @@ function create ()
         key: 'walk',
         frames: this.anims.generateFrameNumbers('mummy'),
         frameRate: 16,
-        repeat: 7
+        repeat: 0
     });
 
     var sprite = this.add.sprite(50, 300, 'mummy').setScale(4);
 
     sprite.play('walk');
+
+    sprite.anims.setRepeat(7);
 
     this.tweens.add({
         targets: sprite,

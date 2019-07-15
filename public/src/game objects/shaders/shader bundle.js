@@ -21,6 +21,13 @@ function create ()
     //  The bundle file contains multiple shaders, all separated by a frontmatter block
     //  You can reference them by name:
 
-    this.add.shader('Marble', 0, 0, 400, 600).setOrigin(0);
-    this.add.shader('Flower Plasma', 400, 0, 400, 600).setOrigin(0);
+    var s1 = this.add.shader('Stripes', 0, 0, 400, 600).setOrigin(0);
+    var s2 = this.add.shader('Stripes', 400, 0, 400, 600).setOrigin(0);
+
+    // s1.setUniform('size.value', 0.0);
+    // s2.setUniform('size.value', 1.0);
+
+    window.s1 = s1;
+    window.s2 = s2;
+
 }

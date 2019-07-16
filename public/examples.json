@@ -1171,6 +1171,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\destroy.js",
+          "name": "destroy.js",
+          "size": 1254,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\dom resize.js",
           "name": "dom resize.js",
           "size": 675,
@@ -1263,7 +1269,7 @@
         {
           "path": "src\\bugs\\rect scale.js",
           "name": "rect scale.js",
-          "size": 500,
+          "size": 1359,
           "extension": ".js"
         },
         {
@@ -1357,7 +1363,7 @@
           "extension": ".js"
         }
       ],
-      "size": 77901
+      "size": 80014
     },
     {
       "path": "src\\cache",
@@ -8194,7 +8200,7 @@
             {
               "path": "src\\input\\keyboard\\cursors time.js",
               "name": "cursors time.js",
-              "size": 1556,
+              "size": 2585,
               "extension": ".js"
             },
             {
@@ -8288,7 +8294,7 @@
               "extension": ".js"
             }
           ],
-          "size": 47152
+          "size": 48181
         },
         {
           "path": "src\\input\\mouse",
@@ -8656,7 +8662,7 @@
           "size": 10196
         }
       ],
-      "size": 200686
+      "size": 201715
     },
     {
       "path": "src\\loader",
@@ -11466,7 +11472,13 @@
         {
           "path": "src\\spine\\basic spineboy.js",
           "name": "basic spineboy.js",
-          "size": 780,
+          "size": 770,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\batch test.js",
+          "name": "batch test.js",
+          "size": 1023,
           "extension": ".js"
         },
         {
@@ -11478,7 +11490,7 @@
         {
           "path": "src\\spine\\draw debug bounds.js",
           "name": "draw debug bounds.js",
-          "size": 1499,
+          "size": 1513,
           "extension": ".js"
         },
         {
@@ -11530,7 +11542,7 @@
           "extension": ".js"
         }
       ],
-      "size": 19951
+      "size": 20978
     },
     {
       "path": "src\\textures",
@@ -12564,5 +12576,5 @@
       "size": 20418
     }
   ],
-  "size": 3507713
+  "size": 3511882
 }

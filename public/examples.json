@@ -11470,6 +11470,18 @@
       "name": "spine",
       "children": [
         {
+          "path": "src\\spine\\add hit area.js",
+          "name": "add hit area.js",
+          "size": 669,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\arcade physics spine body.js",
+          "name": "arcade physics spine body.js",
+          "size": 985,
+          "extension": ".js"
+        },
+        {
           "path": "src\\spine\\basic spineboy.js",
           "name": "basic spineboy.js",
           "size": 770,
@@ -11478,7 +11490,13 @@
         {
           "path": "src\\spine\\batch test.js",
           "name": "batch test.js",
-          "size": 1023,
+          "size": 1699,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\camera pipeline test.js",
+          "name": "camera pipeline test.js",
+          "size": 2612,
           "extension": ".js"
         },
         {
@@ -11488,9 +11506,21 @@
           "extension": ".js"
         },
         {
+          "path": "src\\spine\\destroy test.js",
+          "name": "destroy test.js",
+          "size": 1117,
+          "extension": ".js"
+        },
+        {
           "path": "src\\spine\\draw debug bounds.js",
           "name": "draw debug bounds.js",
           "size": 1513,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\image changes.js",
+          "name": "image changes.js",
+          "size": 769,
           "extension": ".js"
         },
         {
@@ -11542,7 +11572,7 @@
           "extension": ".js"
         }
       ],
-      "size": 20978
+      "size": 27806
     },
     {
       "path": "src\\textures",
@@ -12576,5 +12606,5 @@
       "size": 20418
     }
   ],
-  "size": 3511882
+  "size": 3518710
 }

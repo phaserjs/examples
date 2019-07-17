@@ -33,7 +33,7 @@ function create ()
 {
     this.add.image(0, 0, 'logo').setOrigin(0);
 
-    var spineBoy = this.add.spine(400, 600, 'boy', 'walk', true);
+    var spineBoy = this.add.spine(400, 600, 'boy', 'idle', true).setScale(0.5);
 
     spineBoy.drawDebug = true;
 

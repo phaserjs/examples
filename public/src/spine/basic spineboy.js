@@ -23,12 +23,10 @@ function preload ()
 
     this.load.setPath('assets/animations/spine/');
 
-    this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
+    this.load.spine('boy', 'spineboy-pro.json', 'spineboy-pro.atlas');
 }
 
 function create ()
 {
-    this.add.image(0, 0, 'logo').setOrigin(0);
-
     this.add.spine(400, 600, 'boy', 'idle', true);
 }

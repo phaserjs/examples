@@ -5411,13 +5411,19 @@
               "extension": ".js"
             },
             {
+              "path": "src\\game objects\\shapes\\triangle scale.js",
+              "name": "triangle scale.js",
+              "size": 1409,
+              "extension": ".js"
+            },
+            {
               "path": "src\\game objects\\shapes\\triangle.js",
               "name": "triangle.js",
               "size": 1409,
               "extension": ".js"
             }
           ],
-          "size": 62698
+          "size": 64107
         },
         {
           "path": "src\\game objects\\sprites",
@@ -6187,7 +6193,7 @@
           "size": 268936
         }
       ],
-      "size": 1019430
+      "size": 1020839
     },
     {
       "path": "src\\games",
@@ -8028,6 +8034,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\input\\game object\\debug hitarea.js",
+              "name": "debug hitarea.js",
+              "size": 2648,
+              "extension": ".js"
+            },
+            {
               "path": "src\\input\\game object\\destroy sprite on down event.js",
               "name": "destroy sprite on down event.js",
               "size": 1047,
@@ -8118,7 +8130,7 @@
               "extension": ".js"
             }
           ],
-          "size": 20835
+          "size": 23483
         },
         {
           "path": "src\\input\\gamepad",
@@ -8662,7 +8674,7 @@
           "size": 10196
         }
       ],
-      "size": 201715
+      "size": 204363
     },
     {
       "path": "src\\loader",
@@ -11472,7 +11484,7 @@
         {
           "path": "src\\spine\\add hit area.js",
           "name": "add hit area.js",
-          "size": 669,
+          "size": 1268,
           "extension": ".js"
         },
         {
@@ -11572,7 +11584,7 @@
           "extension": ".js"
         }
       ],
-      "size": 27806
+      "size": 28405
     },
     {
       "path": "src\\textures",
@@ -12606,5 +12618,5 @@
       "size": 20418
     }
   ],
-  "size": 3518710
+  "size": 3523366
 }

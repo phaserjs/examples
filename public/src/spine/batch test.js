@@ -33,7 +33,7 @@ function create ()
 {
     var anims = [ 'death', 'idle', 'jump', 'run', 'walk' ];
 
-    for (var i = 0; i < 256; i++)
+    for (var i = 0; i < 16; i++)
     {
         var s = Phaser.Math.FloatBetween(0.1, 0.5);
         var x = Phaser.Math.Between(50, 750 * 12);

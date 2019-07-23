@@ -3,7 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#cdcdcd',
+    backgroundColor: '#ffffff',
     scene: {
         preload: preload,
         create: create,
@@ -19,14 +19,14 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('logo', 'assets/sprites/phaser.png');
+    this.load.setPath('assets/spine/demos/');
 
-    this.load.setPath('assets/animations/spine/');
-
-    this.load.spine('boy', 'spineboy-pro.json', 'spineboy-pro.atlas');
+    this.load.spine('set1', 'demos.json', [ 'atlas1.atlas' ]);
 }
 
 function create ()
 {
-    this.add.spine(400, 600, 'boy', 'idle', true);
+    var b = this.add.spine(400, 600, 'set1.spineboy', 'idle', true);
+
+    console.log(b);
 }

@@ -24,22 +24,22 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
 
-    this.load.setPath('assets/animations/spine/');
+    this.load.setPath('assets/spine/demos/');
 
-    this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
+    this.load.spine('set1', 'demos.json', [ 'atlas1.atlas' ], true);
 }
 
 function create ()
 {
     var anims = [ 'death', 'idle', 'jump', 'run', 'walk' ];
 
-    for (var i = 0; i < 16; i++)
+    for (var i = 0; i < 64; i++)
     {
         var s = Phaser.Math.FloatBetween(0.1, 0.5);
         var x = Phaser.Math.Between(50, 750 * 12);
         var y = Phaser.Math.Between(100, 600);
 
-        this.add.spine(x, y, 'boy', Phaser.Utils.Array.GetRandom(anims), true).setScale(s);
+        this.add.spine(x, y, 'set1.spineboy', Phaser.Utils.Array.GetRandom(anims), true).setScale(s);
     }
 
     var cursors = this.input.keyboard.createCursorKeys();

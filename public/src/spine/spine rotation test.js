@@ -9,7 +9,7 @@ var config = {
         create: create,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpineWebGLPlugin', url: 'plugins/SpineWebGLPlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -19,11 +19,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('logo', 'assets/sprites/phaser.png');
     this.load.image('arrow', 'assets/sprites/arrow.png');
-
-    // this.load.setPath('assets/animations/spine/webgl/');
-    // this.load.spine('boy', 'spineboy-ess.json', 'spineboy.atlas');
 
     this.load.setPath('assets/animations/spine/');
     this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
@@ -31,8 +27,6 @@ function preload ()
 
 function create ()
 {
-    // this.add.image(0, 0, 'logo').setOrigin(0);
-
     var labelStyle = { font: "16px courier", fill: "#00ff00", align: "center" };
     var circle = new Phaser.Geom.Circle(400, 300, 225);
     var labelCircle = new Phaser.Geom.Circle(400, 300, 265);
@@ -83,6 +77,8 @@ function create ()
 
     var convert = function (angle)
     {
+        // return Math.abs((((angle + CONST.TAU) % CONST.PI2) - CONST.PI2) % CONST.PI2);
+
         return Math.abs((((angle + 90) % 360) - 360) % 360);
     };
 
@@ -98,7 +94,16 @@ function create ()
 
     for (var a = 0; a < 360; a += 22.5)
     {
-        var newa = convert(a);
+        var newa = a;
+
+        if (a > 180)
+        {
+            // newa -= 360;
+        }
+
+        // newa = convert(newa);
+
+        newa = Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(Phaser.Math.DegToRad(newa)));
 
         graphics2.moveTo(400+800, 300);
 
@@ -109,7 +114,7 @@ function create ()
         var lp = Phaser.Geom.Circle.CircumferencePoint(labelCircle2, Phaser.Math.DegToRad(a));
 
         var rads = String(Phaser.Math.DegToRad(newa)).substr(0, 5);
-        var info = newa + "°\n" + rads;
+        var info = String(newa).substr(0, 5) + "°\n" + rads;
         var label = this.add.text(lp.x, lp.y, info, labelStyle).setOrigin(0.5);
     }
     
@@ -117,17 +122,25 @@ function create ()
 
     var spineBoy = this.add.spine(400+800, 300, 'boy', 'walk', true).setScale(0.3);
 
-    spineBoy.rot = Phaser.Math.DegToRad(convert(arrow.angle - 90));
-    var aa = Phaser.Math.RadToDeg(spineBoy.rot - 1.5707963267948966);
-    var bb = convert(aa);
-    spineBoy.rotcc = Phaser.Math.DegToRad(bb);
+    // spineBoy.rot = Phaser.Math.DegToRad(convert(arrow.angle - 90));
+    // var aa = Phaser.Math.RadToDeg(spineBoy.rot - 1.5707963267948966);
+    // var bb = convert(aa);
+    // spineBoy.rotcc = Phaser.Math.DegToRad(bb);
 
     var text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+
+    // spineBoy.root.rotation = Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(Phaser.Math.DegToRad(arrow.angle))) + 90;
+
+    text.setText([ Phaser.Math.RadToDeg(arrow.rotation), spineBoy.root.rotation ]);
 
     this.input.on('pointerdown', function () {
 
         spineBoy.angle += 22.5;
         arrow.angle += 22.5;
+
+        // console.log(arrow.angle);
+
+        // spineBoy.root.rotation = Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(Phaser.Math.DegToRad(arrow.angle))) + 90;
 
         // spineBoy.rot = Phaser.Math.DegToRad(convert(arrow.angle - 90));
         // spineBoy.rot = Phaser.Math.DegToRad(convert(arrow.angle));
@@ -138,13 +151,11 @@ function create ()
         // bb = convert(aa);
         // spineBoy.rotcc = Phaser.Math.DegToRad(bb);
 
-        aa = Phaser.Math.RadToDeg(spineBoy.rotation - 1.5707963267948966);
-        bb = convert(aa);
-        spineBoy.rotcc = Phaser.Math.DegToRad(bb);
+        // aa = Phaser.Math.RadToDeg(spineBoy.rotation - 1.5707963267948966);
+        // bb = convert(aa);
+        // spineBoy.rotcc = Phaser.Math.DegToRad(bb);
 
-
-
-        text.setText([ spineBoy.rotation, aa, bb, spineBoy.rotcc ]);
+        text.setText([ Phaser.Math.RadToDeg(arrow.rotation), spineBoy.root.rotation, Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(arrow.rotation)) ]);
 
         // text.setText([ spineBoy.rot, spineBoy.rotation, spineBoy.rot, convert(Phaser.Math.RadToDeg(spineBoy.rot)), '', arrow.angle, spineBoy.rotation, ]);
 

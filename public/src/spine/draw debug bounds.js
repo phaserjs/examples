@@ -3,14 +3,17 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#cdcdcd',
+    backgroundColor: '#2d2d2d',
     scene: {
         preload: preload,
         create: create,
         update: update,
+        extend: {
+            createToggle: createToggle
+        },
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpineWebGLPlugin', url: 'plugins/SpineWebGLPlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -22,20 +25,34 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('logo', 'assets/sprites/phaser.png');
+    this.load.image('on', 'assets/tests/scenes/toggle-on.png');
+    this.load.image('off', 'assets/tests/scenes/toggle-off.png');
 
-    this.load.setPath('assets/animations/spine/');
+    this.load.setPath('assets/spine/demos/');
 
-    this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
+    this.load.spine('set1', 'demos.json', [ 'atlas1.atlas', 'atlas2.atlas', 'heroes.atlas' ], true);
 }
 
 function create ()
 {
-    this.add.image(0, 0, 'logo').setOrigin(0);
+    // var spineBoy = this.add.spine(400, 550, 'set1.spineboy', 'idle', true).setScale(0.8);
+    var b = this.add.spine(500, 600, 'set1.greengirl').setScale(0.7);
 
-    var spineBoy = this.add.spine(400, 600, 'boy', 'idle', true).setScale(0.5);
+    b.drawDebug = true;
 
-    spineBoy.drawDebug = true;
+    var anims = b.getAnimationList();
+
+    b.play(anims[0], true);
+
+    //  Our debug toggles
+    this.createToggle(10, 10, 'Draw Bones', true, this.spine.setDebugBones.bind(this.spine));
+    this.createToggle(10, 35, 'Draw Region Attachments', true, this.spine.setDebugRegionAttachments.bind(this.spine));
+    this.createToggle(10, 60, 'Draw Bounding Boxes', true, this.spine.setDebugBoundingBoxes.bind(this.spine));
+    this.createToggle(10, 85, 'Draw Mesh Hull', true, this.spine.setDebugMeshHull.bind(this.spine));
+    this.createToggle(10, 110, 'Draw Mesh Triangles', true, this.spine.setDebugMeshTriangles.bind(this.spine));
+    this.createToggle(10, 135, 'Draw Paths', true, this.spine.setDebugPaths.bind(this.spine));
+    this.createToggle(10, 160, 'Draw Skeleton XY', false, this.spine.setDebugSkeletonXY.bind(this.spine));
+    this.createToggle(10, 185, 'Draw Clipping', true, this.spine.setDebugClipping.bind(this.spine));
 
     var cursors = this.input.keyboard.createCursorKeys();
 
@@ -58,4 +75,32 @@ function create ()
 function update (time, delta)
 {
     controls.update(delta);
+}
+
+function createToggle (x, y, label, enabled, callback)
+{
+    var button = this.add.image(x, y, (enabled) ? 'on' : 'off').setOrigin(0).setScrollFactor(0);
+
+    var text = this.add.text(x + 90, y + 6, label, { font: '16px Courier', fill: '#ffffff' }).setShadow(1, 1).setScrollFactor(0);
+
+    button.setInteractive();
+    button.setData('enabled', enabled);
+    button.setData('callback', callback);
+
+    button.on('pointerdown', function () {
+
+        if (button.getData('enabled'))
+        {
+            button.setData('enabled', false);
+            button.setTexture('off');
+            button.getData('callback')(false);
+        }
+        else
+        {
+            button.setData('enabled', true);
+            button.setTexture('on');
+            button.getData('callback')(true);
+        }
+
+    });
 }

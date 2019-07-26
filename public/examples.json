@@ -3516,7 +3516,7 @@
             {
               "path": "src\\game objects\\container\\multiple non exclusive containers.js",
               "name": "multiple non exclusive containers.js",
-              "size": 2197,
+              "size": 2224,
               "extension": ".js"
             },
             {
@@ -3582,41 +3582,41 @@
             {
               "path": "src\\game objects\\container\\twirl 1.js",
               "name": "twirl 1.js",
-              "size": 2197,
+              "size": 2224,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\container\\twirl 2.js",
               "name": "twirl 2.js",
-              "size": 2264,
+              "size": 2291,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\container\\twirl 3.js",
               "name": "twirl 3.js",
-              "size": 2272,
+              "size": 2299,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\container\\twirl 4.js",
               "name": "twirl 4.js",
-              "size": 2063,
+              "size": 2090,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\container\\twirl 5.js",
               "name": "twirl 5.js",
-              "size": 2348,
+              "size": 2375,
               "extension": ".js"
             },
             {
               "path": "src\\game objects\\container\\twirl 6.js",
               "name": "twirl 6.js",
-              "size": 2104,
+              "size": 2131,
               "extension": ".js"
             }
           ],
-          "size": 83264
+          "size": 83453
         },
         {
           "path": "src\\game objects\\dom element",
@@ -5411,19 +5411,13 @@
               "extension": ".js"
             },
             {
-              "path": "src\\game objects\\shapes\\triangle scale.js",
-              "name": "triangle scale.js",
-              "size": 1409,
-              "extension": ".js"
-            },
-            {
               "path": "src\\game objects\\shapes\\triangle.js",
               "name": "triangle.js",
               "size": 1409,
               "extension": ".js"
             }
           ],
-          "size": 64107
+          "size": 62698
         },
         {
           "path": "src\\game objects\\sprites",
@@ -6193,7 +6187,7 @@
           "size": 268936
         }
       ],
-      "size": 1020839
+      "size": 1019619
     },
     {
       "path": "src\\games",
@@ -8036,7 +8030,7 @@
             {
               "path": "src\\input\\game object\\debug hitarea.js",
               "name": "debug hitarea.js",
-              "size": 2648,
+              "size": 2563,
               "extension": ".js"
             },
             {
@@ -8130,7 +8124,7 @@
               "extension": ".js"
             }
           ],
-          "size": 23483
+          "size": 23398
         },
         {
           "path": "src\\input\\gamepad",
@@ -8674,7 +8668,7 @@
           "size": 10196
         }
       ],
-      "size": 204363
+      "size": 204278
     },
     {
       "path": "src\\loader",
@@ -10367,6 +10361,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\compound body from physics editor.js",
+              "name": "compound body from physics editor.js",
+              "size": 1814,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\compound body.js",
               "name": "compound body.js",
               "size": 1386,
@@ -10565,7 +10565,7 @@
               "extension": ".js"
             }
           ],
-          "size": 80501
+          "size": 82315
         },
         {
           "path": "src\\physics\\multi",
@@ -10587,7 +10587,7 @@
           "size": 2750
         }
       ],
-      "size": 344534
+      "size": 346348
     },
     {
       "path": "src\\plugins",
@@ -11484,25 +11484,25 @@
         {
           "path": "src\\spine\\add hit area.js",
           "name": "add hit area.js",
-          "size": 1268,
+          "size": 1893,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\arcade physics spine body.js",
           "name": "arcade physics spine body.js",
-          "size": 985,
+          "size": 2058,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\basic spineboy.js",
           "name": "basic spineboy.js",
-          "size": 770,
+          "size": 664,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\batch test.js",
           "name": "batch test.js",
-          "size": 1699,
+          "size": 1709,
           "extension": ".js"
         },
         {
@@ -11526,7 +11526,7 @@
         {
           "path": "src\\spine\\draw debug bounds.js",
           "name": "draw debug bounds.js",
-          "size": 1513,
+          "size": 3395,
           "extension": ".js"
         },
         {
@@ -11544,7 +11544,7 @@
         {
           "path": "src\\spine\\spine rotation test.js",
           "name": "spine rotation test.js",
-          "size": 4604,
+          "size": 3792,
           "extension": ".js"
         },
         {
@@ -11584,7 +11584,7 @@
           "extension": ".js"
         }
       ],
-      "size": 28405
+      "size": 31077
     },
     {
       "path": "src\\textures",
@@ -12618,5 +12618,5 @@
       "size": 20418
     }
   ],
-  "size": 3523366
+  "size": 3526547
 }

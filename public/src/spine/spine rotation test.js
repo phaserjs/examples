@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    width: 1600,
+    width: 1300,
     height: 600,
     backgroundColor: '#2d2d66',
     scene: {
@@ -28,8 +28,8 @@ function preload ()
 function create ()
 {
     var labelStyle = { font: "16px courier", fill: "#00ff00", align: "center" };
-    var circle = new Phaser.Geom.Circle(400, 300, 225);
-    var labelCircle = new Phaser.Geom.Circle(400, 300, 265);
+    var circle = new Phaser.Geom.Circle(350, 300, 225);
+    var labelCircle = new Phaser.Geom.Circle(350, 300, 265);
 
     var graphics = this.add.graphics();
 
@@ -41,7 +41,7 @@ function create ()
 
     for (var a = 0; a < 360; a += 22.5)
     {
-        graphics.moveTo(400, 300);
+        graphics.moveTo(350, 300);
 
         var p = Phaser.Geom.Circle.CircumferencePoint(circle, Phaser.Math.DegToRad(a));
 
@@ -63,10 +63,10 @@ function create ()
     
     graphics.strokePath();
 
-    var arrow = this.add.image(400, 300, 'arrow');
+    var arrow = this.add.image(350, 300, 'arrow');
 
-    var circle2 = new Phaser.Geom.Circle(400+800, 300, 225);
-    var labelCircle2 = new Phaser.Geom.Circle(400+800, 300, 265);
+    var circle2 = new Phaser.Geom.Circle(350+600, 300, 225);
+    var labelCircle2 = new Phaser.Geom.Circle(350+600, 300, 265);
     var graphics2 = this.add.graphics();
 
     graphics2.lineStyle(2, 0x00bb00, 1);
@@ -75,37 +75,11 @@ function create ()
     
     graphics2.beginPath();
 
-    var convert = function (angle)
-    {
-        // return Math.abs((((angle + CONST.TAU) % CONST.PI2) - CONST.PI2) % CONST.PI2);
-
-        return Math.abs((((angle + 90) % 360) - 360) % 360);
-    };
-
-    // console.log(convert(0));
-    // console.log(convert(45));
-    // console.log(convert(90));
-    // console.log(convert(135));
-    // console.log(convert(180));
-    // console.log(convert(-45));
-    // console.log(convert(-90));
-    // console.log(convert(-135));
-    // console.log(convert(-180));
-
     for (var a = 0; a < 360; a += 22.5)
     {
-        var newa = a;
+        var newa = Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(Phaser.Math.DegToRad(a)));
 
-        if (a > 180)
-        {
-            // newa -= 360;
-        }
-
-        // newa = convert(newa);
-
-        newa = Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(Phaser.Math.DegToRad(newa)));
-
-        graphics2.moveTo(400+800, 300);
+        graphics2.moveTo(350+600, 300);
 
         var p = Phaser.Geom.Circle.CircumferencePoint(circle2, Phaser.Math.DegToRad(a));
 
@@ -120,44 +94,45 @@ function create ()
     
     graphics2.strokePath();
 
-    var spineBoy = this.add.spine(400+800, 300, 'boy', 'walk', true).setScale(0.3);
-
-    // spineBoy.rot = Phaser.Math.DegToRad(convert(arrow.angle - 90));
-    // var aa = Phaser.Math.RadToDeg(spineBoy.rot - 1.5707963267948966);
-    // var bb = convert(aa);
-    // spineBoy.rotcc = Phaser.Math.DegToRad(bb);
+    var spineBoy = this.add.spine(350+600, 300, 'boy', 'walk', true).setScale(0.3);
 
     var text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-    // spineBoy.root.rotation = Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(Phaser.Math.DegToRad(arrow.angle))) + 90;
+    text.setText([
+        arrow.angle,
+        arrow.rotation,
+        spineBoy.angle,
+        spineBoy.rotation,
+        spineBoy.root.rotation
+    ]);
 
-    text.setText([ Phaser.Math.RadToDeg(arrow.rotation), spineBoy.root.rotation ]);
+    this.input.on('pointerdown', function (pointer) {
 
-    this.input.on('pointerdown', function () {
+        var chunk = 22.5;
+        // var chunk = Phaser.Math.PI2 / 16;
 
-        spineBoy.angle += 22.5;
-        arrow.angle += 22.5;
+        if (pointer.x < 800)
+        {
+            arrow.angle -= chunk;
+            spineBoy.angle -= chunk;
+            // arrow.rotation -= chunk;
+            // spineBoy.root.rotation -= chunk;
+        }
+        else
+        {
+            arrow.angle += chunk;
+            spineBoy.angle += chunk;
+            // arrow.rotation += chunk;
+            // spineBoy.root.rotation += chunk;
+        }
 
-        // console.log(arrow.angle);
-
-        // spineBoy.root.rotation = Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(Phaser.Math.DegToRad(arrow.angle))) + 90;
-
-        // spineBoy.rot = Phaser.Math.DegToRad(convert(arrow.angle - 90));
-        // spineBoy.rot = Phaser.Math.DegToRad(convert(arrow.angle));
-
-        //  This works!
-        // spineBoy.rot += (0.017453292519943295 * 22.5);
-        // aa = Phaser.Math.RadToDeg(spineBoy.rot - 1.5707963267948966);
-        // bb = convert(aa);
-        // spineBoy.rotcc = Phaser.Math.DegToRad(bb);
-
-        // aa = Phaser.Math.RadToDeg(spineBoy.rotation - 1.5707963267948966);
-        // bb = convert(aa);
-        // spineBoy.rotcc = Phaser.Math.DegToRad(bb);
-
-        text.setText([ Phaser.Math.RadToDeg(arrow.rotation), spineBoy.root.rotation, Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(arrow.rotation)) ]);
-
-        // text.setText([ spineBoy.rot, spineBoy.rotation, spineBoy.rot, convert(Phaser.Math.RadToDeg(spineBoy.rot)), '', arrow.angle, spineBoy.rotation, ]);
+        text.setText([
+            arrow.angle,
+            arrow.rotation,
+            spineBoy.angle,
+            spineBoy.rotation,
+            spineBoy.root.rotation
+        ]);
 
     }, this);
 }

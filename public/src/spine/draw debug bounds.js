@@ -35,7 +35,6 @@ function preload ()
 
 function create ()
 {
-    // var spineBoy = this.add.spine(400, 550, 'set1.spineboy', 'idle', true).setScale(0.8);
     var b = this.add.spine(500, 600, 'set1.greengirl').setScale(0.7);
 
     b.drawDebug = true;

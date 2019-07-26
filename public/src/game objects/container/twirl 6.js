@@ -84,8 +84,8 @@ function create ()
         scaleX: { value: 0.1, duration: 3000, yoyo: true, ease: 'Quad.easeInOut' },
         scaleY: { value: 0.1, duration: 3000, yoyo: true, ease: 'Cubic.easeInOut' },
         repeat: -1,
-        delay: function (i, total, target) {
-            return i * 64;
+        delay: function (target, key, value, index, total, tween) {
+            return index * 64;
         }
     });
 }

@@ -45,22 +45,17 @@ function create ()
 
     controlBones = man.getBoneList();
 
-    var temp = this.spine.getVector3(0, 0, 0);
-    var coords = this.spine.getVector3(0, 0, 0);
+    // var temp = this.spine.getVector3(0, 0, 0);
+    // var coords = this.spine.getVector3(0, 0, 0);
 
-    var skeletonX = man.skeleton.x;
-    var skeletonY = man.skeleton.y;
+    // var skeletonX = man.skeleton.x;
+    // var skeletonY = man.skeleton.y;
 
     for (var i = 0; i < controlBones.length; i++)
     {
         var bone = man.findBone(controlBones[i]);
 
-        if (bone.parent === null)
-        {
-            continue;
-        }
-
-        console.log(bone.data.name, bone.x, bone.y, 'world', bone.worldX, bone.worldY);
+        // console.log(bone.data.name, bone.x, bone.y, 'world', bone.worldX, bone.worldY);
 
         var control = this.add.circle(bone.worldX, 1200 - (bone.worldY), 4, 0xff00ff).setData('bone', bone);
 
@@ -73,6 +68,16 @@ function create ()
             gameObject.x = dragX;
             gameObject.y = dragY;
 
+            var bone = gameObject.getData('bone');
+
+            var coords = this.spine.worldToLocal(dragX, dragY, man.skeleton, bone);
+
+            bone.x = coords.x;
+            bone.y = coords.y;
+
+            bone.update();
+
+            /*
             coords.set(man.x + dragX, dragY - man.y, 0);
 
             this.spine.sceneRenderer.camera.screenToWorld(coords, 1024, 1200);
@@ -97,6 +102,7 @@ function create ()
                 bone.update();
                 // console.log('b', coords.x, coords.y);
             }
+            */
 
         }, this);
     }

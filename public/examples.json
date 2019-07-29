@@ -10363,7 +10363,7 @@
             {
               "path": "src\\physics\\matterjs\\compound body from physics editor.js",
               "name": "compound body from physics editor.js",
-              "size": 1814,
+              "size": 3825,
               "extension": ".js"
             },
             {
@@ -10565,7 +10565,7 @@
               "extension": ".js"
             }
           ],
-          "size": 82315
+          "size": 84326
         },
         {
           "path": "src\\physics\\multi",
@@ -10587,7 +10587,7 @@
           "size": 2750
         }
       ],
-      "size": 346348
+      "size": 348359
     },
     {
       "path": "src\\plugins",
@@ -11490,7 +11490,7 @@
         {
           "path": "src\\spine\\arcade physics spine body.js",
           "name": "arcade physics spine body.js",
-          "size": 2058,
+          "size": 1269,
           "extension": ".js"
         },
         {
@@ -11515,6 +11515,12 @@
           "path": "src\\spine\\canvas test 1.js",
           "name": "canvas test 1.js",
           "size": 1678,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\spine\\control bones.js",
+          "name": "control bones.js",
+          "size": 1269,
           "extension": ".js"
         },
         {
@@ -11584,7 +11590,7 @@
           "extension": ".js"
         }
       ],
-      "size": 31077
+      "size": 31557
     },
     {
       "path": "src\\textures",
@@ -12618,5 +12624,5 @@
       "size": 20418
     }
   ],
-  "size": 3526547
+  "size": 3529038
 }

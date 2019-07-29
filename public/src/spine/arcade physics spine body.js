@@ -7,7 +7,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: { y: 200 }
         }
     },
@@ -28,41 +28,23 @@ function preload ()
 {
     this.load.setPath('assets/spine/coin');
 
-    this.load.spine('coin', 'coin-pro.json', 'coin-pma.atlas', true);
-
-    // this.load.setPath('assets/spine/demos/');
-
-    // this.load.spine('set1', 'demos.json', [ 'atlas1.atlas', 'atlas2.atlas', 'heroes.atlas' ], true);
+    this.load.spine('coin', 'coin-pro.json', 'coin.atlas');
 }
 
 function create ()
 {
-    // var b = this.add.spine(400, 500, 'set1.alien').setScale(0.5);
-    // var b = this.add.spine(400, 500, 'set1.armorgirl').setScale(0.2);
-    // var b = this.add.spine(400, 500, 'set1.dragon').setScale(0.5);
-    // var b = this.add.spine(600, 750, 'set1.greengirl').setScale(0.8);
-    // var b = this.add.spine(400, 500, 'set1.heroes').setSkinByName('Assassin');
-    // var b = this.add.spine(400, 700, 'set1.orangegirl').setScale(1);
-    // var b = this.add.spine(400, 500, 'set1.raptor').setScale(0.6);
-    // var b = this.add.spine(400, 500, 'set1.spineboy').setScale(0.5);
-    // var b = this.add.spine(400, 500, 'set1.stretchyman').setScale(0.4);
-    // var b = this.add.spine(400, 500, 'set1.tank').setScale(0.1);
-    // var b = this.add.spine(400, 500, 'set1.vine').setScale(0.5);
+    var coin = this.add.spine(400, 200, 'coin', 'animation', true);
 
+    //  Resize the Spine dimensions because the original skeleton includes the shine bone,
+    //  rendering a simple bounds check useless. Not all Spine objects will require this, but this one does.
+    coin.setSize(280, 280, 260, 260);
 
-    var b = this.add.spine(400, 200, 'coin').setScale(1);
+    this.physics.add.existing(coin);
 
-    // b.drawDebug = true;
+    coin.body.setVelocity(100, 200);
+    coin.body.setBounce(1, 1);
+    coin.body.setCollideWorldBounds(true);
 
-    b.setInteractive();
-
-    this.input.enableDebug(b, 0xff00ff);
-
-    // this.physics.add.existing(b);
-
-    // b.body.setVelocity(100, 200);
-    // b.body.setBounce(1, 1);
-    // b.body.setCollideWorldBounds(true);
-
-    // b.setScale(0.25);
+    //  Otherwise it's massive :)
+    coin.setScale(0.3);
 }

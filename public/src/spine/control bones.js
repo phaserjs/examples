@@ -1,8 +1,8 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    width: 1024,
-    height: 1200,
+    width: 800,
+    height: 600,
     backgroundColor: '#cdcdcd',
     scene: {
         preload: preload,
@@ -19,6 +19,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('logo', 'assets/sprites/phaser.png');
+
     this.load.setPath('assets/spine/stretchyman/');
 
     this.load.spine('stretchyman', 'stretchyman-pro.json', [ 'stretchyman-pma.atlas' ], true);
@@ -26,38 +28,21 @@ function preload ()
 
 function create ()
 {
-    this.spine.setDebugBones(true);
-    this.spine.setDebugRegionAttachments(false);
-    this.spine.setDebugBoundingBoxes(false);
-    this.spine.setDebugMeshHull(false);
-    this.spine.setDebugMeshTriangles(false);
-    this.spine.setDebugPaths(false);
-    this.spine.setDebugSkeletonXY(false);
-    this.spine.setDebugClipping(false);
+    this.add.image(0, 0, 'logo').setOrigin(0);
 
-    // var controlBones = [];
-
-    var man = this.add.spine(400, 900, 'stretchyman');
+    var man = this.add.spine(400, 550, 'stretchyman').setScale(0.8).refresh();
 
     // man.drawDebug = true;
 
-    this.input.once('pointerdown', () => {
-
-    controlBones = man.getBoneList();
-
-    // var temp = this.spine.getVector3(0, 0, 0);
-    // var coords = this.spine.getVector3(0, 0, 0);
-
-    // var skeletonX = man.skeleton.x;
-    // var skeletonY = man.skeleton.y;
+    var controlBones = ["back-arm-ik-target", "hip", "back-leg-ik-target", "belly", "butt"];
 
     for (var i = 0; i < controlBones.length; i++)
     {
         var bone = man.findBone(controlBones[i]);
 
-        // console.log(bone.data.name, bone.x, bone.y, 'world', bone.worldX, bone.worldY);
+        console.log(bone.data.name, bone.worldX, bone.worldY)
 
-        var control = this.add.circle(bone.worldX, 1200 - (bone.worldY), 4, 0xff00ff).setData('bone', bone);
+        var control = this.add.circle(bone.worldX, 600 - (bone.worldY), 4, 0xff00ff).setData('bone', bone);
 
         control.setInteractive();
 
@@ -70,6 +55,8 @@ function create ()
 
             var bone = gameObject.getData('bone');
 
+            console.log(bone.data.name);
+
             var coords = this.spine.worldToLocal(dragX, dragY, man.skeleton, bone);
 
             bone.x = coords.x;
@@ -77,38 +64,6 @@ function create ()
 
             bone.update();
 
-            /*
-            coords.set(man.x + dragX, dragY - man.y, 0);
-
-            this.spine.sceneRenderer.camera.screenToWorld(coords, 1024, 1200);
-
-            // console.log(dragX, coords.x, dragY, coords.y, (man.y - dragY));
-            // console.log(dragY, coords.y);
-
-            var bone = gameObject.getData('bone');
-
-            if (bone.parent !== null)
-            {
-                bone.parent.worldToLocal(temp.set(coords.x - man.x, coords.y - man.y, 0));
-                bone.x = temp.x;
-                bone.y = temp.y;
-                bone.update();
-                // console.log('a', temp.x, temp.y);
-            }
-            else
-            {
-                bone.x = coords.x - man.x;
-                bone.y = coords.y - man.y;
-                bone.update();
-                // console.log('b', coords.x, coords.y);
-            }
-            */
-
         }, this);
     }
-
-
-    });
-
-
 }

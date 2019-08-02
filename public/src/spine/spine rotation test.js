@@ -27,6 +27,67 @@ function preload ()
 
 function create ()
 {
+    var matrix = new Phaser.GameObjects.Components.TransformMatrix();
+
+    var bob = this.add.image(0, 0, 'arrow');
+
+    // bob.setScale(0.5, 0.8);
+    bob.setScale(-0.3, 0.3);
+    // bob.setScale(0.5, -0.8);
+
+    for (var i = 0; i <= 360; i += 22.5)
+    {
+        bob.setAngle(i);
+
+        // matrix.applyITRS(bob.x, bob.y, bob.rotation, Math.abs(bob.scaleX), Math.abs(bob.scaleY));
+
+        matrix.applyITRS(bob.x, bob.y, bob.rotation, bob.scaleX, bob.scaleY);
+
+        //  In the following the normalized values are perfect for positive scale
+
+        var rot = matrix.rotation;
+        var rotNorm = matrix.rotationNormalized;
+        var rotDeg = Phaser.Math.RadToDeg(rot);
+        var rotNormDeg = Phaser.Math.RadToDeg(rotNorm);
+        var rotCCW = Phaser.Math.Angle.CounterClockwise(rot);
+        var rotNormCCW = Phaser.Math.Angle.CounterClockwise(rotNorm);
+        var rotCCWDeg = Phaser.Math.RadToDeg(rotCCW);
+        var rotNormCCWDeg = Phaser.Math.RadToDeg(rotNormCCW);
+        var rotCCWDegWrapped = Phaser.Math.Wrap(rotCCWDeg + 90, 0, 360);
+        var rotNormCCWDegWrapped = Phaser.Math.Wrap(rotNormCCWDeg + 90, 0, 360);
+
+        console.log('Angle:', i);
+        // console.log('a', matrix.a, 'b', matrix.b, 'c', matrix.c, 'd', matrix.d);
+        // console.log('scale', matrix.scaleX, matrix.scaleY);
+        console.log('rotation deg', rotDeg, 'normalized', rotNormDeg);
+        console.log('ccw deg', rotCCWDeg, 'normalized', rotNormCCWDeg);
+        console.log('ccw+90 deg', rotCCWDegWrapped, 'normalized', rotNormCCWDegWrapped);
+
+
+        // console.log(matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f);
+        // console.log('scale', matrix.scaleX, matrix.scaleY);
+        // console.log('rotation', matrix.rotation, 'normalized', matrix.rotationNormalized);
+        // console.log('rotation deg', Phaser.Math.RadToDeg(matrix.rotation), 'normalized', Phaser.Math.RadToDeg(matrix.rotationNormalized));
+        // console.log('ccw', Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(matrix.rotation)), 'normalized', Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(matrix.rotationNormalized)));
+        // console.log('ccw+90', Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(matrix.rotation)) + 90, 'normalized', Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(matrix.rotationNormalized)) + 90);
+        console.log('');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var labelStyle = { font: "16px courier", fill: "#00ff00", align: "center" };
     var circle = new Phaser.Geom.Circle(350, 300, 225);
     var labelCircle = new Phaser.Geom.Circle(350, 300, 265);
@@ -94,7 +155,10 @@ function create ()
     
     graphics2.strokePath();
 
-    var spineBoy = this.add.spine(350+600, 300, 'boy', 'walk', true).setScale(0.3);
+    var spineBoy = this.add.spine(350+600, 300, 'boy', 'walk', true);
+    
+    // spineBoy.setScale(0.3, 0.3);
+    spineBoy.setScale(-0.3, 0.3);
 
     var text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 

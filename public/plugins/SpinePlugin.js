@@ -17577,96 +17577,6 @@ module.exports = ScaleModes;
 
 /***/ }),
 
-/***/ "../../../src/renderer/canvas/utils/SetTransform.js":
-/*!********************************************************************!*\
-  !*** D:/wamp/www/phaser/src/renderer/canvas/utils/SetTransform.js ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2019 Photon Storm Ltd.
- * @license      {@link https://opensource.org/licenses/MIT|MIT License}
- */
-
-/**
- * Takes a reference to the Canvas Renderer, a Canvas Rendering Context, a Game Object, a Camera and a parent matrix
- * and then performs the following steps:
- * 
- * 1. Checks the alpha of the source combined with the Camera alpha. If 0 or less it aborts.
- * 2. Takes the Camera and Game Object matrix and multiplies them, combined with the parent matrix if given.
- * 3. Sets the blend mode of the context to be that used by the Game Object.
- * 4. Sets the alpha value of the context to be that used by the Game Object combined with the Camera.
- * 5. Saves the context state.
- * 6. Sets the final matrix values into the context via setTransform.
- * 
- * This function is only meant to be used internally. Most of the Canvas Renderer classes use it.
- *
- * @function Phaser.Renderer.Canvas.SetTransform
- * @since 3.12.0
- *
- * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
- * @param {CanvasRenderingContext2D} ctx - The canvas context to set the transform on.
- * @param {Phaser.GameObjects.GameObject} src - The Game Object being rendered. Can be any type that extends the base class.
- * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
- * @param {Phaser.GameObjects.Components.TransformMatrix} [parentMatrix] - A parent transform matrix to apply to the Game Object before rendering.
- * 
- * @return {boolean} `true` if the Game Object context was set, otherwise `false`.
- */
-var SetTransform = function (renderer, ctx, src, camera, parentMatrix)
-{
-    var alpha = camera.alpha * src.alpha;
-
-    if (alpha <= 0)
-    {
-        //  Nothing to see, so don't waste time calculating stuff
-        return false;
-    }
-
-    var camMatrix = renderer._tempMatrix1.copyFromArray(camera.matrix.matrix);
-    var gameObjectMatrix = renderer._tempMatrix2.applyITRS(src.x, src.y, src.rotation, src.scaleX, src.scaleY);
-    var calcMatrix = renderer._tempMatrix3;
-
-    if (parentMatrix)
-    {
-        //  Multiply the camera by the parent matrix
-        camMatrix.multiplyWithOffset(parentMatrix, -camera.scrollX * src.scrollFactorX, -camera.scrollY * src.scrollFactorY);
-
-        //  Undo the camera scroll
-        gameObjectMatrix.e = src.x;
-        gameObjectMatrix.f = src.y;
-
-        //  Multiply by the Sprite matrix, store result in calcMatrix
-        camMatrix.multiply(gameObjectMatrix, calcMatrix);
-    }
-    else
-    {
-        gameObjectMatrix.e -= camera.scrollX * src.scrollFactorX;
-        gameObjectMatrix.f -= camera.scrollY * src.scrollFactorY;
-
-        //  Multiply by the Sprite matrix, store result in calcMatrix
-        camMatrix.multiply(gameObjectMatrix, calcMatrix);
-    }
-
-    //  Blend Mode
-    ctx.globalCompositeOperation = renderer.blendModes[src.blendMode];
-
-    //  Alpha
-    ctx.globalAlpha = alpha;
-
-    ctx.save();
-
-    calcMatrix.setToContext(ctx);
-
-    return true;
-};
-
-module.exports = SetTransform;
-
-
-/***/ }),
-
 /***/ "../../../src/scale/events/RESIZE_EVENT.js":
 /*!***********************************************************!*\
   !*** D:/wamp/www/phaser/src/scale/events/RESIZE_EVENT.js ***!
@@ -19163,11 +19073,11 @@ var TextFile = __webpack_require__(/*! ../../../src/loader/filetypes/TextFile.js
  * @constructor
  *
  * @param {Phaser.Loader.LoaderPlugin} loader - A reference to the Loader that is responsible for this file.
- * @param {(string|Phaser.Loader.FileTypes.UnityAtlasFileConfig)} key - The key to use for this file, or a file configuration object.
- * @param {string|string[]} [textureURL] - The absolute or relative URL to load the texture image file from. If undefined or `null` it will be set to `<key>.png`, i.e. if `key` was "alien" then the URL will be "alien.png".
+ * @param {(string|Phaser.Loader.FileTypes.SpineFileConfig)} key - The key to use for this file, or a file configuration object.
+ * @param {string|string[]} [jsonURL] - The absolute or relative URL to load the JSON file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
  * @param {string} [atlasURL] - The absolute or relative URL to load the texture atlas data file from. If undefined or `null` it will be set to `<key>.txt`, i.e. if `key` was "alien" then the URL will be "alien.txt".
- * @param {boolean} [preMultipliedAlpha=false] - 
- * @param {XHRSettingsObject} [textureXhrSettings] - An XHR Settings configuration object for the atlas image file. Used in replacement of the Loaders default XHR Settings.
+ * @param {boolean} [preMultipliedAlpha=false] - Do the textures contain pre-multiplied alpha or not?
+ * @param {XHRSettingsObject} [jsonXhrSettings] - An XHR Settings configuration object for the json file. Used in replacement of the Loaders default XHR Settings.
  * @param {XHRSettingsObject} [atlasXhrSettings] - An XHR Settings configuration object for the atlas data file. Used in replacement of the Loaders default XHR Settings.
  */
 var SpineFile = new Class({
@@ -19213,11 +19123,10 @@ var SpineFile = new Class({
                     key: key,
                     url: atlasURL[i],
                     extension: GetFastValue(config, 'atlasExtension', 'atlas'),
-                    xhrSettings: GetFastValue(config, 'atlasXhrSettings'),
+                    xhrSettings: GetFastValue(config, 'atlasXhrSettings')
                 });
 
                 atlas.cache = cache;
-                // atlas.config.preMultipliedAlpha = preMultipliedAlpha;
 
                 files.push(atlas);
             }
@@ -19235,7 +19144,6 @@ var SpineFile = new Class({
             {
                 atlas = new TextFile(loader, key + '_' + i, atlasURL[i], atlasXhrSettings);
                 atlas.cache = cache;
-                // atlas.config.preMultipliedAlpha = preMultipliedAlpha;
 
                 files.push(atlas);
             }
@@ -19251,8 +19159,8 @@ var SpineFile = new Class({
     /**
      * Called by each File when it finishes loading.
      *
-     * @method Phaser.Loader.MultiFile#onFileComplete
-     * @since 3.7.0
+     * @method Phaser.Loader.FileTypes.SpineFile#onFileComplete
+     * @since 3.19.0
      *
      * @param {Phaser.Loader.File} file - The File that has completed processing.
      */
@@ -19325,7 +19233,7 @@ var SpineFile = new Class({
      * Adds this file to its target cache upon successful loading and processing.
      *
      * @method Phaser.Loader.FileTypes.SpineFile#addToCache
-     * @since 3.16.0
+     * @since 3.19.0
      */
     addToCache: function ()
     {
@@ -19384,24 +19292,58 @@ module.exports = SpineFile;
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
+ * @copyright    2019 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
 var BuildGameObject = __webpack_require__(/*! ../../../src/gameobjects/BuildGameObject */ "../../../src/gameobjects/BuildGameObject.js");
 var Class = __webpack_require__(/*! ../../../src/utils/Class */ "../../../src/utils/Class.js");
 var GetValue = __webpack_require__(/*! ../../../src/utils/object/GetValue */ "../../../src/utils/object/GetValue.js");
-var ScenePlugin = __webpack_require__(/*! ../../../src/plugins/ScenePlugin */ "../../../src/plugins/ScenePlugin.js");
-var SpineFile = __webpack_require__(/*! ./SpineFile */ "./SpineFile.js");
-var Spine = __webpack_require__(/*! Spine */ "./runtimes/spine-both.js");
-var SpineGameObject = __webpack_require__(/*! ./gameobject/SpineGameObject */ "./gameobject/SpineGameObject.js");
 var ResizeEvent = __webpack_require__(/*! ../../../src/scale/events/RESIZE_EVENT */ "../../../src/scale/events/RESIZE_EVENT.js");
+var ScenePlugin = __webpack_require__(/*! ../../../src/plugins/ScenePlugin */ "../../../src/plugins/ScenePlugin.js");
+var Spine = __webpack_require__(/*! Spine */ "./runtimes/spine-both.js");
+var SpineFile = __webpack_require__(/*! ./SpineFile */ "./SpineFile.js");
+var SpineGameObject = __webpack_require__(/*! ./gameobject/SpineGameObject */ "./gameobject/SpineGameObject.js");
 
 /**
  * @classdesc
- * TODO
+ * The Spine Plugin is a Scene based plugin that handles the creation and rendering of Spine Game objects.
+ * 
+ * All rendering and object creation is handled via the official Spine Runtimes. This version of the plugin
+ * uses the Spine 3.7 runtimes. Files created in a more recent version of Spine may not work as a result.
+ * 
+ * Assuming a default environment you access it from within a Scene by using the `this.spine` reference.
+ * 
+ * When this plugin is installed into a Scene it will add a Loader File Type, allowing you to load
+ * Spine files directly, i.e.:
+ * 
+ * ```javascript
+ * this.load.spine('stretchyman', 'stretchyman-pro.json', [ 'stretchyman-pma.atlas' ], true);
+ * ```
+ * 
+ * It also installs a Game Object Factory method, allowin you to create Spine Game Objects:
+ * 
+ * ```javascript
+ * this.add.spine(512, 650, 'stretchyman')
+ * ```
+ * 
+ * The first argument is the key which you used when importing the Spine data. There are lots of
+ * things you can specify, such as the animation name, skeleton, slot attachments and more. Please
+ * see the respective documentation and examples for further details.
+ * 
+ * Phaser expects the Spine data to be exported from the Spine application in a JSON format, not binary.
+ * The associated atlas files are scanned for any texture files present in them, which are then loaded.
+ * If you have exported your Spine data with preMultipiedAlpha set, then you should enable this in the
+ * load arguments, or you may see black outlines around skeleton textures.
+ * 
+ * The Spine plugin is local to the Scene in which it is installed. This means a change to something,
+ * such as the Skeleton Debug Renderer, in this Scene, will not impact the renderer in any other Scene.
+ * The only exception to this is with the caches this plugin creates. Spine atlas and texture data are
+ * stored in their own caches, which are global, meaning they're accessible from any Scene in your
+ * game, regardless if the Scene loaded the Spine data or not.
  *
  * @class SpinePlugin
+ * @memberOf Phaser
  * @extends Phaser.Plugins.ScenePlugin
  * @constructor
  * @since 3.19.0
@@ -19421,25 +19363,148 @@ var SpinePlugin = new Class({
 
         var game = pluginManager.game;
 
+        /**
+         * A read-only flag that indicates if the game is running under WebGL or Canvas.
+         *
+         * @name SpinePlugin#isWebGL
+         * @type {boolean}
+         * @readonly
+         * @since 3.19.0
+         */
         this.isWebGL = (game.config.renderType === 2);
 
-        //  Create a custom cache to store the spine data (.atlas files)
+        /**
+         * A custom cache that stores the Spine atlas data.
+         * 
+         * This cache is global across your game, allowing you to access Spine data loaded from other Scenes,
+         * no matter which Scene you are in.
+         *
+         * @name SpinePlugin#cache
+         * @type {Phaser.Cache.BaseCache}
+         * @since 3.19.0
+         */
         this.cache = game.cache.addCustom('spine');
 
+        /**
+         * A custom cache that stores the Spine Textures.
+         * 
+         * This cache is global across your game, allowing you to access Spine data loaded from other Scenes,
+         * no matter which Scene you are in.
+         *
+         * @name SpinePlugin#spineTextures
+         * @type {Phaser.Cache.BaseCache}
+         * @since 3.19.0
+         */
         this.spineTextures = game.cache.addCustom('spineTextures');
 
+        /**
+         * A reference to the global JSON Cache.
+         *
+         * @name SpinePlugin#json
+         * @type {Phaser.Cache.BaseCache}
+         * @since 3.19.0
+         */
         this.json = game.cache.json;
 
+        /**
+         * A reference to the global Texture Manager.
+         *
+         * @name SpinePlugin#textures
+         * @type {Phaser.Textures.TextureManager}
+         * @since 3.19.0
+         */
         this.textures = game.textures;
 
+        /**
+         * A flag that sets if the Skeleton Renderers will render debug information over the top
+         * of the skeleton or not.
+         *
+         * @name SpinePlugin#drawDebug
+         * @type {boolean}
+         * @since 3.19.0
+         */
         this.drawDebug = false;
 
+        /**
+         * The underlying WebGL context of the Phaser renderer.
+         * 
+         * Only set if running in WebGL mode.
+         *
+         * @name SpinePlugin#gl
+         * @type {WebGLRenderingContext}
+         * @since 3.19.0
+         */
         this.gl;
+
+        /**
+         * A reference to either the Canvas or WebGL Renderer that this Game is using.
+         *
+         * @name SpinePlugin#renderer
+         * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
+         * @since 3.19.0
+         */
         this.renderer;
+
+        /**
+         * An instance of the Spine WebGL Scene Renderer.
+         * 
+         * Only set if running in WebGL mode.
+         *
+         * @name SpinePlugin#sceneRenderer
+         * @type {spine.webgl.SceneRenderer}
+         * @since 3.19.0
+         */
         this.sceneRenderer;
+
+        /**
+         * An instance of the Spine Skeleton Renderer.
+         *
+         * @name SpinePlugin#skeletonRenderer
+         * @type {(spine.canvas.SkeletonRenderer|spine.webgl.SkeletonRenderer)}
+         * @since 3.19.0
+         */
+        this.skeletonRenderer;
+
+        /**
+         * An instance of the Spine Skeleton Debug Renderer.
+         * 
+         * Only set if running in WebGL mode.
+         *
+         * @name SpinePlugin#skeletonDebugRenderer
+         * @type {spine.webgl.skeletonDebugRenderer}
+         * @since 3.19.0
+         */
         this.skeletonDebugRenderer;
 
+        /**
+         * A reference to the Spine runtime.
+         * This is the runtime created by Esoteric Software
+         *
+         * @name SpinePlugin#plugin
+         * @type {spine}
+         * @since 3.19.0
+         */
         this.plugin = Spine;
+
+        /**
+         * An internal vector3 used by the screen to world method.
+         *
+         * @name SpinePlugin#temp1
+         * @private
+         * @type {spine.webgl.Vector3}
+         * @since 3.19.0
+         */
+        this.temp1;
+
+        /**
+         * An internal vector3 used by the screen to world method.
+         *
+         * @name SpinePlugin#temp2
+         * @private
+         * @type {spine.webgl.Vector3}
+         * @since 3.19.0
+         */
+        this.temp2;
 
         if (this.isWebGL)
         {
@@ -19459,28 +19524,30 @@ var SpinePlugin = new Class({
             this.getAtlas = this.getAtlasCanvas;
         }
 
-        this.temp1;
-        this.temp2;
-
         pluginManager.registerFileType('spine', this.spineFileCallback, scene);
 
         pluginManager.registerGameObject('spine', this.add.bind(this), this.make.bind(this));
     },
 
+    /**
+     * Internal boot handler.
+     *
+     * @method SpinePlugin#boot
+     * @private
+     * @since 3.19.0
+     */
     boot: function ()
     {
         if (this.isWebGL)
         {
             this.bootWebGL();
+            this.onResize();
+            this.game.scale.on(ResizeEvent, this.onResize, this);
         }
         else
         {
             this.bootCanvas();
         }
-
-        this.onResize();
-
-        this.game.scale.on(ResizeEvent, this.onResize, this);
 
         var eventEmitter = this.systems.events;
 
@@ -19488,48 +19555,25 @@ var SpinePlugin = new Class({
         eventEmitter.once('destroy', this.destroy, this);
     },
 
+    /**
+     * Internal boot handler for the Canvas Renderer.
+     *
+     * @method SpinePlugin#bootCanvas
+     * @private
+     * @since 3.19.0
+     */
     bootCanvas: function ()
     {
-        this.skeletonRenderer = new this.runtime.SkeletonRenderer(this.scene.sys.context);
+        this.skeletonRenderer = new Spine.canvas.SkeletonRenderer(this.scene.sys.context);
     },
 
-    getAtlasCanvas: function (key)
-    {
-        var atlasData = this.cache.get(key);
-
-        if (!atlasData)
-        {
-            console.warn('No atlas data for: ' + key);
-            return;
-        }
-
-        var atlas;
-        var spineTextures = this.spineTextures;
-
-        if (spineTextures.has(key))
-        {
-            atlas = new Spine.TextureAtlas(atlasData, function ()
-            {
-                return spineTextures.get(key);
-            });
-        }
-        else
-        {
-            var textures = this.textures;
-
-            atlas = new Spine.TextureAtlas(atlasData, function (path)
-            {
-                var canvasTexture = new Spine.canvas.CanvasTexture(textures.get(path).getSourceImage());
-
-                spineTextures.add(key, canvasTexture);
-
-                return canvasTexture;
-            });
-        }
-
-        return atlas;
-    },
-
+    /**
+     * Internal boot handler for the WebGL Renderer.
+     *
+     * @method SpinePlugin#bootWebGL
+     * @private
+     * @since 3.19.0
+     */
     bootWebGL: function ()
     {
         this.sceneRenderer = new Spine.webgl.SceneRenderer(this.renderer.canvas, this.gl, true);
@@ -19556,41 +19600,72 @@ var SpinePlugin = new Class({
         this.sceneRenderer.batcher.setBlendMode = setBlendMode;
         this.sceneRenderer.shapes.setBlendMode = setBlendMode;
 
+        this.skeletonRenderer = this.sceneRenderer.skeletonRenderer;
         this.skeletonDebugRenderer = this.sceneRenderer.skeletonDebugRenderer;
 
         this.temp1 = new Spine.webgl.Vector3(0, 0, 0);
         this.temp2 = new Spine.webgl.Vector3(0, 0, 0);
     },
 
-    worldToLocal: function (x, y, skeleton, bone)
+    /**
+     * Gets a loaded Spine Atlas from the cache and creates a new Spine Texture Atlas,
+     * then returns it. You do not normally need to invoke this method directly.
+     *
+     * @method SpinePlugin#getAtlasCanvas
+     * @since 3.19.0
+     * 
+     * @param {string} key - The key of the Spine Atlas to create.
+     * 
+     * @return {spine.TextureAtlas} The Spine Texture Atlas, or undefined if the given key wasn't found.
+     */
+    getAtlasCanvas: function (key)
     {
-        var temp1 = this.temp1;
-        var temp2 = this.temp2;
-        var camera = this.sceneRenderer.camera;
+        var atlasEntry = this.cache.get(key);
 
-        temp1.set(x + skeleton.x, y - skeleton.y, 0);
-
-        var width = camera.viewportWidth;
-        var height = camera.viewportHeight;
-
-        camera.screenToWorld(temp1, width, height);
-
-        if (bone && bone.parent !== null)
+        if (!atlasEntry)
         {
-            bone.parent.worldToLocal(temp2.set(temp1.x - skeleton.x, temp1.y - skeleton.y, 0));
-
-            return new Spine.Vector2(temp2.x, temp2.y);
+            console.warn('No atlas data for: ' + key);
+            return;
         }
-        else if (bone)
+
+        var atlas;
+        var spineTextures = this.spineTextures;
+
+        if (spineTextures.has(key))
         {
-            return new Spine.Vector2(temp1.x - skeleton.x, temp1.y - skeleton.y);
+            atlas = new Spine.TextureAtlas(atlasEntry.data, function ()
+            {
+                return spineTextures.get(key);
+            });
         }
         else
         {
-            return new Spine.Vector2(temp1.x, temp1.y);
+            var textures = this.textures;
+
+            atlas = new Spine.TextureAtlas(atlasEntry.data, function (path)
+            {
+                var canvasTexture = new Spine.canvas.CanvasTexture(textures.get(path).getSourceImage());
+
+                spineTextures.add(key, canvasTexture);
+
+                return canvasTexture;
+            });
         }
+
+        return atlas;
     },
 
+    /**
+     * Gets a loaded Spine Atlas from the cache and creates a new Spine Texture Atlas,
+     * then returns it. You do not normally need to invoke this method directly.
+     *
+     * @method SpinePlugin#getAtlasWebGL
+     * @since 3.19.0
+     * 
+     * @param {string} key - The key of the Spine Atlas to create.
+     * 
+     * @return {spine.TextureAtlas} The Spine Texture Atlas, or undefined if the given key wasn't found.
+     */
     getAtlasWebGL: function (key)
     {
         var atlasEntry = this.cache.get(key);
@@ -19632,95 +19707,85 @@ var SpinePlugin = new Class({
         return atlas;
     },
 
-    getVector2: function (x, y)
-    {
-        return new Spine.Vector2(x, y);
-    },
-
-    getVector3: function (x, y, z)
-    {
-        return new Spine.webgl.Vector3(x, y, z);
-    },
-
-    setDebugBones: function (value)
-    {
-        if (value === undefined) { value = true; }
-
-        this.skeletonDebugRenderer.drawBones = value;
-
-        return this;
-    },
-
-    setDebugRegionAttachments: function (value)
-    {
-        if (value === undefined) { value = true; }
-
-        this.skeletonDebugRenderer.drawRegionAttachments = value;
-
-        return this;
-    },
-
-    setDebugBoundingBoxes: function (value)
-    {
-        if (value === undefined) { value = true; }
-
-        this.skeletonDebugRenderer.drawBoundingBoxes = value;
-
-        return this;
-    },
-
-    setDebugMeshHull: function (value)
-    {
-        if (value === undefined) { value = true; }
-
-        this.skeletonDebugRenderer.drawMeshHull = value;
-
-        return this;
-    },
-
-    setDebugMeshTriangles: function (value)
-    {
-        if (value === undefined) { value = true; }
-
-        this.skeletonDebugRenderer.drawMeshTriangles = value;
-
-        return this;
-    },
-
-    setDebugPaths: function (value)
-    {
-        if (value === undefined) { value = true; }
-
-        this.skeletonDebugRenderer.drawPaths = value;
-
-        return this;
-    },
-
-    setDebugSkeletonXY: function (value)
-    {
-        if (value === undefined) { value = true; }
-
-        this.skeletonDebugRenderer.drawSkeletonXY = value;
-
-        return this;
-    },
-
-    setDebugClipping: function (value)
-    {
-        if (value === undefined) { value = true; }
-
-        this.skeletonDebugRenderer.drawClipping = value;
-
-        return this;
-    },
-
-    setEffect: function (effect)
-    {
-        this.sceneRenderer.skeletonRenderer.vertexEffect = effect;
-
-        return this;
-    },
-
+    /**
+     * Adds a Spine Skeleton and Atlas file, or array of files, to the current load queue.
+     *
+     * You can call this method from within your Scene's `preload`, along with any other files you wish to load:
+     * 
+     * ```javascript
+     * function preload ()
+     * {
+     *     this.load.spine('spineBoy', 'boy.json', 'boy.atlas', true);
+     * }
+     * ```
+     *
+     * The file is **not** loaded right away. It is added to a queue ready to be loaded either when the loader starts,
+     * or if it's already running, when the next free load slot becomes available. This happens automatically if you
+     * are calling this from within the Scene's `preload` method, or a related callback. Because the file is queued
+     * it means you cannot use the file immediately after calling this method, but must wait for the file to complete.
+     * The typical flow for a Phaser Scene is that you load assets in the Scene's `preload` method and then when the
+     * Scene's `create` method is called you are guaranteed that all of those assets are ready for use and have been
+     * loaded.
+     * 
+     * If you call this from outside of `preload` then you are responsible for starting the Loader afterwards and monitoring
+     * its events to know when it's safe to use the asset. Please see the Phaser.Loader.LoaderPlugin class for more details.
+     * 
+     * Phaser expects the Spine data to be exported from the Spine application in a JSON format, not binary. The associated
+     * atlas files are scanned for any texture files present in them, which are then loaded. If you have exported
+     * your Spine data with preMultipiedAlpha set, then you should enable this in the arguments, or you may see black
+     * outlines around skeleton textures.
+     * 
+     * The key must be a unique String. It is used to add the file to the global Spine cache upon a successful load.
+     * The key should be unique both in terms of files being loaded and files already present in the Spine cache.
+     * Loading a file using a key that is already taken will result in a warning.
+     *
+     * Instead of passing arguments you can pass a configuration object, such as:
+     * 
+     * ```javascript
+     * this.load.spine({
+     *     key: 'mainmenu',
+     *     jsonURL: 'boy.json',
+     *     atlasURL: 'boy.atlas',
+     *     preMultipliedAlpha: true
+     * });
+     * ```
+     * 
+     * If you need to load multiple Spine atlas files, provide them as an array:
+     * 
+     * ```javascript
+     * function preload ()
+     * {
+     *     this.load.spine('demos', 'demos.json', [ 'atlas1.atlas', 'atlas2.atlas' ], true);
+     * }
+     * ```
+     *
+     * See the documentation for `Phaser.Types.Loader.FileTypes.SpineFileConfig` for more details.
+     *
+     * If you have specified a prefix in the loader, via `Loader.setPrefix` then this value will be prepended to this files
+     * key. For example, if the prefix was `MENU.` and the key was `Background` the final key will be `MENU.Background` and
+     * this is what you would use to retrieve the data from the Spine plugin.
+     *
+     * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
+     *
+     * If the URL isn't specified the Loader will take the key and create a filename from that. For example if the key is "alien"
+     * and no URL is given then the Loader will set the URL to be "alien.json". It will always add `.json` as the extension, although
+     * this can be overridden if using an object instead of method arguments. If you do not desire this action then provide a URL.
+     *
+     * Note: The ability to load this type of file will only be available if the Spine Plugin has been built or loaded into Phaser.
+     *
+     * @method Phaser.Loader.LoaderPlugin#spine
+     * @fires Phaser.Loader.LoaderPlugin#addFileEvent
+     * @since 3.19.0
+     *
+     * @param {(string|Phaser.Types.Loader.FileTypes.JSONFileConfig|Phaser.Types.Loader.FileTypes.JSONFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
+     * @param {string} jsonURL - The absolute or relative URL to load the Spine json file from. If undefined or `null` it will be set to `<key>.json`, i.e. if `key` was "alien" then the URL will be "alien.json".
+     * @param {string|string[]} atlasURL - The absolute or relative URL to load the Spine atlas file from. If undefined or `null` it will be set to `<key>.atlas`, i.e. if `key` was "alien" then the URL will be "alien.atlas".
+     * @param {boolean} [preMultipiedAlpha=false] - Do the texture files include pre-multiplied alpha or not?
+     * @param {Phaser.Types.Loader.XHRSettingsObject} [textureXhrSettings] - An XHR Settings configuration object for the Spine json file. Used in replacement of the Loaders default XHR Settings.
+     * @param {Phaser.Types.Loader.XHRSettingsObject} [atlasXhrSettings] - An XHR Settings configuration object for the Spine atlas file. Used in replacement of the Loaders default XHR Settings.
+     *
+     * @return {Phaser.Loader.LoaderPlugin} The Loader instance.
+     */
     spineFileCallback: function (key, jsonURL, atlasURL, preMultipliedAlpha, jsonXhrSettings, atlasXhrSettings)
     {
         var multifile;
@@ -19746,16 +19811,37 @@ var SpinePlugin = new Class({
 
     /**
      * Creates a new Spine Game Object and adds it to the Scene.
+     * 
+     * The x and y coordinate given is used to set the placement of the root Spine bone, which can vary from
+     * skeleton to skeleton. All rotation and scaling happens from the root bone placement. Spine Game Objects
+     * do not have a Phaser origin.
+     * 
+     * If the Spine JSON file exported multiple Skeletons within it, then you can specify them by using a period
+     * character in the key. For example, if you loaded a Spine JSON using the key `monsters` and it contains
+     * multiple Skeletons, including one called `goblin` then you would use the key `monsters.goblin` to reference
+     * that.
+     * 
+     * ```javascript
+     * let jelly = this.add.spine(512, 550, 'jelly', 'jelly-think', true);
+     * ```
+     * 
+     * The key is optional. If not passed here, you need to call `SpineGameObject.setSkeleton()` to use it.
+     * 
+     * The animation name is also optional and can be set later via `SpineGameObject.setAnimation`.
+     * 
+     * Should you wish for more control over the object creation, such as setting a slot attachment or skin
+     * name, then use `SpinePlugin.make` instead.
      *
-     * @method Phaser.GameObjects.GameObjectFactory#add
+     * @method SpinePlugin#add
      * @since 3.19.0
      * 
-     * @param {number} x - The horizontal position of this Game Object.
-     * @param {number} y - The vertical position of this Game Object.
-     * @param {string} texture - The key of the Texture this Game Object will use to render with, as stored in the Texture Manager.
-     * @param {(string|integer)} [frame] - An optional frame from the Texture this Game Object is rendering with.
+     * @param {number} x - The horizontal position of this Game Object in the world.
+     * @param {number} y - The vertical position of this Game Object in the world.
+     * @param {string} [key] - The key of the Spine Skeleton this Game Object will use, as stored in the Spine Plugin.
+     * @param {string} [animationName] - The name of the animation to set on this Skeleton.
+     * @param {boolean} [loop=false] - Should the animation playback be looped or not?
      *
-     * @return {Phaser.GameObjects.Spine} The Game Object that was created.
+     * @return {SpineGameObject} The Game Object that was created.
      */
     add: function (x, y, key, animationName, loop)
     {
@@ -19768,17 +19854,34 @@ var SpinePlugin = new Class({
     },
 
     /**
-     * Creates a new Image Game Object and returns it.
+     * Creates a new Spine Game Object from the given configuration file and optionally adds it to the Scene.
+     * 
+     * The x and y coordinate given is used to set the placement of the root Spine bone, which can vary from
+     * skeleton to skeleton. All rotation and scaling happens from the root bone placement. Spine Game Objects
+     * do not have a Phaser origin.
+     * 
+     * If the Spine JSON file exported multiple Skeletons within it, then you can specify them by using a period
+     * character in the key. For example, if you loaded a Spine JSON using the key `monsters` and it contains
+     * multiple Skeletons, including one called `goblin` then you would use the key `monsters.goblin` to reference
+     * that.
+     * 
+     * ```javascript
+     * let jelly = this.make.spine({
+     *     x: 500, y: 500, key: 'jelly',
+     *     scale: 1.5,
+     *     skinName: 'square_Green',
+     *     animationName: 'jelly-idle', loop: true,
+     *     slotName: 'hat', attachmentName: 'images/La_14'
+     * });
+     * ```
      *
-     * Note: This method will only be available if the Image Game Object has been built into Phaser.
+     * @method SpinePlugin#make
+     * @since 3.19.0
      *
-     * @method Phaser.GameObjects.GameObjectCreator#image
-     * @since 3.0.0
-     *
-     * @param {object} config - The configuration object this Game Object will use to create itself.
+     * @param {any} config - The configuration object this Game Object will use to create itself.
      * @param {boolean} [addToScene] - Add this Game Object to the Scene after creating it? If set this argument overrides the `add` property in the config object.
      *
-     * @return {Phaser.GameObjects.Image} The Game Object that was created.
+     * @return {SpineGameObject} The Game Object that was created.
      */
     make: function (config, addToScene)
     {
@@ -19816,11 +19919,285 @@ var SpinePlugin = new Class({
         return spineGO.refresh();
     },
 
-    getRuntime: function ()
+    /**
+     * Converts the given x and y screen coordinates into the world space of the given Skeleton.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#worldToLocal
+     * @since 3.19.0
+     * 
+     * @param {number} x - The screen space x coordinate to convert.
+     * @param {number} y - The screen space y coordinate to convert.
+     * @param {spine.Skeleton} skeleton - The Spine Skeleton to convert into.
+     * @param {spine.Bone} [bone] - Optional bone of the Skeleton to convert into.
+     * 
+     * @return {spine.Vector2} A Vector2 containing the translated point.
+     */
+    worldToLocal: function (x, y, skeleton, bone)
     {
-        return this.runtime;
+        var temp1 = this.temp1;
+        var temp2 = this.temp2;
+        var camera = this.sceneRenderer.camera;
+
+        temp1.set(x + skeleton.x, y - skeleton.y, 0);
+
+        var width = camera.viewportWidth;
+        var height = camera.viewportHeight;
+
+        camera.screenToWorld(temp1, width, height);
+
+        if (bone && bone.parent !== null)
+        {
+            bone.parent.worldToLocal(temp2.set(temp1.x - skeleton.x, temp1.y - skeleton.y, 0));
+
+            return new Spine.Vector2(temp2.x, temp2.y);
+        }
+        else if (bone)
+        {
+            return new Spine.Vector2(temp1.x - skeleton.x, temp1.y - skeleton.y);
+        }
+        else
+        {
+            return new Spine.Vector2(temp1.x, temp1.y);
+        }
     },
 
+    /**
+     * Returns a Spine Vector2 based on the given x and y values.
+     *
+     * @method SpinePlugin#getVector2
+     * @since 3.19.0
+     * 
+     * @param {number} x - The Vector x value.
+     * @param {number} y - The Vector y value.
+     * 
+     * @return {spine.Vector2} A Spine Vector2 based on the given values.
+     */
+    getVector2: function (x, y)
+    {
+        return new Spine.Vector2(x, y);
+    },
+
+    /**
+     * Returns a Spine Vector2 based on the given x, y and z values.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#getVector3
+     * @since 3.19.0
+     * 
+     * @param {number} x - The Vector x value.
+     * @param {number} y - The Vector y value.
+     * @param {number} z - The Vector z value.
+     * 
+     * @return {spine.Vector2} A Spine Vector2 based on the given values.
+     */
+    getVector3: function (x, y, z)
+    {
+        return new Spine.webgl.Vector3(x, y, z);
+    },
+
+    /**
+     * Sets `drawBones` in the Spine Skeleton Debug Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setDebugBones
+     * @since 3.19.0
+     * 
+     * @param {boolean} [value=true] - The value to set in the debug property.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setDebugBones: function (value)
+    {
+        if (value === undefined) { value = true; }
+
+        this.skeletonDebugRenderer.drawBones = value;
+
+        return this;
+    },
+
+    /**
+     * Sets `drawRegionAttachments` in the Spine Skeleton Debug Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setDebugRegionAttachments
+     * @since 3.19.0
+     * 
+     * @param {boolean} [value=true] - The value to set in the debug property.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setDebugRegionAttachments: function (value)
+    {
+        if (value === undefined) { value = true; }
+
+        this.skeletonDebugRenderer.drawRegionAttachments = value;
+
+        return this;
+    },
+
+    /**
+     * Sets `drawBoundingBoxes` in the Spine Skeleton Debug Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setDebugBoundingBoxes
+     * @since 3.19.0
+     * 
+     * @param {boolean} [value=true] - The value to set in the debug property.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setDebugBoundingBoxes: function (value)
+    {
+        if (value === undefined) { value = true; }
+
+        this.skeletonDebugRenderer.drawBoundingBoxes = value;
+
+        return this;
+    },
+
+    /**
+     * Sets `drawMeshHull` in the Spine Skeleton Debug Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setDebugMeshHull
+     * @since 3.19.0
+     * 
+     * @param {boolean} [value=true] - The value to set in the debug property.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setDebugMeshHull: function (value)
+    {
+        if (value === undefined) { value = true; }
+
+        this.skeletonDebugRenderer.drawMeshHull = value;
+
+        return this;
+    },
+
+    /**
+     * Sets `drawMeshTriangles` in the Spine Skeleton Debug Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setDebugMeshTriangles
+     * @since 3.19.0
+     * 
+     * @param {boolean} [value=true] - The value to set in the debug property.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setDebugMeshTriangles: function (value)
+    {
+        if (value === undefined) { value = true; }
+
+        this.skeletonDebugRenderer.drawMeshTriangles = value;
+
+        return this;
+    },
+
+    /**
+     * Sets `drawPaths` in the Spine Skeleton Debug Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setDebugPaths
+     * @since 3.19.0
+     * 
+     * @param {boolean} [value=true] - The value to set in the debug property.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setDebugPaths: function (value)
+    {
+        if (value === undefined) { value = true; }
+
+        this.skeletonDebugRenderer.drawPaths = value;
+
+        return this;
+    },
+
+    /**
+     * Sets `drawSkeletonXY` in the Spine Skeleton Debug Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setDebugSkeletonXY
+     * @since 3.19.0
+     * 
+     * @param {boolean} [value=true] - The value to set in the debug property.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setDebugSkeletonXY: function (value)
+    {
+        if (value === undefined) { value = true; }
+
+        this.skeletonDebugRenderer.drawSkeletonXY = value;
+
+        return this;
+    },
+
+    /**
+     * Sets `drawClipping` in the Spine Skeleton Debug Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setDebugClipping
+     * @since 3.19.0
+     * 
+     * @param {boolean} [value=true] - The value to set in the debug property.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setDebugClipping: function (value)
+    {
+        if (value === undefined) { value = true; }
+
+        this.skeletonDebugRenderer.drawClipping = value;
+
+        return this;
+    },
+
+    /**
+     * Sets the given vertex effect on the Spine Skeleton Renderer.
+     * 
+     * Only works in WebGL.
+     *
+     * @method SpinePlugin#setEffect
+     * @since 3.19.0
+     * 
+     * @param {spine.VertexEffect} [effect] - The vertex effect to set on the Skeleton Renderer.
+     * 
+     * @return {this} This Spine Plugin.
+     */
+    setEffect: function (effect)
+    {
+        this.sceneRenderer.skeletonRenderer.vertexEffect = effect;
+
+        return this;
+    },
+
+    /**
+     * Creates a Spine Skeleton based on the given key and optional Skeleton JSON data.
+     * 
+     * The Skeleton data should have already been loaded before calling this method.
+     *
+     * @method SpinePlugin#createSkeleton
+     * @since 3.19.0
+     * 
+     * @param {string} key - The key of the Spine skeleton data, as loaded by the plugin. If the Spine JSON contains multiple skeletons, reference them with a period, i.e. `set.spineBoy`.
+     * @param {object} [skeletonJSON] - Optional Skeleton JSON data to use, instead of getting it from the cache.
+     * 
+     * @return {(any|null)} This Spine Skeleton data object, or `null` if the key was invalid.
+     */
     createSkeleton: function (key, skeletonJSON)
     {
         var atlasKey = key;
@@ -19876,6 +20253,42 @@ var SpinePlugin = new Class({
         }
     },
 
+    /**
+     * Creates a new Animation State and Animation State Data for the given skeleton.
+     * 
+     * The returned object contains two properties: `state` and `stateData` respectively.
+     *
+     * @method SpinePlugin#createAnimationState
+     * @since 3.19.0
+     * 
+     * @param {spine.Skeleton} skeleton - The Skeleton to create the Animation State for.
+     * 
+     * @return {any} An object containing the Animation State and Animation State Data instances.
+     */
+    createAnimationState: function (skeleton)
+    {
+        var stateData = new Spine.AnimationStateData(skeleton.data);
+
+        var state = new Spine.AnimationState(stateData);
+
+        return { stateData: stateData, state: state };
+    },
+
+    /**
+     * Returns the axis aligned bounding box (AABB) of the region and mesh attachments for the current pose.
+     * 
+     * The returned object contains two properties: `offset` and `size`:
+     * 
+     * `offset` - The distance from the skeleton origin to the bottom left corner of the AABB.
+     * `size` - The width and height of the AABB.
+     *
+     * @method SpinePlugin#getBounds
+     * @since 3.19.0
+     * 
+     * @param {spine.Skeleton} skeleton - The Skeleton to get the bounds from.
+     * 
+     * @return {any} The bounds object.
+     */
     getBounds: function (skeleton)
     {
         var offset = new Spine.Vector2();
@@ -19886,15 +20299,14 @@ var SpinePlugin = new Class({
         return { offset: offset, size: size };
     },
 
-    createAnimationState: function (skeleton)
-    {
-        var stateData = new Spine.AnimationStateData(skeleton.data);
-
-        var state = new Spine.AnimationState(stateData);
-
-        return { stateData: stateData, state: state };
-    },
-
+    /**
+     * Internal handler for when the renderer resizes.
+     * 
+     * Only called if running in WebGL.
+     *
+     * @method SpinePlugin#onResize
+     * @since 3.19.0
+     */
     onResize: function ()
     {
         var renderer = this.renderer;
@@ -19912,11 +20324,12 @@ var SpinePlugin = new Class({
 
     /**
      * The Scene that owns this plugin is shutting down.
+     * 
      * We need to kill and reset all internal properties as well as stop listening to Scene events.
      *
-     * @method Camera3DPlugin#shutdown
+     * @method SpinePlugin#shutdown
      * @private
-     * @since 3.0.0
+     * @since 3.19.0
      */
     shutdown: function ()
     {
@@ -19929,11 +20342,12 @@ var SpinePlugin = new Class({
 
     /**
      * The Scene that owns this plugin is being destroyed.
+     * 
      * We need to shutdown and then kill off all external references.
      *
-     * @method Camera3DPlugin#destroy
+     * @method SpinePlugin#destroy
      * @private
-     * @since 3.0.0
+     * @since 3.19.0
      */
     destroy: function ()
     {
@@ -19951,6 +20365,7 @@ var SpinePlugin = new Class({
         this.json = null;
         this.textures = null;
         this.sceneRenderer = null;
+        this.skeletonRenderer = null;
         this.gl = null;
     }
 
@@ -20145,25 +20560,25 @@ module.exports = {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
+ * @copyright    2019 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var Class = __webpack_require__(/*! ../../../../src/utils/Class */ "../../../src/utils/Class.js");
+var AngleBetween = __webpack_require__(/*! ../../../../src/math/angle/Between */ "../../../src/math/angle/Between.js");
 var Clamp = __webpack_require__(/*! ../../../../src/math/Clamp */ "../../../src/math/Clamp.js");
+var Class = __webpack_require__(/*! ../../../../src/utils/Class */ "../../../src/utils/Class.js");
 var ComponentsComputedSize = __webpack_require__(/*! ../../../../src/gameobjects/components/ComputedSize */ "../../../src/gameobjects/components/ComputedSize.js");
 var ComponentsDepth = __webpack_require__(/*! ../../../../src/gameobjects/components/Depth */ "../../../src/gameobjects/components/Depth.js");
 var ComponentsFlip = __webpack_require__(/*! ../../../../src/gameobjects/components/Flip */ "../../../src/gameobjects/components/Flip.js");
 var ComponentsScrollFactor = __webpack_require__(/*! ../../../../src/gameobjects/components/ScrollFactor */ "../../../src/gameobjects/components/ScrollFactor.js");
 var ComponentsTransform = __webpack_require__(/*! ../../../../src/gameobjects/components/Transform */ "../../../src/gameobjects/components/Transform.js");
 var ComponentsVisible = __webpack_require__(/*! ../../../../src/gameobjects/components/Visible */ "../../../src/gameobjects/components/Visible.js");
-var SpineEvents = __webpack_require__(/*! ../events/ */ "./events/index.js");
-var GameObject = __webpack_require__(/*! ../../../../src/gameobjects/GameObject */ "../../../src/gameobjects/GameObject.js");
-var SpineGameObjectRender = __webpack_require__(/*! ./SpineGameObjectRender */ "./gameobject/SpineGameObjectRender.js");
-var AngleBetween = __webpack_require__(/*! ../../../../src/math/angle/Between */ "../../../src/math/angle/Between.js");
 var CounterClockwise = __webpack_require__(/*! ../../../../src/math/angle/CounterClockwise */ "../../../src/math/angle/CounterClockwise.js");
 var DegToRad = __webpack_require__(/*! ../../../../src/math/DegToRad */ "../../../src/math/DegToRad.js");
+var GameObject = __webpack_require__(/*! ../../../../src/gameobjects/GameObject */ "../../../src/gameobjects/GameObject.js");
 var RadToDeg = __webpack_require__(/*! ../../../../src/math/RadToDeg */ "../../../src/math/RadToDeg.js");
+var SpineEvents = __webpack_require__(/*! ../events/ */ "./events/index.js");
+var SpineGameObjectRender = __webpack_require__(/*! ./SpineGameObjectRender */ "./gameobject/SpineGameObjectRender.js");
 
 /**
  * @classdesc
@@ -20171,10 +20586,15 @@ var RadToDeg = __webpack_require__(/*! ../../../../src/math/RadToDeg */ "../../.
  *
  * @class SpineGameObject
  * @constructor
- * @since 3.16.0
+ * @since 3.19.0
  *
- * @param {Phaser.Scene} scene - A reference to the Scene that has installed this plugin.
- * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the Phaser Plugin Manager.
+ * @param {Phaser.Scene} scene - A reference to the Scene that this Game Object belongs to.
+ * @param {SpinePlugin} pluginManager - A reference to the Phaser Spine Plugin.
+ * @param {number} x - The horizontal position of this Game Object in the world.
+ * @param {number} y - The vertical position of this Game Object in the world.
+ * @param {string} [key] - The key of the Spine Skeleton this Game Object will use, as stored in the Spine Plugin.
+ * @param {string} [animationName] - The name of the animation to set on this Skeleton.
+ * @param {boolean} [loop=false] - Should the animation playback be looped or not?
  */
 var SpineGameObject = new Class({
 
@@ -21031,23 +21451,25 @@ module.exports = SpineGameObject;
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
+ * @copyright    2019 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
-var SetTransform = __webpack_require__(/*! ../../../../src/renderer/canvas/utils/SetTransform */ "../../../src/renderer/canvas/utils/SetTransform.js");
+var CounterClockwise = __webpack_require__(/*! ../../../../src/math/angle/CounterClockwise */ "../../../src/math/angle/CounterClockwise.js");
+var RadToDeg = __webpack_require__(/*! ../../../../src/math/RadToDeg */ "../../../src/math/RadToDeg.js");
+var Wrap = __webpack_require__(/*! ../../../../src/math/Wrap */ "../../../src/math/Wrap.js");
 
 /**
  * Renders this Game Object with the Canvas Renderer to the given Camera.
  * The object will not render if any of its renderFlags are set or it is being actively filtered out by the Camera.
  * This method should not be called directly. It is a utility function of the Render module.
  *
- * @method Phaser.GameObjects.SpineGameObject#renderCanvas
- * @since 3.16.0
+ * @method SpineGameObject#renderCanvas
+ * @since 3.19.0
  * @private
  *
  * @param {Phaser.Renderer.Canvas.CanvasRenderer} renderer - A reference to the current active Canvas renderer.
- * @param {Phaser.GameObjects.SpineGameObject} src - The Game Object being rendered in this call.
+ * @param {SpineGameObject} src - The Game Object being rendered in this call.
  * @param {number} interpolationPercentage - Reserved for future use and custom pipelines.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
@@ -21060,27 +21482,93 @@ var SpineGameObjectCanvasRenderer = function (renderer, src, interpolationPercen
     var skeleton = src.skeleton;
     var skeletonRenderer = plugin.skeletonRenderer;
 
-    if (!skeleton || !SetTransform(renderer, context, src, camera, parentMatrix))
+    var GameObjectRenderMask = 15;
+
+    var willRender = !(GameObjectRenderMask !== src.renderFlags || (src.cameraFilter !== 0 && (src.cameraFilter & camera.id)));
+
+    if (!skeleton || !willRender)
     {
         return;
     }
 
+    var camMatrix = renderer._tempMatrix1;
+    var spriteMatrix = renderer._tempMatrix2;
+    var calcMatrix = renderer._tempMatrix3;
+
+    spriteMatrix.applyITRS(src.x, src.y, src.rotation, Math.abs(src.scaleX), Math.abs(src.scaleY));
+
+    camMatrix.copyFrom(camera.matrix);
+
+    if (parentMatrix)
+    {
+        //  Multiply the camera by the parent matrix
+        camMatrix.multiplyWithOffset(parentMatrix, -camera.scrollX * src.scrollFactorX, -camera.scrollY * src.scrollFactorY);
+
+        //  Undo the camera scroll
+        spriteMatrix.e = src.x;
+        spriteMatrix.f = src.y;
+
+        //  Multiply by the Sprite matrix, store result in calcMatrix
+        camMatrix.multiply(spriteMatrix, calcMatrix);
+    }
+    else
+    {
+        spriteMatrix.e -= camera.scrollX * src.scrollFactorX;
+        spriteMatrix.f -= camera.scrollY * src.scrollFactorY;
+
+        //  Multiply by the Sprite matrix, store result in calcMatrix
+        camMatrix.multiply(spriteMatrix, calcMatrix);
+    }
+
+    skeleton.x = calcMatrix.tx;
+    skeleton.y = calcMatrix.ty;
+
+    skeleton.scaleX = calcMatrix.scaleX;
+
+    //  Inverse or we get upside-down skeletons
+    skeleton.scaleY = calcMatrix.scaleY * -1;
+
+    if (src.scaleX < 0)
+    {
+        skeleton.scaleX *= -1;
+
+        src.root.rotation = RadToDeg(calcMatrix.rotationNormalized);
+    }
+    else
+    {
+        //  +90 degrees to account for the difference in Spine vs. Phaser rotation
+        src.root.rotation = Wrap(RadToDeg(CounterClockwise(calcMatrix.rotationNormalized)) + 90, 0, 360);
+    }
+
+    if (src.scaleY < 0)
+    {
+        skeleton.scaleY *= -1;
+
+        if (src.scaleX < 0)
+        {
+            src.root.rotation -= (RadToDeg(calcMatrix.rotationNormalized) * 2);
+        }
+        else
+        {
+            src.root.rotation += (RadToDeg(calcMatrix.rotationNormalized) * 2);
+        }
+    }
+
+    if (camera.renderToTexture)
+    {
+        skeleton.y = calcMatrix.ty;
+        skeleton.scaleY *= -1;
+    }
+
+    //  Add autoUpdate option
+    skeleton.updateWorldTransform();
+
     skeletonRenderer.ctx = context;
+    skeletonRenderer.debugRendering = (plugin.drawDebug || src.drawDebug);
 
     context.save();
 
     skeletonRenderer.draw(skeleton);
-
-    if (plugin.drawDebug || src.drawDebug)
-    {
-        context.strokeStyle = '#00ff00';
-        context.beginPath();
-        context.moveTo(-1000, 0);
-        context.lineTo(1000, 0);
-        context.moveTo(0, -1000);
-        context.lineTo(0, 1000);
-        context.stroke();
-    }
 
     context.restore();
 };
@@ -21099,7 +21587,7 @@ module.exports = SpineGameObjectCanvasRenderer;
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
+ * @copyright    2019 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
@@ -21135,7 +21623,7 @@ module.exports = {
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
+ * @copyright    2019 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
  */
 
@@ -21148,7 +21636,7 @@ var Wrap = __webpack_require__(/*! ../../../../src/math/Wrap */ "../../../src/ma
  * The object will not render if any of its renderFlags are set or it is being actively filtered out by the Camera.
  * This method should not be called directly. It is a utility function of the Render module.
  *
- * @method Phaser.GameObjects.SpineGameObject#renderWebGL
+ * @method SpineGameObject#renderWebGL
  * @since 3.19.0
  * @private
  *

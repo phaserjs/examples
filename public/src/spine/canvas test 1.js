@@ -10,7 +10,7 @@ var config = {
         update: update,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpineCanvasPlugin', url: 'plugins/SpineCanvasPlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -35,17 +35,16 @@ function create ()
 
     // this.spine.skeletonRenderer.debugRendering = true;
     // this.spine.skeletonRenderer.triangleRendering = true;
-
     // var spineBoy = this.add.spine(600, 550, 'boy', 'run', true);
 
-    var spineBoy = this.add.spine(400, 300, 'boy', 'idle', true);
+    var spineBoy = this.add.spine(400, 550, 'boy', 'idle', true);
 
-    spineBoy.setScale(0.5);
-    // spineBoy.setAngle(-45);
+    // spineBoy.drawDebug = true;
 
-    // var spineBoy2 = this.add.spine(200, 400, 'boy', 'shoot', true);
+    // spineBoy.setScale(0.5);
+    // spineBoy.setAngle(45);
 
-    // spineBoy2.setScale(0.3);
+    var spineBoy2 = this.add.spine(200, 550, 'boy', 'shoot', true).setScale(-0.5, 0.5);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

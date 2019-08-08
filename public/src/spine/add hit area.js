@@ -46,13 +46,11 @@ function create ()
     b.setInteractive();
 
     //  Toggle to view the hit area
-    // this.input.enableDebug(b, 0xff00ff);
+    this.input.enableDebug(b, 0xff00ff);
 
     var anims = b.getAnimationList();
 
-    console.log(anims);
-
-    this.input.once('pointerdown', function () {
+    b.once('pointerdown', function () {
 
         b.play(anims[0], false);
 

@@ -62,8 +62,8 @@ var GameScene = new Phaser.Class({
     preload: function ()
     {
         this.load.image('logo', 'assets/sprites/phaser.png');
-        this.load.setPath('assets/animations/spine/');
-        this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
+        this.load.setPath('assets/spine/demos/');
+        this.load.spine('set1', 'demos.json', [ 'atlas1.atlas' ], true);
     },
 
     create: function ()
@@ -72,7 +72,7 @@ var GameScene = new Phaser.Class({
 
         this.add.image(0, 0, 'logo').setOrigin(0);
 
-        this.add.spine(400, 600, 'boy', 'idle', true);
+        this.add.spine(400, 600, 'set1.spineboy', 'idle', true);
 
         this.cameras.main.setRenderToTexture(this.customPipeline);
     },

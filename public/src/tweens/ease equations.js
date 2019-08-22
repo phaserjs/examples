@@ -58,19 +58,23 @@ function create ()
 
     var _this = this;
 
-    images.children.iterate(function (child) {
+    var step = 0;
 
+    var idx = 0;
+
+    images.children.iterate(function (child) {
+        _this.add.text(36, 15 + step, eases[idx++]);
         _this.tweens.add({
             targets: child,
             x: 700,
-            ease: eases.shift(),
+            ease: eases[idx],
             duration: 1500,
             delay: 1000,
             repeat: -1,
             repeatDelay: 1000,
             hold: 1000
         });
-
+        step += 19;
     });
 
 }

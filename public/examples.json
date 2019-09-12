@@ -851,6 +851,18 @@
           "size": 922
         },
         {
+          "path": "src\\archived\\game resize stretch image.js",
+          "name": "game resize stretch image.js",
+          "size": 1182,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\archived\\game resize.js",
+          "name": "game resize.js",
+          "size": 1169,
+          "extension": ".js"
+        },
+        {
           "path": "src\\archived\\pixel field",
           "name": "pixel field",
           "children": [
@@ -874,6 +886,37 @@
             }
           ],
           "size": 3228
+        },
+        {
+          "path": "src\\archived\\scale",
+          "name": "scale",
+          "children": [
+            {
+              "path": "src\\archived\\scale\\resolution.js",
+              "name": "resolution.js",
+              "size": 1566,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\archived\\scale\\scaled canvas.js",
+              "name": "scaled canvas.js",
+              "size": 469,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\archived\\scale\\sprite ondown.js",
+              "name": "sprite ondown.js",
+              "size": 1325,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\archived\\scale\\text resolution.js",
+              "name": "text resolution.js",
+              "size": 1587,
+              "extension": ".js"
+            }
+          ],
+          "size": 4947
         },
         {
           "path": "src\\archived\\sprite renderer",
@@ -907,7 +950,7 @@
           "extension": ".js"
         }
       ],
-      "size": 102785
+      "size": 110083
     },
     {
       "path": "src\\audio",
@@ -2867,18 +2910,6 @@
           "extension": ".js"
         },
         {
-          "path": "src\\game config\\game resize stretch image.js",
-          "name": "game resize stretch image.js",
-          "size": 1182,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\game config\\game resize.js",
-          "name": "game resize.js",
-          "size": 1169,
-          "extension": ".js"
-        },
-        {
           "path": "src\\game config\\game rng.js",
           "name": "game rng.js",
           "size": 1105,
@@ -2933,44 +2964,13 @@
           "extension": ".js"
         },
         {
-          "path": "src\\game config\\scale",
-          "name": "scale",
-          "children": [
-            {
-              "path": "src\\game config\\scale\\resolution.js",
-              "name": "resolution.js",
-              "size": 1566,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\game config\\scale\\scaled canvas.js",
-              "name": "scaled canvas.js",
-              "size": 469,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\game config\\scale\\sprite ondown.js",
-              "name": "sprite ondown.js",
-              "size": 1325,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\game config\\scale\\text resolution.js",
-              "name": "text resolution.js",
-              "size": 1587,
-              "extension": ".js"
-            }
-          ],
-          "size": 4947
-        },
-        {
           "path": "src\\game config\\transparent.js",
           "name": "transparent.js",
           "size": 663,
           "extension": ".js"
         }
       ],
-      "size": 22266
+      "size": 14968
     },
     {
       "path": "src\\game objects",
@@ -7010,6 +7010,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\geom\\line\\inverse line.js",
+              "name": "inverse line.js",
+              "size": 1127,
+              "extension": ".js"
+            },
+            {
               "path": "src\\geom\\line\\length.js",
               "name": "length.js",
               "size": 889,
@@ -7100,7 +7106,7 @@
               "extension": ".js"
             }
           ],
-          "size": 25773
+          "size": 26900
         },
         {
           "path": "src\\geom\\point",
@@ -7815,7 +7821,7 @@
           "size": 28373
         }
       ],
-      "size": 194590
+      "size": 195717
     },
     {
       "path": "src\\input",
@@ -11484,19 +11490,19 @@
         {
           "path": "src\\spine\\add hit area.js",
           "name": "add hit area.js",
-          "size": 1893,
+          "size": 1854,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\arcade physics spine body.js",
           "name": "arcade physics spine body.js",
-          "size": 1269,
+          "size": 1291,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\basic spineboy.js",
           "name": "basic spineboy.js",
-          "size": 664,
+          "size": 781,
           "extension": ".js"
         },
         {
@@ -11508,19 +11514,19 @@
         {
           "path": "src\\spine\\camera pipeline test.js",
           "name": "camera pipeline test.js",
-          "size": 2612,
+          "size": 2623,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\canvas test 1.js",
           "name": "canvas test 1.js",
-          "size": 1678,
+          "size": 1691,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\control bones.js",
           "name": "control bones.js",
-          "size": 1269,
+          "size": 1789,
           "extension": ".js"
         },
         {
@@ -11544,53 +11550,47 @@
         {
           "path": "src\\spine\\spine inside container.js",
           "name": "spine inside container.js",
-          "size": 1668,
+          "size": 1669,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\spine rotation test.js",
           "name": "spine rotation test.js",
-          "size": 3792,
-          "extension": ".js"
-        },
-        {
-          "path": "src\\spine\\stretchy man.js",
-          "name": "stretchy man.js",
-          "size": 805,
+          "size": 6323,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\webgl test 1.js",
           "name": "webgl test 1.js",
-          "size": 1495,
+          "size": 1485,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\webgl test 2.js",
           "name": "webgl test 2.js",
-          "size": 1889,
+          "size": 1879,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\webgl test 3.js",
           "name": "webgl test 3.js",
-          "size": 1716,
+          "size": 1706,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\webgl test 4.js",
           "name": "webgl test 4.js",
-          "size": 1664,
+          "size": 1654,
           "extension": ".js"
         },
         {
           "path": "src\\spine\\webgl test 5.js",
           "name": "webgl test 5.js",
-          "size": 2153,
+          "size": 2143,
           "extension": ".js"
         }
       ],
-      "size": 31557
+      "size": 33878
     },
     {
       "path": "src\\textures",
@@ -12624,5 +12624,5 @@
       "size": 20418
     }
   ],
-  "size": 3529038
+  "size": 3532486
 }

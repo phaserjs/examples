@@ -7,7 +7,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: { y: 200 }
         }
     },
@@ -37,10 +37,11 @@ function create ()
 
     //  Resize the Spine dimensions because the original skeleton includes the shine bone,
     //  rendering a simple bounds check useless. Not all Spine objects will require this, but this one does.
-    coin.setSize(280, 280, 260, 260);
+    coin.setSize(280, 280);
 
     this.physics.add.existing(coin);
 
+    coin.body.setOffset(0, 50);
     coin.body.setVelocity(100, 200);
     coin.body.setBounce(1, 1);
     coin.body.setCollideWorldBounds(true);

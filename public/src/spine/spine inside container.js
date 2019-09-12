@@ -10,7 +10,7 @@ var config = {
         update: update,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpineWebGLPlugin', url: 'plugins/SpineWebGLPlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -26,7 +26,7 @@ function preload ()
 
     this.load.setPath('assets/animations/spine/webgl/');
 
-    this.load.spine('boy', 'spineboy-ess.json', 'spineboy.atlas');
+    this.load.spine('boy', 'spineboy-ess.json', 'spineboy.atlas', true);
     this.load.spine('coin', 'coin-pro.json', 'coin.atlas');
 }
 

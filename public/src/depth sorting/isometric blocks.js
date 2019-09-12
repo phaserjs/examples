@@ -77,7 +77,7 @@ function create ()
         ease: 'Sine.easeInOut',
         repeat: -1,
         duration: 700,
-        delay: function (i, total, target) {
+        delay: function (target, key, value, targetIndex, totalTargets, tween) {
 
             return (target.getData('row') * 60) + (target.getData('col') * 60);
 

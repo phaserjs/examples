@@ -3,18 +3,12 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#009900',
+    backgroundColor: '#2d2d2d',
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
-
-var rt;
-var grid;
-var logo;
-var controls;
 
 var game = new Phaser.Game(config);
 
@@ -22,7 +16,6 @@ function preload ()
 {
     this.load.glsl('bundle', 'assets/shaders/bundle2.glsl.js');
     this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
-    this.load.image('grid', 'assets/pics/uv-grid-diag.png');
 }
 
 function create ()
@@ -31,18 +24,20 @@ function create ()
 
     shader.setRenderToTexture('wibble');
 
-    var shaderTexture = this.textures.get('wibble');
+    //  Just so we can see the shader
+    this.add.image(0, 0, 'wibble').setOrigin(0);
 
-    var rt = this.add.renderTexture(0, 0, 512, 512);
+    var rt = this.add.renderTexture(256, 0, 256, 256);
 
+    //  Notice how it doesn't draw the shader texture if you call JUST this
+    rt.drawFrame('wibble', '__BASE', 100, 100);
     rt.draw('logo', 0, 0);
 
     this.input.on('pointerdown', function () {
-    });
-}
 
-function update (time, delta)
-{
-    // rt.clear();
-    // rt.draw(grid);
+        //  But, draw it in the event handler and it works fine
+        rt.drawFrame('wibble', '__BASE');
+        rt.draw('logo', Math.random() * 200, Math.random() * 200);
+
+    });
 }

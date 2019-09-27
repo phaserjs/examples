@@ -11564,6 +11564,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\spine\\3.8\\owl.js",
+              "name": "owl.js",
+              "size": 761,
+              "extension": ".js"
+            },
+            {
               "path": "src\\spine\\3.8\\spine inside container.js",
               "name": "spine inside container.js",
               "size": 1735,
@@ -11612,7 +11618,7 @@
               "extension": ".js"
             }
           ],
-          "size": 35231
+          "size": 35992
         },
         {
           "path": "src\\spine\\add hit area.js",
@@ -11717,7 +11723,7 @@
           "extension": ".js"
         }
       ],
-      "size": 69109
+      "size": 69870
     },
     {
       "path": "src\\textures",
@@ -12751,5 +12757,5 @@
       "size": 20418
     }
   ],
-  "size": 3570225
+  "size": 3570986
 }

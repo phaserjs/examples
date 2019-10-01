@@ -1192,7 +1192,7 @@
         {
           "path": "src\\bugs\\circ.js",
           "name": "circ.js",
-          "size": 1278,
+          "size": 803,
           "extension": ".js"
         },
         {
@@ -1358,6 +1358,12 @@
           "extension": ".js"
         },
         {
+          "path": "src\\bugs\\rt fill.js",
+          "name": "rt fill.js",
+          "size": 608,
+          "extension": ".js"
+        },
+        {
           "path": "src\\bugs\\scene keys.js",
           "name": "scene keys.js",
           "size": 1725,
@@ -1418,7 +1424,7 @@
           "extension": ".js"
         }
       ],
-      "size": 82486
+      "size": 82619
     },
     {
       "path": "src\\cache",
@@ -11558,6 +11564,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\spine\\3.8\\extended class.js",
+              "name": "extended class.js",
+              "size": 2156,
+              "extension": ".js"
+            },
+            {
               "path": "src\\spine\\3.8\\image changes.js",
               "name": "image changes.js",
               "size": 777,
@@ -11566,7 +11578,7 @@
             {
               "path": "src\\spine\\3.8\\owl.js",
               "name": "owl.js",
-              "size": 761,
+              "size": 789,
               "extension": ".js"
             },
             {
@@ -11584,7 +11596,7 @@
             {
               "path": "src\\spine\\3.8\\spine scene test.js",
               "name": "spine scene test.js",
-              "size": 1596,
+              "size": 1624,
               "extension": ".js"
             },
             {
@@ -11618,7 +11630,7 @@
               "extension": ".js"
             }
           ],
-          "size": 35992
+          "size": 38204
         },
         {
           "path": "src\\spine\\add hit area.js",
@@ -11723,7 +11735,7 @@
           "extension": ".js"
         }
       ],
-      "size": 69870
+      "size": 72082
     },
     {
       "path": "src\\textures",
@@ -12757,5 +12769,5 @@
       "size": 20418
     }
   ],
-  "size": 3570986
+  "size": 3573331
 }

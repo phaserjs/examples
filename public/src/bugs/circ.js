@@ -1,56 +1,46 @@
+
 var config = {
-    type: Phaser.WEBGL,
-    width: 800,
-    height: 600,
-    parent: 'phaser-example',
-    physics: {
-        default: 'arcade',
+  type: Phaser.WEBGL,
+  parent: 'content',
+  scene: {
+    preload: preload,
+    create: create,
+    update: update,
+  },
+  physics: {
+        default: "arcade",
         arcade: {
-            gravity: { y: 200 },
             debug: true
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
 };
-
-var sprite;
-var static1;
-var static2;
-var static3;
 
 var game = new Phaser.Game(config);
 
-function preload ()
-{
-   this.load.image('bar', 'assets/sprites/healthbar.png');
-   this.load.image('mushroom', 'assets/sprites/mushroom2.png');
+var entity1;
+var entity2;
+
+function preload() {
+
+
 }
 
-function create ()
-{
-   sprite = this.physics.add.image(100, 100, 'mushroom');
-   sprite.setCircle(sprite.width / 2)
-   static1 = this.physics.add.staticImage(200, 200, 'bar');
-   static2 = this.physics.add.staticImage(320, 200, 'bar');
-
-    sprite.body.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true);
-
-    this.physics.add.collider(sprite, [ static1, static2, static3 ]);
-
-    this.input.on('pointerdown', function () {
-    
-        static1.x -= 200;
-        static1.setScale(3, 5);
-        static1.refreshBody();
-    
-    }, this);
+function create() {
+  entity1 = this.add.sprite(0, 100);
+  this.physics.add.existing(entity1);
+  entity1.body.setCircle(36);
+  
+  
+  
+  entity2 = this.add.sprite(100, 100);
+  this.physics.add.existing(entity2);
+  entity2.body.setCircle(36);
+  
+  this.physics.add.collider(entity1,entity2);
+  this.physics.add.collider(entity2,entity1);
+  
 }
-
-function update ()
-{
-    // this.physics.world.collide(sprite, [ static1, static2, static3 ]);
+function update(){
+  entity1.body.setVelocity(160,0);
+  if(entity1.x>200)entity1.x=0;
 }

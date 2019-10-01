@@ -27,12 +27,9 @@ class CustomSpineObject3
     {
         this.scene = scene;
 
-        this.parent = scene.add.container(x, y);
+        this.parent = scene.add.container(0, 0);
 
         this.spine = scene.make.spine({ scene, x, y, key, animationName, loop });
-
-        scene.sys.displayList.add(this.spine);
-        scene.sys.updateList.add(this.spine);
 
         this.parent.add(this.spine);
     }
@@ -66,7 +63,7 @@ class Example extends Phaser.Scene
 
         let custom1 = new CustomSpineObject1(this, 100, 550, 'set1.spineboy', 'idle', true);
         let custom2 = new CustomSpineObject2(this, 350, 550, 'set1.spineboy', 'walk', true);
-        let custom3 = new CustomSpineObject2(this, 600, 550, 'set1.spineboy', 'run', true);
+        let custom3 = new CustomSpineObject3(this, 600, 550, 'set1.spineboy', 'run', true);
 
         custom1.spine.setScale(0.5);
         custom2.spine.setScale(0.5);

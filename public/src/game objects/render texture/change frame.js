@@ -56,8 +56,5 @@ function create()
 
 function draw(x, y) 
 {
-    rt.save();
-    rt.translate(x, y);
-    rt.draw(selected.texture, selected.frame, -selected.width, -selected.height / 2);
-    rt.restore();
+    rt.draw(selected, x, y);
 }

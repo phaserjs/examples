@@ -190,7 +190,7 @@
         {
           "path": "src\\animation\\animation from png sequence.js",
           "name": "animation from png sequence.js",
-          "size": 847,
+          "size": 1169,
           "extension": ".js"
         },
         {
@@ -392,7 +392,7 @@
           "extension": ".js"
         }
       ],
-      "size": 45041
+      "size": 45363
     },
     {
       "path": "src\\archived",
@@ -1174,7 +1174,7 @@
         {
           "path": "src\\bugs\\ap postupdate.js",
           "name": "ap postupdate.js",
-          "size": 1953,
+          "size": 537,
           "extension": ".js"
         },
         {
@@ -1205,6 +1205,12 @@
           "path": "src\\bugs\\container drag.js",
           "name": "container drag.js",
           "size": 891,
+          "extension": ".js"
+        },
+        {
+          "path": "src\\bugs\\container over.js",
+          "name": "container over.js",
+          "size": 961,
           "extension": ".js"
         },
         {
@@ -1424,7 +1430,7 @@
           "extension": ".js"
         }
       ],
-      "size": 82619
+      "size": 82164
     },
     {
       "path": "src\\cache",
@@ -3005,7 +3011,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\canvas text.js",
                   "name": "canvas text.js",
-                  "size": 1251,
+                  "size": 1933,
                   "extension": ".js"
                 },
                 {
@@ -3051,7 +3057,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 11520
+              "size": 12202
             },
             {
               "path": "src\\game objects\\bitmaptext\\retro font",
@@ -3218,7 +3224,7 @@
               "size": 19774
             }
           ],
-          "size": 42544
+          "size": 43226
         },
         {
           "path": "src\\game objects\\blitter",
@@ -4695,7 +4701,7 @@
             {
               "path": "src\\game objects\\particle emitter\\dynamic emitter config property.js",
               "name": "dynamic emitter config property.js",
-              "size": 820,
+              "size": 859,
               "extension": ".js"
             },
             {
@@ -4951,7 +4957,7 @@
               "extension": ".js"
             }
           ],
-          "size": 90341
+          "size": 90380
         },
         {
           "path": "src\\game objects\\quad",
@@ -4997,7 +5003,7 @@
             {
               "path": "src\\game objects\\render texture\\change frame.js",
               "name": "change frame.js",
-              "size": 1330,
+              "size": 1213,
               "extension": ".js"
             },
             {
@@ -5100,6 +5106,12 @@
               "path": "src\\game objects\\render texture\\particle emitter to render texture.js",
               "name": "particle emitter to render texture.js",
               "size": 969,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\game objects\\render texture\\pixel art test.js",
+              "name": "pixel art test.js",
+              "size": 543,
               "extension": ".js"
             },
             {
@@ -5217,7 +5229,7 @@
               "extension": ".js"
             }
           ],
-          "size": 58889
+          "size": 59315
         },
         {
           "path": "src\\game objects\\shaders",
@@ -5347,7 +5359,7 @@
             {
               "path": "src\\game objects\\shapes\\iso box.js",
               "name": "iso box.js",
-              "size": 822,
+              "size": 821,
               "extension": ".js"
             },
             {
@@ -5435,7 +5447,7 @@
               "extension": ".js"
             }
           ],
-          "size": 62698
+          "size": 62697
         },
         {
           "path": "src\\game objects\\sprites",
@@ -5570,7 +5582,7 @@
                 {
                   "path": "src\\game objects\\text\\static\\create from config.js",
                   "name": "create from config.js",
-                  "size": 793,
+                  "size": 804,
                   "extension": ".js"
                 },
                 {
@@ -5719,10 +5731,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 35140
+              "size": 35151
             }
           ],
-          "size": 35140
+          "size": 35151
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -5785,11 +5797,11 @@
             {
               "path": "src\\game objects\\tile sprite\\tilesprite pixel art test.js",
               "name": "tilesprite pixel art test.js",
-              "size": 717,
+              "size": 962,
               "extension": ".js"
             }
           ],
-          "size": 10261
+          "size": 10506
         },
         {
           "path": "src\\game objects\\tilemap",
@@ -6078,6 +6090,12 @@
                   "extension": ".js"
                 },
                 {
+                  "path": "src\\game objects\\tilemap\\static\\pixel art test.js",
+                  "name": "pixel art test.js",
+                  "size": 1245,
+                  "extension": ".js"
+                },
+                {
                   "path": "src\\game objects\\tilemap\\static\\set colliding by collision data.js",
                   "name": "set colliding by collision data.js",
                   "size": 5109,
@@ -6150,7 +6168,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 54706
+              "size": 55951
             },
             {
               "path": "src\\game objects\\tilemap\\tests",
@@ -6202,10 +6220,10 @@
               "size": 71065
             }
           ],
-          "size": 268936
+          "size": 270181
         }
       ],
-      "size": 1019619
+      "size": 1022266
     },
     {
       "path": "src\\games",
@@ -7131,12 +7149,6 @@
           "name": "point",
           "children": [
             {
-              "path": "src\\geom\\point\\add.js",
-              "name": "add.js",
-              "size": 534,
-              "extension": ".js"
-            },
-            {
               "path": "src\\geom\\point\\ceil.js",
               "name": "ceil.js",
               "size": 881,
@@ -7164,12 +7176,6 @@
               "path": "src\\geom\\point\\cross.js",
               "name": "cross.js",
               "size": 1514,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\geom\\point\\divide.js",
-              "name": "divide.js",
-              "size": 762,
               "extension": ".js"
             },
             {
@@ -7221,12 +7227,6 @@
               "extension": ".js"
             },
             {
-              "path": "src\\geom\\point\\multiply.js",
-              "name": "multiply.js",
-              "size": 762,
-              "extension": ".js"
-            },
-            {
               "path": "src\\geom\\point\\negative 2.js",
               "name": "negative 2.js",
               "size": 1099,
@@ -7236,12 +7236,6 @@
               "path": "src\\geom\\point\\negative.js",
               "name": "negative.js",
               "size": 860,
-              "extension": ".js"
-            },
-            {
-              "path": "src\\geom\\point\\normalize.js",
-              "name": "normalize.js",
-              "size": 1130,
               "extension": ".js"
             },
             {
@@ -7263,15 +7257,33 @@
               "extension": ".js"
             },
             {
-              "path": "src\\geom\\point\\subtract.js",
-              "name": "subtract.js",
-              "size": 929,
+              "path": "src\\geom\\point\\_add.js",
+              "name": "_add.js",
+              "size": 534,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\geom\\point\\_divide.js",
+              "name": "_divide.js",
+              "size": 762,
               "extension": ".js"
             },
             {
               "path": "src\\geom\\point\\_dot.js",
               "name": "_dot.js",
               "size": 1947,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\geom\\point\\_multiply.js",
+              "name": "_multiply.js",
+              "size": 762,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\geom\\point\\_normalize.js",
+              "name": "_normalize.js",
+              "size": 1130,
               "extension": ".js"
             },
             {
@@ -7290,6 +7302,12 @@
               "path": "src\\geom\\point\\_set magnitude.js",
               "name": "_set magnitude.js",
               "size": 833,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\geom\\point\\_subtract.js",
+              "name": "_subtract.js",
+              "size": 929,
               "extension": ".js"
             }
           ],
@@ -8248,7 +8266,7 @@
             {
               "path": "src\\input\\keyboard\\just down.js",
               "name": "just down.js",
-              "size": 1829,
+              "size": 2042,
               "extension": ".js"
             },
             {
@@ -8324,7 +8342,7 @@
               "extension": ".js"
             }
           ],
-          "size": 48181
+          "size": 48394
         },
         {
           "path": "src\\input\\mouse",
@@ -8692,7 +8710,7 @@
           "size": 10196
         }
       ],
-      "size": 204278
+      "size": 204491
     },
     {
       "path": "src\\loader",
@@ -11566,7 +11584,7 @@
             {
               "path": "src\\spine\\3.8\\extended class.js",
               "name": "extended class.js",
-              "size": 2156,
+              "size": 2060,
               "extension": ".js"
             },
             {
@@ -11630,7 +11648,7 @@
               "extension": ".js"
             }
           ],
-          "size": 38204
+          "size": 38108
         },
         {
           "path": "src\\spine\\add hit area.js",
@@ -11735,7 +11753,7 @@
           "extension": ".js"
         }
       ],
-      "size": 72082
+      "size": 71986
     },
     {
       "path": "src\\textures",
@@ -12769,5 +12787,5 @@
       "size": 20418
     }
   ],
-  "size": 3573331
+  "size": 3575962
 }

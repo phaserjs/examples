@@ -1,92 +1,23 @@
 var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    type: Phaser.CANVAS,
     parent: 'phaser-example',
-    physics: {
-        default: "arcade",
-        arcade: {
-            gravity: { y: 200 },
-            _fps: 30
-        }
-    },
     scene: {
         preload: preload,
         create: create
     }
 };
 
-var logo = null;
-
-var maxY = 0;
-var minY = 600;
-var lastY = 0;
-var duration = 0;
-var prevDuration = 0;
-var prevDirection = null;
-
 var game = new Phaser.Game(config);
 
-function preload ()
+function preload() 
 {
-    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-    this.load.image('marker', 'assets/sprites/longarrow.png');
+    this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
 }
 
-function create ()
+function create() 
 {
-    text = this.add.text(10, 10, 'Click to start test', { font: '16px Courier', fill: '#00ff00' });
+    this.add.bitmapText(0, 0, 'desyrel', 'static bitmap text');
+    this.add.dynamicBitmapText(0, 100, 'desyrel', 'dynamic bitmap text');
 
-    this.input.once('pointerdown', function () {
-
-        logo = this.physics.add.image(400, 100, 'logo');
-
-        logo.setOrigin(0.5, 0);
-        logo.setVelocity(0, 60);
-        logo.setBounce(1, 1);
-        logo.setCollideWorldBounds(true);
-
-        lastY = logo.y;
-
-        this.sys.events.on('postupdate', update, this);
-
-    }, this);
-}
-
-function update (time, delta)
-{
-    text.setText([
-        'steps: ' + this.physics.world.stepsLastFrame,
-        'duration: ' + prevDuration,
-        'last y: ' + lastY,
-        'min y: ' + minY,
-        'max y: ' + maxY
-    ]);
-
-    if (Phaser.Math.Fuzzy.LessThan(logo.body.velocity.y, 0, 0.1))
-    {
-        direction = 'up';
-    }
-    else
-    {
-        direction = 'down';
-    }
-
-    if (prevDirection !== direction && prevDirection === 'up')
-    {
-        var marker = this.add.sprite(0, logo.y + 18, 'marker');
-
-        marker.setOrigin(0, 1);
-
-        lastY = logo.y;
-
-        prevDuration = duration;
-        duration = 0;
-    }
-
-    prevDirection = direction;
-    duration += delta;
-
-    minY = Math.min(minY, logo.y);
-    maxY = Math.max(minY, maxY, lastY);
+    this.cameras.main.setScroll(-50, -50);
 }

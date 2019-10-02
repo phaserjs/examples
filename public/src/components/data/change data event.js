@@ -29,41 +29,39 @@ function create ()
     gem.data.set('name', 'Red Gem Stone');
     gem.data.set('level', 2);
     gem.data.set('owner', 'Link');
+    gem.data.set('gold', 50);
 
-    //  Whenever the 'gold' property is updated we call this function BEFORE the value changes:
-    gem.on('changedata', function (gameObject, key, value, resetValue) {
+    text.setText([
+        'Name: ' + gem.data.get('name'),
+        'Level: ' + gem.data.get('level'),
+        'Value: ' + gem.data.get('gold') + ' gold',
+        'Owner: ' + gem.data.get('owner')
+    ]);
 
-        if (key === 'gold' && value > 500)
+    //  Whenever the 'gold' property is updated we call this function AFTER the change has happened:
+    gem.on('changedata-gold', function (gameObject, value) {
+
+        if (value > 500)
         {
-            //  Calling this will set the value to be 500 and never get as far as the `setdata` event
-            resetValue(500);
+            gameObject.data.values.gold = 500;
+        }
+        else
+        {
+            text.setText([
+                'Name: ' + gem.data.get('name'),
+                'Level: ' + gem.data.get('level'),
+                'Value: ' + gem.data.get('gold') + ' gold',
+                'Owner: ' + gem.data.get('owner')
+            ]);
         }
 
     });
-
-    //  Whenever the 'gold' property is updated we call this function AFTER the change has happened:
-    gem.on('setdata', function (gameObject, key, value) {
-
-        text.setText([
-            'Name: ' + gem.data.get('name'),
-            'Level: ' + gem.data.get('level'),
-            'Value: ' + gem.data.get('gold') + ' gold',
-            'Owner: ' + gem.data.get('owner')
-        ]);
-
-    });
-
-    //  Set the value, this will call the 'after' callback
-    gem.data.set('gold', 50);
 
     //  Change the 'value' property when the mouse is clicked
 
     this.input.on('pointerdown', function () {
 
-        var gold = gem.data.get('gold');
-
-        //  Set the value, this will call the 'after' callback
-        gem.data.set('gold', gold + 100);
+        gem.data.values.gold += 100;
 
     });
 }

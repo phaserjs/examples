@@ -13,6 +13,7 @@ filteredTree = JSON.stringify(filteredTree, null, 2);
 
 filteredTree = filteredTree.replace(/public\//g, '');
 filteredTree = filteredTree.replace(/public\\\\/g, '');
+filteredTree = filteredTree.replace(/\\\\/g, '/');
 
 //  Save the JSON
 

@@ -190,7 +190,7 @@
         {
           "path": "src\\animation\\animation from png sequence.js",
           "name": "animation from png sequence.js",
-          "size": 1169,
+          "size": 847,
           "extension": ".js"
         },
         {
@@ -392,7 +392,7 @@
           "extension": ".js"
         }
       ],
-      "size": 45363
+      "size": 45041
     },
     {
       "path": "src\\archived",
@@ -2059,7 +2059,7 @@
             {
               "path": "src\\components\\data\\change data event.js",
               "name": "change data event.js",
-              "size": 1825,
+              "size": 1637,
               "extension": ".js"
             },
             {
@@ -2099,10 +2099,10 @@
               "extension": ".js"
             }
           ],
-          "size": 8983
+          "size": 8795
         }
       ],
-      "size": 8983
+      "size": 8795
     },
     {
       "path": "src\\demoscene",
@@ -2419,20 +2419,20 @@
           "name": "effects",
           "children": [
             {
-              "path": "src\\display\\effects\\flax.js",
-              "name": "flax.js",
-              "size": 8416,
-              "extension": ".js"
-            },
-            {
               "path": "src\\display\\effects\\fractal terrain.js",
               "name": "fractal terrain.js",
               "size": 4197,
               "extension": ".js"
             },
             {
-              "path": "src\\display\\effects\\terrain generator.js",
-              "name": "terrain generator.js",
+              "path": "src\\display\\effects\\_flax.js",
+              "name": "_flax.js",
+              "size": 8416,
+              "extension": ".js"
+            },
+            {
+              "path": "src\\display\\effects\\_terrain generator.js",
+              "name": "_terrain generator.js",
               "size": 7135,
               "extension": ".js"
             }
@@ -3011,7 +3011,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\dynamic\\canvas text.js",
                   "name": "canvas text.js",
-                  "size": 1933,
+                  "size": 1251,
                   "extension": ".js"
                 },
                 {
@@ -3057,7 +3057,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 12202
+              "size": 11520
             },
             {
               "path": "src\\game objects\\bitmaptext\\retro font",
@@ -3224,7 +3224,7 @@
               "size": 19774
             }
           ],
-          "size": 43226
+          "size": 42544
         },
         {
           "path": "src\\game objects\\blitter",
@@ -4701,7 +4701,7 @@
             {
               "path": "src\\game objects\\particle emitter\\dynamic emitter config property.js",
               "name": "dynamic emitter config property.js",
-              "size": 859,
+              "size": 820,
               "extension": ".js"
             },
             {
@@ -4957,7 +4957,7 @@
               "extension": ".js"
             }
           ],
-          "size": 90380
+          "size": 90341
         },
         {
           "path": "src\\game objects\\quad",
@@ -5582,7 +5582,7 @@
                 {
                   "path": "src\\game objects\\text\\static\\create from config.js",
                   "name": "create from config.js",
-                  "size": 804,
+                  "size": 793,
                   "extension": ".js"
                 },
                 {
@@ -5731,10 +5731,10 @@
                   "extension": ".js"
                 }
               ],
-              "size": 35151
+              "size": 35140
             }
           ],
-          "size": 35151
+          "size": 35140
         },
         {
           "path": "src\\game objects\\tile sprite",
@@ -5797,11 +5797,11 @@
             {
               "path": "src\\game objects\\tile sprite\\tilesprite pixel art test.js",
               "name": "tilesprite pixel art test.js",
-              "size": 962,
+              "size": 717,
               "extension": ".js"
             }
           ],
-          "size": 10506
+          "size": 10261
         },
         {
           "path": "src\\game objects\\tilemap",
@@ -5856,7 +5856,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\multiple tile sizes.js",
                   "name": "multiple tile sizes.js",
-                  "size": 4131,
+                  "size": 4258,
                   "extension": ".js"
                 },
                 {
@@ -5890,7 +5890,7 @@
                   "extension": ".js"
                 }
               ],
-              "size": 74296
+              "size": 74423
             },
             {
               "path": "src\\game objects\\tilemap\\dynamic",
@@ -6220,10 +6220,23 @@
               "size": 71065
             }
           ],
-          "size": 270181
+          "size": 270308
+        },
+        {
+          "path": "src\\game objects\\video",
+          "name": "video",
+          "children": [
+            {
+              "path": "src\\game objects\\video\\video.js",
+              "name": "video.js",
+              "size": 440,
+              "extension": ".js"
+            }
+          ],
+          "size": 440
         }
       ],
-      "size": 1022266
+      "size": 1021856
     },
     {
       "path": "src\\games",
@@ -8266,7 +8279,7 @@
             {
               "path": "src\\input\\keyboard\\just down.js",
               "name": "just down.js",
-              "size": 2042,
+              "size": 1829,
               "extension": ".js"
             },
             {
@@ -8342,7 +8355,7 @@
               "extension": ".js"
             }
           ],
-          "size": 48394
+          "size": 48181
         },
         {
           "path": "src\\input\\mouse",
@@ -8710,7 +8723,7 @@
           "size": 10196
         }
       ],
-      "size": 204491
+      "size": 204278
     },
     {
       "path": "src\\loader",
@@ -9813,6 +9826,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\arcade\\custom world bounds.js",
+              "name": "custom world bounds.js",
+              "size": 1172,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\arcade\\debug face.js",
               "name": "debug face.js",
               "size": 8909,
@@ -10095,7 +10114,7 @@
               "extension": ".js"
             }
           ],
-          "size": 213956
+          "size": 215128
         },
         {
           "path": "src\\physics\\impact",
@@ -10629,7 +10648,7 @@
           "size": 2750
         }
       ],
-      "size": 348359
+      "size": 349531
     },
     {
       "path": "src\\plugins",
@@ -11584,7 +11603,7 @@
             {
               "path": "src\\spine\\3.8\\extended class.js",
               "name": "extended class.js",
-              "size": 2060,
+              "size": 2059,
               "extension": ".js"
             },
             {
@@ -11648,7 +11667,7 @@
               "extension": ".js"
             }
           ],
-          "size": 38108
+          "size": 38107
         },
         {
           "path": "src\\spine\\add hit area.js",
@@ -11753,7 +11772,7 @@
           "extension": ".js"
         }
       ],
-      "size": 71986
+      "size": 71985
     },
     {
       "path": "src\\textures",
@@ -12787,5 +12806,5 @@
       "size": 20418
     }
   ],
-  "size": 3575962
+  "size": 3576000
 }

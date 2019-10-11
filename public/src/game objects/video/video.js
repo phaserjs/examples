@@ -14,24 +14,26 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.video('wormhole', 'assets/video/wormhole.mp4', 'canplaythrough', false);
+    this.load.video('vid', 'assets/video/pumpkins.mp4', 'canplaythrough', false);
     // this.load.video('wormhole', 'assets/video/wormhole.mp4', '', true);
 }
 
 function create ()
 {
-    var t = this.cache.video.get('wormhole');
+    var vid = this.add.video(400, 300, 'vid');
 
-    console.log('CREATE cache test ---->');
-    console.log(t);
+    vid.play(true, true);
 
-    var vid = this.add.video(400, 300, 'wormhole');
+    vid.on('created', () => {
 
-    this.input.once('pointerdown', function () {
+        console.log('hello?');
 
-        vid.play(true);
+        vid.saveTexture('pumpy');
 
-        // wormhole.createVideoFromURL('assets/video/wormhole.mp4', true);
-
+        this.add.image(100, 100, 'pumpy').setScale(0.25).setOrigin(0);
+        
     });
+
+    // this.input.on('pointerdown', function () {
+    // });
 }

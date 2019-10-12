@@ -1192,7 +1192,7 @@
         {
           "path": "src/bugs/circ.js",
           "name": "circ.js",
-          "size": 758,
+          "size": 1014,
           "extension": ".js"
         },
         {
@@ -1430,7 +1430,7 @@
           "extension": ".js"
         }
       ],
-      "size": 78890
+      "size": 79146
     },
     {
       "path": "src/cache",
@@ -6227,16 +6227,16 @@
           "name": "video",
           "children": [
             {
-              "path": "src/game objects/video/video.js",
-              "name": "video.js",
-              "size": 777,
+              "path": "src/game objects/video/play video.js",
+              "name": "play video.js",
+              "size": 452,
               "extension": ".js"
             }
           ],
-          "size": 777
+          "size": 452
         }
       ],
-      "size": 983950
+      "size": 983625
     },
     {
       "path": "src/games",
@@ -11567,7 +11567,7 @@
             {
               "path": "src/spine/3.8/batch test.js",
               "name": "batch test.js",
-              "size": 1651,
+              "size": 1675,
               "extension": ".js"
             },
             {
@@ -11667,7 +11667,7 @@
               "extension": ".js"
             }
           ],
-          "size": 36687
+          "size": 36711
         },
         {
           "path": "src/spine/add hit area.js",
@@ -11772,7 +11772,7 @@
           "extension": ".js"
         }
       ],
-      "size": 69319
+      "size": 69343
     },
     {
       "path": "src/textures",
@@ -12806,5 +12806,5 @@
       "size": 19536
     }
   ],
-  "size": 3434923
+  "size": 3434878
 }

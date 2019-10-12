@@ -179,7 +179,7 @@ function create ()
 
 function scanFont ()
 {
-    var font_canvas = Phaser.Display.Canvas.Pool.create(this, 120, 102);
+    var font_canvas = Phaser.Display.Canvas.CanvasPool.create(this, 120, 102);
 
     var ctx = font_canvas.getContext('2d');
 

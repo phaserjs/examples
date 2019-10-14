@@ -2988,6 +2988,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/game config/pixel art mode.js",
+          "name": "pixel art mode.js",
+          "size": 387,
+          "extension": ".js"
+        },
+        {
           "path": "src/game config/round pixels.js",
           "name": "round pixels.js",
           "size": 730,
@@ -3000,7 +3006,7 @@
           "extension": ".js"
         }
       ],
-      "size": 14298
+      "size": 14685
     },
     {
       "path": "src/game objects",
@@ -12812,5 +12818,5 @@
       "size": 19536
     }
   ],
-  "size": 3434878
+  "size": 3435265
 }

@@ -28446,6 +28446,45 @@
       "": 1
     }
   },
+  "game config/pixel art mode.js": {
+    "path": "game config/pixel art mode.js",
+    "titleWords": {
+      "game": 1,
+      "config": 1,
+      "pixel": 1,
+      "art": 1,
+      "mode": 1
+    },
+    "bodyWords": {
+      "var": 2,
+      "config": 2,
+      "type": 1,
+      "phaser": 3,
+      "auto": 1,
+      "width": 1,
+      "height": 1,
+      "parent": 1,
+      "example": 1,
+      "scene": 1,
+      "preload": 3,
+      "create": 3,
+      "game": 2,
+      "new": 1,
+      "function": 2,
+      "this": 2,
+      "load": 1,
+      "image": 2,
+      "toy": 3,
+      "assets": 1,
+      "pics": 1,
+      "shocktroopers": 1,
+      "png": 1,
+      "add": 1,
+      "setorigin": 1,
+      "setscale": 1,
+      "": 1
+    }
+  },
   "game config/round pixels.js": {
     "path": "game config/round pixels.js",
     "titleWords": {

@@ -26,34 +26,27 @@ function preload() {
 }
 
 function create() {
-    var BetweenPoints = Phaser.Math.Angle.BetweenPoints;
-    var SetToAngle = Phaser.Geom.Line.SetToAngle;
-    var velocityFromRotation = this.physics.velocityFromRotation;
+    this.anims.create({ key: 'fly', frames: this.anims.generateFrameNumbers('chick', [0, 1, 2, 3]), frameRate: 5, repeat: -1 });
 
     this.add.image(320, 256, 'backdrop').setScale(2);
+
     var cannon = this.add.image(64, 448, 'cannon');
     var chick = this.physics.add.sprite(cannon.x, cannon.y, 'chick').setScale(2);
     var gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xffdd00, alpha: 0.5 } });
-
-    var velocity = new Phaser.Math.Vector2();
     var line = new Phaser.Geom.Line();
+    var angle = 0;
 
-    // Disable physics body, deactivate game object, hide game object
     chick.disableBody(true, true);
 
-    this.anims.create({ key: 'fly', frames: this.anims.generateFrameNumbers('chick', [0, 1, 2, 3]), frameRate: 5, repeat: -1 });
-
     this.input.on('pointermove', function (pointer) {
-        var angle = BetweenPoints(cannon, pointer);
-
-        SetToAngle(line, cannon.x, cannon.y, angle, 128);
-        velocityFromRotation(angle, 600, velocity);
+        angle = Phaser.Math.Angle.BetweenPoints(cannon, pointer);
+        Phaser.Geom.Line.SetToAngle(line, cannon.x, cannon.y, angle, 128);
         gfx.clear().strokeLineShape(line);
     }, this);
 
     this.input.on('pointerup', function () {
-        // Enable physics body and reset (at position), activate game object, show game object
-        chick.enableBody(true, cannon.x, cannon.y, true, true).setVelocity(velocity.x, velocity.y);
+        chick.enableBody(true, cannon.x, cannon.y, true, true);
         chick.play('fly');
+        this.physics.velocityFromRotation(angle, 600, chick.body.velocity);
     }, this);
 }

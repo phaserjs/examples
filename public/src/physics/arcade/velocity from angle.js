@@ -20,7 +20,7 @@ var config = {
 new Phaser.Game(config);
 
 function preload() {
-    this.load.image('backdrop', 'assets/pics/platformer-backdrop.png')
+    this.load.image('backdrop', 'assets/pics/platformer-backdrop.png');
     this.load.image('cannon', 'assets/tests/timer/cannon.png');
     this.load.spritesheet('chick', 'assets/sprites/chick.png', { frameWidth: 16, frameHeight: 18 });
 }

@@ -4,7 +4,7 @@ var config = {
     width: 800,
     height: 600,
     physics: {
-        default: "arcade",
+        default: 'arcade',
         arcade: {
             fps: 60,
             gravity: { y: 0 }

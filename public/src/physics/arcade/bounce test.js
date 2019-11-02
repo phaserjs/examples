@@ -4,7 +4,7 @@ var config = {
     height: 600,
     parent: 'phaser-example',
     physics: {
-        default: "arcade",
+        default: 'arcade',
         arcade: {
             gravity: { y: 150 }
         }

@@ -6,8 +6,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            fps: 60,
-            gravity: { y: 0 }
+            debug: true
         }
     },
     scene: {
@@ -18,6 +17,7 @@ var config = {
 };
 
 var sprite;
+var circle;
 var cursors;
 var text;
 
@@ -25,7 +25,6 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('bullet', 'assets/games/asteroids/bullets.png');
     this.load.image('ship', 'assets/games/asteroids/ship.png');
 }
 
@@ -33,9 +32,11 @@ function create ()
 {
     sprite = this.physics.add.image(400, 300, 'ship');
 
-    sprite.setDamping(true);
-    sprite.setDrag(0.99);
-    sprite.setMaxVelocity(200);
+    sprite.body.setMaxSpeed(200);
+
+    circle = this.add.circle(sprite.x, sprite.y, 0.5 * sprite.body.maxSpeed, 0xffffff, 0.2);
+
+    console.log(circle);
 
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -46,7 +47,7 @@ function update ()
 {
     if (cursors.up.isDown)
     {
-        this.physics.velocityFromRotation(sprite.rotation, 200, sprite.body.acceleration);
+        this.physics.velocityFromRotation(sprite.rotation, sprite.body.maxSpeed, sprite.body.acceleration);
     }
     else
     {
@@ -68,12 +69,7 @@ function update ()
 
     text.setText('Speed: ' + sprite.body.speed);
 
-    // if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
-    // {
-    //     fireBullet();
-    // }
+    this.physics.world.wrap(sprite, 100);
 
-    this.physics.world.wrap(sprite, 32);
-
-    // bullets.forEachExists(screenWrap, this);
+    circle.setPosition(sprite.x, sprite.y);
 }

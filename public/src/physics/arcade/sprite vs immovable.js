@@ -24,8 +24,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-   this.load.image('mushroom', 'assets/sprites/mushroom2.png');
-   this.load.image('flectrum', 'assets/sprites/flectrum.png');
+    this.load.image('mushroom', 'assets/sprites/mushroom2.png');
+    this.load.image('flectrum', 'assets/sprites/flectrum.png');
 }
 
 function create ()

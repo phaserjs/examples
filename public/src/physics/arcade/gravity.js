@@ -7,7 +7,7 @@ var config = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: { y: 60 }
+            gravity: { y: 150 }
         }
     },
     scene: {
@@ -34,8 +34,8 @@ function create ()
         collideWorldBounds: true
     });
 
-    group.create(200, 300);
-    group.create(300, 300).setGravity(0, 120);
-    group.create(400, 300).setGravity(0, -120);
-    group.create(500, 300, 'block').body.allowGravity = false;
+    group.create(250, 300);
+    group.create(350, 300).setGravity(0, 300);
+    group.create(450, 300).setGravity(0, -300);
+    group.create(550, 300, 'block').body.setAllowGravity(false);
 }

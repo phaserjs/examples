@@ -25,14 +25,11 @@ new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('space', 'assets/skies/space.jpg');
     this.load.image('block', 'assets/sprites/block.png');
 }
 
 function create ()
 {
-    this.add.image(400, 300, 'space');
-
     zone = this.add.zone(300, 200).setSize(200, 200);
     this.physics.world.enable(zone);
     zone.body.setAllowGravity(false);

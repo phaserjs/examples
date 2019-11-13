@@ -5773,7 +5773,7 @@
             {
               "path": "src\\game objects\\tile sprite\\change frame.js",
               "name": "change frame.js",
-              "size": 1531,
+              "size": 1529,
               "extension": ".js"
             },
             {
@@ -5819,7 +5819,7 @@
               "extension": ".js"
             }
           ],
-          "size": 11487
+          "size": 11485
         },
         {
           "path": "src\\game objects\\tilemap",
@@ -6254,7 +6254,7 @@
           "size": 477
         }
       ],
-      "size": 1023119
+      "size": 1023117
     },
     {
       "path": "src\\games",
@@ -9464,7 +9464,7 @@
             {
               "path": "src\\paths\\curves\\spline between points.js",
               "name": "spline between points.js",
-              "size": 1354,
+              "size": 1919,
               "extension": ".js"
             },
             {
@@ -9498,7 +9498,7 @@
               "extension": ".js"
             }
           ],
-          "size": 53345
+          "size": 53910
         },
         {
           "path": "src\\paths\\followers",
@@ -9659,7 +9659,7 @@
           "extension": ".js"
         }
       ],
-      "size": 84829
+      "size": 85394
     },
     {
       "path": "src\\physics",
@@ -10374,6 +10374,12 @@
               "extension": ".js"
             },
             {
+              "path": "src\\physics\\matterjs\\body follow path.js",
+              "name": "body follow path.js",
+              "size": 1107,
+              "extension": ".js"
+            },
+            {
               "path": "src\\physics\\matterjs\\body scale.js",
               "name": "body scale.js",
               "size": 960,
@@ -10650,7 +10656,7 @@
               "extension": ".js"
             }
           ],
-          "size": 84326
+          "size": 85433
         },
         {
           "path": "src\\physics\\multi",
@@ -10672,7 +10678,7 @@
           "size": 2750
         }
       ],
-      "size": 349284
+      "size": 350391
     },
     {
       "path": "src\\plugins",
@@ -12830,5 +12836,5 @@
       "size": 20418
     }
   ],
-  "size": 3581083
+  "size": 3582753
 }

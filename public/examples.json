@@ -4485,6 +4485,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\graphics\\generate texture to tilesprite.js",
+              "name": "generate texture to tilesprite.js",
+              "size": 1479,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\graphics\\Graphics Rendering.js",
               "name": "Graphics Rendering.js",
               "size": 1423,
@@ -4963,7 +4970,7 @@
               "type": "directory"
             }
           ],
-          "size": 191593,
+          "size": 193072,
           "type": "directory"
         },
         {
@@ -7291,7 +7298,7 @@
           "type": "directory"
         }
       ],
-      "size": 1023117,
+      "size": 1024596,
       "type": "directory"
     },
     {
@@ -11449,6 +11456,140 @@
               "type": "file"
             },
             {
+              "path": "src\\physics\\arcade\\archived",
+              "name": "archived",
+              "children": [
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 10.js",
+                  "name": "body stack test 10.js",
+                  "size": 10346,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 2.js",
+                  "name": "body stack test 2.js",
+                  "size": 3007,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 3.js",
+                  "name": "body stack test 3.js",
+                  "size": 825,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 4.js",
+                  "name": "body stack test 4.js",
+                  "size": 4173,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 5.js",
+                  "name": "body stack test 5.js",
+                  "size": 8531,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 5B.js",
+                  "name": "body stack test 5B.js",
+                  "size": 2897,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 6.js",
+                  "name": "body stack test 6.js",
+                  "size": 8479,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 7.js",
+                  "name": "body stack test 7.js",
+                  "size": 8582,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 8.js",
+                  "name": "body stack test 8.js",
+                  "size": 9474,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test 9.js",
+                  "name": "body stack test 9.js",
+                  "size": 9621,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\body stack test.js",
+                  "name": "body stack test.js",
+                  "size": 7968,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\debug face.js",
+                  "name": "debug face.js",
+                  "size": 8909,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\drag through open face.js",
+                  "name": "drag through open face.js",
+                  "size": 7931,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\fast moving body test 2.js",
+                  "name": "fast moving body test 2.js",
+                  "size": 5477,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\fast moving body test.js",
+                  "name": "fast moving body test.js",
+                  "size": 5211,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\move through open face.js",
+                  "name": "move through open face.js",
+                  "size": 1477,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\non rendering body.js",
+                  "name": "non rendering body.js",
+                  "size": 4145,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\physics\\arcade\\archived\\one way collision.js",
+                  "name": "one way collision.js",
+                  "size": 3007,
+                  "extension": ".js",
+                  "type": "file"
+                }
+              ],
+              "size": 110060,
+              "type": "directory"
+            },
+            {
               "path": "src\\physics\\arcade\\asteroids movement.js",
               "name": "asteroids movement.js",
               "size": 1627,
@@ -11867,140 +12008,6 @@
               "size": 673,
               "extension": ".js",
               "type": "file"
-            },
-            {
-              "path": "src\\physics\\arcade\\_ap2",
-              "name": "_ap2",
-              "children": [
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 10.js",
-                  "name": "body stack test 10.js",
-                  "size": 10346,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 2.js",
-                  "name": "body stack test 2.js",
-                  "size": 3007,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 3.js",
-                  "name": "body stack test 3.js",
-                  "size": 825,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 4.js",
-                  "name": "body stack test 4.js",
-                  "size": 4173,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 5.js",
-                  "name": "body stack test 5.js",
-                  "size": 8531,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 5B.js",
-                  "name": "body stack test 5B.js",
-                  "size": 2897,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 6.js",
-                  "name": "body stack test 6.js",
-                  "size": 8479,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 7.js",
-                  "name": "body stack test 7.js",
-                  "size": 8582,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 8.js",
-                  "name": "body stack test 8.js",
-                  "size": 9474,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test 9.js",
-                  "name": "body stack test 9.js",
-                  "size": 9621,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\body stack test.js",
-                  "name": "body stack test.js",
-                  "size": 7968,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\debug face.js",
-                  "name": "debug face.js",
-                  "size": 8909,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\drag through open face.js",
-                  "name": "drag through open face.js",
-                  "size": 7931,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\fast moving body test 2.js",
-                  "name": "fast moving body test 2.js",
-                  "size": 5477,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\fast moving body test.js",
-                  "name": "fast moving body test.js",
-                  "size": 5211,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\move through open face.js",
-                  "name": "move through open face.js",
-                  "size": 1477,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\non rendering body.js",
-                  "name": "non rendering body.js",
-                  "size": 4145,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\physics\\arcade\\_ap2\\one way collision.js",
-                  "name": "one way collision.js",
-                  "size": 3007,
-                  "extension": ".js",
-                  "type": "file"
-                }
-              ],
-              "size": 110060,
-              "type": "directory"
             }
           ],
           "size": 230993,
@@ -15147,6 +15154,6 @@
       "type": "directory"
     }
   ],
-  "size": 3672515,
+  "size": 3673994,
   "type": "directory"
 }

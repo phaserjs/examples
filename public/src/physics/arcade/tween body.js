@@ -1,6 +1,5 @@
 var config = {
     type: Phaser.AUTO,
-    antialias: false,
     width: 800,
     height: 600,
     parent: 'phaser-example',
@@ -8,7 +7,8 @@ var config = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: { y: 300 }
+            gravity: { y: 300 },
+            overlapBias: 8
         }
     },
     scene: {
@@ -27,11 +27,12 @@ function preload ()
 
 function create ()
 {
-    var block = this.physics.add.image(400, 200, 'block')
-        .setFriction(1, 1)
-        .setImmovable(true);
+    // this.physics.world.OVERLAP_BIAS = 8;
+
+    var block = this.physics.add.image(400, 200, 'block');
 
     block.body.allowGravity = false;
+    block.body.immovable = true;
     block.body.moves = false;
 
     var sprite = this.physics.add.image(400, 100, 'dude');

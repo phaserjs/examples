@@ -104,12 +104,12 @@ function preload ()
 function create ()
 {
     this.anims.create(
-    {
-        key: 'thrust',
-        frames: this.anims.generateFrameNumbers('ship', { frames: [ 2, 7 ] }),
-        frameRate: 20,
-        repeat: -1
-    });
+        {
+            key: 'thrust',
+            frames: this.anims.generateFrameNumbers('ship', { frames: [ 2, 7 ] }),
+            frameRate: 20,
+            repeat: -1
+        });
 
     let points = [
         new Phaser.Geom.Circle(100, 100, 32),

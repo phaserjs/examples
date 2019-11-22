@@ -1609,6 +1609,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\scale input.js",
+          "name": "scale input.js",
+          "size": 872,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\scene keys.js",
           "name": "scene keys.js",
           "size": 1725,
@@ -1679,7 +1686,7 @@
           "type": "file"
         }
       ],
-      "size": 83020,
+      "size": 83892,
       "type": "directory"
     },
     {
@@ -3728,6 +3735,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\game objects\\bitmaptext\\static\\max width.js",
+                  "name": "max width.js",
+                  "size": 798,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\game objects\\bitmaptext\\static\\multi line alignment.js",
                   "name": "multi line alignment.js",
                   "size": 1316,
@@ -3770,11 +3784,11 @@
                   "type": "file"
                 }
               ],
-              "size": 19774,
+              "size": 20572,
               "type": "directory"
             }
           ],
-          "size": 42544,
+          "size": 43342,
           "type": "directory"
         },
         {
@@ -7312,7 +7326,7 @@
           "type": "directory"
         }
       ],
-      "size": 1026546,
+      "size": 1027344,
       "type": "directory"
     },
     {
@@ -15190,6 +15204,6 @@
       "type": "directory"
     }
   ],
-  "size": 4241243,
+  "size": 4242913,
   "type": "directory"
 }

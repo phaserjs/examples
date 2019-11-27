@@ -7,9 +7,11 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            debug: true,
-            debugShowInternalEdges: true,
-            debugShowConvexHulls: true
+            debug: {
+                renderFill: false,
+                showInternalEdges: true,
+                showConvexHulls: true
+            }
         }
     },
     scene: {

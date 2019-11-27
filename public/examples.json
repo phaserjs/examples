@@ -3737,7 +3737,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\max width.js",
                   "name": "max width.js",
-                  "size": 798,
+                  "size": 1210,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3784,11 +3784,11 @@
                   "type": "file"
                 }
               ],
-              "size": 20572,
+              "size": 20984,
               "type": "directory"
             }
           ],
-          "size": 43342,
+          "size": 43754,
           "type": "directory"
         },
         {
@@ -7326,7 +7326,7 @@
           "type": "directory"
         }
       ],
-      "size": 1027344,
+      "size": 1027756,
       "type": "directory"
     },
     {
@@ -12440,6 +12440,13 @@
               "type": "file"
             },
             {
+              "path": "src\\physics\\matterjs\\debug options.js",
+              "name": "debug options.js",
+              "size": 1237,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\physics\\matterjs\\destroy body.js",
               "name": "destroy body.js",
               "size": 843,
@@ -12657,7 +12664,7 @@
               "type": "file"
             }
           ],
-          "size": 87255,
+          "size": 88492,
           "type": "directory"
         },
         {
@@ -12683,7 +12690,7 @@
           "type": "directory"
         }
       ],
-      "size": 368078,
+      "size": 369315,
       "type": "directory"
     },
     {
@@ -15204,6 +15211,6 @@
       "type": "directory"
     }
   ],
-  "size": 4242913,
+  "size": 4244562,
   "type": "directory"
 }

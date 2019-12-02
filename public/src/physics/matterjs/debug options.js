@@ -21,6 +21,7 @@ var config = {
     
                 renderFill: true,
                 renderStroke: true,
+                lineThickness: 1,
     
                 fillColor: 0x106909,
                 strokeColor: 0x28de19,

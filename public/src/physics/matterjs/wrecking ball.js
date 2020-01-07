@@ -5,7 +5,13 @@ var config = {
     backgroundColor: '#1d1d1d',
     parent: 'phaser-example',
     physics: {
-        default: 'matter'
+        default: 'matter',
+        matter: {
+            gravity: {
+                y: 0.05
+            },
+            debug: true
+        }
     },
     scene: {
         preload: preload,
@@ -29,7 +35,7 @@ function create ()
     this.matter.world.engine.positionIterations = 30;
     this.matter.world.engine.velocityIterations = 30;
 
-    var stack = this.matter.add.imageStack('crate32', null, 300, 50, 5, 18, 30, 0, { mass: 0.5 });
+    var stack = this.matter.add.imageStack('crate32', null, 300, 50, 5, 18, 30, 0, { _mass: 0.5 });
 
     this.matter.add.mouseSpring();
 }

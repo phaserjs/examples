@@ -3039,6 +3039,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\display\\masks\\geometry mask\\image mask multiple circles.js",
+                  "name": "image mask multiple circles.js",
+                  "size": 779,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\display\\masks\\geometry mask\\image mask.js",
                   "name": "image mask.js",
                   "size": 991,
@@ -3053,7 +3060,7 @@
                   "type": "file"
                 }
               ],
-              "size": 6647,
+              "size": 7426,
               "type": "directory"
             },
             {
@@ -3106,7 +3113,7 @@
               "type": "file"
             }
           ],
-          "size": 65891,
+          "size": 66670,
           "type": "directory"
         },
         {
@@ -3280,7 +3287,7 @@
           "type": "directory"
         }
       ],
-      "size": 181498,
+      "size": 182277,
       "type": "directory"
     },
     {
@@ -6591,7 +6598,7 @@
                 {
                   "path": "src\\game objects\\text\\static\\line spacing.js",
                   "name": "line spacing.js",
-                  "size": 1647,
+                  "size": 1678,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -6730,11 +6737,11 @@
                   "type": "file"
                 }
               ],
-              "size": 35140,
+              "size": 35171,
               "type": "directory"
             }
           ],
-          "size": 35140,
+          "size": 35171,
           "type": "directory"
         },
         {
@@ -7333,7 +7340,7 @@
           "type": "directory"
         }
       ],
-      "size": 1028686,
+      "size": 1028717,
       "type": "directory"
     },
     {
@@ -12309,7 +12316,7 @@
             {
               "path": "src\\physics\\matterjs\\advanced shape creation.js",
               "name": "advanced shape creation.js",
-              "size": 1785,
+              "size": 1782,
               "extension": ".js",
               "type": "file"
             },
@@ -12323,7 +12330,7 @@
             {
               "path": "src\\physics\\matterjs\\balls.js",
               "name": "balls.js",
-              "size": 867,
+              "size": 917,
               "extension": ".js",
               "type": "file"
             },
@@ -12428,7 +12435,7 @@
             {
               "path": "src\\physics\\matterjs\\collision group.js",
               "name": "collision group.js",
-              "size": 1380,
+              "size": 3748,
               "extension": ".js",
               "type": "file"
             },
@@ -12484,7 +12491,7 @@
             {
               "path": "src\\physics\\matterjs\\drag with pointer.js",
               "name": "drag with pointer.js",
-              "size": 728,
+              "size": 2076,
               "extension": ".js",
               "type": "file"
             },
@@ -12589,7 +12596,7 @@
             {
               "path": "src\\physics\\matterjs\\offset body.js",
               "name": "offset body.js",
-              "size": 1061,
+              "size": 1062,
               "extension": ".js",
               "type": "file"
             },
@@ -12687,12 +12694,12 @@
             {
               "path": "src\\physics\\matterjs\\wrecking ball.js",
               "name": "wrecking ball.js",
-              "size": 846,
+              "size": 968,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 95997,
+          "size": 99883,
           "type": "directory"
         },
         {
@@ -12718,7 +12725,7 @@
           "type": "directory"
         }
       ],
-      "size": 376820,
+      "size": 380706,
       "type": "directory"
     },
     {
@@ -15239,6 +15246,6 @@
       "type": "directory"
     }
   ],
-  "size": 4252997,
+  "size": 4257693,
   "type": "directory"
 }

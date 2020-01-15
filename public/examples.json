@@ -1357,6 +1357,13 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\a path follow.js",
+          "name": "a path follow.js",
+          "size": 1083,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\anim remove.js",
           "name": "anim remove.js",
           "size": 917,
@@ -1686,7 +1693,7 @@
           "type": "file"
         }
       ],
-      "size": 83892,
+      "size": 84975,
       "type": "directory"
     },
     {
@@ -3041,7 +3048,7 @@
                 {
                   "path": "src\\display\\masks\\geometry mask\\image mask multiple circles.js",
                   "name": "image mask multiple circles.js",
-                  "size": 779,
+                  "size": 893,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3060,7 +3067,7 @@
                   "type": "file"
                 }
               ],
-              "size": 7426,
+              "size": 7540,
               "type": "directory"
             },
             {
@@ -3113,7 +3120,7 @@
               "type": "file"
             }
           ],
-          "size": 66670,
+          "size": 66784,
           "type": "directory"
         },
         {
@@ -3287,7 +3294,7 @@
           "type": "directory"
         }
       ],
-      "size": 182277,
+      "size": 182391,
       "type": "directory"
     },
     {
@@ -4407,6 +4414,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\dom element\\sleeping scene test.js",
+              "name": "sleeping scene test.js",
+              "size": 1447,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\dom element\\using a div.js",
               "name": "using a div.js",
               "size": 1423,
@@ -4421,7 +4435,7 @@
               "type": "file"
             }
           ],
-          "size": 23526,
+          "size": 24973,
           "type": "directory"
         },
         {
@@ -6598,7 +6612,7 @@
                 {
                   "path": "src\\game objects\\text\\static\\line spacing.js",
                   "name": "line spacing.js",
-                  "size": 1678,
+                  "size": 1647,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -6737,11 +6751,11 @@
                   "type": "file"
                 }
               ],
-              "size": 35171,
+              "size": 35140,
               "type": "directory"
             }
           ],
-          "size": 35171,
+          "size": 35140,
           "type": "directory"
         },
         {
@@ -7340,7 +7354,7 @@
           "type": "directory"
         }
       ],
-      "size": 1028717,
+      "size": 1030133,
       "type": "directory"
     },
     {
@@ -12316,7 +12330,7 @@
             {
               "path": "src\\physics\\matterjs\\advanced shape creation.js",
               "name": "advanced shape creation.js",
-              "size": 1782,
+              "size": 1811,
               "extension": ".js",
               "type": "file"
             },
@@ -12330,7 +12344,7 @@
             {
               "path": "src\\physics\\matterjs\\balls.js",
               "name": "balls.js",
-              "size": 917,
+              "size": 867,
               "extension": ".js",
               "type": "file"
             },
@@ -12491,7 +12505,7 @@
             {
               "path": "src\\physics\\matterjs\\drag with pointer.js",
               "name": "drag with pointer.js",
-              "size": 2076,
+              "size": 728,
               "extension": ".js",
               "type": "file"
             },
@@ -12596,7 +12610,7 @@
             {
               "path": "src\\physics\\matterjs\\offset body.js",
               "name": "offset body.js",
-              "size": 1062,
+              "size": 1061,
               "extension": ".js",
               "type": "file"
             },
@@ -12699,7 +12713,7 @@
               "type": "file"
             }
           ],
-          "size": 99883,
+          "size": 98513,
           "type": "directory"
         },
         {
@@ -12725,7 +12739,7 @@
           "type": "directory"
         }
       ],
-      "size": 380706,
+      "size": 379336,
       "type": "directory"
     },
     {
@@ -15246,6 +15260,6 @@
       "type": "directory"
     }
   ],
-  "size": 4257693,
+  "size": 4258936,
   "type": "directory"
 }

@@ -34,8 +34,8 @@ function create ()
         {
             do
             {
-                var x = Phaser.Math.Between(0, logo.width);
-                var y = Phaser.Math.Between(0, logo.height);
+                var x = Phaser.Math.Between(0, logo.width - 1);
+                var y = Phaser.Math.Between(0, logo.height - 1);
                 var pixel = textures.getPixel(x, y, 'logo');
             } while (pixel.alpha < 255);
 

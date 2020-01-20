@@ -32,8 +32,8 @@ function create ()
         duration: 2000,
         ease: 'Sine.easeInOut',
         repeat: -1,
-        delay: function (i, total, target) {
-            return i * 100;
+        delay: function (target, targetKey, value, targetIndex, totalTargets, tween) {
+            return targetIndex * 100;
         }
     });
 }

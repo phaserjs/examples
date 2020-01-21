@@ -8,7 +8,39 @@ var config = {
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: { debug: true }
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html#.ArcadeWorldConfig
+        arcade: {
+            // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html#.CheckCollisionObject
+            checkCollision: {
+                up: true,
+                down: true,
+                left: true,
+                right: true
+            },
+            debug: true,
+            debugBodyColor: 0xff00ff,
+            debugShowBody: true,
+            debugShowStaticBody: true,
+            debugShowVelocity: true,
+            debugStaticBodyColor: 0x0000ff,
+            debugVelocityColor: 0x00ff00,
+            forceX: false,
+            fps: 60,
+            gravity: {
+                x: 0,
+                y: 0
+            },
+            height: 600,
+            isPaused: false,
+            maxEntries: 16,
+            overlapBias: 4,
+            tileBias: 16,
+            timeScale: 1,
+            useTree: true,
+            width: 800,
+            x: 0,
+            y: 0
+        }
     },
     scene: {
         preload: preload,

@@ -41,8 +41,7 @@ function update ()
     {
         player.x += 5;
     }
-
-    if (cursors.up.isDown)
+    else if (cursors.up.isDown)
     {
         player.y -= 5;
     }

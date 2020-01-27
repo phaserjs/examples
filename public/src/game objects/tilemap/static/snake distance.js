@@ -64,7 +64,6 @@ function create ()
     player = this.physics.add.sprite(400, 300, 'player', 1);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    this.cameras.main.setZoom(4);
     this.cameras.main.startFollow(player);
 
     cursors = this.input.keyboard.createCursorKeys();
@@ -87,14 +86,15 @@ function updateMap () {
             tile.y
         );
 
-        tile.setAlpha(1 - 0.2 * dist);
+        tile.setAlpha(1 - 0.1 * dist);
     });
 }
 
 function updatePlayer () {
     player.body.setVelocity(0);
 
-    // Horizontal movement
+    // Snake movement is 4 directions only
+
     if (cursors.left.isDown) {
         player.body.setVelocityX(-100);
     }

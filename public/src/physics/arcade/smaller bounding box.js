@@ -1,13 +1,13 @@
 var config = {
     type: Phaser.AUTO,
-    antialias: false,
     width: 800,
     height: 600,
-    backgroundColor: 0x666666,
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: {debug: true}
+        arcade: {
+            debug: true
+        }
     },
     scene: {
         preload: preload,
@@ -15,26 +15,29 @@ var config = {
     }
 };
 
-new Phaser.Game(config);
+var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('lemming', 'assets/sprites/lemming.png');
+    this.load.image('atari', 'assets/sprites/atari130xe.png');
+    this.load.image('mushroom', 'assets/sprites/mushroom2.png');
 }
 
 function create ()
 {
-    var lemming = this.physics.add.image(400, 300, 'lemming');
+    var atari = this.physics.add.image(200, 400, 'atari').setImmovable(true);
 
     //  In this example the new collision box is smaller than the original sprite
-    //
-    // original size: 62 x 48
-    //      new size: 24 x 48
-    //
-    // The 'true' argument means "center it on the gameobject"
-    lemming.setSize(24, 48, true);
 
-    // You can also position the body manually.
-    // This is centered horizontally but shifted toward the lemming's feet.
-    // lemming.setSize(24, 32).setOffset(19, 16);
+    //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
+    atari.setSize(110, 52, true);
+
+    //  And this sprite will collide with it
+    var mushroom1 = this.physics.add.image(700, 350, 'mushroom');
+    var mushroom2 = this.physics.add.image(200, 50, 'mushroom');
+
+    mushroom1.setVelocity(-100, 0);
+    mushroom2.setVelocity(0, 100);
+
+    this.physics.add.collider(atari, [mushroom1, mushroom2 ]);
 }

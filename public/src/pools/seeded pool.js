@@ -72,7 +72,7 @@ function create ()
     });
 
     //  Create the objects in advance, so they're ready and waiting in the pool
-    bullets.create(20);
+    bullets.createMultiple({ quantity: 20, active: false });
 
     ship = this.add.sprite(400, 500, 'ship').setDepth(1);
 

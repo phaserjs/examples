@@ -20,7 +20,7 @@ function create ()
 
     var draw = function ()
     {
-        debug.clear().translate(10, 10);
+        debug.clear().translateCanvas(10, 10);
         debug.lineStyle(1.5, 0xffff00).strokeRect(1, 1, parent.width, parent.height);
         debug.fillStyle(0x00ff00, 0.5).fillRect(1, 1, child.width, child.height);
 

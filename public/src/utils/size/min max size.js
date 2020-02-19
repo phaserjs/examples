@@ -21,7 +21,7 @@ function create ()
 
     var draw = function ()
     {
-        debug.clear().translate(10, 10);
+        debug.clear().translateCanvas(10, 10);
         debug.fillStyle(0x00ff00, 0.5).fillRect(1, 1, child.width, child.height);
 
         text.setText([

@@ -4416,7 +4416,7 @@
             {
               "path": "src\\game objects\\dom element\\sleeping scene test.js",
               "name": "sleeping scene test.js",
-              "size": 1447,
+              "size": 1645,
               "extension": ".js",
               "type": "file"
             },
@@ -4435,7 +4435,7 @@
               "type": "file"
             }
           ],
-          "size": 24973,
+          "size": 25171,
           "type": "directory"
         },
         {
@@ -5614,7 +5614,7 @@
             {
               "path": "src\\game objects\\particle emitter\\emit from texture.js",
               "name": "emit from texture.js",
-              "size": 1484,
+              "size": 1492,
               "extension": ".js",
               "type": "file"
             },
@@ -5843,7 +5843,7 @@
               "type": "file"
             }
           ],
-          "size": 90341,
+          "size": 90349,
           "type": "directory"
         },
         {
@@ -6480,7 +6480,7 @@
             {
               "path": "src\\game objects\\sprites\\sprite rotation.js",
               "name": "sprite rotation.js",
-              "size": 2315,
+              "size": 3137,
               "extension": ".js",
               "type": "file"
             },
@@ -6492,7 +6492,7 @@
               "type": "file"
             }
           ],
-          "size": 8825,
+          "size": 9647,
           "type": "directory"
         },
         {
@@ -6875,7 +6875,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter detect collision with tile.js",
                   "name": "matter detect collision with tile.js",
-                  "size": 5233,
+                  "size": 5320,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -6897,6 +6897,13 @@
                   "path": "src\\game objects\\tilemap\\collision\\matter platformer with wall jumping.js",
                   "name": "matter platformer with wall jumping.js",
                   "size": 11518,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\game objects\\tilemap\\collision\\matter polygon tile.js",
+                  "name": "matter polygon tile.js",
+                  "size": 2761,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -6950,7 +6957,7 @@
                   "type": "file"
                 }
               ],
-              "size": 74423,
+              "size": 77271,
               "type": "directory"
             },
             {
@@ -7099,6 +7106,13 @@
               "name": "static",
               "children": [
                 {
+                  "path": "src\\game objects\\tilemap\\static\\Chebyshev distance.js",
+                  "name": "Chebyshev distance.js",
+                  "size": 3301,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\game objects\\tilemap\\static\\create from objects.js",
                   "name": "create from objects.js",
                   "size": 1869,
@@ -7218,6 +7232,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\game objects\\tilemap\\static\\snake distance.js",
+                  "name": "snake distance.js",
+                  "size": 3323,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\game objects\\tilemap\\static\\switching tilesets.js",
                   "name": "switching tilesets.js",
                   "size": 5396,
@@ -7274,7 +7295,7 @@
                   "type": "file"
                 }
               ],
-              "size": 55951,
+              "size": 62575,
               "type": "directory"
             },
             {
@@ -7335,7 +7356,7 @@
               "type": "directory"
             }
           ],
-          "size": 270308,
+          "size": 279780,
           "type": "directory"
         },
         {
@@ -7354,7 +7375,7 @@
           "type": "directory"
         }
       ],
-      "size": 1030133,
+      "size": 1040633,
       "type": "directory"
     },
     {
@@ -10049,7 +10070,7 @@
             {
               "path": "src\\input\\mouse\\pointer lock.js",
               "name": "pointer lock.js",
-              "size": 2532,
+              "size": 2563,
               "extension": ".js",
               "type": "file"
             },
@@ -10138,7 +10159,7 @@
               "type": "file"
             }
           ],
-          "size": 35924,
+          "size": 35955,
           "type": "directory"
         },
         {
@@ -10377,7 +10398,7 @@
           "type": "directory"
         }
       ],
-      "size": 204278,
+      "size": 204309,
       "type": "directory"
     },
     {
@@ -11043,6 +11064,50 @@
         }
       ],
       "size": 728080,
+      "type": "directory"
+    },
+    {
+      "path": "src\\math",
+      "name": "math",
+      "children": [
+        {
+          "path": "src\\math\\distance",
+          "name": "distance",
+          "children": [
+            {
+              "path": "src\\math\\distance\\Chebyshev distance.js",
+              "name": "Chebyshev distance.js",
+              "size": 1125,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\math\\distance\\distance between points.js",
+              "name": "distance between points.js",
+              "size": 1082,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\math\\distance\\distance.js",
+              "name": "distance.js",
+              "size": 1097,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\math\\distance\\snake distance.js",
+              "name": "snake distance.js",
+              "size": 1324,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 4628,
+          "type": "directory"
+        }
+      ],
+      "size": 4628,
       "type": "directory"
     },
     {
@@ -11724,6 +11789,20 @@
               "type": "file"
             },
             {
+              "path": "src\\physics\\arcade\\circular collisions 2.js",
+              "name": "circular collisions 2.js",
+              "size": 1183,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\physics\\arcade\\circular collisions.js",
+              "name": "circular collisions.js",
+              "size": 2092,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\physics\\arcade\\closest furthest.js",
               "name": "closest furthest.js",
               "size": 1591,
@@ -11804,6 +11883,13 @@
               "path": "src\\physics\\arcade\\friction.js",
               "name": "friction.js",
               "size": 1471,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\physics\\arcade\\get bodies within circle.js",
+              "name": "get bodies within circle.js",
+              "size": 1483,
               "extension": ".js",
               "type": "file"
             },
@@ -11950,7 +12036,7 @@
             {
               "path": "src\\physics\\arcade\\smaller bounding box.js",
               "name": "smaller bounding box.js",
-              "size": 974,
+              "size": 1143,
               "extension": ".js",
               "type": "file"
             },
@@ -12062,7 +12148,7 @@
             {
               "path": "src\\physics\\arcade\\world controls.js",
               "name": "world controls.js",
-              "size": 3022,
+              "size": 4059,
               "extension": ".js",
               "type": "file"
             },
@@ -12081,7 +12167,7 @@
               "type": "file"
             }
           ],
-          "size": 230993,
+          "size": 236957,
           "type": "directory"
         },
         {
@@ -12477,7 +12563,7 @@
             {
               "path": "src\\physics\\matterjs\\debug options.js",
               "name": "debug options.js",
-              "size": 3303,
+              "size": 4466,
               "extension": ".js",
               "type": "file"
             },
@@ -12615,6 +12701,13 @@
               "type": "file"
             },
             {
+              "path": "src\\physics\\matterjs\\particles follow body.js",
+              "name": "particles follow body.js",
+              "size": 2161,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\physics\\matterjs\\polygon body.js",
               "name": "polygon body.js",
               "size": 870,
@@ -12713,7 +12806,7 @@
               "type": "file"
             }
           ],
-          "size": 98513,
+          "size": 101837,
           "type": "directory"
         },
         {
@@ -12739,7 +12832,7 @@
           "type": "directory"
         }
       ],
-      "size": 379336,
+      "size": 388624,
       "type": "directory"
     },
     {
@@ -12911,12 +13004,12 @@
         {
           "path": "src\\pools\\seeded pool.js",
           "name": "seeded pool.js",
-          "size": 2223,
+          "size": 2260,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 12535,
+      "size": 12572,
       "type": "directory"
     },
     {
@@ -14924,7 +15017,7 @@
         {
           "path": "src\\tweens\\stagger.js",
           "name": "stagger.js",
-          "size": 935,
+          "size": 987,
           "extension": ".js",
           "type": "file"
         },
@@ -15049,6 +15142,13 @@
           "type": "file"
         },
         {
+          "path": "src\\tweens\\tween angle from range 0 to 360.js",
+          "name": "tween angle from range 0 to 360.js",
+          "size": 736,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\tweens\\tween time scale.js",
           "name": "tween time scale.js",
           "size": 1966,
@@ -15077,7 +15177,7 @@
           "type": "file"
         }
       ],
-      "size": 90901,
+      "size": 91689,
       "type": "directory"
     },
     {
@@ -15184,68 +15284,68 @@
             {
               "path": "src\\utils\\size\\aspect mode envelop.js",
               "name": "aspect mode envelop.js",
-              "size": 1043,
+              "size": 1049,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\size\\aspect mode fit.js",
               "name": "aspect mode fit.js",
-              "size": 1039,
+              "size": 1045,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\size\\aspect mode height controls width.js",
               "name": "aspect mode height controls width.js",
-              "size": 1057,
+              "size": 1063,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\size\\aspect mode none.js",
               "name": "aspect mode none.js",
-              "size": 1040,
+              "size": 1046,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\size\\aspect mode width controls height.js",
               "name": "aspect mode width controls height.js",
-              "size": 1057,
+              "size": 1063,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\size\\max size.js",
               "name": "max size.js",
-              "size": 923,
+              "size": 929,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\size\\min max size.js",
               "name": "min max size.js",
-              "size": 914,
+              "size": 920,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\size\\min size.js",
               "name": "min size.js",
-              "size": 1071,
+              "size": 1077,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\size\\snap child.js",
               "name": "snap child.js",
-              "size": 1065,
+              "size": 1071,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 9209,
+          "size": 9263,
           "type": "directory"
         },
         {
@@ -15256,10 +15356,10 @@
           "type": "file"
         }
       ],
-      "size": 20418,
+      "size": 20472,
       "type": "directory"
     }
   ],
-  "size": 4258936,
+  "size": 4284262,
   "type": "directory"
 }

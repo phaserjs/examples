@@ -65,6 +65,8 @@ function create ()
     // mouse cursor, etc.
     this.input.on('pointerlockchange', function (event) {
 
+        console.log(event);
+
         updateLockText(event.isPointerLocked, sprite.x, sprite.y);
 
     }, this);

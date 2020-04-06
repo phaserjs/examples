@@ -103,11 +103,6 @@ function create ()
 
 function update (time, delta)
 {
-    if (t === -1)
-    {
-        return;
-    }
-
     t += delta;
 
     if (t >= duration)

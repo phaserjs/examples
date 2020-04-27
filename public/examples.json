@@ -6171,6 +6171,98 @@
           "type": "directory"
         },
         {
+          "path": "src\\game objects\\rope",
+          "name": "rope",
+          "children": [
+            {
+              "path": "src\\game objects\\rope\\animated rope.js",
+              "name": "animated rope.js",
+              "size": 1781,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\draw rope gradient.js",
+              "name": "draw rope gradient.js",
+              "size": 2782,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\draw rope.js",
+              "name": "draw rope.js",
+              "size": 2753,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\flip rope xy.js",
+              "name": "flip rope xy.js",
+              "size": 1564,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\horizontal rope.js",
+              "name": "horizontal rope.js",
+              "size": 1429,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\rope as a mask.js",
+              "name": "rope as a mask.js",
+              "size": 1526,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\rope with a mask.js",
+              "name": "rope with a mask.js",
+              "size": 1574,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\rope with shader texture.js",
+              "name": "rope with shader texture.js",
+              "size": 1519,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\single alpha rope.js",
+              "name": "single alpha rope.js",
+              "size": 1370,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\split alpha rope.js",
+              "name": "split alpha rope.js",
+              "size": 1102,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\vertex tint rope.js",
+              "name": "vertex tint rope.js",
+              "size": 2429,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\rope\\vertical rope.js",
+              "name": "vertical rope.js",
+              "size": 1467,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 21296,
+          "type": "directory"
+        },
+        {
           "path": "src\\game objects\\shaders",
           "name": "shaders",
           "children": [
@@ -6480,7 +6572,7 @@
             {
               "path": "src\\game objects\\sprites\\sprite rotation.js",
               "name": "sprite rotation.js",
-              "size": 3137,
+              "size": 2315,
               "extension": ".js",
               "type": "file"
             },
@@ -6492,7 +6584,7 @@
               "type": "file"
             }
           ],
-          "size": 9647,
+          "size": 8825,
           "type": "directory"
         },
         {
@@ -7375,7 +7467,7 @@
           "type": "directory"
         }
       ],
-      "size": 1040633,
+      "size": 1061107,
       "type": "directory"
     },
     {
@@ -12703,7 +12795,7 @@
             {
               "path": "src\\physics\\matterjs\\particles follow body.js",
               "name": "particles follow body.js",
-              "size": 2161,
+              "size": 2106,
               "extension": ".js",
               "type": "file"
             },
@@ -12806,7 +12898,7 @@
               "type": "file"
             }
           ],
-          "size": 101837,
+          "size": 101782,
           "type": "directory"
         },
         {
@@ -12832,7 +12924,7 @@
           "type": "directory"
         }
       ],
-      "size": 388624,
+      "size": 388569,
       "type": "directory"
     },
     {
@@ -15360,6 +15452,6 @@
       "type": "directory"
     }
   ],
-  "size": 4284262,
+  "size": 4304681,
   "type": "directory"
 }

@@ -9,6 +9,7 @@
             background-color: white;
         }
     </style>
+    <script src="./js/versions.js"></script>
     <script src="./js/getQueryString.js"></script>
     <script src="./js/datgui.js"></script>
 </head>
@@ -26,7 +27,7 @@
         _isAlive = true;
 
         var i = window.top;
-        var phaserVersion = getQueryString('v', '3.20.1', i.location);
+        var phaserVersion = getQueryString('v', versions[1].val, i.location);
         var phaserScript = document.createElement('script');
 
         phaserScript.onload = function () {

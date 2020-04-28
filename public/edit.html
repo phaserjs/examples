@@ -7,6 +7,8 @@
         <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <script src="./js/pouchdb-6.0.7.min.js"></script>
+        <script src="./js/jquery-3.1.1.min.js"></script>
+        <script src="./js/versions.js"></script>
         <script src="./js/fileSaver.js"></script>
         <script src="./js/loadSource.js"></script>
         <script src="./js/getQueryString.js"></script>
@@ -171,9 +173,11 @@
     var version = 1;
     var phaserVersion;
 
-    window.onload = function ()
+    $(document).ready(function ()
     {
-        phaserVersion = getQueryString('v', '3.21.0');
+        phaserVersion = getQueryString('v', versions[1].val);
+
+        console.log('v', phaserVersion);
 
         db = new PouchDB('phaser3-examples');
 
@@ -215,7 +219,7 @@
             loadEditor(source, 'example.js');
         }
 
-    };
+    });
 
     </script>
 

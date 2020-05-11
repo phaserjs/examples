@@ -103,6 +103,6 @@ function create() {
 }
 
 function update() {
-    var r = Math.abs(2 * Math.sin(this.time.now * 10));
+    var r = Math.abs(2 * Math.sin(this.time.now / 1000));
     customPipeline.setFloat1('radius', r);
 }

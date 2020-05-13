@@ -36,11 +36,16 @@ function create ()
     gem.play('diamond');
 }
 
-function animComplete (animation, frame)
+function animComplete (animation, animationFrame, gameObject)
 {
+    console.log('animation.key', animation.key);
+    console.log('textureKey', animationFrame.textureKey);
+    console.log('textureFrame', animationFrame.textureFrame);
+    console.log('gameObject', gameObject);
+
     //  Animation is over, let's fade the sprite out
     this.tweens.add({
-        targets: gem,
+        targets: gameObject,
         duration: 3000,
         alpha: 0
     });

@@ -19,7 +19,7 @@ function create ()
 {
     graphics = this.add.graphics();
 
-    shapes = new Array(15).fill(null).map(function (nul, i)
+    shapes = new Array(15).fill(null).map(function ()
     {
         return new Phaser.Geom.Circle(Phaser.Math.Between(0, 800), Phaser.Math.Between(0, 600), Phaser.Math.Between(25, 75));
     });
@@ -29,7 +29,8 @@ function create ()
 
 function update ()
 {
-    shapes.forEach(function (shape, i) {
+    shapes.forEach(function (shape, i)
+    {
         shape.x += (1 + 0.1 * i);
         shape.y += (1 + 0.1 * i);
     });
@@ -48,9 +49,10 @@ function draw ()
 {
     graphics.clear();
 
-    shapes.forEach(function (shape, i) {
+    shapes.forEach(function (shape, i)
+    {
         graphics
-        .fillStyle(color(i), 0.5)
-        .fillCircleShape(shape);
+            .fillStyle(color(i), 0.5)
+            .fillCircleShape(shape);
     });
 }

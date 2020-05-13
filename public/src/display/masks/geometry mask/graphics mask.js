@@ -35,7 +35,8 @@ function create ()
 
     graphics.setMask(mask);
 
-    this.input.on('pointermove', function (pointer) {
+    this.input.on('pointermove', function (pointer)
+    {
 
         shape.x = pointer.x - 140;
         shape.y = pointer.y - 140;
@@ -82,8 +83,8 @@ function drawLogo (color, x, y, scale)
     var s = 20;
 
     graphics.save();
-    graphics.translate(400, 300);
-    graphics.scale(scale, scale);
+    graphics.translateCanvas(400, 300);
+    graphics.scaleCanvas(scale, scale);
     graphics.rotate(r);
 
     graphics.beginPath();

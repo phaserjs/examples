@@ -4,15 +4,12 @@ var config = {
     height: 600,
     parent: 'phaser-example',
     physics: {
-        default: 'impact',
-        impact: {
-            setBounds: {
-                x: 0,
-                y: 0,
-                width: 3200,
-                height: 600,
-                thickness: 32
-            }
+        default: 'arcade',
+        arcade: {
+            x: 0,
+            y: 0,
+            width: 3200,
+            height: 600
         }
     },
     scene: {
@@ -43,13 +40,13 @@ function create ()
 
     //  Add a player ship
 
-    this.player = this.impact.add.sprite(1600, 200, 'ship');
-    this.player.setMaxVelocity(1000).setFriction(400, 200).setPassiveCollision();
+    this.player = this.physics.add.sprite(1600, 200, 'ship');
+    this.player.setMaxVelocity(1000).setDrag(400, 200);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 }
 
-function update()
+function update ()
 {
     if (this.cursors.left.isDown)
     {

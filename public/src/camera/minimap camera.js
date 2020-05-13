@@ -4,15 +4,12 @@ var config = {
     height: 600,
     parent: 'phaser-example',
     physics: {
-        default: 'impact',
-        impact: {
-            setBounds: {
-                x: 0,
-                y: 0,
-                width: 3200,
-                height: 600,
-                thickness: 32
-            }
+        default: 'arcade',
+        arcade: {
+            x: 0,
+            y: 0,
+            width: 3200,
+            height: 600
         }
     },
     scene: {
@@ -42,7 +39,7 @@ function preload ()
 
 function create ()
 {
-     //  The world is 3200 x 600 in size
+    //  The world is 3200 x 600 in size
     this.cameras.main.setBounds(0, 0, 3200, 600).setName('main');
 
     //  The miniCam is 400px wide, so can display the whole world at a zoom of 0.2
@@ -57,13 +54,13 @@ function create ()
 
     //  Add a player ship
 
-    this.player = this.impact.add.sprite(1600, 200, 'ship');
-    this.player.setMaxVelocity(1000).setFriction(400, 200).setPassiveCollision();
+    this.player = this.physics.add.sprite(1600, 200, 'ship');
+    this.player.setMaxVelocity(1000).setDrag(400, 200);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 }
 
-function update()
+function update ()
 {
     if (this.cursors.left.isDown)
     {
@@ -116,7 +113,8 @@ function createStarfield ()
 
     Phaser.Actions.RandomRectangle(group.getChildren(), rect);
 
-    group.children.iterate(function (child, index) {
+    group.children.iterate(function (child)
+    {
 
         var sf = Math.max(0.3, Math.random());
 
@@ -203,18 +201,18 @@ function createAliens ()
         var x = Phaser.Math.Between(100, 3100);
         var y = Phaser.Math.Between(100, 300);
 
-        var face = this.impact.add.sprite(x, y, 'face').play('metaleyes');
+        var face = this.physics.add.sprite(x, y, 'face').play('metaleyes');
 
-        face.setLiteCollision().setBounce(1).setBodyScale(0.5);
+        face.setBounce(1).setScale(0.5);
         face.setVelocity(Phaser.Math.Between(20, 60), Phaser.Math.Between(20, 60));
 
         if (Math.random() > 0.5)
         {
-            face.vel.x *= -1;
+            face.body.velocity.x *= -1;
         }
         else
         {
-            face.vel.y *= -1;
+            face.body.velocity.y *= -1;
         }
     }
 }

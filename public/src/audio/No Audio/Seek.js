@@ -40,7 +40,8 @@ var cat;
 var catAstroPhi;
 var rainbowMask;
 
-function create () {
+function create ()
+{
 
     catAstroPhi = this.sound.add('CatAstroPhi');
 
@@ -109,7 +110,8 @@ function setup ()
 
     this.input.setDraggable(cat);
 
-    this.input.on('drag', function (pointer, cat, dragX, dragY) {
+    this.input.on('drag', function (pointer, cat, dragX, dragY)
+    {
 
         cat.x = Math.min(Math.max(cat.width/2, dragX), 800 - cat.width/2);
 
@@ -135,6 +137,6 @@ function update ()
             cat.anims.resume();
         }
 
-        cat.anims.timeScale(catAstroPhi.totalRate);
+        cat.anims.setTimeScale(catAstroPhi.totalRate);
     }
 }

@@ -22,19 +22,20 @@ function create ()
         key: 'diamond',
         frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
         repeat: 3,
-        onUpdate: animUpdateCallback
+
     };
 
     this.anims.create(animConfig);
 
     var gem = this.add.sprite(400, 300, 'gems');
 
-    //  The onUpdate callback will be invoked for EVERY frame of this animation, as it plays out.
-    //  If you need a callback for just a specific animation frame, see the "on frame update callback" example.
+    // This event will be dispatched when the 'diamond' animation changes frame, based on the animation frame rate and other factors like timeScale and delay, for all Game Objects with that animation.
+    gem.on('animationupdate-diamond', animUpdateCallback);
+
     gem.play('diamond');
 }
 
-function animUpdateCallback (sprite, animation)
+function animUpdateCallback (animation, animationFrame, sprite)
 {
     sprite.x += Phaser.Math.Between(-4, 4);
     sprite.y += Phaser.Math.Between(-4, 4);

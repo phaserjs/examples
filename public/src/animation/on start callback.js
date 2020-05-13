@@ -21,11 +21,14 @@ function create ()
     var animConfig = {
         key: 'diamond',
         frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
-        repeat: -1,
-        onStart: animStartCallback
+        repeat: -1
     };
 
-    this.anims.create(animConfig);
+    var anim = this.anims.create(animConfig);
+
+    // This event is dispatched by an Animation instance when it starts playing.
+    // It will invoke its handler for *each* sprite.
+    anim.on('start', animStartCallback);
 
     group = this.add.group();
 
@@ -37,7 +40,7 @@ function create ()
     group.playAnimation('diamond');
 }
 
-function animStartCallback (sprite, animation)
+function animStartCallback (animation, animationFrame, sprite)
 {
     sprite.x = Phaser.Math.Between(0, 780);
     sprite.y = Phaser.Math.Between(0, 580);

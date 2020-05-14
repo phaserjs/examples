@@ -69,7 +69,8 @@ function update ()
 
     text.setText('Speed: ' + sprite.body.speed);
 
-    this.physics.world.wrap(sprite, 100);
+    // During `update()`, you should read the body's position.
+    circle.setPosition(sprite.body.center.x, sprite.body.center.y);
 
-    circle.setPosition(sprite.x, sprite.y);
+    this.physics.world.wrap(sprite, 100);
 }

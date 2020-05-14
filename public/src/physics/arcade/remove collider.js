@@ -5,16 +5,16 @@ var config = {
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: {debug: true}
+        arcade: { debug: true }
     },
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
-var sprite;
-var group;
+var text;
 
 new Phaser.Game(config);
 
@@ -26,9 +26,9 @@ function preload ()
 
 function create ()
 {
-    sprite = this.physics.add.image(400, 300, 'mushroom');
+    var sprite = this.physics.add.image(400, 300, 'mushroom');
 
-    group = this.physics.add.staticGroup({
+    var group = this.physics.add.staticGroup({
         key: 'ball',
         frameQuantity: 30
     });
@@ -41,9 +41,17 @@ function create ()
 
     sprite.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true).setGravityY(200);
 
-    var collider = this.physics.add.collider(sprite, group, null, function ()
+    text = this.add.text(10, 20);
+
+    var collider = this.physics.add.collider(sprite, group);
+
+    this.input.on('pointerup', function ()
     {
         this.physics.world.removeCollider(collider);
     }, this);
+}
 
+function update ()
+{
+    text.setText('Colliders: ' + this.physics.world.colliders.length);
 }

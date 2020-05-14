@@ -32,7 +32,7 @@ function create ()
 
     this.add.image(400, 300, 'logo');
 
-    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+    camera = new THREE.PerspectiveCamera( 70, config.width / config.height, 1, 1000 );
     camera.position.z = 400;
 
     scene = new THREE.Scene();

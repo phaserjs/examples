@@ -14,11 +14,10 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    // this.load.plugin('FractalPlugin', 'assets/loader-tests/fractalsPlugin.js');
-    this.load.plugin('FractalPlugin', 'http://localhost/fractalplugin/dist/FractalPlugin.js');
+    this.load.plugin('RandomNamePlugin', 'assets/loader-tests/RandomNamePlugin.js', true, 'names');
 }
 
 function create ()
 {
-    this.fractals.createImage(400, 300);
+    this.add.text(10, 10, this.names.getNames());
 }

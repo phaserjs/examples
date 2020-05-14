@@ -29,7 +29,8 @@ function create ()
     // this.input.once('pointerdown', function () {
 
     //  Press R to resize and clear the Render Texture
-    this.input.keyboard.once('keydown_R', function (event) {
+    this.input.keyboard.once('keydown_R', function (event)
+    {
 
         rt.resize(400, 300);
 
@@ -44,10 +45,7 @@ function update ()
     draw();
 }
 
-function draw () 
+function draw ()
 {
-    rt.save();
-    rt.translate(player.x, player.y);
     rt.draw(player.texture, player.frame, -player.width / 2, -player.height / 2);
-    rt.restore();
 }

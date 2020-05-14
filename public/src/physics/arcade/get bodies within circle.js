@@ -47,19 +47,21 @@ function create ()
 
     circ = this.add.circle(400, 300, 150).setStrokeStyle(2, 0xffff00);
 
-    this.input.on('pointermove', function (pointer) {
-
+    this.input.on('pointermove', function (pointer)
+    {
         circ.x = pointer.x;
         circ.y = pointer.y;
-
     }, this);
 }
 
-function update (time, delta)
+function update ()
 {
     Phaser.Actions.SetAlpha(sprites, 0.5);
 
     var bodies = this.physics.overlapCirc(circ.x, circ.y, circ.radius, true, true);
 
-    Phaser.Actions.SetAlpha(bodies.map((body) => body.gameObject), 1);
+    bodies.forEach(function (body)
+    {
+        body.gameObject.setAlpha(1);
+    });
 }

@@ -1,14 +1,13 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    pixelArt: true,
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0 },
-            debug: false
+            debug: true,
+            gravity: { y: 0 }
         }
     },
     scene: {
@@ -18,39 +17,28 @@ var config = {
     }
 };
 
-var anims;
-var group;
-
 var game = new Phaser.Game(config);
 
-function preload ()
-{
-    this.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
+var group;
+
+function preload() {
+    this.load.image('block', 'assets/sprites/block.png');
 }
 
-function create ()
-{
-    this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
-    this.anims.create({ key: 'prism', frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: -1 });
-    this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
-    this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
+function create() {
+    group = this.physics.add.group({
+        bounceX: 1,
+        bounceY: 1
+    });
 
-    anims = [ 'diamond', 'prism', 'ruby', 'square' ];
+    var block1 = group.create(100, 200, 'block').setVelocity(100, 200);
+    var block2 = group.create(500, 200, 'block').setVelocity(-100, -100);
+    var block3 = group.create(300, 400, 'block').setVelocity(60, 100);
+    var block4 = group.create(600, 300, 'block').setVelocity(-30, -50);
 
-    group = this.physics.add.group({ key: 'gems', repeat: 11 });
-    group.children.iterate(createGem, this);
+    this.physics.add.collider(group);
 }
 
-function update ()
-{
-    this.physics.world.wrap(group, 32);
-}
-
-function createGem (gem)
-{
-    Phaser.Geom.Rectangle.Random(this.physics.world.bounds, gem);
-
-    gem.play(Phaser.Math.RND.pick(anims));
-
-    gem.setVelocity(Phaser.Math.Between(-150, 150), Phaser.Math.Between(-150, 150));
+function update() {
+    this.physics.world.wrap(group, 48);
 }

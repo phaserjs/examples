@@ -60,9 +60,15 @@ function create ()
     var cursor1 = this.add.image(50, 50, 'cursor', 0);
     var cursor2 = this.add.image(50, 50, 'cursor', 1);
 
-    this.input.on('pointerdown', function (pointer) {
+    this.input.on('pointerdown', function (pointer)
+    {
+        // hitTest: function (pointer, gameObjects, camera, output)
+        result = this.input.manager.hitTest(pointer, [sprite], cam1);
 
-        result = this.input.manager.debugHitTest(pointer.x, pointer.y, sprite, cam1);
+        if (result.length === 0)
+        {
+            return;
+        }
 
         cursor1.setPosition(result[0].tx, result[0].ty);
         cursor2.setPosition(result[1].x, result[1].y);

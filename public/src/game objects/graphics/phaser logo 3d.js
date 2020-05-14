@@ -47,14 +47,16 @@ function create ()
         s.push(0);
     }
 
-    TweenMax.delayedCall(5, function () {
+    TweenMax.delayedCall(5, function ()
+    {
 
         r = 0;
         go = true;
 
     });
 
-    TweenMax.delayedCall(14, function () {
+    TweenMax.delayedCall(14, function ()
+    {
 
         TweenMax.to(temp, 0.1, {
 
@@ -62,7 +64,8 @@ function create ()
 
             repeat: -1,
 
-            onRepeat: function () {
+            onRepeat: function ()
+            {
                 Phaser.Utils.Array.RotateRight(colors);
             }
 
@@ -125,8 +128,8 @@ function drawLogo (color, x, y, scale, rot)
     var s = 30;
 
     graphics.save();
-    graphics.translate(400, 300);
-    graphics.scale(scale, scale);
+    graphics.translateCanvas(400, 300);
+    graphics.scaleCanvas(scale, scale);
     graphics.rotate(rot);
 
     graphics.beginPath();

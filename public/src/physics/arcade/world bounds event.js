@@ -39,7 +39,7 @@ function create ()
         velocityY: 120,
     });
 
-    Phaser.Actions.RandomRectangle(group.getChildren(), this.cameras.main);
+    Phaser.Actions.RandomRectangle(group.getChildren(), this.physics.world.bounds);
 
     Phaser.Actions.Call(group.getChildren(), function (ball) {
         ball.body.onWorldBounds = true;
@@ -52,7 +52,7 @@ function onWorldBounds (body)
 {
     var ball = body.gameObject;
     var frame = ball.frame.name;
-    
+
     frame += 1;
     frame %= 5;
 

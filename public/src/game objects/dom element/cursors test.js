@@ -7,7 +7,7 @@ var config = {
     dom: {
         createContainer: true
     },
-   physics: {
+    physics: {
         default: 'arcade',
         arcade: {
             debug: true
@@ -35,7 +35,7 @@ function create ()
 {
     cursors = this.input.keyboard.createCursorKeys();
 
-    player = this.physics.add.body(400, 300, 108, 96);
+    player = this.physics.add.image(400, 300, 'block');
 
     element = this.add.dom(400, 300, 'div', 'font-size: 96px', '💩');
 

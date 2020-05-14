@@ -15,13 +15,13 @@ var rt;
 var blast;
 var nukeFX;
 
-function preload() 
+function preload ()
 {
     this.load.image('fire', 'assets/particles/muzzleflash3.png');
     this.load.image('smoke', 'assets/particles/smoke-puff.png');
 }
 
-function create() 
+function create ()
 {
     rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
 
@@ -37,12 +37,14 @@ function create()
         scaleY: 8,
         alpha: 0,
         duration: 1500,
-        ease: "Bounce.easeInOut",
-        onComplete: function () { rt.clear(); blast.alpha = 0 },
+        ease: 'Bounce.easeInOut',
+        onUpdate: draw,
+        onComplete: function ()
+        {
+            rt.clear(); blast.alpha = 0;
+        },
         paused: true
     });
-
-    nukeFX.setCallback('onUpdate', draw, [], this);
 
     this.input.on('pointerdown', function (pointer)
     {
@@ -51,16 +53,23 @@ function create()
     }, this);
 }
 
-function detonate(x, y) 
+function detonate (x, y)
 {
     blast.setPosition(x, y).setScale(1).setAlpha(1);
 
     blast.startFollow(200);
 
-    nukeFX.restart();
+    if (nukeFX.paused)
+    {
+        nukeFX.play();
+    }
+    else
+    {
+        nukeFX.restart();
+    }
 }
 
-function draw() 
+function draw ()
 {
     blast.setRotation(Math.random() * 4 -2);
 

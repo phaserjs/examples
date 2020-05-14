@@ -11,17 +11,18 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+var player;
 var rt;
 var fireball;
 var fireFX;
 
-function preload()
+function preload ()
 {
     this.load.image('dude', 'assets/sprites/phaser-dude.png');
     this.load.image('fire', 'assets/particles/muzzleflash3.png');
 }
 
-function create()
+function create ()
 {
     rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
 
@@ -32,15 +33,17 @@ function create()
     fireFX = this.tweens.add({
         targets: fireball,
         scaleX: 3,
-        scaleY: 3,        
+        scaleY: 3,
         alpha: 0,
         duration: 300,
-        ease: "Cubic.easeOut",
-        onComplete: function () { rt.clear(); fireball.alpha = 0 },
+        ease: 'Cubic.easeOut',
+        onUpdate: draw,
+        onComplete: function ()
+        {
+            rt.clear(); fireball.alpha = 0;
+        },
         paused: true
     });
-
-    fireFX.setCallback('onUpdate', draw, [], this);
 
     this.input.on('pointerdown', function (pointer)
     {
@@ -48,19 +51,26 @@ function create()
     }, this);
 }
 
-function generate(x, y)
+function generate (x, y)
 {
     fireball.setPosition(player.x, player.y).setScale(0.5).setAlpha(1);
 
-    curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(player.x, player.y), new Phaser.Math.Vector2(x, y));
+    var curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(player.x, player.y), new Phaser.Math.Vector2(x, y));
 
     fireball.setPath(curve);
     fireball.startFollow(300);
-    
-    fireFX.restart();    
+
+    if (fireFX.paused)
+    {
+        fireFX.play();
+    }
+    else
+    {
+        fireFX.restart();
+    }
 }
 
-function draw()
+function draw ()
 {
     rt.draw(fireball);
 }

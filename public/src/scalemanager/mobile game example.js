@@ -11,6 +11,7 @@ class BackgroundScene extends Phaser.Scene
 
     preload ()
     {
+        this.load.image('guide', 'assets/tests/bg.png');
         this.load.image('bg', 'assets/skies/bigsky.png');
         this.load.atlas('clouds', 'assets/atlas/clouds.png', 'assets/atlas/clouds.json');
         this.load.image('fakegame', 'assets/pics/ninja-masters2.png');
@@ -39,31 +40,36 @@ class BackgroundScene extends Phaser.Scene
 
     updateCamera ()
     {
-        const scaleX = this.gameScene.getZoom();
-        const scaleY = scaleX + 0.03;
-
-        const width = this.scale.width;
-        const height = this.scale.height;
+        const width = this.scale.gameSize.width;
+        const height = this.scale.gameSize.height;
 
         const camera = this.cameras.main;
 
-        camera.setBackgroundColor(0xffff00);
-        camera.setSize(width, height);
+        //  There is 240 extra padding below the game area in the background graphic
+        //  so we account for it in the y offset (scaled by the game zoom factor)
 
-        //  240 extra px in bg height over the GAME_HEIGHT
-        const offset = 120;
-
-        console.log('x', scaleX, 'y', scaleY);
+        const zoom = this.gameScene.getZoom();
+        const offset = 120 * zoom;
 
         this.layer.x = width / 2;
-        this.layer.y = (height / 2) + (offset * scaleY);
-
-        this.layer.setScale(scaleX, scaleY);
+        this.layer.y = (height / 2) + offset;
+        this.layer.setScale(zoom);
     }
 
-    resize ()
+    spawnCloud ()
     {
-        this.updateCamera();
+        const cloudType = Phaser.Math.Between(1, 3);
+
+        //  The maximum our background can be is 1400
+        const x = Phaser.Math.Between(this.scale.width, 1400);
+        const y = Phaser.Math.Between(0, this.scale.height / 2);
+
+        const cloud = this.add.image(x, y, 'clouds', 'cloud' + cloudType);
+
+        this.tweens.add({
+            targets: cloud,
+            x: 0
+        });
     }
 }
 
@@ -71,7 +77,7 @@ class BackgroundScene extends Phaser.Scene
 class GameScene extends Phaser.Scene
 {
     GAME_WIDTH = 640;
-    GAME_HEIGHT = 980;
+    GAME_HEIGHT = 960;
 
     backgroundScene;
     parent;
@@ -107,6 +113,8 @@ class GameScene extends Phaser.Scene
 
         this.scale.on('resize', this.resize, this);
 
+        this.add.image(0, 0, 'guide').setOrigin(0, 0);
+
         //  -----------------------------------
         //  -----------------------------------
         //  -----------------------------------
@@ -115,8 +123,6 @@ class GameScene extends Phaser.Scene
         //  -----------------------------------
         //  -----------------------------------
 
-        this.add.rectangle(32, 0, 256, 32, 0xff0000).setOrigin(0, 0);
-
         this.physics.world.setBounds(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
 
         //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -124,7 +130,7 @@ class GameScene extends Phaser.Scene
 
         //  Here we create the ground.
         //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-        this.platforms.create(400, 960, 'ground').setScale(2).refreshBody().setAlpha(0.2);
+        this.platforms.create(320, 944, 'ground').setDisplaySize(640, 32).refreshBody().setAlpha(0.2);
 
         //  Now let's create some ledges
         this.platforms.create(750, 220, 'ground');
@@ -207,7 +213,8 @@ class GameScene extends Phaser.Scene
         const scaleX = this.sizer.width / this.GAME_WIDTH;
         const scaleY = this.sizer.height / this.GAME_HEIGHT;
 
-        // camera.setBackgroundColor(0xff0000);
+        // camera.setBackgroundColor(0xffff00);
+
         camera.setViewport(x, y, this.sizer.width, this.sizer.height);
         camera.setZoom(Math.max(scaleX, scaleY));
         camera.centerOn(this.GAME_WIDTH / 2, this.GAME_HEIGHT / 2);

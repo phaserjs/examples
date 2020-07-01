@@ -19,24 +19,16 @@ var captionStyle = {
     lineSpacing: 4
 };
 
-var captionTextFormat = (
-    'Total:    %1\n' +
-    'Max:      %2\n' +
-    'Active:   %3\n' +
-    'Inactive: %4\n' +
-    'Used:     %5\n' +
-    'Free:     %6\n' +
-    'Full:     %7\n'
-);
-
 var game = new Phaser.Game(config);
 
-function preload () {
+function preload ()
+{
     this.load.image('space', 'assets/skies/space.jpg');
     this.load.spritesheet('alien', 'assets/tests/invaders/invader1.png', { frameWidth: 32, frameHeight: 32 });
 }
 
-function create () {
+function create ()
+{
     this.anims.create({
         key: 'creep',
         frames: this.anims.generateFrameNumbers('alien', { start: 0, end: 1 }),
@@ -49,11 +41,13 @@ function create () {
     group = this.add.group({
         defaultKey: 'alien',
         maxSize: 100,
-        createCallback: function (alien) {
+        createCallback: function (alien)
+        {
             alien.setName('alien' + this.getLength());
             console.log('Created', alien.name);
         },
-        removeCallback: function (alien) {
+        removeCallback: function (alien)
+        {
             console.log('Removed', alien.name);
         }
     });
@@ -74,35 +68,40 @@ function create () {
     });
 }
 
-function update () {
+function update ()
+{
     Phaser.Actions.IncY(group.getChildren(), 1);
 
-    group.children.iterate(function (alien) {
-        if (alien.y > 600) {
+    group.children.iterate(function (alien)
+    {
+        if (alien.y > 600)
+        {
             group.killAndHide(alien);
         }
     });
 
-    caption.setText(Phaser.Utils.String.Format(captionTextFormat, [
-        group.getLength(),
-        group.maxSize,
-        group.countActive(true),
-        group.countActive(false),
-        group.getTotalUsed(),
-        group.getTotalFree(),
-        group.isFull()
-    ]));
+    caption.setText([
+        'Total:    ' + group.getLength(),
+        'Max:      ' + group.maxSize,
+        'Active:   ' + group.countActive(true),
+        'Inactive: ' + group.countActive(false),
+        'Used:     ' + group.getTotalUsed(),
+        'Free:     ' + group.getTotalFree(),
+        'Full:     ' + group.isFull()
+    ]);
 }
 
-function activateAlien (alien) {
+function activateAlien (alien)
+{
     alien
-    .setActive(true)
-    .setVisible(true)
-    .setTint(Phaser.Display.Color.RandomRGB().color)
-    .play('creep');
+        .setActive(true)
+        .setVisible(true)
+        .setTint(Phaser.Display.Color.RandomRGB().color)
+        .play('creep');
 }
 
-function addAlien () {
+function addAlien ()
+{
     var alien = group.get(Phaser.Math.Between(250, 800), Phaser.Math.Between(-64, 0));
 
     if (!alien) return; // None free

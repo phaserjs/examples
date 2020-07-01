@@ -21,9 +21,9 @@ function create ()
 {
     text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-    this.input.on('pointerdown', function (pointer) {
+    this.input.on('pointerdown', function (pointer, currentlyOver) {
 
-        console.log(this.game.loop.frame, 'down B');
+        console.log('pointerdown', pointer.x, pointer.y, currentlyOver.length);
 
         this.add.image(pointer.x, pointer.y, 'balls', Phaser.Math.Between(0, 5));
 

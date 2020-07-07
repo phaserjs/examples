@@ -17,10 +17,7 @@ var config = {
 var game = new Phaser.Game(config);
 var map;
 var cursors;
-var debugGraphics;
-var helpText;
 var player;
-var showDebug = false;
 
 function preload ()
 {
@@ -34,7 +31,7 @@ function create ()
     // When loading a CSV map, make sure to specify the tileWidth and tileHeight
     map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
     var tileset = map.addTilesetImage('tiles');
-    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    map.createDynamicLayer(0, tileset, 0, 0);
 
     this.anims.create({
         key: 'left',
@@ -69,16 +66,18 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
 }
 
-function update (time, delta)
+function update ()
 {
     updatePlayer();
     updateMap();
 }
 
-function updateMap () {
+function updateMap ()
+{
     var origin = map.getTileAtWorldXY(player.x, player.y);
 
-    map.forEachTile(function (tile) {
+    map.forEachTile(function (tile)
+    {
         var dist = Phaser.Math.Distance.Chebyshev(
             origin.x,
             origin.y,
@@ -90,39 +89,49 @@ function updateMap () {
     });
 }
 
-function updatePlayer () {
+function updatePlayer ()
+{
     player.body.setVelocity(0);
 
     // 8 directions
 
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown)
+    {
         player.body.setVelocityX(-100);
     }
-    else if (cursors.right.isDown) {
+    else if (cursors.right.isDown)
+    {
         player.body.setVelocityX(100);
     }
 
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown)
+    {
         player.body.setVelocityY(-100);
     }
-    else if (cursors.down.isDown) {
+    else if (cursors.down.isDown)
+    {
         player.body.setVelocityY(100);
     }
 
     // Update the animation last and give left/right animations precedence over up/down animations
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown)
+    {
         player.anims.play('left', true);
     }
-    else if (cursors.right.isDown) {
+    else if (cursors.right.isDown)
+    {
         player.anims.play('right', true);
     }
-    else if (cursors.up.isDown) {
+    else if (cursors.up.isDown)
+    {
         player.anims.play('up', true);
     }
-    else if (cursors.down.isDown) {
+    else if (cursors.down.isDown)
+    {
         player.anims.play('down', true);
     }
-    else {
+    else
+    {
         player.anims.stop();
     }
 }

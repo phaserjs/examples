@@ -21,6 +21,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('bg', ['assets/textures/gold.png', 'assets/textures/gold-n.png']);
+
     this.load.atlas({
         key: 'atlas',
         textureURL: 'assets/tests/fruit/veg2.png',
@@ -57,23 +59,24 @@ function launch ()
 
     bob.data.vx = Math.random() * 6;
     bob.data.vy = Math.random() * 2;
-    bob.data.bounce = 0.8 + (Math.random() * 0.3);
+    bob.data.bounce = 1;
 }
 
 function create ()
 {
-    blitter = this.add.blitter(0, 0, 'atlas');
+    this.lights.enable();
+    this.lights.setAmbientColor(0x808080);
 
-    for (var i = 0; i < 100; i++)
+    this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.5);
+
+    blitter = this.add.blitter(0, 0, 'atlas').setPipeline('Light2D');
+
+    for (var i = 0; i < 32; i++)
     {
         launch();
     }
 
-    blitter.setPipeline('Light2D');
-
-    light = this.lights.addLight(0, 0, 200).setScrollFactor(0.0);
-
-    this.lights.enable().setAmbientColor(0x555555);
+    var light = this.lights.addLight(400, 300, 400);
 
     this.input.on('pointermove', function (pointer) {
 
@@ -87,7 +90,7 @@ function update()
 {
     if (this.input.activePointer.isDown)
     {
-        for (var i = 0; i < 50; i++)
+        for (var i = 0; i < 8; i++)
         {
             launch();
         }
@@ -113,9 +116,9 @@ function update()
             bob.data.vx *= -bob.data.bounce;
         }
 
-        if (bob.y > 580)
+        if (bob.y > 568)
         {
-            bob.y = 580;
+            bob.y = 568;
             bob.data.vy *= -bob.data.bounce;
         }
     }

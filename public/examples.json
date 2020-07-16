@@ -1364,6 +1364,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\afollow.js",
+          "name": "afollow.js",
+          "size": 2482,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\anim remove.js",
           "name": "anim remove.js",
           "size": 917,
@@ -1373,7 +1380,7 @@
         {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
-          "size": 658,
+          "size": 379,
           "extension": ".js",
           "type": "file"
         },
@@ -1388,6 +1395,13 @@
           "path": "src\\bugs\\ap tilemap.js",
           "name": "ap tilemap.js",
           "size": 4530,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\art.js",
+          "name": "art.js",
+          "size": 3283,
           "extension": ".js",
           "type": "file"
         },
@@ -1693,7 +1707,7 @@
           "type": "file"
         }
       ],
-      "size": 84975,
+      "size": 90461,
       "type": "directory"
     },
     {
@@ -2041,7 +2055,7 @@
         {
           "path": "src\\camera\\follow sprite.js",
           "name": "follow sprite.js",
-          "size": 1151,
+          "size": 1528,
           "extension": ".js",
           "type": "file"
         },
@@ -2411,7 +2425,7 @@
           "type": "file"
         }
       ],
-      "size": 214401,
+      "size": 214778,
       "type": "directory"
     },
     {
@@ -3786,7 +3800,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\text origin.js",
                   "name": "text origin.js",
-                  "size": 1381,
+                  "size": 1421,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3805,11 +3819,11 @@
                   "type": "file"
                 }
               ],
-              "size": 21914,
+              "size": 21954,
               "type": "directory"
             }
           ],
-          "size": 44684,
+          "size": 44724,
           "type": "directory"
         },
         {
@@ -5253,9 +5267,16 @@
           "name": "lights",
           "children": [
             {
+              "path": "src\\game objects\\lights\\bitmap text light.js",
+              "name": "bitmap text light.js",
+              "size": 1524,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\lights\\blitter light.js",
               "name": "blitter light.js",
-              "size": 2341,
+              "size": 2469,
               "extension": ".js",
               "type": "file"
             },
@@ -5276,7 +5297,14 @@
             {
               "path": "src\\game objects\\lights\\dynamic tilemap layer.js",
               "name": "dynamic tilemap layer.js",
-              "size": 3340,
+              "size": 3376,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\lights\\graphics light.js",
+              "name": "graphics light.js",
+              "size": 2027,
               "extension": ".js",
               "type": "file"
             },
@@ -5290,14 +5318,21 @@
             {
               "path": "src\\game objects\\lights\\light follow pointer.js",
               "name": "light follow pointer.js",
-              "size": 2261,
+              "size": 2184,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\game objects\\lights\\mesh light.js",
               "name": "mesh light.js",
-              "size": 2808,
+              "size": 2761,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\lights\\particles light.js",
+              "name": "particles light.js",
+              "size": 1753,
               "extension": ".js",
               "type": "file"
             },
@@ -5309,6 +5344,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\lights\\shapes light.js",
+              "name": "shapes light.js",
+              "size": 1911,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\lights\\spotlight.js",
               "name": "spotlight.js",
               "size": 1038,
@@ -5316,14 +5358,28 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\lights\\static tilemap layer.js",
+              "name": "static tilemap layer.js",
+              "size": 3375,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\lights\\text light.js",
+              "name": "text light.js",
+              "size": 2232,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\lights\\tilesprite light.js",
               "name": "tilesprite light.js",
-              "size": 1867,
+              "size": 1414,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 20914,
+          "size": 33323,
           "type": "directory"
         },
         {
@@ -6967,7 +7023,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter detect collision with tile.js",
                   "name": "matter detect collision with tile.js",
-                  "size": 5320,
+                  "size": 5233,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -6989,13 +7045,6 @@
                   "path": "src\\game objects\\tilemap\\collision\\matter platformer with wall jumping.js",
                   "name": "matter platformer with wall jumping.js",
                   "size": 11518,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\tilemap\\collision\\matter polygon tile.js",
-                  "name": "matter polygon tile.js",
-                  "size": 2761,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7049,7 +7098,7 @@
                   "type": "file"
                 }
               ],
-              "size": 77271,
+              "size": 74423,
               "type": "directory"
             },
             {
@@ -7207,7 +7256,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\create from objects.js",
                   "name": "create from objects.js",
-                  "size": 1869,
+                  "size": 1867,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7387,7 +7436,7 @@
                   "type": "file"
                 }
               ],
-              "size": 62575,
+              "size": 62573,
               "type": "directory"
             },
             {
@@ -7448,7 +7497,7 @@
               "type": "directory"
             }
           ],
-          "size": 279780,
+          "size": 276930,
           "type": "directory"
         },
         {
@@ -7467,7 +7516,7 @@
           "type": "directory"
         }
       ],
-      "size": 1061107,
+      "size": 1070706,
       "type": "directory"
     },
     {
@@ -9654,7 +9703,7 @@
             {
               "path": "src\\input\\dragging\\enable for drag.js",
               "name": "enable for drag.js",
-              "size": 981,
+              "size": 1176,
               "extension": ".js",
               "type": "file"
             },
@@ -9722,7 +9771,7 @@
               "type": "file"
             }
           ],
-          "size": 19817,
+          "size": 20012,
           "type": "directory"
         },
         {
@@ -10375,7 +10424,7 @@
             {
               "path": "src\\input\\pointer\\drag rectangle.js",
               "name": "drag rectangle.js",
-              "size": 873,
+              "size": 974,
               "extension": ".js",
               "type": "file"
             },
@@ -10443,7 +10492,7 @@
               "type": "file"
             }
           ],
-          "size": 13381,
+          "size": 13482,
           "type": "directory"
         },
         {
@@ -10490,7 +10539,7 @@
           "type": "directory"
         }
       ],
-      "size": 204309,
+      "size": 204605,
       "type": "directory"
     },
     {
@@ -10663,12 +10712,12 @@
             {
               "path": "src\\loader\\file pack\\load file pack.js",
               "name": "load file pack.js",
-              "size": 453,
+              "size": 744,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 4029,
+          "size": 4320,
           "type": "directory"
         },
         {
@@ -11155,7 +11204,7 @@
           "type": "directory"
         }
       ],
-      "size": 728080,
+      "size": 728371,
       "type": "directory"
     },
     {
@@ -13109,6 +13158,13 @@
       "name": "renderer",
       "children": [
         {
+          "path": "src\\renderer\\batch test.js",
+          "name": "batch test.js",
+          "size": 1634,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\Custom Pipeline.js",
           "name": "Custom Pipeline.js",
           "size": 2990,
@@ -13123,7 +13179,7 @@
           "type": "file"
         }
       ],
-      "size": 3606,
+      "size": 5240,
       "type": "directory"
     },
     {
@@ -13208,6 +13264,13 @@
           "type": "file"
         },
         {
+          "path": "src\\scalemanager\\mobile game example.js",
+          "name": "mobile game example.js",
+          "size": 11765,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\scalemanager\\no scale with auto center.js",
           "name": "no scale with auto center.js",
           "size": 530,
@@ -13225,6 +13288,13 @@
           "path": "src\\scalemanager\\orientation check.js",
           "name": "orientation check.js",
           "size": 1096,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\scalemanager\\resize and fit.js",
+          "name": "resize and fit.js",
+          "size": 3746,
           "extension": ".js",
           "type": "file"
         },
@@ -13285,7 +13355,7 @@
           "type": "file"
         }
       ],
-      "size": 27729,
+      "size": 43240,
       "type": "directory"
     },
     {
@@ -14927,7 +14997,7 @@
         {
           "path": "src\\tweens\\multiple properties.js",
           "name": "multiple properties.js",
-          "size": 611,
+          "size": 1327,
           "extension": ".js",
           "type": "file"
         },
@@ -15269,7 +15339,7 @@
           "type": "file"
         }
       ],
-      "size": 91689,
+      "size": 92405,
       "type": "directory"
     },
     {
@@ -15452,6 +15522,6 @@
       "type": "directory"
     }
   ],
-  "size": 4304681,
+  "size": 4338591,
   "type": "directory"
 }

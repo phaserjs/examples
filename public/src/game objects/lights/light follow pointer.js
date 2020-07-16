@@ -31,7 +31,7 @@ function create ()
     brick.setOrigin(0.0);
     brick.setPipeline('Light2D');
 
-    light  = this.lights.addLight(0, 0, 200).setScrollFactor(0.0).setIntensity(2);
+    light = this.lights.addLight(0, 0, 200).setScrollFactor(0.0).setIntensity(2);
 
     this.lights.enable().setAmbientColor(0x555555);
 
@@ -46,22 +46,20 @@ function create ()
 
     this.input.on('pointerdown', function (pointer) {
 
-        if (brick.getPipelineName() === 'Light2D')
+        if (scene.lights.active)
         {
             scene.lights.disable();
-            brick.resetPipeline();
         }
         else
         {
             scene.lights.enable();
-            brick.setPipeline('Light2D');
         }
 
     });
 
-    this.add.image(300, 400, 'phaser');
+    this.add.image(300, 400, 'phaser').setPipeline('Light2D');
 
-    text = this.add.text(0, 0, 'visible lights: 0').setScrollFactor(0.0);
+    text = this.add.text(0, 0, 'visible lights: 0').setScrollFactor(0);
 
     this.lights.addLight(0, 100, 100).setColor(0xff0000).setIntensity(3.0);
     this.lights.addLight(0, 200, 100).setColor(0x00ff00).setIntensity(3.0);

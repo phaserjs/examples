@@ -58,7 +58,7 @@ class BackgroundScene extends Phaser.Scene
         //  We can either zoom and re-center the camera:
 
         camera.setZoom(zoom);
-        camera.centerOn(1400 / 2, (1200 / 2) - 120);
+        camera.centerOn(1400 / 2, (1200 / 2) + 120);
 
         //  Or, if you want to put all of the Game Objects in this Scene into a layer,
         //  you can position and scale that:
@@ -123,7 +123,7 @@ class GameScene extends Phaser.Scene
         const height = this.scale.gameSize.height;
 
         this.parent = new Phaser.Structs.Size(width, height);
-        this.sizer = new Phaser.Structs.Size(this.GAME_WIDTH, this.GAME_HEIGHT, Phaser.Structs.Size.HEIGHT_CONTROLS_WIDTH, this.parent);
+        this.sizer = new Phaser.Structs.Size(this.GAME_WIDTH, this.GAME_HEIGHT, Phaser.Structs.Size.FIT, this.parent);
 
         this.parent.setSize(width, height);
         this.sizer.setSize(width, height);

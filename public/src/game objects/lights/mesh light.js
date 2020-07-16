@@ -5,8 +5,7 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
 
@@ -46,11 +45,10 @@ function create ()
 
     mesh.setPipeline('Light2D');
 
-    tweenQuad();
+    this.lights.enable();
+    this.lights.setAmbientColor(0x808080);
 
-    light = this.lights.addLight(0, 0, 200).setScrollFactor(0.0);
-
-    this.lights.enable().setAmbientColor(0x555555);
+    var light = this.lights.addLight(400, 300, 300);
 
     this.input.on('pointermove', function (pointer) {
 
@@ -58,10 +56,8 @@ function create ()
         light.y = pointer.y;
 
     });
-}
 
-function update()
-{
+    tweenQuad();
 }
 
 function tweenQuad ()

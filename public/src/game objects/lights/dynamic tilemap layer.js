@@ -38,21 +38,15 @@ function create ()
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    light = this.lights.addLight(0, 0, 200).setScrollFactor(0.0);
+    this.lights.enable();
+    this.lights.setAmbientColor(0x808080);
 
-    this.lights.enable().setAmbientColor(0x555555);
+    light = this.lights.addLight(0, 0, 200);
 
-    // this.input.on('pointermove', function (pointer) {
-
-    //     light.x = pointer.x;
-    //     light.y = pointer.y;
-
-    // });
-
-    this.lights.addLight(0, 100, 100).setColor(0xff0000).setIntensity(3.0);
-    this.lights.addLight(0, 200, 100).setColor(0x00ff00).setIntensity(3.0);
-    this.lights.addLight(0, 300, 100).setColor(0x0000ff).setIntensity(3.0);
-    this.lights.addLight(0, 400, 100).setColor(0xffff00).setIntensity(3.0);
+    this.lights.addLight(0, 100, 140).setColor(0xff0000).setIntensity(3.0);
+    this.lights.addLight(0, 250, 140).setColor(0x00ff00).setIntensity(3.0);
+    this.lights.addLight(0, 400, 140).setColor(0xff00ff).setIntensity(3.0);
+    this.lights.addLight(0, 550, 140).setColor(0xffff00).setIntensity(3.0);
 
     offsets = [ 0.1, 0.3, 0.5, 0.7 ];
 }
@@ -121,11 +115,12 @@ function update ()
 
     var index = 0;
 
-    this.lights.forEachLight(function (currLight) {
+    this.lights.forEachLight(function (currLight)
+    {
         if (light !== currLight)
         {
-            currLight.x = 400 + Math.sin(offsets[index]) * 1000;
-            offsets[index] += 0.02;
+            currLight.x = 400 + Math.sin(offsets[index]) * 300;
+            offsets[index] += 0.01;
             index += 1;
         }
     });

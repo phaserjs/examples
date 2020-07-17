@@ -1364,13 +1364,6 @@
           "type": "file"
         },
         {
-          "path": "src\\bugs\\afollow.js",
-          "name": "afollow.js",
-          "size": 2482,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
           "path": "src\\bugs\\anim remove.js",
           "name": "anim remove.js",
           "size": 917,
@@ -1380,7 +1373,7 @@
         {
           "path": "src\\bugs\\ap origin.js",
           "name": "ap origin.js",
-          "size": 379,
+          "size": 658,
           "extension": ".js",
           "type": "file"
         },
@@ -1395,13 +1388,6 @@
           "path": "src\\bugs\\ap tilemap.js",
           "name": "ap tilemap.js",
           "size": 4530,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src\\bugs\\art.js",
-          "name": "art.js",
-          "size": 3283,
           "extension": ".js",
           "type": "file"
         },
@@ -1707,7 +1693,7 @@
           "type": "file"
         }
       ],
-      "size": 90461,
+      "size": 84975,
       "type": "directory"
     },
     {
@@ -2055,7 +2041,7 @@
         {
           "path": "src\\camera\\follow sprite.js",
           "name": "follow sprite.js",
-          "size": 1528,
+          "size": 1151,
           "extension": ".js",
           "type": "file"
         },
@@ -2425,7 +2411,7 @@
           "type": "file"
         }
       ],
-      "size": 214778,
+      "size": 214401,
       "type": "directory"
     },
     {
@@ -3800,7 +3786,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\text origin.js",
                   "name": "text origin.js",
-                  "size": 1421,
+                  "size": 1381,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3819,11 +3805,11 @@
                   "type": "file"
                 }
               ],
-              "size": 21954,
+              "size": 21914,
               "type": "directory"
             }
           ],
-          "size": 44724,
+          "size": 44684,
           "type": "directory"
         },
         {
@@ -5297,7 +5283,7 @@
             {
               "path": "src\\game objects\\lights\\dynamic tilemap layer.js",
               "name": "dynamic tilemap layer.js",
-              "size": 3376,
+              "size": 3199,
               "extension": ".js",
               "type": "file"
             },
@@ -5360,7 +5346,7 @@
             {
               "path": "src\\game objects\\lights\\static tilemap layer.js",
               "name": "static tilemap layer.js",
-              "size": 3375,
+              "size": 3198,
               "extension": ".js",
               "type": "file"
             },
@@ -5379,7 +5365,7 @@
               "type": "file"
             }
           ],
-          "size": 33323,
+          "size": 32969,
           "type": "directory"
         },
         {
@@ -7263,7 +7249,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\create-from-array.js",
                   "name": "create-from-array.js",
-                  "size": 1397,
+                  "size": 1851,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7436,7 +7422,7 @@
                   "type": "file"
                 }
               ],
-              "size": 62573,
+              "size": 63027,
               "type": "directory"
             },
             {
@@ -7497,7 +7483,7 @@
               "type": "directory"
             }
           ],
-          "size": 276930,
+          "size": 277384,
           "type": "directory"
         },
         {
@@ -7516,7 +7502,7 @@
           "type": "directory"
         }
       ],
-      "size": 1070706,
+      "size": 1070766,
       "type": "directory"
     },
     {
@@ -9703,7 +9689,7 @@
             {
               "path": "src\\input\\dragging\\enable for drag.js",
               "name": "enable for drag.js",
-              "size": 1176,
+              "size": 981,
               "extension": ".js",
               "type": "file"
             },
@@ -9771,7 +9757,7 @@
               "type": "file"
             }
           ],
-          "size": 20012,
+          "size": 19817,
           "type": "directory"
         },
         {
@@ -10424,7 +10410,7 @@
             {
               "path": "src\\input\\pointer\\drag rectangle.js",
               "name": "drag rectangle.js",
-              "size": 974,
+              "size": 873,
               "extension": ".js",
               "type": "file"
             },
@@ -10492,7 +10478,7 @@
               "type": "file"
             }
           ],
-          "size": 13482,
+          "size": 13381,
           "type": "directory"
         },
         {
@@ -10539,7 +10525,7 @@
           "type": "directory"
         }
       ],
-      "size": 204605,
+      "size": 204309,
       "type": "directory"
     },
     {
@@ -10712,12 +10698,12 @@
             {
               "path": "src\\loader\\file pack\\load file pack.js",
               "name": "load file pack.js",
-              "size": 744,
+              "size": 453,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 4320,
+          "size": 4029,
           "type": "directory"
         },
         {
@@ -11204,7 +11190,7 @@
           "type": "directory"
         }
       ],
-      "size": 728371,
+      "size": 728080,
       "type": "directory"
     },
     {
@@ -13158,6 +13144,13 @@
       "name": "renderer",
       "children": [
         {
+          "path": "src\\renderer\\32 texture test.js",
+          "name": "32 texture test.js",
+          "size": 2982,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\batch test.js",
           "name": "batch test.js",
           "size": 1634,
@@ -13179,7 +13172,7 @@
           "type": "file"
         }
       ],
-      "size": 5240,
+      "size": 8222,
       "type": "directory"
     },
     {
@@ -13294,7 +13287,7 @@
         {
           "path": "src\\scalemanager\\resize and fit.js",
           "name": "resize and fit.js",
-          "size": 3746,
+          "size": 3399,
           "extension": ".js",
           "type": "file"
         },
@@ -13355,7 +13348,7 @@
           "type": "file"
         }
       ],
-      "size": 43240,
+      "size": 42893,
       "type": "directory"
     },
     {
@@ -14997,7 +14990,7 @@
         {
           "path": "src\\tweens\\multiple properties.js",
           "name": "multiple properties.js",
-          "size": 1327,
+          "size": 611,
           "extension": ".js",
           "type": "file"
         },
@@ -15339,7 +15332,7 @@
           "type": "file"
         }
       ],
-      "size": 92405,
+      "size": 91689,
       "type": "directory"
     },
     {
@@ -15522,6 +15515,6 @@
       "type": "directory"
     }
   ],
-  "size": 4338591,
+  "size": 4334120,
   "type": "directory"
 }

@@ -52,13 +52,7 @@ function create ()
 
     });
 
-    console.log(rt.texture.key);
-
     var tt = rt.saveTexture('doodle');
-
-    console.log(rt.texture.key);
-
-    // console.log(tt);
 
     var blocks = this.add.group({ key: 'doodle', repeat: 35, setScale: { x: 0.2, y: 0.1 } });
 

@@ -11,8 +11,7 @@ var config = {
     }
 };
 
-var bullets1;
-var bullets2;
+var bullets;
 var ship;
 var speed;
 var stats;
@@ -82,7 +81,7 @@ function create ()
 
     });
 
-    bullets1 = this.add.group({
+    bullets = this.add.group({
         classType: Bullet,
         maxSize: 50,
         runChildUpdate: true

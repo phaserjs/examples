@@ -5323,6 +5323,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\lights\\render texture light.js",
+              "name": "render texture light.js",
+              "size": 1147,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\lights\\rotated sprite.js",
               "name": "rotated sprite.js",
               "size": 1098,
@@ -5340,6 +5347,13 @@
               "path": "src\\game objects\\lights\\spotlight.js",
               "name": "spotlight.js",
               "size": 1038,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\lights\\sprite sheet light.js",
+              "name": "sprite sheet light.js",
+              "size": 2469,
               "extension": ".js",
               "type": "file"
             },
@@ -5365,7 +5379,7 @@
               "type": "file"
             }
           ],
-          "size": 32969,
+          "size": 36585,
           "type": "directory"
         },
         {
@@ -5966,7 +5980,7 @@
             {
               "path": "src\\game objects\\render texture\\draw on texture.js",
               "name": "draw on texture.js",
-              "size": 2081,
+              "size": 1982,
               "extension": ".js",
               "type": "file"
             },
@@ -6092,7 +6106,7 @@
             {
               "path": "src\\game objects\\render texture\\resize render texture.js",
               "name": "resize render texture.js",
-              "size": 998,
+              "size": 956,
               "extension": ".js",
               "type": "file"
             },
@@ -6155,7 +6169,7 @@
             {
               "path": "src\\game objects\\render texture\\sprite to render texture.js",
               "name": "sprite to render texture.js",
-              "size": 652,
+              "size": 815,
               "extension": ".js",
               "type": "file"
             },
@@ -6209,7 +6223,7 @@
               "type": "file"
             }
           ],
-          "size": 60231,
+          "size": 60253,
           "type": "directory"
         },
         {
@@ -7249,7 +7263,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\create-from-array.js",
                   "name": "create-from-array.js",
-                  "size": 1851,
+                  "size": 1397,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7422,7 +7436,7 @@
                   "type": "file"
                 }
               ],
-              "size": 63027,
+              "size": 62573,
               "type": "directory"
             },
             {
@@ -7483,7 +7497,7 @@
               "type": "directory"
             }
           ],
-          "size": 277384,
+          "size": 276930,
           "type": "directory"
         },
         {
@@ -7502,7 +7516,7 @@
           "type": "directory"
         }
       ],
-      "size": 1070766,
+      "size": 1073950,
       "type": "directory"
     },
     {
@@ -13146,7 +13160,7 @@
         {
           "path": "src\\renderer\\32 texture test.js",
           "name": "32 texture test.js",
-          "size": 2982,
+          "size": 3077,
           "extension": ".js",
           "type": "file"
         },
@@ -13172,7 +13186,7 @@
           "type": "file"
         }
       ],
-      "size": 8222,
+      "size": 8317,
       "type": "directory"
     },
     {
@@ -13810,7 +13824,7 @@
         {
           "path": "src\\scenes\\scene from class.js",
           "name": "scene from class.js",
-          "size": 584,
+          "size": 622,
           "extension": ".js",
           "type": "file"
         },
@@ -13992,7 +14006,7 @@
           "type": "file"
         }
       ],
-      "size": 153408,
+      "size": 153446,
       "type": "directory"
     },
     {
@@ -15515,6 +15529,6 @@
       "type": "directory"
     }
   ],
-  "size": 4334120,
+  "size": 4337437,
   "type": "directory"
 }

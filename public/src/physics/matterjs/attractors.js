@@ -32,12 +32,12 @@ function preload ()
 function create ()
 {
     //  You can enable the Attractors plugin either via the game config (see above), or explicitly in code:
-    // this.matter.system.enableAttractorPlugin();
+    // this.matter.enableAttractorPlugin();
 
     this.matter.world.setBounds();
 
     this.matter.add.imageStack('alien', null, 0, 500, 50, 2, 0, 0, {
-        mass: 0.5,
+        mass: 1,
         ignorePointer: true
     });
 

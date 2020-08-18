@@ -206,6 +206,7 @@
     {
         var div = $('<div></div>').addClass('card');
 
+        filepath = filepath.replace(/\\/g, "/");
         var a = $('<a></a>', { href: 'boot.html?src=' + filepath });
 
         const imgPath = filepath

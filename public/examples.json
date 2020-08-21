@@ -1392,6 +1392,27 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\blend.js",
+          "name": "blend.js",
+          "size": 1035,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\blendc.js",
+          "name": "blendc.js",
+          "size": 502,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\bm.js",
+          "name": "bm.js",
+          "size": 770,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\cam zoom.js",
           "name": "cam zoom.js",
           "size": 481,
@@ -1465,6 +1486,13 @@
           "path": "src\\bugs\\html.js",
           "name": "html.js",
           "size": 598,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\iggle.js",
+          "name": "iggle.js",
+          "size": 7472,
           "extension": ".js",
           "type": "file"
         },
@@ -1693,7 +1721,7 @@
           "type": "file"
         }
       ],
-      "size": 84975,
+      "size": 94754,
       "type": "directory"
     },
     {
@@ -3672,6 +3700,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\game objects\\bitmaptext\\static\\bitmaptext origin and scale.js",
+                  "name": "bitmaptext origin and scale.js",
+                  "size": 766,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\game objects\\bitmaptext\\static\\bitmaptext rotation.js",
                   "name": "bitmaptext rotation.js",
                   "size": 1026,
@@ -3786,7 +3821,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\text origin.js",
                   "name": "text origin.js",
-                  "size": 1381,
+                  "size": 2453,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3805,11 +3840,11 @@
                   "type": "file"
                 }
               ],
-              "size": 21914,
+              "size": 23752,
               "type": "directory"
             }
           ],
-          "size": 44684,
+          "size": 46522,
           "type": "directory"
         },
         {
@@ -5353,7 +5388,7 @@
             {
               "path": "src\\game objects\\lights\\sprite sheet light.js",
               "name": "sprite sheet light.js",
-              "size": 2469,
+              "size": 1132,
               "extension": ".js",
               "type": "file"
             },
@@ -5379,7 +5414,7 @@
               "type": "file"
             }
           ],
-          "size": 36585,
+          "size": 35248,
           "type": "directory"
         },
         {
@@ -6106,7 +6141,7 @@
             {
               "path": "src\\game objects\\render texture\\resize render texture.js",
               "name": "resize render texture.js",
-              "size": 956,
+              "size": 998,
               "extension": ".js",
               "type": "file"
             },
@@ -6169,7 +6204,7 @@
             {
               "path": "src\\game objects\\render texture\\sprite to render texture.js",
               "name": "sprite to render texture.js",
-              "size": 815,
+              "size": 652,
               "extension": ".js",
               "type": "file"
             },
@@ -6223,7 +6258,7 @@
               "type": "file"
             }
           ],
-          "size": 60253,
+          "size": 60132,
           "type": "directory"
         },
         {
@@ -7516,7 +7551,7 @@
           "type": "directory"
         }
       ],
-      "size": 1073950,
+      "size": 1074330,
       "type": "directory"
     },
     {
@@ -12564,7 +12599,7 @@
             {
               "path": "src\\physics\\matterjs\\attractors.js",
               "name": "attractors.js",
-              "size": 1523,
+              "size": 1514,
               "extension": ".js",
               "type": "file"
             },
@@ -12947,7 +12982,7 @@
               "type": "file"
             }
           ],
-          "size": 101782,
+          "size": 101773,
           "type": "directory"
         },
         {
@@ -12973,7 +13008,7 @@
           "type": "directory"
         }
       ],
-      "size": 388569,
+      "size": 388560,
       "type": "directory"
     },
     {
@@ -13172,9 +13207,30 @@
           "type": "file"
         },
         {
+          "path": "src\\renderer\\custom pipeline multi texture.js",
+          "name": "custom pipeline multi texture.js",
+          "size": 2901,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\custom pipeline single texture es6.js",
+          "name": "custom pipeline single texture es6.js",
+          "size": 2589,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\custom pipeline single texture.js",
+          "name": "custom pipeline single texture.js",
+          "size": 2870,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\Custom Pipeline.js",
           "name": "Custom Pipeline.js",
-          "size": 2990,
+          "size": 2912,
           "extension": ".js",
           "type": "file"
         },
@@ -13186,7 +13242,7 @@
           "type": "file"
         }
       ],
-      "size": 8317,
+      "size": 16599,
       "type": "directory"
     },
     {
@@ -13824,7 +13880,7 @@
         {
           "path": "src\\scenes\\scene from class.js",
           "name": "scene from class.js",
-          "size": 622,
+          "size": 584,
           "extension": ".js",
           "type": "file"
         },
@@ -14006,7 +14062,7 @@
           "type": "file"
         }
       ],
-      "size": 153446,
+      "size": 153408,
       "type": "directory"
     },
     {
@@ -15529,6 +15585,6 @@
       "type": "directory"
     }
   ],
-  "size": 4337437,
+  "size": 4355831,
   "type": "directory"
 }

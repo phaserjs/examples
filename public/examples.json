@@ -1392,6 +1392,27 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\blend.js",
+          "name": "blend.js",
+          "size": 1035,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\blendc.js",
+          "name": "blendc.js",
+          "size": 502,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\bm.js",
+          "name": "bm.js",
+          "size": 770,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\cam zoom.js",
           "name": "cam zoom.js",
           "size": 481,
@@ -1465,6 +1486,13 @@
           "path": "src\\bugs\\html.js",
           "name": "html.js",
           "size": 598,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\iggle.js",
+          "name": "iggle.js",
+          "size": 7472,
           "extension": ".js",
           "type": "file"
         },
@@ -1693,7 +1721,7 @@
           "type": "file"
         }
       ],
-      "size": 84975,
+      "size": 94754,
       "type": "directory"
     },
     {
@@ -3672,6 +3700,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\game objects\\bitmaptext\\static\\bitmaptext origin and scale.js",
+                  "name": "bitmaptext origin and scale.js",
+                  "size": 766,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\game objects\\bitmaptext\\static\\bitmaptext rotation.js",
                   "name": "bitmaptext rotation.js",
                   "size": 1026,
@@ -3786,7 +3821,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\text origin.js",
                   "name": "text origin.js",
-                  "size": 1381,
+                  "size": 2453,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3805,11 +3840,11 @@
                   "type": "file"
                 }
               ],
-              "size": 21914,
+              "size": 23752,
               "type": "directory"
             }
           ],
-          "size": 44684,
+          "size": 46522,
           "type": "directory"
         },
         {
@@ -5323,6 +5358,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\lights\\render texture light.js",
+              "name": "render texture light.js",
+              "size": 1147,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\lights\\rotated sprite.js",
               "name": "rotated sprite.js",
               "size": 1098,
@@ -5340,6 +5382,13 @@
               "path": "src\\game objects\\lights\\spotlight.js",
               "name": "spotlight.js",
               "size": 1038,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\lights\\sprite sheet light.js",
+              "name": "sprite sheet light.js",
+              "size": 1132,
               "extension": ".js",
               "type": "file"
             },
@@ -5365,7 +5414,7 @@
               "type": "file"
             }
           ],
-          "size": 32969,
+          "size": 35248,
           "type": "directory"
         },
         {
@@ -5966,7 +6015,7 @@
             {
               "path": "src\\game objects\\render texture\\draw on texture.js",
               "name": "draw on texture.js",
-              "size": 2081,
+              "size": 1982,
               "extension": ".js",
               "type": "file"
             },
@@ -6209,7 +6258,7 @@
               "type": "file"
             }
           ],
-          "size": 60231,
+          "size": 60132,
           "type": "directory"
         },
         {
@@ -7249,7 +7298,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\static\\create-from-array.js",
                   "name": "create-from-array.js",
-                  "size": 1851,
+                  "size": 1397,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7422,7 +7471,7 @@
                   "type": "file"
                 }
               ],
-              "size": 63027,
+              "size": 62573,
               "type": "directory"
             },
             {
@@ -7483,7 +7532,7 @@
               "type": "directory"
             }
           ],
-          "size": 277384,
+          "size": 276930,
           "type": "directory"
         },
         {
@@ -7502,7 +7551,7 @@
           "type": "directory"
         }
       ],
-      "size": 1070766,
+      "size": 1074330,
       "type": "directory"
     },
     {
@@ -12550,7 +12599,7 @@
             {
               "path": "src\\physics\\matterjs\\attractors.js",
               "name": "attractors.js",
-              "size": 1523,
+              "size": 1514,
               "extension": ".js",
               "type": "file"
             },
@@ -12933,7 +12982,7 @@
               "type": "file"
             }
           ],
-          "size": 101782,
+          "size": 101773,
           "type": "directory"
         },
         {
@@ -12959,7 +13008,7 @@
           "type": "directory"
         }
       ],
-      "size": 388569,
+      "size": 388560,
       "type": "directory"
     },
     {
@@ -13146,7 +13195,7 @@
         {
           "path": "src\\renderer\\32 texture test.js",
           "name": "32 texture test.js",
-          "size": 2982,
+          "size": 3077,
           "extension": ".js",
           "type": "file"
         },
@@ -13158,9 +13207,30 @@
           "type": "file"
         },
         {
+          "path": "src\\renderer\\custom pipeline multi texture.js",
+          "name": "custom pipeline multi texture.js",
+          "size": 2901,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\custom pipeline single texture es6.js",
+          "name": "custom pipeline single texture es6.js",
+          "size": 2589,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\custom pipeline single texture.js",
+          "name": "custom pipeline single texture.js",
+          "size": 2870,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\Custom Pipeline.js",
           "name": "Custom Pipeline.js",
-          "size": 2990,
+          "size": 2912,
           "extension": ".js",
           "type": "file"
         },
@@ -13172,7 +13242,7 @@
           "type": "file"
         }
       ],
-      "size": 8222,
+      "size": 16599,
       "type": "directory"
     },
     {
@@ -15515,6 +15585,6 @@
       "type": "directory"
     }
   ],
-  "size": 4334120,
+  "size": 4355831,
   "type": "directory"
 }

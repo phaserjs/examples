@@ -13207,6 +13207,13 @@
           "type": "file"
         },
         {
+          "path": "src\\renderer\\custom pipeline multi texture es6.js",
+          "name": "custom pipeline multi texture es6.js",
+          "size": 3051,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\custom pipeline multi texture.js",
           "name": "custom pipeline multi texture.js",
           "size": 2901,
@@ -13216,7 +13223,7 @@
         {
           "path": "src\\renderer\\custom pipeline single texture es6.js",
           "name": "custom pipeline single texture es6.js",
-          "size": 2589,
+          "size": 3067,
           "extension": ".js",
           "type": "file"
         },
@@ -13242,7 +13249,7 @@
           "type": "file"
         }
       ],
-      "size": 16599,
+      "size": 20128,
       "type": "directory"
     },
     {
@@ -15585,6 +15592,6 @@
       "type": "directory"
     }
   ],
-  "size": 4355831,
+  "size": 4359360,
   "type": "directory"
 }

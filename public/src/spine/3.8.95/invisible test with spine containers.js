@@ -29,7 +29,7 @@ function preload ()
 
 function create ()
 {
-    let base = this.add.spinecontainer();
+    let base = this.add.spineContainer();
 
     for (var i = 0; i < 32; i++)
     {
@@ -43,7 +43,7 @@ function create ()
         base.add(obj)
     }
 
-    let base2 = this.add.spinecontainer();
+    let base2 = this.add.spineContainer();
 
     for (var i = 0; i < 32; i++)
     {
@@ -57,7 +57,7 @@ function create ()
         base2.add(obj)
     }
 
-    let base3 = this.add.spinecontainer();
+    let base3 = this.add.spineContainer();
 
     for (var i = 0; i < 32; i++)
     {
@@ -71,7 +71,7 @@ function create ()
         base3.add(obj)
     }
 
-    let base4 = this.add.spinecontainer();
+    let base4 = this.add.spineContainer();
 
     for (var i = 0; i < 32; i++)
     {

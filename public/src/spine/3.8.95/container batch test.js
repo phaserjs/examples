@@ -31,10 +31,10 @@ function create ()
 {
     //  Phaser 3.50
 
-    //  Using `this.add.spinecontainer` = 43 GL commands  (1 draw call, 1 clear)
+    //  Using `this.add.spineContainer` = 43 GL commands  (1 draw call, 1 clear)
     //  Using `this.add.container` = 278 GL commands (4 draw calls, 4 clears)
 
-    let base = this.add.spinecontainer();
+    let base = this.add.spineContainer();
 
     for (var i = 0; i < 32; i++)
     {
@@ -43,7 +43,7 @@ function create ()
         base.add(obj)
     }
 
-    let base2 = this.add.spinecontainer();
+    let base2 = this.add.spineContainer();
 
     for (var i = 0; i < 32; i++)
     {
@@ -52,7 +52,7 @@ function create ()
         base2.add(obj)
     }
 
-    let base3 = this.add.spinecontainer();
+    let base3 = this.add.spineContainer();
 
     for (var i = 0; i < 32; i++)
     {
@@ -61,7 +61,7 @@ function create ()
         base3.add(obj)
     }
 
-    let base4 = this.add.spinecontainer();
+    let base4 = this.add.spineContainer();
 
     for (var i = 0; i < 32; i++)
     {

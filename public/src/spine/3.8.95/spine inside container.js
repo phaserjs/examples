@@ -35,12 +35,12 @@ function preload ()
 
 function create ()
 {
-    var logo = this.add.image(0, 0, 'logo').setOrigin(0);
+    this.add.image(0, 0, 'logo').setOrigin(0);
 
     var spineBoy = this.add.spine(0, 0, 'boy', 'walk', true).setScale(0.5);
     var coin = this.add.spine(0, 0, 'coin', 'rotate', true).setScale(0.3);
 
-    var container = this.add.container(400, 300, [ spineBoy, coin ]);
+    var container = this.add.spineContainer(400, 300, [ spineBoy, coin ]);
 
     this.tweens.add({
         targets: container,

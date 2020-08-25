@@ -34,7 +34,7 @@ function create ()
     // this.add.spine(400, 600, 'boy', 'shoot', true).setScale(0.25);
     // this.add.spine(600, 600, 'boy', 'shoot', true).setScale(0.25);
 
-    let base = this.add.spinecontainer();
+    let base = this.add.spineContainer();
 
     for (var i = 0; i < 4; i++)
     {

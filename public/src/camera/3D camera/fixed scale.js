@@ -16,6 +16,7 @@ var cursors;
 var road;
 var speed = 3;
 var startZ;
+var text;
 
 var game = new Phaser.Game(config);
 

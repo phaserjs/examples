@@ -108,7 +108,8 @@ $(document).ready(function () {
                 //  Inject the example source
                 var phaserExample = document.createElement('script');
 
-                phaserExample.type = 'text/javascript';
+                // phaserExample.type = 'text/javascript';
+                phaserExample.type = 'module';
                 phaserExample.src = decodeURI(filename).split('\\').join('/');
 
                 document.body.appendChild(phaserExample);

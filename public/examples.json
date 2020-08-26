@@ -1034,6 +1034,64 @@
           "type": "directory"
         },
         {
+          "path": "src\\archived\\cross scene",
+          "name": "cross scene",
+          "children": [
+            {
+              "path": "src\\archived\\cross scene\\boot.json",
+              "name": "boot.json",
+              "size": 115,
+              "extension": ".json",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\cross scene\\Game.js",
+              "name": "Game.js",
+              "size": 220,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\cross scene\\main.js",
+              "name": "main.js",
+              "size": 191,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\cross scene\\MainMenu.js",
+              "name": "MainMenu.js",
+              "size": 230,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\cross scene\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 276,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 1032,
+          "type": "directory"
+        },
+        {
+          "path": "src\\archived\\defenda",
+          "name": "defenda",
+          "children": [
+            {
+              "path": "src\\archived\\defenda\\test.js",
+              "name": "test.js",
+              "size": 9020,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 9020,
+          "type": "directory"
+        },
+        {
           "path": "src\\archived\\game resize stretch image.js",
           "name": "game resize stretch image.js",
           "size": 1182,
@@ -1046,6 +1104,92 @@
           "size": 1169,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src\\archived\\mass attack",
+          "name": "mass attack",
+          "children": [
+            {
+              "path": "src\\archived\\mass attack\\balance.png",
+              "name": "balance.png",
+              "size": 156,
+              "extension": ".png",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\mass attack\\ball.png",
+              "name": "ball.png",
+              "size": 1472,
+              "extension": ".png",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\mass attack\\original.js",
+              "name": "original.js",
+              "size": 3757,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\mass attack\\updated.js",
+              "name": "updated.js",
+              "size": 3882,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 9267,
+          "type": "directory"
+        },
+        {
+          "path": "src\\archived\\multi",
+          "name": "multi",
+          "children": [
+            {
+              "path": "src\\archived\\multi\\Asteroids.js",
+              "name": "Asteroids.js",
+              "size": 916,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\multi\\boot.json",
+              "name": "boot.json",
+              "size": 146,
+              "extension": ".json",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\multi\\Controller.js",
+              "name": "Controller.js",
+              "size": 627,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\multi\\Invaders.js",
+              "name": "Invaders.js",
+              "size": 3488,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\multi\\main.js",
+              "name": "main.js",
+              "size": 381,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\multi\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 1927,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 7485,
+          "type": "directory"
         },
         {
           "path": "src\\archived\\pacman",
@@ -1192,7 +1336,7 @@
           "type": "file"
         }
       ],
-      "size": 177266,
+      "size": 204070,
       "type": "directory"
     },
     {
@@ -7667,21 +7811,6 @@
           "type": "directory"
         },
         {
-          "path": "src\\games\\defenda",
-          "name": "defenda",
-          "children": [
-            {
-              "path": "src\\games\\defenda\\test.js",
-              "name": "test.js",
-              "size": 9020,
-              "extension": ".js",
-              "type": "file"
-            }
-          ],
-          "size": 9020,
-          "type": "directory"
-        },
-        {
           "path": "src\\games\\firstgame",
           "name": "firstgame",
           "children": [
@@ -7895,92 +8024,6 @@
           "type": "directory"
         },
         {
-          "path": "src\\games\\mass attack",
-          "name": "mass attack",
-          "children": [
-            {
-              "path": "src\\games\\mass attack\\balance.png",
-              "name": "balance.png",
-              "size": 156,
-              "extension": ".png",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\mass attack\\ball.png",
-              "name": "ball.png",
-              "size": 1472,
-              "extension": ".png",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\mass attack\\original.js",
-              "name": "original.js",
-              "size": 3757,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\mass attack\\updated.js",
-              "name": "updated.js",
-              "size": 3882,
-              "extension": ".js",
-              "type": "file"
-            }
-          ],
-          "size": 9267,
-          "type": "directory"
-        },
-        {
-          "path": "src\\games\\multi",
-          "name": "multi",
-          "children": [
-            {
-              "path": "src\\games\\multi\\Asteroids.js",
-              "name": "Asteroids.js",
-              "size": 916,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\multi\\boot.json",
-              "name": "boot.json",
-              "size": 146,
-              "extension": ".json",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\multi\\Controller.js",
-              "name": "Controller.js",
-              "size": 627,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\multi\\Invaders.js",
-              "name": "Invaders.js",
-              "size": 3488,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\multi\\main.js",
-              "name": "main.js",
-              "size": 381,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\multi\\Preloader.js",
-              "name": "Preloader.js",
-              "size": 1927,
-              "extension": ".js",
-              "type": "file"
-            }
-          ],
-          "size": 7485,
-          "type": "directory"
-        },
-        {
           "path": "src\\games\\snake",
           "name": "snake",
           "children": [
@@ -8081,7 +8124,7 @@
           "type": "directory"
         }
       ],
-      "size": 213133,
+      "size": 187361,
       "type": "directory"
     },
     {
@@ -13552,49 +13595,6 @@
           "type": "file"
         },
         {
-          "path": "src\\scenes\\cross scene",
-          "name": "cross scene",
-          "children": [
-            {
-              "path": "src\\scenes\\cross scene\\boot.json",
-              "name": "boot.json",
-              "size": 115,
-              "extension": ".json",
-              "type": "file"
-            },
-            {
-              "path": "src\\scenes\\cross scene\\Game.js",
-              "name": "Game.js",
-              "size": 220,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\scenes\\cross scene\\main.js",
-              "name": "main.js",
-              "size": 191,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\scenes\\cross scene\\MainMenu.js",
-              "name": "MainMenu.js",
-              "size": 230,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\scenes\\cross scene\\Preloader.js",
-              "name": "Preloader.js",
-              "size": 276,
-              "extension": ".js",
-              "type": "file"
-            }
-          ],
-          "size": 1032,
-          "type": "directory"
-        },
-        {
           "path": "src\\scenes\\drag scenes demo.js",
           "name": "drag scenes demo.js",
           "size": 21685,
@@ -14090,7 +14090,7 @@
           "type": "file"
         }
       ],
-      "size": 153408,
+      "size": 152376,
       "type": "directory"
     },
     {

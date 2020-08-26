@@ -72,7 +72,7 @@ $(document).ready(function () {
             });
         }
 
-        if (remote && phaserVersion !== 'dev' && selected)
+        if (remote && phaserVersion !== 'dev')
         {
             // <script src="//cdn.jsdelivr.net/npm/phaser@3.7.1/dist/phaser.min.js">
             phaserScript.src = '//cdn.jsdelivr.net/npm/phaser@' + phaserVersion + '/dist/phaser.min.js';

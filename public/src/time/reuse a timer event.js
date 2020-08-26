@@ -28,18 +28,25 @@ function create ()
 
     text = this.add.text(32, 32);
 
-    // timedEvent = this.time.addEvent({ delay: 2000, callback: onEvent, callbackScope: this });
+    timedEvent = new Phaser.Time.TimerEvent({ delay: 4000 });
 
-    //  The same as above, but uses a method signature to declare it (shorter, and compatible with GSAP syntax)
-    timedEvent = this.time.delayedCall(3000, onEvent, [], this);
+    this.time.addEvent(timedEvent);
+
+    this.input.on('pointerdown', () => {
+
+        this.time.addEvent(timedEvent);
+
+    }, this);
 }
 
 function update ()
 {
-    text.setText('Event.progress: ' + timedEvent.getProgress().toString().substr(0, 4));
-}
+    var progress = timedEvent.getProgress();
 
-function onEvent ()
-{
-    image.setScale(0.5);
+    text.setText([
+        'Click to restart the Timer',
+        'Event.progress: ' + progress.toString().substr(0, 4)
+    ]);
+
+    image.setAngle(progress * 20);
 }

@@ -1,15 +1,13 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000',
     parent: 'phaser-example',
     physics: {
-        default: 'impact',
-        impact: {
-            gravity: 100,
-            setBounds: true,
-            maxVelocity: 500
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 150 },
         }
     },
     scene: {
@@ -29,9 +27,9 @@ function create ()
 {
     var particles = this.add.particles('megaset');
 
-    var sprite = this.impact.add.image(300, 300, 'megaset', 'gem').setActive().setVelocity(300, 200).setBounce(1);
+    var sprite = this.physics.add.image(300, 300, 'megaset', 'gem').setVelocity(300, 200).setBounce(1).setCollideWorldBounds(true);
 
-    var sprite2 = this.impact.add.image(200, 200, 'megaset', 'ilkke').setPassive().setVelocity(-300, -200).setBounce(1);
+    var sprite2 = this.physics.add.image(200, 200, 'megaset', 'ilkke').setVelocity(-300, -200).setBounce(1).setCollideWorldBounds(true);
 
     particles.createEmitter({
         frame: 'yellow_ball',
@@ -51,6 +49,4 @@ function create ()
     });
 
     emitter.startFollow(sprite2);
-
-
 }

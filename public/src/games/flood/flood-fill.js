@@ -296,14 +296,14 @@ var Flood = new Phaser.Class({
 
         //  Cheat mode :)
 
-        this.input.keyboard.on('keydown_M', function () {
+        this.input.keyboard.on('keydown-M', function () {
 
             this.moves++;
             this.text2.setText(Phaser.Utils.String.Pad(this.moves, 2, '0', 1));
 
         }, this);
 
-        this.input.keyboard.on('keydown_X', function () {
+        this.input.keyboard.on('keydown-X', function () {
 
             this.moves--;
             this.text2.setText(Phaser.Utils.String.Pad(this.moves, 2, '0', 1));
@@ -334,7 +334,7 @@ var Flood = new Phaser.Class({
             this.cursor.setFrame('cursor-invalid');
         }
 
-        this.cursor.setPosition(icon.x, icon.y);
+        this.cursor.setPosition(icon.x + 48, icon.y + 48);
 
         if (this.cursorTween)
         {

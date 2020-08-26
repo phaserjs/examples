@@ -1,5 +1,8 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -9,68 +12,68 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function randBox(size) {
-    var x = Math.random() * (100 - size),
-        y = Math.random() * (100 - size);
-    return [x, y,
-        x + size * Math.random(),
-        y + size * Math.random()];
+function preload ()
+{
+    this.load.image('ship', 'assets/sprites/phaser-ship.png');
 }
 
-function genData(N, size) {
-    var data = [];
-    for (var i = 0; i < N; i++) {
-        data.push(randBox(size));
-    }
-    return data;
-};
+function create ()
+{
+    //  Create an RTree
 
-function convert (data) {
-    var result = [];
-    for (var i = 0; i < data.length; i++) {
-        result.push({x: data[i][0], y: data[i][1], w: data[i][2] - data[i][0], h: data[i][3] - data[i][1]});
-    }
-    return result;
-}
+    var tree = new Phaser.Structs.RTree();
 
-function preload() {
-
-    this.load.image('phaser', 'assets/sprites/phaser.png');
-
-}
-
-function create() {
-
-    var N = 10;
-    // var maxFill = 16;
-
-    var data = genData(N, 1);
-
-    console.log(data);
-
-    // var data2 = genData.convert(data);
-
-    var tree = Phaser.Structs.RTree();
-
-    for (var i = 0; i < N; i++)
+    for (var i = 0; i < 512; i++)
     {
-        tree.insert(data[i]);
+        var ship = this.add.image(Phaser.Math.Between(0, 800), Phaser.Math.Between(0, 590), 'ship');
+
+        var bounds = ship.getBounds();
+
+        //  Insert our entry into the RTree:
+        tree.insert({ left: bounds.left, right: bounds.right, top: bounds.top, bottom: bounds.bottom, sprite: ship });
     }
 
-    console.log('done?');
+    var debug = this.add.graphics();
 
-    var result = tree.search({
-        minX: 40,
-        minY: 20,
-        maxX: 80,
-        maxY: 70
-    });
+    debug.lineStyle(1, 0x00ff00);
 
-    console.log(result);
+    var results = [];
 
-    // var treeData = tree.toJSON();
-    // console.log(treeData);
+    this.input.on('pointermove', function (pointer) {
 
+        //  First clear the previous results
+        results.forEach(function(entry) {
 
+            entry.sprite.setTint(0xffffff);
 
+        });
+
+        debug.clear();
+
+        //  Update the search area
+
+        var bbox = {
+            minX: pointer.x - 100,
+            minY: pointer.y - 100,
+            maxX: pointer.x + 100,
+            maxY: pointer.y + 100
+        };
+
+        //  Search the RTree
+
+        results = tree.search(bbox);
+
+        //  Set Tint on intersecting Sprites
+
+        results.forEach(function(entry) {
+
+            entry.sprite.setTint(0xff0000);
+
+        });
+
+        //  Draw debug
+
+        debug.strokeRect(bbox.minX, bbox.minY, 200, 200);
+
+    }, this);
 }

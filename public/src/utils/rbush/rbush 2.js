@@ -5,8 +5,7 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create,
-        render: render
+        create: create
     }
 };
 
@@ -28,18 +27,18 @@ function create ()
     var w = this.sys.textures.getFrame('phaser').width;
     var h = this.sys.textures.getFrame('phaser').height;
 
-    for (var i = 0; i < 1000; i++)
+    for (var i = 0; i < 512; i++)
     {
-        var x = Phaser.Math.Between(0, 2000);
-        var y = Phaser.Math.Between(0, 2000);
+        var x = Phaser.Math.Between(0, 800);
+        var y = Phaser.Math.Between(0, 600);
 
         var sprite = this.add.image(x, y, 'phaser').setOrigin(0);
 
         tree.insert({
-            minX: x,
-            minY: y,
-            maxX: x + w,
-            maxY: y + h,
+            left: x,
+            top: y,
+            right: x + w,
+            bottom: y + h,
             sprite: sprite,
             w: w,
             h: h
@@ -55,20 +54,19 @@ function create ()
 
     this.input.on('pointermove', function (pointer) {
 
-        if (pointer.x < 800 && pointer.y < 600)
-        {
-            boxX = pointer.x;
-            boxY = pointer.y;
+        boxX = pointer.x;
+        boxY = pointer.y;
 
-            result = tree.search({
-                minX: boxX,
-                minY: boxY,
-                maxX: boxX + 256,
-                maxY: boxY + 256
-            });
-        }
+        result = tree.search({
+            minX: boxX,
+            minY: boxY,
+            maxX: boxX + 256,
+            maxY: boxY + 256
+        });
 
     });
+
+    this.events.on('render', render, this);
 }
 
 function render ()
@@ -83,7 +81,7 @@ function render ()
 
     result.forEach(function(s) {
 
-        ctx.fillRect(s.minX, s.minY, s.w, s.h);
+        ctx.fillRect(s.left, s.top, s.w, s.h);
 
     });
 }

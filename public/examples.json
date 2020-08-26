@@ -933,6 +933,42 @@
           "type": "file"
         },
         {
+          "path": "src\\archived\\cannon",
+          "name": "cannon",
+          "children": [
+            {
+              "path": "src\\archived\\cannon\\babylon-math.js",
+              "name": "babylon-math.js",
+              "size": 23160,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\cannon\\boot.json",
+              "name": "boot.json",
+              "size": 74,
+              "extension": ".json",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\cannon\\Game.js",
+              "name": "Game.js",
+              "size": 12673,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\cannon\\Test.js",
+              "name": "Test.js",
+              "size": 1209,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 37116,
+          "type": "directory"
+        },
+        {
           "path": "src\\archived\\canvas renderer",
           "name": "canvas renderer",
           "children": [
@@ -1010,6 +1046,49 @@
           "size": 1169,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src\\archived\\pacman",
+          "name": "pacman",
+          "children": [
+            {
+              "path": "src\\archived\\pacman\\boot.json",
+              "name": "boot.json",
+              "size": 108,
+              "extension": ".json",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\pacman\\Game.js",
+              "name": "Game.js",
+              "size": 0,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\pacman\\MainMenu.js",
+              "name": "MainMenu.js",
+              "size": 0,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\pacman\\UI.js",
+              "name": "UI.js",
+              "size": 0,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\archived\\pacman\\wip1.js",
+              "name": "wip1.js",
+              "size": 29959,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 30067,
+          "type": "directory"
         },
         {
           "path": "src\\archived\\pixel field",
@@ -1113,7 +1192,7 @@
           "type": "file"
         }
       ],
-      "size": 110083,
+      "size": 177266,
       "type": "directory"
     },
     {
@@ -5733,7 +5812,7 @@
             {
               "path": "src\\game objects\\particle emitter\\emitter follow sprite.js",
               "name": "emitter follow sprite.js",
-              "size": 1371,
+              "size": 1346,
               "extension": ".js",
               "type": "file"
             },
@@ -5948,7 +6027,7 @@
               "type": "file"
             }
           ],
-          "size": 90349,
+          "size": 90324,
           "type": "directory"
         },
         {
@@ -7565,7 +7644,7 @@
           "type": "directory"
         }
       ],
-      "size": 1073258,
+      "size": 1073233,
       "type": "directory"
     },
     {
@@ -7585,42 +7664,6 @@
             }
           ],
           "size": 3630,
-          "type": "directory"
-        },
-        {
-          "path": "src\\games\\cannon",
-          "name": "cannon",
-          "children": [
-            {
-              "path": "src\\games\\cannon\\babylon-math.js",
-              "name": "babylon-math.js",
-              "size": 23160,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\cannon\\boot.json",
-              "name": "boot.json",
-              "size": 74,
-              "extension": ".json",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\cannon\\Game.js",
-              "name": "Game.js",
-              "size": 12673,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\cannon\\Test.js",
-              "name": "Test.js",
-              "size": 1209,
-              "extension": ".js",
-              "type": "file"
-            }
-          ],
-          "size": 37116,
           "type": "directory"
         },
         {
@@ -7938,49 +7981,6 @@
           "type": "directory"
         },
         {
-          "path": "src\\games\\pacman",
-          "name": "pacman",
-          "children": [
-            {
-              "path": "src\\games\\pacman\\boot.json",
-              "name": "boot.json",
-              "size": 108,
-              "extension": ".json",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\pacman\\Game.js",
-              "name": "Game.js",
-              "size": 0,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\pacman\\MainMenu.js",
-              "name": "MainMenu.js",
-              "size": 0,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\pacman\\UI.js",
-              "name": "UI.js",
-              "size": 0,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\pacman\\wip1.js",
-              "name": "wip1.js",
-              "size": 29959,
-              "extension": ".js",
-              "type": "file"
-            }
-          ],
-          "size": 30067,
-          "type": "directory"
-        },
-        {
           "path": "src\\games\\snake",
           "name": "snake",
           "children": [
@@ -8081,7 +8081,7 @@
           "type": "directory"
         }
       ],
-      "size": 280316,
+      "size": 213133,
       "type": "directory"
     },
     {
@@ -14795,13 +14795,6 @@
           "type": "file"
         },
         {
-          "path": "src\\textures\\rotated frames from single atlas.js",
-          "name": "rotated frames from single atlas.js",
-          "size": 539,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
           "path": "src\\textures\\set mipmap filter.js",
           "name": "set mipmap filter.js",
           "size": 698,
@@ -14858,7 +14851,7 @@
           "type": "file"
         }
       ],
-      "size": 48892,
+      "size": 48353,
       "type": "directory"
     },
     {
@@ -14917,7 +14910,7 @@
         {
           "path": "src\\time\\reuse a timer event.js",
           "name": "reuse a timer event.js",
-          "size": 858,
+          "size": 984,
           "extension": ".js",
           "type": "file"
         },
@@ -14938,12 +14931,12 @@
         {
           "path": "src\\time\\timer event.js",
           "name": "timer event.js",
-          "size": 997,
+          "size": 985,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 15406,
+      "size": 15520,
       "type": "directory"
     },
     {
@@ -15733,19 +15726,19 @@
             {
               "path": "src\\utils\\rbush\\rbush 1.js",
               "name": "rbush 1.js",
-              "size": 1422,
+              "size": 1695,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\utils\\rbush\\rbush 2.js",
               "name": "rbush 2.js",
-              "size": 1806,
+              "size": 1723,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 3228,
+          "size": 3418,
           "type": "directory"
         },
         {
@@ -15827,10 +15820,10 @@
           "type": "file"
         }
       ],
-      "size": 20472,
+      "size": 20662,
       "type": "directory"
     }
   ],
-  "size": 4409524,
+  "size": 4409264,
   "type": "directory"
 }

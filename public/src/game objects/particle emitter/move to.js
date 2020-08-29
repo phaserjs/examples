@@ -37,5 +37,11 @@ function create ()
         emitZone: { source: rect }
     });
 
+	// click to change emitter particles target
+    this.input.on('pointerdown', function (pointer) {
+        this.moveToX.propertyValue = pointer.x;
+        this.moveToY.propertyValue = pointer.y;
+    }, emitter);
+
     console.log(emitter);
 }

@@ -12303,6 +12303,12 @@
               "extension": ".js"
             },
             {
+              "path": "src/spine/3.8.95/spine set depth test.js",
+              "name": "spine set depth test.js",
+              "size": 1068,
+              "extension": ".js"
+            },
+            {
               "path": "src/spine/3.8.95/spine to render texture.js",
               "name": "spine to render texture.js",
               "size": 1129,
@@ -12339,7 +12345,7 @@
               "extension": ".js"
             }
           ],
-          "size": 52929
+          "size": 53997
         },
         {
           "path": "src/spine/add hit area.js",
@@ -12444,7 +12450,7 @@
           "extension": ".js"
         }
       ],
-      "size": 122272
+      "size": 123340
     },
     {
       "path": "src/textures",
@@ -13490,5 +13496,5 @@
       "size": 19779
     }
   ],
-  "size": 4191344
+  "size": 4192412
 }

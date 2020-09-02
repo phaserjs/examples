@@ -248,6 +248,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/animation/delayed play.js",
+          "name": "delayed play.js",
+          "size": 1510,
+          "extension": ".js"
+        },
+        {
           "path": "src/animation/export json.js",
           "name": "export json.js",
           "size": 1729,
@@ -328,7 +334,7 @@
         {
           "path": "src/animation/on start callback.js",
           "name": "on start callback.js",
-          "size": 1067,
+          "size": 660,
           "extension": ".js"
         },
         {
@@ -347,6 +353,12 @@
           "path": "src/animation/pause animation instances.js",
           "name": "pause animation instances.js",
           "size": 1602,
+          "extension": ".js"
+        },
+        {
+          "path": "src/animation/play animation with config.js",
+          "name": "play animation with config.js",
+          "size": 1535,
           "extension": ".js"
         },
         {
@@ -380,6 +392,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/animation/sprite animation events.js",
+          "name": "sprite animation events.js",
+          "size": 1424,
+          "extension": ".js"
+        },
+        {
           "path": "src/animation/stagger play.js",
           "name": "stagger play.js",
           "size": 869,
@@ -398,7 +416,7 @@
           "extension": ".js"
         }
       ],
-      "size": 43293
+      "size": 47355
     },
     {
       "path": "src/archived",
@@ -1454,6 +1472,12 @@
           "extension": ".js"
         },
         {
+          "path": "src/bugs/hsv.js",
+          "name": "hsv.js",
+          "size": 525,
+          "extension": ".js"
+        },
+        {
           "path": "src/bugs/html.js",
           "name": "html.js",
           "size": 569,
@@ -1670,7 +1694,7 @@
           "extension": ".js"
         }
       ],
-      "size": 86939
+      "size": 87464
     },
     {
       "path": "src/cache",
@@ -12305,7 +12329,7 @@
             {
               "path": "src/spine/3.8.95/spine set depth test.js",
               "name": "spine set depth test.js",
-              "size": 1068,
+              "size": 1513,
               "extension": ".js"
             },
             {
@@ -12345,7 +12369,7 @@
               "extension": ".js"
             }
           ],
-          "size": 53997
+          "size": 54442
         },
         {
           "path": "src/spine/add hit area.js",
@@ -12450,7 +12474,7 @@
           "extension": ".js"
         }
       ],
-      "size": 123340
+      "size": 123785
     },
     {
       "path": "src/textures",
@@ -13496,5 +13520,5 @@
       "size": 19779
     }
   ],
-  "size": 4192412
+  "size": 4197444
 }

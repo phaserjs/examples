@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -27,19 +27,5 @@ function create ()
 
     this.anims.create(animConfig);
 
-    group = this.add.group();
-
-    //  Create 32 sprites
-    group.createMultiple({ key: 'gems', frame: 'diamond_0000', repeat: 32 });
-
-    //  Play the same animation on them all
-    //  The animStartCallback will be invoked for each of them
-    group.playAnimation('diamond');
-}
-
-function animStartCallback (sprite, animation)
-{
-    sprite.x = Phaser.Math.Between(0, 780);
-    sprite.y = Phaser.Math.Between(0, 580);
-    sprite.setScale(0.5 + Math.random() * 2);
+    var sprite = this.add.sprite(400, 300).play('diamond');
 }

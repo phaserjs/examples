@@ -13,20 +13,20 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
+    this.load.atlas('walker', 'assets/animations/walker.png', 'assets/animations/walker.json');
 }
 
 function create ()
 {
     var animConfig = {
-        key: 'diamond',
-        frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
-        repeat: 4
+        key: 'walk',
+        frames: 'walker',
+        repeat: 8
     };
 
     this.anims.create(animConfig);
 
-    var sprite = this.add.sprite(400, 300, 'gems', 'diamond_0000');
+    var sprite = this.add.sprite(400, 500, 'walker', 'frame_0000');
 
     var text = this.add.text(400, 32, 'Click to Start Animation', { color: '#00ff00' }).setOrigin(0.5, 0);
     var log = [];
@@ -54,7 +54,7 @@ function create ()
 
     this.input.once('pointerdown', function () {
 
-        sprite.anims.delayedPlay(2000, 'diamond');
+        sprite.anims.delayedPlay(2000, 'walk');
 
         log.push('2000ms delay ...');
 

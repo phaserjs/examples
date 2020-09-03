@@ -29,8 +29,11 @@ function create ()
 
     var sprite = this.add.sprite(50, 300, 'mummy').setScale(4);
 
-    sprite.play('walk');
+    //  You can either do this:
+    // sprite.play({ key: 'walk', repeat: 7 });
 
+    //  Or these two commands in sequence:
+    sprite.play('walk');
     sprite.anims.setRepeat(7);
 
     this.tweens.add({

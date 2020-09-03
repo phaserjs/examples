@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    width: 1024,
+    width: 952,
     height: 600,
     backgroundColor: '#efefef',
     scene: {
@@ -32,14 +32,13 @@ function create ()
 
     group = this.add.group();
 
-    group.createMultiple({ key: 'muybridge', frame: 0, repeat: 8 });
-
-    Phaser.Actions.GridAlign(group.getChildren(), {
-        width: 9,
-        height: 1,
-        cellWidth: 119,
-        y: 170
+    group.createMultiple({
+        key: 'muybridge',
+        frame: 10,
+        repeat: 7,
+        setOrigin: { x: 0, y: 0.5 },
+        setXY: { x: 0, y: 300, stepX: 119 }
     });
 
-    this.anims.staggerPlay('run', group.getChildren(), -100);
+    this.anims.staggerPlay('run', group.getChildren(), -100, false);
 }

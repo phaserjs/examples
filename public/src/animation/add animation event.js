@@ -9,7 +9,7 @@ var config = {
     }
 };
 
-var y = 100;
+var y = 160;
 
 var game = new Phaser.Game(config);
 
@@ -20,9 +20,9 @@ function preload ()
 
 function create ()
 {
-    //  Each time a new animation is added to the Animation Manager we'll call this function
-    // this.anims.on('add', addAnimation, this);
+    this.add.text(400, 32, 'Click to create animations', { color: '#00ff00' }).setOrigin(0.5, 0);
 
+    //  Each time a new animation is added to the Animation Manager we'll call this function
     this.anims.on(Phaser.Animations.Events.ADD_ANIMATION, addAnimation, this);
 
     var i = 0;

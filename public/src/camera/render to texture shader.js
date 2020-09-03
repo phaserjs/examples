@@ -1,12 +1,12 @@
 var CustomPipeline2 = new Phaser.Class({
 
-    Extends: Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline,
+    Extends: Phaser.Renderer.WebGL.Pipelines.SinglePipeline,
 
     initialize:
 
     function CustomPipeline2 (game)
     {
-        Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline.call(this, {
+        Phaser.Renderer.WebGL.Pipelines.SinglePipeline.call(this, {
             game: game,
             renderer: game.renderer,
             fragShader: `
@@ -68,6 +68,8 @@ function create ()
     this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
     this.cameras.main.setRenderToTexture(customPipeline);
+
+    this.cameras.main.setZoom(0.5);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

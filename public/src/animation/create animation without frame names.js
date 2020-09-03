@@ -14,22 +14,20 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
+    this.load.atlas('zombie', 'assets/tests/zombie-no-pivot.png', 'assets/tests/zombie-no-pivot.json');
 }
 
 function create ()
 {
-    var textureFrames = this.textures.get('gems').getFrameNames();
+    //  Here we just pass the texture atlas key to `create` and it will extract all frames
+    //  from within it, numerically sorting them for the animation.
 
-    var animFrames = [];
-
-    textureFrames.forEach(function (frameName) {
-
-        animFrames.push({ key: 'gems', frame: frameName });
-
+    this.anims.create({
+        key: 'walk',
+        frames: 'zombie',
+        frameRate: 12,
+        repeat: -1
     });
 
-    this.anims.create({ key: 'diamond', frames: animFrames, repeat: -1 });
-
-    this.add.sprite(400, 300, 'gems').play('diamond');
+    this.add.sprite(400, 300).play('walk');
 }

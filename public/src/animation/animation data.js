@@ -1,9 +1,10 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
     backgroundColor: '#7d7d7d',
+    pixelArt: true,
     scene: {
         preload: preload,
         create: create,
@@ -35,18 +36,14 @@ function create ()
     var config = {
         key: 'walk',
         frames: this.anims.generateFrameNumbers('mummy'),
-        frameRate: 6,
+        frameRate: 8,
         yoyo: true,
         repeat: -1
     };
 
     anim = this.anims.create(config);
 
-    console.log(anim);
-
     sprite = this.add.sprite(400, 300, 'mummy').setScale(4);
-
-    console.log(sprite);
 
     sprite.anims.load('walk');
 
@@ -54,13 +51,13 @@ function create ()
 
     progress = this.add.text(100, 500, 'Progress: 0%', { color: '#00ff00' });
 
-    this.input.keyboard.on('keydown_SPACE', function (event) {
+    this.input.keyboard.on('keydown-SPACE', function (event) {
 
         sprite.anims.play('walk');
 
     });
 
-    this.input.keyboard.on('keydown_P', function (event) {
+    this.input.keyboard.on('keydown-P', function (event) {
 
         if (sprite.anims.isPaused)
         {
@@ -73,7 +70,7 @@ function create ()
 
     });
 
-    this.input.keyboard.on('keydown_R', function (event) {
+    this.input.keyboard.on('keydown-R', function (event) {
 
         sprite.anims.restart();
 
@@ -92,7 +89,8 @@ function update ()
     updateFrameView();
 
     var debug = [
-        'SPACE to start animation, P to pause/resume',
+        'SPACE to start animation, P to pause/resume, R to restart',
+        '',
         'Progress: ' + sprite.anims.getProgress() + '%',
         'Accumulator: ' + sprite.anims.accumulator,
         'NextTick: ' + sprite.anims.nextTick

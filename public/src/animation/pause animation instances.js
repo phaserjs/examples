@@ -1,7 +1,6 @@
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    pixelArt: true,
     width: 800,
     height: 600,
     scene: {
@@ -19,6 +18,8 @@ function preload ()
 
 function create ()
 {
+    this.add.text(400, 32, 'Click to pause all Square animation instances', { color: '#00ff00' }).setOrigin(0.5, 0);
+
     var diamond = this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
     var prism = this.anims.create({ key: 'prism', frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: -1 });
     var ruby = this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
@@ -28,7 +29,7 @@ function create ()
     var keys = [ 'diamond', 'prism', 'ruby', 'square', 'square' ];
 
     var x = 100;
-    var y = 100;
+    var y = 116;
 
     for (var i = 0; i < 35; i++)
     {
@@ -43,7 +44,10 @@ function create ()
         }
     }
 
-    document.addEventListener('mouseup', function () {
+    this.input.on('pointerdown', function () {
+
+        //  Every sprite using the global 'square' animation will now pause,
+        //  because we're pausing the Animation instance itself:
 
         if (square.paused)
         {
@@ -55,5 +59,4 @@ function create ()
         }
 
     });
-
 }

@@ -20,7 +20,7 @@ function preload ()
 
 function create ()
 {
-    this.add.text(400, 32, 'Sprites from Animation JSON file', { color: '#00ff00' }).setOrigin(0.5, 0);
+    this.add.text(400, 32, 'Animations from Animation JSON file', { color: '#00ff00' }).setOrigin(0.5, 0);
 
     this.add.sprite(400, 200, 'gems').play('diamond');
     this.add.sprite(400, 300, 'gems').play('prism');

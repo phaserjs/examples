@@ -1,9 +1,10 @@
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    pixelArt: true,
     width: 800,
     height: 600,
+    backgroundColor: '#026bc6',
+    pixelArt: true,
     scene: {
         preload: preload,
         create: create
@@ -14,27 +15,69 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
+    this.load.atlas('knight', 'assets/animations/knight.png', 'assets/animations/knight.json');
+    this.load.image('bg', 'assets/skies/clouds.png');
+    this.load.spritesheet('tiles', 'assets/tilemaps/tiles/fantasy-tiles.png', { frameWidth: 64, frameHeight: 64 });
 }
 
 function create ()
 {
-    this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: 3 });
-    this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: 8 });
-    this.anims.create({ key: 'prism', frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: 8 });
-    this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
+    //  The background and floor
+    this.add.image(400, 16, 'bg').setOrigin(0.5, 0);
 
-    var gem = this.add.sprite(400, 300, 'gems').setScale(4);
+    for (var i = 0; i < 13; i++)
+    {
+        this.add.image(64 * i, 536, 'tiles', 1).setOrigin(0);
+    }
 
-    //  Play the diamond animation (which repeats 3 times)
-    gem.play('diamond');
+    var text = this.add.text(400, 8, 'Click to play animation chain', { color: '#ffffff' }).setOrigin(0.5, 0);
 
-    //  When 'diamond' completes, play the ruby animation
-    gem.anims.chain('ruby');
+    //  Our animations
+    this.anims.create({
+        key: 'guardStart',
+        frames: this.anims.generateFrameNames('knight', { prefix: 'guard_start/frame', start: 0, end: 3, zeroPad: 4 }),
+        frameRate: 8
+    });
 
-    //  When 'ruby' completes, play the prism animation
-    gem.anims.chain('prism');
+    this.anims.create({
+        key: 'guard',
+        frames: this.anims.generateFrameNames('knight', { prefix: 'guard/frame', start: 0, end: 5, zeroPad: 4 }),
+        frameRate: 8,
+        repeat: 2
+    });
 
-    //  When 'prism' completes, play the square animation
-    gem.anims.chain('square');
+    this.anims.create({
+        key: 'guardEnd',
+        frames: this.anims.generateFrameNames('knight', { prefix: 'guard_end/frame', start: 0, end: 3, zeroPad: 4 }),
+        frameRate: 8
+    });
+
+    this.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNames('knight', { prefix: 'idle/frame', start: 0, end: 5, zeroPad: 4 }),
+        frameRate: 8,
+        repeat: -1
+    });
+
+    var lancelot = this.add.sprite(500, 536)
+
+    lancelot.setOrigin(0.5, 1);
+    lancelot.setScale(8);
+    lancelot.play('idle');
+
+    lancelot.on(Phaser.Animations.Events.SPRITE_ANIMATION_START, function (anim) {
+
+        text.setText('Playing ' + anim.key);
+
+    });
+
+    this.input.on('pointerdown', function () {
+
+        if (lancelot.anims.getName() === 'idle')
+        {
+            lancelot.playAfterRepeat('guardStart');
+            lancelot.chain([ 'guard', 'guardEnd', 'idle' ]);
+        }
+
+    });
 }

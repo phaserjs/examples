@@ -23,18 +23,12 @@ function create ()
     var mummyAnimation = this.anims.create({
         key: 'walk',
         frames: this.anims.generateFrameNumbers('mummy'),
-        frameRate: 16,
-        repeat: 0
+        frameRate: 16
     });
 
     var sprite = this.add.sprite(50, 300, 'mummy').setScale(4);
 
-    //  You can either do this:
-    // sprite.play({ key: 'walk', repeat: 7 });
-
-    //  Or these two commands in sequence:
-    sprite.play('walk');
-    sprite.anims.setRepeat(7);
+    sprite.play({ key: 'walk', repeat: 7 });
 
     this.tweens.add({
         targets: sprite,

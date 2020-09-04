@@ -20,6 +20,7 @@ function preload ()
 function create ()
 {
     //  Define the animations first
+
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
 
@@ -43,16 +44,17 @@ function create ()
     //  This time with a call to delayedPlay that's a function.
     var config2 = {
         key: 'gems',
+        frame: 'square_0000',
         x: { randInt: [ 0, 800 ] },
         y: { randInt: [ 300, 600 ] },
         scale: { randFloat: [ 0.5, 1.5 ] },
         anims: {
             key: 'square',
             repeat: -1,
-            repeatDelay: { randInt: [ 1, 4 ] },
+            repeatDelay: { randInt: [ 1000, 4000 ] },
             delayedPlay: function ()
             {
-                return Math.random() * 6;
+                return Math.random() * 6000;
             }
         }
     };

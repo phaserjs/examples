@@ -21,18 +21,17 @@ function create ()
     var config = {
         key: 'flash',
         frames: this.anims.generateFrameNumbers('diamonds', { start: 0, end: 4 }),
-        frameRate: 6,
-        yoyo: true,
+        frameRate: 1,
         repeat: -1
     };
 
     this.anims.create(config);
 
-    group = this.add.group();
+    var group = this.add.group();
 
     group.createMultiple({ key: 'diamonds', frame: 0, repeat: 279 });
 
-    Phaser.Actions.GridAlign(group.getChildren(), { width: 20, height: 20, cellWidth: 38, x: 22, y: 32 });
+    Phaser.Actions.GridAlign(group.getChildren(), { width: 20, height: 20, cellWidth: 38, x: 38, y: 50 });
 
-    this.anims.staggerPlay('flash', group.getChildren(), 50);
+    this.anims.staggerPlay('flash', group.getChildren(), 60);
 }

@@ -3,6 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    pixelArt: true,
     scene: {
         preload: preload,
         create: create
@@ -13,48 +14,97 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
+    this.load.atlas('sf2', 'assets/animations/sf2.png', 'assets/animations/sf2.json');
 }
 
 function create ()
 {
     var animConfig = {
-        key: 'diamond',
-        frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
-        repeat: 4
+        key: 'ryu',
+        frames: this.anims.generateFrameNames('sf2', { prefix: 'frame_', end: 22 }),
+        frameRate: 20,
+        repeat: 3
     };
 
     this.anims.create(animConfig);
 
-    var sprite = this.add.sprite(400, 300, 'gems', 'diamond_0000');
+    var sprite = this.add.sprite(550, 600, 'sf2', 'frame_0').setOrigin(0.5, 1).setScale(2);
 
-    var text = this.add.text(400, 32, 'Click to Start Animation', { color: '#00ff00' }).setOrigin(0.5, 0);
+    var text = this.add.text(32, 32, 'Click to Start Animation', { color: '#00ff00' });
+
     var log = [];
+    var u = 0;
+    var ui = 0;
 
     sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_START, function (anim, frame, gameObject) {
 
-        log.push('Events.SPRITE_ANIMATION_START');
+        log.push('SPRITE_ANIMATION_START');
+        text.setText(log);
+
+        u = 0;
+        ui = 0;
+
+    });
+
+    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_STOP, function (anim, frame, gameObject) {
+
+        log.push('SPRITE_ANIMATION_STOP');
+        text.setText(log);
+
+        u = 0;
+        ui = 0;
+
+    });
+
+    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_UPDATE, function (anim, frame, gameObject) {
+
+        if (u === 0)
+        {
+            log.push('SPRITE_ANIMATION_UPDATE x0');
+
+            u++;
+            ui = log.length - 1;
+        }
+        else
+        {
+            log[ui] = 'SPRITE_ANIMATION_UPDATE x' + u.toString();
+            u++;
+        }
+
         text.setText(log);
 
     });
 
     sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_REPEAT, function (anim, frame, gameObject) {
 
-        log.push('Events.SPRITE_ANIMATION_REPEAT');
+        u = 0;
+
+        log.push('SPRITE_ANIMATION_REPEAT');
+
         text.setText(log);
 
     });
 
     sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, function (anim, frame, gameObject) {
 
-        log.push('Events.SPRITE_ANIMATION_COMPLETE');
+        log.push('SPRITE_ANIMATION_COMPLETE');
+
         text.setText(log);
 
     });
 
-    this.input.once('pointerdown', function () {
+    this.input.on('pointerdown', function () {
 
-        sprite.play('diamond');
+        if (sprite.anims.isPlaying)
+        {
+            sprite.stop();
+        }
+        else
+        {
+            log = [];
+
+            sprite.play('ryu');
+        }
 
     });
 }

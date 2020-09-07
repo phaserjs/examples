@@ -3,7 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#7d7d7d',
+    backgroundColor: '#4d4d4d',
     pixelArt: true,
     scene: {
         preload: preload,

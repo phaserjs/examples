@@ -14,17 +14,36 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
+    this.load.atlas('ryu', 'assets/animations/sf2ryu.png', 'assets/animations/sf2ryu.json');
+    this.load.image('sea', 'assets/skies/sf2boat.png');
+    this.load.image('ground', 'assets/skies/sf2floor.png');
 }
 
 function create ()
 {
+    this.add.image(100, 130, 'sea').setScale(3);
+    this.add.image(400, 500, 'ground').setScale(3);
+
+    var info = [ 'Click to toggle Animation.yoyo', 'yoyo: true' ];
+    var text = this.add.text(400, 32, info, { color: '#113355', align: 'center' }).setOrigin(0.5, 0);
+
     this.anims.create({
-        key: 'diamond',
-        frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }),
+        key: 'hadoken',
+        frames: this.anims.generateFrameNames('ryu', { prefix: 'frame_', end: 15, zeroPad: 2 }),
         yoyo: true,
         repeat: -1
     });
 
-    this.add.sprite(400, 100, 'gems').play('diamond');
+    var ryu = this.add.sprite(400, 350).play('hadoken').setScale(3);
+
+    this.input.on('pointerup', function () {
+
+        //  Toggle 'yoyo' at runtime
+        ryu.anims.yoyo = !ryu.anims.yoyo;
+
+        info[1] = 'yoyo: ' + ryu.anims.yoyo;
+
+        text.setText(info);
+
+    });
 }

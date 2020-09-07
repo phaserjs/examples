@@ -197,6 +197,13 @@
       "name": "animation",
       "children": [
         {
+          "path": "src\\animation\\60fps animation test.js",
+          "name": "60fps animation test.js",
+          "size": 1073,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\animation\\add animation event.js",
           "name": "add animation event.js",
           "size": 1758,
@@ -241,7 +248,7 @@
         {
           "path": "src\\animation\\chained animation.js",
           "name": "chained animation.js",
-          "size": 1260,
+          "size": 2314,
           "extension": ".js",
           "type": "file"
         },
@@ -360,63 +367,56 @@
         {
           "path": "src\\animation\\on complete event.js",
           "name": "on complete event.js",
-          "size": 727,
+          "size": 2302,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\on repeat event.js",
           "name": "on repeat event.js",
-          "size": 924,
+          "size": 2746,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\on start event.js",
           "name": "on start event.js",
-          "size": 691,
+          "size": 2108,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\on stop event.js",
           "name": "on stop event.js",
-          "size": 997,
+          "size": 1843,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\on update event.js",
           "name": "on update event.js",
-          "size": 1070,
+          "size": 2642,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\pause all animations.js",
           "name": "pause all animations.js",
-          "size": 1450,
+          "size": 2038,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\pause animation instances.js",
           "name": "pause animation instances.js",
-          "size": 1661,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src\\animation\\play after delay new anim.js",
-          "name": "play after delay new anim.js",
-          "size": 1418,
+          "size": 1896,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\play after delay.js",
           "name": "play after delay.js",
-          "size": 1491,
+          "size": 1418,
           "extension": ".js",
           "type": "file"
         },
@@ -444,7 +444,7 @@
         {
           "path": "src\\animation\\remove animation event.js",
           "name": "remove animation event.js",
-          "size": 1334,
+          "size": 1903,
           "extension": ".js",
           "type": "file"
         },
@@ -465,21 +465,21 @@
         {
           "path": "src\\animation\\show on start.js",
           "name": "show on start.js",
-          "size": 860,
+          "size": 1425,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\sprite animation events.js",
           "name": "sprite animation events.js",
-          "size": 1484,
+          "size": 2364,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\stagger play 1.js",
           "name": "stagger play 1.js",
-          "size": 907,
+          "size": 890,
           "extension": ".js",
           "type": "file"
         },
@@ -491,14 +491,21 @@
           "type": "file"
         },
         {
+          "path": "src\\animation\\tween timescale.js",
+          "name": "tween timescale.js",
+          "size": 1736,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\animation\\yoyo.js",
           "name": "yoyo.js",
-          "size": 655,
+          "size": 1280,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 70696,
+      "size": 83745,
       "type": "directory"
     },
     {
@@ -15880,6 +15887,6 @@
       "type": "directory"
     }
   ],
-  "size": 4438505,
+  "size": 4451554,
   "type": "directory"
 }

@@ -5,60 +5,47 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
+
+var bg;
+var rob;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.atlas('walker', 'assets/animations/walker.png', 'assets/animations/walker.json');
+    this.load.atlas('zombie', 'assets/animations/zombie.png', 'assets/animations/zombie.json');
+    this.load.image('bg', 'assets/textures/soil.png');
 }
 
 function create ()
 {
-    var animConfig = {
-        key: 'walk',
-        frames: 'walker',
-        repeat: 8
-    };
+    bg = this.add.tileSprite(400, 300, 800, 600, 'bg').setAlpha(0.8);
 
-    this.anims.create(animConfig);
+    var text = this.add.text(400, 32, "Click to run playAfterDelay('death', 2000)", { color: '#00ff00' }).setOrigin(0.5, 0);
 
-    var sprite = this.add.sprite(400, 500, 'walker', 'frame_0000');
+    //  Our global animations, as defined in the texture atlas
+    this.anims.create({ key: 'walk', frames: this.anims.generateFrameNames('zombie', { prefix: 'walk_', end: 8, zeroPad: 3 }), repeat: -1, frameRate: 8 });
+    this.anims.create({ key: 'death', frames: this.anims.generateFrameNames('zombie', { prefix: 'Death_', end: 5, zeroPad: 3 }), frameRate: 12 });
 
-    var text = this.add.text(400, 32, 'Click to Start Animation', { color: '#00ff00' }).setOrigin(0.5, 0);
-    var log = [];
-
-    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_START, function (anim, frame, gameObject) {
-
-        log.push('Events.SPRITE_ANIMATION_START');
-        text.setText(log);
-
-    });
-
-    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_REPEAT, function (anim, frame, gameObject) {
-
-        log.push('Events.SPRITE_ANIMATION_REPEAT');
-        text.setText(log);
-
-    });
-
-    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, function (anim, frame, gameObject) {
-
-        log.push('Events.SPRITE_ANIMATION_COMPLETE');
-        text.setText(log);
-
-    });
+    rob = this.add.sprite(400, 560, 'zombie').setOrigin(0.5, 1).play('walk');
 
     this.input.once('pointerdown', function () {
 
-        sprite.playAfterDelay('walk', 2000);
+        text.setText('Playing death animation in 2000 ms');
 
-        log.push('2000ms delay ...');
-
-        text.setText(log);
+        rob.anims.playAfterDelay('death', 2000);
 
     });
+}
+
+function update ()
+{
+    if (rob.anims.getName() === 'walk')
+    {
+        bg.tilePositionY++;
+    }
 }

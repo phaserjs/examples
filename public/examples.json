@@ -351,6 +351,13 @@
           "type": "file"
         },
         {
+          "path": "src\\animation\\mixed animation.js",
+          "name": "mixed animation.js",
+          "size": 2022,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\animation\\multi atlas animation.js",
           "name": "multi atlas animation.js",
           "size": 608,
@@ -505,7 +512,7 @@
           "type": "file"
         }
       ],
-      "size": 83745,
+      "size": 85767,
       "type": "directory"
     },
     {
@@ -15887,6 +15894,6 @@
       "type": "directory"
     }
   ],
-  "size": 4451554,
+  "size": 4453576,
   "type": "directory"
 }

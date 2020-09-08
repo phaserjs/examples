@@ -36,6 +36,7 @@ function create ()
     this.add.text(200, 360, '<- die', { color: '#00ff00' }).setOrigin(0, 0.5);
 
     this.add.text(48, 440, 'Click to change animation', { color: '#00ff00' });
+
     var current = this.add.text(48, 460, 'Playing: walk', { color: '#00ff00' });
 
     this.anims.create({

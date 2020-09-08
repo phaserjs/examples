@@ -36,9 +36,9 @@ function create ()
     var u = 0;
     var ui = 0;
 
-    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_START, function (anim, frame, gameObject) {
+    sprite.on(Phaser.Animations.Events.ANIMATION_START, function (anim, frame, gameObject) {
 
-        log.push('SPRITE_ANIMATION_START');
+        log.push('ANIMATION_START');
         text.setText(log);
 
         u = 0;
@@ -46,9 +46,9 @@ function create ()
 
     });
 
-    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_STOP, function (anim, frame, gameObject) {
+    sprite.on(Phaser.Animations.Events.ANIMATION_STOP, function (anim, frame, gameObject) {
 
-        log.push('SPRITE_ANIMATION_STOP');
+        log.push('ANIMATION_STOP');
         text.setText(log);
 
         u = 0;
@@ -56,18 +56,18 @@ function create ()
 
     });
 
-    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_UPDATE, function (anim, frame, gameObject) {
+    sprite.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject) {
 
         if (u === 0)
         {
-            log.push('SPRITE_ANIMATION_UPDATE x0');
+            log.push('ANIMATION_UPDATE x0');
 
             u++;
             ui = log.length - 1;
         }
         else
         {
-            log[ui] = 'SPRITE_ANIMATION_UPDATE x' + u.toString();
+            log[ui] = 'ANIMATION_UPDATE x' + u.toString();
             u++;
         }
 
@@ -75,19 +75,19 @@ function create ()
 
     });
 
-    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_REPEAT, function (anim, frame, gameObject) {
+    sprite.on(Phaser.Animations.Events.ANIMATION_REPEAT, function (anim, frame, gameObject) {
 
         u = 0;
 
-        log.push('SPRITE_ANIMATION_REPEAT');
+        log.push('ANIMATION_REPEAT');
 
         text.setText(log);
 
     });
 
-    sprite.on(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, function (anim, frame, gameObject) {
+    sprite.on(Phaser.Animations.Events.ANIMATION_COMPLETE, function (anim, frame, gameObject) {
 
-        log.push('SPRITE_ANIMATION_COMPLETE');
+        log.push('ANIMATION_COMPLETE');
 
         text.setText(log);
 

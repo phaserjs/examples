@@ -37,7 +37,7 @@ function create ()
         ease: 'Linear'
     });
 
-    sprite.on('animationrepeat-walk', function () {
+    sprite.on('animationrepeat', function () {
 
         var poop = this.add.image(sprite.x - 32, 300, 'poo').setScale(0.5);
 

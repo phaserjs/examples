@@ -50,7 +50,7 @@ function create ()
     lancelot.play('run');
 
     //  Event handler for when the animation completes on our sprite
-    lancelot.on(Phaser.Animations.Events.SPRITE_ANIMATION_STOP, function () {
+    lancelot.on(Phaser.Animations.Events.ANIMATION_STOP, function () {
 
         isRunning = false;
 

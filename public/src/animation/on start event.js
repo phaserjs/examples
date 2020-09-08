@@ -60,7 +60,7 @@ function create ()
     lancelot.play('idle');
 
     //  Event handler for when the animation completes on our sprite
-    lancelot.on(Phaser.Animations.Events.SPRITE_ANIMATION_START, function () {
+    lancelot.on(Phaser.Animations.Events.ANIMATION_START, function () {
 
         isRunning = true;
 

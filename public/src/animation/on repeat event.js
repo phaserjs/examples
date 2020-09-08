@@ -65,7 +65,7 @@ function create ()
     lancelot.setScale(8);
 
     //  Event handler for when the animation completes on our sprite
-    lancelot.on(Phaser.Animations.Events.SPRITE_ANIMATION_REPEAT, function () {
+    lancelot.on(Phaser.Animations.Events.ANIMATION_REPEAT, function () {
 
         this.releaseItem();
 

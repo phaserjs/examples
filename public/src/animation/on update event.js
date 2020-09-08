@@ -72,11 +72,11 @@ function create ()
     lancelot.setScale(8);
 
     //  Event handler for when the animation updates on our sprite
-    lancelot.on(Phaser.Animations.Events.SPRITE_ANIMATION_UPDATE, function (anim, frame, sprite) {
+    lancelot.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, sprite, frameKey) {
 
         //  We can run our effect when we get frame0004:
 
-        if (frame.textureFrame === 'attack_B/frame0004')
+        if (frameKey === 'attack_B/frame0004')
         {
             this.releaseItem();
         }

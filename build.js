@@ -5,7 +5,7 @@ var indexer = require('./search/index-documents');
 var rootDir = './public/src/';
 var examplesJSON = './public/examples.json';
 
-var filteredTree = dirTree(rootDir, ['.js', '.json']);
+var filteredTree = dirTree(rootDir, { extensions: /\.(js|json)$/ });
 
 indexer.index(filteredTree);
 

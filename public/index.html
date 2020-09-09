@@ -45,6 +45,7 @@
     var trail = [];
     var well = [];
     var index = {};
+    var currentCrumb = '';
 
     function openFolder ()
     {
@@ -123,6 +124,8 @@
     function addBreadcrumb (filename)
     {
         var nav = $('<a></a>', { class: 'breadcrumb-item', href: 'index.html' + getURLWell() }).text(filename);
+
+        currentCrumb = filename;
 
         $('#breadcrumb').append(nav);
     }
@@ -216,8 +219,7 @@
 
         a.append(img);
 
-        var p = $('<p></p>').addClass('card-text').text('Run Demo');
-        // p.append($('<a></a>', { href: 'edit.html?src=' + filepath }).text(filename.replace('.js', '')));
+        var p = $('<p></p>').addClass('card-text').text(currentCrumb);
 
         div.append(a).append(p);
 

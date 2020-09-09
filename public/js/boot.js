@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     var forceMode = getQueryString('force');
     var filename = getQueryString('src');
+    var forcedVersion = getQueryString('v', false);
     var phaserVersion = getQueryString('v', (remote) ? versions[1].val : 'dev');
     var phaserVersionJS = phaserVersion + '.js';
     var currentPage = loc.pathname.substr(loc.pathname.lastIndexOf('/') + 1);
@@ -20,57 +21,75 @@ $(document).ready(function () {
 
         document.title = document.title.concat(' :: ' + filename);
 
-        //  Load Phaser
-
         var phaserScript = document.createElement('script');
 
         phaserScript.type = 'text/javascript';
         phaserScript.async = true;
 
-        phaserScript.onload = function ()
-        {
-            $('#loading').hide();
+        //  Load the boot.json file
 
-            var idx = filename.lastIndexOf('/');
+        $.getJSON(filename, function (json) {
 
-            if (idx === -1)
+            if (json.version && !forcedVersion)
             {
-                idx = filename.lastIndexOf('\\');
+                phaserVersion = json.version;
+                phaserVersionJS = phaserVersion + '.js';
             }
 
-            var folder = filename.substr(0, idx + 1);
+            //  Phaser Load Handler
+            phaserScript.onload = function ()
+            {
+                $('#loading').hide();
 
-            //  Load the boot.json
-            $.getJSON(filename, function (json) {
+                var idx = filename.lastIndexOf('/');
 
-                queue = json.files;
-
-                var loadScript = function ()
+                if (idx === -1)
                 {
-                    var src = queue.shift();
+                    idx = filename.lastIndexOf('\\');
+                }
 
-                    // console.log(folder, src);
+                var folder = filename.substr(0, idx + 1);
 
-                    //  Load the JS files defined in the json sequentially and in order
+                if (json.module)
+                {
+                    //  Inject the example source
+                    var mainModule = document.createElement('script');
 
-                    $.getScript(folder + src, function(data, textStatus, jqxhr) {
+                    mainModule.type = 'module';
+                    mainModule.src = folder + '/main.js';
 
-                        // console.log(textStatus); // Success
-                        // console.log(jqxhr.status); // 200
+                    document.body.appendChild(mainModule);
+                }
+                else
+                {
+                    queue = json.files;
 
-                        if (queue.length)
-                        {
-                            loadScript();
-                        }
+                    var loadScript = function ()
+                    {
+                        var src = queue.shift();
 
-                    });
+                        // console.log(folder, src);
 
-                };
+                        //  Load the JS files defined in the json sequentially and in order
 
-                loadScript();
+                        $.getScript(folder + src, function(data, textStatus, jqxhr) {
 
-            });
-        }
+                            // console.log(textStatus); // Success
+                            // console.log(jqxhr.status); // 200
+
+                            if (queue.length)
+                            {
+                                loadScript();
+                            }
+
+                        });
+
+                    };
+
+                    loadScript();
+                }
+            }
+        });
 
         if (remote && phaserVersion !== 'dev')
         {
@@ -79,7 +98,7 @@ $(document).ready(function () {
         }
         else
         {
-            phaserScript.src = './build/' + phaserVersionJS + '?rnd=' + Math.random().toString();
+            phaserScript.src = './build/' + phaserVersionJS;
         }
 
         document.body.appendChild(phaserScript);

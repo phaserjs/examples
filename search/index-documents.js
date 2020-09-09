@@ -40,7 +40,7 @@ function isBootableProject (path)
 
 function pathIsExcluded (path)
 {
-    //  We do want to include the actual bootable json in the search, so we dont exclude it
+    //  We do want to include the actual bootable json in the search, so we don't exclude it
     if (isBootableProject(path))
     {
         return false;
@@ -87,7 +87,7 @@ function getDocuments (tree, documents)
     }
     else
     {
-        excludedFiles.push(path);
+        // excludedFiles.push({ entry: path, reason: 'is folder' });
     }
 
     if (!tree.children)
@@ -149,7 +149,7 @@ function debugOutput ()
             console.log("Excluded: " + file.entry  + ' - Reason: ' + file.reason);
         });
 
-        console.log(excludedDirectories);
+        // console.log(excludedDirectories);
     }
 }
 
@@ -181,7 +181,7 @@ function index (filteredTree)
 
     if (debug)
     {
-        //  Use prettiefied version for dev and testing
+        //  Use prettified version for dev and testing
         fs.writeFileSync(indexFile, JSON.stringify(index, null, 2))
     }
     else

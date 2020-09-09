@@ -234,7 +234,7 @@
         {
           "path": "src\\animation\\animation repeat event.js",
           "name": "animation repeat event.js",
-          "size": 1343,
+          "size": 1338,
           "extension": ".js",
           "type": "file"
         },
@@ -262,7 +262,7 @@
         {
           "path": "src\\animation\\create animation from sprite sheet.js",
           "name": "create animation from sprite sheet.js",
-          "size": 3561,
+          "size": 3563,
           "extension": ".js",
           "type": "file"
         },
@@ -353,7 +353,7 @@
         {
           "path": "src\\animation\\mixed animation.js",
           "name": "mixed animation.js",
-          "size": 2022,
+          "size": 2179,
           "extension": ".js",
           "type": "file"
         },
@@ -374,35 +374,35 @@
         {
           "path": "src\\animation\\on complete event.js",
           "name": "on complete event.js",
-          "size": 2302,
+          "size": 2295,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\on repeat event.js",
           "name": "on repeat event.js",
-          "size": 2746,
+          "size": 2739,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\on start event.js",
           "name": "on start event.js",
-          "size": 2108,
+          "size": 2101,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\on stop event.js",
           "name": "on stop event.js",
-          "size": 1843,
+          "size": 1836,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\animation\\on update event.js",
           "name": "on update event.js",
-          "size": 2642,
+          "size": 2635,
           "extension": ".js",
           "type": "file"
         },
@@ -479,7 +479,7 @@
         {
           "path": "src\\animation\\sprite animation events.js",
           "name": "sprite animation events.js",
-          "size": 2364,
+          "size": 2287,
           "extension": ".js",
           "type": "file"
         },
@@ -512,7 +512,7 @@
           "type": "file"
         }
       ],
-      "size": 85767,
+      "size": 85809,
       "type": "directory"
     },
     {
@@ -1159,20 +1159,6 @@
           "name": "mass attack",
           "children": [
             {
-              "path": "src\\archived\\mass attack\\balance.png",
-              "name": "balance.png",
-              "size": 156,
-              "extension": ".png",
-              "type": "file"
-            },
-            {
-              "path": "src\\archived\\mass attack\\ball.png",
-              "name": "ball.png",
-              "size": 1472,
-              "extension": ".png",
-              "type": "file"
-            },
-            {
               "path": "src\\archived\\mass attack\\original.js",
               "name": "original.js",
               "size": 3757,
@@ -1187,7 +1173,7 @@
               "type": "file"
             }
           ],
-          "size": 9267,
+          "size": 7639,
           "type": "directory"
         },
         {
@@ -1385,7 +1371,7 @@
           "type": "file"
         }
       ],
-      "size": 204070,
+      "size": 202442,
       "type": "directory"
     },
     {
@@ -1811,6 +1797,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\mask.js",
+          "name": "mask.js",
+          "size": 1483,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\multi pan.js",
           "name": "multi pan.js",
           "size": 2737,
@@ -2014,7 +2007,7 @@
           "type": "file"
         }
       ],
-      "size": 90868,
+      "size": 92351,
       "type": "directory"
     },
     {
@@ -7852,6 +7845,141 @@
       "name": "games",
       "children": [
         {
+          "path": "src\\games\\avoid the germs",
+          "name": "avoid the germs",
+          "children": [
+            {
+              "path": "src\\games\\avoid the germs\\Boot.js",
+              "name": "Boot.js",
+              "size": 446,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\boot.json",
+              "name": "boot.json",
+              "size": 52,
+              "extension": ".json",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\Game.js",
+              "name": "Game.js",
+              "size": 3251,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\Germ.js",
+              "name": "Germ.js",
+              "size": 2410,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\Germs.js",
+              "name": "Germs.js",
+              "size": 1900,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\main.js",
+              "name": "main.js",
+              "size": 470,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\MainMenu.js",
+              "name": "MainMenu.js",
+              "size": 1862,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\Pickups.js",
+              "name": "Pickups.js",
+              "size": 742,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\Player.js",
+              "name": "Player.js",
+              "size": 1325,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\avoid the germs\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 2396,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 14854,
+          "type": "directory"
+        },
+        {
+          "path": "src\\games\\bank panic",
+          "name": "bank panic",
+          "children": [
+            {
+              "path": "src\\games\\bank panic\\Boot.js",
+              "name": "Boot.js",
+              "size": 291,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\bank panic\\boot.json",
+              "name": "boot.json",
+              "size": 26,
+              "extension": ".json",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\bank panic\\Door.js",
+              "name": "Door.js",
+              "size": 7596,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\bank panic\\Game.js",
+              "name": "Game.js",
+              "size": 6399,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\bank panic\\main.js",
+              "name": "main.js",
+              "size": 385,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\bank panic\\MainMenu.js",
+              "name": "MainMenu.js",
+              "size": 1667,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\bank panic\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 2054,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 18418,
+          "type": "directory"
+        },
+        {
           "path": "src\\games\\breakout",
           "name": "breakout",
           "children": [
@@ -7867,71 +7995,71 @@
           "type": "directory"
         },
         {
+          "path": "src\\games\\emoji match",
+          "name": "emoji match",
+          "children": [
+            {
+              "path": "src\\games\\emoji match\\Boot.js",
+              "name": "Boot.js",
+              "size": 229,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\emoji match\\boot.json",
+              "name": "boot.json",
+              "size": 26,
+              "extension": ".json",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\emoji match\\Game.js",
+              "name": "Game.js",
+              "size": 7408,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\emoji match\\main.js",
+              "name": "main.js",
+              "size": 482,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\emoji match\\MainMenu.js",
+              "name": "MainMenu.js",
+              "size": 1293,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\emoji match\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 1315,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 10753,
+          "type": "directory"
+        },
+        {
           "path": "src\\games\\firstgame",
           "name": "firstgame",
           "children": [
             {
               "path": "src\\games\\firstgame\\assets",
               "name": "assets",
-              "children": [
-                {
-                  "path": "src\\games\\firstgame\\assets\\bomb.png",
-                  "name": "bomb.png",
-                  "size": 495,
-                  "extension": ".png",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\games\\firstgame\\assets\\dude.png",
-                  "name": "dude.png",
-                  "size": 3226,
-                  "extension": ".png",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\games\\firstgame\\assets\\platform.png",
-                  "name": "platform.png",
-                  "size": 14973,
-                  "extension": ".png",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\games\\firstgame\\assets\\sky.png",
-                  "name": "sky.png",
-                  "size": 4757,
-                  "extension": ".png",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\games\\firstgame\\assets\\star.png",
-                  "name": "star.png",
-                  "size": 443,
-                  "extension": ".png",
-                  "type": "file"
-                }
-              ],
-              "size": 23894,
+              "children": [],
+              "size": 0,
               "type": "directory"
-            },
-            {
-              "path": "src\\games\\firstgame\\part1.html",
-              "name": "part1.html",
-              "size": 776,
-              "extension": ".html",
-              "type": "file"
             },
             {
               "path": "src\\games\\firstgame\\part1.js",
               "name": "part1.js",
               "size": 300,
               "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\firstgame\\part10.html",
-              "name": "part10.html",
-              "size": 5201,
-              "extension": ".html",
               "type": "file"
             },
             {
@@ -7942,24 +8070,10 @@
               "type": "file"
             },
             {
-              "path": "src\\games\\firstgame\\part2.html",
-              "name": "part2.html",
-              "size": 1188,
-              "extension": ".html",
-              "type": "file"
-            },
-            {
               "path": "src\\games\\firstgame\\part2.js",
               "name": "part2.js",
               "size": 692,
               "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\firstgame\\part3.html",
-              "name": "part3.html",
-              "size": 1230,
-              "extension": ".html",
               "type": "file"
             },
             {
@@ -7970,24 +8084,10 @@
               "type": "file"
             },
             {
-              "path": "src\\games\\firstgame\\part4.html",
-              "name": "part4.html",
-              "size": 1696,
-              "extension": ".html",
-              "type": "file"
-            },
-            {
               "path": "src\\games\\firstgame\\part4.js",
               "name": "part4.js",
               "size": 1142,
               "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\firstgame\\part5.html",
-              "name": "part5.html",
-              "size": 2415,
-              "extension": ".html",
               "type": "file"
             },
             {
@@ -7998,24 +8098,10 @@
               "type": "file"
             },
             {
-              "path": "src\\games\\firstgame\\part6.html",
-              "name": "part6.html",
-              "size": 2472,
-              "extension": ".html",
-              "type": "file"
-            },
-            {
               "path": "src\\games\\firstgame\\part6.js",
               "name": "part6.js",
               "size": 1832,
               "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\firstgame\\part7.html",
-              "name": "part7.html",
-              "size": 3085,
-              "extension": ".html",
               "type": "file"
             },
             {
@@ -8026,24 +8112,10 @@
               "type": "file"
             },
             {
-              "path": "src\\games\\firstgame\\part8.html",
-              "name": "part8.html",
-              "size": 3620,
-              "extension": ".html",
-              "type": "file"
-            },
-            {
               "path": "src\\games\\firstgame\\part8.js",
               "name": "part8.js",
               "size": 2836,
               "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\games\\firstgame\\part9.html",
-              "name": "part9.html",
-              "size": 3825,
-              "extension": ".html",
               "type": "file"
             },
             {
@@ -8052,24 +8124,17 @@
               "size": 3021,
               "extension": ".js",
               "type": "file"
-            },
-            {
-              "path": "src\\games\\firstgame\\phaser3-tutorial-src.zip",
-              "name": "phaser3-tutorial-src.zip",
-              "size": 19722,
-              "extension": ".zip",
-              "type": "file"
             }
           ],
-          "size": 88621,
+          "size": 19497,
           "type": "directory"
         },
         {
-          "path": "src\\games\\flood",
-          "name": "flood",
+          "path": "src\\games\\flood fill",
+          "name": "flood fill",
           "children": [
             {
-              "path": "src\\games\\flood\\flood-fill.js",
+              "path": "src\\games\\flood fill\\flood-fill.js",
               "name": "flood-fill.js",
               "size": 19613,
               "extension": ".js",
@@ -8144,32 +8209,132 @@
           "type": "directory"
         },
         {
-          "path": "src\\games\\topdownShooter",
-          "name": "topdownShooter",
+          "path": "src\\games\\snowmen attack",
+          "name": "snowmen attack",
           "children": [
             {
-              "path": "src\\games\\topdownShooter\\topdown_averageFocus.js",
+              "path": "src\\games\\snowmen attack\\Boot.js",
+              "name": "Boot.js",
+              "size": 229,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\boot.json",
+              "name": "boot.json",
+              "size": 26,
+              "extension": ".json",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\EnemySnowball.js",
+              "name": "EnemySnowball.js",
+              "size": 781,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\Game.js",
+              "name": "Game.js",
+              "size": 3116,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\main.js",
+              "name": "main.js",
+              "size": 471,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\MainMenu.js",
+              "name": "MainMenu.js",
+              "size": 1914,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\Player.js",
+              "name": "Player.js",
+              "size": 2798,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\PlayerSnowball.js",
+              "name": "PlayerSnowball.js",
+              "size": 784,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\Preloader.js",
+              "name": "Preloader.js",
+              "size": 4869,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\Snowman.js",
+              "name": "Snowman.js",
+              "size": 5370,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\games\\snowmen attack\\Track.js",
+              "name": "Track.js",
+              "size": 3100,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 23458,
+          "type": "directory"
+        },
+        {
+          "path": "src\\games\\stacker",
+          "name": "stacker",
+          "children": [
+            {
+              "path": "src\\games\\stacker\\stacker.js",
+              "name": "stacker.js",
+              "size": 16815,
+              "extension": ".js",
+              "type": "file"
+            }
+          ],
+          "size": 16815,
+          "type": "directory"
+        },
+        {
+          "path": "src\\games\\top down shooter",
+          "name": "top down shooter",
+          "children": [
+            {
+              "path": "src\\games\\top down shooter\\topdown_averageFocus.js",
               "name": "topdown_averageFocus.js",
               "size": 6651,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\games\\topdownShooter\\topdown_combatMechanics.js",
+              "path": "src\\games\\top down shooter\\topdown_combatMechanics.js",
               "name": "topdown_combatMechanics.js",
               "size": 10559,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\games\\topdownShooter\\topdown_playerFocus.js",
+              "path": "src\\games\\top down shooter\\topdown_playerFocus.js",
               "name": "topdown_playerFocus.js",
               "size": 5517,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\games\\topdownShooter\\topdown_targetFocus.js",
+              "path": "src\\games\\top down shooter\\topdown_targetFocus.js",
               "name": "topdown_targetFocus.js",
               "size": 6042,
               "extension": ".js",
@@ -8180,7 +8345,7 @@
           "type": "directory"
         }
       ],
-      "size": 187371,
+      "size": 202545,
       "type": "directory"
     },
     {
@@ -15894,6 +16059,6 @@
       "type": "directory"
     }
   ],
-  "size": 4453576,
+  "size": 4468647,
   "type": "directory"
 }

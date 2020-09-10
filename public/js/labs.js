@@ -133,6 +133,9 @@ $(document).ready(function () {
                 }
             };
 
+            phaserScript.src = './build/' + phaserVersionJS;
+
+            /*
             if (remote && phaserVersion !== 'dev' && selected)
             {
                 // <script src="//cdn.jsdelivr.net/npm/phaser@3.7.1/dist/phaser.min.js">
@@ -142,6 +145,7 @@ $(document).ready(function () {
             {
                 phaserScript.src = './build/' + phaserVersionJS + '?rnd=' + Math.random().toString();
             }
+            */
 
             document.body.appendChild(phaserScript);
         }

@@ -91,6 +91,9 @@ $(document).ready(function () {
             }
         });
 
+        phaserScript.src = './build/' + phaserVersionJS;
+
+        /*
         if (remote && phaserVersion !== 'dev')
         {
             // <script src="//cdn.jsdelivr.net/npm/phaser@3.7.1/dist/phaser.min.js">
@@ -100,6 +103,7 @@ $(document).ready(function () {
         {
             phaserScript.src = './build/' + phaserVersionJS;
         }
+        */
 
         document.body.appendChild(phaserScript);
     }

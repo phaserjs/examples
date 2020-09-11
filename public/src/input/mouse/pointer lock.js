@@ -53,7 +53,7 @@ function create ()
 
     // Exit pointer lock when Q is pressed. Browsers will also exit pointer lock when escape is
     // pressed.
-    this.input.keyboard.on('keydown_Q', function (event) {
+    this.input.keyboard.on('keydown-Q', function (event) {
         if (this.input.mouse.locked)
         {
             this.input.mouse.releasePointerLock();

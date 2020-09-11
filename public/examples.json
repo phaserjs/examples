@@ -1650,6 +1650,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\apple up.js",
+          "name": "apple up.js",
+          "size": 588,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\blend.js",
           "name": "blend.js",
           "size": 1035,
@@ -1713,6 +1720,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\destroy scale.js",
+          "name": "destroy scale.js",
+          "size": 1097,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\destroy.js",
           "name": "destroy.js",
           "size": 1254,
@@ -1758,6 +1772,13 @@
           "path": "src\\bugs\\input res.js",
           "name": "input res.js",
           "size": 2586,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\inputscene.js",
+          "name": "inputscene.js",
+          "size": 808,
           "extension": ".js",
           "type": "file"
         },
@@ -1986,6 +2007,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\touchscreen.js",
+          "name": "touchscreen.js",
+          "size": 700,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\ts 2.js",
           "name": "ts 2.js",
           "size": 953,
@@ -2007,7 +2035,7 @@
           "type": "file"
         }
       ],
-      "size": 92351,
+      "size": 95544,
       "type": "directory"
     },
     {
@@ -7858,7 +7886,7 @@
             {
               "path": "src\\games\\avoid the germs\\boot.json",
               "name": "boot.json",
-              "size": 52,
+              "size": 26,
               "extension": ".json",
               "type": "file"
             },
@@ -7879,7 +7907,7 @@
             {
               "path": "src\\games\\avoid the germs\\Germs.js",
               "name": "Germs.js",
-              "size": 1900,
+              "size": 1894,
               "extension": ".js",
               "type": "file"
             },
@@ -7919,7 +7947,7 @@
               "type": "file"
             }
           ],
-          "size": 14854,
+          "size": 14822,
           "type": "directory"
         },
         {
@@ -8015,7 +8043,7 @@
             {
               "path": "src\\games\\emoji match\\Game.js",
               "name": "Game.js",
-              "size": 7408,
+              "size": 7589,
               "extension": ".js",
               "type": "file"
             },
@@ -8041,7 +8069,7 @@
               "type": "file"
             }
           ],
-          "size": 10753,
+          "size": 10934,
           "type": "directory"
         },
         {
@@ -8345,7 +8373,7 @@
           "type": "directory"
         }
       ],
-      "size": 202545,
+      "size": 202694,
       "type": "directory"
     },
     {
@@ -10233,6 +10261,13 @@
               "type": "file"
             },
             {
+              "path": "src\\input\\gamepad\\gamepad across scenes.js",
+              "name": "gamepad across scenes.js",
+              "size": 2007,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\input\\gamepad\\gamepad debug.js",
               "name": "gamepad debug.js",
               "size": 2140,
@@ -10242,7 +10277,7 @@
             {
               "path": "src\\input\\gamepad\\move sprite.js",
               "name": "move sprite.js",
-              "size": 2001,
+              "size": 2007,
               "extension": ".js",
               "type": "file"
             },
@@ -10261,7 +10296,7 @@
               "type": "file"
             }
           ],
-          "size": 14783,
+          "size": 16796,
           "type": "directory"
         },
         {
@@ -10666,7 +10701,7 @@
             {
               "path": "src\\input\\pixel perfect\\atlas frame.js",
               "name": "atlas frame.js",
-              "size": 808,
+              "size": 896,
               "extension": ".js",
               "type": "file"
             },
@@ -10713,7 +10748,7 @@
               "type": "file"
             }
           ],
-          "size": 7010,
+          "size": 7098,
           "type": "directory"
         },
         {
@@ -10852,7 +10887,7 @@
           "type": "directory"
         }
       ],
-      "size": 204309,
+      "size": 206410,
       "type": "directory"
     },
     {
@@ -16059,6 +16094,6 @@
       "type": "directory"
     }
   ],
-  "size": 4468647,
+  "size": 4474090,
   "type": "directory"
 }

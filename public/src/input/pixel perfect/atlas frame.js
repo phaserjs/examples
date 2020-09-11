@@ -21,7 +21,7 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'megaset', 'mask-test2').setInteractive({ pixelPerfect: true });
 
-    var text = this.add.text(10, 10, 'Click the sprite', { font: '16px Courier', fill: '#000000' });
+    var text = this.add.text(10, 10, 'Click. Only the black areas should re-act.', { font: '16px Courier', fill: '#000000' });
 
     this.input.on('pointerdown', function () {
 
@@ -29,9 +29,11 @@ function create ()
 
     });
 
-    sprite.on('pointerdown', function () {
+    sprite.on('pointerdown', function (pointer, x, y, event) {
 
-        text.setText('Clicked Sprite');
+        text.setText('Sprite Alpha clicked');
+
+        event.stopPropagation();
 
     });
 }

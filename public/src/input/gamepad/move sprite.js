@@ -44,7 +44,7 @@ function create ()
 
             text.destroy();
 
-        });
+        }, this);
     }
     else
     {

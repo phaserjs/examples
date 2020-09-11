@@ -1944,6 +1944,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\scene error.js",
+          "name": "scene error.js",
+          "size": 775,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\scene keys.js",
           "name": "scene keys.js",
           "size": 1725,
@@ -2035,7 +2042,7 @@
           "type": "file"
         }
       ],
-      "size": 95544,
+      "size": 96319,
       "type": "directory"
     },
     {
@@ -10263,7 +10270,7 @@
             {
               "path": "src\\input\\gamepad\\gamepad across scenes.js",
               "name": "gamepad across scenes.js",
-              "size": 2007,
+              "size": 5008,
               "extension": ".js",
               "type": "file"
             },
@@ -10296,7 +10303,7 @@
               "type": "file"
             }
           ],
-          "size": 16796,
+          "size": 19797,
           "type": "directory"
         },
         {
@@ -10887,7 +10894,7 @@
           "type": "directory"
         }
       ],
-      "size": 206410,
+      "size": 209411,
       "type": "directory"
     },
     {
@@ -14883,6 +14890,13 @@
       "name": "textures",
       "children": [
         {
+          "path": "src\\textures\\avif test.js",
+          "name": "avif test.js",
+          "size": 434,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\textures\\batch canvas texture.js",
           "name": "batch canvas texture.js",
           "size": 2059,
@@ -15121,7 +15135,7 @@
           "type": "file"
         }
       ],
-      "size": 48353,
+      "size": 48787,
       "type": "directory"
     },
     {
@@ -16094,6 +16108,6 @@
       "type": "directory"
     }
   ],
-  "size": 4474090,
+  "size": 4478300,
   "type": "directory"
 }

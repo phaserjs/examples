@@ -2,7 +2,7 @@ const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 1024,
-    height: 700,
+    height: 640,
     backgroundColor: '#000000',
     scene: {
         preload: preload,
@@ -20,23 +20,35 @@ function preload ()
 
 function create ()
 {
+    // https://jakearchibald.com/2020/avif-has-landed/
+
     const png = this.add.image(0, 0, 'mechPNG').setScale(0.54).setOrigin(0);
     const avif = this.add.image(0, 0, 'mechAVIF').setScale(0.54).setOrigin(0);
 
-    this.add.text(32, 600, 'PNG - 2,953 KB');
-    this.add.text(800, 600, 'AVIF - 135 KB');
+    this.add.text(32, 604, '^ PNG - 2,953 KB');
+    this.add.text(992, 604, '^ AVIF - 135 KB').setOrigin(1, 0);
 
     const debug = this.add.graphics();
 
-    //  Default marker
-    debug.fillStyle(0xffffff);
-    debug.fillRect(511, 0, 3, 584);
+    const drawMarker = (x) => {
+
+        debug.clear();
+        debug.fillStyle(0x00ff00);
+        debug.fillRect(x - 1, 0, 3, 583);
+        debug.fillCircle(x, 300, 12);
+        debug.fillStyle(0x000000);
+        debug.fillTriangle(x - 2, 300 - 6, x - 2, 300 + 6, x - 2 - 6, 300);
+        debug.fillTriangle(x + 2, 300 - 6, x + 2, 300 + 6, x + 2 + 6, 300);
+
+    };
+
+    drawMarker(512);
+
     avif.setCrop(512 * (1 / png.scaleX), 0, 1920, 1080);
 
     this.input.on('pointermove', (pointer) => {
 
-        debug.clear();
-        debug.fillRect(pointer.x - 1, 0, 3, 584);
+        drawMarker(pointer.x);
 
         avif.setCrop(pointer.x * (1 / png.scaleX), 0, 1920, 1080);
 

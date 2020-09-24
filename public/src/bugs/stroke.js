@@ -36,21 +36,8 @@ function create ()
 
     graphics.moveTo(x + tl, y);
     graphics.lineTo(x + width - tr, y);
-    // graphics.lineTo(x + width + 50 - tr, y + height);
 
-
-    // graphics.moveTo(x + width - tr, y);
     graphics.arc(x + width - tr, y + tr, tr, -tau, 0);
-
-    // graphics.lineTo(x + width, y + height - br);
-    // graphics.moveTo(x + width, y + height - br)
-    // graphics.arc(x + width - br, y + height - br, br, 0, tau);
-    // graphics.lineTo(x + bl, y + height);
-    // graphics.moveTo(x + bl, y + height);
-    // graphics.arc(x + bl, y + height - bl, bl, tau, Math.PI);
-    // graphics.lineTo(x, y + tl);
-    // graphics.moveTo(x, y + tl);
-    // graphics.arc(x + tl, y + tl, tl, -Math.PI, -tau);
 
     graphics.strokePath();
 }

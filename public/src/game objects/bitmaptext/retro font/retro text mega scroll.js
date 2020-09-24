@@ -51,13 +51,6 @@ function create()
         scrollers.add(t);
     }
 
-    // TweenMax.to(dynamic, 4, {
-    //     y: 175*4,
-    //     ease: Sine.easeInOut,
-    //     repeat: -1,
-    //     yoyo: true
-    // });
-
     this.add.image(640, 800, 'contra').setOrigin(0.5, 1).setScale(2);
 }
 

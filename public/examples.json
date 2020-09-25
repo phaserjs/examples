@@ -4372,7 +4372,7 @@
             {
               "path": "src\\game objects\\container\\add emitter to container.js",
               "name": "add emitter to container.js",
-              "size": 1390,
+              "size": 931,
               "extension": ".js",
               "type": "file"
             },
@@ -4706,7 +4706,7 @@
               "type": "file"
             }
           ],
-          "size": 83912,
+          "size": 83453,
           "type": "directory"
         },
         {
@@ -4899,7 +4899,7 @@
             {
               "path": "src\\game objects\\graphics\\draw triangles.js",
               "name": "draw triangles.js",
-              "size": 4630,
+              "size": 4573,
               "extension": ".js",
               "type": "file"
             },
@@ -5424,7 +5424,7 @@
               "type": "directory"
             }
           ],
-          "size": 193124,
+          "size": 193067,
           "type": "directory"
         },
         {
@@ -7935,7 +7935,7 @@
           "type": "directory"
         }
       ],
-      "size": 1076495,
+      "size": 1075979,
       "type": "directory"
     },
     {
@@ -12560,7 +12560,7 @@
             {
               "path": "src\\physics\\arcade\\non-pushable bodies.js",
               "name": "non-pushable bodies.js",
-              "size": 2664,
+              "size": 3011,
               "extension": ".js",
               "type": "file"
             },
@@ -12575,6 +12575,20 @@
               "path": "src\\physics\\arcade\\overlap zone.js",
               "name": "overlap zone.js",
               "size": 1059,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\physics\\arcade\\pushable body debug 1.js",
+              "name": "pushable body debug 1.js",
+              "size": 3157,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\physics\\arcade\\pushable body debug 2.js",
+              "name": "pushable body debug 2.js",
+              "size": 2989,
               "extension": ".js",
               "type": "file"
             },
@@ -12747,7 +12761,7 @@
               "type": "file"
             }
           ],
-          "size": 240630,
+          "size": 247123,
           "type": "directory"
         },
         {
@@ -13412,7 +13426,7 @@
           "type": "directory"
         }
       ],
-      "size": 392233,
+      "size": 398726,
       "type": "directory"
     },
     {
@@ -13661,13 +13675,6 @@
       "name": "scalemanager",
       "children": [
         {
-          "path": "src\\scalemanager\\bug.js",
-          "name": "bug.js",
-          "size": 2264,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
           "path": "src\\scalemanager\\envelop min max.js",
           "name": "envelop min max.js",
           "size": 643,
@@ -13836,7 +13843,7 @@
           "type": "file"
         }
       ],
-      "size": 45157,
+      "size": 42893,
       "type": "directory"
     },
     {
@@ -16199,6 +16206,6 @@
       "type": "directory"
     }
   ],
-  "size": 4499277,
+  "size": 4502990,
   "type": "directory"
 }

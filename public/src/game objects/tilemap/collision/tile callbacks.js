@@ -68,7 +68,7 @@ function create ()
 
     debugGraphics = this.add.graphics();
 
-    this.input.keyboard.on('keydown_C', function (event)
+    this.input.keyboard.on('keydown-C', function (event)
     {
         showDebug = !showDebug;
         drawDebug();

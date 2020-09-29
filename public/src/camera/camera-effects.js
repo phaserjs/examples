@@ -11,19 +11,19 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
 var fadeCamera;
 var flashCamera;
 var shakeCamera;
 
-function preload() {
-
+function preload ()
+{
     this.load.image('CherilPerils', 'assets/tests/camera/CherilPerils.png');
-
 }
 
-function create() {
-
-    var image = this.add.image(0, 0, 'CherilPerils');
+function create ()
+{
+    this.add.image(0, 0, 'CherilPerils');
 
     this.cameras.main.setViewport(5, 5, 390, 290);
 
@@ -31,17 +31,19 @@ function create() {
     flashCamera = this.cameras.add(5, 305, 390, 290);
     shakeCamera = this.cameras.add(405, 305, 390, 290);
 
-    fadeCamera.fade(1000);
+    fadeCamera.fade(2000);
+
+    flashCamera.flash(1000);
 }
 
-function update()
+function update ()
 {
-    flashCamera.flash(1000);
-    shakeCamera.shake(1000);
+    // flashCamera.flash(750);
+    shakeCamera.shake(1000, 0.025);
 
-    if (fadeCamera._fadeAlpha >= 1.0)
+    if (fadeCamera.fadeEffect.alpha >= 1)
     {
-        fadeCamera._fadeAlpha = 0.0;
-        fadeCamera.fade(1000);
+        fadeCamera.fadeEffect.alpha = 0;
+        fadeCamera.fade(2000);
     }
 }

@@ -28,16 +28,45 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('ship', 'assets/sprites/x2kship.png');
+    this.load.atlas('space', 'assets/tests/space/space.png', 'assets/tests/space/space.json');
 }
 
 function create ()
 {
     ship = this.matter.add.image(400, 300, 'ship');
 
+    var particles = this.add.particles('space');
+
+    var emitter = particles.createEmitter({
+        frame: 'blue',
+        speed: {
+            onEmit: function (particle, key, t, value)
+            {
+                return ship.body.speed;
+            }
+        },
+        lifespan: {
+            onEmit: function (particle, key, t, value)
+            {
+                return Phaser.Math.Percent(ship.body.speed, 0, 300) * 20000;
+            }
+        },
+        alpha: {
+            onEmit: function (particle, key, t, value)
+            {
+                return Phaser.Math.Percent(ship.body.speed, 0, 300) * 1000;
+            }
+        },
+        scale: { start: 1.0, end: 0 },
+        blendMode: 'ADD'
+    });
+
     ship.setFixedRotation();
     ship.setAngle(270);
     ship.setFrictionAir(0.05);
     ship.setMass(30);
+
+    emitter.startFollow(ship);
 
     this.matter.world.setBounds(0, 0, 800, 600);
 

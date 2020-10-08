@@ -1622,6 +1622,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\amatter3983.js",
+          "name": "amatter3983.js",
+          "size": 845,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\anim remove.js",
           "name": "anim remove.js",
           "size": 917,
@@ -1771,7 +1778,7 @@
         {
           "path": "src\\bugs\\extern.js",
           "name": "extern.js",
-          "size": 1676,
+          "size": 1489,
           "extension": ".js",
           "type": "file"
         },
@@ -1856,6 +1863,27 @@
           "path": "src\\bugs\\mask4619.js",
           "name": "mask4619.js",
           "size": 722,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\mask4675.js",
+          "name": "mask4675.js",
+          "size": 690,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\mask4767.js",
+          "name": "mask4767.js",
+          "size": 2568,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\mask4853.js",
+          "name": "mask4853.js",
+          "size": 1198,
           "extension": ".js",
           "type": "file"
         },
@@ -2056,6 +2084,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\time4704.js",
+          "name": "time4704.js",
+          "size": 1079,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\timeline.js",
           "name": "timeline.js",
           "size": 1396,
@@ -2098,7 +2133,7 @@
           "type": "file"
         }
       ],
-      "size": 105931,
+      "size": 112124,
       "type": "directory"
     },
     {
@@ -2369,7 +2404,7 @@
         {
           "path": "src\\camera\\camera-effects.js",
           "name": "camera-effects.js",
-          "size": 956,
+          "size": 945,
           "extension": ".js",
           "type": "file"
         },
@@ -2816,7 +2851,7 @@
           "type": "file"
         }
       ],
-      "size": 214449,
+      "size": 214438,
       "type": "directory"
     },
     {
@@ -5813,6 +5848,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\mesh\\race track.js",
+              "name": "race track.js",
+              "size": 1781,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\mesh\\random quad tween.js",
               "name": "random quad tween.js",
               "size": 2461,
@@ -5855,7 +5897,7 @@
               "type": "file"
             }
           ],
-          "size": 15385,
+          "size": 17166,
           "type": "directory"
         },
         {
@@ -7935,7 +7977,7 @@
           "type": "directory"
         }
       ],
-      "size": 1075979,
+      "size": 1077760,
       "type": "directory"
     },
     {
@@ -11474,6 +11516,13 @@
               "type": "file"
             },
             {
+              "path": "src\\loader\\texture atlas json\\load remove and reload atlas.js",
+              "name": "load remove and reload atlas.js",
+              "size": 1730,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\loader\\texture atlas json\\load texture atlas from object.js",
               "name": "load texture atlas from object.js",
               "size": 747,
@@ -11523,7 +11572,7 @@
               "type": "file"
             }
           ],
-          "size": 31054,
+          "size": 32784,
           "type": "directory"
         },
         {
@@ -11629,7 +11678,7 @@
           "type": "directory"
         }
       ],
-      "size": 728666,
+      "size": 730396,
       "type": "directory"
     },
     {
@@ -12523,6 +12572,20 @@
               "type": "file"
             },
             {
+              "path": "src\\physics\\arcade\\mass debug 2.js",
+              "name": "mass debug 2.js",
+              "size": 1393,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\physics\\arcade\\mass debug.js",
+              "name": "mass debug.js",
+              "size": 744,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\physics\\arcade\\mass.js",
               "name": "mass.js",
               "size": 1248,
@@ -12581,14 +12644,14 @@
             {
               "path": "src\\physics\\arcade\\pushable body debug 1.js",
               "name": "pushable body debug 1.js",
-              "size": 3157,
+              "size": 6354,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\physics\\arcade\\pushable body debug 2.js",
               "name": "pushable body debug 2.js",
-              "size": 2989,
+              "size": 6151,
               "extension": ".js",
               "type": "file"
             },
@@ -12761,7 +12824,7 @@
               "type": "file"
             }
           ],
-          "size": 247123,
+          "size": 255619,
           "type": "directory"
         },
         {
@@ -13325,7 +13388,7 @@
             {
               "path": "src\\physics\\matterjs\\rotate body with cursors.js",
               "name": "rotate body with cursors.js",
-              "size": 1111,
+              "size": 1928,
               "extension": ".js",
               "type": "file"
             },
@@ -13360,7 +13423,7 @@
             {
               "path": "src\\physics\\matterjs\\thrust.js",
               "name": "thrust.js",
-              "size": 1199,
+              "size": 2074,
               "extension": ".js",
               "type": "file"
             },
@@ -13400,7 +13463,7 @@
               "type": "file"
             }
           ],
-          "size": 101773,
+          "size": 103465,
           "type": "directory"
         },
         {
@@ -13426,7 +13489,7 @@
           "type": "directory"
         }
       ],
-      "size": 398726,
+      "size": 408914,
       "type": "directory"
     },
     {
@@ -13665,9 +13728,16 @@
           "size": 616,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src\\renderer\\supported extensions.js",
+          "name": "supported extensions.js",
+          "size": 399,
+          "extension": ".js",
+          "type": "file"
         }
       ],
-      "size": 20303,
+      "size": 20702,
       "type": "directory"
     },
     {
@@ -16206,6 +16276,6 @@
       "type": "directory"
     }
   ],
-  "size": 4502990,
+  "size": 4523270,
   "type": "directory"
 }

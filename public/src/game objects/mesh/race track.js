@@ -20,7 +20,6 @@ class Example extends Phaser.Scene
         this.load.obj('roadCornerLarge', 'roadCornerLarge.obj', 'roadCornerLarge.mtl');
         this.load.obj('roadCornerLargeBorder', 'roadCornerLargeBorder.obj', 'roadCornerLargeBorder.mtl');
         this.load.obj('roadCornerLargeBorderInner', 'roadCornerLargeBorderInner.obj', 'roadCornerLargeBorderInner.mtl');
-        this.load.obj('raceCarRed', 'raceCarRed.obj', 'raceCarRed.mtl');
     }
 
     create ()

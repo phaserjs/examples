@@ -27,11 +27,11 @@ function create ()
 {
     map = this.add.tilemap('map');
     var tiles = map.addTilesetImage('ground_1x1');
-    var layer = map.createStaticLayer('Tile Layer', tiles);
+    var layer = map.createLayer('Tile Layer', tiles);
 
     this.anims.create({
         key: 'spin',
-        frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 6 }),
+        frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 5 }),
         frameRate: 16,
         repeat: -1
     });
@@ -39,7 +39,9 @@ function create ()
     // We convert all of the Tiled objects with an ID of 26 into sprites. They will get their width
     // & height from the Tiled tile object. Any custom properties on the tile object will also be
     // passed to the sprite creator (e.g. one of the tile object's has an alpha of 0.5).
-    var coins = map.createFromObjects('Coin Object Layer', 26, { key: 'coin' });
+    // var coins = map.createFromObjects('Coin Object Layer', 26, { key: 'coin' });
+
+    var coins = map.createFromObjects('Coin Object Layer', { gid: 26, key: 'coin' });
 
     this.anims.play('spin', coins);
 

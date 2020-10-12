@@ -27,7 +27,8 @@ function create ()
     // When loading a CSV map, make sure to specify the tileWidth and tileHeight
     var map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
     var tileset = map.addTilesetImage('tiles');
-    var layer = map.createStaticLayer(0, tileset, 0, 0); // layer index, tileset, x, y
+    var layer = map.createDynamicLayer(0, tileset, 0, 0); // layer index, tileset, x, y
+    layer.skipCull = true;
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 

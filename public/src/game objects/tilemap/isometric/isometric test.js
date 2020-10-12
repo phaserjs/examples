@@ -32,13 +32,15 @@ function create ()
     var tileset1 = map.addTilesetImage('iso-64x64-outside', 'tiles');
     var tileset2 = map.addTilesetImage('iso-64x64-building', 'tiles2');
 
-    var layer1 = map.createDynamicLayer('Tile Layer 1', [ tileset2, tileset1 ]);
-    var layer2 = map.createDynamicLayer('Tile Layer 2', [ tileset2, tileset1 ]);
-    var layer3 = map.createDynamicLayer('Tile Layer 3', [ tileset2, tileset1 ]);
-    var layer4 = map.createDynamicLayer('Tile Layer 4', [ tileset2, tileset1 ]);
-    var layer5 = map.createDynamicLayer('Tile Layer 5', [ tileset2, tileset1 ]);
+    var layer1 = map.createLayer('Tile Layer 1', [ tileset1, tileset2 ]);
+    var layer2 = map.createLayer('Tile Layer 2', [ tileset1, tileset2 ]);
+    var layer3 = map.createLayer('Tile Layer 3', [ tileset1, tileset2 ]);
+    var layer4 = map.createLayer('Tile Layer 4', [ tileset1, tileset2 ]);
+    var layer5 = map.createLayer('Tile Layer 5', [ tileset1, tileset2 ]);
 
     var cursors = this.input.keyboard.createCursorKeys();
+
+    this.cameras.main.setZoom(2);
 
     var controlConfig = {
         camera: this.cameras.main,

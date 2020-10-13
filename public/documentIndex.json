@@ -34279,6 +34279,52 @@
       "": 1
     }
   },
+  "game objects\\bitmaptext\\static\\origin and scale.js": {
+    "path": "game objects\\bitmaptext\\static\\origin and scale.js",
+    "titleWords": {
+      "game": 1,
+      "objects": 1,
+      "bitmaptext": 1,
+      "static": 1,
+      "origin": 1,
+      "and": 1,
+      "scale": 1
+    },
+    "bodyWords": {
+      "var": 5,
+      "config": 2,
+      "type": 1,
+      "phaser": 3,
+      "auto": 1,
+      "parent": 1,
+      "example": 1,
+      "width": 1,
+      "height": 1,
+      "scene": 1,
+      "preload": 3,
+      "create": 3,
+      "game": 2,
+      "new": 1,
+      "function": 2,
+      "this": 4,
+      "load": 1,
+      "bitmapfont": 1,
+      "desyrel": 6,
+      "assets": 2,
+      "fonts": 2,
+      "bitmap": 2,
+      "png": 1,
+      "xml": 1,
+      "text": 9,
+      "add": 3,
+      "bitmaptext": 3,
+      "hello": 3,
+      "world": 3,
+      "setorigin": 3,
+      "setscale": 3,
+      "": 1
+    }
+  },
   "game objects\\bitmaptext\\static\\padding.js": {
     "path": "game objects\\bitmaptext\\static\\padding.js",
     "titleWords": {
@@ -48467,6 +48513,50 @@
       "": 1
     }
   },
+  "game objects\\lights\\point light.js": {
+    "path": "game objects\\lights\\point light.js",
+    "titleWords": {
+      "game": 1,
+      "objects": 1,
+      "lights": 1,
+      "point": 1,
+      "light": 1
+    },
+    "bodyWords": {
+      "var": 2,
+      "config": 2,
+      "type": 1,
+      "phaser": 3,
+      "webgl": 1,
+      "parent": 1,
+      "example": 1,
+      "width": 1,
+      "height": 1,
+      "scene": 1,
+      "preload": 3,
+      "create": 3,
+      "game": 2,
+      "new": 1,
+      "function": 2,
+      "this": 5,
+      "load": 2,
+      "image": 2,
+      "sonic": 2,
+      "assets": 2,
+      "sprites": 1,
+      "sonic_havok_sanity": 1,
+      "png": 2,
+      "bg": 2,
+      "textures": 1,
+      "gold": 1,
+      "add": 2,
+      "sprite": 2,
+      "setorigin": 1,
+      "lights": 1,
+      "addpointlight": 1,
+      "": 1
+    }
+  },
   "game objects\\lights\\render texture light.js": {
     "path": "game objects\\lights\\render texture light.js",
     "titleWords": {
@@ -49109,7 +49199,7 @@
       "quad": 1
     },
     "bodyWords": {
-      "var": 6,
+      "var": 8,
       "config": 2,
       "type": 1,
       "phaser": 3,
@@ -49156,8 +49246,8 @@
       "|": 8,
       "b|": 1,
       "mesh": 4,
-      "x": 14,
-      "y": 13,
+      "x": 13,
+      "y": 12,
       "defines": 1,
       "center": 2,
       "vertice": 1,
@@ -49178,10 +49268,10 @@
       "topright": 3,
       "bottomleft": 3,
       "bottomright": 5,
-      "make": 1,
-      "key": 1,
-      "vertices": 1,
-      "uv": 1,
+      "vertices": 2,
+      "uv": 2,
+      "add": 1,
+      "null": 1,
       "": 1
     }
   },
@@ -62704,13 +62794,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\align text.js": {
-    "path": "game objects\\text\\static\\align text.js",
+  "game objects\\text\\align text.js": {
+    "path": "game objects\\text\\align text.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "align": 1
     },
     "bodyWords": {
@@ -62760,13 +62849,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\basic text.js": {
-    "path": "game objects\\text\\static\\basic text.js",
+  "game objects\\text\\basic text.js": {
+    "path": "game objects\\text\\basic text.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "basic": 1
     },
     "bodyWords": {
@@ -62816,13 +62904,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\change text.js": {
-    "path": "game objects\\text\\static\\change text.js",
+  "game objects\\text\\change text.js": {
+    "path": "game objects\\text\\change text.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "change": 1
     },
     "bodyWords": {
@@ -62874,13 +62961,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\create from config.js": {
-    "path": "game objects\\text\\static\\create from config.js",
+  "game objects\\text\\create from config.js": {
+    "path": "game objects\\text\\create from config.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "create": 1,
       "from": 1,
       "config": 1
@@ -62933,13 +63019,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\custom webfont.js": {
-    "path": "game objects\\text\\static\\custom webfont.js",
+  "game objects\\text\\custom webfont.js": {
+    "path": "game objects\\text\\custom webfont.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "custom": 1,
       "webfont": 1
     },
@@ -63033,13 +63118,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\emojis.js": {
-    "path": "game objects\\text\\static\\emojis.js",
+  "game objects\\text\\emojis.js": {
+    "path": "game objects\\text\\emojis.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "emojis": 1
     },
     "bodyWords": {
@@ -63116,13 +63200,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\google webfont.js": {
-    "path": "game objects\\text\\static\\google webfont.js",
+  "game objects\\text\\google webfont.js": {
+    "path": "game objects\\text\\google webfont.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "google": 1,
       "webfont": 1
     },
@@ -63203,13 +63286,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\italic text.js": {
-    "path": "game objects\\text\\static\\italic text.js",
+  "game objects\\text\\italic text.js": {
+    "path": "game objects\\text\\italic text.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "italic": 1
     },
     "bodyWords": {
@@ -63250,13 +63332,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\line spacing.js": {
-    "path": "game objects\\text\\static\\line spacing.js",
+  "game objects\\text\\line spacing.js": {
+    "path": "game objects\\text\\line spacing.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "line": 1,
       "spacing": 1
     },
@@ -63426,13 +63507,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\multi line text with alignment.js": {
-    "path": "game objects\\text\\static\\multi line text with alignment.js",
+  "game objects\\text\\multi line text with alignment.js": {
+    "path": "game objects\\text\\multi line text with alignment.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "multi": 1,
       "line": 1,
       "with": 1,
@@ -63629,13 +63709,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\multi line text.js": {
-    "path": "game objects\\text\\static\\multi line text.js",
+  "game objects\\text\\multi line text.js": {
+    "path": "game objects\\text\\multi line text.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "multi": 1,
       "line": 1
     },
@@ -63829,13 +63908,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\padding from config.js": {
-    "path": "game objects\\text\\static\\padding from config.js",
+  "game objects\\text\\padding from config.js": {
+    "path": "game objects\\text\\padding from config.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "padding": 1,
       "from": 1,
       "config": 1
@@ -63888,13 +63966,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\right origin.js": {
-    "path": "game objects\\text\\static\\right origin.js",
+  "game objects\\text\\right origin.js": {
+    "path": "game objects\\text\\right origin.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "right": 1,
       "origin": 1
     },
@@ -63942,13 +64019,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\right to left text.js": {
-    "path": "game objects\\text\\static\\right to left text.js",
+  "game objects\\text\\right to left text.js": {
+    "path": "game objects\\text\\right to left text.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "right": 1,
       "to": 1,
       "left": 1
@@ -64024,13 +64100,12 @@
       "true": 4
     }
   },
-  "game objects\\text\\static\\set test string.js": {
-    "path": "game objects\\text\\static\\set test string.js",
+  "game objects\\text\\set test string.js": {
+    "path": "game objects\\text\\set test string.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "set": 1,
       "test": 1,
       "string": 1
@@ -64073,13 +64148,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\shadow stroke styles.js": {
-    "path": "game objects\\text\\static\\shadow stroke styles.js",
+  "game objects\\text\\shadow stroke styles.js": {
+    "path": "game objects\\text\\shadow stroke styles.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "shadow": 1,
       "stroke": 1,
       "styles": 1
@@ -64160,13 +64234,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\speech bubble.js": {
-    "path": "game objects\\text\\static\\speech bubble.js",
+  "game objects\\text\\speech bubble.js": {
+    "path": "game objects\\text\\speech bubble.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "speech": 1,
       "bubble": 1
     },
@@ -64301,13 +64374,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\tests\\word wrap.js": {
-    "path": "game objects\\text\\static\\tests\\word wrap.js",
+  "game objects\\text\\tests\\word wrap.js": {
+    "path": "game objects\\text\\tests\\word wrap.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "tests": 1,
       "word": 1,
       "wrap": 1
@@ -64427,13 +64499,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\text bounds.js": {
-    "path": "game objects\\text\\static\\text bounds.js",
+  "game objects\\text\\text bounds.js": {
+    "path": "game objects\\text\\text bounds.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "bounds": 1
     },
     "bodyWords": {
@@ -64664,13 +64735,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\text key.js": {
-    "path": "game objects\\text\\static\\text key.js",
+  "game objects\\text\\text key.js": {
+    "path": "game objects\\text\\text key.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "key": 1
     },
     "bodyWords": {
@@ -64697,13 +64767,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\text metrics.js": {
-    "path": "game objects\\text\\static\\text metrics.js",
+  "game objects\\text\\text metrics.js": {
+    "path": "game objects\\text\\text metrics.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "metrics": 1
     },
     "bodyWords": {
@@ -64767,13 +64836,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\text origin.js": {
-    "path": "game objects\\text\\static\\text origin.js",
+  "game objects\\text\\text origin.js": {
+    "path": "game objects\\text\\text origin.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "origin": 1
     },
     "bodyWords": {
@@ -64820,13 +64888,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\text padding.js": {
-    "path": "game objects\\text\\static\\text padding.js",
+  "game objects\\text\\text padding.js": {
+    "path": "game objects\\text\\text padding.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "padding": 1
     },
     "bodyWords": {
@@ -64888,13 +64955,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\text with fallback font.js": {
-    "path": "game objects\\text\\static\\text with fallback font.js",
+  "game objects\\text\\text with fallback font.js": {
+    "path": "game objects\\text\\text with fallback font.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 2,
-      "static": 1,
       "with": 1,
       "fallback": 1,
       "font": 1
@@ -64931,13 +64997,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\to json.js": {
-    "path": "game objects\\text\\static\\to json.js",
+  "game objects\\text\\to json.js": {
+    "path": "game objects\\text\\to json.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "to": 1,
       "json": 1
     },
@@ -64982,13 +65047,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\word wrap by callback.js": {
-    "path": "game objects\\text\\static\\word wrap by callback.js",
+  "game objects\\text\\word wrap by callback.js": {
+    "path": "game objects\\text\\word wrap by callback.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "word": 1,
       "wrap": 1,
       "by": 1,
@@ -65094,13 +65158,12 @@
       "": 1
     }
   },
-  "game objects\\text\\static\\word wrap by width.js": {
-    "path": "game objects\\text\\static\\word wrap by width.js",
+  "game objects\\text\\word wrap by width.js": {
+    "path": "game objects\\text\\word wrap by width.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
       "text": 1,
-      "static": 1,
       "word": 1,
       "wrap": 1,
       "by": 1,
@@ -71721,7 +71784,7 @@
       "config": 2,
       "type": 1,
       "phaser": 4,
-      "webgl": 1,
+      "auto": 1,
       "width": 1,
       "height": 1,
       "backgroundcolor": 1,
@@ -71739,19 +71802,19 @@
       "game": 2,
       "new": 2,
       "function": 3,
-      "this": 6,
+      "this": 7,
       "load": 2,
       "image": 1,
       "tiles": 2,
       "assets": 2,
-      "tilemaps": 3,
+      "tilemaps": 2,
       "iso": 2,
       "tilesets": 1,
       "tileset": 4,
       "png": 1,
       "tilemaptiledjson": 1,
       "map": 5,
-      "testhexa": 1,
+      "hexagonal": 1,
       "json": 1,
       "add": 1,
       "tilemap": 1,
@@ -71762,9 +71825,10 @@
       "input": 1,
       "keyboard": 1,
       "createcursorkeys": 1,
-      "cameras": 3,
-      "main": 2,
+      "cameras": 4,
+      "main": 3,
       "setzoom": 1,
+      "centeron": 1,
       "controlconfig": 2,
       "camera": 1,
       "left": 2,
@@ -174392,7 +174456,7 @@
       "spineboy": 1
     },
     "bodyWords": {
-      "var": 2,
+      "var": 3,
       "config": 2,
       "type": 2,
       "phaser": 4,
@@ -174436,8 +174500,12 @@
       "true": 2,
       "add": 2,
       "setorigin": 1,
+      "boy": 2,
       "spineboy": 1,
       "idle": 1,
+      "console": 1,
+      "log": 1,
+      "getbounds": 1,
       "": 1
     }
   },

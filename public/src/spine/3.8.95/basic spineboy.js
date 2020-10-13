@@ -30,5 +30,7 @@ function create ()
 {
     this.add.image(0, 0, 'logo').setOrigin(0);
 
-    this.add.spine(400, 600, 'set1.spineboy', 'idle', true);
+    var boy = this.add.spine(400, 600, 'set1.spineboy', 'idle', true);
+
+    console.log(boy.getBounds());
 }

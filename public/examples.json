@@ -4224,6 +4224,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\game objects\\bitmaptext\\static\\origin and scale.js",
+                  "name": "origin and scale.js",
+                  "size": 767,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\game objects\\bitmaptext\\static\\padding.js",
                   "name": "padding.js",
                   "size": 898,
@@ -4252,11 +4259,11 @@
                   "type": "file"
                 }
               ],
-              "size": 22680,
+              "size": 23447,
               "type": "directory"
             }
           ],
-          "size": 45299,
+          "size": 46066,
           "type": "directory"
         },
         {
@@ -5770,6 +5777,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\lights\\point light.js",
+              "name": "point light.js",
+              "size": 552,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\lights\\render texture light.js",
               "name": "render texture light.js",
               "size": 1147,
@@ -5826,7 +5840,7 @@
               "type": "file"
             }
           ],
-          "size": 35248,
+          "size": 35800,
           "type": "directory"
         },
         {
@@ -5836,7 +5850,7 @@
             {
               "path": "src\\game objects\\mesh\\basic quad.js",
               "name": "basic quad.js",
-              "size": 1485,
+              "size": 1375,
               "extension": ".js",
               "type": "file"
             },
@@ -5897,7 +5911,7 @@
               "type": "file"
             }
           ],
-          "size": 22227,
+          "size": 22117,
           "type": "directory"
         },
         {
@@ -7159,209 +7173,201 @@
           "name": "text",
           "children": [
             {
-              "path": "src\\game objects\\text\\static",
-              "name": "static",
+              "path": "src\\game objects\\text\\align text.js",
+              "name": "align text.js",
+              "size": 804,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\basic text.js",
+              "name": "basic text.js",
+              "size": 602,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\change text.js",
+              "name": "change text.js",
+              "size": 618,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\create from config.js",
+              "name": "create from config.js",
+              "size": 793,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\custom webfont.js",
+              "name": "custom webfont.js",
+              "size": 1452,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\emojis.js",
+              "name": "emojis.js",
+              "size": 898,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\google webfont.js",
+              "name": "google webfont.js",
+              "size": 1257,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\italic text.js",
+              "name": "italic text.js",
+              "size": 930,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\line spacing.js",
+              "name": "line spacing.js",
+              "size": 1647,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\multi line text with alignment.js",
+              "name": "multi line text with alignment.js",
+              "size": 1851,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\multi line text.js",
+              "name": "multi line text.js",
+              "size": 1835,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\padding from config.js",
+              "name": "padding from config.js",
+              "size": 1626,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\right origin.js",
+              "name": "right origin.js",
+              "size": 623,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\right to left text.js",
+              "name": "right to left text.js",
+              "size": 1248,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\set test string.js",
+              "name": "set test string.js",
+              "size": 727,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\shadow stroke styles.js",
+              "name": "shadow stroke styles.js",
+              "size": 1575,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\speech bubble.js",
+              "name": "speech bubble.js",
+              "size": 2807,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\tests",
+              "name": "tests",
               "children": [
                 {
-                  "path": "src\\game objects\\text\\static\\align text.js",
-                  "name": "align text.js",
-                  "size": 804,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\basic text.js",
-                  "name": "basic text.js",
-                  "size": 602,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\change text.js",
-                  "name": "change text.js",
-                  "size": 618,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\create from config.js",
-                  "name": "create from config.js",
-                  "size": 793,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\custom webfont.js",
-                  "name": "custom webfont.js",
-                  "size": 1452,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\emojis.js",
-                  "name": "emojis.js",
-                  "size": 898,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\google webfont.js",
-                  "name": "google webfont.js",
-                  "size": 1257,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\italic text.js",
-                  "name": "italic text.js",
-                  "size": 930,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\line spacing.js",
-                  "name": "line spacing.js",
-                  "size": 1647,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\multi line text with alignment.js",
-                  "name": "multi line text with alignment.js",
-                  "size": 1851,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\multi line text.js",
-                  "name": "multi line text.js",
-                  "size": 1835,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\padding from config.js",
-                  "name": "padding from config.js",
-                  "size": 1626,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\right origin.js",
-                  "name": "right origin.js",
-                  "size": 623,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\right to left text.js",
-                  "name": "right to left text.js",
-                  "size": 1248,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\set test string.js",
-                  "name": "set test string.js",
-                  "size": 727,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\shadow stroke styles.js",
-                  "name": "shadow stroke styles.js",
-                  "size": 1575,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\speech bubble.js",
-                  "name": "speech bubble.js",
-                  "size": 2807,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\tests",
-                  "name": "tests",
-                  "children": [
-                    {
-                      "path": "src\\game objects\\text\\static\\tests\\word wrap.js",
-                      "name": "word wrap.js",
-                      "size": 3464,
-                      "extension": ".js",
-                      "type": "file"
-                    }
-                  ],
+                  "path": "src\\game objects\\text\\tests\\word wrap.js",
+                  "name": "word wrap.js",
                   "size": 3464,
-                  "type": "directory"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\text bounds.js",
-                  "name": "text bounds.js",
-                  "size": 2977,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\text key.js",
-                  "name": "text key.js",
-                  "size": 296,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\text metrics.js",
-                  "name": "text metrics.js",
-                  "size": 968,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\text origin.js",
-                  "name": "text origin.js",
-                  "size": 855,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\text padding.js",
-                  "name": "text padding.js",
-                  "size": 1201,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\text with fallback font.js",
-                  "name": "text with fallback font.js",
-                  "size": 361,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\to json.js",
-                  "name": "to json.js",
-                  "size": 594,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\word wrap by callback.js",
-                  "name": "word wrap by callback.js",
-                  "size": 1104,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\game objects\\text\\static\\word wrap by width.js",
-                  "name": "word wrap by width.js",
-                  "size": 2027,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 35140,
+              "size": 3464,
               "type": "directory"
+            },
+            {
+              "path": "src\\game objects\\text\\text bounds.js",
+              "name": "text bounds.js",
+              "size": 2977,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\text key.js",
+              "name": "text key.js",
+              "size": 296,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\text metrics.js",
+              "name": "text metrics.js",
+              "size": 968,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\text origin.js",
+              "name": "text origin.js",
+              "size": 855,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\text padding.js",
+              "name": "text padding.js",
+              "size": 1201,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\text with fallback font.js",
+              "name": "text with fallback font.js",
+              "size": 361,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\to json.js",
+              "name": "to json.js",
+              "size": 594,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\word wrap by callback.js",
+              "name": "word wrap by callback.js",
+              "size": 1104,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\text\\word wrap by width.js",
+              "name": "word wrap by width.js",
+              "size": 2027,
+              "extension": ".js",
+              "type": "file"
             }
           ],
           "size": 35140,
@@ -7710,7 +7716,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\isometric\\hexagonal test.js",
                   "name": "hexagonal test.js",
-                  "size": 1194,
+                  "size": 1226,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7722,7 +7728,7 @@
                   "type": "file"
                 }
               ],
-              "size": 2895,
+              "size": 2927,
               "type": "directory"
             },
             {
@@ -7980,7 +7986,7 @@
               "type": "directory"
             }
           ],
-          "size": 279940,
+          "size": 279972,
           "type": "directory"
         },
         {
@@ -7999,7 +8005,7 @@
           "type": "directory"
         }
       ],
-      "size": 1085831,
+      "size": 1087072,
       "type": "directory"
     },
     {
@@ -14755,7 +14761,7 @@
             {
               "path": "src\\spine\\3.8.95\\basic spineboy.js",
               "name": "basic spineboy.js",
-              "size": 797,
+              "size": 844,
               "extension": ".js",
               "type": "file"
             },
@@ -14942,7 +14948,7 @@
               "type": "file"
             }
           ],
-          "size": 56608,
+          "size": 56655,
           "type": "directory"
         },
         {
@@ -15065,7 +15071,7 @@
           "type": "file"
         }
       ],
-      "size": 128617,
+      "size": 128664,
       "type": "directory"
     },
     {
@@ -16298,6 +16304,6 @@
       "type": "directory"
     }
   ],
-  "size": 4531341,
+  "size": 4532629,
   "type": "directory"
 }

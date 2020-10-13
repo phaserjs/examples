@@ -43,19 +43,16 @@ function create ()
     var bottomLeft = { x: -250, y: 250 };
     var bottomRight = { x: 250, y: 250 };
 
-    this.make.mesh({
-        key: 'image',
-        x: 400,
-        y: 300,
-        vertices: [
-            topLeft.x, topLeft.y,
-            bottomLeft.x, bottomLeft.y,
-            bottomRight.x, bottomRight.y,
+    var vertices = [
+        topLeft.x, topLeft.y,
+        bottomLeft.x, bottomLeft.y,
+        bottomRight.x, bottomRight.y,
 
-            topLeft.x, topLeft.y,
-            bottomRight.x, bottomRight.y,
-            topRight.x, topRight.y
-        ],
-        uv: [ 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0 ]
-    });
+        topLeft.x, topLeft.y,
+        bottomRight.x, bottomRight.y,
+        topRight.x, topRight.y
+    ];
+    var uv = [ 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0 ];
+
+    this.add.mesh(400, 300, 'image', null, vertices, uv);
 }

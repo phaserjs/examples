@@ -1776,6 +1776,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\em op.js",
+          "name": "em op.js",
+          "size": 1002,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\extern.js",
           "name": "extern.js",
           "size": 1489,
@@ -2133,7 +2140,7 @@
           "type": "file"
         }
       ],
-      "size": 112124,
+      "size": 113126,
       "type": "directory"
     },
     {
@@ -5735,6 +5742,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\lights\\draw light.js",
+              "name": "draw light.js",
+              "size": 2129,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\lights\\dynamic tilemap layer.js",
               "name": "dynamic tilemap layer.js",
               "size": 3199,
@@ -5779,7 +5793,7 @@
             {
               "path": "src\\game objects\\lights\\point light.js",
               "name": "point light.js",
-              "size": 552,
+              "size": 2752,
               "extension": ".js",
               "type": "file"
             },
@@ -5801,6 +5815,13 @@
               "path": "src\\game objects\\lights\\shapes light.js",
               "name": "shapes light.js",
               "size": 1911,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\lights\\single light.js",
+              "name": "single light.js",
+              "size": 956,
               "extension": ".js",
               "type": "file"
             },
@@ -5840,7 +5861,7 @@
               "type": "file"
             }
           ],
-          "size": 35800,
+          "size": 41085,
           "type": "directory"
         },
         {
@@ -6355,7 +6376,7 @@
             {
               "path": "src\\game objects\\particle emitter\\tint.js",
               "name": "tint.js",
-              "size": 711,
+              "size": 837,
               "extension": ".js",
               "type": "file"
             },
@@ -6367,7 +6388,7 @@
               "type": "file"
             }
           ],
-          "size": 90324,
+          "size": 90450,
           "type": "directory"
         },
         {
@@ -7476,7 +7497,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\csv map arcade physics.js",
                   "name": "csv map arcade physics.js",
-                  "size": 4384,
+                  "size": 4386,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7565,7 +7586,7 @@
                   "type": "file"
                 }
               ],
-              "size": 74423,
+              "size": 74425,
               "type": "directory"
             },
             {
@@ -7986,7 +8007,7 @@
               "type": "directory"
             }
           ],
-          "size": 279972,
+          "size": 279974,
           "type": "directory"
         },
         {
@@ -8005,7 +8026,7 @@
           "type": "directory"
         }
       ],
-      "size": 1087072,
+      "size": 1092485,
       "type": "directory"
     },
     {
@@ -8900,7 +8921,7 @@
             {
               "path": "src\\geom\\intersects\\line to line.js",
               "name": "line to line.js",
-              "size": 1226,
+              "size": 1402,
               "extension": ".js",
               "type": "file"
             },
@@ -8975,7 +8996,7 @@
               "type": "file"
             }
           ],
-          "size": 16206,
+          "size": 16382,
           "type": "directory"
         },
         {
@@ -10027,7 +10048,7 @@
           "type": "directory"
         }
       ],
-      "size": 195717,
+      "size": 195893,
       "type": "directory"
     },
     {
@@ -11608,6 +11629,20 @@
           "name": "texture atlas multi",
           "children": [
             {
+              "path": "src\\loader\\texture atlas multi\\bug.js",
+              "name": "bug.js",
+              "size": 1767,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\loader\\texture atlas multi\\bug2.js",
+              "name": "bug2.js",
+              "size": 1043,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\loader\\texture atlas multi\\load multi texture atlas with normal maps.js",
               "name": "load multi texture atlas with normal maps.js",
               "size": 1078,
@@ -11622,7 +11657,7 @@
               "type": "file"
             }
           ],
-          "size": 1916,
+          "size": 4726,
           "type": "directory"
         },
         {
@@ -11706,7 +11741,7 @@
           "type": "directory"
         }
       ],
-      "size": 730396,
+      "size": 733206,
       "type": "directory"
     },
     {
@@ -14761,7 +14796,7 @@
             {
               "path": "src\\spine\\3.8.95\\basic spineboy.js",
               "name": "basic spineboy.js",
-              "size": 844,
+              "size": 810,
               "extension": ".js",
               "type": "file"
             },
@@ -14776,6 +14811,13 @@
               "path": "src\\spine\\3.8.95\\blend mode test.js",
               "name": "blend mode test.js",
               "size": 1793,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\spine\\3.8.95\\bugmask.js",
+              "name": "bugmask.js",
+              "size": 4082,
               "extension": ".js",
               "type": "file"
             },
@@ -14948,7 +14990,7 @@
               "type": "file"
             }
           ],
-          "size": 56655,
+          "size": 60703,
           "type": "directory"
         },
         {
@@ -15071,7 +15113,7 @@
           "type": "file"
         }
       ],
-      "size": 128664,
+      "size": 132712,
       "type": "directory"
     },
     {
@@ -16304,6 +16346,6 @@
       "type": "directory"
     }
   ],
-  "size": 4532629,
+  "size": 4546078,
   "type": "directory"
 }

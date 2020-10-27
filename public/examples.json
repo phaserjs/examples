@@ -1776,13 +1776,6 @@
           "type": "file"
         },
         {
-          "path": "src\\bugs\\em op.js",
-          "name": "em op.js",
-          "size": 1002,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
           "path": "src\\bugs\\extern.js",
           "name": "extern.js",
           "size": 1489,
@@ -1793,6 +1786,13 @@
           "path": "src\\bugs\\extern2.js",
           "name": "extern2.js",
           "size": 4579,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\graphics5376.js",
+          "name": "graphics5376.js",
+          "size": 530,
           "extension": ".js",
           "type": "file"
         },
@@ -2140,7 +2140,7 @@
           "type": "file"
         }
       ],
-      "size": 113126,
+      "size": 112654,
       "type": "directory"
     },
     {
@@ -6376,7 +6376,7 @@
             {
               "path": "src\\game objects\\particle emitter\\tint.js",
               "name": "tint.js",
-              "size": 837,
+              "size": 711,
               "extension": ".js",
               "type": "file"
             },
@@ -6388,7 +6388,7 @@
               "type": "file"
             }
           ],
-          "size": 90450,
+          "size": 90324,
           "type": "directory"
         },
         {
@@ -7110,7 +7110,7 @@
             {
               "path": "src\\game objects\\sprites\\single sprite.js",
               "name": "single sprite.js",
-              "size": 370,
+              "size": 376,
               "extension": ".js",
               "type": "file"
             },
@@ -7136,7 +7136,7 @@
               "type": "file"
             }
           ],
-          "size": 8825,
+          "size": 8831,
           "type": "directory"
         },
         {
@@ -8026,7 +8026,7 @@
           "type": "directory"
         }
       ],
-      "size": 1092485,
+      "size": 1092365,
       "type": "directory"
     },
     {
@@ -8921,7 +8921,7 @@
             {
               "path": "src\\geom\\intersects\\line to line.js",
               "name": "line to line.js",
-              "size": 1402,
+              "size": 1226,
               "extension": ".js",
               "type": "file"
             },
@@ -8996,7 +8996,7 @@
               "type": "file"
             }
           ],
-          "size": 16382,
+          "size": 16206,
           "type": "directory"
         },
         {
@@ -10048,7 +10048,7 @@
           "type": "directory"
         }
       ],
-      "size": 195893,
+      "size": 195717,
       "type": "directory"
     },
     {
@@ -11629,20 +11629,6 @@
           "name": "texture atlas multi",
           "children": [
             {
-              "path": "src\\loader\\texture atlas multi\\bug.js",
-              "name": "bug.js",
-              "size": 1767,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\loader\\texture atlas multi\\bug2.js",
-              "name": "bug2.js",
-              "size": 1043,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
               "path": "src\\loader\\texture atlas multi\\load multi texture atlas with normal maps.js",
               "name": "load multi texture atlas with normal maps.js",
               "size": 1078,
@@ -11657,7 +11643,7 @@
               "type": "file"
             }
           ],
-          "size": 4726,
+          "size": 1916,
           "type": "directory"
         },
         {
@@ -11741,7 +11727,7 @@
           "type": "directory"
         }
       ],
-      "size": 733206,
+      "size": 730396,
       "type": "directory"
     },
     {
@@ -13753,54 +13739,40 @@
         {
           "path": "src\\renderer\\custom pipeline multi texture es6.js",
           "name": "custom pipeline multi texture es6.js",
-          "size": 3148,
+          "size": 3430,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline multi texture.js",
           "name": "custom pipeline multi texture.js",
-          "size": 2901,
+          "size": 3121,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline single texture es6.js",
           "name": "custom pipeline single texture es6.js",
-          "size": 3067,
+          "size": 3303,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline single texture.js",
           "name": "custom pipeline single texture.js",
-          "size": 2870,
+          "size": 3090,
           "extension": ".js",
           "type": "file"
         },
         {
-          "path": "src\\renderer\\Custom Pipeline.js",
-          "name": "Custom Pipeline.js",
-          "size": 2990,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src\\renderer\\max texture size.js",
-          "name": "max texture size.js",
-          "size": 616,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src\\renderer\\supported extensions.js",
-          "name": "supported extensions.js",
-          "size": 399,
+          "path": "src\\renderer\\webgl info.js",
+          "name": "webgl info.js",
+          "size": 1143,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 20702,
+      "size": 18798,
       "type": "directory"
     },
     {
@@ -14796,7 +14768,7 @@
             {
               "path": "src\\spine\\3.8.95\\basic spineboy.js",
               "name": "basic spineboy.js",
-              "size": 810,
+              "size": 844,
               "extension": ".js",
               "type": "file"
             },
@@ -14811,13 +14783,6 @@
               "path": "src\\spine\\3.8.95\\blend mode test.js",
               "name": "blend mode test.js",
               "size": 1793,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\spine\\3.8.95\\bugmask.js",
-              "name": "bugmask.js",
-              "size": 4082,
               "extension": ".js",
               "type": "file"
             },
@@ -14990,7 +14955,7 @@
               "type": "file"
             }
           ],
-          "size": 60703,
+          "size": 56655,
           "type": "directory"
         },
         {
@@ -15113,7 +15078,7 @@
           "type": "file"
         }
       ],
-      "size": 132712,
+      "size": 128664,
       "type": "directory"
     },
     {
@@ -16346,6 +16311,6 @@
       "type": "directory"
     }
   ],
-  "size": 4546078,
+  "size": 4536548,
   "type": "directory"
 }

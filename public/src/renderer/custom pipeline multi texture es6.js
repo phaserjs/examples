@@ -68,7 +68,19 @@ class CustomPipeline extends Phaser.Renderer.WebGL.Pipelines.MultiPipeline
 {
     constructor (game)
     {
-        super({ game, vertShader, fragShader });
+        super({
+            game,
+            vertShader,
+            fragShader,
+            uniforms: [
+                'uProjectionMatrix',
+                'uViewMatrix',
+                'uModelMatrix',
+                'uMainSampler',
+                'uResolution',
+                'uTime'
+            ]
+        });
     }
 }
 
@@ -93,15 +105,13 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const game = this.game;
+        this.customPipeline = this.renderer.pipelines.get('Custom');
 
-        this.customPipeline = game.renderer.addPipeline('Custom', new CustomPipeline(game));
-
-        this.customPipeline.setFloat2('uResolution', this.scale.width, this.scale.height);
+        this.customPipeline.set2f('uResolution', this.scale.width, this.scale.height);
 
         this.add.sprite(100, 300, 'pudding');
-        this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline('Custom');
-        this.fish = this.add.sprite(400, 300, 'fish').setPipeline('Custom');
+        this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline(this.customPipeline);
+        this.fish = this.add.sprite(400, 300, 'fish').setPipeline(this.customPipeline);
         this.add.sprite(700, 300, 'cake');
 
         this.input.on('pointermove', pointer => {
@@ -119,7 +129,7 @@ class Example extends Phaser.Scene
             }
             else
             {
-                this.fish.setPipeline('Custom');
+                this.fish.setPipeline(this.customPipeline);
             }
 
         });
@@ -127,7 +137,7 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        this.customPipeline.setFloat1('uTime', this.t);
+        this.customPipeline.set1f('uTime', this.t);
 
         this.t += 0.05;
 
@@ -141,7 +151,8 @@ const config = {
     height: 600,
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
-    scene: Example
+    scene: Example,
+    pipeline: { 'Custom': CustomPipeline }
 };
 
 let game = new Phaser.Game(config);

@@ -1,5 +1,6 @@
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
+    backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     scene: {
         preload: preload,
@@ -9,16 +10,12 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var bunny;
-
-function preload() {
-
+function preload ()
+{
     this.load.image('bunny', 'assets/sprites/bunny.png');
-
 }
 
-function create() {
-
-    bunny = this.add.sprite(400, 300, 'bunny');
-
+function create ()
+{
+    this.add.sprite(400, 300, 'bunny');
 }

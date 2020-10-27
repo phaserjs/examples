@@ -13765,6 +13765,27 @@
           "type": "file"
         },
         {
+          "path": "src\\renderer\\grayscale pipeline.js",
+          "name": "grayscale pipeline.js",
+          "size": 1406,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\hue rotation pipeline.js",
+          "name": "hue rotation pipeline.js",
+          "size": 1316,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\multi color pipeline.js",
+          "name": "multi color pipeline.js",
+          "size": 1345,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\webgl info.js",
           "name": "webgl info.js",
           "size": 1143,
@@ -13772,7 +13793,7 @@
           "type": "file"
         }
       ],
-      "size": 18798,
+      "size": 22865,
       "type": "directory"
     },
     {
@@ -16311,6 +16332,6 @@
       "type": "directory"
     }
   ],
-  "size": 4536548,
+  "size": 4540615,
   "type": "directory"
 }

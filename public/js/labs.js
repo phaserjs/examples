@@ -105,32 +105,43 @@ $(document).ready(function () {
 
             phaserScript.onload = function ()
             {
-                //  Inject the example source
-                var phaserExample = document.createElement('script');
+                var jsPath = decodeURI(filename).split('\\').join('/');
 
-                phaserExample.type = 'text/javascript';
-                // phaserExample.type = 'module';
-                phaserExample.src = decodeURI(filename).split('\\').join('/');
+                //  Load it and check if we need to be a module or not
+                $.get(jsPath, '', function (srcFile) {
 
-                document.body.appendChild(phaserExample);
+                    //  Inject the example source
+                    var type = 'text/javascript';
 
-                $('#loading').hide();
-                $('#nav').show();
-
-                phaserExample.onload = function ()
-                {
-                    if (window.game)
+                    if (srcFile.substr(0, 10) === '// #module')
                     {
-                        var type = (game.config.renderType === 2) ? 'Canvas' : 'WebGL';
+                        type = 'module';
+                    }
 
-                        $('#forcemode').text('Force '  + type);
-                        $('#forcemode').attr('href', 'view.html?force=' + type + '&v=' + phaserVersion + '&src=' + filename);
-                    }
-                    else
+                    var phaserExample = $('<script />').attr('type', type).text(srcFile).appendTo(document.body);
+
+                    $('#loading').hide();
+                    $('#nav').show();
+
+                    phaserExample[0].onload = function ()
                     {
-                        $('#forcemode').hide();
+                        console.log('onload');
+
+                        if (window.game)
+                        {
+                            var type = (game.config.renderType === 2) ? 'Canvas' : 'WebGL';
+
+                            $('#forcemode').text('Force '  + type);
+                            $('#forcemode').attr('href', 'view.html?force=' + type + '&v=' + phaserVersion + '&src=' + filename);
+                        }
+                        else
+                        {
+                            $('#forcemode').hide();
+                        }
                     }
-                }
+
+                }, 'text');
+
             };
 
             phaserScript.src = './build/' + phaserVersionJS;

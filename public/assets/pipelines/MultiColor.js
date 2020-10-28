@@ -103,6 +103,12 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
         this._speed = 0.001;
     }
 
+    onBoot ()
+    {
+        this.grayShader = this.shaders[0];
+        this.hueShader = this.shaders[1];
+    }
+
     onPreRender ()
     {
         this._time = this.game.loop.time;
@@ -112,9 +118,21 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
     {
         super.bind();
 
-        // this.set1f('gray', this._gray);
-        // this.set1f('uTime', this._time);
-        // this.set1f('uSpeed', this._speed);
+        this.set1f('gray', this._gray, this.grayShader);
+        // this.set1f('uTime', this._time, this.hueShader);
+        // this.set1f('uSpeed', this._speed, this.hueShader);
+    }
+
+    onBind (gameObject)
+    {
+        // if (gameObject.pipelineData.effect === 0)
+        // {
+        //     this.setShader(this.grayShader);
+        // }
+        // else
+        // {
+        //     this.setShader(this.hueShader);
+        // }
     }
 
     get gray ()

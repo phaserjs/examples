@@ -1790,6 +1790,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\graphics5376.js",
+          "name": "graphics5376.js",
+          "size": 530,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\hsv.js",
           "name": "hsv.js",
           "size": 550,
@@ -2133,7 +2140,7 @@
           "type": "file"
         }
       ],
-      "size": 112124,
+      "size": 112654,
       "type": "directory"
     },
     {
@@ -5735,6 +5742,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\lights\\draw light.js",
+              "name": "draw light.js",
+              "size": 2129,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\lights\\dynamic tilemap layer.js",
               "name": "dynamic tilemap layer.js",
               "size": 3199,
@@ -5779,7 +5793,7 @@
             {
               "path": "src\\game objects\\lights\\point light.js",
               "name": "point light.js",
-              "size": 552,
+              "size": 2752,
               "extension": ".js",
               "type": "file"
             },
@@ -5801,6 +5815,13 @@
               "path": "src\\game objects\\lights\\shapes light.js",
               "name": "shapes light.js",
               "size": 1911,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\game objects\\lights\\single light.js",
+              "name": "single light.js",
+              "size": 956,
               "extension": ".js",
               "type": "file"
             },
@@ -5840,7 +5861,7 @@
               "type": "file"
             }
           ],
-          "size": 35800,
+          "size": 41085,
           "type": "directory"
         },
         {
@@ -7089,7 +7110,7 @@
             {
               "path": "src\\game objects\\sprites\\single sprite.js",
               "name": "single sprite.js",
-              "size": 370,
+              "size": 376,
               "extension": ".js",
               "type": "file"
             },
@@ -7115,7 +7136,7 @@
               "type": "file"
             }
           ],
-          "size": 8825,
+          "size": 8831,
           "type": "directory"
         },
         {
@@ -7476,7 +7497,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\csv map arcade physics.js",
                   "name": "csv map arcade physics.js",
-                  "size": 4384,
+                  "size": 4386,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7565,7 +7586,7 @@
                   "type": "file"
                 }
               ],
-              "size": 74423,
+              "size": 74425,
               "type": "directory"
             },
             {
@@ -7986,7 +8007,7 @@
               "type": "directory"
             }
           ],
-          "size": 279972,
+          "size": 279974,
           "type": "directory"
         },
         {
@@ -8005,7 +8026,7 @@
           "type": "directory"
         }
       ],
-      "size": 1087072,
+      "size": 1092365,
       "type": "directory"
     },
     {
@@ -13718,54 +13739,61 @@
         {
           "path": "src\\renderer\\custom pipeline multi texture es6.js",
           "name": "custom pipeline multi texture es6.js",
-          "size": 3148,
+          "size": 3430,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline multi texture.js",
           "name": "custom pipeline multi texture.js",
-          "size": 2901,
+          "size": 3121,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline single texture es6.js",
           "name": "custom pipeline single texture es6.js",
-          "size": 3067,
+          "size": 3303,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline single texture.js",
           "name": "custom pipeline single texture.js",
-          "size": 2870,
+          "size": 3090,
           "extension": ".js",
           "type": "file"
         },
         {
-          "path": "src\\renderer\\Custom Pipeline.js",
-          "name": "Custom Pipeline.js",
-          "size": 2990,
+          "path": "src\\renderer\\grayscale pipeline.js",
+          "name": "grayscale pipeline.js",
+          "size": 1406,
           "extension": ".js",
           "type": "file"
         },
         {
-          "path": "src\\renderer\\max texture size.js",
-          "name": "max texture size.js",
-          "size": 616,
+          "path": "src\\renderer\\hue rotation pipeline.js",
+          "name": "hue rotation pipeline.js",
+          "size": 1316,
           "extension": ".js",
           "type": "file"
         },
         {
-          "path": "src\\renderer\\supported extensions.js",
-          "name": "supported extensions.js",
-          "size": 399,
+          "path": "src\\renderer\\multi color pipeline.js",
+          "name": "multi color pipeline.js",
+          "size": 1345,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\webgl info.js",
+          "name": "webgl info.js",
+          "size": 1143,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 20702,
+      "size": 22865,
       "type": "directory"
     },
     {
@@ -16304,6 +16332,6 @@
       "type": "directory"
     }
   ],
-  "size": 4532629,
+  "size": 4540615,
   "type": "directory"
 }

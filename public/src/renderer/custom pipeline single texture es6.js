@@ -62,7 +62,19 @@ class CustomPipeline extends Phaser.Renderer.WebGL.Pipelines.SinglePipeline
 {
     constructor (game)
     {
-        super({ game, vertShader, fragShader });
+        super({
+            game,
+            vertShader,
+            fragShader,
+            uniforms: [
+                'uProjectionMatrix',
+                'uViewMatrix',
+                'uModelMatrix',
+                'uMainSampler',
+                'uResolution',
+                'uTime'
+            ]
+        });
     }
 }
 
@@ -87,11 +99,9 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const game = this.game;
+        this.customPipeline = this.renderer.pipelines.add('Custom', new CustomPipeline(this.game));
 
-        this.customPipeline = game.renderer.addPipeline('Custom', new CustomPipeline(game));
-
-        this.customPipeline.setFloat2('uResolution', this.scale.width, this.scale.height);
+        this.customPipeline.set2f('uResolution', this.scale.width, this.scale.height);
 
         this.add.sprite(100, 300, 'pudding');
         this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline('Custom');
@@ -121,7 +131,7 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        this.customPipeline.setFloat1('uTime', this.t);
+        this.customPipeline.set1f('uTime', this.t);
 
         this.t += 0.05;
 

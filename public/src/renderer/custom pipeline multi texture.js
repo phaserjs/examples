@@ -59,7 +59,15 @@ var CustomPipeline = new Phaser.Class({
 
                 gl_FragColor = texture * plasma();
             }
-            `
+            `,
+            uniforms: [
+                'uProjectionMatrix',
+                'uViewMatrix',
+                'uModelMatrix',
+                'uMainSampler',
+                'uResolution',
+                'uTime'
+            ]
         });
     }
 });
@@ -80,9 +88,9 @@ function preload ()
 
 function create ()
 {
-    customPipeline = game.renderer.addPipeline('Custom', new CustomPipeline(game));
+    customPipeline = this.renderer.pipelines.add('Custom', new CustomPipeline(game));
 
-    customPipeline.setFloat2('uResolution', game.config.width, game.config.height);
+    customPipeline.set2f('uResolution', game.config.width, game.config.height);
 
     this.add.sprite(100, 300, 'beball');
     this.add.sprite(400, 300, 'atari').setPipeline('Custom');
@@ -110,7 +118,7 @@ function create ()
 
 function update ()
 {
-    customPipeline.setFloat1('uTime', time);
+    customPipeline.set1f('uTime', time);
 
     time += 0.05;
 

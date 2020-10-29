@@ -1790,6 +1790,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\externwebgl2.js",
+          "name": "externwebgl2.js",
+          "size": 2138,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\graphics5376.js",
           "name": "graphics5376.js",
           "size": 530,
@@ -2140,7 +2147,7 @@
           "type": "file"
         }
       ],
-      "size": 112654,
+      "size": 114792,
       "type": "directory"
     },
     {
@@ -2535,6 +2542,13 @@
           "type": "file"
         },
         {
+          "path": "src\\camera\\get world point.js",
+          "name": "get world point.js",
+          "size": 1161,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\camera\\graphics landscape.js",
           "name": "graphics landscape.js",
           "size": 2995,
@@ -2858,7 +2872,7 @@
           "type": "file"
         }
       ],
-      "size": 214438,
+      "size": 215599,
       "type": "directory"
     },
     {
@@ -13737,6 +13751,13 @@
           "type": "file"
         },
         {
+          "path": "src\\renderer\\container pipeline.js",
+          "name": "container pipeline.js",
+          "size": 1688,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\custom pipeline multi texture es6.js",
           "name": "custom pipeline multi texture es6.js",
           "size": 3430,
@@ -13781,7 +13802,14 @@
         {
           "path": "src\\renderer\\multi color pipeline.js",
           "name": "multi color pipeline.js",
-          "size": 1345,
+          "size": 1342,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\set pipeline data.js",
+          "name": "set pipeline data.js",
+          "size": 1391,
           "extension": ".js",
           "type": "file"
         },
@@ -13793,7 +13821,7 @@
           "type": "file"
         }
       ],
-      "size": 22865,
+      "size": 25941,
       "type": "directory"
     },
     {
@@ -16332,6 +16360,6 @@
       "type": "directory"
     }
   ],
-  "size": 4540615,
+  "size": 4546990,
   "type": "directory"
 }

@@ -24,8 +24,6 @@ void main()
 
 const grayUniforms = [
     'uProjectionMatrix',
-    'uViewMatrix',
-    'uModelMatrix',
     'uMainSampler',
     'gray'
 ];
@@ -53,21 +51,11 @@ void main()
     float c = cos(uTime * uSpeed);
     float s = sin(uTime * uSpeed);
 
-    mat4 hueRotation =
-        mat4(   0.299,  0.587,  0.114, 0.0,
-        0.299,  0.587,  0.114, 0.0,
-        0.299,  0.587,  0.114, 0.0,
-        0.000,  0.000,  0.000, 1.0) +
+    mat4 r = mat4(0.299, 0.587, 0.114, 0.0, 0.299, 0.587, 0.114, 0.0, 0.299, 0.587, 0.114, 0.0, 0.0,  0.0, 0.0, 1.0);
+    mat4 g = mat4(0.701, -0.587, -0.114, 0.0, -0.299, 0.413, -0.114, 0.0, -0.300, -0.588, 0.886, 0.0, 0.0, 0.0, 0.0, 0.0);
+    mat4 b = mat4(0.168, 0.330, -0.497, 0.0, -0.328, 0.035, 0.292, 0.0, 1.250, -1.050, -0.203, 0.0, 0.0, 0.0, 0.0, 0.0);
 
-        mat4(   0.701, -0.587, -0.114, 0.0,
-        -0.299,  0.413, -0.114, 0.0,
-        -0.300, -0.588,  0.886, 0.0,
-        0.000,  0.000,  0.000, 0.0) * c +
-
-        mat4(   0.168,  0.330, -0.497, 0.0,
-        -0.328,  0.035,  0.292, 0.0,
-        1.250, -1.050, -0.203, 0.0,
-        0.000,  0.000,  0.000, 0.0) * s;
+    mat4 hueRotation = r + g * c + b * s;
 
     gl_FragColor = texture * hueRotation;
 }
@@ -75,8 +63,6 @@ void main()
 
 const hueUniforms = [
     'uProjectionMatrix',
-    'uViewMatrix',
-    'uModelMatrix',
     'uMainSampler',
     'uTime',
     'uSpeed'
@@ -102,7 +88,6 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
             ]
         });
 
-        this._time = 0;
         this._gray = 1;
         this._speed = 0.001;
     }
@@ -111,33 +96,50 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
     {
         this.grayShader = this.shaders[0];
         this.hueShader = this.shaders[1];
-    }
 
-    onPreRender ()
-    {
-        this._time = this.game.loop.time;
+        this.set1iv('uMainSampler', this.renderer.textureIndexes, this.grayShader);
+        this.set1iv('uMainSampler', this.renderer.textureIndexes, this.hueShader);
     }
 
     bind ()
     {
-        super.bind(this.grayShader);
+        super.bind();
+    }
 
-        this.set1f('gray', this._gray);
-        this.set1f('uTime', this._time, this.hueShader);
+    onPreRender ()
+    {
+        this.set1f('gray', this._gray, this.grayShader);
+        this.set1f('uTime', this.game.loop.time, this.hueShader);
         this.set1f('uSpeed', this._speed, this.hueShader);
-
-        this.setShader(this.grayShader);
     }
 
     onBind (gameObject)
     {
-        if (gameObject.pipelineData.effect === 0)
+        super.onBind();
+
+        const data = gameObject.pipelineData;
+
+        if (data.effect === 0)
         {
             this.setShader(this.grayShader);
+
+            if (data.gray && data.gray !== this.gray)
+            {
+                this.gray = data.gray;
+
+                this.set1f('gray', data.gray, this.grayShader);
+            }
         }
-        else
+        else if (data.effect === 1)
         {
             this.setShader(this.hueShader);
+
+            if (data.speed && data.speed !== this.speed)
+            {
+                this.speed = data.speed;
+
+                this.set1f('uSpeed', data.speed, this.hueShader);
+            }
         }
     }
 

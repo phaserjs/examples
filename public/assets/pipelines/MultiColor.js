@@ -1,4 +1,6 @@
 const grayFragShader = `
+#define SHADER_NAME GRAY_FS
+
 precision mediump float;
 
 uniform sampler2D uMainSampler[%count%];
@@ -29,6 +31,8 @@ const grayUniforms = [
 ];
 
 const hueFragShader = `
+#define SHADER_NAME HUE_FS
+
 precision mediump float;
 
 uniform sampler2D uMainSampler[%count%];
@@ -116,23 +120,25 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
 
     bind ()
     {
-        super.bind();
+        super.bind(this.grayShader);
 
-        this.set1f('gray', this._gray, this.grayShader);
-        // this.set1f('uTime', this._time, this.hueShader);
-        // this.set1f('uSpeed', this._speed, this.hueShader);
+        this.set1f('gray', this._gray);
+        this.set1f('uTime', this._time, this.hueShader);
+        this.set1f('uSpeed', this._speed, this.hueShader);
+
+        this.setShader(this.grayShader);
     }
 
     onBind (gameObject)
     {
-        // if (gameObject.pipelineData.effect === 0)
-        // {
-        //     this.setShader(this.grayShader);
-        // }
-        // else
-        // {
-        //     this.setShader(this.hueShader);
-        // }
+        if (gameObject.pipelineData.effect === 0)
+        {
+            this.setShader(this.grayShader);
+        }
+        else
+        {
+            this.setShader(this.hueShader);
+        }
     }
 
     get gray ()

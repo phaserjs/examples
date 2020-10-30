@@ -1023,7 +1023,7 @@
             {
               "path": "src\\3.50\\camera\\camera-effects.js",
               "name": "camera-effects.js",
-              "size": 994,
+              "size": 945,
               "extension": ".js",
               "type": "file"
             },
@@ -1477,7 +1477,7 @@
               "type": "file"
             }
           ],
-          "size": 215648,
+          "size": 215599,
           "type": "directory"
         },
         {
@@ -2740,7 +2740,7 @@
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext origin and scale.js",
                       "name": "bitmaptext origin and scale.js",
-                      "size": 799,
+                      "size": 766,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -2852,7 +2852,7 @@
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\origin and scale.js",
                       "name": "origin and scale.js",
-                      "size": 802,
+                      "size": 767,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -2885,11 +2885,11 @@
                       "type": "file"
                     }
                   ],
-                  "size": 23515,
+                  "size": 23447,
                   "type": "directory"
                 }
               ],
-              "size": 46134,
+              "size": 46066,
               "type": "directory"
             },
             {
@@ -4490,7 +4490,7 @@
                 {
                   "path": "src\\3.50\\game objects\\mesh\\basic quad.js",
                   "name": "basic quad.js",
-                  "size": 1433,
+                  "size": 1375,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4551,7 +4551,7 @@
                   "type": "file"
                 }
               ],
-              "size": 22175,
+              "size": 22117,
               "type": "directory"
             },
             {
@@ -6645,7 +6645,7 @@
               "type": "directory"
             }
           ],
-          "size": 1092491,
+          "size": 1092365,
           "type": "directory"
         },
         {
@@ -12358,82 +12358,82 @@
             {
               "path": "src\\3.50\\renderer\\bend pipeline.js",
               "name": "bend pipeline.js",
-              "size": 1295,
+              "size": 1239,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\container pipeline.js",
               "name": "container pipeline.js",
-              "size": 1277,
+              "size": 1223,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline multi texture es6.js",
               "name": "custom pipeline multi texture es6.js",
-              "size": 3472,
+              "size": 3317,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline multi texture.js",
               "name": "custom pipeline multi texture.js",
-              "size": 3247,
+              "size": 3121,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline single texture es6.js",
               "name": "custom pipeline single texture es6.js",
-              "size": 3305,
+              "size": 3158,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline single texture.js",
               "name": "custom pipeline single texture.js",
-              "size": 3213,
+              "size": 3090,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\grayscale pipeline.js",
               "name": "grayscale pipeline.js",
-              "size": 1468,
+              "size": 1406,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\hue rotation pipeline.js",
               "name": "hue rotation pipeline.js",
-              "size": 1371,
+              "size": 1316,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\multi color pipeline.js",
               "name": "multi color pipeline.js",
-              "size": 1392,
+              "size": 1342,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\set pipeline data.js",
               "name": "set pipeline data.js",
-              "size": 1441,
+              "size": 1391,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\webgl info.js",
               "name": "webgl info.js",
-              "size": 1181,
+              "size": 1143,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 27373,
+          "size": 26457,
           "type": "directory"
         },
         {
@@ -15221,7 +15221,7 @@
           "type": "directory"
         }
       ],
-      "size": 4439328,
+      "size": 4438237,
       "type": "directory"
     },
     {
@@ -16895,7 +16895,7 @@
         {
           "path": "src\\bugs\\blend.js",
           "name": "blend.js",
-          "size": 1081,
+          "size": 1035,
           "extension": ".js",
           "type": "file"
         },
@@ -16909,14 +16909,14 @@
         {
           "path": "src\\bugs\\blendc.js",
           "name": "blendc.js",
-          "size": 521,
+          "size": 502,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\bugs\\bm.js",
           "name": "bm.js",
-          "size": 795,
+          "size": 770,
           "extension": ".js",
           "type": "file"
         },
@@ -17196,7 +17196,7 @@
         {
           "path": "src\\bugs\\right.js",
           "name": "right.js",
-          "size": 690,
+          "size": 656,
           "extension": ".js",
           "type": "file"
         },
@@ -17329,7 +17329,7 @@
         {
           "path": "src\\bugs\\timeline.js",
           "name": "timeline.js",
-          "size": 1453,
+          "size": 1396,
           "extension": ".js",
           "type": "file"
         },
@@ -17357,7 +17357,7 @@
         {
           "path": "src\\bugs\\update.js",
           "name": "update.js",
-          "size": 1027,
+          "size": 984,
           "extension": ".js",
           "type": "file"
         },
@@ -17369,7 +17369,7 @@
           "type": "file"
         }
       ],
-      "size": 115016,
+      "size": 114792,
       "type": "directory"
     },
     {
@@ -17556,7 +17556,7 @@
         {
           "path": "src\\camera\\add and remove test.js",
           "name": "add and remove test.js",
-          "size": 1708,
+          "size": 1791,
           "extension": ".js",
           "type": "file"
         },
@@ -17640,7 +17640,7 @@
         {
           "path": "src\\camera\\camera-effects.js",
           "name": "camera-effects.js",
-          "size": 994,
+          "size": 945,
           "extension": ".js",
           "type": "file"
         },
@@ -18094,7 +18094,7 @@
           "type": "file"
         }
       ],
-      "size": 215565,
+      "size": 215599,
       "type": "directory"
     },
     {
@@ -19357,7 +19357,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\bitmaptext origin and scale.js",
                   "name": "bitmaptext origin and scale.js",
-                  "size": 799,
+                  "size": 766,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -19469,7 +19469,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\origin and scale.js",
                   "name": "origin and scale.js",
-                  "size": 802,
+                  "size": 767,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -19502,11 +19502,11 @@
                   "type": "file"
                 }
               ],
-              "size": 23515,
+              "size": 23447,
               "type": "directory"
             }
           ],
-          "size": 46134,
+          "size": 46066,
           "type": "directory"
         },
         {
@@ -20252,8 +20252,8 @@
               "type": "file"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1916,
               "extension": ".js",
               "type": "file"
@@ -20280,8 +20280,8 @@
               "type": "file"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js",
               "type": "file"
@@ -21107,7 +21107,7 @@
             {
               "path": "src\\game objects\\mesh\\basic quad.js",
               "name": "basic quad.js",
-              "size": 1433,
+              "size": 1375,
               "extension": ".js",
               "type": "file"
             },
@@ -21168,7 +21168,7 @@
               "type": "file"
             }
           ],
-          "size": 22175,
+          "size": 22117,
           "type": "directory"
         },
         {
@@ -22738,7 +22738,7 @@
           "type": "directory"
         }
       ],
-      "size": 812517,
+      "size": 812391,
       "type": "directory"
     },
     {
@@ -28451,82 +28451,68 @@
         {
           "path": "src\\renderer\\bend pipeline.js",
           "name": "bend pipeline.js",
-          "size": 1295,
+          "size": 1239,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\container pipeline.js",
           "name": "container pipeline.js",
-          "size": 1277,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src\\renderer\\custom pipeline multi texture es6.js",
-          "name": "custom pipeline multi texture es6.js",
-          "size": 3472,
+          "size": 1223,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline multi texture.js",
           "name": "custom pipeline multi texture.js",
-          "size": 3247,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src\\renderer\\custom pipeline single texture es6.js",
-          "name": "custom pipeline single texture es6.js",
-          "size": 3305,
+          "size": 3596,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline single texture.js",
           "name": "custom pipeline single texture.js",
-          "size": 3213,
+          "size": 3196,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\grayscale pipeline.js",
           "name": "grayscale pipeline.js",
-          "size": 1468,
+          "size": 1406,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\hue rotation pipeline.js",
           "name": "hue rotation pipeline.js",
-          "size": 1371,
+          "size": 1316,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\multi color pipeline.js",
           "name": "multi color pipeline.js",
-          "size": 1392,
+          "size": 1342,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\set pipeline data.js",
           "name": "set pipeline data.js",
-          "size": 1441,
+          "size": 1391,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\webgl info.js",
           "name": "webgl info.js",
-          "size": 1181,
+          "size": 1143,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 27373,
+      "size": 20563,
       "type": "directory"
     },
     {
@@ -31065,6 +31051,6 @@
       "type": "directory"
     }
   ],
-  "size": 8708092,
+  "size": 8699875,
   "type": "directory"
 }

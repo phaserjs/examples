@@ -49,59 +49,16 @@ export default class BendPipeline extends Phaser.Renderer.WebGL.Pipelines.Single
             ]
         });
 
-        this._bend = 0.2;
-        this._speed = 2.0;
-    }
-
-    onBoot ()
-    {
-        // this.set1iv('uMainSampler', this.renderer.textureIndexes);
-    }
-
-    bind ()
-    {
-        super.bind();
+        this._bend = 0.3;
+        this._speed = 0.003;
     }
 
     onPreRender ()
     {
-        // this.set1i('uMainSampler', 0);
         this.set1f('uTime', this.game.loop.time);
         this.set1f('uSpeed', this._speed);
         this.set1f('uBendFactor', this._bend);
     }
-
-    /*
-    onBind (gameObject)
-    {
-        super.onBind();
-
-        const data = gameObject.pipelineData;
-
-        if (data.effect === 0)
-        {
-            this.setShader(this.grayShader);
-
-            if (data.gray && data.gray !== this.gray)
-            {
-                this.gray = data.gray;
-
-                this.set1f('gray', data.gray, this.grayShader);
-            }
-        }
-        else if (data.effect === 1)
-        {
-            this.setShader(this.hueShader);
-
-            if (data.speed && data.speed !== this.speed)
-            {
-                this.speed = data.speed;
-
-                this.set1f('uSpeed', data.speed, this.hueShader);
-            }
-        }
-    }
-    */
 
     get bend ()
     {

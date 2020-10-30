@@ -101,11 +101,6 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
         this.set1iv('uMainSampler', this.renderer.textureIndexes, this.hueShader);
     }
 
-    bind ()
-    {
-        super.bind();
-    }
-
     onPreRender ()
     {
         this.set1f('gray', this._gray, this.grayShader);

@@ -6,6 +6,7 @@ uniform vec2 uResolution;
 
 attribute vec2 inPosition;
 attribute vec2 inTexCoord;
+attribute float inTexId;
 attribute float inTintEffect;
 attribute vec4 inTint;
 
@@ -95,7 +96,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.customPipeline = this.renderer.pipelines.add('Custom', new CustomPipeline(this.game));
+        this.customPipeline = this.renderer.pipelines.get('Custom');
 
         this.customPipeline.set2f('uResolution', this.scale.width, this.scale.height);
 
@@ -141,7 +142,8 @@ const config = {
     height: 600,
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
-    scene: Example
+    scene: Example,
+    pipeline: { 'Custom': CustomPipeline }
 };
 
 let game = new Phaser.Game(config);

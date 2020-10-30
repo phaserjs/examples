@@ -106,10 +106,17 @@ class Example extends Phaser.Scene
 
         this.customPipeline.set2f('uResolution', this.scale.width, this.scale.height);
 
-        this.add.sprite(100, 300, 'pudding');
+        // this.add.sprite(100, 300, 'pudding');
+        this.add.sprite(100, 300, 'pudding').setPipeline(this.customPipeline);
+
+        // this.add.sprite(400, 300, 'crab').setScale(1.5);
         this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline(this.customPipeline);
+
+        // this.fish = this.add.sprite(400, 300, 'fish');
         this.fish = this.add.sprite(400, 300, 'fish').setPipeline(this.customPipeline);
-        this.add.sprite(700, 300, 'cake');
+
+        // this.add.sprite(700, 300, 'cake');
+        this.add.sprite(700, 300, 'cake').setPipeline(this.customPipeline);
 
         this.input.on('pointermove', pointer => {
 
@@ -134,7 +141,7 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        // this.customPipeline.set1f('uTime', this.t);
+        this.customPipeline.set1f('uTime', this.t);
 
         this.t += 0.05;
 

@@ -9,7 +9,7 @@ var config = {
         create: create,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -21,20 +21,21 @@ function preload ()
 {
     this.load.image('arrow', 'assets/sprites/arrow.png');
 
-    this.load.setPath('assets/animations/spine/');
-    this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
+    this.load.setPath('assets/spine/3.8/spineboy');
+    this.load.spine('boy', 'spineboy-pro.json', 'spineboy-pro.atlas', true);
 }
 
 function create ()
 {
     var matrix = new Phaser.GameObjects.Components.TransformMatrix();
 
-    var bob = this.add.image(0, 0, 'arrow');
+    // var bob = this.add.image(0, 0, 'arrow');
 
     // bob.setScale(0.5, 0.8);
-    bob.setScale(-0.3, 0.3);
+    // bob.setScale(-0.3, 0.3);
     // bob.setScale(0.5, -0.8);
 
+    /*
     for (var i = 0; i <= 360; i += 22.5)
     {
         bob.setAngle(i);
@@ -72,21 +73,7 @@ function create ()
         // console.log('ccw+90', Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(matrix.rotation)) + 90, 'normalized', Phaser.Math.RadToDeg(Phaser.Math.Angle.CounterClockwise(matrix.rotationNormalized)) + 90);
         console.log('');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    */
 
     var labelStyle = { font: "16px courier", fill: "#00ff00", align: "center" };
     var circle = new Phaser.Geom.Circle(350, 300, 225);
@@ -157,8 +144,8 @@ function create ()
 
     var spineBoy = this.add.spine(350+600, 300, 'boy', 'walk', true);
     
-    // spineBoy.setScale(0.3, 0.3);
-    spineBoy.setScale(-0.3, 0.3);
+    spineBoy.setScale(0.3, 0.3);
+    // spineBoy.setScale(-0.3, 0.3);
 
     var text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 

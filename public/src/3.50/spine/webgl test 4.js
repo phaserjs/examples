@@ -10,7 +10,7 @@ var config = {
         update: update,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -24,10 +24,9 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
 
-    this.load.setPath('assets/animations/spine/webgl/');
+    this.load.setPath('assets/spine/3.8/raptor/');
 
-    // this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
-    this.load.spine('raptor', 'raptor-pro.json', 'raptor.atlas');
+    this.load.spine('raptor', 'raptor-pro.json', 'raptor-pro.atlas', true);
 }
 
 function create ()

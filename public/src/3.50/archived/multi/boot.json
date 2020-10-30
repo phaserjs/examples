@@ -1,9 +1,0 @@
-{
-    "files": [
-        "Preloader.js",
-        "Controller.js",
-        "Invaders.js",
-        "Asteroids.js",
-        "main.js"
-    ]
-}

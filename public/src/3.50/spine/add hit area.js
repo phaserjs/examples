@@ -9,7 +9,7 @@ var config = {
         create: create,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -21,7 +21,7 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
 
-    this.load.setPath('assets/spine/demos/');
+    this.load.setPath('assets/spine/3.8/demos/');
 
     this.load.spine('set1', 'demos.json', [ 'atlas1.atlas', 'atlas2.atlas', 'heroes.atlas' ], true);
 }

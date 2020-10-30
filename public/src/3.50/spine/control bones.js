@@ -9,7 +9,7 @@ var config = {
         create: create,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -21,9 +21,9 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
 
-    this.load.setPath('assets/spine/stretchyman/');
+    this.load.setPath('assets/spine/3.8/stretchyman/');
 
-    this.load.spine('stretchyman', 'stretchyman-pro.json', [ 'stretchyman-pma.atlas' ], true);
+    this.load.spine('stretchyman', 'stretchyman-stretchy-ik-pro.json', [ 'stretchyman-stretchy-ik-pro.atlas' ], true);
 }
 
 function create ()

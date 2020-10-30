@@ -10,7 +10,7 @@ var config = {
         update: update,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -24,13 +24,10 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
 
-    this.load.setPath('assets/animations/spine/webgl/');
-
-    this.load.spine('raptor', 'raptor-pro.json', 'raptor.atlas');
-    this.load.spine('vine', 'vine-pro.json', 'vine.atlas');
-    this.load.spine('coin', 'coin-pro.json', 'coin.atlas');
-    this.load.spine('tank', 'tank-pro.json', 'tank.atlas');
-    // this.load.spine('goblins', 'goblins-pro.json', 'goblins.atlas');
+    this.load.setPath('assets/spine/3.8/raptor').spine('raptor', 'raptor-pro.json', 'raptor-pro.atlas');
+    this.load.setPath('assets/spine/3.8/vine').spine('vine', 'vine-pro.json', 'vine-pro.atlas');
+    this.load.setPath('assets/spine/3.8/coin').spine('coin', 'coin-pro.json', 'coin-pro.atlas');
+    this.load.setPath('assets/spine/3.8/tank').spine('tank', 'tank-pro.json', 'tank-pro.atlas');
 }
 
 function create ()
@@ -46,8 +43,6 @@ function create ()
     this.add.spine(700, 520, 'tank', 'shoot', true).setScale(0.25);
 
     this.add.spine(200, 520, 'raptor', 'roar', true).setScale(0.3);
-
-    // this.add.spine(200, 520, 'goblins', 'walk', true).setScale(0.3);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

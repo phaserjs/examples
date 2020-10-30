@@ -10,7 +10,7 @@ var config = {
         update: update,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -23,31 +23,19 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
-    // this.load.image('logo', 'assets/pics/remember-me.jpg');
 
-    this.load.setPath('assets/animations/spine/');
+    this.load.setPath('assets/spine/3.8/spineboy');
 
-    this.load.spine('boy', 'spineboy.json', 'spineboy.atlas');
+    this.load.spine('boy', 'spineboy-pro.json', 'spineboy-pro.atlas', true);
 }
 
 function create ()
 {
-    // this.cameras.main.setAngle(20);
-    // this.cameras.main.setZoom(0.5);
-
     this.add.image(0, 0, 'logo').setOrigin(0);
-
-    // var spineBoy = this.add.spine(400, 550, 'boy', 'run', true);
 
     var spineBoy = this.add.spine(400, 600, 'boy', 'idle', true);
 
     spineBoy.drawDebug = true;
-    // spineBoy.setScale(0.5);
-    // spineBoy.setAngle(-45);
-
-    // var spineBoy2 = this.add.spine(200, 400, 'boy', 'shoot', true);
-
-    // spineBoy2.setScale(0.3);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

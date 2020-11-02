@@ -73,11 +73,11 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('platformer_tiles');
-    var bgLayer = map.createDynamicLayer('Background Layer', tileset, 0, 0)
+    var bgLayer = map.createLayer('Background Layer', tileset, 0, 0)
         .setScale(mapScale);
-    var groundLayer = map.createDynamicLayer('Ground Layer', tileset, 0, 0)
+    var groundLayer = map.createLayer('Ground Layer', tileset, 0, 0)
         .setScale(mapScale);
-    var fgLayer = map.createDynamicLayer('Foreground Layer', tileset, 0, 0)
+    var fgLayer = map.createLayer('Foreground Layer', tileset, 0, 0)
         .setScale(mapScale)
         .setDepth(1);
 
@@ -128,6 +128,7 @@ function create ()
     var M = Phaser.Physics.Matter.Matter;
     var w = playerController.matterSprite.width;
     var h = playerController.matterSprite.height;
+    console.log(h)
 
     // The player's body is going to be a compound body.
     var playerBody = M.Bodies.rectangle(0, 0, w * 0.75, h, { chamfer: { radius: 10 } });

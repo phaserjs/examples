@@ -38,7 +38,7 @@ function create ()
     // When loading a CSV map, make sure to specify the tileWidth and tileHeight
     map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
     var tileset = map.addTilesetImage('tiles');
-    var layer = map.createStaticLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
 
     //  This isn't totally accurate, but it'll do for now
     map.setCollisionBetween(54, 83);

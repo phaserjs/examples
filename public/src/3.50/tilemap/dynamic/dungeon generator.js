@@ -125,7 +125,7 @@ function create ()
 
     var tileset = map.addTilesetImage('tiles', 'tiles', 16, 16, 1, 2);
 
-    layer = map.createBlankDynamicLayer('Layer 1', tileset);
+    layer = map.createBlankLayer('Layer 1', tileset);
 
     if (!debug)
     {

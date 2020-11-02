@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#1b262c',
@@ -32,10 +32,10 @@ function create ()
     map = this.make.tilemap({ key: 'multiple-layers-map' });
     var tiles = map.addTilesetImage('kenny_platformer_64x64');
 
-    rockLayer = map.createStaticLayer('Rock Layer', tiles, 0, 0);
-    waterLayer = map.createStaticLayer('Water Layer', tiles, 0, 0);
-    platformLayer = map.createStaticLayer('Platform Layer', tiles, 0, 0);
-    stuffLayer = map.createStaticLayer('Stuff Layer', tiles, 0, 0);
+    rockLayer = map.createLayer('Rock Layer', tiles, 0, 0);
+    waterLayer = map.createLayer('Water Layer', tiles, 0, 0);
+    platformLayer = map.createLayer('Platform Layer', tiles, 0, 0);
+    stuffLayer = map.createLayer('Stuff Layer', tiles, 0, 0);
 
     // When you create a layer, that becomes the currently 'selected' layer within the map. That
     // means any tile operation on the map right now will be operating on 'Stuff Layer'.
@@ -45,19 +45,19 @@ function create ()
 
     this.cameras.main.setScroll(0, 1000);
 
-    this.input.keyboard.on('keydown_ONE', function (event) {
+    this.input.keyboard.on('keydown-ONE', function (event) {
         selectLayer(rockLayer);
     });
 
-    this.input.keyboard.on('keydown_TWO', function (event) {
+    this.input.keyboard.on('keydown-TWO', function (event) {
         selectLayer(waterLayer);
     });
 
-    this.input.keyboard.on('keydown_THREE', function (event) {
+    this.input.keyboard.on('keydown-THREE', function (event) {
         selectLayer(platformLayer);
     });
 
-    this.input.keyboard.on('keydown_FOUR', function (event) {
+    this.input.keyboard.on('keydown-FOUR', function (event) {
         selectLayer(stuffLayer);
     });
 

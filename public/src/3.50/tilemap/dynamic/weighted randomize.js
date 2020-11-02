@@ -30,8 +30,8 @@ function create ()
 
     var tiles = map.addTilesetImage('tiles');
 
-    groundLayer = map.createBlankDynamicLayer('Ground Layer', tiles);
-    objectLayer = map.createBlankDynamicLayer('Object Layer', tiles);
+    groundLayer = map.createBlankLayer('Ground Layer', tiles);
+    objectLayer = map.createBlankLayer('Object Layer', tiles);
     groundLayer.setScale(2);
     objectLayer.setScale(2);
     this.cameras.main.setScroll(-27, -27);

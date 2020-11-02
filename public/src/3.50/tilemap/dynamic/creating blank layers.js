@@ -28,7 +28,7 @@ function create ()
     var tiles = map.addTilesetImage('tiles');
 
     // Each layer needs to get a unique name
-    var layer1 = map.createBlankDynamicLayer('layer1', tiles);
+    var layer1 = map.createBlankLayer('layer1', tiles);
 
     // Fill the layer with random tile indexes (where -1 is an empty tile)
     layer1.randomize(0, 0, map.width, map.height, [ -1, 0, 12 ]);
@@ -38,7 +38,7 @@ function create ()
     layer1.setScrollFactor(0.5);
     layer1.setAlpha(0.5);
 
-    var layer2 = map.createBlankDynamicLayer('layer2', tiles);
+    var layer2 = map.createBlankLayer('layer2', tiles);
     layer2.randomize(0, 0, map.width, map.height, [ -1, 1 ]);
 
     var cursors = this.input.keyboard.createCursorKeys();

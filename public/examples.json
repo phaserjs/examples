@@ -301,7 +301,7 @@
             {
               "path": "src\\3.50\\animation\\cubes.js",
               "name": "cubes.js",
-              "size": 1601,
+              "size": 1535,
               "extension": ".js",
               "type": "file"
             },
@@ -516,7 +516,7 @@
               "type": "file"
             }
           ],
-          "size": 85809,
+          "size": 85743,
           "type": "directory"
         },
         {
@@ -586,12 +586,12 @@
                 {
                   "path": "src\\3.50\\audio\\HTML5 Audio\\Volume Mute Rate Detune.js",
                   "name": "Volume Mute Rate Detune.js",
-                  "size": 3912,
+                  "size": 3762,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 40140,
+              "size": 39990,
               "type": "directory"
             },
             {
@@ -636,19 +636,19 @@
                 {
                   "path": "src\\3.50\\audio\\No Audio\\Seek.js",
                   "name": "Seek.js",
-                  "size": 3614,
+                  "size": 3475,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\audio\\No Audio\\Volume Mute Rate Detune.js",
                   "name": "Volume Mute Rate Detune.js",
-                  "size": 3896,
+                  "size": 3753,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 35618,
+              "size": 35336,
               "type": "directory"
             },
             {
@@ -736,23 +736,23 @@
                 {
                   "path": "src\\3.50\\audio\\Web Audio\\Seek.js",
                   "name": "Seek.js",
-                  "size": 3572,
+                  "size": 3436,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\audio\\Web Audio\\Volume Mute Rate Detune.js",
                   "name": "Volume Mute Rate Detune.js",
-                  "size": 3857,
+                  "size": 3711,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 43621,
+              "size": 43339,
               "type": "directory"
             }
           ],
-          "size": 121808,
+          "size": 121094,
           "type": "directory"
         },
         {
@@ -1023,7 +1023,7 @@
             {
               "path": "src\\3.50\\camera\\camera-effects.js",
               "name": "camera-effects.js",
-              "size": 945,
+              "size": 994,
               "extension": ".js",
               "type": "file"
             },
@@ -1114,7 +1114,7 @@
             {
               "path": "src\\3.50\\camera\\follow zoom tilemap.js",
               "name": "follow zoom tilemap.js",
-              "size": 2061,
+              "size": 1962,
               "extension": ".js",
               "type": "file"
             },
@@ -1444,7 +1444,7 @@
             {
               "path": "src\\3.50\\camera\\tile map with camera shake.js",
               "name": "tile map with camera shake.js",
-              "size": 1347,
+              "size": 1281,
               "extension": ".js",
               "type": "file"
             },
@@ -1477,7 +1477,7 @@
               "type": "file"
             }
           ],
-          "size": 215599,
+          "size": 215483,
           "type": "directory"
         },
         {
@@ -2575,7 +2575,7 @@
             {
               "path": "src\\3.50\\game config\\pixel art mode.js",
               "name": "pixel art mode.js",
-              "size": 1833,
+              "size": 1766,
               "extension": ".js",
               "type": "file"
             },
@@ -2594,7 +2594,7 @@
               "type": "file"
             }
           ],
-          "size": 16801,
+          "size": 16734,
           "type": "directory"
         },
         {
@@ -2740,7 +2740,7 @@
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext origin and scale.js",
                       "name": "bitmaptext origin and scale.js",
-                      "size": 766,
+                      "size": 799,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -2852,7 +2852,7 @@
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\origin and scale.js",
                       "name": "origin and scale.js",
-                      "size": 767,
+                      "size": 802,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -2885,11 +2885,11 @@
                       "type": "file"
                     }
                   ],
-                  "size": 23447,
+                  "size": 23515,
                   "type": "directory"
                 }
               ],
-              "size": 46066,
+              "size": 46134,
               "type": "directory"
             },
             {
@@ -4461,7 +4461,7 @@
                 {
                   "path": "src\\3.50\\game objects\\lights\\static tilemap layer.js",
                   "name": "static tilemap layer.js",
-                  "size": 3198,
+                  "size": 3065,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4480,7 +4480,7 @@
                   "type": "file"
                 }
               ],
-              "size": 41085,
+              "size": 40952,
               "type": "directory"
             },
             {
@@ -4490,7 +4490,7 @@
                 {
                   "path": "src\\3.50\\game objects\\mesh\\basic quad.js",
                   "name": "basic quad.js",
-                  "size": 1375,
+                  "size": 1433,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4551,7 +4551,7 @@
                   "type": "file"
                 }
               ],
-              "size": 22117,
+              "size": 22175,
               "type": "directory"
             },
             {
@@ -5298,7 +5298,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\static tilemap to render texture.js",
                   "name": "static tilemap to render texture.js",
-                  "size": 1717,
+                  "size": 1649,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5338,7 +5338,7 @@
                   "type": "file"
                 }
               ],
-              "size": 63029,
+              "size": 62961,
               "type": "directory"
             },
             {
@@ -6106,530 +6106,6 @@
               "type": "directory"
             },
             {
-              "path": "src\\3.50\\game objects\\tilemap",
-              "name": "tilemap",
-              "children": [
-                {
-                  "path": "src\\3.50\\game objects\\tilemap\\collision",
-                  "name": "collision",
-                  "children": [
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\csv map arcade physics.js",
-                      "name": "csv map arcade physics.js",
-                      "size": 4386,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\matter destroy tile bodies.js",
-                      "name": "matter destroy tile bodies.js",
-                      "size": 13455,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\matter detect collision with tile.js",
-                      "name": "matter detect collision with tile.js",
-                      "size": 5233,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\matter ghost collisions.js",
-                      "name": "matter ghost collisions.js",
-                      "size": 3962,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\matter platformer modify map.js",
-                      "name": "matter platformer modify map.js",
-                      "size": 13288,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\matter platformer with wall jumping.js",
-                      "name": "matter platformer with wall jumping.js",
-                      "size": 11518,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\matter.js",
-                      "name": "matter.js",
-                      "size": 2823,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\multiple tile sizes.js",
-                      "name": "multiple tile sizes.js",
-                      "size": 4258,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\non-slope map and impact.js",
-                      "name": "non-slope map and impact.js",
-                      "size": 3528,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\simple map.js",
-                      "name": "simple map.js",
-                      "size": 1898,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\tile callbacks.js",
-                      "name": "tile callbacks.js",
-                      "size": 4423,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\tiled map and impact.js",
-                      "name": "tiled map and impact.js",
-                      "size": 3292,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\collision\\weltmeister map and impact.js",
-                      "name": "weltmeister map and impact.js",
-                      "size": 2361,
-                      "extension": ".js",
-                      "type": "file"
-                    }
-                  ],
-                  "size": 74425,
-                  "type": "directory"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\tilemap\\dynamic",
-                  "name": "dynamic",
-                  "children": [
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\base tile size.js",
-                      "name": "base tile size.js",
-                      "size": 1929,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\copy tiles.js",
-                      "name": "copy tiles.js",
-                      "size": 2825,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\creating blank layers.js",
-                      "name": "creating blank layers.js",
-                      "size": 1803,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\dungeon generator.js",
-                      "name": "dungeon generator.js",
-                      "size": 21499,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\dynamic to static.js",
-                      "name": "dynamic to static.js",
-                      "size": 2110,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\endless map.js",
-                      "name": "endless map.js",
-                      "size": 2072,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\fill tiles.js",
-                      "name": "fill tiles.js",
-                      "size": 2217,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\get tiles in shape.js",
-                      "name": "get tiles in shape.js",
-                      "size": 5326,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\light map.js",
-                      "name": "light map.js",
-                      "size": 3340,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\map vs layer with one layer.js",
-                      "name": "map vs layer with one layer.js",
-                      "size": 1200,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\paint-tiles.js",
-                      "name": "paint-tiles.js",
-                      "size": 2896,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\platform maker.js",
-                      "name": "platform maker.js",
-                      "size": 5411,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\put tiles.js",
-                      "name": "put tiles.js",
-                      "size": 3351,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\randomize tiles.js",
-                      "name": "randomize tiles.js",
-                      "size": 2357,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\replace tiles.js",
-                      "name": "replace tiles.js",
-                      "size": 1976,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\shuffle tiles.js",
-                      "name": "shuffle tiles.js",
-                      "size": 2176,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\swap tiles.js",
-                      "name": "swap tiles.js",
-                      "size": 2080,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\tile draw order.js",
-                      "name": "tile draw order.js",
-                      "size": 1402,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\dynamic\\weighted randomize.js",
-                      "name": "weighted randomize.js",
-                      "size": 2899,
-                      "extension": ".js",
-                      "type": "file"
-                    }
-                  ],
-                  "size": 68869,
-                  "type": "directory"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\tilemap\\isometric",
-                  "name": "isometric",
-                  "children": [
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\isometric\\hexagonal test.js",
-                      "name": "hexagonal test.js",
-                      "size": 1226,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\isometric\\isometric test.js",
-                      "name": "isometric test.js",
-                      "size": 1701,
-                      "extension": ".js",
-                      "type": "file"
-                    }
-                  ],
-                  "size": 2927,
-                  "type": "directory"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\tilemap\\static",
-                  "name": "static",
-                  "children": [
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\Chebyshev distance.js",
-                      "name": "Chebyshev distance.js",
-                      "size": 3301,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\create from objects.js",
-                      "name": "create from objects.js",
-                      "size": 1953,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\create-from-array.js",
-                      "name": "create-from-array.js",
-                      "size": 1397,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\csv-map.js",
-                      "name": "csv-map.js",
-                      "size": 1858,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\danger.js",
-                      "name": "danger.js",
-                      "size": 1427,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\debug colliding tiles.js",
-                      "name": "debug colliding tiles.js",
-                      "size": 3168,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\grid movement.js",
-                      "name": "grid movement.js",
-                      "size": 2223,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\layer size.js",
-                      "name": "layer size.js",
-                      "size": 1556,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\layer transform.js",
-                      "name": "layer transform.js",
-                      "size": 1181,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\map vs layer with multiple layers.js",
-                      "name": "map vs layer with multiple layers.js",
-                      "size": 3859,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\mario-map-scroller.js",
-                      "name": "mario-map-scroller.js",
-                      "size": 1537,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\multi camera map.js",
-                      "name": "multi camera map.js",
-                      "size": 1617,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\multiple tilesets.js",
-                      "name": "multiple tilesets.js",
-                      "size": 2167,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\pixel art test.js",
-                      "name": "pixel art test.js",
-                      "size": 1245,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\set colliding by collision data.js",
-                      "name": "set colliding by collision data.js",
-                      "size": 5109,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\set colliding by property.js",
-                      "name": "set colliding by property.js",
-                      "size": 2738,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\set colliding tiles.js",
-                      "name": "set colliding tiles.js",
-                      "size": 2274,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\set map size.js",
-                      "name": "set map size.js",
-                      "size": 880,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\snake distance.js",
-                      "name": "snake distance.js",
-                      "size": 3323,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\switching tilesets.js",
-                      "name": "switching tilesets.js",
-                      "size": 5396,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\tile draw order.js",
-                      "name": "tile draw order.js",
-                      "size": 1400,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\tile properties.js",
-                      "name": "tile properties.js",
-                      "size": 2074,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\tiled  multi tileset.js",
-                      "name": "tiled  multi tileset.js",
-                      "size": 1915,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\tiled-json-map.js",
-                      "name": "tiled-json-map.js",
-                      "size": 1709,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\tileset collision shapes.js",
-                      "name": "tileset collision shapes.js",
-                      "size": 4007,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\tileset with spacing.js",
-                      "name": "tileset with spacing.js",
-                      "size": 1973,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\static\\zoom.js",
-                      "name": "zoom.js",
-                      "size": 1401,
-                      "extension": ".js",
-                      "type": "file"
-                    }
-                  ],
-                  "size": 62688,
-                  "type": "directory"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\tilemap\\tests",
-                  "name": "tests",
-                  "children": [
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\tests\\semi automated tests.js",
-                      "name": "semi automated tests.js",
-                      "size": 55017,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\tests\\visual culling check.js",
-                      "name": "visual culling check.js",
-                      "size": 2991,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\tests\\visual face test.js",
-                      "name": "visual face test.js",
-                      "size": 2934,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\tests\\visual flipping test.js",
-                      "name": "visual flipping test.js",
-                      "size": 1396,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\tests\\visual tile bleed test.js",
-                      "name": "visual tile bleed test.js",
-                      "size": 973,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\tests\\visual tile coords test.js",
-                      "name": "visual tile coords test.js",
-                      "size": 3769,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\tilemap\\tests\\visual worldxy test.js",
-                      "name": "visual worldxy test.js",
-                      "size": 3985,
-                      "extension": ".js",
-                      "type": "file"
-                    }
-                  ],
-                  "size": 71065,
-                  "type": "directory"
-                }
-              ],
-              "size": 279974,
-              "type": "directory"
-            },
-            {
               "path": "src\\3.50\\game objects\\video",
               "name": "video",
               "children": [
@@ -6645,7 +6121,7 @@
               "type": "directory"
             }
           ],
-          "size": 1092365,
+          "size": 812316,
           "type": "directory"
         },
         {
@@ -12358,82 +11834,82 @@
             {
               "path": "src\\3.50\\renderer\\bend pipeline.js",
               "name": "bend pipeline.js",
-              "size": 1239,
+              "size": 1295,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\container pipeline.js",
               "name": "container pipeline.js",
-              "size": 1223,
+              "size": 1277,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline multi texture es6.js",
               "name": "custom pipeline multi texture es6.js",
-              "size": 3317,
+              "size": 3472,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline multi texture.js",
               "name": "custom pipeline multi texture.js",
-              "size": 3121,
+              "size": 3247,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline single texture es6.js",
               "name": "custom pipeline single texture es6.js",
-              "size": 3158,
+              "size": 3305,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline single texture.js",
               "name": "custom pipeline single texture.js",
-              "size": 3090,
+              "size": 3213,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\grayscale pipeline.js",
               "name": "grayscale pipeline.js",
-              "size": 1406,
+              "size": 1468,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\hue rotation pipeline.js",
               "name": "hue rotation pipeline.js",
-              "size": 1316,
+              "size": 1371,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\multi color pipeline.js",
               "name": "multi color pipeline.js",
-              "size": 1342,
+              "size": 1392,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\set pipeline data.js",
               "name": "set pipeline data.js",
-              "size": 1391,
+              "size": 1441,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\webgl info.js",
               "name": "webgl info.js",
-              "size": 1143,
+              "size": 1181,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 26457,
+          "size": 27373,
           "type": "directory"
         },
         {
@@ -13731,96 +13207,75 @@
                 {
                   "path": "src\\3.50\\tilemap\\collision\\csv map arcade physics.js",
                   "name": "csv map arcade physics.js",
-                  "size": 4386,
+                  "size": 4215,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter destroy tile bodies.js",
                   "name": "matter destroy tile bodies.js",
-                  "size": 13455,
+                  "size": 13065,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter detect collision with tile.js",
                   "name": "matter detect collision with tile.js",
-                  "size": 5233,
+                  "size": 5085,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter ghost collisions.js",
                   "name": "matter ghost collisions.js",
-                  "size": 3962,
+                  "size": 3850,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter platformer modify map.js",
                   "name": "matter platformer modify map.js",
-                  "size": 13288,
+                  "size": 12889,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter platformer with wall jumping.js",
                   "name": "matter platformer with wall jumping.js",
-                  "size": 11518,
+                  "size": 11183,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter.js",
                   "name": "matter.js",
-                  "size": 2823,
+                  "size": 2730,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\multiple tile sizes.js",
                   "name": "multiple tile sizes.js",
-                  "size": 4258,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\tilemap\\collision\\non-slope map and impact.js",
-                  "name": "non-slope map and impact.js",
-                  "size": 3528,
+                  "size": 4097,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\simple map.js",
                   "name": "simple map.js",
-                  "size": 1898,
+                  "size": 1804,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\tile callbacks.js",
                   "name": "tile callbacks.js",
-                  "size": 4423,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\tilemap\\collision\\tiled map and impact.js",
-                  "name": "tiled map and impact.js",
-                  "size": 3292,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\tilemap\\collision\\weltmeister map and impact.js",
-                  "name": "weltmeister map and impact.js",
-                  "size": 2361,
+                  "size": 4251,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 74425,
+              "size": 63169,
               "type": "directory"
             },
             {
@@ -13830,56 +13285,49 @@
                 {
                   "path": "src\\3.50\\tilemap\\dynamic\\base tile size.js",
                   "name": "base tile size.js",
-                  "size": 1929,
+                  "size": 1852,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\dynamic\\copy tiles.js",
                   "name": "copy tiles.js",
-                  "size": 2825,
+                  "size": 2733,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\dynamic\\creating blank layers.js",
                   "name": "creating blank layers.js",
-                  "size": 1803,
+                  "size": 1722,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\dynamic\\dungeon generator.js",
                   "name": "dungeon generator.js",
-                  "size": 21499,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\tilemap\\dynamic\\dynamic to static.js",
-                  "name": "dynamic to static.js",
-                  "size": 2110,
+                  "size": 21112,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\dynamic\\endless map.js",
                   "name": "endless map.js",
-                  "size": 2072,
+                  "size": 1973,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\dynamic\\fill tiles.js",
                   "name": "fill tiles.js",
-                  "size": 2217,
+                  "size": 2131,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\dynamic\\get tiles in shape.js",
                   "name": "get tiles in shape.js",
-                  "size": 5326,
+                  "size": 5153,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13961,7 +13409,7 @@
                   "type": "file"
                 }
               ],
-              "size": 68869,
+              "size": 65764,
               "type": "directory"
             },
             {
@@ -14241,7 +13689,7 @@
               "type": "directory"
             }
           ],
-          "size": 279974,
+          "size": 265613,
           "type": "directory"
         },
         {
@@ -15221,7 +14669,7 @@
           "type": "directory"
         }
       ],
-      "size": 4438237,
+      "size": 4143780,
       "type": "directory"
     },
     {
@@ -16663,12 +16111,12 @@
             {
               "path": "src\\audio\\HTML5 Audio\\Volume Mute Rate Detune.js",
               "name": "Volume Mute Rate Detune.js",
-              "size": 3912,
+              "size": 3766,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 40140,
+          "size": 39994,
           "type": "directory"
         },
         {
@@ -16829,7 +16277,7 @@
           "type": "directory"
         }
       ],
-      "size": 121808,
+      "size": 121662,
       "type": "directory"
     },
     {
@@ -16895,7 +16343,7 @@
         {
           "path": "src\\bugs\\blend.js",
           "name": "blend.js",
-          "size": 1035,
+          "size": 1081,
           "extension": ".js",
           "type": "file"
         },
@@ -16909,14 +16357,14 @@
         {
           "path": "src\\bugs\\blendc.js",
           "name": "blendc.js",
-          "size": 502,
+          "size": 521,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\bugs\\bm.js",
           "name": "bm.js",
-          "size": 770,
+          "size": 795,
           "extension": ".js",
           "type": "file"
         },
@@ -17196,7 +16644,7 @@
         {
           "path": "src\\bugs\\right.js",
           "name": "right.js",
-          "size": 656,
+          "size": 690,
           "extension": ".js",
           "type": "file"
         },
@@ -17329,7 +16777,7 @@
         {
           "path": "src\\bugs\\timeline.js",
           "name": "timeline.js",
-          "size": 1396,
+          "size": 1453,
           "extension": ".js",
           "type": "file"
         },
@@ -17357,7 +16805,7 @@
         {
           "path": "src\\bugs\\update.js",
           "name": "update.js",
-          "size": 984,
+          "size": 1027,
           "extension": ".js",
           "type": "file"
         },
@@ -17369,7 +16817,7 @@
           "type": "file"
         }
       ],
-      "size": 114792,
+      "size": 115016,
       "type": "directory"
     },
     {
@@ -17556,7 +17004,7 @@
         {
           "path": "src\\camera\\add and remove test.js",
           "name": "add and remove test.js",
-          "size": 1791,
+          "size": 1708,
           "extension": ".js",
           "type": "file"
         },
@@ -17640,7 +17088,7 @@
         {
           "path": "src\\camera\\camera-effects.js",
           "name": "camera-effects.js",
-          "size": 945,
+          "size": 994,
           "extension": ".js",
           "type": "file"
         },
@@ -18094,7 +17542,7 @@
           "type": "file"
         }
       ],
-      "size": 215599,
+      "size": 215565,
       "type": "directory"
     },
     {
@@ -19357,7 +18805,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\bitmaptext origin and scale.js",
                   "name": "bitmaptext origin and scale.js",
-                  "size": 766,
+                  "size": 799,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -19469,7 +18917,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\origin and scale.js",
                   "name": "origin and scale.js",
-                  "size": 767,
+                  "size": 802,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -19502,11 +18950,11 @@
                   "type": "file"
                 }
               ],
-              "size": 23447,
+              "size": 23515,
               "type": "directory"
             }
           ],
-          "size": 46066,
+          "size": 46134,
           "type": "directory"
         },
         {
@@ -20252,8 +19700,8 @@
               "type": "file"
             },
             {
-              "path": "src\\game objects\\graphics\\line rendering.js",
-              "name": "line rendering.js",
+              "path": "src\\game objects\\graphics\\Line Rendering.js",
+              "name": "Line Rendering.js",
               "size": 1916,
               "extension": ".js",
               "type": "file"
@@ -20280,8 +19728,8 @@
               "type": "file"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js",
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js",
               "size": 2132,
               "extension": ".js",
               "type": "file"
@@ -21107,7 +20555,7 @@
             {
               "path": "src\\game objects\\mesh\\basic quad.js",
               "name": "basic quad.js",
-              "size": 1375,
+              "size": 1433,
               "extension": ".js",
               "type": "file"
             },
@@ -21168,7 +20616,7 @@
               "type": "file"
             }
           ],
-          "size": 22117,
+          "size": 22175,
           "type": "directory"
         },
         {
@@ -23262,7 +22710,7 @@
           "type": "directory"
         }
       ],
-      "size": 1092365,
+      "size": 1092491,
       "type": "directory"
     },
     {
@@ -28975,68 +28423,68 @@
         {
           "path": "src\\renderer\\bend pipeline.js",
           "name": "bend pipeline.js",
-          "size": 2330,
+          "size": 2424,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\container pipeline.js",
           "name": "container pipeline.js",
-          "size": 1223,
+          "size": 1277,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline multi texture.js",
           "name": "custom pipeline multi texture.js",
-          "size": 3596,
+          "size": 3758,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline single texture.js",
           "name": "custom pipeline single texture.js",
-          "size": 3196,
+          "size": 3345,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\grayscale pipeline.js",
           "name": "grayscale pipeline.js",
-          "size": 1406,
+          "size": 1468,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\hue rotation pipeline.js",
           "name": "hue rotation pipeline.js",
-          "size": 1316,
+          "size": 1371,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\multi color pipeline.js",
           "name": "multi color pipeline.js",
-          "size": 1342,
+          "size": 1392,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\set pipeline data.js",
           "name": "set pipeline data.js",
-          "size": 1391,
+          "size": 1441,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\webgl info.js",
           "name": "webgl info.js",
-          "size": 1143,
+          "size": 1181,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 21654,
+      "size": 22368,
       "type": "directory"
     },
     {
@@ -31575,6 +31023,6 @@
       "type": "directory"
     }
   ],
-  "size": 8980940,
+  "size": 8687367,
   "type": "directory"
 }

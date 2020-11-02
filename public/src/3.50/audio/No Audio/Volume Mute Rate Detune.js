@@ -134,8 +134,8 @@ function start ()
 
 function update ()
 {
-    horseLeft.anims.timeScale(soundLeft.totalRate);
-    horseRight.anims.timeScale(soundRight.totalRate);
+    horseLeft.anims.timeScale = soundLeft.totalRate;
+    horseRight.anims.timeScale = soundRight.totalRate;
 
     horseLeft.setAlpha(this.sound.volume * soundLeft.volume);
     horseRight.setAlpha(this.sound.volume * soundRight.volume);

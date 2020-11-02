@@ -31,7 +31,7 @@ function create ()
 
     var tileset = map.addTilesetImage('DangerousKiss_bank.png', 'tiles', 16, 16);
 
-    var layer = map.createStaticLayer('ShoeBox Tile Grab', tileset, 0, 0);
+    var layer = map.createLayer('ShoeBox Tile Grab', tileset, 0, 0);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

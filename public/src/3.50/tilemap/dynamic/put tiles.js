@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#00000',
@@ -26,10 +26,9 @@ function create ()
 {
     // Creating a blank tilemap with the specified dimensions
     map = this.make.tilemap({ tileWidth: 16, tileHeight: 16, width: 25, height: 20});
-
     var tiles = map.addTilesetImage('tiles');
 
-    var layer = map.createBlankDynamicLayer('layer1', tiles);
+    var layer = map.createBlankLayer('layer1', tiles);
     layer.setScale(2);
 
     // Add a simple scene with some random element
@@ -37,17 +36,17 @@ function create ()
     layer.fill(77, 0, 14, 25, 5); // Body of the water
     layer.randomize(0, 0, 25, 13, [ 44, 45, 46, 47, 48 ]); // Wall above the water
 
-    this.input.keyboard.on('keydown_ONE', function (event) {
+    this.input.keyboard.on('keydown-ONE', function (event) {
         objectToPlace = 'platform';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.on('keydown_TWO', function (event) {
+    this.input.keyboard.on('keydown-TWO', function (event) {
         objectToPlace = 'flower';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.on('keydown_THREE', function (event) {
+    this.input.keyboard.on('keydown-THREE', function (event) {
         objectToPlace = 'tiki';
         helpText.setText(getHelpMessage());
     });

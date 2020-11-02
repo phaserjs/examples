@@ -28,7 +28,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tiles = map.addTilesetImage('Desert', 'tiles');
-    var layer = map.createDynamicLayer('Ground', tiles, 0, 0);
+    var layer = map.createLayer('Ground', tiles, 0, 0);
 
     // Graphic to show the "source" of the copy operation
     sourceMarker = this.add.graphics({ lineStyle: { width: 5, color: 0xffffff, alpha: 1 } });

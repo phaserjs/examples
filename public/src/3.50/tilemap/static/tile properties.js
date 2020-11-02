@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000000',
@@ -28,7 +28,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('tiles');
-    var layer = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
+    var layer = map.createLayer('Tile Layer 1', tileset, 0, 0);
 
     marker = this.add.graphics();
     marker.lineStyle(3, 0xffffff, 1);

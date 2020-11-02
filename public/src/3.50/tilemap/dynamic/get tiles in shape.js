@@ -31,7 +31,7 @@ function create ()
 {
     map = this.add.tilemap('map');
     var tiles = map.addTilesetImage('cybernoid');
-    var layer = map.createDynamicLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     layer.setScale(1.25, 1.25);
 
@@ -42,27 +42,27 @@ function create ()
 
     map.setCollisionByExclusion(7);
 
-    this.input.keyboard.on('keydown_ONE', function (event) {
+    this.input.keyboard.on('keydown-ONE', function (event) {
         selectedShape = 'rectangle';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.on('keydown_TWO', function (event) {
+    this.input.keyboard.on('keydown-TWO', function (event) {
         selectedShape = 'line';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.on('keydown_THREE', function (event) {
+    this.input.keyboard.on('keydown-THREE', function (event) {
         selectedShape = 'circle';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.on('keydown_FOUR', function (event) {
+    this.input.keyboard.on('keydown-FOUR', function (event) {
         selectedShape = 'triangle';
         helpText.setText(getHelpMessage());
     });
 
-    this.input.keyboard.on('keydown_C', function (event) {
+    this.input.keyboard.on('keydown-C', function (event) {
         onlyColliding = !onlyColliding;
         helpText.setText(getHelpMessage());
     });
@@ -94,7 +94,7 @@ function update (time, delta)
     controls.update(delta);
 
     // Update p1 & p2 based on where user clicks
-    if (this.input.activePointer.justDown)
+    if (this.input.activePointer.isDown)
     {
         var worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
         if (!p1)

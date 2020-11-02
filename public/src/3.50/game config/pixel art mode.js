@@ -32,7 +32,7 @@ function create ()
 
     var map1 = this.make.tilemap({ key: 'map1' });
     var tileset1 = map1.addTilesetImage('SuperMarioBros-World1-1', 'tiles1');
-    var layer1 = map1.createStaticLayer('World1', tileset1, 0, 64).setScale(2);
+    var layer1 = map1.createLayer('World1', tileset1, 0, 64).setScale(2);
 
     this.add.image(0, 600, 'toy').setOrigin(0, 1).setScale(2);
 

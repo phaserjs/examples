@@ -33,7 +33,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('kenney_redux_64x64');
-    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
 
     // "Ghost collisions" can happen in physics engines when two colliding bodies are next to one
     // another, e.g. a player trying to walk over two neighboring ground tiles. The order in which

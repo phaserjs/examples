@@ -32,7 +32,7 @@ function create ()
 {
     var map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('kenny_platformer_64x64');
-    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
 
     // Set colliding tiles before converting the layer to Matter bodies!
     map.setCollisionByExclusion([ -1, 0 ]);

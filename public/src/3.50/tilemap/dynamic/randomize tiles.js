@@ -27,7 +27,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tiles = map.addTilesetImage('Desert', 'tiles');
-    var layer = map.createDynamicLayer('Ground', tiles, 0, 0);
+    var layer = map.createLayer('Ground', tiles, 0, 0);
 
     marker = this.add.graphics();
     marker.lineStyle(2, 0x000000, 1);

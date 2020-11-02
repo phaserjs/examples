@@ -42,7 +42,7 @@ function create ()
 
     var map = this.make.tilemap({ data: level, tileWidth: 32, tileHeight: 32 });
     var tileset = map.addTilesetImage('tiles');
-    var layer = map.createStaticLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
 
     this.cameras.main.setBounds(0, 0, layer.width, layer.height);
     this.minimap = this.cameras.add(200, 10, 100, 100).setZoom(0.2);

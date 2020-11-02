@@ -28,13 +28,13 @@ function create ()
 {
     var map1 = this.make.tilemap({ key: 'map1' });
     var tileset1 = map1.addTilesetImage('SuperMarioBros-World1-1', 'tiles1');
-    var layer1 = map1.createStaticLayer('World1', tileset1, 0, 0);
+    var layer1 = map1.createLayer('World1', tileset1, 0, 0);
 
     layer1.width = 200;
 
     var map2 = this.add.tilemap('map3');
     var tileset2 = map2.addTilesetImage('SuperMarioBrosMap1-3_bank.png', 'tiles3');
-    var layer2 = map2.createStaticLayer('ShoeBox Tile Grab', tileset2, 900, 300);
+    var layer2 = map2.createLayer('ShoeBox Tile Grab', tileset2, 900, 300);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

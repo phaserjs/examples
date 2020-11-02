@@ -26,7 +26,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tiles = map.addTilesetImage('Desert', 'tiles');
-    var layer = map.createDynamicLayer('Ground', tiles, 0, 0);
+    var layer = map.createLayer('Ground', tiles, 0, 0);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 

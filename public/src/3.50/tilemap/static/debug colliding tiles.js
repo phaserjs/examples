@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#ffffff',
@@ -32,7 +32,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('SuperMarioBros-World1-1');
-    var layer = map.createStaticLayer('World1', tileset, 0, 0);
+    var layer = map.createLayer('World1', tileset, 0, 0);
     layer.setScale(2);
 
     map.setCollision([ 14, 15, 16, 20, 21, 22, 23, 24, 25, 27, 28, 29, 33, 39, 40 ]);
@@ -40,17 +40,17 @@ function create ()
     debugGraphics = this.add.graphics();
     debugGraphics.setScale(2);
 
-    this.input.keyboard.on('keydown_ONE', function (event) {
+    this.input.keyboard.on('keydown-ONE', function (event) {
         showTiles = !showTiles;
         drawDebug();
     });
 
-    this.input.keyboard.on('keydown_TWO', function (event) {
+    this.input.keyboard.on('keydown-TWO', function (event) {
         showCollidingTiles = !showCollidingTiles;
         drawDebug();
     });
 
-    this.input.keyboard.on('keydown_THREE', function (event) {
+    this.input.keyboard.on('keydown-THREE', function (event) {
         showFaces = !showFaces;
         drawDebug();
     });

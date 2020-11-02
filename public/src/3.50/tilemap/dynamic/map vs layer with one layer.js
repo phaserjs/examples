@@ -26,7 +26,7 @@ function create ()
 
     var tiles = map.addTilesetImage('tiles');
 
-    var layer = map.createBlankDynamicLayer('layer1', tiles);
+    var layer = map.createBlankLayer('layer1', tiles);
     layer.setScale(3);
 
     // Add a simple scene with some random element. Since there is only one layer, we can use map or

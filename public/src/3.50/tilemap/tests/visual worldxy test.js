@@ -43,10 +43,10 @@ function create() {
     var tiles2 = map.addTilesetImage('tiles2');
     var kissTiles = map.addTilesetImage('dangerous-kiss');
 
-    tileLayer = map.createDynamicLayer('Tile Layer 1', groundTiles);
-    offsetTileLayer = map.createDynamicLayer('Offset Tile Layer', tiles2);
-    tileLayer2 = map.createDynamicLayer('Tile Layer 2', groundTiles);
-    smallTileLayer = map.createDynamicLayer('Small Tile Layer', kissTiles);
+    tileLayer = map.createLayerLayer('Tile Layer 1', groundTiles);
+    offsetTileLayer = map.createLayerLayer('Offset Tile Layer', tiles2);
+    tileLayer2 = map.createLayerLayer('Tile Layer 2', groundTiles);
+    smallTileLayer = map.createLayerLayer('Small Tile Layer', kissTiles);
 
     selectLayer(tileLayer);
 

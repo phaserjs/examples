@@ -37,7 +37,7 @@ function create ()
 {
     var map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('kenny_platformer_64x64');
-    layer = map.createDynamicLayer(0, tileset, 0, 0);
+    layer = map.createLayer(0, tileset, 0, 0);
 
     // Instead of setting collision by index, you can set any tile that has collision data to
     // collide. Typically, this is done in the Tiled collision editor. All tiles in this layer have

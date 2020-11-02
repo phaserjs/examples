@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#ffffff',
@@ -27,7 +27,7 @@ function create() {
     ]
     var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16, insertNull: false});
     var tileset = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tileset);
+    var layer = map.createLayer(0, tileset);
 
     layer.setCollision([ 2, 5, 6, 7, 10, 11, 15 ]);
 

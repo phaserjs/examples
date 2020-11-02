@@ -20,7 +20,7 @@ function create ()
 {
     this.anims.create({
         key: 'spin',
-        frames: this.anims.generateFrameNames('cube', { prefix: 'frame', start: 0, end: 23 }),
+        frames: this.anims.generateFrameNames('cube', { prefix: 'frame', start: 1, end: 23 }),
         frameRate: 50,
         repeat: -1
     });

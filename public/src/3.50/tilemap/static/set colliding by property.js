@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#ffffff',
@@ -28,7 +28,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('kenny_platformer_64x64');
-    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
     layer.setScale(0.75);
 
     // Instead of setting collision by index, you can set collision via properties that you set up

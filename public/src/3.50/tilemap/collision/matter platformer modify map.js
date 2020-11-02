@@ -72,9 +72,9 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('kenney_redux_64x64');
-    var bgLayer = map.createDynamicLayer('Background Layer', tileset, 0, 0);
-    var groundLayer = map.createDynamicLayer('Ground Layer', tileset, 0, 0);
-    var fgLayer = map.createDynamicLayer('Foreground Layer', tileset, 0, 0).setDepth(1);
+    var bgLayer = map.createLayer('Background Layer', tileset, 0, 0);
+    var groundLayer = map.createLayer('Ground Layer', tileset, 0, 0);
+    var fgLayer = map.createLayer('Foreground Layer', tileset, 0, 0).setDepth(1);
 
     // Set up the layer to have matter bodies. Any colliding tiles will be given a Matter body.
     groundLayer.setCollisionByProperty({ collides: true });

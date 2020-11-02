@@ -41,9 +41,9 @@ function create ()
     var groundTiles = map.addTilesetImage('ground_1x1');
     var coinTiles = map.addTilesetImage('coin');
 
-    map.createDynamicLayer('Background Layer', groundTiles, 0, 0);
-    groundLayer = map.createDynamicLayer('Ground Layer', groundTiles, 0, 0);
-    coinLayer = map.createDynamicLayer('Coin Layer', coinTiles, 0, 0);
+    map.createLayer('Background Layer', groundTiles, 0, 0);
+    groundLayer = map.createLayer('Ground Layer', groundTiles, 0, 0);
+    coinLayer = map.createLayer('Coin Layer', coinTiles, 0, 0);
 
     groundLayer.setCollisionBetween(1, 25);
 

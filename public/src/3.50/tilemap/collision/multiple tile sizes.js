@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     width: 800,
     height: 576,
     backgroundColor: '#00000',
@@ -47,9 +47,9 @@ function create ()
     var kennyTiles = map.addTilesetImage('kenny_platformer_64x64', 'kenny_platformer_64x64', 64, 64);
     var treeTiles = map.addTilesetImage('walls_1x2', 'walls_1x2', 32, 64);
 
-    kenny64x64Layer = map.createDynamicLayer('Kenny 64x64 Layer', kennyTiles);
-    ground32x32Layer = map.createDynamicLayer('Ground 32x32 Layer', groundTiles);
-    tree32x64Layer = map.createDynamicLayer('Tree 32x64 Layer', treeTiles);
+    kenny64x64Layer = map.createLayer('Kenny 64x64 Layer', kennyTiles);
+    ground32x32Layer = map.createLayer('Ground 32x32 Layer', groundTiles);
+    tree32x64Layer = map.createLayer('Tree 32x64 Layer', treeTiles);
 
     console.log(kenny64x64Layer);
 
@@ -68,7 +68,7 @@ function create ()
 
     debugGraphics = this.add.graphics();
 
-    this.input.keyboard.on('keydown_C', function (event) {
+    this.input.keyboard.on('keydown-C', function (event) {
         showDebug = !showDebug;
         drawDebug();
     });

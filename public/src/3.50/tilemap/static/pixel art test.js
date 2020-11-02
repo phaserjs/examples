@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -26,7 +26,7 @@ function create ()
 {
     var map1 = this.make.tilemap({ key: 'map1' });
     var tileset1 = map1.addTilesetImage('SuperMarioBros-World1-1', 'tiles1');
-    var layer1 = map1.createStaticLayer('World1', tileset1, 0, 0).setScale(2.5);
+    var layer1 = map1.createLayer('World1', tileset1, 0, 0).setScale(2.5);
 
     var cursors = this.input.keyboard.createCursorKeys();
 

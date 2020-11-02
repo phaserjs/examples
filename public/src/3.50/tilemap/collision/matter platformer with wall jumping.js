@@ -70,7 +70,7 @@ function create ()
 {
     var map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('kenney_redux_64x64');
-    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
 
     // Set up the layer to have matter bodies. Any colliding tiles will be given a Matter body.
     map.setCollisionByProperty({ collides: true });

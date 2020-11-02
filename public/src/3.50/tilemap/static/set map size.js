@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -25,14 +25,25 @@ function create ()
 {
     var map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
-    var layer = map.createStaticLayer('World1', tileset, 100, 200);
+    var layer = map.createLayer('World1', tileset, 100, 200);
 
+    // Map size
     layer.width = 400;
 
     var cursors = this.input.keyboard.createCursorKeys();
+
+    var controlConfig = {
+        camera: this.cameras.main,
+        left: cursors.left,
+        right: cursors.right,
+        speed: 0.5
+    };
+
+    controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
+    this.cameras.main.setBounds(0, 0, layer.x + layer.width, 0);
 }
 
 function update (time, delta)
 {
-    // controls.update(delta);
+    controls.update(delta);
 }

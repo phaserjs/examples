@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#312136',
@@ -33,7 +33,7 @@ function create ()
 
     var map = this.make.tilemap({ key: 'map'});
     var tileset = map.addTilesetImage('kenney_redux_64x64');
-    var layer = map.createDynamicLayer(0, tileset, 0, 50);
+    var layer = map.createLayer(0, tileset, 0, 50);
 
     this.add.text(310, 10, 'Tiled Screenshot of Map:', {
         fontSize: '18px',

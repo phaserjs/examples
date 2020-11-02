@@ -36,7 +36,7 @@ function create ()
     // You can load a layer from the map using the layer name from Tiled ('Ground' in this case), or
     // by using the layer index. Since we are going to be manipulating the map, this needs to be a
     // dynamic tilemap layer, not a static one.
-    var layer = map.createDynamicLayer('Ground', tiles, 0, 0);
+    var layer = map.createLayer('Ground', tiles, 0, 0);
 
     selectedTile = map.getTileAt(2, 3);
 

@@ -33,12 +33,12 @@ function create ()
     var platformTiles = map.addTilesetImage('kenny_platformer_64x64', 'platformer');
 
     //  To use multiple tilesets in a single layer, pass them in an array like this:
-    map.createDynamicLayer('Tile Layer 1', [ groundTiles, itemTiles, platformTiles ]);
+    map.createLayer('Tile Layer 1', [ groundTiles, itemTiles, platformTiles ]);
 
-    // map.createStaticLayer('Tile Layer 1', [ groundTiles, itemTiles, platformTiles ]);
+    // map.createLayer('Tile Layer 1', [ groundTiles, itemTiles, platformTiles ]);
 
     //  Or you can pass an array of strings, where they = the Tileset name
-    // map.createStaticLayer('Tile Layer 1', [ 'kenny_ground_64x64', 'kenny_items_64x64', 'kenny_platformer_64x64' ]);
+    // map.createLayer('Tile Layer 1', [ 'kenny_ground_64x64', 'kenny_items_64x64', 'kenny_platformer_64x64' ]);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 

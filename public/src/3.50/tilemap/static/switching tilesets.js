@@ -39,27 +39,27 @@ function create ()
     // When loading a CSV map, make sure to specify the tileWidth and tileHeight
     map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
     var tileset = map.addTilesetImage('tiles_red');
-    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
     layer.setScale(2);
 
     //  This isn't totally accurate, but it'll do for now
     map.setCollisionBetween(54, 83);
 
-    this.input.keyboard.on('keydown_ONE', function (event) {
+    this.input.keyboard.on('keydown-ONE', function (event) {
         var texture = this.sys.textures.get('tiles_red');
         currentTileset = 1;
         tileset.setImage(texture);
         updateHelpText();
     }, this);
 
-    this.input.keyboard.on('keydown_TWO', function (event) {
+    this.input.keyboard.on('keydown-TWO', function (event) {
         var texture = this.sys.textures.get('tiles_blue');
         currentTileset = 2;
         tileset.setImage(texture);
         updateHelpText();
     }, this);
 
-    this.input.keyboard.on('keydown_THREE', function (event) {
+    this.input.keyboard.on('keydown-THREE', function (event) {
         var texture = this.sys.textures.get('tiles');
         currentTileset = 3;
         tileset.setImage(texture);

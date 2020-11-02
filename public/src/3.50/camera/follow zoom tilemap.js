@@ -29,10 +29,10 @@ function create ()
 {
     this.cameras.main.setBounds(0, 0, 3392, 100);
     this.physics.world.setBounds(0, 0, 3392, 240);
-    
+
     var map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('SuperMarioBros-World1-1', 'tiles1');
-    var layer = map.createStaticLayer('World1', tileset, 0, 0);
+    var layer = map.createLayer('World1', tileset, 0, 0);
 
     cursors = this.input.keyboard.createCursorKeys();
 

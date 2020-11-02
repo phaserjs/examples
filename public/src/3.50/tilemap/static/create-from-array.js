@@ -38,5 +38,5 @@ function create ()
     // When loading from an array, make sure to specify the tileWidth and tileHeight
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createStaticLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
 }

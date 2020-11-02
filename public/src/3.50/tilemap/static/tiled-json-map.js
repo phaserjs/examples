@@ -31,7 +31,7 @@ function create ()
 
     // You can load a layer from the map using the layer name from Tiled, or by using the layer
     // index (0 in this case).
-    var layer = map.createStaticLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 

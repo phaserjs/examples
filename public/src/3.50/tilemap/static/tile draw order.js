@@ -29,8 +29,8 @@ function create ()
 
     var tiles = map.addTilesetImage('tileset', 'tileset');
 
-    var layer1 = map.createStaticLayer('floor', tiles, 0, 0);
-    var layer2 = map.createStaticLayer('objects', tiles, 0, 0);
+    var layer1 = map.createLayer('floor', tiles, 0, 0);
+    var layer2 = map.createLayer('objects', tiles, 0, 0);
 
     var renderOrder = 1;
 

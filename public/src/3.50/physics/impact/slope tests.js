@@ -41,7 +41,7 @@ function create ()
         .setAlpha(0.3);
 
     // Name of layer from Weltmeister, tileset, x, y
-    var layer = map.createStaticLayer('map', tileset, 0, 0);
+    var layer = map.createLayer('map', tileset, 0, 0);
 
     // This will pull in the "collision" layer from the associated map
     this.impact.world.setCollisionMap('map');

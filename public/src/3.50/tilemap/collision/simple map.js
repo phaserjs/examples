@@ -37,7 +37,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
     tileset = map.addTilesetImage('tiles');
-    layer = map.createDynamicLayer('Level1', tileset);
+    layer = map.createLayer('Level1', tileset);
 
     map.setCollision([ 20, 48 ]);
 

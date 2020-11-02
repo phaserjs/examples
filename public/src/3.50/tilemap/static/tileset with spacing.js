@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000000',
@@ -28,7 +28,7 @@ function create ()
 
     var map = this.make.tilemap({ key: 'map' });
     var tiles = map.addTilesetImage('Desert');
-    var layer = map.createStaticLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
     layer.setScrollFactor(0.5);
     layer.setAlpha(0.75);
 
@@ -48,7 +48,7 @@ function create ()
     //  tilesetName, key, tileWidth, tileHeight, tileMargin, tileSpacing
     var tiles2 = map2.addTilesetImage('drawtiles-spaced', null, 32, 32, 1, 2);
 
-    var layer2 = map2.createStaticLayer(0, tiles2, 200, 200);
+    var layer2 = map2.createLayer(0, tiles2, 200, 200);
     layer2.setScale(2);
 
 

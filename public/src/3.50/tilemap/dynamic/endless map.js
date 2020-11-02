@@ -48,7 +48,7 @@ function create ()
     map = this.make.tilemap({ data: mapData, tileWidth: 16, tileHeight: 16 });
 
     var tileset = map.addTilesetImage('tiles');
-    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
 
     text = this.add.bitmapText(0, 0, 'nokia16').setScrollFactor(0);
 }

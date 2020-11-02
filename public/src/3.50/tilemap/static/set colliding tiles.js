@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#ffffff',
@@ -27,7 +27,7 @@ function create ()
 {
     map = this.make.tilemap({ key: 'map' });
     var tileset = map.addTilesetImage('SuperMarioBros-World1-1');
-    var layer = map.createStaticLayer('World1', tileset, 0, 0);
+    var layer = map.createLayer('World1', tileset, 0, 0);
     layer.setScale(2);
 
     // You can set collision on one tile index (11 = coin)

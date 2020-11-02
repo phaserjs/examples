@@ -34,7 +34,7 @@ function create ()
     var tiles = map.addTilesetImage('walls_1x2', null, 32, 64);
 
     // Create a layer filled with random trees
-    var layer = map.createBlankDynamicLayer('layer1', tiles);
+    var layer = map.createBlankLayer('layer1', tiles);
 
     layer.randomize(0, 0, map.width, map.height, [ 0, 1, 2, 3, 4, 5, 6, 7 ]);
 
@@ -42,7 +42,6 @@ function create ()
     console.log(layer.layer);
 
     var cursors = this.input.keyboard.createCursorKeys();
-
     var controlConfig = {
         camera: this.cameras.main,
         left: cursors.left,

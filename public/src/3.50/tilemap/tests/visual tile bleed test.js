@@ -24,7 +24,7 @@ function create ()
 {
     var map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
     var tileset = map.addTilesetImage('tiles');
-    var layer = map.createStaticLayer(0, tileset, 0, 0);
+    var layer = map.createLayer(0, tileset, 0, 0);
 
     // Visual test to make sure tiles don't bleed while scrolling at certain speeds
 }

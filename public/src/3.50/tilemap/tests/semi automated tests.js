@@ -3,7 +3,7 @@
 // compliments the visual examples and tests.
 
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d88',
@@ -73,7 +73,7 @@ function testCollision ()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16, insertNull: true });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createStaticLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
 
     // -- SETTING COLLISION ON TILE ---
@@ -167,7 +167,7 @@ function testCollision ()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     map.setCollisionBetween(1, 10);
     assert('Internal collide indexes should have index 1 - 10',
@@ -252,7 +252,7 @@ function testCollision ()
     ];
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     // 4 sand tiles, 4 rock tiles, 4 solid tiles, 4 slope=1 tiles
     map.forEachTile(t => {
@@ -304,7 +304,7 @@ function testCollision ()
 
     var map = this.make.tilemap({ key: 'tileset-collision-shapes-automated-test' });
     var tiles = map.addTilesetImage('kenny_platformer_64x64');
-    var layer = map.createDynamicLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     // 5 x 6 map
     // First 4 rows - different colliding shapes are set
@@ -336,7 +336,7 @@ function testInterestingFaces ()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createStaticLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     map.setCollisionBetween(1, 16);
     assert('All edge tiles should have an interesting face (12 total)',
@@ -372,7 +372,7 @@ function testInterestingFaces ()
     ]
     var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16, insertNull: true});
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     map.setCollision([ 2, 5, 6, 7, 10 ]);
     assert('Index 2 should NOT have an interesting face bottom',
@@ -399,7 +399,7 @@ function testInterestingFaces ()
     ]
     var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16, insertNull: true});
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     map.setCollision([2, 5, 6, 7, 10], true, false); // no recalc
     assert('Should have default interesting faces setting - all colliding are interesting',
@@ -421,7 +421,7 @@ function testInterestingFaces ()
     ]
     var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16, insertNull: true});
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     map.setCollision([ 2, 5, 6, 7, 10 ]);
     assert('Index 2 should NOT have an interesting face bottom',
@@ -451,7 +451,7 @@ function testCallbacks ()
     ]
     var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16, insertNull: true});
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createStaticLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     var cb = () => {};
     map.setTileIndexCallback(1, cb, 3);
@@ -477,7 +477,7 @@ function testCallbacks ()
     ]
     var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16, insertNull: true});
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createStaticLayer(0, tiles);
+    var layer = map.createLayer(0, tiles);
 
     var cb = () => {};
     map.setTileLocationCallback(0, 0, 2, 2, cb, 3);
@@ -504,12 +504,12 @@ function testAddRemoveLayers ()
 
     // --- LAYERS MUST BE UNIQUE ---
 
-    var layer = map.createStaticLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
     assert('Layer 1 should have been successfully created (non-null value)',
         layer
     );
 
-    var layer2 = map.createStaticLayer(0, tiles, 100, 100);
+    var layer2 = map.createLayer(0, tiles, 100, 100);
     assert('Two layers are not allowed to be created from the same LayerData - should return null',
         layer2 === null
     );
@@ -519,7 +519,7 @@ function testAddRemoveLayers ()
         layer.layer === undefined
     );
 
-    layer2 = map.createStaticLayer(0, tiles, 100, 100);
+    layer2 = map.createLayer(0, tiles, 100, 100);
     assert('Destroyed layer should release LayerData for another layer to use',
         layer2 !== null
     );
@@ -541,7 +541,7 @@ function testAddRemoveLayers ()
 
     var map = this.make.tilemap({ key: 'mario' });
     var tiles = map.addTilesetImage('SuperMarioBros-World1-1', 'mario-tiles');
-    var layer = map.createStaticLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
 
     map.destroy();
     assert('All LayerData should be removed',
@@ -631,7 +631,7 @@ function testCreatingFromTiledObjects ()
     ];
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tileset = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tileset);
+    var layer = map.createLayer(0, tileset);
 
     var sprites = map.createFromTiles(7, null, {
         key: 'tomato', flipY: true, scale: 1, origin: 0, alpha: 0.5
@@ -680,7 +680,7 @@ function testGettingTiles ()
 {
     var map = this.make.tilemap({ key: 'mario' });
     var tiles = map.addTilesetImage('SuperMarioBros-World1-1', 'mario-tiles');
-    var layer = map.createStaticLayer('World1', tiles, 300, 300);
+    var layer = map.createLayer('World1', tiles, 300, 300);
 
     // -- GETTING TILES FROM JSON ---
 
@@ -721,7 +721,7 @@ function testGettingTiles ()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 300, 275);
+    var layer = map.createLayer(0, tiles, 300, 275);
 
     assert('Getting an -1 tile at (1, 0) should return null',
         layer.getTileAt(1, 0) === null && map.getTileAt(1, 0) === null
@@ -758,7 +758,7 @@ function testGettingTiles ()
     ]
     var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16});
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 600, 275);
+    var layer = map.createLayer(0, tiles, 600, 275);
 
     var nonEmpty = map.getTilesWithin(0, 0, map.width, map.height, { isNotEmpty: true });
     assert('getTilesWithin isNotEmpty option should filter out index -1',
@@ -816,7 +816,7 @@ function testGettingTiles ()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 600, 275);
+    var layer = map.createLayer(0, tiles, 600, 275);
 
     layer.getTileAt(3, 3).alpha = 0.25;
     layer.getTileAt(2, 2).alpha = 0.25;
@@ -842,7 +842,7 @@ function testMakeAndAdd ()
 
     var map = this.add.tilemap('mario');
     var tiles = map.addTilesetImage('SuperMarioBros-World1-1', 'mario-tiles');
-    var layer = map.createDynamicLayer('World1', tiles, 0, 0);
+    var layer = map.createLayer('World1', tiles, 0, 0);
 
     assert('Tile width should be 16',
         map.tileWidth === 16 && map.layers[0].tileWidth === 16
@@ -861,7 +861,7 @@ function testMakeAndAdd ()
 
     var map = this.make.tilemap({ key: 'mario' });
     var tiles = map.addTilesetImage('SuperMarioBros-World1-1', 'mario-tiles');
-    var layer = map.createDynamicLayer('World1', tiles, 0, 300);
+    var layer = map.createLayer('World1', tiles, 0, 300);
 
     assert('Tile width should be 16',
         map.tileWidth === 16 && map.layers[0].tileWidth === 16
@@ -888,7 +888,7 @@ function testMakeAndAdd ()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
 
     assert('Tile width should be 16',
         map.tileWidth === 16 && map.layers[0].tileWidth === 16
@@ -915,7 +915,7 @@ function testMakeAndAdd ()
     ]
     var map = this.add.tilemap(null, 16, 16, null, null, level);
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 150, 0);
+    var layer = map.createLayer(0, tiles, 150, 0);
 
     assert('Tile width should be 16',
         map.tileWidth === 16 && map.layers[0].tileWidth === 16
@@ -979,7 +979,7 @@ function testManipulatingTiles()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
 
     map.fill(11);
     assert('Fill without region specified should fill whole map',
@@ -1011,7 +1011,7 @@ function testManipulatingTiles()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 0, 100);
+    var layer = map.createLayer(0, tiles, 0, 100);
 
     map.shuffle();
     var sortedIndexes = map.getTilesWithin()
@@ -1031,7 +1031,7 @@ function testManipulatingTiles()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 0, 200);
+    var layer = map.createLayer(0, tiles, 0, 200);
 
     map.randomize();
     var incorrectIndexes = map.filterTiles(t => t.index < 1 || t.index > 16);
@@ -1055,7 +1055,7 @@ function testManipulatingTiles()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 0, 200);
+    var layer = map.createLayer(0, tiles, 0, 200);
 
     map.weightedRandomize();
     var incorrectIndexes = map.filterTiles(t => t.index !== 0);
@@ -1087,7 +1087,7 @@ function testManipulatingTiles()
     ]
     var map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 0, 300);
+    var layer = map.createLayer(0, tiles, 0, 300);
 
     map.replaceByIndex(1, 20);
     assert('Replace should change all ID 1 -> ID 20',
@@ -1112,7 +1112,7 @@ function testManipulatingTiles()
     ]
     var map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16});
     var tiles = map.addTilesetImage('mario-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 0, 400);
+    var layer = map.createLayer(0, tiles, 0, 400);
 
     layer.copy(0, 0, 2, 2, 2, 2);
     var destIndexes = map.getTilesWithin(2, 2, 2, 2).map(t => t.index);
@@ -1132,12 +1132,12 @@ function testSelectingWithMultipleLayers ()
     var map = this.make.tilemap({ key: 'multiple-layers-map' });
     var tiles = map.addTilesetImage('kenny_platformer_64x64');
 
-    var layer1 = map.createStaticLayer(0, tiles, 0, 0);
+    var layer1 = map.createLayer(0, tiles, 0, 0);
     assert('layer1 should be selected after being created',
         map.layer === layer1.layer
     );
 
-    var layer2 = map.createStaticLayer(1, tiles, 0, 0);
+    var layer2 = map.createLayer(1, tiles, 0, 0);
     assert('layer1 should NOT be selected after layer 2 is created',
         map.layer !== layer1.layer
     );
@@ -1145,8 +1145,8 @@ function testSelectingWithMultipleLayers ()
         map.layer === layer2.layer
     );
 
-    var layer3 = map.createStaticLayer(2, tiles, 0, 0);
-    var layer4 = map.createStaticLayer(3, tiles, 0, 0);
+    var layer3 = map.createLayer(2, tiles, 0, 0);
+    var layer4 = map.createLayer(3, tiles, 0, 0);
 
     map.setLayer('Rock Layer');
     assert('Set layer should work with string',
@@ -1189,7 +1189,7 @@ function testTileCopying()
 {
     var map = this.make.tilemap({ key: 'mario' });
     var tiles = map.addTilesetImage('SuperMarioBros-World1-1', 'mario-tiles');
-    var layer = map.createDynamicLayer('World1', tiles, 0, 0);
+    var layer = map.createLayer('World1', tiles, 0, 0);
 
     // --- TILE COPYING ---
 
@@ -1216,7 +1216,7 @@ function testTileCopying()
 
     var map = this.make.tilemap({key: 'catastrophi-level3', tileWidth: 16, tileHeight: 16});
     var tiles = map.addTilesetImage('catastrophi-tiles');
-    var layer = map.createDynamicLayer(0, tiles, 0, 200);
+    var layer = map.createLayer(0, tiles, 0, 200);
 
     var tile1 = layer.getTileAt(20, 10);
     tile1.flipX = true;
@@ -1246,10 +1246,10 @@ function testTiledObjectLayerAndImport ()
     var tiles2 = map.addTilesetImage('tiles2');
     var kissTiles = map.addTilesetImage('dangerous-kiss');
 
-    var tileLayer = map.createStaticLayer('Tile Layer 1', groundTiles);
-    var offsetTileLayer = map.createStaticLayer('Offset Tile Layer', tiles2);
-    var tileLayer2 = map.createStaticLayer('Tile Layer 2', groundTiles);
-    var smallTileLayer = map.createStaticLayer('Small Tile Layer', kissTiles);
+    var tileLayer = map.createLayer('Tile Layer 1', groundTiles);
+    var offsetTileLayer = map.createLayer('Offset Tile Layer', tiles2);
+    var tileLayer2 = map.createLayer('Tile Layer 2', groundTiles);
+    var smallTileLayer = map.createLayer('Small Tile Layer', kissTiles);
 
     // -- LAYER OFFSET ---
 

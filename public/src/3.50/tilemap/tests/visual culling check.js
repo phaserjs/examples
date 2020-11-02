@@ -46,13 +46,13 @@ function create() {
     // Static map with offset, scroll factor & scale
     var map = this.make.tilemap({ key: 'desert' });
     var tiles = map.addTilesetImage('Desert', 'desert-tiles', 32, 32, 1, 1);
-    var layer = map.createStaticLayer(0, tiles, -300, -400);
+    var layer = map.createLayer(0, tiles, -300, -400);
     layer.setScrollFactor(0.25);
 
     // Dynamic map with offset, scroll factor & scale
     var map = this.make.tilemap({ key: 'mario' });
     var tiles = map.addTilesetImage('SuperMarioBros-World1-1');
-    var layer = map.createStaticLayer(0, tiles, 50, -25);
+    var layer = map.createLayer(0, tiles, 50, -25);
     layer.setScrollFactor(1);
     layer.setScale(2, 0.5);
 
@@ -61,9 +61,9 @@ function create() {
     var ground_1x1 = map.addTilesetImage('ground_1x1');
     var tiles2 = map.addTilesetImage('tiles2');
     var dangerousTiles = map.addTilesetImage('dangerous-kiss');
-    var layer = map.createDynamicLayer('Tile Layer 1', ground_1x1, 0, 300);
-    var layer2 = map.createStaticLayer('Offset Tile Layer', tiles2, 0, 300);
-    var layer3 = map.createDynamicLayer('Small Tile Layer', dangerousTiles, 300, 300).setScrollFactor(0.5);
+    var layer = map.createLayer('Tile Layer 1', ground_1x1, 0, 300);
+    var layer2 = map.createLayer('Offset Tile Layer', tiles2, 0, 300);
+    var layer3 = map.createLayer('Small Tile Layer', dangerousTiles, 300, 300).setScrollFactor(0.5);
 
     var cursors = this.input.keyboard.createCursorKeys();
     var controlConfig = {

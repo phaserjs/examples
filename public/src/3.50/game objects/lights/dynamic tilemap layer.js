@@ -32,7 +32,7 @@ function create ()
 
     var tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2);
 
-    layer = map.createDynamicLayer(0, tileset, 0, 0).setPipeline('Light2D');
+    layer = map.createLayer(0, tileset, 0, 0).setPipeline('Light2D');
 
     player = this.add.image(32+16, 32+16, 'car');
 

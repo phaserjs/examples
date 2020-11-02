@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000000',
@@ -25,7 +25,7 @@ function create ()
 {
     var map = this.add.tilemap('map');
     var tileset = map.addTilesetImage('kenny_platformer_64x64');
-    var layer = map.createStaticLayer('Tile Layer 1', tileset);
+    var layer = map.createLayer('Tile Layer 1', tileset);
 
     var graphics = this.add.graphics();
 

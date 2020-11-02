@@ -27,7 +27,7 @@ function create ()
 
     var tiles = map.addTilesetImage('Desert', 'tiles');
 
-    layer = map.createDynamicLayer('Ground', tiles, 0, 0).setVisible(false);
+    layer = map.createLayer('Ground', tiles, 0, 0).setVisible(false);
 
     rt = this.add.renderTexture(0, 0, 800, 600);
 }

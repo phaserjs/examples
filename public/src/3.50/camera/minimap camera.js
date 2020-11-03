@@ -3,16 +3,15 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
+    pixelArt: true,
     physics: {
-        default: 'impact',
-        impact: {
-            setBounds: {
+        default: 'matter',
+        matter: {
+            gravity: {
                 x: 0,
-                y: 0,
-                width: 3200,
-                height: 600,
-                thickness: 32
-            }
+                y: 0
+            },
+            enableSleeping: true
         }
     },
     scene: {
@@ -42,7 +41,8 @@ function preload ()
 
 function create ()
 {
-     //  The world is 3200 x 600 in size
+    //  The world is 3200 x 600 in size
+    this.matter.world.setBounds(0, 0, 3200, 600);
     this.cameras.main.setBounds(0, 0, 3200, 600).setName('main');
 
     //  The miniCam is 400px wide, so can display the whole world at a zoom of 0.2
@@ -55,11 +55,12 @@ function create ()
     this.createLandscape();
     this.createAliens();
 
-    //  Add a player ship
-
-    this.player = this.impact.add.sprite(1600, 200, 'ship');
-    this.player.setMaxVelocity(1000).setFriction(400, 200).setPassiveCollision();
-
+    //  Add a player ship and camera follow
+    this.player = this.matter.add.sprite(1600, 200, 'ship')
+        .setFixedRotation()
+        .setFrictionAir(0.05)
+        .setMass(30);
+    this.cameras.main.startFollow(this.player, false, 0.2, 0.2);
     this.cursors = this.input.keyboard.createCursorKeys();
 }
 
@@ -67,37 +68,22 @@ function update()
 {
     if (this.cursors.left.isDown)
     {
-        this.player.setAccelerationX(-800);
+        this.player.thrustBack(0.1);
         this.player.flipX = true;
     }
     else if (this.cursors.right.isDown)
     {
-        this.player.setAccelerationX(800);
+        this.player.thrust(0.1);
         this.player.flipX = false;
     }
-    else
-    {
-        this.player.setAccelerationX(0);
-    }
-
     if (this.cursors.up.isDown)
     {
-        this.player.setAccelerationY(-800);
+        this.player.thrustLeft(0.1);
     }
     else if (this.cursors.down.isDown)
     {
-        this.player.setAccelerationY(800);
+        this.player.thrustRight(0.1);
     }
-    else
-    {
-        this.player.setAccelerationY(0);
-    }
-
-    //  Position the center of the camera on the player
-    //  We -400 because the camera width is 800px and
-    //  we want the center of the camera on the player, not the left-hand side of it
-    this.cameras.main.scrollX = this.player.x - 400;
-
     //  And this camera is 400px wide, so -200
     this.minimap.scrollX = Phaser.Math.Clamp(this.player.x - 200, 800, 2000);
 }
@@ -187,8 +173,7 @@ function createLandscape ()
 
 function createAliens ()
 {
-    //  Create some random aliens moving slowly around
-
+    //  Create some random aliens
     var config = {
         key: 'metaleyes',
         frames: this.anims.generateFrameNumbers('face', { start: 0, end: 4 }),
@@ -197,24 +182,18 @@ function createAliens ()
     };
 
     this.anims.create(config);
-
     for (var i = 0; i < 32; i++)
     {
         var x = Phaser.Math.Between(100, 3100);
         var y = Phaser.Math.Between(100, 300);
 
-        var face = this.impact.add.sprite(x, y, 'face').play('metaleyes');
+        var face = this.matter.add.sprite(x, y, 'face').play('metaleyes');
+        face
+            .setFrictionAir(0)
+            .setMass(1)
+            .setScale(0.5);
 
-        face.setLiteCollision().setBounce(1).setBodyScale(0.5);
-        face.setVelocity(Phaser.Math.Between(20, 60), Phaser.Math.Between(20, 60));
-
-        if (Math.random() > 0.5)
-        {
-            face.vel.x *= -1;
-        }
-        else
-        {
-            face.vel.y *= -1;
-        }
+        const direction = (Math.random() > 0.5) ? -1 : 1;
+        face.setVelocity(Phaser.Math.Between(1, 5) * direction, Phaser.Math.Between(1, 5) * direction);
     }
 }

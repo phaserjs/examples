@@ -99,7 +99,7 @@ function setup ()
 
     this.anims.create({
         key: 'cat',
-        frames: this.anims.generateFrameNumbers('cat', { start: 0, end: 6, first: 0 }),
+        frames: this.anims.generateFrameNumbers('cat', { start: 0, end: 5, first: 0 }),
         frameRate: 15,
         repeat: -1
     });
@@ -135,6 +135,6 @@ function update ()
             cat.anims.resume();
         }
 
-        cat.anims.setTimeScale(catAstroPhi.totalRate);
+        cat.anims.timeScale = catAstroPhi.totalRate;
     }
 }

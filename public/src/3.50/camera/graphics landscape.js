@@ -3,16 +3,15 @@ var config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
+    pixelArt: true,
     physics: {
-        default: 'impact',
-        impact: {
-            setBounds: {
+        default: 'matter',
+        matter: {
+            gravity: {
                 x: 0,
-                y: 0,
-                width: 3200,
-                height: 600,
-                thickness: 32
-            }
+                y: 0
+            },
+            enableSleeping: true
         }
     },
     scene: {
@@ -37,14 +36,17 @@ function preload ()
 function create ()
 {
     //  The world is 3200 x 600 in size
+    this.matter.world.setBounds(0, 0, 3200, 600);
     this.cameras.main.setBounds(0, 0, 3200, 600);
 
     this.createLandscape();
 
-    //  Add a player ship
-
-    this.player = this.impact.add.sprite(1600, 200, 'ship');
-    this.player.setMaxVelocity(1000).setFriction(400, 200).setPassiveCollision();
+    //  Add a player ship and camera follow
+    this.player = this.matter.add.sprite(1600, 200, 'ship')
+        .setFixedRotation()
+        .setFrictionAir(0.05)
+        .setMass(30);
+    this.cameras.main.startFollow(this.player, false, 0.2, 0.2);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 }
@@ -53,36 +55,23 @@ function update()
 {
     if (this.cursors.left.isDown)
     {
-        this.player.setAccelerationX(-800);
+        this.player.thrustBack(0.1);
         this.player.flipX = true;
     }
     else if (this.cursors.right.isDown)
     {
-        this.player.setAccelerationX(800);
+        this.player.thrust(0.1);
         this.player.flipX = false;
-    }
-    else
-    {
-        this.player.setAccelerationX(0);
     }
 
     if (this.cursors.up.isDown)
     {
-        this.player.setAccelerationY(-800);
+        this.player.thrustLeft(0.1);
     }
     else if (this.cursors.down.isDown)
     {
-        this.player.setAccelerationY(800);
+        this.player.thrustRight(0.1);
     }
-    else
-    {
-        this.player.setAccelerationY(0);
-    }
-
-    //  Position the center of the camera on the player
-    //  We -400 because the camera width is 800px and
-    //  we want the center of the camera on the player, not the left-hand side of it
-    this.cameras.main.scrollX = this.player.x - 400;
 }
 
 function createLandscape ()

@@ -134,9 +134,9 @@ function drawLogo (color, x, y, scale, rot)
     var s = 30;
 
     graphics.save();
-    graphics.translate(400, 300);
-    graphics.scale(scale, scale);
-    graphics.rotate(rot);
+    graphics.translateCanvas(400, 300);
+    graphics.scaleCanvas(scale, scale);
+    graphics.rotateCanvas(rot);
 
     graphics.beginPath();
 

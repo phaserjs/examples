@@ -579,7 +579,7 @@
                 {
                   "path": "src\\3.50\\audio\\HTML5 Audio\\Seek.js",
                   "name": "Seek.js",
-                  "size": 3625,
+                  "size": 3483,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -591,7 +591,7 @@
                   "type": "file"
                 }
               ],
-              "size": 39990,
+              "size": 39848,
               "type": "directory"
             },
             {
@@ -752,7 +752,7 @@
               "type": "directory"
             }
           ],
-          "size": 121094,
+          "size": 120952,
           "type": "directory"
         },
         {
@@ -791,7 +791,7 @@
             {
               "path": "src\\3.50\\camera\\16 camera shader test.js",
               "name": "16 camera shader test.js",
-              "size": 4156,
+              "size": 3991,
               "extension": ".js",
               "type": "file"
             },
@@ -1156,7 +1156,7 @@
             {
               "path": "src\\3.50\\camera\\graphics landscape.js",
               "name": "graphics landscape.js",
-              "size": 2995,
+              "size": 2546,
               "extension": ".js",
               "type": "file"
             },
@@ -1198,7 +1198,7 @@
             {
               "path": "src\\3.50\\camera\\minimap camera.js",
               "name": "minimap camera.js",
-              "size": 5378,
+              "size": 4784,
               "extension": ".js",
               "type": "file"
             },
@@ -1477,7 +1477,7 @@
               "type": "file"
             }
           ],
-          "size": 215483,
+          "size": 214275,
           "type": "directory"
         },
         {
@@ -1552,7 +1552,7 @@
             {
               "path": "src\\3.50\\demoscene\\birdy nam nam.js",
               "name": "birdy nam nam.js",
-              "size": 3608,
+              "size": 3448,
               "extension": ".js",
               "type": "file"
             },
@@ -1585,7 +1585,7 @@
               "type": "file"
             }
           ],
-          "size": 8147,
+          "size": 7987,
           "type": "directory"
         },
         {
@@ -1616,7 +1616,7 @@
             {
               "path": "src\\3.50\\depth sorting\\get top object.js",
               "name": "get top object.js",
-              "size": 1776,
+              "size": 1702,
               "extension": ".js",
               "type": "file"
             },
@@ -1649,7 +1649,7 @@
               "type": "file"
             }
           ],
-          "size": 23421,
+          "size": 23347,
           "type": "directory"
         },
         {
@@ -2100,7 +2100,7 @@
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\graphics mask.js",
                       "name": "graphics mask.js",
-                      "size": 3334,
+                      "size": 3193,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -2133,7 +2133,7 @@
                       "type": "file"
                     }
                   ],
-                  "size": 7540,
+                  "size": 7399,
                   "type": "directory"
                 },
                 {
@@ -2146,7 +2146,7 @@
                 {
                   "path": "src\\3.50\\display\\masks\\GeometryMask Example0.js",
                   "name": "GeometryMask Example0.js",
-                  "size": 2639,
+                  "size": 2545,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -2186,7 +2186,7 @@
                   "type": "file"
                 }
               ],
-              "size": 66784,
+              "size": 66549,
               "type": "directory"
             },
             {
@@ -2360,7 +2360,7 @@
               "type": "directory"
             }
           ],
-          "size": 182391,
+          "size": 182156,
           "type": "directory"
         },
         {
@@ -2547,7 +2547,7 @@
             {
               "path": "src\\3.50\\game config\\headless renderer.js",
               "name": "headless renderer.js",
-              "size": 488,
+              "size": 460,
               "extension": ".js",
               "type": "file"
             },
@@ -2594,7 +2594,7 @@
               "type": "file"
             }
           ],
-          "size": 16734,
+          "size": 16706,
           "type": "directory"
         },
         {
@@ -3011,12 +3011,12 @@
                 {
                   "path": "src\\3.50\\game objects\\blitter\\twist scroller.js",
                   "name": "twist scroller.js",
-                  "size": 13397,
+                  "size": 13055,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 31730,
+              "size": 31388,
               "type": "directory"
             },
             {
@@ -3082,7 +3082,7 @@
                 {
                   "path": "src\\3.50\\game objects\\container\\camera transform test.js",
                   "name": "camera transform test.js",
-                  "size": 3946,
+                  "size": 3797,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3374,7 +3374,7 @@
                   "type": "file"
                 }
               ],
-              "size": 83453,
+              "size": 83304,
               "type": "directory"
             },
             {
@@ -3405,7 +3405,7 @@
                 {
                   "path": "src\\3.50\\game objects\\dom element\\cursors test.js",
                   "name": "cursors test.js",
-                  "size": 1279,
+                  "size": 1210,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3515,7 +3515,7 @@
                   "type": "file"
                 }
               ],
-              "size": 25171,
+              "size": 25102,
               "type": "directory"
             },
             {
@@ -3721,21 +3721,21 @@
                 {
                   "path": "src\\3.50\\game objects\\graphics\\phaser logo 3d.js",
                   "name": "phaser logo 3d.js",
-                  "size": 3970,
+                  "size": 3790,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\graphics\\phaser logo shift.js",
                   "name": "phaser logo shift.js",
-                  "size": 3761,
+                  "size": 3572,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\graphics\\phaser logo.js",
                   "name": "phaser logo.js",
-                  "size": 2754,
+                  "size": 2641,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3772,13 +3772,6 @@
                       "type": "file"
                     },
                     {
-                      "path": "src\\3.50\\game objects\\graphics\\primitives\\fill circle.js",
-                      "name": "fill circle.js",
-                      "size": 563,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
                       "path": "src\\3.50\\game objects\\graphics\\primitives\\line between.js",
                       "name": "line between.js",
                       "size": 357,
@@ -3796,13 +3789,6 @@
                       "path": "src\\3.50\\game objects\\graphics\\primitives\\line gradient stroked.js",
                       "name": "line gradient stroked.js",
                       "size": 396,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\graphics\\primitives\\path filled.js",
-                      "name": "path filled.js",
-                      "size": 740,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -3863,27 +3849,6 @@
                       "type": "file"
                     },
                     {
-                      "path": "src\\3.50\\game objects\\graphics\\primitives\\triangle fill types.js",
-                      "name": "triangle fill types.js",
-                      "size": 1114,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\graphics\\primitives\\triangle filled texture.js",
-                      "name": "triangle filled texture.js",
-                      "size": 818,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
-                      "path": "src\\3.50\\game objects\\graphics\\primitives\\triangle filled.js",
-                      "name": "triangle filled.js",
-                      "size": 675,
-                      "extension": ".js",
-                      "type": "file"
-                    },
-                    {
                       "path": "src\\3.50\\game objects\\graphics\\primitives\\triangle gradient filled.js",
                       "name": "triangle gradient filled.js",
                       "size": 533,
@@ -3905,7 +3870,7 @@
                       "type": "file"
                     }
                   ],
-                  "size": 15345,
+                  "size": 11435,
                   "type": "directory"
                 },
                 {
@@ -3988,14 +3953,14 @@
                 {
                   "path": "src\\3.50\\game objects\\graphics\\Trail.js",
                   "name": "Trail.js",
-                  "size": 2476,
+                  "size": 2360,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\graphics\\transform.js",
                   "name": "transform.js",
-                  "size": 1242,
+                  "size": 1199,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4092,7 +4057,7 @@
                   "type": "directory"
                 }
               ],
-              "size": 193067,
+              "size": 188516,
               "type": "directory"
             },
             {
@@ -6121,7 +6086,7 @@
               "type": "directory"
             }
           ],
-          "size": 812133,
+          "size": 807022,
           "type": "directory"
         },
         {
@@ -13455,7 +13420,7 @@
                 {
                   "path": "src\\3.50\\tilemap\\static\\csv-map.js",
                   "name": "csv-map.js",
-                  "size": 1823,
+                  "size": 1822,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13621,7 +13586,7 @@
                   "type": "file"
                 }
               ],
-              "size": 60613,
+              "size": 60612,
               "type": "directory"
             },
             {
@@ -13682,7 +13647,7 @@
               "type": "directory"
             }
           ],
-          "size": 254804,
+          "size": 254803,
           "type": "directory"
         },
         {
@@ -14662,7 +14627,7 @@
           "type": "directory"
         }
       ],
-      "size": 4132337,
+      "size": 4125378,
       "type": "directory"
     },
     {
@@ -31016,6 +30981,6 @@
       "type": "directory"
     }
   ],
-  "size": 8675924,
+  "size": 8668965,
   "type": "directory"
 }

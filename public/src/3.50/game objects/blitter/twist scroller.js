@@ -280,7 +280,6 @@ function drawFont (position, increment, callback, tile)
                     // No effect
                     default:    posy = mid + (y - 8) * 10; break;
                 }
-
                 blitter.create(x * 32 - increment * 8, Math.round(posy) * 2, frame);
             }
         }

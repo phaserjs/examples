@@ -31,7 +31,7 @@ var CustomPipeline1 = new Phaser.Class({
             "}"
             ].join('\n')
         });
-    } 
+    }
 
 });
 
@@ -67,10 +67,10 @@ var CustomPipeline2 = new Phaser.Class({
                 vec4 pixel = texture2D(uMainSampler, outTexCoord);
 
                 gl_FragColor = pixel * hueRotation;
-            }   
+            }
             `
         });
-    } 
+    }
 
 });
 

@@ -62,7 +62,7 @@ function create ()
         }
     }, this);
 
-    this.input.keyboard.on('keydown_SPACE', function (event) {
+    this.input.keyboard.on('keydown-SPACE', function (event) {
         // shapeGraphics.visible = !shapeGraphics.visible;
     });
 

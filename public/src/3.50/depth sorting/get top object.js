@@ -37,12 +37,12 @@ function create ()
     dump(test2);
 
     var test3 = [ image6, image4, image2 ];
-    this.children.sortGameObjects(test3);
     //  contra3 -> helix -> profil-sad-plush
+    this.children.depthSort(test3);
     dump(test3);
 
     var test4 = [ image3, image1, image2, image1, image1, image6, image4 ];
-    this.children.sortGameObjects(test4);
+    this.children.depthSort(test4);
     //  contra2 -> contra2 -> contra2 -> contra3 -> exocet_spaceman -> helix -> profil-sad-plush
     dump(test4);
 }

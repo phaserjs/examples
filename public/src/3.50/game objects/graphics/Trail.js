@@ -49,10 +49,10 @@ function update() {
         {
             var point = points[index];
             trail.lineFxTo(
-                point.x, point.y, 
+                point.x, point.y,
                 linearInterpolation(index / (points.length - 4), 0, 20),
                 ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / points.length, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff)
-                
+
             );
         }
         var count = 0;
@@ -60,7 +60,7 @@ function update() {
         {
             var point = points[index];
             trail.lineFxTo(
-                point.x, point.y, 
+                point.x, point.y,
                 linearInterpolation(count++ / 4, 20, 0),
                 ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / points.length, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff)
             );
@@ -71,7 +71,7 @@ function update() {
     for (var index = 0; index < points.length; ++index)
     {
         var point = points[index];
-       
+
         point.time -= 0.5;
         if (point.time <= 0)
         {

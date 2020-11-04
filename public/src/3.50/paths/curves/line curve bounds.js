@@ -36,34 +36,37 @@ function create ()
 
     curve.getBounds(bounds);
 
-    var point0 = this.add.image(curve.p0.x, curve.p0.y, 'dragcircle', 0).setInteractive();
-    var point1 = this.add.image(curve.p1.x, curve.p1.y, 'dragcircle', 0).setInteractive();
+    var point0 = this.add.image(curve.p0.x, curve.p0.y, 'dragcircle', 0)
+        .setDataEnabled()
+        .setInteractive();
+    var point1 = this.add.image(curve.p1.x, curve.p1.y, 'dragcircle', 0)
+        .setDataEnabled()
+        .setInteractive();
 
     point0.data.set('vector', curve.p0);
     point1.data.set('vector', curve.p1);
 
     this.input.setDraggable([ point0, point1 ]);
 
-    this.input.on('DRAG_START_EVENT', function (event) {
-
-        event.gameObject.setFrame(1);
+    this.input.on(Phaser.Input.Events.DRAG_START, function (event, gameObject) {
+        console.log(gameObject)
+        gameObject.setFrame(1);
 
     });
 
-    this.input.on('DRAG_EVENT', function (event) {
+    this.input.on(Phaser.Input.Events.DRAG, function (event, gameObject, dragX, dragY) {
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
-
-        event.gameObject.data.get('vector').set(event.dragX, event.dragY);
+        gameObject.data.get('vector').set(dragX, dragY);
 
         curve.getBounds(bounds);
 
     });
 
-    this.input.on('DRAG_END_EVENT', function (event) {
+    this.input.on(Phaser.Input.Events.DRAG_END, function (event, gameObject) {
 
-        event.gameObject.setFrame(0);
+        gameObject.setFrame(0);
 
     });
 

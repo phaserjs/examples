@@ -4158,7 +4158,7 @@
                 {
                   "path": "src\\3.50\\game objects\\group\\sprite pool.js",
                   "name": "sprite pool.js",
-                  "size": 2564,
+                  "size": 2503,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4170,7 +4170,7 @@
                   "type": "file"
                 }
               ],
-              "size": 17156,
+              "size": 17095,
               "type": "directory"
             },
             {
@@ -4453,70 +4453,14 @@
               "name": "mesh",
               "children": [
                 {
-                  "path": "src\\3.50\\game objects\\mesh\\basic quad.js",
-                  "name": "basic quad.js",
-                  "size": 1433,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\mesh\\basic tri.js",
-                  "name": "basic tri.js",
-                  "size": 1330,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
                   "path": "src\\3.50\\game objects\\mesh\\race track.js",
                   "name": "race track.js",
                   "size": 6842,
                   "extension": ".js",
                   "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\mesh\\random quad tween.js",
-                  "name": "random quad tween.js",
-                  "size": 2461,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\mesh\\random quad.js",
-                  "name": "random quad.js",
-                  "size": 1844,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\mesh\\Simple Mesh.js",
-                  "name": "Simple Mesh.js",
-                  "size": 3342,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\mesh\\UV Scroll.js",
-                  "name": "UV Scroll.js",
-                  "size": 1501,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\mesh\\Vertex Color.js",
-                  "name": "Vertex Color.js",
-                  "size": 1604,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\mesh\\vertice drag.js",
-                  "name": "vertice drag.js",
-                  "size": 1818,
-                  "extension": ".js",
-                  "type": "file"
                 }
               ],
-              "size": 22175,
+              "size": 6842,
               "type": "directory"
             },
             {
@@ -4841,7 +4785,7 @@
                 {
                   "path": "src\\3.50\\game objects\\particle emitter\\multi frame test.js",
                   "name": "multi frame test.js",
-                  "size": 2258,
+                  "size": 2169,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4876,7 +4820,7 @@
                 {
                   "path": "src\\3.50\\game objects\\particle emitter\\particles on a moving curve.js",
                   "name": "particles on a moving curve.js",
-                  "size": 1847,
+                  "size": 1810,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4972,7 +4916,7 @@
                   "type": "file"
                 }
               ],
-              "size": 90324,
+              "size": 90198,
               "type": "directory"
             },
             {
@@ -6086,7 +6030,7 @@
               "type": "directory"
             }
           ],
-          "size": 807022,
+          "size": 791502,
           "type": "directory"
         },
         {
@@ -6720,7 +6664,7 @@
                 {
                   "path": "src\\3.50\\geom\\circle\\offset point.js",
                   "name": "offset point.js",
-                  "size": 713,
+                  "size": 643,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -6760,7 +6704,7 @@
                   "type": "file"
                 }
               ],
-              "size": 18933,
+              "size": 18863,
               "type": "directory"
             },
             {
@@ -8108,7 +8052,7 @@
               "type": "directory"
             }
           ],
-          "size": 195717,
+          "size": 195647,
           "type": "directory"
         },
         {
@@ -8646,7 +8590,7 @@
                 {
                   "path": "src\\3.50\\input\\keyboard\\numpad.js",
                   "name": "numpad.js",
-                  "size": 1801,
+                  "size": 1840,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8667,7 +8611,7 @@
                 {
                   "path": "src\\3.50\\input\\keyboard\\single keydown event.js",
                   "name": "single keydown event.js",
-                  "size": 837,
+                  "size": 886,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8679,7 +8623,7 @@
                   "type": "file"
                 }
               ],
-              "size": 47766,
+              "size": 47854,
               "type": "directory"
             },
             {
@@ -9108,7 +9052,7 @@
               "type": "directory"
             }
           ],
-          "size": 208996,
+          "size": 209084,
           "type": "directory"
         },
         {
@@ -9180,12 +9124,12 @@
                 {
                   "path": "src\\3.50\\loader\\base64\\bitmap text.js",
                   "name": "bitmap text.js",
-                  "size": 564601,
+                  "size": 564560,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 564601,
+              "size": 564560,
               "type": "directory"
             },
             {
@@ -9303,12 +9247,12 @@
                 {
                   "path": "src\\3.50\\loader\\html\\load html to texture.js",
                   "name": "load html to texture.js",
-                  "size": 521,
+                  "size": 492,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 521,
+              "size": 492,
               "type": "directory"
             },
             {
@@ -9364,7 +9308,7 @@
             {
               "path": "src\\3.50\\loader\\load config tests.js",
               "name": "load config tests.js",
-              "size": 1819,
+              "size": 1759,
               "extension": ".js",
               "type": "file"
             },
@@ -9481,12 +9425,12 @@
                 {
                   "path": "src\\3.50\\loader\\plugin\\load plugin.js",
                   "name": "load plugin.js",
-                  "size": 535,
+                  "size": 511,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 535,
+              "size": 511,
               "type": "directory"
             },
             {
@@ -9787,7 +9731,7 @@
               "type": "directory"
             }
           ],
-          "size": 730039,
+          "size": 729885,
           "type": "directory"
         },
         {
@@ -9985,7 +9929,7 @@
                 {
                   "path": "src\\3.50\\paths\\curves\\line curve bounds.js",
                   "name": "line curve bounds.js",
-                  "size": 2223,
+                  "size": 2258,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10060,7 +10004,7 @@
                   "type": "file"
                 }
               ],
-              "size": 53698,
+              "size": 53733,
               "type": "directory"
             },
             {
@@ -10236,7 +10180,7 @@
             {
               "path": "src\\3.50\\paths\\velocity from tangent vectors.js",
               "name": "velocity from tangent vectors.js",
-              "size": 2271,
+              "size": 2315,
               "extension": ".js",
               "type": "file"
             },
@@ -10248,7 +10192,7 @@
               "type": "file"
             }
           ],
-          "size": 85182,
+          "size": 85261,
           "type": "directory"
         },
         {
@@ -10473,7 +10417,7 @@
                 {
                   "path": "src\\3.50\\physics\\arcade\\blocked faces.js",
                   "name": "blocked faces.js",
-                  "size": 2233,
+                  "size": 2127,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10732,7 +10676,7 @@
                 {
                   "path": "src\\3.50\\physics\\arcade\\non-pushable bodies.js",
                   "name": "non-pushable bodies.js",
-                  "size": 3011,
+                  "size": 2981,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10809,7 +10753,7 @@
                 {
                   "path": "src\\3.50\\physics\\arcade\\space.js",
                   "name": "space.js",
-                  "size": 7685,
+                  "size": 7445,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10886,14 +10830,14 @@
                 {
                   "path": "src\\3.50\\physics\\arcade\\tween velocity.js",
                   "name": "tween velocity.js",
-                  "size": 3473,
+                  "size": 3219,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\physics\\arcade\\velocity from angle.js",
                   "name": "velocity from angle.js",
-                  "size": 1693,
+                  "size": 1869,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10933,211 +10877,7 @@
                   "type": "file"
                 }
               ],
-              "size": 255619,
-              "type": "directory"
-            },
-            {
-              "path": "src\\3.50\\physics\\impact",
-              "name": "impact",
-              "children": [
-                {
-                  "path": "src\\3.50\\physics\\impact\\100 world bodies.js",
-                  "name": "100 world bodies.js",
-                  "size": 2953,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\1000 world bodies.js",
-                  "name": "1000 world bodies.js",
-                  "size": 2983,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\10000 world bodies.js",
-                  "name": "10000 world bodies.js",
-                  "size": 2985,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\bitmaptext body.js",
-                  "name": "bitmaptext body.js",
-                  "size": 1050,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\body collision.js",
-                  "name": "body collision.js",
-                  "size": 826,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\body offset.js",
-                  "name": "body offset.js",
-                  "size": 908,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\collide callback.js",
-                  "name": "collide callback.js",
-                  "size": 961,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\collide event.js",
-                  "name": "collide event.js",
-                  "size": 827,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\collision map.js",
-                  "name": "collision map.js",
-                  "size": 2003,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\dynamic bitmaptext body.js",
-                  "name": "dynamic bitmaptext body.js",
-                  "size": 2400,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\dynamic graphics body.js",
-                  "name": "dynamic graphics body.js",
-                  "size": 1874,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\graphics body.js",
-                  "name": "graphics body.js",
-                  "size": 2302,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\group shift position from body.js",
-                  "name": "group shift position from body.js",
-                  "size": 1365,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\move body with cursors.js",
-                  "name": "move body with cursors.js",
-                  "size": 2702,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\multiple scenes.js",
-                  "name": "multiple scenes.js",
-                  "size": 4791,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\scaled bodies.js",
-                  "name": "scaled bodies.js",
-                  "size": 1301,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\scaling body.js",
-                  "name": "scaling body.js",
-                  "size": 1338,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\scene config.js",
-                  "name": "scene config.js",
-                  "size": 2048,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\show debug graphic.js",
-                  "name": "show debug graphic.js",
-                  "size": 1237,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\simple body.js",
-                  "name": "simple body.js",
-                  "size": 451,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\simple floor.js",
-                  "name": "simple floor.js",
-                  "size": 1075,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\slope tests.js",
-                  "name": "slope tests.js",
-                  "size": 2267,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\small world bounds from config.js",
-                  "name": "small world bounds from config.js",
-                  "size": 1023,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\text body.js",
-                  "name": "text body.js",
-                  "size": 898,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\tilesprite body.js",
-                  "name": "tilesprite body.js",
-                  "size": 1586,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\world bounds from config.js",
-                  "name": "world bounds from config.js",
-                  "size": 837,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\world bounds optional walls.js",
-                  "name": "world bounds optional walls.js",
-                  "size": 1201,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\physics\\impact\\world bounds.js",
-                  "name": "world bounds.js",
-                  "size": 794,
-                  "extension": ".js",
-                  "type": "file"
-                }
-              ],
-              "size": 46986,
+              "size": 255165,
               "type": "directory"
             },
             {
@@ -11266,7 +11006,7 @@
                 {
                   "path": "src\\3.50\\physics\\matterjs\\circle stack.js",
                   "name": "circle stack.js",
-                  "size": 2367,
+                  "size": 2266,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -11280,7 +11020,7 @@
                 {
                   "path": "src\\3.50\\physics\\matterjs\\cloth.js",
                   "name": "cloth.js",
-                  "size": 2122,
+                  "size": 2035,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -11399,7 +11139,7 @@
                 {
                   "path": "src\\3.50\\physics\\matterjs\\get bodies below point.js",
                   "name": "get bodies below point.js",
-                  "size": 2539,
+                  "size": 2558,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -11572,20 +11312,13 @@
                   "type": "file"
                 }
               ],
-              "size": 103465,
+              "size": 103296,
               "type": "directory"
             },
             {
               "path": "src\\3.50\\physics\\multi",
               "name": "multi",
               "children": [
-                {
-                  "path": "src\\3.50\\physics\\multi\\arcade and matter and impact.js",
-                  "name": "arcade and matter and impact.js",
-                  "size": 1614,
-                  "extension": ".js",
-                  "type": "file"
-                },
                 {
                   "path": "src\\3.50\\physics\\multi\\arcade and matter.js",
                   "name": "arcade and matter.js",
@@ -11594,11 +11327,11 @@
                   "type": "file"
                 }
               ],
-              "size": 2750,
+              "size": 1136,
               "type": "directory"
             }
           ],
-          "size": 408820,
+          "size": 359597,
           "type": "directory"
         },
         {
@@ -11756,7 +11489,7 @@
             {
               "path": "src\\3.50\\pools\\multi pools.js",
               "name": "multi pools.js",
-              "size": 2774,
+              "size": 2617,
               "extension": ".js",
               "type": "file"
             },
@@ -11775,7 +11508,7 @@
               "type": "file"
             }
           ],
-          "size": 12572,
+          "size": 12415,
           "type": "directory"
         },
         {
@@ -14627,7 +14360,7 @@
           "type": "directory"
         }
       ],
-      "size": 4125378,
+      "size": 4060421,
       "type": "directory"
     },
     {
@@ -25946,7 +25679,7 @@
         {
           "path": "src\\loader\\load config tests.js",
           "name": "load config tests.js",
-          "size": 1819,
+          "size": 1751,
           "extension": ".js",
           "type": "file"
         },
@@ -26188,7 +25921,7 @@
             {
               "path": "src\\loader\\texture atlas json\\get atlas custom frame data.js",
               "name": "get atlas custom frame data.js",
-              "size": 2501,
+              "size": 2413,
               "extension": ".js",
               "type": "file"
             },
@@ -26263,7 +25996,7 @@
               "type": "file"
             }
           ],
-          "size": 32784,
+          "size": 32696,
           "type": "directory"
         },
         {
@@ -26369,7 +26102,7 @@
           "type": "directory"
         }
       ],
-      "size": 730396,
+      "size": 730240,
       "type": "directory"
     },
     {
@@ -30981,6 +30714,6 @@
       "type": "directory"
     }
   ],
-  "size": 8668965,
+  "size": 8603852,
   "type": "directory"
 }

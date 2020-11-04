@@ -63,9 +63,9 @@ class FractalPlugin {
                 // limit the axis
                 var x = -1.5 + j * 3.0 / cw;
                 var y = -1.0 + i * 2.0 / ch;
-                
+
                 var iteration = 0;
-                
+
                 while ((x * x + y * y < 4) && (iteration < maxIterations))
                 {
                     var xN = x * x - y * y + x0;
@@ -74,13 +74,13 @@ class FractalPlugin {
                     y = yN;
                     iteration++;
                 }
-                
+
                 // set pixel color [r,g,b,a]
                 data[i * cw * 4 + j * 4 + 0] = iteration * 8;
                 data[i * cw * 4 + j * 4 + 1] = iteration * 5;
                 data[i * cw * 4 + j * 4 + 2] = iteration * 25;
                 data[i * cw * 4 + j * 4 + 3] = 255;
-            }       
+            }
         }
 
         this.context.putImageData(imageData, 0, 0);

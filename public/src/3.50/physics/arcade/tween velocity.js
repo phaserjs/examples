@@ -4,8 +4,8 @@ class Ship extends Phaser.Physics.Arcade.Sprite {
     {
         super(scene, x, y, 'ship', 2);
 
-        scene.sys.add.existing(this);
-        scene.sys.arcadePhysics.add.existing(this);
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
 
         this.setScale(2);
         this.play('thrust');
@@ -17,21 +17,20 @@ class Ship extends Phaser.Physics.Arcade.Sprite {
         this.targetIndex = -1;
 
         this.isSeeking = true;
-        
+
         this.seek();
     }
 
     seek ()
     {
         //  Pick a random target point
-        var entry = Phaser.Utils.Array.GetRandomExcluding(this.points, this.targetIndex);
+        var entry = Phaser.Utils.Array.GetRandom(this.points);
 
-        this.targetIndex = entry.index;
-        this.target = entry.value;
+        this.target = entry;
 
         this.isSeeking = false;
 
-        this.scene.sys.tweens.add({
+        this.scene.tweens.add({
             targets: this.body.velocity,
             x: 0,
             y: 0,
@@ -40,7 +39,7 @@ class Ship extends Phaser.Physics.Arcade.Sprite {
             onComplete: function (tween, targets, ship)
             {
                 ship.isSeeking = true;
-                ship.scene.sys.tweens.add({
+                ship.scene.tweens.add({
                     targets: ship,
                     speed: 150,
                     delay: 500,
@@ -65,7 +64,7 @@ class Ship extends Phaser.Physics.Arcade.Sprite {
         {
             var angle = Math.atan2(this.target.y - this.y, this.target.x - this.x);
 
-            this.scene.sys.arcadePhysics.velocityFromRotation(angle, this.speed, this.body.velocity);
+            this.scene.physics.velocityFromRotation(angle, this.speed, this.body.velocity);
         }
     }
 
@@ -92,7 +91,7 @@ let config = {
 };
 
 var g;
-var bob;
+var ship;
 
 let game = new Phaser.Game(config);
 
@@ -134,12 +133,12 @@ function create ()
 
     g = this.add.graphics();
 
-    bob = new Ship(this, 400, 300, points);
+    ship = new Ship(this, 400, 300, points);
 }
 
 function update ()
 {
     g.clear();
     g.fillStyle(0xff0000);
-    g.fillRect(bob.target.x, bob.target.y, 4, 4);
+    g.fillRect(ship.target.x, ship.target.y, 4, 4);
 }

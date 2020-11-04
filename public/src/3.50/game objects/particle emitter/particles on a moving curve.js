@@ -48,7 +48,9 @@ function create ()
     {
         var point = curve.points[i];
 
-        var handle = this.add.image(point.x, point.y, 'dragcircle', 0).setInteractive();
+        var handle = this.add.image(point.x, point.y, 'dragcircle', 0)
+            .setInteractive()
+            .setDataEnabled();
 
         handle.data.set('vector', point);
 

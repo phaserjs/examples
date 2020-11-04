@@ -41,17 +41,25 @@ function create ()
     var body2 = this.matter.add.circle(150, 250, 16);
     var body3 = this.matter.add.circle(400, 450, 16);
     var body4 = this.matter.add.circle(500, 50, 16);
-    
+
     //  A spring, because length > 0 and stiffness < 0.9
     this.matter.add.spring(body1, body2, 140, 0.001);
 
     //  A joint, because length > 0 and stiffness > 0.1
-    this.matter.add.worldConstraint(400, 250, body3, 140, 1);
+    this.matter.add.worldConstraint(body3, 140, 1, {
+        pointA: {
+            x: 400, y: 250
+        }
+    });
 
     //  A pin, because length = 0 and stiffness > 0.1
-    this.matter.add.worldConstraint(500, 50, body4, 0, 1);
+    this.matter.add.worldConstraint(body4, 0, 1, {
+        pointA: {
+            x: 500, y: 50
+        }
+    });
 
-    //  Finally some random dynamic bodies
+    // //  Finally some random dynamic bodies
 
     for (var i = 0; i < 12; i++)
     {

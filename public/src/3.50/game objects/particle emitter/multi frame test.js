@@ -26,7 +26,7 @@ function create ()
 
     //  Pros:
     //  Easy
-    //  
+    //
     //  Cons:
     //  Have to change all settings if you want to emit a different type of pattern
     //  Can't easily change settings, need to manage own states

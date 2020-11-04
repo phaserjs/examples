@@ -94,6 +94,8 @@ function create ()
         }
 
     }, this);
+
+    this.add.text(10, 10, 'Click to change character', { fontSize: '22px', fill: '#ecf0f1' });
 }
 
 function update ()

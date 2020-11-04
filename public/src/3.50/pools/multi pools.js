@@ -11,8 +11,7 @@ var config = {
     }
 };
 
-var bullets1;
-var bullets2;
+var bullets;
 var ship;
 var speed;
 var stats;
@@ -82,12 +81,12 @@ function create ()
 
     });
 
-    bullets1 = this.add.group({
+    bullets = this.add.group({
         classType: Bullet,
         maxSize: 50,
         runChildUpdate: true
     });
-    
+
     ship = this.add.sprite(400, 300, 'ship').setDepth(1);
 
     this.input.on('pointerdown', function (pointer) {
@@ -128,6 +127,6 @@ function update (time, delta)
         }
     }
 
-    ship.setRotation(Phaser.Math.Angle.Between(mouseX, mouseY, ship.x, ship.y) - Math.PI / 2);    
+    ship.setRotation(Phaser.Math.Angle.Between(mouseX, mouseY, ship.x, ship.y) - Math.PI / 2);
 
 }

@@ -4,6 +4,7 @@ var config = {
     width: 800,
     height: 600,
     backgroundColor: '#cdcdcd',
+    debug: true,
     scene: {
         preload: preload,
         create: create,
@@ -28,7 +29,7 @@ function preload ()
 
 function create ()
 {
-    this.add.text(10, 10, 'Click the alien', { font: '16px Courier', fill: '#ffffff' }).setShadow(1, 1);
+    this.add.text(10, 10, 'Click the alien', { font: '16px Courier', fill: '#ff0000' }).setShadow(1, 1);
 
     var b = this.add.spine(400, 500, 'set1.alien').setScale(0.5);
 

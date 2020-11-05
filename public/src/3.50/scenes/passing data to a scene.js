@@ -13,19 +13,19 @@ var Menu = new Phaser.Class({
     {
         this.add.text(10, 10, 'Press 1, 2 or 3', { font: '16px Courier', fill: '#00ff00' });
 
-        this.input.keyboard.once('keyup_ONE', function () {
+        this.input.keyboard.once('keyup-ONE', function () {
 
             this.scene.start('demo', { id: 0, image: 'acryl-bladerunner.png' });
 
         }, this);
 
-        this.input.keyboard.once('keyup_TWO', function () {
+        this.input.keyboard.once('keyup-TWO', function () {
 
             this.scene.start('demo', { id: 1, image: 'babar-phaleon-coco.png' });
 
         }, this);
 
-        this.input.keyboard.once('keyup_THREE', function () {
+        this.input.keyboard.once('keyup-THREE', function () {
 
             this.scene.start('demo', { id: 2, image: 'babar-pym-wait.png' });
 

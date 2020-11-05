@@ -37,7 +37,7 @@ function create ()
 
     offset = bob.getTopLeft();
 
-    this.input.on('pointermove', function (pointer) {
+    this.input.on(Phaser.Input.Events.POINTER_MOVE, function (pointer) {
 
         bob.setCrop(
             (pointer.x - offset.x - cropRect.width) / 2,

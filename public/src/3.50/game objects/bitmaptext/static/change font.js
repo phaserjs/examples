@@ -11,7 +11,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload() 
+function preload()
 {
     this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
     this.load.bitmapFont('atari', 'assets/fonts/bitmap/atari-smooth.png', 'assets/fonts/bitmap/atari-smooth.xml');
@@ -20,9 +20,12 @@ function preload()
     this.load.bitmapFont('hyper', 'assets/fonts/bitmap/hyperdrive.png', 'assets/fonts/bitmap/hyperdrive.xml');
 }
 
-function create() 
+function create()
 {
-    var text = this.add.bitmapText(400, 300, 'atari', '', 38).setOrigin(0.5).setCenterAlign().setInteractive();
+    var text = this.add.bitmapText(400, 300, 'atari', '', 38)
+        .setInteractive()
+        .setOrigin(0.5)
+        .setCenterAlign();
 
     text.setText([
         'Phaser 3',
@@ -33,16 +36,8 @@ function create()
     var fonts = [ 'atari', 'desyrel', 'ice', 'gothic', 'hyper' ];
     var currentFont = 0;
 
-    text.on('pointerup', function () {
-
+    this.input.on(Phaser.Input.Events.POINTER_DOWN, function () {
         currentFont++;
-
-        if (currentFont === fonts.length)
-        {
-            currentFont = 0;
-        }
-
-        this.setFont(fonts[currentFont]);
-
-    });
+        text.setFont(fonts[currentFont % fonts.length]);
+    }, this);
 }

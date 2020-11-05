@@ -30,7 +30,7 @@ class Controller extends Phaser.Scene {
         this.load.image('eye', 'assets/phaser3/eye.png');
 
         this.load.image('invaders.boom', 'assets/games/multi/boom.png');
-        this.load.image('invaders.bullet', 'assets/games/multi/bullet.png', { frameWidth: 12, frameHeight: 14 });
+        this.load.spritesheet('invaders.bullet', 'assets/games/multi/bullet.png', { frameWidth: 12, frameHeight: 14 });
         this.load.image('invaders.bullet2', 'assets/games/multi/bullet2.png');
         this.load.image('invaders.explode', 'assets/games/multi/explode.png');
         this.load.spritesheet('invaders.invader1', 'assets/games/multi/invader1.png', { frameWidth: 16, frameHeight: 16 });
@@ -43,7 +43,6 @@ class Controller extends Phaser.Scene {
     create ()
     {
         //  Create animations
-
         this.anims.create({
             key: 'juggler',
             frames: this.anims.generateFrameNumbers('juggler'),

@@ -40,7 +40,7 @@ function create ()
 
 function update ()
 {
-    var pipeline = this.sys.game.renderer.getPipeline('TextureTintPipeline');
+    var pipeline = this.renderer.pipelines.get('TextureTintPipeline');
 
     var x = 400;
     var y = 300;

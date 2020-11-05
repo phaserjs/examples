@@ -2789,14 +2789,14 @@
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\change font.js",
                       "name": "change font.js",
-                      "size": 1365,
+                      "size": 1295,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\get text size multiline.js",
                       "name": "get text size multiline.js",
-                      "size": 925,
+                      "size": 891,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -2885,11 +2885,11 @@
                       "type": "file"
                     }
                   ],
-                  "size": 23515,
+                  "size": 23411,
                   "type": "directory"
                 }
               ],
-              "size": 46134,
+              "size": 46030,
               "type": "directory"
             },
             {
@@ -3011,12 +3011,12 @@
                 {
                   "path": "src\\3.50\\game objects\\blitter\\twist scroller.js",
                   "name": "twist scroller.js",
-                  "size": 13055,
+                  "size": 13060,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 31388,
+              "size": 31393,
               "type": "directory"
             },
             {
@@ -3199,20 +3199,6 @@
                   "type": "file"
                 },
                 {
-                  "path": "src\\3.50\\game objects\\container\\impact physics body test.js",
-                  "name": "impact physics body test.js",
-                  "size": 1271,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src\\3.50\\game objects\\container\\impact physics sprite test.js",
-                  "name": "impact physics sprite test.js",
-                  "size": 1177,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
                   "path": "src\\3.50\\game objects\\container\\input overlap test.js",
                   "name": "input overlap test.js",
                   "size": 2209,
@@ -3374,7 +3360,7 @@
                   "type": "file"
                 }
               ],
-              "size": 83304,
+              "size": 80856,
               "type": "directory"
             },
             {
@@ -5398,7 +5384,7 @@
                 {
                   "path": "src\\3.50\\game objects\\shaders\\shader bundle.js",
                   "name": "shader bundle.js",
-                  "size": 752,
+                  "size": 724,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5424,7 +5410,7 @@
                   "type": "file"
                 }
               ],
-              "size": 27043,
+              "size": 27015,
               "type": "directory"
             },
             {
@@ -5511,7 +5497,7 @@
                 {
                   "path": "src\\3.50\\game objects\\shapes\\iso landscape.js",
                   "name": "iso landscape.js",
-                  "size": 3187,
+                  "size": 3016,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5593,7 +5579,7 @@
                   "type": "file"
                 }
               ],
-              "size": 62697,
+              "size": 62526,
               "type": "directory"
             },
             {
@@ -6030,7 +6016,7 @@
               "type": "directory"
             }
           ],
-          "size": 791502,
+          "size": 788756,
           "type": "directory"
         },
         {
@@ -11793,7 +11779,7 @@
             {
               "path": "src\\3.50\\scenes\\add plugin at runtime.js",
               "name": "add plugin at runtime.js",
-              "size": 644,
+              "size": 613,
               "extension": ".js",
               "type": "file"
             },
@@ -11891,7 +11877,7 @@
             {
               "path": "src\\3.50\\scenes\\drag scenes demo.js",
               "name": "drag scenes demo.js",
-              "size": 21685,
+              "size": 20898,
               "extension": ".js",
               "type": "file"
             },
@@ -11973,7 +11959,7 @@
                 {
                   "path": "src\\3.50\\scenes\\moving scenes demo\\Controller.js",
                   "name": "Controller.js",
-                  "size": 9372,
+                  "size": 9025,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -12027,7 +12013,7 @@
                   "type": "file"
                 }
               ],
-              "size": 15219,
+              "size": 14872,
               "type": "directory"
             },
             {
@@ -12058,7 +12044,7 @@
                 {
                   "path": "src\\3.50\\scenes\\multi demo\\Controller.js",
                   "name": "Controller.js",
-                  "size": 7550,
+                  "size": 7339,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -12086,7 +12072,7 @@
                 {
                   "path": "src\\3.50\\scenes\\multi demo\\main.js",
                   "name": "main.js",
-                  "size": 504,
+                  "size": 484,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -12098,7 +12084,7 @@
                   "type": "file"
                 }
               ],
-              "size": 24878,
+              "size": 24647,
               "type": "directory"
             },
             {
@@ -12139,7 +12125,7 @@
             {
               "path": "src\\3.50\\scenes\\passing data to a scene.js",
               "name": "passing data to a scene.js",
-              "size": 2053,
+              "size": 1959,
               "extension": ".js",
               "type": "file"
             },
@@ -12258,7 +12244,7 @@
             {
               "path": "src\\3.50\\scenes\\sleep and wake.js",
               "name": "sleep and wake.js",
-              "size": 4316,
+              "size": 4469,
               "extension": ".js",
               "type": "file"
             },
@@ -12384,7 +12370,7 @@
               "type": "file"
             }
           ],
-          "size": 152376,
+          "size": 151039,
           "type": "directory"
         },
         {
@@ -12423,7 +12409,7 @@
             {
               "path": "src\\3.50\\spine\\add hit area.js",
               "name": "add hit area.js",
-              "size": 1870,
+              "size": 1829,
               "extension": ".js",
               "type": "file"
             },
@@ -12444,7 +12430,7 @@
             {
               "path": "src\\3.50\\spine\\arcade physics spine body.js",
               "name": "arcade physics spine body.js",
-              "size": 1312,
+              "size": 1261,
               "extension": ".js",
               "type": "file"
             },
@@ -12638,7 +12624,7 @@
               "type": "file"
             }
           ],
-          "size": 56655,
+          "size": 56563,
           "type": "directory"
         },
         {
@@ -12662,7 +12648,7 @@
             {
               "path": "src\\3.50\\textures\\batch texture.js",
               "name": "batch texture.js",
-              "size": 2004,
+              "size": 1907,
               "extension": ".js",
               "type": "file"
             },
@@ -12753,7 +12739,7 @@
             {
               "path": "src\\3.50\\textures\\crop texture image scaled.js",
               "name": "crop texture image scaled.js",
-              "size": 1241,
+              "size": 1203,
               "extension": ".js",
               "type": "file"
             },
@@ -12891,7 +12877,7 @@
               "type": "file"
             }
           ],
-          "size": 49820,
+          "size": 49685,
           "type": "directory"
         },
         {
@@ -13709,7 +13695,7 @@
             {
               "path": "src\\3.50\\tweens\\destroy a tween.js",
               "name": "destroy a tween.js",
-              "size": 696,
+              "size": 741,
               "extension": ".js",
               "type": "file"
             },
@@ -14170,7 +14156,7 @@
               "type": "file"
             }
           ],
-          "size": 91689,
+          "size": 91734,
           "type": "directory"
         },
         {
@@ -14360,7 +14346,7 @@
           "type": "directory"
         }
       ],
-      "size": 4060421,
+      "size": 4056156,
       "type": "directory"
     },
     {
@@ -26788,7 +26774,7 @@
             {
               "path": "src\\physics\\arcade\\blocked faces.js",
               "name": "blocked faces.js",
-              "size": 2233,
+              "size": 2232,
               "extension": ".js",
               "type": "file"
             },
@@ -27248,7 +27234,7 @@
               "type": "file"
             }
           ],
-          "size": 255619,
+          "size": 255618,
           "type": "directory"
         },
         {
@@ -27913,7 +27899,7 @@
           "type": "directory"
         }
       ],
-      "size": 408914,
+      "size": 408913,
       "type": "directory"
     },
     {
@@ -28119,6 +28105,13 @@
           "type": "file"
         },
         {
+          "path": "src\\renderer\\color post fx pipeline.js",
+          "name": "color post fx pipeline.js",
+          "size": 1212,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\container pipeline.js",
           "name": "container pipeline.js",
           "size": 1277,
@@ -28175,7 +28168,7 @@
           "type": "file"
         }
       ],
-      "size": 22368,
+      "size": 23580,
       "type": "directory"
     },
     {
@@ -30714,6 +30707,6 @@
       "type": "directory"
     }
   ],
-  "size": 8603852,
+  "size": 8600798,
   "type": "directory"
 }

@@ -179,12 +179,11 @@ function create ()
 
 function scanFont ()
 {
-    var font_canvas = Phaser.Display.Canvas.Pool.create(this, 120, 102);
+    var font_canvas = Phaser.Display.Canvas.CanvasPool.create(this, 120, 102);
 
     var ctx = font_canvas.getContext('2d');
 
     ctx.drawImage(this.textures.get('font').source[0].image, 0, 0);
-
     var imageData = ctx.getImageData(0, 0, font_canvas.width, font_canvas.height);
 
     letters = [];

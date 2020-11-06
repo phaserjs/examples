@@ -17,7 +17,7 @@ var image;
 
 function preload ()
 {
-    this.load.html('test1', 'assets/html/test1.html', 512, 512);
+    this.load.htmlTexture('test1', 'assets/html/test1.html', 512, 512);
 }
 
 function create ()

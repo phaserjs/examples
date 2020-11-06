@@ -17,12 +17,12 @@ var image;
 
 function preload ()
 {
-    this.load.html('test1', 'assets/html/test1.html', 512, 512);
+    this.load.htmlTexture('test1', 'assets/html/test1.html', 512, 512);
 }
 
 function create ()
 {
-    image = this.add.image(400, 300, 'test1');
+    image = this.add.image(400, 300, 'test1').setOrigin(0);
 }
 
 function update ()

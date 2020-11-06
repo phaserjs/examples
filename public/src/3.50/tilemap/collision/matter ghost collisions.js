@@ -8,7 +8,8 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            gravity: { y: 1 }
+            gravity: { y: 1 },
+            debug: true
         }
     },
     scene: {
@@ -87,7 +88,6 @@ function create ()
     });
 
     this.matter.world.setBounds(map.widthInPixels, map.heightInPixels);
-    this.matter.world.createDebugGraphic();
 
     text = this.add.text(16, 16, 'Ghost Collisions Demo\nGrass: Individual Tile Bodies\nStone: A Single Convex Body', {
         fontSize: '20px',

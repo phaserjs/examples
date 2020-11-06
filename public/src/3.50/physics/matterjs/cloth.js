@@ -70,7 +70,7 @@ function create ()
         body.gameObject = blitter.create(body.position.x, body.position.y, f);
     }
 
-    this.matter.add.circle(300, 500, 80, { isStatic: true });
+    this.matter.add.circle(300, 500, 80, { isStatic: true,  chamfer: { radius: 20 } });
     this.matter.add.rectangle(500, 480, 80, 80, { isStatic: true });
     this.matter.add.rectangle(400, 609, 800, 50, { isStatic: true });
 }

@@ -21,17 +21,16 @@ var graphics;
 var selectedShape = 'rectangle';
 var onlyColliding = false;
 
-function preload ()
-{
+function preload() {
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/cybernoid.json');
     this.load.image('cybernoid', 'assets/tilemaps/tiles/cybernoid.png');
 }
 
-function create ()
-{
+function create() {
     map = this.add.tilemap('map');
     var tiles = map.addTilesetImage('cybernoid');
     var layer = map.createLayer(0, tiles);
+    // var layer = map.createDynamicLayer(0, tiles);
 
     layer.setScale(1.25, 1.25);
 
@@ -87,31 +86,27 @@ function create ()
         backgroundColor: '#000000'
     });
     helpText.setScrollFactor(0);
-}
 
-function update (time, delta)
-{
-    controls.update(delta);
+    this.input.on('pointerdown', function () {
 
-    // Update p1 & p2 based on where user clicks
-    if (this.input.activePointer.isDown)
-    {
+        // Update p1 & p2 based on where user clicks
         var worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
-        if (!p1)
-        {
+        if (!p1) {
             p1 = worldPoint.clone();
         }
-        else if (!p2)
-        {
+        else if (!p2) {
             p2 = worldPoint.clone();
         }
-        else
-        {
+        else {
             p1 = worldPoint.clone();
             p2 = null;
         }
-    }
 
+    }, this);
+}
+
+function update(time, delta) {
+    controls.update(delta);
     graphics.clear();
 
     // Show user where they clicked
@@ -119,14 +114,12 @@ function update (time, delta)
     if (p2) { graphics.fillCircle(p2.x, p2.y, 3); }
 
     // If we have both points, draw a shape and manipulate the tiles in that shape
-    if (p1 && p2)
-    {
+    if (p1 && p2) {
         map.forEachTile(function (tile) { tile.alpha = 1; });
 
         var overlappingTiles = [];
 
-        switch (selectedShape)
-        {
+        switch (selectedShape) {
             case 'rectangle':
                 var xStart = Math.min(p1.x, p2.x);
                 var yStart = Math.min(p1.y, p2.y);
@@ -163,8 +156,7 @@ function update (time, delta)
 
 }
 
-function getHelpMessage ()
-{
+function getHelpMessage() {
     return 'Click to draw. Press 1/2/3/4 to change shapes.' +
         '\nSelected shape: ' + selectedShape +
         '\nPress C to only select colliding tiles: ' + (onlyColliding ? 'on' : 'off') +

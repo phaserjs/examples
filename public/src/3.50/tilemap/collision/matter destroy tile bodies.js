@@ -9,7 +9,8 @@ var config = {
         default: 'matter',
         matter: {
             gravity: { y: 1 },
-            enableSleep: false
+            enableSleep: false,
+            debug: true
         }
     },
     scene: {
@@ -128,13 +129,17 @@ function create ()
     var M = Phaser.Physics.Matter.Matter;
     var w = playerController.matterSprite.width;
     var h = playerController.matterSprite.height;
-    console.log(h)
+
+    // Move the sensor to player center
+    var sx = w / 2;
+    var sy = h / 2;
 
     // The player's body is going to be a compound body.
-    var playerBody = M.Bodies.rectangle(0, 0, w * 0.75, h, { chamfer: { radius: 10 } });
-    playerController.sensors.bottom = M.Bodies.rectangle(0, h * 0.5, w * 0.5, 5, { isSensor: true });
-    playerController.sensors.left = M.Bodies.rectangle(-w * 0.45, 0, 5, h * 0.25, { isSensor: true });
-    playerController.sensors.right = M.Bodies.rectangle(w * 0.45, 0, 5, h * 0.25, { isSensor: true });
+    const height_fix = 0;
+    var playerBody = M.Bodies.rectangle(sx, sy, w * 0.75, h, { chamfer: { radius: 10 } });
+    playerController.sensors.bottom = M.Bodies.rectangle(sx, h, sx, 5, { isSensor: true });
+    playerController.sensors.left = M.Bodies.rectangle(sx - w * 0.45, sy, 5, h * 0.25, { isSensor: true });
+    playerController.sensors.right = M.Bodies.rectangle(sx + w * 0.45, sy, 5, h * 0.25, { isSensor: true });
     var compoundBody = M.Body.create({
         parts: [
             playerBody, playerController.sensors.bottom, playerController.sensors.left,
@@ -153,7 +158,6 @@ function create ()
     smoothMoveCameraTowards(playerController.matterSprite);
 
     this.matter.world.setBounds(map.widthInPixels * mapScale, map.heightInPixels * mapScale);
-    this.matter.world.createDebugGraphic();
     this.matter.world.drawDebug = false;
 
     this.anims.create({
@@ -355,6 +359,7 @@ function update (time, delta)
     // Add a slight delay between jumps since the sensors will still collide for a few frames after
     // a jump is initiated
     var canJump = (time - playerController.lastJumpedAt) > 250;
+    console.log(playerController.blocked.bottom)
     if (cursors.up.isDown & canJump && playerController.blocked.bottom)
     {
         matterSprite.setVelocityY(-playerController.speed.jump);

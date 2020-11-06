@@ -84,6 +84,8 @@ function create ()
 
     this.input.on('pointerdown', function (pointer) {
 
+        console.log(this.input)
+
         var bodies = this.matter.getBodiesBelowPoint(pointer.worldX, pointer.worldY);
 
         console.log(bodies);

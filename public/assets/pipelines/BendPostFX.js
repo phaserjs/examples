@@ -1,4 +1,4 @@
-const bendFragShader = `
+const fragShader = `
 #define SHADER_NAME BEND_FS
 
 precision mediump float;
@@ -9,9 +9,6 @@ uniform float uSpeed;
 uniform float uBendFactor;
 
 varying vec2 outTexCoord;
-varying float outTexId;
-varying vec4 outTint;
-varying vec2 fragCoord;
 
 void main()
 {
@@ -26,27 +23,20 @@ void main()
 }
 `;
 
-const bendUniforms = [
-    'uProjectionMatrix',
-    'uMainSampler',
-    'uTime',
-    'uSpeed',
-    'uBendFactor'
-];
-
-export default class BendPostFX extends Phaser.Renderer.WebGL.Pipelines.SinglePipeline
+export default class BendPostFX extends Phaser.Renderer.WebGL.Pipelines.PostFXPipeline
 {
     constructor (game)
     {
         super({
             game,
-            target: true,
-            shaders: [
-                {
-                    name: 'Bend',
-                    fragShader: bendFragShader,
-                    uniforms: bendUniforms
-                }
+            renderTarget: true,
+            fragShader,
+            uniforms: [
+                'uProjectionMatrix',
+                'uMainSampler',
+                'uTime',
+                'uSpeed',
+                'uBendFactor'
             ]
         });
 

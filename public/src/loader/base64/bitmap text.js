@@ -13,27 +13,32 @@ function create ()
     //  1) Decode the xml
     var xml = Phaser.DOM.ParseXML(atob(base64EncodedXML));
 
-    //  2) Add to cache
-    this.cache.xml.add('desyrel', xml);
-
-    //  3) Create an Image element from the encoded png:
+    //  2) Create an Image element from the encoded png:
     var image = new Image();
 
     var _this = this;
 
     image.onload = function ()
     {
-        //  5) Successful decode? Then create the texture:
-        _this.textures.addImage('desyrel', image);
+        //  4) Successful decode? Then create the texture:
+        var texture = _this.textures.addImage('desyrel', image);
+
+        //  5) Create the Bitmap Font data
+        var data = Phaser.GameObjects.BitmapText.ParseXMLBitmapFont(
+            xml,
+            _this.textures.getFrame('desyrel'),
+            0, 0,
+            texture
+        );
 
         //  6) Add the bitmap font entry - the structure of the object is important
-        _this.cache.bitmapFont.add('desyrel', { data: Phaser.GameObjects.BitmapText.ParseXMLBitmapFont(xml, 0, 0), texture: 'desyrel', frame: null });
+        _this.cache.bitmapFont.add('desyrel', { data: data, texture: 'desyrel', frame: null });
 
         //  Now we're free to create bitmap text objects, like this ...
         _this.add.bitmapText(0, 0, 'desyrel', 'Bitmap Text Decoded from base64');
     };
 
-    //  4) Decode the image
+    //  3) Decode the image
     image.src = base64EncodedPNG;
 }
 

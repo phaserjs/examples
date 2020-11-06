@@ -1,143 +1,69 @@
-var CustomPipeline1 = new Phaser.Class({
+// #module
 
-    Extends: Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline,
+import BendPostFX from './assets/pipelines/BendPostFX.js';
+import HueRotatePostFX from './assets/pipelines/HueRotatePostFX.js';
 
-    initialize:
-
-    function CustomPipeline1 (game)
+export default class Example extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline.call(this, {
-            game: game,
-            renderer: game.renderer,
-            fragShader: [
-            "precision mediump float;",
+        super();
+    }
 
-            "uniform float     time;",
-            "uniform vec2      resolution;",
-            "uniform sampler2D uMainSampler;",
-            "varying vec2 outTexCoord;",
-
-            "#define PI 0.01",
-
-            "void main( void ) {",
-
-                "vec2 p = ( gl_FragCoord.xy / resolution.xy ) - 0.5;",
-                "float sx = 0.2*sin( 25.0 * p.y - time * 5.);",
-                "float dy = 2.9 / ( 20.0 * abs(p.y - sx));",
-                "vec4 pixel = texture2D(uMainSampler, outTexCoord);",
-
-                "gl_FragColor = pixel * vec4( (p.x + 0.5) * dy, 0.5 * dy, dy-1.65, pixel.a );",
-
-            "}"
-            ].join('\n')
-        });
-    } 
-
-});
-
-var CustomPipeline2 = new Phaser.Class({
-
-    Extends: Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline,
-
-    initialize:
-
-    function CustomPipeline2 (game)
+    preload ()
     {
-        Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline.call(this, {
-            game: game,
-            renderer: game.renderer,
-            fragShader: `
-            precision mediump float;
+        this.load.image('einstein', 'assets/pics/ra-einstein.png');
+    }
 
-            uniform sampler2D uMainSampler;
-            uniform float time;
+    create ()
+    {
+        const pic = this.add.image(400, 300, 'einstein');
 
-            varying vec2 outTexCoord;
-            varying vec4 outTint;
+        const bendPipeline = this.renderer.pipelines.get('BendPostFX');
+        const hueRotatePipeline = this.renderer.pipelines.get('HueRotatePostFX');
 
-            #define SPEED 10.0
+        this.cameras.main.setPostPipeline(hueRotatePipeline);
 
-            void main(void)
+        let shader = 1;
+
+        this.input.on('pointerdown', () =>
+        {
+            shader++;
+
+            if (shader === 0)
             {
-                float c = cos(time * SPEED);
-                float s = sin(time * SPEED);
+                this.cameras.main.setPostPipeline();
+            }
+            else if (shader === 1)
+            {
+                this.cameras.main.setPostPipeline(hueRotatePipeline);
+            }
+            else if (shader === 2)
+            {
+                this.cameras.main.setPostPipeline(bendPipeline);
+                shader = -1;
+            }
 
-                mat4 hueRotation = mat4(0.299, 0.587, 0.114, 0.0, 0.299, 0.587, 0.114, 0.0, 0.299, 0.587, 0.114, 0.0, 0.0, 0.0, 0.0, 1.0) + mat4(0.701, -0.587, -0.114, 0.0, -0.299, 0.413, -0.114, 0.0, -0.300, -0.588, 0.886, 0.0, 0.0, 0.0, 0.0, 0.0) * c + mat4(0.168, 0.330, -0.497, 0.0, -0.328, 0.035, 0.292, 0.0, 1.250, -1.050, -0.203, 0.0, 0.0, 0.0, 0.0, 0.0) * s;
-
-                vec4 pixel = texture2D(uMainSampler, outTexCoord);
-
-                gl_FragColor = pixel * hueRotation;
-            }   
-            `
         });
-    } 
 
-});
+        this.tweens.add({
+            targets: pic,
+            angle: 360,
+            ease: 'Linear',
+            duration: 6000,
+            repeat: -1
+        });
+    }
+}
 
-var config = {
+const config = {
     type: Phaser.WEBGL,
-    parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    backgroundColor: '#000000',
+    parent: 'phaser-example',
+    scene: Example,
+    pipeline: {  BendPostFX, HueRotatePostFX }
 };
 
-var image;
-var time = 0;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('einstein', 'assets/pics/ra-einstein.png');
-
-    customPipeline1 = game.renderer.addPipeline('Custom1', new CustomPipeline1(game));
-    customPipeline2 = game.renderer.addPipeline('Custom2', new CustomPipeline2(game));
-
-    customPipeline1.setFloat2('resolution', game.config.width, game.config.height);
-}
-
-function create ()
-{
-    image = this.add.image(400, 300, 'einstein');
-
-    var shader = 1;
-
-    var cam = this.cameras.main;
-
-    cam.setRenderToTexture(customPipeline1);
-
-    this.input.on('pointerdown', function ()
-    {
-        shader++;
-
-        if (shader === 0)
-        {
-            cam.setPipeline();
-        }
-        else if (shader === 1)
-        {
-            cam.setPipeline('Custom1');
-        }
-        else if (shader === 2)
-        {
-            cam.setPipeline('Custom2');
-            shader = -1;
-        }
-
-    });
-}
-
-function update ()
-{
-    image.rotation += 0.01;
-
-    customPipeline1.setFloat1('time', time);
-    customPipeline2.setFloat1('time', time);
-
-    time += 0.005;
-}
+let game = new Phaser.Game(config);

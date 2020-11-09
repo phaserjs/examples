@@ -4439,6 +4439,27 @@
               "name": "mesh",
               "children": [
                 {
+                  "path": "src\\3.50\\game objects\\mesh\\mesh from array.js",
+                  "name": "mesh from array.js",
+                  "size": 2228,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\3.50\\game objects\\mesh\\mesh from generate grid.js",
+                  "name": "mesh from generate grid.js",
+                  "size": 2047,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\3.50\\game objects\\mesh\\mesh from obj.js",
+                  "name": "mesh from obj.js",
+                  "size": 2006,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\3.50\\game objects\\mesh\\race track.js",
                   "name": "race track.js",
                   "size": 6842,
@@ -4446,7 +4467,7 @@
                   "type": "file"
                 }
               ],
-              "size": 6842,
+              "size": 13123,
               "type": "directory"
             },
             {
@@ -5994,7 +6015,7 @@
               "type": "directory"
             }
           ],
-          "size": 783069,
+          "size": 789350,
           "type": "directory"
         },
         {
@@ -14331,7 +14352,7 @@
           "type": "directory"
         }
       ],
-      "size": 4059717,
+      "size": 4065998,
       "type": "directory"
     },
     {
@@ -30699,6 +30720,6 @@
       "type": "directory"
     }
   ],
-  "size": 8605416,
+  "size": 8611697,
   "type": "directory"
 }

@@ -988,7 +988,7 @@
             {
               "path": "src\\3.50\\camera\\camera blur shader.js",
               "name": "camera blur shader.js",
-              "size": 4124,
+              "size": 1368,
               "extension": ".js",
               "type": "file"
             },
@@ -1477,7 +1477,7 @@
               "type": "file"
             }
           ],
-          "size": 210653,
+          "size": 207897,
           "type": "directory"
         },
         {
@@ -3082,7 +3082,7 @@
                 {
                   "path": "src\\3.50\\game objects\\container\\camera transform test.js",
                   "name": "camera transform test.js",
-                  "size": 3946,
+                  "size": 2969,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3360,7 +3360,7 @@
                   "type": "file"
                 }
               ],
-              "size": 81005,
+              "size": 80028,
               "type": "directory"
             },
             {
@@ -5994,7 +5994,7 @@
               "type": "directory"
             }
           ],
-          "size": 784046,
+          "size": 783069,
           "type": "directory"
         },
         {
@@ -9088,12 +9088,12 @@
                 {
                   "path": "src\\3.50\\loader\\base64\\bitmap text.js",
                   "name": "bitmap text.js",
-                  "size": 564601,
+                  "size": 564727,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 564601,
+              "size": 564727,
               "type": "directory"
             },
             {
@@ -9211,12 +9211,12 @@
                 {
                   "path": "src\\3.50\\loader\\html\\load html to texture.js",
                   "name": "load html to texture.js",
-                  "size": 523,
+                  "size": 543,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 523,
+              "size": 543,
               "type": "directory"
             },
             {
@@ -9695,7 +9695,7 @@
               "type": "directory"
             }
           ],
-          "size": 730375,
+          "size": 730521,
           "type": "directory"
         },
         {
@@ -10984,7 +10984,7 @@
                 {
                   "path": "src\\3.50\\physics\\matterjs\\cloth.js",
                   "name": "cloth.js",
-                  "size": 2122,
+                  "size": 2148,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -11103,7 +11103,7 @@
                 {
                   "path": "src\\3.50\\physics\\matterjs\\get bodies below point.js",
                   "name": "get bodies below point.js",
-                  "size": 2654,
+                  "size": 2689,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -11276,7 +11276,7 @@
                   "type": "file"
                 }
               ],
-              "size": 103576,
+              "size": 103637,
               "type": "directory"
             },
             {
@@ -11295,7 +11295,7 @@
               "type": "directory"
             }
           ],
-          "size": 360550,
+          "size": 360611,
           "type": "directory"
         },
         {
@@ -12876,7 +12876,7 @@
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter destroy tile bodies.js",
                   "name": "matter destroy tile bodies.js",
-                  "size": 13454,
+                  "size": 13580,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -12890,21 +12890,21 @@
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter ghost collisions.js",
                   "name": "matter ghost collisions.js",
-                  "size": 3955,
+                  "size": 3936,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter platformer modify map.js",
                   "name": "matter platformer modify map.js",
-                  "size": 13267,
+                  "size": 13363,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter platformer with wall jumping.js",
                   "name": "matter platformer with wall jumping.js",
-                  "size": 11511,
+                  "size": 11712,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -12937,7 +12937,7 @@
                   "type": "file"
                 }
               ],
-              "size": 65138,
+              "size": 65542,
               "type": "directory"
             },
             {
@@ -12989,7 +12989,7 @@
                 {
                   "path": "src\\3.50\\tilemap\\dynamic\\get tiles in shape.js",
                   "name": "get tiles in shape.js",
-                  "size": 5317,
+                  "size": 5335,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13064,7 +13064,7 @@
                   "type": "file"
                 }
               ],
-              "size": 61200,
+              "size": 61218,
               "type": "directory"
             },
             {
@@ -13351,7 +13351,7 @@
               "type": "file"
             }
           ],
-          "size": 265487,
+          "size": 265909,
           "type": "directory"
         },
         {
@@ -14331,7 +14331,7 @@
           "type": "directory"
         }
       ],
-      "size": 4062821,
+      "size": 4059717,
       "type": "directory"
     },
     {
@@ -28099,7 +28099,7 @@
         {
           "path": "src\\renderer\\container pipeline.js",
           "name": "container pipeline.js",
-          "size": 1223,
+          "size": 1281,
           "extension": ".js",
           "type": "file"
         },
@@ -28125,6 +28125,13 @@
           "type": "file"
         },
         {
+          "path": "src\\renderer\\hue rotation attributes.js",
+          "name": "hue rotation attributes.js",
+          "size": 984,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\renderer\\hue rotation pipeline.js",
           "name": "hue rotation pipeline.js",
           "size": 1316,
@@ -28134,7 +28141,7 @@
         {
           "path": "src\\renderer\\multi color pipeline.js",
           "name": "multi color pipeline.js",
-          "size": 1342,
+          "size": 1539,
           "extension": ".js",
           "type": "file"
         },
@@ -28153,7 +28160,7 @@
           "type": "file"
         }
       ],
-      "size": 22866,
+      "size": 24105,
       "type": "directory"
     },
     {
@@ -30692,6 +30699,6 @@
       "type": "directory"
     }
   ],
-  "size": 8607281,
+  "size": 8605416,
   "type": "directory"
 }

@@ -4,7 +4,7 @@ const grayFragShader = `
 precision mediump float;
 
 uniform sampler2D uMainSampler[%count%];
-uniform float gray;
+uniform float uGray;
 
 varying vec2 outTexCoord;
 varying float outTexId;
@@ -18,14 +18,14 @@ void main()
     %forloop%
 
     gl_FragColor = texture;
-    gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.2126 * gl_FragColor.r + 0.7152 * gl_FragColor.g + 0.0722 * gl_FragColor.b), gray);
+    gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.2126 * gl_FragColor.r + 0.7152 * gl_FragColor.g + 0.0722 * gl_FragColor.b), uGray);
 }
 `;
 
 const grayUniforms = [
     'uProjectionMatrix',
     'uMainSampler',
-    'gray'
+    'uGray'
 ];
 
 const hueFragShader = `
@@ -103,7 +103,7 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
 
     onPreRender ()
     {
-        this.set1f('gray', this._gray, this.grayShader);
+        this.set1f('uGray', this._gray, this.grayShader);
         this.set1f('uTime', this.game.loop.time, this.hueShader);
         this.set1f('uSpeed', this._speed, this.hueShader);
     }
@@ -117,24 +117,20 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
         if (data.effect === 0)
         {
             this.setShader(this.grayShader);
-
-            if (data.gray && data.gray !== this.gray)
-            {
-                this.gray = data.gray;
-
-                this.set1f('gray', data.gray, this.grayShader);
-            }
+            this.set1f('uGray', data.gray, this.grayShader);
         }
         else if (data.effect === 1)
         {
             this.setShader(this.hueShader);
+            this.set1f('uSpeed', data.speed, this.hueShader);
+        }
+    }
 
-            if (data.speed && data.speed !== this.speed)
-            {
-                this.speed = data.speed;
-
-                this.set1f('uSpeed', data.speed, this.hueShader);
-            }
+    onBatch (gameObject)
+    {
+        if (gameObject)
+        {
+            this.flush();
         }
     }
 

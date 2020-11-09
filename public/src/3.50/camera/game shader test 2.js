@@ -1,68 +1,31 @@
-var CustomPipeline2 = new Phaser.Class({
+// #module
+import BendWavesPostFX from './assets/pipelines/BendWavesPostFX.js';
 
-    Extends: Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline,
-
-    initialize:
-
-    function CustomPipeline2 (game)
+export default class Example extends Phaser.Scene
+{
+    constructor()
     {
-        Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline.call(this, {
-            game: game,
-            renderer: game.renderer,
-            fragShader: [
-            "precision mediump float;",
-
-            "uniform float     time;",
-            "uniform vec2      resolution;",
-            "uniform sampler2D uMainSampler;",
-            "varying vec2 outTexCoord;",
-
-            "void main( void ) {",
-
-                "vec2 uv = outTexCoord;",
-                "//uv.y *= -1.0;",
-                "uv.y += (sin((uv.x + (time * 0.5)) * 10.0) * 0.1) + (sin((uv.x + (time * 0.2)) * 32.0) * 0.01);",
-                "vec4 texColor = texture2D(uMainSampler, uv);",
-                "gl_FragColor = texColor;",
-
-            "}"
-            ].join('\n')
-        });
-    } 
-
-});
-
-var GameScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function GameScene ()
-    {
-        Phaser.Scene.call(this, { key: 'gameScene', active: true });
+        super();
 
         this.player = null;
         this.cursors = null;
         this.score = 0;
         this.scoreText = null;
-        this.t = 0;
-        this.customPipeline;
-    },
+        this.bendPipeline;
+    }
 
-    preload: function ()
+    preload()
     {
         this.load.image('sky', 'src/games/firstgame/assets/sky.png');
         this.load.image('ground', 'src/games/firstgame/assets/platform.png');
         this.load.image('star', 'src/games/firstgame/assets/star.png');
         this.load.image('bomb', 'src/games/firstgame/assets/bomb.png');
         this.load.spritesheet('dude', 'src/games/firstgame/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-    },
+    }
 
-    create: function ()
+    create()
     {
-        this.customPipeline = this.game.renderer.addPipeline('Custom', new CustomPipeline2(this.game));
-        this.customPipeline.setFloat2('resolution', this.game.config.width, this.game.config.height);
+        this.bendPipeline = this.renderer.pipelines.get('BendWavesPostFX');
 
         this.add.image(400, 300, 'sky');
 
@@ -122,14 +85,13 @@ var GameScene = new Phaser.Class({
 
         this.player = player;
 
-        this.cameras.main.setRenderToTexture(this.customPipeline);
-        // this.cameras.main.setRenderToTexture();
-    },
+        this.cameras.main.setPostPipeline(this.bendPipeline);
+    }
 
-    update: function ()
+    update()
     {
-        var cursors = this.cursors;
-        var player = this.player;
+        const cursors = this.cursors;
+        const player = this.player;
 
         if (cursors.left.isDown)
         {
@@ -154,23 +116,18 @@ var GameScene = new Phaser.Class({
         {
             player.setVelocityY(-330);
         }
+    }
 
-        this.customPipeline.setFloat1('time', this.t);
-
-        this.t += 0.005
-    },
-
-    collectStar: function (player, star)
+    collectStar(player, star)
     {
         star.disableBody(true, true);
 
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.WEBGL,
     scale: {
         mode: Phaser.DOM.FIT,
@@ -186,7 +143,8 @@ var config = {
             debug: false
         }
     },
-    scene: GameScene
+    scene: [Example],
+    pipeline: {  BendWavesPostFX }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

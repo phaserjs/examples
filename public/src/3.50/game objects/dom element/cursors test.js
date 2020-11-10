@@ -34,36 +34,32 @@ function preload ()
 function create ()
 {
     cursors = this.input.keyboard.createCursorKeys();
+    element = this.add.dom(400, 300, 'div', 'font-size: 96px', '💩').setOrigin(0);
 
-    player = this.physics.add.body(400, 300, 108, 96);
+    this.physics.add.existing(element, false);
 
-    element = this.add.dom(400, 300, 'div', 'font-size: 96px', '💩');
-
-    player.setCollideWorldBounds(true);
+    element.body.setCollideWorldBounds(true);
 }
 
 function update ()
 {
-    player.setVelocity(0);
+    element.body.setVelocity(0);
 
     if (cursors.left.isDown)
     {
-        player.setVelocityX(-300);
+        element.body.setVelocityX(-300);
     }
     else if (cursors.right.isDown)
     {
-        player.setVelocityX(300);
+        element.body.setVelocityX(300);
     }
 
     if (cursors.up.isDown)
     {
-        player.setVelocityY(-300);
+        element.body.setVelocityY(-300);
     }
     else if (cursors.down.isDown)
     {
-        player.setVelocityY(300);
+        element.body.setVelocityY(300);
     }
-
-    element.x = player.x + 54;
-    element.y = player.y + 36;
 }

@@ -11,10 +11,10 @@ var config = {
 };
 
 var quad = {
-    topLeftX: -200, topLeftY: -200,
-    topRightX: 200, topRightY: -200,
     bottomLeftX: -200, bottomLeftY: 200,
-    bottomRightX: 200, bottomRightY: 200
+    bottomRightX: 200, bottomRightY: 200,
+    topLeftX: -200, topLeftY: -200,
+    topRightX: 200, topRightY: -200
 };
 
 var mesh;
@@ -29,30 +29,32 @@ function preload ()
 
 function create ()
 {
+    const img = this.make.image({x: 400, y: 300, key: 'image'});
+    const vertices = [
+        -1, 1,
+        1, 1,
+        -1, -1,
+        1, -1
+    ];
+    const uvs = [
+        0, 0,
+        1, 0,
+        0, 1,
+        1, 1
+    ];
 
-    var img = this.make.image({x: 400, y: 300, key: 'image'});
+    const indicies = [ 0, 2, 1, 2, 3, 1 ];
 
-    mesh = this.make.mesh({
-        key: 'phaser2',
-        x: 400,
-        y: 300,
-        vertices: [
-            quad.topLeftX, quad.topLeftY,
-            quad.bottomLeftX, quad.bottomLeftY,
-            quad.bottomRightX, quad.bottomRightY,
+    const mesh = this.add.mesh(400, 300, 'phaser2');
 
-            quad.topLeftX, quad.topLeftY,
-            quad.bottomRightX, quad.bottomRightY,
-            quad.topRightX, quad.topRightY
-        ],
-        uv: [ 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0 ],
-        add: false
-    });
+    mesh.addVertices(vertices, uvs, indicies);
+
+    mesh.panZ(7);
 
     img.mask = new Phaser.Display.Masks.GeometryMask(this, mesh);
 
     this.tweens.add({
-        targets: quad,
+        targets: mesh,
         duration: 1500,
         repeat: -1,
         ease: 'Elastic.easeOut',

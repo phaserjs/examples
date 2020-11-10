@@ -82,7 +82,7 @@ function drawLogo (color, x, y, scale)
     var s = 20;
     graphics.save();
     graphics.translateCanvas(400, 300);
-    graphics.setScale(scale, scale);
+    graphics.scaleCanvas(scale, scale);
     graphics.rotateCanvas(r);
 
     graphics.beginPath();

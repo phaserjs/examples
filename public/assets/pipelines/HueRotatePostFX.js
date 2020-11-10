@@ -49,7 +49,7 @@ export default class HueRotatePostFX extends Phaser.Renderer.WebGL.WebGLPipeline
     {
         super({
             game,
-            renderTarget: 1,
+            renderTarget: true,
             vertShader,
             fragShader,
             uniforms: [
@@ -61,13 +61,11 @@ export default class HueRotatePostFX extends Phaser.Renderer.WebGL.WebGLPipeline
             attributes: [
                 {
                     name: 'inPosition',
-                    size: 2,
-                    type: { enum: 0x1406, size: 4 }
+                    size: 2
                 },
                 {
                     name: 'inTexCoord',
-                    size: 2,
-                    type: { enum: 0x1406, size: 4 }
+                    size: 2
                 },
             ]
         });

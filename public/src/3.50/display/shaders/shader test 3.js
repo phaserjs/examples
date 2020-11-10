@@ -1,15 +1,4 @@
-var config = {
-    type: Phaser.WEBGL,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: {
-        preload: preload,
-        create: create
-    }
-};
-
-var fragmentShader = `
+const fragmentShader = `
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -46,42 +35,58 @@ void main( void ) {
 }
 `;
 
-var game = new Phaser.Game(config);
-
-function preload ()
+class Example extends Phaser.Scene
 {
-    this.load.image('pic', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
-    this.load.image('logo', 'assets/sprites/phaser3-logo-x2.png');
+    constructor()
+    {
+        super();
+    }
+
+    preload()
+    {
+        this.load.image('pic', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
+        this.load.image('logo', 'assets/sprites/phaser3-logo-x2.png');
+    }
+
+    create()
+    {
+        const shape1 = this.make.graphics().fillCircle(400, 300, 300);
+        const shape2 = this.make.graphics().fillCircle(400, 300, 200);
+
+        const mask1 = shape1.createGeometryMask();
+        const mask2 = shape2.createGeometryMask();
+
+        const maskImage = this.make.image({
+            x: 400,
+            y: 300,
+            key: 'logo',
+            add: false
+        });
+
+        const mask3 = maskImage.createBitmapMask();
+
+        // this.cameras.main.setMask(mask3, false);
+
+        this.add.image(400, 300, 'pic');
+
+        // this.add.image(400, 300, 'pic').setMask(mask1);
+        const baseShader = new Phaser.Display.BaseShader('BufferShader', fragmentShader);
+        const shader = this.add.shader(baseShader, 400, 300, 800, 600).setMask(mask3);
+
+        shader.setPointer(this.input.activePointer);
+
+        // this.add.image(400, 300, 'logo').setMask(mask2);
+
+        // this.add.image(400, 400, 'logo');
+    }
 }
 
-function create ()
-{
-    var shape1 = this.make.graphics().fillCircle(400, 300, 300);
-    var shape2 = this.make.graphics().fillCircle(400, 300, 200);
+const config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    scene: [ Example ]
+};
 
-    var mask1 = shape1.createGeometryMask();
-    var mask2 = shape2.createGeometryMask();
-
-    var maskImage = this.make.image({
-        x: 400,
-        y: 300,
-        key: 'logo',
-        add: false
-    });
-
-    var mask3 = maskImage.createBitmapMask();
-
-    // this.cameras.main.setMask(mask3, false);
-
-    this.add.image(400, 300, 'pic');
-
-    // this.add.image(400, 300, 'pic').setMask(mask1);
-
-    var shader = this.add.shader(400, 300, 800, 600, fragmentShader).setMask(mask3);
-
-    shader.setPointer(this.input.activePointer);
-
-    // this.add.image(400, 300, 'logo').setMask(mask2);
-
-    // this.add.image(400, 400, 'logo');
-}
+const game = new Phaser.Game(config);

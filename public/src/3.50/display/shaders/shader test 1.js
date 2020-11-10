@@ -1,15 +1,4 @@
-var config = {
-    type: Phaser.WEBGL,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: {
-        preload: preload,
-        create: create
-    }
-};
-
-var vertexShader = `
+const vertexShader = `
 precision mediump float;
 
 uniform mat4 uProjectionMatrix;
@@ -27,7 +16,7 @@ void main ()
 }
 `;
 
-var vertexShader2 = `
+const vertexShader2 = `
 precision mediump float;
 
 uniform mat4 uProjectionMatrix;
@@ -45,7 +34,7 @@ void main ()
 }
 `;
 
-var fragmentShader = `
+const fragmentShader = `
 precision mediump float;
 
 uniform float time;
@@ -67,7 +56,7 @@ void main (void)
 }
 `;
 
-var fragmentShader2 = `
+const fragmentShader2 = `
 precision mediump float;
 
 uniform float time;
@@ -95,7 +84,7 @@ void main (void)
 }
 `;
 
-var fragmentShader3 = `
+const fragmentShader3 = `
 precision mediump float;
 
 uniform float time;
@@ -120,7 +109,7 @@ void main (void)
 }
 `;
 
-var fragmentShader4 = `
+const fragmentShader4 = `
 precision mediump float;
 
 uniform float time;
@@ -191,7 +180,7 @@ void main (void)
 }
 `;
 
-var vertexShader5 = `
+const vertexShader5 = `
 precision mediump float;
 
 uniform mat4 uProjectionMatrix;
@@ -213,7 +202,7 @@ void main ()
 }
 `;
 
-var fragmentShader5 = `
+const fragmentShader5 = `
 precision mediump float;
 
 uniform float time;
@@ -251,7 +240,7 @@ void main() {
 }
 `;
 
-var fragmentShader6 = `
+const fragmentShader6 = `
 precision mediump float;
 
 uniform float time;
@@ -275,7 +264,7 @@ void main() {
 }
 `;
 
-var fragmentShader7 = `
+const fragmentShader7 = `
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -350,58 +339,78 @@ void main() {
 }
 `;
 
-// https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/gl_FragCoord.xhtml
-
-var game = new Phaser.Game(config);
-
-function preload ()
+class Example extends Phaser.Scene
 {
-    this.load.image('block', 'assets/sprites/block.png');
+    constructor()
+    {
+        super();
+    }
+
+    preload()
+    {
+        this.load.image('block', 'assets/sprites/block.png');
+    }
+
+    create()
+    {
+        const baseShader = new Phaser.Display.BaseShader('BufferShader1', fragmentShader7);
+        const basesShader2 = new Phaser.Display.BaseShader('BufferShader2', fragmentShader3);
+        const basesShader3 = new Phaser.Display.BaseShader('BufferShader3', fragmentShader6);
+
+        const shader = this.add.shader(baseShader, 400, 300, 800, 600);
+
+        this.add.image(200, 300, 'block');
+
+        const shader2 = this.add.shader(basesShader2, 400, 300, 256, 256).setVisible(false);
+
+        this.add.image(400, 300, 'block');
+
+        this.add.image(600, 300, 'block');
+
+        this.tweens.add({
+            targets: shader2,
+            scaleX: 4,
+            scaleY: 4,
+            repeat: -1,
+            yoyo: true,
+            duration: 2000
+        });
+
+        this.input.on('pointermove', function (pointer) {
+
+            shader2.setPosition(pointer.x, pointer.y);
+
+            var x = pointer.x / 800;
+            var y = 1 - pointer.y / 600;
+
+            // s.uniforms.mouse.value.x = x.toFixed(2);
+            // s.uniforms.mouse.value.y = y.toFixed(2);
+
+        });
+
+        this.input.on('pointerdown', function (pointer) {
+            if (shader2.visible)
+            {
+                const actualShader = (shader2.shader.key === 'BufferShader3') ?
+                    basesShader2 :
+                    basesShader3;
+                shader2.setShader(actualShader);
+            }
+            else
+            {
+                shader2.setVisible(true);
+            }
+
+        });
+    }
 }
 
-function create ()
-{
-    var s = this.add.shader(400, 300, 800, 600, fragmentShader7);
+const config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    scene: [ Example ]
+};
 
-    this.add.image(200, 300, 'block');
-
-    var s2 = this.add.shader(400, 300, 256, 256, fragmentShader3).setVisible(false);
-
-    this.add.image(400, 300, 'block');
-
-    this.add.image(600, 300, 'block');
-
-    this.tweens.add({
-        targets: s2,
-        scaleX: 4,
-        scaleY: 4,
-        repeat: -1,
-        yoyo: true,
-        duration: 2000
-    });
-
-    this.input.on('pointermove', function (pointer) {
-
-        s2.setPosition(pointer.x, pointer.y);
-
-        var x = pointer.x / 800;
-        var y = 1 - pointer.y / 600;
-
-        // s.uniforms.mouse.value.x = x.toFixed(2);
-        // s.uniforms.mouse.value.y = y.toFixed(2);
-
-    });
-
-    this.input.on('pointerdown', function (pointer) {
-
-        if (s2.visible)
-        {
-            s2.setShader(fragmentShader6);
-        }
-        else
-        {
-            s2.setVisible(true);
-        }
-
-    });
-}
+const game = new Phaser.Game(config);

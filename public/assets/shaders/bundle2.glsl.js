@@ -79,7 +79,7 @@ void main(void)
 
     // vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
 
-    if (gl_FragColor.x = 0.0 && gl_FragColor.y = 0.0 && gl_FragColor.z = 0.0)
+    if (gl_FragColor.x == 0.0 && gl_FragColor.y == 0.0 && gl_FragColor.z == 0.0)
     {
         gl_FragColor.a = 0.0;
     }
@@ -114,7 +114,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
         r=vec2(cos(uv.y*i0-i4+time/i1),sin(uv.x*i0-i4+time/i1))/i2;
         r+=vec2(-r.y,r.x)*0.3;
         uv.xy+=r;
-        
+
         i0*=1.93;
         i1*=1.15;
         i2*=1.7;
@@ -151,17 +151,17 @@ float addFlower(float x, float y, float ax, float ay, float fx, float fy)
     float yy=(y+cos(time*fy)*ay)*8.0;
     float angle = atan(yy,xx);
     float zz = 1.5*(cos(18.0*angle)*0.5+0.5) / (0.7 * 3.141592) + 1.2*(sin(15.0*angle)*0.5+0.5)/ (0.7 * 3.141592);
-    
+
     return zz;
 }
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 xy=(fragCoord.xy/resolution.x)*2.0-vec2(1.0,resolution.y/resolution.x);
-   
+
     float x=xy.x;
     float y=xy.y;
-    
+
     float p1 = addFlower(x, y, 0.8, 0.9, 0.95, 0.85);
     float p2 = addFlower(x, y, 0.7, 0.9, 0.42, 0.71);
     float p3 = addFlower(x, y, 0.5, 1.0, 0.23, 0.97);
@@ -175,7 +175,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     else if (p >= 0.5 && p <= 0.75)
         col=vec4(mix(1.0, 1.0-0.32, (p-0.5)*4.0), mix(0.63, 0.0, (p-0.5)*4.0), mix(0.0,0.24,(p-0.5)*4.0), 1.0);
     else
-        col=vec4(mix(0.68, 0.0, (p-0.75)*4.0), 0.0, mix(0.24, 0.0, (p-0.75)*4.0), 1.0); 
+        col=vec4(mix(0.68, 0.0, (p-0.75)*4.0), 0.0, mix(0.24, 0.0, (p-0.75)*4.0), 1.0);
 
     fragColor = col;
 }
@@ -206,19 +206,19 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     float time = time * 0.2;
 
     float color1, color2, color;
-    
+
     color1 = (sin(dot(fragCoord.xy,vec2(sin(time*3.0),cos(time*3.0)))*0.02+time*3.0)+1.0)/2.0;
-    
+
     vec2 center = vec2(640.0/2.0, 360.0/2.0) + vec2(640.0/2.0*sin(-time*3.0),360.0/2.0*cos(-time*3.0));
-    
+
     color2 = (cos(length(fragCoord.xy - center)*0.03)+1.0)/2.0;
-    
+
     color = (color1+ color2)/2.0;
 
     float red   = (cos(PI*color/0.5+time*3.0)+1.0)/2.0;
     float green = (sin(PI*color/0.5+time*3.0)+1.0)/2.0;
     float blue  = (sin(+time*3.0)+1.0)/2.0;
-    
+
     fragColor = vec4(red, green, blue, 1.0);
 }
 

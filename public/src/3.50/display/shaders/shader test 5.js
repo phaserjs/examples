@@ -1,15 +1,4 @@
-var config = {
-    type: Phaser.WEBGL,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: {
-        preload: preload,
-        create: create
-    }
-};
-
-var fragmentShader = `
+const fragmentShader = `
 /*
  * Original shader from: https://www.shadertoy.com/view/ltdXzX
  */
@@ -37,7 +26,7 @@ vec4 hsv_to_rgb(float h, float s, float v, float a)
     h = mod((h * 6.0), 6.0);
     float x = c * (1.0 - abs(mod(h, 2.0) - 1.0));
     vec4 color;
- 
+
     if (0.0 <= h && h < 1.0) {
         color = vec4(c, x, 0.0, a);
     } else if (1.0 <= h && h < 2.0) {
@@ -53,9 +42,9 @@ vec4 hsv_to_rgb(float h, float s, float v, float a)
     } else {
         color = vec4(0.0, 0.0, 0.0, a);
     }
- 
+
     color.rgb += v - c;
- 
+
     return color;
 }
 
@@ -63,13 +52,13 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     float x = fragCoord.x - (iResolution.x / 2.0);
     float y = fragCoord.y - (iResolution.y );
-    
+
     float r = length(vec2(x,y));
     float angle = atan(x,y) - sin(iTime)*r / 200.0 + 1.0*iTime;
     float intensity = 0.5 + 0.25*sin(15.0*angle);
     //float intensity = mod(angle, (PI / 8.0));
     //float intensity = 0.5 + 0.25*sin(angle*16.0-5.0*iTime);
-    
+
     fragColor = hsv_to_rgb(angle/PI, intensity, 1.0, 0.5);
 }
 // --------[ Original ShaderToy ends here ]---------- //
@@ -81,7 +70,7 @@ void main(void)
 }
 `;
 
-var fragmentShader7 = `
+const fragmentShader7 = `
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -96,12 +85,12 @@ varying vec2 fragCoord;
 
 float snoise(vec3 uv, float res) {
     const vec3 s = vec3(1e0, 1e2, 1e3);
-    
+
     uv *= res;
-    
+
     vec3 uv0 = floor(mod(uv, res)) * s;
     vec3 uv1 = floor(mod(uv + vec3(1.0), res)) * s;
-    
+
     vec3 f = smoothstep(0.0, 1.0, fract(uv));
 
     vec4 v = vec4(uv0.x + uv0.y + uv0.z,
@@ -111,10 +100,10 @@ float snoise(vec3 uv, float res) {
 
     vec4 r = fract(sin(v * 1e-1) * 1e3);
     float r0 = mix(mix(r.x, r.y, f.x), mix(r.z, r.w, f.x), f.y);
-    
+
     r = fract(sin((v + uv1.z - uv0.z) * 1e-1) * 1e3);
     float r1 = mix(mix(r.x, r.y, f.x), mix(r.z, r.w, f.x), f.y);
-    
+
     return mix(r0, r1, f.z) * 2.0 - 1.0;
 }
 
@@ -123,9 +112,9 @@ void main() {
     p.x *= resolution.x / resolution.y;
     float lp = .02/length(p);
     float ap = atan(p.x, p.y);
-    
+
     float time = time*.04-pow(time, .8)*(1. + .1*cos(time*0.04))*2.;
-    
+
     float r1 = 0.2;
     if(lp <= r1){
         ap -= time*0.1+lp*9.;
@@ -134,15 +123,15 @@ void main() {
         ap += time*0.1+lp*2.;
         lp -= r1;
     }
-    
+
     lp = pow(lp*lp, 1./3.);
-    
+
     p = lp*vec2(sin(ap), cos(ap));
 
     float color = 5.0 - (6.0 * lp);
 
     vec3 coord = vec3(atan(p.x, p.y) / 6.2832 + 0.5, 0.4 * lp, 0.5);
-    
+
     float power = 2.0;
     for (int i = 0; i < 6; i++) {
         power *= 2.0;
@@ -158,7 +147,7 @@ void main() {
 }
 `;
 
-var fragmentShader2 = `
+const fragmentShader2 = `
 precision mediump float;
 
 uniform float time;
@@ -194,7 +183,7 @@ void main( void ) {
 }
 `;
 
-var fragmentShader1 = `
+const fragmentShader1 = `
 precision highp float;
 
 #define TAU 6.28318
@@ -202,19 +191,19 @@ precision highp float;
 uniform float time;
 uniform vec2 resolution;
 varying vec2 fragCoord;
- 
+
 vec3 hsv2rgb_smooth( in vec3 c )
 {
     vec3 rgb = clamp( abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0 );
-    rgb = rgb*rgb*(3.0-2.0*rgb); // cubic smoothing 
+    rgb = rgb*rgb*(3.0-2.0*rgb); // cubic smoothing
     return c.z * mix( vec3(1.0), rgb, c.y);
 }
 
-void main( void ) 
+void main( void )
 {
     float ss = 1.0;
     vec2 gg = fragCoord.xy;
-    gg = ceil(gg / ss) * ss;    
+    gg = ceil(gg / ss) * ss;
     vec2 aspect = resolution.xy / resolution.y;
     vec2 uv = ( gg / resolution.y ) - aspect / 2.0;
     float t1 = fract(time*0.3)*TAU;
@@ -232,7 +221,7 @@ void main( void )
 }
 `;
 
-var fragmentShader3 = `
+const fragmentShader3 = `
 precision mediump float;
 
 uniform float time;
@@ -242,51 +231,51 @@ varying vec2 fragCoord;
 void main( void ) {
 
     vec2 uv =  (fragCoord.xy -.5 * resolution.xy) / resolution.y ;
-    
+
     float t = time * .8;
-    
+
     vec3 ro = vec3(0, 0, -1);
         vec3 lookat = vec3(sin(t)/2.0 - 1.0, cos(t)/2.0 - 2.0, 0.0);
         float zoom = 0.05 + sin(t) / 50.0;
-    
+
         vec3 f = normalize(lookat - ro),
         r = normalize(cross(vec3(0,1,0), f)),
         u = cross(f, r),
         c = ro + f * zoom,
         i = c + uv.x * r + uv.y * u,
         rd = normalize(i-ro);
-    
+
         float dS, dO;
         vec3 p;
-    
+
         for(int i=0; i<1000; i++) {
             p = ro + rd * dO;
             dS = -(length(vec2(length(p.yz)-1.0, p.x)) - 0.65 - (cos(t) + sin(t)) / 10.0);
             if(dS<.0001) break;
             dO += dS;
     }
-    
+
     vec3 col = vec3(0);
-    
+
     float x = atan(p.y, p.z) + t * 0.5;
     float y = atan(length(p.yz)-1., p.x);
-    
+
     // Basically vert / horiz
     float bands = sin(y*20.+x*20.);
-    
+
     // Size and orientation.
     float ripples = sin((x*20.-y*40.)*3.)*.5+.5;
-    
+
     // Speed & size
     float waves = sin(x*30.+y*10.+t*6.);
-    
+
     float b1 = smoothstep(-0.0, 1.0, bands-0.5);
     float b2 = smoothstep(-0.5, .5, bands-.35);
-    
+
     float m = b1*(1.4-b2);
     m = max(m, ripples*b2*max(0., waves));
     m += max(0., waves*.65*b2);
-    
+
     float fd = length(ro-p);
     col += m;
     col.rb *= 2.5;
@@ -297,7 +286,7 @@ void main( void ) {
 }
 `;
 
-var fragmentShader4 = `
+const fragmentShader4 = `
 /*
  * Original shader from: https://www.shadertoy.com/view/tlfGRN
  */
@@ -340,13 +329,13 @@ struct Surface {
     vec3 normal;
     vec3 emissiveColor;
 };
-    
+
 struct Hit {
     Surface surface;
     Surface near;
     vec3 color;
 };
-    
+
 float saturate(float s) {
     return clamp(s, 0., 1.);
 }
@@ -364,43 +353,43 @@ float scene(vec3 p) {
     vec3 p1 = p;
     p1.xy += vec2(iTime * .8 + 10., iTime * .4 + 20.);
     p1.xy *= rot2(PI * .05);
-    
-    vec3 p2 = p;   
+
+    vec3 p2 = p;
     p2.yz += vec2(iTime * .4 + 30., iTime * .8 + 40.);
     p2.yz *= rot2(PI * .04);
 
-    vec3 p3 = p;   
+    vec3 p3 = p;
     p3.xz += vec2(iTime * .8 + 50., iTime * .6 + 60.);
     p3.xz *= rot2(PI / 2. + iTime * .0);
-    
+
     float m = 6.;
-   
+
     p1.y += sin(sin(p1.z * 1.2 + iTime * 4.) * .3) * .3;
     p1.x += sin(sin(p1.z * 1. + iTime * 2.) * .4) * .2;
     p1.y = mod(p1.y, m) - m * .5;
-    p1.x = mod(p1.x, m) - m * .5;    
-    
+    p1.x = mod(p1.x, m) - m * .5;
+
 
     p2.y += sin(sin(p2.z * 1.2 + iTime * 4.) * .4) * .4;
     p2.x += sin(sin(p2.z * .5 + iTime * 3.) * .5) * .3;
     p2.y = mod(p2.y, m) - m * .5;
-    p2.x = mod(p2.x, m) - m * .5;    
+    p2.x = mod(p2.x, m) - m * .5;
 
     p3.y += sin(sin(p3.z * .8 + iTime * 2.) * .4) * .2;
     p3.x += sin(sin(p3.z * 1.1 + iTime * 3.) * .5) * .4;
     p3.y = mod(p3.y, m) - m * .5;
-    p3.x = mod(p3.x, m) - m * .5;    
+    p3.x = mod(p3.x, m) - m * .5;
 
     float c = smin(length(p1.xy), length(p2.xy), 4.);
     c = smin(c, length(p3.xy), 4.);
-    
+
     return c;
 }
 
 Hit rayMarching(vec3 origin, vec3 dir, float start, float end) {
     Surface cs;
     cs.dist = -1.;
-    
+
     Hit hit;
     hit.color = vec3(0.);
 
@@ -409,7 +398,7 @@ Hit rayMarching(vec3 origin, vec3 dir, float start, float end) {
 
     for(int i = 0; i < maxIterations; i++) {
         sceneDist = scene(origin + dir * rayDepth);
-      
+
         if((sceneDist < stopThreshold) || (rayDepth >= end)) {
             break;
         }
@@ -418,7 +407,7 @@ Hit rayMarching(vec3 origin, vec3 dir, float start, float end) {
         vec3 c = sin((iTime + PI / 2.) * 4. * vec3(.123, .456, .789)) * .4 + .6;
         hit.color += max(vec3(0.), .09 / sceneDist * c);
     }
-    
+
     /*
     if (sceneDist >= stopThreshold) {
         rayDepth = end;
@@ -426,7 +415,7 @@ Hit rayMarching(vec3 origin, vec3 dir, float start, float end) {
         rayDepth += sceneDist;
     }
     */
-    
+
     cs.dist = rayDepth;
     hit.surface = cs;
 
@@ -451,7 +440,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     uv.x += sin(uv.y * 2.4 + iTime * .1) * .12;
 
     // mouse = mouse.xy / iResolution.xy - .5;
-  
+
     // camera settings
     //vec3 lookAt = vec3(cos(iTime * .4) * .5, sin(iTime * .3) * .5, 0.);
     float z = iTime * -5.;
@@ -461,8 +450,8 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     // camera vectors
     vec3 forward = normalize(lookAt - cameraPos);
     vec3 right = normalize(cross(forward, vec3(0., 1., 0.)));
-    vec3 up = normalize(cross(right, forward));   
-    
+    vec3 up = normalize(cross(right, forward));
+
     // raymarch
     vec3 rayOrigin = cameraPos;
     vec3 rayDirection = normalize(forward + fov * uv.x * right + fov * uv.y * up);
@@ -470,26 +459,26 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     Surface surface = hit.surface;
 
     surface.position = rayOrigin + rayDirection * surface.dist;
-    
+
     // color
     vec3 sceneColor = vec3(0.);
 
     sceneColor = hit.color;
-    
+
     sceneColor = fog(sceneColor, surface.dist, vec3(0.), .065);
-    
+
     // vignet by channel
     float vignetR = 1. - smoothstep(0., 2.5 + sin(iTime * 1.) * 1.5, length(screenCoord)) * .8;
     float vignetG = 1. - smoothstep(0., 2.5 + cos(iTime * 1.2) * 1.5, length(screenCoord)) * .8;
     float vignetB = 1. - smoothstep(0., 2.5 + sin(iTime * 1.4) * 1.5, length(screenCoord)) * .8;
-    
+
     sceneColor.x *= vignetR;
     sceneColor.y *= vignetG;
     sceneColor.z *= vignetB;
 
     // debug distance color
     //sceneColor.rgb = vec3(surface.dist / farClip);
-    
+
     fragColor = vec4(sceneColor, 1.);
 }
 
@@ -501,7 +490,7 @@ void main(void)
 }
 `;
 
-var fragmentShader5 = `
+const fragmentShader5 = `
 precision highp float;   /// iOS needs high?
 
 uniform float time;
@@ -517,86 +506,108 @@ varying vec2 fragCoord;
 
 void main(void)
 {
-  vec4 o; 
+  vec4 o;
   vec2 u = fragCoord.xy/resolution.y;
-    
+
 // proper pixelate
 float s = 500.;
     u = floor(u * s) / s;
-    
+
   float e, d, i=0.;
   vec4 p;
-    
+
   for(float i=1.; i<30.; i++) {
     d = floor(e = i*9.1+time);
     p = N(d)+.3;
     e -= d;
     for(float d=0.; d<5.;d++)
-      o += p*(2.9-e)/1e3/length(u-(p-e*(N(d*i)-.5)).xy);  
+      o += p*(2.9-e)/1e3/length(u-(p-e*(N(d*i)-.5)).xy);
   }
-     
+
   gl_FragColor = vec4(o.rgb, 1.0);
 }
 `;
 
-var text;
-
-var game = new Phaser.Game(config);
-
-function preload ()
+class Example extends Phaser.Scene
 {
-    this.load.image('pic', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
-    this.load.image('logo', 'assets/sprites/phaser3-logo-x2.png');
-    this.load.image('bunny', 'assets/sprites/bunny.png');
-    this.load.image('splat1', 'assets/pics/splat1.png');
-    this.load.image('splat2', 'assets/pics/splat2.png');
-    this.load.image('splat3', 'assets/pics/splat3.png');
+    constructor()
+    {
+        super();
+    }
+
+    preload()
+    {
+        this.load.image('pic', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
+        this.load.image('logo', 'assets/sprites/phaser3-logo-x2.png');
+        this.load.image('bunny', 'assets/sprites/bunny.png');
+        this.load.image('splat1', 'assets/pics/splat1.png');
+        this.load.image('splat2', 'assets/pics/splat2.png');
+        this.load.image('splat3', 'assets/pics/splat3.png');
+    }
+
+    create()
+    {
+        const shape1 = this.make.graphics().fillCircle(400, 300, 300);
+        const shape2 = this.make.graphics().fillCircle(400, 300, 200);
+
+        const geomask1 = shape1.createGeometryMask();
+            geomask1.geometryMask.setName('geo1');
+        const geomask2 = shape2.createGeometryMask();
+            geomask2.geometryMask.setName('geo2');
+
+        const maskImage1 = this.make.image({ x: 400, y: 300, key: 'splat1', add: false });
+        const maskImage2 = this.make.image({ x: 400, y: 300, key: 'splat2', add: false });
+        const maskImage3 = this.make.image({ x: 400, y: 300, key: 'splat3', add: false });
+        const maskImage4 = this.make.image({ x: 400, y: 300, key: 'bunny', add: false });
+
+        const bitmask1 = maskImage1.createBitmapMask();
+        const bitmask2 = maskImage2.createBitmapMask();
+        const bitmask3 = maskImage3.createBitmapMask();
+        const bitmask4 = maskImage4.createBitmapMask();
+
+        // bitmask2.invertAlpha = true;
+
+        this.cameras.main.setMask(geomask1, false);
+
+        // this.cameras.main.setMask(bitmask2, false);
+        this.add.image(400, 300, 'pic');
+
+        const container = this.add.container(400, 300);
+
+        const baseShader1 = new Phaser.Display.BaseShader('BufferShader1', fragmentShader);
+        const baseShader2 = new Phaser.Display.BaseShader('BufferShader2', fragmentShader5);
+        const baseShader3 = new Phaser.Display.BaseShader('BufferShader3', fragmentShader7);
+        const baseShader4 = new Phaser.Display.BaseShader('BufferShader4', fragmentShader3);
+        const baseShader5 = new Phaser.Display.BaseShader('BufferShader5', fragmentShader4);
+
+        const shader1 = this.add.shader(baseShader1, -128, 0, 128, 128);
+        const shader2 = this.add.shader(baseShader2, 0, 0, 128, 128);
+        const shader3 = this.add.shader(baseShader3, 128, 0, 128, 128);
+        const shader4 = this.add.shader(baseShader4, 0, -128, 128, 128);
+        const shader5 = this.add.shader(baseShader5, 0, 128, 128, 128);
+
+        container.add([ shader1, shader2, shader3, shader4, shader5 ]);
+
+        container.setScale(0.5);
+
+        shader2.setMask(bitmask2, false);
+
+        this.tweens.add({
+            targets: container,
+            angle: { value: 360, duration: 4000 },
+            scaleX: { value: 5, duration: 6000, yoyo: true, ease: 'Quad.easeInOut' },
+            scaleY: { value: 5, duration: 6000, yoyo: true, ease: 'Quad.easeInOut' },
+            repeat: -1
+        });
+    }
 }
 
-function create ()
-{
-    var shape1 = this.make.graphics().fillCircle(400, 300, 300);
-    var shape2 = this.make.graphics().fillCircle(400, 300, 200);
+const config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    scene: [ Example ]
+};
 
-    var geomask1 = shape1.createGeometryMask().setName('geo1');
-    var geomask2 = shape2.createGeometryMask().setName('geo2');
-
-    var maskImage1 = this.make.image({ x: 400, y: 300, key: 'splat1', add: false });
-    var maskImage2 = this.make.image({ x: 400, y: 300, key: 'splat2', add: false });
-    var maskImage3 = this.make.image({ x: 400, y: 300, key: 'splat3', add: false });
-    var maskImage4 = this.make.image({ x: 400, y: 300, key: 'bunny', add: false });
-
-    var bitmask1 = maskImage1.createBitmapMask();
-    var bitmask2 = maskImage2.createBitmapMask();
-    var bitmask3 = maskImage3.createBitmapMask();
-    var bitmask4 = maskImage4.createBitmapMask();
-
-    // bitmask2.invertAlpha = true;
-
-    this.cameras.main.setMask(geomask1, false);
-
-    // this.cameras.main.setMask(bitmask2, false);
-    this.add.image(400, 300, 'pic');
-
-    var container = this.add.container(400, 300);
-
-    var shader1 = this.add.shader(-128, 0, 128, 128, fragmentShader);
-    var shader2 = this.add.shader(0, 0, 128, 128, fragmentShader5);
-    var shader3 = this.add.shader(128, 0, 128, 128, fragmentShader7);
-    var shader4 = this.add.shader(0, -128, 128, 128, fragmentShader3);
-    var shader5 = this.add.shader(0, 128, 128, 128, fragmentShader4);
-
-    container.add([ shader1, shader2, shader3, shader4, shader5 ]);
-
-    container.setScale(0.5);
-
-    shader2.setMask(bitmask2, false);
-
-    this.tweens.add({
-        targets: container,
-        angle: { value: 360, duration: 4000 },
-        scaleX: { value: 5, duration: 6000, yoyo: true, ease: 'Quad.easeInOut' },
-        scaleY: { value: 5, duration: 6000, yoyo: true, ease: 'Quad.easeInOut' },
-        repeat: -1
-    });
-}
+const game = new Phaser.Game(config);

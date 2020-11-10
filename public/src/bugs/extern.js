@@ -19,14 +19,17 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
     // this.load.script('threejs', 'assets/tests/three.min.js');
-    this.load.script('threejs', 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r117/three.min.js');
+    // this.load.script('threejs', 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r117/three.min.js');
+    this.load.script('threejs', 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js');
 }
 
 function create ()
 {
+    this.add.image(400, 50, 'logo');
+
     var exten = this.add.extern();
 
-    this.add.image(400, 300, 'logo');
+    // this.add.image(400, 300, 'logo');
 
     var camera = new THREE.PerspectiveCamera( 70, 800 / 600, 1, 1000 );
 
@@ -43,7 +46,7 @@ function create ()
 
     scene.add(mesh);
 
-    var renderer = new THREE.WebGLRenderer({ canvas: this.game.canvas, context: this.game.context, antialias: true });
+    var renderer = new THREE.WebGL1Renderer({ canvas: this.game.canvas, context: this.game.context, antialias: true });
 
     exten.render = function (prenderer, pcamera, pcalcMatrix)
     {

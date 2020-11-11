@@ -2093,7 +2093,7 @@
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\graphics mask.js",
                       "name": "graphics mask.js",
-                      "size": 3193,
+                      "size": 3350,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -2107,14 +2107,14 @@
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\image mask multiple circles.js",
                       "name": "image mask multiple circles.js",
-                      "size": 893,
+                      "size": 891,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\image mask.js",
                       "name": "image mask.js",
-                      "size": 991,
+                      "size": 989,
                       "extension": ".js",
                       "type": "file"
                     },
@@ -2126,7 +2126,7 @@
                       "type": "file"
                     }
                   ],
-                  "size": 7399,
+                  "size": 7552,
                   "type": "directory"
                 },
                 {
@@ -2139,7 +2139,7 @@
                 {
                   "path": "src\\3.50\\display\\masks\\GeometryMask Example0.js",
                   "name": "GeometryMask Example0.js",
-                  "size": 2545,
+                  "size": 2409,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -2179,7 +2179,7 @@
                   "type": "file"
                 }
               ],
-              "size": 66549,
+              "size": 66566,
               "type": "directory"
             },
             {
@@ -2189,61 +2189,61 @@
                 {
                   "path": "src\\3.50\\display\\shaders\\shader test 1.js",
                   "name": "shader test 1.js",
-                  "size": 9427,
+                  "size": 9997,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\shaders\\shader test 2.js",
                   "name": "shader test 2.js",
-                  "size": 4036,
+                  "size": 3987,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\shaders\\shader test 3.js",
                   "name": "shader test 3.js",
-                  "size": 2495,
+                  "size": 2639,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\shaders\\shader test 4.js",
                   "name": "shader test 4.js",
-                  "size": 6689,
+                  "size": 6802,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\shaders\\shader test 5.js",
                   "name": "shader test 5.js",
-                  "size": 16473,
+                  "size": 16406,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\shaders\\shader test 6.js",
                   "name": "shader test 6.js",
-                  "size": 1273,
+                  "size": 1388,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\shaders\\shader test 7.js",
                   "name": "shader test 7.js",
-                  "size": 513,
+                  "size": 560,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\shaders\\shader test 8.js",
                   "name": "shader test 8.js",
-                  "size": 972,
+                  "size": 1064,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 41878,
+              "size": 42843,
               "type": "directory"
             },
             {
@@ -2353,7 +2353,7 @@
               "type": "directory"
             }
           ],
-          "size": 181631,
+          "size": 182613,
           "type": "directory"
         },
         {
@@ -3384,7 +3384,7 @@
                 {
                   "path": "src\\3.50\\game objects\\dom element\\cursors test.js",
                   "name": "cursors test.js",
-                  "size": 1210,
+                  "size": 1187,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3494,7 +3494,7 @@
                   "type": "file"
                 }
               ],
-              "size": 25102,
+              "size": 25079,
               "type": "directory"
             },
             {
@@ -5277,14 +5277,14 @@
                 {
                   "path": "src\\3.50\\game objects\\rope\\rope with a mask.js",
                   "name": "rope with a mask.js",
-                  "size": 1574,
+                  "size": 1504,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\rope\\rope with shader texture.js",
                   "name": "rope with shader texture.js",
-                  "size": 1519,
+                  "size": 1453,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5317,7 +5317,7 @@
                   "type": "file"
                 }
               ],
-              "size": 21296,
+              "size": 21160,
               "type": "directory"
             },
             {
@@ -5334,7 +5334,7 @@
                 {
                   "path": "src\\3.50\\game objects\\shaders\\buffer b.js",
                   "name": "buffer b.js",
-                  "size": 2352,
+                  "size": 2222,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5402,7 +5402,7 @@
                   "type": "file"
                 }
               ],
-              "size": 27015,
+              "size": 26885,
               "type": "directory"
             },
             {
@@ -5489,7 +5489,7 @@
                 {
                   "path": "src\\3.50\\game objects\\shapes\\iso landscape.js",
                   "name": "iso landscape.js",
-                  "size": 3016,
+                  "size": 3017,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5571,7 +5571,7 @@
                   "type": "file"
                 }
               ],
-              "size": 62526,
+              "size": 62527,
               "type": "directory"
             },
             {
@@ -6008,7 +6008,7 @@
               "type": "directory"
             }
           ],
-          "size": 787575,
+          "size": 787287,
           "type": "directory"
         },
         {
@@ -11501,6 +11501,13 @@
               "type": "file"
             },
             {
+              "path": "src\\3.50\\renderer\\batch size.js",
+              "name": "batch size.js",
+              "size": 649,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\3.50\\renderer\\batch test.js",
               "name": "batch test.js",
               "size": 1634,
@@ -11585,7 +11592,7 @@
               "type": "file"
             }
           ],
-          "size": 27373,
+          "size": 28022,
           "type": "directory"
         },
         {
@@ -12450,7 +12457,7 @@
             {
               "path": "src\\3.50\\spine\\camera pipeline test.js",
               "name": "camera pipeline test.js",
-              "size": 2639,
+              "size": 1274,
               "extension": ".js",
               "type": "file"
             },
@@ -12616,7 +12623,7 @@
               "type": "file"
             }
           ],
-          "size": 56563,
+          "size": 55198,
           "type": "directory"
         },
         {
@@ -12633,7 +12640,7 @@
             {
               "path": "src\\3.50\\textures\\batch canvas texture.js",
               "name": "batch canvas texture.js",
-              "size": 2059,
+              "size": 1967,
               "extension": ".js",
               "type": "file"
             },
@@ -12724,7 +12731,7 @@
             {
               "path": "src\\3.50\\textures\\crop texture image flip.js",
               "name": "crop texture image flip.js",
-              "size": 1194,
+              "size": 1138,
               "extension": ".js",
               "type": "file"
             },
@@ -12869,7 +12876,7 @@
               "type": "file"
             }
           ],
-          "size": 49685,
+          "size": 49537,
           "type": "directory"
         },
         {
@@ -14345,7 +14352,7 @@
           "type": "directory"
         }
       ],
-      "size": 4032496,
+      "size": 4032326,
       "type": "directory"
     },
     {
@@ -16124,7 +16131,7 @@
         {
           "path": "src\\bugs\\extern.js",
           "name": "extern.js",
-          "size": 1489,
+          "size": 1639,
           "extension": ".js",
           "type": "file"
         },
@@ -16493,7 +16500,7 @@
           "type": "file"
         }
       ],
-      "size": 115016,
+      "size": 115166,
       "type": "directory"
     },
     {
@@ -30713,6 +30720,6 @@
       "type": "directory"
     }
   ],
-  "size": 8578819,
+  "size": 8578799,
   "type": "directory"
 }

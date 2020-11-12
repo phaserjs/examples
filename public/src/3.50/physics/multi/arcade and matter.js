@@ -38,7 +38,6 @@ function create ()
     this.matter.add.image(400, 550, 'platform', null, { isStatic: true });
 
     //  Arcade Physics:
-
     var block = this.physics.add.image(400, 100, 'fuji');
 
     block.setVelocity(100, 200);

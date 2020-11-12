@@ -3,18 +3,18 @@ import BendRotationWavesPostFX from './assets/pipelines/BendRotationWavesPostFX.
 
 class Example extends Phaser.Scene
 {
-    constructor()
+    constructor ()
     {
         super();
     }
 
-    preload()
+    preload ()
     {
         this.load.image('volcano', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }
 
-    create()
+    create ()
     {
         const bendRotationWaves = this.renderer.pipelines.get('BendRotationWavesPostFX');
         this.add.image(400, 300, 'volcano');

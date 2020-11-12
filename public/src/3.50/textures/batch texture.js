@@ -40,7 +40,8 @@ function create ()
 
 function update ()
 {
-    var pipeline = this.renderer.pipelines.get('TextureTintPipeline');
+    // var pipeline = this.renderer.pipelines.get('TextureTintPipeline');
+    var pipeline = this.renderer.pipelines.get('MultiPipeline');
 
     var x = 400;
     var y = 300;

@@ -3,7 +3,7 @@ import BendWavesPostFX from './assets/pipelines/BendWavesPostFX.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor()
+    constructor ()
     {
         super();
 
@@ -14,7 +14,7 @@ export default class Example extends Phaser.Scene
         this.bendPipeline;
     }
 
-    preload()
+    preload ()
     {
         this.load.image('sky', 'src/games/firstgame/assets/sky.png');
         this.load.image('ground', 'src/games/firstgame/assets/platform.png');
@@ -23,7 +23,7 @@ export default class Example extends Phaser.Scene
         this.load.spritesheet('dude', 'src/games/firstgame/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     }
 
-    create()
+    create ()
     {
         this.bendPipeline = this.renderer.pipelines.get('BendWavesPostFX');
 
@@ -88,7 +88,7 @@ export default class Example extends Phaser.Scene
         this.cameras.main.setPostPipeline(this.bendPipeline);
     }
 
-    update()
+    update ()
     {
         const cursors = this.cursors;
         const player = this.player;
@@ -118,7 +118,7 @@ export default class Example extends Phaser.Scene
         }
     }
 
-    collectStar(player, star)
+    collectStar (player, star)
     {
         star.disableBody(true, true);
 

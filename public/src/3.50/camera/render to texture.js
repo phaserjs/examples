@@ -3,18 +3,18 @@ import PixelatedFX from './assets/pipelines/PixelatedFX.js';
 
 class Example extends Phaser.Scene
 {
-    constructor()
+    constructor ()
     {
         super();
     }
 
-    preload()
+    preload ()
     {
         this.load.image('volcano', 'assets/pics/the-end-by-iloe-and-made.jpg');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }
 
-    create()
+    create ()
     {
         const volcano = this.add.image(400, 300, 'volcano');
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
@@ -47,7 +47,7 @@ class Example extends Phaser.Scene
         this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
     }
 
-    update(time, delta)
+    update (time, delta)
     {
         this.controls.update(delta);
     }

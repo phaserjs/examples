@@ -3,18 +3,18 @@ import HueRotatePostFX from './assets/pipelines/HueRotatePostFX.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor()
+    constructor ()
     {
         super();
     }
 
-    preload()
+    preload ()
     {
         this.load.image('volcano', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }
 
-    create()
+    create ()
     {
         this.add.image(400, 300, 'volcano');
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
@@ -41,7 +41,7 @@ export default class Example extends Phaser.Scene
         this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
     }
 
-    upload()
+    upload ()
     {
         this.controls.update(delta);
     }

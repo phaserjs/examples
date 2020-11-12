@@ -3,19 +3,19 @@ import LazersPostFX from './assets/pipelines/LazersPostFX.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor()
+    constructor ()
     {
         super();
     }
 
-    preload()
+    preload ()
     {
         this.load.image('volcano', 'assets/pics/bw-face.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
 
     }
 
-    create()
+    create ()
     {
         this.add.image(400, 300, 'volcano').setAlpha(1);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
@@ -42,7 +42,7 @@ export default class Example extends Phaser.Scene
         this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
     }
 
-    update(time, delta)
+    update (time, delta)
     {
         this.controls.update(delta);
     }

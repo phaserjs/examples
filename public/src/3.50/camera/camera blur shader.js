@@ -3,18 +3,18 @@ import BlurPostFX from './assets/pipelines/BlurPostFX.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor()
+    constructor ()
     {
         super();
     }
 
-    preload()
+    preload ()
     {
         this.load.image('volcano', 'assets/pics/bw-face.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }
 
-    create()
+    create ()
     {
         const volcano = this.add.image(400, 300, 'volcano').setAlpha(0.5);
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
@@ -33,7 +33,7 @@ export default class Example extends Phaser.Scene
         extracam.ignore(volcano);
     }
 
-    update()
+    update ()
     {
         const r = Math.abs(2 * Math.sin(this.time.now * 10));
         this.blurPipeline.set1f('radius', r);

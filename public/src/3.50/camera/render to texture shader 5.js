@@ -3,12 +3,12 @@ import ScalinePostFX from './assets/pipelines/ScalinePostFX.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor()
+    constructor ()
     {
         super();
     }
 
-    preload()
+    preload ()
     {
         this.load.image('volcano', 'assets/pics/bw-face.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
@@ -18,7 +18,7 @@ export default class Example extends Phaser.Scene
         // customPipeline.setFloat2('mouse', 0.0, 0.0);
     }
 
-    create()
+    create ()
     {
         this.add.image(400, 300, 'volcano').setAlpha(0.5);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
@@ -49,7 +49,7 @@ export default class Example extends Phaser.Scene
         });
     }
 
-    update(time, delta)
+    update (time, delta)
     {
         this.controls.update(delta);
     }

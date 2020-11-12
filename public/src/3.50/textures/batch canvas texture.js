@@ -44,8 +44,8 @@ function create ()
 
 function update ()
 {
-    var pipeline = this.sys.game.renderer.getPipeline('TextureTintPipeline');
-
+    // var pipeline = this.sys.game.renderer.getPipeline('TextureTintPipeline');
+    var pipeline = this.renderer.pipelines.get('MultiPipeline');
     var x = 300;
     var y = 300;
     var textureWidth = 133;
@@ -80,9 +80,9 @@ function update ()
         scrollFactorX, scrollFactorY,
         displayOriginX, displayOriginY,
         frameX, frameY, frameWidth, frameHeight,
-        tint, tint, tint, tint,
+        tint, tint, tint, tint, false,
         uOffset, vOffset,
         this.cameras.main,
-        null
+        null, null, null
     );
 }

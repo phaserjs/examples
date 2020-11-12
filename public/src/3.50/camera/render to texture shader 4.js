@@ -3,7 +3,7 @@ import PlasmaPost2FX from './assets/pipelines/PlasmaPost2FX.js';
 
 export default class Example extends Phaser.Scene
 {
-    preload()
+    preload ()
     {
         this.load.image('volcano', 'assets/pics/remember-me.jpg');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
@@ -11,7 +11,7 @@ export default class Example extends Phaser.Scene
         // customPipeline = game.renderer.addPipeline('Custom', new CustomPipeline2(game));
         // customPipeline.setFloat2('resolution', game.config.width, game.config.height);
     }
-    create()
+    create ()
     {
         this.add.image(400, 300, 'volcano').setAlpha(0.2);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
@@ -35,7 +35,7 @@ export default class Example extends Phaser.Scene
 
         this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
     }
-    update(time, delta)
+    update (time, delta)
     {
         this.controls.update(delta);
         time += 0.005;

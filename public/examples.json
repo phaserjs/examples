@@ -203,42 +203,42 @@
             {
               "path": "src\\3.50\\animation\\60fps animation test.js",
               "name": "60fps animation test.js",
-              "size": 1073,
+              "size": 1148,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\add animation event.js",
               "name": "add animation event.js",
-              "size": 1758,
+              "size": 1939,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\add frames to existing animation.js",
               "name": "add frames to existing animation.js",
-              "size": 1395,
+              "size": 1511,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\animation from png sequence.js",
               "name": "animation from png sequence.js",
-              "size": 847,
+              "size": 941,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\animation get progress.js",
               "name": "animation get progress.js",
-              "size": 1052,
+              "size": 1176,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\animation repeat event.js",
               "name": "animation repeat event.js",
-              "size": 1338,
+              "size": 1459,
               "extension": ".js",
               "type": "file"
             },
@@ -252,112 +252,112 @@
             {
               "path": "src\\3.50\\animation\\chained animation.js",
               "name": "chained animation.js",
-              "size": 2314,
+              "size": 2478,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation from canvas texture.js",
               "name": "create animation from canvas texture.js",
-              "size": 2270,
+              "size": 2497,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation from sprite sheet.js",
               "name": "create animation from sprite sheet.js",
-              "size": 3563,
+              "size": 3856,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation from texture atlas.js",
               "name": "create animation from texture atlas.js",
-              "size": 2221,
+              "size": 2321,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation on sprite.js",
               "name": "create animation on sprite.js",
-              "size": 1559,
+              "size": 1669,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation without frame names.js",
               "name": "create animation without frame names.js",
-              "size": 741,
+              "size": 800,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create from sprite config.js",
               "name": "create from sprite config.js",
-              "size": 1782,
+              "size": 1719,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\cubes.js",
               "name": "cubes.js",
-              "size": 1601,
+              "size": 1734,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\export json.js",
               "name": "export json.js",
-              "size": 1868,
+              "size": 1956,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\from animation json.js",
               "name": "from animation json.js",
-              "size": 773,
+              "size": 824,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\from json.js",
               "name": "from json.js",
-              "size": 11173,
+              "size": 10888,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\generate frame names.js",
               "name": "generate frame names.js",
-              "size": 1807,
+              "size": 1881,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\generate frame numbers.js",
               "name": "generate frame numbers.js",
-              "size": 1623,
+              "size": 1739,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\gif to animation.js",
               "name": "gif to animation.js",
-              "size": 2734,
+              "size": 3059,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\hide on complete.js",
               "name": "hide on complete.js",
-              "size": 1669,
+              "size": 1785,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\mixed animation.js",
               "name": "mixed animation.js",
-              "size": 2179,
+              "size": 2323,
               "extension": ".js",
               "type": "file"
             },
@@ -516,7 +516,7 @@
               "type": "file"
             }
           ],
-          "size": 85809,
+          "size": 88172,
           "type": "directory"
         },
         {
@@ -14323,7 +14323,7 @@
           "type": "directory"
         }
       ],
-      "size": 4045636,
+      "size": 4047999,
       "type": "directory"
     },
     {
@@ -30691,6 +30691,6 @@
       "type": "directory"
     }
   ],
-  "size": 8592494,
+  "size": 8594857,
   "type": "directory"
 }

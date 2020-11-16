@@ -248,7 +248,7 @@
           .replace(/^src/, 'screenshots')
           .replace(/\.json$/, '.png')
           .replace(/\.js$/, '.png');
-        var img = $('<img />', { src: imgPath, width: 240, height: 180 });
+        var img = $('<img />', { src: imgPath, width: 240, height: 180, class: 'image-card' });
 
         a.append(img);
 

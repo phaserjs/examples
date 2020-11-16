@@ -34,7 +34,8 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-var data = {
+// Hoisting
+const data = {
     "anims": [
         {
             "key": "diamond",

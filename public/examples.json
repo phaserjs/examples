@@ -322,7 +322,7 @@
             {
               "path": "src\\3.50\\animation\\from json.js",
               "name": "from json.js",
-              "size": 10888,
+              "size": 10902,
               "extension": ".js",
               "type": "file"
             },
@@ -364,159 +364,159 @@
             {
               "path": "src\\3.50\\animation\\multi atlas animation.js",
               "name": "multi atlas animation.js",
-              "size": 608,
+              "size": 647,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\muybridge.js",
               "name": "muybridge.js",
-              "size": 916,
+              "size": 1005,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on complete event.js",
               "name": "on complete event.js",
-              "size": 2295,
+              "size": 2399,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on repeat event.js",
               "name": "on repeat event.js",
-              "size": 2739,
+              "size": 2888,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on start event.js",
               "name": "on start event.js",
-              "size": 2101,
+              "size": 2229,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on stop event.js",
               "name": "on stop event.js",
-              "size": 1836,
+              "size": 1944,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on update event.js",
               "name": "on update event.js",
-              "size": 2635,
+              "size": 2799,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\pause all animations.js",
               "name": "pause all animations.js",
-              "size": 2038,
+              "size": 2202,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\pause animation instances.js",
               "name": "pause animation instances.js",
-              "size": 1896,
+              "size": 2025,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\play after delay.js",
               "name": "play after delay.js",
-              "size": 1418,
+              "size": 1476,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\play after repeat.js",
               "name": "play after repeat.js",
-              "size": 1650,
+              "size": 1746,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\play animation with config.js",
               "name": "play animation with config.js",
-              "size": 1258,
+              "size": 1348,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\random delay.js",
               "name": "random delay.js",
-              "size": 941,
+              "size": 1030,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\remove animation event.js",
               "name": "remove animation event.js",
-              "size": 1903,
+              "size": 2018,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\reverse animation.js",
               "name": "reverse animation.js",
-              "size": 2415,
+              "size": 2732,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\show animation play through.js",
               "name": "show animation play through.js",
-              "size": 2092,
+              "size": 2256,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\show on start.js",
               "name": "show on start.js",
-              "size": 1425,
+              "size": 1522,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\sprite animation events.js",
               "name": "sprite animation events.js",
-              "size": 2287,
+              "size": 2496,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\stagger play 1.js",
               "name": "stagger play 1.js",
-              "size": 890,
+              "size": 986,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\stagger play 2.js",
               "name": "stagger play 2.js",
-              "size": 960,
+              "size": 1028,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\tween timescale.js",
               "name": "tween timescale.js",
-              "size": 1736,
+              "size": 1823,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\yoyo.js",
               "name": "yoyo.js",
-              "size": 1280,
+              "size": 1364,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 88172,
+          "size": 90830,
           "type": "directory"
         },
         {
@@ -530,21 +530,21 @@
                 {
                   "path": "src\\3.50\\audio\\HTML5 Audio\\audiosprite.js",
                   "name": "audiosprite.js",
-                  "size": 2215,
+                  "size": 2403,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\audio\\HTML5 Audio\\basic playback and events.js",
                   "name": "basic playback and events.js",
-                  "size": 13787,
+                  "size": 13437,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\audio\\HTML5 Audio\\loop delay.js",
                   "name": "loop delay.js",
-                  "size": 6322,
+                  "size": 6111,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -591,7 +591,7 @@
                   "type": "file"
                 }
               ],
-              "size": 40134,
+              "size": 39761,
               "type": "directory"
             },
             {
@@ -752,7 +752,7 @@
               "type": "directory"
             }
           ],
-          "size": 121802,
+          "size": 121429,
           "type": "directory"
         },
         {
@@ -762,26 +762,26 @@
             {
               "path": "src\\3.50\\cache\\json file.js",
               "name": "json file.js",
-              "size": 363,
+              "size": 400,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\cache\\text file.js",
               "name": "text file.js",
-              "size": 356,
+              "size": 421,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\cache\\xml file.js",
               "name": "xml file.js",
-              "size": 551,
+              "size": 560,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 1270,
+          "size": 1381,
           "type": "directory"
         },
         {
@@ -816,84 +816,84 @@
                 {
                   "path": "src\\3.50\\camera\\3D camera\\blend cube.js",
                   "name": "blend cube.js",
-                  "size": 3140,
+                  "size": 3547,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\distance alpha.js",
                   "name": "distance alpha.js",
-                  "size": 1607,
+                  "size": 1786,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\dot sphere.js",
                   "name": "dot sphere.js",
-                  "size": 3058,
+                  "size": 3515,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\fixed scale.js",
                   "name": "fixed scale.js",
-                  "size": 2224,
+                  "size": 1943,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\floor.js",
                   "name": "floor.js",
-                  "size": 1507,
+                  "size": 1684,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\forest.js",
                   "name": "forest.js",
-                  "size": 2180,
+                  "size": 2408,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\meadow.js",
                   "name": "meadow.js",
-                  "size": 3909,
+                  "size": 4382,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\orthographic camera.js",
                   "name": "orthographic camera.js",
-                  "size": 1780,
+                  "size": 2004,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\perspective camera.js",
                   "name": "perspective camera.js",
-                  "size": 1860,
+                  "size": 2072,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\rectangle scaled.js",
                   "name": "rectangle scaled.js",
-                  "size": 2891,
+                  "size": 3264,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\rectangle.js",
                   "name": "rectangle.js",
-                  "size": 2886,
+                  "size": 3279,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\3D camera\\road 1.js",
                   "name": "road 1.js",
-                  "size": 2213,
+                  "size": 2103,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -933,7 +933,7 @@
                   "type": "file"
                 }
               ],
-              "size": 44759,
+              "size": 47491,
               "type": "directory"
             },
             {
@@ -1470,7 +1470,7 @@
               "type": "file"
             }
           ],
-          "size": 189883,
+          "size": 192615,
           "type": "directory"
         },
         {
@@ -14323,7 +14323,7 @@
           "type": "directory"
         }
       ],
-      "size": 4047999,
+      "size": 4053127,
       "type": "directory"
     },
     {
@@ -30691,6 +30691,6 @@
       "type": "directory"
     }
   ],
-  "size": 8594857,
+  "size": 8599985,
   "type": "directory"
 }

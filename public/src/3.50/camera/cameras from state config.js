@@ -1,7 +1,6 @@
-var sceneConfig = {
-    preload: preload,
-    create: create,
-    update: update,
+// Scene configuration
+const sceneConfig = {
+    key: 'Example',
     cameras: [
         {
             width: 400,
@@ -32,29 +31,36 @@ var sceneConfig = {
     ]
 };
 
-var config = {
+// Scene
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super(sceneConfig);
+    }
+
+    preload ()
+    {
+        this.load.image('mech', 'assets/pics/titan-mech.png');
+    }
+
+    create ()
+    {
+        this.image = this.add.image(200, 150, 'mech');
+    }
+
+    update ()
+    {
+        this.image.rotation += 0.01;
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: sceneConfig
+    scene: [ Example ]
 };
 
-var image;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('mech', 'assets/pics/titan-mech.png');
-}
-
-function create ()
-{
-    image = this.add.image(200, 150, 'mech');
-}
-
-function update ()
-{
-    image.rotation += 0.01;
-}
+const game = new Phaser.Game(config);

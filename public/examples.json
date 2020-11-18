@@ -798,42 +798,42 @@
             {
               "path": "src\\3.50\\camera\\16 camera test.js",
               "name": "16 camera test.js",
-              "size": 884,
+              "size": 931,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\32 camera test.js",
               "name": "32 camera test.js",
-              "size": 883,
+              "size": 927,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\add camera on click.js",
               "name": "add camera on click.js",
-              "size": 991,
+              "size": 1043,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\background color interpolate.js",
               "name": "background color interpolate.js",
-              "size": 1196,
+              "size": 1137,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\background color.js",
               "name": "background color.js",
-              "size": 1325,
+              "size": 1507,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\basics.js",
               "name": "basics.js",
-              "size": 1146,
+              "size": 1243,
               "extension": ".js",
               "type": "file"
             },
@@ -847,7 +847,7 @@
             {
               "path": "src\\3.50\\camera\\camera alpha.js",
               "name": "camera alpha.js",
-              "size": 2321,
+              "size": 2551,
               "extension": ".js",
               "type": "file"
             },
@@ -859,51 +859,51 @@
               "type": "file"
             },
             {
+              "path": "src\\3.50\\camera\\camera center on.js",
+              "name": "camera center on.js",
+              "size": 1991,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\3.50\\camera\\camera effect callbacks.js",
               "name": "camera effect callbacks.js",
-              "size": 978,
+              "size": 1068,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera effects.js",
               "name": "camera effects.js",
-              "size": 994,
+              "size": 1031,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera fade in and out.js",
               "name": "camera fade in and out.js",
-              "size": 741,
+              "size": 811,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera fade out and in.js",
               "name": "camera fade out and in.js",
-              "size": 691,
+              "size": 743,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera filter.js",
               "name": "camera filter.js",
-              "size": 1572,
+              "size": 1642,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\cameras from state config.js",
               "name": "cameras from state config.js",
-              "size": 1101,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src\\3.50\\camera\\center on.js",
-              "name": "center on.js",
-              "size": 1815,
+              "size": 1155,
               "extension": ".js",
               "type": "file"
             },
@@ -1089,54 +1089,54 @@
                 {
                   "path": "src\\3.50\\camera\\multi camera\\Controller.js",
                   "name": "Controller.js",
-                  "size": 7912,
+                  "size": 7356,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\DemoA.js",
                   "name": "DemoA.js",
-                  "size": 1619,
+                  "size": 1355,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\DemoB.js",
                   "name": "DemoB.js",
-                  "size": 2072,
+                  "size": 1914,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\DemoC.js",
                   "name": "DemoC.js",
-                  "size": 1153,
+                  "size": 1007,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\DemoD.js",
                   "name": "DemoD.js",
-                  "size": 4681,
+                  "size": 4364,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\game.js",
                   "name": "game.js",
-                  "size": 238,
+                  "size": 232,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\Obj3D.js",
                   "name": "Obj3D.js",
-                  "size": 2992,
+                  "size": 2855,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 20844,
+              "size": 19260,
               "type": "directory"
             },
             {
@@ -1470,7 +1470,7 @@
               "type": "directory"
             }
           ],
-          "size": 192615,
+          "size": 192173,
           "type": "directory"
         },
         {
@@ -14323,7 +14323,7 @@
           "type": "directory"
         }
       ],
-      "size": 4053127,
+      "size": 4052685,
       "type": "directory"
     },
     {
@@ -30691,6 +30691,6 @@
       "type": "directory"
     }
   ],
-  "size": 8599985,
+  "size": 8599543,
   "type": "directory"
 }

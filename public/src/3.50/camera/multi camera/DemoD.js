@@ -1,13 +1,8 @@
-var DemoD = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function DemoD ()
+class DemoD extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'DemoD', active: true });
-
+        super({ key: 'DemoD', active: true });
         this.graphics;
 
         this.t = {
@@ -19,18 +14,18 @@ var DemoD = new Phaser.Class({
         this.modelData = {};
 
         this.objects = [];
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
         this.load.text('computer', 'assets/text/computer.obj');
         this.load.text('geosphere', 'assets/text/geosphere.obj');
         this.load.text('spike', 'assets/text/spike.obj');
         this.load.text('torus', 'assets/text/torus.obj');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.parseObj('bevelledcube');
         this.parseObj('computer');
@@ -79,9 +74,9 @@ var DemoD = new Phaser.Class({
 
         cam.x = 800;
         cam.y = 600;
-    },
+    }
 
-    update: function ()
+    update ()
     {
         this.graphics.clear();
 
@@ -92,26 +87,27 @@ var DemoD = new Phaser.Class({
             this.objects[i].rotateZ(0.01);
             this.objects[i].render(this.graphics);
         }
-    },
+    }
 
-    addObject: function (key, x, y, z)
+
+    addObject (key, x, y, z)
     {
         var model = new Obj3D(this.camera, this.getModel(key), x, y, z);
 
         this.objects.push(model);
 
         return model;
-    },
+    }
 
-    getModel: function (key)
+    getModel (key)
     {
         var data = Phaser.Utils.Objects.Extend(true, this.modelData[key], {});
 
         return data;
-    },
+    }
 
     //  Parses out tris and quads from the obj file
-    parseObj: function (key)
+    parseObj (key)
     {
         var text = this.cache.text.get(key);
 
@@ -183,5 +179,4 @@ var DemoD = new Phaser.Class({
 
         return this.modelData[key];
     }
-
-});
+}

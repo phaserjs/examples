@@ -30,7 +30,7 @@ function create()
 {
     w = this.cameras.main.width;
     h = this.cameras.main.height;
-    
+
     bg = this.add.group({ key: 'star', frameQuantity: 300 });
 
     sky = new Phaser.Display.Color(120, 120, 255);

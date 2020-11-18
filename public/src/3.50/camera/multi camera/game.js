@@ -1,4 +1,4 @@
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -7,4 +7,4 @@ var config = {
     scene: [ DemoA, DemoB, DemoC, DemoD, Controller ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

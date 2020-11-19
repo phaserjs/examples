@@ -1,48 +1,50 @@
-var config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create
-    },
-    width: 800,
-    height: 600
-};
-
-var game = new Phaser.Game(config);
 var camera;
 
-function flashComplete ()
+class Example extends Phaser.Scene
 {
-    console.log('Flash completed. Starting shake effect.');
+    constructor ()
+    {
+        super();
+    }
 
-    camera.shake(1000, 0.05, false, shakeComplete);
+    preload ()
+    {
+        this.load.image('CherilPerils', 'assets/tests/camera/CherilPerils.png');
+    }
+
+    create ()
+    {
+        const image = this.add.image(0, 0, 'CherilPerils')
+        this.cameras.main.setViewport(5, 5, 390, 290);
+        this.camera = this.cameras.add(5, 5, 390, 290);
+        this.camera.flash(1000, 1.0, 1.0, 1.0, false, this.flashComplete);
+    }
+
+    flashComplete ()
+    {
+        console.log('Flash completed. Starting shake effect.');
+        this.camera.shake(1000, 0.05, false, this.shakeComplete);
+    }
+
+    shakeComplete ()
+    {
+        console.log('Shake completed. Starting fade effect.');
+        this.camera.fade(1000, 0, 0, 0, false, this.fadeComplete);
+    }
+
+    fadeComplete ()
+    {
+        console.log('Fade completed. End of example.');
+    }
+
 }
 
-function shakeComplete ()
-{
-    console.log('Shake completed. Starting fade effect.');
+const config = {
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    scene: [ Example ]
+};
 
-    camera.fade(1000, 0, 0, 0, false, fadeComplete);
-}
-
-function fadeComplete ()
-{
-    console.log('Fade completed. End of example.');
-}
-
-function preload()
-{
-    this.load.image('CherilPerils', 'assets/tests/camera/CherilPerils.png');
-}
-
-function create()
-{
-    var image = this.add.image(0, 0, 'CherilPerils')
-
-    this.cameras.main.setViewport(5, 5, 390, 290);
-
-    camera = this.cameras.add(5, 5, 390, 290);
-
-    camera.flash(1000, 1.0, 1.0, 1.0, false, flashComplete);
-}
+const game = new Phaser.Game(config);

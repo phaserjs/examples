@@ -1,6 +1,7 @@
 body {
     padding: 0;
     margin: 0;
+    background-color: #331053;
 }
 
 #feedback {
@@ -44,4 +45,8 @@ body {
 #nav a:Hover {
     text-decoration: underline;
     color: #fff;
+}
+
+#phaser-example > canvas {
+    box-shadow: 1px 1px 20px 2px black;
 }

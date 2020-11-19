@@ -24,7 +24,7 @@ function create ()
     var volcano = this.add.image(400, 300, 'volcano');
     var hotdog = this.add.image(400, 600, 'hotdog');
 
-    this.cameras.main.setRenderToTexture();
+    // this.cameras.main.setRenderToTexture();
 
     //  Apply a simple post-render scan line effect to the Camera canvas
 

@@ -1,22 +1,25 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+        this.load.json('jsonData', 'assets/atlas/megaset-0.json');
+    }
+
+    create ()
+    {
+        console.log(this.cache.json.get('jsonData'));
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: [ Example ]
 };
 
-var game = new Phaser.Game(config);
-
-function preload() {
-
-    this.load.json('jsonData', 'assets/atlas/megaset-0.json');
-
-}
-
-function create() {
-
-    console.log(this.cache.json.get('jsonData'));
-
-}
+const game = new Phaser.Game(config);

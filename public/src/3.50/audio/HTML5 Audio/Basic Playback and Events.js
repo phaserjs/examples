@@ -4,51 +4,110 @@
  * Prometheus Brings Fire To Mankind - Painting by Heinrich Füger, 1817, Public Domain
  * The Creatures of Prometheus, Op. 43, Overture - Music by Ludwig van Beethoven, 1801, Public Domain
  */
+var text;
+var first;
+var second;
+var audioSprite;
 
-var config = {
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+        const head  = document.getElementsByTagName('head')[0];
+        const link  = document.createElement('link');
+        link.rel  = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy';
+        head.appendChild(link);
+
+        this.load.image('prometheus', 'assets/pics/Prometheus Brings Fire To Mankind.jpg');
+
+        this.load.audio('overture', [
+            'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/Overture.ogg',
+            'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/Overture.mp3'
+        ],{
+            instances: 2
+        });
+
+        this.load.audioSprite('creatures', 'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.json', [
+            'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.ogg',
+            'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.mp3'
+        ]);
+    }
+
+    create ()
+    {
+        this.sound.pauseOnBlur = false;
+
+        var prometheus = this.add.image(400, 300, 'prometheus');
+        prometheus.setScale(600/prometheus.height);
+
+        text = this.add.text(400, 300, 'Loading...', {
+            fontFamily: '\'Sorts Mill Goudy\', serif',
+            fontSize: 80,
+            color: '#fff',
+            align: 'center'
+        });
+        text.setOrigin(0.5);
+        text.setShadow(0, 1, "#888", 2);
+
+        first = this.sound.add('overture', { loop: true });
+        second = this.sound.add('overture', { loop: true });
+        audioSprite = this.sound.addAudioSprite('creatures');
+
+        this.enableInput();
+    }
+
+    chain(i)
+    {
+        return function()
+        {
+            if (tests[i])
+            {
+                tests[i].call(this, this.chain(++i));
+            }
+            else
+            {
+                text.setText('Complete!');
+
+                this.time.addEvent({
+                    delay: 5000,
+                    callback: this.enableInput,
+                    callbackScope: this
+                });
+            }
+        }.bind(this);
+    }
+
+    enableInput()
+    {
+        text.setText('Click to start');
+
+        this.input.once('pointerdown', function (pointer)
+        {
+            tests[0].call(this, this.chain(1));
+        }, this);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: {
-        preload: preload,
-        create: create
-    },
+    scene: [ Example ],
     audio: {
         disableWebAudio: true
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
-var text;
 
-function preload ()
-{
-    var head  = document.getElementsByTagName('head')[0];
-    var link  = document.createElement('link');
-    link.rel  = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy';
-    head.appendChild(link);
-
-    this.load.image('prometheus', 'assets/pics/Prometheus Brings Fire To Mankind.jpg');
-
-    this.load.audio('overture', [
-        'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/Overture.ogg',
-        'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/Overture.mp3'
-    ],{
-        instances: 2
-    });
-
-    this.load.audioSprite('creatures', 'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.json', [
-        'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.ogg',
-        'assets/audio/Ludwig van Beethoven - The Creatures of Prometheus, Op. 43/sprites.mp3'
-    ]);
-}
-
-var first;
-var second;
-var audioSprite;
 
 var tests = [
 
@@ -554,57 +613,3 @@ var tests = [
         });
     }
 ];
-
-function create ()
-{
-    this.sound.pauseOnBlur = false;
-
-    var prometheus = this.add.image(400, 300, 'prometheus');
-    prometheus.setScale(600/prometheus.height);
-
-    text = this.add.text(400, 300, 'Loading...', {
-        fontFamily: '\'Sorts Mill Goudy\', serif',
-        fontSize: 80,
-        color: '#fff',
-        align: 'center'
-    });
-    text.setOrigin(0.5);
-    text.setShadow(0, 1, "#888", 2);
-
-    first = this.sound.add('overture', { loop: true });
-    second = this.sound.add('overture', { loop: true });
-    audioSprite = this.sound.addAudioSprite('creatures');
-
-    enableInput.call(this);
-}
-
-function chain(i)
-{
-    return function()
-    {
-        if (tests[i])
-        {
-            tests[i].call(this, chain.call(this, ++i));
-        }
-        else
-        {
-            text.setText('Complete!');
-
-            this.time.addEvent({
-                delay: 5000,
-                callback: enableInput,
-                callbackScope: this
-            });
-        }
-    }.bind(this);
-}
-
-function enableInput()
-{
-    text.setText('Click to start');
-
-    this.input.once('pointerdown', function (pointer)
-    {
-        tests[0].call(this, chain.call(this, 1));
-    }, this);
-}

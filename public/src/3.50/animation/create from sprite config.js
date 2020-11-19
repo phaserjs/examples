@@ -26,7 +26,7 @@ function create ()
 
     //  The Sprite config
 
-    var config = {
+    const config = {
         key: 'gems',
         x: { randInt: [ 0, 800 ] },
         y: { randInt: [ 0, 300 ] },
@@ -42,7 +42,7 @@ function create ()
 
     //  A more complex animation config object.
     //  This time with a call to delayedPlay that's a function.
-    var config2 = {
+    const config2 = {
         key: 'gems',
         frame: 'square_0000',
         x: { randInt: [ 0, 800 ] },
@@ -60,7 +60,7 @@ function create ()
     };
 
     //  Make 16 sprites using the config above
-    for (var i = 0; i < 16; i++)
+    for (let i = 0; i < 16; i++)
     {
         this.make.sprite(config2);
     }

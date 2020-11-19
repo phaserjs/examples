@@ -1,33 +1,29 @@
-var DemoB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function DemoB ()
+class DemoB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'DemoB', active: true });
-    },
+        super({ key: 'DemoB', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('sonic', 'assets/sprites/sonic.png');
         this.load.image('pixel', 'assets/sprites/16x16.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
-        var source = this.textures.get('sonic').source[0].image;
-        var canvas = this.textures.createCanvas('pad', 38, 42).source[0].image;
-        var ctx = canvas.getContext('2d');
+        const source = this.textures.get('sonic').source[0].image;
+        const canvas = this.textures.createCanvas('pad', 38, 42).source[0].image;
+        const ctx = canvas.getContext('2d');
 
         ctx.drawImage(source, 0, 0);
 
-        var imageData = ctx.getImageData(0, 0, 38, 42);
+        const imageData = ctx.getImageData(0, 0, 38, 42);
 
-        var x = 0;
-        var y = 0;
-        var color = new Phaser.Display.Color();
+        let x = 0;
+        let y = 0;
+        const color = new Phaser.Display.Color();
 
         for (var i = 0; i < imageData.data.length; i += 4)
         {
@@ -72,12 +68,10 @@ var DemoB = new Phaser.Class({
             }
         }
 
-        var cam = this.cameras.main;
-
+        const cam = this.cameras.main;
         cam.setBackgroundColor('#2d2d2d');
 
         cam.x = 800;
         cam.y = 0;
     }
-
-});
+}

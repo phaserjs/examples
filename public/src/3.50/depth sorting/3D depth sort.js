@@ -1,287 +1,284 @@
-var config = {
-    type: Phaser.WEBGL,
-    width: 800,
-    height: 600,
-    parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-
-var graphics;
-
-var t = {
+const t = {
     x: -0.003490658503988659,
     y: 0.003490658503988659,
     z: -0.003490658503988659
 };
 
-var game = new Phaser.Game(config);
-
-var models = [];
-var model;
-var m = 0;
-var maxVerts = 0;
-var balls = [];
-
-function preload ()
+class Example extends Phaser.Scene
 {
-    this.load.image('ball', 'assets/sprites/shinyball.png');
-
-    this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
-    this.load.text('geosphere', 'assets/text/geosphere.obj');
-    this.load.text('implodedcube', 'assets/text/implodedcube.obj');
-    this.load.text('spike', 'assets/text/spike.obj');
-    this.load.text('torus', 'assets/text/torus.obj');
-}
-
-function create ()
-{
-    graphics = this.add.graphics(0, 0);
-
-    models.push(parseObj(this.cache.text.get('geosphere')));
-    models.push(parseObj(this.cache.text.get('bevelledcube')));
-    models.push(parseObj(this.cache.text.get('spike')));
-    models.push(parseObj(this.cache.text.get('implodedcube')));
-    models.push(parseObj(this.cache.text.get('torus')));
-
-    model = models[0];
-
-    //  Create sprites for each vert
-
-    for (var i = 0; i < maxVerts; i++)
+    constructor ()
     {
-        var ball = this.add.image(0, 0, 'ball');
-
-        ball.visible = (i < model.verts.length);
-
-        balls.push(ball);
+        super();
+        this.models = [];
+        this.balls = [];
+        this.maxVerts = 0;
+        this.m = 0;
     }
 
-    this.tweens.add({
-        targets: t,
-        repeat: -1,
-        yoyo: true,
-        ease: 'Sine.easeInOut',
-        props: {
-            x: {
-                value: 0.003490658503988659,
-                duration: 20000
-            },
-            y: {
-                value: -0.003490658503988659,
-                duration: 30000
-            },
-            z: {
-                value: 0.003490658503988659,
-                duration: 15000
-            },
-        }
-    });
+    preload ()
+    {
+        this.load.image('ball', 'assets/sprites/shinyball.png');
 
-    this.input.keyboard.on('keydown_SPACE', function () {
+        this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
+        this.load.text('geosphere', 'assets/text/geosphere.obj');
+        this.load.text('implodedcube', 'assets/text/implodedcube.obj');
+        this.load.text('spike', 'assets/text/spike.obj');
+        this.load.text('torus', 'assets/text/torus.obj');
+    }
 
-        m++;
+    create ()
+    {
+        this.graphics = this.add.graphics(0, 0);
 
-        if (m === models.length)
+        this.models.push(this.parseObj(this.cache.text.get('geosphere')));
+        this.models.push(this.parseObj(this.cache.text.get('bevelledcube')));
+        this.models.push(this.parseObj(this.cache.text.get('spike')));
+        this.models.push(this.parseObj(this.cache.text.get('implodedcube')));
+        this.models.push(this.parseObj(this.cache.text.get('torus')));
+
+        this.model = this.models[0];
+
+        //  Create sprites for each vert
+
+        for (let i = 0; i < this.maxVerts; i++)
         {
-            m = 0;
+            const ball = this.add.image(0, 0, 'ball');
+            ball.visible = (i < this.model.verts.length);
+            this.balls.push(ball);
         }
 
-        model = models[m];
+        this.tweens.add({
+            targets: t,
+            repeat: -1,
+            yoyo: true,
+            ease: 'Sine.easeInOut',
+            props: {
+                x: {
+                    value: 0.003490658503988659,
+                    duration: 20000
+                },
+                y: {
+                    value: -0.003490658503988659,
+                    duration: 30000
+                },
+                z: {
+                    value: 0.003490658503988659,
+                    duration: 15000
+                },
+            }
+        });
 
-        //  Update the balls
-        for (var i = 0; i < balls.length; i++)
-        {
-            balls[i].visible = (i < model.verts.length);
-        }
+        this.input.keyboard.on('keydown-SPACE', function () {
 
-    });
-}
+            this.m++;
 
-function update ()
-{
-    rotateX3D(t.x);
-    rotateY3D(t.y);
-    rotateZ3D(t.z);
-
-    draw();
-}
-
-function draw ()
-{
-    var centerX = 400;
-    var centerY = 300;
-    var scale = 200;
-
-    graphics.clear();
-
-    graphics.lineStyle(1, 0x00ff00, 0.4);
-
-    graphics.beginPath();
-
-    for (var i = 0; i < model.faces.length; i++)
-    {
-        var face = model.faces[i];
-
-        var v0 = model.verts[face[0] - 1];
-        var v1 = model.verts[face[1] - 1];
-        var v2 = model.verts[face[2] - 1];
-        var v3 = model.verts[face[3] - 1];
-
-        if (v0 && v1 && v2 && v3)
-        {
-            drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
-            drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
-            drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v3.x * scale, centerY - v3.y * scale);
-            drawLine(centerX + v3.x * scale, centerY - v3.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
-        }
-    }
-
-    graphics.closePath();
-    graphics.strokePath();
-
-    for (var i = 0; i < model.verts.length; i++)
-    {
-        balls[i].x = centerX + model.verts[i].x * scale;
-        balls[i].y = centerY - model.verts[i].y * scale;
-        balls[i].depth = model.verts[i].z;
-    }
-}
-
-function drawLine (x0, y0, x1, y1)
-{
-    graphics.moveTo(x0, y0);
-    graphics.lineTo(x1, y1);
-}
-
-function isCcw (v0, v1, v2)
-{
-    return (v1.x - v0.x) * (v2.y - v0.y) - (v1.y - v0.y) * (v2.x - v0.x) >= 0;
-}
-
-function rotateX3D (theta)
-{
-    var ts = Math.sin(theta);
-    var tc = Math.cos(theta);
-
-    for (var n = 0; n < model.verts.length; n++)
-    {
-        var vert = model.verts[n];
-        var y = vert.y;
-        var z = vert.z;
-
-        vert.y = y * tc - z * ts;
-        vert.z = z * tc + y * ts;
-    }
-}
-
-function rotateY3D (theta)
-{
-    var ts = Math.sin(theta);
-    var tc = Math.cos(theta);
-
-    for (var n = 0; n < model.verts.length; n++)
-    {
-        var vert = model.verts[n];
-        var x = vert.x;
-        var z = vert.z;
-
-        vert.x = x * tc - z * ts;
-        vert.z = z * tc + x * ts;
-    }
-}
-
-function rotateZ3D (theta)
-{
-    var ts = Math.sin(theta);
-    var tc = Math.cos(theta);
-
-    for (var n = 0; n < model.verts.length; n++)
-    {
-        var vert = model.verts[n];
-        var x = vert.x;
-        var y = vert.y;
-
-        vert.x = x * tc - y * ts;
-        vert.y = y * tc + x * ts;
-    }
-}
-
-//  Parses out tris and quads from the obj file
-function parseObj (text)
-{
-    var verts = [];
-    var faces = [];
-
-    // split the text into lines
-    var lines = text.replace('\r', '').split('\n');
-    var count = lines.length;
-
-    for (var i = 0; i < count; i++)
-    {
-        var line = lines[i];
-
-        if (line[0] === 'v')
-        {
-            // lines that start with 'v' are vertices
-            var tokens = line.split(' ');
-
-            verts.push({
-                x: parseFloat(tokens[1]),
-                y: parseFloat(tokens[2]),
-                z: parseFloat(tokens[3])
-            });
-        }
-        else if (line[0] === 'f')
-        {
-            // lines that start with 'f' are faces
-            var tokens = line.split(' ');
-
-            var face = [
-                parseInt(tokens[1], 10),
-                parseInt(tokens[2], 10),
-                parseInt(tokens[3], 10),
-                parseInt(tokens[4], 10)
-            ];
-
-            faces.push(face);
-
-            if (face[0] < 0)
+            if (this.m === this.models.length)
             {
-                face[0] = verts.length + face[0];
+                this.m = 0;
+            }
+            this.model = this.models[this.m];
+
+            //  Update the balls
+            for (let i = 0; i < this.balls.length; i++)
+            {
+                this.balls[i].visible = (i < this.model.verts.length);
             }
 
-            if (face[1] < 0)
-            {
-                face[1] = verts.length + face[1];
-            }
+        }, this);
+    }
 
-            if (face[2] < 0)
-            {
-                face[2] = verts.length + face[2];
-            }
+    update ()
+    {
+        this.rotateX3D(t.x);
+        this.rotateY3D(t.y);
+        this.rotateZ3D(t.z);
 
-            if (!face[3])
+        this.draw();
+    }
+
+    draw ()
+    {
+        const centerX = 400;
+        const centerY = 300;
+        const scale = 200;
+
+        this.graphics.clear();
+
+        this.graphics.lineStyle(1, 0x00ff00, 0.4);
+
+        this.graphics.beginPath();
+
+        for (let i = 0; i < this.model.faces.length; i++)
+        {
+            const face = this.model.faces[i];
+
+            const v0 = this.model.verts[face[0] - 1];
+            const v1 = this.model.verts[face[1] - 1];
+            const v2 = this.model.verts[face[2] - 1];
+            const v3 = this.model.verts[face[3] - 1];
+
+            if (v0 && v1 && v2 && v3)
             {
-                face[3] = face[2];
+                this.drawLine(centerX + v0.x * scale, centerY - v0.y * scale, centerX + v1.x * scale, centerY - v1.y * scale);
+                this.drawLine(centerX + v1.x * scale, centerY - v1.y * scale, centerX + v2.x * scale, centerY - v2.y * scale);
+                this.drawLine(centerX + v2.x * scale, centerY - v2.y * scale, centerX + v3.x * scale, centerY - v3.y * scale);
+                this.drawLine(centerX + v3.x * scale, centerY - v3.y * scale, centerX + v0.x * scale, centerY - v0.y * scale);
             }
-            else if (face[3] < 0)
-            {
-                face[3] = verts.length + face[3];
-            }
+        }
+
+        this.graphics.closePath();
+        this.graphics.strokePath();
+
+        for (let i = 0; i < this.model.verts.length; i++)
+        {
+            this.balls[i].x = centerX + this.model.verts[i].x * scale;
+            this.balls[i].y = centerY - this.model.verts[i].y * scale;
+            this.balls[i].depth = this.model.verts[i].z;
         }
     }
 
-    if (verts.length > maxVerts)
+    drawLine (x0, y0, x1, y1)
     {
-        maxVerts = verts.length;
+        this.graphics.moveTo(x0, y0);
+        this.graphics.lineTo(x1, y1);
     }
 
-    return {
-        verts: verts,
-        faces: faces
-    };
+    isCcw (v0, v1, v2)
+    {
+        return (v1.x - v0.x) * (v2.y - v0.y) - (v1.y - v0.y) * (v2.x - v0.x) >= 0;
+    }
+
+    rotateX3D (theta)
+    {
+        const ts = Math.sin(theta);
+        const tc = Math.cos(theta);
+
+        for (let n = 0; n < this.model.verts.length; n++)
+        {
+            const vert = this.model.verts[n];
+            const y = vert.y;
+            const z = vert.z;
+
+            vert.y = y * tc - z * ts;
+            vert.z = z * tc + y * ts;
+        }
+    }
+
+    rotateY3D (theta)
+    {
+        const ts = Math.sin(theta);
+        const tc = Math.cos(theta);
+
+        for (let n = 0; n < this.model.verts.length; n++)
+        {
+            const vert = this.model.verts[n];
+            const x = vert.x;
+            const z = vert.z;
+
+            vert.x = x * tc - z * ts;
+            vert.z = z * tc + x * ts;
+        }
+    }
+
+    rotateZ3D (theta)
+    {
+        const ts = Math.sin(theta);
+        const tc = Math.cos(theta);
+
+        for (let n = 0; n < this.model.verts.length; n++)
+        {
+            const vert = this.model.verts[n];
+            const x = vert.x;
+            const y = vert.y;
+
+            vert.x = x * tc - y * ts;
+            vert.y = y * tc + x * ts;
+        }
+    }
+
+    //  Parses out tris and quads from the obj file
+    parseObj (text)
+    {
+        const verts = [];
+        const faces = [];
+
+        // split the text into lines
+        const lines = text.replace('\r', '').split('\n');
+        const count = lines.length;
+
+        for (let i = 0; i < count; i++)
+        {
+            const line = lines[i];
+
+            if (line[0] === 'v')
+            {
+                // lines that start with 'v' are vertices
+                let tokens = line.split(' ');
+
+                verts.push({
+                    x: parseFloat(tokens[1]),
+                    y: parseFloat(tokens[2]),
+                    z: parseFloat(tokens[3])
+                });
+            }
+            else if (line[0] === 'f')
+            {
+                // lines that start with 'f' are faces
+                const tokens = line.split(' ');
+
+                const face = [
+                    parseInt(tokens[1], 10),
+                    parseInt(tokens[2], 10),
+                    parseInt(tokens[3], 10),
+                    parseInt(tokens[4], 10)
+                ];
+
+                faces.push(face);
+
+                if (face[0] < 0)
+                {
+                    face[0] = verts.length + face[0];
+                }
+
+                if (face[1] < 0)
+                {
+                    face[1] = verts.length + face[1];
+                }
+
+                if (face[2] < 0)
+                {
+                    face[2] = verts.length + face[2];
+                }
+
+                if (!face[3])
+                {
+                    face[3] = face[2];
+                }
+                else if (face[3] < 0)
+                {
+                    face[3] = verts.length + face[3];
+                }
+            }
+        }
+
+        if (verts.length > this.maxVerts)
+        {
+            this.maxVerts = verts.length;
+        }
+
+        return {
+            verts: verts,
+            faces: faces
+        };
+    }
 }
+
+const config = {
+    type: Phaser.WEBGL,
+    width: 800,
+    height: 600,
+    parent: 'phaser-example',
+    scene: [ Example ]
+};
+
+const game = new Phaser.Game(config);

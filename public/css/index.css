@@ -42,7 +42,7 @@ body {
     overflow: hidden;
 }
 
-.card .image-card {
+.card .card-image {
     width: 100% !important;
     height: auto !important;
 }

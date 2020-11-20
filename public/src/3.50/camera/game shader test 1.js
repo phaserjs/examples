@@ -24,10 +24,6 @@ class Example extends Phaser.Scene
 
     create()
     {
-        const hueRotatePipeline = this.renderer.pipelines.get('HueRotatePostFX');
-
-        // this.customPipeline.setFloat2('resolution', this.game.config.width, this.game.config.height);
-
         this.add.image(400, 300, 'sky');
 
         const platforms = this.physics.add.staticGroup();
@@ -86,7 +82,7 @@ class Example extends Phaser.Scene
 
         this.player = player;
 
-        this.cameras.main.setPostPipeline(hueRotatePipeline);
+        this.cameras.main.setPostPipeline(HueRotatePostFX);
     }
 
     update()

@@ -16,11 +16,10 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const bendRotationWaves = this.renderer.pipelines.get('BendRotationWavesPostFX');
         this.add.image(400, 300, 'volcano');
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.cameras.main.setPostPipeline(bendRotationWaves);
+        this.cameras.main.setPostPipeline(BendRotationWavesPostFX);
 
         const cursors = this.input.keyboard.createCursorKeys();
 

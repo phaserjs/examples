@@ -19,9 +19,6 @@ export default class Example extends Phaser.Scene
     {
         const pic = this.add.image(128, 64, 'einstein');
 
-        const hueRotatePipeline = this.renderer.pipelines.get('HueRotatePostFX');
-        const lazersPipeline = this.renderer.pipelines.get('LazersPostFX');
-
         //  1024 x 512 = 4 x 4 = 256 x 128
         //  We're going to create 16 cameras in a 4x4 grid, making each 256 x 128 in size
 
@@ -29,7 +26,7 @@ export default class Example extends Phaser.Scene
 
         cam.setSize(256, 128);
 
-        cam.setPostPipeline(lazersPipeline);
+        cam.setPostPipeline(LazersPostFX);
 
         let b = 0;
 
@@ -51,12 +48,12 @@ export default class Example extends Phaser.Scene
 
                 if (b === 0)
                 {
-                    cam.setPostPipeline(hueRotatePipeline);
+                    cam.setPostPipeline(HueRotatePostFX);
                     b = 1;
                 }
                 else
                 {
-                    cam.setPostPipeline(lazersPipeline);
+                    cam.setPostPipeline(LazersPostFX);
                     b = 0;
                 }
             }

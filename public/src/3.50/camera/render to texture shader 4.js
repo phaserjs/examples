@@ -16,9 +16,7 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano').setAlpha(0.2);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        const PlasmaPostPipeline = this.renderer.pipelines.get('PlasmaPost2FX')
-
-        this.cameras.main.setPostPipeline(PlasmaPostPipeline);
+        this.cameras.main.setPostPipeline(PlasmaPost2FX);
 
         const cursors = this.input.keyboard.createCursorKeys();
 

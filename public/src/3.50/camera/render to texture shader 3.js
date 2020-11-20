@@ -19,9 +19,7 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano');
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        const bendPipeline = this.renderer.pipelines.get('BendWavesPostFX');
-
-        this.cameras.main.setPostPipeline(bendPipeline);
+        this.cameras.main.setPostPipeline(BendWavesPostFX);
 
         const cursors = this.input.keyboard.createCursorKeys();
 

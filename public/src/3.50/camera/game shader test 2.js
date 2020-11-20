@@ -25,8 +25,6 @@ export default class Example extends Phaser.Scene
 
     create ()
     {
-        this.bendPipeline = this.renderer.pipelines.get('BendWavesPostFX');
-
         this.add.image(400, 300, 'sky');
 
         var platforms = this.physics.add.staticGroup();
@@ -85,7 +83,7 @@ export default class Example extends Phaser.Scene
 
         this.player = player;
 
-        this.cameras.main.setPostPipeline(this.bendPipeline);
+        this.cameras.main.setPostPipeline(BendWavesPostFX);
     }
 
     update ()

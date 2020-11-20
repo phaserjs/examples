@@ -19,9 +19,7 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano');
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        const hueRotationPipeline = this.renderer.pipelines.get('HueRotatePostFX');
-
-        this.cameras.main.setPostPipeline(hueRotationPipeline);
+        this.cameras.main.setPostPipeline(HueRotatePostFX);
 
         this.cameras.main.setZoom(0.5);
 

@@ -19,11 +19,9 @@ class Example extends Phaser.Scene
         const volcano = this.add.image(400, 300, 'volcano');
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        const renderToTexturePipeline = this.renderer.pipelines.get('PixelatedFX');
-
         // this.cameras.main.setBounds(-560, -240, 1920, 1080);
         this.cameras.main.ignore(hotdog);
-        this.cameras.main.setPostPipeline(renderToTexturePipeline);
+        this.cameras.main.setPostPipeline(PixelatedFX);
         // this.cameras.main.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
         // this.cameras.main.setAlpha(1, 0, 1, 0);
 

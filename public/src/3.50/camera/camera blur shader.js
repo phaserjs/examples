@@ -1,4 +1,5 @@
 // #module
+
 import BlurPostFX from './assets/pipelines/BlurPostFX.js';
 
 export default class Example extends Phaser.Scene
@@ -19,13 +20,8 @@ export default class Example extends Phaser.Scene
         const volcano = this.add.image(400, 300, 'volcano').setAlpha(0.5);
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.blurPipeline = this.renderer.pipelines.get('BlurPostFX');
-        this.blurPipeline.set1f('uResolution', this.renderer.width);
-        this.blurPipeline.set1f('radius', 1.0);
-        this.blurPipeline.set2f('dir', 1.0, 1.0);
-
         let cam = this.cameras.main;
-        cam.setPostPipeline(this.blurPipeline);
+        cam.setPostPipeline(BlurPostFX);
 
         const extracam = this.cameras.add();
 
@@ -35,8 +31,8 @@ export default class Example extends Phaser.Scene
 
     update ()
     {
-        const r = Math.abs(2 * Math.sin(this.time.now * 10));
-        this.blurPipeline.set1f('radius', r);
+        // const r = Math.abs(2 * Math.sin(this.time.now * 10));
+        // this.blurPipeline.set1f('radius', r);
     }
 }
 

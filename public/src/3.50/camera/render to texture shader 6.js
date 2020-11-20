@@ -1,4 +1,5 @@
 // #module
+
 import LazersPostFX from './assets/pipelines/LazersPostFX.js';
 
 export default class Example extends Phaser.Scene
@@ -20,9 +21,7 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano').setAlpha(1);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        const lazersPipeline = this.renderer.pipelines.get('LazersPostFX');
-
-        this.cameras.main.setPostPipeline(lazersPipeline);
+        this.cameras.main.setPostPipeline(LazersPostFX);
 
         // this.cameras.add(0, 0, 200, 150).setZoom(0.25);
 

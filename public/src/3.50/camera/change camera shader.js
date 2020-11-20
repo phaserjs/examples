@@ -19,10 +19,7 @@ export default class Example extends Phaser.Scene
     {
         const pic = this.add.image(400, 300, 'einstein');
 
-        const bendPipeline = this.renderer.pipelines.get('BendPostFX');
-        const hueRotatePipeline = this.renderer.pipelines.get('HueRotatePostFX');
-
-        this.cameras.main.setPostPipeline(hueRotatePipeline);
+        this.cameras.main.setPostPipeline(HueRotatePostFX);
 
         let shader = 1;
 
@@ -32,15 +29,22 @@ export default class Example extends Phaser.Scene
 
             if (shader === 0)
             {
-                this.cameras.main.setPostPipeline();
+                this.cameras.main.resetPostPipeline();
             }
             else if (shader === 1)
             {
-                this.cameras.main.setPostPipeline(hueRotatePipeline);
+                this.cameras.main.resetPostPipeline();
+                this.cameras.main.setPostPipeline(HueRotatePostFX);
             }
             else if (shader === 2)
             {
-                this.cameras.main.setPostPipeline(bendPipeline);
+                this.cameras.main.resetPostPipeline();
+                this.cameras.main.setPostPipeline(BendPostFX);
+            }
+            else if (shader === 3)
+            {
+                this.cameras.main.resetPostPipeline();
+                this.cameras.main.setPostPipeline([ BendPostFX, HueRotatePostFX ]);
                 shader = -1;
             }
 

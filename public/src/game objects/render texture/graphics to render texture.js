@@ -26,7 +26,7 @@ function create ()
 
 function update ()
 {
-    rt.camera.rotation -= 0.01;
+    rt.rotation -= 0.01;
 
     rt.clear();
 

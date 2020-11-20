@@ -52,10 +52,6 @@ function create ()
 
     graphics.fillPath();
 
-    quad = this.add.quad(400, 300, 'image').setVisible(false);
-    quad.setTopLeft(300, 200);
-    quad.setBottomRight(300, 500);
-
     tilesprite = this.add.tileSprite(400, 300, 250, 250, 'mushroom').setVisible(false);
 
     blitter = this.add.blitter(0, 0, 'atari').setVisible(false);
@@ -109,7 +105,6 @@ function update ()
 
     rt.draw(graphics, 0, 0);
     rt.draw(bob, 200, 200);
-    rt.draw(quad, 200, 200);
     rt.draw(tilesprite, 200, 200);
     rt.draw(blitter, 0, 0);
     rt.draw(text, 100, 100);

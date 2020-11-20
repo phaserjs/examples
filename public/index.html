@@ -244,15 +244,20 @@
             var a = $('<a></a>', { href: 'view.html?src=' + filepath });
         }
 
-        const imgPath = filepath
-          .replace(/^src/, 'screenshots')
-          .replace(/\.json$/, '.png')
-          .replace(/\.js$/, '.png');
-        var img = $('<img />', { src: imgPath, width: 240, height: 180, class: 'card-image'});
+        const imgPath = filepath.replace(/^src/, 'screenshots').replace(/\.json$/, '.png').replace(/\.js$/, '.png');
 
-        a.append(img);
+        var imgdiv = $('<div></div>').addClass('imageHolder');
+
+        var img1 = $('<img />', { src: 'screenshots/loading.png', width: 400, height: 300, class: 'card-image shot2' });
+        var img2 = $('<img />', { src: imgPath, width: 400, height: 300, class: 'card-image shot1' });
+
+        imgdiv.append(img1);
+        imgdiv.append(img2);
+
+        a.append(imgdiv);
 
         var p = $('<p></p>').addClass('card-text');
+
         p.append($('<a></a>', { href: 'edit.html?src=' + filepath }).text(filename.replace('.js', '')));
 
         div.append(a).append(p);

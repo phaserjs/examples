@@ -31,15 +31,30 @@ body {
 }
 
 .card {
-    /* outline: 1px solid red; */
-    /* float: left; */
-    /* width: 25%; */
     text-align: center;
-    /* margin-bottom: 1rem; */
-    /* border: 0; */
     padding-bottom: 5px;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0.1);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card .imageHolder {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.card .imageHolder .shot1 {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.card .imageHolder .shot2 {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .card .card-image {
@@ -51,13 +66,14 @@ body {
     margin-bottom: 0.75rem;
 }
 
-.card img:hover {
+.card:hover {
     cursor: pointer;
-    transform: rotate(-5deg);
+    background-color: rgba(255, 0, 0, 0.1);
+    outline: 1px solid white;
 }
 
 .card-text {
-    margin-top: 5px;
+    margin-top: auto;
     margin-bottom: 5px;
     font-size: 85%;
     text-transform: capitalize;

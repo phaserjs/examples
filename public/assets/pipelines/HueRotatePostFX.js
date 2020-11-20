@@ -1,23 +1,3 @@
-const vertShader = `
-#define SHADER_NAME HUE_VS
-
-precision mediump float;
-
-uniform mat4 uProjectionMatrix;
-
-attribute vec2 inPosition;
-attribute vec2 inTexCoord;
-
-varying vec2 outTexCoord;
-
-void main ()
-{
-    gl_Position = uProjectionMatrix * vec4(inPosition, 1.0, 1.0);
-
-    outTexCoord = inTexCoord;
-}
-`;
-
 const fragShader = `
 precision mediump float;
 
@@ -26,7 +6,6 @@ uniform float uTime;
 uniform float uSpeed;
 
 varying vec2 outTexCoord;
-varying vec2 fragCoord;
 
 void main()
 {
@@ -43,70 +22,26 @@ void main()
 }
 `;
 
-export default class HueRotatePostFX extends Phaser.Renderer.WebGL.WebGLPipeline
+export default class HueRotatePostFX extends Phaser.Renderer.WebGL.Pipelines.PostFXPipeline
 {
     constructor (game)
     {
         super({
             game,
-            renderTarget: true,
-            vertShader,
             fragShader,
             uniforms: [
-                'uProjectionMatrix',
                 'uMainSampler',
                 'uTime',
                 'uSpeed'
-            ],
-            attributes: [
-                {
-                    name: 'inPosition',
-                    size: 2
-                },
-                {
-                    name: 'inTexCoord',
-                    size: 2
-                },
             ]
         });
 
-        this._time = 0;
-        this._speed = 0.001;
-    }
-
-    onBoot ()
-    {
-        this.set1i('uMainSampler', 1);
+        this.speed = 0.001;
     }
 
     onPreRender ()
     {
         this.set1f('uTime', this.game.loop.time);
-        this.set1f('uSpeed', this._speed);
-    }
-
-    batchVert (x, y, u, v, unit)
-    {
-        var vertexViewF32 = this.vertexViewF32;
-
-        var vertexOffset = (this.vertexCount * this.currentShader.vertexComponentCount) - 1;
-
-        vertexViewF32[++vertexOffset] = x;
-        vertexViewF32[++vertexOffset] = y;
-        vertexViewF32[++vertexOffset] = u;
-        vertexViewF32[++vertexOffset] = v;
-        vertexViewF32[++vertexOffset] = unit;
-
-        this.vertexCount++;
-    }
-
-    get speed ()
-    {
-        return this._speed;
-    }
-
-    set speed (value)
-    {
-        this._speed = value;
+        this.set1f('uSpeed', this.speed);
     }
 }

@@ -18,13 +18,11 @@ export default class Example extends Phaser.Scene
 
     create ()
     {
-        const hueRotatePipeline = this.renderer.pipelines.get('PlasmaPostFX');
-
         const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
         const tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2);
         const layer = map.createLayer(0, tileset, 0, 0);
 
-        layer.setPostPipeline(hueRotatePipeline);
+        layer.setPostPipeline(PlasmaPostFX);
 
         const player = this.add.image(32 + 16, 32 + 16, 'car');
 

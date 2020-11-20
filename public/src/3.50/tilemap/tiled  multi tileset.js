@@ -19,11 +19,11 @@ class Example extends Phaser.Scene
 
         var groundTiles = map.addTilesetImage('kenny_ground_64x64', 'ground');
 
-        map.createStaticLayer('Tile Layer 1', groundTiles, 0, 0);
+        map.createLayer('Tile Layer 1', groundTiles, 0, 0);
 
         var itemTiles = map.addTilesetImage('kenny_items_64x64', 'items');
 
-        map.createStaticLayer('Tile Layer 1', itemTiles, 0, 0);
+        map.createLayer('Tile Layer 1', itemTiles, 0, 0);
 
         var platformTiles = map.addTilesetImage('kenny_platformer_64x64', 'platformer');
 

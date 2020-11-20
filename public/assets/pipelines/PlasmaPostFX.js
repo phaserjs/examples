@@ -7,12 +7,11 @@ uniform sampler2D uMainSampler;
 uniform float uTime;
 uniform vec2 uResolution;
 
-varying vec2 outFragCoord;
 varying vec2 outTexCoord;
 
 void main()
 {
-    vec2 p = -1.0 + 2.0 * outFragCoord.xy / uResolution.xy;
+    vec2 p = -1.0 + 2.0 * gl_FragCoord.xy / uResolution.xy;
 
     float x = p.x;
     float y = p.y;
@@ -35,10 +34,9 @@ export default class PlasmaPostFX extends Phaser.Renderer.WebGL.Pipelines.PostFX
     {
         super({
             game,
-            renderTarget: true,
+            name: 'PlasmaPostFX',
             fragShader,
             uniforms: [
-                'uProjectionMatrix',
                 'uMainSampler',
                 'uTime',
                 'uResolution'
@@ -46,13 +44,15 @@ export default class PlasmaPostFX extends Phaser.Renderer.WebGL.Pipelines.PostFX
         });
     }
 
-    onBoot ()
-    {
-        this.set2f('uResolution', this.renderer.width, this.renderer.height);
-    }
-
     onPreRender ()
     {
         this.set1f('uTime', this.game.loop.time / 1000);
+    }
+
+    onDraw (renderTarget)
+    {
+        this.set2f('uResolution', renderTarget.width, renderTarget.height);
+
+        this.bindAndDraw(renderTarget);
     }
 }

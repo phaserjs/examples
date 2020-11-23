@@ -33,15 +33,16 @@ function create ()
     frame = texture.get();
     glTexture = texture.source[0].glTexture;
 
-    console.log(texture);
-
     tint = Phaser.Renderer.WebGL.Utils.getTintAppendFloatAlpha(16777215, 1);
 }
 
 function update ()
 {
+    console.log(this.renderer.pipelines.MULTI_PIPELINE);
     // var pipeline = this.renderer.pipelines.get('TextureTintPipeline');
-    var pipeline = this.renderer.pipelines.get('MultiPipeline');
+    // var pipeline = this.renderer.pipelines.get('MultiPipeline');
+    var pipeline = this.renderer.pipelines.MULTI_PIPELINE;
+
 
     var x = 400;
     var y = 300;

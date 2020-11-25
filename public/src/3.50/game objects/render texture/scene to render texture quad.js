@@ -158,24 +158,25 @@ var RenderScene = new Phaser.Class({
 
         this.rt.saveTexture('game');
 
-        var quad = this.quad;
+        // Create mesh
+        const vertices = [
+            -1, 1,
+            1, 1,
+            -1, -1,
+            1, -1
+        ];
+        const uvs = [
+            0, 0,
+            1, 0,
+            0, 1,
+            1, 1
+        ];
+        const indicies = [ 0, 2, 1, 2, 3, 1 ];
+        this.mesh = this.add.mesh(400, 300, 'game');
+        this.mesh.addVertices(vertices, uvs, indicies);
+        this.mesh.panZ(7);
 
-        this.mesh = this.make.mesh({
-            key: 'game',
-            x: 400,
-            y: 300,
-            vertices: [
-                quad.topLeftX, quad.topLeftY,
-                quad.bottomLeftX, quad.bottomLeftY,
-                quad.bottomRightX, quad.bottomRightY,
-                quad.topLeftX, quad.topLeftY,
-                quad.bottomRightX, quad.bottomRightY,
-                quad.topRightX, quad.topRightY
-            ],
-            uv: [ 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0 ]
-        });
-
-        this.tweenQuad();
+        // this.tweenQuad();
     },
 
     update: function (time, delta)

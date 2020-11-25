@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -22,7 +22,7 @@ function create ()
     this.add.image(400, 100, 'atari').setScale(0.5, 1);
 
     this.add.image(400, 300, 'atari').setScale(2, 1);
-    
+
     var image2 = this.add.image(400, 500, 'atari');
 
     //  You can also set the scale via the scaleX property:

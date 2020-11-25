@@ -1,4 +1,4 @@
-var myCustomCanvas = document.createElement('canvas');
+const myCustomCanvas = document.createElement('canvas');
 
 myCustomCanvas.id = 'myCustomCanvas';
 myCustomCanvas.style = 'border: 8px solid red';
@@ -7,7 +7,7 @@ document.body.appendChild(myCustomCanvas);
 
 // var myCustomContext = myCustomCanvas.getContext('2d');
 
-var config = {
+const config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
@@ -19,7 +19,7 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload ()
 {

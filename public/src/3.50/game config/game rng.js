@@ -1,6 +1,6 @@
-var seed = 1419463258969;
+const seed = 1419463258969;
 
-var config = {
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
@@ -11,7 +11,7 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function create ()
 {

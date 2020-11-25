@@ -1,3 +1,4 @@
+// Overlay is Canvas Blend Modes
 class Example extends Phaser.Scene
 {
     constructor ()
@@ -74,7 +75,7 @@ class Example extends Phaser.Scene
 }
 
 const config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     width: 800,
     height: 600,
     parent: 'phaser-example',

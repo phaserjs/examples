@@ -1,4 +1,4 @@
-var config = {
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
@@ -13,7 +13,7 @@ var config = {
     url: 'http://shockandawe.io'
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload ()
 {

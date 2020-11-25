@@ -5,8 +5,8 @@
 // this.clearBeforeRender = GetValue(config, 'clearBeforeRender', true);
 
 
-var config = {
-    type: Phaser.CANVAS,
+const config = {
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -18,7 +18,7 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload ()
 {

@@ -1,4 +1,4 @@
-var config = {
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
@@ -14,7 +14,7 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload ()
 {
@@ -25,7 +25,7 @@ function create ()
 {
     this.add.image(400, 300, 'pic');
 
-    var text = this.add.text(80, 550, '', { font: '16px Courier', fill: '#ffffff' });
+    const text = this.add.text(80, 550, '', { font: '16px Courier', fill: '#ffffff' });
 
     text.setText([
         'Game Title: ' + game.config.gameTitle,

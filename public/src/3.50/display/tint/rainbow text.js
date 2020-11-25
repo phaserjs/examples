@@ -1,49 +1,50 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+        this.i = 0;
+    }
+
+    create ()
+    {
+        this.hsv = Phaser.Display.Color.HSVColorWheel();
+
+        //  Rainbow Text
+        this.text1 = this.add.text(50, 100, 'Rainbow Text', { font: "74px Arial Black", fill: "#fff" });
+        this.text1.setStroke('#00f', 16);
+        this.text1.setShadow(2, 2, "#333333", 2, true, true);
+
+        //  Rainbow Stroke
+        this.text2 = this.add.text(50, 300, 'Rainbow Stroke', { font: "74px Arial Black", fill: "#000" });
+        this.text2.setStroke('#fff', 16);
+        this.text2.setShadow(2, 2, "#333333", 2, true, true);
+    }
+
+    update ()
+    {
+        const top = this.hsv[this.i].color;
+        const bottom = this.hsv[359 - this.i].color;
+
+        this.text1.setTint(top, top, bottom, bottom);
+        this.text2.setTint(top, bottom, top, bottom);
+
+        this.i++;
+
+        if (this.i === 360)
+        {
+            this.i = 0;
+        }
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: [ Example ]
 };
 
-var hsv;
-var i = 0;
-var text1;
-var text2;
-
-var game = new Phaser.Game(config);
-
-function create ()
-{
-    hsv = Phaser.Display.Color.HSVColorWheel();
-
-    //  Rainbow Text
-    text1 = this.add.text(50, 100, 'Rainbow Text', { font: "74px Arial Black", fill: "#fff" });
-    text1.setStroke('#00f', 16);
-    text1.setShadow(2, 2, "#333333", 2, true, true);
-
-    //  Rainbow Stroke
-    text2 = this.add.text(50, 300, 'Rainbow Stroke', { font: "74px Arial Black", fill: "#000" });
-    text2.setStroke('#fff', 16);
-    text2.setShadow(2, 2, "#333333", 2, true, true);
-}
-
-function update ()
-{
-    var top = hsv[i].color;
-    var bottom = hsv[359 - i].color;
-
-    text1.setTint(top, top, bottom, bottom);
-    text2.setTint(top, bottom, top, bottom);
-
-    i++;
-
-    if (i === 360)
-    {
-        i = 0;
-    }
-}
+const game = new Phaser.Game(config);

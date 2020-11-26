@@ -1,4 +1,6 @@
 const fragShader = `
+#define SHADER_NAME HUE_ROTATE_FS
+
 precision mediump float;
 
 uniform sampler2D uMainSampler;
@@ -28,6 +30,7 @@ export default class HueRotatePostFX extends Phaser.Renderer.WebGL.Pipelines.Pos
     {
         super({
             game,
+            name: 'HueRotatePostFX',
             fragShader,
             uniforms: [
                 'uMainSampler',
@@ -36,12 +39,12 @@ export default class HueRotatePostFX extends Phaser.Renderer.WebGL.Pipelines.Pos
             ]
         });
 
-        this.speed = 0.001;
+        this.speed = 1;
     }
 
     onPreRender ()
     {
-        this.set1f('uTime', this.game.loop.time);
+        this.setTime('uTime');
         this.set1f('uSpeed', this.speed);
     }
 }

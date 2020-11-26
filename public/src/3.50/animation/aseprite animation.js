@@ -16,7 +16,7 @@ function preload ()
 {
     this.load.path = 'assets/animations/aseprite/';
 
-    this.load.atlas('paladin', 'paladin.png', 'paladin.json');
+    this.load.aseprite('paladin', 'paladin.png', 'paladin.json');
 }
 
 function create ()

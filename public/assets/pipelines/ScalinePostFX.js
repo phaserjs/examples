@@ -64,11 +64,12 @@ export default class ScalinePostFX extends Phaser.Renderer.WebGL.Pipelines.PostF
     onBoot ()
     {
         this.set2f('uResolution', this.renderer.width, this.renderer.height);
+        console.log(this)
     }
 
     onPreRender ()
     {
         this.set1f('uTime', this.game.loop.time / 1000);
-        this.set2f('uMouse', this.game.input.pointers[0].position.x, this.game.input.pointers[0].position.y)
+        this.set2f('uMouse', this.mouseX, this.mouseY)
     }
 }

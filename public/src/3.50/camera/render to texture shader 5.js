@@ -25,10 +25,16 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
         this.cameras.main.setPostPipeline(ScalinePostFX);
-        console.log(this.renderer.pipelines)
+
+        const shader = this.cameras.main.getPostPipeline(ScalinePostFX);
+        this.input.on('pointermove', pointer => {
+
+            shader.mouseX = pointer.x;
+            shader.mouseY = pointer.y;
+
+        });
 
         const cursors = this.input.keyboard.createCursorKeys();
-
         const controlConfig = {
             camera: this.cameras.main,
             left: cursors.left,

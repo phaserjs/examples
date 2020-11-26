@@ -1,3 +1,4 @@
+let sprites = [];
 // Overlay is Canvas Blend Modes
 class Example extends Phaser.Scene
 {
@@ -82,6 +83,5 @@ const config = {
     scene: [ Example ]
 };
 
-let sprites = [];
 
 const game = new Phaser.Game(config);

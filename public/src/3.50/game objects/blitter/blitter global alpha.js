@@ -1,30 +1,40 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+        this.load.image('atari', 'assets/sprites/atari130xe.png');
+    }
+
+    create ()
+    {
+        const blitter = this.add.blitter(0, 0, 'atari');
+
+        blitter.setAlpha(0.5);
+
+        blitter.create(0, 0);
+
+        blitter.create(200, 50).setAlpha(0.5);
+
+        blitter.create(400, 100);
+
+        blitter.create(600, 150);
+    }
+
+    update ()
+    {
+
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: [ Example ]
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('atari', 'assets/sprites/atari130xe.png');
-}
-
-function create ()
-{
-    var blitter = this.add.blitter(0, 0, 'atari');
-
-    blitter.setAlpha(0.5);
-
-    blitter.create(0, 0);
-
-    blitter.create(200, 50).setAlpha(0.5);
-
-    blitter.create(400, 100);
-
-    blitter.create(600, 150);
-}
+const game = new Phaser.Game(config);

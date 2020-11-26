@@ -11,12 +11,10 @@ var config = {
     }
 };
 
-var tileScaleX = 1;
-var tileScaleY = 1;
-var iter = 0;
-var glTexture;
-var frame;
+var pos;
 var tint;
+var frame;
+var transformMatrix;
 
 var game = new Phaser.Game(config);
 
@@ -27,66 +25,44 @@ function preload ()
 
 function create ()
 {
-    //  This is a PoT texture (128x128)
-    var texture = this.textures.get('pic');
-
-    frame = texture.get();
-    glTexture = texture.source[0].glTexture;
+    frame = this.textures.getFrame('pic');
 
     tint = Phaser.Renderer.WebGL.Utils.getTintAppendFloatAlpha(16777215, 1);
+
+    transformMatrix = new Phaser.GameObjects.Components.TransformMatrix();
+
+    pos = new Phaser.Math.Vector2(0, 0);
+
+    this.tweens.add({
+        targets: pos,
+        props: {
+            x: {
+                value: 32,
+                ease: 'Linear',
+                duration: 6000
+            },
+            y: {
+                value: 472,
+                ease: 'Sine.inOut',
+                duration: 3000
+            }
+        },
+        yoyo: true,
+        repeat: -1
+    });
 }
 
 function update ()
 {
-    console.log(this.renderer.pipelines.MULTI_PIPELINE);
-    // var pipeline = this.renderer.pipelines.get('TextureTintPipeline');
-    // var pipeline = this.renderer.pipelines.get('MultiPipeline');
     var pipeline = this.renderer.pipelines.MULTI_PIPELINE;
 
-
-    var x = 400;
-    var y = 300;
-    var textureWidth = 128;
-    var textureHeight = 128;
-    var displayWidth = 64;
-    var displayHeight = 128;
-    var flipX = false;
-    var flipY = false;
-    var displayOriginX = displayWidth * 0.5;
-    var displayOriginY = displayHeight * 0.5;
-
-    var frameX = 0;
-    var frameY = 0;
-    var frameWidth = 64;
-    var frameHeight = 128;
-
-    var scrollFactorX = 1;
-    var scrollFactorY = 1;
-    var scaleX = 1;
-    var scaleY = 1;
-    var rotation = iter;
-    var uOffset = 0;
-    var vOffset = 0;
-
-    pipeline.batchTexture(
-        null,
-        glTexture,
-        textureWidth, textureHeight,
-        x, y,
-        displayWidth, displayHeight,
-        scaleX, scaleY,
-        rotation,
-        flipX, flipY,
-        scrollFactorX, scrollFactorY,
-        displayOriginX, displayOriginY,
-        frameX, frameY, frameWidth, frameHeight,
-        tint, tint, tint, tint, false,
-        uOffset, vOffset,
-        this.cameras.main,
-        null
-    );
-
-    // tileScaleX = tileScaleY = Math.sin(iter) + 0.2;
-    // iter += 0.001;
-
+    for (var i = 0; i < 12; i++)
+    {
+        pipeline.batchTextureFrame(
+            frame,
+            i * 64, pos.y - (Math.sin(pos.x + i) * 16),
+            tint, 1,
+            transformMatrix
+        );
+    }
 }

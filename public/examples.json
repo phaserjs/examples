@@ -5891,6 +5891,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\3.50\\game objects\\text\\text gradient.js",
+                  "name": "text gradient.js",
+                  "size": 854,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\3.50\\game objects\\text\\text key.js",
                   "name": "text key.js",
                   "size": 296,
@@ -5947,7 +5954,7 @@
                   "type": "file"
                 }
               ],
-              "size": 35140,
+              "size": 35994,
               "type": "directory"
             },
             {
@@ -6058,7 +6065,7 @@
               "type": "directory"
             }
           ],
-          "size": 801046,
+          "size": 801900,
           "type": "directory"
         },
         {
@@ -14379,7 +14386,7 @@
           "type": "directory"
         }
       ],
-      "size": 4080717,
+      "size": 4081571,
       "type": "directory"
     },
     {
@@ -21736,6 +21743,13 @@
               "type": "file"
             },
             {
+              "path": "src\\game objects\\text\\text gradient.js",
+              "name": "text gradient.js",
+              "size": 854,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\game objects\\text\\text key.js",
               "name": "text key.js",
               "size": 296,
@@ -21792,7 +21806,7 @@
               "type": "file"
             }
           ],
-          "size": 35140,
+          "size": 35994,
           "type": "directory"
         },
         {
@@ -22427,7 +22441,7 @@
           "type": "directory"
         }
       ],
-      "size": 1092901,
+      "size": 1093755,
       "type": "directory"
     },
     {
@@ -30761,6 +30775,6 @@
       "type": "directory"
     }
   ],
-  "size": 8629047,
+  "size": 8630755,
   "type": "directory"
 }

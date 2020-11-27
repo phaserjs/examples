@@ -8,7 +8,8 @@ var config = {
         default: 'matter',
         matter: {
             gravity: { y: 1 },
-            enableSleep: false
+            enableSleep: false,
+            debug: true
         }
     },
     scene: {
@@ -18,6 +19,7 @@ var config = {
         update: update
     }
 };
+
 
 var game = new Phaser.Game(config);
 var playerController;
@@ -120,11 +122,15 @@ function create ()
     var w = playerController.matterSprite.width;
     var h = playerController.matterSprite.height;
 
+    // Move the sensor to player center
+    var sx = w / 2;
+    var sy = h / 2;
+
     // The player's body is going to be a compound body.
-    var playerBody = M.Bodies.rectangle(0, 0, w * 0.75, h, { chamfer: { radius: 10 } });
-    playerController.sensors.bottom = M.Bodies.rectangle(0, h * 0.5, w * 0.5, 5, { isSensor: true });
-    playerController.sensors.left = M.Bodies.rectangle(-w * 0.45, 0, 5, h * 0.25, { isSensor: true });
-    playerController.sensors.right = M.Bodies.rectangle(w * 0.45, 0, 5, h * 0.25, { isSensor: true });
+    var playerBody = M.Bodies.rectangle(sx, sy, w * 0.75, h, { chamfer: { radius: 10 } });
+    playerController.sensors.bottom = M.Bodies.rectangle(sx, h, sx, 5, { isSensor: true });
+    playerController.sensors.left = M.Bodies.rectangle(sx - w * 0.45, sy, 5, h * 0.25, { isSensor: true });
+    playerController.sensors.right = M.Bodies.rectangle(sx + w * 0.45, sy, 5, h * 0.25, { isSensor: true });
     var compoundBody = M.Body.create({
         parts: [
             playerBody, playerController.sensors.bottom, playerController.sensors.left,

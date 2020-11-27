@@ -8,7 +8,8 @@ var config = {
         default: 'matter',
         matter: {
             gravity: { y: 1 },
-            enableSleep: false
+            enableSleep: false,
+            debug: true
         }
     },
     scene: {
@@ -121,10 +122,15 @@ function create ()
     //    chamfer (rounded edges) to avoid the problem of ghost vertices: http://www.iforce2d.net/b2dtut/ghost-vertices
     //  - Left/right/bottom sensors that will not interact physically but will allow us to check if
     //    the player is standing on solid ground or pushed up against a solid object.
-    var playerBody = M.Bodies.rectangle(0, 0, w * 0.75, h, { chamfer: { radius: 10 } });
-    playerController.sensors.bottom = M.Bodies.rectangle(0, h * 0.5, w * 0.5, 5, { isSensor: true });
-    playerController.sensors.left = M.Bodies.rectangle(-w * 0.45, 0, 5, h * 0.25, { isSensor: true });
-    playerController.sensors.right = M.Bodies.rectangle(w * 0.45, 0, 5, h * 0.25, { isSensor: true });
+
+    // Move the sensor to player center
+    var sx = w / 2;
+    var sy = h / 2;
+
+    var playerBody = M.Bodies.rectangle(sx, sy, w * 0.75, h, { chamfer: { radius: 10 } });
+    playerController.sensors.bottom = M.Bodies.rectangle(sx, h, sx, 5, { isSensor: true });
+    playerController.sensors.left = M.Bodies.rectangle(sx - w * 0.45, sy, 5, h * 0.25, { isSensor: true });
+    playerController.sensors.right = M.Bodies.rectangle(sx + w * 0.45, sy, 5, h * 0.25, { isSensor: true });
     var compoundBody = M.Body.create({
         parts: [
             playerBody, playerController.sensors.bottom, playerController.sensors.left,

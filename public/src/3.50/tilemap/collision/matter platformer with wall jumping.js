@@ -128,7 +128,6 @@ function create ()
     var sy = h / 2;
 
     // The player's body is going to be a compound body.
-    const height_fix = 0;
     var playerBody = M.Bodies.rectangle(sx, sy, w * 0.75, h, { chamfer: { radius: 10 } });
     playerController.sensors.bottom = M.Bodies.rectangle(sx, h, sx, 5, { isSensor: true });
     playerController.sensors.left = M.Bodies.rectangle(sx - w * 0.45, sy, 5, h * 0.25, { isSensor: true });

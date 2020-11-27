@@ -462,7 +462,7 @@
             {
               "path": "src\\3.50\\animation\\reverse animation.js",
               "name": "reverse animation.js",
-              "size": 2732,
+              "size": 2738,
               "extension": ".js",
               "type": "file"
             },
@@ -516,7 +516,7 @@
               "type": "file"
             }
           ],
-          "size": 90833,
+          "size": 90839,
           "type": "directory"
         },
         {
@@ -4130,7 +4130,7 @@
                 {
                   "path": "src\\3.50\\game objects\\group\\sprite pool.js",
                   "name": "sprite pool.js",
-                  "size": 2616,
+                  "size": 2708,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4142,7 +4142,7 @@
                   "type": "file"
                 }
               ],
-              "size": 17208,
+              "size": 17300,
               "type": "directory"
             },
             {
@@ -6065,7 +6065,7 @@
               "type": "directory"
             }
           ],
-          "size": 801900,
+          "size": 801992,
           "type": "directory"
         },
         {
@@ -9992,7 +9992,7 @@
                 {
                   "path": "src\\3.50\\paths\\curves\\rectangle spline intersection.js",
                   "name": "rectangle spline intersection.js",
-                  "size": 4705,
+                  "size": 4516,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10039,7 +10039,7 @@
                   "type": "file"
                 }
               ],
-              "size": 53833,
+              "size": 53644,
               "type": "directory"
             },
             {
@@ -10227,7 +10227,7 @@
               "type": "file"
             }
           ],
-          "size": 85463,
+          "size": 85274,
           "type": "directory"
         },
         {
@@ -13437,7 +13437,7 @@
             {
               "path": "src\\3.50\\time\\pause and resume.js",
               "name": "pause and resume.js",
-              "size": 1190,
+              "size": 1017,
               "extension": ".js",
               "type": "file"
             },
@@ -13484,7 +13484,7 @@
               "type": "file"
             }
           ],
-          "size": 15520,
+          "size": 15347,
           "type": "directory"
         },
         {
@@ -14386,7 +14386,7 @@
           "type": "directory"
         }
       ],
-      "size": 4081571,
+      "size": 4081307,
       "type": "directory"
     },
     {
@@ -14845,7 +14845,7 @@
         {
           "path": "src\\animation\\reverse animation.js",
           "name": "reverse animation.js",
-          "size": 2415,
+          "size": 2316,
           "extension": ".js",
           "type": "file"
         },
@@ -14899,7 +14899,7 @@
           "type": "file"
         }
       ],
-      "size": 85812,
+      "size": 85713,
       "type": "directory"
     },
     {
@@ -17889,7 +17889,7 @@
                 {
                   "path": "src\\display\\masks\\geometry mask\\image mask arc.js",
                   "name": "image mask arc.js",
-                  "size": 868,
+                  "size": 826,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -17915,7 +17915,7 @@
                   "type": "file"
                 }
               ],
-              "size": 7540,
+              "size": 7498,
               "type": "directory"
             },
             {
@@ -17968,7 +17968,7 @@
               "type": "file"
             }
           ],
-          "size": 66784,
+          "size": 66742,
           "type": "directory"
         },
         {
@@ -18142,7 +18142,7 @@
           "type": "directory"
         }
       ],
-      "size": 182391,
+      "size": 182349,
       "type": "directory"
     },
     {
@@ -19975,7 +19975,7 @@
             {
               "path": "src\\game objects\\group\\sprite pool.js",
               "name": "sprite pool.js",
-              "size": 2564,
+              "size": 2658,
               "extension": ".js",
               "type": "file"
             },
@@ -19987,7 +19987,7 @@
               "type": "file"
             }
           ],
-          "size": 17156,
+          "size": 17250,
           "type": "directory"
         },
         {
@@ -22441,7 +22441,7 @@
           "type": "directory"
         }
       ],
-      "size": 1093755,
+      "size": 1093849,
       "type": "directory"
     },
     {
@@ -26368,7 +26368,7 @@
             {
               "path": "src\\paths\\curves\\rectangle spline intersection.js",
               "name": "rectangle spline intersection.js",
-              "size": 4705,
+              "size": 4514,
               "extension": ".js",
               "type": "file"
             },
@@ -26415,7 +26415,7 @@
               "type": "file"
             }
           ],
-          "size": 53698,
+          "size": 53507,
           "type": "directory"
         },
         {
@@ -26603,7 +26603,7 @@
           "type": "file"
         }
       ],
-      "size": 85182,
+      "size": 84991,
       "type": "directory"
     },
     {
@@ -27241,7 +27241,7 @@
             {
               "path": "src\\physics\\arcade\\tween velocity.js",
               "name": "tween velocity.js",
-              "size": 3473,
+              "size": 3219,
               "extension": ".js",
               "type": "file"
             },
@@ -27288,7 +27288,7 @@
               "type": "file"
             }
           ],
-          "size": 255618,
+          "size": 255364,
           "type": "directory"
         },
         {
@@ -27953,7 +27953,7 @@
           "type": "directory"
         }
       ],
-      "size": 408913,
+      "size": 408659,
       "type": "directory"
     },
     {
@@ -29826,7 +29826,7 @@
         {
           "path": "src\\time\\pause and resume.js",
           "name": "pause and resume.js",
-          "size": 1190,
+          "size": 1067,
           "extension": ".js",
           "type": "file"
         },
@@ -29873,7 +29873,7 @@
           "type": "file"
         }
       ],
-      "size": 15520,
+      "size": 15397,
       "type": "directory"
     },
     {
@@ -30775,6 +30775,6 @@
       "type": "directory"
     }
   ],
-  "size": 8630755,
+  "size": 8629876,
   "type": "directory"
 }

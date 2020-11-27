@@ -4300,26 +4300,33 @@
                 {
                   "path": "src\\3.50\\game objects\\layer\\layer with bitmap mask.js",
                   "name": "layer with bitmap mask.js",
-                  "size": 1216,
+                  "size": 1275,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\layer\\layer with geometry mask.js",
                   "name": "layer with geometry mask.js",
-                  "size": 1216,
+                  "size": 1273,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\3.50\\game objects\\layer\\move between layers.js",
+                  "name": "move between layers.js",
+                  "size": 1282,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\layer\\nested layers.js",
                   "name": "nested layers.js",
-                  "size": 1709,
+                  "size": 1778,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 9690,
+              "size": 11157,
               "type": "directory"
             },
             {
@@ -6051,7 +6058,7 @@
               "type": "directory"
             }
           ],
-          "size": 801351,
+          "size": 802818,
           "type": "directory"
         },
         {
@@ -12940,7 +12947,7 @@
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter destroy tile bodies.js",
                   "name": "matter destroy tile bodies.js",
-                  "size": 13580,
+                  "size": 13553,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -12968,7 +12975,7 @@
                 {
                   "path": "src\\3.50\\tilemap\\collision\\matter platformer with wall jumping.js",
                   "name": "matter platformer with wall jumping.js",
-                  "size": 11712,
+                  "size": 11685,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13001,7 +13008,7 @@
                   "type": "file"
                 }
               ],
-              "size": 65377,
+              "size": 65323,
               "type": "directory"
             },
             {
@@ -13385,7 +13392,7 @@
               "type": "file"
             }
           ],
-          "size": 264421,
+          "size": 264367,
           "type": "directory"
         },
         {
@@ -14365,7 +14372,7 @@
           "type": "directory"
         }
       ],
-      "size": 4097466,
+      "size": 4098879,
       "type": "directory"
     },
     {
@@ -15864,12 +15871,12 @@
             {
               "path": "src\\audio\\No Audio\\Volume Mute Rate Detune.js",
               "name": "Volume Mute Rate Detune.js",
-              "size": 3896,
+              "size": 3902,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 35618,
+          "size": 35624,
           "type": "directory"
         },
         {
@@ -15973,7 +15980,7 @@
           "type": "directory"
         }
       ],
-      "size": 121808,
+      "size": 121814,
       "type": "directory"
     },
     {
@@ -21891,7 +21898,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter destroy tile bodies.js",
                   "name": "matter destroy tile bodies.js",
-                  "size": 13455,
+                  "size": 13596,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -21905,21 +21912,21 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter ghost collisions.js",
                   "name": "matter ghost collisions.js",
-                  "size": 3962,
+                  "size": 3988,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter platformer modify map.js",
                   "name": "matter platformer modify map.js",
-                  "size": 13288,
+                  "size": 13404,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\game objects\\tilemap\\collision\\matter platformer with wall jumping.js",
                   "name": "matter platformer with wall jumping.js",
-                  "size": 11518,
+                  "size": 11634,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -21933,7 +21940,7 @@
                 {
                   "path": "src\\game objects\\tilemap\\collision\\multiple tile sizes.js",
                   "name": "multiple tile sizes.js",
-                  "size": 4258,
+                  "size": 4236,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -21973,7 +21980,7 @@
                   "type": "file"
                 }
               ],
-              "size": 74425,
+              "size": 74802,
               "type": "directory"
             },
             {
@@ -22394,7 +22401,7 @@
               "type": "directory"
             }
           ],
-          "size": 279974,
+          "size": 280351,
           "type": "directory"
         },
         {
@@ -22413,7 +22420,7 @@
           "type": "directory"
         }
       ],
-      "size": 1094029,
+      "size": 1094406,
       "type": "directory"
     },
     {
@@ -28083,7 +28090,7 @@
         {
           "path": "src\\pools\\multi pools.js",
           "name": "multi pools.js",
-          "size": 2774,
+          "size": 2775,
           "extension": ".js",
           "type": "file"
         },
@@ -28102,7 +28109,7 @@
           "type": "file"
         }
       ],
-      "size": 12572,
+      "size": 12573,
       "type": "directory"
     },
     {
@@ -30740,6 +30747,6 @@
       "type": "directory"
     }
   ],
-  "size": 8644594,
+  "size": 8646391,
   "type": "directory"
 }

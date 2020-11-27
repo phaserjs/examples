@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
-    height: 650,
+    height: 600,
     backgroundColor: '#4d4d4d',
     pixelArt: true,
     scene: {
@@ -27,7 +27,6 @@ function preload ()
 function create ()
 {
     //  Frame debug view
-
     frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
 
     //  Show the whole animation sheet
@@ -43,32 +42,28 @@ function create ()
 
     anim = this.anims.create(config);
 
-    sprite = this.add.sprite(400, 300, 'mummy').setScale(4);
-
-    sprite.anims.load('walk');
+    sprite = this.add.sprite(400, 250, 'mummy').setScale(4);
 
     //  Debug text
+    progress = this.add.text(100, 420, 'Progress: 0%', { color: '#00ff00' });
 
-    progress = this.add.text(100, 500, 'Progress: 0%', { color: '#00ff00' });
-
-    this.input.keyboard.on('keydown_SPACE', function (event) {
-        sprite.anims.play('walk');
+    this.input.keyboard.on('keydown-SPACE', function (event) {
+        sprite.play('walk');
     });
 
-	this.input.keyboard.on('keydown_Y', function (event) {
-		const yoyo = sprite.anims.getYoyo();
-        sprite.anims.setYoyo(!yoyo);
+	this.input.keyboard.on('keydown-Y', function (event) {
+        sprite.anims.yoyo = !sprite.anims.yoyo;
     });
 
-	this.input.keyboard.on('keydown_Q', function (event) {
-        sprite.anims.playReverse('walk');
+	this.input.keyboard.on('keydown-Q', function (event) {
+        sprite.playReverse('walk');
     });
 
-	this.input.keyboard.on('keydown_R', function (event) {
-		sprite.anims.reverse('walk');
+	this.input.keyboard.on('keydown-R', function (event) {
+		sprite.anims.reverse();
 	});
 
-    this.input.keyboard.on('keydown_P', function (event) {
+    this.input.keyboard.on('keydown-P', function (event) {
 
         if (sprite.anims.isPaused)
         {
@@ -83,7 +78,8 @@ function create ()
 
 function updateFrameView ()
 {
-	if(sprite.anims.isPlaying) {
+	if (sprite.anims.isPlaying)
+    {
 		frameView.clear();
 		frameView.fillRect(sprite.frame.cutX, 0, 37, 45);
 	}
@@ -98,9 +94,9 @@ function update ()
 		'R to revert at any time, P to pause/resume,',
 		'Y to toggle yoyo',
 		'',
-		'Yoyo: ' + sprite.anims.getYoyo(),
-		'Reverse: ' + sprite.anims._reverse,
-        'Progress: ' + sprite.anims.getProgress() + '%',
+		'Yoyo: ' + sprite.anims.yoyo,
+		'Reverse: ' + sprite.anims.inReverse,
+        'Progress: ' + sprite.anims.getProgress() * 100 + '%',
         'Accumulator: ' + sprite.anims.accumulator,
         'NextTick: ' + sprite.anims.nextTick
     ];

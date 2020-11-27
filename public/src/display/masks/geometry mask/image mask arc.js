@@ -22,7 +22,7 @@ function create ()
 
     var shape = this.make.graphics();
 
-    //  Create a hash shape Graphics object
+    //  Create an arc shape Graphics object
     shape.fillStyle(0xffffff);
 
     shape.slice(400, 300, 200, Phaser.Math.DegToRad(340), Phaser.Math.DegToRad(30), true);

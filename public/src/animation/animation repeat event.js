@@ -23,15 +23,12 @@ function create ()
     var mummyAnimation = this.anims.create({
         key: 'walk',
         frames: this.anims.generateFrameNumbers('mummy'),
-        frameRate: 16,
-        repeat: 0
+        frameRate: 16
     });
 
     var sprite = this.add.sprite(50, 300, 'mummy').setScale(4);
 
-    sprite.play('walk');
-
-    sprite.anims.setRepeat(7);
+    sprite.play({ key: 'walk', repeat: 7 });
 
     this.tweens.add({
         targets: sprite,
@@ -40,7 +37,7 @@ function create ()
         ease: 'Linear'
     });
 
-    sprite.on('animationrepeat-walk', function () {
+    sprite.on('animationrepeat', function () {
 
         var poop = this.add.image(sprite.x - 32, 300, 'poo').setScale(0.5);
 

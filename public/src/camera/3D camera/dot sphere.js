@@ -31,7 +31,7 @@ function preload ()
 
 function create ()
 {
-    graphics = this.add.graphics();
+    var graphics = this.add.graphics();
 
     camera = this.cameras3d.add(85).setZ(350).setPixelScale(16);
 

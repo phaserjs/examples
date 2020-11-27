@@ -59,7 +59,7 @@ function create ()
             zoom: { value: 2.5, duration: 4000, ease: 'Sine.easeInOut' },
             rotation: { value: 2.3, duration: 8000, ease: 'Cubic.easeInOut' }
         },
-        delay: 5000,
+        delay: 2000,
         yoyo: true,
         repeat: -1
     });

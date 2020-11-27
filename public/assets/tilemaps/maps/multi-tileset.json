@@ -34,7 +34,7 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        }, 
+        },
         {
          "firstgid":129,
          "image":"..\/tiles\/kenny_items_64x64.png",
@@ -49,7 +49,7 @@
          "spacing":0,
          "tileheight":64,
          "tilewidth":64
-        }, 
+        },
         {
          "firstgid":161,
          "image":"..\/tiles\/kenny_platformer_64x64.png",

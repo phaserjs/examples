@@ -32,7 +32,7 @@ function preload ()
 
 function create ()
 {
-    graphics = this.add.graphics();
+    var graphics = this.add.graphics();
 
     //  Setup a camera with 85 degree FOV
     camera = this.cameras3d.add(85).setZ(500).setPixelScale(128);

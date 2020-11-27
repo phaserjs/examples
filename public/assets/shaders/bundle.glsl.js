@@ -1,7 +1,3 @@
----
-name: Test Card
-type: fragment
----
 
 #ifdef GL_ES
 precision mediump float;
@@ -62,33 +58,33 @@ void main( void ) {
     vec2 position = realposition;
 
     position.x += time*0.05+120.;
-    
+
     position.x *= cos(position.y*1.);
-    
+
     vec2 star = vec2(0.8, 0.8);
-    
+
     vec3 color = vec3(0.0);
-    
+
     color.r = abs(sin(position.x*4.));
     color.g = abs(cos(position.x*4.+1.));
     color.b = abs(cos(position.x*4.));
-        
+
     color.r *= cos(time*0.2+1.)*0.5+0.5;
     color.g *= sin(time*0.2)*0.5+0.5;
     color.b *= sin(time*0.2+5.)*0.5+0.5;
-    
+
 
     vec3 skycolor= vec3(0.0);
-        
+
     skycolor.r = sin(time*0.1+realposition.x     )*0.5+0.5;
     skycolor.g = cos(time*0.1+realposition.x + 2.)*0.5+0.5;
     skycolor.b = cos(time*0.1+realposition.x + 3.)*0.5+0.5;
-    
-    
+
+
     skycolor*= 0.3;
-    
+
     skycolor += ((vec3(cos(time),cos(time),sin(time))*0.25+vec3(0.25) + vec3(0.50))*0.01)/distance(star, realposition);
-    
+
     if(realposition.y>0.6)
         color *= 0.0;
     if(realposition.y>0.5)
@@ -150,7 +146,7 @@ void main( void )
 
     float r = voronoi( uv * 1.0 ) * 1.0;
     vec3 finalColor = vec3(10.0 * uv.y, 2.0, 1.0 * r ) * t;
-    
+
     gl_FragColor = vec4(finalColor, 1.0 );
 }
 
@@ -215,7 +211,7 @@ vec4 hsv_to_rgb(float h, float s, float v, float a)
     h = mod((h * 6.0), 6.0);
     float x = c * (1.0 - abs(mod(h, 2.0) - 1.0));
     vec4 color;
- 
+
     if (0.0 <= h && h < 1.0) {
         color = vec4(c, x, 0.0, a);
     } else if (1.0 <= h && h < 2.0) {
@@ -231,9 +227,9 @@ vec4 hsv_to_rgb(float h, float s, float v, float a)
     } else {
         color = vec4(0.0, 0.0, 0.0, a);
     }
- 
+
     color.rgb += v - c;
- 
+
     return color;
 }
 
@@ -241,13 +237,13 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     float x = fragCoord.x - (iResolution.x / 2.0);
     float y = fragCoord.y - (iResolution.y / 2.0);
-    
+
     float r = length(vec2(x,y));
     float angle = atan(x,y) - sin(iTime)*r / 200.0 + 1.0*iTime;
     float intensity = 0.5 + 0.25*sin(15.0*angle);
     // float intensity = mod(angle, (PI / 8.0));
     // float intensity = 0.5 + 0.25*sin(angle*16.0-5.0*iTime);
-    
+
     fragColor = hsv_to_rgb(angle/PI, intensity, 1.0, 0.5);
 }
 // --------[ Original ShaderToy ends here ]---------- //
@@ -275,7 +271,7 @@ varying vec2 fragCoord;
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 p = -1.0 + 2.0 * fragCoord.xy / resolution.xy;
-    
+
     // main code, *original shader by: 'Plasma' by Viktor Korsun (2011)
     float x = p.x;
     float y = p.y;
@@ -333,13 +329,13 @@ varying vec2 fragCoord;
 
 void main(void)
 {
-    vec4 o; 
+    vec4 o;
     vec2 u = fragCoord.xy / resolution.y;
     float s = 500.0;
     u = floor(u * s) / s;
     float e, d, i=0.;
     vec4 p;
-    
+
     for (float i=1.; i<30.; i++) {
         d = floor(e = i*9.1+time);
         p = N(d)+.3;
@@ -348,7 +344,7 @@ void main(void)
         for (float d=0.; d<5.;d++)
             o += p*(2.9-e)/1e3/length(u-(p-e*(N(d*i)-.5)).xy);
     }
-     
+
     gl_FragColor = vec4(o.rgb, 1.0);
 }
 
@@ -374,7 +370,7 @@ void main( void ) {
     color += sin( position.x * sin( time / 5.0 ) * 10.0 ) + sin( position.y * sin( time / 35.0 ) * 80.0 );
     color *= sin( time / 10.0 ) * 0.5;
 
-    
+
     gl_FragColor = vec4( vec3( sin( color + time / 3.0 ) * 0.75, cos( color + time / 3.0 ) * 0.75, sin( color + time / 3.0 ) * 0.75 ), 1.0 );
 
 }

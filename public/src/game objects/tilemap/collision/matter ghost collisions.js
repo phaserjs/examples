@@ -8,7 +8,8 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            gravity: { y: 1 }
+            gravity: { y: 1 },
+            debug: true
         }
     },
     scene: {

@@ -29,7 +29,7 @@ function create ()
     var player = this.add.image(32+16, 32+16, 'car');
 
     //  Left
-    this.input.keyboard.on('keydown_A', function (event) {
+    this.input.keyboard.on('keydown-A', function (event) {
 
         var tile = layer.getTileAtWorldXY(player.x - 32, player.y, true);
 
@@ -46,7 +46,7 @@ function create ()
     });
 
     //  Right
-    this.input.keyboard.on('keydown_D', function (event) {
+    this.input.keyboard.on('keydown-D', function (event) {
 
         var tile = layer.getTileAtWorldXY(player.x + 32, player.y, true);
 
@@ -63,7 +63,7 @@ function create ()
     });
 
     //  Up
-    this.input.keyboard.on('keydown_W', function (event) {
+    this.input.keyboard.on('keydown-W', function (event) {
 
         var tile = layer.getTileAtWorldXY(player.x, player.y - 32, true);
 
@@ -80,7 +80,7 @@ function create ()
     });
 
     //  Down
-    this.input.keyboard.on('keydown_S', function (event) {
+    this.input.keyboard.on('keydown-S', function (event) {
 
         var tile = layer.getTileAtWorldXY(player.x, player.y + 32, true);
 

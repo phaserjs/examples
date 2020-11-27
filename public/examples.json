@@ -13,187 +13,187 @@
             {
               "path": "src\\3.50\\actions\\grid align.js",
               "name": "grid align.js",
-              "size": 818,
+              "size": 858,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\inc x layers.js",
               "name": "inc x layers.js",
-              "size": 1434,
+              "size": 1487,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on a circle multi.js",
               "name": "place on a circle multi.js",
-              "size": 1055,
+              "size": 1102,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on a circle reversed.js",
               "name": "place on a circle reversed.js",
-              "size": 1754,
+              "size": 1803,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on circle.js",
               "name": "place on circle.js",
-              "size": 1000,
+              "size": 1046,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on ellipse.js",
               "name": "place on ellipse.js",
-              "size": 993,
+              "size": 1039,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on line.js",
               "name": "place on line.js",
-              "size": 609,
+              "size": 640,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on part of a circle.js",
               "name": "place on part of a circle.js",
-              "size": 1534,
+              "size": 1578,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on rectangle shift.js",
               "name": "place on rectangle shift.js",
-              "size": 1111,
+              "size": 1164,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on rectangle.js",
               "name": "place on rectangle.js",
-              "size": 618,
+              "size": 648,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\place on triangle.js",
               "name": "place on triangle.js",
-              "size": 683,
+              "size": 713,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\random circle.js",
               "name": "random circle.js",
-              "size": 729,
+              "size": 762,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\random ellipse.js",
               "name": "random ellipse.js",
-              "size": 744,
+              "size": 778,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\random line.js",
               "name": "random line.js",
-              "size": 661,
+              "size": 694,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\random rectangle.js",
               "name": "random rectangle.js",
-              "size": 741,
+              "size": 776,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\random triangle.js",
               "name": "random triangle.js",
-              "size": 840,
+              "size": 875,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\rotate around distance.js",
               "name": "rotate around distance.js",
-              "size": 688,
+              "size": 726,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\rotate around x y.js",
               "name": "rotate around x y.js",
-              "size": 1007,
+              "size": 1051,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\rotate around.js",
               "name": "rotate around.js",
-              "size": 807,
+              "size": 845,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\rotate container facing point.js",
               "name": "rotate container facing point.js",
-              "size": 1708,
+              "size": 1772,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\set alpha.js",
               "name": "set alpha.js",
-              "size": 650,
+              "size": 679,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\set x y.js",
               "name": "set x y.js",
-              "size": 791,
+              "size": 829,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\shift position.js",
               "name": "shift position.js",
-              "size": 1003,
+              "size": 1051,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\spread.js",
               "name": "spread.js",
-              "size": 716,
+              "size": 746,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\wrap in camera bounds.js",
               "name": "wrap in camera bounds.js",
-              "size": 1211,
+              "size": 1268,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\actions\\wrap in rectangle.js",
               "name": "wrap in rectangle.js",
-              "size": 821,
+              "size": 860,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 24726,
+          "size": 25790,
           "type": "directory"
         },
         {
@@ -203,320 +203,320 @@
             {
               "path": "src\\3.50\\animation\\60fps animation test.js",
               "name": "60fps animation test.js",
-              "size": 1148,
+              "size": 1198,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\add animation event.js",
               "name": "add animation event.js",
-              "size": 1939,
+              "size": 2005,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\add frames to existing animation.js",
               "name": "add frames to existing animation.js",
-              "size": 1511,
+              "size": 1571,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\animation from png sequence.js",
               "name": "animation from png sequence.js",
-              "size": 941,
+              "size": 987,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\animation get progress.js",
               "name": "animation get progress.js",
-              "size": 1176,
+              "size": 1230,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\animation repeat event.js",
               "name": "animation repeat event.js",
-              "size": 1459,
+              "size": 1522,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\aseprite animation.js",
               "name": "aseprite animation.js",
-              "size": 1153,
+              "size": 1098,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\chained animation.js",
               "name": "chained animation.js",
-              "size": 2478,
+              "size": 2566,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation from canvas texture.js",
               "name": "create animation from canvas texture.js",
-              "size": 2497,
+              "size": 2587,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation from sprite sheet.js",
               "name": "create animation from sprite sheet.js",
-              "size": 3856,
+              "size": 3977,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation from texture atlas.js",
               "name": "create animation from texture atlas.js",
-              "size": 2321,
+              "size": 2372,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation on sprite.js",
               "name": "create animation on sprite.js",
-              "size": 1669,
+              "size": 1725,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create animation without frame names.js",
               "name": "create animation without frame names.js",
-              "size": 800,
+              "size": 837,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\create from sprite config.js",
               "name": "create from sprite config.js",
-              "size": 1719,
+              "size": 1786,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\cubes.js",
               "name": "cubes.js",
-              "size": 1734,
+              "size": 1805,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\export json.js",
               "name": "export json.js",
-              "size": 1956,
+              "size": 2010,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\from animation json.js",
               "name": "from animation json.js",
-              "size": 824,
+              "size": 857,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\from json.js",
               "name": "from json.js",
-              "size": 10902,
+              "size": 11274,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\generate frame names.js",
               "name": "generate frame names.js",
-              "size": 1881,
+              "size": 1933,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\generate frame numbers.js",
               "name": "generate frame numbers.js",
-              "size": 1739,
+              "size": 1799,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\gif to animation.js",
               "name": "gif to animation.js",
-              "size": 3059,
+              "size": 3170,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\hide on complete.js",
               "name": "hide on complete.js",
-              "size": 1785,
+              "size": 1855,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\mixed animation.js",
               "name": "mixed animation.js",
-              "size": 2323,
+              "size": 2405,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\multi atlas animation.js",
               "name": "multi atlas animation.js",
-              "size": 647,
+              "size": 677,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\muybridge.js",
               "name": "muybridge.js",
-              "size": 1005,
+              "size": 1054,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on complete event.js",
               "name": "on complete event.js",
-              "size": 2399,
+              "size": 2487,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on repeat event.js",
               "name": "on repeat event.js",
-              "size": 2888,
+              "size": 2996,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on start event.js",
               "name": "on start event.js",
-              "size": 2229,
+              "size": 2314,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on stop event.js",
               "name": "on stop event.js",
-              "size": 1944,
+              "size": 2019,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\on update event.js",
               "name": "on update event.js",
-              "size": 2799,
+              "size": 2902,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\pause all animations.js",
               "name": "pause all animations.js",
-              "size": 2202,
+              "size": 2282,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\pause animation instances.js",
               "name": "pause animation instances.js",
-              "size": 2025,
+              "size": 2092,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\play after delay.js",
               "name": "play after delay.js",
-              "size": 1476,
+              "size": 1526,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\play after repeat.js",
               "name": "play after repeat.js",
-              "size": 1746,
+              "size": 1800,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\play animation with config.js",
               "name": "play animation with config.js",
-              "size": 1348,
+              "size": 1396,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\random delay.js",
               "name": "random delay.js",
-              "size": 1030,
+              "size": 1079,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\remove animation event.js",
               "name": "remove animation event.js",
-              "size": 2018,
+              "size": 2083,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\reverse animation.js",
               "name": "reverse animation.js",
-              "size": 2732,
+              "size": 2836,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\show animation play through.js",
               "name": "show animation play through.js",
-              "size": 2256,
+              "size": 2348,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\show on start.js",
               "name": "show on start.js",
-              "size": 1522,
+              "size": 1583,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\sprite animation events.js",
               "name": "sprite animation events.js",
-              "size": 2496,
+              "size": 2613,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\stagger play 1.js",
               "name": "stagger play 1.js",
-              "size": 986,
+              "size": 1033,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\stagger play 2.js",
               "name": "stagger play 2.js",
-              "size": 1028,
+              "size": 1072,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\tween timescale.js",
               "name": "tween timescale.js",
-              "size": 1823,
+              "size": 1885,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\animation\\yoyo.js",
               "name": "yoyo.js",
-              "size": 1364,
+              "size": 1418,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 90833,
+          "size": 94064,
           "type": "directory"
         },
         {
@@ -530,21 +530,21 @@
                 {
                   "path": "src\\3.50\\audio\\HTML5 Audio\\audiosprite.js",
                   "name": "audiosprite.js",
-                  "size": 2403,
+                  "size": 2497,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\audio\\HTML5 Audio\\basic playback and events.js",
                   "name": "basic playback and events.js",
-                  "size": 13437,
+                  "size": 14052,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\audio\\HTML5 Audio\\loop delay.js",
                   "name": "loop delay.js",
-                  "size": 6111,
+                  "size": 6322,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -591,7 +591,7 @@
                   "type": "file"
                 }
               ],
-              "size": 39761,
+              "size": 40681,
               "type": "directory"
             },
             {
@@ -752,7 +752,7 @@
               "type": "directory"
             }
           ],
-          "size": 121429,
+          "size": 122349,
           "type": "directory"
         },
         {
@@ -762,26 +762,26 @@
             {
               "path": "src\\3.50\\cache\\json file.js",
               "name": "json file.js",
-              "size": 400,
+              "size": 425,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\cache\\text file.js",
               "name": "text file.js",
-              "size": 421,
+              "size": 451,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\cache\\xml file.js",
               "name": "xml file.js",
-              "size": 560,
+              "size": 589,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 1381,
+          "size": 1465,
           "type": "directory"
         },
         {
@@ -798,21 +798,21 @@
             {
               "path": "src\\3.50\\camera\\16 camera test.js",
               "name": "16 camera test.js",
-              "size": 931,
+              "size": 980,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\32 camera test.js",
               "name": "32 camera test.js",
-              "size": 927,
+              "size": 974,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\add camera on click.js",
               "name": "add camera on click.js",
-              "size": 1043,
+              "size": 1099,
               "extension": ".js",
               "type": "file"
             },
@@ -826,14 +826,14 @@
             {
               "path": "src\\3.50\\camera\\background color.js",
               "name": "background color.js",
-              "size": 1507,
+              "size": 1556,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\basics.js",
               "name": "basics.js",
-              "size": 1243,
+              "size": 1292,
               "extension": ".js",
               "type": "file"
             },
@@ -847,7 +847,7 @@
             {
               "path": "src\\3.50\\camera\\camera alpha.js",
               "name": "camera alpha.js",
-              "size": 2551,
+              "size": 2658,
               "extension": ".js",
               "type": "file"
             },
@@ -861,119 +861,119 @@
             {
               "path": "src\\3.50\\camera\\camera center on.js",
               "name": "camera center on.js",
-              "size": 1991,
+              "size": 2081,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera effect callbacks.js",
               "name": "camera effect callbacks.js",
-              "size": 1068,
+              "size": 1118,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera effects.js",
               "name": "camera effects.js",
-              "size": 1031,
+              "size": 1080,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera fade in and out.js",
               "name": "camera fade in and out.js",
-              "size": 811,
+              "size": 853,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera fade out and in.js",
               "name": "camera fade out and in.js",
-              "size": 743,
+              "size": 781,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\camera filter.js",
               "name": "camera filter.js",
-              "size": 1642,
+              "size": 1712,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\cameras from state config.js",
               "name": "cameras from state config.js",
-              "size": 1155,
+              "size": 1221,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\change camera shader.js",
               "name": "change camera shader.js",
-              "size": 1796,
+              "size": 1723,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\cross scene object placement.js",
               "name": "cross scene object placement.js",
-              "size": 3984,
+              "size": 4143,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\fade.js",
               "name": "fade.js",
-              "size": 1308,
+              "size": 1364,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\fixed to camera.js",
               "name": "fixed to camera.js",
-              "size": 1771,
+              "size": 1842,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\flash.js",
               "name": "flash.js",
-              "size": 1066,
+              "size": 1109,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\follow offset.js",
               "name": "follow offset.js",
-              "size": 1951,
+              "size": 2025,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\follow sprite small bounds.js",
               "name": "follow sprite small bounds.js",
-              "size": 2124,
+              "size": 2220,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\follow sprite with deadzone.js",
               "name": "follow sprite with deadzone.js",
-              "size": 4794,
+              "size": 4954,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\follow sprite.js",
               "name": "follow sprite.js",
-              "size": 1259,
+              "size": 1310,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\follow user controlled sprite.js",
               "name": "follow user controlled sprite.js",
-              "size": 1729,
+              "size": 1797,
               "extension": ".js",
               "type": "file"
             },
@@ -1089,54 +1089,54 @@
                 {
                   "path": "src\\3.50\\camera\\multi camera\\Controller.js",
                   "name": "Controller.js",
-                  "size": 7356,
+                  "size": 7671,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\DemoA.js",
                   "name": "DemoA.js",
-                  "size": 1355,
+                  "size": 1397,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\DemoB.js",
                   "name": "DemoB.js",
-                  "size": 1914,
+                  "size": 1991,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\DemoC.js",
                   "name": "DemoC.js",
-                  "size": 1007,
+                  "size": 1049,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\DemoD.js",
                   "name": "DemoD.js",
-                  "size": 4364,
+                  "size": 4546,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\game.js",
                   "name": "game.js",
-                  "size": 232,
+                  "size": 242,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\multi camera\\Obj3D.js",
                   "name": "Obj3D.js",
-                  "size": 2855,
+                  "size": 2968,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 19260,
+              "size": 20041,
               "type": "directory"
             },
             {
@@ -1198,7 +1198,7 @@
             {
               "path": "src\\3.50\\camera\\render to texture shader 5.js",
               "name": "render to texture shader 5.js",
-              "size": 1752,
+              "size": 1820,
               "extension": ".js",
               "type": "file"
             },
@@ -1233,14 +1233,14 @@
             {
               "path": "src\\3.50\\camera\\round pixels.js",
               "name": "round pixels.js",
-              "size": 546,
+              "size": 577,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\scroll view.js",
               "name": "scroll view.js",
-              "size": 1642,
+              "size": 1702,
               "extension": ".js",
               "type": "file"
             },
@@ -1254,28 +1254,28 @@
             {
               "path": "src\\3.50\\camera\\set bounds.js",
               "name": "set bounds.js",
-              "size": 1136,
+              "size": 1188,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\set scroll factor.js",
               "name": "set scroll factor.js",
-              "size": 2037,
+              "size": 2115,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\set small bounds.js",
               "name": "set small bounds.js",
-              "size": 1198,
+              "size": 1251,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\set viewport.js",
               "name": "set viewport.js",
-              "size": 671,
+              "size": 706,
               "extension": ".js",
               "type": "file"
             },
@@ -1289,49 +1289,49 @@
             {
               "path": "src\\3.50\\camera\\shake.js",
               "name": "shake.js",
-              "size": 1064,
+              "size": 1108,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\single small camera.js",
               "name": "single small camera.js",
-              "size": 2215,
+              "size": 2279,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\tile map with camera shake.js",
               "name": "tile map with camera shake.js",
-              "size": 1410,
+              "size": 1466,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\world camera.js",
               "name": "world camera.js",
-              "size": 6119,
+              "size": 6332,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\world coordinate from another scene.js",
               "name": "world coordinate from another scene.js",
-              "size": 2852,
+              "size": 2975,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\world view.js",
               "name": "world view.js",
-              "size": 1733,
+              "size": 1800,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\camera\\zoom to.js",
               "name": "zoom to.js",
-              "size": 2291,
+              "size": 2386,
               "extension": ".js",
               "type": "file"
             },
@@ -1342,84 +1342,84 @@
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\blend cube.js",
                   "name": "blend cube.js",
-                  "size": 3547,
+                  "size": 3687,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\distance alpha.js",
                   "name": "distance alpha.js",
-                  "size": 1786,
+                  "size": 1864,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\dot sphere.js",
                   "name": "dot sphere.js",
-                  "size": 3515,
+                  "size": 3657,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\fixed scale.js",
                   "name": "fixed scale.js",
-                  "size": 1943,
+                  "size": 2027,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\floor.js",
                   "name": "floor.js",
-                  "size": 1684,
+                  "size": 1762,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\forest.js",
                   "name": "forest.js",
-                  "size": 2408,
+                  "size": 2502,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\meadow.js",
                   "name": "meadow.js",
-                  "size": 4382,
+                  "size": 4545,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\orthographic camera.js",
                   "name": "orthographic camera.js",
-                  "size": 2004,
+                  "size": 2092,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\perspective camera.js",
                   "name": "perspective camera.js",
-                  "size": 2072,
+                  "size": 2162,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\rectangle scaled.js",
                   "name": "rectangle scaled.js",
-                  "size": 3264,
+                  "size": 3401,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\rectangle.js",
                   "name": "rectangle.js",
-                  "size": 3279,
+                  "size": 3412,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\camera\\_3D camera\\road 1.js",
                   "name": "road 1.js",
-                  "size": 2103,
+                  "size": 2213,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -1459,7 +1459,7 @@
                   "type": "file"
                 }
               ],
-              "size": 47491,
+              "size": 48828,
               "type": "directory"
             },
             {
@@ -1470,7 +1470,7 @@
               "type": "file"
             }
           ],
-          "size": 196922,
+          "size": 201546,
           "type": "directory"
         },
         {
@@ -1484,58 +1484,58 @@
                 {
                   "path": "src\\3.50\\components\\data\\change data event.js",
                   "name": "change data event.js",
-                  "size": 1760,
+                  "size": 1825,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\components\\data\\data values.js",
                   "name": "data values.js",
-                  "size": 1455,
+                  "size": 1510,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\components\\data\\get and set data values.js",
                   "name": "get and set data values.js",
-                  "size": 997,
+                  "size": 1041,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\components\\data\\query data.js",
                   "name": "query data.js",
-                  "size": 937,
+                  "size": 975,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\components\\data\\set data event.js",
                   "name": "set data event.js",
-                  "size": 2277,
+                  "size": 2355,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\components\\data\\set multiple values.js",
                   "name": "set multiple values.js",
-                  "size": 1360,
+                  "size": 1410,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\components\\data\\store scene data.js",
                   "name": "store scene data.js",
-                  "size": 737,
+                  "size": 770,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 9523,
+              "size": 9886,
               "type": "directory"
             }
           ],
-          "size": 9523,
+          "size": 9886,
           "type": "directory"
         },
         {
@@ -1573,12 +1573,12 @@
             {
               "path": "src\\3.50\\demoscene\\vertical raster wave.js",
               "name": "vertical raster wave.js",
-              "size": 1055,
+              "size": 1080,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 8147,
+          "size": 8172,
           "type": "directory"
         },
         {
@@ -1588,61 +1588,61 @@
             {
               "path": "src\\3.50\\depth sorting\\3D depth sort.js",
               "name": "3D depth sort.js",
-              "size": 7549,
+              "size": 7833,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\depth sorting\\bring to top.js",
               "name": "bring to top.js",
-              "size": 787,
+              "size": 825,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\depth sorting\\depth sorting.js",
               "name": "depth sorting.js",
-              "size": 1542,
+              "size": 1596,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\depth sorting\\get top object.js",
               "name": "get top object.js",
-              "size": 1924,
+              "size": 1991,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\depth sorting\\isometric blocks.js",
               "name": "isometric blocks.js",
-              "size": 2579,
+              "size": 2690,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\depth sorting\\isometric map.js",
               "name": "isometric map.js",
-              "size": 7753,
+              "size": 8032,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\depth sorting\\remove from display list.js",
               "name": "remove from display list.js",
-              "size": 1319,
+              "size": 1380,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\depth sorting\\z index.js",
               "name": "z index.js",
-              "size": 1236,
+              "size": 1279,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 24689,
+          "size": 25626,
           "type": "directory"
         },
         {
@@ -1656,68 +1656,68 @@
                 {
                   "path": "src\\3.50\\display\\align\\in bottom center.js",
                   "name": "in bottom center.js",
-                  "size": 772,
+                  "size": 807,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\align\\in bottom left.js",
                   "name": "in bottom left.js",
-                  "size": 770,
+                  "size": 805,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\align\\in bottom right.js",
                   "name": "in bottom right.js",
-                  "size": 771,
+                  "size": 806,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\align\\in center.js",
                   "name": "in center.js",
-                  "size": 767,
+                  "size": 803,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\align\\in left center.js",
                   "name": "in left center.js",
-                  "size": 771,
+                  "size": 806,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\align\\in right center.js",
                   "name": "in right center.js",
-                  "size": 771,
+                  "size": 806,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\align\\in top center.js",
                   "name": "in top center.js",
-                  "size": 770,
+                  "size": 805,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\align\\in top left.js",
                   "name": "in top left.js",
-                  "size": 796,
+                  "size": 836,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\align\\in top right.js",
                   "name": "in top right.js",
-                  "size": 796,
+                  "size": 836,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 6984,
+              "size": 7310,
               "type": "directory"
             },
             {
@@ -1727,40 +1727,40 @@
                 {
                   "path": "src\\3.50\\display\\alpha\\bottom alpha.js",
                   "name": "bottom alpha.js",
-                  "size": 646,
+                  "size": 678,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\alpha\\single alpha.js",
                   "name": "single alpha.js",
-                  "size": 490,
+                  "size": 520,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\alpha\\top alpha.js",
                   "name": "top alpha.js",
-                  "size": 646,
+                  "size": 678,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\alpha\\top left alpha.js",
                   "name": "top left alpha.js",
-                  "size": 581,
+                  "size": 614,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\alpha\\tween alpha.js",
                   "name": "tween alpha.js",
-                  "size": 914,
+                  "size": 955,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 3277,
+              "size": 3445,
               "type": "directory"
             },
             {
@@ -1770,68 +1770,68 @@
                 {
                   "path": "src\\3.50\\display\\blend modes\\blend mode tester.js",
                   "name": "blend mode tester.js",
-                  "size": 7028,
+                  "size": 7262,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\blend modes\\circle cut out.js",
                   "name": "circle cut out.js",
-                  "size": 854,
+                  "size": 898,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\blend modes\\custom blend mode with graphics.js",
                   "name": "custom blend mode with graphics.js",
-                  "size": 4413,
+                  "size": 4565,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\blend modes\\custom blend mode.js",
                   "name": "custom blend mode.js",
-                  "size": 3889,
+                  "size": 4030,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\blend modes\\custom separate blend mode.js",
                   "name": "custom separate blend mode.js",
-                  "size": 4444,
+                  "size": 4587,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\blend modes\\difference.js",
                   "name": "difference.js",
-                  "size": 1894,
+                  "size": 1978,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\blend modes\\graphics blend mode.js",
                   "name": "graphics blend mode.js",
-                  "size": 1059,
+                  "size": 1106,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\blend modes\\overlay.js",
                   "name": "overlay.js",
-                  "size": 1857,
+                  "size": 1944,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\blend modes\\particle.js",
                   "name": "particle.js",
-                  "size": 1793,
+                  "size": 1877,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 27231,
+              "size": 28247,
               "type": "directory"
             },
             {
@@ -1841,61 +1841,61 @@
                 {
                   "path": "src\\3.50\\display\\color\\brighten.js",
                   "name": "brighten.js",
-                  "size": 742,
+                  "size": 777,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\color\\darken.js",
                   "name": "darken.js",
-                  "size": 738,
+                  "size": 773,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\color\\hex string to color.js",
                   "name": "hex string to color.js",
-                  "size": 662,
+                  "size": 694,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\color\\lighten.js",
                   "name": "lighten.js",
-                  "size": 739,
+                  "size": 773,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\color\\random color.js",
                   "name": "random color.js",
-                  "size": 486,
+                  "size": 513,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\color\\random gray.js",
                   "name": "random gray.js",
-                  "size": 491,
+                  "size": 519,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\color\\RGB string to color.js",
                   "name": "RGB string to color.js",
-                  "size": 819,
+                  "size": 851,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\color\\value to color.js",
                   "name": "value to color.js",
-                  "size": 712,
+                  "size": 744,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 5389,
+              "size": 5644,
               "type": "directory"
             },
             {
@@ -1905,7 +1905,7 @@
                 {
                   "path": "src\\3.50\\display\\effects\\fractal terrain.js",
                   "name": "fractal terrain.js",
-                  "size": 3991,
+                  "size": 4197,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -1924,7 +1924,7 @@
                   "type": "file"
                 }
               ],
-              "size": 19542,
+              "size": 19748,
               "type": "directory"
             },
             {
@@ -1934,112 +1934,112 @@
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask alpha.js",
                   "name": "bitmap mask alpha.js",
-                  "size": 1267,
+                  "size": 1325,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask bitmap font.js",
                   "name": "bitmap mask bitmap font.js",
-                  "size": 1890,
+                  "size": 1969,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask bitmap font2.js",
                   "name": "bitmap mask bitmap font2.js",
-                  "size": 1850,
+                  "size": 1926,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask example 2.js",
                   "name": "bitmap mask example 2.js",
-                  "size": 1744,
+                  "size": 1815,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask example.js",
                   "name": "bitmap mask example.js",
-                  "size": 1265,
+                  "size": 1323,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask masked particles.js",
                   "name": "bitmap mask masked particles.js",
-                  "size": 1622,
+                  "size": 1689,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask particles.js",
                   "name": "bitmap mask particles.js",
-                  "size": 1587,
+                  "size": 1652,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask text masking text.js",
                   "name": "bitmap mask text masking text.js",
-                  "size": 2088,
+                  "size": 2165,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask text.js",
                   "name": "bitmap mask text.js",
-                  "size": 1345,
+                  "size": 1401,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\bitmap mask text2.js",
                   "name": "bitmap mask text2.js",
-                  "size": 1335,
+                  "size": 1389,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\camera inversed mask test 1.js",
                   "name": "camera inversed mask test 1.js",
-                  "size": 3614,
+                  "size": 3741,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\camera mask test 1.js",
                   "name": "camera mask test 1.js",
-                  "size": 2764,
+                  "size": 2865,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\camera mask test 2.js",
                   "name": "camera mask test 2.js",
-                  "size": 2625,
+                  "size": 2724,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\camera mask test 3.js",
                   "name": "camera mask test 3.js",
-                  "size": 4535,
+                  "size": 4691,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\camera mask test 4.js",
                   "name": "camera mask test 4.js",
-                  "size": 2291,
+                  "size": 2384,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\camera mask test 5.js",
                   "name": "camera mask test 5.js",
-                  "size": 2350,
+                  "size": 2454,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -2050,39 +2050,39 @@
                     {
                       "path": "src\\3.50\\display\\masks\\component\\add mask to sprite.js",
                       "name": "add mask to sprite.js",
-                      "size": 1065,
+                      "size": 1112,
                       "extension": ".js",
                       "type": "file"
                     }
                   ],
-                  "size": 1065,
+                  "size": 1112,
                   "type": "directory"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\container mask test 1.js",
                   "name": "container mask test 1.js",
-                  "size": 3069,
+                  "size": 3173,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\container mask test 2.js",
                   "name": "container mask test 2.js",
-                  "size": 4335,
+                  "size": 4477,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\container mask test 3.js",
                   "name": "container mask test 3.js",
-                  "size": 4715,
+                  "size": 4867,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\flickering spotlight.js",
                   "name": "flickering spotlight.js",
-                  "size": 1166,
+                  "size": 1222,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -2093,86 +2093,86 @@
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\graphics mask.js",
                       "name": "graphics mask.js",
-                      "size": 3923,
+                      "size": 4080,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\image mask arc.js",
                       "name": "image mask arc.js",
-                      "size": 936,
+                      "size": 982,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\image mask multiple circles.js",
                       "name": "image mask multiple circles.js",
-                      "size": 969,
+                      "size": 1021,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\image mask.js",
                       "name": "image mask.js",
-                      "size": 1070,
+                      "size": 1121,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\display\\masks\\geometry mask\\multiple image mask.js",
                       "name": "multiple image mask.js",
-                      "size": 1568,
+                      "size": 1628,
                       "extension": ".js",
                       "type": "file"
                     }
                   ],
-                  "size": 8466,
+                  "size": 8832,
                   "type": "directory"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\geometry mask example.js",
                   "name": "geometry mask example.js",
-                  "size": 2282,
+                  "size": 2380,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\logo shine.js",
                   "name": "logo shine.js",
-                  "size": 3895,
+                  "size": 4023,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\magnify glass.js",
                   "name": "magnify glass.js",
-                  "size": 1228,
+                  "size": 1281,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\mask perf test.js",
                   "name": "mask perf test.js",
-                  "size": 2871,
+                  "size": 2976,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\spotlight rect.js",
                   "name": "spotlight rect.js",
-                  "size": 960,
+                  "size": 1007,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\masks\\spotlight.js",
                   "name": "spotlight.js",
-                  "size": 1007,
+                  "size": 1056,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 69231,
+              "size": 71919,
               "type": "directory"
             },
             {
@@ -2246,107 +2246,107 @@
                 {
                   "path": "src\\3.50\\display\\tint\\atlas frame tint.js",
                   "name": "atlas frame tint.js",
-                  "size": 867,
+                  "size": 907,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\corner tint.js",
                   "name": "corner tint.js",
-                  "size": 978,
+                  "size": 1014,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\multiple images.js",
                   "name": "multiple images.js",
-                  "size": 557,
+                  "size": 586,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\per vertex tint.js",
                   "name": "per vertex tint.js",
-                  "size": 911,
+                  "size": 952,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\pixel wave.js",
                   "name": "pixel wave.js",
-                  "size": 2139,
+                  "size": 2227,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\rainbow text.js",
                   "name": "rainbow text.js",
-                  "size": 1192,
+                  "size": 1242,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\rasters.js",
                   "name": "rasters.js",
-                  "size": 1180,
+                  "size": 1217,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\single color tint.js",
                   "name": "single color tint.js",
-                  "size": 795,
+                  "size": 837,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\text tint.js",
                   "name": "text tint.js",
-                  "size": 749,
+                  "size": 778,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\tile sprite tint.js",
                   "name": "tile sprite tint.js",
-                  "size": 1099,
+                  "size": 1147,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\tint and alpha.js",
                   "name": "tint and alpha.js",
-                  "size": 889,
+                  "size": 929,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\tint fill effect.js",
                   "name": "tint fill effect.js",
-                  "size": 1095,
+                  "size": 1134,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\tint fill.js",
                   "name": "tint fill.js",
-                  "size": 1904,
+                  "size": 1980,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\display\\tint\\tween tint.js",
                   "name": "tween tint.js",
-                  "size": 784,
+                  "size": 823,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 15139,
+              "size": 15773,
               "type": "directory"
             }
           ],
-          "size": 191278,
+          "size": 196571,
           "type": "directory"
         },
         {
@@ -2392,68 +2392,68 @@
             {
               "path": "src\\3.50\\events\\create event emitter.js",
               "name": "create event emitter.js",
-              "size": 834,
+              "size": 875,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\events\\emit scene event.js",
               "name": "emit scene event.js",
-              "size": 714,
+              "size": 750,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\events\\emit using symbols.js",
               "name": "emit using symbols.js",
-              "size": 1389,
+              "size": 1448,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\events\\event arguments.js",
               "name": "event arguments.js",
-              "size": 636,
+              "size": 669,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\events\\game object events.js",
               "name": "game object events.js",
-              "size": 815,
+              "size": 855,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\events\\listen to game object event.js",
               "name": "listen to game object event.js",
-              "size": 1929,
+              "size": 2010,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\events\\once event.js",
               "name": "once event.js",
-              "size": 888,
+              "size": 930,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\events\\turn off anonymous event handler.js",
               "name": "turn off anonymous event handler.js",
-              "size": 1008,
+              "size": 1059,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\events\\turn off event handler.js",
               "name": "turn off event handler.js",
-              "size": 962,
+              "size": 1014,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 9175,
+          "size": 9610,
           "type": "directory"
         },
         {
@@ -2463,70 +2463,70 @@
             {
               "path": "src\\3.50\\game config\\banner colors.js",
               "name": "banner colors.js",
-              "size": 1035,
+              "size": 1083,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\custom canvas.js",
               "name": "custom canvas.js",
-              "size": 663,
+              "size": 695,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\custom webgl canvas.js",
               "name": "custom webgl canvas.js",
-              "size": 1010,
+              "size": 1055,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\custom webgl2 canvas.js",
               "name": "custom webgl2 canvas.js",
-              "size": 1011,
+              "size": 1056,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\game destroy with multi scenes.js",
               "name": "game destroy with multi scenes.js",
-              "size": 1414,
+              "size": 1488,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\game destroy.js",
               "name": "game destroy.js",
-              "size": 1170,
+              "size": 1224,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\game rng.js",
               "name": "game rng.js",
-              "size": 1073,
+              "size": 1111,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\game title.js",
               "name": "game title.js",
-              "size": 591,
+              "size": 618,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\game url.js",
               "name": "game url.js",
-              "size": 726,
+              "size": 759,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\game version.js",
               "name": "game version.js",
-              "size": 720,
+              "size": 753,
               "extension": ".js",
               "type": "file"
             },
@@ -2540,47 +2540,47 @@
             {
               "path": "src\\3.50\\game config\\hide banner.js",
               "name": "hide banner.js",
-              "size": 538,
+              "size": 564,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\hide phaser from banner.js",
               "name": "hide phaser from banner.js",
-              "size": 725,
+              "size": 759,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\multiple game instances.js",
               "name": "multiple game instances.js",
-              "size": 2162,
+              "size": 2270,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\pixel art mode.js",
               "name": "pixel art mode.js",
-              "size": 1928,
+              "size": 1991,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\round pixels.js",
               "name": "round pixels.js",
-              "size": 732,
+              "size": 763,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\game config\\transparent.js",
               "name": "transparent.js",
-              "size": 639,
+              "size": 667,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 16625,
+          "size": 17344,
           "type": "directory"
         },
         {
@@ -2598,61 +2598,61 @@
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\dynamic\\canvas text.js",
                       "name": "canvas text.js",
-                      "size": 1332,
+                      "size": 1388,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\dynamic\\display callback index effect.js",
                       "name": "display callback index effect.js",
-                      "size": 1829,
+                      "size": 1903,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\dynamic\\display callback rotation effect.js",
                       "name": "display callback rotation effect.js",
-                      "size": 1803,
+                      "size": 1860,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\dynamic\\display callback scale effect.js",
                       "name": "display callback scale effect.js",
-                      "size": 1162,
+                      "size": 1220,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\dynamic\\display callback wibble effect.js",
                       "name": "display callback wibble effect.js",
-                      "size": 1056,
+                      "size": 1103,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\dynamic\\text follow path.js",
                       "name": "text follow path.js",
-                      "size": 1372,
+                      "size": 1441,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\dynamic\\tinted text.js",
                       "name": "tinted text.js",
-                      "size": 1038,
+                      "size": 1087,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\dynamic\\vertical scroller.js",
                       "name": "vertical scroller.js",
-                      "size": 2703,
+                      "size": 2774,
                       "extension": ".js",
                       "type": "file"
                     }
                   ],
-                  "size": 12295,
+                  "size": 12776,
                   "type": "directory"
                 },
                 {
@@ -2662,54 +2662,54 @@
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\retro font\\retro text 1.js",
                       "name": "retro text 1.js",
-                      "size": 976,
+                      "size": 1022,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\retro font\\retro text 2.js",
                       "name": "retro text 2.js",
-                      "size": 967,
+                      "size": 1013,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\retro font\\retro text mega scroll.js",
                       "name": "retro text mega scroll.js",
-                      "size": 1753,
+                      "size": 1823,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\retro font\\retro text scroll callback.js",
                       "name": "retro text scroll callback.js",
-                      "size": 1890,
+                      "size": 1972,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\retro font\\retro text scroll.js",
                       "name": "retro text scroll.js",
-                      "size": 1553,
+                      "size": 1619,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\retro font\\scrolling retro text.js",
                       "name": "scrolling retro text.js",
-                      "size": 3262,
+                      "size": 3355,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\retro font\\tinted retro text.js",
                       "name": "tinted retro text.js",
-                      "size": 1328,
+                      "size": 1390,
                       "extension": ".js",
                       "type": "file"
                     }
                   ],
-                  "size": 11729,
+                  "size": 12194,
                   "type": "directory"
                 },
                 {
@@ -2719,163 +2719,163 @@
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext blend mode.js",
                       "name": "bitmaptext blend mode.js",
-                      "size": 1050,
+                      "size": 1100,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext origin and scale.js",
                       "name": "bitmaptext origin and scale.js",
-                      "size": 863,
+                      "size": 901,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext rotation.js",
                       "name": "bitmaptext rotation.js",
-                      "size": 1119,
+                      "size": 1172,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext scale.js",
                       "name": "bitmaptext scale.js",
-                      "size": 870,
+                      "size": 913,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext-atlas.js",
                       "name": "bitmaptext-atlas.js",
-                      "size": 1505,
+                      "size": 1547,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext-canvas.js",
                       "name": "bitmaptext-canvas.js",
-                      "size": 1313,
+                      "size": 1369,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\bitmaptext.js",
                       "name": "bitmaptext.js",
-                      "size": 1067,
+                      "size": 1106,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\change font size.js",
                       "name": "change font size.js",
-                      "size": 836,
+                      "size": 879,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\change font.js",
                       "name": "change font.js",
-                      "size": 1434,
+                      "size": 1482,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\get text size multiline.js",
                       "name": "get text size multiline.js",
-                      "size": 960,
+                      "size": 992,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\get text size scaled.js",
                       "name": "get text size scaled.js",
-                      "size": 1398,
+                      "size": 1456,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\get text size.js",
                       "name": "get text size.js",
-                      "size": 1564,
+                      "size": 1608,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\large-text.js",
                       "name": "large-text.js",
-                      "size": 1362,
+                      "size": 1427,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\max width change content.js",
                       "name": "max width change content.js",
-                      "size": 1016,
+                      "size": 1060,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\max width.js",
                       "name": "max width.js",
-                      "size": 1304,
+                      "size": 1352,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\multi line alignment.js",
                       "name": "multi line alignment.js",
-                      "size": 1430,
+                      "size": 1485,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\multi line.js",
                       "name": "multi line.js",
-                      "size": 501,
+                      "size": 526,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\origin and scale.js",
                       "name": "origin and scale.js",
-                      "size": 866,
+                      "size": 906,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\padding.js",
                       "name": "padding.js",
-                      "size": 920,
+                      "size": 955,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\text origin.js",
                       "name": "text origin.js",
-                      "size": 1464,
+                      "size": 1506,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\tinted text.js",
                       "name": "tinted text.js",
-                      "size": 652,
+                      "size": 680,
                       "extension": ".js",
                       "type": "file"
                     },
                     {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\width and height.js",
                       "name": "width and height.js",
-                      "size": 1284,
+                      "size": 1339,
                       "extension": ".js",
                       "type": "file"
                     }
                   ],
-                  "size": 24778,
+                  "size": 25761,
                   "type": "directory"
                 }
               ],
-              "size": 48802,
+              "size": 50731,
               "type": "directory"
             },
             {
@@ -2885,70 +2885,70 @@
                 {
                   "path": "src\\3.50\\game objects\\blitter\\benchmark test 1.js",
                   "name": "benchmark test 1.js",
-                  "size": 1057,
+                  "size": 1108,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\benchmark test 2.js",
                   "name": "benchmark test 2.js",
-                  "size": 1187,
+                  "size": 1242,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\benchmark test 3.js",
                   "name": "benchmark test 3.js",
-                  "size": 3082,
+                  "size": 3210,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\blitter alpha.js",
                   "name": "blitter alpha.js",
-                  "size": 650,
+                  "size": 685,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\blitter camera test canvas.js",
                   "name": "blitter camera test canvas.js",
-                  "size": 1427,
+                  "size": 1485,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\blitter camera test.js",
                   "name": "blitter camera test.js",
-                  "size": 1428,
+                  "size": 1487,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\blitter global alpha.js",
                   "name": "blitter global alpha.js",
-                  "size": 611,
+                  "size": 651,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\bob frame object.js",
                   "name": "bob frame object.js",
-                  "size": 1057,
+                  "size": 1096,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\bobs using a multi atlas.js",
                   "name": "bobs using a multi atlas.js",
-                  "size": 989,
+                  "size": 1031,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\blitter\\canvas benchmark 1.js",
                   "name": "canvas benchmark 1.js",
-                  "size": 2976,
+                  "size": 3106,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3002,7 +3002,7 @@
                   "type": "file"
                 }
               ],
-              "size": 32817,
+              "size": 33454,
               "type": "directory"
             },
             {
@@ -4270,28 +4270,56 @@
               "name": "layer",
               "children": [
                 {
+                  "path": "src\\3.50\\game objects\\layer\\add sprite to layer.js",
+                  "name": "add sprite to layer.js",
+                  "size": 1165,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\3.50\\game objects\\layer\\create layer.js",
                   "name": "create layer.js",
-                  "size": 1198,
+                  "size": 1150,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\layer\\depth sort layer children.js",
                   "name": "depth sort layer children.js",
-                  "size": 2002,
+                  "size": 1932,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\layer\\layer post pipeline.js",
                   "name": "layer post pipeline.js",
-                  "size": 1355,
+                  "size": 1302,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\3.50\\game objects\\layer\\layer with bitmap mask.js",
+                  "name": "layer with bitmap mask.js",
+                  "size": 1216,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\3.50\\game objects\\layer\\layer with geometry mask.js",
+                  "name": "layer with geometry mask.js",
+                  "size": 1216,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\3.50\\game objects\\layer\\nested layers.js",
+                  "name": "nested layers.js",
+                  "size": 1709,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 4555,
+              "size": 9690,
               "type": "directory"
             },
             {
@@ -4456,21 +4484,21 @@
                 {
                   "path": "src\\3.50\\game objects\\mesh\\mesh from array.js",
                   "name": "mesh from array.js",
-                  "size": 2334,
+                  "size": 2228,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\mesh\\mesh from generate grid.js",
                   "name": "mesh from generate grid.js",
-                  "size": 2142,
+                  "size": 2047,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\mesh\\mesh from obj.js",
                   "name": "mesh from obj.js",
-                  "size": 2090,
+                  "size": 2000,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4482,7 +4510,7 @@
                   "type": "file"
                 }
               ],
-              "size": 13408,
+              "size": 13117,
               "type": "directory"
             },
             {
@@ -5130,7 +5158,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\resize rendertexture.js",
                   "name": "resize rendertexture.js",
-                  "size": 3167,
+                  "size": 3288,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5144,7 +5172,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\scene to render texture quad.js",
                   "name": "scene to render texture quad.js",
-                  "size": 5747,
+                  "size": 5523,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5165,7 +5193,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\scratch.js",
                   "name": "scratch.js",
-                  "size": 1406,
+                  "size": 1455,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5240,7 +5268,7 @@
                   "type": "file"
                 }
               ],
-              "size": 61356,
+              "size": 61302,
               "type": "directory"
             },
             {
@@ -6023,7 +6051,7 @@
               "type": "directory"
             }
           ],
-          "size": 793995,
+          "size": 801351,
           "type": "directory"
         },
         {
@@ -8944,7 +8972,7 @@
                 {
                   "path": "src\\3.50\\input\\pointer\\event list.js",
                   "name": "event list.js",
-                  "size": 1255,
+                  "size": 1282,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8998,7 +9026,7 @@
                   "type": "file"
                 }
               ],
-              "size": 13381,
+              "size": 13408,
               "type": "directory"
             },
             {
@@ -9045,7 +9073,7 @@
               "type": "directory"
             }
           ],
-          "size": 209176,
+          "size": 209203,
           "type": "directory"
         },
         {
@@ -10999,7 +11027,7 @@
                 {
                   "path": "src\\3.50\\physics\\matterjs\\circle stack.js",
                   "name": "circle stack.js",
-                  "size": 1283,
+                  "size": 1341,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -11305,7 +11333,7 @@
                   "type": "file"
                 }
               ],
-              "size": 103297,
+              "size": 103355,
               "type": "directory"
             },
             {
@@ -11315,16 +11343,16 @@
                 {
                   "path": "src\\3.50\\physics\\multi\\arcade and matter.js",
                   "name": "arcade and matter.js",
-                  "size": 1088,
+                  "size": 1134,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 1088,
+              "size": 1134,
               "type": "directory"
             }
           ],
-          "size": 360223,
+          "size": 360327,
           "type": "directory"
         },
         {
@@ -11532,82 +11560,82 @@
             {
               "path": "src\\3.50\\renderer\\bend pipeline.js",
               "name": "bend pipeline.js",
-              "size": 1295,
+              "size": 1239,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\container pipeline.js",
               "name": "container pipeline.js",
-              "size": 1277,
+              "size": 1223,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline multi texture es6.js",
               "name": "custom pipeline multi texture es6.js",
-              "size": 3472,
+              "size": 3317,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline multi texture.js",
               "name": "custom pipeline multi texture.js",
-              "size": 3247,
+              "size": 3121,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline single texture es6.js",
               "name": "custom pipeline single texture es6.js",
-              "size": 3305,
+              "size": 3158,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\custom pipeline single texture.js",
               "name": "custom pipeline single texture.js",
-              "size": 3213,
+              "size": 3090,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\grayscale pipeline.js",
               "name": "grayscale pipeline.js",
-              "size": 1468,
+              "size": 1406,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\hue rotation pipeline.js",
               "name": "hue rotation pipeline.js",
-              "size": 1371,
+              "size": 1316,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\multi color pipeline.js",
               "name": "multi color pipeline.js",
-              "size": 1392,
+              "size": 1342,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\set pipeline data.js",
               "name": "set pipeline data.js",
-              "size": 1441,
+              "size": 1391,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\renderer\\webgl info.js",
               "name": "webgl info.js",
-              "size": 1181,
+              "size": 1143,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 28022,
+          "size": 27106,
           "type": "directory"
         },
         {
@@ -12655,7 +12683,7 @@
             {
               "path": "src\\3.50\\textures\\batch texture.js",
               "name": "batch texture.js",
-              "size": 1415,
+              "size": 1347,
               "extension": ".js",
               "type": "file"
             },
@@ -12884,7 +12912,7 @@
               "type": "file"
             }
           ],
-          "size": 47191,
+          "size": 47123,
           "type": "directory"
         },
         {
@@ -12905,7 +12933,7 @@
                 {
                   "path": "src\\3.50\\tilemap\\collision\\csv map arcade physics.js",
                   "name": "csv map arcade physics.js",
-                  "size": 4380,
+                  "size": 4215,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -12973,7 +13001,7 @@
                   "type": "file"
                 }
               ],
-              "size": 65542,
+              "size": 65377,
               "type": "directory"
             },
             {
@@ -13357,7 +13385,7 @@
               "type": "file"
             }
           ],
-          "size": 264586,
+          "size": 264421,
           "type": "directory"
         },
         {
@@ -13488,7 +13516,7 @@
             {
               "path": "src\\3.50\\transform\\angle.js",
               "name": "angle.js",
-              "size": 611,
+              "size": 641,
               "extension": ".js",
               "type": "file"
             },
@@ -13531,77 +13559,77 @@
             {
               "path": "src\\3.50\\transform\\display size.js",
               "name": "display size.js",
-              "size": 611,
+              "size": 638,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\flip x.js",
               "name": "flip x.js",
-              "size": 764,
+              "size": 802,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\flip y.js",
               "name": "flip y.js",
-              "size": 764,
+              "size": 802,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\originX.js",
               "name": "originX.js",
-              "size": 1388,
+              "size": 1447,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\originXY.js",
               "name": "originXY.js",
-              "size": 1961,
+              "size": 2043,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\originY.js",
               "name": "originY.js",
-              "size": 1386,
+              "size": 1445,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\position.js",
               "name": "position.js",
-              "size": 807,
+              "size": 846,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\rotation and origin.js",
               "name": "rotation and origin.js",
-              "size": 896,
+              "size": 936,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\rotation.js",
               "name": "rotation.js",
-              "size": 649,
+              "size": 684,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\scaleX.js",
               "name": "scaleX.js",
-              "size": 633,
+              "size": 663,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\3.50\\transform\\scaleXY.js",
               "name": "scaleXY.js",
-              "size": 746,
+              "size": 779,
               "extension": ".js",
               "type": "file"
             },
@@ -13613,7 +13641,7 @@
               "type": "file"
             }
           ],
-          "size": 17671,
+          "size": 18181,
           "type": "directory"
         },
         {
@@ -13791,7 +13819,7 @@
             {
               "path": "src\\3.50\\tweens\\multiple delayed properties.js",
               "name": "multiple delayed properties.js",
-              "size": 874,
+              "size": 881,
               "extension": ".js",
               "type": "file"
             },
@@ -14121,7 +14149,7 @@
             {
               "path": "src\\3.50\\tweens\\tween time scale.js",
               "name": "tween time scale.js",
-              "size": 1966,
+              "size": 1995,
               "extension": ".js",
               "type": "file"
             },
@@ -14147,7 +14175,7 @@
               "type": "file"
             }
           ],
-          "size": 91774,
+          "size": 91810,
           "type": "directory"
         },
         {
@@ -14337,7 +14365,7 @@
           "type": "directory"
         }
       ],
-      "size": 4072887,
+      "size": 4097466,
       "type": "directory"
     },
     {
@@ -14579,7 +14607,7 @@
         {
           "path": "src\\animation\\aseprite animation.js",
           "name": "aseprite animation.js",
-          "size": 1153,
+          "size": 1098,
           "extension": ".js",
           "type": "file"
         },
@@ -14850,7 +14878,7 @@
           "type": "file"
         }
       ],
-      "size": 85812,
+      "size": 85757,
       "type": "directory"
     },
     {
@@ -16011,7 +16039,7 @@
         {
           "path": "src\\bugs\\blend.js",
           "name": "blend.js",
-          "size": 1081,
+          "size": 1035,
           "extension": ".js",
           "type": "file"
         },
@@ -16025,14 +16053,14 @@
         {
           "path": "src\\bugs\\blendc.js",
           "name": "blendc.js",
-          "size": 521,
+          "size": 502,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\bugs\\bm.js",
           "name": "bm.js",
-          "size": 795,
+          "size": 770,
           "extension": ".js",
           "type": "file"
         },
@@ -16312,7 +16340,7 @@
         {
           "path": "src\\bugs\\right.js",
           "name": "right.js",
-          "size": 690,
+          "size": 656,
           "extension": ".js",
           "type": "file"
         },
@@ -16445,7 +16473,7 @@
         {
           "path": "src\\bugs\\timeline.js",
           "name": "timeline.js",
-          "size": 1453,
+          "size": 1396,
           "extension": ".js",
           "type": "file"
         },
@@ -16473,7 +16501,7 @@
         {
           "path": "src\\bugs\\update.js",
           "name": "update.js",
-          "size": 1027,
+          "size": 984,
           "extension": ".js",
           "type": "file"
         },
@@ -16485,7 +16513,7 @@
           "type": "file"
         }
       ],
-      "size": 115166,
+      "size": 114942,
       "type": "directory"
     },
     {
@@ -16756,7 +16784,7 @@
         {
           "path": "src\\camera\\camera-effects.js",
           "name": "camera-effects.js",
-          "size": 994,
+          "size": 945,
           "extension": ".js",
           "type": "file"
         },
@@ -17210,7 +17238,7 @@
           "type": "file"
         }
       ],
-      "size": 215648,
+      "size": 215599,
       "type": "directory"
     },
     {
@@ -17313,12 +17341,12 @@
         {
           "path": "src\\demoscene\\vertical raster wave.js",
           "name": "vertical raster wave.js",
-          "size": 1055,
+          "size": 1080,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 8147,
+      "size": 8172,
       "type": "directory"
     },
     {
@@ -18473,7 +18501,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\bitmaptext origin and scale.js",
                   "name": "bitmaptext origin and scale.js",
-                  "size": 799,
+                  "size": 766,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -18585,7 +18613,7 @@
                 {
                   "path": "src\\game objects\\bitmaptext\\static\\origin and scale.js",
                   "name": "origin and scale.js",
-                  "size": 802,
+                  "size": 767,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -18618,11 +18646,11 @@
                   "type": "file"
                 }
               ],
-              "size": 23515,
+              "size": 23447,
               "type": "directory"
             }
           ],
-          "size": 46134,
+          "size": 46066,
           "type": "directory"
         },
         {
@@ -19368,8 +19396,8 @@
               "type": "file"
             },
             {
-              "path": "src\\game objects\\graphics\\Line Rendering.js",
-              "name": "Line Rendering.js",
+              "path": "src\\game objects\\graphics\\line rendering.js",
+              "name": "line rendering.js",
               "size": 1916,
               "extension": ".js",
               "type": "file"
@@ -19396,8 +19424,8 @@
               "type": "file"
             },
             {
-              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
-              "name": "Multiple Graphic Objects.js",
+              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
+              "name": "multiple graphic objects.js",
               "size": 2132,
               "extension": ".js",
               "type": "file"
@@ -20223,7 +20251,7 @@
             {
               "path": "src\\game objects\\mesh\\basic quad.js",
               "name": "basic quad.js",
-              "size": 1433,
+              "size": 1375,
               "extension": ".js",
               "type": "file"
             },
@@ -20284,7 +20312,7 @@
               "type": "file"
             }
           ],
-          "size": 22175,
+          "size": 22117,
           "type": "directory"
         },
         {
@@ -20835,7 +20863,7 @@
             {
               "path": "src\\game objects\\render texture\\draw to render texture.js",
               "name": "draw to render texture.js",
-              "size": 3152,
+              "size": 3030,
               "extension": ".js",
               "type": "file"
             },
@@ -20884,7 +20912,7 @@
             {
               "path": "src\\game objects\\render texture\\graphics to render texture.js",
               "name": "graphics to render texture.js",
-              "size": 1318,
+              "size": 1255,
               "extension": ".js",
               "type": "file"
             },
@@ -20982,7 +21010,7 @@
             {
               "path": "src\\game objects\\render texture\\scene to render texture quad.js",
               "name": "scene to render texture quad.js",
-              "size": 6724,
+              "size": 6996,
               "extension": ".js",
               "type": "file"
             },
@@ -21078,7 +21106,7 @@
               "type": "file"
             }
           ],
-          "size": 64606,
+          "size": 64693,
           "type": "directory"
         },
         {
@@ -22385,7 +22413,7 @@
           "type": "directory"
         }
       ],
-      "size": 1094068,
+      "size": 1094029,
       "type": "directory"
     },
     {
@@ -25306,7 +25334,7 @@
             {
               "path": "src\\input\\pointer\\event list.js",
               "name": "event list.js",
-              "size": 1255,
+              "size": 1282,
               "extension": ".js",
               "type": "file"
             },
@@ -25360,7 +25388,7 @@
               "type": "file"
             }
           ],
-          "size": 13381,
+          "size": 13408,
           "type": "directory"
         },
         {
@@ -25407,7 +25435,7 @@
           "type": "directory"
         }
       ],
-      "size": 208996,
+      "size": 209023,
       "type": "directory"
     },
     {
@@ -28098,7 +28126,7 @@
         {
           "path": "src\\renderer\\bend pipeline.js",
           "name": "bend pipeline.js",
-          "size": 2424,
+          "size": 2330,
           "extension": ".js",
           "type": "file"
         },
@@ -28119,21 +28147,21 @@
         {
           "path": "src\\renderer\\custom pipeline multi texture.js",
           "name": "custom pipeline multi texture.js",
-          "size": 3758,
+          "size": 3596,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\custom pipeline single texture.js",
           "name": "custom pipeline single texture.js",
-          "size": 3345,
+          "size": 3196,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\grayscale pipeline.js",
           "name": "grayscale pipeline.js",
-          "size": 1468,
+          "size": 1406,
           "extension": ".js",
           "type": "file"
         },
@@ -28147,7 +28175,7 @@
         {
           "path": "src\\renderer\\hue rotation pipeline.js",
           "name": "hue rotation pipeline.js",
-          "size": 1371,
+          "size": 1316,
           "extension": ".js",
           "type": "file"
         },
@@ -28161,19 +28189,19 @@
         {
           "path": "src\\renderer\\set pipeline data.js",
           "name": "set pipeline data.js",
-          "size": 1441,
+          "size": 1391,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src\\renderer\\webgl info.js",
           "name": "webgl info.js",
-          "size": 1181,
+          "size": 1143,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 24715,
+      "size": 24105,
       "type": "directory"
     },
     {
@@ -29496,7 +29524,7 @@
         {
           "path": "src\\textures\\batch canvas texture.js",
           "name": "batch canvas texture.js",
-          "size": 1967,
+          "size": 2055,
           "extension": ".js",
           "type": "file"
         },
@@ -29732,7 +29760,7 @@
           "type": "file"
         }
       ],
-      "size": 49728,
+      "size": 49816,
       "type": "directory"
     },
     {
@@ -30166,7 +30194,7 @@
         {
           "path": "src\\tweens\\multiple delayed properties.js",
           "name": "multiple delayed properties.js",
-          "size": 874,
+          "size": 881,
           "extension": ".js",
           "type": "file"
         },
@@ -30496,7 +30524,7 @@
         {
           "path": "src\\tweens\\tween time scale.js",
           "name": "tween time scale.js",
-          "size": 1966,
+          "size": 1991,
           "extension": ".js",
           "type": "file"
         },
@@ -30522,7 +30550,7 @@
           "type": "file"
         }
       ],
-      "size": 91689,
+      "size": 91721,
       "type": "directory"
     },
     {
@@ -30712,6 +30740,6 @@
       "type": "directory"
     }
   ],
-  "size": 8620820,
+  "size": 8644594,
   "type": "directory"
 }

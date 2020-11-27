@@ -31,7 +31,7 @@ function create ()
 
     // this.add.image(400, 300, 'logo');
 
-    var camera = new THREE.PerspectiveCamera( 70, 800 / 600, 1, 1000 );
+    var camera = new THREE.PerspectiveCamera( 70, config.width / config.height, 1, 1000 );
 
     camera.position.z = 400;
 

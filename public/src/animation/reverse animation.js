@@ -96,7 +96,7 @@ function update ()
 		'',
 		'Yoyo: ' + sprite.anims.yoyo,
 		'Reverse: ' + sprite.anims.inReverse,
-        'Progress: ' + sprite.anims.getProgress() + '%',
+        'Progress: ' + sprite.anims.getProgress() * 100 + '%',
         'Accumulator: ' + sprite.anims.accumulator,
         'NextTick: ' + sprite.anims.nextTick
     ];

@@ -73,7 +73,7 @@ class Example extends Phaser.Scene
             '',
             'Yoyo: ' + this.sprite.anims.yoyo,
             'Reverse: ' + this.sprite.anims.inReverse,
-            'Progress: ' + this.sprite.anims.getProgress() + '%',
+            'Progress: ' + this.sprite.anims.getProgress() * 100 + '%',
             'Accumulator: ' + this.sprite.anims.accumulator,
             'NextTick: ' + this.sprite.anims.nextTick
         ];

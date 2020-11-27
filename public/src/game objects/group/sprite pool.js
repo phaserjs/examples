@@ -104,11 +104,11 @@ function activateAlien (alien) {
 
 function addAlien () {
     // Random position above screen
-    var x = Phaser.Math.Between(250, 800);
-    var y = Phaser.Math.Between(-64, 0);
+    const x = Phaser.Math.Between(250, 800);
+    const y = Phaser.Math.Between(-64, 0);
 
     // Find first inactive sprite in group or add new sprite, and set position
-    var alien = group.get(x, y);
+    const alien = group.get(x, y);
 
     // None free or already at maximum amount of sprites in group
     if (!alien) return;

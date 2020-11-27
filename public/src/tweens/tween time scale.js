@@ -38,8 +38,8 @@ function create ()
         flipX: true,
         yoyo: true,
         repeat: -1,
-        delay: function (i, total, target) {
-            return i * 1000;
+        delay: function (target, key, value, targetIndex) {
+            return targetIndex * 1000;
         }
     });
 

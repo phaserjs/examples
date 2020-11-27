@@ -1,4 +1,4 @@
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -10,7 +10,7 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload ()
 {
@@ -38,8 +38,8 @@ function create ()
         flipX: true,
         yoyo: true,
         repeat: -1,
-        delay: function (i, total, target) {
-            return i * 1000;
+        delay: function (target, key, value, targetIndex) {
+            return targetIndex * 1000;
         }
     });
 

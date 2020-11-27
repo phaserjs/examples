@@ -50,8 +50,8 @@ function create ()
         repeat: -1,
         ease: 'Sine.easeInOut',
         duration: 1500,
-        delay: function (i, total, target) {
-            return i * 30;
+        delay: function (target, key, value, targetIndex) {
+            return targetIndex * 30;
         }
     });
 }

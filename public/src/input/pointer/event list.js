@@ -45,8 +45,8 @@ function create ()
             this.tweens.add({
                 targets: gameObjects,
                 x: { value: 1100, duration: 1500, ease: 'Power2' },
-                delay: function (i, total, target) {
-                    return i * 100;
+                delay: function (target, key, value, targetIndex) {
+                    return targetIndex * 100;
                 }
             });
         }

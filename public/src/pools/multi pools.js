@@ -118,7 +118,7 @@ function update (time, delta)
 
     if (isDown && time > lastFired)
     {
-        var bullet = bullets.get();
+        var bullet = bullets1.get();
 
         if (bullet)
         {

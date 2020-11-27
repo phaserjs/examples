@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
         const image = this.add.image(400, 300, 'pic');
         const shape = this.make.graphics();
 
-        //  Create a hash shape Graphics object
+        //  Create an arc shape Graphics object
         shape.fillStyle(0xffffff);
 
         shape.slice(400, 300, 200, Phaser.Math.DegToRad(340), Phaser.Math.DegToRad(30), true);

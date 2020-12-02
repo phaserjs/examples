@@ -7,12 +7,16 @@ class Example extends Phaser.Scene
 
     create ()
     {
+        this.add.text(10, 10, 'Wheel: Hue\nA + D: Radius\nW + S: Attenuation\nClick to set Light').setDepth(1);
+
         let colorIndex = 0;
         const spectrum = Phaser.Display.Color.ColorSpectrum(128);
 
-        const layer = this.add.lightLayer();
+        let radius = 128;
+        let intensity = 1;
+        let attenuation = 0.1;
 
-        let light = layer.addPointLight(400, 300, 0, 128, 1);
+        let light = this.add.pointlight(400, 300, 0, radius, intensity);
 
         let color = spectrum[colorIndex];
 
@@ -22,8 +26,9 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerdown', pointer => {
 
-            light = layer.addPointLight(pointer.x, pointer.y, 0, 128, 1);
+            light = this.add.pointlight(pointer.x, pointer.y, 0, radius, intensity);
 
+            light.attenuation = attenuation;
             light.color.set(color.r, color.g, color.b);
 
         });
@@ -64,24 +69,28 @@ class Example extends Phaser.Scene
         this.input.keyboard.on('keydown-A', () => {
 
             light.radius--;
+            radius--;
 
         });
 
         this.input.keyboard.on('keydown-D', () => {
 
             light.radius++;
+            radius++;
 
         });
 
         this.input.keyboard.on('keydown-W', () => {
 
             light.attenuation += 0.01;
+            attenuation += 0.01;
 
         });
 
         this.input.keyboard.on('keydown-S', () => {
 
             light.attenuation -= 0.01;
+            attenuation -= 0.01;
 
         });
     }

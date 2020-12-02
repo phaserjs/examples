@@ -4364,7 +4364,7 @@
                 {
                   "path": "src\\3.50\\game objects\\lights\\create point light.js",
                   "name": "create point light.js",
-                  "size": 2053,
+                  "size": 2283,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4392,7 +4392,7 @@
                 {
                   "path": "src\\3.50\\game objects\\lights\\mesh light.js",
                   "name": "mesh light.js",
-                  "size": 2761,
+                  "size": 2401,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4460,7 +4460,7 @@
                   "type": "file"
                 }
               ],
-              "size": 33296,
+              "size": 33166,
               "type": "directory"
             },
             {
@@ -4960,6 +4960,20 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\3.50\\game objects\\render texture\\batch draw frame.js",
+                  "name": "batch draw frame.js",
+                  "size": 781,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\3.50\\game objects\\render texture\\batch draw sprite.js",
+                  "name": "batch draw sprite.js",
+                  "size": 662,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\3.50\\game objects\\render texture\\blitter to render texture.js",
                   "name": "blitter to render texture.js",
                   "size": 650,
@@ -5011,7 +5025,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\draw to render texture.js",
                   "name": "draw to render texture.js",
-                  "size": 3316,
+                  "size": 3030,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5254,7 +5268,7 @@
                   "type": "file"
                 }
               ],
-              "size": 61302,
+              "size": 62459,
               "type": "directory"
             },
             {
@@ -6044,7 +6058,7 @@
               "type": "directory"
             }
           ],
-          "size": 796353,
+          "size": 797380,
           "type": "directory"
         },
         {
@@ -14365,7 +14379,7 @@
           "type": "directory"
         }
       ],
-      "size": 4094096,
+      "size": 4095123,
       "type": "directory"
     },
     {
@@ -16114,6 +16128,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\cull light.js",
+          "name": "cull light.js",
+          "size": 2878,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\destroy scale.js",
           "name": "destroy scale.js",
           "size": 1097,
@@ -16513,7 +16534,7 @@
           "type": "file"
         }
       ],
-      "size": 114961,
+      "size": 117839,
       "type": "directory"
     },
     {
@@ -30754,6 +30775,6 @@
       "type": "directory"
     }
   ],
-  "size": 8644293,
+  "size": 8648198,
   "type": "directory"
 }

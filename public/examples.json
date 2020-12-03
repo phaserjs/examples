@@ -4383,6 +4383,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\3.50\\game objects\\lights\\light culling.js",
+                  "name": "light culling.js",
+                  "size": 2934,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\3.50\\game objects\\lights\\light follow pointer.js",
                   "name": "light follow pointer.js",
                   "size": 2184,
@@ -4400,6 +4407,13 @@
                   "path": "src\\3.50\\game objects\\lights\\particles light.js",
                   "name": "particles light.js",
                   "size": 1753,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src\\3.50\\game objects\\lights\\point lights.js",
+                  "name": "point lights.js",
+                  "size": 2934,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4460,7 +4474,7 @@
                   "type": "file"
                 }
               ],
-              "size": 33166,
+              "size": 39034,
               "type": "directory"
             },
             {
@@ -6058,7 +6072,7 @@
               "type": "directory"
             }
           ],
-          "size": 797380,
+          "size": 803248,
           "type": "directory"
         },
         {
@@ -14379,7 +14393,7 @@
           "type": "directory"
         }
       ],
-      "size": 4095123,
+      "size": 4100991,
       "type": "directory"
     },
     {
@@ -16130,7 +16144,7 @@
         {
           "path": "src\\bugs\\cull light.js",
           "name": "cull light.js",
-          "size": 2878,
+          "size": 3045,
           "extension": ".js",
           "type": "file"
         },
@@ -16534,7 +16548,7 @@
           "type": "file"
         }
       ],
-      "size": 117839,
+      "size": 118006,
       "type": "directory"
     },
     {
@@ -30775,6 +30789,6 @@
       "type": "directory"
     }
   ],
-  "size": 8648198,
+  "size": 8654233,
   "type": "directory"
 }

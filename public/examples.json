@@ -4413,7 +4413,7 @@
                 {
                   "path": "src\\3.50\\game objects\\lights\\point lights.js",
                   "name": "point lights.js",
-                  "size": 2934,
+                  "size": 4255,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4474,7 +4474,7 @@
                   "type": "file"
                 }
               ],
-              "size": 39034,
+              "size": 40355,
               "type": "directory"
             },
             {
@@ -6072,7 +6072,7 @@
               "type": "directory"
             }
           ],
-          "size": 803248,
+          "size": 804569,
           "type": "directory"
         },
         {
@@ -14393,7 +14393,7 @@
           "type": "directory"
         }
       ],
-      "size": 4100991,
+      "size": 4102312,
       "type": "directory"
     },
     {
@@ -16009,6 +16009,41 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\5222 points.js",
+          "name": "5222 points.js",
+          "size": 966,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5399 resize mask.js",
+          "name": "5399 resize mask.js",
+          "size": 1150,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5420 plugin.js",
+          "name": "5420 plugin.js",
+          "size": 2015,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5426 rt canvas alpha.js",
+          "name": "5426 rt canvas alpha.js",
+          "size": 924,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\6000 rt resize.js",
+          "name": "6000 rt resize.js",
+          "size": 2025,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\a path follow.js",
           "name": "a path follow.js",
           "size": 1083,
@@ -16548,7 +16583,7 @@
           "type": "file"
         }
       ],
-      "size": 118006,
+      "size": 125086,
       "type": "directory"
     },
     {
@@ -20919,7 +20954,7 @@
             {
               "path": "src\\game objects\\render texture\\erase part of render texture canvas.js",
               "name": "erase part of render texture canvas.js",
-              "size": 1154,
+              "size": 1230,
               "extension": ".js",
               "type": "file"
             },
@@ -21141,7 +21176,7 @@
               "type": "file"
             }
           ],
-          "size": 64693,
+          "size": 64769,
           "type": "directory"
         },
         {
@@ -22455,7 +22490,7 @@
           "type": "directory"
         }
       ],
-      "size": 1095506,
+      "size": 1095582,
       "type": "directory"
     },
     {
@@ -30789,6 +30824,6 @@
       "type": "directory"
     }
   ],
-  "size": 8654233,
+  "size": 8662710,
   "type": "directory"
 }

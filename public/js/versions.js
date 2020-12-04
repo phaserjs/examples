@@ -1,5 +1,6 @@
 var versions = [
     { val : 'dev', text: 'Dev Build' },
+    { val : '3.50.0-beta.12', text: '3.50.0 Beta 12' },
     { val : '3.50.0-beta.11', text: '3.50.0 Beta 11' },
     { val : '3.24.1', text: '3.24.1' },
     { val : '3.24.0', text: '3.24.0' },

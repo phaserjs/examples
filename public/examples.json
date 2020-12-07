@@ -5452,6 +5452,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src\\3.50\\game objects\\shaders\\shader using a render texture.js",
+                  "name": "shader using a render texture.js",
+                  "size": 807,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src\\3.50\\game objects\\shaders\\using a shader as a buffer.js",
                   "name": "using a shader as a buffer.js",
                   "size": 943,
@@ -5459,7 +5466,7 @@
                   "type": "file"
                 }
               ],
-              "size": 27024,
+              "size": 27831,
               "type": "directory"
             },
             {
@@ -6072,7 +6079,7 @@
               "type": "directory"
             }
           ],
-          "size": 805375,
+          "size": 806182,
           "type": "directory"
         },
         {
@@ -14393,7 +14400,7 @@
           "type": "directory"
         }
       ],
-      "size": 4103118,
+      "size": 4103925,
       "type": "directory"
     },
     {
@@ -16032,7 +16039,7 @@
         {
           "path": "src\\bugs\\5423 rt to shader.js",
           "name": "5423 rt to shader.js",
-          "size": 1171,
+          "size": 801,
           "extension": ".js",
           "type": "file"
         },
@@ -16590,7 +16597,7 @@
           "type": "file"
         }
       ],
-      "size": 126537,
+      "size": 126167,
       "type": "directory"
     },
     {
@@ -30831,6 +30838,6 @@
       "type": "directory"
     }
   ],
-  "size": 8664967,
+  "size": 8665404,
   "type": "directory"
 }

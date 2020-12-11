@@ -40,6 +40,7 @@ function create ()
 
         if (pointer.isDown)
         {
+            // rt.erase('brush', pointer.x - 16, pointer.y - 16);
             rt.erase(brush, pointer.x - 16, pointer.y - 16);
         }
 
@@ -47,6 +48,7 @@ function create ()
 
     this.input.on('pointerdown', function (pointer) {
 
+        // rt.erase('brush', pointer.x - 16, pointer.y - 16);
         rt.erase(brush, pointer.x - 16, pointer.y - 16);
 
     }, this);

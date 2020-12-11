@@ -15,11 +15,12 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.atlas('megaset', 'assets/atlas/megaset-0.png', 'assets/atlas/megaset-0.json');
+    this.load.image('uv', 'assets/pics/uv-grid-diag.png');
 }
 
 function create ()
 {
-    var rt = this.add.renderTexture(0, 0, 800, 800);
+    var rt = this.add.renderTexture(0, 0, 800, 600);
 
     var atlasTexture = this.textures.get('megaset');
 

@@ -1,4 +1,4 @@
-const parent = 'parent';
+const parent = 'phaser-example';
 const config = {
   canvasStyle: 'width: 100%; height: 100%',
   scale: {
@@ -6,45 +6,61 @@ const config = {
     parent,
     resizeInterval: 50,
   },
+  backgroundColor: '#adadad',
   parent,
+  _width: 1024, _height: 1024,
   type: Phaser.WEBGL,
   scene: {
+    preload,
     create,
     update,
   },
 };
 const game = new Phaser.Game(config);
 
-const CANVAS_WIDTH = 1024;
+const CANVAS_WIDTH = 512;
 const CANVAS_HEIGHT = CANVAS_WIDTH;
-function create() {
-  // Zoom into the top-left corner which has our canvas.
-  this.cameras.main.setOrigin(0, 0);
-  const rt = this.add.renderTexture(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  rt.fill(0x000000);
-  const brush = this.add.circle(-1_000, -1_000, 10, 0x00ffff).setOrigin(0.5, 0.5);
-  const gridBrush = this.add.circle(-1_000, -1_000, 20, 0xffffff).setOrigin(0.5, 0.5);
 
-  // Draw a grid to show the bounds of the original texture.
-  for (let x = 0; x < CANVAS_WIDTH; x += 100) {
-    for (let y = 0; y < CANVAS_HEIGHT; y += 100) {
-      rt.draw(gridBrush, x, y);
-    }
-  }
+function preload ()
+{
+    this.load.image('box', 'assets/sprites/crate.png');
+    this.load.image('grid', 'assets/pics/uv-grid.jpg');
+}
+
+function create() {
+
+    // Zoom into the top-left corner which has our canvas.
+  this.cameras.main.setOrigin(0, 0);
+
+//   this.add.image(0, 0, 'grid').setOrigin(0, 0);
+
+  const rt = this.add.renderTexture(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+    rt.fill(0xff0000, 1);
+    rt.draw('grid', 0, 0);
+
+  const edgeBrush = this.add.circle(-1_000, -1_000, 20, 0xff0000).setOrigin(0.5, 0.5);
+
+  rt.draw(edgeBrush, 0, 0);
+  rt.draw(edgeBrush, CANVAS_WIDTH, 0);
+  rt.draw(edgeBrush, 0, CANVAS_HEIGHT);
+  rt.draw(edgeBrush, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+  var b = this.add.image(0, 0, 'box').setVisible(false);
 
   // Events
-  this.input.on('pointermove', (pointer) => {
-    // console.log(pointer);
-    if (pointer.isDown) {
-      const {x, y} = normalizePoint(pointer, this.scale.canvasBounds);
-      rt.draw(brush, x, y);
-    }
-  }, this);
   this.input.on('pointerdown', (pointer) => {
-    // console.log(pointer);
-    const {x, y} = normalizePoint(pointer, this.scale.canvasBounds);
-    rt.draw(brush, x, y);
+    // const {x, y} = normalizePoint(pointer, this.scale.canvasBounds);
+    rt.draw(b, pointer.worldX, pointer.worldY);
   }, this);
+
+//   this.input.on('pointermove', (pointer) => {
+//     if (pointer.isDown) {
+//       const {x, y} = normalizePoint(pointer, this.scale.canvasBounds);
+//       rt.draw('box', x, y);
+//     //   rt.draw(brush, x, y);
+//     }
+//   }, this);
 }
 
 function update(time, delta) {

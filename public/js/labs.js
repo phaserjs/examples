@@ -118,35 +118,27 @@ $(document).ready(function () {
                         type = 'module';
                     }
 
-                    var phaserExample = $('<script />').attr('type', type).text(srcFile).appendTo(document.body);
+                    $('<script />').attr('id', 'examplesrc').attr('type', type).text(srcFile).appendTo(document.body);
 
                     $('#loading').hide();
                     $('#nav').show();
 
-                    phaserExample[0].onload = function ()
+                    if (window.game)
                     {
-                        console.log('onload');
+                        var type = (game.config.renderType === 2) ? 'Canvas' : 'WebGL';
 
-                        if (window.game)
-                        {
-                            var type = (game.config.renderType === 2) ? 'Canvas' : 'WebGL';
-
-                            $('#forcemode').text('Force '  + type);
-                            $('#forcemode').attr('href', 'view.html?force=' + type + '&v=' + phaserVersion + '&src=' + filename);
-                        }
-                        else
-                        {
-                            $('#forcemode').hide();
-                        }
+                        $('#forcemode').text('Force '  + type);
+                        $('#forcemode').attr('href', 'view.html?force=' + type + '&v=' + phaserVersion + '&src=' + filename);
+                    }
+                    else
+                    {
+                        $('#forcemode').hide();
                     }
 
                 }, 'text');
 
             };
 
-            phaserScript.src = './build/' + phaserVersionJS;
-
-            /*
             if (remote && phaserVersion !== 'dev' && selected)
             {
                 // <script src="//cdn.jsdelivr.net/npm/phaser@3.7.1/dist/phaser.min.js">
@@ -154,9 +146,8 @@ $(document).ready(function () {
             }
             else
             {
-                phaserScript.src = './build/' + phaserVersionJS + '?rnd=' + Math.random().toString();
+                phaserScript.src = './build/' + phaserVersionJS;
             }
-            */
 
             document.body.appendChild(phaserScript);
         }

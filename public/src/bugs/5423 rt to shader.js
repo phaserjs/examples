@@ -7,16 +7,18 @@ function preload ()
 
 function create()
 {
-    const rt = this.add.renderTexture(0, 0, 512, 512);
+    const rt = this.add.renderTexture(0, 0, 512, 512).setVisible(false);
 
-    rt.fill(0xff0000, 1, 0, 0, 512, 512);
+    rt.fill(0x00066, 1, 0, 0, 512, 512);
 
-    this.add.image(0, 0, 'apple').setOrigin(0, 0);
+    for (var i = 0; i < 64; i++)
+    {
+        rt.draw('apple', Phaser.Math.Between(50, 462), Phaser.Math.Between(50, 462));
+    }
 
     rt.saveTexture('rt');
 
-    const shader = this.add.shader('Tunnel', 450, 350, 800, 600, [ 'metal' ]);
-    // const shader = this.add.shader('Tunnel', 450, 350, 800, 600, [ 'rt' ]);
+    const shader = this.add.shader('Tunnel', 400, 300, 800, 600, [ 'rt' ]);
 }
 
 const config = {

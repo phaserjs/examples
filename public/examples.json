@@ -4969,7 +4969,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\atlas frame to render texture.js",
                   "name": "atlas frame to render texture.js",
-                  "size": 771,
+                  "size": 965,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5030,16 +5030,16 @@
                   "type": "file"
                 },
                 {
-                  "path": "src\\3.50\\game objects\\render texture\\draw on texture.js",
-                  "name": "draw on texture.js",
-                  "size": 1982,
+                  "path": "src\\3.50\\game objects\\render texture\\draw game objects to render texture.js",
+                  "name": "draw game objects to render texture.js",
+                  "size": 3120,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
-                  "path": "src\\3.50\\game objects\\render texture\\draw to render texture.js",
-                  "name": "draw to render texture.js",
-                  "size": 3030,
+                  "path": "src\\3.50\\game objects\\render texture\\draw on texture.js",
+                  "name": "draw on texture.js",
+                  "size": 1982,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5067,7 +5067,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\erase part of render texture.js",
                   "name": "erase part of render texture.js",
-                  "size": 1180,
+                  "size": 1255,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5282,7 +5282,7 @@
                   "type": "file"
                 }
               ],
-              "size": 62459,
+              "size": 62818,
               "type": "directory"
             },
             {
@@ -5454,7 +5454,7 @@
                 {
                   "path": "src\\3.50\\game objects\\shaders\\shader using a render texture.js",
                   "name": "shader using a render texture.js",
-                  "size": 807,
+                  "size": 823,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5466,7 +5466,7 @@
                   "type": "file"
                 }
               ],
-              "size": 27831,
+              "size": 27847,
               "type": "directory"
             },
             {
@@ -6079,7 +6079,7 @@
               "type": "directory"
             }
           ],
-          "size": 806182,
+          "size": 806557,
           "type": "directory"
         },
         {
@@ -14400,7 +14400,7 @@
           "type": "directory"
         }
       ],
-      "size": 4103925,
+      "size": 4104300,
       "type": "directory"
     },
     {
@@ -16053,7 +16053,7 @@
         {
           "path": "src\\bugs\\6000 rt resize.js",
           "name": "6000 rt resize.js",
-          "size": 2025,
+          "size": 2285,
           "extension": ".js",
           "type": "file"
         },
@@ -16597,7 +16597,7 @@
           "type": "file"
         }
       ],
-      "size": 126167,
+      "size": 126427,
       "type": "directory"
     },
     {
@@ -20968,7 +20968,7 @@
             {
               "path": "src\\game objects\\render texture\\erase part of render texture canvas.js",
               "name": "erase part of render texture canvas.js",
-              "size": 1230,
+              "size": 1154,
               "extension": ".js",
               "type": "file"
             },
@@ -21190,7 +21190,7 @@
               "type": "file"
             }
           ],
-          "size": 64769,
+          "size": 64693,
           "type": "directory"
         },
         {
@@ -22504,7 +22504,7 @@
           "type": "directory"
         }
       ],
-      "size": 1095582,
+      "size": 1095506,
       "type": "directory"
     },
     {
@@ -30838,6 +30838,6 @@
       "type": "directory"
     }
   ],
-  "size": 8665404,
+  "size": 8665963,
   "type": "directory"
 }

@@ -71,52 +71,32 @@ function create ()
         blendMode: 'ADD'
     });
 
-    // console.log(bob.frame);
-
-    // this.add.image(400, 300, 'pic').setAlpha(0.9);
-
     rt = this.add.renderTexture(0, 0, 800, 600);
-
-    // console.log(rt.currentMatrix);
-
-    // var rt = this.add.renderTexture(0, 0, 700, 500);
-
-    // rt.draw(bunny, 0, 0);
-    // rt.draw(bunny, 100, 100);
-    // rt.draw(bunny, 200, 200);
-
-    // bob.setAngle(30);
-
-    // rt.camera.setAngle(30);
-
-    // var rt = this.add.renderTexture(0, 0, 800, 600);
-
-    // rt.draw(bob, 200, 200);
-    // rt.draw(bob, 300, 300);
-    // rt.draw(bob, 400, 400);
 }
 
 function update ()
 {
     rt.camera.rotation -= 0.01;
-    // rt.camera.zoom = 2;
 
     rt.clear();
 
-    rt.draw(graphics, 0, 0);
-    rt.draw(bob, 200, 200);
-    rt.draw(tilesprite, 200, 200);
-    rt.draw(blitter, 0, 0);
-    rt.draw(text, 100, 100);
-    rt.draw(bob, 300, 300);
-    rt.draw(bob, 400, 400);
-    rt.draw(text, 300, 200);
-    rt.draw(particles, 300, 0);
-    rt.draw(bitmaptext, 200, 100);
+    rt.beginDraw();
+
+    rt.batchDraw(graphics, 0, 0);
+    rt.batchDraw(bob, 200, 200);
+    rt.batchDraw(tilesprite, 200, 200);
+    rt.batchDraw(blitter, 0, 0);
+    rt.batchDraw(text, 100, 100);
+    rt.batchDraw(bob, 300, 300);
+    rt.batchDraw(bob, 400, 400);
+    rt.batchDraw(text, 300, 200);
+    rt.batchDraw(particles, 300, 0);
+    rt.batchDraw(bitmaptext, 200, 100);
+
+    rt.endDraw();
 
     tilesprite.tilePositionX = Math.cos(-iter) * 400;
     tilesprite.tilePositionY = Math.sin(-iter) * 400;
 
     iter += 0.01;
-
 }

@@ -20,7 +20,7 @@ class Example extends Phaser.Scene
 
         let color = spectrum[colorIndex];
 
-        light.color.set(color.r, color.g, color.b);
+        light.color.setTo(color.r, color.g, color.b);
 
         colorIndex++;
 
@@ -29,7 +29,7 @@ class Example extends Phaser.Scene
             light = this.add.pointlight(pointer.x, pointer.y, 0, radius, intensity);
 
             light.attenuation = attenuation;
-            light.color.set(color.r, color.g, color.b);
+            light.color.setTo(color.r, color.g, color.b);
 
         });
 
@@ -62,7 +62,7 @@ class Example extends Phaser.Scene
 
             color = spectrum[colorIndex];
 
-            light.color.set(color.r, color.g, color.b);
+            light.color.setTo(color.r, color.g, color.b);
 
         });
 

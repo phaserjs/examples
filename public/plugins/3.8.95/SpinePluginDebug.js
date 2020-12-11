@@ -2832,6 +2832,9 @@ var GameObject = new Class({
          */
         this.ignoreDestroy = false;
 
+        this.on(Events.ADDED_TO_SCENE, this.addedToScene, this);
+        this.on(Events.REMOVED_FROM_SCENE, this.removedFromScene, this);
+
         //  Tell the Scene to re-sort the children
         scene.sys.queueDepthSort();
     },
@@ -34325,7 +34328,7 @@ module.exports = {
  * @private
  *
  * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
- * @param {Phaser.GameObjects.Container} container - The Game Object being rendered in this call.
+ * @param {SpineContainer} container - The Game Object being rendered in this call.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
@@ -34380,7 +34383,7 @@ var SpineContainerWebGLRenderer = function (renderer, container, camera, parentM
     {
         var child = children[i];
 
-        if (child.willRender(camera))
+        if (child.willRender(camera, container))
         {
             var mask = child.mask;
 
@@ -34863,18 +34866,31 @@ var SpineGameObject = new Class({
      * @method SpineGameObject#willRender
      * @since 3.19.0
      *
+     * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
+     * @param {SpineContainer} [container] - If this Spine object is in a Spine Container, this is a reference to it.
+     *
      * @return {boolean} `true` if this Game Object should be rendered, otherwise `false`.
      */
-    willRender: function (camera)
+    willRender: function (camera, container)
     {
-        if (!this.skeleton)
-        {
-            return false;
-        }
-
         var GameObjectRenderMask = 15;
 
-        return !(GameObjectRenderMask !== this.renderFlags || (this.cameraFilter !== 0 && (this.cameraFilter & camera.id)));
+        var result = (!this.skeleton || !(GameObjectRenderMask !== this.renderFlags || (this.cameraFilter !== 0 && (this.cameraFilter & camera.id))));
+
+        if (!container && !result && this.parentContainer)
+        {
+            var plugin = this.plugin;
+            var sceneRenderer = plugin.sceneRenderer;
+
+            if (plugin.gl && sceneRenderer.batcher.isDrawing)
+            {
+                sceneRenderer.end();
+
+                plugin.renderer.pipelines.rebind();
+            }
+        }
+
+        return result;
     },
 
     /**
@@ -36353,10 +36369,12 @@ module.exports = SpineGameObjectCanvasRenderer;
 
 var renderWebGL = __webpack_require__(/*! ../../../../src/utils/NOOP */ "../../../src/utils/NOOP.js");
 var renderCanvas = __webpack_require__(/*! ../../../../src/utils/NOOP */ "../../../src/utils/NOOP.js");
+var renderDirect = __webpack_require__(/*! ../../../../src/utils/NOOP */ "../../../src/utils/NOOP.js");
 
 if (true)
 {
     renderWebGL = __webpack_require__(/*! ./SpineGameObjectWebGLRenderer */ "./gameobject/SpineGameObjectWebGLRenderer.js");
+    renderDirect = __webpack_require__(/*! ./SpineGameObjectWebGLDirect */ "./gameobject/SpineGameObjectWebGLDirect.js");
 }
 
 if (true)
@@ -36367,9 +36385,152 @@ if (true)
 module.exports = {
 
     renderWebGL: renderWebGL,
-    renderCanvas: renderCanvas
+    renderCanvas: renderCanvas,
+    renderDirect: renderDirect
 
 };
+
+
+/***/ }),
+
+/***/ "./gameobject/SpineGameObjectWebGLDirect.js":
+/*!**************************************************!*\
+  !*** ./gameobject/SpineGameObjectWebGLDirect.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2020 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+var Clamp = __webpack_require__(/*! ../../../../src/math/Clamp */ "../../../src/math/Clamp.js");
+var CounterClockwise = __webpack_require__(/*! ../../../../src/math/angle/CounterClockwise */ "../../../src/math/angle/CounterClockwise.js");
+var GetCalcMatrix = __webpack_require__(/*! ../../../../src/gameobjects/GetCalcMatrix */ "../../../src/gameobjects/GetCalcMatrix.js");
+var RadToDeg = __webpack_require__(/*! ../../../../src/math/RadToDeg */ "../../../src/math/RadToDeg.js");
+var Wrap = __webpack_require__(/*! ../../../../src/math/Wrap */ "../../../src/math/Wrap.js");
+
+/**
+ * Directly renders this Game Object with the WebGL Renderer to the given Camera.
+ * The object will not render if any of its renderFlags are set or it is being actively filtered out by the Camera.
+ * This method should not be called directly. It is a utility function of the Render module.
+ *
+ * @method SpineGameObject#renderDirect
+ * @since 3.50.0
+ * @private
+ *
+ * @param {Phaser.Renderer.WebGL.WebGLRenderer} renderer - A reference to the current active WebGL renderer.
+ * @param {SpineGameObject} src - The Game Object being rendered in this call.
+ * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
+ * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
+ * @param {SpineContainer} [container] - If this Spine object is in a Spine Container, this is a reference to it.
+ */
+var SpineGameObjectWebGLDirect = function (renderer, src, camera, parentMatrix, container)
+{
+    var plugin = src.plugin;
+    var skeleton = src.skeleton;
+    var sceneRenderer = plugin.sceneRenderer;
+
+    //  flush + clear previous pipeline if this is a new type
+    renderer.pipelines.clear();
+
+    sceneRenderer.begin();
+
+    var scrollFactorX = src.scrollFactorX;
+    var scrollFactorY = src.scrollFactorY;
+    var alpha = skeleton.color.a;
+
+    if (container)
+    {
+        src.scrollFactorX = container.scrollFactorX;
+        src.scrollFactorY = container.scrollFactorY;
+
+        skeleton.color.a = Clamp(alpha * container.alpha, 0, 1);
+    }
+
+    var calcMatrix = GetCalcMatrix(src, camera, parentMatrix).calc;
+
+    var viewportHeight = renderer.height;
+
+    skeleton.x = calcMatrix.tx;
+    skeleton.y = viewportHeight - calcMatrix.ty;
+
+    skeleton.scaleX = calcMatrix.scaleX;
+    skeleton.scaleY = calcMatrix.scaleY;
+
+    if (src.scaleX < 0)
+    {
+        skeleton.scaleX *= -1;
+
+        //  -180 degrees to account for the difference in Spine vs. Phaser rotation when inversely scaled
+        src.root.rotation = Wrap(RadToDeg(calcMatrix.rotationNormalized) - 180, 0, 360);
+    }
+    else
+    {
+        //  +90 degrees to account for the difference in Spine vs. Phaser rotation
+        src.root.rotation = Wrap(RadToDeg(CounterClockwise(calcMatrix.rotationNormalized)) + 90, 0, 360);
+    }
+
+    if (src.scaleY < 0)
+    {
+        skeleton.scaleY *= -1;
+
+        if (src.scaleX < 0)
+        {
+            src.root.rotation -= (RadToDeg(calcMatrix.rotationNormalized) * 2);
+        }
+        else
+        {
+            src.root.rotation += (RadToDeg(calcMatrix.rotationNormalized) * 2);
+        }
+    }
+
+    /*
+    if (renderer.currentFramebuffer !== null)
+    {
+        skeleton.y = calcMatrix.ty;
+        skeleton.scaleY *= -1;
+    }
+    */
+
+    skeleton.updateWorldTransform();
+
+    //  Draw the current skeleton
+
+    sceneRenderer.drawSkeleton(skeleton, src.preMultipliedAlpha);
+
+    if (container)
+    {
+        src.scrollFactorX = scrollFactorX;
+        src.scrollFactorY = scrollFactorY;
+        skeleton.color.a = alpha;
+    }
+
+    if (plugin.drawDebug || src.drawDebug)
+    {
+        //  Because if we don't, the bones render positions are completely wrong (*sigh*)
+        var oldX = skeleton.x;
+        var oldY = skeleton.y;
+
+        skeleton.x = 0;
+        skeleton.y = 0;
+
+        sceneRenderer.drawSkeletonDebug(skeleton, src.preMultipliedAlpha);
+
+        skeleton.x = oldX;
+        skeleton.y = oldY;
+    }
+
+    //  The next object in the display list is not a Spine Game Object or Spine Container, so we end the batch
+    sceneRenderer.end();
+
+    //  And rebind the previous pipeline
+    renderer.pipelines.rebind();
+};
+
+module.exports = SpineGameObjectWebGLDirect;
 
 
 /***/ }),
@@ -36406,6 +36567,7 @@ var Wrap = __webpack_require__(/*! ../../../../src/math/Wrap */ "../../../src/ma
  * @param {SpineGameObject} src - The Game Object being rendered in this call.
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
+ * @param {SpineContainer} [container] - If this Spine object is in a Spine Container, this is a reference to it.
  */
 var SpineGameObjectWebGLRenderer = function (renderer, src, camera, parentMatrix, container)
 {
@@ -36470,15 +36632,18 @@ var SpineGameObjectWebGLRenderer = function (renderer, src, camera, parentMatrix
         }
     }
 
-    if (camera.renderToTexture || renderer.currentFramebuffer !== null)
+    /*
+    if (renderer.currentFramebuffer !== null)
     {
         skeleton.y = calcMatrix.ty;
         skeleton.scaleY *= -1;
     }
+    */
 
     skeleton.updateWorldTransform();
 
     //  Draw the current skeleton
+
     sceneRenderer.drawSkeleton(skeleton, src.preMultipliedAlpha);
 
     if (container)

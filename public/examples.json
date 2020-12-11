@@ -4969,7 +4969,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\atlas frame to render texture.js",
                   "name": "atlas frame to render texture.js",
-                  "size": 965,
+                  "size": 795,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5032,7 +5032,7 @@
                 {
                   "path": "src\\3.50\\game objects\\render texture\\draw game objects to render texture.js",
                   "name": "draw game objects to render texture.js",
-                  "size": 3120,
+                  "size": 2604,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5282,7 +5282,7 @@
                   "type": "file"
                 }
               ],
-              "size": 62818,
+              "size": 62132,
               "type": "directory"
             },
             {
@@ -6079,7 +6079,7 @@
               "type": "directory"
             }
           ],
-          "size": 806557,
+          "size": 805871,
           "type": "directory"
         },
         {
@@ -12591,7 +12591,7 @@
             {
               "path": "src\\3.50\\spine\\invisible test with spine containers.js",
               "name": "invisible test with spine containers.js",
-              "size": 2469,
+              "size": 2360,
               "extension": ".js",
               "type": "file"
             },
@@ -12599,6 +12599,13 @@
               "path": "src\\3.50\\spine\\invisible test.js",
               "name": "invisible test.js",
               "size": 2183,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
+              "path": "src\\3.50\\spine\\last visible.js",
+              "name": "last visible.js",
+              "size": 2360,
               "extension": ".js",
               "type": "file"
             },
@@ -12654,7 +12661,7 @@
             {
               "path": "src\\3.50\\spine\\spine to render texture.js",
               "name": "spine to render texture.js",
-              "size": 1180,
+              "size": 1259,
               "extension": ".js",
               "type": "file"
             },
@@ -12694,7 +12701,7 @@
               "type": "file"
             }
           ],
-          "size": 55362,
+          "size": 57692,
           "type": "directory"
         },
         {
@@ -14400,7 +14407,7 @@
           "type": "directory"
         }
       ],
-      "size": 4104300,
+      "size": 4105944,
       "type": "directory"
     },
     {
@@ -30838,6 +30845,6 @@
       "type": "directory"
     }
   ],
-  "size": 8665963,
+  "size": 8667607,
   "type": "directory"
 }

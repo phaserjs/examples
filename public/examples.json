@@ -2780,6 +2780,13 @@
                       "type": "file"
                     },
                     {
+                      "path": "src\\3.50\\game objects\\bitmaptext\\static\\drop shadow.js",
+                      "name": "drop shadow.js",
+                      "size": 811,
+                      "extension": ".js",
+                      "type": "file"
+                    },
+                    {
                       "path": "src\\3.50\\game objects\\bitmaptext\\static\\get text size multiline.js",
                       "name": "get text size multiline.js",
                       "size": 992,
@@ -2871,11 +2878,11 @@
                       "type": "file"
                     }
                   ],
-                  "size": 25761,
+                  "size": 26572,
                   "type": "directory"
                 }
               ],
-              "size": 50731,
+              "size": 51542,
               "type": "directory"
             },
             {
@@ -4364,14 +4371,14 @@
                 {
                   "path": "src\\3.50\\game objects\\lights\\create point light.js",
                   "name": "create point light.js",
-                  "size": 2283,
+                  "size": 2289,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src\\3.50\\game objects\\lights\\draw light.js",
                   "name": "draw light.js",
-                  "size": 2129,
+                  "size": 1022,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4474,7 +4481,7 @@
                   "type": "file"
                 }
               ],
-              "size": 41161,
+              "size": 40060,
               "type": "directory"
             },
             {
@@ -6079,7 +6086,7 @@
               "type": "directory"
             }
           ],
-          "size": 805871,
+          "size": 805581,
           "type": "directory"
         },
         {
@@ -12605,7 +12612,7 @@
             {
               "path": "src\\3.50\\spine\\last visible.js",
               "name": "last visible.js",
-              "size": 2360,
+              "size": 1113,
               "extension": ".js",
               "type": "file"
             },
@@ -12661,7 +12668,7 @@
             {
               "path": "src\\3.50\\spine\\spine to render texture.js",
               "name": "spine to render texture.js",
-              "size": 1259,
+              "size": 1134,
               "extension": ".js",
               "type": "file"
             },
@@ -12701,7 +12708,7 @@
               "type": "file"
             }
           ],
-          "size": 57692,
+          "size": 56320,
           "type": "directory"
         },
         {
@@ -14407,7 +14414,7 @@
           "type": "directory"
         }
       ],
-      "size": 4105944,
+      "size": 4104282,
       "type": "directory"
     },
     {
@@ -16058,9 +16065,16 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5445 rt snapshot.js",
+          "name": "5445 rt snapshot.js",
+          "size": 881,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\6000 rt resize.js",
           "name": "6000 rt resize.js",
-          "size": 2285,
+          "size": 2423,
           "extension": ".js",
           "type": "file"
         },
@@ -16604,7 +16618,7 @@
           "type": "file"
         }
       ],
-      "size": 126427,
+      "size": 127446,
       "type": "directory"
     },
     {
@@ -30845,6 +30859,6 @@
       "type": "directory"
     }
   ],
-  "size": 8667607,
+  "size": 8666964,
   "type": "directory"
 }

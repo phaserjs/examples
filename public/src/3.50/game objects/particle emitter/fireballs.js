@@ -25,7 +25,7 @@ function create ()
         frame: 'yellow',
         radial: false,
         x: 100,
-        y: { min: 0, max: 560, steps: 256 },
+        y: { start: 0, end: 560, steps: 256 },
         lifespan: 2000,
         speedX: { min: 200, max: 400 },
         quantity: 4,

@@ -7,6 +7,7 @@ const config = {
     resizeInterval: 50,
   },
   backgroundColor: '#adadad',
+  disableContextMenu: true,
   parent,
   _width: 1024, _height: 1024,
   type: Phaser.WEBGL,
@@ -51,8 +52,17 @@ function create() {
   // Events
   this.input.on('pointerdown', (pointer) => {
     // const {x, y} = normalizePoint(pointer, this.scale.canvasBounds);
-    rt.draw(b, pointer.worldX, pointer.worldY);
-  }, this);
+
+    if (pointer.which === 3 || pointer.button === 2)
+    {
+        rt.clear();
+    }
+    else
+    {
+        rt.draw(b, pointer.worldX, pointer.worldY);
+    }
+
+}, this);
 
 //   this.input.on('pointermove', (pointer) => {
 //     if (pointer.isDown) {

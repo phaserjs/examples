@@ -10,7 +10,7 @@ server.listen(8080, 'localhost', () => {});
 let examples = [];
 const getExamples = (path, depth = 0) => {
   const files = fs.readdirSync(p.resolve(path));
-  if (depth > maxDepth || path.includes('archived')) {
+  if (depth > maxDepth || path.includes('archived') || path.includes('3.24')) {
     return;
   }
 

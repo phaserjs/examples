@@ -11366,7 +11366,14 @@
         {
           "path": "src\\renderer\\bend pipeline.js",
           "name": "bend pipeline.js",
-          "size": 1239,
+          "size": 2330,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\renderer\\color post fx pipeline.js",
+          "name": "color post fx pipeline.js",
+          "size": 1212,
           "extension": ".js",
           "type": "file"
         },
@@ -11441,7 +11448,7 @@
           "type": "file"
         }
       ],
-      "size": 27106,
+      "size": 29409,
       "type": "directory"
     },
     {
@@ -14178,6 +14185,6 @@
       "type": "directory"
     }
   ],
-  "size": 3937668,
+  "size": 3939971,
   "type": "directory"
 }

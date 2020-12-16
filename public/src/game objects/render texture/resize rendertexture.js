@@ -49,9 +49,22 @@ function create ()
 
     graphics.fillPath();
 
-    quad = this.add.quad(400, 300, 'image').setVisible(false);
-    quad.setTopLeft(300, 200);
-    quad.setBottomRight(300, 500);
+    const vertices = [
+        -1, 1,
+        1, 1,
+        -1, -1,
+        1, -1
+    ];
+    const uvs = [
+        0, 0,
+        1, 0,
+        0, 1,
+        1, 1
+    ];
+    const indicies = [ 0, 2, 1, 2, 3, 1 ];
+    const mesh = this.add.mesh(400, 300, 'image').setVisible(false);
+    mesh.addVertices(vertices, uvs, indicies);
+    mesh.panZ(7);
 
     tilesprite = this.add.tileSprite(400, 300, 250, 250, 'mushroom').setVisible(false);
 
@@ -76,7 +89,7 @@ function create ()
 
     rt.draw(graphics, 0, 0);
     rt.draw(bob, 200, 200);
-    rt.draw(quad, 200, 200);
+    rt.draw(mesh, 200, 200);
     rt.draw(tilesprite, 200, 200);
     rt.draw(blitter, 0, 0);
     rt.draw(text, 100, 100);
@@ -94,7 +107,7 @@ function create ()
 
         rt.draw(graphics, 0, 0);
         rt.draw(bob, 200, 200);
-        rt.draw(quad, 200, 200);
+        rt.draw(mesh, 200, 200);
         rt.draw(tilesprite, 200, 200);
         rt.draw(blitter, 0, 0);
         rt.draw(text, 100, 100);

@@ -20,18 +20,21 @@ var SceneA = new Phaser.Class({
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function () {
+        this.input.once(Phaser.Input.Events.POINTER_DOWN, function () {
 
             this.scene.switch('sceneB');
 
         }, this);
+
+        this.events.on(Phaser.Scenes.Events.WAKE, function() {
+            this.wake(this.input, this.scene);
+        }, this);
     },
 
-    wake: function ()
+    wake: function (input, scene)
     {
-        this.input.once('pointerdown', function () {
-
-            this.scene.switch('sceneB');
+        input.once(Phaser.Input.Events.POINTER_DOWN, function () {
+            scene.switch('sceneB');
 
         }, this);
     },
@@ -65,25 +68,26 @@ var SceneB = new Phaser.Class({
 
     create: function ()
     {
+
         this.add.image(400, 300, 'face').setAlpha(0.5);
 
         this.timerEvent = this.time.addEvent({ delay: 8000, loop: true });
 
         this.graphics = this.add.graphics({ x: 0, y: 0 });
 
-        this.input.once('pointedown', function (event) {
-
+        this.input.once(Phaser.Input.Events.POINTER_DOWN, function (event) {
             this.scene.switch('sceneA');
+        }, this);
 
+        this.events.on(Phaser.Scenes.Events.WAKE, function() {
+            this.wake(this.input, this.scene);
         }, this);
     },
 
-    wake: function ()
+    wake: function (input, scene)
     {
-        this.input.once('pointedown', function (event) {
-
-            this.scene.switch('sceneA');
-
+        input.once(Phaser.Input.Events.POINTER_DOWN, function (event) {
+            scene.switch('sceneA');
         }, this);
     },
 

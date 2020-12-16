@@ -1,19 +1,6 @@
-var config = {
-    type: Phaser.WEBGL,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: {
-        preload: preload,
-        create: create
-    }
-};
-
-var fragmentShader = `
+const fragmentShader = `
 //@machine_shaman
 precision mediump float;
-
-
 
 uniform float time;
 uniform vec2 mouse;
@@ -62,24 +49,23 @@ vec2 p[12];
 // using define trick to render different triangles
 // not possible in loop on glslsandbox
 #define tri(a, b, c) min(min(min(d, line(uv, p[a], p[b])), line(uv, p[b], p[c])), line(uv, p[c], p[a]))
-    
+
 void main() {
-    
+
     vec2 uv = (2. * gl_FragCoord.xy - resolution) / resolution.y;
-    
+
     uv.y += .08 * sin(uv.x + time);
-    
+
     uv = floor(uv * 100.) / 100.;
     uv *= 3.;
-    
+
     float t = 0.001 + abs(uv.y);
     float scl = 1. / t;
     vec2 st = uv * scl + vec2(0, scl + time);
-    
-        
+
     // setup vertices
     icoVertices(v);
-    
+
     // project
     for (int i = 0; i < 12; i++) {
         v[i].xz *= rotate(time * 0.5);
@@ -87,8 +73,7 @@ void main() {
         float dist = distance(v[i].xyz, vec3(0, 0, -3));
         p[i] = v[i].xy * scl;// - vec2(0, 0);
     }
-    
-    
+
     // ico faces
     float d = 1.0;
     d = min(d, tri(0,  4,  1));
@@ -114,47 +99,58 @@ void main() {
 
     // color the scene
     vec3 col = vec3(0);
-    
-    
+
     col += mix(vec3(0), .5 + .5 * cos(time + st.x + 2. * st.y + vec3(0, 1, 2)), sign(cos(st.x * 10.)) * sign(cos(st.y * 20.))) * t * t;
     //col += smoothstep(0.3, 0., d);
     col *= smoothstep(0.0, 0.1, d);
     col += smoothstep(0.1, 0., d) * (.5 + .5 * cos(time + d * 20. + vec3(33, 66, 99)));
     col += abs(.01 / d);
-    
-    
-    
+
     // thanks for the dithering effect :)
     col += floor(uv.y - fract(dot(gl_FragCoord.xy, vec2(0.5, 0.75))) * 10.0) * 0.1;
 
-    
-        
     gl_FragColor = vec4(col, 1.);
-
 }`;
 
-var game = new Phaser.Game(config);
-
-function preload ()
+class Example extends Phaser.Scene
 {
-    this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
-    this.load.image('mask', 'assets/tests/camera/grunge-mask.png');
+    constructor()
+    {
+        super();
+    }
+
+    preload()
+    {
+        this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
+        this.load.image('mask', 'assets/tests/camera/grunge-mask.png');
+    }
+
+    create()
+    {
+        const maskImage = this.make.image({
+            x: 400,
+            y: 300,
+            key: 'mask',
+            add: false
+        });
+
+        const mask = maskImage.createBitmapMask();
+
+        this.cameras.main.setMask(mask, false);
+
+        const baseShader = new Phaser.Display.BaseShader('BufferShader', fragmentShader);
+        const shader = this.add.shader(baseShader, 400, 300, 800, 600);
+
+        this.add.image(400, 300, 'logo');
+    }
 }
 
-function create ()
-{
-    var maskImage = this.make.image({
-        x: 400,
-        y: 300,
-        key: 'mask',
-        add: false
-    });
+const config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    scene: [ Example ]
+};
 
-    var mask = maskImage.createBitmapMask();
-
-    this.cameras.main.setMask(mask, false);
-
-    var s = this.add.shader(400, 300, 800, 600, fragmentShader);
-
-    this.add.image(400, 300, 'logo');
-}
+const game = new Phaser.Game(config);

@@ -1,54 +1,3 @@
-var ColourSpectrum = function ()
-{
-    this.colors = [];
-
-    var rgbRange = 255;
-    var r = 255;
-    var g = 0;
-    var b = 0;
-
-    //  From red to yellow:
-    for (var g = 0; g <= rgbRange; g++)
-    {
-        this.colors.push({ r: r, g: g, b: b });
-    }
-
-    //  From yellow to green:
-    for (var r = rgbRange; r >= 0; r--)
-    {
-        this.colors.push({ r: r, g: g, b: b });
-    }
-
-    //  From green to blue:
-    for (var b=0; b <= rgbRange; b++, g--)
-    {
-        this.colors.push({ r: r, g: g, b: b });
-    }
-
-    //  From blue to red:
-    for (var d = 0; d <= rgbRange; d++, b--, r++)
-    {
-        this.colors.push({ r: r, g: g, b: b });
-    }
-
-    this.random = function ()
-    {
-        return this.colors[Math.floor(Math.random() * this.colors.length)];
-    }
-
-    this.get = function (index)
-    {
-        if (index > this.colors.length || index < 0)
-        {
-            console.error("Index exceeds range");
-        }
-        else
-        {
-            return this.colors[index];
-        }
-    }
-};
-
 var config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
@@ -73,11 +22,11 @@ function create ()
 {
     this.add.sprite(400, 300, 'bg').setAlpha(0.2);
 
-    var cs = new ColourSpectrum();
+    const spectrum = Phaser.Display.Color.ColorSpectrum(256);
 
-    var colorIndex = 0;
+    console.log(spectrum);
 
-    var light = this.lights.addPointLight(400, 300, 0xffffff, 128, 0.4);
+    let light = this.lights.addPointLight(400, 300, 0xffffff, 16, 0.4);
 
     this.input.on('pointermove', pointer => {
 
@@ -86,11 +35,9 @@ function create ()
 
         if (pointer.isDown)
         {
-            light = this.lights.addPointLight(pointer.x, pointer.y, 0xffffff, 128, 0.4);
+            let color = Phaser.Utils.Array.GetRandom(spectrum).color;
 
-            var color = cs.random();
-
-            light.color.set(color.r / 255, color.g / 255, color.b / 255);
+            light = this.lights.addPointLight(pointer.x, pointer.y, color, Phaser.Math.Between(8, 32), 0.4, 0.05);
         }
 
     });

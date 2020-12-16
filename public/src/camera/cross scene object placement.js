@@ -34,7 +34,7 @@ class MapScene extends Phaser.Scene {
     create ()
     {
         this.cameras.main.setBounds(0, 0, 1024, 2048);
-        
+
         this.add.image(0, 0, 'map').setOrigin(0);
 
         this.cameras.main.setZoom(1);
@@ -147,7 +147,7 @@ class UIScene extends Phaser.Scene {
 
 }
 
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -156,4 +156,4 @@ var config = {
     scene: [ MapScene, UIScene ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

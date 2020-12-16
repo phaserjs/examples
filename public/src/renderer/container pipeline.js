@@ -35,7 +35,7 @@ export default class Example extends Phaser.Scene
             layer.add(this.add.image(x, y, 'fish').setScale(0.5));
         }
 
-        layer.setPostPipeline(multiColorPipeline, { effect: 1 });
+        layer.setPipeline(multiColorPipeline, { effect: 1 });
 
         this.add.sprite(400, 300, 'crab');
     }

@@ -1,119 +1,107 @@
-var config = {
-    type: Phaser.WEBGL,
-    parent: 'phaser-example',
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+        this.load.image('bg', 'assets/skies/gradient13.png');
+        this.load.image('brick', ['assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png']);
+    }
+
+    create ()
+    {
+        this.lights.enable();
+        this.lights.setAmbientColor(0x808080);
+
+        var spotlight = this.lights.addLight(400, 300, 280).setIntensity(3);
+
+        this.input.on('pointermove', function (pointer) {
+
+            spotlight.x = pointer.x;
+            spotlight.y = pointer.y;
+
+        });
+
+        this.add.image(400, 300, 'bg').setFlip(false, true);
+
+        const mesh = this.add.mesh(400, 300, 'brick');
+
+        Phaser.Geom.Mesh.GenerateGridVerts({
+            mesh,
+            widthSegments: 6
+        });
+
+        mesh.hideCCW = false;
+
+        mesh.panZ(3.5);
+
+        mesh.setPipeline('Light2D');
+
+        this.debug = this.add.graphics();
+
+        this.add.text(16, 16, 'Rotate with mouse (+ Shift to pan)\nWheel to zoom\nD to toggle debug');
+
+        this.input.keyboard.on('keydown-D', () => {
+
+            if (mesh.debugCallback)
+            {
+                mesh.setDebug();
+            }
+            else
+            {
+                mesh.setDebug(this.debug);
+            }
+
+        });
+
+        const rotateRate = 1;
+        const panRate = 1;
+        const zoomRate = 4;
+
+        this.input.on('pointermove', pointer => {
+
+            if (!pointer.isDown)
+            {
+                return;
+            }
+
+            if (!pointer.event.shiftKey)
+            {
+                mesh.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
+                mesh.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
+            }
+            else
+            {
+                mesh.panX(pointer.velocity.x * (panRate / 800));
+                mesh.panY(pointer.velocity.y * (panRate / 600));
+            }
+
+        });
+
+        this.input.on('wheel', (pointer, over, deltaX, deltaY, deltaZ) => {
+
+            mesh.panZ(deltaY * (zoomRate / 600));
+
+        });
+    }
+
+    update ()
+    {
+        this.debug.clear();
+        this.debug.lineStyle(1, 0x00ff00);
+    }
+}
+
+const config = {
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
-    scene: {
-        preload: preload,
-        create: create
-    }
+    backgroundColor: '#0a440a',
+    parent: 'phaser-example',
+    scene: Example
 };
 
-var quad = {
-    topLeftX: -200, topLeftY: -200,
-    topRightX: 200, topRightY: -200,
-    bottomLeftX: -200, bottomLeftY: 200,
-    bottomRightX: 200, bottomRightY: 200
-};
-
-var mesh;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('brick', ['assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png']);
-}
-
-function create ()
-{
-    mesh = this.make.mesh({
-        key: 'brick',
-        x: 400,
-        y: 300,
-        vertices: [
-            quad.topLeftX, quad.topLeftY,
-            quad.bottomLeftX, quad.bottomLeftY,
-            quad.bottomRightX, quad.bottomRightY,
-
-            quad.topLeftX, quad.topLeftY,
-            quad.bottomRightX, quad.bottomRightY,
-            quad.topRightX, quad.topRightY
-        ],
-        uv: [ 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0 ]
-    });
-
-    mesh.setPipeline('Light2D');
-
-    this.lights.enable();
-    this.lights.setAmbientColor(0x808080);
-
-    var light = this.lights.addLight(400, 300, 300);
-
-    this.input.on('pointermove', function (pointer) {
-
-        light.x = pointer.x;
-        light.y = pointer.y;
-
-    });
-
-    tweenQuad();
-}
-
-function tweenQuad ()
-{
-    //  Randomise the coords a little
-
-    var tlX = -200 + Phaser.Math.Between(-90, 90);
-    var tlY = -200 + Phaser.Math.Between(-90, 90);
-
-    var trX = 200 + Phaser.Math.Between(-90, 90);
-    var trY = -200 + Phaser.Math.Between(-90, 90);
-
-    var blX = -200 + Phaser.Math.Between(-90, 90);
-    var blY = 200 + Phaser.Math.Between(-90, 90);
-
-    var brX = 200 + Phaser.Math.Between(-90, 90);
-    var brY = 200 + Phaser.Math.Between(-90, 90);
-
-    TweenMax.to(quad, 1.5, {
-
-        topLeftX: tlX,
-        topLeftY: tlY,
-
-        topRightX: trX,
-        topRightY: trY,
-
-        bottomLeftX: blX,
-        bottomLeftY: blY,
-
-        bottomRightX: brX,
-        bottomRightY: brY,
-
-        ease: Power2.easeOut,
-
-        onUpdate: function ()
-        {
-            var verts = mesh.vertices;
-
-            verts[0] = quad.topLeftX;
-            verts[1] = quad.topLeftY;
-            verts[6] = quad.topLeftX;
-            verts[7] = quad.topLeftY;
-
-            verts[10] = quad.topRightX;
-            verts[11] = quad.topRightY;
-
-            verts[2] = quad.bottomLeftX;
-            verts[3] = quad.bottomLeftY;
-
-            verts[4] = quad.bottomRightX;
-            verts[5] = quad.bottomRightY;
-            verts[8] = quad.bottomRightX;
-            verts[9] = quad.bottomRightY;
-        },
-
-        onComplete: tweenQuad
-
-    });
-}
+let game = new Phaser.Game(config);

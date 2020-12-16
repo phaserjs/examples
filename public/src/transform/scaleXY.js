@@ -24,7 +24,7 @@ function create ()
 
     //  If you just provide one value then both x and y are set to it
     this.add.image(400, 300, 'atari').setScale(2);
-    
+
     var image2 = this.add.image(800, 300, 'atari');
 
     //  You can also set the scale via the scaleX and scaleY properties:

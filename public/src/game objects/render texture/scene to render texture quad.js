@@ -138,15 +138,6 @@ var RenderScene = new Phaser.Class({
         Phaser.Scene.call(this, { key: 'renderScene', active: false });
 
         this.rt;
-
-        this.quad = {
-            topLeftX: -300, topLeftY: -300,
-            topRightX: 300, topRightY: -300,
-            bottomLeftX: -300, bottomLeftY: 300,
-            bottomRightX: 300, bottomRightY: 300
-        };
-
-        this.mesh;
     },
 
     create: function ()
@@ -158,24 +149,50 @@ var RenderScene = new Phaser.Class({
 
         this.rt.saveTexture('game');
 
-        var quad = this.quad;
+        const mesh = this.add.mesh(400, 300, 'game');
 
-        this.mesh = this.make.mesh({
-            key: 'game',
-            x: 400,
-            y: 300,
-            vertices: [
-                quad.topLeftX, quad.topLeftY,
-                quad.bottomLeftX, quad.bottomLeftY,
-                quad.bottomRightX, quad.bottomRightY,
-                quad.topLeftX, quad.topLeftY,
-                quad.bottomRightX, quad.bottomRightY,
-                quad.topRightX, quad.topRightY
-            ],
-            uv: [ 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0 ]
+        Phaser.Geom.Mesh.GenerateGridVerts({
+            mesh,
+            widthSegments: 6
         });
 
-        this.tweenQuad();
+        mesh.hideCCW = false;
+        mesh.modelRotation.set(2.604, 0.427, 0);
+        mesh.viewPosition.set(0, 0, 2.833);
+
+        const rotateRate = 1;
+        const panRate = 1;
+        const zoomRate = 4;
+
+        window.mesh = mesh;
+
+        this.add.text(16, 16, 'Drag mouse to Rotate (+ Shift to pan)\nWheel to zoom');
+
+        this.input.on('pointermove', pointer => {
+
+            if (!pointer.isDown)
+            {
+                return;
+            }
+
+            if (!pointer.event.shiftKey)
+            {
+                mesh.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
+                mesh.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
+            }
+            else
+            {
+                mesh.panX(pointer.velocity.x * (panRate / 800));
+                mesh.panY(pointer.velocity.y * (panRate / 600));
+            }
+
+        });
+
+        this.input.on('wheel', (pointer, over, deltaX, deltaY, deltaZ) => {
+
+            mesh.panZ(deltaY * (zoomRate / 600));
+
+        });
     },
 
     update: function (time, delta)
@@ -185,71 +202,6 @@ var RenderScene = new Phaser.Class({
         this.rt.clear();
 
         this.rt.draw(gameScene.children, 0, 0);
-
-        var quad = this.quad;
-        var mesh = this.mesh;
-
-        var verts = mesh.vertices;
-
-        verts[0] = quad.topLeftX;
-        verts[1] = quad.topLeftY;
-        verts[6] = quad.topLeftX;
-        verts[7] = quad.topLeftY;
-
-        verts[10] = quad.topRightX;
-        verts[11] = quad.topRightY;
-
-        verts[2] = quad.bottomLeftX;
-        verts[3] = quad.bottomLeftY;
-
-        verts[4] = quad.bottomRightX;
-        verts[5] = quad.bottomRightY;
-        verts[8] = quad.bottomRightX;
-        verts[9] = quad.bottomRightY;
-    },
-
-    tweenQuad: function ()
-    {
-        //  Randomise the coords a little
-
-        var tlX = -260 + Phaser.Math.Between(-130, 130);
-        var tlY = -260 + Phaser.Math.Between(-130, 130);
-
-        var trX = 260 + Phaser.Math.Between(-130, 130);
-        var trY = -260 + Phaser.Math.Between(-130, 130);
-
-        var blX = -260 + Phaser.Math.Between(-130, 130);
-        var blY = 260 + Phaser.Math.Between(-130, 130);
-
-        var brX = 260 + Phaser.Math.Between(-130, 130);
-        var brY = 260 + Phaser.Math.Between(-130, 130);
-
-        var quad = this.quad;
-        var mesh = this.mesh;
-
-        this.tweens.add({
-
-            targets: quad,
-            duration: 1500,
-
-            topLeftX: tlX,
-            topLeftY: tlY,
-
-            topRightX: trX,
-            topRightY: trY,
-
-            bottomLeftX: blX,
-            bottomLeftY: blY,
-
-            bottomRightX: brX,
-            bottomRightY: brY,
-
-            ease: 'Sine.easeInOut',
-
-            onComplete: this.tweenQuad,
-            onCompleteScope: this
-
-        });
     }
 
 });

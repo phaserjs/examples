@@ -54,7 +54,7 @@ function update()
 {
     gfx.clear();
 
-    // draw(atari);
+    draw(atari);
     draw(block);
 
     text.setText([
@@ -73,11 +73,11 @@ function update()
 
 function draw(obj)
 {
-    // gfx.lineStyle(6, 0xffff00);
+    gfx.lineStyle(5, 0xffff00, 0.8);
 
-    // drawFaces(obj.body, obj.body.touching);
+    drawFaces(obj.body, obj.body.touching);
 
-    gfx.lineStyle(2, 0xff0000);
+    gfx.lineStyle(5, 0xff0000, 0.8);
 
     drawFaces(obj.body, obj.body.blocked);
 }

@@ -250,7 +250,7 @@ class Controller extends Phaser.Scene {
             }
             else if (this.padLeft.contains(px, py))
             {
-                let idx = this.scene.getIndex(this.currentScene);                
+                let idx = this.scene.getIndex(this.currentScene);
 
                 if (idx > 1)
                 {

@@ -13,7 +13,7 @@ const getExamples = (path, depth = 0) => {
   if (depth > maxDepth || path.includes('archived')) {
     return;
   }
-  
+
   if (files.includes('boot.json')){
     examples.push({
       url: path + '/' + 'boot.json',
@@ -45,7 +45,7 @@ const getScreenshots = (path, depth = 0) => {
     const fileInfo = fs.statSync(p.resolve(path, file));
     if (fileInfo.isDirectory()) {
       getScreenshots(p.resolve(path, file), depth + 1);
-    } 
+    }
     screenshots.push(p.resolve(path, file));
   }
 }
@@ -80,8 +80,8 @@ const saveCanvas = async (page, example) => {
     }
     await page.evaluate(() => {
       const c = document.querySelector('canvas');
-      c.style.width = 400 + 'px';
-      c.style.height = 300 + 'px';
+      c.style.width = 800 + 'px';
+      c.style.height = 600 + 'px';
     });
     page.mouse.click(200, 150);
     await page.waitFor(1000);

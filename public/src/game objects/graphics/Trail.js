@@ -44,26 +44,28 @@ function update() {
     if (points.length > 4) {
         trail.lineStyle(1, 0xFFFF00, 1.0);
         trail.beginPath();
-        trail.moveFxTo(points[0].x, points[0].y, 0, 0xFFFF00, 0);
+        trail.lineStyle(0, 0xFFFF00, 1.0);
+        trail.moveTo(points[0].x, points[0].y);
         for (var index = 1; index < points.length - 4; ++index)
         {
             var point = points[index];
-            trail.lineFxTo(
-                point.x, point.y, 
+            trail.lineStyle(
                 linearInterpolation(index / (points.length - 4), 0, 20),
-                ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / points.length, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff)
-                
+                ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / points.length, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff),
+                0.5
             );
+            trail.lineTo(point.x, point.y);
         }
         var count = 0;
         for (var index = points.length - 4; index < points.length; ++index)
         {
             var point = points[index];
-            trail.lineFxTo(
-                point.x, point.y, 
+            trail.lineStyle(
                 linearInterpolation(count++ / 4, 20, 0),
-                ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / points.length, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff)
-            );
+                ((0xFF&0x0ff)<<16)|(((linearInterpolation(index / points.length, 0x00, 0xFF)|0)&0x0ff)<<8)|(00&0x0ff),
+                1.0
+                );
+            trail.lineTo(point.x, point.y);
         }
         trail.strokePath();
         trail.closePath();
@@ -71,7 +73,7 @@ function update() {
     for (var index = 0; index < points.length; ++index)
     {
         var point = points[index];
-       
+
         point.time -= 0.5;
         if (point.time <= 0)
         {

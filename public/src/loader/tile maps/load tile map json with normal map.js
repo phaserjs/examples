@@ -42,7 +42,7 @@ function create ()
 
     var tiles = map.addTilesetImage('cybernoid', 'tiles');
 
-    var layer = map.createDynamicLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
 
     layer.setPipeline('Light2D');
 

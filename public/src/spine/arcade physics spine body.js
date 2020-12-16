@@ -16,7 +16,7 @@ var config = {
         create: create,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -26,9 +26,9 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.setPath('assets/spine/coin');
+    this.load.setPath('assets/spine/3.8/coin/');
 
-    this.load.spine('coin', 'coin-pro.json', 'coin.atlas');
+    this.load.spine('coin', 'coin-pro.json', 'coin-pro.atlas');
 }
 
 function create ()

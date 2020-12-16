@@ -26,7 +26,7 @@ function create ()
         x: 100,
         y: 300,
         lifespan: 2000,
-        speedX: { min: 100, max: 400, steps: 12 },
+        speedX: { start: 100, end: 400, steps: 12 },
         speedY: { min: -20, max: 20 },
         scale: { start: 0.7, end:  0.2 },
         blendMode: 'ADD'

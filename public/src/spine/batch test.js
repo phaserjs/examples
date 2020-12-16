@@ -10,7 +10,7 @@ var config = {
         update: update,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -24,22 +24,22 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
 
-    this.load.setPath('assets/spine/demos/');
+    this.load.setPath('assets/spine/3.8/spineboy');
 
-    this.load.spine('set1', 'demos.json', [ 'atlas1.atlas' ], true);
+    this.load.spine('boy', 'spineboy-ess.json', 'spineboy-ess.atlas', false);
 }
 
 function create ()
 {
     var anims = [ 'death', 'idle', 'jump', 'run', 'walk' ];
 
-    for (var i = 0; i < 64; i++)
+    for (var i = 0; i < 128; i++)
     {
         var s = Phaser.Math.FloatBetween(0.1, 0.5);
-        var x = Phaser.Math.Between(50, 750 * 12);
-        var y = Phaser.Math.Between(100, 600);
+        var x = Phaser.Math.Between(150, 750 * 6);
+        var y = Phaser.Math.Between(200, 600);
 
-        this.add.spine(x, y, 'set1.spineboy', Phaser.Utils.Array.GetRandom(anims), true).setScale(s);
+        this.add.spine(x, y, 'boy', Phaser.Utils.Array.GetRandom(anims), true).setScale(s).setName('s' + i);
     }
 
     var cursors = this.input.keyboard.createCursorKeys();

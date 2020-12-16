@@ -37,7 +37,7 @@ function create ()
 
     particles.createEmitter({
         frame: 'red',
-        angle: { min: 0, max: 360, steps: 32 },
+        angle: { start: 0, end: 360, steps: 32 },
         lifespan: 1000,
         speed: 400,
         quantity: 32,

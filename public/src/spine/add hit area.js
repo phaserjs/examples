@@ -4,12 +4,13 @@ var config = {
     width: 800,
     height: 600,
     backgroundColor: '#cdcdcd',
+    debug: true,
     scene: {
         preload: preload,
         create: create,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePlugin.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -21,14 +22,14 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
 
-    this.load.setPath('assets/spine/demos/');
+    this.load.setPath('assets/spine/3.8/demos/');
 
     this.load.spine('set1', 'demos.json', [ 'atlas1.atlas', 'atlas2.atlas', 'heroes.atlas' ], true);
 }
 
 function create ()
 {
-    this.add.text(10, 10, 'Click the alien', { font: '16px Courier', fill: '#ffffff' }).setShadow(1, 1);
+    this.add.text(10, 10, 'Click the alien', { font: '16px Courier', fill: '#ff0000' }).setShadow(1, 1);
 
     var b = this.add.spine(400, 500, 'set1.alien').setScale(0.5);
 

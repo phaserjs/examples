@@ -1,20 +1,15 @@
-var Controller = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Controller ()
+class Controller extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'Controller', active: true });
-
+        super({ key: 'Controller', active: true });
         this.camera1;
         this.camera2;
         this.camera3;
         this.camera4;
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.camera1 = this.scene.get('DemoA').cameras.main;
         this.camera2 = this.scene.get('DemoB').cameras.main;
@@ -22,9 +17,9 @@ var Controller = new Phaser.Class({
         this.camera4 = this.scene.get('DemoD').cameras.main;
 
         this.run();
-    },
+    }
 
-    run: function ()
+    run ()
     {
         this.slideLeft(2000, 3000);
         this.slideUp(2000, 6000);
@@ -38,9 +33,9 @@ var Controller = new Phaser.Class({
         this.zoomIn(2000, 32000);
 
         this.time.addEvent({ delay: 34000, callback: this.run, callbackScope: this, repeat: -1 });
-    },
+    }
 
-    slideLeft: function (speed, delay)
+    slideLeft (speed, delay)
     {
        var tween = this.tweens.add({
             targets: [ this.camera1, this.camera2, this.camera3, this.camera4 ],
@@ -49,9 +44,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    slideRight: function (speed, delay)
+    slideRight(speed, delay)
     {
        var tween = this.tweens.add({
             targets: [ this.camera1, this.camera2, this.camera3, this.camera4 ],
@@ -60,9 +55,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    slideUp: function (speed, delay)
+    slideUp(speed, delay)
     {
        var tween = this.tweens.add({
             targets: [ this.camera1, this.camera2, this.camera3, this.camera4 ],
@@ -71,9 +66,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    slideDown: function (speed, delay)
+    slideDown(speed, delay)
     {
        var tween = this.tweens.add({
             targets: [ this.camera1, this.camera2, this.camera3, this.camera4 ],
@@ -82,9 +77,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    slideCenter: function (speed, delay)
+    slideCenter(speed, delay)
     {
        var tween = this.tweens.add({
             targets: [ this.camera1, this.camera2, this.camera3, this.camera4 ],
@@ -94,9 +89,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    slideTopLeft: function (speed, delay)
+    slideTopLeft(speed, delay)
     {
        var tween = this.tweens.add({
             targets: [ this.camera1, this.camera2, this.camera3, this.camera4 ],
@@ -106,9 +101,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    exchange1: function (speed, delay)
+    exchange1(speed, delay)
     {
        var tween = this.tweens.add({
             targets: this.camera1,
@@ -127,9 +122,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    exchange2: function (speed, delay)
+    exchange2(speed, delay)
     {
        var tween = this.tweens.add({
             targets: this.camera2,
@@ -148,9 +143,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    exchange3: function (speed, delay)
+    exchange3(speed, delay)
     {
        var tween = this.tweens.add({
             targets: this.camera1,
@@ -187,9 +182,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    zoomOut: function (speed, delay)
+    zoomOut(speed, delay)
     {
        var tween = this.tweens.add({
             targets: this.camera1,
@@ -246,9 +241,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    zoomIn: function (speed, delay)
+    zoomIn(speed, delay)
     {
        var tween = this.tweens.add({
             targets: this.camera1,
@@ -305,9 +300,9 @@ var Controller = new Phaser.Class({
             duration: speed,
             delay: delay
         });
-    },
+    }
 
-    setCameraFull: function (cam, x, y)
+    setCameraFull(cam, x, y)
     {
         cam.zoom = 1;
         cam.x = x;
@@ -317,5 +312,4 @@ var Controller = new Phaser.Class({
         cam.scrollX = 0;
         cam.scrollY = 0;
     }
-
-});
+}

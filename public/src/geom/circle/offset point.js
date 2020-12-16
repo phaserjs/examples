@@ -17,9 +17,7 @@ function create ()
     var graphics = this.add.graphics({ lineStyle: { color: 0x00ff00 } });
     graphics.strokeCircleShape(circle);
 
-    var point = new Phaser.Geom.Point(Math.cos(Math.PI / 4), Math.sin(Math.PI / 4));
-
-    Phaser.Geom.Point.Multiply(point, 100, 100);
+    var point = new Phaser.Geom.Point(Math.cos(Math.PI / 4) * 100, Math.sin(Math.PI / 4) * 100);
 
     for(var i = 0; i < 10; i++)
     {

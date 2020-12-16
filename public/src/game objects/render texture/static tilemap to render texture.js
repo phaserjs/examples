@@ -42,7 +42,7 @@ function create ()
 
     var tiles = map.addTilesetImage('mario-tiles');
 
-    layer = map.createStaticLayer(0, tiles, 0, 0).setVisible(false);
+    layer = map.createLayer(0, tiles, 0, 0).setVisible(false);
 
     rt = this.add.renderTexture(0, 0, 800, 600);
 }

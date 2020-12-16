@@ -37,27 +37,27 @@ vec4 texture(sampler2D s, vec2 c) { return texture2D(s,c); }
 
 void mainImage( out vec4 f, vec2 g )
 {
-    float 
+    float
         t = time,
         p;
-    
-    vec2 
+
+    vec2
         s = iResolution.xy,
         u = (g+g-s)/s.y,
         ar = vec2(
-            atan(u.x, u.y) * 3.18 + t*2., 
+            atan(u.x, u.y) * 3.18 + t*2.,
             length(u)*3. + sin(t*.5)*10.);
-    
+
     p = floor(ar.y)/5.;
-    
+
     ar = abs(fract(ar)-.5);
-    
-    f = 
+
+    f =
         mix(
-            vec4(1,.3,0,1), 
-            vec4(.3,.2,.5,1), 
-            vec4(p)) 
-        * .1/dot(ar,ar) * .1 
+            vec4(1,.3,0,1),
+            vec4(.3,.2,.5,1),
+            vec4(p))
+        * .1/dot(ar,ar) * .1
         + texture(iChannel0, g / s) * .9;
 }
 

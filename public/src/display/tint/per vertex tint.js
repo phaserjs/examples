@@ -1,38 +1,41 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+        this.load.image('face', 'assets/pics/bw-face.png');
+    }
+
+    create ()
+    {
+        const hsv = Phaser.Display.Color.HSVColorWheel();
+        const image = this.add.image(400, 300, 'face');
+
+        image.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
+
+        this.input.on('pointerdown', function (pointer) {
+
+            const a = Phaser.Math.Between(0, 359);
+            const b = Phaser.Math.Between(0, 359);
+            const c = Phaser.Math.Between(0, 359);
+            const d = Phaser.Math.Between(0, 359);
+
+            image.setTint(hsv[a].color, hsv[b].color, hsv[c].color, hsv[d].color);
+
+        });
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: [ Example ]
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('face', 'assets/pics/bw-face.png');
-}
-
-function create ()
-{
-    var hsv = Phaser.Display.Color.HSVColorWheel();
-
-    var image = this.add.image(400, 300, 'face');
-
-    image.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
-
-    this.input.on('pointerdown', function (pointer) {
-
-        var a = Phaser.Math.Between(0, 359);
-        var b = Phaser.Math.Between(0, 359);
-        var c = Phaser.Math.Between(0, 359);
-        var d = Phaser.Math.Between(0, 359);
-
-        image.setTint(hsv[a].color, hsv[b].color, hsv[c].color, hsv[d].color);
-
-    });
-
-}
+const game = new Phaser.Game(config);

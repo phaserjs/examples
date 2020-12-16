@@ -15,11 +15,14 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('brick', ['assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png']);
+    this.load.image('logo', 'assets/sprites/atari130xe.png');
 }
 
 function create ()
 {
-    // this.add.image(400, 300, 'brick').setPipeline('Light2D');
+    this.add.image(400, 300, 'brick').setPipeline('Light2D');
+
+    this.add.image(400, 300, 'logo');
 
     this.lights.enable().setAmbientColor(0x555555);
 

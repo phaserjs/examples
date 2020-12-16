@@ -24,15 +24,17 @@ function create ()
     var tween = this.tweens.add({
         targets: image,
         x: 600,
-        paused: true
+        paused: false,
+        yoyo: true,
+        repeat: -1
     });
 
-    window.tweens = this.tweens;
-
-    this.input.once('pointerdown', function () {
+    this.input.once(Phaser.Input.Events.POINTER_DOWN, function () {
 
         console.log('stopped?');
         tween.stop();
 
     }, this);
+
+    this.add.text(20, 20, 'Click and see the console');
 }

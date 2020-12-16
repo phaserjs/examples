@@ -1,26 +1,20 @@
-var UIScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function UIScene ()
+class UIScene extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'ui' });
-    },
+        super({ key: 'ui' });
+    }
 
-    create: function ()
+    create ()
     {
-        var text = this.add.text(10, 10).setText('Click to move');
+        const text = this.add.text(10, 10).setText('Click to move');
 
         text.setShadow(1, 1, '#000000', 2);
 
-        var worldCamera = this.scene.get('world').cameras.main;
-
+        const worldCamera = this.scene.get('world').cameras.main;
         this.input.on('pointermove', function (pointer) {
 
-            var pos = worldCamera.getWorldPoint(pointer.x, pointer.y);
-
+            const pos = worldCamera.getWorldPoint(pointer.x, pointer.y);
             text.setText([
                 'World: ' + pos.x + ' x ' + pos.y,
                 'Camera: ' + worldCamera.midPoint.x + ' x ' + worldCamera.midPoint.y
@@ -28,35 +22,30 @@ var UIScene = new Phaser.Class({
 
         });
     }
+}
 
-});
-
-var WorldScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function WorldScene ()
+class WorldScene extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'world' });
-    },
+        super({ key: 'world' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('map', 'assets/tests/camera/earthbound-scarab.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.cameras.main.setBounds(0, 0, 1024, 2048);
-        
+
         this.add.image(0, 0, 'map').setOrigin(0);
 
         this.cameras.main.setZoom(1);
         this.cameras.main.centerOn(0, 0);
 
-        var pos = 0;
+        let pos = 0;
 
         this.input.on('pointerdown', function () {
 
@@ -113,15 +102,13 @@ var WorldScene = new Phaser.Class({
                 cam.pan(0, 0, 500);
                 pos = 0;
             }
-
         }, this);
 
         this.scene.launch('ui');
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
@@ -133,4 +120,4 @@ var config = {
     scene: [ WorldScene, UIScene ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

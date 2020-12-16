@@ -10,7 +10,7 @@ var config = {
         update: update,
         pack: {
             files: [
-                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/SpinePluginDebug.js', sceneKey: 'spine' }
+                { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
             ]
         }
     }
@@ -24,10 +24,13 @@ function preload ()
 {
     this.load.image('logo', 'assets/sprites/phaser.png');
 
-    this.load.setPath('assets/animations/spine/webgl/');
+    this.load.setPath('assets/spine/3.8/spineboy');
 
-    this.load.spine('boy', 'spineboy-ess.json', 'spineboy.atlas', true);
-    this.load.spine('coin', 'coin-pro.json', 'coin.atlas');
+    this.load.spine('boy', 'spineboy-pro.json', 'spineboy-pro.atlas', true);
+
+    this.load.setPath('assets/spine/3.8/coin');
+
+    this.load.spine('coin', 'coin-pro.json', 'coin-pro.atlas');
 }
 
 function create ()
@@ -37,7 +40,7 @@ function create ()
     var spineBoy = this.add.spine(0, 0, 'boy', 'walk', true).setScale(0.5);
     var coin = this.add.spine(0, 0, 'coin', 'rotate', true).setScale(0.3);
 
-    var container = this.add.container(400, 300, [ spineBoy, coin ]);
+    var container = this.add.spineContainer(400, 300, [ spineBoy, coin ]);
 
     this.tweens.add({
         targets: container,

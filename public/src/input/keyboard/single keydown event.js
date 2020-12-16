@@ -14,23 +14,18 @@ function create() {
     //  This works without creating a new Key object, and is especially useful for 'once' calls.
     //  For game input (i.e. player controls) you should use Key objects instead.
 
-    this.input.keyboard.on('keydown_A', function (event) {
-
+    this.input.keyboard.on('keydown-A', function (event) {
         console.log('Hello from the A Key!');
-
     });
 
-    this.input.keyboard.on('keydown', function (event) {
-
+    this.input.keyboard.on(Phaser.Events, function (event) {
         console.log(event.key);
-
     });
 
-    this.input.keyboard.on('keydown_SPACE', function (event) {
-
+    this.input.keyboard.on('keydown-SPACE', function (event) {
         console.log('Hello from the Space Bar!');
-
     });
 
     this.input.keyboard.addCapture('SPACE');
+    this.add.text(10, 10, 'Press any button and see the console', {fontSize: '20px'});
 }

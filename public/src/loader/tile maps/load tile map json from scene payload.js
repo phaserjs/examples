@@ -35,7 +35,7 @@ function create ()
 
     var tiles = map.addTilesetImage('cybernoid', 'tiles');
 
-    var layer = map.createStaticLayer(0, tiles, 0, 0);
+    var layer = map.createLayer(0, tiles, 0, 0);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 

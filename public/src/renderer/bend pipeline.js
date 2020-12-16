@@ -11,73 +11,35 @@ export default class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setPath('assets/tests/pipeline');
+        this.load.setPath('assets/tests/pipeline/');
 
-        this.load.image('flower', 'flower.png');
+        this.load.image('cake', 'cake.png');
+        this.load.image('crab', 'crab.png');
+        this.load.image('fish', 'fish.png');
+        this.load.image('pudding', 'pudding.png');
     }
 
     create ()
     {
         const bendPipeline = this.renderer.pipelines.get('Bend');
 
-        let middle = 400;
-        let columns = 8;
-        let perRow = 62;
-        let scale = 0.1;
-        let moveX = (164 * scale);
-        let moveY = 32;
+        this.add.sprite(400, 300, 'fish').setPipeline(bendPipeline);
 
-        for (let col = 0; col < columns; col++)
+        /*
+        const layer = this.add.container();
+
+        for (let i = 0; i < 32; i++)
         {
-            this.add.sprite(middle, moveY, 'flower').setScale(scale).setPipeline(bendPipeline);
+            const x = Phaser.Math.Between(0, 800);
+            const y = Phaser.Math.Between(0, 600);
 
-            for (let row = 1; row < perRow / 2; row++)
-            {
-                let x = middle + (row * moveX);
-
-                let flower = this.add.sprite(x, moveY, 'flower').setScale(scale);
-
-                flower.setPipeline(bendPipeline);
-            }
-
-            for (let row = 1; row < perRow / 2; row++)
-            {
-                let x = middle - (row * moveX);
-
-                let flower = this.add.sprite(x, moveY, 'flower').setScale(scale);
-
-                flower.setPipeline(bendPipeline);
-            }
-
-            scale += 0.1;
-            moveX = (164 * scale);
-            moveY += (128 * scale);
-            perRow -= 4;
+            layer.add(this.add.image(x, y, 'fish').setScale(0.5));
         }
 
-        console.log(this.children);
+        layer.setPipeline(multiColorPipeline, { effect: 1 });
 
-        const cursors = this.input.keyboard.createCursorKeys();
-
-        const controlConfig = {
-            camera: this.cameras.main,
-            left: cursors.left,
-            right: cursors.right,
-            up: cursors.up,
-            down: cursors.down,
-            zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
-            zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
-            acceleration: 0.5,
-            drag: 0.01,
-            maxSpeed: 1.2
-        };
-
-        this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
-    }
-
-    update (time, delta)
-    {
-        this.controls.update(delta);
+        this.add.sprite(400, 300, 'crab');
+        */
     }
 }
 

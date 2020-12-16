@@ -1,4 +1,47 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+        this.balls_images = [];
+    }
+
+    preload ()
+    {
+        this.load.image('ball', 'assets/sprites/shinyball.png');
+    }
+
+    create ()
+    {
+        const Matter = Phaser.Physics.Matter;
+        this.matter.world.setBounds();
+        this.matter.add.mouseSpring();
+
+        // add bodies
+        this.stack = this.matter.add.stack(100, 185, 10, 10, 20, 0, (x, y) => {
+            return Matter.Matter.Bodies.circle(x, y, 32/2);
+        });
+
+        this.balls_images = this.stack.bodies.map(body => {
+            return this.add.image(body.position.x, body.position.y, 'ball');
+        });
+    }
+
+    update ()
+    {
+        for (let i = 0; i < this.stack.bodies.length; i++)
+        {
+            const body = this.stack.bodies[i];
+            const ball = this.balls_images[i];
+
+            ball.x = body.position.x;
+            ball.y = body.position.y;
+            ball.rotation = body.angle;
+        }
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -9,89 +52,7 @@ var config = {
         matter: {
         }
     },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: [ Example ]
 };
 
-var game = new Phaser.Game(config);
-
-// var engine;
-// var stack;
-
-function preload ()
-{
-    this.load.image('ball', 'assets/sprites/shinyball.png');
-}
-
-function create ()
-{
-    var Matter = Phaser.Physics.Matter;
-
-    // var Engine = Matter.Engine,
-    //     Render = Matter.Render,
-    //     Runner = Matter.Runner,
-    //     Composites = Matter.Composites,
-    //     MouseConstraint = Matter.MouseConstraint,
-    //     Mouse = Matter.Mouse,
-    //     World = Matter.World,
-    //     Bodies = Matter.Bodies;
-
-    // engine = Engine.create();
-
-    // add bodies
-    // stack = Composites.stack(100, 185, 10, 10, 20, 0, function(x, y) {
-    //     return Bodies.circle(x, y, 32/2);
-    // });
-
-    // for (var i = 0; i < stack.bodies.length; i++)
-    // {
-    //     var body = stack.bodies[i];
-
-    //     this.add.image(body.position.x, body.position.y, 'ball');
-    // }
-    
-    // World.add(engine.world, [
-    //     // walls
-    //     Bodies.rectangle(400, 0, 800, 50, { isStatic: true }),
-    //     Bodies.rectangle(400, 600, 800, 50, { isStatic: true }),
-    //     Bodies.rectangle(800, 300, 50, 600, { isStatic: true }),
-    //     Bodies.rectangle(0, 300, 50, 600, { isStatic: true }),
-    //     stack
-    // ]);
-
-    // add mouse control
-    /*
-    var mouse = Mouse.create(this.sys.canvas),
-        mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-                stiffness: 0.1,
-                render: {
-                    visible: false
-                }
-            }
-        });
-
-    World.add(engine.world, mouseConstraint);
-    */
-
-    console.log(stack);
-
-    // run the engine
-    // Engine.run(engine);
-}
-
-function update ()
-{
-    // for (var i = 0; i < stack.bodies.length; i++)
-    // {
-    //     var body = stack.bodies[i];
-    //     var ball = this.children.getAt(i);
-
-    //     ball.x = body.position.x;
-    //     ball.y = body.position.y;
-    //     ball.rotation = body.angle;
-    // }
-}
+const game = new Phaser.Game(config);

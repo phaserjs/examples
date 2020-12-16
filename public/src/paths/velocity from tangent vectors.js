@@ -5,7 +5,12 @@ var config = {
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     physics: {
-        default: 'impact'
+        default: 'matter',
+        matter: {
+            gravity: {
+                scale: 0
+            }
+        },
     },
     scene: {
         preload: preload,
@@ -43,14 +48,15 @@ function create ()
     tempVec = new Phaser.Math.Vector2();
     tempVecP = new Phaser.Math.Vector2();
 
-    ship = this.impact.add.image(points[0].x, points[0].y, 'ship');
+    ship = this.matter.add.image(points[0].x, points[0].y, 'ship');
+    ship.setFrictionAir(0.0005);
 
     nextPoint(this);
 }
 
 function nextPoint (scene)
 {
-    var next = points[t % points.length]; 
+    var next = points[t % points.length];
 
     moveToXY(ship, next.x, next.y, 0, 500);
 
@@ -75,8 +81,8 @@ function moveToXY (gameObject, x, y, speed, maxTime)
         speed = Math.sqrt(dx * dx + dy * dy) / (maxTime / 1000);
     }
 
-    gameObject.setVelocityX(Math.cos(angle) * speed);
-    gameObject.setVelocityY(Math.sin(angle) * speed);
+    gameObject.setVelocityX((Math.cos(angle) * speed) / 100);
+    gameObject.setVelocityY((Math.sin(angle) * speed) / 100);
 
     // gameObject.rotation = angle;
 }

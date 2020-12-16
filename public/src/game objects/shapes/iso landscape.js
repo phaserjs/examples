@@ -32,7 +32,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('noise', 'assets/tests/98_2.png');
+    this.load.image('noise', 'assets/tests/noise.png');
     // this.load.image('noise', 'assets/tests/heightmap.png');
 }
 

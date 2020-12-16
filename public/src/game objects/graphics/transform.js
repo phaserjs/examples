@@ -27,20 +27,20 @@ function create() {
             r: Math.random()
         });
     }
-    
+
 }
 
 function update() {
 
     graphics.clear();
-    
+
     for (var i = 0; i < rectangles.length; ++i)
     {
         var rect = rectangles[i];
         graphics.save();
-        graphics.translate(rect.x, rect.y);
-        graphics.scale(Math.sin(rect.r), Math.sin(rect.r));
-        graphics.rotate(rect.r);
+        graphics.translateCanvas(rect.x, rect.y);
+        graphics.scaleCanvas(Math.sin(rect.r), Math.sin(rect.r));
+        graphics.rotateCanvas(rect.r);
         graphics.fillStyle(0xFFFF00, 1.0);
         graphics.lineStyle(4.0, 0xFF0000, 1.0);
         graphics.fillRect(-rect.w / 2, -rect.h / 2, rect.w, rect.h);

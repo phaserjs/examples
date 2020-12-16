@@ -23,7 +23,7 @@ var Obj3D = new Phaser.Class({
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
         var model = this.model;
-        
+
         for (var n = 0; n < model.verts.length; n++)
         {
             var vert = model.verts[n];
@@ -40,7 +40,7 @@ var Obj3D = new Phaser.Class({
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
         var model = this.model;
-        
+
         for (var n = 0; n < model.verts.length; n++)
         {
             var vert = model.verts[n];
@@ -57,7 +57,7 @@ var Obj3D = new Phaser.Class({
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
         var model = this.model;
-        
+
         for (var n = 0; n < model.verts.length; n++)
         {
             var vert = model.verts[n];

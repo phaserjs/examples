@@ -27,7 +27,7 @@ function create ()
     particles.createEmitter({
         frame: { frames: [ 0, 1, 2 ], cycle: true },
         x: -70,
-        y: { min: 100, max: 500, steps: 8 },
+        y: { start: 100, end: 500, steps: 8 },
         lifespan: 5000,
         speedX: 200,
         frequency: 500

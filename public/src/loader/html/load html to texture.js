@@ -22,7 +22,7 @@ function preload ()
 
 function create ()
 {
-    image = this.add.image(400, 300, 'test1');
+    image = this.add.image(400, 300, 'test1').setOrigin(0);
 }
 
 function update ()

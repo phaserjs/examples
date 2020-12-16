@@ -16,7 +16,6 @@ var game = new Phaser.Game(config);
 var offsets = [];
 var brick;
 var light;
-var text;
 var time = 0.0;
 
 function preload ()
@@ -59,8 +58,6 @@ function create ()
 
     this.add.image(300, 400, 'phaser').setPipeline('Light2D');
 
-    text = this.add.text(0, 0, 'visible lights: 0').setScrollFactor(0);
-
     this.lights.addLight(0, 100, 100).setColor(0xff0000).setIntensity(3.0);
     this.lights.addLight(0, 200, 100).setColor(0x00ff00).setIntensity(3.0);
     this.lights.addLight(0, 300, 100).setColor(0x0000ff).setIntensity(3.0);
@@ -71,11 +68,9 @@ function create ()
 
 function update ()
 {
-    text.setText('visible lights: ' + this.lights.culledLights.length);
-
     var index = 0;
 
-    this.lights.forEachLight(function (currLight) {
+    this.lights.lights.forEach(function (currLight) {
         if (light !== currLight)
         {
             currLight.x = 400 + Math.sin(offsets[index]) * 1000;

@@ -121,7 +121,7 @@ function update ()
 
     var index = 0;
 
-    this.lights.forEachLight(function (currLight) {
+    this.lights.lights.forEach(function (currLight) {
         if (light !== currLight)
         {
             currLight.x = 400 + Math.sin(offsets[index]) * 1000;

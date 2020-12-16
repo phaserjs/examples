@@ -4304,7 +4304,7 @@
             {
               "path": "src\\game objects\\lights\\light follow pointer.js",
               "name": "light follow pointer.js",
-              "size": 2184,
+              "size": 2025,
               "extension": ".js",
               "type": "file"
             },
@@ -4374,7 +4374,7 @@
             {
               "path": "src\\game objects\\lights\\tilemap layer.js",
               "name": "tilemap layer.js",
-              "size": 3192,
+              "size": 3194,
               "extension": ".js",
               "type": "file"
             },
@@ -4386,7 +4386,7 @@
               "type": "file"
             }
           ],
-          "size": 40060,
+          "size": 39903,
           "type": "directory"
         },
         {
@@ -5991,7 +5991,7 @@
           "type": "directory"
         }
       ],
-      "size": 805205,
+      "size": 805048,
       "type": "directory"
     },
     {
@@ -12947,7 +12947,7 @@
         {
           "path": "src\\tilemap\\light map.js",
           "name": "light map.js",
-          "size": 3333,
+          "size": 3335,
           "extension": ".js",
           "type": "file"
         },
@@ -13198,7 +13198,7 @@
           "type": "file"
         }
       ],
-      "size": 264367,
+      "size": 264369,
       "type": "directory"
     },
     {
@@ -14172,19 +14172,12 @@
           ],
           "size": 9263,
           "type": "directory"
-        },
-        {
-          "path": "src\\utils\\size4.js",
-          "name": "size4.js",
-          "size": 408,
-          "extension": ".js",
-          "type": "file"
         }
       ],
-      "size": 22633,
+      "size": 22225,
       "type": "directory"
     }
   ],
-  "size": 3938231,
+  "size": 3937668,
   "type": "directory"
 }

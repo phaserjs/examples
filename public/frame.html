@@ -62,7 +62,18 @@
         else
         {
             try {
-                eval(event.data);
+                // Module system
+                if (event.data.substr(0, 10) === '// #module')
+                {
+                    const script_tag = document.createElement("script");
+                    script_tag.type = "module";
+                    script_tag.text = event.data;
+                    document.body.appendChild(script_tag);
+                }
+                else
+                {
+                    eval(event.data);
+                }
             }
             catch (e)
             {

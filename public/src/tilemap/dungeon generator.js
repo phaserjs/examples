@@ -150,7 +150,7 @@ function create ()
 
         // Fill the floor with mostly clean tiles, but occasionally place a dirty tile
         // See "Weighted Randomize" example for more information on how to use weightedRandomize.
-        map.weightedRandomize(x, y, w, h, TILES.FLOOR);
+        map.weightedRandomize(TILES.FLOOR, x, y, w, h);
 
         // Place the room corners tiles
         map.putTileAt(TILES.TOP_LEFT_WALL, left, top);
@@ -159,10 +159,10 @@ function create ()
         map.putTileAt(TILES.BOTTOM_LEFT_WALL, left, bottom);
 
         // Fill the walls with mostly clean tiles, but occasionally place a dirty tile
-        map.weightedRandomize(left + 1, top, w - 2, 1, TILES.TOP_WALL);
-        map.weightedRandomize(left + 1, bottom, w - 2, 1, TILES.BOTTOM_WALL);
-        map.weightedRandomize(left, top + 1, 1, h - 2, TILES.LEFT_WALL);
-        map.weightedRandomize(right, top + 1, 1, h - 2, TILES.RIGHT_WALL);
+        map.weightedRandomize(TILES.TOP_WALL, left + 1, top, w - 2, 1);
+        map.weightedRandomize(TILES.BOTTOM_WALL, left + 1, bottom, w - 2, 1);
+        map.weightedRandomize(TILES.LEFT_WALL, left, top + 1, 1, h - 2);
+        map.weightedRandomize(TILES.RIGHT_WALL, right, top + 1, 1, h - 2);
 
         // Dungeons have rooms that are connected with doors. Each door has an x & y relative to the rooms location
         var doors = room.getDoorLocations();

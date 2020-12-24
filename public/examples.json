@@ -5888,15 +5888,15 @@
           "name": "tile sprite",
           "children": [
             {
-              "path": "src\\game objects\\tile sprite\\Atlas - Canvas.js",
-              "name": "Atlas - Canvas.js",
+              "path": "src\\game objects\\tile sprite\\atlas - canvas.js",
+              "name": "atlas - canvas.js",
               "size": 931,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\game objects\\tile sprite\\Atlas.js",
-              "name": "Atlas.js",
+              "path": "src\\game objects\\tile sprite\\atlas.js",
+              "name": "atlas.js",
               "size": 930,
               "extension": ".js",
               "type": "file"
@@ -5930,29 +5930,29 @@
               "type": "file"
             },
             {
-              "path": "src\\game objects\\tile sprite\\Example - Canvas.js",
-              "name": "Example - Canvas.js",
+              "path": "src\\game objects\\tile sprite\\example - canvas.js",
+              "name": "example - canvas.js",
               "size": 939,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\game objects\\tile sprite\\Example 2 - Canvas.js",
-              "name": "Example 2 - Canvas.js",
+              "path": "src\\game objects\\tile sprite\\example 2 - canvas.js",
+              "name": "example 2 - canvas.js",
               "size": 1149,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\game objects\\tile sprite\\Example 2.js",
-              "name": "Example 2.js",
+              "path": "src\\game objects\\tile sprite\\example 2.js",
+              "name": "example 2.js",
               "size": 1148,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\game objects\\tile sprite\\Example.js",
-              "name": "Example.js",
+              "path": "src\\game objects\\tile sprite\\example.js",
+              "name": "example.js",
               "size": 1170,
               "extension": ".js",
               "type": "file"

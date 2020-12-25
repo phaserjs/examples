@@ -60,7 +60,7 @@ function create ()
             volume: 0.5
         });
 
-        explosion.on('ended', function (sound) {
+        explosion.on('complete', function (sound) {
 
             setTimeout(function () {
 

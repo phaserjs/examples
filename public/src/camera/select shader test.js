@@ -14,7 +14,7 @@ export default class Example extends Phaser.Scene
     create()
     {
         this.image = this.add.image(128, 64, 'einstein');
-        const hueRotatePipeline = this.renderer.pipelines.get('HueRotatePostFX');
+        const hueRotatePipeline = this.renderer.pipelines.getPostPipeline('HueRotatePostFX');
 
         let cam = this.cameras.main;
         cam.setSize(256, 128);

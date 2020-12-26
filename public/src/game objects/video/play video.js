@@ -22,4 +22,7 @@ function create ()
     var vid = this.add.video(400, 300, 'wormhole');
 
     vid.play(true);
+    
+    // Prevents video freeze when game is out of focus (i.e. user changes tab on the browser)
+    vid.setPaused(false);
 }

@@ -1,5 +1,3 @@
-var camera;
-
 class Example extends Phaser.Scene
 {
     constructor ()
@@ -20,23 +18,23 @@ class Example extends Phaser.Scene
         this.camera.flash(1000, 1.0, 1.0, 1.0, false, this.flashCallback);
     }
 
-    flashCallback (cam = null,progress = 0)
+    flashCallback (cam = null, progress = 0)
     {
-        if(progress === 1){
+        if (progress === 1){
             console.log('Flash completed. Starting shake effect.');
             this.camera.shake(1000, 0.05, false, this.shakeCallback);
         }
     }
 
-    shakeCallback (cam = null,progress = 0)
+    shakeCallback (cam = null, progress = 0)
     {
-        if(progress === 1){
+        if (progress === 1){
             console.log('Shake completed. Starting fade effect.');
             this.camera.fade(1000, 0, 0, 0, false, this.fadeCallback);
         }
     }
 
-    fadeCallback (cam = null,progress = 0)
+    fadeCallback (cam = null, progress = 0)
     {
         if(progress === 1){
             console.log('Fade completed. End of example.');

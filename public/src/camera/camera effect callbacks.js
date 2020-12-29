@@ -17,24 +17,30 @@ class Example extends Phaser.Scene
         const image = this.add.image(0, 0, 'CherilPerils')
         this.cameras.main.setViewport(5, 5, 390, 290);
         this.camera = this.cameras.add(5, 5, 390, 290);
-        this.camera.flash(1000, 1.0, 1.0, 1.0, false, this.flashComplete);
+        this.camera.flash(1000, 1.0, 1.0, 1.0, false, this.flashCallback);
     }
 
-    flashComplete ()
+    flashCallback (cam = null,progress = 0)
     {
-        console.log('Flash completed. Starting shake effect.');
-        this.camera.shake(1000, 0.05, false, this.shakeComplete);
+        if(progress === 1){
+            console.log('Flash completed. Starting shake effect.');
+            this.camera.shake(1000, 0.05, false, this.shakeCallback);
+        }
     }
 
-    shakeComplete ()
+    shakeCallback (cam = null,progress = 0)
     {
-        console.log('Shake completed. Starting fade effect.');
-        this.camera.fade(1000, 0, 0, 0, false, this.fadeComplete);
+        if(progress === 1){
+            console.log('Shake completed. Starting fade effect.');
+            this.camera.fade(1000, 0, 0, 0, false, this.fadeCallback);
+        }
     }
 
-    fadeComplete ()
+    fadeCallback (cam = null,progress = 0)
     {
-        console.log('Fade completed. End of example.');
+        if(progress === 1){
+            console.log('Fade completed. End of example.');
+        }
     }
 
 }

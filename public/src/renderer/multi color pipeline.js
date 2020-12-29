@@ -23,10 +23,10 @@ export default class Example extends Phaser.Scene
     {
         const multiColorPipeline = this.renderer.pipelines.get('MultiColor');
 
-        this.add.sprite(100, 300, 'pudding').setPipeline(multiColorPipeline, { effect: 0 });
-        this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline(multiColorPipeline, { effect: 1 });
-        this.fish = this.add.sprite(400, 300, 'fish').setPipeline(multiColorPipeline, { effect: 1 });
-        this.add.sprite(700, 300, 'cake').setPipeline(multiColorPipeline, { effect: 0 });
+        this.add.sprite(100, 300, 'pudding').setPipeline(multiColorPipeline, { effect: 0, gray:0.9 });
+        this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline(multiColorPipeline, { effect: 1, speed:0.01 });
+        this.fish = this.add.sprite(400, 300, 'fish').setPipeline(multiColorPipeline, { effect: 1, speed:0.01 });
+        this.add.sprite(700, 300, 'cake').setPipeline(multiColorPipeline, { effect: 0, gray:0.9 });
 
         this.input.on('pointermove', pointer => {
 

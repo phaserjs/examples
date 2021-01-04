@@ -58,10 +58,10 @@ function create ()
     curve.getBounds(pathBounds);
     image.getBounds(spriteBounds);
 
-    this.input.on(Phaser.Input.Events.DRAG, function (event) {
+    this.input.on(Phaser.Input.Events.DRAG, function (event, gameObject, dragX, dragY) {
 
-        event.gameObject.x = event.dragX;
-        event.gameObject.y = event.dragY;
+        gameObject.x = dragX;
+        gameObject.y = dragY;
 
         image.getBounds(spriteBounds);
 

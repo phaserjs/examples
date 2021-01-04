@@ -73,7 +73,32 @@ function createSlider (graphics, x, y, label, width, min, max, value, callback)
 
     image.setData('callback', callback);
 
-    this.input.setOnDragCallback(image, updateSlider, this);
+    image.on('drag', function (pointer, dragX, dragY) {
+
+        var min = this.getData('min');
+        var max = this.getData('max');
+        var scale = this.getData('scale');
+        var left = this.getData('left');
+        var right = this.getData('right');
+
+        dragX = Phaser.Math.Clamp(dragX, left, right);
+
+        this.x = dragX;
+
+        //  Calculate the value
+        var value = (dragX - left) * scale;
+
+        this.setData('value', value);
+
+        this.getData('labelValue').setText(value.toFixed(2));
+
+        var callback = this.getData('callback');
+
+        callback.call(curve, value);
+
+    });
+
+    // this.input.setOnDragCallback(image, updateSlider, this);
 }
 
 function updateSlider (handle, pointer, dragX, dragY)
@@ -122,29 +147,27 @@ function create ()
     centerPoint.setData('control', 'center').setData('vector', curve.p0);
     this.input.setDraggable(centerPoint);
 
-    this.input.on('DRAG_START_EVENT', function (event) {
+    this.input.on('dragstart', function (pointer, gameObject) {
 
-        event.gameObject.setFrame(1);
+        gameObject.setFrame(1);
 
     });
 
-    this.input.on('DRAG_EVENT', function (event) {
-
-        var gameObject = event.gameObject;
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
         if (gameObject.data.get('control') === 'center')
         {
-            gameObject.x = event.dragX;
-            gameObject.y = event.dragY;
+            gameObject.x = dragX;
+            gameObject.y = dragY;
 
-            gameObject.data.get('vector').set(event.dragX, event.dragY);
+            gameObject.data.get('vector').set(dragX, dragY);
         }
 
     });
 
-    this.input.on('DRAG_END_EVENT', function (event) {
+    this.input.on('dragend', function (pointer, gameObject) {
 
-        event.gameObject.setFrame(0);
+        gameObject.setFrame(0);
 
     });
 

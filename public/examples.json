@@ -800,7 +800,7 @@
         {
           "path": "src/bugs/5464 scene restart.js",
           "name": "5464 scene restart.js",
-          "size": 696,
+          "size": 887,
           "extension": ".js",
           "type": "file"
         },
@@ -812,6 +812,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5489 container input.js",
+          "name": "5489 container input.js",
+          "size": 859,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/6000 rt resize.js",
           "name": "6000 rt resize.js",
           "size": 2423,
@@ -819,7 +826,7 @@
           "type": "file"
         }
       ],
-      "size": 11371,
+      "size": 12421,
       "type": "directory"
     },
     {
@@ -3036,7 +3043,7 @@
             {
               "path": "src/game objects/container/container and child input.js",
               "name": "container and child input.js",
-              "size": 1383,
+              "size": 1487,
               "extension": ".js",
               "type": "file"
             },
@@ -3279,7 +3286,7 @@
               "type": "file"
             }
           ],
-          "size": 76784,
+          "size": 76888,
           "type": "directory"
         },
         {
@@ -6012,7 +6019,7 @@
           "type": "directory"
         }
       ],
-      "size": 775398,
+      "size": 775502,
       "type": "directory"
     },
     {
@@ -14206,6 +14213,6 @@
       "type": "directory"
     }
   ],
-  "size": 3812559,
+  "size": 3813713,
   "type": "directory"
 }

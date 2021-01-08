@@ -812,9 +812,16 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5483 layer input.js",
+          "name": "5483 layer input.js",
+          "size": 1108,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/5489 container input.js",
           "name": "5489 container input.js",
-          "size": 859,
+          "size": 1318,
           "extension": ".js",
           "type": "file"
         },
@@ -826,7 +833,7 @@
           "type": "file"
         }
       ],
-      "size": 12421,
+      "size": 13988,
       "type": "directory"
     },
     {
@@ -3043,7 +3050,7 @@
             {
               "path": "src/game objects/container/container and child input.js",
               "name": "container and child input.js",
-              "size": 1487,
+              "size": 1383,
               "extension": ".js",
               "type": "file"
             },
@@ -3286,7 +3293,7 @@
               "type": "file"
             }
           ],
-          "size": 76888,
+          "size": 76784,
           "type": "directory"
         },
         {
@@ -6019,7 +6026,7 @@
           "type": "directory"
         }
       ],
-      "size": 775502,
+      "size": 775398,
       "type": "directory"
     },
     {
@@ -9909,6 +9916,13 @@
               "type": "file"
             },
             {
+              "path": "src/paths/curves/get spaced points vs get points.js",
+              "name": "get spaced points vs get points.js",
+              "size": 882,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src/paths/curves/get tangent vectors on cubic bezier curve.js",
               "name": "get tangent vectors on cubic bezier curve.js",
               "size": 1434,
@@ -9993,7 +10007,7 @@
               "type": "file"
             }
           ],
-          "size": 51525,
+          "size": 52407,
           "type": "directory"
         },
         {
@@ -10181,7 +10195,7 @@
           "type": "file"
         }
       ],
-      "size": 81668,
+      "size": 82550,
       "type": "directory"
     },
     {
@@ -14213,6 +14227,6 @@
       "type": "directory"
     }
   ],
-  "size": 3813713,
+  "size": 3816058,
   "type": "directory"
 }

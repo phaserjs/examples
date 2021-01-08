@@ -21,11 +21,19 @@ function preload ()
 function create ()
 {
     var bg = this.add.image(0, 0, 'buttonBG');
+    var bg2 = this.add.image(200, 400, 'buttonBG');
     var text = this.add.image(0, 0, 'buttonText');
 
-    bg.setInteractive();
+    bg.setInteractive({ draggable: true });
+    bg2.setInteractive({ draggable: true });
 
-    var container = this.add.container(400, 300, [ bg, text ]);
+    var container = this.add.container(400, 100, [ bg, text ]);
+
+    bg2.on('pointerdown', function () {
+
+        console.log('Clicked button 2');
+
+    });
 
     bg.on('pointerdown', function () {
 
@@ -43,5 +51,17 @@ function create ()
 
         this.clearTint();
 
+    });
+
+    console.log('bg', bg.displayList);
+    console.log('bg2', bg2.displayList);
+
+    var graphics = this.add.graphics();
+
+    graphics.width = 1024 * 16;
+    graphics.height = 1024 * 16;
+
+    graphics.setInteractive({
+        draggable: true
     });
 }

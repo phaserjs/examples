@@ -826,6 +826,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5501 bitmap text.js",
+          "name": "5501 bitmap text.js",
+          "size": 656,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/6000 rt resize.js",
           "name": "6000 rt resize.js",
           "size": 2423,
@@ -833,7 +840,7 @@
           "type": "file"
         }
       ],
-      "size": 13988,
+      "size": 14644,
       "type": "directory"
     },
     {
@@ -9918,7 +9925,7 @@
             {
               "path": "src/paths/curves/get spaced points vs get points.js",
               "name": "get spaced points vs get points.js",
-              "size": 882,
+              "size": 1438,
               "extension": ".js",
               "type": "file"
             },
@@ -10007,7 +10014,7 @@
               "type": "file"
             }
           ],
-          "size": 52407,
+          "size": 52963,
           "type": "directory"
         },
         {
@@ -10195,7 +10202,7 @@
           "type": "file"
         }
       ],
-      "size": 82550,
+      "size": 83106,
       "type": "directory"
     },
     {
@@ -13193,7 +13200,7 @@
         {
           "path": "src/tilemap/tile properties.js",
           "name": "tile properties.js",
-          "size": 1994,
+          "size": 2085,
           "extension": ".js",
           "type": "file"
         },
@@ -13247,7 +13254,7 @@
           "type": "file"
         }
       ],
-      "size": 256330,
+      "size": 256421,
       "type": "directory"
     },
     {
@@ -14227,6 +14234,6 @@
       "type": "directory"
     }
   ],
-  "size": 3816058,
+  "size": 3817361,
   "type": "directory"
 }

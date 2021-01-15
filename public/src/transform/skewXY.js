@@ -25,17 +25,24 @@ function create ()
 {
     this.add.image(0, 0, 'grid').setOrigin(0);
 
-    image1 = this.add.image(200, 320, 'atari'); // default origin is 0.5 = the center
-    image2 = this.add.image(400, 320, 'atari').setOrigin(0.5);
-    image3 = this.add.image(600, 320, 'atari').setOrigin(0.5);
-    image4 = this.add.image(800, 320, 'atari').setOrigin(0.5);
+    let count = 1;
+    const monitor = (img) => {
+        const label = count++;
+        return img.setInteractive().on(
+            'pointerup', (ptr, x, y) => console.log(label, x, y)
+        );
+    };
+    image1 = monitor(this.add.image(200, 320, 'atari'));
+    image2 = monitor(this.add.image(400, 320, 'atari'));
+    image3 = monitor(this.add.image(600, 320, 'atari'));
+    image4 = monitor(this.add.image(800, 320, 'atari'));
 
     // Skew X only.
     image1.skewX = -Math.PI / 2;
     this.tweens.add({
         targets: image1,
         skewX: Math.PI / 2,
-        duration: 10000,
+        duration: 2000,
         yoyo: true,
         repeat: -1,
     });
@@ -44,7 +51,7 @@ function create ()
     this.tweens.add({
         targets: image2,
         skewY: Math.PI / 2,
-        duration: 10000,
+        duration: 2000,
         yoyo: true,
         repeat: -1,
     });
@@ -55,7 +62,7 @@ function create ()
         targets: image3,
         rotation: Math.PI / 2,
         skewX: Math.PI / 2,
-        duration: 10000,
+        duration: 2000,
         yoyo: true,
         repeat: -1,
     });
@@ -66,7 +73,7 @@ function create ()
         targets: image4,
         rotation: -Math.PI / 2,
         skewY: Math.PI / 2,
-        duration: 10000,
+        duration: 2000,
         yoyo: true,
         repeat: -1,
     });

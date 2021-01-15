@@ -12,6 +12,7 @@ var image1;
 var image2;
 var image3;
 var image4;
+var graphics;
 
 var game = new Phaser.Game(config);
 
@@ -77,9 +78,20 @@ function create ()
         yoyo: true,
         repeat: -1,
     });
+    graphics = this.add.graphics();
 }
 
 function update (time, delta)
 {
-
+    graphics.clear();
+    for (let [i, c] of [
+        [image1, 0xFF00FF],
+        [image2, 0xFFFF00],
+        [image3, 0x00FFFF],
+        [image4, 0xFFFFFF],
+    ]) {
+        let b = i.getBounds();
+        graphics.lineStyle(1, c, 1.0);
+        graphics.strokeRect(b.x, b.y, b.width, b.height);
+    }
 }

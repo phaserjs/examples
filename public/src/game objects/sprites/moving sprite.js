@@ -1,35 +1,34 @@
-var config = {
+let bunny;
+
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('bunny', 'assets/sprites/bunny.png');
+    }
+
+    create ()
+    {
+        bunny = this.add.sprite(-150, 300, 'bunny');
+    }
+
+    update ()
+    {
+        bunny.x += 2;
+
+        if (bunny.x > 950)
+        {
+            bunny.x = -150;
+        }
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
-    parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    parent: 'phaser-example',
+    scene: [ Example ]
 };
 
-var bunny;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('bunny', 'assets/sprites/bunny.png');
-}
-
-function create ()
-{
-    bunny = this.add.sprite(-150, 300, 'bunny');
-}
-
-function update ()
-{
-    bunny.x += 2;
-
-    if (bunny.x > 950)
-    {
-        bunny.x = -150;
-    }
-}
+const game = new Phaser.Game(config);

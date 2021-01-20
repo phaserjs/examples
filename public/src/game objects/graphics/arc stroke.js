@@ -1,18 +1,17 @@
-var config = {
-    width: 800,
-    height: 600,
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    scene: {
-        create: create
-    }
-};
-
-var game = new Phaser.Game(config);
-
-function create ()
+class Example extends Phaser.Scene
 {
-    var graphics = this.add.graphics();
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+    }
+
+    create ()
+    {
+    let graphics = this.add.graphics();
 
     graphics.lineStyle(50, 0xffffff);
 
@@ -26,4 +25,15 @@ function create ()
     graphics.arc(400, 300, 200, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(360), true, 0.02);
     graphics.strokePath();
     graphics.closePath();
+    }
 }
+const config = {
+    width: 800,
+    height: 600,
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
+    scene: [ Example ]
+};
+
+const game = new Phaser.Game(config);
+

@@ -1,7 +1,11 @@
-let bunny;
-
 class Example extends Phaser.Scene
 {
+    constructor()
+    {
+        super();
+        this.bunny = undefined;
+    }
+
     preload ()
     {
         this.load.image('bunny', 'assets/sprites/bunny.png');
@@ -9,16 +13,16 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        bunny = this.add.sprite(-150, 300, 'bunny');
+        this.bunny = this.add.sprite(-150, 300, 'bunny');
     }
 
     update ()
     {
-        bunny.x += 2;
+        this.bunny.x += 2;
 
-        if (bunny.x > 950)
+        if (this.bunny.x > 950)
         {
-            bunny.x = -150;
+            this.bunny.x = -150;
         }
     }
 }

@@ -1,23 +1,20 @@
-class Example extends Phaser.Scene
-{
+class Example extends Phaser.Scene {
     constructor ()
     {
         super();
     }
 
-    preload ()
-    {
+    preload () {
     }
 
-    create ()
-    {
-    let graphics = this.add.graphics();
+    create () {
+        const graphics = this.add.graphics();
 
-    graphics.fillStyle(0xffff00, 1);
+        graphics.fillStyle(0xffff00, 1);
 
-    graphics.slice(400, 300, 200, Phaser.Math.DegToRad(340), Phaser.Math.DegToRad(20), true);
+        graphics.slice(400, 300, 200, Phaser.Math.DegToRad(340), Phaser.Math.DegToRad(20), true);
 
-    graphics.fillPath();
+        graphics.fillPath();
     }
 }
 
@@ -30,4 +27,3 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-

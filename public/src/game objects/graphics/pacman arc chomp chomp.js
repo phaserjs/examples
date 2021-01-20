@@ -1,19 +1,17 @@
-var config = {
-    width: 800,
-    height: 600,
-    backgroundColor: '#010166',
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    scene: {
-        create: create
-    }
-};
-
-var game = new Phaser.Game(config);
-
-function create ()
+class Example extends Phaser.Scene
 {
-    var graphics = this.add.graphics();
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+    }
+
+    create ()
+    {
+            let graphics = this.add.graphics();
 
     this.tweens.addCounter({
         from: 0,
@@ -23,7 +21,7 @@ function create ()
         repeat: -1,
         onUpdate: function (tween)
         {
-            var t = tween.getValue();
+            let t = tween.getValue();
 
             graphics.clear();
             graphics.fillStyle(0xffff00, 1);
@@ -39,4 +37,17 @@ function create ()
         }
     });
 
+    }
 }
+
+const config = {
+    width: 800,
+    height: 600,
+    backgroundColor: '#010166',
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
+    scene: [ Example ]
+};
+
+const game = new Phaser.Game(config);
+

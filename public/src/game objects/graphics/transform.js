@@ -1,4 +1,4 @@
-class Transform extends Phaser.Scene
+class Example extends Phaser.Scene
 {
     constructor()
     {
@@ -48,7 +48,7 @@ class Transform extends Phaser.Scene
 const config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
-    scene: [Transform],
+    scene: [Example],
     width: 800,
     height: 600
 };

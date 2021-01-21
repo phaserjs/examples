@@ -2,7 +2,7 @@
 // This will give you an undefined error.
 // However, TweenMax will run if you launch.
 
-class PhaserLogo3D extends Phaser.Scene
+class Example extends Phaser.Scene
 {
     constructor ()
     {
@@ -193,7 +193,6 @@ class PhaserLogo3D extends Phaser.Scene
 
         this.graphics.restore();
     }
-
 }
 
 const config = {
@@ -201,7 +200,7 @@ const config = {
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: [PhaserLogo3D]
+    scene: [Example]
 };
 
 const game = new Phaser.Game(config);

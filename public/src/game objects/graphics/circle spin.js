@@ -1,20 +1,18 @@
-let time = 0;
-let inc = 0;
-let graphics;
-let palette;
-
 class CircleSpin extends Phaser.Scene
 {
     constructor ()
     {
         super();
+        this.timeInc = 0;
+        this.graphics = undefined;
+        this.palette = undefined;
     }
 
     create ()
     {
-        graphics = this.add.graphics({ x: 400, y: 300 });
+        this.graphics = this.add.graphics({ x: 400, y: 300 });
 
-        palette = [ 0, 1911635, 8267091, 34641, 11227702, 6248271, 12764103, 16773608, 16711757, 16753408, 16772135, 58422, 2731519, 8615580, 16742312, 16764074 ];
+        this.palette = [ 0, 1911635, 8267091, 34641, 11227702, 6248271, 12764103, 16773608, 16711757, 16753408, 16772135, 58422, 2731519, 8615580, 16742312, 16764074 ];
     }
 
     cos (f)
@@ -29,15 +27,21 @@ class CircleSpin extends Phaser.Scene
 
     update ()
     {
-        time += 0.03;
+        console.log("update");
+        console.log("timeInc", this.timeInc);
 
-        time = Phaser.Math.Wrap(time, -32765, 32765);
+        this.timeInc += 0.03;
 
-        graphics.clear();
+        this.timeInc = Phaser.Math.Wrap(this.timeInc, -32765, 32765);
+        console.log("timeInc", this.timeInc);
 
-        let f = time / 9;
+        this.graphics.clear();
+
+        let f = this.timeInc / 9;
+        console.log("f", f);
+
         let n = 650 + 60 * this.sin(f / 3);
-
+        console.log("n", n);
         for (let i = 1; i < n; i++)
         {
             let a = f + Math.random();
@@ -63,15 +67,16 @@ class CircleSpin extends Phaser.Scene
 
             if (z > 0.1)
             {
-                graphics.fillStyle(palette[c]);
+                console.log("running graphics code");
+                this.graphics.fillStyle(this.palette[c]);
 
                 if (i > 400)
                 {
-                    graphics.fillCircle(x, y, e);
+                    this.graphics.fillCircle(x, y, e);
                 }
                 else
                 {
-                    graphics.fillRect(x, y, e, e);
+                    this.graphics.fillRect(x, y, e, e);
                 }
 
                 // graphics.fillStyle(palette[c / 4]);
@@ -79,7 +84,7 @@ class CircleSpin extends Phaser.Scene
             }
 
         }
-
+        console.log = () => {};
     }
 
 }

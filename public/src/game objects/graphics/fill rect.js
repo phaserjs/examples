@@ -1,9 +1,10 @@
-class FillRect extends Phaser.Scene
+class Example extends Phaser.Scene
 {
     constructor ()
     {
         super();
     }
+
     create ()
     {
         let graphics = this.add.graphics();
@@ -15,7 +16,6 @@ class FillRect extends Phaser.Scene
 
             graphics.fillStyle(color, alpha);
             graphics.fillRect(32 * i, 32 * i, 256, 256);
-
         }
     }
 }
@@ -25,7 +25,7 @@ const config = {
     height: 600,
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    scene: [FillRect]
+    scene: [Example]
 };
 
 const game = new Phaser.Game(config);

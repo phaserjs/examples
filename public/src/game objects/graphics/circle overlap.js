@@ -31,21 +31,21 @@ class Example extends Phaser.Scene
 
     update ()
     {
-      this.t += 0.1;
+        this.t += 0.1;
 
-      this.graphics1.x += Math.sin(this.t) * 2;
-      this.graphics1.y += Math.cos(this.t) * 2;
-      this.graphics2.x += Math.sin(this.t) * 3;
-      this.graphics2.y += Math.cos(this.t) * 3;
+        this.graphics1.x += Math.sin(this.t) * 2;
+        this.graphics1.y += Math.cos(this.t) * 2;
+        this.graphics2.x += Math.sin(this.t) * 3;
+        this.graphics2.y += Math.cos(this.t) * 3;
     }
 }
 
 const config = {
-  width: 800,
-  height: 600,
-  type: Phaser.CANVAS,
-  parent: 'phaser-example',
-  scene: [ Example ]
+    width: 800,
+    height: 600,
+    type: Phaser.CANVAS,
+    parent: 'phaser-example',
+    scene: [ Example ]
 };
 
 const game = new Phaser.Game(config);

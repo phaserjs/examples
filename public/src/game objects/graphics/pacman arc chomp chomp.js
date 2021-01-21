@@ -1,9 +1,7 @@
-class Example extends Phaser.Scene {
+class Example extends Phaser.Scene 
+    {
     constructor () {
         super();
-    }
-
-    preload () {
     }
 
     create ()
@@ -16,7 +14,8 @@ class Example extends Phaser.Scene {
             duration: 200,
             yoyo: true,
             repeat: -1,
-            onUpdate: function (tween) {
+            onUpdate: function (tween) 
+            {
                 let t = tween.getValue();
 
                 graphics.clear();
@@ -30,13 +29,14 @@ class Example extends Phaser.Scene {
                 graphics.fillStyle(0xffffff, 1);
                 graphics.fillCircle(580, 300, 30);
                 graphics.fillCircle(740, 300, 30);
-              }
+            }
             });
 
     }
 }
 
-const config = {
+const config =
+{
     width: 800,
     height: 600,
     backgroundColor: '#010166',

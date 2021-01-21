@@ -1,4 +1,4 @@
-class SingleSprite extends Phaser.Scene
+class Example extends Phaser.Scene
 {
     constructor ()
     {
@@ -14,14 +14,13 @@ class SingleSprite extends Phaser.Scene
     {
         this.add.sprite(400, 300, 'bunny');
     }
-
 }
 
 const config = {
     type: Phaser.AUTO,
     backgroundColor: '#000000',
     parent: 'phaser-example',
-    scene: [ SingleSprite ]
+    scene: [ Example ]
 };
 
 const game = new Phaser.Game(config);

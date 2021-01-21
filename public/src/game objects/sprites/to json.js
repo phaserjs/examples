@@ -1,4 +1,4 @@
-class ToJSON extends Phaser.Scene
+class Example extends Phaser.Scene
 {
     constructor ()
     {
@@ -27,7 +27,6 @@ class ToJSON extends Phaser.Scene
         console.log(bunny.toJSON());
 
         // console.log(JSON.stringify(bunny));
-
     }
 }
 
@@ -36,7 +35,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [ToJSON]
+    scene: [Example]
 };
 
 const game = new Phaser.Game(config);

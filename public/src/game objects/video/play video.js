@@ -1,4 +1,4 @@
-class PlayVideo extends Phaser.Scene
+class Example extends Phaser.Scene
 {
     constructor ()
     {
@@ -27,7 +27,7 @@ const config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: [PlayVideo]
+    scene: [Example]
 };
 
 const game = new Phaser.Game(config);

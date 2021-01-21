@@ -1,10 +1,10 @@
-let text;
-
 class Example extends Phaser.Scene
 {
     constructor ()
     {
         super();
+        this.text = undefined;
+        this.arrow = undefined;
     }
 
     preload ()
@@ -70,25 +70,23 @@ class Example extends Phaser.Scene
 
       graphics.strokePath();
 
-      arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
+      this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
 
-      text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#ffffff' });
+      this.text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#ffffff' });
     }
 
     update ()
     {
-      arrow.angle += 0.2;
+      this.arrow.angle += 0.2;
 
-      text.setText([
+      this.text.setText([
           'Sprite Rotation',
-          'Angle: ' + arrow.angle.toFixed(2),
-          'Rotation: ' + arrow.rotation.toFixed(2)
+          'Angle: ' + this.arrow.angle.toFixed(2),
+          'Rotation: ' + this.arrow.rotation.toFixed(2)
       ]);
     }
 
 }
-
-let arrow;
 
 const config = {
   type: Phaser.AUTO,

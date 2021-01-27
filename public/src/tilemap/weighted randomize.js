@@ -61,15 +61,20 @@ function create ()
 function randomizeRoom ()
 {
     // Fill the floor with random ground tiles
-    groundLayer.weightedRandomize(1, 1, map.width - 2, map.height - 2, [
+    groundLayer.weightedRandomize([
         { index: 6, weight: 4 }, // Regular floor tile (4x more likely)
         { index: 7, weight: 1 }, // Tile variation with 1 rock
         { index: 8, weight: 1 }, // Tile variation with 1 rock
         { index: 26, weight: 1 } // Tile variation with 1 rock
-    ]);
+    ], 
+        1,//- The left most tile index (in tile coordinates) to use as the origin of the area.
+        1,// - The top most tile index (in tile coordinates) to use as the origin of the area. 
+        map.width - 2, // - How many tiles wide from the `tileX` index the area will be.
+        map.height - 2 //- How many tiles tall from the `tileY` index the area will be.
+    );
 
     // Fill the floor of the room with random, weighted tiles
-    objectLayer.weightedRandomize(1, 1, map.width - 2, map.height - 2, [
+    objectLayer.weightedRandomize([
         { index: -1, weight: 50 }, // Place an empty tile most of the tile
         { index: 13, weight: 3 }, // Empty pot
         { index: 32, weight: 2 }, // Full pot
@@ -79,5 +84,5 @@ function randomizeRoom ()
         { index: 110, weight: 2 }, // Empty barrel
         { index: 166, weight: 0.25 }, // Chest
         { index: 167, weight: 0.25 } // Trap door
-    ]);
+    ], 1, 1, map.width - 2, map.height - 2);
 }

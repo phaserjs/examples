@@ -828,7 +828,21 @@
         {
           "path": "src/bugs/5501 bitmap text.js",
           "name": "5501 bitmap text.js",
-          "size": 656,
+          "size": 729,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/5508 input.js",
+          "name": "5508 input.js",
+          "size": 766,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/5522 lights.js",
+          "name": "5522 lights.js",
+          "size": 1176,
           "extension": ".js",
           "type": "file"
         },
@@ -840,7 +854,7 @@
           "type": "file"
         }
       ],
-      "size": 14644,
+      "size": 16659,
       "type": "directory"
     },
     {
@@ -2408,9 +2422,23 @@
       "name": "game config",
       "children": [
         {
+          "path": "src/game config/background color.js",
+          "name": "background color.js",
+          "size": 1032,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/game config/banner colors.js",
           "name": "banner colors.js",
           "size": 1035,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/game config/clear before render.js",
+          "name": "clear before render.js",
+          "size": 1047,
           "extension": ".js",
           "type": "file"
         },
@@ -2527,7 +2555,7 @@
           "type": "file"
         }
       ],
-      "size": 16597,
+      "size": 18676,
       "type": "directory"
     },
     {
@@ -10943,6 +10971,13 @@
               "type": "file"
             },
             {
+              "path": "src/physics/matterjs/container collision.js",
+              "name": "container collision.js",
+              "size": 1643,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src/physics/matterjs/debug options.js",
               "name": "debug options.js",
               "size": 4321,
@@ -11188,7 +11223,7 @@
               "type": "file"
             }
           ],
-          "size": 99231,
+          "size": 100874,
           "type": "directory"
         },
         {
@@ -11207,7 +11242,7 @@
           "type": "directory"
         }
       ],
-      "size": 240116,
+      "size": 241759,
       "type": "directory"
     },
     {
@@ -13200,7 +13235,7 @@
         {
           "path": "src/tilemap/tile properties.js",
           "name": "tile properties.js",
-          "size": 2085,
+          "size": 1994,
           "extension": ".js",
           "type": "file"
         },
@@ -13254,7 +13289,7 @@
           "type": "file"
         }
       ],
-      "size": 256421,
+      "size": 256330,
       "type": "directory"
     },
     {
@@ -14234,6 +14269,6 @@
       "type": "directory"
     }
   ],
-  "size": 3817361,
+  "size": 3823007,
   "type": "directory"
 }

@@ -17,7 +17,7 @@ function preload ()
 
     this.load.image('sukasuka-chtholly', 'assets/pics/sukasuka-chtholly.png');
 
-    this.load.on('filecomplete_image_taikodrummaster', addImage, this);
+    this.load.on('filecomplete-image-taikodrummaster', addImage, this);
 }
 
 function addImage (key, file)

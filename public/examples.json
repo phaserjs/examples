@@ -1363,7 +1363,7 @@
         {
           "path": "src\\camera\\render to texture.js",
           "name": "render to texture.js",
-          "size": 1694,
+          "size": 1603,
           "extension": ".js",
           "type": "file"
         },
@@ -1480,7 +1480,7 @@
           "type": "file"
         }
       ],
-      "size": 151713,
+      "size": 151622,
       "type": "directory"
     },
     {
@@ -3050,7 +3050,7 @@
             {
               "path": "src\\game objects\\container\\add sprite to container.js",
               "name": "add sprite to container.js",
-              "size": 1186,
+              "size": 1196,
               "extension": ".js",
               "type": "file"
             },
@@ -3363,7 +3363,7 @@
               "type": "file"
             }
           ],
-          "size": 80028,
+          "size": 80038,
           "type": "directory"
         },
         {
@@ -6167,7 +6167,7 @@
           "type": "directory"
         }
       ],
-      "size": 820236,
+      "size": 820246,
       "type": "directory"
     },
     {
@@ -10852,6 +10852,13 @@
               "type": "file"
             },
             {
+              "path": "src\\physics\\arcade\\variable bounce.js",
+              "name": "variable bounce.js",
+              "size": 777,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\physics\\arcade\\velocity from angle.js",
               "name": "velocity from angle.js",
               "size": 1924,
@@ -10894,7 +10901,7 @@
               "type": "file"
             }
           ],
-          "size": 145778,
+          "size": 146555,
           "type": "directory"
         },
         {
@@ -11355,7 +11362,7 @@
           "type": "directory"
         }
       ],
-      "size": 252527,
+      "size": 253304,
       "type": "directory"
     },
     {
@@ -14382,6 +14389,6 @@
       "type": "directory"
     }
   ],
-  "size": 3976067,
+  "size": 3976763,
   "type": "directory"
 }

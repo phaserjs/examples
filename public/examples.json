@@ -756,6 +756,13 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\4878 audio mute.js",
+          "name": "4878 audio mute.js",
+          "size": 932,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\5222 points.js",
           "name": "5222 points.js",
           "size": 966,
@@ -896,7 +903,7 @@
           "type": "file"
         }
       ],
-      "size": 23122,
+      "size": 24054,
       "type": "directory"
     },
     {
@@ -3050,7 +3057,7 @@
             {
               "path": "src\\game objects\\container\\add sprite to container.js",
               "name": "add sprite to container.js",
-              "size": 1196,
+              "size": 1186,
               "extension": ".js",
               "type": "file"
             },
@@ -3363,7 +3370,7 @@
               "type": "file"
             }
           ],
-          "size": 80038,
+          "size": 80028,
           "type": "directory"
         },
         {
@@ -6167,7 +6174,7 @@
           "type": "directory"
         }
       ],
-      "size": 820246,
+      "size": 820236,
       "type": "directory"
     },
     {
@@ -10852,13 +10859,6 @@
               "type": "file"
             },
             {
-              "path": "src\\physics\\arcade\\variable bounce.js",
-              "name": "variable bounce.js",
-              "size": 777,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
               "path": "src\\physics\\arcade\\velocity from angle.js",
               "name": "velocity from angle.js",
               "size": 1924,
@@ -10901,7 +10901,7 @@
               "type": "file"
             }
           ],
-          "size": 146555,
+          "size": 145778,
           "type": "directory"
         },
         {
@@ -11362,7 +11362,7 @@
           "type": "directory"
         }
       ],
-      "size": 253304,
+      "size": 252527,
       "type": "directory"
     },
     {
@@ -11626,7 +11626,7 @@
         {
           "path": "src\\renderer\\hue rotation pipeline.js",
           "name": "hue rotation pipeline.js",
-          "size": 1316,
+          "size": 1371,
           "extension": ".js",
           "type": "file"
         },
@@ -11652,7 +11652,7 @@
           "type": "file"
         }
       ],
-      "size": 29557,
+      "size": 29612,
       "type": "directory"
     },
     {
@@ -14389,6 +14389,6 @@
       "type": "directory"
     }
   ],
-  "size": 3976763,
+  "size": 3976963,
   "type": "directory"
 }

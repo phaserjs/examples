@@ -40,9 +40,9 @@ function create ()
     log = [];
 }
 
-function update (dt)
+function update (t, dt)
 {
-    image.x += speed * (dt * 1000);
+    image.x += speed * (dt);
 
     if (image.x > 1000)
     {

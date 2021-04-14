@@ -882,6 +882,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5570 mesh.js",
+          "name": "5570 mesh.js",
+          "size": 2353,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\5571 line to line.js",
           "name": "5571 line to line.js",
           "size": 451,
@@ -903,7 +910,7 @@
           "type": "file"
         }
       ],
-      "size": 24054,
+      "size": 26407,
       "type": "directory"
     },
     {
@@ -4586,7 +4593,7 @@
             {
               "path": "src\\game objects\\mesh\\mesh from obj.js",
               "name": "mesh from obj.js",
-              "size": 2000,
+              "size": 2006,
               "extension": ".js",
               "type": "file"
             },
@@ -4598,7 +4605,7 @@
               "type": "file"
             }
           ],
-          "size": 13117,
+          "size": 13123,
           "type": "directory"
         },
         {
@@ -6174,7 +6181,7 @@
           "type": "directory"
         }
       ],
-      "size": 820236,
+      "size": 820242,
       "type": "directory"
     },
     {
@@ -11212,7 +11219,7 @@
             {
               "path": "src\\physics\\matterjs\\move body with cursors.js",
               "name": "move body with cursors.js",
-              "size": 1340,
+              "size": 1406,
               "extension": ".js",
               "type": "file"
             },
@@ -11343,7 +11350,7 @@
               "type": "file"
             }
           ],
-          "size": 105615,
+          "size": 105681,
           "type": "directory"
         },
         {
@@ -11362,7 +11369,7 @@
           "type": "directory"
         }
       ],
-      "size": 252527,
+      "size": 252593,
       "type": "directory"
     },
     {
@@ -12917,7 +12924,7 @@
         {
           "path": "src\\textures\\texture packer atlas.js",
           "name": "texture packer atlas.js",
-          "size": 956,
+          "size": 913,
           "extension": ".js",
           "type": "file"
         },
@@ -12936,7 +12943,7 @@
           "type": "file"
         }
       ],
-      "size": 47123,
+      "size": 47080,
       "type": "directory"
     },
     {
@@ -13509,9 +13516,16 @@
           "type": "file"
         },
         {
+          "path": "src\\timestep\\split timestep.js",
+          "name": "split timestep.js",
+          "size": 773,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\timestep\\ticker loop.js",
           "name": "ticker loop.js",
-          "size": 1068,
+          "size": 1002,
           "extension": ".js",
           "type": "file"
         },
@@ -13530,7 +13544,7 @@
           "type": "file"
         }
       ],
-      "size": 4962,
+      "size": 5669,
       "type": "directory"
     },
     {
@@ -14389,6 +14403,6 @@
       "type": "directory"
     }
   ],
-  "size": 3976963,
+  "size": 3980052,
   "type": "directory"
 }

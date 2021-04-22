@@ -4567,9 +4567,16 @@
               "size": 1414,
               "extension": ".js",
               "type": "file"
+            },
+            {
+              "path": "src\\game objects\\lights\\zoom point light.js",
+              "name": "zoom point light.js",
+              "size": 2751,
+              "extension": ".js",
+              "type": "file"
             }
           ],
-          "size": 39903,
+          "size": 42654,
           "type": "directory"
         },
         {
@@ -4593,7 +4600,7 @@
             {
               "path": "src\\game objects\\mesh\\mesh from obj.js",
               "name": "mesh from obj.js",
-              "size": 2006,
+              "size": 2090,
               "extension": ".js",
               "type": "file"
             },
@@ -4605,7 +4612,7 @@
               "type": "file"
             }
           ],
-          "size": 13123,
+          "size": 13207,
           "type": "directory"
         },
         {
@@ -6181,7 +6188,7 @@
           "type": "directory"
         }
       ],
-      "size": 820242,
+      "size": 823077,
       "type": "directory"
     },
     {
@@ -10050,6 +10057,13 @@
               "type": "file"
             },
             {
+              "path": "src\\paths\\curves\\get point from spline curve.js",
+              "name": "get point from spline curve.js",
+              "size": 1530,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\paths\\curves\\get points on cubic bezier curve.js",
               "name": "get points on cubic bezier curve.js",
               "size": 895,
@@ -10169,7 +10183,7 @@
               "type": "file"
             }
           ],
-          "size": 55352,
+          "size": 56882,
           "type": "directory"
         },
         {
@@ -10357,7 +10371,7 @@
           "type": "file"
         }
       ],
-      "size": 86982,
+      "size": 88512,
       "type": "directory"
     },
     {
@@ -11219,7 +11233,7 @@
             {
               "path": "src\\physics\\matterjs\\move body with cursors.js",
               "name": "move body with cursors.js",
-              "size": 1406,
+              "size": 1340,
               "extension": ".js",
               "type": "file"
             },
@@ -11350,7 +11364,7 @@
               "type": "file"
             }
           ],
-          "size": 105681,
+          "size": 105615,
           "type": "directory"
         },
         {
@@ -11369,7 +11383,7 @@
           "type": "directory"
         }
       ],
-      "size": 252593,
+      "size": 252527,
       "type": "directory"
     },
     {
@@ -12924,7 +12938,7 @@
         {
           "path": "src\\textures\\texture packer atlas.js",
           "name": "texture packer atlas.js",
-          "size": 913,
+          "size": 956,
           "extension": ".js",
           "type": "file"
         },
@@ -12943,7 +12957,7 @@
           "type": "file"
         }
       ],
-      "size": 47080,
+      "size": 47123,
       "type": "directory"
     },
     {
@@ -13518,7 +13532,7 @@
         {
           "path": "src\\timestep\\split timestep.js",
           "name": "split timestep.js",
-          "size": 773,
+          "size": 1570,
           "extension": ".js",
           "type": "file"
         },
@@ -13544,7 +13558,7 @@
           "type": "file"
         }
       ],
-      "size": 5669,
+      "size": 6466,
       "type": "directory"
     },
     {
@@ -14199,6 +14213,13 @@
           "type": "file"
         },
         {
+          "path": "src\\tweens\\tweenable gameobject.js",
+          "name": "tweenable gameobject.js",
+          "size": 663,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\tweens\\update to.js",
           "name": "update to.js",
           "size": 1205,
@@ -14220,7 +14241,7 @@
           "type": "file"
         }
       ],
-      "size": 93597,
+      "size": 94260,
       "type": "directory"
     },
     {
@@ -14403,6 +14424,6 @@
       "type": "directory"
     }
   ],
-  "size": 3980052,
+  "size": 3985854,
   "type": "directory"
 }

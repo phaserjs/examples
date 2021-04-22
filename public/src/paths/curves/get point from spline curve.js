@@ -22,8 +22,6 @@ class Example extends Phaser.Scene
         const startX = points[0];
         const endX = points[points.length - 2];
 
-        console.log(startX, endX);
-
         const curve = new Phaser.Curves.Spline(points);
 
         curve.draw(graphics, 64);

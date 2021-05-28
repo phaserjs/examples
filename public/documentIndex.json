@@ -5626,8 +5626,8 @@
       "": 1
     }
   },
-  "audio\\HTML5 Audio\\audiosprite.js": {
-    "path": "audio\\HTML5 Audio\\audiosprite.js",
+  "audio\\html5 audio\\audiosprite.js": {
+    "path": "audio\\html5 audio\\audiosprite.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -5728,8 +5728,8 @@
       "new": 1
     }
   },
-  "audio\\HTML5 Audio\\basic-playback-and-events.js": {
-    "path": "audio\\HTML5 Audio\\basic-playback-and-events.js",
+  "audio\\html5 audio\\basic playback and events.js": {
+    "path": "audio\\html5 audio\\basic playback and events.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -5909,8 +5909,8 @@
       "length": 1
     }
   },
-  "audio\\HTML5 Audio\\Loop Delay.js": {
-    "path": "audio\\HTML5 Audio\\Loop Delay.js",
+  "audio\\html5 audio\\loop delay.js": {
+    "path": "audio\\html5 audio\\loop delay.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -6106,8 +6106,8 @@
       "totalrate": 1
     }
   },
-  "audio\\HTML5 Audio\\markers pause, resume.js": {
-    "path": "audio\\HTML5 Audio\\markers pause, resume.js",
+  "audio\\html5 audio\\markers pause resume.js": {
+    "path": "audio\\html5 audio\\markers pause resume.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -6221,8 +6221,8 @@
       "getframe": 1
     }
   },
-  "audio\\HTML5 Audio\\markers play.js": {
-    "path": "audio\\HTML5 Audio\\markers play.js",
+  "audio\\html5 audio\\markers play.js": {
+    "path": "audio\\html5 audio\\markers play.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -6327,8 +6327,8 @@
       "getframe": 1
     }
   },
-  "audio\\HTML5 Audio\\play audio file.js": {
-    "path": "audio\\HTML5 Audio\\play audio file.js",
+  "audio\\html5 audio\\play audio file.js": {
+    "path": "audio\\html5 audio\\play audio file.js",
     "titleWords": {
       "audio": 3,
       "html": 1,
@@ -6374,8 +6374,8 @@
       "": 1
     }
   },
-  "audio\\HTML5 Audio\\play audio from child scene.js": {
-    "path": "audio\\HTML5 Audio\\play audio from child scene.js",
+  "audio\\html5 audio\\play audio from child scene.js": {
+    "path": "audio\\html5 audio\\play audio from child scene.js",
     "titleWords": {
       "audio": 3,
       "html": 1,
@@ -6473,8 +6473,8 @@
       "game": 2
     }
   },
-  "audio\\HTML5 Audio\\Seek.js": {
-    "path": "audio\\HTML5 Audio\\Seek.js",
+  "audio\\html5 audio\\seek.js": {
+    "path": "audio\\html5 audio\\seek.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -6628,8 +6628,8 @@
       "totalrate": 1
     }
   },
-  "audio\\HTML5 Audio\\Volume Mute Rate Detune.js": {
-    "path": "audio\\HTML5 Audio\\Volume Mute Rate Detune.js",
+  "audio\\html5 audio\\volume mute rate detune.js": {
+    "path": "audio\\html5 audio\\volume mute rate detune.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -6776,8 +6776,8 @@
       "!soundright": 1
     }
   },
-  "audio\\No Audio\\AudioSprite.js": {
-    "path": "audio\\No Audio\\AudioSprite.js",
+  "audio\\no audio\\audiosprite.js": {
+    "path": "audio\\no audio\\audiosprite.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -6873,8 +6873,8 @@
       "getframe": 1
     }
   },
-  "audio\\No Audio\\Basic Playback and Events.js": {
-    "path": "audio\\No Audio\\Basic Playback and Events.js",
+  "audio\\no audio\\basic playback and events.js": {
+    "path": "audio\\no audio\\basic playback and events.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7048,8 +7048,8 @@
       "pointer": 1
     }
   },
-  "audio\\No Audio\\Loop Delay.js": {
-    "path": "audio\\No Audio\\Loop Delay.js",
+  "audio\\no audio\\loop delay.js": {
+    "path": "audio\\no audio\\loop delay.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7199,8 +7199,8 @@
       "totalrate": 1
     }
   },
-  "audio\\No Audio\\markers pause, resume.js": {
-    "path": "audio\\No Audio\\markers pause, resume.js",
+  "audio\\no audio\\markers pause resume.js": {
+    "path": "audio\\no audio\\markers pause resume.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7314,8 +7314,8 @@
       "getframe": 1
     }
   },
-  "audio\\No Audio\\markers play.js": {
-    "path": "audio\\No Audio\\markers play.js",
+  "audio\\no audio\\markers play.js": {
+    "path": "audio\\no audio\\markers play.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7419,8 +7419,8 @@
       "getframe": 1
     }
   },
-  "audio\\No Audio\\Seek.js": {
-    "path": "audio\\No Audio\\Seek.js",
+  "audio\\no audio\\seek.js": {
+    "path": "audio\\no audio\\seek.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7574,8 +7574,8 @@
       "totalrate": 1
     }
   },
-  "audio\\No Audio\\Volume Mute Rate Detune.js": {
-    "path": "audio\\No Audio\\Volume Mute Rate Detune.js",
+  "audio\\no audio\\volume mute rate detune.js": {
+    "path": "audio\\no audio\\volume mute rate detune.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7722,8 +7722,8 @@
       "!soundright": 1
     }
   },
-  "audio\\SID\\test.js": {
-    "path": "audio\\SID\\test.js",
+  "audio\\sid\\test.js": {
+    "path": "audio\\sid\\test.js",
     "titleWords": {
       "audio": 1,
       "sid": 1,
@@ -7814,8 +7814,8 @@
       "": 1
     }
   },
-  "audio\\Web Audio\\AudioSprite.js": {
-    "path": "audio\\Web Audio\\AudioSprite.js",
+  "audio\\web audio\\audiosprite.js": {
+    "path": "audio\\web audio\\audiosprite.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -7911,8 +7911,8 @@
       "getframe": 1
     }
   },
-  "audio\\Web Audio\\Basic Playback and Events.js": {
-    "path": "audio\\Web Audio\\Basic Playback and Events.js",
+  "audio\\web audio\\basic playback and events.js": {
+    "path": "audio\\web audio\\basic playback and events.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8085,8 +8085,8 @@
       "pointer": 1
     }
   },
-  "audio\\Web Audio\\Loop Delay.js": {
-    "path": "audio\\Web Audio\\Loop Delay.js",
+  "audio\\web audio\\loop delay.js": {
+    "path": "audio\\web audio\\loop delay.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8235,8 +8235,8 @@
       "totalrate": 1
     }
   },
-  "audio\\Web Audio\\markers pause, resume.js": {
-    "path": "audio\\Web Audio\\markers pause, resume.js",
+  "audio\\web audio\\markers pause resume.js": {
+    "path": "audio\\web audio\\markers pause resume.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8349,8 +8349,8 @@
       "getframe": 1
     }
   },
-  "audio\\Web Audio\\markers play.js": {
-    "path": "audio\\Web Audio\\markers play.js",
+  "audio\\web audio\\markers play.js": {
+    "path": "audio\\web audio\\markers play.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8453,8 +8453,8 @@
       "getframe": 1
     }
   },
-  "audio\\Web Audio\\play audio file.js": {
-    "path": "audio\\Web Audio\\play audio file.js",
+  "audio\\web audio\\play audio file.js": {
+    "path": "audio\\web audio\\play audio file.js",
     "titleWords": {
       "audio": 3,
       "web": 1,
@@ -8499,8 +8499,8 @@
       "": 1
     }
   },
-  "audio\\Web Audio\\play audio from child scene.js": {
-    "path": "audio\\Web Audio\\play audio from child scene.js",
+  "audio\\web audio\\play audio from child scene.js": {
+    "path": "audio\\web audio\\play audio from child scene.js",
     "titleWords": {
       "audio": 3,
       "web": 1,
@@ -8597,8 +8597,8 @@
       "game": 2
     }
   },
-  "audio\\Web Audio\\play sound on keypress.js": {
-    "path": "audio\\Web Audio\\play sound on keypress.js",
+  "audio\\web audio\\play sound on keypress.js": {
+    "path": "audio\\web audio\\play sound on keypress.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8682,8 +8682,8 @@
       "": 1
     }
   },
-  "audio\\Web Audio\\reuse audio context.js": {
-    "path": "audio\\Web Audio\\reuse audio context.js",
+  "audio\\web audio\\reuse audio context.js": {
+    "path": "audio\\web audio\\reuse audio context.js",
     "titleWords": {
       "audio": 3,
       "web": 1,
@@ -8772,8 +8772,8 @@
       "": 1
     }
   },
-  "audio\\Web Audio\\Seek.js": {
-    "path": "audio\\Web Audio\\Seek.js",
+  "audio\\web audio\\seek.js": {
+    "path": "audio\\web audio\\seek.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8926,8 +8926,8 @@
       "totalrate": 1
     }
   },
-  "audio\\Web Audio\\Volume Mute Rate Detune.js": {
-    "path": "audio\\Web Audio\\Volume Mute Rate Detune.js",
+  "audio\\web audio\\volume mute rate detune.js": {
+    "path": "audio\\web audio\\volume mute rate detune.js",
     "titleWords": {
       "audio": 2,
       "web": 1,

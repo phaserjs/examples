@@ -524,8 +524,8 @@
           "name": "HTML5 Audio",
           "children": [
             {
-              "path": "src\\audio\\HTML5 Audio\\audio sprite.js",
-              "name": "audio sprite.js",
+              "path": "src\\audio\\HTML5 Audio\\audiosprite.js",
+              "name": "audiosprite.js",
               "size": 2403,
               "extension": ".js",
               "type": "file"

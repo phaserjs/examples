@@ -5626,12 +5626,12 @@
       "": 1
     }
   },
-  "audio\\HTML5 Audio\\audio sprite.js": {
-    "path": "audio\\HTML5 Audio\\audio sprite.js",
+  "audio\\HTML5 Audio\\audiosprite.js": {
+    "path": "audio\\HTML5 Audio\\audiosprite.js",
     "titleWords": {
-      "audio": 3,
+      "audio": 2,
       "html": 1,
-      "sprite": 1
+      "audiosprite": 1
     },
     "bodyWords": {
       "": 2,

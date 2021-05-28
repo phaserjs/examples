@@ -520,67 +520,67 @@
       "name": "audio",
       "children": [
         {
-          "path": "src\\audio\\html5 audio",
-          "name": "html5 audio",
+          "path": "src\\audio\\HTML5 Audio",
+          "name": "HTML5 Audio",
           "children": [
             {
-              "path": "src\\audio\\html5 audio\\audiosprite.js",
+              "path": "src\\audio\\HTML5 Audio\\audiosprite.js",
               "name": "audiosprite.js",
               "size": 2403,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\html5 audio\\basic playback and events.js",
+              "path": "src\\audio\\HTML5 Audio\\basic playback and events.js",
               "name": "basic playback and events.js",
               "size": 14052,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\html5 audio\\loop delay.js",
+              "path": "src\\audio\\HTML5 Audio\\loop delay.js",
               "name": "loop delay.js",
               "size": 6322,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\html5 audio\\markers pause resume.js",
+              "path": "src\\audio\\HTML5 Audio\\markers pause resume.js",
               "name": "markers pause resume.js",
               "size": 3740,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\html5 audio\\markers play.js",
+              "path": "src\\audio\\HTML5 Audio\\markers play.js",
               "name": "markers play.js",
               "size": 2665,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\html5 audio\\play audio file.js",
+              "path": "src\\audio\\HTML5 Audio\\play audio file.js",
               "name": "play audio file.js",
               "size": 686,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\html5 audio\\play audio from child scene.js",
+              "path": "src\\audio\\HTML5 Audio\\play audio from child scene.js",
               "name": "play audio from child scene.js",
               "size": 3188,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\html5 audio\\seek.js",
+              "path": "src\\audio\\HTML5 Audio\\seek.js",
               "name": "seek.js",
               "size": 3623,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\html5 audio\\volume mute rate detune.js",
+              "path": "src\\audio\\HTML5 Audio\\volume mute rate detune.js",
               "name": "volume mute rate detune.js",
               "size": 3908,
               "extension": ".js",
@@ -591,53 +591,53 @@
           "type": "directory"
         },
         {
-          "path": "src\\audio\\no audio",
-          "name": "no audio",
+          "path": "src\\audio\\No Audio",
+          "name": "No Audio",
           "children": [
             {
-              "path": "src\\audio\\no audio\\audiosprite.js",
+              "path": "src\\audio\\No Audio\\audiosprite.js",
               "name": "audiosprite.js",
               "size": 2231,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\no audio\\basic playback and events.js",
+              "path": "src\\audio\\No Audio\\basic playback and events.js",
               "name": "basic playback and events.js",
               "size": 13748,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\no audio\\loop delay.js",
+              "path": "src\\audio\\No Audio\\loop delay.js",
               "name": "loop delay.js",
               "size": 5772,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\no audio\\markers pause resume.js",
+              "path": "src\\audio\\No Audio\\markers pause resume.js",
               "name": "markers pause resume.js",
               "size": 3732,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\no audio\\markers play.js",
+              "path": "src\\audio\\No Audio\\markers play.js",
               "name": "markers play.js",
               "size": 2625,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\no audio\\seek.js",
+              "path": "src\\audio\\No Audio\\seek.js",
               "name": "seek.js",
               "size": 3615,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\no audio\\volume mute rate detune.js",
+              "path": "src\\audio\\No Audio\\volume mute rate detune.js",
               "name": "volume mute rate detune.js",
               "size": 3898,
               "extension": ".js",
@@ -648,11 +648,11 @@
           "type": "directory"
         },
         {
-          "path": "src\\audio\\sid",
-          "name": "sid",
+          "path": "src\\audio\\SID",
+          "name": "SID",
           "children": [
             {
-              "path": "src\\audio\\sid\\test.js",
+              "path": "src\\audio\\SID\\test.js",
               "name": "test.js",
               "size": 2429,
               "extension": ".js",
@@ -663,81 +663,81 @@
           "type": "directory"
         },
         {
-          "path": "src\\audio\\web audio",
-          "name": "web audio",
+          "path": "src\\audio\\Web Audio",
+          "name": "Web Audio",
           "children": [
             {
-              "path": "src\\audio\\web audio\\audiosprite.js",
+              "path": "src\\audio\\Web Audio\\audiosprite.js",
               "name": "audiosprite.js",
               "size": 2139,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\basic playback and events.js",
+              "path": "src\\audio\\Web Audio\\basic playback and events.js",
               "name": "basic playback and events.js",
               "size": 13098,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\loop delay.js",
+              "path": "src\\audio\\Web Audio\\loop delay.js",
               "name": "loop delay.js",
               "size": 5727,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\markers pause resume.js",
+              "path": "src\\audio\\Web Audio\\markers pause resume.js",
               "name": "markers pause resume.js",
               "size": 3687,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\markers play.js",
+              "path": "src\\audio\\Web Audio\\markers play.js",
               "name": "markers play.js",
               "size": 2580,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\play audio file.js",
+              "path": "src\\audio\\Web Audio\\play audio file.js",
               "name": "play audio file.js",
               "size": 633,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\play audio from child scene.js",
+              "path": "src\\audio\\Web Audio\\play audio from child scene.js",
               "name": "play audio from child scene.js",
               "size": 3135,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\play sound on keypress.js",
+              "path": "src\\audio\\Web Audio\\play sound on keypress.js",
               "name": "play sound on keypress.js",
               "size": 2524,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\reuse audio context.js",
+              "path": "src\\audio\\Web Audio\\reuse audio context.js",
               "name": "reuse audio context.js",
               "size": 2067,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\seek.js",
+              "path": "src\\audio\\Web Audio\\seek.js",
               "name": "seek.js",
               "size": 3573,
               "extension": ".js",
               "type": "file"
             },
             {
-              "path": "src\\audio\\web audio\\volume mute rate detune.js",
+              "path": "src\\audio\\Web Audio\\volume mute rate detune.js",
               "name": "volume mute rate detune.js",
               "size": 3853,
               "extension": ".js",

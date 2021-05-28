@@ -531,8 +531,8 @@
               "type": "file"
             },
             {
-              "path": "src\\audio\\HTML5 Audio\\Basic Playback and Events.js",
-              "name": "Basic Playback and Events.js",
+              "path": "src\\audio\\HTML5 Audio\\basic playback and events.js",
+              "name": "basic playback and events.js",
               "size": 14052,
               "extension": ".js",
               "type": "file"

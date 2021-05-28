@@ -5626,12 +5626,12 @@
       "": 1
     }
   },
-  "audio\\HTML5 Audio\\audiosprite.js": {
-    "path": "audio\\HTML5 Audio\\audiosprite.js",
+  "audio\\HTML5 Audio\\audio sprite.js": {
+    "path": "audio\\HTML5 Audio\\audio sprite.js",
     "titleWords": {
-      "audio": 2,
+      "audio": 3,
       "html": 1,
-      "audiosprite": 1
+      "sprite": 1
     },
     "bodyWords": {
       "": 2,
@@ -5728,8 +5728,8 @@
       "new": 1
     }
   },
-  "audio\\HTML5 Audio\\basic playback and events.js": {
-    "path": "audio\\HTML5 Audio\\basic playback and events.js",
+  "audio\\HTML5 Audio\\Basic Playback and Events.js": {
+    "path": "audio\\HTML5 Audio\\Basic Playback and Events.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -5909,8 +5909,8 @@
       "length": 1
     }
   },
-  "audio\\HTML5 Audio\\loop delay.js": {
-    "path": "audio\\HTML5 Audio\\loop delay.js",
+  "audio\\HTML5 Audio\\Loop Delay.js": {
+    "path": "audio\\HTML5 Audio\\Loop Delay.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -6473,8 +6473,8 @@
       "game": 2
     }
   },
-  "audio\\HTML5 Audio\\seek.js": {
-    "path": "audio\\HTML5 Audio\\seek.js",
+  "audio\\HTML5 Audio\\Seek.js": {
+    "path": "audio\\HTML5 Audio\\Seek.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -6628,8 +6628,8 @@
       "totalrate": 1
     }
   },
-  "audio\\HTML5 Audio\\volume mute rate detune.js": {
-    "path": "audio\\HTML5 Audio\\volume mute rate detune.js",
+  "audio\\HTML5 Audio\\Volume Mute Rate Detune.js": {
+    "path": "audio\\HTML5 Audio\\Volume Mute Rate Detune.js",
     "titleWords": {
       "audio": 2,
       "html": 1,
@@ -6776,8 +6776,8 @@
       "!soundright": 1
     }
   },
-  "audio\\No Audio\\audiosprite.js": {
-    "path": "audio\\No Audio\\audiosprite.js",
+  "audio\\No Audio\\AudioSprite.js": {
+    "path": "audio\\No Audio\\AudioSprite.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -6873,8 +6873,8 @@
       "getframe": 1
     }
   },
-  "audio\\No Audio\\basic playback and events.js": {
-    "path": "audio\\No Audio\\basic playback and events.js",
+  "audio\\No Audio\\Basic Playback and Events.js": {
+    "path": "audio\\No Audio\\Basic Playback and Events.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7048,8 +7048,8 @@
       "pointer": 1
     }
   },
-  "audio\\No Audio\\loop delay.js": {
-    "path": "audio\\No Audio\\loop delay.js",
+  "audio\\No Audio\\Loop Delay.js": {
+    "path": "audio\\No Audio\\Loop Delay.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7419,8 +7419,8 @@
       "getframe": 1
     }
   },
-  "audio\\No Audio\\seek.js": {
-    "path": "audio\\No Audio\\seek.js",
+  "audio\\No Audio\\Seek.js": {
+    "path": "audio\\No Audio\\Seek.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7574,8 +7574,8 @@
       "totalrate": 1
     }
   },
-  "audio\\No Audio\\volume mute rate detune.js": {
-    "path": "audio\\No Audio\\volume mute rate detune.js",
+  "audio\\No Audio\\Volume Mute Rate Detune.js": {
+    "path": "audio\\No Audio\\Volume Mute Rate Detune.js",
     "titleWords": {
       "audio": 2,
       "no": 1,
@@ -7814,8 +7814,8 @@
       "": 1
     }
   },
-  "audio\\Web Audio\\audiosprite.js": {
-    "path": "audio\\Web Audio\\audiosprite.js",
+  "audio\\Web Audio\\AudioSprite.js": {
+    "path": "audio\\Web Audio\\AudioSprite.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -7911,8 +7911,8 @@
       "getframe": 1
     }
   },
-  "audio\\Web Audio\\basic playback and events.js": {
-    "path": "audio\\Web Audio\\basic playback and events.js",
+  "audio\\Web Audio\\Basic Playback and Events.js": {
+    "path": "audio\\Web Audio\\Basic Playback and Events.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8085,8 +8085,8 @@
       "pointer": 1
     }
   },
-  "audio\\Web Audio\\loop delay.js": {
-    "path": "audio\\Web Audio\\loop delay.js",
+  "audio\\Web Audio\\Loop Delay.js": {
+    "path": "audio\\Web Audio\\Loop Delay.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8772,8 +8772,8 @@
       "": 1
     }
   },
-  "audio\\Web Audio\\seek.js": {
-    "path": "audio\\Web Audio\\seek.js",
+  "audio\\Web Audio\\Seek.js": {
+    "path": "audio\\Web Audio\\Seek.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -8926,8 +8926,8 @@
       "totalrate": 1
     }
   },
-  "audio\\Web Audio\\volume mute rate detune.js": {
-    "path": "audio\\Web Audio\\volume mute rate detune.js",
+  "audio\\Web Audio\\Volume Mute Rate Detune.js": {
+    "path": "audio\\Web Audio\\Volume Mute Rate Detune.js",
     "titleWords": {
       "audio": 2,
       "web": 1,
@@ -10397,6 +10397,61 @@
       "log": 1,
       "destroyed": 1,
       "destroy": 1,
+      "": 1
+    }
+  },
+  "bugs\\5720 fill.js": {
+    "path": "bugs\\5720 fill.js",
+    "titleWords": {
+      "bugs": 1,
+      "fill": 1
+    },
+    "bodyWords": {
+      "function": 2,
+      "preload": 3,
+      "this": 6,
+      "load": 1,
+      "image": 1,
+      "apple": 2,
+      "assets": 1,
+      "sprites": 1,
+      "png": 1,
+      "create": 3,
+      "add": 5,
+      "text": 1,
+      "phaser": 4,
+      "fontfamily": 1,
+      "arial": 1,
+      "fontsize": 1,
+      "color": 1,
+      "#": 1,
+      "ff": 3,
+      "circle": 1,
+      "x": 8,
+      "rectangle": 1,
+      "var": 2,
+      "t": 2,
+      "isobox": 1,
+      "b": 1,
+      "f": 2,
+      "fce": 1,
+      "fdf": 1,
+      "isotriangle": 1,
+      "false": 1,
+      "dcb": 1,
+      "e": 1,
+      "a": 1,
+      "const": 2,
+      "config": 2,
+      "type": 1,
+      "webgl": 1,
+      "parent": 1,
+      "example": 1,
+      "width": 1,
+      "height": 1,
+      "scene": 1,
+      "game": 2,
+      "new": 1,
       "": 1
     }
   },
@@ -17470,8 +17525,8 @@
       "": 1
     }
   },
-  "depth sorting\\depth sorting.js": {
-    "path": "depth sorting\\depth sorting.js",
+  "depth sorting\\Depth Sorting.js": {
+    "path": "depth sorting\\Depth Sorting.js",
     "titleWords": {
       "depth": 2,
       "sorting": 2
@@ -19649,8 +19704,8 @@
       "": 1
     }
   },
-  "display\\color\\hex string to color.js": {
-    "path": "display\\color\\hex string to color.js",
+  "display\\color\\Hex String To Color.js": {
+    "path": "display\\color\\Hex String To Color.js",
     "titleWords": {
       "display": 1,
       "color": 2,
@@ -19806,8 +19861,8 @@
       "": 1
     }
   },
-  "display\\color\\RGB string to color.js": {
-    "path": "display\\color\\RGB string to color.js",
+  "display\\color\\RGB String To Color.js": {
+    "path": "display\\color\\RGB String To Color.js",
     "titleWords": {
       "display": 1,
       "color": 2,
@@ -19841,8 +19896,8 @@
       "": 1
     }
   },
-  "display\\color\\value to color.js": {
-    "path": "display\\color\\value to color.js",
+  "display\\color\\Value To Color.js": {
+    "path": "display\\color\\Value To Color.js",
     "titleWords": {
       "display": 1,
       "color": 2,
@@ -20747,8 +20802,8 @@
       "": 1
     }
   },
-  "display\\masks\\camera inversed mask test 1.js": {
-    "path": "display\\masks\\camera inversed mask test 1.js",
+  "display\\masks\\Camera Inversed Mask Test 1.js": {
+    "path": "display\\masks\\Camera Inversed Mask Test 1.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -20863,8 +20918,8 @@
       "": 1
     }
   },
-  "display\\masks\\camera mask test 1.js": {
-    "path": "display\\masks\\camera mask test 1.js",
+  "display\\masks\\Camera Mask Test 1.js": {
+    "path": "display\\masks\\Camera Mask Test 1.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -20968,8 +21023,8 @@
       "": 1
     }
   },
-  "display\\masks\\camera mask test 2.js": {
-    "path": "display\\masks\\camera mask test 2.js",
+  "display\\masks\\Camera Mask Test 2.js": {
+    "path": "display\\masks\\Camera Mask Test 2.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -21074,8 +21129,8 @@
       "": 1
     }
   },
-  "display\\masks\\camera mask test 3.js": {
-    "path": "display\\masks\\camera mask test 3.js",
+  "display\\masks\\Camera Mask Test 3.js": {
+    "path": "display\\masks\\Camera Mask Test 3.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -21193,8 +21248,8 @@
       "": 1
     }
   },
-  "display\\masks\\camera mask test 4.js": {
-    "path": "display\\masks\\camera mask test 4.js",
+  "display\\masks\\Camera Mask Test 4.js": {
+    "path": "display\\masks\\Camera Mask Test 4.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -21298,8 +21353,8 @@
       "": 1
     }
   },
-  "display\\masks\\camera mask test 5.js": {
-    "path": "display\\masks\\camera mask test 5.js",
+  "display\\masks\\Camera Mask Test 5.js": {
+    "path": "display\\masks\\Camera Mask Test 5.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -21455,8 +21510,8 @@
       "": 1
     }
   },
-  "display\\masks\\container mask test 1.js": {
-    "path": "display\\masks\\container mask test 1.js",
+  "display\\masks\\Container Mask Test 1.js": {
+    "path": "display\\masks\\Container Mask Test 1.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -21566,8 +21621,8 @@
       "": 1
     }
   },
-  "display\\masks\\container mask test 2.js": {
-    "path": "display\\masks\\container mask test 2.js",
+  "display\\masks\\Container Mask Test 2.js": {
+    "path": "display\\masks\\Container Mask Test 2.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -21684,8 +21739,8 @@
       "": 1
     }
   },
-  "display\\masks\\container mask test 3.js": {
-    "path": "display\\masks\\container mask test 3.js",
+  "display\\masks\\Container Mask Test 3.js": {
+    "path": "display\\masks\\Container Mask Test 3.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -22552,8 +22607,8 @@
       "": 1
     }
   },
-  "display\\masks\\mask perf test.js": {
-    "path": "display\\masks\\mask perf test.js",
+  "display\\masks\\Mask Perf Test.js": {
+    "path": "display\\masks\\Mask Perf Test.js",
     "titleWords": {
       "display": 1,
       "masks": 1,
@@ -38198,8 +38253,8 @@
       "": 1
     }
   },
-  "game objects\\graphics\\many line stars.js": {
-    "path": "game objects\\graphics\\many line stars.js",
+  "game objects\\graphics\\Many Line Stars.js": {
+    "path": "game objects\\graphics\\Many Line Stars.js",
     "titleWords": {
       "game": 1,
       "objects": 1,
@@ -38356,8 +38411,8 @@
       "": 1
     }
   },
-  "game objects\\graphics\\multiple graphic objects.js": {
-    "path": "game objects\\graphics\\multiple graphic objects.js",
+  "game objects\\graphics\\Multiple Graphic Objects.js": {
+    "path": "game objects\\graphics\\Multiple Graphic Objects.js",
     "titleWords": {
       "game": 1,
       "objects": 2,
@@ -133477,11 +133532,9 @@
       "linestyle": 1,
       "xffffff": 1,
       "points": 5,
-      "startx": 5,
-      "endx": 4,
+      "startx": 4,
+      "endx": 3,
       "length": 1,
-      "console": 1,
-      "log": 1,
       "curve": 6,
       "new": 2,
       "curves": 1,

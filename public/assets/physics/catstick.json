@@ -1,0 +1,36 @@
+{
+	"generator_info": "Shape definitions generated with PhysicsEditor. Visit https://www.codeandweb.com/physicseditor",
+	"catstick": {
+		"type": "fromPhysicsEditor",
+		"label": "catstick",
+		"isStatic": false,
+		"density": 0.1,
+		"restitution": 0,
+		"friction": 0.1,
+		"frictionAir": 0.01,
+		"frictionStatic": 0.5,
+		"collisionFilter": {
+			"group": 0,
+			"category": 1,
+			"mask": 255
+		},
+		"fixtures": [
+			{
+				"label": "",
+				"isSensor": false,
+				"circle": {
+					"x": 107,
+					"y": 368,
+					"radius": 98.54188241007421
+				}
+			},
+			{
+				"label": "",
+				"isSensor": false,
+				"vertices": [
+					[ { "x":145, "y":4 }, { "x":32, "y":125 }, { "x":33, "y":286 }, { "x":188, "y":297 }, { "x":223, "y":166 } ]
+				]
+			}
+		]
+	}
+}

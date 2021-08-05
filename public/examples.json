@@ -7981,6 +7981,13 @@
               "type": "file"
             },
             {
+              "path": "src\\geom\\rectangle\\sprite to perimeter.js",
+              "name": "sprite to perimeter.js",
+              "size": 1333,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\geom\\rectangle\\union.js",
               "name": "union.js",
               "size": 1167,
@@ -7988,7 +7995,7 @@
               "type": "file"
             }
           ],
-          "size": 42875,
+          "size": 44208,
           "type": "directory"
         },
         {
@@ -8224,7 +8231,7 @@
           "type": "directory"
         }
       ],
-      "size": 195677,
+      "size": 197010,
       "type": "directory"
     },
     {
@@ -11282,7 +11289,7 @@
             {
               "path": "src\\physics\\matterjs\\physics editor.js",
               "name": "physics editor.js",
-              "size": 1278,
+              "size": 2756,
               "extension": ".js",
               "type": "file"
             },
@@ -11385,7 +11392,7 @@
               "type": "file"
             }
           ],
-          "size": 106893,
+          "size": 108371,
           "type": "directory"
         },
         {
@@ -11404,7 +11411,7 @@
           "type": "directory"
         }
       ],
-      "size": 253805,
+      "size": 255283,
       "type": "directory"
     },
     {
@@ -11957,7 +11964,7 @@
         {
           "path": "src\\scenes\\changing scene es6.js",
           "name": "changing scene es6.js",
-          "size": 1633,
+          "size": 1674,
           "extension": ".js",
           "type": "file"
         },
@@ -12471,7 +12478,7 @@
           "type": "file"
         }
       ],
-      "size": 152713,
+      "size": 152754,
       "type": "directory"
     },
     {
@@ -13073,7 +13080,7 @@
         {
           "path": "src\\tilemap\\copy tiles.js",
           "name": "copy tiles.js",
-          "size": 2818,
+          "size": 2869,
           "extension": ".js",
           "type": "file"
         },
@@ -13451,7 +13458,7 @@
           "type": "file"
         }
       ],
-      "size": 264369,
+      "size": 264420,
       "type": "directory"
     },
     {
@@ -14445,6 +14452,6 @@
       "type": "directory"
     }
   ],
-  "size": 3988693,
+  "size": 3991596,
   "type": "directory"
 }

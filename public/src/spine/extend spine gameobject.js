@@ -1,17 +1,22 @@
-/*
-var Enemy = new Phaser.Class({
+//  You cannot do this until `SpinePlugin` is available
+//  which it isn't until the plugin has loaded.
+function createNewClass ()
+{
+    window.Enemy = new Phaser.Class({
 
-    Extends: SpinePlugin.SpineGameObject,
+        Extends: SpinePlugin.SpineGameObject,
 
-    initialize:
+        initialize:
 
-    function Enemy (scene)
-    {
-        SpinePlugin.SpineGameObject.call(this, scene, REFERENCE_SPINE_PLUGIN, 0, 0, 'skeleton', 'animation', true);
+        function Enemy (scene, x, y, skeleton, animation)
+        {
+            SpinePlugin.SpineGameObject.call(this, scene, scene.sys.SpinePlugin, x, y, skeleton, animation, true);
 
-    }
-});
-*/
+            scene.sys.displayList.add(this);
+            scene.sys.updateList.add(this);
+        }
+    });
+}
 
 var config = {
     type: Phaser.WEBGL,
@@ -34,8 +39,6 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('logo', 'assets/sprites/phaser.png');
-
     this.load.setPath('assets/spine/3.8/demos/');
 
     this.load.spine('set1', 'demos.json', [ 'atlas1.atlas' ], true);
@@ -43,11 +46,9 @@ function preload ()
 
 function create ()
 {
-    console.log(SpinePlugin);
+    createNewClass();
 
-    this.add.image(0, 0, 'logo').setOrigin(0);
+    var boy = new Enemy(this, 400, 600, 'set1.spineboy', 'idle');
 
-    var boy = this.add.spine(400, 600, 'set1.spineboy', 'idle', true);
-
-    // console.log(boy.getBounds());
+    console.log(boy);
 }

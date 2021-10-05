@@ -1,6 +1,8 @@
 // #module
 
 const fragShader = `
+#define SHADER_NAME GRAYSCALE
+
 precision mediump float;
 
 uniform sampler2D uMainSampler[%count%];

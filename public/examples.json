@@ -12796,9 +12796,16 @@
           "type": "file"
         },
         {
+          "path": "src\\textures\\compressed texture atlas.js",
+          "name": "compressed texture atlas.js",
+          "size": 852,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\textures\\compressed texture.js",
           "name": "compressed texture.js",
-          "size": 1467,
+          "size": 852,
           "extension": ".js",
           "type": "file"
         },
@@ -13013,7 +13020,7 @@
           "type": "file"
         }
       ],
-      "size": 48590,
+      "size": 48827,
       "type": "directory"
     },
     {
@@ -14480,6 +14487,6 @@
       "type": "directory"
     }
   ],
-  "size": 3996515,
+  "size": 3996752,
   "type": "directory"
 }

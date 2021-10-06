@@ -10,7 +10,8 @@ function createNewClass ()
 
         function Enemy (scene, x, y, skeleton, animation)
         {
-            SpinePlugin.SpineGameObject.call(this, scene, scene.sys.SpinePlugin, x, y, skeleton, animation, true);
+            // SpinePlugin.SpineGameObject.call(this, scene, scene.sys.SpinePlugin, x, y, skeleton, animation, true);
+            SpinePlugin.SpineGameObject.call(this, scene, scene.spine, x, y, skeleton, animation, true);
 
             scene.sys.displayList.add(this);
             scene.sys.updateList.add(this);

@@ -917,6 +917,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5884 bounds.js",
+          "name": "5884 bounds.js",
+          "size": 663,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\6000 rt resize.js",
           "name": "6000 rt resize.js",
           "size": 2423,
@@ -924,7 +931,7 @@
           "type": "file"
         }
       ],
-      "size": 28363,
+      "size": 29026,
       "type": "directory"
     },
     {
@@ -6200,16 +6207,16 @@
             {
               "path": "src\\game objects\\video\\play video.js",
               "name": "play video.js",
-              "size": 605,
+              "size": 623,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 605,
+          "size": 623,
           "type": "directory"
         }
       ],
-      "size": 824051,
+      "size": 824069,
       "type": "directory"
     },
     {
@@ -11978,7 +11985,7 @@
         {
           "path": "src\\scenes\\changing scene es6.js",
           "name": "changing scene es6.js",
-          "size": 1633,
+          "size": 1624,
           "extension": ".js",
           "type": "file"
         },
@@ -12492,7 +12499,7 @@
           "type": "file"
         }
       ],
-      "size": 152713,
+      "size": 152704,
       "type": "directory"
     },
     {
@@ -12796,9 +12803,16 @@
           "type": "file"
         },
         {
+          "path": "src\\textures\\compressed multi texture atlas.js",
+          "name": "compressed multi texture atlas.js",
+          "size": 755,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\textures\\compressed texture atlas.js",
           "name": "compressed texture atlas.js",
-          "size": 852,
+          "size": 1183,
           "extension": ".js",
           "type": "file"
         },
@@ -13020,7 +13034,7 @@
           "type": "file"
         }
       ],
-      "size": 48827,
+      "size": 49913,
       "type": "directory"
     },
     {
@@ -14487,6 +14501,6 @@
       "type": "directory"
     }
   ],
-  "size": 3996752,
+  "size": 3998510,
   "type": "directory"
 }

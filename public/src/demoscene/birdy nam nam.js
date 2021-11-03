@@ -66,7 +66,7 @@ function create ()
         key: 'lay',
         frames: this.anims.generateFrameNames('birdy', { prefix: 'lay', start: 0, end: 19 }),
         frameRate: 28,
-        delay: 1
+        // delay: 1
     });
 
     if (this.sound.locked)
@@ -94,16 +94,20 @@ function startDemo ()
 
     bird.on('animationcomplete', dropEgg, this);
 
-    track.once('play', function ()
-    {
-        bird.anims.delayedPlay(2250, 'lay');
-    });
+    bird.anims.playAfterDelay('lay', 2250);
+
+    // track.once('play', function ()
+    // {
+    //     bird.anims.playAfterDelay('lay', 2250);
+    // });
 
     track.play();
 }
 
 function dropEgg ()
 {
+    console.log('dropEgg');
+
     var smallEgg = this.add.image(bird.x + 116, 228, 'birdy', 'egg-small').setOrigin(0);
 
     this.tweens.add({
@@ -122,16 +126,20 @@ function dropEgg ()
 
 function moveBird ()
 {
+    console.log('moveBird', egg, bird.x);
+
     if (egg < 3)
     {
         bird.x -= 124;
 
-        bird.play('lay');
+        bird.setFrame('lay0');
+
+        bird.anims.play({ key: 'lay', delay: 0, frameRate: 28 });
     }
     else
     {
         //  Ready for scene 2
-        this.time.addEvent({ delay: 800, callback: changeScene, callbackScope: this });
+        // this.time.addEvent({ delay: 800, callback: changeScene, callbackScope: this });
     }
 }
 
@@ -145,9 +153,9 @@ function changeScene ()
     chick2 = this.add.sprite(260, 72, 'birdy', 'hatch1').setOrigin(0);
     chick3 = this.add.sprite(420, 72, 'birdy', 'hatch1').setOrigin(0);
 
-    chick1.anims.delayedPlay(1000-200, 'hatch');
-    chick2.anims.delayedPlay(2000-200, 'hatch');
-    chick3.anims.delayedPlay(3000-200, 'hatch');
+    chick1.anims.playAfterDelay('hatch', 1000 - 200);
+    chick2.anims.playAfterDelay('hatch', 2000 - 200);
+    chick3.anims.playAfterDelay('hatch', 3000 - 200);
 
     this.time.addEvent({ delay: 4500, callback: checkDisOut, callbackScope: this });
 }

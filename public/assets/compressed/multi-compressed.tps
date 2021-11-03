@@ -38,7 +38,7 @@
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
-        <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
+        <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_BEST</enum>
         <key>atfCompressData</key>
         <false/>
         <key>mipMapMinSize</key>
@@ -82,7 +82,7 @@
         <key>atfFormats</key>
         <string></string>
         <key>textureFormat</key>
-        <enum type="SettingsBase::TextureFormat">png</enum>
+        <enum type="SettingsBase::TextureFormat">pvr3</enum>
         <key>borderPadding</key>
         <uint>0</uint>
         <key>maxTextureSize</key>
@@ -106,7 +106,7 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
             <key>forceSquared</key>
             <false/>
             <key>maxRects</key>
@@ -132,7 +132,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>multi.json</filename>
+                <filename>multi-dxt5.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -140,7 +140,7 @@
         <key>forceIdenticalLayout</key>
         <false/>
         <key>outputFormat</key>
-        <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
+        <enum type="SettingsBase::OutputFormat">DXT5</enum>
         <key>alphaHandling</key>
         <enum type="SettingsBase::AlphaHandling">ClearTransparentPixels</enum>
         <key>contentProtection</key>

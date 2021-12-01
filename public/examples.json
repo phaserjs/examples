@@ -725,7 +725,7 @@
             {
               "path": "src\\audio\\Web Audio\\play sound on keypress.js",
               "name": "play sound on keypress.js",
-              "size": 2470,
+              "size": 2524,
               "extension": ".js",
               "type": "file"
             },
@@ -758,11 +758,11 @@
               "type": "file"
             }
           ],
-          "size": 45271,
+          "size": 45325,
           "type": "directory"
         }
       ],
-      "size": 124002,
+      "size": 124056,
       "type": "directory"
     },
     {
@@ -770,9 +770,16 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\0000 drag scale.js",
+          "name": "0000 drag scale.js",
+          "size": 809,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\0000 mask.js",
           "name": "0000 mask.js",
-          "size": 899,
+          "size": 820,
           "extension": ".js",
           "type": "file"
         },
@@ -780,6 +787,13 @@
           "path": "src\\bugs\\0000 multi atlas complete.js",
           "name": "0000 multi atlas complete.js",
           "size": 1204,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\4337 drag destroy.js",
+          "name": "4337 drag destroy.js",
+          "size": 735,
           "extension": ".js",
           "type": "file"
         },
@@ -910,6 +924,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5507 always enabled.js",
+          "name": "5507 always enabled.js",
+          "size": 796,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\5508 input.js",
           "name": "5508 input.js",
           "size": 790,
@@ -920,6 +941,13 @@
           "path": "src\\bugs\\5522 lights.js",
           "name": "5522 lights.js",
           "size": 1235,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5538 ios input.js",
+          "name": "5538 ios input.js",
+          "size": 1365,
           "extension": ".js",
           "type": "file"
         },
@@ -959,6 +987,20 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5592 pointer move.js",
+          "name": "5592 pointer move.js",
+          "size": 394,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5699 rend list.js",
+          "name": "5699 rend list.js",
+          "size": 542,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\5720 fill.js",
           "name": "5720 fill.js",
           "size": 688,
@@ -980,6 +1022,20 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5867 pointer out.js",
+          "name": "5867 pointer out.js",
+          "size": 487,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5883 layer camera.js",
+          "name": "5883 layer camera.js",
+          "size": 785,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\5884 bounds.js",
           "name": "5884 bounds.js",
           "size": 701,
@@ -994,7 +1050,7 @@
           "type": "file"
         }
       ],
-      "size": 34919,
+      "size": 40753,
       "type": "directory"
     },
     {
@@ -2153,13 +2209,6 @@
               "type": "directory"
             },
             {
-              "path": "src\\display\\masks\\container as a mask.js",
-              "name": "container as a mask.js",
-              "size": 1531,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
               "path": "src\\display\\masks\\container mask test 1.js",
               "name": "container mask test 1.js",
               "size": 3173,
@@ -2273,7 +2322,7 @@
               "type": "file"
             }
           ],
-          "size": 73450,
+          "size": 71919,
           "type": "directory"
         },
         {
@@ -2447,7 +2496,7 @@
           "type": "directory"
         }
       ],
-      "size": 182551,
+      "size": 181020,
       "type": "directory"
     },
     {
@@ -9546,7 +9595,7 @@
             {
               "path": "src\\loader\\image\\load image.js",
               "name": "load image.js",
-              "size": 1323,
+              "size": 1178,
               "extension": ".js",
               "type": "file"
             },
@@ -9572,7 +9621,7 @@
               "type": "file"
             }
           ],
-          "size": 5250,
+          "size": 5105,
           "type": "directory"
         },
         {
@@ -10001,7 +10050,7 @@
           "type": "directory"
         }
       ],
-      "size": 730666,
+      "size": 730521,
       "type": "directory"
     },
     {
@@ -11434,6 +11483,13 @@
               "type": "file"
             },
             {
+              "path": "src\\physics\\matterjs\\snake.js",
+              "name": "snake.js",
+              "size": 2940,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\physics\\matterjs\\thrust.js",
               "name": "thrust.js",
               "size": 2074,
@@ -11476,7 +11532,7 @@
               "type": "file"
             }
           ],
-          "size": 106893,
+          "size": 109833,
           "type": "directory"
         },
         {
@@ -11495,7 +11551,7 @@
           "type": "directory"
         }
       ],
-      "size": 253805,
+      "size": 256745,
       "type": "directory"
     },
     {
@@ -14599,6 +14655,6 @@
       "type": "directory"
     }
   ],
-  "size": 4013537,
+  "size": 4020689,
   "type": "directory"
 }

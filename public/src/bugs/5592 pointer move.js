@@ -8,7 +8,7 @@ class Demo extends Phaser.Scene
     create ()
     {
         this.input.on('pointermove', () => {
-            // console.log('move');
+            console.log('move');
         });
     }
 }

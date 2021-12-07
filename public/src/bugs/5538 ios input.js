@@ -2,8 +2,6 @@ class Example extends Phaser.Scene {
     constructor() {
         super({ key: 'Example' });
     }
-    preload() {
-    }
     create() {
         let textbutton = this.add.text(50, 50, "Text", { font: '64px Courier' });
         textbutton.setInteractive();
@@ -20,6 +18,7 @@ class Example extends Phaser.Scene {
         let el = this.add.dom(500, 80, div);
         //after the following event handler is called, the event handler for "textbutton" above does not get called any further
         div.addEventListener('pointerup', function (event) {
+            textbutton.text = 'boom';
             el.destroy();
             // div.remove() //causes the same issue
         });
@@ -30,7 +29,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#000000',
+    backgroundColor: '#220000',
     parent: 'phaser-example',
     scene: [Example],
     dom: {

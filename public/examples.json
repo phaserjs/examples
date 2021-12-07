@@ -947,7 +947,7 @@
         {
           "path": "src\\bugs\\5538 ios input.js",
           "name": "5538 ios input.js",
-          "size": 1365,
+          "size": 1381,
           "extension": ".js",
           "type": "file"
         },
@@ -1029,6 +1029,13 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5873 video.js",
+          "name": "5873 video.js",
+          "size": 505,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\5883 layer camera.js",
           "name": "5883 layer camera.js",
           "size": 785,
@@ -1050,7 +1057,7 @@
           "type": "file"
         }
       ],
-      "size": 40753,
+      "size": 41274,
       "type": "directory"
     },
     {
@@ -14655,6 +14662,6 @@
       "type": "directory"
     }
   ],
-  "size": 4020689,
+  "size": 4021210,
   "type": "directory"
 }

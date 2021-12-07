@@ -241,7 +241,7 @@
         }
         else
         {
-            var a = $('<a></a>', { href: 'view.html?src=' + filepath });
+            var a = $('<a></a>', { href: 'view.html?src=' + filepath + '&rnd=' + Math.random().toString() });
         }
 
         const imgPath = filepath.replace(/^src/, 'screenshots').replace(/\.json$/, '.png').replace(/\.js$/, '.png');

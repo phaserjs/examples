@@ -11,6 +11,8 @@ var Breakout = new Phaser.Class({
         this.bricks;
         this.paddle;
         this.ball;
+        this.score=0;
+        this.scoreText;
     },
 
     preload: function ()
@@ -61,11 +63,17 @@ var Breakout = new Phaser.Class({
             }
 
         }, this);
+        
+        // Score components
+        this.scoreText = this.add.text(32, 550, 'Score: 0', { font: "20px Arial", fill: "#ffffff", align: "left" });
     },
 
     hitBrick: function (ball, brick)
     {
-        brick.disableBody(true, true);
+        this.score+=10;
+        this.scoreText.setText("Score: "+this.score);
+        
+        brick.disableBody(true, true);        
 
         if (this.bricks.countActive() === 0)
         {

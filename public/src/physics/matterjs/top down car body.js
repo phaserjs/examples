@@ -39,7 +39,7 @@ function create ()
 
     car = this.matter.add.image(400, 300, 'car');
     car.setAngle(-90);
-    car.setFrictionAir(0.1);
+    car.setFrictionAir(0.2);
     car.setMass(10);
 
     this.matter.world.setBounds(0, 0, 800, 600);
@@ -50,6 +50,8 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
 }
 
+var vec = Phaser.Physics.Matter.Matter.Vector;
+
 function update ()
 {
     var point1 = car.getTopRight();
@@ -57,22 +59,29 @@ function update ()
 
     tracker1.setPosition(point1.x, point1.y);
     tracker2.setPosition(point2.x, point2.y);
-
-    if (cursors.up.isDown) {
-        car.thrust(0.03);
-        steer(1);
+    
+    var speed = 0.03;
+    var angle = vec.angle(point1, point2);
+    var force = {x: Math.cos(angle) * speed, y: Math.sin(angle) * speed}
+    if (cursors.up.isDown)
+    {
+        car.thrust(0.05);
+        steer(vec.neg(force));
     }
-    else if (cursors.down.isDown) {
-        car.thrustBack(0.02);
-        steer(-1);
+    else if (cursors.down.isDown)
+    {
+        car.thrustBack(0.05);
+        steer(force);
     }
 }
 
-function steer(direction) {
-    if (cursors.left.isDown) {
-        Phaser.Physics.Matter.Matter.Body.setAngularVelocity(car.body, -0.05 * direction);
+function steer (force) {
+    if (cursors.left.isDown)
+    {
+        Phaser.Physics.Matter.Matter.Body.applyForce(car.body, car.getTopRight(), force);
     }
-    else if (cursors.right.isDown)  {
-        Phaser.Physics.Matter.Matter.Body.setAngularVelocity(car.body, 0.05 * direction);
+    else if (cursors.right.isDown)
+    {
+        Phaser.Physics.Matter.Matter.Body.applyForce(car.body, car.getBottomRight(), vec.neg(force));
     }
 }

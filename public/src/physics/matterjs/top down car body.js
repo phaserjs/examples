@@ -58,32 +58,21 @@ function update ()
     tracker1.setPosition(point1.x, point1.y);
     tracker2.setPosition(point2.x, point2.y);
 
-    var speed = 0.25;
-    // var angle = { x: speed * Math.cos(car.body.angle), y: speed * Math.sin(car.body.angle) };
-    // var angle = { x: 0, y: 0 };
-
-    if (cursors.left.isDown)
-    {
-        car.applyForceFrom({ x: point1.x, y: point1.y }, { x: -speed * Math.cos(car.body.angle), y: 0 });
-
-        // Phaser.Physics.Matter.Matter.Body.setAngularVelocity(car.body, -0.05);
-        // car.angle -= 4;
+    if (cursors.up.isDown) {
+        car.thrust(0.03);
+        steer(1);
     }
-    else if (cursors.right.isDown)
-    {
-        car.applyForceFrom({ x: point2.x, y: point2.y }, { x: speed * Math.cos(car.body.angle), y: 0 });
-
-        // car.applyForceFrom();
-        // Phaser.Physics.Matter.Matter.Body.setAngularVelocity(car.body, 0.05);
-        // car.angle += 4;
+    else if (cursors.down.isDown) {
+        car.thrustBack(0.02);
+        steer(-1);
     }
+}
 
-    if (cursors.up.isDown)
-    {
-        car.thrust(0.025);
+function steer(direction) {
+    if (cursors.left.isDown) {
+        Phaser.Physics.Matter.Matter.Body.setAngularVelocity(car.body, -0.05 * direction);
     }
-    else if (cursors.down.isDown)
-    {
-        car.thrustBack(0.1);
+    else if (cursors.right.isDown)  {
+        Phaser.Physics.Matter.Matter.Body.setAngularVelocity(car.body, 0.05 * direction);
     }
 }

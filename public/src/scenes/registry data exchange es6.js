@@ -31,7 +31,9 @@ class SceneA extends Phaser.Scene {
 
             if (i % 2)
             {
-                box.setTint(0xff0000);
+                box
+                    .setTint(0xff0000)
+                    .setData("isBad", true);
             }
         }
 
@@ -50,7 +52,7 @@ class SceneA extends Phaser.Scene {
         box.setVisible(false);
 
         //  If the box was tinted red, you lose a life
-        if (box.tintTopLeft === 255)
+        if (box.getData("isBad"))
         {
             this.lives--;
             this.registry.set('lives', this.lives);

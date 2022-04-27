@@ -1050,14 +1050,35 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5924 ios.js",
+          "name": "5924 ios.js",
+          "size": 1127,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/5986 tween.js",
+          "name": "5986 tween.js",
+          "size": 1004,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/6000 rt resize.js",
           "name": "6000 rt resize.js",
           "size": 2423,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src/bugs/6057 rt frame.js",
+          "name": "6057 rt frame.js",
+          "size": 3945,
+          "extension": ".js",
+          "type": "file"
         }
       ],
-      "size": 41096,
+      "size": 47172,
       "type": "directory"
     },
     {
@@ -11850,7 +11871,7 @@
         {
           "path": "src/renderer/swirl sprite fx pipeline.js",
           "name": "swirl sprite fx pipeline.js",
-          "size": 1077,
+          "size": 1083,
           "extension": ".js",
           "type": "file"
         },
@@ -11862,7 +11883,7 @@
           "type": "file"
         }
       ],
-      "size": 32637,
+      "size": 32643,
       "type": "directory"
     },
     {
@@ -12832,7 +12853,7 @@
         {
           "path": "src/spine/spine parallel scene test.js",
           "name": "spine parallel scene test.js",
-          "size": 1352,
+          "size": 1335,
           "extension": ".js",
           "type": "file"
         },
@@ -12907,7 +12928,7 @@
           "type": "file"
         }
       ],
-      "size": 55703,
+      "size": 55686,
       "type": "directory"
     },
     {
@@ -14669,6 +14690,6 @@
       "type": "directory"
     }
   ],
-  "size": 3890973,
+  "size": 3897038,
   "type": "directory"
 }

@@ -1,4 +1,5 @@
-const USE_WEBGL = false; // Change to `true` to see bugs
+// const USE_WEBGL = false; // Change to `true` to see bugs
+const USE_WEBGL = true; // Change to `true` to see bugs
 
 new Phaser.Game({
   width: 2048,
@@ -8,10 +9,10 @@ new Phaser.Game({
   parent: 'phaser-example',
   scene: {
     preload: function () {
-      this.load.image('mario', 'https://i.imgur.com/nKgMvuj.png');
+      this.load.image('mario', 'assets/bugs/mario.png');
     },
     create: function () {
-      const origin = this.add.renderTexture(0, 0, 512, 512);
+      const origin = this.add.renderTexture(0, 0, 256, 256);
       // Add content
       origin.draw('mario', 0, 0);
       // Fill colors for quickly seeing what is out of order

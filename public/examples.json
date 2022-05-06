@@ -1057,6 +1057,20 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5952 game config.js",
+          "name": "5952 game config.js",
+          "size": 525,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5970 scale mode.js",
+          "name": "5970 scale mode.js",
+          "size": 368,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\5986 tween.js",
           "name": "5986 tween.js",
           "size": 1045,
@@ -1071,14 +1085,35 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\6040 move scene.js",
+          "name": "6040 move scene.js",
+          "size": 1212,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\6057 rt frame.js",
           "name": "6057 rt frame.js",
           "size": 4112,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src\\bugs\\6093 graphics canvas.js",
+          "name": "6093 graphics canvas.js",
+          "size": 354,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\6097 render config.js",
+          "name": "6097 render config.js",
+          "size": 290,
+          "extension": ".js",
+          "type": "file"
         }
       ],
-      "size": 48437,
+      "size": 51186,
       "type": "directory"
     },
     {
@@ -13190,7 +13225,7 @@
         {
           "path": "src\\textures\\sprite using tilemap texture.js",
           "name": "sprite using tilemap texture.js",
-          "size": 2798,
+          "size": 806,
           "extension": ".js",
           "type": "file"
         },
@@ -13230,7 +13265,7 @@
           "type": "file"
         }
       ],
-      "size": 58083,
+      "size": 56091,
       "type": "directory"
     },
     {
@@ -14697,6 +14732,6 @@
       "type": "directory"
     }
   ],
-  "size": 4032229,
+  "size": 4032986,
   "type": "directory"
 }

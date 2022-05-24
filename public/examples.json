@@ -13724,6 +13724,13 @@
           "type": "file"
         },
         {
+          "path": "src\\tilemap\\tint tiles.js",
+          "name": "tint tiles.js",
+          "size": 2372,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\tilemap\\weighted randomize.js",
           "name": "weighted randomize.js",
           "size": 2885,
@@ -13738,7 +13745,7 @@
           "type": "file"
         }
       ],
-      "size": 264369,
+      "size": 266741,
       "type": "directory"
     },
     {
@@ -14732,6 +14739,6 @@
       "type": "directory"
     }
   ],
-  "size": 4032986,
+  "size": 4035358,
   "type": "directory"
 }

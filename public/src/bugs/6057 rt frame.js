@@ -1,4 +1,3 @@
-// const USE_WEBGL = false; // Change to `true` to see bugs
 const USE_WEBGL = true; // Change to `true` to see bugs
 
 class Example extends Phaser.Scene
@@ -11,46 +10,18 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        console.log(this.textures.get('marioss'));
+        const origin = this.add.renderTexture(0, 0, 256, 256).setIsSpriteTexture(true);
 
-        //  UVs for the sprite sheet frames:
-        //  -------- u0 - u1 - v0 - v1
-        //  Frame 1   0   .5    0   .5
-        //  Frame 2  .5    1    0   .5
-        //  Frame 3   0   .5   .5    1
-        //  Frame 4  .5    1   .5    1
-
-        const origin = this.add.renderTexture(0, 0, 256, 256);
-
-        origin.draw('mario', 0, 0);
+        origin.draw('mario', 0, 0, 1, 0xffffff, true);
 
         origin.saveTexture('test-texture');
 
         const sqSize = 128;
 
-        // origin.texture.add('square-1', 0, 0, 0, sqSize, sqSize);
-        // origin.texture.add('square-2', 0, sqSize, 0, sqSize, sqSize);
-        // origin.texture.add('square-3', 0, 0, sqSize, sqSize, sqSize);
-        // origin.texture.add('square-4', 0, sqSize, sqSize, sqSize, sqSize);
-
         const f1 = origin.texture.add('square-1', 0, 0, 0, sqSize, sqSize);
         const f2 = origin.texture.add('square-2', 0, sqSize, 0, sqSize, sqSize);
         const f3 = origin.texture.add('square-3', 0, 0, sqSize, sqSize, sqSize);
         const f4 = origin.texture.add('square-4', 0, sqSize, sqSize, sqSize, sqSize);
-
-        console.log(this.textures.get('test-texture'));
-
-        //  UVs for the CanvasTexture frames:
-        //  -------- u0 - u1 - v0 - v1
-        //  Frame 1   0   .5    0   .5
-        //  Frame 2  .5    1    0   .5
-        //  Frame 3   0   .5   .5    1
-        //  Frame 4  .5    1   .5    1
-
-        // f1.updateUVsInverted();
-        // f2.updateUVsInverted();
-        // f3.updateUVsInverted();
-        // f4.updateUVsInverted();
 
         this.add.text(0, sqSize * 2, 'Original (RT)', {color: '#000', fontSize: 24}).setOrigin(0,0);
 
@@ -99,7 +70,7 @@ class Example extends Phaser.Scene
 
         // `RenderTexture`
         this.add.text(offset, sqSize * 2, 'RT.drawFrame',  {color: '#000', fontSize: 24}).setOrigin(0,0);
-        const target = this.add.renderTexture(offset, 0, 512, 512);
+        const target = this.add.renderTexture(offset, 0, 512, 512).setIsSpriteTexture(true);
         [
             ['square-1', 0, 0],
             ['square-2', sqSize+1, 0],

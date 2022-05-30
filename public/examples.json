@@ -13682,6 +13682,13 @@
           "type": "file"
         },
         {
+          "path": "src\\tilemap\\tile overlap.js",
+          "name": "tile overlap.js",
+          "size": 756,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\tilemap\\tile properties.js",
           "name": "tile properties.js",
           "size": 2066,
@@ -13726,7 +13733,7 @@
         {
           "path": "src\\tilemap\\tint tiles.js",
           "name": "tint tiles.js",
-          "size": 2372,
+          "size": 994,
           "extension": ".js",
           "type": "file"
         },
@@ -13745,7 +13752,7 @@
           "type": "file"
         }
       ],
-      "size": 266741,
+      "size": 266119,
       "type": "directory"
     },
     {
@@ -14739,6 +14746,6 @@
       "type": "directory"
     }
   ],
-  "size": 4035358,
+  "size": 4034736,
   "type": "directory"
 }

@@ -1094,7 +1094,7 @@
         {
           "path": "src\\bugs\\6057 rt frame.js",
           "name": "6057 rt frame.js",
-          "size": 4112,
+          "size": 3095,
           "extension": ".js",
           "type": "file"
         },
@@ -1111,9 +1111,16 @@
           "size": 290,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src\\bugs\\6126 physics light.js",
+          "name": "6126 physics light.js",
+          "size": 837,
+          "extension": ".js",
+          "type": "file"
         }
       ],
-      "size": 51186,
+      "size": 51006,
       "type": "directory"
     },
     {
@@ -5316,7 +5323,7 @@
             {
               "path": "src\\game objects\\render texture\\change frame.js",
               "name": "change frame.js",
-              "size": 1213,
+              "size": 1074,
               "extension": ".js",
               "type": "file"
             },
@@ -5594,7 +5601,7 @@
               "type": "file"
             }
           ],
-          "size": 62200,
+          "size": 62061,
           "type": "directory"
         },
         {
@@ -6398,7 +6405,7 @@
           "type": "directory"
         }
       ],
-      "size": 824051,
+      "size": 823912,
       "type": "directory"
     },
     {
@@ -13684,7 +13691,7 @@
         {
           "path": "src\\tilemap\\tile overlap.js",
           "name": "tile overlap.js",
-          "size": 756,
+          "size": 1792,
           "extension": ".js",
           "type": "file"
         },
@@ -13752,7 +13759,7 @@
           "type": "file"
         }
       ],
-      "size": 266119,
+      "size": 267155,
       "type": "directory"
     },
     {
@@ -14746,6 +14753,6 @@
       "type": "directory"
     }
   ],
-  "size": 4034736,
+  "size": 4035453,
   "type": "directory"
 }

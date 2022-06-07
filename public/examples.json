@@ -1115,12 +1115,19 @@
         {
           "path": "src\\bugs\\6126 physics light.js",
           "name": "6126 physics light.js",
-          "size": 837,
+          "size": 1235,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\6133 zone angle.js",
+          "name": "6133 zone angle.js",
+          "size": 730,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 51006,
+      "size": 52134,
       "type": "directory"
     },
     {
@@ -9404,7 +9411,7 @@
             {
               "path": "src\\input\\zones\\basic input zone.js",
               "name": "basic input zone.js",
-              "size": 1725,
+              "size": 730,
               "extension": ".js",
               "type": "file"
             },
@@ -9437,11 +9444,11 @@
               "type": "file"
             }
           ],
-          "size": 10196,
+          "size": 9201,
           "type": "directory"
         }
       ],
-      "size": 210676,
+      "size": 209681,
       "type": "directory"
     },
     {
@@ -14753,6 +14760,6 @@
       "type": "directory"
     }
   ],
-  "size": 4035453,
+  "size": 4035586,
   "type": "directory"
 }

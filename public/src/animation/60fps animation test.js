@@ -14,10 +14,8 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.bg = this.add.tileSprite(0, 38, 800, 296, 'sky')
-            .setOrigin(0, 0);
-        this.trees = this.add.tileSprite(0, 280, 800, 320, 'trees')
-            .setOrigin(0, 0);
+        this.bg = this.add.tileSprite(0, 38, 800, 296, 'sky').setOrigin(0, 0);
+        this.trees = this.add.tileSprite(0, 280, 800, 320, 'trees').setOrigin(0, 0);
 
         const animConfig = {
             key: 'walk',
@@ -25,9 +23,11 @@ class Example extends Phaser.Scene
             frameRate: 60,
             repeat: -1
         };
+
         this.anims.create(animConfig);
 
         const sprite = this.add.sprite(400, 484, 'walker', 'frame_0000');
+
         sprite.play('walk');
     }
 

@@ -199,7 +199,7 @@
         {
           "path": "src\\animation\\60fps animation test.js",
           "name": "60fps animation test.js",
-          "size": 1198,
+          "size": 1124,
           "extension": ".js",
           "type": "file"
         },
@@ -512,7 +512,7 @@
           "type": "file"
         }
       ],
-      "size": 94070,
+      "size": 93996,
       "type": "directory"
     },
     {
@@ -1015,9 +1015,30 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\5803 update list.js",
+          "name": "5803 update list.js",
+          "size": 858,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5818 container update.js",
+          "name": "5818 container update.js",
+          "size": 881,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\5830 rtl.js",
           "name": "5830 rtl.js",
           "size": 779,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\5846 container move.js",
+          "name": "5846 container move.js",
+          "size": 896,
           "extension": ".js",
           "type": "file"
         },
@@ -1092,9 +1113,30 @@
           "type": "file"
         },
         {
+          "path": "src\\bugs\\6052 anim in container.js",
+          "name": "6052 anim in container.js",
+          "size": 829,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\bugs\\6057 rt frame.js",
           "name": "6057 rt frame.js",
           "size": 3095,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\6078 scene remove.js",
+          "name": "6078 scene remove.js",
+          "size": 824,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\bugs\\6091 go duplication.js",
+          "name": "6091 go duplication.js",
+          "size": 771,
           "extension": ".js",
           "type": "file"
         },
@@ -1127,7 +1169,7 @@
           "type": "file"
         }
       ],
-      "size": 52134,
+      "size": 57193,
       "type": "directory"
     },
     {
@@ -9411,7 +9453,7 @@
             {
               "path": "src\\input\\zones\\basic input zone.js",
               "name": "basic input zone.js",
-              "size": 730,
+              "size": 1725,
               "extension": ".js",
               "type": "file"
             },
@@ -9444,11 +9486,11 @@
               "type": "file"
             }
           ],
-          "size": 9201,
+          "size": 10196,
           "type": "directory"
         }
       ],
-      "size": 209681,
+      "size": 210676,
       "type": "directory"
     },
     {
@@ -14760,6 +14802,6 @@
       "type": "directory"
     }
   ],
-  "size": 4035586,
+  "size": 4041566,
   "type": "directory"
 }

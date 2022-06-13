@@ -13408,9 +13408,16 @@
               "size": 4402,
               "extension": ".js",
               "type": "file"
+            },
+            {
+              "path": "src\\tilemap\\collision\\tilemap spotlight.js",
+              "name": "tilemap spotlight.js",
+              "size": 2980,
+              "extension": ".js",
+              "type": "file"
             }
           ],
-          "size": 65323,
+          "size": 68303,
           "type": "directory"
         },
         {
@@ -13808,7 +13815,7 @@
           "type": "file"
         }
       ],
-      "size": 267155,
+      "size": 270135,
       "type": "directory"
     },
     {
@@ -14802,6 +14809,6 @@
       "type": "directory"
     }
   ],
-  "size": 4041566,
+  "size": 4044546,
   "type": "directory"
 }

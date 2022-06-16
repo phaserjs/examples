@@ -7910,6 +7910,13 @@
               "type": "file"
             },
             {
+              "path": "src\\geom\\polygon\\polygon edge rays.js",
+              "name": "polygon edge rays.js",
+              "size": 3094,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\geom\\polygon\\set to.js",
               "name": "set to.js",
               "size": 870,
@@ -7917,7 +7924,7 @@
               "type": "file"
             }
           ],
-          "size": 10169,
+          "size": 13263,
           "type": "directory"
         },
         {
@@ -8483,7 +8490,7 @@
           "type": "directory"
         }
       ],
-      "size": 197153,
+      "size": 200247,
       "type": "directory"
     },
     {
@@ -13412,12 +13419,12 @@
             {
               "path": "src\\tilemap\\collision\\tilemap spotlight.js",
               "name": "tilemap spotlight.js",
-              "size": 2980,
+              "size": 3511,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 68303,
+          "size": 68834,
           "type": "directory"
         },
         {
@@ -13815,7 +13822,7 @@
           "type": "file"
         }
       ],
-      "size": 270135,
+      "size": 270666,
       "type": "directory"
     },
     {
@@ -14809,6 +14816,6 @@
       "type": "directory"
     }
   ],
-  "size": 4044546,
+  "size": 4048171,
   "type": "directory"
 }

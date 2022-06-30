@@ -8,20 +8,25 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.image('player', 'assets/sprites/ship.png');
-        this.load.image('ship1', 'assets/sprites/bsquadron1.png');
-        this.load.image('ship2', 'assets/sprites/bsquadron2.png');
-        this.load.image('ship3', 'assets/sprites/bsquadron3.png');
+        this.load.image('ship', 'assets/sprites/bsquadron1.png');
+        this.load.image('apple', 'assets/sprites/apple.png');
+        this.load.image('beball', 'assets/sprites/beball1.png');
+        this.load.image('clown', 'assets/sprites/clown.png');
+        this.load.image('ghost', 'assets/sprites/ghost.png');
     }
 
     create ()
     {
         const player = this.physics.add.image(400, 500, 'player');
 
-        this.pool = [];
+        //  This array contains all the enemy sprites which are currently active and moving
         this.active = [];
 
-        //  Create a pool of 100 bodies.
+        //  Create a pool of 100 physics bodies.
+
         //  To achieve this, we need a dummy Game Object they can pull default values from.
+
+        this.pool = [];
 
         const dummy = this.add.image();
         const world = this.physics.world;
@@ -33,13 +38,26 @@ class Example extends Phaser.Scene
             this.pool.push(body);
         }
 
-        //  Every second we'll release an enemy
-        this.time.addEvent({ delay: 1000, callback: () => this.releaseEnemy(), loop: true });
+        //  Every 250ms we'll release an enemy
+        this.time.addEvent({ delay: 250, callback: () => this.releaseEnemy(), loop: true });
+
+        //  Let the player move the ship with the mouse
+        this.input.on('pointermove', pointer => {
+
+            player.x = pointer.worldX;
+            player.y = pointer.worldY;
+
+        });
 
         // this.physics.add.collider(sprite, balls);
     }
 
     update ()
+    {
+        this.checkEnemyBounds();
+    }
+
+    checkEnemyBounds ()
     {
         const world = this.physics.world;
 
@@ -48,26 +66,32 @@ class Example extends Phaser.Scene
         {
             const enemy = this.active[i];
 
-            if (enemy.y > 640)
+            if (enemy.y > 700)
             {
-                console.log(enemy);
-
                 //  Recycle this body
                 const body = enemy.body;
 
+                //  Remove it from the internal world trees
                 world.tree.remove(body);
                 world.bodies.delete(body);
 
+                //  Disable it and clear the gameObject references
                 body.enable = false;
                 body.gameObject = undefined;
 
+                //  Put it back into the pool
                 this.pool.push(body);
 
-                //  Recycle the sprite?
+                //  Nuke the sprite
                 enemy.body = undefined;
                 enemy.destroy();
 
+                //  Remove it from the active array
                 this.active.splice(i, 1);
+
+                //  ^^^ technically, you wouldn't ever destroy the sprite, but instead
+                //  put them back into their own pools for later re-use, otherwise there's no
+                //  point recycling the physics bodies!
             }
         }
     }
@@ -80,18 +104,16 @@ class Example extends Phaser.Scene
 
         const x = Phaser.Math.Between(0, 800);
         const y = Phaser.Math.Between(-1200, 0);
-        const frame = Phaser.Math.Between(1, 3);
+        const frames =[ 'ship', 'apple', 'beball', 'clown', 'ghost' ];
 
-        const enemy = this.add.image(x, y, `ship${frame}`);
+        const enemy = this.add.image(x, y, Phaser.Utils.Array.GetRandom(frames));
 
         //  Link the sprite to the body
         enemy.body = body;
         body.gameObject = enemy;
-        body.sourceWidth = enemy.frame.realWidth;
-        body.sourceHeight = enemy.frame.realHeight;
 
-        //  Sync the bounds
-        body.updateBounds();
+        //  We need to do this to give the body the frame size of the sprite
+        body.setSize()
 
         //  Now you could call 'setCircle' etc as required
 

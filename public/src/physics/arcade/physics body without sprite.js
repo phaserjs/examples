@@ -1,3 +1,34 @@
+class PhysicsBob extends Phaser.GameObjects.Bob
+{
+    constructor (blitter, x, y, frame, visible, body)
+    {
+        super(blitter, x, y, frame, visible);
+
+        this.body = body;
+
+        //  The physics body needs access to the follow properties,
+        //  which a Blittle Bob doesn't have by default, so we add them here:
+        this.scaleX = 1;
+        this.scaleY = 1;
+        this.angle = 0;
+        this.rotation = 0;
+        this.originX = 0;
+        this.originY = 0;
+        this.displayOriginX = 0;
+        this.displayOriginY = 0;
+    }
+
+    get width ()
+    {
+        return this.frame.realWidth;
+    }
+
+    get height ()
+    {
+        return this.frame.realHeight;
+    }
+}
+
 class Example extends Phaser.Scene
 {
     constructor ()
@@ -8,15 +39,15 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.image('player', 'assets/sprites/ship.png');
-        this.load.image('ship', 'assets/sprites/bsquadron1.png');
-        this.load.image('apple', 'assets/sprites/apple.png');
-        this.load.image('beball', 'assets/sprites/beball1.png');
-        this.load.image('clown', 'assets/sprites/clown.png');
-        this.load.image('ghost', 'assets/sprites/ghost.png');
+        this.load.atlas('atlas', 'assets/atlas/megaset-0.png', 'assets/atlas/megaset-0.json');
     }
 
     create ()
     {
+        this.textureFrames = [ '32x32', 'aqua_ball', 'asteroids_ship', 'block', 'blue_ball', 'bsquadron1', 'carrot', 'eggplant', 'flectrum', 'gem', 'ilkke', 'maggot', 'melon', 'mushroom', 'onion', 'orb-blue', 'orb-green', 'orb-red', 'pepper', 'phaser1', 'pineapple', 'slime', 'space-baddie', 'spinObj_01', 'spinObj_02', 'spinObj_03', 'splat' ];
+
+        this.blitter = this.add.blitter(0, 0, 'atlas');
+
         const player = this.physics.add.image(400, 500, 'player');
 
         //  This array contains all the enemy sprites which are currently active and moving
@@ -38,8 +69,8 @@ class Example extends Phaser.Scene
             this.pool.push(body);
         }
 
-        //  Every 250ms we'll release an enemy
-        this.time.addEvent({ delay: 250, callback: () => this.releaseEnemy(), loop: true });
+        //  Every 100ms we'll release an enemy
+        this.time.addEvent({ delay: 100, callback: () => this.releaseEnemy(), loop: true });
 
         //  Let the player move the ship with the mouse
         this.input.on('pointermove', pointer => {
@@ -48,8 +79,6 @@ class Example extends Phaser.Scene
             player.y = pointer.worldY;
 
         });
-
-        // this.physics.add.collider(sprite, balls);
     }
 
     update ()
@@ -66,7 +95,7 @@ class Example extends Phaser.Scene
         {
             const enemy = this.active[i];
 
-            if (enemy.y > 700)
+            if (enemy.y > 600 + enemy.height)
             {
                 //  Recycle this body
                 const body = enemy.body;
@@ -103,25 +132,26 @@ class Example extends Phaser.Scene
         const body = pool.pop();
 
         const x = Phaser.Math.Between(0, 800);
-        const y = Phaser.Math.Between(-1200, 0);
-        const frames =[ 'ship', 'apple', 'beball', 'clown', 'ghost' ];
+        const y = Phaser.Math.Between(-1200, -300);
+        const frame = this.blitter.texture.get(Phaser.Utils.Array.GetRandom(this.textureFrames));
 
-        const enemy = this.add.image(x, y, Phaser.Utils.Array.GetRandom(frames));
+        const enemy = new PhysicsBob(this.blitter, x, y, frame, true, body);
 
-        //  Link the sprite to the body
-        enemy.body = body;
+        this.blitter.children.add(enemy);
+
+        this.blitter.dirty = true;
+
+        //  Link the sprite to the body - this property doesn't exist
         body.gameObject = enemy;
 
         //  We need to do this to give the body the frame size of the sprite
         body.setSize()
 
-        //  Now you could call 'setCircle' etc as required
-
         //  Insert the body back into the physics world
         this.physics.world.add(body);
 
         //  Give it some velocity
-        body.setVelocity(0, Phaser.Math.Between(200, 400));
+        body.setVelocity(0, Phaser.Math.Between(200, 500));
 
         //  Add to our active pool
         this.active.push(enemy);

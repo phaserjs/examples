@@ -72,11 +72,9 @@ class Example extends Phaser.Scene
                 const body = enemy.body;
 
                 //  Remove it from the internal world trees
-                world.tree.remove(body);
-                world.bodies.delete(body);
+                world.disableBody(body);
 
-                //  Disable it and clear the gameObject references
-                body.enable = false;
+                //  Clear the gameObject references
                 body.gameObject = undefined;
 
                 //  Put it back into the pool

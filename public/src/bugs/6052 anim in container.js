@@ -38,5 +38,5 @@ function create ()
 
     container.add(sprite);
 
-    console.log(this);
+    // this.time.delayedCall(1000, () => { container.add(sprite); });
 }

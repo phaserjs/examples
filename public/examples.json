@@ -14670,7 +14670,14 @@
         {
           "path": "src\\tweens\\tween events.js",
           "name": "tween events.js",
-          "size": 3006,
+          "size": 2671,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\tweens\\tween manager load.js",
+          "name": "tween manager load.js",
+          "size": 1487,
           "extension": ".js",
           "type": "file"
         },
@@ -14717,7 +14724,7 @@
           "type": "file"
         }
       ],
-      "size": 100066,
+      "size": 101218,
       "type": "directory"
     },
     {
@@ -14900,6 +14907,6 @@
       "type": "directory"
     }
   ],
-  "size": 4075897,
+  "size": 4077049,
   "type": "directory"
 }

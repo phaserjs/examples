@@ -26,8 +26,7 @@ class Example extends Phaser.Scene
 
         const tween = this.tweens.create({
             targets: planet,
-            scaleX: 1,
-            scaleY: 1,
+            scale: 1,
             ease: 'Power1',
             duration: 2000,
             paused: true,
@@ -54,6 +53,14 @@ class Example extends Phaser.Scene
 
         tween.on('complete', () => {
             text.appendText('TWEEN_COMPLETE');
+        });
+
+        tween.on('pause', () => {
+            text.appendText('TWEEN_PAUSE');
+        });
+
+        tween.on('resume', () => {
+            text.appendText('TWEEN_RESUME');
         });
 
         tween.on('yoyo', (tween, key) => {
@@ -83,7 +90,11 @@ class Example extends Phaser.Scene
 
             if (tween.isPlaying())
             {
-                tween.stop();
+                tween.pause();
+            }
+            else if (tween.isPaused())
+            {
+                tween.resume();
             }
             else
             {

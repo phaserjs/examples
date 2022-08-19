@@ -14663,7 +14663,14 @@
         {
           "path": "src\\tweens\\tween callbacks.js",
           "name": "tween callbacks.js",
-          "size": 1516,
+          "size": 2697,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\tweens\\tween events.js",
+          "name": "tween events.js",
+          "size": 3006,
           "extension": ".js",
           "type": "file"
         },
@@ -14710,7 +14717,7 @@
           "type": "file"
         }
       ],
-      "size": 95879,
+      "size": 100066,
       "type": "directory"
     },
     {
@@ -14893,6 +14900,6 @@
       "type": "directory"
     }
   ],
-  "size": 4071710,
+  "size": 4075897,
   "type": "directory"
 }

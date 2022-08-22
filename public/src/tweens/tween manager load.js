@@ -7,20 +7,33 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('bg', 'assets/skies/space4.png');
-        this.load.image('star', 'assets/sprites/star.png');
+        this.load.image('bg', 'assets/skies/space2.png');
+        this.load.image('star', 'assets/sprites/chunk.png');
     }
 
     create ()
     {
         this.add.image(400, 300, 'bg');
 
-        this.stars = this.add.group({
-            key: 'star',
-            quantity: 10000,
-            visible: false,
-            active: false
-        });
+        this.stars = [];
+
+        let x = 0;
+        let y = 70;
+
+        for (let i = 0; i < 70000; i++)
+        {
+            this.stars.push(this.add.image(x, y, 'star').setAlpha(0));
+
+            x += 2;
+
+            if (x >= 800)
+            {
+                x = 0;
+                y += 3;
+            }
+        }
+
+        this.i = this.stars.length - 1;
 
         this.text = this.add.text(16, 16).setFontSize(16).setColor('#ffffff');
 
@@ -30,8 +43,6 @@ class Example extends Phaser.Scene
         this.input.on('pointerdown', () => {
             this.tweens.paused = (this.tweens.paused) ? false : true;
         });
-
-        console.log(this.tweens);
     }
 
     update ()
@@ -57,7 +68,7 @@ class Example extends Phaser.Scene
     {
         if (!this.tweens.paused)
         {
-            for (let i = 0; i < 500; i++)
+            for (let i = 0; i < 1000; i++)
             {
                 this.createTween();
             }
@@ -66,26 +77,24 @@ class Example extends Phaser.Scene
 
     createTween ()
     {
-        const x = Phaser.Math.Between(0, 800);
-        const y = Phaser.Math.Between(70, 600);
-        const duration = Phaser.Math.Between(100, 200);
+        const duration = Phaser.Math.Between(200, 1200);
 
-        const star = this.stars.get(x, y);
-
-        star.setScale(0.1, 0.1);
-        star.setActive(true);
-        star.setVisible(true);
+        const star = this.stars[this.i];
 
         this.add.tween({
             targets: star,
-            scale: 0.5,
+            alpha: 1,
             duration,
             yoyo: true,
-            onComplete: () => {
-                star.active = false
-                star.visible = false
-            }
+            ease: 'Linear'
         });
+
+        this.i--;
+
+        if (this.i === -1)
+        {
+            this.i = this.stars.length - 1;
+        }
     }
 }
 

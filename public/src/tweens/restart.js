@@ -1,56 +1,58 @@
-var config = {
-    type: Phaser.WEBGL,
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+        this.load.image('bg', 'assets/skies/space4.png');
+        this.load.image('star', 'assets/sprites/star.png');
+    }
+
+    create ()
+    {
+        this.add.image(400, 300, 'bg');
+
+        this.text = this.add.text(30, 20, '0', { font: '16px Courier', fill: '#00ff00' });
+
+        this.add.image(700, 300, 'star').setAlpha(0.25);
+
+        var star = this.add.image(100, 300, 'star');
+
+        this.tween = this.tweens.add({
+            targets: star,
+            x: 700,
+            ease: 'Linear',
+            duration: 5000,
+            persist: true
+        });
+
+        this.input.on('pointerdown', () => {
+            this.tween.restart();
+        });
+    }
+
+    update ()
+    {
+        if (this.tween.isPlaying())
+        {
+            this.text.setText([
+                'Click to restart',
+                'Progress: ' + this.tween.progress
+            ]);
+        }
+    }
+}
+
+const config = {
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var tween;
-var text;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('arrow', 'assets/sprites/arrow.png');
-}
-
-function create ()
-{
-    text = this.add.text(30, 20, '0', { font: '16px Courier', fill: '#00ff00' });
-
-    this.add.image(700, 300, 'arrow').setAlpha(0.5);
-
-    var arrow = this.add.image(100, 300, 'arrow');
-
-    tween = this.tweens.add({
-        targets: arrow,
-        x: 700,
-        ease: 'Linear',
-        duration: 3000
-    });
-
-    this.input.on('pointerdown', function () {
-
-        tween.restart();
-
-    });
-}
-
-function update ()
-{
-    if (tween.isPlaying())
-    {
-        text.setText('Progress: ' + tween.progress);
-    }
-    else
-    {
-        text.setText('Click to restart: ' + tween.state);
-    }
-}
+const game = new Phaser.Game(config);

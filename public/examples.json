@@ -14487,7 +14487,7 @@
         {
           "path": "src\\tweens\\restart.js",
           "name": "restart.js",
-          "size": 1043,
+          "size": 1192,
           "extension": ".js",
           "type": "file"
         },
@@ -14677,7 +14677,14 @@
         {
           "path": "src\\tweens\\tween manager load.js",
           "name": "tween manager load.js",
-          "size": 1487,
+          "size": 2233,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\tweens\\tween persist.js",
+          "name": "tween persist.js",
+          "size": 2233,
           "extension": ".js",
           "type": "file"
         },
@@ -14724,7 +14731,7 @@
           "type": "file"
         }
       ],
-      "size": 101218,
+      "size": 104346,
       "type": "directory"
     },
     {
@@ -14907,6 +14914,6 @@
       "type": "directory"
     }
   ],
-  "size": 4077049,
+  "size": 4080177,
   "type": "directory"
 }

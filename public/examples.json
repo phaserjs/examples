@@ -14310,6 +14310,13 @@
           "type": "file"
         },
         {
+          "path": "src\\tweens\\interpolation value.js",
+          "name": "interpolation value.js",
+          "size": 697,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\tweens\\linear bounce.js",
           "name": "linear bounce.js",
           "size": 712,
@@ -14338,6 +14345,13 @@
           "type": "file"
         },
         {
+          "path": "src\\tweens\\multiple properties loop.js",
+          "name": "multiple properties loop.js",
+          "size": 697,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\tweens\\multiple properties yoyo.js",
           "name": "multiple properties yoyo.js",
           "size": 631,
@@ -14347,7 +14361,7 @@
         {
           "path": "src\\tweens\\multiple properties.js",
           "name": "multiple properties.js",
-          "size": 611,
+          "size": 658,
           "extension": ".js",
           "type": "file"
         },
@@ -14596,7 +14610,7 @@
             {
               "path": "src\\tweens\\timelines\\simple timeline 1.js",
               "name": "simple timeline 1.js",
-              "size": 1077,
+              "size": 1836,
               "extension": ".js",
               "type": "file"
             },
@@ -14636,7 +14650,7 @@
               "type": "file"
             }
           ],
-          "size": 12074,
+          "size": 12833,
           "type": "directory"
         },
         {
@@ -14684,7 +14698,7 @@
         {
           "path": "src\\tweens\\tween persist.js",
           "name": "tween persist.js",
-          "size": 2233,
+          "size": 2265,
           "extension": ".js",
           "type": "file"
         },
@@ -14731,7 +14745,7 @@
           "type": "file"
         }
       ],
-      "size": 104346,
+      "size": 106578,
       "type": "directory"
     },
     {
@@ -14914,6 +14928,6 @@
       "type": "directory"
     }
   ],
-  "size": 4080177,
+  "size": 4082409,
   "type": "directory"
 }

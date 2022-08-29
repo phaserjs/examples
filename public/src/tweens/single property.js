@@ -19,16 +19,23 @@ function preload ()
 
 function create ()
 {
-    var marker = this.add.image(100, 100, 'block').setAlpha(0.3);
+    // var marker = this.add.image(100, 100, 'block').setAlpha(0.3);
     var image = this.add.image(100, 100, 'block');
 
-    var tween = this.tweens.add({
-        targets: image,
-        x: 600,
-        ease: 'Power1',
-        duration: 3000
+    this.input.on('pointerdown', () => {
+
+        image.x = 100;
+
+        this.tweens.add({
+            targets: image,
+            x: 600,
+            ease: 'Power1',
+            duration: 1000
+        });
+
+        console.log('---');
+
     });
 
-    console.log(tween);
-
+    console.log(this.game.loop);
 }

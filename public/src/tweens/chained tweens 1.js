@@ -14,19 +14,19 @@ class Example extends Phaser.Scene
     {
         var image = this.add.image(100, 100, 'block');
 
-        var tweens = this.tweens.add([
+        var tween = this.tweens.chain([
             {
                 targets: image,
                 x: 600,
                 ease: 'Linear',
                 duration: 1000,
-                paused: true
+                paused: true,
             },
             {
                 targets: image,
                 y: 500,
                 ease: 'Linear',
-                duration: 1000
+                duration: 500
             },
             {
                 targets: image,
@@ -38,12 +38,12 @@ class Example extends Phaser.Scene
                 targets: image,
                 y: 100,
                 ease: 'Linear',
-                duration: 1000
+                duration: 500
             }
         ]);
 
         this.input.on('pointerdown', () => {
-            tweens[0].play();
+            tween.play();
         });
     }
 }

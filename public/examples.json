@@ -14170,6 +14170,13 @@
           "type": "file"
         },
         {
+          "path": "src\\tweens\\chained tweens 1.js",
+          "name": "chained tweens 1.js",
+          "size": 1259,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src\\tweens\\checkerboard 2.js",
           "name": "checkerboard 2.js",
           "size": 1138,
@@ -14229,6 +14236,13 @@
           "path": "src\\tweens\\destroy a tween.js",
           "name": "destroy a tween.js",
           "size": 781,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src\\tweens\\double tween.js",
+          "name": "double tween.js",
+          "size": 1259,
           "extension": ".js",
           "type": "file"
         },
@@ -14312,7 +14326,7 @@
         {
           "path": "src\\tweens\\interpolation value.js",
           "name": "interpolation value.js",
-          "size": 697,
+          "size": 1102,
           "extension": ".js",
           "type": "file"
         },
@@ -14522,7 +14536,7 @@
         {
           "path": "src\\tweens\\single property.js",
           "name": "single property.js",
-          "size": 656,
+          "size": 790,
           "extension": ".js",
           "type": "file"
         },
@@ -14705,7 +14719,7 @@
         {
           "path": "src\\tweens\\tween sampler.js",
           "name": "tween sampler.js",
-          "size": 1783,
+          "size": 1693,
           "extension": ".js",
           "type": "file"
         },
@@ -14745,7 +14759,7 @@
           "type": "file"
         }
       ],
-      "size": 106578,
+      "size": 109545,
       "type": "directory"
     },
     {
@@ -14928,6 +14942,6 @@
       "type": "directory"
     }
   ],
-  "size": 4082409,
+  "size": 4085376,
   "type": "directory"
 }

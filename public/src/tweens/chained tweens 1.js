@@ -14,13 +14,13 @@ class Example extends Phaser.Scene
     {
         var image = this.add.image(100, 100, 'block');
 
-        var tween = this.tweens.chain([
+        this.tweens.chain([
             {
                 targets: image,
                 x: 600,
                 ease: 'Linear',
                 duration: 1000,
-                paused: true,
+                delay: 1000
             },
             {
                 targets: image,
@@ -41,10 +41,6 @@ class Example extends Phaser.Scene
                 duration: 500
             }
         ]);
-
-        this.input.on('pointerdown', () => {
-            tween.play();
-        });
     }
 }
 
@@ -54,10 +50,7 @@ const config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: Example,
-    fps: {
-        smoothStep: true
-    }
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

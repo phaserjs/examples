@@ -5505,7 +5505,7 @@
             {
               "path": "src/game objects/render texture/frame fill.js",
               "name": "frame fill.js",
-              "size": 536,
+              "size": 563,
               "extension": ".js",
               "type": "file"
             },
@@ -5706,7 +5706,7 @@
               "type": "file"
             }
           ],
-          "size": 60396,
+          "size": 60423,
           "type": "directory"
         },
         {
@@ -6510,7 +6510,7 @@
           "type": "directory"
         }
       ],
-      "size": 794509,
+      "size": 794536,
       "type": "directory"
     },
     {
@@ -14179,7 +14179,7 @@
         {
           "path": "src/tweens/chained tweens 1.js",
           "name": "chained tweens 1.js",
-          "size": 1256,
+          "size": 1115,
           "extension": ".js",
           "type": "file"
         },
@@ -14229,6 +14229,13 @@
           "path": "src/tweens/custom ease.js",
           "name": "custom ease.js",
           "size": 670,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/tweens/debug chained tweens 1.js",
+          "name": "debug chained tweens 1.js",
+          "size": 1115,
           "extension": ".js",
           "type": "file"
         },
@@ -14766,7 +14773,7 @@
           "type": "file"
         }
       ],
-      "size": 105216,
+      "size": 106190,
       "type": "directory"
     },
     {
@@ -14949,6 +14956,6 @@
       "type": "directory"
     }
   ],
-  "size": 3953538,
+  "size": 3954539,
   "type": "directory"
 }

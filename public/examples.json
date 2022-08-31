@@ -14179,7 +14179,7 @@
         {
           "path": "src/tweens/chained tweens 1.js",
           "name": "chained tweens 1.js",
-          "size": 1115,
+          "size": 951,
           "extension": ".js",
           "type": "file"
         },
@@ -14235,7 +14235,7 @@
         {
           "path": "src/tweens/debug chained tweens 1.js",
           "name": "debug chained tweens 1.js",
-          "size": 1115,
+          "size": 1502,
           "extension": ".js",
           "type": "file"
         },
@@ -14341,6 +14341,20 @@
           "path": "src/tweens/interpolation value.js",
           "name": "interpolation value.js",
           "size": 1052,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/tweens/lag smooth 2.js",
+          "name": "lag smooth 2.js",
+          "size": 1429,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/tweens/lag smooth.js",
+          "name": "lag smooth.js",
+          "size": 1471,
           "extension": ".js",
           "type": "file"
         },
@@ -14550,7 +14564,7 @@
         {
           "path": "src/tweens/single property.js",
           "name": "single property.js",
-          "size": 749,
+          "size": 842,
           "extension": ".js",
           "type": "file"
         },
@@ -14773,7 +14787,7 @@
           "type": "file"
         }
       ],
-      "size": 106190,
+      "size": 109406,
       "type": "directory"
     },
     {
@@ -14956,6 +14970,6 @@
       "type": "directory"
     }
   ],
-  "size": 3954539,
+  "size": 3957755,
   "type": "directory"
 }

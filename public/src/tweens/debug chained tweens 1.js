@@ -22,7 +22,7 @@ class Example extends Phaser.Scene
                 x: 600,
                 ease: 'Linear',
                 duration: 1000,
-                delay: 1000
+                // delay: 1000
             },
             {
                 targets: image,

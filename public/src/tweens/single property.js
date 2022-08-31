@@ -24,18 +24,17 @@ function create ()
 
     this.input.on('pointerdown', () => {
 
-        image.x = 100;
+        var duration = Phaser.Math.Between(200, 1000);
 
         this.tweens.add({
             targets: image,
-            x: 600,
+            x: Phaser.Math.Between(100, 700),
+            y: Phaser.Math.Between(100, 500),
             ease: 'Power1',
-            duration: 1000
+            duration: duration
         });
 
-        console.log('---');
+        console.log('--- duration', duration);
 
     });
-
-    console.log(this.game.loop);
 }

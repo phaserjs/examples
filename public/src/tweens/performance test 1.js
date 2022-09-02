@@ -64,7 +64,7 @@ function create ()
     numbers.push(this.add.image(5 * 48, 720, 'atlas', '0').setOrigin(0));
 
     blitter = this.add.blitter(0, 0, 'atlas');
-   
+
     updateDigits();
 
     this.input.on('pointerdown', function () {
@@ -84,7 +84,7 @@ function update ()
 {
     if (add)
     {
-        for (var i = 0; i < 32; ++i)
+        for (var i = 0; i < 256; ++i)
         {
             launch(i);
         }

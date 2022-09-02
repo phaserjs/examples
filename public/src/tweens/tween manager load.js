@@ -35,7 +35,7 @@ class Example extends Phaser.Scene
 
         this.i = this.stars.length - 1;
 
-        this.text = this.add.text(16, 16).setFontSize(16).setColor('#ffffff');
+        this.text = this.add.text(400, 16).setFontSize(16).setColor('#ffffff');
 
         //  Create hundreds of short-lived tweens
         this.time.addEvent({ delay: 50, callback: this.createTweens, callbackScope: this, loop: true });
@@ -47,19 +47,17 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        if (Phaser.VERSION === '3.55.2')
+        if (Phaser.VERSION.substring(0, 4) === '3.60')
         {
             this.text.setText([
-                'Active tweens: ' + this.tweens._active.length,
-                'Pending tweens: ' + this.tweens._pending.length
+                'Active tweens: ' + this.tweens.tweens.length
             ]);
         }
         else
         {
-            const stats = this.tweens.getTotal();
-
             this.text.setText([
-                'Active tweens: ' + stats.active
+                'Active tweens: ' + this.tweens._active.length,
+                'Pending tweens: ' + this.tweens._pending.length
             ]);
         }
     }

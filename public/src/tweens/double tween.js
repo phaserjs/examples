@@ -12,10 +12,14 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        var image = this.add.image(100, 300, 'block');
+        this.image = this.add.image(100, 300, 'block');
+
+        this.debug = this.add.graphics();
+
+        this.debug.fillStyle(0xffffff);
 
         this.tweens.add({
-            targets: image,
+            targets: this.image,
             x: 700,
             yoyo: true,
             ease: 'Sine.inOut',
@@ -24,25 +28,31 @@ class Example extends Phaser.Scene
         });
 
         this.tweens.add({
-            targets: image,
+            targets: this.image,
             y: 50,
-            yoyo: true,
-            ease: 'Sine.out',
+            // yoyo: true,
+            ease: 'Linear',
             duration: 500,
+            // delay: 500,
             repeat: -1,
-            repeatDelay: 1000
+            repeatDelay: 500
         });
 
-        this.tweens.add({
-            targets: image,
-            y: 550,
-            yoyo: true,
-            ease: 'Sine.out',
-            duration: 500,
-            repeat: -1,
-            delay: 500,
-            repeatDelay: 1000
-        });
+        // this.tweens.add({
+        //     targets: this.image,
+        //     y: 550,
+        //     // yoyo: true,
+        //     ease: 'Linear',
+        //     duration: 500,
+        //     repeat: -1,
+        //     delay: 500,
+        //     repeatDelay: 1000
+        // });
+    }
+
+    update ()
+    {
+        this.debug.fillRect(this.image.x, this.image.y, 2, 2);
     }
 }
 

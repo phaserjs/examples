@@ -14,24 +14,29 @@ class Example extends Phaser.Scene
     {
         const image = this.add.image(100, 100, 'block');
 
-        const tweens = [];
-
-        for (let i = 0; i < 5; i++)
-        {
-            tweens.push({
+        const chain = this.tweens.chain([
+            {
                 targets: image,
-                x: Phaser.Math.Between(100, 700),
-                y: Phaser.Math.Between(100, 500),
-                duration: 1000,
-                ease: 'Linear',
-                paused: (i === 0)
-            });
-        }
+                x: 700,
+            },
+            {
+                targets: image,
+                y: 500,
+            },
+            {
+                targets: image,
+                x: 100,
+            },
+            {
+                targets: image,
+                y: 100,
+            }
+        ]);
 
-        const tween = this.tweens.chain(tweens);
+        console.log(chain);
 
         this.input.once('pointerdown', () => {
-            tween.play();
+            chain.play();
         });
     }
 }

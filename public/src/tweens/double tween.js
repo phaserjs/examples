@@ -24,30 +24,30 @@ class Example extends Phaser.Scene
 
         this.input.once('pointerdown', () => {
 
-            let now = performance.now();
-            let start = now;
+            // let now = performance.now();
+            // let start = now;
 
-            console.log('total duration', 2000 * 5);
-            console.log('eta', start + (2000 * 5));
+            // console.log('total duration', 2000 * 5);
+            // console.log('eta', start + (2000 * 5));
 
             this.tweens.add({
                 targets: this.image1,
                 x: 700,
                 // delay: 500,
-                repeat: 4,
-                hold: 500,
+                // repeat: 4,
+                // hold: 500,
                 ease: 'linear',
-                duration: 1500,
-                onRepeat: () => {
-                    let cur = performance.now();
-                    console.log('Phaser repeat', cur - now);
-                    now = cur;
-                },
-                onComplete: () => {
-                    let cur = performance.now();
-                    console.log('Phaser complete', cur);
-                    console.log('Phaser duration', cur - start);
-                },
+                duration: 1000,
+                // onRepeat: () => {
+                //     let cur = performance.now();
+                //     console.log('Phaser repeat', cur - now);
+                //     now = cur;
+                // },
+                // onComplete: () => {
+                //     let cur = performance.now();
+                //     console.log('Phaser complete', cur);
+                //     console.log('Phaser duration', cur - start);
+                // },
             });
 
             // gsap.to(this.image2, {

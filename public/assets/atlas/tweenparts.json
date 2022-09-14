@@ -1,0 +1,1322 @@
+{
+	"textures": [
+		{
+			"image": "tweenparts.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 2027,
+				"h": 1181
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "21",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 512
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 512,
+						"h": 512
+					}
+				},
+				{
+					"filename": "blue-open",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 486,
+						"h": 513
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 486,
+						"h": 513
+					},
+					"frame": {
+						"x": 2,
+						"y": 518,
+						"w": 486,
+						"h": 513
+					}
+				},
+				{
+					"filename": "blue-closed",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 446
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 446
+					},
+					"frame": {
+						"x": 518,
+						"y": 2,
+						"w": 512,
+						"h": 446
+					}
+				},
+				{
+					"filename": "03_misile_1_green",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 609,
+						"h": 240
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 603,
+						"h": 206
+					},
+					"frame": {
+						"x": 1034,
+						"y": 2,
+						"w": 603,
+						"h": 206
+					}
+				},
+				{
+					"filename": "01_misile_1_green",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 609,
+						"h": 240
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 599,
+						"h": 206
+					},
+					"frame": {
+						"x": 1034,
+						"y": 212,
+						"w": 599,
+						"h": 206
+					}
+				},
+				{
+					"filename": "02_misile_1_green",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 609,
+						"h": 240
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 588,
+						"h": 206
+					},
+					"frame": {
+						"x": 1034,
+						"y": 422,
+						"w": 588,
+						"h": 206
+					}
+				},
+				{
+					"filename": "Head01_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 472,
+						"h": 425
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 157,
+						"w": 308,
+						"h": 232
+					},
+					"frame": {
+						"x": 1641,
+						"y": 2,
+						"w": 308,
+						"h": 232
+					}
+				},
+				{
+					"filename": "Head01_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 472,
+						"h": 425
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 157,
+						"w": 308,
+						"h": 232
+					},
+					"frame": {
+						"x": 1637,
+						"y": 238,
+						"w": 308,
+						"h": 232
+					}
+				},
+				{
+					"filename": "simple-key-gold",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 164,
+						"h": 455
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 164,
+						"h": 455
+					},
+					"frame": {
+						"x": 492,
+						"y": 518,
+						"w": 164,
+						"h": 455
+					}
+				},
+				{
+					"filename": "02_axe_one_projectile",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 505,
+						"h": 505
+					},
+					"spriteSourceSize": {
+						"x": 139,
+						"y": 82,
+						"w": 189,
+						"h": 357
+					},
+					"frame": {
+						"x": 660,
+						"y": 452,
+						"w": 189,
+						"h": 357
+					}
+				},
+				{
+					"filename": "Head01_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 472,
+						"h": 425
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 157,
+						"w": 308,
+						"h": 232
+					},
+					"frame": {
+						"x": 1626,
+						"y": 474,
+						"w": 308,
+						"h": 232
+					}
+				},
+				{
+					"filename": "WitchCraftIcons_86_t",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 42,
+						"y": 5,
+						"w": 170,
+						"h": 244
+					},
+					"frame": {
+						"x": 853,
+						"y": 452,
+						"w": 170,
+						"h": 244
+					}
+				},
+				{
+					"filename": "red_arrow_projectile",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 321,
+						"h": 84
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 321,
+						"h": 84
+					},
+					"frame": {
+						"x": 2,
+						"y": 1035,
+						"w": 321,
+						"h": 84
+					}
+				},
+				{
+					"filename": "Body02_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 354,
+						"h": 354
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 66,
+						"w": 259,
+						"h": 223
+					},
+					"frame": {
+						"x": 660,
+						"y": 813,
+						"w": 259,
+						"h": 223
+					}
+				},
+				{
+					"filename": "Body02_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 354,
+						"h": 354
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 66,
+						"w": 259,
+						"h": 223
+					},
+					"frame": {
+						"x": 1027,
+						"y": 632,
+						"w": 259,
+						"h": 223
+					}
+				},
+				{
+					"filename": "fishing_134_t",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 22,
+						"w": 234,
+						"h": 228
+					},
+					"frame": {
+						"x": 1290,
+						"y": 632,
+						"w": 234,
+						"h": 228
+					}
+				},
+				{
+					"filename": "13",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 53
+					},
+					"frame": {
+						"x": 2,
+						"y": 1123,
+						"w": 256,
+						"h": 53
+					}
+				},
+				{
+					"filename": "fishing_128_t",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 24,
+						"w": 236,
+						"h": 204
+					},
+					"frame": {
+						"x": 923,
+						"y": 859,
+						"w": 236,
+						"h": 204
+					}
+				},
+				{
+					"filename": "eye_bat_walk (2)",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 29,
+						"w": 163,
+						"h": 84
+					},
+					"frame": {
+						"x": 853,
+						"y": 700,
+						"w": 163,
+						"h": 84
+					}
+				},
+				{
+					"filename": "Weapon",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 198,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 190,
+						"h": 90
+					},
+					"frame": {
+						"x": 327,
+						"y": 1035,
+						"w": 190,
+						"h": 90
+					}
+				},
+				{
+					"filename": "GoldCoinPNGSequence0002",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 0,
+						"w": 111,
+						"h": 128
+					},
+					"frame": {
+						"x": 1163,
+						"y": 859,
+						"w": 111,
+						"h": 128
+					}
+				},
+				{
+					"filename": "eye_bat_walk (1)",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 21,
+						"w": 219,
+						"h": 92
+					},
+					"frame": {
+						"x": 1278,
+						"y": 864,
+						"w": 219,
+						"h": 92
+					}
+				},
+				{
+					"filename": "bat_walk (1)",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 36,
+						"w": 201,
+						"h": 76
+					},
+					"frame": {
+						"x": 1278,
+						"y": 960,
+						"w": 201,
+						"h": 76
+					}
+				},
+				{
+					"filename": "12",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 111,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 111,
+						"h": 83
+					},
+					"frame": {
+						"x": 1163,
+						"y": 991,
+						"w": 111,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Wing02_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 236,
+						"h": 118
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 6,
+						"w": 192,
+						"h": 106
+					},
+					"frame": {
+						"x": 1278,
+						"y": 1040,
+						"w": 192,
+						"h": 106
+					}
+				},
+				{
+					"filename": "Body01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 189,
+						"h": 189
+					},
+					"spriteSourceSize": {
+						"x": 29,
+						"y": 27,
+						"w": 131,
+						"h": 135
+					},
+					"frame": {
+						"x": 521,
+						"y": 977,
+						"w": 131,
+						"h": 135
+					}
+				},
+				{
+					"filename": "Wing02_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 236,
+						"h": 118
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 6,
+						"w": 192,
+						"h": 106
+					},
+					"frame": {
+						"x": 656,
+						"y": 1040,
+						"w": 192,
+						"h": 106
+					}
+				},
+				{
+					"filename": "eye_bat_dead",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 67,
+						"y": 11,
+						"w": 119,
+						"h": 112
+					},
+					"frame": {
+						"x": 852,
+						"y": 1067,
+						"w": 119,
+						"h": 112
+					}
+				},
+				{
+					"filename": "eye_bat_walk (4)",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 29,
+						"w": 163,
+						"h": 84
+					},
+					"frame": {
+						"x": 975,
+						"y": 1067,
+						"w": 163,
+						"h": 84
+					}
+				},
+				{
+					"filename": "7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 97,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 12,
+						"w": 96,
+						"h": 24
+					},
+					"frame": {
+						"x": 975,
+						"y": 1155,
+						"w": 96,
+						"h": 24
+					}
+				},
+				{
+					"filename": "NecromancerIcons_26_t",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 3,
+						"w": 149,
+						"h": 247
+					},
+					"frame": {
+						"x": 1528,
+						"y": 710,
+						"w": 149,
+						"h": 247
+					}
+				},
+				{
+					"filename": "GoldCoinPNGSequence0001",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					},
+					"frame": {
+						"x": 1681,
+						"y": 710,
+						"w": 128,
+						"h": 128
+					}
+				},
+				{
+					"filename": "GoldCoinPNGSequence0006",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 0,
+						"w": 111,
+						"h": 128
+					},
+					"frame": {
+						"x": 1813,
+						"y": 710,
+						"w": 111,
+						"h": 128
+					}
+				},
+				{
+					"filename": "bat_walk (2)",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 39,
+						"y": 43,
+						"w": 162,
+						"h": 80
+					},
+					"frame": {
+						"x": 1681,
+						"y": 842,
+						"w": 162,
+						"h": 80
+					}
+				},
+				{
+					"filename": "GoldCoinPNGSequence0003",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 33,
+						"y": 0,
+						"w": 71,
+						"h": 128
+					},
+					"frame": {
+						"x": 1953,
+						"y": 2,
+						"w": 71,
+						"h": 128
+					}
+				},
+				{
+					"filename": "3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 168,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 168,
+						"h": 72
+					},
+					"frame": {
+						"x": 1483,
+						"y": 961,
+						"w": 168,
+						"h": 72
+					}
+				},
+				{
+					"filename": "1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 168,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 168,
+						"h": 69
+					},
+					"frame": {
+						"x": 1681,
+						"y": 926,
+						"w": 168,
+						"h": 69
+					}
+				},
+				{
+					"filename": "17",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 135,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 135,
+						"h": 53
+					},
+					"frame": {
+						"x": 518,
+						"y": 452,
+						"w": 135,
+						"h": 53
+					}
+				},
+				{
+					"filename": "eye_bat_walk (3)",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 41,
+						"y": 61,
+						"w": 131,
+						"h": 75
+					},
+					"frame": {
+						"x": 1142,
+						"y": 1078,
+						"w": 131,
+						"h": 75
+					}
+				},
+				{
+					"filename": "8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 92,
+						"h": 40
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 11,
+						"w": 88,
+						"h": 29
+					},
+					"frame": {
+						"x": 1277,
+						"y": 1150,
+						"w": 88,
+						"h": 29
+					}
+				},
+				{
+					"filename": "2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 168,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 168,
+						"h": 60
+					},
+					"frame": {
+						"x": 1655,
+						"y": 999,
+						"w": 168,
+						"h": 60
+					}
+				},
+				{
+					"filename": "4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 168,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 168,
+						"h": 60
+					},
+					"frame": {
+						"x": 1483,
+						"y": 1037,
+						"w": 168,
+						"h": 60
+					}
+				},
+				{
+					"filename": "10",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 126,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 126,
+						"h": 78
+					},
+					"frame": {
+						"x": 1474,
+						"y": 1101,
+						"w": 126,
+						"h": 78
+					}
+				},
+				{
+					"filename": "bat_walk (4)",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 39,
+						"y": 43,
+						"w": 162,
+						"h": 80
+					},
+					"frame": {
+						"x": 1655,
+						"y": 1063,
+						"w": 162,
+						"h": 80
+					}
+				},
+				{
+					"filename": "GoldCoinPNGSequence0005",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 28,
+						"y": 0,
+						"w": 71,
+						"h": 128
+					},
+					"frame": {
+						"x": 1953,
+						"y": 134,
+						"w": 71,
+						"h": 128
+					}
+				},
+				{
+					"filename": "Arm01_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 104,
+						"h": 132
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 15,
+						"w": 70,
+						"h": 103
+					},
+					"frame": {
+						"x": 1949,
+						"y": 266,
+						"w": 70,
+						"h": 103
+					}
+				},
+				{
+					"filename": "Arm01_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 104,
+						"h": 132
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 15,
+						"w": 70,
+						"h": 103
+					},
+					"frame": {
+						"x": 1949,
+						"y": 373,
+						"w": 70,
+						"h": 103
+					}
+				},
+				{
+					"filename": "11",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 59,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 59,
+						"h": 80
+					},
+					"frame": {
+						"x": 1847,
+						"y": 842,
+						"w": 59,
+						"h": 80
+					}
+				},
+				{
+					"filename": "GoldCoinPNGSequence0004",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 0,
+						"w": 24,
+						"h": 128
+					},
+					"frame": {
+						"x": 1938,
+						"y": 480,
+						"w": 24,
+						"h": 128
+					}
+				},
+				{
+					"filename": "15",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 86,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 86,
+						"h": 53
+					},
+					"frame": {
+						"x": 1528,
+						"y": 632,
+						"w": 86,
+						"h": 53
+					}
+				},
+				{
+					"filename": "14",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 125,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 125,
+						"h": 53
+					},
+					"frame": {
+						"x": 521,
+						"y": 1116,
+						"w": 125,
+						"h": 53
+					}
+				},
+				{
+					"filename": "Leg01_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 76,
+						"h": 94
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 12,
+						"w": 53,
+						"h": 70
+					},
+					"frame": {
+						"x": 1966,
+						"y": 480,
+						"w": 53,
+						"h": 70
+					}
+				},
+				{
+					"filename": "Leg01_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 76,
+						"h": 94
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 12,
+						"w": 53,
+						"h": 70
+					},
+					"frame": {
+						"x": 1853,
+						"y": 926,
+						"w": 53,
+						"h": 70
+					}
+				},
+				{
+					"filename": "bat_dead",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 65,
+						"y": 26,
+						"w": 115,
+						"h": 105
+					},
+					"frame": {
+						"x": 1910,
+						"y": 842,
+						"w": 115,
+						"h": 105
+					}
+				},
+				{
+					"filename": "16",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 110,
+						"h": 56
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 110,
+						"h": 56
+					},
+					"frame": {
+						"x": 1910,
+						"y": 951,
+						"w": 110,
+						"h": 56
+					}
+				},
+				{
+					"filename": "6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 92,
+						"h": 40
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 12,
+						"w": 87,
+						"h": 28
+					},
+					"frame": {
+						"x": 1369,
+						"y": 1150,
+						"w": 87,
+						"h": 28
+					}
+				},
+				{
+					"filename": "19",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 86,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 86,
+						"h": 53
+					},
+					"frame": {
+						"x": 923,
+						"y": 788,
+						"w": 86,
+						"h": 53
+					}
+				},
+				{
+					"filename": "20",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 125,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 125,
+						"h": 53
+					},
+					"frame": {
+						"x": 1827,
+						"y": 1011,
+						"w": 125,
+						"h": 53
+					}
+				},
+				{
+					"filename": "bat_walk (3)",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 49,
+						"y": 43,
+						"w": 122,
+						"h": 108
+					},
+					"frame": {
+						"x": 1821,
+						"y": 1068,
+						"w": 122,
+						"h": 108
+					}
+				},
+				{
+					"filename": "9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 75,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 5,
+						"w": 69,
+						"h": 31
+					},
+					"frame": {
+						"x": 1956,
+						"y": 1011,
+						"w": 69,
+						"h": 31
+					}
+				},
+				{
+					"filename": "18",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 85,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 85,
+						"h": 53
+					},
+					"frame": {
+						"x": 1938,
+						"y": 612,
+						"w": 85,
+						"h": 53
+					}
+				},
+				{
+					"filename": "5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 92,
+						"h": 40
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 6,
+						"w": 83,
+						"h": 34
+					},
+					"frame": {
+						"x": 1938,
+						"y": 669,
+						"w": 83,
+						"h": 34
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:8d445bc3f5d91e51b9bc835a29a4b875:253c03deacf21310975d82ae731fe5d8:579ce5f28c59a44a275071017fdd8c09$"
+	}
+}

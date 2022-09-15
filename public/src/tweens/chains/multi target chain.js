@@ -17,7 +17,7 @@ class Example extends Phaser.Scene
 
         fish2.setFlipX(true);
 
-        const chain = this.tweens.chain({
+        this.tweens.chain({
             tweens: [
                 {
                     targets: fish1,
@@ -51,16 +51,8 @@ class Example extends Phaser.Scene
                     duration: 1000,
                     ease: 'quad.in'
                 },
-            ]
-        });
-
-        this.input.once('pointerdown', () => {
-
-            // image.setScale(1)
-            // image.setPosition(800, 300);
-
-            chain.restart();
-
+            ],
+            loop: -1
         });
     }
 }

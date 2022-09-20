@@ -14210,27 +14210,34 @@
               "type": "file"
             },
             {
+              "path": "src\\tweens\\chains\\bat tween.js",
+              "name": "bat tween.js",
+              "size": 1551,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src\\tweens\\chains\\chest sequence.js",
               "name": "chest sequence.js",
-              "size": 2645,
+              "size": 2768,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src\\tweens\\chains\\multi target chain.js",
               "name": "multi target chain.js",
-              "size": 1714,
+              "size": 2492,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 5979,
+          "size": 8431,
           "type": "directory"
         },
         {
           "path": "src\\tweens\\change texture frame.js",
           "name": "change texture frame.js",
-          "size": 652,
+          "size": 772,
           "extension": ".js",
           "type": "file"
         },
@@ -14852,7 +14859,7 @@
           "type": "file"
         }
       ],
-      "size": 126317,
+      "size": 128889,
       "type": "directory"
     },
     {
@@ -15035,6 +15042,6 @@
       "type": "directory"
     }
   ],
-  "size": 4104953,
+  "size": 4107525,
   "type": "directory"
 }

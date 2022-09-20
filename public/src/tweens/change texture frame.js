@@ -16,7 +16,7 @@ class Example extends Phaser.Scene
 
         //  After 2 seconds the frame will change to 'blue-open'
 
-        const tween = this.tweens.add({
+        this.tweens.add({
             targets: chest,
             texture: [ 'assets', 'blue-open' ],
             duration: 2000

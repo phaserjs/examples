@@ -61,7 +61,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":123,"y":15,"w":162,"h":161},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay1",
@@ -70,7 +70,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":113,"y":15,"w":173,"h":154},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay2",
@@ -79,7 +79,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":105,"y":15,"w":174,"h":154},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay3",
@@ -88,7 +88,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":101,"y":15,"w":174,"h":154},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay4",
@@ -97,7 +97,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":83,"y":1,"w":186,"h":154},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay5",
@@ -106,7 +106,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":75,"y":1,"w":186,"h":154},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay6",
@@ -115,7 +115,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":71,"y":1,"w":186,"h":154},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay7",
@@ -124,7 +124,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":63,"y":1,"w":186,"h":154},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay8",
@@ -133,7 +133,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":57,"y":0,"w":174,"h":151},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay9",
@@ -142,7 +142,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":57,"y":0,"w":174,"h":151},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay10",
@@ -151,7 +151,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":45,"y":0,"w":174,"h":151},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay11",
@@ -160,7 +160,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":41,"y":9,"w":168,"h":158},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay12",
@@ -169,7 +169,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":37,"y":9,"w":168,"h":158},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay13",
@@ -178,7 +178,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":9,"w":168,"h":158},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay14",
@@ -187,7 +187,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":21,"y":9,"w":168,"h":158},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay15",
@@ -196,7 +196,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":21,"y":17,"w":164,"h":158},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay16",
@@ -205,7 +205,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":13,"y":17,"w":164,"h":158},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay17",
@@ -214,7 +214,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":17,"w":164,"h":158},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay18",
@@ -223,7 +223,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":17,"w":164,"h":158},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "lay19",
@@ -232,7 +232,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":15,"w":161,"h":161},
 	"sourceSize": {"w":286,"h":176},
-	"pivot": {"x":0.5,"y":0.5}
+	"_pivot": {"x":0.5,"y":0.5}
 },
 {
 	"filename": "left",

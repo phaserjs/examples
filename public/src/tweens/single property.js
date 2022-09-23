@@ -19,16 +19,22 @@ function preload ()
 
 function create ()
 {
-    var marker = this.add.image(100, 100, 'block').setAlpha(0.3);
+    // var marker = this.add.image(100, 100, 'block').setAlpha(0.3);
     var image = this.add.image(100, 100, 'block');
 
-    var tween = this.tweens.add({
-        targets: image,
-        x: 600,
-        ease: 'Power1',
-        duration: 3000
+    this.input.on('pointerdown', () => {
+
+        var duration = Phaser.Math.Between(200, 1000);
+
+        this.tweens.add({
+            targets: image,
+            x: Phaser.Math.Between(100, 700),
+            y: Phaser.Math.Between(100, 500),
+            ease: 'Power1',
+            duration: duration
+        });
+
+        console.log('--- duration', duration);
+
     });
-
-    console.log(tween);
-
 }

@@ -27,7 +27,12 @@ function create ()
     tween = this.tweens.addCounter({
         from: 0,
         to: 100,
-        duration: 5000
+        duration: 5000,
+        paused: true
+    });
+
+    this.input.once('pointerdown', () => {
+        tween.resume();
     });
 }
 

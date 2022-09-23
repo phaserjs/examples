@@ -29,7 +29,7 @@ function create ()
 
     text = this.add.text(10, 720);
 
-    this.time.addEvent({ delay: 10, callback: launch, callbackScope: this, repeat: 10000 });
+    this.time.addEvent({ delay: 2, callback: launch, callbackScope: this, repeat: 100000 });
 }
 
 function launch ()
@@ -38,14 +38,21 @@ function launch ()
 
     var bob = blitter.create(x, 700, Phaser.Math.Between(0, 5));
 
-    x += 2;
+    x += 0.5;
 
     if (x >= 1024)
     {
         x = 0;
     }
 
-    text.setText('Active Tweens: ' + this.tweens._active.length + '\nTotal Tweens created: ' + i);
+    if (Phaser.VERSION.substr(0, 4) === '3.60')
+    {
+        text.setText('Active Tweens: ' + this.tweens.tweens.length + '\nTotal Tweens created: ' + i);
+    }
+    else
+    {
+        text.setText('Active Tweens: ' + this.tweens._active.length + '\nTotal Tweens created: ' + i);
+    }
 
     this.tweens.add({
         targets: bob,

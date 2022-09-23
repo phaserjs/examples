@@ -1,4 +1,5 @@
 // #module
+
 import PixelatedFX from './assets/pipelines/PixelatedFX.js';
 
 class Example extends Phaser.Scene
@@ -19,11 +20,8 @@ class Example extends Phaser.Scene
         const volcano = this.add.image(400, 300, 'volcano');
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        // this.cameras.main.setBounds(-560, -240, 1920, 1080);
         this.cameras.main.ignore(hotdog);
         this.cameras.main.setPostPipeline(PixelatedFX);
-        // this.cameras.main.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
-        // this.cameras.main.setAlpha(1, 0, 1, 0);
 
         const cam1 = this.cameras.add(0, 0, 800, 600);
 
@@ -37,6 +35,8 @@ class Example extends Phaser.Scene
             right: cursors.right,
             up: cursors.up,
             down: cursors.down,
+            zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
             acceleration: 0.06,
             drag: 0.0005,
             maxSpeed: 1.0

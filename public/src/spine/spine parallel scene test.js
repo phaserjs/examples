@@ -1,15 +1,12 @@
+// #module
+
+import * as SpinePlugin from '../../plugins/3.8.95/SpinePluginDebug.js';
+
 class Example extends Phaser.Scene
 {
     constructor ()
     {
-        super({
-            key: 'Example1',
-            pack: {
-                files: [
-                    { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
-                ]
-            }
-        });
+        super('Example1');
     }
 
     preload ()
@@ -54,7 +51,12 @@ const config = {
     height: 600,
     backgroundColor: '#000000',
     parent: 'phaser-example',
-    scene: [ Example, Example2 ]
+    scene: [ Example, Example2 ],
+    plugins: {
+        scene: [
+            { key: 'SpinePlugin', plugin: window.SpinePlugin, mapping: 'spine' }
+        ]
+    }
 };
 
 let game = new Phaser.Game(config);

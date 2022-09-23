@@ -6,8 +6,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "1":
 {
@@ -15,8 +14,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":48},
-	"sourceSize": {"w":30,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":30,"h":48}
 },
 "2":
 {
@@ -24,8 +22,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "3":
 {
@@ -33,8 +30,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "4":
 {
@@ -42,8 +38,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "5":
 {
@@ -51,8 +46,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "6":
 {
@@ -60,8 +54,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "7":
 {
@@ -69,8 +62,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "8":
 {
@@ -78,8 +70,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "9":
 {
@@ -87,8 +78,7 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":48},
-	"sourceSize": {"w":46,"h":48},
-	"pivot": {"x":0.5,"y":0.5}
+	"sourceSize": {"w":46,"h":48}
 },
 "veg01":
 {

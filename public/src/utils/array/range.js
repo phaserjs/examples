@@ -31,7 +31,11 @@ function create ()
 
     var out = Phaser.Utils.Array.Range(a, b, { repeat: -1, max: 10 });
 
+    var text = ['{'];
     out.forEach(function (e) {
-        console.log(e.a, e.b);
+        text.push(' ' + JSON.stringify(e));
     });
+    text.push('}');
+
+    this.add.text(100, 100, text, { font: '32px Courier', fill: '#00ff00' });
 }

@@ -57,7 +57,7 @@ class Example extends Phaser.Scene
         lancelot.setScale(8);
         lancelot.play('idle');
 
-        lancelot.on(Phaser.Animations.Events.SPRITE_ANIMATION_START, function (anim) {
+        lancelot.on('animationstart', function (anim) {
 
             text.setText('Playing ' + anim.key);
 

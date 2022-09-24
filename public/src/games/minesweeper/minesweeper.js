@@ -8,8 +8,11 @@ class Cell
         this.x = x;
         this.y = y;
 
-        this.visible = false;
+        this.open = false;
         this.bomb = false;
+
+        this.flagged = false;
+        this.query = false;
 
         //  0 = empty, 1,2,3,4,5,6,7,8 = number of adjacent bombs
         this.value = 0;
@@ -29,42 +32,92 @@ class Cell
         this.tile.on('pointerdown', this.onPointerDown, this);
     }
 
-    onPointerDown (pointer, x, y)
+    reset ()
     {
+        this.open = false;
+        this.bomb = false;
 
+        this.flagged = false;
+        this.query = false;
+
+        this.value = 0;
+
+        this.tile.setFrame(0);
+    }
+
+    onPointerDown (pointer)
+    {
+        if (this.open)
+        {
+            return;
+        }
+
+        if (pointer.rightButtonDown())
+        {
+            if (this.query)
+            {
+                this.query = false;
+                this.tile.setFrame(0);
+            }
+            else if (this.flagged)
+            {
+                this.query = true;
+                this.flagged = false;
+                this.tile.setFrame(3);
+            }
+            else if (!this.flagged)
+            {
+                this.flagged = true;
+                this.tile.setFrame(2);
+            }
+        }
+        else if (!this.flagged && !this.query)
+        {
+            this.reveal();
+        }
+    }
+
+    reveal ()
+    {
+        if (this.bomb)
+        {
+            this.tile.setFrame(6);
+
+            console.log('Game Over');
+        }
+        else
+        {
+            if (this.value === 0)
+            {
+                this.grid.floodFill(this.x, this.y);
+            }
+            else
+            {
+                this.show();
+            }
+        }
+    }
+
+    show ()
+    {
+        const values = [ 1, 8, 9, 10, 11, 12, 13, 14, 15 ];
+
+        this.tile.setFrame(values[this.value]);
+
+        this.open = true;
     }
 
     debug ()
     {
+        const values = [ '⬜️', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣' ];
+
         if (this.bomb)
         {
-            this.tile.setFrame(5);
             return '💣';
-        }
-        else if (this.value === 1)
-        {
-            this.tile.setFrame(8);
-            return '1️⃣';
-        }
-        else if (this.value === 2)
-        {
-            this.tile.setFrame(9);
-            return '2️⃣';
-        }
-        else if (this.value === 3)
-        {
-            this.tile.setFrame(10);
-            return '3️⃣';
-        }
-        else if (this.value === 4)
-        {
-            this.tile.setFrame(11);
-            return '4️⃣';
         }
         else
         {
-            this.tile.setFrame(1);
-            return '⬜️';
+            return values[this.value];
         }
     }
 }
@@ -98,7 +151,7 @@ class Grid
         }
     }
 
-    addBombs (qty)
+    generate (qty)
     {
         const bombs = [];
 
@@ -118,11 +171,6 @@ class Grid
 
         } while (qty > 0);
 
-        this.addFlags(bombs);
-    }
-
-    addFlags (bombs)
-    {
         bombs.forEach(cell => {
 
             //  Update the 8 cells around this bomb cell
@@ -175,6 +223,24 @@ class Grid
         ];
     }
 
+    floodFill (x, y)
+    {
+        const cell = this.getCellXY(x, y);
+
+        if (cell && !cell.open && !cell.bomb)
+        {
+            cell.show();
+
+            if (cell.value === 0)
+            {
+                this.floodFill(x, y - 1);
+                this.floodFill(x, y + 1);
+                this.floodFill(x - 1, y);
+                this.floodFill(x + 1, y);
+            }
+        }
+    }
+
     debug ()
     {
         for (let y = 0; y < this.height; y++)
@@ -208,15 +274,19 @@ class MineSweeper extends Phaser.Scene
     preload ()
     {
         this.load.spritesheet('tiles', 'assets/games/minesweeper/tiles.png', { frameWidth: 16 });
+        this.load.spritesheet('digits', 'assets/games/minesweeper/digits.png', { frameWidth: 13, frameHeight: 23, endFrame: 9 });
+        this.load.spritesheet('buttons', 'assets/games/minesweeper/digits.png', { frameWidth: 26, frameHeight: 26, startFrame: 5 });
     }
 
     create ()
     {
-        this.grid = new Grid(this, 8, 8);
+        this.input.mouse.disableContextMenu();
 
-        this.grid.addBombs(6);
+        this.grid = new Grid(this, 16, 16);
 
-        this.grid.debug();
+        this.grid.generate(30);
+
+        // this.grid.debug();
     }
 }
 

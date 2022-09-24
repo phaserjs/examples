@@ -1,7 +1,9 @@
 class Cell
 {
-    constructor (index, x, y)
+    constructor (grid, index, x, y)
     {
+        this.grid = grid;
+
         this.index = index;
         this.x = x;
         this.y = y;
@@ -9,34 +11,59 @@ class Cell
         this.visible = false;
         this.bomb = false;
 
-        //  0 = empty, 1,2,3,4 = number of adjacent bombs
+        //  0 = empty, 1,2,3,4,5,6,7,8 = number of adjacent bombs
         this.value = 0;
+
+        this.tile = grid.scene.make.image({
+            key: 'tiles',
+            frame: 0,
+            x: x * 16,
+            y: y * 16,
+            origin: 0
+        });
+
+        grid.board.add(this.tile);
+
+        this.tile.setInteractive();
+
+        this.tile.on('pointerdown', this.onPointerDown, this);
+    }
+
+    onPointerDown (pointer, x, y)
+    {
+
     }
 
     debug ()
     {
         if (this.bomb)
         {
+            this.tile.setFrame(5);
             return '💣';
         }
         else if (this.value === 1)
         {
+            this.tile.setFrame(8);
             return '1️⃣';
         }
         else if (this.value === 2)
         {
+            this.tile.setFrame(9);
             return '2️⃣';
         }
         else if (this.value === 3)
         {
+            this.tile.setFrame(10);
             return '3️⃣';
         }
         else if (this.value === 4)
         {
+            this.tile.setFrame(11);
             return '4️⃣';
         }
         else
         {
+            this.tile.setFrame(1);
             return '⬜️';
         }
     }
@@ -44,8 +71,12 @@ class Cell
 
 class Grid
 {
-    constructor (width, height)
+    constructor (scene, width, height)
     {
+        this.scene = scene;
+
+        this.board = scene.add.container();
+
         this.width = width;
         this.height = height;
         this.size = width * height;
@@ -60,7 +91,8 @@ class Grid
 
             for (let y = 0; y < height; y++)
             {
-                this.data[x][y] = new Cell(i, x, y);
+                this.data[x][y] = new Cell(this, i, x, y);
+
                 i++;
             }
         }
@@ -71,7 +103,7 @@ class Grid
         const bombs = [];
 
         do {
-            const location = Phaser.Math.Between(0, this.size);
+            const location = Phaser.Math.Between(0, this.size - 1);
 
             const cell = this.getCell(location);
 
@@ -173,16 +205,18 @@ class MineSweeper extends Phaser.Scene
         super();
     }
 
+    preload ()
+    {
+        this.load.spritesheet('tiles', 'assets/games/minesweeper/tiles.png', { frameWidth: 16 });
+    }
+
     create ()
     {
-        //  8x8 grid to start with
-        this.grid = new Grid(16, 16);
+        this.grid = new Grid(this, 8, 8);
 
-        this.grid.addBombs(24);
+        this.grid.addBombs(6);
 
         this.grid.debug();
-
-
     }
 }
 

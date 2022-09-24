@@ -52,9 +52,17 @@ function create ()
         'Bounce.easeInOut'
     ];
 
-    var markers = this.add.group({ key: 'bar', repeat: 27, setXY: { x: 96, y: 32, stepY: 19 }, setAlpha: { value: 0.3 } });
+    const stepY = 19
 
-    var images = this.add.group({ key: 'bar', repeat: 27, setXY: { x: 96, y: 32, stepY: 19 }});
+    // labels
+    for (const [index, easeFnName] of eases.entries()) {
+        this.add.text(140, 23 + (index * stepY), easeFnName).setOrigin(1, 0).setFontSize(14)
+    }
+
+    var markers = this.add.group({ key: 'bar', repeat: 27, setXY: { x: 196, y: 32, stepY }, setAlpha: { value: 0.3 } });
+
+    var images = this.add.group({ key: 'bar', repeat: 27, setXY: { x: 196, y: 32, stepY }});
+
 
     var _this = this;
 

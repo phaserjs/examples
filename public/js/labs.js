@@ -24,6 +24,7 @@ $(document).ready(function () {
         $('#iframelink').attr('href', 'iframe.html?src=' + filename);
         $('#csslink').attr('href', 'css.html?src=' + filename);
         $('#viewlink').attr('href', 'view.html?src=' + filename);
+        $('#sourcelink').attr('href', 'https://github.com/photonstorm/phaser3-examples/blob/master/public/' + filename.replace('\\', '/'));
         $('#backlink').attr('href', 'index.html?dir=' + backURL);
         $('#mobilelink').attr('href', 'mobile.html?src=' + filename);
 

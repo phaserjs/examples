@@ -76,8 +76,9 @@ class Cell
             else if (!this.flagged)
             {
                 this.flagged = true;
-                this.grid.updateBombs(1);
                 this.tile.setFrame(2);
+                this.grid.updateBombs(1);
+                this.grid.checkWinState();
             }
         }
         else if (!this.flagged && !this.query)
@@ -164,18 +165,20 @@ class Grid
         this.size = width * height;
         this.offset = new Phaser.Math.Vector2(12, 55);
 
+        this.timeCounter = 0;
+        this.bombQty = bombs;
         this.bombsCounter = bombs;
 
         this.playing = false;
         this.populated = false;
+
+        this.timer = scene.time.addEvent();
 
         //  0 = waiting to create the grid
         //  1 = playing
         //  2 = game won
         //  3 = game lost
         this.state = 0;
-
-        this.bombQty = bombs;
 
         this.data = [];
 
@@ -187,6 +190,11 @@ class Grid
         this.digit1;
         this.digit2;
         this.digit3;
+
+        this.time1;
+        this.time2;
+        this.time3;
+
         this.button;
 
         this.createBackground();
@@ -259,13 +267,25 @@ class Grid
         this.digit2 = factory.image(17 + 13, 16, 'digits', 0).setOrigin(0);
         this.digit3 = factory.image(17 + 26, 16, 'digits', 0).setOrigin(0);
 
+        board.add([ this.digit1, this.digit2, this.digit3 ]);
+
+        //  Timer Digits
+
+        const x = (width + 20) - 54;
+
+        this.time1 = factory.image(x, 16, 'digits', 0).setOrigin(0);
+        this.time2 = factory.image(x + 13, 16, 'digits', 0).setOrigin(0);
+        this.time3 = factory.image(x + 26, 16, 'digits', 0).setOrigin(0);
+
+        board.add([ this.time1, this.time2, this.time3 ]);
+
         //  Button
 
         const buttonX = Math.floor(((width + 20) / 2) - 13);
 
         this.button = factory.image(buttonX, 15, 'buttons', 0).setOrigin(0);
 
-        board.add([ this.digit1, this.digit2, this.digit3, this.button ]);
+        board.add(this.button);
     }
 
     updateBombs (diff)
@@ -298,6 +318,8 @@ class Grid
         this.playing = false;
         this.bombsCounter = this.bombQty;
         this.state = 0;
+        this.timeCounter = 0;
+        this.timer.paused = false;
 
         this.button.setFrame(0);
 
@@ -312,12 +334,17 @@ class Grid
         } while (location < this.size);
 
         this.updateDigits();
+
+        this.time1.setFrame(0);
+        this.time2.setFrame(0);
+        this.time3.setFrame(0);
     }
 
     gameOver ()
     {
         this.playing = false;
         this.state = 3;
+        this.timer.paused = true;
 
         this.button.setFrame(4);
 
@@ -334,10 +361,9 @@ class Grid
 
     gameWon ()
     {
-        console.log('Game Won');
-
         this.playing = false;
         this.state = 2;
+        this.timer.paused = true;
 
         this.button.setFrame(3);
     }
@@ -346,13 +372,20 @@ class Grid
     {
         let correct = 0;
         let location = 0;
+        let open = 0;
 
         do {
 
             const cell = this.getCell(location);
 
+            if (cell.open)
+            {
+                open++;
+            }
+
             if (cell.bomb && cell.flagged)
             {
+                open++;
                 correct++;
             }
 
@@ -360,9 +393,9 @@ class Grid
 
         } while (location < this.size);
 
-        console.log('Check', correct, 'out of', this.bombQty);
+        // console.log('Check', correct, 'out of', this.bombQty, 'open', open, 'of', this.size);
 
-        if (correct === this.bombQty)
+        if (correct === this.bombQty && open === this.size)
         {
             this.gameWon();
         }
@@ -409,7 +442,20 @@ class Grid
         this.populated = true;
         this.state = 1;
 
+        this.timer.reset({ delay: 1000, callback: this.onTimer, callbackScope: this, loop: true });
+
         this.debug();
+    }
+
+    onTimer ()
+    {
+        this.timeCounter++;
+
+        const count = Phaser.Utils.String.Pad(this.timeCounter.toString(), 3, '0', 1);
+
+        this.time1.setFrame(parseInt(count[0]));
+        this.time2.setFrame(parseInt(count[1]));
+        this.time3.setFrame(parseInt(count[2]));
     }
 
     getCell (index)

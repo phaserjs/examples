@@ -31,6 +31,7 @@ class Cell
         this.tile.setInteractive();
 
         this.tile.on('pointerdown', this.onPointerDown, this);
+        this.tile.on('pointerup', this.onPointerUp, this);
     }
 
     reset ()
@@ -106,7 +107,16 @@ class Cell
                 this.show();
             }
 
+            this.grid.button.setFrame(2);
             this.grid.checkWinState();
+        }
+    }
+
+    onPointerUp ()
+    {
+        if (this.grid.button.frame.name === 2)
+        {
+            this.grid.button.setFrame(0);
         }
     }
 
@@ -202,7 +212,9 @@ class Grid
         this.updateDigits();
 
         this.button.setInteractive();
-        this.button.on('pointerdown', this.onButton, this);
+
+        this.button.on('pointerdown', this.onButtonDown, this);
+        this.button.on('pointerup', this.onButtonUp, this);
     }
 
     createCells ()
@@ -304,10 +316,17 @@ class Grid
         this.digit3.setFrame(parseInt(count[2]));
     }
 
-    onButton ()
+    onButtonDown ()
+    {
+        this.button.setFrame(1);
+    }
+
+    onButtonUp ()
     {
         if (this.state > 0)
         {
+            this.button.setFrame(0);
+
             this.restart();
         }
     }
@@ -318,10 +337,8 @@ class Grid
         this.playing = false;
         this.bombsCounter = this.bombQty;
         this.state = 0;
-        this.timeCounter = 0;
-        this.timer.paused = false;
-
-        this.button.setFrame(0);
+        this.timeCounter = -1;
+        this.timer.paused = true;
 
         let location = 0;
 
@@ -451,11 +468,14 @@ class Grid
     {
         this.timeCounter++;
 
-        const count = Phaser.Utils.String.Pad(this.timeCounter.toString(), 3, '0', 1);
+        if (this.timeCounter < 1000)
+        {
+            const count = Phaser.Utils.String.Pad(this.timeCounter.toString(), 3, '0', 1);
 
-        this.time1.setFrame(parseInt(count[0]));
-        this.time2.setFrame(parseInt(count[1]));
-        this.time3.setFrame(parseInt(count[2]));
+            this.time1.setFrame(parseInt(count[0]));
+            this.time2.setFrame(parseInt(count[1]));
+            this.time3.setFrame(parseInt(count[2]));
+        }
     }
 
     getCell (index)
@@ -537,7 +557,7 @@ class Grid
     }
 }
 
-class MineSweeper extends Phaser.Scene
+class Intro extends Phaser.Scene
 {
     constructor ()
     {
@@ -559,18 +579,79 @@ class MineSweeper extends Phaser.Scene
         this.load.image('botBg', 'bot-bg.png');
         this.load.image('left', 'left.png');
         this.load.image('right', 'right.png');
+        this.load.image('intro', 'intro.png');
+        this.load.image('win95', 'win95.png');
     }
 
     create ()
     {
         this.input.mouse.disableContextMenu();
 
-        //  h x w x bombs
-        //  Beginner = 9 x 9 x 10
-        //  Intermediate = 16 x 16 x 40
-        //  Expert = 16 x 30 x 99
+        this.highlight = this.add.rectangle(0, 334, 800, 70, 0x0182fb).setOrigin(0).setAlpha(0.75);
 
-        this.grid = new Grid(this, 9, 9, 10);
+        this.intro = this.add.image(0, 0, 'intro').setOrigin(0);
+
+        const zone1 = this.add.zone(0, 334, 800, 70).setOrigin(0);
+        const zone2 = this.add.zone(0, 411, 800, 70).setOrigin(0);
+        const zone3 = this.add.zone(0, 488, 800, 70).setOrigin(0);
+
+        zone1.setInteractive();
+        zone2.setInteractive();
+        zone3.setInteractive();
+
+        zone1.on('pointerover', () => {
+            this.highlight.y = zone1.y;
+        });
+
+        zone2.on('pointerover', () => {
+            this.highlight.y = zone2.y;
+        });
+
+        zone3.on('pointerover', () => {
+            this.highlight.y = zone3.y;
+        });
+
+        zone1.once('pointerdown', () =>
+        {
+            this.startGame(9, 9, 10);
+        });
+
+        zone2.once('pointerdown', () =>
+        {
+            this.startGame(16, 16, 40);
+        });
+
+        zone3.once('pointerdown', () =>
+        {
+            this.startGame(16, 30, 99);
+        });
+    }
+
+    startGame (width, height, bombs)
+    {
+        this.scene.start('MineSweeper', { width, height, bombs });
+    }
+}
+
+class MineSweeper extends Phaser.Scene
+{
+    constructor ()
+    {
+        super('MineSweeper');
+    }
+
+    init (data)
+    {
+        this.width = data.width;
+        this.height = data.height;
+        this.bombs = data.bombs;
+    }
+
+    create ()
+    {
+        this.add.image(0, 0, 'win95').setOrigin(0);
+
+        this.grid = new Grid(this, this.width, this.height, this.bombs);
     }
 }
 
@@ -580,7 +661,7 @@ const config = {
     height: 600,
     backgroundColor: 0x2d2d2d,
     parent: 'phaser-example',
-    scene: MineSweeper
+    scene: [ Intro, MineSweeper ]
 };
 
 const game = new Phaser.Game(config);

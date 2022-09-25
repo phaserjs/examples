@@ -104,6 +104,8 @@ class Cell
             {
                 this.show();
             }
+
+            this.grid.checkWinState();
         }
     }
 
@@ -328,6 +330,42 @@ class Grid
             location++;
 
         } while (location < this.size);
+    }
+
+    gameWon ()
+    {
+        console.log('Game Won');
+
+        this.playing = false;
+        this.state = 2;
+
+        this.button.setFrame(3);
+    }
+
+    checkWinState ()
+    {
+        let correct = 0;
+        let location = 0;
+
+        do {
+
+            const cell = this.getCell(location);
+
+            if (cell.bomb && cell.flagged)
+            {
+                correct++;
+            }
+
+            location++;
+
+        } while (location < this.size);
+
+        console.log('Check', correct, 'out of', this.bombQty);
+
+        if (correct === this.bombQty)
+        {
+            this.gameWon();
+        }
     }
 
     generate (startIndex)

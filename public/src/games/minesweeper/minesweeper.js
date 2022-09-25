@@ -13,6 +13,7 @@ class Cell
 
         this.flagged = false;
         this.query = false;
+        this.exploded = false;
 
         //  0 = empty, 1,2,3,4,5,6,7,8 = number of adjacent bombs
         this.value = 0;
@@ -20,8 +21,8 @@ class Cell
         this.tile = grid.scene.make.image({
             key: 'tiles',
             frame: 0,
-            x: x * 16,
-            y: y * 16,
+            x: grid.offset.x + (x * 16),
+            y: grid.offset.y + (y * 16),
             origin: 0
         });
 
@@ -39,6 +40,7 @@ class Cell
 
         this.flagged = false;
         this.query = false;
+        this.exploded = false;
 
         this.value = 0;
 
@@ -47,7 +49,12 @@ class Cell
 
     onPointerDown (pointer)
     {
-        if (this.open)
+        if (!this.grid.populated)
+        {
+            this.grid.generate(this.index);
+        }
+
+        if (this.open || !this.grid.playing)
         {
             return;
         }
@@ -63,27 +70,29 @@ class Cell
             {
                 this.query = true;
                 this.flagged = false;
+                this.grid.updateBombs(-1);
                 this.tile.setFrame(3);
             }
             else if (!this.flagged)
             {
                 this.flagged = true;
+                this.grid.updateBombs(1);
                 this.tile.setFrame(2);
             }
         }
         else if (!this.flagged && !this.query)
         {
-            this.reveal();
+            this.onClick();
         }
     }
 
-    reveal ()
+    onClick ()
     {
         if (this.bomb)
         {
-            this.tile.setFrame(6);
+            this.exploded = true;
 
-            console.log('Game Over');
+            this.grid.gameOver();
         }
         else
         {
@@ -95,6 +104,26 @@ class Cell
             {
                 this.show();
             }
+        }
+    }
+
+    reveal ()
+    {
+        if (this.exploded)
+        {
+            this.tile.setFrame(6);
+        }
+        else if (!this.bomb && (this.flagged || this.query))
+        {
+            this.tile.setFrame(7);
+        }
+        else if (this.bomb)
+        {
+            this.tile.setFrame(5);
+        }
+        else
+        {
+            this.show();
         }
     }
 
@@ -124,25 +153,57 @@ class Cell
 
 class Grid
 {
-    constructor (scene, width, height)
+    constructor (scene, width, height, bombs)
     {
         this.scene = scene;
-
-        this.board = scene.add.container();
 
         this.width = width;
         this.height = height;
         this.size = width * height;
+        this.offset = new Phaser.Math.Vector2(12, 55);
+
+        this.bombsCounter = bombs;
+
+        this.playing = false;
+        this.populated = false;
+
+        //  0 = waiting to create the grid
+        //  1 = playing
+        //  2 = game won
+        //  3 = game lost
+        this.state = 0;
+
+        this.bombQty = bombs;
 
         this.data = [];
 
+        const x = (scene.scale.width / 2) - (20 + (width * 16)) / 2;
+        const y = (scene.scale.height / 2) - (63 + (height * 16)) / 2;
+
+        this.board = scene.add.container(x, y);
+
+        this.digit1;
+        this.digit2;
+        this.digit3;
+        this.button;
+
+        this.createBackground();
+        this.createCells();
+        this.updateDigits();
+
+        this.button.setInteractive();
+        this.button.on('pointerdown', this.onButton, this);
+    }
+
+    createCells ()
+    {
         let i = 0;
 
-        for (let x = 0; x < width; x++)
+        for (let x = 0; x < this.width; x++)
         {
             this.data[x] = [];
 
-            for (let y = 0; y < height; y++)
+            for (let y = 0; y < this.height; y++)
             {
                 this.data[x][y] = new Cell(this, i, x, y);
 
@@ -151,8 +212,128 @@ class Grid
         }
     }
 
-    generate (qty)
+    createBackground ()
     {
+        const board = this.board;
+        const factory = this.scene.add;
+
+        //  55 added to the top, 8 added to the bottom (63)
+        //  12 added to the left, 8 added to the right (20)
+        //  cells start at 12 x 55
+
+        const width = this.width * 16;
+        const height = this.height * 16;
+
+        //  Top
+
+        board.add(factory.image(0, 0, 'topLeft').setOrigin(0));
+
+        const topBgWidth = (width + 20) - 60 - 56;
+
+        board.add(factory.tileSprite(60, 0, topBgWidth, 55, 'topBg').setOrigin(0));
+
+        board.add(factory.image(width + 20, 0, 'topRight').setOrigin(1, 0));
+
+        //  Sides
+
+        const sideHeight = (height + 63) - 55 - 8;
+
+        board.add(factory.tileSprite(0, 55, 12, sideHeight, 'left').setOrigin(0));
+        board.add(factory.tileSprite(width + 20, 55, 8, sideHeight, 'right').setOrigin(1, 0));
+
+        //  Bottom
+
+        board.add(factory.image(0, height + 63, 'botLeft').setOrigin(0, 1));
+
+        const botBgWidth = (width + 20) - 12 - 8;
+
+        board.add(factory.tileSprite(12, height + 63, botBgWidth, 8, 'botBg').setOrigin(0, 1));
+
+        board.add(factory.image(width + 20, height + 63, 'botRight').setOrigin(1, 1));
+
+        //  Bombs Digits
+
+        this.digit1 = factory.image(17, 16, 'digits', 0).setOrigin(0);
+        this.digit2 = factory.image(17 + 13, 16, 'digits', 0).setOrigin(0);
+        this.digit3 = factory.image(17 + 26, 16, 'digits', 0).setOrigin(0);
+
+        //  Button
+
+        const buttonX = Math.floor(((width + 20) / 2) - 13);
+
+        this.button = factory.image(buttonX, 15, 'buttons', 0).setOrigin(0);
+
+        board.add([ this.digit1, this.digit2, this.digit3, this.button ]);
+    }
+
+    updateBombs (diff)
+    {
+        this.bombsCounter -= diff;
+
+        this.updateDigits();
+    }
+
+    updateDigits ()
+    {
+        const count = Phaser.Utils.String.Pad(this.bombsCounter.toString(), 3, '0', 1);
+
+        this.digit1.setFrame(parseInt(count[0]));
+        this.digit2.setFrame(parseInt(count[1]));
+        this.digit3.setFrame(parseInt(count[2]));
+    }
+
+    onButton ()
+    {
+        if (this.state > 0)
+        {
+            this.restart();
+        }
+    }
+
+    restart ()
+    {
+        this.populated = false;
+        this.playing = false;
+        this.bombsCounter = this.bombQty;
+        this.state = 0;
+
+        this.button.setFrame(0);
+
+        let location = 0;
+
+        do {
+
+            this.getCell(location).reset();
+
+            location++;
+
+        } while (location < this.size);
+
+        this.updateDigits();
+    }
+
+    gameOver ()
+    {
+        this.playing = false;
+        this.state = 3;
+
+        this.button.setFrame(4);
+
+        let location = 0;
+
+        do {
+
+            this.getCell(location).reveal();
+
+            location++;
+
+        } while (location < this.size);
+    }
+
+    generate (startIndex)
+    {
+        let qty = this.bombQty;
+
         const bombs = [];
 
         do {
@@ -160,7 +341,7 @@ class Grid
 
             const cell = this.getCell(location);
 
-            if (!cell.bomb)
+            if (!cell.bomb && cell.index !== startIndex)
             {
                 cell.bomb = true;
 
@@ -185,6 +366,12 @@ class Grid
                 }
             });
         });
+
+        this.playing = true;
+        this.populated = true;
+        this.state = 1;
+
+        this.debug();
     }
 
     getCell (index)
@@ -261,6 +448,8 @@ class Grid
 
             console.log(row);
         }
+
+        console.log('');
     }
 }
 
@@ -273,20 +462,31 @@ class MineSweeper extends Phaser.Scene
 
     preload ()
     {
-        this.load.spritesheet('tiles', 'assets/games/minesweeper/tiles.png', { frameWidth: 16 });
-        this.load.spritesheet('digits', 'assets/games/minesweeper/digits.png', { frameWidth: 13, frameHeight: 23, endFrame: 9 });
-        this.load.spritesheet('buttons', 'assets/games/minesweeper/digits.png', { frameWidth: 26, frameHeight: 26, startFrame: 5 });
+        this.load.setPath('assets/games/minesweeper/');
+
+        this.load.spritesheet('tiles', 'tiles.png', { frameWidth: 16 });
+        this.load.spritesheet('digits', 'digits.png', { frameWidth: 13, frameHeight: 23, endFrame: 9 });
+        this.load.spritesheet('buttons', 'digits.png', { frameWidth: 26, frameHeight: 26, startFrame: 5 });
+        this.load.image('topLeft', 'top-left.png');
+        this.load.image('topRight', 'top-right.png');
+        this.load.image('topBg', 'top-bg.png');
+        this.load.image('botLeft', 'bot-left.png');
+        this.load.image('botRight', 'bot-right.png');
+        this.load.image('botBg', 'bot-bg.png');
+        this.load.image('left', 'left.png');
+        this.load.image('right', 'right.png');
     }
 
     create ()
     {
         this.input.mouse.disableContextMenu();
 
-        this.grid = new Grid(this, 16, 16);
+        //  h x w x bombs
+        //  Beginner = 9 x 9 x 10
+        //  Intermediate = 16 x 16 x 40
+        //  Expert = 16 x 30 x 99
 
-        this.grid.generate(30);
-
-        // this.grid.debug();
+        this.grid = new Grid(this, 9, 9, 10);
     }
 }
 
@@ -294,6 +494,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
+    backgroundColor: 0x2d2d2d,
     parent: 'phaser-example',
     scene: MineSweeper
 };

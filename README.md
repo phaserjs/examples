@@ -1,6 +1,6 @@
 # Phaser 3 Examples
 
-All of the code in this repo can be browsed at [http://labs.phaser.io](http://labs.phaser.io). The labs site is a mirror of this repo and changes made in the repo are synced to the site within minutes.
+All of the code in this repo can be browsed at [https://labs.phaser.io](https://labs.phaser.io). The labs site is a mirror of this repo and changes made in the repo are synced to the site within minutes.
 
 You can also clone this repo to have the code locally for testing, which can be really useful while developing with Phaser 3.
 
@@ -21,3 +21,11 @@ To show the example browser run these commands in your terminal:
 | `npm run update` | To build a new `examples.json` file if you add a new example. |
 
 Alternatively, if you have your own local web server installed, you could configure it to serve the `/public` folder from the repo and you will get access to the examples interface.
+
+### License
+
+The source code in this repo is released under the MIT license.
+
+The assets are not.
+
+Lots of the assets in this repo come from old classic arcade / computer games or open and stock art sites. As such, you cannot use them in your own commercial games, or for any games that carry advertising.

@@ -192,8 +192,8 @@ class Grid
 
         this.data = [];
 
-        const x = (scene.scale.width / 2) - (20 + (width * 16)) / 2;
-        const y = (scene.scale.height / 2) - (63 + (height * 16)) / 2;
+        const x = Math.floor((scene.scale.width / 2) - (20 + (width * 16)) / 2);
+        const y = Math.floor((scene.scale.height / 2) - (63 + (height * 16)) / 2);
 
         this.board = scene.add.container(x, y);
 
@@ -585,7 +585,7 @@ class Intro extends Phaser.Scene
 
     create ()
     {
-        this.input.mouse.disableContextMenu();
+        // this.input.mouse.disableContextMenu();
 
         this.highlight = this.add.rectangle(0, 334, 800, 70, 0x0182fb).setOrigin(0).setAlpha(0.75);
 

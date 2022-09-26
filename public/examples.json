@@ -3237,6 +3237,10 @@
               "name": "group to render texture.js"
             },
             {
+              "path": "src\\game objects\\render texture\\nine slice frame.js",
+              "name": "nine slice frame.js"
+            },
+            {
               "path": "src\\game objects\\render texture\\paint interpolated shadow.js",
               "name": "paint interpolated shadow.js"
             },
@@ -3996,6 +4000,16 @@
             {
               "path": "src\\games\\flood fill\\flood-fill.js",
               "name": "flood-fill.js"
+            }
+          ]
+        },
+        {
+          "path": "src\\games\\minesweeper",
+          "name": "minesweeper",
+          "children": [
+            {
+              "path": "src\\games\\minesweeper\\minesweeper.js",
+              "name": "minesweeper.js"
             }
           ]
         },

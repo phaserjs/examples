@@ -8,15 +8,23 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.image('beer', 'assets/sprites/beer.png');
+        this.load.image('crate', 'assets/sprites/crate.png');
         this.load.image('raster', 'assets/demoscene/large-raster32.png');
     }
 
     create ()
     {
-        const rt = this.add.renderTexture(0, 0, 800, 600);
+        this.add.rectangle(0, 50, 800, 1, 0x00ff00).setOrigin(0);
+        this.add.rectangle(50, 0, 1, 600, 0x00ff00).setOrigin(0);
+        this.add.rectangle(350, 0, 1, 600, 0x00ff00).setOrigin(0);
+        this.add.rectangle(0, 350, 800, 1, 0x00ff00).setOrigin(0);
 
-        rt.fillFrame('raster');
-        rt.fillFrame('beer');
+        const rt = this.add.renderTexture(50, 50, 300, 300);
+
+        // rt.fillFrame('raster');
+        // rt.fillFrame('beer');
+
+        rt.repeat('crate', null, 0, 0);
     }
 }
 

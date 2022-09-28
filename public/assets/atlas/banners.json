@@ -1,0 +1,895 @@
+{
+	"textures": [
+		{
+			"image": "banners.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1095,
+				"h": 967
+			},
+			"scale": 0.25,
+			"frames": [
+				{
+					"filename": "flag_02_green",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 30,
+						"w": 509,
+						"h": 469
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 509,
+						"h": 469
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_08",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 8,
+						"w": 223,
+						"h": 237
+					},
+					"frame": {
+						"x": 1,
+						"y": 472,
+						"w": 223,
+						"h": 237
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 6,
+						"w": 219,
+						"h": 239
+					},
+					"frame": {
+						"x": 512,
+						"y": 1,
+						"w": 219,
+						"h": 239
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 8,
+						"w": 212,
+						"h": 241
+					},
+					"frame": {
+						"x": 1,
+						"y": 711,
+						"w": 212,
+						"h": 241
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 5,
+						"w": 202,
+						"h": 241
+					},
+					"frame": {
+						"x": 733,
+						"y": 1,
+						"w": 202,
+						"h": 241
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 46,
+						"y": 3,
+						"w": 157,
+						"h": 247
+					},
+					"frame": {
+						"x": 937,
+						"y": 1,
+						"w": 157,
+						"h": 247
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_07",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 7,
+						"w": 202,
+						"h": 245
+					},
+					"frame": {
+						"x": 226,
+						"y": 472,
+						"w": 202,
+						"h": 245
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_09",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 27,
+						"w": 230,
+						"h": 207
+					},
+					"frame": {
+						"x": 215,
+						"y": 719,
+						"w": 230,
+						"h": 207
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_06",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 35,
+						"y": 2,
+						"w": 178,
+						"h": 252
+					},
+					"frame": {
+						"x": 512,
+						"y": 242,
+						"w": 178,
+						"h": 252
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 39,
+						"y": 3,
+						"w": 177,
+						"h": 249
+					},
+					"frame": {
+						"x": 692,
+						"y": 244,
+						"w": 177,
+						"h": 249
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Banner_05",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 246,
+						"h": 171
+					},
+					"frame": {
+						"x": 430,
+						"y": 496,
+						"w": 246,
+						"h": 171
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_08",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 44,
+						"y": 37,
+						"w": 104,
+						"h": 145
+					},
+					"frame": {
+						"x": 447,
+						"y": 669,
+						"w": 104,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 47,
+						"y": 35,
+						"w": 98,
+						"h": 149
+					},
+					"frame": {
+						"x": 553,
+						"y": 669,
+						"w": 98,
+						"h": 149
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 37,
+						"w": 96,
+						"h": 146
+					},
+					"frame": {
+						"x": 447,
+						"y": 816,
+						"w": 96,
+						"h": 146
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 49,
+						"y": 36,
+						"w": 93,
+						"h": 146
+					},
+					"frame": {
+						"x": 545,
+						"y": 820,
+						"w": 93,
+						"h": 146
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_09",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 62,
+						"y": 38,
+						"w": 69,
+						"h": 147
+					},
+					"frame": {
+						"x": 653,
+						"y": 669,
+						"w": 69,
+						"h": 147
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 37,
+						"w": 22,
+						"h": 145
+					},
+					"frame": {
+						"x": 871,
+						"y": 244,
+						"w": 22,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 55,
+						"y": 37,
+						"w": 82,
+						"h": 145
+					},
+					"frame": {
+						"x": 895,
+						"y": 250,
+						"w": 82,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_05",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 55,
+						"y": 37,
+						"w": 82,
+						"h": 145
+					},
+					"frame": {
+						"x": 979,
+						"y": 250,
+						"w": 82,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 60,
+						"y": 37,
+						"w": 72,
+						"h": 146
+					},
+					"frame": {
+						"x": 678,
+						"y": 496,
+						"w": 72,
+						"h": 146
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_06",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 55,
+						"y": 37,
+						"w": 82,
+						"h": 145
+					},
+					"frame": {
+						"x": 752,
+						"y": 495,
+						"w": 82,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 59,
+						"y": 37,
+						"w": 74,
+						"h": 145
+					},
+					"frame": {
+						"x": 836,
+						"y": 495,
+						"w": 74,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 56,
+						"y": 42,
+						"w": 80,
+						"h": 146
+					},
+					"frame": {
+						"x": 640,
+						"y": 820,
+						"w": 80,
+						"h": 146
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 67,
+						"y": 37,
+						"w": 68,
+						"h": 146
+					},
+					"frame": {
+						"x": 724,
+						"y": 644,
+						"w": 68,
+						"h": 146
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 56,
+						"y": 39,
+						"w": 80,
+						"h": 145
+					},
+					"frame": {
+						"x": 794,
+						"y": 642,
+						"w": 80,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 62,
+						"y": 37,
+						"w": 78,
+						"h": 145
+					},
+					"frame": {
+						"x": 876,
+						"y": 642,
+						"w": 78,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 61,
+						"y": 36,
+						"w": 72,
+						"h": 146
+					},
+					"frame": {
+						"x": 722,
+						"y": 818,
+						"w": 72,
+						"h": 146
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 63,
+						"y": 37,
+						"w": 78,
+						"h": 145
+					},
+					"frame": {
+						"x": 796,
+						"y": 789,
+						"w": 78,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 68,
+						"y": 37,
+						"w": 71,
+						"h": 145
+					},
+					"frame": {
+						"x": 876,
+						"y": 789,
+						"w": 71,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_07",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 37,
+						"w": 65,
+						"h": 145
+					},
+					"frame": {
+						"x": 949,
+						"y": 789,
+						"w": 65,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 37,
+						"w": 71,
+						"h": 146
+					},
+					"frame": {
+						"x": 912,
+						"y": 397,
+						"w": 71,
+						"h": 146
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 67,
+						"y": 37,
+						"w": 71,
+						"h": 145
+					},
+					"frame": {
+						"x": 985,
+						"y": 397,
+						"w": 71,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 67,
+						"y": 37,
+						"w": 67,
+						"h": 145
+					},
+					"frame": {
+						"x": 956,
+						"y": 545,
+						"w": 67,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 64,
+						"y": 37,
+						"w": 67,
+						"h": 145
+					},
+					"frame": {
+						"x": 1025,
+						"y": 544,
+						"w": 67,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "Badges_24",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 192,
+						"h": 222
+					},
+					"spriteSourceSize": {
+						"x": 66,
+						"y": 41,
+						"w": 71,
+						"h": 145
+					},
+					"frame": {
+						"x": 1016,
+						"y": 692,
+						"w": 71,
+						"h": 145
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:72bd43eac25a382803cd21bcc925261b:0c386b338e1e923380755b7ac5a7af17:8b17803572fa59f818b0b2328e1c6f87$"
+	}
+}

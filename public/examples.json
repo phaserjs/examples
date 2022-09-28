@@ -7806,6 +7806,16 @@
           "name": "crop tilesprite.js"
         },
         {
+          "path": "src\\textures\\dynamic textures",
+          "name": "dynamic textures",
+          "children": [
+            {
+              "path": "src\\textures\\dynamic textures\\create dynamic texture.js",
+              "name": "create dynamic texture.js"
+            }
+          ]
+        },
+        {
           "path": "src\\textures\\edit texture hue shift.js",
           "name": "edit texture hue shift.js"
         },

@@ -18,12 +18,12 @@ class Example extends Phaser.Scene
         const banner = this.textures.addDynamicTexture('playerBanner', 512, 512)
 
         //  Draw a flag to our texture
-        banner.drawFrame('banner', 'flag_02_green');
+        banner.stamp('banner', 'flag_02_green', 256, 256);
 
         //  Draw a random crest - there are 10 available, from Banner_01 to Banner_10
         const crests = [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10' ];
 
-        banner.stamp('banner', `Banner_${GetRandom(crests)}`, 256, 216, 0, 1, 1, 0.6);
+        banner.stamp('banner', `Banner_${GetRandom(crests)}`, 256, 256, { alpha: 0.3, blendMode: Phaser.BlendModes.ADD });
 
         //  Draw 3 random runes across the flag - these are frames 'Badges_01' to 'Badges_24' in the atlas
         const runes = [
@@ -32,10 +32,10 @@ class Example extends Phaser.Scene
             '21', '22', '23', '24'
         ];
 
-        //  By using 'stamp' we can scale the frame (here 0.5 x 0.5)
-        banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256 - 64, 70, 0, 0.5, 0.5);
-        banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, 70, 0, 0.5, 0.5);
-        banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256 + 64, 70, 0, 0.5, 0.5);
+        //  By using the 'stamp' config we can scale and offset the frame
+        banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, 100, { scale: 0.5, originX: 1 });
+        banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, 100, { scale: 0.5, originX: 0.5 });
+        banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, 100, { scale: 0.5, originX: 0 });
 
         //  Now add the finished banner texture to a Sprite
         this.add.sprite(400, 300, 'playerBanner');

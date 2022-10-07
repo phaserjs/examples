@@ -19,6 +19,8 @@ function preload ()
 
 function create ()
 {
+    console.log('create');
+
     //  Define the animations first
 
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });

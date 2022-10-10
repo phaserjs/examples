@@ -2602,7 +2602,7 @@
                 {
                   "path": "src/3.60/game objects/blitter/bob frame object.js",
                   "name": "bob frame object.js",
-                  "size": 1057,
+                  "size": 1193,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -2670,7 +2670,7 @@
                   "type": "file"
                 }
               ],
-              "size": 32229,
+              "size": 32365,
               "type": "directory"
             },
             {
@@ -4737,7 +4737,7 @@
                 {
                   "path": "src/3.60/game objects/render texture/atlas frame to render texture.js",
                   "name": "atlas frame to render texture.js",
-                  "size": 795,
+                  "size": 799,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5064,7 +5064,7 @@
                   "type": "file"
                 }
               ],
-              "size": 61925,
+              "size": 61929,
               "type": "directory"
             },
             {
@@ -5868,7 +5868,7 @@
               "type": "directory"
             }
           ],
-          "size": 798166,
+          "size": 798306,
           "type": "directory"
         },
         {
@@ -14422,7 +14422,7 @@
           "type": "directory"
         }
       ],
-      "size": 3864388,
+      "size": 3864528,
       "type": "directory"
     },
     {
@@ -14446,19 +14446,19 @@
         {
           "path": "src/3.60 iOS/texture stress 2.js",
           "name": "texture stress 2.js",
-          "size": 1852,
+          "size": 1851,
           "extension": ".js",
           "type": "file"
         },
         {
           "path": "src/3.60 iOS/texture stress.js",
           "name": "texture stress.js",
-          "size": 1852,
+          "size": 1849,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 5720,
+      "size": 5716,
       "type": "directory"
     },
     {
@@ -29186,6 +29186,13 @@
           "type": "file"
         },
         {
+          "path": "src/tweens/stop a tween.js",
+          "name": "stop a tween.js",
+          "size": 712,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/tweens/timelines",
           "name": "timelines",
           "children": [
@@ -29369,7 +29376,7 @@
           "type": "file"
         }
       ],
-      "size": 126170,
+      "size": 126882,
       "type": "directory"
     },
     {
@@ -29552,6 +29559,6 @@
       "type": "directory"
     }
   ],
-  "size": 7866636,
+  "size": 7867484,
   "type": "directory"
 }

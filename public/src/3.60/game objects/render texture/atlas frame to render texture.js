@@ -20,7 +20,7 @@ function preload ()
 
 function create ()
 {
-    var rt = this.add.renderTexture(0, 0, 800, 600);
+    var rt = this.add.renderTexture(400, 300, 800, 600);
 
     var atlasTexture = this.textures.get('megaset');
 

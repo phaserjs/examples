@@ -22,19 +22,22 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.debug = this.add.text(0, 64).setDepth(1).setResolution(2);
+        this.debug = this.add.text(16, 64).setDepth(1).setResolution(2);
 
         this.addPixels(64);
 
         this.input.on('pointerdown', pointer => {
 
-            if (pointer.worldX < 200)
+            if (pointer.leftButtonDown())
             {
-                this.addPixels(256);
-            }
-            else
-            {
-                this.addPixels(64);
+                if (pointer.worldX < 200)
+                {
+                    this.addPixels(256 * 4);
+                }
+                else
+                {
+                    this.addPixels(64);
+                }
             }
 
         });
@@ -43,7 +46,13 @@ class Example extends Phaser.Scene
     addPixels (qty = 64)
     {
         const pipeline = this.debug.getPipelineName();
-        const maxTextures = this.game.renderer.maxTextures;
+
+        let maxTextures = 1;
+
+        if (this.game.renderer.maxTextures)
+        {
+            maxTextures = this.game.renderer.maxTextures;
+        }
 
         for (let i = 0; i < qty; i++)
         {
@@ -80,7 +89,8 @@ class Example extends Phaser.Scene
         }
 
         this.debug.setText([
-            'Pipeline: ' + pipeline,
+            pipeline,
+            '',
             'Texture Binds: ' + this.swaps,
             'Draw Calls: ' + this.draws,
             'Max Textures: ' + maxTextures

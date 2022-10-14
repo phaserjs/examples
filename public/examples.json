@@ -11,12 +11,28 @@
           "name": "actions",
           "children": [
             {
-              "path": "src\\3.60\\actions\\grid align.js",
-              "name": "grid align.js"
+              "path": "src\\3.60\\actions\\grid align animations.js",
+              "name": "grid align animations.js"
+            },
+            {
+              "path": "src\\3.60\\actions\\grid align group.js",
+              "name": "grid align group.js"
+            },
+            {
+              "path": "src\\3.60\\actions\\grid align overlap.js",
+              "name": "grid align overlap.js"
+            },
+            {
+              "path": "src\\3.60\\actions\\grid align sprites.js",
+              "name": "grid align sprites.js"
             },
             {
               "path": "src\\3.60\\actions\\inc x layers.js",
               "name": "inc x layers.js"
+            },
+            {
+              "path": "src\\3.60\\actions\\inc y.js",
+              "name": "inc y.js"
             },
             {
               "path": "src\\3.60\\actions\\place on a circle multi.js",

@@ -13,6 +13,7 @@ class Example extends Phaser.Scene
     create ()
     {
         const circle = new Phaser.Geom.Circle(400, 300, 260);
+
         this.group = this.add.group({ key: 'ball', frameQuantity: 32 });
 
         Phaser.Actions.PlaceOnCircle(this.group.getChildren(), circle);
@@ -40,7 +41,7 @@ const config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

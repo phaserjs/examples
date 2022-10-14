@@ -13,7 +13,9 @@ class Example extends Phaser.Scene
     create ()
     {
         const rect = new Phaser.Geom.Rectangle(100, 100, 256, 256);
+
         const group = this.add.group({ key: 'ball', frameQuantity: 32 });
+
         Phaser.Actions.PlaceOnRectangle(group.getChildren(), rect);
     }
 }
@@ -24,7 +26,7 @@ const config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

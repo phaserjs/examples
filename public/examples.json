@@ -48,7 +48,7 @@
             {
               "path": "src/3.60/actions/get first.js",
               "name": "get first.js",
-              "size": 1588,
+              "size": 1740,
               "extension": ".js",
               "type": "file"
             },
@@ -263,14 +263,21 @@
               "type": "file"
             },
             {
+              "path": "src/3.60/actions/wrap in rectangle with padding.js",
+              "name": "wrap in rectangle with padding.js",
+              "size": 1566,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src/3.60/actions/wrap in rectangle.js",
               "name": "wrap in rectangle.js",
-              "size": 821,
+              "size": 1566,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 36929,
+          "size": 39392,
           "type": "directory"
         },
         {
@@ -14520,7 +14527,7 @@
           "type": "directory"
         }
       ],
-      "size": 3880240,
+      "size": 3882703,
       "type": "directory"
     },
     {
@@ -15780,9 +15787,16 @@
           "size": 2857,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src/bugs/6253 tween restart.js",
+          "name": "6253 tween restart.js",
+          "size": 687,
+          "extension": ".js",
+          "type": "file"
         }
       ],
-      "size": 65466,
+      "size": 66153,
       "type": "directory"
     },
     {
@@ -29671,6 +29685,6 @@
       "type": "directory"
     }
   ],
-  "size": 7886163,
+  "size": 7889313,
   "type": "directory"
 }

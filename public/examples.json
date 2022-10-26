@@ -242,6 +242,13 @@
               "type": "file"
             },
             {
+              "path": "src/3.60/actions/shift position snake.js",
+              "name": "shift position snake.js",
+              "size": 780,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src/3.60/actions/shift position.js",
               "name": "shift position.js",
               "size": 1003,
@@ -272,12 +279,12 @@
             {
               "path": "src/3.60/actions/wrap in rectangle.js",
               "name": "wrap in rectangle.js",
-              "size": 1566,
+              "size": 1436,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 39392,
+          "size": 40042,
           "type": "directory"
         },
         {
@@ -14527,7 +14534,7 @@
           "type": "directory"
         }
       ],
-      "size": 3882703,
+      "size": 3883353,
       "type": "directory"
     },
     {
@@ -29685,6 +29692,6 @@
       "type": "directory"
     }
   ],
-  "size": 7889313,
+  "size": 7889963,
   "type": "directory"
 }

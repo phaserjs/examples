@@ -22,13 +22,28 @@ function create ()
     var marker = this.add.image(100, 300, 'block').setAlpha(0.3);
     var image = this.add.image(100, 300, 'block');
 
-    const tween = this.tweens.add({
+    this.tweens.add({
         targets: image,
         x: 700,
         duration: 3000,
         ease: 'Power2',
         yoyo: true,
-        repeat: -1
+        repeat: -1,
+        onComplete: ()=>{
+            console.log("tween1 complete");
+        }
+    });
+
+    this.tweens.add({
+        targets: image,
+        scale: 2,
+        duration: 1000,
+        ease: 'Power2',
+        yoyo: true,
+        repeat: -1,
+        onComplete: ()=>{
+            console.log("tween2 complete");
+        }
     });
 
     this.input.once('pointerdown', () => {

@@ -51,6 +51,17 @@ $(document).ready(function () {
             });
         }
 
+        $('#webgldebug').on('click', function () {
+
+            var game = window.PHASER_GAME;
+
+            if (game && game.renderer.spector)
+            {
+                game.renderer.captureFrame(false, true);
+            }
+
+        });
+
         var versionlist = $('<select>').prop('id', 'changeversion').insertAfter('#csslink');
 
         versionlist.on('change', function () {
@@ -124,7 +135,7 @@ $(document).ready(function () {
                     $('#loading').hide();
                     $('#nav').show();
 
-                    if (window.game)
+                    if (window.PHASER_GAME)
                     {
                         var type = (game.config.renderType === 2) ? 'Canvas' : 'WebGL';
 
@@ -134,6 +145,7 @@ $(document).ready(function () {
                     else
                     {
                         $('#forcemode').hide();
+                        $('#webgldebug').hide();
                     }
 
                 }, 'text');

@@ -36,7 +36,7 @@ $(document).ready(function () {
         {
             $('#labslink').on('click', function () {
 
-                var labsURL = encodeURI('http://labs.phaser.io/view.html?src=' + filename);
+                var labsURL = encodeURI('https://labs.phaser.io/view.html?src=' + filename);
 
                 if (phaserVersion === 'dev')
                 {

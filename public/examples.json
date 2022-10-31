@@ -15817,6 +15817,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5939 snapshot fringe.js",
+          "name": "5939 snapshot fringe.js",
+          "size": 721,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/5952 game config.js",
           "name": "5952 game config.js",
           "size": 525,
@@ -15952,7 +15959,7 @@
         {
           "path": "src/bugs/6180 cam zoom snapshot.js",
           "name": "6180 cam zoom snapshot.js",
-          "size": 602,
+          "size": 673,
           "extension": ".js",
           "type": "file"
         },
@@ -15964,7 +15971,7 @@
           "type": "file"
         }
       ],
-      "size": 69887,
+      "size": 70679,
       "type": "directory"
     },
     {
@@ -29853,6 +29860,6 @@
       "type": "directory"
     }
   ],
-  "size": 7925259,
+  "size": 7926051,
   "type": "directory"
 }

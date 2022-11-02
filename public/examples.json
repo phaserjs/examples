@@ -14224,6 +14224,13 @@
               "type": "file"
             },
             {
+              "path": "src/3.60/tweens/seek to point in tween.js",
+              "name": "seek to point in tween.js",
+              "size": 818,
+              "extension": ".js",
+              "type": "file"
+            },
+            {
               "path": "src/3.60/tweens/seek.js",
               "name": "seek.js",
               "size": 4988,
@@ -14292,98 +14299,6 @@
               "size": 712,
               "extension": ".js",
               "type": "file"
-            },
-            {
-              "path": "src/3.60/tweens/timelines",
-              "name": "timelines",
-              "children": [
-                {
-                  "path": "src/3.60/tweens/timelines/absolute offsets.js",
-                  "name": "absolute offsets.js",
-                  "size": 839,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/create timeline.js",
-                  "name": "create timeline.js",
-                  "size": 1026,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/default properties.js",
-                  "name": "default properties.js",
-                  "size": 789,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/loop timeline.js",
-                  "name": "loop timeline.js",
-                  "size": 1118,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/relative offsets 2.js",
-                  "name": "relative offsets 2.js",
-                  "size": 1181,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/relative offsets.js",
-                  "name": "relative offsets.js",
-                  "size": 849,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/simple timeline 1.js",
-                  "name": "simple timeline 1.js",
-                  "size": 1763,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/simple timeline 6.js",
-                  "name": "simple timeline 6.js",
-                  "size": 880,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/simple timeline 7.js",
-                  "name": "simple timeline 7.js",
-                  "size": 965,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/simple timeline 8.js",
-                  "name": "simple timeline 8.js",
-                  "size": 986,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/simple timeline 9.js",
-                  "name": "simple timeline 9.js",
-                  "size": 798,
-                  "extension": ".js",
-                  "type": "file"
-                },
-                {
-                  "path": "src/3.60/tweens/timelines/total duration.js",
-                  "name": "total duration.js",
-                  "size": 991,
-                  "extension": ".js",
-                  "type": "file"
-                }
-              ],
-              "size": 12185,
-              "type": "directory"
             },
             {
               "path": "src/3.60/tweens/tint tween.js",
@@ -14477,7 +14392,7 @@
               "type": "file"
             }
           ],
-          "size": 127921,
+          "size": 116554,
           "type": "directory"
         },
         {
@@ -14660,7 +14575,7 @@
           "type": "directory"
         }
       ],
-      "size": 3914915,
+      "size": 3903548,
       "type": "directory"
     },
     {
@@ -15819,7 +15734,7 @@
         {
           "path": "src/bugs/5939 snapshot fringe.js",
           "name": "5939 snapshot fringe.js",
-          "size": 721,
+          "size": 1024,
           "extension": ".js",
           "type": "file"
         },
@@ -15971,7 +15886,7 @@
           "type": "file"
         }
       ],
-      "size": 70679,
+      "size": 70982,
       "type": "directory"
     },
     {
@@ -29860,6 +29775,6 @@
       "type": "directory"
     }
   ],
-  "size": 7926051,
+  "size": 7914987,
   "type": "directory"
 }

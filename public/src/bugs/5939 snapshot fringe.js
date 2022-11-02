@@ -14,6 +14,7 @@ class Example extends Phaser.Scene
 
         //  DT test
         const texture = this.textures.addDynamicTexture('text', text.width, text.height);
+        //texture.fill(0x000000, 0.0001);
         texture.draw(text);
 
         //  Issue 5939 example:
@@ -23,7 +24,10 @@ class Example extends Phaser.Scene
 
         texture.snapshot(image => {
 
-            document.body.appendChild(image);
+            const div = document.createElement('div');
+            div.style = 'background: white';
+            div.appendChild(image);
+            document.body.appendChild(div);
 
         });
     }

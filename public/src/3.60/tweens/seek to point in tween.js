@@ -21,10 +21,9 @@ class Example extends Phaser.Scene
             targets: car,
             x: 800,
             duration: 4000,
-            // yoyo: true,
+            yoyo: true,
             ease: 'Linear',
-            // repeat: -1
-            // persist: true
+            repeat: -1
         });
 
         // tween.seek(0.5);
@@ -40,7 +39,7 @@ class Example extends Phaser.Scene
             //     tween.rewind(500);
             // }
 
-            tween.seek(0.5);
+            tween.seek(10);
 
         });
     }

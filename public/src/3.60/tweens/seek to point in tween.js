@@ -39,7 +39,7 @@ class Example extends Phaser.Scene
             //     tween.rewind(500);
             // }
 
-            tween.seek(10);
+            tween.seek(1000);
 
         });
     }

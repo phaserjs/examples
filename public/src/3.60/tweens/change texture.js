@@ -29,12 +29,12 @@ class Example extends Phaser.Scene
             frame: 0,
             x: 400,
             y: 360,
-            lifespan: 2000,
-            speed: { min: 400, max: 600 },
-            angle: 330,
+            lifespan: 1000,
+            speed: { min: 100, max: 200 },
+            // angle: 330,
             gravityY: 300,
-            scale: { start: 0.4, end: 0 },
-            quantity: 2,
+            // scale: { start: 0.4, end: 0 },
+            quantity: 1,
             blendMode: 'ADD'
         });
     }

@@ -27,6 +27,11 @@ function create ()
         x: 700,
         duration: 3000,
         ease: 'Power2',
-        loop: 2
+        loop: 2,
+        onLoop: () => {
+            console.log('onLoop');
+        }
     });
+
+    console.log(tween);
 }

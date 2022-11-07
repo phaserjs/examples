@@ -13843,6 +13843,13 @@
               "name": "eases",
               "children": [
                 {
+                  "path": "src/3.60/tweens/eases/back graph.js",
+                  "name": "back graph.js",
+                  "size": 2179,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/tweens/eases/back.js",
                   "name": "back.js",
                   "size": 1749,
@@ -13852,7 +13859,7 @@
                 {
                   "path": "src/3.60/tweens/eases/bounce graph.js",
                   "name": "bounce graph.js",
-                  "size": 2049,
+                  "size": 2187,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13864,6 +13871,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/tweens/eases/circular graph.js",
+                  "name": "circular graph.js",
+                  "size": 2183,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/tweens/eases/circular.js",
                   "name": "circular.js",
                   "size": 1753,
@@ -13871,9 +13885,30 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/tweens/eases/cubic graph.js",
+                  "name": "cubic graph.js",
+                  "size": 2183,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/tweens/eases/cubic.js",
                   "name": "cubic.js",
                   "size": 1756,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src/3.60/tweens/eases/ease mixer.js",
+                  "name": "ease mixer.js",
+                  "size": 2180,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src/3.60/tweens/eases/exponential graph.js",
+                  "name": "exponential graph.js",
+                  "size": 2186,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13892,9 +13927,23 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/tweens/eases/quad graph.js",
+                  "name": "quad graph.js",
+                  "size": 2184,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/tweens/eases/quad.js",
                   "name": "quad.js",
                   "size": 1749,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src/3.60/tweens/eases/quartic graph.js",
+                  "name": "quartic graph.js",
+                  "size": 2185,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13906,9 +13955,23 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/tweens/eases/quintic graph.js",
+                  "name": "quintic graph.js",
+                  "size": 2185,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/tweens/eases/quintic.js",
                   "name": "quintic.js",
                   "size": 1758,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src/3.60/tweens/eases/sine graph.js",
+                  "name": "sine graph.js",
+                  "size": 2179,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13920,7 +13983,7 @@
                   "type": "file"
                 }
               ],
-              "size": 18684,
+              "size": 38466,
               "type": "directory"
             },
             {
@@ -13966,7 +14029,7 @@
               "type": "file"
             }
           ],
-          "size": 37402,
+          "size": 57184,
           "type": "directory"
         },
         {
@@ -14149,7 +14212,7 @@
           "type": "directory"
         }
       ],
-      "size": 3824396,
+      "size": 3844178,
       "type": "directory"
     },
     {
@@ -29349,6 +29412,6 @@
       "type": "directory"
     }
   ],
-  "size": 7835930,
+  "size": 7855712,
   "type": "directory"
 }

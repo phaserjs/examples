@@ -1,0 +1,163 @@
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super();
+    }
+
+    preload ()
+    {
+        this.load.image('bg', 'assets/tweens/background-crt.jpg');
+    }
+
+    create ()
+    {
+        this.add.image(400, 300, 'bg').setScale(0.78);
+
+        this.add.text(400, 28, 'Ease Mixer').setColor('#00ff00').setFontSize(32).setShadow(2, 2).setOrigin(0.5, 0);
+
+        const list1 = this.createSelectList('x', 300, 80);
+        const list2 = this.createSelectList('y', 450, 80);
+        const button = this.createButton(550, 80);
+
+        list1.addListener('change');
+        list2.addListener('change');
+        button.addListener('click');
+
+        let easeX = 'Linear';
+        let easeY = 'Linear';
+
+        list1.on('change', event => {
+
+            easeX = event.target.selectedOptions[0].value;
+            graphEase();
+
+        });
+
+        list2.on('change', event => {
+
+            easeY = event.target.selectedOptions[0].value;
+            graphEase();
+
+        });
+
+        button.on('click', () => {
+
+            graphEase();
+
+        });
+
+        let tween;
+
+        const graph = this.add.graphics();
+        const rect = this.add.rectangle(100, 500, 2, 2, 0x00ff00);
+        const rt = this.add.renderTexture(400, 300, 800, 600);
+
+        const graphEase = () => {
+
+            if (tween)
+            {
+                tween.stop();
+            }
+
+            rt.clear();
+
+            graph.clear();
+            graph.lineStyle(3, 0x00ff00);
+            graph.beginPath();
+
+            rect.setPosition(100, 500);
+
+            tween = this.tweens.add({
+                targets: rect,
+                x: { value: 600, ease: easeX },
+                y: { value: 200, ease: easeY },
+                duration: 2000,
+                onUpdate: (tween, target, key) => {
+                    if (key === 'x')
+                    {
+                        rt.draw(rect);
+                        graph.lineTo(rect.x, rect.y);
+                    }
+                },
+                onComplete: () => {
+                    graph.stroke();
+                }
+            });
+        }
+    }
+
+    createSelectList (id, x, y)
+    {
+        const eases = [
+            'Linear',
+            'Quad.in',
+            'Cubic.in',
+            'Quart.in',
+            'Quint.in',
+            'Sine.in',
+            'Expo.in',
+            'Circ.in',
+            'Back.in',
+            'Bounce.in',
+            'Quad.out',
+            'Cubic.out',
+            'Quart.out',
+            'Quint.out',
+            'Sine.out',
+            'Expo.out',
+            'Circ.out',
+            'Back.out',
+            'Bounce.out',
+            'Quad.inOut',
+            'Cubic.inOut',
+            'Quart.inOut',
+            'Quint.inOut',
+            'Sine.inOut',
+            'Expo.inOut',
+            'Circ.inOut',
+            'Back.inOut',
+            'Bounce.inOut'
+        ];
+
+        const list = document.createElement('select');
+
+        list.id = id;
+
+        eases.forEach(ease => {
+
+            const option = document.createElement('option');
+
+            option.value = ease;
+            option.innerText = ease;
+
+            list.appendChild(option);
+
+        });
+
+        return this.add.dom(x, y, list);
+    }
+
+    createButton (x, y)
+    {
+        const button = document.createElement('button');
+
+        button.innerText = 'Display';
+
+        return this.add.dom(x, y, button);
+    }
+}
+
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    backgroundColor: '#000000',
+    parent: 'phaser-example',
+    dom: {
+        createContainer: true
+    },
+    scene: Example
+};
+
+const game = new Phaser.Game(config);

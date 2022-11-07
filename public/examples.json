@@ -13850,6 +13850,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/tweens/eases/bounce graph.js",
+                  "name": "bounce graph.js",
+                  "size": 2049,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/tweens/eases/bounce.js",
                   "name": "bounce.js",
                   "size": 1763,
@@ -13913,7 +13920,7 @@
                   "type": "file"
                 }
               ],
-              "size": 16635,
+              "size": 18684,
               "type": "directory"
             },
             {
@@ -13959,7 +13966,7 @@
               "type": "file"
             }
           ],
-          "size": 35353,
+          "size": 37402,
           "type": "directory"
         },
         {
@@ -14142,7 +14149,7 @@
           "type": "directory"
         }
       ],
-      "size": 3822347,
+      "size": 3824396,
       "type": "directory"
     },
     {
@@ -29342,6 +29349,6 @@
       "type": "directory"
     }
   ],
-  "size": 7833881,
+  "size": 7835930,
   "type": "directory"
 }

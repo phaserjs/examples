@@ -15,6 +15,7 @@ var guide;
 var light;
 var circle;
 var point;
+var container;
 
 var game = new Phaser.Game(config);
 
@@ -26,7 +27,12 @@ function preload ()
 
 function create ()
 {
-    spider = this.add.sprite(400, 300, 'spider');
+    container = this.add.container(400, 300);
+    spider = this.add.sprite(0, 0, 'spider');
+    container.add(spider);
+
+    // spider = this.add.sprite(400, 300, 'spider');
+
     spider.setPipeline('Light2D');
 
     light  = this.lights.addLight(0, 0, 500).setIntensity(6);
@@ -41,9 +47,11 @@ function create ()
 
 function update ()
 {
-    spider.rotation += 0.005;
+    container.rotation += 0.005;
+    Phaser.Geom.Circle.CircumferencePoint(circle, container.rotation - (Math.PI / 2), guide);
 
-    Phaser.Geom.Circle.CircumferencePoint(circle, spider.rotation - (Math.PI / 2), guide);
+    // spider.rotation += 0.005;
+    // Phaser.Geom.Circle.CircumferencePoint(circle, spider.rotation - (Math.PI / 2), guide);
 
     light.x = guide.x;
     light.y = guide.y;

@@ -70,7 +70,7 @@ function update() {
 
     if (keyA.isDown)
     {
-        console.log('A');
+        // console.log('A');
     }
 
     if (key5.isDown)

@@ -28,15 +28,17 @@ function create ()
 
     this.anims.create(animConfig);
 
-    // const sprite = this.add.sprite(0, 0, 'walker', 'frame_0000');
+    const sprite = this.add.sprite(0, 0, 'walker', 'frame_0000');
 
-    const sprite = new Phaser.GameObjects.Sprite(this, 0, 0, 'walker', 'frame_0000');
+    // const sprite = new Phaser.GameObjects.Sprite(this, 0, 0, 'walker', 'frame_0000');
 
     sprite.play('walk');
 
     var container = this.add.container(400, 300);
 
-    container.add(sprite);
+    // container.add(sprite);
 
-    // this.time.delayedCall(1000, () => { container.add(sprite); });
+    console.log(this.sys.updateList)
+
+    this.time.delayedCall(2000, () => { container.add(sprite); console.log(sprite); console.log(this.sys.updateList) });
 }

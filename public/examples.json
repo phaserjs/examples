@@ -8249,6 +8249,13 @@
               "name": "dragging",
               "children": [
                 {
+                  "path": "src/3.60/input/dragging/bring dragged item to top.js",
+                  "name": "bring dragged item to top.js",
+                  "size": 1363,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/input/dragging/camera move and rotate.js",
                   "name": "camera move and rotate.js",
                   "size": 1743,
@@ -8384,7 +8391,7 @@
                 {
                   "path": "src/3.60/input/dragging/snap to grid on drag.js",
                   "name": "snap to grid on drag.js",
-                  "size": 945,
+                  "size": 2599,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8396,7 +8403,7 @@
                   "type": "file"
                 }
               ],
-              "size": 26704,
+              "size": 29721,
               "type": "directory"
             },
             {
@@ -9171,7 +9178,7 @@
               "type": "directory"
             }
           ],
-          "size": 208459,
+          "size": 211476,
           "type": "directory"
         },
         {
@@ -14261,7 +14268,7 @@
           "type": "directory"
         }
       ],
-      "size": 3855441,
+      "size": 3858458,
       "type": "directory"
     },
     {
@@ -29489,6 +29496,6 @@
       "type": "directory"
     }
   ],
-  "size": 7878698,
+  "size": 7881715,
   "type": "directory"
 }

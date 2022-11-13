@@ -1,53 +1,36 @@
-var config = {
-    type: Phaser.WEBGL,
-    parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create
+class Example extends Phaser.Scene
+{
+    constructor()
+    {
+        super();
     }
+
+    preload ()
+    {
+        this.load.image('bg', 'assets/skies/gradient29.png');
+        this.load.image('char', 'assets/pics/nayuki.png');
+    }
+
+    create ()
+    {
+        this.add.image(400, 300, 'bg');
+
+        this.add.text(16, 16, 'Drag the Sprite').setFontSize(24).setShadow(1, 1);
+
+        const sprite = this.add.sprite(400, 300, 'char');
+
+        sprite.setInteractive({ draggable: true });
+
+        sprite.on('drag', (pointer, dragX, dragY) => sprite.setPosition(dragX, dragY));
+    }
+}
+
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    parent: 'phaser-example',
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
-}
-
-function create ()
-{
-    var image = this.add.sprite(200, 300, 'eye').setInteractive();
-
-    image.on('pointerover', function () {
-
-        this.setTint(0x00ff00);
-
-    });
-
-    image.on('pointerout', function () {
-
-        this.clearTint();
-
-    });
-
-    this.input.setDraggable(image);
-
-    this.input.on('dragstart', function (pointer, gameObject) {
-
-        gameObject.setTint(0xff0000);
-
-    });
-
-    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-
-        gameObject.x = dragX;
-        gameObject.y = dragY;
-
-    });
-
-    this.input.on('dragend', function (pointer, gameObject) {
-
-        gameObject.clearTint();
-
-    });
-}
+const game = new Phaser.Game(config);

@@ -8256,6 +8256,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/input/dragging/drag container.js",
+                  "name": "drag container.js",
+                  "size": 1233,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/input/dragging/drag distance threshold.js",
                   "name": "drag distance threshold.js",
                   "size": 884,
@@ -8263,9 +8270,16 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/input/dragging/drag horizontally.js",
+                  "name": "drag horizontally.js",
+                  "size": 1336,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/input/dragging/drag on a fixed axis.js",
                   "name": "drag on a fixed axis.js",
-                  "size": 1405,
+                  "size": 1729,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8273,6 +8287,13 @@
                   "path": "src/3.60/input/dragging/drag time threshold.js",
                   "name": "drag time threshold.js",
                   "size": 886,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src/3.60/input/dragging/drag vertically.js",
+                  "name": "drag vertically.js",
+                  "size": 1344,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8293,7 +8314,7 @@
                 {
                   "path": "src/3.60/input/dragging/enable for drag.js",
                   "name": "enable for drag.js",
-                  "size": 928,
+                  "size": 751,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8326,6 +8347,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/input/dragging/retain index after drag.js",
+                  "name": "retain index after drag.js",
+                  "size": 1371,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/input/dragging/rotated and scaled.js",
                   "name": "rotated and scaled.js",
                   "size": 874,
@@ -8354,6 +8382,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/input/dragging/snap to grid on drag.js",
+                  "name": "snap to grid on drag.js",
+                  "size": 945,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/input/dragging/stack of cards.js",
                   "name": "stack of cards.js",
                   "size": 967,
@@ -8361,7 +8396,7 @@
                   "type": "file"
                 }
               ],
-              "size": 20328,
+              "size": 26704,
               "type": "directory"
             },
             {
@@ -9136,7 +9171,7 @@
               "type": "directory"
             }
           ],
-          "size": 202083,
+          "size": 208459,
           "type": "directory"
         },
         {
@@ -13226,6 +13261,13 @@
               "name": "isometric",
               "children": [
                 {
+                  "path": "src/3.60/tilemap/isometric/create isometric manually.js",
+                  "name": "create isometric manually.js",
+                  "size": 1716,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/tilemap/isometric/hexagonal test.js",
                   "name": "hexagonal test.js",
                   "size": 1171,
@@ -13240,7 +13282,7 @@
                   "type": "file"
                 }
               ],
-              "size": 2810,
+              "size": 4526,
               "type": "directory"
             },
             {
@@ -13295,7 +13337,7 @@
             {
               "path": "src/3.60/tilemap/multiple tilesets.js",
               "name": "multiple tilesets.js",
-              "size": 2077,
+              "size": 2130,
               "extension": ".js",
               "type": "file"
             },
@@ -13471,7 +13513,7 @@
             {
               "path": "src/3.60/tilemap/tiled  multi tileset.js",
               "name": "tiled  multi tileset.js",
-              "size": 1975,
+              "size": 2130,
               "extension": ".js",
               "type": "file"
             },
@@ -13525,7 +13567,7 @@
               "type": "file"
             }
           ],
-          "size": 262965,
+          "size": 264889,
           "type": "directory"
         },
         {
@@ -14219,7 +14261,7 @@
           "type": "directory"
         }
       ],
-      "size": 3847141,
+      "size": 3855441,
       "type": "directory"
     },
     {
@@ -15462,7 +15504,7 @@
         {
           "path": "src/bugs/6052 anim in container.js",
           "name": "6052 anim in container.js",
-          "size": 876,
+          "size": 968,
           "extension": ".js",
           "type": "file"
         },
@@ -15558,7 +15600,7 @@
           "type": "file"
         }
       ],
-      "size": 82337,
+      "size": 82429,
       "type": "directory"
     },
     {
@@ -19192,7 +19234,7 @@
             {
               "path": "src/game objects/lights/rotated sprite.js",
               "name": "rotated sprite.js",
-              "size": 1048,
+              "size": 1320,
               "extension": ".js",
               "type": "file"
             },
@@ -19246,7 +19288,7 @@
               "type": "file"
             }
           ],
-          "size": 41504,
+          "size": 41776,
           "type": "directory"
         },
         {
@@ -20879,7 +20921,7 @@
           "type": "directory"
         }
       ],
-      "size": 798166,
+      "size": 798438,
       "type": "directory"
     },
     {
@@ -29447,6 +29489,6 @@
       "type": "directory"
     }
   ],
-  "size": 7870034,
+  "size": 7878698,
   "type": "directory"
 }

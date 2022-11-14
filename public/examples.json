@@ -8251,7 +8251,7 @@
                 {
                   "path": "src/3.60/input/dragging/bring dragged item to top.js",
                   "name": "bring dragged item to top.js",
-                  "size": 1363,
+                  "size": 1386,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8403,7 +8403,7 @@
                   "type": "file"
                 }
               ],
-              "size": 29721,
+              "size": 29744,
               "type": "directory"
             },
             {
@@ -9178,7 +9178,7 @@
               "type": "directory"
             }
           ],
-          "size": 211476,
+          "size": 211499,
           "type": "directory"
         },
         {
@@ -14083,9 +14083,16 @@
               "size": 618,
               "extension": ".js",
               "type": "file"
+            },
+            {
+              "path": "src/3.60/tweens/tween text size.js",
+              "name": "tween text size.js",
+              "size": 584,
+              "extension": ".js",
+              "type": "file"
             }
           ],
-          "size": 59329,
+          "size": 59913,
           "type": "directory"
         },
         {
@@ -14268,7 +14275,7 @@
           "type": "directory"
         }
       ],
-      "size": 3858458,
+      "size": 3859065,
       "type": "directory"
     },
     {
@@ -29496,6 +29503,6 @@
       "type": "directory"
     }
   ],
-  "size": 7881715,
+  "size": 7882322,
   "type": "directory"
 }

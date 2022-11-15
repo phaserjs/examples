@@ -8272,7 +8272,7 @@
                 {
                   "path": "src/3.60/input/dragging/drag distance threshold.js",
                   "name": "drag distance threshold.js",
-                  "size": 884,
+                  "size": 1046,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8403,7 +8403,7 @@
                   "type": "file"
                 }
               ],
-              "size": 29744,
+              "size": 29906,
               "type": "directory"
             },
             {
@@ -9178,7 +9178,7 @@
               "type": "directory"
             }
           ],
-          "size": 211499,
+          "size": 211661,
           "type": "directory"
         },
         {
@@ -14275,7 +14275,7 @@
           "type": "directory"
         }
       ],
-      "size": 3859293,
+      "size": 3859455,
       "type": "directory"
     },
     {
@@ -15103,6 +15103,20 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/0000 move dom.js",
+          "name": "0000 move dom.js",
+          "size": 1148,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/0000 move test.js",
+          "name": "0000 move test.js",
+          "size": 1148,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/0000 multi atlas complete.js",
           "name": "0000 multi atlas complete.js",
           "size": 1204,
@@ -15616,12 +15630,12 @@
         {
           "path": "src/bugs/6282 scene restart.js",
           "name": "6282 scene restart.js",
-          "size": 1575,
+          "size": 1991,
           "extension": ".js",
           "type": "file"
         }
       ],
-      "size": 84004,
+      "size": 86716,
       "type": "directory"
     },
     {
@@ -29510,6 +29524,6 @@
       "type": "directory"
     }
   ],
-  "size": 7884125,
+  "size": 7886999,
   "type": "directory"
 }

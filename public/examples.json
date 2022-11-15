@@ -14087,12 +14087,12 @@
             {
               "path": "src/3.60/tweens/tween text size.js",
               "name": "tween text size.js",
-              "size": 584,
+              "size": 812,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 59913,
+          "size": 60141,
           "type": "directory"
         },
         {
@@ -14275,7 +14275,7 @@
           "type": "directory"
         }
       ],
-      "size": 3859065,
+      "size": 3859293,
       "type": "directory"
     },
     {
@@ -15612,9 +15612,16 @@
           "size": 687,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src/bugs/6282 scene restart.js",
+          "name": "6282 scene restart.js",
+          "size": 1575,
+          "extension": ".js",
+          "type": "file"
         }
       ],
-      "size": 82429,
+      "size": 84004,
       "type": "directory"
     },
     {
@@ -29503,6 +29510,6 @@
       "type": "directory"
     }
   ],
-  "size": 7882322,
+  "size": 7884125,
   "type": "directory"
 }

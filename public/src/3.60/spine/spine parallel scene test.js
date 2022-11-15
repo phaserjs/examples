@@ -12,6 +12,7 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.image('logo', 'assets/sprites/phaser.png');
+        this.load.image('beer', 'assets/sprites/beer.png');
 
         this.load.setPath('assets/spine/3.8/demos/');
 
@@ -25,6 +26,8 @@ class Example extends Phaser.Scene
         this.add.spine(200, 600, 'set1.alien', 'death', true).setScale(0.5);
 
         this.add.text(300, 10, 'Scene 1 - Running', { font: '16px Courier', fill: '#00ff00' });
+
+        this.add.image(200, 200, 'beer');
 
         this.scene.launch('Example2');
     }
@@ -42,6 +45,8 @@ class Example2 extends Phaser.Scene
         this.add.spine(500, 600, 'set1.spineboy', 'run', true).setScale(0.5);
 
         this.add.text(300, 24, 'Scene 2 - Running', { font: '16px Courier', fill: '#00ff00' });
+
+        this.add.image(600, 200, 'beer');
     }
 }
 

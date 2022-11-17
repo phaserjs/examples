@@ -48,7 +48,8 @@ function strokeRoundedRect (g, x, y, width, height, radius)
     g.beginPath();
     // g.moveTo(x + tl, y);
     // g.lineTo(x + width - tr, y);
-    g.moveTo(x + width - tr, y);
+    g.moveTo(470, y);
+    // g.moveTo(x + width - tr, y);
 
     // g.arc(x + width - tr, y + tr, tr, -Phaser.Math.TAU, 0);
 
@@ -76,12 +77,10 @@ function strokeRoundedRect (g, x, y, width, height, radius)
 
 function create ()
 {
-    this.add.text(500, 32, 'v7');
+    this.add.text(500, 32, 'v8');
 
     var graphics = this.add.graphics();
 
     graphics.lineStyle(6, 0xffff00, 1);
     strokeRoundedRect(graphics, 200, 140, 300, 100);
-    // strokeRoundedRect(graphics, 360, 240, 400, 300, { tl: 64, tr: 22, bl: 12, br: 0 });
-    // graphics.strokeRoundedRect(200, 140, 300, 200, { tl: 64, tr: 22, bl: 12, br: 0 });
 }

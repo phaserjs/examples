@@ -17,11 +17,13 @@ class Example extends Phaser.Scene
 
         const element = this.add.dom(400, 300, 'div', 'background-color: rgba(255, 255, 0, 0.5); width: 300px; height: 200px; font: 48px Arial; font-weight: bold', 'Phaser 3');
 
-        element.addListener('mousemove');
+        element.node.draggable = 'true';
 
-        element.on('mousemove', event => {
+        element.addListener('drag');
 
-            console.log('dom move');
+        element.on('drag', event => {
+
+            console.log('dom move', event);
 
         });
 

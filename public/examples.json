@@ -12660,7 +12660,7 @@
             {
               "path": "src/3.60/spine/spine parallel scene test.js",
               "name": "spine parallel scene test.js",
-              "size": 1335,
+              "size": 1481,
               "extension": ".js",
               "type": "file"
             },
@@ -12735,7 +12735,7 @@
               "type": "file"
             }
           ],
-          "size": 55686,
+          "size": 55832,
           "type": "directory"
         },
         {
@@ -13270,7 +13270,7 @@
                 {
                   "path": "src/3.60/tilemap/isometric/create isometric manually.js",
                   "name": "create isometric manually.js",
-                  "size": 1716,
+                  "size": 1763,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13289,7 +13289,7 @@
                   "type": "file"
                 }
               ],
-              "size": 4526,
+              "size": 4573,
               "type": "directory"
             },
             {
@@ -13574,7 +13574,7 @@
               "type": "file"
             }
           ],
-          "size": 264889,
+          "size": 264936,
           "type": "directory"
         },
         {
@@ -14275,7 +14275,7 @@
           "type": "directory"
         }
       ],
-      "size": 3859455,
+      "size": 3859648,
       "type": "directory"
     },
     {
@@ -15105,7 +15105,7 @@
         {
           "path": "src/bugs/0000 move dom.js",
           "name": "0000 move dom.js",
-          "size": 1148,
+          "size": 1089,
           "extension": ".js",
           "type": "file"
         },
@@ -15134,6 +15134,13 @@
           "path": "src/bugs/4391 tilemap off.js",
           "name": "4391 tilemap off.js",
           "size": 908,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/4644 container.js",
+          "name": "4644 container.js",
+          "size": 882,
           "extension": ".js",
           "type": "file"
         },
@@ -15197,6 +15204,13 @@
           "path": "src/bugs/5426 rt canvas alpha.js",
           "name": "5426 rt canvas alpha.js",
           "size": 924,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/5429 stroke.js",
+          "name": "5429 stroke.js",
+          "size": 468,
           "extension": ".js",
           "type": "file"
         },
@@ -15628,6 +15642,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/6268 layer destroy.js",
+          "name": "6268 layer destroy.js",
+          "size": 1559,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/6282 scene restart.js",
           "name": "6282 scene restart.js",
           "size": 1991,
@@ -15635,7 +15656,7 @@
           "type": "file"
         }
       ],
-      "size": 86716,
+      "size": 89566,
       "type": "directory"
     },
     {
@@ -29524,6 +29545,6 @@
       "type": "directory"
     }
   ],
-  "size": 7886999,
+  "size": 7890042,
   "type": "directory"
 }

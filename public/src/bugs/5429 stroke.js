@@ -48,20 +48,17 @@ function strokeRoundedRect (g, x, y, width, height, radius)
     g.beginPath();
     // g.moveTo(x + tl, y);
     // g.lineTo(x + width - tr, y);
-    g.moveTo(479, y);
+    g.moveTo(479.5, y);
     // g.moveTo(x + width - tr, y);
 
     // g.arc(x + width - tr, y + tr, tr, -Phaser.Math.TAU, 0);
+
+    //  The issue is a moveTo that ends on the exact same x as the arc - if they differ, even slightly, it renders fine
 
     g.commandBuffer.push(
         0,
         x + width - tr, y + tr, tr, -Phaser.Math.TAU, 0, false, 0
     );
-
-    console.log(x + width - tr);
-    console.log(y + tr);
-    console.log(tr);
-    console.log(-Phaser.Math.TAU);
 
     // g.lineTo(x + width, y + height - br);
     // g.moveTo(x + width, y + height - br);
@@ -77,7 +74,7 @@ function strokeRoundedRect (g, x, y, width, height, radius)
 
 function create ()
 {
-    this.add.text(500, 32, 'v10');
+    this.add.text(500, 32, 'v11');
 
     var graphics = this.add.graphics();
 

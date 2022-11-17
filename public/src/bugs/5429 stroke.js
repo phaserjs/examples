@@ -14,7 +14,7 @@ function create ()
 {
     var graphics = this.add.graphics();
 
-    graphics.lineStyle(3, 0xff00ff, 1);
+    graphics.lineStyle(1, 0xff00ff, 1);
 
     graphics.strokeRoundedRect(32, 32, 300, 200);
 

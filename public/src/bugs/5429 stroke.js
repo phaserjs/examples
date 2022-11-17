@@ -74,10 +74,12 @@ function strokeRoundedRect (g, x, y, width, height, radius)
 
 function create ()
 {
-    this.add.text(500, 32, 'v15');
+    this.add.text(500, 32, 'v16');
 
     var graphics = this.add.graphics();
 
     graphics.lineStyle(6, 0xffff00, 1);
-    strokeRoundedRect(graphics, 200, 140, 300, 100);
+    graphics.strokeRoundedRect(200, 140, 300, 100);
+
+    // strokeRoundedRect(graphics, 200, 140, 300, 100);
 }

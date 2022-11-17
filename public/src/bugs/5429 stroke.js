@@ -74,7 +74,7 @@ function strokeRoundedRect (g, x, y, width, height, radius)
 
 function create ()
 {
-    this.add.text(500, 32, 'v13');
+    this.add.text(500, 32, 'v15');
 
     var graphics = this.add.graphics();
 

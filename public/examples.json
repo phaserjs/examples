@@ -4328,7 +4328,7 @@
                 {
                   "path": "src/3.60/game objects/lights/tilemap layer.js",
                   "name": "tilemap layer.js",
-                  "size": 3067,
+                  "size": 3207,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4347,7 +4347,7 @@
                   "type": "file"
                 }
               ],
-              "size": 41504,
+              "size": 41644,
               "type": "directory"
             },
             {
@@ -6078,7 +6078,7 @@
               "type": "directory"
             }
           ],
-          "size": 824212,
+          "size": 824352,
           "type": "directory"
         },
         {
@@ -14275,50 +14275,7 @@
           "type": "directory"
         }
       ],
-      "size": 3859601,
-      "type": "directory"
-    },
-    {
-      "path": "src/3.60 iOS",
-      "name": "3.60 iOS",
-      "children": [
-        {
-          "path": "src/3.60 iOS/batch test.js",
-          "name": "batch test.js",
-          "size": 2428,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src/3.60 iOS/debug.js",
-          "name": "debug.js",
-          "size": 822,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src/3.60 iOS/stress1.js",
-          "name": "stress1.js",
-          "size": 1194,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src/3.60 iOS/texture stress 2.js",
-          "name": "texture stress 2.js",
-          "size": 1851,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src/3.60 iOS/texture stress.js",
-          "name": "texture stress.js",
-          "size": 1849,
-          "extension": ".js",
-          "type": "file"
-        }
-      ],
-      "size": 8144,
+      "size": 3859741,
       "type": "directory"
     },
     {
@@ -15390,6 +15347,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5667 ios blend.js",
+          "name": "5667 ios blend.js",
+          "size": 1263,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/5680 anim delay.js",
           "name": "5680 anim delay.js",
           "size": 1062,
@@ -15663,7 +15627,7 @@
           "type": "file"
         }
       ],
-      "size": 92338,
+      "size": 93601,
       "type": "directory"
     },
     {
@@ -29552,6 +29516,6 @@
       "type": "directory"
     }
   ],
-  "size": 7892767,
+  "size": 7886026,
   "type": "directory"
 }

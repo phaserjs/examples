@@ -21,7 +21,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('tiles', [ 'assets/tilemaps/tiles/drawtiles1.png', 'assets/tilemaps/tiles/drawtiles1_n.png' ]);
+    // this.load.image('tiles', [ 'assets/tilemaps/tiles/drawtiles1.png', 'assets/tilemaps/tiles/drawtiles1_n.png' ]);
+    this.load.image({ key: 'tiles', url: 'assets/tilemaps/tiles/drawtiles1.png', normalMap: 'assets/tilemaps/tiles/drawtiles1_n.png' });
     this.load.image('car', 'assets/sprites/car90.png');
     this.load.tilemapCSV('map', 'assets/tilemaps/csv/grid.csv');
 }

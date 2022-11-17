@@ -1,0 +1,692 @@
+{
+	"textures": [
+		{
+			"image": "e_spinwave.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 929,
+				"h": 2974
+			},
+			"scale": 0.25,
+			"frames": [
+				{
+					"filename": "e_spinwave_030.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 312
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 311,
+						"h": 312
+					}
+				},
+				{
+					"filename": "e_spinwave_031.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 312
+					},
+					"frame": {
+						"x": 314,
+						"y": 1,
+						"w": 311,
+						"h": 312
+					}
+				},
+				{
+					"filename": "e_spinwave_009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 12,
+						"w": 301,
+						"h": 301
+					},
+					"frame": {
+						"x": 627,
+						"y": 1,
+						"w": 301,
+						"h": 301
+					}
+				},
+				{
+					"filename": "e_spinwave_010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 12,
+						"w": 301,
+						"h": 301
+					},
+					"frame": {
+						"x": 627,
+						"y": 304,
+						"w": 301,
+						"h": 301
+					}
+				},
+				{
+					"filename": "e_spinwave_021.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 1,
+						"y": 315,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_022.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 314,
+						"y": 315,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 13,
+						"w": 299,
+						"h": 299
+					},
+					"frame": {
+						"x": 627,
+						"y": 607,
+						"w": 299,
+						"h": 299
+					}
+				},
+				{
+					"filename": "e_spinwave_023.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 1,
+						"y": 628,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_024.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 314,
+						"y": 628,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 13,
+						"w": 299,
+						"h": 299
+					},
+					"frame": {
+						"x": 627,
+						"y": 908,
+						"w": 299,
+						"h": 299
+					}
+				},
+				{
+					"filename": "e_spinwave_025.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 1,
+						"y": 941,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_026.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 314,
+						"y": 941,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 14,
+						"w": 297,
+						"h": 298
+					},
+					"frame": {
+						"x": 627,
+						"y": 1209,
+						"w": 297,
+						"h": 298
+					}
+				},
+				{
+					"filename": "e_spinwave_027.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 1,
+						"y": 1254,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_028.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 314,
+						"y": 1254,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 20,
+						"w": 285,
+						"h": 285
+					},
+					"frame": {
+						"x": 627,
+						"y": 1509,
+						"w": 285,
+						"h": 285
+					}
+				},
+				{
+					"filename": "e_spinwave_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 914,
+						"y": 1509,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "e_spinwave_029.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 311,
+						"h": 311
+					},
+					"frame": {
+						"x": 1,
+						"y": 1567,
+						"w": 311,
+						"h": 311
+					}
+				},
+				{
+					"filename": "e_spinwave_019.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 8,
+						"w": 309,
+						"h": 309
+					},
+					"frame": {
+						"x": 314,
+						"y": 1567,
+						"w": 309,
+						"h": 309
+					}
+				},
+				{
+					"filename": "e_spinwave_013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 11,
+						"w": 303,
+						"h": 304
+					},
+					"frame": {
+						"x": 625,
+						"y": 1796,
+						"w": 303,
+						"h": 304
+					}
+				},
+				{
+					"filename": "e_spinwave_020.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 8,
+						"w": 309,
+						"h": 309
+					},
+					"frame": {
+						"x": 314,
+						"y": 1878,
+						"w": 309,
+						"h": 309
+					}
+				},
+				{
+					"filename": "e_spinwave_012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 11,
+						"w": 303,
+						"h": 303
+					},
+					"frame": {
+						"x": 625,
+						"y": 2102,
+						"w": 303,
+						"h": 303
+					}
+				},
+				{
+					"filename": "e_spinwave_018.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 307,
+						"h": 308
+					},
+					"frame": {
+						"x": 1,
+						"y": 1880,
+						"w": 307,
+						"h": 308
+					}
+				},
+				{
+					"filename": "e_spinwave_016.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 307,
+						"h": 307
+					},
+					"frame": {
+						"x": 310,
+						"y": 2189,
+						"w": 307,
+						"h": 307
+					}
+				},
+				{
+					"filename": "e_spinwave_017.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 307,
+						"h": 307
+					},
+					"frame": {
+						"x": 619,
+						"y": 2407,
+						"w": 307,
+						"h": 307
+					}
+				},
+				{
+					"filename": "e_spinwave_014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 10,
+						"w": 305,
+						"h": 305
+					},
+					"frame": {
+						"x": 1,
+						"y": 2190,
+						"w": 305,
+						"h": 305
+					}
+				},
+				{
+					"filename": "e_spinwave_015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 10,
+						"w": 305,
+						"h": 305
+					},
+					"frame": {
+						"x": 1,
+						"y": 2497,
+						"w": 305,
+						"h": 305
+					}
+				},
+				{
+					"filename": "e_spinwave_011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 12,
+						"w": 303,
+						"h": 302
+					},
+					"frame": {
+						"x": 308,
+						"y": 2498,
+						"w": 303,
+						"h": 302
+					}
+				},
+				{
+					"filename": "e_spinwave_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 49,
+						"w": 229,
+						"h": 228
+					},
+					"frame": {
+						"x": 613,
+						"y": 2716,
+						"w": 229,
+						"h": 228
+					}
+				},
+				{
+					"filename": "e_spinwave_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 133,
+						"y": 133,
+						"w": 59,
+						"h": 59
+					},
+					"frame": {
+						"x": 844,
+						"y": 2716,
+						"w": 59,
+						"h": 59
+					}
+				},
+				{
+					"filename": "e_spinwave_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 77,
+						"y": 77,
+						"w": 171,
+						"h": 171
+					},
+					"frame": {
+						"x": 308,
+						"y": 2802,
+						"w": 171,
+						"h": 171
+					}
+				},
+				{
+					"filename": "e_spinwave_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 325,
+						"h": 325
+					},
+					"spriteSourceSize": {
+						"x": 105,
+						"y": 105,
+						"w": 115,
+						"h": 115
+					},
+					"frame": {
+						"x": 481,
+						"y": 2802,
+						"w": 115,
+						"h": 115
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:9a175035bc9be3ebd9ca0dabd9e291c9:381ad29b977eff47041f0fc858815240:3c3e8531250bac9f1a88216d78fece04$"
+	}
+}

@@ -13270,7 +13270,7 @@
                 {
                   "path": "src/3.60/tilemap/isometric/create isometric manually.js",
                   "name": "create isometric manually.js",
-                  "size": 1763,
+                  "size": 1716,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13289,7 +13289,7 @@
                   "type": "file"
                 }
               ],
-              "size": 4573,
+              "size": 4526,
               "type": "directory"
             },
             {
@@ -13574,7 +13574,7 @@
               "type": "file"
             }
           ],
-          "size": 264936,
+          "size": 264889,
           "type": "directory"
         },
         {
@@ -14275,7 +14275,7 @@
           "type": "directory"
         }
       ],
-      "size": 3859648,
+      "size": 3859601,
       "type": "directory"
     },
     {
@@ -15210,7 +15210,7 @@
         {
           "path": "src/bugs/5429 stroke.js",
           "name": "5429 stroke.js",
-          "size": 468,
+          "size": 2325,
           "extension": ".js",
           "type": "file"
         },
@@ -15218,6 +15218,13 @@
           "path": "src/bugs/5445 rt snapshot.js",
           "name": "5445 rt snapshot.js",
           "size": 1421,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/5452 light fill.js",
+          "name": "5452 light fill.js",
+          "size": 915,
           "extension": ".js",
           "type": "file"
         },
@@ -15656,7 +15663,7 @@
           "type": "file"
         }
       ],
-      "size": 89566,
+      "size": 92338,
       "type": "directory"
     },
     {
@@ -29545,6 +29552,6 @@
       "type": "directory"
     }
   ],
-  "size": 7890042,
+  "size": 7892767,
   "type": "directory"
 }

@@ -35,10 +35,11 @@ function strokeRoundedRect (g, x, y, width, height, radius)
     br = Math.min(br, maxRadius);
 
     g.beginPath();
-    g.moveTo(x + tl, y);
-    g.lineTo(x + width - tr, y);
+    // g.moveTo(x + tl, y);
+    // g.lineTo(x + width - tr, y);
     g.moveTo(x + width - tr, y);
     g.arc(x + width - tr, y + tr, tr, -Phaser.Math.TAU, 0);
+
     // g.lineTo(x + width, y + height - br);
     // g.moveTo(x + width, y + height - br);
     // g.arc(x + width - br, y + height - br, br, 0, Phaser.Math.TAU);
@@ -53,7 +54,7 @@ function strokeRoundedRect (g, x, y, width, height, radius)
 
 function create ()
 {
-    this.add.text(500, 32, 'v3');
+    this.add.text(500, 32, 'v4');
 
     var graphics = this.add.graphics();
 

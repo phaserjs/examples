@@ -39,21 +39,21 @@ function strokeRoundedRect (g, x, y, width, height, radius)
     g.lineTo(x + width - tr, y);
     g.moveTo(x + width - tr, y);
     g.arc(x + width - tr, y + tr, tr, -Phaser.Math.TAU, 0);
-    g.lineTo(x + width, y + height - br);
-    g.moveTo(x + width, y + height - br);
-    g.arc(x + width - br, y + height - br, br, 0, Phaser.Math.TAU);
-    g.lineTo(x + bl, y + height);
-    g.moveTo(x + bl, y + height);
-    g.arc(x + bl, y + height - bl, bl, Phaser.Math.TAU, Math.PI);
-    g.lineTo(x, y + tl);
-    g.moveTo(x, y + tl);
-    g.arc(x + tl, y + tl, tl, -Math.PI, -Phaser.Math.TAU);
+    // g.lineTo(x + width, y + height - br);
+    // g.moveTo(x + width, y + height - br);
+    // g.arc(x + width - br, y + height - br, br, 0, Phaser.Math.TAU);
+    // g.lineTo(x + bl, y + height);
+    // g.moveTo(x + bl, y + height);
+    // g.arc(x + bl, y + height - bl, bl, Phaser.Math.TAU, Math.PI);
+    // g.lineTo(x, y + tl);
+    // g.moveTo(x, y + tl);
+    // g.arc(x + tl, y + tl, tl, -Math.PI, -Phaser.Math.TAU);
     g.strokePath();
 }
 
 function create ()
 {
-    this.add.text(500, 32, 'v2');
+    this.add.text(500, 32, 'v3');
 
     var graphics = this.add.graphics();
 

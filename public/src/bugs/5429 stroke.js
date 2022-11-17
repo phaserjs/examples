@@ -10,6 +10,17 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+function arc (g, x, y, radius, startAngle, endAngle, anticlockwise, overshoot)
+{
+    if (anticlockwise === undefined) { anticlockwise = false; }
+    if (overshoot === undefined) { overshoot = 0; }
+
+    g.commandBuffer.push(
+        0,
+        x, y, radius, startAngle, endAngle, anticlockwise, overshoot
+    );
+}
+
 function strokeRoundedRect (g, x, y, width, height, radius)
 {
     if (radius === undefined) { radius = 20; }
@@ -38,7 +49,18 @@ function strokeRoundedRect (g, x, y, width, height, radius)
     // g.moveTo(x + tl, y);
     // g.lineTo(x + width - tr, y);
     g.moveTo(x + width - tr, y);
-    g.arc(x + width - tr, y + tr, tr, -Phaser.Math.TAU, 0);
+
+    // g.arc(x + width - tr, y + tr, tr, -Phaser.Math.TAU, 0);
+
+    g.commandBuffer.push(
+        0,
+        x + width - tr, y + tr, tr, -Phaser.Math.TAU, 0, false, 0
+    );
+
+    console.log(x + width - tr);
+    console.log(y + tr);
+    console.log(tr);
+    console.log(-Phaser.Math.TAU);
 
     // g.lineTo(x + width, y + height - br);
     // g.moveTo(x + width, y + height - br);
@@ -54,7 +76,7 @@ function strokeRoundedRect (g, x, y, width, height, radius)
 
 function create ()
 {
-    this.add.text(500, 32, 'v4');
+    this.add.text(500, 32, 'v5');
 
     var graphics = this.add.graphics();
 

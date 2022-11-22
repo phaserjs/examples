@@ -137,7 +137,7 @@ $(document).ready(function () {
 
                     if (window.PHASER_GAME)
                     {
-                        var type = (game.config.renderType === 2) ? 'Canvas' : 'WebGL';
+                        var type = (window.PHASER_GAME.config.renderType === 2) ? 'Canvas' : 'WebGL';
 
                         $('#forcemode').text('Force '  + type);
                         $('#forcemode').attr('href', 'view.html?force=' + type + '&v=' + phaserVersion + '&src=' + filename);

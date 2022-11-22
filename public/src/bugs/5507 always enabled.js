@@ -54,16 +54,18 @@ function create()
         text.text = count.toString();
     });
 
-    rect.name = 'rect';
+    rect.name = 'rect1';
     rect.setInteractive();
 
     rect2.name = "rect2"
     rect2.setInteractive();
 
     invisibleRect.alpha = 0;
-    //invisibleRect.alpha = 0.3;
+    // invisibleRect.alpha = 0.3;
 
     invisibleRect.setDepth(3);
     rect.setDepth(2);
     rect2.setDepth(1);
+
+    console.log(this.input);
 }

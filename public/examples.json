@@ -15258,7 +15258,7 @@
         {
           "path": "src/bugs/5507 always enabled.js",
           "name": "5507 always enabled.js",
-          "size": 1632,
+          "size": 1664,
           "extension": ".js",
           "type": "file"
         },
@@ -15349,7 +15349,7 @@
         {
           "path": "src/bugs/5667 ios blend.js",
           "name": "5667 ios blend.js",
-          "size": 1263,
+          "size": 1009,
           "extension": ".js",
           "type": "file"
         },
@@ -15494,6 +15494,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/6006 input over.js",
+          "name": "6006 input over.js",
+          "size": 656,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/6009 tween update to.js",
           "name": "6009 tween update to.js",
           "size": 1148,
@@ -15511,6 +15518,13 @@
           "path": "src/bugs/6040 move scene.js",
           "name": "6040 move scene.js",
           "size": 1212,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/6041 drag container.js",
+          "name": "6041 drag container.js",
+          "size": 1420,
           "extension": ".js",
           "type": "file"
         },
@@ -15627,7 +15641,7 @@
           "type": "file"
         }
       ],
-      "size": 93601,
+      "size": 95455,
       "type": "directory"
     },
     {
@@ -25447,7 +25461,7 @@
             {
               "path": "src/physics/arcade/group vs self.js",
               "name": "group vs self.js",
-              "size": 1015,
+              "size": 1631,
               "extension": ".js",
               "type": "file"
             },
@@ -25732,7 +25746,7 @@
               "type": "file"
             }
           ],
-          "size": 148424,
+          "size": 149040,
           "type": "directory"
         },
         {
@@ -26207,7 +26221,7 @@
           "type": "directory"
         }
       ],
-      "size": 254795,
+      "size": 255411,
       "type": "directory"
     },
     {
@@ -29516,6 +29530,6 @@
       "type": "directory"
     }
   ],
-  "size": 7886026,
+  "size": 7888496,
   "type": "directory"
 }

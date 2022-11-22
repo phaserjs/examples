@@ -14,7 +14,7 @@ function create()
 {
     this.input.addPointer();
 
-    var circ = this.add.circle(400, 300, 96, 0xffff00);
+    var circ = this.add.circle(300, 200, 96, 0xffff00);
 
     circ.setInteractive();
 
@@ -25,6 +25,15 @@ function create()
         circ.x = x;
         circ.y = y;
 
+    });
+
+    var testRect = this.add.rectangle(400, 0, 128, 128, 0x00ffff);
+
+    this.tweens.add({
+        targets: testRect,
+        angle: 360,
+        repeat: -1,
+        duration: 2000
     });
 
     var killRect = this.add.rectangle(0, 0, 128, 128, 0xff0000).setOrigin(0, 0);

@@ -7,14 +7,14 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const d = this.add.text(32, 32, 'Clicks: 0');
+        const d = this.add.text(32, 32, 'Click It: 0');
         let c = 0;
 
         this.input.on('pointerdown', () => {
 
             c++;
 
-            d.setText('Clicks: ' + i);
+            d.setText('Click It: ' + c);
         })
     }
 }

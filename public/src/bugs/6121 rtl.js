@@ -18,6 +18,8 @@ class Example extends Phaser.Scene
         // Implicit bidi marks added; "Foo Ltd.&lrm; و Bar Inc.&lrm;"
         const str4 = "آزمایش برای Foo Ltd.‎ و Bar Inc.‎ باشد که آزموده شود.";
 
+        this.add.text(10, 10, 'Normal?!');
+
         const t1 = this.add.text(700, 100, str1, { fontFamily: 'Arial', fontSize: 32, color: '#000000', rtl: true });
         this.add.text(700, 200, str2, { fontFamily: 'Arial', fontSize: 32, color: '#000000', rtl: true });
         this.add.text(700, 300, str3, { fontFamily: 'Arial', fontSize: 32, color: '#000000', rtl: true });

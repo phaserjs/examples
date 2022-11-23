@@ -15424,6 +15424,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5847 step particles.js",
+          "name": "5847 step particles.js",
+          "size": 1056,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/5867 pointer out.js",
           "name": "5867 pointer out.js",
           "size": 461,
@@ -15529,6 +15536,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/6033 retina graphics.js",
+          "name": "6033 retina graphics.js",
+          "size": 761,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/6040 move scene.js",
           "name": "6040 move scene.js",
           "size": 1212,
@@ -15585,9 +15599,16 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/6120 post fx.js",
+          "name": "6120 post fx.js",
+          "size": 2267,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/6121 rtl.js",
           "name": "6121 rtl.js",
-          "size": 1441,
+          "size": 1485,
           "extension": ".js",
           "type": "file"
         },
@@ -15669,7 +15690,7 @@
           "type": "file"
         }
       ],
-      "size": 99075,
+      "size": 103203,
       "type": "directory"
     },
     {
@@ -29558,6 +29579,6 @@
       "type": "directory"
     }
   ],
-  "size": 7891500,
+  "size": 7895628,
   "type": "directory"
 }

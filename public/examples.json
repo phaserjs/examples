@@ -15046,6 +15046,13 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src/bugs/0000 char index.js",
+          "name": "0000 char index.js",
+          "size": 693,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/0000 drag scale.js",
           "name": "0000 drag scale.js",
           "size": 769,
@@ -15347,6 +15354,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5608 hex tile.js",
+          "name": "5608 hex tile.js",
+          "size": 1700,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/5667 ios blend.js",
           "name": "5667 ios blend.js",
           "size": 1009,
@@ -15389,6 +15403,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5781 iso tile.js",
+          "name": "5781 iso tile.js",
+          "size": 2221,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/5802 geom post.js",
           "name": "5802 geom post.js",
           "size": 1286,
@@ -15426,7 +15447,7 @@
         {
           "path": "src/bugs/5847 step particles.js",
           "name": "5847 step particles.js",
-          "size": 1056,
+          "size": 1023,
           "extension": ".js",
           "type": "file"
         },
@@ -15483,6 +15504,13 @@
           "path": "src/bugs/5970 scale mode.js",
           "name": "5970 scale mode.js",
           "size": 368,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/5974 headless.js",
+          "name": "5974 headless.js",
+          "size": 657,
           "extension": ".js",
           "type": "file"
         },
@@ -15690,7 +15718,7 @@
           "type": "file"
         }
       ],
-      "size": 103203,
+      "size": 108441,
       "type": "directory"
     },
     {
@@ -29579,6 +29607,6 @@
       "type": "directory"
     }
   ],
-  "size": 7895628,
+  "size": 7900866,
   "type": "directory"
 }

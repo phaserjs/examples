@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="isometric" renderorder="right-down" width="10" height="10" tilewidth="64" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <editorsettings>
+  <export target="tilemaps/sandbox.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="isometric-sandbox-sheet" tilewidth="64" tileheight="64" tilecount="54" columns="6">
+  <image source="tilesets/isometric-sandbox-sheet.png" width="384" height="576"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="10" height="10">
+  <data encoding="csv">
+1,19,37,1,19,37,1,19,37,1,
+19,37,1,19,37,1,19,37,1,19,
+37,1,19,37,1,19,37,1,19,39,
+1,19,37,1,19,37,1,19,37,11,
+19,37,1,19,37,1,19,37,1,19,
+37,1,19,37,1,19,37,1,19,39,
+1,19,37,1,19,37,1,19,37,11,
+19,37,1,19,37,1,19,37,1,19,
+37,1,19,37,1,19,37,1,19,39,
+1,22,54,1,22,54,1,22,54,1
+</data>
+ </layer>
+</map>

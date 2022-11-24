@@ -19,16 +19,7 @@ class Example extends Phaser.Scene
 
         const layer = map.createLayer('Tile Layer 1', tileset);
 
-        console.log(layer.layer.data);
-
-        layer.setAlpha(0.4);
-
-        const graphics = this.add.graphics();
-
-        graphics.lineStyle(1, 0x00ff00);
-        graphics.fillStyle(0xff0000, 0.7);
-
-        window.HEX_DEBUG = graphics;
+        // layer.setScale(2.8, 1.4);
 
         const cursors = this.input.keyboard.createCursorKeys();
 
@@ -47,8 +38,6 @@ class Example extends Phaser.Scene
 
         this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
-        layer.getTileAtWorldXY(0, 0);
-
         const cols = [
             0xff0000,
             0x00ff00,
@@ -62,20 +51,11 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerdown', pointer => {
 
-            const x = pointer.worldX;
-            const y = pointer.worldY;
-
-            // const tileXY = layer.worldToTileXY(x, y, true);
-            // const tileX = layer.worldToTileX(x, true);
-            // const tileY = layer.worldToTileX(y, true);
-            // console.log(tileXY, tileX, tileY);
-            // console.log(tileXY);
-
             const tile = layer.getTileAtWorldXY(pointer.worldX, pointer.worldY);
 
             if (tile)
             {
-                // tile.tint = cols[c];
+                tile.tint = cols[c];
 
                 c++;
 
@@ -98,7 +78,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#000000',
     parent: 'phaser-example',
     pixelArt: true,
     scene: Example

@@ -15356,7 +15356,7 @@
         {
           "path": "src/bugs/5608 hex tile.js",
           "name": "5608 hex tile.js",
-          "size": 1700,
+          "size": 1968,
           "extension": ".js",
           "type": "file"
         },
@@ -15405,7 +15405,7 @@
         {
           "path": "src/bugs/5781 iso tile.js",
           "name": "5781 iso tile.js",
-          "size": 2221,
+          "size": 2270,
           "extension": ".js",
           "type": "file"
         },
@@ -15690,6 +15690,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/6188 map copy.js",
+          "name": "6188 map copy.js",
+          "size": 742,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/6253 tween restart.js",
           "name": "6253 tween restart.js",
           "size": 687,
@@ -15716,9 +15723,16 @@
           "size": 471,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src/bugs/6293 physics.js",
+          "name": "6293 physics.js",
+          "size": 1358,
+          "extension": ".js",
+          "type": "file"
         }
       ],
-      "size": 108441,
+      "size": 110858,
       "type": "directory"
     },
     {
@@ -29607,6 +29621,6 @@
       "type": "directory"
     }
   ],
-  "size": 7900866,
+  "size": 7903283,
   "type": "directory"
 }

@@ -10,9 +10,9 @@ class Demo extends Phaser.Scene
         const path = 'assets/compressed';
 
         this.load.texture('test', {
+            'IMG': { multiAtlasURL: `${path}/multi.json`, multiPath: `${path}` },
             'PVRTC': { type: 'PVR', multiAtlasURL: `${path}/multi-pvr.json`, multiPath: `${path}` },
-            'S3TC': { type: 'PVR', multiAtlasURL: `${path}/multi-dxt5.json`, multiPath: `${path}` },
-            'IMG': { multiAtlasURL: `${path}/multi.json`, multiPath: `${path}` }
+            'S3TC': { type: 'PVR', multiAtlasURL: `${path}/multi-dxt5.json`, multiPath: `${path}` }
         });
     }
 

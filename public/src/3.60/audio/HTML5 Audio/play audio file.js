@@ -29,7 +29,15 @@ function create ()
 {
     this.add.image(400, 300, 'wizball').setScale(4);
 
-    var music = this.sound.add('theme');
+    this.sound.pauseOnBlur = false;
 
-    music.play();
+    this.input.once('pointerdown', () => {
+
+        var music = this.sound.add('theme');
+
+        music.play();
+
+
+    });
+
 }

@@ -1,3 +1,80 @@
+class ButtonComponent extends Phaser.GameObjects.Container {
+    constructor(config) {
+        super(config.scene);
+        this.config = config;
+        this.spawnButton();
+    }
+    spawnButton(){
+
+        this.x = this.config.x;
+        this.y = this.config.y;
+
+        this.background = this.scene.add.image(0,0,this.config.background);
+
+        this.background.setInteractive();
+
+        this.background.on('pointerdown',this.onPush, this);
+        this.background.on('pointerup', this.onPull, this);
+        this.background.on('pointerout', this.onOut, this);
+
+        this.text = this.scene.add.text(0,0,'test',{
+            fontSize: 120 * this.scene.game.scaleHeight * 3,
+            fontFamily: 'Tahoma',
+            padding: 10,
+            lineSpacing: 20,
+            align: 'center',
+            fill: '#ffffff',
+            wordWrap: {
+                width: this.background.displayWidth - 10,
+            }
+        });
+
+        this.firstScale = this.background.scale;
+
+        this.add(this.background);
+        this.add(this.text);
+        this.scene.add.existing(this);
+    }
+
+    destroy(fromScene){
+        super.destroy(fromScene);
+    }
+
+    onPush(){
+        this.tweenObject('push');
+    }
+
+    onPull() {
+        if (typeof this.config.onPush === "function") {
+            this.config.onPush();
+            //this.scene.scene.start('Game');
+        }
+        this.tweenObject('pull');
+    }
+
+    onOut() {
+        this.tweenObject('pull');
+    }
+
+    tweenObject(status) {
+        const pressure = (status === "push" ? 0.9 : 1);
+        if (typeof this.text !== "undefined") {
+            this.config.scene.tweens.add({
+                targets: this.text,
+                scale: this.firstScale * pressure,
+                ease: 'Linear',
+                duration: 100,
+            });
+        }
+        this.scene.tweens.add({
+            targets: this.background,
+            scale: this.firstScale * pressure,
+            ease: 'Linear',
+            duration: 100,
+        });
+    }
+}
+
 class Boot extends Phaser.Scene
 {
     constructor ()
@@ -56,15 +133,26 @@ class Title extends Phaser.Scene
             ease: 'Bounce.out'
         });
 
-        const button = this.add.image(400, 400, 'button');
+        // const button = this.add.image(400, 400, 'button');
 
-        button.setInteractive();
+        // button.setInteractive();
 
-        button.once('pointerdown', () => {
+        // button.once('pointerdown', () => {
 
-            this.scene.start('Game');
+        //     this.scene.start('Game');
 
+        // });
+
+        const button = new ButtonComponent({
+            scene: this,
+            x:400, y:400,
+            background: 'button',
+            onPush:this.goToGameScene.bind(this)
         });
+    }
+
+    goToGameScene() {
+        this.scene.start('Game');
     }
 }
 

@@ -379,6 +379,10 @@
                   "name": "basic playback and events.js"
                 },
                 {
+                  "path": "src\\3.60\\audio\\HTML5 Audio\\disable pause on blur.js",
+                  "name": "disable pause on blur.js"
+                },
+                {
                   "path": "src\\3.60\\audio\\HTML5 Audio\\loop delay.js",
                   "name": "loop delay.js"
                 },
@@ -487,6 +491,10 @@
                 {
                   "path": "src\\3.60\\audio\\Web Audio\\play audio from file pack.js",
                   "name": "play audio from file pack.js"
+                },
+                {
+                  "path": "src\\3.60\\audio\\Web Audio\\play movement sound.js",
+                  "name": "play movement sound.js"
                 },
                 {
                   "path": "src\\3.60\\audio\\Web Audio\\play sound on keypress.js",
@@ -9014,6 +9022,10 @@
           "name": "5608 hex tile.js"
         },
         {
+          "path": "src\\bugs\\5617 push circle.js",
+          "name": "5617 push circle.js"
+        },
+        {
           "path": "src\\bugs\\5667 ios blend.js",
           "name": "5667 ios blend.js"
         },
@@ -9114,6 +9126,10 @@
           "name": "6000 rt resize.js"
         },
         {
+          "path": "src\\bugs\\6001 json datakey.js",
+          "name": "6001 json datakey.js"
+        },
+        {
           "path": "src\\bugs\\6005 tween play.js",
           "name": "6005 tween play.js"
         },
@@ -9200,6 +9216,10 @@
         {
           "path": "src\\bugs\\6180 cam zoom snapshot.js",
           "name": "6180 cam zoom snapshot.js"
+        },
+        {
+          "path": "src\\bugs\\6187 word wrap.js",
+          "name": "6187 word wrap.js"
         },
         {
           "path": "src\\bugs\\6188 map copy.js",

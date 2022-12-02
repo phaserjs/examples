@@ -2581,6 +2581,20 @@
               ]
             },
             {
+              "path": "src\\3.60\\game objects\\nine slice",
+              "name": "nine slice",
+              "children": [
+                {
+                  "path": "src\\3.60\\game objects\\nine slice\\create nine slice.js",
+                  "name": "create nine slice.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\nine slice\\debug.js",
+                  "name": "debug.js"
+                }
+              ]
+            },
+            {
               "path": "src\\3.60\\game objects\\particle emitter",
               "name": "particle emitter",
               "children": [
@@ -3523,6 +3537,10 @@
                 {
                   "path": "src\\3.60\\game objects\\video\\multiple videos.js",
                   "name": "multiple videos.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\video\\on complete event.js",
+                  "name": "on complete event.js"
                 },
                 {
                   "path": "src\\3.60\\game objects\\video\\play video.js",

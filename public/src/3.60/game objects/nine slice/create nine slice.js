@@ -15,7 +15,16 @@ class Example extends Phaser.Scene
     {
         // this.add.image(400, 170, 'test');
 
-        window.nine = this.add.nineslice(400, 300, 'test2');
+        window.nine = this.add.nineslice({ left: 50, right: 50, width: 700 }, 400, 300, 'test2');
+
+        this.tweens.add({
+            targets: window.nine,
+            width: 300,
+            duration: 3000,
+            ease: 'sine.inout',
+            yoyo: true,
+            repeat: -1
+        });
     }
 }
 

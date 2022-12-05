@@ -8,13 +8,14 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.image('test', 'assets/sprites/128x128.png');
+        this.load.image('test2', 'assets/sprites/button-bg.png');
     }
 
     create ()
     {
-        this.add.image(400, 170, 'test');
+        // this.add.image(400, 170, 'test');
 
-        this.add.nineslice(400, 300, 'test');
+        window.nine = this.add.nineslice(400, 300, 'test2');
     }
 }
 

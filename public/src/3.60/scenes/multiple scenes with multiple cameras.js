@@ -1,22 +1,18 @@
-var Background = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Background ()
+class Background extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'background', active: true });
+        super({ key: 'background', active: true });
 
         this.image;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('einstein', 'assets/pics/ra-einstein.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.image = this.add.image(200, 150, 'einstein');
 
@@ -25,44 +21,38 @@ var Background = new Phaser.Class({
         this.cameras.add(400, 0, 400, 300);
         this.cameras.add(0, 300, 400, 300);
         this.cameras.add(400, 300, 400, 300);
-    },
+    }
 
-    update: function ()
+    update ()
     {
         this.image.rotation += 0.01;
     }
+}
 
-});
-
-var Demo = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Demo ()
+class Demo extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'demo', active: true });
-    },
+        super({ key: 'demo', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('arrow', 'assets/sprites/longarrow.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.arrow = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.arrow.rotation += 0.01;
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -71,4 +61,4 @@ var config = {
     scene: [ Background, Demo ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

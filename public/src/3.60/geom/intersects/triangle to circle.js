@@ -1,57 +1,58 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    graphics;
+    circle;
+    triangle;
+
+    create ()
+    {
+        this.graphics = this.add.graphics();
+
+        this.triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 200);
+
+        this.circle = new Phaser.Geom.Circle(300, 400, 60);
+
+        this.graphics.lineStyle(2, 0x00ff00);
+        this.graphics.strokeTriangleShape(this.triangle);
+        this.graphics.lineStyle(2, 0xffff00);
+        this.graphics.strokeCircleShape(this.circle);
+
+        this.input.on('pointermove', pointer =>
+        {
+
+            this.circle.x = pointer.x;
+            this.circle.y = pointer.y;
+
+        });
+    }
+
+    update ()
+    {
+        Phaser.Geom.Triangle.Rotate(this.triangle, 0.02);
+
+        this.graphics.clear();
+        this.graphics.lineStyle(2, 0x00ff00);
+        this.graphics.strokeTriangleShape(this.triangle);
+
+        if (Phaser.Geom.Intersects.TriangleToCircle(this.triangle, this.circle))
+        {
+            this.graphics.lineStyle(2, 0xff0000);
+        }
+        else
+        {
+            this.graphics.lineStyle(2, 0xffff00);
+        }
+
+        this.graphics.strokeCircleShape(this.circle);
+    }
+}
+
+const config = {
     width: 800,
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-var triangle;
-var circle;
-var graphics;
-
-function create ()
-{
-    graphics = this.add.graphics();
-
-    triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 200);
-
-    circle = new Phaser.Geom.Circle(300, 400, 60);
-
-    graphics.lineStyle(2, 0x00ff00);
-    graphics.strokeTriangleShape(triangle);
-    graphics.lineStyle(2, 0xffff00);
-    graphics.strokeCircleShape(circle);
-
-    this.input.on('pointermove', function (pointer) {
-
-        circle.x = pointer.x;
-        circle.y = pointer.y;
-
-    });
-}
-
-function update ()
-{
-    Phaser.Geom.Triangle.Rotate(triangle, 0.02);
-
-    graphics.clear();
-    graphics.lineStyle(2, 0x00ff00);
-    graphics.strokeTriangleShape(triangle);
-
-    if (Phaser.Geom.Intersects.TriangleToCircle(triangle, circle))
-    {
-        graphics.lineStyle(2, 0xff0000);
-    }
-    else
-    {
-        graphics.lineStyle(2, 0xffff00);
-    }
-
-    graphics.strokeCircleShape(circle);
-}
+const game = new Phaser.Game(config);

@@ -1,56 +1,58 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    rect;
+    bottomRight;
+    bottomLeft;
+    topRight;
+    topLeft;
+    image;
+
+    preload ()
+    {
+        this.load.image('einstein', 'assets/pics/ra-einstein.png');
+        this.load.image('ball', 'assets/sprites/blue_ball.png');
+    }
+
+    create ()
+    {
+        this.image = this.add.image(400, 300, 'einstein');
+        this.topLeft = this.add.image(400,300, 'ball');
+        this.topRight = this.add.image(400,300, 'ball');
+        this.bottomLeft = this.add.image(400,300, 'ball');
+        this.bottomRight = this.add.image(400,300, 'ball');
+
+        this.image.setScale(0.5,0.5);
+
+        this.rect = this.image.getBounds();
+
+        this.topLeft.setPosition(this.rect.x,this.rect.y);
+        this.topRight.setPosition(this.rect.x + this.rect.width, this.rect.y);
+        this.bottomLeft.setPosition(this.rect.x, this.rect.y + this.rect.height);
+        this.bottomRight.setPosition(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
+
+    }
+
+    update ()
+    {
+        this.image.rotation += 0.01;
+
+        this.rect = this.image.getBounds();
+
+        this.topLeft.setPosition(this.rect.x,this.rect.y);
+        this.topRight.setPosition(this.rect.x + this.rect.width,this.rect.y);
+        this.bottomLeft.setPosition(this.rect.x,this.rect.y + this.rect.height);
+        this.bottomRight.setPosition(this.rect.x + this.rect.width,this.rect.y + this.rect.height);
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var image;
-var top_left, top_right, bot_left, bot_right;
 // var line;
-var game = new Phaser.Game(config);
-// var graphics;
-var rect;
-
-function preload ()
-{
-    this.load.image('einstein', 'assets/pics/ra-einstein.png');
-    this.load.image('ball', 'assets/sprites/blue_ball.png');
-}
-
-function create ()
-{
-    image = this.add.image(400, 300, 'einstein');
-    top_left = this.add.image(400,300, 'ball');
-    top_right = this.add.image(400,300, 'ball');
-    bot_left = this.add.image(400,300, 'ball');
-    bot_right = this.add.image(400,300, 'ball');
-
-    image.setScale(.5,.5);
-
-    rect = image.getBounds();
-
-    top_left.setPosition(rect.x,rect.y);
-    top_right.setPosition(rect.x+rect.width, rect.y);
-    bot_left.setPosition(rect.x, rect.y+rect.height);
-    bot_right.setPosition(rect.x+rect.width, rect.y+rect.height);
-
-}
-
-function update ()
-{
-    image.rotation += 0.01;
-
-    rect = image.getBounds();
-
-    top_left.setPosition(rect.x,rect.y);
-    top_right.setPosition(rect.x+rect.width,rect.y);
-    bot_left.setPosition(rect.x,rect.y+rect.height);
-    bot_right.setPosition(rect.x+rect.width,rect.y+rect.height);
-}
+const game = new Phaser.Game(config);

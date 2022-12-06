@@ -1,51 +1,53 @@
-var config = {
-    width: 800,
-    height: 600,
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    scene: {
-        create: create
-    }
-};
-
-var game = new Phaser.Game(config);
-
-function create ()
+class Example extends Phaser.Scene
 {
-    var graphics = this.add.graphics({ fillStyle: { color: 0x00aaaa } });
-
-    var ellipses = [];
-
-    for(var x = 0; x < 10; x++)
+    create ()
     {
-        ellipses[x] = [];
-        for(var y = 0; y < 10; y++)
+        const graphics = this.add.graphics({ fillStyle: { color: 0x00aaaa } });
+
+        const ellipses = [];
+
+        for (let x = 0; x < 10; x++)
         {
-            ellipses[x][y] = new Phaser.Geom.Ellipse(40 + x * 80, 30 + y * 60, 80, 60);
+            ellipses[x] = [];
+            for (let y = 0; y < 10; y++)
+            {
+                ellipses[x][y] = new Phaser.Geom.Ellipse(40 + x * 80, 30 + y * 60, 80, 60);
+            }
         }
-    }
 
-    this.input.on('pointerdown', function (pointer) {
-        var x = Math.floor(pointer.x / 80);
-        var y = Math.floor(pointer.y / 60);
+        this.input.on('pointerdown', pointer =>
+        {
+            const x = Math.floor(pointer.x / 80);
+            const y = Math.floor(pointer.y / 60);
 
-        ellipses[x][y].setEmpty();
+            ellipses[x][y].setEmpty();
+
+            redraw();
+        });
 
         redraw();
-    });
 
-    redraw();
-
-    function redraw ()
-    {
-        graphics.clear();
-
-        for(var x = 0; x < 10; x++)
+        function redraw ()
         {
-            for(var y = 0; y < 10; y++)
+            graphics.clear();
+
+            for (let x = 0; x < 10; x++)
             {
-                graphics.fillEllipseShape(ellipses[x][y]);
+                for (let y = 0; y < 10; y++)
+                {
+                    graphics.fillEllipseShape(ellipses[x][y]);
+                }
             }
         }
     }
 }
+
+const config = {
+    width: 800,
+    height: 600,
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
+    scene: Example
+};
+
+const game = new Phaser.Game(config);

@@ -1,26 +1,23 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA' });
+        super({ key: 'sceneA' });
 
         this.face;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('face', 'assets/pics/bw-face.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.face = this.add.image(0, 0, 'face').setOrigin(0);
 
-        this.input.once('pointerdown', function () {
+        this.input.once('pointerdown', function ()
+        {
 
             this.scene.transition({
                 target: 'sceneB',
@@ -31,37 +28,33 @@ var SceneA = new Phaser.Class({
             });
 
         }, this);
-    },
+    }
 
-    transitionOut: function (progress)
+    transitionOut (progress)
     {
         this.face.y = (600 * progress);
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneB' });
-    },
+        super({ key: 'sceneB' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('arrow', 'assets/sprites/longarrow.png');
         this.load.image('planet', 'assets/tests/space/purple-planet.png');
-    },
+    }
 
-    create: function (data)
+    create (data)
     {
-        var planet = this.add.image(data.x, data.y, 'planet').setScale(0);
+        const planet = this.add.image(data.x, data.y, 'planet').setScale(0);
 
-        this.events.on('transitionstart', function (fromScene, duration) {
+        this.events.on('transitionstart', function (fromScene, duration)
+        {
 
             this.tweens.add({
                 targets: planet,
@@ -72,9 +65,10 @@ var SceneB = new Phaser.Class({
 
         }, this);
 
-        this.events.on('transitioncomplete', function () { console.log('Complete'); });
+        this.events.on('transitioncomplete', () => { console.log('Complete'); });
 
-        this.events.on('transitionout', function (toScene, duration) {
+        this.events.on('transitionout', function (toScene, duration)
+        {
 
             this.tweens.add({
                 targets: planet,
@@ -87,7 +81,8 @@ var SceneB = new Phaser.Class({
 
         this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function (event) {
+        this.input.once('pointerdown', function (event)
+        {
 
             this.scene.transition({
                 target: 'sceneC',
@@ -95,45 +90,40 @@ var SceneB = new Phaser.Class({
             });
 
         }, this);
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.arrow.rotation += 0.01;
     }
+}
 
-});
-
-var SceneC = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneC ()
+class SceneC extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneC' });
-    },
+        super({ key: 'sceneC' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('mech', 'assets/pics/titan-mech.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.add.sprite(Phaser.Math.Between(0, 800), 300, 'mech');
 
-        this.input.once('pointerdown', function (event) {
+        this.input.once('pointerdown', function (event)
+        {
 
             this.scene.start('sceneA');
 
         }, this);
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -142,4 +132,4 @@ var config = {
     scene: [ SceneA, SceneB, SceneC ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

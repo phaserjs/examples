@@ -1,72 +1,66 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, 'sceneA');
+        super('sceneA');
 
         this.pic;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('arrow', 'assets/sprites/longarrow.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once(Phaser.Input.Events.POINTER_DOWN, function () {
+        this.input.once(Phaser.Input.Events.POINTER_DOWN, function ()
+        {
 
             this.scene.switch('sceneB');
 
         }, this);
 
-        this.events.on(Phaser.Scenes.Events.WAKE, function() {
+        this.events.on(Phaser.Scenes.Events.WAKE, function ()
+        {
             this.wake(this.input, this.scene);
         }, this);
-    },
+    }
 
-    wake: function (input, scene)
+    wake (input, scene)
     {
-        input.once(Phaser.Input.Events.POINTER_DOWN, function () {
+        input.once(Phaser.Input.Events.POINTER_DOWN, () =>
+        {
             scene.switch('sceneB');
 
         }, this);
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.pic.rotation += 0.01;
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, 'sceneB');
+        super('sceneB');
 
         this.graphics;
         this.timerEvent;
         this.clockSize = 240;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('face', 'assets/pics/bw-face.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
 
         this.add.image(400, 300, 'face').setAlpha(0.5);
@@ -75,45 +69,48 @@ var SceneB = new Phaser.Class({
 
         this.graphics = this.add.graphics({ x: 0, y: 0 });
 
-        this.input.once(Phaser.Input.Events.POINTER_DOWN, function (event) {
+        this.input.once(Phaser.Input.Events.POINTER_DOWN, function (event)
+        {
             this.scene.switch('sceneA');
         }, this);
 
-        this.events.on(Phaser.Scenes.Events.WAKE, function() {
+        this.events.on(Phaser.Scenes.Events.WAKE, function ()
+        {
             this.wake(this.input, this.scene);
         }, this);
-    },
+    }
 
-    wake: function (input, scene)
+    wake (input, scene)
     {
-        input.once(Phaser.Input.Events.POINTER_DOWN, function (event) {
+        input.once(Phaser.Input.Events.POINTER_DOWN, event =>
+        {
             scene.switch('sceneA');
         }, this);
-    },
+    }
 
-    update: function ()
+    update ()
     {
         this.graphics.clear();
 
         this.drawClock(400, 300, this.timerEvent);
-    },
+    }
 
-    drawClock: function (x, y, timer)
+    drawClock (x, y, timer)
     {
         //  Progress is between 0 and 1, where 0 = the hand pointing up and then rotating clockwise a full 360
 
-        var graphics = this.graphics;
-        var clockSize = this.clockSize;
+        const graphics = this.graphics;
+        const clockSize = this.clockSize;
 
         //  The frame
         graphics.lineStyle(6, 0xffffff, 1);
         graphics.strokeCircle(x, y, clockSize);
 
-        var angle;
-        var dest;
-        var p1;
-        var p2;
-        var size;
+        let angle;
+        let dest;
+        let p1;
+        let p2;
+        let size;
 
         //  The overall progress hand (only if repeat > 0)
         if (timer.repeat > 0)
@@ -172,10 +169,9 @@ var SceneB = new Phaser.Class({
         graphics.strokePath();
         graphics.closePath();
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -184,4 +180,4 @@ var config = {
     scene: [ SceneA, SceneB ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

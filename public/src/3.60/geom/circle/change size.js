@@ -1,29 +1,30 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    create ()
+    {
+        const circle = new Phaser.Geom.Circle(400, 300, 100);
+
+        const graphics = this.add.graphics({ fillStyle: { color: 0xff0000 } });
+        graphics.fillCircleShape(circle);
+
+        circle.diameter = circle.radius;
+
+        graphics.fillStyle(0x00ff00);
+        graphics.fillCircleShape(circle);
+
+        circle.radius = 10;
+
+        graphics.fillStyle(0x0000ff);
+        graphics.fillCircleShape(circle);
+    }
+}
+
+const config = {
     width: 800,
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function create ()
-{
-    var circle = new Phaser.Geom.Circle(400, 300, 100);
-
-    var graphics = this.add.graphics({ fillStyle: { color: 0xff0000 } });
-    graphics.fillCircleShape(circle);
-
-    circle.diameter = circle.radius;
-
-    graphics.fillStyle(0x00ff00);
-    graphics.fillCircleShape(circle);
-
-    circle.radius = 10;
-
-    graphics.fillStyle(0x0000ff);
-    graphics.fillCircleShape(circle);
-}
+const game = new Phaser.Game(config);

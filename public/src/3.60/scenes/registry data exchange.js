@@ -1,63 +1,53 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA' });
+        super({ key: 'sceneA' });
 
         this.score = 0;
-    },
+    }
 
-    create: function ()
+    create ()
     {
         //  Store the score in the Registry
         this.registry.set('score', this.score);
 
         //  Update the score every 500ms
         this.time.addEvent({ delay: 500, callback: this.onEvent, callbackScope: this, loop: true });
-    },
+    }
 
-    onEvent: function ()
+    onEvent ()
     {
         this.score++;
 
         this.registry.set('score', this.score);
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneB', active: true });
+        super({ key: 'sceneB', active: true });
 
         this.text;
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.text = this.add.text(100, 100, 'Monitoring Registry');
 
         //  Check the Registry and hit our callback every time the 'score' value is updated
         this.registry.events.on('changedata', this.updateScore, this);
-    },
-
-    updateScore: function (parent, key, data)
-    {
-        this.text.setText('Score: ' + data);
     }
 
-});
+    updateScore (parent, key, data)
+    {
+        this.text.setText(`Score: ${data}`);
+    }
+}
 
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -66,4 +56,4 @@ var config = {
     scene: [ SceneA, SceneB ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

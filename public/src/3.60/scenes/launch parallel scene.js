@@ -1,96 +1,82 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA' });
-    },
+        super({ key: 'sceneA' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('face', 'assets/pics/bw-face.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.add.image(400, 300, 'face').setAlpha(0.2);
 
-        var _this = this;
+        const _this = this;
 
-        this.input.once('pointerdown', function () {
+        this.input.once('pointerdown', function ()
+        {
 
             this.scene.launch('sceneB');
             this.scene.launch('sceneC');
 
         }, this);
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneB' });
+        super({ key: 'sceneB' });
 
         this.pic;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('arrow', 'assets/sprites/longarrow.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.pic.rotation += 0.01;
     }
+}
 
-});
-
-var SceneC = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneC ()
+class SceneC extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneC' });
+        super({ key: 'sceneC' });
 
         this.pic;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('mech', 'assets/pics/titan-mech.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.pic = this.add.image(Phaser.Math.Between(300, 600), 300, 'mech');
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.pic.rotation -= 0.02;
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -99,4 +85,4 @@ var config = {
     scene: [ SceneA, SceneB, SceneC ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

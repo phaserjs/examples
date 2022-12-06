@@ -1,38 +1,38 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    y = 0;
+    graphics;
+    rect2;
+    rect1;
+
+    create ()
+    {
+        this.graphics = this.add.graphics({ fillStyle: { color: 0x0000aa } });
+
+        this.rect1 = new Phaser.Geom.Rectangle(100, 0, 250, 100);
+        this.rect2 = new Phaser.Geom.Rectangle(450, 0, 250, 100);
+    }
+
+    update ()
+    {
+        this.y += 0.05;
+
+        this.rect1.y = this.rect2.y = this.y;
+
+        Phaser.Geom.Rectangle.Floor(this.rect2);
+
+        this.graphics.clear();
+        this.graphics.fillRectShape(this.rect1);
+        this.graphics.fillRectShape(this.rect2);
+    }
+}
+
+const config = {
     width: 800,
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-var rect1;
-var rect2;
-var graphics;
-var y = 0;
-
-function create ()
-{
-    graphics = this.add.graphics({ fillStyle: { color: 0x0000aa } });
-
-    rect1 = new Phaser.Geom.Rectangle(100, 0, 250, 100);
-    rect2 = new Phaser.Geom.Rectangle(450, 0, 250, 100);
-}
-
-function update ()
-{
-    y += 0.05;
-
-    rect1.y = rect2.y = y;
-
-    Phaser.Geom.Rectangle.Floor(rect2);
-
-    graphics.clear();
-    graphics.fillRectShape(rect1);
-    graphics.fillRectShape(rect2);
-}
+const game = new Phaser.Game(config);

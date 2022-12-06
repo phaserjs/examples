@@ -1,37 +1,38 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    t = 0;
+    rotateY = 250;
+    rotateX = 350;
+    triangle;
+    graphics;
+
+    create ()
+    {
+        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaaaa00 }, fillStyle: { color: 0x0000aa } });
+
+        this.triangle = new Phaser.Geom.Triangle.BuildRight(200, 360, 200, 200);
+    }
+
+    update ()
+    {
+        this.graphics.clear();
+
+        this.t += 0.01;
+
+        Phaser.Geom.Triangle.RotateAroundXY(this.triangle, this.rotateX, this.rotateY, Math.sin(this.t) * 0.05);
+
+        this.graphics.strokeTriangleShape(this.triangle);
+
+        this.graphics.fillPoint(this.rotateX, this.rotateY, 4);
+    }
+}
+
+const config = {
     width: 800,
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-var graphics;
-var triangle;
-var rotateX = 350;
-var rotateY = 250;
-var t = 0;
-
-function create ()
-{
-    graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaaaa00 }, fillStyle: { color: 0x0000aa } });
-
-    triangle = new Phaser.Geom.Triangle.BuildRight(200, 360, 200, 200);
-}
-
-function update ()
-{
-    graphics.clear();
-
-    t += 0.01;
-
-    Phaser.Geom.Triangle.RotateAroundXY(triangle, rotateX, rotateY, Math.sin(t) * 0.05);
-
-    graphics.strokeTriangleShape(triangle);
-
-    graphics.fillPoint(rotateX, rotateY, 4);
-}
+const game = new Phaser.Game(config);

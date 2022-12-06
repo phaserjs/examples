@@ -1,53 +1,59 @@
-var config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    backgroundColor: '#cc9999',
-    scene: {
-        preload: preload,
-        create: create
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('brush', 'assets/sprites/brush2.png');
     }
-};
 
-var game = new Phaser.Game(config);
+    create ()
+    {
+        const rt = this.add.renderTexture(0, 0, 800, 600);
 
-function preload ()
-{
-    this.load.image('brush', 'assets/sprites/brush2.png');
-}
+        const brush = this.textures.getFrame('brush');
 
-function create ()
-{
-    var rt = this.add.renderTexture(0, 0, 800, 600);
+        const hsv = Phaser.Display.Color.HSVColorWheel();
+        let i = 0;
 
-    var brush = this.textures.getFrame('brush');
-
-    var hsv = Phaser.Display.Color.HSVColorWheel();
-    var i = 0;
-
-    this.input.on('pointermove', function (pointer) {
-
-        if (pointer.isDown)
+        this.input.on('pointermove', pointer =>
         {
-            var points = pointer.getInterpolatedPosition(30);
-            var first = false;
 
-            points.forEach(function (p) {
+            if (pointer.isDown)
+            {
+                const points = pointer.getInterpolatedPosition(30);
+                let first = false;
+                let color;
 
-                if (!first)
+                points.forEach(p =>
                 {
-                    color = 0x000000;
-                    first = true;
-                }
-                else
+
+                    if (!first)
+                    {
+                        color = 0x000000;
+                        first = true;
+                    }
+                    else
+                    {
+                        color = hsv[i].color;
+                    }
+
+                    rt.draw(brush, p.x - 16, p.y - 16, 1, color);
+
+                });
+
+                i++;
+
+                if (i === 360)
                 {
-                    color = hsv[i].color;
+                    i = 0;
                 }
+            }
 
-                rt.draw(brush, p.x - 16, p.y - 16, 1, color);
+        }, this);
 
-            });
+        this.input.on('pointerdown', pointer =>
+        {
+
+            rt.draw(brush, pointer.x - 16, pointer.y - 16, 1, hsv[i].color);
 
             i++;
 
@@ -55,21 +61,19 @@ function create ()
             {
                 i = 0;
             }
-        }
 
-    }, this);
+        }, this);
 
-    this.input.on('pointerdown', function (pointer) {
-
-        rt.draw(brush, pointer.x - 16, pointer.y - 16, 1, hsv[i].color);
-
-        i++;
-
-        if (i === 360)
-        {
-            i = 0;
-        }
-
-    }, this);
-
+    }
 }
+
+const config = {
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    backgroundColor: '#cc9999',
+    scene: Example
+};
+
+const game = new Phaser.Game(config);

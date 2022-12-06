@@ -1,19 +1,13 @@
-/**
- * @author    Pavle Goloskokovic <pgoloskokovic@gmail.com> (http://prunegames.com)
- */
+class SceneA extends Phaser.Scene
+{
+    jungle;
 
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA' });
-    },
+        super({ key: 'sceneA' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.audio('jungle', [
             'assets/audio/jungle.ogg',
@@ -23,111 +17,103 @@ var SceneA = new Phaser.Class({
         this.load.image('wizball', 'assets/sprites/wizball.png');
 
         this.load.bitmapFont('atari-classic', 'assets/fonts/bitmap/atari-classic.png', 'assets/fonts/bitmap/atari-classic.xml');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         console.log('SceneA');
 
-        var text = this.add.bitmapText(400, 100, 'atari-classic', '', 30)
+        const text = this.add.bitmapText(400, 100, 'atari-classic', '', 30)
             .setOrigin(0.5);
 
         this.add.image(400, 300, 'wizball');
 
-        var jungle = this.sound.add('jungle');
+        this.jungle = this.sound.add('jungle');
 
-        jungle.play({
+        this.jungle.play({
             loop: true
         });
 
-        if(this.sound.locked)
+        if (this.sound.locked)
         {
             text.setText('Tap to unlock\nand play music');
 
             this.sound.once('unlocked', function (soundManager)
             {
-                setupSceneInput.call(this, text, jungle);
+                this.setupSceneInput(text);
 
             }, this);
         }
         else
         {
-            setupSceneInput.call(this, text, jungle);
+            this.setupSceneInput(text);
         }
     }
-});
 
-setupSceneInput = function (text, jungle)
-{
-    text.setText(' Tap to load and play\nmusic from child scene');
-
-    this.input.once('pointerup', function () {
-
-        jungle.stop();
-
-        this.scene.start('sceneB');
-
-    }, this);
-};
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+    setupSceneInput (text)
     {
-        Phaser.Scene.call(this, { key: 'sceneB' });
-    },
+        text.setText(' Tap to load and play\nmusic from child scene');
 
-    preload: function ()
+        this.input.once('pointerup', function ()
+        {
+
+            this.jungle.stop();
+
+            this.scene.start('sceneB');
+
+        }, this);
+    }
+}
+
+class SceneB extends Phaser.Scene
+{
+    constructor ()
+    {
+        super({ key: 'sceneB' });
+    }
+
+    preload ()
     {
         this.load.audio('theme', [
             'assets/audio/oedipus_wizball_highscore.ogg',
             'assets/audio/oedipus_wizball_highscore.mp3'
         ]);
-    },
+    }
 
-    create: function ()
+    create ()
     {
         console.log('SceneB');
 
         this.scene.start('sceneC');
     }
+}
 
-});
-
-var SceneC = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneC ()
+class SceneC extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneC' });
-    },
+        super({ key: 'sceneC' });
+    }
 
-    create: function ()
+    create ()
     {
         console.log('SceneC');
 
         this.add.image(400, 300, 'wizball').setScale(4);
 
-        var music = this.sound.add('theme');
+        const music = this.sound.add('theme');
 
         music.play({
             loop: true
         });
 
-        if(this.sound.locked)
+        if (this.sound.locked)
         {
-            var text = this.add.bitmapText(400, 100, 'atari-classic',
+            const text = this.add.bitmapText(400, 100, 'atari-classic',
                 'Tap to unlock and play\nmusic from child scene', 30)
                 .setOrigin(0.5);
 
-            this.sound.once('unlocked', function (soundManager)
+            this.sound.once('unlocked', soundManager =>
             {
                 text.visible = false;
 
@@ -135,9 +121,9 @@ var SceneC = new Phaser.Class({
         }
 
     }
-});
+}
 
-var config = {
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
@@ -149,4 +135,4 @@ var config = {
     scene: [ SceneA, SceneB, SceneC ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

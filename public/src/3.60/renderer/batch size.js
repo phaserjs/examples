@@ -1,4 +1,25 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('mushroom', 'assets/sprites/mushroom16x16.png');
+    }
+
+    create ()
+    {
+        //  64 x 32 = 2048
+
+        for (let y = 0; y < 32; y++)
+        {
+            for (let x = 0; x < 64; x++)
+            {
+                this.add.image(x * 16, y * 16, 'mushroom').setOrigin(0);
+            }
+        }
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     width: 1024,
@@ -7,28 +28,7 @@ var config = {
         //  A custom batch size of 1024 quads
         batchSize: 1024
     },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('mushroom', 'assets/sprites/mushroom16x16.png');
-}
-
-function create ()
-{
-    //  64 x 32 = 2048
-
-    for (var y = 0; y < 32; y++)
-    {
-        for (var x = 0; x < 64; x++)
-        {
-            this.add.image(x * 16, y * 16, 'mushroom').setOrigin(0);
-        }
-    }
-}
+const game = new Phaser.Game(config);

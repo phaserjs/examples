@@ -1,85 +1,73 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA', active: true });
-    },
+        super({ key: 'sceneA', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('bg', 'assets/ui/undersea-bg.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
-        var bg = this.add.image(400, 300, 'bg').setInteractive();
+        const bg = this.add.image(400, 300, 'bg').setInteractive();
 
-        bg.on('pointerdown', function () {
+        bg.on('pointerdown', () =>
+        {
             console.log('Scene A');
         });
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneB', active: true });
-    },
+        super({ key: 'sceneB', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('up', 'assets/ui/up-bubble.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
-        var button = this.add.image(400, 300, 'up').setInteractive();
+        const button = this.add.image(400, 300, 'up').setInteractive();
 
-        button.on('pointerdown', function () {
+        button.on('pointerdown', () =>
+        {
             console.log('Scene B');
         });
     }
+}
 
-});
-
-var SceneC = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneC ()
+class SceneC extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneC', active: true });
-    },
+        super({ key: 'sceneC', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('down', 'assets/ui/down-bubble.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
-        var button = this.add.image(500, 300, 'down').setInteractive();
+        const button = this.add.image(500, 300, 'down').setInteractive();
 
-        button.on('pointerdown', function () {
+        button.on('pointerdown', () =>
+        {
             console.log('Scene C');
         });
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -88,4 +76,4 @@ var config = {
     scene: [ SceneA, SceneB, SceneC ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

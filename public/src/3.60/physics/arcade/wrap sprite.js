@@ -1,4 +1,26 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    block;
+
+    preload ()
+    {
+        this.load.image('block', 'assets/sprites/block.png');
+    }
+
+    create ()
+    {
+        this.block = this.physics.add.image(0, 0, 'block');
+
+        this.block.setVelocity(150, 150);
+    }
+
+    update ()
+    {
+        this.physics.world.wrap(this.block, 48);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -10,30 +32,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var block;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('block', 'assets/sprites/block.png');
-}
-
-function create ()
-{
-    block = this.physics.add.image(0, 0, 'block');
-
-    block.setVelocity(150, 150);
-}
-
-function update ()
-{
-    this.physics.world.wrap(block, 48);
-}
+const game = new Phaser.Game(config);

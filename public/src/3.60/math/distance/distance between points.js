@@ -1,52 +1,59 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    graphic;
+    ufo;
+    player;
+    cursors;
+
+    preload ()
+    {
+        this.load.image('eyes', 'assets/sprites/slimeeyes.png');
+        this.load.image('ufo', 'assets/sprites/ufo.png');
+    }
+
+    create ()
+    {
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.player = this.add.image(400, 300, 'eyes');
+
+        this.ufo = this.add.image(200, 150, 'ufo');
+
+        this.graphic = this.add.graphics({ lineStyle: { color: 0x00ffff } });
+    }
+
+    update ()
+    {
+        if (this.cursors.left.isDown)
+        {
+            this.player.x -= 5;
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.player.x += 5;
+        }
+
+        if (this.cursors.up.isDown)
+        {
+            this.player.y -= 5;
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.player.y += 5;
+        }
+
+        const dist = Phaser.Math.Distance.BetweenPoints(this.player, this.ufo);
+
+        this.graphic
+            .clear()
+            .strokeCircle(this.player.x, this.player.y, dist);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var cursors;
-var player;
-var ufo;
-
-var game = new Phaser.Game(config);
-
-function preload() {
-    this.load.image('eyes', 'assets/sprites/slimeeyes.png');
-    this.load.image('ufo', 'assets/sprites/ufo.png');
-}
-
-function create() {
-    cursors = this.input.keyboard.createCursorKeys();
-
-    player = this.add.image(400, 300, 'eyes');
-
-    ufo = this.add.image(200, 150, 'ufo');
-
-    graphic = this.add.graphics({ lineStyle: { color: 0x00ffff } });
-}
-
-function update() {
-    if (cursors.left.isDown) {
-        player.x -= 5;
-    }
-    else if (cursors.right.isDown) {
-        player.x += 5;
-    }
-
-    if (cursors.up.isDown) {
-        player.y -= 5;
-    }
-    else if (cursors.down.isDown) {
-        player.y += 5;
-    }
-
-    var dist = Phaser.Math.Distance.BetweenPoints(player, ufo);
-
-    graphic
-        .clear()
-        .strokeCircle(player.x, player.y, dist);
-}
+const game = new Phaser.Game(config);

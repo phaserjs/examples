@@ -1,107 +1,98 @@
-var Boot = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Boot ()
+class Boot extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'boot', active: true });
-    },
+        super({ key: 'boot', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('atari1', 'assets/sprites/atari400.png');
         this.load.image('atari2', 'assets/sprites/atari1200xl.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.scene.start('sceneA');
         this.scene.launch('sceneB');
     }
+}
 
-});
-
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA' });
-    },
+        super({ key: 'sceneA' });
+    }
 
-    create: function ()
+    create ()
     {
-        var image = this.add.sprite(200, 300, 'atari1').setInteractive();
+        const image = this.add.sprite(200, 300, 'atari1').setInteractive();
 
         this.input.setDraggable(image);
 
-        image.on('dragstart', function (pointer) {
+        image.on('dragstart', function (pointer)
+        {
 
             this.setTint(0xff0000);
 
         });
 
-        image.on('drag', function (pointer, dragX, dragY) {
+        image.on('drag', function (pointer, dragX, dragY)
+        {
 
             this.x = dragX;
             this.y = dragY;
 
         });
 
-        image.on('dragend', function (pointer) {
+        image.on('dragend', function (pointer)
+        {
 
             this.clearTint();
 
         });
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneB' });
-    },
+        super({ key: 'sceneB' });
+    }
 
-    create: function ()
+    create ()
     {
-        var image = this.add.sprite(600, 300, 'atari2').setInteractive();
+        const image = this.add.sprite(600, 300, 'atari2').setInteractive();
 
         this.input.setDraggable(image);
 
-        image.on('dragstart', function (pointer) {
+        image.on('dragstart', function (pointer)
+        {
 
             this.setTint(0xff0000);
 
         });
 
-        image.on('drag', function (pointer, dragX, dragY) {
+        image.on('drag', function (pointer, dragX, dragY)
+        {
 
             this.x = dragX;
             this.y = dragY;
 
         });
 
-        image.on('dragend', function (pointer) {
+        image.on('dragend', function (pointer)
+        {
 
             this.clearTint();
 
         });
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
@@ -109,4 +100,4 @@ var config = {
     scene: [ Boot, SceneA, SceneB ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

@@ -1,51 +1,43 @@
-var Preloader = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Preloader ()
+class Preloader extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, 'preloader');
-    },
+        super('preloader');
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('raster', 'assets/demoscene/raster-bw-64.png');
         this.load.image('planet', 'assets/tests/space/purple-planet.png');
         this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.scene.start('demo1');
     }
+}
 
-});
-
-var Demo1 = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Demo1 ()
+class Demo1 extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, 'demo1');
-    },
+        super('demo1');
+    }
 
-    create: function ()
+    create ()
     {
-        var group = this.add.group();
+        const group = this.add.group();
 
         group.createMultiple({ key: 'raster', repeat: 8 });
 
-        var ci = 0;
-        var colors = [ 0xef658c, 0xff9a52, 0xffdf00, 0x31ef8c, 0x21dfff, 0x31aade, 0x5275de, 0x9c55ad, 0xbd208c ];
+        let ci = 0;
+        const colors = [ 0xef658c, 0xff9a52, 0xffdf00, 0x31ef8c, 0x21dfff, 0x31aade, 0x5275de, 0x9c55ad, 0xbd208c ];
 
-        var _this = this;
+        const _this = this;
 
-        group.children.iterate(function (child) {
+        group.children.iterate(child =>
+        {
 
             child.x = 100;
             child.y = 300;
@@ -67,9 +59,10 @@ var Demo1 = new Phaser.Class({
 
         });
 
-        this.input.once('pointerup', function () {
+        this.input.once('pointerup', function ()
+        {
 
-            var t1 = this.scene.transition({
+            const t1 = this.scene.transition({
                 target: 'demo2',
                 duration: 3000,
                 moveAbove: true
@@ -77,25 +70,21 @@ var Demo1 = new Phaser.Class({
 
         }, this);
     }
+}
 
-});
-
-var Demo2 = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Demo2 ()
+class Demo2 extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, 'demo2');
-    },
+        super('demo2');
+    }
 
-    create: function ()
+    create ()
     {
-        var planet = this.add.image(400, 300, 'planet').setScale(0);
+        const planet = this.add.image(400, 300, 'planet').setScale(0);
 
-        this.events.on('transitionstart', function (fromScene, duration) {
+        this.events.on('transitionstart', function (fromScene, duration)
+        {
 
             this.tweens.add({
                 targets: planet,
@@ -106,11 +95,12 @@ var Demo2 = new Phaser.Class({
 
         }, this);
 
-        this.events.on('transitioncomplete', function () {
+        this.events.on('transitioncomplete', function ()
+        {
 
-            var particles = this.add.particles('flares');
+            const particles = this.add.particles('flares');
 
-            var emitter = particles.createEmitter({
+            const emitter = particles.createEmitter({
                 frame: [ 'red', 'blue', 'green', 'yellow' ],
                 x: 400,
                 y: 300,
@@ -121,7 +111,8 @@ var Demo2 = new Phaser.Class({
 
         }, this);
 
-        this.events.on('transitionout', function (toScene, duration) {
+        this.events.on('transitionout', function (toScene, duration)
+        {
 
             this.tweens.add({
                 targets: planet,
@@ -132,9 +123,10 @@ var Demo2 = new Phaser.Class({
 
         }, this);
 
-        this.input.once('pointerup', function (event) {
+        this.input.once('pointerup', function (event)
+        {
 
-            var t2 = this.scene.transition({
+            const t2 = this.scene.transition({
                 target: 'demo3',
                 duration: 5000,
                 moveBehind: true
@@ -142,31 +134,26 @@ var Demo2 = new Phaser.Class({
 
         }, this);
     }
+}
 
-});
-
-var Demo3 = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Demo3 ()
+class Demo3 extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, 'demo3');
+        super('demo3');
 
         this.pacX = 260;
         this.pacY = 300;
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.pacX = 260;
         this.pacY = 300;
 
-        var graphics = this.add.graphics();
+        const graphics = this.add.graphics();
 
-        var _this = this;
+        const _this = this;
 
         this.tweens.addCounter({
             from: 0,
@@ -176,7 +163,7 @@ var Demo3 = new Phaser.Class({
             repeat: -1,
             onUpdate: function (tween)
             {
-                var t = tween.getValue();
+                const t = tween.getValue();
 
                 graphics.clear();
 
@@ -199,9 +186,10 @@ var Demo3 = new Phaser.Class({
             callbackScope: _this
         });
 
-        this.input.once('pointerup', function (event) {
+        this.input.once('pointerup', function (event)
+        {
 
-            var t3 = this.scene.transition({
+            const t3 = this.scene.transition({
                 target: 'demo1',
                 duration: 5000,
                 moveBelow: true,
@@ -210,17 +198,16 @@ var Demo3 = new Phaser.Class({
 
         }, this);
 
-    },
+    }
 
-    transitionOut: function (progress)
+    transitionOut (progress)
     {
         this.pacX = 260 + (900 * progress);
     }
+}
 
-});
 
-
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -229,4 +216,4 @@ var config = {
     scene: [ Preloader, Demo1, Demo2, Demo3 ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

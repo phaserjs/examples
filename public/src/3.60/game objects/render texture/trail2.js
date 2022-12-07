@@ -1,37 +1,36 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    player;
+    rt;
+
+    preload ()
+    {
+        this.load.image('dude', 'assets/sprites/phaser-dude.png');
+    }
+
+    create ()
+    {
+        this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
+
+        this.player = this.add.image(256, 256, 'dude');
+        this.player.setOrigin(0.5, 0.5);
+    }
+
+    update ()
+    {
+        this.player.setPosition(this.input.x, this.input.y);
+
+        this.rt.draw(this.player);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    },
+    scene: Example,
     width: 800,
     height: 600
 };
 
-var game = new Phaser.Game(config);
-
-var rt;
-var player;
-
-function preload() 
-{
-    this.load.image('dude', 'assets/sprites/phaser-dude.png');
-}
-
-function create() 
-{
-    rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
-
-    player = this.add.image(256, 256, 'dude');
-    player.setOrigin(0.5, 0.5);
-}
-
-function update()
-{
-    player.setPosition(this.input.x, this.input.y);
-
-    rt.draw(player);
-}
+const game = new Phaser.Game(config);
 

@@ -1,59 +1,59 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    a = 0;
+    point;
+    triangle;
+    graphics;
+
+    create ()
+    {
+        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
+
+        // triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 300);
+
+        // triangle = new Phaser.Geom.Triangle.BuildRight(200, 400, 300, 200);
+
+        //  Random
+        const x1 = Phaser.Math.Between(50, 400);
+        const y1 = Phaser.Math.Between(50, 300);
+
+        const x2 = Phaser.Math.Between(450, 750);
+        const y2 = Phaser.Math.Between(50, 300);
+
+        const x3 = Phaser.Math.Between(50, 750);
+        const y3 = Phaser.Math.Between(350, 550);
+
+        this.triangle = new Phaser.Geom.Triangle(x1, y1, x2, y2, x3, y3);
+
+        this.point = new Phaser.Geom.Rectangle(0, 0, 16, 16);
+    }
+
+    update ()
+    {
+        this.a += 0.005;
+
+        if (this.a > 1)
+        {
+            this.a = 0;
+        }
+
+        this.triangle.getPoint(this.a, this.point);
+
+        this.graphics.clear();
+        this.graphics.lineStyle(2, 0x00ff00);
+        this.graphics.strokeTriangleShape(this.triangle);
+
+        this.graphics.fillStyle(0xff00ff);
+        this.graphics.fillRect(this.point.x - 8, this.point.y - 8, this.point.width, this.point.height);
+    }
+}
+
+const config = {
     width: 800,
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var graphics;
-var triangle;
-var point;
-var a = 0;
-
-var game = new Phaser.Game(config);
-
-function create ()
-{
-    graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
-
-    // triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 300);
-
-    // triangle = new Phaser.Geom.Triangle.BuildRight(200, 400, 300, 200);
-
-    //  Random
-    var x1 = Phaser.Math.Between(50, 400);
-    var y1 = Phaser.Math.Between(50, 300);
-
-    var x2 = Phaser.Math.Between(450, 750);
-    var y2 = Phaser.Math.Between(50, 300);
-
-    var x3 = Phaser.Math.Between(50, 750);
-    var y3 = Phaser.Math.Between(350, 550);
-
-    triangle = new Phaser.Geom.Triangle(x1, y1, x2, y2, x3, y3);
-
-    point = new Phaser.Geom.Rectangle(0, 0, 16, 16);
-}
-
-function update ()
-{
-    a += 0.005;
-
-    if (a > 1)
-    {
-        a = 0;
-    }
-
-    triangle.getPoint(a, point);
-
-    graphics.clear();
-    graphics.lineStyle(2, 0x00ff00);
-    graphics.strokeTriangleShape(triangle);
-
-    graphics.fillStyle(0xff00ff);
-    graphics.fillRect(point.x - 8, point.y - 8, point.width, point.height);
-}
+const game = new Phaser.Game(config);

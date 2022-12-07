@@ -1,78 +1,65 @@
-var Preloader = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Preloader ()
+class Preloader extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'preloader' });
-    },
+        super({ key: 'preloader' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('buttonBG', 'assets/sprites/button-bg.png');
         this.load.image('buttonText', 'assets/sprites/button-text.png');
         this.load.image('ayu', 'assets/pics/ayu.png');
         this.load.image('ball', 'assets/sprites/pangball.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         console.log('%c Preloader ', 'background: green; color: white; display: block;');
 
         this.scene.start('mainmenu');
     }
+}
 
-});
-
-var MainMenu = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function MainMenu ()
+class MainMenu extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'mainmenu' });
+        super({ key: 'mainmenu' });
         window.MENU = this;
-    },
+    }
 
-    create: function ()
+    create ()
     {
         console.log('%c MainMenu ', 'background: green; color: white; display: block;');
 
-        var bg = this.add.image(0, 0, 'buttonBG');
-        var text = this.add.image(0, 0, 'buttonText');
+        const bg = this.add.image(0, 0, 'buttonBG');
+        const text = this.add.image(0, 0, 'buttonText');
 
-        var container = this.add.container(400, 300, [ bg, text ]);
+        const container = this.add.container(400, 300, [ bg, text ]);
 
         bg.setInteractive();
 
-        bg.once('pointerup', function () {
+        bg.once('pointerup', function ()
+        {
 
             this.scene.start('game');
 
         }, this);
     }
+}
 
-});
-
-var Game = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Game ()
+class Game extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'game' });
+        super({ key: 'game' });
         window.GAME = this;
-    
-        this.controls;
-    },
 
-    create: function ()
+        this.controls;
+    }
+
+    create ()
     {
         console.log('%c Game ', 'background: green; color: white; display: block;');
 
@@ -80,17 +67,17 @@ var Game = new Phaser.Class({
 
         //  Add in a stack of balls
 
-        for (var i = 0; i < 64; i++)
+        for (let i = 0; i < 64; i++)
         {
-            var ball = this.matter.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball');
+            const ball = this.matter.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball');
             ball.setCircle();
             ball.setFriction(0.005);
             ball.setBounce(1);
         }
 
-        var cursors = this.input.keyboard.createCursorKeys();
+        const cursors = this.input.keyboard.createCursorKeys();
 
-        var controlConfig = {
+        const controlConfig = {
             camera: this.cameras.main,
             left: cursors.left,
             right: cursors.right,
@@ -107,33 +94,29 @@ var Game = new Phaser.Class({
 
         this.add.text(0, 0, 'Use Cursors to scroll camera.\nClick to Quit', { font: '18px Courier', fill: '#00ff00' }).setScrollFactor(0);
 
-        this.input.once('pointerup', function () {
+        this.input.once('pointerup', function ()
+        {
 
             this.scene.start('gameover');
 
         }, this);
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.controls.update(delta);
     }
+}
 
-});
-
-var GameOver = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function GameOver ()
+class GameOver extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'gameover' });
+        super({ key: 'gameover' });
         window.OVER = this;
-    },
+    }
 
-    create: function ()
+    create ()
     {
         console.log('%c GameOver ', 'background: green; color: white; display: block;');
 
@@ -141,16 +124,16 @@ var GameOver = new Phaser.Class({
 
         this.add.text(300, 500, 'Game Over - Click to start restart', { font: '16px Courier', fill: '#00ff00' });
 
-        this.input.once('pointerup', function (event) {
+        this.input.once('pointerup', function (event)
+        {
 
             this.scene.start('mainmenu');
 
         }, this);
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -167,4 +150,4 @@ var config = {
     scene: [ Preloader, MainMenu, Game, GameOver ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

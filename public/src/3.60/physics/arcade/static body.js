@@ -1,4 +1,34 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    static3;
+    static2;
+    static1;
+    sprite;
+
+    preload ()
+    {
+        this.load.image('bar', 'assets/sprites/healthbar.png');
+        this.load.image('mushroom', 'assets/sprites/mushroom2.png');
+    }
+
+    create ()
+    {
+        this.sprite = this.physics.add.image(100, 100, 'mushroom');
+
+        this.static1 = this.physics.add.staticImage(400, 100, 'bar');
+        this.static2 = this.physics.add.staticImage(100, 400, 'bar');
+        this.static3 = this.physics.add.staticImage(500, 300, 'bar');
+
+        this.sprite.body.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true);
+    }
+
+    update ()
+    {
+        this.physics.world.collide(this.sprite, [ this.static1, this.static2, this.static3 ]);
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -10,38 +40,7 @@ var config = {
             debug: true
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var sprite;
-var static1;
-var static2;
-var static3;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('bar', 'assets/sprites/healthbar.png');
-    this.load.image('mushroom', 'assets/sprites/mushroom2.png');
-}
-
-function create ()
-{
-    sprite = this.physics.add.image(100, 100, 'mushroom');
-
-    static1 = this.physics.add.staticImage(400, 100, 'bar');
-    static2 = this.physics.add.staticImage(100, 400, 'bar');
-    static3 = this.physics.add.staticImage(500, 300, 'bar');
-
-    sprite.body.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true);
-}
-
-function update ()
-{
-    this.physics.world.collide(sprite, [ static1, static2, static3 ]);
-}
+const game = new Phaser.Game(config);

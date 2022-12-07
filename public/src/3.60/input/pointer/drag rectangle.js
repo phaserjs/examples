@@ -1,47 +1,51 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    create ()
+    {
+        const graphics = this.add.graphics();
+
+        const color = 0xffff00;
+        const thickness = 2;
+        const alpha = 1;
+
+        //  Events
+
+        let draw = false;
+
+        this.input.on('pointerdown', pointer =>
+        {
+
+            draw = true;
+
+        });
+
+        this.input.on('pointerup', () =>
+        {
+
+            draw = false;
+
+        });
+
+        this.input.on('pointermove', pointer =>
+        {
+
+            if (draw)
+            {
+                graphics.clear();
+                graphics.lineStyle(thickness, color, alpha);
+                graphics.strokeRect(pointer.downX, pointer.downY, pointer.x - pointer.downX, pointer.y - pointer.downY);
+            }
+
+        });
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: {
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function create ()
-{
-    var graphics = this.add.graphics();
-
-    var color = 0xffff00;
-    var thickness = 2;
-    var alpha = 1;
-
-    //  Events
-
-    var draw = false;
-
-    this.input.on('pointerdown', function (pointer) {
-
-        draw = true;
-
-    });
-
-    this.input.on('pointerup', function () {
-
-        draw = false;
-
-    });
-
-    this.input.on('pointermove', function (pointer) {
-
-        if (draw)
-        {
-            graphics.clear();
-            graphics.lineStyle(thickness, color, alpha);
-            graphics.strokeRect(pointer.downX, pointer.downY, pointer.x - pointer.downX, pointer.y - pointer.downY);
-        }
-
-    });
-}
+const game = new Phaser.Game(config);

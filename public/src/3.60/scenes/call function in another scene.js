@@ -1,23 +1,20 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA' });
-    },
+        super({ key: 'sceneA' });
+    }
 
-    create: function ()
+    create ()
     {
-        var sceneB = this.scene.get('sceneB');
+        const sceneB = this.scene.get('sceneB');
 
-        this.input.on('pointerup', function () {
+        this.input.on('pointerup', function ()
+        {
 
-            var x = Phaser.Math.Between(0, 800);
-            var y = Phaser.Math.Between(0, 600);
-            var frame = sceneB.getImage();
+            const x = Phaser.Math.Between(0, 800);
+            const y = Phaser.Math.Between(0, 600);
+            const frame = sceneB.getImage();
 
             this.add.image(x, y, frame);
 
@@ -25,23 +22,18 @@ var SceneA = new Phaser.Class({
 
         this.add.text(10, 10, 'Click to get image', { font: '16px Courier', fill: '#00ff00' }).setDepth(1000);
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneB', active: true });
+        super({ key: 'sceneB', active: true });
 
         this.frames;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.setPath('assets/sprites/');
 
@@ -50,21 +42,20 @@ var SceneB = new Phaser.Class({
         this.load.image('asuna_by_vali233');
         this.load.image('atari130xe');
         this.load.image('atari400');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.frames = [ 'amiga-cursor', 'aqua_ball', 'asuna_by_vali233', 'atari130xe', 'atari400' ];
-    },
+    }
 
-    getImage: function ()
+    getImage ()
     {
         return Phaser.Math.RND.pick(this.frames);
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -73,4 +64,4 @@ var config = {
     scene: [ SceneA, SceneB ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

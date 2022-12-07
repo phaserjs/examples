@@ -1,51 +1,51 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    a = 0;
+    graphics;
+    bounds;
+    ellipse;
+
+    create ()
+    {
+        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa }, fillStyle: { color: 0x00aaaa }});
+
+        this.ellipse = new Phaser.Geom.Ellipse(400, 300, 250, 150);
+
+        // if we omit the out parameter, we get a new Rectangle instance
+        this.bounds = Phaser.Geom.Ellipse.GetBounds(this.ellipse);
+    }
+
+    update ()
+    {
+        this.a += 0.01;
+
+        if (this.a > Math.PI * 4)
+        {
+            this.a -= Math.PI * 4;
+        }
+
+        this.ellipse.x = 400 - Math.cos(this.a / 2) * 300;
+        this.ellipse.y = 300 - Math.sin(this.a * 2) * 200;
+        this.ellipse.width = Math.sin(this.a) * Math.sin(this.a) * 300;
+        this.ellipse.height = Math.cos(this.a) * Math.sin(this.a) * 300;
+
+        // or we can supply a Rectangle instance to modify
+        Phaser.Geom.Ellipse.GetBounds(this.ellipse, this.bounds);
+
+        this.graphics.clear();
+
+        this.graphics.fillEllipseShape(this.ellipse);
+
+        this.graphics.strokeRectShape(this.bounds);
+    }
+}
+
+const config = {
     width: 800,
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-var ellipse;
-var bounds;
-var graphics;
-var a = 0;
-
-function create ()
-{
-    graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa }, fillStyle: { color: 0x00aaaa }});
-
-    ellipse = new Phaser.Geom.Ellipse(400, 300, 250, 150);
-
-    // if we omit the out parameter, we get a new Rectangle instance
-    bounds = Phaser.Geom.Ellipse.GetBounds(ellipse);
-}
-
-function update ()
-{
-    a += 0.01;
-
-    if (a > Math.PI * 4)
-    {
-        a -= Math.PI * 4;
-    }
-
-    ellipse.x = 400 - Math.cos(a / 2) * 300;
-    ellipse.y = 300 - Math.sin(a * 2) * 200;
-    ellipse.width = Math.sin(a) * Math.sin(a) * 300;
-    ellipse.height = Math.cos(a) * Math.sin(a) * 300;
-
-    // or we can supply a Rectangle instance to modify
-    Phaser.Geom.Ellipse.GetBounds(ellipse, bounds);
-
-    graphics.clear();
-
-    graphics.fillEllipseShape(ellipse);
-
-    graphics.strokeRectShape(bounds);
-}
+const game = new Phaser.Game(config);

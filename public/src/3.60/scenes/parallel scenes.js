@@ -1,52 +1,43 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA', active: true });
+        super({ key: 'sceneA', active: true });
 
         this.pic;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('arrow', 'assets/sprites/longarrow.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.pic.rotation += 0.01;
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneB', active: true });
-    },
+        super({ key: 'sceneB', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('face', 'assets/pics/bw-face.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
-        var img = this.add.image(400, 300, 'face');
+        const img = this.add.image(400, 300, 'face');
 
         this.tweens.add({
             targets: img,
@@ -55,10 +46,9 @@ var SceneB = new Phaser.Class({
             repeat: -1
         });
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -67,4 +57,4 @@ var config = {
     scene: [ SceneB, SceneA ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

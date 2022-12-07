@@ -1,4 +1,117 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    timedEvent;
+    maxHealth = 100;
+    currentHealth = 100;
+    cursors;
+    text;
+    healthGroup;
+    sprite;
+
+    preload ()
+    {
+        this.load.image('cat', 'assets/sprites/orange-cat1.png');
+        this.load.image('health', 'assets/sprites/firstaid.png');
+    }
+
+    create ()
+    {
+        this.sprite = this.physics.add.image(400, 300, 'cat');
+
+        this.sprite.setCollideWorldBounds(true);
+
+        //  Create 10 random health pick-ups
+        this.healthGroup = this.physics.add.staticGroup({
+            key: 'health',
+            frameQuantity: 10,
+            immovable: true
+        });
+
+        const children = this.healthGroup.getChildren();
+
+        for (let i = 0; i < children.length; i++)
+        {
+            const x = Phaser.Math.Between(50, 750);
+            const y = Phaser.Math.Between(50, 550);
+
+            children[i].setPosition(x, y);
+        }
+
+        this.healthGroup.refresh();
+
+        //  So we can see how much health we have left
+        this.text = this.add.text(10, 10, 'Health: 100', { font: '32px Courier', fill: '#000000' });
+
+        //  Cursors to move
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        //  When the player sprite his the health packs, call this function ...
+        this.physics.add.overlap(this.sprite, this.healthGroup, this.spriteHitHealth);
+
+        //  Decrease the health by calling reduceHealth every 50ms
+        this.timedEvent = this.time.addEvent({ delay: 50, callback: this.reduceHealth, callbackScope: this, loop: true });
+    }
+
+    update ()
+    {
+        if (this.currentHealth === 0)
+        {
+            return;
+        }
+
+        this.text.setText(`Health: ${this.currentHealth}`);
+
+        this.sprite.setVelocity(0);
+
+        if (this.cursors.left.isDown)
+        {
+            this.sprite.setVelocityX(-200);
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.sprite.setVelocityX(200);
+        }
+
+        if (this.cursors.up.isDown)
+        {
+            this.sprite.setVelocityY(-200);
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.sprite.setVelocityY(200);
+        }
+    }
+
+    reduceHealth ()
+    {
+        this.currentHealth--;
+
+        if (this.currentHealth === 0)
+        {
+            //  Uh oh, we're dead
+            this.sprite.body.reset(400, 300);
+
+            this.text.setText('Health: RIP');
+
+            //  Stop the timer
+            this.timedEvent.remove();
+        }
+    }
+
+    spriteHitHealth (sprite, health)
+    {
+        //  Hide the sprite
+        this.healthGroup.killAndHide(health);
+
+        //  And disable the body
+        health.body.enable = false;
+
+        //  Add 10 health, it'll never go over maxHealth
+        this.currentHealth = Phaser.Math.MaxAdd(this.currentHealth, 10, this.maxHealth);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -10,121 +123,7 @@ var config = {
             gravity: 0
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var sprite;
-var healthGroup;
-var text;
-var cursors;
-var currentHealth = 100;
-var maxHealth = 100;
-var timedEvent;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('cat', 'assets/sprites/orange-cat1.png');
-    this.load.image('health', 'assets/sprites/firstaid.png');
-}
-
-function create ()
-{
-    sprite = this.physics.add.image(400, 300, 'cat');
-
-    sprite.setCollideWorldBounds(true);
-
-    //  Create 10 random health pick-ups
-    healthGroup = this.physics.add.staticGroup({
-        key: 'health',
-        frameQuantity: 10,
-        immovable: true
-    });
-
-    var children = healthGroup.getChildren();
-
-    for (var i = 0; i < children.length; i++)
-    {
-        var x = Phaser.Math.Between(50, 750);
-        var y = Phaser.Math.Between(50, 550);
-
-        children[i].setPosition(x, y);
-    }
-
-    healthGroup.refresh();
-
-    //  So we can see how much health we have left
-    text = this.add.text(10, 10, 'Health: 100', { font: '32px Courier', fill: '#000000' });
-
-    //  Cursors to move
-    cursors = this.input.keyboard.createCursorKeys();
-
-    //  When the player sprite his the health packs, call this function ...
-    this.physics.add.overlap(sprite, healthGroup, spriteHitHealth);
-
-    //  Decrease the health by calling reduceHealth every 50ms
-    timedEvent = this.time.addEvent({ delay: 50, callback: reduceHealth, callbackScope: this, loop: true });
-}
-
-function reduceHealth ()
-{
-    currentHealth--;
-
-    if (currentHealth === 0)
-    {
-        //  Uh oh, we're dead
-        sprite.body.reset(400, 300);
-
-        text.setText('Health: RIP');
-
-        //  Stop the timer
-        timedEvent.remove();
-    }
-}
-
-function spriteHitHealth (sprite, health)
-{
-    //  Hide the sprite
-    healthGroup.killAndHide(health);
-
-    //  And disable the body
-    health.body.enable = false;
-
-    //  Add 10 health, it'll never go over maxHealth
-    currentHealth = Phaser.Math.MaxAdd(currentHealth, 10, maxHealth);
-}
-
-function update ()
-{
-    if (currentHealth === 0)
-    {
-        return;
-    }
-
-    text.setText('Health: ' + currentHealth);
-
-    sprite.setVelocity(0);
-
-    if (cursors.left.isDown)
-    {
-        sprite.setVelocityX(-200);
-    }
-    else if (cursors.right.isDown)
-    {
-        sprite.setVelocityX(200);
-    }
-
-    if (cursors.up.isDown)
-    {
-        sprite.setVelocityY(-200);
-    }
-    else if (cursors.down.isDown)
-    {
-        sprite.setVelocityY(200);
-    }
-}
+const game = new Phaser.Game(config);

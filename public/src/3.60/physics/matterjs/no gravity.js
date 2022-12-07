@@ -1,4 +1,18 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('block', 'assets/sprites/block.png');
+        this.load.image('platform', 'assets/sprites/platform.png');
+    }
+
+    create ()
+    {
+        this.matter.add.image(400, 300, 'block');
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -13,21 +27,7 @@ var config = {
             }
         }
     },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('block', 'assets/sprites/block.png');
-    this.load.image('platform', 'assets/sprites/platform.png');
-}
-
-function create ()
-{
-    this.matter.add.image(400, 300, 'block');
-}
+const game = new Phaser.Game(config);

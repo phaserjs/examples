@@ -1,60 +1,59 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    graphics;
+    bounds;
+    container;
+    image;
+
+    preload ()
+    {
+        this.load.image('disk', 'assets/sprites/copy-that-floppy.png');
+    }
+
+    create ()
+    {
+        this.image = this.add.image(0, 0, 'disk');
+
+        this.container = this.add.container(0, 0, [ this.image ]);
+
+        const container2 = this.add.container(400, 300, [ this.container ]);
+
+        this.graphics = this.add.graphics();
+
+        this.bounds = this.image.getBounds();
+
+        this.tweens.add({
+
+            targets: container2,
+            duration: 2000,
+            scaleX: 2,
+            scaleY: 2,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+
+        });
+    }
+
+    update ()
+    {
+        this.container.rotation += 0.015;
+
+        this.bounds = this.image.getBounds();
+
+        this.graphics.clear();
+        this.graphics.lineStyle(1, 0xffff00);
+        this.graphics.strokeRectShape(this.bounds);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
     backgroundColor: '#2d8d2d',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var image;
-var container;
-var bounds;
-var graphics;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('disk', 'assets/sprites/copy-that-floppy.png');
-}
-
-function create ()
-{
-    image = this.add.image(0, 0, 'disk');
-
-    container = this.add.container(0, 0, [ image ]);
-
-    var container2 = this.add.container(400, 300, [ container ]);
-
-    graphics = this.add.graphics();
-
-    bounds = image.getBounds();
-
-    this.tweens.add({
-
-        targets: container2,
-        duration: 2000,
-        scaleX: 2,
-        scaleY: 2,
-        ease: 'Sine.easeInOut',
-        repeat: -1,
-        yoyo: true
-
-    });
-}
-
-function update ()
-{
-    container.rotation += 0.015;
-
-    bounds = image.getBounds();
-
-    graphics.clear();
-    graphics.lineStyle(1, 0xffff00);
-    graphics.strokeRectShape(bounds);
-}
+const game = new Phaser.Game(config);

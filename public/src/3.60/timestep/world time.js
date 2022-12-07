@@ -1,24 +1,24 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    timeText;
+
+    create ()
+    {
+        this.timeText = this.add.text(100, 200);
+    }
+
+    update (time, delta)
+    {
+        this.timeText.setText(`Time: ${time}\nDelta: ${delta}`);
+    }
+}
+
+const config = {
     type: Phaser.CANVAS,
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var timeText;
-
-var game = new Phaser.Game(config);
-
-function create ()
-{
-    timeText = this.add.text(100, 200);
-}
-
-function update (time, delta)
-{
-    timeText.setText('Time: ' + time + '\nDelta: ' + delta);
-}
+const game = new Phaser.Game(config);

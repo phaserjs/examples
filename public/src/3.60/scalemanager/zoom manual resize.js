@@ -1,4 +1,29 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('pic', 'assets/tests/zoom/title.png');
+    }
+
+    create ()
+    {
+        this.add.image(0, 0, 'pic').setOrigin(0);
+
+        this.input.on('pointerdown', function ()
+        {
+
+            const currentZoom = this.scale.zoom;
+
+            if (currentZoom < 6)
+            {
+                this.scale.setZoom(currentZoom + 1);
+            }
+
+        }, this);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     backgroundColor: '#2dab2d',
     scale: {
@@ -9,31 +34,7 @@ var config = {
         height: 144,
         zoom: 2
     },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('pic', 'assets/tests/zoom/title.png');
-}
-
-function create ()
-{
-    this.add.image(0, 0, 'pic').setOrigin(0);
-
-    this.input.on('pointerdown', function () {
-
-        var currentZoom = this.scale.zoom;
-
-        if (currentZoom < 6)
-        {
-            this.scale.setZoom(currentZoom + 1);
-        }
-
-    }, this);
-}
+const game = new Phaser.Game(config);

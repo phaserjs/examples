@@ -1,4 +1,17 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('pic', 'assets/pics/zero-two.png');
+    }
+
+    create ()
+    {
+        this.add.image(0, 0, 'pic').setOrigin(0);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     backgroundColor: '#2dab2d',
     scale: {
@@ -7,20 +20,7 @@ var config = {
         width: 800,
         height: 600
     },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('pic', 'assets/pics/zero-two.png');
-}
-
-function create ()
-{
-    this.add.image(0, 0, 'pic').setOrigin(0);
-}
+const game = new Phaser.Game(config);

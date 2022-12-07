@@ -1,42 +1,43 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    ellipse;
+    point;
+    step = 0.5;
+    graphics;
+
+    create ()
+    {
+        this.graphics = this.add.graphics({ fillStyle: { color: 0x00aaaa } });
+
+        this.ellipse = new Phaser.Geom.Ellipse(380, 280, 20, 0);
+
+        this.point = new Phaser.Geom.Point(20, 0);
+    }
+
+    update ()
+    {
+        if (this.ellipse.y < 600)
+        {
+            this.graphics.fillEllipseShape(this.ellipse);
+
+            Phaser.Geom.Ellipse.OffsetPoint(this.ellipse, this.point);
+
+            Phaser.Math.Rotate(this.point, this.step);
+
+            this.ellipse.width = this.point.x;
+            this.ellipse.height = this.point.y;
+
+            this.step *= 0.996;
+        }
+    }
+}
+
+const config = {
     width: 800,
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-var graphics;
-var step = 0.5;
-var point;
-var ellipse;
-
-function create ()
-{
-    graphics = this.add.graphics({ fillStyle: { color: 0x00aaaa } });
-
-    ellipse = new Phaser.Geom.Ellipse(380, 280, 20, 0);
-
-    point = new Phaser.Geom.Point(20, 0);
-}
-
-function update ()
-{
-    if (ellipse.y < 600)
-    {
-        graphics.fillEllipseShape(ellipse);
-
-        Phaser.Geom.Ellipse.OffsetPoint(ellipse, point);
-
-        Phaser.Math.Rotate(point, step);
-
-        ellipse.width = point.x;
-        ellipse.height = point.y;
-
-        step  *= 0.996;
-    }
-}
+const game = new Phaser.Game(config);

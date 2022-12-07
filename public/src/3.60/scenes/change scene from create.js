@@ -1,116 +1,91 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA' });
-    },
+        super({ key: 'sceneA' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('face', 'assets/pics/bw-face.png');
         this.load.image('arrow', 'assets/sprites/longarrow.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         console.log('SceneA');
 
         this.scene.start('sceneB');
     }
+}
 
-});
-
-var SceneB = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneB ()
+class SceneB extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneB' });
-    },
+        super({ key: 'sceneB' });
+    }
 
-    create: function ()
+    create ()
     {
         console.log('SceneB');
 
         this.scene.start('sceneC');
     }
+}
 
-});
-
-var SceneC = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneC ()
+class SceneC extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneC' });
-    },
+        super({ key: 'sceneC' });
+    }
 
-    create: function ()
+    create ()
     {
         console.log('SceneC');
 
         this.scene.start('sceneD');
     }
+}
 
-});
-
-var SceneD = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneD ()
+class SceneD extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneD' });
-    },
+        super({ key: 'sceneD' });
+    }
 
-    create: function ()
+    create ()
     {
         console.log('SceneD');
 
         this.scene.start('sceneE');
     }
+}
 
-});
-
-var SceneE = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneE ()
+class SceneE extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneE' });
-    },
+        super({ key: 'sceneE' });
+    }
 
-    create: function ()
+    create ()
     {
         console.log('SceneE');
 
         this.add.image(400, 300, 'face');
         this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.arrow.rotation += 0.01;
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -118,4 +93,4 @@ var config = {
     scene: [ SceneA, SceneB, SceneC, SceneD, SceneE ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

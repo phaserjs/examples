@@ -14,8 +14,9 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        window.nine = this.add.nineslice({ left: 16, right: 16, top: 32, bottom: 16, width: 600, height: 400 }, 400, 300, 'box');
+        window.nine = this.add.nineslice(400, 300, 'box', null, 600, 400, 16, 16, 32, 16);
 
+        /*
         this.tweens.add({
             targets: window.nine,
             width: 100,
@@ -33,6 +34,7 @@ class Example extends Phaser.Scene
             yoyo: true,
             repeat: -1,
         });
+        */
     }
 }
 

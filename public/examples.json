@@ -4428,7 +4428,7 @@
                 {
                   "path": "src/3.60/game objects/nine slice/nine slice vs scaling.js",
                   "name": "nine slice vs scaling.js",
-                  "size": 982,
+                  "size": 1047,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4438,9 +4438,16 @@
                   "size": 1249,
                   "extension": ".js",
                   "type": "file"
+                },
+                {
+                  "path": "src/3.60/game objects/nine slice/stress test.js",
+                  "name": "stress test.js",
+                  "size": 918,
+                  "extension": ".js",
+                  "type": "file"
                 }
               ],
-              "size": 6115,
+              "size": 7098,
               "type": "directory"
             },
             {
@@ -6142,7 +6149,7 @@
               "type": "directory"
             }
           ],
-          "size": 873886,
+          "size": 874869,
           "type": "directory"
         },
         {
@@ -14339,7 +14346,7 @@
           "type": "directory"
         }
       ],
-      "size": 4024085,
+      "size": 4025068,
       "type": "directory"
     },
     {
@@ -29720,6 +29727,6 @@
       "type": "directory"
     }
   ],
-  "size": 8082017,
+  "size": 8083000,
   "type": "directory"
 }

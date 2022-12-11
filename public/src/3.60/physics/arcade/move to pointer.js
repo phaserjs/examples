@@ -13,19 +13,19 @@ class Example extends Phaser.Scene
         const clown = this.physics.add.image(200, 300, 'clown');
         const cursor = this.add.image(0, 0, 'cursor').setVisible(false);
 
-        this.input.on('pointermove', function (pointer)
+        this.input.on('pointermove', (pointer) =>
         {
-            cursor.setVisible(true).setPosition(pointer.x, pointer.y);
+            cursor.setVisible(true).copyPosition(pointer);
 
+            // Move at 240 px/s
             this.physics.moveToObject(clown, pointer, 240);
 
-            Phaser.Utils.Array.Each(
-                blocks.getChildren(),
-                this.physics.moveToObject,
-                this.physics,
-                pointer, 120);
-        }, this);
-
+            for (const block of blocks.getChildren())
+            {
+                // Move at 120 px/s
+                this.physics.moveToObject(block, pointer, 120);
+            }
+        });
     }
 }
 

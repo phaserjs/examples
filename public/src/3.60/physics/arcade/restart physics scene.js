@@ -41,7 +41,7 @@ class MainMenu extends Phaser.Scene
         const bg = this.add.image(0, 0, 'buttonBG');
         const text = this.add.image(0, 0, 'buttonText');
 
-        const container = this.add.container(400, 300, [ bg, text ]);
+        this.add.container(400, 300, [ bg, text ]);
 
         bg.setInteractive();
 

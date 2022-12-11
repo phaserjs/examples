@@ -65,12 +65,10 @@ class Example extends Phaser.Scene
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        this.stars.children.iterate(child =>
+        for (const star of this.stars.getChildren())
         {
-
-            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
-        });
+            star.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        }
 
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.player, this.movingPlatform);
@@ -82,13 +80,15 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        if (this.cursors.left.isDown)
+        const { left, right, up } = this.cursors;
+
+        if (left.isDown)
         {
             this.player.setVelocityX(-160);
 
             this.player.anims.play('left', true);
         }
-        else if (this.cursors.right.isDown)
+        else if (right.isDown)
         {
             this.player.setVelocityX(160);
 
@@ -101,7 +101,7 @@ class Example extends Phaser.Scene
             this.player.anims.play('turn');
         }
 
-        if (this.cursors.up.isDown && this.player.body.touching.down)
+        if (up.isDown && this.player.body.touching.down)
         {
             this.player.setVelocityY(-330);
         }

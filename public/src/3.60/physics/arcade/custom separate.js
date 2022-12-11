@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('block', 'assets/sprites/block.png');
+        this.load.image('crate', 'assets/sprites/crate32.png');
     }
 
     create ()
@@ -10,24 +10,26 @@ class Example extends Phaser.Scene
         this.physics.world.checkCollision.up = false;
 
         const group = this.physics.add.group({
-            key: 'block',
-            frameQuantity: 6,
             bounceY: 0.5,
-            dragY: 30,
-            velocityY: 300,
             collideWorldBounds: true,
-            setXY: { x: 400, y: 0, stepY: -200 }
+            dragY: 30,
+            frameQuantity: 18,
+            key: 'crate',
+            setXY: { x: 200, y: 0, stepX: 16, stepY: -64 },
+            velocityY: 300
         });
 
-        group.children.iterate(block =>
-        {
-            block.body.customSeparateY = true;
-        });
+        group.shuffle();
 
-        this.physics.add.collider(group, group, (s1, s2) =>
+        for (const crate of group.getChildren())
         {
-            const b1 = s1.body;
-            const b2 = s2.body;
+            crate.body.customSeparateY = true;
+        }
+
+        this.physics.add.collider(group, group, function (gameObject1, gameObject2)
+        {
+            const b1 = gameObject1.body;
+            const b2 = gameObject2.body;
 
             if (b1.y > b2.y)
             {
@@ -51,9 +53,9 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
-            fps: 100,
-            gravity: { y: 300 }
+            debug: false,
+            fps: 60,
+            gravity: { y: 600 }
         }
     },
     scene: Example

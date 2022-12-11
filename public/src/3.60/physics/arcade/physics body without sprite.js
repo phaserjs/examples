@@ -16,25 +16,17 @@ class PhysicsBob extends Phaser.GameObjects.Bob
         this.originY = 0;
         this.displayOriginX = 0;
         this.displayOriginY = 0;
-    }
-
-    get width ()
-    {
-        return this.frame.realWidth;
-    }
-
-    get height ()
-    {
-        return this.frame.realHeight;
+        this.width = this.frame.realWidth;
+        this.height = this.frame.realHeight;
     }
 }
 
 class Example extends Phaser.Scene
 {
-    constructor ()
-    {
-        super();
-    }
+    active;
+    blitter;
+    pool;
+    textureFrames;
 
     preload ()
     {
@@ -60,7 +52,7 @@ class Example extends Phaser.Scene
         this.pool = [];
 
         const dummy = this.add.image();
-        const world = this.physics.world;
+        const { world } = this.physics;
 
         for (let i = 0; i < 100; i++)
         {
@@ -70,14 +62,13 @@ class Example extends Phaser.Scene
         }
 
         //  Every 100ms we'll release an enemy
-        this.time.addEvent({ delay: 100, callback: () => this.releaseEnemy(), loop: true });
+        this.time.addEvent({ delay: 100, callback: () => { this.releaseEnemy(); }, loop: true });
 
         //  Let the player move the ship with the mouse
-        this.input.on('pointermove', pointer => {
-
+        this.input.on('pointermove', (pointer) =>
+        {
             player.x = pointer.worldX;
             player.y = pointer.worldY;
-
         });
     }
 
@@ -88,7 +79,7 @@ class Example extends Phaser.Scene
 
     checkEnemyBounds ()
     {
-        const world = this.physics.world;
+        const { world } = this.physics;
 
         //  Check which enemies have left the screen
         for (let i = this.active.length - 1; i >= 0; i--)
@@ -98,7 +89,7 @@ class Example extends Phaser.Scene
             if (enemy.y > 600 + enemy.height)
             {
                 //  Recycle this body
-                const body = enemy.body;
+                const { body } = enemy;
 
                 //  Remove it from the internal world trees
                 world.disableBody(body);
@@ -125,13 +116,15 @@ class Example extends Phaser.Scene
 
     releaseEnemy ()
     {
-        const pool = this.pool;
+        const { pool } = this;
 
         const body = pool.pop();
 
         const x = Phaser.Math.Between(0, 800);
         const y = Phaser.Math.Between(-1200, -300);
-        const frame = this.blitter.texture.get(Phaser.Utils.Array.GetRandom(this.textureFrames));
+        const frame = this.blitter.texture.get(
+            Phaser.Utils.Array.GetRandom(this.textureFrames)
+        );
 
         const enemy = new PhysicsBob(this.blitter, x, y, frame, true, body);
 
@@ -143,7 +136,7 @@ class Example extends Phaser.Scene
         body.gameObject = enemy;
 
         //  We need to do this to give the body the frame size of the sprite
-        body.setSize()
+        body.setSize();
 
         //  Insert the body back into the physics world
         this.physics.world.add(body);

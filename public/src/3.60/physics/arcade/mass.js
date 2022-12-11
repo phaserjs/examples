@@ -27,19 +27,14 @@ class Example extends Phaser.Scene
         balls.create(0, 400).setMass(5);
         balls.create(0, 500).setMass(10);
 
-        balls.children.iterate(ball =>
+        for (const ball of balls.getChildren())
         {
-            ball.setScale(Math.pow(ball.body.mass, 1 / 3));
-        });
+            ball.setScale(ball.body.mass ** 0.333);
+        }
 
-        this.physics.add.collider(balls, blocks, (ball, block) =>
-        {
-            console.log('block velocity', block.body.velocity.x);
-        });
+        this.physics.add.collider(balls, blocks);
     }
 }
-
-// TODO
 
 const config = {
     type: Phaser.AUTO,

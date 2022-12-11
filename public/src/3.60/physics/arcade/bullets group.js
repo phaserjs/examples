@@ -44,7 +44,7 @@ class Bullets extends Phaser.Physics.Arcade.Group
 
     fireBullet (x, y)
     {
-        let bullet = this.getFirstDead(false);
+        const bullet = this.getFirstDead(false);
 
         if (bullet)
         {
@@ -75,13 +75,15 @@ class Example extends Phaser.Scene
 
         this.ship = this.add.image(400, 500, 'ship');
 
-        this.input.on('pointermove', (pointer) => {
+        this.input.on('pointermove', (pointer) =>
+        {
 
             this.ship.x = pointer.x;
 
         });
 
-        this.input.on('pointerdown', (pointer) => {
+        this.input.on('pointerdown', (pointer) =>
+        {
 
             this.bullets.fireBullet(this.ship.x, this.ship.y);
 
@@ -104,4 +106,4 @@ const config = {
     scene: Example
 };
 
-let game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

@@ -5,12 +5,11 @@ class Example extends Phaser.Scene
         this.load.spritesheet('ball', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
         this.load.image('wizball', 'assets/sprites/wizball.png');
     }
-
     create ()
     {
         this.cameras.main.centerOn(0, 0);
 
-        const wizball = this.physics.add.staticImage(0, 0, 'wizball')
+        const globe = this.physics.add.staticImage(0, 0, 'wizball')
             .setCircle(45);
 
         const balls = this.physics.add.group({
@@ -19,11 +18,10 @@ class Example extends Phaser.Scene
             bounceY: 1
         });
 
-        const PlaceOnCircle = Phaser.Actions.PlaceOnCircle;
-        let created;
-
         balls.defaults.setVelocityX = 100;
         balls.defaults.setVelocityY = 100;
+
+        let created;
 
         created = balls.createMultiple({
             quantity: 20,
@@ -31,7 +29,7 @@ class Example extends Phaser.Scene
             frame: 0
         });
 
-        PlaceOnCircle(created, { x: -200, y: -200, radius: 50 });
+        Phaser.Actions.PlaceOnCircle(created, { x: -200, y: -200, radius: 50 });
 
         balls.defaults.setVelocityX = -100;
         balls.defaults.setVelocityY = 100;
@@ -42,7 +40,7 @@ class Example extends Phaser.Scene
             frame: 1
         });
 
-        PlaceOnCircle(created, { x: 400, y: -400, radius: 50 });
+        Phaser.Actions.PlaceOnCircle(created, { x: 400, y: -400, radius: 50 });
 
         balls.defaults.setVelocityX = -100;
         balls.defaults.setVelocityY = -100;
@@ -53,7 +51,7 @@ class Example extends Phaser.Scene
             frame: 2
         });
 
-        PlaceOnCircle(created, { x: 600, y: 600, radius: 50 });
+        Phaser.Actions.PlaceOnCircle(created, { x: 600, y: 600, radius: 50 });
 
         balls.defaults.setVelocityX = 100;
         balls.defaults.setVelocityY = -100;
@@ -64,16 +62,17 @@ class Example extends Phaser.Scene
             frame: 3
         });
 
-        PlaceOnCircle(created, { x: -800, y: 800, radius: 50 });
+        Phaser.Actions.PlaceOnCircle(created, { x: -800, y: 800, radius: 50 });
 
-        balls.children.each(ball =>
+        for (const ball of balls.getChildren())
         {
             ball.setCircle(8);
-        });
+        }
 
-        this.physics.add.collider(wizball, balls);
+        this.physics.add.collider(globe, balls);
     }
 }
+
 
 const config = {
     type: Phaser.AUTO,
@@ -82,9 +81,7 @@ const config = {
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: {
-            debug: false
-        }
+        arcade: { debug: false }
     },
     scene: Example
 };

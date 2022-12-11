@@ -29,7 +29,7 @@ class Example extends Phaser.Scene
         this.pool = [];
 
         const dummy = this.add.image();
-        const world = this.physics.world;
+        const { world } = this.physics;
 
         for (let i = 0; i < 100; i++)
         {
@@ -42,11 +42,10 @@ class Example extends Phaser.Scene
         this.time.addEvent({ delay: 250, callback: () => this.releaseEnemy(), loop: true });
 
         //  Let the player move the ship with the mouse
-        this.input.on('pointermove', pointer => {
-
+        this.input.on('pointermove', pointer =>
+        {
             player.x = pointer.worldX;
             player.y = pointer.worldY;
-
         });
 
         // this.physics.add.collider(sprite, balls);
@@ -59,7 +58,7 @@ class Example extends Phaser.Scene
 
     checkEnemyBounds ()
     {
-        const world = this.physics.world;
+        const { world } = this.physics;
 
         //  Check which enemies have left the screen
         for (let i = this.active.length - 1; i >= 0; i--)
@@ -69,7 +68,7 @@ class Example extends Phaser.Scene
             if (enemy.y > 700)
             {
                 //  Recycle this body
-                const body = enemy.body;
+                const { body } = enemy;
 
                 //  Remove it from the internal world trees
                 world.disableBody(body);
@@ -96,7 +95,7 @@ class Example extends Phaser.Scene
 
     releaseEnemy ()
     {
-        const pool = this.pool;
+        const { pool } = this;
 
         const body = pool.pop();
 
@@ -111,7 +110,7 @@ class Example extends Phaser.Scene
         body.gameObject = enemy;
 
         //  We need to do this to give the body the frame size of the sprite
-        body.setSize()
+        body.setSize();
 
         //  Now you could call 'setCircle' etc as required
 

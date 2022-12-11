@@ -49,14 +49,7 @@ class Example extends Phaser.Scene
 
         this.text.setText(`Speed: ${this.sprite.body.speed}`);
 
-        // if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
-        // {
-        //     fireBullet();
-        // }
-
         this.physics.world.wrap(this.sprite, 32);
-
-        // bullets.forEachExists(screenWrap, this);
     }
 }
 
@@ -68,7 +61,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            fps: 60,
+            debug: false,
             gravity: { y: 0 }
         }
     },

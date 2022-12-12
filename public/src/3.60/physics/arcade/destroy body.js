@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerdown', function ClickNuke ()
         {
-        
+
             i--;
 
             text.setText(`Clicks: ${i}`);
@@ -36,7 +36,7 @@ class Example extends Phaser.Scene
             {
                 block.setVelocity(Phaser.Math.Between(-300, 300), -600);
             }
-        
+
         }, this);
     }
 }

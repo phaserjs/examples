@@ -1,23 +1,5 @@
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    pixelArt: true,
-    parent: 'phaser-example',
-    physics: {
-        default: 'arcade',
-        arcade: {
-            debug: false,
-            gravity: { y: 0 }
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create
-    }
-};
-
-class SpaceShip extends Phaser.Physics.Arcade.Sprite {
+class SpaceShip extends Phaser.Physics.Arcade.Sprite
+{
 
     constructor (scene, x, y)
     {
@@ -43,46 +25,51 @@ class SpaceShip extends Phaser.Physics.Arcade.Sprite {
 
         this.setVelocity(0, -200);
     }
-
-}
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.spritesheet('ship', 'assets/games/lazer/ship.png', { frameWidth: 16, frameHeight: 24 });
-}
-
-function create ()
-{
-    this.anims.create({
-        key: 'thrust',
-        frames: this.anims.generateFrameNumbers('ship', { frames: [ 2, 7 ] }),
-        frameRate: 20,
-        repeat: -1
-    });
-
-    for (var i = 0; i < 32; i++)
-    {
-        new SpaceShip(this, Phaser.Math.Between(64, 736), Phaser.Math.Between(100, 500));
-    }
-
-    this.physics.world.on('worldbounds', onWorldBounds);
 }
 
 function onWorldBounds (body)
 {
-    var ship = body.gameObject;
-
-    // if (body.velocity.y < 0)
-    // {
-        ship.toggleFlipY();
-
-    // }
-    // else
-    // {
-
-    // }
-
+    body.gameObject.toggleFlipY();
 }
 
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.spritesheet('ship', 'assets/games/lazer/ship.png', { frameWidth: 16, frameHeight: 24 });
+    }
+    create ()
+    {
+        this.anims.create({
+            key: 'thrust',
+            frames: this.anims.generateFrameNumbers('ship', { frames: [ 2, 7 ] }),
+            frameRate: 20,
+            repeat: -1
+        });
+
+        for (let i = 0; i < 32; i++)
+        {
+            new SpaceShip(this, Phaser.Math.Between(64, 736), Phaser.Math.Between(100, 500));
+        }
+
+        this.physics.world.on('worldbounds', onWorldBounds);
+    }
+}
+
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    pixelArt: true,
+    parent: 'phaser-example',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false,
+            gravity: { y: 0 }
+        }
+    },
+    scene: Example
+};
+
+const game = new Phaser.Game(config);

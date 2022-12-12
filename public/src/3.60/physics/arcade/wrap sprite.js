@@ -9,9 +9,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.block = this.physics.add.image(0, 0, 'block');
-
-        this.block.setVelocity(150, 150);
+        this.block = this.physics.add.image(0, 0, 'block').setVelocity(150, 150);
     }
 
     update ()
@@ -26,11 +24,7 @@ const config = {
     height: 600,
     parent: 'phaser-example',
     physics: {
-        default: 'arcade',
-        arcade: {
-            debug: false,
-            gravity: { y: 0 }
-        }
+        default: 'arcade'
     },
     scene: Example
 };

@@ -9,22 +9,29 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.zone = this.add.zone(300, 200).setSize(200, 200);
-        this.physics.world.enable(this.zone);
-        this.zone.body.setAllowGravity(false);
+        this.zone = this.add.zone(300, 200, 200, 200);
+
+        // Dynamic body
+        this.physics.add.existing(this.zone, false);
+
         this.zone.body.moves = false;
 
-        const group = this.physics.add.group({
-            key: 'block',
-            frameQuantity: 4,
+        const blocks = this.physics.add.group({
+            defaultKey: 'block',
             bounceX: 1,
             bounceY: 1,
-            collideWorldBounds: true,
-            velocityX: 120,
-            velocityY: 60
+            collideWorldBounds: true
         });
 
-        this.physics.add.overlap(group, this.zone);
+        blocks.create(100, 200).setVelocity(100, 200);
+        blocks.create(500, 200).setVelocity(-100, -100);
+        blocks.create(300, 400).setVelocity(60, 100);
+        blocks.create(600, 300).setVelocity(-30, -50);
+
+        this.physics.add.overlap(this.zone, blocks, (zone, block) =>
+        {
+            block.setAlpha(0.5);
+        });
     }
 
     update ()
@@ -32,8 +39,6 @@ class Example extends Phaser.Scene
         this.zone.body.debugBodyColor = this.zone.body.touching.none ? 0x00ffff : 0xffff00;
     }
 }
-
-// TODO
 
 const config = {
     type: Phaser.AUTO,

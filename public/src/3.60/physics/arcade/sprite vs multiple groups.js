@@ -16,37 +16,33 @@ class Example extends Phaser.Scene
 
         //  Create a few balls
 
-        // var balls = this.add.group();
         const balls = this.physics.add.group({ immovable: true });
 
         for (let i = 0; i < 8; i++)
         {
-            const p = Phaser.Geom.Rectangle.RandomOutside(outer, inner);
-            const b = balls.create(p.x, p.y, 'ball');
+            const point = Phaser.Geom.Rectangle.RandomOutside(outer, inner);
+            const ball = balls.create(point.x, point.y, 'ball');
 
-            this.physics.add.existing(b);
+            this.physics.add.existing(ball);
 
-            b.body.setImmovable();
+            ball.body.setImmovable();
         }
 
         //  Create a few crates
 
-        // var balls = this.add.group();
         const crates = this.physics.add.group({ immovable: true });
 
         for (let i = 0; i < 8; i++)
         {
-            const p = Phaser.Geom.Rectangle.RandomOutside(outer, inner);
-            const b = crates.create(p.x, p.y, 'crate');
+            const point = Phaser.Geom.Rectangle.RandomOutside(outer, inner);
+            const ball = crates.create(point.x, point.y, 'crate');
 
-            this.physics.add.existing(b);
+            this.physics.add.existing(ball);
 
-            b.body.setImmovable();
+            ball.body.setImmovable();
         }
 
         sprite.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true).setGravityY(200);
-
-        // this.physics.add.collider(sprite, balls);
 
         this.physics.add.collider(sprite, [ balls, crates ]);
     }

@@ -1,8 +1,5 @@
 class Example extends Phaser.Scene
 {
-    group;
-    sprite;
-
     preload ()
     {
         this.load.image('mushroom', 'assets/sprites/mushroom2.png');
@@ -11,26 +8,31 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.sprite = this.physics.add.image(400, 300, 'mushroom');
+        const sprite = this.physics.add.image(400, 300, 'mushroom');
 
-        this.group = this.physics.add.staticGroup({
+        const group = this.physics.add.staticGroup({
             key: 'ball',
             frameQuantity: 30
         });
 
-        Phaser.Actions.PlaceOnRectangle(this.group.getChildren(), new Phaser.Geom.Rectangle(84, 84, 616, 416));
+        Phaser.Actions.PlaceOnRectangle(
+            group.getChildren(),
+            new Phaser.Geom.Rectangle(84, 84, 616, 416)
+        );
 
-        //  We need to call this because placeOnRectangle has changed the coordinates of all the children
-        //  If we don't call it, the static physics bodies won't be updated to reflect them
-        this.group.refresh();
+        // Static bodies must be refreshed if their game objects are moved.
+        group.refresh();
 
-        this.sprite.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true).setGravityY(200);
+        sprite
+            .setVelocity(100, 200)
+            .setBounce(1, 1)
+            .setCollideWorldBounds(true)
+            .setGravityY(200);
 
-        const collider = this.physics.add.collider(this.sprite, this.group, null, function ()
+        const collider = this.physics.add.collider(sprite, group, null, () =>
         {
             this.physics.world.removeCollider(collider);
-        }, this);
-
+        });
     }
 }
 
@@ -41,7 +43,7 @@ const config = {
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: {debug: true}
+        arcade: { debug: true }
     },
     scene: Example
 };

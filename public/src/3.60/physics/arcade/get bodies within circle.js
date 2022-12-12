@@ -1,6 +1,6 @@
 class Example extends Phaser.Scene
 {
-    circ;
+    circle;
     sprites = [];
 
     preload ()
@@ -11,6 +11,10 @@ class Example extends Phaser.Scene
 
     create ()
     {
+        this.sprites = [];
+
+        // 240 Dynamic Bodies
+
         for (let i = 0; i < 240; i++)
         {
             const pos = Phaser.Geom.Rectangle.Random(this.physics.world.bounds);
@@ -24,28 +28,31 @@ class Example extends Phaser.Scene
             this.sprites.push(block);
         }
 
+        // 1 Static Body
+
         this.sprites.push(this.physics.add.staticImage(400, 300, 'flower'));
 
-        this.circ = this.add.circle(400, 300, 150).setStrokeStyle(2, 0xffff00);
+        this.circle = this.add.circle(400, 300, 150).setStrokeStyle(2, 0xffff00);
 
-        this.input.on('pointermove', pointer =>
+        this.input.on('pointermove', (pointer) =>
         {
-
-            this.circ.x = pointer.x;
-            this.circ.y = pointer.y;
-
-        }, this);
+            this.circle.copyPosition(pointer);
+        });
     }
 
-    update (time, delta)
+    update ()
     {
         Phaser.Actions.SetAlpha(this.sprites, 0.5);
 
-        const bodies = this.physics.overlapCirc(this.circ.x, this.circ.y, this.circ.radius, true, true);
+        const { x, y, radius } = this.circle;
 
-        Phaser.Actions.SetAlpha(bodies.map((body) => body.gameObject), 1);
+        const bodiesInCircle = this.physics.overlapCirc(x, y, radius, true, true);
+
+        Phaser.Actions.SetAlpha(bodiesInCircle.map(body => body.gameObject), 1);
     }
 }
+
+
 
 const config = {
     type: Phaser.AUTO,

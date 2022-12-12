@@ -69,15 +69,15 @@ class Example extends Phaser.Scene
         this.physics.add.collider(
             this.player,
             this.platform,
-            (_player, _platform) =>
+            (player, platform) =>
             {
-                if (_player.body.touching.up && _platform.body.touching.down)
+                if (player.body.touching.up && platform.body.touching.down)
                 {
                     this.createStar(
-                        _player.body.center.x,
-                        _platform.body.top - 16,
-                        _player.body.velocity.x,
-                        _player.body.velocity.y * -3
+                        player.body.center.x,
+                        platform.body.top - 16,
+                        player.body.velocity.x,
+                        player.body.velocity.y * -3
                     );
                 }
             });

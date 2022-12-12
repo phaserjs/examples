@@ -17,26 +17,27 @@ class Example extends Phaser.Scene
         const cannonHead = this.add.image(130, 416, 'cannon_head').setDepth(1);
         const cannon = this.add.image(130, 464, 'cannon_body').setDepth(1);
         const chick = this.physics.add.sprite(cannon.x, cannon.y - 50, 'chick').setScale(2);
-        const gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xffdd00, alpha: 0.5 } });
+        const graphics = this.add.graphics({ lineStyle: { width: 10, color: 0xffdd00, alpha: 0.5 } });
         const line = new Phaser.Geom.Line();
-        let angle = 0;
 
         chick.disableBody(true, true);
 
-        this.input.on('pointermove', pointer =>
+        let angle = 0;
+
+        this.input.on('pointermove', (pointer) =>
         {
             angle = Phaser.Math.Angle.BetweenPoints(cannon, pointer);
             cannonHead.rotation = angle;
             Phaser.Geom.Line.SetToAngle(line, cannon.x, cannon.y - 50, angle, 128);
-            gfx.clear().strokeLineShape(line);
-        }, this);
+            graphics.clear().strokeLineShape(line);
+        });
 
-        this.input.on('pointerup', function ()
+        this.input.on('pointerup', () =>
         {
             chick.enableBody(true, cannon.x, cannon.y - 50, true, true);
             chick.play('fly');
             this.physics.velocityFromRotation(angle, 600, chick.body.velocity);
-        }, this);
+        });
     }
 }
 
@@ -49,7 +50,6 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
             gravity: { y: 300 }
         }
     },

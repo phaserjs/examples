@@ -2,27 +2,35 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('block', 'assets/sprites/block.png');
-        this.load.image('clown', 'assets/sprites/clown.png');
+        this.load.image('flower', 'assets/sprites/flower-exo.png');
+        this.load.image('cursor', 'assets/sprites/drawcursor.png');
     }
 
     create ()
     {
-        const block = this.physics.add.staticImage(600, 300, 'block');
-        const clown = this.physics.add.image(200, 300, 'clown');
+        const flower = this.physics.add.image(100, 300, 'flower');
 
-        // Accelerate at 60 px/s/s, maximum velocity 300 px/s
-        this.physics.accelerateToObject(clown, block, 60, 300, 300);
+        flower.body
+            .setBounce(1, 1)
+            .setCollideWorldBounds(true)
+            .setMaxSpeed(300);
 
-        // Same:
-        // this.physics.accelerateTo(clown, block.x, block.y, 60, 300, 300);
+        const cursor = this.add.image(0, 0, 'cursor').setVisible(false);
 
-        const collider = this.physics.add.overlap(clown, block, function (clownOnBlock)
+        this.add.text(10, 10, 'Click to set target', { fill: '#00ff00' });
+
+        this.input.on('pointerdown', (pointer) =>
         {
-            clownOnBlock.body.stop();
+            cursor.copyPosition(pointer).setVisible(true);
 
-            this.physics.world.removeCollider(collider);
-        }, null, this);
+            flower.body.stop();
+
+            // Accelerate toward target at 100px per second per second.
+
+            this.physics.accelerateToObject(flower, cursor, 100);
+
+            // See <move and stop at position.js> for stopping near a target.
+        });
     }
 }
 

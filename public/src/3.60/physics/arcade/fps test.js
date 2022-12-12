@@ -11,7 +11,7 @@ var config = {
         create: create,
         update: update
     }
-};  
+};
 
 var source;
 var debug;
@@ -34,7 +34,8 @@ function create ()
 
     source = this.physics.add.image(0, 300, 'flower');
 
-    this.input.on('pointerdown', function (pointer) {
+    this.input.on('pointerdown', function (pointer)
+    {
 
         start = pointer.time;
 
@@ -53,7 +54,7 @@ function update (time)
     }
 
     debug.setText([
-        'Duration: ' + ((complete) ? (end - start) : 0),
+        `Duration: ${ (complete) ? (end - start) : 0}`,
         'ETA: 2000'
     ]);
 

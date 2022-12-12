@@ -53,11 +53,11 @@ function create ()
 function update (time, delta)
 {
     text.setText([
-        'steps: ' + this.physics.world._lastCount,
-        'duration: ' + prevDuration,
-        'last y: ' + lastY,
-        'min y: ' + minY,
-        'max y: ' + maxY
+        `steps: ${ this.physics.world._lastCount}`,
+        `duration: ${ prevDuration}`,
+        `last y: ${ lastY}`,
+        `min y: ${ minY}`,
+        `max y: ${ maxY}`
     ]);
 
     if (Phaser.Math.Fuzzy.LessThan(logo.body.velocity.y, 0, 0.1))

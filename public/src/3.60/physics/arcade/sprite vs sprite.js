@@ -1,8 +1,5 @@
 class Example extends Phaser.Scene
 {
-    sprite2;
-    sprite1;
-
     preload ()
     {
         this.load.image('mushroom', 'assets/sprites/mushroom2.png');
@@ -10,18 +7,13 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.sprite1 = this.add.image(100, 100, 'mushroom');
-        this.sprite2 = this.add.image(400, 100, 'mushroom');
+        const sprite1 = this.physics.add.image(100, 100, 'mushroom');
+        const sprite2 = this.physics.add.image(400, 100, 'mushroom');
 
-        this.physics.world.enable([ this.sprite1, this.sprite2 ]);
+        sprite1.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true);
+        sprite2.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true);
 
-        this.sprite1.body.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true);
-        this.sprite2.body.setVelocity(100, 200).setBounce(1, 1).setCollideWorldBounds(true);
-    }
-
-    update ()
-    {
-        this.physics.world.collide(this.sprite1, this.sprite2);
+        this.physics.add.collider(sprite1, sprite2);
     }
 }
 
@@ -41,3 +33,4 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+

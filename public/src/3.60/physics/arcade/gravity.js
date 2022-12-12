@@ -7,8 +7,6 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.physics.world.gravity.y = 60;
-
         const group = this.physics.add.group({
             defaultKey: 'block',
             bounceX: 1,
@@ -16,9 +14,19 @@ class Example extends Phaser.Scene
             collideWorldBounds: true
         });
 
+        // World gravity
+        this.physics.world.gravity.y = 150;
+
+        // Total gravity is 150.
         group.create(250, 300);
+
+        // Total gravity is 450.
         group.create(350, 300).setGravity(0, 300);
+
+        // Total gravity is 150.
         group.create(450, 300).setGravity(0, -300);
+
+        // No gravity.
         group.create(550, 300, 'block').body.setAllowGravity(false);
     }
 }
@@ -30,10 +38,7 @@ const config = {
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: {
-            debug: true,
-            gravity: { y: 150 }
-        }
+        arcade: { debug: true }
     },
     scene: Example
 };

@@ -1,11 +1,11 @@
 class Example extends Phaser.Scene
 {
-    text;
-    gfx;
-    flower;
-    block3;
-    block2;
     block1;
+    block2;
+    block3;
+    flower;
+    graphics;
+    text;
 
     preload ()
     {
@@ -16,19 +16,13 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.block1 = this.physics.add.image(400, 150, 'block');
-        this.block2 = this.physics.add.image(400, 300, 'block');
+        this.block1 = this.physics.add.image(400, 150, 'block').setImmovable(true);
+        this.block2 = this.physics.add.image(400, 300, 'block').setImmovable(true);
         this.block3 = this.physics.add.staticImage(400, 450, 'block');
-        this.flower = this.physics.add.image(400, 100, 'flower');
 
-        this.block1.body.setImmovable(true);
+        this.flower = this.physics.add.image(400, 100, 'flower').setCollideWorldBounds(true);
 
-        this.block2.body.setImmovable(true);
-
-        // Will cause `blocked` (last).
-        this.flower.setCollideWorldBounds(true);
-
-        this.gfx = this.add.graphics();
+        this.graphics = this.add.graphics();
 
         this.text = this.add.text(0, 0, '-');
 
@@ -57,9 +51,9 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        this.gfx.clear();
-        this.gfx.lineStyle(1, 0x666666);
-        this.gfx.strokeRectShape(this.physics.world.bounds);
+        this.graphics.clear();
+        this.graphics.lineStyle(1, 0x666666);
+        this.graphics.strokeRectShape(this.physics.world.bounds);
 
         this.draw(this.block1);
         this.draw(this.block2);
@@ -80,25 +74,25 @@ class Example extends Phaser.Scene
         ]);
     }
 
-    draw (obj)
+    draw (gameObject)
     {
-        if (!obj.active) { return; }
+        if (!gameObject.active) { return; }
 
-        const body = obj.body;
+        const { body } = gameObject;
 
-        this.gfx.lineStyle(11, 0xffff00, 0.5);
+        this.graphics.lineStyle(11, 0xffff00, 0.5);
 
         this.drawFaces(body, body.touching);
 
-        this.gfx.lineStyle(11, 0xff0000, 0.5);
+        this.graphics.lineStyle(11, 0xff0000, 0.5);
 
         this.drawFaces(body, body.blocked);
 
         if (body.embedded)
         {
-            this.gfx.lineStyle(5, 0x00ccff, 0.5);
-            this.gfx.lineBetween(body.left, body.top, body.right, body.bottom);
-            this.gfx.lineBetween(body.left, body.bottom, body.right, body.top);
+            this.graphics.lineStyle(5, 0x00ccff, 0.5);
+            this.graphics.lineBetween(body.left, body.top, body.right, body.bottom);
+            this.graphics.lineBetween(body.left, body.bottom, body.right, body.top);
         }
     }
 
@@ -106,22 +100,22 @@ class Example extends Phaser.Scene
     {
         if (faces.left)
         {
-            this.gfx.lineBetween(body.left, body.top, body.left, body.bottom);
+            this.graphics.lineBetween(body.left, body.top, body.left, body.bottom);
         }
 
         if (faces.up)
         {
-            this.gfx.lineBetween(body.left, body.top, body.right, body.top);
+            this.graphics.lineBetween(body.left, body.top, body.right, body.top);
         }
 
         if (faces.right)
         {
-            this.gfx.lineBetween(body.right, body.top, body.right, body.bottom);
+            this.graphics.lineBetween(body.right, body.top, body.right, body.bottom);
         }
 
         if (faces.down)
         {
-            this.gfx.lineBetween(body.left, body.bottom, body.right, body.bottom);
+            this.graphics.lineBetween(body.left, body.bottom, body.right, body.bottom);
         }
     }
 }

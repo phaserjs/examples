@@ -10452,7 +10452,7 @@
                 {
                   "path": "src/3.60/physics/arcade/accelerate to.js",
                   "name": "accelerate to.js",
-                  "size": 1045,
+                  "size": 1198,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10473,42 +10473,42 @@
                 {
                   "path": "src/3.60/physics/arcade/angular acceleration.js",
                   "name": "angular acceleration.js",
-                  "size": 889,
+                  "size": 922,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/angular velocity.js",
                   "name": "angular velocity.js",
-                  "size": 1171,
+                  "size": 1099,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/asteroids movement.js",
                   "name": "asteroids movement.js",
-                  "size": 1757,
+                  "size": 1584,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/basic platform.js",
                   "name": "basic platform.js",
-                  "size": 3658,
+                  "size": 3673,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/blocked faces.js",
                   "name": "blocked faces.js",
-                  "size": 2447,
+                  "size": 2492,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/blocked touching and embedded.js",
                   "name": "blocked touching and embedded.js",
-                  "size": 3419,
+                  "size": 3394,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10522,21 +10522,21 @@
                 {
                   "path": "src/3.60/physics/arcade/body on a path.js",
                   "name": "body on a path.js",
-                  "size": 3705,
+                  "size": 3939,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/bounce test.js",
                   "name": "bounce test.js",
-                  "size": 1767,
+                  "size": 1772,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/bullets group.js",
                   "name": "bullets group.js",
-                  "size": 1912,
+                  "size": 1932,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10550,21 +10550,21 @@
                 {
                   "path": "src/3.60/physics/arcade/circular collisions 2.js",
                   "name": "circular collisions 2.js",
-                  "size": 1220,
+                  "size": 1189,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/circular collisions.js",
                   "name": "circular collisions.js",
-                  "size": 2194,
+                  "size": 2180,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/closest furthest.js",
                   "name": "closest furthest.js",
-                  "size": 1662,
+                  "size": 1581,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10578,42 +10578,42 @@
                 {
                   "path": "src/3.60/physics/arcade/collision direction.js",
                   "name": "collision direction.js",
-                  "size": 3891,
+                  "size": 3883,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/custom bounds.js",
                   "name": "custom bounds.js",
-                  "size": 1103,
+                  "size": 1475,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/custom debug colors.js",
                   "name": "custom debug colors.js",
-                  "size": 3084,
+                  "size": 3076,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/custom separate.js",
                   "name": "custom separate.js",
-                  "size": 1316,
+                  "size": 1404,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/custom world bounds.js",
                   "name": "custom world bounds.js",
-                  "size": 1194,
+                  "size": 1771,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/destroy body.js",
                   "name": "destroy body.js",
-                  "size": 1214,
+                  "size": 1198,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10627,42 +10627,42 @@
                 {
                   "path": "src/3.60/physics/arcade/extending arcade sprite.js",
                   "name": "extending arcade sprite.js",
-                  "size": 1767,
+                  "size": 1703,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/fps test.js",
                   "name": "fps test.js",
-                  "size": 1166,
+                  "size": 1167,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/friction.js",
                   "name": "friction.js",
-                  "size": 1575,
+                  "size": 1746,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/get bodies within circle.js",
                   "name": "get bodies within circle.js",
-                  "size": 1524,
+                  "size": 1602,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/get bodies within rectangle.js",
                   "name": "get bodies within rectangle.js",
-                  "size": 1941,
+                  "size": 1501,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/gravity.js",
                   "name": "gravity.js",
-                  "size": 880,
+                  "size": 978,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10725,7 +10725,7 @@
                 {
                   "path": "src/3.60/physics/arcade/mass.js",
                   "name": "mass.js",
-                  "size": 1297,
+                  "size": 1183,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10739,21 +10739,21 @@
                 {
                   "path": "src/3.60/physics/arcade/move and stop at position.js",
                   "name": "move and stop at position.js",
-                  "size": 1531,
+                  "size": 1715,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/move to pointer.js",
                   "name": "move to pointer.js",
-                  "size": 1187,
+                  "size": 1197,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/move to.js",
                   "name": "move to.js",
-                  "size": 1057,
+                  "size": 1067,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10774,14 +10774,14 @@
                 {
                   "path": "src/3.60/physics/arcade/overlap zone.js",
                   "name": "overlap zone.js",
-                  "size": 1096,
+                  "size": 1282,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/physics body without sprite.js",
                   "name": "physics body without sprite.js",
-                  "size": 4755,
+                  "size": 4743,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10802,21 +10802,21 @@
                 {
                   "path": "src/3.60/physics/arcade/recycle physics body.js",
                   "name": "recycle physics body.js",
-                  "size": 3872,
+                  "size": 3873,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/remove collider.js",
                   "name": "remove collider.js",
-                  "size": 1311,
+                  "size": 1217,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/restart physics scene.js",
                   "name": "restart physics scene.js",
-                  "size": 5106,
+                  "size": 5088,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10837,7 +10837,7 @@
                 {
                   "path": "src/3.60/physics/arcade/simple group.js",
                   "name": "simple group.js",
-                  "size": 962,
+                  "size": 895,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10851,14 +10851,14 @@
                 {
                   "path": "src/3.60/physics/arcade/space.js",
                   "name": "space.js",
-                  "size": 7445,
+                  "size": 7060,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/sprite overlap group.js",
                   "name": "sprite overlap group.js",
-                  "size": 3154,
+                  "size": 3166,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10872,28 +10872,28 @@
                 {
                   "path": "src/3.60/physics/arcade/sprite vs immovable.js",
                   "name": "sprite vs immovable.js",
-                  "size": 909,
+                  "size": 856,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/sprite vs multiple groups.js",
                   "name": "sprite vs multiple groups.js",
-                  "size": 1790,
+                  "size": 1696,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/sprite vs sprite.js",
                   "name": "sprite vs sprite.js",
-                  "size": 956,
+                  "size": 823,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/static body update.js",
                   "name": "static body update.js",
-                  "size": 1276,
+                  "size": 1260,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10914,7 +10914,7 @@
                 {
                   "path": "src/3.60/physics/arcade/touching faces.js",
                   "name": "touching faces.js",
-                  "size": 2500,
+                  "size": 2443,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10928,28 +10928,28 @@
                 {
                   "path": "src/3.60/physics/arcade/tween velocity.js",
                   "name": "tween velocity.js",
-                  "size": 3219,
+                  "size": 3365,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/velocity from angle.js",
                   "name": "velocity from angle.js",
-                  "size": 1998,
+                  "size": 1948,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/vertical friction.js",
                   "name": "vertical friction.js",
-                  "size": 1132,
+                  "size": 1112,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/world bounds event.js",
                   "name": "world bounds event.js",
-                  "size": 1319,
+                  "size": 928,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10963,19 +10963,19 @@
                 {
                   "path": "src/3.60/physics/arcade/wrap group.js",
                   "name": "wrap group.js",
-                  "size": 1645,
+                  "size": 962,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/physics/arcade/wrap sprite.js",
                   "name": "wrap sprite.js",
-                  "size": 644,
+                  "size": 538,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 158952,
+              "size": 158166,
               "type": "directory"
             },
             {
@@ -11450,7 +11450,7 @@
               "type": "directory"
             }
           ],
-          "size": 270368,
+          "size": 269582,
           "type": "directory"
         },
         {
@@ -12816,12 +12816,12 @@
             {
               "path": "src/3.60/sprite fx/glow fx.js",
               "name": "glow fx.js",
-              "size": 1702,
+              "size": 5201,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 1702,
+          "size": 5201,
           "type": "directory"
         },
         {
@@ -14368,7 +14368,7 @@
           "type": "directory"
         }
       ],
-      "size": 4033597,
+      "size": 4036310,
       "type": "directory"
     },
     {
@@ -15237,6 +15237,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/4905 hit area debug.js",
+          "name": "4905 hit area debug.js",
+          "size": 1575,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/4910 video oncomplete.js",
           "name": "4910 video oncomplete.js",
           "size": 2578,
@@ -15468,9 +15475,23 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/5617 debug 1.js",
+          "name": "5617 debug 1.js",
+          "size": 7397,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
+          "path": "src/bugs/5617 debug 2.js",
+          "name": "5617 debug 2.js",
+          "size": 7421,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/5617 push circle.js",
           "name": "5617 push circle.js",
-          "size": 1769,
+          "size": 2563,
           "extension": ".js",
           "type": "file"
         },
@@ -15860,7 +15881,7 @@
           "type": "file"
         }
       ],
-      "size": 125248,
+      "size": 142435,
       "type": "directory"
     },
     {
@@ -29749,6 +29770,6 @@
       "type": "directory"
     }
   ],
-  "size": 8091529,
+  "size": 8111429,
   "type": "directory"
 }

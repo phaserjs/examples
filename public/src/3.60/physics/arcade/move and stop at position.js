@@ -1,4 +1,56 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('flower', 'assets/sprites/flower-exo.png');
+        this.load.image('cursor', 'assets/sprites/drawcursor.png');
+    }
+
+    create ()
+    {
+        this.source = this.physics.add.image(100, 300, 'flower');
+
+        this.target = new Phaser.Math.Vector2();
+
+        const cursor = this.add.image(0, 0, 'cursor').setVisible(false);
+
+        this.distanceText = this.add.text(10, 10, 'Click to set target', { fill: '#00ff00' });
+
+        this.input.on('pointerdown', (pointer) =>
+        {
+            this.target.x = pointer.x;
+            this.target.y = pointer.y;
+
+            // Move at 200 px/s:
+            this.physics.moveToObject(this.source, this.target, 200);
+
+            cursor.copyPosition(this.target).setVisible(true);
+        });
+    }
+
+    update ()
+    {
+        //  4 is our distance tolerance, i.e. how close the source can get to the target
+        //  before it is considered as being there. The faster it moves, the more tolerance is required.
+        const tolerance = 4;
+
+        // const tolerance = 200 * 1.5 / this.game.loop.targetFps;
+
+        const distance = Phaser.Math.Distance.BetweenPoints(this.source, this.target);
+
+        if (this.source.body.speed > 0)
+        {
+            this.distanceText.setText(`Distance: ${distance}`);
+
+            if (distance < tolerance)
+            {
+                this.source.body.reset(this.target.x, this.target.y);
+            }
+        }
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -6,61 +58,7 @@ var config = {
     physics: {
         default: 'arcade'
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};  
+    scene: Example
+};
 
-var debug;
-var source;
-var target = new Phaser.Math.Vector2();
-var distanceText;
-
-new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('flower', 'assets/sprites/flower-exo.png');
-}
-
-function create ()
-{
-    source = this.physics.add.image(100, 300, 'flower');
-
-    debug = this.add.graphics();
-
-    this.input.on('pointerdown', function (pointer) {
-
-        target.x = pointer.x;
-        target.y = pointer.y;
-        
-        // Move at 200 px/s:
-        this.physics.moveToObject(source, target, 200);
-
-        debug.clear().lineStyle(1, 0x00ff00);
-        debug.lineBetween(0, target.y, 800, target.y);
-        debug.lineBetween(target.x, 0, target.x, 600);
-
-    }, this);
-
-    distanceText = this.add.text(10, 10, 'Click to set target', { fill: '#00ff00' });
-}
-
-function update ()
-{
-    var distance = Phaser.Math.Distance.Between(source.x, source.y, target.x, target.y);
-
-    if (source.body.speed > 0)
-    {
-        distanceText.setText('Distance: ' + distance);
-
-        //  4 is our distance tolerance, i.e. how close the source can get to the target
-        //  before it is considered as being there. The faster it moves, the more tolerance is required.
-        if (distance < 4)
-        {
-            source.body.reset(target.x, target.y);
-        }
-    }
-}
+const game = new Phaser.Game(config);

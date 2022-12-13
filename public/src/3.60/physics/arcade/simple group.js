@@ -13,12 +13,12 @@ class Example extends Phaser.Scene
             collideWorldBounds: true
         });
 
-        const block1 = group.create(100, 200, 'block').setVelocity(100, 200);
-        const block2 = group.create(500, 200, 'block').setVelocity(-100, -100);
-        const block3 = group.create(300, 400, 'block').setVelocity(60, 100);
-        const block4 = group.create(600, 300, 'block').setVelocity(-30, -50);
+        group.create(100, 200, 'block').setVelocity(100, 200);
+        group.create(500, 200, 'block').setVelocity(-100, -100);
+        group.create(300, 400, 'block').setVelocity(60, 100);
+        group.create(600, 300, 'block').setVelocity(-30, -50);
 
-        this.physics.add.collider(group, group);
+        this.physics.add.collider(group);
     }
 }
 

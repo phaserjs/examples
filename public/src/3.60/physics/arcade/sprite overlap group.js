@@ -46,7 +46,7 @@ class Example extends Phaser.Scene
         this.cursors = this.input.keyboard.createCursorKeys();
 
         //  When the player sprite his the health packs, call this function ...
-        this.physics.add.overlap(this.sprite, this.healthGroup, this.spriteHitHealth);
+        this.physics.add.overlap(this.sprite, this.healthGroup, this.spriteHitHealth, null, this);
 
         //  Decrease the health by calling reduceHealth every 50ms
         this.timedEvent = this.time.addEvent({ delay: 50, callback: this.reduceHealth, callbackScope: this, loop: true });

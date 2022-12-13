@@ -8,8 +8,9 @@ class Example extends Phaser.Scene
     create ()
     {
         const group = this.physics.add.group({
+            defaultKey: 'block',
             // Initial angular speed of 60 degrees per second.
-            // Drag reduces it by 5 degrees/s per second, thus to zero after 12 seconds.
+            // Drag reduces it by 5 degrees/s/s, thus to zero after 12 seconds.
             angularDrag: 5,
             angularVelocity: 60,
             bounceX: 1,
@@ -19,10 +20,10 @@ class Example extends Phaser.Scene
             dragY: 60
         });
 
-        const block1 = group.create(100, 200, 'block').setVelocity(100, 200);
-        const block2 = group.create(500, 200, 'block').setVelocity(-100, -100);
-        const block3 = group.create(300, 400, 'block').setVelocity(60, 100);
-        const block4 = group.create(600, 300, 'block').setVelocity(-30, -50);
+        group.create(100, 200).setVelocity(100, 200);
+        group.create(500, 200).setVelocity(-100, -100);
+        group.create(300, 400).setVelocity(60, 100);
+        group.create(600, 300).setVelocity(-30, -50);
     }
 }
 

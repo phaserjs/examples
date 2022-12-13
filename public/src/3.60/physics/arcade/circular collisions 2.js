@@ -26,11 +26,11 @@ class Example extends Phaser.Scene
 
         Phaser.Actions.PlaceOnCircle(balls.getChildren(), { x: 0, y: 0, radius: 300 });
 
-        balls.children.each(function (ball)
+        for (const ball of balls.getChildren())
         {
             ball.setCircle(8);
-            this.physics.moveTo(ball, wizball.x, wizball.y, 100);
-        }, this);
+            this.physics.moveToObject(ball, wizball, 100);
+        }
 
         this.physics.add.collider(wizball, balls);
     }
@@ -43,9 +43,7 @@ const config = {
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
-        arcade: {
-            debug: false
-        }
+        arcade: { debug: false }
     },
     scene: Example
 };

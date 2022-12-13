@@ -2,35 +2,35 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('block', 'assets/sprites/block.png');
-        this.load.image('dude', 'assets/sprites/phaser-dude.png');
+        this.load.image('platform', 'assets/demoscene/sunset-raster.png');
+        this.load.image('lemming', 'assets/sprites/lemming.png');
     }
 
     create ()
     {
-
-        // Friction movement is parallel to the movement of the immovable body
-        // and perpendicular to the direction of overlap/separation
-
-        const block = this.physics.add.image(400, 200, 'block')
+        const platform = this.physics.add.image(400, 200, 'platform')
             .setFriction(0, 1)
             .setImmovable(true)
             .setVelocityY(100);
 
-        const sprite = this.physics.add.image(200, 300, 'dude')
-            .setGravityX(100)
-            .setVelocityX(100);
+        const sprites = this.physics.add.group({
+            key: 'lemming',
+            quantity: 4,
+            setXY: { x: -400, y: 300, stepX: 200, stepY: 0 },
+            gravityX: 100,
+            velocityX: 300
+        });
 
         this.time.addEvent({
             delay: 2000,
             loop: true,
             callback: function ()
             {
-                block.body.velocity.y *= -1;
+                platform.body.velocity.y *= -1;
             }
         });
 
-        this.physics.add.collider(block, sprite);
+        this.physics.add.collider(sprites, platform);
     }
 }
 

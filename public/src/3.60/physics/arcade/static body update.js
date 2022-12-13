@@ -23,12 +23,12 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerdown', () =>
         {
-        
+
             this.static1.x -= 50;
 
             // static1.setScale(3, 5);
             this.static1.refreshBody();
-        
+
         }, this);
     }
 

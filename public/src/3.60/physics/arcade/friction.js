@@ -20,15 +20,31 @@ class Example extends Phaser.Scene
             immovable: true
         });
 
-        this.platforms.getChildren()[0].setFrictionX(1);
-        this.platforms.getChildren()[1].setFrictionX(0.5);
-        this.platforms.getChildren()[2].setFrictionX(0);
+        const [ platform1, platform2, platform3 ] = this.platforms.getChildren();
+
+        platform1.setFrictionX(1);
+        platform2.setFrictionX(0.5);
+        platform3.setFrictionX(0);
 
         this.lemmings = this.physics.add.group({ gravityY: 600 });
 
-        this.lemmings.createMultiple({ key: 'lemming', repeat: 3, setXY: { x: 250, y: 0, stepX: 100 } });
-        this.lemmings.createMultiple({ key: 'lemming', repeat: 3, setXY: { x: 250, y: 200, stepX: 100 } });
-        this.lemmings.createMultiple({ key: 'lemming', repeat: 3, setXY: { x: 250, y: 350, stepX: 100 } });
+        this.lemmings.createMultiple([
+            {
+                key: 'lemming',
+                repeat: 3,
+                setXY: { x: 250, y: 0, stepX: 100 }
+            },
+            {
+                key: 'lemming',
+                repeat: 3,
+                setXY: { x: 250, y: 200, stepX: 100 }
+            },
+            {
+                key: 'lemming',
+                repeat: 3,
+                setXY: { x: 250, y: 350, stepX: 100 }
+            }
+        ]);
 
         this.physics.add.group({
             key: 'spikedball',
@@ -46,7 +62,7 @@ const config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    physics: {default: 'arcade'},
+    physics: { default: 'arcade' },
     scene: Example
 };
 

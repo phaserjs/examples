@@ -1,6 +1,7 @@
 class Example extends Phaser.Scene
 {
-    gfx;
+    cursor;
+    graphics;
     group;
 
     preload ()
@@ -23,31 +24,27 @@ class Example extends Phaser.Scene
         this.group.create(300, 400).setVelocity(60, 100);
         this.group.create(600, 300).setVelocity(-30, -50);
 
-        this.gfx = this.add.graphics();
+        this.graphics = this.add.graphics();
 
-        const cursor = this.add.image(0, 0, 'cursor').setVisible(false);
-
-        // Loads the spatial tree
-        this.physics.world.step(0);
+        this.cursor = this.add.image(400, 300, 'cursor');
 
         this.input.on('pointermove', pointer =>
         {
-            cursor.setVisible(true).setPosition(pointer.x, pointer.y);
+            this.cursor.copyPosition(pointer);
         });
 
     }
 
     update ()
     {
-        const pointer = this.input.activePointer;
-        const closest = this.physics.closest(pointer);
-        const furthest = this.physics.furthest(pointer);
+        const closest = this.physics.closest(this.cursor);
+        const furthest = this.physics.furthest(this.cursor);
 
-        this.gfx.clear()
+        this.graphics.clear()
             .lineStyle(2, 0xff3300)
-            .lineBetween(closest.x, closest.y, pointer.x, pointer.y)
+            .lineBetween(closest.center.x, closest.center.y, this.cursor.x, this.cursor.y)
             .lineStyle(2, 0x0099ff)
-            .lineBetween(furthest.x, furthest.y, pointer.x, pointer.y);
+            .lineBetween(furthest.center.x, furthest.center.y, this.cursor.x, this.cursor.y);
     }
 }
 

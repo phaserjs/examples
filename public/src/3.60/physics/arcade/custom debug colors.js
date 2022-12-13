@@ -54,7 +54,7 @@ class Example extends Phaser.Scene
 
         //  A dynamic circular body
         const ball = this.physics.add.image(100, 400, 'wizball').setCircle(46);
-        
+
         ball.setVelocity(Phaser.Math.Between(-100, 100), Phaser.Math.Between(-100, 100));
         ball.setBounce(1).setCollideWorldBounds(true);
 

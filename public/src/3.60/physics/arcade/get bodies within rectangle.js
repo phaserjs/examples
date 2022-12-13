@@ -18,49 +18,30 @@ class Example extends Phaser.Scene
 
             const block = this.physics.add.sprite(pos.x, pos.y, 'mushroom');
 
-            block.setVelocity(Phaser.Math.Between(50, 100), Phaser.Math.Between(50, 100));
             block.setBounce(1).setCollideWorldBounds(true);
 
-            if (Math.random() > 0.5)
-            {
-                block.body.velocity.x *= -1;
-            }
-            else
-            {
-                block.body.velocity.y *= -1;
-            }
+            Phaser.Math.RandomXY(block.body.velocity, 100);
 
             this.blocks.push(block);
         }
 
         this.rect = this.add.rectangle(400, 300, 300, 200).setStrokeStyle(2, 0xffff00);
 
-        this.input.on('pointermove', pointer =>
+        this.input.on('pointermove', (pointer) =>
         {
-
-            this.rect.x = pointer.x;
-            this.rect.y = pointer.y;
-
-        }, this);
+            this.rect.copyPosition(pointer);
+        });
     }
 
-    update (time, delta)
+    update ()
     {
-        this.blocks.forEach(block =>
-        {
-            block.setTint(0xffffff);
-        });
+        Phaser.Actions.SetAlpha(this.blocks, 0.5);
 
-        //  We need the top-left of the rect
-        const x = this.rect.x - (this.rect.width / 2);
-        const y = this.rect.y - (this.rect.height / 2);
+        const { left, top, width, height } = this.rect.getBounds();
 
-        const within = this.physics.overlapRect(x, y, this.rect.width, this.rect.height);
+        const bodiesInRect = this.physics.overlapRect(left, top, width, height);
 
-        within.forEach(body =>
-        {
-            body.gameObject.setTint(0xff0000);
-        });
+        Phaser.Actions.SetAlpha(bodiesInRect.map(body => body.gameObject), 1);
     }
 }
 

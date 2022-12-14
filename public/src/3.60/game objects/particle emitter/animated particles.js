@@ -15,16 +15,23 @@ class Example extends Phaser.Scene
         const particles = this.add.particles('gems');
 
         const emitter = particles.createEmitter({
-            anim: { anims: [ 'prism', 'square' ], cycle: true },
-            x: 64,
-            y: { start: 500, end: 100, steps: 8 },
-            lifespan: 4000,
-            accelerationX: 200,
-            frequency: 100
+            anim: [ 'diamond', 'prism', 'square', 'ruby' ],
+            x: 100,
+            y: 100,
+            speed: 100,
+            lifespan: 6000,
+            scale: { start: 0.3, end: 1 },
+            gravityY: 80
         });
 
-        console.log(particles);
-        console.log(emitter);
+        this.tweens.add({
+            targets: emitter,
+            x: 700,
+            yoyo: true,
+            repeat: -1,
+            duration: 2000,
+            ease: 'sine.inout'
+        });
     }
 }
 

@@ -30,16 +30,15 @@ class Example extends Phaser.Scene
                 onEmit: (particle, key, t, value) => {
                     return pointerY;
                 },
-                // onUpdate: (particle, key, t, value) => {
-                //     //   add to the y value based on particles remaining life
-                //     // console.log(value);
-                //     return value + (t * 10);
-                // }
+                onUpdate: (particle, key, t, value) => {
+                    //  add to the y value based on particles remaining life
+                    //  this creates the effect of gravity, without using gravity
+                    return value + (t * 10);
+                }
             },
-            quantity: 1,
+            // quantity: 1,
             speed: 200,
-            lifespan: 2000,
-            // gravityY: 200
+            lifespan: 2000
         });
 
         console.log(emitter.ops);

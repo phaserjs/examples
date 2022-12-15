@@ -11,10 +11,9 @@ class Example extends Phaser.Scene
 
         const emitter = particles.createEmitter({
             scale: { start: 1, end: 0 },
-            x: { start: 100, end: 600, random: true },
-            y: 100,
-            lifespan: 3000,
-            gravityY: 200
+            x: { min: 100, max: 700 },
+            y: { start: 100, end: 500, ease: 'bounce.out' },
+            lifespan: 2000
         });
     }
 }

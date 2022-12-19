@@ -7,9 +7,6 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const hsv = Phaser.Display.Color.HSVColorWheel();
-        let i = 0;
-
         const particles = this.add.particles('brush');
 
         const emitter = particles.createEmitter({
@@ -17,29 +14,22 @@ class Example extends Phaser.Scene
             y: 100,
             speedX: 200,
             lifespan: 2000,
-            tint: hsv[0].color
+            alpha: 1
         });
 
         this.tweens.add({
             targets: emitter,
+            alpha: 0,
             y: 500,
             speedX: -200,
             duration: 1500,
             ease: 'sine.inout',
             yoyo: true,
             repeat: -1,
-            onUpdate: () => {
-
-                i++;
-
-                if (i === 360)
-                {
-                    i = 0;
-                }
-
-                emitter.tint = hsv[i].color;
-            }
         });
+
+        console.log(emitter);
+        window.emitter = emitter;
     }
 }
 

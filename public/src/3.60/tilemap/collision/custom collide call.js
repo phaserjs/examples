@@ -28,8 +28,6 @@ class Example extends Phaser.Scene
 
         this.physics.add.existing(this.player);
 
-        // this.physics.add.collider(this.player, this.layer);
-
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.cursors.up.on('down', () =>
@@ -56,12 +54,13 @@ class Example extends Phaser.Scene
             this.player.body.setVelocityX(200);
         }
 
+        //  Collide player against the tilemap layer
         this.physics.collide(this.player, this.layer);
 
-        // collideTiles
-
+        //  Custom tile overlap check
         this.physics.world.overlapTiles(this.player, this.pickups, this.hitPickup, null, this);
 
+        //  Debug info
         const blocked = this.player.body.blocked;
 
         this.info.setText(`left: ${blocked.left} right: ${blocked.right} down: ${blocked.down}`);

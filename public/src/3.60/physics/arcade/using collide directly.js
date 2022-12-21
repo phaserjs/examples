@@ -2,14 +2,14 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('mushroom', 'assets/sprites/mushroom2.png');
+        this.load.image('lemming', 'assets/sprites/lemming.png');
         this.load.image('ball', 'assets/sprites/shinyball.png');
         this.load.image('mushroom', 'assets/sprites/mushroom-32x32.png');
     }
 
     create ()
     {
-        this.sprite = this.physics.add.image(400, 300, 'mushroom');
+        this.sprite = this.physics.add.image(400, 300, 'lemming');
 
         const outer = new Phaser.Geom.Rectangle(0, 0, 800, 600);
         const inner = new Phaser.Geom.Rectangle(350, 250, 100, 100);
@@ -18,7 +18,7 @@ class Example extends Phaser.Scene
 
         this.balls = this.physics.add.group({ immovable: true });
 
-        for (let i = 0; i < 8; i++)
+        for (let i = 0; i < 12; i++)
         {
             const point = Phaser.Geom.Rectangle.RandomOutside(outer, inner);
             const ball = this.balls.create(point.x, point.y, 'ball');
@@ -32,7 +32,7 @@ class Example extends Phaser.Scene
 
         this.mushrooms = this.physics.add.group({ immovable: true });
 
-        for (let i = 0; i < 8; i++)
+        for (let i = 0; i < 32; i++)
         {
             const point = Phaser.Geom.Rectangle.RandomOutside(outer, inner);
             const mushroom = this.mushrooms.create(point.x, point.y, 'mushroom');
@@ -53,7 +53,7 @@ class Example extends Phaser.Scene
 
         this.physics.collide(this.sprite, this.balls);
 
-        this.physics.overlap(this.sprite, this.crates, (sprite, mushroom) => {
+        this.physics.overlap(this.sprite, this.mushrooms, (sprite, mushroom) => {
 
             mushroom.destroy();
 

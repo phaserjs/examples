@@ -2891,6 +2891,10 @@
                       "name": "emitter duration.js"
                     },
                     {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\emitter events.js",
+                      "name": "emitter events.js"
+                    },
+                    {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\interpolation ease.js",
                       "name": "interpolation ease.js"
                     },
@@ -2945,6 +2949,10 @@
                     {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\stepped emitter.js",
                       "name": "stepped emitter.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\stop after.js",
+                      "name": "stop after.js"
                     },
                     {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\tween alpha.js",

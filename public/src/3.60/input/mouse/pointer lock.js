@@ -56,14 +56,11 @@ class Example extends Phaser.Scene
         // Optionally, you can subscribe to the game's pointer lock change event to know when the player
         // enters/exits pointer lock. This is useful if you need to update the UI, change to a custom
         // mouse cursor, etc.
-        this.input.on('pointerlockchange', event =>
+        this.input.manager.events.on('pointerlockchange', event =>
         {
-
-            console.log(event);
-
             this.updateLockText(event.isPointerLocked, this.sprite.x, this.sprite.y);
 
-        }, this);
+        });
 
         this.lockText = this.add.text(16, 16, '', {
             fontSize: '20px',

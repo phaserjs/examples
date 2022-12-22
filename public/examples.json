@@ -4935,6 +4935,13 @@
                       "type": "file"
                     },
                     {
+                      "path": "src/3.60/game objects/particle emitter/tests/move emitter.js",
+                      "name": "move emitter.js",
+                      "size": 1131,
+                      "extension": ".js",
+                      "type": "file"
+                    },
+                    {
                       "path": "src/3.60/game objects/particle emitter/tests/move to dynamic.js",
                       "name": "move to dynamic.js",
                       "size": 1157,
@@ -5054,7 +5061,7 @@
                       "type": "file"
                     }
                   ],
-                  "size": 17061,
+                  "size": 18192,
                   "type": "directory"
                 },
                 {
@@ -5072,7 +5079,7 @@
                   "type": "file"
                 }
               ],
-              "size": 113595,
+              "size": 114726,
               "type": "directory"
             },
             {
@@ -6318,7 +6325,7 @@
               "type": "directory"
             }
           ],
-          "size": 895582,
+          "size": 896713,
           "type": "directory"
         },
         {
@@ -13370,7 +13377,7 @@
                 {
                   "path": "src/3.60/tilemap/collision/custom collide call.js",
                   "name": "custom collide call.js",
-                  "size": 2063,
+                  "size": 2292,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -13445,7 +13452,7 @@
                   "type": "file"
                 }
               ],
-              "size": 71794,
+              "size": 72023,
               "type": "directory"
             },
             {
@@ -13850,7 +13857,7 @@
               "type": "file"
             }
           ],
-          "size": 280620,
+          "size": 280849,
           "type": "directory"
         },
         {
@@ -14551,7 +14558,7 @@
           "type": "directory"
         }
       ],
-      "size": 4060494,
+      "size": 4061854,
       "type": "directory"
     },
     {
@@ -29953,6 +29960,6 @@
       "type": "directory"
     }
   ],
-  "size": 8136488,
+  "size": 8137848,
   "type": "directory"
 }

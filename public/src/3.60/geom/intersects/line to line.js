@@ -18,10 +18,8 @@ class Example extends Phaser.Scene
 
         this.input.on('pointermove', pointer =>
         {
-
             this.line2.x2 = pointer.x;
             this.line2.y2 = pointer.y;
-
         });
     }
 
@@ -39,7 +37,7 @@ class Example extends Phaser.Scene
         if (Phaser.Geom.Intersects.LineToLine(this.line1, this.line2, p))
         {
             this.graphics.lineStyle(2, 0xff0000);
-            this.graphics.fillPointShape(p, 4);
+            this.graphics.fillPointShape(p, 8);
         }
         else
         {

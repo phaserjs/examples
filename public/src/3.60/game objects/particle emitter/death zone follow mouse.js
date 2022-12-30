@@ -1,6 +1,6 @@
 class Example extends Phaser.Scene
 {
-    deathZone;
+    zone;
     graphics;
 
     preload ()
@@ -29,15 +29,17 @@ class Example extends Phaser.Scene
             deathZone: { type: 'onEnter', source: this.deathZone }
         });
 
+        const zone = emitter.deathZones[0].source;
+
         this.graphics = this.add.graphics();
 
         this.input.on('pointermove', pointer =>
         {
-
-            this.deathZone.x = pointer.x;
-            this.deathZone.y = pointer.y;
-
+            zone.x = pointer.worldX;
+            zone.y = pointer.worldY;
         });
+
+        this.zone = zone;
     }
 
     update ()
@@ -46,7 +48,7 @@ class Example extends Phaser.Scene
 
         this.graphics.lineStyle(1, 0x00ff00, 1);
 
-        this.graphics.strokeCircleShape(this.deathZone);
+        this.graphics.strokeCircleShape(this.zone);
     }
 }
 

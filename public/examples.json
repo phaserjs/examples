@@ -2911,6 +2911,10 @@
                       "name": "move to.js"
                     },
                     {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\multiple death zones.js",
+                      "name": "multiple death zones.js"
+                    },
+                    {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\onEmit and onUpdate.js",
                       "name": "onEmit and onUpdate.js"
                     },

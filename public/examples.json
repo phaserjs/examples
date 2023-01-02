@@ -2875,6 +2875,10 @@
                   "name": "tests",
                   "children": [
                     {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\add emit zone.js",
+                      "name": "add emit zone.js"
+                    },
+                    {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\change emitter tint.js",
                       "name": "change emitter tint.js"
                     },
@@ -2893,6 +2897,10 @@
                     {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\emitter events.js",
                       "name": "emitter events.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\emitter zone total.js",
+                      "name": "emitter zone total.js"
                     },
                     {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\interpolation ease.js",

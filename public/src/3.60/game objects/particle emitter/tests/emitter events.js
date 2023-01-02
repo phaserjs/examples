@@ -34,15 +34,15 @@ class Example extends Phaser.Scene
 
         });
 
-        particles.on('emitterstart', () => {
+        particles.on('start', () => {
             console.log('emission start');
         });
 
-        particles.on('emitterstop', () => {
+        particles.on('stop', () => {
             console.log('emission stop');
         });
 
-        particles.on('emittercomplete', () => {
+        particles.on('complete', () => {
             console.log('emission complete');
         });
     }

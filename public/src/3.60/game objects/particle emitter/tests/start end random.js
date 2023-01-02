@@ -10,14 +10,11 @@ class Example extends Phaser.Scene
         const particles = this.add.particles('crate');
 
         const emitter = particles.createEmitter({
-            scale: { start: 1, end: 4, ease: 'bounce.in', random: true },
-            x: { start: 100, end: 600, random: true },
-            y: 100,
-            lifespan: 2000,
-            gravityY: 200
+            x: { start: 0, end: 800, random: true },
+            y: 600,
+            lifespan: 2500,
+            gravityY: -200
         });
-
-        console.log(emitter.ops);
     }
 }
 

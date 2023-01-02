@@ -26,19 +26,19 @@ class Example extends Phaser.Scene
             quantity: 5,
             scale: { start: 0.4, end: 0 },
             advance: 2000,
-            emitZone: emitZone1
+            emitZone: [ emitZone1, emitZone2 ]
         });
 
         card1.on('pointerover', () => {
 
-            emitter.setEmitZone(emitZone1);
+            emitter.setEmitZone(0);
             emitter.fastForward(2000);
 
         });
 
         card2.on('pointerover', () => {
 
-            emitter.setEmitZone(emitZone2);
+            emitter.setEmitZone(1);
             emitter.fastForward(2000);
 
         });

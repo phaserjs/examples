@@ -16,8 +16,6 @@ class Example extends Phaser.Scene
             lifespan: 2500,
             gravityY: 200
         });
-
-        console.log(emitter.ops);
     }
 }
 

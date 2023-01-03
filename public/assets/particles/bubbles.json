@@ -1,0 +1,209 @@
+{
+	"textures": [
+		{
+			"image": "bubbles.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 208,
+				"h": 456
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "elec2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 204,
+						"h": 185
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 204,
+						"h": 185
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 204,
+						"h": 185
+					}
+				},
+				{
+					"filename": "elec3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 137,
+						"h": 142
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 137,
+						"h": 142
+					},
+					"frame": {
+						"x": 2,
+						"y": 190,
+						"w": 137,
+						"h": 142
+					}
+				},
+				{
+					"filename": "bluebubble",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 142,
+						"y": 190,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "greenbubble",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 142,
+						"y": 257,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "redbubble",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 142,
+						"y": 324,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "elec1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 66,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 66,
+						"h": 69
+					},
+					"frame": {
+						"x": 2,
+						"y": 335,
+						"w": 66,
+						"h": 69
+					}
+				},
+				{
+					"filename": "silverbubble",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 71,
+						"y": 335,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "coin",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 63
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 63
+					},
+					"frame": {
+						"x": 138,
+						"y": 391,
+						"w": 64,
+						"h": 63
+					}
+				},
+				{
+					"filename": "elec4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 20,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 20,
+						"h": 21
+					},
+					"frame": {
+						"x": 2,
+						"y": 407,
+						"w": 20,
+						"h": 21
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:9ca998ba3de7ba991c2bc69857f5f90d:b8cceefa090baa67540d51255bc48348:bca2200893a80f12811007d61ceaffd1$"
+	}
+}

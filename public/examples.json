@@ -2883,6 +2883,10 @@
                       "name": "alpha emitter manager.js"
                     },
                     {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\bring to top.js",
+                      "name": "bring to top.js"
+                    },
+                    {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\change emitter tint.js",
                       "name": "change emitter tint.js"
                     },
@@ -2961,6 +2965,10 @@
                     {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\set emitter zone.js",
                       "name": "set emitter zone.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\sort order.js",
+                      "name": "sort order.js"
                     },
                     {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\start end ease.js",

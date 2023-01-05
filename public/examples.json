@@ -2911,6 +2911,10 @@
                       "name": "emitter zone total.js"
                     },
                     {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\get emitter bounds.js",
+                      "name": "get emitter bounds.js"
+                    },
+                    {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\get particle bounds.js",
                       "name": "get particle bounds.js"
                     },
@@ -3017,6 +3021,10 @@
                     {
                       "path": "src\\3.60\\game objects\\particle emitter\\tests\\tween xy.js",
                       "name": "tween xy.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\view bounds.js",
+                      "name": "view bounds.js"
                     }
                   ]
                 },

@@ -7,20 +7,23 @@ class Example extends Phaser.Scene
 
     create ()
     {
+        this.graphics = this.add.graphics();
         this.particles = this.add.particles('bubbles');
+
+        //  Our camera just for the help text
+        const textCam = this.cameras.add(0, 0, 800, 600);
 
         let f = 1;
         const frames = [ 'bluebubble', 'redbubble', 'greenbubble', 'silverbubble' ];
 
-        this.createEmitter(-2400, -7400, frames[0]);
-        // this.createEmitter(400, 400, frames[0]);
+        this.createEmitter(400, 300, frames[0]);
 
-        for (let i = 0; i < 32; i++)
+        for (let i = 0; i < 64; i++)
         {
-            const x = Phaser.Math.Between(-4000, 4000);
-            const y = Phaser.Math.Between(-4000, 4000);
+            const x = Phaser.Math.Between(-1900, 1900);
+            const y = Phaser.Math.Between(-1900, 1900);
 
-            // this.createEmitter(x, y, frames[f]);
+            this.createEmitter(x, y, frames[f]);
 
             f++;
 
@@ -38,6 +41,8 @@ class Example extends Phaser.Scene
             right: cursors.right,
             up: cursors.up,
             down: cursors.down,
+            zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
             acceleration: 0.02,
             drag: 0.0005,
             maxSpeed: 1.0
@@ -45,12 +50,13 @@ class Example extends Phaser.Scene
 
         this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
-        this.graphics = this.add.graphics();
+        const help = this.add.text(10, 10, 'Cursors to move camera. Q and E to zoom.').setScrollFactor(0);
 
-        this.add.text(10, 10, 'Cursors to move camera').setScrollFactor(0);
-        this.info = this.add.text(10, 60, 'Emitters - visible: 1 off-screen: 8').setScrollFactor(0);
+        this.info = this.add.text(10, 40, '').setScrollFactor(0);
 
-        window.party = this.particles;
+        this.cameras.main.ignore([ help, this.info ]);
+
+        textCam.ignore([ this.particles, this.graphics ]);
     }
 
     createEmitter (x, y, frame)
@@ -76,13 +82,36 @@ class Example extends Phaser.Scene
         this.controls.update(delta);
 
         this.graphics.clear();
+        this.graphics.fillStyle(0x2d2d6d);
+        this.graphics.fillRect(-2000, -2000, 4000, 4000);
+
         this.graphics.lineStyle(1, 0x00ff00);
+
+        var visible = 0;
+        var offscreen = 0;
+        var cam = this.cameras.main;
+        var camBounds = cam.worldView;
 
         this.particles.emitters.each(emitter => {
 
             this.graphics.strokeRectShape(emitter.viewBounds);
 
+            if (Phaser.Geom.Intersects.RectangleToRectangle(emitter.viewBounds, camBounds))
+            {
+                visible++;
+            }
+            else
+            {
+                offscreen++;
+            }
+
         });
+
+        this.info.setText([
+            `Particle Emitters: Rendering: ${visible} - Culled: ${offscreen}`,
+            '',
+            `Camera x: ${cam.scrollX} y: ${cam.scrollY}`
+        ]);
     }
 }
 

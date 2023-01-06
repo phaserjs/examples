@@ -18,7 +18,7 @@ function create() {
         console.log('Hello from the A Key!');
     });
 
-    this.input.keyboard.on(Phaser.Events, function (event) {
+    this.input.keyboard.on('keydown', function (event) {
         console.log(event.key);
     });
 

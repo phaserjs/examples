@@ -1,7 +1,7 @@
 class Example extends Phaser.Scene
 {
-    player;
     rt;
+    player;
 
     preload ()
     {
@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
+        this.rt = this.add.renderTexture(0, 0, 800, 600).setOrigin(0, 0);
 
         this.player = this.add.image(256, 256, 'dude');
         this.player.setOrigin(0.5, 0.5);
@@ -33,4 +33,3 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-

@@ -7,9 +7,8 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const emitter = this.add.particles2('crate', {
+        const emitter = this.add.particles(0, 64, 'crate', {
             x: { min: 100, max: 700 },
-            y: 64,
             gravity: 20,
             lifespan: 3000,
             quantity: 8

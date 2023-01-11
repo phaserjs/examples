@@ -7,10 +7,8 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const emitter = this.add.particles2('bubbles', {
+        const emitter = this.add.particles(100, 100, 'bubbles', {
             frame: [ 'bluebubble', 'redbubble', 'greenbubble', 'silverbubble' ],
-            x: 100,
-            y: 100,
             lifespan: 5000,
             angle: { min: -30, max: 30 },
             speed: 150,
@@ -27,10 +25,8 @@ class Example extends Phaser.Scene
         //     frequency: 200
         // });
 
-        this.add.particles2('bubbles', {
+        this.add.particles(300, 400, 'bubbles', {
             frame: { frames: [ 'bluebubble', 'redbubble' ], cycle: true, quantity: 4 },
-            x: 300,
-            y: 400,
             lifespan: 5000,
             angle: { min: -30, max: 30 },
             speed: 150,

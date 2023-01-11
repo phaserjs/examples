@@ -2,18 +2,25 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('white', 'assets/particles/white-flare.png');
+        this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
     }
 
     create ()
     {
-        const emitter = this.add.particles(100, 300, 'white', {
-            color: [ 0xff0000, 0x00ff00, 0x0000ff ],
-            // tintFill: true,
+        const hsv = Phaser.Display.Color.HSVColorWheel();
+
+        const color = hsv.map(entry => entry.color);
+
+        const emitter = this.add.particles(100, 300, 'flares',
+        {
+            frame: 'white',
+            color,
             lifespan: 4000,
             angle: { min: -20, max: 20 },
-            speed: 150,
-            frequency: 200
+            speed: 200,
+            frequency: 150,
+            quantity: 2,
+            blendMode: 'ADD'
         });
 
         window.emma = emitter;

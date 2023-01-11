@@ -2765,6 +2765,34 @@
                     {
                       "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test 1.js",
                       "name": "test 1.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test anims.js",
+                      "name": "test anims.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test color.js",
+                      "name": "test color.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test fire color.js",
+                      "name": "test fire color.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test frames.js",
+                      "name": "test frames.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test processor.js",
+                      "name": "test processor.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test set config.js",
+                      "name": "test set config.js"
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test set texture.js",
+                      "name": "test set texture.js"
                     }
                   ]
                 },
@@ -7560,144 +7588,6 @@
           "name": "spine",
           "children": [
             {
-              "path": "src\\3.60\\spine4.1",
-              "name": "spine4.1",
-              "children": [
-                {
-                  "path": "src\\3.60\\spine4.1\\add hit area.js",
-                  "name": "add hit area.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\add spine object to group.js",
-                  "name": "add spine object to group.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\alpha test.js",
-                  "name": "alpha test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\arcade physics spine body.js",
-                  "name": "arcade physics spine body.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\basic spineboy.js",
-                  "name": "basic spineboy.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\batch test.js",
-                  "name": "batch test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\blend mode test.js",
-                  "name": "blend mode test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\camera pipeline test.js",
-                  "name": "camera pipeline test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\canvas test 1.js",
-                  "name": "canvas test 1.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\container batch test pre35.js",
-                  "name": "container batch test pre35.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\container batch test.js",
-                  "name": "container batch test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\control bones.js",
-                  "name": "control bones.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\destroy test.js",
-                  "name": "destroy test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\draw debug bounds.js",
-                  "name": "draw debug bounds.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\extend spine gameobject.js",
-                  "name": "extend spine gameobject.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\extended class.js",
-                  "name": "extended class.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\image changes.js",
-                  "name": "image changes.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\invisible test with spine containers.js",
-                  "name": "invisible test with spine containers.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\invisible test.js",
-                  "name": "invisible test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\last visible.js",
-                  "name": "last visible.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\owl.js",
-                  "name": "owl.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\spine inside container.js",
-                  "name": "spine inside container.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\spine parallel scene test.js",
-                  "name": "spine parallel scene test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\spine preloader test.js",
-                  "name": "spine preloader test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\spine rotation test.js",
-                  "name": "spine rotation test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\spine scene test.js",
-                  "name": "spine scene test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\spine set depth test.js",
-                  "name": "spine set depth test.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\spine to render texture.js",
-                  "name": "spine to render texture.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\webgl test 1.js",
-                  "name": "webgl test 1.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\webgl test 2.js",
-                  "name": "webgl test 2.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\webgl test 3.js",
-                  "name": "webgl test 3.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\webgl test 4.js",
-                  "name": "webgl test 4.js"
-                },
-                {
-                  "path": "src\\3.60\\spine4.1\\webgl test 5.js",
-                  "name": "webgl test 5.js"
-                }
-              ]
-            },
-            {
               "path": "src\\3.60\\spine\\add hit area.js",
               "name": "add hit area.js"
             },
@@ -7832,6 +7722,144 @@
           ]
         },
         {
+          "path": "src\\3.60\\spine4.1",
+          "name": "spine4.1",
+          "children": [
+            {
+              "path": "src\\3.60\\spine4.1\\add hit area.js",
+              "name": "add hit area.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\add spine object to group.js",
+              "name": "add spine object to group.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\alpha test.js",
+              "name": "alpha test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\arcade physics spine body.js",
+              "name": "arcade physics spine body.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\basic spineboy.js",
+              "name": "basic spineboy.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\batch test.js",
+              "name": "batch test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\blend mode test.js",
+              "name": "blend mode test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\camera pipeline test.js",
+              "name": "camera pipeline test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\canvas test 1.js",
+              "name": "canvas test 1.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\container batch test pre35.js",
+              "name": "container batch test pre35.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\container batch test.js",
+              "name": "container batch test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\control bones.js",
+              "name": "control bones.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\destroy test.js",
+              "name": "destroy test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\draw debug bounds.js",
+              "name": "draw debug bounds.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\extend spine gameobject.js",
+              "name": "extend spine gameobject.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\extended class.js",
+              "name": "extended class.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\image changes.js",
+              "name": "image changes.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\invisible test with spine containers.js",
+              "name": "invisible test with spine containers.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\invisible test.js",
+              "name": "invisible test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\last visible.js",
+              "name": "last visible.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\owl.js",
+              "name": "owl.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\spine inside container.js",
+              "name": "spine inside container.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\spine parallel scene test.js",
+              "name": "spine parallel scene test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\spine preloader test.js",
+              "name": "spine preloader test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\spine rotation test.js",
+              "name": "spine rotation test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\spine scene test.js",
+              "name": "spine scene test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\spine set depth test.js",
+              "name": "spine set depth test.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\spine to render texture.js",
+              "name": "spine to render texture.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\webgl test 1.js",
+              "name": "webgl test 1.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\webgl test 2.js",
+              "name": "webgl test 2.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\webgl test 3.js",
+              "name": "webgl test 3.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\webgl test 4.js",
+              "name": "webgl test 4.js"
+            },
+            {
+              "path": "src\\3.60\\spine4.1\\webgl test 5.js",
+              "name": "webgl test 5.js"
+            }
+          ]
+        },
+        {
           "path": "src\\3.60\\sprite fx",
           "name": "sprite fx",
           "children": [
@@ -7948,6 +7976,10 @@
                 {
                   "path": "src\\3.60\\textures\\dynamic textures\\create dynamic texture.js",
                   "name": "create dynamic texture.js"
+                },
+                {
+                  "path": "src\\3.60\\textures\\dynamic textures\\dynamic texture camera test.js",
+                  "name": "dynamic texture camera test.js"
                 },
                 {
                   "path": "src\\3.60\\textures\\dynamic textures\\get pixel from dynamic texture.js",

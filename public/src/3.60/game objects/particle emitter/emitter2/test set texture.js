@@ -7,7 +7,10 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const emitter = this.add.particles(100, 300, 'blocks', {
+        const emitter = this.add.particles(100, 300);
+
+        emitter.setConfig({
+            texture: 'blocks',
             frame: 'redmonster',
             lifespan: 5000,
             angle: { min: -30, max: 30 },

@@ -1,39 +1,33 @@
-var MyScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function MyScene ()
-    {
-        var config = {
+class Example extends Phaser.Scene
+{
+    constructor() {
+        super({
+            key: 'Example',
             map: {
                 add: '加',
                 load: '加载'
             }
-        };
-
-        Phaser.Scene.call(this, config)
-    },
-
-    preload: function ()
-    {
-        this.加载.image('face', 'assets/pics/bw-face.png');
-    },
-
-    create: function ()
-    {
-        this.加.image(400, 300, 'face');
+        });
     }
 
-});
+    preload ()
+    {
+        this.加载.image('face', 'assets/pics/bw-face.png');
+    }
 
-var config = {
+    create ()
+    {
+        this.加.image(400, 300, 'face');
+        console.log(this);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: MyScene
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

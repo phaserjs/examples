@@ -1,24 +1,19 @@
-var Preloader = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Preloader ()
+class Preloader extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'preloader' });
-    },
+        super({ key: 'preloader' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('bg', 'assets/tests/space/nebula.jpg');
         this.load.image('ship', 'assets/tests/space/ship.png');
         this.load.atlas('space', 'assets/tests/space/space.png', 'assets/tests/space/space.json');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.scene.start('world');
     }
-
-});
+}

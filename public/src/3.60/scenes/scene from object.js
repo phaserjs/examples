@@ -1,15 +1,11 @@
-
-class Example extends Phaser.Scene
+function preload ()
 {
-    preload ()
-    {
-        this.load.image('face', 'assets/pics/bw-face.png');
-    }
+    this.load.image('face', 'assets/pics/bw-face.png');
+}
 
-    create ()
-    {
-        this.add.image(400, 300, 'face');
-    }
+function create ()
+{
+    this.add.image(400, 300, 'face');
 }
 
 const config = {
@@ -17,7 +13,10 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: Example
+    scene: {
+        preload: preload,
+        create: create
+    }
 };
 
 const game = new Phaser.Game(config);

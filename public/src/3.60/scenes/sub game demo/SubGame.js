@@ -1,15 +1,11 @@
-var SubGame = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SubGame ()
+class SubGame extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'subgame' });
-    },
+        super({ key: "subgame" });
+    }
 
-    create: function ()
+    create ()
     {
         this.bg = this.add.tileSprite(0, 0, 800, 600, 'bg').setOrigin(0);
 
@@ -18,14 +14,12 @@ var SubGame = new Phaser.Class({
         this.add.text(10, 10, 'Click to return', { font: '16px Courier', fill: '#00ff00' });
 
         //  Click to quit this sub-"game"
-        this.input.once('pointerdown', function () {
+        this.input.once('pointerdown', () => {
 
             //  We're done here, so stop this Scene and wake the world up
             this.scene.stop();
             this.scene.wake('world');
 
-        }, this);
+        });
     }
-
-});
-
+}

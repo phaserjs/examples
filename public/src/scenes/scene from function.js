@@ -1,4 +1,4 @@
-var MyGame = {};
+const MyGame = {};
 
 MyGame.Boot = function ()
 {
@@ -21,7 +21,7 @@ MyGame.Boot.prototype = {
 
 };
 
-var config = {
+const config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
@@ -29,4 +29,4 @@ var config = {
     scene: MyGame.Boot
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

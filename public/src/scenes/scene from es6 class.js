@@ -14,10 +14,9 @@ class MyScene extends Phaser.Scene {
     {
         this.face = this.add.image(400, 300, 'face');
     }
-
 }
 
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -26,4 +25,4 @@ var config = {
     scene: MyScene
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

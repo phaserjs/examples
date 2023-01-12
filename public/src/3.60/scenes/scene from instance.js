@@ -1,4 +1,4 @@
-var demo = new Phaser.Scene('Demo');
+const demo = new Phaser.Scene('Demo');
 
 demo.preload = function ()
 {
@@ -10,7 +10,7 @@ demo.create = function ()
     this.add.image(400, 300, 'face');
 }
 
-var config = {
+const config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
@@ -18,4 +18,4 @@ var config = {
     scene: demo
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

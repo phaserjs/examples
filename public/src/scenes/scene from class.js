@@ -1,4 +1,4 @@
-var MyScene = new Phaser.Class({
+const MyScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
@@ -21,7 +21,7 @@ var MyScene = new Phaser.Class({
 
 });
 
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -30,4 +30,4 @@ var config = {
     scene: MyScene
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

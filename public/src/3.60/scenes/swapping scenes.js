@@ -1,5 +1,5 @@
 
-var sceneConfigA = {
+const sceneConfigA = {
     key: 'sceneA',
     create: createA,
     pack: {
@@ -9,7 +9,7 @@ var sceneConfigA = {
     }
 };
 
-var sceneConfigB = {
+const sceneConfigB = {
     key: 'sceneB',
     create: createB,
     pack: {
@@ -19,7 +19,29 @@ var sceneConfigB = {
     }
 };
 
-var gameConfig = {
+function createA ()
+{
+    this.add.image(400, 300, 'face');
+
+    this.input.on('pointerdown', () =>
+    {
+        this.input.stopPropagation();
+        this.scene.switch('sceneB');
+    });
+}
+
+function createB ()
+{
+    this.add.image(400, 300, 'logo');
+
+    this.input.on('pointerdown', () =>
+    {
+        this.input.stopPropagation();
+        this.scene.switch('sceneA');
+    });
+}
+
+const gameConfig = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
@@ -27,28 +49,4 @@ var gameConfig = {
     scene: [ sceneConfigA, sceneConfigB ]
 };
 
-var game = new Phaser.Game(gameConfig);
-
-function createA ()
-{
-    this.add.image(400, 300, 'face');
-
-    this.input.on('pointerdown', function () {
-    
-        this.input.stopPropagation();
-        this.scene.switch('sceneB');
-    
-    }, this);
-}
-
-function createB ()
-{
-    this.add.image(400, 300, 'logo');
-
-    this.input.on('pointerdown', function () {
-    
-        this.input.stopPropagation();
-        this.scene.switch('sceneA');
-    
-    }, this);
-}
+const game = new Phaser.Game(gameConfig);

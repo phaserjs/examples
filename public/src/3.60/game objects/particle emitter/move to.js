@@ -2,35 +2,29 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
+        this.load.image('bg', 'assets/skies/gradient26.png');
+        this.load.image('ball', 'assets/demoscene/green_ball.png');
     }
 
     create ()
     {
-        const particles = this.add.particles('flares');
+        this.add.image(400, 300, 'bg');
 
-        const rect = new Phaser.Geom.Rectangle(0, 0, 1600, 100);
-
-        const emitter = particles.createEmitter({
-            frame: { frames: [ 'red', 'green', 'blue' ], cycle: true, quantity: 2 },
-            x: -400,
-            y: -100,
+        this.add.particles(0, 0, 'ball', {
+            x: { min: 300, max: 500 },
+            y: -32,
+            advance: 2000,
             moveToX: 400,
-            moveToY: 600,
-            lifespan: 1000,
-            scale: 0.5,
-            quantity: 4,
-            _frequency: 20,
-            blendMode: 'ADD',
-            emitZone: { source: rect }
+            moveToY: 570,
+            lifespan: 2000,
+            sortProperty: 'lifeT',
+            sortOrderAsc: true
         });
-
-        console.log(emitter);
     }
 }
 
 const config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#000',

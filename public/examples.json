@@ -2611,468 +2611,468 @@
               ]
             },
             {
-              "path": "src\\3.60\\game objects\\particle emitter",
-              "name": "particle emitter",
+              "path": "src\\3.60\\game objects\\old particle emitter",
+              "name": "old particle emitter",
               "children": [
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\acceleration.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\acceleration.js",
                   "name": "acceleration.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\angled emitter.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\angled emitter.js",
                   "name": "angled emitter.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\animated particles.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\animated particles.js",
                   "name": "animated particles.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\animation.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\animation.js",
                   "name": "animation.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\camera test.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\camera test.js",
                   "name": "camera test.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\change emitter order.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\change emitter order.js",
                   "name": "change emitter order.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\christmas tree.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\christmas tree.js",
                   "name": "christmas tree.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\collide emitter bounds sides.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\collide emitter bounds sides.js",
                   "name": "collide emitter bounds sides.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\create emitter from config 2.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config 2.js",
                   "name": "create emitter from config 2.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\create emitter from config 3.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config 3.js",
                   "name": "create emitter from config 3.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\create emitter from config 4.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config 4.js",
                   "name": "create emitter from config 4.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\create emitter from config 5.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config 5.js",
                   "name": "create emitter from config 5.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\create emitter from config.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config.js",
                   "name": "create emitter from config.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\create emitter from JSON.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from JSON.js",
                   "name": "create emitter from JSON.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\create emitter.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter.js",
                   "name": "create emitter.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\custom particles.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\custom particles.js",
                   "name": "custom particles.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\death zone custom.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone custom.js",
                   "name": "death zone custom.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\death zone follow mouse.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone follow mouse.js",
                   "name": "death zone follow mouse.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\death zone from arcade body.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone from arcade body.js",
                   "name": "death zone from arcade body.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\death zone on enter.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone on enter.js",
                   "name": "death zone on enter.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\death zone on leave.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone on leave.js",
                   "name": "death zone on leave.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\digital rain.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\digital rain.js",
                   "name": "digital rain.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\double acceleration.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\double acceleration.js",
                   "name": "double acceleration.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\dynamic emitter config property.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\dynamic emitter config property.js",
                   "name": "dynamic emitter config property.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\edge zone custom.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\edge zone custom.js",
                   "name": "edge zone custom.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\edge zone from curve.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\edge zone from curve.js",
                   "name": "edge zone from curve.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\edge zone speed.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\edge zone speed.js",
                   "name": "edge zone speed.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\edge zone.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\edge zone.js",
                   "name": "edge zone.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\electric 2.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\electric 2.js",
                   "name": "electric 2.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\electric.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\electric.js",
                   "name": "electric.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\emit from manager.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\emit from manager.js",
                   "name": "emit from manager.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\emit from shape.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\emit from shape.js",
                   "name": "emit from shape.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\emit from sprites.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\emit from sprites.js",
                   "name": "emit from sprites.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\emit from texture.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\emit from texture.js",
                   "name": "emit from texture.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\emitter bounds.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\emitter bounds.js",
                   "name": "emitter bounds.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\emitter follow sprite.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\emitter follow sprite.js",
                   "name": "emitter follow sprite.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\emitter2",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\emitter2",
                   "name": "emitter2",
                   "children": [
                     {
-                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test 1.js",
+                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test 1.js",
                       "name": "test 1.js"
                     },
                     {
-                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test anims.js",
+                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test anims.js",
                       "name": "test anims.js"
                     },
                     {
-                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test color.js",
+                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test color.js",
                       "name": "test color.js"
                     },
                     {
-                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test fire color.js",
+                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test fire color.js",
                       "name": "test fire color.js"
                     },
                     {
-                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test frames.js",
+                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test frames.js",
                       "name": "test frames.js"
                     },
                     {
-                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test processor.js",
+                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test processor.js",
                       "name": "test processor.js"
                     },
                     {
-                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test set config.js",
+                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test set config.js",
                       "name": "test set config.js"
                     },
                     {
-                      "path": "src\\3.60\\game objects\\particle emitter\\emitter2\\test set texture.js",
+                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test set texture.js",
                       "name": "test set texture.js"
                     }
                   ]
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\explode test.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\explode test.js",
                   "name": "explode test.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\fire max 10 particles.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\fire max 10 particles.js",
                   "name": "fire max 10 particles.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\fireballs.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\fireballs.js",
                   "name": "fireballs.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\fireworks.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\fireworks.js",
                   "name": "fireworks.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\follow sprite.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\follow sprite.js",
                   "name": "follow sprite.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\frame cycle.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\frame cycle.js",
                   "name": "frame cycle.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\gravity well.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\gravity well.js",
                   "name": "gravity well.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\manager transform.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\manager transform.js",
                   "name": "manager transform.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\mouse trail.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\mouse trail.js",
                   "name": "mouse trail.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\move to center.js",
+                  "path": "src\\3.60\\game objects\\old particle emitter\\move to center.js",
                   "name": "move to center.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\move to.js",
+                  "name": "move to.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\multiple emitters.js",
+                  "name": "multiple emitters.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\parallax.js",
+                  "name": "parallax.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\particle editor.js",
+                  "name": "particle editor.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\particle processor.js",
+                  "name": "particle processor.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\particles on a moving curve.js",
+                  "name": "particles on a moving curve.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\particles on a path.js",
+                  "name": "particles on a path.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\quantity limit.js",
+                  "name": "quantity limit.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\random emit zone custom.js",
+                  "name": "random emit zone custom.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\random emit zone.js",
+                  "name": "random emit zone.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\rotating line.js",
+                  "name": "rotating line.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\scale emitter.js",
+                  "name": "scale emitter.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped angle.js",
+                  "name": "stepped angle.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped lifespan.js",
+                  "name": "stepped lifespan.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped position and speed.js",
+                  "name": "stepped position and speed.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped position.js",
+                  "name": "stepped position.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped speed.js",
+                  "name": "stepped speed.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\test new ops.js",
+                  "name": "test new ops.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\tint.js",
+                  "name": "tint.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\old particle emitter\\y position range.js",
+                  "name": "y position range.js"
+                }
+              ]
+            },
+            {
+              "path": "src\\3.60\\game objects\\particle emitter",
+              "name": "particle emitter",
+              "children": [
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\add emit zone.js",
+                  "name": "add emit zone.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\bring to top.js",
+                  "name": "bring to top.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\change emitter tint.js",
+                  "name": "change emitter tint.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\custom callback.js",
+                  "name": "custom callback.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\direct value.js",
+                  "name": "direct value.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\emitter alpha.js",
+                  "name": "emitter alpha.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\emitter duration.js",
+                  "name": "emitter duration.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\emitter events.js",
+                  "name": "emitter events.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\emitter zone total.js",
+                  "name": "emitter zone total.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\get emitter bounds.js",
+                  "name": "get emitter bounds.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\get particle bounds.js",
+                  "name": "get particle bounds.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\interpolation ease.js",
+                  "name": "interpolation ease.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\min max.js",
+                  "name": "min max.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\move to dynamic.js",
+                  "name": "move to dynamic.js"
                 },
                 {
                   "path": "src\\3.60\\game objects\\particle emitter\\move to.js",
                   "name": "move to.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\multiple emitters.js",
-                  "name": "multiple emitters.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\multiple death zones.js",
+                  "name": "multiple death zones.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\parallax.js",
-                  "name": "parallax.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\onEmit and onUpdate.js",
+                  "name": "onEmit and onUpdate.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\particle editor.js",
-                  "name": "particle editor.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\particle overlap.js",
+                  "name": "particle overlap.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\particle processor.js",
-                  "name": "particle processor.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\particle physics body overlap.js",
+                  "name": "particle physics body overlap.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\particles on a moving curve.js",
-                  "name": "particles on a moving curve.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\random array.js",
+                  "name": "random array.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\particles on a path.js",
-                  "name": "particles on a path.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\random object.js",
+                  "name": "random object.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\quantity limit.js",
-                  "name": "quantity limit.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\random tint.js",
+                  "name": "random tint.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\random emit zone custom.js",
-                  "name": "random emit zone custom.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\set emitter zone by instance.js",
+                  "name": "set emitter zone by instance.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\random emit zone.js",
-                  "name": "random emit zone.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\set emitter zone.js",
+                  "name": "set emitter zone.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\rotating line.js",
-                  "name": "rotating line.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\sort order.js",
+                  "name": "sort order.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\scale emitter.js",
-                  "name": "scale emitter.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\start end ease.js",
+                  "name": "start end ease.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\stepped angle.js",
-                  "name": "stepped angle.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\start end random.js",
+                  "name": "start end random.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\stepped lifespan.js",
-                  "name": "stepped lifespan.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\start end.js",
+                  "name": "start end.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\stepped position and speed.js",
-                  "name": "stepped position and speed.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\stepped emitter with yoyo.js",
+                  "name": "stepped emitter with yoyo.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\stepped position.js",
-                  "name": "stepped position.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\stepped emitter.js",
+                  "name": "stepped emitter.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\stepped speed.js",
-                  "name": "stepped speed.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\stop after.js",
+                  "name": "stop after.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\test new ops.js",
-                  "name": "test new ops.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\tween alpha.js",
+                  "name": "tween alpha.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\tests",
-                  "name": "tests",
-                  "children": [
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\add emit zone.js",
-                      "name": "add emit zone.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\alpha emitter manager.js",
-                      "name": "alpha emitter manager.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\bring to top.js",
-                      "name": "bring to top.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\change emitter tint.js",
-                      "name": "change emitter tint.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\custom callback.js",
-                      "name": "custom callback.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\direct value.js",
-                      "name": "direct value.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\emitter duration.js",
-                      "name": "emitter duration.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\emitter events.js",
-                      "name": "emitter events.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\emitter zone total.js",
-                      "name": "emitter zone total.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\get emitter bounds.js",
-                      "name": "get emitter bounds.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\get particle bounds.js",
-                      "name": "get particle bounds.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\interpolation ease.js",
-                      "name": "interpolation ease.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\min max.js",
-                      "name": "min max.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\move to dynamic.js",
-                      "name": "move to dynamic.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\move to.js",
-                      "name": "move to.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\multiple death zones.js",
-                      "name": "multiple death zones.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\onEmit and onUpdate.js",
-                      "name": "onEmit and onUpdate.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\particle overlap.js",
-                      "name": "particle overlap.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\particle physics body overlap.js",
-                      "name": "particle physics body overlap.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\random array.js",
-                      "name": "random array.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\random object.js",
-                      "name": "random object.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\random tint.js",
-                      "name": "random tint.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\set emitter zone by instance.js",
-                      "name": "set emitter zone by instance.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\set emitter zone.js",
-                      "name": "set emitter zone.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\sort order.js",
-                      "name": "sort order.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\start end ease.js",
-                      "name": "start end ease.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\start end random.js",
-                      "name": "start end random.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\start end.js",
-                      "name": "start end.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\stepped emitter with yoyo.js",
-                      "name": "stepped emitter with yoyo.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\stepped emitter.js",
-                      "name": "stepped emitter.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\stop after.js",
-                      "name": "stop after.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\tween alpha.js",
-                      "name": "tween alpha.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\tween speed x.js",
-                      "name": "tween speed x.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\tween speed y.js",
-                      "name": "tween speed y.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\tween speed.js",
-                      "name": "tween speed.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\tween tint.js",
-                      "name": "tween tint.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\tween xy.js",
-                      "name": "tween xy.js"
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\particle emitter\\tests\\view bounds.js",
-                      "name": "view bounds.js"
-                    }
-                  ]
+                  "path": "src\\3.60\\game objects\\particle emitter\\tween speed x.js",
+                  "name": "tween speed x.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\tint.js",
-                  "name": "tint.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\tween speed y.js",
+                  "name": "tween speed y.js"
                 },
                 {
-                  "path": "src\\3.60\\game objects\\particle emitter\\y position range.js",
-                  "name": "y position range.js"
+                  "path": "src\\3.60\\game objects\\particle emitter\\tween speed.js",
+                  "name": "tween speed.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\tween tint.js",
+                  "name": "tween tint.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\tween xy.js",
+                  "name": "tween xy.js"
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\view bounds.js",
+                  "name": "view bounds.js"
                 }
               ]
             },

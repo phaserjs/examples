@@ -1,35 +1,30 @@
-var MyGame = {};
-
-MyGame.Boot = function ()
+class Example extends Phaser.Scene
 {
-    this.face = null;
-};
+    constructor ()
+    {
+        super({ key: "Boot" });
+    }
 
-MyGame.Boot.prototype.constructor = MyGame.Boot;
-
-MyGame.Boot.prototype = {
-
-    preload: function ()
+    preload ()
     {
         this.load.image('face', 'assets/pics/bw-face.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.face = this.add.image(400, 300, 'face');
     }
+}
 
-};
 
-var config = {
+const config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
     height: 600
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
-game.scene.add('Boot', MyGame.Boot);
-
+game.scene.add('Boot', Example);
 game.scene.start('Boot');

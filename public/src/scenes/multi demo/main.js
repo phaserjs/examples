@@ -1,4 +1,4 @@
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: window.innerWidth,
     height: window.innerHeight,
@@ -14,7 +14,7 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 window.addEventListener('resize', function (event) {
 

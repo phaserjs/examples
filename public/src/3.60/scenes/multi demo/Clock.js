@@ -12,7 +12,7 @@ class Clock extends Phaser.Scene {
 
     create ()
     {
-        var bg = this.add.image(0, 0, 'clockWindow').setOrigin(0);
+        const bg = this.add.image(0, 0, 'clockWindow').setOrigin(0);
 
         this.cameras.main.setViewport(this.parent.x, this.parent.y, Clock.WIDTH, Clock.HEIGHT);
         this.cameras.main.setBackgroundColor(0x0055aa);
@@ -22,11 +22,11 @@ class Clock extends Phaser.Scene {
 
     update ()
     {
-        var graphics = this.graphics;
-        var timer = this.timerEvent;
-        var clockSize = this.clockSize;
-        var x = Clock.WIDTH / 2;
-        var y = 8 + Clock.HEIGHT / 2;
+        const graphics = this.graphics;
+        const timer = this.timerEvent;
+        const clockSize = this.clockSize;
+        const x = Clock.WIDTH / 2;
+        const y = 8 + Clock.HEIGHT / 2;
 
         graphics.clear();
 
@@ -38,22 +38,16 @@ class Clock extends Phaser.Scene {
         graphics.fillCircle(x, y, clockSize);
         graphics.strokeCircle(x, y, clockSize);
 
-        var angle;
-        var dest;
-        var p1;
-        var p2;
-        var size;
-
-        var date = new Date;
-        var seconds = date.getSeconds() / 60;
-        var mins = date.getMinutes() / 60;
-        var hours = date.getHours() / 24;
+        let date = new Date;
+        let seconds = date.getSeconds() / 60;
+        let mins = date.getMinutes() / 60;
+        let hours = date.getHours() / 24;
 
         //  The hours hand
-        size = clockSize * 0.9;
+        let size = clockSize * 0.9;
 
-        angle = (360 * hours) - 90;
-        dest = Phaser.Math.RotateAroundDistance({ x: x, y: y }, x, y, Phaser.Math.DegToRad(angle), size);
+        let angle = (360 * hours) - 90;
+        let dest = Phaser.Math.RotateAroundDistance({ x: x, y: y }, x, y, Phaser.Math.DegToRad(angle), size);
 
         graphics.fillStyle(0x000000, 1);
 
@@ -61,14 +55,14 @@ class Clock extends Phaser.Scene {
 
         graphics.moveTo(x, y);
 
-        p1 = Phaser.Math.RotateAroundDistance({ x: x, y: y }, x, y, Phaser.Math.DegToRad(angle - 5), size * 0.7);
+        let p1 = Phaser.Math.RotateAroundDistance({ x: x, y: y }, x, y, Phaser.Math.DegToRad(angle - 5), size * 0.7);
 
         graphics.lineTo(p1.x, p1.y);
         graphics.lineTo(dest.x, dest.y);
 
         graphics.moveTo(x, y);
 
-        p2 = Phaser.Math.RotateAroundDistance({ x: x, y: y }, x, y, Phaser.Math.DegToRad(angle + 5), size * 0.7);
+        let p2 = Phaser.Math.RotateAroundDistance({ x: x, y: y }, x, y, Phaser.Math.DegToRad(angle + 5), size * 0.7);
 
         graphics.lineTo(p2.x, p2.y);
         graphics.lineTo(dest.x, dest.y);

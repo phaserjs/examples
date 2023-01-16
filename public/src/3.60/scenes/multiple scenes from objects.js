@@ -1,5 +1,5 @@
 
-var backgroundSceneConfig = {
+const backgroundSceneConfig = {
     key: 'background',
     active: true,
     create: createBackground,
@@ -11,7 +11,7 @@ var backgroundSceneConfig = {
     }
 };
 
-var modalSceneConfig = {
+const modalSceneConfig = {
     key: 'modal',
     active: true,
     renderToTexture: false,
@@ -28,7 +28,7 @@ var modalSceneConfig = {
     }
 };
 
-var gameConfig = {
+const gameConfig = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
@@ -36,7 +36,7 @@ var gameConfig = {
     scene: [ backgroundSceneConfig, modalSceneConfig ]
 };
 
-var game = new Phaser.Game(gameConfig);
+const game = new Phaser.Game(gameConfig);
 
 function createBackground ()
 {
@@ -52,8 +52,7 @@ function createModal ()
     this.add.image(0, 0, 'logo').setOrigin(0);
 }
 
-var r = 0;
-
+const r = 0;
 function renderBackground (ctx)
 {
     ctx.fillStyle = 'rgb(' + r + ', 0, 0)';

@@ -1,27 +1,19 @@
-var Demo = new Phaser.Class({
+class Demo extends Phaser.Scene
+{
+    eye;
 
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Demo ()
-    {
-        Phaser.Scene.call(this);
-    },
-
-    preload: function ()
+    preload ()
     {
         this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.eye = this.add.image(Phaser.Math.Between(0, 800), Phaser.Math.Between(0, 600), 'eye');
-    },
+    }
 
-    update: function ()
+    update ()
     {
         this.eye.rotation += 0.02;
     }
-
-});
+}

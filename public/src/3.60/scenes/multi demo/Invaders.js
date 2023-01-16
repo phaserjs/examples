@@ -83,14 +83,14 @@ class Invaders extends Phaser.Scene {
 
     refreshOutliers ()
     {
-        var list = this.invaders.getChildren();
+        const list = this.invaders.getChildren();
 
-        var first = this.invaders.getFirst(true);
-        var last = this.invaders.getLast(true);
+        let first = this.invaders.getFirst(true);
+        let last = this.invaders.getLast(true);
 
-        for (var i = 0; i < list.length; i++)
+        for (let i = 0; i < list.length; i++)
         {
-            var vader = list[i];
+            const vader = list[i];
 
             if (vader.active)
             {
@@ -125,10 +125,10 @@ class Invaders extends Phaser.Scene {
     {
         this.invaders = this.physics.add.group();
 
-        var x = this.invadersBounds.x;
-        var y = this.invadersBounds.y;
+        let x = this.invadersBounds.x;
+        let y = this.invadersBounds.y;
 
-        for (var i = 0; i < 10; i++)
+        for (let i = 0; i < 10; i++)
         {
             this.invaders.create(x, y, 'invaders.invader1').setTint(0xff0000).play('invader1');
 
@@ -138,7 +138,7 @@ class Invaders extends Phaser.Scene {
         x = this.invadersBounds.x;
         y += 28
 
-        for (var i = 0; i < 16; i++)
+        for (let i = 0; i < 16; i++)
         {
             this.invaders.create(x, y, 'invaders.invader2').setTint(0x00ff00).play('invader2');
 
@@ -154,7 +154,7 @@ class Invaders extends Phaser.Scene {
         x = this.invadersBounds.x;
         y += 28
 
-        for (var i = 0; i < 14; i++)
+        for (let i = 0; i < 14; i++)
         {
             this.invaders.create(x, y, 'invaders.invader3').setTint(0x00ffff).play('invader3');
 
@@ -218,7 +218,7 @@ class Invaders extends Phaser.Scene {
 
         //  Invaders bounds
 
-        var moveDown = false;
+        let moveDown = false;
 
         if (this.bottomRight.body.velocity.x > 0 && this.bottomRight.x >= 390)
         {
@@ -233,12 +233,12 @@ class Invaders extends Phaser.Scene {
 
         if (moveDown)
         {
-            var list = this.invaders.getChildren();
-            var lowest = 0;
+            const list = this.invaders.getChildren();
+            let lowest = 0;
 
-            for (var i = 0; i < list.length; i++)
+            for (let i = 0; i < list.length; i++)
             {
-                var vader = list[i];
+                const vader = list[i];
 
                 vader.body.y += 4;
 

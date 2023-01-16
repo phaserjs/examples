@@ -20,7 +20,7 @@ class Eyes extends Phaser.Scene {
 
     create ()
     {
-        var bg = this.add.image(0, 0, 'eyesWindow').setOrigin(0);
+        const bg = this.add.image(0, 0, 'eyesWindow').setOrigin(0);
 
         this.cameras.main.setViewport(this.parent.x, this.parent.y, Eyes.WIDTH, Eyes.HEIGHT);
 

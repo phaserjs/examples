@@ -104,17 +104,17 @@ class Controller extends Phaser.Scene {
         this.workbenchTitle = this.add.image(16, 21, 'workbenchTitle').setOrigin(0);
         this.workbenchIcons = this.add.image(this.sys.game.config.width - 87, 21, 'workbenchIcons').setOrigin(0);
 
-        var disk = this.add.image(16, 64, 'disk').setOrigin(0).setInteractive();
+        const disk = this.add.image(16, 64, 'disk').setOrigin(0).setInteractive();
 
-        var demosWindow = this.add.image(0, 0, 'demosWindow').setOrigin(0);
-        var eyesIcon = this.add.image(32, 34, 'eyesIcon', 0).setOrigin(0).setInteractive();
-        var jugglerIcon = this.add.image(48, 110, 'jugglerIcon', 0).setOrigin(0).setInteractive();
-        var starsIcon = this.add.image(230, 40, 'starsIcon', 0).setOrigin(0).setInteractive();
-        var invadersIcon = this.add.image(120, 34, 'invadersIcon', 0).setOrigin(0).setInteractive();
-        var clockIcon = this.add.image(240, 120, 'clockIcon', 0).setOrigin(0).setInteractive();
-        var boingIcon = this.add.image(146, 128, 'boingIcon', 0).setOrigin(0).setInteractive();
+        const demosWindow = this.add.image(0, 0, 'demosWindow').setOrigin(0);
+        const eyesIcon = this.add.image(32, 34, 'eyesIcon', 0).setOrigin(0).setInteractive();
+        const jugglerIcon = this.add.image(48, 110, 'jugglerIcon', 0).setOrigin(0).setInteractive();
+        const starsIcon = this.add.image(230, 40, 'starsIcon', 0).setOrigin(0).setInteractive();
+        const invadersIcon = this.add.image(120, 34, 'invadersIcon', 0).setOrigin(0).setInteractive();
+        const clockIcon = this.add.image(240, 120, 'clockIcon', 0).setOrigin(0).setInteractive();
+        const boingIcon = this.add.image(146, 128, 'boingIcon', 0).setOrigin(0).setInteractive();
 
-        var demosContainer = this.add.container(32, 70, [ demosWindow, eyesIcon, jugglerIcon, starsIcon, invadersIcon, clockIcon, boingIcon ]);
+        const demosContainer = this.add.container(32, 70, [ demosWindow, eyesIcon, jugglerIcon, starsIcon, invadersIcon, clockIcon, boingIcon ]);
 
         demosContainer.setVisible(false);
 
@@ -177,14 +177,14 @@ class Controller extends Phaser.Scene {
 
     createWindow (func)
     {
-        var x = Phaser.Math.Between(400, 600);
-        var y = Phaser.Math.Between(64, 128);
+        const x = Phaser.Math.Between(400, 600);
+        const y = Phaser.Math.Between(64, 128);
 
-        var handle = 'window' + this.count++;
+        const handle = 'window' + this.count++;
 
-        var win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+        const win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
 
-        var demo = new func(handle, win);
+        const demo = new func(handle, win);
 
         this.input.setDraggable(win);
 

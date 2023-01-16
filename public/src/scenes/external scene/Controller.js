@@ -1,20 +1,16 @@
-var Controller = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Controller ()
+class Controller extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'controller' });
-    },
+        super({ key: 'controller' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.script('demo', 'src/scenes/external scene/Demo.js');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         var clone = 0;
 
@@ -25,10 +21,9 @@ var Controller = new Phaser.Class({
 
         }, callbackScope: this, repeat: 2 });
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -36,4 +31,4 @@ var config = {
     scene: [ Controller ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

@@ -12,17 +12,14 @@ class Controller extends Phaser.Scene
 
     create ()
     {
-        let clone = 0;
+        var clone = 0;
 
-        this.time.addEvent({
-            delay: 2000, callback: function ()
-            {
+        this.time.addEvent({ delay: 2000, callback: function () {
 
-                this.scene.add(`demo${clone}`, Demo, true);
-                clone++;
+            this.scene.add('demo' + clone, Demo, true);
+            clone++;
 
-            }, callbackScope: this, repeat: 2
-        });
+        }, callbackScope: this, repeat: 2 });
     }
 }
 

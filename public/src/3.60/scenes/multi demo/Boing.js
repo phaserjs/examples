@@ -12,7 +12,7 @@ class Boing extends Phaser.Scene {
 
     create ()
     {
-        var bg = this.add.image(0, 0, 'boing', 'boing-window').setOrigin(0);
+        const bg = this.add.image(0, 0, 'boing', 'boing-window').setOrigin(0);
 
         this.cameras.main.setViewport(this.parent.x, this.parent.y, Boing.WIDTH, Boing.HEIGHT);
 

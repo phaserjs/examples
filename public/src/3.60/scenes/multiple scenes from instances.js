@@ -1,11 +1,9 @@
-var demo = new Phaser.Scene('Demo');
-
+const demo = new Phaser.Scene('Demo');
 demo.preload = function () {
 
     this.load.image('face', 'assets/pics/bw-face.png');
 
 };
-
 demo.create = function () {
 
     console.log(this.sys.settings.key, 'is alive');
@@ -16,14 +14,12 @@ demo.create = function () {
 
 };
 
-var test = new Phaser.Scene('Test');
-
+const test = new Phaser.Scene('Test');
 test.preload = function () {
 
     this.load.image('barbarian', 'assets/pics/barbarian-loading.png');
 
 };
-
 test.create = function () {
 
     console.log(this.sys.settings.key, 'is alive');
@@ -31,7 +27,7 @@ test.create = function () {
     this.add.image(400, 300, 'barbarian').setScale(0.5);
 }
 
-var config = {
+const config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
@@ -39,4 +35,4 @@ var config = {
     scene: [ demo, test ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

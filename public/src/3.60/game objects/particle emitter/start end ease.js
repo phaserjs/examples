@@ -2,19 +2,20 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('crate', 'assets/sprites/crate32.png');
+        this.load.image('track', 'assets/particles/racetrack-bend.png');
+        this.load.image('car', 'assets/sprites/car-red.png');
     }
 
     create ()
     {
-        const particles = this.add.particles('crate');
+        this.add.image(450, 300, 'track').setScale(0.8);
 
-        const emitter = particles.createEmitter({
-            scale: { start: 1, end: 0, ease: 'bounce.out' },
-            x: { start: 100, end: 600, random: true },
-            y: 100,
-            lifespan: 2500,
-            gravityY: 200
+        this.add.particles(0, 0, 'car', {
+            x: { start: 200, end: 850, ease: 'sine.in' },
+            y: { start: 600, end: 100, ease: 'sine.out' },
+            rotate: { start: 0, end: 90, ease: 'quad.in' },
+            lifespan: 2200,
+            frequency: 550
         });
     }
 }
@@ -23,7 +24,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#000',
+    backgroundColor: '#0c5e03',
     parent: 'phaser-example',
     scene: Example
 };

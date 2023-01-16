@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('brush', 'assets/sprites/brush2.png');
+        this.load.image('brush', 'assets/sprites/brush1.png');
     }
 
     create ()
@@ -11,11 +11,7 @@ class Example extends Phaser.Scene
 
         const tint = hsv.map(entry => entry.color);
 
-        const particles = this.add.particles('brush');
-
-        const emitter = particles.createEmitter({
-            x: 400,
-            y: 100,
+        const emitter = this.add.particles(400, 100, 'brush', {
             speedX: 200,
             lifespan: 2000,
             tint
@@ -23,7 +19,7 @@ class Example extends Phaser.Scene
 
         this.tweens.add({
             targets: emitter,
-            y: 500,
+            particleY: 400,
             speedX: -200,
             duration: 1500,
             ease: 'sine.inout',

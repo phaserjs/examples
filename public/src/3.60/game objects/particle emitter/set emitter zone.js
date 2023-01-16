@@ -4,23 +4,21 @@ class Example extends Phaser.Scene
     {
         this.load.image('bg', 'assets/skies/darkstone.png');
         this.load.image('flare', 'assets/particles/white-flare.png');
+        this.load.image('slug', 'assets/pics/card1.png');
         this.load.image('fox', 'assets/pics/card3.png');
-        this.load.image('lizard', 'assets/pics/card2.png');
     }
 
     create ()
     {
         this.add.image(400, 300, 'bg');
 
-        const card1 = this.add.image(225, 300, 'fox').setInteractive();
-        const card2 = this.add.image(575, 300, 'lizard').setInteractive();
+        const card1 = this.add.image(225, 300, 'slug').setInteractive();
+        const card2 = this.add.image(575, 300, 'fox').setInteractive();
 
         const emitZone1 = { type: 'edge', source: card1.getBounds(), quantity: 42 };
         const emitZone2 = { type: 'edge', source: card2.getBounds(), quantity: 42 };
 
-        const particles = this.add.particles('flare');
-
-        const emitter = particles.createEmitter({
+        const emitter = this.add.particles(0, 0, 'flare', {
             speed: 24,
             lifespan: 1500,
             quantity: 5,

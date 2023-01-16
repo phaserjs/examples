@@ -18,9 +18,7 @@ class Example extends Phaser.Scene
         const zone1 = new Phaser.GameObjects.Particles.Zones.EdgeZone(card1.getBounds(), 42);
         const zone2 = new Phaser.GameObjects.Particles.Zones.EdgeZone(card2.getBounds(), 42);
 
-        const particles = this.add.particles('flare');
-
-        const emitter = particles.createEmitter({
+        const emitter = this.add.particles(0, 0, 'flare', {
             speed: 24,
             lifespan: 1500,
             quantity: 5,

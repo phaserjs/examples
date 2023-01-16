@@ -7,19 +7,15 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const particles = this.add.particles('blocks');
-
-        const emitter = particles.createEmitter({
+        const emitter = this.add.particles(100, 300, 'blocks', {
             frame: 'redmonster',
-            x: 100,
-            y: 300,
             lifespan: 5000,
-            angle: { min: -30, max: 30 },
+            angle: { min: -20, max: 20 },
             speed: 150,
             frequency: 200
         });
 
-        emitter.sortProperty = 'y';
+        emitter.sortProperty = 'x';
         emitter.sortOrderAsc = true;
 
         const text = this.add.text(10, 10, 'Click to change. sortOrderAsc: true');

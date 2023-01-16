@@ -7,11 +7,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const manager = this.add.particles('bubbles');
-
-        this.emitter = manager.createEmitter({
-            x: 100,
-            y: 30,
+        this.emitter = this.add.particles(100, 30, 'bubbles', {
             frame: [ 'bluebubble', 'redbubble', 'greenbubble', 'silverbubble' ],
             scale: { min: 0.25, max: 1 },
             rotate: { start: 0, end: 360 },
@@ -23,7 +19,7 @@ class Example extends Phaser.Scene
 
         this.tweens.add({
             targets: this.emitter,
-            x: 700,
+            particleX: 700,
             yoyo: true,
             repeat: -1,
             ease: 'sine.inout',
@@ -39,8 +35,6 @@ class Example extends Phaser.Scene
         });
 
         this.graphics = this.add.graphics();
-
-        // this.add.text(16, 16, 'Click to release a particle');
     }
 
     update ()

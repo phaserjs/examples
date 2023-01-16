@@ -81,9 +81,7 @@ class Example extends Phaser.Scene
     {
         this.add.image(400, 300, 'bg');
 
-        const manager = this.add.particles('bubbles');
-
-        this.emitter = manager.createEmitter({
+        this.emitter = this.add.particles(0, 0, 'bubbles', {
             x: 100,
             y: 30,
             frame: [ 'bluebubble', 'redbubble', 'greenbubble', 'silverbubble' ],
@@ -96,19 +94,19 @@ class Example extends Phaser.Scene
             gravityY: 110
         });
 
-        this.explode = manager.createEmitter({
+        this.explode = this.add.particles(0, 0, 'bubbles', {
             frame: 'elec1',
             angle: { start: 0, end: 360, steps: 32 },
             lifespan: 1500,
             speed: 400,
             quantity: 32,
             scale: { start: 0.5, end: 0 },
-            on: false
+            emitting: false
         });
 
         this.tweens.add({
             targets: this.emitter,
-            x: 700,
+            particleX: 700,
             yoyo: true,
             repeat: -1,
             ease: 'sine.inout',

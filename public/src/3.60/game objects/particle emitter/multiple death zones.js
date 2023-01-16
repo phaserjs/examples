@@ -11,9 +11,7 @@ class Example extends Phaser.Scene
         const rect2 = new Phaser.Geom.Rectangle(200, 350, 400, 200);
         const rect3 = new Phaser.Geom.Rectangle(550, 150, 200, 100);
 
-        this.add.particles(0, 0, 'flares', {
-            x: 400,
-            y: 100,
+        const emitter = this.add.particles(400, 100, 'flares', {
             frame: [ 'red', 'green', 'blue' ],
             speed: 300,
             gravityY: 400,
@@ -23,6 +21,12 @@ class Example extends Phaser.Scene
             deathZone: [ rect1, rect2, rect3 ]
         });
 
+        this.input.on('pointerdown', pointer => {
+
+            emitter.setPosition(pointer.worldX, pointer.worldY);
+
+        });
+
         const graphics = this.add.graphics();
 
         graphics.lineStyle(1, 0x00ff00, 1);
@@ -30,7 +34,6 @@ class Example extends Phaser.Scene
         graphics.strokeRectShape(rect1);
         graphics.strokeRectShape(rect2);
         graphics.strokeRectShape(rect3);
-
     }
 }
 

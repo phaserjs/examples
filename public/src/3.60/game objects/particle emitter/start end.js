@@ -7,9 +7,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const particles = this.add.particles('crate');
-
-        const emitter = particles.createEmitter({
+        this.add.particles(0, 0, 'crate', {
             scale: { start: 1, end: 0 },
             x: { min: 100, max: 700 },
             y: { start: 100, end: 500, ease: 'bounce.out' },

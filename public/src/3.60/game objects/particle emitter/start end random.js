@@ -2,18 +2,22 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('crate', 'assets/sprites/crate32.png');
+        this.load.image('bg', 'assets/normal-maps/stones.png');
+        this.load.image('gem', 'assets/normal-maps/gem2.png');
     }
 
     create ()
     {
-        const particles = this.add.particles('crate');
+        this.add.image(400, 300, 'bg');
 
-        const emitter = particles.createEmitter({
-            x: { start: 0, end: 800, random: true },
-            y: 600,
+        this.add.particles(0, 570, 'gem', {
+            x: { start: 0, end: 750, random: true },
+            scale: 0.5,
             lifespan: 2500,
-            gravityY: -200
+            gravityY: -200,
+            quantity: 2,
+            sortProperty: 'y',
+            sortOrderAsc: false
         });
     }
 }

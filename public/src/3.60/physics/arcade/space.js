@@ -15,6 +15,7 @@ class Bullet extends Phaser.Physics.Arcade.Image
 
     fire (ship)
     {
+
         this.lifespan = 1000;
 
         this.setActive(true);
@@ -46,6 +47,7 @@ class Bullet extends Phaser.Physics.Arcade.Image
 
 class Example extends Phaser.Scene
 {
+    lastFired = 0;
     preload ()
     {
         this.load.image('background', 'assets/tests/space/nebula.jpg');
@@ -55,7 +57,6 @@ class Example extends Phaser.Scene
     create ()
     {
         //  Prepare some spritesheets and animations
-
         this.textures.addSpriteSheetFromAtlas('mine-sheet', { atlas: 'space', frame: 'mine', frameWidth: 64 });
         this.textures.addSpriteSheetFromAtlas('asteroid1-sheet', { atlas: 'space', frame: 'asteroid1', frameWidth: 96 });
         this.textures.addSpriteSheetFromAtlas('asteroid2-sheet', { atlas: 'space', frame: 'asteroid2', frameWidth: 96 });
@@ -69,11 +70,9 @@ class Example extends Phaser.Scene
         this.anims.create({ key: 'asteroid4-anim', frames: this.anims.generateFrameNumbers('asteroid4-sheet', { start: 0, end: 23 }), frameRate: 20, repeat: -1 });
 
         //  World size is 8000 x 6000
-
         this.bg = this.add.tileSprite(400, 300, 800, 600, 'background').setScrollFactor(0);
 
         //  Add our planets, etc
-
         this.add.image(512, 680, 'space', 'blue-planet').setOrigin(0).setScrollFactor(0.6);
         this.add.image(2833, 1246, 'space', 'brown-planet').setOrigin(0).setScrollFactor(0.6);
         this.add.image(3875, 531, 'space', 'sun').setOrigin(0).setScrollFactor(0.6);
@@ -90,7 +89,6 @@ class Example extends Phaser.Scene
         this.stars = this.add.tileSprite(400, 300, 800, 600, 'stars').setScrollFactor(0);
 
         const particles = this.add.particles('space');
-
         const emitter = particles.createEmitter({
             frame: 'blue',
             speed: 100,

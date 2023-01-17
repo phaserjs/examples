@@ -698,12 +698,12 @@
                 {
                   "path": "src/3.60/audio/HTML5 Audio/volume mute rate detune.js",
                   "name": "volume mute rate detune.js",
-                  "size": 3762,
+                  "size": 4432,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 41814,
+              "size": 42484,
               "type": "directory"
             },
             {
@@ -755,12 +755,12 @@
                 {
                   "path": "src/3.60/audio/No Audio/volume mute rate detune.js",
                   "name": "volume mute rate detune.js",
-                  "size": 3753,
+                  "size": 4269,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 38752,
+              "size": 39268,
               "type": "directory"
             },
             {
@@ -885,7 +885,7 @@
               "type": "directory"
             }
           ],
-          "size": 135633,
+          "size": 136819,
           "type": "directory"
         },
         {
@@ -1544,7 +1544,7 @@
             {
               "path": "src/3.60/demoscene/birdy nam nam.js",
               "name": "birdy nam nam.js",
-              "size": 3673,
+              "size": 4098,
               "extension": ".js",
               "type": "file"
             },
@@ -1577,7 +1577,7 @@
               "type": "file"
             }
           ],
-          "size": 8462,
+          "size": 8887,
           "type": "directory"
         },
         {
@@ -2122,33 +2122,33 @@
             {
               "path": "src/3.60/dwitter/5475.js",
               "name": "5475.js",
-              "size": 1049,
+              "size": 1218,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/dwitter/5479.js",
               "name": "5479.js",
-              "size": 1065,
+              "size": 1274,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/dwitter/5500.js",
               "name": "5500.js",
-              "size": 1063,
+              "size": 1278,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/dwitter/test.js",
               "name": "test.js",
-              "size": 1075,
+              "size": 1281,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 4252,
+          "size": 5051,
           "type": "directory"
         },
         {
@@ -2250,21 +2250,21 @@
             {
               "path": "src/3.60/game config/custom canvas.js",
               "name": "custom canvas.js",
-              "size": 663,
+              "size": 670,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/game config/custom webgl canvas.js",
               "name": "custom webgl canvas.js",
-              "size": 1010,
+              "size": 945,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/game config/custom webgl2 canvas.js",
               "name": "custom webgl2 canvas.js",
-              "size": 1011,
+              "size": 944,
               "extension": ".js",
               "type": "file"
             },
@@ -2360,7 +2360,7 @@
               "type": "file"
             }
           ],
-          "size": 19072,
+          "size": 18947,
           "type": "directory"
         },
         {
@@ -2791,12 +2791,12 @@
                 {
                   "path": "src/3.60/game objects/blitter/twist scroller.js",
                   "name": "twist scroller.js",
-                  "size": 13060,
+                  "size": 13064,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 32711,
+              "size": 32715,
               "type": "directory"
             },
             {
@@ -2904,7 +2904,7 @@
                 {
                   "path": "src/3.60/game objects/container/container as mask.js",
                   "name": "container as mask.js",
-                  "size": 3818,
+                  "size": 4227,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -2932,21 +2932,21 @@
                 {
                   "path": "src/3.60/game objects/container/container ik.js",
                   "name": "container ik.js",
-                  "size": 2527,
+                  "size": 2762,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/game objects/container/container input test.js",
                   "name": "container input test.js",
-                  "size": 1339,
+                  "size": 1484,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/game objects/container/container mask.js",
                   "name": "container mask.js",
-                  "size": 3613,
+                  "size": 4002,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3016,7 +3016,7 @@
                 {
                   "path": "src/3.60/game objects/container/multi camera input test.js",
                   "name": "multi camera input test.js",
-                  "size": 5618,
+                  "size": 6636,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3147,7 +3147,7 @@
                   "type": "file"
                 }
               ],
-              "size": 83556,
+              "size": 85752,
               "type": "directory"
             },
             {
@@ -3291,7 +3291,7 @@
                 {
                   "path": "src/3.60/game objects/dom element/form input.js",
                   "name": "form input.js",
-                  "size": 2140,
+                  "size": 2329,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -3352,7 +3352,7 @@
                   "type": "file"
                 }
               ],
-              "size": 25686,
+              "size": 25875,
               "type": "directory"
             },
             {
@@ -3947,7 +3947,7 @@
                 {
                   "path": "src/3.60/game objects/group/destroy child.js",
                   "name": "destroy child.js",
-                  "size": 1659,
+                  "size": 1835,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4010,7 +4010,7 @@
                 {
                   "path": "src/3.60/game objects/group/sprite pool.js",
                   "name": "sprite pool.js",
-                  "size": 2708,
+                  "size": 3088,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4022,7 +4022,7 @@
                   "type": "file"
                 }
               ],
-              "size": 17510,
+              "size": 18066,
               "type": "directory"
             },
             {
@@ -4053,7 +4053,7 @@
                 {
                   "path": "src/3.60/game objects/images/custom image class.js",
                   "name": "custom image class.js",
-                  "size": 744,
+                  "size": 677,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4067,7 +4067,7 @@
                 {
                   "path": "src/3.60/game objects/images/flip.js",
                   "name": "flip.js",
-                  "size": 876,
+                  "size": 1012,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4142,7 +4142,7 @@
                   "type": "file"
                 }
               ],
-              "size": 16034,
+              "size": 16103,
               "type": "directory"
             },
             {
@@ -4300,7 +4300,7 @@
                 {
                   "path": "src/3.60/game objects/lights/render texture light.js",
                   "name": "render texture light.js",
-                  "size": 1098,
+                  "size": 1186,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -4361,7 +4361,7 @@
                   "type": "file"
                 }
               ],
-              "size": 44245,
+              "size": 44333,
               "type": "directory"
             },
             {
@@ -5068,7 +5068,7 @@
                 {
                   "path": "src/3.60/game objects/particle emitter/hold particle.js",
                   "name": "hold particle.js",
-                  "size": 769,
+                  "size": 893,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5115,6 +5115,13 @@
                   "type": "file"
                 },
                 {
+                  "path": "src/3.60/game objects/particle emitter/particle bounds.js",
+                  "name": "particle bounds.js",
+                  "size": 1033,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/game objects/particle emitter/particle overlap.js",
                   "name": "particle overlap.js",
                   "size": 1525,
@@ -5138,7 +5145,7 @@
                 {
                   "path": "src/3.60/game objects/particle emitter/random object.js",
                   "name": "random object.js",
-                  "size": 1034,
+                  "size": 972,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5262,7 +5269,7 @@
                   "type": "file"
                 }
               ],
-              "size": 46232,
+              "size": 47327,
               "type": "directory"
             },
             {
@@ -5863,21 +5870,21 @@
                 {
                   "path": "src/3.60/game objects/shapes/iso draw.js",
                   "name": "iso draw.js",
-                  "size": 5201,
+                  "size": 5844,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/game objects/shapes/iso image.js",
                   "name": "iso image.js",
-                  "size": 2777,
+                  "size": 3321,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/game objects/shapes/iso landscape.js",
                   "name": "iso landscape.js",
-                  "size": 3017,
+                  "size": 3562,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5940,7 +5947,7 @@
                 {
                   "path": "src/3.60/game objects/shapes/stacker.js",
                   "name": "stacker.js",
-                  "size": 8371,
+                  "size": 9467,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5959,7 +5966,7 @@
                   "type": "file"
                 }
               ],
-              "size": 62759,
+              "size": 65587,
               "type": "directory"
             },
             {
@@ -6018,7 +6025,7 @@
                 {
                   "path": "src/3.60/game objects/sprites/sprite rotation.js",
                   "name": "sprite rotation.js",
-                  "size": 2221,
+                  "size": 2434,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -6030,7 +6037,7 @@
                   "type": "file"
                 }
               ],
-              "size": 8917,
+              "size": 9130,
               "type": "directory"
             },
             {
@@ -6213,18 +6220,18 @@
                     {
                       "path": "src/3.60/game objects/text/tests/word wrap.js",
                       "name": "word wrap.js",
-                      "size": 3376,
+                      "size": 4068,
                       "extension": ".js",
                       "type": "file"
                     }
                   ],
-                  "size": 3376,
+                  "size": 4068,
                   "type": "directory"
                 },
                 {
                   "path": "src/3.60/game objects/text/text bounds.js",
                   "name": "text bounds.js",
-                  "size": 2876,
+                  "size": 3305,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -6292,7 +6299,7 @@
                   "type": "file"
                 }
               ],
-              "size": 37217,
+              "size": 38338,
               "type": "directory"
             },
             {
@@ -6508,7 +6515,7 @@
               "type": "directory"
             }
           ],
-          "size": 934892,
+          "size": 943251,
           "type": "directory"
         },
         {
@@ -7143,7 +7150,7 @@
                 {
                   "path": "src/3.60/geom/circle/get random point.js",
                   "name": "get random point.js",
-                  "size": 990,
+                  "size": 1142,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7197,7 +7204,7 @@
                   "type": "file"
                 }
               ],
-              "size": 20395,
+              "size": 20547,
               "type": "directory"
             },
             {
@@ -7319,7 +7326,7 @@
                 {
                   "path": "src/3.60/geom/ellipse/get random point.js",
                   "name": "get random point.js",
-                  "size": 1002,
+                  "size": 1154,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7387,7 +7394,7 @@
                   "type": "file"
                 }
               ],
-              "size": 25654,
+              "size": 25806,
               "type": "directory"
             },
             {
@@ -7587,7 +7594,7 @@
                 {
                   "path": "src/3.60/geom/line/get random point.js",
                   "name": "get random point.js",
-                  "size": 981,
+                  "size": 1133,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7636,7 +7643,7 @@
                 {
                   "path": "src/3.60/geom/line/perp slope.js",
                   "name": "perp slope.js",
-                  "size": 1401,
+                  "size": 1622,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7699,7 +7706,7 @@
                 {
                   "path": "src/3.60/geom/line/slope.js",
                   "name": "slope.js",
-                  "size": 1075,
+                  "size": 1246,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -7711,7 +7718,7 @@
                   "type": "file"
                 }
               ],
-              "size": 28434,
+              "size": 28978,
               "type": "directory"
             },
             {
@@ -8164,14 +8171,14 @@
                 {
                   "path": "src/3.60/geom/rectangle/get random point outside.js",
                   "name": "get random point outside.js",
-                  "size": 900,
+                  "size": 1051,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/geom/rectangle/get random point.js",
                   "name": "get random point.js",
-                  "size": 977,
+                  "size": 1129,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8323,7 +8330,7 @@
                   "type": "file"
                 }
               ],
-              "size": 47796,
+              "size": 48099,
               "type": "directory"
             },
             {
@@ -8473,7 +8480,7 @@
                 {
                   "path": "src/3.60/geom/triangle/get random point.js",
                   "name": "get random point.js",
-                  "size": 1010,
+                  "size": 1162,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -8555,11 +8562,11 @@
                   "type": "file"
                 }
               ],
-              "size": 30204,
+              "size": 30356,
               "type": "directory"
             }
           ],
-          "size": 214483,
+          "size": 215786,
           "type": "directory"
         },
         {
@@ -9012,12 +9019,12 @@
                 {
                   "path": "src/3.60/input/gamepad/twin stick shooter.js",
                   "name": "twin stick shooter.js",
-                  "size": 7970,
+                  "size": 8306,
                   "extension": ".js",
                   "type": "file"
                 }
               ],
-              "size": 19551,
+              "size": 19887,
               "type": "directory"
             },
             {
@@ -9608,7 +9615,7 @@
               "type": "directory"
             }
           ],
-          "size": 225338,
+          "size": 225674,
           "type": "directory"
         },
         {
@@ -9792,7 +9799,7 @@
             {
               "path": "src/3.60/loader/game load config.js",
               "name": "game load config.js",
-              "size": 5914,
+              "size": 6552,
               "extension": ".js",
               "type": "file"
             },
@@ -9871,7 +9878,7 @@
             {
               "path": "src/3.60/loader/load from 404.js",
               "name": "load from 404.js",
-              "size": 688,
+              "size": 712,
               "extension": ".js",
               "type": "file"
             },
@@ -9896,7 +9903,7 @@
                 {
                   "path": "src/3.60/loader/loader events/display file as loaded.js",
                   "name": "display file as loaded.js",
-                  "size": 5061,
+                  "size": 7397,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -9952,14 +9959,14 @@
                 {
                   "path": "src/3.60/loader/loader events/play animation during load.js",
                   "name": "play animation during load.js",
-                  "size": 8192,
+                  "size": 9139,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/loader/loader events/start loader manually.js",
                   "name": "start loader manually.js",
-                  "size": 5355,
+                  "size": 7742,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -9971,7 +9978,7 @@
                   "type": "file"
                 }
               ],
-              "size": 60859,
+              "size": 66529,
               "type": "directory"
             },
             {
@@ -10055,7 +10062,7 @@
                 {
                   "path": "src/3.60/loader/sprite sheet/load sprite sheet from scene payload.js",
                   "name": "load sprite sheet from scene payload.js",
-                  "size": 823,
+                  "size": 979,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10067,7 +10074,7 @@
                   "type": "file"
                 }
               ],
-              "size": 3533,
+              "size": 3689,
               "type": "directory"
             },
             {
@@ -10148,7 +10155,7 @@
                 {
                   "path": "src/3.60/loader/texture atlas json/load texture atlas from payload.js",
                   "name": "load texture atlas from payload.js",
-                  "size": 706,
+                  "size": 844,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10181,7 +10188,7 @@
                   "type": "file"
                 }
               ],
-              "size": 35582,
+              "size": 35720,
               "type": "directory"
             },
             {
@@ -10287,7 +10294,7 @@
               "type": "directory"
             }
           ],
-          "size": 735503,
+          "size": 742129,
           "type": "directory"
         },
         {
@@ -10429,7 +10436,7 @@
                 {
                   "path": "src/3.60/paths/curves/ellipse curve bounds.js",
                   "name": "ellipse curve bounds.js",
-                  "size": 4589,
+                  "size": 5347,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -10574,7 +10581,7 @@
                   "type": "file"
                 }
               ],
-              "size": 61691,
+              "size": 62449,
               "type": "directory"
             },
             {
@@ -10769,7 +10776,7 @@
               "type": "file"
             }
           ],
-          "size": 99216,
+          "size": 99974,
           "type": "directory"
         },
         {
@@ -12311,13 +12318,6 @@
           "name": "scenes",
           "children": [
             {
-              "path": "src/3.60/scenes/add plugin at runtime.js",
-              "name": "add plugin at runtime.js",
-              "size": 613,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
               "path": "src/3.60/scenes/add scene after game.js",
               "name": "add scene after game.js",
               "size": 484,
@@ -12455,13 +12455,6 @@
               "path": "src/3.60/scenes/launch parallel scene.js",
               "name": "launch parallel scene.js",
               "size": 1465,
-              "extension": ".js",
-              "type": "file"
-            },
-            {
-              "path": "src/3.60/scenes/load external plugin.js",
-              "name": "load external plugin.js",
-              "size": 488,
               "extension": ".js",
               "type": "file"
             },
@@ -12715,7 +12708,7 @@
             {
               "path": "src/3.60/scenes/scene files payload.js",
               "name": "scene files payload.js",
-              "size": 948,
+              "size": 1066,
               "extension": ".js",
               "type": "file"
             },
@@ -12904,7 +12897,7 @@
               "type": "file"
             }
           ],
-          "size": 140426,
+          "size": 139443,
           "type": "directory"
         },
         {
@@ -12943,7 +12936,7 @@
             {
               "path": "src/3.60/spine/add hit area.js",
               "name": "add hit area.js",
-              "size": 1829,
+              "size": 2002,
               "extension": ".js",
               "type": "file"
             },
@@ -12957,7 +12950,7 @@
             {
               "path": "src/3.60/spine/alpha test.js",
               "name": "alpha test.js",
-              "size": 797,
+              "size": 902,
               "extension": ".js",
               "type": "file"
             },
@@ -12971,56 +12964,56 @@
             {
               "path": "src/3.60/spine/basic spineboy.js",
               "name": "basic spineboy.js",
-              "size": 808,
+              "size": 913,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/batch test.js",
               "name": "batch test.js",
-              "size": 1678,
+              "size": 1862,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/blend mode test.js",
               "name": "blend mode test.js",
-              "size": 1726,
+              "size": 1907,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/camera pipeline test.js",
               "name": "camera pipeline test.js",
-              "size": 1274,
+              "size": 1078,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/canvas test 1.js",
               "name": "canvas test 1.js",
-              "size": 1644,
+              "size": 1820,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/container batch test pre35.js",
               "name": "container batch test pre35.js",
-              "size": 2197,
+              "size": 2449,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/container batch test.js",
               "name": "container batch test.js",
-              "size": 2217,
+              "size": 2473,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/control bones.js",
               "name": "control bones.js",
-              "size": 1760,
+              "size": 1966,
               "extension": ".js",
               "type": "file"
             },
@@ -13034,7 +13027,7 @@
             {
               "path": "src/3.60/spine/draw debug bounds.js",
               "name": "draw debug bounds.js",
-              "size": 3306,
+              "size": 3527,
               "extension": ".js",
               "type": "file"
             },
@@ -13055,42 +13048,42 @@
             {
               "path": "src/3.60/spine/image changes.js",
               "name": "image changes.js",
-              "size": 752,
+              "size": 852,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/invisible test with spine containers.js",
               "name": "invisible test with spine containers.js",
-              "size": 2360,
+              "size": 2664,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/invisible test.js",
               "name": "invisible test.js",
-              "size": 2090,
+              "size": 2362,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/last visible.js",
               "name": "last visible.js",
-              "size": 1113,
+              "size": 1245,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/owl.js",
               "name": "owl.js",
-              "size": 763,
+              "size": 866,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/spine inside container.js",
               "name": "spine inside container.js",
-              "size": 1666,
+              "size": 1856,
               "extension": ".js",
               "type": "file"
             },
@@ -13132,47 +13125,47 @@
             {
               "path": "src/3.60/spine/spine to render texture.js",
               "name": "spine to render texture.js",
-              "size": 1134,
+              "size": 1277,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/webgl test 1.js",
               "name": "webgl test 1.js",
-              "size": 1451,
+              "size": 1609,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/webgl test 2.js",
               "name": "webgl test 2.js",
-              "size": 1455,
+              "size": 1613,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/webgl test 3.js",
               "name": "webgl test 3.js",
-              "size": 1664,
+              "size": 1842,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/webgl test 4.js",
               "name": "webgl test 4.js",
-              "size": 1538,
+              "size": 1710,
               "extension": ".js",
               "type": "file"
             },
             {
               "path": "src/3.60/spine/webgl test 5.js",
               "name": "webgl test 5.js",
-              "size": 2029,
+              "size": 2209,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 55832,
+          "size": 59585,
           "type": "directory"
         },
         {
@@ -14987,7 +14980,7 @@
           "type": "directory"
         }
       ],
-      "size": 4165398,
+      "size": 4187835,
       "type": "directory"
     },
     {
@@ -18618,12 +18611,12 @@
             {
               "path": "src/game objects/blitter/twist scroller.js",
               "name": "twist scroller.js",
-              "size": 13060,
+              "size": 13064,
               "extension": ".js",
               "type": "file"
             }
           ],
-          "size": 32229,
+          "size": 32233,
           "type": "directory"
         },
         {
@@ -21821,7 +21814,7 @@
           "type": "directory"
         }
       ],
-      "size": 799800,
+      "size": 799804,
       "type": "directory"
     },
     {
@@ -25063,7 +25056,7 @@
         {
           "path": "src/loader/game load config.js",
           "name": "game load config.js",
-          "size": 5914,
+          "size": 6552,
           "extension": ".js",
           "type": "file"
         },
@@ -25142,7 +25135,7 @@
         {
           "path": "src/loader/load from 404.js",
           "name": "load from 404.js",
-          "size": 688,
+          "size": 712,
           "extension": ".js",
           "type": "file"
         },
@@ -25223,7 +25216,7 @@
             {
               "path": "src/loader/loader events/play animation during load.js",
               "name": "play animation during load.js",
-              "size": 8192,
+              "size": 9139,
               "extension": ".js",
               "type": "file"
             },
@@ -25242,7 +25235,7 @@
               "type": "file"
             }
           ],
-          "size": 57069,
+          "size": 58016,
           "type": "directory"
         },
         {
@@ -25326,7 +25319,7 @@
             {
               "path": "src/loader/sprite sheet/load sprite sheet from scene payload.js",
               "name": "load sprite sheet from scene payload.js",
-              "size": 823,
+              "size": 979,
               "extension": ".js",
               "type": "file"
             },
@@ -25338,7 +25331,7 @@
               "type": "file"
             }
           ],
-          "size": 3367,
+          "size": 3523,
           "type": "directory"
         },
         {
@@ -25419,7 +25412,7 @@
             {
               "path": "src/loader/texture atlas json/load texture atlas from payload.js",
               "name": "load texture atlas from payload.js",
-              "size": 706,
+              "size": 844,
               "extension": ".js",
               "type": "file"
             },
@@ -25452,7 +25445,7 @@
               "type": "file"
             }
           ],
-          "size": 31644,
+          "size": 31782,
           "type": "directory"
         },
         {
@@ -25558,7 +25551,7 @@
           "type": "directory"
         }
       ],
-      "size": 725270,
+      "size": 727173,
       "type": "directory"
     },
     {
@@ -25700,7 +25693,7 @@
             {
               "path": "src/paths/curves/ellipse curve bounds.js",
               "name": "ellipse curve bounds.js",
-              "size": 4589,
+              "size": 5347,
               "extension": ".js",
               "type": "file"
             },
@@ -25845,7 +25838,7 @@
               "type": "file"
             }
           ],
-          "size": 55407,
+          "size": 56165,
           "type": "directory"
         },
         {
@@ -26040,7 +26033,7 @@
           "type": "file"
         }
       ],
-      "size": 89222,
+      "size": 89980,
       "type": "directory"
     },
     {
@@ -27575,13 +27568,6 @@
       "name": "scenes",
       "children": [
         {
-          "path": "src/scenes/add plugin at runtime.js",
-          "name": "add plugin at runtime.js",
-          "size": 613,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
           "path": "src/scenes/add scene after game.js",
           "name": "add scene after game.js",
           "size": 484,
@@ -27719,13 +27705,6 @@
           "path": "src/scenes/launch parallel scene.js",
           "name": "launch parallel scene.js",
           "size": 1740,
-          "extension": ".js",
-          "type": "file"
-        },
-        {
-          "path": "src/scenes/load external plugin.js",
-          "name": "load external plugin.js",
-          "size": 488,
           "extension": ".js",
           "type": "file"
         },
@@ -27979,7 +27958,7 @@
         {
           "path": "src/scenes/scene files payload.js",
           "name": "scene files payload.js",
-          "size": 948,
+          "size": 1066,
           "extension": ".js",
           "type": "file"
         },
@@ -28168,7 +28147,7 @@
           "type": "file"
         }
       ],
-      "size": 144780,
+      "size": 143797,
       "type": "directory"
     },
     {
@@ -28256,7 +28235,7 @@
         {
           "path": "src/spine/camera pipeline test.js",
           "name": "camera pipeline test.js",
-          "size": 1274,
+          "size": 1078,
           "extension": ".js",
           "type": "file"
         },
@@ -28436,7 +28415,7 @@
           "type": "file"
         }
       ],
-      "size": 55686,
+      "size": 55490,
       "type": "directory"
     },
     {
@@ -30389,6 +30368,6 @@
       "type": "directory"
     }
   ],
-  "size": 8251428,
+  "size": 8275351,
   "type": "directory"
 }

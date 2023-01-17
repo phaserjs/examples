@@ -1,355 +1,328 @@
-var config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: {
-        init: init,
-        preload: preload,
-        create: create,
-        extend: {
-            startGame: startGame,
-            moveBlocks: moveBlocks,
-            getGridX: getGridX,
-            nextRow: nextRow,
-            hasBlockBelow: hasBlockBelow,
-            drop: drop,
-            totalBlocks: totalBlocks,
-            gameOver: gameOver,
-            gameWon: gameWon
-        }
-    }
-};
-
-var grid;
-var gridWidth = 7;
-var gridHeight = 15;
-var gridSize = 32;
-
-var block1;
-var block2;
-var block3;
-
-var speed = 250;
-
-var direction = 0;
-var currentY = gridHeight;
-var timer;
-
-var game = new Phaser.Game(config);
-
-function init ()
+class Example extends Phaser.Scene
 {
-    var element = document.createElement('style');
+    timer;
+    direction = 0;
+    speed = 250;
+    block3;
+    block2;
+    block1;
+    gridSize = 32;
+    gridHeight = 15;
+    gridWidth = 7;
+    currentY = this.gridHeight;
+    grid;
 
-    document.head.appendChild(element);
-
-    element.sheet.insertRule('@font-face { font-family: "bebas"; src: url("assets/fonts/ttf/bebas.ttf") format("truetype"); }', 0);
-}
-
-function preload ()
-{
-    this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
-}
-
-function create ()
-{
-    WebFont.load({
-        custom: {
-            families: [ 'bebas' ]
-        },
-        active: this.startGame.bind(this)
-    });
-}
-
-function startGame ()
-{
-    this.add.text(400, 32, 'Stacker', { fontFamily: 'bebas', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
-
-    this.add.grid(0, 0, gridWidth * gridSize, gridHeight * gridSize, gridSize, gridSize, 0x999999, 1, 0x666666).setOrigin(0);
-
-    var space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-    block1 = this.add.rectangle(gridSize * 2, (currentY - 1) * gridSize, gridSize - 1, gridSize - 1, 0x6666ff).setOrigin(0);
-    block2 = this.add.rectangle(gridSize * 3, (currentY - 1) * gridSize, gridSize - 1, gridSize - 1, 0x6666ff).setOrigin(0);
-    block3 = this.add.rectangle(gridSize * 4, (currentY - 1) * gridSize, gridSize - 1, gridSize - 1, 0x6666ff).setOrigin(0);
-
-    grid = [];
-
-    for (var y = 0; y < gridHeight; y++)
+    init ()
     {
-        grid.push([ 0, 0, 0, 0, 0, 0, 0 ]);
+        const element = document.createElement('style');
+
+        document.head.appendChild(element);
+
+        element.sheet.insertRule('@font-face { font-family: "bebas"; src: url("assets/fonts/ttf/bebas.ttf") format("truetype"); }', 0);
     }
 
-    timer = this.time.addEvent({ delay: speed, callback: this.moveBlocks, callbackScope: this, loop: true });
-
-    this.input.keyboard.on('keydown_SPACE', this.drop, this);
-    this.input.on('pointerdown', this.drop, this);
-}
-
-function gameOver ()
-{
-
-}
-
-function gameWon ()
-{
-    
-}
-
-function getGridX (block)
-{
-    return Math.ceil(block.x / gridSize);
-}
-
-function hasBlockBelow (block)
-{
-    return (block && grid[currentY][this.getGridX(block)]);
-}
-
-function moveBlocks ()
-{
-    if (direction === 0)
+    preload ()
     {
-        //  Moving right
-        if (block1)
+        this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    }
+
+    create ()
+    {
+        WebFont.load({
+            custom: {
+                families: [ 'bebas' ]
+            },
+            active: this.startGame.bind(this)
+        });
+    }
+
+    startGame ()
+    {
+        this.add.text(400, 32, 'Stacker', { fontFamily: 'bebas', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, '#333333', 2, false, true);
+
+        this.add.grid(0, 0, this.gridWidth * this.gridSize, this.gridHeight * this.gridSize, this.gridSize, this.gridSize, 0x999999, 1, 0x666666).setOrigin(0);
+
+        const space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        this.block1 = this.add.rectangle(this.gridSize * 2, (this.currentY - 1) * this.gridSize, this.gridSize - 1, this.gridSize - 1, 0x6666ff).setOrigin(0);
+        this.block2 = this.add.rectangle(this.gridSize * 3, (this.currentY - 1) * this.gridSize, this.gridSize - 1, this.gridSize - 1, 0x6666ff).setOrigin(0);
+        this.block3 = this.add.rectangle(this.gridSize * 4, (this.currentY - 1) * this.gridSize, this.gridSize - 1, this.gridSize - 1, 0x6666ff).setOrigin(0);
+
+        this.grid = [];
+
+        for (let y = 0; y < this.gridHeight; y++)
         {
-            block1.x += gridSize;
+            this.grid.push([ 0, 0, 0, 0, 0, 0, 0 ]);
+        }
 
-            if (this.getGridX(block1) === gridWidth - 1)
+        this.timer = this.time.addEvent({ delay: this.speed, callback: this.moveBlocks, callbackScope: this, loop: true });
+
+        this.input.keyboard.on('keydown_SPACE', this.drop, this);
+        this.input.on('pointerdown', this.drop, this);
+    }
+
+    gameOver ()
+    {
+
+    }
+
+    gameWon ()
+    {
+
+    }
+
+    getGridX (block)
+    {
+        return Math.ceil(block.x / this.gridSize);
+    }
+
+    hasBlockBelow (block)
+    {
+        return (block && this.grid[this.currentY][this.getGridX(block)]);
+    }
+
+    moveBlocks ()
+    {
+        if (this.direction === 0)
+        {
+            //  Moving right
+            if (this.block1)
             {
-                direction = 1;
+                this.block1.x += this.gridSize;
+
+                if (this.getGridX(this.block1) === this.gridWidth - 1)
+                {
+                    this.direction = 1;
+                }
+            }
+
+            if (this.block2)
+            {
+                this.block2.x += this.gridSize;
+
+                if (this.getGridX(this.block2) === this.gridWidth - 1)
+                {
+                    this.direction = 1;
+                }
+            }
+
+            if (this.block3)
+            {
+                this.block3.x += this.gridSize;
+
+                if (this.getGridX(this.block3) === this.gridWidth - 1)
+                {
+                    this.direction = 1;
+                }
+            }
+        }
+        else
+        {
+            //  Moving left
+            if (this.block1)
+            {
+                this.block1.x -= this.gridSize;
+
+                if (this.block1 && this.getGridX(this.block1) === 0)
+                {
+                    this.direction = 0;
+                }
+            }
+
+            if (this.block2)
+            {
+                this.block2.x -= this.gridSize;
+
+                if (this.block2 && this.getGridX(this.block2) === 0)
+                {
+                    this.direction = 0;
+                }
+            }
+
+            if (this.block3)
+            {
+                this.block3.x -= this.gridSize;
+
+                if (this.block3 && this.getGridX(this.block3) === 0)
+                {
+                    this.direction = 0;
+                }
             }
         }
 
-        if (block2)
-        {
-            block2.x += gridSize;
+    }
 
-            if (this.getGridX(block2) === gridWidth - 1)
+    totalBlocks ()
+    {
+        let total = 0;
+
+        if (this.block1)
+        {
+            total++;
+        }
+
+        if (this.block2)
+        {
+            total++;
+        }
+
+        if (this.block3)
+        {
+            total++;
+        }
+
+        return total;
+    }
+
+    nextRow ()
+    {
+        this.currentY--;
+
+        if (this.currentY === 10 || this.currentY === 5)
+        {
+            console.log('GETTING HARDER!', this.currentY);
+
+            this.speed -= (this.currentY === 10) ? 90 : 50;
+
+            //  We also need to remove a block if they've still got the full amount
+            if (this.currentY === 10 && this.totalBlocks() === 3)
             {
-                direction = 1;
+                //  3 down to 2
+                this.block1 = null;
+            }
+            else if (this.currentY === 5 && this.totalBlocks() === 2)
+            {
+                //  2 down to 1
+                if (this.block1 && this.block2 || this.block1 && this.block3)
+                {
+                    this.block1 = null;
+                }
+                else
+                {
+                    this.block2 = null;
+                }
             }
         }
 
-        if (block3)
-        {
-            block3.x += gridSize;
+        //  Pick either left or right to appear from
 
-            if (this.getGridX(block3) === gridWidth - 1)
-            {
-                direction = 1;
-            }
+        let side = 0;
+        let shift = this.gridSize;
+
+        if (Math.random() >= 0.5)
+        {
+            this.direction = 1;
+            side = (this.gridWidth - 1) * this.gridSize;
+            shift = -this.gridSize;
         }
-    }
-    else
-    {
-        //  Moving left
-        if (block1)
+        else
         {
-            block1.x -= gridSize;
-
-            if (block1 && this.getGridX(block1) === 0)
-            {
-                direction = 0;
-            }
+            this.direction = 0;
         }
 
-        if (block2)
+        if (this.block1)
         {
-            block2.x -= gridSize;
-
-            if (block2 && this.getGridX(block2) === 0)
-            {
-                direction = 0;
-            }
+            this.block1 = this.add.rectangle(side, (this.currentY - 1) * this.gridSize, this.gridSize - 1, this.gridSize - 1, 0x6666ff).setOrigin(0);
+            side += shift;
         }
 
-        if (block3)
+        if (this.block2)
         {
-            block3.x -= gridSize;
-
-            if (block3 && this.getGridX(block3) === 0)
-            {
-                direction = 0;
-            }
+            this.block2 = this.add.rectangle(side, (this.currentY - 1) * this.gridSize, this.gridSize - 1, this.gridSize - 1, 0x6666ff).setOrigin(0);
+            side += shift;
         }
-    }
 
-}
-
-function totalBlocks ()
-{
-    var total = 0;
-
-    if (block1)
-    {
-        total++;
-    }
-
-    if (block2)
-    {
-        total++;
-    }
-
-    if (block3)
-    {
-        total++;
-    }
-
-    return total;
-}
-
-function nextRow ()
-{
-    currentY--;
-
-    if (currentY === 10 || currentY === 5)
-    {
-        console.log('GETTING HARDER!', currentY);
-
-        speed -= (currentY === 10) ? 90 : 50;
-
-        //  We also need to remove a block if they've still got the full amount
-        if (currentY === 10 && this.totalBlocks() === 3)
+        if (this.block3)
         {
-            //  3 down to 2
-            block1 = null;
+            this.block3 = this.add.rectangle(side, (this.currentY - 1) * this.gridSize, this.gridSize - 1, this.gridSize - 1, 0x6666ff).setOrigin(0);
         }
-        else if (currentY === 5 && this.totalBlocks() === 2)
+
+        this.timer = this.time.addEvent({ delay: this.speed, callback: this.moveBlocks, callbackScope: this, loop: true });
+    }
+
+    drop ()
+    {
+        this.timer.remove(false);
+
+        const pos1 = (this.block1) ? this.getGridX(this.block1) : -1;
+        const pos2 = (this.block2) ? this.getGridX(this.block2) : -1;
+        const pos3 = (this.block3) ? this.getGridX(this.block3) : -1;
+
+        // console.log('drop y', currentY, 'pos', pos1, pos2, pos3);
+
+        const mapY = this.currentY - 1;
+
+        if (this.currentY === this.gridHeight)
         {
-            //  2 down to 1
-            if (block1 && block2 || block1 && block3)
-            {
-                block1 = null;
-            }
-            else
-            {
-                block2 = null;
-            }
+            //  Is this the first row? If so we just drop and carry on.
+
+            this.grid[mapY][pos1] = 1;
+            this.grid[mapY][pos2] = 1;
+            this.grid[mapY][pos3] = 1;
+
+            this.nextRow();
         }
-    }
-
-    //  Pick either left or right to appear from
-
-    var side = 0;
-    var shift = gridSize;
-
-    if (Math.random() >= 0.5)
-    {
-        direction = 1;
-        side = (gridWidth - 1) * gridSize;
-        shift = -gridSize;
-    }
-    else
-    {
-        direction = 0;
-    }
-
-    if (block1)
-    {
-        block1 = this.add.rectangle(side, (currentY - 1) * gridSize, gridSize - 1, gridSize - 1, 0x6666ff).setOrigin(0);
-        side += shift;
-    }
-
-    if (block2)
-    {
-        block2 = this.add.rectangle(side, (currentY - 1) * gridSize, gridSize - 1, gridSize - 1, 0x6666ff).setOrigin(0);
-        side += shift;
-    }
-
-    if (block3)
-    {
-        block3 = this.add.rectangle(side, (currentY - 1) * gridSize, gridSize - 1, gridSize - 1, 0x6666ff).setOrigin(0);
-    }
-
-    timer = this.time.addEvent({ delay: speed, callback: this.moveBlocks, callbackScope: this, loop: true });
-}
-
-function drop ()
-{
-    timer.remove(false);
-
-    var pos1 = (block1) ? this.getGridX(block1) : -1;
-    var pos2 = (block2) ? this.getGridX(block2) : -1;
-    var pos3 = (block3) ? this.getGridX(block3) : -1;
-
-    // console.log('drop y', currentY, 'pos', pos1, pos2, pos3);
-
-    var mapY = currentY - 1;
-
-    if (currentY === gridHeight)
-    {
-        //  Is this the first row? If so we just drop and carry on.
-
-        grid[mapY][pos1] = 1;
-        grid[mapY][pos2] = 1;
-        grid[mapY][pos3] = 1;
-
-        this.nextRow();
-    }
-    else
-    {
-        //  Can we drop? First check all 3 blocks. If none of them have anything
-        //  below then it's game over.
-
-        if (!this.hasBlockBelow(block1) && !this.hasBlockBelow(block2) && !this.hasBlockBelow(block3))
+        else if (!this.hasBlockBelow(this.block1) && !this.hasBlockBelow(this.block2) && !this.hasBlockBelow(this.block3))
         {
+            //  Can we drop? First check all 3 blocks. If none of them have anything
+            //  below then it's game over.
+
+            
             this.gameOver();
         }
         else
         {
             //  Drop them one by one
-            if (block1)
+            if (this.block1)
             {
-                if (this.hasBlockBelow(block1))
+                if (this.hasBlockBelow(this.block1))
                 {
                     //  There's something below this block, so we're good to carry on
-                    grid[mapY][pos1] = 1;
+                    this.grid[mapY][pos1] = 1;
                 }
                 else
                 {
                     //  There's nothing below this block, so they loose it
-                    block1.visible = false;
-                    block1 = null;
+                    this.block1.visible = false;
+                    this.block1 = null;
                 }
             }
 
-            if (block2)
+            if (this.block2)
             {
-                if (this.hasBlockBelow(block2))
+                if (this.hasBlockBelow(this.block2))
                 {
                     //  There's something below this block, so we're good to carry on
-                    grid[mapY][pos2] = 1;
+                    this.grid[mapY][pos2] = 1;
                 }
                 else
                 {
                     //  There's nothing below this block, so they loose it
-                    block2.visible = false;
-                    block2 = null;
+                    this.block2.visible = false;
+                    this.block2 = null;
                 }
             }
 
-            if (block3)
+            if (this.block3)
             {
-                if (this.hasBlockBelow(block3))
+                if (this.hasBlockBelow(this.block3))
                 {
                     //  There's something below this block, so we're good to carry on
-                    grid[mapY][pos3] = 1;
+                    this.grid[mapY][pos3] = 1;
                 }
                 else
                 {
                     //  There's nothing below this block, so they loose it
-                    block3.visible = false;
-                    block3 = null;
+                    this.block3.visible = false;
+                    this.block3 = null;
                 }
             }
 
             // console.table(grid);
 
-            if (block1 || block2 || block3)
+            if (this.block1 || this.block2 || this.block3)
             {
-                if (currentY === 1)
+                if (this.currentY === 1)
                 {
                     this.gameWon();
                 }
@@ -363,5 +336,16 @@ function drop ()
                 this.gameOver();
             }
         }
+        
     }
 }
+
+const config = {
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    scene: Example
+};
+
+const game = new Phaser.Game(config);

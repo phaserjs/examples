@@ -4,7 +4,6 @@ class Example extends Phaser.Scene
     {
         this.load.image('bg', 'assets/skies/darkstone.png');
         this.load.image('platform', 'assets/particles/platform.png');
-        this.load.image('pipe', 'assets/particles/pipe.png');
         this.load.image('slime', 'assets/particles/slime.png');
     }
 

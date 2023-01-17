@@ -1,4 +1,4 @@
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 821,
     height: 552,
@@ -160,7 +160,7 @@ iteration = null,
 skip      = false,
 blitter   = null;
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload ()
 {

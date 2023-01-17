@@ -4,37 +4,38 @@
 
 //  This is perfect for loading in small JSON config files for example,
 //  or a tiny amount of preloader assets that the preloader itself needs to use.
-
-var sceneConfig = {
-    preload: preload,
-    create: create,
-    pack: {
-        files: [
-            { type: 'image', key: 'sonic', url: 'assets/sprites/sonic_havok_sanity.png' }
-        ]
+class Example extends Phaser.Scene
+{
+    constructor ()
+    {
+        super({
+            pack: {
+                files: [
+                    { type: 'image', key: 'sonic', url: 'assets/sprites/sonic_havok_sanity.png' }
+                ]
+            }
+        });
     }
-};
 
-var gameConfig = {
+    preload ()
+    {
+        //  You can still preload other assets too
+        this.load.image('face', 'assets/pics/bw-face.png');
+    }
+
+    create ()
+    {
+        this.add.image(0, 0, 'face').setOrigin(0);
+        this.add.image(0, 0, 'sonic').setOrigin(0);
+    }
+}
+
+const gameConfig = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: sceneConfig
+    scene: Example
 };
 
-var game = new Phaser.Game(gameConfig);
-
-function preload() {
-
-    //  You can still preload other assets too
-    this.load.image('face', 'assets/pics/bw-face.png');
-
-}
-
-function create() {
-
-    this.add.image(0, 0, 'face');
-    this.add.image(0, 0, 'sonic');
-
-}
+const game = new Phaser.Game(gameConfig);

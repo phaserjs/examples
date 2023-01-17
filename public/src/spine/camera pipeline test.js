@@ -1,38 +1,29 @@
 // #module
 import PlasmaPostFX from './assets/pipelines/PlasmaPostFX.js';
 
-var GameScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function GameScene ()
+class Example extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, {
-            key: 'gameScene',
-            active: true,
+        super({
             pack: {
                 files: [
                     { type: 'scenePlugin', key: 'SpinePlugin', url: 'plugins/3.8.95/SpinePluginDebug.js', sceneKey: 'spine' }
                 ]
             }
         });
+    }
 
-        this.t = 0;
-        this.customPipeline;
-    },
-
-    preload: function ()
+    preload ()
     {
         this.load.image('logo', 'assets/sprites/phaser.png');
         this.load.setPath('assets/spine/3.8/demos/');
         this.load.spine('set1', 'demos.json', [ 'atlas1.atlas' ], true);
-    },
+    }
 
-    create: function ()
+    create ()
     {
-       const hueRotatePipeline = this.renderer.pipelines.get('PlasmaPostFX');
+        const hueRotatePipeline = this.renderer.pipelines.get('PlasmaPostFX');
 
         this.add.image(0, 0, 'logo').setOrigin(0);
 
@@ -40,15 +31,15 @@ var GameScene = new Phaser.Class({
 
         this.cameras.main.setPostPipeline(hueRotatePipeline);
     }
-});
+}
 
-var config = {
+const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: GameScene,
+    scene: Example,
     pipeline: { PlasmaPostFX }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

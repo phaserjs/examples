@@ -1,11 +1,16 @@
-const myCustomCanvas = document.createElement('canvas');
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('pic', 'assets/pics/baal-loader.png');
+    }
 
-myCustomCanvas.id = 'myCustomCanvas';
-myCustomCanvas.style = 'border: 8px solid green';
+    create ()
+    {
+        this.add.image(400, 300, 'pic');
+    }
+}
 
-document.body.appendChild(myCustomCanvas);
-
-//  It's important to set the WebGL context values that Phaser needs:
 const contextCreationConfig = {
     alpha: false,
     depth: false,
@@ -17,7 +22,13 @@ const contextCreationConfig = {
     powerPreference: 'default'
 };
 
+const myCustomCanvas = document.createElement('canvas');
 const myCustomContext = myCustomCanvas.getContext('webgl2', contextCreationConfig);
+
+myCustomCanvas.id = 'myCustomCanvas';
+myCustomCanvas.style = 'border: 8px solid green';
+
+document.body.appendChild(myCustomCanvas);
 
 const config = {
     type: Phaser.WEBGL,
@@ -26,20 +37,7 @@ const config = {
     height: 600,
     canvas: myCustomCanvas,
     context: myCustomContext,
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
 const game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('pic', 'assets/pics/baal-loader.png');
-}
-
-function create ()
-{
-    this.add.image(400, 300, 'pic');
-}

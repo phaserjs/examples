@@ -1,60 +1,62 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    position;
+    slope;
+    text;
+    line;
+    graphics;
+
+    create ()
+    {
+        this.graphics = this.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa }, fillStyle: { color: 0x0000aa } });
+
+        this.line = new Phaser.Geom.Line(150, 400, 550, 450);
+
+        this.text = this.add.text(50, 50, '');
+
+        this.position = 50;
+
+        this.input.on('pointermove', pointer =>
+        {
+
+            this.line.x2 = pointer.x;
+            this.line.y2 = pointer.y;
+
+            this.calculate();
+        });
+
+        this.calculate();
+    }
+
+    update ()
+    {
+        this.position += this.slope;
+
+        this.position = Phaser.Math.Clamp(this.position, 0, 100);
+
+        this.graphics.clear();
+
+        this.graphics.strokeLineShape(this.line);
+
+        const point = Phaser.Geom.Line.GetPoint(this.line, this.position / 100);
+
+        this.graphics.fillPointShape(point, 25);
+    }
+
+    calculate ()
+    {
+        this.slope = Phaser.Geom.Line.Slope(this.line);
+
+        this.text.setText(`Line Slope: ${this.slope}`);
+    }
+}
+
+const config = {
     width: 800,
     height: 600,
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-var graphics;
-var line;
-var text;
-var slope;
-var position;
-
-function create ()
-{
-    graphics = this.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa }, fillStyle: { color: 0x0000aa } });
-
-    line = new Phaser.Geom.Line(150, 400, 550, 450);
-
-    text = this.add.text(50, 50, '');
-
-    position = 50;
-
-    this.input.on('pointermove', function (pointer) {
-
-        line.x2 = pointer.x;
-        line.y2 = pointer.y;
-
-        calculate();
-    });
-
-    calculate();
-
-    function calculate()
-    {
-        slope = Phaser.Geom.Line.Slope(line);
-
-        text.setText("Line Slope: " + slope);
-    }
-}
-
-function update ()
-{
-    position += slope;
-
-    position = Phaser.Math.Clamp(position, 0, 100);
-
-    graphics.clear();
-
-    graphics.strokeLineShape(line);
-
-    var point = Phaser.Geom.Line.GetPoint(line, position / 100);
-
-    graphics.fillPointShape(point, 25);
-}
+const game = new Phaser.Game(config);

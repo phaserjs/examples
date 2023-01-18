@@ -288,7 +288,7 @@ WireframeScene.Start.prototype = {
             this.torus.fadeOut(3);
             this.spike.fadeIn();
             this.current = this.spike;
-            
+
         }
         else if (this.current === this.spike)
         {
@@ -461,7 +461,7 @@ WireframeScene.Start.prototype = {
                     C: parseInt(tokens[3], 10),
                     D: parseInt(tokens[4], 10)
                 };
-            
+
                 if (face.A < 0)
                 {
                     face.A = verts.length + face.A;
@@ -523,7 +523,7 @@ WireframeScene.Start.prototype = {
             verts: verts,
             faces: faces
         };
-      
+
         return this.modelData[key];
     }
 };
@@ -555,7 +555,7 @@ var BABYLON;
         };
         return Color4;
     })();
-    BABYLON.Color4 = Color4;    
+    BABYLON.Color4 = Color4;
     var Vector2 = (function () {
         function Vector2(initialX, initialY) {
             this.x = initialX;
@@ -630,7 +630,7 @@ var BABYLON;
         };
         return Vector2;
     })();
-    BABYLON.Vector2 = Vector2;    
+    BABYLON.Vector2 = Vector2;
     var Vector3 = (function () {
         function Vector3(initialX, initialY, initialZ) {
             this.x = initialX;
@@ -730,7 +730,7 @@ var BABYLON;
         };
         return Vector3;
     })();
-    BABYLON.Vector3 = Vector3;    
+    BABYLON.Vector3 = Vector3;
     var Matrix = (function () {
         function Matrix() {
             this.m = [];
@@ -1001,5 +1001,5 @@ var BABYLON;
         };
         return Matrix;
     })();
-    BABYLON.Matrix = Matrix;    
+    BABYLON.Matrix = Matrix;
 })(BABYLON || (BABYLON = {}));

@@ -23,7 +23,7 @@ var Obj3D = new Phaser.Class({
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
         var model = this.model;
-        
+
         for (var n = 0; n < model.verts.length; n++)
         {
             var vert = model.verts[n];
@@ -40,7 +40,7 @@ var Obj3D = new Phaser.Class({
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
         var model = this.model;
-        
+
         for (var n = 0; n < model.verts.length; n++)
         {
             var vert = model.verts[n];
@@ -57,7 +57,7 @@ var Obj3D = new Phaser.Class({
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
         var model = this.model;
-        
+
         for (var n = 0; n < model.verts.length; n++)
         {
             var vert = model.verts[n];
@@ -169,20 +169,22 @@ WireframeScene.Start.prototype = {
         var c = this.addObject('computer', 200, 100, 0);
         c.color = 0xffff00;
 
-        TweenMax.to(t, 2, {
+        this.tweens.add({
+            targets: t,
+            duration: 2000,
             scale: 10,
-            ease: Sine.easeInOut,
+            ease: Phaser.Math.Easing.Sine.InOut,
             repeat: -1,
             yoyo: true
         });
-
-        TweenMax.to(c, 4, {
+        this.tweens.add({
+            targets: c,
+            duration: 4000,
             scale: 10,
-            ease: Sine.easeInOut,
+            ease: Phaser.Math.Easing.Sine.InOut,
             repeat: -1,
             yoyo: true
         });
-
     },
 
     update: function ()
@@ -251,7 +253,7 @@ WireframeScene.Start.prototype = {
                     parseInt(tokens[3], 10),
                     parseInt(tokens[4], 10)
                 ];
-            
+
                 faces.push(face);
 
                 if (face[0] < 0)
@@ -284,12 +286,12 @@ WireframeScene.Start.prototype = {
             verts: verts,
             faces: faces
         };
-      
+
         return this.modelData[key];
     }
 };
 
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -297,4 +299,4 @@ var config = {
     scene: WireframeScene.Start
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

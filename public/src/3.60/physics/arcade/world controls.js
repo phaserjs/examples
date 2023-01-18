@@ -80,6 +80,10 @@ class Example extends Phaser.Scene
 
         gui.add(world, 'drawDebug');
 
+        gui.add(world, 'fixedStep');
+
+        gui.add(world, 'fps', 5, 300, 5).onChange((fps) => { world.setFPS(fps); });
+
         gui.add(world, 'forceX');
 
         const gravity = gui.addFolder('gravity');
@@ -88,11 +92,13 @@ class Example extends Phaser.Scene
 
         // gui.add(world, 'isPaused');
 
-        gui.add(world, 'OVERLAP_BIAS', -8, 8, 1);
+        gui.add(world, 'OVERLAP_BIAS', 0, 16, 1);
 
         gui.add(world, 'pause');
 
         gui.add(world, 'resume');
+
+        gui.add(world, 'timeScale', 0.1, 10, 0.1);
 
         return gui;
     }
@@ -107,9 +113,9 @@ const config = {
     physics: {
         default: 'arcade',
 
-        // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html#.ArcadeWorldConfig
+        // https://newdocs.phaser.io/docs/3.55.2/Phaser.Types.Physics.Arcade.ArcadeWorldConfig
+
         arcade: {
-            // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html#.CheckCollisionObject
             checkCollision: {
                 up: true,
                 down: true,
@@ -123,6 +129,7 @@ const config = {
             debugShowVelocity: true,
             debugStaticBodyColor: 0x0000ff,
             debugVelocityColor: 0x00ff00,
+            fixedStep: true,
             forceX: false,
             fps: 60,
             gravity: {

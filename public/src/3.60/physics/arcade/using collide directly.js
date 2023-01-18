@@ -53,7 +53,8 @@ class Example extends Phaser.Scene
 
         this.physics.collide(this.sprite, this.balls);
 
-        this.physics.overlap(this.sprite, this.mushrooms, (sprite, mushroom) => {
+        this.physics.overlap(this.sprite, this.mushrooms, (sprite, mushroom) =>
+        {
 
             mushroom.destroy();
 

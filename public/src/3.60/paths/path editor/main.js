@@ -1,4 +1,4 @@
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
@@ -7,7 +7,7 @@ var config = {
     scene: Controller
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 window.addEventListener('resize', function (event) {
 

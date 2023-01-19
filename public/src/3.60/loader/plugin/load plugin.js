@@ -1,4 +1,4 @@
-var config = {
+const config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
@@ -10,12 +10,12 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload ()
 {
     // this.load.plugin('FractalPlugin', 'assets/loader-tests/fractalsPlugin.js');
-    this.load.plugin('FractalPlugin', 'http://localhost/fractalplugin/dist/FractalPlugin.js');
+    this.load.plugin('FractalPlugin', '/fractalplugin/dist/FractalPlugin.js');
 }
 
 function create ()

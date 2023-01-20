@@ -26,7 +26,7 @@ function preload ()
 
     this.load.setPath('assets/spine/4.1/spineboy');
 
-    this.load.spine('boy', 'spineboy-pro.json', 'spineboy-pma.atlas', false);
+    this.load.spine('boy', 'spineboy-ess.json', 'spineboy-pma.atlas', false);
 }
 
 function create ()

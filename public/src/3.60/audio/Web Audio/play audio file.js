@@ -17,6 +17,8 @@ class Example extends Phaser.Scene
         const music = this.sound.add('theme');
 
         music.play();
+
+        this.sound.pauseOnBlur = true;
     }
 }
 

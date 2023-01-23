@@ -5,20 +5,13 @@ class ColorMatrixFX extends Phaser.Renderer.WebGL.Pipelines.SpriteFXPipeline
         super({ game });
 
         this.colorMatrix = new Phaser.Display.ColorMatrix();
-
-        // this.target = new Phaser.Renderer.WebGL.RenderTarget(game.renderer, 32, 32);
     }
 
     onDraw (target, swapTarget)
     {
-        // var target = this.target.resize(source.width, source.height);
-
-        // this.manager.drawFrame(target, swapTarget, true, this.colorMatrix);
-
-        this.manager.drawFrame(target, swapTarget);
+        this.copySprite(target, swapTarget, true, true, false, this.colorMatrix);
 
         this.copyToGame(swapTarget);
-        // this.copyToGame(target);
     }
 }
 
@@ -31,27 +24,66 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('melon', 'assets/sprites/watermelon.png');
-        this.load.image('yune', 'assets/sprites/yune.png');
-        this.load.image('star', 'assets/sprites/star.png');
+        this.load.image('beer', 'assets/sprites/donut.png');
+        this.load.image('logo', 'assets/sprites/phaser2.png');
+        this.load.image('man', 'assets/sprites/gingerbread.png');
     }
 
     create ()
     {
         const pipeline = this.renderer.pipelines.add('ColorMatrixFX', new ColorMatrixFX(this.game));
 
-        const melon = this.add.image(100, 300, 'melon');
-        const yune = this.add.image(400, 350, 'yune');
-        const star = this.add.image(700, 300, 'star');
+        const beer = this.add.image(100, 300, 'beer').setPipeline(pipeline);
+        const logo = this.add.image(400, 300, 'logo').setPipeline(pipeline);
+        const man = this.add.image(700, 300, 'man').setPipeline(pipeline);
 
-        melon.setPipeline(pipeline);
-        // yune.setPipeline(pipeline);
-        star.setPipeline(pipeline);
+        let h = 0;
+        let g = 0;
+        let s = 0;
+
+        beer.onFXCopy = (pipeline) => {
+
+            pipeline.colorMatrix.saturate(s);
+
+            s += 0.01;
+
+            if (s > 4)
+            {
+                s = 0;
+            }
+
+        };
+
+        logo.onFXCopy = (pipeline) => {
+
+            pipeline.colorMatrix.hue(h);
+
+            h++;
+
+            if (h === 360)
+            {
+                h = 0;
+            }
+
+        };
+
+        man.onFXCopy = (pipeline) => {
+
+            pipeline.colorMatrix.grayscale(g);
+
+            g += 0.01;
+
+            if (g > 1)
+            {
+                g = 0;
+            }
+
+        };
 
         // pipeline.colorMatrix.brightness(1.2);
         // pipeline.colorMatrix.saturate(2.5);
         // pipeline.colorMatrix.hue(40);
-        pipeline.colorMatrix.grayscale(1);
+        // pipeline.colorMatrix.grayscale(1);
         // pipeline.colorMatrix.blackWhite();
         // pipeline.colorMatrix.contrast(1);
         // pipeline.colorMatrix.negative();

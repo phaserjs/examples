@@ -18,13 +18,14 @@ class Example extends Phaser.Scene
     {
         this.add.image(400, 300, 'bg').setFlip(false, true);
 
-        const plane = this.add.plane(400, 300, 'test3', 16, 16);
+        const g = this.add.graphics();
 
-        const marker = this.add.image(400+100, 300, 'test3');
+        const plane = this.add.plane(400, 300, 'test3', 8, 8);
+
+        const marker = this.add.image(400+200, 300, 'test3');
 
         const b = marker.getBounds();
 
-        const g = this.add.graphics();
         g.lineStyle(1, 0x00ff00);
         g.lineBetween(0, b.top, 800, b.top);
         g.lineBetween(0, b.bottom, 800, b.bottom);

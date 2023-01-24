@@ -33,8 +33,6 @@ class Example extends Phaser.Scene
             blendMode: 'ADD'
         });
 
-        console.log(wisp);
-
         const smokey = this.add.particles(650, 550, 'flares',
         {
             frame: 'white',

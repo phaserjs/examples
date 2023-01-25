@@ -20,7 +20,11 @@ class Example extends Phaser.Scene
 
         const g = this.add.graphics();
 
-        const plane = this.add.plane(400, 300, 'test3', 8, 8);
+        // const plane = this.add.plane(400, 300);
+
+        // const plane = this.add.plane(400, 300, 'test3');
+
+        const plane = this.add.plane(400, 300).createCheckerboard();
 
         const marker = this.add.image(400+200, 300, 'test3');
 

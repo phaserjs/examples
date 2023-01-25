@@ -12,6 +12,7 @@ class Example extends Phaser.Scene
         this.load.image('test2', 'assets/sprites/poo.png');
         this.load.image('test3', 'assets/sprites/sonic_havok_sanity.png');
         this.load.image('test4', 'assets/sprites/p2.jpg');
+        this.load.image('test5', 'assets/pics/goblin.png');
     }
 
     create ()
@@ -22,17 +23,19 @@ class Example extends Phaser.Scene
 
         // const plane = this.add.plane(400, 300);
 
-        // const plane = this.add.plane(400, 300, 'test3');
+        const plane = this.add.plane(400, 300, 'test5');
 
-        const plane = this.add.plane(400, 300).createCheckerboard();
+        plane.setViewHeight(512);
 
-        const marker = this.add.image(400+200, 300, 'test3');
+        // const plane = this.add.plane(400, 300).createCheckerboard();
 
-        const b = marker.getBounds();
+        // const marker = this.add.image(400+200, 300, 'test4');
 
-        g.lineStyle(1, 0x00ff00);
-        g.lineBetween(0, b.top, 800, b.top);
-        g.lineBetween(0, b.bottom, 800, b.bottom);
+        // const b = marker.getBounds();
+
+        // g.lineStyle(1, 0x00ff00);
+        // g.lineBetween(0, b.top, 800, b.top);
+        // g.lineBetween(0, b.bottom, 800, b.bottom);
 
         // this.add.image(700, 300, 'plane');
 
@@ -53,7 +56,7 @@ class Example extends Phaser.Scene
             if (!pointer.event.shiftKey)
             {
                 plane.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
-                plane.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
+                // plane.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
             }
             else
             {
@@ -68,10 +71,25 @@ class Example extends Phaser.Scene
             plane.panZ(deltaY * (zoomRate / 600));
 
         });
+
+        this.r = 0;
+
+        this.d = this.add.text(10, 10);
     }
 
     update ()
     {
+        // this.plane.scrollX = 0.01;
+
+        // this.plane.rotateX = this.r;
+
+        this.plane.addRotateX(0.5);
+        this.plane.addRotateY(0.25);
+
+        this.d.setText(this.r);
+
+        this.r += 0.1;
+
         // this.plane.uvScroll(0.01, 0.01);
     }
 }

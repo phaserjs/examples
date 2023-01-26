@@ -5291,9 +5291,16 @@
               "name": "plane",
               "children": [
                 {
+                  "path": "src/3.60/game objects/plane/checkerboard plane.js",
+                  "name": "checkerboard plane.js",
+                  "size": 1428,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/game objects/plane/click plane.js",
                   "name": "click plane.js",
-                  "size": 726,
+                  "size": 1544,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5307,7 +5314,21 @@
                 {
                   "path": "src/3.60/game objects/plane/create plane.js",
                   "name": "create plane.js",
-                  "size": 2529,
+                  "size": 2544,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src/3.60/game objects/plane/plane with normal map.js",
+                  "name": "plane with normal map.js",
+                  "size": 1987,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
+                  "path": "src/3.60/game objects/plane/tile plane texture.js",
+                  "name": "tile plane texture.js",
+                  "size": 2544,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5326,7 +5347,7 @@
                   "type": "file"
                 }
               ],
-              "size": 5985,
+              "size": 12777,
               "type": "directory"
             },
             {
@@ -6572,7 +6593,7 @@
               "type": "directory"
             }
           ],
-          "size": 955656,
+          "size": 962448,
           "type": "directory"
         },
         {
@@ -15331,7 +15352,7 @@
           "type": "directory"
         }
       ],
-      "size": 4277835,
+      "size": 4284627,
       "type": "directory"
     },
     {
@@ -30719,6 +30740,6 @@
       "type": "directory"
     }
   ],
-  "size": 8365351,
+  "size": 8372143,
   "type": "directory"
 }

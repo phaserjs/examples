@@ -56,7 +56,7 @@ class Example extends Phaser.Scene
             if (!pointer.event.shiftKey)
             {
                 plane.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
-                // plane.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
+                plane.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
             }
             else
             {
@@ -72,9 +72,9 @@ class Example extends Phaser.Scene
 
         });
 
-        this.r = 0;
+        // this.r = 0;
 
-        this.d = this.add.text(10, 10);
+        // this.d = this.add.text(10, 10);
     }
 
     update ()
@@ -83,12 +83,12 @@ class Example extends Phaser.Scene
 
         // this.plane.rotateX = this.r;
 
-        this.plane.addRotateX(0.5);
-        this.plane.addRotateY(0.25);
+        // this.plane.addRotateX(0.5);
+        // this.plane.addRotateY(0.25);
 
-        this.d.setText(this.r);
+        // this.d.setText(this.r);
 
-        this.r += 0.1;
+        // this.r += 0.1;
 
         // this.plane.uvScroll(0.01, 0.01);
     }

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "./node_modules/.bin/http-server -s -o",
     "update": "node ./build.js",
-    "screenshots": "node ./generate-screenshots.js",
+    "screenshots": "node ./tools/generate-screenshots.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

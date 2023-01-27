@@ -5291,6 +5291,13 @@
               "name": "plane",
               "children": [
                 {
+                  "path": "src/3.60/game objects/plane/animated sprite plane.js",
+                  "name": "animated sprite plane.js",
+                  "size": 2653,
+                  "extension": ".js",
+                  "type": "file"
+                },
+                {
                   "path": "src/3.60/game objects/plane/checkerboard plane.js",
                   "name": "checkerboard plane.js",
                   "size": 1428,
@@ -5321,14 +5328,14 @@
                 {
                   "path": "src/3.60/game objects/plane/plane with normal map.js",
                   "name": "plane with normal map.js",
-                  "size": 1987,
+                  "size": 1749,
                   "extension": ".js",
                   "type": "file"
                 },
                 {
                   "path": "src/3.60/game objects/plane/tile plane texture.js",
                   "name": "tile plane texture.js",
-                  "size": 2544,
+                  "size": 1803,
                   "extension": ".js",
                   "type": "file"
                 },
@@ -5347,7 +5354,7 @@
                   "type": "file"
                 }
               ],
-              "size": 12777,
+              "size": 14451,
               "type": "directory"
             },
             {
@@ -6593,7 +6600,7 @@
               "type": "directory"
             }
           ],
-          "size": 962448,
+          "size": 964122,
           "type": "directory"
         },
         {
@@ -15352,7 +15359,7 @@
           "type": "directory"
         }
       ],
-      "size": 4284627,
+      "size": 4286301,
       "type": "directory"
     },
     {
@@ -16158,6 +16165,13 @@
           "type": "file"
         },
         {
+          "path": "src/bugs/0000 matter.js",
+          "name": "0000 matter.js",
+          "size": 683,
+          "extension": ".js",
+          "type": "file"
+        },
+        {
           "path": "src/bugs/0000 move dom.js",
           "name": "0000 move dom.js",
           "size": 1089,
@@ -16863,9 +16877,16 @@
           "size": 1358,
           "extension": ".js",
           "type": "file"
+        },
+        {
+          "path": "src/bugs/6367 text.js",
+          "name": "6367 text.js",
+          "size": 449,
+          "extension": ".js",
+          "type": "file"
         }
       ],
-      "size": 142435,
+      "size": 143567,
       "type": "directory"
     },
     {
@@ -30740,6 +30761,6 @@
       "type": "directory"
     }
   ],
-  "size": 8372143,
+  "size": 8374949,
   "type": "directory"
 }

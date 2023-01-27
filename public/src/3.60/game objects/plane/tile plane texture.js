@@ -7,40 +7,25 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('bg', 'assets/skies/gradient13.png');
-        this.load.image('test1', 'assets/sprites/128x128-v2.png');
-        this.load.image('test2', 'assets/sprites/poo.png');
-        this.load.image('test3', 'assets/sprites/sonic_havok_sanity.png');
-        this.load.image('test4', 'assets/sprites/p2.jpg');
-        this.load.image('test5', 'assets/pics/goblin.png');
+        this.load.image('bg', 'assets/skies/space4.png');
+        this.load.image('texture', 'assets/tests/pipeline/pudding.png');
     }
 
     create ()
     {
-        this.add.image(400, 300, 'bg').setFlip(false, true);
+        this.add.image(400, 300, 'bg');
 
-        const g = this.add.graphics();
-
-        // const plane = this.add.plane(400, 300);
-
-        const plane = this.add.plane(400, 300, 'test5');
+        //  For NPOT textures (like our pudding texture) you cannot uvScale
+        //  them, because WebGL1 doesn't support this. So instead we can
+        //  create a Plane that is 8x8 cells in size and tile the texture
+        //  across each cell (the last 3 parameters)
+        const plane = this.add.plane(400, 300, 'texture', null, 8, 8, true);
 
         plane.setViewHeight(512);
 
-        // const plane = this.add.plane(400, 300).createCheckerboard();
-
-        // const marker = this.add.image(400+200, 300, 'test4');
-
-        // const b = marker.getBounds();
-
-        // g.lineStyle(1, 0x00ff00);
-        // g.lineBetween(0, b.top, 800, b.top);
-        // g.lineBetween(0, b.bottom, 800, b.bottom);
-
-        // this.add.image(700, 300, 'plane');
-
-        window.plane = plane;
-        this.plane = plane;
+        plane.modelRotation.x = -0.59;
+        plane.modelRotation.y = 0.707;
+        plane.viewPosition.z = 2.209;
 
         const rotateRate = 1;
         const panRate = 1;
@@ -71,26 +56,6 @@ class Example extends Phaser.Scene
             plane.panZ(deltaY * (zoomRate / 600));
 
         });
-
-        // this.r = 0;
-
-        // this.d = this.add.text(10, 10);
-    }
-
-    update ()
-    {
-        // this.plane.scrollX = 0.01;
-
-        // this.plane.rotateX = this.r;
-
-        // this.plane.addRotateX(0.5);
-        // this.plane.addRotateY(0.25);
-
-        // this.d.setText(this.r);
-
-        // this.r += 0.1;
-
-        // this.plane.uvScroll(0.01, 0.01);
     }
 }
 

@@ -4,7 +4,7 @@
   "description": "Phaser 3 Examples",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/http-server -s -o",
+    "start": "npx http-server -s -o",
     "update": "node ./build.js",
     "screenshots": "node ./tools/generate-screenshots.js",
     "test": "echo \"Error: no test specified\" && exit 1"

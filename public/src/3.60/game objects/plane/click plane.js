@@ -51,8 +51,10 @@ class Example extends Phaser.Scene
     update ()
     {
         this.cards.forEach(card => {
-            card.addRotateX(0.2);
-            card.addRotateY(0.3);
+
+            card.rotateX += 0.2;
+            card.rotateY += 0.3;
+
         });
     }
 }

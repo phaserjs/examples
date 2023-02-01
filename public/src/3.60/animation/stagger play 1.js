@@ -25,14 +25,15 @@ class Example extends Phaser.Scene
 
         group.createMultiple({ key: 'diamonds', frame: 0, repeat: 279 });
 
-        Phaser.Actions.GridAlign(group.getChildren(), { width: 20, height: 20, cellWidth: 38, x: 38, y: 50 });
+        Phaser.Actions.GridAlign(group.getChildren(), {
+            width: 20,
+            height: 20,
+            cellWidth: 38,
+            x: 19,
+            y: 25
+        });
 
         this.anims.staggerPlay('flash', group.getChildren(), 60);
-    }
-
-    update ()
-    {
-
     }
 }
 
@@ -41,7 +42,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

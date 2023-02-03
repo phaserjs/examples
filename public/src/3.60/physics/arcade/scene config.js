@@ -12,9 +12,9 @@ class Boot extends Phaser.Scene
         this.load.image('red', 'assets/particles/red.png');
     }
 
-    update ()
+    create ()
     {
-        this.scene.launch('outerSpace').remove();
+        this.scene.start('outerSpace');
     }
 }
 

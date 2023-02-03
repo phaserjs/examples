@@ -41,7 +41,7 @@ const config = {
     height: 600,
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

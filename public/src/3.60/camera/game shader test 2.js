@@ -141,7 +141,7 @@ const config = {
             debug: false
         }
     },
-    scene: [ Example ],
+    scene: Example,
     pipeline: {  BendWavesPostFX }
 };
 

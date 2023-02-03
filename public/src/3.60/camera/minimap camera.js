@@ -191,7 +191,7 @@ const config = {
             enableSleeping: true
         }
     },
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

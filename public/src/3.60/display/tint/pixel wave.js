@@ -82,7 +82,7 @@ const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     backgroundColor: '#1a1a1a',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

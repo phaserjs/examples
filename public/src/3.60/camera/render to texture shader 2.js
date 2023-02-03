@@ -49,7 +49,7 @@ const config = {
     width: 512,
     height: 512,
     backgroundColor: '#000000',
-    scene: [ Example ],
+    scene: Example,
     pipeline: { BendRotationWavesPostFX }
 };
 

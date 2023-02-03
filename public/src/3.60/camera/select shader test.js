@@ -65,7 +65,7 @@ const config = {
     parent: 'phaser-example',
     width: 1024,
     height: 512,
-    scene: [ Example ],
+    scene: Example,
     pipeline: { HueRotatePostFX }
 };
 

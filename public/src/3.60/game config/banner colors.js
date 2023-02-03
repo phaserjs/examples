@@ -42,7 +42,7 @@ const config = {
         ],
         hidePhaser: true
     },
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

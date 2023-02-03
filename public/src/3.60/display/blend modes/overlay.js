@@ -80,7 +80,7 @@ const config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 

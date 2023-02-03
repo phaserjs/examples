@@ -49,7 +49,7 @@ const config = {
     parent: 'phaser-example',
     backgroundColor: '#2d2d2d',
     roundPixels: true,
-    scene: [ Example ]
+    scene: Example
 };
 
 

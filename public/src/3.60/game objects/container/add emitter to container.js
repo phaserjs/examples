@@ -11,18 +11,14 @@ class Example extends Phaser.Scene
         const container = this.add.container(400, 300);
 
         //  Our emitter
-        const particles = this.add.particles('lemming');
-
-        const emitter = particles.createEmitter({
-            x: 0,
-            y: 0,
+        const emitter = this.add.particles(0, 0, 'lemming', {
             lifespan: 2000,
             speed: { min: 200, max: 400 },
             angle: 330,
             gravityY: 300
         });
 
-        container.add(particles);
+        container.add(emitter);
 
         //  Rotate the container
         this.tweens.add({

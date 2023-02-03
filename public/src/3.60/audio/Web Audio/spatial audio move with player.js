@@ -11,7 +11,15 @@ class Monster extends Phaser.GameObjects.Sprite
             source: {
                 x,
                 y,
-                refDistance: 4
+                orientationX: 0,
+                orientationY: 0,
+                orientationZ: -1,
+                // distanceModel: 'inverse',
+                refDistance: 6,
+                rolloffFactor: 1,
+                coneInnerAngle: 180,
+                coneOuterAngle: 280,
+                coneOuterGain: 0.3
             }
         });
 
@@ -23,6 +31,10 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
+        this.load.image('dude', 'assets/sprites/phaser-dude.png');
+        this.load.image('bg', 'assets/textures/cave-map3.jpg');
+        this.load.atlas('monsters', 'assets/atlas/monsters.png', 'assets/atlas/monsters.json');
+
         this.load.setPath('assets/audio/monsters/');
 
         this.load.audio('growl1', [ 'growl1.ogg', 'growl1.mp3' ]);
@@ -40,15 +52,12 @@ class Example extends Phaser.Scene
         this.load.audio('growl13', [ 'growl13.ogg', 'growl13.mp3' ]);
         this.load.audio('growl14', [ 'growl14.ogg', 'growl14.mp3' ]);
         this.load.audio('growl15', [ 'growl15.ogg', 'growl15.mp3' ]);
-
-        this.load.setPath('assets/sprites/');
-
-        this.load.image('speaker', 'speakers/middle.png');
-        this.load.image('dude', 'phaser-dude.png');
     }
 
     create ()
     {
+        this.add.image(0, 0, 'bg').setOrigin(0, 0);
+
         if (this.sound.locked)
         {
             const text = this.add.text(10, 10, 'Click to Start', { font: '32px Courier', fill: '#00ff00' });
@@ -70,19 +79,50 @@ class Example extends Phaser.Scene
 
     createMonsters ()
     {
-        for (let i = 0; i < 8; i++)
-        {
-            const x = Phaser.Math.Between(0, 800);
-            const y = Phaser.Math.Between(0, 600);
-            const sound = Phaser.Math.Between(1, 15);
+        const frames = [
+            'assassin',
+            'cultist',
+            'darkreaper',
+            'drow',
+            'frogman',
+            'ghost',
+            'giantspider',
+            'gnoll',
+            'goblin',
+            'guard',
+            'hobgoblin',
+            'icegolem',
+            'imp',
+            'lizardman',
+            'magmagolem',
+            'ogre',
+            'ruffian',
+            'scout',
+            'skeletalwarrior',
+            'slime',
+            'stonegolem',
+            'swashbuckler',
+            'troll',
+            'wererat',
+            'zombie',
+        ];
 
-            const monster = new Monster(this, x, y, 'speaker', null, `growl${sound}`);
+        for (let i = 0; i < 32; i++)
+        {
+            const x = Phaser.Math.Between(500, 2500);
+            const y = Phaser.Math.Between(500, 2500);
+            const sound = Phaser.Math.Between(1, 15);
+            const frame = Phaser.Utils.Array.GetRandom(frames);
+
+            const monster = new Monster(this, x, y, 'monsters', frame, `growl${sound}`);
         }
     }
 
     createPlayer ()
     {
         this.player = this.physics.add.sprite(400, 300, 'dude');
+
+        this.cameras.main.startFollow(this.player);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 

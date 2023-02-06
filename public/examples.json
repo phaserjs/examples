@@ -1769,6 +1769,10 @@
                   "name": "get child world position.js"
                 },
                 {
+                  "path": "src\\3.60\\game objects\\container\\girl body sprites.js",
+                  "name": "girl body sprites.js"
+                },
+                {
                   "path": "src\\3.60\\game objects\\container\\input overlap test.js",
                   "name": "input overlap test.js"
                 },
@@ -9646,6 +9650,10 @@
           "name": "5592 pointer move.js"
         },
         {
+          "path": "src\\bugs\\5596 spine canvas.js",
+          "name": "5596 spine canvas.js"
+        },
+        {
           "path": "src\\bugs\\5603 rt mac os.js",
           "name": "5603 rt mac os.js"
         },
@@ -9664,6 +9672,10 @@
         {
           "path": "src\\bugs\\5617 push circle.js",
           "name": "5617 push circle.js"
+        },
+        {
+          "path": "src\\bugs\\5627 spine mask.js",
+          "name": "5627 spine mask.js"
         },
         {
           "path": "src\\bugs\\5667 ios blend.js",
@@ -9786,6 +9798,10 @@
           "name": "6016 kill tweens nested.js"
         },
         {
+          "path": "src\\bugs\\6022 spine atlas.js",
+          "name": "6022 spine atlas.js"
+        },
+        {
           "path": "src\\bugs\\6033 retina graphics.js",
           "name": "6033 retina graphics.js"
         },
@@ -9886,8 +9902,20 @@
           "name": "6293 physics.js"
         },
         {
+          "path": "src\\bugs\\6362 spine atlas.js",
+          "name": "6362 spine atlas.js"
+        },
+        {
           "path": "src\\bugs\\6367 text.js",
           "name": "6367 text.js"
+        },
+        {
+          "path": "src\\bugs\\6380 spine.js",
+          "name": "6380 spine.js"
+        },
+        {
+          "path": "src\\bugs\\polygon rays.js",
+          "name": "polygon rays.js"
         }
       ]
     },

@@ -96,8 +96,6 @@ export default class Game extends Phaser.Scene
         this.pieces.x = Math.floor((this.scale.width - photoWidth) / 2);
         this.pieces.y = Math.floor((this.scale.height - photoHeight) / 2);
 
-        console.log('pwh', pieceWidth, pieceHeight);
-
         let i = 0;
 
         //  Loop through the image and create a new Sprite for each piece of the puzzle.
@@ -109,10 +107,10 @@ export default class Game extends Phaser.Scene
 
                 const slice = this.textures.addDynamicTexture(`slice${i}`, pieceWidth, pieceHeight);
 
-                const fx = x * pieceWidth;
-                const fy = y * pieceHeight;
+                const ox = 0 + (x / this.rows);
+                const oy = 0 + (y / this.columns);
 
-                slice.stamp(key, null, fx, fy, { originX: 0, originY: 0 });
+                slice.stamp(key, null, 0, 0, { originX: ox, originY: oy });
 
                 const piece = this.add.image(x * pieceWidth, y * pieceHeight, `slice${i}`).setOrigin(0, 0);
 
@@ -125,24 +123,9 @@ export default class Game extends Phaser.Scene
                     correctColumn: y
                 });
 
-                // piece.data.row = x;
-                // piece.data.column = y;
-
-                // piece.data.correctRow = x;
-                // piece.data.correctColumn = y;
-
-                //  Here is how we handle creating each piece. Rather than do something like create
-                //  a BitmapData, and all kinds of extra textures, we just set each Sprite to have
-                //  the same texture as the source image - and then we crop it to be the correct
-                //  portion of the image. This ensures that we've still only got one texture
-                //  bound to the GPU.
-                // piece.setCrop(x * this.pieceWidth, y * this.pieceHeight, this.pieceWidth, this.pieceHeight);
-
-                // console.log('piece', piece.x, piece.y, piece._crop);
-
                 piece.setInteractive();
 
-                piece.on('pointerdown', this.checkPiece, this);
+                piece.on('pointerdown', () => this.checkPiece(piece));
 
                 this.pieces.add(piece);
 
@@ -156,7 +139,7 @@ export default class Game extends Phaser.Scene
 
         this.lastMove = null;
 
-        // this.shufflePieces();
+        this.shufflePieces();
     }
 
     /**
@@ -430,7 +413,7 @@ export default class Game extends Phaser.Scene
 
         this.pieces.each(piece => {
 
-            if (piece.data.values.correctRow !== piece.data.values.row || piece.data.values.correctColumn !== piece.data.value.column)
+            if (piece.data.values.correctRow !== piece.data.values.row || piece.data.values.correctColumn !== piece.data.values.column)
             {
                 outOfSequence = true;
             }

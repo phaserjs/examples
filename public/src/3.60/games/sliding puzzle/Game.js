@@ -3,6 +3,26 @@ const SlidingPuzzle = {
     TWEENING: 1
 };
 
+/**
+ * Sliding Puzzle Game Template
+ * ----------------------------
+ *
+ * This is the classic Sliding Puzzle game. Unlike lots of implementations out there,
+ * we don't use a 'random' starting layout, as otherwise the puzzle will be unsolvable
+ * 50% of the time. Instead we use a puzzle walker function. This allows you to see
+ * the puzzle before-hand, and then it gets all manged up, ready for you to solve.
+ *
+ * You can control the number of iterations, or steps, that the walker goes through.
+ * You can of course provide any image you like to the puzzle, and it'll adapt and resize
+ * without changing much.
+ *
+ * In this example template there are 3 pictures, and as you solve them, the walker
+ * increases in complexity each time, making it harder to solve.
+ *
+ * This web site has some creative tips on solving Sliding Puzzles:
+ * http://www.nordinho.net/vbull/blogs/lunanik/6131-slider-puzzles-solved-once-all.html
+ */
+
 export default class Game extends Phaser.Scene
 {
     constructor ()
@@ -22,26 +42,28 @@ export default class Game extends Phaser.Scene
         this.spacer = null;
 
         //  The speed at which the pieces slide, and the tween they use
-        this.slideSpeed = 250;
-        this.slideEase = 'Sine.in';
+        this.slideSpeed = 300;
+        this.slideEase = 'sine.out';
 
         //  The number of iterations the puzzle walker will go through when
         //  scrambling up the puzzle. 10 is a nice and easy puzzle, but
         //  push it higher for much harder ones.
-        this.iterations = 10;
+        this.iterations = 6;
 
         //  The speed at which the pieces are shuffled at the start. This allows
         //  the player to see the puzzle before trying to solve it. However if
         //  you don't want this, just set the speed to zero and it'll appear
         //  instantly 'scrambled'.
-        this.shuffleSpeed = 250;
-        this.shuffleEase = 'Linear';
+        this.shuffleSpeed = 200;
+        this.shuffleEase = 'power1';
 
         this.lastMove = null;
 
         //  The image in the Cache to be used for the puzzle.
         //  Set in the startPuzzle function.
         this.photo = '';
+
+        this.slices = [];
 
         this.action = SlidingPuzzle.ALLOW_CLICK;
     }
@@ -92,6 +114,13 @@ export default class Game extends Phaser.Scene
             this.pieces = this.add.container();
         }
 
+        if (this.slices)
+        {
+            this.slices.forEach(slice => slice.destroy());
+
+            this.slices = [];
+        }
+
         //  Center the Container
         this.pieces.x = Math.floor((this.scale.width - photoWidth) / 2);
         this.pieces.y = Math.floor((this.scale.height - photoHeight) / 2);
@@ -112,7 +141,11 @@ export default class Game extends Phaser.Scene
 
                 slice.stamp(key, null, 0, 0, { originX: ox, originY: oy });
 
-                const piece = this.add.image(x * pieceWidth, y * pieceHeight, `slice${i}`).setOrigin(0, 0);
+                this.slices.push(slice);
+
+                const piece = this.add.image(x * pieceWidth, y * pieceHeight, `slice${i}`);
+
+                piece.setOrigin(0, 0);
 
                 //  The current row and column of the piece
                 //  Store the row and column the piece _should_ be in, when the puzzle is solved
@@ -263,22 +296,16 @@ export default class Game extends Phaser.Scene
                 ease: this.shuffleEase
             });
 
-            // var tween = this.add.tween(piece).to({ x: x, y: y }, this.shuffleSpeed, this.shuffleEase, true);
-
             if (this.iterations > 0)
             {
                 //  Any more iterations left? If so, shuffle, otherwise start play
                 this.iterations--;
 
                 tween.on('complete', this.shufflePieces, this);
-
-                // tween.onComplete.add(this.shufflePieces, this);
             }
             else
             {
                 tween.on('complete', this.startPlay, this);
-
-                // tween.onComplete.add(this.startPlay, this);
             }
         }
     }
@@ -395,10 +422,6 @@ export default class Game extends Phaser.Scene
             ease: this.slideEase,
             onComplete: () => this.tweenOver()
         });
-
-        // var tween = this.add.tween(piece).to({ x: x, y: y }, this.slideSpeed, this.slideEase, true);
-
-        // tween.onComplete.addOnce(this.tweenOver, this);
     }
 
     /**
@@ -441,14 +464,9 @@ export default class Game extends Phaser.Scene
                 }
             });
 
-            // var tween = this.add.tween(this.spacer).to({ alpha: 1 }, this.slideSpeed * 2, 'Linear', true);
-
-
-            // var _this = this;
-
-            // tween.onComplete.addOnce(function() {
-            //     _this.input.onDown.addOnce(_this.nextRound, _this);
-            // });
+            this.pieces.each(piece => {
+                piece.setPostPipeline('ShinePostFX');
+            });
         }
     }
 
@@ -461,23 +479,23 @@ export default class Game extends Phaser.Scene
      */
     nextRound ()
     {
-        if (this.photo === 'photo1')
+        if (this.photo === 'pic1')
         {
-            this.photo = 'photo2';
-            this.iterations = 20;
+            this.photo = 'pic2';
+            this.iterations = 12;
             this.startPuzzle(this.photo, 4, 4);
         }
-        else if (this.photo === 'photo2')
+        else if (this.photo === 'pic2')
         {
-            this.photo = 'photo3';
-            this.iterations = 30;
+            this.photo = 'pic3';
+            this.iterations = 20;
             this.startPuzzle(this.photo, 5, 5);
         }
         else
         {
             //  Back to the start again
-            this.photo = 'photo1';
-            this.iterations = 10;
+            this.photo = 'pic1';
+            this.iterations = 6;
             this.startPuzzle(this.photo, 3, 3);
         }
     }

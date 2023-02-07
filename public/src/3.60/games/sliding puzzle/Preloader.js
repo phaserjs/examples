@@ -7,6 +7,8 @@ export default class Preloader extends Phaser.Scene
 
     preload ()
     {
+        this.load.image('spark', 'assets/particles/muzzleflash5.png');
+
         this.load.setPath('assets/games/sliding-puzzle/');
         this.load.image('background', 'background.png');
         this.load.image('logo', 'logo.png');
@@ -14,11 +16,11 @@ export default class Preloader extends Phaser.Scene
         this.load.image('box-inside', 'box-inside.png');
         this.load.image('pic1', 'pic1.png');
         this.load.image('pic2', 'pic2.png');
+        this.load.image('pic3', 'pic3.png');
     }
 
     create ()
     {
-        // this.scene.start('MainMenu');
-        this.scene.start('Game');
+        this.scene.start('MainMenu');
     }
 }

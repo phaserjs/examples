@@ -2987,6 +2987,10 @@
                   "name": "get particle bounds.js"
                 },
                 {
+                  "path": "src/3.60/game objects/particle emitter/gravity processor.js",
+                  "name": "gravity processor.js"
+                },
+                {
                   "path": "src/3.60/game objects/particle emitter/hold particle.js",
                   "name": "hold particle.js"
                 },
@@ -4076,8 +4080,20 @@
                   "name": "Game.js"
                 },
                 {
+                  "path": "src/3.60/games/sliding puzzle/MainMenu.js",
+                  "name": "MainMenu.js"
+                },
+                {
                   "path": "src/3.60/games/sliding puzzle/Preloader.js",
                   "name": "Preloader.js"
+                },
+                {
+                  "path": "src/3.60/games/sliding puzzle/ShinePostFX.js",
+                  "name": "ShinePostFX.js"
+                },
+                {
+                  "path": "src/3.60/games/sliding puzzle/WipePostFX.js",
+                  "name": "WipePostFX.js"
                 },
                 {
                   "path": "src/3.60/games/sliding puzzle/boot.json",

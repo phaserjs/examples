@@ -1,9 +1,5 @@
 class Example extends Phaser.Scene
 {
-    offset;
-    graphics;
-    bob;
-
     preload ()
     {
         this.load.image('pic', 'assets/pics/kris-jovo.jpg');
@@ -26,7 +22,6 @@ class Example extends Phaser.Scene
 
         this.input.on('pointermove', pointer =>
         {
-
             this.bob.setCrop(
                 (pointer.x - this.offset.x) - cropWidth / 2,
                 (pointer.y - this.offset.y) - cropHeight / 2,
@@ -45,7 +40,7 @@ class Example extends Phaser.Scene
 }
 
 const config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,

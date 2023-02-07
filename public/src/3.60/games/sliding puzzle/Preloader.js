@@ -8,22 +8,17 @@ export default class Preloader extends Phaser.Scene
     preload ()
     {
         this.load.setPath('assets/games/sliding-puzzle/');
-        this.load.image('photo1', 'photo1.png');
-        this.load.image('photo2', 'photo2.png');
-        this.load.image('photo3', 'photo3.png');
+        this.load.image('background', 'background.png');
+        this.load.image('logo', 'logo.png');
+        this.load.image('box', 'box.png');
+        this.load.image('box-inside', 'box-inside.png');
+        this.load.image('pic1', 'pic1.png');
+        this.load.image('pic2', 'pic2.png');
     }
 
     create ()
     {
-        // if (this.sound.locked)
-        // {
-        //     this.input.once('pointerdown', () => {
-        //         this.scene.start('Game');
-        //     });
-        // }
-        // else
-        // {
-            this.scene.start('Game');
-        // }
+        // this.scene.start('MainMenu');
+        this.scene.start('Game');
     }
 }

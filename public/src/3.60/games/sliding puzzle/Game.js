@@ -48,7 +48,10 @@ export default class Game extends Phaser.Scene
 
     create ()
     {
-        this.startPuzzle('photo1', 3, 3);
+        this.add.image(512, 384, 'background');
+        this.add.image(512, 384, 'box-inside');
+
+        this.startPuzzle('pic1', 3, 3);
     }
 
     /**
@@ -65,16 +68,19 @@ export default class Game extends Phaser.Scene
         this.columns = columns;
 
         //  The size of the source image
-        var texture = this.textures.getFrame(key);
+        const texture = this.textures.getFrame(key);
 
-        var photoWidth = texture.width;
-        var photoHeight = texture.height;
+        const photoWidth = texture.width;
+        const photoHeight = texture.height;
 
         //  Create our sliding pieces
 
         //  Each piece will be this size:
-        this.pieceWidth = Math.floor(photoWidth / rows);
-        this.pieceHeight = Math.floor(photoHeight / columns);
+        const pieceWidth = Math.floor(photoWidth / rows);
+        const pieceHeight = Math.floor(photoHeight / columns);
+
+        this.pieceWidth = pieceWidth;
+        this.pieceHeight = pieceHeight;
 
         //  A Container to put the pieces in
         if (this.pieces)
@@ -87,18 +93,28 @@ export default class Game extends Phaser.Scene
         }
 
         //  Center the Container
-        // this.pieces.x = Math.floor((this.scale.width - photoWidth) / 2);
-        // this.pieces.y = Math.floor((this.scale.height - photoHeight) / 2);
+        this.pieces.x = Math.floor((this.scale.width - photoWidth) / 2);
+        this.pieces.y = Math.floor((this.scale.height - photoHeight) / 2);
 
-        console.log('pwh', this.pieceWidth, this.pieceHeight);
+        console.log('pwh', pieceWidth, pieceHeight);
+
+        let i = 0;
 
         //  Loop through the image and create a new Sprite for each piece of the puzzle.
         for (let y = 0; y < this.columns; y++)
         {
             for (let x = 0; x < this.rows; x++)
             {
-                const piece = this.add.image(x * this.pieceWidth, y * this.pieceHeight, key).setOrigin(0, 0).setSize(this.pieceWidth, this.pieceHeight);
-                // const piece = this.add.image(0, 0, key).setOrigin(0, 0);
+                //  remove old textures
+
+                const slice = this.textures.addDynamicTexture(`slice${i}`, pieceWidth, pieceHeight);
+
+                const fx = x * pieceWidth;
+                const fy = y * pieceHeight;
+
+                slice.stamp(key, null, fx, fy, { originX: 0, originY: 0 });
+
+                const piece = this.add.image(x * pieceWidth, y * pieceHeight, `slice${i}`).setOrigin(0, 0);
 
                 //  The current row and column of the piece
                 //  Store the row and column the piece _should_ be in, when the puzzle is solved
@@ -120,15 +136,17 @@ export default class Game extends Phaser.Scene
                 //  the same texture as the source image - and then we crop it to be the correct
                 //  portion of the image. This ensures that we've still only got one texture
                 //  bound to the GPU.
-                piece.setCrop(x * this.pieceWidth, y * this.pieceHeight, this.pieceWidth, this.pieceHeight);
+                // piece.setCrop(x * this.pieceWidth, y * this.pieceHeight, this.pieceWidth, this.pieceHeight);
 
-                console.log('piece', piece.x, piece.y, piece._crop);
+                // console.log('piece', piece.x, piece.y, piece._crop);
 
                 piece.setInteractive();
 
                 piece.on('pointerdown', this.checkPiece, this);
 
                 this.pieces.add(piece);
+
+                i++;
             }
         }
 
@@ -138,7 +156,7 @@ export default class Game extends Phaser.Scene
 
         this.lastMove = null;
 
-        this.shufflePieces();
+        // this.shufflePieces();
     }
 
     /**

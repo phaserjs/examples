@@ -7,8 +7,6 @@ export default class Preloader extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('spark', 'assets/particles/muzzleflash5.png');
-
         this.load.setPath('assets/games/sliding-puzzle/');
         this.load.image('background', 'background.png');
         this.load.image('logo', 'logo.png');
@@ -20,8 +18,8 @@ export default class Preloader extends Phaser.Scene
 
         this.load.setPath('assets/games/sliding-puzzle/audio');
 
-        this.load.audio('move', 'move.wav');
-        this.load.audio('win', 'win.wav');
+        this.load.audio('move', [ 'move.m4a', 'move.wav', 'move.ogg' ]);
+        this.load.audio('win', [ 'win.m4a', 'win.wav', 'win.ogg' ]);
     }
 
     create ()

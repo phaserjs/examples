@@ -43,7 +43,7 @@ export default class Game extends Phaser.Scene
 
         //  The speed at which the pieces slide, and the tween they use
         this.slideSpeed = 300;
-        this.slideEase = 'sine.out';
+        this.slideEase = 'power3';
 
         //  The number of iterations the puzzle walker will go through when
         //  scrambling up the puzzle. 10 is a nice and easy puzzle, but
@@ -73,6 +73,10 @@ export default class Game extends Phaser.Scene
         this.add.image(512, 384, 'background');
         this.add.image(512, 384, 'box-inside');
 
+        window.solve = () => {
+            this.nextRound();
+        };
+
         this.startPuzzle('pic1', 3, 3);
     }
 
@@ -98,8 +102,8 @@ export default class Game extends Phaser.Scene
         //  Create our sliding pieces
 
         //  Each piece will be this size:
-        const pieceWidth = Math.floor(photoWidth / rows);
-        const pieceHeight = Math.floor(photoHeight / columns);
+        const pieceWidth = photoWidth / rows;
+        const pieceHeight = photoHeight / columns;
 
         this.pieceWidth = pieceWidth;
         this.pieceHeight = pieceHeight;
@@ -111,19 +115,17 @@ export default class Game extends Phaser.Scene
         }
         else
         {
-            this.pieces = this.add.container();
+            //  The position sets the top-left of the container for the pieces to expand down from
+            this.pieces = this.add.container(194, 66);
         }
 
+        //  An array to put the texture slices in
         if (this.slices)
         {
             this.slices.forEach(slice => slice.destroy());
 
             this.slices = [];
         }
-
-        //  Center the Container
-        this.pieces.x = Math.floor((this.scale.width - photoWidth) / 2);
-        this.pieces.y = Math.floor((this.scale.height - photoHeight) / 2);
 
         let i = 0;
 
@@ -414,6 +416,8 @@ export default class Game extends Phaser.Scene
     {
         this.action = SlidingPuzzle.TWEENING;
 
+        this.sound.play('move');
+
         this.tweens.add({
             targets: piece,
             x,
@@ -454,6 +458,8 @@ export default class Game extends Phaser.Scene
             //  Fade the missing piece back in ...
             //  When the tween finishes we'll let them click to start the next round
 
+            this.sound.play('win');
+
             this.tweens.add({
                 targets: this.spacer,
                 alpha: 1,
@@ -479,24 +485,52 @@ export default class Game extends Phaser.Scene
      */
     nextRound ()
     {
+        let size;
+        let iterations;
+        let nextPhoto;
+
         if (this.photo === 'pic1')
         {
-            this.photo = 'pic2';
-            this.iterations = 12;
-            this.startPuzzle(this.photo, 4, 4);
+            nextPhoto = 'pic2';
+            iterations = 20;
+            size = 4;
         }
         else if (this.photo === 'pic2')
         {
-            this.photo = 'pic3';
-            this.iterations = 20;
-            this.startPuzzle(this.photo, 5, 5);
+            nextPhoto = 'pic3';
+            iterations = 30;
+            size = 5;
         }
         else
         {
             //  Back to the start again
-            this.photo = 'pic1';
-            this.iterations = 6;
-            this.startPuzzle(this.photo, 3, 3);
+            nextPhoto = 'pic1';
+            iterations = 10;
+            size = 3;
         }
+
+        this.reveal = this.add.image(this.pieces.x, this.pieces.y, nextPhoto).setOrigin(0, 0);
+
+        this.reveal.setPostPipeline('WipePostFX');
+
+        const pipeline = this.reveal.getPostPipeline('WipePostFX');
+
+        pipeline.setTopToBottom();
+        pipeline.setRevealEffect();
+
+        this.tweens.add({
+            targets: pipeline,
+            progress: 1,
+            duration: 2000,
+            onComplete: () => {
+
+                this.photo = nextPhoto;
+                this.iterations = iterations;
+                this.reveal.destroy();
+
+                this.startPuzzle(nextPhoto, size, size);
+
+            }
+        });
     }
 }

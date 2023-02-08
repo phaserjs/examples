@@ -8,31 +8,8 @@ export default class MainMenu extends Phaser.Scene
     create ()
     {
         this.add.image(512, 384, 'background');
+
         const box = this.add.image(512, 384, 'box');
-
-        const emitter = this.add.particles(0, 0, 'spark', {
-            scale: 0.25,
-            lifespan: 10000,
-            gravityX: 40,
-            gravityY: -50,
-            frequency: 50,
-            rotate: { start: 0, end: 360 },
-            maxVelocityX: 200,
-            maxVelocityY: 200,
-            blendMode: 'ADD'
-        });
-
-        const shape1 = new Phaser.Geom.Rectangle(-300, 768, 1078+600, 128);
-
-        emitter.addEmitZone({ type: 'random', source: shape1 });
-
-        emitter.createGravityWell({
-            x: 600,
-            y: 200,
-            power: 4.2,
-            epsilon: 400,
-            gravity: 100
-        });
 
         const logo = this.add.image(512, -384, 'logo');
 

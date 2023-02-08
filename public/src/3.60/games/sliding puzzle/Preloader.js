@@ -20,8 +20,8 @@ export default class Preloader extends Phaser.Scene
 
         this.load.setPath('assets/games/sliding-puzzle/audio');
 
-        this.load.audio('move', 'move1.wav');
-        this.load.audio('win', 'win2.wav');
+        this.load.audio('move', 'move.wav');
+        this.load.audio('win', 'win.wav');
     }
 
     create ()

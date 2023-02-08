@@ -32,29 +32,32 @@ export default class MainMenu extends Phaser.Scene
             y: 384,
             delay: 1500,
             duration: 2000,
-            ease: 'sine.out'
-        });
+            ease: 'sine.out',
+            onComplete: () => {
 
-        this.input.once('pointerdown', () => {
+                this.input.once('pointerdown', () => {
 
-            pipeline.setWipeEffect();
-            pipeline.setTexture('box-inside');
+                    pipeline.setWipeEffect();
+                    pipeline.setTexture('box-inside');
 
-            this.tweens.add({
-                targets: logo,
-                alpha: 0,
-                duration: 1000,
-                ease: 'sine.out'
-            });
+                    this.tweens.add({
+                        targets: logo,
+                        alpha: 0,
+                        duration: 1000,
+                        ease: 'sine.out'
+                    });
 
-            this.tweens.add({
-                targets: pipeline,
-                progress: 1,
-                duration: 2500,
-                onComplete: () => {
-                    this.scene.start('Game');
-                }
-            });
+                    this.tweens.add({
+                        targets: pipeline,
+                        progress: 1,
+                        duration: 2500,
+                        onComplete: () => {
+                            this.scene.start('Game');
+                        }
+                    });
+                });
+
+            }
         });
     }
 }

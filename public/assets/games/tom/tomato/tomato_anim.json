@@ -1,0 +1,128 @@
+{
+    "anims": [
+        {
+            "key": "tomato_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "tomato",
+                    "frame": "tomato_walk_0"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_walk_1"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_walk_2"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_walk_3"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_walk_4"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_walk_5"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_walk_6"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_walk_7"
+                }
+            ]
+        },
+        {
+            "key": "tomato_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "tomato",
+                    "frame": "tomato_idle_0"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_idle_1"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_idle_2"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_idle_3"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_idle_4"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_idle_5"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_idle_6"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_idle_7"
+                }
+            ]
+        },
+        {
+            "key": "tomato_jump",
+            "type": "frames",
+            "repeat": 1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "tomato",
+                    "frame": "tomato_jump_0"
+                }
+            ]
+        },
+        {
+            "key": "tomato_down",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "tomato",
+                    "frame": "tomato_down_0"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_down_1"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_down_2"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_down_3"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_down_4"
+                },
+                {
+                    "key": "tomato",
+                    "frame": "tomato_down_5"
+                }
+            ]
+        }
+    ]
+}

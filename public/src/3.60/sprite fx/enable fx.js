@@ -10,36 +10,58 @@ class Example extends Phaser.Scene
         this.load.image('melon', 'assets/sprites/watermelon.png');
         this.load.image('yune', 'assets/sprites/yune.png');
         this.load.image('star', 'assets/sprites/star.png');
+        this.load.image('128', 'assets/sprites/atari400.png');
+        this.load.image('debug', 'assets/pics/checker.png');
     }
 
     create ()
     {
         const melon = this.add.image(100, 300, 'melon');
         const yune = this.add.image(400, 300, 'yune');
+        const grid = this.add.image(400, 300, '128');
         const star = this.add.image(700, 300, 'star');
 
-        // const text = this.add.text(100, 0, 'Hello World!').setFontFamily('Arial Black').setFontSize(96).setColor('#fff');
-
-        // melon.setPipeline(pipeline);
-        // yune.setPipeline(pipeline);
-        // star.setPipeline(pipeline);
-        // text.setPipeline(pipeline);
-
+        melon.enableFX(32);
+        yune.enableFX(32);
+        grid.enableFX(32);
         star.enableFX(32);
 
         // const glow = star.addGlowFX();
-
         // console.log(glow);
         // window.glow = glow;
 
         // const shadow = star.addShadowFX();
         // window.shadow = shadow;
+        // const pixel = star.addPixelateFX();
+        // window.pixel = pixel;
+        // console.log(star.fx);
 
-        const pixel = star.addPixelateFX();
+        // atari.addGlowFX();
+        // grid.addGlowFX();
+        // star.addGlowFX();
 
-        window.pixel = pixel;
+        // melon.addShadowFX();
+        // yune.addShadowFX();
+        // grid.addShadowFX();
+        // star.addShadowFX();
 
-        console.log(star.fx);
+        // melon.addPixelateFX();
+        // yune.addPixelateFX();
+        // grid.addPixelateFX();
+        // star.addPixelateFX();
+
+        // melon.addVignetteFX();
+        // yune.addVignetteFX();
+        // grid.addVignetteFX();
+        // star.addVignetteFX();
+
+        melon.addShineFX();
+        yune.addShineFX();
+        grid.addShineFX();
+        star.addShineFX();
+
+        // grid.addVignetteFX();
+        // star.addVignetteFX();
 
         this.tweens.add({
             targets: star,

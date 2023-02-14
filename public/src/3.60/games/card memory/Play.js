@@ -151,7 +151,7 @@ export class Play extends Phaser.Scene
     createHearts ()
     {
         return Array.from(new Array(this.lives)).map((el, index) => {
-            const heart = this.add.image(this.sys.game.scale.height + 1000, 20, "heart")
+            const heart = this.add.image(this.sys.game.scale.width + 1000, 20, "heart")
                 .setScale(2)
 
             this.add.tween({
@@ -159,11 +159,10 @@ export class Play extends Phaser.Scene
                 ease: Phaser.Math.Easing.Expo.InOut,
                 duration: 1000,
                 delay: 1000 + index * 200,
-                x: 100 + 30 * index
+                x: 140 + 30 * index // marginLeft + spaceBetween * index
             });
             return heart;
         });
-
     }
 
     startGame ()

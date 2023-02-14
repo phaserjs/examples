@@ -3971,6 +3971,32 @@
               ]
             },
             {
+              "path": "src\\3.60\\games\\card memory",
+              "name": "card memory",
+              "children": [
+                {
+                  "path": "src\\3.60\\games\\card memory\\boot.json",
+                  "name": "boot.json"
+                },
+                {
+                  "path": "src\\3.60\\games\\card memory\\createCard.js",
+                  "name": "createCard.js"
+                },
+                {
+                  "path": "src\\3.60\\games\\card memory\\main.js",
+                  "name": "main.js"
+                },
+                {
+                  "path": "src\\3.60\\games\\card memory\\Play.js",
+                  "name": "Play.js"
+                },
+                {
+                  "path": "src\\3.60\\games\\card memory\\Preloader.js",
+                  "name": "Preloader.js"
+                }
+              ]
+            },
+            {
               "path": "src\\3.60\\games\\emoji match",
               "name": "emoji match",
               "children": [

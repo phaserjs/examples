@@ -14,9 +14,13 @@ class Example extends Phaser.Scene
     {
         const debug = this.add.image(400, 300, 'debug');
 
-        debug.enableFX();
+        const fx = debug.addVignetteFX();
 
-        debug.addShineFX();
+        console.log(fx);
+
+        window.fx = fx;
+
+        // debug.addShineFX();
     }
 }
 
@@ -24,7 +28,7 @@ const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
-    backgroundColor: '#000000',
+    backgroundColor: '#000044',
     parent: 'phaser-example',
     scene: Example
 };

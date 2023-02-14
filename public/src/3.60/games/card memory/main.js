@@ -5,13 +5,9 @@ const config = {
     title: 'Card Memory Game',
     type: Phaser.AUTO,
     backgroundColor: "#192a56",
-    width: 550,
+    width: 449,
     height: 480,
     parent: "phaser-example",
-
-    dom: {
-        createContainer: true
-    },
     render: {
         pixelArt: true,
     },

@@ -53,7 +53,7 @@ export class Play extends Phaser.Scene
     create ()
     {
         // Background image
-        this.add.image(this.gridConfiguration.x - 64, this.gridConfiguration.y - 77, "background").setOrigin(0);
+        this.add.image(this.gridConfiguration.x - 63, this.gridConfiguration.y - 77, "background").setOrigin(0);
 
         const titleText = this.add.text(this.sys.game.scale.width / 2, this.sys.game.scale.height / 2,
             "Memory Card Game\nClick to Play",

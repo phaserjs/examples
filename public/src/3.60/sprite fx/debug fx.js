@@ -16,7 +16,7 @@ class Example extends Phaser.Scene
     {
         const debug = this.add.image(400, 300, 'debug');
 
-        debug.enableFX(32);
+        // debug.enableFX(32);
 
         // const debug2 = this.add.image(600, 300, 'debug2');
 
@@ -24,7 +24,8 @@ class Example extends Phaser.Scene
         // const fx = debug.addVignetteFX();
         // const fx = debug.addBlurFX();
         // const fx = debug.addGradientFX();
-        const fx = debug.addBloomFX();
+        // const fx = debug.addBloomFX();
+        const fx = debug.addColorMatrixFX();
 
         console.log(fx);
 

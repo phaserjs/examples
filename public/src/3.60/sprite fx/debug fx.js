@@ -27,6 +27,8 @@ class Example extends Phaser.Scene
         // const fx = debug.addBloomFX();
         const fx = debug.addColorMatrixFX();
 
+        fx.lsd();
+
         console.log(fx);
 
         window.fx = fx;

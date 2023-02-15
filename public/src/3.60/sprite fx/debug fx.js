@@ -7,20 +7,28 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('debug', 'assets/pics/checker.png');
+        // this.load.image('debug', 'assets/pics/checker.png');
+        this.load.image('debug', 'assets/sprites/phaser2.png');
+        this.load.image('debug2', 'assets/sprites/apple.png');
     }
 
     create ()
     {
         const debug = this.add.image(400, 300, 'debug');
 
-        const fx = debug.addVignetteFX();
+        debug.enableFX(32);
+
+        // const debug2 = this.add.image(600, 300, 'debug2');
+
+        // const fx = debug.addShineFX();
+        // const fx = debug.addVignetteFX();
+        // const fx = debug.addBlurFX();
+        // const fx = debug.addGradientFX();
+        const fx = debug.addBloomFX();
 
         console.log(fx);
 
         window.fx = fx;
-
-        // debug.addShineFX();
     }
 }
 

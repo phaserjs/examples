@@ -11,6 +11,7 @@ class Example extends Phaser.Scene
         this.load.image('coffee', 'assets/sprites/coffee.png');
         this.load.image('ghost', 'assets/sprites/ghost1.png');
         this.load.image('planet', 'assets/sprites/planet1.png');
+        this.load.image('logo', 'assets/sprites/phaser2.png');
         this.load.image('debug', 'assets/pics/checker.png');
     }
 
@@ -21,17 +22,21 @@ class Example extends Phaser.Scene
         // const pipeline = 'PixelateFX';
         // const pipeline = 'VignetteFX';
         // const pipeline = 'ShineFX';
-        const pipeline = 'BlurFX';
+        // const pipeline = 'BlurFX';
+        // const pipeline = 'GradientFX';
+        const pipeline = 'BloomFX';
 
         const c = this.add.container();
 
-        const debug = this.add.image(400, 300, 'debug');
+        // const debug = this.add.image(400, 300, 'debug');
+        // const planet = this.add.image(400, 300, 'planet');
         const lolly = this.add.image(150, 100, 'lolly');
-        const planet = this.add.image(400, 300, 'planet');
+        const logo = this.add.image(400, 300, 'logo');
         const coffee = this.add.image(650, 300, 'coffee');
         const ghost = this.add.image(500, 450, 'ghost');
 
-        c.add([ debug, lolly, planet, coffee, ghost ]);
+        // c.add([ debug, lolly, planet, coffee, ghost ]);
+        c.add([ lolly, logo, coffee, ghost ]);
         c.setPostPipeline(pipeline);
 
         // debug.enableFX();

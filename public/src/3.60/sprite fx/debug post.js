@@ -30,7 +30,8 @@ class Example extends Phaser.Scene
         // const pipeline = 'ColorMatrixFX';
         // const pipeline = 'CircleFX';
         // const pipeline = 'BarrelFX';
-        const pipeline = 'DisplacementFX';
+        // const pipeline = 'DisplacementFX';
+        const pipeline = 'WipeFX';
 
         const c = this.add.container();
 
@@ -50,6 +51,24 @@ class Example extends Phaser.Scene
 
         const instance = c.postPipelines[0];
 
+        instance.reveal = 0;
+        instance.direction = 0;
+        instance.axis = 0.5;
+
+        this.input.once('pointerdown', () => {
+
+            this.tweens.add({
+                targets: instance,
+                progress: 1,
+                duration: 2000,
+                ease: 'Sine.inOut',
+                yoyo: true,
+                repeat: -1
+            });
+
+        });
+
+        /*
         instance.setTexture('noise');
 
         this.input.once('pointerdown', () => {
@@ -65,7 +84,7 @@ class Example extends Phaser.Scene
             });
 
         });
-
+        */
 
         // this.input.once('pointerdown', () => {
 

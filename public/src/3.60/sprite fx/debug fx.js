@@ -30,14 +30,29 @@ class Example extends Phaser.Scene
         // fx.lsd();
         // const fx = debug.addCircleFX();
         // const fx = debug.addBarrelFX();
-        const fx = debug.addDisplacementFX();
-        fx.setTexture('noise');
+        // const fx = debug.addDisplacementFX();
+        // fx.setTexture('noise');
+        const fx = debug.addWipeFX();
 
         console.log(fx);
 
         window.fx = fx;
         window.debug = debug;
 
+        this.input.once('pointerdown', () => {
+
+            this.tweens.add({
+                targets: fx,
+                progress: 1,
+                duration: 2000,
+                ease: 'Sine.inOut',
+                yoyo: true,
+                repeat: -1
+            });
+
+        });
+
+        /*
         this.input.once('pointerdown', () => {
 
             this.tweens.add({
@@ -51,6 +66,7 @@ class Example extends Phaser.Scene
             });
 
         });
+        */
 
         // this.input.once('pointerdown', () => {
 

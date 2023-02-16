@@ -1,20 +1,26 @@
-class Card extends Phaser.GameObjects.Plane {
-    scene;
+/**
+ * Effect inspired by Gayane Gasparyan (https://codepen.io/gayane-gasparyan/pen/wvxewXO)
+ */
+
+class Card extends Phaser.GameObjects.Plane
+{
     title;
     character;
-    constructor(scene, x, y, texture, options) {
+    constructor (scene, x, y, texture, options)
+    {
         super(scene, x, y, texture);
-        scene.add.existing(this);
+
+        this.scene.add.existing(this);
 
         // Character
         this.character = scene.add.image(x, y, options.characterTexture).setAlpha(0);
         // Title
         this.title = scene.add.image(x, y + 100, options.titleTexture);
 
-        this.scene = scene;
     }
 
-    moveCard() {
+    moveCard ()
+    {
         this.scene.add.tween({
             targets: this,
             duration: 300,
@@ -48,7 +54,8 @@ class Card extends Phaser.GameObjects.Plane {
         });
     }
 
-    restoreMove() {
+    restoreMove ()
+    {
         this.scene.add.tween({
             targets: this,
             duration: 300,
@@ -105,18 +112,15 @@ class Example extends Phaser.Scene
     create ()
     {
         let previouseCard = null;
-        const testcard =new Card(this, 200, this.sys.game.scale.height - 300, "dark_rider-cover", {
-            titleTexture: "dark_rider-title",
-            characterTexture: "dark_rider-character"
-        });
-
         const planes = [
-            testcard
-            ,
-            // new Card(this, 600, this.sys.game.scale.height - 300, "force_mage-cover", {
-            //     titleTexture: "force_mage-title",
-            //     characterTexture: "force_mage-character"
-            // })
+            new Card(this, 200, this.scale.height - 300, "dark_rider-cover", {
+                titleTexture: "dark_rider-title",
+                characterTexture: "dark_rider-character"
+            }),
+            new Card(this, 600, this.scale.height - 300, "force_mage-cover", {
+                titleTexture: "force_mage-title",
+                characterTexture: "force_mage-character"
+            })
         ];
 
         this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {

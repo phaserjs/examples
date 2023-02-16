@@ -15,25 +15,25 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const debug = this.add.image(400, 300, 'debug');
+        const debug = this.add.sprite(400, 300, 'debug');
 
         // debug.enableFX(32);
 
         // const debug2 = this.add.image(600, 300, 'debug2');
 
-        // const fx = debug.addShine();
-        // const fx = debug.addVignette();
-        // const fx = debug.addBlur();
-        // const fx = debug.addGradient();
-        // const fx = debug.addBloom();
-        // const fx = debug.addColorMatrix();
+        // const fx = debug.fx.addShine();
+        // const fx = debug.fx.addVignette();
+        // const fx = debug.fx.addBlur();
+        // const fx = debug.fx.addGradient();
+        // const fx = debug.fx.addBloom();
+        // const fx = debug.fx.addColorMatrix();
         // fx.lsd();
-        // const fx = debug.addCircle();
-        const fx = debug.addBarrel();
-        // const fx = debug.addDisplacement();
+        // const fx = debug.fx.addCircle();
+        const fx = debug.fx.addBarrel();
+        // const fx = debug.fx.addDisplacement();
         // fx.setTexture('noise');
-        // const fx = debug.addWipe();
-        // const fx = debug.addBokeh();
+        // const fx = debug.fx.addWipe();
+        // const fx = debug.fx.addBokeh();
 
         console.log(fx);
 

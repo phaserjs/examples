@@ -21,25 +21,26 @@ class Example extends Phaser.Scene
 
         // const debug2 = this.add.image(600, 300, 'debug2');
 
-        // const fx = debug.addShineFX();
-        // const fx = debug.addVignetteFX();
-        // const fx = debug.addBlurFX();
-        // const fx = debug.addGradientFX();
-        // const fx = debug.addBloomFX();
-        // const fx = debug.addColorMatrixFX();
+        // const fx = debug.addShine();
+        // const fx = debug.addVignette();
+        // const fx = debug.addBlur();
+        // const fx = debug.addGradient();
+        // const fx = debug.addBloom();
+        // const fx = debug.addColorMatrix();
         // fx.lsd();
-        // const fx = debug.addCircleFX();
-        // const fx = debug.addBarrelFX();
-        // const fx = debug.addDisplacementFX();
+        // const fx = debug.addCircle();
+        const fx = debug.addBarrel();
+        // const fx = debug.addDisplacement();
         // fx.setTexture('noise');
-        // const fx = debug.addWipeFX();
-        const fx = debug.addBokehFX();
+        // const fx = debug.addWipe();
+        // const fx = debug.addBokeh();
 
         console.log(fx);
 
         window.fx = fx;
         window.debug = debug;
 
+        /*
         fx.strength = 0.75;
         fx.blurX = 0.5;
         fx.blurY = 5.0;
@@ -58,6 +59,7 @@ class Example extends Phaser.Scene
             });
 
         });
+        */
 
         /*
         this.input.once('pointerdown', () => {
@@ -90,18 +92,18 @@ class Example extends Phaser.Scene
         });
         */
 
-        // this.input.once('pointerdown', () => {
+        this.input.once('pointerdown', () => {
 
-        //     this.tweens.add({
-        //         targets: fx,
-        //         amount: { from: 0.3, to: 3 },
-        //         duration: 2000,
-        //         ease: 'Sine.inOut',
-        //         yoyo: true,
-        //         repeat: -1
-        //     });
+            this.tweens.add({
+                targets: fx,
+                amount: { from: 0.3, to: 3 },
+                duration: 2000,
+                ease: 'Sine.inOut',
+                yoyo: true,
+                repeat: -1
+            });
 
-        // });
+        });
 
     }
 }

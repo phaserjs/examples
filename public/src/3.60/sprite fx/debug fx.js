@@ -32,13 +32,34 @@ class Example extends Phaser.Scene
         // const fx = debug.addBarrelFX();
         // const fx = debug.addDisplacementFX();
         // fx.setTexture('noise');
-        const fx = debug.addWipeFX();
+        // const fx = debug.addWipeFX();
+        const fx = debug.addBokehFX();
 
         console.log(fx);
 
         window.fx = fx;
         window.debug = debug;
 
+        fx.strength = 0.75;
+        fx.blurX = 0.5;
+        fx.blurY = 5.0;
+
+        this.input.once('pointerdown', () => {
+
+            fx.isTiltShift = true;
+
+            this.tweens.add({
+                targets: fx,
+                strength: { from: 0, to: 1 },
+                duration: 2000,
+                ease: 'Sine.inOut',
+                yoyo: true,
+                repeat: -1
+            });
+
+        });
+
+        /*
         this.input.once('pointerdown', () => {
 
             this.tweens.add({
@@ -51,6 +72,7 @@ class Example extends Phaser.Scene
             });
 
         });
+        */
 
         /*
         this.input.once('pointerdown', () => {

@@ -31,7 +31,8 @@ class Example extends Phaser.Scene
         // const pipeline = 'CircleFX';
         // const pipeline = 'BarrelFX';
         // const pipeline = 'DisplacementFX';
-        const pipeline = 'WipeFX';
+        // const pipeline = 'WipeFX';
+        const pipeline = 'BokehFX';
 
         const c = this.add.container();
 
@@ -51,6 +52,28 @@ class Example extends Phaser.Scene
 
         const instance = c.postPipelines[0];
 
+        instance.strength = 0.75;
+        instance.blurX = 0.5;
+        instance.blurY = 5.0;
+
+        this.input.once('pointerdown', () => {
+
+            console.log('click');
+
+            this.tweens.add({
+                targets: instance,
+                strength: { from: 0, to: 1 },
+                duration: 2000,
+                ease: 'Sine.inOut',
+                yoyo: true,
+                repeat: -1
+            });
+
+        });
+
+        window.fx = instance;
+
+        /*
         instance.reveal = 0;
         instance.direction = 0;
         instance.axis = 0.5;
@@ -67,6 +90,7 @@ class Example extends Phaser.Scene
             });
 
         });
+        */
 
         /*
         instance.setTexture('noise');

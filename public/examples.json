@@ -3133,6 +3133,10 @@
                   "name": "create plane.js"
                 },
                 {
+                  "path": "src\\3.60\\game objects\\plane\\plane pop-up effect.js",
+                  "name": "plane pop-up effect.js"
+                },
+                {
                   "path": "src\\3.60\\game objects\\plane\\plane with normal map.js",
                   "name": "plane with normal map.js"
                 },
@@ -10480,8 +10484,8 @@
           "name": "bring to top.js"
         },
         {
-          "path": "src\\depth sorting\\depth sorting.js",
-          "name": "depth sorting.js"
+          "path": "src\\depth sorting\\Depth Sorting.js",
+          "name": "Depth Sorting.js"
         },
         {
           "path": "src\\depth sorting\\get top object.js",
@@ -10632,8 +10636,8 @@
               "name": "darken.js"
             },
             {
-              "path": "src\\display\\color\\hex string to color.js",
-              "name": "hex string to color.js"
+              "path": "src\\display\\color\\Hex String To Color.js",
+              "name": "Hex String To Color.js"
             },
             {
               "path": "src\\display\\color\\lighten.js",
@@ -10648,12 +10652,12 @@
               "name": "random gray.js"
             },
             {
-              "path": "src\\display\\color\\RGB string to color.js",
-              "name": "RGB string to color.js"
+              "path": "src\\display\\color\\RGB String To Color.js",
+              "name": "RGB String To Color.js"
             },
             {
-              "path": "src\\display\\color\\value to color.js",
-              "name": "value to color.js"
+              "path": "src\\display\\color\\Value To Color.js",
+              "name": "Value To Color.js"
             }
           ]
         },
@@ -10712,28 +10716,28 @@
               "name": "bitmap mask text2.js"
             },
             {
-              "path": "src\\display\\masks\\camera inversed mask test 1.js",
-              "name": "camera inversed mask test 1.js"
+              "path": "src\\display\\masks\\Camera Inversed Mask Test 1.js",
+              "name": "Camera Inversed Mask Test 1.js"
             },
             {
-              "path": "src\\display\\masks\\camera mask test 1.js",
-              "name": "camera mask test 1.js"
+              "path": "src\\display\\masks\\Camera Mask Test 1.js",
+              "name": "Camera Mask Test 1.js"
             },
             {
-              "path": "src\\display\\masks\\camera mask test 2.js",
-              "name": "camera mask test 2.js"
+              "path": "src\\display\\masks\\Camera Mask Test 2.js",
+              "name": "Camera Mask Test 2.js"
             },
             {
-              "path": "src\\display\\masks\\camera mask test 3.js",
-              "name": "camera mask test 3.js"
+              "path": "src\\display\\masks\\Camera Mask Test 3.js",
+              "name": "Camera Mask Test 3.js"
             },
             {
-              "path": "src\\display\\masks\\camera mask test 4.js",
-              "name": "camera mask test 4.js"
+              "path": "src\\display\\masks\\Camera Mask Test 4.js",
+              "name": "Camera Mask Test 4.js"
             },
             {
-              "path": "src\\display\\masks\\camera mask test 5.js",
-              "name": "camera mask test 5.js"
+              "path": "src\\display\\masks\\Camera Mask Test 5.js",
+              "name": "Camera Mask Test 5.js"
             },
             {
               "path": "src\\display\\masks\\component",
@@ -10746,16 +10750,16 @@
               ]
             },
             {
-              "path": "src\\display\\masks\\container mask test 1.js",
-              "name": "container mask test 1.js"
+              "path": "src\\display\\masks\\Container Mask Test 1.js",
+              "name": "Container Mask Test 1.js"
             },
             {
-              "path": "src\\display\\masks\\container mask test 2.js",
-              "name": "container mask test 2.js"
+              "path": "src\\display\\masks\\Container Mask Test 2.js",
+              "name": "Container Mask Test 2.js"
             },
             {
-              "path": "src\\display\\masks\\container mask test 3.js",
-              "name": "container mask test 3.js"
+              "path": "src\\display\\masks\\Container Mask Test 3.js",
+              "name": "Container Mask Test 3.js"
             },
             {
               "path": "src\\display\\masks\\flickering spotlight.js",
@@ -10800,8 +10804,8 @@
               "name": "magnify glass.js"
             },
             {
-              "path": "src\\display\\masks\\mask perf test.js",
-              "name": "mask perf test.js"
+              "path": "src\\display\\masks\\Mask Perf Test.js",
+              "name": "Mask Perf Test.js"
             },
             {
               "path": "src\\display\\masks\\spotlight rect.js",
@@ -11724,16 +11728,16 @@
               "name": "line thickness.js"
             },
             {
-              "path": "src\\game objects\\graphics\\many line stars.js",
-              "name": "many line stars.js"
+              "path": "src\\game objects\\graphics\\Many Line Stars.js",
+              "name": "Many Line Stars.js"
             },
             {
               "path": "src\\game objects\\graphics\\multiple cameras.js",
               "name": "multiple cameras.js"
             },
             {
-              "path": "src\\game objects\\graphics\\multiple graphic objects.js",
-              "name": "multiple graphic objects.js"
+              "path": "src\\game objects\\graphics\\Multiple Graphic Objects.js",
+              "name": "Multiple Graphic Objects.js"
             },
             {
               "path": "src\\game objects\\graphics\\multiple stroke rects.js",

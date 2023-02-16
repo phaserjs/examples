@@ -11,6 +11,9 @@ export class Preloader extends Phaser.Scene
     {
         this.load.setPath("assets/games/card-memory-game/");
 
+        this.load.image("volume-icon", "ui/volume-icon.png");
+        this.load.image("volume-icon_off", "ui/volume-icon_off.png");
+
         this.load.audio("theme-song", "audio/fat-caps-audionatix.mp3");
         this.load.audio("whoosh", "audio/whoosh.mp3");
         this.load.audio("card-flip", "audio/card-flip.mp3");

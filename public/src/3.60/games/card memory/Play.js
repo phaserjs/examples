@@ -48,6 +48,7 @@ export class Play extends Phaser.Scene
         // Fadein camera
         this.cameras.main.fadeIn(500);
         this.lives = 10;
+        this.volumeButton();
     }
 
     create ()
@@ -165,8 +166,39 @@ export class Play extends Phaser.Scene
         });
     }
 
+
+    volumeButton ()
+    {
+        const volumeIcon = this.add.image(25, 25, "volume-icon").setName("volume-icon");
+        volumeIcon.setInteractive();
+
+        // Mouse enter
+        volumeIcon.on(Phaser.Input.Events.POINTER_OVER, () => {
+            this.input.setDefaultCursor("pointer");
+        });
+        // Mouse leave
+        volumeIcon.on(Phaser.Input.Events.POINTER_OUT, () => {
+            console.log("Mouse leave");
+            this.input.setDefaultCursor("default");
+        });
+
+
+        volumeIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            if (this.sound.volume === 0) {
+                this.sound.setVolume(1);
+                volumeIcon.setTexture("volume-icon");
+                volumeIcon.setAlpha(1);
+            } else {
+                this.sound.setVolume(0);
+                volumeIcon.setTexture("volume-icon_off");
+                volumeIcon.setAlpha(.5)
+            }
+        });
+    }
+
     startGame ()
     {
+
         // WinnerText and GameOverText
         const winnerText = this.add.text(this.sys.game.scale.width / 2, -1000, "YOU WIN",
             { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
@@ -201,7 +233,17 @@ export class Play extends Phaser.Scene
         this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
             if (this.canMove) {
                 const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
-                this.input.setDefaultCursor(card ? "pointer" : "default");
+                if (card) {
+                    this.input.setDefaultCursor("pointer");
+                } else {
+                    if(go[0]) {
+                        if(go[0].name !== "volume-icon") {
+                            this.input.setDefaultCursor("pointer");
+                        }
+                    } else {
+                        this.input.setDefaultCursor("default");
+                    }
+                }
             }
         });
         this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {

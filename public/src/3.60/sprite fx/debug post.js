@@ -14,6 +14,7 @@ class Example extends Phaser.Scene
         this.load.image('logo', 'assets/sprites/phaser2.png');
         this.load.image('debug', 'assets/pics/checker.png');
         this.load.image('sky', 'assets/skies/fire.png');
+        this.load.image('noise', 'assets/tests/noisesmall.png');
     }
 
     create ()
@@ -27,7 +28,9 @@ class Example extends Phaser.Scene
         // const pipeline = 'GradientFX';
         // const pipeline = 'BloomFX';
         // const pipeline = 'ColorMatrixFX';
-        const pipeline = 'CircleFX';
+        // const pipeline = 'CircleFX';
+        // const pipeline = 'BarrelFX';
+        const pipeline = 'DisplacementFX';
 
         const c = this.add.container();
 
@@ -45,8 +48,37 @@ class Example extends Phaser.Scene
         // c.add([ lolly, logo, coffee, ghost ]);
         c.setPostPipeline(pipeline);
 
-        // const instance = c.postPipelines[0];
-        // instance.colorMatrix.lsd();
+        const instance = c.postPipelines[0];
+
+        instance.setTexture('noise');
+
+        this.input.once('pointerdown', () => {
+
+            this.tweens.add({
+                targets: instance,
+                x: { from: 0, to: 0.05 },
+                y: { from: 0, to: 0.05 },
+                duration: 2000,
+                ease: 'Sine.inOut',
+                yoyo: true,
+                repeat: -1
+            });
+
+        });
+
+
+        // this.input.once('pointerdown', () => {
+
+        //     this.tweens.add({
+        //         targets: instance,
+        //         amount: { from: 0.3, to: 3 },
+        //         duration: 2000,
+        //         ease: 'Sine.inOut',
+        //         yoyo: true,
+        //         repeat: -1
+        //     });
+
+        // });
 
         // debug.enableFX();
         // debug.addShineFX();
@@ -57,7 +89,7 @@ const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
-    backgroundColor: '#000000',
+    backgroundColor: '#000044',
     parent: 'phaser-example',
     scene: Example
 };

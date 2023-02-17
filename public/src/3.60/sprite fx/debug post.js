@@ -32,13 +32,13 @@ class Example extends Phaser.Scene
         // const pipeline = 'BarrelFX';
         // const pipeline = 'DisplacementFX';
         // const pipeline = 'WipeFX';
-        const pipeline = 'BokehFX';
+        // const pipeline = Phaser.FX.BOKEH;
 
-        const c = this.add.container();
+        // const c = this.add.container();
 
-        // const sky = this.add.image(400, 300, 'sky');
-        const debug = this.add.image(400, 300, 'debug');
-        // const planet = this.add.image(400, 300, 'planet');
+        const sky = this.add.image(400, 300, 'sky');
+        // const debug = this.add.image(400, 300, 'debug');
+        const planet = this.add.image(400, 300, 'planet');
         const lolly = this.add.image(150, 100, 'lolly');
         const logo = this.add.image(400, 300, 'logo');
         const coffee = this.add.image(650, 300, 'coffee');
@@ -46,10 +46,22 @@ class Example extends Phaser.Scene
 
         // c.add([ sky ]);
 
-        c.add([ debug, lolly, logo, coffee, ghost ]);
+        // c.add([ debug, lolly, logo, coffee, ghost ]);
         // c.add([ lolly, logo, coffee, ghost ]);
-        c.setPostPipeline(pipeline);
 
+        // const fx = c.postFX.addBokeh();
+
+        const fx = this.cameras.main.postFX.addBokeh();
+
+        console.log(fx);
+        window.fx = fx;
+
+        // c.setPostPipeline(pipeline);
+
+
+
+
+        /*
         const instance = c.postPipelines[0];
 
         instance.strength = 0.75;
@@ -72,6 +84,7 @@ class Example extends Phaser.Scene
         });
 
         window.fx = instance;
+        */
 
         /*
         instance.reveal = 0;

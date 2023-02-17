@@ -35,6 +35,9 @@ class Example extends Phaser.Scene
         // const fx = debug.fx.addWipe();
         // const fx = debug.fx.addBokeh();
 
+        // debug.preFX.addBarrel();
+        // debug.postFX.addBarrel();
+
         console.log(fx);
 
         window.fx = fx;

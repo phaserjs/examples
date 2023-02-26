@@ -11,6 +11,7 @@ class Block extends Phaser.GameObjects.Sprite
         this.barrel = this.preFX.addBarrel(0.75);
 
         this.amount = 1;
+        this.allowClick = true;
 
         this.setInteractive();
 
@@ -35,9 +36,11 @@ class Block extends Phaser.GameObjects.Sprite
 
     clicked ()
     {
-        if (this.amount < 2)
+        if (this.amount < 2 && this.allowClick)
         {
             this.pulseTween.stop();
+
+            this.allowClick = false;
 
             this.scene.tweens.add({
                 targets: this.barrel,
@@ -55,6 +58,8 @@ class Block extends Phaser.GameObjects.Sprite
         this.amount += 0.25;
 
         this.startTween(this.amount);
+
+        this.allowClick = true;
     }
 
 }

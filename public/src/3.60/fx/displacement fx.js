@@ -3,14 +3,14 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.image('pic', 'assets/pics/taikodrummaster.jpg');
-        this.load.image('distort3', 'assets/tests/noisesmall.png');
+        this.load.image('distort', 'assets/tests/noisesmall.png');
     }
 
     create ()
     {
         const pic = this.add.image(400, 300, 'pic');
 
-        const fx = pic.preFX.addDisplacement('distort3', -0.03, -0.03);
+        const fx = pic.preFX.addDisplacement('distort', -0.03, -0.03);
 
         this.tweens.add({
             targets: fx,

@@ -1337,6 +1337,10 @@
               "name": "container blur.js"
             },
             {
+              "path": "src/3.60/fx/glow fx.js",
+              "name": "glow fx.js"
+            },
+            {
               "path": "src/3.60/fx/gradient fx.js",
               "name": "gradient fx.js"
             },

@@ -1357,6 +1357,10 @@
               "name": "gradient fx.js"
             },
             {
+              "path": "src\\3.60\\fx\\gradient mouse twist fx.js",
+              "name": "gradient mouse twist fx.js"
+            },
+            {
               "path": "src\\3.60\\fx\\particle bokeh.js",
               "name": "particle bokeh.js"
             },

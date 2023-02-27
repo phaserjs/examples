@@ -12,6 +12,16 @@ class Example extends Phaser.Scene
         bomb.preFX.setPadding(32);
 
         const fx = bomb.preFX.addGlow();
+
+        //  For PreFX Glow the quality and distance are set in the Game Configuration
+
+        this.tweens.add({
+            targets: fx,
+            outerStrength: 10,
+            yoyo: true,
+            loop: -1,
+            ease: 'sine.inout'
+        });
     }
 }
 

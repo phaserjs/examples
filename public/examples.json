@@ -1345,6 +1345,10 @@
               "name": "displacement fx.js"
             },
             {
+              "path": "src\\3.60\\fx\\displacement skull fx.js",
+              "name": "displacement skull fx.js"
+            },
+            {
               "path": "src\\3.60\\fx\\double glow post fx.js",
               "name": "double glow post fx.js"
             },

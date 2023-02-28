@@ -1329,8 +1329,16 @@
                   "name": "barrel fx.js"
                 },
                 {
+                  "path": "src/3.60/fx/barrel/barrel sprite fx.js",
+                  "name": "barrel sprite fx.js"
+                },
+                {
                   "path": "src/3.60/fx/barrel/barrel squish fx.js",
                   "name": "barrel squish fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/barrel/barrel text.js",
+                  "name": "barrel text.js"
                 }
               ]
             },
@@ -1426,6 +1434,10 @@
               "path": "src/3.60/fx/gradient",
               "name": "gradient",
               "children": [
+                {
+                  "path": "src/3.60/fx/gradient/chunky gradient.js",
+                  "name": "chunky gradient.js"
+                },
                 {
                   "path": "src/3.60/fx/gradient/gradient fx.js",
                   "name": "gradient fx.js"

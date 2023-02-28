@@ -1449,12 +1449,20 @@
               ]
             },
             {
-              "path": "src/3.60/fx/pixelated",
-              "name": "pixelated",
+              "path": "src/3.60/fx/pixelate",
+              "name": "pixelate",
               "children": [
                 {
-                  "path": "src/3.60/fx/pixelated/pixelated fx.js",
-                  "name": "pixelated fx.js"
+                  "path": "src/3.60/fx/pixelate/pixelate amount.js",
+                  "name": "pixelate amount.js"
+                },
+                {
+                  "path": "src/3.60/fx/pixelate/pixelate fx.js",
+                  "name": "pixelate fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/pixelate/pixelate sprite fx.js",
+                  "name": "pixelate sprite fx.js"
                 }
               ]
             },

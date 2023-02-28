@@ -16,7 +16,7 @@ class Example extends Phaser.Scene
 
         const fx = sprite.preFX.addVignette();
 
-        this.add.text(10, 10, 'Click to toggle vignette on/off');
+        this.add.text(10, 10, 'Click to toggle vignette on/off').setResolution(window.devicePixelRatio);
 
         this.input.on('pointerdown', () => {
 

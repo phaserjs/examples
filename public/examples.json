@@ -1397,6 +1397,28 @@
               "name": "shine fx.js"
             },
             {
+              "path": "src/3.60/fx/vignette",
+              "name": "vignette",
+              "children": [
+                {
+                  "path": "src/3.60/fx/vignette/vignette radius.js",
+                  "name": "vignette radius.js"
+                },
+                {
+                  "path": "src/3.60/fx/vignette/vignette sprite fx.js",
+                  "name": "vignette sprite fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/vignette/vignette strength.js",
+                  "name": "vignette strength.js"
+                },
+                {
+                  "path": "src/3.60/fx/vignette/vignette xy.js",
+                  "name": "vignette xy.js"
+                }
+              ]
+            },
+            {
               "path": "src/3.60/fx/wipe",
               "name": "wipe",
               "children": [

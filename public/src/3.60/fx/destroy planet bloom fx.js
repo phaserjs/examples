@@ -1,5 +1,6 @@
 // Bullet class - fires from ship and "destroys" planet
-class Bullet extends Phaser.GameObjects.Image {
+class Bullet extends Phaser.GameObjects.Image
+{
     speed;
     flame;
     constructor(scene, x, y) {
@@ -10,13 +11,15 @@ class Bullet extends Phaser.GameObjects.Image {
 
     }
 
-    fire(x, y) {
+    fire (x, y)
+    {
         this.setPosition(x, y);
         this.setActive(true);
         this.setVisible(true);
     }
 
-    destroyBullet() {
+    destroyBullet ()
+    {
         if (this.flame === undefined) {
             // Create particles for flame
             this.flame = this.scene.add.particles(this.x, this.y, 'flares',
@@ -52,7 +55,8 @@ class Bullet extends Phaser.GameObjects.Image {
     }
 
     // Update bullet position and destroy if it goes off screen
-    update(time, delta) {
+    update (time, delta)
+    {
         this.x += this.speed * delta;
 
         if (this.x > this.scene.sys.canvas.width) {
@@ -70,13 +74,15 @@ class Example extends Phaser.Scene
     bullets;
     // Control for firing bullets
     spacebar;
-    constructor() {
+    constructor ()
+    {
         super({
             key: 'MainScene'
         });
     }
 
-    init() {
+    init ()
+    {
         // Description text for fire bullet
         this.add.text(10, 10, 'Press "space" to fire bullet', { font: '16px Courier', fill: '#ffffff' }).setDepth(100);
 
@@ -95,7 +101,8 @@ class Example extends Phaser.Scene
         this.load.atlas('flares', '/particles/flares.png', '/particles/flares.json');
     }
 
-    create() {
+    create ()
+    {
         // Just stars background
         const bg = this.add.image(0, 0, "bg")
             .setOrigin(0, 0)
@@ -152,9 +159,11 @@ class Example extends Phaser.Scene
 
     // Bullet fire
     update() {
-        if (this.spacebar) {
-            if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-                var bullet = this.bullets.get();
+        if (this.spacebar)
+        {
+            if (Phaser.Input.Keyboard.JustDown(this.spacebar))
+            {
+                const bullet = this.bullets.get();
 
                 if (bullet) {
                     bullet.fire(this.ship.x, this.ship.y);

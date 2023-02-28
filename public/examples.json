@@ -1465,6 +1465,10 @@
                 {
                   "path": "src/3.60/fx/shadow/shadow fx.js",
                   "name": "shadow fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/shadow/text shadow fx.js",
+                  "name": "text shadow fx.js"
                 }
               ]
             },

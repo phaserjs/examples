@@ -1395,6 +1395,60 @@
             {
               "path": "src/3.60/fx/shine fx.js",
               "name": "shine fx.js"
+            },
+            {
+              "path": "src/3.60/fx/wipe",
+              "name": "wipe",
+              "children": [
+                {
+                  "path": "src/3.60/fx/wipe/reveal bottom to top.js",
+                  "name": "reveal bottom to top.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/reveal left to right.js",
+                  "name": "reveal left to right.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/reveal right to left.js",
+                  "name": "reveal right to left.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/reveal text.js",
+                  "name": "reveal text.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/reveal top to bottom.js",
+                  "name": "reveal top to bottom.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/wipe bottom to top.js",
+                  "name": "wipe bottom to top.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/wipe left to right.js",
+                  "name": "wipe left to right.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/wipe right to left.js",
+                  "name": "wipe right to left.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/wipe to a scene.js",
+                  "name": "wipe to a scene.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/wipe to pointer.js",
+                  "name": "wipe to pointer.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/wipe top to bottom.js",
+                  "name": "wipe top to bottom.js"
+                },
+                {
+                  "path": "src/3.60/fx/wipe/wipe width.js",
+                  "name": "wipe width.js"
+                }
+              ]
             }
           ]
         },

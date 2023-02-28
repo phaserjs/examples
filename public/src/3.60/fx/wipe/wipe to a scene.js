@@ -38,7 +38,7 @@ class MainGame extends Phaser.Scene
             loop: -1
         });
 
-        const quit = this.add.image(800, 0, 'quitButton').setOrigin(1, 0).setScrollFactor(0, 0);
+        const quit = this.add.image(0, 0, 'quitButton').setOrigin(0, 0).setScrollFactor(0, 0);
 
         quit.setInteractive();
 

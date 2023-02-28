@@ -1321,85 +1321,159 @@
           "name": "fx",
           "children": [
             {
-              "path": "src/3.60/fx/barrel fx.js",
-              "name": "barrel fx.js"
+              "path": "src/3.60/fx/barrel",
+              "name": "barrel",
+              "children": [
+                {
+                  "path": "src/3.60/fx/barrel/barrel fx.js",
+                  "name": "barrel fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/barrel/barrel squish fx.js",
+                  "name": "barrel squish fx.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/barrel squish fx.js",
-              "name": "barrel squish fx.js"
+              "path": "src/3.60/fx/bloom",
+              "name": "bloom",
+              "children": [
+                {
+                  "path": "src/3.60/fx/bloom/destroy planet bloom fx.js",
+                  "name": "destroy planet bloom fx.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/blur fx.js",
-              "name": "blur fx.js"
+              "path": "src/3.60/fx/blur",
+              "name": "blur",
+              "children": [
+                {
+                  "path": "src/3.60/fx/blur/blur fx.js",
+                  "name": "blur fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/blur/container blur.js",
+                  "name": "container blur.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/colormatrix fx.js",
-              "name": "colormatrix fx.js"
+              "path": "src/3.60/fx/bokeh",
+              "name": "bokeh",
+              "children": [
+                {
+                  "path": "src/3.60/fx/bokeh/particle bokeh.js",
+                  "name": "particle bokeh.js"
+                },
+                {
+                  "path": "src/3.60/fx/bokeh/tiltshift camera.js",
+                  "name": "tiltshift camera.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/colormatrix hue shift fx.js",
-              "name": "colormatrix hue shift fx.js"
+              "path": "src/3.60/fx/colormatrix",
+              "name": "colormatrix",
+              "children": [
+                {
+                  "path": "src/3.60/fx/colormatrix/colormatrix fx.js",
+                  "name": "colormatrix fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/colormatrix/colormatrix hue shift fx.js",
+                  "name": "colormatrix hue shift fx.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/container blur.js",
-              "name": "container blur.js"
+              "path": "src/3.60/fx/displacement",
+              "name": "displacement",
+              "children": [
+                {
+                  "path": "src/3.60/fx/displacement/displacement circles fx.js",
+                  "name": "displacement circles fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/displacement/displacement fx.js",
+                  "name": "displacement fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/displacement/displacement skull fx.js",
+                  "name": "displacement skull fx.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/destroy planet bloom fx.js",
-              "name": "destroy planet bloom fx.js"
+              "path": "src/3.60/fx/glow",
+              "name": "glow",
+              "children": [
+                {
+                  "path": "src/3.60/fx/glow/double glow post fx.js",
+                  "name": "double glow post fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/glow/glow fx.js",
+                  "name": "glow fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/glow/glow post fx.js",
+                  "name": "glow post fx.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/displacement circles fx.js",
-              "name": "displacement circles fx.js"
+              "path": "src/3.60/fx/gradient",
+              "name": "gradient",
+              "children": [
+                {
+                  "path": "src/3.60/fx/gradient/gradient fx.js",
+                  "name": "gradient fx.js"
+                },
+                {
+                  "path": "src/3.60/fx/gradient/gradient mouse twist fx.js",
+                  "name": "gradient mouse twist fx.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/displacement fx.js",
-              "name": "displacement fx.js"
+              "path": "src/3.60/fx/pixelated",
+              "name": "pixelated",
+              "children": [
+                {
+                  "path": "src/3.60/fx/pixelated/pixelated fx.js",
+                  "name": "pixelated fx.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/displacement skull fx.js",
-              "name": "displacement skull fx.js"
+              "path": "src/3.60/fx/shadow",
+              "name": "shadow",
+              "children": [
+                {
+                  "path": "src/3.60/fx/shadow/shadow fx.js",
+                  "name": "shadow fx.js"
+                }
+              ]
             },
             {
-              "path": "src/3.60/fx/double glow post fx.js",
-              "name": "double glow post fx.js"
-            },
-            {
-              "path": "src/3.60/fx/glow fx.js",
-              "name": "glow fx.js"
-            },
-            {
-              "path": "src/3.60/fx/glow post fx.js",
-              "name": "glow post fx.js"
-            },
-            {
-              "path": "src/3.60/fx/gradient fx.js",
-              "name": "gradient fx.js"
-            },
-            {
-              "path": "src/3.60/fx/gradient mouse twist fx.js",
-              "name": "gradient mouse twist fx.js"
-            },
-            {
-              "path": "src/3.60/fx/particle bokeh.js",
-              "name": "particle bokeh.js"
-            },
-            {
-              "path": "src/3.60/fx/pixelated fx.js",
-              "name": "pixelated fx.js"
-            },
-            {
-              "path": "src/3.60/fx/shadow fx.js",
-              "name": "shadow fx.js"
-            },
-            {
-              "path": "src/3.60/fx/shine fx.js",
-              "name": "shine fx.js"
+              "path": "src/3.60/fx/shine",
+              "name": "shine",
+              "children": [
+                {
+                  "path": "src/3.60/fx/shine/shine fx.js",
+                  "name": "shine fx.js"
+                }
+              ]
             },
             {
               "path": "src/3.60/fx/vignette",
               "name": "vignette",
               "children": [
+                {
+                  "path": "src/3.60/fx/vignette/vignette camera.js",
+                  "name": "vignette camera.js"
+                },
                 {
                   "path": "src/3.60/fx/vignette/vignette radius.js",
                   "name": "vignette radius.js"

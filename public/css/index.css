@@ -168,6 +168,42 @@ body {
     padding: 5px;
 }
 
+.last-examples-btn {
+    color: #e2dbdb;
+    margin-top: -4px;
+    background-color: #6e538a;
+}
+
+.last-examples-btn:hover {
+    color: #e2dbdb;
+    background-color: #9170b5;
+}
+
+#last-examples-result {
+    /* display: none; */
+    line-height: 15px;
+    width: 353px;
+    padding: 4px;
+    background-color: #6e538a;
+    border: 1px solid #331053;
+    border-radius: 4px;
+    position: absolute;
+    top: 35px;
+    right: 0px;
+    z-index: 3;
+    max-height: 492px;
+    overflow: auto;
+}
+
+.last-examples-result--title {
+    font-size: 12px;
+    color: #e2dbdb;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #e2dbdb;
+}
+
 #search-results {
     display: none;
     line-height: 15px;

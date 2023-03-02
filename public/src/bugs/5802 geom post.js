@@ -45,7 +45,9 @@ class Example extends Phaser.Scene
         this.input.once('pointerdown', () => {
 
             text.text = 'post-fx pipeline: on';
-            this.cameras.main.setPostPipeline(TestPostFxPipeline);
+
+            // this.cameras.main.setPostPipeline(TestPostFxPipeline);
+            this.cameras.main.postFX.addPixelate(4);
 
         });
     }

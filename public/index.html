@@ -10,6 +10,7 @@
         <script src="./js/jquery-3.1.1.min.js"></script>
         <script src="./js/getQueryString.js"></script>
         <script src="./js/phaserSearch.js"></script>
+        <script src="./js/lastExamplesButton.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
@@ -17,6 +18,17 @@
     <nav class="breadcrumb" id="breadcrumb">
         <a href="index.html"><img src="images/logo.png" width="144" height="31" /></a>
 		<div class="search">
+            <span>
+                <button type="button" class="last-examples-btn btn btn-sm" id="last-examples-button">Check last examples</button>
+                <div id="last-examples-result">
+                    <div class="last-examples-result--title">
+                        Last examples
+                    </div>
+                    <div id="last-examples-result--content">
+                        <!-- Show result by JS -->
+                    </div>
+                </div>
+            </span>
 			<input id="search-query">
 			<div class="search-icon-wrapper">
 				<div class="search-icon">
@@ -37,6 +49,10 @@
             <div class="row" id="folderList"></div>
         </div>
     </div>
+
+    <!-- Modals section -->
+
+
 
     <script type="text/javascript">
 

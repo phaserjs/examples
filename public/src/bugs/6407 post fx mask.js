@@ -16,7 +16,7 @@ class Demo extends Phaser.Scene
     {
         const a = this.add.image(400, 300, 'pic');
         const b = this.add.image(600, 300, 'logo');
-        // const c = this.add.image(200, 300, 'card');
+        const c = this.add.image(200, 300, 'card');
 
         // const area1 = this.textures.addDynamicTexture('area1', 128, 128);
         // area1.fill(0x00ff00);
@@ -26,8 +26,9 @@ class Demo extends Phaser.Scene
         // a.preFX.addPixelate(2);
         // a.preFX.addBarrel(2.0);
         a.postFX.addBarrel(2.0);
-        b.preFX.addBarrel(0.5);
-        // b.postFX.addBarrel(0.5);
+        // b.preFX.addBarrel(0.5);
+        b.postFX.addBarrel(0.5);
+        b.postFX.addPixelate(4);
         // c.postFX.addBarrel(0.5);
         // c.preFX.addBarrel(0.5);
 

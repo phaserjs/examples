@@ -14,7 +14,7 @@ function create ()
 {
     var graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 } });
 
-    var triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 200);
+    var triangle = Phaser.Geom.Triangle.BuildEquilateral(400, 200, 200);
 
     graphics.strokeTriangleShape(triangle);
 }

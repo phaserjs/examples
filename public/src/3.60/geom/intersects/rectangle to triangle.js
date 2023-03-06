@@ -8,7 +8,7 @@ class Example extends Phaser.Scene
     {
         this.graphics = this.add.graphics();
 
-        this.triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 320, 140);
+        this.triangle = Phaser.Geom.Triangle.BuildEquilateral(400, 320, 140);
 
         this.rectangle = new Phaser.Geom.Rectangle(200, 150, 300, 200);
 

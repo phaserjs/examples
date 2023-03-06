@@ -19,7 +19,7 @@ function create ()
 {
     graphics = this.add.graphics();
 
-    triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 320, 140);
+    triangle = Phaser.Geom.Triangle.BuildEquilateral(400, 320, 140);
 
     rectangle = new Phaser.Geom.Rectangle(200, 150, 300, 200);
 

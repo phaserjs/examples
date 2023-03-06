@@ -16,7 +16,7 @@ function create ()
 
     var poly = [0,0, 400,0, 400,400, 0,400]; // rectangle
 
-    var triangles = new Phaser.Geom.Triangle.BuildFromPolygon(poly);
+    var triangles = Phaser.Geom.Triangle.BuildFromPolygon(poly);
 
     for (var i = 0; i < triangles.length; i++)
     {

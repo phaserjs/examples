@@ -21,7 +21,7 @@ function create ()
 {
     var sprite = this.add.sprite(400, 300, 'ship').setScale(8);
 
-    var shape = new Phaser.Geom.Triangle.BuildEquilateral(16, 0, 30);
+    var shape = Phaser.Geom.Triangle.BuildEquilateral(16, 0, 30);
 
     sprite.setInteractive(shape, Phaser.Geom.Triangle.Contains);
 

@@ -12,13 +12,13 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const triangle1 = new Phaser.Geom.Triangle.BuildEquilateral(200, 90, 280);
+        const triangle1 = Phaser.Geom.Triangle.BuildEquilateral(200, 90, 280);
 
         const group1 = this.add.group({ key: 'ball', frameQuantity: 64 });
 
         Phaser.Actions.PlaceOnTriangle(group1.getChildren(), triangle1);
 
-        const triangle2 = new Phaser.Geom.Triangle.BuildRight(400, 500, 300, 200);
+        const triangle2 = Phaser.Geom.Triangle.BuildRight(400, 500, 300, 200);
 
         const group2 = this.add.group({ key: 'ball', frameQuantity: 64 });
 

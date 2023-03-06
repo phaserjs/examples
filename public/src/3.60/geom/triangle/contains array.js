@@ -4,9 +4,9 @@ class Example extends Phaser.Scene
     {
         const graphics = this.add.graphics({ fillStyle: { color: 0xaaaa00 } });
 
-        const triangle1 = new Phaser.Geom.Triangle.BuildEquilateral(400, 25, 300);
-        const triangle2 = new Phaser.Geom.Triangle.BuildEquilateral(250, 285, 300);
-        const triangle3 = new Phaser.Geom.Triangle.BuildEquilateral(550, 285, 300);
+        const triangle1 = Phaser.Geom.Triangle.BuildEquilateral(400, 25, 300);
+        const triangle2 = Phaser.Geom.Triangle.BuildEquilateral(250, 285, 300);
+        const triangle3 = Phaser.Geom.Triangle.BuildEquilateral(550, 285, 300);
 
         const circle = new Phaser.Geom.Circle(400, 300, 20);
 

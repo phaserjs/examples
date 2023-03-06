@@ -20,7 +20,7 @@ function create ()
 {
     graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaaaa00 }, fillStyle: { color: 0x0000aa } });
 
-    triangle = new Phaser.Geom.Triangle.BuildRight(200, 360, 200, 200);
+    triangle = Phaser.Geom.Triangle.BuildRight(200, 360, 200, 200);
 }
 
 function update ()

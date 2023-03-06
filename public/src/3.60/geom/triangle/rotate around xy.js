@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
     {
         this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaaaa00 }, fillStyle: { color: 0x0000aa } });
 
-        this.triangle = new Phaser.Geom.Triangle.BuildRight(200, 360, 200, 200);
+        this.triangle = Phaser.Geom.Triangle.BuildRight(200, 360, 200, 200);
     }
 
     update ()

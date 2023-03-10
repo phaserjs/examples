@@ -244,6 +244,7 @@ PHASER.search = (function(){
             if (event.which === 13) {
                 var query = $(this).val();
                 event.preventDefault();
+                console.log("Query search: ", query)
                 startSearching(query);
             }
         });

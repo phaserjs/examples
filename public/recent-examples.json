@@ -1,5 +1,15 @@
 [
     {
+        "path": "src\\bugs\\0000 frame cycle.js",
+        "name": "0000 frame cycle.js",
+        "birthtimeMs": 1678468276427.0361
+    },
+    {
+        "path": "src\\bugs\\0000 container alpha.js",
+        "name": "0000 container alpha.js",
+        "birthtimeMs": 1678468276416.037
+    },
+    {
         "path": "src\\bugs\\6411 rt resize.js",
         "name": "6411 rt resize.js",
         "birthtimeMs": 1677852520443.9277
@@ -138,15 +148,5 @@
         "path": "src\\3.60\\fx\\gradient\\gradient fx.js",
         "name": "gradient fx.js",
         "birthtimeMs": 1677676849576.7163
-    },
-    {
-        "path": "src\\3.60\\fx\\gradient\\chunky gradient.js",
-        "name": "chunky gradient.js",
-        "birthtimeMs": 1677676849569.7168
-    },
-    {
-        "path": "src\\3.60\\fx\\glow\\glow post fx.js",
-        "name": "glow post fx.js",
-        "birthtimeMs": 1677676849561.7158
     }
 ]

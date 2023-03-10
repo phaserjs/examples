@@ -103,6 +103,44 @@ function getDocuments (tree, documents)
     return documents;
 }
 
+function getDocumentsWithName (tree, documents)
+{
+    var documentObject = {
+        path: tree.path,
+        name: tree.name
+    };
+
+    if (includeDocuments.test(documentObject.path))
+    {
+        if (excludeDocuments.test(documentObject.path))
+        {
+            excludedFiles.push({ entry: documentObject.path, reason: 'excluded path' });
+        }
+        else
+        {
+            documents.push(documentObject);
+
+            excludeIfBootableProject(documentObject.path);
+        }
+    }
+    else
+    {
+        // excludedFiles.push({ entry: path, reason: 'is folder' });
+    }
+
+    if (!tree.children)
+    {
+        return documents;
+    }
+
+    for (var i in tree.children)
+    {
+        documents = getDocumentsWithName(tree.children[i], documents);
+    }
+
+    return documents;
+}
+
 function wordMap (string)
 {
     var map= {};
@@ -156,6 +194,7 @@ function debugOutput ()
 function index (filteredTree)
 {
     var documents = getDocuments(filteredTree, []);
+    const documentsWithName = getDocumentsWithName(filteredTree, []);
 
     var index = {};
 
@@ -169,6 +208,7 @@ function index (filteredTree)
         var document = indexDocument(path);
 
         index[document.path] = document;
+        index[document.path].name = documentsWithName.filter(file => file.path === path)[0].name;
 
     });
 

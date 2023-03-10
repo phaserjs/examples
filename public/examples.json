@@ -12264,9 +12264,19 @@
           "birthtimeMs": 1676141183425.432
         },
         {
+          "path": "src\\bugs\\0000 container alpha.js",
+          "name": "0000 container alpha.js",
+          "birthtimeMs": 1678468276416.037
+        },
+        {
           "path": "src\\bugs\\0000 drag scale.js",
           "name": "0000 drag scale.js",
           "birthtimeMs": 1676141183426.4336
+        },
+        {
+          "path": "src\\bugs\\0000 frame cycle.js",
+          "name": "0000 frame cycle.js",
+          "birthtimeMs": 1678468276427.0361
         },
         {
           "path": "src\\bugs\\0000 hex corners.js",

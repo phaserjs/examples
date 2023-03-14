@@ -23,12 +23,12 @@ class Demo extends Phaser.Scene
         // area1.drawFrame('card');
         // this.add.sprite(650, 100, 'area1');
 
-        // a.preFX.addPixelate(2);
-        // a.preFX.addBarrel(2.0);
-        a.postFX.addBarrel(2.0);
+        a.preFX.addPixelate(4);
+        // a.preFX.addBarrel(4.0);
+        // a.postFX.addBarrel(4.0);
         // b.preFX.addBarrel(0.5);
-        b.postFX.addBarrel(0.5);
-        b.postFX.addPixelate(4);
+        // b.postFX.addBarrel(0.5);
+        // b.postFX.addPixelate(4);
         // c.postFX.addBarrel(0.5);
         // c.preFX.addBarrel(0.5);
 
@@ -56,9 +56,11 @@ class Demo extends Phaser.Scene
         //  depth buffer true + camera mask and sprite postFX = sprite invisible
         //  depth buffer true + sprite postFX, camera empty = sprite works
 
-        // this.cameras.main.setMask(mask);
+        // mask.invertAlpha = true;
+
+        this.cameras.main.setMask(mask);
         // this.cameras.main.postFX.addPixelate(4);
-        this.cameras.main.postFX.addGradient();
+        // this.cameras.main.postFX.addGradient();
 
     }
 }

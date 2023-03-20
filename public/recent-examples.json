@@ -1,152 +1,152 @@
 [
     {
-        "path": "src\\3.60\\fx\\glow\\glow bitmaptext.js",
-        "name": "glow bitmaptext.js",
-        "birthtimeMs": 1679332864799.4
+        "path": "src\\3.60\\fx\\glow\\glow text.js",
+        "name": "glow text.js",
+        "birthtimeMs": 1679339031165.3835
     },
     {
         "path": "src\\3.60\\fx\\glow\\glow graphics.js",
         "name": "glow graphics.js",
-        "birthtimeMs": 1679332652440.741
+        "birthtimeMs": 1679339031153.3828
     },
     {
-        "path": "src\\3.60\\fx\\glow\\glow text.js",
-        "name": "glow text.js",
-        "birthtimeMs": 1679332209591.1975
+        "path": "src\\3.60\\fx\\glow\\glow bitmaptext.js",
+        "name": "glow bitmaptext.js",
+        "birthtimeMs": 1679339031142.3826
     },
     {
-        "path": "src\\3.60\\cache\\json file.js",
-        "name": "json file.js",
-        "birthtimeMs": 1678473825861.4612
-    },
-    {
-        "path": "src\\3.60\\cache\\text file.js",
-        "name": "text file.js",
-        "birthtimeMs": 1678473825861.4612
-    },
-    {
-        "path": "src\\3.60\\cache\\xml file.js",
-        "name": "xml file.js",
-        "birthtimeMs": 1678473825861.4612
-    },
-    {
-        "path": "src\\bugs\\0000 container alpha.js",
-        "name": "0000 container alpha.js",
-        "birthtimeMs": 1678387598974.5015
+        "path": "src\\3.60\\game elements\\dice.js",
+        "name": "dice.js",
+        "birthtimeMs": 1679333239173.8674
     },
     {
         "path": "src\\bugs\\0000 frame cycle.js",
         "name": "0000 frame cycle.js",
-        "birthtimeMs": 1678387598974.5015
+        "birthtimeMs": 1678468276427.0361
     },
     {
-        "path": "src\\bugs\\6407 post fx mask.js",
-        "name": "6407 post fx mask.js",
-        "birthtimeMs": 1678387598885.5872
+        "path": "src\\bugs\\0000 container alpha.js",
+        "name": "0000 container alpha.js",
+        "birthtimeMs": 1678468276416.037
     },
     {
         "path": "src\\bugs\\6411 rt resize.js",
         "name": "6411 rt resize.js",
-        "birthtimeMs": 1678387598885.5872
+        "birthtimeMs": 1677852520443.9277
     },
     {
         "path": "src\\3.60\\fx\\pixelate\\pixelate transition scene.js",
         "name": "pixelate transition scene.js",
-        "birthtimeMs": 1678387598884.0327
+        "birthtimeMs": 1677851594876.8733
     },
     {
-        "path": "src\\bugs\\0000 char index.js",
-        "name": "0000 char index.js",
-        "birthtimeMs": 1677770067917.328
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\wipe right to left.js",
-        "name": "wipe right to left.js",
-        "birthtimeMs": 1677764279643.0193
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\wipe to a scene.js",
-        "name": "wipe to a scene.js",
-        "birthtimeMs": 1677764279643.0193
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\wipe to pointer.js",
-        "name": "wipe to pointer.js",
-        "birthtimeMs": 1677764279643.0193
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\wipe top to bottom.js",
-        "name": "wipe top to bottom.js",
-        "birthtimeMs": 1677764279643.0193
+        "path": "src\\bugs\\6407 post fx mask.js",
+        "name": "6407 post fx mask.js",
+        "birthtimeMs": 1677773796502.7957
     },
     {
         "path": "src\\3.60\\fx\\wipe\\wipe width.js",
         "name": "wipe width.js",
-        "birthtimeMs": 1677764279643.0193
+        "birthtimeMs": 1677676849766.2998
     },
     {
-        "path": "src\\3.60\\fx\\shine\\shine fx.js",
-        "name": "shine fx.js",
-        "birthtimeMs": 1677764279641.5159
+        "path": "src\\3.60\\fx\\wipe\\wipe top to bottom.js",
+        "name": "wipe top to bottom.js",
+        "birthtimeMs": 1677676849760.299
     },
     {
-        "path": "src\\3.60\\fx\\vignette\\vignette camera.js",
-        "name": "vignette camera.js",
-        "birthtimeMs": 1677764279641.5159
+        "path": "src\\3.60\\fx\\wipe\\wipe to pointer.js",
+        "name": "wipe to pointer.js",
+        "birthtimeMs": 1677676849754.3684
     },
     {
-        "path": "src\\3.60\\fx\\vignette\\vignette radius.js",
-        "name": "vignette radius.js",
-        "birthtimeMs": 1677764279641.5159
+        "path": "src\\3.60\\fx\\wipe\\wipe to a scene.js",
+        "name": "wipe to a scene.js",
+        "birthtimeMs": 1677676849748.3672
     },
     {
-        "path": "src\\3.60\\fx\\vignette\\vignette sprite fx.js",
-        "name": "vignette sprite fx.js",
-        "birthtimeMs": 1677764279641.5159
-    },
-    {
-        "path": "src\\3.60\\fx\\vignette\\vignette strength.js",
-        "name": "vignette strength.js",
-        "birthtimeMs": 1677764279641.5159
-    },
-    {
-        "path": "src\\3.60\\fx\\vignette\\vignette xy.js",
-        "name": "vignette xy.js",
-        "birthtimeMs": 1677764279641.5159
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\reveal bottom to top.js",
-        "name": "reveal bottom to top.js",
-        "birthtimeMs": 1677764279641.5159
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\reveal left to right.js",
-        "name": "reveal left to right.js",
-        "birthtimeMs": 1677764279641.5159
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\reveal right to left.js",
-        "name": "reveal right to left.js",
-        "birthtimeMs": 1677764279641.5159
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\reveal text.js",
-        "name": "reveal text.js",
-        "birthtimeMs": 1677764279641.5159
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\reveal top to bottom.js",
-        "name": "reveal top to bottom.js",
-        "birthtimeMs": 1677764279641.5159
-    },
-    {
-        "path": "src\\3.60\\fx\\wipe\\wipe bottom to top.js",
-        "name": "wipe bottom to top.js",
-        "birthtimeMs": 1677764279641.5159
+        "path": "src\\3.60\\fx\\wipe\\wipe right to left.js",
+        "name": "wipe right to left.js",
+        "birthtimeMs": 1677676849738.2766
     },
     {
         "path": "src\\3.60\\fx\\wipe\\wipe left to right.js",
         "name": "wipe left to right.js",
-        "birthtimeMs": 1677764279641.5159
+        "birthtimeMs": 1677676849731.2761
+    },
+    {
+        "path": "src\\3.60\\fx\\wipe\\wipe bottom to top.js",
+        "name": "wipe bottom to top.js",
+        "birthtimeMs": 1677676849725.276
+    },
+    {
+        "path": "src\\3.60\\fx\\wipe\\reveal top to bottom.js",
+        "name": "reveal top to bottom.js",
+        "birthtimeMs": 1677676849718.2754
+    },
+    {
+        "path": "src\\3.60\\fx\\wipe\\reveal text.js",
+        "name": "reveal text.js",
+        "birthtimeMs": 1677676849711.275
+    },
+    {
+        "path": "src\\3.60\\fx\\wipe\\reveal right to left.js",
+        "name": "reveal right to left.js",
+        "birthtimeMs": 1677676849703.7246
+    },
+    {
+        "path": "src\\3.60\\fx\\wipe\\reveal left to right.js",
+        "name": "reveal left to right.js",
+        "birthtimeMs": 1677676849695.724
+    },
+    {
+        "path": "src\\3.60\\fx\\wipe\\reveal bottom to top.js",
+        "name": "reveal bottom to top.js",
+        "birthtimeMs": 1677676849688.7258
+    },
+    {
+        "path": "src\\3.60\\fx\\vignette\\vignette xy.js",
+        "name": "vignette xy.js",
+        "birthtimeMs": 1677676849680.7244
+    },
+    {
+        "path": "src\\3.60\\fx\\vignette\\vignette strength.js",
+        "name": "vignette strength.js",
+        "birthtimeMs": 1677676849672.7244
+    },
+    {
+        "path": "src\\3.60\\fx\\vignette\\vignette sprite fx.js",
+        "name": "vignette sprite fx.js",
+        "birthtimeMs": 1677676849664.7253
+    },
+    {
+        "path": "src\\3.60\\fx\\vignette\\vignette radius.js",
+        "name": "vignette radius.js",
+        "birthtimeMs": 1677676849657.7268
+    },
+    {
+        "path": "src\\3.60\\fx\\vignette\\vignette camera.js",
+        "name": "vignette camera.js",
+        "birthtimeMs": 1677676849648.7217
+    },
+    {
+        "path": "src\\3.60\\fx\\shine\\shine fx.js",
+        "name": "shine fx.js",
+        "birthtimeMs": 1677676849639.7202
+    },
+    {
+        "path": "src\\3.60\\fx\\shadow\\text shadow fx.js",
+        "name": "text shadow fx.js",
+        "birthtimeMs": 1677676849630.722
+    },
+    {
+        "path": "src\\3.60\\fx\\shadow\\shadow fx.js",
+        "name": "shadow fx.js",
+        "birthtimeMs": 1677676849622.7214
+    },
+    {
+        "path": "src\\3.60\\fx\\pixelate\\pixelate sprite fx.js",
+        "name": "pixelate sprite fx.js",
+        "birthtimeMs": 1677676849612.7192
     }
 ]

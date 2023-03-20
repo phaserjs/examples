@@ -12,3 +12,6 @@ node_modules/
 # Tester screenshots
 /tester/screens
 /public/_screenshots
+
+# folders
+dev-types/

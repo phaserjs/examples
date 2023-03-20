@@ -18,16 +18,16 @@ const createDice = (x, y, scene, duration = 1000) => {
 
             // Shadow
             scene.add.tween({
-                targets: [shadowFX],
+                targets: shadowFX,
                 x: -8,
                 y: 10,
-                duration: duration,
+                duration: duration -250,
                 ease: "Sine.easeInOut",
                 yoyo: true,
             });
 
             scene.add.tween({
-                targets: [dice, this.dice2],
+                targets: dice,
                 from: 0,
                 to: 1,
                 duration: duration,

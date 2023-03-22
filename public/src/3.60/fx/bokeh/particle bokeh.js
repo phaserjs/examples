@@ -14,13 +14,15 @@ class Example extends Phaser.Scene
             lifespan: 4000,
             gravityY: 180,
             quantity: 2,
-            bounce: 0.3,
+            bounce: 0.4,
             bounds: new Phaser.Geom.Rectangle(-100, -200, 1000, 750)
         });
 
         emitter.particleBringToTop = false;
 
-        const fx = emitter.postFX.addBokeh(0.75, 1.5, 0.3);
+        const fx = emitter.postFX.addBokeh(0.5, 10, 0.2);
+
+        // const fx = emitter.postFX.addBokeh(0.75, 1.5, 0.3);
 
         this.add.image(650, 600, 'touhou').setOrigin(0.5, 1);
     }

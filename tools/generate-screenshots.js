@@ -26,12 +26,15 @@ examples = examples
             e.path
                 .toLowerCase()
                 .replace("public/src/", "public/screenshots/")
+                .replace("public\\src\\", "public\\screenshots\\")
                 .replace(/\.json/, "")
                 .replace(/\.js/, "") + ".png",
     }));
 
 let screenshots = [];
+
 getScreenshots(screenshots, "./public/screenshots");
+
 screenshots = screenshots.map((s) => s.toLowerCase());
 
 const saveCanvas = async (page, example) => {
@@ -81,20 +84,31 @@ const saveCanvas = async (page, example) => {
 };
 
 async function run() {
+
+    let missing = 0;
+
     const browser = await puppeteer.launch({
         headless: true,
     });
 
     const [page] = await browser.pages();
+
     await page.setUserAgent(
         "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
     );
 
     for (let example of examples.filter((e) => !screenshots.includes(e.path))) {
+
         await saveCanvas(page, example);
+
+        missing++;
+
     }
 
+    console.log(`Added ${missing} missing screenshots out of ${examples.length} examples`);
+
     await browser.close();
+
     server.close();
 }
 

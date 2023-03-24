@@ -34,17 +34,30 @@ const getExamples = (examples, path, depth = 0) => {
 };
 
 const getScreenshots = (screenshots, path, depth = 0) => {
+
     const files = fs.readdirSync(path);
+
     if (depth > maxDepth) {
         return;
     }
+
     for (let file of files) {
-        const fileInfo = fs.statSync(p.resolve(path, file));
-        if (fileInfo.isDirectory()) {
-            getScreenshots(screenshots, p.resolve(path, file), depth + 1);
+
+        const loc = p.resolve(path, file);
+
+        const fileInfo = fs.statSync(loc);
+
+        if (fileInfo.isDirectory())
+        {
+            getScreenshots(screenshots, loc, depth + 1);
         }
-        screenshots.push(p.resolve(path, file));
+        else
+        {
+            // console.log(loc);
+            screenshots.push(loc);
+        }
     }
+
 };
 
 module.exports = {

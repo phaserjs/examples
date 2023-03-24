@@ -33,19 +33,16 @@ class Example extends Phaser.Scene
             card.rotateZ = Phaser.Math.Between(0, 360);
             card.rotateY = Phaser.Math.Between(0, 360);
 
+            card.setInteractive();
+
+            card.on('pointerdown', () => {
+
+                card.setTint(0x00ff00);
+
+            });
+
             this.cards.unshift(card);
         }
-
-        this.input.on('pointerdown', pointer => {
-
-            const result = this.cards.find(card => card.hasFaceAt(pointer.worldX, pointer.worldY));
-
-            if (result)
-            {
-                result.setTint(0x00ff00);
-            }
-
-        });
     }
 
     update ()

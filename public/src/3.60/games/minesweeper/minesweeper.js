@@ -585,7 +585,7 @@ class Intro extends Phaser.Scene
 
     create ()
     {
-        // this.input.mouse.disableContextMenu();
+        this.input.mouse.disableContextMenu();
 
         this.highlight = this.add.rectangle(0, 334, 800, 70, 0x0182fb).setOrigin(0).setAlpha(0.75);
 

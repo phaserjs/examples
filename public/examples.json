@@ -4246,7 +4246,7 @@
                 {
                   "path": "src\\3.60\\game objects\\plane\\create plane.js",
                   "name": "create plane.js",
-                  "birthtimeMs": 1675175187940.7866
+                  "birthtimeMs": 1679668814324.1604
                 },
                 {
                   "path": "src\\3.60\\game objects\\plane\\plane pop-up effect.js",
@@ -4272,6 +4272,11 @@
                   "path": "src\\3.60\\game objects\\plane\\uv scroll plane texture.js",
                   "name": "uv scroll plane texture.js",
                   "birthtimeMs": 1675175187941.7874
+                },
+                {
+                  "path": "src\\3.60\\game objects\\plane\\walls.js",
+                  "name": "walls.js",
+                  "birthtimeMs": 1679668814324.1604
                 }
               ],
               "birthtimeMs": 1674573104752.5347
@@ -4645,9 +4650,14 @@
                   "birthtimeMs": 1670429126501.82
                 },
                 {
-                  "path": "src\\3.60\\game objects\\shaders\\shader using a render texture.js",
-                  "name": "shader using a render texture.js",
+                  "path": "src\\3.60\\game objects\\shaders\\shader using a dynamic texture.js",
+                  "name": "shader using a dynamic texture.js",
                   "birthtimeMs": 1665148597598.2764
+                },
+                {
+                  "path": "src\\3.60\\game objects\\shaders\\shader using an updating dynamic texture.js",
+                  "name": "shader using an updating dynamic texture.js",
+                  "birthtimeMs": 1679935383036.3765
                 },
                 {
                   "path": "src\\3.60\\game objects\\shaders\\using a shader as a buffer.js",
@@ -5445,7 +5455,7 @@
                 {
                   "path": "src\\3.60\\games\\minesweeper\\minesweeper.js",
                   "name": "minesweeper.js",
-                  "birthtimeMs": 1665148597618.2937
+                  "birthtimeMs": 1679668814324.1604
                 }
               ],
               "birthtimeMs": 1665148597617.2935
@@ -10215,171 +10225,171 @@
           "birthtimeMs": 1665148597762.3904
         },
         {
-          "path": "src\\3.60\\spine",
-          "name": "spine",
+          "path": "src\\3.60\\spine3",
+          "name": "spine3",
           "children": [
             {
-              "path": "src\\3.60\\spine\\add hit area.js",
+              "path": "src\\3.60\\spine3\\add hit area.js",
               "name": "add hit area.js",
               "birthtimeMs": 1673965238333.672
             },
             {
-              "path": "src\\3.60\\spine\\add spine object to group.js",
+              "path": "src\\3.60\\spine3\\add spine object to group.js",
               "name": "add spine object to group.js",
               "birthtimeMs": 1665148597762.3904
             },
             {
-              "path": "src\\3.60\\spine\\alpha test.js",
+              "path": "src\\3.60\\spine3\\alpha test.js",
               "name": "alpha test.js",
               "birthtimeMs": 1673965238333.672
             },
             {
-              "path": "src\\3.60\\spine\\arcade physics spine body.js",
+              "path": "src\\3.60\\spine3\\arcade physics spine body.js",
               "name": "arcade physics spine body.js",
               "birthtimeMs": 1674150536669.5618
             },
             {
-              "path": "src\\3.60\\spine\\basic spineboy.js",
+              "path": "src\\3.60\\spine3\\basic spineboy.js",
               "name": "basic spineboy.js",
               "birthtimeMs": 1673965238333.672
             },
             {
-              "path": "src\\3.60\\spine\\batch test.js",
+              "path": "src\\3.60\\spine3\\batch test.js",
               "name": "batch test.js",
               "birthtimeMs": 1673965238334.67
             },
             {
-              "path": "src\\3.60\\spine\\blend mode test.js",
+              "path": "src\\3.60\\spine3\\blend mode test.js",
               "name": "blend mode test.js",
               "birthtimeMs": 1673965238334.67
             },
             {
-              "path": "src\\3.60\\spine\\camera pipeline test.js",
+              "path": "src\\3.60\\spine3\\camera pipeline test.js",
               "name": "camera pipeline test.js",
               "birthtimeMs": 1673965238334.67
             },
             {
-              "path": "src\\3.60\\spine\\canvas test 1.js",
+              "path": "src\\3.60\\spine3\\canvas test 1.js",
               "name": "canvas test 1.js",
               "birthtimeMs": 1673965238334.67
             },
             {
-              "path": "src\\3.60\\spine\\container batch test pre35.js",
+              "path": "src\\3.60\\spine3\\container batch test pre35.js",
               "name": "container batch test pre35.js",
               "birthtimeMs": 1673965238334.67
             },
             {
-              "path": "src\\3.60\\spine\\container batch test.js",
+              "path": "src\\3.60\\spine3\\container batch test.js",
               "name": "container batch test.js",
               "birthtimeMs": 1673965238335.6697
             },
             {
-              "path": "src\\3.60\\spine\\control bones.js",
+              "path": "src\\3.60\\spine3\\control bones.js",
               "name": "control bones.js",
               "birthtimeMs": 1673965238335.6697
             },
             {
-              "path": "src\\3.60\\spine\\destroy test.js",
+              "path": "src\\3.60\\spine3\\destroy test.js",
               "name": "destroy test.js",
               "birthtimeMs": 1674150536669.5618
             },
             {
-              "path": "src\\3.60\\spine\\draw debug bounds.js",
+              "path": "src\\3.60\\spine3\\draw debug bounds.js",
               "name": "draw debug bounds.js",
               "birthtimeMs": 1673965238335.6697
             },
             {
-              "path": "src\\3.60\\spine\\extend spine gameobject.js",
+              "path": "src\\3.60\\spine3\\extend spine gameobject.js",
               "name": "extend spine gameobject.js",
               "birthtimeMs": 1674150536670.5613
             },
             {
-              "path": "src\\3.60\\spine\\extended class.js",
+              "path": "src\\3.60\\spine3\\extended class.js",
               "name": "extended class.js",
               "birthtimeMs": 1665148597765.3906
             },
             {
-              "path": "src\\3.60\\spine\\image changes.js",
+              "path": "src\\3.60\\spine3\\image changes.js",
               "name": "image changes.js",
               "birthtimeMs": 1673965238335.6697
             },
             {
-              "path": "src\\3.60\\spine\\invisible test with spine containers.js",
+              "path": "src\\3.60\\spine3\\invisible test with spine containers.js",
               "name": "invisible test with spine containers.js",
               "birthtimeMs": 1673965238335.6697
             },
             {
-              "path": "src\\3.60\\spine\\invisible test.js",
+              "path": "src\\3.60\\spine3\\invisible test.js",
               "name": "invisible test.js",
               "birthtimeMs": 1673965238336.6692
             },
             {
-              "path": "src\\3.60\\spine\\last visible.js",
+              "path": "src\\3.60\\spine3\\last visible.js",
               "name": "last visible.js",
               "birthtimeMs": 1673965238336.6692
             },
             {
-              "path": "src\\3.60\\spine\\owl.js",
+              "path": "src\\3.60\\spine3\\owl.js",
               "name": "owl.js",
               "birthtimeMs": 1673965238336.6692
             },
             {
-              "path": "src\\3.60\\spine\\spine inside container.js",
+              "path": "src\\3.60\\spine3\\spine inside container.js",
               "name": "spine inside container.js",
               "birthtimeMs": 1673965238336.6692
             },
             {
-              "path": "src\\3.60\\spine\\spine parallel scene test.js",
+              "path": "src\\3.60\\spine3\\spine parallel scene test.js",
               "name": "spine parallel scene test.js",
               "birthtimeMs": 1668780723632.0815
             },
             {
-              "path": "src\\3.60\\spine\\spine preloader test.js",
+              "path": "src\\3.60\\spine3\\spine preloader test.js",
               "name": "spine preloader test.js",
               "birthtimeMs": 1665148597766.3909
             },
             {
-              "path": "src\\3.60\\spine\\spine rotation test.js",
+              "path": "src\\3.60\\spine3\\spine rotation test.js",
               "name": "spine rotation test.js",
               "birthtimeMs": 1674150536670.5613
             },
             {
-              "path": "src\\3.60\\spine\\spine scene test.js",
+              "path": "src\\3.60\\spine3\\spine scene test.js",
               "name": "spine scene test.js",
               "birthtimeMs": 1665148597767.8945
             },
             {
-              "path": "src\\3.60\\spine\\spine set depth test.js",
+              "path": "src\\3.60\\spine3\\spine set depth test.js",
               "name": "spine set depth test.js",
               "birthtimeMs": 1665148597767.8945
             },
             {
-              "path": "src\\3.60\\spine\\spine to render texture.js",
+              "path": "src\\3.60\\spine3\\spine to render texture.js",
               "name": "spine to render texture.js",
               "birthtimeMs": 1673965238336.6692
             },
             {
-              "path": "src\\3.60\\spine\\webgl test 1.js",
+              "path": "src\\3.60\\spine3\\webgl test 1.js",
               "name": "webgl test 1.js",
               "birthtimeMs": 1673965238337.6704
             },
             {
-              "path": "src\\3.60\\spine\\webgl test 2.js",
+              "path": "src\\3.60\\spine3\\webgl test 2.js",
               "name": "webgl test 2.js",
               "birthtimeMs": 1673965238337.6704
             },
             {
-              "path": "src\\3.60\\spine\\webgl test 3.js",
+              "path": "src\\3.60\\spine3\\webgl test 3.js",
               "name": "webgl test 3.js",
               "birthtimeMs": 1673965238337.6704
             },
             {
-              "path": "src\\3.60\\spine\\webgl test 4.js",
+              "path": "src\\3.60\\spine3\\webgl test 4.js",
               "name": "webgl test 4.js",
               "birthtimeMs": 1673965238337.6704
             },
             {
-              "path": "src\\3.60\\spine\\webgl test 5.js",
+              "path": "src\\3.60\\spine3\\webgl test 5.js",
               "name": "webgl test 5.js",
               "birthtimeMs": 1673965238338.67
             }
@@ -10387,218 +10397,176 @@
           "birthtimeMs": 1665148597762.3904
         },
         {
-          "path": "src\\3.60\\spine4.1",
-          "name": "spine4.1",
+          "path": "src\\3.60\\spine4",
+          "name": "spine4",
           "children": [
             {
-              "path": "src\\3.60\\spine4.1\\add hit area.js",
+              "path": "src\\3.60\\spine4\\add hit area.js",
               "name": "add hit area.js",
               "birthtimeMs": 1673376789523.4272
             },
             {
-              "path": "src\\3.60\\spine4.1\\add spine object to group.js",
+              "path": "src\\3.60\\spine4\\add spine object to group.js",
               "name": "add spine object to group.js",
               "birthtimeMs": 1673376789523.4272
             },
             {
-              "path": "src\\3.60\\spine4.1\\alpha test.js",
+              "path": "src\\3.60\\spine4\\alpha test.js",
               "name": "alpha test.js",
               "birthtimeMs": 1673376789523.4272
             },
             {
-              "path": "src\\3.60\\spine4.1\\arcade physics spine body.js",
+              "path": "src\\3.60\\spine4\\arcade physics spine body.js",
               "name": "arcade physics spine body.js",
               "birthtimeMs": 1673376789524.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\basic spineboy.js",
+              "path": "src\\3.60\\spine4\\basic spineboy.js",
               "name": "basic spineboy.js",
               "birthtimeMs": 1673376789524.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\batch test.js",
+              "path": "src\\3.60\\spine4\\batch test.js",
               "name": "batch test.js",
               "birthtimeMs": 1673376789524.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\blend mode test.js",
+              "path": "src\\3.60\\spine4\\blend mode test.js",
               "name": "blend mode test.js",
               "birthtimeMs": 1673376789524.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\camera pipeline test.js",
+              "path": "src\\3.60\\spine4\\camera pipeline test.js",
               "name": "camera pipeline test.js",
               "birthtimeMs": 1673376789524.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\canvas test 1.js",
+              "path": "src\\3.60\\spine4\\canvas test 1.js",
               "name": "canvas test 1.js",
               "birthtimeMs": 1673376789524.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\container batch test pre35.js",
+              "path": "src\\3.60\\spine4\\container batch test pre35.js",
               "name": "container batch test pre35.js",
               "birthtimeMs": 1673376789524.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\container batch test.js",
+              "path": "src\\3.60\\spine4\\container batch test.js",
               "name": "container batch test.js",
               "birthtimeMs": 1673376789524.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\control bones.js",
+              "path": "src\\3.60\\spine4\\control bones.js",
               "name": "control bones.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\destroy test.js",
+              "path": "src\\3.60\\spine4\\destroy test.js",
               "name": "destroy test.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\draw debug bounds.js",
+              "path": "src\\3.60\\spine4\\draw debug bounds.js",
               "name": "draw debug bounds.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\extend spine gameobject.js",
+              "path": "src\\3.60\\spine4\\extend spine gameobject.js",
               "name": "extend spine gameobject.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\extended class.js",
+              "path": "src\\3.60\\spine4\\extended class.js",
               "name": "extended class.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\image changes.js",
+              "path": "src\\3.60\\spine4\\image changes.js",
               "name": "image changes.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\invisible test with spine containers.js",
+              "path": "src\\3.60\\spine4\\invisible test with spine containers.js",
               "name": "invisible test with spine containers.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\invisible test.js",
+              "path": "src\\3.60\\spine4\\invisible test.js",
               "name": "invisible test.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\last visible.js",
+              "path": "src\\3.60\\spine4\\last visible.js",
               "name": "last visible.js",
               "birthtimeMs": 1673376789525.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\owl.js",
+              "path": "src\\3.60\\spine4\\owl.js",
               "name": "owl.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\spine inside container.js",
+              "path": "src\\3.60\\spine4\\spine inside container.js",
               "name": "spine inside container.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\spine parallel scene test.js",
+              "path": "src\\3.60\\spine4\\spine parallel scene test.js",
               "name": "spine parallel scene test.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\spine preloader test.js",
+              "path": "src\\3.60\\spine4\\spine preloader test.js",
               "name": "spine preloader test.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\spine rotation test.js",
+              "path": "src\\3.60\\spine4\\spine rotation test.js",
               "name": "spine rotation test.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\spine scene test.js",
+              "path": "src\\3.60\\spine4\\spine scene test.js",
               "name": "spine scene test.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\spine set depth test.js",
+              "path": "src\\3.60\\spine4\\spine set depth test.js",
               "name": "spine set depth test.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\spine to render texture.js",
+              "path": "src\\3.60\\spine4\\spine to render texture.js",
               "name": "spine to render texture.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\webgl test 1.js",
+              "path": "src\\3.60\\spine4\\webgl test 1.js",
               "name": "webgl test 1.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\webgl test 2.js",
+              "path": "src\\3.60\\spine4\\webgl test 2.js",
               "name": "webgl test 2.js",
               "birthtimeMs": 1673376789526.428
             },
             {
-              "path": "src\\3.60\\spine4.1\\webgl test 3.js",
+              "path": "src\\3.60\\spine4\\webgl test 3.js",
               "name": "webgl test 3.js",
               "birthtimeMs": 1673376789527.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\webgl test 4.js",
+              "path": "src\\3.60\\spine4\\webgl test 4.js",
               "name": "webgl test 4.js",
               "birthtimeMs": 1673376789527.4265
             },
             {
-              "path": "src\\3.60\\spine4.1\\webgl test 5.js",
+              "path": "src\\3.60\\spine4\\webgl test 5.js",
               "name": "webgl test 5.js",
               "birthtimeMs": 1673376789527.4265
             }
           ],
           "birthtimeMs": 1673376789523.4272
-        },
-        {
-          "path": "src\\3.60\\sprite fx",
-          "name": "sprite fx",
-          "children": [
-            {
-              "path": "src\\3.60\\sprite fx\\color matrix.js",
-              "name": "color matrix.js",
-              "birthtimeMs": 1674150537128.9949
-            },
-            {
-              "path": "src\\3.60\\sprite fx\\debug fx.js",
-              "name": "debug fx.js",
-              "birthtimeMs": 1676643054011.8882
-            },
-            {
-              "path": "src\\3.60\\sprite fx\\debug post.js",
-              "name": "debug post.js",
-              "birthtimeMs": 1676643054011.8882
-            },
-            {
-              "path": "src\\3.60\\sprite fx\\enable fx.js",
-              "name": "enable fx.js",
-              "birthtimeMs": 1676386037454.5078
-            },
-            {
-              "path": "src\\3.60\\sprite fx\\glow fx.js",
-              "name": "glow fx.js",
-              "birthtimeMs": 1670941621476.8533
-            },
-            {
-              "path": "src\\3.60\\sprite fx\\glow post.js",
-              "name": "glow post.js",
-              "birthtimeMs": 1676386037455.5068
-            },
-            {
-              "path": "src\\3.60\\sprite fx\\render texture fx.js",
-              "name": "render texture fx.js",
-              "birthtimeMs": 1676643054011.8882
-            }
-          ],
-          "birthtimeMs": 1670941621476.8533
         },
         {
           "path": "src\\3.60\\textures",
@@ -11460,6 +11428,11 @@
               "path": "src\\3.60\\tweens\\change texture.js",
               "name": "change texture.js",
               "birthtimeMs": 1675444282700.5122
+            },
+            {
+              "path": "src\\3.60\\tweens\\counter tween.js",
+              "name": "counter tween.js",
+              "birthtimeMs": 1679581664876.48
             },
             {
               "path": "src\\3.60\\tweens\\eases",
@@ -12884,6 +12857,11 @@
           "path": "src\\bugs\\6411 rt resize.js",
           "name": "6411 rt resize.js",
           "birthtimeMs": 1678387598885.5872
+        },
+        {
+          "path": "src\\bugs\\6434 aseprite.js",
+          "name": "6434 aseprite.js",
+          "birthtimeMs": 1679922234817.5857
         },
         {
           "path": "src\\bugs\\polygon rays.js",

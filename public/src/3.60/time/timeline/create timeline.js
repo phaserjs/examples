@@ -4,6 +4,9 @@ class Example extends Phaser.Scene
     {
         this.load.image('gem1', 'assets/normal-maps/gem1.png');
         this.load.image('gem2', 'assets/normal-maps/gem2.png');
+        this.load.image('gem3', 'assets/normal-maps/gem3.png');
+        this.load.image('gem4', 'assets/normal-maps/gem4.png');
+        this.load.image('gem5', 'assets/normal-maps/gem5.png');
         this.load.image('boss', 'assets/sprites/wasp.png');
     }
 
@@ -16,6 +19,7 @@ class Example extends Phaser.Scene
         });
         */
 
+        /*
         const timeline = this.add.timeline([
             {
                 at: 1000,
@@ -32,6 +36,38 @@ class Example extends Phaser.Scene
         ]);
 
         timeline.play();
+        */
+
+        const timeline = this.add.timeline([
+            {
+                at: 3000,
+                run: () => { this.add.sprite(100, 300, 'gem1') }
+            },
+            {
+                from: 1000,
+                run: () => { this.add.sprite(200, 300, 'gem2') }
+            },
+            {
+                from: 1000,
+                run: () => { this.add.sprite(300, 300, 'gem3') }
+            },
+            {
+                from: -1000,
+                run: () => { this.add.sprite(400, 300, 'gem4') }
+            },
+            {
+                from: 1000,
+                run: () => { this.add.sprite(500, 300, 'gem5') }
+            },
+        ]);
+
+        this.input.once('pointerdown', () => {
+
+            timeline.play();
+
+            console.log('start', new Date().toTimeString().substring(0, 8));
+
+        });
 
         /*
         timeline.add({
@@ -150,7 +186,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#020286',
     parent: 'phaser-example',
     scene: Example
 };

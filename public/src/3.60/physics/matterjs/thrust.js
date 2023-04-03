@@ -11,17 +11,13 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.ship = this.matter.add.image(400, 300, 'ship');
-
-        const particles = this.add.particles('space');
-
-        const emitter = particles.createEmitter({
+        const emitter = this.add.particles(0, 0, 'space', {
             frame: 'blue',
             speed: {
                 onEmit: (particle, key, t, value) => this.ship.body.speed
             },
             lifespan: {
-                onEmit: (particle, key, t, value) => Phaser.Math.Percent(this.ship.body.speed, 0, 300) * 20000
+                onEmit: (particle, key, t, value) => Phaser.Math.Percent(this.ship.body.speed, 0, 300) * 200000
             },
             alpha: {
                 onEmit: (particle, key, t, value) => Phaser.Math.Percent(this.ship.body.speed, 0, 300) * 1000
@@ -29,6 +25,8 @@ class Example extends Phaser.Scene
             scale: { start: 1.0, end: 0 },
             blendMode: 'ADD'
         });
+
+        this.ship = this.matter.add.image(400, 300, 'ship');
 
         this.ship.setFixedRotation();
         this.ship.setAngle(270);

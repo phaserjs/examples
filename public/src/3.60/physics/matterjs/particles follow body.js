@@ -13,9 +13,7 @@ class Example extends Phaser.Scene
     {
         this.add.image(400, 300, 'background');
 
-        const particles = this.add.particles('space');
-
-        const emitter = particles.createEmitter({
+        const emitter = this.add.particles(0, 0, 'space', {
             frame: 'blue',
             speed: {
                 onEmit: (particle, key, t, value) => this.ship.body.speed

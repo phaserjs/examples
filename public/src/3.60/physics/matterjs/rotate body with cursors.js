@@ -11,15 +11,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const particles = this.add.particles('blue');
-
-        this.ship = this.matter.add.image(400, 300, 'ship');
-
-        this.ship.setFrictionAir(0.1);
-        this.ship.setMass(30);
-        this.ship.setFixedRotation();
-
-        const emitter = particles.createEmitter({
+        const emitter = this.add.particles(0, 0, 'blue', {
             speed: {
                 onEmit: (particle, key, t, value) => this.ship.body.speed * 10
 
@@ -33,6 +25,12 @@ class Example extends Phaser.Scene
             scale: { start: 1.0, end: 0 },
             blendMode: 'ADD'
         });
+
+        this.ship = this.matter.add.image(400, 300, 'ship');
+
+        this.ship.setFrictionAir(0.1);
+        this.ship.setMass(30);
+        this.ship.setFixedRotation();
 
         emitter.startFollow(this.ship);
 

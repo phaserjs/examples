@@ -46,17 +46,17 @@ class Example extends Phaser.Scene
         const block3 = this.matter.add.image(400, 500, 'strip').setStatic(true).setCollisionCategory(cat1).setCollidesWith(cat1);
         const fish3 = this.matter.add.image(450, 100, 'fish', 2).setBounce(1).setFriction(0, 0, 0).setVelocityY(10).setCollisionCategory(cat1).setCollidesWith(cat1);
 
-        console.log('block1 vs fish1', canCollide(block1.body.collisionFilter, fish1.body.collisionFilter));
-        console.log('block1 vs fish2', canCollide(block1.body.collisionFilter, fish2.body.collisionFilter));
-        console.log('block1 vs fish3', canCollide(block1.body.collisionFilter, fish3.body.collisionFilter));
+        // console.log('block1 vs fish1', canCollide(block1.body.collisionFilter, fish1.body.collisionFilter));
+        // console.log('block1 vs fish2', canCollide(block1.body.collisionFilter, fish2.body.collisionFilter));
+        // console.log('block1 vs fish3', canCollide(block1.body.collisionFilter, fish3.body.collisionFilter));
 
-        console.log('block2 vs fish1', canCollide(block2.body.collisionFilter, fish1.body.collisionFilter));
-        console.log('block2 vs fish2', canCollide(block2.body.collisionFilter, fish2.body.collisionFilter));
-        console.log('block2 vs fish3', canCollide(block2.body.collisionFilter, fish3.body.collisionFilter));
+        // console.log('block2 vs fish1', canCollide(block2.body.collisionFilter, fish1.body.collisionFilter));
+        // console.log('block2 vs fish2', canCollide(block2.body.collisionFilter, fish2.body.collisionFilter));
+        // console.log('block2 vs fish3', canCollide(block2.body.collisionFilter, fish3.body.collisionFilter));
 
-        console.log('block3 vs fish1', canCollide(block3.body.collisionFilter, fish1.body.collisionFilter));
-        console.log('block3 vs fish2', canCollide(block3.body.collisionFilter, fish2.body.collisionFilter));
-        console.log('block3 vs fish3', canCollide(block3.body.collisionFilter, fish3.body.collisionFilter));
+        // console.log('block3 vs fish1', canCollide(block3.body.collisionFilter, fish1.body.collisionFilter));
+        // console.log('block3 vs fish2', canCollide(block3.body.collisionFilter, fish2.body.collisionFilter));
+        // console.log('block3 vs fish3', canCollide(block3.body.collisionFilter, fish3.body.collisionFilter));
     }
 }
 
@@ -73,9 +73,9 @@ const config = {
             debug: {
                 renderFill: false
             },
-            gravity: {
-                y: 0.05
-            }
+            // gravity: {
+            //     y: 0.05
+            // }
         }
     },
     scene: Example

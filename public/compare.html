@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Phaser 3 Comparison</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="css/labs.css" />
+    <script src="./js/versions.js"></script>
+    <script src="./js/getQueryString.js"></script>
+    <script src="./js/jquery-3.5.1.min.js"></script>
+    <script src="./js/labs-compare.js"></script>
+    <style type="text/css">
+        #phaserGame1 {
+            width: 800px;
+            height: 600px;
+            border: 0;
+        }
+
+        #phaserGame2 {
+            width: 800px;
+            height: 600px;
+            border: 0;
+        }
+
+        #label1, #label2 {
+            display: inline-block;
+            width: 800px;
+            text-align: center;
+            font: 16px Arial;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+
+    <p id="loading">Please wait, loading Phaser build ...</p>
+
+    <div>
+        <iframe id="phaserGame1" scrolling="no"></iframe>
+        <iframe id="phaserGame2" scrolling="no"></iframe>
+    </div>
+
+    <div>
+        <div id="label1"></div>
+        <div id="label2"></div>
+    </div>
+
+    <div id="nav">
+
+        <a id="backlink">Back</a>
+        <a id="viewlink">&lt;div&gt;</a>
+        <a id="labslink">Labs</a>
+        <a id="runlink">Reload</a>
+
+        <span id="versionlist1"></span>
+        <span style="color: white; margin-right: 20px">vs.</span>
+        <span id="versionlist2"></span>
+
+    </div>
+
+    <div id="phaser-spectorjs"></div>
+
+    <input id="clippy" type="text" style="position: absolute; left: -2000px" />
+
+</body>
+</html>

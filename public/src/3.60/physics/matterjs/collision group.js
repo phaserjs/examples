@@ -73,9 +73,9 @@ const config = {
             debug: {
                 renderFill: false
             },
-            // gravity: {
-            //     y: 0.05
-            // }
+            gravity: {
+                y: 0.05
+            }
         }
     },
     scene: Example

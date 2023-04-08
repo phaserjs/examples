@@ -5,14 +5,24 @@ class Example extends Phaser.Scene
         super();
     }
 
-    preload ()
-    {
-        this.load.video('spaceace', 'assets/video/spaceace.mp4');
-    }
+    // preload ()
+    // {
+    //     this.load.video('spaceace', 'assets/video/spaceace.mp4');
+    // }
 
     create ()
     {
-        const intro = this.add.video(640, 360, 'spaceace');
+        const intro = this.add.video(640, 360, 'assets/video/spaceace.mp4');
+
+        // intro.on('created', () => {
+
+        //     console.log('ready to play');
+
+        //     intro.play();
+
+        // });
+
+        console.log(intro);
 
         //  Depending on browser settings video playback is locked
         //  from autoplaying because this video has audio.
@@ -21,9 +31,9 @@ class Example extends Phaser.Scene
         //  as soon as you click on the game (regardless if you have a
         //  click handler or not). Here we use it to display a message.
 
-        intro.on('error', () => {
+        intro.on('locked', () => {
 
-            let message = this.add.text(640, 100, 'Click to unlock video', { font: '32px Courier', fill: '#00ff00' }).setShadow(1, 1).setOrigin(0.5);
+            let message = this.add.text(640, 100, 'Click to play video', { font: '32px Courier', fill: '#00ff00' }).setShadow(1, 1).setOrigin(0.5);
 
             this.input.once('pointerdown', () => {
 

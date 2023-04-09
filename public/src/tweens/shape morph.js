@@ -22,10 +22,10 @@ function create ()
     var balls = this.add.group({ key: 'ball', repeat: 59 });
 
     var circle = new Phaser.Geom.Circle(400, 300, 160);
-    var triangle = new Phaser.Geom.Triangle.BuildRight(200, 400, 300, 200);
+    var triangle = Phaser.Geom.Triangle.BuildRight(200, 400, 300, 200);
     var rect = new Phaser.Geom.Rectangle(200, 150, 400, 300);
     var ellipse = new Phaser.Geom.Ellipse(400, 300, 200, 500);
-    var triangle2 = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 300);
+    var triangle2 = Phaser.Geom.Triangle.BuildEquilateral(400, 200, 300);
 
     //  Store the position data for each shape:
     Phaser.Actions.PlaceOnCircle(balls.getChildren(), circle);

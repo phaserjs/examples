@@ -31,7 +31,7 @@ class Example extends Phaser.Scene
 
         const sprite5 = this.add.sprite(850, 350, 'ship').setScale(8);
 
-        sprite5.setInteractive(new Phaser.Geom.Triangle.BuildEquilateral(sprite5.displayOriginX, 0, 32), Phaser.Geom.Triangle.Contains);
+        sprite5.setInteractive(Phaser.Geom.Triangle.BuildEquilateral(sprite5.displayOriginX, 0, 32), Phaser.Geom.Triangle.Contains);
 
         //  Specify a different debug outline color
         this.input.enableDebug(sprite1, 0xff00ff);

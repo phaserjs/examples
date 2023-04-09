@@ -14,9 +14,9 @@ function create ()
 {
     var graphics = this.add.graphics({ fillStyle: { color: 0xaaaa00 } });
 
-    var triangle1 = new Phaser.Geom.Triangle.BuildEquilateral(400, 25, 300);
-    var triangle2 = new Phaser.Geom.Triangle.BuildEquilateral(250, 285, 300);
-    var triangle3 = new Phaser.Geom.Triangle.BuildEquilateral(550, 285, 300);
+    var triangle1 = Phaser.Geom.Triangle.BuildEquilateral(400, 25, 300);
+    var triangle2 = Phaser.Geom.Triangle.BuildEquilateral(250, 285, 300);
+    var triangle3 = Phaser.Geom.Triangle.BuildEquilateral(550, 285, 300);
 
     var circle = new Phaser.Geom.Circle(400, 300, 20);
 

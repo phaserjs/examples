@@ -19,8 +19,8 @@ function create ()
 {
     graphics = this.add.graphics();
 
-    // triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 320, 140);
-    triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 320, 40);
+    // triangle = Phaser.Geom.Triangle.BuildEquilateral(400, 320, 140);
+    triangle = Phaser.Geom.Triangle.BuildEquilateral(400, 320, 40);
 
     triangleB = new Phaser.Geom.Triangle(400, 200, 300, 300, 500, 300);
 

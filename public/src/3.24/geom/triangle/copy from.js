@@ -14,7 +14,7 @@ function create ()
 {
     graphics = this.add.graphics({ lineStyle: { width: 3, color: 0xaaaa00 } });
 
-    pointerTriangle = new Phaser.Geom.Triangle.BuildEquilateral(100, 100, 150);
+    pointerTriangle = Phaser.Geom.Triangle.BuildEquilateral(100, 100, 150);
 
     triangles = [];
 

@@ -20,9 +20,9 @@ function create ()
 {
     graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
 
-    // triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 200, 300);
+    // triangle = Phaser.Geom.Triangle.BuildEquilateral(400, 200, 300);
 
-    // triangle = new Phaser.Geom.Triangle.BuildRight(200, 400, 300, 200);
+    // triangle = Phaser.Geom.Triangle.BuildRight(200, 400, 300, 200);
 
     //  Random
     var x1 = Phaser.Math.Between(50, 400);

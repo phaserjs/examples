@@ -39,7 +39,7 @@ function create ()
 
     var sprite5 = this.add.sprite(850, 350, 'ship').setScale(8);
 
-    sprite5.setInteractive(new Phaser.Geom.Triangle.BuildEquilateral(16, 0, 30), Phaser.Geom.Triangle.Contains);
+    sprite5.setInteractive(Phaser.Geom.Triangle.BuildEquilateral(16, 0, 30), Phaser.Geom.Triangle.Contains);
 
     //  Input Event listeners
 

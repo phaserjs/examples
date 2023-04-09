@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
     {
         const graphics = this.add.graphics();
 
-        const triangle = new Phaser.Geom.Triangle.BuildEquilateral(200, 200, 200);
+        const triangle = Phaser.Geom.Triangle.BuildEquilateral(200, 200, 200);
 
         graphics.lineStyle(2, 0x00aa00);
 

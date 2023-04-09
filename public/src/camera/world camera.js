@@ -22,7 +22,7 @@ class Example extends Phaser.Scene
         this.rect2 = new Phaser.Geom.Rectangle(1010, 800, 60, 300);
         this.circle1 = new Phaser.Geom.Circle(1200, 200, 160);
         this.circle2 = new Phaser.Geom.Circle(400, 900, 80);
-        this.triangle1 = new Phaser.Geom.Triangle.BuildEquilateral(800, 500, 200);
+        this.triangle1 = Phaser.Geom.Triangle.BuildEquilateral(800, 500, 200);
 
         this.drawScene();
         for (let i = 0; i < 32; i++)

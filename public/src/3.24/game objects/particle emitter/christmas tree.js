@@ -19,7 +19,7 @@ function preload ()
 
 function create ()
 {
-    var tree = new Phaser.Geom.Triangle.BuildEquilateral(0, -250, 400);
+    var tree = Phaser.Geom.Triangle.BuildEquilateral(0, -250, 400);
     var trunk = new Phaser.Geom.Rectangle(0, 0, 80, 140);
     var baubles = new Phaser.Geom.Line(0, 0, 170, 60);
     var baubles2 = new Phaser.Geom.Line(0, 0, 310, 70);

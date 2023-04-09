@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
         const shape2 = new Phaser.Geom.Ellipse(0, 0, 500, 150);
         const shape3 = new Phaser.Geom.Rectangle(-150, -150, 300, 300);
         const shape4 = new Phaser.Geom.Line(-150, -150, 150, 150);
-        const shape5 = new Phaser.Geom.Triangle.BuildEquilateral(0, -140, 300);
+        const shape5 = Phaser.Geom.Triangle.BuildEquilateral(0, -140, 300);
 
         const emitter = this.add.particles(400, 300, 'flares', {
             frame: { frames: [ 'red', 'green', 'blue' ], cycle: true },

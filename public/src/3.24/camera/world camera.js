@@ -40,7 +40,7 @@ function create ()
     rect2 = new Phaser.Geom.Rectangle(1010, 800, 60, 300);
     circle1 = new Phaser.Geom.Circle(1200, 200, 160);
     circle2 = new Phaser.Geom.Circle(400, 900, 80);
-    triangle1 = new Phaser.Geom.Triangle.BuildEquilateral(800, 500, 200);
+    triangle1 = Phaser.Geom.Triangle.BuildEquilateral(800, 500, 200);
 
     drawScene();
 

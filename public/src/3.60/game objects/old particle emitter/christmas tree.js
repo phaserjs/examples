@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const tree = new Phaser.Geom.Triangle.BuildEquilateral(0, -250, 400);
+        const tree = Phaser.Geom.Triangle.BuildEquilateral(0, -250, 400);
         const trunk = new Phaser.Geom.Rectangle(0, 0, 80, 140);
         const baubles = new Phaser.Geom.Line(0, 0, 170, 60);
         const baubles2 = new Phaser.Geom.Line(0, 0, 310, 70);

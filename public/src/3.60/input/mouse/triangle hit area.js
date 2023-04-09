@@ -9,7 +9,7 @@ class Example extends Phaser.Scene
     {
         const sprite = this.add.sprite(400, 300, 'ship').setScale(8);
 
-        const shape = new Phaser.Geom.Triangle.BuildEquilateral(16, 0, 30);
+        const shape = Phaser.Geom.Triangle.BuildEquilateral(16, 0, 30);
 
         sprite.setInteractive(shape, Phaser.Geom.Triangle.Contains);
 

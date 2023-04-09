@@ -6,7 +6,7 @@ class Example extends Phaser.Scene
 
         const poly = [ 0,0, 400,0, 400,400, 0,400 ]; // rectangle
 
-        const triangles = new Phaser.Geom.Triangle.BuildFromPolygon(poly);
+        const triangles = Phaser.Geom.Triangle.BuildFromPolygon(poly);
 
         for (let i = 0; i < triangles.length; i++)
         {

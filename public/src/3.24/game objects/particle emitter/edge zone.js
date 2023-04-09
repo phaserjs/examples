@@ -23,7 +23,7 @@ function create ()
     var shape2 = new Phaser.Geom.Ellipse(0, 0, 500, 150);
     var shape3 = new Phaser.Geom.Rectangle(-150, -150, 300, 300);
     var shape4 = new Phaser.Geom.Line(-150, -150, 150, 150);
-    var shape5 = new Phaser.Geom.Triangle.BuildEquilateral(0, -140, 300);
+    var shape5 = Phaser.Geom.Triangle.BuildEquilateral(0, -140, 300);
     var shapes = [ shape1, shape2, shape3, shape4, shape5 ];
 
     var i = 0;

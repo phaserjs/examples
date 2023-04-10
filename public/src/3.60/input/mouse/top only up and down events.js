@@ -18,22 +18,18 @@ class Example extends Phaser.Scene
 
         this.input.on('gameobjectdown', (pointer, gameObject) =>
         {
-
             gameObject.setTint(0xff0000);
-
         });
 
         this.input.on('gameobjectup', (pointer, gameObject) =>
         {
-
             gameObject.clearTint();
-
         });
     }
 }
 
 const config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,

@@ -33,9 +33,11 @@ class Example extends Phaser.Scene
 
         intro.on('locked', () => {
 
+            console.log('add locked text');
+
             let message = this.add.text(640, 100, 'Click to play video', { font: '32px Courier', fill: '#00ff00' }).setShadow(1, 1).setOrigin(0.5);
 
-            this.input.once('pointerdown', () => {
+            intro.on('unlocked', () => {
 
                 message.destroy();
 
@@ -44,6 +46,19 @@ class Example extends Phaser.Scene
         });
 
         intro.play();
+
+        this.input.on('pointerdown', () => {
+
+            if (intro.isPlaying())
+            {
+                intro.pause();
+            }
+            else
+            {
+                intro.resume();
+            }
+
+        });
     }
 }
 

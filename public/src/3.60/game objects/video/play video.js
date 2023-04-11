@@ -5,6 +5,8 @@ class Example extends Phaser.Scene
         super();
     }
 
+    //  maybe 'load.video' just adds the url to a text cache
+
     // preload ()
     // {
     //     this.load.video('spaceace', 'assets/video/spaceace.mp4');

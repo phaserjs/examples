@@ -7,16 +7,19 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.video('monkey', 'assets/video/monkey.mp4', true);
+        this.load.image('bg', 'assets/skies/space3.png');
+        this.load.video('astronaut', 'assets/video/astronaut.webm', true);
     }
 
     create ()
     {
-        const intro = this.add.video(640, 360, 'monkey');
+        this.add.image(400, 300, 'bg');
+
+        const intro = this.add.video(400, 300, 'astronaut');
 
         intro.on('locked', () => {
 
-            let message = this.add.text(640, 100, 'Click to play video', { font: '32px Courier', fill: '#00ff00' }).setShadow(1, 1).setOrigin(0.5);
+            let message = this.add.text(400, 100, 'Click to play video', { font: '32px Courier', fill: '#00ff00' }).setShadow(1, 1).setOrigin(0.5);
 
             intro.on('unlocked', () => {
 
@@ -27,7 +30,7 @@ class Example extends Phaser.Scene
         });
 
         let loops = 0;
-        let counter = this.add.text(640, 690, 'Loops: 0', { font: '32px Courier', fill: '#ffffff' }).setShadow(1, 1).setOrigin(0.5);
+        let counter = this.add.text(400, 550, 'Loops: 0', { font: '32px Courier', fill: '#ffffff' }).setOrigin(0.5);
 
         intro.on('loop', () => {
 
@@ -43,9 +46,9 @@ class Example extends Phaser.Scene
 
 const config = {
     type: Phaser.AUTO,
-    width: 1280,
-    height: 720,
-    backgroundColor: '#000000',
+    width: 800,
+    height: 600,
+    backgroundColor: '#00002d',
     parent: 'phaser-example',
     scene: Example
 };

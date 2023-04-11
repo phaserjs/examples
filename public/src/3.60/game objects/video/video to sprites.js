@@ -33,8 +33,8 @@ class Example extends Phaser.Scene
 
     buildScene ()
     {
-        //  Here's the Render Texture for the scene
-        this.rt = this.make.renderTexture({ width: 1024, height: 1024, add: false });
+        //  Here's the Dynamic Texture
+        this.rt = this.textures.addDynamicTexture('videoBuffer', 1024, 1024);
 
         //  The Fire Buffer A shader.
         this.bufferA = this.add.shader('Fire Buffer A', 0, 0, 1024, 1024).setRenderToTexture();
@@ -47,7 +47,7 @@ class Example extends Phaser.Scene
 
         //  Hook the sampler2D uniforms up for the multi-pass:
 
-        this.bufferA.setSampler2DBuffer('iChannel0', this.rt.glTexture, 1024, 1024, 0);
+        this.bufferA.setSampler2DBuffer('iChannel0', this.rt.getWebGLTexture(), 1024, 1024, 0);
         this.bufferA.setSampler2DBuffer('iChannel1', this.bufferB.glTexture, 1024, 1024, 1);
 
         this.bufferB.setSampler2DBuffer('iChannel0', this.shader.glTexture, 1024, 1024, 0);
@@ -67,21 +67,25 @@ class Example extends Phaser.Scene
 
         this.vid.play(true);
 
-        for (let i = 0; i < 11; i++)
-        {
-            let skelly = this.add.image(80 * i, 250, 'skeleton').setScale(0.2);
+        this.vid.once('textureready', () => {
 
-            //  Blends the skeleton feet nicely into the background
-            skelly.setAlpha(1, 1, 0.2, 0.2);
-        }
+            for (let i = 0; i < 11; i++)
+            {
+                let skelly = this.add.image(80 * i, 250, 'skeleton').setScale(0.2);
 
-        for (let i = 0; i < 10; i++)
-        {
-            let skelly = this.add.image(100 * i, 380, 'skeleton').setScale(0.5);
+                //  Blends the skeleton feet nicely into the background
+                skelly.setAlpha(1, 1, 0.2, 0.2);
+            }
 
-            //  Blends the skeleton feet nicely into the background
-            skelly.setAlpha(1, 1, 0.2, 0.2);
-        }
+            for (let i = 0; i < 10; i++)
+            {
+                let skelly = this.add.image(100 * i, 380, 'skeleton').setScale(0.5);
+
+                //  Blends the skeleton feet nicely into the background
+                skelly.setAlpha(1, 1, 0.2, 0.2);
+            }
+
+        });
     }
 
     update ()

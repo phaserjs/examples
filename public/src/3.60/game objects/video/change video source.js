@@ -33,7 +33,7 @@ class Example extends Phaser.Scene
 
         this.intro.play(true);
 
-        this.debug = this.add.text(0, 0, '', { font: '22px Courier', fill: '#00ff00' }).setShadow(1, 1);
+        this.debug = this.add.text(10, 10, '', { font: '22px Courier', fill: '#ffffff' }).setShadow(1, 1);
 
         //  Listen for the 'play' event to create our input handler
         this.intro.once('play', () => {
@@ -56,7 +56,10 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        this.debug.setText('Current Time: ' + this.intro.getCurrentTime() + ' / ' + this.intro.getDuration());
+        this.debug.setText([
+            'Current Time: ' + this.intro.getCurrentTime() + ' / ' + this.intro.getDuration(),
+            'Click to change video'
+        ]);
     }
 }
 

@@ -7,26 +7,28 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.video('train', 'assets/video/train512x256.mp4', true);
+        this.load.video('flight', 'assets/video/endless-flight.mp4', true);
     }
 
     create ()
     {
-        const intro = this.add.video(400, 300, 'train');
-
-        intro.on('loop', () => {
-
-            console.log('video loop');
-
-        });
+        const intro = this.add.video(400, 300, 'flight');
 
         intro.on('complete', () => {
 
-            console.log('video complete');
+            let message = this.add.text(400, 30, 'Video Completed - Click to restart', { font: '22px Courier', fill: '#ffffff' }).setOrigin(0.5);
+
+            this.input.once('pointerdown', () => {
+
+                message.destroy();
+
+                intro.play();
+
+            });
 
         });
 
-        intro.play(true);
+        intro.play();
     }
 }
 

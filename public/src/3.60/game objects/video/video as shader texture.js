@@ -21,7 +21,11 @@ class Example extends Phaser.Scene
 
         video.play(true);
 
-        this.add.shader('Hue Shift', 400, 300, 800, 600, [ 'train', 'noise' ]);
+        video.once('textureready', () => {
+
+            this.add.shader('Hue Shift', 400, 300, 800, 600, [ 'train', 'noise' ]);
+
+        });
     }
 }
 

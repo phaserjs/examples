@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        //  Here we create our video Game Object and then we call `loadURL` to load the video in at runtime.
+        //  Here we create our video Game Object and then we call `loadURL` to load the video in.
         const video = this.add.video(640, 360);
 
         video.loadURL('assets/video/tunnel.mp4', true);

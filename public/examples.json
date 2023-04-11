@@ -5114,16 +5114,6 @@
                   "birthtimeMs": 1570607126426.368
                 },
                 {
-                  "path": "src\\3.60\\game objects\\video\\load video as blob.js",
-                  "name": "load video as blob.js",
-                  "birthtimeMs": 1570709988793.0625
-                },
-                {
-                  "path": "src\\3.60\\game objects\\video\\load video from stream.js",
-                  "name": "load video from stream.js",
-                  "birthtimeMs": 1570715198143.301
-                },
-                {
                   "path": "src\\3.60\\game objects\\video\\load video from url.js",
                   "name": "load video from url.js",
                   "birthtimeMs": 1570632343429.7239
@@ -5152,6 +5142,11 @@
                   "path": "src\\3.60\\game objects\\video\\play video.js",
                   "name": "play video.js",
                   "birthtimeMs": 1681205109902.069
+                },
+                {
+                  "path": "src\\3.60\\game objects\\video\\stream video from webcam.js",
+                  "name": "stream video from webcam.js",
+                  "birthtimeMs": 1570715198143.301
                 },
                 {
                   "path": "src\\3.60\\game objects\\video\\transparent video.js",

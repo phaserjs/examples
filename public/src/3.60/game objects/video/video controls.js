@@ -21,14 +21,14 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.video = this.add.video(512, 300, 'fireworks').setLoop(true);
+        this.video = this.add.video(400, 300, 'fireworks').setLoop(true);
 
         this.t = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' }).setShadow(1, 1);
 
         const button = new Button({
             scene: this,
-            x: 512,
-            y: 630,
+            x: 400,
+            y: 480,
             texture: 'ui',
             label: {
                 text: 'Play',
@@ -73,8 +73,8 @@ class Example extends Phaser.Scene
 
         this.slider = new HorizontalSlider({
             scene: this,
-            x: 512,
-            y: 650,
+            x: 400,
+            y: 500,
             texture: 'ui',
             min: 0,
             max: 1,
@@ -115,8 +115,8 @@ class Example extends Phaser.Scene
 
 const config = {
     type: Phaser.AUTO,
-    width: 1024,
-    height: 768,
+    width: 800,
+    height: 600,
     backgroundColor: '#000000',
     parent: 'phaser-example',
     scene: Example

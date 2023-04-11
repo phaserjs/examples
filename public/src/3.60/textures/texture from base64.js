@@ -4,12 +4,20 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.textures.once('addtexture', function ()
+        this.textures.once('addtexture-brain', () =>
         {
-
             this.add.image(400, 300, 'brain');
+        });
 
-        }, this);
+        this.textures.once('onerror', () =>
+        {
+            console.log('error decoding base64');
+        });
+
+        this.textures.once('onload', () =>
+        {
+            console.log('base64 image loaded');
+        });
 
         this.textures.addBase64('brain', this.imageData);
     }

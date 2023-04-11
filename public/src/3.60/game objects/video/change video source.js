@@ -10,8 +10,8 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.video('mountains', 'assets/video/mountains.mp4', 'loadeddata', false, true);
-        this.load.video('pumpkins', 'assets/video/pumpkins.mp4', 'loadeddata', false, true);
+        this.load.video('mountains', 'assets/video/mountains.mp4', true);
+        this.load.video('pumpkins', 'assets/video/pumpkins.mp4', true);
     }
 
     create ()
@@ -19,20 +19,37 @@ class Example extends Phaser.Scene
         //  960 x 540
         this.intro = this.add.video(0, 0, 'pumpkins').setOrigin(0);
 
+        this.intro.on('locked', () => {
+
+            let message = this.add.text(480, 100, 'Click to play video', { font: '32px Courier', fill: '#00ff00' }).setShadow(1, 1).setOrigin(0.5);
+
+            this.intro.on('unlocked', () => {
+
+                message.destroy();
+
+            });
+
+        });
+
         this.intro.play(true);
 
         this.debug = this.add.text(0, 0, '', { font: '22px Courier', fill: '#00ff00' }).setShadow(1, 1);
 
-        this.input.on('pointerdown', () => {
+        //  Listen for the 'play' event to create our input handler
+        this.intro.once('play', () => {
 
-            if (this.intro.getVideoKey() === 'pumpkins')
-            {
-                this.intro.changeSource('mountains', true, true);
-            }
-            else
-            {
-                this.intro.changeSource('pumpkins', true, true);
-            }
+            this.input.on('pointerdown', () => {
+
+                if (this.intro.getVideoKey() === 'pumpkins')
+                {
+                    this.intro.changeSource('mountains', true, true);
+                }
+                else
+                {
+                    this.intro.changeSource('pumpkins', true, true);
+                }
+
+            });
 
         });
     }

@@ -1413,6 +1413,11 @@
                   "birthtimeMs": 1665148597537.7407
                 },
                 {
+                  "path": "src\\3.60\\display\\masks\\graphics bitmap mask.js",
+                  "name": "graphics bitmap mask.js",
+                  "birthtimeMs": 1681152711638.3325
+                },
+                {
                   "path": "src\\3.60\\display\\masks\\nested bitmap mask.js",
                   "name": "nested bitmap mask.js",
                   "birthtimeMs": 1665148597537.7407
@@ -5124,6 +5129,11 @@
                   "birthtimeMs": 1570632343429.7239
                 },
                 {
+                  "path": "src\\3.60\\game objects\\video\\loop video.js",
+                  "name": "loop video.js",
+                  "birthtimeMs": 1681217251136.673
+                },
+                {
                   "path": "src\\3.60\\game objects\\video\\multiple video instances.js",
                   "name": "multiple video instances.js",
                   "birthtimeMs": 1570634328886.2407
@@ -5141,7 +5151,7 @@
                 {
                   "path": "src\\3.60\\game objects\\video\\play video.js",
                   "name": "play video.js",
-                  "birthtimeMs": 1675779244011.0461
+                  "birthtimeMs": 1681205109902.069
                 },
                 {
                   "path": "src\\3.60\\game objects\\video\\transparent video.js",
@@ -7399,7 +7409,7 @@
                 {
                   "path": "src\\3.60\\input\\mouse\\top only up and down events.js",
                   "name": "top only up and down events.js",
-                  "birthtimeMs": 1670429126566.1272
+                  "birthtimeMs": 1681152711704.092
                 },
                 {
                   "path": "src\\3.60\\input\\mouse\\top only.js",
@@ -10220,6 +10230,11 @@
               "path": "src\\3.60\\snapshot\\snapshot pixel.js",
               "name": "snapshot pixel.js",
               "birthtimeMs": 1670429126628.1797
+            },
+            {
+              "path": "src\\3.60\\snapshot\\snapshot to base64.js",
+              "name": "snapshot to base64.js",
+              "birthtimeMs": 1681225161456.6035
             }
           ],
           "birthtimeMs": 1665148597762.3904

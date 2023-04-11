@@ -7,17 +7,18 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.video('train', 'assets/video/train512x256.mp4');
+        this.load.video('train', 'assets/video/train512x256.mp4', true);
     }
 
     create ()
     {
-        const intro = this.add.video(400, 300);
+        const intro = this.add.video(400, 300, 'train');
 
-        intro.loadURL('assets/video/train512x256.mp4');
-        intro.setDisplayOrigin(0, 0);
+        intro.on('loop', () => {
 
-        // const intro = this.add.video(400, 300, 'train');
+            console.log('video loop');
+
+        });
 
         intro.on('complete', () => {
 
@@ -26,8 +27,6 @@ class Example extends Phaser.Scene
         });
 
         intro.play(true);
-
-        console.log(intro);
     }
 }
 

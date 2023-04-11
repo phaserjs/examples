@@ -5,16 +5,16 @@ class Example extends Phaser.Scene
         super();
     }
 
-    //  maybe 'load.video' just adds the url to a text cache
-
-    // preload ()
-    // {
-    //     this.load.video('spaceace', 'assets/video/spaceace.mp4');
-    // }
+    preload ()
+    {
+        this.load.video('spaceace', 'assets/video/spaceace.mp4');
+    }
 
     create ()
     {
-        const intro = this.add.video(640, 360, 'assets/video/spaceace.mp4');
+        const intro = this.add.video(640, 360, 'spaceace');
+
+        // const intro = this.add.video(640, 360).loadURL('assets/video/spaceace.mp4');
 
         //  Depending on browser settings video playback is locked
         //  from autoplaying because this video has audio.

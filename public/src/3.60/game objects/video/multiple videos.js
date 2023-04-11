@@ -7,10 +7,10 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.video('mountains', 'assets/video/fireworks.mp4', 'canplaythrough', false, true);
-        this.load.video('pumpkins', 'assets/video/pumpkins.mp4', 'canplaythrough', false, true);
-        this.load.video('underwater', 'assets/video/underwater.mp4', 'canplaythrough', false, true);
-        this.load.video('river', 'assets/video/river.mp4', 'canplaythrough', false, true);
+        this.load.video('fireworks', 'assets/video/fireworks.mp4', true);
+        this.load.video('pumpkins', 'assets/video/pumpkins.mp4', true);
+        this.load.video('underwater', 'assets/video/underwater.mp4', true);
+        this.load.video('river', 'assets/video/river.mp4', true);
     }
 
     create ()
@@ -23,7 +23,7 @@ class Example extends Phaser.Scene
 
         });
 
-        const vid2 = this.add.video(400, 0, 'mountains').setOrigin(0, 0).play(true);
+        const vid2 = this.add.video(400, 0, 'fireworks').setOrigin(0, 0).play(true);
 
         vid2.once('play', () => {
 

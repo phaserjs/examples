@@ -1,5 +1,30 @@
 [
     {
+        "path": "src\\3.60\\snapshot\\snapshot to base64.js",
+        "name": "snapshot to base64.js",
+        "birthtimeMs": 1681225161456.6035
+    },
+    {
+        "path": "src\\3.60\\game objects\\video\\loop video.js",
+        "name": "loop video.js",
+        "birthtimeMs": 1681217251136.673
+    },
+    {
+        "path": "src\\3.60\\game objects\\video\\play video.js",
+        "name": "play video.js",
+        "birthtimeMs": 1681205109902.069
+    },
+    {
+        "path": "src\\3.60\\input\\mouse\\top only up and down events.js",
+        "name": "top only up and down events.js",
+        "birthtimeMs": 1681152711704.092
+    },
+    {
+        "path": "src\\3.60\\display\\masks\\graphics bitmap mask.js",
+        "name": "graphics bitmap mask.js",
+        "birthtimeMs": 1681152711638.3325
+    },
+    {
         "path": "src\\3.60\\time\\timeline\\timeline event.js",
         "name": "timeline event.js",
         "birthtimeMs": 1680278722393.493
@@ -123,30 +148,5 @@
         "path": "src\\3.60\\fx\\glow\\glow bitmaptext.js",
         "name": "glow bitmaptext.js",
         "birthtimeMs": 1679332864799.4
-    },
-    {
-        "path": "src\\3.60\\fx\\glow\\glow graphics.js",
-        "name": "glow graphics.js",
-        "birthtimeMs": 1679332652440.741
-    },
-    {
-        "path": "src\\3.60\\fx\\glow\\glow text.js",
-        "name": "glow text.js",
-        "birthtimeMs": 1679332209591.1975
-    },
-    {
-        "path": "src\\3.60\\cache\\json file.js",
-        "name": "json file.js",
-        "birthtimeMs": 1678473825861.4612
-    },
-    {
-        "path": "src\\3.60\\cache\\text file.js",
-        "name": "text file.js",
-        "birthtimeMs": 1678473825861.4612
-    },
-    {
-        "path": "src\\3.60\\cache\\xml file.js",
-        "name": "xml file.js",
-        "birthtimeMs": 1678473825861.4612
     }
 ]

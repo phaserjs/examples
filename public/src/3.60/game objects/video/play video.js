@@ -14,16 +14,6 @@ class Example extends Phaser.Scene
     {
         const intro = this.add.video(640, 360, 'assets/video/spaceace.mp4');
 
-        // intro.on('created', () => {
-
-        //     console.log('ready to play');
-
-        //     intro.play();
-
-        // });
-
-        console.log(intro);
-
         //  Depending on browser settings video playback is locked
         //  from autoplaying because this video has audio.
 
@@ -32,8 +22,6 @@ class Example extends Phaser.Scene
         //  click handler or not). Here we use it to display a message.
 
         intro.on('locked', () => {
-
-            console.log('add locked text');
 
             let message = this.add.text(640, 100, 'Click to play video', { font: '32px Courier', fill: '#00ff00' }).setShadow(1, 1).setOrigin(0.5);
 
@@ -47,16 +35,21 @@ class Example extends Phaser.Scene
 
         intro.play();
 
-        this.input.on('pointerdown', () => {
+        //  Listen for the 'play' event to create our pause/resume handler
+        intro.once('play', () => {
 
-            if (intro.isPlaying())
-            {
-                intro.pause();
-            }
-            else
-            {
-                intro.resume();
-            }
+            this.input.on('pointerdown', () => {
+
+                if (intro.isPlaying())
+                {
+                    intro.pause();
+                }
+                else
+                {
+                    intro.resume();
+                }
+
+            });
 
         });
     }

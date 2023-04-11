@@ -16,14 +16,14 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.atlas('ui', 'assets/ui/dark-ui.png', 'assets/ui/dark-ui.json');
-        this.load.video('fireworks', 'assets/video/fireworks.mp4', 'loadeddata', false, true);
+        this.load.video('fireworks', 'assets/video/fireworks.mp4', true);
     }
 
     create ()
     {
-        this.t = this.add.text(10, 10, 'text', { font: '16px Courier', fill: '#00ff00' }).setShadow(1, 1);
-
         this.video = this.add.video(512, 300, 'fireworks').setLoop(true);
+
+        this.t = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' }).setShadow(1, 1);
 
         const button = new Button({
             scene: this,
@@ -53,7 +53,7 @@ class Example extends Phaser.Scene
             {
                 this.video.setPaused(true);
 
-                button.setLabel('Play');
+                button.setLabel('Resume');
 
             }
             else if (this.video.isPaused())

@@ -14,8 +14,6 @@ class Example extends Phaser.Scene
     {
         const intro = this.add.video(640, 360, 'spaceace');
 
-        // const intro = this.add.video(640, 360).loadURL('assets/video/spaceace.mp4');
-
         //  Depending on browser settings video playback is locked
         //  from autoplaying because this video has audio.
 

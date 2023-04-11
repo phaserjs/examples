@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.video('skeletonSequence', 'assets/video/skeleton.webm', 'loadeddata', false, true);
+        this.load.video('skeletonSequence', 'assets/video/skeleton.webm', true);
         this.load.audio('tune', 'assets/audio/mag-overkill.m4a');
         this.load.glsl('bundle', 'assets/shaders/blur-bundle.glsl.js');
         this.load.image('graveyard', 'assets/tests/graveyard.png');

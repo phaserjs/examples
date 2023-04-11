@@ -13,7 +13,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.video('spaceace', 'assets/video/spaceace.mp4', 'loadeddata', false, true);
+        this.load.video('spaceace', 'assets/video/spaceace.mp4', true);
         this.load.atlas('ui', 'assets/ui/dark-ui.png', 'assets/ui/dark-ui.json');
     }
 

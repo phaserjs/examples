@@ -13,8 +13,8 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.video('fireworks', 'assets/video/fireworks.mp4', 'loadeddata', true, true);
-        this.load.video('transition', 'assets/video/colorful-smoke-transition.webm', 'loadeddata', true, true);
+        this.load.video('fireworks', 'assets/video/fireworks.mp4', true);
+        this.load.video('transition', 'assets/video/colorful-smoke-transition.webm', true);
         this.load.glsl('bundle', 'assets/shaders/bundle4.glsl.js');
     }
 

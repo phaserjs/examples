@@ -46,20 +46,22 @@ class Example extends Phaser.Scene
         });
 
         this.variations = [
+            [ 200, { grid: [ gw, gh ], from: 'first' } ],
+            [ 200, { grid: [ gw, gh ], from: 'center' } ],
+            [ 200, { grid: [ gw, gh ], from: 'last' } ],
+            [ 30, { from: 'center' } ],
             [ 30, { from: 'first' } ],
             [ 30, { from: 'last' } ],
-            [ 30, { from: 'center' } ],
             [ 30, { from: 201 } ],
             [ 30, { from: 46 } ],
             [ 30, { ease: 'quad.out' } ],
+            [ 30, { ease: 'quart.in' } ],
             [ 30, { ease: 'sine.inout' } ],
             [ 30, { from: 'last', ease: 'quad.inout' } ],
             [ [ 1500, 3000 ] ],
             [ [ 0, 5000 ], { from: 'center' } ],
-            [ 200, { grid: [ gw, gh ], from: 'first' } ],
             [ 20, { ease: 'cubic.inout', from: 'center' } ],
             [ [ 500, 5000 ], { from: 'center' } ],
-            [ 200, { grid: [ gw, gh ], from: 'center' } ],
             [ 20, { ease: 'power2', from: 'center' } ],
             [ [ 100, 600 ], { ease: 'cubic.inout' } ],
         ];

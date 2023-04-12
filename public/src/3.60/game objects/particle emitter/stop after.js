@@ -2,24 +2,26 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('bg', 'assets/skies/darkstone.png');
-        this.load.spritesheet('coin', 'assets/sprites/coin.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('bg', 'assets/tweens/sky.png');
+        this.load.atlas('match3', 'assets/atlas/match3.png', 'assets/atlas/match3.json');
     }
 
     create ()
     {
         this.add.image(400, 300, 'bg');
 
-        const particles = this.add.particles('coin');
-
-        const emitter = particles.createEmitter({
-            x: { start: 400, end: 0, ease: 'sine.in' },
-            y: { start: 300, end: 32 },
-            lifespan: 1000,
+        const emitter = this.add.particles(0, 0, 'match3', {
+            frame: 'Match3_Icon_28',
+            x: { start: 700, end: -64, ease: 'sine.in' },
+            y: { start: 600, end: -64 },
+            lifespan: 1500,
             frequency: 150,
-            // on: false,
-            stopAfter: 6
+            emitting: false,
+            stopAfter: 6, //  This emitter will release 6 particles and then stop
+            scale: 0.5
         });
+
+        this.add.text(400, 32, 'Click to release 6 particles', { font: '22px Arial', fill: '#ffffff' }).setOrigin(0.5);
 
         this.input.on('pointerdown', () => {
 

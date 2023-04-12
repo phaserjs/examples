@@ -2,22 +2,24 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('crate', 'assets/sprites/crate32.png');
+        this.load.image('bg', 'assets/tweens/sky.png');
+        this.load.atlas('match3', 'assets/atlas/match3.png', 'assets/atlas/match3.json');
     }
 
     create ()
     {
-        const particles = this.add.particles('crate');
+        this.add.image(400, 300, 'bg');
 
         let pointerX = 400;
         let pointerY = 300;
 
-        this.input.on('pointerdown', pointer => {
+        this.input.on('pointermove', pointer => {
             pointerX = pointer.worldX;
             pointerY = pointer.worldY;
         });
 
-        const emitter = particles.createEmitter({
+        this.add.particles(0, 0, 'match3', {
+            frame: 'Match3_Icon_23',
             x: {
                 onEmit: (particle, key, t, value) => {
                     return pointerX;
@@ -36,12 +38,10 @@ class Example extends Phaser.Scene
                     return value + (t * 10);
                 }
             },
-            // quantity: 1,
+            scale: { start: 0.5, end: 0 },
             speed: 200,
             lifespan: 2000
         });
-
-        console.log(emitter.ops);
     }
 }
 

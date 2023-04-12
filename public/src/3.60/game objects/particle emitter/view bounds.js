@@ -7,8 +7,9 @@ class Example extends Phaser.Scene
 
     create ()
     {
+        this.emitters = [];
+
         this.graphics = this.add.graphics();
-        this.particles = this.add.particles('bubbles');
 
         //  Our camera just for the help text
         const textCam = this.cameras.add(0, 0, 800, 600);
@@ -16,14 +17,18 @@ class Example extends Phaser.Scene
         let f = 1;
         const frames = [ 'bluebubble', 'redbubble', 'greenbubble', 'silverbubble' ];
 
-        this.createEmitter(400, 300, frames[0]);
+        const emitter = this.createEmitter(400, 300, frames[0]);
+
+        this.emitters.push(emitter);
 
         for (let i = 0; i < 64; i++)
         {
             const x = Phaser.Math.Between(-1900, 1900);
             const y = Phaser.Math.Between(-1900, 1900);
 
-            this.createEmitter(x, y, frames[f]);
+            const emitter = this.createEmitter(x, y, frames[f]);
+
+            this.emitters.push(emitter);
 
             f++;
 
@@ -56,14 +61,12 @@ class Example extends Phaser.Scene
 
         this.cameras.main.ignore([ help, this.info ]);
 
-        textCam.ignore([ this.particles, this.graphics ]);
+        textCam.ignore([ this.graphics, ...this.emitters ]);
     }
 
     createEmitter (x, y, frame)
     {
-        const emitter = this.particles.createEmitter({
-            x,
-            y,
+        const emitter = this.add.particles(x, y, 'bubbles', {
             frame,
             scale: { min: 0.1, max: 0.5 },
             speed: { min: 20, max: 40 },
@@ -75,6 +78,8 @@ class Example extends Phaser.Scene
         });
 
         emitter.viewBounds = emitter.getBounds(10, 6000);
+
+        return emitter;
     }
 
     update (time, delta)
@@ -92,7 +97,7 @@ class Example extends Phaser.Scene
         var cam = this.cameras.main;
         var camBounds = cam.worldView;
 
-        this.particles.emitters.each(emitter => {
+        this.emitters.forEach(emitter => {
 
             this.graphics.strokeRectShape(emitter.viewBounds);
 

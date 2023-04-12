@@ -2,18 +2,20 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('crate', 'assets/sprites/crate32.png');
+        this.load.image('bg', 'assets/tweens/sky.png');
+        this.load.atlas('match3', 'assets/atlas/match3.png', 'assets/atlas/match3.json');
     }
 
     create ()
     {
-        const particles = this.add.particles('crate');
+        this.add.image(400, 300, 'bg');
 
-        const emitter = particles.createEmitter({
-            x: { start: 100, end: 700, steps: 20, yoyo: true },
-            y: 100,
-            lifespan: 2500,
-            gravityY: 200
+        this.add.particles(0, 100, 'match3', {
+            x: { start: 100, end: 640, steps: 16, yoyo: true },
+            frame: 'Match3_Icon_19',
+            lifespan: 3000,
+            gravityY: 200,
+            scale: 0.15
         });
     }
 }

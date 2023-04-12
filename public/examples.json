@@ -3621,6 +3621,11 @@
                   "birthtimeMs": 1671116708239.4458
                 },
                 {
+                  "path": "src\\3.60\\game objects\\particle emitter\\emit at pointer.js",
+                  "name": "emit at pointer.js",
+                  "birthtimeMs": 1681297583267.4678
+                },
+                {
                   "path": "src\\3.60\\game objects\\particle emitter\\emitter alpha.js",
                   "name": "emitter alpha.js",
                   "birthtimeMs": 1672753421038.4587
@@ -3793,11 +3798,6 @@
                 {
                   "path": "src\\3.60\\game objects\\particle emitter\\tween speed.js",
                   "name": "tween speed.js",
-                  "birthtimeMs": 1671463833698.8125
-                },
-                {
-                  "path": "src\\3.60\\game objects\\particle emitter\\tween tint.js",
-                  "name": "tween tint.js",
                   "birthtimeMs": 1671463833698.8125
                 },
                 {

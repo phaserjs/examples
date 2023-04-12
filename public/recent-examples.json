@@ -1,5 +1,10 @@
 [
     {
+        "path": "src\\3.60\\game objects\\particle emitter\\emit at pointer.js",
+        "name": "emit at pointer.js",
+        "birthtimeMs": 1681297583267.4678
+    },
+    {
         "path": "src\\3.60\\game objects\\particle emitter\\explode emitter.js",
         "name": "explode emitter.js",
         "birthtimeMs": 1681284398956.046
@@ -143,10 +148,5 @@
         "path": "src\\3.60\\tweens\\sprite angle between.js",
         "name": "sprite angle between.js",
         "birthtimeMs": 1680096601026.5935
-    },
-    {
-        "path": "src\\3.60\\game objects\\shaders\\shader using an updating dynamic texture.js",
-        "name": "shader using an updating dynamic texture.js",
-        "birthtimeMs": 1679935383036.3765
     }
 ]

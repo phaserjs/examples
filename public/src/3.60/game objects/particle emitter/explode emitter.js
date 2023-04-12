@@ -11,17 +11,19 @@ class Example extends Phaser.Scene
             frame: [ 'red', 'yellow', 'green' ],
             lifespan: 4000,
             speed: { min: 150, max: 250 },
-            scale: { start: 0.4, end: 0 },
+            scale: { start: 0.8, end: 0 },
             gravityY: 150,
             blendMode: 'ADD',
             emitting: false
         });
 
-        this.input.on('pointerdown', () => {
+        this.input.on('pointerdown', pointer => {
 
-            emitter.explode(4);
+            emitter.explode(16);
 
         });
+
+        this.add.text(10, 10, 'Click to explode emit particles');
     }
 }
 

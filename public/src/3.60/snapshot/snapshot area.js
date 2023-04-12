@@ -93,8 +93,7 @@ class Example extends Phaser.Scene
             repeat: -1
         });
 
-        const particles = this.add.particles('red');
-        const emitter = particles.createEmitter({
+        const particles = this.add.particles(0, 0, 'red', {
             lifespan: 2000,
             speed: { min: 100, max: 200 },
             scale: { start: 1, end: 0 },
@@ -109,7 +108,7 @@ class Example extends Phaser.Scene
         logo.setBounce(1, 1);
         logo.setCollideWorldBounds(true);
 
-        emitter.startFollow(logo);
+        particles.startFollow(logo);
     }
 }
 

@@ -13,9 +13,9 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const light = this.lights.addLight(0, 0, 200);
+        const light = this.lights.addLight(0, 0, 300);
 
-        this.lights.enable().setAmbientColor(0x555555);
+        this.lights.enable().setAmbientColor(0x888888);
 
         this.input.on('pointermove', function (pointer)
         {

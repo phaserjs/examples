@@ -1,24 +1,24 @@
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.scenePlugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js', 'fractalPlugin', 'fractals');
+    }
+
+    create ()
+    {
+        const image = this.fractals.create(400, 300, 256, 256);
+
+        image.setScale(2);
+    }
+}
+
 const config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#0f0f0f',
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
-const game = new Phaser.Game(config);
-
-function preload ()
-{
-    // this.load.plugin('FractalPlugin', 'assets/loader-tests/fractalsPlugin.js');
-    this.load.plugin('FractalPlugin', '/fractalplugin/dist/FractalPlugin.js');
-}
-
-function create ()
-{
-    this.fractals.createImage(400, 300);
-}
+let game = new Phaser.Game(config);

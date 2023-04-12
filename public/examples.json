@@ -1546,33 +1546,6 @@
           "birthtimeMs": 1665148597532.7207
         },
         {
-          "path": "src\\3.60\\dwitter",
-          "name": "dwitter",
-          "children": [
-            {
-              "path": "src\\3.60\\dwitter\\5475.js",
-              "name": "5475.js",
-              "birthtimeMs": 1673965238320.1604
-            },
-            {
-              "path": "src\\3.60\\dwitter\\5479.js",
-              "name": "5479.js",
-              "birthtimeMs": 1673965238320.1604
-            },
-            {
-              "path": "src\\3.60\\dwitter\\5500.js",
-              "name": "5500.js",
-              "birthtimeMs": 1673965238321.164
-            },
-            {
-              "path": "src\\3.60\\dwitter\\test.js",
-              "name": "test.js",
-              "birthtimeMs": 1673965238321.164
-            }
-          ],
-          "birthtimeMs": 1665148597541.7405
-        },
-        {
           "path": "src\\3.60\\events",
           "name": "events",
           "children": [
@@ -5707,33 +5680,6 @@
                 }
               ],
               "birthtimeMs": 1676400865482.2405
-            },
-            {
-              "path": "src\\3.60\\games\\top down shooter",
-              "name": "top down shooter",
-              "children": [
-                {
-                  "path": "src\\3.60\\games\\top down shooter\\topdown_averageFocus.js",
-                  "name": "topdown_averageFocus.js",
-                  "birthtimeMs": 1675175187941.7874
-                },
-                {
-                  "path": "src\\3.60\\games\\top down shooter\\topdown_combatMechanics.js",
-                  "name": "topdown_combatMechanics.js",
-                  "birthtimeMs": 1675175187941.7874
-                },
-                {
-                  "path": "src\\3.60\\games\\top down shooter\\topdown_playerFocus.js",
-                  "name": "topdown_playerFocus.js",
-                  "birthtimeMs": 1675175187942.788
-                },
-                {
-                  "path": "src\\3.60\\games\\top down shooter\\topdown_targetFocus.js",
-                  "name": "topdown_targetFocus.js",
-                  "birthtimeMs": 1675175187942.788
-                }
-              ],
-              "birthtimeMs": 1665148597621.8008
             }
           ],
           "birthtimeMs": 1665148597608.7866
@@ -6323,51 +6269,6 @@
                   "path": "src\\3.60\\geom\\point\\set to.js",
                   "name": "set to.js",
                   "birthtimeMs": 1670429126533.3481
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_add.js",
-                  "name": "_add.js",
-                  "birthtimeMs": 1665148597636.307
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_divide.js",
-                  "name": "_divide.js",
-                  "birthtimeMs": 1665148597636.307
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_dot.js",
-                  "name": "_dot.js",
-                  "birthtimeMs": 1665148597637.307
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_multiply.js",
-                  "name": "_multiply.js",
-                  "birthtimeMs": 1665148597637.307
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_normalize.js",
-                  "name": "_normalize.js",
-                  "birthtimeMs": 1665148597637.307
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_perp.js",
-                  "name": "_perp.js",
-                  "birthtimeMs": 1665148597637.307
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_rperp.js",
-                  "name": "_rperp.js",
-                  "birthtimeMs": 1665148597637.307
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_set magnitude.js",
-                  "name": "_set magnitude.js",
-                  "birthtimeMs": 1665148597637.307
-                },
-                {
-                  "path": "src\\3.60\\geom\\point\\_subtract.js",
-                  "name": "_subtract.js",
-                  "birthtimeMs": 1665148597637.307
                 }
               ],
               "birthtimeMs": 1665148597636.307
@@ -7170,8 +7071,8 @@
                   "birthtimeMs": 1670429126559.1272
                 },
                 {
-                  "path": "src\\3.60\\input\\gamepad\\twin stick shooter.js",
-                  "name": "twin stick shooter.js",
+                  "path": "src\\3.60\\input\\gamepad\\_twin stick shooter.js",
+                  "name": "_twin stick shooter.js",
                   "birthtimeMs": 1673965238330.6663
                 }
               ],
@@ -8149,6 +8050,58 @@
                 }
               ],
               "birthtimeMs": 1665148597708.8562
+            },
+            {
+              "path": "src\\3.60\\math\\vec2",
+              "name": "vec2",
+              "children": [
+                {
+                  "path": "src\\3.60\\math\\vec2\\add.js",
+                  "name": "add.js",
+                  "birthtimeMs": 1665148597636.307
+                },
+                {
+                  "path": "src\\3.60\\math\\vec2\\divide.js",
+                  "name": "divide.js",
+                  "birthtimeMs": 1665148597636.307
+                },
+                {
+                  "path": "src\\3.60\\math\\vec2\\dot.js",
+                  "name": "dot.js",
+                  "birthtimeMs": 1665148597637.307
+                },
+                {
+                  "path": "src\\3.60\\math\\vec2\\multiply.js",
+                  "name": "multiply.js",
+                  "birthtimeMs": 1665148597637.307
+                },
+                {
+                  "path": "src\\3.60\\math\\vec2\\normalize.js",
+                  "name": "normalize.js",
+                  "birthtimeMs": 1665148597637.307
+                },
+                {
+                  "path": "src\\3.60\\math\\vec2\\perp.js",
+                  "name": "perp.js",
+                  "birthtimeMs": 1665148597637.307
+                },
+                {
+                  "path": "src\\3.60\\math\\vec2\\rperp.js",
+                  "name": "rperp.js",
+                  "birthtimeMs": 1665148597637.307
+                },
+                {
+                  "path": "src\\3.60\\math\\vec2\\set magnitude.js",
+                  "name": "set magnitude.js",
+                  "birthtimeMs": 1665148597637.307
+                },
+                {
+                  "path": "src\\3.60\\math\\vec2\\subtract.js",
+                  "name": "subtract.js",
+                  "birthtimeMs": 1665148597637.307
+                }
+              ],
+              "birthtimeMs": 1681286707065.4338
             }
           ],
           "birthtimeMs": 1665148597708.8562
@@ -8427,28 +8380,6 @@
               "birthtimeMs": 1670429126593.6528
             },
             {
-              "path": "src\\3.60\\paths\\path editor",
-              "name": "path editor",
-              "children": [
-                {
-                  "path": "src\\3.60\\paths\\path editor\\boot.json",
-                  "name": "boot.json",
-                  "birthtimeMs": 1665148597719.3625
-                },
-                {
-                  "path": "src\\3.60\\paths\\path editor\\Controller.js",
-                  "name": "Controller.js",
-                  "birthtimeMs": 1665148597719.3625
-                },
-                {
-                  "path": "src\\3.60\\paths\\path editor\\main.js",
-                  "name": "main.js",
-                  "birthtimeMs": 1674150536663.0564
-                }
-              ],
-              "birthtimeMs": 1665148597718.363
-            },
-            {
               "path": "src\\3.60\\paths\\path line and bezier.js",
               "name": "path line and bezier.js",
               "birthtimeMs": 1670429126594.6526
@@ -8467,6 +8398,28 @@
               "path": "src\\3.60\\paths\\zig zag path.js",
               "name": "zig zag path.js",
               "birthtimeMs": 1670429126594.6526
+            },
+            {
+              "path": "src\\3.60\\paths\\_path editor",
+              "name": "_path editor",
+              "children": [
+                {
+                  "path": "src\\3.60\\paths\\_path editor\\boot.json",
+                  "name": "boot.json",
+                  "birthtimeMs": 1665148597719.3625
+                },
+                {
+                  "path": "src\\3.60\\paths\\_path editor\\Controller.js",
+                  "name": "Controller.js",
+                  "birthtimeMs": 1665148597719.3625
+                },
+                {
+                  "path": "src\\3.60\\paths\\_path editor\\main.js",
+                  "name": "main.js",
+                  "birthtimeMs": 1674150536663.0564
+                }
+              ],
+              "birthtimeMs": 1665148597718.363
             }
           ],
           "birthtimeMs": 1665148597708.8562
@@ -9008,6 +8961,26 @@
                   "path": "src\\3.60\\physics\\arcade\\sticky platform.js",
                   "name": "sticky platform.js",
                   "birthtimeMs": 1674150536668.562
+                },
+                {
+                  "path": "src\\3.60\\physics\\arcade\\topdown shooter average focus.js",
+                  "name": "topdown shooter average focus.js",
+                  "birthtimeMs": 1675175187941.7874
+                },
+                {
+                  "path": "src\\3.60\\physics\\arcade\\topdown shooter combat mechanics.js",
+                  "name": "topdown shooter combat mechanics.js",
+                  "birthtimeMs": 1675175187941.7874
+                },
+                {
+                  "path": "src\\3.60\\physics\\arcade\\topdown shooter player focus.js",
+                  "name": "topdown shooter player focus.js",
+                  "birthtimeMs": 1675175187942.788
+                },
+                {
+                  "path": "src\\3.60\\physics\\arcade\\topdown shooter target focus.js",
+                  "name": "topdown shooter target focus.js",
+                  "birthtimeMs": 1675175187942.788
                 },
                 {
                   "path": "src\\3.60\\physics\\arcade\\touching faces.js",
@@ -10600,14 +10573,53 @@
               "birthtimeMs": 1670429126628.1797
             },
             {
-              "path": "src\\3.60\\textures\\canvas texture composite op.js",
-              "name": "canvas texture composite op.js",
-              "birthtimeMs": 1670429126628.1797
-            },
-            {
-              "path": "src\\3.60\\textures\\canvas texture rotation.js",
-              "name": "canvas texture rotation.js",
-              "birthtimeMs": 1670429126628.1797
+              "path": "src\\3.60\\textures\\canvas textures",
+              "name": "canvas textures",
+              "children": [
+                {
+                  "path": "src\\3.60\\textures\\canvas textures\\canvas texture composite op.js",
+                  "name": "canvas texture composite op.js",
+                  "birthtimeMs": 1670429126628.1797
+                },
+                {
+                  "path": "src\\3.60\\textures\\canvas textures\\canvas texture rotation.js",
+                  "name": "canvas texture rotation.js",
+                  "birthtimeMs": 1670429126628.1797
+                },
+                {
+                  "path": "src\\3.60\\textures\\canvas textures\\create canvas.js",
+                  "name": "create canvas.js",
+                  "birthtimeMs": 1670429126629.1794
+                },
+                {
+                  "path": "src\\3.60\\textures\\canvas textures\\dwitter",
+                  "name": "dwitter",
+                  "children": [
+                    {
+                      "path": "src\\3.60\\textures\\canvas textures\\dwitter\\5475.js",
+                      "name": "5475.js",
+                      "birthtimeMs": 1673965238320.1604
+                    },
+                    {
+                      "path": "src\\3.60\\textures\\canvas textures\\dwitter\\5479.js",
+                      "name": "5479.js",
+                      "birthtimeMs": 1673965238320.1604
+                    },
+                    {
+                      "path": "src\\3.60\\textures\\canvas textures\\dwitter\\5500.js",
+                      "name": "5500.js",
+                      "birthtimeMs": 1673965238321.164
+                    },
+                    {
+                      "path": "src\\3.60\\textures\\canvas textures\\dwitter\\test.js",
+                      "name": "test.js",
+                      "birthtimeMs": 1673965238321.164
+                    }
+                  ],
+                  "birthtimeMs": 1665148597541.7405
+                }
+              ],
+              "birthtimeMs": 1681293019832.5452
             },
             {
               "path": "src\\3.60\\textures\\compressed multi texture atlas.js",
@@ -10643,11 +10655,6 @@
               "path": "src\\3.60\\textures\\compressed texture.js",
               "name": "compressed texture.js",
               "birthtimeMs": 1665148597773.8984
-            },
-            {
-              "path": "src\\3.60\\textures\\create canvas.js",
-              "name": "create canvas.js",
-              "birthtimeMs": 1670429126629.1794
             },
             {
               "path": "src\\3.60\\textures\\crop animated sprite.js",
@@ -11322,41 +11329,41 @@
               "path": "src\\3.60\\time\\timer event.js",
               "name": "timer event.js",
               "birthtimeMs": 1670429126644.8208
+            },
+            {
+              "path": "src\\3.60\\time\\timestep",
+              "name": "timestep",
+              "children": [
+                {
+                  "path": "src\\3.60\\time\\timestep\\delta history.js",
+                  "name": "delta history.js",
+                  "birthtimeMs": 1670429126644.8208
+                },
+                {
+                  "path": "src\\3.60\\time\\timestep\\split timestep.js",
+                  "name": "split timestep.js",
+                  "birthtimeMs": 1665148597796.9111
+                },
+                {
+                  "path": "src\\3.60\\time\\timestep\\ticker loop.js",
+                  "name": "ticker loop.js",
+                  "birthtimeMs": 1670429126644.8208
+                },
+                {
+                  "path": "src\\3.60\\time\\timestep\\variable smooth step.js",
+                  "name": "variable smooth step.js",
+                  "birthtimeMs": 1670429126644.8208
+                },
+                {
+                  "path": "src\\3.60\\time\\timestep\\world time.js",
+                  "name": "world time.js",
+                  "birthtimeMs": 1670429126644.8208
+                }
+              ],
+              "birthtimeMs": 1665148597795.9114
             }
           ],
           "birthtimeMs": 1665148597794.911
-        },
-        {
-          "path": "src\\3.60\\timestep",
-          "name": "timestep",
-          "children": [
-            {
-              "path": "src\\3.60\\timestep\\delta history.js",
-              "name": "delta history.js",
-              "birthtimeMs": 1670429126644.8208
-            },
-            {
-              "path": "src\\3.60\\timestep\\split timestep.js",
-              "name": "split timestep.js",
-              "birthtimeMs": 1665148597796.9111
-            },
-            {
-              "path": "src\\3.60\\timestep\\ticker loop.js",
-              "name": "ticker loop.js",
-              "birthtimeMs": 1670429126644.8208
-            },
-            {
-              "path": "src\\3.60\\timestep\\variable smooth step.js",
-              "name": "variable smooth step.js",
-              "birthtimeMs": 1670429126644.8208
-            },
-            {
-              "path": "src\\3.60\\timestep\\world time.js",
-              "name": "world time.js",
-              "birthtimeMs": 1670429126644.8208
-            }
-          ],
-          "birthtimeMs": 1665148597795.9114
         },
         {
           "path": "src\\3.60\\transform",

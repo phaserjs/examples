@@ -15,26 +15,19 @@ class Example extends Phaser.Scene
                 backgroundColor: '#ff00ff'
             }
         });
-        const texture = this.textures.addCanvas('text', text.canvas);
-        
-        this.add.particles('text').createEmitter({
+
+        this.textures.addCanvas('text', text.canvas);
+
+        this.add.particles(400, 300, 'text', {
             alpha: { start: 1, end: 0 },
-            speed: { min: 60, max: 60 },
-            blendMode: 'ADD',
-            x: 300,
-            y: 300,
-            lifespan: { min: 1000, max: 2000 }
+            speed: { min: 60, max: 260 },
+            lifespan: { min: 2000, max: 3000 }
         });
-    }
-
-    update ()
-    {
-
     }
 }
 
 const config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     scene: Example,
     width: 800,

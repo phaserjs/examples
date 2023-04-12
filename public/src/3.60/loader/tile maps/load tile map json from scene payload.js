@@ -1,6 +1,24 @@
 class Example extends Phaser.Scene
 {
-    controls;
+    constructor ()
+    {
+        super({
+            pack: {
+                files: [
+                    {
+                        type: 'tilemapTiledJSON',
+                        key: 'map',
+                        url: 'assets/tilemaps/maps/cybernoid.json'
+                    },
+                    {
+                        type: 'image',
+                        key: 'tiles',
+                        url: 'assets/tilemaps/tiles/cybernoid.png'
+                    }
+                ]
+            }
+        });
+    }
 
     create ()
     {

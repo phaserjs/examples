@@ -56,9 +56,7 @@ class SceneE extends Phaser.Scene {
             repeat: -1
         });
 
-        this.particles = this.add.particles('space');
-
-        this.emitter = this.particles.createEmitter({
+        this.particles = this.add.particles(0, 0, 'space', {
             frame: 'blue',
             speed: 100,
             lifespan: 2000,
@@ -72,7 +70,6 @@ class SceneE extends Phaser.Scene {
 
         this.ship = ship;
 
-        this.emitter.startFollow(this.ship);
+        this.particles.startFollow(this.ship);
     }
-
 }

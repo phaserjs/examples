@@ -29,9 +29,7 @@ class Example extends Phaser.Scene
         const bg = this.add.image(400, 300, 'pym').setScale(3);
         bg.texture.setFilter(1);
 
-        const particles = this.add.particles('red');
-
-        const emitter = particles.createEmitter({
+        const particles = this.add.particles(0, 0, 'red', {
             speed: 100,
             scale: { start: 1, end: 0 },
             blendMode: 'ADD'
@@ -43,7 +41,7 @@ class Example extends Phaser.Scene
         logo.setBounce(1, 1);
         logo.setCollideWorldBounds(true);
 
-        emitter.startFollow(logo);
+        particles.startFollow(logo);
     }
 }
 

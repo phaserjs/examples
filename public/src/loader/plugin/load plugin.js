@@ -14,8 +14,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    // this.load.plugin('FractalPlugin', 'assets/loader-tests/fractalsPlugin.js');
-    this.load.plugin('FractalPlugin', 'http://localhost/fractalplugin/dist/FractalPlugin.js');
+    this.load.plugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js');
+    // this.load.plugin('FractalPlugin', 'http://localhost/fractalplugin/dist/FractalPlugin.js');
 }
 
 function create ()

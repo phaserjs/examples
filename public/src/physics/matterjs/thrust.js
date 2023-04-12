@@ -1,4 +1,68 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    cursors;
+    ship;
+
+    preload ()
+    {
+        this.load.image('ship', 'assets/sprites/x2kship.png');
+        this.load.atlas('space', 'assets/tests/space/space.png', 'assets/tests/space/space.json');
+    }
+
+    create ()
+    {
+        const emitter = this.add.particles(0, 0, 'space', {
+            frame: 'blue',
+            speed: {
+                onEmit: (particle, key, t, value) => this.ship.body.speed
+            },
+            lifespan: {
+                onEmit: (particle, key, t, value) => Phaser.Math.Percent(this.ship.body.speed, 0, 300) * 200000
+            },
+            alpha: {
+                onEmit: (particle, key, t, value) => Phaser.Math.Percent(this.ship.body.speed, 0, 300) * 1000
+            },
+            scale: { start: 1.0, end: 0 },
+            blendMode: 'ADD'
+        });
+
+        this.ship = this.matter.add.image(400, 300, 'ship');
+
+        this.ship.setFixedRotation();
+        this.ship.setAngle(270);
+        this.ship.setFrictionAir(0.05);
+        this.ship.setMass(30);
+
+        emitter.startFollow(this.ship);
+
+        this.matter.world.setBounds(0, 0, 800, 600);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    update ()
+    {
+        if (this.cursors.left.isDown)
+        {
+            this.ship.thrustLeft(0.1);
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.ship.thrustRight(0.1);
+        }
+
+        if (this.cursors.up.isDown)
+        {
+            this.ship.thrust(0.1);
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.ship.thrustBack(0.1);
+        }
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -13,83 +77,7 @@ var config = {
             }
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var ship;
-var cursors;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('ship', 'assets/sprites/x2kship.png');
-    this.load.atlas('space', 'assets/tests/space/space.png', 'assets/tests/space/space.json');
-}
-
-function create ()
-{
-    ship = this.matter.add.image(400, 300, 'ship');
-
-    var particles = this.add.particles('space');
-
-    var emitter = particles.createEmitter({
-        frame: 'blue',
-        speed: {
-            onEmit: function (particle, key, t, value)
-            {
-                return ship.body.speed;
-            }
-        },
-        lifespan: {
-            onEmit: function (particle, key, t, value)
-            {
-                return Phaser.Math.Percent(ship.body.speed, 0, 300) * 20000;
-            }
-        },
-        alpha: {
-            onEmit: function (particle, key, t, value)
-            {
-                return Phaser.Math.Percent(ship.body.speed, 0, 300) * 1000;
-            }
-        },
-        scale: { start: 1.0, end: 0 },
-        blendMode: 'ADD'
-    });
-
-    ship.setFixedRotation();
-    ship.setAngle(270);
-    ship.setFrictionAir(0.05);
-    ship.setMass(30);
-
-    emitter.startFollow(ship);
-
-    this.matter.world.setBounds(0, 0, 800, 600);
-
-    cursors = this.input.keyboard.createCursorKeys();
-}
-
-function update ()
-{
-    if (cursors.left.isDown)
-    {
-        ship.thrustLeft(0.1);
-    }
-    else if (cursors.right.isDown)
-    {
-        ship.thrustRight(0.1);
-    }
-
-    if (cursors.up.isDown)
-    {
-        ship.thrust(0.1);
-    }
-    else if (cursors.down.isDown)
-    {
-        ship.thrustBack(0.1);
-    }
-}
+const game = new Phaser.Game(config);

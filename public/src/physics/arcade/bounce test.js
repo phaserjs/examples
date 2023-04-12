@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     logo;
     text;
-    prevDirection
+    prevDirection;
     direction;
 
     maxY = 0;
@@ -41,11 +41,11 @@ class Example extends Phaser.Scene
     update (time, delta)
     {
         this.text.setText([
-            'steps: ' + this.physics.world._lastCount,
-            'this.duration: ' + this.prevDuration,
-            'last y: ' + this.lastY,
-            'min y: ' + this.minY,
-            'max y: ' + this.maxY
+            `steps: ${this.physics.world._lastCount}`,
+            `this.duration: ${this.prevDuration}`,
+            `last y: ${this.lastY}`,
+            `min y: ${this.minY}`,
+            `max y: ${this.maxY}`
         ]);
 
         if (Phaser.Math.Fuzzy.LessThan(this.logo.body.velocity.y, 0, 0.1))
@@ -59,7 +59,7 @@ class Example extends Phaser.Scene
 
         if (this.prevDirection !== this.direction && this.prevDirection === 'up')
         {
-            var marker = this.add.sprite(0, this.logo.y + 18, 'marker');
+            const marker = this.add.sprite(0, this.logo.y + 18, 'marker');
 
             marker.setOrigin(0, 1);
 

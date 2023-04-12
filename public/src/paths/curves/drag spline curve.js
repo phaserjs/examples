@@ -1,98 +1,100 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    graphics;
+    points;
+    curve;
+    path;
+
+    preload ()
+    {
+        this.load.spritesheet('dragcircle', 'assets/sprites/dragcircle.png', { frameWidth: 16 });
+    }
+
+    create ()
+    {
+        this.path = { t: 0, vec: new Phaser.Math.Vector2() };
+
+        this.curve = new Phaser.Curves.Spline([
+            20, 550,
+            260, 450,
+            300, 250,
+            550, 145,
+            745, 256
+        ]);
+
+        this.points = this.curve.points;
+
+        //  Create drag-handles for each point
+
+        for (let i = 0; i < this.points.length; i++)
+        {
+            const point = this.points[i];
+
+            const handle = this.add.image(point.x, point.y, 'dragcircle', 0).setInteractive();
+
+            handle.setData('vector', point);
+
+            this.input.setDraggable(handle);
+        }
+
+        this.input.on('dragstart', (pointer, gameObject) =>
+        {
+
+            gameObject.setFrame(1);
+
+        });
+
+        this.input.on('drag', (pointer, gameObject, dragX, dragY) =>
+        {
+
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+
+            gameObject.data.get('vector').set(dragX, dragY);
+
+        });
+
+        this.input.on('dragend', (pointer, gameObject) =>
+        {
+
+            gameObject.setFrame(0);
+
+        });
+
+        this.tweens.add({
+            targets: this.path,
+            t: 1,
+            ease: 'Sine.easeInOut',
+            duration: 2000,
+            yoyo: true,
+            repeat: -1
+        });
+
+        this.graphics = this.add.graphics();
+    }
+
+    update ()
+    {
+        this.graphics.clear();
+
+        this.graphics.lineStyle(2, 0xffffff, 1);
+
+        this.curve.draw(this.graphics, 64);
+
+        this.curve.getPoint(this.path.t, this.path.vec);
+
+        this.graphics.fillStyle(0xffff00, 1);
+        this.graphics.fillCircle(this.path.vec.x, this.path.vec.y, 8);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var path;
-var curve;
-var points;
-var graphics;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.spritesheet('dragcircle', 'assets/sprites/dragcircle.png', { frameWidth: 16 });
-}
-
-function create ()
-{
-    path = { t: 0, vec: new Phaser.Math.Vector2() };
-
-    curve = new Phaser.Curves.Spline([
-        20, 550,
-        260, 450,
-        300, 250,
-        550, 145,
-        745, 256
-    ]);
-
-    points = curve.points;
-
-    //  Create drag-handles for each point
-
-    for (var i = 0; i < points.length; i++)
-    {
-        var point = points[i];
-
-        var handle = this.add.image(point.x, point.y, 'dragcircle', 0).setInteractive();
-
-        handle.setData('vector', point);
-
-        this.input.setDraggable(handle);
-    }
-
-    this.input.on('dragstart', function (pointer, gameObject) {
-
-        gameObject.setFrame(1);
-
-    });
-
-    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-
-        gameObject.x = dragX;
-        gameObject.y = dragY;
-
-        gameObject.data.get('vector').set(dragX, dragY);
-
-    });
-
-    this.input.on('dragend', function (pointer, gameObject) {
-
-        gameObject.setFrame(0);
-
-    });
-
-    this.tweens.add({
-        targets: path,
-        t: 1,
-        ease: 'Sine.easeInOut',
-        duration: 2000,
-        yoyo: true,
-        repeat: -1
-    });
-
-    graphics = this.add.graphics();
-}
-
-function update ()
-{
-    graphics.clear();
-
-    graphics.lineStyle(2, 0xffffff, 1);
-
-    curve.draw(graphics, 64);
-
-    curve.getPoint(path.t, path.vec);
-
-    graphics.fillStyle(0xffff00, 1);
-    graphics.fillCircle(path.vec.x, path.vec.y, 8);
-}
+const game = new Phaser.Game(config);

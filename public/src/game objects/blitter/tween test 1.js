@@ -1,99 +1,95 @@
-var config = {
-    type: Phaser.WEBGL,
-    parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update,
-        extend: {
-            launch: launch
-        }
-    }
-};
-
-var blitter;
-var idx = 1;
-var frame = 'veg01';
-var numbers = [];
-
-var game = new Phaser.Game(config);
-
-function preload ()
+class Example extends Phaser.Scene
 {
-    this.load.atlas('atlas', 'assets/tests/fruit/veg.png', 'assets/tests/fruit/veg.json');
-}
+    numbers = [];
+    frame = 'veg01';
+    idx = 1;
+    blitter;
 
-function launch (i)
-{
-    idx++;
-
-    if (idx === 38)
+    preload ()
     {
-        idx = 1;
+        this.load.atlas('atlas', 'assets/tests/fruit/veg.png', 'assets/tests/fruit/veg.json');
     }
 
-    if (idx < 10)
+    create ()
     {
-        frame = 'veg0' + idx.toString();
-    }
-    else
-    {
-        frame = 'veg' + idx.toString();
-    }
+        this.numbers.push(this.add.image(32 + 0 * 50, 742, 'atlas', '0'));
+        this.numbers.push(this.add.image(32 + 1 * 50, 742, 'atlas', '0'));
+        this.numbers.push(this.add.image(32 + 2 * 50, 742, 'atlas', '0'));
+        this.numbers.push(this.add.image(32 + 3 * 50, 742, 'atlas', '0'));
+        this.numbers.push(this.add.image(32 + 4 * 50, 742, 'atlas', '0'));
+        this.numbers.push(this.add.image(32 + 5 * 50, 742, 'atlas', '0'));
 
-    var bob = blitter.create(i * 32, 0, frame);
+        this.blitter = this.add.blitter(0, 0, 'atlas');
 
-    this.tweens.add({
-        targets: bob,
-        duration: 2000,
-        y: 650,
-        delay: Math.random() * 2,
-        ease: 'Sine.easeInOut',
-        repeat: -1,
-        yoyo: true
-    });
-}
-
-function create ()
-{
-    numbers.push(this.add.image(32 + 0 * 50, 742, 'atlas', '0'));
-    numbers.push(this.add.image(32 + 1 * 50, 742, 'atlas', '0'));
-    numbers.push(this.add.image(32 + 2 * 50, 742, 'atlas', '0'));
-    numbers.push(this.add.image(32 + 3 * 50, 742, 'atlas', '0'));
-    numbers.push(this.add.image(32 + 4 * 50, 742, 'atlas', '0'));
-    numbers.push(this.add.image(32 + 5 * 50, 742, 'atlas', '0'));
-
-    blitter = this.add.blitter(0, 0, 'atlas');
-
-    for (var i = 0; i < 32; i++)
-    {
-        this.launch(i);
-    }
-    
-    updateDigits();
-}
-
-function update ()
-{
-    if (this.input.activePointer.isDown)
-    {
-        for (var i = 0; i < 32; i++)
+        for (let i = 0; i < 32; i++)
         {
             this.launch(i);
         }
+        
+        this.updateDigits();
+    }
 
-        updateDigits();
+    update ()
+    {
+        if (this.input.activePointer.isDown)
+        {
+            for (let i = 0; i < 32; i++)
+            {
+                this.launch(i);
+            }
+
+            this.updateDigits();
+        }
+    }
+
+    launch (i)
+    {
+        this.idx++;
+
+        if (this.idx === 38)
+        {
+            this.idx = 1;
+        }
+
+        if (this.idx < 10)
+        {
+            this.frame = `veg0${this.idx.toString()}`;
+        }
+        else
+        {
+            this.frame = `veg${this.idx.toString()}`;
+        }
+
+        const bob = this.blitter.create(i * 32, 0, this.frame);
+
+        this.tweens.add({
+            targets: bob,
+            duration: 2000,
+            y: 650,
+            delay: Math.random() * 2,
+            ease: 'Sine.easeInOut',
+            repeat: -1,
+            yoyo: true
+        });
+    }
+
+    updateDigits ()
+    {
+        const len = Phaser.Utils.String.Pad(this.blitter.children.list.length.toString(), 6, '0', 1);
+
+        this.numbers[0].setFrame(len[0]);
+        this.numbers[1].setFrame(len[1]);
+        this.numbers[2].setFrame(len[2]);
+        this.numbers[3].setFrame(len[3]);
+        this.numbers[4].setFrame(len[4]);
+        this.numbers[5].setFrame(len[5]);
     }
 }
 
-function updateDigits ()
-{
-    var len = Phaser.Utils.String.Pad(blitter.children.list.length.toString(), 6, '0', 1);
+const config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    scene: Example
+};
 
-    numbers[0].setFrame(len[0]);
-    numbers[1].setFrame(len[1]);
-    numbers[2].setFrame(len[2]);
-    numbers[3].setFrame(len[3]);
-    numbers[4].setFrame(len[4]);
-    numbers[5].setFrame(len[5]);
-}
+const game = new Phaser.Game(config);

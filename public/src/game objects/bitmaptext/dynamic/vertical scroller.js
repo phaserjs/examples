@@ -65,7 +65,7 @@ const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     _backgroundColor: '#2d2d2d',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

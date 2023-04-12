@@ -25,7 +25,7 @@ const config = {
     width: 800,
     height: 600,
     pixelArt: true,
-    scene: [ Example ]
+    scene: Example
 }
 
 const game = new Phaser.Game(config);

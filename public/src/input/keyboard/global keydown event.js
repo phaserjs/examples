@@ -1,21 +1,24 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    create ()
+    {
+
+        //  Receives every single key down event, regardless of origin or key
+
+        this.input.keyboard.on('keydown', event =>
+        {
+
+            console.dir(event);
+
+        });
+
+    }
+}
+
+const config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
-    scene: {
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function create() {
-
-    //  Receives every single key down event, regardless of origin or key
-
-    this.input.keyboard.on('keydown', function (event) {
-
-        console.dir(event);
-
-    });
-
-}
+const game = new Phaser.Game(config);

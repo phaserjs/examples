@@ -56,7 +56,7 @@ const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     pixelArt: true,
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

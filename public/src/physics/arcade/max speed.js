@@ -1,4 +1,63 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    text;
+    cursors;
+    circle;
+    sprite;
+
+    preload ()
+    {
+        this.load.image('ship', 'assets/games/asteroids/ship.png');
+    }
+
+    create ()
+    {
+        this.sprite = this.physics.add.image(400, 300, 'ship');
+
+        this.sprite.body.setMaxSpeed(200);
+
+        this.circle = this.add.circle(this.sprite.x, this.sprite.y, 0.5 * this.sprite.body.maxSpeed, 0xffffff, 0.2);
+
+        console.log(this.circle);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+    }
+
+    update ()
+    {
+        if (this.cursors.up.isDown)
+        {
+            this.physics.velocityFromRotation(this.sprite.rotation, this.sprite.body.maxSpeed, this.sprite.body.acceleration);
+        }
+        else
+        {
+            this.sprite.setAcceleration(0);
+        }
+
+        if (this.cursors.left.isDown)
+        {
+            this.sprite.setAngularVelocity(-300);
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.sprite.setAngularVelocity(300);
+        }
+        else
+        {
+            this.sprite.setAngularVelocity(0);
+        }
+
+        this.text.setText(`Speed: ${this.sprite.body.speed}`);
+
+        this.physics.world.wrap(this.sprite, 100);
+
+        this.circle.setPosition(this.sprite.x, this.sprite.y);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
@@ -9,67 +68,7 @@ var config = {
             debug: true
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var sprite;
-var circle;
-var cursors;
-var text;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('ship', 'assets/games/asteroids/ship.png');
-}
-
-function create ()
-{
-    sprite = this.physics.add.image(400, 300, 'ship');
-
-    sprite.body.setMaxSpeed(200);
-
-    circle = this.add.circle(sprite.x, sprite.y, 0.5 * sprite.body.maxSpeed, 0xffffff, 0.2);
-
-    console.log(circle);
-
-    cursors = this.input.keyboard.createCursorKeys();
-
-    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
-}
-
-function update ()
-{
-    if (cursors.up.isDown)
-    {
-        this.physics.velocityFromRotation(sprite.rotation, sprite.body.maxSpeed, sprite.body.acceleration);
-    }
-    else
-    {
-        sprite.setAcceleration(0);
-    }
-
-    if (cursors.left.isDown)
-    {
-        sprite.setAngularVelocity(-300);
-    }
-    else if (cursors.right.isDown)
-    {
-        sprite.setAngularVelocity(300);
-    }
-    else
-    {
-        sprite.setAngularVelocity(0);
-    }
-
-    text.setText('Speed: ' + sprite.body.speed);
-
-    this.physics.world.wrap(sprite, 100);
-
-    circle.setPosition(sprite.x, sprite.y);
-}
+const game = new Phaser.Game(config);

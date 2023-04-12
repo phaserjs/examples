@@ -1,79 +1,73 @@
-var GameScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function GameScene ()
+class GameScene extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'GameScene' });
-    },
+        super({ key: 'GameScene' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('box', 'assets/sprites/128x128-v2.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         // this.input.setGlobalTopOnly(true);
 
-        var box = this.add.image(400, 300, 'box').setInteractive();
+        const box = this.add.image(400, 300, 'box').setInteractive();
 
-        box.on('pointerdown', function () {
+        box.on('pointerdown', () =>
+        {
 
             box.tint = Math.random() * 0xffffff;
 
         });
     }
+}
 
-});
-
-var UIScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function UIScene ()
+class UIScene extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'UIScene', active: true });
-    },
+        super({ key: 'UIScene', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
-        var image = this.add.sprite(200, 300, 'eye').setInteractive();
+        const image = this.add.sprite(200, 300, 'eye').setInteractive();
 
         this.input.setDraggable(image);
 
-        this.input.on('dragstart', function (pointer, gameObject) {
+        this.input.on('dragstart', (pointer, gameObject) =>
+        {
 
             gameObject.setTint(0xff0000);
 
         });
 
-        this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+        this.input.on('drag', (pointer, gameObject, dragX, dragY) =>
+        {
 
             gameObject.x = dragX;
             gameObject.y = dragY;
 
         });
 
-        this.input.on('dragend', function (pointer, gameObject) {
+        this.input.on('dragend', (pointer, gameObject) =>
+        {
 
             gameObject.clearTint();
 
         });
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -82,4 +76,4 @@ var config = {
     scene: [ GameScene, UIScene ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

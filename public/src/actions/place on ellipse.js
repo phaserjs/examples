@@ -13,7 +13,9 @@ class Example extends Phaser.Scene
     create ()
     {
         this.ellipse = new Phaser.Geom.Ellipse(400, 300, 200, 500);
+
         this.group = this.add.group({ key: 'ball', frameQuantity: 48 });
+
         Phaser.Actions.PlaceOnEllipse(this.group.getChildren(), this.ellipse);
 
         this.tweens.add({
@@ -40,7 +42,7 @@ const config = {
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

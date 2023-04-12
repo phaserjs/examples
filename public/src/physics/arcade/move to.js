@@ -1,4 +1,34 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('flower', 'assets/sprites/flower-exo.png');
+        this.load.image('cursor', 'assets/sprites/drawcursor.png');
+    }
+
+    create ()
+    {
+        const flower = this.physics.add.image(100, 300, 'flower')
+            .setBounce(1, 1)
+            .setCollideWorldBounds(true);
+
+        const cursor = this.add.image(0, 0, 'cursor').setVisible(false);
+
+        this.add.text(10, 10, 'Click to set target', { fill: '#00ff00' });
+
+        this.input.on('pointerdown', (pointer) =>
+        {
+            cursor.copyPosition(pointer).setVisible(true);
+
+            // Move toward target at 200 px/s:
+            this.physics.moveToObject(flower, cursor, 200);
+
+            // See <move and stop at position.js> for stopping.
+        });
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -7,38 +37,7 @@ var config = {
         default: 'arcade',
         arcade: { debug: true }
     },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
-new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('block', 'assets/sprites/block.png');
-    this.load.image('clown', 'assets/sprites/clown.png');
-}
-
-function create ()
-{
-    var block = this.physics.add.image(600, 300, 'block');
-    var clown = this.physics.add.image(200, 300, 'clown');
-
-    // Move at 200 px/s:
-    this.physics.moveToObject(clown, block, 200);
-
-    // Move to arrive within 2 seconds:
-    // this.physics.moveTo(clown, block, null, 2000);
-
-    console.log('velocity', clown.body.velocity.x);
-
-    var collider = this.physics.add.overlap(clown, block, function (clownOnBlock)
-    {
-        clownOnBlock.body.stop();
-
-        this.physics.world.removeCollider(collider);
-    }, null, this);
-
-}
+const game = new Phaser.Game(config);

@@ -88,7 +88,7 @@ const config = {
     physics: {
         default: 'arcade',
     },
-    scene: [ Example ]
+    scene: Example
 };
 
 var moveCam = false;

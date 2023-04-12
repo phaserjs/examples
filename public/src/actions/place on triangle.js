@@ -12,10 +12,17 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        // var triangle = new Phaser.Geom.Triangle.BuildEquilateral(400, 100, 380);
-        const triangle = new Phaser.Geom.Triangle.BuildRight(200, 400, 300, 200);
-        const group = this.add.group({ key: 'ball', frameQuantity: 64 });
-        Phaser.Actions.PlaceOnTriangle(group.getChildren(), triangle);
+        const triangle1 = new Phaser.Geom.Triangle.BuildEquilateral(200, 90, 280);
+
+        const group1 = this.add.group({ key: 'ball', frameQuantity: 64 });
+
+        Phaser.Actions.PlaceOnTriangle(group1.getChildren(), triangle1);
+
+        const triangle2 = new Phaser.Geom.Triangle.BuildRight(400, 500, 300, 200);
+
+        const group2 = this.add.group({ key: 'ball', frameQuantity: 64 });
+
+        Phaser.Actions.PlaceOnTriangle(group2.getChildren(), triangle2);
     }
 }
 
@@ -24,7 +31,7 @@ const config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

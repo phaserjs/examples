@@ -1,33 +1,29 @@
-var GameScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function GameScene ()
+class GameScene extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'gameScene', active: true });
+        super({ key: 'gameScene', active: true });
 
         this.player = null;
         this.cursors = null;
         this.score = 0;
         this.scoreText = null;
-    },
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('sky', 'src/games/firstgame/assets/sky.png');
         this.load.image('ground', 'src/games/firstgame/assets/platform.png');
         this.load.image('star', 'src/games/firstgame/assets/star.png');
         this.load.image('bomb', 'src/games/firstgame/assets/bomb.png');
         this.load.spritesheet('dude', 'src/games/firstgame/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.add.image(400, 300, 'sky');
 
-        var platforms = this.physics.add.staticGroup();
+        const platforms = this.physics.add.staticGroup();
 
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
@@ -35,7 +31,7 @@ var GameScene = new Phaser.Class({
         platforms.create(50, 250, 'ground');
         platforms.create(750, 220, 'ground');
 
-        var player = this.physics.add.sprite(100, 450, 'dude');
+        const player = this.physics.add.sprite(100, 450, 'dude');
 
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
@@ -62,13 +58,14 @@ var GameScene = new Phaser.Class({
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        var stars = this.physics.add.group({
+        const stars = this.physics.add.group({
             key: 'star',
             repeat: 11,
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        stars.children.iterate(function (child) {
+        stars.children.iterate(child =>
+        {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
@@ -82,12 +79,12 @@ var GameScene = new Phaser.Class({
         this.physics.add.overlap(player, stars, this.collectStar, null, this);
 
         this.player = player;
-    },
+    }
 
-    update: function ()
+    update ()
     {
-        var cursors = this.cursors;
-        var player = this.player;
+        const cursors = this.cursors;
+        const player = this.player;
 
         if (cursors.left.isDown)
         {
@@ -112,19 +109,18 @@ var GameScene = new Phaser.Class({
         {
             player.setVelocityY(-330);
         }
-    },
+    }
 
-    collectStar: function (player, star)
+    collectStar (player, star)
     {
         star.disableBody(true, true);
 
         this.score += 10;
-        this.scoreText.setText('Score: ' + this.score);
+        this.scoreText.setText(`Score: ${this.score}`);
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     scale: {
         mode: Phaser.Scale.FIT,
@@ -140,7 +136,7 @@ var config = {
             debug: false
         }
     },
-    scene: GameScene
+    scene: [ GameScene ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

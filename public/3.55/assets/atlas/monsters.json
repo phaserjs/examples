@@ -1,0 +1,608 @@
+{
+	"textures": [
+		{
+			"image": "monsters.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1375,
+				"h": 494
+			},
+			"scale": 0.5,
+			"frames": [
+				{
+					"filename": "icegolem",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 244,
+						"h": 253
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 243,
+						"h": 233
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 243,
+						"h": 233
+					}
+				},
+				{
+					"filename": "magmagolem",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 232,
+						"h": 242
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 232,
+						"h": 242
+					},
+					"frame": {
+						"x": 1,
+						"y": 236,
+						"w": 232,
+						"h": 242
+					}
+				},
+				{
+					"filename": "stonegolem",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 230,
+						"h": 229
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 226,
+						"h": 229
+					},
+					"frame": {
+						"x": 246,
+						"y": 1,
+						"w": 226,
+						"h": 229
+					}
+				},
+				{
+					"filename": "troll",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 193,
+						"h": 213
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 193,
+						"h": 210
+					},
+					"frame": {
+						"x": 474,
+						"y": 1,
+						"w": 193,
+						"h": 210
+					}
+				},
+				{
+					"filename": "ogre",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 180,
+						"h": 215
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 178,
+						"h": 210
+					},
+					"frame": {
+						"x": 669,
+						"y": 1,
+						"w": 178,
+						"h": 210
+					}
+				},
+				{
+					"filename": "giantspider",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 212,
+						"h": 163
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 0,
+						"w": 207,
+						"h": 163
+					},
+					"frame": {
+						"x": 849,
+						"y": 1,
+						"w": 207,
+						"h": 163
+					}
+				},
+				{
+					"filename": "slime",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 199,
+						"h": 122
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 1,
+						"w": 196,
+						"h": 121
+					},
+					"frame": {
+						"x": 1058,
+						"y": 1,
+						"w": 196,
+						"h": 121
+					}
+				},
+				{
+					"filename": "zombie",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 119,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 117,
+						"h": 131
+					},
+					"frame": {
+						"x": 1256,
+						"y": 1,
+						"w": 117,
+						"h": 131
+					}
+				},
+				{
+					"filename": "frogman",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 147,
+						"h": 204
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 147,
+						"h": 203
+					},
+					"frame": {
+						"x": 235,
+						"y": 236,
+						"w": 147,
+						"h": 203
+					}
+				},
+				{
+					"filename": "imp",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 135,
+						"h": 170
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 133,
+						"h": 168
+					},
+					"frame": {
+						"x": 384,
+						"y": 232,
+						"w": 133,
+						"h": 168
+					}
+				},
+				{
+					"filename": "ghost",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 130,
+						"h": 166
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 130,
+						"h": 165
+					},
+					"frame": {
+						"x": 519,
+						"y": 213,
+						"w": 130,
+						"h": 165
+					}
+				},
+				{
+					"filename": "hobgoblin",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 133,
+						"h": 155
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 133,
+						"h": 155
+					},
+					"frame": {
+						"x": 651,
+						"y": 213,
+						"w": 133,
+						"h": 155
+					}
+				},
+				{
+					"filename": "hero-mage",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 115,
+						"h": 149
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 113,
+						"h": 148
+					},
+					"frame": {
+						"x": 786,
+						"y": 213,
+						"w": 113,
+						"h": 148
+					}
+				},
+				{
+					"filename": "skeletalwarrior",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 148,
+						"h": 137
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 148,
+						"h": 137
+					},
+					"frame": {
+						"x": 901,
+						"y": 166,
+						"w": 148,
+						"h": 137
+					}
+				},
+				{
+					"filename": "hero-warrior",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 144,
+						"h": 137
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 141,
+						"h": 137
+					},
+					"frame": {
+						"x": 901,
+						"y": 305,
+						"w": 141,
+						"h": 137
+					}
+				},
+				{
+					"filename": "swashbuckler",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 116
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 116
+					},
+					"frame": {
+						"x": 1058,
+						"y": 124,
+						"w": 131,
+						"h": 116
+					}
+				},
+				{
+					"filename": "gnoll",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 121,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 120,
+						"h": 128
+					},
+					"frame": {
+						"x": 1051,
+						"y": 242,
+						"w": 120,
+						"h": 128
+					}
+				},
+				{
+					"filename": "scout",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 138,
+						"h": 120
+					},
+					"spriteSourceSize": {
+						"x": 41,
+						"y": 0,
+						"w": 97,
+						"h": 120
+					},
+					"frame": {
+						"x": 1044,
+						"y": 372,
+						"w": 97,
+						"h": 120
+					}
+				},
+				{
+					"filename": "wererat",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 112,
+						"h": 133
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 112,
+						"h": 133
+					},
+					"frame": {
+						"x": 1191,
+						"y": 134,
+						"w": 112,
+						"h": 133
+					}
+				},
+				{
+					"filename": "assassin",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 71,
+						"h": 103
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 103
+					},
+					"frame": {
+						"x": 1305,
+						"y": 134,
+						"w": 69,
+						"h": 103
+					}
+				},
+				{
+					"filename": "hero-ranger",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 111,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 111,
+						"h": 140
+					},
+					"frame": {
+						"x": 1173,
+						"y": 269,
+						"w": 111,
+						"h": 140
+					}
+				},
+				{
+					"filename": "darkreaper",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 88,
+						"h": 110
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 88,
+						"h": 110
+					},
+					"frame": {
+						"x": 1286,
+						"y": 269,
+						"w": 88,
+						"h": 110
+					}
+				},
+				{
+					"filename": "goblin",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 75,
+						"h": 75
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 75,
+						"h": 75
+					},
+					"frame": {
+						"x": 1143,
+						"y": 411,
+						"w": 75,
+						"h": 75
+					}
+				},
+				{
+					"filename": "lizardman",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 111,
+						"h": 126
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 111,
+						"h": 126
+					},
+					"frame": {
+						"x": 786,
+						"y": 363,
+						"w": 111,
+						"h": 126
+					}
+				},
+				{
+					"filename": "guard",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 84,
+						"h": 96
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 84,
+						"h": 96
+					},
+					"frame": {
+						"x": 1286,
+						"y": 381,
+						"w": 84,
+						"h": 96
+					}
+				},
+				{
+					"filename": "cultist",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 95,
+						"h": 95
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 0,
+						"w": 90,
+						"h": 95
+					},
+					"frame": {
+						"x": 519,
+						"y": 380,
+						"w": 90,
+						"h": 95
+					}
+				},
+				{
+					"filename": "drow",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 91,
+						"h": 113
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 90,
+						"h": 113
+					},
+					"frame": {
+						"x": 611,
+						"y": 380,
+						"w": 90,
+						"h": 113
+					}
+				},
+				{
+					"filename": "ruffian",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 79,
+						"h": 96
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 78,
+						"h": 96
+					},
+					"frame": {
+						"x": 703,
+						"y": 370,
+						"w": 78,
+						"h": 96
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:170b450c9671f7c9d1d1959774470c26:f71294b7b313507823d712ade6beab1b:8fc4d3ec51ba7bc700054b5f64cf62b1$"
+	}
+}

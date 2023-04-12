@@ -14,17 +14,11 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.add.rectangle(0, 50, 800, 1, 0x00ff00).setOrigin(0);
-        this.add.rectangle(50, 0, 1, 600, 0x00ff00).setOrigin(0);
-        this.add.rectangle(350, 0, 1, 600, 0x00ff00).setOrigin(0);
-        this.add.rectangle(0, 350, 800, 1, 0x00ff00).setOrigin(0);
+        const rt1 = this.add.renderTexture(0, 0, 400, 600).setOrigin(0, 0);
+        const rt2 = this.add.renderTexture(400, 0, 400, 600).setOrigin(0, 0);
 
-        const rt = this.add.renderTexture(50, 50, 300, 300);
-
-        // rt.fillFrame('raster');
-        // rt.fillFrame('beer');
-
-        rt.repeat('crate', null, 0, 0);
+        rt1.repeat('crate', null, 0, 0);
+        rt2.repeat('raster', null, 0, 0);
     }
 }
 

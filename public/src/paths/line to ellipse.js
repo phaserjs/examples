@@ -1,58 +1,58 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    graphics;
+    path;
+    follower;
+
+    create ()
+    {
+        this.graphics = this.add.graphics();
+
+        this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
+
+        //  Path starts at 100x100
+        this.path = new Phaser.Curves.Path(50, 500);
+
+        this.path.lineTo(150, 300);
+
+        // xRadius, yRadius, startAngle, endAngle, clockwise, rotation
+        this.path.ellipseTo(200, 100, 100, 300, false, 45);
+
+        this.path.ellipseTo(200, 100, 100, 300, true);
+
+        this.path.ellipseTo(60);
+
+        this.tweens.add({
+            targets: this.follower,
+            t: 1,
+            ease: 'Sine.easeInOut',
+            duration: 4000,
+            yoyo: true,
+            repeat: -1
+        });
+    }
+
+    update ()
+    {
+        this.graphics.clear();
+        this.graphics.lineStyle(2, 0xffffff, 1);
+
+        this.path.draw(this.graphics);
+
+        this.path.getPoint(this.follower.t, this.follower.vec);
+
+        this.graphics.fillStyle(0xff0000, 1);
+        this.graphics.fillCircle(this.follower.vec.x, this.follower.vec.y, 12);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    scene: {
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var follower;
-var path;
-var graphics;
-
-var game = new Phaser.Game(config);
-
-function create ()
-{
-    graphics = this.add.graphics();
-
-    follower = { t: 0, vec: new Phaser.Math.Vector2() };
-
-    //  Path starts at 100x100
-    path = new Phaser.Curves.Path(50, 500);
-
-    path.lineTo(150, 300);
-
-    // xRadius, yRadius, startAngle, endAngle, clockwise, rotation
-    path.ellipseTo(200, 100, 100, 300, false, 45);
-
-    path.ellipseTo(200, 100, 100, 300, true);
-
-    path.ellipseTo(60);
-
-    this.tweens.add({
-        targets: follower,
-        t: 1,
-        ease: 'Sine.easeInOut',
-        duration: 4000,
-        yoyo: true,
-        repeat: -1
-    });
-}
-
-function update ()
-{
-    graphics.clear();
-    graphics.lineStyle(2, 0xffffff, 1);
-
-    path.draw(graphics);
-
-    path.getPoint(follower.t, follower.vec);
-
-    graphics.fillStyle(0xff0000, 1);
-    graphics.fillCircle(follower.vec.x, follower.vec.y, 12);
-}
+const game = new Phaser.Game(config);

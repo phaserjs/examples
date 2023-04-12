@@ -1,44 +1,42 @@
-var config = {
-    type: Phaser.WEBGL,
-    parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create
+class Example extends Phaser.Scene
+{
+    constructor()
+    {
+        super();
     }
+
+    preload ()
+    {
+        this.load.image('bg', 'assets/skies/cavern1.png');
+        this.load.image('goblin', 'assets/pics/goblin.png');
+        this.load.image('spider', 'assets/pics/spider.png');
+    }
+
+    create ()
+    {
+        this.add.image(400, 300, 'bg');
+        this.add.text(16, 16, 'Move 32px before drag starts').setFontSize(24).setShadow(1, 1);
+
+        this.add.image(200, 300, 'goblin').setInteractive({ draggable: true });
+        this.add.image(600, 300, 'spider').setInteractive({ draggable: true });
+
+        //  The pointer has to move 32 pixels before it's considered as a drag
+        this.input.dragDistanceThreshold = 32;
+
+        this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+
+            gameObject.setPosition(dragX, dragY);
+
+        });
+    }
+}
+
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    parent: 'phaser-example',
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
-}
-
-function create ()
-{
-    var image = this.add.sprite(200, 300, 'eye').setInteractive();
-
-    this.input.setDraggable(image);
-
-    //  The pointer has to move 16 pixels before it's considered as a drag
-    this.input.dragDistanceThreshold = 16;
-
-    this.input.on('dragstart', function (pointer, gameObject) {
-
-        gameObject.setTint(0xff0000);
-
-    });
-
-    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-
-        gameObject.x = dragX;
-        gameObject.y = dragY;
-
-    });
-
-    this.input.on('dragend', function (pointer, gameObject) {
-
-        gameObject.clearTint();
-
-    });
-}
+const game = new Phaser.Game(config);

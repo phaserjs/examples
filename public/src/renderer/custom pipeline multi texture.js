@@ -1,24 +1,72 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    customPipeline;
+    time = 0;
+    bunny;
+
+    preload ()
+    {
+        this.load.image('beball', 'assets/sprites/beball1.png');
+        this.load.image('atari', 'assets/sprites/atari400.png');
+        this.load.image('bikkuriman', 'assets/sprites/bikkuriman.png');
+        this.load.image('bunny', 'assets/sprites/bunny.png');
+    }
+
+    create ()
+    {
+        this.customPipeline = this.renderer.pipelines.add('Custom', new CustomPipeline(game));
+
+        this.customPipeline.set2f('uResolution', game.config.width, game.config.height);
+
+        this.add.sprite(100, 300, 'beball');
+        this.add.sprite(400, 300, 'atari').setPipeline('Custom');
+        this.bunny = this.add.sprite(400, 300, 'bunny').setPipeline('Custom');
+        this.add.sprite(700, 300, 'bikkuriman');
+
+        this.input.on('pointermove', pointer =>
+        {
+            this.bunny.x = pointer.x;
+            this.bunny.y = pointer.y;
+        }, this);
+
+        this.input.on('pointerdown', pointer =>
+        {
+
+            if (this.bunny.pipeline === this.customPipeline)
+            {
+                this.bunny.resetPipeline();
+            }
+            else
+            {
+                this.bunny.setPipeline('Custom');
+            }
+
+        }, this);
+    }
+
+    update ()
+    {
+        this.customPipeline.set1f('uTime', this.time);
+
+        this.time += 0.05;
+
+        this.bunny.rotation += 0.01;
+    }
+}
+
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var CustomPipeline = new Phaser.Class({
-
-    Extends: Phaser.Renderer.WebGL.Pipelines.MultiPipeline,
-
-    initialize:
-
-    function CustomPipeline (game)
+class CustomPipeline extends Phaser.Renderer.WebGL.Pipelines.MultiPipeline
+{
+    constructor ()
     {
-        Phaser.Renderer.WebGL.Pipelines.MultiPipeline.call(this, {
+        super({
             game: game,
             fragShader: `
             precision mediump float;
@@ -70,57 +118,6 @@ var CustomPipeline = new Phaser.Class({
             ]
         });
     }
-});
-
-var game = new Phaser.Game(config);
-
-var bunny;
-var time = 0;
-var customPipeline;
-
-function preload ()
-{
-    this.load.image('beball', 'assets/sprites/beball1.png');
-    this.load.image('atari', 'assets/sprites/atari400.png');
-    this.load.image('bikkuriman', 'assets/sprites/bikkuriman.png');
-    this.load.image('bunny', 'assets/sprites/bunny.png');
 }
 
-function create ()
-{
-    customPipeline = this.renderer.pipelines.add('Custom', new CustomPipeline(game));
-
-    customPipeline.set2f('uResolution', game.config.width, game.config.height);
-
-    this.add.sprite(100, 300, 'beball');
-    this.add.sprite(400, 300, 'atari').setPipeline('Custom');
-    bunny = this.add.sprite(400, 300, 'bunny').setPipeline('Custom');
-    this.add.sprite(700, 300, 'bikkuriman');
-
-    this.input.on('pointermove', function (pointer) {
-        bunny.x = pointer.x;
-        bunny.y = pointer.y;
-    }, this);
-
-    this.input.on('pointerdown', function (pointer) {
-
-        if (bunny.pipeline === customPipeline)
-        {
-            bunny.resetPipeline();
-        }
-        else
-        {
-            bunny.setPipeline('Custom');
-        }
-
-    }, this);
-}
-
-function update ()
-{
-    customPipeline.set1f('uTime', time);
-
-    time += 0.05;
-
-    bunny.rotation += 0.01;
-}
+const game = new Phaser.Game(config);

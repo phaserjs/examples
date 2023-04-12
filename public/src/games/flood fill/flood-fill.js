@@ -98,8 +98,6 @@ var Flood = new Phaser.Class({
 
         this.currentColor = this.grid[0][0].getData('color');
 
-        this.particles = this.add.particles('flood');
-
         for (var i = 0; i < this.frames.length; i++)
         {
             this.createEmitter(this.frames[i]);
@@ -264,15 +262,14 @@ var Flood = new Phaser.Class({
 
         i += 500;
 
-        var movesTween = this.tweens.addCounter({
+        this.tweens.addCounter({
             from: 0,
             to: 25,
             ease: 'Power1',
-            onUpdate: function (tween, targets, text)
+            onUpdate: tween =>
             {
-                text.setText(Phaser.Utils.String.Pad(tween.getValue().toFixed(), 2, '0', 1));
+                this.text2.setText(Phaser.Utils.String.Pad(tween.getValue().toFixed(), 2, '0', 1));
             },
-            onUpdateParams: [ this.text2 ],
             delay: i
         });
 
@@ -364,18 +361,15 @@ var Flood = new Phaser.Class({
 
     onIconOut: function (pointer, gameObject)
     {
-        // console.log(this.monsterTween.targets[0].y);
-
         this.monsterTween.stop(0);
-		
-		gameObject.getData('monster').setY(gameObject.y);
 
-        // console.log(this.monsterTween.targets[0].y);
+		gameObject.getData('monster').setY(gameObject.y);
 
         this.cursorTween = this.tweens.add({
             targets: this.cursor,
             alpha: 0,
-            duration: 300
+            duration: 300,
+            persists: true
         });
 
         this.arrow.setFrame('arrow-white');
@@ -410,7 +404,8 @@ var Flood = new Phaser.Class({
 
             if (this.monsterTween)
             {
-                this.monsterTween.stop(0);
+                this.monsterTween.seek(0);
+                this.monsterTween.stop();
             }
 
             this.cursor.setVisible(false);
@@ -431,7 +426,7 @@ var Flood = new Phaser.Class({
 
     createEmitter: function (color)
     {
-        this.emitters[color] = this.particles.createEmitter({
+        this.emitters[color] = this.add.particles(0, 0, 'flood', {
             frame: color,
             lifespan: 1000,
             speed: { min: 300, max: 400 },
@@ -439,7 +434,7 @@ var Flood = new Phaser.Class({
             scale: { start: 0.5, end: 0 },
             rotate: { start: 0, end: 360, ease: 'Power2' },
             blendMode: 'ADD',
-            on: false
+            emitting: false
         });
     },
 
@@ -475,7 +470,7 @@ var Flood = new Phaser.Class({
                 block.setFrame(blockColor);
 
                 emitter.explode(6, block.x, block.y);
-                
+
             }, [ block, blockColor, emitter ]);
 
             t += inc;
@@ -656,15 +651,14 @@ var Flood = new Phaser.Class({
 
         this.currentColor = this.grid[0][0].getData('color');
 
-        var movesTween = this.tweens.addCounter({
+        this.tweens.addCounter({
             from: 0,
             to: 25,
             ease: 'Power1',
-            onUpdate: function (tween, targets, text)
+            onUpdate: tween =>
             {
-                text.setText(Phaser.Utils.String.Pad(tween.getValue().toFixed(), 2, '0', 1));
+                this.text2.setText(Phaser.Utils.String.Pad(tween.getValue().toFixed(), 2, '0', 1));
             },
-            onUpdateParams: [ this.text2 ],
             delay: i
         });
 

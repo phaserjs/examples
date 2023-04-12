@@ -17,8 +17,8 @@ indexer.index(filteredTree);
 
 filteredTree = JSON.stringify(filteredTree, null, 2);
 
-filteredTree = filteredTree.replace(/public\//g, '');
-filteredTree = filteredTree.replace(/public\\\\/g, '');
+filteredTree = filteredTree.replaceAll(`public/`, ``);
+filteredTree = filteredTree.replaceAll(`public\\`, ``);
 
 const lastExamplesQuantity = 30;
 // Get the 30 more recent examples

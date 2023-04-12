@@ -1,18 +1,19 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    create ()
+    {
+        const t = this.add.text(100, 100, 'Phaser');
+
+        console.log(t);
+    }
+}
+
+const config = {
     type: Phaser.CANVAS,
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: {
-        create: create,
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function create() 
-{
-    var t = this.add.text(100, 100, 'Phaser');
-
-    console.log(t);
-}
+const game = new Phaser.Game(config);

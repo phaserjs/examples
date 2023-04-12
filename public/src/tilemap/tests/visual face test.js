@@ -76,8 +76,8 @@ function create() {
 
 
     var afterGraphics = this.add.graphics();
-    afterGraphics.x = layer.x + 300;
-    afterGraphics.y = layer.y + 150;
+    afterGraphics.x = layer.x - this.sys.scale.width;
+    afterGraphics.y = layer.y + this.sys.scale.height / 2;
     afterGraphics.setScale(2, 2);
     layer.renderDebug(afterGraphics);
 }

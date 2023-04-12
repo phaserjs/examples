@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
         const GetRandom = Phaser.Utils.Array.GetRandom;
 
         //  Create our Dynamic Texture which is 512x512 in size
-        const banner = this.textures.addDynamicTexture('playerBanner', 512, 512)
+        const banner = this.textures.addDynamicTexture('playerBanner', 512, 512);
 
         //  Draw a flag to our texture
         banner.stamp('banner', 'flag_02_green', 256, 256);

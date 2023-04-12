@@ -1,8 +1,6 @@
-var Obj3D = new Phaser.Class({
-
-    initialize:
-
-    function Obj3D (camera, modelData, x, y, z)
+class Obj3D
+{
+    constructor (camera, modelData, x, y, z)
     {
         this.camera = camera;
         this.model = modelData;
@@ -16,9 +14,9 @@ var Obj3D = new Phaser.Class({
         this.alpha = 1;
 
         this.scale = 100;
-    },
+    }
 
-    rotateX: function (theta)
+    rotateX (theta)
     {
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
@@ -33,9 +31,9 @@ var Obj3D = new Phaser.Class({
             vert.y = y * tc - z * ts;
             vert.z = z * tc + y * ts;
         }
-    },
+    }
 
-    rotateY: function (theta)
+    rotateY (theta)
     {
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
@@ -50,9 +48,9 @@ var Obj3D = new Phaser.Class({
             vert.x = x * tc - z * ts;
             vert.z = z * tc + x * ts;
         }
-    },
+    }
 
-    rotateZ: function (theta)
+    rotateZ (theta)
     {
         var ts = Math.sin(theta);
         var tc = Math.cos(theta);
@@ -67,9 +65,9 @@ var Obj3D = new Phaser.Class({
             vert.x = x * tc - y * ts;
             vert.y = y * tc + x * ts;
         }
-    },
+    }
 
-    render: function (graphics)
+    render (graphics)
     {
         var model = this.model;
 
@@ -102,12 +100,11 @@ var Obj3D = new Phaser.Class({
 
         graphics.closePath();
         graphics.strokePath();
-    },
+    }
 
-    drawLine: function (graphics, x0, y0, x1, y1)
+    drawLine (graphics, x0, y0, x1, y1)
     {
         graphics.moveTo(x0, y0);
         graphics.lineTo(x1, y1);
     }
-
-});
+}

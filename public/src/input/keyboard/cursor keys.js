@@ -1,4 +1,47 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    player;
+    cursors;
+
+    preload ()
+    {
+        this.load.image('block', 'assets/sprites/block.png');
+    }
+
+    create ()
+    {
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.player = this.physics.add.image(400, 300, 'block');
+
+        this.player.setCollideWorldBounds(true);
+    }
+
+    update ()
+    {
+        this.player.setVelocity(0);
+
+        if (this.cursors.left.isDown)
+        {
+            this.player.setVelocityX(-300);
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.player.setVelocityX(300);
+        }
+
+        if (this.cursors.up.isDown)
+        {
+            this.player.setVelocityY(-300);
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.player.setVelocityY(300);
+        }
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     backgroundColor: '#0072bc',
@@ -8,51 +51,7 @@ var config = {
             debug: true
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var cursors;
-var player;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('block', 'assets/sprites/block.png');
-}
-
-function create ()
-{
-    cursors = this.input.keyboard.createCursorKeys();
-
-    player = this.physics.add.image(400, 300, 'block');
-
-    player.setCollideWorldBounds(true);
-}
-
-function update ()
-{
-    player.setVelocity(0);
-
-    if (cursors.left.isDown)
-    {
-        player.setVelocityX(-300);
-    }
-    else if (cursors.right.isDown)
-    {
-        player.setVelocityX(300);
-    }
-
-    if (cursors.up.isDown)
-    {
-        player.setVelocityY(-300);
-    }
-    else if (cursors.down.isDown)
-    {
-        player.setVelocityY(300);
-    }
-}
+const game = new Phaser.Game(config);

@@ -1,60 +1,44 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('bg', 'assets/skies/space2.png');
+        this.load.image('arrow', 'assets/sprites/arrow.png');
+    }
+
+    create ()
+    {
+        this.add.image(400, 300, 'bg');
+
+        this.physics.add.sprite(200, 150, 'arrow')
+            .setVelocity(200, -200)
+            .setCollideWorldBounds(true, 1, 1, true);
+
+        this.physics.world.on('worldbounds', (body, up, down, left, right) =>
+        {
+            const { gameObject } = body;
+
+            if (up) { gameObject.setAngle(90); }
+            else if (down) { gameObject.setAngle(-90); }
+            else if (left) { gameObject.setAngle(0); }
+            else if (right) { gameObject.setAngle(180); }
+        });
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
+    pixelArt: true,
     parent: 'phaser-example',
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: {
-                y: 200
-            }
+            debug: false
         }
     },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('bg', 'assets/skies/space2.png');
-    this.load.spritesheet('ball', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
-}
-
-function create ()
-{
-    this.add.image(400, 300, 'bg');
-
-    var group = this.physics.add.group({
-        key: 'ball',
-        frameQuantity: 48,
-        bounceX: 1,
-        bounceY: 1,
-        collideWorldBounds: true,
-        velocityX: 180,
-        velocityY: 120,
-    });
-
-    Phaser.Actions.RandomRectangle(group.getChildren(), this.cameras.main);
-
-    Phaser.Actions.Call(group.getChildren(), function (ball) {
-        ball.body.onWorldBounds = true;
-    });
-
-    this.physics.world.on('worldbounds', onWorldBounds);
-}
-
-function onWorldBounds (body)
-{
-    var ball = body.gameObject;
-    var frame = ball.frame.name;
-    
-    frame += 1;
-    frame %= 5;
-
-    ball.setFrame(frame);
-}
+const game = new Phaser.Game(config);

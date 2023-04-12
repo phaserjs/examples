@@ -1,42 +1,38 @@
-var SceneA = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function SceneA ()
+class SceneA extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'sceneA' });
-    },
+        super({ key: 'sceneA' });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('ball1', 'assets/sprites/pangball.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.matter.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
 
-        for (var i = 0; i < 64; i++)
+        for (let i = 0; i < 64; i++)
         {
-            var ball = this.matter.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball1');
+            const ball = this.matter.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(-600, 0), 'ball1');
             ball.setCircle();
             ball.setFriction(0.005);
             ball.setBounce(1);
         }
 
-        this.input.once('pointerdown', function (event) {
+        this.input.once('pointerdown', function (event)
+        {
 
             this.scene.restart();
 
         }, this);
     }
+}
 
-});
 
-
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -58,4 +54,4 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

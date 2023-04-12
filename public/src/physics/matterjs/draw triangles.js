@@ -1,4 +1,45 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    create ()
+    {
+        this.matter.world.setBounds();
+
+        const triSize = 8;
+        const lastPosition = new Phaser.Math.Vector2();
+        const options = { friction: 0.005, frictionAir: 0, restitution: 1 };
+
+        this.input.on('pointerdown', function (pointer)
+        {
+
+            lastPosition.x = pointer.x;
+            lastPosition.y = pointer.y;
+
+            this.matter.add.polygon(pointer.x, pointer.y, 3, triSize, options);
+
+        }, this);
+
+        this.input.on('pointermove', function (pointer)
+        {
+
+            if (pointer.isDown)
+            {
+                const x = pointer.x;
+                const y = pointer.y;
+
+                if (Phaser.Math.Distance.Between(x, y, lastPosition.x, lastPosition.y) > triSize * 1.5)
+                {
+                    lastPosition.x = x;
+                    lastPosition.y = y;
+
+                    this.matter.add.polygon(pointer.x, pointer.y, 3, triSize, options);
+                }
+            }
+
+        }, this);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -14,45 +55,7 @@ var config = {
             debug: true
         }
     },
-    scene: {
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function create ()
-{
-    this.matter.world.setBounds();
-
-    var triSize = 8;
-    var lastPosition = new Phaser.Math.Vector2();
-    var options = { friction: 0.005, frictionAir: 0, restitution: 1 };
-
-    this.input.on('pointerdown', function (pointer) {
-
-        lastPosition.x = pointer.x;
-        lastPosition.y = pointer.y;
-
-        this.matter.add.polygon(pointer.x, pointer.y, 3, triSize, options);
-
-    }, this);
-
-    this.input.on('pointermove', function (pointer) {
-
-        if (pointer.isDown)
-        {
-            var x = pointer.x;
-            var y = pointer.y;
-
-            if (Phaser.Math.Distance.Between(x, y, lastPosition.x, lastPosition.y) > triSize * 1.5)
-            {
-                lastPosition.x = x;
-                lastPosition.y = y;
-
-                this.matter.add.polygon(pointer.x, pointer.y, 3, triSize, options);
-            }
-        }
-
-    }, this);
-}
+const game = new Phaser.Game(config);

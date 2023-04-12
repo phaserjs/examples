@@ -52,7 +52,7 @@ class Example extends Phaser.Scene
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: [ Example ],
+    scene: Example,
     width: 800,
     height: 600
 };

@@ -56,7 +56,7 @@ const config = {
             debug: {}
         }
     },
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

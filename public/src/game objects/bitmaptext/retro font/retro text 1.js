@@ -40,7 +40,7 @@ const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     pixelArt: true,
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

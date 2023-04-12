@@ -1,4 +1,84 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    downKeyDebug;
+    upKeyDebug;
+    rightKeyDebug;
+    leftKeyDebug;
+    player;
+    cursors;
+
+    preload ()
+    {
+        this.load.image('elephant', 'assets/sprites/elephant.png');
+    }
+
+    create ()
+    {
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.player = this.physics.add.image(400, 300, 'elephant');
+
+        this.player.setCollideWorldBounds(true);
+
+        this.leftKeyDebug = this.add.text(10, 300, 'Left', { font: '16px Courier', fill: '#00ff00' });
+        this.rightKeyDebug = this.add.text(570, 300, 'Right', { font: '16px Courier', fill: '#00ff00' });
+        this.upKeyDebug = this.add.text(300, 10, 'Up', { font: '16px Courier', fill: '#00ff00' });
+        this.downKeyDebug = this.add.text(300, 530, 'Down', { font: '16px Courier', fill: '#00ff00' });
+    }
+
+    update ()
+    {
+        this.player.setVelocity(0);
+
+        if (this.cursors.left.isDown)
+        {
+            this.player.setVelocityX(-300);
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.player.setVelocityX(300);
+        }
+
+        if (this.cursors.up.isDown)
+        {
+            this.player.setVelocityY(-300);
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.player.setVelocityY(300);
+        }
+
+        this.leftKeyDebug.setText([
+            `Left: ${this.cursors.left.isDown}`,
+            `down: ${this.cursors.left.timeDown}`,
+            `up: ${this.cursors.left.timeUp}`,
+            `duration: ${(this.cursors.left.isDown) ? this.cursors.left.getDuration() : this.cursors.left.duration}`
+        ]);
+
+        this.rightKeyDebug.setText([
+            `Right: ${this.cursors.right.isDown}`,
+            `down: ${this.cursors.right.timeDown}`,
+            `up: ${this.cursors.right.timeUp}`,
+            `duration: ${(this.cursors.right.isDown) ? this.cursors.right.getDuration() : this.cursors.right.duration}`
+        ]);
+
+        this.upKeyDebug.setText([
+            `Up: ${this.cursors.up.isDown}`,
+            `down: ${this.cursors.up.timeDown}`,
+            `up: ${this.cursors.up.timeUp}`,
+            `duration: ${(this.cursors.up.isDown) ? this.cursors.up.getDuration() : this.cursors.up.duration}`
+        ]);
+
+        this.downKeyDebug.setText([
+            `Down: ${this.cursors.down.isDown}`,
+            `down: ${this.cursors.down.timeDown}`,
+            `up: ${this.cursors.down.timeUp}`,
+            `duration: ${(this.cursors.down.isDown) ? this.cursors.down.getDuration() : this.cursors.down.duration}`
+        ]);
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     backgroundColor: '#0072bc',
@@ -10,88 +90,7 @@ var config = {
             debug: true
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: Example
 };
 
-var cursors;
-var player;
-var leftKeyDebug;
-var rightKeyDebug;
-var upKeyDebug;
-var downKeyDebug;
-
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('elephant', 'assets/sprites/elephant.png');
-}
-
-function create ()
-{
-    cursors = this.input.keyboard.createCursorKeys();
-
-    player = this.physics.add.image(400, 300, 'elephant');
-
-    player.setCollideWorldBounds(true);
-
-    leftKeyDebug = this.add.text(10, 300, 'Left', { font: '16px Courier', fill: '#00ff00' });
-    rightKeyDebug = this.add.text(570, 300, 'Right', { font: '16px Courier', fill: '#00ff00' });
-    upKeyDebug = this.add.text(300, 10, 'Up', { font: '16px Courier', fill: '#00ff00' });
-    downKeyDebug = this.add.text(300, 530, 'Down', { font: '16px Courier', fill: '#00ff00' });
-}
-
-function update ()
-{
-    player.setVelocity(0);
-
-    if (cursors.left.isDown)
-    {
-        player.setVelocityX(-300);
-    }
-    else if (cursors.right.isDown)
-    {
-        player.setVelocityX(300);
-    }
-
-    if (cursors.up.isDown)
-    {
-        player.setVelocityY(-300);
-    }
-    else if (cursors.down.isDown)
-    {
-        player.setVelocityY(300);
-    }
-
-    leftKeyDebug.setText([
-        'Left: ' + cursors.left.isDown,
-        'down: ' + cursors.left.timeDown,
-        'up: ' + cursors.left.timeUp,
-        'duration: ' + ((cursors.left.isDown) ? cursors.left.getDuration() : cursors.left.duration)
-    ]);
-
-    rightKeyDebug.setText([
-        'Right: ' + cursors.right.isDown,
-        'down: ' + cursors.right.timeDown,
-        'up: ' + cursors.right.timeUp,
-        'duration: ' + ((cursors.right.isDown) ? cursors.right.getDuration() : cursors.right.duration)
-    ]);
-
-    upKeyDebug.setText([
-        'Up: ' + cursors.up.isDown,
-        'down: ' + cursors.up.timeDown,
-        'up: ' + cursors.up.timeUp,
-        'duration: ' + ((cursors.up.isDown) ? cursors.up.getDuration() : cursors.up.duration)
-    ]);
-
-    downKeyDebug.setText([
-        'Down: ' + cursors.down.isDown,
-        'down: ' + cursors.down.timeDown,
-        'up: ' + cursors.down.timeUp,
-        'duration: ' + ((cursors.down.isDown) ? cursors.down.getDuration() : cursors.down.duration)
-    ]);
-}
+const game = new Phaser.Game(config);

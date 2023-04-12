@@ -49,7 +49,7 @@ const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
     batchSize: 8000,
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

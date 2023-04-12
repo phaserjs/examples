@@ -3,6 +3,7 @@ class Example extends Phaser.Scene
     constructor ()
     {
         super();
+
         this.i = 0;
     }
 
@@ -16,6 +17,7 @@ class Example extends Phaser.Scene
         this.rect = new Phaser.Geom.Rectangle(64, 32, 100, 512);
 
         this.group = this.add.group({ key: 'balls', frame: [0,1,2,3,4,5], frameQuantity: 10 });
+
         this.tweens.add({
             targets: this.rect,
             x: 200,
@@ -35,6 +37,7 @@ class Example extends Phaser.Scene
         Phaser.Actions.PlaceOnRectangle(this.group.getChildren(), this.rect, this.i);
 
         this.i++;
+
         if (this.i === this.group.length)
         {
             this.i = 0;
@@ -47,7 +50,7 @@ const config = {
     width: 800,
     height: 600,
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

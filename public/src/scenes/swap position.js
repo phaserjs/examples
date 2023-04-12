@@ -1,61 +1,52 @@
-var Background = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Background ()
+class Background extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'background', active: true });
-    },
+        super({ key: 'background', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('face', 'assets/pics/bw-face.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.face = this.add.image(-10, 300, 'face');
     }
+}
 
-});
-
-var Demo = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function Demo ()
+class Demo extends Phaser.Scene
+{
+    constructor ()
     {
-        Phaser.Scene.call(this, { key: 'demo', active: true });
-    },
+        super({ key: 'demo', active: true });
+    }
 
-    preload: function ()
+    preload ()
     {
         this.load.image('arrow', 'assets/sprites/longarrow.png');
-    },
+    }
 
-    create: function ()
+    create ()
     {
         this.arrow = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function () {
+        this.input.once('pointerdown', function ()
+        {
 
             this.scene.swapPosition('background');
 
         }, this);
-    },
+    }
 
-    update: function (time, delta)
+    update (time, delta)
     {
         this.arrow.rotation += 0.01;
     }
+}
 
-});
-
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
@@ -64,4 +55,4 @@ var config = {
     scene: [ Background, Demo ]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

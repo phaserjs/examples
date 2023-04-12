@@ -18,16 +18,14 @@ class Example extends Phaser.Scene
         var map = this.make.tilemap({ key: 'map' });
 
         var groundTiles = map.addTilesetImage('kenny_ground_64x64', 'ground');
-
-        map.createLayer('Tile Layer 1', groundTiles, 0, 0);
-
         var itemTiles = map.addTilesetImage('kenny_items_64x64', 'items');
-
-        map.createLayer('Tile Layer 1', itemTiles, 0, 0);
-
         var platformTiles = map.addTilesetImage('kenny_platformer_64x64', 'platformer');
 
-        map.createStaticLayer('Tile Layer 1', platformTiles, 0, 0);
+        //  To use multiple tilesets in a single layer, pass them in an array like this:
+        map.createLayer('Tile Layer 1', [ groundTiles, itemTiles, platformTiles ]);
+
+        //  Or you can pass an array of strings, where they = the Tileset name
+        // map.createLayer('Tile Layer 1', [ 'kenny_ground_64x64', 'kenny_items_64x64', 'kenny_platformer_64x64' ]);
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
@@ -61,13 +59,12 @@ class Example extends Phaser.Scene
 }
 
 const config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
-    pixelArt: true,
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

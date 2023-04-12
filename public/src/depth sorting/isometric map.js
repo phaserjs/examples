@@ -186,6 +186,8 @@ class Example extends Phaser.Scene
 
         this.cameras.main.setSize(1600, 600);
 
+        window.fx = this.cameras.main.postFX.addTiltShift(0.5, 0.1, 0.8, 0.5, 1, 1);
+
         // this.cameras.main.scrollX = 800;
     }
 
@@ -216,7 +218,6 @@ class Example extends Phaser.Scene
             }
         }
     }
-
 
     buildMap ()
     {
@@ -271,9 +272,9 @@ const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
-    backgroundColor: '#ababab',
+    backgroundColor: '#000000',
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

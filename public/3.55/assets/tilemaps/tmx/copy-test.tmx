@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="12" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <editorsettings>
+  <export format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="ground" tilewidth="64" tileheight="64" tilecount="128" columns="8">
+  <image source="../tiles/kenny_ground_64x64.png" width="512" height="1024"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="12" height="12">
+  <data encoding="csv">
+97,89,38,30,55,47,21,13,114,106,4,123,
+113,105,54,46,71,63,37,29,3,122,20,12,
+97,89,38,30,55,47,21,13,114,106,4,123,
+113,105,54,46,71,63,37,29,3,122,20,12,
+97,89,38,30,55,47,21,13,114,106,4,123,
+113,105,54,46,71,63,37,29,3,122,20,12,
+97,89,38,30,55,47,21,13,114,106,4,123,
+113,105,54,46,71,63,37,29,3,122,20,12,
+97,89,38,30,55,47,21,13,114,106,4,123,
+113,105,54,46,71,63,37,29,3,122,20,12,
+97,89,38,30,55,47,21,13,114,106,4,123,
+113,105,54,46,71,63,37,29,3,122,20,12
+</data>
+ </layer>
+</map>

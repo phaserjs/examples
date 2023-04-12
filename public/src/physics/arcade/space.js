@@ -15,7 +15,6 @@ class Bullet extends Phaser.Physics.Arcade.Image
 
     fire (ship)
     {
-
         this.lifespan = 1000;
 
         this.setActive(true);
@@ -48,6 +47,7 @@ class Bullet extends Phaser.Physics.Arcade.Image
 class Example extends Phaser.Scene
 {
     lastFired = 0;
+
     preload ()
     {
         this.load.image('background', 'assets/tests/space/nebula.jpg');
@@ -88,27 +88,25 @@ class Example extends Phaser.Scene
 
         this.stars = this.add.tileSprite(400, 300, 800, 600, 'stars').setScrollFactor(0);
 
-        const particles = this.add.particles('space');
-        const emitter = particles.createEmitter({
+        const emitter = this.add.particles(0, 0, 'space', {
             frame: 'blue',
             speed: 100,
             lifespan: {
-                onEmit: function (particle, key, t, value)
+                onEmit: (particle, key, t, value) =>
                 {
                     return Phaser.Math.Percent(this.ship.body.speed, 0, 300) * 2000;
                 }
             },
             alpha: {
-                onEmit: function (particle, key, t, value)
+                onEmit: (particle, key, t, value) =>
                 {
                     return Phaser.Math.Percent(this.ship.body.speed, 0, 300);
                 }
             },
             angle: {
-                onEmit: function (particle, key, t, value)
+                onEmit: (particle, key, t, value) =>
                 {
-                    const v = Phaser.Math.Between(-10, 10);
-                    return (this.ship.angle - 180) + v;
+                    return (this.ship.angle - 180) + Phaser.Math.Between(-10, 10);
                 }
             },
             scale: { start: 0.6, end: 0 },

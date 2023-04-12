@@ -55,7 +55,7 @@ const config = {
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     pixelArt: true,
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

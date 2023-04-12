@@ -12,9 +12,9 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const string = 'Phaser 3\nBitmapText\nScaling\nwith bounds';
+        this.string = 'Phaser 3\nBitmapText\nScaling\nwith bounds';
 
-        this.text = this.add.bitmapText(0, 0, 'atari', string).setFontSize(32);
+        this.text = this.add.bitmapText(0, 0, 'atari', this.string).setFontSize(32);
 
         this.graphics = this.add.graphics({ x: 0, y: 0, lineStyle: { thickness: 1, color: 0xffff00, alpha: 1 } });
 
@@ -39,16 +39,18 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        this.text.setText(string + '\nScale X: ' + text.scaleX.toFixed(4));
+        this.text.setText(this.string + '\nScale X: ' + this.text.scaleX.toFixed(4));
         this.graphics.clear();
-        this.graphics.strokeRect(text.x, text.y, text.width, text.height);
+        this.graphics.strokeRect(this.text.x, this.text.y, this.text.width, this.text.height);
     }
 }
 
 const config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 

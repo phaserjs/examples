@@ -25,11 +25,11 @@ class Example extends Phaser.Scene
 }
 
 const config = {
-    type: Phaser.AUTOR,
+    type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

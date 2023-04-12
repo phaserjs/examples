@@ -1,0 +1,272 @@
+{
+	"textures": [
+		{
+			"image": "girl.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 480,
+				"h": 487
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Head",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 296,
+						"h": 280
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 286,
+						"h": 272
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 286,
+						"h": 272
+					}
+				},
+				{
+					"filename": "EyesClosed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 210,
+						"h": 120
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 11,
+						"w": 190,
+						"h": 89
+					},
+					"frame": {
+						"x": 289,
+						"y": 1,
+						"w": 190,
+						"h": 89
+					}
+				},
+				{
+					"filename": "ArmLeft",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 190,
+						"h": 132
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 4,
+						"w": 188,
+						"h": 125
+					},
+					"frame": {
+						"x": 289,
+						"y": 92,
+						"w": 188,
+						"h": 125
+					}
+				},
+				{
+					"filename": "EyesOpen",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 210,
+						"h": 120
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 1,
+						"w": 187,
+						"h": 116
+					},
+					"frame": {
+						"x": 289,
+						"y": 219,
+						"w": 187,
+						"h": 116
+					}
+				},
+				{
+					"filename": "ArmRight",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 80,
+						"h": 153
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 3,
+						"w": 76,
+						"h": 149
+					},
+					"frame": {
+						"x": 1,
+						"y": 337,
+						"w": 76,
+						"h": 149
+					}
+				},
+				{
+					"filename": "HairTop",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 74,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 74,
+						"h": 46
+					},
+					"frame": {
+						"x": 1,
+						"y": 275,
+						"w": 74,
+						"h": 46
+					}
+				},
+				{
+					"filename": "Body",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 139,
+						"h": 199
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 139,
+						"h": 199
+					},
+					"frame": {
+						"x": 79,
+						"y": 275,
+						"w": 139,
+						"h": 199
+					}
+				},
+				{
+					"filename": "MouthOpen",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 80,
+						"h": 39
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 2,
+						"w": 61,
+						"h": 35
+					},
+					"frame": {
+						"x": 220,
+						"y": 275,
+						"w": 61,
+						"h": 35
+					}
+				},
+				{
+					"filename": "HandRight",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 37
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 47,
+						"h": 36
+					},
+					"frame": {
+						"x": 220,
+						"y": 312,
+						"w": 47,
+						"h": 36
+					}
+				},
+				{
+					"filename": "BraidRight",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 118,
+						"h": 137
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 4,
+						"w": 110,
+						"h": 128
+					},
+					"frame": {
+						"x": 220,
+						"y": 350,
+						"w": 110,
+						"h": 128
+					}
+				},
+				{
+					"filename": "BraidLeft",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 93,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 4,
+						"w": 85,
+						"h": 83
+					},
+					"frame": {
+						"x": 332,
+						"y": 337,
+						"w": 85,
+						"h": 83
+					}
+				},
+				{
+					"filename": "MouthClosed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 80,
+						"h": 39
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 1,
+						"w": 69,
+						"h": 29
+					},
+					"frame": {
+						"x": 332,
+						"y": 422,
+						"w": 69,
+						"h": 29
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:c20af63be991497593bc89ad33edfb6f:9bf760b6ea5f5ebbcf9efd9ea03e63c6:165fda0d1be138e47f78fe530c9a9f92$"
+	}
+}

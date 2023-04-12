@@ -41,7 +41,7 @@ class Example extends Phaser.Scene
 const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

@@ -1,6 +1,6 @@
 class Example extends Phaser.Scene
 {
-    constructor () {
+    constructor() {
         super({
             key: 'Example',
             map: {

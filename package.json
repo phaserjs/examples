@@ -1,11 +1,13 @@
 {
   "name": "phaser3-examples",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Phaser 3 Examples",
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/.bin/http-server -s -o",
     "update": "node ./build.js",
+    "update355": "node ./build355.js",
+    "update324": "node ./build324.js",
     "screenshots": "node ./tools/generate-screenshots.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

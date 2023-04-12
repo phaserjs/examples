@@ -52,7 +52,7 @@ const config = {
         matter: {
         }
     },
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

@@ -70,7 +70,7 @@ const config = {
     height: 600,
     backgroundColor: '#222288',
     pixelArt: true,
-    scene: [ Example ]
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

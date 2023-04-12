@@ -1,3 +1,16 @@
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+        this.load.image('pic', 'assets/pics/baal-loader.png');
+    }
+
+    create ()
+    {
+        this.add.image(450.5, 350.8, 'pic');
+    }
+}
+
 // this.pixelArt = GetValue(config, 'pixelArt', false);
 // this.autoResize = GetValue(config, 'autoResize', false);
 // this.roundPixels = GetValue(config, 'roundPixels', false);
@@ -12,20 +25,7 @@ const config = {
     height: 600,
     roundPixels: true,
     backgroundColor: '#ffff00',
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
 const game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('pic', 'assets/pics/baal-loader.png');
-}
-
-function create ()
-{
-    this.add.image(450.5, 350.8, 'pic');
-}

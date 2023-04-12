@@ -1,28 +1,31 @@
-var config = {
+class Example extends Phaser.Scene
+{
+    preload ()
+    {
+
+        this.load.image('logo', 'assets/sprites/phaser.png');
+
+    }
+
+    create ()
+    {
+
+        this.input.on('pointerdown', function (pointer)
+        {
+
+            console.log('down');
+
+            this.add.image(pointer.x, pointer.y, 'logo');
+
+        }, this);
+
+    }
+}
+
+const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload () {
-
-    this.load.image('logo', 'assets/sprites/phaser.png');
-
-}
-
-function create() {
-
-    this.input.on('pointerdown', function (pointer) {
-
-        console.log('down');
-
-        this.add.image(pointer.x, pointer.y, 'logo');
-
-    }, this);
-
-}
+const game = new Phaser.Game(config);

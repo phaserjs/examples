@@ -1,0 +1,528 @@
+{
+    "frames": [
+        {
+            "filename": "apricots",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 4,
+                "y": 4
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "bagel",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 72,
+                "y": 4
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "banana",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 4,
+                "y": 72
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "barbecue",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 72,
+                "y": 72
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "barbecue2",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 140,
+                "y": 4
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "bread",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 140,
+                "y": 72
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "bread2",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 4,
+                "y": 140
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "bun",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 72,
+                "y": 140
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cabbage",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 140,
+                "y": 140
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "carrot",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 208,
+                "y": 4
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cheese",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 208,
+                "y": 72
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cheesecake",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 208,
+                "y": 140
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cookie",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 4,
+                "y": 208
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "chicken",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 72,
+                "y": 208
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "corn",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 140,
+                "y": 208
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cream",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 208,
+                "y": 208
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cucumber",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 276,
+                "y": 4
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "egg",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 276,
+                "y": 72
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "eggplant",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 276,
+                "y": 140
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "fish",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 276,
+                "y": 208
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "grape",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 4,
+                "y": 276
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "ham",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 72,
+                "y": 276
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "meat",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 140,
+                "y": 276
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "milk",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 208,
+                "y": 276
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "mushrum",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 276,
+                "y": 276
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "orange",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 344,
+                "y": 4
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "peach",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 344,
+                "y": 72
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pear",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 344,
+                "y": 140
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pepper",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 344,
+                "y": 208
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pineapple",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 344,
+                "y": 276
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "potato",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 4,
+                "y": 344
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pie",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 72,
+                "y": 344
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pumpkin",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 140,
+                "y": 344
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "ribs",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 208,
+                "y": 344
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "radish",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 276,
+                "y": 344
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "sausage",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 344,
+                "y": 344
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "strawberry",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 412,
+                "y": 4
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "watermelon",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 412,
+                "y": 72
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "tomato",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 412,
+                "y": 140
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "apple",
+            "frame": {
+                "w": 64,
+                "h": 64,
+                "x": 412,
+                "y": 208
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

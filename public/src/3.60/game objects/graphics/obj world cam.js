@@ -131,18 +131,37 @@ var Cube = new Phaser.Class({
 
         this.speed = Phaser.Math.Between(4, 10);
 
-        this.jump = new TimelineMax({ delay: Math.random() * 4, repeat: -1, repeatDelay: 2 });
+        this.tweens.chain({
+            targets: this.position,
+            tweens: [
+                {
+                    y: 6,
+                    ease: 'Bounce.easeIn',
+                    duration: 2000
+                },
+                {
+                    y: 0,
+                    ease: 'Bounce.easeOut',
+                    duration: 2000
+                },
+            ],
+            loop: -1,
+            loopDelay: 2000,
+            delay: Phaser.Math.Between(0, 4000)
+        });
 
-        this.jump.add(TweenMax.to(this.position, 2, { y: 6, ease: Bounce.easeIn }));
-        this.jump.add(TweenMax.to(this.position, 2, { y: 0, ease: Bounce.easeOut }));
-        this.jump.pause();
+        // this.jump = new TimelineMax({ delay: Math.random() * 4, repeat: -1, repeatDelay: 2 });
 
-        TweenMax.delayedCall(Math.random() * 8, this.begin, [], this);
+        // this.jump.add(TweenMax.to(this.position, 2, { y: 6, ease: Bounce.easeIn }));
+        // this.jump.add(TweenMax.to(this.position, 2, { y: 0, ease: Bounce.easeOut }));
+        // this.jump.pause();
+
+        // TweenMax.delayedCall(Math.random() * 8, this.begin, [], this);
     },
 
     begin: function ()
     {
-        this.jump.restart();
+        // this.jump.restart();
 
         this.visible = true;
 
@@ -293,7 +312,7 @@ WireframeScene.Start.prototype = {
             this.torus.fadeOut(3);
             this.spike.fadeIn();
             this.current = this.spike;
-            
+
         }
         else if (this.current === this.spike)
         {
@@ -466,7 +485,7 @@ WireframeScene.Start.prototype = {
                     C: parseInt(tokens[3], 10),
                     D: parseInt(tokens[4], 10)
                 };
-            
+
                 if (face.A < 0)
                 {
                     face.A = verts.length + face.A;
@@ -528,7 +547,7 @@ WireframeScene.Start.prototype = {
             verts: verts,
             faces: faces
         };
-      
+
         return this.modelData[key];
     }
 };
@@ -559,7 +578,7 @@ var BABYLON;
         };
         return Color4;
     })();
-    BABYLON.Color4 = Color4;    
+    BABYLON.Color4 = Color4;
     var Vector2 = (function () {
         function Vector2(initialX, initialY) {
             this.x = initialX;
@@ -634,7 +653,7 @@ var BABYLON;
         };
         return Vector2;
     })();
-    BABYLON.Vector2 = Vector2;    
+    BABYLON.Vector2 = Vector2;
     var Vector3 = (function () {
         function Vector3(initialX, initialY, initialZ) {
             this.x = initialX;
@@ -734,7 +753,7 @@ var BABYLON;
         };
         return Vector3;
     })();
-    BABYLON.Vector3 = Vector3;    
+    BABYLON.Vector3 = Vector3;
     var Matrix = (function () {
         function Matrix() {
             this.m = [];
@@ -1005,5 +1024,5 @@ var BABYLON;
         };
         return Matrix;
     })();
-    BABYLON.Matrix = Matrix;    
+    BABYLON.Matrix = Matrix;
 })(BABYLON || (BABYLON = {}));

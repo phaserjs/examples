@@ -28,8 +28,7 @@ class Example extends Phaser.Scene
         const splat = this.make.image({ x: 400, y: 300, key: 'splat', add: false });
         const circle = this.make.image({ x: 300, y: 300, key: 'circle', add: false });
 
-        const mask1 = new Phaser.Display.Masks.BitmapMask(splat);
-        const mask2 = new Phaser.Display.Masks.BitmapMask(circle);
+        const mask1 = new Phaser.Display.Masks.BitmapMask(this, splat);
 
         container.add([ bg, child1, child2 ]);
 

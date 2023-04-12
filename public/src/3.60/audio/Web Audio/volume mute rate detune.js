@@ -7,14 +7,25 @@ class Example extends Phaser.Scene
     i = 0;
     horseFrames = [];
 
+    init ()
+    {
+        for (let i = 0; i < 12; i++)
+        {
+            this.horseFrames.push({
+                key: `horse${(`0${i}`).slice(-2)}`,
+                frame: '__BASE'
+            });
+        }
+    }
+
     preload ()
     {
         this.load.bitmapFont('atari-classic', 'assets/fonts/bitmap/atari-classic.png', 'assets/fonts/bitmap/atari-classic.xml');
 
         // Loading horse animation
-        for (let i = 0; this.i < this.horseFrames.length; this.i++)
+        for (let i = 0; i < this.horseFrames.length; i++)
         {
-            this.load.image(this.horseFrames[i].key, `assets/animations/horse/frame_${(`0${this.i}`).slice(-2)}_delay-0.05s.png`);
+            this.load.image(this.horseFrames[i].key, `assets/animations/horse/frame_` + ('0' + i).slice(-2) + `_delay-0.05s.png`);
         }
 
         // Loading music
@@ -130,13 +141,5 @@ const config = {
     scene: Example,
     pixelArt: true
 };
-
-for (; this.i < 12; this.i++)
-{
-    this.horseFrames.push({
-        key: `horse${(`0${this.i}`).slice(-2)}`,
-        frame: '__BASE'
-    });
-}
 
 const game = new Phaser.Game(config);

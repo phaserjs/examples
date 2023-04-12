@@ -65,7 +65,7 @@ class Example extends Phaser.Scene
 
         });
 
-        this.input.keyboard.on('keydown_SPACE', () =>
+        this.input.keyboard.on('keydown-SPACE', () =>
         {
 
             this.i++;

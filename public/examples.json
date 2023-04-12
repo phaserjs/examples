@@ -1392,18 +1392,6 @@
               "birthtimeMs": 1665148597536.7217
             },
             {
-              "path": "src\\3.60\\display\\effects",
-              "name": "effects",
-              "children": [
-                {
-                  "path": "src\\3.60\\display\\effects\\fractal terrain.js",
-                  "name": "fractal terrain.js",
-                  "birthtimeMs": 1673376789520.9077
-                }
-              ],
-              "birthtimeMs": 1665148597537.7407
-            },
-            {
               "path": "src\\3.60\\display\\masks",
               "name": "masks",
               "children": [
@@ -3624,390 +3612,6 @@
               "birthtimeMs": 1669997498855.8665
             },
             {
-              "path": "src\\3.60\\game objects\\old particle emitter",
-              "name": "old particle emitter",
-              "children": [
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\acceleration.js",
-                  "name": "acceleration.js",
-                  "birthtimeMs": 1670429126480.8027
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\angled emitter.js",
-                  "name": "angled emitter.js",
-                  "birthtimeMs": 1670429126480.8027
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\animated particles.js",
-                  "name": "animated particles.js",
-                  "birthtimeMs": 1671042233241.948
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\animation.js",
-                  "name": "animation.js",
-                  "birthtimeMs": 1670956561357.9934
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\camera test.js",
-                  "name": "camera test.js",
-                  "birthtimeMs": 1670429126481.8042
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\change emitter order.js",
-                  "name": "change emitter order.js",
-                  "birthtimeMs": 1670429126481.8042
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\christmas tree.js",
-                  "name": "christmas tree.js",
-                  "birthtimeMs": 1670429126481.8042
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\collide emitter bounds sides.js",
-                  "name": "collide emitter bounds sides.js",
-                  "birthtimeMs": 1670429126481.8042
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config 2.js",
-                  "name": "create emitter from config 2.js",
-                  "birthtimeMs": 1670429126482.8044
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config 3.js",
-                  "name": "create emitter from config 3.js",
-                  "birthtimeMs": 1670429126482.8044
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config 4.js",
-                  "name": "create emitter from config 4.js",
-                  "birthtimeMs": 1670429126482.8044
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config 5.js",
-                  "name": "create emitter from config 5.js",
-                  "birthtimeMs": 1670429126482.8044
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from config.js",
-                  "name": "create emitter from config.js",
-                  "birthtimeMs": 1670429126482.8044
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter from JSON.js",
-                  "name": "create emitter from JSON.js",
-                  "birthtimeMs": 1670429126481.8042
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\create emitter.js",
-                  "name": "create emitter.js",
-                  "birthtimeMs": 1670429126482.8044
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\custom particles.js",
-                  "name": "custom particles.js",
-                  "birthtimeMs": 1665148597581.7693
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone custom.js",
-                  "name": "death zone custom.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone follow mouse.js",
-                  "name": "death zone follow mouse.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone from arcade body.js",
-                  "name": "death zone from arcade body.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone on enter.js",
-                  "name": "death zone on enter.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\death zone on leave.js",
-                  "name": "death zone on leave.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\digital rain.js",
-                  "name": "digital rain.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\double acceleration.js",
-                  "name": "double acceleration.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\dynamic emitter config property.js",
-                  "name": "dynamic emitter config property.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\edge zone custom.js",
-                  "name": "edge zone custom.js",
-                  "birthtimeMs": 1670429126483.8047
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\edge zone from curve.js",
-                  "name": "edge zone from curve.js",
-                  "birthtimeMs": 1670429126485.3076
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\edge zone speed.js",
-                  "name": "edge zone speed.js",
-                  "birthtimeMs": 1670429126485.3076
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\edge zone.js",
-                  "name": "edge zone.js",
-                  "birthtimeMs": 1670429126485.3076
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\electric 2.js",
-                  "name": "electric 2.js",
-                  "birthtimeMs": 1670429126485.3076
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\electric.js",
-                  "name": "electric.js",
-                  "birthtimeMs": 1670429126485.3076
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\emit from manager.js",
-                  "name": "emit from manager.js",
-                  "birthtimeMs": 1670429126485.3076
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\emit from shape.js",
-                  "name": "emit from shape.js",
-                  "birthtimeMs": 1670429126486.3115
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\emit from sprites.js",
-                  "name": "emit from sprites.js",
-                  "birthtimeMs": 1670429126486.3115
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\emit from texture.js",
-                  "name": "emit from texture.js",
-                  "birthtimeMs": 1670429126486.3115
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\emitter bounds.js",
-                  "name": "emitter bounds.js",
-                  "birthtimeMs": 1670429126486.3115
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\emitter follow sprite.js",
-                  "name": "emitter follow sprite.js",
-                  "birthtimeMs": 1670429126486.3115
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\emitter2",
-                  "name": "emitter2",
-                  "children": [
-                    {
-                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test 1.js",
-                      "name": "test 1.js",
-                      "birthtimeMs": 1673449495450.2148
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test anims.js",
-                      "name": "test anims.js",
-                      "birthtimeMs": 1673449495450.2148
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test color.js",
-                      "name": "test color.js",
-                      "birthtimeMs": 1673460303177.5967
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test fire color.js",
-                      "name": "test fire color.js",
-                      "birthtimeMs": 1673460303185.0364
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test frames.js",
-                      "name": "test frames.js",
-                      "birthtimeMs": 1673449495450.2148
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test processor.js",
-                      "name": "test processor.js",
-                      "birthtimeMs": 1673449495451.2148
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test set config.js",
-                      "name": "test set config.js",
-                      "birthtimeMs": 1673449495451.2148
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\old particle emitter\\emitter2\\test set texture.js",
-                      "name": "test set texture.js",
-                      "birthtimeMs": 1673449495459.0088
-                    }
-                  ],
-                  "birthtimeMs": 1673285883735.9365
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\explode test.js",
-                  "name": "explode test.js",
-                  "birthtimeMs": 1670429126486.3115
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\fire max 10 particles.js",
-                  "name": "fire max 10 particles.js",
-                  "birthtimeMs": 1670429126487.311
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\fireballs.js",
-                  "name": "fireballs.js",
-                  "birthtimeMs": 1670429126487.311
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\fireworks.js",
-                  "name": "fireworks.js",
-                  "birthtimeMs": 1670429126487.311
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\follow sprite.js",
-                  "name": "follow sprite.js",
-                  "birthtimeMs": 1670429126487.311
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\frame cycle.js",
-                  "name": "frame cycle.js",
-                  "birthtimeMs": 1670429126488.3125
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\gravity well.js",
-                  "name": "gravity well.js",
-                  "birthtimeMs": 1670429126488.3125
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\manager transform.js",
-                  "name": "manager transform.js",
-                  "birthtimeMs": 1670429126488.3125
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\mouse trail.js",
-                  "name": "mouse trail.js",
-                  "birthtimeMs": 1670429126488.3125
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\move to center.js",
-                  "name": "move to center.js",
-                  "birthtimeMs": 1670429126488.3125
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\move to.js",
-                  "name": "move to.js",
-                  "birthtimeMs": 1670429126488.3125
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\multiple emitters.js",
-                  "name": "multiple emitters.js",
-                  "birthtimeMs": 1670429126489.3123
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\parallax.js",
-                  "name": "parallax.js",
-                  "birthtimeMs": 1670429126489.3123
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\particle editor.js",
-                  "name": "particle editor.js",
-                  "birthtimeMs": 1670429126489.3123
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\particle processor.js",
-                  "name": "particle processor.js",
-                  "birthtimeMs": 1670429126489.3123
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\particles on a moving curve.js",
-                  "name": "particles on a moving curve.js",
-                  "birthtimeMs": 1670429126489.3123
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\particles on a path.js",
-                  "name": "particles on a path.js",
-                  "birthtimeMs": 1670429126489.3123
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\quantity limit.js",
-                  "name": "quantity limit.js",
-                  "birthtimeMs": 1670429126490.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\random emit zone custom.js",
-                  "name": "random emit zone custom.js",
-                  "birthtimeMs": 1670429126490.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\random emit zone.js",
-                  "name": "random emit zone.js",
-                  "birthtimeMs": 1670429126490.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\rotating line.js",
-                  "name": "rotating line.js",
-                  "birthtimeMs": 1670429126490.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\scale emitter.js",
-                  "name": "scale emitter.js",
-                  "birthtimeMs": 1670429126490.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped angle.js",
-                  "name": "stepped angle.js",
-                  "birthtimeMs": 1670429126490.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped lifespan.js",
-                  "name": "stepped lifespan.js",
-                  "birthtimeMs": 1670429126491.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped position and speed.js",
-                  "name": "stepped position and speed.js",
-                  "birthtimeMs": 1670429126491.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped position.js",
-                  "name": "stepped position.js",
-                  "birthtimeMs": 1670429126491.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\stepped speed.js",
-                  "name": "stepped speed.js",
-                  "birthtimeMs": 1670429126491.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\test new ops.js",
-                  "name": "test new ops.js",
-                  "birthtimeMs": 1670429126491.312
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\tint.js",
-                  "name": "tint.js",
-                  "birthtimeMs": 1670429126492.3118
-                },
-                {
-                  "path": "src\\3.60\\game objects\\old particle emitter\\y position range.js",
-                  "name": "y position range.js",
-                  "birthtimeMs": 1670429126492.3118
-                }
-              ],
-              "birthtimeMs": 1665148597579.7695
-            },
-            {
               "path": "src\\3.60\\game objects\\particle emitter",
               "name": "particle emitter",
               "children": [
@@ -4220,6 +3824,390 @@
                   "path": "src\\3.60\\game objects\\particle emitter\\view bounds.js",
                   "name": "view bounds.js",
                   "birthtimeMs": 1672932120224.2053
+                },
+                {
+                  "path": "src\\3.60\\game objects\\particle emitter\\_wip",
+                  "name": "_wip",
+                  "children": [
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\acceleration.js",
+                      "name": "acceleration.js",
+                      "birthtimeMs": 1670429126480.8027
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\angled emitter.js",
+                      "name": "angled emitter.js",
+                      "birthtimeMs": 1670429126480.8027
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\animated particles.js",
+                      "name": "animated particles.js",
+                      "birthtimeMs": 1671042233241.948
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\animation.js",
+                      "name": "animation.js",
+                      "birthtimeMs": 1670956561357.9934
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\camera test.js",
+                      "name": "camera test.js",
+                      "birthtimeMs": 1670429126481.8042
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\change emitter order.js",
+                      "name": "change emitter order.js",
+                      "birthtimeMs": 1670429126481.8042
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\christmas tree.js",
+                      "name": "christmas tree.js",
+                      "birthtimeMs": 1670429126481.8042
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\collide emitter bounds sides.js",
+                      "name": "collide emitter bounds sides.js",
+                      "birthtimeMs": 1670429126481.8042
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\create emitter from config 2.js",
+                      "name": "create emitter from config 2.js",
+                      "birthtimeMs": 1670429126482.8044
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\create emitter from config 3.js",
+                      "name": "create emitter from config 3.js",
+                      "birthtimeMs": 1670429126482.8044
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\create emitter from config 4.js",
+                      "name": "create emitter from config 4.js",
+                      "birthtimeMs": 1670429126482.8044
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\create emitter from config 5.js",
+                      "name": "create emitter from config 5.js",
+                      "birthtimeMs": 1670429126482.8044
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\create emitter from config.js",
+                      "name": "create emitter from config.js",
+                      "birthtimeMs": 1670429126482.8044
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\create emitter from JSON.js",
+                      "name": "create emitter from JSON.js",
+                      "birthtimeMs": 1670429126481.8042
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\create emitter.js",
+                      "name": "create emitter.js",
+                      "birthtimeMs": 1670429126482.8044
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\custom particles.js",
+                      "name": "custom particles.js",
+                      "birthtimeMs": 1665148597581.7693
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\death zone custom.js",
+                      "name": "death zone custom.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\death zone follow mouse.js",
+                      "name": "death zone follow mouse.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\death zone from arcade body.js",
+                      "name": "death zone from arcade body.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\death zone on enter.js",
+                      "name": "death zone on enter.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\death zone on leave.js",
+                      "name": "death zone on leave.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\digital rain.js",
+                      "name": "digital rain.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\double acceleration.js",
+                      "name": "double acceleration.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\dynamic emitter config property.js",
+                      "name": "dynamic emitter config property.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\edge zone custom.js",
+                      "name": "edge zone custom.js",
+                      "birthtimeMs": 1670429126483.8047
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\edge zone from curve.js",
+                      "name": "edge zone from curve.js",
+                      "birthtimeMs": 1670429126485.3076
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\edge zone speed.js",
+                      "name": "edge zone speed.js",
+                      "birthtimeMs": 1670429126485.3076
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\edge zone.js",
+                      "name": "edge zone.js",
+                      "birthtimeMs": 1670429126485.3076
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\electric 2.js",
+                      "name": "electric 2.js",
+                      "birthtimeMs": 1670429126485.3076
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\electric.js",
+                      "name": "electric.js",
+                      "birthtimeMs": 1670429126485.3076
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emit from manager.js",
+                      "name": "emit from manager.js",
+                      "birthtimeMs": 1670429126485.3076
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emit from shape.js",
+                      "name": "emit from shape.js",
+                      "birthtimeMs": 1670429126486.3115
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emit from sprites.js",
+                      "name": "emit from sprites.js",
+                      "birthtimeMs": 1670429126486.3115
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emit from texture.js",
+                      "name": "emit from texture.js",
+                      "birthtimeMs": 1670429126486.3115
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter bounds.js",
+                      "name": "emitter bounds.js",
+                      "birthtimeMs": 1670429126486.3115
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter follow sprite.js",
+                      "name": "emitter follow sprite.js",
+                      "birthtimeMs": 1670429126486.3115
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2",
+                      "name": "emitter2",
+                      "children": [
+                        {
+                          "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2\\test 1.js",
+                          "name": "test 1.js",
+                          "birthtimeMs": 1673449495450.2148
+                        },
+                        {
+                          "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2\\test anims.js",
+                          "name": "test anims.js",
+                          "birthtimeMs": 1673449495450.2148
+                        },
+                        {
+                          "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2\\test color.js",
+                          "name": "test color.js",
+                          "birthtimeMs": 1673460303177.5967
+                        },
+                        {
+                          "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2\\test fire color.js",
+                          "name": "test fire color.js",
+                          "birthtimeMs": 1673460303185.0364
+                        },
+                        {
+                          "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2\\test frames.js",
+                          "name": "test frames.js",
+                          "birthtimeMs": 1673449495450.2148
+                        },
+                        {
+                          "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2\\test processor.js",
+                          "name": "test processor.js",
+                          "birthtimeMs": 1673449495451.2148
+                        },
+                        {
+                          "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2\\test set config.js",
+                          "name": "test set config.js",
+                          "birthtimeMs": 1673449495451.2148
+                        },
+                        {
+                          "path": "src\\3.60\\game objects\\particle emitter\\_wip\\emitter2\\test set texture.js",
+                          "name": "test set texture.js",
+                          "birthtimeMs": 1673449495459.0088
+                        }
+                      ],
+                      "birthtimeMs": 1673285883735.9365
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\explode test.js",
+                      "name": "explode test.js",
+                      "birthtimeMs": 1670429126486.3115
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\fire max 10 particles.js",
+                      "name": "fire max 10 particles.js",
+                      "birthtimeMs": 1670429126487.311
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\fireballs.js",
+                      "name": "fireballs.js",
+                      "birthtimeMs": 1670429126487.311
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\fireworks.js",
+                      "name": "fireworks.js",
+                      "birthtimeMs": 1670429126487.311
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\follow sprite.js",
+                      "name": "follow sprite.js",
+                      "birthtimeMs": 1670429126487.311
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\frame cycle.js",
+                      "name": "frame cycle.js",
+                      "birthtimeMs": 1670429126488.3125
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\gravity well.js",
+                      "name": "gravity well.js",
+                      "birthtimeMs": 1670429126488.3125
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\manager transform.js",
+                      "name": "manager transform.js",
+                      "birthtimeMs": 1670429126488.3125
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\mouse trail.js",
+                      "name": "mouse trail.js",
+                      "birthtimeMs": 1670429126488.3125
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\move to center.js",
+                      "name": "move to center.js",
+                      "birthtimeMs": 1670429126488.3125
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\move to.js",
+                      "name": "move to.js",
+                      "birthtimeMs": 1670429126488.3125
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\multiple emitters.js",
+                      "name": "multiple emitters.js",
+                      "birthtimeMs": 1670429126489.3123
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\parallax.js",
+                      "name": "parallax.js",
+                      "birthtimeMs": 1670429126489.3123
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\particle editor.js",
+                      "name": "particle editor.js",
+                      "birthtimeMs": 1670429126489.3123
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\particle processor.js",
+                      "name": "particle processor.js",
+                      "birthtimeMs": 1670429126489.3123
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\particles on a moving curve.js",
+                      "name": "particles on a moving curve.js",
+                      "birthtimeMs": 1670429126489.3123
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\particles on a path.js",
+                      "name": "particles on a path.js",
+                      "birthtimeMs": 1670429126489.3123
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\quantity limit.js",
+                      "name": "quantity limit.js",
+                      "birthtimeMs": 1670429126490.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\random emit zone custom.js",
+                      "name": "random emit zone custom.js",
+                      "birthtimeMs": 1670429126490.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\random emit zone.js",
+                      "name": "random emit zone.js",
+                      "birthtimeMs": 1670429126490.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\rotating line.js",
+                      "name": "rotating line.js",
+                      "birthtimeMs": 1670429126490.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\scale emitter.js",
+                      "name": "scale emitter.js",
+                      "birthtimeMs": 1670429126490.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\stepped angle.js",
+                      "name": "stepped angle.js",
+                      "birthtimeMs": 1670429126490.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\stepped lifespan.js",
+                      "name": "stepped lifespan.js",
+                      "birthtimeMs": 1670429126491.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\stepped position and speed.js",
+                      "name": "stepped position and speed.js",
+                      "birthtimeMs": 1670429126491.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\stepped position.js",
+                      "name": "stepped position.js",
+                      "birthtimeMs": 1670429126491.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\stepped speed.js",
+                      "name": "stepped speed.js",
+                      "birthtimeMs": 1670429126491.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\test new ops.js",
+                      "name": "test new ops.js",
+                      "birthtimeMs": 1670429126491.312
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\tint.js",
+                      "name": "tint.js",
+                      "birthtimeMs": 1670429126492.3118
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\particle emitter\\_wip\\y position range.js",
+                      "name": "y position range.js",
+                      "birthtimeMs": 1670429126492.3118
+                    }
+                  ],
+                  "birthtimeMs": 1665148597579.7695
                 }
               ],
               "birthtimeMs": 1673535473617.9143

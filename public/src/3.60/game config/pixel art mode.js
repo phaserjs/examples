@@ -28,12 +28,8 @@ class Example extends Phaser.Scene
 
         this.add.text(400, 8, 'Phaser 3 pixelArt: true', { font: '16px Courier', fill: '#00ff00' }).setOrigin(0.5, 0).setScale(3);
 
-        const particles = this.add.particles('veg');
-
-        particles.createEmitter({
+        this.add.particles(400, 300, 'veg', {
             frame: 0,
-            x: 400,
-            y: 300,
             speed: 100,
             frequency: 300,
             lifespan: 4000

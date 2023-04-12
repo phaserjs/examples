@@ -11,9 +11,7 @@ class Example extends Phaser.Scene
     {
         this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.2);
 
-        const particles = this.add.particles('fish').setPipeline('Light2D');
-
-        particles.createEmitter({
+        this.add.particles(0, 0, 'fish', {
             frame: { frames: [ 0, 1, 2 ], cycle: true, quantity: 4 },
             x: -70,
             y: { min: 100, max: 500, steps: 8 },
@@ -21,7 +19,7 @@ class Example extends Phaser.Scene
             speedX: { min: 200, max: 400, steps: 8 },
             quantity: 4,
             frequency: 500
-        });
+        }).setPipeline('Light2D');
 
         this.add.sprite(680, 600, 'sonic').setOrigin(0.5, 1);
 
@@ -46,7 +44,6 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerdown', pointer =>
         {
-
             currentColor++;
 
             if (currentColor === colors.length)
@@ -55,7 +52,6 @@ class Example extends Phaser.Scene
             }
 
             spotlight.setColor(colors[currentColor]);
-
         });
     }
 }
@@ -67,6 +63,5 @@ const config = {
     height: 600,
     scene: Example
 };
-
 
 const game = new Phaser.Game(config);

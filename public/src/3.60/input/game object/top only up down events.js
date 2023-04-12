@@ -9,7 +9,13 @@ class Example extends Phaser.Scene
     {
         for (let i = 0; i < 14; i++)
         {
-            this.add.sprite(100 + i * 30, 100 + i * 30, 'eye').setInteractive();
+            const s = this.add.sprite(100 + i * 30, 100 + i * 30, 'eye').setInteractive().setName('eye ' + i);
+
+            s.on('pointerdown', () =>
+            {
+                console.log(s.name, s.x, s.y);
+
+            });
         }
 
         //  If you disable topOnly it will fire events for all objects the pointer is over
@@ -20,6 +26,7 @@ class Example extends Phaser.Scene
 
         this.input.on('gameobjectdown', (pointer, gameObject) =>
         {
+            // console.log(gameObject.name, gameObject.x, gameObject.y);
 
             gameObject.setTint(0x00ff00);
 
@@ -27,16 +34,12 @@ class Example extends Phaser.Scene
 
         this.input.on('gameobjectout', (pointer, gameObject) =>
         {
-
             gameObject.clearTint();
-
         });
 
         this.input.on('gameobjectup', (pointer, gameObject) =>
         {
-
             gameObject.clearTint();
-
         });
     }
 }

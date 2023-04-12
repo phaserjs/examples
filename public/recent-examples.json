@@ -1,5 +1,40 @@
 [
     {
+        "path": "src\\3.60\\tweens\\stagger showcase.js",
+        "name": "stagger showcase.js",
+        "birthtimeMs": 1681271592943.7075
+    },
+    {
+        "path": "src\\3.60\\tweens\\stagger delay.js",
+        "name": "stagger delay.js",
+        "birthtimeMs": 1681270995617.8982
+    },
+    {
+        "path": "src\\3.60\\tweens\\checkerboard rotate.js",
+        "name": "checkerboard rotate.js",
+        "birthtimeMs": 1681270757733.8376
+    },
+    {
+        "path": "src\\3.60\\tweens\\checkerboard 3.js",
+        "name": "checkerboard 3.js",
+        "birthtimeMs": 1681270635485.3105
+    },
+    {
+        "path": "src\\3.60\\tweens\\checkerboard 2.js",
+        "name": "checkerboard 2.js",
+        "birthtimeMs": 1681270581420.6143
+    },
+    {
+        "path": "src\\3.60\\tweens\\checkerboard 1.js",
+        "name": "checkerboard 1.js",
+        "birthtimeMs": 1681269858788.932
+    },
+    {
+        "path": "src\\3.60\\tweens\\callbacks.js",
+        "name": "callbacks.js",
+        "birthtimeMs": 1681269005359.9739
+    },
+    {
         "path": "src\\3.60\\snapshot\\snapshot to base64.js",
         "name": "snapshot to base64.js",
         "birthtimeMs": 1681225161456.6035
@@ -113,40 +148,5 @@
         "path": "src\\3.60\\games\\minesweeper\\minesweeper.js",
         "name": "minesweeper.js",
         "birthtimeMs": 1679668814324.1604
-    },
-    {
-        "path": "src\\3.60\\tweens\\counter tween.js",
-        "name": "counter tween.js",
-        "birthtimeMs": 1679581664876.48
-    },
-    {
-        "path": "src\\3.60\\game objects\\mesh\\mesh input.js",
-        "name": "mesh input.js",
-        "birthtimeMs": 1679510349651.3008
-    },
-    {
-        "path": "src\\bugs\\5494 iso cull.js",
-        "name": "5494 iso cull.js",
-        "birthtimeMs": 1679508283460.852
-    },
-    {
-        "path": "src\\3.60\\fx\\gradient\\tilemap gradient.js",
-        "name": "tilemap gradient.js",
-        "birthtimeMs": 1679506431178.5078
-    },
-    {
-        "path": "src\\3.60\\fx\\shine\\tilemap layer shine.js",
-        "name": "tilemap layer shine.js",
-        "birthtimeMs": 1679506120483.606
-    },
-    {
-        "path": "src\\3.60\\game elements\\dice.js",
-        "name": "dice.js",
-        "birthtimeMs": 1679414355751.3884
-    },
-    {
-        "path": "src\\3.60\\fx\\glow\\glow bitmaptext.js",
-        "name": "glow bitmaptext.js",
-        "birthtimeMs": 1679332864799.4
     }
 ]

@@ -11455,6 +11455,11 @@
           "name": "tweens",
           "children": [
             {
+              "path": "src\\3.60\\tweens\\callbacks.js",
+              "name": "callbacks.js",
+              "birthtimeMs": 1681269005359.9739
+            },
+            {
               "path": "src\\3.60\\tweens\\chains",
               "name": "chains",
               "children": [
@@ -11490,6 +11495,26 @@
               "path": "src\\3.60\\tweens\\change texture.js",
               "name": "change texture.js",
               "birthtimeMs": 1675444282700.5122
+            },
+            {
+              "path": "src\\3.60\\tweens\\checkerboard 1.js",
+              "name": "checkerboard 1.js",
+              "birthtimeMs": 1681269858788.932
+            },
+            {
+              "path": "src\\3.60\\tweens\\checkerboard 2.js",
+              "name": "checkerboard 2.js",
+              "birthtimeMs": 1681270581420.6143
+            },
+            {
+              "path": "src\\3.60\\tweens\\checkerboard 3.js",
+              "name": "checkerboard 3.js",
+              "birthtimeMs": 1681270635485.3105
+            },
+            {
+              "path": "src\\3.60\\tweens\\checkerboard rotate.js",
+              "name": "checkerboard rotate.js",
+              "birthtimeMs": 1681270757733.8376
             },
             {
               "path": "src\\3.60\\tweens\\counter tween.js",
@@ -11627,6 +11652,16 @@
               "path": "src\\3.60\\tweens\\sprite angle between.js",
               "name": "sprite angle between.js",
               "birthtimeMs": 1680096601026.5935
+            },
+            {
+              "path": "src\\3.60\\tweens\\stagger delay.js",
+              "name": "stagger delay.js",
+              "birthtimeMs": 1681270995617.8982
+            },
+            {
+              "path": "src\\3.60\\tweens\\stagger showcase.js",
+              "name": "stagger showcase.js",
+              "birthtimeMs": 1681271592943.7075
             },
             {
               "path": "src\\3.60\\tweens\\tween gauge.js",

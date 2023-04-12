@@ -98,12 +98,13 @@ function create ()
         // _yoyo: true,
         // _repeat: -1,
 
-    var tween1 = this.tweens.create({
+    var tween1 = this.tweens.add({
         targets: group1.getChildren(),
         scale: 0.2,
         ease: 'linear',
         duration: 1000,
-        delay: this.tweens.stagger([ 500, 3000 ], { grid: [ gw, gh ], from: 'center', ease: 'cubic.in' })
+        delay: this.tweens.stagger([ 500, 3000 ], { grid: [ gw, gh ], from: 'center', ease: 'cubic.in' }),
+        paused: true
     });
 
     var tween2 = this.tweens.add({

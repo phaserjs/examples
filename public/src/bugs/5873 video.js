@@ -14,7 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.video('tokyo', 'assets/bugs/tokyo.mp4', 'loadeddata', true);
+    this.load.video('tokyo', 'assets/bugs/tokyo.mp4', true);
 }
 
 function create ()

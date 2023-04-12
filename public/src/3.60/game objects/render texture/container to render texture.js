@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
 
         this.container.add([ sprite0, sprite1, sprite2, sprite3, sprite4 ]);
 
-        this.rt = this.add.renderTexture(0, 0, 800, 600);
+        this.rt = this.add.renderTexture(400, 300, 800, 600);
 
         this.rt.draw(this.container);
     }

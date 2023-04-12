@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.rt = this.add.renderTexture(0, 0, 80, 80);
+        this.rt = this.add.renderTexture(40, 40, 80, 80);
 
         const circle = this.add.circle(0, 0, 40, 0x6666ff).setAlpha(0.5).setVisible(false);
 
@@ -28,9 +28,7 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerup', () =>
         {
-
             game.destroy(true);
-
         });
     }
 }

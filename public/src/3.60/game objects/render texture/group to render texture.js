@@ -31,7 +31,7 @@ class Example extends Phaser.Scene
         Phaser.Actions.SetTint(invader2.getChildren(), 0x00ff00);
         Phaser.Actions.SetTint(invader3.getChildren(), 0x00ffff);
 
-        this.rt = this.add.renderTexture(0, 0, 800, 600);
+        this.rt = this.add.renderTexture(400, 300, 800, 600);
 
         this.rt.draw(invader1);
         this.rt.draw(invader2);

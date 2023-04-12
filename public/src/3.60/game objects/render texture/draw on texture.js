@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const rt = this.add.renderTexture(0, 0, 128, 128).setInteractive().setDepth(1001);
+        const rt = this.add.renderTexture(64, 64, 128, 128).setInteractive().setDepth(1001);
 
         this.add.graphics().fillStyle(0x000000).lineStyle(1, 0xffffff).fillRect(0, 0, 128, 128).strokeRect(0, 0, 128, 128).setDepth(1000);
 
@@ -45,20 +45,17 @@ class Example extends Phaser.Scene
 
         const tt = rt.saveTexture('doodle');
 
-        const blocks = this.add.group({ key: 'doodle', repeat: 35, setScale: { x: 0.2, y: 0.1 } });
+        const blocks = this.add.group({ key: 'doodle', repeat: 48, setScale: { x: 0.2, y: 0.1 } });
 
         Phaser.Actions.GridAlign(blocks.getChildren(), {
-            width: 7,
-            height: 5,
+            width: 8,
+            height: 6,
             cellWidth: 128,
-            cellHeight: 128,
-            x: 128,
-            y: 128
+            cellHeight: 128
         });
 
         blocks.children.iterate(function (child)
         {
-
             this.tweens.add({
                 targets: child,
                 scaleX: 1,

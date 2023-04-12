@@ -27,7 +27,19 @@ class Example extends Phaser.Scene
         this.bunny = this.textures.getFrame('bunny');
         this.text = this.add.text(0, 0, 'phaser 3?').setVisible(false);
         this.bob = this.add.image(0, 0, 'bunny').setName('bob').setVisible(false);
-        this.particles = this.add.particles('flares').setVisible(false);
+
+        this.particles = this.add.particles(200, 300, 'flares', {
+            frame: 'blue',
+            lifespan: 2000,
+            speed: { min: 400, max: 600 },
+            angle: 330,
+            gravityY: 300,
+            scale: { start: 0.4, end: 0 },
+            quantity: 2,
+            blendMode: 'ADD',
+            advance: 1000
+        }).setVisible(false);
+
         this.bitmaptext = this.add.bitmapText(0, 0, 'desyrel', 'PHASER 3\nRender Texture').setVisible(false);
 
         this.graphics = this.add.graphics().setVisible(false);
@@ -61,20 +73,7 @@ class Example extends Phaser.Scene
 
         this.blitter.create(0, 0);
 
-        this.particles.createEmitter({
-            frame: 'blue',
-            x: 200,
-            y: 300,
-            lifespan: 2000,
-            speed: { min: 400, max: 600 },
-            angle: 330,
-            gravityY: 300,
-            scale: { start: 0.4, end: 0 },
-            quantity: 2,
-            blendMode: 'ADD'
-        });
-
-        this.rt = this.add.renderTexture(0, 0, 800, 600);
+        this.rt = this.add.renderTexture(400, 300, 800, 600);
 
         this.rt.draw(this.graphics, 0, 0);
         this.rt.draw(this.bob, 200, 200);
@@ -85,14 +84,11 @@ class Example extends Phaser.Scene
         this.rt.draw(this.bob, 300, 300);
         this.rt.draw(this.bob, 400, 400);
         this.rt.draw(this.text, 300, 200);
-        this.rt.draw(this.particles, 300, 0);
+        this.rt.draw(this.particles, 300, 100);
         this.rt.draw(this.bitmaptext, 200, 100);
-
-        this.add.text(32, 500, 'Testing Text Rendering');
 
         this.input.on('pointerdown', () =>
         {
-
             this.rt.resize(400, 300);
 
             this.rt.draw(this.graphics, 0, 0);
@@ -104,7 +100,7 @@ class Example extends Phaser.Scene
             this.rt.draw(this.bob, 300, 300);
             this.rt.draw(this.bob, 400, 400);
             this.rt.draw(this.text, 300, 200);
-            this.rt.draw(this.particles, 300, 0);
+            this.rt.draw(this.particles, 300, 100);
             this.rt.draw(this.bitmaptext, 200, 100);
 
         });

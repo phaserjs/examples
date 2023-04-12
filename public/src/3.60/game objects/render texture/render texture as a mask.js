@@ -8,7 +8,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const rt = this.add.renderTexture(0, 0, 800, 600);
+        const rt = this.add.renderTexture(400, 300, 800, 600);
 
         const mask = rt.createBitmapMask();
 

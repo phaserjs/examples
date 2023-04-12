@@ -13,7 +13,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
+        this.rt = this.make.renderTexture({ x: 400, y: 300, width: 800, height: 600 });
 
         this.rnd = Math.random;
     }

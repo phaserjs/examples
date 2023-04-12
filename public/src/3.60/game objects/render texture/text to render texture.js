@@ -9,7 +9,7 @@ class Example extends Phaser.Scene
 
         this.text.setVisible(false);
 
-        this.rt = this.add.renderTexture(0, 0, 800, 600);
+        this.rt = this.add.renderTexture(400, 300, 800, 600);
     }
 
     update ()

@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const rt = this.add.renderTexture(0, 0, 800, 800);
+        const rt = this.add.renderTexture(400, 300, 800, 600);
 
         const brush = this.add.image(0, 0, 'brush');
 

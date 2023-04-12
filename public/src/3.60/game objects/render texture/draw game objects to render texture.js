@@ -28,7 +28,16 @@ class Example extends Phaser.Scene
         this.bunny = this.textures.getFrame('bunny');
         this.text = this.add.text(0, 0, 'phaser 3?').setVisible(false);
         this.bob = this.add.image(0, 0, 'bunny').setName('bob').setVisible(false);
-        this.particles = this.add.particles('flares').setVisible(false);
+        this.particles = this.add.particles(200, 300, 'flares', {
+            frame: 'blue',
+            lifespan: 2000,
+            speed: { min: 400, max: 600 },
+            angle: 330,
+            gravityY: 300,
+            scale: { start: 0.4, end: 0 },
+            quantity: 2,
+            blendMode: 'ADD'
+        }).setVisible(false);
         this.bitmaptext = this.add.bitmapText(0, 0, 'desyrel', 'PHASER 3\nRender Texture').setVisible(false);
 
         this.graphics = this.add.graphics().setVisible(false);
@@ -45,20 +54,7 @@ class Example extends Phaser.Scene
 
         this.blitter.create(0, 0);
 
-        this.particles.createEmitter({
-            frame: 'blue',
-            x: 200,
-            y: 300,
-            lifespan: 2000,
-            speed: { min: 400, max: 600 },
-            angle: 330,
-            gravityY: 300,
-            scale: { start: 0.4, end: 0 },
-            quantity: 2,
-            blendMode: 'ADD'
-        });
-
-        this.rt = this.add.renderTexture(0, 0, 800, 600);
+        this.rt = this.add.renderTexture(400, 300, 800, 600);
     }
 
     update ()

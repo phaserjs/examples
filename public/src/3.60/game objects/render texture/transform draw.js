@@ -8,7 +8,7 @@ class Example extends Phaser.Scene
     create ()
     {
         //  Create a Render Texture at 0x0 which is 800x600 in size
-        const rt = this.add.renderTexture(0, 0, 800, 600);
+        const rt = this.add.renderTexture(400, 300, 800, 600);
 
         rt.camera.setAngle(20);
         rt.camera.setZoom(2);

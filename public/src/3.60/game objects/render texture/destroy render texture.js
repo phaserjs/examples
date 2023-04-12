@@ -27,15 +27,12 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerup', () =>
         {
-
             //  It is YOUR responsibility to remove or change the texture being used by
             //  any Game Objects that are using the Render Texture *before* you destroy it
 
             this.bubbles.forEach(image =>
             {
-
                 image.destroy();
-
             });
 
             this.rt.destroy();

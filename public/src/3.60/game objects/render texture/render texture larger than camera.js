@@ -9,7 +9,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const rt = this.add.renderTexture(0, 0, 1400, 1200);
+        const rt = this.add.renderTexture(700, 600, 1400, 1200);
 
         rt.fill(0x2d2d2d);
 

@@ -31,13 +31,13 @@ class Example extends Phaser.Scene
         swatch.on('pointerdown', this.changeColor, this);
         swatch.on('pointermove', this.updateColor, this);
 
-        this.input.keyboard.on('keydown_C', this.setCircle, this);
-        this.input.keyboard.on('keydown_R', this.setRectangle, this);
-        this.input.keyboard.on('keydown_E', this.setEllipse, this);
-        this.input.keyboard.on('keydown_S', this.setStar, this);
-        this.input.keyboard.on('keydown_L', this.setLine, this);
-        this.input.keyboard.on('keydown_DELETE', this.deleteShape, this);
-        this.input.keyboard.on('keydown_TAB', this.changeShape, this);
+        this.input.keyboard.on('keydown-C', this.setCircle, this);
+        this.input.keyboard.on('keydown-R', this.setRectangle, this);
+        this.input.keyboard.on('keydown-E', this.setEllipse, this);
+        this.input.keyboard.on('keydown-S', this.setStar, this);
+        this.input.keyboard.on('keydown-L', this.setLine, this);
+        this.input.keyboard.on('keydown-DELETE', this.deleteShape, this);
+        this.input.keyboard.on('keydown-TAB', this.changeShape, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -78,7 +78,7 @@ class Example extends Phaser.Scene
 
         if (this.shape)
         {
-            this.shape.setFillStyle(this.color.this.color);
+            this.shape.setFillStyle(this.color.color);
         }
 
         event.stopPropagation();
@@ -95,7 +95,7 @@ class Example extends Phaser.Scene
 
         if (this.shape)
         {
-            this.shape.setFillStyle(this.color.this.color);
+            this.shape.setFillStyle(this.color.color);
         }
 
         event.stopPropagation();
@@ -139,23 +139,23 @@ class Example extends Phaser.Scene
         switch (this.current)
         {
             case 1:
-                this.shape = this.add.circle(pointer.x, pointer.y, 4, this.color.this.color);
+                this.shape = this.add.circle(pointer.x, pointer.y, 4, this.color.color);
                 break;
 
             case 2:
-                this.shape = this.add.rectangle(pointer.x, pointer.y, 4, 4, this.color.this.color);
+                this.shape = this.add.rectangle(pointer.x, pointer.y, 4, 4, this.color.color);
                 break;
 
             case 3:
-                this.shape = this.add.ellipse(pointer.x, pointer.y, 4, 4, this.color.this.color);
+                this.shape = this.add.ellipse(pointer.x, pointer.y, 4, 4, this.color.color);
                 break;
 
             case 4:
-                this.shape = this.add.star(pointer.x, pointer.y, 5, 2, 4, this.color.this.color);
+                this.shape = this.add.star(pointer.x, pointer.y, 5, 2, 4, this.color.color);
                 break;
 
             case 5:
-                this.shape = this.add.line(pointer.x, pointer.y, 0, 0, 4, 0, this.color.this.color);
+                this.shape = this.add.line(pointer.x, pointer.y, 0, 0, 4, 0, this.color.color);
                 break;
         }
     }

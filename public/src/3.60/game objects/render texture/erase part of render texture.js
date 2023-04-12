@@ -11,7 +11,7 @@ class Example extends Phaser.Scene
     {
         this.add.image(0, 0, 'bg').setOrigin(0);
 
-        const rt = this.add.renderTexture(0, 0, 800, 600);
+        const rt = this.add.renderTexture(400, 300, 800, 600);
 
         for (let y = 0; y < 2; y++)
         {
@@ -23,26 +23,20 @@ class Example extends Phaser.Scene
 
         const brush = this.make.image({ key: 'brush' }, false).setScale(0.5);
 
-        // var brush = this.add.circle(0, 0, 32, 0xffffff);
-
         this.input.on('pointermove', pointer =>
         {
-
             if (pointer.isDown)
             {
-                // rt.erase('brush', pointer.x - 16, pointer.y - 16);
                 rt.erase(brush, pointer.x - 16, pointer.y - 16);
             }
 
-        }, this);
+        });
 
         this.input.on('pointerdown', pointer =>
         {
-
-            // rt.erase('brush', pointer.x - 16, pointer.y - 16);
             rt.erase(brush, pointer.x - 16, pointer.y - 16);
 
-        }, this);
+        });
     }
 }
 

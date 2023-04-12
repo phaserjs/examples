@@ -5,16 +5,22 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('atari', 'assets/sprites/atari130xe.png');
+        this.load.image('duck', 'assets/sprites/darkwing_crazy.png');
     }
 
     create ()
     {
-        this.blitter = this.add.blitter(0, 0, 'atari').setVisible(false);
+        this.blitter = this.add.blitter(0, 0, 'duck').setVisible(false);
 
-        this.blitter.create(0, 0);
+        for (let i = 0; i < 512; i++)
+        {
+            const x = Phaser.Math.Between(0, 800);
+            const y = Phaser.Math.Between(0, 600);
 
-        this.rt = this.add.renderTexture(0, 0, 800, 600);
+            this.blitter.create(x, y);
+        }
+
+        this.rt = this.add.renderTexture(400, 300, 800, 600);
     }
 
     update ()

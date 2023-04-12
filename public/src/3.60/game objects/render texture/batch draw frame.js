@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const rt = this.add.renderTexture(0, 0, 800, 800);
+        const rt = this.add.renderTexture(400, 300, 800, 600);
 
         const atlasTexture = this.textures.get('megaset');
 

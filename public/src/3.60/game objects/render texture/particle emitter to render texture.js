@@ -10,9 +10,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.particles = this.add.particles('flares');
-
-        this.particles.createEmitter({
+        this.particles = this.add.particles(400, 300, 'flares', {
             frame: 'blue',
             x: 400,
             y: 300,
@@ -27,7 +25,7 @@ class Example extends Phaser.Scene
 
         this.particles.setVisible(false);
 
-        this.rt = this.add.renderTexture(0, 0, 800, 600);
+        this.rt = this.add.renderTexture(400, 300, 800, 600);
     }
 
     update ()

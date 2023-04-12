@@ -1,34 +1,25 @@
 class Example extends Phaser.Scene
 {
-    rt2;
-    rt1;
-
     preload ()
     {
         this.load.image('bunny', 'assets/sprites/bunny.png');
-        this.load.image('grid', 'assets/sprites/128x128-v2.png');
     }
 
     create ()
     {
-        const gridFrame = this.textures.getFrame('grid');
-        const gridImage = this.add.image(0, 0, 'grid').setVisible(false).setOrigin(0);
+        const rt1 = this.add.renderTexture(0, 0, 400, 600).setOrigin(0, 0);
 
-        this.rt1 = this.add.renderTexture(0, 0, 800, 600);
-        this.rt1.draw(gridFrame, 0, 0);
-        this.rt1.draw(gridImage, 128, 0);
-        this.rt1.draw(gridFrame, 256, 0);
+        for (let i = 0; i < 16; i++)
+        {
+            const x = Phaser.Math.Between(-200, 400);
+            const y = Phaser.Math.Between(-100, 600);
 
-        // rt2 = this.add.renderTexture(200, 200, 800, 600);
-        // rt2.draw(bob, 200, 200);
-        // rt2.draw(rt2, 0, 0);
-    }
+            rt1.draw('bunny', x, y);
+        }
 
-    update ()
-    {
-        // rt.camera.rotation -= 0.01;
-        // rt.clear();
-        // rt.draw(graphics, 0, 0);
+        const rt2 = this.add.renderTexture(400, 0, 400, 600).setOrigin(0, 0);
+
+        rt2.draw(rt1, 0, 0);
     }
 }
 

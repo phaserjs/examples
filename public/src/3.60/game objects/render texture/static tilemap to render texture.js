@@ -32,7 +32,7 @@ class Example extends Phaser.Scene
 
         this.layer = map.createLayer(0, tiles, 0, 0).setVisible(false);
 
-        this.rt = this.add.renderTexture(0, 0, 800, 600);
+        this.rt = this.add.renderTexture(400, 300, 800, 600);
     }
 
     update ()

@@ -2848,18 +2848,8 @@
                   "birthtimeMs": 1670429126467.2944
                 },
                 {
-                  "path": "src\\3.60\\game objects\\graphics\\circle spin.js",
-                  "name": "circle spin.js",
-                  "birthtimeMs": 1670429126467.2944
-                },
-                {
                   "path": "src\\3.60\\game objects\\graphics\\circles test.js",
                   "name": "circles test.js",
-                  "birthtimeMs": 1670429126467.2944
-                },
-                {
-                  "path": "src\\3.60\\game objects\\graphics\\draw triangles.js",
-                  "name": "draw triangles.js",
                   "birthtimeMs": 1670429126467.2944
                 },
                 {
@@ -2918,9 +2908,14 @@
                   "birthtimeMs": 1670429126469.2957
                 },
                 {
-                  "path": "src\\3.60\\game objects\\graphics\\Many Line Stars.js",
-                  "name": "Many Line Stars.js",
+                  "path": "src\\3.60\\game objects\\graphics\\many stars.js",
+                  "name": "many stars.js",
                   "birthtimeMs": 1670429126466.295
+                },
+                {
+                  "path": "src\\3.60\\game objects\\graphics\\mouse trail.js",
+                  "name": "mouse trail.js",
+                  "birthtimeMs": 1665148597562.7544
                 },
                 {
                   "path": "src\\3.60\\game objects\\graphics\\multiple cameras.js",
@@ -2928,8 +2923,8 @@
                   "birthtimeMs": 1674150536660.0557
                 },
                 {
-                  "path": "src\\3.60\\game objects\\graphics\\Multiple Graphic Objects.js",
-                  "name": "Multiple Graphic Objects.js",
+                  "path": "src\\3.60\\game objects\\graphics\\multiple graphic instances.js",
+                  "name": "multiple graphic instances.js",
                   "birthtimeMs": 1674150536660.0557
                 },
                 {
@@ -2940,21 +2935,6 @@
                 {
                   "path": "src\\3.60\\game objects\\graphics\\obj scene.js",
                   "name": "obj scene.js",
-                  "birthtimeMs": 1674150536661.056
-                },
-                {
-                  "path": "src\\3.60\\game objects\\graphics\\obj viewer.js",
-                  "name": "obj viewer.js",
-                  "birthtimeMs": 1670429126469.2957
-                },
-                {
-                  "path": "src\\3.60\\game objects\\graphics\\obj world cam.js",
-                  "name": "obj world cam.js",
-                  "birthtimeMs": 1665148597566.755
-                },
-                {
-                  "path": "src\\3.60\\game objects\\graphics\\obj world.js",
-                  "name": "obj world.js",
                   "birthtimeMs": 1674150536661.056
                 },
                 {
@@ -3085,11 +3065,6 @@
                   "birthtimeMs": 1670429126473.2952
                 },
                 {
-                  "path": "src\\3.60\\game objects\\graphics\\single obj viewer.js",
-                  "name": "single obj viewer.js",
-                  "birthtimeMs": 1670429126473.2952
-                },
-                {
                   "path": "src\\3.60\\game objects\\graphics\\spinning cube.js",
                   "name": "spinning cube.js",
                   "birthtimeMs": 1674150536661.056
@@ -3135,81 +3110,46 @@
                   "birthtimeMs": 1670429126473.2952
                 },
                 {
-                  "path": "src\\3.60\\game objects\\graphics\\Trail.js",
-                  "name": "Trail.js",
-                  "birthtimeMs": 1665148597562.7544
-                },
-                {
                   "path": "src\\3.60\\game objects\\graphics\\transform.js",
                   "name": "transform.js",
                   "birthtimeMs": 1670429126474.7993
                 },
                 {
-                  "path": "src\\3.60\\game objects\\graphics\\_mesh",
-                  "name": "_mesh",
+                  "path": "src\\3.60\\game objects\\graphics\\_wip",
+                  "name": "_wip",
                   "children": [
                     {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\draw mesh.js",
-                      "name": "draw mesh.js",
-                      "birthtimeMs": 1665148597562.7544
+                      "path": "src\\3.60\\game objects\\graphics\\_wip\\circle spin.js",
+                      "name": "circle spin.js",
+                      "birthtimeMs": 1670429126467.2944
                     },
                     {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\filled torus.js",
-                      "name": "filled torus.js",
-                      "birthtimeMs": 1665148597563.7544
+                      "path": "src\\3.60\\game objects\\graphics\\_wip\\draw triangles.js",
+                      "name": "draw triangles.js",
+                      "birthtimeMs": 1670429126467.2944
                     },
                     {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh battleship.js",
-                      "name": "mesh battleship.js",
-                      "birthtimeMs": 1665148597563.7544
+                      "path": "src\\3.60\\game objects\\graphics\\_wip\\obj viewer.js",
+                      "name": "obj viewer.js",
+                      "birthtimeMs": 1670429126469.2957
                     },
                     {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh deer.js",
-                      "name": "mesh deer.js",
-                      "birthtimeMs": 1665148597563.7544
+                      "path": "src\\3.60\\game objects\\graphics\\_wip\\obj world cam.js",
+                      "name": "obj world cam.js",
+                      "birthtimeMs": 1665148597566.755
                     },
                     {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh elephant.js",
-                      "name": "mesh elephant.js",
-                      "birthtimeMs": 1665148597563.7544
+                      "path": "src\\3.60\\game objects\\graphics\\_wip\\obj world.js",
+                      "name": "obj world.js",
+                      "birthtimeMs": 1674150536661.056
                     },
                     {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh gun.js",
-                      "name": "mesh gun.js",
-                      "birthtimeMs": 1665148597563.7544
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh scale.js",
-                      "name": "mesh scale.js",
-                      "birthtimeMs": 1665148597563.7544
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh scene.js",
-                      "name": "mesh scene.js",
-                      "birthtimeMs": 1665148597563.7544
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh snowman.js",
-                      "name": "mesh snowman.js",
-                      "birthtimeMs": 1665148597563.7544
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh squirrel.js",
-                      "name": "mesh squirrel.js",
-                      "birthtimeMs": 1665148597564.7546
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh test.js",
-                      "name": "mesh test.js",
-                      "birthtimeMs": 1665148597564.7546
-                    },
-                    {
-                      "path": "src\\3.60\\game objects\\graphics\\_mesh\\mesh tree.js",
-                      "name": "mesh tree.js",
-                      "birthtimeMs": 1665148597564.7546
+                      "path": "src\\3.60\\game objects\\graphics\\_wip\\single obj viewer.js",
+                      "name": "single obj viewer.js",
+                      "birthtimeMs": 1670429126473.2952
                     }
                   ],
-                  "birthtimeMs": 1665148597562.7544
+                  "birthtimeMs": 1681279155282.5435
                 }
               ],
               "birthtimeMs": 1665148597562.7544
@@ -3570,6 +3510,73 @@
                   "path": "src\\3.60\\game objects\\mesh\\race track.js",
                   "name": "race track.js",
                   "birthtimeMs": 1665148597579.7695
+                },
+                {
+                  "path": "src\\3.60\\game objects\\mesh\\_wip",
+                  "name": "_wip",
+                  "children": [
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\draw mesh.js",
+                      "name": "draw mesh.js",
+                      "birthtimeMs": 1665148597562.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\filled torus.js",
+                      "name": "filled torus.js",
+                      "birthtimeMs": 1665148597563.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh battleship.js",
+                      "name": "mesh battleship.js",
+                      "birthtimeMs": 1665148597563.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh deer.js",
+                      "name": "mesh deer.js",
+                      "birthtimeMs": 1665148597563.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh elephant.js",
+                      "name": "mesh elephant.js",
+                      "birthtimeMs": 1665148597563.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh gun.js",
+                      "name": "mesh gun.js",
+                      "birthtimeMs": 1665148597563.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh scale.js",
+                      "name": "mesh scale.js",
+                      "birthtimeMs": 1665148597563.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh scene.js",
+                      "name": "mesh scene.js",
+                      "birthtimeMs": 1665148597563.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh snowman.js",
+                      "name": "mesh snowman.js",
+                      "birthtimeMs": 1665148597563.7544
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh squirrel.js",
+                      "name": "mesh squirrel.js",
+                      "birthtimeMs": 1665148597564.7546
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh test.js",
+                      "name": "mesh test.js",
+                      "birthtimeMs": 1665148597564.7546
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\mesh\\_wip\\mesh tree.js",
+                      "name": "mesh tree.js",
+                      "birthtimeMs": 1665148597564.7546
+                    }
+                  ],
+                  "birthtimeMs": 1665148597562.7544
                 }
               ],
               "birthtimeMs": 1665148597579.7695
@@ -4354,16 +4361,6 @@
                   "birthtimeMs": 1670429126494.3123
                 },
                 {
-                  "path": "src\\3.60\\game objects\\render texture\\explosion.js",
-                  "name": "explosion.js",
-                  "birthtimeMs": 1670429126494.3123
-                },
-                {
-                  "path": "src\\3.60\\game objects\\render texture\\fireball.js",
-                  "name": "fireball.js",
-                  "birthtimeMs": 1670429126494.3123
-                },
-                {
                   "path": "src\\3.60\\game objects\\render texture\\frame fill.js",
                   "name": "frame fill.js",
                   "birthtimeMs": 1665148597591.2769
@@ -4377,11 +4374,6 @@
                   "path": "src\\3.60\\game objects\\render texture\\group to render texture.js",
                   "name": "group to render texture.js",
                   "birthtimeMs": 1670429126494.3123
-                },
-                {
-                  "path": "src\\3.60\\game objects\\render texture\\nine slice frame.js",
-                  "name": "nine slice frame.js",
-                  "birthtimeMs": 1665148597591.2769
                 },
                 {
                   "path": "src\\3.60\\game objects\\render texture\\paint interpolated shadow.js",
@@ -4512,6 +4504,28 @@
                   "path": "src\\3.60\\game objects\\render texture\\transform draw.js",
                   "name": "transform draw.js",
                   "birthtimeMs": 1670429126499.8198
+                },
+                {
+                  "path": "src\\3.60\\game objects\\render texture\\_wip",
+                  "name": "_wip",
+                  "children": [
+                    {
+                      "path": "src\\3.60\\game objects\\render texture\\_wip\\explosion.js",
+                      "name": "explosion.js",
+                      "birthtimeMs": 1670429126494.3123
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\render texture\\_wip\\fireball.js",
+                      "name": "fireball.js",
+                      "birthtimeMs": 1670429126494.3123
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\render texture\\_wip\\nine slice frame.js",
+                      "name": "nine slice frame.js",
+                      "birthtimeMs": 1665148597591.2769
+                    }
+                  ],
+                  "birthtimeMs": 1681280309354.8962
                 }
               ],
               "birthtimeMs": 1665148597589.3552

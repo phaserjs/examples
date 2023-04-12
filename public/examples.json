@@ -558,8 +558,8 @@
               "name": "SID",
               "children": [
                 {
-                  "path": "src\\3.60\\audio\\SID\\test.js",
-                  "name": "test.js",
+                  "path": "src\\3.60\\audio\\SID\\c64 sid player.js",
+                  "name": "c64 sid player.js",
                   "birthtimeMs": 1670429126449.2468
                 }
               ],

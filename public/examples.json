@@ -3668,6 +3668,11 @@
                   "birthtimeMs": 1672675267589.8457
                 },
                 {
+                  "path": "src\\3.60\\game objects\\particle emitter\\explode emitter.js",
+                  "name": "explode emitter.js",
+                  "birthtimeMs": 1681284398956.046
+                },
+                {
                   "path": "src\\3.60\\game objects\\particle emitter\\fire effects.js",
                   "name": "fire effects.js",
                   "birthtimeMs": 1674582832044.4932
@@ -4461,11 +4466,6 @@
                   "birthtimeMs": 1670429126497.82
                 },
                 {
-                  "path": "src\\3.60\\game objects\\render texture\\sparks.js",
-                  "name": "sparks.js",
-                  "birthtimeMs": 1670429126498.8198
-                },
-                {
                   "path": "src\\3.60\\game objects\\render texture\\sprite to render texture.js",
                   "name": "sprite to render texture.js",
                   "birthtimeMs": 1670429126498.8198
@@ -4523,6 +4523,11 @@
                       "path": "src\\3.60\\game objects\\render texture\\_wip\\nine slice frame.js",
                       "name": "nine slice frame.js",
                       "birthtimeMs": 1665148597591.2769
+                    },
+                    {
+                      "path": "src\\3.60\\game objects\\render texture\\_wip\\sparks.js",
+                      "name": "sparks.js",
+                      "birthtimeMs": 1670429126498.8198
                     }
                   ],
                   "birthtimeMs": 1681280309354.8962

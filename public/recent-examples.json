@@ -1,5 +1,10 @@
 [
     {
+        "path": "src\\3.60\\game objects\\particle emitter\\explode emitter.js",
+        "name": "explode emitter.js",
+        "birthtimeMs": 1681284398956.046
+    },
+    {
         "path": "src\\3.60\\tweens\\ball circle.js",
         "name": "ball circle.js",
         "birthtimeMs": 1681274946566.0835
@@ -143,10 +148,5 @@
         "path": "src\\3.60\\game objects\\shaders\\shader using an updating dynamic texture.js",
         "name": "shader using an updating dynamic texture.js",
         "birthtimeMs": 1679935383036.3765
-    },
-    {
-        "path": "src\\bugs\\6434 aseprite.js",
-        "name": "6434 aseprite.js",
-        "birthtimeMs": 1679922234817.5857
     }
 ]

@@ -261,7 +261,7 @@
             var a = $('<a></a>', { href: 'view.html?src=' + filepath });
         }
 
-        const imgPath = filepath.replace(/^src/, 'screenshots').replace(/\.json$/, '.png').replace(/\.js$/, '.png');
+        const imgPath = filepath.replace(/^src/, 'screenshots').replace(/\.json$/, '.png').replace(/\.js$/, '.png').toLowerCase();
 
         var imgdiv = $('<div></div>').addClass('imageHolder');
 

@@ -1,5 +1,5 @@
 import Tomato from './Tomato.js';
-import Bombs from './Bombs.js';
+import Bombs from './TomBombs.js';
 import TomatoItem from './TomatoItem.js';
 
 /**

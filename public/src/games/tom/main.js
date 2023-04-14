@@ -1,8 +1,8 @@
 import Preloader from './Preloader.js';
 
 import Play from './Play.js';
-import Menu from './scenes/Menu.js';
-import UI from './scenes/UI.js';
+import Menu from './Menu.js';
+import UI from './UI.js';
 
 const config = {
     title: "TOM",

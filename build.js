@@ -7,7 +7,7 @@ const rootDir = './public/src/';
 const examplesJSON = './public/examples.json';
 const recentExamplesJSON = './public/recent-examples.json';
 
-var filteredTree = dirTree(rootDir, {
+let filteredTree = dirTree(rootDir, {
     extensions: /\.(js|json)$/,
     exclude: /(3\.24)/,
     attributes: ["birthtimeMs"]
@@ -18,7 +18,9 @@ indexer.index(filteredTree);
 filteredTree = JSON.stringify(filteredTree, null, 2);
 
 filteredTree = filteredTree.replaceAll(`public/`, ``);
-filteredTree = filteredTree.replaceAll(`public\\`, ``);
+filteredTree = filteredTree.replaceAll(`public\\\\`, ``);
+
+// console.log(filteredTree);
 
 const lastExamplesQuantity = 30;
 // Get the 30 more recent examples

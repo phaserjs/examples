@@ -1,5 +1,10 @@
 [
     {
+        "path": "src/game objects/particle emitter/emit zone loop.js",
+        "name": "emit zone loop.js",
+        "birthtimeMs": 1682373249406.7275
+    },
+    {
         "path": "src/physics/matterjs/bullet pool.js",
         "name": "bullet pool.js",
         "birthtimeMs": 1682027162763.481
@@ -143,10 +148,5 @@
         "path": "src/time/timestep/world time.js",
         "name": "world time.js",
         "birthtimeMs": 1681332208443.5513
-    },
-    {
-        "path": "src/time/timestep/variable smooth step.js",
-        "name": "variable smooth step.js",
-        "birthtimeMs": 1681332208443.4724
     }
 ]

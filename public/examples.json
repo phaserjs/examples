@@ -4630,6 +4630,11 @@
               "birthtimeMs": 1681332208420.9958
             },
             {
+              "path": "src/game objects/particle emitter/emit zone loop.js",
+              "name": "emit zone loop.js",
+              "birthtimeMs": 1682373249406.7275
+            },
+            {
               "path": "src/game objects/particle emitter/emitter alpha.js",
               "name": "emitter alpha.js",
               "birthtimeMs": 1673816747966.9788

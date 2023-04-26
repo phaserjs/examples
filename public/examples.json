@@ -7613,6 +7613,11 @@
               "birthtimeMs": 1670446048614.3225
             },
             {
+              "path": "src/input/game object/select and deselect.js",
+              "name": "select and deselect.js",
+              "birthtimeMs": 1682515032330.073
+            },
+            {
               "path": "src/input/game object/sprite example.js",
               "name": "sprite example.js",
               "birthtimeMs": 1670446048614.4653

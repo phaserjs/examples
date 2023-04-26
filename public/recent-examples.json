@@ -1,5 +1,10 @@
 [
     {
+        "path": "src/input/game object/select and deselect.js",
+        "name": "select and deselect.js",
+        "birthtimeMs": 1682515032330.073
+    },
+    {
         "path": "src/tweens/delay function.js",
         "name": "delay function.js",
         "birthtimeMs": 1682510662987.809
@@ -143,10 +148,5 @@
         "path": "src/tweens/callbacks.js",
         "name": "callbacks.js",
         "birthtimeMs": 1681332208443.887
-    },
-    {
-        "path": "src/tweens/ball circle.js",
-        "name": "ball circle.js",
-        "birthtimeMs": 1681332208443.6453
     }
 ]

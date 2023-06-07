@@ -384,6 +384,11 @@
           "birthtimeMs": 1675631996358.7407
         },
         {
+          "path": "src/animation/play after random delay.js",
+          "name": "play after random delay.js",
+          "birthtimeMs": 1686168902350.515
+        },
+        {
           "path": "src/animation/play after repeat.js",
           "name": "play after repeat.js",
           "birthtimeMs": 1675631996358.8423
@@ -655,6 +660,11 @@
       "path": "src/bugs",
       "name": "bugs",
       "children": [
+        {
+          "path": "src/bugs/0000 canvastexture resize.js",
+          "name": "0000 canvastexture resize.js",
+          "birthtimeMs": 1685997478664.3843
+        },
         {
           "path": "src/bugs/0000 char index.js",
           "name": "0000 char index.js",

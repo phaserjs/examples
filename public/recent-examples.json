@@ -1,5 +1,10 @@
 [
     {
+        "path": "src/bugs/0000 onupdate.js",
+        "name": "0000 onupdate.js",
+        "birthtimeMs": 1686654429701.8716
+    },
+    {
         "path": "src/animation/play after random delay.js",
         "name": "play after random delay.js",
         "birthtimeMs": 1686168902350.515
@@ -143,10 +148,5 @@
         "path": "src/tweens/checkerboard 3.js",
         "name": "checkerboard 3.js",
         "birthtimeMs": 1681332208444.5227
-    },
-    {
-        "path": "src/tweens/checkerboard 2.js",
-        "name": "checkerboard 2.js",
-        "birthtimeMs": 1681332208444.3145
     }
 ]

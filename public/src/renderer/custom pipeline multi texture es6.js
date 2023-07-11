@@ -134,7 +134,7 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        // this.customPipeline.set1f('uTime', this.t);
+        this.customPipeline.set1f('uTime', this.t);
 
         this.t += 0.05;
 

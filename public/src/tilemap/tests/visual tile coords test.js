@@ -37,22 +37,22 @@ class Example extends Phaser.Scene
 
         this.selectLayer(this.tileLayer);
 
-        this.input.keyboard.on('keydown_ONE', event =>
+        this.input.keyboard.on('keydown-ONE', event =>
         {
             this.selectLayer(this.tileLayer);
         });
 
-        this.input.keyboard.on('keydown_TWO', event =>
+        this.input.keyboard.on('keydown-TWO', event =>
         {
             this.selectLayer(this.offsetTileLayer);
         });
 
-        this.input.keyboard.on('keydown_THREE', event =>
+        this.input.keyboard.on('keydown-THREE', event =>
         {
             this.selectLayer(this.tileLayer2);
         });
 
-        this.input.keyboard.on('keydown_FOUR', event =>
+        this.input.keyboard.on('keydown-FOUR', event =>
         {
             this.selectLayer(this.smallTileLayer);
         });

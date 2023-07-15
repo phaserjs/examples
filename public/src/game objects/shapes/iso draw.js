@@ -44,13 +44,13 @@ class Example extends Phaser.Scene
 
 
 
-        // this.input.keyboard.on('keydown_C', this.setCircle, this);
-        // this.input.keyboard.on('keydown_R', this.setRectangle, this);
-        // this.input.keyboard.on('keydown_E', this.setEllipse, this);
-        // this.input.keyboard.on('keydown_S', this.setStar, this);
-        // this.input.keyboard.on('keydown_L', this.setLine, this);
-        // this.input.keyboard.on('keydown_DELETE', this.deleteShape, this);
-        // this.input.keyboard.on('keydown_TAB', this.changeShape, this);
+        // this.input.keyboard.on('keydown-C', this.setCircle, this);
+        // this.input.keyboard.on('keydown-R', this.setRectangle, this);
+        // this.input.keyboard.on('keydown-E', this.setEllipse, this);
+        // this.input.keyboard.on('keydown-S', this.setStar, this);
+        // this.input.keyboard.on('keydown-L', this.setLine, this);
+        // this.input.keyboard.on('keydown-DELETE', this.deleteShape, this);
+        // this.input.keyboard.on('keydown-TAB', this.changeShape, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 

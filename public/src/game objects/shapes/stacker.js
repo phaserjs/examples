@@ -57,7 +57,7 @@ class Example extends Phaser.Scene
 
         this.timer = this.time.addEvent({ delay: this.speed, callback: this.moveBlocks, callbackScope: this, loop: true });
 
-        this.input.keyboard.on('keydown_SPACE', this.drop, this);
+        this.input.keyboard.on('keydown-SPACE', this.drop, this);
         this.input.on('pointerdown', this.drop, this);
     }
 

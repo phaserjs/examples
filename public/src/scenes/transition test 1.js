@@ -16,9 +16,8 @@ class SceneA extends Phaser.Scene
     {
         this.face = this.add.image(0, 0, 'face').setOrigin(0);
 
-        this.input.once('pointerdown', function ()
+        this.input.once('pointerdown', () =>
         {
-
             this.scene.transition({
                 target: 'sceneB',
                 duration: 2000,
@@ -26,8 +25,7 @@ class SceneA extends Phaser.Scene
                 onUpdate: this.transitionOut,
                 data: { x: 400, y: 300 }
             });
-
-        }, this);
+        });
     }
 
     transitionOut (progress)
@@ -53,43 +51,37 @@ class SceneB extends Phaser.Scene
     {
         const planet = this.add.image(data.x, data.y, 'planet').setScale(0);
 
-        this.events.on('transitionstart', function (fromScene, duration)
+        this.events.on('transitionstart', (fromScene, duration) =>
         {
-
             this.tweens.add({
                 targets: planet,
                 scaleX: 1,
                 scaleY: 1,
                 duration: duration
             });
-
-        }, this);
+        });
 
         this.events.on('transitioncomplete', () => { console.log('Complete'); });
 
-        this.events.on('transitionout', function (toScene, duration)
+        this.events.on('transitionout', (toScene, duration) =>
         {
-
             this.tweens.add({
                 targets: planet,
                 scaleX: 0,
                 scaleY: 0,
                 duration: duration
             });
-
-        }, this);
+        });
 
         this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function (event)
+        this.input.once('pointerdown', (event) =>
         {
-
             this.scene.transition({
                 target: 'sceneC',
                 duration: 3000
             });
-
-        }, this);
+        });
     }
 
     update (time, delta)
@@ -114,12 +106,10 @@ class SceneC extends Phaser.Scene
     {
         this.add.sprite(Phaser.Math.Between(0, 800), 300, 'mech');
 
-        this.input.once('pointerdown', function (event)
+        this.input.once('pointerdown', (event) =>
         {
-
             this.scene.start('sceneA');
-
-        }, this);
+        });
     }
 }
 

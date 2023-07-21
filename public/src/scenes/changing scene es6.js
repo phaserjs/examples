@@ -16,11 +16,10 @@ class SceneA extends Phaser.Scene {
 
         this.input.manager.enabled = true;
 
-        this.input.once('pointerdown', function () {
-
+        this.input.once('pointerdown', () =>
+        {
             this.scene.start('sceneB');
-
-        }, this);
+        });
     }
 
 }
@@ -41,11 +40,10 @@ class SceneB extends Phaser.Scene {
     {
         this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function (event) {
-
+        this.input.once('pointerdown', (event) =>
+        {
             this.scene.start('sceneC');
-
-        }, this);
+        });
     }
 
     update ()
@@ -71,11 +69,10 @@ class SceneC extends Phaser.Scene {
     {
         this.add.sprite(Phaser.Math.Between(300, 600), 300, 'mech');
 
-        this.input.once('pointerdown', function (event) {
-
+        this.input.once('pointerdown', (event) =>
+        {
             this.scene.start('sceneA');
-
-        }, this);
+        });
     }
 
 }

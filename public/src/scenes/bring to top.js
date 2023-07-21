@@ -14,12 +14,10 @@ class DemoA extends Phaser.Scene
     {
         this.add.image(400, 300, 'picA');
 
-        this.input.once('pointerdown', function ()
+        this.input.once('pointerdown', () =>
         {
-
             this.scene.bringToTop();
-
-        }, this);
+        });
     }
 }
 

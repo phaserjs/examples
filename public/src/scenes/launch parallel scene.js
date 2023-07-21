@@ -16,13 +16,11 @@ class SceneA extends Phaser.Scene
 
         const _this = this;
 
-        this.input.once('pointerdown', function ()
+        this.input.once('pointerdown', () =>
         {
-
             this.scene.launch('sceneB');
             this.scene.launch('sceneC');
-
-        }, this);
+        });
     }
 }
 

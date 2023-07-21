@@ -661,6 +661,11 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\0000 blur fx.js",
+          "name": "0000 blur fx.js",
+          "birthtimeMs": 1689946138100.1326
+        },
+        {
           "path": "src\\bugs\\0000 canvastexture resize.js",
           "name": "0000 canvastexture resize.js",
           "birthtimeMs": 1689351345489.9456
@@ -2376,6 +2381,11 @@
               "path": "src\\fx\\glow\\glow post fx.js",
               "name": "glow post fx.js",
               "birthtimeMs": 1681468686365.5405
+            },
+            {
+              "path": "src\\fx\\glow\\glow rope fx.js",
+              "name": "glow rope fx.js",
+              "birthtimeMs": 1689955284812.719
             },
             {
               "path": "src\\fx\\glow\\glow text.js",

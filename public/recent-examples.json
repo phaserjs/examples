@@ -1,5 +1,10 @@
 [
     {
+        "path": "src\\bugs\\0000 big load.js",
+        "name": "0000 big load.js",
+        "birthtimeMs": 1690885334198.0024
+    },
+    {
         "path": "src\\loader\\texture atlas multi\\load webp multi texture atlas.js",
         "name": "load webp multi texture atlas.js",
         "birthtimeMs": 1690811427931.1616
@@ -142,11 +147,6 @@
     {
         "path": "src\\utils\\size\\aspect mode envelop.js",
         "name": "aspect mode envelop.js",
-        "birthtimeMs": 1681468686681.1448
-    },
-    {
-        "path": "src\\utils\\size\\aspect mode fit.js",
-        "name": "aspect mode fit.js",
         "birthtimeMs": 1681468686681.1448
     }
 ]

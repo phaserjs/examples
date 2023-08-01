@@ -11,8 +11,8 @@ class SetQuantity extends Phaser.Scene
 
         const button1 = this.add.text(10, 100, '10', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
         const button2 = this.add.text(10, 200, '50', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
-        const button3 = this.add.text(10, 300, '250', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
-        const button4 = this.add.text(10, 400, '500', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
+        const button3 = this.add.text(10, 300, '100', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
+        const button4 = this.add.text(10, 400, '250', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
 
         button1.setPadding(16).setOrigin(0).setInteractive();
         button2.setPadding(16).setOrigin(0).setInteractive();
@@ -28,11 +28,11 @@ class SetQuantity extends Phaser.Scene
         });
 
         button3.once('pointerdown', () => {
-            this.scene.start('BigLoad', { quantity: 250 });
+            this.scene.start('BigLoad', { quantity: 100 });
         });
 
         button4.once('pointerdown', () => {
-            this.scene.start('BigLoad', { quantity: 500 });
+            this.scene.start('BigLoad', { quantity: 250 });
         });
 
         if (Phaser.VERSION === '3.55.2')

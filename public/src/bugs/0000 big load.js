@@ -7,15 +7,17 @@ class SetQuantity extends Phaser.Scene
 
     create ()
     {
-        this.add.text(10, 10, 'Select quantity\nof files to load', { font: '32px Courier', fill: '#00ff00' });
+        this.add.text(10, 10, `Phaser v${Phaser.VERSION}\n\nSelect quantity\nof files to load`, { font: '16px Courier', fill: '#00ff00' });
 
-        const button1 = this.add.text(10, 100, '2500', { fontFamily: 'Arial', fontSize: '32px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
-        const button2 = this.add.text(10, 200, '5000', { fontFamily: 'Arial', fontSize: '32px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
-        const button3 = this.add.text(10, 300, '10000', { fontFamily: 'Arial', fontSize: '32px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
+        const button1 = this.add.text(10, 100, '2500', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
+        const button2 = this.add.text(10, 200, '5000', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
+        const button3 = this.add.text(10, 300, '7500', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
+        const button4 = this.add.text(10, 400, '10000', { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', align: 'center', fixedWidth: 260, backgroundColor: '#0000cc' });
 
         button1.setPadding(16).setOrigin(0).setInteractive();
         button2.setPadding(16).setOrigin(0).setInteractive();
         button3.setPadding(16).setOrigin(0).setInteractive();
+        button4.setPadding(16).setOrigin(0).setInteractive();
 
         button1.once('pointerdown', () => {
             this.scene.start('BigLoad', { quantity: 2500 });
@@ -26,8 +28,33 @@ class SetQuantity extends Phaser.Scene
         });
 
         button3.once('pointerdown', () => {
+            this.scene.start('BigLoad', { quantity: 7500 });
+        });
+
+        button4.once('pointerdown', () => {
             this.scene.start('BigLoad', { quantity: 10000 });
         });
+
+        if (Phaser.VERSION === '3.55.2')
+        {
+            const button5 = this.add.text(10, 500, 'Swap to 3.61', { fontFamily: 'Arial', fontSize: '24px', color: '#000000', align: 'center', fixedWidth: 260, backgroundColor: '#ffffff' });
+
+            button5.setPadding(16).setOrigin(0).setInteractive();
+
+            button5.once('pointerdown', () => {
+                window.location.href = 'https://labs.phaser.io/view.html?src=src/bugs/0000%20big%20load.js&v=live';
+            });
+        }
+        else
+        {
+            const button5 = this.add.text(10, 500, 'Swap to 3.55', { fontFamily: 'Arial', fontSize: '24px', color: '#000000', align: 'center', fixedWidth: 260, backgroundColor: '#ffffff' });
+
+            button5.setPadding(16).setOrigin(0).setInteractive();
+
+            button5.once('pointerdown', () => {
+                window.location.href = 'https://labs.phaser.io/view.html?src=src/bugs/0000%20big%20load.js&v=3.55.2';
+            });
+        }
     }
 }
 
@@ -42,7 +69,7 @@ class Demo extends Phaser.Scene
     {
         this.quantity = data.quantity;
 
-        this.add.text(10, 10, `Loading ${this.quantity} files`, { font: '32px Courier', fill: '#00ff00' });
+        this.add.text(10, 10, `Loading ${this.quantity} files`, { font: '20px Courier', fill: '#00ff00' });
 
         console.log('Quantity:', this.quantity);
     }
@@ -55,7 +82,7 @@ class Demo extends Phaser.Scene
         {
             progress.clear();
             progress.fillStyle(0xffff00, 1);
-            progress.fillRect(0, 100, 800 * value, 60);
+            progress.fillRect(0, 100, 375 * value, 60);
         });
 
 
@@ -70,17 +97,17 @@ class Demo extends Phaser.Scene
         const half = Math.floor(this.quantity / 2);
         const last = this.quantity - 1;
 
-        this.add.sprite(200, 300, 'block0');
-        this.add.sprite(400, 300, `block${half}`);
-        this.add.sprite(600, 300, `block${last}`);
+        this.add.sprite(100, 250, 'block0');
+        this.add.sprite(100, 350, `block${half}`);
+        this.add.sprite(100, 450, `block${last}`);
     }
 }
 
 const config = {
     type: Phaser.WEBGL,
     parent: 'phaser-example',
-    width: 800,
-    height: 600,
+    width: 375,
+    height: 667,
     backgroundColor: '#000000',
     scene: [ SetQuantity, Demo ]
 };

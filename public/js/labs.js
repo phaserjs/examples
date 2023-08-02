@@ -160,10 +160,10 @@ $(document).ready(function () {
             }
             else
             {
-                if (phaserVersion === 'live')
-                {
-                    phaserVersionJS = '3.60.0-release.min.js';
-                }
+                // if (phaserVersion === 'live')
+                // {
+                //     phaserVersionJS = '3.60.0-release.min.js';
+                // }
 
                 phaserScript.src = './build/' + phaserVersionJS;
             }

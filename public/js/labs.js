@@ -153,13 +153,18 @@ $(document).ready(function () {
 
             };
 
-            if (remote && phaserVersion !== 'dev' && selected)
+            if (remote && phaserVersion !== 'dev' && phaserVersion !== 'live' && selected)
             {
                 // <script src="//cdn.jsdelivr.net/npm/phaser@3.7.1/dist/phaser.min.js">
                 phaserScript.src = '//cdn.jsdelivr.net/npm/phaser@' + phaserVersion + '/dist/phaser.min.js';
             }
             else
             {
+                // if (phaserVersion === 'live')
+                // {
+                //     phaserVersionJS = '3.60.0-release.min.js';
+                // }
+
                 phaserScript.src = './build/' + phaserVersionJS;
             }
 

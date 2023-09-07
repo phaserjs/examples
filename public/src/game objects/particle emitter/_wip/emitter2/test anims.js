@@ -12,22 +12,27 @@ class Example extends Phaser.Scene
         this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
         this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
 
-        const emitter = this.add.particles(100, 100, 'gems', {
-            anim: [ 'diamond', 'prism', 'square', 'ruby' ],
+        const emitter = this.add.particles(400, 100, 'gems', {
+            // anim: [ 'diamond', 'prism', 'square', 'ruby' ],
+            // anim: 'diamond',
+            // anim: { anims: [ 'diamond', 'prism', 'ruby' ], cycle: true, quantity: 100 },
+            anim: { anims: { key: 'ruby', randomFrame: true } },
             speed: 100,
             lifespan: 6000,
-            scale: { start: 0.3, end: 1 },
-            gravityY: 80
+            gravityY: 120
         });
 
-        this.tweens.add({
-            targets: emitter,
-            x: 600,
-            yoyo: true,
-            repeat: -1,
-            duration: 2000,
-            ease: 'sine.inout'
-        });
+        console.log(emitter);
+        console.log(emitter.anims);
+
+        // this.tweens.add({
+        //     targets: emitter,
+        //     x: 600,
+        //     yoyo: true,
+        //     repeat: -1,
+        //     duration: 2000,
+        //     ease: 'sine.inout'
+        // });
     }
 }
 

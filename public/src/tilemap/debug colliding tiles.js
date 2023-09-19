@@ -25,7 +25,6 @@ class Example extends Phaser.Scene
         this.map.setCollision([ 14, 15, 16, 20, 21, 22, 23, 24, 25, 27, 28, 29, 33, 39, 40 ]);
 
         this.debugGraphics = this.add.graphics();
-        this.debugGraphics.setScale(2);
 
         this.input.keyboard.on('keydown-ONE', event =>
         {

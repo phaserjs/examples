@@ -7,7 +7,11 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('checker', 'assets/pics/bw-face.png');
+        this.load.image('face', 'assets/pics/bw-face.png');
+        this.load.image('metal', 'assets/textures/alien-metal.jpg');
+        this.load.image('grass', 'assets/textures/grass.png');
+        this.load.image('tiles', 'assets/textures/tiles.jpg');
+        this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
     }
 
     create ()
@@ -15,32 +19,21 @@ class Example extends Phaser.Scene
         const frag = `
         precision mediump float;
 
-        uniform float time;
         uniform vec2 resolution;
-        uniform sampler2D iChannel0;
         uniform float pixelSize;
 
         varying vec2 fragCoord;
 
-        vec4 texture(sampler2D s, vec2 c) { return texture2D(s,c); }
-
-        void mainImage (out vec4 fragColor, in vec2 fragCoord)
+        void main (void)
         {
             vec2 uv = fragCoord / resolution.xy;
 
-            uv = floor(uv * resolution.x * pixelSize) / (resolution.x * pixelSize);
-
-            fragColor = texture(iChannel0, uv);
-        }
-
-        void main (void)
-        {
-            mainImage(gl_FragColor, fragCoord.xy);
+            gl_FragColor = vec4(uv.xy, 1.0);
         }
         `;
 
         const base = new Phaser.Display.BaseShader(
-            'simpleTexture',
+            'pixelate',
             frag,
             null,
             {
@@ -48,7 +41,7 @@ class Example extends Phaser.Scene
             }
         );
 
-        const shader = this.add.shader(base, 400, 300, 800, 600, [ 'checker' ]);
+        const shader = this.add.shader(base, 400, 300, 800, 600, [ 'metal' ]);
 
         shader.setUniform('pixelSize.value', 0.2);
 

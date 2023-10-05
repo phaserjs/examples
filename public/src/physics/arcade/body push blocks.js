@@ -24,7 +24,8 @@ class Example extends Phaser.Scene
             const box = this.physics.add.image(x, y, 'block');
 
             box.setCollideWorldBounds(true);
-            box.setDrag(10000);
+            // box.setDrag(1000);
+            box.body.slideFactor.set(0, 0);
 
             boxes.push(box);
         }

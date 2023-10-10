@@ -1,10 +1,5 @@
 class Example extends Phaser.Scene
 {
-    time = 0.0;
-    light;
-    brick;
-    offsets = [];
-
     preload ()
     {
         this.load.image('brick', [ 'assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png' ]);
@@ -13,11 +8,11 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.brick = this.add.sprite(0, 0, 'brick');
-        this.brick.setOrigin(0.0);
-        this.brick.setPipeline('Light2D');
+        const brick = this.add.sprite(0, 0, 'brick');
+        brick.setOrigin(0, 0);
+        brick.setPipeline('Light2D');
 
-        this.light = this.lights.addLight(0, 0, 200).setScrollFactor(0.0).setIntensity(2);
+        this.light = this.lights.addLight(0, 0, 200).setScrollFactor(0).setIntensity(2);
 
         this.lights.enable().setAmbientColor(0x555555);
 
@@ -51,6 +46,8 @@ class Example extends Phaser.Scene
         this.lights.addLight(0, 400, 100).setColor(0xffff00).setIntensity(3.0);
 
         this.offsets = [ Math.random() + 1 - 2, Math.random() + 1 - 2, Math.random() + 1 - 2, Math.random() + 1 - 2 ];
+
+        this.time = 0;
     }
 
     update ()

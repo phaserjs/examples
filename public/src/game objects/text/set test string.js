@@ -8,7 +8,7 @@ class Example extends Phaser.Scene
             color: '#ffffff',
             backgroundColor: '#ff00ff',
             testString: 'abc'
-        }).setStroke(0x111111, 6);
+        }).setStroke('#111111', 6);
 
         this.add.text(100, 200, '⎝ example text', {
             fontSize: '48px',
@@ -16,7 +16,7 @@ class Example extends Phaser.Scene
             color: '#ffffff',
             backgroundColor: '#ff00ff',
             testString: '⎝|MÉqgy'
-        }).setStroke(0x111111, 6);
+        }).setStroke('#111111', 6);
     }
 }
 

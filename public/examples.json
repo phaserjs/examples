@@ -716,6 +716,11 @@
           "birthtimeMs": 1638295536692.9111
         },
         {
+          "path": "src\\bugs\\0000 dt mem.js",
+          "name": "0000 dt mem.js",
+          "birthtimeMs": 1697118192372.3408
+        },
+        {
           "path": "src\\bugs\\0000 frame cycle.js",
           "name": "0000 frame cycle.js",
           "birthtimeMs": 1678387598974.5015
@@ -1334,6 +1339,16 @@
           "path": "src\\bugs\\6515 particle multi.js",
           "name": "6515 particle multi.js",
           "birthtimeMs": 1694106822702.048
+        },
+        {
+          "path": "src\\bugs\\6527 mask resize 2.js",
+          "name": "6527 mask resize 2.js",
+          "birthtimeMs": 1697214315697.963
+        },
+        {
+          "path": "src\\bugs\\6527 mask resize.js",
+          "name": "6527 mask resize.js",
+          "birthtimeMs": 1697214062657.297
         },
         {
           "path": "src\\bugs\\6604 line width.js",

@@ -18,7 +18,6 @@ class Example extends Phaser.Scene
 
         this.input.on('pointermove', pointer =>
         {
-
             if (pointer.isDown)
             {
                 rt.draw('brush', pointer.x - 32, pointer.y - 32);
@@ -28,9 +27,7 @@ class Example extends Phaser.Scene
 
         this.input.keyboard.on('keydown-SPACE', event =>
         {
-
             rt.resize(400, 300);
-
         });
     }
 }

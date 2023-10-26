@@ -9247,11 +9247,6 @@
               "birthtimeMs": 1670938915299.597
             },
             {
-              "path": "src/physics/arcade/auto update.js",
-              "name": "auto update.js",
-              "birthtimeMs": 1698350931086.6055
-            },
-            {
               "path": "src/physics/arcade/basic platform.js",
               "name": "basic platform.js",
               "birthtimeMs": 1670938915299.7817
@@ -9375,6 +9370,11 @@
               "path": "src/physics/arcade/destroy body.js",
               "name": "destroy body.js",
               "birthtimeMs": 1670938915302.6763
+            },
+            {
+              "path": "src/physics/arcade/direct control.js",
+              "name": "direct control.js",
+              "birthtimeMs": 1698350931086.6055
             },
             {
               "path": "src/physics/arcade/disable collider.js",

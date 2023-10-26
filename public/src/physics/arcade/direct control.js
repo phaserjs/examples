@@ -2,19 +2,19 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('lemming', 'assets/sprites/lemming.png');
-        this.load.image('ball', 'assets/sprites/red_ball.png');
+        this.load.image('master', 'assets/sprites/master.png');
+        this.load.image('mushroom', 'assets/sprites/mushroom16x16.png');
     }
 
     create ()
     {
-        this.block = this.physics.add.image(0, 300, 'lemming');
+        this.master = this.physics.add.image(100, 300, 'master');
 
-        this.block.body.immovable = true;
-        this.block.body.autoUpdate = true;
+        this.master.setDirectControl();
+        this.master.setImmovable();
 
         this.tweens.add({
-            targets: this.block,
+            targets: this.master,
             x: 700,
             duration: 3000,
             ease: 'sine.inout',
@@ -24,29 +24,30 @@ class Example extends Phaser.Scene
 
         this.debug = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-        this.balls = [];
+        this.mushrooms = [];
 
         for (let i = 0; i < 64; i++)
         {
             const x = Phaser.Math.Between(0, 800);
             const y = Phaser.Math.Between(-1900, 0);
 
-            const ball = this.physics.add.image(x, y, 'ball');
+            const mushroom = this.physics.add.image(x, y, 'mushroom');
 
-            ball.body.setBounce(1);
-            ball.setCollideWorldBounds(true);
+            mushroom.body.setBounce(1);
+            mushroom.body.setMaxVelocity(2000, 2000);
+            mushroom.setCollideWorldBounds(true);
 
-            this.balls.push(ball);
+            this.mushrooms.push(mushroom);
         }
 
         this.physics.world.setBounds(0, -2000, 800, 2600);
 
-        this.physics.add.collider(this.block, this.balls);
+        this.physics.add.collider(this.master, this.mushrooms);
     }
 
     update ()
     {
-        const block = this.block;
+        const block = this.master;
 
         this.debug.setText([
             'velocity.x: ' + block.body.velocity.x,

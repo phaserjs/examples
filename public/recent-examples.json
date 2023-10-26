@@ -1,7 +1,7 @@
 [
     {
-        "path": "src/physics/arcade/auto update.js",
-        "name": "auto update.js",
+        "path": "src/physics/arcade/direct control.js",
+        "name": "direct control.js",
         "birthtimeMs": 1698350931086.6055
     },
     {

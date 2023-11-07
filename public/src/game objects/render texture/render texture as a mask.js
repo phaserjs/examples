@@ -27,7 +27,8 @@ class Example extends Phaser.Scene
 
         this.input.keyboard.on('keydown-SPACE', event =>
         {
-            rt.resize(400, 300);
+            // this.game.scale.resize(800, 600);
+            rt.resize(800, 600);
         });
     }
 }

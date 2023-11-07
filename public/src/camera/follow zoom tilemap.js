@@ -5,33 +5,34 @@ class Example extends Phaser.Scene
         super();
     }
 
-    preload () 
+    preload ()
     {
         this.load.image('ship', 'assets/sprites/fmship.png');
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/super-mario.json');
         this.load.image('tiles1', 'assets/tilemaps/tiles/super-mario.png');
     }
 
-    create () 
+    create ()
     {
         this.cameras.main.setBounds(0, 0, 3392, 100);
         this.physics.world.setBounds(0, 0, 3392, 240);
-    
+
         var map = this.make.tilemap({ key: 'map' });
         var tileset = map.addTilesetImage('SuperMarioBros-World1-1', 'tiles1');
         var layer = map.createLayer('World1', tileset, 0, 0);
-    
+
         this.cursors = this.input.keyboard.createCursorKeys();
-    
-        this.ship = this.physics.add.image(400, 100, 'ship').setAngle(90).setCollideWorldBounds(true);
-        // this.ship = this.add.image(400, 100, 'ship').setAngle(90);
-    
-        this.cameras.main.startFollow(this.ship, true, 0.08, 0.08);
-    
+
+        // this.ship = this.physics.add.image(400, 100, 'ship').setAngle(90).setCollideWorldBounds(true);
+        this.ship = this.add.image(400, 100, 'ship').setAngle(90);
+
+        // this.cameras.main.startFollow(this.ship, true, 0.08, 0.08);
+        this.cameras.main.startFollow(this.ship, true);
+
         this.cameras.main.setZoom(4);
     }
 
-    update () 
+    updatePhysics ()
     {
         this.ship.setVelocity(0);
 
@@ -43,7 +44,7 @@ class Example extends Phaser.Scene
         {
             this.ship.setAngle(90).setVelocityX(200);
         }
-    
+
         if (this.cursors.up.isDown)
         {
             this.ship.setVelocityY(-200);
@@ -54,7 +55,7 @@ class Example extends Phaser.Scene
         }
     }
 
-    updateDirect ()
+    update ()
     {
         if (this.cursors.left.isDown && this.ship.x > 0)
         {

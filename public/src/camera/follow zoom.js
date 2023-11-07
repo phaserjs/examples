@@ -19,6 +19,9 @@ class Example extends Phaser.Scene
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
+        this.mode = 1; // 0 = direct, 1 = physics
+        this.directSpeed = 4.5;
+
         this.ship = this.physics.add.image(400, 300, 'ship');
 
         this.cameras.main.startFollow(this.ship, true);
@@ -28,6 +31,18 @@ class Example extends Phaser.Scene
     }
 
     update ()
+    {
+        if (this.mode === 0)
+        {
+            this.updateDirect();
+        }
+        else
+        {
+            this.updatePhysics();
+        }
+    }
+
+    updatePhysics ()
     {
         this.ship.setVelocity(0);
 
@@ -47,6 +62,31 @@ class Example extends Phaser.Scene
         else if (this.cursors.down.isDown)
         {
             this.ship.setAngle(-180).setVelocityY(200);
+        }
+    }
+
+    updateDirect ()
+    {
+        if (this.cursors.left.isDown)
+        {
+            this.ship.setAngle(-90);
+            this.ship.x -= this.directSpeed;
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.ship.setAngle(90);
+            this.ship.x += this.directSpeed;
+        }
+
+        if (this.cursors.up.isDown)
+        {
+            this.ship.setAngle(0);
+            this.ship.y -= this.directSpeed;
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.ship.setAngle(-180);
+            this.ship.y += this.directSpeed;
         }
     }
 }

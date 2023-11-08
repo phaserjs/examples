@@ -13,19 +13,33 @@ class Example extends Phaser.Scene
 
         this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.5);
 
-        this.add.image(200, 300, 'face', 0).setPipeline('Light2D');
-        this.add.image(300, 300, 'face', 1).setPipeline('Light2D');
-        this.add.image(400, 300, 'face', 2).setPipeline('Light2D');
-        this.add.image(500, 300, 'face', 3).setPipeline('Light2D');
+        this.anims.create({
+            key: 'eyes',
+            frames: this.anims.generateFrameNumbers('face', { start: 0, end: 3 }),
+            frameRate: 14,
+            repeat: -1
+        });
+
+        for (let i = 0; i < 6; i++)
+        {
+            const x = Phaser.Math.Between(100, 700);
+            const y = Phaser.Math.Between(100, 500);
+
+            const face = this.physics.add.sprite(x, y, 'face');
+
+            face.setPipeline('Light2D');
+            face.play('eyes');
+            face.setVelocity(Phaser.Math.Between(-100, 100), Phaser.Math.Between(-100, 100));
+            face.setBounce(1, 1);
+            face.setCollideWorldBounds(true);
+        }
 
         const light = this.lights.addLight(400, 300, 200).setIntensity(2);
 
         this.input.on('pointermove', pointer =>
         {
-
             light.x = pointer.x;
             light.y = pointer.y;
-
         });
     }
 }
@@ -35,6 +49,9 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    physics: {
+        default: 'arcade'
+    },
     scene: Example
 };
 

@@ -1,0 +1,182 @@
+{
+	"textures": [
+		{
+			"image": "nine-slice.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 454,
+				"h": 220
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "copy-that-floppy",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 144,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 144,
+						"h": 148
+					},
+					"frame": {
+						"x": 3,
+						"y": 3,
+						"w": 144,
+						"h": 148
+					},
+					"scale9Borders": {
+						"x": 17,
+						"y": 18,
+						"w": 109,
+						"h": 69
+					}
+				},
+				{
+					"filename": "button-bg",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 110
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 110
+					},
+					"frame": {
+						"x": 151,
+						"y": 3,
+						"w": 300,
+						"h": 110
+					},
+					"scale9Borders": {
+						"x": 42,
+						"y": 32,
+						"w": 216,
+						"h": 42
+					}
+				},
+				{
+					"filename": "blue-box",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 100,
+						"h": 100
+					},
+					"frame": {
+						"x": 151,
+						"y": 117,
+						"w": 100,
+						"h": 100
+					},
+					"scale9Borders": {
+						"x": 12,
+						"y": 32,
+						"w": 76,
+						"h": 56
+					}
+				},
+				{
+					"filename": "flectrum",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 10,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 10,
+						"h": 100
+					},
+					"frame": {
+						"x": 255,
+						"y": 117,
+						"w": 10,
+						"h": 100
+					},
+					"scale9Borders": {
+						"x": 2,
+						"y": 0,
+						"w": 6,
+						"h": 100
+					}
+				},
+				{
+					"filename": "1bitblock2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 269,
+						"y": 117,
+						"w": 64,
+						"h": 64
+					},
+					"scale9Borders": {
+						"x": 16,
+						"y": 16,
+						"w": 32,
+						"h": 32
+					}
+				},
+				{
+					"filename": "healthbar",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 100,
+						"h": 10
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 100,
+						"h": 10
+					},
+					"frame": {
+						"x": 337,
+						"y": 117,
+						"w": 100,
+						"h": 10
+					},
+					"scale9Borders": {
+						"x": 0,
+						"y": 2,
+						"w": 100,
+						"h": 6
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:4d65ac4d46b48d07e48d6512c154a800:3b72d02389f895bda60680561b4daf04:18ff0f598a1432140fc3feacf842bd0e$"
+	}
+}

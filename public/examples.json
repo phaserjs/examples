@@ -1361,9 +1361,19 @@
           "birthtimeMs": 1696274898781.2083
         },
         {
+          "path": "src/bugs/6614 atlas prefix.js",
+          "name": "6614 atlas prefix.js",
+          "birthtimeMs": 1699477176910.756
+        },
+        {
           "path": "src/bugs/6615 rt fill.js",
           "name": "6615 rt fill.js",
           "birthtimeMs": 1696274898781.4744
+        },
+        {
+          "path": "src/bugs/6616 rt stamp.js",
+          "name": "6616 rt stamp.js",
+          "birthtimeMs": 1699536136664.4338
         },
         {
           "path": "src/bugs/polygon rays.js",
@@ -2722,7 +2732,7 @@
         {
           "path": "src/game config/game rng.js",
           "name": "game rng.js",
-          "birthtimeMs": 1670446048553.4243
+          "birthtimeMs": 1699477176911.7402
         },
         {
           "path": "src/game config/game title.js",
@@ -4170,7 +4180,7 @@
             {
               "path": "src/game objects/lights/sprite sheet light.js",
               "name": "sprite sheet light.js",
-              "birthtimeMs": 1670446048571.7446
+              "birthtimeMs": 1699477176912.372
             },
             {
               "path": "src/game objects/lights/text light.js",

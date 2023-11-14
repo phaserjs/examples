@@ -4,7 +4,7 @@
   "description": "Phaser 3 Examples",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/http-server -s -o",
+    "start": "npx http-server -s -o",
     "update": "node ./build.js",
     "update355": "node ./build355.js",
     "update324": "node ./build324.js",

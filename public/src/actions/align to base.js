@@ -32,7 +32,7 @@ class Example extends Phaser.Scene
 
         const sprites = [];
 
-        for (let i = 1; i < 15; i++)
+        for (let i = 1; i < 16; i++)
         {
             sprites.push(this.add.sprite(150, 493, `image${i}`));
         }

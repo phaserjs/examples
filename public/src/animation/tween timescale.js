@@ -39,7 +39,7 @@ class Example extends Phaser.Scene {
             repeat: -1,
             repeatDelay: 1000,
             hold: 1000,
-            duraton: 3000
+            duration: 12000
         });
     }
 

@@ -17,11 +17,12 @@ class Demo extends Phaser.Scene
 
     create ()
     {
-        this.add.image(400, 300, 'case');
-        this.add.image(200.5, 200.8, 'spider');
+        // this.add.image(400, 300, 'case');
+        // this.add.image(200.5, 200.8, 'spider');
         // this.add.text(200.2, 400.9, 'Round Pixels', { fontFamily: 'Arial', fontSize: 96, color: '#ffffff' });
-        this.add.rectangle(500.3, 200.8, 101, 100, 0x00ff00).setOrigin(0);
+        // this.add.rectangle(500.3, 200.8, 101, 100, 0x00ff00).setOrigin(0);
 
+        /*
         WebFont.load({
             google: {
                 families: [ 'VT323' ]
@@ -32,21 +33,22 @@ class Demo extends Phaser.Scene
                 this.add.text(200, 400, 'phaser with round pixels', { fontFamily: 'VT323', fontSize: 32, color: '#ffffff' });
             }
         });
+        */
 
-        // this.add.sprite(400, 100, 'truck');
-        // this.add.sprite(400, 200.4, 'truck');
-        // this.add.sprite(400.4, 300, 'truck');
-        // this.add.sprite(400.4, 400.4, 'truck');
+        this.add.sprite(400, 100, 'truck');
+        this.add.sprite(400, 200.4, 'truck');
+        this.add.sprite(400.4, 300, 'truck');
+        this.add.sprite(400.4, 400.4, 'truck');
 
-        // this.add.sprite(200, 100, 'bik');
-        // this.add.sprite(200, 200.4, 'bik');
-        // this.add.sprite(200.4, 300, 'bik');
-        // this.add.sprite(200, 400.4, 'bik');
+        this.add.sprite(200, 100, 'bik');
+        this.add.sprite(200, 200.4, 'bik');
+        this.add.sprite(200.4, 300, 'bik');
+        this.add.sprite(200, 400.4, 'bik');
 
-        // this.add.sprite(600, 80, 'squad').setScale(2);
-        // this.add.sprite(600, 200.4, 'squad').setScale(2);
-        // this.add.sprite(600.4, 320, 'squad').setScale(2);
-        // this.add.sprite(600.4, 440.4, 'squad').setScale(2);
+        this.add.sprite(600, 80, 'squad').setScale(2);
+        this.add.sprite(600, 200.4, 'squad').setScale(2);
+        this.add.sprite(600.4, 320, 'squad').setScale(2);
+        this.add.sprite(600.4, 440.4, 'squad').setScale(2);
 
         this.add.rectangle(0, 500, 800, 100, 0x00ff00).setOrigin(0).setAlpha(0.2);
 
@@ -68,7 +70,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    // pixelArt: true,
+    // pixelArt: false,
     backgroundColor: '#00007d',
     scene: Demo
 };

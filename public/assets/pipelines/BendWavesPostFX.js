@@ -24,19 +24,16 @@ export default class BendWaves extends Phaser.Renderer.WebGL.Pipelines.PostFXPip
         super({
             game,
             renderTarget: true,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uTime',
-            ]
+            fragShader
         });
+
         this._time = 0;
     }
 
     onPreRender ()
     {
         this._time += 0.005;
+
         this.set1f('uTime', this._time);
     }
 }

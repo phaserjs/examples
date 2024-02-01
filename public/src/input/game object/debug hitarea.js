@@ -78,6 +78,12 @@ class Example extends Phaser.Scene
             sprite1.y = dragY;
 
         });
+
+        sprite2.on('pointerdown', () => {
+
+            sprite2.visible = !sprite2.visible;
+
+        });
     }
 }
 

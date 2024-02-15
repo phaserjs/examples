@@ -87,6 +87,11 @@ class Example extends Phaser.Scene
 
         });
 
+        this.add.text(8, 8, 'Move with WASD', {
+            fontSize: '18px',
+            fill: '#ffffff',
+            backgroundColor: '#000000'
+        });
     }
 }
 

@@ -19,6 +19,7 @@ class Example extends Phaser.Scene
             frame: 'white',
             blendMode: 'ADD',
             lifespan: 1200,
+            gravityX: 100,
             gravityY: -100,
             scale: { start: 0.3, end: 0 },
             emitting: false
@@ -43,6 +44,9 @@ class Example extends Phaser.Scene
             },
             {
                 at: 1000,
+                loop: () => {
+                    emitter.gravityX *= -1;
+                },
                 run: () => {
                     glowFX.setActive(true);
                     emitter.start();

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="13" height="10" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <editorsettings>
+  <export target="create from tiles.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="fantasy-tiles" tilewidth="64" tileheight="64" tilecount="64" columns="8">
+  <image source="../tiles/fantasy-tiles.png" width="512" height="512"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="13" height="10">
+  <data encoding="csv">
+0,0,31,32,0,0,0,0,0,0,0,27,27,
+39,39,39,40,0,0,0,0,0,0,0,27,27,
+0,0,0,0,0,0,0,0,0,0,0,35,35,
+0,53,0,2147483701,0,3221225525,0,1073741877,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,33,0,50,0,1610612786,0,3221225522,0,2684354610,0,16,0,
+2,2,2,2,2,2,2,2,2,3,0,1,2,
+10,10,10,10,10,10,10,10,10,11,0,9,10,
+10,10,10,10,10,10,10,10,10,11,0,9,10,
+17,18,18,18,18,18,18,18,18,19,0,17,18
+</data>
+ </layer>
+</map>

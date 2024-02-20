@@ -666,6 +666,11 @@
       "name": "bugs",
       "children": [
         {
+          "path": "src\\bugs\\0000 audio play.js",
+          "name": "0000 audio play.js",
+          "birthtimeMs": 1708450237601.2473
+        },
+        {
           "path": "src\\bugs\\0000 big load 1024 canvas.js",
           "name": "0000 big load 1024 canvas.js",
           "birthtimeMs": 1690891577658.6875
@@ -764,6 +769,11 @@
           "path": "src\\bugs\\0000 onupdate.js",
           "name": "0000 onupdate.js",
           "birthtimeMs": 1689351345489.9456
+        },
+        {
+          "path": "src\\bugs\\0000 put tile at.js",
+          "name": "0000 put tile at.js",
+          "birthtimeMs": 1708452116049.2246
         },
         {
           "path": "src\\bugs\\0000 round pixels.js",
@@ -1383,7 +1393,7 @@
         {
           "path": "src\\bugs\\6674 resize.js",
           "name": "6674 resize.js",
-          "birthtimeMs": 1706718746190.0066
+          "birthtimeMs": 1708360673778.6284
         },
         {
           "path": "src\\bugs\\6677 bloom.js",
@@ -1577,7 +1587,7 @@
         {
           "path": "src\\camera\\follow user controlled sprite.js",
           "name": "follow user controlled sprite.js",
-          "birthtimeMs": 1681468686334.3901
+          "birthtimeMs": 1706815476271.333
         },
         {
           "path": "src\\camera\\follow zoom tilemap.js",
@@ -4245,6 +4255,11 @@
           "name": "mesh",
           "children": [
             {
+              "path": "src\\game objects\\mesh\\mesh drag input.js",
+              "name": "mesh drag input.js",
+              "birthtimeMs": 1707490172681.083
+            },
+            {
               "path": "src\\game objects\\mesh\\mesh from array.js",
               "name": "mesh from array.js",
               "birthtimeMs": 1604939822376.5889
@@ -4263,6 +4278,11 @@
               "path": "src\\game objects\\mesh\\mesh input.js",
               "name": "mesh input.js",
               "birthtimeMs": 1681468686420.4678
+            },
+            {
+              "path": "src\\game objects\\mesh\\mesh pointer input.js",
+              "name": "mesh pointer input.js",
+              "birthtimeMs": 1707490172681.083
             },
             {
               "path": "src\\game objects\\mesh\\race track.js",
@@ -5025,6 +5045,11 @@
               "path": "src\\game objects\\plane\\create plane.js",
               "name": "create plane.js",
               "birthtimeMs": 1681468686445.3843
+            },
+            {
+              "path": "src\\game objects\\plane\\plane drag input.js",
+              "name": "plane drag input.js",
+              "birthtimeMs": 1708360673698.7002
             },
             {
               "path": "src\\game objects\\plane\\plane pop-up effect.js",
@@ -5889,7 +5914,7 @@
             {
               "path": "src\\game objects\\tile sprite\\tilesprite pixel art test.js",
               "name": "tilesprite pixel art test.js",
-              "birthtimeMs": 1681468686481.9036
+              "birthtimeMs": 1708360672003.1638
             }
           ],
           "birthtimeMs": 1493216634892.0383
@@ -10564,6 +10589,11 @@
           "birthtimeMs": 1681468686623.5737
         },
         {
+          "path": "src\\scalemanager\\fit and snap.js",
+          "name": "fit and snap.js",
+          "birthtimeMs": 1708360673778.6284
+        },
+        {
           "path": "src\\scalemanager\\fit min max.js",
           "name": "fit min max.js",
           "birthtimeMs": 1681468686623.5737
@@ -11859,6 +11889,11 @@
           "birthtimeMs": 1681468686653.615
         },
         {
+          "path": "src\\tilemap\\create from tiles.js",
+          "name": "create from tiles.js",
+          "birthtimeMs": 1708455043768.2246
+        },
+        {
           "path": "src\\tilemap\\creating blank layers.js",
           "name": "creating blank layers.js",
           "birthtimeMs": 1681468686653.615
@@ -11906,7 +11941,7 @@
         {
           "path": "src\\tilemap\\grid movement.js",
           "name": "grid movement.js",
-          "birthtimeMs": 1681468686654.615
+          "birthtimeMs": 1708360673699.7039
         },
         {
           "path": "src\\tilemap\\isometric",
@@ -12217,6 +12252,11 @@
               "path": "src\\time\\timeline\\play timeline on click.js",
               "name": "play timeline on click.js",
               "birthtimeMs": 1681468686664.1282
+            },
+            {
+              "path": "src\\time\\timeline\\repeat timeline.js",
+              "name": "repeat timeline.js",
+              "birthtimeMs": 1708360673699.7039
             },
             {
               "path": "src\\time\\timeline\\run timed events.js",

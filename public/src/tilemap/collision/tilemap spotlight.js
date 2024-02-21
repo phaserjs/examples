@@ -30,6 +30,7 @@ class Example extends Phaser.Scene
         this.rt = this.add.renderTexture(0, 0, this.scale.width, this.scale.height);
 
         //  Make sure it doesn't scroll with the camera
+        this.rt.setOrigin(0, 0);
         this.rt.setScrollFactor(0, 0);
 
         const coins = [];
@@ -97,7 +98,7 @@ class Example extends Phaser.Scene
 const config = {
     type: Phaser.AUTO,
     width: 800,
-    height: 576,
+    height: 600,
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     physics: {

@@ -34,17 +34,15 @@ class Example extends Phaser.Scene
         this.ground32x32Layer = this.map.createLayer('Ground 32x32 Layer', groundTiles);
         this.tree32x64Layer = this.map.createLayer('Tree 32x64 Layer', treeTiles);
 
-        console.log(this.kenny64x64Layer);
-
         this.ground32x32Layer.setCollisionByExclusion([ -1 ]);
         this.tree32x64Layer.setCollisionByExclusion([ -1 ]);
         this.kenny64x64Layer.setCollision([ 73 ]);
 
-        this.player = this.physics.add.sprite(500, 300, 'player').setBounce(0.1);
+        this.player = this.physics.add.sprite(700, 100, 'player').setBounce(0.1);
 
+        this.physics.add.collider(this.player, this.tree32x64Layer);
         this.physics.add.collider(this.player, this.ground32x32Layer);
         this.physics.add.collider(this.player, this.kenny64x64Layer);
-        this.physics.add.collider(this.player, this.tree32x64Layer);
 
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.cameras.main.startFollow(this.player);
@@ -124,12 +122,11 @@ class Example extends Phaser.Scene
 }
 
 const config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 576,
     backgroundColor: '#00000',
     parent: 'phaser-example',
-    pixelArt: true,
     physics: {
         default: 'arcade',
         arcade: { gravity: { y: 400 }, debug: true }

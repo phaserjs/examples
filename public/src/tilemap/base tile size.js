@@ -25,10 +25,8 @@ class Example extends Phaser.Scene
 
         layer.randomize(0, 0, map.width, map.height, [ 0, 1, 2, 3, 4, 5, 6, 7 ]);
 
-        console.log(layer);
-        console.log(layer.layer);
-
         const cursors = this.input.keyboard.createCursorKeys();
+
         const controlConfig = {
             camera: this.cameras.main,
             left: cursors.left,
@@ -37,6 +35,7 @@ class Example extends Phaser.Scene
             down: cursors.down,
             speed: 0.5
         };
+
         this.controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
         const help = this.add.text(16, 16, 'Arrows to scroll', {
@@ -45,6 +44,7 @@ class Example extends Phaser.Scene
             backgroundColor: '#000000',
             fill: '#ffffff'
         });
+
         help.setScrollFactor(0);
     }
 
@@ -55,7 +55,7 @@ class Example extends Phaser.Scene
 }
 
 const config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#ffffff',
@@ -65,4 +65,3 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-

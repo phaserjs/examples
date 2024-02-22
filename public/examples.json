@@ -1413,7 +1413,7 @@
         {
           "path": "src\\bugs\\6691 trim tile.js",
           "name": "6691 trim tile.js",
-          "birthtimeMs": 1706736946958.4165
+          "birthtimeMs": 1708524159393.3452
         },
         {
           "path": "src\\bugs\\6724 layer.js",
@@ -2179,6 +2179,11 @@
               "path": "src\\display\\masks\\dynamic texture as bitmap mask.js",
               "name": "dynamic texture as bitmap mask.js",
               "birthtimeMs": 1681468686356.4707
+            },
+            {
+              "path": "src\\display\\masks\\geometry mask from shape.js",
+              "name": "geometry mask from shape.js",
+              "birthtimeMs": 1708611639797.0747
             },
             {
               "path": "src\\display\\masks\\graphics bitmap mask.js",
@@ -9185,7 +9190,7 @@
             {
               "path": "src\\paths\\followers\\leave path.js",
               "name": "leave path.js",
-              "birthtimeMs": 1690477379893.2249
+              "birthtimeMs": 1708524159393.3452
             },
             {
               "path": "src\\paths\\followers\\mass followers.js",
@@ -11804,7 +11809,7 @@
         {
           "path": "src\\tilemap\\base tile size.js",
           "name": "base tile size.js",
-          "birthtimeMs": 1681468686651.6143
+          "birthtimeMs": 1708524159393.3452
         },
         {
           "path": "src\\tilemap\\collision",
@@ -11853,7 +11858,7 @@
             {
               "path": "src\\tilemap\\collision\\multiple tile sizes.js",
               "name": "multiple tile sizes.js",
-              "birthtimeMs": 1681468686652.6143
+              "birthtimeMs": 1708524159394.3481
             },
             {
               "path": "src\\tilemap\\collision\\simple map.js",
@@ -11868,7 +11873,7 @@
             {
               "path": "src\\tilemap\\collision\\tilemap spotlight.js",
               "name": "tilemap spotlight.js",
-              "birthtimeMs": 1655130604370.1963
+              "birthtimeMs": 1708524159394.3481
             }
           ],
           "birthtimeMs": 1604062602931.6265
@@ -11891,7 +11896,7 @@
         {
           "path": "src\\tilemap\\create from tiles.js",
           "name": "create from tiles.js",
-          "birthtimeMs": 1708455043768.2246
+          "birthtimeMs": 1708524159394.3481
         },
         {
           "path": "src\\tilemap\\creating blank layers.js",

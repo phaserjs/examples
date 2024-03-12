@@ -144,7 +144,8 @@ class Example extends Phaser.Scene
 
             enemy.state -= 1;
             bullet.disableBody(true, true);
-            this.plasma.setSpeedY(0.2 * bullet.body.velocity.y).emitParticleAt(x, y);
+            // this.plasma.setSpeedY(0.2 * bullet.body.velocity.y).emitParticleAt(x, y);
+            this.plasma.emitParticleAt(x, y);
 
             if (enemy.state <= 0)
             {
@@ -160,7 +161,8 @@ class Example extends Phaser.Scene
             const { x, y } = bullet.body.center;
 
             bullet.disableBody(true, true);
-            this.plasma.setSpeedY(0.2 * bullet.body.velocity.y).emitParticleAt(x, y);
+            // this.plasma.setSpeedY(0.2 * bullet.body.velocity.y).emitParticleAt(x, y);
+            this.plasma.emitParticleAt(x, y);
         });
 
         this.physics.world.on('worldbounds', (body) =>

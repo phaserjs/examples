@@ -49,32 +49,32 @@ class Example extends Phaser.Scene
 
         console.log(this.model);
 
-        this.input.keyboard.on('keyup_X', () =>
+        this.input.keyboard.on('keyup-X', () =>
         {
             this.direction = 0;
         });
 
-        this.input.keyboard.on('keyup_Y', () =>
+        this.input.keyboard.on('keyup-Y', () =>
         {
             this.direction = 1;
         });
 
-        this.input.keyboard.on('keyup_Z', () =>
+        this.input.keyboard.on('keyup-Z', () =>
         {
             this.direction = 2;
         });
 
-        this.input.keyboard.on('keydown_LEFT', () =>
+        this.input.keyboard.on('keydown-LEFT', () =>
         {
             this.rotateX3D(-0.03490658503988659);
         });
 
-        this.input.keyboard.on('keydown_RIGHT', () =>
+        this.input.keyboard.on('keydown-RIGHT', () =>
         {
             this.rotateX3D(0.03490658503988659);
         });
 
-        this.input.keyboard.on('keydown_UP', () =>
+        this.input.keyboard.on('keydown-UP', () =>
         {
 
             if (this.direction === 0)
@@ -88,7 +88,7 @@ class Example extends Phaser.Scene
 
         });
 
-        this.input.keyboard.on('keydown_DOWN', () =>
+        this.input.keyboard.on('keydown-DOWN', () =>
         {
 
             if (this.direction === 0)

@@ -9,26 +9,20 @@ class Menu extends Phaser.Scene
     {
         this.add.text(10, 10, 'Press 1, 2 or 3', { font: '16px Courier', fill: '#00ff00' });
 
-        this.input.keyboard.once('keyup-ONE', function ()
+        this.input.keyboard.once('keyup-ONE', () =>
         {
-
             this.scene.start('demo', { id: 0, image: 'acryl-bladerunner.png' });
+        });
 
-        }, this);
-
-        this.input.keyboard.once('keyup-TWO', function ()
+        this.input.keyboard.once('keyup-TWO', () =>
         {
-
             this.scene.start('demo', { id: 1, image: 'babar-phaleon-coco.png' });
+        });
 
-        }, this);
-
-        this.input.keyboard.once('keyup-THREE', function ()
+        this.input.keyboard.once('keyup-THREE', () =>
         {
-
             this.scene.start('demo', { id: 2, image: 'babar-pym-wait.png' });
-
-        }, this);
+        });
 
         this.events.on('shutdown', this.shutdown, this);
     }
@@ -66,12 +60,10 @@ class Demo extends Phaser.Scene
 
         this.add.image(400, 300, `pic${this.imageID}`).setScale(2);
 
-        this.input.once('pointerup', function ()
+        this.input.once('pointerup', () =>
         {
-
             this.scene.start('menu');
-
-        }, this);
+        });
     }
 }
 

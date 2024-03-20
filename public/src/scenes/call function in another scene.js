@@ -9,16 +9,14 @@ class SceneA extends Phaser.Scene
     {
         const sceneB = this.scene.get('sceneB');
 
-        this.input.on('pointerup', function ()
+        this.input.on('pointerup', () =>
         {
-
             const x = Phaser.Math.Between(0, 800);
             const y = Phaser.Math.Between(0, 600);
             const frame = sceneB.getImage();
 
             this.add.image(x, y, frame);
-
-        }, this);
+        });
 
         this.add.text(10, 10, 'Click to get image', { font: '16px Courier', fill: '#00ff00' }).setDepth(1000);
     }

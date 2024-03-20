@@ -100,35 +100,30 @@ class Controller extends Phaser.Scene {
 
         });
 
-        eyesIcon.on('pointerup', function () {
-
+        eyesIcon.on('pointerup', () =>
+        {
             this.createWindow(Eyes);
+        });
 
-        }, this);
-
-        jugglerIcon.on('pointerup', function () {
-
+        jugglerIcon.on('pointerup', () =>
+        {
             this.createWindow(Juggler);
+        });
 
-        }, this);
-
-        starsIcon.on('pointerup', function () {
-
+        starsIcon.on('pointerup', () =>
+        {
             this.createWindow(Stars);
+        });
 
-        }, this);
-
-        invadersIcon.on('pointerup', function () {
-
+        invadersIcon.on('pointerup', () =>
+        {
             this.createWindow(Invaders);
+        });
 
-        }, this);
-
-        clockIcon.on('pointerup', function () {
-
+        clockIcon.on('pointerup', () =>
+        {
             this.createWindow(Clock);
-
-        }, this);
+        });
     }
 
     createWindow (func)

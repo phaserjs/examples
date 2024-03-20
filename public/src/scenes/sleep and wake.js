@@ -16,17 +16,15 @@ class SceneA extends Phaser.Scene
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once(Phaser.Input.Events.POINTER_DOWN, function ()
+        this.input.once(Phaser.Input.Events.POINTER_DOWN, () =>
         {
-
             this.scene.switch('sceneB');
+        });
 
-        }, this);
-
-        this.events.on(Phaser.Scenes.Events.WAKE, function ()
+        this.events.on(Phaser.Scenes.Events.WAKE, () =>
         {
             this.wake(this.input, this.scene);
-        }, this);
+        });
     }
 
     wake (input, scene)
@@ -34,8 +32,7 @@ class SceneA extends Phaser.Scene
         input.once(Phaser.Input.Events.POINTER_DOWN, () =>
         {
             scene.switch('sceneB');
-
-        }, this);
+        });
     }
 
     update (time, delta)
@@ -69,15 +66,15 @@ class SceneB extends Phaser.Scene
 
         this.graphics = this.add.graphics({ x: 0, y: 0 });
 
-        this.input.once(Phaser.Input.Events.POINTER_DOWN, function (event)
+        this.input.once(Phaser.Input.Events.POINTER_DOWN, (event) =>
         {
             this.scene.switch('sceneA');
-        }, this);
+        });
 
-        this.events.on(Phaser.Scenes.Events.WAKE, function ()
+        this.events.on(Phaser.Scenes.Events.WAKE, () =>
         {
             this.wake(this.input, this.scene);
-        }, this);
+        });
     }
 
     wake (input, scene)
@@ -85,7 +82,7 @@ class SceneB extends Phaser.Scene
         input.once(Phaser.Input.Events.POINTER_DOWN, event =>
         {
             scene.switch('sceneA');
-        }, this);
+        });
     }
 
     update ()

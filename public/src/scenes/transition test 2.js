@@ -59,16 +59,14 @@ class Demo1 extends Phaser.Scene
 
         });
 
-        this.input.once('pointerup', function ()
+        this.input.once('pointerup', () =>
         {
-
             const t1 = this.scene.transition({
                 target: 'demo2',
                 duration: 3000,
                 moveAbove: true
             });
-
-        }, this);
+        });
     }
 }
 
@@ -83,21 +81,18 @@ class Demo2 extends Phaser.Scene
     {
         const planet = this.add.image(400, 300, 'planet').setScale(0);
 
-        this.events.on('transitionstart', function (fromScene, duration)
+        this.events.on('transitionstart', (fromScene, duration) =>
         {
-
             this.tweens.add({
                 targets: planet,
                 scaleX: 1,
                 scaleY: 1,
                 duration: duration
             });
+        });
 
-        }, this);
-
-        this.events.on('transitioncomplete', function ()
+        this.events.on('transitioncomplete', () =>
         {
-
             const particles = this.add.particles('flares');
 
             const emitter = particles.createEmitter({
@@ -108,31 +103,26 @@ class Demo2 extends Phaser.Scene
                 lifespan: 3000,
                 blendMode: 'ADD'
             });
+        });
 
-        }, this);
-
-        this.events.on('transitionout', function (toScene, duration)
+        this.events.on('transitionout', (toScene, duration) =>
         {
-
             this.tweens.add({
                 targets: planet,
                 scaleX: 0,
                 scaleY: 0,
                 duration: duration
             });
+        });
 
-        }, this);
-
-        this.input.once('pointerup', function (event)
+        this.input.once('pointerup', (event) =>
         {
-
             const t2 = this.scene.transition({
                 target: 'demo3',
                 duration: 5000,
                 moveBehind: true
             });
-
-        }, this);
+        });
     }
 }
 
@@ -186,17 +176,15 @@ class Demo3 extends Phaser.Scene
             callbackScope: _this
         });
 
-        this.input.once('pointerup', function (event)
+        this.input.once('pointerup', (event) =>
         {
-
             const t3 = this.scene.transition({
                 target: 'demo1',
                 duration: 5000,
                 moveBelow: true,
                 onUpdate: this.transitionOut
             });
-
-        }, this);
+        });
 
     }
 

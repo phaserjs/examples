@@ -29,11 +29,10 @@ class SceneA extends Phaser.Scene {
 
         this.add.text(10, 10, 'Scene A', { font: '16px Courier', fill: '#ffffff' });
 
-        this.input.once('pointerup', function () {
-
+        this.input.once('pointerup', () =>
+        {
             this.scene.start('sceneB');
-
-        }, this);
+        });
     }
 
 }
@@ -64,11 +63,10 @@ class SceneB extends Phaser.Scene {
 
         this.add.text(10, 10, 'Scene B', { font: '16px Courier', fill: '#ffffff' });
 
-        this.input.once('pointerup', function () {
-
+        this.input.once('pointerup', () =>
+        {
             this.scene.start('sceneA');
-
-        }, this);
+        });
     }
 
 }

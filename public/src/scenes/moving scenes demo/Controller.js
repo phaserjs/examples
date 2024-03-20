@@ -97,8 +97,8 @@ class Controller extends Phaser.Scene {
 
         toggle.setData('on', true);
 
-        toggle.on('pointerup', function () {
-
+        toggle.on('pointerup', () =>
+        {
             if (toggle.getData('on'))
             {
                 toggle.setFrame('toggle-off');
@@ -111,8 +111,7 @@ class Controller extends Phaser.Scene {
                 toggle.setData('on', true);
                 this.scene.setVisible(true, this.currentScene);
             }
-
-        }, this);
+        });
 
         return toggle;
     }
@@ -125,8 +124,8 @@ class Controller extends Phaser.Scene {
 
         toggle.setData('on', true);
 
-        toggle.on('pointerup', function () {
-
+        toggle.on('pointerup', () =>
+        {
             if (toggle.getData('on'))
             {
                 toggle.setFrame('toggle-off');
@@ -140,8 +139,7 @@ class Controller extends Phaser.Scene {
                 toggle.setData('on', true);
                 this.scene.setActive(true, this.currentScene);
             }
-
-        }, this);
+        });
 
         return toggle;
     }
@@ -179,14 +177,13 @@ class Controller extends Phaser.Scene {
 
         });
 
-        btn.on('pointerup', function () {
-
+        btn.on('pointerup', () =>
+        {
             if (!btn.getData('active'))
             {
                 this.setActiveScene(btn);
             }
-
-        }, this);
+        });
 
         this['button' + id] = btn;
     }
@@ -197,8 +194,8 @@ class Controller extends Phaser.Scene {
 
         this.dpad.setInteractive();
 
-        this.dpad.on('pointermove', function (pointer, px, py) {
-
+        this.dpad.on('pointermove', (pointer, px, py) =>
+        {
             this.showTip = true;
 
             if (this.padUp.contains(px, py))
@@ -226,18 +223,16 @@ class Controller extends Phaser.Scene {
                 this.dpad.setFrame('nav-out');
                 this.showTip = false;
             }
+        });
 
-        }, this);
-
-        this.dpad.on('pointerout', function () {
-
+        this.dpad.on('pointerout', () =>
+        {
             this.dpad.setFrame('nav-out');
             this.showTip = false;
+        });
 
-        }, this);
-
-        this.dpad.on('pointerup', function (pointer, px, py) {
-
+        this.dpad.on('pointerup', (pointer, px, py) =>
+        {
             if (this.padUp.contains(px, py))
             {
                 this.scene.bringToTop(this.currentScene);
@@ -264,8 +259,7 @@ class Controller extends Phaser.Scene {
                 this.scene.moveUp(this.currentScene);
                 this.showTip = false;
             }
-
-        }, this);
+        });
     }
 
     setActiveScene (btn)

@@ -1,8 +1,38 @@
 [
     {
+        "path": "src\\display\\masks\\geometry mask from shape.js",
+        "name": "geometry mask from shape.js",
+        "birthtimeMs": 1708611639797.0747
+    },
+    {
+        "path": "src\\tilemap\\collision\\multiple tile sizes.js",
+        "name": "multiple tile sizes.js",
+        "birthtimeMs": 1708524159394.3481
+    },
+    {
+        "path": "src\\tilemap\\collision\\tilemap spotlight.js",
+        "name": "tilemap spotlight.js",
+        "birthtimeMs": 1708524159394.3481
+    },
+    {
         "path": "src\\tilemap\\create from tiles.js",
         "name": "create from tiles.js",
-        "birthtimeMs": 1708455043768.2246
+        "birthtimeMs": 1708524159394.3481
+    },
+    {
+        "path": "src\\bugs\\6691 trim tile.js",
+        "name": "6691 trim tile.js",
+        "birthtimeMs": 1708524159393.3452
+    },
+    {
+        "path": "src\\paths\\followers\\leave path.js",
+        "name": "leave path.js",
+        "birthtimeMs": 1708524159393.3452
+    },
+    {
+        "path": "src\\tilemap\\base tile size.js",
+        "name": "base tile size.js",
+        "birthtimeMs": 1708524159393.3452
     },
     {
         "path": "src\\bugs\\0000 put tile at.js",
@@ -85,11 +115,6 @@
         "birthtimeMs": 1706797332593.2395
     },
     {
-        "path": "src\\bugs\\6691 trim tile.js",
-        "name": "6691 trim tile.js",
-        "birthtimeMs": 1706736946958.4165
-    },
-    {
         "path": "src\\bugs\\6681 fx frame.js",
         "name": "6681 fx frame.js",
         "birthtimeMs": 1706731480619.2341
@@ -123,30 +148,5 @@
         "path": "src\\games\\coin clicker\\main.js",
         "name": "main.js",
         "birthtimeMs": 1706718746138.3423
-    },
-    {
-        "path": "src\\games\\coin clicker\\Preloader.js",
-        "name": "Preloader.js",
-        "birthtimeMs": 1706718746138.3423
-    },
-    {
-        "path": "src\\games\\coin clicker\\GameOver.js",
-        "name": "GameOver.js",
-        "birthtimeMs": 1706718746137.343
-    },
-    {
-        "path": "src\\games\\coin clicker\\MainMenu.js",
-        "name": "MainMenu.js",
-        "birthtimeMs": 1706718746137.343
-    },
-    {
-        "path": "src\\games\\coin clicker\\Boot.js",
-        "name": "Boot.js",
-        "birthtimeMs": 1706718746136.3428
-    },
-    {
-        "path": "src\\games\\coin clicker\\ClickerGame.js",
-        "name": "ClickerGame.js",
-        "birthtimeMs": 1706718746136.3428
     }
 ]

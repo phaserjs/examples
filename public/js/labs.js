@@ -9,6 +9,7 @@ $(document).ready(function () {
     var phaserVersion = getQueryString('v', (remote) ? versions[1].val : 'dev');
     var phaserVersionJS = phaserVersion + '.js';
     var currentPage = loc.pathname.substr(loc.pathname.lastIndexOf('/') + 1);
+    var isPhaser4 = (phaserVersion.substr(0, 1) === '4');
 
     if (filename.substr(-3) === '.js')
     {
@@ -24,7 +25,7 @@ $(document).ready(function () {
         $('#iframelink').attr('href', 'iframe.html?src=' + filename);
         $('#csslink').attr('href', 'css.html?src=' + filename);
         $('#viewlink').attr('href', 'view.html?src=' + filename);
-        $('#sourcelink').attr('href', 'https://github.com/photonstorm/phaser3-examples/blob/master/public/' + filename.replace('\\', '/'));
+        $('#sourcelink').attr('href', 'https://github.com/phaserjs/examples/blob/master/public/' + filename.replace('\\', '/'));
         $('#backlink').attr('href', 'index.html?dir=' + backURL);
         $('#mobilelink').attr('href', 'mobile.html?src=' + filename);
         $('#comparelink').attr('href', 'compare.html?src=' + filename);
@@ -113,7 +114,7 @@ $(document).ready(function () {
 
             var phaserScript = document.createElement('script');
 
-            phaserScript.type = 'text/javascript';
+            phaserScript.type = (isPhaser4) ? 'module' : 'text/javascript';
             phaserScript.async = true;
 
             phaserScript.onload = function ()
@@ -153,7 +154,7 @@ $(document).ready(function () {
 
             };
 
-            if (remote && phaserVersion !== 'dev' && phaserVersion !== 'live' && selected)
+            if (remote && phaserVersion !== 'dev' && !isPhaser4 && phaserVersion !== 'live' && selected)
             {
                 // <script src="//cdn.jsdelivr.net/npm/phaser@3.7.1/dist/phaser.min.js">
                 phaserScript.src = '//cdn.jsdelivr.net/npm/phaser@' + phaserVersion + '/dist/phaser.min.js';

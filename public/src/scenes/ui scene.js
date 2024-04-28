@@ -58,14 +58,12 @@ class UIScene extends Phaser.Scene
         const ourGame = this.scene.get('GameScene');
 
         //  Listen for events from it
-        ourGame.events.on('addScore', function ()
+        ourGame.events.on('addScore', () =>
         {
-
             this.score += 10;
 
             info.setText(`Score: ${this.score}`);
-
-        }, this);
+        });
     }
 }
 

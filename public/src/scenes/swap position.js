@@ -32,12 +32,10 @@ class Demo extends Phaser.Scene
     {
         this.arrow = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerdown', function ()
+        this.input.once('pointerdown', () =>
         {
-
             this.scene.swapPosition('background');
-
-        }, this);
+        });
     }
 
     update (time, delta)

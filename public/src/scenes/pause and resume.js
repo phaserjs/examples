@@ -16,13 +16,11 @@ class SceneA extends Phaser.Scene
     {
         this.pic = this.add.image(400, 300, 'arrow').setOrigin(0, 0.5);
 
-        this.input.once('pointerup', function ()
+        this.input.once('pointerup', () =>
         {
-
             this.scene.pause();
             this.scene.launch('sceneB');
-
-        }, this);
+        });
 
         this.events.on('pause', () =>
         {
@@ -57,12 +55,10 @@ class SceneB extends Phaser.Scene
     {
         this.add.image(400, 300, 'face').setAlpha(0.5);
 
-        this.input.once('pointerdown', function ()
+        this.input.once('pointerdown', () =>
         {
-
             this.scene.resume('sceneA');
-
-        }, this);
+        });
     }
 }
 

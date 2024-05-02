@@ -13,15 +13,34 @@ class Example extends Phaser.Scene
         let y = 0;
         let total = 0;
 
-        this.input.on('pointerdown', () => {
+        this.input.on('pointerdown', (pointer) => {
 
-            this.addSprites(y);
+            if (pointer.worldY >= 500)
+            {
+                console.log('Capture');
 
-            y++;
+                this.game.renderer.captureFrame(false, true);
+            }
+            else
+            {
+                this.addSprites(y);
+                y++;
+                total += 1024;
 
-            total += 1024;
+                this.addSprites(y);
+                y++;
+                total += 1024;
 
-            console.log('Total sprites:', total);
+                this.addSprites(y);
+                y++;
+                total += 1024;
+
+                this.addSprites(y);
+                y++;
+                total += 1024;
+
+                console.log('Total sprites:', total);
+            }
 
         });
     }
@@ -34,7 +53,7 @@ class Example extends Phaser.Scene
         {
             this.add.image(x, y, `pixel${color}`).setOrigin(0);
 
-            color++;
+            // color++;
 
             if (color === 33)
             {

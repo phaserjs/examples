@@ -55,7 +55,7 @@ class Example extends Phaser.Scene
 
             // color++;
 
-            if (color === 33)
+            if (color === 15)
             {
                 color = 1;
             }

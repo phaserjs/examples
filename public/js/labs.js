@@ -25,6 +25,7 @@ $(document).ready(function () {
         $('#iframelink').attr('href', 'iframe.html?src=' + filename);
         $('#csslink').attr('href', 'css.html?src=' + filename);
         $('#viewlink').attr('href', 'view.html?src=' + filename);
+        $('#sandboxlink').attr('href', 'https://phaser.io/sandbox/?src=' + filename);
         $('#sourcelink').attr('href', 'https://github.com/phaserjs/examples/blob/master/public/' + filename.replace('\\', '/'));
         $('#backlink').attr('href', 'index.html?dir=' + backURL);
         $('#mobilelink').attr('href', 'mobile.html?src=' + filename);

@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\6027 pointer leftButtonReleased returns wrong value.js",
+        "name": "6027 pointer leftButtonReleased returns wrong value.js",
+        "size": 787,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718095885020.5552
+    },
+    {
         "path": "src\\bugs\\5617 pushable false bodies.js",
         "name": "5617 pushable false bodies.js",
-        "size": 1116,
+        "size": 1685,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718002872458.5935
@@ -10,7 +18,7 @@
     {
         "path": "src\\bugs\\6796 context handler.js",
         "name": "6796 context handler.js",
-        "size": 1116,
+        "size": 1170,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717999911949.404
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764086.3657
-    },
-    {
-        "path": "src\\games\\coin clicker\\Boot.js",
-        "name": "Boot.js",
-        "size": 758,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764082.362
     }
 ]

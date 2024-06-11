@@ -1626,7 +1626,7 @@
         {
           "path": "src\\bugs\\5617 pushable false bodies.js",
           "name": "5617 pushable false bodies.js",
-          "size": 1116,
+          "size": 1685,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718002872458.5935
@@ -1886,6 +1886,14 @@
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1688549366764.5518
+        },
+        {
+          "path": "src\\bugs\\6027 pointer leftButtonReleased returns wrong value.js",
+          "name": "6027 pointer leftButtonReleased returns wrong value.js",
+          "size": 787,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718095885020.5552
         },
         {
           "path": "src\\bugs\\6033 retina graphics.js",
@@ -2274,7 +2282,7 @@
         {
           "path": "src\\bugs\\6796 context handler.js",
           "name": "6796 context handler.js",
-          "size": 1116,
+          "size": 1170,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1717999911949.404
@@ -2288,7 +2296,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 224381,
+      "size": 225791,
       "type": "directory"
     },
     {
@@ -20166,6 +20174,6 @@
       "type": "directory"
     }
   ],
-  "size": 4914111,
+  "size": 4915521,
   "type": "directory"
 }

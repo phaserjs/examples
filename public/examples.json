@@ -1890,7 +1890,7 @@
         {
           "path": "src\\bugs\\6027 pointer leftButtonReleased returns wrong value.js",
           "name": "6027 pointer leftButtonReleased returns wrong value.js",
-          "size": 787,
+          "size": 993,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718095885020.5552
@@ -2096,6 +2096,14 @@
           "birthtimeMs": 1688549366997.5254
         },
         {
+          "path": "src\\bugs\\6305 POINTER_UP_OUTSIDE.js",
+          "name": "6305 POINTER_UP_OUTSIDE.js",
+          "size": 830,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718163964659.1472
+        },
+        {
           "path": "src\\bugs\\6327 aseprite.js",
           "name": "6327 aseprite.js",
           "size": 1009,
@@ -2280,9 +2288,17 @@
           "birthtimeMs": 1717772764058.275
         },
         {
-          "path": "src\\bugs\\6796 context handler.js",
-          "name": "6796 context handler.js",
-          "size": 1170,
+          "path": "src\\bugs\\6796 context lost handler.js",
+          "name": "6796 context lost handler.js",
+          "size": 787,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718164451034.491
+        },
+        {
+          "path": "src\\bugs\\6796 context restored handler.js",
+          "name": "6796 context restored handler.js",
+          "size": 813,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1717999911949.404
@@ -2296,7 +2312,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 225791,
+      "size": 227257,
       "type": "directory"
     },
     {
@@ -20174,6 +20190,6 @@
       "type": "directory"
     }
   ],
-  "size": 4915521,
+  "size": 4916987,
   "type": "directory"
 }

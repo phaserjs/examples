@@ -1,8 +1,24 @@
 [
     {
+        "path": "src\\bugs\\6796 context lost handler.js",
+        "name": "6796 context lost handler.js",
+        "size": 787,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718164451034.491
+    },
+    {
+        "path": "src\\bugs\\6305 POINTER_UP_OUTSIDE.js",
+        "name": "6305 POINTER_UP_OUTSIDE.js",
+        "size": 830,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718163964659.1472
+    },
+    {
         "path": "src\\bugs\\6027 pointer leftButtonReleased returns wrong value.js",
         "name": "6027 pointer leftButtonReleased returns wrong value.js",
-        "size": 787,
+        "size": 993,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718095885020.5552
@@ -16,9 +32,9 @@
         "birthtimeMs": 1718002872458.5935
     },
     {
-        "path": "src\\bugs\\6796 context handler.js",
-        "name": "6796 context handler.js",
-        "size": 1170,
+        "path": "src\\bugs\\6796 context restored handler.js",
+        "name": "6796 context restored handler.js",
+        "size": 813,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717999911949.404
@@ -222,21 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764094.3633
-    },
-    {
-        "path": "src\\games\\coin clicker\\GameOver.js",
-        "name": "GameOver.js",
-        "size": 693,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764090.364
-    },
-    {
-        "path": "src\\games\\coin clicker\\ClickerGame.js",
-        "name": "ClickerGame.js",
-        "size": 2756,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764086.3657
     }
 ]

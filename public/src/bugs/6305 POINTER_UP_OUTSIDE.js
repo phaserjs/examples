@@ -2,29 +2,38 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
+        this.load.image('block', 'assets/sprites/block.png');
     }
 
     create ()
     {
-        this.add.sprite(300, 200, 'eye').setInteractive();
-        this.add.sprite(400, 300, 'eye').setInteractive();
-        this.add.sprite(500, 400, 'eye').setInteractive();
+        this.input.on(Phaser.Input.Events.POINTER_UP_OUTSIDE, () => console.info('phaser pointer up outside'));
+        this.input.on(Phaser.Input.Events.POINTER_UP, () => console.info('phaser pointer up inside'));
 
-        //  Events
+        this.add.text(this.scale.width / 2, this.scale.height / 2, 'This is a test Phaser game', { align: 'center', color: '#ffffff', fontSize: '32px', fontFamily: 'Arial' }).setOrigin(0.5);
 
-        this.input.on('pointerover', (event, gameObjects) =>
+        this.game.canvas.addEventListener('mousedown', () => console.log('mouse down on canvas'));
+
+        const block = this.physics.add.image(400, 100, 'block')
+            .setVelocity(100, 200)
+            .setBounce(1, 1)
+            .setCollideWorldBounds(true);
+
+        this.input.setDraggable(block.setInteractive());
+
+        this.input.on('dragstart', (pointer, obj) =>
         {
-
-            gameObjects[0].setTint(0xff0000);
-
+            obj.body.moves = false;
         });
 
-        this.input.on('pointerout', (event, gameObjects) =>
+        this.input.on('drag', (pointer, obj, dragX, dragY) =>
         {
+            obj.setPosition(dragX, dragY);
+        });
 
-            gameObjects[0].clearTint();
-
+        this.input.on('dragend', (pointer, obj) =>
+        {
+            obj.body.moves = true;
         });
     }
 }
@@ -34,7 +43,15 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+            gravity: { y: 200 }
+        }
+    },
     scene: Example
 };
 
 const game = new Phaser.Game(config);
+window.addEventListener('mouseup', () => console.info('mouse up on window'));

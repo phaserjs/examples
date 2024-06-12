@@ -1,5 +1,13 @@
 [
     {
+        "path": "src\\bugs\\6371 particles global space.js",
+        "name": "6371 particles global space.js",
+        "size": 1311,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718173640132.837
+    },
+    {
         "path": "src\\bugs\\6796 context lost handler.js",
         "name": "6796 context lost handler.js",
         "size": 787,
@@ -10,7 +18,7 @@
     {
         "path": "src\\bugs\\6305 POINTER_UP_OUTSIDE.js",
         "name": "6305 POINTER_UP_OUTSIDE.js",
-        "size": 830,
+        "size": 1673,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718163964659.1472
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764098.3633
-    },
-    {
-        "path": "src\\games\\coin clicker\\MainMenu.js",
-        "name": "MainMenu.js",
-        "size": 1118,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764094.3633
     }
 ]

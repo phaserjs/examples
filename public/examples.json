@@ -2098,7 +2098,7 @@
         {
           "path": "src\\bugs\\6305 POINTER_UP_OUTSIDE.js",
           "name": "6305 POINTER_UP_OUTSIDE.js",
-          "size": 830,
+          "size": 1673,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718163964659.1472
@@ -2126,6 +2126,14 @@
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1688549366999.0354
+        },
+        {
+          "path": "src\\bugs\\6371 particles global space.js",
+          "name": "6371 particles global space.js",
+          "size": 1311,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718173640132.837
         },
         {
           "path": "src\\bugs\\6380 spine.js",
@@ -2312,7 +2320,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 227257,
+      "size": 229411,
       "type": "directory"
     },
     {
@@ -20190,6 +20198,6 @@
       "type": "directory"
     }
   ],
-  "size": 4916987,
+  "size": 4919141,
   "type": "directory"
 }

@@ -1,8 +1,40 @@
 [
     {
+        "path": "src\\bugs\\6716 setCrop.js",
+        "name": "6716 setCrop.js",
+        "size": 5236,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718345779964.3123
+    },
+    {
+        "path": "src\\bugs\\6717 bitmap text maxWidth.js",
+        "name": "6717 bitmap text maxWidth.js",
+        "size": 651,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718263568358.4194
+    },
+    {
+        "path": "src\\bugs\\6631 bitmapfont kerning.js",
+        "name": "6631 bitmapfont kerning.js",
+        "size": 1497,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718258591461.131
+    },
+    {
+        "path": "src\\bugs\\6586 plane rendering size.js",
+        "name": "6586 plane rendering size.js",
+        "size": 1408,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718183184023.312
+    },
+    {
         "path": "src\\bugs\\6371 particles global space.js",
         "name": "6371 particles global space.js",
-        "size": 1311,
+        "size": 1310,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718173640132.837
@@ -206,37 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764116.3909
-    },
-    {
-        "path": "src\\loader\\base64\\base64 bitmap font.js",
-        "name": "base64 bitmap font.js",
-        "size": 577,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764113.392
-    },
-    {
-        "path": "src\\geom\\line\\get eased points.js",
-        "name": "get eased points.js",
-        "size": 725,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764105.8762
-    },
-    {
-        "path": "src\\games\\coin clicker\\main.js",
-        "name": "main.js",
-        "size": 908,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764101.8777
-    },
-    {
-        "path": "src\\games\\coin clicker\\Preloader.js",
-        "name": "Preloader.js",
-        "size": 2511,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764098.3633
     }
 ]

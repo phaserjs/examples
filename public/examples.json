@@ -2130,7 +2130,7 @@
         {
           "path": "src\\bugs\\6371 particles global space.js",
           "name": "6371 particles global space.js",
-          "size": 1311,
+          "size": 1310,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718173640132.837
@@ -2216,6 +2216,14 @@
           "birthtimeMs": 1717772764039.095
         },
         {
+          "path": "src\\bugs\\6586 plane rendering size.js",
+          "name": "6586 plane rendering size.js",
+          "size": 1408,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718183184023.312
+        },
+        {
           "path": "src\\bugs\\6604 line width.js",
           "name": "6604 line width.js",
           "size": 422,
@@ -2246,6 +2254,14 @@
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1717772764041.2183
+        },
+        {
+          "path": "src\\bugs\\6631 bitmapfont kerning.js",
+          "name": "6631 bitmapfont kerning.js",
+          "size": 1497,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718258591461.131
         },
         {
           "path": "src\\bugs\\6674 resize.js",
@@ -2288,6 +2304,22 @@
           "birthtimeMs": 1717772764052.2776
         },
         {
+          "path": "src\\bugs\\6716 setCrop.js",
+          "name": "6716 setCrop.js",
+          "size": 5236,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718345779964.3123
+        },
+        {
+          "path": "src\\bugs\\6717 bitmap text maxWidth.js",
+          "name": "6717 bitmap text maxWidth.js",
+          "size": 651,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718263568358.4194
+        },
+        {
           "path": "src\\bugs\\6724 layer.js",
           "name": "6724 layer.js",
           "size": 1391,
@@ -2320,7 +2352,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 229411,
+      "size": 238202,
       "type": "directory"
     },
     {
@@ -20198,6 +20230,6 @@
       "type": "directory"
     }
   ],
-  "size": 4919141,
+  "size": 4927932,
   "type": "directory"
 }

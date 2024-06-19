@@ -1,8 +1,24 @@
 [
     {
+        "path": "src\\bugs\\6837 scaleManager ios.js",
+        "name": "6837 scaleManager ios.js",
+        "size": 920,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718693734793.595
+    },
+    {
+        "path": "src\\bugs\\6833 different input behavior.js",
+        "name": "6833 different input behavior.js",
+        "size": 1266,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718353460778.189
+    },
+    {
         "path": "src\\bugs\\6716 setCrop.js",
         "name": "6716 setCrop.js",
-        "size": 5236,
+        "size": 1979,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718345779964.3123
@@ -10,7 +26,7 @@
     {
         "path": "src\\bugs\\6717 bitmap text maxWidth.js",
         "name": "6717 bitmap text maxWidth.js",
-        "size": 651,
+        "size": 1519,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718263568358.4194
@@ -222,21 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764120.3923
-    },
-    {
-        "path": "src\\loader\\base64\\base64 texture atlas.js",
-        "name": "base64 texture atlas.js",
-        "size": 786,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764119.3918
-    },
-    {
-        "path": "src\\loader\\base64\\base64 image.js",
-        "name": "base64 image.js",
-        "size": 448,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764116.3909
     }
 ]

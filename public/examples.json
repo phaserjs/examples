@@ -2306,7 +2306,7 @@
         {
           "path": "src\\bugs\\6716 setCrop.js",
           "name": "6716 setCrop.js",
-          "size": 5236,
+          "size": 1979,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718345779964.3123
@@ -2314,7 +2314,7 @@
         {
           "path": "src\\bugs\\6717 bitmap text maxWidth.js",
           "name": "6717 bitmap text maxWidth.js",
-          "size": 651,
+          "size": 1519,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718263568358.4194
@@ -2344,6 +2344,22 @@
           "birthtimeMs": 1717999911949.404
         },
         {
+          "path": "src\\bugs\\6833 different input behavior.js",
+          "name": "6833 different input behavior.js",
+          "size": 1266,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718353460778.189
+        },
+        {
+          "path": "src\\bugs\\6837 scaleManager ios.js",
+          "name": "6837 scaleManager ios.js",
+          "size": 920,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718693734793.595
+        },
+        {
           "path": "src\\bugs\\polygon rays.js",
           "name": "polygon rays.js",
           "size": 4088,
@@ -2352,7 +2368,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 238202,
+      "size": 237999,
       "type": "directory"
     },
     {
@@ -20230,6 +20246,6 @@
       "type": "directory"
     }
   ],
-  "size": 4927932,
+  "size": 4927729,
   "type": "directory"
 }

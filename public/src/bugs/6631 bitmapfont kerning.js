@@ -17,20 +17,20 @@ class Example extends Phaser.Scene
     create ()
     {
         const fontSize = 40;
-        this.add.dynamicBitmapText(10, 10, 'title', 'YOU CAN WIN!').setFontSize(fontSize);
+        this.add.dynamicBitmapText(10, 10, 'title', 'YOU CAN WAIT!').setFontSize(fontSize);
         this.add.dynamicBitmapText(10, 10 + fontSize, 'shortStack', 'YOU CAN WIN!').setFontSize(fontSize);
 
         for (let i = 0; i < this.fonts.length; i++)
         {
-            this.add.dynamicBitmapText(10, 100 + (i * fontSize), this.fonts[i], 'YOU CAN WIN!').setFontSize(fontSize);
+            this.add.dynamicBitmapText(10, 50 + ((i+1) * fontSize), this.fonts[i], 'YOU CAN WAIT!').setFontSize(fontSize);
         }
     }
 
 }
 
 const config = {
-    type: Phaser.CANVAS,
-    // type: Phaser.WEBGL,
+    // type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',

@@ -2258,7 +2258,7 @@
         {
           "path": "src\\bugs\\6631 bitmapfont kerning.js",
           "name": "6631 bitmapfont kerning.js",
-          "size": 1497,
+          "size": 1502,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718258591461.131
@@ -2344,6 +2344,22 @@
           "birthtimeMs": 1717999911949.404
         },
         {
+          "path": "src\\bugs\\6820 disableInteractive.js",
+          "name": "6820 disableInteractive.js",
+          "size": 787,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718873432840.681
+        },
+        {
+          "path": "src\\bugs\\6831 Normal Map Rotation.js",
+          "name": "6831 Normal Map Rotation.js",
+          "size": 2948,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718849688099.4138
+        },
+        {
           "path": "src\\bugs\\6833 different input behavior.js",
           "name": "6833 different input behavior.js",
           "size": 1266,
@@ -2352,9 +2368,17 @@
           "birthtimeMs": 1718353460778.189
         },
         {
+          "path": "src\\bugs\\6836 postFX Wipe.js",
+          "name": "6836 postFX Wipe.js",
+          "size": 1395,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718781315103.9673
+        },
+        {
           "path": "src\\bugs\\6837 scaleManager ios.js",
           "name": "6837 scaleManager ios.js",
-          "size": 920,
+          "size": 1225,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718693734793.595
@@ -2368,7 +2392,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 237999,
+      "size": 243439,
       "type": "directory"
     },
     {
@@ -20246,6 +20270,6 @@
       "type": "directory"
     }
   ],
-  "size": 4927729,
+  "size": 4933169,
   "type": "directory"
 }

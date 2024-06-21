@@ -1,8 +1,32 @@
 [
     {
+        "path": "src\\bugs\\6820 disableInteractive.js",
+        "name": "6820 disableInteractive.js",
+        "size": 787,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718873432840.681
+    },
+    {
+        "path": "src\\bugs\\6831 Normal Map Rotation.js",
+        "name": "6831 Normal Map Rotation.js",
+        "size": 2948,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718849688099.4138
+    },
+    {
+        "path": "src\\bugs\\6836 postFX Wipe.js",
+        "name": "6836 postFX Wipe.js",
+        "size": 1395,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718781315103.9673
+    },
+    {
         "path": "src\\bugs\\6837 scaleManager ios.js",
         "name": "6837 scaleManager ios.js",
-        "size": 920,
+        "size": 1225,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718693734793.595
@@ -34,7 +58,7 @@
     {
         "path": "src\\bugs\\6631 bitmapfont kerning.js",
         "name": "6631 bitmapfont kerning.js",
-        "size": 1497,
+        "size": 1502,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718258591461.131
@@ -214,29 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764121.3938
-    },
-    {
-        "path": "src\\physics\\arcade\\body push blocks.js",
-        "name": "body push blocks.js",
-        "size": 2805,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764121.3938
-    },
-    {
-        "path": "src\\loader\\image\\load webp.js",
-        "name": "load webp.js",
-        "size": 399,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764120.3923
-    },
-    {
-        "path": "src\\loader\\texture atlas multi\\load webp multi texture atlas.js",
-        "name": "load webp multi texture atlas.js",
-        "size": 714,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764120.3923
     }
 ]

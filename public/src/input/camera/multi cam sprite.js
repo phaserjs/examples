@@ -79,7 +79,7 @@ class Example extends Phaser.Scene
             maxSpeed: 1.0
         });
 
-        this.input.keyboard.on('keydown_SPACE', event =>
+        this.input.keyboard.on('keydown-SPACE', event =>
         {
 
             if (this.current === this.cam1)
@@ -113,14 +113,14 @@ class Example extends Phaser.Scene
 
         }, this);
 
-        this.input.keyboard.on('keydown_Z', event =>
+        this.input.keyboard.on('keydown-Z', event =>
         {
 
             this.controls.camera.rotation += 0.01;
 
         }, this);
 
-        this.input.keyboard.on('keydown_X', event =>
+        this.input.keyboard.on('keydown-X', event =>
         {
 
             this.controls.camera.rotation -= 0.01;

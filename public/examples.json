@@ -2328,6 +2328,14 @@
           "birthtimeMs": 1717772764058.275
         },
         {
+          "path": "src\\bugs\\6792 direct control platforms.js",
+          "name": "6792 direct control platforms.js",
+          "size": 3870,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1719307901369.0627
+        },
+        {
           "path": "src\\bugs\\6796 context lost handler.js",
           "name": "6796 context lost handler.js",
           "size": 787,
@@ -2344,12 +2352,36 @@
           "birthtimeMs": 1717999911949.404
         },
         {
+          "path": "src\\bugs\\6806 dynamic texture.js",
+          "name": "6806 dynamic texture.js",
+          "size": 2532,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718959213695.4224
+        },
+        {
+          "path": "src\\bugs\\6807 bitmapText setMaxWidth.js",
+          "name": "6807 bitmapText setMaxWidth.js",
+          "size": 1217,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1718953703002.4258
+        },
+        {
           "path": "src\\bugs\\6820 disableInteractive.js",
           "name": "6820 disableInteractive.js",
-          "size": 787,
+          "size": 759,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718873432840.681
+        },
+        {
+          "path": "src\\bugs\\6829 iOS audio bug.js",
+          "name": "6829 iOS audio bug.js",
+          "size": 760,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1719197594939.3022
         },
         {
           "path": "src\\bugs\\6831 Normal Map Rotation.js",
@@ -2384,6 +2416,14 @@
           "birthtimeMs": 1718693734793.595
         },
         {
+          "path": "src\\bugs\\6844 timeline destroy errors.js",
+          "name": "6844 timeline destroy errors.js",
+          "size": 2176,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1719304764643.7542
+        },
+        {
           "path": "src\\bugs\\polygon rays.js",
           "name": "polygon rays.js",
           "size": 4088,
@@ -2392,7 +2432,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 243439,
+      "size": 253966,
       "type": "directory"
     },
     {
@@ -20270,6 +20310,6 @@
       "type": "directory"
     }
   ],
-  "size": 4933169,
+  "size": 4943696,
   "type": "directory"
 }

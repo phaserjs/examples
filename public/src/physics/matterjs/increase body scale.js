@@ -1,7 +1,5 @@
 class Example extends Phaser.Scene
 {
-    scale = 1.1;
-
     preload ()
     {
         this.load.image('blue', 'assets/sprites/columns-blue.png');
@@ -9,6 +7,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
+        this.scale = 1.1;
         this.matter.world.setBounds().disableGravity();
 
         //  By default it will create a rectangular body the size of the texture

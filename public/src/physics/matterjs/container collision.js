@@ -8,9 +8,9 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const image1 = this.add.image(0, -30, 'mushroom');
-        const image2 = this.add.image(-40, 30, 'mushroom');
-        const image3 = this.add.image(40, 30, 'mushroom');
+        const image1 = this.add.image(0, -30, 'mushroom').setName('mushroom1');
+        const image2 = this.add.image(-40, 30, 'mushroom').setName('mushroom2');
+        const image3 = this.add.image(40, 30, 'mushroom').setName('mushroom3');
 
         const container = this.add.container(400, 300, [ image1, image2, image3 ]);
 
@@ -38,7 +38,7 @@ class Example extends Phaser.Scene
 
             if (bodyA.gameObject.list)
             {
-                bodyA.gameObject.next.setTint(0xff0000);
+                bodyA.gameObject.next?.setTint(0xff0000);
             }
             else if (bodyA.gameObject)
             {
@@ -47,7 +47,7 @@ class Example extends Phaser.Scene
 
             if (bodyB.gameObject.list)
             {
-                bodyB.gameObject.next.setTint(0xff0000);
+                bodyB.gameObject.next?.setTint(0xff0000);
             }
             else if (bodyB.gameObject)
             {

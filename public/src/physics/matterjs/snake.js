@@ -23,8 +23,6 @@ class Example extends Phaser.Scene
             if (i > 0)
             {
                 const s = this.matter.add.spring(body, prevBody, 48, 0.9, { damping: 0.9, angularStiffness: 0.9 });
-
-                console.log(s);
             }
 
             prevBody = body;

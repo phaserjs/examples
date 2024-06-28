@@ -2354,7 +2354,7 @@
         {
           "path": "src\\bugs\\6806 dynamic texture.js",
           "name": "6806 dynamic texture.js",
-          "size": 2532,
+          "size": 2366,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718959213695.4224
@@ -2418,10 +2418,18 @@
         {
           "path": "src\\bugs\\6844 timeline destroy errors.js",
           "name": "6844 timeline destroy errors.js",
-          "size": 2176,
+          "size": 1082,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1719304764643.7542
+        },
+        {
+          "path": "src\\bugs\\matter wrap bounds.js",
+          "name": "matter wrap bounds.js",
+          "size": 1670,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1632906701984.8877
         },
         {
           "path": "src\\bugs\\polygon rays.js",
@@ -2432,7 +2440,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 253966,
+      "size": 254376,
       "type": "directory"
     },
     {
@@ -16086,7 +16094,7 @@
             {
               "path": "src\\physics\\matterjs\\container collision.js",
               "name": "container collision.js",
-              "size": 2501,
+              "size": 2566,
               "extension": ".js",
               "type": "file",
               "birthtimeMs": 1632906701973.9507
@@ -16206,7 +16214,7 @@
             {
               "path": "src\\physics\\matterjs\\increase body scale.js",
               "name": "increase body scale.js",
-              "size": 1167,
+              "size": 1174,
               "extension": ".js",
               "type": "file",
               "birthtimeMs": 1632906701978.9043
@@ -16350,7 +16358,7 @@
             {
               "path": "src\\physics\\matterjs\\snake.js",
               "name": "snake.js",
-              "size": 2936,
+              "size": 2901,
               "extension": ".js",
               "type": "file",
               "birthtimeMs": 1688549367775.4512
@@ -16388,14 +16396,6 @@
               "birthtimeMs": 1632906701983.8909
             },
             {
-              "path": "src\\physics\\matterjs\\wrap plugin.js",
-              "name": "wrap plugin.js",
-              "size": 1738,
-              "extension": ".js",
-              "type": "file",
-              "birthtimeMs": 1632906701984.8877
-            },
-            {
               "path": "src\\physics\\matterjs\\wrecking ball.js",
               "name": "wrecking ball.js",
               "size": 1002,
@@ -16404,7 +16404,7 @@
               "birthtimeMs": 1632906701984.8877
             }
           ],
-          "size": 128697,
+          "size": 126996,
           "type": "directory"
         },
         {
@@ -16425,7 +16425,7 @@
           "type": "directory"
         }
       ],
-      "size": 422514,
+      "size": 420813,
       "type": "directory"
     },
     {
@@ -20310,6 +20310,6 @@
       "type": "directory"
     }
   ],
-  "size": 4943696,
+  "size": 4942405,
   "type": "directory"
 }

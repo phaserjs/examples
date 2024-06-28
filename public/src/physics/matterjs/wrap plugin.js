@@ -9,15 +9,13 @@ class Example extends Phaser.Scene
             const y = Phaser.Math.Between(100, 500);
 
             const wrapBounds = {
-                wrap: {
-                    min: {
-                        x: 0,
-                        y: 0
-                    },
-                    max: {
-                        x: 800,
-                        y: 600
-                    }
+                min: {
+                    x: 0,
+                    y: 0
+                },
+                max: {
+                    x: 800,
+                    y: 600
                 }
             };
 
@@ -26,14 +24,14 @@ class Example extends Phaser.Scene
                 const sides = Phaser.Math.Between(3, 14);
                 const radius = Phaser.Math.Between(8, 50);
 
-                this.matter.add.polygon(x, y, sides, radius, { restitution: 0.9, plugin: wrapBounds });
+                this.matter.add.polygon(x, y, sides, radius, { restitution: 0.9, wrapBounds: wrapBounds });
             }
             else
             {
                 const width = Phaser.Math.Between(16, 128);
                 const height = Phaser.Math.Between(8, 64);
 
-                this.matter.add.rectangle(x, y, width, height, { restitution: 0.9, plugin: wrapBounds });
+                this.matter.add.rectangle(x, y, width, height, { restitution: 0.9, wrapBounds: wrapBounds });
             }
         }
 
@@ -53,9 +51,6 @@ const config = {
             gravity: {
                 x: 0.05,
                 y: 0.1
-            },
-            plugins: {
-                wrap: true
             },
             debug: true
         }

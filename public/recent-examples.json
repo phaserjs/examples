@@ -10,7 +10,7 @@
     {
         "path": "src\\bugs\\6844 timeline destroy errors.js",
         "name": "6844 timeline destroy errors.js",
-        "size": 2176,
+        "size": 1082,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1719304764643.7542
@@ -26,7 +26,7 @@
     {
         "path": "src\\bugs\\6806 dynamic texture.js",
         "name": "6806 dynamic texture.js",
-        "size": 2532,
+        "size": 2366,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718959213695.4224

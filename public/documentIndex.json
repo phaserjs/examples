@@ -22808,6 +22808,85 @@
     },
     "name": "6844 timeline destroy errors.js"
   },
+  "bugs\\matter attractor.js": {
+    "path": "bugs\\matter attractor.js",
+    "titleWords": {
+      "bugs": 1,
+      "matter": 1,
+      "attractor": 1
+    },
+    "bodyWords": {
+      "class": 1,
+      "example": 3,
+      "extends": 1,
+      "phaser": 4,
+      "scene": 2,
+      "preload": 1,
+      "this": 7,
+      "load": 2,
+      "image": 3,
+      "sun": 4,
+      "assets": 2,
+      "tests": 1,
+      "space": 2,
+      "png": 2,
+      "alien": 2,
+      "sprites": 1,
+      "baddie": 1,
+      "create": 1,
+      "you": 1,
+      "can": 1,
+      "enable": 1,
+      "the": 2,
+      "attractors": 3,
+      "plugin": 2,
+      "either": 1,
+      "via": 1,
+      "game": 3,
+      "config": 3,
+      "see": 1,
+      "above": 1,
+      "or": 1,
+      "explicitly": 1,
+      "in": 1,
+      "code": 1,
+      "matter": 7,
+      "enableattractorplugin": 1,
+      "world": 1,
+      "setbounds": 1,
+      "add": 3,
+      "imagestack": 1,
+      "null": 2,
+      "mass": 1,
+      "ignorepointer": 1,
+      "true": 2,
+      "const": 3,
+      "shape": 1,
+      "type": 2,
+      "circle": 1,
+      "radius": 1,
+      "bodya": 3,
+      "bodyb": 3,
+      "x": 3,
+      "position": 4,
+      "y": 3,
+      "mousespring": 1,
+      "auto": 1,
+      "width": 1,
+      "height": 1,
+      "backgroundcolor": 1,
+      "#": 1,
+      "parent": 1,
+      "physics": 1,
+      "default": 1,
+      "gravity": 1,
+      "scale": 1,
+      "plugins": 1,
+      "new": 1,
+      "": 1
+    },
+    "name": "matter attractor.js"
+  },
   "bugs\\matter wrap bounds.js": {
     "path": "bugs\\matter wrap bounds.js",
     "titleWords": {
@@ -172604,13 +172683,12 @@
     },
     "name": "vertices body.js"
   },
-  "physics\\matterjs\\wrap plugin.js": {
-    "path": "physics\\matterjs\\wrap plugin.js",
+  "physics\\matterjs\\wrap.js": {
+    "path": "physics\\matterjs\\wrap.js",
     "titleWords": {
       "physics": 1,
       "matterjs": 1,
-      "wrap": 1,
-      "plugin": 1
+      "wrap": 1
     },
     "bodyWords": {
       "class": 1,
@@ -172670,7 +172748,7 @@
       "new": 1,
       "": 1
     },
-    "name": "wrap plugin.js"
+    "name": "wrap.js"
   },
   "physics\\matterjs\\wrecking ball.js": {
     "path": "physics\\matterjs\\wrecking ball.js",

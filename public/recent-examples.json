@@ -1,7 +1,15 @@
 [
     {
-        "path": "src\\physics\\matterjs\\wrap plugin.js",
-        "name": "wrap plugin.js",
+        "path": "src\\bugs\\matter attractor.js",
+        "name": "matter attractor.js",
+        "size": 1546,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1719805644473.485
+    },
+    {
+        "path": "src\\physics\\matterjs\\wrap.js",
+        "name": "wrap.js",
         "size": 1602,
         "extension": ".js",
         "type": "file",
@@ -227,14 +235,6 @@
         "path": "src\\physics\\matterjs\\create sensor.js",
         "name": "create sensor.js",
         "size": 2019,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764124.3906
-    },
-    {
-        "path": "src\\physics\\matterjs\\pachinko.js",
-        "name": "pachinko.js",
-        "size": 4447,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764124.3906

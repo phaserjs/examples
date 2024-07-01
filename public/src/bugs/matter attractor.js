@@ -1,3 +1,5 @@
+// const { Physics } = require("phaser");
+
 class Example extends Phaser.Scene
 {
     preload ()
@@ -13,27 +15,36 @@ class Example extends Phaser.Scene
 
         this.matter.world.setBounds();
 
-        this.matter.add.imageStack('alien', null, 0, 500, 50, 2, 0, 0, {
+        this.aliens = this.matter.add.imageStack('alien', null, 0, 500, 50, 2, 0, 0, {
             mass: 1,
             ignorePointer: true
         });
 
-        const sun = this.matter.add.image(400, 200, 'sun', null, {
+        this.sun = this.matter.add.image(400, 200, 'sun', null, {
             shape: {
                 type: 'circle',
                 radius: 64
             },
-            plugin: {
-                attractors: [
-                    (bodyA, bodyB) => ({
-                        x: (bodyA.position.x - bodyB.position.x) * 0.000001,
-                        y: (bodyA.position.y - bodyB.position.y) * 0.000001
-                    })
-                ]
-            }
+            attractors: [
+                (bodyA, bodyB) => ({
+                    x: (bodyA.position.x - bodyB.position.x) * 0.000001,
+                    y: (bodyA.position.y - bodyB.position.y) * 0.000001
+                })
+            ]
         });
 
         this.matter.add.mouseSpring();
+    }
+
+    update ()
+    {
+        const bodies = this.aliens.bodies;
+        const force = { x: 0, y: -0.00001 };
+
+        for (let i = 0; i < bodies.length; i++) 
+        {
+            // Phaser.Physics.Matter.Matter.Body.applyForce(bodies[i], bodies[i].position, force);
+        }
     }
 }
 
@@ -49,9 +60,6 @@ const config = {
             gravity: {
                 scale: 0
             },
-            plugins: {
-                attractors: true
-            }
         }
     },
     scene: Example

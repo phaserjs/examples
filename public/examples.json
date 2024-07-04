@@ -2424,9 +2424,17 @@
           "birthtimeMs": 1719304764643.7542
         },
         {
+          "path": "src\\bugs\\6853 clear rectangle.js",
+          "name": "6853 clear rectangle.js",
+          "size": 1043,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1720064863409.705
+        },
+        {
           "path": "src\\bugs\\matter attractor.js",
           "name": "matter attractor.js",
-          "size": 1546,
+          "size": 1764,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1719805644473.485
@@ -2448,7 +2456,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 255854,
+      "size": 257115,
       "type": "directory"
     },
     {
@@ -15934,7 +15942,7 @@
             {
               "path": "src\\physics\\matterjs\\attractors.js",
               "name": "attractors.js",
-              "size": 1546,
+              "size": 1247,
               "extension": ".js",
               "type": "file",
               "birthtimeMs": 1632906701968.93
@@ -16420,7 +16428,7 @@
               "birthtimeMs": 1632906701984.8877
             }
           ],
-          "size": 128598,
+          "size": 128299,
           "type": "directory"
         },
         {
@@ -16441,7 +16449,7 @@
           "type": "directory"
         }
       ],
-      "size": 422415,
+      "size": 422116,
       "type": "directory"
     },
     {
@@ -20326,6 +20334,6 @@
       "type": "directory"
     }
   ],
-  "size": 4945485,
+  "size": 4946447,
   "type": "directory"
 }

@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\6853 clear rectangle.js",
+        "name": "6853 clear rectangle.js",
+        "size": 1043,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720064863409.705
+    },
+    {
         "path": "src\\bugs\\matter attractor.js",
         "name": "matter attractor.js",
-        "size": 1546,
+        "size": 1764,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1719805644473.485
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764129.3901
-    },
-    {
-        "path": "src\\physics\\matterjs\\create sensor.js",
-        "name": "create sensor.js",
-        "size": 2019,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764124.3906
     }
 ]

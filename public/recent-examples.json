@@ -1,8 +1,24 @@
 [
     {
+        "path": "src\\bugs\\6853 clear rectangle 2.js",
+        "name": "6853 clear rectangle 2.js",
+        "size": 1213,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720149904846.0688
+    },
+    {
+        "path": "src\\bugs\\6764 group collisions.js",
+        "name": "6764 group collisions.js",
+        "size": 2667,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720078537502.641
+    },
+    {
         "path": "src\\bugs\\6853 clear rectangle.js",
         "name": "6853 clear rectangle.js",
-        "size": 1043,
+        "size": 868,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1720064863409.705
@@ -219,22 +235,6 @@
         "path": "src\\renderer\\custom post fx pipeline.js",
         "name": "custom post fx pipeline.js",
         "size": 2374,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764129.3901
-    },
-    {
-        "path": "src\\renderer\\sprite test.js",
-        "name": "sprite test.js",
-        "size": 1490,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764129.3901
-    },
-    {
-        "path": "src\\scalemanager\\fit and snap.js",
-        "name": "fit and snap.js",
-        "size": 712,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764129.3901

@@ -2328,6 +2328,14 @@
           "birthtimeMs": 1717772764058.275
         },
         {
+          "path": "src\\bugs\\6764 group collisions.js",
+          "name": "6764 group collisions.js",
+          "size": 2667,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1720078537502.641
+        },
+        {
           "path": "src\\bugs\\6792 direct control platforms.js",
           "name": "6792 direct control platforms.js",
           "size": 3870,
@@ -2424,9 +2432,17 @@
           "birthtimeMs": 1719304764643.7542
         },
         {
+          "path": "src\\bugs\\6853 clear rectangle 2.js",
+          "name": "6853 clear rectangle 2.js",
+          "size": 1213,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1720149904846.0688
+        },
+        {
           "path": "src\\bugs\\6853 clear rectangle.js",
           "name": "6853 clear rectangle.js",
-          "size": 1043,
+          "size": 868,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1720064863409.705
@@ -2456,7 +2472,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 257115,
+      "size": 260820,
       "type": "directory"
     },
     {
@@ -20334,6 +20350,6 @@
       "type": "directory"
     }
   ],
-  "size": 4946447,
+  "size": 4950152,
   "type": "directory"
 }

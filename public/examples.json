@@ -2330,7 +2330,7 @@
         {
           "path": "src\\bugs\\6764 group collisions.js",
           "name": "6764 group collisions.js",
-          "size": 2667,
+          "size": 2733,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1720078537502.641
@@ -2382,6 +2382,14 @@
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718873432840.681
+        },
+        {
+          "path": "src\\bugs\\6822 mesh null currentbatch.js",
+          "name": "6822 mesh null currentbatch.js",
+          "size": 896,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1720165184638.8013
         },
         {
           "path": "src\\bugs\\6829 iOS audio bug.js",
@@ -2472,7 +2480,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 260820,
+      "size": 261782,
       "type": "directory"
     },
     {
@@ -20350,6 +20358,6 @@
       "type": "directory"
     }
   ],
-  "size": 4950152,
+  "size": 4951114,
   "type": "directory"
 }

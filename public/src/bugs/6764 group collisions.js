@@ -42,6 +42,7 @@ class Example extends Phaser.Scene
             return decimal.toString(2);
         }
 
+        console.log(group1.collisionMask, group2.collisionMask);
         console.log(blockA.body.collisionMask, blockA.body.collisionCategory, decimalToBinary(blockA.body.collisionMask), decimalToBinary(blockB.body.collisionCategory), (blockA.body.collisionMask & blockB.body.collisionCategory) !== 0);
         console.log(blockB.body.collisionMask, blockB.body.collisionCategory, decimalToBinary(blockB.body.collisionMask), decimalToBinary(blockA.body.collisionCategory), (blockB.body.collisionMask & blockA.body.collisionCategory) !== 0);
         console.log(blockC.body.collisionMask, blockC.body.collisionCategory, decimalToBinary(blockC.body.collisionMask), decimalToBinary(blockA.body.collisionCategory), (blockC.body.collisionMask & blockA.body.collisionCategory) !== 0);

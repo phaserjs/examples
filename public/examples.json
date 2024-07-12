@@ -2328,6 +2328,14 @@
           "birthtimeMs": 1717772764058.275
         },
         {
+          "path": "src\\bugs\\6754 disabled button pollRate.js",
+          "name": "6754 disabled button pollRate.js",
+          "size": 1624,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1720792181422.7402
+        },
+        {
           "path": "src\\bugs\\6764 group collisions.js",
           "name": "6764 group collisions.js",
           "size": 2733,
@@ -2496,7 +2504,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 269979,
+      "size": 271603,
       "type": "directory"
     },
     {
@@ -20374,6 +20382,6 @@
       "type": "directory"
     }
   ],
-  "size": 4959311,
+  "size": 4960935,
   "type": "directory"
 }

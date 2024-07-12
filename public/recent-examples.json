@@ -1,8 +1,24 @@
 [
     {
+        "path": "src\\bugs\\6856 spine prefx memory leak.js",
+        "name": "6856 spine prefx memory leak.js",
+        "size": 1279,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720769803693.7083
+    },
+    {
+        "path": "src\\bugs\\6860 bitmap text line wrap.js",
+        "name": "6860 bitmap text line wrap.js",
+        "size": 728,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720681707479.3867
+    },
+    {
         "path": "src\\bugs\\6822 mesh null currentbatch.js",
         "name": "6822 mesh null currentbatch.js",
-        "size": 896,
+        "size": 7152,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1720165184638.8013
@@ -138,7 +154,7 @@
     {
         "path": "src\\bugs\\6717 bitmap text maxWidth.js",
         "name": "6717 bitmap text maxWidth.js",
-        "size": 1519,
+        "size": 1453,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718263568358.4194
@@ -222,21 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764142.93
-    },
-    {
-        "path": "src\\tweens\\remove tween.js",
-        "name": "remove tween.js",
-        "size": 852,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764142.93
-    },
-    {
-        "path": "src\\tilemap\\create from tiles.js",
-        "name": "create from tiles.js",
-        "size": 1432,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764140.9219
     }
 ]

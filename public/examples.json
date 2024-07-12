@@ -2314,7 +2314,7 @@
         {
           "path": "src\\bugs\\6717 bitmap text maxWidth.js",
           "name": "6717 bitmap text maxWidth.js",
-          "size": 1519,
+          "size": 1453,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1718263568358.4194
@@ -2386,7 +2386,7 @@
         {
           "path": "src\\bugs\\6822 mesh null currentbatch.js",
           "name": "6822 mesh null currentbatch.js",
-          "size": 896,
+          "size": 7152,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1720165184638.8013
@@ -2456,6 +2456,22 @@
           "birthtimeMs": 1720064863409.705
         },
         {
+          "path": "src\\bugs\\6856 spine prefx memory leak.js",
+          "name": "6856 spine prefx memory leak.js",
+          "size": 1279,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1720769803693.7083
+        },
+        {
+          "path": "src\\bugs\\6860 bitmap text line wrap.js",
+          "name": "6860 bitmap text line wrap.js",
+          "size": 728,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1720681707479.3867
+        },
+        {
           "path": "src\\bugs\\matter attractor.js",
           "name": "matter attractor.js",
           "size": 1764,
@@ -2480,7 +2496,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 261782,
+      "size": 269979,
       "type": "directory"
     },
     {
@@ -20358,6 +20374,6 @@
       "type": "directory"
     }
   ],
-  "size": 4951114,
+  "size": 4959311,
   "type": "directory"
 }

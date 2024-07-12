@@ -1,5 +1,13 @@
 [
     {
+        "path": "src\\bugs\\6754 disabled button pollRate.js",
+        "name": "6754 disabled button pollRate.js",
+        "size": 1624,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720792181422.7402
+    },
+    {
         "path": "src\\bugs\\6856 spine prefx memory leak.js",
         "name": "6856 spine prefx memory leak.js",
         "size": 1279,
@@ -227,14 +235,6 @@
         "path": "src\\tilemap\\mouse wheel zoom.js",
         "name": "mouse wheel zoom.js",
         "size": 2277,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1717772764142.93
-    },
-    {
-        "path": "src\\time\\timeline\\repeat timeline.js",
-        "name": "repeat timeline.js",
-        "size": 2917,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1717772764142.93

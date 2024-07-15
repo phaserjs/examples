@@ -16,7 +16,7 @@ class Example extends Phaser.Scene
                 .on('dragend', function ()
                 {
                     console.log('sprite', sprite.id);
-                    // this.disableInteractive();
+                    this.disableInteractive();
                 });
             sprite.id = i;
         }

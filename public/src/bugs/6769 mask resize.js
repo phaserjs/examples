@@ -7,18 +7,21 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.game.scale.resize(800, 600);
+        this.scale.resize(800, 600);
 
         const sprite = this.add.sprite(400, 300, 'ayu');
 
         const rt = this.make.renderTexture({x: 0, y: 0, width: 800, height: 600, add: false}).setOrigin(0.0);
+
         const mask = new Phaser.Display.Masks.BitmapMask(this, rt);
+
+        console.log(this.renderer);
 
         rt.fill(0x000000, 1);
 
         this.input.on('pointerdown', pointer => {
             sprite.setMask(mask);
-        })        
+        });
     }
 }
 

@@ -30,8 +30,6 @@ class Example extends Phaser.Scene
                 textEntry.text += event.key;
                 // textEntry.setText([...currentText, event.code].join("") );
             }
-
-            console.log(textEntry.getTextBounds().characters);
         });
     }
 }

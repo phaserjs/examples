@@ -39,7 +39,7 @@ class Example extends Phaser.Scene
 
     preRender ()
     {
-        console.log(this.player.x, this.player.y, this.cameras.main.scrollX, this.cameras.main.scrollY);
+        // console.log(this.player.x, this.player.y, this.cameras.main.scrollX, this.cameras.main.scrollY);
     }
 
     update ()

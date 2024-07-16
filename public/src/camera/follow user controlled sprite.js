@@ -29,7 +29,17 @@ class Example extends Phaser.Scene
 
         this.player.setCollideWorldBounds(true);
 
-        this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
+        this.cameras.main.setRoundPixels(true);
+
+        this.cameras.main.startFollow(this.player, true);
+        // this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
+
+        this.events.on('prerender', this.preRender, this);
+    }
+
+    preRender ()
+    {
+        console.log(this.player.x, this.player.y, this.cameras.main.scrollX, this.cameras.main.scrollY);
     }
 
     update ()

@@ -15,11 +15,11 @@ class Example extends Phaser.Scene
     {
         this.cameras.main.setBounds(0, 0, 1024, 2048);
 
-        this.add.image(0, 0, 'map').setOrigin(0).setScrollFactor(1);
+        this.add.image(0, 0, 'map').setOrigin(0);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.mode = 1; // 0 = direct, 1 = physics
+        this.mode = 0; // 0 = direct, 1 = physics
         this.directSpeed = 4.5;
 
         this.ship = this.physics.add.image(400, 300, 'ship');
@@ -27,7 +27,22 @@ class Example extends Phaser.Scene
         this.cameras.main.startFollow(this.ship, true);
         // this.cameras.main.startFollow(this.ship, true, 0.09, 0.09);
 
+        // this.cameras.main.setZoom(2);
         this.cameras.main.setZoom(4);
+
+        this.input.on('pointerdown', () => {
+
+            console.log(this.cameras.main.scrollX, this.cameras.main.scrollY);
+            console.log(this.cameras.main.matrix);
+
+        });
+
+        this.events.on('prerender', this.preRender, this);
+    }
+
+    preRender ()
+    {
+        // console.log(this.ship.x, this.ship.y, this.cameras.main.scrollX, this.cameras.main.scrollY);
     }
 
     update ()

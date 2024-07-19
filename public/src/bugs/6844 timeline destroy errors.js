@@ -1,13 +1,23 @@
 class Example extends Phaser.Scene
 {
+    timelines = []
     preload ()
     {
-        this.load.atlas('timeline', 'assets/atlas/timeline.png', 'assets/atlas/timeline.json');
+        this.load.atlas('timeline', 'https://labs.phaser.io/assets/atlas/timeline.png', 'https://labs.phaser.io/assets/atlas/timeline.json');
     }
 
     create ()
     {
-        const timeline = this.add.timeline([
+        const timeline = this.createTimeline();
+        timeline.play()
+        setTimeout(() => {if (timeline.isPlaying()) timeline.destroy()},100)
+        setTimeout(() => {if (timeline.isPlaying()) timeline.destroy()},2300) // this causes the error
+
+    }
+
+    createTimeline(){
+        
+        return this.add.timeline([
             {
                 at: 1000,
                 tween: {
@@ -19,17 +29,6 @@ class Example extends Phaser.Scene
             }
         ]);
 
-        timeline.play();
-
-        setTimeout(() => { if (timeline.isPlaying()) timeline.destroy() }, 100)
-        setTimeout(() =>
-        {
-            console.log('2300')
-            if (timeline.isPlaying())
-            {
-                timeline.destroy()
-            }
-        }, 2300) // this causes the error
     }
 }
 
@@ -37,7 +36,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: '#000000',
+    backgroundColor: '#020286',
     parent: 'phaser-example',
     scene: Example
 };

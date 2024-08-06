@@ -7,17 +7,19 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const img = this.add.image(400, 300, 'bg');
+        const img = this.add.image(window.innerWidth/2,window.innerHeight/2, 'bg');
 
-        img.setScale(1).setDisplaySize(800,600);
+        img.setScale(1).setDisplaySize(window.innerWidth,window.innerHeight);
     }
 }
 
 const config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    type: Phaser.WEBGL,
     roundPixels: true,
+    scale: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+    },
     backgroundColor: '#00ff00',
     parent: 'phaser-example',
     scene: Example

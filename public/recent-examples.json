@@ -1,152 +1,242 @@
 [
     {
-        "path": "src\\bugs\\6769 mask resize.js",
-        "name": "6769 mask resize.js",
-        "birthtimeMs": 1721062731287.9092
-    },
-    {
-        "path": "src\\bugs\\6857 tilesprite dimensions.js",
-        "name": "6857 tilesprite dimensions.js",
-        "birthtimeMs": 1721062731196.4824
-    },
-    {
-        "path": "src\\bugs\\6860 bitmaptext line wrap.js",
-        "name": "6860 bitmaptext line wrap.js",
-        "birthtimeMs": 1721062731196.4824
-    },
-    {
-        "path": "src\\bugs\\6850 drag multiple cameras.js",
-        "name": "6850 drag multiple cameras.js",
-        "birthtimeMs": 1721062731195.4812
-    },
-    {
-        "path": "src\\bugs\\6854 postFxPipeline type.js",
-        "name": "6854 postFxPipeline type.js",
-        "birthtimeMs": 1721062731195.4812
-    },
-    {
-        "path": "src\\bugs\\6820 disableInteractive.js",
-        "name": "6820 disableInteractive.js",
-        "birthtimeMs": 1721062731194.482
+        "path": "src\\bugs\\6816 glow post fx.js",
+        "name": "6816 glow post fx.js",
+        "size": 826,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1721723032477.8823
     },
     {
         "path": "src\\game objects\\graphics\\obj to graphics.js",
         "name": "obj to graphics.js",
-        "birthtimeMs": 1720807195451.105
+        "size": 9094,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1721358434354.258
     },
     {
-        "path": "src\\bugs\\6754 disabled button pollRate.js",
-        "name": "6754 disabled button pollRate.js",
-        "birthtimeMs": 1720807195362.4922
+        "path": "src\\bugs\\6860 bitmaptext line wrap.js",
+        "name": "6860 bitmaptext line wrap.js",
+        "size": 1188,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1721358434341.24
+    },
+    {
+        "path": "src\\bugs\\6857 tilesprite dimensions.js",
+        "name": "6857 tilesprite dimensions.js",
+        "size": 1049,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1721358434337.2427
+    },
+    {
+        "path": "src\\bugs\\6854 postFxPipeline type.js",
+        "name": "6854 postFxPipeline type.js",
+        "size": 418,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1721358434334.1067
+    },
+    {
+        "path": "src\\bugs\\6850 drag multiple cameras.js",
+        "name": "6850 drag multiple cameras.js",
+        "size": 1213,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1721358434330.1045
+    },
+    {
+        "path": "src\\bugs\\6769 mask resize.js",
+        "name": "6769 mask resize.js",
+        "size": 820,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1721358434321.8513
+    },
+    {
+        "path": "src\\bugs\\6773 onActive Tweens fire twice.js",
+        "name": "6773 onActive Tweens fire twice.js",
+        "size": 907,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1721118907242.2239
     },
     {
         "path": "src\\bugs\\6812 timeline.js",
         "name": "6812 timeline.js",
-        "birthtimeMs": 1720792979157.0618
+        "size": 2191,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720794548205.0347
     },
     {
-        "path": "src\\physics\\matterjs\\snake.js",
-        "name": "snake.js",
-        "birthtimeMs": 1720792978741.201
-    },
-    {
-        "path": "src\\physics\\matterjs\\wrap.js",
-        "name": "wrap.js",
-        "birthtimeMs": 1720792978741.201
-    },
-    {
-        "path": "src\\physics\\matterjs\\increase body scale.js",
-        "name": "increase body scale.js",
-        "birthtimeMs": 1720792978740.2012
-    },
-    {
-        "path": "src\\physics\\matterjs\\attractors.js",
-        "name": "attractors.js",
-        "birthtimeMs": 1720792978739.2012
-    },
-    {
-        "path": "src\\physics\\matterjs\\container collision.js",
-        "name": "container collision.js",
-        "birthtimeMs": 1720792978739.2012
-    },
-    {
-        "path": "src\\bugs\\matter attractor.js",
-        "name": "matter attractor.js",
-        "birthtimeMs": 1720792978738.2012
-    },
-    {
-        "path": "src\\bugs\\matter wrap bounds.js",
-        "name": "matter wrap bounds.js",
-        "birthtimeMs": 1720792978738.2012
-    },
-    {
-        "path": "src\\bugs\\6853 clear rectangle.js",
-        "name": "6853 clear rectangle.js",
-        "birthtimeMs": 1720792978737.2014
+        "path": "src\\bugs\\6754 disabled button pollRate.js",
+        "name": "6754 disabled button pollRate.js",
+        "size": 969,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720792181422.7402
     },
     {
         "path": "src\\bugs\\6856 spine prefx memory leak.js",
         "name": "6856 spine prefx memory leak.js",
-        "birthtimeMs": 1720792978737.2014
+        "size": 1279,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720769803693.7083
     },
     {
         "path": "src\\bugs\\6860 bitmap text line wrap.js",
         "name": "6860 bitmap text line wrap.js",
-        "birthtimeMs": 1720792978737.2014
-    },
-    {
-        "path": "src\\bugs\\6837 scaleManager ios.js",
-        "name": "6837 scaleManager ios.js",
-        "birthtimeMs": 1720792978736.201
-    },
-    {
-        "path": "src\\bugs\\6844 timeline destroy errors.js",
-        "name": "6844 timeline destroy errors.js",
-        "birthtimeMs": 1720792978736.201
-    },
-    {
-        "path": "src\\bugs\\6853 clear rectangle 2.js",
-        "name": "6853 clear rectangle 2.js",
-        "birthtimeMs": 1720792978736.201
-    },
-    {
-        "path": "src\\bugs\\6833 different input behavior.js",
-        "name": "6833 different input behavior.js",
-        "birthtimeMs": 1720792978735.1978
-    },
-    {
-        "path": "src\\bugs\\6836 postFX Wipe.js",
-        "name": "6836 postFX Wipe.js",
-        "birthtimeMs": 1720792978735.1978
+        "size": 1285,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720681707479.3867
     },
     {
         "path": "src\\bugs\\6822 mesh null currentbatch.js",
         "name": "6822 mesh null currentbatch.js",
-        "birthtimeMs": 1720792978733.6946
+        "size": 7152,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720165184638.8013
+    },
+    {
+        "path": "src\\bugs\\6853 clear rectangle 2.js",
+        "name": "6853 clear rectangle 2.js",
+        "size": 1213,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720149904846.0688
+    },
+    {
+        "path": "src\\bugs\\6764 group collisions.js",
+        "name": "6764 group collisions.js",
+        "size": 2733,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720078537502.641
+    },
+    {
+        "path": "src\\bugs\\6853 clear rectangle.js",
+        "name": "6853 clear rectangle.js",
+        "size": 868,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1720064863409.705
+    },
+    {
+        "path": "src\\bugs\\matter attractor.js",
+        "name": "matter attractor.js",
+        "size": 1764,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1719805644473.485
+    },
+    {
+        "path": "src\\physics\\matterjs\\wrap.js",
+        "name": "wrap.js",
+        "size": 1602,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1719567309650.655
+    },
+    {
+        "path": "src\\bugs\\6792 direct control platforms.js",
+        "name": "6792 direct control platforms.js",
+        "size": 3870,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1719307901369.0627
+    },
+    {
+        "path": "src\\bugs\\6844 timeline destroy errors.js",
+        "name": "6844 timeline destroy errors.js",
+        "size": 1109,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1719304764643.7542
     },
     {
         "path": "src\\bugs\\6829 iOS audio bug.js",
         "name": "6829 iOS audio bug.js",
-        "birthtimeMs": 1720792978733.6946
-    },
-    {
-        "path": "src\\bugs\\6831 Normal Map Rotation.js",
-        "name": "6831 Normal Map Rotation.js",
-        "birthtimeMs": 1720792978733.6946
-    },
-    {
-        "path": "src\\bugs\\6807 bitmapText setMaxWidth.js",
-        "name": "6807 bitmapText setMaxWidth.js",
-        "birthtimeMs": 1720792978732.691
-    },
-    {
-        "path": "src\\bugs\\6796 context restored handler.js",
-        "name": "6796 context restored handler.js",
-        "birthtimeMs": 1720792978731.6267
+        "size": 760,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1719197594939.3022
     },
     {
         "path": "src\\bugs\\6806 dynamic texture.js",
         "name": "6806 dynamic texture.js",
-        "birthtimeMs": 1720792978731.6267
+        "size": 2366,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718959213695.4224
+    },
+    {
+        "path": "src\\bugs\\6807 bitmapText setMaxWidth.js",
+        "name": "6807 bitmapText setMaxWidth.js",
+        "size": 1217,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718953703002.4258
+    },
+    {
+        "path": "src\\bugs\\6820 disableInteractive.js",
+        "name": "6820 disableInteractive.js",
+        "size": 756,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718873432840.681
+    },
+    {
+        "path": "src\\bugs\\6831 Normal Map Rotation.js",
+        "name": "6831 Normal Map Rotation.js",
+        "size": 2948,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718849688099.4138
+    },
+    {
+        "path": "src\\bugs\\6836 postFX Wipe.js",
+        "name": "6836 postFX Wipe.js",
+        "size": 1395,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718781315103.9673
+    },
+    {
+        "path": "src\\bugs\\6837 scaleManager ios.js",
+        "name": "6837 scaleManager ios.js",
+        "size": 1225,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718693734793.595
+    },
+    {
+        "path": "src\\bugs\\6833 different input behavior.js",
+        "name": "6833 different input behavior.js",
+        "size": 1266,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718353460778.189
+    },
+    {
+        "path": "src\\bugs\\6716 setCrop.js",
+        "name": "6716 setCrop.js",
+        "size": 1979,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718345779964.3123
+    },
+    {
+        "path": "src\\bugs\\6717 bitmap text maxWidth.js",
+        "name": "6717 bitmap text maxWidth.js",
+        "size": 1453,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1718263568358.4194
     }
 ]

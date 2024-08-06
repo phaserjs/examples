@@ -1,9 +1,8 @@
 var versions = [
     { val : 'dev', text: 'Dev Build' },
+    { val : '3.80.1', text: '3.80.1' },
     { val : '3.85.0-beta2', text: '3.85.0 Beta 2' },
     { val : '3.85.0-beta1', text: '3.85.0 Beta 1' },
-    { val : '3.80.1', text: '3.80.1' },
-    // { val : '3.90.0-TP1', text: '3.90.0 Technical Preview 1' },
     { val : '3.80.0', text: '3.80.0' },
     { val : '3.70.0', text: '3.70.0' },
     // { val : '3.61.0-beta.4', text: '3.61.0 Beta 4' },

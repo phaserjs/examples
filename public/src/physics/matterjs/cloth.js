@@ -1,4 +1,5 @@
 class Example extends Phaser.Scene {
+
     constructor() {
         super();
     }
@@ -11,8 +12,6 @@ class Example extends Phaser.Scene {
 
     create()
     {
-        this.blitter = this.add.blitter(0, 0, 'balls');
-
         this.matter.world.setBounds();
         this.matter.add.mouseSpring();
 
@@ -25,40 +24,19 @@ class Example extends Phaser.Scene {
 
         this.cloth = this.matter.add.softBody(200, 140, 20, 12, 5, 5, false, 8, particleOptions, constraintOptions);
 
-        let f = 0;
-        for (let i = 0; i < this.cloth.bodies.length; i++) {
+        for (let i = 0; i < this.cloth.bodies.length; i++)
+        {
             const body = this.cloth.bodies[i];
 
-            if (i < 20) {
+            if (i < 20)
+            {
                 body.isStatic = true;
             }
-
-            // if (i % 20 === 0) {
-            //     f++;
-
-            //     if (f > 5) {
-            //         f = 0;
-            //     }
-            // }
-
-            // body.gameObject = this.blitter.create(body.position.x, body.position.y, f);
         }
 
-        const circle = this.matter.add.circle(300, 500, 80, { isStatic: true,  chamfer: { radius: 20 } });
-        // this.matter.world.add(circle);
-        // console.log(this.matter.world)
+        this.matter.add.circle(300, 500, 80, { isStatic: true,  chamfer: { radius: 20 } });
         this.matter.add.rectangle(500, 480, 80, 80, { isStatic: true });
         this.matter.add.rectangle(400, 609, 800, 50, { isStatic: true });
-    }
-
-    update()
-    {
-        // for (let i = 0; i < this.cloth.bodies.length; i++) {
-        //     const body = this.cloth.bodies[i];
-
-        //     body.gameObject.x = body.position.x;
-        //     body.gameObject.y = body.position.y;
-        // }
     }
 }
 

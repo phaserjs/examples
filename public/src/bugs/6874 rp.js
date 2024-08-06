@@ -18,7 +18,7 @@ const config = {
     width: 800,
     height: 600,
     roundPixels: true,
-    backgroundColor: '#020286',
+    backgroundColor: '#00ff00',
     parent: 'phaser-example',
     scene: Example
 };

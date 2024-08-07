@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     create ()
     {
-        this.input.keyboard.on('keydown_A', event =>
+        this.input.keyboard.on('keydown-A', event =>
         {
 
             if (event.ctrlKey)

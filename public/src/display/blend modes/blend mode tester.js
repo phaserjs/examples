@@ -103,7 +103,7 @@ class Example extends Phaser.Scene
             equationIndex + ' = ' + list2[equationIndex] + ' - ASR'
         ]);
 
-        this.input.keyboard.on('keydown_A', function (event) {
+        this.input.keyboard.on('keydown-A', function (event) {
 
             equationIndex = 0;
             equation = equations[equationIndex];
@@ -121,7 +121,7 @@ class Example extends Phaser.Scene
 
         });
 
-        this.input.keyboard.on('keydown_S', function (event) {
+        this.input.keyboard.on('keydown-S', function (event) {
 
             equationIndex = 1;
             equation = equations[equationIndex];
@@ -139,7 +139,7 @@ class Example extends Phaser.Scene
 
         });
 
-        this.input.keyboard.on('keydown_R', function (event) {
+        this.input.keyboard.on('keydown-R', function (event) {
 
             equationIndex = 2;
             equation = equations[equationIndex];

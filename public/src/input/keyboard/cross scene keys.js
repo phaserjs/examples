@@ -68,7 +68,7 @@ class SceneA extends Phaser.Scene {
     {
         let jelly = this.add.image(150, 500, 'jellies', 'WithShadow/Jelly1').setScale(0.5);
         let bubble1 = createSpeechBubble(this, 20, 30, 220, 80, "Scene A\nKey.on").setVisible(false);
-        let bubble2 = createSpeechBubble(this, 20, 160, 220, 80, "Scene A\nkeydown_SPACE").setVisible(false);
+        let bubble2 = createSpeechBubble(this, 20, 160, 220, 80, "Scene A\nkeydown-SPACE").setVisible(false);
         let bubble3 = createSpeechBubble(this, 20, 290, 220, 80, "Scene A\nkeydown").setVisible(false);
 
         let spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -92,7 +92,7 @@ class SceneA extends Phaser.Scene {
         //  Call stopImmediatePropagation to stop it reaching the global handler in this Scene.
         //  Call stopPropagation to stop it reaching any other Scene.
 
-        this.input.keyboard.on('keydown_SPACE', function (event) {
+        this.input.keyboard.on('keydown-SPACE', function (event) {
 
             // event.stopPropagation();
             // event.stopImmediatePropagation();
@@ -135,7 +135,7 @@ class SceneB extends Phaser.Scene {
     {
         let jelly = this.add.image(400, 500, 'jellies', 'WithShadow/Jelly2').setScale(0.5);
         let bubble1 = createSpeechBubble(this, 290, 30, 220, 80, "Scene B\nKey.on").setVisible(false);
-        let bubble2 = createSpeechBubble(this, 290, 160, 220, 80, "Scene B\nkeydown_SPACE").setVisible(false);
+        let bubble2 = createSpeechBubble(this, 290, 160, 220, 80, "Scene B\nkeydown-SPACE").setVisible(false);
         let bubble3 = createSpeechBubble(this, 290, 290, 220, 80, "Scene B\nkeydown").setVisible(false);
 
         let spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -159,7 +159,7 @@ class SceneB extends Phaser.Scene {
         //  Call stopImmediatePropagation to stop it reaching the global handler in this Scene.
         //  Call stopPropagation to stop it reaching any other Scene.
 
-        this.input.keyboard.on('keydown_SPACE', function (event) {
+        this.input.keyboard.on('keydown-SPACE', function (event) {
 
             // event.stopPropagation();
             // event.stopImmediatePropagation();
@@ -198,7 +198,7 @@ class SceneC extends Phaser.Scene {
     {
         let jelly = this.add.image(650, 500, 'jellies', 'WithShadow/Jelly3').setScale(0.5);
         let bubble1 = createSpeechBubble(this, 560, 30, 220, 80, "Scene C\nKey.on").setVisible(false);
-        let bubble2 = createSpeechBubble(this, 560, 160, 220, 80, "Scene C\nkeydown_SPACE").setVisible(false);
+        let bubble2 = createSpeechBubble(this, 560, 160, 220, 80, "Scene C\nkeydown-SPACE").setVisible(false);
         let bubble3 = createSpeechBubble(this, 560, 290, 220, 80, "Scene C\nkeydown").setVisible(false);
 
         let spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -222,7 +222,7 @@ class SceneC extends Phaser.Scene {
         //  Call stopImmediatePropagation to stop it reaching the global handler in this Scene.
         //  Call stopPropagation to stop it reaching any other Scene.
 
-        this.input.keyboard.on('keydown_SPACE', function (event) {
+        this.input.keyboard.on('keydown-SPACE', function (event) {
 
             // event.stopPropagation();
             // event.stopImmediatePropagation();

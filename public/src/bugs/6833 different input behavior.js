@@ -17,7 +17,7 @@ class Example extends Phaser.Scene
         sprite.setInteractive();
 
         this.input.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            // console.log('SCENE POINTER_DOWN');
+            console.log('SCENE POINTER_DOWN');
         });
 
         this.input.on(Phaser.Input.Events.POINTER_UP, () => {
@@ -25,13 +25,13 @@ class Example extends Phaser.Scene
         });
 
         sprite.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            // console.log('>>>> SPRITE POINTER_DOWN');
+            console.log('>>>> SPRITE POINTER_DOWN');
         });
 
         sprite.on(Phaser.Input.Events.POINTER_UP, () => {
-            // console.log('>>>> SPRITE POINTER_UP');
+            console.log('>>>> SPRITE POINTER_UP');
             sprite.input.enabled = false;
-            // console.log(sprite.input.enabled);
+            console.log(sprite.input.enabled);
             this.time.delayedCall(1000, () => {
                 sprite.input.enabled = true;
                 console.log("------------------------")

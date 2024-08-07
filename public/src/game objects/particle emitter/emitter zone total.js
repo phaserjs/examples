@@ -13,6 +13,7 @@ class Example extends Phaser.Scene
         const shape3 = new Phaser.Geom.Rectangle(-150, -150, 300, 300);
         const shape4 = new Phaser.Geom.Line(-150, -150, 150, 150);
         const shape5 = new Phaser.Geom.Triangle.BuildEquilateral(0, -140, 300);
+        const shape6 = new Phaser.Geom.Polygon([0, -160,   47, -65,   152, -49,   76, 25,   94, 129,   0, 80,   -94, 129,   -76, 25,   -152, -49,   -47, -65,   0, -160]); //star
 
         const emitter = this.add.particles(400, 300, 'flares', {
             frame: { frames: [ 'red', 'green', 'blue' ], cycle: true },
@@ -26,6 +27,7 @@ class Example extends Phaser.Scene
         emitter.addEmitZone({ type: 'edge', source: shape3, quantity: 32, total: 64 });
         emitter.addEmitZone({ type: 'edge', source: shape4, quantity: 32, total: 64 });
         emitter.addEmitZone({ type: 'edge', source: shape5, quantity: 32, total: 64 });
+        emitter.addEmitZone({ type: 'edge', source: shape6, quantity: 32, total: 64 });
     }
 }
 

@@ -5,8 +5,8 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/desert.json');
-        this.load.spritesheet('Desert', 'assets/tilemaps/tiles/tmw_desert_spacing.png', {frameWidth:32, frameHeight:32, spacing:1 , margin: 1});
-        // this.load.image('Desert', 'assets/tilemaps/tiles/tmw_desert_spacing.png');
+        // this.load.spritesheet('Desert', 'assets/tilemaps/tiles/tmw_desert_spacing.png', {frameWidth:32, frameHeight:32, spacing:1 , margin: 1});
+        this.load.image('Desert', 'assets/tilemaps/tiles/tmw_desert_spacing.png');
         this.load.image('drawtiles-spaced', 'assets/tilemaps/tiles/drawtiles-spaced.png');
     }
 
@@ -15,9 +15,9 @@ class Example extends Phaser.Scene
         // 1 - Tilesets loaded from Tiled will having the spacing properties already set
 
         const map = this.make.tilemap({ key: 'map' });
-        console.log('addTilesetImage desert');
-        const tiles = map.addTilesetImage('Desert');
-        // const tiles = map.addTilesetImage('Desert', null, 32, 32, 1, 1);
+        // console.log('addTilesetImage desert');
+        // const tiles = map.addTilesetImage('Desert');
+        const tiles = map.addTilesetImage('Desert', null, 32, 32, 1, 1);
         // console.log('create layer');
         // const layer = map.createLayer(0, 'Desert', 0, 0);
         const layer = map.createLayer(0, tiles, 0, 0);

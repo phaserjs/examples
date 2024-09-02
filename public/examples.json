@@ -1451,6 +1451,11 @@
           "birthtimeMs": 1708524159393.3452
         },
         {
+          "path": "src\\bugs\\6702 audio loop.js",
+          "name": "6702 audio loop.js",
+          "birthtimeMs": 1725291367632.69
+        },
+        {
           "path": "src\\bugs\\6716 setCrop.js",
           "name": "6716 setCrop.js",
           "birthtimeMs": 1720792978728.1807

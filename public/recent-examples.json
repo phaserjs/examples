@@ -1,5 +1,10 @@
 [
     {
+        "path": "src\\bugs\\6702 audio loop.js",
+        "name": "6702 audio loop.js",
+        "birthtimeMs": 1725291367632.69
+    },
+    {
         "path": "src\\renderer\\tests\\batch test.js",
         "name": "batch test.js",
         "birthtimeMs": 1725285488780.7324
@@ -142,11 +147,6 @@
     {
         "path": "src\\bugs\\6844 timeline destroy errors.js",
         "name": "6844 timeline destroy errors.js",
-        "birthtimeMs": 1721398837029.371
-    },
-    {
-        "path": "src\\bugs\\6860 bitmap text line wrap.js",
-        "name": "6860 bitmap text line wrap.js",
         "birthtimeMs": 1721398837029.371
     }
 ]

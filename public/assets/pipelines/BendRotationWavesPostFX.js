@@ -43,12 +43,7 @@ export default class BendRotationWaves extends Phaser.Renderer.WebGL.Pipelines.P
         super({
             game,
             renderTarget: true,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uTime',
-            ]
+            fragShader
         });
         this._time = 0;
     }

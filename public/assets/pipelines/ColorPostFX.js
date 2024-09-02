@@ -29,13 +29,6 @@ void main()
 }
 `;
 
-const hueUniforms = [
-    'uProjectionMatrix',
-    'uMainSampler',
-    'uTime',
-    'uSpeed'
-];
-
 export default class ColorPostFX extends Phaser.Renderer.WebGL.Pipelines.SinglePipeline
 {
     constructor (game)
@@ -46,8 +39,7 @@ export default class ColorPostFX extends Phaser.Renderer.WebGL.Pipelines.SingleP
             shaders: [
                 {
                     name: 'HueRotate',
-                    fragShader: hueFragShader,
-                    uniforms: hueUniforms
+                    fragShader: hueFragShader
                 }
             ]
         });

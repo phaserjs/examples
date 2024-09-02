@@ -29,13 +29,7 @@ export default class LazersPostFX extends Phaser.Renderer.WebGL.Pipelines.PostFX
         super({
             game,
             renderTarget: true,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uTime',
-                'uResolution'
-            ]
+            fragShader
         });
     }
 

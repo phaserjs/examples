@@ -31,12 +31,7 @@ export default class HueRotatePostFX extends Phaser.Renderer.WebGL.Pipelines.Pos
         super({
             game,
             name: 'HueRotatePostFX',
-            fragShader,
-            uniforms: [
-                'uMainSampler',
-                'uTime',
-                'uSpeed'
-            ]
+            fragShader
         });
 
         this.speed = 1;

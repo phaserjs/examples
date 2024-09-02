@@ -26,14 +26,6 @@ void main()
 }
 `;
 
-const bendUniforms = [
-    'uProjectionMatrix',
-    'uMainSampler',
-    'uTime',
-    'uSpeed',
-    'uBendFactor'
-];
-
 export default class BendPipeline extends Phaser.Renderer.WebGL.Pipelines.SinglePipeline
 {
     constructor (game)
@@ -43,8 +35,7 @@ export default class BendPipeline extends Phaser.Renderer.WebGL.Pipelines.Single
             shaders: [
                 {
                     name: 'Bend',
-                    fragShader: bendFragShader,
-                    uniforms: bendUniforms
+                    fragShader: bendFragShader
                 }
             ]
         });

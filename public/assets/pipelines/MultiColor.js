@@ -22,12 +22,6 @@ void main()
 }
 `;
 
-const grayUniforms = [
-    'uProjectionMatrix',
-    'uMainSampler',
-    'uGray'
-];
-
 const hueFragShader = `
 #define SHADER_NAME HUE_FS
 
@@ -61,13 +55,6 @@ void main()
 }
 `;
 
-const hueUniforms = [
-    'uProjectionMatrix',
-    'uMainSampler',
-    'uTime',
-    'uSpeed'
-];
-
 export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.MultiPipeline
 {
     constructor (game)
@@ -77,13 +64,11 @@ export default class MultiColorPipeline extends Phaser.Renderer.WebGL.Pipelines.
             shaders: [
                 {
                     name: 'Gray',
-                    fragShader: grayFragShader,
-                    uniforms: grayUniforms
+                    fragShader: grayFragShader
                 },
                 {
                     name: 'HueRotate',
-                    fragShader: hueFragShader,
-                    uniforms: hueUniforms
+                    fragShader: hueFragShader
                 }
             ]
         });

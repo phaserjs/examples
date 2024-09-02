@@ -63,11 +63,6 @@ export default class HueRotateAttributePipeline extends Phaser.Renderer.WebGL.Pi
             game,
             vertShader,
             fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uTime'
-            ],
             attributes: [
                 {
                     name: 'inPosition',

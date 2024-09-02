@@ -32,32 +32,32 @@
  }
  `;
 
- export default class SwirlSpriteFX extends Phaser.Renderer.WebGL.Pipelines.SpriteFXPipeline
- {
-     constructor (game)
-     {
-         super({
-             game,
-             fragShader
-         });
+export default class SwirlSpriteFX extends Phaser.Renderer.WebGL.Pipelines.SpriteFXPipeline
+{
+    constructor (game)
+    {
+        super({
+            game,
+            fragShader
+        });
 
-         this.x = 0.5;
-         this.y = 0.5;
-         this.radius = 0.25;
-         this.strength = 1;
-     }
+        this.x = 0.5;
+        this.y = 0.5;
+        this.radius = 0.25;
+        this.strength = 1;
+    }
 
-     onPreRender ()
-     {
-         this.set2f('uCoords', this.x, this.y);
-         this.set1f('uRadius', this.radius);
-         this.set1f('uStrength', this.strength);
-     }
+    onPreRender ()
+    {
+        this.set2f('uCoords', this.x, this.y);
+        this.set1f('uRadius', this.radius);
+        this.set1f('uStrength', this.strength);
+    }
 
-     onDraw (renderTarget)
-     {
-         this.set2f('uResolution', renderTarget.width, renderTarget.height);
+    onDraw (renderTarget)
+    {
+        this.set2f('uResolution', renderTarget.width, renderTarget.height);
 
-         this.drawToGame(renderTarget);
-     }
- }
+        this.drawToGame(renderTarget);
+    }
+}

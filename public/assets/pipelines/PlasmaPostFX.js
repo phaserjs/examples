@@ -35,12 +35,7 @@ export default class PlasmaPostFX extends Phaser.Renderer.WebGL.Pipelines.PostFX
         super({
             game,
             name: 'PlasmaPostFX',
-            fragShader,
-            uniforms: [
-                'uMainSampler',
-                'uTime',
-                'uResolution'
-            ]
+            fragShader
         });
     }
 

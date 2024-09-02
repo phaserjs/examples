@@ -49,13 +49,7 @@ export default class PlasmaPost2FX extends Phaser.Renderer.WebGL.Pipelines.PostF
         super({
             game,
             renderTarget: true,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uTime',
-                'uResolution'
-            ]
+            fragShader
         });
     }
 

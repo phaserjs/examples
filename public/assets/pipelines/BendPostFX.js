@@ -30,14 +30,7 @@ export default class BendPostFX extends Phaser.Renderer.WebGL.Pipelines.PostFXPi
         super({
             game,
             renderTarget: true,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uTime',
-                'uSpeed',
-                'uBendFactor'
-            ]
+            fragShader
         });
 
         this._bend = 0.3;

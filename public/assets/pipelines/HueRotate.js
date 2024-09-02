@@ -35,13 +35,7 @@ export default class HueRotatePipeline extends Phaser.Renderer.WebGL.Pipelines.M
     {
         super({
             game,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uTime',
-                'uSpeed'
-            ]
+            fragShader
         });
 
         this._time = 0;

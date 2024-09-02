@@ -25,17 +25,39 @@ export default class Example extends Phaser.Scene
 
         const layer = this.add.container();
 
-        for (let i = 0; i < 32; i++)
+        for (let i = 0; i < 64; i++)
         {
-            const x = Phaser.Math.Between(0, 800);
-            const y = Phaser.Math.Between(0, 600);
+            const x = Phaser.Math.Between(-99, 900);
+            const y = Phaser.Math.Between(-99, 700);
 
-            layer.add(this.add.image(x, y, 'fish').setScale(0.5));
+            layer.add(this.add.image(x, y, 'fish').setScale(Phaser.Math.FloatBetween(0.25, 0.5)));
         }
 
         layer.setPostPipeline(multiColorPipeline);
 
+        this.fish = layer;
+
         this.add.sprite(400, 300, 'crab');
+    }
+
+    update ()
+    {
+        this.fish.getAll().forEach(child => {
+            
+            child.x -= 1;
+            child.y -= 1;
+
+            if (child.x < -100)
+            {
+                child.x = 900;
+            }
+
+            if (child.y < -100)
+            {
+                child.y = 700;
+            }
+
+        });
     }
 }
 

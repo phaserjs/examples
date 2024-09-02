@@ -57,14 +57,7 @@ export default class BlurPostFX extends Phaser.Renderer.WebGL.Pipelines.PostFXPi
         super({
             game,
             renderTarget: true,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uResolution',
-                'radius',
-                'dir'
-            ]
+            fragShader
         });
     }
 

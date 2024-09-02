@@ -26,12 +26,7 @@ export default class GrayScalePipeline extends Phaser.Renderer.WebGL.Pipelines.M
     {
         super({
             game,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'gray'
-            ]
+            fragShader
         });
 
         this._gray = 1;

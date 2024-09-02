@@ -70,13 +70,7 @@ class CustomPipeline extends Phaser.Renderer.WebGL.Pipelines.MultiPipeline
         super({
             game,
             vertShader,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uResolution',
-                'uTime'
-            ]
+            fragShader
         });
     }
 }

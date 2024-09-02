@@ -1,6 +1,4 @@
-import { Scene } from "phaser";
-
-export class Preloader extends Scene
+export class Preloader extends Phaser.Scene
 {
     constructor ()
     {
@@ -30,7 +28,7 @@ export class Preloader extends Scene
     preload ()
     {
         //  Load the assets for the game - Replace with the path to your own assets
-        this.load.setPath("assets");
+        this.load.setPath("assets/games/coin-clicker/");
 
         this.load.image("background", "background.png");
         this.load.image("logo", "cc-logo.png");

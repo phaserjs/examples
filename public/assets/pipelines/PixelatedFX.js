@@ -26,13 +26,7 @@ export default class PixelatedFX extends Phaser.Renderer.WebGL.Pipelines.PostFXP
         super({
             game,
             renderTarget: true,
-            fragShader,
-            uniforms: [
-                'uProjectionMatrix',
-                'uMainSampler',
-                'uTime',
-                'uResolution'
-            ]
+            fragShader
         });
     }
 

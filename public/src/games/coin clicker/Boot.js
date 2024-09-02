@@ -1,6 +1,4 @@
-import { Scene } from "phaser";
-
-export class Boot extends Scene
+export class Boot extends Phaser.Scene
 {
     constructor ()
     {
@@ -12,7 +10,7 @@ export class Boot extends Scene
         //  The Boot Scene is typically used to load in any assets you require for your Preloader, such as a game logo or background.
         //  The smaller the file size of the assets, the better, as the Boot Scene itself has no preloader.
 
-        this.load.image("preloader", "assets/preloader.png");
+        this.load.image("preloader", "assets/games/coin-clicker/preloader.png");
     }
 
     create ()
@@ -20,12 +18,12 @@ export class Boot extends Scene
         //  A global value to store the highscore in
         this.registry.set('highscore', 0);
 
-        // this.scene.start('Preloader');
+        this.scene.start('Preloader');
 
-        this.input.once('pointerdown', () => {
+        // this.input.once('pointerdown', () => {
 
-            this.scene.start('Preloader');
+        //     this.scene.start('Preloader');
 
-        });
+        // });
     }
 }

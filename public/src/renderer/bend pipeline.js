@@ -55,8 +55,6 @@ export default class Example extends Phaser.Scene
             perRow -= 4;
         }
 
-        console.log(this.children);
-
         const cursors = this.input.keyboard.createCursorKeys();
 
         const controlConfig = {

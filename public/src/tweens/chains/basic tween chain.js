@@ -18,6 +18,7 @@ class Example extends Phaser.Scene
 
         const chain = this.tweens.chain({
             targets: image,
+            persist: true,
             tweens: [
                 {
                     x: 400,
@@ -46,7 +47,7 @@ class Example extends Phaser.Scene
             ]
         });
 
-        this.input.once('pointerdown', () => {
+        this.input.on('pointerdown', () => {
 
             image.setScale(1)
             image.setPosition(800, 300);

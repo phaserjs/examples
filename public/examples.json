@@ -2568,6 +2568,14 @@
           "birthtimeMs": 1721358434341.24
         },
         {
+          "path": "src\\bugs\\6862 iOS autocenter inconsistent.js",
+          "name": "6862 iOS autocenter inconsistent.js",
+          "size": 1285,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725260306265.302
+        },
+        {
           "path": "src\\bugs\\6874 rp.js",
           "name": "6874 rp.js",
           "size": 621,
@@ -2624,7 +2632,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 281454,
+      "size": 282739,
       "type": "directory"
     },
     {
@@ -20510,6 +20518,6 @@
       "type": "directory"
     }
   ],
-  "size": 4981332,
+  "size": 4982617,
   "type": "directory"
 }

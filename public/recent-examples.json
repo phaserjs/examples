@@ -1,5 +1,13 @@
 [
     {
+        "path": "src\\bugs\\6862 iOS autocenter inconsistent.js",
+        "name": "6862 iOS autocenter inconsistent.js",
+        "size": 1285,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725260306265.302
+    },
+    {
         "path": "src\\bugs\\6885 leave fullscreen.js",
         "name": "6885 leave fullscreen.js",
         "size": 885,
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1718959213695.4224
-    },
-    {
-        "path": "src\\bugs\\6807 bitmapText setMaxWidth.js",
-        "name": "6807 bitmapText setMaxWidth.js",
-        "size": 1217,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1718953703002.4258
     }
 ]

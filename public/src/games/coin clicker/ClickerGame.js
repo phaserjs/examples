@@ -1,6 +1,4 @@
-import { Scene } from "phaser";
-
-export class ClickerGame extends Scene
+export class ClickerGame extends Phaser.Scene
 {
     constructor ()
     {

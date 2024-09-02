@@ -1,7 +1,5 @@
 // #module
 
-import BendPostFX from './assets/pipelines/BendPostFX.js';
-import ColorPostFX from './assets/pipelines/ColorPostFX.js';
 import HueRotate from './assets/pipelines/HueRotate.js';
 
 export default class Example extends Phaser.Scene
@@ -22,14 +20,13 @@ export default class Example extends Phaser.Scene
 
     create ()
     {
-        const colorPipeline = this.renderer.pipelines.get('HueRotate');
-        const bendPipeline = this.renderer.pipelines.get('BendPostFX');
+        const hueRotatePipeline = this.renderer.pipelines.get('HueRotate');
 
-        this.add.sprite(400, 100, 'fish');
+        this.add.sprite(200, 300, 'fish').setPipeline(hueRotatePipeline);
 
-        this.add.sprite(400, 300, 'flower').setPipeline(colorPipeline).setPostPipeline(bendPipeline);
+        this.add.sprite(400, 300, 'flower').setPipeline(hueRotatePipeline);
 
-        this.add.sprite(400, 500, 'crab');
+        this.add.sprite(650, 300, 'crab').setPipeline(hueRotatePipeline);
     }
 }
 
@@ -40,7 +37,7 @@ const config = {
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: { 'ColorPostFX': ColorPostFX, 'BendPostFX': BendPostFX, 'HueRotate': HueRotate }
+    pipeline: { 'HueRotate': HueRotate }
 };
 
 let game = new Phaser.Game(config);

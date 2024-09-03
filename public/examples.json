@@ -2570,7 +2570,7 @@
         {
           "path": "src\\bugs\\6860 bitmaptext line wrap.js",
           "name": "6860 bitmaptext line wrap.js",
-          "size": 1188,
+          "size": 1189,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1721358434341.24
@@ -2648,7 +2648,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 283898,
+      "size": 283899,
       "type": "directory"
     },
     {
@@ -20030,6 +20030,14 @@
           "birthtimeMs": 1688549367947.7837
         },
         {
+          "path": "src\\tweens\\change texture frame.js",
+          "name": "change texture frame.js",
+          "size": 906,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725354475783.432
+        },
+        {
           "path": "src\\tweens\\change texture.js",
           "name": "change texture.js",
           "size": 1566,
@@ -20327,6 +20335,14 @@
           "birthtimeMs": 1688549369383.13
         },
         {
+          "path": "src\\tweens\\timelines",
+          "name": "timelines",
+          "birthtimeMs": 1725354475749.4033,
+          "children": [],
+          "size": 0,
+          "type": "directory"
+        },
+        {
           "path": "src\\tweens\\tween gauge.js",
           "name": "tween gauge.js",
           "size": 1091,
@@ -20351,7 +20367,7 @@
           "birthtimeMs": 1688549369386.1309
         }
       ],
-      "size": 84650,
+      "size": 85556,
       "type": "directory"
     },
     {
@@ -20559,6 +20575,6 @@
       "type": "directory"
     }
   ],
-  "size": 4984256,
+  "size": 4985163,
   "type": "directory"
 }

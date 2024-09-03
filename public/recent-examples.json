@@ -1,5 +1,13 @@
 [
     {
+        "path": "src\\tweens\\change texture frame.js",
+        "name": "change texture frame.js",
+        "size": 906,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725354475783.432
+    },
+    {
         "path": "src\\renderer\\tests\\webgl debug.js",
         "name": "webgl debug.js",
         "size": 1167,
@@ -178,7 +186,7 @@
     {
         "path": "src\\bugs\\6860 bitmaptext line wrap.js",
         "name": "6860 bitmaptext line wrap.js",
-        "size": 1188,
+        "size": 1189,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1721358434341.24
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1720794548205.0347
-    },
-    {
-        "path": "src\\bugs\\6754 disabled button pollRate.js",
-        "name": "6754 disabled button pollRate.js",
-        "size": 969,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1720792181422.7402
     }
 ]

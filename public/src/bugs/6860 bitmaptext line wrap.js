@@ -4,8 +4,8 @@ the end is never | the end is never | the end is never B
 the end is never | the end is never | the end is never C
 the end is never | the end is never | the end is never D`
 
-const text2 = `first line overlaps with itself
-second line ends with a space 
+const text2 = `first line overlaps with itself 
+ second line ends with a space
 third line not wrapped as it should be`
 
 class Example extends Phaser.Scene {

@@ -2570,7 +2570,7 @@
         {
           "path": "src\\bugs\\6860 bitmaptext line wrap.js",
           "name": "6860 bitmaptext line wrap.js",
-          "size": 1189,
+          "size": 1365,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1721358434341.24
@@ -2648,7 +2648,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 283899,
+      "size": 284075,
       "type": "directory"
     },
     {
@@ -20070,6 +20070,14 @@
           "birthtimeMs": 1632906702078.7034
         },
         {
+          "path": "src\\tweens\\checkerboard 4.js",
+          "name": "checkerboard 4.js",
+          "size": 1360,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725420594066.2344
+        },
+        {
           "path": "src\\tweens\\checkerboard rotate.js",
           "name": "checkerboard rotate.js",
           "size": 1905,
@@ -20367,7 +20375,7 @@
           "birthtimeMs": 1688549369386.1309
         }
       ],
-      "size": 85556,
+      "size": 86916,
       "type": "directory"
     },
     {
@@ -20575,6 +20583,6 @@
       "type": "directory"
     }
   ],
-  "size": 4985163,
+  "size": 4986699,
   "type": "directory"
 }

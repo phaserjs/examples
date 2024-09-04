@@ -1,5 +1,13 @@
 [
     {
+        "path": "src\\tweens\\checkerboard 4.js",
+        "name": "checkerboard 4.js",
+        "size": 1360,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725420594066.2344
+    },
+    {
         "path": "src\\tweens\\change texture frame.js",
         "name": "change texture frame.js",
         "size": 906,
@@ -186,7 +194,7 @@
     {
         "path": "src\\bugs\\6860 bitmaptext line wrap.js",
         "name": "6860 bitmaptext line wrap.js",
-        "size": 1189,
+        "size": 1365,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1721358434341.24
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1721118907242.2239
-    },
-    {
-        "path": "src\\bugs\\6812 timeline.js",
-        "name": "6812 timeline.js",
-        "size": 2191,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1720794548205.0347
     }
 ]

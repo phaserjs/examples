@@ -20086,6 +20086,14 @@
           "birthtimeMs": 1632906702079.701
         },
         {
+          "path": "src\\tweens\\complete delay.js",
+          "name": "complete delay.js",
+          "size": 645,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725431250349.0764
+        },
+        {
           "path": "src\\tweens\\counter tween.js",
           "name": "counter tween.js",
           "size": 2362,
@@ -20375,7 +20383,7 @@
           "birthtimeMs": 1688549369386.1309
         }
       ],
-      "size": 86916,
+      "size": 87561,
       "type": "directory"
     },
     {
@@ -20583,6 +20591,6 @@
       "type": "directory"
     }
   ],
-  "size": 4986699,
+  "size": 4987344,
   "type": "directory"
 }

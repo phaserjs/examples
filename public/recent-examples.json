@@ -1,5 +1,13 @@
 [
     {
+        "path": "src\\tweens\\complete delay.js",
+        "name": "complete delay.js",
+        "size": 645,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725431250349.0764
+    },
+    {
         "path": "src\\tweens\\checkerboard 4.js",
         "name": "checkerboard 4.js",
         "size": 1360,
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1721358434321.8513
-    },
-    {
-        "path": "src\\bugs\\6773 onActive Tweens fire twice.js",
-        "name": "6773 onActive Tweens fire twice.js",
-        "size": 907,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721118907242.2239
     }
 ]

@@ -207699,6 +207699,53 @@
     },
     "name": "checkerboard rotate.js"
   },
+  "tweens\\complete delay.js": {
+    "path": "tweens\\complete delay.js",
+    "titleWords": {
+      "tweens": 1,
+      "complete": 1,
+      "delay": 1
+    },
+    "bodyWords": {
+      "var": 4,
+      "config": 2,
+      "type": 1,
+      "phaser": 3,
+      "webgl": 1,
+      "width": 1,
+      "height": 1,
+      "backgroundcolor": 1,
+      "#": 1,
+      "d": 3,
+      "parent": 1,
+      "example": 1,
+      "scene": 1,
+      "preload": 3,
+      "create": 3,
+      "game": 2,
+      "new": 1,
+      "function": 2,
+      "this": 4,
+      "load": 1,
+      "image": 5,
+      "block": 4,
+      "assets": 1,
+      "sprites": 1,
+      "png": 1,
+      "marker": 1,
+      "add": 3,
+      "setalpha": 1,
+      "tweens": 1,
+      "targets": 1,
+      "x": 1,
+      "duration": 1,
+      "ease": 1,
+      "power": 1,
+      "completedelay": 1,
+      "": 1
+    },
+    "name": "complete delay.js"
+  },
   "tweens\\counter tween.js": {
     "path": "tweens\\counter tween.js",
     "titleWords": {

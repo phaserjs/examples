@@ -1,8 +1,72 @@
 [
     {
+        "path": "src\\tweens\\dynamic properties multiple.js",
+        "name": "dynamic properties multiple.js",
+        "size": 1531,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725433921610.4102
+    },
+    {
+        "path": "src\\tweens\\dynamic properties.js",
+        "name": "dynamic properties.js",
+        "size": 1051,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725433921610.4102
+    },
+    {
+        "path": "src\\tweens\\dynamic end property.js",
+        "name": "dynamic end property.js",
+        "size": 1193,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725433921609.4111
+    },
+    {
+        "path": "src\\tweens\\double tween.js",
+        "name": "double tween.js",
+        "size": 2102,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725433921608.41
+    },
+    {
+        "path": "src\\tweens\\stop a tween.js",
+        "name": "stop a tween.js",
+        "size": 929,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725433921606.4055
+    },
+    {
+        "path": "src\\tweens\\delay.js",
+        "name": "delay.js",
+        "size": 739,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725433376701.8237
+    },
+    {
+        "path": "src\\tweens\\chains\\debug chained tweens 1.js",
+        "name": "debug chained tweens 1.js",
+        "size": 1636,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725432932300.8154
+    },
+    {
+        "path": "src\\tweens\\custom ease.js",
+        "name": "custom ease.js",
+        "size": 813,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1725432696169.061
+    },
+    {
         "path": "src\\tweens\\complete delay.js",
         "name": "complete delay.js",
-        "size": 645,
+        "size": 1227,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1725431250349.0764
@@ -10,7 +74,7 @@
     {
         "path": "src\\tweens\\checkerboard 4.js",
         "name": "checkerboard 4.js",
-        "size": 1360,
+        "size": 1479,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1725420594066.2344
@@ -174,69 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1725256777743.5266
-    },
-    {
-        "path": "src\\bugs\\6823 spacing.js",
-        "name": "6823 spacing.js",
-        "size": 2481,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721723399716.004
-    },
-    {
-        "path": "src\\bugs\\6816 glow post fx.js",
-        "name": "6816 glow post fx.js",
-        "size": 702,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721723032477.8823
-    },
-    {
-        "path": "src\\game objects\\graphics\\obj to graphics.js",
-        "name": "obj to graphics.js",
-        "size": 9094,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721358434354.258
-    },
-    {
-        "path": "src\\bugs\\6860 bitmaptext line wrap.js",
-        "name": "6860 bitmaptext line wrap.js",
-        "size": 1365,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721358434341.24
-    },
-    {
-        "path": "src\\bugs\\6857 tilesprite dimensions.js",
-        "name": "6857 tilesprite dimensions.js",
-        "size": 1049,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721358434337.2427
-    },
-    {
-        "path": "src\\bugs\\6854 postFxPipeline type.js",
-        "name": "6854 postFxPipeline type.js",
-        "size": 418,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721358434334.1067
-    },
-    {
-        "path": "src\\bugs\\6850 drag multiple cameras.js",
-        "name": "6850 drag multiple cameras.js",
-        "size": 1213,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721358434330.1045
-    },
-    {
-        "path": "src\\bugs\\6769 mask resize.js",
-        "name": "6769 mask resize.js",
-        "size": 820,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1721358434321.8513
     }
 ]

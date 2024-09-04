@@ -20010,6 +20010,14 @@
               "birthtimeMs": 1688549367946.7852
             },
             {
+              "path": "src\\tweens\\chains\\debug chained tweens 1.js",
+              "name": "debug chained tweens 1.js",
+              "size": 1636,
+              "extension": ".js",
+              "type": "file",
+              "birthtimeMs": 1725432932300.8154
+            },
+            {
               "path": "src\\tweens\\chains\\multi target chain.js",
               "name": "multi target chain.js",
               "size": 2590,
@@ -20018,7 +20026,7 @@
               "birthtimeMs": 1688549367947.7837
             }
           ],
-          "size": 10228,
+          "size": 11864,
           "type": "directory"
         },
         {
@@ -20072,7 +20080,7 @@
         {
           "path": "src\\tweens\\checkerboard 4.js",
           "name": "checkerboard 4.js",
-          "size": 1360,
+          "size": 1479,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1725420594066.2344
@@ -20088,7 +20096,7 @@
         {
           "path": "src\\tweens\\complete delay.js",
           "name": "complete delay.js",
-          "size": 645,
+          "size": 1227,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1725431250349.0764
@@ -20102,12 +20110,60 @@
           "birthtimeMs": 1688549367950.297
         },
         {
+          "path": "src\\tweens\\custom ease.js",
+          "name": "custom ease.js",
+          "size": 813,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725432696169.061
+        },
+        {
           "path": "src\\tweens\\delay function.js",
           "name": "delay function.js",
           "size": 1487,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1688549367953.2976
+        },
+        {
+          "path": "src\\tweens\\delay.js",
+          "name": "delay.js",
+          "size": 739,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725433376701.8237
+        },
+        {
+          "path": "src\\tweens\\double tween.js",
+          "name": "double tween.js",
+          "size": 2102,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725433921608.41
+        },
+        {
+          "path": "src\\tweens\\dynamic end property.js",
+          "name": "dynamic end property.js",
+          "size": 1193,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725433921609.4111
+        },
+        {
+          "path": "src\\tweens\\dynamic properties multiple.js",
+          "name": "dynamic properties multiple.js",
+          "size": 1531,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725433921610.4102
+        },
+        {
+          "path": "src\\tweens\\dynamic properties.js",
+          "name": "dynamic properties.js",
+          "size": 1051,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725433921610.4102
         },
         {
           "path": "src\\tweens\\eases",
@@ -20351,6 +20407,14 @@
           "birthtimeMs": 1688549369383.13
         },
         {
+          "path": "src\\tweens\\stop a tween.js",
+          "name": "stop a tween.js",
+          "size": 929,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1725433921606.4055
+        },
+        {
           "path": "src\\tweens\\timelines",
           "name": "timelines",
           "birthtimeMs": 1725354475749.4033,
@@ -20383,7 +20447,7 @@
           "birthtimeMs": 1688549369386.1309
         }
       ],
-      "size": 87561,
+      "size": 98256,
       "type": "directory"
     },
     {
@@ -20591,6 +20655,6 @@
       "type": "directory"
     }
   ],
-  "size": 4987344,
+  "size": 4998039,
   "type": "directory"
 }

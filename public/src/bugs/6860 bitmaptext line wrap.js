@@ -8,6 +8,10 @@ const text2 = `first line overlaps with itself
  second line ends with a space
 third line not wrapped as it should be`
 
+const text3 = `first line overlaps with itself
+second line ends with a space \n sssssssssssssssssssssssssssssssssssssssssssssssss
+third line not wrapped as it should be`;
+
 class Example extends Phaser.Scene {
     preload() {
         this.load.bitmapFont('shortStack', 'assets/fonts/bitmap/shortStack.png', 'assets/fonts/bitmap/shortStack.xml');
@@ -16,7 +20,7 @@ class Example extends Phaser.Scene {
 
     create() {
         this.add.bitmapText(0, 300, 'shortStack', text, 16).setMaxWidth(400);
-        this.add.bitmapText(50, 50, 'atari', text2, 20).setMaxWidth(300);
+        this.add.bitmapText(50, 50, 'atari', text3, 20).setMaxWidth(300);
 
         const rect = this.add.rectangle(50, 50, 300, 200).setOrigin(0);
         rect.setStrokeStyle(2, 0x1a65ac);

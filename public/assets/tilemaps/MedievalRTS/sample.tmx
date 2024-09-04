@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="125">
+ <editorsettings>
+  <export target="sample.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="medieval_tilesheet.tsx"/>
+ <layer id="1" name="Land" width="20" height="20">
+  <data encoding="csv">
+2,2,1,1,1,1,2,2,1,1,1,2,2,2,1,1,1,2,1,1,
+2,1,1,1,1,1,2,2,2,2,1,2,1,1,1,1,1,1,1,1,
+2,1,1,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1,1,1,
+1,2,1,2,1,2,1,2,1,1,2,1,1,1,2,1,1,1,1,1,
+1,2,1,2,2,1,1,1,1,1,2,1,1,2,2,1,1,1,1,1,
+1,2,2,2,2,1,1,2,1,1,1,1,2,2,1,1,1,1,1,1,
+1,1,1,2,2,2,2,1,2,2,2,1,1,1,1,1,1,1,1,1,
+1,1,1,2,1,1,1,2,1,2,2,1,1,1,1,1,1,1,1,1,
+1,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,
+1,1,2,2,1,2,2,1,1,2,2,2,1,1,1,1,1,1,1,1,
+1,1,2,1,2,2,1,1,2,2,2,1,2,2,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,2,1,1,1,1,
+1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,1,1,1,
+1,1,1,1,1,1,1,2,1,1,1,1,2,2,1,2,1,1,1,1,
+1,1,1,1,1,1,2,1,1,1,2,1,1,1,2,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,2,1,1,1,
+1,1,1,1,1,1,1,1,1,2,2,2,2,1,2,2,1,1,1,1,
+1,1,1,1,1,1,1,2,1,1,1,1,1,1,2,2,1,1,1,1,
+1,1,1,1,1,1,1,2,1,1,1,1,2,2,1,1,1,1,1,1
+</data>
+ </layer>
+ <objectgroup id="2" name="Buildings">
+  <object id="27" gid="35" x="960" y="832" width="64" height="64"/>
+  <object id="28" gid="17" x="960" y="768" width="64" height="64"/>
+  <object id="29" gid="34" x="576" y="1024" width="64" height="64"/>
+  <object id="30" gid="16" x="576" y="960" width="64" height="64"/>
+  <object id="31" gid="18" x="704" y="832" width="64" height="64"/>
+  <object id="32" gid="36" x="704" y="896" width="64" height="64"/>
+  <object id="33" gid="112" x="832" y="960" width="64" height="64"/>
+  <object id="34" gid="112" x="832" y="1024" width="64" height="64"/>
+  <object id="35" gid="112" x="832" y="1088" width="64" height="64"/>
+  <object id="36" gid="111" x="896" y="960" width="64" height="64"/>
+  <object id="37" gid="111" x="896" y="1024" width="64" height="64"/>
+  <object id="38" gid="111" x="896" y="1088" width="64" height="64"/>
+  <object id="39" gid="109" x="960" y="1024" width="64" height="64"/>
+  <object id="40" gid="110" x="960" y="960" width="64" height="64"/>
+  <object id="41" gid="113" x="896" y="896" width="64" height="64"/>
+  <object id="42" gid="116" x="960" y="896" width="64" height="64"/>
+  <object id="43" gid="118" x="768" y="768" width="64" height="64"/>
+  <object id="78" gid="36" x="256" y="1152" width="64" height="64"/>
+  <object id="79" gid="18" x="256" y="1088" width="64" height="64"/>
+  <object id="80" gid="35" x="64" y="896" width="64" height="64"/>
+  <object id="81" gid="17" x="64" y="832" width="64" height="64"/>
+  <object id="82" gid="34" x="320" y="1152" width="64" height="64"/>
+  <object id="83" gid="16" x="320" y="1088" width="64" height="64"/>
+  <object id="84" gid="116" x="0" y="1088" width="64" height="64"/>
+  <object id="85" gid="117" x="256" y="832" width="64" height="64"/>
+  <object id="86" gid="111" x="0" y="1152" width="64" height="64"/>
+  <object id="87" gid="111" x="0" y="1216" width="64" height="64"/>
+  <object id="88" gid="111" x="64" y="1152" width="64" height="64"/>
+  <object id="89" gid="111" x="64" y="1216" width="64" height="64"/>
+  <object id="90" gid="112" x="64" y="1152" width="64" height="64"/>
+  <object id="91" gid="112" x="128" y="1216" width="64" height="64"/>
+  <object id="92" gid="112" x="128" y="1152" width="64" height="64"/>
+  <object id="93" gid="110" x="128" y="1152" width="64" height="64"/>
+  <object id="94" gid="110" x="128" y="1216" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="3" name="Units">
+  <object id="8" gid="69" x="476" y="1003" width="64" height="64"/>
+  <object id="13" gid="69" x="1015" y="1155" width="64" height="64"/>
+  <object id="15" gid="70" x="527" y="1107" width="64" height="64"/>
+  <object id="16" gid="70" x="1028" y="926" width="64" height="64"/>
+  <object id="17" gid="67" x="733" y="1019" width="64" height="64"/>
+  <object id="18" gid="67" x="819" y="885" width="64" height="64"/>
+  <object id="19" gid="66" x="620" y="947" width="64" height="64"/>
+  <object id="21" gid="123" x="388" y="998" width="64" height="64"/>
+  <object id="22" gid="124" x="417" y="915" width="64" height="64"/>
+  <object id="110" gid="122" x="383" y="1137" width="64" height="64"/>
+  <object id="111" gid="120" x="251" y="1005" width="64" height="64"/>
+  <object id="112" gid="120" x="218" y="941" width="64" height="64"/>
+  <object id="113" gid="121" x="102" y="1183" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="4" name="Trees">
+  <object id="44" gid="62" x="411" y="612" width="64" height="64"/>
+  <object id="45" gid="62" x="385" y="765" width="64" height="64"/>
+  <object id="46" gid="61" x="658" y="1216" width="64" height="64"/>
+  <object id="47" gid="61" x="925" y="713" width="64" height="64"/>
+  <object id="48" gid="61" x="594" y="773" width="64" height="64"/>
+  <object id="49" gid="60" x="1077" y="683" width="64" height="64"/>
+  <object id="50" gid="60" x="414" y="1202" width="64" height="64"/>
+  <object id="51" gid="59" x="991" y="1276" width="64" height="64"/>
+  <object id="52" gid="60" x="1039" y="318" width="64" height="64"/>
+  <object id="53" gid="60" x="525" y="135" width="64" height="64"/>
+  <object id="54" gid="62" x="717" y="508" width="64" height="64"/>
+  <object id="55" gid="62" x="321" y="270" width="64" height="64"/>
+  <object id="56" gid="62" x="903" y="113" width="64" height="64"/>
+  <object id="57" gid="62" x="101" y="528" width="64" height="64"/>
+  <object id="58" gid="62" x="80" y="135" width="64" height="64"/>
+  <object id="59" gid="60" x="410" y="485" width="64" height="64"/>
+  <object id="60" gid="60" x="137" y="340" width="64" height="64"/>
+  <object id="61" gid="60" x="486" y="300" width="64" height="64"/>
+  <object id="62" gid="60" x="342" y="151" width="64" height="64"/>
+  <object id="63" gid="60" x="229" y="1272" width="64" height="64"/>
+  <object id="64" gid="60" x="589" y="1153" width="64" height="64"/>
+  <object id="65" gid="60" x="166" y="1017" width="64" height="64"/>
+  <object id="66" gid="62" x="191" y="759" width="64" height="64"/>
+  <object id="67" gid="62" x="408" y="1283" width="64" height="64"/>
+  <object id="68" gid="62" x="662" y="1305" width="64" height="64"/>
+  <object id="69" gid="62" x="1180" y="1241" width="64" height="64"/>
+  <object id="70" gid="61" x="1112" y="915" width="64" height="64"/>
+  <object id="71" gid="59" x="1229" y="1103" width="64" height="64"/>
+  <object id="72" gid="59" x="1194" y="662" width="64" height="64"/>
+  <object id="73" gid="59" x="1195" y="66" width="64" height="64"/>
+  <object id="74" gid="59" x="814" y="313" width="64" height="64"/>
+  <object id="75" gid="59" x="632" y="202" width="64" height="64"/>
+  <object id="95" gid="64" x="607" y="608" width="64" height="64"/>
+  <object id="96" gid="64" x="765" y="75" width="64" height="64"/>
+  <object id="97" gid="64" x="45" y="663" width="64" height="64"/>
+ </objectgroup>
+ <layer id="8" name="Spinners" width="20" height="20">
+  <data encoding="csv">
+72,0,72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+72,0,72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="5" name="Stone">
+  <object id="98" gid="79" x="1128" y="1092" width="64" height="64"/>
+  <object id="99" gid="79" x="1187" y="757" width="64" height="64"/>
+  <object id="100" gid="79" x="762" y="651" width="64" height="64"/>
+  <object id="101" gid="79" x="662" y="1258" width="64" height="64"/>
+  <object id="102" gid="79" x="561" y="1247" width="64" height="64"/>
+  <object id="103" gid="79" x="1136" y="157" width="64" height="64"/>
+  <object id="104" gid="79" x="649" y="406" width="64" height="64"/>
+  <object id="105" gid="79" x="427" y="164" width="64" height="64"/>
+  <object id="106" gid="79" x="121" y="589" width="64" height="64"/>
+  <object id="107" gid="79" x="9" y="151" width="64" height="64"/>
+  <object id="108" gid="79" x="280" y="1222" width="64" height="64"/>
+  <object id="109" gid="79" x="52" y="1025" width="64" height="64"/>
+  <object id="119" gid="95" x="1127" y="673" width="64" height="64"/>
+  <object id="120" gid="95" x="937" y="418" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="6" name="Iron">
+  <object id="114" gid="81" x="216" y="648" width="64" height="64"/>
+  <object id="115" gid="99" x="588" y="868" width="64" height="64"/>
+  <object id="116" gid="99" x="716" y="152" width="64" height="64"/>
+  <object id="117" gid="81" x="1048" y="543" width="64" height="64"/>
+  <object id="118" gid="99" x="1176" y="1006" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="7" name="Gold">
+  <object id="121" gid="82" x="960" y="596" width="64" height="64"/>
+  <object id="122" gid="82" x="287" y="441" width="64" height="64"/>
+  <object id="123" gid="100" x="326" y="716" width="64" height="64"/>
+  <object id="124" gid="100" x="831" y="1240" width="64" height="64"/>
+ </objectgroup>
+</map>

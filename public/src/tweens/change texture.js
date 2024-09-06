@@ -17,7 +17,7 @@ class Example extends Phaser.Scene
     {
         this.add.image(400, 300, 'bg');
 
-        const golem = this.add.image(400, 300, 'golem1');
+        const golem = this.add.image(400, 300, 'golem2');
 
         //  This is just a particle emitter for our effect
         const particles = this.add.particles(400, 230, 'ice', {
@@ -33,7 +33,7 @@ class Example extends Phaser.Scene
         //  during the onRepeat callback.
         this.tweens.add({
             targets: golem,
-            texture: 'golem2',
+            texture: 'golem1',
             duration: 1000,
             repeat: -1,
             onRepeat: () => {

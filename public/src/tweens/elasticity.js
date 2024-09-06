@@ -1,33 +1,23 @@
-class Example extends Phaser.Scene 
-{
-    constructor()
-    {
+class Example extends Phaser.Scene {
+    constructor() {
         super();
     }
 
-    preload()
-    {
+    preload() {
         this.load.image('block', 'assets/sprites/block.png');
     }
 
-    create()
-    {
+    create() {
         var marker = this.add.image(100, 300, 'block').setAlpha(0.3);
         var image = this.add.image(100, 300, 'block');
 
-        var tween = this.tweens.add({
+        this.tweens.add({
             targets: image,
-            x: 700,
-            delay: 1000,
-            duration: 6000,
-            ease: 'Power2'
-        });
-
-        this.input.on('pointerdown', function () 
-        {
-
-            tween.stop();
-
+            x: 600,
+            duration: 3000,
+            ease: 'Elastic',
+            easeParams: [1.5, 0.5],
+            delay: 1000
         });
     }
 }

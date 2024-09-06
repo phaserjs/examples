@@ -1,242 +1,152 @@
 [
     {
+        "path": "src\\tweens\\dynamic end property.js",
+        "name": "dynamic end property.js",
+        "birthtimeMs": 1725461426485.2593
+    },
+    {
         "path": "src\\tweens\\dynamic properties multiple.js",
         "name": "dynamic properties multiple.js",
-        "size": 1531,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725433921610.4102
+        "birthtimeMs": 1725461426485.2593
     },
     {
         "path": "src\\tweens\\dynamic properties.js",
         "name": "dynamic properties.js",
-        "size": 1051,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725433921610.4102
-    },
-    {
-        "path": "src\\tweens\\dynamic end property.js",
-        "name": "dynamic end property.js",
-        "size": 1193,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725433921609.4111
-    },
-    {
-        "path": "src\\tweens\\double tween.js",
-        "name": "double tween.js",
-        "size": 2102,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725433921608.41
+        "birthtimeMs": 1725461426485.2593
     },
     {
         "path": "src\\tweens\\stop a tween.js",
         "name": "stop a tween.js",
-        "size": 929,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725433921606.4055
-    },
-    {
-        "path": "src\\tweens\\delay.js",
-        "name": "delay.js",
-        "size": 739,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725433376701.8237
-    },
-    {
-        "path": "src\\tweens\\chains\\debug chained tweens 1.js",
-        "name": "debug chained tweens 1.js",
-        "size": 1636,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725432932300.8154
-    },
-    {
-        "path": "src\\tweens\\custom ease.js",
-        "name": "custom ease.js",
-        "size": 813,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725432696169.061
-    },
-    {
-        "path": "src\\tweens\\complete delay.js",
-        "name": "complete delay.js",
-        "size": 1227,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725431250349.0764
+        "birthtimeMs": 1725461426485.2593
     },
     {
         "path": "src\\tweens\\checkerboard 4.js",
         "name": "checkerboard 4.js",
-        "size": 1479,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725420594066.2344
+        "birthtimeMs": 1725461426484.2578
+    },
+    {
+        "path": "src\\tweens\\complete delay.js",
+        "name": "complete delay.js",
+        "birthtimeMs": 1725461426484.2578
+    },
+    {
+        "path": "src\\tweens\\custom ease.js",
+        "name": "custom ease.js",
+        "birthtimeMs": 1725461426484.2578
+    },
+    {
+        "path": "src\\tweens\\delay.js",
+        "name": "delay.js",
+        "birthtimeMs": 1725461426484.2578
+    },
+    {
+        "path": "src\\tweens\\double tween.js",
+        "name": "double tween.js",
+        "birthtimeMs": 1725461426484.2578
+    },
+    {
+        "path": "src\\bugs\\6860 bitmaptext line wrap.js",
+        "name": "6860 bitmaptext line wrap.js",
+        "birthtimeMs": 1725461426483.257
+    },
+    {
+        "path": "src\\tweens\\chains\\debug chained tweens 1.js",
+        "name": "debug chained tweens 1.js",
+        "birthtimeMs": 1725461426483.257
+    },
+    {
+        "path": "src\\tweens\\chains\\basic tween chain.js",
+        "name": "basic tween chain.js",
+        "birthtimeMs": 1725368152916.551
     },
     {
         "path": "src\\tweens\\change texture frame.js",
         "name": "change texture frame.js",
-        "size": 906,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725354475783.432
-    },
-    {
-        "path": "src\\renderer\\tests\\webgl debug.js",
-        "name": "webgl debug.js",
-        "size": 1167,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993863.1995
-    },
-    {
-        "path": "src\\renderer\\tests\\custom pipeline single texture.js",
-        "name": "custom pipeline single texture.js",
-        "size": 3250,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993859.1982
-    },
-    {
-        "path": "src\\renderer\\tests\\sprite test.js",
-        "name": "sprite test.js",
-        "size": 1490,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993859.1982
-    },
-    {
-        "path": "src\\renderer\\tests\\batch test.js",
-        "name": "batch test.js",
-        "size": 1726,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993858.1978
-    },
-    {
-        "path": "src\\renderer\\tests\\custom pipeline multi texture.js",
-        "name": "custom pipeline multi texture.js",
-        "size": 3285,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993858.1978
-    },
-    {
-        "path": "src\\renderer\\tests\\32 texture test.js",
-        "name": "32 texture test.js",
-        "size": 3315,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993857.1985
-    },
-    {
-        "path": "src\\renderer\\swirl post pipeline.js",
-        "name": "swirl post pipeline.js",
-        "size": 1115,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993856.1985
-    },
-    {
-        "path": "src\\renderer\\custom batch size.js",
-        "name": "custom batch size.js",
-        "size": 685,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993854.1975
-    },
-    {
-        "path": "src\\game objects\\video\\get first video frame.js",
-        "name": "get first video frame.js",
-        "size": 889,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993845.1948
-    },
-    {
-        "path": "src\\bugs\\6892 matter pause.js",
-        "name": "6892 matter pause.js",
-        "size": 1146,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993844.1956
-    },
-    {
-        "path": "src\\bugs\\6702 audio loop.js",
-        "name": "6702 audio loop.js",
-        "size": 745,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993843.1938
+        "birthtimeMs": 1725368152916.551
     },
     {
         "path": "src\\bugs\\6814 mesh.js",
         "name": "6814 mesh.js",
-        "size": 876,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725329993843.1938
+        "birthtimeMs": 1725368152915.5435
+    },
+    {
+        "path": "src\\bugs\\6892 matter pause.js",
+        "name": "6892 matter pause.js",
+        "birthtimeMs": 1725368152915.5435
+    },
+    {
+        "path": "src\\game objects\\video\\get first video frame.js",
+        "name": "get first video frame.js",
+        "birthtimeMs": 1725368152915.5435
+    },
+    {
+        "path": "src\\bugs\\6702 audio loop.js",
+        "name": "6702 audio loop.js",
+        "birthtimeMs": 1725291367632.69
+    },
+    {
+        "path": "src\\renderer\\tests\\batch test.js",
+        "name": "batch test.js",
+        "birthtimeMs": 1725285488780.7324
+    },
+    {
+        "path": "src\\renderer\\bend pipeline.js",
+        "name": "bend pipeline.js",
+        "birthtimeMs": 1725285488779.7102
+    },
+    {
+        "path": "src\\renderer\\custom batch size.js",
+        "name": "custom batch size.js",
+        "birthtimeMs": 1725285488779.7102
+    },
+    {
+        "path": "src\\renderer\\tests\\32 texture test.js",
+        "name": "32 texture test.js",
+        "birthtimeMs": 1725285488779.7102
+    },
+    {
+        "path": "src\\games\\coin clicker\\main.js",
+        "name": "main.js",
+        "birthtimeMs": 1725285488382.294
+    },
+    {
+        "path": "src\\games\\coin clicker\\ClickerGame.js",
+        "name": "ClickerGame.js",
+        "birthtimeMs": 1725285488380.7808
+    },
+    {
+        "path": "src\\games\\coin clicker\\GameOver.js",
+        "name": "GameOver.js",
+        "birthtimeMs": 1725285488380.7808
+    },
+    {
+        "path": "src\\games\\coin clicker\\MainMenu.js",
+        "name": "MainMenu.js",
+        "birthtimeMs": 1725285488380.7808
+    },
+    {
+        "path": "src\\games\\coin clicker\\Preloader.js",
+        "name": "Preloader.js",
+        "birthtimeMs": 1725285488380.7808
     },
     {
         "path": "src\\bugs\\6862 iOS autocenter inconsistent.js",
         "name": "6862 iOS autocenter inconsistent.js",
-        "size": 962,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725260306265.302
+        "birthtimeMs": 1725285488379.7588
     },
     {
         "path": "src\\bugs\\6885 leave fullscreen.js",
         "name": "6885 leave fullscreen.js",
-        "size": 885,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725256783548.169
+        "birthtimeMs": 1725285488379.7588
     },
     {
-        "path": "src\\bugs\\6879 fx rp.js",
-        "name": "6879 fx rp.js",
-        "size": 1229,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725256777765.5278
+        "path": "src\\games\\coin clicker\\Boot.js",
+        "name": "Boot.js",
+        "birthtimeMs": 1725285488379.7588
     },
     {
-        "path": "src\\bugs\\6878 zoom.js",
-        "name": "6878 zoom.js",
-        "size": 1031,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725256777762.5278
-    },
-    {
-        "path": "src\\bugs\\6874 rp.js",
-        "name": "6874 rp.js",
-        "size": 621,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725256777759.5283
-    },
-    {
-        "path": "src\\bugs\\6794 blur resize.js",
-        "name": "6794 blur resize.js",
-        "size": 939,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725256777747.5261
-    },
-    {
-        "path": "src\\bugs\\6788 line text.js",
-        "name": "6788 line text.js",
-        "size": 493,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1725256777743.5266
+        "path": "src\\tilemap\\isometric\\create isometric manually.js",
+        "name": "create isometric manually.js",
+        "birthtimeMs": 1724680976090.674
     }
 ]

@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', 'assets/skies/pixelsky.png');
         this.load.image('cat', 'assets/tweens/fairytail.png');
     }

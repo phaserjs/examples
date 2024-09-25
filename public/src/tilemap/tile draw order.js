@@ -2,6 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('tileset', 'assets/tilemaps/tiles/tileorder.png');
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileorder.json');
     }

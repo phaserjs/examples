@@ -31,6 +31,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/spine/3.8/demos/');
 
         this.load.spine('set1', 'demos.json', [ 'atlas1.atlas' ], true);

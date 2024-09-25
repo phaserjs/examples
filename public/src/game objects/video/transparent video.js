@@ -11,6 +11,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('robot', 'assets/video/robot-dance.webm');
         this.load.audio('tune', 'assets/audio/aquakitty-kittyrock.m4a');
         this.load.glsl('bundle', 'assets/shaders/bundle4.glsl.js');

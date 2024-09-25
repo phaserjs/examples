@@ -2,6 +2,7 @@ class BootLoader extends Phaser.Scene
 {
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('loader', 'assets/demoscene/birdy-nam-nam-loader.png');
         this.load.image('click', 'assets/demoscene/birdy-nam-nam-click.png');
     }
@@ -24,6 +25,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.loadImage = this.add.image(0, 0, 'loader').setOrigin(0);
 
         this.load.audio('jungle', [ 'assets/audio/jungle.ogg', 'assets/audio/jungle.mp3' ]);

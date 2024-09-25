@@ -5,6 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('duck', 'assets/sprites/darkwing_crazy.png');
     }
 

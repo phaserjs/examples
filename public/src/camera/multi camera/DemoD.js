@@ -18,6 +18,7 @@ class DemoD extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
         this.load.text('computer', 'assets/text/computer.obj');
         this.load.text('geosphere', 'assets/text/geosphere.obj');

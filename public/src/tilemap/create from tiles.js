@@ -2,6 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.spritesheet('fantasy-tiles', 'assets/tilemaps/tiles/fantasy-tiles.png', { frameWidth: 64 });
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/create from tiles.json');
     }

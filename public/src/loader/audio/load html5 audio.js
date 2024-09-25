@@ -4,6 +4,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.text = this.add.text(10, 10, 'Loading audio ...', { font: '16px Courier', fill: '#00ff00' });
 
         this.load.audio('dafunk', [

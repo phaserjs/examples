@@ -6,6 +6,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/matter-ghost-vertices.json');
         this.load.image('kenney_redux_64x64', 'assets/tilemaps/tiles/kenney_redux_64x64.png');
         this.load.image('ball', 'assets/sprites/mushroom-32x32.png');

@@ -9,6 +9,7 @@ class SceneA extends Phaser.Scene {
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('pic', 'assets/pics/case.jpg');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }

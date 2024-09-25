@@ -99,6 +99,7 @@ class Preloader extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', 'assets/skies/gradient21.png');
         this.load.image('logo', 'assets/sprites/phaser3-logo.png');
         this.load.image('button', 'assets/sprites/button-bg.png');

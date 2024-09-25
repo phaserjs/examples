@@ -12,6 +12,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/multiple-tile-sizes-collision.json');
 
         this.load.image('ground_1x1', 'assets/tilemaps/tiles/ground_1x1.png');

@@ -10,6 +10,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('mountains', 'assets/video/mountains.mp4', true);
         this.load.video('pumpkins', 'assets/video/pumpkins.mp4', true);
     }

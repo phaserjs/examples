@@ -7,6 +7,7 @@ class Demo extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('pic', 'assets/pics/neotokyo-ai.jpg');
         this.load.image('logo', 'assets/sprites/phaser2.png');
         this.load.image('card', 'assets/pics/slug.png');

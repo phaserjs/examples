@@ -17,6 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     //  Tree model by Frank Lynam (https://poly.google.com/view/6FZA6RpTruf)
     this.load.obj('tree', 'assets/obj/tree2.obj');
 }

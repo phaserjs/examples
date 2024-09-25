@@ -7,6 +7,7 @@ class Preloader extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
         this.load.image('buttonBG', 'assets/sprites/button-bg.png');
         this.load.image('buttonText', 'assets/sprites/button-text.png');

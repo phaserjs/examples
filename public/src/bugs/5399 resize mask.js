@@ -7,6 +7,7 @@ class Demo extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('logo', 'https://raw.githubusercontent.com/photonstorm/phaser3-typescript-project-template/master/dist/assets/phaser3-logo.png');
         this.load.image('libs', 'https://raw.githubusercontent.com/photonstorm/phaser3-typescript-project-template/master/dist/assets/libs.png');
         this.load.image('mask', 'https://raw.githubusercontent.com/photonstorm/phaser3-examples/master/public/assets/sprites/mask1.png');

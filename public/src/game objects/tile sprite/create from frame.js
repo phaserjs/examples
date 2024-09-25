@@ -6,6 +6,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('tilesprite', 'assets/pics/alex-bisleys-horsy-512x512.png');
     }
 

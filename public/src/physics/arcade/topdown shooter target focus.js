@@ -9,6 +9,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         // Load in images and sprites
         this.load.spritesheet('player_handgun', 'assets/sprites/player_handgun.png',
             { frameWidth: 66, frameHeight: 60 }

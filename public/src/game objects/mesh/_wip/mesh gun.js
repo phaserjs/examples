@@ -17,6 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     //  Battleship model by Robbie Cartwright (https://poly.google.com/view/0lCghGSp-E9)
     this.load.obj('gun', 'assets/obj/gun.obj');
 }

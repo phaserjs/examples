@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', 'assets/skies/gradient22.png');
         this.load.audio('grapevine', 'assets/audio/raisins.m4a');
         this.load.atlas('raisins', 'assets/animations/california-raisins.png', 'assets/animations/california-raisins.json');

@@ -23,6 +23,7 @@ function makeGame ()
 
     function preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/spine/4.1/coin');
 
         this.load.spine('coin', 'coin-pro.json', 'coin-pma.atlas');

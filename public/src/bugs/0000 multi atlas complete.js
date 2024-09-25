@@ -7,6 +7,7 @@ class Scene extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.path = 'assets/atlas/';
 
         this.load.multiatlas('megaset', 'tp3-multi-atlas.json');

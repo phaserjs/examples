@@ -234,6 +234,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.obj('cube', 'assets/text/bevelledcube.obj');
 
         // this.load.text('logo', 'assets/text/phaser-logo-3d.obj');

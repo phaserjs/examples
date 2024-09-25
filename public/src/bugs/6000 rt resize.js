@@ -24,6 +24,7 @@ const CANVAS_HEIGHT = CANVAS_WIDTH;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     this.load.image('box', 'assets/sprites/crate.png');
     this.load.image('grid', 'assets/pics/uv-grid.jpg');
 }

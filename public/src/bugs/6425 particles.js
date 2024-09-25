@@ -2,6 +2,7 @@ class ParticlesSquare extends Phaser.Scene
 {
     preload()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image("smokeTest", "assets/particles/smoke0.png");
     }
 

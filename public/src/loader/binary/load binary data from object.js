@@ -2,6 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.binary({
             key: 'mod',
             url: 'assets/audio/protracker/global_trash_3_v2.mod',

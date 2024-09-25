@@ -17,6 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     //  Battleship model by angelo raffaele Catalano (https://poly.google.com/view/cqV6mUkn7Ow)
     this.load.obj('battleship', 'assets/obj/battleship.obj');
 }

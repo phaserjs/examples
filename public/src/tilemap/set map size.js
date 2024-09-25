@@ -4,6 +4,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/super-mario.json');
         this.load.image('tiles', 'assets/tilemaps/tiles/super-mario.png');
     }

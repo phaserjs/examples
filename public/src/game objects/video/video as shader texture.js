@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('trainSequence', 'assets/video/train512x256.mp4', true);
         this.load.image('noise', 'assets/tests/rgba-noise-medium.png');
         this.load.glsl('bundle', 'assets/shaders/bundle4.glsl.js');

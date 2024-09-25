@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
   this.load.image('powerups', 'assets/obj/powerups.png');
   this.load.obj('skull', 'assets/obj/skull.obj');
 }

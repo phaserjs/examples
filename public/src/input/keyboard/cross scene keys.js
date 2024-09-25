@@ -61,6 +61,7 @@ class SceneA extends Phaser.Scene {
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('jellies', 'assets/atlas/jellies.png', 'assets/atlas/jellies.json');
     }
 

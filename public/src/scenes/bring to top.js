@@ -7,6 +7,7 @@ class DemoA extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('picA', 'assets/pics/lance-overdose-loader-eye.png');
     }
 
@@ -32,6 +33,7 @@ class DemoB extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('picB', 'assets/pics/sukasuka-chtholly.png');
     }
 
@@ -50,6 +52,7 @@ class DemoC extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('picC', 'assets/pics/titan-mech.png');
     }
 

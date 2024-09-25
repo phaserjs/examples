@@ -7,6 +7,7 @@ export default class Preloader extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/games/sliding-puzzle/');
         this.load.image('background', 'background.png');
         this.load.image('logo', 'logo.png');

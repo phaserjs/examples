@@ -15,6 +15,7 @@ class Example extends Phaser.Scene
     
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/spine/3.8/spineboy');
 
         this.load.spine('boy', 'spineboy-ess.json', 'spineboy-ess.atlas', false);

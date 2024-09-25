@@ -3,6 +3,7 @@ class Example extends Phaser.Scene
     timelines = []
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('timeline', 'https://labs.phaser.io/assets/atlas/timeline.png', 'https://labs.phaser.io/assets/atlas/timeline.json');
     }
 

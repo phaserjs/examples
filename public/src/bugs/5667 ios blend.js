@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('background', 'assets/bugs/background.png');
         this.load.multiatlas('spin_wave', 'assets/bugs/e_spinwave.json', 'assets/bugs');
     }

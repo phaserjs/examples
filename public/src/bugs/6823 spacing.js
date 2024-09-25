@@ -4,6 +4,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/desert.json');
         // this.load.spritesheet('Desert', 'assets/tilemaps/tiles/tmw_desert_spacing.png', {frameWidth:32, frameHeight:32, spacing:1 , margin: 1});
         this.load.image('Desert', 'assets/tilemaps/tiles/tmw_desert_spacing.png');

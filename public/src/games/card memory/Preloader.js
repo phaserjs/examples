@@ -9,6 +9,7 @@ export class Preloader extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath("assets/games/card-memory-game/");
 
         this.load.image("volume-icon", "ui/volume-icon.png");

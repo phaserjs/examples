@@ -19,6 +19,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     this.load.setPath('assets/spine/4.1/demos/');
 
     this.load.spine('set1', 'demos.json', 'atlas1.atlas');

@@ -2,6 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/audio/kyobi/');
 
         this.load.audioSprite('kyobi', 'kyobi.json', [

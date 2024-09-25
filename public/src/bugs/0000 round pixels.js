@@ -70,7 +70,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    // pixelArt: false,
+    pixelArt: true,
     backgroundColor: '#00007d',
     scene: Demo
 };

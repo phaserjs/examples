@@ -10,6 +10,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('swirl', 'assets/pics/color-wheel-swirl.png');
         this.load.image('checker', 'assets/pics/checker.png');
         this.load.bitmapFont('gothic', 'assets/fonts/bitmap/gothic.png', 'assets/fonts/bitmap/gothic.xml');

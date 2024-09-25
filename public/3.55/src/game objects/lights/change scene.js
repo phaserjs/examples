@@ -7,6 +7,7 @@ class SceneA extends Phaser.Scene {
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.setPath('assets/loader-tests/');
         this.load.atlas('megaset', [ 'texture-packer-atlas-with-normals-0.png', 'texture-packer-atlas-with-normals-0_n.png' ], 'texture-packer-atlas-with-normals.json');
     }

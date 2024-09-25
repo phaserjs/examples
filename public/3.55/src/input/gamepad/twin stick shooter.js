@@ -163,6 +163,7 @@ var Enemy = new Phaser.Class({
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('background', 'assets/tests/space/nebula.jpg');
     this.load.atlas('space', 'assets/tests/space/space.png', 'assets/tests/space/space.json');
     this.load.atlas('explosion', 'assets/particles/explosion.png', 'assets/particles/explosion.json');

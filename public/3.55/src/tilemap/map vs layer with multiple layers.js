@@ -23,6 +23,7 @@ var tileInfoText;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('kenny_platformer_64x64', 'assets/tilemaps/tiles/kenny_platformer_64x64.png');
     this.load.tilemapTiledJSON('multiple-layers-map', 'assets/tilemaps/maps/multiple-layers.json');
 }

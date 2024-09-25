@@ -21,6 +21,7 @@ var highlight1;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('keyboard', 'assets/input/keyboard-opreem.png');
     this.load.image('highlight', 'assets/input/key1.png');
 }

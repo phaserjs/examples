@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.glsl('wave', 'assets/shaders/shader1.frag');
     this.load.image('pic', 'assets/pics/sao-sinon.png');
     this.load.image('bg', 'assets/pics/purple-dots.png');

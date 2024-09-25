@@ -33,6 +33,7 @@ class Controller extends Phaser.Scene {
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('bg', 'assets/tests/scenes/bg.jpg');
         this.load.atlas('space', 'assets/tests/scenes/space.png', 'assets/tests/scenes/space.json');
         this.load.atlas('ui', 'assets/tests/scenes/ui.png', 'assets/tests/scenes/ui.json');

@@ -26,6 +26,7 @@ var i = 0;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.text('logo', 'assets/text/phaser-logo-3d.obj');
     this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
     this.load.text('chaosphere', 'assets/text/chaosphere.obj');

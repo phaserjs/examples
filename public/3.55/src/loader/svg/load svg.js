@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.svg('pencil', 'assets/svg/pencil.svg');
     this.load.svg('cartman', 'assets/svg/cartman.svg');
     this.load.svg('fireflower', 'assets/svg/fireflower.svg');

@@ -19,6 +19,7 @@ var propertiesText;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     // this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tile_properties-v12.json');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tile_properties.json');
     this.load.image('tiles', 'assets/tilemaps/tiles/gridtiles.png');

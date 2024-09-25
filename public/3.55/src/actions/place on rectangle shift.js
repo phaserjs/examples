@@ -8,6 +8,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.spritesheet('balls', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
     }
 

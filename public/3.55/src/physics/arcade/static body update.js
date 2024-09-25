@@ -26,6 +26,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('bar', 'assets/sprites/healthbar.png');
     this.load.image('mushroom', 'assets/sprites/mushroom2.png');
 }

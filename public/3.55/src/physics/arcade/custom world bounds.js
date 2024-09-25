@@ -22,6 +22,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('bg', 'assets/skies/space2.png');
     this.load.image('cockpit', 'assets/pics/cockpit.png');
     this.load.spritesheet('ball', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });

@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.path = 'assets/atlas/';
 
     this.load.multiatlas('megaset', 'tp3-multi-atlas.json');

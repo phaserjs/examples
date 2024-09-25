@@ -8,6 +8,7 @@ class Example extends Phaser.Scene
 
     preload () 
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('bg', 'assets/pics/uv-grid-diag.png');
         this.load.image('block', 'assets/sprites/block.png');
     }

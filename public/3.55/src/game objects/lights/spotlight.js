@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('robot', [ 'assets/pics/equality-by-ragnarok.png', 'assets/normal-maps/equality-by-ragnarok_n.png' ]);
     this.load.image('atari', 'assets/sprites/atari400.png');
 }

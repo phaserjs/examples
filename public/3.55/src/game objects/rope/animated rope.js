@@ -10,6 +10,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('bg', 'assets/rope/background-grave.png');
         this.load.spritesheet('skeleton', 'assets/rope/skeleton.png', { frameWidth: 1580 / 2, frameHeight: 932 / 2 });
     }

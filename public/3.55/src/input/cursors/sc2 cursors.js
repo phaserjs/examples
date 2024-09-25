@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('logo', 'assets/input/cursors/sc2/logo.png');
     this.load.image('folder', 'assets/input/cursors/sc2/starcraft2-mac-folder-by-gazol-d3d7ctl.png');
 }

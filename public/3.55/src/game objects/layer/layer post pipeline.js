@@ -11,6 +11,7 @@ export default class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('spaceman', 'assets/sprites/exocet_spaceman.png');
         this.load.image('bunny', 'assets/sprites/bunny.png');
         this.load.image('elephant', 'assets/sprites/elephant.png');

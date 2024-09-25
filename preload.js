@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const directoryPath = path.join(__dirname, 'public/src');
+const directoryPath = path.join(__dirname, 'public/3.55/src');
 
 // Function to search for all .js files in the directory and its subdirectories
 const getJsFiles = (dir) => {
@@ -34,7 +34,7 @@ const modifyFile = (filePath) => {
         console.log(`Modifying file: ${filePath}`);
 
         // Replace 'preload () {' with 'preload () {\n        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');'
-        fileContent = fileContent.replace(preloadPattern, match => `${match}\n        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');`);
+        fileContent = fileContent.replace(preloadPattern, match => `${match}\n        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');`);
 
         // Write the modified content back to the file
         fs.writeFileSync(filePath, fileContent, 'utf8');

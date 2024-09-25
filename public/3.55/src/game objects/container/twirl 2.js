@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('rick', 'assets/demoscene/large-raster32.png');
     // this.load.image('rick', 'assets/demoscene/doc-ball.png');
     // this.load.image('rick2', 'assets/demoscene/rastercarpet32.png');

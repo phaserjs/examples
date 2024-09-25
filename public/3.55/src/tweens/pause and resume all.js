@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('bg', 'assets/ui/undersea-bg.png');
     this.load.image('up', 'assets/ui/up-bubble.png');
     this.load.image('down', 'assets/ui/down-bubble.png');

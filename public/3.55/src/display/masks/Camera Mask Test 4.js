@@ -17,6 +17,7 @@ const game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('image', 'assets/pics/sao-sinon.png');
     this.load.image('phaser2', 'assets/sprites/phaser2.png');
     this.load.image('mask', 'assets/tests/camera/grunge-mask.png');

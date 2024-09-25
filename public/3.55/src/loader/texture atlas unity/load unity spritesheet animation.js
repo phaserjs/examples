@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.unityAtlas('ant', 'assets/atlas/ant.png', 'assets/atlas/ant.meta');
     this.load.unityAtlas('ant2', 'assets/atlas/ant2.png', 'assets/atlas/ant2.meta');
 }

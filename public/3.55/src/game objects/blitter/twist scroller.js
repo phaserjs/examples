@@ -164,6 +164,7 @@ const game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('font', 'assets/tests/twist/bob-font.png');
     this.load.atlas('bobs', 'assets/tests/twist/bobs.png', 'assets/tests/twist/bobs.json');
 }

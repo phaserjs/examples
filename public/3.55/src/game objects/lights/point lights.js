@@ -11,6 +11,7 @@ export default class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.setPath('assets/normal-maps/');
 
         this.load.image('gem1');

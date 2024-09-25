@@ -47,6 +47,7 @@ function init ()
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('contra', 'assets/pics/contra3.png');
 }
 

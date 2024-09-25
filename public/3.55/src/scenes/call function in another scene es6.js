@@ -7,6 +7,7 @@ class SceneA extends Phaser.Scene {
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('asuna', 'assets/sprites/asuna_by_vali233.png');
     }
 

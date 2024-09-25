@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('sky', 'src/games/firstgame/assets/sky.png');
     this.load.image('ground', 'src/games/firstgame/assets/platform.png');
     this.load.image('star', 'src/games/firstgame/assets/star.png');

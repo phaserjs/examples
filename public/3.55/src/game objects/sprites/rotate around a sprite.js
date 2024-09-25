@@ -24,6 +24,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('ballRed', 'assets/demoscene/ball.png');
     this.load.image('ballBlue', 'assets/demoscene/blue_ball.png');
     this.load.image('ballSmall', 'assets/demoscene/ball-tlb.png');

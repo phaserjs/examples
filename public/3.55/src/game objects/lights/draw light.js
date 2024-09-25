@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('sonic', 'assets/sprites/sonic_havok_sanity.png');
     this.load.image('bg', 'assets/textures/gold.png');
 }

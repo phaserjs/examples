@@ -26,6 +26,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.setPath('assets/spine/3.8/coin/');
 
     this.load.spine('coin', 'coin-pro.json', 'coin-pro.atlas');

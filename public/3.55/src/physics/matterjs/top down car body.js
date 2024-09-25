@@ -29,6 +29,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('soil', 'assets/textures/soil.png');
     this.load.image('car', 'assets/sprites/car-yellow.png');
 }

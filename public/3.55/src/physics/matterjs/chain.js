@@ -4,6 +4,7 @@ class Example extends Phaser.Scene
     cursors;
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('block', 'assets/sprites/block.png');
         this.load.image('ball', 'assets/sprites/shinyball.png');
     }

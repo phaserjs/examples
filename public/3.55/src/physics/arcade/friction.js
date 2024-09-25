@@ -17,6 +17,7 @@ new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('platform', 'assets/sprites/platform.png');
     this.load.image('lemming', 'assets/sprites/lemming.png');
     this.load.image('spikedball', 'assets/sprites/spikedball.png');

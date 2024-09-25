@@ -52,6 +52,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         // Credits! Michele "Buch" Bucelli (tilset artist) & Abram Connelly (tileset sponser)
         // https://opengameart.org/content/top-down-dungeon-tileset
         this.load.image('tiles', 'assets/tilemaps/tiles/buch-dungeon-tileset-extruded.png');

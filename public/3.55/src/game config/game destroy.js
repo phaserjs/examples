@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('taikodrummaster', 'assets/pics/taikodrummaster.jpg');
         this.load.image('sukasuka-chtholly', 'assets/pics/sukasuka-chtholly.png');
     }

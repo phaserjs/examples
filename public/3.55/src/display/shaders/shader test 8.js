@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
         this.load.image('pic', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
         this.load.glsl('bundle', 'assets/shaders/bundle2.glsl.js');

@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     // this.load.binary('tune1', 'assets/audio/sid/8-Bit_House_Party.sid');
     // this.load.binary('tune1', 'assets/audio/sid/Hawkeye.sid');
     // this.load.binary('tune1', 'assets/audio/sid/Katakis.sid');

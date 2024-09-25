@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('touhou', 'assets/pics/touhou1.png');
 
     this.load.setPath('assets/audio/tech');

@@ -17,6 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('pic1', 'assets/pics/neuromancer.jpg');
     this.load.image('pic2', 'assets/pics/monika-krawinkel-amberstar-title.png');
     this.load.image('pic3', 'assets/pics/game14-angel-dawn.png');

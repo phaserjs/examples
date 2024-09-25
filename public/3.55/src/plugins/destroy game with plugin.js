@@ -13,6 +13,7 @@ let game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.plugin('RandomNamePlugin', 'assets/loader-tests/RandomNamePlugin.js', true);
 }
 

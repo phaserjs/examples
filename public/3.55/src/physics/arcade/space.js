@@ -50,6 +50,7 @@ class Example extends Phaser.Scene
     lastFired = 0;
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('background', 'assets/tests/space/nebula.jpg');
         this.load.image('stars', 'assets/tests/space/stars.png');
         this.load.atlas('space', 'assets/tests/space/space.png', 'assets/tests/space/space.json');

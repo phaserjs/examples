@@ -17,6 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('grid', 'assets/pics/debug-grid-1920x1920.png');
     this.load.image('atari', 'assets/sprites/atari130xe.png');
 }

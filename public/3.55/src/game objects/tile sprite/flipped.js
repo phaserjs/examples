@@ -17,6 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('image0', 'assets/pics/ra-einstein.png');
     this.load.image('image1', 'assets/sprites/mushroom2.png');
 }

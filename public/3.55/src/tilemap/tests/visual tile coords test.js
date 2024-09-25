@@ -28,6 +28,7 @@ var text;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/features-test.json');
 
     this.load.spritesheet('coin', 'assets/sprites/coin.png', { frameWidth: 32, frameHeight: 32 });

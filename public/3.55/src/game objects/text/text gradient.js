@@ -14,6 +14,7 @@ const game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('lulu', 'assets/pics/shocktroopers-lulu2.png');
 }
 

@@ -13,6 +13,7 @@ class Controller extends Phaser.Scene {
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('disk', 'assets/phaser3/disk.png');
 
         this.load.image('workbenchTitle', 'assets/phaser3/workbench-title.png');

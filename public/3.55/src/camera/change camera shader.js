@@ -12,6 +12,7 @@ export default class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('einstein', 'assets/pics/ra-einstein.png');
     }
 

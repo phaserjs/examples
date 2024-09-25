@@ -17,6 +17,7 @@ var bubbles = [];
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('bubble', 'assets/particles/bubble.png');
     this.load.image('dude', 'assets/sprites/phaser-dude.png');
 }

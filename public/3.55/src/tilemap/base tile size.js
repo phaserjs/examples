@@ -17,6 +17,7 @@ var controls;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('walls_1x2', 'assets/tilemaps/tiles/walls_1x2.png');
 }
 

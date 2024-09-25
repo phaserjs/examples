@@ -19,6 +19,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('space', 'assets/tests/space/nebula.jpg');
     this.load.image('bullet', 'assets/sprites/bullets/bullet10.png');
     this.load.image('ship', 'assets/sprites/shmup-ship2.png');

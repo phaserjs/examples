@@ -29,6 +29,7 @@ var showDebug;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/multiple-tile-sizes-collision.json');
 
     this.load.image('ground_1x1', 'assets/tilemaps/tiles/ground_1x1.png');

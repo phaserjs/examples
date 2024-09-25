@@ -23,6 +23,7 @@ function addImage (x, y)
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('mech', 'assets/pics/titan-mech.png');
 }
 

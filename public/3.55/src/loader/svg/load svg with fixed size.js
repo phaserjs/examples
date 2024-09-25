@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     //  The original svg size is 104x97
     this.load.svg('cartman', 'assets/svg/cartman.svg');
 

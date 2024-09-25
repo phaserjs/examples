@@ -20,6 +20,7 @@ var rect;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('einstein', 'assets/pics/ra-einstein.png');
     this.load.image('ball', 'assets/sprites/blue_ball.png');
 }

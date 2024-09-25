@@ -21,6 +21,7 @@ var selectedTile;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('tiles', 'assets/tilemaps/tiles/tmw_desert_spacing.png');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/desert.json');
 }

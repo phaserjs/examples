@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('bunny', 'assets/sprites/bunny.png');
     this.load.image('atari', 'assets/sprites/atari400.png');
     this.load.image('logo', 'assets/sprites/phaser2.png');

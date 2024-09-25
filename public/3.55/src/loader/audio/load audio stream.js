@@ -15,6 +15,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     text = this.add.text(10, 10, 'Loading audio ...', { font: '16px Courier', fill: '#00ff00' });
 
     this.load.audio('dafunk', [

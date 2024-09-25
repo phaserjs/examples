@@ -19,6 +19,7 @@ var debugGraphics;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     // this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-property.json');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-property-v12.json');
     this.load.image('kenny_platformer_64x64', 'assets/tilemaps/tiles/kenny_platformer_64x64.png');

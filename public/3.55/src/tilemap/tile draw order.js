@@ -15,6 +15,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('tileset', 'assets/tilemaps/tiles/tileorder.png');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileorder.json');
 }

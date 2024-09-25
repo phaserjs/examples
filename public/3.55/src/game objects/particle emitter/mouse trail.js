@@ -23,6 +23,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('dark-smoke', 'assets/particles/smoke-puff.png');
     this.load.image('white-smoke', 'assets/particles/smoke0.png');
     this.load.image('fire', 'assets/particles/muzzleflash3.png');

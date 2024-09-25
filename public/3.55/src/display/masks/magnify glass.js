@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('pic', 'assets/pics/sword-art-online.jpg');
         this.load.image('magnify-out', 'assets/sprites/magnify-glass-outside.png');
         this.load.image('magnify-in', 'assets/sprites/magnify-glass-inside.png');

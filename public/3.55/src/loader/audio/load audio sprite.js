@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.setPath('assets/audio/kyobi/');
 
     this.load.audioSprite('kyobi', 'kyobi.json', [

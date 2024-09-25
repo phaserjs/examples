@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.script('gsap', 'js/gsap.js');
         this.load.image('block', 'assets/sprites/crate.png');
     }

@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.glsl('marble', 'assets/shaders/marble.glsl.js');
     this.load.image('bird', 'assets/pics/birdy.png');
 }

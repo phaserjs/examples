@@ -15,6 +15,7 @@ var starGraphics;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
 }
 function create() {
     starGraphics = this.make.graphics({x: 0, y: 0, add: false});

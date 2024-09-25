@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.load.image('volcano', 'assets/pics/the-end-by-iloe-and-made.jpg');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }

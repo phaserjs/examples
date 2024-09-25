@@ -17,6 +17,7 @@ var tilesprite;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('brick', ['assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png']);
     this.load.image('sonic', 'assets/sprites/sonic_havok_sanity.png');
 }

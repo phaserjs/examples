@@ -25,6 +25,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('sun', 'assets/tests/space/sun.png');
     this.load.image('alien', 'assets/sprites/space-baddie.png');
 }

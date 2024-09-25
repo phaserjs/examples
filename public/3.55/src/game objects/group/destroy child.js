@@ -20,6 +20,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.spritesheet('invader', 'assets/tests/invaders/invader3.png', { frameWidth: 48, frameHeight: 32 });
 }
 

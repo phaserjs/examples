@@ -30,6 +30,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('ship', 'assets/sprites/lemming.png');
 }
 

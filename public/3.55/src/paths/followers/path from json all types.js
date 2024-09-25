@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.json('all', 'assets/paths/types-test.json');
     this.load.image('ship', 'assets/sprites/bsquadron2.png');
 }

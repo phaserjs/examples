@@ -2,6 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         //  The URLs are incorrect on purpose to test 404 handling
         this.load.image('taikodrummaster', 'assets/tribbles/taikodrummaster.jpg');
         this.load.image('sukasuka-chtholly', 'assets/tribbles/sukasuka-chtholly.png');

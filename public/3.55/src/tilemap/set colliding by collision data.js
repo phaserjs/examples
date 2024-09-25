@@ -27,6 +27,7 @@ var layer;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.spritesheet('balls', 'assets/sprites/balls.png', { frameWidth: 17, frameHeight: 17 });
     // this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-shapes.json');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/tileset-collision-shapes-v12.json');

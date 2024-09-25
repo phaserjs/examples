@@ -20,6 +20,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.glsl('bundle', 'assets/shaders/bundle2.glsl.js');
 }
 

@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('metal', 'assets/textures/alien-metal.jpg');
     this.load.image('grass', 'assets/textures/grass.png');
     this.load.image('tiles', 'assets/textures/tiles.jpg');

@@ -21,6 +21,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.json('shapes', 'assets/physics/catstick.json');
     this.load.image('catstick', 'assets/sprites/catstick.png');
     this.load.image('block', 'assets/sprites/crate32.png');

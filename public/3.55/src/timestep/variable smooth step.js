@@ -22,6 +22,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('bullet', 'assets/tests/timer/bullet-bill.png');
     this.load.image('cannon', 'assets/tests/timer/cannon.png');
     this.load.image('ground', 'assets/tests/timer/ground.png');

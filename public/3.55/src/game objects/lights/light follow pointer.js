@@ -20,6 +20,7 @@ var time = 0.0;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('brick', ['assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png']);
     this.load.image('phaser', 'assets/sprites/phaser2.png');
 }

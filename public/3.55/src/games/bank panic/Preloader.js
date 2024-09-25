@@ -7,6 +7,7 @@ export default class Preloader extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.loading = this.add.image(512, 384, 'loading');
 
         this.load.setPath('assets/games/bank-panic/');

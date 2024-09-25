@@ -23,6 +23,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('lemming', 'assets/sprites/lemming.png');
     this.load.image('topleft', 'assets/sprites/topleft.png');
 }

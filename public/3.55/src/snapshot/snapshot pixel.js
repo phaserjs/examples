@@ -19,6 +19,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('pym', 'assets/pics/cougar-face-of-nature.png');
     this.load.image('logo', 'assets/sprites/phaser3-logo.png');
     this.load.image('red', 'assets/particles/red.png');

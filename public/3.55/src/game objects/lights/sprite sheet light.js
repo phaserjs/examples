@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('bg', ['assets/textures/gold.png', 'assets/textures/gold-n.png']);
     this.load.spritesheet('face', [ 'assets/sprites/metalface78x92.png', 'assets/sprites/metalface78x92-n.png' ], { frameWidth: 78, frameHeight: 92 });
 }

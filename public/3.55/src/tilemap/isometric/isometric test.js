@@ -18,6 +18,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('tiles', 'assets/tilemaps/iso/iso-64x64-outside.png');
     this.load.image('tiles2', 'assets/tilemaps/iso/iso-64x64-building.png');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/iso/isorpg.json');

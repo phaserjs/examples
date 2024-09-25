@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.audio('synth1', [
         'assets/audio/tech/synth1.ogg',
         'assets/audio/tech/synth1.mp3'

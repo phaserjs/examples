@@ -19,6 +19,7 @@ var objectToPlace = 'platform';
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('tiles', 'assets/tilemaps/tiles/platformer_tiles.png');
 }
 

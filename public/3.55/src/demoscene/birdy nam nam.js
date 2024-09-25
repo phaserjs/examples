@@ -47,6 +47,7 @@ function bootCreate ()
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     loadImage = this.add.image(0, 0, 'loader').setOrigin(0);
 
     this.load.audio('jungle', [ 'assets/audio/jungle.ogg', 'assets/audio/jungle.mp3' ]);

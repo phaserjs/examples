@@ -19,6 +19,7 @@ var toColors;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('face', 'assets/pics/bw-face.png');
 }
 

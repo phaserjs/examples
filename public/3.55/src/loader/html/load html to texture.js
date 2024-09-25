@@ -17,6 +17,7 @@ var image;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.htmlTexture('test1', 'assets/html/test1.html', 512, 512);
 }
 

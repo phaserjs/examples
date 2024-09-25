@@ -17,6 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     //  Snowman model by Hayden Lee (https://poly.google.com/view/caRR-PnS0-_)
     this.load.obj('snowman', 'assets/obj/snowman.obj');
 }

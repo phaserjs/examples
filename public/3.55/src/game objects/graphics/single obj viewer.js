@@ -29,6 +29,7 @@ var direction = 0;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.text('bevelledcube', 'assets/text/bevelledcube.obj');
     this.load.text('chaosphere', 'assets/text/chaosphere.obj');
     this.load.text('computer', 'assets/text/computer.obj');

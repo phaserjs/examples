@@ -18,6 +18,7 @@ var controls;
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/level-with-coin-objects.json');
     this.load.spritesheet('coin', 'assets/sprites/coin.png', { frameWidth: 32, frameHeight: 32 });
     this.load.image('ground_1x1', 'assets/tilemaps/tiles/ground_1x1.png');

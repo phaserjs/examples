@@ -17,6 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.html('nameform', 'assets/text/nameform.html');
     this.load.atlas('cards', 'assets/atlas/cards.png', 'assets/atlas/cards.json');
 }

@@ -19,6 +19,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.add.image(400, 300, 'bear').setScale(2);
 
     var progress = this.add.graphics();

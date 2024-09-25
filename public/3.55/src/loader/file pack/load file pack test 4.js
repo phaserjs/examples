@@ -13,6 +13,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     //  This pack will load pack3.json as well
     this.load.pack('pack1', 'assets/loader-tests/pack2.json');
 }

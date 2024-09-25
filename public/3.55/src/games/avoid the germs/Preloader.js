@@ -7,6 +7,7 @@ export default class Preloader extends Phaser.Scene
 
     preload ()
     {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
         this.add.image(400, 300, 'background').setScale(2);
 
         this.loadText = this.add.bitmapText(400, 300, 'slime', 'Loading ...', 80).setOrigin(0.5);

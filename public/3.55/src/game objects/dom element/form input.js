@@ -18,6 +18,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.html('nameform', 'assets/text/loginform.html');
     this.load.image('pic', 'assets/pics/turkey-1985086.jpg');
 }

@@ -15,6 +15,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v355');
     this.load.image('kenney_redux_64x64', 'assets/tilemaps/tiles/kenney_redux_64x64.png');
     this.load.image('flipped-tiles-screenshot', 'assets/tilemaps/visual-tests/flipped-tiles-screenshot.png');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/flipped-tiles.json');

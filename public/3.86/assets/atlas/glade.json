@@ -1,0 +1,566 @@
+{
+	"textures": [
+		{
+			"image": "glade.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 939,
+				"h": 595
+			},
+			"scale": 0.5,
+			"frames": [
+				{
+					"filename": "Stonee-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 239,
+						"h": 247
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 0,
+						"w": 233,
+						"h": 245
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 233,
+						"h": 245
+					}
+				},
+				{
+					"filename": "Stone-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 295,
+						"h": 178
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 295,
+						"h": 175
+					},
+					"frame": {
+						"x": 238,
+						"y": 2,
+						"w": 295,
+						"h": 175
+					}
+				},
+				{
+					"filename": "Tree-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 190,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 190,
+						"h": 243
+					},
+					"frame": {
+						"x": 2,
+						"y": 250,
+						"w": 190,
+						"h": 243
+					}
+				},
+				{
+					"filename": "Tree-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 224,
+						"h": 195
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 0,
+						"w": 220,
+						"h": 195
+					},
+					"frame": {
+						"x": 536,
+						"y": 2,
+						"w": 220,
+						"h": 195
+					}
+				},
+				{
+					"filename": "Tree-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 178,
+						"h": 248
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 178,
+						"h": 248
+					},
+					"frame": {
+						"x": 759,
+						"y": 2,
+						"w": 178,
+						"h": 248
+					}
+				},
+				{
+					"filename": "Stonee-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 203,
+						"h": 104
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 203,
+						"h": 103
+					},
+					"frame": {
+						"x": 238,
+						"y": 180,
+						"w": 203,
+						"h": 103
+					}
+				},
+				{
+					"filename": "Spruce-4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 127,
+						"h": 195
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 127,
+						"h": 195
+					},
+					"frame": {
+						"x": 195,
+						"y": 286,
+						"w": 127,
+						"h": 195
+					}
+				},
+				{
+					"filename": "Spruce-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 127,
+						"h": 194
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 127,
+						"h": 194
+					},
+					"frame": {
+						"x": 325,
+						"y": 286,
+						"w": 127,
+						"h": 194
+					}
+				},
+				{
+					"filename": "Wood-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 207,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 2,
+						"w": 190,
+						"h": 70
+					},
+					"frame": {
+						"x": 2,
+						"y": 496,
+						"w": 190,
+						"h": 70
+					}
+				},
+				{
+					"filename": "Bush-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 195,
+						"h": 105
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 195,
+						"h": 102
+					},
+					"frame": {
+						"x": 195,
+						"y": 484,
+						"w": 195,
+						"h": 102
+					}
+				},
+				{
+					"filename": "Spruce-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 81,
+						"h": 101
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 78,
+						"h": 101
+					},
+					"frame": {
+						"x": 444,
+						"y": 180,
+						"w": 78,
+						"h": 101
+					}
+				},
+				{
+					"filename": "Spruce-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 127,
+						"h": 194
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 127,
+						"h": 194
+					},
+					"frame": {
+						"x": 455,
+						"y": 284,
+						"w": 127,
+						"h": 194
+					}
+				},
+				{
+					"filename": "Spruce-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 127,
+						"h": 193
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 127,
+						"h": 193
+					},
+					"frame": {
+						"x": 585,
+						"y": 200,
+						"w": 127,
+						"h": 193
+					}
+				},
+				{
+					"filename": "Bush-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 190,
+						"h": 116
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 0,
+						"w": 175,
+						"h": 113
+					},
+					"frame": {
+						"x": 715,
+						"y": 253,
+						"w": 175,
+						"h": 113
+					}
+				},
+				{
+					"filename": "Wood-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 162,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 155,
+						"h": 77
+					},
+					"frame": {
+						"x": 585,
+						"y": 396,
+						"w": 155,
+						"h": 77
+					}
+				},
+				{
+					"filename": "Flower_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 110,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 0,
+						"w": 104,
+						"h": 100
+					},
+					"frame": {
+						"x": 743,
+						"y": 369,
+						"w": 104,
+						"h": 100
+					}
+				},
+				{
+					"filename": "Flower_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 110,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 0,
+						"w": 104,
+						"h": 100
+					},
+					"frame": {
+						"x": 393,
+						"y": 483,
+						"w": 104,
+						"h": 100
+					}
+				},
+				{
+					"filename": "Spruce-6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 40,
+						"h": 81
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 40,
+						"h": 81
+					},
+					"frame": {
+						"x": 525,
+						"y": 200,
+						"w": 40,
+						"h": 81
+					}
+				},
+				{
+					"filename": "Flower-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 82,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 81,
+						"h": 69
+					},
+					"frame": {
+						"x": 500,
+						"y": 481,
+						"w": 81,
+						"h": 69
+					}
+				},
+				{
+					"filename": "Bush-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 119,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 119,
+						"h": 64
+					},
+					"frame": {
+						"x": 585,
+						"y": 476,
+						"w": 119,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Wood-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 55,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 55,
+						"h": 50
+					},
+					"frame": {
+						"x": 584,
+						"y": 543,
+						"w": 55,
+						"h": 50
+					}
+				},
+				{
+					"filename": "Flower-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 82,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 81,
+						"h": 69
+					},
+					"frame": {
+						"x": 850,
+						"y": 369,
+						"w": 81,
+						"h": 69
+					}
+				},
+				{
+					"filename": "Stonee-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 83,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 80,
+						"h": 59
+					},
+					"frame": {
+						"x": 850,
+						"y": 441,
+						"w": 80,
+						"h": 59
+					}
+				},
+				{
+					"filename": "Stonee-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 38
+					},
+					"frame": {
+						"x": 500,
+						"y": 553,
+						"w": 72,
+						"h": 38
+					}
+				},
+				{
+					"filename": "Grass-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 97,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 94,
+						"h": 66
+					},
+					"frame": {
+						"x": 707,
+						"y": 476,
+						"w": 94,
+						"h": 66
+					}
+				},
+				{
+					"filename": "Grass-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 90,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 89,
+						"h": 56
+					},
+					"frame": {
+						"x": 804,
+						"y": 503,
+						"w": 89,
+						"h": 56
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:a37efcf20f539a2d65d7912f027af4d2:e09b25710e1ae05f752594255505e7be:66dd55ed8212ce56f8c7405f10e23cb7$"
+	}
+}

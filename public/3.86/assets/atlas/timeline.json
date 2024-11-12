@@ -1,0 +1,230 @@
+{
+	"textures": [
+		{
+			"image": "timeline.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 452,
+				"h": 494
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "tombstone",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 28,
+						"y": 13,
+						"w": 204,
+						"h": 229
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 204,
+						"h": 229
+					}
+				},
+				{
+					"filename": "crystalball",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 12,
+						"w": 196,
+						"h": 232
+					},
+					"frame": {
+						"x": 2,
+						"y": 233,
+						"w": 196,
+						"h": 232
+					}
+				},
+				{
+					"filename": "ice2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 126,
+						"h": 127
+					},
+					"frame": {
+						"x": 200,
+						"y": 233,
+						"w": 126,
+						"h": 127
+					}
+				},
+				{
+					"filename": "ice3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 126,
+						"h": 127
+					},
+					"frame": {
+						"x": 200,
+						"y": 362,
+						"w": 126,
+						"h": 127
+					}
+				},
+				{
+					"filename": "ice1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 124,
+						"h": 127
+					},
+					"frame": {
+						"x": 208,
+						"y": 2,
+						"w": 124,
+						"h": 127
+					}
+				},
+				{
+					"filename": "balloon",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 96,
+						"h": 96
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 2,
+						"w": 86,
+						"h": 93
+					},
+					"frame": {
+						"x": 208,
+						"y": 131,
+						"w": 86,
+						"h": 93
+					}
+				},
+				{
+					"filename": "pumpkin",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 3,
+						"w": 122,
+						"h": 122
+					},
+					"frame": {
+						"x": 328,
+						"y": 131,
+						"w": 122,
+						"h": 122
+					}
+				},
+				{
+					"filename": "zombie",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 2,
+						"w": 109,
+						"h": 124
+					},
+					"frame": {
+						"x": 334,
+						"y": 2,
+						"w": 109,
+						"h": 124
+					}
+				},
+				{
+					"filename": "bat",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 4,
+						"w": 120,
+						"h": 121
+					},
+					"frame": {
+						"x": 328,
+						"y": 255,
+						"w": 120,
+						"h": 121
+					}
+				},
+				{
+					"filename": "spider",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 7,
+						"w": 120,
+						"h": 114
+					},
+					"frame": {
+						"x": 328,
+						"y": 378,
+						"w": 120,
+						"h": 114
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:5b771648735f8298edc07bf4fca783ac:100336eedc7674865b748b8c673159b7:73481f97361849263606e9f094995c4e$"
+	}
+}

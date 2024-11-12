@@ -1,0 +1,314 @@
+{
+	"textures": [
+		{
+			"image": "rocket.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 969,
+				"h": 286
+			},
+			"scale": 0.5,
+			"frames": [
+				{
+					"filename": "trail_00",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 4,
+						"w": 186,
+						"h": 102
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 186,
+						"h": 102
+					}
+				},
+				{
+					"filename": "trail_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 6,
+						"w": 183,
+						"h": 100
+					},
+					"frame": {
+						"x": 1,
+						"y": 105,
+						"w": 183,
+						"h": 100
+					}
+				},
+				{
+					"filename": "rocket",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 111,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 111,
+						"h": 68
+					},
+					"frame": {
+						"x": 1,
+						"y": 207,
+						"w": 111,
+						"h": 68
+					}
+				},
+				{
+					"filename": "trail_06",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 0,
+						"w": 178,
+						"h": 100
+					},
+					"frame": {
+						"x": 186,
+						"y": 105,
+						"w": 178,
+						"h": 100
+					}
+				},
+				{
+					"filename": "trail_05",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 2,
+						"w": 175,
+						"h": 100
+					},
+					"frame": {
+						"x": 189,
+						"y": 1,
+						"w": 175,
+						"h": 100
+					}
+				},
+				{
+					"filename": "trail_11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 9,
+						"w": 187,
+						"h": 97
+					},
+					"frame": {
+						"x": 366,
+						"y": 1,
+						"w": 187,
+						"h": 97
+					}
+				},
+				{
+					"filename": "trail_07",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 0,
+						"w": 191,
+						"h": 96
+					},
+					"frame": {
+						"x": 366,
+						"y": 100,
+						"w": 191,
+						"h": 96
+					}
+				},
+				{
+					"filename": "trail_08",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 3,
+						"w": 190,
+						"h": 96
+					},
+					"frame": {
+						"x": 555,
+						"y": 1,
+						"w": 190,
+						"h": 96
+					}
+				},
+				{
+					"filename": "trail_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 16,
+						"w": 197,
+						"h": 85
+					},
+					"frame": {
+						"x": 366,
+						"y": 198,
+						"w": 197,
+						"h": 85
+					}
+				},
+				{
+					"filename": "trail_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 9,
+						"w": 197,
+						"h": 95
+					},
+					"frame": {
+						"x": 559,
+						"y": 99,
+						"w": 197,
+						"h": 95
+					}
+				},
+				{
+					"filename": "trail_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 11,
+						"w": 199,
+						"h": 89
+					},
+					"frame": {
+						"x": 565,
+						"y": 196,
+						"w": 199,
+						"h": 89
+					}
+				},
+				{
+					"filename": "trail_12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 12,
+						"w": 197,
+						"h": 95
+					},
+					"frame": {
+						"x": 747,
+						"y": 1,
+						"w": 197,
+						"h": 95
+					}
+				},
+				{
+					"filename": "trail_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 12,
+						"w": 203,
+						"h": 94
+					},
+					"frame": {
+						"x": 758,
+						"y": 98,
+						"w": 203,
+						"h": 94
+					}
+				},
+				{
+					"filename": "trail_09",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 209,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 9,
+						"w": 202,
+						"h": 90
+					},
+					"frame": {
+						"x": 766,
+						"y": 194,
+						"w": 202,
+						"h": 90
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:8ae6199c8967680aef828ff70662dfc2:4a3ab3aba205c26aa9d5c1a8c02a3cc7:d34c1cc7703551cadef84e84b2435060$"
+	}
+}

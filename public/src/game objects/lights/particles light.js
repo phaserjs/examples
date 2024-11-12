@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('sonic', 'assets/sprites/sonic_havok_sanity.png');
         this.load.image('bg', [ 'assets/textures/gold.png', 'assets/textures/gold-n.png' ]);
         this.load.spritesheet('fish', [ 'assets/sprites/fish-136x80.png', 'assets/sprites/fish-136x80_n.png' ], { frameWidth: 136, frameHeight: 80 });

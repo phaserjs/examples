@@ -197,7 +197,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     //  The graphics used in this example were free downloads from https://craftpix.net
     //  Check out their excellent asset packs!
     this.load.image('background', 'assets/pics/fairy-background-craft-pixel.png');

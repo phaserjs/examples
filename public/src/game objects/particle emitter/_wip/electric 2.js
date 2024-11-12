@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('spark0', 'assets/particles/blue.png');
         this.load.image('spark1', 'assets/particles/yellow.png');
         this.load.spritesheet('dragcircle', 'assets/sprites/dragcircle.png', { frameWidth: 16 });

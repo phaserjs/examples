@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('mario', 'assets/bugs/mario4x4.png');
         this.load.spritesheet('marioss', 'assets/bugs/mario4x4.png', { frameWidth: 128, frameHeight: 128 });
     }

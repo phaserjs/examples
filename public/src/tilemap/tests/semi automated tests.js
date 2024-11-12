@@ -27,7 +27,7 @@ var game = new Phaser.Game(config);
 
 function preload()
 {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     this.load.tilemapTiledJSON('mario', 'assets/tilemaps/maps/super-mario.json');
     this.load.image('mario-tiles', 'assets/tilemaps/tiles/super-mario.png');
     this.load.image('tomato', 'assets/sprites/tomato.png');

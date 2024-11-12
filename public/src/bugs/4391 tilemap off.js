@@ -14,7 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     this.load.image('blocks', 'assets/bugs/BlockMap-extruded.png');
     this.load.spritesheet('smileys', 'assets/bugs/SmileyMap.png', { frameWidth: 26, frameHeight: 26 });
 }

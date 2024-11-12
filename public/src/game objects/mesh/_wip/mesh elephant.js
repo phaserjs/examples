@@ -17,7 +17,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     //  Elephant model by Alex “SAFFY” Safayan (https://poly.google.com/view/eGI3RS52kJA)
     this.load.obj('elephant', 'assets/obj/elephant.obj');
 }

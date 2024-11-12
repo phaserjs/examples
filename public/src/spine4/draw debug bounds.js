@@ -25,7 +25,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     this.load.image('on', 'assets/tests/scenes/toggle-on.png');
     this.load.image('off', 'assets/tests/scenes/toggle-off.png');
 

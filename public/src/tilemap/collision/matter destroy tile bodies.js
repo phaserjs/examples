@@ -14,7 +14,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.tilemapTiledJSON('this.map', 'assets/tilemaps/maps/matter-destroy-tile-bodies.json');
         this.load.image('platformer_tiles', 'assets/tilemaps/tiles/platformer_tiles.png');
         this.load.spritesheet('player', 'assets/sprites/dude-cropped.png', { frameWidth: 32, frameHeight: 42 });

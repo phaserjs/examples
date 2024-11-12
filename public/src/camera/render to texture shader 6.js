@@ -11,7 +11,7 @@ export default class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('volcano', 'assets/pics/bw-face.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
 

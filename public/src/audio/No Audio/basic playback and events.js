@@ -512,7 +512,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         const head = document.getElementsByTagName('head')[0];
         const link = document.createElement('link');
         link.rel = 'stylesheet';

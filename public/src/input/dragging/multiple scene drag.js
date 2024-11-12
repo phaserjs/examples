@@ -7,7 +7,7 @@ class Boot extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('atari1', 'assets/sprites/atari400.png');
         this.load.image('atari2', 'assets/sprites/atari1200xl.png');
     }

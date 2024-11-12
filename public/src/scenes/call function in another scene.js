@@ -35,7 +35,7 @@ class SceneB extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/sprites/');
 
         this.load.image('amiga-cursor');

@@ -11,7 +11,7 @@ class BackgroundScene extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('guide', 'assets/tests/640x960-guide.png');
         this.load.image('bg', 'assets/skies/bigsky.png');
         this.load.atlas('clouds', 'assets/atlas/clouds.png', 'assets/atlas/clouds.json');

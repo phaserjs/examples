@@ -9,7 +9,7 @@ class Controller extends Phaser.Scene {
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', 'assets/pics/purple-dots.png');
     }
 
@@ -32,7 +32,7 @@ class Rick extends Phaser.Scene {
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('rick', 'assets/pics/guard-rick.png');
     }
 
@@ -51,7 +51,7 @@ class Morty extends Phaser.Scene {
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('morty', 'assets/pics/morty.png');
     }
 
@@ -70,7 +70,7 @@ class Logo extends Phaser.Scene {
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('logo', 'assets/pics/rick-and-morty-logo.png');
     }
 

@@ -69,7 +69,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
         this.load.image('quitButton', 'assets/tests/quitbutton.png');
         this.load.image('playButton', 'assets/tests/playbutton.png');

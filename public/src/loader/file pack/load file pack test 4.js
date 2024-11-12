@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         //  This pack will load pack3.json as well
         this.load.pack('pack1', 'assets/loader-tests/pack2.json');
     }

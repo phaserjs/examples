@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('robota', 'assets/pics/robota-uxo-by-made-of-bomb.jpg');
         this.load.image('neuromancer', 'assets/pics/neuromancer.jpg');
     }

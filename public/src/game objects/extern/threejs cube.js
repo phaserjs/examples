@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.script('threejs', 'js/three145.js');
         this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
         this.load.image('bg', 'assets/skies/gradient3.png');

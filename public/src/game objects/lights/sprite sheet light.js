@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', [ 'assets/textures/gold.png', 'assets/textures/gold-n.png' ]);
         this.load.spritesheet('face', [ 'assets/sprites/metalface78x92.png', 'assets/sprites/metalface78x92-n.png' ], { frameWidth: 78, frameHeight: 92 });
     }

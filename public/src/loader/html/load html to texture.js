@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.htmlTexture('test1', 'assets/html/test1.html', 512, 512);
     }
 

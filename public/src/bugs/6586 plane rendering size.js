@@ -2,7 +2,7 @@ class ParticlesSquare extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('knight', 'assets/animations/knight.png', 'assets/animations/knight.json');
     }
 

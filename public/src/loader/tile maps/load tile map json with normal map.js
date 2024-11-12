@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/tilemaps/');
 
         this.load.image('tiles', [ 'tiles/cybernoid.png', 'tiles/cybernoid_n.png' ]);

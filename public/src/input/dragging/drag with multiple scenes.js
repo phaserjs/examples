@@ -7,7 +7,7 @@ class GameScene extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('box', 'assets/sprites/128x128-v2.png');
     }
 
@@ -35,7 +35,7 @@ class UIScene extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
     }
 

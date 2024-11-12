@@ -13,7 +13,7 @@ class Example extends Phaser.Scene {
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.text('teapot', 'assets/text/teapot.obj');
         this.load.script('TweenMax', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js');
     }

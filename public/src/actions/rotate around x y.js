@@ -20,7 +20,7 @@ class Example extends Phaser.Scene
             this.group.create(Phaser.Math.Between(200, 600), Phaser.Math.Between(100, 500), 'diamonds', Phaser.Math.Between(0, 4));
         }
 
-        this.geomPoint = new Phaser.Geom.Point(400, 300);
+        this.geomPoint = new Phaser.Math.Vector2(400, 300);
 
         this.input.on('pointermove', function (pointer) {
             this.geomPoint.setTo(pointer.x, pointer.y);

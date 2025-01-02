@@ -1,152 +1,242 @@
 [
     {
-        "path": "src\\tweens\\relative value.js",
-        "name": "relative value.js",
-        "birthtimeMs": 1725593394961.764
+        "path": "src\\bugs\\6986 cursor does not change.js",
+        "name": "6986 cursor does not change.js",
+        "size": 1213,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808312306.837
     },
     {
-        "path": "src\\tweens\\relative value repeating.js",
-        "name": "relative value repeating.js",
-        "birthtimeMs": 1725593394960.7627
-    },
-    {
-        "path": "src\\tweens\\performance test 2.js",
-        "name": "performance test 2.js",
-        "birthtimeMs": 1725593394958.7622
-    },
-    {
-        "path": "src\\tweens\\performance test 1.js",
-        "name": "performance test 1.js",
-        "birthtimeMs": 1725593394948.797
-    },
-    {
-        "path": "src\\tweens\\paused tween.js",
-        "name": "paused tween.js",
-        "birthtimeMs": 1725593394936.764
-    },
-    {
-        "path": "src\\tweens\\pause and resume.js",
-        "name": "pause and resume.js",
-        "birthtimeMs": 1725593394925.7622
-    },
-    {
-        "path": "src\\tweens\\pause and resume all.js",
-        "name": "pause and resume all.js",
-        "birthtimeMs": 1725593394905.7659
-    },
-    {
-        "path": "src\\tweens\\on yoyo callback.js",
-        "name": "on yoyo callback.js",
-        "birthtimeMs": 1725593394895.7627
-    },
-    {
-        "path": "src\\tweens\\on start callback.js",
-        "name": "on start callback.js",
-        "birthtimeMs": 1725593394891.7617
-    },
-    {
-        "path": "src\\tweens\\on complete callback.js",
-        "name": "on complete callback.js",
-        "birthtimeMs": 1725593394876.7683
-    },
-    {
-        "path": "src\\tweens\\number tween.js",
-        "name": "number tween.js",
-        "birthtimeMs": 1725593394875.7637
-    },
-    {
-        "path": "src\\tweens\\number tween with yoyo.js",
-        "name": "number tween with yoyo.js",
-        "birthtimeMs": 1725593394862.7725
-    },
-    {
-        "path": "src\\tweens\\multiple targets.js",
-        "name": "multiple targets.js",
-        "birthtimeMs": 1725507360389.939
-    },
-    {
-        "path": "src\\tweens\\multiple targets multiple properties.js",
-        "name": "multiple targets multiple properties.js",
-        "birthtimeMs": 1725507360379.9468
-    },
-    {
-        "path": "src\\tweens\\multiple properties.js",
-        "name": "multiple properties.js",
-        "birthtimeMs": 1725507360378.9414
-    },
-    {
-        "path": "src\\tweens\\multiple properties yoyo.js",
-        "name": "multiple properties yoyo.js",
-        "birthtimeMs": 1725507360377.9375
-    },
-    {
-        "path": "src\\tweens\\multiple properties loop.js",
-        "name": "multiple properties loop.js",
-        "birthtimeMs": 1725507360376.943
-    },
-    {
-        "path": "src\\tweens\\multiple delayed properties.js",
-        "name": "multiple delayed properties.js",
-        "birthtimeMs": 1725507360355.9375
-    },
-    {
-        "path": "src\\tweens\\loop delay.js",
-        "name": "loop delay.js",
-        "birthtimeMs": 1725503974487.9746
-    },
-    {
-        "path": "src\\tweens\\linear bounce.js",
-        "name": "linear bounce.js",
-        "birthtimeMs": 1725503974486.943
-    },
-    {
-        "path": "src\\tweens\\lag smooth 1.js",
-        "name": "lag smooth 1.js",
-        "birthtimeMs": 1725503974465.959
-    },
-    {
-        "path": "src\\tweens\\lag smooth 3.js",
-        "name": "lag smooth 3.js",
-        "birthtimeMs": 1725503974451.9421
-    },
-    {
-        "path": "src\\tweens\\lag smooth 2.js",
-        "name": "lag smooth 2.js",
-        "birthtimeMs": 1725503974431.7573
-    },
-    {
-        "path": "src\\tweens\\interpolation value.js",
-        "name": "interpolation value.js",
-        "birthtimeMs": 1725503974430.7598
-    },
-    {
-        "path": "src\\tweens\\from and to.js",
-        "name": "from and to.js",
-        "birthtimeMs": 1725503966593.455
-    },
-    {
-        "path": "src\\tweens\\elasticity.js",
-        "name": "elasticity.js",
-        "birthtimeMs": 1725503903085.6194
-    },
-    {
-        "path": "src\\tweens\\eases\\ease params.js",
-        "name": "ease params.js",
-        "birthtimeMs": 1725502980080.015
-    },
-    {
-        "path": "src\\tweens\\eases\\ease equations.js",
-        "name": "ease equations.js",
-        "birthtimeMs": 1725502980063.011
-    },
-    {
-        "path": "src\\tweens\\dynamic properties.js",
-        "name": "dynamic properties.js",
-        "birthtimeMs": 1725501825559.7234
+        "path": "src\\utils\\rbush\\rbush 2.js",
+        "name": "rbush 2.js",
+        "size": 2046,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211677.6577
     },
     {
         "path": "src\\tweens\\stop a tween.js",
         "name": "stop a tween.js",
-        "birthtimeMs": 1725501825559.7234
+        "size": 915,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211672.6223
+    },
+    {
+        "path": "src\\tweens\\tween gauge.js",
+        "name": "tween gauge.js",
+        "size": 1158,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211672.6223
+    },
+    {
+        "path": "src\\tweens\\tween sprite angle.js",
+        "name": "tween sprite angle.js",
+        "size": 720,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211672.6223
+    },
+    {
+        "path": "src\\utils\\array\\translate matrix.js",
+        "name": "translate matrix.js",
+        "size": 2192,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211672.6223
+    },
+    {
+        "path": "src\\utils\\rbush\\rbush 1.js",
+        "name": "rbush 1.js",
+        "size": 1925,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211672.6223
+    },
+    {
+        "path": "src\\tweens\\seek to point in tween.js",
+        "name": "seek to point in tween.js",
+        "size": 1173,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211669.0662
+    },
+    {
+        "path": "src\\tweens\\sprite angle between.js",
+        "name": "sprite angle between.js",
+        "size": 823,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211669.0662
+    },
+    {
+        "path": "src\\tweens\\stagger delay.js",
+        "name": "stagger delay.js",
+        "size": 1256,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211669.0662
+    },
+    {
+        "path": "src\\tweens\\stagger showcase.js",
+        "name": "stagger showcase.js",
+        "size": 3322,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211669.0662
+    },
+    {
+        "path": "src\\tweens\\remove tween.js",
+        "name": "remove tween.js",
+        "size": 919,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211668.0647
+    },
+    {
+        "path": "src\\tweens\\loop.js",
+        "name": "loop.js",
+        "size": 1187,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211666.4668
+    },
+    {
+        "path": "src\\tweens\\global time scale.js",
+        "name": "global time scale.js",
+        "size": 3195,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211665.6018
+    },
+    {
+        "path": "src\\tweens\\flip x.js",
+        "name": "flip x.js",
+        "size": 998,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211662.8484
+    },
+    {
+        "path": "src\\tweens\\flip y.js",
+        "name": "flip y.js",
+        "size": 1090,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211662.8484
+    },
+    {
+        "path": "src\\tweens\\eases\\quintic graph.js",
+        "name": "quintic graph.js",
+        "size": 2345,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211657.8394
+    },
+    {
+        "path": "src\\tweens\\eases\\quintic.js",
+        "name": "quintic.js",
+        "size": 1895,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211657.8394
+    },
+    {
+        "path": "src\\tweens\\eases\\sine graph.js",
+        "name": "sine graph.js",
+        "size": 2339,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211657.8394
+    },
+    {
+        "path": "src\\tweens\\eases\\sine.js",
+        "name": "sine.js",
+        "size": 1886,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211657.8394
+    },
+    {
+        "path": "src\\tweens\\eases\\linear.js",
+        "name": "linear.js",
+        "size": 953,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211652.8074
+    },
+    {
+        "path": "src\\tweens\\eases\\quad graph.js",
+        "name": "quad graph.js",
+        "size": 2344,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211652.8074
+    },
+    {
+        "path": "src\\tweens\\eases\\quad.js",
+        "name": "quad.js",
+        "size": 1886,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211652.8074
+    },
+    {
+        "path": "src\\tweens\\eases\\quartic graph.js",
+        "name": "quartic graph.js",
+        "size": 2345,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211652.8074
+    },
+    {
+        "path": "src\\tweens\\eases\\quartic.js",
+        "name": "quartic.js",
+        "size": 1895,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211652.8074
+    },
+    {
+        "path": "src\\tweens\\eases\\exponential graph.js",
+        "name": "exponential graph.js",
+        "size": 2346,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211650.7727
+    },
+    {
+        "path": "src\\tweens\\eases\\exponential.js",
+        "name": "exponential.js",
+        "size": 1893,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211650.7727
+    },
+    {
+        "path": "src\\tweens\\eases\\ease mixer.js",
+        "name": "ease mixer.js",
+        "size": 4574,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211649.2644
+    },
+    {
+        "path": "src\\tweens\\eases\\cubic.js",
+        "name": "cubic.js",
+        "size": 1893,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211648.3025
+    },
+    {
+        "path": "src\\tweens\\eases\\back.js",
+        "name": "back.js",
+        "size": 1886,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1735808211642.8245
     }
 ]

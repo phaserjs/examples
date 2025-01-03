@@ -19,13 +19,16 @@ class Test extends Phaser.Scene
 
     create ()
     {
+        this.input.setPollOnMove();
+        
         console.log('Test Scene');
         const ball = this.add.image(400, 300, 'ball');
         ball.setInteractive({ useHandCursor: true });
         ball.on('pointerdown', () =>
         {
-            this.scale.canvas.style.cursor = 'default'; // I had to manually change the cursor.
+            // this.scale.canvas.style.cursor = 'default'; // I had to manually change the cursor.
             this.scene.sleep();
+            // this.scene.stop();
         });
     }
 }

@@ -2624,9 +2624,17 @@
           "birthtimeMs": 1735808210052.4568
         },
         {
+          "path": "src\\bugs\\6962 Grid setOutlineStyle.js",
+          "name": "6962 Grid setOutlineStyle.js",
+          "size": 583,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1735889592433.4019
+        },
+        {
           "path": "src\\bugs\\6986 cursor does not change.js",
           "name": "6986 cursor does not change.js",
-          "size": 1213,
+          "size": 1094,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1735808312306.837
@@ -2656,7 +2664,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 295012,
+      "size": 295476,
       "type": "directory"
     },
     {
@@ -20887,6 +20895,6 @@
       "type": "directory"
     }
   ],
-  "size": 5162399,
+  "size": 5162863,
   "type": "directory"
 }

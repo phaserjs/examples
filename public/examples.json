@@ -2640,9 +2640,17 @@
           "birthtimeMs": 1735808312306.837
         },
         {
+          "path": "src\\bugs\\6992 tilemap calculation.js",
+          "name": "6992 tilemap calculation.js",
+          "size": 2729,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1736149732373.3713
+        },
+        {
           "path": "src\\bugs\\6995 prefx rectangle.js",
           "name": "6995 prefx rectangle.js",
-          "size": 1366,
+          "size": 668,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1736148960693.7876
@@ -2680,7 +2688,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 298166,
+      "size": 300197,
       "type": "directory"
     },
     {
@@ -20911,6 +20919,6 @@
       "type": "directory"
     }
   ],
-  "size": 5165553,
+  "size": 5167584,
   "type": "directory"
 }

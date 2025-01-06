@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\6992 tilemap calculation.js",
+        "name": "6992 tilemap calculation.js",
+        "size": 2729,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736149732373.3713
+    },
+    {
         "path": "src\\bugs\\6995 prefx rectangle.js",
         "name": "6995 prefx rectangle.js",
-        "size": 1366,
+        "size": 668,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1736148960693.7876
@@ -227,14 +235,6 @@
         "path": "src\\tweens\\eases\\exponential graph.js",
         "name": "exponential graph.js",
         "size": 2346,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211650.7727
-    },
-    {
-        "path": "src\\tweens\\eases\\exponential.js",
-        "name": "exponential.js",
-        "size": 1893,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211650.7727

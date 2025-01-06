@@ -2632,6 +2632,14 @@
           "birthtimeMs": 1736133869327.249
         },
         {
+          "path": "src\\bugs\\6980 spine scene rendering.js",
+          "name": "6980 spine scene rendering.js",
+          "size": 1094,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1736153609146.895
+        },
+        {
           "path": "src\\bugs\\6986 cursor does not change.js",
           "name": "6986 cursor does not change.js",
           "size": 1094,
@@ -2642,7 +2650,7 @@
         {
           "path": "src\\bugs\\6992 tilemap calculation.js",
           "name": "6992 tilemap calculation.js",
-          "size": 2729,
+          "size": 2662,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1736149732373.3713
@@ -2688,7 +2696,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 300197,
+      "size": 301224,
       "type": "directory"
     },
     {
@@ -20919,6 +20927,6 @@
       "type": "directory"
     }
   ],
-  "size": 5167584,
+  "size": 5168611,
   "type": "directory"
 }

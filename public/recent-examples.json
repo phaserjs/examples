@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\6980 spine scene rendering.js",
+        "name": "6980 spine scene rendering.js",
+        "size": 1094,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736153609146.895
+    },
+    {
         "path": "src\\bugs\\6992 tilemap calculation.js",
         "name": "6992 tilemap calculation.js",
-        "size": 2729,
+        "size": 2662,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1736149732373.3713
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211652.8074
-    },
-    {
-        "path": "src\\tweens\\eases\\exponential graph.js",
-        "name": "exponential graph.js",
-        "size": 2346,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211650.7727
     }
 ]

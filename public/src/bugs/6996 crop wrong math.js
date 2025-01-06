@@ -1,23 +1,55 @@
 class Example extends Phaser.Scene
 {
+    offset;
+    graphics;
+    bob;
+
+    preload ()
+    {
+        this.load.atlas('atlas', 'assets/atlas/megaset-2.png', 'assets/atlas/megaset-2.json');
+    }
+
     create ()
     {
-        const g1 = this.add.grid(100, 100, 128, 96, 32, 32, 0x057605);
+        this.add.image(400, 300, 'atlas', 'hello').setAlpha(0.3);
 
-        const g2 = this.add.grid(300, 340, 512, 256, 64, 64, 0x00b9f2, 1, 0xffffff, 1);
+        this.graphics = this.add.graphics();
+
+        this.bob = this.add.image(400, 300, 'atlas', 'hello');
+
+        const cropWidth = 200;
+        const cropHeight = 100;
+
+        this.bob.setCrop(20, 20, cropWidth, cropHeight);
+
+        this.offset = this.bob.getTopLeft();
+
+        this.input.on('pointermove', pointer =>
+        {
+
+            this.bob.setCrop(
+                (pointer.x - this.offset.x) - cropWidth / 2,
+                (pointer.y - this.offset.y) - cropHeight / 2,
+                cropWidth,
+                cropHeight
+            );
+        });
+    }
+
+    update ()
+    {
+        this.graphics.clear();
+        this.graphics.lineStyle(1, 0x00ff00);
+        this.graphics.strokeRect(this.offset.x + this.bob._crop.x, this.offset.y + this.bob._crop.y, this.bob._crop.width, this.bob._crop.height);
     }
 }
 
 const config = {
     type: Phaser.AUTO,
+    parent: 'phaser-example',
     width: 800,
     height: 600,
-    backgroundColor: '#1d1d1d',
-    parent: 'phaser-example',
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    },
+    backgroundColor: '#2d2d88',
     scene: Example
 };
 

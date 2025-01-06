@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\6979 undefined color value.js",
+        "name": "6979 undefined color value.js",
+        "size": 1155,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736155273410.7683
+    },
+    {
         "path": "src\\bugs\\6980 spine scene rendering.js",
         "name": "6980 spine scene rendering.js",
-        "size": 1094,
+        "size": 1967,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1736153609146.895
@@ -227,14 +235,6 @@
         "path": "src\\tweens\\eases\\quartic graph.js",
         "name": "quartic graph.js",
         "size": 2345,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211652.8074
-    },
-    {
-        "path": "src\\tweens\\eases\\quartic.js",
-        "name": "quartic.js",
-        "size": 1895,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211652.8074

@@ -2632,9 +2632,17 @@
           "birthtimeMs": 1736133869327.249
         },
         {
+          "path": "src\\bugs\\6979 undefined color value.js",
+          "name": "6979 undefined color value.js",
+          "size": 1155,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1736155273410.7683
+        },
+        {
           "path": "src\\bugs\\6980 spine scene rendering.js",
           "name": "6980 spine scene rendering.js",
-          "size": 1094,
+          "size": 1967,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1736153609146.895
@@ -2696,7 +2704,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 301224,
+      "size": 303252,
       "type": "directory"
     },
     {
@@ -20927,6 +20935,6 @@
       "type": "directory"
     }
   ],
-  "size": 5168611,
+  "size": 5170639,
   "type": "directory"
 }

@@ -13,9 +13,7 @@ class Example extends Phaser.Scene
         const colorA = Phaser.Display.Color.IntegerToColor(0x000000); //Black
         const colorB = Phaser.Display.Color.IntegerToColor(0xFFFFFF); //White
         const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(colorA, colorB, 1, interpValue);
-        console.log(colorObject); //Always undefined
-        console.log(colorInteger); //Always undefined
-        console.log(Phaser.Display.Color.IntegerToRGB(colorInteger));
+        console.log(colorObject);
     }
 }
 

@@ -1,8 +1,16 @@
 [
     {
-        "path": "src\\bugs\\6962 Grid setOutlineStyle.js",
-        "name": "6962 Grid setOutlineStyle.js",
-        "size": 583,
+        "path": "src\\bugs\\6996 crop wrong math.js",
+        "name": "6996 crop wrong math.js",
+        "size": 541,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736133265186.5603
+    },
+    {
+        "path": "src\\bugs\\6962 grid outline style.js",
+        "name": "6962 grid outline style.js",
+        "size": 541,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735889592433.4019
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211649.2644
-    },
-    {
-        "path": "src\\tweens\\eases\\cubic.js",
-        "name": "cubic.js",
-        "size": 1893,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211648.3025
     }
 ]

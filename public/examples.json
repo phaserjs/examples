@@ -2624,9 +2624,9 @@
           "birthtimeMs": 1735808210052.4568
         },
         {
-          "path": "src\\bugs\\6962 Grid setOutlineStyle.js",
-          "name": "6962 Grid setOutlineStyle.js",
-          "size": 583,
+          "path": "src\\bugs\\6962 grid outline style.js",
+          "name": "6962 grid outline style.js",
+          "size": 541,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1735889592433.4019
@@ -2638,6 +2638,14 @@
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1735808312306.837
+        },
+        {
+          "path": "src\\bugs\\6996 crop wrong math.js",
+          "name": "6996 crop wrong math.js",
+          "size": 541,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1736133265186.5603
         },
         {
           "path": "src\\bugs\\matter attractor.js",
@@ -2664,7 +2672,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 295476,
+      "size": 295975,
       "type": "directory"
     },
     {
@@ -20895,6 +20903,6 @@
       "type": "directory"
     }
   ],
-  "size": 5162863,
+  "size": 5163362,
   "type": "directory"
 }

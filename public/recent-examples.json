@@ -1,11 +1,19 @@
 [
     {
-        "path": "src\\bugs\\6996 crop wrong math.js",
-        "name": "6996 crop wrong math.js",
-        "size": 541,
+        "path": "src\\bugs\\6995 prefx rectangle.js",
+        "name": "6995 prefx rectangle.js",
+        "size": 1366,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736133265186.5603
+        "birthtimeMs": 1736148960693.7876
+    },
+    {
+        "path": "src\\bugs\\6996 crop wrong math.js",
+        "name": "6996 crop wrong math.js",
+        "size": 1366,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736148129112.6987
     },
     {
         "path": "src\\bugs\\6962 grid outline style.js",
@@ -13,7 +21,7 @@
         "size": 541,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1735889592433.4019
+        "birthtimeMs": 1736133869327.249
     },
     {
         "path": "src\\bugs\\6986 cursor does not change.js",
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211650.7727
-    },
-    {
-        "path": "src\\tweens\\eases\\ease mixer.js",
-        "name": "ease mixer.js",
-        "size": 4574,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211649.2644
     }
 ]

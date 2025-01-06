@@ -2629,7 +2629,7 @@
           "size": 541,
           "extension": ".js",
           "type": "file",
-          "birthtimeMs": 1735889592433.4019
+          "birthtimeMs": 1736133869327.249
         },
         {
           "path": "src\\bugs\\6986 cursor does not change.js",
@@ -2640,12 +2640,20 @@
           "birthtimeMs": 1735808312306.837
         },
         {
-          "path": "src\\bugs\\6996 crop wrong math.js",
-          "name": "6996 crop wrong math.js",
-          "size": 541,
+          "path": "src\\bugs\\6995 prefx rectangle.js",
+          "name": "6995 prefx rectangle.js",
+          "size": 1366,
           "extension": ".js",
           "type": "file",
-          "birthtimeMs": 1736133265186.5603
+          "birthtimeMs": 1736148960693.7876
+        },
+        {
+          "path": "src\\bugs\\6996 crop wrong math.js",
+          "name": "6996 crop wrong math.js",
+          "size": 1366,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1736148129112.6987
         },
         {
           "path": "src\\bugs\\matter attractor.js",
@@ -2672,7 +2680,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 295975,
+      "size": 298166,
       "type": "directory"
     },
     {
@@ -20903,6 +20911,6 @@
       "type": "directory"
     }
   ],
-  "size": 5163362,
+  "size": 5165553,
   "type": "directory"
 }

@@ -1,8 +1,32 @@
 [
     {
+        "path": "src\\bugs\\6972 ignore destroy.js",
+        "name": "6972 ignore destroy.js",
+        "size": 776,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736390012759.8733
+    },
+    {
+        "path": "src\\bugs\\6893 scene before plugins.js",
+        "name": "6893 scene before plugins.js",
+        "size": 977,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736236474301.2422
+    },
+    {
+        "path": "src\\bugs\\6910 listeners increasing.js",
+        "name": "6910 listeners increasing.js",
+        "size": 2007,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736218772739.4224
+    },
+    {
         "path": "src\\bugs\\6979 undefined color value.js",
         "name": "6979 undefined color value.js",
-        "size": 1155,
+        "size": 810,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1736155273410.7683
@@ -211,30 +235,6 @@
         "path": "src\\tweens\\eases\\linear.js",
         "name": "linear.js",
         "size": 953,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211652.8074
-    },
-    {
-        "path": "src\\tweens\\eases\\quad graph.js",
-        "name": "quad graph.js",
-        "size": 2344,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211652.8074
-    },
-    {
-        "path": "src\\tweens\\eases\\quad.js",
-        "name": "quad.js",
-        "size": 1886,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211652.8074
-    },
-    {
-        "path": "src\\tweens\\eases\\quartic graph.js",
-        "name": "quartic graph.js",
-        "size": 2345,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211652.8074

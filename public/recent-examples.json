@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\7008 tweens persist destroyed.js",
+        "name": "7008 tweens persist destroyed.js",
+        "size": 670,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736826954665.248
+    },
+    {
         "path": "src\\bugs\\6972 ignore destroy.js",
         "name": "6972 ignore destroy.js",
-        "size": 776,
+        "size": 670,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1736390012759.8733
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211657.8394
-    },
-    {
-        "path": "src\\tweens\\eases\\linear.js",
-        "name": "linear.js",
-        "size": 953,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211652.8074
     }
 ]

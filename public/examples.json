@@ -2704,9 +2704,17 @@
           "birthtimeMs": 1736148129112.6987
         },
         {
+          "path": "src\\bugs\\7007 tweenchain onstart.js",
+          "name": "7007 tweenchain onstart.js",
+          "size": 1447,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1736912081604.0457
+        },
+        {
           "path": "src\\bugs\\7008 tweens persist destroyed.js",
           "name": "7008 tweens persist destroyed.js",
-          "size": 670,
+          "size": 1447,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1736826954665.248
@@ -2736,7 +2744,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 307231,
+      "size": 309455,
       "type": "directory"
     },
     {
@@ -20967,6 +20975,6 @@
       "type": "directory"
     }
   ],
-  "size": 5174618,
+  "size": 5176842,
   "type": "directory"
 }

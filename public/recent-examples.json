@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\7007 tweenchain onstart.js",
+        "name": "7007 tweenchain onstart.js",
+        "size": 1447,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1736912081604.0457
+    },
+    {
         "path": "src\\bugs\\7008 tweens persist destroyed.js",
         "name": "7008 tweens persist destroyed.js",
-        "size": 670,
+        "size": 1447,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1736826954665.248
@@ -227,14 +235,6 @@
         "path": "src\\tweens\\eases\\sine graph.js",
         "name": "sine graph.js",
         "size": 2339,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211657.8394
-    },
-    {
-        "path": "src\\tweens\\eases\\sine.js",
-        "name": "sine.js",
-        "size": 1886,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211657.8394

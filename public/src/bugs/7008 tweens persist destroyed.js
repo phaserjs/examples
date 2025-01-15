@@ -5,6 +5,7 @@ class Example extends Phaser.Scene
         this.objToTween1 = this.add.circle(this.scale.width / 4, this.scale.height / 2, 50, 0xff0000);
 
         const persistTweenWithoutCompleteDelay = this.add.tween({ targets: this.objToTween1, duration: 500, props: { scale: 0 }, yoyo: true, persist: true });
+        persistTweenWithoutCompleteDelay.name = 'noDelay';
 
         persistTweenWithoutCompleteDelay.on(Phaser.Tweens.Events.TWEEN_COMPLETE, () =>
         {
@@ -17,6 +18,7 @@ class Example extends Phaser.Scene
         this.objToTween2 = this.add.circle(this.scale.width / 4 * 3, this.scale.height / 2, 50, 0xff0000);
 
         const persistTweenWithCompleteDelay = this.add.tween({ targets: this.objToTween2, duration: 500, props: { scale: 0 }, yoyo: true, persist: true, completeDelay: 500 });
+        persistTweenWithCompleteDelay.name = 'withDelay';
 
         persistTweenWithCompleteDelay.on(Phaser.Tweens.Events.TWEEN_COMPLETE, () =>
         {

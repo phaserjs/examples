@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\7006 particle death zones.js",
+        "name": "7006 particle death zones.js",
+        "size": 1291,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737000176079.2473
+    },
+    {
         "path": "src\\bugs\\7007 tweenchain onstart.js",
         "name": "7007 tweenchain onstart.js",
-        "size": 1447,
+        "size": 976,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1736912081604.0457
@@ -227,14 +235,6 @@
         "path": "src\\tweens\\eases\\quintic.js",
         "name": "quintic.js",
         "size": 1895,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211657.8394
-    },
-    {
-        "path": "src\\tweens\\eases\\sine graph.js",
-        "name": "sine graph.js",
-        "size": 2339,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211657.8394

@@ -2704,9 +2704,17 @@
           "birthtimeMs": 1736148129112.6987
         },
         {
+          "path": "src\\bugs\\7006 particle death zones.js",
+          "name": "7006 particle death zones.js",
+          "size": 1291,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737000176079.2473
+        },
+        {
           "path": "src\\bugs\\7007 tweenchain onstart.js",
           "name": "7007 tweenchain onstart.js",
-          "size": 1447,
+          "size": 976,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1736912081604.0457
@@ -2744,7 +2752,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 309455,
+      "size": 310275,
       "type": "directory"
     },
     {
@@ -20975,6 +20983,6 @@
       "type": "directory"
     }
   ],
-  "size": 5176842,
+  "size": 5177662,
   "type": "directory"
 }

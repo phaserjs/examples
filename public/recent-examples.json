@@ -1,5 +1,13 @@
 [
     {
+        "path": "src\\bugs\\7005 array tween target.js",
+        "name": "7005 array tween target.js",
+        "size": 1291,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737001311438.2993
+    },
+    {
         "path": "src\\bugs\\7006 particle death zones.js",
         "name": "7006 particle death zones.js",
         "size": 1291,
@@ -227,14 +235,6 @@
         "path": "src\\tweens\\eases\\quintic graph.js",
         "name": "quintic graph.js",
         "size": 2345,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211657.8394
-    },
-    {
-        "path": "src\\tweens\\eases\\quintic.js",
-        "name": "quintic.js",
-        "size": 1895,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211657.8394

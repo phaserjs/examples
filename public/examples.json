@@ -2704,6 +2704,14 @@
           "birthtimeMs": 1736148129112.6987
         },
         {
+          "path": "src\\bugs\\7005 array tween target.js",
+          "name": "7005 array tween target.js",
+          "size": 1291,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737001311438.2993
+        },
+        {
           "path": "src\\bugs\\7006 particle death zones.js",
           "name": "7006 particle death zones.js",
           "size": 1291,
@@ -2752,7 +2760,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 310275,
+      "size": 311566,
       "type": "directory"
     },
     {
@@ -20983,6 +20991,6 @@
       "type": "directory"
     }
   ],
-  "size": 5177662,
+  "size": 5178953,
   "type": "directory"
 }

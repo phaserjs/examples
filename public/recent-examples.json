@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\7003 kill tweens error.js",
+        "name": "7003 kill tweens error.js",
+        "size": 1181,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737012001748.1462
+    },
+    {
         "path": "src\\bugs\\7005 array tween target.js",
         "name": "7005 array tween target.js",
-        "size": 1291,
+        "size": 1181,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1737001311438.2993
@@ -230,13 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211662.8484
-    },
-    {
-        "path": "src\\tweens\\eases\\quintic graph.js",
-        "name": "quintic graph.js",
-        "size": 2345,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211657.8394
     }
 ]

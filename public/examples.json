@@ -2704,9 +2704,17 @@
           "birthtimeMs": 1736148129112.6987
         },
         {
+          "path": "src\\bugs\\7003 kill tweens error.js",
+          "name": "7003 kill tweens error.js",
+          "size": 1181,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737012001748.1462
+        },
+        {
           "path": "src\\bugs\\7005 array tween target.js",
           "name": "7005 array tween target.js",
-          "size": 1291,
+          "size": 1181,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1737001311438.2993
@@ -2760,7 +2768,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 311566,
+      "size": 312637,
       "type": "directory"
     },
     {
@@ -20991,6 +20999,6 @@
       "type": "directory"
     }
   ],
-  "size": 5178953,
+  "size": 5180024,
   "type": "directory"
 }

@@ -7,33 +7,20 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const rect1 = new Phaser.Geom.Rectangle(100, 50, 100, 100);
-        const rect2 = new Phaser.Geom.Rectangle(200, 350, 400, 200);
-        const rect3 = new Phaser.Geom.Rectangle(550, 150, 200, 100);
+        this.add.circle(0, 0, 100, 0xff0000);
+        this.add.rectangle(this.scale.width, 0, 100, 100, 0x00ff00);
+        this.add.ellipse(0, this.scale.height, 100, 100, 0x00ff00);
+        this.add.star(this.scale.width, this.scale.height, 5, 25, 100, 0x00ff00);
 
-        const emitter = this.add.particles(400, 100, 'flares', {
-            frame: [ 'red', 'green', 'blue' ],
-            speed: 300,
-            gravityY: 400,
-            lifespan: 4000,
-            scale: 0.4,
-            blendMode: 'ADD',
-            deathZone: [ rect1, rect2, rect3 ]
-        });
+        this.tweens.add({ targets: this.children.list, duration: 1000, props: { x: this.scale.width / 2, y: this.scale.height / 2 } })
+            .on(Phaser.Tweens.Events.TWEEN_START, () => console.log('added on start listener'));
 
-        this.input.on('pointerdown', pointer => {
+        // add another item afterwards
+        const t = this.add.text(0, 0, 'Test Text', { align: 'center' }).setOrigin(0.5);
+        console.log('add item');
 
-            emitter.setPosition(pointer.worldX, pointer.worldY);
-
-        });
-
-        const graphics = this.add.graphics();
-
-        graphics.lineStyle(1, 0x00ff00, 1);
-
-        graphics.strokeRectShape(rect1);
-        graphics.strokeRectShape(rect2);
-        graphics.strokeRectShape(rect3);
+        // move it so that it's within the original lists count
+        this.children.moveTo(t, 1);
     }
 }
 

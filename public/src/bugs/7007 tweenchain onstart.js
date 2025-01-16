@@ -1,30 +1,20 @@
 class Example extends Phaser.Scene
 {
-    create ()
-    {
-        this.objToTween = this.add.circle(this.scale.width / 2, this.scale.height / 2, 50, 0xff0000);
-
+    create() {
+        this.objToTween = this.add.circle(this.scale.width / 2,this.scale.height / 2,50,0xff0000);
+    
         const chain = this.tweens.chain({
-            tweens: [
-                { targets: this.objToTween, duration: 500, props: { alpha: 0 } },
-                { targets: this.objToTween, duration: 500, props: { alpha: 1 } },
-                { targets: this.objToTween, duration: 500, props: { alpha: 0 } },
-                { targets: this.objToTween, duration: 500, props: { alpha: 1 } },
-            ]
+          tweens: [
+            { targets: this.objToTween, duration: 500, props: { alpha: 0 } },
+            { targets: this.objToTween, duration: 500, props: { alpha: 1 } },
+            { targets: this.objToTween, duration: 500, props: { alpha: 0 } },
+            { targets: this.objToTween, duration: 500, props: { alpha: 1 } },
+          ],
+          onStart: () => console.log('chain start!')
         });
-
-        chain.on(Phaser.Tweens.Events.TWEEN_START, () => 
-        {
-            console.log('added on start listener')
-        }); // I assume this should work
-
-        // const persistTweenWithoutCompleteDelay = this.add.tween({ targets: this.objToTween, duration: 500, props: { scale: 0 }, yoyo: true });
-
-        // persistTweenWithoutCompleteDelay.on(Phaser.Tweens.Events.TWEEN_START, () =>
-        // {
-        //     console.log('tween start!')
-        // });
-    }
+    
+        chain.on(Phaser.Tweens.Events.TWEEN_START, () => console.log('added on start listener')); // I assume this should work
+      }
 }
 
 const config = {

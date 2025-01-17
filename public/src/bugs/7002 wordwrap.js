@@ -12,7 +12,8 @@ class Example extends Phaser.Scene
             align: 'center',
             color: '#ffffff',
             wordWrap: {
-                width: 250
+                width: 250,
+                // useAdvancedWrap: true
             }
         };
 

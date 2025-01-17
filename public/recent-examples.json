@@ -1,8 +1,16 @@
 [
     {
+        "path": "src\\bugs\\7002 wordwrap.js",
+        "name": "7002 wordwrap.js",
+        "size": 2176,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737080115100.4285
+    },
+    {
         "path": "src\\bugs\\7003 kill tweens error.js",
         "name": "7003 kill tweens error.js",
-        "size": 1181,
+        "size": 1026,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1737012001748.1462
@@ -227,14 +235,6 @@
         "path": "src\\tweens\\flip x.js",
         "name": "flip x.js",
         "size": 998,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211662.8484
-    },
-    {
-        "path": "src\\tweens\\flip y.js",
-        "name": "flip y.js",
-        "size": 1090,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211662.8484

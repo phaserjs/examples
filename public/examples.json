@@ -2704,9 +2704,17 @@
           "birthtimeMs": 1736148129112.6987
         },
         {
+          "path": "src\\bugs\\7002 wordwrap.js",
+          "name": "7002 wordwrap.js",
+          "size": 2176,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737080115100.4285
+        },
+        {
           "path": "src\\bugs\\7003 kill tweens error.js",
           "name": "7003 kill tweens error.js",
-          "size": 1181,
+          "size": 1026,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1737012001748.1462
@@ -2768,7 +2776,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 312637,
+      "size": 314658,
       "type": "directory"
     },
     {
@@ -20999,6 +21007,6 @@
       "type": "directory"
     }
   ],
-  "size": 5180024,
+  "size": 5182045,
   "type": "directory"
 }

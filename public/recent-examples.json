@@ -1,19 +1,19 @@
 [
     {
+        "path": "src\\bugs\\6990 tiled image collection.js",
+        "name": "6990 tiled image collection.js",
+        "size": 2107,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737358397040.0288
+    },
+    {
         "path": "src\\bugs\\7011 getfirst.js",
         "name": "7011 getfirst.js",
-        "size": 1447,
+        "size": 811,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1737341608809.948
-    },
-    {
-        "path": "src\\bugs\\7000 drawing dt mask.js",
-        "name": "7000 drawing dt mask.js",
-        "size": 2554,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737095844301.1306
     },
     {
         "path": "src\\bugs\\7001 scale matter gameobject.js",

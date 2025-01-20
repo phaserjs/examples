@@ -2680,6 +2680,14 @@
           "birthtimeMs": 1735808312306.837
         },
         {
+          "path": "src\\bugs\\6990 tiled image collection.js",
+          "name": "6990 tiled image collection.js",
+          "size": 2107,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737358397040.0288
+        },
+        {
           "path": "src\\bugs\\6992 tilemap calculation.js",
           "name": "6992 tilemap calculation.js",
           "size": 2662,
@@ -2702,14 +2710,6 @@
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1736148129112.6987
-        },
-        {
-          "path": "src\\bugs\\7000 drawing dt mask.js",
-          "name": "7000 drawing dt mask.js",
-          "size": 2554,
-          "extension": ".js",
-          "type": "file",
-          "birthtimeMs": 1737095844301.1306
         },
         {
           "path": "src\\bugs\\7001 scale matter gameobject.js",
@@ -2770,7 +2770,7 @@
         {
           "path": "src\\bugs\\7011 getfirst.js",
           "name": "7011 getfirst.js",
-          "size": 1447,
+          "size": 811,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1737341608809.948
@@ -2800,7 +2800,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 319713,
+      "size": 318630,
       "type": "directory"
     },
     {
@@ -21031,6 +21031,6 @@
       "type": "directory"
     }
   ],
-  "size": 5187100,
+  "size": 5186017,
   "type": "directory"
 }

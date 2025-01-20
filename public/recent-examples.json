@@ -1,8 +1,24 @@
 [
     {
+        "path": "src\\bugs\\7011 getfirst.js",
+        "name": "7011 getfirst.js",
+        "size": 1447,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737341608809.948
+    },
+    {
+        "path": "src\\bugs\\7000 drawing dt mask.js",
+        "name": "7000 drawing dt mask.js",
+        "size": 2554,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737095844301.1306
+    },
+    {
         "path": "src\\bugs\\7001 scale matter gameobject.js",
         "name": "7001 scale matter gameobject.js",
-        "size": 2219,
+        "size": 1011,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1737084704280.7856
@@ -222,21 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211668.0647
-    },
-    {
-        "path": "src\\tweens\\loop.js",
-        "name": "loop.js",
-        "size": 1187,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211666.4668
-    },
-    {
-        "path": "src\\tweens\\global time scale.js",
-        "name": "global time scale.js",
-        "size": 3195,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211665.6018
     }
 ]

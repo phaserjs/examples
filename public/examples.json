@@ -2704,9 +2704,17 @@
           "birthtimeMs": 1736148129112.6987
         },
         {
+          "path": "src\\bugs\\7000 drawing dt mask.js",
+          "name": "7000 drawing dt mask.js",
+          "size": 2554,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737095844301.1306
+        },
+        {
           "path": "src\\bugs\\7001 scale matter gameobject.js",
           "name": "7001 scale matter gameobject.js",
-          "size": 2219,
+          "size": 1011,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1737084704280.7856
@@ -2760,6 +2768,14 @@
           "birthtimeMs": 1736826954665.248
         },
         {
+          "path": "src\\bugs\\7011 getfirst.js",
+          "name": "7011 getfirst.js",
+          "size": 1447,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737341608809.948
+        },
+        {
           "path": "src\\bugs\\matter attractor.js",
           "name": "matter attractor.js",
           "size": 1831,
@@ -2784,7 +2800,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 316920,
+      "size": 319713,
       "type": "directory"
     },
     {
@@ -21015,6 +21031,6 @@
       "type": "directory"
     }
   ],
-  "size": 5184307,
+  "size": 5187100,
   "type": "directory"
 }

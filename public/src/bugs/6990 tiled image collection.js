@@ -39,7 +39,7 @@ class Example extends Phaser.Scene
             });
         })
 
-        const layer = map.createLayer('MapLayer', tilesetCollections[0], 0, 0);
+        const layer = map.createLayer('MapLayer', tilesetCollections, 0, 0);
 
         const cursors = this.input.keyboard.createCursorKeys();
 

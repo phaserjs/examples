@@ -11,11 +11,11 @@ class Example extends Phaser.Scene
         ];
         const property = 'visible';
         const value = false;
-        const startIndex = 0;
-        const endIndex = 5;
 
-        const getFirst = Phaser.Utils.Array.GetFirst(array, property, value, startIndex, endIndex);
+        const getFirst = Phaser.Utils.Array.GetFirst(array, property, value, 0);
         console.log(getFirst);
+        const getLast = Phaser.Utils.Array.GetFirst(array, property, value, -1);
+        console.log(getLast);
     }
 }
 

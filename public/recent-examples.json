@@ -1,8 +1,32 @@
 [
     {
+        "path": "src\\bugs\\6074 put tile at hexmap.js",
+        "name": "6074 put tile at hexmap.js",
+        "size": 936,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737702576719.8606
+    },
+    {
+        "path": "src\\bugs\\6871 arcade body size copy.js",
+        "name": "6871 arcade body size copy.js",
+        "size": 2223,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737696662486.0225
+    },
+    {
+        "path": "src\\bugs\\6871 arcade body size.js",
+        "name": "6871 arcade body size.js",
+        "size": 2223,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1737617640902.1912
+    },
+    {
         "path": "src\\bugs\\6990 tiled image collection.js",
         "name": "6990 tiled image collection.js",
-        "size": 2107,
+        "size": 3515,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1737358397040.0288
@@ -10,7 +34,7 @@
     {
         "path": "src\\bugs\\7011 getfirst.js",
         "name": "7011 getfirst.js",
-        "size": 811,
+        "size": 845,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1737341608809.948
@@ -214,29 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211669.0662
-    },
-    {
-        "path": "src\\tweens\\stagger delay.js",
-        "name": "stagger delay.js",
-        "size": 1256,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211669.0662
-    },
-    {
-        "path": "src\\tweens\\stagger showcase.js",
-        "name": "stagger showcase.js",
-        "size": 3322,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211669.0662
-    },
-    {
-        "path": "src\\tweens\\remove tween.js",
-        "name": "remove tween.js",
-        "size": 919,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211668.0647
     }
 ]

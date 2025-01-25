@@ -1936,6 +1936,14 @@
           "birthtimeMs": 1735808209982.7485
         },
         {
+          "path": "src\\bugs\\6074 put tile at hexmap.js",
+          "name": "6074 put tile at hexmap.js",
+          "size": 936,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737702576719.8606
+        },
+        {
           "path": "src\\bugs\\6078 scene remove.js",
           "name": "6078 scene remove.js",
           "size": 936,
@@ -2578,10 +2586,26 @@
         {
           "path": "src\\bugs\\6862 iOS autocenter inconsistent.js",
           "name": "6862 iOS autocenter inconsistent.js",
-          "size": 962,
+          "size": 1125,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1725260306265.302
+        },
+        {
+          "path": "src\\bugs\\6871 arcade body size copy.js",
+          "name": "6871 arcade body size copy.js",
+          "size": 2223,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737696662486.0225
+        },
+        {
+          "path": "src\\bugs\\6871 arcade body size.js",
+          "name": "6871 arcade body size.js",
+          "size": 2223,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1737617640902.1912
         },
         {
           "path": "src\\bugs\\6874 rp.js",
@@ -2682,7 +2706,7 @@
         {
           "path": "src\\bugs\\6990 tiled image collection.js",
           "name": "6990 tiled image collection.js",
-          "size": 2107,
+          "size": 3515,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1737358397040.0288
@@ -2770,7 +2794,7 @@
         {
           "path": "src\\bugs\\7011 getfirst.js",
           "name": "7011 getfirst.js",
-          "size": 811,
+          "size": 845,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1737341608809.948
@@ -2800,7 +2824,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 318630,
+      "size": 325617,
       "type": "directory"
     },
     {
@@ -21031,6 +21055,6 @@
       "type": "directory"
     }
   ],
-  "size": 5186017,
+  "size": 5193004,
   "type": "directory"
 }

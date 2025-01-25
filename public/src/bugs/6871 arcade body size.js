@@ -1,68 +1,86 @@
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    backgroundColor: '#010101',
-    parent: 'phaser-example',
-    scene: {
-        preload: preload,
-        create: create
+class Example extends Phaser.Scene
+{
+    element;
+    player;
+    cursors;
+
+    preload ()
+    {
+        this.load.image('block', 'assets/sprites/crate32.png');
+        this.load.html('body', 'assets/html/arcade-body.html');
     }
+
+    create ()
+    {
+        // var data = this.cache.html.get('body');
+        const domElement = this.add.dom(400, 0).createFromCache('body')
+            .setOrigin(0);
+        this.physics.add.existing(domElement, false);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.element = this.add.dom(300, 200, 'div', 'font-size: 96px', '💩')
+            .setOrigin(0);
+
+        this.physics.add.existing(this.element, false);
+
+        this.element.body.setCollideWorldBounds(true);
+
+        const element = this.add.dom(100, 100, 'div', 'font-size: 96px; background-color: #FFFFFF', '💩').setOrigin(0);
+
+        this.physics.add.existing(element, false);
+
+        element.body.setCollideWorldBounds(true)
+        // .setSize(element.width, element.height);
+        // console.log(element.displayWidth, element.displayHeight);
+
+        const box = this.physics.add.image(100, 100, 'block');
+    }
+
+    update ()
+    {
+        return;
+        this.element.body.setVelocity(0);
+
+        if (this.cursors.left.isDown)
+        {
+            this.element.body.setVelocityX(-300);
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.element.body.setVelocityX(300);
+        }
+
+        if (this.cursors.up.isDown)
+        {
+            this.element.body.setVelocityY(-300);
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.element.body.setVelocityY(300);
+        }
+    }
+}
+
+const config = {
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
+    backgroundColor: '#0072bc',
+    scale: {
+        mode: Phaser.Scale.ScaleModes.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    width: 600,
+    height: 450,
+    dom: {
+        createContainer: true
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
+    },
+    scene: Example
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
-    this.load.image('buttonBG', 'assets/sprites/button-bg.png');
-    this.load.image('buttonText', 'assets/sprites/button-text.png');
-}
-
-function create ()
-{
-    var bg = this.add.image(0, 0, 'buttonBG');
-    var bg2 = this.add.image(200, 400, 'buttonBG');
-    var text = this.add.image(0, 0, 'buttonText');
-
-    bg.setInteractive({ draggable: true });
-    bg2.setInteractive({ draggable: true });
-
-    var container = this.add.container(400, 100, [ bg, text ]);
-
-    bg2.on('pointerdown', function () {
-
-        console.log('Clicked button 2');
-
-    });
-
-    bg.on('pointerdown', function () {
-
-        console.log('Clicked button');
-
-    });
-
-    bg.on('pointerover', function () {
-
-        this.setTint(0xff44ff);
-
-    });
-
-    bg.on('pointerout', function () {
-
-        this.clearTint();
-
-    });
-
-    console.log('bg', bg.displayList);
-    console.log('bg2', bg2.displayList);
-
-    var graphics = this.add.graphics();
-
-    graphics.width = 1024 * 16;
-    graphics.height = 1024 * 16;
-
-    graphics.setInteractive({
-        draggable: true
-    });
-}
+const game = new Phaser.Game(config);

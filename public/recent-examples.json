@@ -1,19 +1,35 @@
 [
     {
-        "path": "src\\bugs\\6074 put tile at hexmap.js",
-        "name": "6074 put tile at hexmap.js",
-        "size": 936,
+        "path": "src\\bugs\\7028 drag gameobject.js",
+        "name": "7028 drag gameobject.js",
+        "size": 1090,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1737702576719.8606
+        "birthtimeMs": 1738735725209.0042
     },
     {
-        "path": "src\\bugs\\6871 arcade body size copy.js",
-        "name": "6871 arcade body size copy.js",
-        "size": 2223,
+        "path": "src\\bugs\\7027 limit expand scale mode.js",
+        "name": "7027 limit expand scale mode.js",
+        "size": 3575,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1737696662486.0225
+        "birthtimeMs": 1738733474081.4167
+    },
+    {
+        "path": "src\\bugs\\6074 put tile at hexmap.js",
+        "name": "6074 put tile at hexmap.js",
+        "size": 1485,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1738554456403.3655
+    },
+    {
+        "path": "src\\bugs\\6671 get tiles within shape.js",
+        "name": "6671 get tiles within shape.js",
+        "size": 3575,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1738552903268.299
     },
     {
         "path": "src\\bugs\\6871 arcade body size.js",
@@ -26,7 +42,7 @@
     {
         "path": "src\\bugs\\6990 tiled image collection.js",
         "name": "6990 tiled image collection.js",
-        "size": 3515,
+        "size": 1928,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1737358397040.0288
@@ -222,21 +238,5 @@
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211672.6223
-    },
-    {
-        "path": "src\\tweens\\seek to point in tween.js",
-        "name": "seek to point in tween.js",
-        "size": 1173,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211669.0662
-    },
-    {
-        "path": "src\\tweens\\sprite angle between.js",
-        "name": "sprite angle between.js",
-        "size": 823,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211669.0662
     }
 ]

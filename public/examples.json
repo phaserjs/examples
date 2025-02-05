@@ -1938,10 +1938,10 @@
         {
           "path": "src\\bugs\\6074 put tile at hexmap.js",
           "name": "6074 put tile at hexmap.js",
-          "size": 936,
+          "size": 1485,
           "extension": ".js",
           "type": "file",
-          "birthtimeMs": 1737702576719.8606
+          "birthtimeMs": 1738554456403.3655
         },
         {
           "path": "src\\bugs\\6078 scene remove.js",
@@ -2272,6 +2272,14 @@
           "birthtimeMs": 1735808210002.4712
         },
         {
+          "path": "src\\bugs\\6671 get tiles within shape.js",
+          "name": "6671 get tiles within shape.js",
+          "size": 3575,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1738552903268.299
+        },
+        {
           "path": "src\\bugs\\6674 resize.js",
           "name": "6674 resize.js",
           "size": 1898,
@@ -2592,14 +2600,6 @@
           "birthtimeMs": 1725260306265.302
         },
         {
-          "path": "src\\bugs\\6871 arcade body size copy.js",
-          "name": "6871 arcade body size copy.js",
-          "size": 2223,
-          "extension": ".js",
-          "type": "file",
-          "birthtimeMs": 1737696662486.0225
-        },
-        {
           "path": "src\\bugs\\6871 arcade body size.js",
           "name": "6871 arcade body size.js",
           "size": 2223,
@@ -2706,7 +2706,7 @@
         {
           "path": "src\\bugs\\6990 tiled image collection.js",
           "name": "6990 tiled image collection.js",
-          "size": 3515,
+          "size": 1928,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1737358397040.0288
@@ -2800,6 +2800,22 @@
           "birthtimeMs": 1737341608809.948
         },
         {
+          "path": "src\\bugs\\7027 limit expand scale mode.js",
+          "name": "7027 limit expand scale mode.js",
+          "size": 3575,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1738733474081.4167
+        },
+        {
+          "path": "src\\bugs\\7028 drag gameobject.js",
+          "name": "7028 drag gameobject.js",
+          "size": 1090,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1738735725209.0042
+        },
+        {
           "path": "src\\bugs\\matter attractor.js",
           "name": "matter attractor.js",
           "size": 1831,
@@ -2824,7 +2840,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 325617,
+      "size": 330596,
       "type": "directory"
     },
     {
@@ -21055,6 +21071,6 @@
       "type": "directory"
     }
   ],
-  "size": 5193004,
+  "size": 5197983,
   "type": "directory"
 }

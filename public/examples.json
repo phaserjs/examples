@@ -2800,6 +2800,14 @@
           "birthtimeMs": 1737341608809.948
         },
         {
+          "path": "src\\bugs\\7021 multiatlas tileset.js",
+          "name": "7021 multiatlas tileset.js",
+          "size": 1691,
+          "extension": ".js",
+          "type": "file",
+          "birthtimeMs": 1738737659746.004
+        },
+        {
           "path": "src\\bugs\\7027 limit expand scale mode.js",
           "name": "7027 limit expand scale mode.js",
           "size": 3575,
@@ -2810,7 +2818,7 @@
         {
           "path": "src\\bugs\\7028 drag gameobject.js",
           "name": "7028 drag gameobject.js",
-          "size": 1090,
+          "size": 1691,
           "extension": ".js",
           "type": "file",
           "birthtimeMs": 1738735725209.0042
@@ -2840,7 +2848,7 @@
           "birthtimeMs": 1688549367002.0415
         }
       ],
-      "size": 330596,
+      "size": 332888,
       "type": "directory"
     },
     {
@@ -21071,6 +21079,6 @@
       "type": "directory"
     }
   ],
-  "size": 5197983,
+  "size": 5200275,
   "type": "directory"
 }

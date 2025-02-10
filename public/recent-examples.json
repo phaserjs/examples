@@ -1,8 +1,24 @@
 [
     {
+        "path": "src\\bugs\\7034 arcade physics categories.js",
+        "name": "7034 arcade physics categories.js",
+        "size": 1442,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739159908424.6306
+    },
+    {
+        "path": "src\\bugs\\7018 aseprite framerate.js",
+        "name": "7018 aseprite framerate.js",
+        "size": 1442,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1738835817683.178
+    },
+    {
         "path": "src\\bugs\\7021 multiatlas tileset.js",
         "name": "7021 multiatlas tileset.js",
-        "size": 1691,
+        "size": 1609,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1738737659746.004
@@ -10,7 +26,7 @@
     {
         "path": "src\\bugs\\7028 drag gameobject.js",
         "name": "7028 drag gameobject.js",
-        "size": 1691,
+        "size": 3838,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1738735725209.0042
@@ -18,7 +34,7 @@
     {
         "path": "src\\bugs\\7027 limit expand scale mode.js",
         "name": "7027 limit expand scale mode.js",
-        "size": 3575,
+        "size": 1105,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1738733474081.4167
@@ -219,22 +235,6 @@
         "path": "src\\tweens\\tween gauge.js",
         "name": "tween gauge.js",
         "size": 1158,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211672.6223
-    },
-    {
-        "path": "src\\tweens\\tween sprite angle.js",
-        "name": "tween sprite angle.js",
-        "size": 720,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1735808211672.6223
-    },
-    {
-        "path": "src\\utils\\array\\translate matrix.js",
-        "name": "translate matrix.js",
-        "size": 2192,
         "extension": ".js",
         "type": "file",
         "birthtimeMs": 1735808211672.6223

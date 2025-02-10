@@ -6,63 +6,79 @@ class Example extends Phaser.Scene
         this.load.atlas('rocket', 'assets/animations/rocket.png', 'assets/animations/rocket.json');
     }
 
-    create3 ()
-    {
-        this.add.image(400, 300, 'bg');
-
-        this.anims.create({ key: 'trail', frames: this.anims.generateFrameNames('rocket', { prefix: 'trail_', start: 0, end: 12, zeroPad: 2 }), repeat: -1 });
-
-        const container = this.add.container(400, 300);
-
-        //  A container must have a size in order to receive input
-        container.setSize(120, 80);
-        container.setInteractive({ draggable: true });
-
-        this.trail = this.add.sprite(-125, 0).play('trail');
-        this.rocket = this.add.sprite(0, 0, 'rocket', 'rocket')
-            .setInteractive({ draggable: true })
-            .on(Phaser.Input.Events.GAMEOBJECT_DRAG, (pointer, x, y) =>
-            {
-                console.log('GAMEOBJECT_DRAG', x, y);
-                this.rocket.setPosition(x, y);
-            })
-            .on(Phaser.Input.Events.GAMEOBJECT_DRAG_END, (pointer, x, y) => 
-            {
-                console.log('GAMEOBJECT_DRAG_END', pointer, x, y);
-                // this.rocket.setPosition(x, y);
-                this.updateText(x, y);
-            }); // should return the same values but doesn't
-
-        container.add([ this.trail, this.rocket ]);
-
-        this.input.on('dragend', (pointer, gameObject, dropped) =>
-        {
-            console.log('GLOBAL dragend', gameObject);
-        });
-        // container.on('drag', (pointer, dragX, dragY) => container.setPosition(dragX, dragY));
-
-        this.createText();
-    }
-
     create ()
     {
-        const r1 = this.add.rectangle(this.scale.width * .75, this.scale.height / 2, 100, 100, 0xff0000).setInteractive({ draggable: true });
+        // const r0 = this.add.rectangle(this.scale.width * .75, this.scale.height * 0.75, 100, 100, 0xff0000).setInteractive({ draggable: true })
+        //     .on(Phaser.Input.Events.GAMEOBJECT_DRAG, (pointer, x, y) =>
+        //     {
+        //         r0.setPosition(x, y);
+        //         console.log(x, y);
+        //     })
 
-        const r2 = this.add.rectangle(this.scale.width / 4, this.scale.height / 2, 100, 100, 0xff0000)
-            .setInteractive({ draggable: true });
-        r2.on(Phaser.Input.Events.GAMEOBJECT_DRAG, function (pointer, x, y)
-        {
-            console.log('GAMEOBJECT_DRAG', x, y);
-            this.setPosition(x, y);
-        }, r2);
-        r2.on(Phaser.Input.Events.GAMEOBJECT_DRAG_END, function (pointer, x, y) 
-        {
-            const localX = this.x + x;
-            const localY = this.y + y;
-            console.log('GAMEOBJECT_DRAG_END', localX, localY);
-        }, r2);
+        //     .on(Phaser.Input.Events.GAMEOBJECT_DRAG_END, (pointer, x, y) =>
+        //     {
+        //         r0.setPosition(x, y); // this does not work as expected
+        //         console.log(x, y);
 
-        this.createText();
+        //         const localX = r0.x + x;
+        //         const localY = r0.y + y;
+        //         console.log(r0.x, r0.y, x, y);
+        //         r0.setPosition(localX, localY); // this does not work either
+        //     });
+
+        // const r1 = this.add.rectangle(this.scale.width * .75 + 150, this.scale.height * 0.75, 100, 100, 0xff0000).setInteractive({ draggable: true })
+        //     .on(Phaser.Input.Events.GAMEOBJECT_DRAG, (pointer, x, y) =>
+        //     {
+        //         r1.setPosition(x, y);
+        //         console.log(x, y);
+        //     })
+        //     .on(Phaser.Input.Events.GAMEOBJECT_DRAG_END, (pointer, x, y) =>
+        //     {
+        //         r1.setPosition(x, y); // this does not work as expected
+        //         console.log(x, y);
+
+        //         const localX = r1.x + x;
+        //         const localY = r1.y + y;
+        //         console.log(localX, localY);
+        //         r1.setPosition(localX, localY); // this does not work either
+        //     });
+
+        const c = this.add.container(250, 250);
+        const r2 = this.add.rectangle(0, 0, 100, 100, 0xff0000).setInteractive({ draggable: true })
+            .on(Phaser.Input.Events.GAMEOBJECT_DRAG, (pointer, x, y) =>
+            {
+                r2.setPosition(x, y);
+                console.log(x, y);
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_DRAG_END, (pointer, x, y) =>
+            {
+                // r2.setPosition(x, y); // this does not work as expected
+                // console.log(x, y);
+
+                const localX = r2.x + x;
+                const localY = r2.y + y;
+                console.log(localX, localY);
+                r2.setPosition(localX, localY); // this does not work either
+            });
+
+        const r3 = this.add.rectangle(150, 0, 100, 100, 0xff0000).setInteractive({ draggable: true })
+            .on(Phaser.Input.Events.GAMEOBJECT_DRAG, (pointer, x, y) =>
+            {
+                r3.setPosition(x, y);
+                console.log(x, y);
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_DRAG_END, (pointer, x, y) =>
+            {
+                // r3.setPosition(x, y); // this does not work as expected
+                // console.log(x, y);
+
+                const localX = r3.x + x;
+                const localY = r3.y + y;
+                console.log(localX, localY);
+                r3.setPosition(localX, localY); // this does not work either
+            });
+
+        c.add([ r2, r3 ]);
     }
 
     createText ()

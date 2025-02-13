@@ -2,55 +2,65 @@ import { Player } from '../gameObjects/Player.js';
 import { Star } from '../gameObjects/Star.js';
 import { Bomb } from '../gameObjects/Bomb.js';
 import { Platform } from '../gameObjects/Platform.js';
+import { MysteryBox } from '../gameObjects/MysteryBox.js';
+import { TreasureBox } from '../gameObjects/TreasureBox.js';
+import { Coin } from '../gameObjects/Coin.js';
+import { Key } from '../gameObjects/Key.js';
+import { Score } from '../gameObjects/Score.js';
 
 export class Game extends Phaser.Scene
 {
-    scoreText;
     gameOver = false;
-    score = 0;
     cursors;
     platforms;
+    interactive;
+    interactiveSolid;
     bombs;
     stars;
     player;
 
-    constructor ()
+    constructor()
     {
         super('Game');
     }
 
     preload ()
     {
-        this.load.image('sky', 'assets/sky.png');
-        this.load.image('ground', 'assets/platform.png');
-        this.load.image('bomb', 'assets/bomb.png');
-        this.load.spritesheet('fantasy', 'assets/fantasy-tiles.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.image('sky', 'assets/images/clouds.png');
+        this.load.image('ground', 'assets/images/platform.png');
+        this.load.image('bomb', 'assets/images/bomb.png');
+        this.load.spritesheet('fantasy', 'assets/images/fantasy-tiles.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('dude', 'assets/images/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.bitmapFont('nokia16', 'assets/fonts/nokia16.png', 'assets/fonts/nokia16.xml');
+        this.load.bitmapFont('nokia', 'assets/fonts/nokia.png', 'assets/fonts/nokia.xml');
     }
 
     create ()
     {
-        //  A simple background for our game
-        this.add.image(400, 300, 'sky');
+        this.initGameUi();
+        this.initBackgrounds();
+        this.initCamera();
+
+        this.interactive = this.add.group();
+        this.interactiveSolid = this.add.group();
 
         //  The platforms group contains the ground and the 2 ledges we can jump on
-        this.platforms = this.physics.add.staticGroup();
+        this.platforms = this.add.group();
 
         //  Here we create the ground.
         //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-        this.platforms.add(new Platform(this, 400, 568, 800));
-        this.platforms.add(new Platform(this, 600, 400, 416));
-        this.platforms.add(new Platform(this, 50, 250, 416));
-        this.platforms.add(new Platform(this, 750, 240, 416));
-        // this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-        //  Now let's create some ledges
-        // this.platforms.create(600, 400, 'ground');
-        // this.platforms.create(50, 250, 'ground');
-        // this.platforms.create(750, 220, 'ground');
+        this.platforms.add(new Platform(this, 0, 536, 39, 2));
+        this.platforms.add(new Platform(this, 480, 440, 3));
+        this.platforms.add(new Platform(this, 544, 344, 3));
+        this.platforms.add(new Platform(this, 64, 224, 8));
+        this.platforms.add(new Platform(this, 750, 240, 13));
+        this.platforms.add(new Platform(this, 544, 96));
+        this.platforms.add(new Platform(this, 376, 224, 1, 3));
+        this.platforms.add(new Platform(this, 376, 96));
 
         // The player and its settings
-        this.player = new Player(this, 100, 450);
+        this.initPlayer();
+        this.initAnimations();
 
         //  Input Events
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -62,16 +72,15 @@ export class Game extends Phaser.Scene
         for (let i = 0; i < 12; i++)
         {
             //  Create a star inside of the 'stars' group
-            const star = new Star(this, 12 + (i * 70), 0);
+            const star = new Star(this, 12 + (i * 192), 0);
             this.stars.add(star);
         }
 
         this.bombs = this.add.group();
 
-        //  The score
-        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
         //  Collide the player and the stars with the platforms
+        this.physics.add.overlap(this.player, this.interactive, this.interact);
+        this.physics.add.collider(this.player, this.interactiveSolid, this.interact);
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.collider(this.bombs, this.platforms);
@@ -81,7 +90,9 @@ export class Game extends Phaser.Scene
 
         this.physics.add.collider(this.player, this.bombs, this.hitBomb, null, this);
 
-        this.addBomb();
+        // this.addBomb();
+        this.addMysteryBoxes();
+        this.addTreasureBoxes();
     }
 
     update ()
@@ -104,10 +115,53 @@ export class Game extends Phaser.Scene
             this.player.idle();
         }
 
-        if (this.cursors.up.isDown && this.player.body.touching.down)
+        if (this.cursors.up.isDown)
         {
             this.player.jump();
         }
+    }
+
+    initGameUi ()
+    {
+        this.scene.launch('GameUi');
+    }
+
+    initBackgrounds ()
+    {
+        for (let i = 0; i < 2; i++)
+        {
+            this.add.image(i * this.scale.width, 0, 'sky').setOrigin(0);
+        }
+    }
+
+    initCamera ()
+    {
+        const worldWidth = this.scale.width * 2;
+        const worldHeight = this.scale.height;
+
+        this.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
+        this.physics.world.setBounds(0, -200, worldWidth, worldHeight + 200);
+    }
+
+    initPlayer ()
+    {
+        this.player = new Player(this, 100, 450);
+        this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+    }
+
+    initAnimations ()
+    {
+        this.anims.create({
+            key: 'spin',
+            frames: this.anims.generateFrameNumbers('fantasy', { start: 42, end: 47 }),
+            frameRate: 12,
+            repeat: -1
+        });
+    }
+
+    interact (player, interactObject)
+    {
+        interactObject.activate();
     }
 
     collectStar (player, star)
@@ -115,8 +169,7 @@ export class Game extends Phaser.Scene
         star.collect();
 
         //  Add and update the score
-        this.score += 10;
-        this.scoreText.setText(`Score: ${this.score}`);
+        this.addScore(star.x, star.y, 10);
 
         if (this.stars.countActive(true) === 0)
         {
@@ -130,12 +183,43 @@ export class Game extends Phaser.Scene
         }
     }
 
-    addBomb()
+    addBomb ()
     {
         const x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
         const bomb = new Bomb(this, x, 16);
         this.bombs.add(bomb);
+    }
+
+    addMysteryBoxes ()
+    {
+        this.interactiveSolid.add(new MysteryBox(this, 352, 408));
+        this.interactiveSolid.add(new MysteryBox(this, 384, 408));
+
+        this.interactiveSolid.add(new MysteryBox(this, 448, 312));
+        this.interactiveSolid.add(new MysteryBox(this, 480, 312));
+    }
+
+    addTreasureBoxes ()
+    {
+        this.interactive.add(new TreasureBox(this, 672, 504));
+    }
+
+    addCoin (x, y)
+    {
+        new Coin(this, x, y);
+    }
+
+    addKey (x, y)
+    {
+        new Key(this, x, y);
+        this.events.emit('updateKeys', 1);
+    }
+
+    addScore (x, y, points)
+    {
+        new Score(this, x, y, points);
+        this.events.emit('updateScore', points);
     }
 
     hitBomb (player, bomb)

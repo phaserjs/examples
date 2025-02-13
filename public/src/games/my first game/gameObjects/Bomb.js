@@ -1,8 +1,10 @@
+import SPRITE_KEYS from "../spriteKeys.js";
+
 export class Bomb extends Phaser.Physics.Arcade.Sprite
 {
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'fantasy', 62);
+        super(scene, x, y, SPRITE_KEYS.FANTASY_TILES, 62);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);

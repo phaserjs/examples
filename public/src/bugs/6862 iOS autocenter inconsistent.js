@@ -16,7 +16,7 @@ class MainScene extends Phaser.Scene {
     }
 }
 
-const game = new Phaser.Game({
+const config = {
     type: Phaser.AUTO,
     width: 144,
     height: 256,
@@ -28,4 +28,9 @@ const game = new Phaser.Game({
         zoom: 1,
     },
     scene: [ MainScene ]
-})
+};
+
+const game = new Phaser.Game(config)
+
+// http://bs-local.com:8080/mobile.html?src=src\bugs\6862%20iOS%20autocenter%20inconsistent.js
+// https://phaser.io/sandbox/A3KSEgq7

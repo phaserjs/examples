@@ -4,7 +4,7 @@
   <export target="hexagonal.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="34" tilecount="13" columns="13">
-  <image source="C:/Users/rdave/Downloads/svipal.github.io-master/svipal.github.io-master/assets/tilesets/tileset.png" trans="ffffff" width="416" height="34"/>
+  <image source="./tilesets/tileset.png" trans="ffffff" width="416" height="34"/>
  </tileset>
  <layer id="1" name="Calque 1" width="14" height="9">
   <data encoding="csv">

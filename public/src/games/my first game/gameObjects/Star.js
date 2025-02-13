@@ -1,8 +1,10 @@
+import SPRITE_KEYS from "../spriteKeys.js";
+
 export class Star extends Phaser.Physics.Arcade.Sprite
 {
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'fantasy', 54);
+        super(scene, x, y, SPRITE_KEYS.FANTASY_TILES, 54);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);

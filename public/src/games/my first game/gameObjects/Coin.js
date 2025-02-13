@@ -1,10 +1,13 @@
+import ANIMATION_KEYS from "../animationKeys.js";
+import SPRITE_KEYS from "../spriteKeys.js";
+
 export class Coin extends Phaser.GameObjects.Sprite
 {
     moveY = 96;
 
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'fantasy', 52);
+        super(scene, x, y, SPRITE_KEYS.FANTASY_TILES, 52);
 
         scene.add.existing(this);
         
@@ -20,6 +23,6 @@ export class Coin extends Phaser.GameObjects.Sprite
             }
         });
 
-        this.play('spin');
+        this.play(ANIMATION_KEYS.COIN_SPIN);
     }
 }

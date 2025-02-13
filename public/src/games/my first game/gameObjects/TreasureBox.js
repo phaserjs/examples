@@ -1,10 +1,12 @@
+import SPRITE_KEYS from "../spriteKeys.js";
+
 export class TreasureBox extends Phaser.Physics.Arcade.Sprite
 {
     isActivated = false;
 
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'fantasy', 49);
+        super(scene, x, y, SPRITE_KEYS.FANTASY_TILES, 49);
 
         this.setOrigin(0, 0);
         scene.add.existing(this);

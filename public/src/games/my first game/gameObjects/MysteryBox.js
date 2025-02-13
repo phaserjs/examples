@@ -1,3 +1,5 @@
+import SPRITE_KEYS from "../spriteKeys.js";
+
 export class MysteryBox extends Phaser.Physics.Arcade.Sprite
 {
     isActivated = false;
@@ -5,7 +7,7 @@ export class MysteryBox extends Phaser.Physics.Arcade.Sprite
 
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'fantasy', 52);
+        super(scene, x, y, SPRITE_KEYS.FANTASY_TILES, 52);
 
         this.setOrigin(0, 0);
         scene.add.existing(this);

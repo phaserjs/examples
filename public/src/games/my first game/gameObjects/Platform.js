@@ -1,3 +1,5 @@
+import SPRITE_KEYS from "../spriteKeys.js";
+
 export class Platform extends Phaser.Physics.Arcade.Sprite
 {
     constructor(scene, x, y, width = 1, height = 1, outer = true)
@@ -18,7 +20,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite
 
             if (width === 1 && height === 1)
             {
-                texture.stamp('fantasy', 6, tileHalfWidth, tileHalfHeight);
+                texture.stamp(SPRITE_KEYS.FANTASY_TILES, 6, tileHalfWidth, tileHalfHeight);
             }
             else if (width === 1)
             {
@@ -29,7 +31,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite
                 for (let y = 0; y < height; y++)
                 {
                     const id = y === 0 ? topId : y === height - 1 ? bottomId : midId;
-                    texture.stamp('fantasy', id, tileHalfWidth, (y * tileHeight) + tileHalfHeight);
+                    texture.stamp(SPRITE_KEYS.FANTASY_TILES, id, tileHalfWidth, (y * tileHeight) + tileHalfHeight);
                 }
             }
             else if (height === 1)
@@ -41,7 +43,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite
                 for (let x = 0; x < width; x++)
                 {
                     const id = x === 0 ? leftId : x === width - 1 ? rightId : midId;
-                    texture.stamp('fantasy', id, (x * tileWidth) + tileHalfWidth, tileHalfHeight);
+                    texture.stamp(SPRITE_KEYS.FANTASY_TILES, id, (x * tileWidth) + tileHalfWidth, tileHalfHeight);
                 }
             }
             else
@@ -56,7 +58,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite
                     {
                         const xId = x === 0 ? 0 : x === width - 1 ? 2 : 1;
                         const id = y === 0 ? topId[xId] : y === height - 1 ? bottomId[xId] : midId[xId];
-                        texture.stamp('fantasy', id, (x * tileWidth) + tileHalfWidth, (y * tileHeight) + tileHalfHeight);
+                        texture.stamp(SPRITE_KEYS.FANTASY_TILES, id, (x * tileWidth) + tileHalfWidth, (y * tileHeight) + tileHalfHeight);
                     }
                 }
             }

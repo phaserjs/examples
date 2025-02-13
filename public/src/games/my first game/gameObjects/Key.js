@@ -1,10 +1,12 @@
+import SPRITE_KEYS from "../spriteKeys.js";
+
 export class Key extends Phaser.GameObjects.Sprite
 {
     constructor(scene, x, y)
     {
         const moveY = 32;
 
-        super(scene, x, y, 'fantasy', 51);
+        super(scene, x, y, SPRITE_KEYS.FANTASY_TILES, 51);
 
         scene.add.existing(this);
 

@@ -1,57 +1,41 @@
+import ANIMATION_KEYS from "../animationKeys.js";
+import SPRITE_KEYS from "../spriteKeys.js";
+
 export class Player extends Phaser.Physics.Arcade.Sprite
 {
     jumpVelocity = -520;
+    moveVelocity = 200;
 
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'dude');
+        super(scene, x, y, SPRITE_KEYS.DUDE);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
         this.setCollideWorldBounds(true);
         this.setDepth(100);
-
-        scene.anims.create({
-            key: 'left',
-            frames: scene.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-            frameRate: 10,
-            repeat: -1
-        });
-
-        scene.anims.create({
-            key: 'turn',
-            frames: [ { key: 'dude', frame: 4 } ],
-            frameRate: 20
-        });
-
-        scene.anims.create({
-            key: 'right',
-            frames: scene.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-            frameRate: 10,
-            repeat: -1
-        });
     }
 
     moveLeft()
     {
-        this.setVelocityX(-160);
+        this.setVelocityX(-this.moveVelocity);
 
-        this.anims.play('left', true);
+        this.anims.play(ANIMATION_KEYS.PLAYER_LEFT, true);
     }
 
     moveRight()
     {
-        this.setVelocityX(160);
+        this.setVelocityX(this.moveVelocity);
 
-        this.anims.play('right', true);
+        this.anims.play(ANIMATION_KEYS.PLAYER_RIGHT, true);
     }
 
     idle()
     {
         this.setVelocityX(0);
 
-        this.anims.play('turn');
+        this.anims.play(ANIMATION_KEYS.PLAYER_IDLE);
     }
 
     jump()

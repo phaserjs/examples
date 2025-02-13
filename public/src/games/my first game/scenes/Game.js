@@ -7,6 +7,12 @@ import { TreasureBox } from '../gameObjects/TreasureBox.js';
 import { Coin } from '../gameObjects/Coin.js';
 import { Key } from '../gameObjects/Key.js';
 import { Score } from '../gameObjects/Score.js';
+import { Chick } from '../gameObjects/Chick.js';
+import { Hamster } from '../gameObjects/Hamster.js';
+import { Cake } from '../gameObjects/Cake.js';
+import { Exit } from '../gameObjects/Exit.js';
+import ANIMATION_KEYS from '../animationKeys.js';
+import SPRITE_KEYS from '../spriteKeys.js';
 
 export class Game extends Phaser.Scene
 {
@@ -15,9 +21,10 @@ export class Game extends Phaser.Scene
     platforms;
     interactive;
     interactiveSolid;
-    bombs;
+    enemies;
     stars;
     player;
+    exits;
 
     constructor()
     {
@@ -26,13 +33,14 @@ export class Game extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('sky', 'assets/images/clouds.png');
-        this.load.image('ground', 'assets/images/platform.png');
-        this.load.image('bomb', 'assets/images/bomb.png');
-        this.load.spritesheet('fantasy', 'assets/images/fantasy-tiles.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('dude', 'assets/images/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.bitmapFont('nokia16', 'assets/fonts/nokia16.png', 'assets/fonts/nokia16.xml');
-        this.load.bitmapFont('nokia', 'assets/fonts/nokia.png', 'assets/fonts/nokia.xml');
+        this.load.image(SPRITE_KEYS.SKY, 'assets/images/clouds.png');
+        this.load.image(SPRITE_KEYS.GROUND, 'assets/images/platform.png');
+        this.load.image(SPRITE_KEYS.BOMB, 'assets/images/bomb.png');
+        this.load.spritesheet(SPRITE_KEYS.FANTASY_TILES, 'assets/images/fantasy-tiles.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet(SPRITE_KEYS.DUDE, 'assets/images/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet(SPRITE_KEYS.CAKE, 'assets/images/cakewalk.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet(SPRITE_KEYS.CHICK, 'assets/images/chick.png', { frameWidth: 16, frameHeight: 18 });
+        this.load.spritesheet(SPRITE_KEYS.HAMSTER, 'assets/images/humstar.png', { frameWidth: 32, frameHeight: 32 });
     }
 
     create ()
@@ -43,6 +51,7 @@ export class Game extends Phaser.Scene
 
         this.interactive = this.add.group();
         this.interactiveSolid = this.add.group();
+        this.exits = this.add.group();
 
         //  The platforms group contains the ground and the 2 ledges we can jump on
         this.platforms = this.add.group();
@@ -50,6 +59,9 @@ export class Game extends Phaser.Scene
         //  Here we create the ground.
         //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
         this.platforms.add(new Platform(this, 0, 536, 39, 2));
+        this.platforms.add(new Platform(this, 1248, 568, 15));
+        this.platforms.add(new Platform(this, 1024, 408, 3));
+        this.platforms.add(new Platform(this, 800, 408, 3));
         this.platforms.add(new Platform(this, 480, 440, 3));
         this.platforms.add(new Platform(this, 544, 344, 3));
         this.platforms.add(new Platform(this, 64, 224, 8));
@@ -57,6 +69,10 @@ export class Game extends Phaser.Scene
         this.platforms.add(new Platform(this, 544, 96));
         this.platforms.add(new Platform(this, 376, 224, 1, 3));
         this.platforms.add(new Platform(this, 376, 96));
+        this.platforms.add(new Platform(this, 1376, 408));
+        this.platforms.add(new Platform(this, 1248, 312));
+        this.platforms.add(new Platform(this, 1484, 312));
+        this.platforms.add(new Platform(this, 1376, 224));
 
         // The player and its settings
         this.initPlayer();
@@ -76,23 +92,26 @@ export class Game extends Phaser.Scene
             this.stars.add(star);
         }
 
-        this.bombs = this.add.group();
+        this.enemies = this.add.group();
 
         //  Collide the player and the stars with the platforms
         this.physics.add.overlap(this.player, this.interactive, this.interact);
         this.physics.add.collider(this.player, this.interactiveSolid, this.interact);
         this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.overlap(this.player, this.exits, this.exitLevel, null, this);
+
         this.physics.add.collider(this.stars, this.platforms);
-        this.physics.add.collider(this.bombs, this.platforms);
+        this.physics.add.collider(this.enemies, this.platforms);
 
         //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this);
 
-        this.physics.add.collider(this.player, this.bombs, this.hitBomb, null, this);
+        this.physics.add.collider(this.player, this.enemies, this.hitBomb, null, this);
 
         // this.addBomb();
         this.addMysteryBoxes();
         this.addTreasureBoxes();
+        this.addExit();
     }
 
     update ()
@@ -152,9 +171,29 @@ export class Game extends Phaser.Scene
     initAnimations ()
     {
         this.anims.create({
-            key: 'spin',
-            frames: this.anims.generateFrameNumbers('fantasy', { start: 42, end: 47 }),
+            key: ANIMATION_KEYS.COIN_SPIN,
+            frames: this.anims.generateFrameNumbers(SPRITE_KEYS.FANTASY_TILES, { start: 42, end: 47 }),
             frameRate: 12,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: ANIMATION_KEYS.PLAYER_LEFT,
+            frames: this.anims.generateFrameNumbers(SPRITE_KEYS.DUDE, { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: ANIMATION_KEYS.PLAYER_IDLE,
+            frames: [ { key: SPRITE_KEYS.DUDE, frame: 4 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: ANIMATION_KEYS.PLAYER_RIGHT,
+            frames: this.anims.generateFrameNumbers(SPRITE_KEYS.DUDE, { start: 5, end: 8 }),
+            frameRate: 10,
             repeat: -1
         });
     }
@@ -188,7 +227,7 @@ export class Game extends Phaser.Scene
         const x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
         const bomb = new Bomb(this, x, 16);
-        this.bombs.add(bomb);
+        this.enemies.add(bomb);
     }
 
     addMysteryBoxes ()
@@ -203,6 +242,11 @@ export class Game extends Phaser.Scene
     addTreasureBoxes ()
     {
         this.interactive.add(new TreasureBox(this, 672, 504));
+    }
+
+    addChicks()
+    {
+        this.enemies.add(new Chick(this, x, 16));
     }
 
     addCoin (x, y)
@@ -220,6 +264,27 @@ export class Game extends Phaser.Scene
     {
         new Score(this, x, y, points);
         this.events.emit('updateScore', points);
+    }
+
+    addExit ()
+    {
+        this.exits.add(new Exit(this, 1376, 192));
+    }
+
+    exitLevel (player, exit)
+    {
+        const keys = this.scene.get('GameUi').getKeys();
+        if (keys > 0)
+        {
+            this.gameOver = true;
+            this.events.emit('updateKeys', -1);
+            player.idle();
+
+            // restart scene after 2 seconds
+            this.time.delayedCall(2000, () => {
+                this.scene.restart();
+            });
+        }
     }
 
     hitBomb (player, bomb)

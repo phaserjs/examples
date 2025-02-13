@@ -1,9 +1,11 @@
 import ANIMATION_KEYS from "../animationKeys.js";
+import AUDIO_KEYS from "../audioKeys.js";
 import SPRITE_KEYS from "../spriteKeys.js";
 
 export class Coin extends Phaser.GameObjects.Sprite
 {
     moveY = 96;
+    gameUiScene;
 
     constructor (scene, x, y)
     {
@@ -24,5 +26,7 @@ export class Coin extends Phaser.GameObjects.Sprite
         });
 
         this.play(ANIMATION_KEYS.COIN_SPIN);
+        this.gameUiScene = scene.scene.get('GameUi');
+        this.gameUiScene.playAudio(AUDIO_KEYS.COIN);
     }
 }

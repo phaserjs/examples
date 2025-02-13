@@ -1,6 +1,6 @@
 export class Player extends Phaser.Physics.Arcade.Sprite
 {
-    jumpVelocity = -600;
+    jumpVelocity = -520;
 
     constructor (scene, x, y)
     {
@@ -10,6 +10,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite
         scene.physics.add.existing(this);
 
         this.setCollideWorldBounds(true);
+        this.setDepth(100);
 
         scene.anims.create({
             key: 'left',
@@ -55,6 +56,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite
 
     jump()
     {
-        this.setVelocityY(this.jumpVelocity);
+        if (this.body.touching.down) this.setVelocityY(this.jumpVelocity);
     }
 }

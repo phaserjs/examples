@@ -94,19 +94,13 @@ export class Game extends Phaser.Scene
         this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.collider(this.enemies, this.platforms);
         this.physics.add.collider(this.enemies, this.interactiveSolid);
-        this.physics.add.collider(this.sensors, this.platforms);
-        this.physics.add.collider(this.sensors, this.interactiveSolid);
+        this.physics.add.overlap(this.sensors, this.platforms);
+        this.physics.add.overlap(this.sensors, this.interactiveSolid);
 
         //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this);
         this.physics.add.overlap(this.player, this.enemies, this.hitBomb, null, this);
-
-        this.physics.world.on('worldbounds', (body) =>
-        {
-            body.gameObject.onWorldBounds();
-        });
-
-        // this.addBomb();
+        
         this.addMysteryBoxes();
         this.addTreasureBoxes();
         this.addExit();
@@ -279,16 +273,25 @@ export class Game extends Phaser.Scene
         this.enemies.add(new Chick(this, 1550, 536));
         this.enemies.add(new Chick(this, 1450, 536));
 
-        this.enemies.add(new Cake(this, 900, 502));
+        this.enemies.add(new Cake(this, 900, 518));
         this.enemies.add(new Cake(this, 660, 328));
+        this.enemies.add(new Cake(this, 144, 208));
     }
 
     addSensor(x, y, width, height)
     {
         const sensor = this.physics.add.image(x, y);
         sensor.body.setSize(width, height);
+        sensor.body.setAllowGravity(false);
+
+        this.sensors.add(sensor);
 
         return sensor;
+    }
+
+    sensorOverlap (sensor, platform)
+    {
+        console.log(platform.body.touching);
     }
 
     addCoin (x, y)

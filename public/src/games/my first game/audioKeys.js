@@ -5,6 +5,7 @@ const AUDIO_KEYS = {
     COIN: 'coin',
     KEY: 'key',
     STAR: 'star',
+    WIN: 'win',
 };
 
 export default AUDIO_KEYS;

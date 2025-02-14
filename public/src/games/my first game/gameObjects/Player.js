@@ -7,6 +7,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite
     jumpVelocity = -520;
     moveVelocity = 200;
     gameUiScene;
+    isPlayer = true;
 
     constructor(scene, x, y)
     {

@@ -26,6 +26,7 @@ export class GameUi extends Phaser.Scene
         this.load.audio(AUDIO_KEYS.COIN, 'assets/audio/coin.ogg');
         this.load.audio(AUDIO_KEYS.KEY, 'assets/audio/key.ogg');
         this.load.audio(AUDIO_KEYS.STAR, 'assets/audio/star.ogg');
+        this.load.audio(AUDIO_KEYS.WIN, 'assets/audio/win.mp3');
     }
 
     create ()
@@ -62,11 +63,10 @@ export class GameUi extends Phaser.Scene
 
     initAudio()
     {
-        this.audio[AUDIO_KEYS.PLAYER_STEP] = this.sound.add(AUDIO_KEYS.PLAYER_STEP);
-        this.audio[AUDIO_KEYS.PLAYER_JUMP] = this.sound.add(AUDIO_KEYS.PLAYER_JUMP);
-        this.audio[AUDIO_KEYS.COIN] = this.sound.add(AUDIO_KEYS.COIN);
-        this.audio[AUDIO_KEYS.KEY] = this.sound.add(AUDIO_KEYS.KEY);
-        this.audio[AUDIO_KEYS.STAR] = this.sound.add(AUDIO_KEYS.STAR);
+        for (let key in AUDIO_KEYS)
+        {
+            this.audio[AUDIO_KEYS[key]] = this.sound.add(AUDIO_KEYS[key]);
+        }
     }
 
     playAudio(key, overlap = true)

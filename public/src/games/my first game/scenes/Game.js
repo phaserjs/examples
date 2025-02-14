@@ -17,16 +17,6 @@ import AUDIO_KEYS from '../audioKeys.js';
 
 export class Game extends Phaser.Scene
 {
-    gameOver = false;
-    cursors;
-    platforms;
-    interactive;
-    interactiveSolid;
-    enemies;
-    stars;
-    player;
-    exits;
-
     constructor()
     {
         super('Game');
@@ -54,9 +44,8 @@ export class Game extends Phaser.Scene
         this.interactive = this.add.group();
         this.interactiveSolid = this.add.group();
         this.exits = this.add.group();
-
-        //  The platforms group contains the ground and the 2 ledges we can jump on
         this.platforms = this.add.group();
+        this.sensors = this.add.group();
 
         //  Here we create the ground.
         //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
@@ -65,7 +54,7 @@ export class Game extends Phaser.Scene
         this.platforms.add(new Platform(this, 1024, 408, 3));
         this.platforms.add(new Platform(this, 800, 408, 3));
         this.platforms.add(new Platform(this, 480, 440, 3));
-        this.platforms.add(new Platform(this, 544, 344, 3));
+        this.platforms.add(new Platform(this, 576, 344, 3));
         this.platforms.add(new Platform(this, 64, 224, 8));
         this.platforms.add(new Platform(this, 750, 240, 13));
         this.platforms.add(new Platform(this, 544, 96));
@@ -104,16 +93,24 @@ export class Game extends Phaser.Scene
 
         this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.collider(this.enemies, this.platforms);
+        this.physics.add.collider(this.enemies, this.interactiveSolid);
+        this.physics.add.collider(this.sensors, this.platforms);
+        this.physics.add.collider(this.sensors, this.interactiveSolid);
 
         //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this);
+        this.physics.add.overlap(this.player, this.enemies, this.hitBomb, null, this);
 
-        this.physics.add.collider(this.player, this.enemies, this.hitBomb, null, this);
+        this.physics.world.on('worldbounds', (body) =>
+        {
+            body.gameObject.onWorldBounds();
+        });
 
         // this.addBomb();
         this.addMysteryBoxes();
         this.addTreasureBoxes();
         this.addExit();
+        this.addEnemies();
     }
 
     update ()
@@ -146,6 +143,7 @@ export class Game extends Phaser.Scene
     {
         this.gameOver = false;
         this.cursors = undefined;
+        this.sensors = undefined;
         this.platforms = undefined;
         this.interactive = undefined;
         this.interactiveSolid = undefined;
@@ -153,11 +151,13 @@ export class Game extends Phaser.Scene
         this.stars = undefined;
         this.player = undefined;
         this.exits = undefined;
+        this.gameUiScene = undefined;
     }
 
     initGameUi ()
     {
         this.scene.launch('GameUi');
+        this.gameUiScene = this.scene.get('GameUi');
     }
 
     initBackgrounds ()
@@ -211,11 +211,25 @@ export class Game extends Phaser.Scene
             frameRate: 10,
             repeat: -1
         });
+
+        this.anims.create({
+            key: ANIMATION_KEYS.CHICK_WALK,
+            frames: this.anims.generateFrameNumbers(SPRITE_KEYS.CHICK),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: ANIMATION_KEYS.CAKE_WALK,
+            frames: this.anims.generateFrameNumbers(SPRITE_KEYS.CAKE, { frames: [ 4, 3, 2, 1, 0 ] }),
+            frameRate: 8,
+            repeat: -1
+        });
     }
 
-    interact (player, interactObject)
+    interact (gameObject, interactObject)
     {
-        interactObject.activate();
+        interactObject.activate(gameObject);
     }
 
     collectStar (player, star)
@@ -259,9 +273,22 @@ export class Game extends Phaser.Scene
         this.interactive.add(new TreasureBox(this, 672, 504));
     }
 
-    addChicks()
+    addEnemies ()
     {
-        this.enemies.add(new Chick(this, x, 16));
+        this.enemies.add(new Chick(this, 320, 502));
+        this.enemies.add(new Chick(this, 1550, 536));
+        this.enemies.add(new Chick(this, 1450, 536));
+
+        this.enemies.add(new Cake(this, 900, 502));
+        this.enemies.add(new Cake(this, 660, 328));
+    }
+
+    addSensor(x, y, width, height)
+    {
+        const sensor = this.physics.add.image(x, y);
+        sensor.body.setSize(width, height);
+
+        return sensor;
     }
 
     addCoin (x, y)
@@ -272,13 +299,13 @@ export class Game extends Phaser.Scene
     addKey (x, y)
     {
         new Key(this, x, y);
-        this.events.emit('updateKeys', 1);
+        this.gameUiScene.updateKeys(1);
     }
 
     addScore (x, y, points)
     {
         new Score(this, x, y, points);
-        this.events.emit('updateScore', points);
+        this.gameUiScene.updateScore(points);
     }
 
     addExit ()
@@ -288,17 +315,17 @@ export class Game extends Phaser.Scene
 
     exitLevel (player, exit)
     {
-        const gameUiScene = this.scene.get('GameUi');
-        if (gameUiScene.getKeys() > 0)
+        if (this.gameUiScene.getKeys() > 0)
         {
             this.gameOver = true;
-            this.events.emit('updateKeys', -1);
+            this.gameUiScene.updateKeys(-1);
             player.idle();
 
-            gameUiScene.playAudio(AUDIO_KEYS.WIN);
+            this.gameUiScene.playAudio(AUDIO_KEYS.WIN);
 
             // restart scene after 2 seconds
-            this.time.delayedCall(2000, () => {
+            this.time.delayedCall(2000, () =>
+            {
                 this.scene.restart();
             });
         }

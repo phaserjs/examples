@@ -3,40 +3,68 @@ import SPRITE_KEYS from "../spriteKeys.js";
 
 export class Cake extends Phaser.Physics.Arcade.Sprite
 {
-    constructor (scene, x, y, direction)
+    moveVelocity = 50;
+    direction = -1;
+
+    constructor(scene, x, y, direction = -1)
     {
         super(scene, x, y, SPRITE_KEYS.CAKE);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.setCollideWorldBounds(true);
+        this.setCollideWorldBounds(true, 0, 0, true);
         this.setDepth(100);
+        this.setDirection(direction);
+        this.anims.play(ANIMATION_KEYS.CAKE_WALK, true);
     }
 
-    moveLeft()
+    preUpdate (time, delta)
     {
-        this.setVelocityX(-160);
+        super.preUpdate(time, delta);
 
-        this.anims.play(ANIMATION_KEYS.PLAYER_LEFT, true);
+        console.log(this.direction)
+        if (this.direction === -1)
+        {
+            this.moveLeft();
+        }
+        else
+        {
+            this.moveRight();
+        }
     }
 
-    moveRight()
+    onWorldBounds ()
     {
-        this.setVelocityX(160);
-
-        this.anims.play(ANIMATION_KEYS.PLAYER_RIGHT, true);
+        this.setDirection();
     }
 
-    idle()
+    setDirection (direction)
     {
-        this.setVelocityX(0);
-
-        this.anims.play(ANIMATION_KEYS.PLAYER_IDLE);
+        this.direction = direction || this.direction * -1;
     }
 
-    jump()
+    moveLeft ()
     {
-        if (this.body.touching.down) this.setVelocityY(this.jumpVelocity);
+        this.setVelocityX(-this.moveVelocity);
+
+        this.flipX = true;
+
+        if (!this.body.touching.bottom)
+        {
+            this.setDirection();
+        }
+    }
+
+    moveRight ()
+    {
+        this.setVelocityX(this.moveVelocity);
+
+        this.flipX = false;
+
+        if (!this.body.touching.bottom)
+        {
+            this.setDirection();
+        }
     }
 }

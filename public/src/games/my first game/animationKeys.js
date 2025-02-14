@@ -5,6 +5,8 @@ const ANIMATION_KEYS = {
     PLAYER_IDLE: 'player-idle',
     
     COIN_SPIN: 'coin-spin',
+    CHICK_WALK: 'chick-walk',
+    CAKE_WALK: 'cake-walk',
 };
 
 export default ANIMATION_KEYS;

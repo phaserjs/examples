@@ -13,6 +13,7 @@ import { Cake } from '../gameObjects/Cake.js';
 import { Exit } from '../gameObjects/Exit.js';
 import ANIMATION_KEYS from '../animationKeys.js';
 import SPRITE_KEYS from '../spriteKeys.js';
+import AUDIO_KEYS from '../audioKeys.js';
 
 export class Game extends Phaser.Scene
 {
@@ -45,6 +46,7 @@ export class Game extends Phaser.Scene
 
     create ()
     {
+        this.initVariables();
         this.initGameUi();
         this.initBackgrounds();
         this.initCamera();
@@ -138,6 +140,19 @@ export class Game extends Phaser.Scene
         {
             this.player.jump();
         }
+    }
+
+    initVariables ()
+    {
+        this.gameOver = false;
+        this.cursors = undefined;
+        this.platforms = undefined;
+        this.interactive = undefined;
+        this.interactiveSolid = undefined;
+        this.enemies = undefined;
+        this.stars = undefined;
+        this.player = undefined;
+        this.exits = undefined;
     }
 
     initGameUi ()
@@ -273,12 +288,14 @@ export class Game extends Phaser.Scene
 
     exitLevel (player, exit)
     {
-        const keys = this.scene.get('GameUi').getKeys();
-        if (keys > 0)
+        const gameUiScene = this.scene.get('GameUi');
+        if (gameUiScene.getKeys() > 0)
         {
             this.gameOver = true;
             this.events.emit('updateKeys', -1);
             player.idle();
+
+            gameUiScene.playAudio(AUDIO_KEYS.WIN);
 
             // restart scene after 2 seconds
             this.time.delayedCall(2000, () => {

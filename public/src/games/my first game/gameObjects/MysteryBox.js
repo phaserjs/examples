@@ -18,8 +18,6 @@ export class MysteryBox extends Phaser.Physics.Arcade.Sprite
     {
         if (this.isActivated || !this.body.touching.down || !gameObject.isPlayer || gameObject.y < this.y) return;
 
-        console.log(gameObject.y, this.y);
-
         this.isActivated = true;
         this.setTint(0x666666);
         this.scene.addCoin(this.x + (this.width*0.5), this.y - this.height + (this.height*0.5));

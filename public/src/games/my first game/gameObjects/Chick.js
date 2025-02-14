@@ -4,40 +4,76 @@ import SPRITE_KEYS from "../spriteKeys.js";
 export class Chick extends Phaser.Physics.Arcade.Sprite
 {
     jumpVelocity = -520;
+    jumpTimer = 2000;
+    moveVelocity = 220;
+    timer = 0;
+    direction = -1;
 
-    constructor (scene, x, y)
+    constructor(scene, x, y, direction = -1)
     {
         super(scene, x, y, SPRITE_KEYS.CHICK);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.setCollideWorldBounds(true);
+        this.setCollideWorldBounds(true, 0, 0, true);
         this.setDepth(100);
+        this.setDirection(direction);
+        this.anims.play(ANIMATION_KEYS.CHICK_WALK, true);
     }
 
-    moveLeft()
+    preUpdate (time, delta)
     {
-        this.setVelocityX(-160);
+        super.preUpdate(time, delta);
 
-        this.anims.play(ANIMATION_KEYS.PLAYER_LEFT, true);
+        this.timer += delta;
+
+        if (this.timer > this.jumpTimer)
+        {
+            this.jump();
+            this.timer -= this.jumpTimer;
+        }
+
+        if (this.direction === -1)
+        {
+            this.moveLeft();
+        }
+        else
+        {
+            this.moveRight();
+        }
     }
 
-    moveRight()
+    setDirection (direction)
     {
-        this.setVelocityX(160);
-
-        this.anims.play(ANIMATION_KEYS.PLAYER_RIGHT, true);
+        this.direction = direction || this.direction * -1;
     }
 
-    jump()
+    moveLeft ()
     {
-        this.setVelocityX(0);
+        this.setVelocityX(-this.moveVelocity);
 
-        this.anims.play(ANIMATION_KEYS.PLAYER_IDLE);
+        this.flipX = true;
+
+        if (this.body.touching.left || this.body.blocked.left)
+        {
+            this.setDirection();
+        }
     }
 
-    jump()
+    moveRight ()
+    {
+        this.setVelocityX(this.moveVelocity);
+
+        this.flipX = false;
+
+        if (this.body.touching.right || this.body.blocked.right)
+        {
+            this.setDirection();
+        }
+    }
+
+    jump ()
     {
         if (this.body.touching.down) this.setVelocityY(this.jumpVelocity);
     }

@@ -22,10 +22,14 @@ class Example extends Phaser.Scene
 
     resize (gameSize, baseSize, displaySize, previousWidth, previousHeight)
     {
+        const width = gameSize.width;
+        const height = gameSize.height;
+
+        this.cameras.resize(width, height);
+
         this.text.setText([
-            `gameSize: ${gameSize}`,
-            `baseSize: ${baseSize}`,
-            `displaySize: ${displaySize}`,
+            `width: ${width}`,
+            `height: ${height}`,
             `previousWidth: ${previousWidth}`,
             `previousHeight: ${previousHeight}`,
         ]);

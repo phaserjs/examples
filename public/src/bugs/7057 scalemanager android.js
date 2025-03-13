@@ -1,20 +1,38 @@
-class Example extends Phaser.Scene {
+class Example extends Phaser.Scene
+{
 
-    constructor() {
+    constructor()
+    {
         super({ key: "Example" });
     }
 
-    preload() {
+    preload ()
+    {
         this.load.image("earth", "assets/pics/ayu.png");
     }
 
-    create() {
+    create ()
+    {
         this.earth = this.add.image(this.scale.width * 0.5, this.scale.height * 0.5, "earth");
 
         this.text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#ffffff' });
+
+        this.scale.on('resize', this.resize, this);
     }
 
-    update(time) {
+    resize (gameSize, baseSize, displaySize, previousWidth, previousHeight)
+    {
+        this.text.setText([
+            `gameSize: ${gameSize}`,
+            `baseSize: ${baseSize}`,
+            `displaySize: ${displaySize}`,
+            `previousWidth: ${previousWidth}`,
+            `previousHeight: ${previousHeight}`,
+        ]);
+    }
+
+    update (time)
+    {
 
         // cover window size
         const w = this.scale.width;
@@ -22,11 +40,6 @@ class Example extends Phaser.Scene {
 
         this.earth.setPosition(w * 0.5, h * 0.5);
         this.earth.setDisplaySize(w, h);
-
-        this.text.setText([
-            `Width: ${this.scale.width}`,
-            `Height: ${this.scale.height}`
-        ]);
     }
 
 }

@@ -1,242 +1,242 @@
 [
     {
-        "path": "src\\bugs\\7034 arcade physics categories.js",
-        "name": "7034 arcade physics categories.js",
-        "size": 1442,
+        "path": "src\\bugs\\7057 scalemanager android.js",
+        "name": "7057 scalemanager android.js",
+        "size": 1008,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1739159908424.6306
+        "birthtimeMs": 1741841262569.3735
     },
     {
-        "path": "src\\bugs\\7018 aseprite framerate.js",
-        "name": "7018 aseprite framerate.js",
-        "size": 1442,
+        "path": "src\\bugs\\7063 particle emitter custom moveTo.js",
+        "name": "7063 particle emitter custom moveTo.js",
+        "size": 1614,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1738835817683.178
+        "birthtimeMs": 1741839959719.862
     },
     {
-        "path": "src\\bugs\\7021 multiatlas tileset.js",
-        "name": "7021 multiatlas tileset.js",
-        "size": 1609,
+        "path": "src\\bugs\\7070 frame duration ignored.js",
+        "name": "7070 frame duration ignored.js",
+        "size": 1008,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1738737659746.004
+        "birthtimeMs": 1741749911438.9639
     },
     {
-        "path": "src\\bugs\\7028 drag gameobject.js",
-        "name": "7028 drag gameobject.js",
-        "size": 3838,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1738735725209.0042
-    },
-    {
-        "path": "src\\bugs\\7027 limit expand scale mode.js",
-        "name": "7027 limit expand scale mode.js",
-        "size": 1105,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1738733474081.4167
-    },
-    {
-        "path": "src\\bugs\\6074 put tile at hexmap.js",
-        "name": "6074 put tile at hexmap.js",
-        "size": 1485,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1738554456403.3655
-    },
-    {
-        "path": "src\\bugs\\6671 get tiles within shape.js",
-        "name": "6671 get tiles within shape.js",
-        "size": 3575,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1738552903268.299
-    },
-    {
-        "path": "src\\bugs\\6871 arcade body size.js",
-        "name": "6871 arcade body size.js",
-        "size": 2223,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737617640902.1912
-    },
-    {
-        "path": "src\\bugs\\6990 tiled image collection.js",
-        "name": "6990 tiled image collection.js",
-        "size": 1928,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737358397040.0288
-    },
-    {
-        "path": "src\\bugs\\7011 getfirst.js",
-        "name": "7011 getfirst.js",
-        "size": 845,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737341608809.948
-    },
-    {
-        "path": "src\\bugs\\7001 scale matter gameobject.js",
-        "name": "7001 scale matter gameobject.js",
-        "size": 1011,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737084704280.7856
-    },
-    {
-        "path": "src\\bugs\\7002 wordwrap.js",
-        "name": "7002 wordwrap.js",
-        "size": 2219,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737080115100.4285
-    },
-    {
-        "path": "src\\bugs\\7003 kill tweens error.js",
-        "name": "7003 kill tweens error.js",
-        "size": 1026,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737012001748.1462
-    },
-    {
-        "path": "src\\bugs\\7005 array tween target.js",
-        "name": "7005 array tween target.js",
-        "size": 1181,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737001311438.2993
-    },
-    {
-        "path": "src\\bugs\\7006 particle death zones.js",
-        "name": "7006 particle death zones.js",
-        "size": 1291,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1737000176079.2473
-    },
-    {
-        "path": "src\\bugs\\7007 tweenchain onstart.js",
-        "name": "7007 tweenchain onstart.js",
-        "size": 976,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1736912081604.0457
-    },
-    {
-        "path": "src\\bugs\\7008 tweens persist destroyed.js",
-        "name": "7008 tweens persist destroyed.js",
-        "size": 1447,
-        "extension": ".js",
-        "type": "file",
-        "birthtimeMs": 1736826954665.248
-    },
-    {
-        "path": "src\\bugs\\6972 ignore destroy.js",
-        "name": "6972 ignore destroy.js",
+        "path": "src\\games\\my first game\\step-complete\\game.js",
+        "name": "game.js",
         "size": 670,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736390012759.8733
+        "birthtimeMs": 1739860338386.0469
     },
     {
-        "path": "src\\bugs\\6893 scene before plugins.js",
-        "name": "6893 scene before plugins.js",
-        "size": 977,
+        "path": "src\\games\\my first game\\step-complete\\audioKeys.js",
+        "name": "audioKeys.js",
+        "size": 198,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736236474301.2422
+        "birthtimeMs": 1739860338381.4773
     },
     {
-        "path": "src\\bugs\\6910 listeners increasing.js",
-        "name": "6910 listeners increasing.js",
-        "size": 2007,
+        "path": "src\\games\\my first game\\step-complete\\animationKeys.js",
+        "name": "animationKeys.js",
+        "size": 264,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736218772739.4224
+        "birthtimeMs": 1739860338376.4363
     },
     {
-        "path": "src\\bugs\\6979 undefined color value.js",
-        "name": "6979 undefined color value.js",
-        "size": 810,
+        "path": "src\\games\\my first game\\step-complete\\scenes\\GameUi.js",
+        "name": "GameUi.js",
+        "size": 1737,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736155273410.7683
+        "birthtimeMs": 1739860338356.0579
     },
     {
-        "path": "src\\bugs\\6980 spine scene rendering.js",
-        "name": "6980 spine scene rendering.js",
-        "size": 1967,
+        "path": "src\\games\\my first game\\step-complete\\scenes\\MainMenu.js",
+        "name": "MainMenu.js",
+        "size": 574,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736153609146.895
+        "birthtimeMs": 1739860338356.0579
     },
     {
-        "path": "src\\bugs\\6992 tilemap calculation.js",
-        "name": "6992 tilemap calculation.js",
-        "size": 2662,
+        "path": "src\\games\\my first game\\step-complete\\scenes\\Preloader.js",
+        "name": "Preloader.js",
+        "size": 2915,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736149732373.3713
+        "birthtimeMs": 1739860338356.0579
     },
     {
-        "path": "src\\bugs\\6995 prefx rectangle.js",
-        "name": "6995 prefx rectangle.js",
-        "size": 668,
+        "path": "src\\games\\my first game\\step-complete\\scenes\\Boot.js",
+        "name": "Boot.js",
+        "size": 275,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736148960693.7876
+        "birthtimeMs": 1739860338351.049
     },
     {
-        "path": "src\\bugs\\6996 crop wrong math.js",
-        "name": "6996 crop wrong math.js",
-        "size": 1366,
+        "path": "src\\games\\my first game\\step-complete\\scenes\\Game.js",
+        "name": "Game.js",
+        "size": 10116,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736148129112.6987
+        "birthtimeMs": 1739860338351.049
     },
     {
-        "path": "src\\bugs\\6962 grid outline style.js",
-        "name": "6962 grid outline style.js",
-        "size": 541,
+        "path": "src\\games\\my first game\\step-complete\\scenes\\GameOver.js",
+        "name": "GameOver.js",
+        "size": 606,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1736133869327.249
+        "birthtimeMs": 1739860338351.049
     },
     {
-        "path": "src\\bugs\\6986 cursor does not change.js",
-        "name": "6986 cursor does not change.js",
-        "size": 1094,
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Player.js",
+        "name": "Player.js",
+        "size": 1425,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1735808312306.837
+        "birthtimeMs": 1739860338319.532
     },
     {
-        "path": "src\\utils\\rbush\\rbush 2.js",
-        "name": "rbush 2.js",
-        "size": 2046,
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Score.js",
+        "name": "Score.js",
+        "size": 570,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1735808211677.6577
+        "birthtimeMs": 1739860338319.532
     },
     {
-        "path": "src\\tweens\\stop a tween.js",
-        "name": "stop a tween.js",
-        "size": 915,
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Star.js",
+        "name": "Star.js",
+        "size": 770,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1735808211672.6223
+        "birthtimeMs": 1739860338319.532
     },
     {
-        "path": "src\\tweens\\tween gauge.js",
-        "name": "tween gauge.js",
-        "size": 1158,
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\TreasureBox.js",
+        "name": "TreasureBox.js",
+        "size": 592,
         "extension": ".js",
         "type": "file",
-        "birthtimeMs": 1735808211672.6223
+        "birthtimeMs": 1739860338319.532
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\MysteryBox.js",
+        "name": "MysteryBox.js",
+        "size": 916,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338315.996
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Platform.js",
+        "name": "Platform.js",
+        "size": 2683,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338315.996
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Bomb.js",
+        "name": "Bomb.js",
+        "size": 537,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338306.0972
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Cake.js",
+        "name": "Cake.js",
+        "size": 2304,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338306.0972
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Chick.js",
+        "name": "Chick.js",
+        "size": 1746,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338306.0972
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Coin.js",
+        "name": "Coin.js",
+        "size": 886,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338306.0972
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Exit.js",
+        "name": "Exit.js",
+        "size": 339,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338306.0972
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Hamster.js",
+        "name": "Hamster.js",
+        "size": 932,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338306.0972
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\gameObjects\\Key.js",
+        "name": "Key.js",
+        "size": 732,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338306.0972
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\constants\\assets.js",
+        "name": "assets.js",
+        "size": 773,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338296.0356
+    },
+    {
+        "path": "src\\games\\my first game\\step-complete\\phaser.min.js",
+        "name": "phaser.min.js",
+        "size": 9047272,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739860338276.4329
+    },
+    {
+        "path": "src\\games\\my first game\\scenes\\Game.js",
+        "name": "Game.js",
+        "size": 11146,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739759021188.9028
+    },
+    {
+        "path": "src\\games\\my first game\\gameObjects\\MysteryBox.js",
+        "name": "MysteryBox.js",
+        "size": 913,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739759021187.9014
+    },
+    {
+        "path": "src\\games\\my first game\\gameObjects\\Cake.js",
+        "name": "Cake.js",
+        "size": 2487,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1739759021186.7473
     }
 ]

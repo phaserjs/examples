@@ -17,7 +17,14 @@ class Example extends Phaser.Scene
 
         this.text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#ffffff' });
 
-        this.scale.on('resize', this.resize, this);
+        // this.scale.on('resize', this.resize, this);
+        window.addEventListener('orientationchange', (e) =>
+        {
+            this.text.setText([
+                e.toString()
+            ]);
+            console.log(e); // logs `false`
+        });
     }
 
     resize (gameSize, baseSize, displaySize, previousWidth, previousHeight)

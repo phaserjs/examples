@@ -31,8 +31,6 @@ class Example extends Phaser.Scene
             `parentSize.width: ${this.scale.parentSize.width}`,
             `parentSize.height: ${this.scale.parentSize.height}`,
         ]);
-
-        console.log(this.scale);
     }
 
     update (time)

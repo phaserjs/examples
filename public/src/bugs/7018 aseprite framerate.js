@@ -26,12 +26,12 @@ class Example extends Phaser.Scene
 
         this.input.on('gameobjectdown', (pointer, obj) =>
         {
-            const frameRate = Phaser.Math.RND.between(0,1) ? 4 : undefined;
+            // const frameRate = Phaser.Math.RND.between(0,1) ? 4 : undefined;
             
             sprite.play({
                 key: obj.text,
                 repeat: -1,
-                frameRate: frameRate
+                // frameRate: frameRate
             });
 
         });

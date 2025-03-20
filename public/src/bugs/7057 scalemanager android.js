@@ -26,11 +26,6 @@ class Example extends Phaser.Scene
         const height = gameSize.height;
 
         this.cameras.resize(width, height);
-
-        this.text.setText([
-            `parentSize.width: ${this.scale.parentSize.width}`,
-            `parentSize.height: ${this.scale.parentSize.height}`,
-        ]);
     }
 
     update (time)
@@ -42,6 +37,13 @@ class Example extends Phaser.Scene
 
         this.earth.setPosition(w * 0.5, h * 0.5);
         this.earth.setDisplaySize(w, h);
+
+        this.text.setText([
+            `width: ${this.scale.width}`,
+            `height: ${this.scale.height}`,
+            `parentSize.width: ${this.scale.parentSize.width}`,
+            `parentSize.height: ${this.scale.parentSize.height}`,
+        ]);
     }
 
 }

@@ -57,12 +57,11 @@ class Example extends Phaser.Scene
             delay: 6000,
             callback: () =>
             {
-                console.log("Removing collision between playerRanged and category playerMelee");
                 // e.g. Player Ranged no longer collides with player Melee
-                console.log('remove player Ranged');
+                console.log('remove ranged collision from melee');
                 this.playerRanged1.body.removeCollidesWith(this.categories.playerMelee);
-                console.log('remove player Melee');
-                this.playerMelee1.body.removeCollidesWith(this.categories.playerRanged);
+                // console.log('remove player Melee');
+                // this.playerMelee1.body.removeCollidesWith(this.categories.playerRanged);
 
             },
             callbackScope: this

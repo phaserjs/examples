@@ -1768,7 +1768,7 @@
         {
           "path": "src\\bugs\\7018 aseprite framerate.js",
           "name": "7018 aseprite framerate.js",
-          "birthtimeMs": 1739196576080.4128
+          "birthtimeMs": 1742188041403.3782
         },
         {
           "path": "src\\bugs\\7021 multiatlas tileset.js",
@@ -1786,9 +1786,24 @@
           "birthtimeMs": 1739263337481.6526
         },
         {
+          "path": "src\\bugs\\7029 webgl grid.js",
+          "name": "7029 webgl grid.js",
+          "birthtimeMs": 1742364347759.1865
+        },
+        {
           "path": "src\\bugs\\7034 arcade physics categories.js",
           "name": "7034 arcade physics categories.js",
           "birthtimeMs": 1739263337483.655
+        },
+        {
+          "path": "src\\bugs\\7045 error stopping scene.js",
+          "name": "7045 error stopping scene.js",
+          "birthtimeMs": 1742364347762.1863
+        },
+        {
+          "path": "src\\bugs\\7048 tween persist.js",
+          "name": "7048 tween persist.js",
+          "birthtimeMs": 1742364347787.1902
         },
         {
           "path": "src\\bugs\\7051 rendering text.js",
@@ -1803,12 +1818,32 @@
         {
           "path": "src\\bugs\\7057 scalemanager android.js",
           "name": "7057 scalemanager android.js",
-          "birthtimeMs": 1741918418235.2324
+          "birthtimeMs": 1742188041439.421
         },
         {
           "path": "src\\bugs\\7059 camera rendering.js",
           "name": "7059 camera rendering.js",
           "birthtimeMs": 1741921629710.4436
+        },
+        {
+          "path": "src\\bugs\\7063 particle emitter custom moveTo.js",
+          "name": "7063 particle emitter custom moveTo.js",
+          "birthtimeMs": 1742188041442.4192
+        },
+        {
+          "path": "src\\bugs\\7070 frame duration ignored.js",
+          "name": "7070 frame duration ignored.js",
+          "birthtimeMs": 1742188041449.3972
+        },
+        {
+          "path": "src\\bugs\\7077 rtl texts.js",
+          "name": "7077 rtl texts.js",
+          "birthtimeMs": 1742177195011.5173
+        },
+        {
+          "path": "src\\bugs\\7093 tween chain delay.js",
+          "name": "7093 tween chain delay.js",
+          "birthtimeMs": 1743669968791.723
         },
         {
           "path": "src\\bugs\\matter attractor.js",

@@ -6,10 +6,11 @@ var FilePackObject = {
                 "type": "texture",
                 "key": "labs",
                 "url": {
-                    "ASTC": { type: "PVR", textureURL: 'textures-astc-4x4.pvr', atlasURL: 'textures.json' },
-                    "PVRTC": { type: "PVR", textureURL: 'textures-pvrtc-4bpp-rgba.pvr', atlasURL: 'textures-pvrtc-4bpp-rgba.json' },
-                    "S3TC": { type: "PVR", textureURL: 'textures-dxt5.pvr', atlasURL: 'textures-dxt5.json' },
-                    "IMG": { textureURL: 'textures.png', atlasURL: 'textures.json' }
+                    "ASTC": { type: "PVR", textureURL: 'compressed/textures-ASTC-4x4-lRGB.pvr', atlasURL: 'uncompressed/textures.json' },
+                    "ETC": { type: "PVR", textureURL: 'compressed/textures-ETC2-lRGB.pvr', atlasURL: 'uncompressed/textures.json' },
+                    "PVRTC": { type: "PVR", textureURL: 'compressed/textures-PVRTC-4BPP-lRGB.pvr', atlasURL: 'uncompressed/textures.json' },
+                    "S3TC": { type: "PVR", textureURL: 'compressed/textures-S3TC-BC3-lRGB.pvr', atlasURL: 'uncompressed/textures.json' },
+                    "IMG": { textureURL: 'textures.png', atlasURL: 'uncompressed/textures.json' }
                 }
             }
         ]

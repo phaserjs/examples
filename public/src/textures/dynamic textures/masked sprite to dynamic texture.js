@@ -19,9 +19,9 @@ class Example extends Phaser.Scene
         const pic = this.make.image({ key: 'pic', origin: { x: 0, y: 0 }, add: true });
         const maskImage = this.make.image({ key: 'mask', origin: { x: 0, y: 0 }, add: false });
 
-        pic.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage);
+        pic.enableFilters().filters.external.addMask(maskImage);
 
-        texture.draw(pic);
+        texture.draw(pic).render();
 
         this.add.sprite(560, 300, 'maskedPic');
     }

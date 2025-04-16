@@ -24,10 +24,15 @@ class Example extends Phaser.Scene
         area3.fill(0x00ff00);
         area4.fill(0x00ff00);
 
-        area1.drawFrame('card');
-        area2.drawFrame('card');
-        area3.drawFrame('card');
-        area4.drawFrame('card');
+        area1.stamp('card', null, 128, 128);
+        area2.stamp('card', null, 128, 128);
+        area3.stamp('card', null, 128, 128);
+        area4.stamp('card', null, 128, 128);
+
+        area1.render();
+        area2.render();
+        area3.render();
+        area4.render();
 
         this.add.sprite(100, 100, 'area1').setOrigin(0);
         this.add.sprite(100 + 129, 100, 'area2').setOrigin(0);

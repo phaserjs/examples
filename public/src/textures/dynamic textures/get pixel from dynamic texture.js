@@ -16,7 +16,7 @@ class Example extends Phaser.Scene
         const texture = this.textures.addDynamicTexture('wheelTexture', 800, 600)
 
         //  Draw the color wheel to our texture
-        texture.stamp('wheel', null, 400, 300);
+        texture.stamp('wheel', null, 400, 300).render();
 
         //  Now add the finished texture to a Sprite
         this.add.sprite(400, 300, 'wheelTexture');

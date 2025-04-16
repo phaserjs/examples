@@ -1,7 +1,7 @@
 // #module
 
-import HueRotatePostFX from './assets/pipelines/HueRotatePostFX.js';
-import LazersPostFX from './assets/pipelines/LazersPostFX.js';
+import HueRotate from './assets/rendernodes/FilterHueRotate.js';
+import Lazers from './assets/rendernodes/FilterLazers.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -27,7 +27,7 @@ export default class Example extends Phaser.Scene
 
         cam.setSize(256, 128);
 
-        cam.setPostPipeline(LazersPostFX);
+        cam.filters.external.add(new Lazers.Controller(cam));
 
         let b = 0;
 
@@ -49,12 +49,12 @@ export default class Example extends Phaser.Scene
 
                 if (b === 0)
                 {
-                    cam.setPostPipeline(HueRotatePostFX);
+                    cam.filters.external.add(new HueRotate.Controller(cam));
                     b = 1;
                 }
                 else
                 {
-                    cam.setPostPipeline(LazersPostFX);
+                    cam.filters.external.add(new Lazers.Controller(cam));
                     b = 0;
                 }
             }
@@ -76,7 +76,10 @@ const config = {
     height: 512,
     parent: 'phaser-example',
     scene: Example,
-    pipeline: {  HueRotatePostFX, LazersPostFX }
+    renderNodes: {
+        FilterHueRotate: HueRotate.Filter,
+        FilterLazers: Lazers.Filter
+    }
 };
 
 let game = new Phaser.Game(config);

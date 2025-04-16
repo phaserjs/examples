@@ -1,6 +1,6 @@
 // #module
 
-import BendPipeline from './assets/pipelines/Bend.js';
+import BatchHandlerBend from './assets/rendernodes/BatchHandlerBend.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -19,8 +19,6 @@ export default class Example extends Phaser.Scene
 
     create ()
     {
-        const bendPipeline = this.renderer.pipelines.get('Bend');
-
         let middle = 400;
         let columns = 8;
         let perRow = 62;
@@ -30,7 +28,8 @@ export default class Example extends Phaser.Scene
 
         for (let col = 0; col < columns; col++)
         {
-            this.add.sprite(middle, moveY, 'flower').setScale(scale).setPipeline(bendPipeline);
+            this.add.sprite(middle, moveY, 'flower').setScale(scale)
+            .setRenderNodeRole('BatchHandler', 'BatchHandlerBend');
 
             for (let row = 1; row < perRow / 2; row++)
             {
@@ -38,7 +37,7 @@ export default class Example extends Phaser.Scene
 
                 let flower = this.add.sprite(x, moveY, 'flower').setScale(scale);
 
-                flower.setPipeline(bendPipeline);
+                flower.setRenderNodeRole('BatchHandler', 'BatchHandlerBend');
             }
 
             for (let row = 1; row < perRow / 2; row++)
@@ -47,7 +46,7 @@ export default class Example extends Phaser.Scene
 
                 let flower = this.add.sprite(x, moveY, 'flower').setScale(scale);
 
-                flower.setPipeline(bendPipeline);
+                flower.setRenderNodeRole('BatchHandler', 'BatchHandlerBend');
             }
 
             scale += 0.1;
@@ -87,7 +86,9 @@ const config = {
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: { 'Bend': BendPipeline }
+    renderNodes: {
+        BatchHandlerBend: BatchHandlerBend
+    },
 };
 
 let game = new Phaser.Game(config);

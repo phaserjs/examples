@@ -1,7 +1,7 @@
 // #module
 
-import BendPostFX from './assets/pipelines/BendPostFX.js';
-import HueRotatePostFX from './assets/pipelines/HueRotatePostFX.js';
+import Bend from './assets/rendernodes/FilterBend.js';
+import HueRotate from './assets/rendernodes/FilterHueRotate.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -20,35 +20,19 @@ export default class Example extends Phaser.Scene
     {
         const pic = this.add.image(400, 300, 'einstein');
 
-        this.cameras.main.setPostPipeline(HueRotatePostFX);
+        const main = this.cameras.main;
+        const hueRotateController = main.filters.external.add(new HueRotate.Controller(main));
+        const bendController = main.filters.external.add(new Bend.Controller(main));
+        bendController.setActive(false);
 
         let shader = 1;
 
         this.input.on('pointerdown', () =>
         {
-            shader++;
+            shader = (shader + 1) % 4;
 
-            if (shader === 0)
-            {
-                this.cameras.main.resetPostPipeline();
-            }
-            else if (shader === 1)
-            {
-                this.cameras.main.resetPostPipeline();
-                this.cameras.main.setPostPipeline(HueRotatePostFX);
-            }
-            else if (shader === 2)
-            {
-                this.cameras.main.resetPostPipeline();
-                this.cameras.main.setPostPipeline(BendPostFX);
-            }
-            else if (shader === 3)
-            {
-                this.cameras.main.resetPostPipeline();
-                this.cameras.main.setPostPipeline([ BendPostFX, HueRotatePostFX ]);
-                shader = -1;
-            }
-
+            bendController.setActive(shader === 2 || shader === 3);
+            hueRotateController.setActive(shader === 1 || shader === 3);
         });
 
         this.tweens.add({
@@ -68,7 +52,10 @@ const config = {
     backgroundColor: '#000000',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: {  BendPostFX, HueRotatePostFX }
+    renderNodes: {
+        FilterBend: Bend.Filter,
+        FilterHueRotate: HueRotate.Filter
+    },
 };
 
 let game = new Phaser.Game(config);

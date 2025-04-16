@@ -1,3 +1,31 @@
+// Bloom effect by combining filters
+function AddBloomTo (gameObject)
+{
+    // This has no effect if filters are already enabled.
+    gameObject.enableFilters();
+
+    const parallelFilters = gameObject.filters.external.addParallelFilters();
+    parallelFilters.top.addThreshold(0.5, 1);
+    const blur = parallelFilters.top.addBlur();
+    parallelFilters.blend.blendMode = Phaser.BlendModes.ADD;
+    parallelFilters.blend.amount = 0;
+
+    return {
+        get amount () {
+            return parallelFilters.blend.amount;
+        },
+        set amount (value) {
+            parallelFilters.blend.amount = value;
+        },
+        get blurStrength () {
+            return blur.strength;
+        },
+        set blurStrength (value) {
+            blur.strength = value;
+        }
+    };
+}
+
 // Bullet class - fires from ship and "destroys" planet
 class Bullet extends Phaser.GameObjects.Image
 {
@@ -6,9 +34,10 @@ class Bullet extends Phaser.GameObjects.Image
     constructor(scene, x, y) {
         super(scene, x, y, "bullet");
         this.speed = Phaser.Math.GetSpeed(450, 1);
-        this.postFX.addBloom(0xffffff, 1, 1, 2, 1.2);
         this.name = "bullet";
-
+        this.bloomController = AddBloomTo(this);
+        this.bloomController.amount = 1.2;
+        this.bloomController.blurStrength = 2;
     }
 
     fire (x, y)
@@ -121,7 +150,9 @@ class Example extends Phaser.Scene
         });
 
         // FX bloom for the planet
-        const planetFX = planet.postFX.addBloom(0xffffff, 1, 1, 0, 1.2);
+        const planetFX = AddBloomTo(planet);
+        planetFX.amount = 1.2;
+        planetFX.blurStrength = 0;
 
         this.ship = this.add.image(100, this.sys.scale.height / 2, 'ship')
             .setDepth(2);
@@ -154,8 +185,7 @@ class Example extends Phaser.Scene
                 planetFXTween.restart();
                 planetFXTween.play();
             }
-        })
-
+        });
     }
 
     // Bullet fire

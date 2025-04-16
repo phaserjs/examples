@@ -19,7 +19,7 @@ class Example extends Phaser.Scene
         text.setFontSize(128);
         text.setShadow(8, 8);
 
-        const fx = text.preFX.addBarrel(0.6);
+        const fx = text.enableFilters().filters.internal.addBarrel(0.6);
 
         this.tweens.add({
             targets: fx,

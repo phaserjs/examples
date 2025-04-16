@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
     {
         const sprite = this.add.image(400, 300, 'pic');
 
-        const fx = sprite.preFX.addPixelate(-1);
+        const fx = sprite.enableFilters().filters.internal.addPixelate(-1);
 
         this.add.text(10, 10, '[W] Increase Pixelate\n[S] Decrease Pixelate').setResolution(window.devicePixelRatio).setShadow(2, 2);
 

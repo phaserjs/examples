@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
     {
         const sprite = this.add.image(400, 300, 'pic');
 
-        const fx = sprite.preFX.addPixelate(2);
+        const fx = sprite.enableFilters().filters.internal.addPixelate(2);
 
         const text = this.add.text(10, 10, 'Click to toggle FX.Pixelate on/off').setResolution(window.devicePixelRatio);
 

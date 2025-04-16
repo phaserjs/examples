@@ -19,7 +19,7 @@ class Example extends Phaser.Scene
         graphics.fillStyle(0x00ff00, 1);
         graphics.fillTriangle(200, 200, 400, 50, 500, 300);
 
-        const fx1 = graphics.postFX.addGlow(0xffffff, 0, 0, false, 0.1, 24);
+        const fx1 = graphics.enableFilters().filters.external.addGlow(0xffffff, 0, 0, 1, false, 10, 24);
 
         this.tweens.add({
             targets: fx1,

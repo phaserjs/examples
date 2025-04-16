@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
     {
         const bitmaptext1 = this.add.bitmapText(400, 300, 'desyrel-pink', 'Excepteur sint occaecat\ncupidatat non proident').setOrigin(0.5);
 
-        const fx1 = bitmaptext1.postFX.addGlow(0xffffff, 0, 0, false, 0.1, 24);
+        const fx1 = bitmaptext1.enableFilters().filters.external.addGlow(0xffffff, 0, 0, 1, false, 10, 24);
 
         this.tweens.add({
             targets: fx1,

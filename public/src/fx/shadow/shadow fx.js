@@ -14,7 +14,7 @@ class Example extends Phaser.Scene
 
         const phaserLogoImg1 = this.add.image(this.scale.width / 2, this.scale.height / 2 - 50, 'phaserlogo');
         phaserLogoImg1.setInteractive();
-        const fxShadow = phaserLogoImg1.preFX.addShadow(0, 0, 0.006, 2, 0x333333, 10);
+        const fxShadow = phaserLogoImg1.enableFilters().filters.external.addShadow(0, 0, 0.006, 2, 0x333333, 10);
 
         this.add.tween({
             targets: phaserLogoImg1,

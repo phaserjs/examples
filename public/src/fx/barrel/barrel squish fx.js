@@ -6,9 +6,12 @@ class Block extends Phaser.GameObjects.Sprite
 
         this.setScale(0.9);
 
-        this.preFX.setPadding(32);
+        this.enableFilters();
 
-        this.barrel = this.preFX.addBarrel(0.75);
+        // Enlarge filter view.
+        this.focusFiltersOverride(undefined, undefined, this.width + 64, this.height + 64);
+
+        this.barrel = this.filters.internal.addBarrel(0.75);
 
         this.amount = 1;
         this.allowClick = true;

@@ -37,7 +37,7 @@ class Example extends Phaser.Scene
 
         const camera = this.cameras.main;
 
-        camera.postFX.addTiltShift(0.9, 2.0, 0.4);
+        camera.filters.external.addTiltShift(0.9, 2.0, 0.4);
 
         this.tweens.add({
             targets: camera,

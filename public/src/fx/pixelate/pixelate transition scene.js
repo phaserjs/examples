@@ -10,7 +10,7 @@ class SceneB extends Phaser.Scene
     init ()
     {
         this.cameras.main.fadeIn(100);
-        const fxCamera = this.cameras.main.postFX.addPixelate(40);
+        const fxCamera = this.cameras.main.filters.external.addPixelate(40);
         this.add.tween({
             targets: fxCamera,
             duration: 700,
@@ -37,7 +37,7 @@ class SceneB extends Phaser.Scene
         });
 
         // FX
-        const pixelated = this.cameras.main.postFX.addPixelate(-1);
+        const pixelated = this.cameras.main.filters.external.addPixelate(-1);
 
         // Create button
         const buttonBox = this.add.rectangle(this.sys.scale.width / 2, this.sys.scale.height - 100, 290, 50, 0x000000, 1);
@@ -84,7 +84,7 @@ class SceneA extends Phaser.Scene
     init ()
     {
         this.cameras.main.fadeIn(100);
-        const fxCamera = this.cameras.main.postFX.addPixelate(40);
+        const fxCamera = this.cameras.main.filters.external.addPixelate(40);
         this.add.tween({
             targets: fxCamera,
             duration: 700,
@@ -115,7 +115,7 @@ class SceneA extends Phaser.Scene
             .setScale(1.5);
 
         // FX
-        const pixelated = this.cameras.main.postFX.addPixelate(-1);
+        const pixelated = this.cameras.main.filters.external.addPixelate(-1);
 
         // Create button
         const buttonBox = this.add.rectangle(this.sys.scale.width / 2, this.sys.scale.height - 100, 290, 50, 0x000000, 1);

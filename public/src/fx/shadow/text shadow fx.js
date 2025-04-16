@@ -18,9 +18,7 @@ class Example extends Phaser.Scene
         text.setFontStyle('bold');
         text.setFontSize(128);
 
-        text.preFX.setPadding(32);
-
-        const fx = text.preFX.addShadow(0, 0, 0.06, 0.75, 0x000000, 4, 0.8);
+        const fx = text.enableFilters().filters.external.addShadow(0, 0, 0.06, 0.75, 0x000000, 4, 0.8);
     }
 }
 

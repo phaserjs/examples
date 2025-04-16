@@ -17,9 +17,8 @@ class Example extends Phaser.Scene
 
         this.image = fx;
 
-        // const fx2 = fx.postFX.addBloom(0xff0000, 1, 1, 1, 6, 4);
-        const barrel = fx.preFX.addBarrel(1);
-        // barrel.amount = 2;
+        const barrel = fx.enableFilters().filters.external.addBarrel(1);
+
         this.add.tween({
             duration: 400,
             repeatDelay: 1000,

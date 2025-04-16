@@ -21,9 +21,8 @@ class Example extends Phaser.Scene
 
         emitter.particleBringToTop = false;
 
-        const fx = emitter.postFX.addBokeh(0.5, 10, 0.2);
-
-        // const fx = emitter.postFX.addBokeh(0.75, 1.5, 0.3);
+        emitter.enableFilters();
+        emitter.filters.external.addBokeh(0.5, 10, 0.2);
 
         this.add.image(650, 600, 'touhou').setOrigin(0.5, 1);
     }

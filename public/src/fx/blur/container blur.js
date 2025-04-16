@@ -14,12 +14,15 @@ class Example extends Phaser.Scene
 
         container.add(mock);
 
-        const fx = container.postFX.addBlur(1, 0, 0, 0, 0xffffff, 6);
+        container.enableFilters();
+        const fx = container.filters.internal.addBlur(1, 1, 1, 0, 0xffffff, 6);
 
         this.tweens.add({
             targets: fx,
             strength: 2,
-            duration: 2000
+            duration: 2000,
+            yoyo: true,
+            repeat: -1
         });
     }
 }

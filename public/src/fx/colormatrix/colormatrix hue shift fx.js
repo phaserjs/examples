@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
 
         const bomb = this.add.sprite(600, 300, 'egg');
 
-        const fx = bomb.preFX.addColorMatrix();
+        const fx = bomb.enableFilters().filters.internal.addColorMatrix().colorMatrix;
 
         const tween = this.tweens.addCounter({
             from: 0,

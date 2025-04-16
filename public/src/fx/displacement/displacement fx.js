@@ -11,7 +11,7 @@ class Example extends Phaser.Scene
     {
         const pic = this.add.image(400, 300, 'pic');
 
-        const fx = pic.preFX.addDisplacement('distort', -0.03, -0.03);
+        const fx = pic.enableFilters().filters.internal.addDisplacement('distort', -0.03, -0.03);
 
         this.tweens.add({
             targets: fx,

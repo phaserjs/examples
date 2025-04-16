@@ -11,9 +11,9 @@ class Example extends Phaser.Scene
         const bomb1 = this.add.sprite(200, 300, 'bomb');
         const bomb2 = this.add.sprite(600, 300, 'bomb');
 
-        const fx1 = bomb1.postFX.addGlow(0xffffff, 0, 0, false, 0.1, 32);
+        const fx1 = bomb1.enableFilters().filters.external.addGlow(0xffffff, 0, 0, 1, false, 10, 32);
 
-        const fx2 = bomb2.postFX.addGlow(0xff0000, 8, 8, true, 0.1, 24);
+        const fx2 = bomb2.enableFilters().filters.external.addGlow(0xff0000, 8, 8, 1, true, 10, 24);
 
         this.tweens.add({
             targets: fx1,

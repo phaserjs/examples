@@ -11,9 +11,12 @@ class Example extends Phaser.Scene
     {
         const pic = this.add.image(400, 300, 'pic');
 
-        const fx = pic.preFX.addDisplacement('distort', -0.3, 0);
+        const fx = pic.enableFilters().filters.internal.addDisplacement('distort', -0.3, 0);
 
-        pic.preFX.addCircle(8, 0x2d2d2d);
+        // Add a mask to the image.
+        const mask = this.add.circle(400, 300, 296, 0xffffff).setVisible(false);
+        mask.enableFilters().filters.external.addBlur();
+        pic.filters.external.addMask(mask);
 
         this.tweens.add({
             targets: fx,

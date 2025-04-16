@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
 
         this.rope = this.add.rope(400, 300, 'banner', null, 20);
 
-        const fx = this.rope.postFX.addGlow(0xffffff, 4, 0, false, 0.1, 32);
+        const fx = this.rope.enableFilters().filters.external.addGlow(0xffffff, 4, 0, 1, false, 10, 32);
 
         this.tweens.add({
             targets: fx,

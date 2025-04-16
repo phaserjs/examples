@@ -9,7 +9,7 @@ class Example extends Phaser.Scene
     create ()
     {
         const phaserLogoImg = this.add.image(this.scale.width / 2, this.scale.height / 2 - 50, 'phaserlogo');
-        const fxPixelated = phaserLogoImg.preFX.addPixelate(-1);
+        const fxPixelated = phaserLogoImg.enableFilters().filters.internal.addPixelate(-1);
 
         // Text to show the current build target
         const shape = this.add.rectangle(this.sys.scale.width / 2, this.sys.scale.height / 2 + 160, this.sys.scale.width, 30, 0x000000, 0.8);

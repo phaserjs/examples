@@ -16,9 +16,12 @@ class Example extends Phaser.Scene
             {
                 const sprite = this.add.sprite(128 + x * 256, 128 + y * 256, 'block');
 
-                sprite.preFX.setPadding(32);
+                sprite.enableFilters();
 
-                sprite.preFX.addBarrel(amount);
+                // Enlarge filter view.
+                sprite.focusFiltersOverride(undefined, undefined, sprite.width + 64, sprite.height + 64);
+
+                sprite.filters.internal.addBarrel(amount);
 
                 this.add.text(128 + x * 256, 128 + y * 256 + 96, amount).setOrigin(0.5, 0).setResolution(window.devicePixelRatio);
 

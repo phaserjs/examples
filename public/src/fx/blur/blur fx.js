@@ -13,7 +13,8 @@ class Example extends Phaser.Scene
 
         const logo = this.add.image(400, 300, 'phaserlogo');
 
-        const fx = logo.preFX.addBlur();
+        logo.enableFilters();
+        const fx = logo.filters.external.addBlur();
 
         this.tweens.add({
             targets: fx,

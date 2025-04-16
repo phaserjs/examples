@@ -10,11 +10,14 @@ class Example extends Phaser.Scene
     {
         const bomb = this.add.sprite(400, 300, 'bomb');
 
-        bomb.preFX.setPadding(32);
+        let fx;
+        bomb.enableFilters();
+        fx = bomb.filters.internal.addGlow();
 
-        const fx = bomb.preFX.addGlow();
+        // Allow the filter to automatically expand its padding.
+        fx.setPaddingOverride(null);
 
-        //  For PreFX Glow the quality and distance are set in the Game Configuration
+        //  For Glow filters, the quality and distance can be set in the Game Configuration
 
         this.tweens.add({
             targets: fx,
@@ -36,7 +39,7 @@ const config = {
     fx: {
         glow: {
             distance: 32,
-            quality: 0.1
+            quality: 10
         }
     }
 };

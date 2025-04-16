@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
 
         const egg = this.add.sprite(600, 300, 'egg');
 
-        const fx = egg.preFX.addColorMatrix();
+        const fx = eggenableFilters().filters.internal.addColorMatrix().colorMatrix;
 
         this.add.text(10, 10, 'Click to change ColorMatrix function');
 

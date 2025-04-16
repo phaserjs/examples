@@ -29,6 +29,8 @@ class Example extends Phaser.Scene
 
                 });
 
+                rt.render();
+
                 i++;
 
                 if (i === 360)
@@ -43,6 +45,8 @@ class Example extends Phaser.Scene
         {
 
             rt.draw(brush, pointer.x - 16, pointer.y - 16, 1, hsv[i].color);
+
+            rt.render();
 
             i++;
 

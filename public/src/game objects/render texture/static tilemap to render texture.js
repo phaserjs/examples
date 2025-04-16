@@ -48,6 +48,8 @@ class Example extends Phaser.Scene
         this.rt.draw(this.layer, 0, 200);
         this.rt.draw(this.layer, 200, 200);
         this.rt.draw(this.layer, 400, 200);
+
+        this.rt.render();
     }
 }
 

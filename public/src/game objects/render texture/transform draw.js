@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
         rt.camera.setZoom(2);
         rt.camera.setPosition(450, 350);
 
-        rt.drawFrame('bunny');
+        rt.stamp('bunny', null, 0, 0, { originX: 0, originY: 0 }).render();
     }
 }
 

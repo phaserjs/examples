@@ -16,7 +16,8 @@ class Example extends Phaser.Scene
         const circle = this.add.circle(0, 0, 40, 0x6666ff).setAlpha(0.5).setVisible(false);
 
         this.rt.draw(circle, 40, 40);
-        this.rt.draw('dude', 24, 20);
+        this.rt.draw('dude', 40, 40);
+        this.rt.render();
 
         this.rt.saveTexture('bubbleboy');
 

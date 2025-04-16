@@ -38,6 +38,8 @@ class Example extends Phaser.Scene
         this.rt.draw(invader2);
         this.rt.draw(invader3);
 
+        this.rt.render();
+
         //  Now we're drawn them to the Render Texture, we can hide them:
 
         invader1.toggleVisible();

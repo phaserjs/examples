@@ -18,8 +18,8 @@ class Example extends Phaser.Scene
         const rt1 = this.add.renderTexture(0, 0, 400, 600).setOrigin(0, 0);
         const rt2 = this.add.renderTexture(400, 0, 400, 600).setOrigin(0, 0);
 
-        rt1.repeat('crate', null, 0, 0);
-        rt2.repeat('raster', null, 0, 0);
+        rt1.repeat('crate', null, 0, 0).render();
+        rt2.repeat('raster', null, 0, 0).render();
     }
 }
 

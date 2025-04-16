@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
     {
         this.player.setPosition(this.input.x, this.input.y);
 
-        this.rt.draw(this.player);
+        this.rt.draw(this.player).render();
     }
 }
 

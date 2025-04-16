@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
 
             if (pointer.isDown)
             {
-                rt.draw('brush', pointer.x - 32, pointer.y - 32);
+                rt.draw('brush', pointer.x - 32, pointer.y - 32).render();
             }
 
         }, this);

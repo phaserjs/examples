@@ -22,6 +22,8 @@ class Example extends Phaser.Scene
             }
         }
 
+        rt.render();
+
         const cursors = this.input.keyboard.createCursorKeys();
 
         const controlConfig = {

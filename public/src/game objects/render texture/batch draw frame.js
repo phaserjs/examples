@@ -14,17 +14,15 @@ class Example extends Phaser.Scene
 
         const frames = atlasTexture.getFrameNames();
 
-        rt.beginDraw();
-
         for (let i = 0; i < frames.length; i++)
         {
             const x = Phaser.Math.Between(0, 800);
             const y = Phaser.Math.Between(0, 600);
 
-            rt.batchDrawFrame('megaset', frames[i], x, y);
+            rt.stamp('megaset', frames[i], x, y);
         }
 
-        rt.endDraw();
+        rt.render();
     }
 }
 

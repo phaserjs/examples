@@ -33,7 +33,8 @@ class Example extends Phaser.Scene
 
         this.input.on('pointermove', pointer =>
         {
-            rt.draw(selected, pointer.x, pointer.y);
+            rt.draw(selected, pointer.x, pointer.y)
+            .render();
         });
     }
 }

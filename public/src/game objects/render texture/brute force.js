@@ -38,7 +38,8 @@ class Example extends Phaser.Scene
         const tint = (0x00ffff * (this.rnd() * 0.1 + 0.8));
         const frame = ~~(this.rnd() * 22);
 
-        this.rt.drawFrame('matrix', frame, this.rnd() * 800, this.rnd() * 600, alpha, tint);
+        this.rt.stamp('matrix', frame, this.rnd() * 800, this.rnd() * 600, { alpha, tint })
+        .render();
     }
 }
 

@@ -27,6 +27,8 @@ class Example extends Phaser.Scene
         this.rt.clear();
 
         this.rt.draw(this.bitmaptext, 300, 400);
+
+        this.rt.render();
     }
 
     textCallback (data)

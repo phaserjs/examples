@@ -11,8 +11,9 @@ class Example extends Phaser.Scene
     {
         const rt = this.add.renderTexture(400, 300, 64, 64);
 
-        rt.draw('bubble');
-        rt.draw('dude', 18, 14);
+        rt.draw('bubble', 32, 32);
+        rt.draw('dude', 32, 32);
+        rt.render();
     }
 }
 

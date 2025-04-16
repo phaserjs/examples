@@ -16,6 +16,7 @@ class Example extends Phaser.Scene
 
         rt.draw(bubble, 32, 32);
         rt.draw(dude, 32, 32);
+        rt.render();
     }
 }
 

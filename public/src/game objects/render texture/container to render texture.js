@@ -24,16 +24,16 @@ class Example extends Phaser.Scene
 
         this.rt = this.add.renderTexture(400, 300, 800, 600);
 
-        this.rt.draw(this.container);
+        this.rt.draw(this.container).render();
     }
 
     update ()
     {
         this.rt.camera.rotation -= 0.01;
 
-        this.rt.clear();
-
-        this.rt.draw(this.container);
+        this.rt.clear()
+        .draw(this.container)
+        .render();
     }
 }
 

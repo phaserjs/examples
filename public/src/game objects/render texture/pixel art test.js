@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
 
         const mushroom = this.add.image(200, 300, 'mushroom').setScale(16);
 
-        rt.draw(mushroom, 600, 300);
+        rt.draw(mushroom, 400, 0).render();
     }
 }
 

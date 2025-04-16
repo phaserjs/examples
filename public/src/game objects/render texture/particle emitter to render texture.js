@@ -11,7 +11,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.particles = this.add.particles(400, 300, 'flares', {
+        this.particles = this.add.particles(0, 0, 'flares', {
             frame: 'blue',
             x: 400,
             y: 300,
@@ -36,6 +36,8 @@ class Example extends Phaser.Scene
         this.rt.clear();
 
         this.rt.draw(this.particles, 0, 0);
+
+        this.rt.render();
     }
 }
 

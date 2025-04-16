@@ -31,7 +31,7 @@ class Example extends Phaser.Scene
             complete: function ()
             {
                 console.log('Complete');
-                this.rt.clear(); this.blast.alpha = 0;
+                this.rt.clear().render(); this.blast.alpha = 0;
             },
             paused: true
         });
@@ -58,7 +58,7 @@ class Example extends Phaser.Scene
 
         this.blast.setTexture(Math.random() < 0.8 ? 'fire' : 'smoke');
 
-        this.rt.draw(this.blast);
+        this.rt.draw(this.blast).render();
     }
 }
 

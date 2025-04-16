@@ -10,11 +10,16 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.2);
+        this.add.sprite(400, 300, 'bg')
+        .setLighting(true)
+        .setAlpha(0.2);
 
         this.add.sprite(680, 600, 'sonic').setOrigin(0.5, 1);
 
-        this.add.bitmapText(400, 300, 'ice', 'Bitmap Text\nwith Lights', 110).setCenterAlign().setOrigin(0.5).setPipeline('Light2D');
+        this.add.bitmapText(400, 300, 'ice', 'Bitmap Text\nwith Lights', 110)
+        .setCenterAlign()
+        .setOrigin(0.5)
+        .setLighting(true);
 
         this.lights.enable();
         this.lights.setAmbientColor(0x808080);

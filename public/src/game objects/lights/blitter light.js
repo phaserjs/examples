@@ -25,9 +25,11 @@ class Example extends Phaser.Scene
         this.lights.enable();
         this.lights.setAmbientColor(0x808080);
 
-        this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.5);
+        this.add.sprite(400, 300, 'bg')
+        .setLighting(true)
+        .setAlpha(0.5);
 
-        this.blitter = this.add.blitter(0, 0, 'atlas').setPipeline('Light2D');
+        this.blitter = this.add.blitter(0, 0, 'atlas').setLighting(true);
 
         for (let i = 0; i < 32; i++)
         {

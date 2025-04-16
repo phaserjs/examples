@@ -11,9 +11,9 @@ class Example extends Phaser.Scene
     {
         const brick = this.add.sprite(0, 0, 'brick');
         brick.setOrigin(0.0);
-        brick.setPipeline('Light2D');
+        brick.setLighting(true);
 
-        const rt = this.add.renderTexture(0, 0, 800, 600).setPipeline('Light2D');
+        const rt = this.add.renderTexture(0, 0, 800, 600).setLighting(true).setOrigin(0, 0);
 
         const brush = this.textures.getFrame('brush');
 
@@ -32,7 +32,7 @@ class Example extends Phaser.Scene
         this.input.on('pointerdown', pointer =>
         {
 
-            rt.draw(brush, pointer.x - 60, pointer.y - 80);
+            rt.draw(brush, pointer.x - 60, pointer.y - 80).render();
 
         });
 

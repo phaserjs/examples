@@ -11,7 +11,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.tilesprite = this.add.tileSprite(400, 300, 800, 600, 'brick').setPipeline('Light2D');
+        this.tilesprite = this.add.tileSprite(400, 300, 800, 600, 'brick').setLighting(true);
 
         this.add.sprite(680, 600, 'sonic').setOrigin(0.5, 1);
 

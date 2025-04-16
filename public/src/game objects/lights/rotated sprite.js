@@ -16,7 +16,7 @@ class Example extends Phaser.Scene
     create ()
     {
         this.spider = this.add.sprite(400, 300, 'spider');
-        this.spider.setPipeline('Light2D');
+        this.spider.setLighting(true);
 
         this.light = this.lights.addLight(0, 0, 500).setIntensity(6);
 

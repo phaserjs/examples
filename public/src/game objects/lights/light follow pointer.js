@@ -11,7 +11,7 @@ class Example extends Phaser.Scene
     {
         const brick = this.add.sprite(0, 0, 'brick');
         brick.setOrigin(0, 0);
-        brick.setPipeline('Light2D');
+        brick.setLighting(true);
 
         this.light = this.lights.addLight(0, 0, 200).setScrollFactor(0).setIntensity(2);
 
@@ -39,7 +39,7 @@ class Example extends Phaser.Scene
 
         });
 
-        this.add.image(300, 400, 'phaser').setPipeline('Light2D');
+        this.add.image(300, 400, 'phaser').setLighting(true);
 
         this.lights.addLight(0, 100, 100).setColor(0xff0000).setIntensity(3.0);
         this.lights.addLight(0, 200, 100).setColor(0x00ff00).setIntensity(3.0);

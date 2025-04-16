@@ -1,6 +1,6 @@
 // #module
 
-import HueRotatePostFX from './assets/pipelines/HueRotatePostFX.js';
+import HueRotate from './assets/rendernodes/FilterHueRotate.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -33,7 +33,7 @@ export default class Example extends Phaser.Scene
 
         const land = this.add.tileSprite(400, 300, 800, 600, 'stones');
 
-        land.setPipeline('Light2D');
+        land.setLighting(true);
         land.setScrollFactor(0, 0);
         land.tileScaleX = 0.5;
         land.tileScaleY = 0.5;
@@ -156,7 +156,7 @@ export default class Example extends Phaser.Scene
 
         this.tweens.add({ targets: lightsLayer.list, radius: 96, yoyo: true, duration: 1500, repeat: -1, ease: 'Sine.inOut' });
 
-        gemsLayer.setPostPipeline(HueRotatePostFX);
+        gemsLayer.enableFilters().filters.external.add(new HueRotate.Controller(gemsLayer.filterCamera));
     }
 
     update ()
@@ -199,7 +199,9 @@ const config = {
     backgroundColor: '#000000',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: { HueRotatePostFX }
+    renderNodes: {
+        FilterHueRotate: HueRotate.Filter
+    }
 };
 
 const game = new Phaser.Game(config);

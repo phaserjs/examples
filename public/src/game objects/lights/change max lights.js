@@ -8,7 +8,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.add.image(400, 300, 'brick').setPipeline('Light2D');
+        this.add.image(400, 300, 'brick').setLighting(true);
 
         this.lights.enable().setAmbientColor(0x555555);
 

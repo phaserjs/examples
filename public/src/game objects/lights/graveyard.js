@@ -41,7 +41,7 @@ class Example extends Phaser.Scene
         });
 
         const pic = this.add.image(512, 384, 'tombs');
-        pic.setPipeline('Light2D');
+        pic.setLighting(true);
 
         //  The 3 lights
         const dummy = this.add.image(900, 400, 'light').setVisible(false);

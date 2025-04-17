@@ -17,14 +17,12 @@ class Example extends Phaser.Scene
     {
         this.add.image(400, 300, 'bg');
 
-        const mask = this.add.bitmapMask(null, 400, 300, 'splat');
-
         for (let i = 0; i < 64; i++)
         {
             const x = Phaser.Math.Between(0, 800);
             const y = Phaser.Math.Between(0, 600);
 
-            this.add.image(x, y, 'atari').setMask(mask);
+            this.add.image(x, y, 'atari').enableFilters().filters.external.addMask('splat');
         }
     }
 }

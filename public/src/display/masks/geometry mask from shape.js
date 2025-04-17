@@ -17,9 +17,7 @@ class Example extends Phaser.Scene
 
         const maskRect = this.add.rectangle(400, 300, 480, 256, 0x000000).setVisible(false);
 
-        const mask = maskRect.createGeometryMask();
-
-        pic.setMask(mask);
+        pic.enableFilters().filters.external.addMask(maskRect);
 
         this.tweens.add({
             targets: maskRect,

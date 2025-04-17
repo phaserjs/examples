@@ -19,11 +19,11 @@ class Example extends Phaser.Scene
 
         const banner = this.textures.addDynamicTexture('skullTexture', 800, 600)
 
-        banner.stamp('skull', null, 400, 300);
+        banner.stamp('skull', null, 400, 300).render();
 
-        const mask = this.add.bitmapMask(banner);
-
-        this.add.image(400, 300, 'bg2').setMask(mask);
+        const image = this.add.image(400, 300, 'bg2');
+        image.enableFilters();
+        image.filters.external.addMask('skullTexture');
     }
 }
 

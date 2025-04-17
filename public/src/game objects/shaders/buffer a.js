@@ -1,11 +1,5 @@
 class Example extends Phaser.Scene
 {
-    preload ()
-    {
-        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
-        this.load.glsl('bundle', 'assets/shaders/bundle.glsl.js');
-    }
-
     create ()
     {
         const s1 = `
@@ -18,13 +12,11 @@ class Example extends Phaser.Scene
     precision mediump float;
 
     uniform float time;
-    uniform vec2 resolution;
     uniform sampler2D iChannel0;
 
-    varying vec2 fragCoord;
+    varying vec2 outTexCoord;
 
     #define iTime time
-    #define iResolution resolution
 
     vec4 texture(sampler2D s, vec2 c) { return texture2D(s,c); }
     vec4 texture(sampler2D s, vec2 c, float b) { return texture2D(s,c,b); }
@@ -272,12 +264,12 @@ class Example extends Phaser.Scene
         return pcol;
     }
 
-    void mainImage(out vec4 fragColor, in vec2 fragCoord)
+    void mainImage(out vec4 fragColor, in vec2 outTexCoord)
     {
-        vec2 uv = fragCoord.xy / iResolution.xx;
+        vec2 uv = outTexCoord.xy;
         
         // Multipass motion blur
-        vec2 uv2 = fragCoord.xy / iResolution.xy;
+        vec2 uv2 = outTexCoord.xy;
         vec3 pcolor = texture(iChannel0,uv2).rgb*mb_factor;
         
         // Background gradient
@@ -292,59 +284,65 @@ class Example extends Phaser.Scene
 
     void main(void)
     {
-        mainImage(gl_FragColor, fragCoord.xy);
+        mainImage(gl_FragColor, outTexCoord.xy);
     }
         `;
-
-        //  Create our BaseShader object using the fragment source above (and the default vertex source):
-
-        const baseShader1 = new Phaser.Display.BaseShader('BufferA', s1);
 
         const s2 = `
     precision mediump float;
 
-    uniform float time;
-    uniform vec2 resolution;
     uniform sampler2D iChannel0;
 
-    varying vec2 fragCoord;
-
-    #define iTime time
-    #define iResolution resolution
+    varying vec2 outTexCoord;
 
     vec4 texture(sampler2D s, vec2 c) { return texture2D(s,c); }
     vec4 texture(sampler2D s, vec2 c, float b) { return texture2D(s,c,b); }
 
-    void mainImage( out vec4 fragColor, in vec2 fragCoord )
+    void mainImage( out vec4 fragColor, in vec2 outTexCoord )
     {
-        vec2 uv = fragCoord.xy / resolution.xy;
+        vec2 uv = outTexCoord.xy;
         fragColor = texture(iChannel0,uv);
     }
 
     void main(void)
     {
-        mainImage(gl_FragColor, fragCoord.xy);
+        mainImage(gl_FragColor, outTexCoord.xy);
     }
         `;
 
-        const baseShader2 = new Phaser.Display.BaseShader('BufferB', s2);
-
-        const shader1 = this.add.shader(baseShader1, 400, 300, 512, 512);
+        const shader1 = this.add.shader(
+            {
+                name: 'BufferA',
+                fragmentSource: s1,
+                setupUniforms: (setUniform, drawingContext) => {
+                    setUniform('time', this.game.loop.getDuration());
+                },
+                initialUniforms: {
+                    iChannel0: 0
+                }
+            },
+            400, 300, 512, 512, [ '__DEFAULT' ]
+        );
 
         shader1.setRenderToTexture('blah');
 
-        const shader2 = this.add.shader(baseShader2, 400, 300, 512, 512);
+        const shader2 = this.add.shader(
+            {
+                name: 'BufferB',
+                fragmentSource: s2,
+                initialUniforms: {
+                    iChannel0: 0
+                }
+            },
+            400, 300, 512, 512, [ '__DEFAULT' ]
+        );
 
         shader2.setRenderToTexture('blah2');
 
-        shader1.setSampler2D('iChannel0', 'blah2');
-        shader2.setSampler2D('iChannel0', 'blah');
+        shader1.setTextures([ 'blah2' ]);
+        shader2.setTextures([ 'blah' ]);
 
         this.add.image(400, 300, 'blah2');
-
-
-
-
     }
 }
 

@@ -12,9 +12,9 @@ class Example extends Phaser.Scene
 
         const g1 = this.add.grid(100, 100, 128, 96, 32, 32, 0x057605);
 
-        const g2 = this.add.grid(300, 340, 512, 256, 64, 64, 0x00b9f2).setAltFillStyle(0x016fce).setOutlineStyle();
+        const g2 = this.add.grid(300, 340, 512, 256, 64, 64, 0x00b9f2).setAltFillStyle(0x016fce).setStrokeStyle();
 
-        const g3 = this.add.grid(600, 300, 100, 500, 48, 128, 0xc145ea).setAltFillStyle(0xb038d7).setOutlineStyle().setAngle(-20);
+        const g3 = this.add.grid(600, 300, 100, 500, 48, 128, 0xc145ea).setAltFillStyle(0xb038d7).setStrokeStyle().setAngle(-20);
 
         this.tweens.add({
 

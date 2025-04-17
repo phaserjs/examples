@@ -74,10 +74,17 @@ class Example extends Phaser.Scene
         renderer.autoClear = false;
 
         //  The Extern render function
-        view.render = () => {
+        view.render = (webGLRenderer, drawingContext, calcMatrix) => {
 
             //  This is essential to get ThreeJS to reset the GL state
             renderer.resetState();
+
+            // Ensure the DrawingContext framebuffer is bound.
+            webGLRenderer.glWrapper.updateBindingsFramebuffer({
+                bindings: {
+                    framebuffer: drawingContext.framebuffer
+                }
+            }, true);
 
             mesh1.rotation.x += 0.005;
             mesh1.rotation.y += 0.01;

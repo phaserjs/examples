@@ -28,14 +28,14 @@ class Example extends Phaser.Scene
 
         for (let angle = 0; angle < Math.PI * 2; angle += this.step)
         {
-            const point = this.points[i] || new Phaser.Geom.Point();
+            const point = this.points[i] || new Phaser.Math.Vector2();
 
             point.setTo(Math.cos(angle) * 290, Math.sin(angle) * 290);
 
             this.points[i] = point;
 
             ++i;
-            this.points[i] = Phaser.Geom.Point.Negative(point, this.points[i]);
+            this.points[i] = Phaser.Math.Vector2.Negative(point, this.points[i]);
 
             ++i;
         }

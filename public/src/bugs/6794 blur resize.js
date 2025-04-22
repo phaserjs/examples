@@ -5,7 +5,7 @@ class GameScene extends Phaser.Scene {
   
   create() {
  		const poly = new Phaser.Geom.Polygon();
-    poly.setTo([ new Phaser.Geom.Point(200, 100), new Phaser.Geom.Point(350, 100), new Phaser.Geom.Point(375, 200), new Phaser.Geom.Point(150, 200) ]);
+    poly.setTo([ new Phaser.Math.Vector2(200, 100), new Phaser.Math.Vector2(350, 100), new Phaser.Math.Vector2(375, 200), new Phaser.Math.Vector2(150, 200) ]);
     const graphics = this.add.graphics();
     graphics.postFX.addBlur();
 		const blackOverlay = this.add.graphics();

@@ -25,7 +25,7 @@ class Example extends Phaser.Scene
         // graphics.lineStyle(16, 0x000000, 1);
         graphics.fillStyle(color, alpha);
 
-        // var a = new Phaser.Geom.Point(400, 300);
+        // var a = new Phaser.Math.Vector2(400, 300);
         // var radius = 128;
 
         graphics.fillCircle(400, 300, 128);

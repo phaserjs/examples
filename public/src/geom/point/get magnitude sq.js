@@ -9,7 +9,7 @@ class Example extends Phaser.Scene
     {
         this.graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
-        this.point = new Phaser.Geom.Point();
+        this.point = new Phaser.Math.Vector2();
 
         this.points = [];
 
@@ -17,7 +17,7 @@ class Example extends Phaser.Scene
         {
             const x = Math.random() * 800;
             const y = Math.random() * 600;
-            this.points.push(new Phaser.Geom.Point(x, y));
+            this.points.push(new Phaser.Math.Vector2(x, y));
         }
     }
 
@@ -32,11 +32,11 @@ class Example extends Phaser.Scene
 
         for (let i = 0; i < this.points.length; i++)
         {
-            const temp = Phaser.Geom.Point.Clone(this.point);
+            const temp = Phaser.Math.Vector2.Clone(this.point);
 
             temp.x -= this.points[i].x;
             temp.y -= this.points[i].y;
-            const magnitudeSquared = Phaser.Geom.Point.GetMagnitudeSq(temp);
+            const magnitudeSquared = Phaser.Math.Vector2.GetMagnitudeSq(temp);
 
             if (magnitudeSquared < 30 * 30)
             {

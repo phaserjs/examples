@@ -5,9 +5,9 @@ class Example extends Phaser.Scene
         const graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaa6622 } });
 
         const points = [
-            new Phaser.Geom.Point(420, 280),
-            new Phaser.Geom.Point(450, 250),
-            new Phaser.Geom.Point(470, 300)
+            new Phaser.Math.Vector2(420, 280),
+            new Phaser.Math.Vector2(450, 250),
+            new Phaser.Math.Vector2(470, 300)
         ];
 
         const polygon = new Phaser.Geom.Polygon(points);
@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Geom.Point.CopyFrom(pointer, points[points.length - 1]);
+            Phaser.Math.Vector2.CopyFrom(pointer, points[points.length - 1]);
 
             polygon.setTo(points);
 
@@ -25,7 +25,7 @@ class Example extends Phaser.Scene
         this.input.on('pointerdown', pointer =>
         {
 
-            points.push(Phaser.Geom.Point.Clone(points[points.length - 1]));
+            points.push(Phaser.Math.Vector2.Clone(points[points.length - 1]));
 
         });
 

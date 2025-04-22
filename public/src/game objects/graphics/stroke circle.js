@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
 
         this.graphics.lineStyle(thickness, color, alpha);
 
-        const a = new Phaser.Geom.Point(400, 300);
+        const a = new Phaser.Math.Vector2(400, 300);
         const radius = 128;
 
         this.graphics.strokeCircle(a.x, a.y, radius);

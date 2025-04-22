@@ -4,12 +4,12 @@ class Example extends Phaser.Scene
     {
         const graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
-        const point = new Phaser.Geom.Point(400, 100);
+        const point = new Phaser.Math.Vector2(400, 100);
 
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Geom.Point.CopyFrom(pointer, point);
+            Phaser.Math.Vector2.CopyFrom(pointer, point);
 
             redraw();
         });
@@ -22,7 +22,7 @@ class Example extends Phaser.Scene
 
             graphics.fillPointShape(point, 15);
 
-            Phaser.Geom.Point.Invert(point);
+            Phaser.Math.Vector2.Invert(point);
 
             graphics.fillStyle(0x00aa00);
             graphics.fillPointShape(point, 15);

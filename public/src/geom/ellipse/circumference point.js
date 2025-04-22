@@ -8,8 +8,8 @@ class Example extends Phaser.Scene
 
         const ellipse = new Phaser.Geom.Ellipse(400, 300, 250, 150);
 
-        let circumferencePoint = new Phaser.Geom.Point(275, 300);
-        const centerPoint = new Phaser.Geom.Point(400, 300);
+        let circumferencePoint = new Phaser.Math.Vector2(275, 300);
+        const centerPoint = new Phaser.Math.Vector2(400, 300);
 
         const line = new Phaser.Geom.Line(400, 300, 275, 300);
 

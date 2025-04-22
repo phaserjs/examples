@@ -64,7 +64,7 @@ function create ()
 
         function Snake (scene, x, y)
         {
-            this.headPosition = new Phaser.Geom.Point(x, y);
+            this.headPosition = new Phaser.Math.Vector2(x, y);
 
             this.body = scene.add.group();
 
@@ -77,7 +77,7 @@ function create ()
 
             this.moveTime = 0;
 
-            this.tail = new Phaser.Geom.Point(x, y);
+            this.tail = new Phaser.Math.Vector2(x, y);
 
             this.heading = RIGHT;
             this.direction = RIGHT;

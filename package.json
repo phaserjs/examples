@@ -9,6 +9,8 @@
     "update355": "node ./build355.js",
     "update324": "node ./build324.js",
     "screenshots": "node ./tools/generate-screenshots.js",
+    "generateExamples": "node ./tools/generateExamplesJson.js",
+    "checkExamples": "node ./tools/checkExamples.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,7 +28,7 @@
     "fs-extra": "^11.1.1",
     "http-server": "^14.1.1",
     "monaco-editor": "^0.37.1",
-    "puppeteer": "^19.9.0"
+    "puppeteer": "^24.6.1"
   },
   "dependencies": {}
 }

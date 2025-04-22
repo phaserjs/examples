@@ -55,7 +55,7 @@ class Example extends Phaser.Scene {
 
         var _this = this;
 
-        images.children.iterate(function (child) {
+        images.children.forEach(function (child) {
 
             _this.tweens.add({
                 targets: child,

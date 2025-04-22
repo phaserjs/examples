@@ -70,7 +70,7 @@ class Example extends Phaser.Scene
     {
         Phaser.Actions.IncY(this.group.getChildren(), 1);
 
-        this.group.children.iterate(alien =>
+        this.group.children.forEach(alien =>
         {
             if (alien.y > 600)
             {

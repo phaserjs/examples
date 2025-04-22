@@ -25,7 +25,7 @@ class Example extends Phaser.Scene
 
         let i = 0;
 
-        blocks.children.iterate(function (child)
+        blocks.children.forEach(function (child)
         {
 
             this.tweens.add({

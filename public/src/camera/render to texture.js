@@ -1,10 +1,10 @@
 // #module
 
-import PixelatedFX from './assets/pipelines/PixelatedFX.js';
+import PixelatedFX from './assets/rendernodes/FilterPixelatedFX.js';
 
 class Example extends Phaser.Scene
 {
-    constructor ()
+    constructor()
     {
         super();
     }
@@ -22,7 +22,7 @@ class Example extends Phaser.Scene
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
         this.cameras.main.ignore(hotdog);
-        this.cameras.main.setPostPipeline(PixelatedFX);
+        this.cameras.main.filters.external.add(new PixelatedFX.Controller(this.cameras.main));
 
         const cam1 = this.cameras.add(0, 0, 800, 600);
 
@@ -59,7 +59,9 @@ const config = {
     height: 600,
     backgroundColor: '#000000',
     scene: Example,
-    pipeline: { PixelatedFX }
+    renderNodes: {
+        FilterPixelatedFX: PixelatedFX.Filter,
+    }
 };
 
 const game = new Phaser.Game(config);

@@ -1,9 +1,9 @@
 // #module
-import BendWavesPostFX from './assets/pipelines/BendWavesPostFX.js';
+import BendWaves from './assets/rendernodes/FilterBendWaves.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor ()
+    constructor()
     {
         super();
 
@@ -69,7 +69,8 @@ export default class Example extends Phaser.Scene
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        stars.children.iterate(function (child) {
+        stars.children.forEach(function (child)
+        {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
@@ -84,7 +85,7 @@ export default class Example extends Phaser.Scene
 
         this.player = player;
 
-        this.cameras.main.setPostPipeline(BendWavesPostFX);
+        this.cameras.main.filters.external.add(new BendWaves.Controller(this.cameras.main));
     }
 
     update ()
@@ -143,7 +144,9 @@ const config = {
         }
     },
     scene: Example,
-    pipeline: {  BendWavesPostFX }
+    renderNodes: {
+        FilterBendWaves: BendWaves.Filter
+    },
 };
 
 const game = new Phaser.Game(config);

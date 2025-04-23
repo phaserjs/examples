@@ -128,16 +128,7 @@ class Example extends Phaser.Scene
 
     create()
     {
-        const maskImage = this.make.image({
-            x: 400,
-            y: 300,
-            key: 'mask',
-            add: false
-        });
-
-        const mask = maskImage.createBitmapMask();
-
-        this.cameras.main.setMask(mask, false);
+        this.cameras.main.filters.internal.addMask('mask');
 
         const baseShader = new Phaser.Display.BaseShader('BufferShader', fragmentShader);
         const shader = this.add.shader(baseShader, 400, 300, 800, 600);

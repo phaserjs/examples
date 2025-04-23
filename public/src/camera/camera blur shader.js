@@ -17,8 +17,7 @@ class Example extends Phaser.Scene
         const volcano = this.add.image(400, 300, 'volcano').setAlpha(0.5);
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        let cam = this.cameras.main;
-        cam.filters.external.addBlur(0, 0, 1, 1, 0xBBBBBB, 2);
+        this.cameras.main.filters.internal.addBlur();
 
         const extracam = this.cameras.add();
 

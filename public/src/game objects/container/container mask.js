@@ -27,7 +27,7 @@ class Example extends Phaser.Scene
             key: 'mask',
             add: false
         }).setScale(2);
-        // const mask = new Phaser.Display.Masks.BitmapMask(this, maskImage);
+        
         let lastContainer;
         const count = 40;
 

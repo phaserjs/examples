@@ -1,9 +1,9 @@
 // #module
-import HueRotatePostFX from './assets/pipelines/HueRotatePostFX.js';
+import HueRotate from './assets/rendernodes/FilterHueRotate.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor ()
+    constructor()
     {
         super();
     }
@@ -20,7 +20,7 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano');
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.cameras.main.setPostPipeline(HueRotatePostFX);
+        this.cameras.main.filters.external.add(new HueRotate.Controller(this.cameras.main));
 
         this.cameras.main.setZoom(0.5);
 
@@ -53,7 +53,9 @@ const config = {
     height: 600,
     backgroundColor: '#000000',
     scene: Example,
-    pipeline: { HueRotatePostFX }
+    renderNodes: {
+        FilterHueRotate: HueRotate.Filter,
+    }
 };
 
 const game = new Phaser.Game(config);

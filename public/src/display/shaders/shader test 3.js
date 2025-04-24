@@ -42,14 +42,15 @@ class Example extends Phaser.Scene
         super();
     }
 
-    preload()
+    preload ()
     {
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        this.load.glsl('discoball', 'assets/shaders/disco-ball.frag');
         this.load.image('pic', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
         this.load.image('logo', 'assets/sprites/phaser3-logo-x2.png');
     }
 
-    create()
+    create ()
     {
         const shape1 = this.make.graphics().fillCircle(400, 300, 300);
         const shape2 = this.make.graphics().fillCircle(400, 300, 200);
@@ -64,17 +65,31 @@ class Example extends Phaser.Scene
             add: false
         });
 
-        const mask3 = maskImage.createBitmapMask();
+        // const mask3 = maskImage.createBitmapMask();
 
         // this.cameras.main.setMask(mask3, false);
 
         this.add.image(400, 300, 'pic');
 
         // this.add.image(400, 300, 'pic').setMask(mask1);
-        const baseShader = new Phaser.Display.BaseShader('BufferShader', fragmentShader);
-        const shader = this.add.shader(baseShader, 400, 300, 800, 600).setMask(mask3);
+        // const baseShader = new Phaser.Display.BaseShader('BufferShader', fragmentShader);
+        const shader = this.add.shader({
+            name: 'discoball',
+            fragmentKey: 'discoball',
+            setupUniforms: (setUniform, drawingContext) =>
+            {
+                setUniform('time', this.game.loop.getDuration());
+            },
+        }, 400, 300, this.scale.width * 2, this.scale.width * 2);
+        shader.enableFilters().filters.external.addMask(maskImage);
 
-        shader.setPointer(this.input.activePointer);
+        this.input.on('pointermove', function (pointer)
+        {
+
+            shader.setPosition(pointer.x, pointer.y);
+        });
+
+        // shader.setPointer(this.input.activePointer);
 
         // this.add.image(400, 300, 'logo').setMask(mask2);
 

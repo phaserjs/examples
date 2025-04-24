@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
         const graphics = this.add.graphics();
 
         const line = new Phaser.Geom.Line(300, 200, 500, 400);
-        const point = new Phaser.Geom.Point(200, 100);
+        const point = new Phaser.Math.Vector2(200, 100);
 
         this.input.on('pointermove', pointer =>
         {

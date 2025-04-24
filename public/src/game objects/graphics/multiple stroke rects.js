@@ -19,12 +19,12 @@ class Example extends Phaser.Scene
         //  700 x 300 (right)
         //  400 x 500 (bottom)
 
-        this.start = new Phaser.Geom.Point(400, 100);
+        this.start = new Phaser.Math.Vector2(400, 100);
 
-        const top = new Phaser.Geom.Point(400, 100);
-        const left = new Phaser.Geom.Point(100, 300);
-        const right = new Phaser.Geom.Point(700, 300);
-        const bottom = new Phaser.Geom.Point(400, 500);
+        const top = new Phaser.Math.Vector2(400, 100);
+        const left = new Phaser.Math.Vector2(100, 300);
+        const right = new Phaser.Math.Vector2(700, 300);
+        const bottom = new Phaser.Math.Vector2(400, 500);
 
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 

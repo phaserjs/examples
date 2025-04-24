@@ -46,7 +46,7 @@ class Example extends Phaser.Scene
 
     update (time, delta)
     {
-        this.scrollers.children.iterate(function (child, index) {
+        this.scrollers.children.forEach(function (child, index) {
 
             child.scrollX += 2.5 + Math.sin((0.01 * index) * delta);
 

@@ -1,5 +1,5 @@
 // #module
-import PlasmaPost2FX from './assets/pipelines/PlasmaPost2FX.js';
+import PlasmaPost2FX from './assets/rendernodes/FilterPlasmaPost2FX.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -17,7 +17,7 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano').setAlpha(0.2);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.cameras.main.setPostPipeline(PlasmaPost2FX);
+        this.cameras.main.filters.external.add(new PlasmaPost2FX.Controller(this.cameras.main));
 
         const cursors = this.input.keyboard.createCursorKeys();
 
@@ -48,7 +48,9 @@ const config = {
     height: 600,
     backgroundColor: '#000000',
     scene: Example,
-    pipeline: { PlasmaPost2FX }
+    renderNodes: {
+        FilterPlasmaPost2FX: PlasmaPost2FX.Filter
+    },
 }
 
 const game = new Phaser.Game(config);

@@ -5,14 +5,14 @@ class Example extends Phaser.Scene
 
         const graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x2266aa }, fillStyle: { color: 0x2266aa } });
 
-        const point = new Phaser.Geom.Point(400, 300);
+        const point = new Phaser.Math.Vector2(400, 300);
 
         const text = this.add.text(50, 50, '');
 
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Geom.Point.CopyFrom(pointer, point);
+            Phaser.Math.Vector2.CopyFrom(pointer, point);
 
             redraw();
         });
@@ -27,7 +27,7 @@ class Example extends Phaser.Scene
 
             graphics.lineBetween(0, 0, point.x, point.y);
 
-            const magnitude = Phaser.Geom.Point.GetMagnitude(point);
+            const magnitude = Phaser.Math.Vector2.GetMagnitude(point);
 
             text.setText(`Point Magnitude: ${magnitude}`);
         }

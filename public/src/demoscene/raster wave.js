@@ -18,7 +18,7 @@ class Example extends Phaser.Scene
 
         const _this = this;
 
-        group.children.iterate(child =>
+        group.children.forEach(child =>
         {
 
             child.x = 400;

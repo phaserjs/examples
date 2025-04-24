@@ -4,9 +4,9 @@ class Example extends Phaser.Scene
     {
         const graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
-        const point1 = new Phaser.Geom.Point();// point at 0/0
-        const point2 = new Phaser.Geom.Point(100);// point at 100/100
-        const point3 = new Phaser.Geom.Point(400, 300);// point at 400/300
+        const point1 = new Phaser.Math.Vector2();// point at 0/0
+        const point2 = new Phaser.Math.Vector2(100);// point at 100/100
+        const point3 = new Phaser.Math.Vector2(400, 300);// point at 400/300
 
         graphics.fillPointShape(point1, 15);
         graphics.fillPointShape(point2, 15);

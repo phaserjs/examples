@@ -1,10 +1,10 @@
 // #module
 
-import ScalinePostFX from './assets/pipelines/ScalinePostFX.js';
+import ScalinePostFX from './assets/rendernodes/FilterScalinePostFX.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor ()
+    constructor()
     {
         super();
     }
@@ -25,10 +25,11 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano').setAlpha(0.5);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.cameras.main.setPostPipeline(ScalinePostFX);
+        this.cameras.main.filters.external.add(new ScalinePostFX.Controller(this.cameras.main));
 
         const shader = this.cameras.main.getPostPipeline(ScalinePostFX);
-        this.input.on('pointermove', pointer => {
+        this.input.on('pointermove', pointer =>
+        {
 
             shader.mouseX = pointer.x;
             shader.mouseY = pointer.y;
@@ -63,7 +64,9 @@ const config = {
     height: 600,
     backgroundColor: '#000000',
     scene: Example,
-    pipeline: { ScalinePostFX }
+    renderNodes: {
+        FilterScalinePostFX: ScalinePostFX.Filter
+    },
 };
 
 const game = new Phaser.Game(config);

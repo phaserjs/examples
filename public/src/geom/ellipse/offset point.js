@@ -11,7 +11,7 @@ class Example extends Phaser.Scene
 
         this.ellipse = new Phaser.Geom.Ellipse(380, 280, 20, 0);
 
-        this.point = new Phaser.Geom.Point(20, 0);
+        this.point = new Phaser.Math.Vector2(20, 0);
     }
 
     update ()

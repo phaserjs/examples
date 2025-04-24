@@ -30,7 +30,7 @@ class Example extends Phaser.Scene
 
         let i = 0;
 
-        blocks.children.iterate(child =>
+        blocks.children.forEach(child =>
         {
 
             this.tweens.add({

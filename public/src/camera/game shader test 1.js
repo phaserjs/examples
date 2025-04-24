@@ -1,5 +1,6 @@
 // #module
-import HueRotatePostFX from './assets/pipelines/HueRotatePostFX.js';
+
+import HueRotate from './assets/rendernodes/FilterHueRotate.js';
 
 class Example extends Phaser.Scene
 {
@@ -12,7 +13,7 @@ class Example extends Phaser.Scene
         this.scoreText = null;
     }
 
-    preload()
+    preload ()
     {
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('sky', 'src/games/firstgame/assets/sky.png');
@@ -23,7 +24,7 @@ class Example extends Phaser.Scene
 
     }
 
-    create()
+    create ()
     {
         this.add.image(400, 300, 'sky');
 
@@ -68,7 +69,8 @@ class Example extends Phaser.Scene
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        stars.children.iterate(function (child) {
+        stars.children.forEach(function (child)
+        {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
@@ -83,10 +85,12 @@ class Example extends Phaser.Scene
 
         this.player = player;
 
-        this.cameras.main.setPostPipeline(HueRotatePostFX);
+        const cam = this.cameras.main;
+
+        cam.filters.external.add(new HueRotate.Controller(cam));
     }
 
-    update()
+    update ()
     {
         const cursors = this.cursors;
         const player = this.player;
@@ -117,7 +121,7 @@ class Example extends Phaser.Scene
 
     }
 
-    collectStar(player, star)
+    collectStar (player, star)
     {
         star.disableBody(true, true);
 
@@ -140,7 +144,9 @@ const config = {
         }
     },
     scene: Example,
-    pipeline: {  HueRotatePostFX }
+    renderNodes: {
+        FilterHueRotate: HueRotate.Filter,
+    }
 };
 
 const game = new Phaser.Game(config);

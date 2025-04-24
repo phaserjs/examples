@@ -62,7 +62,7 @@ class Example extends Phaser.Scene
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        this.stars.children.iterate(child =>
+        this.stars.children.forEach(child =>
         {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));

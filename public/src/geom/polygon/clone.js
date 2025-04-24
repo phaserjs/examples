@@ -9,10 +9,10 @@ class Example extends Phaser.Scene
         this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaa6622 } });
 
         this.seedPolygon = new Phaser.Geom.Polygon([
-            new Phaser.Geom.Point(100, 50),
-            new Phaser.Geom.Point(150, 100),
-            new Phaser.Geom.Point(100, 150),
-            new Phaser.Geom.Point(50, 100)
+            new Phaser.Math.Vector2(100, 50),
+            new Phaser.Math.Vector2(150, 100),
+            new Phaser.Math.Vector2(100, 150),
+            new Phaser.Math.Vector2(50, 100)
         ]);
 
         this.input.on('pointermove', pointer =>

@@ -1,8 +1,4 @@
-// #module
-
-import BlurPostFX from './assets/pipelines/BlurPostFX.js';
-
-export default class Example extends Phaser.Scene
+class Example extends Phaser.Scene
 {
     constructor ()
     {
@@ -21,8 +17,7 @@ export default class Example extends Phaser.Scene
         const volcano = this.add.image(400, 300, 'volcano').setAlpha(0.5);
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        let cam = this.cameras.main;
-        cam.setPostPipeline(BlurPostFX);
+        this.cameras.main.filters.internal.addBlur();
 
         const extracam = this.cameras.add();
 
@@ -43,8 +38,7 @@ const config = {
     width: 800,
     height: 600,
     backgroundColor: '#000000',
-    scene: Example,
-    pipeline: { BlurPostFX }
+    scene: Example
 };
 
 const game = new Phaser.Game(config);

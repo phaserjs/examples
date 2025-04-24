@@ -77,7 +77,7 @@ class Example extends Phaser.Scene
 
         Phaser.Actions.RandomRectangle(group.getChildren(), rect);
 
-        group.children.iterate(function (child, index) {
+        group.children.forEach(function (child, index) {
 
             var sf = Math.max(0.3, Math.random());
 

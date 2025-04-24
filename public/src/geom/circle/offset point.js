@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
         const graphics = this.add.graphics({ lineStyle: { color: 0x00ff00 } });
         graphics.strokeCircleShape(circle);
 
-        const point = new Phaser.Geom.Point(Math.cos(Math.PI / 4) * 100, Math.sin(Math.PI / 4) * 100);
+        const point = new Phaser.Math.Vector2(Math.cos(Math.PI / 4) * 100, Math.sin(Math.PI / 4) * 100);
 
         for (let i = 0; i < 10; i++)
         {

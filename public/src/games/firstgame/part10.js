@@ -74,7 +74,7 @@ class Example extends Phaser.Scene
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        this.stars.children.iterate(child =>
+        this.stars.children.forEach(child =>
         {
 
             //  Give each star a slightly different bounce
@@ -141,7 +141,7 @@ class Example extends Phaser.Scene
         if (this.stars.countActive(true) === 0)
         {
             //  A new batch of stars to collect
-            this.stars.children.iterate(child =>
+            this.stars.children.forEach(child =>
             {
 
                 child.enableBody(true, child.x, 0, true, true);

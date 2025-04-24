@@ -27,15 +27,6 @@ export default class Example extends Phaser.Scene
 
         this.cameras.main.filters.external.add(new ScalinePostFX.Controller(this.cameras.main));
 
-        const shader = this.cameras.main.getPostPipeline(ScalinePostFX);
-        this.input.on('pointermove', pointer =>
-        {
-
-            shader.mouseX = pointer.x;
-            shader.mouseY = pointer.y;
-
-        });
-
         const cursors = this.input.keyboard.createCursorKeys();
         const controlConfig = {
             camera: this.cameras.main,

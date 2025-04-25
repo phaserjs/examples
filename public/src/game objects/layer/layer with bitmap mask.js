@@ -18,9 +18,7 @@ class Example extends Phaser.Scene
 
         const splat = this.make.image({ x: 400, y: 300, key: 'splat' }, false);
 
-        const mask = splat.createBitmapMask();
-
-        elephantLayer.setMask(mask);
+        elephantLayer.enableFilters().filters.external.addMask(splat);
 
         for (let i = 0; i < 64; i++)
         {

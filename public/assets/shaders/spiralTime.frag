@@ -1,24 +1,26 @@
-#pragma phaserTemplate(spiralHsvShader) // You can rename this
+#pragma phaserTemplate(spiralHsvShaderFixed) // Renamed
 
 precision mediump float;
 
 // Uniforms passed from Phaser
 uniform float time;
-uniform vec2 resolution; // MUST be set from JS [width, height]
+uniform vec2 resolution; // MUST be set correctly from JS [width, height]
 
 // Input texture coordinate from vertex shader (Phaser 4 standard)
 varying vec2 outTexCoord;
 
-// --- Defines from original shader ---
+// --- Defines ---
+#define PI 3.1415926535897932384626433832795
+// Aliases for convenience, matching original style
 #define iTime time
 #define iResolution resolution
-#define PI 3.1415926535897932384626433832795
 
-// --- Helper Function from original shader ---
+// --- Helper Function (copied from source) ---
 vec4 hsv_to_rgb(float h, float s, float v, float a)
 {
     float c = v * s;
-    h = mod((h * 6.0), 6.0);
+    // Normalize h to [0, 6) range for the checks below
+    h = mod(h * 6.0, 6.0);
     float x = c * (1.0 - abs(mod(h, 2.0) - 1.0));
     vec4 color;
 
@@ -35,36 +37,46 @@ vec4 hsv_to_rgb(float h, float s, float v, float a)
     } else if (5.0 <= h && h < 6.0) {
         color = vec4(c, 0.0, x, a);
     } else {
-        color = vec4(0.0, 0.0, 0.0, a);
+        color = vec4(0.0, 0.0, 0.0, a); // Should not happen with mod
     }
 
-    color.rgb += v - c;
+    color.rgb += v - c; // Add missing brightness component
 
     return color;
 }
 
-// Main rendering function adapted for Phaser 4
+// Main rendering function adapted for Phaser 4 structure
 void mainImage( out vec4 fragColor, in vec2 texCoord )
 {
-    // 1. Convert normalized texCoord [0,1] to pixel coordinates
-    vec2 pixelCoord = texCoord * iResolution;
+    // --- MODIFIED COORDINATE SYSTEM ---
+    // 1. Calculate UV coordinates relative to the top-center (0.5, 0.0)
+    vec2 uv = texCoord - vec2(0.5, 1);
 
-    // 2. Calculate x, y based on pixel coordinates, matching the original logic
-    // Note the original's unusual y offset placing origin near top-center
-    float x = pixelCoord.x - (iResolution.x / 2.0);
-    float y = pixelCoord.y - iResolution.y; // Original offset
+    // 2. Apply aspect ratio correction to maintain circularity
+    // Avoid division by zero if resolution isn't set correctly
+    if (iResolution.y > 0.0) {
+      uv.x *= iResolution.x / iResolution.y;
+    }
 
-    // --- Rest of the original shader's core logic ---
-    float r = length(vec2(x,y));
-    float angle = atan(x,y) - sin(iTime)*r / 200.0 + 1.0*iTime;
+    // 3. Calculate polar coordinates (radius, angle) from the top-center origin
+    float r = length(uv);
+    // Use standard atan(y, x) for angle calculation. It returns [-PI, PI]
+    float angle = atan(uv.y, uv.x);
 
-    // Use one of the intensity calculations from the original
+    // --- Original effect logic ---
+    // Modify angle based on time and radius for the spiral effect
+    angle = angle - sin(iTime)*r / 200.0 + 1.0*iTime;
+
+    // Calculate intensity (used for saturation) based on the modified angle
     float intensity = 0.5 + 0.25*sin(15.0*angle);
-    //float intensity = mod(angle, (PI / 8.0)); // Alternative from original
-    //float intensity = 0.5 + 0.25*sin(angle*16.0-5.0*iTime); // Alternative from original
 
-    // Calculate final color using HSV conversion. Note: sets alpha to 0.5
-    fragColor = hsv_to_rgb(angle/PI, intensity, 1.0, 0.5);
+    // Calculate hue based on the angle.
+    // Map angle from [-PI, PI] to hue [0, 1] for hsv_to_rgb.
+    // (angle / (2.0 * PI)) gives [-0.5, 0.5]. Add 1.0 and take mod 1.0.
+    float hue = mod((angle / (2.0 * PI)) + 1.0, 1.0);
+
+    // Convert HSV to RGB. Use calculated hue, intensity for saturation, value=1.0, alpha=0.5
+    fragColor = hsv_to_rgb(hue, intensity, 1.0, 0.5);
 }
 
 // Standard Phaser 4 main entry point
@@ -73,8 +85,7 @@ void main(void)
     // Call the main image generation function
     mainImage(gl_FragColor, outTexCoord);
 
-    // Explicitly set alpha to 1.0, overriding the value from mainImage,
-    // matching the behavior of the original outer 'main' function.
-    // Remove this line if you want the alpha=0.5 set by hsv_to_rgb.
+    // Override alpha to 1.0 for standard opaque output.
+    // Remove this line if you want the 0.5 alpha from hsv_to_rgb.
     gl_FragColor.a = 1.0;
 }

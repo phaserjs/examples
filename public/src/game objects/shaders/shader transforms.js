@@ -3,7 +3,7 @@ class Example extends Phaser.Scene
     preload ()
     {
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
-        this.load.glsl('marble', 'assets/shaders/marble.glsl.js');
+        this.load.glsl('marble', 'assets/shaders/marble.frag');
         this.load.image('bird', 'assets/pics/birdy.png');
     }
 
@@ -11,7 +11,14 @@ class Example extends Phaser.Scene
     {
         this.add.image(400, 600, 'bird').setOrigin(0.5, 1);
 
-        const shader = this.add.shader('marble', 400, 300, 800, 600);
+        const shader = this.add.shader({
+            name: 'marble',
+            fragmentKey: 'marble',
+            setupUniforms: (setUniform, drawingContext) =>
+            {
+                setUniform('time', this.game.loop.getDuration());
+            },
+        }, 400, 300, this.scale.width, this.scale.width);
 
 
         this.input.once('pointerdown', function ()

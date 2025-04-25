@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
 
         const mask = this.make.image({ x: 200, y: 300, key: 'patchouli' }, false);
 
-        rope.setMask(rope.createBitmapMask(mask));
+        rope.enableFilters().filters.external.addMask(mask);
 
         this.rope = rope;
 

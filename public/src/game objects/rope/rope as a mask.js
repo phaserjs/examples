@@ -23,7 +23,7 @@ class Example extends Phaser.Scene
 
         const bg = this.add.image(300, 300, 'mha');
 
-        bg.setMask(bg.createBitmapMask(rope));
+        bg.enableFilters().filters.external.addMask(rope);
 
         this.tweens.add({
             targets: bg,

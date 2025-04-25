@@ -1,10 +1,10 @@
 // #module
 
-import HueRotatePostFX from './assets/pipelines/HueRotatePostFX.js';
+import HueRotate from './assets/rendernodes/FilterHueRotate.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor ()
+    constructor()
     {
         super();
     }
@@ -24,16 +24,17 @@ export default class Example extends Phaser.Scene
 
         //  These 3 sprites are in the Layer
 
-        layer.add(this.make.sprite({ x: 150, y: 300, key: 'spaceman'}, false));
-        layer.add(this.make.sprite({ x: 400, y: 300, key: 'bunny'}, false));
-        layer.add(this.make.sprite({ x: 650, y: 300, key: 'elephant'}, false));
+        layer.add(this.make.sprite({ x: 150, y: 300, key: 'spaceman' }, false));
+        layer.add(this.make.sprite({ x: 400, y: 300, key: 'bunny' }, false));
+        layer.add(this.make.sprite({ x: 650, y: 300, key: 'elephant' }, false));
 
-        layer.setPostPipeline(HueRotatePostFX);
+        layer.enableFilters().filters.external.add(new HueRotate.Controller(layer));
 
         //  And this one is not
         this.add.sprite(400, 50, 'logo');
 
-        this.input.on('pointerdown', () => {
+        this.input.on('pointerdown', () =>
+        {
 
             layer.visible = !layer.visible;
 
@@ -48,7 +49,9 @@ const config = {
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: { HueRotatePostFX }
+    renderNodes: {
+        FilterHueRotate: HueRotate.Filter,
+    }
 };
 
 const game = new Phaser.Game(config);

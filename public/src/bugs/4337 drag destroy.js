@@ -46,12 +46,6 @@ function create()
 
     });
 
-    this.input.keyboard.once('keydown_A', function () {
-
-        circ.destroy();
-
-    });
-
     this.input.keyboard.once('keydown-A', function () {
 
         circ.destroy();

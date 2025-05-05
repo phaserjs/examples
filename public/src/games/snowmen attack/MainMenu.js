@@ -9,8 +9,16 @@ export default class MainMenu extends Phaser.Scene
     {
         this.sound.play('music', { loop: true, delay: 2 });
 
-        this.add.shader('snow', 512, 384, 1024, 768);
+        const shader = this.add.shader({
+            name: 'snow',
+            fragmentKey: 'snow',
+            setupUniforms: (setUniform, drawingContext) =>
+            {
+                setUniform('time', this.game.loop.getDuration());
+            },
+        }, 512, 384, this.scale.width, this.scale.width);
 
+        console.log('Shader:', shader);
         //  Intro snowball fight
 
         let ball1 = this.add.image(-64, 300, 'sprites', 'snowball1');

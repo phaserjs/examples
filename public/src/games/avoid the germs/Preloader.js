@@ -14,7 +14,7 @@ export default class Preloader extends Phaser.Scene
 
         this.load.setPath('assets/games/germs/');
         this.load.atlas('assets', 'germs.png', 'germs.json');
-        this.load.glsl('goo', 'goo.glsl.js');
+        this.load.glsl('goo', 'goo.frag');
 
         //  Audio ...
         this.load.setPath('assets/games/germs/sounds/');

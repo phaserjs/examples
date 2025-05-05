@@ -18,7 +18,7 @@ export default class Preloader extends Phaser.Scene
         this.load.setPath('assets/games/snowmen-attack/');
         this.load.image([ 'background', 'overlay', 'gameover', 'title' ]);
         this.load.atlas('sprites', 'sprites.png', 'sprites.json');
-        this.load.glsl('snow', 'snow.glsl.js');
+        this.load.glsl('snow', 'snow.frag');
 
         //  Audio ...
         this.load.setPath('assets/games/snowmen-attack/sounds/');

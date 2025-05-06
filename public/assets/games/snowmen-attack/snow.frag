@@ -1,14 +1,13 @@
 //  https://www.shadertoy.com/view/XlSBz1
+#pragma phaserTemplate(shaderName)
 
 precision mediump float;
 
 uniform float time;
-uniform vec2 resolution;
 
-varying vec2 fragCoord;
+varying vec2 outTexCoord;
 
 #define iTime time
-#define iResolution resolution
 #define localTime (iTime / 2.)
 
 #define p_to_pc(p)  vec2( atan((p).y, (p).x), length(p) )
@@ -52,7 +51,7 @@ float snow(vec2 p){
 
 void mainImage(out vec4 col, in vec2 fragCoord){
     
-    vec2 p = fragCoord / iResolution.x - .5;
+    vec2 p = fragCoord - .5;
     
     col = vec4(.2, .4, .7, 1.)
           + .3 * snow(p * 2.)
@@ -62,5 +61,5 @@ void mainImage(out vec4 col, in vec2 fragCoord){
 
 void main(void)
 {
-    mainImage(gl_FragColor, fragCoord.xy);
+    mainImage(gl_FragColor, outTexCoord);
 }

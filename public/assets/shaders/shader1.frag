@@ -1,5 +1,7 @@
 // Source: http://glslsandbox.com/e#39712.0
 
+#pragma phaserTemplate(shaderName)
+
 #ifdef GL_ES
 precision mediump float;
 #endif

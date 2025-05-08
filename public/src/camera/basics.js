@@ -30,7 +30,9 @@ class Example extends Phaser.Scene
         gui.add(camera1, 'centerToSize');
         gui.add(camera1, 'scrollX', -1920, 1920);
         gui.add(camera1, 'scrollY', -989, 989);
-        gui.add(camera1, 'zoom', 0.1, 2).step(0.1);
+        gui.add(camera1, 'zoom', 0.1, 2).step(0.1).listen(); // Zoom values are connected.
+        gui.add(camera1, 'zoomX', 0.1, 2).step(0.1).listen();
+        gui.add(camera1, 'zoomY', 0.1, 2).step(0.1).listen();
         gui.add(camera1, 'rotation').step(0.01);
         gui.addColor(camera1, 'backgroundColor').onChange(function (value) {
             value.a = 255;

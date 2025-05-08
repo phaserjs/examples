@@ -1,4 +1,5 @@
-#pragma phaserTemplate(icosahedronShader) // You can rename this
+// ICOSAHEDRON fragment shader
+#pragma phaserTemplate(shaderName)
 
 precision mediump float;
 

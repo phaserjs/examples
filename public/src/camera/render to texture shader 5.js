@@ -1,6 +1,6 @@
 // #module
 
-import ScalinePostFX from './assets/rendernodes/FilterScalinePostFX.js';
+import Scanline from './assets/rendernodes/FilterScanline.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -14,10 +14,6 @@ export default class Example extends Phaser.Scene
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('volcano', 'assets/pics/bw-face.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
-
-        // customPipeline = game.renderer.addPipeline('Custom', new CustomPipeline2(game));
-        // customPipeline.setFloat2('resolution', game.config.width, game.config.height);
-        // customPipeline.setFloat2('mouse', 0.0, 0.0);
     }
 
     create ()
@@ -25,7 +21,15 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano').setAlpha(0.5);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.cameras.main.filters.external.add(new ScalinePostFX.Controller(this.cameras.main));
+        const scanline = this.cameras.main.filters.external.add(new Scanline.Controller(this.cameras.main));
+
+        this.input.on('pointermove', pointer =>
+        {
+
+            scanline.mouseX = pointer.x;
+            scanline.mouseY = pointer.y;
+
+        });
 
         const cursors = this.input.keyboard.createCursorKeys();
         const controlConfig = {
@@ -56,7 +60,7 @@ const config = {
     backgroundColor: '#000000',
     scene: Example,
     renderNodes: {
-        FilterScalinePostFX: ScalinePostFX.Filter
+        FilterScanline: Scanline.Filter
     },
 };
 

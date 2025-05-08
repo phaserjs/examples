@@ -1,4 +1,5 @@
-#pragma phaserTemplate(hslSwirlShader) // You can rename this
+// HSL_SWIRL fragment shader
+#pragma phaserTemplate(shaderName)
 
 precision mediump float;
 

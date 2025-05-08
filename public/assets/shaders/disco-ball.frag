@@ -1,4 +1,5 @@
-#pragma phaserTemplate(mouseRaysShader) // You can rename this
+// MOUSE_RAYS fragment shader
+#pragma phaserTemplate(shaderName)
 
 precision mediump float;
 

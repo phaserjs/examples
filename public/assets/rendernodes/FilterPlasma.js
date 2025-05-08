@@ -1,4 +1,4 @@
-const FILTER_NAME = 'FilterPlasmaPost2FX';
+const FILTER_NAME = 'FilterPlasma';
 
 const fragShader = `
 // PLASMA_2_FS
@@ -45,7 +45,7 @@ void main( void )
 `;
 
 export default {
-    Controller: class ControllerPlasmaPost2FX extends Phaser.Filters.Controller
+    Controller: class ControllerPlasma extends Phaser.Filters.Controller
     {
         constructor (camera)
         {
@@ -53,7 +53,7 @@ export default {
         }
     },
 
-    Filter: class FilterPlasmaPost2FX extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader
+    Filter: class FilterPlasma extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader
     {
         constructor (manager)
         {

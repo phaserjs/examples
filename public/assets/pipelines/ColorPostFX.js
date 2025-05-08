@@ -1,3 +1,5 @@
+// This isn't used anywhere.
+
 const hueFragShader = `
 #define SHADER_NAME HUE_FS
 

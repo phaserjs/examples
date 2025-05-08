@@ -1,10 +1,10 @@
-#pragma phaserTemplate(gooShader) // You can rename this
+// GOO fragment shader
+#pragma phaserTemplate(shaderName)
 
 precision mediump float;
 
 // Uniforms passed from Phaser
 uniform float time;
-uniform vec2 resolution; // MUST be set from JS [width, height]
 
 // Input texture coordinate from vertex shader (Phaser 4 standard)
 varying vec2 outTexCoord; // Provides normalized [0,1] coordinates

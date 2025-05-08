@@ -1,7 +1,7 @@
-const FILTER_NAME = 'FilterScalinePostFX';
+const FILTER_NAME = 'FilterScanline';
 
 const fragShader = `
-// SCALINE_FS
+// SCANLINE_FS
 #pragma phaserTemplate(shaderName)
 
 precision mediump float;
@@ -43,7 +43,7 @@ void main( void ) {
 `;
 
 export default {
-    Controller: class ControllerScalinePostFX extends Phaser.Filters.Controller
+    Controller: class ControllerScanlinePostFX extends Phaser.Filters.Controller
     {
         constructor (camera)
         {

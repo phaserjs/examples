@@ -1,4 +1,4 @@
-const FILTER_NAME = 'FilterPixelatedFX';
+const FILTER_NAME = 'FilterPixelated';
 
 const fragShader = `
 // PIXELATED_FS
@@ -25,7 +25,7 @@ void main()
 `;
 
 export default {
-    Controller: class ControllerPixelatedFX extends Phaser.Filters.Controller
+    Controller: class ControllerPixelated extends Phaser.Filters.Controller
     {
         constructor (camera)
         {
@@ -33,7 +33,7 @@ export default {
         }
     },
 
-    Filter: class FilterPixelatedFX extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader
+    Filter: class FilterPixelated extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader
     {
         constructor (manager)
         {

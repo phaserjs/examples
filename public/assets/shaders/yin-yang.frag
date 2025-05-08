@@ -1,4 +1,5 @@
-#pragma phaserTemplate(starburstShader) // You can rename this
+// YIN_YANG fragment shader
+#pragma phaserTemplate(shaderName)
 
 precision mediump float;
 

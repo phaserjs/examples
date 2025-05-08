@@ -1,4 +1,5 @@
-#pragma phaserTemplate(spiralHsvShaderFixed) // Renamed
+// SPIRAL_HSV fragment shader
+#pragma phaserTemplate(shaderName)
 
 precision mediump float;
 

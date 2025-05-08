@@ -1,3 +1,5 @@
+// This is used nowhere.
+
 const vertShader = `
 #define SHADER_NAME PHASER_MULTI_HUE_VS
 

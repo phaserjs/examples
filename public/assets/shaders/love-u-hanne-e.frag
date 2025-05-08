@@ -1,4 +1,5 @@
-#pragma phaserTemplate(lavaLampShader) // You can rename lavaLampShader if you like
+// LAVA_LAMP fragment shader
+#pragma phaserTemplate(shaderName)
 
 precision mediump float;
 

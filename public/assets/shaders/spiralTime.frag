@@ -1,3 +1,6 @@
+// SPIRAL_TIME fragment shader
+#pragma phaserTemplate(shaderName)
+
 /*
  * Original shader from: https://www.shadertoy.com/view/ltdXzX
  */

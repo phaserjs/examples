@@ -11,28 +11,16 @@ class Example extends Phaser.Scene
         this.load.glsl('spiralTime', 'assets/shaders/spiralTime.frag');
         this.load.image('pic', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
         this.load.image('logo', 'assets/sprites/phaser3-logo-x2.png');
-        this.load.image('bunny', 'assets/sprites/bunny.png');
         this.load.image('splat1', 'assets/pics/splat1.png');
-        this.load.image('splat2', 'assets/pics/splat2.png');
         this.load.image('splat3', 'assets/pics/splat3.png');
     }
 
     create ()
     {
-        const shape1 = this.make.graphics().fillCircle(400, 300, 300);
-        const shape2 = this.make.graphics().fillCircle(400, 300, 200);
-
-        const geomask1 = shape1.createGeometryMask();
-        geomask1.geometryMask.setName('geo1');
-        const geomask2 = shape2.createGeometryMask();
-        geomask2.geometryMask.setName('geo2');
-
         const maskImage1 = this.make.image({ x: 400, y: 300, key: 'splat1', add: false });
         const maskImage2 = this.make.image({ x: 400, y: 300, key: 'splat3', add: false });
-        
-        this.cameras.main.filters.external.addMask(maskImage1);
 
-        this.add.image(700, 300, 'bunny').setName('bunny');
+        this.cameras.main.filters.external.addMask(maskImage1);
 
         this.add.image(400, 300, 'pic');
 

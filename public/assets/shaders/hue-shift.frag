@@ -1,3 +1,6 @@
+// HUE_SHIFT_FS
+#pragma phaserTemplate(shaderName)
+
 precision mediump float;
 
 uniform float time;
@@ -5,15 +8,15 @@ uniform vec2 resolution;
 uniform sampler2D iChannel0;
 uniform sampler2D iChannel1;
 
-varying vec2 fragCoord;
+varying vec2 outTexCoord;
 
 vec4 texture(sampler2D s, vec2 c) { return texture2D(s,c); }
 
 void mainImage(out vec4 fragColor,in vec2 fragCoord)
 {
-    vec2 vUv = fragCoord.xy / resolution.xy;
+    vec2 vUv = fragCoord.xy;
     vec3 flow = texture(iChannel0, vUv).rgb;
-    vec2 uv = .05 / fragCoord.xy /resolution.xy ;
+    vec2 uv = .05 / fragCoord.xy /resolution.xy /resolution.xy;
     vec2 myUV = (uv - vec2(0.5))*resolution.xy + vec2(0.95);
     myUV -= flow.xy * (0.015 * 11.2)*.3125+time*.013241;
     vec2 myUV2 = (uv - vec2(0.5))*resolution.xy + vec2(0.95);
@@ -28,5 +31,5 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 
 void main(void)
 {
-    mainImage(gl_FragColor, fragCoord.xy);
+    mainImage(gl_FragColor, outTexCoord.xy);
 }

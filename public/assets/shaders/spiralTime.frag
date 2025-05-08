@@ -1,27 +1,26 @@
-// SPIRAL_HSV fragment shader
-#pragma phaserTemplate(shaderName)
+/*
+ * Original shader from: https://www.shadertoy.com/view/ltdXzX
+ */
 
+#ifdef GL_ES
 precision mediump float;
+#endif
 
-// Uniforms passed from Phaser
+// glslsandbox uniforms
 uniform float time;
-uniform vec2 resolution; // MUST be set correctly from JS [width, height]
+uniform vec2 resolution;
 
-// Input texture coordinate from vertex shader (Phaser 4 standard)
-varying vec2 outTexCoord;
-
-// --- Defines ---
-#define PI 3.1415926535897932384626433832795
-// Aliases for convenience, matching original style
+// shadertoy globals
 #define iTime time
 #define iResolution resolution
 
-// --- Helper Function (copied from source) ---
+// --------[ Original ShaderToy begins here ]---------- //
+#define PI 3.1415926535897932384626433832795
+
 vec4 hsv_to_rgb(float h, float s, float v, float a)
 {
     float c = v * s;
-    // Normalize h to [0, 6) range for the checks below
-    h = mod(h * 6.0, 6.0);
+    h = mod((h * 6.0), 6.0);
     float x = c * (1.0 - abs(mod(h, 2.0) - 1.0));
     vec4 color;
 
@@ -38,55 +37,31 @@ vec4 hsv_to_rgb(float h, float s, float v, float a)
     } else if (5.0 <= h && h < 6.0) {
         color = vec4(c, 0.0, x, a);
     } else {
-        color = vec4(0.0, 0.0, 0.0, a); // Should not happen with mod
+        color = vec4(0.0, 0.0, 0.0, a);
     }
 
-    color.rgb += v - c; // Add missing brightness component
+    color.rgb += v - c;
 
     return color;
 }
 
-// Main rendering function adapted for Phaser 4 structure
-void mainImage( out vec4 fragColor, in vec2 texCoord )
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-    // --- MODIFIED COORDINATE SYSTEM ---
-    // 1. Calculate UV coordinates relative to the top-center (0.5, 0.0)
-    vec2 uv = texCoord - vec2(0.5, 1);
+    float x = fragCoord.x - (iResolution.x / 2.0);
+    float y = fragCoord.y - (iResolution.y );
 
-    // 2. Apply aspect ratio correction to maintain circularity
-    // Avoid division by zero if resolution isn't set correctly
-    if (iResolution.y > 0.0) {
-      uv.x *= iResolution.x / iResolution.y;
-    }
-
-    // 3. Calculate polar coordinates (radius, angle) from the top-center origin
-    float r = length(uv);
-    // Use standard atan(y, x) for angle calculation. It returns [-PI, PI]
-    float angle = atan(uv.y, uv.x);
-
-    // --- Original effect logic ---
-    // Modify angle based on time and radius for the spiral effect
-    angle = angle - sin(iTime)*r / 200.0 + 1.0*iTime;
-
-    // Calculate intensity (used for saturation) based on the modified angle
+    float r = length(vec2(x,y));
+    float angle = atan(x,y) - sin(iTime)*r / 200.0 + 1.0*iTime;
     float intensity = 0.5 + 0.25*sin(15.0*angle);
+    //float intensity = mod(angle, (PI / 8.0));
+    //float intensity = 0.5 + 0.25*sin(angle*16.0-5.0*iTime);
 
-    // Calculate hue based on the angle.
-    // Map angle from [-PI, PI] to hue [0, 1] for hsv_to_rgb.
-    // (angle / (2.0 * PI)) gives [-0.5, 0.5]. Add 1.0 and take mod 1.0.
-    float hue = mod((angle / (2.0 * PI)) + 1.0, 1.0);
-
-    // Convert HSV to RGB. Use calculated hue, intensity for saturation, value=1.0, alpha=0.5
-    fragColor = hsv_to_rgb(hue, intensity, 1.0, 0.5);
+    fragColor = hsv_to_rgb(angle/PI, intensity, 1.0, 0.5);
 }
+// --------[ Original ShaderToy ends here ]---------- //
 
-// Standard Phaser 4 main entry point
 void main(void)
 {
-    // Call the main image generation function
-    mainImage(gl_FragColor, outTexCoord);
-
-    // Override alpha to 1.0 for standard opaque output.
-    // Remove this line if you want the 0.5 alpha from hsv_to_rgb.
+    mainImage(gl_FragColor, gl_FragCoord.xy);
     gl_FragColor.a = 1.0;
 }

@@ -15,8 +15,8 @@ class Example extends Phaser.Scene
 
         this.input.on('pointermove', pointer =>
         {
-
-            Phaser.Math.Vector2.CopyFrom(pointer, points[i]);
+            // const vector2 = points[i];
+            points[i].copy(pointer);
 
             i = (i + 1) % points.length;
 

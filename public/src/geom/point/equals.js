@@ -38,7 +38,7 @@ class Example extends Phaser.Scene
             for (let i = 0; i < points.length; i++)
             {
                 graphics.fillPointShape(points[i], 15);
-                strokeRed = strokeRed || Phaser.Math.Vector2.Equals(pointerPoint, points[i]);
+                strokeRed = strokeRed || pointerPoint.equals(points[i]);
             }
 
             if (strokeRed)

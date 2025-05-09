@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Math.Vector2.CopyFrom(pointer, points[points.length - 1]);
+            points[points.length - 1].copy(pointer);
 
             polygon.setTo(points);
 
@@ -25,7 +25,7 @@ class Example extends Phaser.Scene
         this.input.on('pointerdown', pointer =>
         {
 
-            points.push(Phaser.Math.Vector2.Clone(points[points.length - 1]));
+            points.push(points[points.length - 1].clone());
 
         });
 

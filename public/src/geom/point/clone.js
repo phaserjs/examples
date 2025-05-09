@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
             length += 0.05 / length;
             angle += 0.05;
 
-            point = Phaser.Math.Vector2.Clone(point);
+            point = point.clone(); // Clone the point to avoid modifying the original
 
             point.x += Math.cos(angle) * length;
             point.y += Math.sin(angle) * length;

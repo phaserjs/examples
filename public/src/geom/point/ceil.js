@@ -23,8 +23,7 @@ class Example extends Phaser.Scene
         this.y += 0.05;
 
         this.point1.y = this.point2.y = this.y;
-
-        Phaser.Math.Vector2.Ceil(this.point2);
+        this.point2.ceil();
 
         this.text1.setText(`y: ${this.point1.y}`);
         this.text2.setText(`y: ${this.point2.y}`);

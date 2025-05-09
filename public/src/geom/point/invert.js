@@ -9,7 +9,7 @@ class Example extends Phaser.Scene
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Math.Vector2.CopyFrom(pointer, point);
+            point.copy(pointer);
 
             redraw();
         });
@@ -22,7 +22,7 @@ class Example extends Phaser.Scene
 
             graphics.fillPointShape(point, 15);
 
-            Phaser.Math.Vector2.Invert(point);
+            point.invert();
 
             graphics.fillStyle(0x00aa00);
             graphics.fillPointShape(point, 15);

@@ -24,7 +24,7 @@ class Example extends Phaser.Scene
             // draw as if 400/300 was the center
             graphics.fillPoint(400 + point.x, 300 + point.y, 15);
 
-            Phaser.Math.Vector2.Negative(point, point);
+            point.negate();
 
             graphics.fillStyle(0x00aa00);
             graphics.fillPoint(400 + point.x, 300 + point.y, 15);

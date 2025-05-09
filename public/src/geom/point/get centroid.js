@@ -14,8 +14,7 @@ class Example extends Phaser.Scene
 
         this.input.on('pointermove', pointer =>
         {
-
-            Phaser.Math.Vector2.CopyFrom(pointer, points[0]);
+            points[0].copy(pointer);
 
             redraw();
         });
@@ -28,7 +27,7 @@ class Example extends Phaser.Scene
 
             graphics.strokePoints(points, true);
 
-            const centroid = Phaser.Math.Vector2.GetCentroid(points);
+            const centroid = Phaser.Math.GetCentroid(points);
 
             graphics.fillPointShape(centroid, 20);
 

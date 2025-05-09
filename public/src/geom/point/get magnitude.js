@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Math.Vector2.CopyFrom(pointer, point);
+            point.copy(pointer);
 
             redraw();
         });
@@ -27,7 +27,7 @@ class Example extends Phaser.Scene
 
             graphics.lineBetween(0, 0, point.x, point.y);
 
-            const magnitude = Phaser.Math.Vector2.GetMagnitude(point);
+            const magnitude = point.length();
 
             text.setText(`Point Magnitude: ${magnitude}`);
         }

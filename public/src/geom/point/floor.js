@@ -24,7 +24,7 @@ class Example extends Phaser.Scene
 
         this.point1.y = this.point2.y = this.y;
 
-        Phaser.Math.Vector2.Floor(this.point2);
+        this.point2.floor();
 
         this.text1.setText(`y: ${this.point1.y}`);
         this.text2.setText(`y: ${this.point2.y}`);

@@ -35,7 +35,7 @@ class Example extends Phaser.Scene
             this.points[i] = point;
 
             ++i;
-            this.points[i] = Phaser.Math.Vector2.Negative(point, this.points[i]);
+            this.points[i] = point.clone().negate();
 
             ++i;
         }

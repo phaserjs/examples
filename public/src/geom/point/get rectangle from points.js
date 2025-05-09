@@ -13,7 +13,7 @@ class Example extends Phaser.Scene
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Math.Vector2.CopyFrom(pointer, points[0]);
+            points[0].copy(pointer);
 
             redraw();
         });
@@ -32,7 +32,7 @@ class Example extends Phaser.Scene
         {
             graphics.clear();
 
-            const rect = Phaser.Math.Vector2.GetRectangleFromPoints(points);
+            const rect = Phaser.Math.GetVec2Bounds(points);
 
             graphics.strokeRectShape(rect);
 

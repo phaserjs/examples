@@ -16,12 +16,12 @@ class Example extends Phaser.Scene
 
         this.point2 = new Phaser.Math.Vector2(250, 0);
 
-        this.projectedPoint = Phaser.Math.Vector2.ProjectUnit(this.point2, this.point);
+        this.projectedPoint = this.point2.projectUnit(this.point);
 
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Math.Vector2.CopyFrom(pointer, this.point2);
+            this.point2.copy(pointer);
 
             this.point2.x -= 400;
             this.point2.y -= 300;
@@ -38,7 +38,7 @@ class Example extends Phaser.Scene
         this.point.setTo(Math.cos(this.angle), Math.sin(this.angle));
 
         // project a point on point2 on point
-        Phaser.Math.Vector2.ProjectUnit(this.point2, this.point, this.projectedPoint);
+        this.point2.projectUnit(this.point, this.projectedPoint);
 
         // set magnitude to 250, because it's unit point, we can simply multiply
         this.point.x *= 250;

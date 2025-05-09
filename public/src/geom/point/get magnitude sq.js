@@ -32,11 +32,11 @@ class Example extends Phaser.Scene
 
         for (let i = 0; i < this.points.length; i++)
         {
-            const temp = Phaser.Math.Vector2.Clone(this.point);
+            const temp = this.point.clone();
 
             temp.x -= this.points[i].x;
             temp.y -= this.points[i].y;
-            const magnitudeSquared = Phaser.Math.Vector2.GetMagnitudeSq(temp);
+            const magnitudeSquared = temp.lengthSq();
 
             if (magnitudeSquared < 30 * 30)
             {

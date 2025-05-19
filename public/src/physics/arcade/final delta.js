@@ -59,7 +59,8 @@ class Example extends Phaser.Scene
         {
             graphics.clear();
 
-            for (const body of this.physics.world.bodies.getArray())
+            const bodies = Array.from(this.physics.world.bodies);
+        for (const body of bodies)
             {
                 const { x, y } = body.center;
 

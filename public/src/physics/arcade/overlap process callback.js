@@ -47,7 +47,8 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        for (const body of this.physics.world.bodies.getArray())
+        const bodies = Array.from(this.physics.world.bodies);
+        for (const body of bodies)
         {
             body.debugBodyColor = body.touching.none ? 0x00ff00 : 0xff0000;
         }

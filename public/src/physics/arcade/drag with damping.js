@@ -14,7 +14,8 @@ class Example extends Phaser.Scene
         this.physics.add.image(100, 400, 'block').setVelocityX(100).setDamping(true).setDrag(0.05);
         this.physics.add.image(100, 500, 'block').setVelocityX(100).setDamping(true).setDrag(0.01);
 
-        for (const body of this.physics.world.bodies.getArray())
+        const bodies = Array.from(this.physics.world.bodies);
+        for (const body of bodies)
         {
             const { drag, velocity } = body;
 
@@ -24,7 +25,8 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        for (const body of this.physics.world.bodies.getArray())
+        const bodies = Array.from(this.physics.world.bodies);
+        for (const body of bodies)
         {
             body.debugBodyColor = body.speed > 0 ? 0x00ff00 : 0xff0000;
         }

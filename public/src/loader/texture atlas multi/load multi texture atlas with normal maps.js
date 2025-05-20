@@ -11,7 +11,6 @@ class Example extends Phaser.Scene
     create ()
     {
         const light = this.lights.addLight(0, 0, 200);
-
         this.lights.enable().setAmbientColor(0x555555);
 
         this.input.on('pointermove', pointer =>
@@ -22,7 +21,7 @@ class Example extends Phaser.Scene
 
         });
 
-        this.add.image(0, 0, 'megaset', 'brick').setOrigin(0).setPipeline('Light2D');
+        this.add.image(0, 0, 'megaset', 'brick').setOrigin(0).setLighting(true);
 
         const atlasTexture = this.textures.get('megaset');
 
@@ -33,7 +32,7 @@ class Example extends Phaser.Scene
             const x = Phaser.Math.Between(100, 924);
             const y = Phaser.Math.Between(100, 668);
 
-            this.add.image(x, y, 'megaset', frames[i]).setPipeline('Light2D');
+            this.add.image(x, y, 'megaset', frames[i]).setLighting(true);
         }
     }
 }

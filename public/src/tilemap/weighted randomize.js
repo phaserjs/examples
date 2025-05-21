@@ -36,7 +36,7 @@ class Example extends Phaser.Scene
         this.groundLayer.putTileAt(22, 0, this.map.height - 1);
 
         this.randomizeRoom(); // Initial randomization
-        this.input.on('pointerdown', this.randomizeRoom);
+        this.input.on('pointerdown', this.randomizeRoom, this);
 
         const help = this.add.text(16, 16, 'Click to re-randomize.', {
             fontSize: '18px',

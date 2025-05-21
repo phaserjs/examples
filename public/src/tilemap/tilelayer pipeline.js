@@ -1,6 +1,6 @@
 // #module
 
-import PlasmaPostFX from './assets/pipelines/PlasmaPostFX.js';
+import FilterPlasma2 from '../../assets/rendernodes/FilterPlasma2.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -23,7 +23,8 @@ export default class Example extends Phaser.Scene
         const tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2);
         const layer = map.createLayer(0, tileset, 0, 0);
 
-        layer.setPostPipeline(PlasmaPostFX);
+        layer.enableFilters();
+        layer.filters.internal.add(new FilterPlasma2.Controller(this.cameras.main));
 
         const player = this.add.image(32 + 16, 32 + 16, 'car');
 
@@ -104,7 +105,9 @@ const config = {
     backgroundColor: '#1a1a2d',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: {  PlasmaPostFX }
+    renderNodes: {
+        FilterPlasma2: FilterPlasma2.Filter
+    }
 };
 
 let game = new Phaser.Game(config);

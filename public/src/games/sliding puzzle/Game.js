@@ -1,3 +1,6 @@
+import FilterShine from './FilterShine.js';
+import FilterWipe from './FilterWipe.js';
+
 const SlidingPuzzle = {
     ALLOW_CLICK: 0,
     TWEENING: 1
@@ -141,7 +144,7 @@ export default class Game extends Phaser.Scene
                 const ox = 0 + (x / this.rows);
                 const oy = 0 + (y / this.columns);
 
-                slice.stamp(key, null, 0, 0, { originX: ox, originY: oy });
+                slice.stamp(key, null, 0, 0, { originX: ox, originY: oy }).render();
 
                 this.slices.push(slice);
 
@@ -471,7 +474,8 @@ export default class Game extends Phaser.Scene
             });
 
             this.pieces.each(piece => {
-                piece.setPostPipeline('ShinePostFX');
+                piece.enableFilters();
+                piece.filters.internal.add(new FilterShine.Controller(this.cameras.main));
             });
         }
     }
@@ -511,15 +515,15 @@ export default class Game extends Phaser.Scene
 
         this.reveal = this.add.image(this.pieces.x, this.pieces.y, nextPhoto).setOrigin(0, 0);
 
-        this.reveal.setPostPipeline('WipePostFX');
+        this.reveal.enableFilters();
+        const wipe = new FilterWipe.Controller(this.cameras.main);
+        this.reveal.filters.internal.add(wipe);
 
-        const pipeline = this.reveal.getPostPipeline('WipePostFX');
-
-        pipeline.setTopToBottom();
-        pipeline.setRevealEffect();
+        wipe.setTopToBottom();
+        wipe.setRevealEffect();
 
         this.tweens.add({
-            targets: pipeline,
+            targets: wipe,
             progress: 1,
             duration: 2000,
             onComplete: () => {

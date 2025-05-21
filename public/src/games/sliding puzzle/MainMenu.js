@@ -1,3 +1,6 @@
+import FilterShine from './FilterShine.js';
+import FilterWipe from './FilterWipe.js';
+
 export default class MainMenu extends Phaser.Scene
 {
     constructor ()
@@ -10,19 +13,20 @@ export default class MainMenu extends Phaser.Scene
         this.add.image(512, 384, 'background');
 
         const box = this.add.image(512, 384, 'box');
-
         const logo = this.add.image(512, -384, 'logo');
 
-        box.setPostPipeline('WipePostFX');
-        logo.setPostPipeline('ShinePostFX');
+        // Phaser 4: Use filters instead of post pipelines
+        box.enableFilters();
+        const wipe = new FilterWipe.Controller(this.cameras.main);
+        box.filters.internal.add(wipe);
+        wipe.setTopToBottom();
+        wipe.setRevealEffect();
 
-        const pipeline = box.getPostPipeline('WipePostFX');
-
-        pipeline.setTopToBottom();
-        pipeline.setRevealEffect();
+        logo.enableFilters();
+        logo.filters.internal.add(new FilterShine.Controller(this.cameras.main));
 
         this.tweens.add({
-            targets: pipeline,
+            targets: wipe,
             progress: 1,
             duration: 3000
         });
@@ -34,11 +38,9 @@ export default class MainMenu extends Phaser.Scene
             duration: 2000,
             ease: 'sine.out',
             onComplete: () => {
-
                 this.input.once('pointerdown', () => {
-
-                    pipeline.setWipeEffect();
-                    pipeline.setTexture('box-inside');
+                    wipe.setWipeEffect();
+                    wipe.setTexture('box-inside');
 
                     this.tweens.add({
                         targets: logo,
@@ -48,7 +50,7 @@ export default class MainMenu extends Phaser.Scene
                     });
 
                     this.tweens.add({
-                        targets: pipeline,
+                        targets: wipe,
                         progress: 1,
                         duration: 2500,
                         onComplete: () => {
@@ -56,7 +58,6 @@ export default class MainMenu extends Phaser.Scene
                         }
                     });
                 });
-
             }
         });
     }

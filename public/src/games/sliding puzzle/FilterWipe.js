@@ -14,28 +14,35 @@ uniform float uReveal;
 void main ()
 {
     vec2 uv = gl_FragCoord.xy / uResolution.xy;
+
     vec4 color0;
     vec4 color1;
+
     if (uReveal == 0.0)
     {
         color0 = texture2D(uMainSampler, uv);
-        color1 = texture2D(uMainSampler2, vec2(uv.x, 1.0 - uv.y));
+        color1 = texture2D(uMainSampler2, uv);
     }
     else
     {
-        color0 = texture2D(uMainSampler2, vec2(uv.x, 1.0 - uv.y));
+        color0 = texture2D(uMainSampler2, uv);
         color1 = texture2D(uMainSampler, uv);
     }
+
     float distance = uInput.x;
     float width = uInput.y;
     float direction = uInput.z;
     float axis = uv.x;
+
     if (uInput.w == 1.0)
     {
         axis = uv.y;
     }
+
     float adjust = mix(width, -width, distance);
+
     float value = smoothstep(distance - width, distance + width, abs(direction - axis) + adjust);
+
     gl_FragColor = mix(color1, color0, value);
 }
 `;
@@ -82,6 +89,7 @@ export default {
             return this;
         }
         setRevealEffect() {
+            this.setTexture();
             this.reveal = 1;
             this.progress = 0;
             return this;
@@ -89,6 +97,11 @@ export default {
         setTexture(texture = '__DEFAULT') {
             this.wipeTexture = texture;
             var phaserTexture = this.camera.scene.sys.textures.getFrame(texture);
+
+            if (!phaserTexture)
+            {
+                phaserTexture = this.camera.scene.sys.textures.getFrame('__DEFAULT');
+            }
 
             if (phaserTexture)
             {
@@ -111,6 +124,7 @@ export default {
             programManager.setUniform('uResolution', [drawingContext.width, drawingContext.height]);
             programManager.setUniform('uInput', [controller.progress, controller.wipeWidth, controller.direction, controller.axis]);
             programManager.setUniform('uReveal', controller.reveal);
+            programManager.setUniform('uMainSampler2', 1);
         }
         setupTextures(controller, textures, drawingContext) {
             textures[1] = controller.glTexture;

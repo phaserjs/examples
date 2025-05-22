@@ -1,6 +1,6 @@
 // #module
 
-import MultiColorPostPipeline from './assets/pipelines/MultiColorPost.js';
+import FilterMultiColor from './assets/rendernodes/FilterMultiColor.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -22,8 +22,6 @@ export default class Example extends Phaser.Scene
 
     create ()
     {
-        const multiColorPipeline = this.renderer.pipelines.getPostPipeline('MultiColorPost');
-
         const layer = this.add.container();
 
         for (let i = 0; i < 64; i++)
@@ -34,7 +32,8 @@ export default class Example extends Phaser.Scene
             layer.add(this.add.image(x, y, 'fish').setScale(Phaser.Math.FloatBetween(0.25, 0.5)));
         }
 
-        layer.setPostPipeline(multiColorPipeline);
+        layer.enableFilters();
+        layer.filters.internal.add(new FilterMultiColor.Controller(this.cameras.main));
 
         this.fish = layer;
 
@@ -69,7 +68,7 @@ const config = {
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: { 'MultiColorPost': MultiColorPostPipeline }
+    renderNodes: { 'FilterMultiColor': FilterMultiColor.Filter }
 };
 
 let game = new Phaser.Game(config);

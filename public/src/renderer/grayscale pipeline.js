@@ -1,6 +1,6 @@
 // #module
 
-import GrayScalePipeline from './assets/pipelines/GrayScale.js';
+import AddGrayscale from './assets/rendernodes/AddGrayscale.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -22,13 +22,16 @@ export default class Example extends Phaser.Scene
 
     create ()
     {
-        const grayscalePipeline = this.renderer.pipelines.get('Gray');
+        const renderNodeManager = this.renderer.renderNodes;
+        this.grayscaleBatchHandler = AddGrayscale(renderNodeManager);
 
         this.add.sprite(100, 300, 'pudding');
+        
+        const crab = this.add.sprite(400, 300, 'crab').setScale(1.5);
+        crab.setRenderNodeRole('BatchHandler', this.grayscaleBatchHandler);
 
-        this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline(grayscalePipeline);
-
-        this.fish = this.add.sprite(400, 300, 'fish').setPipeline(grayscalePipeline);
+        this.fish = this.add.sprite(400, 300, 'fish');
+        this.fish.setRenderNodeRole('BatchHandler', this.grayscaleBatchHandler);
 
         this.add.sprite(700, 300, 'cake');
 
@@ -39,13 +42,19 @@ export default class Example extends Phaser.Scene
 
         });
 
+        this.gray = 1;
         this.tweens.add({
-            targets: grayscalePipeline,
-            delay: 2000,
-            repeatDelay: 2000,
+            targets: this,
             gray: 0,
             yoyo: true,
-            repeat: -1
+            repeat: -1,
+            delay: 2000,
+            repeatDelay: 2000,
+            duration: 2000,
+            ease: 'Sine.easeInOut',
+            onUpdate: () => {
+                this.grayscaleBatchHandler.programManager.setUniform('uGray', this.gray);
+            }
         });
     }
 }
@@ -56,8 +65,7 @@ const config = {
     height: 600,
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
-    scene: Example,
-    pipeline: { 'Gray': GrayScalePipeline }
+    scene: Example
 };
 
 let game = new Phaser.Game(config);

@@ -10,7 +10,6 @@ class Example extends Phaser.Scene
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.glsl('hsl', 'assets/shaders/hsl.frag');
         this.load.image('logo', 'assets/sprites/phaser3-logo-small.png');
-        this.load.glsl('bundle', 'assets/shaders/bundle2.glsl.js');
     }
 
     create()

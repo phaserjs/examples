@@ -1,6 +1,6 @@
 // #module
 
-import HueRotatePipeline from './assets/pipelines/HueRotate.js';
+import AddHueRotate from './assets/rendernodes/AddHueRotate.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -22,15 +22,18 @@ export default class Example extends Phaser.Scene
 
     create ()
     {
-        const hueRotatePipeline = this.renderer.pipelines.get('HueRotate');
+        const renderNodeManager = this.renderer.renderNodes;
+        this.hueRotateBatchHandler = AddHueRotate(renderNodeManager);
 
-        this.add.sprite(100, 300, 'pudding').setPipeline(hueRotatePipeline);
+        this.add.sprite(100, 300, 'pudding').setRenderNodeRole('BatchHandler', this.hueRotateBatchHandler);
 
-        this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline(hueRotatePipeline);
+        const crab = this.add.sprite(400, 300, 'crab').setScale(1.5);
+        crab.setRenderNodeRole('BatchHandler', this.hueRotateBatchHandler);
 
-        this.fish = this.add.sprite(400, 300, 'fish').setPipeline(hueRotatePipeline);
+        this.fish = this.add.sprite(400, 300, 'fish');
+        this.fish.setRenderNodeRole('BatchHandler', this.hueRotateBatchHandler);
 
-        this.add.sprite(700, 300, 'cake').setPipeline(hueRotatePipeline);
+        this.add.sprite(700, 300, 'cake').setRenderNodeRole('BatchHandler', this.hueRotateBatchHandler);
 
         this.input.on('pointermove', pointer => {
 
@@ -39,7 +42,13 @@ export default class Example extends Phaser.Scene
 
         });
 
-        hueRotatePipeline.speed = 0.01;
+        this.hue = 0;
+    }
+
+    update () {
+        this.hue += 0.01;
+
+        this.hueRotateBatchHandler.programManager.setUniform('uHue', this.hue);
     }
 }
 
@@ -49,8 +58,7 @@ const config = {
     height: 600,
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
-    scene: Example,
-    pipeline: { 'HueRotate': HueRotatePipeline }
+    scene: Example
 };
 
 let game = new Phaser.Game(config);

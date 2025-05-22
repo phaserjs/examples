@@ -29,35 +29,30 @@ void main()
 }
 `;
 
-class ColorPostFX extends Phaser.Renderer.WebGL.Pipelines.PostFXPipeline
-{
-    constructor (game)
-    {
-        super({
-            game,
-            name: 'ColorPostFX',
-            fragShader: hueFragShader
-        });
+const FILTER_NAME = 'FilterColor';
 
-        this._hueSpeed = 0.001;
+const FilterColor = {
+    Controller: class ControllerColor extends Phaser.Filters.Controller {
+        constructor(camera) {
+            super(camera, FILTER_NAME);
+            this.hueSpeed = 0.001;
+        }
+        setHueSpeed(speed = 0.001) {
+            this.hueSpeed = speed;
+            return this;
+        }
+    },
+    Filter: class FilterColor extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader {
+        constructor(manager) {
+            super(FILTER_NAME, manager, null, hueFragShader);
+        }
+        setupUniforms(controller, drawingContext) {
+            const programManager = this.programManager;
+            programManager.setUniform('uTime', drawingContext.renderer.game.loop.time);
+            programManager.setUniform('uSpeed', controller.hueSpeed);
+        }
     }
-
-    onPreRender ()
-    {
-        this.set1f('uTime', this.game.loop.time);
-        this.set1f('uSpeed', this._hueSpeed);
-    }
-
-    get hueSpeed ()
-    {
-        return this._hueSpeed;
-    }
-
-    set hueSpeed (value)
-    {
-        this._hueSpeed = value;
-    }
-}
+};
 
 class Example extends Phaser.Scene
 {
@@ -76,17 +71,11 @@ class Example extends Phaser.Scene
     create ()
     {
         this.add.sprite(200, 300, 'fish');
-
-        const flower = this.add.sprite(400, 300, 'flower').setPostPipeline('ColorPostFX');
-
+        this.filterController = new FilterColor.Controller();
+        const flower = this.add.sprite(400, 300, 'flower').enableFilters().filters.internal.add(this.filterController);
         this.add.sprite(600, 300, 'fish');
-
-        const colorPipeline = flower.getPostPipeline('ColorPostFX');
-
         this.input.on('pointerdown', () => {
-
-            colorPipeline.hueSpeed = 0.001 + Math.random() * 0.01;
-
+            this.filterController.setHueSpeed(0.001 + Math.random() * 0.01);
         });
     }
 }
@@ -98,7 +87,7 @@ const config = {
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: { 'ColorPostFX': ColorPostFX }
+    renderNodes: { 'FilterColor': FilterColor.Filter }
 };
 
 let game = new Phaser.Game(config);

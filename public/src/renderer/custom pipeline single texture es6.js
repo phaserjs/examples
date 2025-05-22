@@ -1,42 +1,11 @@
-const vertShader = `
-precision mediump float;
-
-uniform mat4 uProjectionMatrix;
-uniform vec2 uResolution;
-
-attribute vec2 inPosition;
-attribute vec2 inTexCoord;
-attribute float inTintEffect;
-attribute vec4 inTint;
-
-varying vec2 outTexCoord;
-varying float outTintEffect;
-varying vec4 outTint;
-
-varying vec2 fragCoord;
-
-void main ()
-{
-    gl_Position = uProjectionMatrix * vec4(inPosition, 1.0, 1.0);
-
-    outTexCoord = inTexCoord;
-    outTint = inTint;
-    outTintEffect = inTintEffect;
-
-    fragCoord = vec2(inPosition.x, uResolution.y - inPosition.y);
-}
-`;
-
 const fragShader = `
 precision mediump float;
 
 uniform sampler2D uMainSampler;
-uniform vec2 uResolution;
 uniform float uTime;
 
 varying vec2 outTexCoord;
 varying vec4 outTint;
-varying vec2 fragCoord;
 
 void main()
 {
@@ -44,7 +13,7 @@ void main()
 
     texture *= vec4(outTint.rgb * outTint.a, outTint.a);
 
-    vec3 p = vec3((fragCoord.xy)/(uResolution.y),sin(uTime * 0.2));
+    vec3 p = vec3(outTexCoord.xy,sin(uTime * 0.2));
 
     for (int i = 0; i < 10; i++)
     {
@@ -56,14 +25,16 @@ void main()
 }
 `;
 
-class CustomPipeline extends Phaser.Renderer.WebGL.Pipelines.SinglePipeline
+// This custom render node uses a custom shader to warp the color of the texture.
+class CustomSingleRender extends Phaser.Renderer.WebGL.RenderNodes.BatchHandlerQuadSingle
 {
-    constructor (game)
+    constructor (manager)
     {
-        super({
-            game,
-            vertShader,
-            fragShader
+        super (manager, {
+            name: 'CustomSingleRender',
+            shaderName: 'SINGLE_COLOR_WARP',
+            fragmentSource: fragShader,
+            maxTexturesPerBatch: 1
         });
     }
 }
@@ -90,13 +61,13 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.customPipeline = this.renderer.pipelines.add('Custom', new CustomPipeline(this.game));
-
-        this.customPipeline.set2f('uResolution', this.scale.width, this.scale.height);
+        this.customRenderNode = new CustomSingleRender(this.renderer.renderNodes);
 
         this.add.sprite(100, 300, 'pudding');
-        this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline('Custom');
-        this.fish = this.add.sprite(400, 300, 'fish').setPipeline('Custom');
+        this.crab = this.add.sprite(400, 300, 'crab').setScale(1.5);
+        this.crab.setRenderNodeRole('BatchHandler', this.customRenderNode);
+        this.fish = this.add.sprite(400, 300, 'fish');
+        this.fish.setRenderNodeRole('BatchHandler', this.customRenderNode);
         this.add.sprite(700, 300, 'cake');
 
         this.input.on('pointermove', pointer => {
@@ -108,13 +79,13 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerdown', () => {
 
-            if (this.fish.pipeline === this.customPipeline)
+            if (this.fish.customRenderNodes.BatchHandler)
             {
-                this.fish.resetPipeline();
+                this.fish.setRenderNodeRole('BatchHandler', null);
             }
             else
             {
-                this.fish.setPipeline('Custom');
+                this.fish.setRenderNodeRole('BatchHandler', this.customRenderNode);
             }
 
         });
@@ -122,7 +93,7 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        this.customPipeline.set1f('uTime', this.t);
+        this.customRenderNode.programManager.setUniform('uTime', this.t);
 
         this.t += 0.05;
 

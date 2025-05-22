@@ -1,6 +1,6 @@
 // #module
 
-import HueRotate from './assets/pipelines/HueRotate.js';
+import FilterHueRotate from './assets/rendernodes/FilterHueRotate.js';
 
 export default class Example extends Phaser.Scene
 {
@@ -21,13 +21,11 @@ export default class Example extends Phaser.Scene
 
     create ()
     {
-        const hueRotatePipeline = this.renderer.pipelines.get('HueRotate');
+        this.add.sprite(200, 300, 'fish').enableFilters().filters.internal.add(new FilterHueRotate.Controller(this.cameras.main));
 
-        this.add.sprite(200, 300, 'fish').setPipeline(hueRotatePipeline);
+        this.add.sprite(400, 300, 'flower').enableFilters().filters.internal.add(new FilterHueRotate.Controller(this.cameras.main));
 
-        this.add.sprite(400, 300, 'flower').setPipeline(hueRotatePipeline);
-
-        this.add.sprite(650, 300, 'crab').setPipeline(hueRotatePipeline);
+        this.add.sprite(650, 300, 'crab').enableFilters().filters.internal.add(new FilterHueRotate.Controller(this.cameras.main));
     }
 }
 
@@ -38,7 +36,7 @@ const config = {
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
     scene: Example,
-    pipeline: { 'HueRotate': HueRotate }
+    renderNodes: { 'FilterHueRotate': FilterHueRotate.Filter }
 };
 
 let game = new Phaser.Game(config);

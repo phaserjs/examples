@@ -1,79 +1,11 @@
-const vertShader = `
-precision mediump float;
-
-uniform mat4 uProjectionMatrix;
-uniform vec2 uResolution;
-
-attribute vec2 inPosition;
-attribute vec2 inTexCoord;
-attribute float inTexId;
-attribute float inTintEffect;
-attribute vec4 inTint;
-
-varying vec2 outTexCoord;
-varying float outTexId;
-varying float outTintEffect;
-varying vec4 outTint;
-
-varying vec2 fragCoord;
-
-void main ()
+const colorWarp = `
+vec3 p = vec3(outTexCoord, sin(uTime * 0.2));
+for (int i = 0; i < 10; i++)
 {
-    gl_Position = uProjectionMatrix * vec4(inPosition, 1.0, 1.0);
-
-    outTexCoord = inTexCoord;
-    outTexId = inTexId;
-    outTint = inTint;
-    outTintEffect = inTintEffect;
-
-    fragCoord = vec2(inPosition.x, uResolution.y - inPosition.y);
+    p.xzy = vec3(1.3,0.999,0.7)*(abs((abs(p)/dot(p,p)-vec3(1.0,1.0,cos(uTime * 0.2)*0.5))));
 }
+fragColor.rgb *= p;
 `;
-
-const fragShader = `
-precision mediump float;
-
-uniform sampler2D uMainSampler[%count%];
-uniform vec2 uResolution;
-uniform float uTime;
-
-varying vec2 outTexCoord;
-varying float outTexId;
-varying float outTintEffect;
-varying vec4 outTint;
-varying vec2 fragCoord;
-
-void main()
-{
-    vec4 texture;
-
-    %forloop%
-
-    texture *= vec4(outTint.rgb * outTint.a, outTint.a);
-
-    vec3 p = vec3((fragCoord.xy)/(uResolution.y),sin(uTime * 0.2));
-
-    for (int i = 0; i < 10; i++)
-    {
-        p.xzy = vec3(1.3,0.999,0.7)*(abs((abs(p)/dot(p,p)-vec3(1.0,1.0,cos(uTime * 0.2)*0.5))));
-    }
-
-    gl_FragColor.rgb = texture.rgb * p;
-    gl_FragColor.a = texture.a;
-}
-`;
-
-class CustomPipeline extends Phaser.Renderer.WebGL.Pipelines.MultiPipeline
-{
-    constructor (game)
-    {
-        super({
-            game,
-            vertShader,
-            fragShader
-        });
-    }
-}
 
 class Example extends Phaser.Scene
 {
@@ -97,13 +29,27 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.customPipeline = this.renderer.pipelines.get('Custom');
+        const renderNodeManager = this.renderer.renderNodes;
 
-        this.customPipeline.set2f('uResolution', this.scale.width, this.scale.height);
+        // Create a custom render node.
+        this.customBatchHandler = new Phaser.Renderer.WebGL.RenderNodes.BatchHandlerQuad(renderNodeManager);
+
+        // An addition appends code into the shader at specific locations.
+        // This shader adds a uniform variable to the shader,
+        // and then uses it to warp the color of the texture during fragment processing.
+        this.customBatchHandler.programManager.addAddition({
+            name: 'ColorWarp',
+            additions: {
+                fragmentHeader: 'uniform float uTime;',
+                fragmentProcess: colorWarp
+            }
+        });
 
         this.add.sprite(100, 300, 'pudding');
-        this.add.sprite(400, 300, 'crab').setScale(1.5).setPipeline(this.customPipeline);
-        this.fish = this.add.sprite(400, 300, 'fish').setPipeline(this.customPipeline);
+        const crab = this.add.sprite(400, 300, 'crab').setScale(1.5);
+        crab.setRenderNodeRole('BatchHandler', this.customBatchHandler);
+        const fish = this.fish = this.add.sprite(400, 300, 'fish');
+        fish.setRenderNodeRole('BatchHandler', this.customBatchHandler);
         this.add.sprite(700, 300, 'cake');
 
         this.input.on('pointermove', pointer => {
@@ -115,13 +61,13 @@ class Example extends Phaser.Scene
 
         this.input.on('pointerdown', () => {
 
-            if (this.fish.pipeline === this.customPipeline)
+            if (this.fish.customRenderNodes.BatchHandler)
             {
-                this.fish.resetPipeline();
+                this.fish.setRenderNodeRole('BatchHandler', null);
             }
             else
             {
-                this.fish.setPipeline(this.customPipeline);
+                this.fish.setRenderNodeRole('BatchHandler', this.customBatchHandler);
             }
 
         });
@@ -129,7 +75,7 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        this.customPipeline.set1f('uTime', this.t);
+        this.customBatchHandler.programManager.setUniform('uTime', this.t);
 
         this.t += 0.05;
 
@@ -143,8 +89,7 @@ const config = {
     height: 600,
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
-    scene: Example,
-    pipeline: { 'Custom': CustomPipeline }
+    scene: Example
 };
 
 let game = new Phaser.Game(config);

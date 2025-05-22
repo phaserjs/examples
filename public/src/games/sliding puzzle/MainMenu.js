@@ -15,7 +15,6 @@ export default class MainMenu extends Phaser.Scene
         const box = this.add.image(512, 384, 'box');
         const logo = this.add.image(512, -384, 'logo');
 
-        // Phaser 4: Use filters instead of post pipelines
         box.enableFilters();
         const wipe = new FilterWipe.Controller(this.cameras.main);
         box.filters.internal.add(wipe);

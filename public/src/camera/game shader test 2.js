@@ -11,7 +11,6 @@ export default class Example extends Phaser.Scene
         this.cursors = null;
         this.score = 0;
         this.scoreText = null;
-        this.bendPipeline;
     }
 
     preload ()

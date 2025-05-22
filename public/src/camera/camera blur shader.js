@@ -24,12 +24,6 @@ class Example extends Phaser.Scene
         this.cameras.main.ignore(hotdog);
         extracam.ignore(volcano);
     }
-
-    update ()
-    {
-        // const r = Math.abs(2 * Math.sin(this.time.now * 10));
-        // this.blurPipeline.set1f('radius', r);
-    }
 }
 
 const config = {

@@ -1,152 +1,242 @@
 [
     {
-        "path": "src\\bugs\\7093 tween chain delay.js",
-        "name": "7093 tween chain delay.js",
-        "birthtimeMs": 1743669968791.723
+        "path": "src\\bugs\\7147 timeline events.js",
+        "name": "7147 timeline events.js",
+        "size": 1212,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747892038663.0217
     },
     {
-        "path": "src\\bugs\\7048 tween persist.js",
-        "name": "7048 tween persist.js",
-        "birthtimeMs": 1742364347787.1902
+        "path": "src\\bugs\\7142 color matrix.js",
+        "name": "7142 color matrix.js",
+        "size": 1212,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747713379315.957
     },
     {
-        "path": "src\\bugs\\7045 error stopping scene.js",
-        "name": "7045 error stopping scene.js",
-        "birthtimeMs": 1742364347762.1863
+        "path": "src\\tweens\\tween sprite angle.js",
+        "name": "tween sprite angle.js",
+        "size": 720,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495897.048
     },
     {
-        "path": "src\\bugs\\7029 webgl grid.js",
-        "name": "7029 webgl grid.js",
-        "birthtimeMs": 1742364347759.1865
+        "path": "src\\utils\\array\\translate matrix.js",
+        "name": "translate matrix.js",
+        "size": 2192,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495897.048
     },
     {
-        "path": "src\\bugs\\7070 frame duration ignored.js",
-        "name": "7070 frame duration ignored.js",
-        "birthtimeMs": 1742188041449.3972
+        "path": "src\\utils\\rbush\\rbush 1.js",
+        "name": "rbush 1.js",
+        "size": 1925,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495897.048
     },
     {
-        "path": "src\\bugs\\7063 particle emitter custom moveTo.js",
-        "name": "7063 particle emitter custom moveTo.js",
-        "birthtimeMs": 1742188041442.4192
+        "path": "src\\utils\\rbush\\rbush 2.js",
+        "name": "rbush 2.js",
+        "size": 2046,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495897.048
     },
     {
-        "path": "src\\bugs\\7057 scalemanager android.js",
-        "name": "7057 scalemanager android.js",
-        "birthtimeMs": 1742188041439.421
+        "path": "src\\tweens\\eases\\sine.js",
+        "name": "sine.js",
+        "size": 1886,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\bugs\\7018 aseprite framerate.js",
-        "name": "7018 aseprite framerate.js",
-        "birthtimeMs": 1742188041403.3782
+        "path": "src\\tweens\\flip x.js",
+        "name": "flip x.js",
+        "size": 998,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\bugs\\7077 rtl texts.js",
-        "name": "7077 rtl texts.js",
-        "birthtimeMs": 1742177195011.5173
+        "path": "src\\tweens\\flip y.js",
+        "name": "flip y.js",
+        "size": 1090,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\bugs\\7051 rendering text.js",
-        "name": "7051 rendering text.js",
-        "birthtimeMs": 1741932445982.2446
+        "path": "src\\tweens\\global time scale.js",
+        "name": "global time scale.js",
+        "size": 3195,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\bugs\\7054 immovable circle.js",
-        "name": "7054 immovable circle.js",
-        "birthtimeMs": 1741930782763.2627
+        "path": "src\\tweens\\loop.js",
+        "name": "loop.js",
+        "size": 1187,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\bugs\\7059 camera rendering.js",
-        "name": "7059 camera rendering.js",
-        "birthtimeMs": 1741921629710.4436
+        "path": "src\\tweens\\remove tween.js",
+        "name": "remove tween.js",
+        "size": 919,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\games\\my first game\\spriteKeys.js",
-        "name": "spriteKeys.js",
-        "birthtimeMs": 1739526034567.6294
+        "path": "src\\tweens\\seek to point in tween.js",
+        "name": "seek to point in tween.js",
+        "size": 1173,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\games\\my first game\\scenes\\GameUi.js",
-        "name": "GameUi.js",
-        "birthtimeMs": 1739526034566.627
+        "path": "src\\tweens\\sprite angle between.js",
+        "name": "sprite angle between.js",
+        "size": 823,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\games\\my first game\\scenes\\Game.js",
-        "name": "Game.js",
-        "birthtimeMs": 1739526034531.629
+        "path": "src\\tweens\\stagger delay.js",
+        "name": "stagger delay.js",
+        "size": 1256,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\games\\my first game\\phaser.min.js",
-        "name": "phaser.min.js",
-        "birthtimeMs": 1739526034525.6265
+        "path": "src\\tweens\\stagger showcase.js",
+        "name": "stagger showcase.js",
+        "size": 3322,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Star.js",
-        "name": "Star.js",
-        "birthtimeMs": 1739526034327.627
+        "path": "src\\tweens\\stop a tween.js",
+        "name": "stop a tween.js",
+        "size": 915,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\TreasureBox.js",
-        "name": "TreasureBox.js",
-        "birthtimeMs": 1739526034327.627
+        "path": "src\\tweens\\tween gauge.js",
+        "name": "tween gauge.js",
+        "size": 1158,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495887.7961
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Score.js",
-        "name": "Score.js",
-        "birthtimeMs": 1739526034326.629
+        "path": "src\\tweens\\eases\\sine graph.js",
+        "name": "sine graph.js",
+        "size": 2339,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495886.771
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Player.js",
-        "name": "Player.js",
-        "birthtimeMs": 1739526034278.6255
+        "path": "src\\tweens\\eases\\linear.js",
+        "name": "linear.js",
+        "size": 953,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495881.7627
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\MysteryBox.js",
-        "name": "MysteryBox.js",
-        "birthtimeMs": 1739526034277.6252
+        "path": "src\\tweens\\eases\\quad graph.js",
+        "name": "quad graph.js",
+        "size": 2344,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495881.7627
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Platform.js",
-        "name": "Platform.js",
-        "birthtimeMs": 1739526034277.6252
+        "path": "src\\tweens\\eases\\quad.js",
+        "name": "quad.js",
+        "size": 1886,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495881.7627
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Hamster.js",
-        "name": "Hamster.js",
-        "birthtimeMs": 1739526034276.6262
+        "path": "src\\tweens\\eases\\quartic graph.js",
+        "name": "quartic graph.js",
+        "size": 2345,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495881.7627
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Key.js",
-        "name": "Key.js",
-        "birthtimeMs": 1739526034276.6262
+        "path": "src\\tweens\\eases\\quartic.js",
+        "name": "quartic.js",
+        "size": 1895,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495881.7627
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Exit.js",
-        "name": "Exit.js",
-        "birthtimeMs": 1739526034275.627
+        "path": "src\\tweens\\eases\\quintic graph.js",
+        "name": "quintic graph.js",
+        "size": 2345,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495881.7627
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Chick.js",
-        "name": "Chick.js",
-        "birthtimeMs": 1739526034274.6277
+        "path": "src\\tweens\\eases\\quintic.js",
+        "name": "quintic.js",
+        "size": 1895,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495881.7627
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Coin.js",
-        "name": "Coin.js",
-        "birthtimeMs": 1739526034274.6277
+        "path": "src\\tweens\\eases\\cubic graph.js",
+        "name": "cubic graph.js",
+        "size": 2343,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495876.7332
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Bomb.js",
-        "name": "Bomb.js",
-        "birthtimeMs": 1739526034273.626
+        "path": "src\\tweens\\eases\\cubic.js",
+        "name": "cubic.js",
+        "size": 1893,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495876.7332
     },
     {
-        "path": "src\\games\\my first game\\gameObjects\\Cake.js",
-        "name": "Cake.js",
-        "birthtimeMs": 1739526034273.626
+        "path": "src\\tweens\\eases\\ease equations.js",
+        "name": "ease equations.js",
+        "size": 2269,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495876.7332
     },
     {
-        "path": "src\\games\\my first game\\audioKeys.js",
-        "name": "audioKeys.js",
-        "birthtimeMs": 1739526034272.6262
+        "path": "src\\tweens\\eases\\ease mixer.js",
+        "name": "ease mixer.js",
+        "size": 4574,
+        "extension": ".js",
+        "type": "file",
+        "birthtimeMs": 1747711495876.7332
     }
 ]

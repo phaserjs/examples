@@ -10,6 +10,8 @@ const recentExamplesJSON = './public/recent-examples.json';
 let filteredTree = dirTree(rootDir, {
     extensions: /\.(js|json)$/,
     exclude: /(3\.24)/,
+    exclude: /(3\.55)/,
+    exclude: /(3\.86)/,
     attributes: ["birthtimeMs"]
 });
 

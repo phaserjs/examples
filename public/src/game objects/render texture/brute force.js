@@ -6,7 +6,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.baseURL = 'https://cdn.rawgit.com/samid737/samid737.github.io/eca38c92/409/';
         this.load.crossOrigin = 'anonymous';
         this.load.spritesheet('matrix', '/assets/sprites/font.png', { frameWidth: 110, frameHeight: 125, endFrame: 23 });
@@ -38,7 +38,8 @@ class Example extends Phaser.Scene
         const tint = (0x00ffff * (this.rnd() * 0.1 + 0.8));
         const frame = ~~(this.rnd() * 22);
 
-        this.rt.drawFrame('matrix', frame, this.rnd() * 800, this.rnd() * 600, alpha, tint);
+        this.rt.stamp('matrix', frame, this.rnd() * 800, this.rnd() * 600, { alpha, tint })
+        .render();
     }
 }
 

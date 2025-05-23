@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bubble', 'assets/particles/bubble.png');
     }
 
@@ -44,7 +44,7 @@ class Example extends Phaser.Scene
         this.trail.setAlpha(100 / (dist + 0.001));
         this.trail.setTint(dist | 0xff0000);
 
-        this.rt.draw(this.trail);
+        this.rt.draw(this.trail).render();
     }
 }
 

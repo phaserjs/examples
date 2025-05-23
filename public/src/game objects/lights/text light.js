@@ -2,34 +2,34 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('sonic', 'assets/sprites/sonic_havok_sanity.png');
         this.load.image('bg', [ 'assets/textures/gold.png', 'assets/textures/gold-n.png' ]);
     }
 
     create ()
     {
-        this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.5);
+        this.add.sprite(400, 300, 'bg').setLighting(true).setAlpha(0.5);
 
         const text1 = this.add.text(20, 50, 'Shadow Stroke', { fontFamily: 'Arial Black', fontSize: 74, color: '#00a6ed' });
         text1.setStroke('#2d2d2d', 16);
         text1.setShadow(4, 4, '#000000', 8, true, false);
-        text1.setPipeline('Light2D');
+        text1.setLighting(true);
 
         const text2 = this.add.text(20, 180, 'Shadow Fill', { fontFamily: 'Arial Black', fontSize: 74, color: '#00a6ed' });
         text2.setStroke('#2d2d2d', 16);
         text2.setShadow(4, 4, '#000000', 2, false, true);
-        text2.setPipeline('Light2D');
+        text2.setLighting(true);
 
         const text3 = this.add.text(20, 310, 'Shadow Both', { fontFamily: 'Arial Black', fontSize: 74, color: '#00a6ed' });
         text3.setStroke('#2d2d2d', 16);
         text3.setShadow(4, 4, '#000000', 2, true, true);
-        text3.setPipeline('Light2D');
+        text3.setLighting(true);
 
         const text4 = this.add.text(20, 440, 'Shadow None', { fontFamily: 'Arial Black', fontSize: 74, color: '#00a6ed' });
         text4.setStroke('#2d2d2d', 16);
         text4.setShadow(4, 4, '#000000', 2, false, false);
-        text4.setPipeline('Light2D');
+        text4.setLighting(true);
 
         this.add.sprite(680, 600, 'sonic').setOrigin(0.5, 1);
 

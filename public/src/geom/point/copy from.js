@@ -8,15 +8,15 @@ class Example extends Phaser.Scene
 
         for (let k = 0; k < 150; k++)
         {
-            points.push(new Phaser.Geom.Point());
+            points.push(new Phaser.Math.Vector2());
         }
 
         let i = 0;
 
         this.input.on('pointermove', pointer =>
         {
-
-            Phaser.Geom.Point.CopyFrom(pointer, points[i]);
+            // const vector2 = points[i];
+            points[i].copy(pointer);
 
             i = (i + 1) % points.length;
 

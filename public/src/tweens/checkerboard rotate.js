@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('block', 'assets/sprites/checkerboard.png');
     }
 
@@ -24,7 +24,7 @@ class Example extends Phaser.Scene
 
         const a = [ 0, 90, 180, 270 ];
 
-        blocks.children.iterate(child => {
+        blocks.children.forEach(child => {
 
             child.angle = Phaser.Math.RND.pick(a);
 

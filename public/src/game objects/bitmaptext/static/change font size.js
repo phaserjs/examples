@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.bitmapFont('atari', 'assets/fonts/bitmap/gem.png', 'assets/fonts/bitmap/gem.xml');
     }
 

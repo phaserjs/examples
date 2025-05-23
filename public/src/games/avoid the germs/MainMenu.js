@@ -20,7 +20,14 @@ export default class MainMenu extends Phaser.Scene
         this.addGerm(area, 'germ3');
         this.addGerm(area, 'germ4');
 
-        this.add.shader('goo', 400, 300, 800, 600);
+        const shader = this.add.shader({
+            name: 'goo',
+            fragmentKey: 'goo',
+            setupUniforms: (setUniform, drawingContext) =>
+            {
+                setUniform('time', this.game.loop.getDuration());
+            },
+        }, 400, 300, this.scale.width, this.scale.width);
 
         this.add.image(400, 260, 'assets', 'logo');
 

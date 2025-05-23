@@ -13,17 +13,26 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('fireworks', 'assets/video/fireworks.mp4', true);
         this.load.video('transition', 'assets/video/colorful-smoke-transition.webm', true);
-        this.load.glsl('bundle', 'assets/shaders/bundle4.glsl.js');
+        this.load.glsl('Ghosts', 'assets/shaders/ghosts.frag');
     }
 
     create ()
     {
         //  Our two effects - a shader and a video
 
-        this.effect1 = this.add.shader('Ghosts', 512, 300, 1024, 600);
+        this.effect1 = this.add.shader({
+            name: 'Ghosts',
+            fragmentKey: 'Ghosts',
+            initialUniforms: {
+                resolution: [ 1024, 600 ]
+            },
+            setupUniforms: (setUniform, drawingContext) => {
+                setUniform('time', this.game.loop.getDuration());
+            }
+        }, 512, 300, 1024, 600);
         this.effect2 = this.add.video(512, 300, 'fireworks').play(true).setVisible(false);
 
         //  The transition video, it's a transparent WebM, so will only work in browsers that support this

@@ -2,13 +2,22 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
-        this.load.glsl('bundle', 'assets/shaders/bundle.glsl.js');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        this.load.glsl('Colorful Voronoi', 'assets/shaders/colorful-voronoi.frag');
     }
 
     create ()
     {
-        const shader = this.add.shader('Colorful Voronoi', 0, 0, 128, 128);
+        const shader = this.add.shader({
+            name: 'Colorful Voronoi',
+            fragmentKey: 'Colorful Voronoi',
+            initialUniforms: {
+                resolution: [this.scale.width, this.scale.height]
+            },
+            setupUniforms: (setUniform, drawingContext) => {
+                setUniform('time', this.game.loop.getDuration());
+            }
+        }, 0, 0, 128, 128);
 
         shader.setRenderToTexture('wibble');
 
@@ -25,7 +34,7 @@ class Example extends Phaser.Scene
 
         let i = 0;
 
-        blocks.children.iterate(function (child)
+        blocks.children.forEach(function (child)
         {
 
             this.tweens.add({

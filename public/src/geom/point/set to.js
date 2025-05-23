@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
     {
         const graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
-        const point = new Phaser.Geom.Point(400, 300);
+        const point = new Phaser.Math.Vector2(400, 300);
         graphics.fillPointShape(point, 10);
 
         point.setTo();

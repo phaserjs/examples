@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="hexagonal" renderorder="right-down" width="10" height="10" tilewidth="64" tileheight="68" infinite="0" hexsidelength="34" staggeraxis="y" staggerindex="odd" nextlayerid="2" nextobjectid="1">
+ <editorsettings>
+  <export target="10x10-test.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="hex-tiles" tilewidth="64" tileheight="68" tilecount="13" columns="13">
+  <image source="../iso/tilesets/hex-tiles.png" width="832" height="68"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="10" height="10">
+  <data encoding="csv">
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10
+</data>
+ </layer>
+</map>

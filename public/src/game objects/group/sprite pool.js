@@ -20,7 +20,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('space', 'assets/skies/space.jpg');
         this.load.spritesheet('alien', 'assets/tests/invaders/invader1.png', { frameWidth: 32, frameHeight: 32 });
     }
@@ -70,7 +70,7 @@ class Example extends Phaser.Scene
     {
         Phaser.Actions.IncY(this.group.getChildren(), 1);
 
-        this.group.children.iterate(alien =>
+        this.group.children.forEach(alien =>
         {
             if (alien.y > 600)
             {

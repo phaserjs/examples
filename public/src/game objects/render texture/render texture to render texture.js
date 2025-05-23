@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bunny', 'assets/sprites/bunny.png');
     }
 
@@ -18,9 +18,11 @@ class Example extends Phaser.Scene
             rt1.draw('bunny', x, y);
         }
 
+        rt1.render();
+
         const rt2 = this.add.renderTexture(400, 0, 400, 600).setOrigin(0, 0);
 
-        rt2.draw(rt1, 0, 0);
+        rt2.draw(rt1, 0, 0).render();
     }
 }
 

@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.spritesheet('brawler', 'assets/animations/brawler48x48.png', { frameWidth: 48, frameHeight: 48 });
         this.load.image('grid', 'assets/textures/grid-ps2.png');
     }
@@ -19,7 +19,7 @@ class Example extends Phaser.Scene
 
         this.add.image(0, 0, 'brawler', '__BASE').setOrigin(0, 0);
 
-        this.add.grid(0, 0, 192, 384, 48, 48).setOrigin(0, 0).setOutlineStyle(0x00ff00);
+        this.add.grid(0, 0, 192, 384, 48, 48).setOrigin(0, 0).setStrokeStyle(2, 0x00ff00);
 
         this.add.text(200, 24, '<- walk', { color: '#00ff00' }).setOrigin(0, 0.5);
         this.add.text(200, 72, '<- idle', { color: '#00ff00' }).setOrigin(0, 0.5);

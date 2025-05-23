@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('banner', 'assets/atlas/banners.png', 'assets/atlas/banners.json');
     }
 
@@ -48,6 +48,8 @@ class Example extends Phaser.Scene
         banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, runeY, { scale: 0.5, originX: 1 });
         banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, runeY, { scale: 0.5, originX: 0.5 });
         banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, runeY, { scale: 0.5, originX: 0 });
+
+        banner.render();
     }
 }
 

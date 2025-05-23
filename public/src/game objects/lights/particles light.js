@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('sonic', 'assets/sprites/sonic_havok_sanity.png');
         this.load.image('bg', [ 'assets/textures/gold.png', 'assets/textures/gold-n.png' ]);
         this.load.spritesheet('fish', [ 'assets/sprites/fish-136x80.png', 'assets/sprites/fish-136x80_n.png' ], { frameWidth: 136, frameHeight: 80 });
@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.2);
+        this.add.sprite(400, 300, 'bg').setLighting(true).setAlpha(0.2);
 
         this.add.particles(0, 0, 'fish', {
             frame: { frames: [ 0, 1, 2 ], cycle: true, quantity: 4 },
@@ -20,7 +20,7 @@ class Example extends Phaser.Scene
             speedX: { min: 200, max: 400, steps: 8 },
             quantity: 4,
             frequency: 500
-        }).setPipeline('Light2D');
+        }).setLighting(true);
 
         this.add.sprite(680, 600, 'sonic').setOrigin(0.5, 1);
 

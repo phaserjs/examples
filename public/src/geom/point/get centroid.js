@@ -5,17 +5,16 @@ class Example extends Phaser.Scene
         const graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x2266aa }, fillStyle: { color: 0x2266aa } });
 
         const points = [
-            new Phaser.Geom.Point(Math.random() * 300, Math.random() * 200),
-            new Phaser.Geom.Point(Math.random() * 400 + 400, Math.random() * 200),
-            new Phaser.Geom.Point(Math.random() * 400 + 400, Math.random() * 200 + 200),
-            new Phaser.Geom.Point(Math.random() * 400, Math.random() * 300 + 300),
-            new Phaser.Geom.Point(Math.random() * 400, Math.random() * 300 + 300)
+            new Phaser.Math.Vector2(Math.random() * 300, Math.random() * 200),
+            new Phaser.Math.Vector2(Math.random() * 400 + 400, Math.random() * 200),
+            new Phaser.Math.Vector2(Math.random() * 400 + 400, Math.random() * 200 + 200),
+            new Phaser.Math.Vector2(Math.random() * 400, Math.random() * 300 + 300),
+            new Phaser.Math.Vector2(Math.random() * 400, Math.random() * 300 + 300)
         ];
 
         this.input.on('pointermove', pointer =>
         {
-
-            Phaser.Geom.Point.CopyFrom(pointer, points[0]);
+            points[0].copy(pointer);
 
             redraw();
         });
@@ -28,7 +27,7 @@ class Example extends Phaser.Scene
 
             graphics.strokePoints(points, true);
 
-            const centroid = Phaser.Geom.Point.GetCentroid(points);
+            const centroid = Phaser.Math.GetCentroid(points);
 
             graphics.fillPointShape(centroid, 20);
 

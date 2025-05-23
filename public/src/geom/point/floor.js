@@ -11,8 +11,8 @@ class Example extends Phaser.Scene
     {
         this.graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } });
 
-        this.point1 = new Phaser.Geom.Point(300, 100);
-        this.point2 = new Phaser.Geom.Point(500, 100);
+        this.point1 = new Phaser.Math.Vector2(300, 100);
+        this.point2 = new Phaser.Math.Vector2(500, 100);
 
         this.text1 = this.add.text(100, 50, '');
         this.text2 = this.add.text(500, 50, '');
@@ -24,7 +24,7 @@ class Example extends Phaser.Scene
 
         this.point1.y = this.point2.y = this.y;
 
-        Phaser.Geom.Point.Floor(this.point2);
+        this.point2.floor();
 
         this.text1.setText(`y: ${this.point1.y}`);
         this.text2.setText(`y: ${this.point2.y}`);

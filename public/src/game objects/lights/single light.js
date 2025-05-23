@@ -2,14 +2,14 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('brick', [ 'assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png' ]);
         this.load.image('logo', 'assets/sprites/atari130xe.png');
     }
 
     create ()
     {
-        this.add.image(400, 300, 'brick').setPipeline('Light2D');
+        this.add.image(400, 300, 'brick').setLighting(true);
 
         this.add.image(400, 300, 'logo');
 

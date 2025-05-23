@@ -18,7 +18,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     // this.load.video('wormhole', 'assets/video/wormhole.mp4');
     // this.load.video('skull', 'assets/video/skull.mp4');
     // this.load.video('underwater', 'assets/video/underwater.mp4');

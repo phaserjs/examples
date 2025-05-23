@@ -7,7 +7,7 @@ class Example extends Phaser.Scene {
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         //  It's essential that the key given here is the exact class name used in the JS file. It's case-sensitive.
         //  See the SceneB.js file and documentation for details.
         this.load.sceneFile('ExternalScene', 'assets/loader-tests/ExternalScene.js');

@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('logo', 'assets/sprites/phaser1.png');
         this.load.image('bunny', 'assets/sprites/bunny.png');
         this.load.image('bg', 'assets/pics/platformer-backdrop.png');
@@ -25,14 +25,14 @@ class Example extends Phaser.Scene
         const checker = this.add.sprite(400, 300, 'checker');
         const bunny0 = this.add.sprite(400, 300, 'bunny')
 
-        bunny0.mask = new Phaser.Display.Masks.BitmapMask(this, rt);
-        bunny0.mask.invertAlpha = true;
-        checker.mask = new Phaser.Display.Masks.BitmapMask(this, bunny1);
+        const bunnyMask = bunny0.enableFilters().filters.external.addMask(rt);
+        bunnyMask.invertAlpha = true;
+        checker.enableFilters().filters.external.addMask(bunny1);
 
         this.input.on('pointermove', function (event) {
             if (event.isDown)
             {
-                rt.draw(logo, event.x, event.y);
+                rt.draw(logo, event.x, event.y).render();
             }
         }, this);
     }

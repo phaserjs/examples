@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('brush', 'assets/sprites/brush3.png');
     }
 
@@ -21,14 +21,14 @@ class Example extends Phaser.Scene
         this.input.keyboard.on('keydown_SPACE', () =>
         {
 
-            rt.clear();
+            rt.clear().render();
 
         });
 
         rt.on('pointerdown', function (pointer)
         {
 
-            this.draw('brush', pointer.x - 8, pointer.y - 8, 1, hsv[i].color);
+            this.draw('brush', pointer.x - 8, pointer.y - 8, 1, hsv[i].color).render();
 
         });
 
@@ -37,7 +37,7 @@ class Example extends Phaser.Scene
 
             if (pointer.isDown)
             {
-                this.draw('brush', pointer.x - 8, pointer.y - 8, 1, hsv[i].color);
+                this.draw('brush', pointer.x - 8, pointer.y - 8, 1, hsv[i].color).render();
 
                 i = Phaser.Math.Wrap(i + 1, 0, 360);
             }
@@ -55,7 +55,7 @@ class Example extends Phaser.Scene
             cellHeight: 128
         });
 
-        blocks.children.iterate(function (child)
+        blocks.children.forEach(function (child)
         {
             this.tweens.add({
                 targets: child,

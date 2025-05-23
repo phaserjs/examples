@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('sonic', 'assets/sprites/sonic_havok_sanity.png');
         this.load.image('bg', [ 'assets/textures/gold.png', 'assets/textures/gold-n.png' ]);
         this.load.bitmapFont('ice', [ 'assets/fonts/bitmap/iceicebaby.png', 'assets/fonts/bitmap/iceicebaby_n.png' ], 'assets/fonts/bitmap/iceicebaby.xml');
@@ -10,11 +10,16 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.2);
+        this.add.sprite(400, 300, 'bg')
+        .setLighting(true)
+        .setAlpha(0.2);
 
         this.add.sprite(680, 600, 'sonic').setOrigin(0.5, 1);
 
-        this.add.bitmapText(400, 300, 'ice', 'Bitmap Text\nwith Lights', 110).setCenterAlign().setOrigin(0.5).setPipeline('Light2D');
+        this.add.bitmapText(400, 300, 'ice', 'Bitmap Text\nwith Lights', 110)
+        .setCenterAlign()
+        .setOrigin(0.5)
+        .setLighting(true);
 
         this.lights.enable();
         this.lights.setAmbientColor(0x808080);

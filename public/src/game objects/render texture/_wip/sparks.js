@@ -6,7 +6,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('dude', 'assets/sprites/phaser-dude.png');
     }
 
@@ -28,7 +28,7 @@ class Example extends Phaser.Scene
 
     draw ()
     {
-        this.rt.clear();
+        this.rt.clear().render();
 
         this.rt.alpha = this.rnd();
         this.rt.tint = (0xFFFFFF << this.rnd() * 8092);
@@ -40,7 +40,7 @@ class Example extends Phaser.Scene
             const x = this.player.x + dist * Math.cos(rot);
             const y = this.player.y + dist * Math.sin(rot);
 
-            this.rt.draw('dude', x, y);
+            this.rt.draw('dude', x, y).render();
         }
     }
 }

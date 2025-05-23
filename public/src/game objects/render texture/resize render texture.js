@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bubble', 'assets/particles/bubble.png');
         this.load.image('dude', 'assets/sprites/phaser-dude.png');
     }
@@ -14,8 +14,8 @@ class Example extends Phaser.Scene
     {
         this.rt = this.make.renderTexture({ width: 100, height: 100 }, false);
 
-        this.rt.draw('bubble', 0, 0);
-        this.rt.draw('dude', 20, 14);
+        this.rt.draw('bubble', 32, 32);
+        this.rt.draw('dude', 34, 34);
 
         const t = this.rt.saveTexture('bubbleboy');
 
@@ -31,8 +31,10 @@ class Example extends Phaser.Scene
 
             this.rt.setSize(50, 50);
 
-            this.rt.draw('bubble', 0, 0);
-            this.rt.draw('dude', 20, 14);
+            this.rt.draw('bubble', 32, 32);
+            this.rt.draw('dude', 34, 34);
+
+            this.rt.render();
 
         }, this);
     }

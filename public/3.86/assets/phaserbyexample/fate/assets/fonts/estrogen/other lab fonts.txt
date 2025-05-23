@@ -1,0 +1,113 @@
+0001 - ZOLOFT (by Apostrophe) - 5 fonts
+0002 - MILTOWN (by Apostrophe) - 1 font
+0003 - WITCHES BREW (by Apostrophe) - 1 font
+0004 - CELEXA (by Apostrophe) - 1 font
+0005 - LABRAT (by Apostrophe) - 2 fonts
+0006 - EFFEXOR (by Apostrophe) - 1 font
+0007 - FLUOXETINE (by Apostrophe) - 1 font
+0008 - ICKLIPS (by Typ, Neumat Ick & Apostrophe) - 1 font
+0009 - TRALFAMADORE (by Apostrophe) - 1 font
+0010 - HALCION (by Apostrophe) - 2 fonts
+0011 - RX MM (by Apostrophe) - Multiple master + 13 TTF
+0012 - PAXIL (by Jeri Ingalls & Apostrophe) - 1 font
+0013 - VALIUM (by Apostrophe) - 1 font
+0014 - FIGHT THIS (by Apostrophe) - 1 font
+0015 - ANKORA (by Frank Guillemette & Apostrophe) - 1 font
+0016 - RITALIN (by Apostrophe) - 3 fonts
+0017 - WELLBUTRIN (by Karen Clemens & Apostrophe) - 1 font
+0018 - XANAX (by Apostrophe) - 1 font
+0019 - LAB BATS (by Brigido Maderal & Apostrophe) - 1 font 
+0020 - CYCLIN (by CybaPee & Apostrophe) - 1 font
+0021 - FUTUREX (by Graham Meade & Apostrophe) - 8 fonts
+0022 - MASKALIN (by Apostrophe) - 1 font
+0023 - DESYREL (by Dana Rice & Apostrophe) - 1 font
+0024 - LIBRIUM (by Link Olsson & Apostrophe) - 2 fonts
+0025 - PICA HOLE (by Apostrophe) - 7 fonts
+0026 - DURALITH (by Graham Meade & Apostrophe) - 1 font
+0027 - IMPOS MM (by Apostrophe) - Multiple Master + 6 TTF
+0028 - COLWELL (by Fleisch & Apostrophe) - 2 fonts
+0029 - USENET (by Alejandro Paul & Apostrophe) - 2 fonts
+0030 - FONTCOP (by Alejandro Paul & Apostrophe) - 4 fonts
+0031 - EPYVAL (by Graham Meade & Apostrophe) - 1 font
+0032 - MILTOWN II (by Apostrophe) - 1 font
+0033 - SEVERINA (by Link Olsson & Apostrophe) - 1 font
+0034 - DIEHL DECO (by Marley Diehl & Apostrophe) - 2 fonts
+0035 - BOOTER MM (by Graham Meade & Apostrophe) - Multiple Master + 13 TTF
+0036 - PAMELOR (by Graham Meade & Apostrophe) - 2 fonts
+0037 - CARBOLITH (by Apostrophe) - 2 fonts
+0038 - LILLY (by Dana Rice & Apostrophe) - 1 font
+0039 - TEXTAN (by Rich Parks & Apostrophe) - 3 fonts
+0040 - SABRIL (by Graham Meade & Apostrophe) - 2 fonts
+0041 - METROLOX (by Karen Clemens & Apostrophe) - 1 font
+0042 - ERINAL (by Graham Meade & Apostrophe) - 3 fonts
+0043 - POULTRYGEIST (by Link Olsson & Apostrophe) - 2 fonts
+0044 - HARD TALK (by Marjan Bozic & Apostrophe) - 1 font
+0045 - KOMIKAZE (by Apostrophe) - 1 font
+0046 - KOMIKAZOOM (by Apostrophe) - 1 font
+0047 - EXTASY (by Keya Kirkpatrick & Apostrophe) - 1 font
+0048 - KARISMA (by Graham Meade & Apostrophe) - 3 fonts
+0049 - KOMIKAHUNA (by Apostrophe) - 1 font
+0050 - CAYETANO (by Alejandro Paul & Apostrophe) - 8 fonts
+0051 - DIOGENES (by Apostrophe) - 1 font
+0052 - KOMIKAZBA (by Apostrophe) - 1 font
+0053 - KIMONO (by Keya Kirkpatrick & Apostrophe) - 6 fonts
+0054 - MISTRESS SCRIPT (by Apostrophe) - 2 fonts
+0055 - BIPOLAR CONTROL PACK (by Graham Meade) - 4 fonts
+0056 - SLEDGE (by Apostrophe) - 1 font
+0057 - EXTRANO (by Link Olsson & Apostrophe) - 5 fonts
+0058 - 1910 VIENNA (by Evelyne Pichler & Apostrophe) - 2 fonts
+0059 - LANE (by Graham Meade) - 4 fonts
+0060 - MARY JANE (by Apostrophe) - 3 fonts
+0061 - YELLOWSWAMP (by Graham Meade, CybaPee and Apostrophe) - 1 font
+0062 - TRACEROUTE (by Yol) - 2 fonts
+0063 - STREET (By Graham Meade) - 17 fonts
+0064 - INDEPENDANT (by Phynette & Apostrophe) - 3 fonts
+0065 - LADY ICE (by CybaPee & Apostrophe) - 3 fonts
+0066 - WHACKADOO (by Graham Meade & Apostrophe) - 1 font
+0067 - REPUBLIKA (by Apostrophe) - 36 fonts
+0068 - REPUBLIKA BOLD (by Apostrophe) - 36 fonts
+0069 - REPUBLIKA LIGHT (by Apostrophe) - 36 fonts
+0070 - REPUBLIKA ULTRA (by Apostrophe) - 36 fonts
+0071 - REPUBLIKA OUTLINE (by Apostrophe) - 12 fonts
+0072 - REPUBLIKA SHADOW (by Apostrophe) - 12 fonts
+0073 - REPUBLIKA COLLEGE (by Apostrophe) - 12 fonts
+0074 - REPUBLIKA MAZE (by Apostrophe) - 12 fonts
+0075 - REPUBLIKA SKETCH (by Apostrophe) - 36 fonts
+0076 - REPUBLIKA HAZE (by Apostrophe) - 36 fonts
+0077 - REPUBLIKA SHATTER (by Apostrophe) - 36 fonts
+0078 - BICICLES (by Graham Meade & Apostrophe) - 2 fonts
+0079 - STARBAT (by Apostrophe)
+0080 - STREET SLAB (by Graham Meade) - 40 fonts
+0081 - GLAUKOUS (by Rich Parks & Apostrophe) - 5 fonts
+0082 - ELEKTORA (by Alejandro Paul & Apostrophe) - 1 font
+0083 - 2nd STREET (by Graham Meade) - 30 fonts
+0084 - MERKIN (by Apostrophe) - 4 fonts
+0085 - DRUMMON (by Graham Meade & Apostrophe) - 5 fonts
+0086 - KRONIKA (by Graham Meade) - 1 font
+0087 - PRIMARY ELECTOR (by Graham Meade & Apostrophe) - 2 fonts
+0088 - TRIBAL (by WolfBainX & Apostrophe) - 2 fonts
+0089 - HADLEY (by Fleisch & Apostrophe) - 2 fonts
+0090 - TEXTAN ROUND (by Rich Parks & Apostrophe) - 1 font
+0091 - YOUTHANASIA (by Graham Meade & Apostrophe) - 1 font
+0092 - ERECTLORITE (by Apostrophe) - 3 fonts
+0093 - HALTER (by Apostrophe) - 3 fonts
+0094 - THONG (by Graham Meade) - 1 font
+0095 - ESTROGEN (by Apostrophe) - 3 fonts
+
+
+
+Futurex Project fonts:
+F001 - BOLD OBLIQUE (by Fleisch)
+F002 - SLAB (by Rich Parks)
+F003 - SCHIZMATIC (by Spork Thug)
+F004 - METAL GEAR (by Mr. Fisk)
+F005 - ALIENATED (by Phoenix Phonts)
+F006 - PUNCHED (by Phoenix Phonts)
+F007 - STRIPED (by Phoenix Phonts)
+F008 - BUGZ (by Jeri Ingalls)
+F009 - VOYAGER (by Rich Gast)
+F010 - CRAZY SLAB (by Misha Shenbrot)
+F011 - EMBOSSED (by Alex Grecian)
+F012 - DECO (by Alex Grecian)
+F013 - ENGRAVED (by Alex Grecian)
+F014 - BOB (by JoeBob Grafx)

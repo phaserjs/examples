@@ -6,7 +6,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.bitmapFont('atari-classic', 'assets/fonts/bitmap/atari-classic.png', 'assets/fonts/bitmap/atari-classic.xml');
 
         this.load.image('bg', 'assets/animations/nyan/bg.png');
@@ -66,6 +66,7 @@ class Example extends Phaser.Scene
             this.cat.x = this.cat.width / 2 + (this.catAstroPhi.seek / this.catAstroPhi.duration) * (800 - this.cat.width);
 
             this.rainbowMask.clear();
+            this.rainbowMask.fillStyle(0xffffff, 1);
             this.rainbowMask.fillRect(0, 0, this.cat.x - 15, 600);
 
             if (!this.catAstroPhi.isPlaying && this.cat.anims.isPlaying)
@@ -99,7 +100,7 @@ class Example extends Phaser.Scene
         this.rainbowMask = this.make.graphics();
 
         const rainbow = this.add.image(400, 300, 'rainbow');
-        rainbow.mask = new Phaser.Display.Masks.GeometryMask(this, this.rainbowMask);
+        rainbow.enableFilters().filters.external.addMask(this.rainbowMask);
 
         this.anims.create({
             key: 'cat',

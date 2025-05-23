@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('patchouli', 'assets/rope/patchouli.png');
         this.load.image('wwy', 'assets/rope/weathering-with-you.jpg');
     }
@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
 
         const mask = this.make.image({ x: 200, y: 300, key: 'patchouli' }, false);
 
-        rope.setMask(rope.createBitmapMask(mask));
+        rope.enableFilters().filters.external.addMask(mask);
 
         this.rope = rope;
 

@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.bitmapFont('desyrel', 'assets/fonts/bitmap/desyrel.png', 'assets/fonts/bitmap/desyrel.xml');
     }
 
@@ -25,6 +25,8 @@ class Example extends Phaser.Scene
         this.rt.clear();
 
         this.rt.draw(this.bitmaptext, 300, 400);
+
+        this.rt.render();
     }
 }
 

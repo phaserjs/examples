@@ -6,7 +6,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/normal-maps/');
 
         this.load.image('gem1');
@@ -28,7 +28,7 @@ class Example extends Phaser.Scene
 
         this.land = this.add.tileSprite(400, 300, 800, 600, 'stones');
 
-        this.land.setPipeline('Light2D');
+        this.land.setLighting(true);
         this.land.setScrollFactor(0, 0);
         this.land.tileScaleX = 0.5;
         this.land.tileScaleY = 0.5;

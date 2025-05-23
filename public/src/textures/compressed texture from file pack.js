@@ -5,11 +5,11 @@ var FilePackObject = {
                 "type": "texture",
                 "key": "labs",
                 "url": {
-                    "ASTC": "assets/compressed/labs-astc-4x4.pvr",
-                    "ETC1": "assets/compressed/labs-etc1.pvr",
-                    "PVRTC": "assets/compressed/labs-pvrtc-4bpp-rgba-srgb.pvr",
-                    "S3TC": "assets/compressed/labs-bc3.pvr",
-                    "IMG": "assets/compressed/labs.png"
+                    "ASTC": "assets/compressed/compressed/labs-ASTC-4x4-lRGB.pvr",
+                    "ETC": "assets/compressed/compressed/labs-ETC2-lRGB.pvr",
+                    "PVRTC": "assets/compressed/compressed/labs-PVRTC-4BPP-lRGB.pvr",
+                    "S3TC": "assets/compressed/compressed/labs-S3TC-BC3-lRGB.pvr",
+                    "IMG": "assets/compressed/uncompressed/labs.png"
                 }
             }
         ]
@@ -32,7 +32,7 @@ class Demo extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.pack('pack1', FilePackObject);
     }
 

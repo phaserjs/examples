@@ -2,14 +2,21 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
-        this.load.glsl('bundle', 'assets/shaders/bundle2.glsl.js');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        this.load.glsl('Marble', 'assets/shaders/marble.frag');
+        this.load.glsl('Plasma', 'assets/shaders/plasma2.frag');
     }
 
     create ()
     {
         //  Our dynamic shader that will bounce around
-        const block = this.add.shader('Marble', 100, 100, 32 * 4, 32 * 2);
+        const block = this.add.shader({
+            name: 'Marble',
+            fragmentKey: 'Marble',
+            setupUniforms: (setUniform, drawingContext) => {
+                setUniform('time', this.game.loop.getDuration());
+            }
+        }, 0, 0, 32 * 4, 32 * 2);
 
         this.physics.add.existing(block, false);
 
@@ -18,7 +25,16 @@ class Example extends Phaser.Scene
         block.body.setCollideWorldBounds(true);
 
         //  Our static shader that will just receive collide events
-        const staticBlock = this.add.shader('Plasma', 400, 300, 32 * 3, 32 * 8);
+        const staticBlock = this.add.shader({
+            name: 'Plasma',
+            fragmentKey: 'Plasma',
+            initialUniforms: {
+                resolution: [ 32 * 3, 32 * 8 ]
+            },
+            setupUniforms: (setUniform, drawingContext) => {
+                setUniform('time', this.game.loop.getDuration());
+            }
+        }, 400, 300, 32 * 3, 32 * 8);
 
         this.physics.add.existing(staticBlock, true);
 

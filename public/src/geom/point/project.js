@@ -10,15 +10,15 @@ class Example extends Phaser.Scene
     {
         this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x2266aa }, fillStyle: { color: 0xaa0000 } });
 
-        this.point = new Phaser.Geom.Point(250, 0);
-        this.point2 = new Phaser.Geom.Point(250, 0);
+        this.point = new Phaser.Math.Vector2(250, 0);
+        this.point2 = new Phaser.Math.Vector2(250, 0);
 
-        this.projectedPoint = Phaser.Geom.Point.Project(this.point2, this.point);
+        this.projectedPoint = this.point2.clone().project(this.point);
 
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Geom.Point.CopyFrom(pointer, this.point2);
+            this.point2.copy(pointer);
 
             this.point2.x -= 400;
             this.point2.y -= 300;
@@ -40,7 +40,7 @@ class Example extends Phaser.Scene
         this.graphics.lineStyle(2, 0x00aa00);
         this.graphics.lineBetween(400, 300, 400 + this.point2.x, 300 + this.point2.y);
 
-        Phaser.Geom.Point.Project(this.point2, this.point, this.projectedPoint);
+        this.projectedPoint = this.point2.clone().project(this.point);
 
         // move relative to center
         this.projectedPoint.x += 400;

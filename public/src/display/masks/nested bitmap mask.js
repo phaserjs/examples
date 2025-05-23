@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg1', 'assets/skies/deepblue.png');
         this.load.image('bg2', 'assets/skies/wtf.png');
         this.load.image('splat', 'assets/pics/splat1.png');
@@ -29,11 +29,10 @@ class Example extends Phaser.Scene
         const splat = this.make.image({ x: 400, y: 300, key: 'splat', add: false });
         const circle = this.make.image({ x: 300, y: 300, key: 'circle', add: false });
 
-        const mask1 = new Phaser.Display.Masks.BitmapMask(this, splat);
-
         container.add([ bg, child1, child2 ]);
 
-        container.mask = mask1;
+        container.enableFilters();
+        container.filters.external.addMask(splat);
     }
 }
 

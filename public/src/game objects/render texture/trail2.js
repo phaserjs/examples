@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('dude', 'assets/sprites/phaser-dude.png');
     }
 
@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
     {
         this.player.setPosition(this.input.x, this.input.y);
 
-        this.rt.draw(this.player);
+        this.rt.draw(this.player).render();
     }
 }
 

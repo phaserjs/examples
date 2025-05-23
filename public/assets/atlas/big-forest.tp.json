@@ -1,0 +1,712 @@
+{
+  "meta": {
+    "app": "https://www.aseprite.org/",
+    "version": "1.3.7-x64"
+  },
+  "textures": [
+    {
+      "image": "big-forest.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 512,
+        "h": 512
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "Sky",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 200,
+            "h": 150
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 200,
+            "h": 150
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 200,
+            "h": 150
+          }
+        },
+        {
+          "filename": "Cloud1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 38,
+            "h": 22
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 38,
+            "h": 22
+          },
+          "frame": {
+            "x": 204,
+            "y": 8,
+            "w": 38,
+            "h": 22
+          }
+        },
+        {
+          "filename": "Cloud2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 40,
+            "h": 30
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 40,
+            "h": 30
+          },
+          "frame": {
+            "x": 245,
+            "y": 1,
+            "w": 40,
+            "h": 30
+          }
+        },
+        {
+          "filename": "Cloud3",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 38,
+            "h": 34
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 38,
+            "h": 34
+          },
+          "frame": {
+            "x": 288,
+            "y": 3,
+            "w": 38,
+            "h": 34
+          }
+        },
+        {
+          "filename": "RainStreak",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 1,
+            "h": 16
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 1,
+            "h": 16
+          },
+          "frame": {
+            "x": 327,
+            "y": 0,
+            "w": 1,
+            "h": 16
+          }
+        },
+        {
+          "filename": "Mountain1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 200,
+            "h": 83
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 200,
+            "h": 83
+          },
+          "frame": {
+            "x": 208,
+            "y": 67,
+            "w": 200,
+            "h": 83
+          }
+        },
+        {
+          "filename": "Mountain2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 200,
+            "h": 84
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 200,
+            "h": 84
+          },
+          "frame": {
+            "x": 256,
+            "y": 284,
+            "w": 200,
+            "h": 84
+          }
+        },
+        {
+          "filename": "Ground1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 32,
+            "h": 34
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 34
+          },
+          "frame": {
+            "x": 344,
+            "y": 7,
+            "w": 32,
+            "h": 34
+          }
+        },
+        {
+          "filename": "Ground2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 32,
+            "h": 38
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 38
+          },
+          "frame": {
+            "x": 376,
+            "y": 5,
+            "w": 32,
+            "h": 38
+          }
+        },
+        {
+          "filename": "Ground3",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 32,
+            "h": 32
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 32
+          },
+          "frame": {
+            "x": 408,
+            "y": 8,
+            "w": 32,
+            "h": 32
+          }
+        },
+        {
+          "filename": "Ground4",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 32,
+            "h": 38
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 38
+          },
+          "frame": {
+            "x": 440,
+            "y": 5,
+            "w": 32,
+            "h": 38
+          }
+        },
+        {
+          "filename": "Grass1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 16
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          },
+          "frame": {
+            "x": 472,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          }
+        },
+        {
+          "filename": "Grass2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 16
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          },
+          "frame": {
+            "x": 480,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          }
+        },
+        {
+          "filename": "Grass3",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 16
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          },
+          "frame": {
+            "x": 488,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          }
+        },
+        {
+          "filename": "Grass4",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 16
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          },
+          "frame": {
+            "x": 496,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          }
+        },
+        {
+          "filename": "Grass5",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 16
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          },
+          "frame": {
+            "x": 504,
+            "y": 0,
+            "w": 8,
+            "h": 16
+          }
+        },
+        {
+          "filename": "Detail1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 8
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 8
+          },
+          "frame": {
+            "x": 480,
+            "y": 16,
+            "w": 8,
+            "h": 8
+          }
+        },
+        {
+          "filename": "Detail2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 8
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 8
+          },
+          "frame": {
+            "x": 488,
+            "y": 16,
+            "w": 8,
+            "h": 8
+          }
+        },
+        {
+          "filename": "Detail3",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 8
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 8
+          },
+          "frame": {
+            "x": 480,
+            "y": 24,
+            "w": 8,
+            "h": 8
+          }
+        },
+        {
+          "filename": "Detail4",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 8,
+            "h": 8
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 8
+          },
+          "frame": {
+            "x": 488,
+            "y": 24,
+            "w": 8,
+            "h": 8
+          }
+        },
+        {
+          "filename": "Stump1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 0,
+            "y": 224,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "filename": "Stump2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 64,
+            "y": 224,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "filename": "Trunk1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 96
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 96
+          },
+          "frame": {
+            "x": 128,
+            "y": 224,
+            "w": 64,
+            "h": 96
+          }
+        },
+        {
+          "filename": "Trunk2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 96
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 96
+          },
+          "frame": {
+            "x": 192,
+            "y": 224,
+            "w": 64,
+            "h": 96
+          }
+        },
+        {
+          "filename": "Trunk3",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 96
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 96
+          },
+          "frame": {
+            "x": 128,
+            "y": 320,
+            "w": 64,
+            "h": 96
+          }
+        },
+        {
+          "filename": "Trunk4",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 96
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 96
+          },
+          "frame": {
+            "x": 192,
+            "y": 320,
+            "w": 64,
+            "h": 96
+          }
+        },
+        {
+          "filename": "Leaves1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 141,
+            "h": 83
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 141,
+            "h": 83
+          },
+          "frame": {
+            "x": 272,
+            "y": 384,
+            "w": 141,
+            "h": 83
+          }
+        },
+        {
+          "filename": "Leaves2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 145,
+            "h": 104
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 145,
+            "h": 104
+          },
+          "frame": {
+            "x": 313,
+            "y": 161,
+            "w": 145,
+            "h": 104
+          }
+        },
+        {
+          "filename": "WhitePx",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 1,
+            "h": 1
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 1,
+            "h": 1
+          },
+          "frame": {
+            "x": 201,
+            "y": 1,
+            "w": 1,
+            "h": 1
+          }
+        },
+        {
+          "filename": "White2x2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 2,
+            "h": 2
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 2,
+            "h": 2
+          },
+          "frame": {
+            "x": 203,
+            "y": 1,
+            "w": 2,
+            "h": 2
+          }
+        },
+        {
+          "filename": "LooseLeaves1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 56,
+            "h": 43
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 56,
+            "h": 43
+          },
+          "frame": {
+            "x": 0,
+            "y": 160,
+            "w": 56,
+            "h": 43
+          }
+        },
+        {
+          "filename": "LooseLeaves2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 62,
+            "h": 54
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 62,
+            "h": 54
+          },
+          "frame": {
+            "x": 64,
+            "y": 160,
+            "w": 62,
+            "h": 54
+          }
+        },
+        {
+          "filename": "LooseLeaves3",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 48,
+            "h": 45
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 48,
+            "h": 45
+          },
+          "frame": {
+            "x": 128,
+            "y": 160,
+            "w": 48,
+            "h": 45
+          }
+        }
+      ]
+    }
+  ]
+}

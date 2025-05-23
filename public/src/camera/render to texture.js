@@ -1,17 +1,17 @@
 // #module
 
-import PixelatedFX from './assets/pipelines/PixelatedFX.js';
+import Pixelated from './assets/rendernodes/FilterPixelated.js';
 
 class Example extends Phaser.Scene
 {
-    constructor ()
+    constructor()
     {
         super();
     }
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('volcano', 'assets/pics/the-end-by-iloe-and-made.jpg');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }
@@ -22,7 +22,7 @@ class Example extends Phaser.Scene
         const hotdog = this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
         this.cameras.main.ignore(hotdog);
-        this.cameras.main.setPostPipeline(PixelatedFX);
+        this.cameras.main.filters.external.add(new Pixelated.Controller(this.cameras.main));
 
         const cam1 = this.cameras.add(0, 0, 800, 600);
 
@@ -59,7 +59,9 @@ const config = {
     height: 600,
     backgroundColor: '#000000',
     scene: Example,
-    pipeline: { PixelatedFX }
+    renderNodes: {
+        FilterPixelated: Pixelated.Filter,
+    }
 };
 
 const game = new Phaser.Game(config);

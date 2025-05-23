@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bunny', 'assets/sprites/bunny.png');
     }
 
@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
         rt.camera.setZoom(2);
         rt.camera.setPosition(450, 350);
 
-        rt.drawFrame('bunny');
+        rt.stamp('bunny', null, 0, 0, { originX: 0, originY: 0 }).render();
     }
 }
 

@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('robot', [ 'assets/pics/equality-by-ragnarok.png', 'assets/normal-maps/equality-by-ragnarok_n.png' ]);
         this.load.image('atari', 'assets/sprites/atari400.png');
     }
@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
         //  Add an image and set it to use Lights2D
         const robot = this.add.image(-100, 0, 'robot').setOrigin(0).setScale(0.7);
 
-        robot.setPipeline('Light2D');
+        robot.setLighting(true);
 
         //  Our spotlight. 100px radius and white in color.
         const light = this.lights.addLight(180, 80, 200).setColor(0xffffff).setIntensity(2);

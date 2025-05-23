@@ -7,14 +7,15 @@ class Demo extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         const path = 'assets/compressed';
 
         this.load.texture('test', {
-            'ASTC': { type: 'PVR', textureURL: `${path}/textures-astc-4x4.pvr`, atlasURL: `${path}/textures.json` },
-            'PVRTC': { type: 'PVR', textureURL: `${path}/textures-pvrtc-4bpp-rgba.pvr`, atlasURL: `${path}/textures-pvrtc-4bpp-rgba.json` },
-            'S3TC': { type: 'PVR', textureURL: `${path}/textures-dxt5.pvr`, atlasURL: `${path}/textures-dxt5.json` },
-            'IMG': { textureURL: `${path}/textures.png`, atlasURL: `${path}/textures.json` }
+            'ASTC': { type: 'PVR', textureURL: `${path}/compressed/textures-ASTC-4x4-lRGB.pvr`, atlasURL: `${path}/uncompressed/textures.json` },
+            'ETC': { type: 'PVR', textureURL: `${path}/compressed/textures-ETC2-lRGB.pvr`, atlasURL: `${path}/uncompressed/textures.json` },
+            'PVRTC': { type: 'PVR', textureURL: `${path}/compressed/textures-PVRTC-4BPP-lRGB.pvr`, atlasURL: `${path}/uncompressed/textures.json` },
+            'S3TC': { type: 'PVR', textureURL: `${path}/compressed/textures-S3TC-BC3-lRGB.pvr`, atlasURL: `${path}/uncompressed/textures.json` },
+            'IMG': { textureURL: `${path}/textures.png`, atlasURL: `${path}/uncompressed/textures.json` }
         });
     }
 

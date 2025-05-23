@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('tiles', 'assets/tilemaps/tiles/tmw_desert_spacing.png');
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/desert.json');
     }
@@ -28,6 +28,8 @@ class Example extends Phaser.Scene
         this.rt.clear();
 
         this.rt.draw(this.layer);
+
+        this.rt.render();
     }
 }
 

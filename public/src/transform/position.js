@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('grid', 'assets/pics/debug-grid-1920x1920.png');
         this.load.image('atari', 'assets/sprites/atari130xe.png');
     }

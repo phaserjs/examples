@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('pic', 'assets/pics/cougar-dragonsun.png');
     }
 
@@ -24,11 +24,9 @@ class Example extends Phaser.Scene
         maskGraphics.fillStyle(0xffffff);
         maskGraphics.fillRect(100, 100, 256, 256);
 
-        const mask = new Phaser.Display.Masks.BitmapMask(this, maskGraphics);
+        const mask = overlay.enableFilters().filters.external.addMask(maskGraphics);
 
-        mask.invertAlpha = true;
-
-        overlay.setMask(mask);
+        mask.invert = true;
     }
 }
 

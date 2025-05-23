@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/tilemaps/');
 
         this.load.image('tiles', [ 'tiles/cybernoid.png', 'tiles/cybernoid_n.png' ]);
@@ -24,7 +24,7 @@ class Example extends Phaser.Scene
             light.x = this.cameras.main.scrollX + pointer.x;
             light.y = this.cameras.main.scrollY + pointer.y;
 
-        });
+        }, this);
 
         const map = this.make.tilemap({ key: 'map' });
 
@@ -32,7 +32,7 @@ class Example extends Phaser.Scene
 
         const layer = map.createLayer(0, tiles, 0, 0);
 
-        layer.setPipeline('Light2D');
+        layer.setLighting(true);
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 

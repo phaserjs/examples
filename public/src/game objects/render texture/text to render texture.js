@@ -19,6 +19,8 @@ class Example extends Phaser.Scene
         this.rt.clear();
 
         this.rt.draw(this.text, 400, 300);
+
+        this.rt.render();
     }
 }
 

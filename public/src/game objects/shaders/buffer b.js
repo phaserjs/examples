@@ -1,11 +1,5 @@
 class Example extends Phaser.Scene
 {
-    preload ()
-    {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
-        this.load.glsl('bundle', 'assets/shaders/bundle.glsl.js');
-    }
-
     create ()
     {
         const s1 = `
@@ -15,7 +9,7 @@ class Example extends Phaser.Scene
     uniform vec2 resolution;
     uniform sampler2D iChannel0;
 
-    varying vec2 fragCoord;
+    varying vec2 outTexCoord;
 
     #define iTime time
     #define iResolution resolution
@@ -53,7 +47,7 @@ class Example extends Phaser.Scene
 
     void main(void)
     {
-        mainImage(gl_FragColor, fragCoord.xy);
+        mainImage(gl_FragColor, outTexCoord.xy * iResolution.xy);
     }
         `;
 
@@ -64,7 +58,7 @@ class Example extends Phaser.Scene
     uniform vec2 resolution;
     uniform sampler2D iChannel0;
 
-    varying vec2 fragCoord;
+    varying vec2 outTexCoord;
 
     #define iTime time
     #define iResolution resolution
@@ -78,21 +72,44 @@ class Example extends Phaser.Scene
 
     void main(void)
     {
-        mainImage(gl_FragColor, fragCoord.xy);
+        mainImage(gl_FragColor, outTexCoord.xy * iResolution.xy);
     }
         `;
 
-        const baseShader1 = new Phaser.Display.BaseShader('BufferA', s1);
-        const baseShader2 = new Phaser.Display.BaseShader('BufferB', s2);
+        const shader1 = this.add.shader(
+            {
+                name: 'BufferA',
+                fragmentSource: s1,
+                setupUniforms: (setUniform, drawingContext) => {
+                    setUniform('time', this.game.loop.getDuration());
+                },
+                initialUniforms: {
+                    iChannel0: 0,
+                    resolution: [ 512, 512 ]
+                }
+            },
+            0, 0, 512, 512, [ '__DEFAULT' ]
+        )
+        .setRenderToTexture('shader1');
+        const shader2 = this.add.shader(
+            {
+                name: 'BufferB',
+                fragmentSource: s2,
+                setupUniforms: (setUniform, drawingContext) => {
+                    setUniform('time', this.game.loop.getDuration());
+                },
+                initialUniforms: {
+                    iChannel0: 0,
+                    resolution: [ 512, 512 ]
+                }
+            },
+            0, 0, 512, 512, [ 'shader1' ]
+        )
+        .setRenderToTexture('shader2');
 
-        const shader1 = this.add.shader(baseShader1, 0, 0, 512, 512).setRenderToTexture();
-        const shader2 = this.add.shader(baseShader2, 0, 0, 512, 512).setRenderToTexture('output');
+        shader1.setTextures([ 'shader2' ]);
 
-        shader1.setSampler2DBuffer('iChannel0', shader2.glTexture, 512, 512);
-        shader2.setSampler2DBuffer('iChannel0', shader1.glTexture, 512, 512);
-
-        //  Render our shader to this image
-        this.add.image(400, 300, 'output');
+        this.add.image(400, 300, 'shader2');
     }
 }
 

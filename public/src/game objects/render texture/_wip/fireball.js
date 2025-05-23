@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('dude', 'assets/sprites/phaser-dude.png');
         this.load.image('fire', 'assets/particles/muzzleflash3.png');
     }
@@ -27,7 +27,7 @@ class Example extends Phaser.Scene
             alpha: 0,
             duration: 300,
             ease: 'Cubic.easeOut',
-            onComplete: function () { this.rt.clear(); this.fireball.alpha = 0; },
+            onComplete: function () { this.rt.clear().render(); this.fireball.alpha = 0; },
             paused: true
         });
 
@@ -53,7 +53,7 @@ class Example extends Phaser.Scene
 
     draw ()
     {
-        this.rt.draw(this.fireball);
+        this.rt.draw(this.fireball).render();
     }
 }
 

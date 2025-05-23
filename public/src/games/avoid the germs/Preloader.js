@@ -7,14 +7,14 @@ export default class Preloader extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.add.image(400, 300, 'background').setScale(2);
 
         this.loadText = this.add.bitmapText(400, 300, 'slime', 'Loading ...', 80).setOrigin(0.5);
 
         this.load.setPath('assets/games/germs/');
         this.load.atlas('assets', 'germs.png', 'germs.json');
-        this.load.glsl('goo', 'goo.glsl.js');
+        this.load.glsl('goo', 'goo.frag');
 
         //  Audio ...
         this.load.setPath('assets/games/germs/sounds/');

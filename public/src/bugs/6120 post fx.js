@@ -78,7 +78,7 @@ void main (void) {
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
       this.load.image('bob', 'assets/sprites/apple.png');
     }
 

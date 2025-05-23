@@ -9,7 +9,7 @@ class SceneA extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('face', 'assets/pics/bw-face.png');
     }
 
@@ -46,7 +46,7 @@ class SceneB extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('arrow', 'assets/sprites/longarrow.png');
         this.load.image('planet', 'assets/tests/space/purple-planet.png');
     }
@@ -109,7 +109,7 @@ class SceneC extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('mech', 'assets/pics/titan-mech.png');
     }
 

@@ -5,15 +5,15 @@ class Example extends Phaser.Scene
         const graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x2266aa }, fillStyle: { color: 0x2266aa } });
 
         const points = [
-            new Phaser.Geom.Point(Math.random() * 400 + 200, Math.random() * 300 + 150),
-            new Phaser.Geom.Point(Math.random() * 400 + 200, Math.random() * 300 + 150),
-            new Phaser.Geom.Point(Math.random() * 400 + 200, Math.random() * 300 + 150)
+            new Phaser.Math.Vector2(Math.random() * 400 + 200, Math.random() * 300 + 150),
+            new Phaser.Math.Vector2(Math.random() * 400 + 200, Math.random() * 300 + 150),
+            new Phaser.Math.Vector2(Math.random() * 400 + 200, Math.random() * 300 + 150)
         ];
 
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Geom.Point.CopyFrom(pointer, points[0]);
+            points[0].copy(pointer);
 
             redraw();
         });
@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
         this.input.on('pointerdown', pointer =>
         {
 
-            points.push(new Phaser.Geom.Point(pointer.x, pointer.y));
+            points.push(new Phaser.Math.Vector2(pointer.x, pointer.y));
 
             redraw();
         });
@@ -32,7 +32,7 @@ class Example extends Phaser.Scene
         {
             graphics.clear();
 
-            const rect = Phaser.Geom.Point.GetRectangleFromPoints(points);
+            const rect = Phaser.Math.GetVec2Bounds(points);
 
             graphics.strokeRectShape(rect);
 

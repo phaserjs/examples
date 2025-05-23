@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', 'assets/tweens/space.png');
         this.load.image('block', 'assets/sprites/50x50.png');
     }
@@ -29,7 +29,7 @@ class Example extends Phaser.Scene
 
         let i = 0;
 
-        blocks.children.iterate(child => {
+        blocks.children.forEach(child => {
 
             this.tweens.add({
                 targets: child,

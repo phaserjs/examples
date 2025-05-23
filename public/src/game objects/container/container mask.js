@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
 
         this.load.image('backdrop', 'assets/pics/platformer-backdrop.png');
         this.load.image('arrow', 'assets/sprites/arrow.png');
@@ -27,12 +27,12 @@ class Example extends Phaser.Scene
             key: 'mask',
             add: false
         }).setScale(2);
-        const mask = new Phaser.Display.Masks.BitmapMask(this, maskImage);
+        
         let lastContainer;
         const count = 40;
 
         this.rootContainer = this.add.container(game.config.width / 2, game.config.height / 2);
-        this.rootContainer.mask = mask;
+        this.rootContainer.enableFilters().filters.external.addMask(maskImage);
 
         for (let j = 0; j < 4; ++j)
         {

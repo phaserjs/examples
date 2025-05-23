@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('brush', 'assets/particles/sparkle1.png');
         this.load.image('tiles', 'assets/textures/grass.png');
         this.load.image('bg', 'assets/pics/turkey-1985086.jpg');
@@ -18,9 +18,11 @@ class Example extends Phaser.Scene
         {
             for (let x = 0; x < 2; x++)
             {
-                rt.draw('tiles', x * 512, y * 512);
+                rt.draw('tiles', x * 512 + 256, y * 512 + 256);
             }
         }
+
+        rt.render();
 
         const brush = this.make.image({ key: 'brush' }, false).setScale(1);
 
@@ -29,7 +31,7 @@ class Example extends Phaser.Scene
 
             if (pointer.isDown)
             {
-                rt.erase(brush, pointer.x - 16, pointer.y - 16);
+                rt.erase(brush, pointer.x - 16, pointer.y - 16).render();
             }
 
         }, this);
@@ -37,7 +39,7 @@ class Example extends Phaser.Scene
         this.input.on('pointerdown', pointer =>
         {
 
-            rt.erase(brush, pointer.x - 16, pointer.y - 16);
+            rt.erase(brush, pointer.x - 16, pointer.y - 16).render();
 
         }, this);
     }

@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('ship', 'assets/sprites/fmship.png');
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/maps/super-mario.json');
         this.load.image('tiles1', 'assets/tilemaps/tiles/super-mario.png');

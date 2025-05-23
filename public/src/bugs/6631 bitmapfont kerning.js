@@ -3,7 +3,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.bitmapFont('title', 'https://raw.githubusercontent.com/monteiz/phaser-3-example/main/title.png', 'https://raw.githubusercontent.com/monteiz/phaser-3-example/main/title.fnt');
         this.load.bitmapFont('shortStack', 'assets/fonts/bitmap/shortStack.png', 'assets/fonts/bitmap/shortStack.fnt');
 

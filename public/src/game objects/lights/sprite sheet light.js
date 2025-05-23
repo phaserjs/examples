@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', [ 'assets/textures/gold.png', 'assets/textures/gold-n.png' ]);
         this.load.spritesheet('face', [ 'assets/sprites/metalface78x92.png', 'assets/sprites/metalface78x92-n.png' ], { frameWidth: 78, frameHeight: 92 });
     }
@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
         this.lights.enable();
         this.lights.setAmbientColor(0x555555);
 
-        this.add.sprite(400, 300, 'bg').setPipeline('Light2D').setAlpha(0.5);
+        this.add.sprite(400, 300, 'bg').setLighting(true).setAlpha(0.5);
 
         this.anims.create({
             key: 'eyes',
@@ -28,7 +28,7 @@ class Example extends Phaser.Scene
 
             const face = this.physics.add.sprite(x, y, 'face');
 
-            face.setPipeline('Light2D');
+            face.setLighting(true);
             face.play('eyes');
             face.setVelocity(Phaser.Math.Between(-100, 100), Phaser.Math.Between(-100, 100));
             face.setBounce(1, 1);

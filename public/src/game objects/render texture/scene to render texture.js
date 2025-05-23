@@ -12,7 +12,7 @@ class GameScene extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('sky', 'src/games/firstgame/assets/sky.png');
         this.load.image('ground', 'src/games/firstgame/assets/platform.png');
         this.load.image('star', 'src/games/firstgame/assets/star.png');
@@ -65,7 +65,7 @@ class GameScene extends Phaser.Scene
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        stars.children.iterate(child =>
+        stars.children.forEach(child =>
         {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
@@ -151,6 +151,8 @@ class RenderScene extends Phaser.Scene
         this.rt.clear();
 
         this.rt.draw(gameScene.children, 0, 0);
+
+        this.rt.render();
     }
 }
 

@@ -11,7 +11,7 @@ class BackgroundScene extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('guide', 'assets/tests/640x960-guide.png');
         this.load.image('bg', 'assets/skies/bigsky.png');
         this.load.atlas('clouds', 'assets/atlas/clouds.png', 'assets/atlas/clouds.json');
@@ -206,7 +206,7 @@ class GameScene extends Phaser.Scene
             setXY: { x: 12, y: 0, stepX: 50 }
         });
 
-        this.stars.children.iterate(function (child) {
+        this.stars.children.forEach(function (child) {
 
             //  Give each star a slightly different bounce
             child.setBounce(1, Phaser.Math.FloatBetween(0.4, 0.8));
@@ -326,7 +326,7 @@ class GameScene extends Phaser.Scene
         if (this.stars.countActive(true) === 0)
         {
             //  A new batch of stars to collect
-            this.stars.children.iterate(function (child)
+            this.stars.children.forEach(function (child)
             {
                 child.enableBody(true, child.x, 0, true, true);
             });

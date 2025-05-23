@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('clouds', 'assets/skies/clouds.png');
         this.load.spritesheet('dragon', 'assets/sprites/stormlord-dragon96x64.png', { frameWidth: 96, frameHeight: 64 });
     }

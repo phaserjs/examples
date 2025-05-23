@@ -8,7 +8,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('neuromancer', 'assets/pics/case.jpg');
         this.load.image('knighthawks', 'assets/fonts/retro/knighthawks-font.png');
     }

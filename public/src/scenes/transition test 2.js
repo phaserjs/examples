@@ -7,7 +7,7 @@ class Preloader extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('raster', 'assets/demoscene/raster-bw-64.png');
         this.load.image('planet', 'assets/tests/space/purple-planet.png');
         this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
@@ -37,7 +37,7 @@ class Demo1 extends Phaser.Scene
 
         const _this = this;
 
-        group.children.iterate(child =>
+        group.children.forEach(child =>
         {
 
             child.x = 100;

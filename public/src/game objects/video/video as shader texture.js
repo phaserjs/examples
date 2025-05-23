@@ -7,24 +7,35 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('trainSequence', 'assets/video/train512x256.mp4', true);
         this.load.image('noise', 'assets/tests/rgba-noise-medium.png');
-        this.load.glsl('bundle', 'assets/shaders/bundle4.glsl.js');
+        this.load.glsl('hue-shift', 'assets/shaders/hue-shift.frag');
     }
 
     create ()
     {
         const video = this.add.video(400, 300, 'trainSequence').setVisible(false);
 
-        //  We're using this texture as a shader input, so we have to flipY on it
-        video.saveTexture('train', true);
+        //  We're using this texture as a shader input.
+        video.saveTexture('train');
 
         video.play(true);
 
         video.once('textureready', () => {
 
-            this.add.shader('Hue Shift', 400, 300, 800, 600, [ 'train', 'noise' ]);
+            this.add.shader({
+                name: 'Hue Shift',
+                fragmentKey: 'hue-shift',
+                initialUniforms: {
+                    resolution: [ this.scale.width, this.scale.height ],
+                    iChannel0: 0,
+                    iChannel1: 1
+                },
+                setupUniforms: (setUniform, drawingContext) => {
+                    setUniform('time', this.game.loop.getDuration());
+                }
+            }, 400, 300, 800, 600, [ 'train', 'noise' ]);
 
         });
     }

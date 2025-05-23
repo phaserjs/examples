@@ -17,7 +17,7 @@ class Example extends Phaser.Scene
 
         const tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2);
 
-        this.layer = map.createLayer(0, tileset, 0, 0).setPipeline('Light2D');
+        this.layer = map.createLayer(0, tileset, 0, 0).setLighting(true);
 
         this.player = this.add.image(32+16, 32+16, 'car');
 

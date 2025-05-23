@@ -9,7 +9,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('tiles', [ 'assets/tilemaps/tiles/drawtiles1.png', 'assets/tilemaps/tiles/drawtiles1_n.png' ]);
         this.load.image('car', 'assets/sprites/car90.png');
         this.load.tilemapCSV('map', 'assets/tilemaps/csv/grid.csv');
@@ -21,7 +21,8 @@ class Example extends Phaser.Scene
 
         const tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2);
 
-        this.layer = map.createLayer(0, tileset, 0, 0).setPipeline('Light2D');
+        this.layer = map.createLayer(0, tileset, 0, 0)
+        .setLighting(true);
 
         this.player = this.add.image(32+16, 32+16, 'car');
 
@@ -112,6 +113,7 @@ class Example extends Phaser.Scene
         this.lights.lights.forEach(function (currLight, index) {
             if (this.light !== currLight)
             {
+                index -= 1;
                 currLight.x = 400 + Math.sin(this.offsets[index]) * 1000;
                 this.offsets[index] += 0.02;
             }

@@ -5,7 +5,7 @@ export default class Pickups extends Phaser.Physics.Arcade.Group
         super(world, scene);
 
         this.outer = new Phaser.Geom.Rectangle(64, 64, 672, 472);
-        this.target = new Phaser.Geom.Point();
+        this.target = new Phaser.Math.Vector2();
     }
 
     start ()

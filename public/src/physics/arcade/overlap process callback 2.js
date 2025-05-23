@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('atari', 'assets/sprites/atari800.png');
         this.load.image('chunk', 'assets/sprites/chunk.png');
     }
@@ -43,7 +43,8 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        for (const body of this.physics.world.bodies.getArray())
+        const bodies = Array.from(this.physics.world.bodies);
+        for (const body of bodies)
         {
             body.debugBodyColor = body.touching.none ? 0x00ff00 : 0xff0000;
         }

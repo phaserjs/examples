@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('pic', 'assets/pics/cougar-dragonsun.png');
     }
 
@@ -17,9 +17,7 @@ class Example extends Phaser.Scene
 
         const maskRect = this.add.rectangle(400, 300, 480, 256, 0x000000).setVisible(false);
 
-        const mask = maskRect.createGeometryMask();
-
-        pic.setMask(mask);
+        pic.enableFilters().filters.external.addMask(maskRect);
 
         this.tweens.add({
             targets: maskRect,

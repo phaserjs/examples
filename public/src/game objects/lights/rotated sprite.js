@@ -8,7 +8,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('spider', [ 'assets/normal-maps/spider.png', 'assets/normal-maps/spider_n.png' ]);
         this.load.image('light', 'assets/normal-maps/light.png');
     }
@@ -16,7 +16,7 @@ class Example extends Phaser.Scene
     create ()
     {
         this.spider = this.add.sprite(400, 300, 'spider');
-        this.spider.setPipeline('Light2D');
+        this.spider.setLighting(true);
 
         this.light = this.lights.addLight(0, 0, 500).setIntensity(6);
 

@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('cube', 'assets/animations/cube.png', 'assets/animations/cube.json');
     }
 
@@ -28,7 +28,7 @@ class Example extends Phaser.Scene
         let ci = 0;
         let colors = [ 0xef658c, 0xff9a52, 0xffdf00, 0x31ef8c, 0x21dfff, 0x31aade, 0x5275de, 0x9c55ad, 0xbd208c ];
 
-        group.children.iterate(function (child) {
+        group.children.forEach(function (child) {
 
             child.tint = colors[ci];
 

@@ -1,17 +1,17 @@
 // #module
 
-import LazersPostFX from './assets/pipelines/LazersPostFX.js';
+import Lazers from './assets/rendernodes/FilterLazers.js';
 
 export default class Example extends Phaser.Scene
 {
-    constructor ()
+    constructor()
     {
         super();
     }
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('volcano', 'assets/pics/bw-face.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
 
@@ -22,7 +22,7 @@ export default class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano').setAlpha(1);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.cameras.main.setPostPipeline(LazersPostFX);
+        this.cameras.main.filters.external.add(new Lazers.Controller(this.cameras.main));
 
         // this.cameras.add(0, 0, 200, 150).setZoom(0.25);
 
@@ -55,7 +55,9 @@ const config = {
     height: 600,
     backgroundColor: '#000000',
     scene: Example,
-    pipeline: { LazersPostFX }
+    renderNodes: {
+        FilterLazers: Lazers.Filter
+    }
 };
 
 const game = new Phaser.Game(config);

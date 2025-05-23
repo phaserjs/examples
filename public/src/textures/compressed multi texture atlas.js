@@ -7,13 +7,15 @@ class Demo extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         const path = 'assets/compressed';
 
         this.load.texture('test', {
-            'IMG': { multiAtlasURL: `${path}/multi.json`, multiPath: `${path}` },
-            'PVRTC': { type: 'PVR', multiAtlasURL: `${path}/multi-pvr.json`, multiPath: `${path}` },
-            'S3TC': { type: 'PVR', multiAtlasURL: `${path}/multi-dxt5.json`, multiPath: `${path}` }
+            'ASTC': { type: 'PVR', multiAtlasURL: `${path}/uncompressed/multi-ASTC-4x4-lRGB.json`, multiPath: `${path}/compressed` },
+            'ETC': { type: 'PVR', multiAtlasURL: `${path}/uncompressed/multi-ETC2-lRGB.json`, multiPath: `${path}/compressed` },
+            'PVRTC': { type: 'PVR', multiAtlasURL: `${path}/uncompressed/multi-PVRTC-4BPP-lRGB.json`, multiPath: `${path}/compressed` },
+            'S3TC': { type: 'PVR', multiAtlasURL: `${path}/uncompressed/multi-S3TC-BC3-lRGB.json`, multiPath: `${path}/compressed` },
+            'IMG': { multiAtlasURL: `${path}/uncompressed/multi.json`, multiPath: `${path}/uncompressed/multi.json` }
         });
     }
 

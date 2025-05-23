@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.glsl('bundle', 'assets/rope/bundle6.glsl.js');
     }
 

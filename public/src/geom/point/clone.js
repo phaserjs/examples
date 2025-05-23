@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
     {
         const graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x2266aa } });
 
-        let point = new Phaser.Geom.Point(400, 275);
+        let point = new Phaser.Math.Vector2(400, 275);
         const points = [];
 
         let angle = 0;
@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
             length += 0.05 / length;
             angle += 0.05;
 
-            point = Phaser.Geom.Point.Clone(point);
+            point = point.clone(); // Clone the point to avoid modifying the original
 
             point.x += Math.cos(angle) * length;
             point.y += Math.sin(angle) * length;

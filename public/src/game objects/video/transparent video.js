@@ -11,10 +11,10 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('robot', 'assets/video/robot-dance.webm');
         this.load.audio('tune', 'assets/audio/aquakitty-kittyrock.m4a');
-        this.load.glsl('bundle', 'assets/shaders/bundle4.glsl.js');
+        this.load.glsl('gridback', 'assets/shaders/gridback.frag');
     }
 
     create ()
@@ -41,7 +41,17 @@ class Example extends Phaser.Scene
 
             this.sound.play('tune', { loop: true });
 
-            this.add.shader('GridBack', 512, 300, 1024, 600);
+            // this.add.shader('GridBack', 512, 300, 1024, 600);
+            this.add.shader({
+                name: 'GridBack',
+                fragmentKey: 'gridback',
+                initialUniforms: {
+                    resolution: [ 1024, 600 ]
+                },
+                setupUniforms: (setUniform, drawingContext) => {
+                    setUniform('time', this.game.loop.getDuration());
+                }
+            }, 512, 300, 1024, 600);
 
             this.graphics = this.add.graphics();
 

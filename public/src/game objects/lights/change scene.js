@@ -7,7 +7,7 @@ class SceneA extends Phaser.Scene {
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/loader-tests/');
         this.load.atlas('megaset', [ 'texture-packer-atlas-with-normals-0.png', 'texture-packer-atlas-with-normals-0_n.png' ], 'texture-packer-atlas-with-normals.json');
     }
@@ -37,7 +37,7 @@ class SceneA extends Phaser.Scene {
             let x = Phaser.Math.Between(100, 700);
             let y = Phaser.Math.Between(100, 500);
 
-            this.add.image(x, y, 'megaset', frames[i]).setPipeline('Light2D');
+            this.add.image(x, y, 'megaset', frames[i]).setLighting(true);
         }
 
         this.add.image(120, 160, 'megaset', 'contra2');
@@ -66,7 +66,7 @@ class SceneB extends Phaser.Scene {
             let x = Phaser.Math.Between(100, 700);
             let y = Phaser.Math.Between(100, 500);
 
-            this.add.image(x, y, 'megaset', frames[i]).setPipeline('Light2D');
+            this.add.image(x, y, 'megaset', frames[i]).setLighting(true);
         }
 
         this.add.image(120, 160, 'megaset', 'contra2');

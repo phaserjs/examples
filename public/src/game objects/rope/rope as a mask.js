@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('dragonball', 'assets/rope/dragonball.png');
         this.load.image('mha', 'assets/rope/mha.jpg');
     }
@@ -23,7 +23,7 @@ class Example extends Phaser.Scene
 
         const bg = this.add.image(300, 300, 'mha');
 
-        bg.setMask(bg.createBitmapMask(rope));
+        bg.enableFilters().filters.external.addMask(rope);
 
         this.tweens.add({
             targets: bg,

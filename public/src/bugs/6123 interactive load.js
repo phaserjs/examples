@@ -19,7 +19,7 @@ function init ()
 
 function preload ()
 {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     console.log('preload -------------');
 
     const rect = this.add.rectangle(400, 300, 200, 100, 0xff0000);

@@ -12,16 +12,16 @@ class Example extends Phaser.Scene
 
         // ProjectUnit assumes normalized point
         // i.e. it has magnitude of 1
-        this.point = new Phaser.Geom.Point(1, 0);
+        this.point = new Phaser.Math.Vector2(1, 0);
 
-        this.point2 = new Phaser.Geom.Point(250, 0);
+        this.point2 = new Phaser.Math.Vector2(250, 0);
 
-        this.projectedPoint = Phaser.Geom.Point.ProjectUnit(this.point2, this.point);
+        this.projectedPoint = this.point2.projectUnit(this.point);
 
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Geom.Point.CopyFrom(pointer, this.point2);
+            this.point2.copy(pointer);
 
             this.point2.x -= 400;
             this.point2.y -= 300;
@@ -38,7 +38,7 @@ class Example extends Phaser.Scene
         this.point.setTo(Math.cos(this.angle), Math.sin(this.angle));
 
         // project a point on point2 on point
-        Phaser.Geom.Point.ProjectUnit(this.point2, this.point, this.projectedPoint);
+        this.point2.projectUnit(this.point, this.projectedPoint);
 
         // set magnitude to 250, because it's unit point, we can simply multiply
         this.point.x *= 250;

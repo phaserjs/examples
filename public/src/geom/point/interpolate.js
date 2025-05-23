@@ -10,16 +10,16 @@ class Example extends Phaser.Scene
     {
         this.graphics = this.add.graphics({ lineStyle: { width: 3, color: 0x2266aa }, fillStyle: { color: 0x2266aa } });
 
-        this.point1 = new Phaser.Geom.Point(400, 300);
+        this.point1 = new Phaser.Math.Vector2(400, 300);
 
-        this.point2 = new Phaser.Geom.Point(550, 300);
+        this.point2 = new Phaser.Math.Vector2(550, 300);
 
-        this.interpolatedPoint = Phaser.Geom.Point.Interpolate(this.point1, this.point2, this.t);
+        this.interpolatedPoint = this.point1.clone().lerp(this.point2, this.t);
 
         this.input.on('pointermove', pointer =>
         {
 
-            Phaser.Geom.Point.CopyFrom(pointer, this.point2);
+            this.point2.copy(pointer);
 
         });
     }
@@ -30,7 +30,7 @@ class Example extends Phaser.Scene
 
         this.t = (this.t + 0.01) % 1;
 
-        Phaser.Geom.Point.Interpolate(this.point1, this.point2, this.t, this.interpolatedPoint);
+        this.interpolatedPoint = this.point1.clone().lerp(this.point2, this.t);
 
         this.graphics.fillPointShape(this.point1, 20);
         this.graphics.fillPointShape(this.point2, 20);

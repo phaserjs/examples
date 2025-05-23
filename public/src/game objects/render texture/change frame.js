@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('atlas', 'assets/atlas/megaset-1.png', 'assets/atlas/megaset-1.json');
     }
 
@@ -33,7 +33,8 @@ class Example extends Phaser.Scene
 
         this.input.on('pointermove', pointer =>
         {
-            rt.draw(selected, pointer.x, pointer.y);
+            rt.draw(selected, pointer.x, pointer.y)
+            .render();
         });
     }
 }

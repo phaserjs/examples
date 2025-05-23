@@ -4,14 +4,14 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('brick', [ 'assets/normal-maps/brick.jpg', 'assets/normal-maps/brick_n.png' ]);
         this.load.image('sonic', 'assets/sprites/sonic_havok_sanity.png');
     }
 
     create ()
     {
-        this.tilesprite = this.add.tileSprite(400, 300, 800, 600, 'brick').setPipeline('Light2D');
+        this.tilesprite = this.add.tileSprite(400, 300, 800, 600, 'brick').setLighting(true);
 
         this.add.sprite(680, 600, 'sonic').setOrigin(0.5, 1);
 

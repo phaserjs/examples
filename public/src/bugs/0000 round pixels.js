@@ -7,7 +7,7 @@ class Demo extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('truck', 'assets/sprites/astorm-truck.png');
         this.load.image('bik', 'assets/sprites/bikkuriman.png');
         this.load.image('squad', 'assets/sprites/bsquadron1.png');

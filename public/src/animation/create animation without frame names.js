@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('zombie', 'assets/tests/zombie-no-pivot.png', 'assets/tests/zombie-no-pivot.json');
     }
 

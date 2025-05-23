@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('brush', 'assets/sprites/brush1.png');
     }
 
@@ -15,7 +15,7 @@ class Example extends Phaser.Scene
 
             if (pointer.isDown)
             {
-                rt.draw('brush', pointer.x - 32, pointer.y - 32);
+                rt.draw('brush', pointer.x - 32, pointer.y - 32).render();
             }
 
         }, this);

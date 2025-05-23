@@ -6,7 +6,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         // Credits! Michele "Buch" Bucelli (tilset artist) & Abram Connelly (tileset sponser)
         // https://opengameart.org/content/top-down-dungeon-tileset
         this.load.image('tiles', 'assets/tilemaps/tiles/buch-dungeon-tileset.png');
@@ -36,7 +36,7 @@ class Example extends Phaser.Scene
         this.groundLayer.putTileAt(22, 0, this.map.height - 1);
 
         this.randomizeRoom(); // Initial randomization
-        this.input.on('pointerdown', this.randomizeRoom);
+        this.input.on('pointerdown', this.randomizeRoom, this);
 
         const help = this.add.text(16, 16, 'Click to re-randomize.', {
             fontSize: '18px',

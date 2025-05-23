@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('ayu', 'assets/pics/ayu.png');
     }
 
@@ -21,6 +21,8 @@ class Example extends Phaser.Scene
                 rt.draw('ayu', x * 404, y * 371);
             }
         }
+
+        rt.render();
 
         const cursors = this.input.keyboard.createCursorKeys();
 

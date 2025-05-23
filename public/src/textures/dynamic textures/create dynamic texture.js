@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('banner', 'assets/atlas/banners.png', 'assets/atlas/banners.json');
     }
 
@@ -37,6 +37,8 @@ class Example extends Phaser.Scene
         banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, 100, { scale: 0.5, originX: 1 });
         banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, 100, { scale: 0.5, originX: 0.5 });
         banner.stamp('banner', `Badges_${GetRandom(runes)}`, 256, 100, { scale: 0.5, originX: 0 });
+
+        banner.render();
 
         //  Now add the finished banner texture to a Sprite
         this.add.sprite(400, 300, 'playerBanner');

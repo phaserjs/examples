@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('duck', 'assets/sprites/darkwing_crazy.png');
     }
 
@@ -26,11 +26,13 @@ class Example extends Phaser.Scene
 
     update ()
     {
-        this.rt.camera.rotation -= 0.01;
+        const rt = this.rt;
 
-        this.rt.clear();
+        rt.camera.rotation -= 0.01;
 
-        this.rt.draw(this.blitter, 0, 0);
+        rt.clear()
+        .draw(this.blitter, 0, 0)
+        .render();
     }
 }
 

@@ -10,10 +10,10 @@ class Example extends Phaser.Scene
         {
             const x = Phaser.Math.Between(1, 40) * 20;
             const y = Phaser.Math.Between(1, 30) * 20;
-            points.push(new Phaser.Geom.Point(x, y));
+            points.push(new Phaser.Math.Vector2(x, y));
         }
 
-        const pointerPoint = new Phaser.Geom.Point();
+        const pointerPoint = new Phaser.Math.Vector2();
 
         this.input.on('pointermove', pointer =>
         {
@@ -38,7 +38,7 @@ class Example extends Phaser.Scene
             for (let i = 0; i < points.length; i++)
             {
                 graphics.fillPointShape(points[i], 15);
-                strokeRed = strokeRed || Phaser.Geom.Point.Equals(pointerPoint, points[i]);
+                strokeRed = strokeRed || pointerPoint.equals(points[i]);
             }
 
             if (strokeRed)

@@ -20,6 +20,8 @@ class Example extends Phaser.Scene
         this.rt.clear();
 
         this.rt.draw(this.graphics);
+
+        this.rt.render();
     }
 
     drawStar (graphics, cx, cy, spikes, outerRadius, innerRadius, color)

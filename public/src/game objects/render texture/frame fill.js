@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('beer', 'assets/sprites/beer.png');
         this.load.image('crate', 'assets/sprites/crate.png');
         this.load.image('raster', 'assets/demoscene/large-raster32.png');
@@ -18,8 +18,8 @@ class Example extends Phaser.Scene
         const rt1 = this.add.renderTexture(0, 0, 400, 600).setOrigin(0, 0);
         const rt2 = this.add.renderTexture(400, 0, 400, 600).setOrigin(0, 0);
 
-        rt1.repeat('crate', null, 0, 0);
-        rt2.repeat('raster', null, 0, 0);
+        rt1.repeat('crate', null, 0, 0).render();
+        rt2.repeat('raster', null, 0, 0).render();
     }
 }
 

@@ -1,23 +1,20 @@
 // #module
-import PlasmaPost2FX from './assets/pipelines/PlasmaPost2FX.js';
+import Plasma from './assets/rendernodes/FilterPlasma.js';
 
 export default class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('volcano', 'assets/pics/remember-me.jpg');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
-
-        // customPipeline = game.renderer.addPipeline('Custom', new CustomPipeline2(game));
-        // customPipeline.setFloat2('resolution', game.config.width, game.config.height);
     }
     create ()
     {
         this.add.image(400, 300, 'volcano').setAlpha(0.2);
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.cameras.main.setPostPipeline(PlasmaPost2FX);
+        this.cameras.main.filters.external.add(new Plasma.Controller(this.cameras.main));
 
         const cursors = this.input.keyboard.createCursorKeys();
 
@@ -48,7 +45,9 @@ const config = {
     height: 600,
     backgroundColor: '#000000',
     scene: Example,
-    pipeline: { PlasmaPost2FX }
+    renderNodes: {
+        FilterPlasma: Plasma.Filter
+    },
 }
 
 const game = new Phaser.Game(config);

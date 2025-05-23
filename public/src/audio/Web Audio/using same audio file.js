@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.audio('synth1', [
             'assets/audio/tech/synth1.ogg',
             'assets/audio/tech/synth1.mp3'

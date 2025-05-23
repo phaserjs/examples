@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', 'assets/skies/underwater1.png');
         this.load.image('bg2', 'assets/skies/toxic.png');
         this.load.image('skull', 'assets/pics/skull.png');
@@ -19,11 +19,11 @@ class Example extends Phaser.Scene
 
         const banner = this.textures.addDynamicTexture('skullTexture', 800, 600)
 
-        banner.stamp('skull', null, 400, 300);
+        banner.stamp('skull', null, 400, 300).render();
 
-        const mask = this.add.bitmapMask(banner);
-
-        this.add.image(400, 300, 'bg2').setMask(mask);
+        const image = this.add.image(400, 300, 'bg2');
+        image.enableFilters();
+        image.filters.external.addMask('skullTexture');
     }
 }
 

@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.setPath('assets/loader-tests/');
 
         this.load.atlas({
@@ -38,7 +38,7 @@ class Example extends Phaser.Scene
             const x = Phaser.Math.Between(100, 700);
             const y = Phaser.Math.Between(100, 500);
 
-            this.add.image(x, y, 'megaset', frames[i]).setPipeline('Light2D');
+            this.add.image(x, y, 'megaset', frames[i]).setLighting(true);
         }
     }
 }

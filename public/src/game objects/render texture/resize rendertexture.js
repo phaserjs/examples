@@ -13,7 +13,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bunny', 'assets/sprites/bunny.png');
         this.load.image('pic', 'assets/pics/baal-loader.png');
         this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
@@ -51,23 +51,6 @@ class Example extends Phaser.Scene
 
         this.graphics.fillPath();
 
-        const vertices = [
-            -1, 1,
-            1, 1,
-            -1, -1,
-            1, -1
-        ];
-        const uvs = [
-            0, 0,
-            1, 0,
-            0, 1,
-            1, 1
-        ];
-        const indicies = [ 0, 2, 1, 2, 3, 1 ];
-        const mesh = this.add.mesh(400, 300, 'image').setVisible(false);
-        mesh.addVertices(vertices, uvs, indicies);
-        mesh.panZ(7);
-
         this.tilesprite = this.add.tileSprite(400, 300, 250, 250, 'mushroom').setVisible(false);
 
         this.blitter = this.add.blitter(0, 0, 'atari').setVisible(false);
@@ -78,7 +61,6 @@ class Example extends Phaser.Scene
 
         this.rt.draw(this.graphics, 0, 0);
         this.rt.draw(this.bob, 200, 200);
-        this.rt.draw(mesh, 200, 200);
         this.rt.draw(this.tilesprite, 200, 200);
         this.rt.draw(this.blitter, 0, 0);
         this.rt.draw(this.text, 100, 100);
@@ -88,13 +70,14 @@ class Example extends Phaser.Scene
         this.rt.draw(this.particles, 300, 100);
         this.rt.draw(this.bitmaptext, 200, 100);
 
+        this.rt.render();
+
         this.input.on('pointerdown', () =>
         {
             this.rt.resize(400, 300);
 
             this.rt.draw(this.graphics, 0, 0);
             this.rt.draw(this.bob, 200, 200);
-            this.rt.draw(mesh, 200, 200);
             this.rt.draw(this.tilesprite, 200, 200);
             this.rt.draw(this.blitter, 0, 0);
             this.rt.draw(this.text, 100, 100);
@@ -103,6 +86,8 @@ class Example extends Phaser.Scene
             this.rt.draw(this.text, 300, 200);
             this.rt.draw(this.particles, 300, 100);
             this.rt.draw(this.bitmaptext, 200, 100);
+
+            this.rt.render();
 
         });
     }

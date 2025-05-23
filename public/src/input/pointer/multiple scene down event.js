@@ -7,7 +7,7 @@ class SceneA extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bg', 'assets/ui/undersea-bg.png');
     }
 
@@ -31,7 +31,7 @@ class SceneB extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('up', 'assets/ui/up-bubble.png');
     }
 
@@ -55,7 +55,7 @@ class SceneC extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('down', 'assets/ui/down-bubble.png');
     }
 

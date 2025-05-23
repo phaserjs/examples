@@ -4,7 +4,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.spritesheet('invader1', 'assets/tests/invaders/invader1.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('invader2', 'assets/tests/invaders/invader2.png', { frameWidth: 44, frameHeight: 32 });
         this.load.spritesheet('invader3', 'assets/tests/invaders/invader3.png', { frameWidth: 48, frameHeight: 32 });
@@ -37,6 +37,8 @@ class Example extends Phaser.Scene
         this.rt.draw(invader1);
         this.rt.draw(invader2);
         this.rt.draw(invader3);
+
+        this.rt.render();
 
         //  Now we're drawn them to the Render Texture, we can hide them:
 

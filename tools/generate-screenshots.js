@@ -16,12 +16,10 @@ examples = examples
     .filter((e) => !e.url.includes("rbush"))
     .filter((e) => e.url.match(/[^\.]+$/)[0].slice(0, 2) === "js")
     .map((e) => ({
-        url: (e.url =
+        url:
             "http://localhost:8080/" +
-            (e.url.includes("boot.json")
-                ? "boot.html?src="
-                : "view.html?src=") +
-            e.url.slice(9).replace(/\//g, "\\")),
+            (e.url.includes("boot.json") ? "boot.html?src=" : "view.html?src=") +
+            e.url.slice(9).replace(/\//g, "\\"),
         path:
             e.path
                 .toLowerCase()
@@ -37,6 +35,8 @@ getScreenshots(screenshots, "./public/screenshots");
 
 screenshots = screenshots.map((s) => s.toLowerCase());
 
+const failedExamples = [];
+
 const saveCanvas = async (page, example) => {
     const path = example.path;
 
@@ -48,8 +48,8 @@ const saveCanvas = async (page, example) => {
     const errors = [];
 
     page.on("pageerror", (error) => {
-        console.log(error);
-        errors.push(error);
+        console.log(error.message, example.url);
+        errors.push(error.message);
     });
 
     return await page
@@ -66,7 +66,7 @@ const saveCanvas = async (page, example) => {
         .then(() => new Promise((p) => setTimeout(p, 1000)))
         .then(() => {
             if (errors.length > 0) {
-                throw "Example error";
+                throw new Error("Example error");
             }
         })
         .then(() => page.$("canvas"))
@@ -75,16 +75,17 @@ const saveCanvas = async (page, example) => {
                 path: p.resolve(path),
             })
         )
-        .catch(() => {
-            fs.copyFileSync(
-                p.resolve("public/images/doc.png"),
-                p.resolve(path)
-            );
+        .catch((err) => {
+            console.warn("❌ Failed:", example.url);
+            failedExamples.push(`${example.path} | ${example.url}`);
+            fs.copyFileSync(p.resolve("public/images/doc.png"), p.resolve(path));
+        })
+        .finally(() => {
+            page.removeAllListeners("pageerror"); // Important to avoid duplicate listeners
         });
 };
 
 async function run() {
-
     let missing = 0;
 
     const browser = await puppeteer.launch({
@@ -98,18 +99,21 @@ async function run() {
     );
 
     for (let example of examples.filter((e) => !screenshots.includes(e.path))) {
-
         await saveCanvas(page, example);
-
         missing++;
-
     }
 
-    console.log(`Added ${missing} missing screenshots out of ${examples.length} examples`);
-
     await browser.close();
-
     server.close();
+
+    console.log(`\n✅ Added ${missing} missing screenshots out of ${examples.length} examples`);
+
+    if (failedExamples.length > 0) {
+        fs.writeFileSync("screenshots-log.txt", failedExamples.join("\n"), "utf-8");
+        console.log(`❗️ Logged ${failedExamples.length} failed examples to screenshots-log.txt`);
+    } else {
+        console.log("🎉 No errors encountered.");
+    }
 }
 
 run();

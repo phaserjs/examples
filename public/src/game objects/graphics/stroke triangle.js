@@ -12,9 +12,9 @@ class Example extends Phaser.Scene
 
         this.graphics.lineStyle(thickness, color, alpha);
 
-        const a = new Phaser.Geom.Point(400, 100);
-        const b = new Phaser.Geom.Point(200, 400);
-        const c = new Phaser.Geom.Point(600, 400);
+        const a = new Phaser.Math.Vector2(400, 100);
+        const b = new Phaser.Math.Vector2(200, 400);
+        const c = new Phaser.Math.Vector2(600, 400);
 
         this.graphics.strokeTriangle(a.x, a.y, b.x, b.y, c.x, c.y);
     }

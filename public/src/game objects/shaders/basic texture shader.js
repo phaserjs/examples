@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('checker', 'assets/pics/checker.png');
     }
 
@@ -16,28 +16,30 @@ class Example extends Phaser.Scene
         const frag = `
         precision mediump float;
 
-        uniform vec2 resolution;
         uniform sampler2D iChannel0;
 
-        varying vec2 fragCoord;
+        varying vec2 outTexCoord;
 
         void main ()
         {
-            vec2 uv = fragCoord / resolution.xy;
+            vec4 pixel = texture2D(iChannel0, outTexCoord);
 
-            vec4 pixel = texture2D(iChannel0, uv);
-
-            gl_FragColor = vec4(uv.xyx * pixel.rgb, 1.0);
+            gl_FragColor = vec4(outTexCoord.xyx * pixel.rgb, 1.0);
         }
         `;
 
-        const base = new Phaser.Display.BaseShader('simpleTexture', frag);
-
-        const shader = this.add.shader(base, 400, 300, 800, 600, [ 'checker' ]);
+        const shader = this.add.shader({
+            name: 'simpleTexture',
+            fragmentSource: frag,
+            initialUniforms: {
+                iChannel0: 0
+            }
+        }, 400, 300, 800, 600, [ 'checker' ]);
 
         //  Or, set the texture like this:
 
-        // shader.setChannel0('checker');
+        // shader.setUniform('iChannel0', 0);
+        // shader.setTextures([ 'checker' ]);
     }
 }
 

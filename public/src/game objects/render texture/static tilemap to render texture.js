@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('mario-tiles', 'assets/tilemaps/tiles/super-mario.png');
     }
 
@@ -48,6 +48,8 @@ class Example extends Phaser.Scene
         this.rt.draw(this.layer, 0, 200);
         this.rt.draw(this.layer, 200, 200);
         this.rt.draw(this.layer, 400, 200);
+
+        this.rt.render();
     }
 }
 

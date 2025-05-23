@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('171', 'assets/fonts/retro/171.png');
         this.load.image('rain', 'assets/pics/shadow-of-the-beast2-karamoon.png');
         this.load.image('contra', 'assets/pics/contra2.png');
@@ -46,7 +46,7 @@ class Example extends Phaser.Scene
 
     update (time, delta)
     {
-        this.scrollers.children.iterate(function (child, index) {
+        this.scrollers.children.forEach(function (child, index) {
 
             child.scrollX += 2.5 + Math.sin((0.01 * index) * delta);
 

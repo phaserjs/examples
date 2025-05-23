@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('turkey', 'assets/pics/turkey-1985086.jpg');
     }
 
@@ -25,7 +25,7 @@ class Example extends Phaser.Scene
         // graphics.lineStyle(16, 0x000000, 1);
         graphics.fillStyle(color, alpha);
 
-        // var a = new Phaser.Geom.Point(400, 300);
+        // var a = new Phaser.Math.Vector2(400, 300);
         // var radius = 128;
 
         graphics.fillCircle(400, 300, 128);

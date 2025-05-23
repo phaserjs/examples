@@ -1,5 +1,5 @@
 // #module
-import BendRotationWavesPostFX from './assets/pipelines/BendRotationWavesPostFX.js';
+import BendRotationWaves from './assets/rendernodes/FilterBendRotationWaves.js';
 
 class Example extends Phaser.Scene
 {
@@ -10,7 +10,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('volcano', 'assets/pics/rick-and-morty-by-sawuinhaff-da64e7y.png');
         this.load.image('hotdog', 'assets/sprites/hotdog.png');
     }
@@ -20,7 +20,7 @@ class Example extends Phaser.Scene
         this.add.image(400, 300, 'volcano');
         this.add.image(400, 300, 'hotdog').setScrollFactor(0);
 
-        this.cameras.main.setPostPipeline(BendRotationWavesPostFX);
+        this.cameras.main.filters.external.add(new BendRotationWaves.Controller(this.cameras.main));
 
         const cursors = this.input.keyboard.createCursorKeys();
 
@@ -51,7 +51,9 @@ const config = {
     height: 512,
     backgroundColor: '#000000',
     scene: Example,
-    pipeline: { BendRotationWavesPostFX }
+    renderNodes: {
+        FilterBendRotationWaves: BendRotationWaves.Filter
+    }
 };
 
 const game = new Phaser.Game(config);

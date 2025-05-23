@@ -6,16 +6,15 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('megaset', 'assets/atlas/megaset-0.png', 'assets/atlas/megaset-0.json');
     }
 
     create ()
     {
-        this.rt = this.add.renderTexture(0, 0, 800, 800);
+        this.rt = this.add.renderTexture(0, 0, 800, 800).setOrigin(0);
 
         const atlasTexture = this.textures.get('megaset');
-
         const frames = atlasTexture.getFrameNames();
 
         for (let i = 0; i < frames.length; i++)
@@ -23,8 +22,9 @@ class Example extends Phaser.Scene
             const x = Phaser.Math.Between(0, 800);
             const y = Phaser.Math.Between(0, 600);
 
-            this.rt.drawFrame('megaset', frames[i], x, y);
+            this.rt.stamp('megaset', frames[i], x, y);
         }
+        this.rt.render();
 
         this.graphics = this.add.graphics();
 

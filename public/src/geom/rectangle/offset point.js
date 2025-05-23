@@ -11,7 +11,7 @@ class Example extends Phaser.Scene
 
         this.rect = new Phaser.Geom.Rectangle(395, 295, 10, 10);
 
-        this.point = new Phaser.Geom.Point(7, 7);
+        this.point = new Phaser.Math.Vector2(7, 7);
     }
 
     update ()

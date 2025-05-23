@@ -7,7 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('elephant', 'assets/sprites/elephant.png');
         this.load.image('splat', 'assets/pics/splat1.png');
     }
@@ -18,9 +18,7 @@ class Example extends Phaser.Scene
 
         const splat = this.make.image({ x: 400, y: 300, key: 'splat' }, false);
 
-        const mask = splat.createBitmapMask();
-
-        elephantLayer.setMask(mask);
+        elephantLayer.enableFilters().filters.external.addMask(splat);
 
         for (let i = 0; i < 64; i++)
         {

@@ -27,7 +27,7 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
     this.load.image('food', 'assets/games/snake/food.png');
     this.load.image('body', 'assets/games/snake/body.png');
 }
@@ -80,7 +80,7 @@ function create ()
 
         function Snake (scene, x, y)
         {
-            this.headPosition = new Phaser.Geom.Point(x, y);
+            this.headPosition = new Phaser.Math.Vector2(x, y);
 
             this.body = scene.add.group();
 
@@ -93,7 +93,7 @@ function create ()
 
             this.moveTime = 0;
 
-            this.tail = new Phaser.Geom.Point(x, y);
+            this.tail = new Phaser.Math.Vector2(x, y);
 
             this.heading = RIGHT;
             this.direction = RIGHT;

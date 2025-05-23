@@ -14,7 +14,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('bunny', 'assets/sprites/bunny.png');
         this.load.image('pic', 'assets/pics/baal-loader.png');
         this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
@@ -64,20 +64,19 @@ class Example extends Phaser.Scene
 
         this.rt.clear();
 
-        this.rt.beginDraw();
+        this.rt
+        .draw(this.graphics, 0, 0)
+        .draw(this.bob, 200, 200)
+        .draw(this.tilesprite, 200, 200)
+        .draw(this.blitter, 0, 0)
+        .draw(this.text, 100, 100)
+        .draw(this.bob, 300, 300)
+        .draw(this.bob, 400, 400)
+        .draw(this.text, 300, 200)
+        .draw(this.particles, 300, 0)
+        .draw(this.bitmaptext, 200, 100);
 
-        this.rt.batchDraw(this.graphics, 0, 0);
-        this.rt.batchDraw(this.bob, 200, 200);
-        this.rt.batchDraw(this.tilesprite, 200, 200);
-        this.rt.batchDraw(this.blitter, 0, 0);
-        this.rt.batchDraw(this.text, 100, 100);
-        this.rt.batchDraw(this.bob, 300, 300);
-        this.rt.batchDraw(this.bob, 400, 400);
-        this.rt.batchDraw(this.text, 300, 200);
-        this.rt.batchDraw(this.particles, 300, 0);
-        this.rt.batchDraw(this.bitmaptext, 200, 100);
-
-        this.rt.endDraw();
+        this.rt.render();
 
         this.tilesprite.tilePositionX = Math.cos(-this.iter) * 400;
         this.tilesprite.tilePositionY = Math.sin(-this.iter) * 400;

@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('raster', 'assets/demoscene/raster-bw-800x16.png');
     }
 
@@ -18,7 +18,7 @@ class Example extends Phaser.Scene
 
         const _this = this;
 
-        group.children.iterate(child =>
+        group.children.forEach(child =>
         {
 
             child.x = 400;

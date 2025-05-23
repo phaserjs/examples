@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('brush', 'assets/sprites/apple.png');
     }
 
@@ -12,17 +12,15 @@ class Example extends Phaser.Scene
 
         const brush = this.add.image(0, 0, 'brush');
 
-        rt.beginDraw();
-
         for (let i = 0; i < 512; i++)
         {
             const x = Phaser.Math.Between(0, 800);
             const y = Phaser.Math.Between(0, 600);
 
-            rt.batchDraw(brush, x, y);
+            rt.draw(brush, x, y);
         }
 
-        rt.endDraw();
+        rt.render();
     }
 }
 

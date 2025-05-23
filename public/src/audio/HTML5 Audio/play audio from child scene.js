@@ -9,7 +9,7 @@ class SceneA extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.audio('jungle', [
             'assets/audio/jungle.ogg',
             'assets/audio/jungle.mp3'
@@ -75,7 +75,7 @@ class SceneB extends Phaser.Scene
 
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.audio('theme', [
             'assets/audio/oedipus_wizball_highscore.ogg',
             'assets/audio/oedipus_wizball_highscore.mp3'

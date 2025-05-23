@@ -2,7 +2,7 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.atlas('timeline', 'assets/atlas/timeline.png', 'assets/atlas/timeline.json');
         this.load.image('bg', 'assets/skies/spookysky.jpg');
         this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
@@ -14,7 +14,8 @@ class Example extends Phaser.Scene
 
         const crystalball = this.add.sprite(400, 800, 'timeline', 'crystalball');
 
-        const glowFX = crystalball.preFX.addGlow();
+        crystalball.enableFilters();
+        const glowFX = crystalball.filters.internal.addGlow();
 
         const emitter = this.add.particles(400, 300, 'flares', {
             frame: 'white',

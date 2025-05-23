@@ -13,7 +13,9 @@ class Example extends Phaser.Scene
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('skeletonSequence', 'assets/video/skeleton.webm', true);
         this.load.audio('tune', 'assets/audio/mag-overkill.m4a');
-        this.load.glsl('bundle', 'assets/shaders/blur-bundle.glsl.js');
+        this.load.glsl('Fire Buffer A', 'assets/shaders/fire-buffer-a.frag');
+        this.load.glsl('Fire Buffer B', 'assets/shaders/fire-buffer-b.frag');
+        this.load.glsl('Fire', 'assets/shaders/fire.frag');
         this.load.image('graveyard', 'assets/tests/graveyard.png');
     }
 
@@ -38,24 +40,44 @@ class Example extends Phaser.Scene
         this.rt = this.textures.addDynamicTexture('videoBuffer', 1024, 1024);
 
         //  The Fire Buffer A shader.
-        this.bufferA = this.add.shader('Fire Buffer A', 0, 0, 1024, 1024).setRenderToTexture();
+        this.bufferA = this.add.shader({
+            name: 'Fire Buffer A',
+            fragmentKey: 'Fire Buffer A',
+            initialUniforms: {
+                iChannel0: 0,
+                iChannel1: 1
+            },
+            setupUniforms: (setUniform, drawingContext) => {
+                setUniform('time', this.game.loop.getDuration());
+            }
+        }, 0, 0, 1024, 1024).setRenderToTexture("FireBufferA");
 
         //  The Fire Buffer B shader.
-        this.bufferB = this.add.shader('Fire Buffer B', 0, 0, 1024, 1024).setRenderToTexture();
+        this.bufferB = this.add.shader({
+            name: 'Fire Buffer B',
+            fragmentKey: 'Fire Buffer B',
+            initialUniforms: {
+                iChannel0: 0,
+                iChannel1: 1
+            }
+        }, 0, 0, 1024, 1024).setRenderToTexture("FireBufferB");
 
         //  The final shader. It will render to a texture called 'FireShader'
-        this.shader = this.add.shader('Fire', 0, 0, 1024, 1024).setRenderToTexture('FireShader', true);
+        //  and will use the two buffers as its input textures.
+        this.shader = this.add.shader({
+            name: 'Fire',
+            fragmentKey: 'Fire',
+            initialUniforms: {
+                iChannel0: 0,
+                iChannel1: 1
+            }
+        }, 0, 0, 1024, 1024).setRenderToTexture('FireShader');
 
         //  Hook the sampler2D uniforms up for the multi-pass:
 
-        this.bufferA.setSampler2DBuffer('iChannel0', this.rt.getWebGLTexture(), 1024, 1024, 0);
-        this.bufferA.setSampler2DBuffer('iChannel1', this.bufferB.glTexture, 1024, 1024, 1);
-
-        this.bufferB.setSampler2DBuffer('iChannel0', this.shader.glTexture, 1024, 1024, 0);
-        this.bufferB.setSampler2DBuffer('iChannel1', this.bufferA.glTexture, 1024, 1024, 1);
-
-        this.shader.setSampler2DBuffer('iChannel0', this.bufferA.glTexture, 1024, 1024, 0);
-        this.shader.setSampler2DBuffer('iChannel1', this.bufferB.glTexture, 1024, 1024, 1);
+        this.bufferA.setTextures([ 'videoBuffer', 'FireBufferB' ]);
+        this.bufferB.setTextures([ 'FireShader', 'FireBufferA' ]);
+        this.shader.setTextures([ 'FireBufferA', 'FireBufferB' ]);
 
         //  This image just holds the output of the Shader so we can see it on-screen
         this.add.image(400, 216, 'graveyard');
@@ -94,7 +116,8 @@ class Example extends Phaser.Scene
         if (this.rt)
         {
             this.rt.clear();
-            this.rt.draw(this.vid, 400, 350);
+            this.rt.draw(this.vid, 0, 0);
+            this.rt.render();
         }
     }
 }

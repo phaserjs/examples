@@ -11,7 +11,7 @@ class Example extends Phaser.Scene
     {
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.image('apple', 'assets/sprites/apple.png');
-        this.load.glsl('bundle', 'assets/shaders/bundle.glsl.js');
+        this.load.glsl('tunnel', 'assets/shaders/tunnel.frag');
     }
 
     create ()
@@ -30,7 +30,19 @@ class Example extends Phaser.Scene
 
         this.texture = texture;
 
-        this.add.shader('Tunnel', 400, 300, 800, 600, [ 'shaderTexture' ]);
+        this.add.shader({
+            name: 'Tunnel',
+            fragmentKey: 'tunnel',
+            initialUniforms: {
+                resolution: [ 800, 600 ],
+                iChannel0: 0,
+                alpha: 1,
+                origin: 2
+            },
+            setupUniforms: (setUniform, drawingContext) => {
+                setUniform('time', this.game.loop.getDuration());
+            }
+        }, 400, 300, 800, 600, [ 'shaderTexture' ]);
     }
 
     update ()
@@ -42,6 +54,8 @@ class Example extends Phaser.Scene
             this.texture.stamp('apple', null, apple.x, apple.y, { rotation: this.r });
 
         });
+
+        this.texture.render();
 
         this.r += 0.1;
     }

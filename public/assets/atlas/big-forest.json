@@ -1,0 +1,54 @@
+{ "frames": {
+   "big-forest.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 512, "h": 512 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 512, "h": 512 },
+    "sourceSize": { "w": 512, "h": 512 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.7-x64",
+  "image": "big-forest.png",
+  "format": "RGBA8888",
+  "size": { "w": 512, "h": 512 },
+  "scale": "1",
+  "slices": [
+   { "name": "Sky", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 0, "w": 200, "h": 150 } }] },
+   { "name": "Cloud1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 204, "y": 8, "w": 38, "h": 22 } }] },
+   { "name": "Cloud2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 245, "y": 1, "w": 40, "h": 30 } }] },
+   { "name": "Cloud3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 288, "y": 3, "w": 38, "h": 34 } }] },
+   { "name": "RainStreak", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 327, "y": 0, "w": 1, "h": 16 } }] },
+   { "name": "Mountain1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 208, "y": 67, "w": 200, "h": 83 }, "pivot": {"x": 100, "y": 83 } }] },
+   { "name": "Mountain2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 256, "y": 284, "w": 200, "h": 84 }, "pivot": {"x": 100, "y": 84 } }] },
+   { "name": "Ground1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 344, "y": 7, "w": 32, "h": 34 } }] },
+   { "name": "Ground2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 376, "y": 5, "w": 32, "h": 38 } }] },
+   { "name": "Ground3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 408, "y": 8, "w": 32, "h": 32 } }] },
+   { "name": "Ground4", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 440, "y": 5, "w": 32, "h": 38 } }] },
+   { "name": "Grass1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 472, "y": 0, "w": 8, "h": 16 } }] },
+   { "name": "Grass2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 480, "y": 0, "w": 8, "h": 16 } }] },
+   { "name": "Grass3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 488, "y": 0, "w": 8, "h": 16 } }] },
+   { "name": "Grass4", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 496, "y": 0, "w": 8, "h": 16 } }] },
+   { "name": "Grass5", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 504, "y": 0, "w": 8, "h": 16 } }] },
+   { "name": "Detail1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 480, "y": 16, "w": 8, "h": 8 } }] },
+   { "name": "Detail2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 488, "y": 16, "w": 8, "h": 8 } }] },
+   { "name": "Detail3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 480, "y": 24, "w": 8, "h": 8 } }] },
+   { "name": "Detail4", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 488, "y": 24, "w": 8, "h": 8 } }] },
+   { "name": "Stump1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 224, "w": 64, "h": 64 } }] },
+   { "name": "Stump2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 64, "y": 224, "w": 64, "h": 64 } }] },
+   { "name": "Trunk1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 128, "y": 224, "w": 64, "h": 96 } }] },
+   { "name": "Trunk2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 192, "y": 224, "w": 64, "h": 96 } }] },
+   { "name": "Trunk3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 128, "y": 320, "w": 64, "h": 96 } }] },
+   { "name": "Trunk4", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 192, "y": 320, "w": 64, "h": 96 } }] },
+   { "name": "Leaves1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 272, "y": 384, "w": 141, "h": 83 } }] },
+   { "name": "Leaves2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 313, "y": 161, "w": 145, "h": 104 } }] },
+   { "name": "WhitePx", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 201, "y": 1, "w": 1, "h": 1 } }] },
+   { "name": "White2x2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 203, "y": 1, "w": 2, "h": 2 } }] },
+   { "name": "LooseLeaves1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 160, "w": 56, "h": 43 } }] },
+   { "name": "LooseLeaves2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 64, "y": 160, "w": 62, "h": 54 } }] },
+   { "name": "LooseLeaves3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 128, "y": 160, "w": 48, "h": 45 } }] }
+  ]
+ }
+}

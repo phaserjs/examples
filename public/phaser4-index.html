@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phaser 4 Examples</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/phaser4-styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <img src="images/phaser4logo.png" alt="Phaser 4" class="logo">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search examples..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-wrapper">
+            <aside class="sidebar">
+                <nav class="category-tree" id="category-tree">
+                    <div class="loading">Loading categories...</div>
+                </nav>
+            </aside>
+            
+            <section class="examples-display">
+                <div class="breadcrumb" id="breadcrumb">
+                    <span class="breadcrumb-item active">Home</span>
+                </div>
+                
+                <div class="examples-grid" id="examples-grid">
+                    <div class="loading">Loading examples...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/phaser4-examples.js"></script>
+</body>
+</html> 

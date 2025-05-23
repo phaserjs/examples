@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phaser 4 Example Viewer</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/phaser4-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="js/versions.js"></script>
+    <script src="js/getQueryString.js"></script>
+</head>
+<body class="viewer-page">
+    <header class="viewer-header">
+        <div class="header-content">
+            <button id="back-button" class="back-button">
+                <span>←</span> Back
+            </button>
+            <img src="images/phaser4logo.png" alt="Phaser 4" class="logo">
+            <h1 id="example-title" class="example-title">Loading...</h1>
+        </div>
+    </header>
+
+    <main class="viewer-content">
+        <div class="example-container">
+            <div id="phaser-example" class="phaser-example"></div>
+            <div id="loading" class="loading-indicator">Loading Phaser build...</div>
+        </div>
+
+        <div class="viewer-controls">
+            <div class="control-buttons">
+                <button id="fullscreen-btn" class="control-btn">100%</button>
+                <button id="mobile-btn" class="control-btn">Mobile</button>
+                <button id="edit-btn" class="control-btn">Edit</button>
+                <button id="source-btn" class="control-btn">Source</button>
+            </div>
+            
+            <div class="version-selector">
+                <label for="version-select">Phaser Version:</label>
+                <select id="version-select" class="version-dropdown">
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+        </div>
+    </main>
+
+    <div id="source-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Source Code</h2>
+                <button class="close-modal" id="close-source">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="source-links">
+                    <a id="github-link" href="#" target="_blank" class="github-link">View on GitHub</a>
+                </div>
+                <pre><code id="source-code" class="language-javascript"></code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="js/phaser4-viewer.js"></script>
+</body>
+</html> 

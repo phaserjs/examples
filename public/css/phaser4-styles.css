@@ -343,6 +343,8 @@ html, body {
 }
 
 .viewer-header .header-content {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -359,6 +361,7 @@ html, body {
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .back-button:hover {
@@ -370,8 +373,23 @@ html, body {
     font-size: 18px;
     font-weight: 600;
     color: #e2e8f0;
-    flex: 1;
     text-align: center;
+    flex: 1;
+    margin: 0 2rem;
+}
+
+.beam-logo-link {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.beam-logo-link:hover {
+    transform: scale(1.05);
+}
+
+.beam-logo {
+    height: 40px;
+    width: auto;
 }
 
 .viewer-content {

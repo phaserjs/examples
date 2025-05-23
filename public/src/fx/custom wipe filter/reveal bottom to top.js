@@ -1,3 +1,7 @@
+// #module
+
+import FilterWipe from "./assets/rendernodes/FilterWipe.js";
+
 class Example extends Phaser.Scene
 {
     constructor ()
@@ -8,7 +12,7 @@ class Example extends Phaser.Scene
     preload ()
     {
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
-        this.load.image('wand', 'assets/sprites/wand.png');
+        this.load.image('pyramid', 'assets/sprites/pyramid.png');
         this.load.image('bg', 'assets/skies/space4.png');
     }
 
@@ -16,12 +20,17 @@ class Example extends Phaser.Scene
     {
         this.add.image(400, 300, 'bg');
 
-        const sprite = this.add.image(400, 300, 'wand');
+        const sprite = this.add.image(400, 300, 'pyramid');
 
-        const fx = sprite.preFX.addWipe(0.1, 1, 1);
+        // const fx = sprite.preFX.addReveal(0.1, 1, 1);
+        const wipe = new FilterWipe.Controller(this.cameras.main);
+        sprite.enableFilters();
+        sprite.filters.internal.add(wipe);
+        wipe.setRevealEffect();
+        wipe.setBottomToTop();
 
         this.tweens.add({
-            targets: fx,
+            targets: wipe,
             progress: 1,
             repeatDelay: 1000,
             hold: 1000,
@@ -38,7 +47,10 @@ const config = {
     height: 600,
     backgroundColor: '#0a0067',
     parent: 'phaser-example',
-    scene: Example
+    scene: Example,
+    renderNodes: {
+        FilterWipe: FilterWipe.Filter
+    }
 };
 
 let game = new Phaser.Game(config);

@@ -1,3 +1,7 @@
+// #module
+
+import FilterWipe from "./assets/rendernodes/FilterWipe.js";
+
 class Example extends Phaser.Scene
 {
     constructor ()
@@ -36,10 +40,14 @@ class Example extends Phaser.Scene
         text.setFill(gradient);
         text.setOrigin(0.5, 0.5);
 
-        const fx = text.preFX.addReveal();
+        const wipe = new FilterWipe.Controller(this.cameras.main);
+        text.enableFilters();
+        text.filters.internal.add(wipe);
+        wipe.setRevealEffect();
+        wipe.setLeftToRight();
 
         this.tweens.add({
-            targets: fx,
+            targets: wipe,
             progress: 1,
             hold: 500,
             duration: 3000,
@@ -55,7 +63,7 @@ class Example extends Phaser.Scene
 
                 text.setText(message[line]);
 
-                fx.progress = 0;
+                wipe.progress = 0;
 
             }
         });
@@ -68,7 +76,10 @@ const config = {
     height: 600,
     backgroundColor: '#00002d',
     parent: 'phaser-example',
-    scene: Example
+    scene: Example,
+    renderNodes: {
+        FilterWipe: FilterWipe.Filter
+    }
 };
 
 let game = new Phaser.Game(config);

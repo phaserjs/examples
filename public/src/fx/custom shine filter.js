@@ -1,3 +1,7 @@
+// #module
+
+import FilterShine from "./assets/rendernodes/FilterShine.js";
+
 class Example extends Phaser.Scene
 {
     preload ()
@@ -8,11 +12,13 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        const card = this.add.plane(this.sys.scale.width / 2, this.sys.scale.height / 2, 'card');
+        const card = this.add.image(this.sys.scale.width / 2, this.sys.scale.height / 2, 'card');
 
         card.setScale(2)
 
-        const fx = card.postFX.addShine(1, .2, 5);
+        const shine = new FilterShine.Controller(this.cameras.main);
+        card.enableFilters();
+        card.filters.external.add(shine);
 
         this.add.tween({
             targets: card,
@@ -30,7 +36,10 @@ const config = {
     height: 600,
     backgroundColor: '#2f3640',
     parent: 'phaser-example',
-    scene: Example
+    scene: Example,
+    renderNodes: {
+        FilterShine: FilterShine.Filter
+    }
 };
 
 const game = new Phaser.Game(config);

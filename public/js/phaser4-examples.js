@@ -21,6 +21,7 @@ class Phaser4Examples {
             // Render initial state
             this.renderCategoryTree();
             this.renderExamples();
+            this.updateBreadcrumb();
             
         } catch (error) {
             console.error('Failed to initialize Phaser4Examples:', error);
@@ -345,16 +346,35 @@ class Phaser4Examples {
 
     updateBreadcrumb() {
         const breadcrumb = document.getElementById('breadcrumb');
-        let html = '<a href="phaser4-index.html" class="breadcrumb-item">Home</a>';
+        
+        // Build breadcrumb navigation
+        let navHtml = '<div class="breadcrumb-nav">';
+        navHtml += '<a href="phaser4-index.html" class="breadcrumb-item">Home</a>';
         
         let currentPath = [];
         this.currentPath.forEach(segment => {
             currentPath.push(segment);
             const url = `phaser4-index.html?path=${encodeURIComponent(currentPath.join('/'))}`;
-            html += `<a href="${url}" class="breadcrumb-item">${segment}</a>`;
+            navHtml += `<a href="${url}" class="breadcrumb-item">${segment}</a>`;
         });
+        navHtml += '</div>';
         
-        breadcrumb.innerHTML = html;
+        // Add version links only when on home page
+        let versionLinksHtml = '';
+        if (this.currentPath.length === 0) {
+            versionLinksHtml = `
+                <div class="version-links">
+                    <span>Swap to Phaser:</span>
+                    <a href="/3.86/index.html">3.86</a>
+                    <span>|</span>
+                    <a href="/3.55/index.html">3.55</a>
+                    <span>|</span>
+                    <a href="/3.24/index.html">3.24</a>
+                </div>
+            `;
+        }
+        
+        breadcrumb.innerHTML = navHtml + versionLinksHtml;
         
         // Add click handlers to breadcrumb items
         const breadcrumbItems = breadcrumb.querySelectorAll('.breadcrumb-item');

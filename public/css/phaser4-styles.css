@@ -31,18 +31,20 @@ html, body {
     padding: 0 2rem;
     display: flex;
     align-items: center;
-    gap: 2rem;
+    justify-content: space-between;
 }
 
 .logo {
     height: 50px;
     width: auto;
+    flex-shrink: 0;
 }
 
 .search-container {
     flex: 1;
     max-width: 500px;
     position: relative;
+    margin: 0 2rem;
 }
 
 .search-input {
@@ -193,8 +195,35 @@ html, body {
 .breadcrumb {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 1rem;
     font-size: 13px;
+}
+
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+}
+
+.version-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: #a0aec0;
+}
+
+.version-links a {
+    color: #81c784;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.version-links a:hover {
+    background-color: #4a5568;
+    color: #e2e8f0;
 }
 
 .breadcrumb-item {
@@ -346,6 +375,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
 }
 
 .back-button {
@@ -388,7 +418,7 @@ html, body {
 }
 
 .beam-logo {
-    height: 40px;
+    height: 55px;
     width: auto;
 }
 

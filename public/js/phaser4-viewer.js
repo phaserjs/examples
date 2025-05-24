@@ -4,6 +4,7 @@ class Phaser4Viewer {
         this.currentVersion = null;
         this.sourceCode = null;
         this.returnPath = null;
+        this.isModuleExample = false;
         this.init();
     }
 
@@ -16,16 +17,19 @@ class Phaser4Viewer {
         }
 
         this.currentExample = src;
-        
+
+        // Check if this is a module example
+        this.isModuleExample = getQueryString('module') === 'true';
+
         // Setup return path for back button
         this.returnPath = getQueryString('return') || 'phaser4-index.html';
-        
+
         // Setup event listeners
         this.setupEventListeners();
-        
+
         // Initialize version selector
         this.initializeVersionSelector();
-        
+
         // Load and display the example
         this.loadExample();
     }
@@ -83,7 +87,7 @@ class Phaser4Viewer {
 
     initializeVersionSelector() {
         const versionSelect = document.getElementById('version-select');
-        
+
         // Populate version options
         versions.forEach(version => {
             const option = document.createElement('option');
@@ -100,12 +104,12 @@ class Phaser4Viewer {
     async loadExample() {
         const loadingIndicator = document.getElementById('loading');
         const exampleContainer = document.getElementById('phaser-example');
-        
+
         try {
             // Show loading state
             loadingIndicator.style.display = 'block';
             exampleContainer.innerHTML = '';
-            
+
             // Update page title
             const title = this.getExampleTitle();
             document.getElementById('example-title').textContent = title;
@@ -129,7 +133,7 @@ class Phaser4Viewer {
         return new Promise((resolve, reject) => {
             // Check if it's Phaser 4
             const isPhaser4 = this.currentVersion.startsWith('4');
-            
+
             // Create and load Phaser script
             const phaserScript = document.createElement('script');
             phaserScript.id = 'phaser-script';
@@ -159,7 +163,12 @@ class Phaser4Viewer {
 
         // Determine script type
         let scriptType = 'text/javascript';
-        if (this.sourceCode.startsWith('// #module')) {
+
+        // If this is explicitly a module example, use module type
+        if (this.isModuleExample) {
+            scriptType = 'module';
+        } else if (this.sourceCode.startsWith('// #module')) {
+            // Otherwise, check for module comment in the source
             scriptType = 'module';
         }
 
@@ -174,19 +183,19 @@ class Phaser4Viewer {
 
     getExampleTitle() {
         if (!this.currentExample) return 'Loading...';
-        
+
         // Extract title from path and clean it up
         let path = this.currentExample;
-        
+
         // Remove "src\" or "src/" prefix if present
         if (path.toLowerCase().startsWith('src\\') || path.toLowerCase().startsWith('src/')) {
             path = path.substring(4);
         }
-        
+
         const parts = path.split(/[\/\\]/);
         const filename = parts[parts.length - 1];
         return filename.replace(/\.(js|json)$/, '').replace(/[-_]/g, ' ')
-            .split(' ').map(word => 
+            .split(' ').map(word =>
                 word.charAt(0).toUpperCase() + word.slice(1)
             ).join(' ');
     }
@@ -212,22 +221,22 @@ class Phaser4Viewer {
         const modal = document.getElementById('source-modal');
         const sourceCode = document.getElementById('source-code');
         const githubLink = document.getElementById('github-link');
-        
+
         // Set source code
         sourceCode.textContent = this.sourceCode || 'Source code not available';
-        
+
         // Set GitHub link
         const githubUrl = `https://github.com/phaserjs/examples/blob/master/public/${this.currentExample}`;
         githubLink.href = githubUrl;
-        
+
         // Apply syntax highlighting with Prism
         if (window.Prism && this.sourceCode) {
             Prism.highlightElement(sourceCode);
         }
-        
+
         // Show modal
         modal.style.display = 'block';
-        
+
         // Focus on modal for accessibility
         modal.focus();
     }
@@ -240,7 +249,7 @@ class Phaser4Viewer {
     showError(message) {
         const exampleContainer = document.getElementById('phaser-example');
         const loadingIndicator = document.getElementById('loading');
-        
+
         loadingIndicator.style.display = 'none';
         exampleContainer.innerHTML = `
             <div style="
@@ -276,7 +285,7 @@ class Phaser4Viewer {
         // Build new URL with updated version parameter
         const currentUrl = new URL(window.location);
         currentUrl.searchParams.set('v', newVersion);
-        
+
         // Reload the page with the new version
         window.location.href = currentUrl.toString();
     }
@@ -285,4 +294,4 @@ class Phaser4Viewer {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new Phaser4Viewer();
-}); 
+});

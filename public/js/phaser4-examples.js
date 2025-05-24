@@ -200,6 +200,15 @@ class Phaser4Examples {
             return;
         }
 
+        // Check if the current category itself is a multi-file example
+        if (this.isMultiFileExample(this.currentCategory)) {
+            // Show a single example card for this multi-file example
+            const html = this.createCurrentFolderExampleCardHTML(this.currentCategory);
+            container.innerHTML = html;
+            this.setupExampleClickHandlers();
+            return;
+        }
+
         const children = this.currentCategory.children || [];
 
         if (children.length === 0) {
@@ -207,16 +216,26 @@ class Phaser4Examples {
             return;
         }
 
-        // Separate folders and files, filtering out underscore folders and bugs folder
-        const folders = children.filter(child =>
-            child.children &&
-            !child.name.startsWith('_') &&
-            child.name !== 'bugs'
-        );
+        // Separate folders, multi-file examples, and files
+        const folders = [];
+        const multiFileExamples = [];
         const files = children.filter(child =>
             !child.children &&
             !child.name.startsWith('_')
         );
+
+        // Check each folder to see if it's a multi-file example or regular folder
+        children.filter(child =>
+            child.children &&
+            !child.name.startsWith('_') &&
+            child.name !== 'bugs'
+        ).forEach(folder => {
+            if (this.isMultiFileExample(folder)) {
+                multiFileExamples.push(folder);
+            } else {
+                folders.push(folder);
+            }
+        });
 
         let html = '';
 
@@ -225,7 +244,12 @@ class Phaser4Examples {
             html += this.createFolderCardHTML(folder);
         });
 
-        // Render files
+        // Render multi-file examples as special example cards
+        multiFileExamples.forEach(example => {
+            html += this.createMultiFileExampleCardHTML(example);
+        });
+
+        // Render single files
         files.forEach(file => {
             html += this.createExampleCardHTML(file);
         });
@@ -234,6 +258,72 @@ class Phaser4Examples {
 
         // Setup click handlers
         this.setupExampleClickHandlers();
+    }
+
+    isMultiFileExample(folder) {
+        // Check if this folder contains a boot.json file
+        return folder.children && folder.children.some(child =>
+            child.name === 'boot.json' && !child.children
+        );
+    }
+
+    getBootScreenshotPath(mainJsPath) {
+        return mainJsPath
+            .replace(/^src/, 'screenshots')
+            .replace('main.js', 'boot.png')
+            .toLowerCase();
+    }
+
+    createMultiFileExampleCardHTML(folder) {
+        // For multi-file examples, we need to find the main.js file path
+        const mainJsFile = folder.children.find(child =>
+            child.name === 'main.js' && !child.children
+        );
+
+        if (!mainJsFile) {
+            console.warn(`Multi-file example ${folder.name} missing main.js`);
+            return '';
+        }
+
+        // Use boot.png from the screenshots folder
+        const bootImagePath = this.getBootScreenshotPath(mainJsFile.path);
+        const title = folder.name;
+
+        return `
+            <div class="example-card" data-path="${mainJsFile.path}" data-type="module-example">
+                <img src="${bootImagePath}" alt="${title}" class="example-image"
+                     onerror="this.src='images/phaser-folder.png'">
+                <div class="example-info">
+                    <div class="example-title">${title}</div>
+                </div>
+            </div>
+        `;
+    }
+
+    createCurrentFolderExampleCardHTML(folder) {
+        // For multi-file examples when viewing the folder directly, show a single card
+        const mainJsFile = folder.children.find(child =>
+            child.name === 'main.js' && !child.children
+        );
+
+        if (!mainJsFile) {
+            console.warn(`Multi-file example ${folder.name} missing main.js`);
+            return '<div class="error">Missing main.js file</div>';
+        }
+
+        // Use boot.png from the screenshots folder
+        const bootImagePath = this.getBootScreenshotPath(mainJsFile.path);
+        const title = folder.name;
+
+        return `
+            <div class="example-card" data-path="${mainJsFile.path}" data-type="module-example">
+                <img src="${bootImagePath}" alt="${title}" class="example-image"
+                     onerror="this.src='images/phaser-folder.png'">
+                <div class="example-info">
+                    <div class="example-title">${title}</div>
+                </div>
+            </div>
+        `;
     }
 
     getFolderIcon(folderName) {
@@ -323,7 +413,7 @@ class Phaser4Examples {
     }
 
     setupExampleClickHandlers() {
-        const cards = document.querySelectorAll('[data-type="folder"], [data-type="example"]');
+        const cards = document.querySelectorAll('[data-type="folder"], [data-type="example"], [data-type="module-example"]');
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
@@ -335,19 +425,28 @@ class Phaser4Examples {
                     this.navigateToCategory(folderPath);
                 } else if (type === 'example') {
                     this.openExample(path);
+                } else if (type === 'module-example') {
+                    this.openExample(path, true); // Pass true to indicate it's a module
                 }
             });
         });
     }
 
-    openExample(examplePath) {
+    openExample(examplePath, isModule = false) {
         // Build return URL with current path
         let returnUrl = 'phaser4-index.html';
         if (this.currentPath.length > 0) {
             returnUrl += `?path=${encodeURIComponent(this.currentPath.join('/'))}`;
         }
 
-        window.location.href = `phaser4-view.html?src=${encodeURIComponent(examplePath)}&return=${encodeURIComponent(returnUrl)}`;
+        let viewerUrl = `phaser4-view.html?src=${encodeURIComponent(examplePath)}&return=${encodeURIComponent(returnUrl)}`;
+
+        // Add module parameter if this is a module example
+        if (isModule) {
+            viewerUrl += '&module=true';
+        }
+
+        window.location.href = viewerUrl;
     }
 
     updateBreadcrumb() {
@@ -413,7 +512,7 @@ class Phaser4Examples {
             const resultsHTML = results
                 .slice(0, 10) // Limit to 10 results
                 .map(result => `
-                    <div class="search-result" data-path="${result.path}">
+                    <div class="search-result" data-path="${result.path}" data-module="${result.isModule ? 'true' : 'false'}">
                         <div style="font-weight: 600;">${result.name}</div>
                         <div style="font-size: 12px; color: #888;">${result.path}</div>
                     </div>
@@ -426,7 +525,8 @@ class Phaser4Examples {
             searchResults.querySelectorAll('.search-result').forEach(result => {
                 result.addEventListener('click', () => {
                     const path = result.dataset.path;
-                    this.openExample(path);
+                    const isModule = result.dataset.module === 'true';
+                    this.openExample(path, isModule);
                     searchResults.style.display = 'none';
                 });
             });
@@ -450,14 +550,32 @@ class Phaser4Examples {
                 const fullPath = parentPath ? `${parentPath}/${child.name}` : child.name;
 
                 if (child.children) {
-                    // It's a folder, search recursively
-                    searchInCategory(child, fullPath);
+                    // Check if this is a multi-file example
+                    if (this.isMultiFileExample(child)) {
+                        // It's a multi-file example, check if the folder name matches
+                        if (child.name.toLowerCase().includes(query)) {
+                            const mainJsFile = child.children.find(subChild =>
+                                subChild.name === 'main.js' && !subChild.children
+                            );
+                            if (mainJsFile) {
+                                results.push({
+                                    name: child.name,
+                                    path: mainJsFile.path,
+                                    isModule: true
+                                });
+                            }
+                        }
+                    } else {
+                        // It's a regular folder, search recursively
+                        searchInCategory(child, fullPath);
+                    }
                 } else {
                     // It's a file, check if it matches
                     if (child.name.toLowerCase().includes(query)) {
                         results.push({
                             name: child.name.replace('.js', '').replace('.json', ''),
-                            path: child.path
+                            path: child.path,
+                            isModule: false
                         });
                     }
                 }

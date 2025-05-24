@@ -11,18 +11,18 @@ class Phaser4Examples {
         try {
             // Load examples data
             await this.loadExamplesData();
-            
+
             // Setup event listeners
             this.setupEventListeners();
-            
+
             // Initialize UI based on URL
             this.initializeFromURL();
-            
+
             // Render initial state
             this.renderCategoryTree();
             this.renderExamples();
             this.updateBreadcrumb();
-            
+
         } catch (error) {
             console.error('Failed to initialize Phaser4Examples:', error);
             this.showError('Failed to load examples data');
@@ -71,7 +71,7 @@ class Phaser4Examples {
     initializeFromURL() {
         const urlParams = new URLSearchParams(window.location.search);
         const pathParam = urlParams.get('path');
-        
+
         if (pathParam) {
             this.currentPath = pathParam.split('/').filter(p => p);
             this.currentCategory = this.getCategoryByPath(this.currentPath);
@@ -83,15 +83,15 @@ class Phaser4Examples {
 
     getCategoryByPath(path) {
         let current = this.examplesData;
-        
+
         for (const segment of path) {
             if (!current.children) return null;
-            current = current.children.find(child => 
+            current = current.children.find(child =>
                 child.name === segment && child.children
             );
             if (!current) return null;
         }
-        
+
         return current;
     }
 
@@ -108,7 +108,7 @@ class Phaser4Examples {
     renderCategoryTree() {
         const treeContainer = document.getElementById('category-tree');
         treeContainer.innerHTML = '';
-        
+
         if (!this.examplesData) {
             treeContainer.innerHTML = '<div class="loading">Loading...</div>';
             return;
@@ -116,37 +116,37 @@ class Phaser4Examples {
 
         const treeHTML = this.buildCategoryTreeHTML(this.examplesData.children, []);
         treeContainer.innerHTML = treeHTML;
-        
+
         // Add click handlers for tree items
         this.setupTreeClickHandlers();
     }
 
     buildCategoryTreeHTML(categories, parentPath) {
         if (!categories) return '';
-        
+
         return categories
             .filter(category => {
                 // Only include folders, and exclude underscore folders and bugs folder
-                return category.children && 
-                       !category.name.startsWith('_') && 
+                return category.children &&
+                       !category.name.startsWith('_') &&
                        category.name !== 'bugs';
             })
             .map(category => {
                 const currentPath = [...parentPath, category.name];
                 const isActive = this.isPathActive(currentPath);
                 const hasChildren = category.children.some(child => child.children);
-                
+
                 let html = `
                     <div class="category-item">
-                        <div class="category-folder ${isActive ? 'active' : ''}" 
-                             data-path="${currentPath.join('/')}" 
+                        <div class="category-folder ${isActive ? 'active' : ''}"
+                             data-path="${currentPath.join('/')}"
                              data-name="${category.name}">
                             <span class="folder-icon">📁</span>
                             <span class="folder-name">${category.name}</span>
                             ${hasChildren ? '<span class="folder-toggle">▶</span>' : ''}
                         </div>
                 `;
-                
+
                 if (hasChildren && isActive) {
                     html += `
                         <div class="category-children expanded">
@@ -154,7 +154,7 @@ class Phaser4Examples {
                         </div>
                     `;
                 }
-                
+
                 html += '</div>';
                 return html;
             })
@@ -184,48 +184,54 @@ class Phaser4Examples {
         this.renderCategoryTree();
         this.renderExamples();
         this.updateBreadcrumb();
+
+        // Auto-scroll examples-grid to top
+        const examplesDisplay = document.querySelector('.examples-display');
+        if (examplesDisplay) {
+            examplesDisplay.scrollTop = 0;
+        }
     }
 
     renderExamples() {
         const container = document.getElementById('examples-grid');
-        
+
         if (!this.currentCategory) {
             container.innerHTML = '<div class="error">Category not found</div>';
             return;
         }
 
         const children = this.currentCategory.children || [];
-        
+
         if (children.length === 0) {
             container.innerHTML = '<div class="empty">No examples found in this category</div>';
             return;
         }
 
         // Separate folders and files, filtering out underscore folders and bugs folder
-        const folders = children.filter(child => 
-            child.children && 
-            !child.name.startsWith('_') && 
+        const folders = children.filter(child =>
+            child.children &&
+            !child.name.startsWith('_') &&
             child.name !== 'bugs'
         );
-        const files = children.filter(child => 
-            !child.children && 
+        const files = children.filter(child =>
+            !child.children &&
             !child.name.startsWith('_')
         );
 
         let html = '';
-        
+
         // Render folders first
         folders.forEach(folder => {
             html += this.createFolderCardHTML(folder);
         });
-        
+
         // Render files
         files.forEach(file => {
             html += this.createExampleCardHTML(file);
         });
-        
+
         container.innerHTML = html;
-        
+
         // Setup click handlers
         this.setupExampleClickHandlers();
     }
@@ -282,7 +288,7 @@ class Phaser4Examples {
     createFolderCardHTML(folder) {
         const folderPath = [...this.currentPath, folder.name].join('/');
         const iconPath = this.getFolderIcon(folder.name);
-        
+
         return `
             <div class="folder-card" data-path="${folderPath}" data-type="folder">
                 <div>
@@ -296,10 +302,10 @@ class Phaser4Examples {
     createExampleCardHTML(file) {
         const imagePath = this.getScreenshotPath(file.path);
         const title = file.name.replace('.js', '').replace('.json', '');
-        
+
         return `
             <div class="example-card" data-path="${file.path}" data-type="example">
-                <img src="${imagePath}" alt="${title}" class="example-image" 
+                <img src="${imagePath}" alt="${title}" class="example-image"
                      onerror="this.src='images/phaser-folder.png'">
                 <div class="example-info">
                     <div class="example-title">${title}</div>
@@ -318,12 +324,12 @@ class Phaser4Examples {
 
     setupExampleClickHandlers() {
         const cards = document.querySelectorAll('[data-type="folder"], [data-type="example"]');
-        
+
         cards.forEach(card => {
             card.addEventListener('click', () => {
                 const type = card.dataset.type;
                 const path = card.dataset.path;
-                
+
                 if (type === 'folder') {
                     const folderPath = path.split('/').filter(p => p);
                     this.navigateToCategory(folderPath);
@@ -340,17 +346,17 @@ class Phaser4Examples {
         if (this.currentPath.length > 0) {
             returnUrl += `?path=${encodeURIComponent(this.currentPath.join('/'))}`;
         }
-        
+
         window.location.href = `phaser4-view.html?src=${encodeURIComponent(examplePath)}&return=${encodeURIComponent(returnUrl)}`;
     }
 
     updateBreadcrumb() {
         const breadcrumb = document.getElementById('breadcrumb');
-        
+
         // Build breadcrumb navigation
         let navHtml = '<div class="breadcrumb-nav">';
         navHtml += '<a href="phaser4-index.html" class="breadcrumb-item">Home</a>';
-        
+
         let currentPath = [];
         this.currentPath.forEach(segment => {
             currentPath.push(segment);
@@ -358,7 +364,7 @@ class Phaser4Examples {
             navHtml += `<a href="${url}" class="breadcrumb-item">${segment}</a>`;
         });
         navHtml += '</div>';
-        
+
         // Add version links only when on home page
         let versionLinksHtml = '';
         if (this.currentPath.length === 0) {
@@ -373,9 +379,9 @@ class Phaser4Examples {
                 </div>
             `;
         }
-        
+
         breadcrumb.innerHTML = navHtml + versionLinksHtml;
-        
+
         // Add click handlers to breadcrumb items
         const breadcrumbItems = breadcrumb.querySelectorAll('.breadcrumb-item');
         breadcrumbItems.forEach((item, index) => {
@@ -393,14 +399,14 @@ class Phaser4Examples {
 
     handleSearch(query) {
         const searchResults = document.getElementById('search-results');
-        
+
         if (!query.trim()) {
             searchResults.style.display = 'none';
             return;
         }
 
         const results = this.searchExamples(query.toLowerCase());
-        
+
         if (results.length === 0) {
             searchResults.innerHTML = '<div class="search-result">No examples found</div>';
         } else {
@@ -413,9 +419,9 @@ class Phaser4Examples {
                     </div>
                 `)
                 .join('');
-            
+
             searchResults.innerHTML = resultsHTML;
-            
+
             // Add click handlers to search results
             searchResults.querySelectorAll('.search-result').forEach(result => {
                 result.addEventListener('click', () => {
@@ -425,24 +431,24 @@ class Phaser4Examples {
                 });
             });
         }
-        
+
         searchResults.style.display = 'block';
     }
 
     searchExamples(query) {
         const results = [];
-        
+
         const searchInCategory = (category, parentPath = '') => {
             if (!category.children) return;
-            
+
             category.children.forEach(child => {
                 // Skip underscore folders and bugs folder
                 if (child.name.startsWith('_') || child.name === 'bugs') {
                     return;
                 }
-                
+
                 const fullPath = parentPath ? `${parentPath}/${child.name}` : child.name;
-                
+
                 if (child.children) {
                     // It's a folder, search recursively
                     searchInCategory(child, fullPath);
@@ -457,9 +463,9 @@ class Phaser4Examples {
                 }
             });
         };
-        
+
         searchInCategory(this.examplesData);
-        
+
         return results.sort((a, b) => a.name.localeCompare(b.name));
     }
 
@@ -477,4 +483,4 @@ class Phaser4Examples {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new Phaser4Examples();
-}); 
+});

@@ -40,6 +40,18 @@ html, body {
     flex-shrink: 0;
 }
 
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.logo-link:hover {
+    transform: scale(1.05);
+}
+
 .search-container {
     flex: 1;
     max-width: 500px;
@@ -122,6 +134,8 @@ html, body {
     padding: 1rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     height: fit-content;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
     position: sticky;
     top: 120px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -663,43 +677,45 @@ html, body {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    
+
     .sidebar {
         position: static;
         order: 2;
+        max-height: 300px;
+        overflow-y: auto;
     }
-    
+
     .header-content {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
     }
-    
+
     .search-container {
         width: 100%;
         max-width: none;
     }
-    
+
     .examples-grid {
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         gap: 0.6rem;
     }
-    
+
     .viewer-controls {
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .control-buttons {
         justify-content: center;
     }
-    
+
     .version-selector {
         justify-content: center;
     }
-    
+
     .modal-content {
         width: 95%;
         margin: 2.5%;
     }
-} 
+}

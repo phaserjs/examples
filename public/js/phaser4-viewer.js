@@ -110,6 +110,11 @@ class Phaser4Viewer {
             loadingIndicator.style.display = 'block';
             exampleContainer.innerHTML = '';
 
+            // Set base href for module examples before loading anything else
+            if (this.isModuleExample) {
+                this.setupBaseHrefForModule();
+            }
+
             // Update page title
             const title = this.getExampleTitle();
             document.getElementById('example-title').textContent = title;
@@ -127,6 +132,60 @@ class Phaser4Viewer {
         } finally {
             loadingIndicator.style.display = 'none';
         }
+    }
+
+    setupBaseHrefForModule() {
+        // Extract the folder path from the example path
+        // e.g., "src/games/avoid the germs/main.js" -> "src/games/avoid the germs/"
+        const folderPath = this.currentExample.substring(0, this.currentExample.lastIndexOf('/') + 1);
+
+        // First, make all existing relative URLs absolute before setting base href
+        this.makeAssetsAbsolute();
+
+        // Create and inject base tag
+        const baseTag = document.createElement('base');
+        baseTag.href = folderPath;
+        document.head.insertBefore(baseTag, document.head.firstChild);
+    }
+
+    makeAssetsAbsolute() {
+        // Get the current page's base URL (before we change it)
+        const currentBase = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+
+        // Update favicon
+        const favicon = document.querySelector('link[rel="shortcut icon"]');
+        if (favicon && favicon.href.startsWith(currentBase)) {
+            favicon.href = currentBase + 'images/favicon.ico';
+        }
+
+        // Update CSS
+        const cssLinks = document.querySelectorAll('link[rel="stylesheet"]:not([href^="http"])');
+        cssLinks.forEach(link => {
+            if (!link.href.startsWith('http')) {
+                const relativePath = link.getAttribute('href');
+                link.href = currentBase + relativePath;
+            }
+        });
+
+        // Update images
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            if (img.src.startsWith(currentBase) && img.getAttribute('src')) {
+                const relativePath = img.getAttribute('src');
+                if (!relativePath.startsWith('http')) {
+                    img.src = currentBase + relativePath;
+                }
+            }
+        });
+
+        // Update scripts (except CDN ones)
+        const scripts = document.querySelectorAll('script[src]:not([src^="http"])');
+        scripts.forEach(script => {
+            const relativePath = script.getAttribute('src');
+            if (!relativePath.startsWith('http')) {
+                script.src = currentBase + relativePath;
+            }
+        });
     }
 
     async loadPhaserAndRunExample() {

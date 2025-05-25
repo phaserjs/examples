@@ -136,8 +136,14 @@ class Phaser4Viewer {
 
     setupBaseHrefForModule() {
         // Extract the folder path from the example path
+        // First decode the URL and normalize path separators
+        let examplePath = decodeURIComponent(this.currentExample);
+        examplePath = examplePath.replace(/\\/g, '/'); // Convert backslashes to forward slashes
+
         // e.g., "src/games/avoid the germs/main.js" -> "src/games/avoid the germs/"
-        const folderPath = this.currentExample.substring(0, this.currentExample.lastIndexOf('/') + 1);
+        const folderPath = examplePath.substring(0, examplePath.lastIndexOf('/') + 1);
+
+        // console.log('Setting base href for module example:', folderPath);
 
         // First, make all existing relative URLs absolute before setting base href
         this.makeAssetsAbsolute();
@@ -190,14 +196,16 @@ class Phaser4Viewer {
 
     async loadPhaserAndRunExample() {
         return new Promise((resolve, reject) => {
+
             // Check if it's Phaser 4
             const isPhaser4 = this.currentVersion.startsWith('4');
 
             // Create and load Phaser script
             const phaserScript = document.createElement('script');
             phaserScript.id = 'phaser-script';
-            phaserScript.type = isPhaser4 ? 'module' : 'text/javascript';
-            phaserScript.async = true;
+            // phaserScript.type = isPhaser4 ? 'module' : 'text/javascript';
+            phaserScript.type = 'text/javascript';
+            // phaserScript.async = true;
 
             phaserScript.onload = () => {
                 this.runExample().then(resolve).catch(reject);
@@ -207,9 +215,15 @@ class Phaser4Viewer {
                 reject(new Error('Failed to load Phaser script'));
             };
 
-            // Set Phaser script source
+            // Set Phaser script source - use absolute path for module examples
             const phaserVersionJS = this.currentVersion + '.js';
-            phaserScript.src = `./build/${phaserVersionJS}`;
+            if (this.isModuleExample) {
+                // Use absolute path to avoid base href issues
+                const currentBase = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+                phaserScript.src = `${currentBase}build/${phaserVersionJS}`;
+            } else {
+                phaserScript.src = `./build/${phaserVersionJS}`;
+            }
 
             document.head.appendChild(phaserScript);
         });
@@ -261,7 +275,15 @@ class Phaser4Viewer {
 
     async loadSourceCode() {
         try {
-            const response = await fetch(this.currentExample);
+            let sourceUrl = this.currentExample;
+
+            // For module examples, use absolute path to avoid base href issues
+            if (this.isModuleExample) {
+                const currentBase = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+                sourceUrl = currentBase + this.currentExample;
+            }
+
+            const response = await fetch(sourceUrl);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

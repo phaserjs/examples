@@ -27,7 +27,7 @@ export class Preloader extends Phaser.Scene
 
     preload ()
     {
-        // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         //  Load the assets for the game - Replace with the path to your own assets
         this.load.setPath("assets/games/coin-clicker/");
 

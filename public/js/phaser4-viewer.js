@@ -38,7 +38,15 @@ class Phaser4Viewer {
         // Back button
         const backButton = document.getElementById('back-button');
         backButton.addEventListener('click', () => {
-            window.location.href = this.returnPath;
+            let returnUrl = this.returnPath;
+
+            // For module examples, make return URL absolute to avoid base href issues
+            if (this.isModuleExample && !returnUrl.startsWith('http')) {
+                const currentBase = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+                returnUrl = currentBase + returnUrl;
+            }
+
+            window.location.href = returnUrl;
         });
 
         // Control buttons

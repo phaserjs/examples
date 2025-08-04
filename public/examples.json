@@ -2736,9 +2736,14 @@
           "birthtimeMs": 1748011838955.1982
         },
         {
-          "path": "src\\filters\\custom shine filter.js",
+          "path": "src/filters/custom shine filter with progress control.js",
+          "name": "custom shine filter with progress control.js",
+          "birthtimeMs": 0
+        },
+        {
+          "path": "src/filters/custom shine filter.js",
           "name": "custom shine filter.js",
-          "birthtimeMs": 1748011838955.1982
+          "birthtimeMs": 0
         },
         {
           "path": "src\\filters\\custom wipe filter",

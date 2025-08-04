@@ -19,14 +19,6 @@ class Example extends Phaser.Scene
         const shine = new FilterShine.Controller(this.cameras.main);
         card.enableFilters();
         card.filters.external.add(shine);
-
-        this.add.tween({
-            targets: card,
-            duration: 4000,
-            repeatDelay: 800,
-            rotateY: 360,
-            repeat: -1
-        });
     }
 }
 

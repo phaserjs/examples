@@ -40,6 +40,8 @@ export default {
             this.speed = 0.5;
             this.lineWidth = 0.1;
             this.gradient = 1.0;
+            this.autoProgress = true;
+            this.progress = 0;
         }
         setSpeed(speed = 0.5) {
             this.speed = speed;
@@ -53,6 +55,19 @@ export default {
             this.gradient = gradient;
             return this;
         }
+        setAutoTime(autoTime = true) {
+            this.autoProgress = autoTime;
+            return this;
+        }
+        /**
+         * Set the progress of the filter
+         * @param {number} progress - The progress of the filter (0 to 2)
+         * @returns {this}
+         */
+        setProgress(progress = 0) {
+            this.progress = progress;
+            return this;
+        }
     },
     Filter: class FilterShine extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader {
         constructor(manager) {
@@ -61,7 +76,7 @@ export default {
         setupUniforms(controller, drawingContext) {
             const programManager = this.programManager;
             programManager.setUniform('uResolution', [drawingContext.width, drawingContext.height]);
-            programManager.setUniform('uTime', drawingContext.renderer.game.loop.time / 1000);
+            programManager.setUniform('uTime', controller.autoProgress ? drawingContext.renderer.game.loop.time / 1000 : controller.progress);
             programManager.setUniform('uSpeed', controller ? controller.speed : 0.5);
             programManager.setUniform('uLineWidth', controller ? controller.lineWidth : 0.1);
             programManager.setUniform('uGradient', controller ? controller.gradient : 1.0);

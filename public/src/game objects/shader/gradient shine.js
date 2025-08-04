@@ -3,7 +3,7 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.image('stones', 'assets/normal-maps/stones.png');
-        this.load.image('stones_normal', 'assets/normal-maps/stones_n_standard.png');
+        this.load.image('stones_normal', 'assets/normal-maps/stones_n.png');
 
         this.load.glsl('gradient-color', 'assets/shaders/gradients/gradient-color.glsl');
         this.load.glsl('gradient-process', 'assets/shaders/gradients/gradient-process.glsl');

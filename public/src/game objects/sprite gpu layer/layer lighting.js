@@ -3,7 +3,7 @@ class Example extends Phaser.Scene
     preload ()
     {
       this.load.image('spider', [ 'assets/normal-maps/spider.png', 'assets/normal-maps/spider_n.png' ]);
-      this.load.image('stones', [ 'assets/normal-maps/stones.png', 'assets/normal-maps/stones_n_standard.png' ]);
+      this.load.image('stones', [ 'assets/normal-maps/stones.png', 'assets/normal-maps/stones_n.png' ]);
     }
 
     create ()

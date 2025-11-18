@@ -13,6 +13,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setCORS('anonymous');
         this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('fireworks', 'assets/video/fireworks.mp4', true);
         this.load.video('transition', 'assets/video/colorful-smoke-transition.webm', true);

@@ -1,7 +1,8 @@
 var versions = [
     { val : 'dev', text: 'v4 Dev Build' },
-    { val : '4.0.0-rc5', text: '4.0.0 RC 5' },
-    { val : '4.0.0-rc4', text: '4.0.0 RC 4' },
+    { val : '4.0.0-rc6', text: '4.0.0 RC 6' },
+    // { val : '4.0.0-rc5', text: '4.0.0 RC 5' },
+    // { val : '4.0.0-rc4', text: '4.0.0 RC 4' },
     { val : '3.90.0', text: '3.90.0' },
     { val : '3.86.0', text: '3.86.0' },
     { val : '3.85.2', text: '3.85.2' },

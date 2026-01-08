@@ -45,30 +45,30 @@ class Example extends Phaser.Scene
         });
 
         // Enables movement of player with WASD keys
-        this.input.keyboard.on('keydown_W', event => {
+        this.input.keyboard.on('keydown-W', event => {
             this.player.setAccelerationY(-800);
         });
-        this.input.keyboard.on('keydown_S', event => {
+        this.input.keyboard.on('keydown-S', event => {
             this.player.setAccelerationY(800);
         });
-        this.input.keyboard.on('keydown_A', event => {
+        this.input.keyboard.on('keydown-A', event => {
             this.player.setAccelerationX(-800);
         });
-        this.input.keyboard.on('keydown_D', event => {
+        this.input.keyboard.on('keydown-D', event => {
             this.player.setAccelerationX(800);
         });
 
         // Stops player acceleration on uppress of WASD keys
-        this.input.keyboard.on('keyup_W', event => {
+        this.input.keyboard.on('keyup-W', event => {
             if (this.moveKeys['down'].isUp) { this.player.setAccelerationY(0); }
         });
-        this.input.keyboard.on('keyup_S', event => {
+        this.input.keyboard.on('keyup-S', event => {
             if (this.moveKeys['up'].isUp) { this.player.setAccelerationY(0); }
         });
-        this.input.keyboard.on('keyup_A', event => {
+        this.input.keyboard.on('keyup-A', event => {
             if (this.moveKeys['right'].isUp) { this.player.setAccelerationX(0); }
         });
-        this.input.keyboard.on('keyup_D', event => {
+        this.input.keyboard.on('keyup-D', event => {
             if (this.moveKeys['left'].isUp) { this.player.setAccelerationX(0); }
         });
 
@@ -78,7 +78,7 @@ class Example extends Phaser.Scene
         });
 
         // Exit pointer lock when Q or escape (by default) is pressed.
-        this.input.keyboard.on('keydown_Q', event => {
+        this.input.keyboard.on('keydown-Q', event => {
             if (game.input.mouse.locked) { game.input.mouse.releasePointerLock(); }
         }, 0, this);
 

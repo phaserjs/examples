@@ -24,11 +24,9 @@ class Example extends Phaser.Scene
         {
 
             //  Shuffle the children
-            Phaser.Actions.Shuffle(group.getChildren());
+            const children = Phaser.Actions.Shuffle(group.getChildren());
 
             //  Assign their new depth based on their position within the Group
-
-            const children = group.getChildren();
 
             for (let i = 0; i < children.length; i++)
             {

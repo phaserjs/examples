@@ -19,6 +19,10 @@ class Example extends Phaser.Scene
         parallelFilters.blend.blendMode = Phaser.BlendModes.ADD;
         parallelFilters.blend.amount = 0;
 
+        // Alternatively, instead of creating parallelFilters,
+        // use Actions.AddEffectBloom:
+        // const { parallelFilters } = Phaser.Actions.AddEffectBloom(this.cameras.main, { blendAmount: 0 });
+
         this.tweens.add({
             targets: parallelFilters.blend,
             amount: 2,

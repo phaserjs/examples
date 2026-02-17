@@ -35,9 +35,13 @@ class Bullet extends Phaser.GameObjects.Image
         super(scene, x, y, "bullet");
         this.speed = Phaser.Math.GetSpeed(450, 1);
         this.name = "bullet";
-        this.bloomController = AddBloomTo(this);
-        this.bloomController.amount = 1.2;
-        this.bloomController.blurStrength = 2;
+
+        Phaser.Actions.AddEffectBloom(this,
+            {
+                blendAmount: 1.2,
+                blurStrength: 2
+            }
+        );
     }
 
     fire (x, y)
@@ -149,10 +153,13 @@ class Example extends Phaser.Scene
             repeat: -1
         });
 
-        // FX bloom for the planet
-        const planetFX = AddBloomTo(planet);
-        planetFX.amount = 1.2;
-        planetFX.blurStrength = 0;
+        // Bloom effect for the planet
+        const { blur } = Phaser.Actions.AddEffectBloom(planet,
+            {
+                blendAmount: 1.2,
+                blurStrength: 0
+            }
+        );
 
         this.ship = this.add.image(100, this.sys.scale.height / 2, 'ship')
             .setDepth(2);
@@ -167,8 +174,8 @@ class Example extends Phaser.Scene
 
         // Effect for planet bloom
         const planetFXTween = this.tweens.add({
-            targets: planetFX,
-            blurStrength: 2,
+            targets: blur,
+            strength: 2,
             yoyo: true,
             duration: 100,
             paused: true,

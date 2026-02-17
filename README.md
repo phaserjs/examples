@@ -1,12 +1,12 @@
-# Phaser 3 Examples
+# Phaser 4 Examples
 
 All of the code in this repo can be browsed at [https://labs.phaser.io](https://labs.phaser.io). The labs site is a mirror of this repo and changes made in the repo are synced to the site within minutes.
 
-You can also clone this repo to have the code locally for testing, which can be really useful while developing with Phaser 3.
+You can also clone this repo to have the code locally for testing, which can be really useful while developing with Phaser 4.
 
 ## Dev Version vs. Release Version
 
-By default the examples site is configured to serve the latest dev version of Phaser 3. We are continuously working on it, which means new builds are pushed often several times per day. Use the drop-down menu below the example to run it against any previous release version. You should see the URL change to reflect the version within it.
+By default the examples site is configured to serve the latest dev version of Phaser 4. We are continuously working on it, which means new builds are pushed often several times per day. Use the drop-down menu below the example to run it against any previous release version. You should see the URL change to reflect the version within it.
 
 ### Requirements
 
@@ -29,5 +29,3 @@ The source code in this repo is released under the MIT license.
 The assets are not.
 
 Lots of the assets in this repo come from old classic arcade / computer games or open and stock art sites. As such, you cannot use them in your own commercial games, or for any games that carry advertising.
-
-Test edit

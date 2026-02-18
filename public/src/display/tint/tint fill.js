@@ -21,7 +21,7 @@ class Example extends Phaser.Scene
 
         this.add.text(30, 500).setColor('#ffffff').setText('Single Tint Fill');
         this.add.text(290, 500).setColor('#ffffff').setText('Multi Tint Fill');
-        this.add.text(550, 500).setColor('#ffffff').setText('Merge Tint Fill');
+        this.add.text(550, 500).setColor('#ffffff').setText('Multiply Tint');
 
         image1.on('pointerdown', function () {
 
@@ -31,7 +31,7 @@ class Example extends Phaser.Scene
             }
             else
             {
-                this.setTintFill(0xffffff);
+                this.setTintFill(Phaser.TintModes.FILL);
             }
 
         });
@@ -44,7 +44,7 @@ class Example extends Phaser.Scene
             }
             else
             {
-                this.setTintFill(0xffff00, 0xffff00, 0xff0000, 0xff0000);
+                this.setTint(0xffff00, 0xffff00, 0xff0000, 0xff0000).setTintFill(Phaser.TintModes.FILL);
             }
 
         });

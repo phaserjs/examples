@@ -85,7 +85,7 @@ class Example extends Phaser.Scene
                         color = 0xffff00;
                     }
 
-                    blockSprite.setTintFill(color);
+                    blockSprite.setTint(color).setTintFill(Phaser.TintModes.FILL);
                 }
             }
 

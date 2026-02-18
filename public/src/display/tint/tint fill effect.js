@@ -18,7 +18,7 @@ class Example extends Phaser.Scene
         //  Different colors per corner, blended together
         this.add.image(200, 300, 'mushroom');
         this.add.image(400, 300, 'mushroom').setTint(0xff00ff);
-        this.add.image(600, 300, 'mushroom').setTintFill(0xff00ff);
+        this.add.image(600, 300, 'mushroom').setTint(0xff00ff).setTintFill(Phaser.TintModes.FILL);
 
         //  Vertical tint from top to bottom (red on the top, blue on the bottom)
         // this.add.image(400, 300, 'mushroom').setScale(16).setTint(0xff0000, 0xff0000, 0x0000ff, 0x0000ff);

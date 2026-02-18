@@ -29,7 +29,7 @@ class Example extends Phaser.Scene
         this.input.on('gameobjectdown', (pointer, gameObject) =>
         {
 
-            gameObject.setTintFill(0xffff00, 0xffff00, 0xff0000, 0xff0000);
+            gameObject.setTint(0xffff00, 0xffff00, 0xff0000, 0xff0000).setTintFill(Phaser.TintModes.FILL);
 
         });
 

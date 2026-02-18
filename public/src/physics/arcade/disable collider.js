@@ -57,7 +57,7 @@ class Example extends Phaser.Scene
         this.physics.add.overlap(this.player, box, (player, _box) =>
         {
             bombsCollider.active = false;
-            player.setTintFill(0xffff00);
+            player.setTint(0xffff00).setTintFill(Phaser.TintModes.FILL);
             _box.destroy();
             this.time.delayedCall(5000, () =>
             {

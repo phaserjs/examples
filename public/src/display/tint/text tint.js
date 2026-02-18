@@ -14,7 +14,7 @@ class Example extends Phaser.Scene
         text2.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
 
         const text3 = this.add.text(100, 400, 'Phaser Text with Tint Fill', { font: '64px Arial' });
-        text3.setTintFill(0xff00ff, 0xff00ff, 0x0000ff, 0x0000ff);
+        text3.setTint(0xff00ff, 0xff00ff, 0x0000ff, 0x0000ff).setTintFill(Phaser.TintModes.FILL);
     }
 }
 

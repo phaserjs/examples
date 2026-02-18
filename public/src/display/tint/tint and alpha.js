@@ -23,9 +23,9 @@ class Example extends Phaser.Scene
         image2.setTint(0xff0000);
         image2.setAlpha(0.5);
 
-        // image3.setTintFill(0xff0000, 0xff0000, 0xffff00, 0xffff00);
-        // image3.setTintFill(0xff0000);
-        image3.setTintFill(0xffffff);
+        // image3.setTint(0xff0000, 0xff0000, 0xffff00, 0xffff00).setTintFill(Phaser.TintModes.FILL);
+        // image3.setTint(0xff0000).setTintFill(Phaser.TintModes.FILL);
+        image3.setTint(0xffffff).setTintFill(Phaser.TintModes.FILL);
         image3.setAlpha(0.5);
     }
 }

@@ -38,7 +38,7 @@ class Example extends Phaser.Scene
         this.input.on('gameobjectover', (pointer, gameObject) =>
         {
 
-            gameObject.setTintFill(0x00ff00, 0x00ff00, 0xff0000, 0xff0000);
+            gameObject.setTint(0x00ff00, 0x00ff00, 0xff0000, 0xff0000).setTintFill(Phaser.TintModes.FILL);
 
         });
 

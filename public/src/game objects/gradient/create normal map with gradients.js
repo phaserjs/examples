@@ -110,8 +110,6 @@ class Example extends Phaser.Scene
 
     update (time, delta)
     {
-        // this.image.rotation += 0.01;
-
         this.imgLight.viewMatrix.identity().rotateX(time / 1000);
     }
 }

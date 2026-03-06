@@ -35,6 +35,8 @@ class Example extends Phaser.Scene
             500 + 64 * Math.sin(this.dist / 487)
         );
 
+        // Advance landscape.
+        const color = new Phaser.Display.Color();
         for (const row of this.rows)
         {
             if (row[0].y > height + 128)
@@ -48,6 +50,8 @@ class Example extends Phaser.Scene
             for (const asteroid of row)
             {
                 asteroid.y += d;
+                color.gray((asteroid.landscapeTint + 0.75 - 0.35 * asteroid.depth * 8 / height) * 255);
+                asteroid.setTint(color.color);
             }
         }
 
@@ -71,7 +75,6 @@ class Example extends Phaser.Scene
 
             const row = [];
             this.rows.push(row);
-            const color = new Phaser.Display.Color();
             for (let x = 0; x <= width; x += 32)
             {
                 const rotation = Phaser.Math.Hash(x + this.dist - 1) * Math.PI * 2;
@@ -86,7 +89,8 @@ class Example extends Phaser.Scene
                 )
                 .setScale(2)
                 .setRotation(rotation)
-                .setTint(color.color);
+                .setTintMode(Phaser.TintModes.HARD_LIGHT);
+                asteroid.landscapeTint = dy * 0.25;
                 row.push(asteroid);
             }
         }

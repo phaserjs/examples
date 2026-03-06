@@ -29,6 +29,7 @@ class Example extends Phaser.Scene
     update (time, delta)
     {
         const { width, height } = this.scale;
+
         this.noise.noiseFlow = time / 500;
         this.config.noiseFlow = this.noise.noiseFlow;
 
@@ -39,12 +40,14 @@ class Example extends Phaser.Scene
         this.leaf.y += contourY * delta / 64;
 
         const angle = Phaser.Math.Angle.GetShortestDistance(this.leaf.rotation, Math.atan2(contourY, contourX));
+
         this.leaf.rotation += angle * 0.03;
 
         if (this.leaf.x < -100 || this.leaf.x > 1500) {
             this.leaf.x = 640;
             this.leaf.y = -100;
         }
+
         if (this.leaf.y > 900) { this.leaf.y = -100; }
         if (this.leaf.y < -300) { this.leaf.y = -100; }
     }

@@ -13,8 +13,6 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.image('leaf', 'assets/particles/leaf2.png');
-
-        this.leaf.enableFilters().filters.internal.addGlow(0x88aaff);
     }
 
     create()
@@ -24,6 +22,8 @@ class Example extends Phaser.Scene
         this.noise = this.add.noisesimplex2d(this.config, width / 2, height / 2, width, height);
 
         this.leaf = this.add.image(640, 200, 'leaf');
+
+        this.leaf.enableFilters().filters.internal.addGlow(0x88aaff);
     }
 
     update (time, delta)

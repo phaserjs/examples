@@ -27,7 +27,7 @@ class Example extends Phaser.Scene
             bands: [
                 {
                     colorStart: 0x0000ff,
-                    colorEnd: 0x000000,
+                    colorEnd: 0x00007f,
                     interpolation: 4
                 }
             ],

@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
             bands: {
                 colorStart: 0xffffff,
                 colorEnd: 0x000000,
-                interpolation: 4,
+                // interpolation: 4, // Enable this for thicker fire, but with more obvious edges.
             },
             shapeMode: 2,
             start: { x: 0.5, y: 0.5 },
@@ -85,21 +85,40 @@ class Example extends Phaser.Scene
 
 
         // This is a way to sculpt fire to your needs.
-        this.fireRope = this.add.rope(width * 3 / 4, height * 5 / 7, 'fire', null, 16, false);
+        this.fireRope = this.add.rope(width * 3 / 4 - 256, height * 5 / 7, 'fire', null, 16, false);
         this.fireRope.setScale(0.5);
         this.add.pointlight(this.fireRope.x, this.fireRope.y, 0xffcc88, 128, 0.2);
+
+
+        // This is a surprisingly effective way to use several fire particles together.
+        // They don't actually move!
+        // They seem to accelerate and disperse as they rise by increasing sprite scale with height.
+        // They seem to swirl by varying sprite rotation.
+        const compScale = 0.75;
+        const compCount = 16;
+        for (let i = 0; i < compCount; i++)
+        {
+            const x = Math.random() * 128 * compScale;
+            const y = (i * i / compCount + Math.random()) * 32 * compScale;
+            const fire = this.add.image(1000 + x, 500 - y, 'fire')
+            .setBlendMode(Phaser.BlendModes.ADD)
+            .setRotation(Math.random() - 0.5)
+            .setAlpha(1 - i * i / compCount / compCount)
+            .setScale((Math.random() * 0.5 + 0.25 + i / compCount) * compScale);
+        }
     }
 
     update (time)
     {
         const t = time / 1000;
 
-        this.fireNoise.noiseOffset[1] = -t * 8;
+        this.fireNoise.noiseOffset[1] = -t * 6;
         this.fireNoise.noiseFlow = t * 2;
 
         this.fireWarp.noiseOffset[1] = -t * 2;
         this.fireWarp.noiseFlow = t * 2;
 
+        // Animate fireRope.
         const pointCount = this.fireRope.points.length;
         const fireRopePoints = [];
         for (let i = 0; i < pointCount; i++)

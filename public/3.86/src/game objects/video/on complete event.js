@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
 
     preload ()
     {
+        this.load.setCORS('anonymous');
         this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
         this.load.video('flight', 'assets/video/endless-flight.mp4', true);
     }

@@ -1,0 +1,13 @@
+PCT:1.0
+P:atlas_0.png,RGBA8888,2048,1667,2
+F:bubble
+F:cube
+F:horse
+B:0,0,4,480,480
+2/frame_00_delay-0.05s,2/frame_01_delay-0.05s,2/frame_02_delay-0.05s,2/frame_03_delay-0.05s,2/frame_04_delay-0.05s,2/frame_05_delay-0.05s,2/frame_06_delay-0.05s,2/frame_07_delay-0.05s,2/frame_08_delay-0.05s,2/frame_09_delay-0.05s,2/frame_10_delay-0.05s,2/frame_11_delay-0.05s
+B:0,1452,18,109,104|134,120,14,10
+1/frame#3-13,1/frame16,1/frame#18-23
+B:0,1560,5,109,104|134,120,14,10
+1/frame1,1/frame2,1/frame14,1/frame15,1/frame17
+B:565,1560,7,34,64|34,68,0,0
+0/frame#0-6

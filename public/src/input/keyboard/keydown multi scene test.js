@@ -24,26 +24,26 @@ class SceneA extends Phaser.Scene {
 
         this.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT')
 
-        this.input.keyboard.on('keydown_UP', function (event) {
+        this.input.keyboard.on('keydown-UP', function (event) {
 
             hotdog.y -= 4;
 
         }, this);
 
-        this.input.keyboard.on('keydown_DOWN', function (event) {
+        this.input.keyboard.on('keydown-DOWN', function (event) {
 
             hotdog.y += 4;
 
         }, this);
 
-        this.input.keyboard.on('keydown_LEFT', function (event) {
+        this.input.keyboard.on('keydown-LEFT', function (event) {
 
             console.log('A left');
             hotdog.x -= 4;
 
         }, this);
 
-        this.input.keyboard.on('keydown_RIGHT', function (event) {
+        this.input.keyboard.on('keydown-RIGHT', function (event) {
 
             console.log('A right');
             hotdog.x += 4;
@@ -90,33 +90,33 @@ class SceneB extends Phaser.Scene {
 
         this.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT');
 
-        this.input.keyboard.on('keydown_UP', function (event) {
+        this.input.keyboard.on('keydown-UP', function (event) {
 
             hotdog.y -= 4;
 
         }, this);
 
-        this.input.keyboard.on('keydown_DOWN', function (event) {
+        this.input.keyboard.on('keydown-DOWN', function (event) {
 
             hotdog.y += 4;
 
         }, this);
 
-        this.input.keyboard.on('keydown_LEFT', function (event) {
+        this.input.keyboard.on('keydown-LEFT', function (event) {
 
             console.log('B left');
             hotdog.x -= 4;
 
         }, this);
 
-        this.input.keyboard.on('keydown_RIGHT', function (event) {
+        this.input.keyboard.on('keydown-RIGHT', function (event) {
 
             console.log('B right');
             hotdog.x += 4;
 
         }, this);
 
-        this.input.keyboard.once('keydown_SPACE', function (event) {
+        this.input.keyboard.once('keydown-SPACE', function (event) {
 
             this.scene.stop();
             this.scene.resume('sceneA');

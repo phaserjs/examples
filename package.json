@@ -1,7 +1,7 @@
 {
-  "name": "phaser3-examples",
+  "name": "phaser-examples",
   "version": "3.0.0",
-  "description": "Phaser 3 Examples",
+  "description": "Phaser Examples",
   "main": "index.js",
   "scripts": {
     "start": "http-server -s -o",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/photonstorm/phaser3-examples.git"
+    "url": "git+https://github.com/phaserjs/examples.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/photonstorm/phaser3-examples/issues"
+    "url": "https://github.com/phaserjs/examples/issues"
   },
-  "homepage": "https://github.com/photonstorm/phaser3-examples#readme",
+  "homepage": "https://github.com/phaserjs/examples#readme",
   "devDependencies": {
     "directory-tree": "^3.5.1",
     "fs-extra": "^11.1.1",

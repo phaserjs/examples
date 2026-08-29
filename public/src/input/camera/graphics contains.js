@@ -78,14 +78,14 @@ class Example extends Phaser.Scene
 
         this.controls = (Phaser.Cameras.Controls.Smoothed) ? new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig) : new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
-        this.input.keyboard.on('keydown_Z', function (event)
+        this.input.keyboard.on('keydown-Z', function (event)
         {
 
             this.cameras.main.rotation += 0.01;
 
         }, this);
 
-        this.input.keyboard.on('keydown_X', function (event)
+        this.input.keyboard.on('keydown-X', function (event)
         {
 
             this.cameras.main.rotation -= 0.01;

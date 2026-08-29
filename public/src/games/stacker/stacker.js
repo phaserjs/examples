@@ -87,7 +87,7 @@ class Instructions extends Phaser.Scene {
 
         this.add.text(20, 450, 'Space Bar or Click to Place a Row', { fontFamily: 'bebas', fontSize: 40, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
 
-        this.input.keyboard.once('keydown_SPACE', this.start, this);
+        this.input.keyboard.once('keydown-SPACE', this.start, this);
         this.input.once('pointerdown', this.start, this);
     }
 
@@ -168,7 +168,7 @@ class StackerGame extends Phaser.Scene {
 
         this.timer = this.time.addEvent({ delay: this.speed, callback: this.moveBlocks, callbackScope: this, loop: true });
 
-        this.input.keyboard.on('keydown_SPACE', this.drop, this);
+        this.input.keyboard.on('keydown-SPACE', this.drop, this);
         this.input.on('pointerdown', this.drop, this);
     }
 
@@ -467,7 +467,7 @@ class StackerGame extends Phaser.Scene {
     {
         this.timer.remove(false);
 
-        this.input.keyboard.off('keydown_SPACE', this.drop);
+        this.input.keyboard.off('keydown-SPACE', this.drop);
         this.input.off('pointerdown', this.drop);
 
         this.registry.set('score', this.gridHeight - this.currentY);
@@ -547,7 +547,7 @@ class GameOver extends Phaser.Scene {
 
         this.add.text(400, 500, 'Space or Click to try again', { fontFamily: 'bebas', fontSize: 26, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true).setOrigin(0.5);
 
-        this.input.keyboard.once('keydown_SPACE', this.restart, this);
+        this.input.keyboard.once('keydown-SPACE', this.restart, this);
         this.input.once('pointerdown', this.restart, this);
     }
 

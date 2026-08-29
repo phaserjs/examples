@@ -58,14 +58,14 @@ class Example extends Phaser.Scene
         this.text = this.add.text(100, 200, 'x: 0 y: 0', { font: '18px Courier', fill: '#00ff00' }).setScrollFactor(0);
         this.text2 = this.add.text(100, 400, '', { font: '18px Courier', fill: '#00ff00' }).setScrollFactor(0);
 
-        this.input.keyboard.on('keydown_Z', function (event)
+        this.input.keyboard.on('keydown-Z', function (event)
         {
 
             this.cameras.main.setRotation(this.cameras.main.rotation + 0.01);
 
         }, this);
 
-        this.input.keyboard.on('keydown_X', function (event)
+        this.input.keyboard.on('keydown-X', function (event)
         {
 
             this.cameras.main.setRotation(this.cameras.main.rotation - 0.01);

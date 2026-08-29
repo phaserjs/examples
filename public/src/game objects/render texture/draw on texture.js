@@ -18,7 +18,7 @@ class Example extends Phaser.Scene
 
         let i = 0;
 
-        this.input.keyboard.on('keydown_SPACE', () =>
+        this.input.keyboard.on('keydown-SPACE', () =>
         {
 
             rt.clear().render();

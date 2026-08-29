@@ -16,7 +16,7 @@ To show the example browser run these commands in your terminal:
 
 | Command | Description |
 |---------|-------------|
-| `npm install` | Install dependencies and launch browser with examples.|
+| `npm install` | Install dependencies. |
 | `npm start` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
 | `npm run update` | To build a new `examples.json` file if you add a new example. |
 

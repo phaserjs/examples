@@ -23,7 +23,7 @@ class Example extends Phaser.Scene
         const { parallelFilters } = Phaser.Actions.AddEffectBloom(
             this.cameras.main,
             { blendAmount: 2 }
-        );
+        )[0];
 
         this.tweens.add({
             targets: parallelFilters.blend,
